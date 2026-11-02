@@ -1,0 +1,2019 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "mlaj",
+  "language": "it",
+  "review": "it, de, sl, en: machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "progetto-cuccagna",
+  "steps": [
+    {
+      "scene": "nel-bosco",
+      "words": ["abete", "dritto"],
+      "fx_stays": true,
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Ehi, {learner}! Per la cuccagna ci serve un albero molto alto. Quale?",
+              "sl": "Hej, {learner}! Za drog z nagradami potrebujemo zelo visoko drevo. Katero?",
+              "en": "Hey, {learner}! For the greasy pole we need a very tall tree. Which one?",
+              "de": "He, {learner}! Für den Klettermast brauchen wir einen sehr hohen Baum. Welchen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Quell'abete!",
+                  "sl": "Tisto jelko!",
+                  "en": "That fir!",
+                  "de": "Die Tanne da!",
+                  "ok": true,
+                  "tap": "spruce",
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, quello! È altissimo!",
+                    "sl": "Ja, tisto! Je res zelo visoka!",
+                    "en": "Yes, that one! It's ever so tall!",
+                    "de": "Ja, die! Die ist riesig hoch!"
+                  }
+                },
+                {
+                  "it": "Quel fungo!",
+                  "sl": "Tisto gobo!",
+                  "en": "That mushroom!",
+                  "de": "Den Pilz da!",
+                  "tap": "mushroom",
+                  "why": {
+                    "sl": "Goba je veliko premajhna! Za drog potrebujemo visoko drevo, jelko: l'abete.",
+                    "en": "A mushroom is much too small! For the pole we need a tall tree, the fir: l'abete.",
+                    "de": "Ein Pilz ist viel zu klein! Für den Mast brauchen wir einen hohen Baum, die Tanne: l'abete."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un fungo? Buono, ma è piccolo piccolo!",
+                    "sl": "Goba? Dobra, ampak čisto majhna!",
+                    "en": "A mushroom? Tasty, but tiny!",
+                    "de": "Ein Pilz? Lecker, aber winzig klein!"
+                  }
+                },
+                {
+                  "it": "Quel mirtillo!",
+                  "sl": "Tisto borovnico!",
+                  "en": "That blueberry!",
+                  "de": "Die Heidelbeere da!",
+                  "tap": "berries",
+                  "why": {
+                    "sl": "Borovnica je drobna! Za drog potrebujemo visoko drevo, jelko: l'abete.",
+                    "en": "A blueberry is tiny! For the pole we need a tall tree, the fir: l'abete.",
+                    "de": "Eine Heidelbeere ist winzig! Für den Mast brauchen wir einen hohen Baum, die Tanne: l'abete."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un mirtillo? Ci sale solo una formica!",
+                    "sl": "Borovnica? Nanjo spleza samo mravlja!",
+                    "en": "A blueberry? Only an ant could climb that!",
+                    "de": "Eine Heidelbeere? Da klettert nur eine Ameise hinauf!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Alto, sì. E il tronco? Per salire non deve fare curve!",
+              "sl": "Visoko, ja. Pa deblo? Za plezanje ne sme delati ovinkov!",
+              "en": "Tall, yes. And the trunk? It mustn't bend, for climbing!",
+              "de": "Hoch, ja. Und der Stamm? Zum Klettern darf er keine Kurven machen!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Il tronco è dritto.",
+                  "sl": "Deblo je ravno.",
+                  "en": "The trunk is straight.",
+                  "de": "Der Stamm ist gerade.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Bene! Come una riga.",
+                    "sl": "Dobro! Kot ravnilo.",
+                    "en": "Good! Like a ruler.",
+                    "de": "Gut! Wie ein Lineal."
+                  }
+                },
+                {
+                  "it": "Il tronco è storto.",
+                  "sl": "Deblo je krivo.",
+                  "en": "The trunk is crooked.",
+                  "de": "Der Stamm ist krumm.",
+                  "why": {
+                    "sl": "Jelka stoji čisto ravno. Raven je dritto, kriv je storto.",
+                    "en": "The fir stands quite straight. Straight is dritto, crooked is storto.",
+                    "de": "Die Tanne steht ganz gerade da. Gerade heißt dritto, krumm heißt storto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Così si sale a zigzag, come le pecore!",
+                    "sl": "Tako se pleza cikcak, kot ovce!",
+                    "en": "Then you'd climb in zigzags, like the sheep!",
+                    "de": "So klettert man im Zickzack, wie die Schafe!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Bene! Tutti indietro: tagliano i grandi. Uno, due, tre… giù! Evviva!",
+              "sl": "Dobro! Vsi nazaj: žagajo odrasli. Ena, dve, tri … dol! Juhu!",
+              "en": "Good! Everyone back: the grown-ups are sawing. One, two, three… down! Hooray!",
+              "de": "Gut! Alle zurück: Die Großen sägen. Eins, zwei, drei … und um! Hurra!",
+              "done": true,
+              "fx": {
+                "birds": 1,
+                "fell": 1
+              }
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "Ehi, {learner}! Ieri ho cercato un albero, ma ho parlato tutto il giorno con le pecore.",
+              "sl": "Hej, {learner}! Včeraj sem iskal drevo, ampak sem ves dan govoril z ovcami.",
+              "en": "Hey, {learner}! Yesterday I went looking for a tree, but I talked to the sheep all day.",
+              "de": "He, {learner}! Gestern habe ich einen Baum gesucht, aber den ganzen Tag mit den Schafen geredet."
+            },
+            {
+              "who": "matteo",
+              "it": "Oggi scegli tu. Qual è l'albero più alto del bosco?",
+              "sl": "Danes izbiraš ti. Katero je najvišje drevo v gozdu?",
+              "en": "Today you choose. Which is the tallest tree in the wood?",
+              "de": "Heute suchst du aus. Welcher ist der höchste Baum im Wald?"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "È quell'abete lì.",
+                  "sl": "Tista jelka tam.",
+                  "en": "That fir there.",
+                  "de": "Die Tanne da.",
+                  "ok": true,
+                  "tap": "spruce",
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Ed è più alto del campanile, sai?",
+                    "sl": "Ja! In višja je od zvonika, veš?",
+                    "en": "Yes! And it's taller than the bell tower, you know!",
+                    "de": "Ja! Und sie ist höher als der Kirchturm, weißt du?"
+                  }
+                },
+                {
+                  "it": "È quella roccia lì.",
+                  "sl": "Tista skala tam.",
+                  "en": "That rock there.",
+                  "de": "Der Felsen da.",
+                  "tap": "stone",
+                  "why": {
+                    "sl": "Skala ni drevo! Najvišje drevo tukaj je jelka: l'abete.",
+                    "en": "A rock isn't a tree! The tallest tree here is the fir: l'abete.",
+                    "de": "Ein Felsen ist kein Baum! Der höchste Baum hier ist die Tanne: l'abete."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una roccia non è un albero, ehi! Bianca lo sa.",
+                    "sl": "Skala ni drevo, hej! To ve tudi Bianca.",
+                    "en": "A rock isn't a tree, hey! Even Bianca knows that.",
+                    "de": "Ein Felsen ist kein Baum, he! Das weiß sogar Bianca."
+                  }
+                },
+                {
+                  "it": "È quel ruscello lì.",
+                  "sl": "Tisti potok tam.",
+                  "en": "That stream there.",
+                  "de": "Der Bach da.",
+                  "tap": "stream",
+                  "why": {
+                    "sl": "Potok ni drevo! Najvišje drevo tukaj je jelka: l'abete.",
+                    "en": "A stream isn't a tree! The tallest tree here is the fir: l'abete.",
+                    "de": "Ein Bach ist kein Baum! Der höchste Baum hier ist die Tanne: l'abete."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il ruscello? Ehi, quello è bagnato e corre via!",
+                    "sl": "Potok? Hej, ta je moker in teče stran!",
+                    "en": "The stream? Hey, that's wet and it runs away!",
+                    "de": "Der Bach? He, der ist nass und läuft davon!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "it": "Bene. Adesso lo dico ai ragazzi. Che cosa abbiamo fatto, oggi?",
+              "sl": "Dobro. Zdaj povem fantom. Kaj smo danes naredili?",
+              "en": "Good. Now I'll tell the lads. What have we done today?",
+              "de": "Gut. Jetzt sage ich es den Burschen. Was haben wir heute gemacht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Abbiamo scelto l'abete dritto.",
+                  "sl": "Izbrali smo ravno jelko.",
+                  "en": "We've chosen the straight fir.",
+                  "de": "Wir haben die gerade Tanne ausgesucht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Alto e senza curve: perfetto!",
+                    "sl": "Tako je. Visoka in brez ovinkov: odlično!",
+                    "en": "Exactly. Tall and no bends: perfect!",
+                    "de": "Genau. Hoch und ohne Kurven: perfekt!"
+                  }
+                },
+                {
+                  "it": "Siamo scelto l'abete dritto.",
+                  "sl": "Izbrali smo ravno jelko.",
+                  "en": "We've chosen the straight fir.",
+                  "de": "Wir haben die gerade Tanne ausgesucht.",
+                  "grammar": "passato-prossimo",
+                  "why": {
+                    "sl": "Pri scegliere (izbrati) v pretekliku rečeš abbiamo, ne siamo: abbiamo scelto.",
+                    "en": "With scegliere (to choose) the past takes abbiamo, not siamo: abbiamo scelto.",
+                    "de": "Bei scegliere (aussuchen) sagst du in der Vergangenheit abbiamo, nicht siamo: abbiamo scelto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Siamo che cosa? Ehi, Nerina si è messa a ridere!",
+                    "sl": "Smo kaj? Hej, Nerina se že smeji!",
+                    "en": "We are what? Hey, Nerina's started laughing!",
+                    "de": "Wir sind was? He, Nerina lacht schon!"
+                  }
+                },
+                {
+                  "it": "Abbiamo scelto l'abete storto.",
+                  "sl": "Izbrali smo krivo jelko.",
+                  "en": "We've chosen the crooked fir.",
+                  "de": "Wir haben die krumme Tanne ausgesucht.",
+                  "why": {
+                    "sl": "Kriv drog ni za plezanje. Deblo mora biti ravno: dritto.",
+                    "en": "A crooked tree is no good for climbing. The trunk has to be straight: dritto.",
+                    "de": "Ein krummer Baum taugt nicht zum Klettern. Der Stamm muss gerade sein: dritto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Così i ragazzi salgono a zigzag!",
+                    "sl": "Potem fantje plezajo cikcak!",
+                    "en": "Then the lads would climb in zigzags!",
+                    "de": "Dann klettern die Burschen im Zickzack!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Non ho capito.",
+                "sl": "Hej? Ne razumem.",
+                "en": "Eh? I didn't get that.",
+                "de": "He? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Adesso tutti indietro! Tagliano i grandi… giù! Evviva!",
+              "sl": "Zdaj vsi nazaj! Žagajo odrasli … dol! Juhu!",
+              "en": "Now everyone back! The grown-ups are sawing… down! Hooray!",
+              "de": "Jetzt alle zurück! Die Großen sägen … und um! Hurra!",
+              "done": true,
+              "fx": {
+                "birds": 1,
+                "fell": 1
+              }
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Ehi, {learner}! Più è alto l'albero, più è bella la festa. Tu quale prenderesti?",
+              "sl": "Hej, {learner}! Višje ko je drevo, lepši je praznik. Katero bi {m:vzel|f:vzela} ti?",
+              "en": "Hey, {learner}! The taller the tree, the better the feast. Which one would you take?",
+              "de": "He, {learner}! Je höher der Baum, desto schöner das Fest. Welchen würdest du nehmen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Prenderei quell'abete laggiù.",
+                  "sl": "{m:Vzel|f:Vzela} bi tisto jelko tam.",
+                  "en": "I'd take that fir over there.",
+                  "de": "Ich würde die Tanne dort nehmen.",
+                  "ok": true,
+                  "tap": "spruce",
+                  "reply": {
+                    "face": "happy",
+                    "it": "Anch'io! Laggiù sembra toccare le nuvole.",
+                    "sl": "Jaz tudi! Tam zadaj se zdi, da se dotika oblakov.",
+                    "en": "So would I! Over there it seems to touch the clouds.",
+                    "de": "Ich auch! Dort hinten scheint sie die Wolken zu berühren."
+                  }
+                },
+                {
+                  "it": "Prenderei quell'altana laggiù.",
+                  "sl": "{m:Vzel|f:Vzela} bi tisto prežo tam.",
+                  "en": "I'd take that high seat over there.",
+                  "de": "Ich würde den Hochsitz dort nehmen.",
+                  "tap": "highseat",
+                  "why": {
+                    "sl": "Preža je že narejena in ni drevo. Potrebujemo dolgo deblo: l'abete, jelko.",
+                    "en": "The high seat is already built, and it isn't a tree. We need a long trunk: l'abete, the fir.",
+                    "de": "Der Hochsitz ist schon gebaut und ist kein Baum. Wir brauchen einen langen Stamm: l'abete, die Tanne."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "L'altana? Ehi, quella l'ha già costruita qualcuno!",
+                    "sl": "Prežo? Hej, to je že nekdo zgradil!",
+                    "en": "The high seat? Hey, someone's built that already!",
+                    "de": "Den Hochsitz? He, den hat schon jemand gebaut!"
+                  }
+                },
+                {
+                  "it": "Prenderei quella roccia laggiù.",
+                  "sl": "{m:Vzel|f:Vzela} bi tisto skalo tam.",
+                  "en": "I'd take that rock over there.",
+                  "de": "Ich würde den Felsen dort nehmen.",
+                  "tap": "stone",
+                  "why": {
+                    "sl": "Skale nihče ne more postaviti! Potrebujemo dolgo deblo: l'abete, jelko.",
+                    "en": "Nobody could stand a rock up! We need a long trunk: l'abete, the fir.",
+                    "de": "Einen Felsen kann niemand aufstellen! Wir brauchen einen langen Stamm: l'abete, die Tanne."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una roccia? Nemmeno cento ragazzi la alzerebbero!",
+                    "sl": "Skalo? Še sto fantov je ne bi dvignilo!",
+                    "en": "A rock? Not even a hundred lads could lift it!",
+                    "de": "Einen Felsen? Den würden nicht mal hundert Burschen heben!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Ma come si riconosce un abete buono? Qui di alberi ce ne sono tanti.",
+              "sl": "Ampak kako se prepozna dobra jelka? Tu je toliko dreves.",
+              "en": "But how do you tell a good fir? There are so many trees here.",
+              "de": "Aber woran erkennt man eine gute Tanne? Hier stehen ja so viele Bäume."
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Si sceglie quello dritto, senza rami bassi.",
+                  "sl": "Izbere se ravna, brez nizkih vej.",
+                  "en": "You choose the straight one, with no low branches.",
+                  "de": "Man nimmt die gerade, ohne tiefe Äste.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto! Senza corteccia, poi, scivolerà benissimo.",
+                    "sl": "Tako je! Brez lubja bo potem odlično drsela.",
+                    "en": "Exactly! With its bark off, it'll be wonderfully slippery.",
+                    "de": "Genau! Ohne Rinde wird sie dann herrlich rutschen."
+                  }
+                },
+                {
+                  "it": "Si scegliamo quello dritto, senza rami bassi.",
+                  "sl": "Izbere se ravna, brez nizkih vej.",
+                  "en": "You choose the straight one, with no low branches.",
+                  "de": "Man nimmt die gerade, ohne tiefe Äste.",
+                  "grammar": "si-impersonale",
+                  "why": {
+                    "sl": "Ko hočeš povedati na splošno, stoji za si glagol kot pri on ali ona: si sceglie.",
+                    "en": "To say what people in general do, the verb after si goes like he or she: si sceglie.",
+                    "de": "Wenn du man sagen willst, steht nach si das Verb wie bei er oder sie: si sceglie, man wählt."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Si… che cosa? Questa frase cammina storta.",
+                    "sl": "Si … kaj? Ta stavek hodi postrani.",
+                    "en": "Si… what? That sentence is walking crooked.",
+                    "de": "Man … was? Dieser Satz läuft krumm."
+                  }
+                },
+                {
+                  "it": "Si sceglie quello storto, senza rami bassi.",
+                  "sl": "Izbere se kriva, brez nizkih vej.",
+                  "en": "You choose the crooked one, with no low branches.",
+                  "de": "Man nimmt die krumme, ohne tiefe Äste.",
+                  "why": {
+                    "sl": "Kriva ne gre: vsi bi se zapletli. Deblo mora biti ravno: dritto.",
+                    "en": "Crooked won't do: everyone would get in a tangle. The trunk has to be straight: dritto.",
+                    "de": "Krumm geht nicht: Da würden sich alle verheddern. Der Stamm muss gerade sein: dritto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Allora ci arrampichiamo come sui rami di un cespuglio!",
+                    "sl": "Potem plezamo kot po grmu!",
+                    "en": "Then we'd be climbing as if up a bush!",
+                    "de": "Dann klettern wir wie in einem Gebüsch!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Di nuovo, piano.",
+                "sl": "Hej? Še enkrat, počasi.",
+                "en": "Eh? Again, slowly.",
+                "de": "He? Noch mal, langsam."
+              }
+            },
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Allora è deciso. State tutti indietro e lasciate fare ai grandi… giù! Evviva!",
+              "sl": "Potem je odločeno. Vsi nazaj, to naredijo odrasli … dol! Juhu!",
+              "en": "It's settled, then. Everyone back, and leave it to the grown-ups… down! Hooray!",
+              "de": "Dann ist es entschieden. Alle zurück, das machen die Großen … und um! Hurra!",
+              "done": true,
+              "fx": {
+                "birds": 1,
+                "fell": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "nel-bosco",
+      "words": ["spalla"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Ehi, {learner}! L'abete è a terra. È lungo e molto pesante!",
+              "sl": "Hej, {learner}! Jelka je na tleh. Dolga je in zelo težka!",
+              "en": "Hey, {learner}! The fir is on the ground. It's long and very heavy!",
+              "de": "He, {learner}! Die Tanne liegt am Boden. Sie ist lang und sehr schwer!"
+            },
+            {
+              "who": "tommaso",
+              "face": "curious",
+              "it": "Come lo portiamo in paese?",
+              "sl": "Kako jo nesemo v vas?",
+              "en": "How do we carry it to the village?",
+              "de": "Wie tragen wir sie ins Dorf?"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Sulle spalle, tutti insieme!",
+                  "sl": "Na ramenih, vsi skupaj!",
+                  "en": "On our shoulders, all together!",
+                  "de": "Auf den Schultern, alle zusammen!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Uno, due, tre… su!",
+                    "sl": "Ja! Ena, dve, tri … gor!",
+                    "en": "Yes! One, two, three… up!",
+                    "de": "Ja! Eins, zwei, drei … hoch!"
+                  }
+                },
+                {
+                  "it": "Sulle orecchie, tutti insieme!",
+                  "sl": "Na ušesih, vsi skupaj!",
+                  "en": "On our ears, all together!",
+                  "de": "Auf den Ohren, alle zusammen!",
+                  "why": {
+                    "sl": "Na ušesih nihče nič ne nosi! Kaj težkega nosimo na ramenih: sulle spalle.",
+                    "en": "Nobody carries things on their ears! You carry something heavy on your shoulders: sulle spalle.",
+                    "de": "Auf den Ohren trägt man nichts! Etwas Schweres trägt man auf den Schultern: sulle spalle."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Ehi, Bianca ha le orecchie grandi. Noi no!",
+                    "sl": "Hej, Bianca ima velika ušesa. Mi pa ne!",
+                    "en": "Hey, Bianca has big ears. We don't!",
+                    "de": "He, Bianca hat große Ohren. Wir nicht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "lorenzo",
+              "it": "Davide, non vedo niente! Da dove passiamo?",
+              "sl": "Davide, nič ne vidim! Kod gremo?",
+              "en": "Davide, I can't see a thing! Which way do we go?",
+              "de": "Davide, ich sehe nichts! Wo gehen wir lang?"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Per il sentiero!",
+                  "sl": "Po poti!",
+                  "en": "Along the path!",
+                  "de": "Über den Weg!",
+                  "ok": true,
+                  "tap": "path",
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto! Il sentiero va fino in paese.",
+                    "sl": "Prav! Pot gre do vasi.",
+                    "en": "Right! The path goes all the way to the village.",
+                    "de": "Richtig! Der Weg geht bis ins Dorf."
+                  }
+                },
+                {
+                  "it": "Per il ruscello!",
+                  "sl": "Po potoku!",
+                  "en": "Along the stream!",
+                  "de": "Durch den Bach!",
+                  "tap": "stream",
+                  "why": {
+                    "sl": "V potoku se vsi zmočimo! Težko deblo nesemo po poti: il sentiero.",
+                    "en": "In the stream we'd all get wet! We carry the heavy trunk along the path: il sentiero.",
+                    "de": "Im Bach werden alle nass! Den schweren Stamm tragen wir über den Weg: il sentiero."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Nell'acqua? Ehi, l'abete non è una barca!",
+                    "sl": "V vodo? Hej, jelka ni čoln!",
+                    "en": "Into the water? Hey, a fir isn't a boat!",
+                    "de": "Ins Wasser? He, die Tanne ist doch kein Boot!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Eccoci fuori dal bosco! Che fatica, ma che bello!",
+              "sl": "Pa smo iz gozda! Kakšen napor, ampak kako lepo!",
+              "en": "Out of the wood at last! What hard work, but what fun!",
+              "de": "Da sind wir, raus aus dem Wald! So anstrengend, aber so schön!",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "davide",
+              "it": "Ehi, {learner}! Ieri i grandi hanno tagliato l'abete. Oggi lo portiamo in paese.",
+              "sl": "Hej, {learner}! Včeraj so odrasli posekali jelko. Danes jo nesemo v vas.",
+              "en": "Hey, {learner}! Yesterday the grown-ups felled the fir. Today we carry it to the village.",
+              "de": "He, {learner}! Gestern haben die Großen die Tanne gefällt. Heute tragen wir sie ins Dorf."
+            },
+            {
+              "who": "matteo",
+              "face": "thinking",
+              "it": "Pesa tanto. Da soli non ce la facciamo. Come lo teniamo?",
+              "sl": "Zelo je težka. Sami ne zmoremo. Kako jo držimo?",
+              "en": "It weighs so much. We can't do it on our own. How shall we hold it?",
+              "de": "Sie ist so schwer. Allein schaffen wir das nicht. Wie halten wir sie?"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Lo portiamo sulle spalle.",
+                  "sl": "Nesemo jo na ramenih.",
+                  "en": "We'll carry it on our shoulders.",
+                  "de": "Wir tragen sie auf den Schultern.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Io davanti e voi dietro. Su!",
+                    "sl": "Ja! Jaz spredaj, vi zadaj. Gor!",
+                    "en": "Yes! Me in front, you behind. Up!",
+                    "de": "Ja! Ich vorne, ihr hinten. Hoch!"
+                  }
+                },
+                {
+                  "it": "Gli portiamo sulle spalle.",
+                  "sl": "Nesemo jo na ramenih.",
+                  "en": "We'll carry it on our shoulders.",
+                  "de": "Wir tragen sie auf den Schultern.",
+                  "grammar": "pronomi-diretti",
+                  "why": {
+                    "sl": "Mislimo drevo samo, l'abete: za to rečeš lo. Gli pomeni: njemu.",
+                    "en": "We mean the tree itself, l'abete: for that you say lo. Gli means: to him.",
+                    "de": "Wir meinen den Baum selbst, l'abete: dafür sagst du lo. Gli heißt: ihm."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "A chi? Qui c'è solo un abete, ehi!",
+                    "sl": "Komu? Tu je samo jelka, hej!",
+                    "en": "To whom? There's only a fir here, hey!",
+                    "de": "Wem denn? Hier ist nur eine Tanne, he!"
+                  }
+                },
+                {
+                  "it": "Lo portiamo sulle ginocchia.",
+                  "sl": "Nesemo jo na kolenih.",
+                  "en": "We'll carry it on our knees.",
+                  "de": "Wir tragen sie auf den Knien.",
+                  "why": {
+                    "sl": "Na kolenih se ne da hoditi. Kaj težkega gre na ramena: sulle spalle.",
+                    "en": "You can't walk with something on your knees. Heavy things go on your shoulders: sulle spalle.",
+                    "de": "Auf den Knien kann man nicht gehen. Etwas Schweres kommt auf die Schultern: sulle spalle."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Così camminiamo come le papere!",
+                    "sl": "Potem hodimo kot race!",
+                    "en": "We'd waddle like ducks!",
+                    "de": "Dann watscheln wir wie die Enten!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Non ho capito.",
+                "sl": "Hej? Ne razumem.",
+                "en": "Eh? I didn't get that.",
+                "de": "He? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Bene! Ma io dimentico sempre tutto. Da dove siamo venuti, ieri?",
+              "sl": "Dobro! Ampak jaz vse pozabim. Od kod smo včeraj prišli?",
+              "en": "Good! But I forget everything. Which way did we come yesterday?",
+              "de": "Gut! Aber ich vergesse immer alles. Wo sind wir gestern hergekommen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Dal sentiero!",
+                  "sl": "Po poti!",
+                  "en": "By the path!",
+                  "de": "Über den Weg!",
+                  "ok": true,
+                  "tap": "path",
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Ah, sì! Non l'ho visto perché parlavo con Nerina.",
+                    "sl": "Ah, ja! Nisem je videl, ker sem se pogovarjal z Nerino.",
+                    "en": "Ah, yes! I didn't see it because I was talking to Nerina.",
+                    "de": "Ach ja! Ich hab ihn nicht gesehen, weil ich mit Nerina geredet habe."
+                  }
+                },
+                {
+                  "it": "Dal ruscello!",
+                  "sl": "Po potoku!",
+                  "en": "By the stream!",
+                  "de": "Durch den Bach!",
+                  "tap": "stream",
+                  "why": {
+                    "sl": "Po potoku ni nihče hodil, sicer bi bili vsi mokri. Prišli so po poti: dal sentiero.",
+                    "en": "Nobody came by the stream, or they'd all be wet. They came by the path: dal sentiero.",
+                    "de": "Durch den Bach ist niemand gegangen, sonst wären alle nass. Sie sind den Weg gekommen: dal sentiero."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Ieri? Ehi, avevo i piedi asciutti, sai?",
+                    "sl": "Včeraj? Hej, imel sem suhe noge, veš?",
+                    "en": "Yesterday? Hey, my feet were dry, you know!",
+                    "de": "Gestern? He, ich hatte trockene Füße, weißt du?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "matteo",
+              "face": "happy",
+              "it": "Eccoci fuori dal bosco! Abbiamo fatto tanta fatica, ma ce l'abbiamo fatta!",
+              "sl": "Pa smo iz gozda! Bilo je naporno, ampak nam je uspelo!",
+              "en": "We're out of the wood! It was hard work, but we did it!",
+              "de": "Wir sind raus aus dem Wald! Das war anstrengend, aber wir haben es geschafft!",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Ehi, {learner}! L'abete pesa come dieci pecore, anzi venti. Serve una buona idea.",
+              "sl": "Hej, {learner}! Jelka tehta kot deset ovc, ne, dvajset. Potrebujemo dobro zamisel.",
+              "en": "Hey, {learner}! The fir weighs as much as ten sheep, no, twenty. We need a good idea.",
+              "de": "He, {learner}! Die Tanne wiegt so viel wie zehn Schafe, nein, zwanzig. Wir brauchen eine gute Idee."
+            },
+            {
+              "who": "tommaso",
+              "it": "Se lo portiamo in venti, pesa poco. Ma ognuno dove lo tiene?",
+              "sl": "Če jo nese dvajset ljudi, ni težka. Ampak kje jo drži vsak?",
+              "en": "If twenty of us carry it, it's light. But where does each one hold it?",
+              "de": "Wenn wir sie zu zwanzig tragen, ist sie leicht. Aber wo hält sie jeder?"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Ognuno lo tiene su una spalla.",
+                  "sl": "Vsak jo drži na eni rami.",
+                  "en": "Each one holds it on one shoulder.",
+                  "de": "Jeder hält sie auf einer Schulter.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Perfetto! Una a testa, e via.",
+                    "sl": "Odlično! Vsak eno, pa gremo.",
+                    "en": "Perfect! One each, and off we go.",
+                    "de": "Perfekt! Jeder eine, und los."
+                  }
+                },
+                {
+                  "it": "Ognuno lo tiene su un orecchio.",
+                  "sl": "Vsak jo drži na enem ušesu.",
+                  "en": "Each one holds it on one ear.",
+                  "de": "Jeder hält sie auf einem Ohr.",
+                  "why": {
+                    "sl": "Na ušesu nič ne drži! Kaj težkega se nosi na rami: su una spalla.",
+                    "en": "Nothing stays on an ear! You carry heavy things on a shoulder: su una spalla.",
+                    "de": "Auf dem Ohr hält nichts, das tut nur weh! Schweres trägt man auf der Schulter: su una spalla."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un orecchio? Mi sa che hai parlato con Pallina!",
+                    "sl": "Uho? Se mi zdi, da si {m:govoril|f:govorila} s Pallino!",
+                    "en": "An ear? I think you've been talking to Pallina!",
+                    "de": "Ein Ohr? Ich glaube, du hast mit Pallina geredet!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "it": "Bene. Però la strada è lunga. Che cosa ci può aiutare?",
+              "sl": "Dobro. Ampak pot je dolga. Kaj nam lahko pomaga?",
+              "en": "Good. But it's a long way. What could help us?",
+              "de": "Gut. Aber der Weg ist lang. Was kann uns helfen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Cantando, si fa meno fatica!",
+                  "sl": "Če pojemo, je manj naporno!",
+                  "en": "Singing makes it less hard work!",
+                  "de": "Beim Singen ist es weniger anstrengend!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Hai ragione! E così Bianca ci segue.",
+                    "sl": "Prav imaš! Tako nam Bianca sledi.",
+                    "en": "You're right! And that way Bianca follows us.",
+                    "de": "Du hast recht! Und so läuft Bianca uns nach."
+                  }
+                },
+                {
+                  "it": "Cantato, si fa meno fatica!",
+                  "sl": "Če pojemo, je manj naporno!",
+                  "en": "Singing makes it less hard work!",
+                  "de": "Beim Singen ist es weniger anstrengend!",
+                  "grammar": "gerundio",
+                  "why": {
+                    "sl": "Misliš: medtem ko pojemo. To poveš z obliko na -ando: cantando.",
+                    "en": "You mean: while we sing. You say that with the -ando form: cantando.",
+                    "de": "Du meinst: während wir singen. Das sagst du mit der Form auf -ando: cantando."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Quando? Io parlo di adesso, mentre camminiamo!",
+                    "sl": "Kdaj? Govorim o zdaj, med hojo!",
+                    "en": "When? I mean now, while we walk!",
+                    "de": "Wann? Ich rede von jetzt, während wir gehen!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Di nuovo, piano.",
+                "sl": "Hej? Še enkrat, počasi.",
+                "en": "Eh? Again, slowly.",
+                "de": "He? Noch mal, langsam."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "happy",
+              "it": "Un passo alla volta, ed eccoci fuori dal bosco. Che fatica, ma che risate!",
+              "sl": "Korak za korakom, pa smo iz gozda. Kakšen napor, pa koliko smeha!",
+              "en": "One step at a time, and here we are out of the wood. What hard work, but what laughs!",
+              "de": "Schritt für Schritt, und schon sind wir raus aus dem Wald. So anstrengend, aber so lustig!",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": ["corteccia", "sapone"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "davide",
+              "it": "Ehi, {learner}! Il tronco è qui in piazza. Che cosa togliamo, prima?",
+              "sl": "Hej, {learner}! Deblo je tukaj na trgu. Kaj najprej odstranimo?",
+              "en": "Hey, {learner}! The trunk's here in the square. What do we take off first?",
+              "de": "He, {learner}! Der Stamm ist hier auf dem Platz. Was nehmen wir zuerst ab?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Togliamo la corteccia.",
+                  "sl": "Odstranimo lubje.",
+                  "en": "We take off the bark.",
+                  "de": "Wir ziehen die Rinde ab.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Sotto, il legno è bianco e liscio.",
+                    "sl": "Ja! Spodaj je les bel in gladek.",
+                    "en": "Yes! Underneath, the wood is white and smooth.",
+                    "de": "Ja! Darunter ist das Holz weiß und glatt."
+                  }
+                },
+                {
+                  "it": "Togliamo la panchina.",
+                  "sl": "Odstranimo klop.",
+                  "en": "We take away the bench.",
+                  "de": "Wir nehmen die Bank weg.",
+                  "why": {
+                    "sl": "Klop nima nič z deblom! Z drevesa odstranimo lubje: la corteccia.",
+                    "en": "The bench isn't on the trunk! From the tree we take off the bark: la corteccia.",
+                    "de": "Die Bank hat nichts am Stamm verloren! Vom Baum ziehen wir die Rinde ab: la corteccia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La panchina? Ehi, e io dove mi siedo?",
+                    "sl": "Klop? Hej, kje pa bom sedel?",
+                    "en": "The bench? Hey, where would I sit?",
+                    "de": "Die Bank? He, und wo sitze ich dann?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tommaso",
+              "face": "curious",
+              "it": "Adesso deve scivolare! Che cosa mettiamo?",
+              "sl": "Zdaj mora drseti! Kaj damo gor?",
+              "en": "Now it has to be slippery! What do we put on it?",
+              "de": "Jetzt muss er rutschig werden! Was tun wir drauf?"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Mettiamo il sapone!",
+                  "sl": "Damo milo!",
+                  "en": "We put soap on!",
+                  "de": "Wir nehmen Seife!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, tanto, tanto! Ecco fatto.",
+                    "sl": "Ja, veliko, veliko! Tako.",
+                    "en": "Yes, lots and lots! There.",
+                    "de": "Ja, ganz viel! So."
+                  }
+                },
+                {
+                  "it": "Mettiamo il miele!",
+                  "sl": "Damo med!",
+                  "en": "We put honey on!",
+                  "de": "Wir nehmen Honig!",
+                  "why": {
+                    "sl": "Med se lepi in priletijo čebele! Drog bo spolzek z milom: il sapone.",
+                    "en": "Honey is sticky, and it brings the bees! Soap makes the pole slippery: il sapone.",
+                    "de": "Honig klebt, und dann kommen die Bienen! Rutschig wird der Mast mit Seife: il sapone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il miele? Ehi, così arrivano tutte le api!",
+                    "sl": "Med? Hej, potem priletijo vse čebele!",
+                    "en": "Honey? Hey, all the bees would come!",
+                    "de": "Honig? He, dann kommen alle Bienen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Guarda come brilla! Scivola anche una mosca.",
+              "sl": "Poglej, kako se sveti! Še muha zdrsne.",
+              "en": "Look how it shines! Even a fly would slip.",
+              "de": "Schau, wie er glänzt! Da rutscht sogar eine Fliege aus.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Ehi, {learner}! Stamattina ho lavorato tanto: il tronco è tutto bianco. Che cosa ho tolto?",
+              "sl": "Hej, {learner}! Danes zjutraj sem veliko delal: deblo je čisto belo. Kaj sem odstranil?",
+              "en": "Hey, {learner}! I've worked hard this morning: the trunk's all white. What did I take off?",
+              "de": "He, {learner}! Heute Morgen habe ich viel gearbeitet: Der Stamm ist ganz weiß. Was habe ich abgezogen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Hai tolto la corteccia.",
+                  "sl": "Odstranil si lubje.",
+                  "en": "You took off the bark.",
+                  "de": "Du hast die Rinde abgezogen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Adesso è liscio come un sasso del ruscello.",
+                    "sl": "Ja! Zdaj je gladko kot kamen iz potoka.",
+                    "en": "Yes! Now it's as smooth as a pebble from the stream.",
+                    "de": "Ja! Jetzt ist er glatt wie ein Stein aus dem Bach."
+                  }
+                },
+                {
+                  "it": "Hai togliuto la corteccia.",
+                  "sl": "Odstranil si lubje.",
+                  "en": "You took off the bark.",
+                  "de": "Du hast die Rinde abgezogen.",
+                  "grammar": "participi-irregolari",
+                  "why": {
+                    "sl": "Togliere ima v pretekliku posebno obliko, zapomni si jo: hai tolto.",
+                    "en": "Togliere has a special past form you just have to remember: hai tolto.",
+                    "de": "Togliere hat in der Vergangenheit eine besondere Form, die musst du dir merken: hai tolto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Togliuto? Questa parola la sa solo Pallina!",
+                    "sl": "Togliuto? To besedo pozna samo Pallina!",
+                    "en": "Togliuto? Only Pallina knows that word!",
+                    "de": "Togliuto? Dieses Wort kennt nur Pallina!"
+                  }
+                },
+                {
+                  "it": "Hai tolto la ruota.",
+                  "sl": "Odstranil si kolo.",
+                  "en": "You took off the wheel.",
+                  "de": "Du hast das Rad abgenommen.",
+                  "why": {
+                    "sl": "Drevo nima kolesa! Z debla gre lubje: la corteccia.",
+                    "en": "A tree has no wheel! What comes off the trunk is the bark: la corteccia.",
+                    "de": "Ein Baum hat kein Rad! Vom Stamm kommt die Rinde ab: la corteccia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una ruota, su un albero? Ehi, non è un carro!",
+                    "sl": "Kolo na drevesu? Hej, to ni voz!",
+                    "en": "A wheel, on a tree? Hey, it isn't a cart!",
+                    "de": "Ein Rad am Baum? He, das ist doch kein Wagen!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Non ho capito.",
+                "sl": "Hej? Ne razumem.",
+                "en": "Eh? I didn't get that.",
+                "de": "He? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "tommaso",
+              "face": "curious",
+              "it": "E adesso? Deve scivolare, così nessuno arriva in cima subito!",
+              "sl": "Pa zdaj? Drseti mora, da nihče ne pride takoj na vrh!",
+              "en": "What now? It has to be slippery, so nobody gets to the top straight away!",
+              "de": "Und jetzt? Er muss rutschig werden, damit keiner gleich oben ankommt!"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Lo ungiamo con il sapone.",
+                  "sl": "Namažemo ga z milom.",
+                  "en": "We grease it with soap.",
+                  "de": "Wir schmieren ihn mit Seife ein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Bravi! Ne ho portato un secchio pieno.",
+                    "sl": "Super! Prinesel sem polno vedro.",
+                    "en": "Good! I've brought a whole bucket of it.",
+                    "de": "Gut so! Ich habe einen vollen Eimer mitgebracht."
+                  }
+                },
+                {
+                  "it": "La ungiamo con il sapone.",
+                  "sl": "Namažemo ga z milom.",
+                  "en": "We grease it with soap.",
+                  "de": "Wir schmieren ihn mit Seife ein.",
+                  "grammar": "pronomi-diretti",
+                  "why": {
+                    "sl": "Mislimo il tronco, ki je moškega spola: zato rečeš lo, ne la.",
+                    "en": "We mean il tronco, and that's masculine: you say lo, not la.",
+                    "de": "Wir meinen il tronco, und das ist männlich: Dafür sagst du lo, nicht la."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "La? Il tronco non è una signora, ehi!",
+                    "sl": "La? Deblo ni gospa, hej!",
+                    "en": "La? The trunk's no lady, hey!",
+                    "de": "La? Der Stamm ist doch keine Dame, he!"
+                  }
+                },
+                {
+                  "it": "Lo ungiamo con la sabbia.",
+                  "sl": "Namažemo ga s peskom.",
+                  "en": "We grease it with sand.",
+                  "de": "Wir schmieren ihn mit Sand ein.",
+                  "why": {
+                    "sl": "S peskom nič ne drsi, nasprotno! Za to je milo: il sapone.",
+                    "en": "Sand makes nothing slippery, quite the opposite! For that you use soap: il sapone.",
+                    "de": "Mit Sand wird nichts rutschig, im Gegenteil! Dafür nimmt man Seife: il sapone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con la sabbia? Così i premi finiscono in un minuto!",
+                    "sl": "S peskom? Potem nagrad v minuti ni več!",
+                    "en": "With sand? The prizes would be gone in a minute!",
+                    "de": "Mit Sand? Dann sind die Preise in einer Minute weg!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Non ho capito.",
+                "sl": "Hej? Ne razumem.",
+                "en": "Eh? I didn't get that.",
+                "de": "He? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Fatto! Adesso brilla al sole. Non toccatelo, o scivolate anche voi!",
+              "sl": "Končano! Zdaj se sveti na soncu. Ne dotikajte se ga, sicer boste tudi vi zdrsnili!",
+              "en": "Done! Now it shines in the sun. Don't touch it, or you'll slip too!",
+              "de": "Fertig! Jetzt glänzt er in der Sonne. Nicht anfassen, sonst rutscht ihr auch aus!",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "Ehi, {learner}! Se un ragazzo arriva adesso e vede il tronco bianco, che cosa capisce?",
+              "sl": "Hej, {learner}! Če zdaj pride fant in vidi belo deblo, kaj razume?",
+              "en": "Hey, {learner}! If a boy comes along now and sees the white trunk, what does he understand?",
+              "de": "He, {learner}! Wenn jetzt ein Junge kommt und den weißen Stamm sieht, was versteht er dann?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Capisce che la corteccia è stata tolta.",
+                  "sl": "Razume, da je bilo lubje odstranjeno.",
+                  "en": "He understands that the bark has been taken off.",
+                  "de": "Er versteht, dass die Rinde abgezogen wurde.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Esatto! Da me, con tanta pazienza… e due pause.",
+                    "sl": "Tako je! Jaz, z veliko potrpljenja … in dvema odmoroma.",
+                    "en": "Exactly! By me, with great patience… and two breaks.",
+                    "de": "Genau! Von mir, mit viel Geduld … und zwei Pausen."
+                  }
+                },
+                {
+                  "it": "Capisce che la corteccia è stato tolta.",
+                  "sl": "Razume, da je bilo lubje odstranjeno.",
+                  "en": "He understands that the bark has been taken off.",
+                  "de": "Er versteht, dass die Rinde abgezogen wurde.",
+                  "grammar": "passivo",
+                  "why": {
+                    "sl": "La corteccia je ženskega spola, zato se ujemajo vse besede, tudi mala: è stata tolta.",
+                    "en": "La corteccia is feminine, so all the words match it, the little one too: è stata tolta.",
+                    "de": "La corteccia ist weiblich, also passen alle Wörter dazu, auch das kleine: è stata tolta."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Eh? Questa frase inciampa come una pecora.",
+                    "sl": "Kaj? Ta stavek se spotika kot ovca.",
+                    "en": "Eh? That sentence trips like a sheep.",
+                    "de": "Hm? Der Satz stolpert wie ein Schaf."
+                  }
+                },
+                {
+                  "it": "Capisce che la camicia è stata tolta.",
+                  "sl": "Razume, da je bila srajca slečena.",
+                  "en": "He understands that the shirt has been taken off.",
+                  "de": "Er versteht, dass das Hemd ausgezogen wurde.",
+                  "why": {
+                    "sl": "Drevo ne nosi srajce! Z debla gre lubje: la corteccia.",
+                    "en": "A tree wears no shirt! What comes off the trunk is the bark: la corteccia.",
+                    "de": "Ein Baum trägt kein Hemd! Vom Stamm kommt die Rinde ab: la corteccia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La camicia? Ehi, qui nessuno si è spogliato!",
+                    "sl": "Srajca? Hej, tu se ni nihče slekel!",
+                    "en": "The shirt? Hey, nobody's undressed here!",
+                    "de": "Das Hemd? He, hier hat sich keiner ausgezogen!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Di nuovo, piano.",
+                "sl": "Hej? Še enkrat, počasi.",
+                "en": "Eh? Again, slowly.",
+                "de": "He? Noch mal, langsam."
+              }
+            },
+            {
+              "who": "tommaso",
+              "face": "surprised",
+              "it": "Ma perché brilla così? Prima non scivolava per niente!",
+              "sl": "Zakaj pa se tako sveti? Prej sploh ni drselo!",
+              "en": "But why does it shine like that? It wasn't slippery at all before!",
+              "de": "Aber warum glänzt er so? Vorher war er überhaupt nicht rutschig!"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Perché è stato unto con il sapone.",
+                  "sl": "Ker je bilo namazano z milom.",
+                  "en": "Because it's been greased with soap.",
+                  "de": "Weil er mit Seife eingeschmiert wurde.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Proprio così! Chi sale, torna giù ridendo.",
+                    "sl": "Prav tako! Kdor spleza, zdrsne nazaj v smehu.",
+                    "en": "Just so! Whoever climbs slides back down laughing.",
+                    "de": "Genau so! Wer hinaufklettert, rutscht lachend zurück."
+                  }
+                },
+                {
+                  "it": "Perché è stato unto con il pane.",
+                  "sl": "Ker je bilo namazano s kruhom.",
+                  "en": "Because it's been greased with bread.",
+                  "de": "Weil er mit Brot eingeschmiert wurde.",
+                  "why": {
+                    "sl": "Kruh nič ne naredi spolzkega, ovce pa bi ga pojedle! To je bilo milo: il sapone.",
+                    "en": "Bread makes nothing slippery, and the sheep would eat it! That was soap: il sapone.",
+                    "de": "Brot macht nichts rutschig, und die Schafe würden es abfressen! Das war Seife: il sapone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il pane? Allora Bianca lo mangia tutto!",
+                    "sl": "S kruhom? Potem Bianca vse poje!",
+                    "en": "With bread? Then Bianca would eat the lot!",
+                    "de": "Mit Brot? Dann frisst Bianca alles auf!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Ecco fatto. Brilla come un pesce! Nessuno arriverà in cima al primo colpo.",
+              "sl": "Tako. Sveti se kot riba! Nihče ne bo prišel na vrh v prvem poskusu.",
+              "en": "There. It shines like a fish! Nobody will reach the top at the first go.",
+              "de": "So. Er glänzt wie ein Fisch! Keiner wird beim ersten Mal oben ankommen.",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": ["ruota", "appendere"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Ehi, {learner}! I premi vanno in cima. Serve una cosa di legno, rotonda. Che cosa?",
+              "sl": "Hej, {learner}! Nagrade gredo na vrh. Potrebujemo nekaj lesenega, okroglega. Kaj?",
+              "en": "Hey, {learner}! The prizes go at the top. We need something wooden and round. What?",
+              "de": "He, {learner}! Die Preise kommen nach oben. Wir brauchen etwas aus Holz, rund. Was?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Serve una ruota!",
+                  "sl": "Potrebujemo kolo!",
+                  "en": "We need a wheel!",
+                  "de": "Wir brauchen ein Rad!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Eccola: la fanno i bambini.",
+                    "sl": "Ja! Tukaj je: naredijo ga otroci.",
+                    "en": "Yes! Here it is: the children are making it.",
+                    "de": "Ja! Da ist es: Das bauen die Kinder."
+                  }
+                },
+                {
+                  "it": "Serve una scala!",
+                  "sl": "Potrebujemo lestev!",
+                  "en": "We need a ladder!",
+                  "de": "Wir brauchen eine Leiter!",
+                  "why": {
+                    "sl": "Z lestvijo bi bilo prelahko! Pa okrogla tudi ni. Okroglo in leseno je kolo: la ruota.",
+                    "en": "With a ladder it'd be far too easy! And it isn't round. Round and wooden is the wheel: la ruota.",
+                    "de": "Mit einer Leiter wäre es viel zu leicht! Und rund ist sie auch nicht. Rund und aus Holz ist das Rad: la ruota."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una scala? Ehi, così è troppo facile!",
+                    "sl": "Lestev? Hej, to je prelahko!",
+                    "en": "A ladder? Hey, that's too easy!",
+                    "de": "Eine Leiter? He, das wäre zu leicht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "lorenzo",
+              "face": "happy",
+              "it": "Abbiamo un salame, un formaggio e tante caramelle!",
+              "sl": "Imamo salamo, sir in veliko bonbonov!",
+              "en": "We've got a salami, a cheese and lots of sweets!",
+              "de": "Wir haben eine Salami, einen Käse und viele Bonbons!"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Appendo i premi alla ruota.",
+                  "sl": "Nagrade obesim na kolo.",
+                  "en": "I'll hang the prizes on the wheel.",
+                  "de": "Ich hänge die Preise an das Rad.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Bravi! Prima il salame, poi il formaggio.",
+                    "sl": "Super! Najprej salamo, potem sir.",
+                    "en": "Good! The salami first, then the cheese.",
+                    "de": "Gut! Zuerst die Salami, dann den Käse."
+                  }
+                },
+                {
+                  "it": "Mangio i premi alla ruota.",
+                  "sl": "Nagrade pojem pri kolesu.",
+                  "en": "I'll eat the prizes at the wheel.",
+                  "de": "Ich esse die Preise am Rad.",
+                  "why": {
+                    "sl": "Nagrade so za zmagovalce! Najprej gredo na kolo: appendo pomeni obesim.",
+                    "en": "The prizes are for the winners! First they go on the wheel: appendo means I hang.",
+                    "de": "Die Preise sind für die Sieger! Zuerst kommen sie ans Rad: Appendo heißt, ich hänge auf."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Tutto tu? E in cima che cosa resta?",
+                    "sl": "Vse ti? Kaj pa potem ostane na vrhu?",
+                    "en": "All by yourself? What's left for the top?",
+                    "de": "Alles du? Und was bleibt dann oben?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Guarda: la ruota è pronta! Che profumo di salame.",
+              "sl": "Poglej: kolo je pripravljeno! Kako diši po salami.",
+              "en": "Look: the wheel's ready! What a smell of salami.",
+              "de": "Schau: Das Rad ist fertig! Wie das nach Salami duftet.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "davide",
+              "it": "Ehi, {learner}! I bambini hanno lavorato tutta la mattina. Che cosa hanno fatto?",
+              "sl": "Hej, {learner}! Otroci so delali vse dopoldne. Kaj so naredili?",
+              "en": "Hey, {learner}! The children have worked all morning. What have they made?",
+              "de": "He, {learner}! Die Kinder haben den ganzen Morgen gearbeitet. Was haben sie gemacht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Hanno fatto una ruota di legno.",
+                  "sl": "Naredili so leseno kolo.",
+                  "en": "They've made a wooden wheel.",
+                  "de": "Sie haben ein Holzrad gebaut.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Sono proprio bravi, quei bambini.",
+                    "sl": "Ja! Res so pridni, ti otroci.",
+                    "en": "Yes! They're really good, those children.",
+                    "de": "Ja! Die sind wirklich gut, diese Kinder."
+                  }
+                },
+                {
+                  "it": "Sono fatto una ruota di legno.",
+                  "sl": "Naredili so leseno kolo.",
+                  "en": "They've made a wooden wheel.",
+                  "de": "Sie haben ein Holzrad gebaut.",
+                  "grammar": "passato-prossimo",
+                  "why": {
+                    "sl": "Pri fare v pretekliku rečeš hanno, ne sono: hanno fatto.",
+                    "en": "With fare the past takes hanno, not sono: hanno fatto.",
+                    "de": "Bei fare sagst du in der Vergangenheit hanno, nicht sono: hanno fatto."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sono chi? Ehi, io sono solo un pastore!",
+                    "sl": "Kdo so? Hej, jaz sem samo pastir!",
+                    "en": "They're who? Hey, I'm only a shepherd!",
+                    "de": "Sie sind wer? He, ich bin nur ein Hirte!"
+                  }
+                },
+                {
+                  "it": "Hanno fatto una torta di legno.",
+                  "sl": "Naredili so leseno torto.",
+                  "en": "They've made a wooden cake.",
+                  "de": "Sie haben eine Holztorte gebaut.",
+                  "why": {
+                    "sl": "Lesa se ne da jesti! Okroglo in leseno je kolo: la ruota.",
+                    "en": "You can't eat wood! Round and wooden is the wheel: la ruota.",
+                    "de": "Holz kann man nicht essen! Rund und aus Holz ist das Rad: la ruota."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una torta di legno? Nemmeno Bianca la vuole!",
+                    "sl": "Lesena torta? Še Bianca je noče!",
+                    "en": "A wooden cake? Even Bianca wouldn't want it!",
+                    "de": "Eine Holztorte? Die will nicht mal Bianca!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Non ho capito.",
+                "sl": "Hej? Ne razumem.",
+                "en": "Eh? I didn't get that.",
+                "de": "He? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "Salame, formaggio, caramelle… Li ho persi, sai? Hai aiutato tu: dove sono i premi?",
+              "sl": "Salama, sir, bonboni … Ampak izgubil sem jih, veš? Ti si {m:pomagal|f:pomagala}: kje so nagrade?",
+              "en": "The salami, the cheese, the sweets… But I've lost them, you know! You helped: where are the prizes?",
+              "de": "Die Salami, der Käse, die Bonbons … Ich finde sie nicht mehr, weißt du? Du hast geholfen: Wo sind die Preise?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Li ho appesi alla ruota.",
+                  "sl": "{m:Obesil|f:Obesila} sem jih na kolo.",
+                  "en": "I've hung them on the wheel.",
+                  "de": "Ich habe sie an das Rad gehängt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Ah, ecco! Io cercavo nella stalla.",
+                    "sl": "Aha! Jaz sem iskal v hlevu.",
+                    "en": "Ah, there! I was looking in the barn.",
+                    "de": "Ach so! Ich habe im Stall gesucht."
+                  }
+                },
+                {
+                  "it": "Li ho appenduti alla ruota.",
+                  "sl": "{m:Obesil|f:Obesila} sem jih na kolo.",
+                  "en": "I've hung them on the wheel.",
+                  "de": "Ich habe sie an das Rad gehängt.",
+                  "grammar": "participi-irregolari",
+                  "why": {
+                    "sl": "Appendere ima v pretekliku posebno obliko: appeso. Za več stvari: li ho appesi.",
+                    "en": "Appendere has a special past form: appeso. For several things: li ho appesi.",
+                    "de": "Appendere hat in der Vergangenheit eine besondere Form: appeso. Für viele Dinge: li ho appesi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Appenduti? Questa non la sanno neanche le pecore!",
+                    "sl": "Appenduti? Tega ne vedo niti ovce!",
+                    "en": "Appenduti? Not even the sheep know that one!",
+                    "de": "Appenduti? Das wissen nicht mal die Schafe!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Non ho capito.",
+                "sl": "Hej? Ne razumem.",
+                "en": "Eh? I didn't get that.",
+                "de": "He? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "lorenzo",
+              "face": "happy",
+              "it": "Ecco, la ruota è pronta! Abbiamo finito. Io voglio le caramelle!",
+              "sl": "Tako, kolo je pripravljeno! Končali smo. Jaz hočem bonbone!",
+              "en": "There, the wheel's ready! We've finished. I want the sweets!",
+              "de": "Da, das Rad ist fertig! Wir sind fertig. Ich will die Bonbons!",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Ehi, {learner}! Domani qualcuno mi chiederà dove sono i premi. Che cosa gli rispondo?",
+              "sl": "Hej, {learner}! Jutri me bo kdo vprašal, kje so nagrade. Kaj naj odgovorim?",
+              "en": "Hey, {learner}! Tomorrow someone will ask me where the prizes are. What shall I answer?",
+              "de": "He, {learner}! Morgen fragt mich bestimmt jemand, wo die Preise sind. Was antworte ich dann?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ecco la ruota a cui li abbiamo appesi!",
+                  "sl": "Tukaj je kolo, na katero smo jih obesili!",
+                  "en": "Here's the wheel we hung them on!",
+                  "de": "Da ist das Rad, an das wir sie gehängt haben!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Perfetto. Lo scrivo sulla mano, così non lo perdo.",
+                    "sl": "Odlično. Napišem si na roko, da ne pozabim.",
+                    "en": "Perfect. I'll write that on my hand, so I don't lose it.",
+                    "de": "Perfekt. Das schreibe ich mir auf die Hand, damit ich es nicht vergesse."
+                  }
+                },
+                {
+                  "it": "Ecco la ruota che li abbiamo appesi!",
+                  "sl": "Tukaj je kolo, na katero smo jih obesili!",
+                  "en": "Here's the wheel we hung them on!",
+                  "de": "Da ist das Rad, an das wir sie gehängt haben!",
+                  "grammar": "relativi-cui",
+                  "why": {
+                    "sl": "Obesiš na kolo: alla ruota. Zaradi tega a tukaj ne rečeš che, ampak a cui.",
+                    "en": "You hang things on the wheel: alla ruota. Because of that a, you say a cui here, not che.",
+                    "de": "Man hängt etwas an das Rad: alla ruota. Wegen dieses a sagst du hier nicht che, sondern a cui."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Eh? I premi sono lì, ma la frase è caduta.",
+                    "sl": "Kaj? Nagrade so tam, stavek pa je padel.",
+                    "en": "Eh? The prizes are there, but the sentence has fallen off.",
+                    "de": "Hm? Die Preise sind da, aber der Satz ist heruntergefallen."
+                  }
+                },
+                {
+                  "it": "Ecco la scopa a cui li abbiamo appesi!",
+                  "sl": "Tukaj je metla, na katero smo jih obesili!",
+                  "en": "Here's the broom we hung them on!",
+                  "de": "Da ist der Besen, an den wir sie gehängt haben!",
+                  "why": {
+                    "sl": "Na metli ni nagrad! Nagrade visijo na lesenem kolesu: la ruota.",
+                    "en": "No prizes hang on a broom! They hang on the wooden wheel: la ruota.",
+                    "de": "An einem Besen hängt kein Preis! Die Preise hängen am Holzrad: la ruota."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sulla scopa? E chi vola in cima, una strega?",
+                    "sl": "Na metli? Kdo pa leti gor, čarovnica?",
+                    "en": "On a broom? And who flies up, a witch?",
+                    "de": "Am Besen? Und wer fliegt hinauf, eine Hexe?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Di nuovo, piano.",
+                "sl": "Hej? Še enkrat, počasi.",
+                "en": "Eh? Again, slowly.",
+                "de": "He? Noch mal, langsam."
+              }
+            },
+            {
+              "who": "lorenzo",
+              "face": "worried",
+              "it": "Il formaggio è pesante. E se cade prima della festa?",
+              "sl": "Sir je težak. Kaj pa, če pade pred praznikom?",
+              "en": "The cheese is heavy. What if it falls before the feast?",
+              "de": "Der Käse ist schwer. Und wenn er vor dem Fest herunterfällt?"
+            },
+            {
+              "to": "davide",
+              "choices": [
+                {
+                  "it": "Non cade, se lo appendi bene.",
+                  "sl": "Ne bo padel, če ga dobro obesiš.",
+                  "en": "It won't fall, if you hang it well.",
+                  "de": "Er fällt nicht, wenn du ihn gut aufhängst.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Un bel nodo stretto, e resta su anche col vento.",
+                    "sl": "Prav. Trden vozel, in ostane gor tudi v vetru.",
+                    "en": "Right. A good tight knot, and it stays up even in the wind.",
+                    "de": "Richtig. Ein fester Knoten, und er bleibt auch bei Wind oben."
+                  }
+                },
+                {
+                  "it": "Non cade, se lo mangi bene.",
+                  "sl": "Ne bo padel, če ga dobro poješ.",
+                  "en": "It won't fall, if you eat it well.",
+                  "de": "Er fällt nicht, wenn du ihn gut isst.",
+                  "why": {
+                    "sl": "Potem res nič ne pade, nagrade pa ni več! Trdno mora viseti na kolesu: se lo appendi.",
+                    "en": "Then nothing falls, true, but the prize is gone! It has to hang firmly on the wheel: se lo appendi.",
+                    "de": "Dann ist zwar nichts heruntergefallen, aber der Preis ist weg! Er muss fest am Rad hängen: se lo appendi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Certo che non cade! Ma poi in cima non c'è niente.",
+                    "sl": "Seveda ne pade! Ampak potem na vrhu ni nič.",
+                    "en": "Of course it won't fall! But then there's nothing at the top.",
+                    "de": "Klar fällt er nicht! Aber dann ist oben nichts mehr."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Ecco fatto: la ruota è pronta, e profuma di salame. Pallina se n'è già accorta!",
+              "sl": "Tako: kolo je pripravljeno in diši po salami. Pallina je že opazila!",
+              "en": "There: the wheel's ready, and it smells of salami. Pallina's already noticed!",
+              "de": "So: Das Rad ist fertig und duftet nach Salami. Pallina hat es schon gemerkt!",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": ["alzare", "corda"],
+      "fx_stays": true,
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Ehi, {learner}! Ecco la banda! L'albero è a terra. Che cosa facciamo?",
+              "sl": "Hej, {learner}! Tukaj je godba! Drevo je na tleh. Kaj naredimo?",
+              "en": "Hey, {learner}! Here's the band! The tree's on the ground. What do we do?",
+              "de": "He, {learner}! Da kommt die Musikkapelle! Der Baum liegt am Boden. Was machen wir?",
+              "fx": {
+                "band": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "Alzate l'albero!",
+                  "sl": "Dvignite drevo!",
+                  "en": "Raise the tree!",
+                  "de": "Stellt den Baum auf!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Tutto il paese aiuta.",
+                    "sl": "Ja! Vsa vas pomaga.",
+                    "en": "Yes! The whole village is helping.",
+                    "de": "Ja! Das ganze Dorf hilft."
+                  }
+                },
+                {
+                  "it": "Tagliate l'albero!",
+                  "sl": "Razžagajte drevo!",
+                  "en": "Saw the tree up!",
+                  "de": "Sägt den Baum durch!",
+                  "why": {
+                    "sl": "Drevo je že posekano! Zdaj mora gor: alzate, dvignite ga.",
+                    "en": "The tree's been felled already! Now it has to go up: alzate, raise it.",
+                    "de": "Der Baum ist schon gefällt! Jetzt muss er hoch und stehen: alzate, stellt ihn auf."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "it": "Ancora? Ehi, è già bello e pronto!",
+                    "sl": "Spet? Hej, saj je že pripravljeno!",
+                    "en": "Again? Hey, it's all ready!",
+                    "de": "Schon wieder? He, der ist doch längst fertig!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Serve una cosa lunga e forte per tirare. Che cosa?",
+              "sl": "Potrebujemo nekaj dolgega in močnega za vlečenje. Kaj?",
+              "en": "We need something long and strong to pull with. What?",
+              "de": "Wir brauchen etwas Langes und Starkes zum Ziehen. Was?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Serve una corda.",
+                  "sl": "Potrebujemo vrv.",
+                  "en": "We need a rope.",
+                  "de": "Wir brauchen ein Seil.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto! Ne ho una lunghissima.",
+                    "sl": "Prav! Imam zelo dolgo.",
+                    "en": "Right! I've got a very long one.",
+                    "de": "Richtig! Ich habe ein ganz langes."
+                  }
+                },
+                {
+                  "it": "Serve una caramella.",
+                  "sl": "Potrebujemo bonbon.",
+                  "en": "We need a sweet.",
+                  "de": "Wir brauchen ein Bonbon.",
+                  "why": {
+                    "sl": "Bonbon je dober, ampak z njim se ne da vleči! Za vlečenje je vrv: la corda.",
+                    "en": "A sweet is tasty, but you can't pull with it! You pull with a rope: la corda.",
+                    "de": "Ein Bonbon ist lecker, aber damit kann man nichts ziehen! Zum Ziehen nimmt man ein Seil: la corda."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Buona! Ma non tira niente, ehi.",
+                    "sl": "Dober! Ampak ne vleče ničesar, hej.",
+                    "en": "Tasty! But it can't pull anything, hey.",
+                    "de": "Lecker! Aber ziehen kann die nichts, he."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "it": "Tutti insieme: uno, due, tre… su!",
+              "sl": "Vsi skupaj: ena, dve, tri … gor!",
+              "en": "All together: one, two, three… up!",
+              "de": "Alle zusammen: eins, zwei, drei … hoch!",
+              "fx": {
+                "maypole": 1
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "happy",
+              "it": "Ecco! L'albero è in mezzo al paese. Evviva!",
+              "sl": "Tako! Drevo stoji sredi vasi. Juhu!",
+              "en": "There! The tree's in the middle of the village. Hooray!",
+              "de": "Da! Der Baum steht mitten im Dorf. Hurra!",
+              "done": true
+            },
+            {
+              "who": "lorenzo",
+              "face": "laugh",
+              "it": "Un ragazzo prova a salire… e scivola giù!",
+              "sl": "Fant poskuša splezati … in zdrsne dol!",
+              "en": "A lad tries to climb up… and slides down!",
+              "de": "Ein Bursche versucht hochzuklettern … und rutscht runter!",
+              "fx": {
+                "climb": 0.5
+              }
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Ehi, {learner}! C'è la banda, c'è tutto il paese. Per tirare, che cosa ci vuole?",
+              "sl": "Hej, {learner}! Tu je godba, tu je vsa vas. Kaj je potrebno za vlečenje?",
+              "en": "Hey, {learner}! The band's here, the whole village is here. What do we need to pull with?",
+              "de": "He, {learner}! Die Musikkapelle ist da, das ganze Dorf ist da. Was braucht man zum Ziehen?",
+              "fx": {
+                "band": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ci vuole una corda lunga.",
+                  "sl": "Potrebna je dolga vrv.",
+                  "en": "We need a long rope.",
+                  "de": "Man braucht ein langes Seil.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! L'ho presa dalla stalla di Bianca.",
+                    "sl": "Ja! Vzel sem jo iz Biancinega hleva.",
+                    "en": "Yes! I got it from Bianca's barn.",
+                    "de": "Ja! Ich habe es aus Biancas Stall geholt."
+                  }
+                },
+                {
+                  "it": "Ci vogliono una corda lunga.",
+                  "sl": "Potrebna je dolga vrv.",
+                  "en": "We need a long rope.",
+                  "de": "Man braucht ein langes Seil.",
+                  "grammar": "ci-ne",
+                  "why": {
+                    "sl": "Ci vuole je pred eno stvarjo, ci vogliono pred več stvarmi. Tu je samo ena vrv: ci vuole.",
+                    "en": "Ci vuole goes before one thing, ci vogliono before several. Here it's only one rope: ci vuole.",
+                    "de": "Ci vuole steht vor einem einzigen Ding, ci vogliono vor mehreren. Hier ist es nur ein Seil: ci vuole."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Eh? Quante sono? Io ne vedo una sola!",
+                    "sl": "Kaj? Koliko pa jih je? Jaz vidim samo eno!",
+                    "en": "Eh? How many? I can see only one!",
+                    "de": "Hm? Wie viele denn? Ich sehe nur eines!"
+                  }
+                },
+                {
+                  "it": "Ci vuole una torta lunga.",
+                  "sl": "Potrebna je dolga torta.",
+                  "en": "We need a long cake.",
+                  "de": "Man braucht einen langen Kuchen.",
+                  "why": {
+                    "sl": "S torto nihče ne vleče drevesa! Za vlečenje je vrv: la corda.",
+                    "en": "Nobody pulls a tree up with a cake! You pull with a rope: la corda.",
+                    "de": "Mit einem Kuchen zieht niemand einen Baum hoch! Zum Ziehen nimmt man ein Seil: la corda."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una torta? Buona, ma come si tira?",
+                    "sl": "Torto? Dobra, ampak kako se vleče?",
+                    "en": "A cake? Nice, but how do you pull?",
+                    "de": "Einen Kuchen? Lecker, aber wie zieht man damit?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Non ho capito.",
+                "sl": "Hej? Ne razumem.",
+                "en": "Eh? I didn't get that.",
+                "de": "He? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "davide",
+              "it": "Bene. Le corde sono pronte. Che cosa gridi a tutti, {learner}?",
+              "sl": "Dobro. Vrvi so pripravljene. Kaj zakličeš vsem, {learner}?",
+              "en": "Good. The ropes are ready. What do you shout to everyone, {learner}?",
+              "de": "Gut. Die Seile sind bereit. Was rufst du allen zu, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Alzate l'albero, piano piano!",
+                  "sl": "Dvignite drevo, počasi, počasi!",
+                  "en": "Raise the tree, nice and slowly!",
+                  "de": "Stellt den Baum auf, ganz langsam!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hai una bella voce! Ti hanno sentito tutti.",
+                    "sl": "Imaš dober glas! Vsi so te slišali.",
+                    "en": "You've got a good voice! Everyone heard you.",
+                    "de": "Du hast eine gute Stimme! Alle haben dich gehört."
+                  }
+                },
+                {
+                  "it": "Vendete l'albero, piano piano!",
+                  "sl": "Prodajte drevo, počasi, počasi!",
+                  "en": "Sell the tree, nice and slowly!",
+                  "de": "Verkauft den Baum, ganz langsam!",
+                  "why": {
+                    "sl": "Nihče noče prodati drevesa! Gor mora: alzate, dvignite ga.",
+                    "en": "Nobody wants to sell the tree! It has to go up: alzate, raise it.",
+                    "de": "Niemand will den Baum verkaufen! Er soll hoch: alzate, stellt ihn auf."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Vendere? E a chi, a Nerina?",
+                    "sl": "Prodati? Komu pa, Nerini?",
+                    "en": "Sell it? Who to, Nerina?",
+                    "de": "Verkaufen? An wen denn, an Nerina?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "matteo",
+              "face": "surprised",
+              "it": "Tirate, tirate! Ecco, sale… sale…",
+              "sl": "Vlecite, vlecite! Glej, gre gor … gor …",
+              "en": "Pull, pull! There, it's going up… up…",
+              "de": "Zieht, zieht! Ja, er geht hoch … hoch …",
+              "fx": {
+                "maypole": 1
+              }
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Ha aiutato tutto il paese, e adesso è in piedi, in mezzo al paese. Evviva!",
+              "sl": "Pomagala je vsa vas in zdaj stoji sredi vasi. Juhu!",
+              "en": "The whole village has helped, and now it stands in the middle of the village. Hooray!",
+              "de": "Das ganze Dorf hat geholfen, und jetzt steht er mitten im Dorf. Hurra!",
+              "done": true
+            },
+            {
+              "who": "lorenzo",
+              "face": "laugh",
+              "it": "Un ragazzo ha provato a salire, ma è scivolato giù!",
+              "sl": "Fant je poskusil splezati, ampak je zdrsnil dol!",
+              "en": "A lad had a go at climbing, but he slid back down!",
+              "de": "Ein Bursche hat es versucht, aber er ist runtergerutscht!",
+              "fx": {
+                "climb": 0.5
+              }
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "Ehi, {learner}! Senti la banda? Ma dimmi: come fa un albero così lungo ad alzarsi?",
+              "sl": "Hej, {learner}! Slišiš godbo? Ampak povej: kako se tako dolgo drevo dvigne?",
+              "en": "Hey, {learner}! Hear the band? But tell me: how does such a long tree get up?",
+              "de": "He, {learner}! Hörst du die Musik? Aber sag mal: Wie kommt so ein langer Baum nach oben?",
+              "fx": {
+                "band": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "Si alza tirando una corda.",
+                  "sl": "Dvigne se z vlečenjem vrvi.",
+                  "en": "It goes up by pulling a rope.",
+                  "de": "Er geht hoch, wenn man an einem Seil zieht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto! Tutto il paese tirerà insieme.",
+                    "sl": "Prav! Vsa vas bo vlekla skupaj.",
+                    "en": "Right! The whole village will pull together.",
+                    "de": "Richtig! Das ganze Dorf wird zusammen ziehen."
+                  }
+                },
+                {
+                  "it": "Si alza tirando una coda.",
+                  "sl": "Dvigne se z vlečenjem repa.",
+                  "en": "It goes up by pulling a tail.",
+                  "de": "Er geht hoch, wenn man an einem Schwanz zieht.",
+                  "why": {
+                    "sl": "Coda je rep, razlika je samo ena črka! Vrv je corda, z r.",
+                    "en": "Coda is a tail, only one letter's difference! The rope is corda, with an r.",
+                    "de": "Coda ist ein Schwanz, das ist nur ein Buchstabe Unterschied! Das Seil heißt corda, mit r."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una coda? Povera Bianca!",
+                    "sl": "Rep? Uboga Bianca!",
+                    "en": "A tail? Poor Bianca!",
+                    "de": "Einen Schwanz? Arme Bianca!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "worried",
+              "it": "Ci siamo quasi! Che cosa dici ai bambini, adesso che è questione di un momento?",
+              "sl": "Skoraj smo! Kaj rečeš otrokom, zdaj ko gre samo še za trenutek?",
+              "en": "We're nearly there! What do you tell the children, now it's only a moment away?",
+              "de": "Gleich ist es so weit! Was sagst du den Kindern, jetzt wo es nur noch einen Augenblick dauert?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "L'albero sta per alzarsi!",
+                  "sl": "Drevo se bo zdaj zdaj dvignilo!",
+                  "en": "The tree's about to go up!",
+                  "de": "Der Baum geht gleich hoch!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Bravi tutti, indietro… e adesso, tirate!",
+                    "sl": "Vsi nazaj … in zdaj vlecite!",
+                    "en": "Well done, everyone back… and now, pull!",
+                    "de": "Gut, alle zurück … und jetzt zieht!"
+                  }
+                },
+                {
+                  "it": "L'albero sta di alzarsi!",
+                  "sl": "Drevo se bo zdaj zdaj dvignilo!",
+                  "en": "The tree's about to go up!",
+                  "de": "Der Baum geht gleich hoch!",
+                  "grammar": "stare-per",
+                  "why": {
+                    "sl": "Ko se bo nekaj kmalu zgodilo, rečeš stare per in nedoločnik: sta per alzarsi.",
+                    "en": "When something's about to happen, you say stare per and then the infinitive: sta per alzarsi.",
+                    "de": "Wenn gleich etwas passiert, sagst du stare per und dann das Wort in der Grundform: sta per alzarsi."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sta come? L'albero non ha capito, e nemmeno io!",
+                    "sl": "Kako? Drevo ni razumelo, in jaz tudi ne!",
+                    "en": "It's what? The tree didn't get that, and nor did I!",
+                    "de": "Wie bitte? Der Baum hat es nicht verstanden, und ich auch nicht!"
+                  }
+                },
+                {
+                  "it": "L'albero sta per dormire!",
+                  "sl": "Drevo bo zdaj zdaj zaspalo!",
+                  "en": "The tree's about to go to sleep!",
+                  "de": "Der Baum schläft gleich ein!",
+                  "why": {
+                    "sl": "Drevesa ne zaspijo! Drevo mora gor: alzarsi pomeni iti gor.",
+                    "en": "Trees don't go to sleep! This one has to get up: alzarsi means to go up.",
+                    "de": "Bäume schlafen nicht ein! Der Baum soll aufstehen: alzarsi heißt, nach oben gehen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dormire? Ehi, è un albero, non una pecora!",
+                    "sl": "Spati? Hej, to je drevo, ne ovca!",
+                    "en": "Sleep? Hey, it's a tree, not a sheep!",
+                    "de": "Schlafen? He, das ist ein Baum, kein Schaf!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Ehi? Di nuovo, piano.",
+                "sl": "Hej? Še enkrat, počasi.",
+                "en": "Eh? Again, slowly.",
+                "de": "He? Noch mal, langsam."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "surprised",
+              "it": "Su, su, su! Quanta gente a tirare, e che musica!",
+              "sl": "Gor, gor, gor! Koliko ljudi vleče, in kakšna godba!",
+              "en": "Up, up, up! So many people pulling, and what music!",
+              "de": "Hoch, hoch, hoch! So viele Leute am Seil, und diese Musik!",
+              "fx": {
+                "maypole": 1
+              }
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Tutto il paese ha aiutato, e adesso sta qui, in mezzo al paese. Evviva!",
+              "sl": "Vsa vas je pomagala in zdaj stoji tukaj, sredi vasi. Juhu!",
+              "en": "The whole village has helped, and now it stands here, in the middle of the village. Hooray!",
+              "de": "Das ganze Dorf hat geholfen, und jetzt steht er hier, mitten im Dorf. Hurra!",
+              "done": true
+            },
+            {
+              "who": "lorenzo",
+              "face": "laugh",
+              "it": "Un ragazzo ci prova subito… e torna giù con il sapone sul naso!",
+              "sl": "Fant takoj poskusi … in pride dol z milom na nosu!",
+              "en": "A lad has a go at once… and comes back down with soap on his nose!",
+              "de": "Ein Bursche versucht es gleich … und kommt mit Seife auf der Nase wieder runter!",
+              "fx": {
+                "climb": 0.5
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
