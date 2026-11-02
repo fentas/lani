@@ -63,6 +63,7 @@ import si.lanisce.lani.tutor.OpenRouterTransport
 import si.lanisce.lani.tutor.PartialJson
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.Prefix
+import si.lanisce.lani.tutor.PromptLearner
 import si.lanisce.lani.tutor.Prices
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.Redact

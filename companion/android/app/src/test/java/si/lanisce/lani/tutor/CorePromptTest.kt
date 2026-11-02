@@ -4,6 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import si.lanisce.lani.tutor.live.StudioSpecs
 
 /**
  * The core prompt as the prefix sends it (the matrix's rules in it, its comments for whoever edits it never), and the
@@ -48,7 +49,7 @@ class CorePromptTest {
     }
 
     @Test fun `each language has its own part, with no Slovene rule in it`() {
-        for ((code, name, own) in listOf(Triple("it", "Italian", "*sono andato*"), Triple("de", "German", "*Jänner*"), Triple("en", "English", "*whom*"))) {
+        for ((code, name, own) in listOf(Triple("it", "Italian", "*lo zaino*"), Triple("de", "German", "*Jänner*"), Triple("en", "English", "*whom*"))) {
             val p = Prefix.bundled(PhaseA.load(), Guide(), Bundle::text, PromptLearner(code)).system
             assertTrue(name, p.contains("## Correct $name") && p.contains(own))
             assertTrue(name, p.contains("## Correct language, in every language"))

@@ -35,6 +35,8 @@ import si.lanisce.lani.tutor.ModelInfo
 import si.lanisce.lani.tutor.NotebookState
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.Prefix
+import si.lanisce.lani.tutor.PromptLearner
+import si.lanisce.lani.tutor.LanguageParts
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.Redact
 import si.lanisce.lani.tutor.ShadowEvent
