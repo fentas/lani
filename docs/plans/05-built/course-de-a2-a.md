@@ -98,9 +98,11 @@ Every long form is accepted beside its contraction (zu dem Arzt beside zum Arzt,
 
 ## The words (lexicon/de.extra.json)
 
-15 entries appended, each with its meaning in Slovene and Italian: danken, gefallen, leid, ums, Ärztin, Sessel, Schrank, Essen, Früh, the names Rossi and Udine, the phrases es geht mir gut and das tut mir leid,
+17 entries appended, each with its meaning in Slovene and Italian: danken, gefallen, leid, ums, hindurch, Ärztin, Sessel, Schrank, Essen, Früh, Gebäude, the names Rossi and Udine, the phrases es geht mir gut and das tut mir leid,
 and two entries for forms of words that already have one (liegen: liege, liegst; aufräumen: räumt, räume, räumst). Those two are entries of their own, because `json3merge.py` would otherwise keep both the old entry and the changed one. So the
 file now has two entries each for liegen and aufräumen, which the lookup reads as one (`Lexicon.readings` checked for liegst, liegt, räumt, aufgeräumt).
+
+`lexicon-build --coverage --lang de`, before and after: known 99.0 % of words both times, meant in each base 98.6 % both times, words none knows 52 → 51. The course's units aren't in that count; `school-prints --explain` lists every word of the six units with a meaning in each base (none left off), and a script of this round found every German word of the units in the supplement, the packs or the cast.
 
 **One thing to know:** `gefällt` has two readings, fällen's participle (to fell a tree, earlier in the file) and gefallen. The lookup ranks by the line's translation, and the gloss of gefallen has "like" in it for that reason.
 
