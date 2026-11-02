@@ -882,6 +882,11 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** How many readings run now ([reloadLogged], on the main thread). */
     private var readingsNow = 0
 
+    /** QA's "read:older:<minutes>" (app/QaHooks.kt): the last reading as if it was that long ago. */
+    fun qaReadOlder(minutes: Long) {
+        readFor = readFor?.let { it.copy(at = it.at - minutes * 60_000L) }
+    }
+
     /** The reload running now, if any ([shown] doesn't start another beside it). */
     private var reloading: Job? = null
 

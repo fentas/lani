@@ -16702,8 +16702,10 @@ def home_return():
     allocated on every thread and its collections (ART's counts, sampled by the watch); first Home left alone for as
     long, the baseline. Last, Back from Settings after a real change: a session's results written beside the bridge while
     Settings is open (the learner's databases in the dev bridge's copy; docs/plans/05-built/changes-areas.md), and Back
-    from the village after a move in it (its state written beside the bridge: docs/plans/05-built/nav-perf-2.md). The
-    second town is linked for it (unless --no-town), so the friendships' read has a friend to ask. With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
+    from the village after a move in it (its state written beside the bridge: docs/plans/05-built/nav-perf-2.md), and
+    from Settings with the last reading eleven minutes old, without a change and with one: the usual Back after a long
+    run of exercises. The second town is linked for it (unless --no-town), so the friendships' read has a friend to ask.
+    With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
     method (am profile, sampled every 0.2 ms; its sampling waits for each collection) into <dir>/back-village.trace. A
     table, also home-return.tsv and each row's requests in home-return-requests.txt in $LANI_QA_HOME_SHOTS;
     LANI_QA_HOME_TRIES (3) times each."""
@@ -16927,6 +16929,21 @@ def home_return():
 
     for i in range(tries):
         back("village, a move", moved, i)
+        go_home()
+
+    def older(opener):
+        """[opener], and Home's last reading as if it was eleven minutes ago (QA's hook "read:older:<minutes>"): a Back after
+        a long run of exercises (docs/plans/05-built/nav-perf-2.md)."""
+        def go():
+            opener()
+            qa_hook("read:older:11")
+        return go
+
+    for i in range(tries):
+        back("settings, ten minutes on", older(open_settings), i)
+        go_home()
+    for i in range(tries):
+        back("settings, a change, ten minutes on", older(changed), i)
         go_home()
     head = ("from\ttry\tmain messages in 3 s\tbesides frames\ttheir ms\tthe longest ms\tover 16.7 ms\tover 100 ms\tframes\t"
             "longest frame ms\tlongest frame's main ms\tits compose/layout/draw ms\tframes' main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\t"
