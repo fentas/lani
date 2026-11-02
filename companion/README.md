@@ -1945,23 +1945,36 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian, German and English have 16 each, A1 and A2, explained in the bases their learners have (Italian in Slovene,
-English and German; German in Slovene, English and Italian; English in Slovene, Italian and German, and English), with
-examples from their village (machine-written, not reviewed by a native speaker):
+Italian has 52 pages (15 A1, 19 A2, 18 B1), German 21 (15 A1, 6 A2) and English 22 (18 A1, 4 A2), each course adding
+the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
+Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
+(machine-written, not reviewed by a native speaker):
 
 - **Italian** (`grammar/it/`, friuli): `articoli-genere` (il, lo, l', la; un, uno, una, un'), `plurale`, `essere-avere`
   (ho freddo, ho nove anni), `presente-regolare` (-are, -ere, -ire), `verbi-irregolari` (andare, fare, stare, venire),
   `passato-prossimo` (avere or essere), `tu-lei`, `preposizioni-articolate` (al, nel, dal, sui …), `dove-preposizioni`
   (a, in, da; vicino allo stagno, davanti alla tenda: the tent's page), `partitivo`, `possessivi` (il mio, mia madre),
-  `ce-ci-sono`, `piacere`, `aggettivi-accordo`, `numeri` and `domande`.
+  `ce-ci-sono`, `piacere`, `aggettivi-accordo`, `numeri` and `domande`; A1 also `imperativo` (guarda! vieni! andiamo!)
+  and `ore-giorni` (the hours, the days, the months); A2 also `ci-ne`, `comparativi`, `superlativi`, `futuro`,
+  `imperfetto`, `imperfetto-passato`, `participi-irregolari`, `pronomi-diretti`, `pronomi-indiretti`,
+  `imperativo-pronomi` (dammi! prendilo!), `riflessivi`, `modali`, `negazioni`, `relative-che`, `stare-gerundio` and
+  `vorrei`; B1 `condizionale`, `congiuntivo`, `congiuntivo-espressioni`, `congiunzioni`, `discorso-indiretto`,
+  `futuro-anteriore`, `trapassato`, `passato-remoto`, `gerundio`, `stare-per`, `passivo`, `si-impersonale`,
+  `periodo-ipotetico`, `pronomi-combinati`, `verbi-pronominali`, `relativi-cui`, `indefiniti` and
+  `infinito-preposizioni` (comincio a, finisco di).
 - **German** (`grammar/de/`, kaernten): `artikel-genus` (der, die, das), `faelle` (the four cases), `akkusativ` (and
   durch, für …), `dativ` (and mit, von …; mir ist kalt), `wechselpraepositionen` (Wo? + dative, Wohin? + accusative:
   the tent's page), `sein-haben`, `praesens`, `wortstellung` (the verb in second place), `nebensatz` (the verb at the
-  end), `du-sie`, `trennbare-verben`, `perfekt`, `plural`, `kein-nicht`, `modalverben` and `fragen`.
+  end), `du-sie`, `trennbare-verben`, `perfekt`, `plural`, `kein-nicht`, `modalverben` and `fragen`; and `imperativ`
+  (komm, kommt, kommen Sie), `possessiv` (mein Hund, deine Katze), `uhrzeit` (um sieben, am Montag), `vokalwechsel`
+  (ich fahre, du fährst) and `zahlen`. `dativ`, `wechselpraepositionen`, `nebensatz`, `trennbare-verben`, `perfekt` and
+  `modalverben` are A2, the rest A1.
 - **English** (`grammar/en/`, lakeland): `articles`, `plurals` (one sheep, two sheep), `to-be` (I'm ten), `to-have`,
   `present-simple`, `present-continuous`, `questions-do`, `past-simple`, `present-perfect`, `future` (going to, will),
   `can`, `there-is-are`, `some-any`, `prepositions-place` (by the pond, next to the jetty: the tent's page),
-  `possessive-s` and `word-order`.
+  `possessive-s` and `word-order`; and `pronouns` (I, you, he, she, it), `object-pronouns` (me, him, her, them),
+  `this-that`, `numbers`, `time-dates` (at seven, on Monday, in May) and `was-were`. `past-simple`, `present-perfect`,
+  `future` and `some-any` are A2, the rest A1.
 
 **What names a page:** an exercise's `"grammar": "<id>"` (any type; every exercise of the six curated modules has one),
 a culture pack's challenge question (`quests.json` `tent_move.questions[].grammar`: Luka's tent challenge names
