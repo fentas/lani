@@ -15,7 +15,7 @@ import { z } from 'zod'
 import { learnerErrorsIn, render, addressee as addresseeFor } from './addressee'
 import { PACK_LANGUAGES } from './arrivals'
 import { wordsIn } from './dialog-words'
-import { lexiconLemmas, linesErrors, looksLikeFormOf, speakerGendered, testedIn, type Lemmas, type StepPack } from './project-steps'
+import { lexiconLemmas, linesErrors, looksLikeFormOf, speakerGendered, testedIn, testsWord, withoutArticle, type Lemmas, type StepPack } from './project-steps'
 import { schemaField } from './schema'
 import { dialogLine, SCENE_LANGUAGES } from './scenes'
 import { LEVELS } from './stories'
@@ -89,7 +89,8 @@ const MAN = addresseeFor({ name: 'Learner' })
  * host and the guests of the cast, and a party only with a host; each level's lines as a dialog of the pack (a reaction and
  * a why to every wrong choice, 2-4 turns), said by the host (at least once) and the guests, a guest's lines that anyone
  * could say (one away is stood in for); no cue (it is played over the village: no picture, no weather, no stage); its words
- * in its pack, each tested by a turn at every level; the grammar pages its turns name.
+ * in its pack, each tested by a turn at every level (as a step's: [testsWord], a noun as its word without its article, its
+ * plural among its forms); the grammar pages its turns name.
  */
 export function celebrationErrors(f: Celebration, r: CelebrationRefs): string[] {
   const errs: string[] = [...learnerErrorsIn(f)]
@@ -143,9 +144,8 @@ export function celebrationErrors(f: Celebration, r: CelebrationRefs): string[] 
     for (const w of words) {
       const lemma = w.word ? String(w.word[r.lang] ?? '') : ''
       if (!lemma) continue
-      const parts = wordsIn(lemma)
-      const formOf = (x: string) => (r.lemmas ? r.lemmas(x).includes(parts[0].toLowerCase()) : looksLikeFormOf(x, parts[0]))
-      if (parts.length === 1 && tested.words.some(formOf)) continue
+      if (testsWord(w.word!, r.lang, tested.words, r.lemmas)) continue
+      const parts = wordsIn(withoutArticle(lemma, r.lang))
       const near = parts.length === 1 && r.lemmas ? tested.words.find(x => looksLikeFormOf(x, parts[0])) : undefined
       errs.push(`${here}: the party's word "${lemma}" (${w.id}) is in no turn's test: a wrong choice differs from the right one in it ("Daj mi kozarec." / "Daj mi žlico.")` +
         (near ? `; "${near}" is tested, but the dictionary doesn't know it as a form of "${lemma}" (companion/lexicon/${r.lang}.extra.json, or another form)` : ''))

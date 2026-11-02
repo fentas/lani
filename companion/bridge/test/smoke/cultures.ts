@@ -17,7 +17,7 @@ import { SCENE_ART, validateScene } from '../../src/scenes'
 import { profileFromEnv } from '../../src/learners'
 import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '../../src/sky'
 import { cultureProjectSteps, cultureStepFiles, lexiconLemmas, speakerGendered, stepTellings, testsWord, withoutArticle } from '../../src/project-steps'
-import { cultureCelebrationFiles, cultureCelebrations, partyTellings } from '../../src/celebrations'
+import { celebrationErrors, celebrationSpec, cultureCelebrationFiles, cultureCelebrations, partyTellings } from '../../src/celebrations'
 import { VillagerStore } from '../../src/villagers'
 import { auth, base, check, culturesDir, dataDir, fam, italianPacksDir, tempDir } from './harness'
 import { JAN } from '../learner-content'
@@ -428,6 +428,36 @@ export default async function cultures() {
   // curated: written at A1 and A2 (the test pack's has A1 only, which the check names), nothing else wrong
   check("the test pack's party (Nino hosts, Pina dances) is read and checked with the pack: only its missing A2 is named",
     tinyCel.files.length === 1 && JSON.stringify(tinyCel.errors) === JSON.stringify(['tinyland/celebrations/vas.json: levels: no A2 (a curated party is written for A1 and A2 at least)']), tinyCel.errors)
+  // a party's word in a language with articles ("il ballo", "der Tanz", "the dance") is tested as its word, its plural too
+  // (Tänze for der Tanz), as a step's is (project-steps.ts testsWord); one that no turn tests is still named
+  const danceTurn = (right: Record<string, string>, wrong: Record<string, string>) => celebrationSpec.parse({
+    ...party, levels: { A1: { lines: [
+      party.levels.A1.lines[0],
+      { who: 'pina', ...tx('Che cosa facciamo?', 'Kaj bomo?', 'What shall we do?', 'Was machen wir?') },
+      { choices: [
+        { ...right, ok: true },
+        { ...wrong, why: { it: 'No.', sl: 'Ne.', en: 'No.', de: 'Nein.' }, reply: tx('Adesso?', 'Zdaj?', 'Now?', 'Jetzt?') },
+      ] },
+      { who: 'nino', ...tx('Musica!', 'Glasba!', 'Music!', 'Musik!') },
+    ] } },
+  })
+  const notTested = (lang: 'it' | 'de' | 'en', word: string, plural: string | undefined, right: Record<string, string>, wrong: Record<string, string>) =>
+    celebrationErrors({ ...danceTurn(right, wrong), language: lang }, { lang, packs: [{ id: 'festa', words: [{ id: 'ballo', [lang]: word, plural }] }] })
+      .filter(e => e.includes("is in no turn's test"))
+  const aDance = tx('Un ballo!', 'Ples!', 'A dance!', 'Ein Tanz!')
+  const aSleep = tx('Un sonno!', 'Spanje!', 'A sleep!', 'Ein Schlaf!')
+  const twoDances = tx('Due balli!', 'Dva plesa!', 'Two dances!', 'Zwei Tänze!')
+  const twoSleeps = tx('Due sonni!', 'Dve spanji!', 'Two sleeps!', 'Zwei Schläfe!')
+  const articleMisses = [
+    notTested('it', 'il ballo', 'i balli', aDance, aSleep),
+    notTested('de', 'der Tanz', 'die Tänze', aDance, aSleep),
+    notTested('en', 'the dance', 'the dances', aDance, aSleep),
+    notTested('de', 'der Tanz', 'die Tänze', twoDances, twoSleeps),
+  ]
+  check("… a party's word with its article is tested as its word (il ballo, der Tanz, the dance), its plural too (die Tänze)",
+    articleMisses.every(e => e.length === 0), articleMisses)
+  const articleUntested = notTested('de', 'der Walzer', 'die Walzer', aDance, aSleep)
+  check("… and one with its article that no turn tests is still named", articleUntested.length === 1 && articleUntested[0].includes('"der Walzer"'), articleUntested)
   const bad = JSON.parse(JSON.stringify(party))
   bad.host = 'gino'
   bad.levels.A1.lines[0].fx = { bell: 1 }
