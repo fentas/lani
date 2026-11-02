@@ -80,11 +80,11 @@ class ClassicLandTest {
         // the village builds its bridge there (2026-10-19); the hearths (GAME.md "Hearths", 2026-10-20): the house's and the
         // hut's smoke from their chimneys by day, their windows lit while their hearths burn; Čebelar Anton's trousers in his
         // sprite's canvas colour at 7 px (2026-11-01, map-people: by day only his few pixels differ); the buildings as
-        // Primorska's scenes build them by level (2026-11-02, map-culture-2): the single kozolec, the well's sweep, the young
-        // linden, the bee house on its footing, the houses' walls by plot, the tent's pennant
+        // Primorska's scenes build them by level (2026-11-02, map-culture-2): the single kozolec, the well's roof of boards, the
+        // young linden, the bee house on its footing, the houses' walls by plot, the tent's pennant
         "jan-like" to mapOf(
-            "side-day" to "aef99be676537c24", "tall-day" to "de44987646dcaa5a", "tall-dusk-k2" to "bb858c138d6bc985",
-            "tall-night-k3" to "ddf607eb4e4a0152", "compact" to "3899cd2ac6bffe6e", "widget" to "bc300b653e8816ce",
+            "side-day" to "c4b4493299e203cc", "tall-day" to "4728d643253ffb77", "tall-dusk-k2" to "a4c68fdf04fed369",
+            "tall-night-k3" to "ddf607eb4e4a0152", "compact" to "b39831be39631ade", "widget" to "f5c99c7772dbceb6",
         ),
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
         // drawn as the hamlet's, its people at their chores (2026-10-13); the cart bridge on its own track from the road
@@ -98,8 +98,8 @@ class ClassicLandTest {
         // his sprite's canvas colour at 7 px and 14 px (2026-11-01, map-people); the buildings as Primorska's scenes build them
         // by level and the mlaj's four ribbons (2026-11-02, map-culture-2)
         "town" to mapOf(
-            "side-day" to "eb42cadc678569bc", "tall-day" to "2338a1a141cd3dbd", "tall-dusk-k2" to "6792d55ce43d2890",
-            "tall-night-k3" to "3074a2a37f96b272", "compact" to "e323079338d1af32", "widget" to "2e6bed5b6b1a755",
+            "side-day" to "b75a540a43dd9e04", "tall-day" to "803b0f2be58cedef", "tall-dusk-k2" to "234cc64b355c4794",
+            "tall-night-k3" to "a62b9efc4511cae6", "compact" to "67889918e900bdcf", "widget" to "97c5604bc587d6cb",
         ),
     )
 
@@ -141,10 +141,12 @@ class ClassicLandTest {
     }
 
     @Test fun `a village from before generated land looks exactly as it did`() {
-        for ((name, s) in listOf("jan-like" to janLike, "town" to town)) {
+        // every village's digests first, printed, so one failure gives them all to take again
+        val villages = listOf("jan-like" to janLike, "town" to town).map { (name, s) ->
+            Triple(name, s, digests(s, "classic-$name").also { println("$name $it") })
+        }
+        for ((name, s, before) in villages) {
             // unmarked (as saved before), and marked classic (as the next tick leaves it): the same pixels as the fixed layout
-            val before = digests(s, "classic-$name")
-            println("$name $before")
             assertEquals(name, golden.getValue(name), before)
             assertEquals("$name marked classic", golden.getValue(name), digests(s.copy(land = Land.CLASSIC)))
         }
