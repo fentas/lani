@@ -198,6 +198,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        Teo's tablet on its side (2560 × 1600): at rest, closer, closest and panned, the ground kept and
                        drawn whole (QA's hook "render:full"): the map's render time (tag TownScene) and the frames'
                        (dumpsys gfxinfo), a table, also frames.tsv in $LANI_QA_COAST_SHOTS;
+                       "party" (only when named) one age's party played to its end in the dev bridge's culture (LANI_CULTURE,
+                       its celebrations/<LANI_QA_PARTY_AGE>.json: tabor, zaselek, vas, trg, mesto; vas; at LANI_QA_PARTY_LEVEL:
+                       A1, A2, B1, B2; A1; in the pair the phone shows), its moment, its card, then the village past that
+                       age and the chronicle's "Watch again" offering it; also as party-*.png in $LANI_QA_PARTY_SHOTS;
                        "kaernten-projects-b" (only when named) the Carinthian village's projects and spots (LANI_CULTURE=kaernten,
                        a learner of German, the phone in sl · en): the fire station and the lookout tower from the map, the
                        stream bank from the map and Oma Resi's washing day there, the pond in the evening ($LANI_QA_KAERNTEN_SHOTS);
@@ -7487,6 +7491,129 @@ def age_up():
         qa_hook("level:")
         qa_hook("hour:")
     return None
+
+def party():
+    """One age's party in the dev bridge's culture, played to its end, whatever the culture (only when named; companion/GAME.md
+    "Ages and their celebrations"): the dev bridge's LANI_CULTURE, its celebrations/<LANI_QA_PARTY_AGE>.json (tabor, zaselek,
+    vas, trg or mesto; vas), at LANI_QA_PARTY_LEVEL (A1, A2, B1, B2; A1), read in the pair the phone shows (LANI_QA_PAIR or
+    LANI_QA_SETUP_PAIR). QA's hooks grow the dev village's copy to that age ("ageup:<age>") at seven in the evening ("hour:19")
+    at that level ("level:<lv>"): the moment held at its opening, its decorations and its sign, the card with the celebration's
+    name and the party's button; the party, each line on and the right choice at each turn, to its end with the chronicle's
+    line (a first time); then the village past that age ("ageup:<the next>"; Mesto stays) and the chronicle's row of the age,
+    its moment again and its card offering the party. Also as party-*.png in $LANI_QA_PARTY_SHOTS."""
+    culture = api("/culture").get("id")
+    age = (os.environ.get("LANI_QA_PARTY_AGE") or "vas").lower()
+    level = (os.environ.get("LANI_QA_PARTY_LEVEL") or "A1").upper()
+    f = ROOT / f"companion/cultures/{culture}/celebrations/{age}.json"
+    if not f.exists():
+        return f"skipped: {culture} has no celebrations/{age}.json"
+    c = json.loads(f.read_text())
+    if level not in c.get("levels", {}):
+        return f"skipped: {culture}'s {age} has no party at {level}"
+    t = pair_now()[0]
+    text = lambda o: o.get(t) or o[c["language"]]
+    name, end_line = text(c["name"]), text(c["line"])
+    out = Path(os.environ["LANI_QA_PARTY_SHOTS"]) if os.environ.get("LANI_QA_PARTY_SHOTS") else None
+    # the right choices as a man and as a woman reads them, the learner's name whatever it is; a row reads "the choice, its meaning"
+    def rows_of(said: str) -> list:
+        forms = {re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", said), re.sub(r"\{m:[^|}]*\|f:([^}]*)\}", r"\1", said)}
+        return [re.compile(re.escape(x).replace(re.escape("{learner}"), ".+") + r"(,.*)?", re.S) for x in forms]
+    right = [rx for l in c["levels"][level]["lines"] for ch in l.get("choices", []) if ch.get("ok") for rx in rows_of(text(ch))]
+
+    def snap(what: str):
+        shot(f"party-{age}-{level.lower()}-{what}")
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"party-{age}-{level.lower()}-{what}.png")
+
+    to_party, whats_new = label("ageUp.toParty", half=True), label("ageUp.whatsNew", half=True)
+    try:
+        qa_hook("hour:19")
+        qa_hook(f"level:{level}")
+        village()
+        plain_village()
+        qa_hook("ageup:at:0")
+        qa_hook(f"ageup:{age}")
+        assert wait_for(label("villageSheets.newAge", half=True), 12), "the moment opens"
+        time.sleep(2)
+        for beat, s in moment_times(age):
+            if beat in ("open", "decorate", "sign"):
+                qa_hook(f"ageup:at:{s:.2f}")
+                time.sleep(2.4)
+                snap(f"moment-{beat}")
+        qa_hook("ageup:at:99")
+        assert wait_for(whats_new, 10), "the moment's card"
+        time.sleep(1)
+        snap("card")
+        assert find(name) is not None, f"the card names {name}"
+        assert tap(to_party, 5), "the party's button on the card"
+        assert wait_for(name, 10), "the party over the village"
+        time.sleep(2.5)
+        snap("start")
+        turns = 0
+        for _ in range(50):
+            ns = list(nodes())
+            labels = [x for x, _ in ns]
+            if any(end_line in x for x in labels):
+                break
+            if tap(label("common.next"), 1):
+                continue
+            if any(label("adaptive.letMeChoose", half=True) in x for x in labels):
+                tap(label("adaptive.letMeChoose", half=True), 2)
+                time.sleep(1)
+                continue
+            # a turn has no Next; its right choice is the lowest row that reads it (a reply may begin with the same toast)
+            rows = sorted((co for x, co in ns if any(rx.fullmatch(x) for rx in right)), key=lambda co: -co[1])
+            if rows:
+                tap_at(rows[0])
+                turns += 1
+                time.sleep(1.5)
+                if turns == 1:
+                    snap("turn")
+                continue
+            time.sleep(1)
+        if wait_for(end_line, 8) is None:
+            snap("stuck")
+            raise AssertionError(f"the party's end: its line for the chronicle ({end_line})")
+        snap("end")
+        print(f"    {culture} {age} at {level}: {turns} turn(s) answered")
+        back = end_button(label("arrivals.backVillage"))
+        assert back is not None, "back to the village from the party's end"
+        tap_at(back)
+        time.sleep(1.5)
+        # a village past that age: the chronicle's row of the age, its moment again with this celebration, the party offered
+        ages = ["tabor", "zaselek", "vas", "trg", "mesto"]
+        if age != "mesto":
+            qa_hook("ageup:at:99")
+            qa_hook(f"ageup:{ages[ages.index(age) + 1]}")
+            assert wait_for(whats_new, 12), "the next age's card"
+            tap(label("common.continue"), 5)
+            time.sleep(1.5)
+        qa_hook("ageup:at:")
+        plain_village()
+        assert tap(label("villageScreen.scroll"), 5), "the scroll's button"
+        time.sleep(1)
+        chronicle = label("townScroll.chronicle", half=True)
+        card = next((co for x, co in nodes() if x.startswith(chronicle)), None) or scroll_to(chronicle, 3)
+        assert card is not None, "the chronicle on the scroll"
+        tap_at(card)
+        assert wait_for(label("ageUp.ages", half=True), 6), "the chronicle's ages"
+        row = find(name) or scroll_to(name, 3)
+        assert row is not None, f"{name} among the chronicle's ages"
+        snap("chronicle")
+        tap_at(row)
+        assert wait_for(label("villageSheets.newAge", half=True), 10), "the moment again"
+        qa_hook("ageup:at:99")
+        assert wait_for(to_party, 10), "played again: its party now"
+        assert find(name) is not None, f"played again: the card names {name}"
+        snap("replay-card")
+        plain_village()
+    finally:
+        qa_hook("ageup:at:")
+        qa_hook("level:")
+        qa_hook("hour:")
+    return None
+
 
 def build_sheet():
     # The bottom bar's Build opens the sheet; the next-goal card may have its own Build that builds
@@ -17831,6 +17958,8 @@ def plan():
         ("project-step", project_step, v, False, ""),
         ("scene-coherence", scene_coherence, v, False, ""),
         ("age-up", age_up, v, False, ""),
+        # only with --steps party: one age's party in the dev bridge's culture, to its end (LANI_QA_PARTY_AGE, LANI_QA_PARTY_LEVEL)
+        ("party", party, v, False, ""),
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         # only when named: a raised target from the next age (a synthetic child of Italian: LANI_DEV_DATA, LANI_CULTURE=friuli)
@@ -18433,7 +18562,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "party", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
