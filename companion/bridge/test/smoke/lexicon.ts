@@ -35,6 +35,27 @@ export default async function lexicon() {
   check("normalizing Italian: the stress marks inside a word go, the written accent stays, one apostrophe: casìna → casina, città, L’acqua → l'acqua", normalizeForm('casìna', 'it') === 'casina' && normalizeForm('Città', 'it') === 'città' && normalizeForm('perché', 'it') === 'perché' && normalizeForm('L’acqua', 'it') === "l'acqua" && normalizeForm("perche'", 'it') === "perche'")
   check('a word\'s review item: vocab_word_<lemma>, č š ž as c s z', wordItemId('Na svidenje') === 'vocab_word_na-svidenje' && wordItemId('čebela') === 'vocab_word_cebela')
 
+  // the German supplement means Kärnten's older content on a phone, without Wiktionary (supplement-coverage): a verb's
+  // form by its paradigm, a noun's plural, the Slovene words the German lines quote said to be Slovene, the particle mal;
+  // the earlier rounds' grammar labels are no forms (ihr was a form of gehen and sagen)
+  const de = new Lexicon({ dir: repo, language: 'de', base: 'sl', tutorFile: join(dataDir, 'no-glosses.json') })
+  const deFirst = (w: string, b = 'sl') => de.readings(normalizeForm(w, 'de'), b)[0]
+  const zeichnet = deFirst('zeichnet')
+  const stoecke = deFirst('Stöcke')
+  check('de.extra.json: zeichnet is zeichnen in its present, Stöcke the plural of Stock, Hütte koča in Slovene and la baita in Italian, hvala a Slovene word in each base, mal the particle',
+    zeichnet?.lemma === 'zeichnen' && /present, er\/sie\/es/.test(zeichnet.grammar ?? '') && zeichnet.gloss[0] === 'risati' && stoecke?.lemma === 'Stock' && stoecke.grammar === 'plural' &&
+      deFirst('Hütte')?.gloss[0] === 'koča' && /baita/.test(deFirst('Hütte', 'it')?.gloss[0] ?? '') && /^slovensko: hvala$/.test(deFirst('hvala')?.gloss[0] ?? '') && /^Slovene for/.test(deFirst('hvala', 'en')?.gloss[0] ?? '') &&
+      de.readings('mal', 'sl').some(r => r.lemma === 'mal' && r.pos === 'particle'),
+    [zeichnet, stoecke, deFirst('hvala', 'en')])
+  check('de.extra.json: ihr is no form of gehen or sagen, and no form is a grammar label ("present, wir/sie")', !de.readings('ihr', 'sl').some(r => r.lemma === 'gehen' || r.lemma === 'sagen') && !de.readings('present, wir/sie', 'sl').length)
+  // a villager's possessive is theirs, as the app taps it: Stankos (German genitive), Wilf's (English)
+  const stanko = { name: 'Imker Stanko', given: 'Stanko', gloss: 'Stanko, the beekeeper', emoji: '🐝' }
+  const stankos = lookUp('Stankos', { line: 'Stankos Honig ist sehr gut.' }, { lexicon: de, base: 'sl', packs: [], people: [stanko], items: {} }).entries[0]
+  const en = new Lexicon({ dir: repo, language: 'en', base: 'sl', tutorFile: join(dataDir, 'no-glosses.json') })
+  const wilfs = lookUp("Wilf's", { line: "That's Wilf's dog." }, { lexicon: en, base: 'sl', packs: [], people: [{ name: 'Old Wilf', given: 'Wilf', gloss: 'Old Wilf, the storyteller', emoji: '🧓' }], items: {} }).entries[0]
+  check("a villager's possessive is their name: Stankos (German), Wilf's (English); a small stankos isn't", stankos?.source === 'village' && stankos.lemma === 'Imker Stanko' && wilfs?.source === 'village' && wilfs.lemma === 'Old Wilf' &&
+    !lookUp('stankos', {}, { lexicon: de, base: 'sl', packs: [], people: [stanko], items: {} }).entries.some(e => e.source === 'village'), [stankos, wilfs])
+
   // --- lookups ---------------------------------------------------------------------------------------------------
   const gozdu = await lookup('gozdu', 'V gozdu je tiho.', "It's quiet in the forest.")
   const g0 = gozdu.body.entries?.[0]
