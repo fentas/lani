@@ -78,6 +78,9 @@ class DayAudioGather(
      */
     private val pair: LangPair = L10n.ownPair,
 ) {
+    /** The packs read for this plan: today's words and tomorrow's come from the same pack, read once. */
+    private val packsRead = HashMap<String, Pack?>()
+
     /** Today's list and tomorrow's ([now]: what of today is already past isn't asked for). */
     suspend fun plan(now: LocalDateTime = LocalDateTime.now()): DayPlan {
         val today = now.toLocalDate()
@@ -119,7 +122,7 @@ class DayAudioGather(
         val going = packs.filter { it.learned > 0 && !it.done && it.festival == null }.take(PACKS)
         return going.flatMap { info ->
             val p = try {
-                pack(info.id)
+                if (info.id in packsRead) packsRead[info.id] else pack(info.id).also { packsRead[info.id] = it }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
