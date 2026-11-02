@@ -40,9 +40,9 @@
     },
     {
       "id": "bess", "title": { "en": "Where's Bess?", "sl": "Kje je Bess?", "it": "Dov'è Bess?", "de": "Wo ist Bess?" }, "who": "wilf",
-      "when": ["evening"], "chance": 0.4,
+      "when": ["afternoon"], "chance": 0.4,
       "dialog": "bess", "dialogs": ["bess-biscuit", "bess"], "reward": { "wisdom": 15 }, "marker": "🐕",
-      "memory": { "en": "the evening Bess came to you", "sl": "večer, ko je Bess prišla k tebi", "it": "la sera in cui Bess è venuta da te", "de": "den Abend, an dem Bess zu dir gekommen ist" }
+      "memory": { "en": "the day Bess came to you", "sl": "dan, ko je Bess prišla k tebi", "it": "il giorno in cui Bess è venuta da te", "de": "den Tag, an dem Bess zu dir gekommen ist" }
     },
     {
       "id": "football", "title": { "en": "Harry's football", "sl": "Harryjev nogomet", "it": "La partita di Harry", "de": "Harrys Fußball" }, "who": "harry",
@@ -64,7 +64,7 @@
     },
     {
       "id": "fete", "title": { "en": "The summer fête", "sl": "Poletni vaški praznik", "it": "La festa d'estate", "de": "Das Sommerfest" }, "who": "wilf",
-      "when": ["evening"], "months": [6, 7, 8], "weekdays": [6, 7], "chance": 0.6,
+      "when": ["afternoon"], "months": [6, 7, 8], "weekdays": [6, 7], "chance": 0.6,
       "dialog": "fete", "dialogs": ["fete-cake", "fete"], "reward": { "food": 15 }, "marker": "🎺",
       "memory": { "en": "the dance at the summer fête", "sl": "ples na poletnem vaškem prazniku", "it": "il ballo alla festa d'estate", "de": "den Tanz auf dem Sommerfest" }
     }
@@ -126,13 +126,13 @@
         ] },
         { "who": "wilf", "face": "proud", "en": "Good girl. She's fourteen, you know. That's very old for a dog.", "sl": "Pridna. Štirinajst let ima, veš. To je za psa zelo veliko.", "it": "Brava. Ha quattordici anni, sai. Per un cane sono tanti.", "de": "Braves Mädchen. Sie ist vierzehn, weißt du. Das ist sehr alt für einen Hund.", "fx": { "wag": 1 } },
         { "choices": [
-          { "en": "Good night, Wilf! Good night, Bess!", "sl": "Lahko noč, Wilf! Lahko noč, Bess!", "it": "Buonanotte, Wilf! Buonanotte, Bess!", "de": "Gute Nacht, Wilf! Gute Nacht, Bess!", "ok": true,
-            "reply": { "face": "laugh", "en": "Woof! That's Bess for good night.", "sl": "Hov! Tako Bess reče lahko noč.", "it": "Bau! È così che Bess dice buonanotte.", "de": "Wuff! So sagt Bess gute Nacht." } },
-          { "en": "Night, Wilf! Sleep well!", "sl": "Lahko noč, Wilf! Lepo spi!", "it": "Notte, Wilf! Dormi bene!", "de": "Nacht, Wilf! Schlaf gut!", "ok": true,
-            "reply": { "face": "happy", "en": "And you, {m:son|f:lass}. Woof, says Bess.", "sl": "Tudi ti. Hov, reče Bess.", "it": "Anche tu, {m:figliolo|f:figliola}. Bau, dice Bess.", "de": "Du auch, {m:mein Junge|f:mein Mädchen}. Wuff, sagt Bess." } },
-          { "en": "Good morning, Wilf! Good morning, Bess!", "sl": "Dobro jutro, Wilf! Dobro jutro, Bess!", "it": "Buongiorno, Wilf! Buongiorno, Bess!", "de": "Guten Morgen, Wilf! Guten Morgen, Bess!",
-            "why": { "en": "Good morning is for the morning. At bedtime: good night.", "sl": "Good morning je za jutro. Pred spanjem: good night.", "it": "Good morning è per la mattina. Prima di dormire: good night.", "de": "Good morning ist für den Morgen. Vor dem Schlafen: good night." },
-            "reply": { "face": "laugh", "en": "Morning? It's nearly bedtime, {m:son|f:lass}!", "sl": "Jutro? Saj je skoraj čas za spat!", "it": "Mattina? È quasi ora di andare a letto, {m:figliolo|f:figliola}!", "de": "Morgen? Es ist fast Schlafenszeit, {m:mein Junge|f:mein Mädchen}!" } }
+          { "en": "Bye, Wilf! Bye, Bess!", "sl": "Adijo, Wilf! Adijo, Bess!", "it": "Ciao, Wilf! Ciao, Bess!", "de": "Tschüs, Wilf! Tschüs, Bess!", "ok": true,
+            "reply": { "face": "laugh", "en": "Woof! That's Bess for goodbye.", "sl": "Hov! Tako Bess reče adijo.", "it": "Bau! È così che Bess dice ciao.", "de": "Wuff! So sagt Bess tschüs." } },
+          { "en": "See you, Wilf! Look after Bess!", "sl": "Se vidiva, Wilf! Pazi na Bess!", "it": "Ci vediamo, Wilf! Abbi cura di Bess!", "de": "Bis bald, Wilf! Pass gut auf Bess auf!", "ok": true,
+            "reply": { "face": "happy", "en": "I will, {m:son|f:lass}. Woof, says Bess.", "sl": "Bom. Hov, reče Bess.", "it": "Certo, {m:figliolo|f:figliola}. Bau, dice Bess.", "de": "Mach ich, {m:mein Junge|f:mein Mädchen}. Wuff, sagt Bess." } },
+          { "en": "Good night, Wilf! Good night, Bess!", "sl": "Lahko noč, Wilf! Lahko noč, Bess!", "it": "Buonanotte, Wilf! Buonanotte, Bess!", "de": "Gute Nacht, Wilf! Gute Nacht, Bess!",
+            "why": { "en": "Good night is for bedtime. When you go in the day: goodbye, or bye.", "sl": "Good night je za pred spanjem. Ko greš čez dan: goodbye ali bye.", "it": "Good night si dice prima di dormire. Quando vai via di giorno: goodbye, o bye.", "de": "Good night sagt man vor dem Schlafengehen. Wenn du tagsüber gehst: goodbye oder bye." },
+            "reply": { "face": "laugh", "en": "Night? It's nowhere near bedtime, {m:son|f:lass}!", "sl": "Noč? Saj še zdaleč ni čas za spat!", "it": "Notte? Manca un sacco all'ora di andare a letto, {m:figliolo|f:figliola}!", "de": "Nacht? Bis zum Schlafengehen ist es noch lange hin, {m:mein Junge|f:mein Mädchen}!" } }
         ] }
       ]
     },
