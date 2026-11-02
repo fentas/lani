@@ -2,6 +2,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { validateModule } from '../../src/spec'
+import { validateCuratedModule } from '../../src/store'
 import { reference, spec } from './fixtures'
 import { auth, base, check, client, dataDir } from './harness'
 
@@ -170,6 +171,18 @@ export default async function modules() {
   check('curated module is listed', listed2.some((m: any) => m.id === 'curated-demo' && m.version === 1), listed2)
   const cur = await (await fetch(`${base}/modules/curated-demo`, { headers: auth })).json()
   check('curated module is served', cur.exercises?.length === 2)
+  // a curated module above the learner's level isn't offered: it would come up in every run and as a request
+  check('a curated module above the learner\'s level is not offered to the app …', !listed2.some((m: any) => m.id === 'curated-later'), listed2)
+  const toolList = text(await client.callTool({ name: 'list_modules', arguments: {} }))
+  check('… the tutor still sees it …', toolList.includes('curated-later'), toolList)
+  const later = await (await fetch(`${base}/modules/curated-later`, { headers: auth })).json()
+  check('… and it is served by its id, its texts per base as plain strings in the learner\'s base (else in English): an app of any age reads them', later.title === 'Later' && later.description === 'For B1.' && later.quest?.story === 'Later · A story' && later.exercises?.[0]?.instruction === 'Pick the form' && later.exercises?.[0]?.explain === 'jaz → sem' && later.exercises?.[1]?.back === 'thanks', later)
+  const curatedIn = (input: unknown, b: string) => validateCuratedModule(input, b)
+  const based = { schema: 'lani.module/v0', id: 'based', title: { en: 'Later', de: 'Später' }, level: 'A1', exercises: [{ type: 'choice', prompt: { en: 'Pick', de: 'Wähl' }, options: ['a', 'b'], answer: 0 }] }
+  const inDe = curatedIn(based, 'de')
+  check('a curated module in German where it has German, in English where the base has none', inDe.ok && inDe.spec.title === 'Später' && (inDe.spec.exercises[0] as any).prompt === 'Wähl' && curatedIn(based, 'sl').ok && (curatedIn(based, 'sl') as any).spec.title === 'Later', inDe)
+  check('a text per base without its English is refused', !curatedIn({ ...based, title: { de: 'Später' } }, 'de').ok)
+  check('a tutor\'s module keeps plain strings', !validateModule(based).ok)
   const over = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'curated-demo', title: 'Rewritten' } } })
   check('tutor rewrite of a curated module becomes v2', JSON.stringify(over).includes('v2'), over)
 

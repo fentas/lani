@@ -768,7 +768,8 @@ course's language's, not Slovene's:
 | Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too |
 | The blackboard | "Benvenuti!" and the day as Italy writes it (28/10/2026) before the first unit; the unit's title and forms in chalk (à, è, ' written) |
 | Prints | headed in Italian and the base ("Regola · Die Regel", "Unità"), the words from the Italian and the culture's packs with their article; Slovene as a base for an Italian course |
-| Not for Italian | forms cards, counting cards and the numbers module (Slovene's: `numeri` turns nothing on), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
+| The numbers module | `numeri`'s intro opens "🔢 Numeri · Zahlen" (README.md "Numbers"), `ore-giorni`'s brings its dates and clock times |
+| Not for Italian | forms cards and counting cards (Slovene's), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
 | Checked | `ItalianCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the Italian grading, no decoy right, every text per base in de, sl and en), `SchoolBoardTest` (the blackboard writes every letter of the Italian course), the smoke's course, course-speech and Friuli sections |
 
 While units are still planned (`"planned": true`), the school is no dead end: a level's planned units are folded
@@ -842,7 +843,7 @@ the possessives (units 7–12), and use only those around their gaps:
   forms only ("tu → ?", "noi: -iamo") stays a string. An instruction is the Italian label, then the base:
   "Completa la tabella · Füll die Tabelle aus".
 - **Not used, being Slovene-only**: a table cell's or a line's `lemma` and `form` (the forms book is Slovene's:
-  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards, counting cards or numbers module), the smoke's
+  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards or counting cards; the numbers module is opened by `numeri`, as above), the smoke's
   check of a gap's answer against the word in brackets (the dictionary's forms, Slovene only).
 
 ### The Italian course: A2, units 1–6

@@ -3908,7 +3908,8 @@ others; the rest wait for the next. `card.py show` tells how the app asks one.
 
 "🔢 Števila · Numbers" (Jan: "Do we learn numbers in school at some point? Would be nice: a separate test module."): a
 practice module of the numbers themselves, beside the counting cards (which count a noun). Its rules are
-`app/.../data/NumbersPractice.kt` (pure), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
+`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene and Italian so far; what follows
+is Slovene's, Italian's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
 screen, the run, the number pad: `NumeralEx.kt`), the rest `app/NumbersController.kt`.
 
 **Where it opens.** The intro of the A1 unit `stevila` opens it (finished, or skipped as known: as for counting cards),
@@ -3981,6 +3982,16 @@ text's figures), so a year said is right as its figures too. Machine-written, no
 module's screen says so ("🤖"), the tutor's data has `machine_written`, and a word that looks wrong is fixed in the app's
 code. `NumbersPracticeTest` holds a hand-checked table of the tricky ones (1 and 2's forms, 11–19, 21, 22, 99, 100, 101,
 200, 1000, 2000, 2026) and reads every number 0 … 9999 back. QA's step `numbers` goes through it ([Test](#test)).
+
+**In Italian** (Teo's; docs/plans/05-built/practice-it.md) the same ladder, runs, schedule and screens. The unit `numeri`'s
+intro opens it, `ore-giorni`'s brings the dates and the clock. The words are one word (`SpokenNumbers.italian`: ventisette,
+ventitré, ventotto, centotré, duemilaventisei); the tens come first, so 72 typed for ventisette and "sette venti" are
+`numbers_order`, as German says the ones first. A date takes the plain number with il ("Oggi è il ___ maggio. (15)" →
+quindici; il primo, l'otto, l'undici), so `numbers_ordinal_date` is a date's day there. A clock time is alle + the hour
+(alle cinque, all'una; "le cinque" and "cinque" are right too, at 12 a mezzogiorno and a mezzanotte); half past counts from the hour that is there, so 4:30 typed
+for "alle cinque e mezza" and "alle sei e mezza" written for 5:30 are `numbers_clock_time_half`, German's "halb" counted
+into Italian. A language without a `NumberTongue` (German and English so far) has no tile and no module. `NumbersItalianTest`
+holds its table; QA's step `practice-it`.
 
 ### The case lens
 
@@ -4476,6 +4487,11 @@ prompts (about 60 MB).
 | Več · More | Each kind on its own, a list: 🔁 Ponavljanje, 🆕 Besede, 💬 Pogovori, 📖 Zgodbe, 🗣️ Odmev, 🔄 Preobrat, ⚡ Hitri odziv, 🧱 Gradnja stavkov, 🕵️ Uganke |
 
 Every session id from before still plays (a car remembers the one it played last), and the first tab keeps its id.
+A session with nothing to play stays away (`RoadMix.available`): no menu item in the car, no button on the sheet, no switch
+to it while something plays. It used to be there and do nothing. That is every drill session in a language without drills
+(German and English so far) or without their clips (Italian until voice-build has voiced them). The sheet's "Več · More" names what
+isn't there and why ("🔇 … posnetkov še ni"), and a getting-ready that found no clips at all says there are no recordings in
+this language.
 The sessions:
 
 | Session | What plays |

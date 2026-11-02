@@ -41,6 +41,10 @@ numbers_ordinal_date (on datumi), numbers_clock_time, numbers_clock_time_half (h
 on kdaj-cas). numbers_order that keeps coming back: explain the order once more (sedem-in-dvajset, as German's
 sieben-und-zwanzig). get_village's numbers shows where the learner is. Its words are the app's rules, machine-written:
 one that looks wrong (about_exercise.source kind numbers) is a note for the developer, not a content fix.
+For a learner of Italian (data.numbers.language "it"; the unit numeri opens it, ore-giorni brings the dates and the clock):
+numbers_order is the ones first, as German says them (sette venti, 72 typed for ventisette), numbers_ordinal_date a date's day
+(il quindici, il primo; on ore-giorni), numbers_clock_time alle + the hour, numbers_clock_time_half half past counted as German's
+halb (4:30 for alle cinque e mezza; on ore-giorni). German and English have no such module yet.
 `.trim()
 
 /** How many counting cards are made a day at most (LANI_COUNTING_PER_DAY; 3 when it isn't a number). */
