@@ -15395,9 +15395,9 @@ def road():
     the Slovene plays the answer (the same item, on past the pause), next after it the next item, the app still running
     and playing; paused. "❓ Kviz" from the sheet: next while the second option is read picks it (its feedback plays,
     "✓ …" or "✗ …"), previous during the next question's options asks it again, paused. Then as Android Auto does
-    ("road:car": the platform's media browser browses the root's two tabs, "🚗 Za pot" a grid of four and "Več" a list,
-    and plays each session from its id): every session with items on the phone plays, none fails ("Failed to load
-    selection" in a car), the app still runs."""
+    ("road:car": the platform's media browser browses the root's two tabs, "🚗 Za pot" a grid of four and "Več" a list of
+    the sessions with something to play, and plays each session from its id): every session with items on the phone plays,
+    none fails ("Failed to load selection" in a car), none with nothing is listed, the app still runs."""
     if why := road_clips():
         return why
     go_home()
@@ -15481,7 +15481,13 @@ def road():
     assert not failed, " / ".join(failed)
     assert any(l.startswith("tabs: 2 (road:tab ") and " road:more " in l for l in log), "the root's two tabs (🚗 Za pot, Več)"
     assert any(l.startswith("tab road:tab: 4 (road:mix road:quiz road:easy road:story) grid") for l in log), "🚗 Za pot: a grid of four"
-    assert any(l.startswith("tab road:more: 9 ") and " list" in l for l in log), "Več: a list of nine"
+    # "Več": a list of the sessions with something to play; one with nothing stays away (a small library has no drills without clips)
+    more = next((l for l in log if l.startswith("tab road:more: ") and " list" in l), None)
+    assert more, "Več: a list"
+    listed = re.search(r"\((.*?)\)", more)[1].split()
+    assert listed and not [k for k in listed if not sessions.get(k)], f"Več lists a session with nothing to play: {listed} of {sessions}"
+    missing = [k for k, n in sessions.items() if n and k not in listed and k not in ("road:mix", "road:quiz", "road:easy", "road:story")]
+    assert not missing, f"Več leaves out sessions with items: {missing}"
     assert any(l.startswith("session road:mix: playing") for l in log), "🚗 Za pot (▶ Nadaljuj) didn't play from its id"
     assert any(l.startswith("session road:quiz: playing") for l in log), "❓ Kviz didn't play from its id"
     silent = [k for k, n in sessions.items() if n and not any(l.startswith(f"session {k}: playing") for l in log)]
