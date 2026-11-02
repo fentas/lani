@@ -252,11 +252,25 @@ object School {
 
     /**
      * The teacher is preparing the next lessons (companion/COURSE.md, "What the school shows"): the class meets, nothing
-     * written of the open levels is left to do (no [next]: none written yet, or every one done), and some of their units are
-     * still planned (written later). The school says so, kindly, rather than ending in nothing.
+     * written is left to do (no [next]: none written yet, or every one done; no closed level [waiting] with written units)
+     * and the course isn't written to its end ([unwritten]), in a level open or not. The school says so, kindly, rather than
+     * ending in nothing. Past the last unit of a course written to its end: not preparing, all done.
      */
     fun preparing(s: GameState, course: Course): Boolean =
-        open(s) && next(s, course) == null && LEVELS.filter { isOpen(s, course, it) }.any { l -> course.refs(l).any { it.planned || it.id !in course.units } }
+        open(s) && next(s, course) == null && waiting(s, course) == null && LEVELS.any { unwritten(course, it) }
+
+    /** The outline lists [level] and it isn't written yet: a unit still planned, or no units at all (not outlined yet). */
+    private fun unwritten(course: Course, level: String): Boolean =
+        course.levels.any { it.level == level } && course.refs(level).let { refs -> refs.isEmpty() || refs.any { it.planned || it.id !in course.units } }
+
+    /**
+     * The level the class waits for once the open ones are done (no [next]): the first closed one with written units to do,
+     * with what opens it ([LevelState.needs]). Null with something to do now, or nothing written behind a closed level.
+     */
+    fun waiting(s: GameState, course: Course): LevelState? {
+        if (!open(s) || next(s, course) != null) return null
+        return LEVELS.firstOrNull { !isOpen(s, course, it) && unitsLeft(s, course, it) > 0 }?.let { level(s, course, it) }
+    }
 
     fun status(s: GameState, course: Course, ref: UnitRef, next: UnitRef? = next(s, course)): Status = when {
         ref.planned || ref.id !in course.units -> Status.PLANNED

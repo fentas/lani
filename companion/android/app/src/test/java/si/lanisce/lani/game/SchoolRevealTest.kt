@@ -207,4 +207,81 @@ class SchoolRevealTest {
         // every unit written and done, none planned: all done, not preparing
         assertFalse(School.preparing(done(village(linden), *(1..8).map { "a$it" }.toTypedArray()), Course("sl", listOf(CourseLevel("A1", (1..8).map { ref("a$it") })), course.units)))
     }
+
+    /** A1 eight units written; each of [later] listed with [units] planned (0: listed with none, as an outline first has it). */
+    private fun a1Then(vararg later: Pair<String, Int>) = Course(
+        "sl",
+        listOf(CourseLevel("A1", (1..8).map { ref("a$it") })) + later.map { (level, units) -> CourseLevel(level, (1..units).map { ref("$level-$it", planned = true) }) },
+        (1..8).map { unit("a$it", "A1") }.associateBy { it.id },
+    )
+    private val a1Done = (1..8).map { "a$it" }.toTypedArray()
+    private val standing = Building("school-1", BuildingType.SCHOOL, plot = 4, level = 3)
+
+    @Test fun `a later level with no units yet is being prepared, whether it is open or not`() {
+        // German and English today: A1 written and done, A2 listed with no units
+        val outline = a1Then("A2" to 0)
+        assertTrue("A2 closed: no school yet", School.preparing(done(village(linden), *a1Done), outline))
+        assertTrue("A2 open", School.preparing(done(village(school), *a1Done), outline))
+        assertEquals(null, School.waiting(done(village(linden), *a1Done), outline))
+        // still something to do in A1
+        assertFalse(School.preparing(done(village(linden), "a1"), outline))
+    }
+
+    @Test fun `once outlines land planned units it stays preparing, open or not`() {
+        val outline = a1Then("A2" to 18, "B1" to 18, "B2" to 18)
+        assertTrue("A2 closed", School.preparing(done(village(linden), *a1Done), outline))
+        assertTrue("A2 open, its planned units", School.preparing(done(village(school), *a1Done), outline))
+        assertEquals(null, School.next(done(village(school), *a1Done), outline))
+    }
+
+    @Test fun `the Italian course past B1 waits for B2 whether it is planned or empty and the school upgraded or not`() {
+        val levels = listOf("A1", "A2", "B1")
+        val ids = levels.flatMap { l -> (1..3).map { "$l-$it" } }
+        fun course(b2: List<UnitRef>) = Course(
+            "sl", levels.map { l -> CourseLevel(l, (1..3).map { ref("$l-$it") }) } + CourseLevel("B2", b2),
+            levels.flatMap { l -> (1..3).map { unit("$l-$it", l) } }.associateBy { it.id },
+        )
+        val past = done(village(Building("school-1", BuildingType.SCHOOL, plot = 4, level = 2)), *ids.toTypedArray())
+        assertTrue("B2 listed, no units, closed", School.preparing(past, course(emptyList())))
+        assertTrue("B2 planned, closed", School.preparing(past, course((1..18).map { ref("c$it", planned = true) })))
+        assertTrue("B2 planned, open", School.preparing(done(village(standing), *ids.toTypedArray()), course((1..18).map { ref("c$it", planned = true) })))
+    }
+
+    @Test fun `past every unit of a course written to its end it is all done, not preparing`() {
+        val levels = School.LEVELS
+        val ids = levels.flatMap { l -> (1..2).map { "$l-$it" } }
+        val whole = Course(
+            "sl", levels.map { l -> CourseLevel(l, (1..2).map { ref("$l-$it") }) },
+            levels.flatMap { l -> (1..2).map { unit("$l-$it", l) } }.associateBy { it.id },
+        )
+        val past = done(village(standing), *ids.toTypedArray())
+        assertEquals(null, School.next(past, whole))
+        assertFalse(School.preparing(past, whole))
+        assertEquals(null, School.waiting(past, whole))
+    }
+
+    @Test fun `a written level behind a closed door is what the class waits for, not lessons being prepared`() {
+        // the demo course: A1 done, A2's six written, its eight planned, the school not built
+        val past = done(village(linden), *a1Done)
+        assertFalse(School.preparing(past, course))
+        val waits = School.waiting(past, course)
+        assertEquals("A2", waits?.level)
+        assertEquals(listOf<School.Need>(School.Need.School), waits?.needs)
+        // the school built but not upgraded: A2 done, B1 only planned: the teacher prepares it, nothing to wait for
+        val a2 = (1..6).map { "b$it" }.toTypedArray()
+        val inside = done(done(village(school), *a1Done), *a2)
+        assertEquals(null, School.waiting(inside, course))
+        assertTrue(School.preparing(inside, course))
+        // a written B1 behind the school's level: waits for the upgrade
+        val b1 = Course(
+            "sl", listOf(CourseLevel("A1", listOf(ref("a1"))), CourseLevel("B1", listOf(ref("c1")))),
+            listOf(unit("a1", "A1"), unit("c1", "B1")).associateBy { it.id },
+        )
+        val upgrade = School.waiting(done(village(school), "a1"), b1)
+        assertEquals("B1", upgrade?.level)
+        assertEquals(listOf<School.Need>(School.Need.SchoolLevel(2)), upgrade?.needs)
+        // with something to do, or before the class: nothing to wait for
+        assertEquals(null, School.waiting(village(linden), course))
+        assertEquals(null, School.waiting(village(age = Age.TABOR), course))
+    }
 }
