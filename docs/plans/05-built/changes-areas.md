@@ -281,10 +281,10 @@ smoke's changes section lists it with them.
 
 ## What's left
 
-- **The towns' friendships** depend on the village (the feast it shares) and the learner (their level for a move), so a
+- ~~**The towns' friendships** depend on the village (the feast it shares) and the learner (their level for a move), so a
   move in the village or a session reads `/towns/friendship` again, which asks each linked town for its counts (3 s at
   most, in the background). Their feast and level as values (as the learner's identity is for the content) would leave
-  them out.
+  them out.~~ Done (nav-perf-2, 2026-11-02): the area `friends` says them by value.
 - **The ten-minute reading** still reads everything (with the ETags most come back as 304s, but the bridge makes each
   answer to hash it). The bridge could answer a 304 without making the answer when the If-None-Match is the ETag it
   served at the same versions of the read's areas; only for the reads whose areas say everything they depend on (not
