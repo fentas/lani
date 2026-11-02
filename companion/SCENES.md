@@ -645,7 +645,7 @@ words in them. A turn tests a word of its right choice (`game/DialogWords.kt`, `
   (a longest common subsequence, case and punctuation aside, like `Forms.turn` but for any length): the words of the right
   choice off it are where they differ, and a wrong choice tests them when they are one or two and at least as many are
   shared ("Daj mi eno žlico." / "Daj mi dve vilici." tests eno and žlico; "Ja, zelo." / "Dobro jutro!" tests nothing; a
-  one-word answer, "Žlica." / "Vilica.", always). A word said in its place that is a form of the same word ([word
+  one-word answer, "Žlica." / "Vilica.", always). One spelling on two cards (a pack's homonym: the kitchen's bowl, the green's) counts for the card the right choice's translation says, for neither when it can't tell. A word said in its place that is a form of the same word ([word
   forms](GAME.md#a-words-forms), GET /forms), or looks like one (the same stem, another ending), or a wrong choice that
   names a page of the book, is its form; one of the learner's other words, or another word, its meaning. With two right
   choices, a wrong one gets wrong what it tests of the one it nearly copies ("Kdo je to? Toliko čebel!" for "Kaj je to?

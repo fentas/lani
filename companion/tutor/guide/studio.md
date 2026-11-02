@@ -85,7 +85,7 @@ Modules drill; **packs teach new words**. A pack (`lani.pack/v0`) is 8-24 themed
 
 Write a pack when the learner asks for words on a topic ("teach me words for the doctor", "what do I need at the market?") or when `list_packs` shows the learner has finished what fits their next real situation.
 
-1. Call `list_packs`. Don't repeat words the learner has; the app skips words that match an existing vocabulary item anyway.
+1. Call `list_packs`. Don't repeat words the learner has; the app skips words that match an existing vocabulary item anyway (a word marked `homonym` only for an item that means it: the reference, "One spelling, two words").
 2. Write the pack (format in the reference, "Word packs"): high-frequency words for one real situation, each with `emoji` if one fits, `gender` and `plural` for nouns, and a short `example_sl`/`example_en` that uses only known words plus the new one. The emoji must show the word itself; never a different object — when no emoji shows it, use the pack's topic emoji. A villager from `companion/GAME.md` as `giver` makes it part of the village.
 3. `publish_pack` with a one-line `note`. The app shows the pack with a NOVO badge.
 4. The app reports finished words as a `words_learned` event. It is already persisted: don't call update-db.py for it.

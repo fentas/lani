@@ -391,6 +391,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        play: in Carinthia (de-sl) the Doppelharpfe's larches and the tower's timber in Im Wald from the
                        projects sheet; in the Lake District (en-sl) the chapel's iron gate, the white hives and Old Wilf's
                        Bess in the afternoon (cf2-*.png in $LANI_QA_CF2_SHOTS too);
+                       "content-fixes-3" (skipped outside the Lake District) bowl and bowl as two words: each taught, both
+                       among My words, a tap in a line of each, one that can't tell; Old Wilf's photo by day (cf3-*.png in
+                       $LANI_QA_CF3_SHOTS too);
                        "lakeland-projects" (only when named; the same learner and culture) the Lake District's project
                        places: the bowling green and the packhorse bridge finished, each from its landmark's card, Old
                        Wilf's game, the wood and the round's other places by their links (lp-*.png too);
@@ -10173,6 +10176,153 @@ def lakeland_projects_b():
         qa_hook("hearths:")
 
 
+def content_fixes_3():
+    """One spelling, two words, and a storyteller's happening by day (docs/plans/05-built/content-fixes-3.md). In the Lake
+    District (LANI_CULTURE=lakeland, a learner of English from Slovene, LANI_QA_SETUP_PAIR=en-sl): the rest of the kitchen's and
+    the green's packs learned through the bridge, so the next word of each is its bowl. The kitchen's is taught (its word's
+    card: skleda) and learned; the green's is still to teach, and taught (krogla); both are cards, the kitchen's as it was, and
+    both rows of "📚 Moje besede". A tap on "bowls" in Mr Tyson's line on the green says krogla, the card in a kitchen's line
+    (QA's hook "word:") skleda, in a line that can't tell both. Then Old Wilf's photo in the living room at its new hour (QA's
+    hooks "hour:", "happening:") while the map stands him by the fire only for his story. Skipped in another culture. Also as
+    cf3-*.png in $LANI_QA_CF3_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "lakeland":
+        return "skipped: the dev bridge's village isn't the Lake District's (LANI_CULTURE=lakeland)"
+    pair = ["en", "sl"]
+    out = Path(os.environ["LANI_QA_CF3_SHOTS"]) if os.environ.get("LANI_QA_CF3_SHOTS") else None
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    half = lambda key: l10n(pair[0]).get(key, key)
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def learn(pack: str, ids: list):
+        body = json.dumps({"results": [{"word_id": w, "quality": 5} for w in ids], "duration_minutes": 1}).encode()
+        req = urllib.request.Request(f"http://127.0.0.1:{PORT}/packs/{pack}/learn", data=body, method="POST", headers={"authorization": f"Bearer {TOKEN}", "content-type": "application/json"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return json.loads(r.read())
+
+    def on_screen(*words) -> bool:
+        screen = html.unescape(screen_xml())
+        return all(w in screen for w in words)
+
+    def taught(title: str, meaning: str, name: str):
+        """[title]'s pack from "New words": its ring, its giver's intro, its next word's card: bowl, [meaning]."""
+        go_home()
+        tile = scroll_to(half("homeScreen.newWords"))
+        assert tile, "the new words tile"
+        tap_at(tile)
+        row = scroll_to(title, swipes=14)
+        assert row, f"{title} in the packs"
+        time.sleep(1)
+        row = find(title) or row
+        ring = min((c for t, c in nodes() if re.fullmatch(r"\d+/\d+", t)), key=lambda c: abs(c[1] - row[1]), default=None)
+        assert ring is not None, f"{title}'s ring"
+        ratio = next(t for t, c in nodes() if c == ring)
+        assert int(ratio.split("/")[0]) == int(ratio.split("/")[1]) - 1, f"{title}: one word to teach, {ratio}"
+        tap_at(ring)
+        assert wait_for(half("common.later"), 8), f"{title}'s intro"
+        assert tap(l10n(pair[0], "introInfo.start"), 3) or tap(l10n(pair[1], "introInfo.start"), 3), "start from the intro"
+        assert wait_for(half("packLearnScreen.letsPractise"), 8), "the word's card (the only word: on to practise)"
+        time.sleep(1.5)
+        assert on_screen("bowl", meaning), f"{title}: its next word is bowl, {meaning}"
+        snap(name)
+        go_home()
+
+    def card_says(line: str, en: str, wants: list, absent: list, name: str):
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, shlex.quote(f"word:bowl|{line}|{en}"))
+        time.sleep(1.5)
+        assert word_card(), "the card of bowl"
+        time.sleep(1)
+        assert on_screen(*wants) and not any(on_screen(w) for w in absent), f"in «{line}»: wants {wants}, not {absent}"
+        snap(name)
+        back_key()
+
+    pack_words = lambda pack: api(f"/packs/{pack}")["words"]
+    learn("in-the-kitchen", [w["id"] for w in pack_words("in-the-kitchen") if w["id"] != "bowl"])
+    learn("on-the-bowling-green", [w["id"] for w in pack_words("on-the-bowling-green") if w["id"] != "lawn-bowl"])
+    taught("In the kitchen", "skleda", "cf3-taught-kitchen")
+    assert learn("in-the-kitchen", ["bowl"]).get("added"), "the kitchen's bowl learned"
+    assert "lawn-bowl" not in api("/packs/on-the-bowling-green")["learned"], "the kitchen's bowl has the green's"
+    # reload through a change: the green's still to teach, though the learner has a card of its spelling
+    taught("On the bowling green", "krogla", "cf3-taught-green")
+    assert learn("on-the-bowling-green", ["lawn-bowl"]).get("added"), "the green's bowl learned"
+    items = {k: v for k, v in api("/state")["databases"]["spaced_repetition"]["items"].items() if v.get("content") == "bowl"}
+    assert sorted(v["answer"] for v in items.values()) == ["krogla", "skleda"], f"two cards: {items}"
+
+    # 📚 My words: a row each
+    go_home()
+    tile = scroll_to(half("homeScreen.newWords"))
+    assert tile, "the new words tile"
+    tap_at(tile)
+    link = scroll_to(half("myWords.title"), swipes=4)
+    assert link, "the packs' way to My words"
+    tap_at(link)
+    time.sleep(2)
+    field = next((c for t, c in nodes() if l10n("sl", "myWords.search") in t or l10n("en", "myWords.search") in t), None)
+    assert field, "the search field"
+    tap_at(field)
+    time.sleep(1.5)
+    adb("shell", "input", "text", "bowl")
+    time.sleep(2 * slow())
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down
+    time.sleep(1)
+    assert on_screen("krogla", "skleda"), "both rows of bowl"
+    snap("cf3-my-words")
+    go_home()
+
+    # a tap in a line: Mr Tyson's on the green says krogla (the line's translation)
+    qa_hook("happening:on-the-bowling-green/measure/measure", "scene:on-the-bowling-green@on-the-bowling-green/measure")
+    assert wait_for(lab("common.close"), 12) or wait_for(half("common.close"), 4), "Mr Tyson's dialog"
+    time.sleep(4)
+    qa_hook("happening:")
+    snap("cf3-green-line")
+    opened = False
+    # "Two bowls by the jack." is the line's second row on the QA emulator; along it. The first tap takes the word hint away and
+    # the line moves up: its place read again for each tap
+    for offset in (190, 260, 330, 120, 400):
+        said = next((b for t, b in boxes() if "bowls" in t.lower()), None)
+        assert said, "his line with bowls"
+        tap_at((said[0] + offset, said[1] + 108))
+        if word_card(2):
+            if on_screen("krogla"):
+                opened = True
+                break
+            back_key()
+            time.sleep(0.8)
+    assert opened, "a tap on bowls says krogla"
+    assert not on_screen("skleda"), "the line says which: krogla alone"
+    snap("cf3-tap-green")
+    back_key()
+    time.sleep(1)
+    assert tap(half("common.close"), 3) or tap(lab("common.close"), 3), "close the dialog"
+    time.sleep(1)
+    go_home()
+
+    # the kitchen's line, and one that can't tell
+    card_says("A bowl of porridge, please.", "Skledo kaše, prosim.", ["skleda"], ["krogla"], "cf3-tap-kitchen")
+    card_says("The bowl is here.", "Tukaj je.", ["skleda", "krogla"], [], "cf3-tap-both")
+    go_home()
+
+    # Old Wilf's photo: by day now, the map's evening is his story's
+    qa_hook("hour:15")
+    qa_hook("happening:in-the-living-room/photo/photo", "scene:in-the-living-room@in-the-living-room/photo")
+    assert wait_for(half("common.close"), 12) or wait_for(lab("common.close"), 4), "Old Wilf's photo"
+    time.sleep(3)
+    qa_hook("happening:")
+    snap("cf3-photo-by-day")
+    assert tap(half("common.close"), 3) or tap(lab("common.close"), 3), "close the dialog"
+    qa_hook("hour:")
+    time.sleep(1)
+    go_home()
+
+
 def content_fixes_2():
     """Content that was wrong, played where the learner meets it (docs/plans/05-built/content-fixes-2.md). In Carinthia
     (LANI_CULTURE=kaernten, a learner of German from Slovene, LANI_QA_SETUP_PAIR=de-sl): the Doppelharpfe's first step (QA's
@@ -17712,6 +17862,8 @@ def plan():
         ("kaernten-projects-a", kaernten_projects_a, None, False, ""),
         # skipped outside Carinthia and the Lake District: content-fixes-2's steps and green as the learner meets them
         ("content-fixes-2", content_fixes_2, None, False, ""),
+        # skipped outside the Lake District: one spelling, two words; a storyteller's happening by day
+        ("content-fixes-3", content_fixes_3, None, False, ""),
         # only when named: "💡 Namigi · Tips" (GAME.md "Guidance"): the map's, Home's, a failed request's way back (Teo's pair
         # with LANI_*; its hooks fill a store, build a school and fail a request)
         ("guidance", guidance, guidance_home, False, ""),
