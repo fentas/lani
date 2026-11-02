@@ -1,0 +1,1170 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "because-so",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🔗",
+  "title": {
+    "en": "Because it rained, so we stayed",
+    "de": "Sätze verbinden: because, so, when",
+    "sl": "Povezovanje stavkov: because, so, when",
+    "it": "Collegare le frasi: because, so, when"
+  },
+  "goal": {
+    "sl": "Povežeš, kar znaš povedati: and, but, or; razlog in posledica (because, so); kdaj se je kaj zgodilo (when, before, after) in kaj je bilo potem (then).",
+    "de": "Du verbindest, was du sagen kannst: and, but, or; Grund und Folge (because, so); wann etwas war (when, before, after) und was dann kam (then).",
+    "it": "Colleghi quello che sai dire: and, but, or; il motivo e il risultato (because, so); quando è successo qualcosa (when, before, after) e che cosa è venuto dopo (then).",
+    "en": "You can join what you say: and, but, or; the reason and the result (because, so); when something happened (when, before, after) and what came next (then)."
+  },
+  "grammar": [
+    "linking-words",
+    "past-simple"
+  ],
+  "words": [
+    "and",
+    "but",
+    "or",
+    "because",
+    "so",
+    "when",
+    "before",
+    "after",
+    "then",
+    "why",
+    "soup",
+    "bread",
+    "dinner",
+    "tired",
+    "happy",
+    "coffee",
+    "beck",
+    "dark",
+    "wet",
+    "late",
+    "angry",
+    "snow",
+    "market",
+    "bus stop",
+    "get up",
+    "get home",
+    "go to bed",
+    "wash up",
+    "wait",
+    "bark",
+    "fox",
+    "window",
+    "hour",
+    "gate"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "beseda",
+          "de": "Wort",
+          "it": "parola",
+          "en": "word"
+        },
+        {
+          "sl": "kaj pove",
+          "de": "was es sagt",
+          "it": "che cosa dice",
+          "en": "what it says"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Tri majhne besede povezujejo: **and** (in: še nekaj), **but** (ampak: nasprotje), **or** (ali: izbira): **We had soup and bread.** (Imeli smo juho in kruh.) **Jack was tired, but he was happy.** (Jack je bil utrujen, ampak vesel.) **Tea or coffee?** (Čaj ali kavo?) Pred **but** je navadno vejica.",
+          "de": "Drei kleine Wörter verbinden: **and** (und: noch etwas), **but** (aber: das Gegenteil), **or** (oder: eine Wahl): **We had soup and bread.** (Wir hatten Suppe und Brot.) **Jack was tired, but he was happy.** (Jack war müde, aber froh.) **Tea or coffee?** (Tee oder Kaffee?) Vor **but** steht meist ein Komma.",
+          "it": "Tre piccole parole collegano: **and** (e: ancora qualcosa), **but** (ma: il contrario), **or** (o: una scelta): **We had soup and bread.** (Abbiamo mangiato minestra e pane.) **Jack was tired, but he was happy.** (Jack era stanco, ma contento.) **Tea or coffee?** (Tè o caffè?) Prima di **but** di solito c'è la virgola.",
+          "en": "Three small words join things: **and** (one more), **but** (the opposite), **or** (a choice): **We had soup and bread.** **Jack was tired, but he was happy.** **Tea or coffee?** A comma usually comes before **but**."
+        },
+        "examples": [
+          {
+            "en": "We had soup and bread.",
+            "sl": "Imeli smo juho in kruh.",
+            "de": "Wir hatten Suppe und Brot.",
+            "it": "Abbiamo mangiato minestra e pane."
+          },
+          {
+            "en": "Jack was tired, but he was happy.",
+            "sl": "Jack je bil utrujen, ampak vesel.",
+            "de": "Jack war müde, aber froh.",
+            "it": "Jack era stanco, ma contento."
+          },
+          {
+            "en": "Tea or coffee?",
+            "sl": "Čaj ali kavo?",
+            "de": "Tee oder Kaffee?",
+            "it": "Tè o caffè?"
+          }
+        ],
+        "rows": [
+          [
+            "and",
+            {
+              "sl": "še nekaj (in)",
+              "de": "noch etwas (und)",
+              "it": "ancora qualcosa (e)",
+              "en": "one more"
+            },
+            "We had soup and bread."
+          ],
+          [
+            "but",
+            {
+              "sl": "nasprotje (ampak)",
+              "de": "das Gegenteil (aber)",
+              "it": "il contrario (ma)",
+              "en": "the opposite"
+            },
+            "Jack was tired, but he was happy."
+          ],
+          [
+            "or",
+            {
+              "sl": "izbira (ali)",
+              "de": "eine Wahl (oder)",
+              "it": "una scelta (o)",
+              "en": "a choice"
+            },
+            "Tea or coffee?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "linking-words",
+          "prompt": "It was cold, ___ we went for a walk.",
+          "options": [
+            "but",
+            "or",
+            "then"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Nasprotje: but**\n- It was cold, but we went for a walk.",
+            "de": "**Das Gegenteil: but**\n- It was cold, but we went for a walk.",
+            "it": "**Il contrario: but**\n- It was cold, but we went for a walk.",
+            "en": "**The opposite: but**\n- It was cold, but we went for a walk."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**because** (ker) pove razlog, **so** (zato) posledico: **We stayed at home because it rained.** **It rained, so we stayed at home.** (Ostali smo doma, ker je deževalo. Deževalo je, zato smo ostali doma.) Pred **so** je vejica. Naslov lekcije imenuje obe besedi, pravi stavek pa ima samo eno: nikoli *Because it rained, so we stayed*.",
+          "de": "**because** (weil) nennt den Grund, **so** (also) die Folge: **We stayed at home because it rained.** **It rained, so we stayed at home.** (Wir blieben zu Hause, weil es regnete. Es regnete, also blieben wir zu Hause.) Vor **so** steht ein Komma. Der Titel der Lektion nennt beide Wörter, ein echter Satz hat nur eines: nie *Because it rained, so we stayed*.",
+          "it": "**because** (perché) dà il motivo, **so** (quindi) il risultato: **We stayed at home because it rained.** **It rained, so we stayed at home.** (Siamo rimasti a casa perché pioveva. Pioveva, quindi siamo rimasti a casa.) Prima di **so** c'è la virgola. Il titolo della lezione nomina tutte e due le parole, una frase vera ne ha una sola: mai *Because it rained, so we stayed*.",
+          "en": "**because** gives the reason, **so** the result: **We stayed at home because it rained.** **It rained, so we stayed at home.** A comma comes before **so**. The lesson's title names both words; a real sentence takes one: never *Because it rained, so we stayed*."
+        },
+        "examples": [
+          {
+            "en": "We stayed at home because it rained.",
+            "sl": "Ostali smo doma, ker je deževalo.",
+            "de": "Wir blieben zu Hause, weil es regnete.",
+            "it": "Siamo rimasti a casa perché pioveva."
+          },
+          {
+            "en": "It rained, so we stayed at home.",
+            "sl": "Deževalo je, zato smo ostali doma.",
+            "de": "Es regnete, also blieben wir zu Hause.",
+            "it": "Pioveva, quindi siamo rimasti a casa."
+          },
+          {
+            "en": "Mr Tyson walked because the bus was late.",
+            "sl": "Gospod Tyson je šel peš, ker je avtobus zamujal.",
+            "de": "Mr Tyson ging zu Fuß, weil der Bus Verspätung hatte.",
+            "it": "Il signor Tyson è andato a piedi perché l'autobus era in ritardo."
+          },
+          {
+            "en": "The bus was late, so Mr Tyson walked.",
+            "sl": "Avtobus je zamujal, zato je gospod Tyson šel peš.",
+            "de": "Der Bus hatte Verspätung, also ging Mr Tyson zu Fuß.",
+            "it": "L'autobus era in ritardo, quindi il signor Tyson è andato a piedi."
+          }
+        ],
+        "rows": [
+          [
+            "because",
+            {
+              "sl": "razlog (ker)",
+              "de": "der Grund (weil)",
+              "it": "il motivo (perché)",
+              "en": "the reason"
+            },
+            "We stayed at home because it rained."
+          ],
+          [
+            "so",
+            {
+              "sl": "posledica (zato)",
+              "de": "die Folge (also)",
+              "it": "il risultato (quindi)",
+              "en": "the result"
+            },
+            "It rained, so we stayed at home."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "linking-words",
+          "prompt": "It was late, ___ we went home.",
+          "options": [
+            "so",
+            "because",
+            "or"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Posledica: so**\n- It was late, so we went home.\n- We went home because it was late.",
+            "de": "**Die Folge: so**\n- It was late, so we went home.\n- We went home because it was late.",
+            "it": "**Il risultato: so**\n- It was late, so we went home.\n- We went home because it was late.",
+            "en": "**The result: so**\n- It was late, so we went home.\n- We went home because it was late."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Na **Why?** (zakaj?) odgovoriš z **because**: **Why did you stay? — Because it rained.** (Zakaj si {m:ostal|f:ostala}? — Ker je deževalo.) Stavek se lahko z njim tudi začne, z vejico za razlogom: **Because it rained, we stayed at home.** (Ker je deževalo, smo ostali doma.) V govoru je **because** pogosto *cos*.",
+          "de": "Auf **Why?** (warum?) antwortest du mit **because**: **Why did you stay? — Because it rained.** (Warum bist du geblieben? — Weil es regnete.) Auch ein Satz kann damit beginnen, mit Komma nach dem Grund: **Because it rained, we stayed at home.** (Weil es regnete, blieben wir zu Hause.) Das Verb steht gleich nach it, nicht am Ende. Gesprochen ist **because** oft *cos*.",
+          "it": "A **Why?** (perché?) rispondi con **because**: l'italiano ha una parola sola, l'inglese due: **Why did you stay? — Because it rained.** (Perché sei rimast{m:o|f:a}? — Perché pioveva.) Anche una frase può cominciare così, con la virgola dopo il motivo: **Because it rained, we stayed at home.** (Poiché pioveva, siamo rimasti a casa.) A voce **because** spesso è *cos*.",
+          "en": "**Why?** is answered with **because**: **Why did you stay? — Because it rained.** A sentence can open with it, a comma after the reason: **Because it rained, we stayed at home.** Spoken, **because** is often *cos*."
+        },
+        "examples": [
+          {
+            "en": "Why was Meg wet? — Because she was in the beck.",
+            "sl": "Zakaj je bila Meg mokra? — Ker je bila v potoku.",
+            "de": "Warum war Meg nass? — Weil sie im Bach war.",
+            "it": "Perché Meg era bagnata? — Perché era nel ruscello."
+          },
+          {
+            "en": "Why were you late? — Because the bus didn't come.",
+            "sl": "Zakaj si {m:zamudil|f:zamudila}? — Ker avtobusa ni bilo.",
+            "de": "Warum warst du zu spät? — Weil der Bus nicht kam.",
+            "it": "Perché eri in ritardo? — Perché l'autobus non è arrivato."
+          },
+          {
+            "en": "Because it rained, we stayed at home.",
+            "sl": "Ker je deževalo, smo ostali doma.",
+            "de": "Weil es regnete, blieben wir zu Hause.",
+            "it": "Poiché pioveva, siamo rimasti a casa."
+          }
+        ],
+        "rows": [
+          [
+            "Why? — Because …",
+            {
+              "sl": "vprašanje in odgovor",
+              "de": "Frage und Antwort",
+              "it": "domanda e risposta",
+              "en": "question and answer"
+            },
+            "Why did you stay? — Because it rained."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "linking-words",
+          "prompt": "Why was Meg wet? — ___ she was in the beck.",
+          "options": [
+            "Because",
+            "So",
+            "But"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Na Why? odgovoriš z Because**\n- Why were you late? — Because the bus didn't come.",
+            "de": "**Auf Why? antwortest du mit Because**\n- Why were you late? — Because the bus didn't come.",
+            "it": "**A Why? rispondi con Because**\n- Why were you late? — Because the bus didn't come.",
+            "en": "**Why? is answered with Because**\n- Why were you late? — Because the bus didn't come."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**when** (ko), **before** (preden) in **after** (potem ko) povedo, kdaj: **When I got home, it was dark.** (Ko sem {m:prišel|f:prišla} domov, je bila tema.) **Before I went to bed, I shut the door.** (Preden sem {m:šel|f:šla} spat, sem zaprl{m:|f:a} vrata.) **After we ate, we washed up.** (Ko smo pojedli, smo pomili posodo.) Če je ta del na začetku, je vejica; na koncu je ni: **I shut the door before I went to bed.**",
+          "de": "**when** (als), **before** (bevor) und **after** (nachdem) sagen, wann: **When I got home, it was dark.** (Als ich heimkam, war es dunkel.) **Before I went to bed, I shut the door.** (Bevor ich schlafen ging, machte ich die Tür zu.) **After we ate, we washed up.** (Nachdem wir gegessen hatten, wuschen wir ab.) Steht dieser Teil vorn, kommt ein Komma; hinten keines: **I shut the door before I went to bed.**",
+          "it": "**when** (quando), **before** (prima di) e **after** (dopo) dicono quando: **When I got home, it was dark.** (Quando sono arrivat{m:o|f:a} a casa, era buio.) **Before I went to bed, I shut the door.** (Prima di andare a letto, ho chiuso la porta.) **After we ate, we washed up.** (Dopo aver mangiato, abbiamo lavato i piatti.) Se questa parte viene prima, c'è la virgola; dopo, no: **I shut the door before I went to bed.**",
+          "en": "**when**, **before** and **after** say when: **When I got home, it was dark.** **Before I went to bed, I shut the door.** **After we ate, we washed up.** If this part comes first, put a comma; if it comes second, none: **I shut the door before I went to bed.**"
+        },
+        "examples": [
+          {
+            "en": "When I got home, it was dark.",
+            "sl": "Ko sem {m:prišel|f:prišla} domov, je bila tema.",
+            "de": "Als ich heimkam, war es dunkel.",
+            "it": "Quando sono arrivat{m:o|f:a} a casa, era buio."
+          },
+          {
+            "en": "Before I went to bed, I shut the door.",
+            "sl": "Preden sem {m:šel|f:šla} spat, sem zaprl{m:|f:a} vrata.",
+            "de": "Bevor ich schlafen ging, machte ich die Tür zu.",
+            "it": "Prima di andare a letto, ho chiuso la porta."
+          },
+          {
+            "en": "After we ate, we washed up.",
+            "sl": "Ko smo pojedli, smo pomili posodo.",
+            "de": "Nachdem wir gegessen hatten, wuschen wir ab.",
+            "it": "Dopo aver mangiato, abbiamo lavato i piatti."
+          },
+          {
+            "en": "I shut the door before I went to bed.",
+            "sl": "Zaprl{m:|f:a} sem vrata, preden sem {m:šel|f:šla} spat.",
+            "de": "Ich machte die Tür zu, bevor ich schlafen ging.",
+            "it": "Ho chiuso la porta prima di andare a letto."
+          }
+        ],
+        "rows": [
+          [
+            "when",
+            {
+              "sl": "ob istem času (ko)",
+              "de": "zur selben Zeit (als)",
+              "it": "nello stesso momento (quando)",
+              "en": "at that time"
+            },
+            "When I got home, it was dark."
+          ],
+          [
+            "before",
+            {
+              "sl": "prej (preden)",
+              "de": "davor (bevor)",
+              "it": "prima (prima di)",
+              "en": "earlier"
+            },
+            "Before I went to bed, I shut the door."
+          ],
+          [
+            "after",
+            {
+              "sl": "kasneje (potem ko)",
+              "de": "danach (nachdem)",
+              "it": "più tardi (dopo)",
+              "en": "later"
+            },
+            "After we ate, we washed up."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "linking-words",
+          "prompt": "___ we ate, we washed up.",
+          "options": [
+            "After",
+            "So",
+            "Or"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Najprej smo jedli, potem pomivali: after**\n- After we ate, we washed up.\n- We washed up after we ate.",
+            "de": "**Zuerst das Essen, dann der Abwasch: after**\n- After we ate, we washed up.\n- We washed up after we ate.",
+            "it": "**Prima il pranzo, poi i piatti: after**\n- After we ate, we washed up.\n- We washed up after we ate.",
+            "en": "**First we ate, later we washed up: after**\n- After we ate, we washed up.\n- We washed up after we ate."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**then** (potem) pove, kaj je bilo naslednje, korak za korakom: **We had dinner. Then we went home.** (Povečerjali smo. Potem smo šli domov.) Ali z **and**: **We had dinner and then we went home.** Za **then** ni vejice. **then** pove samo, kaj je bilo naslednje; **so** pove, zakaj.",
+          "de": "**then** (dann) sagt, was als Nächstes kam, Schritt für Schritt: **We had dinner. Then we went home.** (Wir aßen zu Abend. Dann gingen wir heim.) Oder mit **and**: **We had dinner and then we went home.** Nach **then** kein Komma. **then** sagt nur, was als Nächstes kam; **so** sagt, warum.",
+          "it": "**then** (poi) dice che cosa è venuto dopo, passo dopo passo: **We had dinner. Then we went home.** (Abbiamo cenato. Poi siamo andati a casa.) Oppure con **and**: **We had dinner and then we went home.** Dopo **then** niente virgola. **then** dice solo che cosa è venuto dopo; **so** dice perché.",
+          "en": "**then** says what came next, step by step: **We had dinner. Then we went home.** Or with **and**: **We had dinner and then we went home.** No comma after **then**. **then** only says what came next; **so** says why."
+        },
+        "examples": [
+          {
+            "en": "We had dinner. Then we went home.",
+            "sl": "Povečerjali smo. Potem smo šli domov.",
+            "de": "Wir aßen zu Abend. Dann gingen wir heim.",
+            "it": "Abbiamo cenato. Poi siamo andati a casa."
+          },
+          {
+            "en": "We had dinner and then we went home.",
+            "sl": "Povečerjali smo, potem pa smo šli domov.",
+            "de": "Wir aßen zu Abend, und dann gingen wir heim.",
+            "it": "Abbiamo cenato e poi siamo andati a casa."
+          },
+          {
+            "en": "First Jack fed the dogs. Then he went to bed.",
+            "sl": "Najprej je Jack nahranil pse. Potem je šel spat.",
+            "de": "Zuerst fütterte Jack die Hunde. Dann ging er schlafen.",
+            "it": "Prima Jack ha dato da mangiare ai cani. Poi è andato a letto."
+          }
+        ],
+        "rows": [
+          [
+            "then",
+            {
+              "sl": "kaj je bilo naslednje (potem)",
+              "de": "was als Nächstes kam (dann)",
+              "it": "che cosa è venuto dopo (poi)",
+              "en": "what came next"
+            },
+            "We had dinner. Then we went home."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "linking-words",
+          "text": "We ate first, and ___ we went home.",
+          "accept": [
+            "then",
+            "later"
+          ],
+          "hint": {
+            "sl": "kaj je bilo naslednje?",
+            "de": "was kam als Nächstes?",
+            "it": "che cosa è venuto dopo?",
+            "en": "what came next?"
+          },
+          "explain": {
+            "sl": "**Kaj je bilo naslednje: then**\n- We ate and then we went home.",
+            "de": "**Was als Nächstes kam: then**\n- We ate and then we went home.",
+            "it": "**Che cosa è venuto dopo: then**\n- We ate and then we went home.",
+            "en": "**What came next: then**\n- We ate and then we went home."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zdaj vse skupaj, kot v pravi zgodbi: **I was cooking when Sam came in.** (Ravno sem {m:kuhal|f:kuhala}, ko je vstopil Sam.) **He was wet because it was raining, so I made him a cup of tea.** (Moker je bil, ker je deževalo, zato sem mu {m:skuhal|f:skuhala} čaj.) **We talked for an hour and then he went home.** (Pogovarjala sva se eno uro, potem je šel domov.)",
+          "de": "Jetzt alles zusammen, wie in einer echten Geschichte: **I was cooking when Sam came in.** (Ich kochte gerade, als Sam hereinkam.) **He was wet because it was raining, so I made him a cup of tea.** (Er war nass, weil es regnete, also machte ich ihm eine Tasse Tee.) **We talked for an hour and then he went home.** (Wir redeten eine Stunde, und dann ging er heim.)",
+          "it": "Adesso tutto insieme, come in una vera storia: **I was cooking when Sam came in.** (Stavo cucinando quando è entrato Sam.) **He was wet because it was raining, so I made him a cup of tea.** (Era bagnato perché pioveva, quindi gli ho fatto una tazza di tè.) **We talked for an hour and then he went home.** (Abbiamo parlato per un'ora e poi è andato a casa.)",
+          "en": "Now all of it together, as in a real story: **I was cooking when Sam came in.** **He was wet because it was raining, so I made him a cup of tea.** **We talked for an hour and then he went home.**"
+        },
+        "examples": [
+          {
+            "en": "I was cooking when Sam came in.",
+            "sl": "Ravno sem {m:kuhal|f:kuhala}, ko je vstopil Sam.",
+            "de": "Ich kochte gerade, als Sam hereinkam.",
+            "it": "Stavo cucinando quando è entrato Sam."
+          },
+          {
+            "en": "He was wet because it was raining, so I made him a cup of tea.",
+            "sl": "Moker je bil, ker je deževalo, zato sem mu {m:skuhal|f:skuhala} čaj.",
+            "de": "Er war nass, weil es regnete, also machte ich ihm eine Tasse Tee.",
+            "it": "Era bagnato perché pioveva, quindi gli ho fatto una tazza di tè."
+          },
+          {
+            "en": "We talked for an hour and then he went home.",
+            "sl": "Pogovarjala sva se eno uro, potem je šel domov.",
+            "de": "Wir redeten eine Stunde, und dann ging er heim.",
+            "it": "Abbiamo parlato per un'ora e poi è andato a casa."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "linking-words",
+          "prompt": "Sam was wet ___ it was raining.",
+          "options": [
+            "because",
+            "so",
+            "or"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Razlog: because**\n- He was wet because it was raining.",
+            "de": "**Der Grund: because**\n- He was wet because it was raining.",
+            "it": "**Il motivo: because**\n- He was wet because it was raining.",
+            "en": "**The reason: because**\n- He was wet because it was raining."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "because-so-1",
+      "title": {
+        "sl": "Razlog ali posledica?",
+        "de": "Grund oder Folge?",
+        "it": "Motivo o risultato?",
+        "en": "Reason or result?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "linking-words",
+          "instruction": {
+            "sl": "Which word fits? · Katera beseda paše?",
+            "de": "Which word fits? · Welches Wort passt?",
+            "it": "Which word fits? · Quale parola va bene?",
+            "en": "Which word fits?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "because · ker",
+                "de": "because · weil",
+                "it": "because · perché",
+                "en": "because"
+              },
+              "words": [
+                "We stayed in ___ it rained.",
+                "Meg barked ___ she saw a fox.",
+                "I shut the window ___ I was cold."
+              ]
+            },
+            {
+              "label": {
+                "sl": "so · zato",
+                "de": "so · also",
+                "it": "so · quindi",
+                "en": "so"
+              },
+              "words": [
+                "It rained ___ we stayed in.",
+                "The bus was late ___ we walked.",
+                "I was cold ___ I shut the window."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**because pred razlogom, so pred posledico**\n- We stayed in because it rained.\n- It rained, so we stayed in.",
+            "de": "**because vor dem Grund, so vor der Folge**\n- We stayed in because it rained.\n- It rained, so we stayed in.",
+            "it": "**because prima del motivo, so prima del risultato**\n- We stayed in because it rained.\n- It rained, so we stayed in.",
+            "en": "**because before the reason, so before the result**\n- We stayed in because it rained.\n- It rained, so we stayed in."
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "linking-words",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "the word in English · beseda v angleščini",
+            "de": "the word in English · das Wort auf Englisch",
+            "it": "the word in English · la parola in inglese",
+            "en": "the word in English"
+          },
+          "columns": [
+            {
+              "sl": "in English · angleško",
+              "de": "in English · auf Englisch",
+              "it": "in English · in inglese",
+              "en": "the word"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "sl": "ker",
+                "de": "weil",
+                "it": "perché (il motivo)",
+                "en": "the reason"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "because",
+                    "as",
+                    "since"
+                  ],
+                  "spoken": [
+                    "cos",
+                    "'cause",
+                    "cause"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "zato",
+                "de": "also, deshalb",
+                "it": "quindi",
+                "en": "the result"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "so"
+                  ],
+                  "hint": {
+                    "sl": "posledica",
+                    "de": "die Folge",
+                    "it": "il risultato",
+                    "en": "two letters"
+                  }
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "ampak",
+                "de": "aber",
+                "it": "ma",
+                "en": "the opposite"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "but"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "ali",
+                "de": "oder",
+                "it": "o",
+                "en": "a choice"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "or"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "ko",
+                "de": "als",
+                "it": "quando",
+                "en": "at that time"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "when"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "preden",
+                "de": "bevor",
+                "it": "prima di",
+                "en": "earlier"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "before"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "potem ko",
+                "de": "nachdem",
+                "it": "dopo che",
+                "en": "later"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "after"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "potem",
+                "de": "dann",
+                "it": "poi",
+                "en": "what came next"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "then"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Povezovalne besede**\n- because · so · but · or\n- when · before · after · then",
+            "de": "**Die Bindewörter**\n- because · so · but · or\n- when · before · after · then",
+            "it": "**Le congiunzioni**\n- because · so · but · or\n- when · before · after · then",
+            "en": "**The linking words**\n- because · so · but · or\n- when · before · after · then"
+          }
+        }
+      ]
+    },
+    {
+      "id": "because-so-2",
+      "title": {
+        "sl": "Slab dan gospoda Tysona",
+        "de": "Mr Tysons schlechter Tag",
+        "it": "La brutta giornata del signor Tyson",
+        "en": "Mr Tyson's bad day"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "linking-words",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "It was market day, ___ Mr Tyson got up at five. He had a cup of tea ___ some bread and ___ he went to the bus stop. The bus was late ___ there was snow on the road. He waited for an hour, ___ it didn't come, ___ he walked. ___ he got to Keswick, the market was closed!",
+          "gaps": [
+            {
+              "accept": [
+                "so",
+                "and"
+              ],
+              "hint": {
+                "sl": "posledica",
+                "de": "die Folge",
+                "it": "il risultato",
+                "en": "the result"
+              }
+            },
+            {
+              "accept": [
+                "and",
+                "with"
+              ]
+            },
+            {
+              "accept": [
+                "then"
+              ],
+              "hint": {
+                "sl": "kaj je bilo naslednje?",
+                "de": "was kam als Nächstes?",
+                "it": "che cosa è venuto dopo?",
+                "en": "what came next?"
+              }
+            },
+            {
+              "accept": [
+                "because",
+                "as",
+                "since"
+              ],
+              "spoken": [
+                "cos",
+                "'cause",
+                "cause"
+              ],
+              "hint": {
+                "sl": "razlog",
+                "de": "der Grund",
+                "it": "il motivo",
+                "en": "the reason"
+              }
+            },
+            {
+              "accept": [
+                "but",
+                "and"
+              ],
+              "hint": {
+                "sl": "nasprotje",
+                "de": "das Gegenteil",
+                "it": "il contrario",
+                "en": "the opposite"
+              }
+            },
+            {
+              "accept": [
+                "so",
+                "and"
+              ],
+              "hint": {
+                "sl": "posledica",
+                "de": "die Folge",
+                "it": "il risultato",
+                "en": "the result"
+              }
+            },
+            {
+              "accept": [
+                "When",
+                "After"
+              ],
+              "explain": {
+                "sl": "**Del z when na začetku: vejica**\n- When he got to Keswick, the market was closed.",
+                "de": "**Der Teil mit when vorn: Komma**\n- When he got to Keswick, the market was closed.",
+                "it": "**La parte con when all'inizio: virgola**\n- When he got to Keswick, the market was closed.",
+                "en": "**The when part first: a comma**\n- When he got to Keswick, the market was closed."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "or",
+            "before"
+          ],
+          "translation": {
+            "sl": "Bil je tržni dan, zato je gospod Tyson vstal ob petih. Popil je skodelico čaja, pojedel nekaj kruha in potem šel na avtobusno postajo. Avtobus je zamujal, ker je bil na cesti sneg. Čakal je eno uro, ampak ni prišel, zato je šel peš. Ko je prišel v Keswick, je bila tržnica zaprta!",
+            "de": "Es war Markttag, also stand Mr Tyson um fünf auf. Er trank eine Tasse Tee, aß etwas Brot und ging dann zur Bushaltestelle. Der Bus hatte Verspätung, weil Schnee auf der Straße lag. Er wartete eine Stunde, aber der Bus kam nicht, also ging er zu Fuß. Als er in Keswick ankam, war der Markt geschlossen!",
+            "it": "Era giorno di mercato, quindi il signor Tyson si è alzato alle cinque. Ha preso una tazza di tè con un po' di pane e poi è andato alla fermata dell'autobus. L'autobus era in ritardo perché c'era neve sulla strada. Ha aspettato per un'ora, ma non è arrivato, quindi è andato a piedi. Quando è arrivato a Keswick, il mercato era chiuso!",
+            "en": "It was market day, so Mr Tyson got up at five. He had a cup of tea and some bread and then he went to the bus stop. The bus was late because there was snow on the road. He waited for an hour, but it didn't come, so he walked. When he got to Keswick, the market was closed!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "linking-words",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "___ we had dinner, Jack fed the dogs.",
+          "options": [
+            "After",
+            "Then",
+            "So"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**after + kar je bilo prej, z vejico**\n- After we had dinner, Jack fed the dogs.",
+            "de": "**after + was vorher war, mit Komma**\n- After we had dinner, Jack fed the dogs.",
+            "it": "**after + ciò che è successo prima, con la virgola**\n- After we had dinner, Jack fed the dogs.",
+            "en": "**after + what came first, with a comma**\n- After we had dinner, Jack fed the dogs."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "linking-words",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We shut the door ___ we went to bed.",
+          "options": [
+            "before",
+            "or",
+            "but"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**before: kar je bilo pozneje**\n- We shut the door before we went to bed.",
+            "de": "**before: was danach kam**\n- We shut the door before we went to bed.",
+            "it": "**before: ciò che è venuto dopo**\n- We shut the door before we went to bed.",
+            "en": "**before: what came later**\n- We shut the door before we went to bed."
+          }
+        }
+      ]
+    },
+    {
+      "id": "because-so-3",
+      "title": {
+        "sl": "Poveži po svoje",
+        "de": "Verbinde selbst",
+        "it": "Collega da solo",
+        "en": "Join them yourself"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "linking-words",
+          "instruction": {
+            "sl": "Say it the other way · Povej obratno",
+            "de": "Say it the other way · Sag es umgekehrt",
+            "it": "Say it the other way · Dillo al contrario",
+            "en": "Say it the other way"
+          },
+          "cue": "because ↔ so",
+          "items": [
+            {
+              "from": "We stayed at home because it rained.",
+              "accept": [
+                "It rained, so we stayed at home."
+              ]
+            },
+            {
+              "from": "Meg barked because she saw a fox.",
+              "accept": [
+                "Meg saw a fox, so she barked."
+              ]
+            },
+            {
+              "from": "The bus was late, so we walked.",
+              "accept": [
+                "We walked because the bus was late.",
+                "Because the bus was late, we walked."
+              ],
+              "spoken": [
+                "We walked cos the bus was late.",
+                "We walked 'cause the bus was late.",
+                "We walked cause the bus was late.",
+                "Cos the bus was late, we walked."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**because: razlog; so: posledica, z vejico**\n- We stayed because it rained.\n- It rained, so we stayed.",
+            "de": "**because: der Grund; so: die Folge, mit Komma**\n- We stayed because it rained.\n- It rained, so we stayed.",
+            "it": "**because: il motivo; so: il risultato, con la virgola**\n- We stayed because it rained.\n- It rained, so we stayed.",
+            "en": "**because: the reason; so: the result, with a comma**\n- We stayed because it rained.\n- It rained, so we stayed."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "linking-words",
+          "instruction": {
+            "sl": "Join them with the word in brackets · Poveži z besedo v oklepaju",
+            "de": "Join them with the word in brackets · Verbinde mit dem Wort in Klammern",
+            "it": "Join them with the word in brackets · Collega con la parola tra parentesi",
+            "en": "Join them with the word in brackets"
+          },
+          "items": [
+            {
+              "from": "I shut the door. I went to bed. (before)",
+              "accept": [
+                "I shut the door before I went to bed.",
+                "Before I went to bed, I shut the door."
+              ]
+            },
+            {
+              "from": "We ate. We washed up. (after)",
+              "accept": [
+                "After we ate, we washed up.",
+                "We washed up after we ate."
+              ]
+            },
+            {
+              "from": "I got home. It was dark. (when)",
+              "accept": [
+                "When I got home, it was dark.",
+                "It was dark when I got home."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Del na začetku: vejica; na koncu: brez nje**\n- Before I went to bed, I shut the door.\n- I shut the door before I went to bed.",
+            "de": "**Der Teil vorn: Komma; hinten: keines**\n- Before I went to bed, I shut the door.\n- I shut the door before I went to bed.",
+            "it": "**La parte all'inizio: virgola; alla fine: niente**\n- Before I went to bed, I shut the door.\n- I shut the door before I went to bed.",
+            "en": "**That part first: a comma; second: none**\n- Before I went to bed, I shut the door.\n- I shut the door before I went to bed."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "linking-words",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "I was reading ___ Sam came in. He was very wet ___ it was raining. I made him a cup of tea. \"Milk ___ sugar?\" I asked. There was no milk, ___ he had sugar. We talked for an hour and ___ he went home.",
+        "gaps": [
+          {
+            "accept": [
+              "when",
+              "as"
+            ]
+          },
+          {
+            "accept": [
+              "because",
+              "as",
+              "since"
+            ],
+            "spoken": [
+              "cos",
+              "'cause",
+              "cause"
+            ]
+          },
+          {
+            "accept": [
+              "or",
+              "and"
+            ]
+          },
+          {
+            "accept": [
+              "so",
+              "but",
+              "and"
+            ]
+          },
+          {
+            "accept": [
+              "then"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Ravno sem bral{m:|f:a}, ko je vstopil Sam. Bil je čisto moker, ker je deževalo. Skuhal{m:|f:a} sem mu čaj. »Mleko ali sladkor?« sem {m:vprašal|f:vprašala}. Mleka ni bilo, zato je vzel sladkor. Pogovarjala sva se eno uro, potem je šel domov.",
+          "de": "Ich las gerade, als Sam hereinkam. Er war ganz nass, weil es regnete. Ich machte ihm eine Tasse Tee. „Milch oder Zucker?“, fragte ich. Es gab keine Milch, also nahm er Zucker. Wir redeten eine Stunde, und dann ging er heim.",
+          "it": "Stavo leggendo quando è entrato Sam. Era tutto bagnato perché pioveva. Gli ho fatto una tazza di tè. «Latte o zucchero?» ho chiesto. Il latte non c'era, quindi ha preso lo zucchero. Abbiamo parlato per un'ora e poi è andato a casa.",
+          "en": "I was reading when Sam came in. He was very wet because it was raining. I made him a cup of tea. \"Milk or sugar?\" I asked. There was no milk, so he had sugar. We talked for an hour and then he went home."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "linking-words",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Because it was cold, ___",
+        "options": [
+          "we stayed at home.",
+          "so we stayed at home.",
+          "because we stayed at home."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**because ali so, nikoli obe**\n- Because it was cold, we stayed at home.\n- It was cold, so we stayed at home.",
+          "de": "**because oder so, nie beide**\n- Because it was cold, we stayed at home.\n- It was cold, so we stayed at home.",
+          "it": "**because o so, mai tutti e due**\n- Because it was cold, we stayed at home.\n- It was cold, so we stayed at home.",
+          "en": "**because or so, never both**\n- Because it was cold, we stayed at home.\n- It was cold, so we stayed at home."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "linking-words",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Jack was tired, ___ he was happy.",
+        "options": [
+          "but",
+          "or",
+          "because"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Nasprotje: but**\n- Jack was tired, but he was happy.",
+          "de": "**Das Gegenteil: but**\n- Jack was tired, but he was happy.",
+          "it": "**Il contrario: but**\n- Jack was tired, but he was happy.",
+          "en": "**The opposite: but**\n- Jack was tired, but he was happy."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "linking-words",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ I went to bed, I shut the door.",
+        "options": [
+          "Before",
+          "Then",
+          "So"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Before + kar je bilo pozneje, z vejico**\n- Before I went to bed, I shut the door.",
+          "de": "**Before + was danach kam, mit Komma**\n- Before I went to bed, I shut the door.",
+          "it": "**Before + ciò che è venuto dopo, con la virgola**\n- Before I went to bed, I shut the door.",
+          "en": "**Before + what came later, with a comma**\n- Before I went to bed, I shut the door."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "linking-words",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "We were late ___ the bus didn't come.",
+        "options": [
+          "because",
+          "so",
+          "or"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Razlog: because**\n- We were late because the bus didn't come.",
+          "de": "**Der Grund: because**\n- We were late because the bus didn't come.",
+          "it": "**Il motivo: because**\n- We were late because the bus didn't come.",
+          "en": "**The reason: because**\n- We were late because the bus didn't come."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "linking-words",
+        "instruction": {
+          "sl": "Join them with the word in brackets · Poveži z besedo v oklepaju",
+          "de": "Join them with the word in brackets · Verbinde mit dem Wort in Klammern",
+          "it": "Join them with the word in brackets · Collega con la parola tra parentesi",
+          "en": "Join them with the word in brackets"
+        },
+        "items": [
+          {
+            "from": "The gate was open. The sheep ran away. (so)",
+            "accept": [
+              "The gate was open, so the sheep ran away."
+            ]
+          },
+          {
+            "from": "I shut the window. It was cold. (because)",
+            "accept": [
+              "I shut the window because it was cold.",
+              "Because it was cold, I shut the window."
+            ],
+            "spoken": [
+              "I shut the window cos it was cold.",
+              "I shut the window 'cause it was cold.",
+              "I shut the window cause it was cold.",
+              "Cos it was cold, I shut the window."
+            ]
+          },
+          {
+            "from": "We ate. We went for a walk. (after)",
+            "accept": [
+              "After we ate, we went for a walk.",
+              "We went for a walk after we ate."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**so: posledica; because: razlog; after: kar je bilo prej**\n- The gate was open, so the sheep ran away.\n- I shut the window because it was cold.",
+          "de": "**so: die Folge; because: der Grund; after: was vorher war**\n- The gate was open, so the sheep ran away.\n- I shut the window because it was cold.",
+          "it": "**so: il risultato; because: il motivo; after: ciò che è successo prima**\n- The gate was open, so the sheep ran away.\n- I shut the window because it was cold.",
+          "en": "**so: the result; because: the reason; after: what came first**\n- The gate was open, so the sheep ran away.\n- I shut the window because it was cold."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: the title's both words (a real sentence takes one); cos, 'cause, cause; then after a full stop, no comma; Milk or sugar?"
+}
