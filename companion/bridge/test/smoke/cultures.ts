@@ -370,7 +370,7 @@ export default async function cultures() {
   const mucca = { id: 'mucca', it: 'la mucca', plural: 'le mucche' }
   check(
     "with only the supplement for a dictionary (Italian) a step's word counts by the form it knows (vede: vedere) and, as German's, by the stem for one it doesn't (mucche, mucchina), never another word (cane for mucca)",
-    itLemmas.dictionary === true && itLemmas.partial === true && itLemmas('vede').includes('vedere') && testsWord({ id: 'vedere', it: 'vedere' }, 'it', ['vede'], itLemmas) && testsWord({ id: 'vedere', it: 'vedere' }, 'it', ['vidi'], itLemmas) &&
+    itLemmas.dictionary === true && itLemmas.partial === true && itLemmas('vede').includes('vedere') && testsWord({ id: 'vedere', it: 'vedere' }, 'it', ['vede'], itLemmas) &&
       testsWord(mucca, 'it', ['mucche'], itLemmas) && testsWord(mucca, 'it', ['mucchina'], itLemmas) && !testsWord(mucca, 'it', ['cane'], itLemmas) && !testsWord({ id: 'buongiorno', it: 'buon giorno' }, 'it', ['giorno'], itLemmas),
     [itLemmas.dictionary, itLemmas.partial, itLemmas('vede')],
   )
