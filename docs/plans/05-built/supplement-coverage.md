@@ -163,11 +163,42 @@ between and honey, da: that and yes).
 
 ## Tests
 
-TESTS
+Main had not moved past this branch's base (21aa4e9b), so the merge had nothing to bring in.
+
+- **Bridge**: `bunx tsc --noEmit -p .` clean. The smoke (`LANI_SMOKE_PORT=9770`, `LANI_SMOKE_DRAMA3_PORT=9788`): 3,471
+  checks, none failed. New checks: the German supplement without Wiktionary (zeichnet is zeichnen, Stöcke Stock's plural,
+  Hütte koča and la capanna, hvala a Slovene word in each base, mal the particle; ihr no form of gehen or sagen, no form
+  a grammar label); a villager's possessive (Stankos, Wilf's; a small stankos isn't); the sheets' meanings (warm topel,
+  book knjiga, hammer kladivo, rain deževati, church die Kirche, gleich takoj). The file-by-file check that every
+  supplement validates covers both files: `validateExtra` leaves none of the 2,670 and 2,227 entries out.
+- `tutor-export --check`: 89 files match the bridge (54 tools, 32 guide topics).
+- **Python**: `python3 -m unittest discover -s tests` 251 tests OK; `-s companion/tests` 142 OK (11 skipped).
+- **Android**: ANDROID
+- **Prints**: `school-prints --level all --html-only` for every course in every base, before and after: see "The printed
+  sheets keep their meanings".
 
 ## Emulator QA
 
-QA
+Through `qa-slot` (slot 1) on synthetic learners from Slovene (`make-learner.ts --target de|en --base sl --name Ana`,
+`LANI_CULTURE=kaernten LANI_QA_SETUP_PAIR=de-sl` and `lakeland`, `en-sl`). The dev bridge had no Wiktionary, as a phone
+has none. The new step `supplement-words` (only when named) opens each card as a tap in its line does (QA's hook
+"word:") and checks the lemma and the Slovene meaning in GET /lookup and on the card; each is flagged "strojno napisano,
+ni pregledano". A tap is still one tap; what it shows changed. Screenshots: scratchpad `ux-supplement-coverage/de`, `en`.
+
+| Word | Card | Before |
+|---|---|---|
+| zeichnet | zeichnen, "risati" (present, er/sie/es) | not in the dictionary |
+| Hütte | Hütte, "koča" | not in the dictionary |
+| hängt | hängen, "viseti; obesiti" | not in the dictionary |
+| Kasermandl | "Kasermandl (planšarski škrat)" | not in the dictionary |
+| hvala | "slovensko: hvala" | not in the dictionary |
+| Stankos | Imker Stanko, the beekeeper | not in the dictionary |
+| the | "(določni člen: ta, tisti)" | not in the dictionary |
+| don't | do, "delati; pomožni glagol …" (negative, do not) | not in the dictionary |
+| lass | "dekle, punca (severnoangleško)" | not in the dictionary |
+| tethera | "tri pri štetju ovac (staro kumbrijsko)" | not in the dictionary |
+| went | go, "iti" (past) | known already (stories-lakeland) |
+| Wilf's | Old Wilf, the storyteller | not in the dictionary |
 
 ## How to use
 
