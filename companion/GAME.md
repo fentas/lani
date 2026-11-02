@@ -2244,7 +2244,9 @@ Places: Gorizia and Nova Gorica, Cormòns, San Floriano del Collio, the Isonzo, 
 Cividale, Castelmonte (the pilgrim's sanctuary), Grado, San Daniele, the Carnia (the cramaro, the pedlar, comes from
 there). The cast has Primorska's roles (VILLAGERS.md, "The friuli cast"); the ids of resources, buildings and projects
 are the game's, named in Italian (the kozolec is "Il fienile", the lipa "Il tiglio", the maypole "L'albero della
-cuccagna", the town clock "L'orologio del campanile").
+cuccagna", the town clock "L'orologio del campanile"). Its projects play their steps as short scenes (`project-steps/`, their words
+in `packs/progetto-<Italian name>.json`), at A1, A2 and B1 (docs/plans/05-built/friuli-projects-a.md and -b.md); a step without its
+file is the practice it was.
 
 | Festival | Day | Leads (the first here) | Good |
 |---|---|---|---|
