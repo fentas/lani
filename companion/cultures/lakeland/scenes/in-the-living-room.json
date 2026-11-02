@@ -50,8 +50,8 @@
     },
     {
       "id": "photo", "title": { "en": "Old Wilf is looking at an old photo", "sl": "Stari Wilf gleda staro fotografijo", "it": "Il vecchio Wilf guarda una vecchia foto", "de": "Der alte Wilf schaut ein altes Foto an" }, "who": "wilf",
-      "when": ["evening"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "photo", "dialogs": ["photo-glasses", "photo"], "reward": { "wisdom": 20 }, "marker": "🖼️",
-      "memory": { "en": "the evening I showed you my wedding photo", "sl": "večer, ko sem ti pokazal svojo poročno fotografijo", "it": "la sera in cui ti ho mostrato la foto del mio matrimonio", "de": "den Abend, an dem ich dir mein Hochzeitsfoto gezeigt habe" }
+      "when": ["afternoon"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "photo", "dialogs": ["photo-glasses", "photo"], "reward": { "wisdom": 20 }, "marker": "🖼️",
+      "memory": { "en": "the day I showed you my wedding photo", "sl": "dan, ko sem ti pokazal svojo poročno fotografijo", "it": "il giorno in cui ti ho mostrato la foto del mio matrimonio", "de": "den Tag, an dem ich dir mein Hochzeitsfoto gezeigt habe" }
     },
     {
       "id": "tea", "title": { "en": "Old Wilf's cup of tea", "sl": "Skodelica čaja starega Wilfa", "it": "La tazza di tè del vecchio Wilf", "de": "Die Tasse Tee des alten Wilf" }, "who": "wilf",
@@ -150,7 +150,7 @@
           { "en": "She look very happy.", "sl": "Videti je zelo srečna.", "it": "Sembra molto felice.", "de": "Sie sieht sehr glücklich aus.", "grammar": "present-simple",
             "why": { "en": "She takes -s: she looks.", "sl": "She dobi -s: she looks.", "it": "Con she ci vuole la -s: she looks.", "de": "Bei she kommt ein -s dazu: she looks." }, "reply": { "face": "confused", "en": "She … what? My old ears, {m:son|f:lass}!", "sl": "Ona … kaj? Moja stara ušesa!", "it": "Lei … cosa? Le mie vecchie orecchie, {m:figliolo|f:cara}!", "de": "Sie … was? Meine alten Ohren, {m:mein Junge|f:meine Liebe}!" } }
         ], "puzzled": { "face": "confused", "en": "Eh? Again, {m:son|f:lass}?", "sl": "Kaj? Še enkrat?", "it": "Eh? Di nuovo, {m:figliolo|f:cara}?", "de": "Hm? Noch mal, {m:mein Junge|f:meine Liebe}?" } },
-        { "who": "wilf", "face": "happy", "en": "Now put the lamp on, {m:son|f:lass}. And sit with me a bit.", "sl": "Zdaj pa prižgi svetilko. In malo posedi z mano.", "it": "Adesso accendi la lampada, {m:figliolo|f:cara}. E stai un po' con me.", "de": "Jetzt mach die Lampe an, {m:mein Junge|f:meine Liebe}. Und setz dich ein bisschen zu mir." }
+        { "who": "wilf", "face": "happy", "en": "Now put the kettle on, {m:son|f:lass}. And sit with me a bit.", "sl": "Zdaj pa pristavi vodo za čaj. In malo posedi z mano.", "it": "Adesso metti su il bollitore, {m:figliolo|f:cara}. E stai un po' con me.", "de": "Jetzt stell den Teekessel auf, {m:mein Junge|f:meine Liebe}. Und setz dich ein bisschen zu mir." }
       ]
     },
     {
@@ -275,7 +275,7 @@
     },
     {
       "id": "photo-glasses",
-      "memory": { "en": "the evening you found my glasses", "sl": "večer, ko si {m:našel|f:našla} moja očala", "it": "la sera in cui hai trovato i miei occhiali", "de": "den Abend, an dem du meine Brille gefunden hast" },
+      "memory": { "en": "the day you found my glasses", "sl": "dan, ko si {m:našel|f:našla} moja očala", "it": "il giorno in cui hai trovato i miei occhiali", "de": "den Tag, an dem du meine Brille gefunden hast" },
       "lines": [
         { "who": "wilf", "face": "worried", "en": "Now, where are my glasses? I can't see the photo without them!", "sl": "No, kje so moja očala? Brez njih ne vidim fotografije!", "it": "Allora, dove sono i miei occhiali? Senza non vedo la foto!", "de": "Nun, wo ist meine Brille? Ohne sie sehe ich das Foto nicht!" },
         { "choices": [

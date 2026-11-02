@@ -197,7 +197,7 @@
       },
       "who": "bepi",
       "when": [
-        "evening"
+        "afternoon"
       ],
       "chance": 0.4,
       "dialog": "moro",
@@ -210,10 +210,10 @@
       },
       "marker": "🐕",
       "memory": {
-        "it": "la sera in cui hai chiamato Moro",
-        "sl": "večer, ko si {m:poklical|f:poklicala} Mora",
-        "en": "the evening you called Moro",
-        "de": "den Abend, an dem du Moro gerufen hast"
+        "it": "il giorno in cui hai chiamato Moro",
+        "sl": "dan, ko si {m:poklical|f:poklicala} Mora",
+        "en": "the day you called Moro",
+        "de": "den Tag, an dem du Moro gerufen hast"
       }
     },
     {
@@ -308,7 +308,7 @@
       },
       "who": "bepi",
       "when": [
-        "evening"
+        "afternoon"
       ],
       "months": [
         6,
@@ -807,10 +807,10 @@
         },
         {
           "who": "bepi",
-          "it": "Grazie, {learner}. Moro, a casa! Buonanotte.",
-          "sl": "Hvala, {learner}. Moro, domov! Lahko noč.",
-          "en": "Thank you, {learner}. Moro, home! Good night.",
-          "de": "Danke, {learner}. Moro, nach Hause! Gute Nacht.",
+          "it": "Grazie, {learner}. Moro, a casa! Ciao.",
+          "sl": "Hvala, {learner}. Moro, domov! Adijo.",
+          "en": "Thank you, {learner}. Moro, home! Bye.",
+          "de": "Danke, {learner}. Moro, nach Hause! Tschüss.",
           "fx": {
             "wag": 0
           }
@@ -818,10 +818,10 @@
         {
           "choices": [
             {
-              "it": "Buonanotte, nonno! Buonanotte, Moro!",
-              "sl": "Lahko noč, dedek! Lahko noč, Moro!",
-              "en": "Good night, Nonno! Good night, Moro!",
-              "de": "Gute Nacht, Nonno! Gute Nacht, Moro!",
+              "it": "Ciao, nonno! Ciao, Moro!",
+              "sl": "Adijo, dedek! Adijo, Moro!",
+              "en": "Bye, Nonno! Bye, Moro!",
+              "de": "Tschüss, Nonno! Tschüss, Moro!",
               "ok": true,
               "reply": {
                 "face": "laugh",
@@ -832,21 +832,21 @@
               }
             },
             {
-              "it": "Buongiorno, nonno! Buongiorno, Moro!",
-              "sl": "Dobro jutro, dedek! Dobro jutro, Moro!",
-              "en": "Good morning, Nonno! Good morning, Moro!",
-              "de": "Guten Morgen, Nonno! Guten Morgen, Moro!",
+              "it": "Buonanotte, nonno! Buonanotte, Moro!",
+              "sl": "Lahko noč, dedek! Lahko noč, Moro!",
+              "en": "Good night, Nonno! Good night, Moro!",
+              "de": "Gute Nacht, Nonno! Gute Nacht, Moro!",
               "why": {
-                "sl": "Je večer: buonanotte. Buongiorno je za jutro.",
-                "en": "It's evening: buonanotte. Buongiorno is for the morning.",
-                "de": "Es ist Abend: buonanotte. Buongiorno sagt man am Morgen."
+                "sl": "Buonanotte je za pred spanjem. Ko greš čez dan: ciao.",
+                "en": "Buonanotte is for bedtime. When you go in the day: ciao.",
+                "de": "Buonanotte sagt man vor dem Schlafengehen. Wenn du tagsüber gehst: ciao."
               },
               "reply": {
                 "face": "surprised",
-                "it": "Buongiorno? Ma è sera, il sole va a dormire!",
-                "sl": "Dobro jutro? Saj je večer, sonce gre spat!",
-                "en": "Good morning? But it's evening, the sun's going to bed!",
-                "de": "Guten Morgen? Es ist doch Abend, die Sonne geht schlafen!"
+                "it": "Buonanotte? Ma è giorno, nessuno va a dormire!",
+                "sl": "Lahko noč? Saj je dan, nihče ne gre spat!",
+                "en": "Good night? But it's daytime, nobody's going to bed!",
+                "de": "Gute Nacht? Es ist doch Tag, niemand geht schlafen!"
               }
             }
           ]
@@ -1228,10 +1228,10 @@
         {
           "who": "bepi",
           "face": "happy",
-          "it": "Buonasera, {learner}! Senti la banda? Stasera c'è la sagra in piazza!",
-          "sl": "Dober večer, {learner}! Slišiš godbo? Nocoj je na trgu vaški praznik!",
-          "en": "Good evening, {learner}! Hear the band? Tonight there's the sagra on the square!",
-          "de": "Guten Abend, {learner}! Hörst du die Blaskapelle? Heute Abend ist Sagra auf dem Platz!",
+          "it": "Ciao, {learner}! Senti la banda? Oggi c'è la sagra in piazza!",
+          "sl": "Živjo, {learner}! Slišiš godbo? Danes je na trgu vaški praznik!",
+          "en": "Hi, {learner}! Hear the band? Today there's the sagra on the square!",
+          "de": "Hallo, {learner}! Hörst du die Blaskapelle? Heute ist Sagra auf dem Platz!",
           "fx": {
             "band": 1
           }
@@ -1327,10 +1327,10 @@
         {
           "who": "bepi",
           "face": "proud",
-          "it": "Ah, che serata! Da giovane ballavo tutta la notte, qui sotto il tiglio.",
-          "sl": "Ah, kakšen večer! V mladosti sem plesal vso noč, tu pod lipo.",
-          "en": "Ah, what an evening! When I was young I danced all night, here under the linden.",
-          "de": "Ach, was für ein Abend! Früher habe ich die ganze Nacht getanzt, hier unter der Linde."
+          "it": "Ah, che festa! Da giovane ballavo tutta la notte, qui sotto il tiglio.",
+          "sl": "Ah, kakšen praznik! V mladosti sem plesal vso noč, tu pod lipo.",
+          "en": "Ah, what a party! When I was young I danced all night, here under the linden.",
+          "de": "Ach, was für ein Fest! Früher habe ich die ganze Nacht getanzt, hier unter der Linde."
         },
         {
           "choices": [
@@ -1911,18 +1911,18 @@
         {
           "who": "bepi",
           "face": "laugh",
-          "it": "Buonasera, {learner}. Moro ha fame. Ha corso dietro ai gatti tutto il giorno.",
-          "sl": "Dober večer, {learner}. Moro je lačen. Ves dan je tekal za mačkami.",
-          "en": "Good evening, {learner}. Moro is hungry. He chased cats all day.",
-          "de": "Guten Abend, {learner}. Moro hat Hunger. Er ist den ganzen Tag Katzen nachgelaufen."
+          "it": "Buongiorno, {learner}. Moro ha fame. Corre dietro ai gatti da stamattina.",
+          "sl": "Dober dan, {learner}. Moro je lačen. Že od jutra teče za mačkami.",
+          "en": "Good day, {learner}. Moro is hungry. He's been chasing cats since this morning.",
+          "de": "Guten Tag, {learner}. Moro hat Hunger. Seit heute Morgen läuft er Katzen nach."
         },
         {
           "choices": [
             {
-              "it": "Buonasera, nonno! Posso dare un po' di pane a Moro?",
-              "sl": "Dober večer, dedek! Lahko dam Moru malo kruha?",
-              "en": "Good evening, Nonno! Can I give Moro a bit of bread?",
-              "de": "Guten Abend, Nonno! Darf ich Moro ein bisschen Brot geben?",
+              "it": "Buongiorno, nonno! Posso dare un po' di pane a Moro?",
+              "sl": "Dober dan, dedek! Lahko dam Moru malo kruha?",
+              "en": "Good day, Nonno! Can I give Moro a bit of bread?",
+              "de": "Guten Tag, Nonno! Darf ich Moro ein bisschen Brot geben?",
               "ok": true,
               "reply": {
                 "face": "laugh",
@@ -1933,21 +1933,21 @@
               }
             },
             {
-              "it": "Buongiorno, nonno! Posso dare un po' di pane a Moro?",
-              "sl": "Dobro jutro, dedek! Lahko dam Moru malo kruha?",
-              "en": "Good morning, Nonno! Can I give Moro a bit of bread?",
-              "de": "Guten Morgen, Nonno! Darf ich Moro ein bisschen Brot geben?",
+              "it": "Buonanotte, nonno! Posso dare un po' di pane a Moro?",
+              "sl": "Lahko noč, dedek! Lahko dam Moru malo kruha?",
+              "en": "Good night, Nonno! Can I give Moro a bit of bread?",
+              "de": "Gute Nacht, Nonno! Darf ich Moro ein bisschen Brot geben?",
               "why": {
-                "sl": "Je večer: buonasera. Buongiorno je za jutro.",
-                "en": "It's evening: buonasera. Buongiorno is for the morning.",
-                "de": "Es ist Abend: buonasera. Buongiorno sagt man am Morgen."
+                "sl": "Je dan: buongiorno. Buonanotte je za pred spanjem.",
+                "en": "It's daytime: buongiorno. Buonanotte is for bedtime.",
+                "de": "Es ist Tag: buongiorno. Buonanotte sagt man vor dem Schlafengehen."
               },
               "reply": {
                 "face": "surprised",
-                "it": "Buongiorno? Anche Moro sa che è sera!",
-                "sl": "Dobro jutro? Še Moro ve, da je večer!",
-                "en": "Good morning? Even Moro knows it's evening!",
-                "de": "Guten Morgen? Sogar Moro weiß, dass es Abend ist!"
+                "it": "Buonanotte? Anche Moro sa che è giorno!",
+                "sl": "Lahko noč? Še Moro ve, da je dan!",
+                "en": "Good night? Even Moro knows it's daytime!",
+                "de": "Gute Nacht? Sogar Moro weiß, dass es Tag ist!"
               }
             }
           ]
@@ -2001,10 +2001,10 @@
         },
         {
           "who": "bepi",
-          "it": "Su, Moro, a casa adesso. Buonanotte, {learner}.",
-          "sl": "No, Moro, zdaj pa domov. Lahko noč, {learner}.",
-          "en": "Come on, Moro, home now. Good night, {learner}.",
-          "de": "Komm, Moro, jetzt nach Hause. Gute Nacht, {learner}.",
+          "it": "Su, Moro, a casa adesso. Ciao, {learner}.",
+          "sl": "No, Moro, zdaj pa domov. Adijo, {learner}.",
+          "en": "Come on, Moro, home now. Bye, {learner}.",
+          "de": "Komm, Moro, jetzt nach Hause. Tschüss, {learner}.",
           "fx": {
             "wag": 0
           }
@@ -2430,10 +2430,10 @@
         {
           "who": "bepi",
           "face": "happy",
-          "it": "Buonasera, {learner}! Ecco la banda del paese! Senti la tromba?",
-          "sl": "Dober večer, {learner}! Tu je vaška godba! Slišiš trobento?",
-          "en": "Good evening, {learner}! Here's the village band! Hear the trumpet?",
-          "de": "Guten Abend, {learner}! Da ist die Dorfkapelle! Hörst du die Trompete?",
+          "it": "Ciao, {learner}! Ecco la banda del paese! Senti la tromba?",
+          "sl": "Živjo, {learner}! Tu je vaška godba! Slišiš trobento?",
+          "en": "Hi, {learner}! Here's the village band! Hear the trumpet?",
+          "de": "Hallo, {learner}! Da ist die Dorfkapelle! Hörst du die Trompete?",
           "fx": {
             "band": 1
           }
