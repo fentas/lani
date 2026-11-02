@@ -239,6 +239,7 @@ IRREGULAR = {
     'concludere': {'historic past': 'conclusi concludesti concluse concludemmo concludeste conclusero', 'pp': 'concluso'},
     'ardere': {'historic past': 'arsi ardesti arse ardemmo ardeste arsero', 'pp': 'arso'},
     'immergere': {'historic past': 'immersi immergesti immerse immergemmo immergeste immersero', 'pp': 'immerso'},
+    'sporgere': {'historic past': 'sporsi sporgesti sporse sporgemmo sporgeste sporsero', 'pp': 'sporto'},
 }
 
 # the clitics a verb's infinitive, imperative and gerund join (guardami, toccarlo, dammelo, tenendolo), with what each says

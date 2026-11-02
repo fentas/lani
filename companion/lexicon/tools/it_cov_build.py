@@ -301,6 +301,10 @@ def render(e: dict) -> str:
     return '    { ' + ', '.join(head) + ',\n' + forms_lines(e['forms']) + '\n      "meanings": { "de": ' + d(m['de']) + ', "sl": ' + d(m['sl']) + ' } }'
 
 
+# what a tap shows first when the line's translation doesn't tell: mostly the file's order. These words' commoner reading
+# goes first (leggere the verb, not leggero's plural), the rarer to the end (chiusa a sluice)
+LATE = {('chiusa', 'noun'), ('fermo', 'adj'), ('passato', 'noun')}
+BEFORE = {('leggere', 'verb'): ('leggero', 'adj'), ('aiuto', 'noun'): ('aiutare', 'verb'), ('signore', 'noun'): ('signora', 'noun')}
 have = {(e['lemma'], e['pos']): i for i, e in enumerate(old['entries'])}
 out_chunks = list(chunks)
 added_forms = 0
@@ -315,10 +319,31 @@ for k, forms in extend.items():
         e['forms'] = {**e['forms'], **add}
         added_forms += len(add)
         out_chunks[have[k]] = render(e)
+# the verbs that had only a joined form, its meaning in the brackets: the forms say it now, with their grammar
+REWORD = {
+    ('aiutare', 'verb'): (['helfen'], ['pomagati']),
+    ('vedere', 'verb'): (['sehen'], ['videti']),
+    ('guarire', 'verb'): (['heilen, gesund werden'], ['ozdraviti']),
+    ('portare', 'verb'): (['tragen, bringen'], ['nositi, prinesti']),
+    ('schiacciare', 'verb'): (['zerdrücken'], ['pretlačiti']),
+    ('servire', 'verb'): (['servieren; nötig sein'], ['postreči; biti potreben']),
+}
+for k, (de, sl) in REWORD.items():
+    e = old['entries'][have[k]]
+    e['meanings'] = {**e['meanings'], 'de': de, 'sl': sl}
+    out_chunks[have[k]] = render(e)
 for e in new_entries:
     if (e['lemma'], e['pos']) in have:
         problems.append(f"{e['lemma']} ({e['pos']}): already in the file: use ~")
-body = text[:start].rstrip() + '\n' + ',\n'.join([('    ' + c if not c.startswith(' ') else c) for c in out_chunks] + [render(e) for e in new_entries]) + '\n  ]\n}\n'
+ordered_all = [((e['lemma'], e['pos']), '    ' + c if not c.startswith(' ') else c) for e, c in zip(old['entries'], out_chunks)]
+ordered_all += [((e['lemma'], e['pos']), render(e)) for e in new_entries if (e['lemma'], e['pos']) not in LATE]
+ordered_all += [((e['lemma'], e['pos']), render(e)) for e in new_entries if (e['lemma'], e['pos']) in LATE]
+for first, then in BEFORE.items():
+    ids = [k for k, _ in ordered_all]
+    if first in ids and then in ids and ids.index(first) > ids.index(then):
+        item = ordered_all.pop(ids.index(first))
+        ordered_all.insert(ids.index(then), item)
+body = text[:start].rstrip() + '\n' + ',\n'.join(c for _, c in ordered_all) + '\n  ]\n}\n'
 ABOUT = (
     " Since 2026-11-02 (supplement-it) also every other word of the Italian content a tap met nothing for, so that a tap means the word on a "
     "phone without Wiktionary: the function words (il, la, un, che, non, per, si), the articles and contractions, the clitics, the verbs and "
