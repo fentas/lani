@@ -2290,6 +2290,18 @@ the sweet ravioli with the cramârs' spices, the boiling a grown-up's) and Zia N
 Monte Lussari", B1: three peoples praying in three languages since 1360); each with five questions, one of every type,
 and six or seven new words meant in Slovene, English and German (machine-written, `review`).
 
+**Its ages' parties** (`celebrations/`, "Ages and their celebrations"), each at A1, A2, B1 and B2, machine-written:
+
+| Age | Celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| Accampamento | 🔥 Il primo fogolâr · The first hearth: the camp round its fire as a Friulian family round its fogolâr, a villotta and a story | torches round the fire | the accordion's waltz | by the fire (Nonna Rosa) |
+| Borgata | 🌿 Il licôf · The roofing feast: when a roof is finished, a green branch on its highest point and a meal for everyone who worked | the branch on the newest roof, garlands | the accordion's waltz | by the fire (Mugnaio Franco) |
+| Paese | 🧀 La sagra · The village fair: the square's tables, food stands and band, frico, the waltz and the polka | garlands, a dance floor | the accordion's polka | on the square (Ostessa Marisa) |
+| Borgo | 🧺 La fiera · The fair: stalls of gubana and honey, the cramârs of Carnia with spices and cloth in the crassigne | stalls along the road, garlands | the hand bell, then the accordion's polka | on the square (Vignaiolo Matteo) |
+| Cittadina | 🚩 Il palio · The palio: the town banner, the band and the procession, a race between the quarters, after Cividale's palio of San Donato, whose medieval winner got a precious cloth and whose last got a piglet | banners along the road, garlands | the band's polka and the church bell | on the square (Maestra Elena) |
+
+Each custom with its sources, and what is the game's own: docs/plans/05-built/parties-friuli.md.
+
 ### The kaernten pack
 
 A village for learners of German: in the lower Gailtal below the Dobratsch, near Villach, where Austria, Slovenia and
