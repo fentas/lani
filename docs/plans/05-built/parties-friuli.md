@@ -108,7 +108,12 @@ See the report for the numbers of the final run: `check-culture friuli`, `check-
 `learner-content`, tsc, the smoke, `tutor-export --check`, the Android suite and Python. `FriuliCelebrationsTest` is new.
 
 QA: `LANI_DEV_DATA=<make-learner.ts --target it --base de --name Teo> LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de
-LANI_QA_LEARNER=Teo LANI_QA_PARTY_AGE=mesto LANI_QA_PARTY_LEVEL=A1 companion/bin/qa-slot --steps party`.
+LANI_QA_LEARNER=Teo LANI_QA_PARTY_AGE=mesto LANI_QA_PARTY_LEVEL=A1 companion/bin/qa-slot --steps party`. Run to the end on a synthetic
+Teo for the palio at A1 and the first hearth at B2, with the chronicle's "Watch again" after each.
+
+**What QA doesn't show.** The synthetic village has only the host on the stage, so one person says every line (`AgeUps.cast`
+standing in for the guests). A stage full of the cast is covered by the tests, not seen on a screen. The licôf, the sagra and the
+fair were not played on the emulator, and all of it ran on a phone's screen, not on Teo's tablet.
 
 ## Native check
 
