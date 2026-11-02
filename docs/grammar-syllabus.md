@@ -546,6 +546,10 @@ What the chip says, by what the turn tests:
 | the tense | *Kdaj?* *jutri* → future, *včeraj* → past | *jutri bom, včeraj sem* |
 | aspect | *Kaj delam?* (going on) or *Kaj naredim?* (done) | *pisal sem / napisal sem* |
 | the short words | second place: *sem, si* – *se* – *mi* – *ga* – *je, bom* | *Dal sem ti ga.* *Videl ga bom.* |
+| a time without a preposition | *Kdaj?* the year after it, a told day's determiner → 2 rodilnik | *leta 1918, nekega večera* |
+| the hour after *ob pol* | *Kdaj?* *pol* → 2 rodilnik of the next hour | *ob pol devetih* |
+| one preposition, two cases (B2) | both: *po kaj?* → 4 tožilnik, *po čem?* → 5 mestnik | *po kruh · po vasi* |
+| a B2 page without a case | the rule in words | *bil bi prišel; Treba je delati.* |
 
 What decides the form is read from the trigger table (companion/grammar/sl/data/case-triggers.json), the one the case
 lens, the word card's row and the sentence's grammar read: its prepositions with their cases and senses (*Kam?* for

@@ -2126,8 +2126,8 @@ weakest case), Home's "Danes · Today" idea (the tutor's assignment or items due
 weak case after the school's lesson: "▶ Vadi" starts its session at once), a case page of the grammar book ("🧩 Vadi
 sklone · Case trainer": a session on that case or rule; the overview skloni a mixed one), the school's case units ("🧩
 Skloni" on the unit's page: tožilnik, mestnik, nikalnica-rodilnik, rodilnik, kje-kam-od-kod, dajalnik, orodnik,
-pridevniki-skloni, mnozina-skloni, dvojina-skloni a session on what each teaches; skloni and sklanjatev-posebnosti a
-mixed one) and the tutor's assignment's notification. It opens once the cases have begun (an A1 learner: the intro of
+pridevniki-skloni, mnozina-skloni, dvojina-skloni, predlogi-dva-sklona a session on what each teaches; skloni and
+sklanjatev-posebnosti a mixed one) and the tutor's assignment's notification. It opens once the cases have begun (an A1 learner: the intro of
 the first case unit, Tožilnik, or a case's page met in the book; from A2 every learner); closed, its screen says so with
 "🏫 V šolo: Tožilnik" one tap away, and the unit's page shows "🔒 Odpre jih uvod enote Tožilnik".
 
@@ -2176,7 +2176,10 @@ wrong answers that fade as the trainer's own come in), the learner's own mistake
 (accusative_feminine_a_to_o weighs the feminine accusatives, possessive_neuter_moje the neuter possessives), its
 agreement's for an adjective; a quarter when asked lately; its level as the accuracy wants it (60–70 % right); a third
 more for a rule the case lens showed in the last three days. A focus (a case, a rule, kje-kam, agreement, the plural's
-or the dual's cases) asks only it, filled up with its case's when it has too few.
+or the dual's cases, the prepositions with two cases) asks only it, filled up with its case's when it has too few. The
+prepositions with two cases (B2's predlogi-dva-sklona, `CaseTrainer.TWO_CASES`): the page's own B2 rules (po + the
+accusative to fetch, ob + the accusative against, za + the accusative how long, pred and med + the instrumental of
+time) and the bank's rules of v, na, pod, nad, pred, za, med, ob and po in either case (Kje ali kam? 45 %).
 
 **Kept** in the village state (`GameState.cases`, synced as the rest; the bridge keeps it from an older app): each
 case's, rule's and kind's last 12 answers ("case:rodilnik" …: an almost counts right, the case was right), each rule's
@@ -3973,7 +3976,9 @@ the instrumental or the accusative; z/s: with, or from, the genitive; a time nou
 of quantity, the nouns of measure and the numbers from five; the verbs and the words of feeling that govern a case
 (bati se, pomagati, dati, všeč); the verbs of motion and of rest, the copulas, the verbs with and without an object;
 the nouns of time; the genitive of time (`time_genitive`: leto before a year in figures, leta 1844; nekega, tistega …
-before a noun of time, nekega dne); fixed phrases (dober dan, na svidenje); words said of the subject (rad, sam); the
+before a noun of time, nekega dne); the hour (`hours`: ob + the locative, ob pol + the genitive of the next hour, and each
+hour as counted with its written form: in speech the hour often stays as counted, ob deset, never wrong; the lens gives
+it the case ob or pol asks for and its written form, `written`: desetih); fixed phrases (dober dan, na svidenje); words said of the subject (rad, sam); the
 personal pronouns (osebni-zaimki's, with the genitive and locative it leaves out) and the fused ones (zame, nanj). Each entry names its rule, a grammar page's id, and has
 examples the smoke analyses. A verb is given by its infinitive and its first person singular; the lens makes its forms.
 The JSON is made by `grammar/sl/data/case-triggers.py` beside it (the table in a compact form, its fixed layout): change
@@ -3993,8 +3998,9 @@ and particles (no case row: the card says *medmet*, *členek*), and its verbs' a
 (docs/plans/05-built/lens-unknown-forms.md). `CaseLens.unknownWords(line, names)` gives the words of a line the lens
 knows nothing of; `bun test/case-lens-gaps.ts` lists the content's (by kind, with a line each; `--units` the course's
 too) and the smoke keeps them under 150. The clause then decides,
-each step a rule: a phrase, the preposition before the phrase (the verb's motion or rest where the form doesn't tell),
-a number or quantity, a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
+each step a rule: a phrase, a number or a word of quantity right before the noun (also after a preposition: čez pol ure,
+za pet minut; pol before an hour is the time, ob pol dveh), the preposition before the phrase (the verb's motion or rest
+where the form doesn't tell), a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
 number, an l-form's gender), the object of a verb that takes one; the dual only with dva, dve, oba or a dual verb, the
 locative and the instrumental only after a preposition, a genitive only with something that asks for it (or when the
 form is nothing else: Daj mi kruha); a comparison after kot takes the case of what it is compared with; words joined by
@@ -4039,7 +4045,8 @@ shows each word's row from the same lookups, so the sheet and the card never dis
 [SCENES.md](SCENES.md#the-hint-the-rule-never-the-answer)) reads the same table without the bridge: the app bundles it
 with the grammar book (resources `grammar/sl/data/case-triggers.json`, app/build.gradle.kts `GrammarPages`) and
 `game/CaseTriggers.kt` reads its prepositions and senses, negations, quantities, measures and numbers, verbs and words of
-feeling (a verb's forms made as the lens makes them) and the pronouns only ever the subject, at once and offline; the
+feeling (a verb's forms made as the lens makes them), the pronouns only ever the subject, the genitive of time (leta
+1844, nekega dne) and the hours' half (ob pol dveh), at once and offline; the
 app's older rules of its own (`Triggers`) are gone. On the turns of `bridge/test/fixtures/hint-lens.json` the chip names
 the trigger, the case and the question the lens names (`TurnHintLensTest`; the smoke checks the lens still answers them
 so, `bun test/hint-lens.ts --write` records them again).
