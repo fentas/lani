@@ -2028,8 +2028,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
 
     /**
      * QA's case trainer hooks (app/QaHooks, "cases…"): "ready" the case pages met (as the case units' intros would) and the
-     * trainer's screen; "start" a mixed session; "focus:<id>" one on a case or a rule; "again" items missed due today, then
-     * the screen; "" the screen.
+     * trainer's screen; "start" a mixed session; "focus:<id>" one on a case or a rule; "meet:<id>,<id>" those pages met,
+     * then the screen; "again" items missed due today, then the screen; "" the screen.
      */
     fun qaCases(what: String) {
         val today = java.time.LocalDate.now()
@@ -2038,6 +2038,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             what == "start" -> return startCases()
             what == "storm" -> return startStorm()
             what.startsWith("focus:") -> return startCases(what.removePrefix("focus:").trim().ifBlank { null })
+            // pages met as a unit's intro meets them (predlogi-dva-sklona: the trainer's B2 items for a B1 learner)
+            what.startsWith("meet:") -> grammar.meet(what.removePrefix("meet:").split(',').map { it.trim() }.filter { it.isNotEmpty() }).forEach(grammar::announced)
             what == "again" -> game.apply { si.lanisce.lani.app.QaHooks.casesAgain(it, today) }
         }
         openCases()
