@@ -106,6 +106,17 @@ file now has two entries each for liegen and aufräumen, which the lookup reads 
 
 **One thing to know:** `gefällt` has two readings, fällen's participle (to fell a tree, earlier in the file) and gefallen. The lookup ranks by the line's translation, and the gloss of gefallen has "like" in it for that reason.
 
+## Checks
+
+On the branch's tip before this doc's last edit (`9b5b716c`):
+
+- `bunx tsc --noEmit -p .`: clean. `bun test/prompt-clashes.ts`: no new clash. The smoke with this branch's ports (9850 on, `LANI_SMOKE_DRAMA3_PORT=9868`): all 3,508 checks passed, its course, course-speech and prints sections on the six units among them. `bun src/cli/tutor-export.ts --check`: 89 files match.
+- The Android tests through `lani-slot.sh`, not the whole suite (part c and the gate run it): `GermanA2aContentTest` 7, `GermanCourseContentTest` 5, `GradingLanguagesTest` 48, `GrammarTest` 16, `SchoolBoardTest` 7, `SentenceGrammarTest` 6: 89, no failure.
+- **Prints:** `school-prints --language de --level A2` in sl, it and en, as PDFs: each of the six sheets fits on one or two pages, and no word is left without a meaning. One sheet (`stehen-stellen`, sl) read by eye.
+- **Emulator QA of one unit** through qa-slot (`--no-town --steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=stehen-stellen`, a synthetic learner): setup, course-unit and the crash check ok, 19 screenshots in the scratchpad's `ux-course-de-a2-a/`. Eva's six steps, the summary, the first sheet, the test passed and the print. The test reads 11 right and 2 almost, none wrong (12/13). The test has two answers with ä, which fits QA's typing them as ae, but the log doesn't say which items were almost.
+
+**Not done:** the other five units on an emulator; the other two bases on an emulator; the whole Android suite; a merge of main (this file's brief has part c integrate, and no part takes another's commits). The worksheets' second and third sheets have only the Android tests behind them, not a playthrough.
+
 ## What's left
 
 - The "once merged, also" column has nothing for this part.
