@@ -78,7 +78,8 @@ The watchtower, the church, the hut, the smithy and the field already matched.
 - The contact sheets: `./gradlew :app:testDebugUnitTest --tests '*MapLandmarkLooksTest*' --tests '*MapLooksTest*'`, then
   `app/build/map-looks/`: `05-landmarks-<june|september|winter|night>.png` (a row a culture, a column a landmark, closer
   up), `06-hayrack.png` (the hayrack at levels 1 to 5, in June and in winter), and map-culture's sheets. Before and after in
-  the round's scratchpad, `ux-map-culture-2/before/` and `after/`.
+  the round's scratchpad, `ux-map-culture-2/before/` and `after/`, and one sheet a culture with both,
+  `ux-map-culture-2/sheets/<culture>-before-after.png` (the "before" is main 21aa4e9b rendered by this test).
 - In the app: a village of any culture with its projects finished. QA: `companion/bin/qa-slot --steps map-landmarks` (only
   when named) on a synthetic learner of the culture (`LANI_DEV_DATA` from `make-learner.ts --target sl|it|de|en`,
   `LANI_CULTURE`, `LANI_QA_PAIR=sl-en`): the village a town, the projects finished by QA's hook, the maypole standing, each
@@ -86,7 +87,28 @@ The watchtower, the church, the hut, the smithy and the field already matched.
 
 ## Tests
 
-RESULTS
+- `MapLandmarkLooksTest` (new, app/src/test/.../game/render):
+  - the map's entries are the scenes' wherever a scene has the thing, in all four cultures: the hayrack and the toplar
+    (`field.kozolec`, `field.toplar`), the bridge and the mill (`stream.cartbridge`, `stream.mill`), the maypole, the fountain and
+    the clock (`square.*`), the chapel (`chapel.chapel` or `.turret`), the fire station's walls (`firestation.walls`), the
+    fontanella (`playground.fontanella`), the sunflowers (`apiary.meadow`);
+  - Primorska's toplar, chapel and lookout add no tile red to the picture round them;
+  - digests of every culture's finished landmarks (48: 12 landmarks, 4 cultures, closer up in June), taken after a look at
+    the sheets; the sheets.
+- `ClassicLandTest`: its digests retaken after a look at the pictures, for the buildings and the mlaj (each view of both the
+  village like Jan's and the town, but the jan-like night view, where only the dark differs); it now takes every village's
+  digests before it asserts, so one failure prints them all.
+- `MapLooksTest` and `MapBridgeLooksTest` unchanged: every building of every culture is drawn and found by a tap at every age;
+  a frame of a culture's map costs no more than the default's.
+- `VillageRendererTest`, `LandsTest` (a tall building never hides most of a small one) and `WildlifeTest` (every building's tap
+  at the middle of its body) caught the first versions of the well and the linden; both were changed to meet them, the tests
+  weren't touched.
+- `TownWindowTest`: "stamps kept" now counts the most stamps kept at once. It asked for more than 50 at the end of a land's
+  frames, but the cache empties itself when full, so that size depended on when it last did; the linden's smaller crowns moved
+  that moment.
+- The whole Android unit suite on the branch's tip: 483 classes, 3762 tests, none failed (2 skipped). The Python tests (251; 142,
+  11 skipped), the bridge's typecheck, its smoke (all checks passed; ports 9690, 9693, 9696, DRAMA3 9708) and `tutor-export
+  --check` (89 files) pass; nothing of the bridge changed.
 
 ## On the emulator
 
@@ -96,7 +118,8 @@ setup, map-landmarks and the crash check passed in all four. Screenshots in the 
 `ux-map-culture-2/emulator/` (`landmark-<culture>-<id>.png`, `-town.png`, `-town-closer.png`): nine landmarks finished by QA's
 hook and shown on the map, in today's November light (so no hay on the racks: the sheets have June). The map's frame on the emulator's software rendering at detail 2: 100.9 to 107.6 ms in
 Primorska, 73.1 to 78.7 in Friuli, 89.6 to 104.9 in Carinthia, 89.6 to 95.8 in the Lake District, within the range of
-map-culture.md's and map-people.md's runs (71 to 227 ms); `MapLooksTest`'s frame budget holds.
+map-culture.md's and map-people.md's runs (71 to 227 ms); `MapLooksTest`'s frame budget holds. Primorska again after the well's
+and the linden's fix (`emulator-final/`): setup, map-landmarks and the crash check passed, 84.8 to 87.6 ms a frame.
 
 The step's closer look is 2.5 × the fitted zoom, so each picture shows the landmark among its neighbours; the closest looks
 are the contact sheets'.
