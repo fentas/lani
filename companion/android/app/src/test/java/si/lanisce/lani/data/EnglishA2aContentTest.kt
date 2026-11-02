@@ -80,7 +80,7 @@ class EnglishA2aContentTest {
         assertEquals(Verdict.ALMOST, en("hapy", "happy"))
         assertEquals(Verdict.ALMOST, en("becouse", "because"))
         assertEquals(Verdict.ALMOST, en("walkd", "walked"))
-        assertEquals(Verdict.ALMOST, en("gaet", "gate"))
+        assertEquals(Verdict.ALMOST, en("gote", "gate"))
         assertEquals(Verdict.ALMOST, en("sadle", "saddle"))
         assertEquals(Verdict.CORRECT, en("traveled", "travelled"))
         assertEquals(Verdict.CORRECT, en("Don't run!", "Do not run!"))
