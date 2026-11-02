@@ -28,6 +28,7 @@ export default async function cards() {
       ...(c.table ? [...c.table.head, ...c.table.rows.flat()].flatMap(x => cell(x).map(l => `${where}: a table cell's ${l}`)) : []),
     ]
     const pageCards = pages.filter(p => p.card)
+    check(`${lang}: every A1 page has its own card (the rule line and the trap, not a page's first sentence), and the basics are there from the start`, pages.filter(p => p.level === 'A1' && !p.card && lang !== 'sl').length === 0 && pages.filter(p => p.card?.start).length + (lang === 'sl' ? 2 : 0) === 4 && pages.filter(p => p.card?.start).every(p => p.level === 'A1'), [pages.filter(p => p.level === 'A1' && !p.card).map(p => p.id), pages.filter(p => p.card?.start).map(p => p.id)])
     check(`${lang}: each page's own card reads in every base (${bases.join(', ')})`, pageCards.flatMap(p => lacks(p.id, p.card!)).length === 0, pageCards.flatMap(p => lacks(p.id, p.card!)).slice(0, 20))
     const dir = join(repo, 'cards', lang)
     const files = existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith('.json')).sort() : []

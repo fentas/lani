@@ -2031,7 +2031,9 @@ controller `app/CheatSheetController.kt`, the sheet `ui/CheatSheetSheet.kt`; the
   (cut at a word past 240 characters, never inside bold) and its first two examples. The curated deck of the basics is
   such cards (machine-written, not reviewed by a native speaker): biti, imeti and iti, the present's endings, the past,
   the future, the six cases at a glance, noun gender by ending, the plural, adjective agreement, the question words and
-  ti or vi.
+  ti or vi. In Italian, German and English every A1 page has its own card, since a page's first sentence is often only
+  a lead-in ("Italian says *like* the other way round:"): the rule in one line, the trap as its tip, a long table cut to
+  its first rows. Pages above A1 there make their cards from the page.
 - **Curated cards no page fits** (`companion/cards/<language>/<id>.json`, `lani.card/v0`, `bridge/src/cards.ts`): the
   same face, a title per language, and the pages they belong to (`grammar`): the pronouns 1 · 2 · 3+ (jaz, midva, mi;
   me, ve, one; vi polite), kje or kam (v, na + locative or accusative), the numbers 1–20 and the tens, the possessives
@@ -2059,7 +2061,8 @@ its first cell and each other with its column's name, "ti, imeti: imaš"; the ch
 **Unlocked as you go.** A page's card unlocks the day the learner meets its page (the grammar book's "met",
 `GameState.grammar`: an exercise or a module naming it, a page shown from a why, a school unit's introduction), a curated
 card with the first of its pages, an A1 basic marked `start` from the start (the pronouns, biti, the question words, the
-numbers), a pinned or the tutor's at once. What unlocks a page is one call: `vm.cheat.met(pageIds)` (the same as
+numbers; in Italian and German to be, the question words, the numbers and the articles; in English to be, questions with do, the
+numbers and the pronouns), a pinned or the tutor's at once. What unlocks a page is one call: `vm.cheat.met(pageIds)` (the same as
 `vm.grammar.meet(pageIds, announce = true)`: the book's pages and their cards; the school's units call it with their
 pages). Locked cards aren't listed (no spoilers); the sheet ends with "🔒 Še 23 kartic · 23 more cards as you go". A card
 never opened is "✨ Novo · New" (a pinned one isn't: pinning it opened it).

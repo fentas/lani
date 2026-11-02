@@ -108,5 +108,132 @@
   "tags": ["questions", "question_words", "w_fragen", "wo_wohin_woher", "yes_no_questions", "interrogatives"],
   "see": ["wortstellung", "wechselpraepositionen", "nebensatz", "du-sie"],
   "machine_written": true,
-  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker",
+  "card": {
+    "rule": {
+      "sl": "Vprašalnica gre na začetek, glagol takoj za njo: **Wo ist der Hund?** Za *kje* so tri: **wo** (kje), **wohin** (kam), **woher** (od kod). Vprašanje da/ne se začne z glagolom: **Kommst du?**",
+      "en": "The question word comes first, the verb right after it: **Wo ist der Hund?** Three for *where*: **wo** (where), **wohin** (where to), **woher** (where from). A yes/no question starts with the verb: **Kommst du?**",
+      "it": "La parola interrogativa va all'inizio, subito dopo il verbo: **Wo ist der Hund?** Per *dove* ce ne sono tre: **wo** (dove), **wohin** (verso dove), **woher** (da dove). La domanda sì/no comincia col verbo: **Kommst du?**"
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Fragewort",
+          "sl": "vprašalnica",
+          "en": "question word",
+          "it": "parola interrogativa"
+        },
+        {
+          "de": "Bedeutung",
+          "sl": "pomen",
+          "en": "meaning",
+          "it": "significato"
+        },
+        {
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example",
+          "it": "esempio"
+        }
+      ],
+      "rows": [
+        [
+          "wer?",
+          {
+            "de": "Person",
+            "sl": "kdo?",
+            "en": "who?",
+            "it": "chi?"
+          },
+          "Wer ist das?"
+        ],
+        [
+          "was?",
+          {
+            "de": "Sache",
+            "sl": "kaj?",
+            "en": "what?",
+            "it": "che cosa?"
+          },
+          "Was machst du?"
+        ],
+        [
+          "wo?",
+          {
+            "de": "Ort",
+            "sl": "kje?",
+            "en": "where?",
+            "it": "dove? (stato in luogo)"
+          },
+          "Wo ist der Hund?"
+        ],
+        [
+          "wohin?",
+          {
+            "de": "Richtung",
+            "sl": "kam?",
+            "en": "where to?",
+            "it": "dove? (moto a luogo)"
+          },
+          "Wohin gehst du?"
+        ],
+        [
+          "woher?",
+          {
+            "de": "Herkunft",
+            "sl": "od kod?",
+            "en": "where from?",
+            "it": "da dove?"
+          },
+          "Woher kommst du?"
+        ],
+        [
+          "wann?",
+          {
+            "de": "Zeit",
+            "sl": "kdaj?",
+            "en": "when?",
+            "it": "quando?"
+          },
+          "Wann kommt Opa?"
+        ],
+        [
+          "wie?",
+          {
+            "de": "Art und Weise",
+            "sl": "kako?",
+            "en": "how?",
+            "it": "come?"
+          },
+          "Wie heißt du?"
+        ],
+        [
+          "warum?",
+          {
+            "de": "Grund",
+            "sl": "zakaj?",
+            "en": "why?",
+            "it": "perché?"
+          },
+          "Warum lachst du?"
+        ],
+        [
+          "wie viele?",
+          {
+            "de": "Anzahl",
+            "sl": "koliko? (šteto)",
+            "en": "how many?",
+            "it": "quanti? quante?"
+          },
+          "Wie viele Kühe sind das?"
+        ]
+      ]
+    },
+    "tip": {
+      "sl": "💡 **wer** je kdo, **wo** pa kje. **wie viele** za to, kar šteješ, **wie viel** za drugo: **Wie viel Honig?**",
+      "en": "💡 **wer** is who and **wo** is where. **wie viele** for what you count, **wie viel** for the rest: **Wie viel Honig?**",
+      "it": "💡 **wer** è chi e **wo** è dove. **wie viele** per ciò che si conta, **wie viel** per il resto: **Wie viel Honig?**"
+    },
+    "start": true
+  }
 }
