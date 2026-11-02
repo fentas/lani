@@ -29,6 +29,8 @@ bridge built for a learner of each language, 17 topics each), with `{base}` and 
 
 **Before this, a child in the app had no child's rules at all:** `tutor/` had no mention of one. `languages/child.md` and `AppViewModel.child` close that.
 
+**The morning's routine said "Greet in Slovene" to every learner, Teo too.** It's the village's language now (`features/rhythm.ts`).
+
 **Checking a form.** `.claude/settings.json` allows web lookups on fran.si only, and that wasn't changed. So the texts say: Slovene has an outside
 dictionary; for the others you have the word packs, the grammar book and the lexicon's supplement, and what those don't settle you don't know. Don't
 call it wrong, don't count it, say you aren't sure, give the form you are sure of, and leave it to a native speaker. `general.md`, `CLAUDE.md`,
