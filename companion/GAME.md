@@ -754,7 +754,7 @@ srca are rather Gorenjska's, so Primorska's fair sells mandolat as Gorizia's And
 a sprevod (povorka is labelled regional and fading), "Naj živi naše mesto!" after SSKJ's "naj živi". The toasts: "Na
 zdravje!" anywhere, "Živijo!" as one too (accepted beside it), "Bog živi!" a best wish.
 
-A culture without its own celebration for an age (friuli, kaernten and lakeland so far) has a gathering: "Praznovanje ·
+Every curated culture has its own celebration for each age. A pack without one for an age has a gathering: "Praznovanje ·
 The celebration", the decorations and music by the age (`AgeUps.generic`), the village gathering by the fire that evening,
 no dialog. The tutor sees the days in `get_village` (`grown`, `parties`). QA: "ageup:<age>" grows the dev village's copy to
 an age and plays its moment, "ageup:at:<s>" holds it at a second, "level:<lv>" sets the dialogs' level

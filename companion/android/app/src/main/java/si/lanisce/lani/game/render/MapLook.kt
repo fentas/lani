@@ -232,7 +232,8 @@ internal enum class Flag(val id: String, val emoji: String) {
  * A culture's colours for its feasts (see [MapLook.festive]): the flags of its garlands in turn ([bunting]), the ribbons
  * of the likof's spruce ([ribbons]) and the maypole's as the square's scene hangs them ([maypole]), the banners along the road and the procession's ([banner]),
  * the awnings of the semenj's stalls (in stripes of the first and the second of [stalls]) and of the market's three
- * ([awnings], each striped with its [stripes]).
+ * ([awnings], each striped with its [stripes]); the awnings' two stripes on a party's stage ([stageStalls]: the stalls' own,
+ * Primorska's a softer red and cream).
  */
 internal class Festive(
     val bunting: IntArray,
@@ -242,6 +243,7 @@ internal class Festive(
     val stalls: IntArray,
     val awnings: IntArray,
     val stripes: IntArray = intArrayOf(Pal.FLAG_WHITE, Pal.FLAG_WHITE, Pal.FLAG_WHITE),
+    val stageStalls: IntArray = stalls,
 ) {
     companion object {
         /** The map's own (Primorska's): flags red, white, blue, gold and green; the banners Slovenia's. */
@@ -252,6 +254,7 @@ internal class Festive(
             banner = Flag.SLOVENIA,
             stalls = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE),
             awnings = intArrayOf(Pal.FLAG_RED, Pal.FLAG_BLUE, Pal.LEAF),
+            stageStalls = intArrayOf(Col.hex(0xC8303A), Col.hex(0xF2EEE4)),
         )
 
         /**
