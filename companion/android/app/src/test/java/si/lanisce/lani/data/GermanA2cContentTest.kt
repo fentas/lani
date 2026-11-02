@@ -70,7 +70,7 @@ class GermanA2cContentTest {
         assertEquals(Verdict.WRONG, de("wenn", "wann").verdict)
         assertEquals(Verdict.WRONG, de("das", "dass").verdict)
         assertEquals(Verdict.WRONG, de("dass", "das").verdict)
-        assertGraded(Verdict.ALMOST, Hint.TYPO, de("deshlab", "deshalb"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("dehalb", "deshalb"))
     }
 
     @Test fun `a spoken form of these units is right, labelled with the standard one, and only where it is spoken`() {
