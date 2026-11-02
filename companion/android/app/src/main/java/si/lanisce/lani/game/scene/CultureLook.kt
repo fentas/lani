@@ -445,7 +445,8 @@ object CultureLooks {
      * (l'albero della cuccagna) with its prizes for the maypole; the Collio's vines without the Slovene klopotec; the town
      * clock in the campanile; the fire station of cobbles with bands of brick under coppi (`firestation.walls`), the wayside
      * chapel an ancona in ochre (`chapel.chapel`), Friuli's eagle on the lookout tower's roof (`lookout.view`); the bridge's
-     * pillars of river cobbles with a band of brick, as the stream's scene builds them (`stream.cartbridge`).
+     * pillars of river cobbles with a band of brick, as the stream's scene builds them (`stream.cartbridge`); the toplar with
+     * bunches of maize drying from its tie beam from August to March, as Il grande fienile hangs them (`field.toplar`).
      */
     val FRIULI_MAP = Table.of(
         "map",
@@ -453,21 +454,26 @@ object CultureLooks {
             "hayrack" to "fienile", "smithy" to "cobbles", "well" to "vera", "hives" to "plain", "school" to "italian",
             "flag" to "friuli", "watchtower" to "stone", "pennant" to "friuli", "festive" to "friuli", "maypole" to "cuccagna",
             "vineyard" to "collio", "clock" to "campanile", "firestation" to "cobbles", "chapel" to "ancona", "bridge" to "cobbles",
+            "toplar" to "pannocchie", "fountain" to "pigna", "fontanella" to "fontanella", "meadow" to "girasoli",
         ),
     )
 
     /**
-     * Carinthia's village on the map: the Harpfe for the kozolec, a single rack under its little shingle roof as on the far
-     * shore of Am See; the log trough with its running spout for the well, as by the Almhütte; Austria's red, white and red
+     * Carinthia's village on the map: the Harpfe for the kozolec as Auf dem Feld builds it (`field.kozolec`), a single rack of
+     * larch weathered silver-grey with nine thin rails under a steep roof, growing with its level (its bays, the boards, the
+     * shingles, the hay); the log trough with its running spout for the well, as by the Almhütte; Austria's red, white and red
      * on the watchtower, the tent (`campfire.flag`) and the feasts; the Karawanken with the Mittagskogel at the horizon, as
      * the scene behind it (`alps.range`); the orchard of old apple and pear trees (der Obstgarten) for the vineyard; the
-     * Stockschießbahn for the bocce court; the bridge's deck and railings of larch, reddish brown, as its project's logs.
+     * Stockschießbahn for the bocce court; the bridge's deck and railings of larch, reddish brown, as its project's logs; the
+     * Doppelharpfe for the toplar, its two racks of grey larch with nine thin rails under a steeper roof of dark shingles, as
+     * Bei der Doppelharpfe builds it (`field.toplar`).
      */
     val KAERNTEN_MAP = Table.of(
         "map",
         variants = mapOf(
             "hayrack" to "harpfe", "well" to "trough", "flag" to "austria", "pennant" to "austria", "festive" to "austria",
-            "range" to "karawanken", "vineyard" to "orchard", "court" to "curling", "bridge" to "larch",
+            "range" to "karawanken", "vineyard" to "orchard", "court" to "curling", "bridge" to "larch", "toplar" to "harpfe",
+            "chapel" to "onion", "clock" to "onion", "fountain" to "florian", "maypole" to "maibaum",
         ),
     )
 
@@ -486,7 +492,8 @@ object CultureLooks {
         variants = mapOf(
             "hayrack" to "barn", "well" to "pump", "hives" to "wbc", "school" to "stone", "flag" to "england", "pennant" to "england", "watchtower" to "pele",
             "festive" to "union", "range" to "fells", "maypole" to "ribbons", "vineyard" to "damsons", "toplar" to "bank", "court" to "green",
-            "clock" to "battlements", "bridge" to "packhorse", "wild" to "britain",
+            "clock" to "battlements", "bridge" to "packhorse", "wild" to "britain", "chapel" to "slate",
+            "clockface" to "slate", "fountain" to "slate", "mill" to "slate",
         ),
     )
 

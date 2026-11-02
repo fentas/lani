@@ -174,13 +174,18 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
                 ladder(cx, cy)
             }
             else -> when (s.look.maypole) {
-                Maypole.CUCCAGNA -> cuccagna(cx, cy, top)
                 Maypole.RIBBONS -> ribbonPole(cx, cy, top - 2f)
-                Maypole.MLAJ -> {
+                else -> {
+                    val cuccagna = s.look.maypole == Maypole.CUCCAGNA
+                    // the greasy pole's wheel of prizes hangs just under the wreath, its back half behind the pole
+                    if (cuccagna) wheel(cx, cy, top - 8f, front = false)
                     wreath(cx, cy, top - 6f, front = false)
                     pole(cx, cy, top)
+                    if (cuccagna) for (z in intArrayOf(4, 9, 14, 19)) c.set(i.ix(cx + 0.02f, cy + 0.13f), i.iy(cx + 0.02f, cy + 0.13f, z.toFloat()), Col.mix(STRIPPED_L, Col.hex(0xFFFFFF), 0.5f)) // the grease's shine
                     wreath(cx, cy, top - 6f, front = true)
                     ribbons(cx, cy, top - 6f)
+                    if (cuccagna) { wheel(cx, cy, top - 8f, front = true); prizes(cx, cy, top - 8f) }
+                    if (s.look.maypole == Maypole.MAIBAUM) kraxel(cx, cy, top - 7f)
                 }
             }
         }
@@ -188,18 +193,11 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
     }
 
     /**
-     * Friuli's greasy pole (l'albero della cuccagna): a tall smooth pole, a wheel near its top with the prizes hanging from
-     * it (a ham, salami, a cheese, a flask of wine) and the village's flag on its tip.
+     * The prizes of Friuli's greasy pole (l'albero della cuccagna), as In piazza hangs them on the wheel under its wreath: a
+     * salami, a wheel of cheese, a white bag of sweets, by turns, swaying on their strings.
      */
-    private fun cuccagna(cx: Float, cy: Float, top: Float) {
-        val wz = top - 3.5f
-        // the wheel's back half, the pole, the wheel's front half with the prizes under it
-        wheel(cx, cy, wz, front = false)
-        i.box(cx - 0.11f, cy - 0.11f, 0f, 0.22f, 0.22f, top, STRIPPED_L, STRIPPED_L, STRIPPED_D)
-        if (fine) for (z in intArrayOf(4, 9, 14, 19)) c.set(i.ix(cx + 0.02f, cy + 0.12f), i.iy(cx + 0.02f, cy + 0.12f, z.toFloat()), Col.mix(STRIPPED_L, Col.hex(0xFFFFFF), 0.5f)) // the grease's shine
-        wheel(cx, cy, wz, front = true)
-        // the prizes on their strings from the wheel: a ham, salami, a wheel of cheese, a flask of wine, a sausage ring
-        val prizes = intArrayOf(Col.hex(0xC8746A), Col.hex(0x8A2A2A), Col.hex(0xF0CC5A), Col.hex(0x3E7A3A), Col.hex(0x8A2A2A), Col.hex(0xE8B850))
+    private fun prizes(cx: Float, cy: Float, wz: Float) {
+        val prizes = intArrayOf(Col.hex(0x8A2A2A), Col.hex(0xF0CC5A), Col.hex(0xF4F0E6), Col.hex(0x8A2A2A), Col.hex(0xF0CC5A), Col.hex(0xF4F0E6))
         for (j in prizes.indices) {
             val a = j * 2 * PI / prizes.size + 0.4
             val px = cx + cos(a).toFloat() * 0.62f; val py = cy + sin(a).toFloat() * 0.62f
@@ -210,16 +208,19 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             s.sprite(ax, ay) {
                 c.set(ax, ay + 1, ROPE)
                 c.set(ax + sway, ay + 2, col); c.set(ax + sway, ay + 3, col); c.set(ax + sway, ay + 4, dark)
-                if (j % 2 == 0) { c.set(ax + sway + 1, ay + 3, dark); c.set(ax + sway - 1, ay + 3, col) }
+                if (j % 3 == 1) { c.set(ax + sway + 1, ay + 3, dark); c.set(ax + sway - 1, ay + 3, col) } // the cheese is round
             }
         }
-        // the village's flag on the tip (Friuli's, its feasts' [Festive.banner])
-        val tx = i.ix(cx, cy); val ty = i.iy(cx, cy, top + 3f)
-        val wave = ((s.time * 3).toInt() and 1)
-        val flag = s.look.festive.banner
-        s.sprite(tx, ty) {
-            c.vline(tx, ty, ty + 3, Pal.WOOD_X)
-            for (u in 0 until 4) for (v in 0 until 3) c.set(tx + 1 + u, ty + v + if (u == 3) wave else 0, flag.at(u, v, 4, 3))
+    }
+
+    /** Carinthia's Kraxler's prize under the Maibaum's wreath at [z] (Unter dem Maibaum's): two strings of Würstel, a slab of Speck. */
+    private fun kraxel(cx: Float, cy: Float, z: Float) {
+        val ax = i.ix(cx, cy + 0.15f); val ay = i.iy(cx, cy + 0.15f, z)
+        val sway = (sin(s.time * 1.5) * 0.6).roundToInt()
+        val wurst = Col.hex(0x9A4A2E); val wurstD = Col.hex(0x6E3020); val speck = Col.hex(0xE8C8B0); val speckD = Col.hex(0xB0644A)
+        s.sprite(ax, ay) {
+            for (d in intArrayOf(-1, 2)) for (q in 0..3) c.set(ax + d + if (q > 1) sway else 0, ay + q, if (q % 2 == 0) wurst else wurstD)
+            c.set(ax + sway, ay + 2, speck); c.set(ax + sway, ay + 3, speckD); c.set(ax + 1 + sway, ay + 2, speckD)
         }
     }
 
@@ -235,8 +236,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
     }
 
     /**
-     * The Lake District's maypole for the children's dance: a white pole with a red stripe winding up it, a garland at its
-     * top, and the long ribbons in every colour from it down to the ground all round, swaying.
+     * The Lake District's maypole for the children's dance, as the green's: a white pole with a red stripe winding up it, a
+     * garland at its top, and eight long ribbons, red, blue, yellow and green, hanging from it to a child's height, swaying.
      */
     private fun ribbonPole(cx: Float, cy: Float, top: Float) {
         val cols = s.look.festive.maypole
@@ -251,10 +252,10 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             }
             for (j in 0 until n) {
                 val a = j * 2 * PI / n + s.time * 0.25
-                val ox = cos(a).toFloat() * 1.5f; val oy = sin(a).toFloat() * 1.5f
+                val ox = cos(a).toFloat() * 0.9f; val oy = sin(a).toFloat() * 0.9f
                 if ((ox + oy >= 0f) != (pass == 1)) continue
-                val sway = sin(s.time * 1.6 + j).toFloat() * 0.12f
-                i.line(cx, cy, top - 0.5f, cx + ox + sway, cy + oy - sway, 0.6f, cols[j % cols.size])
+                val sway = sin(s.time * 1.6 + j).toFloat() * 0.08f
+                i.line(cx, cy, top - 0.5f, cx + ox + sway, cy + oy - sway, 5f, cols[j % cols.size])
             }
         }
         wreath(cx, cy, top - 0.5f, front = true)
@@ -291,8 +292,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
 
     private fun ribbons(cx: Float, cy: Float, z: Float) {
         val cols = s.look.festive.maypole
-        for (j in 0 until 5) {
-            val a = -0.6 + j * 0.55
+        for (j in cols.indices) {
+            val a = -0.6 + j * 0.7
             val px = cx + cos(a).toFloat() * 0.55f; val py = cy + sin(a).toFloat() * 0.55f
             val ax = i.ix(px, py); val ay = i.iy(px, py, z)
             val len = 6 + (j * 2) % 3
@@ -486,7 +487,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
     // ---------------------------------------------------------------- Mlin · the mill on the stream
 
     /**
-     * France's water mill on the village's bank of the stream: a timber house on a stone footing under a shingled roof,
+     * France's water mill on the village's bank of the stream: a timber house on a stone footing under a shingled roof (the
+     * Lake District's of slate stone under slate, as its beck's, [MapLook.slateMill]),
      * a mill race dug off the stream past its front (its end toward the water, -x), the wheel standing in the race.
      * Half-built, the footing with the frame going up on it and the race dug, dry; then the walls under bare rafters in
      * scaffolding, the wheel standing still; finished, the race runs off the stream (+x), the wheel turning with it, a sack
@@ -515,12 +517,17 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             return
         }
         if (!done) scaffoldBack(hx, hy, 11f)
-        i.box(hx, hy, 0f, hw, hd, 2f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-        if (fine) b.mortar(hx, hy, 0f, hw, hd, 2f, Pal.STONE_D, Pal.STONE_X)
-        i.box(hx, hy, 2f, hw, hd, 6f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
-        if (fine) for (z in 3..7) {
-            i.line(hx, hy + hd, z.toFloat(), hx + hw, hy + hd, z.toFloat(), Pal.WOOD_D)
-            i.line(hx + hw, hy, z.toFloat(), hx + hw, hy + hd, z.toFloat(), Pal.WOOD_X)
+        // the Lake District's of slate stone up to its eaves, as By the beck's (its look's style: the dale's stone)
+        val slate = s.look.style?.takeIf { s.look.slateMill }
+        if (slate != null) b.looks.stoneBox(hx, hy, 0f, hw, hd, 8f, slate.walls[0], 67)
+        else {
+            i.box(hx, hy, 0f, hw, hd, 2f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+            if (fine) b.mortar(hx, hy, 0f, hw, hd, 2f, Pal.STONE_D, Pal.STONE_X)
+            i.box(hx, hy, 2f, hw, hd, 6f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+            if (fine) for (z in 3..7) {
+                i.line(hx, hy + hd, z.toFloat(), hx + hw, hy + hd, z.toFloat(), Pal.WOOD_D)
+                i.line(hx + hw, hy, z.toFloat(), hx + hw, hy + hd, z.toFloat(), Pal.WOOD_X)
+            }
         }
         // the door on the front, away from the wheel; a small window on the side, lit at night once it grinds
         i.panelY(hx + hw * 0.62f, hy + hd, 2f, 0.32f, 4.5f, Pal.DOOR)
@@ -529,7 +536,7 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             s.light(i.sx(hx + hw, hy + 0.45f), i.sy(hx + hw, hy + 0.45f, 5.5f), 11f, 0.5f * env.windows)
         } else i.panelX(hx + hw, hy + 0.3f, 4.5f, 0.3f, 2f, Pal.GLASS)
         if (done) {
-            b.roofX(hx - 0.2f, hy - 0.2f, 8f, hw + 0.4f, hd + 0.4f, 4.5f, b.shingles(), Pal.WOOD_L)
+            b.roofX(hx - 0.2f, hy - 0.2f, 8f, hw + 0.4f, hd + 0.4f, 4.5f, if (slate != null) b.slate() else b.shingles(), slate?.walls?.get(0)?.get(1) ?: Pal.WOOD_L)
             if (!env.snow) { i.px(hx + hw * 0.62f + 0.45f, hy + hd + 0.1f, 1f, Pal.CANVAS_L); i.px(hx + hw * 0.62f + 0.45f, hy + hd + 0.1f, 2f, Pal.CANVAS_L) } // a sack of flour
         } else {
             roofFrameX(hx - 0.2f, hy - 0.2f, 8f, hw + 0.4f, hd + 0.4f, 4.5f)
@@ -620,7 +627,7 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         }
         if (look == BuildLook.DONE && !env.snow && court == Court.CURLING) {
             // the stocks near the Daube (the little wooden block), one sliding down the lane
-            ball(len * 0.82f, wide * 0.5f, Pal.WOOD_L)
+            ball(len * 0.82f, wide * 0.5f, DAUBE) // the Daube, a black rubber disc
             for ((u, v, col) in listOf(Triple(0.76f, 0.3f, Flag.AT_RED), Triple(0.88f, 0.66f, Col.hex(0x2F6A3E)), Triple(0.7f, 0.68f, Flag.AT_RED))) stock(len * u, wide * v, col, along, x, y)
             val ph = ((s.time / 8.0) % 1.0).toFloat()
             val slide = if (ph < 0.6f) 1f - (1f - ph / 0.6f).let { it * it } else 1f
@@ -632,12 +639,12 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             val roll = if (ph < 0.6f) 1f - (1f - ph / 0.6f).let { it * it } else 1f
             ball(len * (0.12f + 0.54f * roll), wide * (0.5f + 0.12f * sin(roll * PI).toFloat()), WOOD_BALL_D)
         } else if (look == BuildLook.DONE && !env.snow) {
-            ball(len * 0.8f, wide * 0.45f, Pal.FLAG_WHITE) // the jack
-            ball(len * 0.74f, wide * 0.28f, BALL_RED); ball(len * 0.87f, wide * 0.64f, BALL_BLUE); ball(len * 0.71f, wide * 0.7f, BALL_BLUE)
+            ball(len * 0.8f, wide * 0.45f, JACK) // the jack (il pallino) of wood
+            ball(len * 0.74f, wide * 0.28f, BALL_STEEL); ball(len * 0.87f, wide * 0.64f, BALL_STEEL_D); ball(len * 0.71f, wide * 0.7f, BALL_STEEL_D)
             // one on its way down the court, slowing to a stop by the others
             val ph = ((s.time / 9.0) % 1.0).toFloat()
             val roll = if (ph < 0.5f) 1f - (1f - ph / 0.5f).let { it * it } else 1f
-            ball(len * (0.12f + 0.54f * roll), wide * 0.5f, BALL_RED)
+            ball(len * (0.12f + 0.54f * roll), wide * 0.5f, BALL_STEEL)
         }
         box(0f, wide - t, 0f, len, t, bh); box(len - t, 0f, 0f, t, wide, bh)
         if (look == BuildLook.SCAFFOLD) {
@@ -694,13 +701,49 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             if (lit) glow { i.panelX(x0 + bw, y0 + 0.4f, 4f, 0.22f, 2.5f, Pal.WINDOW_LIT) } else i.panelX(x0 + bw, y0 + 0.4f, 4f, 0.22f, 2.5f, Pal.GLASS)
             // flowers at its foot in the warm months
             if (warm) for (j in 0..3) i.px(x0 + 0.08f + j * 0.28f, ny + 0.02f, 1.5f, if (j % 2 == 0) Pal.GERANIUM else Pal.PAINTED[1])
-            b.roofY(x0 - 0.2f, y0 - 0.15f, 10f, bw + 0.4f, bw + 0.45f, 5.5f, b.villageRoof(), if (stone) s.look.style!!.walls[0][1] else walls?.get(0) ?: Pal.WALL_L)
-            val ax = i.ix(x0 + bw / 2f, y0 + bw + 0.3f); val ay = i.iy(x0 + bw / 2f, y0 + bw + 0.3f, 15.5f)
+            // the roof: shingles as its scene's (the village's in a culture's look: coppi, shingles, slate)
+            val roof = if (s.look.own) b.shingles() else b.villageRoof()
+            b.roofY(x0 - 0.2f, y0 - 0.15f, 10f, bw + 0.4f, bw + 0.45f, 5.5f, roof, if (stone) s.look.style!!.walls[0][1] else walls?.get(0) ?: Pal.WALL_L)
+            // the bell: in the little turret on the ridge over the front, or an ancona's on its iron bracket under the gable
+            val tx = x0 + bw / 2f; val ty = y0 + bw + 0.1f
+            val top = if (s.look.ancona) {
+                i.line(tx, ny + 0.06f, 11.6f, tx + 0.28f, ny + 0.06f, 11.6f, IRON)
+                i.px(tx + 0.28f, ny + 0.06f, 10.9f, Pal.GOLD)
+                15.5f
+            } else turret(tx, ty, 15.5f)
+            val ax = i.ix(tx, ty + 0.2f); val ay = i.iy(tx, ty + 0.2f, top)
             s.sprite(ax, ay) { c.vline(ax, ay - 4, ay, IRON); c.hline(ax - 1, ax + 1, ay - 3, IRON) }
         } else {
             rafters(x0 - 0.2f, y0 - 0.15f, 10f, bw + 0.4f, bw + 0.45f, 5.5f)
             scaffoldFront(x0, y0, bw, bw, 11f)
         }
+    }
+
+    /**
+     * The chapel's little turret on its ridge at ([tx], [ty], [z]), as its scene's: two wooden posts with the bell between them
+     * under a little gable of shingles; Carinthia's under an onion cap of dark shingles ([Chapel.ONION]); the Lake District's
+     * a bellcote of two stone piers under a stone cap ([Chapel.SLATE]). Returns the height its cross stands on.
+     */
+    private fun turret(tx: Float, ty: Float, z: Float): Float {
+        val slate = s.look.chapel == Chapel.SLATE
+        val pier = if (slate) Col.hex(0x8C949A) else Pal.WOOD_M
+        val o = if (slate) 0.16f else 0.13f
+        i.post(tx - o, ty, z, z + 2f, pier); i.post(tx + o, ty, z, z + 2f, if (slate) Col.scale(pier, 0.8f) else Pal.WOOD_D)
+        if (slate && fine) { i.post(tx - o + 0.05f, ty, z, z + 2f, pier); i.post(tx + o - 0.05f, ty, z, z + 2f, Col.scale(pier, 0.8f)) }
+        i.px(tx, ty, z + 1f, Pal.GOLD) // the bell
+        val snow = env.snow
+        if (s.look.chapel == Chapel.ONION) {
+            val l = if (snow) Pal.SNOW_L else Pal.SHINGLE_L; val m = if (snow) Pal.SNOW_M else Pal.SHINGLE_M; val d = Pal.SHINGLE_D
+            i.line(tx - 0.2f, ty, z + 2.2f, tx + 0.2f, ty, z + 2.2f, m)
+            i.line(tx - 0.24f, ty, z + 2.9f, tx + 0.24f, ty, z + 2.9f, l); i.px(tx + 0.24f, ty, z + 2.9f, d)
+            i.line(tx - 0.14f, ty, z + 3.6f, tx + 0.14f, ty, z + 3.6f, m)
+            i.px(tx, ty, z + 4.2f, d)
+            return z + 4.6f
+        }
+        val cap = when { snow -> Pal.SNOW_L; slate -> Col.hex(0x6E7880); else -> Pal.SHINGLE_D }
+        i.line(tx - 0.26f, ty, z + 2.2f, tx + 0.26f, ty, z + 2.2f, cap)
+        i.line(tx - 0.13f, ty, z + 2.8f, tx + 0.13f, ty, z + 2.8f, if (snow || slate) cap else Pal.SHINGLE_M)
+        return z + 3.2f
     }
 
     /** A gable roof's rafters, with the ridge along y, before the tiles go on. */
@@ -866,6 +909,14 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
     /** A patch of meadow flowers with three hives on posts among them, each under a little roof, its front painted. */
     private fun travnik(x: Float, y: Float, w: Float, d: Float, look: BuildLook) {
         ground { flowers(x, y, w, d, when (look) { BuildLook.DONE -> 1f; BuildLook.SCAFFOLD -> 0.5f; else -> 0f }) }
+        // Friuli's sunflowers standing over its clover from July to October, as Il prato delle api sows them
+        if (look == BuildLook.DONE && s.look.sunflowers && !env.snow && env.month in 7..10) for (q in 0 until 7) {
+            val u = 0.12f + Noise.rnd(q, 57) * 0.76f; val v = 0.15f + Noise.rnd(q, 58) * 0.7f
+            val fx = x + u * w; val fy = y + v * d; val hgt = 3.5f + Noise.rnd(q, 59) * 1.5f
+            i.line(fx, fy, 0f, fx, fy, hgt, Pal.LEAF)
+            i.px(fx, fy, hgt + 0.5f, if (env.month == 10) Col.hex(0x8A6A2A) else Pal.GOLD)
+            if (fine) c.set(i.ix(fx, fy) + k / 2, i.iy(fx, fy, hgt + 0.5f) + k / 2, Col.hex(0x5A3A1A)) // its dark middle, closer up
+        }
         // a row across the patch, level on the screen, each hive in the clear
         for (j in 0 until 3) hive(x + 0.2f + j * (w - 0.9f) / 2f, y + d - 0.75f - j * (d - 1f) / 2f, j, look)
         if (look == BuildLook.DONE && warm && env.dark < 0.5f) {
@@ -942,7 +993,13 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
 
     // ---------------------------------------------------------------- Gasilski dom · the fire station
 
-    /** A small white hall with a red gate for the pump cart, and beside it the tall tower where the hoses dry, a bell in it. */
+    /**
+     * A small white hall with a red gate for the pump cart, and beside it the tall tower where the hoses dry, as its scene builds
+     * it (V gasilskem domu): plastered over a stone footing, the belfry's round arches open on its faces with the bell in them,
+     * a stone cornice, a pyramid roof of shingles with an iron cross on its tip. In a culture's look the hall and the tower of
+     * its walls and under its roof: Friuli's of river cobbles with bands of brick under coppi, the Lake District's mountain
+     * rescue hut and its tower of slate stone under slate.
+     */
     private fun gasilskiDom(x: Float, y: Float, look: BuildLook) {
         val hx = x + 0.2f; val hy = y + 0.5f; val hw = 1.5f; val hd = 1.45f
         val tx = x + 1.9f; val ty = y + 0.2f; val tw = 0.6f; val td = 0.65f
@@ -951,7 +1008,6 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             i.box(hx, hy, 0f, hw, hd, 4.5f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
             b.mortar(hx, hy, 0f, hw, hd, 4.5f, Pal.STONE_D, Pal.STONE_X)
             i.panelY(hx + 0.3f, hy + hd, 0f, 0.85f, 4.5f, INTERIOR)
-            if (s.look.style?.stone == true) return // the rescue hut's mast goes up last
             // the tower's timber frame, half up
             val h = 12f
             i.post(tx, ty, 0f, h, Pal.WOOD_D); i.post(tx + tw, ty, 0f, h, Pal.WOOD_D)
@@ -963,7 +1019,7 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             return
         }
         val done = look == BuildLook.DONE
-        // the Lake District's mountain rescue hut: of stone under slate, a radio mast for the hose tower
+        // the Lake District's mountain rescue hut: of slate stone under slate, its tower too
         val rescue = s.look.style?.takeIf { it.stone }
         // the hall
         i.box(hx, hy, 0f, hw, hd, 1.5f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
@@ -994,31 +1050,32 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         if (fine) i.line(hx + hw, hy + 0.72f, 3.5f, hx + hw, hy + 0.72f, 6f, Pal.WOOD_X)
         if (done) b.roofX(hx - 0.2f, hy - 0.25f, 8.5f, hw + 0.35f, hd + 0.5f, 5f, b.villageRoof(), rescue?.walls?.get(0)?.get(2) ?: Pal.WALL_L)
         else roofFrameX(hx - 0.2f, hy - 0.25f, 8.5f, hw + 0.35f, hd + 0.5f, 5f)
-        if (rescue != null) {
-            // the radio mast beside the hut, its stays, a red light on its top at night
-            i.box(tx + 0.1f, ty + 0.1f, 0f, 0.4f, 0.4f, 1f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-            if (done || look == BuildLook.SCAFFOLD) {
-                val top = if (done) 22f else 12f
-                i.post(tx + 0.3f, ty + 0.3f, 1f, top, IRON)
-                for (z in floatArrayOf(top * 0.45f, top * 0.8f)) { i.line(tx + 0.1f, ty + 0.3f, z, tx + 0.5f, ty + 0.3f, z, IRON); i.line(tx + 0.3f, ty + 0.1f, z, tx + 0.3f, ty + 0.5f, z, IRON) }
-                if (fine) { i.line(tx + 0.3f, ty + 0.3f, top * 0.8f, tx - 0.3f, ty + 0.9f, 0f, Pal.STONE_X); i.line(tx + 0.3f, ty + 0.3f, top * 0.8f, tx + 0.9f, ty + 0.9f, 0f, Pal.STONE_X) }
-                if (done) { if (env.windows > 0.2f) glow { i.px(tx + 0.3f, ty + 0.3f, top + 1f, Pal.FLAG_RED) } else i.px(tx + 0.3f, ty + 0.3f, top + 1f, Flag.EN_RED) }
-            }
-            return
-        }
         // the hose tower
         if (!done) scaffoldBack(tx, ty, 21f)
-        if (cobbles) b.looks.cobbleBox(tx, ty, 0f, tw, td, 20f, 98)
-        else i.box(tx, ty, 0f, tw, td, 20f, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
-        if (fine) i.line(tx, ty + td, 1.5f, tx + tw, ty + td, 1.5f, Pal.STONE_M)
+        val th = if (done) 25f else 20f
+        when {
+            rescue != null -> b.looks.stoneBox(tx, ty, 0f, tw, td, th, rescue.walls[0], 98)
+            cobbles -> b.looks.cobbleBox(tx, ty, 0f, tw, td, th, 98)
+            else -> {
+                i.box(tx, ty, 0f, tw, td, th, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
+                i.box(tx, ty, 0f, tw, td, 1.5f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D) // its stone footing
+            }
+        }
         i.panelX(tx + tw, ty + 0.25f, 11f, 0.15f, 2f, Pal.GLASS)
         if (done) {
-            i.box(tx, ty, 20f, tw, td, 5f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
-            for (z in floatArrayOf(21.5f, 23.2f)) { i.line(tx, ty + td, z, tx + tw, ty + td, z, INTERIOR); i.line(tx + tw, ty, z, tx + tw, ty + td, z, INTERIOR) }
-            i.px(tx + tw / 2f, ty + td, 22f, Pal.GOLD) // the bell
-            val r = b.villageRoof()
-            i.pyramid(tx - 0.12f, ty - 0.12f, 25f, tw + 0.24f, td + 0.24f, 6f, if (env.snow) Pal.SNOW_L else if (s.look.own) Pal.ROOF_L else r.back, if (env.snow) Pal.SNOW_M else r.front)
-            i.post(tx + tw / 2f, ty + td / 2f, 31f, 33f, IRON)
+            // the belfry's round arches open on both faces, the bell in them; the stone cornice; the roof; the cross on its tip
+            i.panelY(tx + 0.13f, ty + td, 20.4f, tw - 0.26f, 2.8f, BELFRY)
+            i.panelY(tx + 0.2f, ty + td, 23.2f, tw - 0.4f, 0.6f, BELFRY)
+            i.panelX(tx + tw, ty + 0.13f, 20.4f, td - 0.26f, 2.8f, Col.scale(BELFRY, 0.8f))
+            i.panelX(tx + tw, ty + 0.2f, 23.2f, td - 0.4f, 0.6f, Col.scale(BELFRY, 0.8f))
+            i.px(tx + tw / 2f, ty + td, 22.4f, Pal.GOLD) // the bell
+            if (fine) i.px(tx + tw / 2f, ty + td, 21.6f, Pal.GOLD_L)
+            i.box(tx - 0.08f, ty - 0.08f, 25f, tw + 0.16f, td + 0.16f, 0.8f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+            val r = if (s.look.own) b.shingles() else b.villageRoof()
+            i.pyramid(tx - 0.16f, ty - 0.16f, 25.8f, tw + 0.32f, td + 0.32f, 5.5f, if (env.snow) Pal.SNOW_L else r.back, if (env.snow) Pal.SNOW_M else r.front)
+            val cx = tx + tw / 2f; val cy = ty + td / 2f
+            i.post(cx, cy, 31.3f, 34.3f, IRON)
+            i.line(cx - 0.14f, cy + 0.14f, 33.3f, cx + 0.14f, cy - 0.14f, 33.3f, IRON)
         } else scaffoldFront(tx, ty, tw, td, 21f)
     }
 
@@ -1033,23 +1090,34 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
 
     // ---------------------------------------------------------------- Otroško igrišče · the playground
 
-    /** A swing on an A-frame (swinging by day), a seesaw going up and down, a sandbox with a bucket and a spade. */
+    /**
+     * The playground as its scene builds it (Na igrišču): the wooden slide at the back with its ladder up to the platform, the
+     * swing on its A-frame with its two plank seats (the near one swinging by day), the sandpit with a bucket and a spade, the
+     * red ball on the lawn; Friuli's fontanella, the green cast-iron drinking fountain, by its corner ([MapLook.fontanella]).
+     */
     private fun igrisce(x: Float, y: Float, look: BuildLook) {
         val playing = look == BuildLook.DONE && !env.snow && env.dark < 0.5f
-        // the seesaw, at the back left
-        val sx0 = x + 0.15f; val sy = y + 0.45f
+        // the slide, at the back left: the ladder up the back to its platform, the chute down toward us
+        val sx = x + 0.45f; val sy = y + 0.35f
         if (look != BuildLook.FRAME) {
-            i.box(sx0 + 0.55f, sy - 0.1f, 0f, 0.2f, 0.2f, 1.6f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+            i.post(sx, sy, 0f, 6.5f, Pal.WOOD_D); i.post(sx + 0.4f, sy, 0f, 6.5f, Pal.WOOD_D)
+            for (z in 1..5) i.line(sx, sy, z.toFloat(), sx + 0.4f, sy, z.toFloat(), Pal.WOOD_M)
+            i.top(sx, sy, 5.5f, 0.4f, 0.4f, if (env.snow) Pal.SNOW_L else Pal.WOOD_L)
             if (look == BuildLook.DONE) {
-                val tilt = if (playing) sin(s.time * 1.6).toFloat() * 1.3f else 1.3f
-                val za = 1.8f - tilt; val zb = 1.8f + tilt
-                i.line(sx0, sy, za - 0.5f, sx0 + 1.3f, sy, zb - 0.5f, Pal.WOOD_D)
-                i.line(sx0, sy, za, sx0 + 1.3f, sy, zb, SEAT)
-                i.post(sx0 + 0.15f, sy, za + 0.2f * tilt, za + 1.5f, IRON); i.post(sx0 + 1.15f, sy, zb - 0.2f * tilt, zb + 1.5f, IRON) // the handles
+                i.quad(sx, sy + 0.4f, 5.5f, sx + 0.4f, sy + 0.4f, 5.5f, sx + 0.4f, sy + 1.6f, 0.4f, sx, sy + 1.6f, 0.4f, if (env.snow) Pal.SNOW_L else Pal.WOOD_L)
+                i.line(sx + 0.4f, sy + 0.4f, 6.2f, sx + 0.4f, sy + 1.6f, 1.1f, Pal.WOOD_D) // its side
+                i.line(sx, sy + 0.4f, 6.2f, sx, sy + 1.6f, 1.1f, Pal.WOOD_M)
             }
-        }
+        } else i.post(sx, sy, 0f, 6.5f, Pal.WOOD_D)
         swing(x + 1.5f, x + 2.65f, y + 0.6f, look, playing)
-        sandbox(x + 0.2f, y + 1.0f, 1.25f, 0.9f, look)
+        sandbox(x + 0.95f, y + 1.05f, 1.2f, 0.85f, look)
+        if (look == BuildLook.DONE && !env.snow) i.px(x + 2.45f, y + 1.75f, 0.6f, Pal.FLAG_RED) // the ball
+        if (look == BuildLook.DONE && s.look.fontanella) {
+            val fx = x + 2.55f; val fy = y + 0.15f
+            i.box(fx - 0.1f, fy - 0.1f, 0f, 0.2f, 0.2f, 3.5f, FONTANELLA_L, FONTANELLA, Col.scale(FONTANELLA, 0.75f))
+            i.px(fx, fy + 0.18f, 2.6f, FONTANELLA)
+            if (!env.snow) i.line(fx, fy + 0.22f, 2.4f, fx, fy + 0.25f, 0.4f, Pal.WATER_L)
+        }
     }
 
     private fun swing(xa: Float, xb: Float, yc: Float, look: BuildLook, playing: Boolean) {
@@ -1059,11 +1127,14 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         if (look != BuildLook.FRAME) {
             i.box(xa, yc - 0.06f, top - 0.6f, xb - xa, 0.12f, 0.8f, if (env.snow) Pal.SNOW_L else Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
             if (look == BuildLook.DONE) {
-                val phi = if (playing) sin(s.time * 2.3).toFloat() * 0.42f else 0f
-                val seatY = yc + sin(phi) * 1.5f; val seatZ = top - cos(phi) * 8f
-                val r0 = (xa + xb) / 2f - 0.18f; val r1 = r0 + 0.36f
-                i.line(r0, yc, top - 0.3f, r0, seatY, seatZ, ROPE); i.line(r1, yc, top - 0.3f, r1, seatY, seatZ, ROPE)
-                i.box(r0 - 0.04f, seatY - 0.08f, seatZ - 0.5f, 0.44f, 0.16f, 0.5f, SEAT, Col.scale(SEAT, 0.8f), Col.scale(SEAT, 0.62f))
+                // its two plank seats: the far one still, the near one swinging by day
+                for (n in 0..1) {
+                    val phi = if (playing && n == 0) sin(s.time * 2.3).toFloat() * 0.42f else 0f
+                    val seatY = yc + sin(phi) * 1.5f; val seatZ = top - cos(phi) * 8f
+                    val r0 = xa + (xb - xa) * (if (n == 0) 0.25f else 0.62f) - 0.14f; val r1 = r0 + 0.28f
+                    i.line(r0, yc, top - 0.3f, r0, seatY, seatZ, ROPE); i.line(r1, yc, top - 0.3f, r1, seatY, seatZ, ROPE)
+                    i.box(r0 - 0.04f, seatY - 0.08f, seatZ - 0.4f, 0.36f, 0.16f, 0.4f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+                }
             }
         }
         for (lx in legs) rod(lx, yc + spread, 0f, lx, yc, top, Pal.WOOD_L)
@@ -1080,8 +1151,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
                 c.set(i.ix(x0 + t + u * (w - 2 * t), y0 + t + v * (d - 2 * t)), i.iy(x0 + t + u * (w - 2 * t), y0 + t + v * (d - 2 * t), 0.8f), if (q % 2 == 0) SAND_D else SAND_L)
             }
             if (look == BuildLook.DONE && !env.snow) {
-                i.px(x0 + 0.4f, y0 + 0.5f, 1.5f, Pal.FLAG_RED); i.px(x0 + 0.4f, y0 + 0.5f, 2.3f, Col.scale(Pal.FLAG_RED, 0.7f)) // a bucket
-                i.line(x0 + 0.75f, y0 + 0.6f, 0.9f, x0 + 0.95f, y0 + 0.45f, 2.5f, Pal.GOLD) // a spade
+                i.px(x0 + 0.4f, y0 + 0.5f, 1.5f, Pal.FLAG_BLUE); i.px(x0 + 0.4f, y0 + 0.5f, 2.3f, Col.scale(Pal.FLAG_BLUE, 0.7f)) // a bucket
+                i.line(x0 + 0.75f, y0 + 0.6f, 0.9f, x0 + 0.95f, y0 + 0.45f, 2.5f, Pal.FLAG_RED) // a spade
                 i.px(x0 + 0.85f, y0 + 0.3f, 1.3f, SAND_L); if (fine) i.px(x0 + 0.85f, y0 + 0.3f, 2.1f, SAND_D) // a sand castle
             }
         }
@@ -1090,51 +1161,102 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
 
     // ---------------------------------------------------------------- Vodnjak na trgu · the fountain on the square
 
-    /** A square stone basin, a column with a bowl spilling water into it (frozen in winter), a gold finial, a lamp by it. */
+    /**
+     * The fountain on the square, as its scene builds it (Pri vodnjaku): an eight-sided trough of white limestone round its
+     * pillar, a stone knob on the pillar's cap, the iron pipes with the water arcing from them into it (frozen in winter), a
+     * lamp by it. In a culture's look ([MapLook.fountain]): Friuli's pine cone of stone on the cap and a moulding under the
+     * rim; St Florian with his bucket on Carinthia's; the Lake District's of green slate, its lion's head spouting.
+     */
     private fun vodnjak(x: Float, y: Float, look: BuildLook) {
         val bx = x + 0.2f; val by = y + 0.2f; val bs = 1.5f
-        val cx = bx + bs / 2f; val cy = by + bs / 2f
+        val cx = bx + bs / 2f; val cy = by + bs / 2f; val r = bs / 2f
+        val kind = s.look.fountain
+        val st = if (kind == Fountain.SLATE) FOUNT_SLATE else FOUNT_LIME
         shadow(bx, by, bs, bs)
         if (look == BuildLook.FRAME) {
-            i.box(bx, by, 0f, bs, bs, 1.5f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-            i.top(bx + 0.2f, by + 0.2f, 1.5f, bs - 0.4f, bs - 0.4f, if (env.snow) Pal.SNOW_M else Pal.SOIL_M)
-            b.mortar(bx, by, 0f, bs, bs, 1.5f, Pal.STONE_D, Pal.STONE_X)
-            i.box(cx - 0.2f, cy - 0.2f, 1.5f, 0.4f, 0.4f, 1.5f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+            octagon(cx, cy, r, 0f, 1.5f, st)
+            i.top(bx + 0.3f, by + 0.3f, 1.5f, bs - 0.6f, bs - 0.6f, if (env.snow) Pal.SNOW_M else Pal.SOIL_M)
+            i.box(cx - 0.2f, cy - 0.2f, 1.5f, 0.4f, 0.4f, 1.5f, st[0], st[1], st[2])
             return
         }
         val water = look == BuildLook.DONE
         if (!water) scaffoldBack(bx, by, 10f)
-        i.box(bx, by, 0f, bs, bs, 3f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-        b.mortar(bx, by, 0f, bs, bs, 3f, Pal.STONE_D, Pal.STONE_X)
-        val inner = if (!water) Pal.STONE_D else if (env.snow) Pal.ICE_M else Pal.WATER_M
-        i.top(bx + 0.18f, by + 0.18f, 3f, bs - 0.36f, bs - 0.36f, inner)
-        if (fine) { i.line(bx + 0.18f, by + 0.18f, 3f, bx + bs - 0.18f, by + 0.18f, 3f, Pal.STONE_X); i.line(bx + 0.18f, by + 0.18f, 3f, bx + 0.18f, by + bs - 0.18f, 3f, Pal.STONE_X) }
+        // the trough: its eight faces, the rim, the water in it
+        octagon(cx, cy, r, 0f, 2.6f, st)
+        if (kind == Fountain.PIGNA) octagon(cx, cy, r + 0.06f, 2.1f, 0.4f, st) // the moulding under the rim
+        val inner = if (!water) st[3] else if (env.snow) Pal.ICE_M else Pal.WATER_M
+        octagonTop(cx, cy, r - 0.16f, 2.6f, inner)
         if (water && !env.snow) for (q in 0..1) {
             val ph = ((s.time * 0.7 + q * 0.5) % 1.0).toFloat()
-            c.set(i.ix(bx + 0.4f + ph * 0.8f, by + 1.1f - q * 0.6f), i.iy(bx + 0.4f + ph * 0.8f, by + 1.1f - q * 0.6f, 3f), Pal.WATER_L)
+            c.set(i.ix(bx + 0.45f + ph * 0.6f, by + 1.05f - q * 0.5f), i.iy(bx + 0.45f + ph * 0.6f, by + 1.05f - q * 0.5f, 2.6f), Pal.WATER_L)
         }
-        i.box(cx - 0.14f, cy - 0.14f, 3f, 0.28f, 0.28f, 6f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-        i.box(cx - 0.4f, cy - 0.4f, 9f, 0.8f, 0.8f, 1f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-        if (water) i.top(cx - 0.28f, cy - 0.28f, 10f, 0.56f, 0.56f, if (env.snow) Pal.ICE_M else Pal.WATER_M)
-        i.post(cx, cy, 10f, 12.5f, Pal.STONE_L); i.px(cx, cy, 13f, Pal.GOLD)
-        if (water) spill(cx, cy)
+        // the pillar and its cap
+        i.box(cx - 0.15f, cy - 0.15f, 2.6f, 0.3f, 0.3f, 6.4f, st[0], st[1], st[2])
+        i.box(cx - 0.22f, cy - 0.22f, 9f, 0.44f, 0.44f, 0.6f, st[0], st[1], st[2])
+        val capZ = 9.6f
+        when (kind) {
+            Fountain.PIGNA -> { // the pine cone of stone
+                i.box(cx - 0.12f, cy - 0.12f, capZ, 0.24f, 0.24f, 1.6f, st[0], st[1], st[2])
+                i.px(cx, cy, capZ + 2.1f, st[1])
+                if (fine) for (q in 0..2) i.px(cx + 0.02f, cy + 0.13f, capZ + 0.4f + q * 0.5f, st[3])
+            }
+            Fountain.FLORIAN -> { // St Florian on the cap: his grey armour, his red cloak, his bucket pouring
+                i.box(cx - 0.1f, cy - 0.1f, capZ, 0.2f, 0.2f, 2f, FLORIAN_ARMOUR, FLORIAN_CLOAK, Col.scale(FLORIAN_CLOAK, 0.75f))
+                i.px(cx, cy, capZ + 2.5f, Pal.SKIN)
+                i.px(cx + 0.18f, cy + 0.12f, capZ + 1.7f, Pal.WOOD_M)
+                if (fine) i.px(cx, cy, capZ + 3.1f, Col.hex(0x8C8C94)) // his helmet
+            }
+            Fountain.SLATE -> i.box(cx - 0.17f, cy - 0.17f, capZ, 0.34f, 0.34f, 0.5f, st[0], st[1], st[2]) // the stepped cap
+            Fountain.OWN -> i.px(cx, cy, capZ + 0.6f, if (env.snow) Pal.SNOW_L else st[0]) // the knob
+        }
+        // the spouts: four iron pipes (the two toward us seen), or the lion's head on the Lake District's pillar
+        val pz = 6.2f
+        if (kind == Fountain.SLATE) {
+            i.px(cx, cy + 0.16f, pz, st[3]); i.px(cx + 0.16f, cy, pz, st[3])
+            if (fine) { i.px(cx - 0.06f, cy + 0.16f, pz + 0.5f, st[2]); i.px(cx + 0.06f, cy + 0.16f, pz + 0.5f, st[2]) }
+        } else {
+            i.line(cx, cy + 0.15f, pz, cx, cy + 0.42f, pz - 0.2f, IRON)
+            i.line(cx + 0.15f, cy, pz, cx + 0.42f, cy, pz - 0.2f, IRON)
+        }
+        if (water) spill(cx, cy, pz)
         if (!water) scaffoldFront(bx, by, bs, bs, 10f)
         else lamp(x + 1.85f, y + 1.85f)
     }
 
-    /** Water spilling from the bowl's two front edges into the basin, or icicles in winter. */
-    private fun spill(cx: Float, cy: Float) {
+    /** An eight-sided trough round ([cx], [cy]) of radius [r], from [z] up [h], its faces toward us in [st]'s light and shade. */
+    private fun octagon(cx: Float, cy: Float, r: Float, z: Float, h: Float, st: IntArray) {
+        for (j in 0 until 8) {
+            val a0 = (j * 45f + 22.5f) * PI.toFloat() / 180f; val a1 = a0 + PI.toFloat() / 4f
+            val nx = cos((a0 + a1) / 2f); val ny = sin((a0 + a1) / 2f)
+            if (nx + ny <= 0.01f) continue
+            val col = when { ny > 0.6f -> st[0]; nx > 0.6f -> st[2]; else -> st[1] }
+            val x0 = cx + cos(a0) * r; val y0 = cy + sin(a0) * r; val x1 = cx + cos(a1) * r; val y1 = cy + sin(a1) * r
+            i.quad(x0, y0, z, x1, y1, z, x1, y1, z + h, x0, y0, z + h, col)
+        }
+        octagonTop(cx, cy, r, z + h, if (env.snow) Pal.SNOW_L else st[0])
+    }
+
+    /** The eight-sided top of radius [r] round ([cx], [cy]) at [z], in [col]. */
+    private fun octagonTop(cx: Float, cy: Float, r: Float, z: Float, col: Int) {
+        for (j in 0 until 8) {
+            val a0 = (j * 45f + 22.5f) * PI.toFloat() / 180f; val a1 = a0 + PI.toFloat() / 4f
+            i.tri(cx, cy, z, cx + cos(a0) * r, cy + sin(a0) * r, z, cx + cos(a1) * r, cy + sin(a1) * r, z, col)
+        }
+    }
+
+    /** The water arcing from the two spouts toward us into the trough at [z], or icicles at their mouths in winter. */
+    private fun spill(cx: Float, cy: Float, z: Float) {
         for (e in 0..1) {
-            val ex = if (e == 0) cx else cx + 0.4f; val ey = if (e == 0) cy + 0.4f else cy
-            val ox = if (e == 0) 0f else 0.22f; val oy = if (e == 0) 0.22f else 0f
-            if (env.snow) { i.line(ex, ey, 9f, ex, ey, 7.5f, Pal.ICE_L); continue }
+            val ex = if (e == 0) cx else cx + 0.42f; val ey = if (e == 0) cy + 0.42f else cy
+            val ox = if (e == 0) 0f else 0.14f; val oy = if (e == 0) 0.14f else 0f
+            if (env.snow) { i.line(ex, ey, z - 0.3f, ex, ey, z - 1.5f, Pal.ICE_L); continue }
             val steps = 6 * k
             for (q in 0..steps) {
                 val t = q / steps.toFloat()
-                val z = 9.2f - 6f * t * t; val px = ex + ox * t; val py = ey + oy * t
-                c.set(i.ix(px, py), i.iy(px, py, z), if (((q + (s.time * 12).toInt()) % 4) == 0) Pal.WATER_L else Pal.WATER_M)
+                val zz = z - 0.3f - (z - 2.9f) * t * t; val px = ex + ox * t; val py = ey + oy * t
+                c.set(i.ix(px, py), i.iy(px, py, zz), if (((q + (s.time * 12).toInt()) % 4) == 0) Pal.WATER_L else Pal.WATER_M)
             }
-            c.set(i.ix(ex + ox, ey + oy) - k, i.iy(ex + ox, ey + oy, 3.2f), Pal.WATER_L) // the splash
+            c.set(i.ix(ex + ox, ey + oy) - k, i.iy(ex + ox, ey + oy, 2.8f), Pal.WATER_L) // the splash
         }
     }
 
@@ -1154,37 +1276,53 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
     // ---------------------------------------------------------------- Toplar · the double hayrack
 
     /**
-     * The great Slovene double hayrack: two racks of four bays under one tiled roof, the passage between them open for a
-     * cart below and boarded above for a hayloft; hay drying on the racks from June to November.
+     * The great Slovene double hayrack, as the field's scene builds it (Pri toplarju): two racks of oak, each of four posts on
+     * stone feet with six rails between them, under one roof of boards, the passage between them open for a cart below and
+     * boarded above for a hayloft; hay drying on the racks from June to November. In a culture's look
+     * ([MapLook.toplar], as the field's scene builds it): Friuli's with bunches of golden maize drying from its front tie
+     * beam from August to March; Carinthia's Doppelharpfe, its two racks of larch weathered silver-grey, taller, nine thin
+     * rails close together like a harp's strings, under a steeper roof of dark shingles; the Lake District's bank barn.
      */
     private fun toplar(x: Float, y: Float, look: BuildLook) {
-        if (s.look.bankBarn) { bankBarn(x, y, look); return }
-        val x0 = x + 0.35f; val len = 3.7f; val yb = y + 0.5f; val yf = y + 1.7f; val top = 12f
+        val kind = s.look.toplar
+        if (kind == Toplar.BANK) { bankBarn(x, y, look); return }
+        val harpfe = kind == Toplar.DOPPELHARPFE
+        val wL = if (harpfe) Pal.HARPFE_L else Pal.WOOD_L; val wM = if (harpfe) Pal.HARPFE_M else Pal.WOOD_M
+        val wD = if (harpfe) Pal.HARPFE_D else Pal.WOOD_D; val wX = if (harpfe) Pal.HARPFE_X else Pal.WOOD_X
+        val rungs = if (harpfe) HARPFE_RUNGS else RUNGS
+        val x0 = x + 0.35f; val len = 3.7f; val yb = y + 0.5f; val yf = y + 1.7f; val top = if (harpfe) 13f else 12f
         val bays = HAY.size
         shadow(x0, yb, len, yf - yb)
-        fun posts(yy: Float) { for (j in 0..bays) i.box(x0 + j * len / bays - 0.09f, yy - 0.09f, 0f, 0.18f, 0.18f, top, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D) }
+        fun posts(yy: Float) {
+            for (j in 0..bays) {
+                val px = x0 + j * len / bays
+                i.box(px - 0.15f, yy - 0.15f, 0f, 0.3f, 0.3f, 0.7f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D) // its stone foot
+                i.box(px - 0.1f, yy - 0.1f, 0.7f, 0.2f, 0.2f, top - 0.7f, wL, wM, wD)
+            }
+        }
         if (look == BuildLook.FRAME) {
             posts(yb)
-            i.line(x0, yb, top - 0.5f, x0 + len, yb, top - 0.5f, Pal.WOOD_D)
-            i.line(x0 + len, yb, top - 0.5f, x0 + len, yf, top - 0.5f, Pal.WOOD_D)
+            i.line(x0, yb, top - 0.5f, x0 + len, yb, top - 0.5f, wD)
+            i.line(x0 + len, yb, top - 0.5f, x0 + len, yf, top - 0.5f, wD)
             posts(yf)
-            i.line(x0, yf, top - 0.5f, x0 + len, yf, top - 0.5f, Pal.WOOD_L)
-            i.line(x0, yf, 1f, x0 + len, yf, 1f, Pal.WOOD_M)
+            i.line(x0, yf, top - 0.5f, x0 + len, yf, top - 0.5f, wL)
+            i.line(x0, yf, 1f, x0 + len, yf, 1f, wM)
             return
         }
         val done = look == BuildLook.DONE
         val hay = done && env.month in 6..11
         // the back rack, seen through the passage
         i.panelY(x0, yb, 0.5f, len, top - 1f, INTERIOR)
-        for (z in RUNGS) i.line(x0, yb, z, x0 + len, yb, z, Pal.WOOD_M)
+        for (z in rungs) i.line(x0, yb, z, x0 + len, yb, z, wM)
         if (hay) for (j in 0 until 14) i.px(x0 + Noise.rnd(j, 81) * len, yb, 1.5f + Noise.rnd(j, 82) * 5f, Pal.HAY_D)
         posts(yb)
         // the gable end: open below for the cart, the hayloft's boards above with a hatch
-        i.panelX(x0 + len, yb, 0.5f, yf - yb, 7f, INTERIOR)
-        i.panelX(x0 + len, yb, 7f, yf - yb, top - 7f, Pal.WOOD_M)
-        i.line(x0 + len, yb, 7f, x0 + len, yf, 7f, Pal.WOOD_X)
-        if (fine) { var v = 0.2f; while (v < yf - yb) { i.line(x0 + len, yb + v, 7f, x0 + len, yb + v, top, Pal.WOOD_D); v += 0.23f } }
-        i.panelX(x0 + len, yb + 0.42f, 8f, 0.35f, 2.5f, INTERIOR)
+        val loft = if (harpfe) 7.5f else 7f
+        i.panelX(x0 + len, yb, 0.5f, yf - yb, loft, INTERIOR)
+        i.panelX(x0 + len, yb, loft, yf - yb, top - loft, wM)
+        i.line(x0 + len, yb, loft, x0 + len, yf, loft, wX)
+        if (fine) { var v = 0.2f; while (v < yf - yb) { i.line(x0 + len, yb + v, loft, x0 + len, yb + v, top, wD); v += 0.23f } }
+        i.panelX(x0 + len, yb + 0.42f, loft + 1f, 0.35f, 2.5f, INTERIOR)
         // the front rack: the hay hung over its rungs to dry, the rungs across it
         if (hay) {
             val bay = len / bays
@@ -1195,20 +1333,37 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
                 if (h > 0f) c.set(i.ix(x0 + bj * bay + 0.1f + u * (bay - 0.2f), yf), i.iy(x0 + bj * bay + 0.1f + u * (bay - 0.2f), yf, 1f + v * h), if (j % 2 == 0) Pal.HAY_L else Pal.HAY_D)
             }
         }
-        for (z in RUNGS) {
-            i.line(x0, yf, z, x0 + len, yf, z, Pal.WOOD_L)
-            if (fine) i.line(x0, yf, z - 0.5f, x0 + len, yf, z - 0.5f, Pal.WOOD_D)
+        for (z in rungs) {
+            i.line(x0, yf, z, x0 + len, yf, z, wL)
+            if (fine && !harpfe) i.line(x0, yf, z - 0.5f, x0 + len, yf, z - 0.5f, wD)
         }
         posts(yf)
         if (done) {
-            b.roofX(x0 - 0.35f, yb - 0.45f, top - 0.5f, len + 0.7f, yf - yb + 0.9f, 5f, b.tilesSideLit(), Pal.WOOD_D)
-            if (!env.snow) i.line(x0 - 0.35f, yf + 0.45f, top, x0 + len + 0.35f, yf + 0.45f, top, Col.hex(0x7A3220))
+            if (harpfe) b.roofX(x0 - 0.35f, yb - 0.45f, top - 0.5f, len + 0.7f, yf - yb + 0.9f, 6.5f, b.shingles(), wX)
+            else b.roofX(x0 - 0.35f, yb - 0.45f, top - 0.5f, len + 0.7f, yf - yb + 0.9f, 5f, b.planks(), Pal.WOOD_D)
+            if (kind == Toplar.MAIZE && (env.month >= 8 || env.month <= 3)) maize(x0, len, yf + 0.05f, top - 0.6f, bays)
         } else roofFrameX(x0 - 0.35f, yb - 0.45f, top - 0.5f, len + 0.7f, yf - yb + 0.9f, 5f)
     }
 
     /**
-     * The Lake District's bank barn: a long barn of grey stone under slate built into the slope, the grassy ramp up its
-     * back end to the cart door of the upper floor (the hay goes in there), small doors and slits for the byre below.
+     * Friuli's maize drying on the toplar (as the field's, il grande fienile's): a bunch of golden cobs hung by their pale
+     * husks from the front tie beam at [z] in each bay, two in each from August to December.
+     */
+    private fun maize(x0: Float, len: Float, yf: Float, z: Float, bays: Int) {
+        val two = env.month in 8..12
+        val bay = len / bays
+        for (j in 0 until bays) for (n in 0 until if (two) 2 else 1) {
+            val mx = x0 + j * bay + bay * (if (two) 0.3f + 0.4f * n else 0.5f)
+            i.px(mx, yf, z, MAIZE_HUSK)
+            i.line(mx, yf, z - 0.8f, mx, yf, z - 2.6f, MAIZE)
+            if (fine) { i.px(mx + 0.06f, yf, z - 1.2f, MAIZE_L); i.px(mx - 0.04f, yf, z - 2.2f, MAIZE_D) }
+        }
+    }
+
+    /**
+     * The Lake District's bank barn, as At the bank barn builds it: a long barn of slate stone under slate built into the
+     * slope, the ramp of earth along its front, held by a dry-stone wall, up to the cart door of the upper floor at its left
+     * end (the hay goes in there), the byre's two green doors under their lintels and a small window below, slits above.
      */
     private fun bankBarn(x: Float, y: Float, look: BuildLook) {
         val st = s.look.style ?: return
@@ -1222,7 +1377,7 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             return
         }
         val done = look == BuildLook.DONE
-        // the bank against its far end, the ramp up to the upper door
+        // the slope it is dug into, against its left end
         val grass = if (env.snow) Pal.SNOW_L else env.grass[0]
         val bank = if (env.snow) Pal.SNOW_M else env.grass[1]
         i.quad(x0 - 1.0f, y0 + 0.2f, 0f, x0, y0 + 0.2f, 4.5f, x0, y0 + 1.3f, 4.5f, x0 - 1.0f, y0 + 1.3f, 0f, grass)
@@ -1230,15 +1385,33 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         i.tri(x0 - 1.0f, y0 + 1.3f, 0f, x0, y0 + 1.3f, 0f, x0, y0 + 1.3f, 4.5f, bank)
         b.looks.stoneBox(x0, y0, 0f, len, d, h, t, 73)
         val fy = y0 + d
-        // the byre's doors and slits below, the upper floor's forking hole
-        for (u in floatArrayOf(0.6f, 2.4f)) { i.panelY(x0 + u, fy, 0f, 0.5f, 3.6f, BARN); if (fine) i.line(x0 + u, fy, 3.6f, x0 + u + 0.5f, fy, 3.6f, Col.mix(t[0], Col.hex(0xFFFFFF), 0.3f)) }
-        for (u in floatArrayOf(1.4f, 1.8f, 3.2f)) i.line(x0 + u, fy, 1.5f, x0 + u, fy, 3.5f, Col.hex(0x1E1A18))
-        i.panelY(x0 + 1.5f, fy, 5.5f, 0.5f, 1.6f, Col.hex(0x1E1A18))
-        if (done && (env.month >= 7 || env.month <= 3)) { i.panelY(x0 + 1.54f, fy, 5.5f, 0.42f, 1f, Pal.HAY_M); i.px(x0 + 1.7f, fy, 6.2f, Pal.HAY_L) }
-        // the cart door at the top of the ramp, on the end we see
-        i.panelX(x0 + len, y0 + 0.35f, 4.5f, 0.8f, 3.8f, BARN)
+        val lintel = Col.mix(t[0], Col.hex(0xFFFFFF), 0.3f)
+        // the byre's two doors, painted green, under their lintels, a small window between them; the upper floor's slits
+        for (u in floatArrayOf(len * 0.48f - 0.25f, len * 0.82f - 0.25f)) {
+            i.panelY(x0 + u, fy, 0f, 0.5f, 3.6f, if (done) BYRE else BARN)
+            if (fine && done) i.line(x0 + u + 0.25f, fy, 0f, x0 + u + 0.25f, fy, 3.6f, Col.scale(BYRE, 0.78f))
+            i.line(x0 + u - 0.08f, fy, 3.9f, x0 + u + 0.58f, fy, 3.9f, lintel)
+        }
+        i.panelY(x0 + len * 0.65f - 0.1f, fy, 1.8f, 0.2f, 1.2f, Col.hex(0x1E1A18))
+        for (f in floatArrayOf(0.5f, 0.67f, 0.84f)) i.line(x0 + len * f, fy, 5.3f, x0 + len * f, fy, 7.5f, Col.hex(0x1E1A18))
+        // the cart door of the upper floor at the front's left end, the ramp's top: its oak frame, dark inside, the hay in it
+        i.panelY(x0 + 0.2f, fy, 4.6f, 0.8f, 3.4f, Pal.WOOD_D)
+        i.panelY(x0 + 0.27f, fy, 4.6f, 0.66f, 3.1f, Col.hex(0x241E1C))
+        if (done) { i.panelY(x0 + 0.3f, fy, 4.6f, 0.6f, 1.6f, Pal.HAY_M); i.px(x0 + 0.55f, fy, 5.8f, Pal.HAY_L) }
         if (done) b.roofX(x0 - 0.25f, y0 - 0.3f, h, len + 0.5f, d + 0.6f, 5.5f, b.slate(), t[2])
         else roofFrameX(x0 - 0.25f, y0 - 0.3f, h, len + 0.5f, d + 0.6f, 5.5f)
+        // the ramp of earth along the front up to the cart door, grass on its top, held toward us by a dry-stone wall
+        if (done || look == BuildLook.SCAFFOLD) {
+            val rx0 = x0 - 1.1f; val rx1 = x0 + 0.2f; val ry = fy + 0.55f
+            i.quad(rx0, fy, 0f, rx1, fy, 4.5f, rx1, ry, 4.5f, rx0, ry, 0f, grass)
+            i.tri(rx0, ry, 0f, rx1, ry, 0f, rx1, ry, 4.5f, Pal.STONE_M)
+            i.panelX(rx1, fy, 0f, 0.55f, 4.5f, Pal.STONE_D)
+            if (fine) for (q in 1..3) {
+                val z = q * 1.1f
+                i.line(rx0 + (rx1 - rx0) * z / 4.5f, ry, z, rx1, ry, z, Pal.STONE_X)
+                i.line(rx1, fy, z, rx1, ry, z, Pal.STONE_X)
+            }
+        }
     }
 
     // ---------------------------------------------------------------- Razgledni stolp · the lookout tower
@@ -1299,29 +1472,34 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             for (j in 1..4) { val u = 0.35f + j * 0.22f; i.line(x + u, y + 1.45f, zp, x + u, y + 1.45f, zp + 2.5f, Pal.WOOD_M); i.line(x + 1.45f, y + u, zp, x + 1.45f, y + u, zp + 2.5f, Pal.WOOD_D) }
         }
         i.post(x + 1.38f, y + 1.38f, zp, zp + 5f, Pal.WOOD_D)
-        val roof = b.villageRoof()
-        i.pyramid(x + 0.2f, y + 0.2f, zp + 5f, 1.4f, 1.4f, 6f, if (env.snow) Pal.SNOW_L else if (s.look.own) Pal.ROOF_L else roof.back, if (env.snow) Pal.SNOW_M else if (s.look.own) Pal.ROOF_D else roof.front)
+        // its roof of shingles, as its scene's (the village's in a culture's look)
+        val roof = if (s.look.own) b.shingles() else b.villageRoof()
+        i.pyramid(x + 0.2f, y + 0.2f, zp + 5f, 1.4f, 1.4f, 6f, if (env.snow) Pal.SNOW_L else roof.back, if (env.snow) Pal.SNOW_M else roof.front)
         if (fine && !env.snow && s.look.own) for (j in 1..2) {
             val t = j / 3f; val zz = zp + 5f + t * 6f; val a = 0.2f + t * 0.7f; val bb = 1.6f - t * 0.7f
-            i.line(x + a, y + bb, zz, x + bb, y + bb, zz, Pal.ROOF_M); i.line(x + bb, y + a, zz, x + bb, y + bb, zz, Col.scale(Pal.ROOF_D, 0.85f))
+            i.line(x + a, y + bb, zz, x + bb, y + bb, zz, Col.scale(Pal.SHINGLE_L, 0.86f)); i.line(x + bb, y + a, zz, x + bb, y + bb, zz, Col.scale(Pal.SHINGLE_D, 0.85f))
         }
         i.post(x + 0.9f, y + 0.9f, zp + 11f, zp + 13f, IRON)
-        // a culture's village flies its flag on the roof (Friuli's eagle, as its lookout's scene has it)
-        if (!s.look.own) {
-            val flag = s.look.flag
-            val ax = i.ix(x + 0.9f, y + 0.9f); val ay = i.iy(x + 0.9f, y + 0.9f, zp + 13f)
-            val wave = ((s.time * 3).toInt() and 1)
-            s.sprite(ax, ay) {
-                c.vline(ax, ay - 3, ay, IRON)
-                for (u in 0 until 4) for (v in 0 until 3) c.set(ax + 1 + u, ay - 3 + v + if (u == 3) wave else 0, flag.at(u, v, 4, 3))
-            }
+        // the village's flag on the roof, as its lookout's scene flies it (Slovenia's, Friuli's eagle, Austria's)
+        roofFlag(x + 0.9f, y + 0.9f, zp + 13f)
+    }
+
+    /** The village's flag ([MapLook.flag]) on its pole at ([fx], [fy], [z]), the pole's gold knob over it. */
+    private fun roofFlag(fx: Float, fy: Float, z: Float) {
+        val flag = s.look.flag
+        val ax = i.ix(fx, fy); val ay = i.iy(fx, fy, z)
+        val wave = ((s.time * 3).toInt() and 1)
+        s.sprite(ax, ay) {
+            c.vline(ax, ay - 3, ay, IRON)
+            c.set(ax, ay - 4, Pal.GOLD)
+            for (u in 0 until 4) for (v in 0 until 3) c.set(ax + 1 + u, ay - 3 + v + if (u == 3) wave else 0, flag.at(u, v, 4, 3))
         }
     }
 
     /**
      * The Lake District's viewing station (as the first tourists had them, Claife's over Windermere): a little house of stone
-     * on its rock, under a slate pyramid, its windows of coloured glass (each pane a colour, as the lake was seen through
-     * them), lit at night.
+     * on its rock, under a slate pyramid with St George's cross on its pole, its windows of coloured glass (each pane a
+     * colour, as the lake was seen through them: green, yellow, orange and blue as its scene's), lit at night.
      */
     private fun station(x: Float, y: Float, look: BuildLook) {
         val st = s.look.style ?: return
@@ -1335,7 +1513,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         if (!done) scaffoldBack(x0, y0, 14f)
         b.looks.stoneBox(x0, y0, 3f, bw, bw, 8f, t, 83)
         // the coloured panes, two on each side we see
-        val panes = intArrayOf(Col.hex(0x3A6AC8), Col.hex(0xD8A030), Col.hex(0xC03A3A), Col.hex(0x3E9A5A))
+        // as its scene's: green for spring, yellow for summer, orange for autumn, blue for winter
+        val panes = intArrayOf(Col.hex(0x5CC840), Col.hex(0xF8D820), Col.hex(0xFF7A10), Col.hex(0x3A80E8))
         for ((n, u) in floatArrayOf(0.2f, 0.7f).withIndex()) {
             val a = panes[n]; val bb = panes[n + 2]
             if (lit && done) glow { i.panelY(x0 + u, y0 + bw, 5.5f, 0.3f, 3f, Col.mix(a, Pal.WINDOW_LIT, 0.45f)); i.panelX(x0 + bw, y0 + u, 5.5f, 0.3f, 3f, Col.mix(bb, Pal.WINDOW_LIT, 0.45f)) }
@@ -1347,20 +1526,24 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             val r = b.slate()
             i.pyramid(x0 - 0.15f, y0 - 0.15f, 11f, bw + 0.3f, bw + 0.3f, 4.5f, r.back, r.front)
             i.post(x0 + bw / 2f, y0 + bw / 2f, 15.5f, 17f, IRON)
+            roofFlag(x0 + bw / 2f, y0 + bw / 2f, 17f) // St George's cross, as At the viewing station flies it
         } else scaffoldFront(x0, y0, bw, bw, 14f)
     }
 
     // ---------------------------------------------------------------- Mestna ura · the town clock
 
     /**
-     * A slender ochre tower on a stone foot, a clock face on each side we see (telling the real time, lit at night), a
-     * belfry, and a green copper onion dome with a gold ball and cross on top.
+     * The church's tower with the town clock, as the square's scene has it (Pod uro): a slender white tower on a stone foot,
+     * a clock face on each side we see (telling the real time, lit at night), a belfry, and a spire of dark slate with a gold
+     * ball and cross on top; Carinthia's white under its onion dome of green copper ([MapLook.clock] [Tower.ONION]).
      */
     private fun ura(x: Float, y: Float, look: BuildLook) {
         val x0 = x + 0.2f; val y0 = y + 0.2f; val tw = 1.2f
         shadow(x0, y0, tw, tw)
         val tower = s.look.clock
-        if (tower != null && look != BuildLook.FRAME) { clockTower(x0, y0, tw, tower, look); return }
+        if (tower != null && tower != si.lanisce.lani.game.render.scene.Tower.ONION && look != BuildLook.FRAME) { clockTower(x0, y0, tw, tower, look); return }
+        val onion = s.look.style?.takeIf { tower == si.lanisce.lani.game.render.scene.Tower.ONION }
+        val wall = onion?.towerWall ?: intArrayOf(Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
         if (look == BuildLook.FRAME) {
             i.box(x0, y0, 0f, tw, tw, 14f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
             b.mortar(x0, y0, 0f, tw, tw, 14f, Pal.STONE_D, Pal.STONE_X)
@@ -1372,11 +1555,12 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         if (!done) scaffoldBack(x0, y0, 30f)
         i.box(x0 - 0.05f, y0 - 0.05f, 0f, tw + 0.1f, tw + 0.1f, 4f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
         b.mortar(x0 - 0.05f, y0 - 0.05f, 0f, tw + 0.1f, tw + 0.1f, 4f, Pal.STONE_D, Pal.STONE_X)
-        i.box(x0, y0, 4f, tw, tw, 22f, Pal.OCHRE_L, Pal.OCHRE_M, Pal.OCHRE_D)
+        i.box(x0, y0, 4f, tw, tw, 22f, wall[0], wall[1], wall[2])
         if (fine) {
-            // the pilaster on the front corner and a string course
-            i.line(x0 + tw, y0 + tw, 4f, x0 + tw, y0 + tw, 26f, Pal.WALL_L)
-            i.line(x0, y0 + tw, 15f, x0 + tw, y0 + tw, 15f, Pal.WALL_L); i.line(x0 + tw, y0, 15f, x0 + tw, y0 + tw, 15f, Pal.WALL_M)
+            // the corner stones up the front corner and a string course of stone
+            var z = 5f; var n = 0
+            while (z < 25f) { i.line(x0 + tw - if (n % 2 == 0) 0.3f else 0.17f, y0 + tw, z, x0 + tw, y0 + tw, z, Col.mix(wall[0], Pal.STONE_L, 0.5f)); z += 1.2f; n++ }
+            i.line(x0, y0 + tw, 15f, x0 + tw, y0 + tw, 15f, Pal.STONE_L); i.line(x0 + tw, y0, 15f, x0 + tw, y0 + tw, 15f, Pal.STONE_M)
         }
         i.panelY(x0 + 0.4f, y0 + tw + 0.05f, 0f, 0.4f, 3.5f, Pal.DOOR)
         for (face in 0..1) {
@@ -1385,16 +1569,28 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             if (on) glow { if (face == 0) i.panelY(x0 + 0.5f, y0 + tw, 8.5f, 0.2f, 2.5f, col) else i.panelX(x0 + tw, y0 + 0.5f, 8.5f, 0.2f, 2.5f, col) }
             else if (face == 0) i.panelY(x0 + 0.5f, y0 + tw, 8.5f, 0.2f, 2.5f, col) else i.panelX(x0 + tw, y0 + 0.5f, 8.5f, 0.2f, 2.5f, col)
         }
-        i.box(x0 - 0.1f, y0 - 0.1f, 26f, tw + 0.2f, tw + 0.2f, 1f, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
+        i.box(x0 - 0.1f, y0 - 0.1f, 26f, tw + 0.2f, tw + 0.2f, 1f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
         clockFace(x0 + tw / 2f, y0 + tw, 21f, 0.5f, blank = !done)
         clockFace(x0 + tw, y0 + tw / 2f, 21f, -0.5f, blank = !done)
         // the belfry
-        i.box(x0 + 0.05f, y0 + 0.05f, 27f, tw - 0.1f, tw - 0.1f, 6f, if (env.snow && !done) Pal.SNOW_L else Pal.OCHRE_L, Pal.OCHRE_M, Pal.OCHRE_D)
+        i.box(x0 + 0.05f, y0 + 0.05f, 27f, tw - 0.1f, tw - 0.1f, 6f, if (env.snow && !done) Pal.SNOW_L else wall[0], wall[1], wall[2])
         i.panelY(x0 + 0.35f, y0 + tw - 0.05f, 28f, 0.5f, 3.5f, INTERIOR); i.panelX(x0 + tw - 0.05f, y0 + 0.35f, 28f, 0.5f, 3.5f, INTERIOR)
         if (done) {
             i.px(x0 + 0.55f, y0 + tw - 0.05f, 29.5f, Pal.GOLD)
-            dome(i.ix(x0 + tw / 2f, y0 + tw / 2f), i.iy(x0 + tw / 2f, y0 + tw / 2f, 33f))
+            if (onion != null) TowerTops.onion(s, i.ix(x0 + tw / 2f, y0 + tw / 2f), i.iy(x0 + tw / 2f, y0 + tw / 2f, 33f), onion.towerTop)
+            else spire(x0, y0, tw, 33f)
         } else scaffoldFront(x0, y0, tw, tw, 30f)
+    }
+
+    /** The church tower's spire of dark slate over [z], as the square's scene has it, a gold ball and cross on its tip. */
+    private fun spire(x0: Float, y0: Float, tw: Float, z: Float) {
+        val h = 9f
+        i.pyramid(x0, y0, z, tw, tw, h, if (env.snow) Pal.SNOW_L else SPIRE_L, if (env.snow) Pal.SNOW_M else SPIRE_D)
+        val ax = i.ix(x0 + tw / 2f, y0 + tw / 2f); val top = i.iy(x0 + tw / 2f, y0 + tw / 2f, z + h)
+        s.sprite(ax, top) {
+            c.set(ax, top - 1, Pal.GOLD_L); c.set(ax - 1, top - 1, Pal.GOLD)
+            c.vline(ax, top - 5, top - 2, Pal.GOLD); c.hline(ax - 1, ax + 1, top - 4, Pal.GOLD)
+        }
     }
 
     /**
@@ -1427,10 +1623,11 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         val ax = i.ix(wx, wy); val ay = i.iy(wx, wy, z)
         val r = 2.4f * k
         val night = lit && !blank
-        val face = if (blank) INTERIOR else if (night) Pal.WINDOW_LIT_HI else Pal.FLAG_WHITE
+        val slate = s.look.slateClock
+        val face = if (blank) INTERIOR else if (slate) SLATE_FACE else if (night) Pal.WINDOW_LIT_HI else Pal.FLAG_WHITE
         val rim = if (blank) INTERIOR else Pal.GOLD
         val was = c.penEmissive
-        if (night) c.penEmissive = true
+        if (night && !slate) c.penEmissive = true
         val n = ceil(r).toInt()
         for (v in -n..n) for (u in -n..n) {
             val d2 = u * u + v * v
@@ -1439,7 +1636,7 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             c.set(ax + u, ay + v + (shear * u).roundToInt(), col)
         }
         if (!blank) {
-            val hands = IRON
+            val hands = if (slate) Pal.GOLD else IRON
             if (finest) for (q in 0 until 12) {
                 val a = q * PI / 6
                 val u = (sin(a) * (r - 2f)).roundToInt(); val v = (-cos(a) * (r - 2f)).roundToInt()
@@ -1459,28 +1656,6 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         for (q in 0..steps) {
             val u = (sin(a) * len * q / steps).roundToInt(); val v = (-cos(a) * len * q / steps).roundToInt()
             c.set(ax + u, ay + v + (shear * u).roundToInt(), col)
-        }
-    }
-
-    /** An onion dome of green copper on the tower's top ([ax], [ay], canvas px), a small lantern, a gold ball and a cross. */
-    private fun dome(ax: Int, ay: Int) {
-        val light = Col.mix(DOME_L, Col.hex(0xFFFFFF), 0.3f)
-        for (row in 0 until DOME.size * k) {
-            val r = row / k
-            val hw = DOME[r] * k
-            val yy = ay - row
-            for (xx in (ax - hw).roundToInt() until (ax + hw).roundToInt()) {
-                val rel = (xx + 0.5f - ax) / max(hw, 1f)
-                var col = when { rel < -0.4f -> DOME_L; rel < 0.35f -> DOME_M; else -> DOME_D }
-                if (k >= 2 && r in 1..5 && rel in -0.32f..-0.12f) col = light
-                if (env.snow && r in 3..5 && rel < 0.45f) col = if (rel < -0.2f) Pal.SNOW_L else Pal.SNOW_M
-                c.set(xx, yy, col)
-            }
-        }
-        val top = ay - DOME.size * k
-        s.sprite(ax, top) {
-            c.set(ax, top - 1, Pal.GOLD_L); c.set(ax - 1, top - 1, Pal.GOLD)
-            c.vline(ax, top - 5, top - 2, Pal.GOLD); c.hline(ax - 1, ax + 1, top - 4, Pal.GOLD)
         }
     }
 
@@ -1507,28 +1682,33 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         val GRAPE = Col.hex(0x4A2A5A); val GRAPE_L = Col.hex(0x7A4A8A)
         val VINE_L = Col.hex(0x6DBF4A)
         val INTERIOR = Col.hex(0x3A2A1E)
+        /** The belfry's dark inside, through its arches. */
+        val BELFRY = Col.hex(0x2A2026)
         val IRON = Col.hex(0x2E2A34)
         val ROPE = Col.hex(0x8C7A50)
-        val SEAT = Col.hex(0xC8392F)
-        val BALL_RED = Col.hex(0xC8392F); val BALL_BLUE = Col.hex(0x2E63B0)
+        /** The bocce balls of steel, one side's a shade darker, the wooden jack, as At the bocce court's; the Stockbahn's Daube. */
+        val BALL_STEEL = Col.hex(0xB8BCC4); val BALL_STEEL_D = Col.hex(0x8A8E98); val JACK = Col.hex(0xC8A060); val DAUBE = Col.hex(0x1E1E22)
         val BRONZE = Col.hex(0xB08A2E)
-        val DOME_L = Col.hex(0x5E8A58); val DOME_M = Pal.SHUTTER; val DOME_D = Col.hex(0x2C4A2A)
         /** The Stockschießbahn's lane, the bowling green's two mown greens, its woods. */
         val LANE_L = Col.hex(0xB8B8BE); val LANE_M = Col.hex(0x7A7A82)
         val GREEN_L = Col.hex(0x6FB452); val GREEN_M = Col.hex(0x5A9E44)
         val WOOD_BALL = Col.hex(0x4A3428); val WOOD_BALL_D = Col.hex(0x2A2020)
-        /** The bank barn's doors. */
-        val BARN = Col.hex(0x4E3A2A)
+        /** The bank barn's doors before they're painted, and the byre's painted green (its scene's). */
+        val BARN = Col.hex(0x4E3A2A); val BYRE = Col.hex(0x5E7A5A)
         /** The fruit: apples, pears, damsons. */
         val APPLE = Col.hex(0xD8342A); val PEAR = Col.hex(0xD8C84A); val DAMSON = Col.hex(0x4A2A5A)
         /** Where the orchard's trees stand on its patch (fractions of it). */
         val ORCHARD = arrayOf(floatArrayOf(0.18f, 0.25f), floatArrayOf(0.5f, 0.2f), floatArrayOf(0.82f, 0.3f), floatArrayOf(0.3f, 0.72f), floatArrayOf(0.66f, 0.75f))
 
-        /** How high the hay hangs in each bay of the toplar's front rack (px; 0: an empty bay). */
-        val HAY = floatArrayOf(9f, 6f, 9.5f, 0f, 7f)
+        /** How high the hay hangs in each of the toplar's three bays of its front rack (px), the first hay in it. */
+        val HAY = floatArrayOf(9.5f, 8f, 9f)
 
-        /** The heights of a hayrack's rungs (px). */
-        val RUNGS = floatArrayOf(2.5f, 5f, 7.5f, 10f)
+        /** The heights of the toplar's six rails (px), as the field's (0.85 to 4.05 m under its eave). */
+        val RUNGS = floatArrayOf(2.1f, 3.7f, 5.3f, 6.9f, 8.4f, 9.9f)
+        /** The Doppelharpfe's nine rails (px), close together like a harp's strings (Carinthia's toplar). */
+        val HARPFE_RUNGS = floatArrayOf(1.4f, 2.6f, 3.8f, 5f, 6.2f, 7.4f, 8.6f, 9.8f, 11f)
+        /** Friuli's maize drying on the toplar: the cobs' gold, lit and dark, and the husks they hang by (the field's). */
+        val MAIZE = Col.hex(0xE88A18); val MAIZE_L = Col.hex(0xF8B032); val MAIZE_D = Col.hex(0xA85A10); val MAIZE_HUSK = Col.hex(0xF0E6C4)
 
         /**
          * The bridge: how thick its pillars are along the road (cells) and how high they stand, its deck's underside and
@@ -1569,7 +1749,16 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         val SLATE_D = Col.hex(0x3C4048)
         val SLATE_WAY = Col.hex(0xA4A49A)
 
-        /** The onion dome's half width by row from its foot (nominal px). */
-        val DOME = floatArrayOf(5f, 6f, 6.5f, 6.4f, 5.8f, 4.8f, 3.4f, 2.2f, 1.3f, 1.1f, 1.6f, 1.2f)
+        /** The church tower's spire of slate, its lit and its shaded side (the square's scene's). */
+        val SPIRE_L = Col.hex(0x5C5560); val SPIRE_D = Col.hex(0x3E3842)
+        /** Friuli's fontanella, green cast iron, and its lit side. */
+        val FONTANELLA = Col.hex(0x2E5E3A); val FONTANELLA_L = Col.hex(0x4E8A5A)
+        /** The fountain's white limestone, lit, mid, in shade and its joints; the Lake District's green Honister slate (the square's). */
+        val FOUNT_LIME = intArrayOf(Col.hex(0xF6F3EA), Col.hex(0xE4DED0), Col.hex(0xC8C0AE), Col.hex(0xA49A86))
+        val FOUNT_SLATE = intArrayOf(Col.hex(0x9AAE9C), Col.hex(0x7E9282), Col.hex(0x627668), Col.hex(0x46564C))
+        /** St Florian on Carinthia's fountain: his armour and his red cloak. */
+        val FLORIAN_ARMOUR = Col.hex(0xB4B8C0); val FLORIAN_CLOAK = Col.hex(0xC0302C)
+        /** The Lake District's clock face of dark slate (its square's). */
+        val SLATE_FACE = Col.hex(0x3A4250)
     }
 }
