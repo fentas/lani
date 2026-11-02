@@ -123,6 +123,83 @@ class TurnHintTest {
         }
     }
 
+    @Test fun `the A2, B1b and B2 pages have a rule of their own, never the turn's form`() {
+        // a turn of each page (the course units name them; no curated scene does yet): the rule in words, a model in other words
+        val turns = listOf(
+            Triple("cigav", "Čigav je ta klobuk? Lukov.", "Čigav je ta klobuk? Lukova.") to "hint.ruleWhose",
+            Triple("mnozina-skloni", "Pri Vidi je danes veliko gostov.", "Pri Vidi je danes veliko gosti.") to "hint.rulePluralCases",
+            Triple("cas-izrazi", "Mlin so zgradili leta 1890.", "Mlin so zgradili leto 1890.") to "hint.ruleTimeNoPrep",
+            Triple("custva", "Mamo boli glava.", "Mami boli glava.") to "hint.ruleFeelings",
+            Triple("stevila-glagol", "Na trgatev je prišlo dvanajst sosedov.", "Na trgatev je prišli dvanajst sosedov.") to "hint.ruleNumberVerb",
+            Triple("pogojnik-ce-bi", "Če bi deževalo, bi ostali doma.", "Če bi deževalo, bi ostanemo doma.") to "hint.ruleIfWould",
+            Triple("naslonke-red", "Dal ti ga bom.", "Dal ga ti bom.") to "hint.ruleCliticOrder",
+            Triple("glagolniki", "Branje je moj konjiček.", "Brati je moj konjiček.") to "hint.ruleVerbalNoun",
+            Triple("nedolocni-zaimki", "Nihče ni prišel.", "Nekdo ni prišel.") to "hint.ruleIndefinite",
+            Triple("trpnik", "Trgovina je zaprta.", "Trgovina je zaprt.") to "hint.rulePassive",
+            Triple("stopnjevanje", "Jeseni so dnevi čedalje krajši.", "Jeseni so dnevi čedalje kratki.") to "hint.ruleCompareFull",
+            Triple("predpreteklik", "Ko je Nejc prišel, je bil avtobus že odpeljal.", "Ko je Nejc prišel, je bil avtobus že odpelje.") to "hint.rulePluperfect",
+            Triple("odvisniki-napredno", "Počakaj, dokler ne pridem.", "Počakaj, dokler ne prišel.") to "hint.ruleClausesMore",
+            Triple("frazemi", "Držim pesti zate!", "Držim roke zate!") to "hint.ruleIdioms",
+            Triple("stevniki", "Mojca bere pravljice trikrat na teden.", "Mojca bere pravljice tri na teden.") to "hint.ruleNumberWords",
+            Triple("delezja", "Luka je molče gledal ovce.", "Luka je molčal gledal ovce.") to "hint.ruleGerund",
+            Triple("pomanjsevalnice", "Nejc sedi na stolčku.", "Nejc sedi na stolček.") to "hint.ruleDiminutive",
+            Triple("ukazi", "Naj Nejc prinese drva.", "Naj Nejc prinesi drva.") to "hint.ruleCommands",
+            Triple("delezniki", "Skozi odprta vrata je pritekel Muri.", "Skozi odprt vrata je pritekel Muri.") to "hint.ruleParticiple",
+            Triple("izpeljanke", "Pek peče kruh v pekarni.", "Pek peče kruh v pekarju.") to "hint.ruleWordFamily",
+            Triple("predpone", "Nejc je prepisal nalogo.", "Nejc je pisal nalogo.") to "hint.rulePrefix",
+            Triple("predlogi-dva-sklona", "Babica je poslala Nejca po kruh.", "Babica je poslala Nejca po kruhu.") to "hint.ruleTwoCases",
+            Triple("govorjeni-jezik", "A si že jedel?", "A so že jedel?") to "hint.ruleSpoken",
+            Triple("uradno-pismo", "Spoštovani gospod župan, pišem Vam.", "Spoštovani gospod župan, pišem ti.") to "hint.ruleFormalLetter",
+            Triple("pogojnik-pretekli", "Bil bi prišel, pa je deževalo.", "Bil bi pride, pa je deževalo.") to "hint.rulePastConditional",
+            Triple("brezosebno", "Pred zimo je treba popraviti streho.", "Pred zimo je treba popravim streho.") to "hint.ruleImpersonal",
+            Triple("oziralni-kateri", "Fant, katerega sem videl, je Tine.", "Fant, kateri sem videl, je Tine.") to "hint.ruleWhichWhose",
+            Triple("besedni-red", "Kruh je prinesel Luka.", "Luka je prinesel kruh.") to "hint.ruleWordOrder",
+        )
+        // every page of the book has a rule now
+        val ruled = turns.map { it.first.first }.toSet()
+        assertEquals(28, ruled.size)
+        for ((turn, key) in turns) {
+            val (id, right, bad) = turn
+            assertTrue(id, page(id) != null)
+            val h = TurnHints.of(DialogLine(choices = listOf(DialogChoice(right, ok = true), wrong(bad, id))), "sl", page)!!
+            assertEquals(id, listOf(id), h.pages)
+            assertEquals(id, key, h.rule)
+            assertTrue(id, h.models.isNotEmpty())
+            val t = TurnHints.text(h, page)
+            assertTrue("$id: ${t.lines}", t.lines.isNotEmpty())
+            assertTrue(id, (t.lines + t.rows + listOfNotNull(t.models)).all { TurnHints.fair(it, h) })
+            assertTrue("$id: the model shows the turn's form", h.models.none { m -> h.forms.any { TurnHints.shows(m, it, stem = true) } })
+        }
+    }
+
+    @Test fun `the year and the day of a told time, pol before an hour, and the two cases' prepositions, as the lens names them`() {
+        fun hint(right: String, bad: String, id: String) = TurnHints.of(DialogLine(choices = listOf(DialogChoice(right, ok = true), wrong(bad, id))), "sl", page)!!
+        // leta 1890: the year after it decides, the genitive of time (Kdaj?); nekega dne: the determiner before it
+        val year = hint("Mlin so zgradili leta 1890.", "Mlin so zgradili leto 1890.", "cas-izrazi")
+        assertEquals(Trigger.When("1890", 4), year.trigger)
+        assertEquals(listOf(CaseLine("Kdaj?", "hint.qWhen", Case.GEN)), year.cases)
+        assertEquals("with «1890»", TurnHints.text(year, page).lines[1])
+        assertEquals(Trigger.When("Nekega", 0), hint("Nekega dne je v vas prišel tujec.", "Nekega dan je v vas prišel tujec.", "cas-izrazi").trigger)
+        // od leta 2024: the preposition's, not the genitive of time
+        assertTrue(CaseTriggers.of("Tukaj živim od leta 2024.", 3).first() is Trigger.Preposition)
+        // ob pol dveh: pol decides the next hour's genitive, the time (Kdaj?); čez pol ure: how much (Koliko?)
+        val half = hint("Domov gremo ob pol dveh.", "Domov gremo ob pol dva.", "kdaj-cas")
+        assertEquals(Trigger.Amount("pol", 3), half.trigger)
+        assertEquals(listOf(CaseLine("Kdaj?", "hint.qWhen", Case.GEN)), half.cases)
+        assertEquals(listOf(CaseLine("Koliko?", "hint.qHowMany", Case.GEN)), hint("Čez pol ure pridem.", "Čez pol uro pridem.", "rodilnik-kolicina").cases)
+        // the spoken hour after ob: the locative ob asks for (ob štiri, written ob štirih)
+        assertEquals(listOf(CaseLine("Kdaj?", "hint.qWhen", Case.LOC)), hint("Prav. Jutri spet, ob štiri?", "Prav. Jutri spet, ob štirimi?", "kdaj-cas").cases)
+        // po kruh, pod stol: both of the preposition's cases with their questions, the accusative first, and the rule
+        val po = hint("Babica je poslala Nejca po kruh.", "Babica je poslala Nejca po kruhu.", "predlogi-dva-sklona")
+        assertEquals(listOf(CaseLine("Koga? Kaj?", null, Case.ACC), CaseLine("Pri kom? Pri čem?", null, Case.LOC)), po.cases)
+        assertEquals("hint.ruleTwoCases", po.rule)
+        val pod = hint("Muri je skočil pod stol.", "Muri je skočil pod stolom.", "predlogi-dva-sklona")
+        assertEquals(listOf(CaseLine("Kam?", "hint.qWhereTo", Case.ACC), CaseLine("Kje?", "hint.qWhere", Case.INS)), pod.cases)
+        // a word of feeling: zebe, boli take the accusative of who feels it, mudi se the dative
+        assertEquals(listOf(Case.ACC), hint("Mamo boli glava.", "Mami boli glava.", "custva").cases.map { it.case })
+        assertEquals(listOf(Case.DAT), hint("Janezu se mudi.", "Janez se mudi.", "custva").cases.map { it.case })
+    }
+
     @Test fun `what the trigger table decides that the app's old rules didn't`() {
         // a number of one to four agrees with its noun as an adjective does: after z the instrumental (before: the number
         // dvema decided, the nominative)

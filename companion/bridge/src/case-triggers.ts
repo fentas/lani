@@ -198,6 +198,14 @@ export const caseTriggersSchema = z.strictObject({
    * dne, tistega večera). Optional: a table without it leaves such a noun to its verb and role.
    */
   time_genitive: z.strictObject({ years: words, determiners: words, rule: page, examples }).optional(),
+  /**
+   * The hour (at what time?): after one of [prepositions] (ob) the hour in the locative (ob desetih), after one of [half]
+   * (ob pol) the next hour in the genitive (ob pol desetih, by pol: a word of quantity). In speech the hour often stays as
+   * it is counted (ob deset, ob pol osem): never wrong; the lens gives it the case ob or pol asks for, and its [written]
+   * form (each hour's number as counted, from ena to dvanajst, and as written after ob or pol: deset → desetih).
+   * Optional: a table without it leaves a spoken hour without a row.
+   */
+  hours: z.strictObject({ prepositions: words, half: words, written: z.record(word, word), rule: page, examples }).optional(),
   phrases: z.array(phraseEntry),
   /**
    * Words said of the subject, in the nominative whatever the verb (rad, rada, rado …: Rad pomagam, Rada imam juho): each
@@ -256,7 +264,7 @@ export function validateCaseTriggers(input: unknown, pages?: Set<string>): { ok:
     const rules = [
       ...t.cases.map(c => c.page),
       ...t.prepositions.flatMap(p => p.takes.flatMap(x => [x.rule, ...(x.time ? [x.time] : [])])),
-      t.negation.rule, t.quantity.rule, t.time.rule, ...(t.time_genitive ? [t.time_genitive.rule] : []),
+      t.negation.rule, t.quantity.rule, t.time.rule, ...(t.time_genitive ? [t.time_genitive.rule] : []), ...(t.hours ? [t.hours.rule] : []),
       ...t.verbs.map(v => v.rule), ...t.predicates.map(p => p.rule), ...t.phrases.map(p => p.rule), ...t.fused.map(f => f.rule), ...t.predicatives.map(p => p.rule),
       ...Object.values(t.roles).map(r => r.rule),
     ]

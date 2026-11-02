@@ -4,7 +4,7 @@
 // towns agree on, that one town's records can't raise it, the market's rates by the level, help sent when wolves come
 // (once, limited), the shared feast, a move offered and said yes to (both sides the same), and that with a child's town
 // the grown-up side says yes. Called by towns.ts while the towns are linked.
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, utimesSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
   FRIEND_LEVELS,
@@ -35,6 +35,22 @@ const day = (offset: number) => {
   const d = new Date()
   d.setDate(d.getDate() + offset)
   return localDate(d.getTime())
+}
+const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
+/** Town [t]'s areas' versions now (GET /changes). */
+const areasOf = async (t: Town): Promise<Record<string, string>> => (await (await fetch(`${t.base}/changes`, { headers: t.auth })).json()).areas
+/** Which of town [t]'s areas [change] moved (sorted). */
+async function areasMoved(t: Town, change: () => unknown): Promise<string[]> {
+  const before = await areasOf(t)
+  await change()
+  const after = await areasOf(t)
+  return Object.keys(after).filter(a => after[a] !== before[a]).sort()
+}
+/** A file's time of change a minute on (a write beside the bridge that the walk sees whatever the clock's grain). */
+const later = (path: string) => {
+  if (!existsSync(path)) writeFileSync(path, '{}')
+  const t = new Date(Date.now() + 60_000)
+  utimesSync(path, t, t)
 }
 
 /** Both towns' shared history, as if it had happened: [n] more visit days each way, in both towns' records. */
@@ -159,7 +175,19 @@ export async function friendship(jan: Town, mia: Town, luka: Town) {
   }
   const set = (await setFeast(jan, day(-30))) && (await setFeast(mia, day(0)))
   const openBefore = (await rowOf(jan, mia)).feast
-  await setFeast(jan, day(-1))
+  // what the friendships' read takes of the village and the learner, by value (src/changes.ts: `friends`): a move in the
+  // village that keeps its feast, and a session, move their own areas only; a feast held moves `friends` too
+  const keptFeast = await areasMoved(jan, () => setFeast(jan, day(-30)))
+  const session = await areasMoved(jan, () => later(join(jan.data, 'progress-db.json')))
+  const feastHeld = await areasMoved(jan, () => setFeast(jan, day(-1)))
+  const saidNow = await fetch(`${jan.base}/towns/friendship`, { headers: jan.auth })
+  const header = Object.fromEntries((saidNow.headers.get('lani-areas') ?? '').split(',').map(p => p.trim().split('=')))
+  const nowAreas = await areasOf(jan)
+  check("friendship: Jan's read of the friendships says the towns, the friends and the content, at their versions now (not the village, not the learner)",
+    same(Object.keys(header).sort(), ['content', 'friends', 'towns']) && ['content', 'friends', 'towns'].every(a => header[a] === nowAreas[a]), header)
+  check("friendship: … a move in Jan's village that keeps its feast moves the village only, a session the learner only: the friendships aren't read again for them",
+    same(keptFeast, ['village']) && same(session, ['learner']), { keptFeast, session })
+  check("friendship: … Jan's feast held (yesterday) moves the village and the friends: the friendships are read again", same(feastHeld, ['friends', 'village']), feastHeld)
   const [jf, mf] = [(await rowOf(jan, mia)).feast, (await rowOf(mia, jan)).feast]
   check("friendship: Mia held a feast today: Jan's app invites Jan to hold theirs within three days", set && openBefore?.theirs === day(0) && openBefore.mine === day(-30) && openBefore.open_until === day(3) && openBefore.shared === null, openBefore)
   check('friendship: … Jan held theirs yesterday: a shared feast ("skupna veselica") on both sides, the same days',
@@ -171,8 +199,11 @@ export async function friendship(jan: Town, mia: Town, luka: Town) {
   const hadIt = existsSync(itDir)
   const skill = await answer(post(jan, mia, 'moves', { id: 'move-00000001', dir: 'in' }))
   check("friendship: someone of Mia's town moving in needs Jan's Italian at A2 (it's A1): 409 skill", skill.status === 409 && skill.body.code === 'skill' && skill.body.level === 'A1' && skill.body.need === 'A2' && (await rowOf(jan, mia)).moves.in.why === 'skill', skill)
-  mkdirSync(itDir, { recursive: true })
-  writeFileSync(join(itDir, 'learner-profile.json'), JSON.stringify({ learner: { current_level: 'A2' } }))
+  const levelUp = await areasMoved(jan, () => {
+    mkdirSync(itDir, { recursive: true })
+    writeFileSync(join(itDir, 'learner-profile.json'), JSON.stringify({ learner: { current_level: 'A2' } }))
+  })
+  check("friendship: … Jan's Italian at A2 (Mia's town's language) moves the learner and the friends: the friendships are read again", same(levelUp, ['friends', 'learner']), levelUp)
   try {
     const offer = await answer(post(jan, mia, 'moves', { id: 'move-00000002', dir: 'in' }))
     const person = offer.body.move?.person

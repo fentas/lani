@@ -10,6 +10,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import si.lanisce.lani.data.Pack
+import si.lanisce.lani.data.PackInfo
+import si.lanisce.lani.data.PackWord
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.game.villagers.VillagerLine
 import si.lanisce.lani.game.villagers.VillagerLines
@@ -60,6 +63,28 @@ class DayAudioVisitTest {
         assertFalse(texts.toString(), texts.any { it in setOf("Pridi, pridi. Sedi.", "Kako lep dan.", "Dobro jutro", "Dober dan", "Dober večer") })
         assertEquals("the greetings in Italian", L10n.text(Lang.IT, "components.goodMorning"), greeting(6, L10n.ownPair.target))
         assertTrue(L10n.text(Lang.IT, "components.goodMorning") in texts)
+    }
+
+    @Test fun `a plan reads each pack under way once, for today's words and tomorrow's`() = runBlocking {
+        val pair = LangPair(Lang.IT, Lang.DE)
+        var asked = 0
+        val words = (1..12).map { PackWord(id = "w$it", it = "parola$it", de = "Wort$it", lang = "it") }
+        val plan = DayAudioGather(
+            ApplicationProvider.getApplicationContext(), cards = emptyList(),
+            packs = listOf(PackInfo(id = "casa", title = "Casa", total = words.size, learned = 1)),
+            pack = {
+                asked++
+                Pack(id = "casa", title = "Casa", words = words, learned = listOf("w1"), language = "it")
+            },
+            state = null, scenes = emptyList(), cast = listOf(rosa), profiles = emptyMap(), level = { "A1" },
+            grammar = emptyList(), mastery = { null }, ispy = { null },
+            greetings = listOf(6, 12, 20).map { greeting(it, pair.target) }, target = pair.target.code, base = pair.base.code, pair = pair,
+        ).plan(LocalDateTime.now().withHour(7)) // the plan's first day is the real today's: the words a session teaches next
+        assertEquals("one read for both days", 1, asked)
+        val today = plan.days[0].wants.map { it.text }
+        val tomorrow = plan.days[1].wants.map { it.text }
+        assertTrue("today's next word", "parola2" in today)
+        assertFalse("tomorrow's are the ones after: $tomorrow", "parola2" in tomorrow)
     }
 
     @Test fun `a greeting is in the language asked, by default the labels' own`() {

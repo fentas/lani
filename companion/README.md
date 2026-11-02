@@ -1106,7 +1106,7 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `GET` | `/readings`, `/readings/:id` | the reading corner's readings (see [GAME.md](GAME.md#the-reading-corner)): the village's culture pack's (`companion/cultures/<culture>/readings/`, read per request) with `source: curated` and `culture`, then the tutor's (`<data>/app/readings/`, `publish_reading`) with `source: tutor`, `machine_written` and `published_at` |
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
 | `GET` | `/state[?language=it]` | all 6 learner databases + computed fields (no LLM involved), the home language's or, with `language`, that language's; always with `language` (whose they are) and `languages: [{code, name, level, words, due, source: home\|visits}]`, the home one first (see [docs/DB_SCRIPTS.md](../docs/DB_SCRIPTS.md#languages)), and `features`: what this bridge takes that an older one doesn't (`"dialog-words"`: POST /reviews' `dialog`); an older bridge has none, and the app sends it only what it takes |
-| `GET` | `/changes` | `{version, day, areas}`: the version of everything the app reads (`bridge/src/changes.ts`), and of each area of it: `learner` (the databases and the bridge's other records of the learner, e.g. the answers' log), `village` (`app/game.json`), `towns` (`app/towns.json`, `app/town-*`), `family` (`app/family`, `app/audio`) and `content` (the tutor's stores in `app/`, on a node the project's content under `companion/`, which a merge on main changes under a running bridge, and who the learner is: the profile's learner, preferences and home language by value). Each a digest of this run of the bridge, the day and its files (the learner's data directory without its history, clips, releases, backups, chat photos and the bridge's own bookkeeping). Not the events (the app handles each as it comes) nor the voice store (each clip made says so: `voice_updated`). Each GET the app reads again on a Back says the versions of the areas it depends on as they were before its answer was made (`lani-areas: learner=…, content=…`). Home coming back reads nothing when the version didn't move; when it did, only the reads whose areas moved, while the day, the time of day, the pair, the learner and the culture are those of the last reading and the last whole one is under ten minutes old; else everything ([docs/plans/05-built/nav-perf.md](../docs/plans/05-built/nav-perf.md), [changes-areas.md](../docs/plans/05-built/changes-areas.md)); an older bridge answers `404` (or no areas), and the app reads everything as before |
+| `GET` | `/changes` | `{version, day, areas}`: the version of everything the app reads (`bridge/src/changes.ts`), and of each area of it: `learner` (the databases and the bridge's other records of the learner, e.g. the answers' log), `village` (`app/game.json`), `towns` (`app/towns.json`, `app/town-*`), `family` (`app/family`, `app/audio`), `content` (the tutor's stores in `app/`, on a node the project's content under `companion/`, which a merge on main changes under a running bridge, and who the learner is: the profile's learner, preferences and home language by value) and `friends` (no files: what the towns' friendships take of the village and the learner, by value: the village's last feast and the learner's level in each linked town's language; [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)). Each a digest of this run of the bridge, the day and its files (the learner's data directory without its history, clips, releases, backups, chat photos and the bridge's own bookkeeping). Not the events (the app handles each as it comes) nor the voice store (each clip made says so: `voice_updated`). Each GET the app reads again on a Back says the versions of the areas it depends on as they were before its answer was made (`lani-areas: learner=…, content=…`). Home coming back reads nothing when the version didn't move; when it did, only the reads whose areas moved, while the day, the time of day, the pair, the learner and the culture are those of the last reading and the last whole one is under an hour old; else everything. What no version says (the towns' reads, which ask the linked towns; the voice store's clips and voices) is read again every ten minutes, moved or not ([docs/plans/05-built/nav-perf.md](../docs/plans/05-built/nav-perf.md), [changes-areas.md](../docs/plans/05-built/changes-areas.md), [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)); an older bridge answers `404` (or no areas), and the app reads everything as before |
 | `GET` | `/modules`, `/modules/:id[?version=N]` | published modules |
 | `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned`, `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`) |
 | `GET` | `/packs/:id` | a pack with its words and the ids of words already learned |
@@ -2139,8 +2139,8 @@ weakest case), Home's "Danes · Today" idea (the tutor's assignment or items due
 weak case after the school's lesson: "▶ Vadi" starts its session at once), a case page of the grammar book ("🧩 Vadi
 sklone · Case trainer": a session on that case or rule; the overview skloni a mixed one), the school's case units ("🧩
 Skloni" on the unit's page: tožilnik, mestnik, nikalnica-rodilnik, rodilnik, kje-kam-od-kod, dajalnik, orodnik,
-pridevniki-skloni, mnozina-skloni, dvojina-skloni a session on what each teaches; skloni and sklanjatev-posebnosti a
-mixed one) and the tutor's assignment's notification. It opens once the cases have begun (an A1 learner: the intro of
+pridevniki-skloni, mnozina-skloni, dvojina-skloni, predlogi-dva-sklona a session on what each teaches; skloni and
+sklanjatev-posebnosti a mixed one) and the tutor's assignment's notification. It opens once the cases have begun (an A1 learner: the intro of
 the first case unit, Tožilnik, or a case's page met in the book; from A2 every learner); closed, its screen says so with
 "🏫 V šolo: Tožilnik" one tap away, and the unit's page shows "🔒 Odpre jih uvod enote Tožilnik".
 
@@ -2189,7 +2189,11 @@ wrong answers that fade as the trainer's own come in), the learner's own mistake
 (accusative_feminine_a_to_o weighs the feminine accusatives, possessive_neuter_moje the neuter possessives), its
 agreement's for an adjective; a quarter when asked lately; its level as the accuracy wants it (60–70 % right); a third
 more for a rule the case lens showed in the last three days. A focus (a case, a rule, kje-kam, agreement, the plural's
-or the dual's cases) asks only it, filled up with its case's when it has too few.
+or the dual's cases, the prepositions with two cases) asks only it, filled up with its case's when it has too few. The
+prepositions with two cases (B2's predlogi-dva-sklona, `CaseTrainer.TWO_CASES`): the page's own B2 rules (po + the
+accusative to fetch, ob + the accusative against, za + the accusative how long, pred and med + the instrumental of
+time), at least half of its "Kateri sklon?" where they can be asked (a learner of B1 who met the page, or of B2), and the
+bank's rules of v, na, pod, nad, pred, za, med, ob and po in either case (Kje ali kam? 45 %).
 
 **Kept** in the village state (`GameState.cases`, synced as the rest; the bridge keeps it from an older app): each
 case's, rule's and kind's last 12 answers ("case:rodilnik" …: an almost counts right, the case was right), each rule's
@@ -3989,7 +3993,9 @@ the instrumental or the accusative; z/s: with, or from, the genitive; a time nou
 of quantity, the nouns of measure and the numbers from five; the verbs and the words of feeling that govern a case
 (bati se, pomagati, dati, všeč); the verbs of motion and of rest, the copulas, the verbs with and without an object;
 the nouns of time; the genitive of time (`time_genitive`: leto before a year in figures, leta 1844; nekega, tistega …
-before a noun of time, nekega dne); fixed phrases (dober dan, na svidenje); words said of the subject (rad, sam); the
+before a noun of time, nekega dne); the hour (`hours`: ob + the locative, ob pol + the genitive of the next hour, and each
+hour as counted with its written form: in speech the hour often stays as counted, ob deset, never wrong; the lens gives
+it the case ob or pol asks for and its written form, `written`: desetih); fixed phrases (dober dan, na svidenje); words said of the subject (rad, sam); the
 personal pronouns (osebni-zaimki's, with the genitive and locative it leaves out) and the fused ones (zame, nanj). Each entry names its rule, a grammar page's id, and has
 examples the smoke analyses. A verb is given by its infinitive and its first person singular; the lens makes its forms.
 The JSON is made by `grammar/sl/data/case-triggers.py` beside it (the table in a compact form, its fixed layout): change
@@ -4009,8 +4015,9 @@ and particles (no case row: the card says *medmet*, *členek*), and its verbs' a
 (docs/plans/05-built/lens-unknown-forms.md). `CaseLens.unknownWords(line, names)` gives the words of a line the lens
 knows nothing of; `bun test/case-lens-gaps.ts` lists the content's (by kind, with a line each; `--units` the course's
 too) and the smoke keeps them under 150. The clause then decides,
-each step a rule: a phrase, the preposition before the phrase (the verb's motion or rest where the form doesn't tell),
-a number or quantity, a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
+each step a rule: a phrase, a number or a word of quantity right before the noun (also after a preposition: čez pol ure,
+za pet minut; pol before an hour is the time, ob pol dveh), the preposition before the phrase (the verb's motion or rest
+where the form doesn't tell), a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
 number, an l-form's gender), the object of a verb that takes one; the dual only with dva, dve, oba or a dual verb, the
 locative and the instrumental only after a preposition, a genitive only with something that asks for it (or when the
 form is nothing else: Daj mi kruha); a comparison after kot takes the case of what it is compared with; words joined by
@@ -4055,7 +4062,8 @@ shows each word's row from the same lookups, so the sheet and the card never dis
 [SCENES.md](SCENES.md#the-hint-the-rule-never-the-answer)) reads the same table without the bridge: the app bundles it
 with the grammar book (resources `grammar/sl/data/case-triggers.json`, app/build.gradle.kts `GrammarPages`) and
 `game/CaseTriggers.kt` reads its prepositions and senses, negations, quantities, measures and numbers, verbs and words of
-feeling (a verb's forms made as the lens makes them) and the pronouns only ever the subject, at once and offline; the
+feeling (a verb's forms made as the lens makes them), the pronouns only ever the subject, the genitive of time (leta
+1844, nekega dne) and the hours' half (ob pol dveh), at once and offline; the
 app's older rules of its own (`Triggers`) are gone. On the turns of `bridge/test/fixtures/hint-lens.json` the chip names
 the trigger, the case and the question the lens names (`TurnHintLensTest`; the smoke checks the lens still answers them
 so, `bun test/hint-lens.ts --write` records them again).
@@ -4700,7 +4708,8 @@ what would run by itself in it waits: the header village's clock, the tickers, a
 back gesture from a screen over Home, Home itself shows. What Home reads from the node is read again only when it moved
 (the bridge's `GET /changes` and its areas, [App API](#app-api)): a Back that changed nothing costs one small request
 instead of about 23; after a session's results only the learner's state and the packs are read again, after a move in the
-village only the towns' friendships, not the scenes, the course or the grammar book. The header village draws in a layer
+village nothing (the towns' friendships only when the village's last feast changed), not the scenes, the course or the
+grammar book. The header village draws in a layer
 of its own, a picture at a time (12 a second), and asks for the next only at its clock's ticks.
 
 **Home**, top to bottom: the village with the greeting, "🤝" to Friends (a count when a guest came, a question or a

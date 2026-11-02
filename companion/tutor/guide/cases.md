@@ -11,7 +11,8 @@ cards with forms) and the bank's adjectives and possessives typed into a frame w
 right). Items are picked towards the weak cases and rules (the learner's mistakes count from the start); a missed item
 comes back in the next sessions (the same day, then 1, 3, 7 and 16 days). The rule ids are the grammar pages that
 explain them (rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik,
-orodnik, tozilnik, mestnik, skloni for the subject).
+orodnik, tozilnik, mestnik, skloni for the subject; B2's predlogi-dva-sklona: po, ob, za + the accusative, pred, med + the
+instrumental of time, and as a focus every rule of a preposition with two cases).
 cases_done: a session the app played, ALREADY persisted by the bridge as grammar practice (and writing for the typed
 ones), its wrong answers in the mistakes database under the learner's own pattern ids where one fits (else
 cases_<case>_<rule>): don't persist it again. Reply only when it helps (a case that keeps failing, a trigger mixed up).

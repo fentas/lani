@@ -32,8 +32,11 @@ export default async function cases() {
   check('… every case has frames, the adjectives and possessives every form', ['imenovalnik', 'rodilnik', 'dajalnik', 'tozilnik', 'mestnik', 'orodnik'].every(c => bank.frames.some(f => f.case === c)) && bank.adjectives.some(a => a.kind === 'possessive'))
   const ids = new Set(bank.items.map(i => i.id))
   check('… every item an id of its own', ids.size === bank.items.length)
-  const child = bank.items.filter(i => i.level !== 'B1' && i.sl.trim().split(/\s+/).length <= 6).length
+  const child = bank.items.filter(i => i.level !== 'B1' && i.level !== 'B2' && i.sl.trim().split(/\s+/).length <= 6).length
   check(`… short A1–A2 sentences for a child (${child})`, child >= 100, child)
+  // hints-lens-3: B2's page of the prepositions with two cases (po kruh, ob zid, za en teden, pred tednom): its own rules
+  const two = bank.items.filter(i => bank.rules[i.why]?.page === 'predlogi-dva-sklona')
+  check(`… the two cases' page (predlogi-dva-sklona) its own B2 items: po, ob, za + the accusative, pred, med + the instrumental (${two.length})`, two.length >= 12 && two.every(i => i.level === 'B2') && new Set(two.map(i => i.why)).size === 4, two.map(i => `${i.id} ${i.level}`))
 
   // --- what the checks catch --------------------------------------------------------------------------------------------
   const good = bank.items.find(i => i.id === 'brez-mleka') as CaseItem
@@ -73,6 +76,9 @@ export default async function cases() {
   // --- the assignment ---------------------------------------------------------------------------------------------------
   const badFocus = await client.callTool({ name: 'assign_cases', arguments: { focus: 'nominativ' } })
   check('assign_cases refuses a focus that is neither a case nor a rule', badFocus.isError === true && /neither a case/.test(text(badFocus)), text(badFocus))
+  // (B2's two cases' page is a focus too: its rules' page; the app takes every rule of a preposition with two cases)
+  const twoCases = await client.callTool({ name: 'assign_cases', arguments: { focus: 'predlogi-dva-sklona', note: 'po kruh, po vasi' } })
+  check('… takes the two cases\' page (predlogi-dva-sklona) as a focus', !twoCases.isError, text(twoCases))
   const assign = await client.callTool({ name: 'assign_cases', arguments: { focus: 'rodilnik-predlogi', note: 'iz, brez: the genitive' } })
   const withAssign = (await (await fetch(`${base}/cases`, { headers: auth })).json()) as any
   check('… assigns a session on a rule: GET /cases has it until it is played', !assign.isError && withAssign.assigned?.focus === 'rodilnik-predlogi' && withAssign.assigned.note === 'iz, brez: the genitive', withAssign.assigned)

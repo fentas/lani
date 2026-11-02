@@ -70,6 +70,12 @@ sealed interface Trigger {
     /** A number's noun: the number agrees with its gender (dva brata, dve sestri). */
     data class Noun(override val word: String, override val at: Int) : Trigger
 
+    /**
+     * The genitive of time (leta 1844, nekega dne: Kdaj?): what makes a noun of time so, the year in figures after it or
+     * the determiner before it (the table's time_genitive).
+     */
+    data class When(override val word: String, override val at: Int) : Trigger
+
     /** A word that says who does it (jaz, oni: the verb's person) or when (včeraj: the past, jutri: the future). */
     data class Cue(override val word: String, override val at: Int, val kind: Kind) : Trigger {
         enum class Kind { WHO, PAST, FUTURE }
@@ -111,6 +117,12 @@ object CaseTriggers {
         val governors: Map<String, List<Governor>>,
         /** The personal pronouns' nominatives that are no other case's form (jaz, on, midva …; not mi, ti, me). */
         val subjects: Set<String>,
+        /** The genitive singular of the nouns of time a year in figures follows (leto: leta 1844), the time_genitive's. */
+        val years: Set<String> = emptySet(),
+        /** The determiners before a noun of time in the genitive (nekega dne, tistega večera). */
+        val determiners: Set<String> = emptySet(),
+        /** The half before an hour (pol: ob pol dveh, the next hour in the genitive), the hours'. */
+        val half: Set<String> = emptySet(),
     ) {
         companion object {
             val EMPTY = Table(emptyMap(), emptySet(), emptySet(), emptySet(), emptySet(), emptySet(), emptySet(), emptyMap(), emptySet())
@@ -161,6 +173,7 @@ object CaseTriggers {
             val after = po["after"]?.jsonPrimitive?.booleanOrNull == true
             for (w in strings(po["words"])) verbs.getOrPut(w) { ArrayList() } += Governor(w, listOf(c), str(po, "rule").orEmpty(), after = after)
         }
+        val tg = o["time_genitive"] as? JsonObject
         val nominative = HashSet<String>()
         val other = HashSet<String>()
         for (p in o["pronouns"]?.jsonArray.orEmpty()) {
@@ -177,6 +190,9 @@ object CaseTriggers {
             agreeing = strings(o["agreeing_numbers"]).toSet(),
             governors = verbs,
             subjects = nominative - other,
+            years = strings(tg?.get("years")).map(::genitiveSingular).toSet(),
+            determiners = strings(tg?.get("determiners")).toSet(),
+            half = strings((o["hours"] as? JsonObject)?.get("half")).toSet(),
         )
     }
 
@@ -227,6 +243,13 @@ object CaseTriggers {
         if (gender == 'f') out += stem.replace(Regex("([^aeiou])([^aeiou])$"), "$1e$2")
         if (gender == 'n') out += stem
         return out
+    }
+
+    /** A noun's genitive singular by its ending (leto: leta; ura: ure; dan's own, dne, is the dictionary's): the lens's reading. */
+    fun genitiveSingular(lemma: String): String = when {
+        lemma.endsWith("a") -> lemma.dropLast(1) + "e"
+        lemma.endsWith("o") || lemma.endsWith("e") -> lemma.dropLast(1) + "a"
+        else -> lemma + "a"
     }
 
     /** After a soft consonant the o of an ending is an e (z nožem, s čajem), and -ov is -ev. */
@@ -298,6 +321,9 @@ object CaseTriggers {
     /** The personal pronouns that are only ever the subject: who does it (jaz, on, midva …). */
     fun isSubject(w: String): Boolean = w.lowercase() in table.subjects
 
+    /** The half before an hour (pol): ob pol dveh, the next hour in the genitive, a time. */
+    fun isHalf(w: String): Boolean = w.lowercase() in table.half
+
     /**
      * Which clause of [text] each of its words is in: a comma, a stop, a question or exclamation mark, a colon, a
      * semicolon or a dash ends one ("Ne, nimam kruha." is two: the no that counts is nimam).
@@ -318,7 +344,9 @@ object CaseTriggers {
      * prijateljema, the preposition's), else such a number of one to four right before it (dva brata); then a negation of
      * its clause (ne before a word of it), then the verbs and the words of feeling of its clause that govern a case (not
      * the word itself; one of feeling that governs what comes after it, poln vode, only before it; a verb with se and one
-     * without by whether the clause has se). [between]: whether the word at an index may stand between.
+     * without by whether the clause has se). First of all, the genitive of time ([Trigger.When]): a year noun's form
+     * before a year in figures (leta 1844), a word after a determiner of time (nekega dne), not after a preposition (od
+     * leta 2024: the preposition's). [between]: whether the word at an index may stand between.
      */
     fun of(text: String, i: Int, between: (Int) -> Boolean = { k -> adjectiveLike(Forms.words(text)[k]) }): List<Trigger> {
         val spans = Forms.spans(text)
@@ -326,6 +354,14 @@ object CaseTriggers {
         val words = spans.map { it.value.lowercase() }
         val clause = clauses(text)
         val out = mutableListOf<Trigger>()
+        val prev = (i - 1).takeIf { it >= 0 && clause[it] == clause[i] }
+        if (prev == null || !isPreposition(words[prev])) {
+            val next = (i + 1).takeIf { it < words.size && clause[it] == clause[i] }
+            when {
+                next != null && words[i] in table.years && Regex("""\d{3,4}""").matches(words[next]) -> out += Trigger.When(spans[next].value, next)
+                prev != null && words[prev] in table.determiners -> out += Trigger.When(spans[prev].value, prev)
+            }
+        }
         fun agrees(k: Int) = numberCategory(words[k]).let { it != null && it != Numbers.MANY }
         val near = listOf(i - 1, i - 2).filter { k -> k >= 0 && clause[k] == clause[i] && (k == i - 1 || between(i - 1) || agrees(i - 1)) }
         // a number of one to four agrees with its noun: what decides is before it, if anything is
@@ -362,7 +398,7 @@ object CaseTriggers {
     fun cases(t: Trigger): List<Case> = when (t) {
         is Trigger.Preposition -> t.cases
         is Trigger.Count -> if (t.category == Numbers.MANY) listOf(Case.GEN) else listOf(Case.NOM, Case.ACC)
-        is Trigger.Amount, is Trigger.Negation -> listOf(Case.GEN)
+        is Trigger.Amount, is Trigger.Negation, is Trigger.When -> listOf(Case.GEN)
         is Trigger.Partner -> t.cases
         is Trigger.Noun, is Trigger.Cue -> emptyList()
     }

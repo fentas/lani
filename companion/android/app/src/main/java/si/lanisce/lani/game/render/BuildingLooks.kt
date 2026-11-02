@@ -60,7 +60,7 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
             }
             BuildingType.KOZOLEC -> when (look.hayrack) {
                 Hayrack.FIENILE -> fienile(b, x, y, st)
-                Hayrack.HARPFE -> harpfe(b, x, y)
+                Hayrack.HARPFE -> rack(b, x, y, harpfe = true)
                 Hayrack.BARN -> hayBarn(b, x, y, st)
                 Hayrack.KOZOLEC -> return false
             }
@@ -653,53 +653,95 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
     }
 
     /**
-     * Carinthia's Harpfe (as on Am See's far shore): a single rack of four posts in a row with the laths across between
-     * them, a strut against each end, hay hung on it from June to October, and a narrow shingle roof along its top.
+     * The single hayrack as the field's scene builds it (Auf dem Feld, Na njivi: FieldPainter's kozolec), standing in the
+     * plot's middle and growing with the hayrack's level as the field's: one bay at level 1, two at 2, three from 3, a roof
+     * of boards until level 4 brings its shingles, the rack hung full of hay at 5 (hay on it from June to October before).
+     * The posts on stone feet, knee braces up to the beam under the eaves. Primorska's kozolec of brown oak with its six
+     * rails ([harpfe] false); Carinthia's Harpfe of larch weathered silver-grey ([Pal.HARPFE_L]), taller, its nine thin rails
+     * close together like a harp's strings, under a steeper roof.
      */
-    private fun harpfe(b: Building, x: Float, y: Float) {
-        val x0 = x + 0.25f; val yc = y + 1.55f; val top = 13f; val len = 2.5f
-        val hay = env.month in 6..10
-        // the struts at the back, then the rack
-        i.line(x0 + 0.05f, yc, 9f, x0 + 0.05f, yc - 0.9f, 0f, Pal.WOOD_D)
-        i.line(x0 + len - 0.05f, yc, 9f, x0 + len - 0.05f, yc - 0.9f, 0f, Pal.WOOD_D)
-        for (j in 0..3) p.postBox(x0 + j * len / 3f, yc, top)
-        for (z in 2..12 step 2) {
-            i.line(x0, yc, z.toFloat(), x0 + len, yc, z.toFloat(), Pal.WOOD_L)
-            i.line(x0, yc, z - 0.5f, x0 + len, yc, z - 0.5f, Pal.WOOD_D)
+    internal fun rack(b: Building, x: Float, y: Float, harpfe: Boolean) {
+        val lv = b.level.coerceIn(1, 5)
+        val bays = when (lv) { 1 -> 1; 2 -> 2; else -> 3 }
+        val bay = 2.6f / 3f; val len = bays * bay
+        val x0 = x + 1.55f - len / 2f; val yc = y + 1.55f
+        val top = if (harpfe) 14f else 12.6f
+        val rails = if (harpfe) HARPFE_RAILS else KOZOLEC_RAILS
+        val wL = if (harpfe) Pal.HARPFE_L else Pal.WOOD_L; val wM = if (harpfe) Pal.HARPFE_M else Pal.WOOD_M
+        val wD = if (harpfe) Pal.HARPFE_D else Pal.WOOD_D; val wX = if (harpfe) Pal.HARPFE_X else Pal.WOOD_X
+        val hay = lv >= 5 || env.month in 6..10
+        val snow = env.snow
+        // the posts on their stone feet, the rails across between them
+        for (j in 0..bays) i.box(x0 + j * bay - 0.17f, yc - 0.17f, 0f, 0.34f, 0.34f, 0.8f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+        for (j in 0..bays) i.box(x0 + j * bay - 0.11f, yc - 0.11f, 0.8f, 0.22f, 0.22f, top - 0.8f, wL, wD, wX)
+        for (r in rails) {
+            i.line(x0, yc, r, x0 + len, yc, r, wL)
+            if (fine) i.line(x0, yc, r - 0.45f, x0 + len, yc, r - 0.45f, wD)
         }
-        if (hay) for (bay in 0..2) {
-            val bx = x0 + bay * len / 3f + 0.1f; val hh = HARPFE_HAY[(bay + b.plot) % HARPFE_HAY.size]
-            i.panelY(bx, yc + 0.02f, 2.5f, len / 3f - 0.2f, hh, Pal.HAY_M)
-            for (q in 0 until 7) {
-                val u = Noise.rnd(b.plot * 3 + bay, q, 5); val v = Noise.rnd(b.plot * 3 + bay, q, 6)
-                i.px(bx + u * (len / 3f - 0.2f), yc + 0.02f, 2.5f + v * hh, if (q % 2 == 0) Pal.HAY_L else Pal.HAY_D)
+        if (hay) for (j in 0 until bays) {
+            val bx = x0 + j * bay + 0.08f
+            val hh = if (lv >= 5) top - 3.5f else HARPFE_HAY[(j + b.plot) % HARPFE_HAY.size] * (top / 14f)
+            i.panelY(bx, yc + 0.02f, 1.6f, bay - 0.16f, hh, Pal.HAY_M)
+            for (q in 0 until if (fine) 12 else 7) {
+                val u = Noise.rnd(b.plot * 3 + j, q, 5); val v = Noise.rnd(b.plot * 3 + j, q, 6)
+                i.px(bx + u * (bay - 0.16f), yc + 0.02f, 1.6f + v * hh, if (q % 2 == 0) Pal.HAY_L else Pal.HAY_D)
             }
+            // a rail now and then over the hay, as it's hung over them
+            if (fine) for (r in rails.indices step 3) i.line(bx, yc + 0.03f, rails[r], bx + bay - 0.16f, yc + 0.03f, rails[r], wM)
         }
-        i.line(x0 + 0.05f, yc, 9f, x0 + 0.05f, yc + 0.9f, 0f, Pal.WOOD_M)
-        i.line(x0 + len - 0.05f, yc, 9f, x0 + len - 0.05f, yc + 0.9f, 0f, Pal.WOOD_M)
-        p.roofX(x0 - 0.35f, yc - 0.48f, top - 0.3f, len + 0.7f, 0.96f, 2.6f, p.shingles(), Pal.WOOD_D)
+        // the beam along the posts' tops and the knee braces up to it
+        i.line(x0 - 0.1f, yc, top, x0 + len + 0.1f, yc, top, wM)
+        for (j in 0..bays) {
+            val px = x0 + j * bay
+            if (j > 0) i.line(px, yc + 0.03f, top - 1.8f, px - 0.3f, yc + 0.03f, top, wD)
+            if (j < bays) i.line(px, yc + 0.03f, top - 1.8f, px + 0.3f, yc + 0.03f, top, wD)
+        }
+        // the roof: boards at first, the shingles from level 4
+        val roof = when {
+            snow -> BuildingPainter.Roof(Pal.SNOW_L, Pal.SNOW_M, wX, rows = false)
+            lv >= 4 -> p.shingles()
+            else -> p.planks(intArrayOf(wL, wM, wX))
+        }
+        p.roofX(x0 - 0.35f, yc - 0.5f, top - 0.2f, len + 0.7f, 1f, if (harpfe) 3.8f else 2.8f, roof, wX)
     }
 
     /**
-     * The Lake District's hay barn: a field barn of grey stone with its quoins, under slate; its big cart door in an arch of
-     * stones, the forking hole over it with hay in it from July, the ventilation slits and the owl hole in the gable.
+     * The Lake District's hay barn, as Mr Tyson's field builds it by the hayrack's level (FieldPainter's barn): a field barn of
+     * slate stone under slate; its big cart door a dark arch of slate voussoirs, the forking hole over it with hay in it from
+     * July, the slits on the side and the owl hole in the gable; the byre's smaller arch beside it from level 2, the stone
+     * steps up the gable end from 3, the pale dressed quoins up its corners from 4.
      */
     private fun hayBarn(b: Building, x: Float, y: Float, st: FireStyle) {
         val x0 = x + 0.35f; val y0 = y + 0.6f; val w = 2.4f; val d = 1.8f; val h = 8.5f
+        val lv = b.level.coerceIn(1, 5)
         val t = st.walls[0]
-        stoneBox(x0, y0, 0f, w, d, h, t, b.plot * 59)
+        stoneBox(x0, y0, 0f, w, d, h, t, b.plot * 59, quoins = lv >= 4)
         val fy = y0 + d
-        // the cart door, its arch of stones and the hay in the forking hole over it
-        i.panelY(x0 + 0.7f, fy, 0f, 1.0f, 5.2f, BARN_DOOR)
-        if (fine) { i.line(x0 + 1.2f, fy, 0f, x0 + 1.2f, fy, 5.2f, Col.scale(BARN_DOOR, 0.7f)); var u = 0.82f; while (u < 1.7f) { i.line(x0 + u, fy, 0.2f, x0 + u, fy, 5f, Col.scale(BARN_DOOR, 0.85f)); u += 0.2f } }
-        val arch = Col.mix(t[0], Col.hex(0xFFFFFF), 0.3f)
-        i.line(x0 + 0.62f, fy, 5.2f, x0 + 0.85f, fy, 6f, arch); i.line(x0 + 0.85f, fy, 6f, x0 + 1.55f, fy, 6f, arch); i.line(x0 + 1.55f, fy, 6f, x0 + 1.78f, fy, 5.2f, arch)
-        i.panelY(x0 + 1.0f, fy, 6.6f, 0.4f, 1.3f, Col.hex(0x1E1A18))
+        val dark = Col.hex(0x1E1A18)
+        val voussoir = Col.mix(t[2], Col.hex(0x000000), 0.15f)
+        // the cart door: a dark arch, its voussoirs round it
+        i.panelY(x0 + 0.65f, fy, 0f, 0.95f, 4.6f, dark)
+        i.panelY(x0 + 0.8f, fy, 4.6f, 0.65f, 0.6f, dark)
+        i.line(x0 + 0.58f, fy, 0f, x0 + 0.58f, fy, 4.6f, voussoir); i.line(x0 + 1.67f, fy, 0f, x0 + 1.67f, fy, 4.6f, voussoir)
+        i.line(x0 + 0.58f, fy, 4.6f, x0 + 0.78f, fy, 5.5f, voussoir); i.line(x0 + 0.78f, fy, 5.5f, x0 + 1.47f, fy, 5.5f, voussoir); i.line(x0 + 1.47f, fy, 5.5f, x0 + 1.67f, fy, 4.6f, voussoir)
+        // the byre's smaller arch beside it (from level 2)
+        if (lv >= 2) {
+            i.panelY(x0 + 1.9f, fy, 0f, 0.36f, 2.6f, dark)
+            i.line(x0 + 1.85f, fy, 2.6f, x0 + 2.31f, fy, 2.6f, voussoir)
+        }
+        // the forking hole over the door, with hay in it from July to March
+        i.panelY(x0 + 1.0f, fy, 6.6f, 0.4f, 1.3f, dark)
         if (env.month >= 7 || env.month <= 3) { i.panelY(x0 + 1.04f, fy, 6.6f, 0.32f, 0.8f, Pal.HAY_M); i.px(x0 + 1.15f, fy, 7.2f, Pal.HAY_L) }
         // the slits on the side
-        for (v in floatArrayOf(0.35f, 0.9f, 1.45f)) i.line(x0 + w, y0 + v, 2.5f, x0 + w, y0 + v, 5.5f, Col.hex(0x1E1A18))
+        for (v in floatArrayOf(0.35f, 0.9f, 1.45f)) i.line(x0 + w, y0 + v, 2.5f, x0 + w, y0 + v, 5.5f, dark)
+        // the stone steps up the gable end to the side door of the loft (from level 3)
+        if (lv >= 3) {
+            val stp = Col.mix(t[0], Col.hex(0xFFFFFF), 0.25f)
+            for (q in 0 until 5) i.box(x0 + w, y0 + d - 0.4f - q * 0.26f, 0f, 0.22f, 0.26f, 1.1f + q * 1.1f, stp, t[1], t[2])
+            i.panelX(x0 + w, y0 + 0.25f, 5.5f, 0.3f, 1.6f, dark)
+        }
         p.roofX(x0 - 0.25f, y0 - 0.3f, h, w + 0.5f, d + 0.6f, 6f, p.slate(), t[2])
-        i.px(x0 + w + 0.25f, y0 + d / 2, h + 2.2f, Col.hex(0x1E1A18)) // the owl hole
+        i.px(x0 + w + 0.25f, y0 + d / 2, h + 2.2f, dark) // the owl hole
     }
 
     // ---------------------------------------------------------------- wells
@@ -958,7 +1000,6 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
         val GRAPE = Col.hex(0x5A2E6A)
         /** The Lake District's window frames, painted white. */
         val WHITE_FRAME = Col.hex(0xF2F0EA)
-        val BARN_DOOR = Col.hex(0x4E3A2A)
         /** The village pump's cast iron, painted dark green. */
         val PUMP_L = Col.hex(0x3E5A4A); val PUMP_M = Col.hex(0x2C4236); val PUMP_D = Col.hex(0x1E2E26)
         /** Carinthia's upper storey of dark timber. */
@@ -976,6 +1017,9 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
         val HIVES = intArrayOf(Col.hex(0xF2D04A), Col.hex(0x7FB2D8), Col.hex(0x8CC07A), Col.hex(0xF4EEDD), Col.hex(0xE89A6A))
         /** How high the hay hangs in the Harpfe's bays (px). */
         val HARPFE_HAY = floatArrayOf(8f, 6.5f, 9f, 7f)
+        /** The Harpfe's nine rails (px over the ground), close together like a harp's strings, as the field's; the kozolec's six. */
+        val HARPFE_RAILS = floatArrayOf(1.6f, 2.95f, 4.3f, 5.65f, 7f, 8.35f, 9.7f, 11.05f, 12.4f)
+        val KOZOLEC_RAILS = floatArrayOf(2.45f, 4.3f, 6.2f, 8.1f, 10f, 11.7f)
     }
 }
 

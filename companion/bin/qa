@@ -78,6 +78,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        (the supplement's words); leta's card saying the same; "lens-unknown" (only when named) the
                        forms the lens knew nothing of: Krpana declined, najboljša izmed vseh, Mickina, Zlatoroga's card, and Juhu's
                        card with no case row, saying it is an interjection (medmet);
+                       "hints-lens" (only when named) the hour said as counted on the sentence's grammar (ob deset:
+                       the locative, its written form desetih beside it), ob pol dveh (the genitive, Kdaj?), čez pol
+                       ure's card; the case trainer on B2's predlogi-dva-sklona (QA's hook "cases:meet:"), every task
+                       a preposition with two cases (a B1 learner's LANI_DEV_DATA for the page's own items);
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "faces" the faces: Babica's soup's
                        header portrait through a wrong and a right pick, then a free talk's stage with the dev tutor's
@@ -213,6 +217,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        synthetic learner of any culture (LANI_DEV_DATA, LANI_CULTURE, LANI_QA_PAIR=sl-en): the village as a
                        town in the morning and in the dark evening by the fire, at rest, closer and closest; also as
                        people-*.png in $LANI_QA_MAP_SHOTS;
+                       "map-landmarks" (only when named) the finished projects' landmarks on the map in the culture's look,
+                       on a synthetic learner of any culture (LANI_DEV_DATA, LANI_CULTURE, LANI_QA_PAIR=sl-en): the village
+                       as a town with the projects of MAP_LANDMARKS finished, each landmark shown closer up, the town at rest
+                       and closer; also as landmark-*.png in $LANI_QA_MAP_SHOTS;
                        "zoom-frames" (only when named) what the map's frames cost on Teo's tablet's screen (2560 × 1600):
                        at night and by day, at the home view, at 1.5 ×, 2.5 × and 3 × the fitted zoom (QA's hook
                        "cam:zoom:<f>"), each at rest and panned, and pinched ("cam:pinch:<s>"): every frame's time and the
@@ -225,8 +233,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        no duplicate and none lost; the day's icon again; a message's notification and its dot, gone
                        when the chat is opened (screenshots app-icon-*.png, app-icon.txt)
                        "home-return" (only when named) what going back to Home costs: from the village and from
-                       Settings, three times each, from Settings after a session's results were written beside the
-                       bridge, and the village opened: for 3 s from the Back (the tap) the main
+                       Settings, three times each, from the village after a move in it and from Settings after a
+                       session's results were written beside the bridge, and the village opened, with the second town
+                       linked (none with --no-town): for 3 s from the Back (the tap) the main
                        thread's messages (QA's hook "main:watch": their sum, the longest), every frame (gfxinfo
                        framestats), Choreographer's skipped frames, the garbage collections; with
                        LANI_QA_TRACE=<dir> the first Back from the village traced by method (am profile) into it;
@@ -590,6 +599,8 @@ VOICES = any(w.strip() in (VOICES_GROUP, "visit-voices-silent") for w in (arg("-
 # child's town), the Slovene one for the visit's voices
 TOWN_FIXTURE = os.environ.get("LANI_DEV_TOWN_FIXTURE") or ("dev-town-sl.json" if VOICES else "dev-town.json")
 VISIT_GROUPS = ("visit", VOICES_GROUP)  # the steps that need the second town
+# other steps that need it linked: a child's town's progress, and what a Back costs with a friend to ask (home-return)
+TOWN_STEPS = ("town-progress-child", "home-return")
 
 
 def fixture_file() -> Path:
@@ -3668,6 +3679,55 @@ def lens_unknown():
     word_says("Juhu", "Juhu! Najboljši zmaj na svetu!", "Hooray! The best kite in the world!", ["medmet"], "lens-unknown-juhu")
 
 
+def hints_lens():
+    """The hint chip and the lens for the new grammar (docs/plans/05-built/hints-lens-3.md): the hour said as counted on
+    the sentence's grammar (Maša je ob deset.: the locative ob asks for, "Tako se tudi reče; piše se «desetih»", never a
+    mistake), pol before an hour (ob pol dveh: the genitive, Kdaj?), pol's genitive on a word's card (čez pol ure); then
+    the case trainer on B2's predlogi-dva-sklona (its page met, "cases:meet:"): the page's "🧩 Vadi sklone", a session
+    whose tasks are all of a preposition with two cases, until one of the page's own B2 items is met (at least half of
+    "Kateri sklon?" are). The learner's level B1 or more (LANI_DEV_DATA, its profile's level)."""
+    sheet_line("Maša je ob deset.", "Mass is at ten.", ["mestnik", "Kdaj?", "Tako se tudi reče", "desetih"], "hints-lens-deset", swipes=1)
+    sheet_line("Domov gremo ob pol dveh.", "We go home at half past one.", ["rodilnik", "Kdaj?", "naslednja ura"], "hints-lens-pol", swipes=2)
+    lens_card("ure", "Čez pol ure pridem.", "I'll come in half an hour.", ["rodilnik", "«pol»"], "hints-lens-card-ure")
+    go_home()
+    two = {"v-na-kam", "pod-za-kam", "v-na-kje", "pod-za-kje", "ob", "po", "za-kaj", "po-kaj", "ob-kaj", "za-koliko", "pred-med-kdaj"}
+    items = [i for i in case_bank() if i["why"] in two]
+    qa_hook("cases:ready")
+    assert wait_for(CASES_START, 15), "the trainer's screen, open"
+    qa_hook("cases:meet:predlogi-dva-sklona")
+    qa_hook("cases:only:which")
+    qa_hook("grammar:predlogi-dva-sklona")
+    assert scroll_to(CASES_FROM_PAGE, 8), "the two cases' page's 🧩 Vadi sklone"
+    shot("hints-lens-page")
+    assert tap(CASES_FROM_PAGE, 4), "🧩 Vadi sklone"
+    if wait_for(CASES_START, 6) and not find(CASES_ASK_WHICH):
+        assert tap(CASES_START, 4), "start the focused session"
+    b2 = 0
+    for k in range(10):
+        assert wait_for(CASES_ASK_WHICH, 12), f"task {k + 1}: which case?"
+        it = case_item_on_screen(items)
+        assert it, f"task {k + 1}: an item of a preposition with two cases"
+        own = it["level"] == "B2"
+        b2 += own
+        print(f"    task {k + 1}: {it['id']} ({it['why']}, {it['level']})")
+        shot(f"hints-lens-task-{k + 1}")
+        tap_at(case_chip(it["case"]))
+        assert wait_for(CASES_ASK_WHY, 6), "Zakaj?"
+        word = re.sub(r"^[^\w]+|[^\w]+$", "", it["sl"].split()[it["trigger"]])
+        c = word_chip(word)
+        assert c, f"the deciding word's chip ({word})"
+        tap_at(c)
+        assert wait_for("✅", 6), f"right: {it['id']}"
+        if own:
+            shot("hints-lens-own-right")
+            break
+        assert tap(NEXT, 6), "on"
+    assert b2, "one of the page's own B2 items in the session"
+    qa_hook("cases:only:")
+    back_key()
+    go_home()
+
+
 def typed_turn():
     """A dialog's typed turn (QA's hook asks every turn that tests a form typed into its gap) with the keyboard up: the
     field, the letter chips and "Preveri · Check" above the keyboard's top (its frame from `dumpsys window`), the sentence
@@ -5074,6 +5134,66 @@ def map_people():
             print("   ", line.split("TownScene: ")[-1])
     finally:
         qa_hook("hour:")
+    return None
+
+
+# the finished projects whose landmarks the map draws in a culture's look (docs/plans/05-built/map-culture-2.md), each a
+# few seconds' work for the step: finished ("step:<id>/<n+1>"), then shown closer up on the map
+MAP_LANDMARKS = ("toplar", "gasilski_dom", "vodnjak_na_trgu", "kapelica", "igrisce", "mlin", "mlaj", "mestna_ura", "razgledni_stolp")
+
+
+def map_landmarks():
+    """The finished projects' landmarks on the village map in the culture's look (companion/GAME.md "The map in a culture's
+    look"; docs/plans/05-built/map-culture-2.md), on the dev bridge's culture (any, Primorska's too: a synthetic learner of
+    it, LANI_DEV_DATA from make-learner.ts --target sl|it|de|en, LANI_CULTURE, the phone in sl · en, LANI_QA_PAIR=sl-en):
+    the village a town (QA's hook "hearths:mesto"), each of MAP_LANDMARKS finished ("step:<id>/<n+1>") and its landmark
+    shown on the map ("show:project:<id>") closer up ("cam:zoom:2.5") at 11 o'clock, the maypole standing whatever the
+    day ("season:06-20"; the picture keeps today's month), the hayrack (a building) in the town's overview closer ("zoom"). Each also as
+    landmark-<culture>-<id>.png in $LANI_QA_MAP_SHOTS; the map's render time (tag TownScene) printed."""
+    culture = api("/culture").get("id") or "primorska"
+    out = Path(os.environ["LANI_QA_MAP_SHOTS"]) if os.environ.get("LANI_QA_MAP_SHOTS") else None
+    projects = {p["id"]: p for p in json.loads((ROOT / f"companion/cultures/{culture}/projects.json").read_text())["projects"]}
+
+    def snap(name: str):
+        shot(f"landmark-{culture}-{name}")
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"landmark-{culture}-{name}.png")
+
+    go_home()
+    found_village()
+    go_home()
+    try:
+        qa_hook("hearths:mesto")
+        qa_hook("season:06-20")
+        qa_hook("hour:11")
+        qa_hook("bubbles:0")
+        for pid in MAP_LANDMARKS:
+            plain_village()
+            qa_hook(f"step:{pid}/{len(projects[pid]['steps']) + 1}")
+        qa_hook("step:")
+        plain_village()
+        time.sleep(2 * slow())
+        snap("town")
+        for pid in MAP_LANDMARKS:
+            plain_village()
+            qa_hook(f"show:project:{pid}")
+            time.sleep(2 * slow())
+            qa_hook("cam:zoom:2.5")
+            time.sleep(3 * slow())
+            snap(pid)
+        plain_village()
+        qa_hook("zoom")
+        time.sleep(3 * slow())
+        snap("town-closer")
+        for line in adb("logcat", "-d", "-s", "TownScene:D", check=False).splitlines()[-2:]:
+            print("   ", line.split("TownScene: ")[-1])
+    finally:
+        qa_hook("show:")
+        qa_hook("bubbles:")
+        qa_hook("season:")
+        qa_hook("hour:")
+        plain_village()
     return None
 
 
@@ -17058,7 +17178,11 @@ def home_return():
     requests (how many, each one's path, status and length: QA's request log, data/NetWatch.kt) and what the runtime
     allocated on every thread and its collections (ART's counts, sampled by the watch); first Home left alone for as
     long, the baseline. Last, Back from Settings after a real change: a session's results written beside the bridge while
-    Settings is open (the learner's databases in the dev bridge's copy; docs/plans/05-built/changes-areas.md). With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
+    Settings is open (the learner's databases in the dev bridge's copy; docs/plans/05-built/changes-areas.md), and Back
+    from the village after a move in it (its state written beside the bridge: docs/plans/05-built/nav-perf-2.md), and
+    from Settings with the last reading eleven minutes old, without a change and with one: the usual Back after a long
+    run of exercises. The second town is linked for it (unless --no-town), so the friendships' read has a friend to ask.
+    With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
     method (am profile, sampled every 0.2 ms; its sampling waits for each collection) into <dir>/back-village.trace. A
     table, also home-return.tsv and each row's requests in home-return-requests.txt in $LANI_QA_HOME_SHOTS;
     LANI_QA_HOME_TRIES (3) times each."""
@@ -17115,9 +17239,9 @@ def home_return():
 
     requests_log: list[str] = []
 
-    def row(name: str, i: int, seen, watch: tuple[str, ...]):
+    def row(name: str, i: int, seen, watch: tuple[str, ...], moved: str = ""):
         main_watch, (n_req, alloc, n_gc, req_list) = watch[:6], watch[6:]
-        requests_log.append(f"{name} {i + 1}: {n_req} requests, {alloc} MB, {n_gc} collections\n  " + "\n  ".join(req_list.split(", ") if req_list else []))
+        requests_log.append(f"{name} {i + 1}: {n_req} requests, {alloc} MB, {n_gc} collections{'; ' + moved if moved else ''}\n  " + "\n  ".join(req_list.split(", ") if req_list else []))
         fs = frames()
         whole = sorted(f[0] for f in fs); main = sorted(f[1] for f in fs)
         # the frame whose main thread worked longest, its phases (composing, layout, drawing), and all the frames' main parts
@@ -17138,6 +17262,7 @@ def home_return():
         print(f"    {r}")
 
     def reset():
+        said[0] = 0
         adb("logcat", "-c")
         adb("shell", "dumpsys", "gfxinfo", PKG, "reset", check=False)
 
@@ -17148,9 +17273,54 @@ def home_return():
         if left > 0:
             time.sleep(left)
 
+    def snapshot():
+        """What the dev bridge serves now: its areas' versions (GET /changes, as the app asks it) and the stamps of its data
+        copy's files (size, time of change; not the history, the backups, the clips)."""
+        try:
+            areas = api("/changes").get("areas", {})
+        except (OSError, RuntimeError, ValueError):
+            areas = {}
+        files = {}
+        try:
+            root = dev_copy()
+            for p in root.rglob("*"):
+                rel = p.relative_to(root).as_posix()
+                if rel.split("/")[0] in (".git", ".backups") or rel.startswith("app/voice/") or not p.is_file():
+                    continue
+                st = p.stat()
+                files[rel] = (st.st_size, st.st_mtime_ns)
+        except (OSError, AssertionError):
+            pass
+        return areas, files
+
+    def moved_since(a, b) -> str:
+        """Which areas moved from snapshot [a] to [b], and which files changed meanwhile (what moved them)."""
+        if a is None:
+            return "?"
+        (a_areas, a_files), (b_areas, b_files) = a, b
+        areas = [k for k in b_areas if a_areas.get(k) != b_areas[k]]
+        files = sorted(k for k in set(a_files) | set(b_files) if a_files.get(k) != b_files.get(k))
+        return f"areas {', '.join(areas) or 'none'} (files {', '.join(files[:10]) or 'none'}{' …' if len(files) > 10 else ''})"
+
+    last_snap = [None]
+
+    said = [0]  # the app's reading lines reported since the log was last cleared ([reset])
+
+    def readings() -> str:
+        """Home's readings from the node since they were last reported (the app's log, tag LaniRead: what each read and
+        why everything, a reading beside another or stopped part way; none from a build before it)."""
+        lines = [l.split("LaniRead: ", 1)[1].strip() for l in adb("logcat", "-d", "-s", "LaniRead:I", check=False).splitlines() if "LaniRead: " in l]
+        new, said[0] = lines[said[0]:], len(lines)
+        return " / ".join(new) or "none"
+
     def back(name: str, opener, i: int):
         opener()
         time.sleep(2.5 * slow())
+        # what moved under the bridge since the row before (the opening, the app's own writes) and in the Back's window:
+        # which areas Home's reading had to read again, and what moved them (docs/plans/05-built/nav-perf-2.md)
+        s0 = snapshot()
+        before = moved_since(last_snap[0], s0)
+        read_before = readings()
         reset()
         traced = trace_dir and name == "village" and i == 0
         if traced:
@@ -17165,7 +17335,10 @@ def home_return():
             Path(trace_dir).mkdir(parents=True, exist_ok=True)
             adb("pull", "/data/local/tmp/back.trace", str(Path(trace_dir) / "back-village.trace"), check=False)
         w = watched(t0)
-        row(name, i, "yes" if wait_home(8) else "no", w)
+        s1 = snapshot()
+        last_snap[0] = s1
+        row(name, i, "yes" if wait_home(8) else "no", w, f"moved before the key: {before}; in the window: {moved_since(s0, s1)}; "
+            f"Home's readings before the key: {read_before}; in the window: {readings()}")
 
     def open_village():
         village()  # its first-time intro skipped
@@ -17198,6 +17371,7 @@ def home_return():
         row("idle on Home", i, "yes" if wait_home(8) else "no", w)
 
     qa_hook("main:watch")
+    last_snap[0] = snapshot()
     tries = int(os.environ.get("LANI_QA_HOME_TRIES", "3"))
     for i in range(tries):
         idle(i)
@@ -17221,6 +17395,32 @@ def home_return():
 
     for i in range(tries):
         back("settings, a change", changed, i)
+        go_home()
+
+    def moved():
+        """The village open, and its state written beside the bridge meanwhile, as every move in it writes it (app/game.json,
+        the same state: the area `village` moves; docs/plans/05-built/nav-perf-2.md)."""
+        open_village()
+        p = dev_copy() / "app" / "game.json"
+        p.write_text(p.read_text())
+
+    for i in range(tries):
+        back("village, a move", moved, i)
+        go_home()
+
+    def older(opener):
+        """[opener], and Home's last reading as if it was eleven minutes ago (QA's hook "read:older:<minutes>"): a Back after
+        a long run of exercises (docs/plans/05-built/nav-perf-2.md)."""
+        def go():
+            opener()
+            qa_hook("read:older:11")
+        return go
+
+    for i in range(tries):
+        back("settings, ten minutes on", older(open_settings), i)
+        go_home()
+    for i in range(tries):
+        back("settings, a change, ten minutes on", older(changed), i)
         go_home()
     head = ("from\ttry\tmain messages in 3 s\tbesides frames\ttheir ms\tthe longest ms\tover 16.7 ms\tover 100 ms\tframes\t"
             "longest frame ms\tlongest frame's main ms\tits compose/layout/draw ms\tframes' main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\t"
@@ -17418,6 +17618,7 @@ def plan():
         ("case-lens", case_lens, v, False, ""),
         ("lens-sheet", lens_sheet, v, False, ""),
         ("lens-unknown", lens_unknown, v, False, ""),
+        ("hints-lens", hints_lens, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("player-voice", player_voice, v, False, ""),
         # "🗣️ Moj glas · My voice": the offer at the first line, a ▶, the pick, the next line in it, the settings' page
@@ -17531,6 +17732,8 @@ def plan():
         ("map-looks", map_looks, v, False, ""),
         # only with --steps map-people: the map's people in their culture's clothes (a synthetic learner of any culture)
         ("map-people", map_people, v, False, ""),
+        # only with --steps map-landmarks: the finished projects' landmarks on the map in the culture's look
+        ("map-landmarks", map_landmarks, v, False, ""),
         ("sea-frames", sea_frames, v, False, ""),
         # only with --steps zoom-frames: the map's frames on the tablet's screen, zoomed, panned and pinched
         ("zoom-frames", zoom_frames, v, False, ""),
@@ -18069,7 +18272,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "supplement-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "course-unit", "map-people") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
@@ -18150,7 +18353,7 @@ def bridges_only() -> int:
 
 def main():
     steps = selected(plan())
-    visiting = any(s[4] in VISIT_GROUPS or s[0] == "town-progress-child" for s in steps)
+    visiting = any(s[4] in VISIT_GROUPS or s[0] in TOWN_STEPS for s in steps)
     if "--dry" in sys.argv:
         return dry(steps, visiting)
     if "--bridges-only" in sys.argv:
@@ -18186,7 +18389,7 @@ def main():
 
     linked = False
     for name, fn, cleanup, keep, group in steps:
-        if (group in VISIT_GROUPS or name == "town-progress-child") and not linked:  # linked by now, while the other steps ran
+        if (group in VISIT_GROUPS or name in TOWN_STEPS) and not linked:  # linked by now, while the other steps ran
             results.append(("second-town", link_town(town)))
             linked = True
         step(name, fn, cleanup, keep)

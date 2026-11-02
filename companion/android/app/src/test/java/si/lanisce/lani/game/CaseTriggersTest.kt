@@ -71,6 +71,9 @@ class CaseTriggersTest {
         )
         assertNull(CaseTriggers.numberCategory("hiša"))
         assertTrue(listOf("jaz", "on", "midva", "oni", "vi").all(CaseTriggers::isSubject))
+        // the genitive of time (leta 1844, nekega dne) and the half before an hour (ob pol dveh), the table's
+        assertTrue("leta" in t.years && "nekega" in t.determiners && "pol" in t.half)
+        assertTrue(CaseTriggers.isAmount("pol") && CaseTriggers.isHalf("pol"))
         assertFalse(listOf("mi", "ti", "me", "se").any(CaseTriggers::isSubject))
     }
 }

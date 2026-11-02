@@ -188,7 +188,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     val packs = PacksController(prefs, node, notices, sync)
     val game: GameController = GameController(
         app, viewModelScope, prefs, node, content, notices,
-        canSpeak = { speaker.canSay }, reload = ::reload,
+        canSpeak = { speaker.canSay }, reload = ::reloadLogged,
         saveReviews = { results, minutes, answers -> finishReview(results, minutes, answers = answers, from = si.lanisce.lani.data.ReviewFrom.CHALLENGE) },
         saveWords = packs::saveWords,
         cast = { villagers.all },
@@ -852,7 +852,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * Reads from the node what moved since the last reading ([reload]: after the app's own writes, an event's news, a new
      * connection's or data's everything).
      */
-    fun refresh(): Job = launchSafely { reload() }.also { reloading = it }
+    fun refresh(): Job = launchSafely { reloadLogged() }.also { reloading = it }
 
     /**
      * Home (or the packs) on view again: what moved since the last reading read again, nothing when nothing did ([Fresh],
@@ -860,15 +860,40 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      */
     private fun refreshIfChanged() {
         if (reloading?.isActive == true) return
-        reloading = launchSafely { reload() }
+        reloading = launchSafely { reloadLogged() }
+    }
+
+    /**
+     * [reload], said in the log ([READ_TAG]) when it begins beside another reading, or stops part way (nothing is recorded
+     * then: the next reads everything).
+     */
+    private suspend fun reloadLogged() {
+        if (readingsNow++ > 0) android.util.Log.i(READ_TAG, "reading: begins beside another")
+        try {
+            reload()
+        } catch (e: Exception) {
+            android.util.Log.i(READ_TAG, "reading: stopped part way (${e.javaClass.simpleName}), nothing recorded")
+            throw e
+        } finally {
+            readingsNow--
+        }
+    }
+
+    /** How many readings run now ([reloadLogged], on the main thread). */
+    private var readingsNow = 0
+
+    /** QA's "read:older:<minutes>" (app/QaHooks.kt): the last reading as if it was that long ago. */
+    fun qaReadOlder(minutes: Long) {
+        readFor = readFor?.let { it.copy(at = it.at - minutes * 60_000L, asked = it.asked - minutes * 60_000L) }
     }
 
     /** The reload running now, if any ([shown] doesn't start another beside it). */
     private var reloading: Job? = null
 
     /**
-     * What the last reading was read for ([Fresh]: its time, of the last whole one); null before one, while one runs, after
-     * one that failed, and after a new connection or new data (everything is read then).
+     * What the last reading was read for ([Fresh]: the time of the last whole one, and of the last that asked what no version
+     * says); null before one, while one runs, after one that failed, and after a new connection or new data (everything is
+     * read then).
      */
     private var readFor: si.lanisce.lani.app.Fresh? = null
 
@@ -876,8 +901,10 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * Reads from the node what moved since the last reading (docs/plans/05-built/changes-areas.md): nothing when the
      * bridge's version of what it serves ([Bridge.changes]) is the same; when it moved, while the day, the time of day, the
      * learner, their pair and the culture are those of the last reading and the last whole one is under
-     * [si.lanisce.lani.app.Fresh.MAX_AGE_MS] old, only each read whose areas moved ([Bridge.fresh]: its answer said them);
-     * else, or [whole], everything (a bridge without the areas, or none reachable: everything, as before).
+     * [si.lanisce.lani.app.Fresh.WHOLE_AGE_MS] old, only each read whose areas moved ([Bridge.fresh]: its answer said them);
+     * else, or [whole], everything (a bridge without the areas, or none reachable: everything, as before). What no version
+     * says ([NO_VERSION]) is read again as well once [si.lanisce.lani.app.Fresh.MAX_AGE_MS] old ([si.lanisce.lani.app.Fresh.due]):
+     * a run of exercises takes longer, and its Back read everything then (docs/plans/05-built/nav-perf-2.md).
      */
     private suspend fun reload(whole: Boolean = false) {
         val b = bridge ?: return
@@ -903,9 +930,19 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         }
         // the areas' versions now, when only what moved is read: each read whose answer said its areas at them is left out
         var at = now?.areas?.takeIf { !whole && it.isNotEmpty() && last != null && last.within(now) }
-        fun fresh(path: String) = at?.let { b.fresh(path, it) } == true
+        // what no version says is read again too, its time come: the rest of what a whole reading did goes with it
+        val due = at != null && last != null && now != null && last.due(now)
+        // what this reading reads, and why everything (QA's home-return collects it: docs/plans/05-built/nav-perf-2.md)
+        android.util.Log.i(READ_TAG, if (at != null) (if (due) "reading: what moved, and what no version says" else "reading: what moved") else "reading: everything (" + when {
+            whole -> "asked for everything"
+            now == null -> "no version from the node"
+            now.areas.isEmpty() -> "no areas from the node"
+            last == null -> "no reading recorded"
+            else -> last.unlike(now) ?: "?"
+        } + ")")
+        fun fresh(path: String) = at?.let { b.fresh(path, it) } == true && !(due && path in NO_VERSION)
         // whether anything was read again (the day's audio is planned anew only then)
-        var read = at == null
+        var read = at == null || due
         fun stale(vararg paths: String) = paths.any { !fresh(it) }.also { if (it) read = true }
         readFor = null
         // first the culture the bridge plays: what the village, its founding and everything after read (a new phone has
@@ -926,7 +963,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         if (stale(Bridge.CARDS)) cheat.reload(b)
         if (stale(Bridge.COURSE)) school.reload(b)
         // the deck read again (what the learner did): its words' forms, and the day's new counting and forms cards
-        if (decks || at == null) {
+        if (decks || at == null || due) {
             content.dashboard?.let { forms.reload(b, it.pool) }
             // the day's new counting cards, once the forms are on the phone (it names the nouns the dictionary counts)
             counting.reload(b)
@@ -941,7 +978,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         if (people) villagers.reload(b)
         // a village already a hamlet when the school came (an older app): its class begins now, its teacher named
         school.touch()
-        if (people) clips.syncProfiles(villagers.voicePeople(game.state))
+        if (people || due) clips.syncProfiles(villagers.voicePeople(game.state))
         // the node has the new level now, or the learner is ready for the next: the storyteller offers the map
         treasure.check()
         // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi (when anything was
@@ -951,7 +988,10 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         // the learner, the pair and the culture the reading settled on: the dashboard says them (a new phone learns them
         // there, and the reads before it don't depend on them: the culture's, the family's, the towns', the clips'); read
         // for those at its start, the first Back after setup read everything again
-        readFor = now?.copy(pair = L10n.pair, learner = si.lanisce.lani.l10n.Learner.current, culture = si.lanisce.lani.game.culture.VillageCulture.shown.id, at = if (at != null && last != null) last.at else now.at)
+        val partly = at != null && last != null
+        readFor = now?.copy(pair = L10n.pair, learner = si.lanisce.lani.l10n.Learner.current, culture = si.lanisce.lani.game.culture.VillageCulture.shown.id,
+            at = if (partly) last!!.at else now.at, asked = if (partly && !due) last!!.asked else now.at)
+        android.util.Log.i(READ_TAG, "reading: done")
     }
 
     /** The days ahead's audio, from what the app has now (app/DayAudioGather); null before the learner's cards are loaded. */
@@ -2028,8 +2068,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
 
     /**
      * QA's case trainer hooks (app/QaHooks, "cases…"): "ready" the case pages met (as the case units' intros would) and the
-     * trainer's screen; "start" a mixed session; "focus:<id>" one on a case or a rule; "again" items missed due today, then
-     * the screen; "" the screen.
+     * trainer's screen; "start" a mixed session; "focus:<id>" one on a case or a rule; "meet:<id>,<id>" those pages met,
+     * then the screen; "again" items missed due today, then the screen; "" the screen.
      */
     fun qaCases(what: String) {
         val today = java.time.LocalDate.now()
@@ -2038,6 +2078,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             what == "start" -> return startCases()
             what == "storm" -> return startStorm()
             what.startsWith("focus:") -> return startCases(what.removePrefix("focus:").trim().ifBlank { null })
+            // pages met as a unit's intro meets them (predlogi-dva-sklona: the trainer's B2 items for a B1 learner)
+            what.startsWith("meet:") -> grammar.meet(what.removePrefix("meet:").split(',').map { it.trim() }.filter { it.isNotEmpty() }).forEach(grammar::announced)
             what == "again" -> game.apply { si.lanisce.lani.app.QaHooks.casesAgain(it, today) }
         }
         openCases()
@@ -2736,6 +2778,19 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     private companion object {
         /** The back stack in the saved state ([NavStack.saved]). */
         const val NAV_KEY = "nav"
+
+        /** The log's tag of Home's readings from the node ([reload]: what each reads, and why everything). */
+        const val READ_TAG = "LaniRead"
+
+        /**
+         * Home's reads whose answers no version says all of: the towns' (the linked towns are asked when they're made, their
+         * news moves no file here) and the voice store's (not walked: each clip made says so, an event the app can miss).
+         * Every other read counts by the day at most, what it comes from walked ([Fresh.within] still takes the hour).
+         */
+        val NO_VERSION = setOf(
+            Bridge.TOWNS, Bridge.TOWN_CHILDREN, Bridge.TOWN_GUESTS, Bridge.TOWN_FRIENDSHIP, Bridge.TOWN_QUESTIONS,
+            si.lanisce.lani.data.ClipRoutes.OWN.index, si.lanisce.lani.data.ClipRoutes.OWN.profiles,
+        )
 
         /** How long a visit's first lines wait for the town's people and places to come ([visitAhead]). */
         const val AHEAD_WAIT_MS = 20_000L

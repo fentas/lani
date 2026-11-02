@@ -30,7 +30,7 @@ export const CASE_SLOT = Object.fromEntries(CASE_KEYS.map(k => [CASE_IDS[k], k])
 /** English names, for the tutor's notes and the mistakes' pattern ids. */
 export const CASE_EN: Record<CaseId, string> = { imenovalnik: 'nominative', rodilnik: 'genitive', dajalnik: 'dative', tozilnik: 'accusative', mestnik: 'locative', orodnik: 'instrumental' }
 export const NUMBERS = ['sg', 'du', 'pl'] as const
-export const LEVELS = ['A1', 'A2', 'B1'] as const
+export const LEVELS = ['A1', 'A2', 'B1', 'B2'] as const
 const LEVEL_RANK: Record<string, number> = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 }
 
 /** The languages whose bank the bridge serves (the trainer is the cases', Slovene's). */

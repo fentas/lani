@@ -78,7 +78,7 @@ object CaseLook {
     /** The pages that are about a case or a case's rule: the trainer opens from them ("🧩 Vadi sklone"). */
     val PAGES: Set<String> = RULES.toSet() + Case.entries.map { it.id } + setOf(
         "stevila-samostalniki", "mnozina-skloni", "dvojina-skloni", "sklanjatev-moski", "sklanjatev-zenski",
-        "sklanjatev-srednji", "pridevniki-ujemanje",
+        "sklanjatev-srednji", "pridevniki-ujemanje", "predlogi-dva-sklona",
     )
 
     /** The number's label key in the string tables: "cases.number.pl" (množina · plural). */

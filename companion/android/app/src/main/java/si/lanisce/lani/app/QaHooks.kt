@@ -109,7 +109,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "cases": "🧩 Skloni · Cases" (data/CaseTrainer.kt) opened; "cases:ready" meets the case pages (as the A1 and A2 case
  *   units' intros would: tožilnik, mestnik, the genitive after a no, the genitive's, dative's and instrumental's) and
  *   opens it; "cases:start" starts a mixed session, "cases:focus:<id>" one focused on a case or a rule ("rodilnik",
- *   "kam-tozilnik"); "cases:again" a few items missed due today ([casesAgain]); "cases:only:<kind>" asks every task of the
+ *   "kam-tozilnik"); "cases:meet:<id>,<id>" meets those pages (predlogi-dva-sklona) and opens it; "cases:again" a few items
+ *   missed due today ([casesAgain]); "cases:only:<kind>" asks every task of the
  *   next sessions as one kind ([casesOnly]: "which", "place", "decline"), "cases:only:" mixes them again.
  * - "formscard": forms cards (data/FormsCard.kt): today's asked of the dev bridge now, then a review of up to three of
  *   them that ask something, due or not; "formscard:<word>" a review of that word's card (made on demand first);
@@ -165,6 +166,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "main:watch": each message of the main thread's loop is timed from now on ([MainWatch]); "main:report:<from>" logs
  *   (tag LaniMain) those that began within 3 s from that moment (SystemClock.elapsedRealtime, ms): how many, their sum, the
  *   longest, those over a frame: QA's home-return (docs/plans/05-built/home-return.md).
+ * - "read:older:<minutes>": Home's last reading from the node as if it was that long ago (AppViewModel.qaReadOlder), for
+ *   what the next Back reads then: QA's home-return (docs/plans/05-built/nav-perf-2.md).
  * - "tips:<moment>": the village (the dev bridge's copy) gets ready for that tip's moment ([readyTip]: "full-wisdom" its store at
  *   its cap, the day's trade of it free; "school" a school standing, the hamlet's class open) and the moment is asked, as the
  *   tutor's show_tip asks it: it shows first at its place, whatever was dealt with or the pacing (companion/GAME.md
@@ -389,10 +392,11 @@ object QaHooks {
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, sentence: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
         cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {}, icon: (String) -> Unit = {}, notify: (String) -> Unit = {},
-        setupPhone: (String) -> Unit = {},
+        setupPhone: (String) -> Unit = {}, readOlder: (Long) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            command.startsWith("read:older:") -> command.removePrefix("read:older:").trim().toLongOrNull()?.let(readOlder)
             // "setup:phone:<code>": the first launch starts again as on a phone in that language ("setup:phone:de": Teo's
             // German tablet), its welcome in it (docs/plans/05-built/setup-refresh.md)
             command.startsWith("setup:phone:") -> setupPhone(command.removePrefix("setup:phone:").trim())

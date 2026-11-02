@@ -26,7 +26,8 @@ cards with forms) and the bank's adjectives and possessives typed into a frame w
 right). Items are picked towards the weak cases and rules (the learner's mistakes count from the start); a missed item
 comes back in the next sessions (the same day, then 1, 3, 7 and 16 days). The rule ids are the grammar pages that
 explain them (rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik,
-orodnik, tozilnik, mestnik, skloni for the subject).
+orodnik, tozilnik, mestnik, skloni for the subject; B2's predlogi-dva-sklona: po, ob, za + the accusative, pred, med + the
+instrumental of time, and as a focus every rule of a preposition with two cases).
 cases_done: a session the app played, ALREADY persisted by the bridge as grammar practice (and writing for the typed
 ones), its wrong answers in the mistakes database under the learner's own pattern ids where one fits (else
 cases_<case>_<rule>): don't persist it again. Reply only when it helps (a case that keeps failing, a trigger mixed up).
@@ -202,7 +203,7 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
       {
         name: 'publish_case_items',
         description:
-          "Add items to the case trainer's bank (lani.cases/v0, companion/README.md \"Case trainer\"): items: 1-30 {id (kebab-case, not the bank's), kind which|place, level A1|A2|B1, sl (one sentence, ≤14 words), en, de, it, word (its token index: the sentence split at spaces, from 0), lemma, pos noun|adj|pron|name, gender (an adjective's noun's), case imenovalnik|rodilnik|dajalnik|tozilnik|mestnik|orodnik, number sg|du|pl, why (a rule key of get_cases' bank rules: brez, iz, nikalnica, k, v-na-kam, v-na-kje, z-s, pod-za-kje, object, subject …), trigger (the deciding word's token, or null with role subject|object), also (more tokens right to tap: the verb beside v/na), ambiguous (other slots of the same form: \"nom.pl\"), note {en,de,it} (how the sentence decides an ambiguous form); a place item also question kje-kam|v-na|pri-k|od-kod, gap [from,to], options (2-3), answer, cue, scene}. Each is checked as the bank is: the form against the dictionary, the trigger against its rule, the pages and scenes. Publishing again under an id replaces your item. Returns the problems instead of publishing if any.",
+          "Add items to the case trainer's bank (lani.cases/v0, companion/README.md \"Case trainer\"): items: 1-30 {id (kebab-case, not the bank's), kind which|place, level A1|A2|B1|B2, sl (one sentence, ≤14 words), en, de, it, word (its token index: the sentence split at spaces, from 0), lemma, pos noun|adj|pron|name, gender (an adjective's noun's), case imenovalnik|rodilnik|dajalnik|tozilnik|mestnik|orodnik, number sg|du|pl, why (a rule key of get_cases' bank rules: brez, iz, nikalnica, k, v-na-kam, v-na-kje, z-s, pod-za-kje, object, subject …), trigger (the deciding word's token, or null with role subject|object), also (more tokens right to tap: the verb beside v/na), ambiguous (other slots of the same form: \"nom.pl\"), note {en,de,it} (how the sentence decides an ambiguous form); a place item also question kje-kam|v-na|pri-k|od-kod, gap [from,to], options (2-3), answer, cue, scene}. Each is checked as the bank is: the form against the dictionary, the trigger against its rule, the pages and scenes. Publishing again under an id replaces your item. Returns the problems instead of publishing if any.",
         inputSchema: {
           type: 'object',
           properties: {
@@ -250,7 +251,7 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
       {
         name: 'assign_cases',
         description:
-          "Assign the learner a case trainer session focused on one case or rule: focus = a case id (imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik) or a rule id (the grammar page: rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni), with a one-line note in the learner's base. Home and the trainer offer it until a session with that focus is played (cases_done says so); focus null takes it back.",
+          "Assign the learner a case trainer session focused on one case or rule: focus = a case id (imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik) or a rule id (the grammar page: rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni; predlogi-dva-sklona: the prepositions with two cases, po kruh / po vasi, both cases), with a one-line note in the learner's base. Home and the trainer offer it until a session with that focus is played (cases_done says so); focus null takes it back.",
         inputSchema: {
           type: 'object',
           properties: {

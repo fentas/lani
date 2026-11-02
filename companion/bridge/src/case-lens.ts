@@ -65,6 +65,11 @@ export type WordCase = WordRef & {
   agrees?: WordRef
   /** The pick rests on a form the dictionary doesn't list: read by the regular endings of its lemma. */
   derived?: true
+  /**
+   * The form as it is written, for one said otherwise and never wrong: an hour said as it is counted (ob deset: written
+   * ob desetih; the table's hours).
+   */
+  written?: string
 }
 
 /** A word that decides other words' case (a preposition, a negation, a word of quantity, a verb): which, and to what. */
@@ -122,6 +127,11 @@ type Tok = {
   phrase?: CaseTriggers['phrases'][number]
   /** A noun of time in the genitive of time (leta 1844, nekega dne): what makes it so, the year or the determiner. */
   when?: Tok
+  /**
+   * An hour said as it is counted (ob deset, ob pol osem; the table's hours): what asks for its case ([by]: ob, or pol
+   * after ob), that case and the number of its [written] form (ob desetih: the locative plural).
+   */
+  hour?: { by: Tok; case: CaseKey; number: NumberKey; written: string }
   /** What the token is in the sentence: a word with a case, a verb, a preposition, or something else. */
   role: 'nominal' | 'verb' | 'prep' | 'other'
   /** Whether the lens knows anything of the word (its readings aren't only guessed by its ending). */
@@ -385,6 +395,10 @@ export class CaseLens {
   private readonly yearNouns: Set<string>
   /** The determiners before a noun of time in the genitive of time (nekega dne, tistega večera). */
   private readonly whenDeterminers: Set<string>
+  /** The hour (the table's hours): the prepositions before it (ob), the half before it (pol), each hour's written form. */
+  private readonly hourPreps: Set<string>
+  private readonly hourHalf: Set<string>
+  private readonly hourWritten: Map<string, string>
   /** The table's verbs that govern a case, by their forms and by their lemmas (pomagati: the dative). */
   private readonly governing = new Map<string, VerbEntry[]>()
   private readonly governingLemmas = new Map<string, VerbEntry[]>()
@@ -426,6 +440,9 @@ export class CaseLens {
     this.timeNouns = new Set(t.time.nouns)
     this.yearNouns = new Set(t.time_genitive?.years ?? [])
     this.whenDeterminers = new Set(t.time_genitive?.determiners ?? [])
+    this.hourPreps = new Set(t.hours?.prepositions ?? [])
+    this.hourHalf = new Set(t.hours?.half ?? [])
+    this.hourWritten = new Map(Object.entries(t.hours?.written ?? {}))
     const remember = (form: string, r: VerbReading) => {
       const list = this.tableVerbs.get(form) ?? []
       if (!list.some(x => x.lemma === r.lemma && x.kind === r.kind && x.person === r.person && x.number === r.number && x.gender === r.gender)) list.push(r)
@@ -870,6 +887,26 @@ export class CaseLens {
       t.when = d
       d.nominal = d.nominal.filter(r => r.case === 'gen' && r.number === 'sg')
     }
+    // an hour said as it is counted (ob deset, ob štiri, ob pol osem): written ob desetih (the locative ob asks for), ob
+    // pol osmih (the genitive pol asks for); in speech it often stays as counted, never wrong. Its case is what ob or pol
+    // asks for, its number the written form's (desetih: plural; dveh: dual). Not a number that counts or agrees with a
+    // noun after it (ob dve uri), nor one after another preposition (štej do deset: a count, no hour)
+    for (const t of out) {
+      const written = this.hourWritten.get(t.form)
+      const p = out[t.i - 1]
+      if (!written || !p || p.clause !== t.clause) continue
+      const n = out[t.i + 1]
+      if (n && n.clause === t.clause && n.nominal.some(r => r.pos === 'noun') && !n.other.has('adv')) continue
+      const half = this.hourHalf.has(p.form) && out[p.i - 1]?.clause === t.clause && this.hourPreps.has(out[p.i - 1].form)
+      const kase: CaseKey | undefined = half ? 'gen' : this.hourPreps.has(p.form) ? (p.prep?.takes.find(x => x.time)?.case ?? 'loc') : undefined
+      // (the cardinal's own reading of the written form, not an ordinal's: šestih of šest, the plural, not šesti's dual)
+      const of = kase ? this.lexical(written).nominal.filter(x => x.case === kase) : []
+      const r = of.find(x => x.pos === 'num' && this.norm(x.lemma) === t.form) ?? of.find(x => x.number === 'pl') ?? of[0]
+      if (!kase || !r) continue
+      t.hour = { by: p, case: kase, number: r.number, written }
+      t.dual = false
+      t.count = false
+    }
     // a word the dictionary has only as a genitive plural in -ov, -ev, right before a masculine noun and after nothing
     // that asks for the genitive (a preposition, a number, a quantity): a possessive too (Cesarjev meč, the emperor's
     // sword; a genitive comes after its noun)
@@ -1056,6 +1093,8 @@ export class CaseLens {
         }
       }
     }
+    // an hour said as it is counted (ob deset): its own row (hourCase), no phrase
+    for (const t of toks) if (t.hour) t.role = 'other'
     // kot and kakor compare (manj kot štirinajst): no noun (kot: an angle, a corner) unless after a preposition (v kot)
     for (const t of toks) if (COMPARISON.has(t.form) && t.role === 'nominal' && prev(t)?.role !== 'prep') t.role = 'other'
     // a personal pronoun that is a demonstrative's form too (ti: you, or these): the demonstrative only before its noun
@@ -1203,7 +1242,24 @@ export class CaseLens {
         st.options = st.phrase.options.filter(o => o.case === 'nom').map(o => ({ ...o, as: 'copula' as const, rule: this.s.table.roles.predicate.rule }))
       }
     }
-    return states.flatMap(s => this.wordsOf(s))
+    return [...states.flatMap(s => this.wordsOf(s)), ...toks.filter(t => t.hour).map(t => this.hourCase(t))]
+  }
+
+  /**
+   * An hour said as it is counted (ob deset, ob pol osem): the case ob (the locative) or pol (the genitive) asks for,
+   * decided, with its written form (desetih). Never a mistake: the spoken hour, the written one beside it.
+   */
+  private hourCase(t: Tok): WordCase {
+    const h = t.hour!
+    const ref = (x: Tok): WordRef => ({ i: x.i, word: x.raw, start: x.start, end: x.end })
+    const kind: CaseKind = h.by.prep ? 'preposition' : 'quantity'
+    const pick: CaseOption = { case: h.case, number: h.number, as: kind }
+    return {
+      ...ref(t),
+      readings: dedupeReadings(t.nominal.map(r => ({ lemma: r.lemma, pos: r.pos, case: r.case, number: r.number, genders: r.genders }))),
+      pick, sure: 'decided', kind, trigger: ref(h.by), sense: 'time', rule: this.s.table.hours?.rule ?? this.s.table.time.rule,
+      options: [pick], out: [], written: h.written,
+    }
   }
 
   // --- the noun phrases ---------------------------------------------------------------------------------------------
@@ -1313,6 +1369,18 @@ export class CaseLens {
     for (let k = first.i - 1; !prep && k >= first.i - 3 && k >= 0 && all[k].clause === first.clause && over(all[k]); k--) if (all[k - 1]?.role === 'prep' && all[k - 1].clause === first.clause) prep = all[k - 1]
     // a number from five in the phrase (dvajsetih letih) is no dual
     if (all.slice(Math.max(0, first.i - 3), first.i).some(t => t.count && t.clause === first.clause) || p.toks.some(t => t.count)) drop(s, o => o.number === 'du', 'dual', true)
+
+    // a number from five or a word of quantity right before it, or a measure (kos kruha): the genitive, also after a
+    // preposition before them, whose case is theirs (čez pol ure, za pet minut, z malo sladkorja); pol before an hour is
+    // the time (ob pol dveh: half of two, SP2001 "ob pol ene"), the hour page's
+    const q = before && (before.count || before.quantity) && before.role !== 'nominal' ? before : undefined
+    const measure = !q && before && before.role === 'nominal' && before.measure ? before : undefined
+    if ((q || measure) && narrow(s, o => o.case === 'gen', 'governed')) {
+      const clock = !!q && this.hourHalf.has(q.form) && !!this.s.table.hours && p.head.nominal.some(r => r.pos === 'num' || HOURS.has(this.norm(r.lemma)))
+      set(q?.count ? 'number' : 'quantity', q ?? measure, clock ? this.s.table.hours!.rule : this.s.table.quantity.rule, clock ? 'time' : undefined)
+      s.final = true
+      return s
+    }
     if (prep?.prep) return this.byPreposition(s, prep, c, timeNoun, unresolved)
 
     // a comparison (kot sonce, kakor medved): the case of what it is compared with, its number its own; the nominative,
@@ -1352,15 +1420,6 @@ export class CaseLens {
         ? subject.some(x => x.number === o.number && (!x.gender || !o.gender || x.gender === o.gender || (x.number !== 'sg' && x.gender === 'm')))
         : agrees(o, p, c.subjects, 'number')), 'agreement', true)
     } else drop(s, o => o.case === 'nom' && !(c.verbless || several || agrees(o, p, c.subjects) || apposed(o) || (c.copular && otherSubject && (!pronoun || agrees(o, p, c.subjects, 'person')))), 'agreement', true)
-
-    // a number from five or a word of quantity before it, or a measure (kos kruha): the genitive
-    const q = before && (before.count || before.quantity) && before.role !== 'nominal' ? before : undefined
-    const measure = !q && before && before.role === 'nominal' && before.measure ? before : undefined
-    if ((q || measure) && narrow(s, o => o.case === 'gen', 'governed')) {
-      set(q?.count ? 'number' : 'quantity', q ?? measure, this.s.table.quantity.rule)
-      s.final = true
-      return s
-    }
 
     // a word of feeling (všeč mi je, strah me je): who feels it, in its case
     // (an adjective that takes a case, poln vode: of the phrase right after it, past biti's form at most)
