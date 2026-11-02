@@ -1,0 +1,254 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "konnektoren",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🔗",
+  "title": {
+    "de": "Und, denn, deshalb, weil: Sätze verbinden",
+    "sl": "Und, denn, deshalb, weil: povezovanje stavkov",
+    "en": "Und, denn, deshalb, weil: joining sentences",
+    "it": "Und, denn, deshalb, weil: unire le frasi"
+  },
+  "rule": {
+    "en": "Three kinds of word join sentences, and each treats the verb differently.\n\n**und** (and), **aber** (but), **oder** (or), **denn** (because) and **sondern** (but rather) stand between two sentences and take no place: after them the sentence goes on as usual, the verb second. Stefan bleibt zu Hause, **denn es regnet**. **sondern** comes after nicht or kein, when the second part corrects the first: Das ist kein Most, **sondern** Saft.\n\n**deshalb** (that's why, so) takes the first place of its sentence, so the verb comes right after it, then the person: Es regnet, **deshalb bleibt** Stefan zu Hause. **deswegen** and **darum** work the same.\n\n**weil** (because) starts a subordinate clause, and the verb goes last: Stefan bleibt zu Hause, **weil es regnet**. See the page on the Nebensatz.\n\nA comma comes before denn, sondern, deshalb and weil, and aber. No comma is needed before und and oder between two sentences.\n\nIn speech you'll hear weil with the verb second too (weil ich hab keine Zeit); people say it, but write the verb last.",
+    "sl": "Stavke povezujejo tri vrste besed in vsaka ravna z glagolom drugače.\n\n**und** (in), **aber** (ampak), **oder** (ali), **denn** (kajti, ker) in **sondern** (temveč) stojijo med stavkoma in ne zasedejo mesta: za njimi gre stavek naprej kot običajno, glagol drugi. Stefan bleibt zu Hause, **denn es regnet**. **sondern** pride za nicht ali kein, ko drugi del popravi prvega: Das ist kein Most, **sondern** Saft.\n\n**deshalb** (zato) zasede prvo mesto svojega stavka, zato pride glagol takoj za njim, nato oseba: Es regnet, **deshalb bleibt** Stefan zu Hause. **deswegen** in **darum** delujeta enako.\n\n**weil** (ker) začne odvisnik in glagol gre na konec: Stefan bleibt zu Hause, **weil es regnet**. Glej stran o odvisniku (Nebensatz).\n\nVejica stoji pred denn, sondern, deshalb, weil in aber. Pred und in oder med dvema stavkoma vejica ni potrebna.\n\nV govoru slišiš weil tudi z glagolom na drugem mestu (weil ich hab keine Zeit); ljudje to govorijo, piši pa glagol na koncu.",
+    "it": "Tre tipi di parole uniscono le frasi, e ognuno tratta il verbo in modo diverso.\n\n**und** (e), **aber** (ma), **oder** (o), **denn** (perché) e **sondern** (bensì) stanno tra due frasi e non occupano un posto: dopo di loro la frase prosegue come al solito, con il verbo secondo. Stefan bleibt zu Hause, **denn es regnet**. **sondern** viene dopo nicht o kein, quando la seconda parte corregge la prima: Das ist kein Most, **sondern** Saft.\n\n**deshalb** (perciò) occupa il primo posto della sua frase, quindi il verbo viene subito dopo, poi la persona: Es regnet, **deshalb bleibt** Stefan zu Hause. **deswegen** e **darum** funzionano allo stesso modo.\n\n**weil** (perché) apre una secondaria, e il verbo va alla fine: Stefan bleibt zu Hause, **weil es regnet**. Vedi la pagina sul Nebensatz.\n\nLa virgola sta prima di denn, sondern, deshalb, weil e aber. Prima di und e oder tra due frasi non serve.\n\nA voce senti weil anche con il verbo secondo (weil ich hab keine Zeit); si dice, ma scrivi il verbo alla fine."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "erster Satz",
+        "sl": "prvi stavek",
+        "en": "first sentence",
+        "it": "prima frase"
+      },
+      {
+        "de": "Wort",
+        "sl": "beseda",
+        "en": "word",
+        "it": "parola"
+      },
+      {
+        "de": "zweiter Satz",
+        "sl": "drugi stavek",
+        "en": "second sentence",
+        "it": "seconda frase"
+      }
+    ],
+    "rows": [
+      [
+        "Stefan arbeitet",
+        "und",
+        "Florian schläft."
+      ],
+      [
+        "Es regnet,",
+        "aber",
+        "Toni arbeitet."
+      ],
+      [
+        "Bleibst du hier",
+        "oder",
+        "kommst du mit?"
+      ],
+      [
+        "Stefan bleibt zu Hause,",
+        "denn",
+        "es regnet."
+      ],
+      [
+        "Das ist kein Most,",
+        "sondern",
+        "Saft."
+      ],
+      [
+        "Es regnet,",
+        "deshalb",
+        "bleibt Stefan zu Hause."
+      ],
+      [
+        "Stefan bleibt zu Hause,",
+        "weil",
+        "es regnet."
+      ],
+      [
+        "Stefan bleibt zu Hause,",
+        "weil",
+        "er arbeiten muss."
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Stefan bleibt zu Hause, denn es regnet.",
+      "sl": "Stefan ostane doma, ker dežuje.",
+      "en": "Stefan is staying at home, because it's raining.",
+      "it": "Stefan resta a casa, perché piove.",
+      "note": {
+        "en": "denn takes no place: es, then the verb.",
+        "sl": "denn ne zasede mesta: es, nato glagol.",
+        "it": "denn non occupa un posto: es, poi il verbo."
+      }
+    },
+    {
+      "de": "Das ist kein Most, sondern Saft.",
+      "sl": "To ni mošt, temveč sok.",
+      "en": "That's not cider but juice.",
+      "it": "Non è sidro, bensì succo.",
+      "note": {
+        "en": "sondern after kein or nicht: not this, but that.",
+        "sl": "sondern za kein ali nicht: ne to, temveč ono.",
+        "it": "sondern dopo kein o nicht: non questo, ma quello."
+      }
+    },
+    {
+      "de": "Kathi ist müde, aber sie arbeitet.",
+      "sl": "Kathi je utrujena, a dela.",
+      "en": "Kathi is tired, but she's working.",
+      "it": "Kathi è stanca, ma lavora.",
+      "note": {
+        "en": "aber: no correction, only a but.",
+        "sl": "aber: brez popravka, samo a.",
+        "it": "aber: nessuna correzione, solo un ma."
+      }
+    },
+    {
+      "de": "Es regnet, deshalb bleibt Stefan zu Hause.",
+      "sl": "Dežuje, zato Stefan ostane doma.",
+      "en": "It's raining, so Stefan is staying at home.",
+      "it": "Piove, perciò Stefan resta a casa.",
+      "note": {
+        "en": "deshalb takes first place: then the verb, then the person.",
+        "sl": "deshalb zasede prvo mesto: nato glagol, nato oseba.",
+        "it": "deshalb occupa il primo posto: poi il verbo, poi la persona."
+      }
+    },
+    {
+      "de": "Stefan bleibt zu Hause, weil es regnet.",
+      "sl": "Stefan ostane doma, ker dežuje.",
+      "en": "Stefan is staying at home because it's raining.",
+      "it": "Stefan resta a casa perché piove.",
+      "note": {
+        "en": "weil sends the verb to the end.",
+        "sl": "weil pošlje glagol na konec.",
+        "it": "weil manda il verbo alla fine."
+      }
+    },
+    {
+      "de": "Toni kommt nicht, weil er arbeiten muss.",
+      "sl": "Toni ne pride, ker mora delati.",
+      "en": "Toni isn't coming because he has to work.",
+      "it": "Toni non viene perché deve lavorare.",
+      "note": {
+        "en": "Two verbs: the conjugated one is last.",
+        "sl": "Dva glagola: spregani je zadnji.",
+        "it": "Due verbi: quello coniugato è l'ultimo."
+      }
+    },
+    {
+      "de": "Weil es regnet, bleibt Stefan zu Hause.",
+      "sl": "Ker dežuje, Stefan ostane doma.",
+      "en": "Because it's raining, Stefan is staying at home.",
+      "it": "Poiché piove, Stefan resta a casa.",
+      "note": {
+        "en": "The weil clause first: then the main verb, so two verbs meet at the comma.",
+        "sl": "Najprej stavek z weil: nato glagol glavnega stavka, zato se glagola srečata ob vejici.",
+        "it": "Prima la frase con weil: poi il verbo principale, così due verbi si incontrano alla virgola."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "connectors",
+    "konnektoren",
+    "weil",
+    "denn",
+    "deshalb",
+    "sondern",
+    "aber"
+  ],
+  "see": [
+    "nebensatz",
+    "wortstellung",
+    "kein-nicht"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: denn, deshalb, weil in one reason; sondern and aber; spoken weil with the verb second; the commas",
+  "card": {
+    "title": {
+      "de": "Und, denn, deshalb, weil",
+      "sl": "Povezovanje · denn, deshalb, weil",
+      "en": "Joining · denn, deshalb, weil",
+      "it": "Unire · denn, deshalb, weil"
+    },
+    "rule": {
+      "en": "**und, aber, oder, denn, sondern** take no place: **…, denn es regnet**. **deshalb** takes first place, the verb follows: **…, deshalb bleibt Stefan zu Hause**. **weil** sends the verb last: **…, weil es regnet**.",
+      "sl": "**und, aber, oder, denn, sondern** ne zasedejo mesta: **…, denn es regnet**. **deshalb** zasede prvo mesto, glagol sledi: **…, deshalb bleibt Stefan zu Hause**. **weil** pošlje glagol na konec: **…, weil es regnet**.",
+      "it": "**und, aber, oder, denn, sondern** non occupano un posto: **…, denn es regnet**. **deshalb** occupa il primo posto, il verbo segue: **…, deshalb bleibt Stefan zu Hause**. **weil** manda il verbo alla fine: **…, weil es regnet**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "erster Satz",
+          "sl": "prvi stavek",
+          "en": "first sentence",
+          "it": "prima frase"
+        },
+        {
+          "de": "Wort",
+          "sl": "beseda",
+          "en": "word",
+          "it": "parola"
+        },
+        {
+          "de": "zweiter Satz",
+          "sl": "drugi stavek",
+          "en": "second sentence",
+          "it": "seconda frase"
+        }
+      ],
+      "rows": [
+        [
+          "Stefan bleibt zu Hause,",
+          "denn",
+          "es regnet."
+        ],
+        [
+          "Es regnet,",
+          "deshalb",
+          "bleibt Stefan zu Hause."
+        ],
+        [
+          "Stefan bleibt zu Hause,",
+          "weil",
+          "es regnet."
+        ],
+        [
+          "Das ist kein Most,",
+          "sondern",
+          "Saft."
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Es regnet, deshalb bleibt Stefan zu Hause.",
+        "sl": "Dežuje, zato Stefan ostane doma.",
+        "en": "It's raining, so Stefan is staying at home.",
+        "it": "Piove, perciò Stefan resta a casa."
+      },
+      {
+        "de": "Toni kommt nicht, weil er arbeiten muss.",
+        "sl": "Toni ne pride, ker mora delati.",
+        "en": "Toni isn't coming because he has to work.",
+        "it": "Toni non viene perché deve lavorare."
+      }
+    ],
+    "tip": {
+      "en": "💡 Same reason, three orders: **denn es regnet**, **deshalb bleibt er**, **weil es regnet**.",
+      "sl": "💡 Isti razlog, trije vrstni redi: **denn es regnet**, **deshalb bleibt er**, **weil es regnet**.",
+      "it": "💡 Stesso motivo, tre ordini: **denn es regnet**, **deshalb bleibt er**, **weil es regnet**."
+    }
+  }
+}

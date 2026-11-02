@@ -1,0 +1,289 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "adjektiv-der",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🐕",
+  "title": {
+    "de": "Der große Hund: das Adjektiv nach der, die, das",
+    "sl": "Der große Hund: pridevnik za der, die, das",
+    "en": "Der große Hund: adjectives after der, die, das",
+    "it": "Der große Hund: l'aggettivo dopo der, die, das"
+  },
+  "rule": {
+    "en": "After **sein** an adjective stays as it is: Der Hund ist **groß**. Before a noun it takes an ending (*Adjektivendung*): **der große Hund** (the big dog).\n\nAfter **der, die, das** the article already shows the gender and the case, so the adjective needs only **-e** or **-en**. **-e** has five places: der, die and das in the nominative (**der große Hund, die kleine Katze, das alte Haus**) and die and das in the accusative, which stay as they are. Everywhere else it is **-en**: a der noun in the accusative (**den großen Hund**), every dative (**dem großen Hund, der kleinen Katze, dem alten Haus**) and every plural (**die großen Hunde, den großen Hunden**).\n\n**dieser** (this), **jeder** (every) and **welcher** (which) end as der does, and the adjective after them behaves the same: **dieser große Hund, mit jedem neuen Auto, welche alte Uhr?**\n\nThree adjectives change before an ending: **hoch → der hohe Berg**, **teuer → die teure Uhr**, **dunkel → die dunkle Nacht**. Two adjectives take the same ending: **der kleine schwarze Hund**.",
+    "sl": "Za **sein** ostane pridevnik, kakršen je: Der Hund ist **groß**. Pred samostalnikom dobi končnico (*Adjektivendung*): **der große Hund** (veliki pes).\n\nZa **der, die, das** člen že pove spol in sklon, zato pridevnik potrebuje samo **-e** ali **-en**. **-e** ima pet mest: der, die in das v imenovalniku (**der große Hund, die kleine Katze, das alte Haus**) ter die in das v tožilniku, ki ostaneta enaka. Povsod drugod je **-en**: samostalnik z der v tožilniku (**den großen Hund**), vsak dajalnik (**dem großen Hund, der kleinen Katze, dem alten Haus**) in vsaka množina (**die großen Hunde, den großen Hunden**).\n\n**dieser** (ta), **jeder** (vsak) in **welcher** (kateri) se končujejo kot der, zato se pridevnik za njimi vede enako: **dieser große Hund, mit jedem neuen Auto, welche alte Uhr?**\n\nTrije pridevniki se pred končnico spremenijo: **hoch → der hohe Berg**, **teuer → die teure Uhr**, **dunkel → die dunkle Nacht**. Dva pridevnika dobita isto končnico: **der kleine schwarze Hund**.",
+    "it": "Dopo **sein** l'aggettivo resta com'è: Der Hund ist **groß**. Davanti a un nome prende una desinenza (*Adjektivendung*): **der große Hund** (il cane grande). In tedesco l'aggettivo sta sempre davanti al nome.\n\nDopo **der, die, das** l'articolo mostra già genere e caso, quindi all'aggettivo basta **-e** o **-en**. **-e** ha cinque posti: der, die e das al nominativo (**der große Hund, die kleine Katze, das alte Haus**) e die e das all'accusativo, che restano uguali. Ovunque altrove è **-en**: un nome con der all'accusativo (**den großen Hund**), ogni dativo (**dem großen Hund, der kleinen Katze, dem alten Haus**) e ogni plurale (**die großen Hunde, den großen Hunden**).\n\n**dieser** (questo), **jeder** (ogni) e **welcher** (quale) finiscono come der, e l'aggettivo dopo di loro si comporta allo stesso modo: **dieser große Hund, mit jedem neuen Auto, welche alte Uhr?**\n\nTre aggettivi cambiano davanti a una desinenza: **hoch → der hohe Berg**, **teuer → die teure Uhr**, **dunkel → die dunkle Nacht**. Due aggettivi prendono la stessa desinenza: **der kleine schwarze Hund**."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Fall",
+        "sl": "sklon",
+        "en": "case",
+        "it": "caso"
+      },
+      "der",
+      "die",
+      "das"
+    ],
+    "rows": [
+      [
+        {
+          "de": "Nominativ",
+          "sl": "imenovalnik",
+          "en": "nominative",
+          "it": "nominativo"
+        },
+        "der große Hund",
+        "die kleine Katze",
+        "das alte Haus"
+      ],
+      [
+        {
+          "de": "Akkusativ",
+          "sl": "tožilnik",
+          "en": "accusative",
+          "it": "accusativo"
+        },
+        "den großen Hund",
+        "die kleine Katze",
+        "das alte Haus"
+      ],
+      [
+        {
+          "de": "Dativ",
+          "sl": "dajalnik",
+          "en": "dative",
+          "it": "dativo"
+        },
+        "dem großen Hund",
+        "der kleinen Katze",
+        "dem alten Haus"
+      ],
+      [
+        {
+          "de": "Plural · N, A",
+          "sl": "množina · im., tož.",
+          "en": "plural · nom., acc.",
+          "it": "plurale · nom., acc."
+        },
+        "die großen Hunde",
+        "die kleinen Katzen",
+        "die alten Häuser"
+      ],
+      [
+        {
+          "de": "Plural · D",
+          "sl": "množina · daj.",
+          "en": "plural · dative",
+          "it": "plurale · dativo"
+        },
+        "den großen Hunden",
+        "den kleinen Katzen",
+        "den alten Häusern"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Der große Hund schläft vor der Schmiede.",
+      "sl": "Veliki pes spi pred kovačnico.",
+      "en": "The big dog is asleep in front of the forge.",
+      "it": "Il cane grande dorme davanti alla fucina.",
+      "note": {
+        "en": "der in the nominative: -e.",
+        "sl": "der v imenovalniku: -e.",
+        "it": "der al nominativo: -e."
+      }
+    },
+    {
+      "de": "Stefan repariert den alten Traktor.",
+      "sl": "Stefan popravlja stari traktor.",
+      "en": "Stefan is repairing the old tractor.",
+      "it": "Stefan ripara il vecchio trattore.",
+      "note": {
+        "en": "den: -en. Only der changes in the accusative.",
+        "sl": "den: -en. V tožilniku se spremeni samo der.",
+        "it": "den: -en. All'accusativo cambia solo der."
+      }
+    },
+    {
+      "de": "Kathi kennt die neue Lehrerin.",
+      "sl": "Kathi pozna novo učiteljico.",
+      "en": "Kathi knows the new teacher.",
+      "it": "Kathi conosce la nuova maestra.",
+      "note": {
+        "en": "die stays in the accusative, and so does its -e.",
+        "sl": "die v tožilniku ostane, z njim tudi -e.",
+        "it": "die all'accusativo resta, e con lui la -e."
+      }
+    },
+    {
+      "de": "Mitzi wohnt neben der alten Mühle.",
+      "sl": "Mitzi stanuje poleg starega mlina.",
+      "en": "Mitzi lives next to the old mill.",
+      "it": "Mitzi abita accanto al vecchio mulino.",
+      "note": {
+        "en": "Every dative: -en.",
+        "sl": "Vsak dajalnik: -en. Slovensko poleg + rodilnik, nemško neben + dajalnik.",
+        "it": "Ogni dativo: -en."
+      }
+    },
+    {
+      "de": "Die roten Äpfel sind von Stefan.",
+      "sl": "Rdeča jabolka so od Stefana.",
+      "en": "The red apples are from Stefan.",
+      "it": "Le mele rosse sono di Stefan.",
+      "note": {
+        "en": "Every plural: -en.",
+        "sl": "Vsaka množina: -en.",
+        "it": "Ogni plurale: -en."
+      }
+    },
+    {
+      "de": "Florian spricht mit den jungen Schafen.",
+      "sl": "Florian se pogovarja z mladimi ovcami.",
+      "en": "Florian is talking to the young sheep.",
+      "it": "Florian parla con le pecore giovani.",
+      "note": {
+        "en": "The dative plural: -en on the adjective, -n on the noun.",
+        "sl": "Dajalnik množine: -en na pridevniku, -n na samostalniku.",
+        "it": "Il dativo plurale: -en sull'aggettivo, -n sul nome."
+      }
+    },
+    {
+      "de": "Welchen neuen Hut kaufst du?",
+      "sl": "Kateri novi klobuk kupuješ?",
+      "en": "Which new hat are you buying?",
+      "it": "Quale cappello nuovo compri?",
+      "note": {
+        "en": "welchen ends as den: -en.",
+        "sl": "welchen se konča kot den: -en.",
+        "it": "welchen finisce come den: -en."
+      }
+    },
+    {
+      "de": "Der hohe Berg dort ist der Dobratsch.",
+      "sl": "Visoka gora tam je Dobrač.",
+      "en": "The high mountain over there is the Dobratsch.",
+      "it": "L'alta montagna laggiù è il Dobratsch.",
+      "note": {
+        "en": "hoch loses its c: hohe.",
+        "sl": "hoch izgubi c: hohe.",
+        "it": "hoch perde la c: hohe."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "adjective_endings",
+    "adjektiv",
+    "adjektivendung",
+    "adjective_after_der",
+    "dieser",
+    "jeder",
+    "welcher"
+  ],
+  "see": [
+    "artikel-genus",
+    "faelle",
+    "akkusativ",
+    "dativ",
+    "adjektiv-ein",
+    "adjektiv-null"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: -e and -en after der; dieser, jeder, welcher; hohe, teure, dunkle; poleg + genitive in the Slovene note",
+  "card": {
+    "title": {
+      "de": "Adjektiv nach der, die, das",
+      "sl": "Pridevnik za der, die, das",
+      "en": "Adjectives after der",
+      "it": "L'aggettivo dopo der"
+    },
+    "rule": {
+      "en": "After **der, die, das**: **-e** in five places (der, die, das in the nominative; die, das in the accusative), **-en** everywhere else: **den großen Hund, dem großen Hund, der kleinen Katze, die großen Hunde**. **dieser, jeder, welcher** the same.",
+      "sl": "Za **der, die, das**: **-e** na petih mestih (der, die, das v imenovalniku; die, das v tožilniku), **-en** povsod drugod: **den großen Hund, dem großen Hund, der kleinen Katze, die großen Hunde**. **dieser, jeder, welcher** enako.",
+      "it": "Dopo **der, die, das**: **-e** in cinque posti (der, die, das al nominativo; die, das all'accusativo), **-en** ovunque altrove: **den großen Hund, dem großen Hund, der kleinen Katze, die großen Hunde**. **dieser, jeder, welcher** uguale."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der",
+        "die",
+        "das"
+      ],
+      "rows": [
+        [
+          {
+            "de": "Nominativ",
+            "sl": "imenovalnik",
+            "en": "nominative",
+            "it": "nominativo"
+          },
+          "der große",
+          "die kleine",
+          "das alte"
+        ],
+        [
+          {
+            "de": "Akkusativ",
+            "sl": "tožilnik",
+            "en": "accusative",
+            "it": "accusativo"
+          },
+          "den großen",
+          "die kleine",
+          "das alte"
+        ],
+        [
+          {
+            "de": "Dativ",
+            "sl": "dajalnik",
+            "en": "dative",
+            "it": "dativo"
+          },
+          "dem großen",
+          "der kleinen",
+          "dem alten"
+        ],
+        [
+          {
+            "de": "Plural",
+            "sl": "množina",
+            "en": "plural",
+            "it": "plurale"
+          },
+          "die großen",
+          "die kleinen",
+          "die alten"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Stefan repariert den alten Traktor.",
+        "sl": "Stefan popravlja stari traktor.",
+        "en": "Stefan is repairing the old tractor.",
+        "it": "Stefan ripara il vecchio trattore."
+      },
+      {
+        "de": "Mitzi wohnt neben der alten Mühle.",
+        "sl": "Mitzi stanuje poleg starega mlina.",
+        "en": "Mitzi lives next to the old mill.",
+        "it": "Mitzi abita accanto al vecchio mulino."
+      }
+    ],
+    "tip": {
+      "en": "💡 After **sein** no ending: Der Hund ist **groß**. **hoch → hohe**, **teuer → teure**, **dunkel → dunkle**.",
+      "sl": "💡 Za **sein** brez končnice: Der Hund ist **groß**. **hoch → hohe**, **teuer → teure**, **dunkel → dunkle**.",
+      "it": "💡 Dopo **sein** nessuna desinenza: Der Hund ist **groß**. **hoch → hohe**, **teuer → teure**, **dunkel → dunkle**."
+    }
+  }
+}
