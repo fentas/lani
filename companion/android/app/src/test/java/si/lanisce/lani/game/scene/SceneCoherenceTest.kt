@@ -50,13 +50,17 @@ class SceneCoherenceTest {
     private fun culturesWith(sub: String): List<File> = cultures.listFiles().orEmpty().filter { File(it, sub).isDirectory }.sortedBy { it.name }
     private fun files(culture: File, sub: String): List<File> = File(culture, sub).listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
 
-    /** The arts the evening stories of [culture] are told in: its scenes with a storyteller's happening. */
-    private fun storyArts(culture: File): Set<String> {
+    /** The scenes of [culture]'s village: its own, and a Slovene one's the curated village's. */
+    private fun villageScenes(culture: File): List<JsonObject> {
         val own = files(culture, "scenes").map(::obj)
         val lang = obj(File(culture, "culture.json")).str("language") ?: "sl"
         val village = if (lang == "sl") File(companion, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().map(::obj) else emptyList()
-        return (own + village).filter { s -> s["happenings"].list().any { it.obj()?.flag("stories") == true } }.mapNotNull { it.str("art") }.toSet()
+        return own + village
     }
+
+    /** The arts the evening stories of [culture] are told in: its scenes with a storyteller's happening. */
+    private fun storyArts(culture: File): Set<String> =
+        villageScenes(culture).filter { s -> s["happenings"].list().any { it.obj()?.flag("stories") == true } }.mapNotNull { it.str("art") }.toSet()
 
     /** A dialog's lines at each place a picture plays them: (where, the art whose effects it may cue or null for none, its lines). */
     private data class Telling(val src: String, val art: String?, val language: String, val lines: List<JsonObject>, val scene: String? = null, val fxOk: Set<String> = emptySet())
@@ -116,6 +120,37 @@ class SceneCoherenceTest {
             }
         }
         out
+    }
+
+    /**
+     * While the storyteller's story is on, the map has him by the fire ([TownMarkers.standing]: the story comes first), so a
+     * bubble of his elsewhere would name someone who isn't there: none of his other happenings, in any scene of his village,
+     * shares a part of the day with the story, nor has him along. A part of the day goes by the hour alone ([TimeOfDay.of]),
+     * so this holds in every month. companion/SCENES.md, "What's on today".
+     */
+    @Test fun `no other happening of a storyteller shares a part of the day with his story, in any culture`() {
+        val allDay = setOf("morning", "afternoon", "evening", "night")
+        // dawn is the morning's first hours; no "when" is all day
+        fun parts(h: JsonObject) = h["when"].list().mapNotNull { (it as? JsonPrimitive)?.content }.map { if (it == "dawn") "morning" else it }.toSet().ifEmpty { allDay }
+        fun JsonObject.villagerOf(id: String?) = this["people"].list().mapNotNull { it.obj() }.firstOrNull { it.str("id") == id }?.let { it.str("villager") ?: id }
+        val tellers = HashSet<String>()
+        val wrong = ArrayList<String>()
+        for (culture in culturesWith("scenes")) {
+            val scenes = villageScenes(culture)
+            fun happenings() = scenes.flatMap { s -> s["happenings"].list().mapNotNull { it.obj() }.map { s to it } }
+            val stories = happenings().filter { (_, h) -> h.flag("stories") }.mapNotNull { (s, h) -> s.villagerOf(h.str("who"))?.let { it to parts(h) } }.toMap()
+            tellers += stories.keys
+            for ((s, h) in happenings()) {
+                if (h.flag("stories")) continue
+                val who = listOfNotNull(s.villagerOf(h.str("who"))) + h["with"].list().mapNotNull { (it as? JsonPrimitive)?.content }.mapNotNull { s.villagerOf(it) }
+                for (v in who) {
+                    val shared = stories[v].orEmpty() intersect parts(h)
+                    if (shared.isNotEmpty()) wrong += "${culture.name}: ${s.str("id")}/${h.str("id")} has $v in the $shared of his story"
+                }
+            }
+        }
+        assertTrue("every culture's storyteller is looked at: $tellers", tellers.containsAll(listOf("janez", "bepi", "sepp", "wilf")))
+        assertTrue(wrong.joinToString("\n"), wrong.isEmpty())
     }
 
     @Test fun `every effect a dialog cues is one its picture's painter draws`() {
