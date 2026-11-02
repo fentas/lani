@@ -5311,7 +5311,7 @@ def mill():
         assert tap(T["back"], 3), "back from the mill"
         # from the stream: the mill's word, and under it the way in
         plain_village()
-        qa_hook(f"hour:{hour}", f"scene:{T['stream']}@mill")
+        qa_hook("hour:11", f"scene:{T['stream']}@mill")
         assert wait_for(T["back"], 10), "the stream opens"
         assert wait_for(T["inside"], 8), "the stream's mill's bubble: its way in"
         time.sleep(1.5)
