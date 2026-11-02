@@ -74,7 +74,7 @@ function withNote(back: Py, note: string): string {
   return strip(note) ? `${base} (${strip(note)})` : base
 }
 
-const normalize = (s: Py): string =>
+export const normalize = (s: Py): string =>
   strip(lower(s).replace(APOSTROPHE, "'").replace(PUNCTUATION, '').replace(SEPARATOR, ' ').replace(SPACES, ' '))
 
 /** normalize()d, without accents: for searching, not grading. */
@@ -222,7 +222,7 @@ function appView(item: PyDict): PyDict {
 // --- Problems a card can have -------------------------------------------------------------------------------------
 
 /** The meanings a back asks for, compared loosely ("the house" and "house" alike): a set, as the Python's. */
-function promptParts(back: Py): string[] {
+export function promptParts(back: Py): string[] {
   const out: string[] = []
   for (const p of meaning(back).split(/ \/ |[,;]/u)) {
     const q = normalize(p).replace(/^(a|an|the|to) /u, '')
@@ -231,9 +231,14 @@ function promptParts(back: Py): string[] {
   return out
 }
 
-const quizzed = (item: PyDict) => variants(item).length > 1
+/** The app asks for its front (types, tiles, speaks, picks it), not only flips it. */
+export const quizzed = (item: PyDict) => variants(item).length > 1
 
-function overlap(a: PyDict, b: PyDict): PyDict | null {
+/**
+ * What two cards share: the same prompt (a meaning the app asks for, when one of them is asked for) or the same answer
+ * (card.py's overlap; test/prompt-clashes.ts holds the packs' words to it).
+ */
+export function overlap(a: PyDict, b: PyDict): PyDict | null {
   if (!(shown(a) && shown(b))) return null
   if ([COUNTING, FORMS].includes(a.get('type') as string) || [COUNTING, FORMS].includes(b.get('type') as string)) return null
   let samePrompt: string[] = []

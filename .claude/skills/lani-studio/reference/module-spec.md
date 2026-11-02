@@ -299,7 +299,7 @@ Word: `id` (kebab-case, unique in the pack), the word in the pack's language (`s
   "example_it": "La mamma è in cucina.", "example_sl": "Mama je v kuhinji.", "example_en": "Mum is in the kitchen." }
 ```
 
-Rules: Slovene words in their dictionary form (nominative singular, infinitive), no articles; Italian nouns with their definite article (`la mamma`, `l'uovo`, `lo zaino`), and the plural with it (`le uova`); no slashes or brackets (it is typed in practice); one meaning per word; examples short and at the pack's level. Each learned word becomes SR item `vocab_<pack-id>_<word-id>` (content = the word in the pack's language, answer = its meaning in the learner's base, category = pack id).
+Rules: Slovene words in their dictionary form (nominative singular, infinitive), no articles; Italian nouns with their definite article (`la mamma`, `l'uovo`, `lo zaino`), and the plural with it (`le uova`); no slashes or brackets (it is typed in practice); one meaning per word, and a prompt of its own: no other word of the language asks that meaning in a base (the review would take only one of two right answers; the curated packs are held to it by `companion/bridge/test/prompt-clashes.ts`, whose baseline lists the synonyms left as they are); examples short and at the pack's level. Each learned word becomes SR item `vocab_<pack-id>_<word-id>` (content = the word in the pack's language, answer = its meaning in the learner's base, category = pack id).
 
 ## Village project steps (`lani.project-steps/v0`, curated)
 

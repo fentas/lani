@@ -1,7 +1,8 @@
 // Smoke checks: word packs, learning words.
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { PackStore, validatePack } from '../../src/packs'
+import { PackStore, validatePack, type Pack } from '../../src/packs'
+import { baseline, compare, promptClashes } from '../prompt-clashes'
 import { auth, base, channelEvents, check, client, curatedDir, dataDir } from './harness'
 
 export default async function packs() {
@@ -73,6 +74,32 @@ export default async function packs() {
   check('list_packs shows progress and words', JSON.stringify(lp).includes('smoke-kitchen') && JSON.stringify(lp).includes('krožnik'))
 
   await festivals(learn)
+  promptClashChecks()
+}
+
+/**
+ * Two words of one language asking one prompt in a base (test/prompt-clashes.ts: card.py's overlap() over the curated
+ * packs' words, as the cards the bridge makes of them): none but the baseline's, which are listed.
+ */
+function promptClashChecks() {
+  const pack = (id: string, language: Pack['language'], words: Record<string, string>[]) =>
+    ({ file: `${id}.json`, pack: { schema: 'lani.pack/v0', id, language, title: id, emoji: '📚', level: 'A1', words: words.map((w, i) => ({ id: `w${i}`, ...w })) } as unknown as Pack })
+  const toy = promptClashes([
+    pack('a', 'de', [{ de: 'die Bank', en: 'bench', sl: 'klop' }, { de: 'der Bus', en: 'bus', sl: 'avtobus' }, { de: '{m:Er|f:Sie} ist da', en: 'is here', sl: 'je tu' }]),
+    pack('b', 'de', [
+      { de: 'das Bankerl', en: 'little bench', sl: 'klop' }, // sl: one prompt, en apart
+      { de: 'der Bus', en: 'coach', sl: 'avtobus' }, // the same word: one card
+      { de: 'midva · wir zwei', en: 'we two', sl: 'je tu' }, // flipped only, but the other is asked: still one prompt
+    ]),
+  ])
+  check('prompt clashes: the same prompt in one base, the words apart, keyed by their fronts as a man has them; the same word in two packs is one card',
+    JSON.stringify(toy) === JSON.stringify({ de: { sl: { 'das bankerl | die bank': 'klop', 'er ist da | midva wir zwei': 'je tu' } } }), toy)
+  const now = promptClashes()
+  check('prompt clashes: the packs\' synonyms found (Grüß Gott and Guten Tag in Slovene, Servus and Tschüss in Italian, das Bankerl and die Bank in English)',
+    now.de?.sl?.['grüß gott | guten tag'] === 'dober dan' && now.de?.it?.['servus | tschüss'] === 'ciao' && now.de?.en?.['das bankerl | die bank'] === 'bench', now.de?.sl)
+  const { added, gone, old } = compare(now, baseline())
+  check(`packs: no two words of one language ask one prompt in a base beyond the ${old.length} the baseline leaves (test/prompt-clashes.ts lists them)`, added.length === 0 && old.length > 0, added)
+  if (gone.length) console.log(`ℹ️ prompt clashes no longer there, still in test/prompt-clashes.json (bun test/prompt-clashes.ts --write): ${gone.join('; ')}`)
 }
 
 /**
