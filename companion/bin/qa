@@ -10092,13 +10092,14 @@ def friuli_projects_b():
         c = next((c for t, c in nodes() if t.startswith(name)), None) or find(name)
         assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
         tap_at(c)
-        today = l10n("it", "projectsSheet.todaysStep")
-        assert wait_for(today, 10), f"the projects sheet at {name}"
+        today = "🔨 " + l10n("it", "projectsSheet.todaysStep")
+        task = spec["steps"][n - 1]["task"]["it"]
+        assert wait_for(task, 10), f"the projects sheet at {name}: its step {n}, {task}"
         time.sleep(1.5)
         snap(f"fb-{tag}-sheet")
-        # its own button: the first "Today's step" below its title
+        # its own button, under the step and the project's words: the first "Today's step" below its title
         btn = None
-        for _ in range(6):
+        for _ in range(10):
             title = find(name)
             below = sorted((c for t, c in nodes() if today in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
             if below and below[0][1] < screen_size()[1] - 120:
