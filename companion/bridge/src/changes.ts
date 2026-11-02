@@ -63,11 +63,12 @@ export function dataArea(rel: string): Area {
 const DATA_SKIP = new Set(['.git', '.backups', 'app/voice', 'app/release', 'app/chat-images', 'app/events.json', 'app/client-ids.json', 'app/devices.json', 'app/devices-seen.json', 'app/dev', 'app/channel-queue.json'])
 
 /**
- * The project's directories with no content the bridge serves (its code, the app's, the workers'), big trees, and QA's
+ * The project's directories with no content the bridge serves (its code, the app's, the workers'), big trees, QA's
  * screenshots and logs (companion/qa-shots: a QA run writes them while its dev bridge serves the app, which moved the
- * content's version under it).
+ * content's version under it), and its docs (a merge of docs alone moved the content's version: one merge in six that
+ * touched what the walk sees).
  */
-const PROJECT_SKIP = new Set(['android', 'bridge', 'bin', 'relay', 'stt-local', 'systemd', 'tests', 'voice-local', 'voice-drama3', 'qa-shots'])
+const PROJECT_SKIP = new Set(['android', 'bridge', 'bin', 'relay', 'stt-local', 'systemd', 'tests', 'voice-local', 'voice-drama3', 'qa-shots', 'README.md', 'GAME.md', 'SCENES.md', 'VILLAGERS.md', 'COURSE.md'])
 
 /** How long the versions of a walk are taken again for the answers after it, while no write came through the bridge (ms). */
 export const REUSE_MS = 2_000

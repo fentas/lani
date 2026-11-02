@@ -3,7 +3,8 @@
 // answer asked again with its ETag is a 304 without a body.
 import { existsSync, mkdirSync, readFileSync, unlinkSync, utimesSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { auth, base, check, client, dataDir, modulesDir } from './harness'
+import { Changes } from '../../src/changes'
+import { auth, base, check, client, dataDir, modulesDir, tempDir } from './harness'
 
 const AREAS = ['learner', 'village', 'towns', 'family', 'content', 'friends'] as const
 type Areas = Record<(typeof AREAS)[number], string>
@@ -15,6 +16,7 @@ const later = (path: string) => {
 }
 
 export default async function changes() {
+  byItself()
   check('GET /changes needs the app token', (await fetch(`${base}/changes`)).status === 401)
   const a = await version()
   check('/changes: a version and the day it counts', typeof a.version === 'string' && a.version.length >= 16 && /^\d{4}-\d{2}-\d{2}$/.test(a.day), a)
@@ -172,4 +174,51 @@ async function areas() {
   const w1 = said(await fetch(`${base}/state`, { headers: auth }))
   const w2 = await version()
   check('after a write through the bridge, the next answer says the versions walked anew', level.status === 400 && w1?.learner === w2.areas.learner && w2.areas.learner !== w0.areas.learner, { w0: w0.areas.learner, w1, w2: w2.areas.learner, status: level.status })
+}
+
+/** On a tree of its own (src/changes.ts; docs/plans/05-built/nav-perf-2.md): the project's docs aren't content, and an area said by value. */
+function byItself() {
+  const data = tempDir('changes-data')
+  const project = tempDir('changes-project')
+  mkdirSync(join(data, 'app'), { recursive: true })
+  mkdirSync(join(project, 'modules'), { recursive: true })
+  writeFileSync(join(project, 'README.md'), 'a')
+  writeFileSync(join(project, 'modules/a.json'), '{}')
+  const c = new Changes({ dataDir: data, contentDirs: [project] })
+  let value = 'feast-1'
+  let asked = 0
+  c.value('friends', ['village'], () => {
+    asked++
+    if (value === 'fails') throw new Error('no village')
+    return value
+  })
+  const v0 = c.versions()
+  for (const doc of ['README.md', 'GAME.md', 'SCENES.md', 'VILLAGERS.md', 'COURSE.md']) writeFileSync(join(project, doc), 'changed')
+  check("/changes: a merge of the project's docs alone moves nothing", c.versions().version === v0.version)
+  writeFileSync(join(project, 'modules/a.json'), '{"a":1}')
+  const v1 = c.versions()
+  check('/changes: … the content beside them does', moved(v0, v1).join() === 'content', moved(v0, v1))
+  check('Changes.value: worked out once while the areas it comes from stay', asked === 1, asked)
+  writeFileSync(join(data, 'progress-db.json'), '{}')
+  const v2 = c.versions()
+  check("Changes.value: … another area's change doesn't work it out again", asked === 1 && moved(v1, v2).join() === 'learner', { asked, moved: moved(v1, v2) })
+  writeFileSync(join(data, 'app/game.json'), '{"a":1}')
+  const v3 = c.versions()
+  check('Changes.value: … the area it comes from moved, the value the same: worked out again, its area stays', asked === 2 && moved(v2, v3).join() === 'village', { asked, moved: moved(v2, v3) })
+  value = 'feast-2'
+  check('Changes.value: … a new value says nothing until the area it comes from moves', c.versions().version === v3.version && asked === 2)
+  writeFileSync(join(data, 'app/game.json'), '{"a":12}')
+  const v4 = c.versions()
+  check('Changes.value: … then its area moves with it', asked === 3 && same(moved(v3, v4), ['village', 'friends']), { asked, moved: moved(v3, v4) })
+  value = 'fails'
+  writeFileSync(join(data, 'app/game.json'), '{"a":123}')
+  const v5 = c.versions()
+  check('Changes.value: … one that fails counts as none, and /changes answers', asked === 4 && same(moved(v4, v5), ['village', 'friends']), { asked, moved: moved(v4, v5) })
+  let threw = false
+  try {
+    c.value('village', ['friends'], () => '')
+  } catch {
+    threw = true
+  }
+  check('Changes.value: an area said by value is no source of another', threw)
 }
