@@ -224,8 +224,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        no duplicate and none lost; the day's icon again; a message's notification and its dot, gone
                        when the chat is opened (screenshots app-icon-*.png, app-icon.txt)
                        "home-return" (only when named) what going back to Home costs: from the village and from
-                       Settings, three times each, from Settings after a session's results were written beside the
-                       bridge, and the village opened: for 3 s from the Back (the tap) the main
+                       Settings, three times each, from the village after a move in it and from Settings after a
+                       session's results were written beside the bridge, and the village opened, with the second town
+                       linked (none with --no-town): for 3 s from the Back (the tap) the main
                        thread's messages (QA's hook "main:watch": their sum, the longest), every frame (gfxinfo
                        framestats), Choreographer's skipped frames, the garbage collections; with
                        LANI_QA_TRACE=<dir> the first Back from the village traced by method (am profile) into it;
@@ -581,6 +582,8 @@ VOICES = any(w.strip() in (VOICES_GROUP, "visit-voices-silent") for w in (arg("-
 # child's town), the Slovene one for the visit's voices
 TOWN_FIXTURE = os.environ.get("LANI_DEV_TOWN_FIXTURE") or ("dev-town-sl.json" if VOICES else "dev-town.json")
 VISIT_GROUPS = ("visit", VOICES_GROUP)  # the steps that need the second town
+# other steps that need it linked: a child's town's progress, and what a Back costs with a friend to ask (home-return)
+TOWN_STEPS = ("town-progress-child", "home-return")
 
 
 def fixture_file() -> Path:
@@ -16698,7 +16701,9 @@ def home_return():
     requests (how many, each one's path, status and length: QA's request log, data/NetWatch.kt) and what the runtime
     allocated on every thread and its collections (ART's counts, sampled by the watch); first Home left alone for as
     long, the baseline. Last, Back from Settings after a real change: a session's results written beside the bridge while
-    Settings is open (the learner's databases in the dev bridge's copy; docs/plans/05-built/changes-areas.md). With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
+    Settings is open (the learner's databases in the dev bridge's copy; docs/plans/05-built/changes-areas.md), and Back
+    from the village after a move in it (its state written beside the bridge: docs/plans/05-built/nav-perf-2.md). The
+    second town is linked for it (unless --no-town), so the friendships' read has a friend to ask. With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
     method (am profile, sampled every 0.2 ms; its sampling waits for each collection) into <dir>/back-village.trace. A
     table, also home-return.tsv and each row's requests in home-return-requests.txt in $LANI_QA_HOME_SHOTS;
     LANI_QA_HOME_TRIES (3) times each."""
@@ -16861,6 +16866,17 @@ def home_return():
 
     for i in range(tries):
         back("settings, a change", changed, i)
+        go_home()
+
+    def moved():
+        """The village open, and its state written beside the bridge meanwhile, as every move in it writes it (app/game.json,
+        the same state: the area `village` moves; docs/plans/05-built/nav-perf-2.md)."""
+        open_village()
+        p = dev_copy() / "app" / "game.json"
+        p.write_text(p.read_text())
+
+    for i in range(tries):
+        back("village, a move", moved, i)
         go_home()
     head = ("from\ttry\tmain messages in 3 s\tbesides frames\ttheir ms\tthe longest ms\tover 16.7 ms\tover 100 ms\tframes\t"
             "longest frame ms\tlongest frame's main ms\tits compose/layout/draw ms\tframes' main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\t"
@@ -17787,7 +17803,7 @@ def bridges_only() -> int:
 
 def main():
     steps = selected(plan())
-    visiting = any(s[4] in VISIT_GROUPS or s[0] == "town-progress-child" for s in steps)
+    visiting = any(s[4] in VISIT_GROUPS or s[0] in TOWN_STEPS for s in steps)
     if "--dry" in sys.argv:
         return dry(steps, visiting)
     if "--bridges-only" in sys.argv:
@@ -17823,7 +17839,7 @@ def main():
 
     linked = False
     for name, fn, cleanup, keep, group in steps:
-        if (group in VISIT_GROUPS or name == "town-progress-child") and not linked:  # linked by now, while the other steps ran
+        if (group in VISIT_GROUPS or name in TOWN_STEPS) and not linked:  # linked by now, while the other steps ran
             results.append(("second-town", link_town(town)))
             linked = True
         step(name, fn, cleanup, keep)
