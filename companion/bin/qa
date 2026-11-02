@@ -10144,7 +10144,23 @@ def friuli_projects_b():
 
     qa_hook("pair:it-de")
     try:
+        to_village()
         qa_hook("hearths:trg")
+        time.sleep(2 * slow())
+        # on the village the hook made up (the dev bridge's copy, which the app adopts): the cast met, the two leaders living here,
+        # the learner's voice chosen, so "My voice" isn't offered over a dialog's first line
+        snap_state = dev_bridge("/game")
+        st = snap_state["state"]
+        for v in api("/villagers"):
+            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
+            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+        for leader in ("davide", "bruno"):
+            if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
+                st["residents"].append({"id": leader, "since": "2026-01-01"})
+        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+        dev_bridge("/learner/voice", {"voice": "default"})
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
+        time.sleep(5 * slow())
         qa_hook("hour:11")
         qa_hook("bubbles:0")
         play("gasilski_dom", 4, "A1", "pump")
