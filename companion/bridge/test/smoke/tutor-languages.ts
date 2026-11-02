@@ -7,6 +7,8 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { existsSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { CHILD_INSTRUCTIONS, initLearnerData } from '../../src/learners'
+import { routineAsk } from '../../src/rhythm'
+import { forVillage } from '../../src/tutor-languages'
 import { check, client as janClient, culturesDir, guideOf, port as smokePort, tempDir } from './harness'
 import { publishEach } from './publish-languages'
 
@@ -25,6 +27,8 @@ export default async function tutorLanguages() {
   // --- Jan -------------------------------------------------------------------------------------------------------------
   const jan = await guideOf(janClient)
   check("Jan's guide has no language part, its paragraphs as they were", !jan.includes('## Correct') && !jan.includes('## A child') && jan.includes('simple Slovene at Jan') && jan.includes('Slovene-speaking family') && jan.includes('Counting cards ("🔢 Štetje') && jan.includes('never with a bare singular "fant"'))
+
+  check("the morning's routine greets in the village's language, Jan's as it was", forVillage(routineAsk.morning, 'it').includes('Greet in Italian.') && forVillage(routineAsk.morning, 'sl') === routineAsk.morning && routineAsk.morning.includes('Greet in Slovene.'))
 
   // --- the files ---------------------------------------------------------------------------------------------------------
   for (const l of ['sl', 'it', 'de', 'en']) {

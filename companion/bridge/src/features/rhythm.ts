@@ -5,6 +5,7 @@ import { fail, ok } from '../tool'
 import { lemmaFinder, WEAVES_A_DAY, wordsToWeave, weavePlan, wovenToday, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
 import { ofLanguage, ripeRules } from '../grammar'
+import { forVillage } from '../tutor-languages'
 import { dueRoutines, localDate, RhythmStore, routineAsk, type Routine } from '../rhythm'
 import { VariantAsks } from '../variants'
 import { learnerLevel } from '../villagers'
@@ -106,7 +107,7 @@ export const rhythm: FeatureFactory = ({ cfg, channel, game, learner, log, gramm
       } catch (e) {
         log(`rhythm snapshot failed: ${(e as Error).message}`)
       }
-      await channel.notify(`${routineAsk[r]}\n\n\`\`\`json\n${snap}\n\`\`\``, {
+      await channel.notify(`${forVillage(routineAsk[r], book.language)}\n\n\`\`\`json\n${snap}\n\`\`\``, {
         kind: `daily_${r}`,
         conversation_id: 'main',
         msg_id: `rhythm-${r}-${Date.now().toString(36)}`,
