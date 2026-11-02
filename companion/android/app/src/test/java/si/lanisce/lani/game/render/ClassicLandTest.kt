@@ -79,10 +79,12 @@ class ClassicLandTest {
         // as wide as the road, a railing along each side (2026-10-18); the road fording the stream on stepping stones until
         // the village builds its bridge there (2026-10-19); the hearths (GAME.md "Hearths", 2026-10-20): the house's and the
         // hut's smoke from their chimneys by day, their windows lit while their hearths burn; Čebelar Anton's trousers in his
-        // sprite's canvas colour at 7 px (2026-11-01, map-people: by day only his few pixels differ)
+        // sprite's canvas colour at 7 px (2026-11-01, map-people: by day only his few pixels differ); the buildings as
+        // Primorska's scenes build them by level (2026-11-02, map-culture-2): the single kozolec, the well's sweep, the young
+        // linden, the bee house on its footing, the houses' walls by plot, the tent's pennant
         "jan-like" to mapOf(
-            "side-day" to "a3953effb2450795", "tall-day" to "8ec003a5f73c4bf2", "tall-dusk-k2" to "f5a0d648147029bb",
-            "tall-night-k3" to "964e1eac3deaa622", "compact" to "5bc52f6883de077b", "widget" to "a6b75b92251751e2",
+            "side-day" to "aef99be676537c24", "tall-day" to "de44987646dcaa5a", "tall-dusk-k2" to "bb858c138d6bc985",
+            "tall-night-k3" to "ddf607eb4e4a0152", "compact" to "3899cd2ac6bffe6e", "widget" to "bc300b653e8816ce",
         ),
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
         // drawn as the hamlet's, its people at their chores (2026-10-13); the cart bridge on its own track from the road
