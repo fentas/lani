@@ -1,0 +1,127 @@
+{
+  "schema": "lani.celebration/v0",
+  "age": "vas",
+  "language": "de",
+  "review": "Machine-written (Claude), not reviewed by a native speaker; to check: das Dorffest as the name of this party, der Tanzboden, die Harmonika, die Kasnudeln (standard Käsnudeln), die Burschen",
+  "emoji": "🪗",
+  "name": {"de": "Das Dorffest", "sl": "Vaški praznik", "en": "The village party", "it": "La festa del paese"},
+  "about": {"de": "Aus dem Weiler ist ein Dorf geworden, und das Dorf feiert: Auf dem Platz steht ein Tanzboden, die Harmonika spielt Polka und Walzer, und es gibt Kasnudeln und Reindling.", "sl": "Iz zaselka je nastala vas in vas praznuje: na trgu stoji plesišče, harmonika igra polko in valček, na mizah pa so kasnudeln in reindling.", "en": "The hamlet has become a village, and the village celebrates: there's a dance floor on the square, the accordion plays polkas and waltzes, and there are Kasnudeln and Reindling.", "it": "La borgata è diventata un paese, e il paese fa festa: sulla piazza c'è una pista da ballo, la fisarmonica suona polke e valzer, e ci sono i Kasnudeln e il Reindling."},
+  "moment": {"de": "Girlanden und Laternen gehen hoch, und auf dem Platz entsteht der Tanzboden.", "sl": "Girlande in lanterne gredo gor, na trgu pa nastaja plesišče.", "en": "Garlands and lanterns go up, and the dance floor takes shape on the square.", "it": "Salgono ghirlande e lanterne, e sulla piazza prende forma la pista da ballo."},
+  "line": {"de": "Beim Dorffest haben wir bis Mitternacht Polka getanzt.", "sl": "Na vaškem prazniku smo do polnoči plesali polko.", "en": "At the village party we danced the polka until midnight.", "it": "Alla festa del paese abbiamo ballato la polka fino a mezzanotte."},
+  "memory": {"de": "unser Dorffest", "sl": "naš vaški praznik", "en": "our village party", "it": "la nostra festa del paese"},
+  "decor": ["bunting", "floor"],
+  "music": "harmonika",
+  "place": "square",
+  "host": "kathi",
+  "guests": ["stefan", "florian", "maxi", "resi"],
+  "pack": "feier-dorffest",
+  "words": ["glas", "tanzen"],
+  "levels": {
+    "A1": { "lines": [
+      {"who": "kathi", "face": "happy", "de": "Willkommen beim Dorffest! Heute feiert das ganze Dorf.", "sl": "Dobrodošli na vaškem prazniku! Danes praznuje vsa vas.", "en": "Welcome to the village party! Today the whole village is celebrating.", "it": "Benvenuti alla festa del paese! Oggi festeggia tutto il paese."},
+      {"who": "stefan", "de": "Wir haben Apfelsaft für alle. Was brauchen wir noch?", "sl": "Imamo jabolčni sok za vse. Kaj še potrebujemo?", "en": "We've got apple juice for everyone. What else do we need?", "it": "Abbiamo il succo di mela per tutti. Che cos'altro ci serve?"},
+      { "choices": [
+        {"de": "Wir brauchen Gläser.", "sl": "Potrebujemo kozarce.", "en": "We need glasses.", "it": "Ci servono i bicchieri.", "ok": true,
+          "reply": {"face": "happy", "de": "Richtig! Hier, die sind für dich und mich.", "sl": "Prav! Tu sta za tebe in zame.", "en": "Right! Here, these are for you and me.", "it": "Giusto! Ecco, questi sono per te e per me."} },
+        {"de": "Wir brauchen Schuhe.", "sl": "Potrebujemo čevlje.", "en": "We need shoes.", "it": "Ci servono le scarpe.", "why": {"en": "Schuhe are shoes. For apple juice you need glasses: Gläser.", "sl": "Schuhe so čevlji. Za jabolčni sok potrebuješ kozarce: Gläser.", "it": "Schuhe sono le scarpe. Per il succo di mela ci vogliono i bicchieri: Gläser."},
+          "reply": {"face": "laugh", "de": "Schuhe? Die hast du doch schon an den Füßen!", "sl": "Čevlje? Saj jih že imaš na nogah!", "en": "Shoes? You've already got some on your feet!", "it": "Le scarpe? Ma le hai già ai piedi!"} }
+      ] },
+      {"who": "stefan", "de": "Der Saft ist kalt. Stoßen wir an!", "sl": "Sok je hladen. Nazdravimo!", "en": "The juice is cold. Let's drink a toast!", "it": "Il succo è freddo. Brindiamo!"},
+      { "choices": [
+        {"de": "Prost!", "sl": "Na zdravje!", "en": "Cheers!", "it": "Salute!", "ok": true,
+          "reply": {"face": "happy", "de": "Prost! Auf unser Dorf!", "sl": "Na zdravje! Na našo vas!", "en": "Cheers! To our village!", "it": "Salute! Al nostro paese!"} },
+        {"de": "Guten Appetit!", "sl": "Dober tek!", "en": "Enjoy your meal!", "it": "Buon appetito!", "why": {"en": "Guten Appetit is said before a meal. Answering a toast, you say: Prost!", "sl": "Guten Appetit rečeš pred jedjo. Na zdravico odgovoriš: Prost!", "it": "Guten Appetit si dice prima di mangiare. A un brindisi si risponde: Prost!"},
+          "reply": {"face": "laugh", "de": "Guten Appetit? Das ist doch nur Apfelsaft!", "sl": "Dober tek? Saj je to samo jabolčni sok!", "en": "Enjoy your meal? It's only apple juice!", "it": "Buon appetito? Ma è solo succo di mela!"} }
+      ] },
+      {"who": "maxi", "face": "happy", "de": "Hörst du die Harmonika? Komm, {learner}! Was machen wir jetzt?", "sl": "Slišiš harmoniko? Pridi, {learner}! Kaj bomo zdaj?", "en": "Can you hear the accordion? Come on, {learner}! What are we doing now?", "it": "Senti la fisarmonica? Vieni, {learner}! Che cosa facciamo adesso?"},
+      { "choices": [
+        {"de": "Wir tanzen!", "sl": "Plešemo!", "en": "We dance!", "it": "Balliamo!", "ok": true,
+          "reply": {"face": "happy", "de": "Los geht's! Auf den Tanzboden!", "sl": "Gremo! Na plesišče!", "en": "Off we go! Onto the dance floor!", "it": "Andiamo! Sulla pista da ballo!"} },
+        {"de": "Wir schlafen!", "sl": "Spimo!", "en": "We sleep!", "it": "Dormiamo!", "why": {"en": "Schlafen is to sleep. With this music, you dance: tanzen.", "sl": "Schlafen pomeni spati. Ob tej glasbi se pleše: tanzen.", "it": "Schlafen vuol dire dormire. Con questa musica si balla: tanzen."},
+          "reply": {"face": "laugh", "de": "Schlafen? Bei der Musik? Nie!", "sl": "Spati? Ob tej glasbi? Nikoli!", "en": "Sleep? With this music? Never!", "it": "Dormire? Con questa musica? Mai!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Und wer tanzt, muss auch essen. Hier sind Kasnudeln!", "sl": "In kdor pleše, mora tudi jesti. Tu so kasnudeln!", "en": "And whoever dances has to eat too. Here are some Kasnudeln!", "it": "E chi balla deve anche mangiare. Ecco i Kasnudeln!"},
+      {"who": "kathi", "face": "happy", "de": "Sofort, sofort! Es gibt genug für alle.", "sl": "Takoj, takoj! Dovolj je za vse.", "en": "Right away, right away! There's enough for everyone.", "it": "Subito, subito! Ce n'è per tutti."}
+    ] },
+    "A2": { "lines": [
+      {"who": "kathi", "face": "happy", "de": "{learner}, schön, dass du da bist! Heute feiern wir, denn jetzt sind wir ein richtiges Dorf.", "sl": "{learner}, lepo, da si tu! Danes praznujemo, saj smo zdaj prava vas.", "en": "{learner}, how nice that you're here! Today we celebrate, because now we're a real village.", "it": "{learner}, che bello che sei qui! Oggi facciamo festa, perché adesso siamo un vero paese."},
+      {"who": "florian", "de": "Die Burschen haben den Tanzboden aufgestellt, und die Harmonika spielt schon.", "sl": "Fantje so postavili plesišče in harmonika že igra.", "en": "The lads have put up the dance floor, and the accordion is already playing.", "it": "I ragazzi hanno montato la pista da ballo e la fisarmonica suona già."},
+      {"who": "stefan", "de": "Der Apfelsaft ist kalt, aber ich habe nur zwei Hände. Was bringst du mir vom Tisch?", "sl": "Jabolčni sok je hladen, ampak imam samo dve roki. Kaj mi prineseš z mize?", "en": "The apple juice is cold, but I've only got two hands. What will you bring me from the table?", "it": "Il succo di mela è freddo, ma ho solo due mani. Che cosa mi porti dal tavolo?"},
+      { "choices": [
+        {"de": "Ich bringe dir die Gläser.", "sl": "Prinesem ti kozarce.", "en": "I'll bring you the glasses.", "it": "Ti porto i bicchieri.", "ok": true,
+          "reply": {"face": "happy", "de": "Danke! So, jetzt ist für jeden etwas da.", "sl": "Hvala! Tako, zdaj je za vsakega nekaj.", "en": "Thanks! There, now there's something for everyone.", "it": "Grazie! Ecco, adesso ce n'è per tutti."} },
+        {"de": "Ich bringe dir die Gabeln.", "sl": "Prinesem ti vilice.", "en": "I'll bring you the forks.", "it": "Ti porto le forchette.", "why": {"en": "Gabeln are forks. For apple juice you need glasses: Gläser.", "sl": "Gabeln so vilice. Za jabolčni sok potrebuješ kozarce: Gläser.", "it": "Gabeln sono le forchette. Per il succo di mela ci vogliono i bicchieri: Gläser."},
+          "reply": {"face": "laugh", "de": "Gabeln? Den Saft will ich nicht mit der Gabel essen!", "sl": "Vilice? Soka nočem jesti z vilicami!", "en": "Forks? I don't want to eat my juice with a fork!", "it": "Le forchette? Il succo non lo voglio mangiare con la forchetta!"} }
+      ] },
+      {"who": "stefan", "de": "So, jetzt stoßen wir an! Worauf trinken wir?", "sl": "Tako, zdaj pa nazdravimo! Na kaj pijemo?", "en": "There, now let's drink a toast! What shall we drink to?", "it": "Ecco, adesso brindiamo! A che cosa beviamo?"},
+      { "choices": [
+        {"de": "Prost! Auf unser Dorf!", "sl": "Na zdravje! Na našo vas!", "en": "Cheers! To our village!", "it": "Salute! Al nostro paese!", "ok": true,
+          "reply": {"face": "happy", "de": "Prost! Das hat es verdient.", "sl": "Na zdravje! To si zasluži.", "en": "Cheers! It's earned it.", "it": "Salute! Se lo merita."} },
+        {"de": "Prost! Auf unseren Regen!", "sl": "Na zdravje! Na naš dež!", "en": "Cheers! To our rain!", "it": "Salute! Alla nostra pioggia!", "why": {"en": "Regen is rain, nothing to drink to at a party. You drink to the village: das Dorf.", "sl": "Regen je dež, temu na prazniku ne nazdraviš. Nazdraviš vasi: das Dorf.", "it": "Regen è la pioggia, a una festa non ci si brinda. Si brinda al paese: das Dorf."},
+          "reply": {"face": "laugh", "de": "Auf den Regen? Hoffentlich bleibt es heute trocken!", "sl": "Na dež? Upam, da bo danes suho!", "en": "To the rain? Let's hope it stays dry today!", "it": "Alla pioggia? Speriamo che oggi resti asciutto!"} }
+      ] },
+      {"who": "maxi", "face": "happy", "de": "Jetzt spielen sie eine Polka! Was machst du, {learner}?", "sl": "Zdaj igrajo polko! Kaj boš ti, {learner}?", "en": "Now they're playing a polka! What are you doing, {learner}?", "it": "Adesso suonano una polka! Tu che cosa fai, {learner}?"},
+      { "choices": [
+        {"de": "Ich tanze mit!", "sl": "Plešem z vami!", "en": "I'm dancing too!", "it": "Ballo anch'io!", "ok": true,
+          "reply": {"face": "happy", "de": "Super! Ich zeige dir, wie es geht.", "sl": "Super! Pokažem ti, kako gre.", "en": "Great! I'll show you how it goes.", "it": "Fantastico! Ti faccio vedere come si fa."} },
+        {"de": "Ich lese mit!", "sl": "Berem z vami!", "en": "I'm reading too!", "it": "Leggo anch'io!", "why": {"en": "Lesen is to read. To a polka, you dance: tanzen.", "sl": "Lesen pomeni brati. Ob polki se pleše: tanzen.", "it": "Lesen vuol dire leggere. Con una polka si balla: tanzen."},
+          "reply": {"face": "laugh", "de": "Lesen? Hier? Dafür ist die Musik viel zu laut!", "sl": "Brati? Tukaj? Za to je glasba veliko preglasna!", "en": "Read? Here? The music's far too loud for that!", "it": "Leggere? Qui? La musica è troppo forte!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Bravo! Wer getanzt hat, bekommt Kasnudeln und ein Stück Reindling.", "sl": "Bravo! Kdor je plesal, dobi kasnudeln in kos reindlinga.", "en": "Bravo! Whoever has danced gets Kasnudeln and a piece of Reindling.", "it": "Bravo! Chi ha ballato riceve i Kasnudeln e una fetta di Reindling."}
+    ] },
+    "B1": { "lines": [
+      {"who": "kathi", "face": "proud", "de": "Seit wir ein Dorf sind, gibt es endlich einen Grund für ein richtiges Fest. Alle haben mitgeholfen.", "sl": "Odkar smo vas, je končno razlog za pravi praznik. Vsi so pomagali.", "en": "Now that we're a village, there's finally a reason for a proper party. Everyone has helped.", "it": "Da quando siamo un paese c'è finalmente un motivo per una vera festa. Hanno aiutato tutti."},
+      {"who": "stefan", "face": "happy", "de": "Der Tanzboden ist aus frischem Holz. Riechst du das?", "sl": "Plesišče je iz svežega lesa. Ga vohaš?", "en": "The dance floor is made of fresh wood. Can you smell it?", "it": "La pista da ballo è di legno fresco. Lo senti?"},
+      {"who": "florian", "de": "Für so viele Gäste reicht das Geschirr nicht. Was sollen wir noch aus dem Gasthaus holen?", "sl": "Za toliko gostov posode ne bo dovolj. Kaj naj še prinesemo iz gostilne?", "en": "The crockery won't stretch to this many guests. What else should we fetch from the inn?", "it": "Per tanti ospiti le stoviglie non bastano. Che cos'altro dobbiamo prendere all'osteria?"},
+      { "choices": [
+        {"de": "Ich würde noch Gläser holen, der Saft ist schon da.", "sl": "{m:Prinesel|f:Prinesla} bi še kozarce, sok je že tu.", "en": "I'd fetch more glasses, the juice is already here.", "it": "Prenderei altri bicchieri, il succo c'è già.", "ok": true,
+          "reply": {"face": "happy", "de": "Stimmt, sonst trinken alle aus der Flasche.", "sl": "Res je, sicer bodo vsi pili iz steklenice.", "en": "True, otherwise everyone'll be drinking from the bottle.", "it": "Vero, altrimenti bevono tutti dalla bottiglia."} },
+        {"de": "Ich würde noch Kissen holen, der Saft ist schon da.", "sl": "{m:Prinesel|f:Prinesla} bi še blazine, sok je že tu.", "en": "I'd fetch more pillows, the juice is already here.", "it": "Prenderei altri cuscini, il succo c'è già.", "why": {"en": "Kissen are pillows. For the juice you need glasses: Gläser.", "sl": "Kissen so blazine. Za sok potrebuješ kozarce: Gläser.", "it": "Kissen sono i cuscini. Per il succo ci vogliono i bicchieri: Gläser."},
+          "reply": {"face": "laugh", "de": "Kissen? Schlafen kann man später!", "sl": "Blazine? Spati se da pozneje!", "en": "Pillows? There's time to sleep later!", "it": "Cuscini? A dormire si va dopo!"} }
+      ] },
+      {"who": "kathi", "de": "Gut mitgedacht! Trinken wir auf alle, die geholfen haben.", "sl": "Dobro premišljeno! Nazdravimo vsem, ki so pomagali.", "en": "Good thinking! Let's drink to everyone who helped.", "it": "Ben pensato! Brindiamo a tutti quelli che hanno aiutato."},
+      { "choices": [
+        {"de": "Zum Wohl! Ohne sie gäbe es dieses Fest nicht.", "sl": "Na zdravje! Brez njih tega praznika ne bi bilo.", "en": "Your health! Without them there'd be no party.", "it": "Salute! Senza di loro questa festa non ci sarebbe.", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Das sollen sie ruhig hören.", "sl": "Na zdravje! To naj kar slišijo.", "en": "Your health! They may as well hear that.", "it": "Salute! È giusto che lo sentano."} },
+        {"de": "Zum Wohl! Ohne sie gäbe es dieses Fest öfter.", "sl": "Na zdravje! Brez njih bi bil ta praznik pogosteje.", "en": "Your health! Without them there'd be this party more often.", "it": "Salute! Senza di loro questa festa ci sarebbe più spesso.", "why": {"en": "Öfter means more often, as if they stood in the way. A thank-you says: ohne sie gäbe es dieses Fest nicht.", "sl": "Öfter pomeni pogosteje, kot da bi bili v napoto. Zahvala se glasi: ohne sie gäbe es dieses Fest nicht.", "it": "Öfter vuol dire più spesso, come se fossero d'intralcio. Un grazie dice: ohne sie gäbe es dieses Fest nicht."},
+          "reply": {"face": "laugh", "de": "Öfter? Das erzählen wir ihnen aber nicht!", "sl": "Pogosteje? Tega jim pa ne bomo povedali!", "en": "More often? We won't be telling them that!", "it": "Più spesso? Questo però non glielo diciamo!"} }
+      ] },
+      {"who": "maxi", "face": "curious", "de": "Die Harmonika spielt einen Walzer! Was würdest du jetzt am liebsten tun, {learner}?", "sl": "Harmonika igra valček! Kaj bi zdaj najraje {m:počel|f:počela}, {learner}?", "en": "The accordion is playing a waltz! What would you most like to do now, {learner}?", "it": "La fisarmonica suona un valzer! Che cosa ti piacerebbe di più fare adesso, {learner}?"},
+      { "choices": [
+        {"de": "Ich würde am liebsten tanzen, auch wenn ich es nicht gut kann.", "sl": "Najraje bi {m:plesal|f:plesala}, čeprav tega ne znam dobro.", "en": "I'd most like to dance, even if I'm not good at it.", "it": "Mi piacerebbe ballare, anche se non lo so fare bene.", "ok": true,
+          "reply": {"face": "happy", "de": "Macht nichts! Niemand schaut auf deine Füße.", "sl": "Nič hudega! Nihče ne gleda tvojih nog.", "en": "Never mind! Nobody's looking at your feet.", "it": "Non importa! Nessuno ti guarda i piedi."} },
+        {"de": "Ich würde am liebsten bügeln, auch wenn ich es nicht gut kann.", "sl": "Najraje bi {m:likal|f:likala}, čeprav tega ne znam dobro.", "en": "I'd most like to iron, even if I'm not good at it.", "it": "Mi piacerebbe stirare, anche se non lo so fare bene.", "why": {"en": "Bügeln is to iron clothes. To a waltz you dance: tanzen.", "sl": "Bügeln pomeni likati. Ob valčku se pleše: tanzen.", "it": "Bügeln vuol dire stirare. Con un valzer si balla: tanzen."},
+          "reply": {"face": "laugh", "de": "Bügeln? Beim Dorffest? Du bist mir vielleicht lustig!", "sl": "Likati? Na vaškem prazniku? Ti si pa res {m:zabaven|f:zabavna}!", "en": "Ironing? At the village party? You're a funny one!", "it": "Stirare? Alla festa del paese? Ma sei proprio {m:buffo|f:buffa}!"} },
+        {"de": "Ich würde am liebsten tanzen, auch wenn ich kann es nicht gut.", "sl": "Najraje bi {m:plesal|f:plesala}, čeprav tega ne znam dobro.", "en": "I'd most like to dance, even if I'm not good at it.", "it": "Mi piacerebbe ballare, anche se non lo so fare bene.", "grammar": "nebensatz", "why": {"en": "In a clause with wenn, the verb goes to the end: wenn ich es nicht gut kann.", "sl": "V stavku z wenn gre glagol na konec: wenn ich es nicht gut kann.", "it": "In una frase con wenn il verbo va alla fine: wenn ich es nicht gut kann."},
+          "reply": {"face": "thinking", "de": "Hm, das klingt noch etwas schief. Aber der Walzer wartet nicht!", "sl": "Hm, to še malo šepa. Ampak valček ne čaka!", "en": "Hmm, that still sounds a bit crooked. But the waltz won't wait!", "it": "Mm, suona ancora un po' storto. Ma il valzer non aspetta!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Recht hast du. Auf dem Tanzboden lernt man es am schnellsten, und danach schmecken die Kasnudeln doppelt.", "sl": "Prav imaš. Na plesišču se najhitreje naučiš, potem pa so kasnudeln dvakrat boljši.", "en": "You're right. You learn fastest on the dance floor, and afterwards the Kasnudeln taste twice as good.", "it": "Hai ragione. Sulla pista si impara più in fretta, e dopo i Kasnudeln sono due volte più buoni."}
+    ] },
+    "B2": { "lines": [
+      {"who": "kathi", "face": "proud", "de": "Dass aus ein paar Hütten einmal ein Dorf werden würde, hätte niemand geglaubt. Heute wird gefeiert!", "sl": "Da bo iz nekaj koč nekoč nastala vas, ne bi nihče verjel. Danes se praznuje!", "en": "Nobody would have believed that a few huts would one day become a village. Today we celebrate!", "it": "Che da qualche capanna sarebbe nato un paese, nessuno l'avrebbe creduto. Oggi si fa festa!"},
+      {"who": "stefan", "de": "Bei uns im Gailtal gehört das Dorffest sonst zum Kirchtag. Heute feiern wir es einfach, weil wir ein Dorf geworden sind.", "sl": "Pri nas v Ziljski dolini vaški praznik sicer spada k žegnanju. Danes ga praznujemo preprosto zato, ker smo postali vas.", "en": "Here in the Gailtal the village party usually goes with the Kirchtag. Today we're simply having one because we've become a village.", "it": "Da noi nella valle del Gail la festa del paese di solito fa parte della sagra. Oggi la facciamo semplicemente perché siamo diventati un paese."},
+      {"who": "florian", "de": "Der Andrang ist größer als erwartet. Was müsste aus dem Gasthaus noch herübergebracht werden?", "sl": "Gneča je večja, kot smo pričakovali. Kaj bi bilo treba še prinesti iz gostilne?", "en": "The crowd is bigger than expected. What would still have to be brought over from the inn?", "it": "L'affluenza è maggiore del previsto. Che cos'altro bisognerebbe portare dall'osteria?"},
+      { "choices": [
+        {"de": "Es müssten noch mehr Gläser herübergebracht werden.", "sl": "Prinesti bi bilo treba še več kozarcev.", "en": "More glasses would have to be brought over.", "it": "Bisognerebbe portare ancora più bicchieri.", "ok": true,
+          "reply": {"face": "happy", "de": "Das übernehme ich. Sonst trinkt bald jemand aus der Blumenvase.", "sl": "To prevzamem jaz. Sicer bo kdo kmalu pil iz vaze.", "en": "I'll see to that. Otherwise someone will soon be drinking from the flower vase.", "it": "Ci penso io. Altrimenti tra poco qualcuno beve dal vaso dei fiori."} },
+        {"de": "Es müssten noch mehr Betten herübergebracht werden.", "sl": "Prinesti bi bilo treba še več postelj.", "en": "More beds would have to be brought over.", "it": "Bisognerebbe portare ancora più letti.", "why": {"en": "Betten are beds. So many guests need something to drink from: Gläser.", "sl": "Betten so postelje. Toliko gostov potrebuje nekaj, iz česar pije: Gläser.", "it": "Betten sono i letti. Tanti ospiti hanno bisogno di qualcosa per bere: Gläser."},
+          "reply": {"face": "laugh", "de": "Betten? Heute Nacht wird doch nicht geschlafen!", "sl": "Postelje? Nocoj se vendar ne spi!", "en": "Beds? Nobody's sleeping tonight!", "it": "Letti? Ma stanotte non si dorme!"} }
+      ] },
+      {"who": "kathi", "de": "Recht so. Bevor die Musik wieder einsetzt, sollte noch jemand ein paar Worte sagen. Trinken wir auf das Dorf!", "sl": "Prav tako. Preden se glasba spet začne, naj še kdo reče nekaj besed. Nazdravimo vasi!", "en": "Quite right. Before the music starts up again, someone should say a few words. Let's drink to the village!", "it": "Giusto. Prima che la musica riprenda, qualcuno dovrebbe dire due parole. Brindiamo al paese!"},
+      { "choices": [
+        {"de": "Zum Wohl! Möge unser Dorf noch lange so zusammenhalten!", "sl": "Na zdravje! Naj naša vas še dolgo tako drži skupaj!", "en": "Your health! May our village stick together like this for a long time!", "it": "Salute! Che il nostro paese resti unito così ancora a lungo!", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Das war genau das richtige Wort.", "sl": "Na zdravje! To je bila prava beseda.", "en": "Your health! That was exactly the right word.", "it": "Salute! Era proprio la parola giusta."} },
+        {"de": "Zum Wohl! Möge unser Dorf noch lange so zusammenbrechen!", "sl": "Na zdravje! Naj se naša vas še dolgo tako sesipa!", "en": "Your health! May our village go on collapsing like this for a long time!", "it": "Salute! Che il nostro paese continui a crollare così ancora a lungo!", "why": {"en": "Zusammenbrechen is to collapse. You meant zusammenhalten, to stick together.", "sl": "Zusammenbrechen pomeni sesuti se. {m:Mislil|f:Mislila} si zusammenhalten, držati skupaj.", "it": "Zusammenbrechen vuol dire crollare. Intendevi zusammenhalten, restare uniti."},
+          "reply": {"face": "surprised", "de": "Zusammenbrechen? Da hast du dich wohl versprochen!", "sl": "Sesuti se? Tu si se pa najbrž {m:zarekel|f:zarekla}!", "en": "Collapsing? That must have been a slip of the tongue!", "it": "Crollare? Ti sarà scappata la parola sbagliata!"} }
+      ] },
+      {"who": "maxi", "face": "curious", "de": "Der Tanzboden ist voll! Und du stehst noch immer am Rand. Worauf wartest du, {learner}?", "sl": "Plesišče je polno! Ti pa še vedno stojiš ob robu. Na kaj čakaš, {learner}?", "en": "The dance floor is full! And you're still standing at the edge. What are you waiting for, {learner}?", "it": "La pista è piena! E tu stai ancora sul bordo. Che cosa aspetti, {learner}?"},
+      { "choices": [
+        {"de": "Ich warte nur auf die nächste Polka, dann tanze ich.", "sl": "Čakam samo na naslednjo polko, potem plešem.", "en": "I'm only waiting for the next polka, then I'll dance.", "it": "Aspetto solo la prossima polka, poi ballo.", "ok": true,
+          "reply": {"face": "happy", "de": "Die kommt sofort! Halt dich gut fest.", "sl": "Takoj bo! Dobro se drži.", "en": "It's coming right now! Hold on tight.", "it": "Arriva subito! Tieniti forte."} },
+        {"de": "Ich warte nur auf die nächste Polka, dann schlafe ich.", "sl": "Čakam samo na naslednjo polko, potem spim.", "en": "I'm only waiting for the next polka, then I'll sleep.", "it": "Aspetto solo la prossima polka, poi dormo.", "why": {"en": "Schlafen is to sleep. On a full dance floor you dance: tanzen.", "sl": "Schlafen pomeni spati. Na polnem plesišču se pleše: tanzen.", "it": "Schlafen vuol dire dormire. Su una pista piena si balla: tanzen."},
+          "reply": {"face": "laugh", "de": "Dann schläfst du? Bei dem Lärm schafft das nicht einmal der Hund!", "sl": "Potem spiš? Pri tem hrupu tega ne zmore niti pes!", "en": "Then you'll sleep? In this noise not even the dog could manage that!", "it": "Poi dormi? Con questo rumore non ci riesce nemmeno il cane!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Wer so lange getanzt hat, dem gehören die letzten Kasnudeln. Iss, iss!", "sl": "Kdor je tako dolgo plesal, temu pripadajo zadnji kasnudeln. Jej, jej!", "en": "Whoever has danced this long gets the last Kasnudeln. Eat, eat!", "it": "Chi ha ballato così a lungo si merita gli ultimi Kasnudeln. Mangia, mangia!"}
+    ] }
+  }
+}

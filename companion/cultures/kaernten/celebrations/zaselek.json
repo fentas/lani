@@ -1,0 +1,127 @@
+{
+  "schema": "lani.celebration/v0",
+  "age": "zaselek",
+  "language": "de",
+  "review": "Machine-written (Claude), not reviewed by a native speaker; to check: die Firstfeier against die Gleichenfeier in Carinthia (the sources found are Salzburg's and Tyrol's), der Firstbaum, der Firstspruch, die Dachdeckung",
+  "emoji": "🌲",
+  "name": {"de": "Die Firstfeier", "sl": "Likof", "en": "The Firstfeier: the topping-out party", "it": "La Firstfeier: la festa del tetto"},
+  "about": {"de": "Wenn der Dachstuhl steht und nur noch die Dachdeckung fehlt, schmücken die Zimmerleute den Firstbaum mit bunten Bändern und setzen ihn auf den First. Dann werden alle bewirtet, die mitgearbeitet haben.", "sl": "Ko ostrešje stoji in manjka le še kritina, tesarji okrasijo smrečico s pisanimi trakovi in jo postavijo na sleme. Potem pogostijo vse, ki so pomagali.", "en": "When the roof frame stands and only the roof covering is missing, the carpenters decorate the ridge tree with colourful ribbons and set it on the ridge. Then everyone who worked on the house is treated to a meal.", "it": "Quando la travatura è su e manca solo la copertura, i carpentieri decorano l'abetino con nastri colorati e lo mettono sul colmo. Poi si offre da mangiare a tutti quelli che hanno lavorato alla casa."},
+  "moment": {"de": "Auf den First des neuen Daches kommt der Firstbaum mit bunten Bändern.", "sl": "Na sleme nove strehe pride smrečica s pisanimi trakovi.", "en": "The ridge tree with its colourful ribbons goes up on the new roof's ridge.", "it": "Sul colmo del tetto nuovo viene messo l'abetino con i nastri colorati."},
+  "line": {"de": "Bei der Firstfeier haben wir auf das neue Dach angestoßen.", "sl": "Na likofu smo nazdravili novi strehi.", "en": "At the Firstfeier we drank to the new roof.", "it": "Alla festa del tetto abbiamo brindato al tetto nuovo."},
+  "memory": {"de": "unsere Firstfeier", "sl": "naš likof", "en": "our Firstfeier", "it": "la nostra festa del tetto"},
+  "decor": ["spruce", "bunting"],
+  "music": "valcek",
+  "place": "fire",
+  "host": "franz",
+  "guests": ["resi", "florian", "mitzi", "jakob"],
+  "pack": "feier-firstfeier",
+  "words": ["firstbaum", "band"],
+  "levels": {
+    "A1": { "lines": [
+      {"who": "franz", "face": "proud", "de": "Der Dachstuhl steht! Heute ist Firstfeier.", "sl": "Ostrešje stoji! Danes je likof.", "en": "The roof frame is up! Today is the Firstfeier.", "it": "La travatura è su! Oggi è la festa del tetto."},
+      {"who": "florian", "de": "Zuerst schmücken wir den Baum für das Dach. {learner}, was brauchen wir?", "sl": "Najprej okrasimo drevesce za streho. {learner}, kaj potrebujemo?", "en": "First we decorate the tree for the roof. {learner}, what do we need?", "it": "Prima decoriamo l'alberello per il tetto. {learner}, che cosa ci serve?"},
+      { "choices": [
+        {"de": "Wir brauchen bunte Bänder.", "sl": "Potrebujemo pisane trakove.", "en": "We need colourful ribbons.", "it": "Ci servono dei nastri colorati.", "ok": true,
+          "reply": {"face": "happy", "de": "Ja! Rote, gelbe und blaue!", "sl": "Ja! Rdeče, rumene in modre!", "en": "Yes! Red, yellow and blue ones!", "it": "Sì! Rossi, gialli e blu!"} },
+        {"de": "Wir brauchen bunte Socken.", "sl": "Potrebujemo pisane nogavice.", "en": "We need colourful socks.", "it": "Ci servono dei calzini colorati.", "why": {"en": "Socken are socks. To decorate the tree you need ribbons: Bänder.", "sl": "Socken so nogavice. Za okrasitev drevesca potrebuješ trakove: Bänder.", "it": "Socken sono i calzini. Per decorare l'alberello ci vogliono i nastri: Bänder."},
+          "reply": {"face": "laugh", "de": "Socken? Der Baum friert doch nicht!", "sl": "Nogavice? Drevo vendar ne zebe!", "en": "Socks? The tree isn't cold!", "it": "Calzini? L'albero mica ha freddo!"} }
+      ] },
+      {"who": "franz", "de": "Schön! Jetzt hinauf damit, auf die Leiter.", "sl": "Lepo! Zdaj pa gor z njim, na lestev.", "en": "Nice! Now up with it, onto the ladder.", "it": "Bene! Ora su, sulla scala."},
+      {"who": "jakob", "face": "curious", "de": "Schau, {learner}! Was ist jetzt oben auf dem Dach?", "sl": "Poglej, {learner}! Kaj je zdaj zgoraj na strehi?", "en": "Look, {learner}! What's up on the roof now?", "it": "Guarda, {learner}! Che cosa c'è adesso sul tetto?"},
+      { "choices": [
+        {"de": "Oben ist der Firstbaum.", "sl": "Zgoraj je smrečica.", "en": "The ridge tree is up there.", "it": "Lassù c'è l'abetino del colmo.", "ok": true,
+          "reply": {"face": "happy", "de": "Ja! Und die Bänder wehen im Wind.", "sl": "Ja! In trakovi plapolajo v vetru.", "en": "Yes! And the ribbons are fluttering in the wind.", "it": "Sì! E i nastri sventolano nel vento."} },
+        {"de": "Oben ist der Kater.", "sl": "Zgoraj je maček.", "en": "The tomcat is up there.", "it": "Lassù c'è il gatto.", "why": {"en": "Der Kater is a tomcat. What stands on the ridge is the ridge tree: der Firstbaum.", "sl": "Der Kater je maček. Na slemenu stoji smrečica: der Firstbaum.", "it": "Der Kater è il gatto. Sul colmo c'è l'abetino: der Firstbaum."},
+          "reply": {"face": "laugh", "de": "Der Kater? Der schläft doch beim Ofen!", "sl": "Maček? Ta vendar spi pri peči!", "en": "The tomcat? He's asleep by the stove!", "it": "Il gatto? Ma quello dorme vicino alla stufa!"} }
+      ] },
+      {"who": "franz", "de": "Jetzt stoßen wir an. Auf alle, die gebaut haben!", "sl": "Zdaj pa nazdravimo. Na vse, ki so gradili!", "en": "Now let's drink a toast. To everyone who built it!", "it": "E adesso brindiamo. A tutti quelli che hanno costruito!"},
+      { "choices": [
+        {"de": "Prost!", "sl": "Na zdravje!", "en": "Cheers!", "it": "Salute!", "ok": true,
+          "reply": {"face": "happy", "de": "Prost! Das Dach soll lange halten.", "sl": "Na zdravje! Naj streha dolgo drži.", "en": "Cheers! May the roof last a long time.", "it": "Salute! Che il tetto duri a lungo."} },
+        {"de": "Guten Morgen!", "sl": "Dobro jutro!", "en": "Good morning!", "it": "Buongiorno!", "why": {"en": "Guten Morgen is a greeting. Answering a toast, you say: Prost!", "sl": "Guten Morgen je pozdrav. Na zdravico odgovoriš: Prost!", "it": "Guten Morgen è un saluto. A un brindisi si risponde: Prost!"},
+          "reply": {"face": "laugh", "de": "Guten Morgen? Wir sind doch schon den ganzen Tag da!", "sl": "Dobro jutro? Saj smo tu že ves dan!", "en": "Good morning? We've been here all day!", "it": "Buongiorno? Ma siamo qui da tutto il giorno!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Der Tisch ist voll. Kommt, esst und trinkt!", "sl": "Miza je polna. Pridite, jejte in pijte!", "en": "The table is full. Come, eat and drink!", "it": "La tavola è piena. Venite, mangiate e bevete!"}
+    ] },
+    "A2": { "lines": [
+      {"who": "franz", "face": "proud", "de": "{learner}, schau! Der Dachstuhl steht, und nur die Ziegel fehlen noch. Das heißt: Firstfeier!", "sl": "{learner}, poglej! Ostrešje stoji, manjka le še opeka. To pomeni likof!", "en": "{learner}, look! The roof frame is up, and only the tiles are missing. That means a Firstfeier!", "it": "{learner}, guarda! La travatura è su e mancano solo le tegole. Vuol dire festa del tetto!"},
+      {"who": "mitzi", "de": "Auf den First kommt eine kleine Fichte. Das ist der Firstbaum.", "sl": "Na sleme pride majhna smreka. To je smrečica za sleme.", "en": "A little spruce goes on the ridge. That's the ridge tree.", "it": "Sul colmo va un piccolo abete. È l'abetino del colmo."},
+      {"who": "florian", "de": "Aber er ist noch ganz kahl. Was binden wir an die Zweige?", "sl": "Ampak je še čisto gola. Kaj privežemo na veje?", "en": "But it's still quite bare. What shall we tie to the branches?", "it": "Ma è ancora tutto spoglio. Che cosa leghiamo ai rami?"},
+      { "choices": [
+        {"de": "Binden wir bunte Bänder an die Zweige!", "sl": "Privežimo pisane trakove na veje!", "en": "Let's tie colourful ribbons to the branches!", "it": "Leghiamo dei nastri colorati ai rami!", "ok": true,
+          "reply": {"face": "happy", "de": "Gute Idee! Jetzt wehen sie schon im Wind.", "sl": "Dobra zamisel! Zdaj že plapolajo v vetru.", "en": "Good idea! Now they're fluttering in the wind.", "it": "Buona idea! Adesso sventolano già nel vento."} },
+        {"de": "Binden wir bunte Hausschuhe an die Zweige!", "sl": "Privežimo pisane copate na veje!", "en": "Let's tie colourful slippers to the branches!", "it": "Leghiamo delle pantofole colorate ai rami!", "why": {"en": "Hausschuhe are slippers. On the ridge tree you tie ribbons: Bänder.", "sl": "Hausschuhe so copati. Na smrečico privežeš trakove: Bänder.", "it": "Hausschuhe sono le pantofole. All'abetino si legano i nastri: Bänder."},
+          "reply": {"face": "laugh", "de": "Hausschuhe? Ha, der Baum geht doch nicht spazieren!", "sl": "Copate? Ha, drevo vendar ne gre na sprehod!", "en": "Slippers? Ha, the tree isn't going for a walk!", "it": "Pantofole? Ah, l'albero mica va a passeggio!"} }
+      ] },
+      {"who": "franz", "de": "Die Zimmerleute gehen jetzt hinauf. Wer gibt ihnen den Baum?", "sl": "Tesarji gredo zdaj gor. Kdo jim poda drevo?", "en": "The carpenters are going up now. Who'll hand them the tree?", "it": "I carpentieri salgono adesso. Chi gli passa l'albero?"},
+      { "choices": [
+        {"de": "Ich! Hier ist der Firstbaum.", "sl": "Jaz! Tu je smrečica.", "en": "Me! Here's the ridge tree.", "it": "Io! Ecco l'abetino del colmo.", "ok": true,
+          "reply": {"face": "happy", "de": "Danke! Jetzt kommt er auf den First.", "sl": "Hvala! Zdaj pride na sleme.", "en": "Thanks! Now it goes on the ridge.", "it": "Grazie! Adesso va sul colmo."} },
+        {"de": "Ich! Hier ist der Löffel.", "sl": "Jaz! Tu je žlica.", "en": "Me! Here's the spoon.", "it": "Io! Ecco il cucchiaio.", "why": {"en": "Der Löffel is a spoon. The tree for the ridge is der Firstbaum.", "sl": "Der Löffel je žlica. Drevo za sleme je der Firstbaum.", "it": "Der Löffel è il cucchiaio. L'albero per il colmo è der Firstbaum."},
+          "reply": {"face": "laugh", "de": "Der Löffel? Den brauchen wir erst beim Essen!", "sl": "Žlica? To potrebujemo šele pri jedi!", "en": "The spoon? We won't need that until we eat!", "it": "Il cucchiaio? Quello serve solo a tavola!"} },
+        {"de": "Ich! Hier ist den Firstbaum.", "sl": "Jaz! Tu je smrečica.", "en": "Me! Here's the ridge tree.", "it": "Io! Ecco l'abetino del colmo.", "grammar": "akkusativ", "why": {"en": "After ist comes the nominative: der, not den.", "sl": "Za ist stoji imenovalnik: der, ne den.", "it": "Dopo ist viene il nominativo: der, non den."},
+          "reply": {"face": "thinking", "de": "Hm, fast. Das Wort stimmt, aber der Rest wackelt noch.", "sl": "Hm, skoraj. Beseda je prava, ostalo pa še šepa.", "en": "Hmm, nearly. The word's right, but the rest is still wobbly.", "it": "Mm, quasi. La parola è giusta, ma il resto traballa ancora."} }
+      ] },
+      {"who": "franz", "face": "happy", "de": "Jetzt kommt der Spruch: Wir danken allen, die mitgearbeitet haben, und wünschen dem Haus alles Gute!", "sl": "Zdaj pride zdravica: zahvaljujemo se vsem, ki so pomagali, in hiši želimo vse dobro!", "en": "Now comes the verse: we thank everyone who worked on it, and we wish the house all the best!", "it": "Adesso viene il discorso: ringraziamo tutti quelli che hanno lavorato e auguriamo ogni bene alla casa!"},
+      { "choices": [
+        {"de": "Zum Wohl, und viel Glück im neuen Haus!", "sl": "Na zdravje in srečno v novi hiši!", "en": "Your health, and good luck in the new house!", "it": "Salute, e buona fortuna nella casa nuova!", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Schön gesagt.", "sl": "Na zdravje! Lepo povedano.", "en": "Your health! Nicely said.", "it": "Salute! Ben detto."} },
+        {"de": "Zum Wohl, und gute Reise!", "sl": "Na zdravje in srečno pot!", "en": "Your health, and have a good trip!", "it": "Salute, e buon viaggio!", "why": {"en": "Gute Reise is said to someone leaving on a journey. For a new house: viel Glück im neuen Haus.", "sl": "Gute Reise rečeš nekomu, ki odhaja na pot. Za novo hišo: viel Glück im neuen Haus.", "it": "Gute Reise si dice a chi parte per un viaggio. Per una casa nuova: viel Glück im neuen Haus."},
+          "reply": {"face": "laugh", "de": "Gute Reise? Es fährt doch niemand weg!", "sl": "Srečno pot? Saj nihče ne gre nikamor!", "en": "A good trip? Nobody's going anywhere!", "it": "Buon viaggio? Ma non parte nessuno!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Und jetzt alle zu Tisch! Wer mitgebaut hat, isst heute mit.", "sl": "Zdaj pa vsi k mizi! Kdor je pomagal graditi, danes je z nami.", "en": "And now everyone to the table! Whoever helped build it eats with us today.", "it": "E adesso tutti a tavola! Chi ha aiutato a costruire, oggi mangia con noi."}
+    ] },
+    "B1": { "lines": [
+      {"who": "franz", "face": "proud", "de": "Viele Wochen haben wir an diesem Haus gearbeitet, und heute steht endlich der Dachstuhl.", "sl": "Veliko tednov smo delali na tej hiši in danes končno stoji ostrešje.", "en": "We've worked on this house for many weeks, and today the roof frame is finally up.", "it": "Abbiamo lavorato a questa casa per molte settimane e oggi finalmente la travatura è su."},
+      {"who": "mitzi", "de": "Wusstest du, dass man das Firstfeier nennt? In Österreich sagt man auch Gleichenfeier oder Dachgleiche.", "sl": "Si {m:vedel|f:vedela}, da se temu reče Firstfeier? V Avstriji pravijo tudi Gleichenfeier ali Dachgleiche.", "en": "Did you know it's called a Firstfeier? In Austria people also say Gleichenfeier or Dachgleiche.", "it": "Lo sapevi che si chiama Firstfeier? In Austria si dice anche Gleichenfeier o Dachgleiche."},
+      {"who": "florian", "de": "Bevor der Baum hinaufkommt, muss er geschmückt werden. Womit macht man das?", "sl": "Preden gre drevesce gor, ga je treba okrasiti. S čim se to naredi?", "en": "Before the tree goes up, it has to be decorated. What do you do that with?", "it": "Prima che l'alberello salga, bisogna decorarlo. Con che cosa si fa?"},
+      { "choices": [
+        {"de": "Man schmückt ihn mit bunten Bändern.", "sl": "Okrasi se ga s pisanimi trakovi.", "en": "You decorate it with colourful ribbons.", "it": "Si decora con nastri colorati.", "ok": true,
+          "reply": {"face": "happy", "de": "Genau, das machen die Zimmerleute selbst.", "sl": "Tako je, to naredijo tesarji sami.", "en": "Exactly, the carpenters do that themselves.", "it": "Esatto, lo fanno i carpentieri stessi."} },
+        {"de": "Man schmückt ihn mit bunten Würsten.", "sl": "Okrasi se ga s pisanimi klobasami.", "en": "You decorate it with colourful sausages.", "it": "Si decora con salsicce colorate.", "why": {"en": "Würste are sausages. The ridge tree is decorated with ribbons: Bänder.", "sl": "Würste so klobase. Smrečico se okrasi s trakovi: Bänder.", "it": "Würste sono le salsicce. L'abetino si decora con i nastri: Bänder."},
+          "reply": {"face": "laugh", "de": "Mit Würsten? Dann klettert der Hund aufs Dach!", "sl": "S klobasami? Potem bo pes splezal na streho!", "en": "Sausages? Then the dog will climb onto the roof!", "it": "Con le salsicce? Allora il cane sale sul tetto!"} }
+      ] },
+      {"who": "jakob", "face": "curious", "de": "Stell dir vor, du bist ganz oben. Was setzt du auf den First?", "sl": "Predstavljaj si, da si čisto zgoraj. Kaj postaviš na sleme?", "en": "Imagine you're right at the top. What do you put on the ridge?", "it": "Immagina di essere proprio in cima. Che cosa metti sul colmo?"},
+      { "choices": [
+        {"de": "Ich setze den Firstbaum auf den First.", "sl": "Na sleme postavim smrečico.", "en": "I put the ridge tree on the ridge.", "it": "Sul colmo metto l'abetino.", "ok": true,
+          "reply": {"face": "happy", "de": "Damit ihn jeder im Tal sehen kann!", "sl": "Da ga lahko vidi vsak v dolini!", "en": "So that everyone in the valley can see it!", "it": "Così lo vedono tutti nella valle!"} },
+        {"de": "Ich setze den Schneemann auf den First.", "sl": "Na sleme postavim sneženega moža.", "en": "I put the snowman on the ridge.", "it": "Sul colmo metto il pupazzo di neve.", "why": {"en": "Der Schneemann is a snowman. On the ridge goes the ridge tree: der Firstbaum.", "sl": "Der Schneemann je sneženi mož. Na sleme pride smrečica: der Firstbaum.", "it": "Der Schneemann è il pupazzo di neve. Sul colmo va l'abetino: der Firstbaum."},
+          "reply": {"face": "laugh", "de": "Den Schneemann? Der schmilzt doch in der Sonne!", "sl": "Sneženega moža? Ta se vendar stopi na soncu!", "en": "The snowman? He'd melt in the sun!", "it": "Il pupazzo di neve? Ma quello si scioglie al sole!"} }
+      ] },
+      {"who": "franz", "de": "Und jetzt der Spruch: Wir danken allen, die geholfen haben, und bitten um Segen für dieses Haus.", "sl": "In zdaj zdravica: zahvaljujemo se vsem, ki so pomagali, in prosimo za blagoslov te hiše.", "en": "And now the verse: we thank everyone who helped, and we ask a blessing on this house.", "it": "E adesso il discorso: ringraziamo tutti quelli che hanno aiutato e chiediamo la benedizione per questa casa."},
+      { "choices": [
+        {"de": "Zum Wohl! Möge das Dach lange halten!", "sl": "Na zdravje! Naj streha dolgo drži!", "en": "Your health! May the roof last a long time!", "it": "Salute! Che il tetto duri a lungo!", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Das wünschen wir uns alle.", "sl": "Na zdravje! To si želimo vsi.", "en": "Your health! That's what we all wish.", "it": "Salute! È quello che vogliamo tutti."} },
+        {"de": "Zum Wohl! Möge das Dach bald einstürzen!", "sl": "Na zdravje! Naj se streha kmalu podre!", "en": "Your health! May the roof soon fall in!", "it": "Salute! Che il tetto crolli presto!", "why": {"en": "Einstürzen is to collapse. A toast wishes the opposite: lange halten, last a long time.", "sl": "Einstürzen pomeni zrušiti se. Zdravica želi nasprotno: lange halten, dolgo držati.", "it": "Einstürzen vuol dire crollare. Un brindisi augura il contrario: lange halten, durare a lungo."},
+          "reply": {"face": "surprised", "de": "Einstürzen? Das wollen wir lieber nicht!", "sl": "Podreti? Tega pa raje ne!", "en": "Fall in? We'd rather it didn't!", "it": "Crollare? Meglio di no!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Wer mitgeholfen hat, wird heute satt. Das ist bei einer Firstfeier Ehrensache.", "sl": "Kdor je pomagal, bo danes sit. To je na likofu častna stvar.", "en": "Whoever helped goes home full today. At a Firstfeier that's a matter of honour.", "it": "Chi ha aiutato oggi mangia a sazietà. Alla festa del tetto è una questione d'onore."}
+    ] },
+    "B2": { "lines": [
+      {"who": "franz", "face": "proud", "de": "Dass dieser Dachstuhl so schnell aufgestellt werden würde, hätte ich nicht für möglich gehalten.", "sl": "Da bo to ostrešje tako hitro postavljeno, se mi ni zdelo mogoče.", "en": "I wouldn't have thought it possible that this roof frame would go up so fast.", "it": "Non avrei creduto possibile che questa travatura venisse montata così in fretta."},
+      {"who": "mitzi", "de": "Den Firstbaum setzt man erst, wenn nur noch die Dachdeckung fehlt. So wird es jedenfalls erzählt.", "sl": "Smrečico postavijo šele, ko manjka le še kritina. Tako vsaj pravijo.", "en": "The ridge tree only goes up when just the roof covering is missing. That's what they say, anyway.", "it": "L'abetino si mette solo quando manca soltanto la copertura. Almeno così si racconta."},
+      {"who": "florian", "de": "Ungeschmückt kann er aber nicht hinauf. Was schlägst du vor, {learner}?", "sl": "Neokrašena pa ne more gor. Kaj predlagaš, {learner}?", "en": "But it can't go up undecorated. What do you suggest, {learner}?", "it": "Ma senza decorazioni non può salire. Che cosa proponi, {learner}?"},
+      { "choices": [
+        {"de": "Ich schlage vor, ihn mit bunten Bändern zu schmücken.", "sl": "Predlagam, da jo okrasimo s pisanimi trakovi.", "en": "I suggest decorating it with colourful ribbons.", "it": "Propongo di decorarlo con nastri colorati.", "ok": true,
+          "reply": {"face": "happy", "de": "Einverstanden. Rot und Gelb sieht man vom Tal aus am besten.", "sl": "Velja. Rdečo in rumeno se iz doline najbolje vidi.", "en": "Agreed. Red and yellow show up best from the valley.", "it": "D'accordo. Il rosso e il giallo si vedono meglio dalla valle."} },
+        {"de": "Ich schlage vor, ihn mit bunten Rechnungen zu schmücken.", "sl": "Predlagam, da jo okrasimo s pisanimi računi.", "en": "I suggest decorating it with colourful bills.", "it": "Propongo di decorarlo con fatture colorate.", "why": {"en": "Rechnungen are bills. The ridge tree gets ribbons: Bänder.", "sl": "Rechnungen so računi. Smrečica dobi trakove: Bänder.", "it": "Rechnungen sono le fatture. All'abetino si mettono i nastri: Bänder."},
+          "reply": {"face": "laugh", "de": "Rechnungen? Die bekommt der Bauherr noch früh genug!", "sl": "Računi? Te bo gospodar dobil še dovolj zgodaj!", "en": "Bills? The owner will get those soon enough!", "it": "Le fatture? Quelle il padrone di casa le riceverà fin troppo presto!"} }
+      ] },
+      {"who": "franz", "de": "Die Zimmerleute warten schon. Wer reicht ihnen hinauf, was auf den First gehört?", "sl": "Tesarji že čakajo. Kdo jim poda gor, kar spada na sleme?", "en": "The carpenters are waiting. Who'll hand up to them what belongs on the ridge?", "it": "I carpentieri aspettano già. Chi gli passa su quello che va sul colmo?"},
+      { "choices": [
+        {"de": "Das mache ich: Ich reiche ihnen den Firstbaum hinauf.", "sl": "To naredim jaz: podam jim smrečico.", "en": "I'll do that: I'll hand the ridge tree up to them.", "it": "Lo faccio io: gli passo su l'abetino.", "ok": true,
+          "reply": {"face": "happy", "de": "Vorsichtig, die Bänder dürfen nicht hängen bleiben.", "sl": "Previdno, trakovi se ne smejo zatakniti.", "en": "Careful, the ribbons mustn't get caught.", "it": "Attenzione, i nastri non devono impigliarsi."} },
+        {"de": "Das mache ich: Ich reiche ihnen den Kachelofen hinauf.", "sl": "To naredim jaz: podam jim krušno peč.", "en": "I'll do that: I'll hand the tiled stove up to them.", "it": "Lo faccio io: gli passo su la stufa di maiolica.", "why": {"en": "Der Kachelofen is a tiled stove, and it stays indoors. On the ridge goes der Firstbaum.", "sl": "Der Kachelofen je krušna peč in ostane v hiši. Na sleme pride der Firstbaum.", "it": "Der Kachelofen è la stufa di maiolica e resta in casa. Sul colmo va der Firstbaum."},
+          "reply": {"face": "laugh", "de": "Den Kachelofen? Da brauchst du aber mehr als zwei Hände!", "sl": "Peč? Za to pa potrebuješ več kot dve roki!", "en": "The tiled stove? You'll need more than two hands for that!", "it": "La stufa? Allora ti servono più di due mani!"} }
+      ] },
+      {"who": "franz", "de": "Nun folgt der Firstspruch. Gedankt wird allen, die mitgearbeitet haben, und das Haus wird unter den Segen gestellt.", "sl": "Zdaj sledi zdravica s slemena. Zahvala gre vsem, ki so pomagali, hiša pa se izroči blagoslovu.", "en": "Now comes the ridge verse. Thanks go to everyone who worked on it, and the house is placed under a blessing.", "it": "Ora segue il discorso dal colmo. Si ringraziano tutti quelli che hanno lavorato e la casa viene posta sotto la benedizione."},
+      { "choices": [
+        {"de": "Zum Wohl! Möge dieses Haus allen, die hier wohnen, Glück bringen!", "sl": "Na zdravje! Naj ta hiša prinese srečo vsem, ki bodo tu živeli!", "en": "Your health! May this house bring luck to all who live here!", "it": "Salute! Che questa casa porti fortuna a tutti quelli che ci abitano!", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Besser hätte man es nicht sagen können.", "sl": "Na zdravje! Bolje se ne bi dalo povedati.", "en": "Your health! It couldn't have been said better.", "it": "Salute! Non si poteva dire meglio."} },
+        {"de": "Zum Wohl! Möge dieses Haus allen, die hier wohnen, Schulden bringen!", "sl": "Na zdravje! Naj ta hiša prinese dolgove vsem, ki bodo tu živeli!", "en": "Your health! May this house bring debts to all who live here!", "it": "Salute! Che questa casa porti debiti a tutti quelli che ci abitano!", "why": {"en": "Schulden are debts. A toast wishes luck: Glück.", "sl": "Schulden so dolgovi. Zdravica želi srečo: Glück.", "it": "Schulden sono i debiti. Un brindisi augura fortuna: Glück."},
+          "reply": {"face": "laugh", "de": "Schulden? Das will hier wirklich niemand hören!", "sl": "Dolgovi? Tega tu res nihče noče slišati!", "en": "Debts? Nobody here wants to hear that!", "it": "Debiti? Questo qui non lo vuole sentire nessuno!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Kein Helfer soll sagen können, er sei hungrig nach Hause gegangen. Also setzt euch!", "sl": "Noben pomočnik ne sme reči, da je šel lačen domov. Zato sedite!", "en": "No helper must be able to say they went home hungry. So sit down!", "it": "Nessuno che ha aiutato deve poter dire di essere tornato a casa affamato. Quindi sedetevi!"}
+    ] }
+  }
+}
