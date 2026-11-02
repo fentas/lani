@@ -1,0 +1,1050 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "imperatives",
+  "language": "en",
+  "level": "A2",
+  "emoji": "📢",
+  "title": {
+    "en": "Sit down! Don't run! Let's go!",
+    "de": "Der Imperativ: sit down, don't run",
+    "sl": "Velelnik: sit down, don't run",
+    "it": "L'imperativo: sit down, don't run"
+  },
+  "goal": {
+    "sl": "Poveš in prosiš, naj kdo nekaj naredi (Sit down! Shut the gate, please.), naj česa ne dela (Don't run!), in predlagaš kaj skupnega (Let's go!).",
+    "de": "Du sagst und bittest, dass jemand etwas tut (Sit down! Shut the gate, please.) oder nicht tut (Don't run!), und schlägst etwas Gemeinsames vor (Let's go!).",
+    "it": "Dici e chiedi a qualcuno di fare una cosa (Sit down! Shut the gate, please.) o di non farla (Don't run!), e proponi qualcosa da fare insieme (Let's go!).",
+    "en": "You can tell and ask people to do something (Sit down! Shut the gate, please.), tell them not to (Don't run!) and suggest something together (Let's go!)."
+  },
+  "grammar": [
+    "imperatives"
+  ],
+  "words": [
+    "sit down",
+    "listen",
+    "shut",
+    "wait",
+    "don't",
+    "let's",
+    "please",
+    "be careful",
+    "be quiet",
+    "be late",
+    "run",
+    "touch",
+    "mind",
+    "step",
+    "turn left",
+    "go straight on",
+    "cross",
+    "stir",
+    "gate",
+    "boot",
+    "leave",
+    "wake",
+    "shout",
+    "feed",
+    "iron",
+    "always",
+    "never",
+    "come in",
+    "stay",
+    "road"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "kaj hočeš",
+          "de": "was du willst",
+          "it": "che cosa vuoi",
+          "en": "what you want"
+        },
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Ko komu rečeš, kaj naj naredi, vzameš osnovno obliko glagola, brez **you**: **Sit down!** (Sedi! Sedite!) **Listen!** (Poslušaj! Poslušajte!) **Shut the gate.** (Zapri vrata.) Oblika je ena sama: za eno osebo, za več ljudi in za vikanje.",
+          "de": "Wenn du jemandem sagst, was zu tun ist, nimmst du die Grundform des Verbs, ohne **you**: **Sit down!** (Setz dich! Setzt euch! Setzen Sie sich!) **Listen!** (Hör zu!) **Shut the gate.** (Mach das Gatter zu.) Es gibt nur diese eine Form: für eine Person, für mehrere und für Fremde.",
+          "it": "Per dire a qualcuno che cosa fare usi la forma base del verbo, senza **you**: **Sit down!** (Siediti! Sedetevi! Si sieda!) **Listen!** (Ascolta! Ascoltate!) **Shut the gate.** (Chiudi il cancello.) La forma è una sola: per una persona, per tante e per chi dai del Lei.",
+          "en": "To tell someone what to do, use the base form of the verb, with no **you**: **Sit down!** **Listen!** **Shut the gate.** It is one form for one person, for many and for a stranger."
+        },
+        "examples": [
+          {
+            "en": "Sit down, Jack.",
+            "sl": "Sedi, Jack.",
+            "de": "Setz dich, Jack.",
+            "it": "Siediti, Jack."
+          },
+          {
+            "en": "Listen to Mrs Hartley, everyone!",
+            "sl": "Poslušajte gospo Hartley, vsi!",
+            "de": "Hört alle Mrs Hartley zu!",
+            "it": "Ascoltate tutti la signora Hartley!"
+          },
+          {
+            "en": "Shut the gate, Sam.",
+            "sl": "Zapri vrata, Sam.",
+            "de": "Mach das Gatter zu, Sam.",
+            "it": "Chiudi il cancello, Sam."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "naredi to",
+              "de": "tu es",
+              "it": "fallo",
+              "en": "do it"
+            },
+            {
+              "sl": "osnovna oblika",
+              "de": "Grundform",
+              "it": "forma base",
+              "en": "base form"
+            },
+            "Sit down!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperatives",
+          "prompt": "___ down, please!",
+          "options": [
+            "Sit",
+            "Sits",
+            "Sitting"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Osnovna oblika, brez -s**\n- Sit down! · Listen!",
+            "de": "**Grundform, ohne -s**\n- Sit down! · Listen!",
+            "it": "**Forma base, senza -s**\n- Sit down! · Listen!",
+            "en": "**The base form, no -s**\n- Sit down! · Listen!"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za prepoved dodaš **Don't** pred osnovno obliko: **Don't run!** (Ne teci!) **Don't touch the iron!** (Ne dotikaj se železa!) Nikoli *Not run!*, nikoli *Don't runs!* Na napisih je daljše **Do not**: **Do not feed the horses.** (Ne hranite konj.)",
+          "de": "Für ein Verbot kommt **Don't** vor die Grundform: **Don't run!** (Lauf nicht!) **Don't touch the iron!** (Fass das Eisen nicht an!) Nie *Not run!*, nie *Don't runs!* Auf Schildern steht die lange Form **Do not**: **Do not feed the horses.** (Pferde nicht füttern.)",
+          "it": "Per vietare metti **Don't** davanti alla forma base: **Don't run!** (Non correre!) **Don't touch the iron!** (Non toccare il ferro!) Mai *Not run!*, mai *Don't runs!* Sui cartelli c'è la forma lunga **Do not**: **Do not feed the horses.** (Non dare da mangiare ai cavalli.)",
+          "en": "For no, put **Don't** before the base form: **Don't run!** **Don't touch the iron!** Never *Not run!*, never *Don't runs!* Signs have the long form, **Do not**: **Do not feed the horses.**"
+        },
+        "examples": [
+          {
+            "en": "Don't run in the kitchen, Alfie!",
+            "sl": "Ne teci po kuhinji, Alfie!",
+            "de": "Lauf nicht in der Küche herum, Alfie!",
+            "it": "Non correre in cucina, Alfie!"
+          },
+          {
+            "en": "Don't touch the iron, it's hot!",
+            "sl": "Ne dotikaj se železa, vroče je!",
+            "de": "Fass das Eisen nicht an, es ist heiß!",
+            "it": "Non toccare il ferro, è caldo!"
+          },
+          {
+            "en": "Do not feed the horses.",
+            "sl": "Ne hranite konj.",
+            "de": "Pferde nicht füttern.",
+            "it": "Non dare da mangiare ai cavalli."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "ne delaj tega",
+              "de": "tu es nicht",
+              "it": "non farlo",
+              "en": "don't do it"
+            },
+            {
+              "sl": "Don't + osnovna oblika",
+              "de": "Don't + Grundform",
+              "it": "Don't + forma base",
+              "en": "Don't + base form"
+            },
+            "Don't run!"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "imperatives",
+          "text": "Alfie, ___ run in the kitchen!",
+          "accept": [
+            "don't"
+          ],
+          "hint": {
+            "sl": "ne, prepoved",
+            "de": "nicht, ein Verbot",
+            "it": "no, un divieto",
+            "en": "no, not"
+          },
+          "explain": {
+            "sl": "**Don't + osnovna oblika**\n- Don't run! · Don't shout!",
+            "de": "**Don't + Grundform**\n- Don't run! · Don't shout!",
+            "it": "**Don't + forma base**\n- Don't run! · Don't shout!",
+            "en": "**Don't + the base form**\n- Don't run! · Don't shout!"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Tudi **be** gre tako: **Be quiet!** (Bodi tiho!) **Be careful!** (Pazi!) **Don't be late!** (Ne zamudi!) Nikoli *Don't late!* **Always** in **never** gresta na začetek: **Always shut the gate.** (Vedno zapri vrata.) **Never leave the gate open.** (Nikoli ne puščaj vrat odprtih.)",
+          "de": "**be** geht genauso: **Be quiet!** (Sei still!) **Be careful!** (Pass auf!) **Don't be late!** (Komm nicht zu spät!) Nie *Don't late!* **Always** und **never** kommen nach vorn: **Always shut the gate.** (Mach das Gatter immer zu.) **Never leave the gate open.** (Lass das Gatter nie offen.)",
+          "it": "Anche **be** funziona così: **Be quiet!** (Fai silenzio!) **Be careful!** (Fai attenzione!) **Don't be late!** (Non fare tardi!) Mai *Don't late!* **Always** e **never** vanno all'inizio: **Always shut the gate.** (Chiudi sempre il cancello.) **Never leave the gate open.** (Non lasciare mai aperto il cancello.)",
+          "en": "**be** works the same: **Be quiet!** **Be careful!** **Don't be late!** Never *Don't late!* **Always** and **never** go first: **Always shut the gate.** **Never leave the gate open.**"
+        },
+        "examples": [
+          {
+            "en": "Be quiet, the bees hear everything.",
+            "sl": "Bodi tiho, čebele vse slišijo.",
+            "de": "Sei still, die Bienen hören alles.",
+            "it": "Fai silenzio, le api sentono tutto."
+          },
+          {
+            "en": "Be careful on the fell, it's wet.",
+            "sl": "Pazi na hribu, mokro je.",
+            "de": "Pass am Berg auf, es ist nass.",
+            "it": "Fai attenzione sul monte, è bagnato."
+          },
+          {
+            "en": "Don't be late for the bus!",
+            "sl": "Ne zamudi avtobusa!",
+            "de": "Komm nicht zu spät zum Bus!",
+            "it": "Non perdere l'autobus!"
+          },
+          {
+            "en": "Always shut the gate.",
+            "sl": "Vedno zapri vrata.",
+            "de": "Mach das Gatter immer zu.",
+            "it": "Chiudi sempre il cancello."
+          }
+        ],
+        "rows": [
+          [
+            "be",
+            "Be …, Don't be …",
+            "Be careful! Don't be late!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperatives",
+          "prompt": "___ careful, the road is wet!",
+          "options": [
+            "Be",
+            "Are",
+            "Don't"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**be v osnovni obliki: Be careful!**\n- Be quiet! · Don't be late!",
+            "de": "**be in der Grundform: Be careful!**\n- Be quiet! · Don't be late!",
+            "it": "**be nella forma base: Be careful!**\n- Be quiet! · Don't be late!",
+            "en": "**be in the base form: Be careful!**\n- Be quiet! · Don't be late!"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ko predlagaš kaj zase in za druge, rečeš **Let's** (let us) z osnovno obliko: **Let's go!** (Pojdimo!) **Let's have a cup of tea.** (Spijmo skodelico čaja.) Nikoli *Let's to go*, nikoli *Let's going*. Za ne je **Let's not**: **Let's not wait.** (Ne čakajmo.)",
+          "de": "Wenn du etwas für euch alle vorschlägst, sagst du **Let's** (let us) mit der Grundform: **Let's go!** (Gehen wir!) **Let's have a cup of tea.** (Trinken wir eine Tasse Tee.) Nie *Let's to go*, nie *Let's going*. Verneint: **Let's not**: **Let's not wait.** (Warten wir nicht.)",
+          "it": "Per proporre qualcosa a chi è con te dici **Let's** (let us) con la forma base: **Let's go!** (Andiamo!) **Let's have a cup of tea.** (Prendiamo una tazza di tè.) Mai *Let's to go*, mai *Let's going*. Al negativo: **Let's not**: **Let's not wait.** (Non aspettiamo.)",
+          "en": "To suggest something for you and the others, say **Let's** (let us) + the base form: **Let's go!** **Let's have a cup of tea.** Never *Let's to go*, never *Let's going*. For no: **Let's not wait.**"
+        },
+        "examples": [
+          {
+            "en": "It's late. Let's go home.",
+            "sl": "Pozno je. Pojdimo domov.",
+            "de": "Es ist spät. Gehen wir nach Hause.",
+            "it": "È tardi. Andiamo a casa."
+          },
+          {
+            "en": "Let's have a cup of tea.",
+            "sl": "Spijmo skodelico čaja.",
+            "de": "Trinken wir eine Tasse Tee.",
+            "it": "Prendiamo una tazza di tè."
+          },
+          {
+            "en": "Let's not wait for the bus.",
+            "sl": "Ne čakajmo avtobusa.",
+            "de": "Warten wir nicht auf den Bus.",
+            "it": "Non aspettiamo l'autobus."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "skupaj",
+              "de": "gemeinsam",
+              "it": "insieme",
+              "en": "together"
+            },
+            {
+              "sl": "Let's + osnovna oblika",
+              "de": "Let's + Grundform",
+              "it": "Let's + forma base",
+              "en": "Let's + base form"
+            },
+            "Let's go! Let's not wait."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperatives",
+          "prompt": "It's raining. ___ stay at the inn.",
+          "options": [
+            "Let's",
+            "Let",
+            "Let to"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Let's + osnovna oblika**\n- Let's stay. · Let's go.",
+            "de": "**Let's + Grundform**\n- Let's stay. · Let's go.",
+            "it": "**Let's + forma base**\n- Let's stay. · Let's go.",
+            "en": "**Let's + the base form**\n- Let's stay. · Let's go."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**please** (prosim) naredi stavek prijaznejši, na začetku ali na koncu: **Please come in.** (Prosim, vstopite.) **Come in, please.** Sam velelnik je lahko oster. Neznanca raje vprašaš: **Could you shut the door, please?** (Bi lahko zaprli vrata, prosim?)",
+          "de": "**please** (bitte) macht es freundlicher, vorn oder hinten: **Please come in.** (Bitte kommen Sie herein.) **Come in, please.** Ohne please klingt es schnell streng. Fremde fragst du besser: **Could you shut the door, please?** (Könnten Sie bitte die Tür zumachen?)",
+          "it": "**please** (per favore) rende la frase più gentile, all'inizio o alla fine: **Please come in.** (Prego, entri.) **Come in, please.** Senza please può suonare brusco. A uno sconosciuto è meglio chiedere: **Could you shut the door, please?** (Potrebbe chiudere la porta, per favore?)",
+          "en": "**please** makes it friendly, first or last: **Please come in.** **Come in, please.** Without it an order can sound hard. With a stranger, ask: **Could you shut the door, please?**"
+        },
+        "examples": [
+          {
+            "en": "Please sit down, Mrs Birkett.",
+            "sl": "Prosim, sedite, gospa Birkett.",
+            "de": "Bitte setzen Sie sich, Mrs Birkett.",
+            "it": "Prego, si sieda, signora Birkett."
+          },
+          {
+            "en": "Come in, please.",
+            "sl": "Vstopite, prosim.",
+            "de": "Kommen Sie bitte herein.",
+            "it": "Entri, per favore."
+          },
+          {
+            "en": "Could you shut the door, please?",
+            "sl": "Bi lahko zaprli vrata, prosim?",
+            "de": "Könnten Sie bitte die Tür zumachen?",
+            "it": "Potrebbe chiudere la porta, per favore?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "prijazno",
+              "de": "freundlich",
+              "it": "con gentilezza",
+              "en": "kindly"
+            },
+            "please",
+            "Please come in."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperatives",
+          "prompt": {
+            "sl": "Gostu v gostilni, najbolj prijazno:",
+            "de": "Zu einem Gast im Gasthaus, am freundlichsten:",
+            "it": "A un ospite alla locanda, nel modo più gentile:",
+            "en": "To a guest at the inn, the kindest:"
+          },
+          "options": [
+            "Please sit down.",
+            "Sit!",
+            "You sit down."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**please naredi stavek prijaznejši**\n- Please sit down. · Sit down, please.",
+            "de": "**please macht es freundlicher**\n- Please sit down. · Sit down, please.",
+            "it": "**please lo rende più gentile**\n- Please sit down. · Sit down, please.",
+            "en": "**please makes it friendly**\n- Please sit down. · Sit down, please."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Velelnik je tudi v navodilih, receptih in na napisih: **Turn left at the church.** (Pri cerkvi zavij levo.) **Go straight on.** (Pojdi naravnost.) **Stir the soup.** (Premešaj juho.) **Mind the step!** (Pazi na stopnico!) Na britanskih vratih pašnikov piše: **Please shut the gate.**",
+          "de": "Auch Wegbeschreibungen, Rezepte und Schilder sagen es so: **Turn left at the church.** (Bieg bei der Kirche links ab.) **Go straight on.** (Geh geradeaus.) **Stir the soup.** (Rühr die Suppe um.) **Mind the step!** (Achtung, Stufe!) Auf britischen Weidegattern steht: **Please shut the gate.**",
+          "it": "Anche le indicazioni, le ricette e i cartelli parlano così: **Turn left at the church.** (Alla chiesa gira a sinistra.) **Go straight on.** (Vai sempre dritto.) **Stir the soup.** (Mescola la minestra.) **Mind the step!** (Attenzione al gradino!) Sui cancelli dei pascoli inglesi leggi: **Please shut the gate.**",
+          "en": "Directions, recipes and signs say it this way too: **Turn left at the church.** **Go straight on.** **Stir the soup.** **Mind the step!** On a British field gate: **Please shut the gate.**"
+        },
+        "examples": [
+          {
+            "en": "The inn? Turn left at the church and go straight on.",
+            "sl": "Gostilna? Pri cerkvi zavij levo in pojdi naravnost.",
+            "de": "Das Gasthaus? Bieg bei der Kirche links ab und geh geradeaus.",
+            "it": "La locanda? Alla chiesa gira a sinistra e vai sempre dritto."
+          },
+          {
+            "en": "Stir the soup and put it on the table.",
+            "sl": "Premešaj juho in jo daj na mizo.",
+            "de": "Rühr die Suppe um und stell sie auf den Tisch.",
+            "it": "Mescola la minestra e mettila in tavola."
+          },
+          {
+            "en": "Mind the step!",
+            "sl": "Pazi na stopnico!",
+            "de": "Achtung, Stufe!",
+            "it": "Attenzione al gradino!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "navodila",
+              "de": "Anleitungen",
+              "it": "istruzioni",
+              "en": "directions"
+            },
+            {
+              "sl": "osnovna oblika",
+              "de": "Grundform",
+              "it": "forma base",
+              "en": "base form"
+            },
+            "Turn left at the church."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "imperatives",
+          "text": "The smithy? Go straight on and ___ left at the church. (turn)",
+          "accept": [
+            "turn"
+          ],
+          "hint": {
+            "sl": "osnovna oblika",
+            "de": "die Grundform",
+            "it": "la forma base",
+            "en": "the base form"
+          },
+          "explain": {
+            "sl": "**Tudi pot povemo z osnovno obliko**\n- Go straight on. · Turn left.",
+            "de": "**Auch den Weg sagt man mit der Grundform**\n- Go straight on. · Turn left.",
+            "it": "**Anche la strada si indica con la forma base**\n- Go straight on. · Turn left.",
+            "en": "**Directions use the base form too**\n- Go straight on. · Turn left."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "imperatives-1",
+      "title": {
+        "sl": "Naredi, ne delaj, skupaj",
+        "de": "Tu es, tu es nicht, gemeinsam",
+        "it": "Fai, non fare, insieme",
+        "en": "Do it, don't, together"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "imperatives",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "the verb, three ways · glagol na tri načine",
+            "de": "the verb, three ways · das Verb auf drei Arten",
+            "it": "the verb, three ways · il verbo in tre modi",
+            "en": "the verb, three ways"
+          },
+          "columns": [
+            {
+              "sl": "do it · naredi",
+              "de": "do it · tu es",
+              "it": "do it · fallo",
+              "en": "do it"
+            },
+            {
+              "sl": "don't · ne",
+              "de": "don't · nicht",
+              "it": "don't · non farlo",
+              "en": "don't"
+            },
+            {
+              "sl": "together · skupaj",
+              "de": "together · gemeinsam",
+              "it": "together · insieme",
+              "en": "together"
+            }
+          ],
+          "rows": [
+            {
+              "label": "wait",
+              "cells": [
+                "Wait!",
+                {
+                  "accept": [
+                    "Don't wait!"
+                  ]
+                },
+                {
+                  "accept": [
+                    "Let's wait!"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "go home",
+              "cells": [
+                {
+                  "accept": [
+                    "Go home!"
+                  ]
+                },
+                {
+                  "accept": [
+                    "Don't go home!"
+                  ]
+                },
+                "Let's go home!"
+              ]
+            },
+            {
+              "label": "be quiet",
+              "cells": [
+                {
+                  "accept": [
+                    "Be quiet!"
+                  ]
+                },
+                "—",
+                {
+                  "accept": [
+                    "Let's be quiet!"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "be late",
+              "cells": [
+                "—",
+                {
+                  "accept": [
+                    "Don't be late!"
+                  ]
+                },
+                "—"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Po Don't in Let's osnovna oblika**\n- Wait! · Don't wait! · Let's wait!",
+            "de": "**Nach Don't und Let's die Grundform**\n- Wait! · Don't wait! · Let's wait!",
+            "it": "**Dopo Don't e Let's la forma base**\n- Wait! · Don't wait! · Let's wait!",
+            "en": "**After Don't and Let's, the base form**\n- Wait! · Don't wait! · Let's wait!"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "imperatives",
+          "instruction": {
+            "sl": "Right or wrong? · Prav ali narobe?",
+            "de": "Right or wrong? · Richtig oder falsch?",
+            "it": "Right or wrong? · Giusto o sbagliato?",
+            "en": "Right or wrong?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "right · prav",
+                "de": "right · richtig",
+                "it": "right · giusto",
+                "en": "right"
+              },
+              "words": [
+                "Sit down!",
+                "Don't run!",
+                "Let's go!"
+              ]
+            },
+            {
+              "label": {
+                "sl": "wrong · narobe",
+                "de": "wrong · falsch",
+                "it": "wrong · sbagliato",
+                "en": "wrong"
+              },
+              "words": [
+                "Sits down!",
+                "Not run!",
+                "Let's to go!"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vedno osnovna oblika: brez -s, brez to**\n- Sit down! · Don't run! · Let's go!",
+            "de": "**Immer die Grundform: ohne -s, ohne to**\n- Sit down! · Don't run! · Let's go!",
+            "it": "**Sempre la forma base: senza -s, senza to**\n- Sit down! · Don't run! · Let's go!",
+            "en": "**Always the base form: no -s, no to**\n- Sit down! · Don't run! · Let's go!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperatives-2",
+      "title": {
+        "sl": "V gostilni Packhorse",
+        "de": "Im Gasthaus Packhorse",
+        "it": "Alla locanda Packhorse",
+        "en": "At the Packhorse Inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "imperatives",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Good evening! ___ (come) in, please. ___ (leave) your boots by the door and ___ (sit) down by the fire. Alfie, ___ (not) run in the kitchen! Harry, ___ (shut) the door, it's cold. ___ (be) careful, the soup is hot. Now, ___ (all of us) eat!",
+          "gaps": [
+            {
+              "accept": [
+                "Come"
+              ]
+            },
+            {
+              "accept": [
+                "Leave"
+              ]
+            },
+            {
+              "accept": [
+                "sit"
+              ]
+            },
+            {
+              "accept": [
+                "don't"
+              ],
+              "hint": {
+                "sl": "ne, prepoved",
+                "de": "nicht, ein Verbot",
+                "it": "no, un divieto",
+                "en": "no, not"
+              }
+            },
+            {
+              "accept": [
+                "shut"
+              ]
+            },
+            {
+              "accept": [
+                "Be"
+              ]
+            },
+            {
+              "accept": [
+                "let's"
+              ],
+              "hint": {
+                "sl": "mi vsi",
+                "de": "wir alle",
+                "it": "noi tutti",
+                "en": "all of us"
+              },
+              "explain": {
+                "sl": "**Let's: mi vsi, tudi jaz**\n- Let's eat! · Let's go!",
+                "de": "**Let's: wir alle, ich auch**\n- Let's eat! · Let's go!",
+                "it": "**Let's: noi tutti, anch'io**\n- Let's eat! · Let's go!",
+                "en": "**Let's: all of us, me too**\n- Let's eat! · Let's go!"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Comes",
+            "not",
+            "sits"
+          ],
+          "translation": {
+            "sl": "Dober večer! Vstopite, prosim. Škornje pustite pri vratih in sedite k ognju. Alfie, ne teci po kuhinji! Harry, zapri vrata, mrzlo je. Pazite, juha je vroča. Zdaj pa jejmo!",
+            "de": "Guten Abend! Kommen Sie bitte herein. Lassen Sie die Stiefel bei der Tür und setzen Sie sich ans Feuer. Alfie, lauf nicht in der Küche herum! Harry, mach die Tür zu, es ist kalt. Vorsicht, die Suppe ist heiß. Jetzt essen wir!",
+            "it": "Buonasera! Entrate, per favore. Lasciate gli stivali vicino alla porta e sedetevi accanto al fuoco. Alfie, non correre in cucina! Harry, chiudi la porta, fa freddo. Fate attenzione, la minestra è calda. E adesso mangiamo!",
+            "en": "Good evening! Come in, please. Leave your boots by the door and sit down by the fire. Alfie, don't run in the kitchen! Harry, shut the door, it's cold. Be careful, the soup is hot. Now, let's eat!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "imperatives",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "It's raining. ___ take the bus to Keswick.",
+          "options": [
+            "Let's",
+            "Let",
+            "Let to"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Let's + osnovna oblika**\n- Let's take the bus. · Let's walk.",
+            "de": "**Let's + Grundform**\n- Let's take the bus. · Let's walk.",
+            "it": "**Let's + forma base**\n- Let's take the bus. · Let's walk.",
+            "en": "**Let's + the base form**\n- Let's take the bus. · Let's walk."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "imperatives",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": {
+            "sl": "Na vratih pašnika:",
+            "de": "Auf dem Weidegatter:",
+            "it": "Sul cancello del pascolo:",
+            "en": "On the gate of the field:"
+          },
+          "options": [
+            "Do not feed the horses.",
+            "Not feed the horses.",
+            "Don't feeds the horses."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Do not + osnovna oblika**\n- Do not feed the horses. · Don't feed the horses.",
+            "de": "**Do not + Grundform**\n- Do not feed the horses. · Don't feed the horses.",
+            "it": "**Do not + forma base**\n- Do not feed the horses. · Don't feed the horses.",
+            "en": "**Do not + the base form**\n- Do not feed the horses. · Don't feed the horses."
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperatives-3",
+      "title": {
+        "sl": "Reci drugače",
+        "de": "Sag es anders",
+        "it": "Dillo in un altro modo",
+        "en": "Say it another way"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "imperatives",
+          "instruction": {
+            "sl": "Say it with Don't · Povej z Don't",
+            "de": "Say it with Don't · Sag es mit Don't",
+            "it": "Say it with Don't · Dillo con Don't",
+            "en": "Say it with Don't"
+          },
+          "cue": "Don't",
+          "items": [
+            {
+              "from": "Open the window.",
+              "accept": [
+                "Don't open the window."
+              ]
+            },
+            {
+              "from": "Wake Old Wilf.",
+              "accept": [
+                "Don't wake Old Wilf."
+              ]
+            },
+            {
+              "from": "Be late for the bus.",
+              "accept": [
+                "Don't be late for the bus."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Don't pred osnovno obliko, tudi pred be**\n- Open the window. → Don't open the window.\n- Be late. → Don't be late.",
+            "de": "**Don't vor die Grundform, auch vor be**\n- Open the window. → Don't open the window.\n- Be late. → Don't be late.",
+            "it": "**Don't davanti alla forma base, anche prima di be**\n- Open the window. → Don't open the window.\n- Be late. → Don't be late.",
+            "en": "**Don't before the base form, before be too**\n- Open the window. → Don't open the window.\n- Be late. → Don't be late."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "imperatives",
+          "instruction": {
+            "sl": "You → an order, we → Let's · You → velelnik, we → Let's",
+            "de": "You → an order, we → Let's · You → Befehl, we → Let's",
+            "it": "You → an order, we → Let's · You → imperativo, we → Let's",
+            "en": "You → an order, we → Let's"
+          },
+          "items": [
+            {
+              "from": "You sit down.",
+              "accept": [
+                "Sit down."
+              ]
+            },
+            {
+              "from": "You are careful on the fell.",
+              "accept": [
+                "Be careful on the fell."
+              ],
+              "hint": "are → ?"
+            },
+            {
+              "from": "You don't shout.",
+              "accept": [
+                "Don't shout."
+              ]
+            },
+            {
+              "from": "We walk to the tarn.",
+              "accept": [
+                "Let's walk to the tarn."
+              ]
+            },
+            {
+              "from": "We don't wait for Sam.",
+              "accept": [
+                "Let's not wait for Sam."
+              ],
+              "spoken": [
+                "Don't let's wait for Sam."
+              ],
+              "hint": "Let's …"
+            }
+          ],
+          "explain": {
+            "sl": "**Brez you in brez we**\n- You sit down. → Sit down.\n- We walk. → Let's walk.\n- We don't wait. → Let's not wait.",
+            "de": "**Ohne you und ohne we**\n- You sit down. → Sit down.\n- We walk. → Let's walk.\n- We don't wait. → Let's not wait.",
+            "it": "**Senza you e senza we**\n- You sit down. → Sit down.\n- We walk. → Let's walk.\n- We don't wait. → Let's not wait.",
+            "en": "**No you and no we**\n- You sit down. → Sit down.\n- We walk. → Let's walk.\n- We don't wait. → Let's not wait."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "imperatives",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "The smithy? ___ (go) straight on and ___ (turn) left at the church. ___ (not) cross the bridge. ___ (be) careful, the road is wet! — Thank you! Come on, Meg, ___ (all of us) go.",
+        "gaps": [
+          {
+            "accept": [
+              "Go"
+            ]
+          },
+          {
+            "accept": [
+              "turn"
+            ]
+          },
+          {
+            "accept": [
+              "Don't"
+            ]
+          },
+          {
+            "accept": [
+              "Be"
+            ]
+          },
+          {
+            "accept": [
+              "let's"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Kovačnica? Pojdi naravnost in pri cerkvi zavij levo. Ne prečkaj mostu. Pazi, cesta je mokra! — Hvala! Pridi, Meg, greva.",
+          "de": "Die Schmiede? Geh geradeaus und bieg bei der Kirche links ab. Geh nicht über die Brücke. Pass auf, die Straße ist nass! — Danke! Komm, Meg, gehen wir.",
+          "it": "La fucina? Vai sempre dritto e alla chiesa gira a sinistra. Non attraversare il ponte. Fai attenzione, la strada è bagnata! — Grazie! Dai, Meg, andiamo.",
+          "en": "The smithy? Go straight on and turn left at the church. Don't cross the bridge. Be careful, the road is wet! — Thank you! Come on, Meg, let's go."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperatives",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ the gate, please.",
+        "options": [
+          "Shut",
+          "Shuts",
+          "Shutting"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Osnovna oblika**\n- Shut the gate. · Please shut the gate.",
+          "de": "**Die Grundform**\n- Shut the gate. · Please shut the gate.",
+          "it": "**La forma base**\n- Shut the gate. · Please shut the gate.",
+          "en": "**The base form**\n- Shut the gate. · Please shut the gate."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperatives",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Alfie, ___ touch the iron!",
+        "options": [
+          "don't",
+          "not",
+          "doesn't"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vedno don't, za vsakogar**\n- Don't touch it! · Don't run!",
+          "de": "**Immer don't, für alle**\n- Don't touch it! · Don't run!",
+          "it": "**Sempre don't, per tutti**\n- Don't touch it! · Don't run!",
+          "en": "**Always don't, for everyone**\n- Don't touch it! · Don't run!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperatives",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Let's ___ a cup of tea.",
+        "options": [
+          "have",
+          "to have",
+          "having"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Po Let's osnovna oblika**\n- Let's have tea. · Let's go.",
+          "de": "**Nach Let's die Grundform**\n- Let's have tea. · Let's go.",
+          "it": "**Dopo Let's la forma base**\n- Let's have tea. · Let's go.",
+          "en": "**After Let's, the base form**\n- Let's have tea. · Let's go."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperatives",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": {
+          "sl": "Neznancu na avtobusu, najbolj vljudno:",
+          "de": "Zu Fremden im Bus, am höflichsten:",
+          "it": "A uno sconosciuto sull'autobus, nel modo più cortese:",
+          "en": "To a stranger on the bus, the politest:"
+        },
+        "options": [
+          "Could you open the window, please?",
+          "Open the window!",
+          "You open the window."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Neznanca vprašaš: Could you …, please?**\n- Could you open the window, please?",
+          "de": "**Fremde fragst du: Could you …, please?**\n- Could you open the window, please?",
+          "it": "**A uno sconosciuto chiedi: Could you …, please?**\n- Could you open the window, please?",
+          "en": "**Ask a stranger: Could you …, please?**\n- Could you open the window, please?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "imperatives",
+        "instruction": {
+          "sl": "You → an order, we → Let's · You → velelnik, we → Let's",
+          "de": "You → an order, we → Let's · You → Befehl, we → Let's",
+          "it": "You → an order, we → Let's · You → imperativo, we → Let's",
+          "en": "You → an order, we → Let's"
+        },
+        "items": [
+          {
+            "from": "You wait here.",
+            "accept": [
+              "Wait here."
+            ]
+          },
+          {
+            "from": "You aren't late.",
+            "accept": [
+              "Don't be late."
+            ]
+          },
+          {
+            "from": "We go home.",
+            "accept": [
+              "Let's go home."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Osnovna oblika, brez you in we**\n- You wait. → Wait.\n- You aren't late. → Don't be late.\n- We go. → Let's go.",
+          "de": "**Grundform, ohne you und we**\n- You wait. → Wait.\n- You aren't late. → Don't be late.\n- We go. → Let's go.",
+          "it": "**Forma base, senza you e we**\n- You wait. → Wait.\n- You aren't late. → Don't be late.\n- We go. → Let's go.",
+          "en": "**The base form, no you, no we**\n- You wait. → Wait.\n- You aren't late. → Don't be late.\n- We go. → Let's go."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: Mind the step!, the two signs, Don't let's as spoken"
+}
