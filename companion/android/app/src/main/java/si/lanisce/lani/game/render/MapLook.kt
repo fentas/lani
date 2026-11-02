@@ -18,7 +18,8 @@ import java.util.concurrent.ConcurrentHashMap
  *   mountains at the horizon and the projects' landmarks.
  *
  * The default culture (Primorska, whose look every sprite was drawn in) and a culture without a look have no [style] and
- * every thing as the map always drew it, pixel for pixel. Read once per culture and land ([of]), so a frame asks fields.
+ * every thing as the map's own sprites draw it (they follow Primorska's scenes too, docs/plans/05-built/map-culture-2.md).
+ * Read once per culture and land ([of]), so a frame asks fields.
  */
 internal class MapLook private constructor(val id: String, val style: FireStyle?, internal val look: CultureLook) {
     private fun v(name: String): String? = look.variant(ART, name)
@@ -57,7 +58,10 @@ internal class MapLook private constructor(val id: String, val style: FireStyle?
     /** The mountains at the horizon, as the scene behind the village has them. */
     val range: Range = Range.entries.firstOrNull { it.id == v("range") } ?: Range.JULIAN
 
-    /** The maypole project's landmark: the mlaj (the Maibaum), the greasy pole with its prizes, the maypole with its ribbons. */
+    /**
+     * The maypole project's landmark, as the square's scene raises it: the mlaj, the greasy pole with its wheel of prizes under
+     * the wreath, the maypole with its long ribbons, Carinthia's Maibaum with the Kraxler's prize under its wreath.
+     */
     val maypole: Maypole = Maypole.entries.firstOrNull { it.id == v("maypole") } ?: Maypole.MLAJ
 
     /** The vineyard project's: the terraces with the klopotec, the Collio's without it, an orchard, damsons on terraces. */
@@ -66,11 +70,38 @@ internal class MapLook private constructor(val id: String, val style: FireStyle?
     /** The fire station's hall and tower of river cobbles with bands of brick (Friuli's, as its scene builds them). */
     val cobbleStation: Boolean = v("firestation") == "cobbles"
 
-    /** The wayside chapel is an ancona in ochre (Friuli's, as its scene has it). */
-    val ancona: Boolean = v("chapel") == "ancona"
+    /**
+     * The wayside chapel, as its scene builds it (Pri kapelici): the map's own, white under shingles with its little open
+     * turret on the ridge; Friuli's ancona in ochre with its bell on a bracket; Carinthia's Wegkapelle, its turret under an
+     * onion cap; the Lake District's of slate stone with a stone bellcote on its gable.
+     */
+    val chapel: Chapel = Chapel.entries.firstOrNull { it.id == v("chapel") } ?: Chapel.OWN
 
-    /** The toplar project's is a stone bank barn (the Lake District's). */
-    val bankBarn: Boolean = v("toplar") == "bank"
+    /** The wayside chapel is an ancona in ochre (Friuli's, as its scene has it). */
+    val ancona: Boolean get() = chapel == Chapel.ANCONA
+
+    /**
+     * The toplar project's, as the field's scene builds it (`field.toplar`): the Slovene double hayrack, Friuli's with bunches
+     * of maize drying from its tie beam, Carinthia's Doppelharpfe of grey larch, the Lake District's stone bank barn.
+     */
+    val toplar: Toplar = Toplar.entries.firstOrNull { it.id == v("toplar") } ?: Toplar.TOPLAR
+
+    /**
+     * The fountain on the square, as its scene builds it (Pri vodnjaku): the map's own of white limestone, an eight-sided
+     * trough round its pillar with a stone knob and four iron pipes; Friuli's pillar crowned with a pine cone of stone and its
+     * rim moulded; Carinthia's Dorfbrunnen with St Florian and his bucket on the pillar; the Lake District's drinking
+     * fountain of green slate with its lion's head and its iron cups.
+     */
+    val fountain: Fountain = Fountain.entries.firstOrNull { it.id == v("fountain") } ?: Fountain.OWN
+
+    /** The bee meadow's sunflowers over its clover from July to October (Friuli's, as its scene's `apiary.meadow` "girasoli"). */
+    val sunflowers: Boolean = v("meadow") == "girasoli"
+
+    /** The playground's fontanella, the green cast-iron drinking fountain by its corner (Friuli's, as its scene's). */
+    val fontanella: Boolean = v("fontanella") == "fontanella"
+
+    /** The mill's walls of slate stone under slate (the Lake District's, as its beck's mill: `stream.mill` "slate"). */
+    val slateMill: Boolean = v("mill") == "slate"
 
     /** The bocce court project's: the bocce court, the Stockschießbahn, the bowling green. */
     val court: Court = Court.entries.firstOrNull { it.id == v("court") } ?: Court.BOCCE
@@ -82,8 +113,14 @@ internal class MapLook private constructor(val id: String, val style: FireStyle?
      */
     val bridge: Bridge = Bridge.entries.firstOrNull { it.id == v("bridge") } ?: Bridge.TIMBER
 
-    /** The town clock's tower: the map's own (ochre, the onion dome), the campanile, the battlemented tower. */
-    val clock: Tower? = when (v("clock")) { "campanile" -> Tower.CAMPANILE; "battlements" -> Tower.BATTLEMENTS; else -> null }
+    /**
+     * The town clock's tower, as the square's scene has it (Pod uro: the church's tower): the map's own, white with its spire
+     * of slate; the campanile, the battlemented tower, Carinthia's white tower under its onion dome.
+     */
+    val clock: Tower? = when (v("clock")) { "campanile" -> Tower.CAMPANILE; "battlements" -> Tower.BATTLEMENTS; "onion" -> Tower.ONION; else -> null }
+
+    /** The clock's faces of dark slate in a gold ring, the numerals and hands gold (the Lake District's, as its square's `clock`). */
+    val slateClock: Boolean = v("clockface") == "slate"
 
     /**
      * The wild animals the culture's woods don't have ([Wildlife.plan] leaves them out): in the Lake District (`wild`
@@ -134,13 +171,22 @@ internal enum class SchoolKind(val id: String) { OWN("own"), ITALIAN("italian"),
 internal enum class Range(val id: String) { JULIAN("julian"), KARAWANKEN("karawanken"), FELLS("fells") }
 
 /** The maypole project's landmark (see [MapLook.maypole]). */
-internal enum class Maypole(val id: String) { MLAJ("mlaj"), CUCCAGNA("cuccagna"), RIBBONS("ribbons") }
+internal enum class Maypole(val id: String) { MLAJ("mlaj"), CUCCAGNA("cuccagna"), RIBBONS("ribbons"), MAIBAUM("maibaum") }
 
 /** The vineyard project's landmark (see [MapLook.vineyard]). */
 internal enum class Vineyard(val id: String) { TERRACES("terraces"), COLLIO("collio"), ORCHARD("orchard"), DAMSONS("damsons") }
 
 /** The bridge over the stream (see [MapLook.bridge]). */
 internal enum class Bridge(val id: String) { TIMBER("timber"), COBBLES("cobbles"), LARCH("larch"), PACKHORSE("packhorse") }
+
+/** The toplar project's landmark (see [MapLook.toplar]): the double hayrack, with maize, the Doppelharpfe, the bank barn. */
+internal enum class Toplar(val id: String) { TOPLAR("toplar"), MAIZE("pannocchie"), DOPPELHARPFE("harpfe"), BANK("bank") }
+
+/** The fountain on the square (see [MapLook.fountain]). */
+internal enum class Fountain(val id: String) { OWN("own"), PIGNA("pigna"), FLORIAN("florian"), SLATE("slate") }
+
+/** The wayside chapel (see [MapLook.chapel]). */
+internal enum class Chapel(val id: String) { OWN("own"), ANCONA("ancona"), ONION("onion"), SLATE("slate") }
 
 /** The bocce court project's landmark (see [MapLook.court]). */
 internal enum class Court(val id: String) { BOCCE("bocce"), CURLING("curling"), GREEN("green") }
@@ -184,7 +230,7 @@ internal enum class Flag(val id: String, val emoji: String) {
 
 /**
  * A culture's colours for its feasts (see [MapLook.festive]): the flags of its garlands in turn ([bunting]), the ribbons
- * of the likof's spruce and the maypole ([ribbons], [maypole]), the banners along the road and the procession's ([banner]),
+ * of the likof's spruce ([ribbons]) and the maypole's as the square's scene hangs them ([maypole]), the banners along the road and the procession's ([banner]),
  * the awnings of the semenj's stalls (in stripes of the first and the second of [stalls]) and of the market's three
  * ([awnings], each striped with its [stripes]).
  */
@@ -202,7 +248,7 @@ internal class Festive(
         val OWN = Festive(
             bunting = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD, Col.hex(0x3EA05A)),
             ribbons = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD),
-            maypole = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD, Pal.PAINTED[3]),
+            maypole = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD),
             banner = Flag.SLOVENIA,
             stalls = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE),
             awnings = intArrayOf(Pal.FLAG_RED, Pal.FLAG_BLUE, Pal.LEAF),
@@ -216,7 +262,7 @@ internal class Festive(
         private val FRIULI = Festive(
             bunting = intArrayOf(Flag.FRIULI_GOLD, Flag.FRIULI_BLUE, Pal.FLAG_WHITE),
             ribbons = intArrayOf(Flag.FRIULI_BLUE, Flag.FRIULI_GOLD, Pal.FLAG_WHITE, Flag.FRIULI_GOLD),
-            maypole = intArrayOf(Flag.FRIULI_BLUE, Flag.FRIULI_GOLD, Pal.FLAG_WHITE, Flag.FRIULI_GOLD, Flag.FRIULI_BLUE),
+            maypole = intArrayOf(Col.hex(0x1F5AA8), Pal.GOLD, Col.hex(0x3E8A3A), Pal.GERANIUM),
             banner = Flag.FRIULI,
             stalls = intArrayOf(Flag.FRIULI_BLUE, Flag.FRIULI_GOLD),
             awnings = intArrayOf(Flag.FRIULI_BLUE, Col.hex(0xC8683E), Col.hex(0x4E8A44)),
@@ -227,7 +273,7 @@ internal class Festive(
         private val AUSTRIA = Festive(
             bunting = intArrayOf(Flag.AT_RED, Pal.FLAG_WHITE),
             ribbons = intArrayOf(Flag.AT_RED, Pal.FLAG_WHITE, Col.hex(0xF2C230), Pal.LEAF),
-            maypole = intArrayOf(Flag.AT_RED, Pal.FLAG_WHITE, Col.hex(0xF2C230), Flag.AT_RED, Pal.FLAG_WHITE),
+            maypole = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_RED, Pal.FLAG_WHITE),
             banner = Flag.AUSTRIA,
             stalls = intArrayOf(Flag.AT_RED, Pal.FLAG_WHITE),
             awnings = intArrayOf(Flag.AT_RED, Col.hex(0x2F6A3E), Flag.AT_RED),
@@ -237,7 +283,7 @@ internal class Festive(
         private val UNION = Festive(
             bunting = intArrayOf(Flag.EN_RED, Pal.FLAG_WHITE, Flag.UK_BLUE),
             ribbons = intArrayOf(Flag.EN_RED, Pal.FLAG_WHITE, Flag.UK_BLUE, Pal.GOLD),
-            maypole = intArrayOf(Flag.EN_RED, Col.hex(0xF4D03A), Flag.UK_BLUE, Col.hex(0x3EA05A), Pal.FLAG_WHITE, Col.hex(0xE87AB0)),
+            maypole = intArrayOf(Pal.FLAG_RED, Pal.FLAG_BLUE, Col.hex(0xF2C230), Col.hex(0x3E9A44)),
             banner = Flag.ENGLAND,
             stalls = intArrayOf(Flag.UK_BLUE, Pal.FLAG_WHITE),
             awnings = intArrayOf(Flag.UK_BLUE, Flag.EN_RED, Col.hex(0x2E7A4E)),

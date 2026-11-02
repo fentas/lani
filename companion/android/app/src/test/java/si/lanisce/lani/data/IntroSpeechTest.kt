@@ -157,6 +157,26 @@ class IntroSpeechTest {
         assertFalse(IntroSpeech.within("two", known))
         assertFalse(IntroSpeech.within("", known))
     }
+
+    @Test fun `an ending of the intro's own words is the language learned's, read in her voice`() {
+        // the English numbers (companion/course/en/units/numbers.json): "From 13 to 19 they end in **-teen**"
+        val known = setOf("thirteen", "fifteen", "twenty", "thirty", "dogs", "cantare", "canto", "parlando")
+        val learned = { t: String -> IntroSpeech.within(t, known) || IntroSpeech.endings(t, known) }
+        assertTrue(IntroSpeech.endings("-teen", known))
+        assertTrue(IntroSpeech.endings("-ty", known))
+        assertTrue(IntroSpeech.endings("-TEEN", known))
+        assertTrue(IntroSpeech.endings("-s", known))
+        assertTrue(IntroSpeech.endings("-are, -o → -ando", known))
+        // a word itself is no ending of itself, nor is a word without its hyphen, nor an ending no word of the intro has
+        assertFalse(IntroSpeech.endings("-dogs", known))
+        assertFalse(IntroSpeech.endings("teen", known))
+        assertFalse(IntroSpeech.endings("-ing", known))
+        // an ending among the base's words: the whole span isn't the language learned's
+        assertFalse(IntroSpeech.endings("-t an e", known))
+        assertFalse(IntroSpeech.endings("—", known))
+        assertFalse(IntroSpeech.endings("", known))
+        assertTrue(learned("thirteen") && learned("-teen") && !learned("sixteen"))
+    }
 }
 
 /** What is read marked in the bubble: the run's segments of its line, as the Markdown draws them. */

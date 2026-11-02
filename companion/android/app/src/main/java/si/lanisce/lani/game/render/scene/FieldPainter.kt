@@ -81,8 +81,8 @@ internal class FieldPainter : WildPainter() {
     private val cartD = 18.5f
 
     private companion object {
-        /** The Harpfe's larch, weathered silver-grey ([harpfe]): lit, middle, dark and its darkest. */
-        val HARPFE_L = Col.hex(0xB4ADA2); val HARPFE_M = Col.hex(0x8E877C); val HARPFE_D = Col.hex(0x625C54); val HARPFE_X = Col.hex(0x423E3A)
+        /** The Harpfe's larch, weathered silver-grey ([harpfe]): lit, middle, dark and its darkest (the map's too). */
+        val HARPFE_L = Pal.HARPFE_L; val HARPFE_M = Pal.HARPFE_M; val HARPFE_D = Pal.HARPFE_D; val HARPFE_X = Pal.HARPFE_X
         /** The village project this field shows as it's built: the double hayrack. */
         const val TOPLAR = "toplar"
 

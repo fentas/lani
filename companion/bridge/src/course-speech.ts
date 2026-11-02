@@ -246,6 +246,20 @@ export function within(text: string, known: Set<string>): boolean {
 }
 
 /**
+ * [text] is endings only, each the end of a longer word [known] has ([vocabulary]): "**-teen**" (thirteen), "**-ty**"
+ * (twenty), "**-o, -i, -a**" (canto, canti, canta), "**-ere, -ire → -endo**". An explanation names the endings of the words
+ * the intro shows, so the teacher reads them, not the phone's voice of the base.
+ */
+export function endings(text: string, known: Set<string>): boolean {
+  const t = text.toLowerCase()
+  const found = [...t.matchAll(WORD)]
+  return found.length > 0 && found.every(m => m.index > 0 && t[m.index - 1] === '-' && [...known].some(k => k.length > m[0].length && k.endsWith(m[0])))
+}
+
+/** The language learned's in an intro: what [isSlovene] says is, the intro's own words ([within]) and their endings ([endings]). */
+const learnedIn = (isSlovene: (text: string) => boolean, known: Set<string>) => (t: string) => isSlovene(t) || within(t, known) || endings(t, known)
+
+/**
  * A quick question as read before it's answered: its instruction ([instructionLines]), then its prompt with the gap a
  * pause, in the teacher's voice when it is in the language learned (a sentence with a gap to fill and no Markdown, a word
  * named in »quotes«, or what [isSlovene] says is), else in its runs (a question in the base marks its Slovene: "Which form
@@ -302,12 +316,13 @@ export const stitched = (s: Script): Line[] =>
 
 /**
  * What step [i] of [intro] reads (ui/school/IntroScreen, the day's audio): its explanation in [base], its examples in
- * [language], its quick question; Slovene what [isSlovene] (the app's check) says is, and the words the intro itself shows.
+ * [language], its quick question; Slovene what [isSlovene] (the app's check) says is, the words the intro itself shows and
+ * their endings ([learnedIn]).
  */
 export function introStep(id: string, intro: Intro, i: number, language: string, base: string, title: string | undefined, isSlovene: (text: string) => boolean, words: string[] = []): Script {
   const s = intro.steps[i]
   const known = vocabulary(intro, language, title, isSlovene, words)
-  return step(id, textIn(s.say, base), base, (s.examples ?? []).map(e => (typeof e[language] === 'string' ? (e[language] as string) : '')), s.ask, t => isSlovene(t) || within(t, known))
+  return step(id, textIn(s.say, base), base, (s.examples ?? []).map(e => (typeof e[language] === 'string' ? (e[language] as string) : '')), s.ask, learnedIn(isSlovene, known))
 }
 
 /** What the summary reads: [rule] in [base] (the intro's own summary, else the unit's grammar page's rule: its table is to look at), else its [goal]; undefined with neither. */
@@ -321,7 +336,7 @@ export function summarySay(rule: Record<string, string> | undefined, goal: Recor
 /** The summary read as a step: [say] ([summarySay]) its explanation, nothing else; the intro's words count as Slovene as in its steps. */
 export function summary(id: string, say: string, base: string, intro: Intro, language: string, title: string | undefined, isSlovene: (text: string) => boolean, words: string[] = []): Script {
   const known = vocabulary(intro, language, title, isSlovene, words)
-  return step(id, say, base, [], undefined, t => isSlovene(t) || within(t, known))
+  return step(id, say, base, [], undefined, learnedIn(isSlovene, known))
 }
 
 // --- the app's check for the language learned (Speaker.isSlovene) ---------------------------------------------------

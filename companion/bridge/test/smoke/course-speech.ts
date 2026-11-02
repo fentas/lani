@@ -30,13 +30,14 @@ const scriptOut = (s: S.Script) => ({
  * A word of each base the teacher's voice must never read: words that are that language's and none of the other course
  * languages' (sl, it, de, en), so a line of the course's own language never matches its learner's base. Not so or je
  * (German), si, so, ti, sta, ali, zelo (Italian), danes (English Danes), per, la, non (German, English), die, hallo
- * (English): each is a word of another course language.
+ * (English): each is a word of another course language. Never after a hyphen: "-are" is an Italian ending, read in her voice
+ * (course-speech.ts endings).
  */
 const BASE_WORDS: Record<string, RegExp> = {
-  en: /(?<!\p{L})(the|you|your|are|hello|goodbye|evening|morning|polite)(?!\p{L})/iu,
-  sl: /(?<!\p{L})(kje|kaj|kako|ki|pri|sem|smo|jaz|ni|tudi|zvečer|zjutraj|prosim|hvala)(?!\p{L})/iu,
-  it: /(?<!\p{L})(il|che|di|una|sono|è|della|alla|anche|perché|molto)(?!\p{L})/iu,
-  de: /(?<!\p{L})(und|ist|bist|ich|nicht|heißt|auch|sehr|tschüss)(?!\p{L})/iu,
+  en: /(?<![\p{L}-])(the|you|your|are|hello|goodbye|evening|morning|polite)(?!\p{L})/iu,
+  sl: /(?<![\p{L}-])(kje|kaj|kako|ki|pri|sem|smo|jaz|ni|tudi|zvečer|zjutraj|prosim|hvala)(?!\p{L})/iu,
+  it: /(?<![\p{L}-])(il|che|di|una|sono|è|della|alla|anche|perché|molto)(?!\p{L})/iu,
+  de: /(?<![\p{L}-])(und|ist|bist|ich|nicht|heißt|auch|sehr|tschüss)(?!\p{L})/iu,
 }
 
 const until = async (f: () => boolean | Promise<boolean>, ms = 4_000) => {
@@ -270,8 +271,13 @@ export default async function courseSpeech() {
     cpSync(join(repo, 'companion/grammar/it/articoli-genere.json'), join(data, 'app/grammar/articoli-genere.json'))
     const registry = tempDir('lani-cs-vbc-registry-')
     const empty = (n: string) => tempDir(`lani-cs-vbc-${n}-`)
+    // a role-play of each language, where the bridge has them (companion/scenarios, its it/): Teo's village's is the Italian
+    const scenarios = empty('scenarios')
+    mkdirSync(join(scenarios, 'it'), { recursive: true })
+    cpSync(join(repo, 'companion/scenarios/v-pekarni.json'), join(scenarios, 'v-pekarni.json'))
+    cpSync(join(repo, 'companion/scenarios/it/al-mercato.json'), join(scenarios, 'it/al-mercato.json'))
     const env = {
-      ...process.env, LANI_CULTURES_DIR: cultures, LANI_PACKS_DIR: empty('packs'), LANI_MODULES_DIR: empty('modules'), LANI_SCENARIOS_DIR: empty('scenarios'),
+      ...process.env, LANI_CULTURES_DIR: cultures, LANI_PACKS_DIR: empty('packs'), LANI_MODULES_DIR: empty('modules'), LANI_SCENARIOS_DIR: scenarios,
       LANI_SCENES_DIR: empty('scenes'), LANI_DRILLS_DIR: empty('drills'), LANI_GRAMMAR_DIR: empty('grammar'), LANI_VILLAGERS_DIR: empty('villagers'), LANI_COURSE_DIR: courseRoot,
       LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: '', LANI_GEPARD_URL: 'http://127.0.0.1:9', LANI_ENV_FILE: '/dev/null', LANI_PROFILES_DIR: registry,
       LANI_VOICE_CACHE: join(root, 'voice'),
@@ -284,14 +290,20 @@ export default async function courseSpeech() {
       return { plan: JSON.parse(stdout || '{}'), stderr }
     }
     const byCourse = await planOf()
+    const rolePlays = (plan: any) => plan.rows?.find((r: any) => r.label === 'scenarios')?.texts ?? 0
     check('voice-build --data of a learner no registry names: the village of the language they learn (friuli, Italian), their Italian grammar page read as its book',
       byCourse.plan.culture === 'friuli' && byCourse.plan.language === 'it' && !byCourse.stderr.includes('this book is'), [byCourse.plan.culture, byCourse.plan.language, byCourse.stderr.slice(0, 300)])
+    // 2026-11-02: the Italian role-plays were read as Slovene ones and left out, so the plan had none and Friuli's scenes whose
+    // dialogs open one were skipped ("talk "al-mercato" is not a scenario")
+    check('…its role-plays the Italian ones (companion/scenarios/it, read in Italian as its bridge reads them), the Slovene one not',
+      rolePlays(byCourse.plan) > 0 && !byCourse.stderr.includes('is not a scenario'), [rolePlays(byCourse.plan), byCourse.stderr.slice(0, 300)])
     writeFileSync(join(registry, 'profiles.json'), JSON.stringify({ schema: 'lani.profiles/v1', profiles: [{ id: 'teo', name: 'Teo', target: 'it', base: 'de', culture: 'friuli', child: true, port: 18999, https_port: 9443, tmux: 'lani-teo', remote_control: 'lani-tutor-teo', data_dir: data, created: '2026-10-01' }] }))
     const byEntry = await planOf()
     const set = await planOf({ LANI_CULTURE: 'primorska' })
-    check('…a registry entry\'s culture as lani-session gives it to their bridge (friuli); LANI_CULTURE set wins (primorska: the page then is skipped as not the book\'s)',
-      byEntry.plan.culture === 'friuli' && byEntry.plan.language === 'it' && set.plan.culture === 'primorska' && set.plan.language === 'sl' && set.stderr.includes('this book is "sl"'),
-      [byEntry.plan.culture, set.plan.culture, set.stderr.slice(0, 200)])
+    check('…a registry entry\'s culture as lani-session gives it to their bridge (friuli); LANI_CULTURE set wins (primorska: the page then is skipped as not the book\'s, the role-plays the Slovene ones)',
+      byEntry.plan.culture === 'friuli' && byEntry.plan.language === 'it' && set.plan.culture === 'primorska' && set.plan.language === 'sl' && set.stderr.includes('this book is "sl"') &&
+        rolePlays(set.plan) > 0 && rolePlays(set.plan) !== rolePlays(byCourse.plan),
+      [byEntry.plan.culture, set.plan.culture, set.stderr.slice(0, 200), rolePlays(set.plan), rolePlays(byCourse.plan)])
   }
 
   // --- a character's local clip, in the speaker's ElevenLabs voice as the app asks for it -----------------------------
