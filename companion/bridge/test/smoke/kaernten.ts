@@ -90,6 +90,10 @@ export default async function kaernten() {
     const lookup = async (q: string) => (await (await fetch(`${base}/lookup?${q}`, { headers: auth })).json()) as any
     const haeuser = await lookup(`w=${encodeURIComponent('Häuser')}&line=${encodeURIComponent('Die Häuser haben Balkone.')}`)
     check('kaernten: a lookup finds a German pack word by its plural, without its article, meant in Slovene', haeuser.entries[0]?.lemma === 'das Haus' && haeuser.entries[0].gloss[0]?.startsWith('hiša') && haeuser.entries[0].gloss_lang === 'sl' && haeuser.entries[0].grammar === 'plural' && haeuser.entries[0].source === 'pack', haeuser)
+    const graben = await lookup(`w=graben&line=${encodeURIComponent('Wir graben ein tiefes Loch.')}`)
+    const grabenAs = (lemma: string) => graben.entries.find((e: any) => e.lemma === lemma)
+    check("kaernten: der Graben and graben, one spelling: a tap has the noun as a noun and the verb as a verb, each with its meaning",
+      grabenAs('der Graben')?.pos === 'noun' && grabenAs('der Graben')?.grammar !== 'infinitive; present, wir/sie' && grabenAs('graben')?.pos === 'verb' && graben.entries.length === 2, graben.entries)
     const resiName = await lookup('w=Resi')
     check('kaernten: a villager is found by name', resiName.entries[0]?.lemma === 'Oma Resi' && resiName.entries[0].source === 'village', resiName)
 
