@@ -10960,6 +10960,9 @@ def friuli_projects():
         for v in api("/villagers"):
             bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
             bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+        # the chapel's leader lives here (a project waits for its leader): Zia Nives hasn't moved in by herself in a village made up by a hook
+        if not any(r.get("id") == "nives" for r in st.setdefault("residents", [])):
+            st["residents"].append({"id": "nives", "since": time.strftime("%Y-%m-%d")})
         dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
         dev_bridge("/learner/voice", {"voice": "default"})
         adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
@@ -10968,10 +10971,14 @@ def friuli_projects():
         qa_hook("hearths:trg")
         qa_hook("hour:11")
         qa_hook("bubbles:0")
-        step("most", 5, "A1", "bridge", "al-ruscello", True)
-        step("mlaj", 3, "B1", "pole", "in-piazza", True)
-        step("mlaj", 1, "A2", "fir", "nel-bosco", False)
-        step("kapelica", 6, "A2", "chapel", None, False)
+        # LANI_QA_FRIULI_PROJECTS_ONLY: only these (comma-separated: bridge, pole, fir, chapel)
+        only = [x for x in os.environ.get("LANI_QA_FRIULI_PROJECTS_ONLY", "").split(",") if x]
+        for pid, n, level, tag, where, from_map in (
+            ("most", 5, "A1", "bridge", "al-ruscello", True), ("mlaj", 3, "B1", "pole", "in-piazza", True),
+            ("mlaj", 1, "A2", "fir", "nel-bosco", False), ("kapelica", 6, "A2", "chapel", None, False),
+        ):
+            if not only or tag in only:
+                step(pid, n, level, tag, where, from_map)
     finally:
         HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING = saved
         qa_hook("level:")
