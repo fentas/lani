@@ -110,6 +110,8 @@ The watchtower, the church, the hut, the smithy and the field already matched.
   the merged tip: the whole Android unit suite 484 classes, 3765 tests, none failed (2 skipped); the Python tests (251; 142, 11
   skipped), the bridge's typecheck, its smoke (3471 checks; ports 9690, 9693, 9696, DRAMA3 9708), `bun build --no-bundle` of
   the merged test files and `tutor-export --check` (89 files) pass. This branch changed nothing of the bridge.
+  Then merged with main at a407a0a2 (qa-repair and intro speech, no conflict, no render file): the typecheck, `tutor-export
+  --check` and `companion/tests` ran again and pass; the Android suite and the smoke did not run again on that merge.
 
 ## On the emulator
 
