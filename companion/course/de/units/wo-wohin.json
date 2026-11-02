@@ -59,8 +59,7 @@
     "springen",
     "sitzen",
     "schnell",
-    "offen",
-    "das Land"
+    "offen"
   ],
   "intro": {
     "table": {
@@ -172,9 +171,9 @@
       },
       {
         "say": {
-          "en": "**an** (at, by the side of) and **auf** (on, on top of) work the same: **am See, an den See** (at the lake, to the lake), **auf der Alm, auf die Alm**. **am** is an dem, **ans** an das. Austria says **am Tisch** for auf dem Tisch too, and **am Land** (in the country).",
-          "sl": "**an** (ob, na robu) in **auf** (na, na vrhu) delujeta enako: **am See, an den See** (ob jezeru, k jezeru), **auf der Alm, auf die Alm** (na planini, na planino). **am** je an dem, **ans** an das. Avstrija reče tudi **am Tisch** za auf dem Tisch in **am Land** (na deželi).",
-          "it": "**an** (a, accanto a) e **auf** (su, sopra) funzionano allo stesso modo: **am See, an den See** (al lago, stato e moto), **auf der Alm, auf die Alm** (all'alpeggio, stato e moto). **am** è an dem, **ans** an das. L'Austria dice anche **am Tisch** per auf dem Tisch, e **am Land** (in campagna)."
+          "en": "**an** (at, by the side of) and **auf** (on, on top of) work the same: **am See, an den See** (at the lake, to the lake), **auf der Alm, auf die Alm**. **am** is an dem, **ans** an das. In Austria you'll also hear **am Tisch** for auf dem Tisch, in speech.",
+          "sl": "**an** (ob, na robu) in **auf** (na, na vrhu) delujeta enako: **am See, an den See** (ob jezeru, k jezeru), **auf der Alm, auf die Alm** (na planini, na planino). **am** je an dem, **ans** an das. V Avstriji slišiš v govoru tudi **am Tisch** za auf dem Tisch.",
+          "it": "**an** (a, accanto a) e **auf** (su, sopra) funzionano allo stesso modo: **am See, an den See** (al lago, stato e moto), **auf der Alm, auf die Alm** (all'alpeggio, stato e moto). **am** è an dem, **ans** an das. In Austria si sente anche, parlando, **am Tisch** per auf dem Tisch."
         },
         "examples": [
           {
@@ -490,21 +489,6 @@
               ]
             },
             {
-              "label": "neben + die Kirche",
-              "cells": [
-                {
-                  "accept": [
-                    "neben der Kirche"
-                  ]
-                },
-                {
-                  "accept": [
-                    "neben die Kirche"
-                  ]
-                }
-              ]
-            },
-            {
               "label": "unter + der Baum",
               "cells": [
                 {
@@ -544,8 +528,7 @@
               "words": [
                 "im Dorf",
                 "am Bach",
-                "in der Schule",
-                "auf dem Feld"
+                "in der Schule"
               ]
             },
             {
@@ -557,8 +540,7 @@
               "words": [
                 "ins Dorf",
                 "an den Bach",
-                "in die Schule",
-                "auf das Feld"
+                "in die Schule"
               ]
             }
           ],
@@ -753,17 +735,6 @@
                 "en": "Wohin? + accusative",
                 "sl": "Wohin? + tožilnik",
                 "it": "Wohin? + accusativo"
-              }
-            },
-            {
-              "from": "Maxi ist am See. (fahren)",
-              "accept": [
-                "Maxi fährt an den See."
-              ],
-              "hint": {
-                "en": "der See",
-                "sl": "der See",
-                "it": "der See"
               }
             },
             {
@@ -988,9 +959,7 @@
           {
             "from": "Franz ist auf dem Feld. (gehen)",
             "accept": [
-              "Franz geht auf das Feld."
-            ],
-            "spoken": [
+              "Franz geht auf das Feld.",
               "Franz geht aufs Feld."
             ]
           },
@@ -1049,5 +1018,5 @@
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: am Tisch and am Platz as Austria says them, am Land, aufs Feld; Italian stato and moto; Slovene k jezeru for an den See"
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: am Tisch and am Platz as spoken in Austria, aufs Feld; Italian stato and moto; Slovene k jezeru for an den See"
 }

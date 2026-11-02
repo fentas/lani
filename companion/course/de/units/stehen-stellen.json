@@ -1,0 +1,937 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "stehen-stellen",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🥛",
+  "title": {
+    "de": "Das Glas steht, ich stelle es hin",
+    "en": "Stand or put: stehen and stellen",
+    "sl": "Stati ali postaviti: stehen in stellen",
+    "it": "Stare o mettere: stehen e stellen"
+  },
+  "goal": {
+    "en": "You can say where things are and where you put them (Das Glas steht auf dem Tisch. Ich stelle es auf den Tisch.): stehen and stellen, liegen and legen, sitzen and setzen, hängen, each with its case.",
+    "sl": "Poveš, kje so stvari in kam jih daš (Das Glas steht auf dem Tisch. Ich stelle es auf den Tisch.): stehen in stellen, liegen in legen, sitzen in setzen, hängen, vsak s svojim sklonom.",
+    "it": "Sai dire dove sono le cose e dove le metti (Das Glas steht auf dem Tisch. Ich stelle es auf den Tisch.): stehen e stellen, liegen e legen, sitzen e setzen, hängen, ciascuno col suo caso."
+  },
+  "grammar": [
+    "stehen-stellen",
+    "wechselpraepositionen"
+  ],
+  "words": [
+    "stehen",
+    "stellen",
+    "liegen",
+    "legen",
+    "sitzen",
+    "setzen",
+    "hängen",
+    "hin",
+    "das Glas",
+    "die Flasche",
+    "das Buch",
+    "das Messer",
+    "der Teller",
+    "der Brief",
+    "der Tisch",
+    "der Sessel",
+    "der Stuhl",
+    "der Kasten",
+    "der Schrank",
+    "die Wand",
+    "das Bild",
+    "die Kiste",
+    "die Jacke",
+    "der Topf",
+    "die Bank",
+    "der Keller",
+    "die Tür",
+    "decken",
+    "aufräumen",
+    "jetzt"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Wo? + Dativ",
+          "en": "Wo? (where?) + dative",
+          "sl": "Wo? (kje?) + dajalnik",
+          "it": "Wo? (dove?) + dativo"
+        },
+        {
+          "de": "Wohin? + Akkusativ",
+          "en": "Wohin? (where to?) + accusative",
+          "sl": "Wohin? (kam?) + tožilnik",
+          "it": "Wohin? (verso dove?) + accusativo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Das Glas steht auf dem Tisch.** (The glass is on the table.) **stehen** says where it is: wo?, the dative. **Ich stelle das Glas auf den Tisch.** (I put the glass on the table.) **stellen** says you put it there: wohin?, the accusative.",
+          "sl": "**Das Glas steht auf dem Tisch.** (Kozarec stoji na mizi.) **stehen** pove, kje je: wo?, dajalnik. **Ich stelle das Glas auf den Tisch.** (Kozarec postavim na mizo.) **stellen** pove, da ga postaviš: wohin?, tožilnik.",
+          "it": "**Das Glas steht auf dem Tisch.** (Il bicchiere è sul tavolo.) **stehen** dice dov'è: wo?, il dativo. **Ich stelle das Glas auf den Tisch.** (Metto il bicchiere sul tavolo.) **stellen** dice che ce lo metti: wohin?, l'accusativo."
+        },
+        "examples": [
+          {
+            "de": "Das Glas steht auf dem Tisch.",
+            "en": "The glass is on the table.",
+            "sl": "Kozarec stoji na mizi.",
+            "it": "Il bicchiere è sul tavolo."
+          },
+          {
+            "de": "Ich stelle das Glas auf den Tisch.",
+            "en": "I put the glass on the table.",
+            "sl": "Kozarec postavim na mizo.",
+            "it": "Metto il bicchiere sul tavolo."
+          },
+          {
+            "de": "Stefan stellt die Flasche in den Keller.",
+            "en": "Stefan puts the bottle in the cellar.",
+            "sl": "Stefan postavi steklenico v klet.",
+            "it": "Stefan mette la bottiglia in cantina."
+          }
+        ],
+        "rows": [
+          [
+            "steht auf dem Tisch",
+            "stellt auf den Tisch"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stehen-stellen",
+          "prompt": "Das Glas ___ auf dem Tisch.",
+          "options": [
+            "steht",
+            "stellt",
+            "stehst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wo? It is there: steht**\n- Das Glas steht auf dem Tisch.",
+            "sl": "**Kje? Je tam: steht**\n- Das Glas steht auf dem Tisch.",
+            "it": "**Dove? È lì: steht**\n- Das Glas steht auf dem Tisch."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Das Buch liegt auf dem Tisch.** (The book is lying on the table.) **Ich lege das Buch auf den Tisch.** (I lay the book on the table.) **liegen** and **legen** are for what is flat: **ein Buch, ein Brief, ein Messer**. What is upright stands: **ein Glas, eine Flasche**.",
+          "sl": "**Das Buch liegt auf dem Tisch.** (Knjiga leži na mizi.) **Ich lege das Buch auf den Tisch.** (Knjigo položim na mizo.) **liegen** in **legen** sta za kar je plosko: **ein Buch, ein Brief, ein Messer**. Kar je pokonci, stoji: **ein Glas, eine Flasche**.",
+          "it": "**Das Buch liegt auf dem Tisch.** (Il libro è sul tavolo.) **Ich lege das Buch auf den Tisch.** (Metto il libro sul tavolo.) **liegen** e **legen** sono per ciò che è piatto: **ein Buch, ein Brief, ein Messer**. Ciò che è in piedi sta: **ein Glas, eine Flasche**."
+        },
+        "examples": [
+          {
+            "de": "Der Brief liegt auf dem Tisch.",
+            "en": "The letter is on the table.",
+            "sl": "Pismo leži na mizi.",
+            "it": "La lettera è sul tavolo."
+          },
+          {
+            "de": "Kathi legt das Messer neben den Teller.",
+            "en": "Kathi puts the knife next to the plate.",
+            "sl": "Kathi položi nož poleg krožnika.",
+            "it": "Kathi mette il coltello accanto al piatto."
+          }
+        ],
+        "rows": [
+          [
+            "liegt auf dem Tisch",
+            "legt auf den Tisch"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "stehen-stellen",
+          "text": "Kathi ___ das Messer auf den Tisch. (legen)",
+          "accept": [
+            "legt"
+          ],
+          "hint": {
+            "en": "she puts it there",
+            "sl": "položi ga tja",
+            "it": "ce lo mette"
+          },
+          "explain": {
+            "en": "**With an object, wohin?: legt**\n- Kathi legt das Messer auf den Tisch.",
+            "sl": "**S predmetom, wohin?: legt**\n- Kathi legt das Messer auf den Tisch.",
+            "it": "**Con un oggetto, wohin?: legt**\n- Kathi legt das Messer auf den Tisch."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Das Kind sitzt auf dem Sessel.** (The child is sitting on the chair.) **Kathi setzt das Kind auf den Sessel.** (Kathi sits the child on the chair.) To sit down yourself: **Ich setze mich. Setz dich!** (Sit down!) **der Sessel** is Austrian for a chair; Germany says der Stuhl.",
+          "sl": "**Das Kind sitzt auf dem Sessel.** (Otrok sedi na stolu.) **Kathi setzt das Kind auf den Sessel.** (Kathi posadi otroka na stol.) Kdor sam sede: **Ich setze mich. Setz dich!** (Sedi!) **der Sessel** je avstrijsko stol; Nemčija reče der Stuhl.",
+          "it": "**Das Kind sitzt auf dem Sessel.** (Il bambino è seduto sulla sedia.) **Kathi setzt das Kind auf den Sessel.** (Kathi mette il bambino sulla sedia.) Per sedersi: **Ich setze mich. Setz dich!** (Siediti!) **der Sessel** in Austria è la sedia; la Germania dice der Stuhl."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp sitzt unter der Linde.",
+            "en": "Grandpa Sepp is sitting under the lime tree.",
+            "sl": "Dedek Sepp sedi pod lipo.",
+            "it": "Nonno Sepp è seduto sotto il tiglio."
+          },
+          {
+            "de": "Setz dich auf den Sessel, {learner}!",
+            "en": "Sit down on the chair, {learner}!",
+            "sl": "Sedi na stol, {learner}!",
+            "it": "Siediti sulla sedia, {learner}!"
+          }
+        ],
+        "rows": [
+          [
+            "sitzt auf dem Sessel",
+            "setzt auf den Sessel"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stehen-stellen",
+          "prompt": "Opa Sepp ___ unter der Linde.",
+          "options": [
+            "sitzt",
+            "setzt",
+            "stellt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wo? He is there: sitzt**\n- Opa Sepp sitzt unter der Linde.",
+            "sl": "**Kje? Je tam: sitzt**\n- Opa Sepp sitzt unter der Linde.",
+            "it": "**Dove? È lì: sitzt**\n- Opa Sepp sitzt unter der Linde."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**hängen** is one verb for both, and only the case tells them apart: **Das Bild hängt an der Wand.** (The picture is hanging on the wall.) **Ich hänge das Bild an die Wand.** (I hang the picture on the wall.)",
+          "sl": "**hängen** je en glagol za oboje, razliko pove samo sklon: **Das Bild hängt an der Wand.** (Slika visi na steni.) **Ich hänge das Bild an die Wand.** (Sliko obesim na steno.)",
+          "it": "**hängen** è un solo verbo per i due casi, e li distingue solo il caso: **Das Bild hängt an der Wand.** (Il quadro è appeso al muro.) **Ich hänge das Bild an die Wand.** (Appendo il quadro al muro.)"
+        },
+        "examples": [
+          {
+            "de": "Das Bild hängt an der Wand.",
+            "en": "The picture is hanging on the wall.",
+            "sl": "Slika visi na steni.",
+            "it": "Il quadro è appeso al muro."
+          },
+          {
+            "de": "Toni hängt den Hammer an die Wand.",
+            "en": "Toni hangs the hammer on the wall.",
+            "sl": "Toni obesi kladivo na steno.",
+            "it": "Toni appende il martello al muro."
+          }
+        ],
+        "rows": [
+          [
+            "hängt an der Wand",
+            "hängt an die Wand"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "stehen-stellen",
+          "text": "Das Bild hängt an ___ Wand.",
+          "accept": [
+            "der"
+          ],
+          "hint": "Wo?",
+          "explain": {
+            "en": "**Wo? die Wand in the dative: der**\n- Das Bild hängt an der Wand.",
+            "sl": "**Kje? die Wand v dajalniku: der**\n- Das Bild hängt an der Wand.",
+            "it": "**Dove? die Wand al dativo: der**\n- Das Bild hängt an der Wand."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Wo steht das Glas? Wohin stellst du das Glas?** The question goes with the verb. The present is regular: **du stehst, du stellst, du liegst, du legst**, and only -t after z: **du sitzt, du setzt**. **hin** (there) says it goes away from you: **Ich stelle es hin.** (I put it there.)",
+          "sl": "**Wo steht das Glas? Wohin stellst du das Glas?** Vprašanje gre z glagolom. Sedanjik je pravilen: **du stehst, du stellst, du liegst, du legst**, za z pa samo -t: **du sitzt, du setzt**. **hin** (tja) pove, da gre stran od tebe: **Ich stelle es hin.** (Postavim ga tja.)",
+          "it": "**Wo steht das Glas? Wohin stellst du das Glas?** La domanda va col verbo. Il presente è regolare: **du stehst, du stellst, du liegst, du legst**, e dopo la z solo -t: **du sitzt, du setzt**. **hin** (là) dice che si allontana da te: **Ich stelle es hin.** (Lo metto là.)"
+        },
+        "examples": [
+          {
+            "de": "Wohin stellst du die Flasche? – Ich stelle sie auf den Tisch.",
+            "en": "Where are you putting the bottle? – I'm putting it on the table.",
+            "sl": "Kam postaviš steklenico? – Postavim jo na mizo.",
+            "it": "Dove metti la bottiglia? – La metto sul tavolo."
+          },
+          {
+            "de": "Das Glas? Ich stelle es hin.",
+            "en": "The glass? I'll put it there.",
+            "sl": "Kozarec? Postavim ga tja.",
+            "it": "Il bicchiere? Lo metto là."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stehen-stellen",
+          "prompt": "Wohin ___ du die Flasche?",
+          "options": [
+            "stellst",
+            "stehst",
+            "stellt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wohin? stellen, du: stellst**\n- Wohin stellst du die Flasche?",
+            "sl": "**Kam? stellen, du: stellst**\n- Wohin stellst du die Flasche?",
+            "it": "**Verso dove? stellen, du: stellst**\n- Wohin stellst du die Flasche?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Stefan steht im Keller. Stefan stellt die Kiste in den Keller.** No object: he's there, the dative. An object: he puts it there, the accusative. In Austria you'll also hear **am Tisch** for auf dem Tisch, in speech. **der Kasten** is a wardrobe; Germany says der Schrank.",
+          "sl": "**Stefan steht im Keller. Stefan stellt die Kiste in den Keller.** Brez predmeta: je tam, dajalnik. S predmetom: postavi jo tja, tožilnik. V Avstriji slišiš v govoru tudi **am Tisch** za auf dem Tisch. **der Kasten** je omara; Nemčija reče der Schrank.",
+          "it": "**Stefan steht im Keller. Stefan stellt die Kiste in den Keller.** Senza oggetto: è lì, il dativo. Con un oggetto: ce la mette, l'accusativo. In Austria si sente anche, parlando, **am Tisch** per auf dem Tisch. **der Kasten** è l'armadio; la Germania dice der Schrank."
+        },
+        "examples": [
+          {
+            "de": "Stefan steht im Keller.",
+            "en": "Stefan is standing in the cellar.",
+            "sl": "Stefan stoji v kleti.",
+            "it": "Stefan è in piedi in cantina."
+          },
+          {
+            "de": "Stefan stellt die Kiste in den Keller.",
+            "en": "Stefan puts the crate in the cellar.",
+            "sl": "Stefan postavi zaboj v klet.",
+            "it": "Stefan mette la cassa in cantina."
+          },
+          {
+            "de": "Der Kasten steht neben der Tür.",
+            "en": "The wardrobe is next to the door.",
+            "sl": "Omara stoji poleg vrat.",
+            "it": "L'armadio è accanto alla porta."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stehen-stellen",
+          "prompt": "Stefan stellt die Kiste in ___ Keller.",
+          "options": [
+            "den",
+            "dem",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**An object, wohin?: den**\n- Stefan stellt die Kiste in den Keller.",
+            "sl": "**Predmet, wohin?: den**\n- Stefan stellt die Kiste in den Keller.",
+            "it": "**Un oggetto, wohin?: den**\n- Stefan stellt die Kiste in den Keller."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Where it is, no object, the dative: **stehen, liegen, sitzen**: **Das Glas steht auf dem Tisch.**\n\nPutting it there, an object, the accusative: **stellen, legen, setzen**: **Ich stelle das Glas auf den Tisch.**\n\nUpright things stand, flat things lie: **Das Buch liegt.**\n\n**hängen** is both: **an der Wand, an die Wand.**",
+      "sl": "Kje je, brez predmeta, dajalnik: **stehen, liegen, sitzen**: **Das Glas steht auf dem Tisch.**\n\nKam daš, s predmetom, tožilnik: **stellen, legen, setzen**: **Ich stelle das Glas auf den Tisch.**\n\nKar je pokonci, stoji, kar je plosko, leži: **Das Buch liegt.**\n\n**hängen** je oboje: **an der Wand, an die Wand.**",
+      "it": "Dov'è, senza oggetto, il dativo: **stehen, liegen, sitzen**: **Das Glas steht auf dem Tisch.**\n\nDove lo metti, con un oggetto, l'accusativo: **stellen, legen, setzen**: **Ich stelle das Glas auf den Tisch.**\n\nCiò che è in piedi sta, ciò che è piatto giace: **Das Buch liegt.**\n\n**hängen** è entrambi: **an der Wand, an die Wand.**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "stehen-stellen-1",
+      "title": {
+        "de": "Stehen oder stellen?",
+        "en": "Stehen or stellen?",
+        "sl": "Stehen ali stellen?",
+        "it": "Stehen o stellen?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "stehen-stellen",
+          "instruction": {
+            "en": "Ergänze das Verb · Fill in the verb",
+            "sl": "Ergänze das Verb · Dopolni glagol",
+            "it": "Ergänze das Verb · Completa con il verbo"
+          },
+          "prompt": {
+            "en": "the present",
+            "sl": "sedanjik",
+            "it": "il presente"
+          },
+          "columns": [
+            "du",
+            {
+              "en": "er, sie, es",
+              "sl": "er, sie, es",
+              "it": "er, sie, es"
+            }
+          ],
+          "rows": [
+            {
+              "label": "liegen",
+              "cells": [
+                {
+                  "accept": [
+                    "liegst"
+                  ]
+                },
+                {
+                  "accept": [
+                    "liegt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "legen",
+              "cells": [
+                {
+                  "accept": [
+                    "legst"
+                  ]
+                },
+                {
+                  "accept": [
+                    "legt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sitzen",
+              "cells": [
+                {
+                  "accept": [
+                    "sitzt"
+                  ],
+                  "hint": {
+                    "en": "only -t after z",
+                    "sl": "za z samo -t",
+                    "it": "dopo la z solo -t"
+                  }
+                },
+                {
+                  "accept": [
+                    "sitzt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "setzen",
+              "cells": [
+                {
+                  "accept": [
+                    "setzt"
+                  ],
+                  "hint": {
+                    "en": "only -t after z",
+                    "sl": "za z samo -t",
+                    "it": "dopo la z solo -t"
+                  }
+                },
+                {
+                  "accept": [
+                    "setzt"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du liegst, du legst · du sitzt, du setzt**",
+            "sl": "**du liegst, du legst · du sitzt, du setzt**",
+            "it": "**du liegst, du legst · du sitzt, du setzt**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "stehen-stellen",
+          "instruction": {
+            "en": "Ordne die Verben zu: Wo? oder Wohin? · Sort the verbs: where or where to?",
+            "sl": "Ordne die Verben zu: Wo? oder Wohin? · Razvrsti glagole: kje ali kam?",
+            "it": "Ordne die Verben zu: Wo? oder Wohin? · Metti in ordine i verbi: stato o moto?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Wo? · it is there",
+                "sl": "Wo? · je tam",
+                "it": "Wo? · è lì"
+              },
+              "words": [
+                "stehen",
+                "liegen",
+                "sitzen"
+              ]
+            },
+            {
+              "label": {
+                "en": "Wohin? · someone puts it",
+                "sl": "Wohin? · kdo ga postavi",
+                "it": "Wohin? · qualcuno lo mette"
+              },
+              "words": [
+                "stellen",
+                "legen",
+                "setzen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**stehen, liegen, sitzen · stellen, legen, setzen**",
+            "sl": "**stehen, liegen, sitzen · stellen, legen, setzen**",
+            "it": "**stehen, liegen, sitzen · stellen, legen, setzen**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stehen-stellen-2",
+      "title": {
+        "de": "Kathi deckt den Tisch",
+        "en": "Kathi lays the table",
+        "sl": "Kathi pogrinja mizo",
+        "it": "Kathi apparecchia la tavola"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "stehen-stellen",
+          "instruction": {
+            "en": "Ergänze das Verb · Fill in the verb",
+            "sl": "Ergänze das Verb · Dopolni glagol",
+            "it": "Ergänze das Verb · Completa con il verbo"
+          },
+          "title": "Kathi deckt den Tisch",
+          "text": "Kathi deckt den Tisch. Sie ___ die Gläser auf den Tisch. Jetzt ___ die Gläser auf dem Tisch. Sie ___ die Messer neben die Teller. Jetzt ___ die Messer neben den Tellern. Das Bild ___ an der Wand. Maxi ___ Jakob auf den Sessel. Jetzt ___ Jakob auf dem Sessel. Und Bello? Er ___ unter dem Tisch.",
+          "gaps": [
+            {
+              "accept": [
+                "stellt"
+              ],
+              "hint": {
+                "en": "she puts them, upright",
+                "sl": "postavi jih, pokonci",
+                "it": "li mette, in piedi"
+              }
+            },
+            {
+              "accept": [
+                "stehen"
+              ],
+              "hint": "Wo?"
+            },
+            {
+              "accept": [
+                "legt"
+              ],
+              "hint": {
+                "en": "she puts them, flat",
+                "sl": "položi jih, plosko",
+                "it": "li mette, piatti"
+              }
+            },
+            {
+              "accept": [
+                "liegen"
+              ],
+              "hint": "Wo?"
+            },
+            {
+              "accept": [
+                "hängt"
+              ]
+            },
+            {
+              "accept": [
+                "setzt"
+              ],
+              "hint": {
+                "en": "he puts him there",
+                "sl": "posadi ga tja",
+                "it": "ce lo mette"
+              }
+            },
+            {
+              "accept": [
+                "sitzt"
+              ],
+              "hint": "Wo?"
+            },
+            {
+              "accept": [
+                "liegt"
+              ],
+              "hint": "Wo?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "stellen",
+            "legen"
+          ],
+          "translation": {
+            "en": "Kathi lays the table. She puts the glasses on the table. Now the glasses are on the table. She puts the knives next to the plates. Now the knives are next to the plates. The picture is hanging on the wall. Maxi sits Jakob on the chair. Now Jakob is sitting on the chair. And Bello? He's lying under the table.",
+            "sl": "Kathi pogrinja mizo. Kozarce postavi na mizo. Zdaj kozarci stojijo na mizi. Nože položi poleg krožnikov. Zdaj noži ležijo poleg krožnikov. Slika visi na steni. Maxi posadi Jakoba na stol. Zdaj Jakob sedi na stolu. In Bello? Leži pod mizo.",
+            "it": "Kathi apparecchia la tavola. Mette i bicchieri sul tavolo. Ora i bicchieri sono sul tavolo. Mette i coltelli accanto ai piatti. Ora i coltelli sono accanto ai piatti. Il quadro è appeso al muro. Maxi mette Jakob sulla sedia. Ora Jakob è seduto sulla sedia. E Bello? È sdraiato sotto il tavolo."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "stehen-stellen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ich lege den Brief auf ___ Tisch.",
+          "options": [
+            "den",
+            "dem",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**legen, wohin?: the accusative**\n- Ich lege den Brief auf den Tisch.",
+            "sl": "**legen, kam?: tožilnik**\n- Ich lege den Brief auf den Tisch.",
+            "it": "**legen, verso dove?: l'accusativo**\n- Ich lege den Brief auf den Tisch."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "stehen-stellen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Der Brief liegt auf ___ Tisch.",
+          "options": [
+            "dem",
+            "den",
+            "das"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**liegen, wo?: the dative**\n- Der Brief liegt auf dem Tisch.",
+            "sl": "**liegen, kje?: dajalnik**\n- Der Brief liegt auf dem Tisch.",
+            "it": "**liegen, dove?: il dativo**\n- Der Brief liegt auf dem Tisch."
+          }
+        }
+      ]
+    },
+    {
+      "id": "stehen-stellen-3",
+      "title": {
+        "de": "Hin und da",
+        "en": "There and here",
+        "sl": "Tja in tu",
+        "it": "Là e qui"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "stehen-stellen",
+          "instruction": {
+            "en": "Jetzt ist es dort · Now it's there: say where it is",
+            "sl": "Jetzt ist es dort · Zdaj je tam: povej, kje je",
+            "it": "Jetzt ist es dort · Ora è lì: di' dov'è"
+          },
+          "items": [
+            {
+              "from": "Ich stelle das Glas auf den Tisch.",
+              "accept": [
+                "Das Glas steht auf dem Tisch."
+              ],
+              "spoken": [
+                "Das Glas steht am Tisch."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            },
+            {
+              "from": "Kathi legt den Brief auf den Tisch.",
+              "accept": [
+                "Der Brief liegt auf dem Tisch."
+              ],
+              "spoken": [
+                "Der Brief liegt am Tisch."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            },
+            {
+              "from": "Maxi setzt die Katze auf den Sessel.",
+              "accept": [
+                "Die Katze sitzt auf dem Sessel."
+              ],
+              "spoken": [
+                "Die Katze sitzt am Sessel."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            },
+            {
+              "from": "Toni hängt den Hammer an die Wand.",
+              "accept": [
+                "Der Hammer hängt an der Wand."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            },
+            {
+              "from": "Stefan stellt die Flasche in den Keller.",
+              "accept": [
+                "Die Flasche steht im Keller.",
+                "Die Flasche steht in dem Keller."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            }
+          ]
+        },
+        {
+          "type": "transform",
+          "grammar": "stehen-stellen",
+          "instruction": {
+            "en": "Wer stellt es dorthin? · Who puts it there? Say it with the person in brackets",
+            "sl": "Wer stellt es dorthin? · Kdo ga postavi tja? Povej z osebo v oklepaju",
+            "it": "Wer stellt es dorthin? · Chi ce lo mette? Dillo con la persona tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Das Buch liegt auf dem Sessel. (ich)",
+              "accept": [
+                "Ich lege das Buch auf den Sessel."
+              ],
+              "hint": {
+                "en": "Wohin? + accusative",
+                "sl": "Wohin? + tožilnik",
+                "it": "Wohin? + accusativo"
+              }
+            },
+            {
+              "from": "Das Bild hängt an der Wand. (Eva)",
+              "accept": [
+                "Eva hängt das Bild an die Wand."
+              ],
+              "hint": {
+                "en": "Wohin? + accusative",
+                "sl": "Wohin? + tožilnik",
+                "it": "Wohin? + accusativo"
+              }
+            },
+            {
+              "from": "Der Kasten steht neben der Tür. (wir)",
+              "accept": [
+                "Wir stellen den Kasten neben die Tür."
+              ],
+              "hint": {
+                "en": "Wohin? + accusative",
+                "sl": "Wohin? + tožilnik",
+                "it": "Wohin? + accusativo"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "stehen-stellen",
+        "instruction": {
+          "en": "Ergänze das Verb · Fill in the verb",
+          "sl": "Ergänze das Verb · Dopolni glagol",
+          "it": "Ergänze das Verb · Completa con il verbo"
+        },
+        "title": "Lena räumt auf",
+        "text": "Lena räumt auf. Sie ___ das Buch auf den Tisch. Jetzt ___ das Buch auf dem Tisch. Die Flasche ___ im Keller. Jakob ___ auf dem Sessel. Seine Jacke ___ an der Tür.",
+        "gaps": [
+          {
+            "accept": [
+              "legt"
+            ]
+          },
+          {
+            "accept": [
+              "liegt"
+            ]
+          },
+          {
+            "accept": [
+              "steht"
+            ]
+          },
+          {
+            "accept": [
+              "sitzt"
+            ]
+          },
+          {
+            "accept": [
+              "hängt"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Lena is tidying up. She puts the book on the table. Now the book is on the table. The bottle is in the cellar. Jakob is sitting on the chair. His jacket is hanging on the door.",
+          "sl": "Lena pospravlja. Knjigo položi na mizo. Zdaj knjiga leži na mizi. Steklenica stoji v kleti. Jakob sedi na stolu. Njegova jakna visi na vratih.",
+          "it": "Lena mette in ordine. Mette il libro sul tavolo. Ora il libro è sul tavolo. La bottiglia è in cantina. Jakob è seduto sulla sedia. La sua giacca è appesa alla porta."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "stehen-stellen",
+        "instruction": {
+          "en": "Ergänze das Verb · Fill in the verb",
+          "sl": "Ergänze das Verb · Dopolni glagol",
+          "it": "Ergänze das Verb · Completa con il verbo"
+        },
+        "prompt": {
+          "en": "the present",
+          "sl": "sedanjik",
+          "it": "il presente"
+        },
+        "columns": [
+          "du",
+          {
+            "en": "er, sie, es",
+            "sl": "er, sie, es",
+            "it": "er, sie, es"
+          }
+        ],
+        "rows": [
+          {
+            "label": "stellen",
+            "cells": [
+              {
+                "accept": [
+                  "stellst"
+                ]
+              },
+              {
+                "accept": [
+                  "stellt"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "stehen",
+            "cells": [
+              {
+                "accept": [
+                  "stehst"
+                ]
+              },
+              "steht"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "stehen-stellen",
+        "instruction": {
+          "en": "Jetzt ist es dort · Now it's there: say where it is",
+          "sl": "Jetzt ist es dort · Zdaj je tam: povej, kje je",
+          "it": "Jetzt ist es dort · Ora è lì: di' dov'è"
+        },
+        "items": [
+          {
+            "from": "Oma Resi stellt den Topf auf den Tisch.",
+            "accept": [
+              "Der Topf steht auf dem Tisch."
+            ],
+            "spoken": [
+              "Der Topf steht am Tisch."
+            ]
+          },
+          {
+            "from": "Florian legt die Jacke auf die Bank.",
+            "accept": [
+              "Die Jacke liegt auf der Bank."
+            ]
+          },
+          {
+            "from": "Eva hängt das Bild an die Tür.",
+            "accept": [
+              "Das Bild hängt an der Tür."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "stehen-stellen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich setze mich auf ___ Sessel.",
+        "options": [
+          "den",
+          "dem",
+          "der"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**setzen, wohin?: the accusative**",
+          "sl": "**setzen, kam?: tožilnik**",
+          "it": "**setzen, verso dove?: l'accusativo**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "stehen-stellen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das Messer ___ neben dem Teller.",
+        "options": [
+          "liegt",
+          "legt",
+          "stellt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Flat, wo?: liegt**",
+          "sl": "**Plosko, kje?: liegt**",
+          "it": "**Piatto, dove?: liegt**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Sessel, Kasten, am Tisch and am Sessel as spoken; Kathi deckt den Tisch; Slovene posaditi for setzen"
+}
