@@ -4,6 +4,7 @@ import type { FeatureFactory } from '../feature'
 import { pacingNote, taskPassed } from '../game'
 import { json } from '../http'
 import { validateModule } from '../spec'
+import { learnerLevel } from '../villagers'
 import { corpus } from '../voice'
 
 const instructions = `
@@ -11,10 +12,10 @@ To create, change or retire practice content in the app, load the lani-studio sk
 publish_module / list_modules / get_module / rollback_module. Never write module files directly.
 `.trim()
 
-export const modules: FeatureFactory = ({ modules: store, events, voice, grammar, addressee, game }) => ({
+export const modules: FeatureFactory = ({ cfg, modules: store, events, voice, grammar, addressee, game }) => ({
   instructions,
   routes: [
-    { method: 'GET', path: '/modules', addressed: true, areas: ['content'], handle: () => json(store.list()) },
+    { method: 'GET', path: '/modules', addressed: true, areas: ['content'], handle: () => json(store.offered(learnerLevel(cfg.dataDir))) },
     {
       method: 'GET',
       path: /^\/modules\/([a-z0-9-]+)$/,

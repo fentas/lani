@@ -265,8 +265,9 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     channel: platform.channel,
     outbox: new Outbox(join(appDir, 'client-ids.json'), log),
     // The curated modules, scenarios and scenes are the village's language's: Slovene ones in their directories, another
-    // language's in a subdirectory of its code (companion/modules/it), none yet: the tutor writes them for the learner.
-    modules: new ModuleStore(join(appDir, 'modules'), ofLanguage(env.LANI_MODULES_DIR ?? join(projectDir, 'companion/modules')), log),
+    // language's in a subdirectory of its code (companion/modules/it: its modules' texts per base in the learner's). A
+    // language without any: the tutor writes them for the learner.
+    modules: new ModuleStore(join(appDir, 'modules'), ofLanguage(env.LANI_MODULES_DIR ?? join(projectDir, 'companion/modules')), log, () => learnerLangs(dataDir, language).base),
     // The curated word packs of the village's language, then its culture pack's own (its festivals' and its places' words).
     packs: new PackStore(packsDirs(env.LANI_PACKS_DIR ?? join(projectDir, 'companion/packs'), culturesDir, culture.id, language), join(appDir, 'packs'), log),
     // The grammar book of the village's language (companion/grammar/<language>: sl, it, de, en), then the tutor's pages.
