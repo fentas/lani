@@ -25,11 +25,14 @@ const localDate = (now = Date.now()) => {
  * - `content`: what the tutor and the project wrote for the app to show (the tutor's stores in app/: [CONTENT_STORES];
  *   on a node the project's content under companion/ and any content directory set apart), and who the learner is (the
  *   profile's learner, preferences and home language: the name, the gender, the languages and the level the content is
- *   said in, the learner's own voice).
+ *   said in, the learner's own voice);
+ * - `friends`: what the friendships between towns take of the village and of the learner, by value (no files of its own:
+ *   [Changes.value], features/friendship.ts): the village's last feast and the learner's level in each linked town's
+ *   language. A move in the village or a session moves it only when one of those changes.
  * A session's results move `learner` only, a move in the village `village` only: the scenes, the course, the grammar
- * book … aren't read again for them.
+ * book, the towns' friendships … aren't read again for them.
  */
-export const AREAS = ['learner', 'village', 'towns', 'family', 'content'] as const
+export const AREAS = ['learner', 'village', 'towns', 'family', 'content', 'friends'] as const
 export type Area = (typeof AREAS)[number]
 
 /** The header of an answer that says the versions of the areas it depends on, as they were before it was made. */
@@ -92,6 +95,8 @@ export type Versions = { version: string; day: string; areas: Record<Area, strin
 export class Changes {
   private readonly run = randomUUID()
   private last: { at: number; v: Versions } | null = null
+  /** The areas said by value ([value]): each one's value, worked out again only when the areas it comes from moved. */
+  private readonly values: { area: Area; from: readonly Area[]; of: () => string; key?: string; text?: string }[] = []
 
   constructor(
     private readonly o: {
@@ -136,13 +141,41 @@ export class Changes {
     this.last = null
   }
 
+  /**
+   * [area]'s version also says a value worked out from what areas [from] hold ([of]: a text; "" when it fails), worked
+   * out again only when one of them moved: a read that depends on that value, not on every file of [from], says [area]
+   * instead of them, and isn't read again for a change of theirs that leaves the value as it was (the towns' friendships:
+   * the village's last feast, not its every move). [from] are areas of files, never one said by value.
+   */
+  value(area: Area, from: readonly Area[], of: () => string) {
+    if (from.some(a => a === area || this.values.some(v => v.area === a))) throw new Error(`changes: ${area} comes from an area said by value`)
+    this.values.push({ area, from, of })
+    this.last = null
+  }
+
   private walked(at: number): Versions {
     const day = localDate(at)
     const hashes = Object.fromEntries(AREAS.map(a => [a, createHash('sha1').update(`${this.run}\n${day}\n${a}\n`)])) as Record<Area, ReturnType<typeof createHash>>
     walk(this.o.dataDir, rel => hashes[dataArea(rel)], DATA_SKIP)
     for (const dir of this.o.contentDirs ?? []) walk(dir, () => hashes.content, PROJECT_SKIP)
     hashes.content.update(`facts\0${facts(this.o.dataDir)}\n`)
-    const areas = Object.fromEntries(AREAS.map(a => [a, hashes[a].digest('base64url').slice(0, 22)])) as Record<Area, string>
+    const digest = (a: Area) => hashes[a].digest('base64url').slice(0, 22)
+    const byValue = new Set(this.values.map(v => v.area))
+    const areas = Object.fromEntries(AREAS.filter(a => !byValue.has(a)).map(a => [a, digest(a)])) as Record<Area, string>
+    // the areas said by value, after the areas they come from (their versions say whether the value is worked out again)
+    for (const v of this.values) {
+      const key = v.from.map(a => areas[a]).join(',')
+      if (v.key !== key) {
+        try {
+          v.text = v.of()
+        } catch {
+          v.text = ''
+        }
+        v.key = key
+      }
+      hashes[v.area].update(`value\0${v.text}\n`)
+    }
+    for (const a of byValue) areas[a] = digest(a)
     const all = createHash('sha1')
     for (const a of AREAS) all.update(`${a}=${areas[a]}\n`)
     return { version: all.digest('base64url').slice(0, 22), day, areas }

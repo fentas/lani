@@ -58,7 +58,7 @@ data.language: theirs): a bilingual neighbour who speaks their language with the
 them lines, give them lines in their language with the learner's base translation, at the learner's level in it.
 `.trim()
 
-export const friendship: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, culture, events, log }) => {
+export const friendship: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, culture, events, log, changes }) => {
   const store = new Towns(cfg.appDir, log)
   const nonces = new Nonces()
   const friends = friendsOf(cfg.appDir, bridgeKey)
@@ -79,6 +79,15 @@ export const friendship: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, g
       return undefined
     }
   }
+
+  // What the friendships' read (GET /towns/friendship) takes of the village and the learner, by value (changes.ts:
+  // `friends`): the village's last feast and the learner's level in each linked town's language; nothing without a
+  // linked town. A move in the village or a session reads the friendships again only when one of those changed.
+  changes.value('friends', ['village', 'learner', 'towns'], () => {
+    const languages = [...new Set(store.links().map(l => l.display?.language || 'sl'))].sort()
+    if (!languages.length) return ''
+    return JSON.stringify({ feast: feastOf(villageState(), undefined, quiet), skills: languages.map(l => [l, skillIn(cfg.dataDir, l, language)]) })
+  })
 
   let people: unknown
   /** The village's culture pack's people (people.json): the names and trades of those who move out. */
@@ -355,10 +364,11 @@ export const friendship: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, g
 
       // --- the learner's app ---------------------------------------------------------------------------------------
       {
-        // every linked town's friendship, as both towns agree it (each is asked for its counts now, 3 s)
+        // every linked town's friendship, as both towns agree it (each is asked for its counts now, 3 s); of the village
+        // and the learner it takes their values only (`friends`: the feast, the levels), not their every change
         method: 'GET',
         path: '/towns/friendship',
-        areas: ['towns', 'village', 'learner', 'content'],
+        areas: ['towns', 'friends', 'content'],
         handle: async () => {
           const rows = await Promise.all(store.links().map(async l => row(l, await friends.with(l))))
           return json({ self: { id: self, child: profile.child, language }, levels: FRIEND_LEVELS, points: FRIEND_POINTS, feast_days: FEAST_DAYS, towns: rows })

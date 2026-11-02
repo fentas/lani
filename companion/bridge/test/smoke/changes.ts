@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, readFileSync, unlinkSync, utimesSync, writeFileS
 import { join } from 'node:path'
 import { auth, base, check, client, dataDir, modulesDir } from './harness'
 
-const AREAS = ['learner', 'village', 'towns', 'family', 'content'] as const
+const AREAS = ['learner', 'village', 'towns', 'family', 'content', 'friends'] as const
 type Areas = Record<(typeof AREAS)[number], string>
 type Version = { version: string; day: string; areas: Areas }
 const version = async (): Promise<Version> => (await (await fetch(`${base}/changes`, { headers: auth })).json()) as Version
@@ -83,7 +83,7 @@ const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 /** The areas (changes-areas.md): each moves with its own files only, and each read says the versions it was made at. */
 async function areas() {
   const a = await version()
-  check('/changes: a version of each area (learner, village, towns, family, content)', AREAS.every(x => typeof a.areas?.[x] === 'string' && a.areas[x].length >= 16) && new Set(AREAS.map(x => a.areas[x])).size === AREAS.length, a)
+  check('/changes: a version of each area (learner, village, towns, family, content, friends)',AREAS.every(x => typeof a.areas?.[x] === 'string' && a.areas[x].length >= 16) && new Set(AREAS.map(x => a.areas[x])).size === AREAS.length, a)
 
   // each read the app makes again on a Back says the areas it depends on, at their versions now
   const reads: [string, string[]][] = [
@@ -91,7 +91,7 @@ async function areas() {
     ['/course', ['content']], ['/readings', ['content']], ['/cases', ['content']], ['/scenes?arts=1', ['content']], ['/villagers?time=day', ['content']],
     ['/arrivals', ['content']], ['/culture', ['content']], ['/scenarios', ['content']], ['/stories', ['content']], ['/drills', ['content']],
     ['/voice/index', ['content']], ['/voice/profiles', ['content']], ['/towns', ['towns', 'content']], ['/towns/guests', ['towns', 'content']],
-    ['/towns/children', ['towns', 'content']], ['/towns/questions', ['towns', 'content']], ['/towns/friendship', ['learner', 'village', 'towns', 'content']],
+    ['/towns/children', ['towns', 'content']], ['/towns/questions', ['towns', 'content']], ['/towns/friendship', ['towns', 'friends', 'content']],
     ['/audio/index', ['family', 'content']], ['/family/api/settings', ['family', 'content']], ['/family/api/challenges', ['family', 'content']],
   ]
   const answers = await Promise.all(reads.map(async ([p]) => {
