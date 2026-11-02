@@ -502,24 +502,16 @@ internal class BuildingPainter(private val s: SceneCtx) {
         speckle(x0, y0, 0f, 1.2f, 1.2f, 4f, b.plot * 13, Pal.STONE_D, Pal.STONE_X)
         mortar(x0, y0, 0f, 1.2f, 1.2f, 4f, Pal.STONE_D, Pal.STONE_X)
         i.top(x0 + 0.2f, y0 + 0.2f, 4f, 0.8f, 0.8f, if (env.snow) Pal.ICE_M else Pal.WATER_D)
-        // as the square's well grows with its level (Na vasi): below level 3 the sweep, a forked pole with its beam and the
-        // bucket's rope; from 3 the posts and the windlass, roofed with shingles at 4 and with tiles at 5
-        if (b.level < 3) {
-            i.post(x + 0.55f, y0 + 0.6f, 0f, 10f, Pal.WOOD_D)
-            i.line(x + 0.55f, y0 + 0.6f, 10f, x + 0.35f, y0 + 0.6f, 11f, Pal.WOOD_D); i.line(x + 0.55f, y0 + 0.6f, 10f, x + 0.75f, y0 + 0.6f, 11f, Pal.WOOD_D)
-            i.line(x + 0.05f, y0 + 0.6f, 8.4f, x0 + 0.7f, y0 + 0.6f, 12.9f, Pal.WOOD_M) // the beam
-            i.line(x0 + 0.6f, y0 + 0.6f, 12.5f, x0 + 0.6f, y0 + 0.6f, 6f, Pal.CANVAS_M)
-            i.box(x0 + 0.45f, y0 + 0.45f, 4.5f, 0.35f, 0.35f, 1.5f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
-            return
-        }
         // back post, windlass, rope + bucket, front post, roof
         i.post(x0 + 0.1f, y0 + 0.6f, 4f, 11f, Pal.WOOD_D)
         i.line(x0 + 0.1f, y0 + 0.6f, 9f, x0 + 1.1f, y0 + 0.6f, 9f, Pal.WOOD_M)
         i.post(x0 + 0.6f, y0 + 0.6f, 6f, 9f, Pal.CANVAS_M)
         i.box(x0 + 0.45f, y0 + 0.45f, 4.5f, 0.35f, 0.35f, 2f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         i.post(x0 + 1.1f, y0 + 0.6f, 4f, 11f, Pal.WOOD_D)
-        if (b.level >= 4) roofX(x0 - 0.35f, y0 + 0.05f, 10.5f, 1.9f, 1.1f, 4.5f, if (b.level >= 5) tiles() else shingles(), Pal.WOOD_D)
-        else i.line(x0 + 0.1f, y0 + 0.6f, 11f, x0 + 1.1f, y0 + 0.6f, 11f, Pal.WOOD_D) // the beam over the posts
+        // its roof as the square's well has it by level (Na vasi: shingles at 4, tiles at 5). Below 4 the scene's has none, its
+        // sweep at first; the map keeps a roof of boards there, so the well keeps its height and isn't lost behind a taller
+        // building in front of it (VillageRendererTest, LandsTest)
+        roofX(x0 - 0.35f, y0 + 0.05f, 10.5f, 1.9f, 1.1f, 4.5f, when { b.level >= 5 -> tiles(); b.level == 4 -> shingles(); else -> planks() }, Pal.WOOD_D)
     }
 
     internal fun flowers(x: Float, y: Float, seed: Int) {
@@ -715,13 +707,14 @@ internal class BuildingPainter(private val s: SceneCtx) {
         // growing with its level as the square's linden (Na vasi): a sapling on its stake at 1, a young tree staked at 2,
         // fuller at 3 and 4, the old linden at 5
         val lv = b.level.coerceIn(1, 5)
-        val trunk = when (lv) { 1 -> 4f; 2 -> 6.5f; 3, 4 -> 8.5f; else -> 10f }
+        // (its crown round the same height at every level, so a tap on its middle finds it, TownAnchors.bodies)
         val thick = if (lv <= 2) 0.12f else if (lv < 5) 0.17f else 0.2f
+        val trunk = 10f
         i.box(cx - thick, cy - thick, 0f, 2 * thick, 2 * thick, trunk, Pal.LOG_L, Pal.LOG_M, Pal.LOG_D)
         if (fine && lv >= 3) i.line(cx - 0.1f, cy + thick, 1f, cx - 0.1f, cy + thick, trunk - 1f, Pal.LOG_D) // bark
-        if (lv <= 2) { i.post(cx + 0.25f, cy + 0.2f, 0f, trunk - 1f, Pal.WOOD_L); i.line(cx, cy + 0.12f, trunk * 0.6f, cx + 0.25f, cy + 0.2f, trunk * 0.6f, Pal.CANVAS_M) } // its stake, tied
-        val crown = when (lv) { 1 -> 0.45f; 2 -> 0.7f; 3 -> 0.95f; 4 -> 1.1f; else -> 1.25f }
-        val sx = i.sx(cx, cy); val sy = i.sy(cx, cy, trunk + 9f * crown / 1.25f)
+        if (lv <= 2) { i.post(cx + 0.25f, cy + 0.2f, 0f, 7f, Pal.WOOD_L); i.line(cx, cy + 0.12f, 5.5f, cx + 0.25f, cy + 0.2f, 5.5f, Pal.CANVAS_M) } // its stake, tied
+        val crown = when (lv) { 1 -> 0.55f; 2 -> 0.75f; 3 -> 0.95f; 4 -> 1.1f; else -> 1.25f }
+        val sx = i.sx(cx, cy); val sy = i.sy(cx, cy, when (lv) { 1 -> 15f; 2 -> 16f; 3 -> 17f; 4 -> 18f; else -> 19f })
         s.trees.canopy(sx, sy, crown * k, env.season, b.plot * 11, big = lv >= 3)
         // bench
         i.box(x + 0.8f, y + 2.45f, 1.5f, 1.4f, 0.4f, 0.5f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)

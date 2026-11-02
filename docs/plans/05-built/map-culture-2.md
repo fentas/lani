@@ -49,8 +49,8 @@ buildings (the lead, 2026-11-01: "Changing Primorska's golden pictures is fine w
 |---|---|---|
 | Kozolec | a double toplar under red tiles, the same at every level (the toplar landmark beside it looked the same) | the single kozolec of Na njivi, growing with its level (in the table above) |
 | Houses | all whitewashed, the balcony at every level | whitewashed, ochre or pink by their plot, the balcony from level 2 (Ob ognju's village, FireStyle) |
-| Well | a roof of red tiles over the windlass at every level | the sweep's forked pole below level 3, posts and windlass from 3, shingles at 4, tiles at 5 (Na vasi) |
-| Linden | the old linden at every level | a sapling on its stake at 1, staked young at 2, fuller at 3 and 4, old at 5 (Na vasi) |
+| Well | a roof of red tiles over the windlass at every level | its roof by level as Na vasi's: boards until 4, shingles at 4, tiles at 5 |
+| Linden | the old linden at every level | a slim young tree on its stake at 1 and 2, its crown fuller at 3 and 4, the old linden at 5 (Na vasi) |
 | Bee house | on two posts, shingles at every level | on posts at 1, on its stone footing from 2, boards until its shingles at 4 (Pri čebelnjaku) |
 | School | ochre | whitewashed over its stone plinth (Na igrišču's side of it); Carinthia's under its dark shingles (Am Spielplatz) |
 | Market | striped awnings at every level | plain canvas until level 5, then the red, blue and green stalls (Na tržnici) |
@@ -117,6 +117,11 @@ single rack beside the toplar (the map drew a double hayrack for both before).
 
 ## What's left
 
+- **The well below level 4**: Na vasi's has no roof yet (at levels 1 and 2 a sweep's forked pole, at 3 the posts and the
+  windlass). A map well without its roof is mostly hidden behind a church in front of it (`VillageRendererTest`, `LandsTest`:
+  52 to 64 % of its pixels, the limit is 50), so the map keeps its height under a roof of boards.
+- **The linden's sapling**: Na vasi's level 1 is a sapling; the map's body anchor (`TownAnchors.bodies`, half of
+  `spriteHeight`) is the same at every level, so the map's youngest linden is a slim tree with a small crown at that height.
 - **The mill's wheel**: the map's is an undershot wheel in its race (mill-mechanics kept it so and set its turn right); both
   mill scenes have an overshot wheel fed by a wooden flume on posts. A flume to the wheel's top on the map is its own small
   piece of work (the race, the wheel's direction, `mill-mechanics`'s checks).
