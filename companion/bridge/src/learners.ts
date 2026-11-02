@@ -422,8 +422,9 @@ export function channelRules(p: Profile, facts: LearnerFacts, dataDir: string, o
   const name = nameOf(p, facts, o)
   const pair = facts.target ? ` ${name} learns ${facts.target}${facts.level ? ` (${facts.level})` : ''}${facts.base ? ` from ${facts.base}` : ''}.` : ''
   const base = otherBase(p, facts)
+  const otherTarget = !!facts.targetCode && facts.targetCode !== 'sl'
   const who = p.isDefault
-    ? (base ? `\n${name} learns ${facts.target || 'Slovene'} from ${base}: explain, translate and give feedback in ${base}.` : '') + placeOf(p, name, dataDir, o)
+    ? (base || otherTarget ? `\n${name} learns ${facts.target || 'Slovene'} from ${facts.base || 'English'}: explain, translate and give feedback in ${facts.base || 'English'}.` : '') + placeOf(p, name, dataDir, o)
     : `\nLearner profile "${p.id}": this session is ${name}'s tutor.${pair} ${name}'s data is in ${dataDir}; the repository's data/ and results/ belong to another learner: never read or change them.`
   const out = [
     `You are ${name}'s Lani language tutor. This channel connects you to the Lani Android app.${who}`,
@@ -440,6 +441,9 @@ export function channelRules(p: Profile, facts: LearnerFacts, dataDir: string, o
   return out.join('\n\n')
 }
 
+/** How to read a paragraph that shows the app's labels and a format's examples in Slovene. */
+const LABELS_NOTE = `A label quoted below ("Moj glas", "Plonk listek") is the app's Slovene one: the app shows this learner its own. A Slovene example only shows a format: write it in their language.`
+
 export function learnerInstructions(
   paragraphs: string[],
   p: Profile,
@@ -447,10 +451,14 @@ export function learnerInstructions(
   dataDir: string,
   village?: { id: string; language: string; region?: string; village: string; style: string },
   o: DataPlace = {},
+  /** What's correct in their language (tutor-languages.ts languageParts): after their name and data, before the paragraphs. Jan has none: the default learner of a Slovene village reads what they always did. */
+  parts: string[] = [],
 ): string {
   const out: string[] = []
   let body = paragraphs
-  const janBase = otherBase(p, facts)
+  // A default learner's village in another language (lani-setup, or a culture set in lani.env) reads as another learner's does.
+  const otherTarget = p.isDefault && !!village && village.language !== 'sl'
+  const janBase = otherTarget ? undefined : otherBase(p, facts)
   // The default learner is Jan in the paragraphs; another name (a learner lani-setup set up) replaces it.
   const first = nameOf(p, facts, o)
   if (p.isDefault && first !== 'Jan') body = paragraphs.map(t => t.replace(/\bJan\b/g, first))
@@ -460,6 +468,15 @@ export function learnerInstructions(
     )
   }
   const place = placeOf(p, first, dataDir, o).trim()
+  if (otherTarget) {
+    const base = facts.base || 'their base language'
+    out.push(
+      [
+        `${first} learns ${LANGUAGES[village.language] ?? village.language}${facts.level ? ` (${facts.level})` : ''} from ${base}: explain, translate and give feedback in ${base}. ${LABELS_NOTE}`,
+        `${first}'s village, ${village.village}, is the ${village.region ?? village.id} culture pack (companion/cultures/${village.id}).`,
+      ].join('\n'),
+    )
+  }
   if (!p.isDefault) {
     const name = facts.name || p.id
     body = paragraphs.map(t => t.replace(/\bJan\b/g, name))
@@ -480,8 +497,7 @@ export function learnerInstructions(
     out.push(
       [
         `Learner profile "${p.id}": this session is ${name}'s tutor.${pair}`,
-        `The paragraphs below were written for a Slovene learner: apply them to ${name} and ${facts.target || 'their target language'},`,
-        `and explain in ${base}. ${where}${mismatch}`,
+        `The paragraphs below hold for ${name} and ${facts.target || 'their target language'}: explain in ${base}. ${LABELS_NOTE} ${where}${mismatch}`,
         `${name}'s learner data is in ${dataDir}. LANI_DATA_DIR points there, so read-db.py and update-db.py use it:`,
         `always go through them. The repository's data/ and results/ directories belong to another learner: never`,
         `read or change them. Write session result files to ${join(root, 'results')}/.`,
@@ -489,5 +505,5 @@ export function learnerInstructions(
     )
   }
   if (p.child) out.push(CHILD_INSTRUCTIONS)
-  return [...out, ...body, ...(place ? [place] : [])].join('\n\n')
+  return [...out, ...parts, ...body, ...(place ? [place] : [])].join('\n\n')
 }

@@ -13,6 +13,7 @@
 // marks `denoise` (a designed voice that hisses) has its clips filtered before they are stored (DENOISE), a voice it gives
 // a `tempo` (one that speaks slowly) has them sped up (clipPace), every clip's silence at its edges is trimmed (EDGES), and
 // every clip is brought to one loudness (LEVEL).
+import { forVillage, without } from './tutor-languages'
 import { Database } from 'bun:sqlite'
 import { createHash, randomUUID } from 'node:crypto'
 import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs'
@@ -4045,3 +4046,17 @@ language, the Slovene forms in it, one clip made by ElevenLabs as the app first 
 reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations). The
 Slovene the steps read (examples, quick questions and their answers, the forms) is voiced ahead like the other content.
 `.trim()
+
+/** What a learner's voice is by default in a Slovene village; another's says only where to see it. */
+const MY_VOICE_SLOVENE = `(in the Slovene village Luka
+for a man, Nina for a woman, Nina while the profile says none; voice_status: my_voice, players)`
+
+/** The voices' paragraph for a village speaking [language]: Nina and Luka are the Slovene village's. A Slovene village's as it always was. */
+export const voiceInstructionsFor = (language: string): string => {
+  if (language === 'sl') return voiceInstructions
+  const from = voiceInstructions.indexOf('In the Slovene village the narrators')
+  const to = voiceInstructions.indexOf('The learner has a voice too:')
+  const left = voiceInstructions.slice(0, from) + voiceInstructions.slice(to)
+  return forVillage(without(left, MY_VOICE_SLOVENE, '(voice_status: my_voice, players)'), language)
+}
+

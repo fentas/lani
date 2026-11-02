@@ -3,7 +3,8 @@
 import { resolve } from 'node:path'
 import { exampleOf, meaningOf, titleFor, wordOf } from '../packs'
 import type { Ctx, FeatureFactory } from '../feature'
-import { familyInstructions } from '../family'
+import { familyInstructionsFor } from '../family'
+import { LANGUAGES, learnerLangs } from '../learners'
 import { json, type Route } from '../http'
 
 const STATIC: Record<string, [string, string]> = {
@@ -14,8 +15,8 @@ const STATIC: Record<string, [string, string]> = {
 }
 const CSP = "default-src 'self'; media-src 'self' blob:; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'"
 
-export const family: FeatureFactory = ({ cfg, family }) => ({
-  instructions: familyInstructions,
+export const family: FeatureFactory = ({ cfg, family, culture }) => ({
+  instructions: (({ target, base }) => familyInstructionsFor(target, LANGUAGES[base] ?? base))(learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')),
   routes: [
     ...Object.entries(STATIC).map(
       ([path, [file, type]]): Route => ({
