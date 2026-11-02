@@ -15202,11 +15202,22 @@ def practice_it():
     snap("challenges-sheet")
     tap(first["title"], 4)
     spec = dev_bridge("/modules/articoli")
-    ex = spec["exercises"][0]
-    assert wait_for(ex["options"][ex["answer"]], 15), "the module's first question"
+    # its giver's card: Nonna Rosa asks, the story in German, what it practises
+    assert wait_for(spec["quest"]["story"].split(" · ")[1][:24], 12), "the giver's story, in German"
+    snap("module-intro")
+    assert tap(lab("numbers.start").split(" · ")[0] + " ·", 4), "▶ Inizia"
+    labels = []
+    for _ in range(20):
+        labels = [t for t, _ in nodes()]
+        ex = next((e for e in spec["exercises"] if e["type"] == "choice" and any(e["prompt"] in t for t in labels)), None)
+        if ex:
+            break
+        time.sleep(1)
+    assert ex, f"a choice of the module on screen ({labels[:8]})"
     snap("module-question")
     assert tap(ex["options"][ex["answer"]], 4), "its right answer"
     time.sleep(2 * slow())
+    assert wait_for(ex["explain"].split("**")[1][:16], 6), "its why, in German"
     snap("module-why")
     go_home()
 
