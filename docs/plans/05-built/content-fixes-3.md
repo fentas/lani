@@ -137,7 +137,7 @@ dark falls after 17:00.
 **Left, the lead's call:**
 - **He can be in two places by day.** `Happenings.active` keeps one happening per person per scene, not overall. With every chance counted in a fully built village, the
   probability of two or more scenes in one afternoon goes 0.92 → 0.98 (Primorska), 0.91 → 0.97 (Friuli), 0.87 → 0.95 (Kärnten), 0.97 → 0.98 (Lakes). Only Primorska gains new
-  afternoon scenes (6 → 9). A per-person rule across scenes is the one real cure.
+  afternoon scenes (6 → 9). The lead added that rule on this branch: `Happenings.active` now keeps one happening per person in the whole village (a villager by id, a stranger of a scene in that scene), so the numbers above are of the moves alone.
 - **Evening-only players** lose these: other evening happenings per village go 45 → 40 (+1, `globus`), 36 → 33, 41 → 39, 36 → 35.
 - **A dog twice:** "have you seen my dog?" (`na-vasi/muri`, `in-piazza/moro`) can fall on the afternoon of Zala's `v-hisi/muri` or Giulia's `in-salotto/moro`. The same as Wilf's and
   Poppy's `bess` since 8e8b5b09.
@@ -189,7 +189,7 @@ case now (83d0ebff). Without it the lead's gate fails on content-fixes-2 too, so
 
 ## What's left
 
-- **A storyteller in two places by day**, the evening-only players and a dog twice (section 2): a per-person rule across scenes is the lead's call.
+- **Evening-only players and a dog twice** (section 2). The storyteller in two places by day is fixed by the per-person rule.
 - **Real homonyms of a base's word still in the baseline** (raven and stanovanje "flat", težek and trd "hard", das Fest and fest, gell and rechts "right"): a prompt of its own each, the same way.
 - A tap on `pesem`, `vročina` and the other one-word pairs gives the first pack's meaning. Listing both glosses on one entry would fix it without a card; not done, it changes what a lookup says for every word.
 - The word card labels a pack word without a dictionary's reading "word" (from before this branch; the sentence sheet hides it). `round` and `bowl` show it: English has no dictionary.

@@ -878,7 +878,7 @@ toči med!" waits until Anton lives here and Jan has met him; the beehive brings
 of its own but the morning's first hours round the sunrise of the month, `TimeOfDay.dawn`: 5–6 in June, 6–8 in December,
 so a happening `when` the morning is on then too, one `when` dawn only then) (the age, and what the
 village has built: Luka brings the hay in only where a kozolec stands), it must not be done today, and the day's dice
-(`roll(seed, date, key)`) must come in under `chance`. At most four at once and one per person. Done happenings are
+(`roll(seed, date, key)`) must come in under `chance`. At most four at once and one per person, in the whole village: the map stands someone of the village at one place, so their other happenings wait for another day (a stranger of a scene, with no `villager`, counts in that scene). Done happenings are
 kept in `GameState.happeningsDone` (`scene/happening` → date). A place where someone sleeps (a painter with a bed, see [Asleep at night](#asleep-at-night)) is quiet at night: a
 happening there without a `when` (all day) doesn't come up from 22 to 5; the ones that name `night` (Zala's story and
 Babica's blanket in the tent) and the evening's are as they were. The storyteller's evening story is on from 17:00 until 23:30, then he

@@ -63,7 +63,7 @@ object Happenings {
         val time = TimeOfDay.of(now.hour)
         val dawn = TimeOfDay.isDawn(now.hour, now.monthValue)
         val world = SceneWorld.of(state)
-        val busy = HashSet<String>() // one happening per person at a time
+        val busy = HashSet<String>() // one happening per person at a time, in the whole village (the map stands them at one place); a stranger of a scene, in that scene
         // a house's room is in the house it is dealt to (none: its people don't live here yet), and each scene is seen in
         // its building: a room's happenings go with its level (Micka's Sunday lunch wants the table)
         val dealt = Homes.deal(scenes, state)
@@ -77,7 +77,7 @@ object Happenings {
             .filter { a -> on(a, state, today, time, world.seenIn(home(a.scene)), dawn, cast, guest) }
             .map { a -> if (a.happening.stories) a else a.copy(dialog = variant(a, state, today, cast, guest)) }
             .sortedWith(compareBy<ActiveHappening> { !it.happening.stories }.thenBy { roll(state.seed, today, it.key + "#order") })
-            .filter { busy.add(it.scene.id + "/" + it.happening.who) }
+            .filter { busy.add(it.person?.villager ?: (it.scene.id + "/" + it.happening.who)) }
             .take(MAX_ACTIVE)
             .toList()
             .let(::claimed)

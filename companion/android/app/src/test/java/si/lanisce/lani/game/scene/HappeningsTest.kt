@@ -163,6 +163,18 @@ class HappeningsTest {
         assertEquals(1, Happenings.active(listOf(fire), done, evening.plusDays(1)).size)
     }
 
+    @Test fun `someone of the village is at one happening at a time, in the whole village - a stranger only in their scene`() {
+        fun spec(id: String, who: ScenePerson) = SceneSpec(
+            id = id, title = id, art = "campfire", from = listOf("fire"), people = listOf(who), happenings = listOf(Happening("h-$id", id, who = who.id)),
+        )
+        val janez = ScenePerson("janez", "Stari Janez", "\uD83D\uDC74", "elder", "left", villager = "janez")
+        assertEquals(1, Happenings.active(listOf(spec("na-vasi", janez), spec("pri-ribniku", janez)), camp, evening).size)
+        assertEquals(2, Happenings.active(listOf(spec("na-vasi", otrok), spec("pri-ribniku", otrok)), camp, evening).size)
+        // two in one scene, as before
+        val twice = spec("na-vasi", otrok).let { it.copy(happenings = it.happenings + Happening("druga", "Druga", who = "otrok")) }
+        assertEquals(1, Happenings.active(listOf(twice), camp, evening).size)
+    }
+
     @Test fun `later today lists what comes after now, by part of the day`() {
         val morning = evening.withHour(8)
         val later = Happenings.later(listOf(fire), camp, morning)
