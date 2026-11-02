@@ -653,7 +653,7 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
     }
 
     /**
-     * The single hayrack as the field's scene builds it (Auf dem Feld, Na polju: FieldPainter's kozolec), standing in the
+     * The single hayrack as the field's scene builds it (Auf dem Feld, Na njivi: FieldPainter's kozolec), standing in the
      * plot's middle and growing with the hayrack's level as the field's: one bay at level 1, two at 2, three from 3, a roof
      * of boards until level 4 brings its shingles, the rack hung full of hay at 5 (hay on it from June to October before).
      * The posts on stone feet, knee braces up to the beam under the eaves. Primorska's kozolec of brown oak with its six

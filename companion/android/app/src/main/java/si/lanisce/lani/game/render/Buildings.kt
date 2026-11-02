@@ -554,7 +554,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
         else if (smoking) s.plume(i.sx(x0 + 1f, y0 + 1f), i.sy(x0 + 1f, y0 + 1f, 11f), b.plot * 13 + 7)
     }
 
-    /** The kozolec as the field's scene builds it (Na polju): a single rack of oak growing with its level ([CultureBuildings.rack]). */
+    /** The kozolec as the field's scene builds it (Na njivi): a single rack of oak growing with its level ([CultureBuildings.rack]). */
     private fun kozolec(b: Building, x: Float, y: Float) = looks.rack(b, x, y, harpfe = false)
 
     internal fun postBox(x: Float, y: Float, h: Float) =
@@ -853,7 +853,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
 
     private fun market(b: Building, x: Float, y: Float) {
         // the awnings in the culture's colours ([Festive.awnings]: the map's own red, blue and green)
-        // (the map's own market's plain canvas until its fifth level, as Na trgu's stalls, then coloured)
+        // (the map's own market's plain canvas until its fifth level, as Na tržnici's stalls, then coloured)
         val plain = s.look.own && b.level < 5
         val awn = if (plain) intArrayOf(Pal.CANVAS_L, Pal.CANVAS_L, Pal.CANVAS_L) else s.look.festive.awnings
         val stripes = if (plain) awn else s.look.festive.stripes

@@ -29,7 +29,7 @@ variants (`MapLandmarkLooksTest` checks each against the scene's).
 
 | Thing | Primorska | Friuli | Carinthia | The Lake District |
 |---|---|---|---|---|
-| Hayrack (the building) | **the kozolec as Na polju builds it**: a single rack of oak on stone feet, six rails, knee braces, growing with its level (one bay, two, three; boards, then shingles from level 4; full of hay at 5). Before: a double toplar under red tiles | the fienile (as before) | **the Harpfe as Auf dem Feld**: the same rack in larch weathered silver-grey, taller, nine thin rails, steeper roof, growing with its level. Before: brown posts, six laths, end struts | **the field barn as Mr Tyson's field**: the cart door a dark arch of slate voussoirs, the byre's arch from level 2, steps up the gable from 3, quoins from 4. Before: a brown plank door |
+| Hayrack (the building) | **the kozolec as Na njivi builds it**: a single rack of oak on stone feet, six rails, knee braces, growing with its level (one bay, two, three; boards, then shingles from level 4; full of hay at 5). Before: a double toplar under red tiles | the fienile (as before) | **the Harpfe as Auf dem Feld**: the same rack in larch weathered silver-grey, taller, nine thin rails, steeper roof, growing with its level. Before: brown posts, six laths, end struts | **the field barn as Mr Tyson's field**: the cart door a dark arch of slate voussoirs, the byre's arch from level 2, steps up the gable from 3, quoins from 4. Before: a brown plank door |
 | Toplar | **oak, three bays of four posts on stone feet, six rails, a roof of boards** (Pri toplarju). Before: five bays under red tiles | the same, with **maize drying from its tie beam** August to March (Il grande fienile) | **the Doppelharpfe**: grey larch, nine rails, dark shingles (Bei der Doppelharpfe). Before: the Slovene toplar | the bank barn, **its ramp along the front held by a dry-stone wall to the cart door at its left end, its byre doors green** (At the bank barn) |
 | Fire station | **the hose tower plastered on its stone footing, the belfry's arches with the bell, a stone cornice, shingles, an iron cross** (V gasilskem domu). Before: a wooden belfry box under red tiles, a spike | the same tower in cobbles under coppi | the same under shingles | **the rescue hut's tower of slate stone under slate with its bell** (At the rescue hut). Before: a radio mast |
 | Wayside chapel | **under shingles, its little open turret with the bell on the ridge** (Pri kapelici). Before: red tiles, a cross on the gable | the ancona, **its bell on a bracket** under the gable | **the turret under an onion cap** (Bei der Wegkapelle) | **the stone bellcote** on its gable |
@@ -47,13 +47,13 @@ buildings (the lead, 2026-11-01: "Changing Primorska's golden pictures is fine w
 
 | Building | Before | Now, as its scene |
 |---|---|---|
-| Kozolec | a double toplar under red tiles, the same at every level (the toplar landmark beside it looked the same) | the single kozolec of Na polju, growing with its level (in the table above) |
+| Kozolec | a double toplar under red tiles, the same at every level (the toplar landmark beside it looked the same) | the single kozolec of Na njivi, growing with its level (in the table above) |
 | Houses | all whitewashed, the balcony at every level | whitewashed, ochre or pink by their plot, the balcony from level 2 (Ob ognju's village, FireStyle) |
 | Well | a roof of red tiles over the windlass at every level | the sweep's forked pole below level 3, posts and windlass from 3, shingles at 4, tiles at 5 (Na vasi) |
 | Linden | the old linden at every level | a sapling on its stake at 1, staked young at 2, fuller at 3 and 4, old at 5 (Na vasi) |
 | Bee house | on two posts, shingles at every level | on posts at 1, on its stone footing from 2, boards until its shingles at 4 (Pri čebelnjaku) |
 | School | ochre | whitewashed over its stone plinth (Na igrišču's side of it); Carinthia's under its dark shingles (Am Spielplatz) |
-| Market | striped awnings at every level | plain canvas until level 5, then the red, blue and green stalls (Na trgu) |
+| Market | striped awnings at every level | plain canvas until level 5, then the red, blue and green stalls (Na tržnici) |
 | Tent | two red dots for a pennant, a coloured hem | Slovenia's pennant, plain canvas (Ob ognju's pup tent) |
 
 The watchtower, the church, the hut, the smithy and the field already matched.
