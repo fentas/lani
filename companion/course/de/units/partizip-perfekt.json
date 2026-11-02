@@ -349,9 +349,9 @@
       },
       {
         "say": {
-          "en": "**sitzen, stehen, liegen** say where something is. Austria's standard takes **sein**: **Opa Sepp ist auf der Bank gesessen.** (Grandpa Sepp sat on the bench.) **Das Glas ist auf dem Tisch gestanden.** (The glass stood on the table.) **Bello ist vor der Tür gelegen.** (Bello lay at the door.) Northern Germany says **hat gesessen, hat gestanden, hat gelegen**: both are right. Putting something somewhere is regular, with haben: **hat gestellt** (put).",
-          "sl": "**sitzen, stehen, liegen** povedo, kje nekaj je. Avstrijski standard ima **sein**: **Opa Sepp ist auf der Bank gesessen.** (Dedek Sepp je sedel na klopi.) **Das Glas ist auf dem Tisch gestanden.** (Kozarec je stal na mizi.) **Bello ist vor der Tür gelegen.** (Bello je ležal pred vrati.) Severna Nemčija reče **hat gesessen, hat gestanden, hat gelegen**: oboje je prav. Kar nekam postaviš, je pravilno, s haben: **hat gestellt** (postavil).",
-          "it": "**sitzen, stehen, liegen** dicono dove si trova qualcosa. Lo standard austriaco ha **sein**: **Opa Sepp ist auf der Bank gesessen.** (Nonno Sepp era seduto sulla panchina.) **Das Glas ist auf dem Tisch gestanden.** (Il bicchiere era sul tavolo.) **Bello ist vor der Tür gelegen.** (Bello era sdraiato davanti alla porta.) La Germania del nord dice **hat gesessen, hat gestanden, hat gelegen**: vanno bene tutti e due. Ciò che metti da qualche parte è regolare, con haben: **hat gestellt** (messo)."
+          "en": "**sitzen, stehen, liegen** say where something is. Austria's standard takes **sein**: **Opa Sepp ist auf der Bank gesessen.** (Grandpa Sepp sat on the bench.) **Das Glas ist auf dem Tisch gestanden.** (The glass stood on the table.) **Bello ist vor der Tür gelegen.** (Bello lay at the door.) Northern Germany says **hat gesessen, hat gestanden, hat gelegen**: both are right. Putting something somewhere is regular, with haben: **hat gestellt** (put), **hat gelegt** (laid), **hat gesetzt** (set), **hat gehängt** (hung).",
+          "sl": "**sitzen, stehen, liegen** povedo, kje nekaj je. Avstrijski standard ima **sein**: **Opa Sepp ist auf der Bank gesessen.** (Dedek Sepp je sedel na klopi.) **Das Glas ist auf dem Tisch gestanden.** (Kozarec je stal na mizi.) **Bello ist vor der Tür gelegen.** (Bello je ležal pred vrati.) Severna Nemčija reče **hat gesessen, hat gestanden, hat gelegen**: oboje je prav. Kar nekam postaviš, je pravilno, s haben: **hat gestellt** (postavil), **hat gelegt** (položil), **hat gesetzt** (posadil), **hat gehängt** (obesil).",
+          "it": "**sitzen, stehen, liegen** dicono dove si trova qualcosa. Lo standard austriaco ha **sein**: **Opa Sepp ist auf der Bank gesessen.** (Nonno Sepp era seduto sulla panchina.) **Das Glas ist auf dem Tisch gestanden.** (Il bicchiere era sul tavolo.) **Bello ist vor der Tür gelegen.** (Bello era sdraiato davanti alla porta.) La Germania del nord dice **hat gesessen, hat gestanden, hat gelegen**: vanno bene tutti e due. Ciò che metti da qualche parte è regolare, con haben: **hat gestellt** (messo), **hat gelegt** (posato), **hat gesetzt** (fatto sedere), **hat gehängt** (appeso)."
         },
         "examples": [
           {
@@ -395,6 +395,18 @@
           [
             "stellen",
             "hat gestellt"
+          ],
+          [
+            "legen",
+            "hat gelegt"
+          ],
+          [
+            "setzen",
+            "hat gesetzt"
+          ],
+          [
+            "hängen",
+            "hat gehängt"
           ]
         ],
         "ask": {
@@ -844,6 +856,19 @@
               "from": "Ich stelle das Glas auf den Tisch.",
               "accept": [
                 "Ich habe das Glas auf den Tisch gestellt."
+              ]
+            },
+            {
+              "from": "Das Bild hängt an der Wand.",
+              "accept": [
+                "Das Bild ist an der Wand gehangen.",
+                "Das Bild hat an der Wand gehangen."
+              ]
+            },
+            {
+              "from": "Toni hängt das Bild an die Wand.",
+              "accept": [
+                "Toni hat das Bild an die Wand gehängt."
               ]
             }
           ],
