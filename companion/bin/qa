@@ -373,6 +373,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        sl, LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-sl) the Lake District's buildings (QA's hook
                        "hearths:trg"): the church's card and "🚪 Go in", each building's scene by its link, a few closer
                        up, «I spy» on the green, Granny Maggie's breakfast (ll-*.png in $LANI_QA_LAKELAND_SHOTS too);
+                       "content-fixes-2" (skipped outside Carinthia and the Lake District) the round's fixes where they
+                       play: in Carinthia (de-sl) the Doppelharpfe's larches and the tower's timber in Im Wald from the
+                       projects sheet; in the Lake District (en-sl) the chapel's iron gate, the white hives and Old Wilf's
+                       Bess in the afternoon (cf2-*.png in $LANI_QA_CF2_SHOTS too);
                        "lakeland-projects" (only when named; the same learner and culture) the Lake District's project
                        places: the bowling green and the packhorse bridge finished, each from its landmark's card, Old
                        Wilf's game, the wood and the round's other places by their links (lp-*.png too);
@@ -10025,6 +10029,168 @@ def lakeland_projects_b():
         qa_hook("hearths:")
 
 
+def content_fixes_2():
+    """Content that was wrong, played where the learner meets it (docs/plans/05-built/content-fixes-2.md). In Carinthia
+    (LANI_CULTURE=kaernten, a learner of German from Slovene, LANI_QA_SETUP_PAIR=de-sl): the Doppelharpfe's first step (QA's
+    hook "step:toplar/1", the larches felled) and the tower's third ("step:razgledni_stolp/3", the trunks carried), each
+    from the projects sheet's "🔨 Heutiger Schritt" into Im Wald and played to its end card. In the Lake District
+    (LANI_CULTURE=lakeland, a learner of English from Slovene, LANI_QA_SETUP_PAIR=en-sl): the chapel's fourth step (the oak
+    beams, Mr Dixon's iron gate and its key), the bee meadow's fourth (the hives painted white), and Old Wilf's "Where's
+    Bess?" on the green in the afternoon (QA's hooks "hour:14", "happening:on-the-green/bess/bess") to its daytime goodbye.
+    Skipped in another culture. Also as cf2-*.png in $LANI_QA_CF2_SHOTS."""
+    global HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture not in ("kaernten", "lakeland"):
+        return "skipped: the dev bridge's village is neither Carinthia's nor the Lake District's (LANI_CULTURE=kaernten or lakeland)"
+    pair = ["de", "sl"] if culture == "kaernten" else ["en", "sl"]
+    out = Path(os.environ["LANI_QA_CF2_SHOTS"]) if os.environ.get("LANI_QA_CF2_SHOTS") else None
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    half = lambda key: l10n(pair[0]).get(key, key)
+    back = lab("common.village")
+    culture_dir = ROOT / f"companion/cultures/{culture}"
+    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def to_village():
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 40 * slow()
+        while time.time() < end and find(lab("villageScreen.scroll")) is None:
+            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
+            if c is not None:
+                tap_at(c)
+            time.sleep(1.5)
+        assert find(lab("villageScreen.scroll")) is not None, "the village"
+        time.sleep(2)
+
+    def oks(pid: str, n: int) -> set:
+        steps = json.loads((culture_dir / f"project-steps/{pid}.json").read_text())["steps"]
+        return {c[pair[0]] for lv in steps[n - 1]["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok")}
+
+    def play(ok: set, end_re: str | None, marks: dict, tries=24) -> bool:
+        """On through the open dialog (Next, the right choice of [ok] at a turn), a shot when a line with a key of [marks]
+        is on screen; until a text matching [end_re] (a step's end card), or the turns run out with none."""
+        seen = set()
+        for _ in range(tries):
+            labels = [t for t, _ in nodes()]
+            for key, name in marks.items():
+                if name not in seen and any(key in t for t in labels):
+                    seen.add(name)
+                    time.sleep(1)
+                    snap(name)
+            if end_re is not None and any(re.search(end_re, t.strip()) for t in labels):
+                return True
+            if any(w in t for t in labels for w in WORD_CARD):  # a slow tap on a choice's bold word opened its card
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+                continue
+            time.sleep(1.5)  # the line typed in first: the choices under it stop moving
+            if answer_choice(ok):  # low on the row's left: its middle may be a bold word, whose tap opens its card
+                time.sleep(1.5)
+                continue
+            if not tap(lab("common.next"), 3):
+                time.sleep(1)
+        return end_re is None
+
+    def play_step(pid: str, n: int, tag: str, marks: dict, where: str | None):
+        """Step [n] of [pid] readied (QA's hook), the projects sheet from the HUD at it, its "🔨" button, played to its end
+        card ("<emoji> <name> n/N"); [where]: the scene's title it opens in (None: over the village)."""
+        qa_hook(f"step:{pid}/{n}")
+        to_village()
+        assert hud_tap(lab("common.villageProjects")), "the projects chip"
+        assert wait_for(half("projectsSheet.oneStepDayWhole"), 8), "the projects sheet"
+        time.sleep(1.5)
+        name = projects[pid]["name"][pair[0]]
+        btn = None
+        seen = False  # the sheet opens at the project (QA's hook); its card may be taller than the screen, its title gone by its button
+        for _ in range(8):
+            title = find(name)
+            seen = seen or title is not None
+            below = sorted((c for t, c in nodes() if half("projectsSheet.todaysStep") in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
+            if seen and below and below[0][1] < 2280:
+                btn = below[0]
+                break
+            adb("shell", "input", "swipe", "540", "1500", "540", "1100", "400")
+            time.sleep(1)
+        assert btn is not None, f"{name}'s 🔨 {half('projectsSheet.todaysStep')}"
+        snap(f"cf2-{tag}-sheet")
+        tap_at(btn)
+        if where is not None:
+            assert wait_for(back, 12), f"the step opens in {where} (its way back to the village in the top bar)"
+            assert wait_for(where, 6), f"the step's scene: {where}"
+        time.sleep(3 * slow())
+        snap(f"cf2-{tag}-opens")
+        assert play(oks(pid, n), rf" {n}/{len(projects[pid]['steps'])}$", marks), f"{name}: played to its end card {n}/{len(projects[pid]['steps'])}"
+        time.sleep(1)
+        snap(f"cf2-{tag}-done")
+        b = end_button(half("common.backScene"))
+        if b is not None:
+            tap_at(b)
+            time.sleep(1.5)
+        if find(back) is not None:
+            tap(back, 4)
+        time.sleep(1.5)
+
+    saved = (HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING)
+    # the HUD's cards and ring as this pair labels them (QA's constants are Jan's sl · en)
+    HUD_GOAL, HUD_SOON, HUD_SETTLEMENT = lab("villageHud.nextGoal") + ": ", lab("villageHud.soon"), lab("villageHud.settlement") + ": "
+    HUD_RING = (half("villageScreen.age") + " · ", half("common.today"))
+    qa_hook(f"pair:{'-'.join(pair)}")
+    try:
+        # the cast counts as met on the dev bridge's copy, which the app adopts (a project's leader must be met, Franz for the
+        # Doppelharpfe); the learner's voice chosen, so "Moj glas" isn't offered over a dialog's first line
+        snap_state = dev_bridge("/game")
+        st = snap_state["state"]
+        for v in api("/villagers"):
+            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
+            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+        dev_bridge("/learner/voice", {"voice": "default"})
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
+        time.sleep(5 * slow())
+        to_village()
+        qa_hook("hearths:trg")
+        qa_hook("hour:11")
+        qa_hook("bubbles:0")
+        if culture == "kaernten":
+            wald = json.loads((culture_dir / "scenes/im-wald.json").read_text())["title"]["de"]
+            play_step("toplar", 1, "harpfe-larches", {"Welcher soll es sein": "cf2-harpfe-larches-line", "Bumm!": "cf2-harpfe-larches-felled"}, wald)
+            play_step("razgledni_stolp", 3, "tower-timber", {"die Burschen": "cf2-tower-timber-line", "Stamm": "cf2-tower-timber-trunks"}, wald)
+        else:
+            play_step("kapelica", 4, "chapel-gate", {"heavy beams": "cf2-chapel-beams", "iron gate": "cf2-chapel-gate", "Who keeps it": "cf2-chapel-gate-a2"}, None)
+            play_step("cebelji_travnik", 4, "hives-white", {"Which colour": "cf2-hives-turn", "every hive in the dale": "cf2-hives-white", "always white": "cf2-hives-white-a2"}, None)
+            # Old Wilf's Bess on the green at two in the afternoon, to its goodbye
+            qa_hook("hour:14")
+            qa_hook("happening:on-the-green/bess/bess", "scene:on-the-green@on-the-green/bess")
+            assert wait_for(back, 12), "On the village green opens"
+            assert wait_for("have you seen Bess", 10), "Old Wilf's first line"
+            time.sleep(2 * slow())
+            snap("cf2-bess-opens")
+            ok = {"No, sorry. Let's look for her!", "Bess! Come here, girl!", "Bye, Wilf! Bye, Bess!"}
+            assert play(ok, "That's Bess for goodbye", {"Bye, Wilf!": "cf2-bess-goodbye-turn"}, tries=14), "Bess's goodbye"
+            time.sleep(1)
+            snap("cf2-bess-goodbye")
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.5)
+            if find(back) is not None:
+                tap(back, 4)
+    finally:
+        HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING = saved
+        qa_hook("happening:")
+        qa_hook("step:")
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+        qa_hook("hearths:")
+    return None
+
+
 def kaernten_projects_a():
     """The Carinthian village's projects and its wood (docs/plans/05-built/kaernten-projects-a.md): a learner of German from
     Slovene in the Carinthian village (LANI_DEV_DATA: make-learner.ts --target de --base sl; LANI_CULTURE=kaernten,
@@ -17149,6 +17315,8 @@ def plan():
         ("lakeland-projects-b", lakeland_projects_b, None, False, ""),
         # only with --steps kaernten-projects-a: the Carinthian village's projects and its wood (kaernten-projects-a)
         ("kaernten-projects-a", kaernten_projects_a, None, False, ""),
+        # skipped outside Carinthia and the Lake District: content-fixes-2's steps and green as the learner meets them
+        ("content-fixes-2", content_fixes_2, None, False, ""),
         # only when named: "💡 Namigi · Tips" (GAME.md "Guidance"): the map's, Home's, a failed request's way back (Teo's pair
         # with LANI_*; its hooks fill a store, build a school and fail a request)
         ("guidance", guidance, guidance_home, False, ""),
