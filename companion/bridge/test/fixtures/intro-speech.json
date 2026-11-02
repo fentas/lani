@@ -3201,6 +3201,150 @@
     ],
     "summary": null
    }
+  },
+  {
+   "name": "English endings for a learner of Slovene: -teen and -ty end the intro's own words (thirteen, twenty), so they are read in the teacher's voice; an ending no word of it has is not (-ing)",
+   "language": "en",
+   "base": "sl",
+   "title": "Numbers",
+   "words": [
+    "thirteen",
+    "fifteen"
+   ],
+   "clips": [],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "en": "From 13 to 19 they end in **-teen**: **thirteen, fifteen**. The tens end in **-ty**: **twenty, thirty**. Not **-ing**.",
+       "sl": "Od 13 do 19 se končajo na **-teen**: **thirteen, fifteen**. Desetice se končajo na **-ty**: **twenty, thirty**. Ne **-ing**."
+      },
+      "examples": [
+       {
+        "en": "Twenty sheep.",
+        "sl": "Dvajset ovc."
+       },
+       {
+        "en": "Thirty hens.",
+        "sl": "Trideset kokoši."
+       }
+      ],
+      "ask": {
+       "type": "cloze",
+       "text": "There are ___ sheep.",
+       "accept": [
+        "thirteen"
+       ]
+      }
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "are",
+     "fifteen",
+     "hens",
+     "numbers",
+     "sheep",
+     "there",
+     "thirteen",
+     "thirty",
+     "twenty"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Od 13 do 19 se končajo na -teen: thirteen, fifteen. Desetice se končajo na -ty: twenty, thirty. Ne -ing.",
+       "lang": "sl",
+       "key": "sl|od 13 do 19 se končajo na teen thirteen fifteen desetice se končajo na ty twenty thirty ne ing",
+       "runs": [
+        {
+         "text": "Od 13 do 19 se končajo na",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "-teen",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "thirteen, fifteen",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": ". Desetice se končajo na",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "-ty",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "twenty, thirty",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        },
+        {
+         "text": ". Ne -ing.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          8,
+          10
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Twenty sheep.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Thirty hens.",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "There are … sheep.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "There are thirteen sheep."
+     }
+    ],
+    "summary": null
+   }
   }
  ]
 }

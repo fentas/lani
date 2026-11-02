@@ -30,13 +30,14 @@ const scriptOut = (s: S.Script) => ({
  * A word of each base the teacher's voice must never read: words that are that language's and none of the other course
  * languages' (sl, it, de, en), so a line of the course's own language never matches its learner's base. Not so or je
  * (German), si, so, ti, sta, ali, zelo (Italian), danes (English Danes), per, la, non (German, English), die, hallo
- * (English): each is a word of another course language.
+ * (English): each is a word of another course language. Never after a hyphen: "-are" is an Italian ending, read in her voice
+ * (course-speech.ts endings).
  */
 const BASE_WORDS: Record<string, RegExp> = {
-  en: /(?<!\p{L})(the|you|your|are|hello|goodbye|evening|morning|polite)(?!\p{L})/iu,
-  sl: /(?<!\p{L})(kje|kaj|kako|ki|pri|sem|smo|jaz|ni|tudi|zvečer|zjutraj|prosim|hvala)(?!\p{L})/iu,
-  it: /(?<!\p{L})(il|che|di|una|sono|è|della|alla|anche|perché|molto)(?!\p{L})/iu,
-  de: /(?<!\p{L})(und|ist|bist|ich|nicht|heißt|auch|sehr|tschüss)(?!\p{L})/iu,
+  en: /(?<![\p{L}-])(the|you|your|are|hello|goodbye|evening|morning|polite)(?!\p{L})/iu,
+  sl: /(?<![\p{L}-])(kje|kaj|kako|ki|pri|sem|smo|jaz|ni|tudi|zvečer|zjutraj|prosim|hvala)(?!\p{L})/iu,
+  it: /(?<![\p{L}-])(il|che|di|una|sono|è|della|alla|anche|perché|molto)(?!\p{L})/iu,
+  de: /(?<![\p{L}-])(und|ist|bist|ich|nicht|heißt|auch|sehr|tschüss)(?!\p{L})/iu,
 }
 
 const until = async (f: () => boolean | Promise<boolean>, ms = 4_000) => {
