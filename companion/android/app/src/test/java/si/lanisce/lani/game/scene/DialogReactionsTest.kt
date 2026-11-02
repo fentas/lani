@@ -246,9 +246,12 @@ class DialogReactionsTest {
                 two++
                 val (a, b) = rights.map { it["reply"].obj() }
                 assertTrue("$at: each right choice has its reply", a != null && b != null)
-                assertTrue("$at: their own replies", a!!.str(lang) != b!!.str(lang))
+                // the spoken hour beside the written one ("Ob pet?", "Ob petih?"): one reply does for both, it says the written form
+                // first (SCENES.md, content-fixes-2: the same recast, its clip exists)
+                val spokenHour = rights.any { "as people say it" in it.str("en").orEmpty() }
+                assertTrue("$at: their own replies", spokenHour || a!!.str(lang) != b!!.str(lang))
                 assertTrue("$at: different answers", words(rights[0].str(lang)!!) != words(rights[1].str(lang)!!))
-                assertEquals("$at: the same cues, whichever is taken", a["sky"] to a["fx"], b["sky"] to b["fx"])
+                assertEquals("$at: the same cues, whichever is taken", a!!["sky"] to a["fx"], b!!["sky"] to b["fx"])
             }
         }
         assertTrue("some turns have two right answers ($two)", two >= 20)

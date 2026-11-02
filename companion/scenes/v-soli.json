@@ -41,7 +41,7 @@
       "when": ["afternoon"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "chance": 0.4, "dialog": "naloga", "dialogs": ["naloga-strani", "naloga-dnevi", "naloga"],"reward": { "wisdom": 15 }, "marker": "✏️",
       "memory": { "sl": "domačo nalogo, ki si mi jo {m:pomagal|f:pomagala} napisati", "en": "the homework you helped me write", "de": "die Hausaufgabe, bei der du mir geholfen hast", "it": "i compiti che mi hai aiutato a scrivere" } },
     { "id": "globus", "title": { "sl": "Zala in globus", "en": "Zala and the globe", "de": "Zala und der Globus", "it": "Zala e il mappamondo" }, "who": "zala",
-      "when": ["morning"], "chance": 0.4, "dialog": "globus", "dialogs": ["globus-morje", "globus"],"reward": { "food": 15 }, "marker": "🌍", "needs": { "level": 2 },
+      "when": ["morning", "evening"], "chance": 0.4, "dialog": "globus", "dialogs": ["globus-morje", "globus"],"reward": { "food": 15 }, "marker": "🌍", "needs": { "level": 2 },
       "memory": { "sl": "globus in Nemčijo, ki si mi jo {m:pokazal|f:pokazala}", "en": "the globe and Germany, which you showed me", "de": "den Globus und Deutschland, das du mir gezeigt hast", "it": "il mappamondo e la Germania che mi hai mostrato" } },
     { "id": "stara-sola", "title": { "sl": "Janez v svoji stari šoli", "en": "Janez in his old school", "de": "Janez in seiner alten Schule", "it": "Janez nella sua vecchia scuola" }, "who": "janez",
       "when": ["afternoon"], "chance": 0.3, "dialog": "stara-sola", "dialogs": ["stara-sola-pec", "stara-sola"],"reward": { "wisdom": 20 }, "marker": "🎓",
