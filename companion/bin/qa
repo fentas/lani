@@ -1102,6 +1102,7 @@ def setup(url=None, token=None):
             # a learner without a village yet (LANI_DEV_DATA: a new learner's data): it's founded where it's offered;
             # at the screen's end it stays low, below scroll_to's band: found as it is then
             setup_shot("founding")
+            founding_seed()
             founding_read()
             here_at = scroll_to(here, 4) or find(here)
             if here_at:
@@ -9400,7 +9401,9 @@ def course_unit():
     step's field), the summary, its first worksheet, its test straight away, passed; the dev bridge's village keeping it
     done; its sheet printed from the unit (fit.js in the WebView as in Chromium, the dialog's preview, the PDF, A4). The
     German course in the Carinthian village (docs/plans/05-built/course-de-a1-a.md), the English one in the Lake
-    District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS."""
+    District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS. $LANI_QA_COURSE_SAID ("teen,ty"): endings its
+    steps name in bold, each heard in the teacher's voice (tag Speaker) as its step is read (a dev bridge with no voice engine:
+    the explanation in its runs), docs/plans/05-built/qa-repair.md."""
     if not COURSE_UNIT:
         return "skipped: no unit named (LANI_QA_COURSE_UNIT)"
     try:
@@ -9547,6 +9550,18 @@ def course_unit():
         steps = u["intro"]["steps"]
         for i, st in enumerate(steps, 1):
             assert wait_for(half("school.stepOf", n=i, of=len(steps)), 12), f"step {i}"
+            # the endings of $LANI_QA_COURSE_SAID this step names in bold, heard in the teacher's voice (tag Speaker), not the
+            # base's (IntroSpeech.endings; the explanation's clip can't be had on a dev bridge without a voice engine: its runs)
+            say = st.get("say")
+            say = (say.get(pair[1]) or say.get("en") or "") if isinstance(say, dict) else (say or "")
+            for w in [w for w in os.environ.get("LANI_QA_COURSE_SAID", "").split(",") if w and f"**-{w}**" in say]:
+                end, line = time.time() + 45 * slow(), None
+                while line is None and time.time() < end:
+                    line = next((l.split(": ", 1)[-1] for l in adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines() if f"said «{w}»" in l), None)
+                    time.sleep(1)
+                assert line, f"step {i}: «-{w}» wasn't read by the teacher's voice"
+                print(f"    step {i}: {line}")
+                snap(f"cu-intro-{i}-said-{w}")
             a = st.get("ask")
             if a is None:
                 assert tap(nxt, 4), f"step {i}'s next"
@@ -13485,14 +13500,10 @@ def founding_read():
         shutil.copy(shots[-1], Path(d) / "read-founding.png")
 
 
-def found_village():
-    """A dev bridge's copy without a village (a synthetic learner, LANI_DEV_DATA): founded here, as the learner would
-    ("✓ Tu bo moja vas · My village will be here"); nothing when there is one. With LANI_QA_FOUND_SEED the place is that
-    seed's (QA's hook "seed:<n>"; 551323397: Teo's coast), its preview shot first (founding-preview; also as
-    coast-preview.png in $LANI_QA_COAST_SHOTS)."""
-    c = wait_for("Kje bo tvoja vas", 4)
-    if c is None:
-        return
+def founding_seed():
+    """On the founding screen, with LANI_QA_FOUND_SEED: the place is that seed's (QA's hook "seed:<n>"; 551323397: Teo's coast),
+    its preview shot (founding-preview; also as coast-preview.png in $LANI_QA_COAST_SHOTS), the screen at its top again.
+    Where setup founds the village (a learner without one) too, or the seed would come after the founding and do nothing."""
     if seed := os.environ.get("LANI_QA_FOUND_SEED"):
         qa_hook(f"seed:{seed}")
         time.sleep(2 * slow())
@@ -13505,7 +13516,19 @@ def found_village():
         if d := os.environ.get("LANI_QA_COAST_SHOTS"):
             Path(d).mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], Path(d) / "coast-preview.png")
-    adb("shell", "input", "swipe", "540", "900", "540", "1700", "300")  # its top again
+        adb("shell", "input", "swipe", "540", "900", "540", "1700", "300")  # its top again
+        time.sleep(0.8)
+
+
+def found_village():
+    """A dev bridge's copy without a village (a synthetic learner, LANI_DEV_DATA): founded here, as the learner would
+    ("✓ Tu bo moja vas · My village will be here"), at LANI_QA_FOUND_SEED's place when set (founding_seed); nothing when there
+    is one."""
+    c = wait_for("Kje bo tvoja vas", 4)
+    if c is None:
+        return
+    founding_seed()
+    adb("shell", "input", "swipe", "540", "900", "540", "1700", "300")  # its top
     time.sleep(0.8)
     founding_read()
     for _ in range(3):  # its foot: the button under the picture (the screen scrolls only so far)
@@ -14666,7 +14689,7 @@ def road():
     and plays each session from its id): every session with items on the phone plays, none fails ("Failed to load
     selection" in a car), the app still runs."""
     if why := road_clips():
-        return f"skipped: {why}"
+        return why
     go_home()
     tile = scroll_to("Za pot", 6, exact=True)
     assert tile, "the 🚗 Za pot tile"
