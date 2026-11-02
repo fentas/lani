@@ -309,7 +309,7 @@
           "type": "cloze",
           "grammar": "future",
           "text": "It's cold in here. ___ I close the window?",
-          "accept": ["Shall", "Should"],
+          "accept": ["Shall", "Should", "Can", "Could", "May"],
           "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" },
           "explain": {
             "sl": "**Ponudba z I: Shall I …?**\n- Shall I close the window?",
@@ -519,7 +519,7 @@
             },
             { "accept": ["won't"], "hint": "will + not" },
             {
-              "accept": ["Shall", "Should", "Can", "Could"],
+              "accept": ["Shall", "Should", "Can", "Could", "May"],
               "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" }
             },
             {
@@ -680,7 +680,7 @@
         "gaps": [
           { "accept": ["will", "is going to", "'s going to"] },
           { "accept": ["I'll"] },
-          { "accept": ["Shall", "Should", "Can", "Could"] },
+          { "accept": ["Shall", "Should", "Can", "Could", "May"] },
           { "accept": ["won't"] },
           { "accept": ["will"] }
         ],
@@ -765,10 +765,7 @@
         "cue": "?",
         "items": [
           { "from": "It will be cold on the fell.", "accept": ["Will it be cold on the fell?"] },
-          {
-            "from": "Granny Maggie will bake tomorrow.",
-            "accept": ["Will Granny Maggie bake tomorrow?", "Tomorrow will Granny Maggie bake?"]
-          }
+          { "from": "Granny Maggie will bake tomorrow.", "accept": ["Will Granny Maggie bake tomorrow?"] }
         ],
         "explain": {
           "sl": "**will gre naprej**\n- It will be cold. → Will it be cold?",

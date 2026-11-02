@@ -496,15 +496,15 @@
           "text": "Welcome to the inn! These are the rules. You ___ be here at eight. Sam ___ come at seven, because he brings the ale. You ___ smoke in the kitchen: that's not allowed. You ___ wash the floors: there's no need, Granny Maggie does that. ___ you have to work on Sundays? No, you ___. And you ___ take a coat on Monday. My advice: it's going to be cold!",
           "gaps": [
             {
-              "accept": ["have to", "must", "'ve got to"],
+              "accept": ["have to", "must", "'ve got to", "have got to"],
               "hint": { "sl": "moraš", "de": "du musst", "it": "devi", "en": "you need to" }
             },
             {
-              "accept": ["has to", "must", "'s got to"],
+              "accept": ["has to", "must", "'s got to", "has got to"],
               "hint": { "sl": "he → ?", "de": "he → ?", "it": "he → ?", "en": "he → ?" }
             },
             {
-              "accept": ["mustn't", "can't"],
+              "accept": ["mustn't", "can't", "may not"],
               "hint": { "sl": "ni dovoljeno", "de": "nicht erlaubt", "it": "non permesso", "en": "not allowed" },
               "explain": {
                 "sl": "**Ni dovoljeno: mustn't**\n- You mustn't smoke in the kitchen.",
@@ -531,7 +531,10 @@
               "accept": ["don't"],
               "hint": { "sl": "kratki odgovor", "de": "die Kurzantwort", "it": "la risposta breve", "en": "the short answer" }
             },
-            { "accept": ["should"], "hint": {"sl": "nasvet", "de": "ein Rat", "it": "un consiglio", "en": "advice"} }
+            {
+              "accept": ["should", "ought to"],
+              "hint": { "sl": "nasvet", "de": "ein Rat", "it": "un consiglio", "en": "advice" }
+            }
           ],
           "bank": true,
           "distractors": ["must to", "hasn't to"],
@@ -676,7 +679,7 @@
           { "accept": ["Do"] },
           { "accept": ["do"] },
           { "accept": ["has"] },
-          { "accept": ["should", "must"] },
+          { "accept": ["should", "must", "have to", "need to", "'ve got to", "ought to"] },
           { "accept": ["don't have to", "needn't", "don't need to"] }
         ],
         "translation": {
