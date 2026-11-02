@@ -21,6 +21,10 @@
     "some-any"
   ],
   "words": [
+    "some-",
+    "any-",
+    "no-",
+    "every-",
     "someone",
     "somebody",
     "something",
@@ -58,12 +62,6 @@
   "intro": {
     "table": {
       "head": [
-        {
-          "sl": "prvi del",
-          "de": "erster Teil",
-          "it": "prima parte",
-          "en": "first part"
-        },
         {
           "sl": "oseba",
           "de": "Person",
@@ -114,7 +112,6 @@
         ],
         "rows": [
           [
-            "some-",
             "someone, somebody",
             "something",
             "somewhere"
@@ -168,7 +165,6 @@
         ],
         "rows": [
           [
-            "any-",
             "anyone, anybody",
             "anything",
             "anywhere"
@@ -219,7 +215,6 @@
         ],
         "rows": [
           [
-            "no-",
             "no one, nobody",
             "nothing",
             "nowhere"
@@ -228,7 +223,7 @@
         "ask": {
           "type": "choice",
           "grammar": "indefinite-pronouns",
-          "prompt": "I didn't see ___.",
+          "prompt": "We didn't find ___ in the barn.",
           "options": [
             "anything",
             "nothing",
@@ -237,10 +232,10 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "sl": "**didn't + any-: samo ena nikalnica**\n- I didn't see anything. · I saw nothing.",
-            "de": "**didn't + any-: nur eine Verneinung**\n- I didn't see anything. · I saw nothing.",
-            "it": "**didn't + any-: una sola negazione**\n- I didn't see anything. · I saw nothing.",
-            "en": "**didn't + any-: one negative only**\n- I didn't see anything. · I saw nothing."
+            "sl": "**didn't + any-: samo ena nikalnica**\n- We didn't find anything. · We found nothing.",
+            "de": "**didn't + any-: nur eine Verneinung**\n- We didn't find anything. · We found nothing.",
+            "it": "**didn't + any-: una sola negazione**\n- We didn't find anything. · We found nothing.",
+            "en": "**didn't + any-: one negative only**\n- We didn't find anything. · We found nothing."
           }
         }
       },
@@ -273,7 +268,6 @@
         ],
         "rows": [
           [
-            "every-",
             "everyone, everybody",
             "everything",
             "everywhere"
