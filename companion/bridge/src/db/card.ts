@@ -251,7 +251,12 @@ export function overlap(a: PyDict, b: PyDict): PyDict | null {
   if (!samePrompt.length && !sameAnswer.length) return null
   const out = new PyDict()
   if (samePrompt.length) out.set('same_prompt', samePrompt)
-  if (sameAnswer.length) out.set('same_answer', sameAnswer)
+  if (sameAnswer.length) {
+    out.set('same_answer', sameAnswer)
+    // one spelling, no meaning in common: two words (a pack's homonym, the kitchen's bowl and the green's), not one card twice
+    const pb = promptParts(getItem(b, 'answer'))
+    if (!promptParts(getItem(a, 'answer')).some(x => pb.includes(x))) out.set('two_meanings', true)
+  }
   return out
 }
 
@@ -593,6 +598,7 @@ function retext(item: PyDict, args: Args, today: string, action: string, prefix 
 function textWarnings(cid: string, item: PyDict, its: PyDict): string[] {
   const out = problems(item)
   for (const o of shown(item) ? overlapsOf(cid, its) : []) {
+    if (o.get('two_meanings')) continue
     const what = o.items().filter(([k]) => k.startsWith('same_')).map(([k, v]) => `${k.replaceAll('_', ' ')} ${pyStr(v)}`).join(' and ')
     out.push(`overlaps ${pyStr(o.get('id'))} (${repr(o.get('front'))} = ${repr(o.get('back'))}): ${what}`)
   }

@@ -544,7 +544,8 @@ for 20 of the 24, and level 5 for the 24 and 2 words of V kuhinji's pack. A buil
 **Known** is what the word count means (`Stats.learned`): answered right at least once and not failed since. A word
 counts as soon as it's answered right, in a word pack, a scene's words or the run below; the next day's review stays the
 judge. A word the learner has under another card counts (the same word, as the node compares them: "voda" from a lesson is
-the kitchen's water). A rusty word (its last review failed, see "Rusty words") doesn't count, and from level 3 on a rusty
+the kitchen's water), unless its pack marks it a homonym (the kitchen's bowl isn't the green's: only a card that means it
+counts; docs/plans/05-built/content-fixes-3.md). A rusty word (its last review failed, see "Rusty words") doesn't count, and from level 3 on a rusty
 word among the building's words holds the upgrade back until it's polished, however many others are known.
 
 **The numbers** (`BuildingWords.NEED`: 8, 14, 20, 26) make an upgrade a few minutes of real practice, not an hour: each

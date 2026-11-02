@@ -10,7 +10,7 @@ import { z } from 'zod'
 import type { Log } from './config'
 import type { SrItem } from './learner'
 import type { Meaning, Via } from './lexicon-meanings'
-import { exampleOf, itemId, meaningLangOf, meaningOf, normWord, vocabularyWords, wordOf, type LoadedPack } from './packs'
+import { exampleOf, homonymCard, itemId, meaningLangOf, meaningOf, normWord, sameMeaning, vocabularyWords, WORD_LANGUAGES, wordOf, type LoadedPack, type PackWord } from './packs'
 
 export const ATTRIBUTION = 'Wiktionary (CC BY-SA 4.0) via kaikki.org'
 
@@ -562,6 +562,8 @@ export type LookupEntry = {
   /** The review item the word is (or becomes): a pack word's own, vocab_word_<lemma> otherwise; none for a name. */
   item_id: string | null
   known: boolean
+  /** A pack word of one spelling and two meanings: [known] says about this meaning, the lemma alone doesn't make it theirs. */
+  homonym?: true
   example: { sl: string; en: string } | null
   emoji: string | null
   /** The tutor's usage note, when it gave one. */
@@ -773,6 +775,33 @@ function phrasesAround(tokens: string[], positions: number[]): string[] {
   return [...out]
 }
 
+/** What says nothing about a meaning in a pack word's translation, besides [STOP]. */
+const NOT_A_SENSE = new Set([...STOP, 'vse', 'kot', 'pri', 'ali', 'per', 'con', 'del', 'dei', 'della', 'che', 'von', 'und', 'mit', 'oder', 'dem', 'den', 'des'])
+
+/**
+ * The words that say what [w] means: those of its translations in every language but its pack's, each without its article
+ * ("I sow": sow; "il giro (di bevute)": giro, bevute; "die Runde": runde). [the line's translation] is in one of them.
+ */
+function senseWords(p: Pick<LoadedPack, 'language'>, w: PackWord): string[] {
+  return WORD_LANGUAGES.filter(l => l !== p.language)
+    .flatMap(l => {
+      const t = w[l]?.toLowerCase()
+      return (t ? (ARTICLES[l] ? t.replace(ARTICLES[l], '') : t) : '').match(/\p{L}+/gu) ?? []
+    })
+    .filter(g => g.length >= 3 && !NOT_A_SENSE.has(g))
+}
+
+/** How many of [sense] (senseWords) stand in [words], another ending of them too: krogla in "kroglo", okrogel in "okroglo", wheel in "wheels". */
+function senseScore(sense: string[], words: string[]): number {
+  const has = (g: string) =>
+    words.some(t => {
+      let n = 0
+      while (n < g.length && n < t.length && g[n] === t[n]) n++
+      return n >= Math.max(3, g.length - 2) && t.length - n <= 3
+    })
+  return new Set(sense.filter(has)).size
+}
+
 /**
  * What [word] means where it was tapped. The order:
  * 1. an expression of the line the word is part of ("prav" in "Ravno prav." → ravno prav, just in time);
@@ -783,7 +812,9 @@ function phrasesAround(tokens: string[], positions: number[]): string[] {
  * 4. the village's people; then the word itself, or what was written for it (the supplement), before Wiktionary's
  *    readings of it as a form of another word ("prav": the adverb before a genitive plural of pravo); Wiktionary's names
  *    last ("lepa": nice, not a cat's name), or first when the word is capitalized inside the line ("pozdravi Samo").
- * The word before it narrows a noun's case ("v gozdu"). At most five entries, one per lemma and part of speech.
+ * The word before it narrows a noun's case ("v gozdu"). At most five entries, one per lemma and part of speech; a pack
+ * word marked homonym one per meaning: the meaning the line says (its translation, or the word's own example), both when it
+ * can't tell.
  */
 export function lookup(word: string, at: { line?: string; en?: string }, s: LookupSources): LookupResult {
   const lang = s.lexicon.language
@@ -829,9 +860,9 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
   }
   // an expression is one entry whatever its part of speech ("Dober tek!": the pack's, the supplement's phrase and
   // Wiktionary's intj)
-  const keyOf = (e: { lemma: string; pos: string }) => {
+  const keyOf = (e: LookupEntry) => {
     const lemma = phraseKey(e.lemma, lang)
-    return lemma.includes(' ') ? lemma : `${lemma}|${e.pos}`
+    return senseKeys.get(e) ?? (lemma.includes(' ') ? lemma : `${lemma}|${e.pos}`)
   }
   const inLine = new Set<string>()
 
@@ -847,12 +878,27 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
   hits.sort((a, b) => fresh(a) - fresh(b))
   // the pack words the tapped word is only a form of (not the word, its plural or a phrase of the line)
   const formOf = new WeakSet<LookupEntry>()
+  // a homonym's entries: their pack word, their key (one meaning, one key; a second meaning under the lemma and part of
+  // speech the first holds gets its own, so the dictionary's entry of the lemma joins the first), and those reached as
+  // another form with no reading of their meaning
+  const twins = new Map<LookupEntry, { p: LoadedPack; w: PackWord }>()
+  const senseKeys = new Map<LookupEntry, string>()
+  const unread = new WeakSet<LookupEntry>()
   for (const { p, w, key, plural } of hits) {
     const lemma = wordOf(p, w)
+    const sense = w.homonym ? senseWords(p, w) : undefined
+    // a word of two meanings takes only the dictionary's reading of its own: round the noun isn't okrogel
+    const itsMeaning = (rs: Reading[]) => {
+      if (!sense) return rs
+      return rs.filter(r => {
+        const said: string[] = [...r.gloss, ...(r.en ?? [])].join(' ').toLowerCase().match(/\p{L}+/gu) ?? []
+        return sense.some(g => said.includes(g))
+      })
+    }
     // the dictionary's reading of the pack word: the one whose gloss is the pack's (hvala: "thank you", not "praise")
     const own = (rs: Reading[]) => rs.filter(r => normalizeForm(r.lemma, lang) === key)
     // a word with a gender is no verb: "der Graben" isn't the supplement's graben (nor its grammar, "infinitive")
-    const ofPack = (rs: Reading[]) => (w.gender ? rs.filter(r => r.pos !== 'verb') : rs)
+    const ofPack = (rs: Reading[]) => itsMeaning(w.gender ? rs.filter(r => r.pos !== 'verb') : rs)
     const candidates = ofPack(own(direct)).length ? ofPack(own(direct)) : ofPack(own(s.lexicon.readings(key, s.base)))
     const meant = englishWords(w.en)
     const inEnglish = (r: Reading) => r.en ?? r.gloss
@@ -861,7 +907,7 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
     const grammar = withGrammar?.grammar ?? (plural === form && key !== form ? 'plural' : null)
     const example = exampleOf(p, w)
     // the example meant in the learner's base, else in English (an English pack's example_en is the example itself)
-    const exampleMeant = (w as Record<string, string | undefined>)[`example_${s.base}`] ?? (p.language === 'en' ? undefined : w.example_en)
+    const exampleMeant = (w as Record<string, unknown> as Record<string, string | undefined>)[`example_${s.base}`] ?? (p.language === 'en' ? undefined : w.example_en)
     const id = itemId(p.id, w.id)
     // a pack without the learner's base (the Slovene packs have Slovene and English): the dictionary's meaning in it
     const inBase = meaningLangOf(p, w, s.base) === s.base || s.base === 'en'
@@ -876,9 +922,18 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
       gender: w.gender ?? reading?.gender ?? null,
       source: 'pack',
       item_id: id,
-      known: isKnown(id, lemma),
+      known: w.homonym ? !!s.items[id] || !!homonymCard(p, w, s.items) : isKnown(id, lemma),
+      ...(w.homonym ? { homonym: true as const } : {}),
       example: example ? { sl: example, en: exampleMeant ?? '' } : null,
       emoji: w.emoji ?? null,
+    }
+    if (w.homonym) {
+      const spelled = [...twins].filter(([, t]) => normWord(wordOf(t.p, t.w)) === normWord(lemma))
+      const same = spelled.find(([, t]) => sameMeaning(t.p, t.w, p, w))
+      const plain = keyOf(e)
+      senseKeys.set(e, same ? senseKeys.get(same[0])! : spelled.some(([o]) => senseKeys.get(o) === plain) ? `${plain}#${w.id}` : plain)
+      twins.set(e, { p, w })
+      if (!reading && key !== form && plural !== form && !phrases.includes(key)) unread.add(e)
     }
     if ((withGrammar && isWiktionary(withGrammar)) || (theirs && isWiktionary(theirs))) attributed.add(e)
     if (phrases.includes(key)) inLine.add(keyOf(e))
@@ -911,6 +966,18 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
       if (attributed.has(e)) attributed.add(had)
     }
   }
+  // a homonym's meanings: the one the line says, both when it can't tell
+  const said = at.en?.toLowerCase().match(/\p{L}+/gu) ?? []
+  const toldBy = ({ p, w }: { p: LoadedPack; w: PackWord }) => (at.line && exampleOf(p, w) && phraseKey(at.line, lang) === phraseKey(exampleOf(p, w)!, lang) ? 100 : senseScore(senseWords(p, w), said))
+  const dropped = new Set<LookupEntry>()
+  const homonyms = [...byKey.values()].filter(e => twins.has(e))
+  for (const lemma of new Set(homonyms.map(e => phraseKey(e.lemma, lang)))) {
+    const all = homonyms.filter(e => phraseKey(e.lemma, lang) === lemma)
+    if (all.length < 2) continue
+    const possible = all.some(e => !unread.has(e)) ? all.filter(e => !unread.has(e)) : all
+    const best = Math.max(...possible.map(e => toldBy(twins.get(e)!)))
+    for (const e of all) if (!possible.includes(e) || (best > 0 && toldBy(twins.get(e)!) < best)) dropped.add(e)
+  }
   const en = englishWords(at.en)
   // without a translation to tell, the word itself as the supplement or the tutor wrote it ("ravno": just) comes before a
   // pack word it is only a form of
@@ -925,6 +992,7 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
     return normalizeForm(e.lemma, lang) === form ? 0 : 1
   }
   const ranked = [...byKey.values()]
+    .filter(e => !dropped.has(e))
     .map((e, n) => ({ e, n, score: Math.max(enScore(e.gloss, en), e.gloss_en ? enScore(e.gloss_en, en) : 0), line: inLine.has(keyOf(e)) ? 0 : 1 }))
     .sort((a, b) => a.line - b.line || Number(!a.score) - Number(!b.score) || tier(a.e) - tier(b.e) || kind(a.e) - kind(b.e) || b.score - a.score || a.n - b.n)
     .map(x => x.e)

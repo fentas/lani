@@ -100,6 +100,35 @@ export default async function lakeland() {
     check('lakeland: a lookup finds an English pack word by its plural, meant in Slovene (gloss_lang sl), its example meant in Slovene', f0?.lemma === plural.en && f0.gloss[0] === plural.sl && f0.gloss_lang === 'sl' && f0.grammar === 'plural' && f0.source === 'pack' && (!f0.example || f0.example.en === plural.example_sl), found)
     const roll = await lookup(`w=roll&line=${encodeURIComponent('We roll the eggs down the hill.')}`)
     check('lakeland: a verb is found without its "to" (roll: to roll), meant in Slovene', roll.entries.some((e: any) => e.lemma === 'to roll' && e.source === 'pack' && e.gloss_lang === 'sl'), roll)
+    // bowl, one spelling: the kitchen's and the green's are two words (packs marked homonym; docs/plans/05-built/content-fixes-3.md)
+    const tap = (line: string, en?: string) => lookup(`w=bowl&line=${encodeURIComponent(line)}${en ? `&en=${encodeURIComponent(en)}` : ''}`)
+    const meant = (r: any) => r.entries.filter((e: any) => e.lemma === 'bowl').map((e: any) => e.gloss[0])
+    const onGreen = await tap('Wilf rolls his bowl along the grass.', 'Wilf zakotali kroglo po travi.')
+    const inKitchen = await tap('Give me one.', 'Skledo kaše, prosim.')
+    const cannotTell = await tap('The bowl is here.', 'Tukaj je.')
+    const noLine = await lookup('w=bowl')
+    check("lakeland: a tap on bowl gives the meaning its line says (krogla on the green, skleda in a line with the kitchen's), both when it can't tell",
+      meant(onGreen).join() === 'krogla' && meant(inKitchen).join() === 'skleda' && meant(cannotTell).length === 2 && meant(noLine).length === 2, { onGreen, inKitchen, cannotTell })
+    const exampleAlone = await tap('Wilf rolls his bowl along the grass.')
+    check("lakeland: a line that is the word's own example tells it without a translation", meant(exampleAlone).join() === 'krogla', exampleAlone)
+    const round = await lookup(`w=round&line=${encodeURIComponent('Another round?')}&en=${encodeURIComponent('Še eno rundo?')}`)
+    check("lakeland: round: the pub's round by its translation, no adjective's meaning with it", round.entries.filter((e: any) => e.source === 'pack').map((e: any) => e.item_id).join() === 'vocab_in-the-pub_round', round)
+    const byItem = (id: string) => JSON.parse(readFileSync(join(dataDir, 'spaced-repetition.json'), 'utf8')).items?.[id]
+    const packWords = async (id: string) => (await (await fetch(`${base}/packs/${id}`, { headers: auth })).json()) as any
+    const learnOne = async (pack: string, word: string) => (await (await fetch(`${base}/packs/${pack}/learn`, { method: 'POST', headers: auth, body: JSON.stringify({ results: [{ word_id: word, quality: 4 }], duration_minutes: 1 }) })).json()) as any
+    const firstBowl = await learnOne('in-the-kitchen', 'bowl')
+    const kitchenBowl = byItem('vocab_in-the-kitchen_bowl')
+    check("lakeland: the kitchen's bowl learned: the green's isn't had by it, and is still to teach", firstBowl.added?.length === 1 && (await packWords('in-the-kitchen')).learned.includes('bowl') && !(await packWords('on-the-bowling-green')).learned.includes('lawn-bowl'), firstBowl)
+    const secondBowl = await learnOne('on-the-bowling-green', 'lawn-bowl')
+    const greenBowl = byItem('vocab_on-the-bowling-green_lawn-bowl')
+    check("lakeland: the green's bowl is its own card, its Slovene meaning its own; the kitchen's card is as it was",
+      secondBowl.added?.length === 1 && greenBowl?.content === 'bowl' && greenBowl?.answer === 'krogla' && JSON.stringify(byItem('vocab_in-the-kitchen_bowl')) === JSON.stringify(kitchenBowl) && (await packWords('on-the-bowling-green')).learned.includes('lawn-bowl'), { secondBowl, greenBowl })
+    const ownKnown = await tap('Wilf rolls his bowl along the grass.', 'Wilf zakotali kroglo po travi.')
+    check('lakeland: the word card knows it by the meaning, and says it is one of two', ownKnown.entries[0]?.known === true && ownKnown.entries[0]?.homonym === true, ownKnown.entries[0])
+    const fromCard = await fetch(`${base}/words`, { method: 'POST', headers: auth, body: JSON.stringify({ sl: 'round', en: 'okrogel', item_id: 'vocab_project-mestna-ura_round', from: 'scene' }) })
+    const fromCard2 = await fetch(`${base}/words`, { method: 'POST', headers: auth, body: JSON.stringify({ sl: 'round', en: 'runda', item_id: 'vocab_in-the-pub_round', from: 'scene' }) })
+    const added = [await fromCard.json(), await fromCard2.json()] as any[]
+    check('lakeland: added from a word card, each meaning of round is added as its own card (POST /words)', added.every(a => a.added === true) && !!byItem('vocab_project-mestna-ura_round') && !!byItem('vocab_in-the-pub_round'), added)
     const byName = await lookup('w=Maggie')
     check('lakeland: a villager is found by name', byName.entries.some((e: any) => e.lemma === 'Granny Maggie' && e.source === 'village'), byName)
 

@@ -319,6 +319,9 @@ export function checkWoven(
       lemma = raw
       id = byWord.get(normWord(raw))
       if (!id) notes.push(`"${raw}" is not one of the learner's cards: it counts for nothing until it is`)
+      // one spelling on two cards (a pack's homonym: the kitchen's bowl and the green's): the first isn't always the one meant
+      const twins = Object.entries(o.items).filter(([, c]) => { const w = cardWord(c); return !!w && normWord(w) === normWord(raw) }).map(([k]) => k)
+      if (twins.length > 1) notes.push(`"${raw}" is ${twins.length} of the learner's cards (${twins.join(', ')}): counted for ${id}; declare the card this dialog means by its id if it's another`)
     }
     const tests = tested.filter(t => isFormOf(t.word, lemma, o.lemmaOf, lang) || (!!id && t.item_id === id))
     if (!tests.length) {

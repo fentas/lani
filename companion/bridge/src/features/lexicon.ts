@@ -22,7 +22,7 @@ import { LANGUAGES, learnerFacts, learnerLangs } from '../learners'
 import { ATTRIBUTION, glossIn, Lexicon, lookup, normalizeForm, wordItemId, type LookupEntry, type LookupResult, type Person } from '../lexicon'
 import { contentLines, formsOf, FORMS_LANGUAGES, LineIndex, partnerOf } from '../forms'
 import { fetchLexicon, lexiconCacheDir, parseLexicon } from '../lexicon-download'
-import { itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wordOf, type LoadedPack } from '../packs'
+import { homonymCard, itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wordOf, type LoadedPack } from '../packs'
 import { labelEn } from '../langs'
 import { untrustedJson } from '../family'
 import { MAX_REQUESTS, WordRequests, type WordRequest } from '../word-requests'
@@ -329,11 +329,11 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
     if (b.item_id && !packWord && !b.item_id.startsWith('vocab_word_')) return { error: 'item_id: a pack word\'s or vocab_word_…, as GET /lookup gave it', status: 400 }
     const id = packWord ? itemId(packWord.p.id, packWord.w.id) : (b.item_id ?? wordItemId(b.sl))
     const content = packWord ? wordOf(packWord.p, packWord.w) : b.sl
-    // known already: its own item, or another vocabulary item with the same word (packs.ts learnedWords), in the
-    // language it is added to
+    // known already: its own item, or another vocabulary item with the same word (packs.ts learnedWords; a word marked
+    // homonym: one that means it), in the language it is added to
     const other = learner.other(b.language)
     const items = learner.srItems(other)
-    const same = items[id] ? id : vocabularyWords(items).get(normWord(content))
+    const same = items[id] ? id : packWord?.w.homonym ? homonymCard(packWord.p, packWord.w, items) : vocabularyWords(items).get(normWord(content))
     if (same) return { item_id: same, added: false }
     const u = learner.update({
       record_session: false,

@@ -1,8 +1,8 @@
 // Smoke checks: word packs, learning words.
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { PackStore, validatePack, type Pack } from '../../src/packs'
-import { baseline, compare, promptClashes } from '../prompt-clashes'
+import { homonymCard, learnedWords, meaningOf, normWord, PackStore, unmarkedHomonyms, validatePack, wordOf, type Pack } from '../../src/packs'
+import { baseline, compare, curatedPacks, promptClashes } from '../prompt-clashes'
 import { auth, base, channelEvents, check, client, curatedDir, dataDir } from './harness'
 
 export default async function packs() {
@@ -75,6 +75,51 @@ export default async function packs() {
 
   await festivals(learn)
   promptClashChecks()
+  homonymChecks()
+}
+
+/**
+ * One spelling in two packs of a language, the meanings apart, and still one word: one meaning extended (a song and a poem,
+ * heat and fever; SSKJ² has one headword each) or the same thing in other words, so the other reads right in its line. Any
+ * other pair must be marked homonym in its packs (docs/plans/05-built/content-fixes-3.md).
+ */
+const ONE_WORD: Record<string, string[]> = {
+  sl: ['pesem', 'vročina', 'daljnogled', 'smrečica'],
+  en: [],
+  it: ['il carbone'],
+  de: [],
+}
+
+/** Words marked homonym: each its own card, had only through a card that means it; the curated packs mark every pair. */
+function homonymChecks() {
+  const toy = (id: string, words: Record<string, unknown>[]) => ({ schema: 'lani.pack/v0', id, language: 'en', title: id, emoji: '📚', level: 'A1', words }) as unknown as Pack
+  const kitchen = toy('in-the-kitchen', [{ id: 'bowl', en: 'bowl', sl: 'skleda', it: 'scodella', de: 'Schüssel', homonym: true }, { id: 'cup', en: 'cup', sl: 'skodelica' }])
+  const green = toy('on-the-green', [{ id: 'lawn-bowl', en: 'bowl', sl: 'krogla', it: 'boccia', de: 'Kugel', homonym: true }])
+  const other = toy('other-kitchen', [{ id: 'bowl', en: 'bowl', sl: 'skleda', homonym: true }, { id: 'cup', en: 'cup', sl: 'lonček' }])
+  const card = (content: string, answer: string) => ({ type: 'vocabulary', content, answer })
+  const items = { 'vocab_in-the-kitchen_bowl': card('bowl', 'skleda') }
+  check('homonym: a card of the spelling and another meaning does not have the word, its own does, one that means it does',
+    !learnedWords(green, items).includes('lawn-bowl') && learnedWords(kitchen, items).includes('bowl') && learnedWords(other, items).includes('bowl') && homonymCard(other, other.words[0], items) === 'vocab_in-the-kitchen_bowl',
+    learnedWords(green, items))
+  check("homonym: a card from the dictionary has the meaning it says, in any of the word's languages, only that one",
+    learnedWords(kitchen, { vocab_word_bowl: card('bowl', 'the bowl, Schüssel') }).includes('bowl') && !learnedWords(green, { vocab_word_bowl: card('bowl', 'the bowl, Schüssel') }).includes('lawn-bowl'))
+  check('homonym: a word without the mark still goes by its spelling, whatever the card means', learnedWords(other, { x: card('cup', 'mug') }).includes('cup'))
+  const parsed = validatePack({ ...green, words: Array.from({ length: 8 }, (_, i) => ({ id: `w${i}`, en: `w${i}`, sl: `s${i}`, ...(i ? {} : { homonym: true }) })) })
+  check('homonym: the schema keeps the key', parsed.ok && parsed.pack.words[0].homonym === true && parsed.pack.words[1].homonym === undefined, parsed)
+  check("homonym: the same spelling with another meaning unmarked is found, for the tutor's note; marked or the same meaning, not",
+    unmarkedHomonyms(toy('t', [{ id: 'bowl', en: 'bowl', sl: 'krogla' }]), [kitchen]).length === 1 && unmarkedHomonyms(green, [kitchen]).length === 0 && unmarkedHomonyms(toy('t', [{ id: 'bowl', en: 'bowl', sl: 'skleda' }]), [kitchen]).length === 0)
+
+  const packs = curatedPacks().map(p => p.pack)
+  const unmarked = packs.flatMap(p => unmarkedHomonyms(p, packs).map(t => ({ language: p.language, word: normWord(wordOf(p, p.words.find(w => t.startsWith(`${wordOf(p, w)} (`))!)), t })))
+  const stray = unmarked.filter(u => !ONE_WORD[u.language].includes(u.word))
+  check("homonym: every spelling with two meanings in a language's packs is marked in all of them, or known to be one word", stray.length === 0, stray.map(u => u.t))
+  const marked = packs.flatMap(p => p.words.filter(w => w.homonym).map(w => ({ p, w, word: normWord(wordOf(p, w)) })))
+  const spellings = new Set(marked.map(m => `${m.p.language}|${m.word}`))
+  const alike = (s: string) => packs.flatMap(p => p.words.filter(w => `${p.language}|${normWord(wordOf(p, w))}` === s).map(w => ({ p, w })))
+  check('homonym: the curated packs mark bowl, round, sejem, mlaj, kolo and pronto, each in every pack that has it, each with two meanings',
+    ['en|bowl', 'en|round', 'sl|sejem', 'sl|mlaj', 'sl|kolo', 'it|pronto'].every(s => spellings.has(s)) && spellings.size === 6 &&
+      [...spellings].every(s => alike(s).every(x => x.w.homonym) && new Set(alike(s).map(x => meaningOf(x.p, x.w))).size >= 2),
+    [...spellings])
 }
 
 /**

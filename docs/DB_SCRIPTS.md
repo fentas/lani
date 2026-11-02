@@ -330,7 +330,8 @@ dictation plays and tiles build), `variants` (the app's names: `flip`, `recogniz
 `vocabulary` and a list, a front or a meaning of parts between ` · `), `rusty` and `learned`. `problems` says
 what makes it ungradeable or confusing (a back asking for several meanings while each answer is
 one alternative, `/` without spaces, an alternative over 40 letters); `overlaps` lists the cards
-with the same prompt (when one of them is asked for) or the same answer. A card whose front or back isn't a string
+with the same prompt (when one of them is asked for) or the same answer (`two_meanings: true`: one spelling with no meaning
+in common, a pack's homonym, two words that stay two cards). A card whose front or back isn't a string
 (a number, a list) is shown as it is stored: `app.shown` is false (the app skips it), `problems` says which side, and
 `find` finds it by its id or its other side.
 

@@ -1199,7 +1199,7 @@ export function servedDialogs(s: Pick<Scene, 'happenings' | 'dialogs' | 'variant
 /** The scene with every object's word resolved from the packs (an unknown word keeps its id, in the scene's language). */
 export function resolveScene(s: LoadedScene, packs: SceneRefs['packs']): ResolvedScene {
   const byId = new Map(packs.map(p => [p.id, p]))
-  const texts = (w: Partial<Record<string, string>>, prefix: string) =>
+  const texts = (word: object, prefix: string, w = word as Partial<Record<string, string>>) =>
     Object.fromEntries(SCENE_LANGUAGES.filter(k => k !== 'en' && w[prefix + k]).map(k => [prefix + k, w[prefix + k]]))
   const { variants: _variants, ...scene } = s
   return {
@@ -1216,6 +1216,8 @@ export function resolveScene(s: LoadedScene, packs: SceneRefs['packs']): Resolve
         emoji: w?.emoji,
         gender: w?.gender,
         plural: w?.plural,
+        // one spelling with another meaning in another pack: a card of its spelling isn't this thing's unless it means it
+        ...(w?.homonym ? { homonym: true } : {}),
         ...(w ? texts(w, 'example_') : {}),
         example_en: w?.example_en,
       }

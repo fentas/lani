@@ -2379,7 +2379,8 @@ tile on Home, Napredek's words line ("📚 Besede · Words 248 / 300 ›") and "
 · New words" (the word packs); Back leads where it came from.
 
 - **Which words.** The home language's vocabulary cards (GET /state), one row a word (the same word twice, a pack's and
-  one added from a dialog, is one: its learned card): the learned ones, as Napredek counts them (`Stats.learned`:
+  one added from a dialog, is one: its learned card; two cards of one spelling that share no meaning, a homonym's, are two
+  rows): the learned ones, as Napredek counts them (`Stats.learned`:
   answered right, not rusty since), and those still being learned with 🌱 (rusty, or added from a word's card and not
   answered yet). The head says both: "248 znanih · 248 known · 12 v učenju · 12 still being learned". Counting and forms
   cards are no words here.
@@ -3357,7 +3358,10 @@ With `&base=de`, the same entry has `"gloss": ["Wald", "Forst"], "gloss_lang": "
 - `item_id`: a pack word's own item (`vocab_<pack>_<word>`, as `POST /packs/:id/learn` makes it), else
   `vocab_word_<lemma>` (lowercase, č š ž as c s z, other characters as `-`); none for a name. `known`: that item, or
   a vocabulary item with the same word, exists; the word compared as a pack word is, its article left out, so the
-  card "la casa" makes the dictionary's casa the learner's too ("der Wald": Wald). The app counts more before the node
+  card "la casa" makes the dictionary's casa the learner's too ("der Wald": Wald). A pack word marked `homonym` (one
+  spelling, two words: the kitchen's bowl, skleda, and the green's, krogla) has an entry per meaning, with `homonym: true`:
+  the one the line says (its `en` has the meaning, another ending too, or the line is the word's example), both when it
+  can't tell; its `known` is its own item or a card of its spelling that means it. The app counts more before the node
   has it (`Words.yours`): the words a pack run has just introduced are the learner's in its practice ("✓ V tvojih
   besedah · In your words", no dots under them), while their cards reach the node only when the run ends
   (`WordsController.fresh`, `PackLearnScreen`), and its own cards by their word in the same way, with a dictionary or

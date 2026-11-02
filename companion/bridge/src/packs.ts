@@ -35,6 +35,11 @@ const word = z.object({
   note_sl: text.optional(),
   note_it: text.optional(),
   note_de: text.optional(),
+  // One spelling, two words (the kitchen's bowl, skleda, and the green's, krogla; a round of drinks and round, okrogel):
+  // both of the two are marked. A marked word is its own card: another card of its spelling counts as having it only when
+  // it means the same (hasMeaning), a tap shows the meaning its line says, or both. An older bridge strips the key and an
+  // older app ignores it: there the two stay one word, as they always were (docs/plans/05-built/content-fixes-3.md).
+  homonym: z.boolean().optional(),
 })
 export type PackWord = z.infer<typeof word>
 
@@ -115,7 +120,7 @@ export function validatePack(input: unknown): { ok: true; pack: Pack } | { ok: f
 /** The spaced-repetition item a pack word becomes. */
 export const itemId = (packId: string, wordId: string) => `vocab_${packId}_${wordId}`
 
-type SrItem = { type?: string; content?: string }
+type SrItem = { type?: string; content?: string; answer?: string }
 
 /** "Hvala." / "hvala" → "hvala": how a word is compared with what Jan already has. */
 export const normWord = (s: string) => s.toLocaleLowerCase('sl').replace(/[.!?¿¡,]/g, '').replace(/\s+/g, ' ').trim()
@@ -136,13 +141,81 @@ export function vocabularyWords(items: Record<string, SrItem & { id?: string }>)
   return known
 }
 
+/** The article or a verb's "to" a meaning may start with, in the languages of the packs' words. */
+const MEANING_ARTICLE = /^(?:(?:the|an?|to|il|lo|la|i|gli|le|un|uno|una|der|die|das|ein|eine) +|(?:l|un)['’])/
+
+/**
+ * What a text means, part by part, compared loosely: each of its meanings ("fair, market", "a / b") and what's in its
+ * brackets, lower case, an article left out. As PackSession.meaningParts in the app (data/Packs.kt).
+ */
+export function meaningParts(s: string): string[] {
+  const inBrackets = [...s.matchAll(/\(([^)]*)\)/g)].map(m => m[1])
+  return [s.replace(/\s*\([^)]*\)/g, ''), ...inBrackets]
+    .flatMap(t => t.split(/ \/ |[,;]/))
+    .map(t => normWord(t).replace(MEANING_ARTICLE, ''))
+    .filter(t => !!t)
+}
+
+/** The meanings of [w] in every language but its pack's, whichever a card or a line may be in. */
+function meaningsOf(p: Pick<Pack, 'language'>, w: PackWord): string[] {
+  return WORD_LANGUAGES.filter(l => l !== p.language).flatMap(l => (w[l] ? meaningParts(w[l]!) : []))
+}
+
+/** Whether a card with the back [answer] means what [w] means: a meaning in common, in any language. */
+export function hasMeaning(p: Pick<Pack, 'language'>, w: PackWord, answer: string | undefined): boolean {
+  if (!answer) return false
+  const mine = new Set(meaningsOf(p, w))
+  return meaningParts(answer).some(m => mine.has(m))
+}
+
+/** Whether two pack words mean the same: a meaning in common, in any language. */
+export function sameMeaning(a: Pick<Pack, 'language'>, v: PackWord, b: Pick<Pack, 'language'>, w: PackWord): boolean {
+  const mine = new Set(meaningsOf(a, v))
+  return meaningsOf(b, w).some(m => mine.has(m))
+}
+
+/**
+ * The card that has [w], a word marked homonym, other than its own: a vocabulary card of its spelling that means it
+ * (praznik-prvi-maj's mlaj has pod-mlajem's, the maypole, and not nebo's, the new moon). Any card's history stays its own.
+ */
+export function homonymCard(p: Pick<Pack, 'language'>, w: PackWord, items: Record<string, SrItem>): string | undefined {
+  const word = normWord(wordOf(p, w))
+  for (const [id, it] of Object.entries(items)) {
+    if ((it.type ?? 'vocabulary') !== 'vocabulary' || !it.content) continue
+    if (it.content.split(' / ').some(alt => normWord(alt.replace(/\s*\([^)]*\)/g, '')) === word) && hasMeaning(p, w, it.answer)) return id
+  }
+  return undefined
+}
+
 /**
  * Word ids of [pack] Jan already has: its own SR item exists, or another vocabulary item has the
- * same Slovene (e.g. "hvala" from lesson 1), so a pack never re-teaches a known word.
+ * same Slovene (e.g. "hvala" from lesson 1), so a pack never re-teaches a known word. A word marked homonym is had only
+ * through a card that means it ([homonymCard]): the kitchen's bowl doesn't have the green's.
  */
 export function learnedWords(pack: Pack, items: Record<string, SrItem>): string[] {
   const known = vocabularyWords(items)
-  return pack.words.filter(w => items[itemId(pack.id, w.id)] || known.has(normWord(wordOf(pack, w)))).map(w => w.id)
+  return pack.words
+    .filter(w => items[itemId(pack.id, w.id)] || (w.homonym ? homonymCard(pack, w, items) : known.has(normWord(wordOf(pack, w)))))
+    .map(w => w.id)
+}
+
+/**
+ * The words of [pack] with a spelling another pack of its language has in another meaning, not both marked homonym:
+ * each as "round (okrogel) and in-the-pub's round (runda)". A word so spelled would count as had and never be taught. Both of the two are marked, or it's found.
+ */
+export function unmarkedHomonyms(pack: Pick<Pack, 'id' | 'language' | 'words'>, all: Pick<Pack, 'id' | 'language' | 'words'>[]): string[] {
+  const out: string[] = []
+  for (const w of pack.words) {
+    const word = normWord(wordOf(pack, w))
+    for (const q of all) {
+      if (q.id === pack.id || q.language !== pack.language) continue
+      for (const v of q.words) {
+        if ((w.homonym && v.homonym) || normWord(wordOf(q, v)) !== word || sameMeaning(pack, w, q, v)) continue
+        out.push(`${wordOf(pack, w)} (${meaningOf(pack, w)}) and ${q.id}'s ${wordOf(q, v)} (${meaningOf(q, v)})`)
+      }
+    }
+  }
+  return out
 }
 
 /**

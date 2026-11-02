@@ -304,6 +304,9 @@ def overlap(a: dict, b: dict) -> dict | None:
         out["same_prompt"] = same_prompt
     if same_answer:
         out["same_answer"] = same_answer
+        # one spelling, no meaning in common: two words (a pack's homonym, the kitchen's bowl and the green's), not one card twice
+        if not (prompt_parts(a["answer"]) & prompt_parts(b["answer"])):
+            out["two_meanings"] = True
     return out
 
 
@@ -625,6 +628,8 @@ def retext(item: dict, args, today: str, action: str, prefix: str = "") -> dict 
 def text_warnings(cid: str, item: dict, items: dict) -> list:
     out = problems(item)
     for o in overlaps_of(cid, items) if shown(item) else []:
+        if o.get("two_meanings"):
+            continue
         what = " and ".join(f"{k.replace('_', ' ')} {v}" for k, v in o.items() if k.startswith("same_"))
         out.append(f"overlaps {o['id']} ({o['front']!r} = {o['back']!r}): {what}")
     return out

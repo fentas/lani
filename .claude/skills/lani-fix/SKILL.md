@@ -79,7 +79,7 @@ A developer's edit of curated files: packs, scenes, stories, villagers and scena
 1. **Snapshot:** `companion/bin/lani-backup run` (another learner: `lani-backup --profile <id> run`). `card.py` also copies each file it changes to `<data>/.backups/pre-card-<command>-<time>/`.
 2. **Learner data:** only through `card.py` (or update-db.py). It keeps ids, review history and scheduling. Keep ids: a review still in the app is saved by id. Try a change with `--dry-run` first; give `--reason`.
 3. **Content:** the publish tool for its kind (§2), same id. Validator errors are real: fix the spec.
-4. **Check:** `card.py show <id>` has no `problems` and no `overlaps`; solve a changed exercise yourself from its prompt alone.
+4. **Check:** `card.py show <id>` has no `problems` and no `overlaps` (one with `two_meanings: true` aside); solve a changed exercise yourself from its prompt alone.
 
 ## 5. Take back what it cost
 
@@ -106,6 +106,7 @@ The item's fault must not count against Jan:
 
 - **Accept another answer.** Card: `card.py edit <id> --front "da / ja"` (an alternative) or `"hvala (lepa)"` (an optional word). Module: add it to `accept` (`solutions` for reorder, `answers` for multi), `publish_module`. Dialog: mark the choice `ok: true` with its own `reply` (a second right answer), `publish_scene`.
 - **Split or merge overlapping cards.** `card.py overlaps`. One card per meaning: `card.py split <id> --front ne --back no --new-id vocab_ja --new-front ja --new-back yes`. One card for two: `card.py merge <keep> <drop>` (the kept card keeps its scheduling, the dropped one's history is kept inside it; keep the better-known one). Merge only when the fronts are one word's forms or synonyms.
+- **Two cards, one front, two meanings.** `overlaps` marks them `two_meanings: true`: the kitchen's `bowl` (skleda) and the green's (krogla) are two words (their pack words are marked `homonym`). Never merge those. A learner who reports "this word means something else" may have met the other one: a tap on it in its line shows which.
 - **Reword a confusing prompt.** Card: the back is the prompt, `card.py edit <id> --back "…"`; explain written vs spoken in a note, `--note "…"` (flashcard only). Module: `prompt`, `instruction`, `explain`. Never put the answer in a prompt.
 - **Fix a wrong translation.** Card: `--back`. Pack word: a tutor pack `publish_pack`; a curated one: note it and `card.py edit vocab_<pack>_<word>`. Dictionary: `publish_gloss` (and `card.py edit vocab_word_<lemma>` if Jan added it). Villager or dialog line: `get_…`, fix the `en`, `publish_…`.
 - **Fix a wrong "right" choice.** Module `choice`: the `answer` index or the options. Dialog: the `ok` flags; the wrong one gets a `why` and a reaction `reply`. Then `forgive` what the old key recorded.

@@ -6,7 +6,7 @@ import { json, readJson } from '../http'
 import type { SrItem } from '../learner'
 import { LANGUAGES, learnerLangs } from '../learners'
 import { renderDeep } from '../addressee'
-import { itemId, learnedWords, learnPayload, learnRun, meaningOf, titleEn, titleFor, validatePack, wordOf, type LoadedPack } from '../packs'
+import { itemId, learnedWords, learnPayload, learnRun, meaningOf, titleEn, titleFor, unmarkedHomonyms, validatePack, wordOf, type LoadedPack } from '../packs'
 import { corpus } from '../voice'
 
 const instructions = `
@@ -122,7 +122,10 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
           const { target, base } = langs()
           events.emit({ type: 'pack_published', id: v.pack.id, title: titleFor(v.pack, target, base), emoji: v.pack.emoji, note: note.data ?? undefined })
           voice.enqueue(corpus({ packs: [v.pack], modules: [], scenarios: [], language: target, learner: addressee() }))
-          return ok(`published pack ${v.pack.id} (${v.pack.words.length} words)`)
+          // one spelling with another meaning in another pack: it would count as had and never be taught
+          const twins = unmarkedHomonyms(v.pack, packs.all())
+          const mark = twins.length ? ` Same spelling, another meaning: ${twins.join('; ')}. If these are two words, mark both with "homonym": true (lani-studio's module-spec, "Word packs"), or the learner who has one is never taught the other.` : ''
+          return ok(`published pack ${v.pack.id} (${v.pack.words.length} words)${mark}`)
         },
       },
       {

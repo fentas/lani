@@ -220,6 +220,21 @@ class CardTest(unittest.TestCase):
         self.assertEqual([p["ids"] for p in pairs], [["vocab_da", "vocab_ne"]])  # the placeholders are flashcards only
         self.assertEqual(self.ok("overlaps", "vocab_da")["overlaps"][0]["id"], "vocab_ne")
 
+    def test_overlaps_marks_one_spelling_with_two_meanings(self):
+        it = self.data / "languages" / "en"
+        it.mkdir(parents=True)
+        (it / "spaced-repetition.json").write_text(json.dumps({"items": {
+            "vocab_in-the-kitchen_bowl": card("vocab_in-the-kitchen_bowl", "bowl", "skleda"),
+            "vocab_on-the-green_lawn-bowl": card("vocab_on-the-green_lawn-bowl", "bowl", "krogla"),
+            "vocab_a_cup": card("vocab_a_cup", "cup", "skodelica"),
+            "vocab_b_cup": card("vocab_b_cup", "cup", "skodelica, lonček"),
+        }}))
+        pairs = {tuple(p["ids"]): p for p in self.ok("overlaps", "--language", "en")["pairs"]}
+        self.assertTrue(pairs[("vocab_in-the-kitchen_bowl", "vocab_on-the-green_lawn-bowl")]["two_meanings"])
+        self.assertNotIn("two_meanings", pairs[("vocab_a_cup", "vocab_b_cup")])  # one meaning twice: a merge may be right
+        edited = self.ok("edit", "vocab_in-the-kitchen_bowl", "--note", "for soup", "--language", "en", "--dry-run")
+        self.assertFalse([w for w in edited.get("warnings", []) if "overlaps" in w])  # two words: nothing to warn of
+
     def test_language_option_reads_that_languages_cards(self):
         it = self.data / "languages" / "it"
         it.mkdir(parents=True)
