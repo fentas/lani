@@ -57,6 +57,34 @@ object HintSpeech {
         "hint.ruleWhere" to "hintSay.ruleWhere",
         "hint.ruleWhereTo" to "hintSay.ruleWhereTo",
         "hint.ruleWould" to "hintSay.ruleWould",
+        "hint.ruleTimeNoPrep" to "hintSay.ruleTimeNoPrep",
+        "hint.ruleFeelings" to "hintSay.ruleFeelings",
+        "hint.rulePluralCases" to "hintSay.rulePluralCases",
+        "hint.ruleWhose" to "hintSay.ruleWhose",
+        "hint.ruleNumberVerb" to "hintSay.ruleNumberVerb",
+        "hint.ruleIfWould" to "hintSay.ruleIfWould",
+        "hint.ruleCliticOrder" to "hintSay.ruleCliticOrder",
+        "hint.ruleVerbalNoun" to "hintSay.ruleVerbalNoun",
+        "hint.ruleIndefinite" to "hintSay.ruleIndefinite",
+        "hint.rulePassive" to "hintSay.rulePassive",
+        "hint.ruleCompareFull" to "hintSay.ruleCompareFull",
+        "hint.rulePluperfect" to "hintSay.rulePluperfect",
+        "hint.ruleClausesMore" to "hintSay.ruleClausesMore",
+        "hint.ruleIdioms" to "hintSay.ruleIdioms",
+        "hint.ruleNumberWords" to "hintSay.ruleNumberWords",
+        "hint.ruleGerund" to "hintSay.ruleGerund",
+        "hint.ruleDiminutive" to "hintSay.ruleDiminutive",
+        "hint.ruleCommands" to "hintSay.ruleCommands",
+        "hint.ruleParticiple" to "hintSay.ruleParticiple",
+        "hint.ruleWordFamily" to "hintSay.ruleWordFamily",
+        "hint.rulePrefix" to "hintSay.rulePrefix",
+        "hint.ruleTwoCases" to "hintSay.ruleTwoCases",
+        "hint.ruleSpoken" to "hintSay.ruleSpoken",
+        "hint.ruleFormalLetter" to "hintSay.ruleFormalLetter",
+        "hint.rulePastConditional" to "hintSay.rulePastConditional",
+        "hint.ruleImpersonal" to "hintSay.ruleImpersonal",
+        "hint.ruleWhichWhose" to "hintSay.ruleWhichWhose",
+        "hint.ruleWordOrder" to "hintSay.ruleWordOrder",
     )
 
     /** What a case's question means ([CaseLine.gloss]), as said: "where to", without the card's German. */
@@ -148,6 +176,7 @@ object HintSpeech {
             is Trigger.Negation -> inBase("hintSay.afterNo", "word" to w)
             is Trigger.Partner -> if (t.lemma == "pomagati") inBase("hintSay.withHelfen", "word" to w) else inBase("hintSay.with", "word" to w)
             is Trigger.Noun -> inBase("hintSay.withNoun", "word" to w)
+            is Trigger.When -> inBase("hintSay.with", "word" to w)
             is Trigger.Cue -> when (t.kind) {
                 Trigger.Cue.Kind.WHO -> inBase("hintSay.who", "word" to w)
                 Trigger.Cue.Kind.PAST -> inBase("hintSay.whenPast", "word" to w)

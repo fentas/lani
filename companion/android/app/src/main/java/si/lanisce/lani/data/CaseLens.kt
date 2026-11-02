@@ -41,7 +41,8 @@ data class GovernedWord(val i: Int, val case: String, val word: String = "", val
  * What the lens says of a tapped word (GET /lookup's `case`): its [readings], the one the line picks ([pick], null when
  * it can't tell), how sure ([sure]: decided, likely, ambiguous), what decided ([kind], [trigger], [sense]), the grammar
  * page ([rule]), the [options] left, the likely one first, the readings ruled [out], an adjective's noun ([agrees]), a
- * form read by its endings ([derived]); a preposition or another trigger tapped: what it [governs] (no [pick]). [seen]:
+ * form read by its endings ([derived]), the form as written of one said otherwise and never wrong ([written]: the hour said
+ * as counted, ob deset: desetih); a preposition or another trigger tapped: what it [governs] (no [pick]). [seen]:
  * this look counted as met for [rule] (once a day per word of a line): WordsController hands it to the case trainer,
  * whose count in the village state (GameState.cases.seen) is the only one.
  */
@@ -64,6 +65,7 @@ data class CaseRead(
     val derived: Boolean = false,
     val governs: CaseGoverns? = null,
     val seen: Boolean = false,
+    val written: String? = null,
 )
 
 /** A word of a line as the colours draw it (POST /case-lens): where, its case (null: the line can't tell), how sure. */
@@ -196,8 +198,9 @@ object CaseLens {
      * What decided the case, in one line, the target's then the base's (the word card's row and the sentence's grammar
      * say the same): a preposition (with its sense: kam? kje? kdaj?), a negation, a quantity or a number from five, a
      * verb or a word of feeling (an adjective with a case: poln vode), a copula, the subject's or the object's verb, a
-     * call, the noun it belongs to, a time, the genitive of time (leta 1844, nekega dne), a phrase, a fused pronoun, its
-     * ending alone. None when nothing can say (an ambiguous word, a trigger tapped).
+     * call, the noun it belongs to, a time, the genitive of time (leta 1844, nekega dne), the hour after pol (ob pol dveh),
+     * a phrase, a fused pronoun, its ending alone; for a form said otherwise (the hour as counted: ob deset), that it is
+     * said so too and how it is written. None when nothing can say (an ambiguous word, a trigger tapped).
      */
     fun why(row: CaseRow, read: CaseRead): Pair<String, String>? {
         if (row.state == CaseRow.State.GOVERNS) return null
@@ -206,7 +209,7 @@ object CaseLens {
         val key = when (row.kind) {
             "preposition" -> "caseLens.whyPreposition"
             "negation" -> "caseLens.whyNegation"
-            "quantity" -> "caseLens.whyQuantity"
+            "quantity" -> if (row.sense == "time") "caseLens.whyHalf" else "caseLens.whyQuantity"
             "number" -> "caseLens.whyNumber"
             "verb" -> if (read.trigger?.lemma != null) "caseLens.whyVerb" else "caseLens.whyVerbForm"
             // a word of feeling (všeč mi je: who feels it), or an adjective that takes a case (poln vode)
@@ -233,7 +236,8 @@ object CaseLens {
         val say = { lang: Lang ->
             val args = mapOf("word" to word, "lemma" to (read.trigger?.lemma ?: ""), "case" to (case?.let { L10n.text(lang, it.key) } ?: ""))
             val sense = row.sense?.let { senseKey(it) }?.let { " (${L10n.text(lang, it)})" }.orEmpty()
-            L10n.text(lang, key, args) + if (row.kind == "preposition") sense else ""
+            val spoken = read.written?.let { " " + L10n.text(lang, "caseLens.whySpoken", mapOf("written" to it)) }.orEmpty()
+            L10n.text(lang, key, args) + (if (row.kind == "preposition") sense else "") + spoken
         }
         return say(pair.target) to say(pair.base)
     }

@@ -86,8 +86,9 @@ object SentenceGrammar {
     }
 
     /**
-     * The question the word answers, as a Slovene teacher asks it: Kam? Kje? (a preposition's sense), Kdaj? (a time),
-     * Koliko? (a quantity), Od kod? (iz, od), else the case's own (Koga? Česa?); none when the line can't tell.
+     * The question the word answers, as a Slovene teacher asks it: Kam? Kje? (a preposition's sense), Kdaj? (a time, the
+     * hour after pol), Koliko? (a quantity), Od kod? (iz, od), else the case's own (Koga? Česa?); none when the line can't
+     * tell.
      */
     fun question(row: CaseRow): CaseLine? {
         val case = row.case ?: return null
@@ -95,6 +96,8 @@ object SentenceGrammar {
         return when {
             row.kind == "preposition" && row.trigger != null -> TurnHints.preposition(row.trigger.word, case, time = row.sense == "time", sense = row.sense)
             row.kind == "time" || row.kind == "when" -> CaseLine("Kdaj?", "hint.qWhen", case)
+            // (pol before an hour is the time: ob pol dveh)
+            row.kind == "quantity" && row.sense == "time" -> CaseLine("Kdaj?", "hint.qWhen", case)
             row.kind == "quantity" -> CaseLine("Koliko?", "hint.qHowMany", case)
             else -> CaseLine(case.question, null, case)
         }
