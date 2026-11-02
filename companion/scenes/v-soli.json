@@ -397,9 +397,8 @@
         ] },
         { "who": "tine", "sl": "Še eno: 'Kdaj greš spat?' Jaz ob osmih. In ti, {learner}?", "en": "One more: 'When do you go to bed?' Me, at eight. And you, {learner}?", "de": "Noch eine: ‚Wann gehst du schlafen?‘ Ich um acht. Und du, {learner}?", "it": "Un'altra: 'Quando vai a dormire?' Io alle otto. E tu, {learner}?" },
         { "choices": [
-          { "sl": "Ob deset zvečer.", "en": "At ten (wrong form) in the evening.", "de": "Um zehn (falsche Form) am Abend.", "it": "Alle dieci (forma sbagliata) di sera.",
-            "grammar": "kdaj-cas", "why": { "en": "The hour takes ob + the locative: ob desetih, like ob osmih.", "de": "Die Uhrzeit: ob + Lokativ, ob desetih, wie ob osmih.", "it": "L'ora vuole ob + locativo: ob desetih, come ob osmih." },
-            "reply": { "face": "thinking", "sl": "Ob deset? Hm, učiteljica tako ne piše.", "en": "Ob deset? Hm, the teacher doesn't write it like that.", "de": "Ob deset? Hm, so schreibt die Lehrerin das nicht.", "it": "Ob deset? Mm, la maestra non lo scrive così." } },
+          { "sl": "Ob deset zvečer.", "en": "At ten (as people say it) in the evening.", "de": "Um zehn (wie man es sagt) am Abend.", "it": "Alle dieci (come si dice a voce) di sera.", "ok": true,
+            "reply": { "face": "surprised", "sl": "Ob desetih! Tako pozno? Jaz takrat že spim.", "en": "At ten! So late? I'm already asleep by then.", "de": "Um zehn! So spät? Da schlafe ich schon.", "it": "Alle dieci! Così tardi? Io a quell'ora dormo già." } },
           { "sl": "Ob desetih zjutraj.", "en": "At ten in the morning.", "de": "Um zehn am Morgen.", "it": "Alle dieci di mattina.",
             "why": { "en": "Bedtime is in the evening: zvečer. Zjutraj is the morning.", "de": "Schlafenszeit ist am Abend: zvečer. Zjutraj ist der Morgen.", "it": "Si va a dormire di sera: zvečer. Zjutraj è la mattina." },
             "reply": { "face": "laugh", "sl": "Zjutraj? Spiš cel dan? Kot Sivko!", "en": "In the morning? You sleep all day? Like Sivko!", "de": "Am Morgen? Du schläfst den ganzen Tag? Wie Sivko!", "it": "Di mattina? Dormi tutto il giorno? Come Sivko!" } },

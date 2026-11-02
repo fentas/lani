@@ -442,9 +442,11 @@
         { "choices": [
           { "sl": "Kdaj greva? Ob osmih?", "en": "When do we go? At eight?", "de": "Wann gehen wir zwei? Um acht?", "it": "Quando andiamo? Alle otto?", "ok": true,
             "reply": { "face": "happy", "sl": "Ob osmih, ja. Pri brvi te čakam.", "en": "At eight, yes. I'll wait for you at the footbridge.", "de": "Um acht, ja. Ich warte am Steg auf dich.", "it": "Alle otto, sì. Ti aspetto alla passerella." } },
-          { "sl": "Kdaj greva? Ob osem?", "en": "When do we go? At eight?", "de": "Wann gehen wir zwei? Um acht?", "it": "Quando andiamo? Alle otto?",
-            "grammar": "kdaj-cas", "why": { "en": "Ob with a time takes the locative: ob osmih.", "de": "Ob mit einer Uhrzeit steht mit dem Lokativ: ob osmih.", "it": "Ob con l'ora vuole il locativo: ob osmih." },
-            "reply": { "face": "confused", "sl": "Ob osem? Hm. Moja ura tega ne pozna.", "en": "Ob osem? Hm. My clock doesn't know that one.", "de": "Ob osem? Hm. Das kennt meine Uhr nicht.", "it": "Ob osem? Mm. Il mio orologio questa non la conosce." } }
+          { "sl": "Kdaj greva? Ob osem?", "en": "When do we go? At eight (as people say it)?", "de": "Wann gehen wir zwei? Um acht (wie man es sagt)?", "it": "Quando andiamo? Alle otto (come si dice a voce)?", "ok": true,
+            "reply": { "face": "happy", "sl": "Ob osmih, ja. Pri brvi te čakam.", "en": "At eight, yes. I'll wait for you at the footbridge.", "de": "Um acht, ja. Ich warte am Steg auf dich.", "it": "Alle otto, sì. Ti aspetto alla passerella." } },
+          { "sl": "Kam greva? Ob osmih?", "en": "Where are we going? At eight?", "de": "Wohin gehen wir zwei? Um acht?", "it": "Dove andiamo? Alle otto?",
+            "grammar": "vprasalnice", "why": { "en": "Kam is 'where to'. Asking about the time: kdaj (when).", "de": "Kam heißt ‚wohin‘. Nach der Zeit fragst du mit kdaj (wann).", "it": "Kam significa 'dove'. Per chiedere il momento: kdaj (quando)." },
+            "reply": { "face": "laugh", "sl": "Kam? V dolino, v stari mlin. Saj sem že rekel!", "en": "Kam (where to)? To the valley, to the old mill. I've already said!", "de": "Kam (wohin)? Ins Tal, zur alten Mühle. Das hab ich doch schon gesagt!", "it": "Kam (dove)? A valle, al vecchio mulino. L'ho già detto!" } }
         ] },
         { "who": "france", "sl": "Dobro. Hvala, {m:sosed|f:soseda}. Nekoč bo mlin tu, pri naši vodi.", "en": "Good. Thanks, neighbour. One day the mill will be here, by our water.", "de": "Gut. Danke, {m:Nachbar|f:Nachbarin}. Eines Tages steht die Mühle hier, an unserem Wasser.", "it": "Bene. Grazie, {m:vicino|f:vicina}. Un giorno il mulino sarà qui, presso la nostra acqua." }
       ]
