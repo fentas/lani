@@ -88,6 +88,10 @@ object TutorRuntime {
             online = AndroidOnline.of(app),
         ).also { t ->
             t.photo = { id -> File(app.filesDir, "chat-photos/$id.jpg").takeIf { it.isFile } }
+            // as the background check knows them, with no view model up (AppViewModel takes over while the app is)
+            t.language = { si.lanisce.lani.l10n.LangSetting(app).pair.target.code }
+            t.base = { si.lanisce.lani.l10n.LangSetting(app).pair.base.code }
+            t.child = { kotlinx.coroutines.runBlocking { si.lanisce.lani.data.Prefs(app).learnerChild() } == true }
             t.schedule = { on, now -> TutorWork.schedule(app, on, now) }
             t.studioSchedule = { wake -> StudioWork.schedule(app, wake) }
             live = t

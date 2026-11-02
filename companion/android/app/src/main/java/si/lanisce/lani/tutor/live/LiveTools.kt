@@ -150,7 +150,7 @@ class LiveTools(
         val line = input.s("line")
         val own = runCatching { bridge?.lookup(word, line) }.getOrNull()
         val outside = runCatching { fran?.look(word) }.getOrNull()
-        if (own == null && outside == null) return "dictionary_lookup: no dictionary could be reached for \"$word\" (the node's lookup and fran.si): say so, and don't call it a mistake" to true
+        if (own == null && outside == null) return "dictionary_lookup: no dictionary could be reached for \"$word\" (the node's lookup${if (fran != null) " and fran.si" else ""}): say so, and don't call it a mistake" to true
         val parts = buildList {
             own?.let { add("<untrusted_dictionary_content source=\"Lani's dictionary\">\n${it.take(6_000)}\n</untrusted_dictionary_content>") }
             outside?.let { add("<untrusted_dictionary_content source=\"fran.si\">\n$it\n</untrusted_dictionary_content>") }
