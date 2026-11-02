@@ -1,5 +1,6 @@
 package si.lanisce.lani.game
 
+import si.lanisce.lani.data.PackSession
 import si.lanisce.lani.game.scene.Dialog
 import si.lanisce.lani.game.scene.DialogLine
 import si.lanisce.lani.game.scene.tapTurn
@@ -22,12 +23,21 @@ class MyWords(words: List<MyWord>) {
     /**
      * The learner's word [form] is a form of ("žlico" → žlica): the one whose word it is written as first ("sedi": the
      * card sedeti, not sesti, when the learner has both and neither is written so), else the first; null when none is.
+     * One spelling on two cards that share no meaning (a homonym): the one the line's [translation] says, else neither.
      */
-    fun of(form: String): MyWord? {
+    fun of(form: String, translation: String? = null): MyWord? {
         val f = form.lowercase()
         val all = byForm[f] ?: return null
-        return all.firstOrNull { it.word.lowercase() == f } ?: all.first()
+        val first = all.firstOrNull { it.word.lowercase() == f } ?: all.first()
+        val parts = PackSession.meaningParts(first.means)
+        val twins = all.filter { it !== first && it.word.equals(first.word, ignoreCase = true) && !PackSession.means(it.means, parts) }
+        if (twins.isEmpty()) return first
+        val said = translation?.takeIf { it.isNotBlank() } ?: return null
+        return (twins + first).singleOrNull { PackSession.mentions(it.means, said) }
     }
+
+    /** Whether [form] is a form of one of the learner's words. */
+    fun has(form: String): Boolean = byForm.containsKey(form.lowercase())
 
     /** Whether [form] is a form of [word] (another case, person or tense of it: what a form turn's wrong choice is). */
     fun isFormOf(word: MyWord, form: String): Boolean = byForm[form.lowercase()]?.contains(word) == true
@@ -152,7 +162,7 @@ object DialogWords {
     fun how(word: MyWord, instead: String?, words: MyWords, named: Boolean): WordTest {
         if (instead == null) return WordTest.MEANING
         if (words.isFormOf(word, instead)) return WordTest.FORM
-        if (words.of(instead) != null) return WordTest.MEANING // another of the learner's words
+        if (words.has(instead)) return WordTest.MEANING // another of the learner's words
         return if (named || sameStem(word.word, instead)) WordTest.FORM else WordTest.MEANING
     }
 
@@ -194,12 +204,12 @@ object DialogWords {
             for (w in wrongs) {
                 val named = choices[w].grammar != null || line.grammar != null
                 for ((i, j) in tested(choices[r].sl, choices[w].sl)) {
-                    val card = words.of(said[i]) ?: continue
+                    val card = words.of(said[i], choices[r].en) ?: continue
                     val instead = j?.let { Forms.spans(choices[w].sl).getOrNull(it)?.value }
                     at.getOrPut(i) { LinkedHashMap() }[w] = how(card, instead, words, named)
                 }
             }
-            at.map { (i, by) -> TurnWords.Tested(TurnWord(words.of(said[i])!!, said[i], i), by) }.distinctBy { it.word.card.id }
+            at.map { (i, by) -> TurnWords.Tested(TurnWord(words.of(said[i], choices[r].en)!!, said[i], i), by) }.distinctBy { it.word.card.id }
         }
         return TurnWords(byRight.filterValues { it.isNotEmpty() }).takeIf { !it.isEmpty }
     }

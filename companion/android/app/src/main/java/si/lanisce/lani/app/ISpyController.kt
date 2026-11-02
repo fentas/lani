@@ -164,7 +164,7 @@ class ISpyController(
         val book = book(scene.id)
         val notYet = notYet(scene)
         val book0 = words()
-        val card: (SceneObject) -> ReviewCard? = { o -> SceneWords.packOf(scene, o)?.let { p -> book0?.card(p, o.word, o.sl.ifBlank { o.word }) } }
+        val card: (SceneObject) -> ReviewCard? = { o -> SceneWords.packOf(scene, o)?.let { p -> book0?.card(p, o.word, o.sl.ifBlank { o.word }, o.meanings) } }
         val played = ISpy.today(state, today).scenes[scene.id]?.games ?: 0
         val forced = QaHooks.ispy?.takeIf { it.substringBefore('/') == scene.id }?.substringAfter('/')
         val rounds = ISpy.rounds(
@@ -237,7 +237,7 @@ class ISpyController(
         val book = words() ?: return 0
         val finds = p.run.results.filter { it.quick }.mapNotNull { r ->
             val o = scene.objects.firstOrNull { it.slot == r.slot } ?: return@mapNotNull null
-            SceneWords.packOf(scene, o)?.let { pack -> book.card(pack, o.word, o.sl.ifBlank { o.word }) }?.let { it to r }
+            SceneWords.packOf(scene, o)?.let { pack -> book.card(pack, o.word, o.sl.ifBlank { o.word }, o.meanings) }?.let { it to r }
         }.filter { (card, _) -> PlayReviews.counts(card, today, counted) }.distinctBy { it.first.id }
         val due = finds.map { it.first }
         if (due.isEmpty()) return 0

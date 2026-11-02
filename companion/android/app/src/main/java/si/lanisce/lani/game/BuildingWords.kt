@@ -122,17 +122,24 @@ data class RunResults(val learned: Map<String, List<Pair<String, Int>>>, val rev
 /**
  * The learner's words as a building's upgrade sees them: every card ([cards]: the dashboard's pool), those that count as
  * learned ([learned]) and those rusty ([rusty]). A pack word is had by its own card or by another card with the same word
- * (as the node sees it: [PackSession.wordKeys]).
+ * (as the node sees it: [PackSession.wordKeys]); a word marked homonym only by a card that means it.
  */
 class WordBook(cards: List<ReviewCard>, private val learned: Set<String>, private val rusty: Set<String>) {
     private val byId = cards.associateBy { it.id }
-    private val byWord: Map<String, ReviewCard> = HashMap<String, ReviewCard>().also { m ->
-        for (c in cards) if (c.kind == "vocabulary") for (k in PackSession.wordKeys(c.front)) m.putIfAbsent(k, c)
+    private val byWord: Map<String, List<ReviewCard>> = HashMap<String, MutableList<ReviewCard>>().also { m ->
+        for (c in cards) if (c.kind == "vocabulary") for (k in PackSession.wordKeys(c.front)) m.getOrPut(k) { mutableListOf() } += c
     }
 
-    /** The learner's card of word [id] of [pack] ([word]): its own, else one with the same word; null when there is none. */
-    fun card(pack: String, id: String, word: String): ReviewCard? =
-        byId[PackSession.itemId(pack, id)] ?: byWord[PackSession.wordKey(word)]
+    /**
+     * The learner's card of word [id] of [pack] ([word]): its own, else one with the same word; null when there is none.
+     * [homonym]: the word's meanings when it is marked one ([PackWord.meanings], [si.lanisce.lani.game.scene.SceneObject.meanings]):
+     * another card must mean it, the kitchen's bowl isn't the green's.
+     */
+    fun card(pack: String, id: String, word: String, homonym: Set<String>? = null): ReviewCard? {
+        byId[PackSession.itemId(pack, id)]?.let { return it }
+        val same = byWord[PackSession.wordKey(word)] ?: return null
+        return if (homonym == null) same.first() else same.firstOrNull { PackSession.means(it.back, homonym) }
+    }
 
     /** How a word with [card] stands (null: none, a new word). */
     fun state(card: ReviewCard?): WordState = when {
@@ -239,19 +246,21 @@ object BuildingWords {
         val words = ArrayList<NeedWord>()
         val ids = HashSet<String>()
         val keys = HashSet<String>()
-        fun add(pack: String, id: String, said: String, meant: String, emoji: String?) {
+        fun add(pack: String, id: String, said: String, meant: String, emoji: String?, homonym: Set<String>? = null) {
             val learn = packs[pack]?.words?.firstOrNull { it.id == id }
             val word = learn?.word ?: said
-            val key = PackSession.wordKey(word)
+            val meanings = learn?.takeIf { it.homonym }?.meanings ?: homonym
+            // one per word; a homonym's two meanings are two words
+            val key = PackSession.wordKey(word).let { k -> if (meanings != null && k.isNotEmpty()) "$k#${meanings.sorted().joinToString()}" else k }
             if (key.isEmpty() || "$pack/$id" in ids || key in keys) return
-            val card = book.card(pack, id, word)
+            val card = book.card(pack, id, word, meanings)
             val st = book.state(card)
             if (st == WordState.NEW && learn == null) return // not to be taught here yet: not asked for
             ids += "$pack/$id"
             keys += key
             words += NeedWord(pack, id, word, learn?.meaning ?: meant, learn?.emoji ?: emoji, st, learn, card)
         }
-        for (r in rooms) for (o in r.objects) (o.pack ?: r.pack)?.let { add(it, o.word, o.sl, o.en, o.emoji) }
+        for (r in rooms) for (o in r.objects) (o.pack ?: r.pack)?.let { add(it, o.word, o.sl, o.en, o.emoji, o.meanings) }
         val more = (rooms.mapNotNull { it.pack } + listOfNotNull(packOf(b.type, culture))).distinct()
         var fromPack: Pack? = null
         for (p in more) {

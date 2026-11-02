@@ -49,7 +49,8 @@ object MyWords {
 
     /**
      * The learner's words from their review cards ([pool]: vocabulary only, not a counting or a forms card) and the ids
-     * of those [learned]: one per word (the learned card of it first, else the newest), in Slovene's alphabetical order.
+     * of those [learned]: one per word (the learned card of it first, else the newest), in Slovene's alphabetical order. Two
+     * cards of one spelling that share no meaning are two words (a homonym: the kitchen's bowl and the green's), a row each.
      */
     fun of(pool: List<ReviewCard>, learned: Set<String>): List<MyWord> {
         // the same deck as the last time (the bridge's dashboard read once while it is the same: Home composed anew after
@@ -59,10 +60,20 @@ object MyWords {
             .filter { it.kind == "vocabulary" && it.front.isNotBlank() }
             .map { MyWord(it.id, it.front.trim(), it.back.trim(), it.id in learned, it.created, it.category) }
             .sortedWith(compareBy<MyWord> { !it.learned }.thenByDescending { it.added })
-            .distinctBy { fold(it.word) }
             .toList()
+            .let(::onePerWord)
             .let(::ordered)
             .also { last = Made(pool, learned, it) }
+    }
+
+    /** [words] with one per word, the first of each; a card of the same spelling that shares no meaning with those kept stays. */
+    private fun onePerWord(words: List<MyWord>): List<MyWord> {
+        val kept = HashMap<String, MutableList<Set<String>>>()
+        return words.filter { w ->
+            val parts = PackSession.meaningParts(w.meaning)
+            val same = kept.getOrPut(fold(w.word)) { mutableListOf() }
+            if (same.any { p -> p.any(parts::contains) }) false else same.add(parts)
+        }
     }
 
     /** The last list [of] made, and of what. */

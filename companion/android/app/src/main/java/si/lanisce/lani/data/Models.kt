@@ -736,7 +736,8 @@ data class Dashboard(
     /**
      * Words of pack [packId] learned in the app ([results]: word id → quality; [words]: the pack's words), before the node
      * has them: each becomes a card, as the node makes it ([PackSession.card]), and one answered right counts at once.
-     * A word the learner has already (its card, or another card with the same word) stays as it is: the node skips it too.
+     * A word the learner has already (its card, or another card with the same word; one marked homonym: another card that
+     * means it) stays as it is: the node skips it too.
      */
     fun learnedWords(packId: String, words: List<PackWord>, results: List<Pair<String, Int>>): Dashboard {
         val byId = words.associateBy { it.id }
@@ -745,7 +746,13 @@ data class Dashboard(
         val added = results.mapNotNull { (id, q) ->
             val w = byId[id] ?: return@mapNotNull null
             val item = PackSession.itemId(packId, id)
-            if (item in ids || !known.add(PackSession.wordKey(w.word))) return@mapNotNull null
+            if (item in ids) return@mapNotNull null
+            val key = PackSession.wordKey(w.word)
+            if (w.homonym) {
+                val meanings = w.meanings
+                if (pool.any { it.kind == "vocabulary" && key in PackSession.wordKeys(it.front) && PackSession.means(it.back, meanings) }) return@mapNotNull null
+                known += key
+            } else if (!known.add(key)) return@mapNotNull null
             PackSession.card(packId, w).copy(lastQuality = q, category = packId) to (q >= 3)
         }
         if (added.isEmpty()) return this

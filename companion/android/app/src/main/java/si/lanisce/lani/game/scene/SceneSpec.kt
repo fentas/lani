@@ -89,7 +89,12 @@ data class SceneObject(
     val plural: String? = null,
     @SerialName("example_sl") val exampleSl: String? = null,
     @SerialName("example_en") val exampleEn: String? = null,
-)
+    /** Its pack word is marked homonym ([si.lanisce.lani.data.PackWord.homonym]): a card of its spelling is its own only when it means it. */
+    val homonym: Boolean = false,
+) {
+    /** What the thing's word means, when it is marked homonym ([homonym]); null for any other word. */
+    val meanings: Set<String>? get() = if (homonym) si.lanisce.lani.data.PackSession.meaningParts(en) else null
+}
 
 /** Someone who can be in the scene. They show up through [Happening]s, or always when [always]. */
 @Serializable

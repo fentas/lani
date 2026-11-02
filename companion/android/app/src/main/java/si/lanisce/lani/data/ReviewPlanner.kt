@@ -146,8 +146,10 @@ object ReviewPlanner {
     private fun plainTask(card: ReviewCard, pool: List<ReviewCard>, canSpeak: Boolean, random: Random, canRecognize: Boolean): Task {
         val accept = accepted(card.front)
         // Distractors must be real words too: no rules ("dober/dobra/dobro …"), placeholders or lists.
+        // Nor the other meaning of its word (a homonym's card has the same front), or another word that means the same as it.
+        val otherMeanings = pool.filter { it.id != card.id && it.front == card.front }.map { it.back }.toSet()
         val others = pool.filter {
-            it.id != card.id && it.back != card.back && it.front != card.front && accepted(it.front).isNotEmpty() && !list(it)
+            it.id != card.id && it.back != card.back && it.front != card.front && it.back !in otherMeanings && accepted(it.front).isNotEmpty() && !list(it)
         }
         // Rules, placeholders and lists ("dober/dobra/dobro …", "Imenujem se ...", "midva sva · vidva sta") aren't
         // words: recall them on a flashcard instead of making a quiz out of them ([quizzes]).

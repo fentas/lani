@@ -42,8 +42,17 @@ data class PackWord(
     @SerialName("note_de") val noteDe: String? = null,
     /** The pack's language, which the word is in: its pack's `language` (see [parsePack]); Slovene when unknown. */
     val lang: String? = null,
+    /**
+     * One spelling, two words (the kitchen's bowl, skleda, and the green's, krogla): this word is its own card, and another
+     * card of its spelling has it only when it means it ([PackSession.means] with [meanings]). A bridge from before it never
+     * says so: there the two stay one word.
+     */
+    val homonym: Boolean = false,
 ) {
     private val language: String get() = lang ?: Lang.SL.code
+
+    /** What the word means, in every language but its own, part by part ([PackSession.meaningParts]). */
+    val meanings: Set<String> get() = listOf("sl", "en", "it", "de").filter { it != language }.mapNotNull(::text).flatMap(PackSession::meaningParts).toSet()
 
     private fun text(code: String): String? = when (code) {
         "sl" -> sl
@@ -158,10 +167,35 @@ object PackSession {
     fun wordKeys(content: String): List<String> =
         content.split(" / ").map { wordKey(it.replace(BRACKETS, "")) }.filter { it.isNotEmpty() }
 
+    /**
+     * What a text means, part by part, compared loosely (the bridge's `meaningParts`, bridge/src/packs.ts): each of its
+     * meanings ("fair, market", "a / b") and what's in its brackets, lower case, an article left out.
+     */
+    fun meaningParts(s: String): Set<String> =
+        (listOf(s.replace(BRACKETS, "")) + IN_BRACKETS.findAll(s).map { it.groupValues[1] })
+            .flatMap { it.split(" / ", ",", ";") }
+            .map { wordKey(it).replace(MEANING_ARTICLE, "") }
+            .filter { it.isNotEmpty() }
+            .toSet()
+
+    /** Whether a card with the back [back] means one of [meanings] (a word's: [PackWord.meanings]). */
+    fun means(back: String, meanings: Set<String>): Boolean = meaningParts(back).any { it in meanings }
+
+    /** Whether the line [translation] says a word of [meaning], another ending too: krogla in "kroglo", wheel in "wheels". */
+    fun mentions(meaning: String, translation: String): Boolean {
+        val said = WORD.findAll(translation.lowercase()).map { it.value }.toList()
+        return meaningParts(meaning).flatMap { p -> WORD.findAll(p).map { it.value } }.filter { it.length >= 3 }.any { g ->
+            said.any { t -> g.commonPrefixWith(t).length.let { n -> n >= maxOf(3, g.length - 2) && t.length - n <= 3 } }
+        }
+    }
+
     private val SLOVENE = java.util.Locale.forLanguageTag("sl")
     private val PUNCTUATION = Regex("[.!?¿¡,]")
     private val SPACES = Regex("\\s+")
     private val BRACKETS = Regex("\\s*\\([^)]*\\)")
+    private val IN_BRACKETS = Regex("\\(([^)]*)\\)")
+    private val WORD = Regex("\\p{L}+")
+    private val MEANING_ARTICLE = Regex("^(?:(?:the|an?|to|il|lo|la|i|gli|le|un|uno|una|der|die|das|ein|eine) +|(?:l|un)['’])")
 
     /** The next words to learn: all that are left when that's 8 or fewer, else 6. */
     fun nextWords(pack: Pack): List<PackWord> {

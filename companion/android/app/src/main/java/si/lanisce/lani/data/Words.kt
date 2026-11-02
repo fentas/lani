@@ -45,6 +45,8 @@ data class WordEntry(
     val source: String? = null,
     @SerialName("item_id") val itemId: String? = null,
     val known: Boolean = false,
+    /** A pack word of one spelling and two meanings: [known] says about this meaning, the lemma alone doesn't make it theirs. */
+    val homonym: Boolean = false,
     val example: WordExample? = null,
     val emoji: String? = null,
     /** A verb's aspect, "pf" or "impf", where the bridge knows it (its partners' list); null from an older one. */
@@ -218,13 +220,14 @@ object Words {
      * Whether [e] is one of the learner's words ("✓ V tvojih besedah · In your words"): the node says so, or [mine] has its
      * review item (a word learned in a run counts at once, before the node has its card), or a vocabulary card of theirs
      * is its lemma, an article aside: the card "la casa" makes the dictionary's casa theirs, in a language with a
-     * dictionary or without one. A name, which has no item, never.
+     * dictionary or without one. A name, which has no item, never; a homonym's meaning only by its own card or the node's
+     * word (the kitchen's bowl doesn't make the green's theirs).
      */
     fun yours(e: WordEntry, mine: Mine?): Boolean {
         if (e.known) return true
         val id = e.itemId ?: return false
         if (mine == null) return false
-        return id in mine.ids || ownKeys(e.lemma, mine.language).any { it in mine.words }
+        return id in mine.ids || (!e.homonym && ownKeys(e.lemma, mine.language).any { it in mine.words })
     }
 
     /**

@@ -84,7 +84,9 @@ class DialogWordsController(
         return s.objects.mapNotNull { o ->
             val pack = o.pack ?: s.pack
             val own = pack?.let { pool[PackSession.itemId(it, o.word)] }?.let { c -> myWord(c, PackSession.wordKey(o.sl.ifBlank { c.front })) }
-            (own ?: o.sl.takeIf { it.isNotBlank() }?.let(words::of))?.let { o.slot to it }
+            // a thing marked homonym isn't a card of its spelling that means something else (the green's bowl, the kitchen's)
+            val same = o.sl.takeIf { it.isNotBlank() }?.let { words.of(it) }?.takeIf { w -> o.meanings?.let { PackSession.means(w.means, it) } != false }
+            (own ?: same)?.let { o.slot to it }
         }.toMap()
     }
 
