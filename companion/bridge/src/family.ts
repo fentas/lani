@@ -129,6 +129,8 @@ export type FamilyDeps = {
   limits?: Partial<FamilyLimits>
   /** Brings a recording to the loudness of the voice clips (voice.ts, LEVEL), in its own container; none: stored as it is. */
   level?: RecordingLeveller
+  /** The language the learner learns and the one they read explanations in: the family page's two. None: Slovene and English. */
+  languages?: () => { target: string; base: string }
 }
 
 export class Family {
@@ -174,10 +176,11 @@ export class Family {
   index(): AudioIndex { return this.read(this.indexPath, {}) }
   challenges(): Challenge[] { return this.read(this.threadPath, []) }
 
-  settings(): Settings & { learner_name: string; from_label: string } {
+  settings(): Settings & { learner_name: string; from_label: string; language: string; base: string } {
     const s = this.read<Settings>(this.settingsPath, { partner_name: '', partner_emoji: '💌' })
     const profile = this.read<any>(join(this.d.dataDir, 'learner-profile.json'), {})
-    return { ...s, learner_name: addressee({ name: profile?.learner?.name, gender: profile?.learner?.gender }).name, from_label: s.from_sl || genitive(s.partner_name) }
+    const { target, base } = this.d.languages?.() ?? { target: 'sl', base: 'en' }
+    return { ...s, learner_name: addressee({ name: profile?.learner?.name, gender: profile?.learner?.gender }).name, from_label: s.from_sl || genitive(s.partner_name), language: target, base }
   }
 
   // --- audio --------------------------------------------------------------------------

@@ -55,6 +55,7 @@ main { max-width: 640px; margin: -14px auto 0; padding: 0 16px 40px; }
 h2 { font-size: 1.15rem; margin: 0 0 12px; }
 .section-title { margin: 24px 4px 4px; }
 label { display: block; margin: 12px 0; font-weight: 600; font-size: 0.95rem; }
+label[hidden] { display: none; }
 .label { font-weight: 600; font-size: 0.95rem; margin: 12px 0 6px; }
 input, textarea {
   display: block;

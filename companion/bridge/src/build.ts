@@ -317,6 +317,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
       emit: e => ctx.events.emit(e),
       // recordings at the loudness of the voice clips (ffmpeg, when the node has it)
       level: platform.level,
+      languages: () => learnerLangs(dataDir, language),
     }),
     voice: voicing.store({ appDir, ctx: () => ctx }),
     voiceEngines: voicing.engines?.() ?? {},

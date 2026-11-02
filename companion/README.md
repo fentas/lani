@@ -1208,7 +1208,7 @@ newcomer|birth}`) tells the tutor someone moved in, so they can give them lines 
 | `GET` | `/audio/index` | family recordings: normalized Slovene text → `[{file, speaker, recorded_at, text}]` |
 | `POST` | `/audio?text=…&speaker=…` | a recording (raw body or multipart `file`; m4a, ogg or webm, max 2 MB), stored at the voice clips' loudness |
 | `GET`, `DELETE` | `/audio/file/:name` | one recording |
-| `GET`, `PUT` | `/family/api/settings` | the partner's name, emoji and Slovene "from" form (`Maje`) |
+| `GET`, `PUT` | `/family/api/settings` | the partner's name, emoji and Slovene "from" form (`Maje`); `GET` also the learner's name and languages (`language`, `base`) |
 | `GET` | `/family/api/words` | words and phrases to record (pack words, examples, vocabulary cards) |
 | `GET`, `POST` | `/family/api/challenges` | partner challenges `{type: question\|translate\|say, text, hint?}` with answers and feedback |
 | `POST` | `/family/api/challenges/:id/answer` | `{text, spoken}`: Jan's answer (app token only) → `partner_answer` to Claude |
@@ -4228,7 +4228,12 @@ The learner's family can take part in two ways:
   Jan", and the tutor's note goes back to the sender's progress screen.
 
 The family page is served by the bridge at `/family`. It uses its own token,
-`<data>/app/family-token` (generated on first start, like the app token).
+`<data>/app/family-token` (generated on first start, like the app token). It speaks the learner's two languages, as
+the app does ("Aiuta Teo a imparare l'italiano · Hilf Teo, Italienisch zu lernen"; `GET /family/api/settings` says which:
+`language`, `base`; a bridge from before that has Slovene and English): its labels, the samples in its fields, the words
+to record glossed in the base. Its texts live in `web/family/app.js` (`STRINGS`, `SAMPLES`, each in sl, en, de and it;
+machine-written, not reviewed by a native speaker). The Slovene "from" form is asked only of a family helping with
+Slovene; a page opened without its key speaks the browser's language, else English.
 
 ### Give the partner access
 
