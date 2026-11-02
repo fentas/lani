@@ -9402,8 +9402,8 @@ def course_unit():
     done; its sheet printed from the unit (fit.js in the WebView as in Chromium, the dialog's preview, the PDF, A4). The
     German course in the Carinthian village (docs/plans/05-built/course-de-a1-a.md), the English one in the Lake
     District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS. $LANI_QA_COURSE_SAID ("teen,ty"): endings its
-    steps name in bold, each heard in the teacher's voice (tag Speaker) as its step is read (a dev bridge with no voice engine:
-    the explanation in its runs), docs/plans/05-built/qa-repair.md."""
+    steps name in bold, each read in the language learned's voice, not the base's (tag IntroVoice; on a dev bridge with no voice
+    engine the explanation goes in its runs), docs/plans/05-built/qa-repair.md."""
     if not COURSE_UNIT:
         return "skipped: no unit named (LANI_QA_COURSE_UNIT)"
     try:
@@ -9550,17 +9550,19 @@ def course_unit():
         steps = u["intro"]["steps"]
         for i, st in enumerate(steps, 1):
             assert wait_for(half("school.stepOf", n=i, of=len(steps)), 12), f"step {i}"
-            # the endings of $LANI_QA_COURSE_SAID this step names in bold, heard in the teacher's voice (tag Speaker), not the
-            # base's (IntroSpeech.endings; the explanation's clip can't be had on a dev bridge without a voice engine: its runs)
+            # the endings of $LANI_QA_COURSE_SAID this step names in bold, as they are read (tag IntroVoice: the explanation's clip
+            # can't be had on a dev bridge without a voice engine, so it goes in its runs): each in the language learned's
+            # voice, never the phone's voice of the base (IntroSpeech.endings)
             say = st.get("say")
             say = (say.get(pair[1]) or say.get("en") or "") if isinstance(say, dict) else (say or "")
             for w in [w for w in os.environ.get("LANI_QA_COURSE_SAID", "").split(",") if w and f"**-{w}**" in say]:
-                end, line = time.time() + 45 * slow(), None
+                end, line = time.time() + 60 * slow(), None
                 while line is None and time.time() < end:
-                    line = next((l.split(": ", 1)[-1] for l in adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines() if f"said «{w}»" in l), None)
+                    line = next((l.split(": ", 1)[-1] for l in adb("logcat", "-d", "-s", "IntroVoice:I", check=False).splitlines() if f'"-{w}"' in l), None)
                     time.sleep(1)
-                assert line, f"step {i}: «-{w}» wasn't read by the teacher's voice"
+                assert line, f"step {i}: «-{w}» wasn't read: {' / '.join(adb('logcat', '-d', '-s', 'IntroVoice:I', check=False).splitlines()[-4:])}"
                 print(f"    step {i}: {line}")
+                assert f"tts:{pair[1]}" not in line, f"step {i}: «-{w}» read by the phone's voice of the base: {line}"
                 snap(f"cu-intro-{i}-said-{w}")
             a = st.get("ask")
             if a is None:
