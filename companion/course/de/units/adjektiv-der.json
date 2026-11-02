@@ -1,0 +1,853 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "adjektiv-der",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🐕",
+  "title": {
+    "de": "Der große Hund, den großen Hund",
+    "en": "Adjective endings after der: der große Hund",
+    "sl": "Končnice pridevnika za der: der große Hund",
+    "it": "Le desinenze dell'aggettivo dopo der: der große Hund"
+  },
+  "goal": {
+    "en": "You can put an adjective before a noun after der, die, das, dieser, jeder and welcher: -e in five places (der große Hund), -en everywhere else (den großen Hund, mit dem alten Traktor, die roten Äpfel).",
+    "sl": "Pridevnik postaviš pred samostalnik za der, die, das, dieser, jeder in welcher: -e na petih mestih (der große Hund), -en povsod drugod (den großen Hund, mit dem alten Traktor, die roten Äpfel).",
+    "it": "Sai mettere un aggettivo davanti a un nome dopo der, die, das, dieser, jeder e welcher: -e in cinque posti (der große Hund), -en ovunque altrove (den großen Hund, mit dem alten Traktor, die roten Äpfel)."
+  },
+  "grammar": [
+    "adjektiv-der",
+    "artikel-genus",
+    "faelle"
+  ],
+  "words": [
+    "groß",
+    "klein",
+    "alt",
+    "neu",
+    "jung",
+    "rot",
+    "schwer",
+    "scharf",
+    "frisch",
+    "warm",
+    "hungrig",
+    "müde",
+    "billig",
+    "teuer",
+    "hoch",
+    "dieser",
+    "jeder",
+    "welcher",
+    "der Traktor",
+    "der Schlüssel",
+    "der Herd",
+    "der Topf",
+    "der Kasten",
+    "das Messer",
+    "die Semmel",
+    "der Gast",
+    "der Hut",
+    "die Uhr",
+    "der Berg",
+    "die Nacht",
+    "die Küche",
+    "die Mühle",
+    "die Bank",
+    "die Lehrerin",
+    "reparieren",
+    "kennen",
+    "kaufen",
+    "sitzen",
+    "wohnen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der Hund",
+        "die Katze",
+        "das Haus"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "After **sein** an adjective stays as it is: Der Hund ist **groß** (the dog is big). Before a noun it takes an ending. After **der, die, das** that ending is **-e**: **der große Hund** (the big dog), **die kleine Katze** (the small cat), **das alte Haus** (the old house). The adjective always comes before the noun.",
+          "sl": "Za **sein** ostane pridevnik, kakršen je: Der Hund ist **groß** (pes je velik). Pred samostalnikom dobi končnico. Za **der, die, das** je ta končnica **-e**: **der große Hund** (veliki pes), **die kleine Katze** (majhna mačka), **das alte Haus** (stara hiša).",
+          "it": "Dopo **sein** l'aggettivo resta com'è: Der Hund ist **groß** (il cane è grande). Davanti a un nome prende una desinenza. Dopo **der, die, das** questa desinenza è **-e**: **der große Hund** (il cane grande), **die kleine Katze** (la gatta piccola), **das alte Haus** (la casa vecchia). L'aggettivo viene sempre prima del nome."
+        },
+        "examples": [
+          {
+            "de": "Der große Hund schläft vor der Schmiede.",
+            "en": "The big dog is asleep in front of the forge.",
+            "sl": "Veliki pes spi pred kovačnico.",
+            "it": "Il cane grande dorme davanti alla fucina."
+          },
+          {
+            "de": "Die alte Mühle gehört Franz.",
+            "en": "The old mill belongs to Franz.",
+            "sl": "Stari mlin je Franzov.",
+            "it": "Il vecchio mulino è di Franz."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Nominativ",
+              "sl": "imenovalnik",
+              "en": "nominative",
+              "it": "nominativo"
+            },
+            "der große",
+            "die kleine",
+            "das alte"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-der",
+          "prompt": "Das ___ Haus gehört Kathi. (alt)",
+          "options": [
+            "alte",
+            "alten",
+            "altes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**das in the nominative: -e**\n- der große Hund · die kleine Katze · das alte Haus",
+            "sl": "**das v imenovalniku: -e**\n- der große Hund · die kleine Katze · das alte Haus",
+            "it": "**das al nominativo: -e**\n- der große Hund · die kleine Katze · das alte Haus"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the accusative only **der** changes: **den großen Hund** (the big dog, as the object), and the adjective takes **-en** with it. **die** and **das** stay as they are, and so does their **-e**: **die kleine Katze**, **das alte Haus**.",
+          "sl": "V tožilniku se spremeni samo **der**: **den großen Hund** (velikega psa), pridevnik pa dobi **-en**. **die** in **das** ostaneta enaka, z njima tudi **-e**: **die kleine Katze** (majhno mačko), **das alte Haus** (staro hišo).",
+          "it": "All'accusativo cambia solo **der**: **den großen Hund** (il cane grande, come oggetto), e l'aggettivo prende **-en**. **die** e **das** restano uguali, e con loro la **-e**: **die kleine Katze**, **das alte Haus**."
+        },
+        "examples": [
+          {
+            "de": "Stefan repariert den alten Traktor.",
+            "en": "Stefan is repairing the old tractor.",
+            "sl": "Stefan popravlja stari traktor.",
+            "it": "Stefan ripara il vecchio trattore."
+          },
+          {
+            "de": "Kathi kennt die neue Lehrerin.",
+            "en": "Kathi knows the new teacher.",
+            "sl": "Kathi pozna novo učiteljico.",
+            "it": "Kathi conosce la nuova maestra."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Akkusativ",
+              "sl": "tožilnik",
+              "en": "accusative",
+              "it": "accusativo"
+            },
+            "den großen",
+            "die kleine",
+            "das alte"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adjektiv-der",
+          "text": "Stefan sucht den ___ Schlüssel. (klein)",
+          "accept": [
+            "kleinen"
+          ],
+          "hint": {
+            "en": "der Schlüssel, accusative",
+            "sl": "der Schlüssel, tožilnik",
+            "it": "der Schlüssel, accusativo"
+          },
+          "explain": {
+            "en": "**den: -en**\n- den kleinen Schlüssel · die kleine Katze · das kleine Haus",
+            "sl": "**den: -en**\n- den kleinen Schlüssel · die kleine Katze · das kleine Haus",
+            "it": "**den: -en**\n- den kleinen Schlüssel · die kleine Katze · das kleine Haus"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the dative all three take **-en**: **dem großen Hund** (to the big dog), **der kleinen Katze** (to the small cat), **dem alten Haus** (the old house). So after **mit, von, bei, neben, in** and the rest, as long as it's the dative, it is always -en.",
+          "sl": "V dajalniku imajo vsi trije **-en**: **dem großen Hund** (velikemu psu), **der kleinen Katze** (majhni mački), **dem alten Haus** (stari hiši). Za **mit, von, bei, neben, in** in druge je torej v dajalniku vedno -en.",
+          "it": "Al dativo tutti e tre prendono **-en**: **dem großen Hund** (al cane grande), **der kleinen Katze** (alla gatta piccola), **dem alten Haus** (la casa vecchia). Quindi dopo **mit, von, bei, neben, in** e gli altri, al dativo, è sempre -en."
+        },
+        "examples": [
+          {
+            "de": "Mitzi wohnt neben der alten Mühle.",
+            "en": "Mitzi lives next to the old mill.",
+            "sl": "Mitzi stanuje poleg starega mlina.",
+            "it": "Mitzi abita accanto al vecchio mulino."
+          },
+          {
+            "de": "Toni kommt mit dem neuen Hammer.",
+            "en": "Toni is coming with the new hammer.",
+            "sl": "Toni pride z novim kladivom.",
+            "it": "Toni arriva con il martello nuovo."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Dativ",
+              "sl": "dajalnik",
+              "en": "dative",
+              "it": "dativo"
+            },
+            "dem großen",
+            "der kleinen",
+            "dem alten"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-der",
+          "prompt": "Mitzi sitzt auf der ___ Bank. (alt)",
+          "options": [
+            "alten",
+            "alte",
+            "alter"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**auf der Bank, the dative: -en**\n- dem großen Hund · der alten Bank · dem alten Haus",
+            "sl": "**auf der Bank, dajalnik: -en**\n- dem großen Hund · der alten Bank · dem alten Haus",
+            "it": "**auf der Bank, dativo: -en**\n- dem großen Hund · der alten Bank · dem alten Haus"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the plural it's **-en** in every case: **die großen Hunde** (the big dogs), **die kleinen Katzen** (the small cats), and in the dative **den großen Hunden**, where the noun has its -n too. Look at the table: **-e** has only five places, and everything else is **-en**.",
+          "sl": "V množini je **-en** v vseh sklonih: **die großen Hunde** (veliki psi), **die kleinen Katzen** (majhne mačke), v dajalniku pa **den großen Hunden**, kjer ima tudi samostalnik svoj -n. Poglej tabelo: **-e** ima samo pet mest, vse drugo je **-en**.",
+          "it": "Al plurale è **-en** in tutti i casi: **die großen Hunde** (i cani grandi), **die kleinen Katzen** (le gatte piccole), e al dativo **den großen Hunden**, dove anche il nome ha la sua -n. Guarda la tabella: **-e** ha solo cinque posti, tutto il resto è **-en**."
+        },
+        "examples": [
+          {
+            "de": "Die roten Äpfel sind von Stefan.",
+            "en": "The red apples are from Stefan.",
+            "sl": "Rdeča jabolka so od Stefana.",
+            "it": "Le mele rosse sono di Stefan."
+          },
+          {
+            "de": "Florian spricht mit den jungen Schafen.",
+            "en": "Florian is talking to the young sheep.",
+            "sl": "Florian se pogovarja z mladimi ovcami.",
+            "it": "Florian parla con le pecore giovani."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Plural · N, A",
+              "sl": "množina · im., tož.",
+              "en": "plural · nom., acc.",
+              "it": "plurale · nom., acc."
+            },
+            "die großen",
+            "die kleinen",
+            "die alten"
+          ],
+          [
+            {
+              "de": "Plural · D",
+              "sl": "množina · daj.",
+              "en": "plural · dative",
+              "it": "plurale · dativo"
+            },
+            "den großen",
+            "den kleinen",
+            "den alten"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-der",
+          "prompt": "Die ___ Gäste sitzen in der Stube. (müde)",
+          "options": [
+            "müden",
+            "müde",
+            "müder"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Every plural: -en**\n- die müden Gäste · die roten Äpfel · den jungen Schafen",
+            "sl": "**Vsaka množina: -en**\n- die müden Gäste · die roten Äpfel · den jungen Schafen",
+            "it": "**Ogni plurale: -en**\n- die müden Gäste · die roten Äpfel · den jungen Schafen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**dieser** (this), **jeder** (every) and **welcher** (which) end as der does, so the adjective is the same after them: **dieser große Hund** (this big dog), **mit jedem neuen Auto** (with every new car), **welche alte Uhr?** (which old clock?). Three adjectives change before an ending: **hoch → der hohe Berg** (the high mountain), **teuer → die teure Uhr** (the expensive clock), **dunkel → die dunkle Nacht** (the dark night).",
+          "sl": "**dieser** (ta), **jeder** (vsak) in **welcher** (kateri) se končujejo kot der, zato je pridevnik za njimi enak: **dieser große Hund** (ta veliki pes), **mit jedem neuen Auto** (z vsakim novim avtom), **welche alte Uhr?** (katera stara ura?). Trije se pred končnico spremenijo: **hoch → der hohe Berg** (visoka gora), **teuer → die teure Uhr** (draga ura), **dunkel → die dunkle Nacht** (temna noč).",
+          "it": "**dieser** (questo), **jeder** (ogni) e **welcher** (quale) finiscono come der, quindi l'aggettivo dopo di loro è uguale: **dieser große Hund** (questo cane grande), **mit jedem neuen Auto** (con ogni auto nuova), **welche alte Uhr?** (quale orologio vecchio?). Tre cambiano davanti a una desinenza: **hoch → der hohe Berg** (l'alta montagna), **teuer → die teure Uhr** (l'orologio caro), **dunkel → die dunkle Nacht** (la notte buia)."
+        },
+        "examples": [
+          {
+            "de": "Dieser alte Traktor gehört Franz.",
+            "en": "This old tractor belongs to Franz.",
+            "sl": "Ta stari traktor je Franzov.",
+            "it": "Questo vecchio trattore è di Franz."
+          },
+          {
+            "de": "Der hohe Berg dort ist der Dobratsch.",
+            "en": "The high mountain over there is the Dobratsch.",
+            "sl": "Visoka gora tam je Dobrač.",
+            "it": "L'alta montagna laggiù è il Dobratsch."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adjektiv-der",
+          "text": "Die ___ Uhr ist von Toni. (teuer)",
+          "accept": [
+            "teure"
+          ],
+          "hint": {
+            "en": "teuer loses an e before an ending",
+            "sl": "teuer pred končnico izgubi e",
+            "it": "teuer perde una e davanti a una desinenza"
+          },
+          "explain": {
+            "en": "**teuer → teure**\n- hoch → der hohe Berg · dunkel → die dunkle Nacht",
+            "sl": "**teuer → teure**\n- hoch → der hohe Berg · dunkel → die dunkle Nacht",
+            "it": "**teuer → teure**\n- hoch → der hohe Berg · dunkel → die dunkle Nacht"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "adjektiv-der-1",
+      "title": {
+        "de": "-e oder -en?",
+        "en": "-e or -en?",
+        "sl": "-e ali -en?",
+        "it": "-e o -en?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adjektiv-der",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "groß · klein · alt: the adjective with its ending",
+            "sl": "groß · klein · alt: pridevnik s končnico",
+            "it": "groß · klein · alt: l'aggettivo con la desinenza"
+          },
+          "columns": [
+            "der Hund · groß",
+            "die Katze · klein",
+            "das Haus · alt"
+          ],
+          "rows": [
+            {
+              "label": "der · die · das",
+              "cells": [
+                "große",
+                {
+                  "accept": [
+                    "kleine"
+                  ]
+                },
+                {
+                  "accept": [
+                    "alte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "den · die · das",
+              "cells": [
+                {
+                  "accept": [
+                    "großen"
+                  ],
+                  "hint": {
+                    "en": "den → -en",
+                    "sl": "den → -en",
+                    "it": "den → -en"
+                  }
+                },
+                {
+                  "accept": [
+                    "kleine"
+                  ]
+                },
+                {
+                  "accept": [
+                    "alte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "dem · der · dem",
+              "cells": [
+                {
+                  "accept": [
+                    "großen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kleinen"
+                  ],
+                  "hint": {
+                    "en": "der Katze: the dative",
+                    "sl": "der Katze: dajalnik",
+                    "it": "der Katze: dativo"
+                  }
+                },
+                {
+                  "accept": [
+                    "alten"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-e in five places, -en everywhere else**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "sl": "**-e na petih mestih, -en povsod drugod**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "it": "**-e in cinque posti, -en ovunque altrove**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "adjektiv-der",
+          "instruction": {
+            "en": "Sortiere · Sort: -e or -en?",
+            "sl": "Sortiere · Razvrsti: -e ali -en?",
+            "it": "Sortiere · Ordina: -e o -en?"
+          },
+          "columns": [
+            {
+              "label": "-e",
+              "words": [
+                "der … Hund",
+                "die … Katze",
+                "das … Haus"
+              ]
+            },
+            {
+              "label": "-en",
+              "words": [
+                "den … Hund",
+                "mit der … Katze",
+                "die … Hunde"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-e in five places, -en everywhere else**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "sl": "**-e na petih mestih, -en povsod drugod**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "it": "**-e in cinque posti, -en ovunque altrove**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-der-2",
+      "title": {
+        "de": "In Kathis Küche",
+        "en": "In Kathi's kitchen",
+        "sl": "V Kathijini kuhinji",
+        "it": "Nella cucina di Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adjektiv-der",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "In Kathis Küche",
+          "text": "Kathi steht in der ___ (groß) Küche. Der ___ (neu) Herd ist schon heiß. Sie nimmt den ___ (schwer) Topf aus dem ___ (alt) Kasten. Maxi holt die ___ (frisch) Semmeln. Dann bringt er das ___ (warm) Brot zu den ___ (hungrig) Gästen.",
+          "gaps": [
+            {
+              "accept": [
+                "großen"
+              ],
+              "hint": "in der Küche: Dativ"
+            },
+            {
+              "accept": [
+                "neue"
+              ],
+              "hint": "der Herd: Nominativ"
+            },
+            {
+              "accept": [
+                "schweren"
+              ],
+              "hint": "den Topf"
+            },
+            {
+              "accept": [
+                "alten"
+              ],
+              "hint": "aus dem Kasten"
+            },
+            {
+              "accept": [
+                "frischen"
+              ],
+              "hint": "die Semmeln: Plural"
+            },
+            {
+              "accept": [
+                "warme"
+              ],
+              "hint": "das Brot: Akkusativ"
+            },
+            {
+              "accept": [
+                "hungrigen"
+              ],
+              "hint": "den Gästen"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "große",
+            "neuen",
+            "warmen"
+          ],
+          "translation": {
+            "en": "Kathi is standing in the big kitchen. The new cooker is already hot. She takes the heavy pot out of the old cupboard. Maxi fetches the fresh rolls. Then he takes the warm bread to the hungry guests.",
+            "sl": "Kathi stoji v veliki kuhinji. Novi štedilnik je že vroč. Iz stare omare vzame težki lonec. Maxi prinese sveže žemlje. Nato nese topli kruh lačnim gostom.",
+            "it": "Kathi è nella grande cucina. Il nuovo fornello è già caldo. Prende la pentola pesante dal vecchio armadio. Maxi va a prendere i panini freschi. Poi porta il pane caldo agli ospiti affamati."
+          },
+          "explain": {
+            "en": "**-e in five places, -en everywhere else**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "sl": "**-e na petih mestih, -en povsod drugod**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "it": "**-e in cinque posti, -en ovunque altrove**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-der",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Welchen ___ Hut nimmst du? (grün)",
+          "options": [
+            "grünen",
+            "grüne",
+            "grüner"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**welchen ends as den: -en**\n- welchen grünen Hut · welche grüne Jacke · welches grüne Hemd",
+            "sl": "**welchen se konča kot den: -en**\n- welchen grünen Hut · welche grüne Jacke · welches grüne Hemd",
+            "it": "**welchen finisce come den: -en**\n- welchen grünen Hut · welche grüne Jacke · welches grüne Hemd"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-der-3",
+      "title": {
+        "de": "Vor dem Nomen",
+        "en": "Before the noun",
+        "sl": "Pred samostalnikom",
+        "it": "Davanti al nome"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adjektiv-der",
+          "instruction": {
+            "en": "Setze das Adjektiv ein · Put the adjective in",
+            "sl": "Setze das Adjektiv ein · Vstavi pridevnik",
+            "it": "Setze das Adjektiv ein · Inserisci l'aggettivo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Hund bellt. (groß)",
+              "accept": [
+                "Der große Hund bellt."
+              ]
+            },
+            {
+              "from": "Ich sehe den Traktor. (neu)",
+              "accept": [
+                "Ich sehe den neuen Traktor."
+              ]
+            },
+            {
+              "from": "Stefan hilft der Frau. (alt)",
+              "accept": [
+                "Stefan hilft der alten Frau."
+              ]
+            },
+            {
+              "from": "Toni nimmt das Messer. (scharf)",
+              "accept": [
+                "Toni nimmt das scharfe Messer."
+              ]
+            },
+            {
+              "from": "Wir kaufen die Erdäpfel. (billig)",
+              "accept": [
+                "Wir kaufen die billigen Erdäpfel."
+              ],
+              "hint": {
+                "en": "die Erdäpfel: plural",
+                "sl": "die Erdäpfel: množina",
+                "it": "die Erdäpfel: plurale"
+              }
+            }
+          ],
+          "explain": {
+            "en": "**-e in five places, -en everywhere else**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "sl": "**-e na petih mestih, -en povsod drugod**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+            "it": "**-e in cinque posti, -en ovunque altrove**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "adjektiv-der",
+          "instruction": {
+            "en": "Sag es vor dem Nomen · Say it before the noun",
+            "sl": "Sag es vor dem Nomen · Povej pred samostalnikom",
+            "it": "Sag es vor dem Nomen · Dillo davanti al nome"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Berg ist hoch.",
+              "accept": [
+                "der hohe Berg"
+              ],
+              "hint": {
+                "en": "hoch loses its c",
+                "sl": "hoch izgubi c",
+                "it": "hoch perde la c"
+              }
+            },
+            {
+              "from": "Die Uhr ist teuer.",
+              "accept": [
+                "die teure Uhr"
+              ]
+            },
+            {
+              "from": "Die Nacht ist dunkel.",
+              "accept": [
+                "die dunkle Nacht"
+              ]
+            },
+            {
+              "from": "Das Haus ist alt.",
+              "accept": [
+                "das alte Haus"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**hoch → hohe, teuer → teure, dunkel → dunkle**",
+            "sl": "**hoch → hohe, teuer → teure, dunkel → dunkle**",
+            "it": "**hoch → hohe, teuer → teure, dunkel → dunkle**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adjektiv-der",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der Kirchtag",
+        "text": "Am Sonntag ist der ___ (groß) Kirchtag. Die ___ (jung) Musikanten spielen auf dem ___ (neu) Platz. Stefan bringt den ___ (süß) Most. Oma Resi schneidet die ___ (frisch) Torte, und jeder ___ (hungrig) Gast bekommt ein Stück.",
+        "gaps": [
+          {
+            "accept": [
+              "große"
+            ],
+            "hint": "der Kirchtag"
+          },
+          {
+            "accept": [
+              "jungen"
+            ],
+            "hint": "die Musikanten"
+          },
+          {
+            "accept": [
+              "neuen"
+            ],
+            "hint": "dem Platz"
+          },
+          {
+            "accept": [
+              "süßen"
+            ],
+            "hint": "den Most"
+          },
+          {
+            "accept": [
+              "frische"
+            ],
+            "hint": "die Torte"
+          },
+          {
+            "accept": [
+              "hungrige"
+            ],
+            "hint": "jeder wie der"
+          }
+        ],
+        "translation": {
+          "en": "On Sunday it's the big church fair. The young musicians play on the new square. Stefan brings the sweet cider. Grandma Resi cuts the fresh cake, and every hungry guest gets a piece.",
+          "sl": "V nedeljo je veliko žegnanje. Mladi godci igrajo na novem trgu. Stefan prinese sladki mošt. Babica Resi reže svežo torto in vsak lačen gost dobi kos.",
+          "it": "Domenica c'è la grande sagra. I giovani musicanti suonano nella piazza nuova. Stefan porta il sidro dolce. Nonna Resi taglia la torta fresca, e ogni ospite affamato ne riceve una fetta."
+        },
+        "explain": {
+          "en": "**-e in five places, -en everywhere else**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+          "sl": "**-e na petih mestih, -en povsod drugod**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+          "it": "**-e in cinque posti, -en ovunque altrove**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adjektiv-der",
+        "instruction": {
+          "en": "Setze das Adjektiv ein · Put the adjective in",
+          "sl": "Setze das Adjektiv ein · Vstavi pridevnik",
+          "it": "Setze das Adjektiv ein · Inserisci l'aggettivo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Das Schaf schläft. (klein)",
+            "accept": [
+              "Das kleine Schaf schläft."
+            ]
+          },
+          {
+            "from": "Franz repariert den Sack. (alt)",
+            "accept": [
+              "Franz repariert den alten Sack."
+            ]
+          },
+          {
+            "from": "Kathi spricht mit dem Gast. (müde)",
+            "accept": [
+              "Kathi spricht mit dem müden Gast."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**-e in five places, -en everywhere else**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+          "sl": "**-e na petih mestih, -en povsod drugod**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde",
+          "it": "**-e in cinque posti, -en ovunque altrove**\n- der große Hund · den großen Hund · dem großen Hund · die großen Hunde"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-der",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Dieses ___ Auto gehört Kathi. (rot)",
+        "options": [
+          "rote",
+          "roten",
+          "rotes"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**dieses ends as das: -e**\n- dieser rote Traktor · diese rote Jacke · dieses rote Auto",
+          "sl": "**dieses se konča kot das: -e**\n- dieser rote Traktor · diese rote Jacke · dieses rote Auto",
+          "it": "**dieses finisce come das: -e**\n- dieser rote Traktor · diese rote Jacke · dieses rote Auto"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-der",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Toni arbeitet mit den ___ Hämmern. (schwer)",
+        "options": [
+          "schweren",
+          "schwere",
+          "schwerem"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Every plural: -en**\n- die schweren Hämmer · den schweren Hämmern",
+          "sl": "**Vsaka množina: -en**\n- die schweren Hämmer · den schweren Hämmern",
+          "it": "**Ogni plurale: -en**\n- die schweren Hämmer · den schweren Hämmern"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-der",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der ___ Berg ist weiß. (hoch)",
+        "options": [
+          "hohe",
+          "hoche",
+          "hohen"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**hoch loses its c before an ending**\n- der hohe Berg · den hohen Berg",
+          "sl": "**hoch pred končnico izgubi c**\n- der hohe Berg · den hohen Berg",
+          "it": "**hoch perde la c davanti a una desinenza**\n- der hohe Berg · den hohen Berg"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: -e, -en after der; der Kasten, die Semmel, Erdäpfel; der Kirchtag as žegnanje, sagra; the Slovene veliki pes"
+}

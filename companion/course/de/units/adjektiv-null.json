@@ -1,0 +1,855 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "adjektiv-null",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🥖",
+  "title": {
+    "de": "Frisches Brot, mit heißem Tee",
+    "en": "Adjectives without an article: frisches Brot",
+    "sl": "Pridevnik brez člena: frisches Brot",
+    "it": "L'aggettivo senza articolo: frisches Brot"
+  },
+  "goal": {
+    "en": "You can use an adjective with no article: frischer Käse, frische Milch, frisches Brot, mit heißem Tee; viele alte Häuser, einige junge Leute; and you know why it's Guten Morgen but Gute Nacht.",
+    "sl": "Pridevnik uporabiš brez člena: frischer Käse, frische Milch, frisches Brot, mit heißem Tee; viele alte Häuser, einige junge Leute; in veš, zakaj je Guten Morgen, a Gute Nacht.",
+    "it": "Sai usare un aggettivo senza articolo: frischer Käse, frische Milch, frisches Brot, mit heißem Tee; viele alte Häuser, einige junge Leute; e sai perché si dice Guten Morgen ma Gute Nacht."
+  },
+  "grammar": [
+    "adjektiv-null",
+    "adjektiv-der"
+  ],
+  "words": [
+    "frisch",
+    "heiß",
+    "kalt",
+    "warm",
+    "süß",
+    "sauer",
+    "braun",
+    "gut",
+    "lieb",
+    "schön",
+    "reif",
+    "viele",
+    "einige",
+    "wenige",
+    "der Käse",
+    "der Topfen",
+    "der Tee",
+    "der Most",
+    "der Salat",
+    "die Milch",
+    "die Butter",
+    "die Suppe",
+    "das Brot",
+    "das Ei",
+    "die Marille",
+    "der Paradeiser",
+    "der Erdapfel",
+    "die Kasnudel",
+    "die Speisekarte",
+    "die Leute",
+    "kochen",
+    "schmecken",
+    "kaufen",
+    "backen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der Käse",
+        "die Milch",
+        "das Brot"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "With no article, nothing else shows the gender, so the adjective does it, with the ending der, die or das would have: **frischer Käse** (fresh cheese, der), **frische Milch** (fresh milk, die), **frisches Brot** (fresh bread, das). Kathi's menu is full of them.",
+          "sl": "Brez člena nič drugega ne pove spola, zato to stori pridevnik, s končnico člena der, die ali das: **frischer Käse** (svež sir, der), **frische Milch** (sveže mleko, die), **frisches Brot** (svež kruh, das). Kathijin jedilni list je poln takih oblik.",
+          "it": "Senza articolo nient'altro mostra il genere, quindi lo fa l'aggettivo, con la desinenza che avrebbe der, die o das: **frischer Käse** (formaggio fresco, der), **frische Milch** (latte fresco, die), **frisches Brot** (pane fresco, das). Il menù di Kathi ne è pieno."
+        },
+        "examples": [
+          {
+            "de": "Frisches Brot schmeckt gut.",
+            "en": "Fresh bread tastes good.",
+            "sl": "Svež kruh je dober.",
+            "it": "Il pane fresco è buono."
+          },
+          {
+            "de": "Kalter Most ist im Keller.",
+            "en": "There's cold cider in the cellar.",
+            "sl": "V kleti je hladen mošt.",
+            "it": "In cantina c'è sidro freddo."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Nominativ",
+              "sl": "imenovalnik",
+              "en": "nominative",
+              "it": "nominativo"
+            },
+            "frischer",
+            "frische",
+            "frisches"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-null",
+          "prompt": "___ Wasser steht auf dem Tisch. (kalt)",
+          "options": [
+            "Kaltes",
+            "Kalter",
+            "Kalte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**das Wasser: -es, as das**\n- kalter Most · kalte Milch · kaltes Wasser",
+            "sl": "**das Wasser: -es, kot das**\n- kalter Most · kalte Milch · kaltes Wasser",
+            "it": "**das Wasser: -es, come das**\n- kalter Most · kalte Milch · kaltes Wasser"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the accusative der becomes den, so **frischen Käse** (fresh cheese) ends in **-en**; **frische Milch** and **frisches Brot** stay. Oma Resi kauft **frischen Topfen** (fresh curd cheese). Austria says der Topfen, der Paradeiser, der Erdapfel; Germany Quark, Tomate, Kartoffel.",
+          "sl": "V tožilniku postane der den, zato ima **frischen Käse** (svež sir) končnico **-en**; **frische Milch** in **frisches Brot** ostaneta. Oma Resi kauft **frischen Topfen** (svežo skuto). Avstrija reče der Topfen, der Paradeiser, der Erdapfel; Nemčija Quark, Tomate, Kartoffel.",
+          "it": "All'accusativo der diventa den, quindi **frischen Käse** (formaggio fresco) finisce in **-en**; **frische Milch** e **frisches Brot** restano. Oma Resi kauft **frischen Topfen** (ricotta fresca). L'Austria dice der Topfen, der Paradeiser, der Erdapfel; la Germania Quark, Tomate, Kartoffel."
+        },
+        "examples": [
+          {
+            "de": "Oma Resi kauft frischen Topfen.",
+            "en": "Grandma Resi is buying fresh curd cheese.",
+            "sl": "Babica Resi kupuje svežo skuto.",
+            "it": "Nonna Resi compra ricotta fresca."
+          },
+          {
+            "de": "Stefan trinkt gern kalten Most.",
+            "en": "Stefan likes drinking cold cider.",
+            "sl": "Stefan rad pije hladen mošt.",
+            "it": "A Stefan piace bere il sidro freddo."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Akkusativ",
+              "sl": "tožilnik",
+              "en": "accusative",
+              "it": "accusativo"
+            },
+            "frischen",
+            "frische",
+            "frisches"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adjektiv-null",
+          "text": "Kathi kocht heute ___ Salat. (grün)",
+          "accept": [
+            "grünen"
+          ],
+          "hint": {
+            "en": "der Salat, accusative",
+            "sl": "der Salat, tožilnik",
+            "it": "der Salat, accusativo"
+          },
+          "explain": {
+            "en": "**der Salat in the accusative: -en, as den**\n- grünen Salat · frische Milch · frisches Brot",
+            "sl": "**der Salat v tožilniku: -en, kot den**\n- grünen Salat · frische Milch · frisches Brot",
+            "it": "**der Salat all'accusativo: -en, come den**\n- grünen Salat · frische Milch · frisches Brot"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the dative it shows dem and der: **mit frischem Käse** (with fresh cheese), **mit frischem Brot** (with fresh bread), **mit frischer Milch** (with fresh milk). Think of the missing article: dem Tee → **mit heißem Tee** (with hot tea); der Butter → **mit brauner Butter** (with browned butter), as Kasnudeln are served in Carinthia.",
+          "sl": "V dajalniku pokaže dem in der: **mit frischem Käse** (s svežim sirom), **mit frischem Brot** (s svežim kruhom), **mit frischer Milch** (s svežim mlekom). Pomisli na manjkajoči člen: dem Tee → **mit heißem Tee** (z vročim čajem); der Butter → **mit brauner Butter** (z rjavim maslom), kot Koroška streže Kasnudeln.",
+          "it": "Al dativo mostra dem e der: **mit frischem Käse** (con formaggio fresco), **mit frischem Brot** (con pane fresco), **mit frischer Milch** (con latte fresco). Pensa all'articolo che manca: dem Tee → **mit heißem Tee** (con tè caldo); der Butter → **mit brauner Butter** (con burro rosolato), come si servono i Kasnudeln in Carinzia."
+        },
+        "examples": [
+          {
+            "de": "Stanko isst Brot mit süßem Honig.",
+            "en": "Stanko is eating bread with sweet honey.",
+            "sl": "Stanko je kruh s sladkim medom.",
+            "it": "Stanko mangia pane con il miele dolce."
+          },
+          {
+            "de": "Kathi bringt Kasnudeln mit brauner Butter.",
+            "en": "Kathi brings Kasnudeln with browned butter.",
+            "sl": "Kathi prinese Kasnudeln z rjavim maslom.",
+            "it": "Kathi porta i Kasnudeln con burro rosolato."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Dativ",
+              "sl": "dajalnik",
+              "en": "dative",
+              "it": "dativo"
+            },
+            "mit frischem",
+            "mit frischer",
+            "mit frischem"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-null",
+          "prompt": "Mitzi trinkt Kaffee mit ___ Milch. (warm)",
+          "options": [
+            "warmer",
+            "warmem",
+            "warme"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**die Milch in the dative: -er, as der**\n- mit warmer Milch · mit heißem Tee",
+            "sl": "**die Milch v dajalniku: -er, kot der**\n- mit warmer Milch · mit heißem Tee",
+            "it": "**die Milch al dativo: -er, come der**\n- mit warmer Milch · mit heißem Tee"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A plural with no article ends in **-e**, as die: **frische Eier** (fresh eggs). After **viele** (many), **einige** (some), **wenige** (few) and a number too: **viele alte Häuser** (many old houses), **einige junge Leute** (some young people), **zwei große Hunde** (two big dogs). In the dative it's **-en**: **mit frischen Eiern**, **mit vielen alten Häusern**.",
+          "sl": "Množina brez člena ima **-e**, kot die: **frische Eier** (sveža jajca). Tudi za **viele** (mnogi), **einige** (nekateri), **wenige** (redki) in številom: **viele alte Häuser** (mnoge stare hiše), **einige junge Leute** (nekaj mladih), **zwei große Hunde** (dva velika psa). V dajalniku je **-en**: **mit frischen Eiern**, **mit vielen alten Häusern**.",
+          "it": "Un plurale senza articolo finisce in **-e**, come die: **frische Eier** (uova fresche). Anche dopo **viele** (molti), **einige** (alcuni), **wenige** (pochi) e un numero: **viele alte Häuser** (molte case vecchie), **einige junge Leute** (alcuni giovani), **zwei große Hunde** (due cani grandi). Al dativo è **-en**: **mit frischen Eiern**, **mit vielen alten Häusern**."
+        },
+        "examples": [
+          {
+            "de": "Viele junge Leute fahren nach Villach.",
+            "en": "Many young people go to Villach.",
+            "sl": "Veliko mladih se pelje v Beljak.",
+            "it": "Molti giovani vanno a Villach."
+          },
+          {
+            "de": "Oma Resi backt mit frischen Eiern.",
+            "en": "Grandma Resi bakes with fresh eggs.",
+            "sl": "Babica Resi peče s svežimi jajci.",
+            "it": "Nonna Resi cuoce con uova fresche."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Plural · N, A",
+              "sl": "množina · im., tož.",
+              "en": "plural · nom., acc.",
+              "it": "plurale · nom., acc."
+            },
+            "frische",
+            "frische",
+            "frische"
+          ],
+          [
+            {
+              "de": "Plural · D",
+              "sl": "množina · daj.",
+              "en": "plural · dative",
+              "it": "plurale · dativo"
+            },
+            "mit frischen",
+            "mit frischen",
+            "mit frischen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-null",
+          "prompt": "Auf dem Markt sind heute viele ___ Äpfel. (rot)",
+          "options": [
+            "rote",
+            "roten",
+            "roter"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After viele: -e, as die in the plural**\n- viele rote Äpfel · einige junge Leute · mit vielen roten Äpfeln",
+            "sl": "**Za viele: -e, kot die v množini**\n- viele rote Äpfel · einige junge Leute · mit vielen roten Äpfeln",
+            "it": "**Dopo viele: -e, come die al plurale**\n- viele rote Äpfel · einige junge Leute · mit vielen roten Äpfeln"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "You've said these from the first day. Greetings and wishes are accusatives: **Guten Morgen!** (good morning), **Guten Tag!** (hello), **Schönen Abend!** (have a nice evening), **Vielen Dank!** (many thanks). But **Gute Nacht!** (good night), because it's die Nacht. A letter starts **Lieber Stefan** (dear Stefan) or **Liebe Kathi** (dear Kathi).",
+          "sl": "To govoriš že od prvega dne. Pozdravi in želje so tožilniki: **Guten Morgen!** (dobro jutro), **Guten Tag!** (dober dan), **Schönen Abend!** (lep večer), **Vielen Dank!** (lepa hvala). A **Gute Nacht!** (lahko noč), ker je die Nacht. Pismo se začne z **Lieber Stefan** (dragi Stefan) ali **Liebe Kathi** (draga Kathi).",
+          "it": "Lo dici dal primo giorno. I saluti e gli auguri sono accusativi: **Guten Morgen!** (buongiorno), **Guten Tag!** (salve), **Schönen Abend!** (buona serata), **Vielen Dank!** (grazie mille). Ma **Gute Nacht!** (buonanotte), perché è die Nacht. Una lettera comincia con **Lieber Stefan** (caro Stefan) o **Liebe Kathi** (cara Kathi)."
+        },
+        "examples": [
+          {
+            "de": "Guten Abend, Kathi! Vielen Dank für die Suppe.",
+            "en": "Good evening, Kathi! Many thanks for the soup.",
+            "sl": "Dober večer, Kathi! Lepa hvala za juho.",
+            "it": "Buonasera, Kathi! Grazie mille per la minestra."
+          },
+          {
+            "de": "Liebe Mitzi, schöne Grüße aus Villach!",
+            "en": "Dear Mitzi, best wishes from Villach!",
+            "sl": "Draga Mitzi, lep pozdrav iz Beljaka!",
+            "it": "Cara Mitzi, tanti saluti da Villach!"
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-null",
+          "prompt": "___ Stefan, wie geht es dir? (lieb)",
+          "options": [
+            "Lieber",
+            "Liebe",
+            "Lieben"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A letter to a man: Lieber, as der**\n- Lieber Stefan · Liebe Kathi",
+            "sl": "**Pismo moškemu: Lieber, kot der**\n- Lieber Stefan · Liebe Kathi",
+            "it": "**Una lettera a un uomo: Lieber, come der**\n- Lieber Stefan · Liebe Kathi"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "adjektiv-null-1",
+      "title": {
+        "de": "Ohne Artikel",
+        "en": "With no article",
+        "sl": "Brez člena",
+        "it": "Senza articolo"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adjektiv-null",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "frisch · with no article",
+            "sl": "frisch · brez člena",
+            "it": "frisch · senza articolo"
+          },
+          "columns": [
+            "der Käse",
+            "die Milch",
+            "das Brot"
+          ],
+          "rows": [
+            {
+              "label": "Nominativ · der, die, das",
+              "cells": [
+                "frischer",
+                {
+                  "accept": [
+                    "frische"
+                  ]
+                },
+                {
+                  "accept": [
+                    "frisches"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Akkusativ · den, die, das",
+              "cells": [
+                {
+                  "accept": [
+                    "frischen"
+                  ],
+                  "hint": {
+                    "en": "den → -en",
+                    "sl": "den → -en",
+                    "it": "den → -en"
+                  }
+                },
+                {
+                  "accept": [
+                    "frische"
+                  ]
+                },
+                {
+                  "accept": [
+                    "frisches"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Dativ · dem, der, dem",
+              "cells": [
+                {
+                  "accept": [
+                    "frischem"
+                  ],
+                  "hint": {
+                    "en": "dem → -em",
+                    "sl": "dem → -em",
+                    "it": "dem → -em"
+                  }
+                },
+                {
+                  "accept": [
+                    "frischer"
+                  ],
+                  "hint": {
+                    "en": "der → -er",
+                    "sl": "der → -er",
+                    "it": "der → -er"
+                  }
+                },
+                {
+                  "accept": [
+                    "frischem"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**No article: the adjective takes der's ending**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "sl": "**Brez člena: pridevnik dobi končnico člena**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "it": "**Senza articolo: l'aggettivo prende la desinenza di der**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "adjektiv-null",
+          "instruction": {
+            "en": "Sortiere · Sort: der, die or das?",
+            "sl": "Sortiere · Razvrsti: der, die ali das?",
+            "it": "Sortiere · Ordina: der, die o das?"
+          },
+          "columns": [
+            {
+              "label": "frischer … (der)",
+              "words": [
+                "Käse",
+                "Topfen"
+              ]
+            },
+            {
+              "label": "frische … (die)",
+              "words": [
+                "Milch",
+                "Butter"
+              ]
+            },
+            {
+              "label": "frisches … (das)",
+              "words": [
+                "Brot",
+                "Obst"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The noun's gender picks the ending**\n- der Topfen: frischer · die Butter: frische · das Obst: frisches",
+            "sl": "**Spol samostalnika izbere končnico**\n- der Topfen: frischer · die Butter: frische · das Obst: frisches",
+            "it": "**Il genere del nome sceglie la desinenza**\n- der Topfen: frischer · die Butter: frische · das Obst: frisches"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-null-2",
+      "title": {
+        "de": "Kathis Speisekarte",
+        "en": "Kathi's menu",
+        "sl": "Kathijin jedilni list",
+        "it": "Il menù di Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adjektiv-null",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Heute bei Kathi",
+          "text": "Heute gibt es ___ (heiß) Suppe mit ___ (frisch) Brot. Dann kommen Kasnudeln mit ___ (braun) Butter und ___ (grün) Salat. Dazu trinken wir ___ (kalt) Most oder ___ (heiß) Tee. Zum Schluss bringt Kathi Reindling mit ___ (stark) Kaffee. ___ (gut) Appetit!",
+          "gaps": [
+            {
+              "accept": [
+                "heiße"
+              ],
+              "hint": "die Suppe"
+            },
+            {
+              "accept": [
+                "frischem"
+              ],
+              "hint": "mit dem Brot"
+            },
+            {
+              "accept": [
+                "brauner"
+              ],
+              "hint": "mit der Butter"
+            },
+            {
+              "accept": [
+                "grünem"
+              ],
+              "hint": "und mit dem Salat"
+            },
+            {
+              "accept": [
+                "kalten"
+              ],
+              "hint": "den Most"
+            },
+            {
+              "accept": [
+                "heißen"
+              ],
+              "hint": "den Tee"
+            },
+            {
+              "accept": [
+                "starkem"
+              ],
+              "hint": "mit dem Kaffee"
+            },
+            {
+              "accept": [
+                "Guten"
+              ],
+              "hint": "den Appetit"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "heißes",
+            "frischen",
+            "Gute"
+          ],
+          "translation": {
+            "en": "Today there's hot soup with fresh bread. Then come Kasnudeln with browned butter and green salad. With it we drink cold cider or hot tea. To finish, Kathi brings Reindling with strong coffee. Enjoy your meal!",
+            "sl": "Danes je vroča juha s svežim kruhom. Nato pridejo Kasnudeln z rjavim maslom in zeleno solato. Zraven pijemo hladen mošt ali vroč čaj. Na koncu Kathi prinese Reindling z močno kavo. Dober tek!",
+            "it": "Oggi c'è una minestra calda con pane fresco. Poi arrivano i Kasnudeln con burro rosolato e insalata verde. Con questo beviamo sidro freddo o tè caldo. Alla fine Kathi porta il Reindling con caffè forte. Buon appetito!"
+          },
+          "explain": {
+            "en": "**No article: the adjective takes der's ending**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "sl": "**Brez člena: pridevnik dobi končnico člena**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "it": "**Senza articolo: l'aggettivo prende la desinenza di der**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-null",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Am Abend sagt Kathi zu den Gästen: «___ Nacht!»",
+          "options": [
+            "Gute",
+            "Guten",
+            "Gutes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**die Nacht: Gute**\n- Guten Morgen · Guten Abend · Gute Nacht",
+            "sl": "**die Nacht: Gute**\n- Guten Morgen · Guten Abend · Gute Nacht",
+            "it": "**die Nacht: Gute**\n- Guten Morgen · Guten Abend · Gute Nacht"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-null-3",
+      "title": {
+        "de": "Ohne der, die, das",
+        "en": "Without der, die, das",
+        "sl": "Brez der, die, das",
+        "it": "Senza der, die, das"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adjektiv-null",
+          "instruction": {
+            "en": "Sag es ohne Artikel · Say it with no article",
+            "sl": "Sag es ohne Artikel · Povej brez člena",
+            "it": "Sag es ohne Artikel · Dillo senza articolo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "der frische Topfen",
+              "accept": [
+                "frischer Topfen"
+              ]
+            },
+            {
+              "from": "das kalte Wasser",
+              "accept": [
+                "kaltes Wasser"
+              ]
+            },
+            {
+              "from": "die roten Marillen",
+              "accept": [
+                "rote Marillen"
+              ],
+              "hint": {
+                "en": "a plural",
+                "sl": "množina",
+                "it": "un plurale"
+              }
+            },
+            {
+              "from": "mit dem süßen Honig",
+              "accept": [
+                "mit süßem Honig"
+              ]
+            },
+            {
+              "from": "mit der warmen Milch",
+              "accept": [
+                "mit warmer Milch"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**No article: the adjective takes der's ending**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "sl": "**Brez člena: pridevnik dobi končnico člena**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "it": "**Senza articolo: l'aggettivo prende la desinenza di der**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "adjektiv-null",
+          "instruction": {
+            "en": "Setze das Adjektiv ein · Put the adjective in",
+            "sl": "Setze das Adjektiv ein · Vstavi pridevnik",
+            "it": "Setze das Adjektiv ein · Inserisci l'aggettivo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Oma Resi kauft Paradeiser. (reif)",
+              "accept": [
+                "Oma Resi kauft reife Paradeiser."
+              ]
+            },
+            {
+              "from": "Hier wohnen viele Leute. (jung)",
+              "accept": [
+                "Hier wohnen viele junge Leute."
+              ]
+            },
+            {
+              "from": "Toni trinkt Kaffee mit Milch. (kalt)",
+              "accept": [
+                "Toni trinkt Kaffee mit kalter Milch."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**No article: the adjective takes der's ending**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "sl": "**Brez člena: pridevnik dobi končnico člena**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+            "it": "**Senza articolo: l'aggettivo prende la desinenza di der**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adjektiv-null",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Oma Resi kocht",
+        "text": "Oma Resi kocht ___ (heiß) Erdäpfel. Dazu macht sie ___ (grün) Salat mit ___ (sauer) Rahm. Sie backt auch Kuchen mit ___ (frisch) Eiern. ___ (kalt) Milch steht schon auf dem Tisch. Einige ___ (hungrig) Leute warten schon.",
+        "gaps": [
+          {
+            "accept": [
+              "heiße"
+            ],
+            "hint": "die Erdäpfel: Plural"
+          },
+          {
+            "accept": [
+              "grünen"
+            ],
+            "hint": "den Salat"
+          },
+          {
+            "accept": [
+              "saurem"
+            ],
+            "hint": {
+              "en": "mit dem Rahm; sauer loses an e",
+              "sl": "mit dem Rahm; sauer izgubi e",
+              "it": "mit dem Rahm; sauer perde una e"
+            }
+          },
+          {
+            "accept": [
+              "frischen"
+            ],
+            "hint": "den Eiern"
+          },
+          {
+            "accept": [
+              "Kalte"
+            ],
+            "hint": "die Milch"
+          },
+          {
+            "accept": [
+              "hungrige"
+            ],
+            "hint": "die Leute"
+          }
+        ],
+        "translation": {
+          "en": "Grandma Resi is cooking hot potatoes. With them she makes green salad with sour cream. She's also baking a cake with fresh eggs. Cold milk is already on the table. Some hungry people are already waiting.",
+          "sl": "Babica Resi kuha vroč krompir. Zraven pripravi zeleno solato s kislo smetano. Peče tudi pecivo s svežimi jajci. Hladno mleko je že na mizi. Nekaj lačnih ljudi že čaka.",
+          "it": "Nonna Resi cucina patate calde. Con queste prepara insalata verde con panna acida. Fa anche una torta con uova fresche. Il latte freddo è già in tavola. Alcune persone affamate stanno già aspettando."
+        },
+        "explain": {
+          "en": "**No article: the adjective takes der's ending**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+          "sl": "**Brez člena: pridevnik dobi končnico člena**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+          "it": "**Senza articolo: l'aggettivo prende la desinenza di der**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adjektiv-null",
+        "instruction": {
+          "en": "Sag es ohne Artikel · Say it with no article",
+          "sl": "Sag es ohne Artikel · Povej brez člena",
+          "it": "Sag es ohne Artikel · Dillo senza articolo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "der gute Wein",
+            "accept": [
+              "guter Wein"
+            ]
+          },
+          {
+            "from": "mit dem kalten Most",
+            "accept": [
+              "mit kaltem Most"
+            ]
+          },
+          {
+            "from": "die alten Häuser",
+            "accept": [
+              "alte Häuser"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**No article: the adjective takes der's ending**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+          "sl": "**Brez člena: pridevnik dobi končnico člena**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch",
+          "it": "**Senza articolo: l'aggettivo prende la desinenza di der**\n- frischer Käse · frische Milch · frisches Brot · mit frischem Käse · mit frischer Milch"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-null",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stanko isst Brot mit ___ Honig. (süß)",
+        "options": [
+          "süßem",
+          "süßen",
+          "süßer"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**dem Honig → -em**\n- mit süßem Honig",
+          "sl": "**dem Honig → -em**\n- mit süßem Honig",
+          "it": "**dem Honig → -em**\n- mit süßem Honig"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-null",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "«___ Dank!», sagt Kathi. (viel)",
+        "options": [
+          "Vielen",
+          "Viele",
+          "Vieler"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der Dank in the accusative: -en**\n- Vielen Dank · Guten Morgen",
+          "sl": "**der Dank v tožilniku: -en**\n- Vielen Dank · Guten Morgen",
+          "it": "**der Dank all'accusativo: -en**\n- Vielen Dank · Guten Morgen"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-null",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Im Keller stehen zwei ___ Fässer. (groß)",
+        "options": [
+          "große",
+          "großen",
+          "großes"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**After a number: -e, as die in the plural**\n- zwei große Fässer",
+          "sl": "**Za številom: -e, kot die v množini**\n- zwei große Fässer",
+          "it": "**Dopo un numero: -e, come die al plurale**\n- zwei große Fässer"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: frischen Topfen; braune Butter on Kasnudeln; Reindling with coffee; saurem Rahm; zwei Fässer; each base"
+}
