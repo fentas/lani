@@ -36,9 +36,18 @@ data class Fresh(
      * [MAX_AGE_MS] after the last whole reading (what no version says: a remote town's news, a clock the bridge doesn't
      * count by): then only the reads whose areas moved are read again, when the bridge says its areas.
      */
-    fun within(now: Fresh): Boolean =
-        day == now.day && time == now.time && pair == now.pair && learner == now.learner && culture == now.culture &&
-            now.at - at in 0 until MAX_AGE_MS
+    fun within(now: Fresh): Boolean = unlike(now) == null
+
+    /** Why [now] isn't [within] what this was read for (the first that differs, for the log); null when it is. */
+    fun unlike(now: Fresh): String? = when {
+        day != now.day -> "another day"
+        time != now.time -> "another time of day"
+        pair != now.pair -> "another pair"
+        learner != now.learner -> "another learner"
+        culture != now.culture -> "another culture"
+        now.at - at !in 0 until MAX_AGE_MS -> "ten minutes after the last whole reading"
+        else -> null
+    }
 
     companion object {
         /** The longest everything counts as read while nothing says otherwise: 10 minutes. */

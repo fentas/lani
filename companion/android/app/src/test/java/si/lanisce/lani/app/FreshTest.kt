@@ -1,5 +1,6 @@
 package si.lanisce.lani.app
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -43,5 +44,17 @@ class FreshTest {
         assertFalse("another pair: everything", read.within(moved.copy(pair = LangPair.parse("sl-de")!!)))
         assertFalse("another learner: everything", read.within(moved.copy(learner = Learner.of("Marko", "m"))))
         assertFalse("another culture: everything", read.within(moved.copy(culture = "friuli")))
+    }
+
+    @Test fun `why everything is read again is named, the first that differs`() {
+        val moved = read.copy(version = "v2", at = read.at + 5_000)
+        assertEquals(null, read.unlike(moved))
+        assertEquals("another day", read.unlike(moved.copy(day = day.plusDays(1), culture = "friuli")))
+        assertEquals("another time of day", read.unlike(moved.copy(time = TimeOfDay.EVENING)))
+        assertEquals("another pair", read.unlike(moved.copy(pair = LangPair.parse("sl-de")!!)))
+        assertEquals("another learner", read.unlike(moved.copy(learner = Learner.of("Marko", "m"))))
+        assertEquals("another culture", read.unlike(moved.copy(culture = "friuli")))
+        assertEquals("ten minutes after the last whole reading", read.unlike(moved.copy(at = read.at + Fresh.MAX_AGE_MS)))
+        assertEquals("ten minutes after the last whole reading", read.unlike(moved.copy(at = read.at - 1)))
     }
 }

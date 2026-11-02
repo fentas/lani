@@ -16760,9 +16760,9 @@ def home_return():
 
     requests_log: list[str] = []
 
-    def row(name: str, i: int, seen, watch: tuple[str, ...]):
+    def row(name: str, i: int, seen, watch: tuple[str, ...], moved: str = ""):
         main_watch, (n_req, alloc, n_gc, req_list) = watch[:6], watch[6:]
-        requests_log.append(f"{name} {i + 1}: {n_req} requests, {alloc} MB, {n_gc} collections\n  " + "\n  ".join(req_list.split(", ") if req_list else []))
+        requests_log.append(f"{name} {i + 1}: {n_req} requests, {alloc} MB, {n_gc} collections{'; ' + moved if moved else ''}\n  " + "\n  ".join(req_list.split(", ") if req_list else []))
         fs = frames()
         whole = sorted(f[0] for f in fs); main = sorted(f[1] for f in fs)
         # the frame whose main thread worked longest, its phases (composing, layout, drawing), and all the frames' main parts
@@ -16783,6 +16783,7 @@ def home_return():
         print(f"    {r}")
 
     def reset():
+        said[0] = 0
         adb("logcat", "-c")
         adb("shell", "dumpsys", "gfxinfo", PKG, "reset", check=False)
 
@@ -16793,9 +16794,54 @@ def home_return():
         if left > 0:
             time.sleep(left)
 
+    def snapshot():
+        """What the dev bridge serves now: its areas' versions (GET /changes, as the app asks it) and the stamps of its data
+        copy's files (size, time of change; not the history, the backups, the clips)."""
+        try:
+            areas = api("/changes").get("areas", {})
+        except (OSError, RuntimeError, ValueError):
+            areas = {}
+        files = {}
+        try:
+            root = dev_copy()
+            for p in root.rglob("*"):
+                rel = p.relative_to(root).as_posix()
+                if rel.split("/")[0] in (".git", ".backups") or rel.startswith("app/voice/") or not p.is_file():
+                    continue
+                st = p.stat()
+                files[rel] = (st.st_size, st.st_mtime_ns)
+        except (OSError, AssertionError):
+            pass
+        return areas, files
+
+    def moved_since(a, b) -> str:
+        """Which areas moved from snapshot [a] to [b], and which files changed meanwhile (what moved them)."""
+        if a is None:
+            return "?"
+        (a_areas, a_files), (b_areas, b_files) = a, b
+        areas = [k for k in b_areas if a_areas.get(k) != b_areas[k]]
+        files = sorted(k for k in set(a_files) | set(b_files) if a_files.get(k) != b_files.get(k))
+        return f"areas {', '.join(areas) or 'none'} (files {', '.join(files[:10]) or 'none'}{' …' if len(files) > 10 else ''})"
+
+    last_snap = [None]
+
+    said = [0]  # the app's reading lines reported since the log was last cleared ([reset])
+
+    def readings() -> str:
+        """Home's readings from the node since they were last reported (the app's log, tag LaniRead: what each read and
+        why everything, a reading beside another or stopped part way; none from a build before it)."""
+        lines = [l.split("LaniRead: ", 1)[1].strip() for l in adb("logcat", "-d", "-s", "LaniRead:I", check=False).splitlines() if "LaniRead: " in l]
+        new, said[0] = lines[said[0]:], len(lines)
+        return " / ".join(new) or "none"
+
     def back(name: str, opener, i: int):
         opener()
         time.sleep(2.5 * slow())
+        # what moved under the bridge since the row before (the opening, the app's own writes) and in the Back's window:
+        # which areas Home's reading had to read again, and what moved them (docs/plans/05-built/nav-perf-2.md)
+        s0 = snapshot()
+        before = moved_since(last_snap[0], s0)
+        read_before = readings()
         reset()
         traced = trace_dir and name == "village" and i == 0
         if traced:
@@ -16810,7 +16856,10 @@ def home_return():
             Path(trace_dir).mkdir(parents=True, exist_ok=True)
             adb("pull", "/data/local/tmp/back.trace", str(Path(trace_dir) / "back-village.trace"), check=False)
         w = watched(t0)
-        row(name, i, "yes" if wait_home(8) else "no", w)
+        s1 = snapshot()
+        last_snap[0] = s1
+        row(name, i, "yes" if wait_home(8) else "no", w, f"moved before the key: {before}; in the window: {moved_since(s0, s1)}; "
+            f"Home's readings before the key: {read_before}; in the window: {readings()}")
 
     def open_village():
         village()  # its first-time intro skipped
@@ -16843,6 +16892,7 @@ def home_return():
         row("idle on Home", i, "yes" if wait_home(8) else "no", w)
 
     qa_hook("main:watch")
+    last_snap[0] = snapshot()
     tries = int(os.environ.get("LANI_QA_HOME_TRIES", "3"))
     for i in range(tries):
         idle(i)

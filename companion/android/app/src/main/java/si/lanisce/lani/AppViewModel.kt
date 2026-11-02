@@ -188,7 +188,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     val packs = PacksController(prefs, node, notices, sync)
     val game: GameController = GameController(
         app, viewModelScope, prefs, node, content, notices,
-        canSpeak = { speaker.canSay }, reload = ::reload,
+        canSpeak = { speaker.canSay }, reload = ::reloadLogged,
         saveReviews = { results, minutes, answers -> finishReview(results, minutes, answers = answers, from = si.lanisce.lani.data.ReviewFrom.CHALLENGE) },
         saveWords = packs::saveWords,
         cast = { villagers.all },
@@ -852,7 +852,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * Reads from the node what moved since the last reading ([reload]: after the app's own writes, an event's news, a new
      * connection's or data's everything).
      */
-    fun refresh(): Job = launchSafely { reload() }.also { reloading = it }
+    fun refresh(): Job = launchSafely { reloadLogged() }.also { reloading = it }
 
     /**
      * Home (or the packs) on view again: what moved since the last reading read again, nothing when nothing did ([Fresh],
@@ -860,8 +860,27 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      */
     private fun refreshIfChanged() {
         if (reloading?.isActive == true) return
-        reloading = launchSafely { reload() }
+        reloading = launchSafely { reloadLogged() }
     }
+
+    /**
+     * [reload], said in the log ([READ_TAG]) when it begins beside another reading, or stops part way (nothing is recorded
+     * then: the next reads everything).
+     */
+    private suspend fun reloadLogged() {
+        if (readingsNow++ > 0) android.util.Log.i(READ_TAG, "reading: begins beside another")
+        try {
+            reload()
+        } catch (e: Exception) {
+            android.util.Log.i(READ_TAG, "reading: stopped part way (${e.javaClass.simpleName}), nothing recorded")
+            throw e
+        } finally {
+            readingsNow--
+        }
+    }
+
+    /** How many readings run now ([reloadLogged], on the main thread). */
+    private var readingsNow = 0
 
     /** The reload running now, if any ([shown] doesn't start another beside it). */
     private var reloading: Job? = null
@@ -903,6 +922,14 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         }
         // the areas' versions now, when only what moved is read: each read whose answer said its areas at them is left out
         var at = now?.areas?.takeIf { !whole && it.isNotEmpty() && last != null && last.within(now) }
+        // what this reading reads, and why everything (QA's home-return collects it: docs/plans/05-built/nav-perf-2.md)
+        android.util.Log.i(READ_TAG, if (at != null) "reading: what moved" else "reading: everything (" + when {
+            whole -> "asked for everything"
+            now == null -> "no version from the node"
+            now.areas.isEmpty() -> "no areas from the node"
+            last == null -> "no reading recorded"
+            else -> last.unlike(now) ?: "?"
+        } + ")")
         fun fresh(path: String) = at?.let { b.fresh(path, it) } == true
         // whether anything was read again (the day's audio is planned anew only then)
         var read = at == null
@@ -952,6 +979,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         // there, and the reads before it don't depend on them: the culture's, the family's, the towns', the clips'); read
         // for those at its start, the first Back after setup read everything again
         readFor = now?.copy(pair = L10n.pair, learner = si.lanisce.lani.l10n.Learner.current, culture = si.lanisce.lani.game.culture.VillageCulture.shown.id, at = if (at != null && last != null) last.at else now.at)
+        android.util.Log.i(READ_TAG, "reading: done")
     }
 
     /** The days ahead's audio, from what the app has now (app/DayAudioGather); null before the learner's cards are loaded. */
@@ -2736,6 +2764,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     private companion object {
         /** The back stack in the saved state ([NavStack.saved]). */
         const val NAV_KEY = "nav"
+
+        /** The log's tag of Home's readings from the node ([reload]: what each reads, and why everything). */
+        const val READ_TAG = "LaniRead"
 
         /** How long a visit's first lines wait for the town's people and places to come ([visitAhead]). */
         const val AHEAD_WAIT_MS = 20_000L
