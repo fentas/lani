@@ -108,12 +108,19 @@ internal class BuildingPainter(private val s: SceneCtx) {
      * courses of tiles or shingles ([rows], every other one staggered at the finest), or (the coppi of Friuli's roofs,
      * [channels]) the rounded tiles' channels running down each slope, at every detail.
      */
-    internal class Roof(val back: Int, val front: Int, val edge: Int, val rows: Boolean = true, val stagger: Boolean = false, val channels: Boolean = false)
+    internal class Roof(
+        val back: Int, val front: Int, val edge: Int, val rows: Boolean = true, val stagger: Boolean = false, val channels: Boolean = false,
+        /** Boards running down each slope: their seams closer up (the toplar's plank roof). */
+        val boards: Boolean = false,
+    )
 
     internal fun tiles() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.ROOF_D, rows = false) else Roof(Pal.ROOF_L, Pal.ROOF_D, Col.hex(0x55200F), stagger = true)
     internal fun tilesSideLit() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.ROOF_D, rows = false) else Roof(Pal.ROOF_L, Pal.ROOF_M, Col.hex(0x55200F), stagger = true)
     internal fun shingles() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.SHINGLE_D, rows = false) else Roof(Pal.SHINGLE_L, Pal.SHINGLE_M, Pal.SHINGLE_D, stagger = true)
     internal fun slate() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.SLATE_D, rows = false) else Roof(Pal.SLATE_L, Pal.SLATE_M, Pal.SLATE_D)
+    /** A roof of boards down the slope ([wood]: light, middle, dark), their seams closer up; snow on it in winter. */
+    internal fun planks(wood: IntArray = intArrayOf(Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_X)) =
+        if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, wood[2], rows = false) else Roof(wood[0], wood[1], wood[2], rows = false, boards = true)
 
     /**
      * The building being drawn ([draw]): its windows are dark once everyone in it is asleep ([SceneCtx.darkWindows]), and
@@ -133,6 +140,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     internal fun roofX(x: Float, y: Float, z: Float, w: Float, d: Float, rise: Float, r: Roof, gable: Int) {
         i.gableX(x, y, z, w, d, rise, r.back, r.front, gable, r.edge)
         if (r.channels) { channelsX(x, y, z, w, d, rise, r); return }
+        if (r.boards) { if (fine) boardsX(x, y, z, w, d, rise, r); return }
         if (!fine || !r.rows) return
         val n = (rise * k / 3f).roundToInt().coerceAtLeast(2)
         val backRow = Col.scale(r.back, 0.86f); val frontRow = Col.scale(r.front, 0.84f)
@@ -181,6 +189,19 @@ internal class BuildingPainter(private val s: SceneCtx) {
             i.line(x + u, ym, zr, x + u, y + d, z, frontCh)
             if (finest) i.px(x + u, y + d, z, r.edge)
             u += step
+        }
+        i.line(x, ym, zr, x + w, ym, zr, r.edge)
+    }
+
+    /** The seams between the boards down both slopes of a roof with its ridge along x ([roofX]), a board's width apart. */
+    private fun boardsX(x: Float, y: Float, z: Float, w: Float, d: Float, rise: Float, r: Roof) {
+        val ym = y + d / 2; val zr = z + rise
+        val seamB = Col.scale(r.back, 0.8f); val seamF = Col.scale(r.front, 0.76f)
+        var u = 0.3f
+        while (u < w - 0.05f) {
+            i.line(x + u, ym, zr, x + u, y, z, seamB)
+            i.line(x + u, ym, zr, x + u, y + d, z, seamF)
+            u += 0.3f
         }
         i.line(x, ym, zr, x + w, ym, zr, r.edge)
     }

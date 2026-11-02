@@ -19,6 +19,8 @@ object Pal {
     val SHINGLE_L = Col.hex(0x7C6552); val SHINGLE_M = Col.hex(0x654F3F); val SHINGLE_D = Col.hex(0x4A3A2F)
     val SLATE_L = Col.hex(0x6F7482); val SLATE_M = Col.hex(0x575B68); val SLATE_D = Col.hex(0x40434E)
     val WOOD_L = Col.hex(0xC08850); val WOOD_M = Col.hex(0x9A673A); val WOOD_D = Col.hex(0x6F4527); val WOOD_X = Col.hex(0x4A2D1A)
+    /** Carinthia's larch, weathered silver-grey: the Harpfe's and the Doppelharpfe's in the field and on the map. */
+    val HARPFE_L = Col.hex(0xB4ADA2); val HARPFE_M = Col.hex(0x8E877C); val HARPFE_D = Col.hex(0x625C54); val HARPFE_X = Col.hex(0x423E3A)
     val LOG_L = Col.hex(0xA87444); val LOG_M = Col.hex(0x8A5A32); val LOG_D = Col.hex(0x643F22)
     val STONE_L = Col.hex(0xB8B2A6); val STONE_M = Col.hex(0x96907F); val STONE_D = Col.hex(0x716C62); val STONE_X = Col.hex(0x57534C)
     val CANVAS_L = Col.hex(0xF1E3BA); val CANVAS_M = Col.hex(0xD9C28E); val CANVAS_D = Col.hex(0xB39C6A)
