@@ -66,7 +66,8 @@ That a first evening by a fire is itself a custom isn't claimed, as with Primors
 - https://www.5min.at/kaernten/5202609090530/zehn-tage-ausnahmezustand-das-erwartet-dich-heuer-am-st-veiter-wiesenmarkt/ (the Freyung "Rechtsdenkmal", the opening on the Hauptplatz, about 160 traders from Austria and neighbouring countries)
 - https://www.meinbezirk.at/tag/freyung ("Symbol für freies Handeln und ehrliches Wirtschaften")
 - https://www.visitcarinthia.at/destinations/places/bleiburg/ (Bleiburg's, every September since 1393)
-- https://sv.or.at/fileadmin/user_upload/_Laufwerk_Stadt_SanktVeit/News-Upload/2023/Wiesenmarkt_Pressemappe_2023.pdf (the herald opening the market with the Marktordnung): read only as a search result quoted it; the file has since moved and returned 404 when fetched. Worth a second source.
+- https://kaernten.orf.at/stories/3226306/ (the parade ends on the Hauptplatz, "wo der Herold seine Proklamation verlas")
+- https://sv.or.at/fileadmin/user_upload/_Laufwerk_Stadt_SanktVeit/News-Upload/2023/Wiesenmarkt_Pressemappe_2023.pdf (what he reads, the Marktordnung): read only as a search result quoted it; the file has since moved and returned 404 when fetched. ORF confirms the herald and a proclamation, not that it is the Marktordnung.
 
 **The Stadtfest.** One paper carries it, on the town elevations of the 20th century:
 - https://www.historischerverein-stmk.at/wp-content/uploads/Z_SB26_Alfred-OGRIS-Stadterhebungen-in-K%C3%A4rnten-im-20.-Jahrhundert.pdf (Spittal 1930: bells for an hour, the houses flagged, a torch procession, the banquet; Hermagor: celebrated nine months later, "umso ausgiebiger"; St. Ruprecht: the band's marches; Feldkirchen: the formal session; charters, arms and flags)
@@ -109,5 +110,5 @@ line, "Prost!" or similar, is already voiced), and about 1,300 more for the 32 n
 ## What's left
 
 - Jan's call on the Dorffest's name, and a native check of the list above.
-- A second source for the herald reading the Marktordnung.
+- A second source for what the herald reads being the Marktordnung (ORF says his proclamation).
 - The German grammar book has no B1 or B2 page, so those parties' form turns can name only A2's. When `outlines-2` brings pages, a few B2 wrong choices could name them.
