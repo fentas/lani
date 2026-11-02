@@ -1,0 +1,1036 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "did-you",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🔍",
+  "title": {
+    "en": "Did you go? I didn't.",
+    "de": "Fragen und Verneinung in der Vergangenheit: did, didn't",
+    "sl": "Vprašanja in zanikanje v pretekliku: did, didn't",
+    "it": "Domande e negazione al passato: did, didn't"
+  },
+  "goal": {
+    "sl": "Vprašaš in zanikaš v pretekliku (Did you go? I didn't go.), odgovoriš na kratko (Yes, I did. No, I didn't.) in vprašaš Where did you go?, What did you see?, Who saw it?",
+    "de": "Du fragst und verneinst in der Vergangenheit (Did you go? I didn't go.), antwortest kurz (Yes, I did. No, I didn't.) und fragst Where did you go?, What did you see?, Who saw it?",
+    "it": "Fai domande e dici di no al passato (Did you go? I didn't go.), rispondi in breve (Yes, I did. No, I didn't.) e chiedi Where did you go?, What did you see?, Who saw it?",
+    "en": "You can ask and say no in the past (Did you go? I didn't go.), answer short (Yes, I did. No, I didn't.) and ask Where did you go?, What did you see?, Who saw it?"
+  },
+  "grammar": [
+    "past-simple",
+    "questions-do"
+  ],
+  "words": [
+    "did",
+    "didn't",
+    "where",
+    "what",
+    "when",
+    "who",
+    "happen",
+    "go",
+    "see",
+    "find",
+    "come",
+    "hear",
+    "lose",
+    "stay",
+    "rain",
+    "pay",
+    "bill",
+    "storm",
+    "shop",
+    "lamb",
+    "hat",
+    "fox",
+    "wall",
+    "visit",
+    "tired",
+    "egg"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "kaj",
+          "de": "was",
+          "it": "che cosa",
+          "en": "what"
+        },
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za zanikanje v pretekliku vzameš **didn't** (did not) z osnovno obliko, za vse osebe: **I didn't go.** ({m:Nisem šel|f:Nisem šla}.) **Jack didn't see the fox.** (Jack ni videl lisice.) Preteklik je že v **didn't**. Nikoli *I didn't went*, nikoli *Jack didn't saw*.",
+          "de": "Zum Verneinen in der Vergangenheit nimmst du **didn't** (did not) mit der Grundform, für alle Personen: **I didn't go.** (Ich bin nicht gegangen.) **Jack didn't see the fox.** (Jack hat den Fuchs nicht gesehen.) Die Vergangenheit steckt schon in **didn't**. Nie *I didn't went*, nie *Jack didn't saw*.",
+          "it": "Per dire di no al passato usi **didn't** (did not) con la forma base, per tutte le persone: **I didn't go.** (Non ci sono andat{m:o|f:a}.) **Jack didn't see the fox.** (Jack non ha visto la volpe.) Il passato è già in **didn't**. Mai *I didn't went*, mai *Jack didn't saw*.",
+          "en": "For no in the past, use **didn't** (did not) + the base form, for every person: **I didn't go** (never *I didn't went*). **Jack didn't see the fox** (never *Jack didn't saw*). **didn't** already says it's the past."
+        },
+        "examples": [
+          {
+            "en": "I didn't go to the market.",
+            "sl": "{m:Nisem šel|f:Nisem šla} na tržnico.",
+            "de": "Ich bin nicht auf den Markt gegangen.",
+            "it": "Non sono andat{m:o|f:a} al mercato."
+          },
+          {
+            "en": "Jack didn't see the fox.",
+            "sl": "Jack ni videl lisice.",
+            "de": "Jack hat den Fuchs nicht gesehen.",
+            "it": "Jack non ha visto la volpe."
+          },
+          {
+            "en": "The bus didn't come this morning.",
+            "sl": "Avtobus danes zjutraj ni prišel.",
+            "de": "Der Bus ist heute Morgen nicht gekommen.",
+            "it": "Stamattina l'autobus non è venuto."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "ne",
+              "de": "nein",
+              "it": "no",
+              "en": "no"
+            },
+            {
+              "sl": "didn't + osnovna oblika",
+              "de": "didn't + Grundform",
+              "it": "didn't + forma base",
+              "en": "didn't + base form"
+            },
+            "I didn't go."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "Sam ___ come to the inn last night. (not)",
+          "accept": [
+            "didn't"
+          ],
+          "hint": "did + not",
+          "explain": {
+            "sl": "**didn't za vse osebe**\n- I didn't come · Sam didn't come · they didn't come",
+            "de": "**didn't für alle Personen**\n- I didn't come · Sam didn't come · they didn't come",
+            "it": "**didn't per tutte le persone**\n- I didn't come · Sam didn't come · they didn't come",
+            "en": "**didn't for every person**\n- I didn't come · Sam didn't come · they didn't come"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Enako pri glagolih na -ed: walked → **didn't walk**, rained → **didn't rain**, stopped → **didn't stop**, had → **didn't have**. Končnica **-ed** odpade. Nikoli *didn't walked*: **We didn't stop at the inn.** (Nismo se ustavili v gostilni.)",
+          "de": "Genauso bei den Verben auf -ed: walked → **didn't walk**, rained → **didn't rain**, stopped → **didn't stop**, had → **didn't have**. Das **-ed** fällt weg. Nie *didn't walked*: **We didn't stop at the inn.** (Wir haben beim Gasthaus nicht angehalten.)",
+          "it": "Lo stesso con i verbi in -ed: walked → **didn't walk**, rained → **didn't rain**, stopped → **didn't stop**, had → **didn't have**. La **-ed** cade. Mai *didn't walked*: **We didn't stop at the inn.** (Non ci siamo fermati alla locanda.)",
+          "en": "The same with verbs in -ed: walked → **didn't walk** (never *didn't walked*), rained → **didn't rain**, stopped → **didn't stop**, had → **didn't have**. The **-ed** goes: **We didn't stop at the inn.**"
+        },
+        "examples": [
+          {
+            "en": "It didn't rain yesterday.",
+            "sl": "Včeraj ni deževalo.",
+            "de": "Gestern hat es nicht geregnet.",
+            "it": "Ieri non ha piovuto."
+          },
+          {
+            "en": "Mrs Birkett didn't have time.",
+            "sl": "Gospa Birkett ni imela časa.",
+            "de": "Mrs Birkett hatte keine Zeit.",
+            "it": "La signora Birkett non ha avuto tempo."
+          },
+          {
+            "en": "We didn't stop at the inn.",
+            "sl": "Nismo se ustavili v gostilni.",
+            "de": "Wir haben beim Gasthaus nicht angehalten.",
+            "it": "Non ci siamo fermati alla locanda."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "brez -ed",
+              "de": "ohne -ed",
+              "it": "senza -ed",
+              "en": "no -ed"
+            },
+            "walked → didn't walk",
+            "It didn't rain."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "Arthur didn't ___ the bees this morning.",
+          "options": [
+            "visit",
+            "visited",
+            "visits"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Po didn't osnovna oblika**\n- He visited them. → He didn't visit them.",
+            "de": "**Nach didn't die Grundform**\n- He visited them. → He didn't visit them.",
+            "it": "**Dopo didn't la forma base**\n- He visited them. → He didn't visit them.",
+            "en": "**After didn't, the base form**\n- He visited them. → He didn't visit them."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za vprašanje gre **Did** na začetek, glagol v osnovni obliki: **Did you see the fox?** (Si {m:videl|f:videla} lisico?) Nikoli *Did you saw?* Kratek odgovor ponovi did: **Yes, I did.** **No, I didn't.**",
+          "de": "Für die Frage kommt **Did** nach vorn, das Verb steht in der Grundform: **Did you see the fox?** (Hast du den Fuchs gesehen?) Nie *Did you saw?* Die Kurzantwort wiederholt did: **Yes, I did.** **No, I didn't.**",
+          "it": "Per la domanda **Did** va all'inizio, il verbo è alla forma base: **Did you see the fox?** (Hai visto la volpe?) Mai *Did you saw?* La risposta breve ripete did: **Yes, I did.** **No, I didn't.**",
+          "en": "To ask, **Did** goes first and the verb stays in the base form: **Did you see the fox?** (never *Did you saw?*) The short answer repeats did: **Yes, I did.** **No, I didn't.**"
+        },
+        "examples": [
+          {
+            "en": "Did you see the fox? — Yes, I did.",
+            "sl": "Si {m:videl|f:videla} lisico? — Ja.",
+            "de": "Hast du den Fuchs gesehen? — Ja.",
+            "it": "Hai visto la volpe? — Sì."
+          },
+          {
+            "en": "Did Jack find the lamb? — No, he didn't.",
+            "sl": "Je Jack našel jagnje? — Ne.",
+            "de": "Hat Jack das Lamm gefunden? — Nein.",
+            "it": "Jack ha trovato l'agnello? — No."
+          },
+          {
+            "en": "Did they come by bus? — Yes, they did.",
+            "sl": "So prišli z avtobusom? — Ja.",
+            "de": "Sind sie mit dem Bus gekommen? — Ja.",
+            "it": "Sono venuti in autobus? — Sì."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vprašanje",
+              "de": "Frage",
+              "it": "domanda",
+              "en": "question"
+            },
+            "Did + you + see",
+            "Did you see the fox?"
+          ],
+          [
+            {
+              "sl": "kratko",
+              "de": "kurz",
+              "it": "in breve",
+              "en": "short"
+            },
+            "Yes, I did. No, I didn't.",
+            "Yes, they did."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "___ you go to Keswick yesterday?",
+          "options": [
+            "Did",
+            "Do",
+            "Were"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Včeraj: Did + osnovna oblika**\n- Did you go? · Did she go?",
+            "de": "**Gestern: Did + Grundform**\n- Did you go? · Did she go?",
+            "it": "**Ieri: Did + forma base**\n- Did you go? · Did she go?",
+            "en": "**Yesterday: Did + the base form**\n- Did you go? · Did she go?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Vprašalnica je na začetku, za njo enak red: **Where did you go?** (Kam si {m:šel|f:šla}?) **What did you see?** (Kaj si {m:videl|f:videla}?) **When did the bus leave?** (Kdaj je odpeljal avtobus?) Nikoli *Where you went?*, nikoli *Where did you went?*",
+          "de": "Das Fragewort steht vorn, danach dieselbe Reihenfolge: **Where did you go?** (Wohin bist du gegangen?) **What did you see?** (Was hast du gesehen?) **When did the bus leave?** (Wann ist der Bus abgefahren?) Nie *Where you went?*, nie *Where did you went?*",
+          "it": "La parola interrogativa va all'inizio, poi lo stesso ordine: **Where did you go?** (Dove sei andat{m:o|f:a}?) **What did you see?** (Che cosa hai visto?) **When did the bus leave?** (Quando è partito l'autobus?) Mai *Where you went?*, mai *Where did you went?*",
+          "en": "The question word goes first, then the same order: **Where did you go?** (never *Where did you went?*) **What did you see?** **When did the bus leave?** Never *Where you went?*"
+        },
+        "examples": [
+          {
+            "en": "Where did you go last night?",
+            "sl": "Kam si {m:šel|f:šla} sinoči?",
+            "de": "Wohin bist du gestern Abend gegangen?",
+            "it": "Dove sei andat{m:o|f:a} ieri sera?"
+          },
+          {
+            "en": "What did Granny Maggie make?",
+            "sl": "Kaj je naredila babica Maggie?",
+            "de": "Was hat Oma Maggie gemacht?",
+            "it": "Che cosa ha fatto nonna Maggie?"
+          },
+          {
+            "en": "When did the bus leave?",
+            "sl": "Kdaj je odpeljal avtobus?",
+            "de": "Wann ist der Bus abgefahren?",
+            "it": "Quando è partito l'autobus?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vprašalnica",
+              "de": "Fragewort",
+              "it": "parola interrogativa",
+              "en": "question word"
+            },
+            "Where + did + you + go",
+            "Where did you go?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "Where did you ___ last night? (go)",
+          "accept": [
+            "go"
+          ],
+          "hint": {
+            "sl": "po did osnovna oblika",
+            "de": "nach did die Grundform",
+            "it": "dopo did la forma base",
+            "en": "the base form after did"
+          },
+          "explain": {
+            "sl": "**Vprašalnica + did + osnovna oblika**\n- Where did you go? · What did you see?",
+            "de": "**Fragewort + did + Grundform**\n- Where did you go? · What did you see?",
+            "it": "**Parola interrogativa + did + forma base**\n- Where did you go? · What did you see?",
+            "en": "**Question word + did + the base form**\n- Where did you go? · What did you see?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kadar je **who** ali **what** osebek, did ni: **Who saw Jack?** (Kdo je videl Jacka?) **What happened?** (Kaj se je zgodilo?) Z osebkom pa je: **Who did Jack see?** (Koga je videl Jack?) Kratko: **Granny Maggie did.** Nikoli *Who did saw Jack?*",
+          "de": "Ist **who** oder **what** das Subjekt, gibt es kein did: **Who saw Jack?** (Wer hat Jack gesehen?) **What happened?** (Was ist passiert?) Mit einem anderen Subjekt schon: **Who did Jack see?** (Wen hat Jack gesehen?) Kurz: **Granny Maggie did.** Nie *Who did saw Jack?*",
+          "it": "Se **who** o **what** è il soggetto, niente did: **Who saw Jack?** (Chi ha visto Jack?) **What happened?** (Che cosa è successo?) Con un altro soggetto sì: **Who did Jack see?** (Jack chi ha visto?) In breve: **Granny Maggie did.** Mai *Who did saw Jack?*",
+          "en": "When **who** or **what** is the subject, there is no did: **Who saw Jack?** **What happened?** With another subject there is: **Who did Jack see?** Short: **Granny Maggie did.** Never *Who did saw Jack?*"
+        },
+        "examples": [
+          {
+            "en": "Who made this cake? — Granny Maggie did.",
+            "sl": "Kdo je spekel to torto? — Babica Maggie.",
+            "de": "Wer hat diesen Kuchen gemacht? — Oma Maggie.",
+            "it": "Chi ha fatto questa torta? — Nonna Maggie."
+          },
+          {
+            "en": "Who saw Jack? — I did.",
+            "sl": "Kdo je videl Jacka? — Jaz.",
+            "de": "Wer hat Jack gesehen? — Ich.",
+            "it": "Chi ha visto Jack? — Io."
+          },
+          {
+            "en": "Who did Jack see? — He saw Mr Dixon.",
+            "sl": "Koga je videl Jack? — Videl je gospoda Dixona.",
+            "de": "Wen hat Jack gesehen? — Er hat Mr Dixon gesehen.",
+            "it": "Jack chi ha visto? — Ha visto il signor Dixon."
+          },
+          {
+            "en": "What happened at the inn?",
+            "sl": "Kaj se je zgodilo v gostilni?",
+            "de": "Was ist im Gasthaus passiert?",
+            "it": "Che cosa è successo alla locanda?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "who = osebek",
+              "de": "who = Subjekt",
+              "it": "who = soggetto",
+              "en": "who = subject"
+            },
+            "Who + saw",
+            "Who saw Jack?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "questions-do",
+          "prompt": "___ this cake? — Granny Maggie did.",
+          "options": [
+            "Who made",
+            "Who did made",
+            "Who make"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**who je osebek: brez did, glagol v pretekliku**\n- Who made it? · Who saw it?",
+            "de": "**who ist Subjekt: ohne did, das Verb in der Vergangenheit**\n- Who made it? · Who saw it?",
+            "it": "**who è il soggetto: senza did, il verbo al passato**\n- Who made it? · Who saw it?",
+            "en": "**who is the subject: no did, the verb in the past**\n- Who made it? · Who saw it?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**be** ne potrebuje did: **Were you at the inn?** (Si {m:bil|f:bila} v gostilni?) **It wasn't cold.** (Ni bilo mrzlo.) Za be vzameš was in were, za druge glagole did. **Were you tired?** **Did you walk home?** Nikoli *Did you were there?*, nikoli *It didn't was cold*.",
+          "de": "**be** braucht kein did: **Were you at the inn?** (Warst du im Gasthaus?) **It wasn't cold.** (Es war nicht kalt.) Bei be nimmst du was und were, bei den anderen Verben did. **Were you tired?** **Did you walk home?** Nie *Did you were there?*, nie *It didn't was cold*.",
+          "it": "**be** non vuole did: **Were you at the inn?** (Eri alla locanda?) **It wasn't cold.** (Non faceva freddo.) Con be usi was e were, con gli altri verbi did. **Were you tired?** **Did you walk home?** Mai *Did you were there?*, mai *It didn't was cold*.",
+          "en": "**be** takes no did: **Were you at the inn?** **It wasn't cold.** Use was and were for be, did for other verbs. **Were you tired?** **Did you walk home?** Never *Did you were there?*, never *It didn't was cold*."
+        },
+        "examples": [
+          {
+            "en": "Were you at the inn? — Yes, I was.",
+            "sl": "Si {m:bil|f:bila} v gostilni? — Ja, sem.",
+            "de": "Warst du im Gasthaus? — Ja.",
+            "it": "Eri alla locanda? — Sì."
+          },
+          {
+            "en": "Did you walk home? — No, I didn't.",
+            "sl": "Si {m:šel|f:šla} domov peš? — Ne.",
+            "de": "Bist du zu Fuß nach Hause gegangen? — Nein.",
+            "it": "Sei tornat{m:o|f:a} a casa a piedi? — No."
+          },
+          {
+            "en": "It wasn't cold, and it didn't rain.",
+            "sl": "Ni bilo mrzlo in ni deževalo.",
+            "de": "Es war nicht kalt, und es hat nicht geregnet.",
+            "it": "Non faceva freddo e non ha piovuto."
+          }
+        ],
+        "rows": [
+          [
+            "be",
+            "Were you …? It wasn't …",
+            "Were you at the inn?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "___ you tired last night?",
+          "options": [
+            "Were",
+            "Did",
+            "Was"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**be: Were you …?, brez did**\n- Were you tired? · Did you sleep?",
+            "de": "**be: Were you …?, ohne did**\n- Were you tired? · Did you sleep?",
+            "it": "**be: Were you …?, senza did**\n- Were you tired? · Did you sleep?",
+            "en": "**be: Were you …?, no did**\n- Were you tired? · Did you sleep?"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**Zanikanje: didn't + osnovna oblika: I didn't go.** Vprašanje: **Did you see the fox?** Odgovor: **Yes, I did.** **No, I didn't.** Vprašalnica naprej: **Where did you go?** **What did you see?** Kadar je who osebek, did ni: **Who saw it?** **be** ne potrebuje did: **Were you there?** Nikoli *didn't went*, nikoli *Did you saw?*",
+      "de": "**Verneinung: didn't + Grundform: I didn't go.** Frage: **Did you see the fox?** Antwort: **Yes, I did.** **No, I didn't.** Fragewort vorn: **Where did you go?** **What did you see?** Ist who das Subjekt, kein did: **Who saw it?** **be** braucht kein did: **Were you there?** Nie *didn't went*, nie *Did you saw?*",
+      "it": "**Negazione: didn't + forma base: I didn't go.** Domanda: **Did you see the fox?** Risposta: **Yes, I did.** **No, I didn't.** Parola interrogativa all'inizio: **Where did you go?** **What did you see?** Se who è il soggetto, niente did: **Who saw it?** **be** non vuole did: **Were you there?** Mai *didn't went*, mai *Did you saw?*",
+      "en": "**No: didn't + the base form: I didn't go.** Question: **Did you see the fox?** Answer: **Yes, I did.** **No, I didn't.** Question word first: **Where did you go?** **What did you see?** When who is the subject, no did: **Who saw it?** **be** takes no did: **Were you there?** Never *didn't went*, never *Did you saw?*"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "did-you-1",
+      "title": {
+        "sl": "Ne in vprašanje",
+        "de": "Nein und Frage",
+        "it": "No e domanda",
+        "en": "No and question"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "the past → no, question · preteklik → ne, vprašanje",
+            "de": "the past → no, question · Vergangenheit → nein, Frage",
+            "it": "the past → no, question · passato → no, domanda",
+            "en": "the past → no, question"
+          },
+          "columns": [
+            {
+              "sl": "no · ne",
+              "de": "no · nein",
+              "it": "no · no",
+              "en": "no"
+            },
+            {
+              "sl": "question · vprašanje",
+              "de": "question · Frage",
+              "it": "question · domanda",
+              "en": "question"
+            }
+          ],
+          "rows": [
+            {
+              "label": "you went",
+              "cells": [
+                "You didn't go.",
+                {
+                  "accept": [
+                    "Did you go?"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "she saw it",
+              "cells": [
+                {
+                  "accept": [
+                    "She didn't see it."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Did she see it?"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "they walked",
+              "cells": [
+                {
+                  "accept": [
+                    "They didn't walk."
+                  ]
+                },
+                "Did they walk?"
+              ]
+            },
+            {
+              "label": "he had time",
+              "cells": [
+                {
+                  "accept": [
+                    "He didn't have time."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Did he have time?"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Po didn't in did osnovna oblika**\n- she saw → she didn't see → Did she see?",
+            "de": "**Nach didn't und did die Grundform**\n- she saw → she didn't see → Did she see?",
+            "it": "**Dopo didn't e did la forma base**\n- she saw → she didn't see → Did she see?",
+            "en": "**After didn't and did, the base form**\n- she saw → she didn't see → Did she see?"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Right or wrong? · Prav ali narobe?",
+            "de": "Right or wrong? · Richtig oder falsch?",
+            "it": "Right or wrong? · Giusto o sbagliato?",
+            "en": "Right or wrong?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "right · prav",
+                "de": "right · richtig",
+                "it": "right · giusto",
+                "en": "right"
+              },
+              "words": [
+                "Did you go?",
+                "I didn't see it.",
+                "Who saw it?"
+              ]
+            },
+            {
+              "label": {
+                "sl": "wrong · narobe",
+                "de": "wrong · falsch",
+                "it": "wrong · sbagliato",
+                "en": "wrong"
+              },
+              "words": [
+                "Did you went?",
+                "I didn't saw it.",
+                "Who did saw it?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Did in didn't že povesta preteklik**\n- Did you go? · I didn't see it. · Who saw it?",
+            "de": "**Did und didn't sagen schon die Vergangenheit**\n- Did you go? · I didn't see it. · Who saw it?",
+            "it": "**Did e didn't dicono già il passato**\n- Did you go? · I didn't see it. · Who saw it?",
+            "en": "**Did and didn't already say the past**\n- Did you go? · I didn't see it. · Who saw it?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "did-you-2",
+      "title": {
+        "sl": "Jack in jagnje",
+        "de": "Jack und das Lamm",
+        "it": "Jack e l'agnello",
+        "en": "Jack and the lamb"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "— ___ you find the lamb, Jack? — Yes, I ___. It was behind the wall. — ___ Meg help you? — No, she ___. She ___ (not) like the rain! — And your hat? Where ___ you lose it? — ___ saw it last? Mrs Birkett, I think.",
+          "gaps": [
+            {
+              "accept": [
+                "Did"
+              ]
+            },
+            {
+              "accept": [
+                "did"
+              ],
+              "hint": {
+                "sl": "kratek odgovor",
+                "de": "die Kurzantwort",
+                "it": "la risposta breve",
+                "en": "the short answer"
+              }
+            },
+            {
+              "accept": [
+                "Did"
+              ]
+            },
+            {
+              "accept": [
+                "didn't"
+              ]
+            },
+            {
+              "accept": [
+                "didn't"
+              ]
+            },
+            {
+              "accept": [
+                "did"
+              ]
+            },
+            {
+              "accept": [
+                "Who"
+              ],
+              "hint": {
+                "sl": "kdo?",
+                "de": "wer?",
+                "it": "chi?",
+                "en": "which person?"
+              },
+              "explain": {
+                "sl": "**who je osebek: brez did**\n- Who saw it? · Who made it?",
+                "de": "**who ist Subjekt: ohne did**\n- Who saw it? · Who made it?",
+                "it": "**who è il soggetto: senza did**\n- Who saw it? · Who made it?",
+                "en": "**who is the subject: no did**\n- Who saw it? · Who made it?"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Were",
+            "don't",
+            "went"
+          ],
+          "translation": {
+            "sl": "— Si našel jagnje, Jack? — Ja. Bilo je za zidom. — Ti je Meg pomagala? — Ne. Ni marala dežja! — Pa tvoj klobuk? Kje si ga izgubil? — Kdo ga je zadnji videl? Gospa Birkett, mislim.",
+            "de": "— Hast du das Lamm gefunden, Jack? — Ja. Es war hinter der Mauer. — Hat dir Meg geholfen? — Nein. Sie hat den Regen nicht gemocht! — Und dein Hut? Wo hast du ihn verloren? — Wer hat ihn zuletzt gesehen? Mrs Birkett, glaube ich.",
+            "it": "— Hai trovato l'agnello, Jack? — Sì. Era dietro il muro. — Meg ti ha aiutato? — No. Non le piaceva la pioggia! — E il tuo cappello? Dove l'hai perso? — Chi l'ha visto per ultimo? La signora Birkett, credo.",
+            "en": "— Did you find the lamb, Jack? — Yes, I did. It was behind the wall. — Did Meg help you? — No, she didn't. She didn't like the rain! — And your hat? Where did you lose it? — Who saw it last? Mrs Birkett, I think."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "What ___ Mr Dixon make yesterday?",
+          "options": [
+            "did",
+            "was",
+            "does"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vprašalnica + did + osnovna oblika**\n- What did he make? · Where did he go?",
+            "de": "**Fragewort + did + Grundform**\n- What did he make? · Where did he go?",
+            "it": "**Parola interrogativa + did + forma base**\n- What did he make? · Where did he go?",
+            "en": "**Question word + did + the base form**\n- What did he make? · Where did he go?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Did Poppy ___ the eggs this morning?",
+          "options": [
+            "bring",
+            "brought",
+            "brings"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Po did osnovna oblika**\n- Did she bring them? · She brought them.",
+            "de": "**Nach did die Grundform**\n- Did she bring them? · She brought them.",
+            "it": "**Dopo did la forma base**\n- Did she bring them? · She brought them.",
+            "en": "**After did, the base form**\n- Did she bring them? · She brought them."
+          }
+        }
+      ]
+    },
+    {
+      "id": "did-you-3",
+      "title": {
+        "sl": "Reci ne, vprašaj",
+        "de": "Sag nein, frag",
+        "it": "Di' di no, chiedi",
+        "en": "Say no, ask"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Say no · Povej z ne",
+            "de": "Say no · Sag es verneint",
+            "it": "Say no · Dillo al negativo",
+            "en": "Say no"
+          },
+          "cue": "didn't",
+          "items": [
+            {
+              "from": "Jack went to the inn.",
+              "accept": [
+                "Jack didn't go to the inn."
+              ]
+            },
+            {
+              "from": "We saw the bus.",
+              "accept": [
+                "We didn't see the bus."
+              ]
+            },
+            {
+              "from": "It rained on Monday.",
+              "accept": [
+                "It didn't rain on Monday."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**didn't + osnovna oblika**\n- Jack went. → Jack didn't go.\n- It rained. → It didn't rain.",
+            "de": "**didn't + Grundform**\n- Jack went. → Jack didn't go.\n- It rained. → It didn't rain.",
+            "it": "**didn't + forma base**\n- Jack went. → Jack didn't go.\n- It rained. → It didn't rain.",
+            "en": "**didn't + the base form**\n- Jack went. → Jack didn't go.\n- It rained. → It didn't rain."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "Sam came at eight.",
+              "accept": [
+                "Did Sam come at eight?"
+              ]
+            },
+            {
+              "from": "They stayed at the inn.",
+              "accept": [
+                "Did they stay at the inn?"
+              ]
+            },
+            {
+              "from": "Mr Tyson paid the bill.",
+              "accept": [
+                "Did Mr Tyson pay the bill?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Did na začetek, glagol v osnovni obliki**\n- Sam came. → Did Sam come?",
+            "de": "**Did nach vorn, das Verb in der Grundform**\n- Sam came. → Did Sam come?",
+            "it": "**Did all'inizio, il verbo alla forma base**\n- Sam came. → Did Sam come?",
+            "en": "**Did first, the verb in the base form**\n- Sam came. → Did Sam come?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Ask with the word in brackets · Vprašaj z besedo v oklepaju",
+            "de": "Ask with the word in brackets · Frag mit dem Wort in Klammern",
+            "it": "Ask with the word in brackets · Chiedi con la parola tra parentesi",
+            "en": "Ask with the word in brackets"
+          },
+          "items": [
+            {
+              "from": "Jack went to Keswick. (where)",
+              "accept": [
+                "Where did Jack go?"
+              ]
+            },
+            {
+              "from": "She bought a coat. (what)",
+              "accept": [
+                "What did she buy?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vprašalnica + did + osebek + osnovna oblika**\n- Where did Jack go? · What did she buy?",
+            "de": "**Fragewort + did + Subjekt + Grundform**\n- Where did Jack go? · What did she buy?",
+            "it": "**Parola interrogativa + did + soggetto + forma base**\n- Where did Jack go? · What did she buy?",
+            "en": "**Question word + did + subject + the base form**\n- Where did Jack go? · What did she buy?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "— ___ you sleep well, Mrs Hartley? — No, I ___. — ___ you hear the storm? — Yes! It ___ (not) stop all night. — What ___ you do? — I got up and read a book.",
+        "gaps": [
+          {
+            "accept": [
+              "Did"
+            ]
+          },
+          {
+            "accept": [
+              "didn't"
+            ]
+          },
+          {
+            "accept": [
+              "Did"
+            ]
+          },
+          {
+            "accept": [
+              "didn't"
+            ]
+          },
+          {
+            "accept": [
+              "did"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "— Ste dobro spali, gospa Hartley? — Ne. — Ste slišali nevihto? — Ja! Vso noč ni ponehala. — Kaj ste naredili? — Vstala sem in brala knjigo.",
+          "de": "— Haben Sie gut geschlafen, Mrs Hartley? — Nein. — Haben Sie den Sturm gehört? — Ja! Er hat die ganze Nacht nicht aufgehört. — Was haben Sie gemacht? — Ich bin aufgestanden und habe ein Buch gelesen.",
+          "it": "— Ha dormito bene, signora Hartley? — No. — Ha sentito il temporale? — Sì! Non ha smesso per tutta la notte. — Che cosa ha fatto? — Mi sono alzata e ho letto un libro.",
+          "en": "— Did you sleep well, Mrs Hartley? — No, I didn't. — Did you hear the storm? — Yes! It didn't stop all night. — What did you do? — I got up and read a book."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "questions-do",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ saw the fox? — Jack did.",
+        "options": [
+          "Who",
+          "What",
+          "Did"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Oseba, osebek: Who, brez did**\n- Who saw it? — Jack did.",
+          "de": "**Eine Person als Subjekt: Who, ohne did**\n- Who saw it? — Jack did.",
+          "it": "**Una persona come soggetto: Who, senza did**\n- Who saw it? — Jack did.",
+          "en": "**A person as the subject: Who, no did**\n- Who saw it? — Jack did."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ you at the shop this morning?",
+        "options": [
+          "Were",
+          "Did",
+          "Do"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**be: Were you …?, brez did**\n- Were you there? · Did you go there?",
+          "de": "**be: Were you …?, ohne did**\n- Were you there? · Did you go there?",
+          "it": "**be: Were you …?, senza did**\n- Were you there? · Did you go there?",
+          "en": "**be: Were you …?, no did**\n- Were you there? · Did you go there?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Say no · Povej z ne",
+          "de": "Say no · Sag es verneint",
+          "it": "Say no · Dillo al negativo",
+          "en": "Say no"
+        },
+        "cue": "didn't",
+        "items": [
+          {
+            "from": "She took the bus.",
+            "accept": [
+              "She didn't take the bus."
+            ]
+          },
+          {
+            "from": "We found the key.",
+            "accept": [
+              "We didn't find the key."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**didn't + osnovna oblika**\n- She took it. → She didn't take it.",
+          "de": "**didn't + Grundform**\n- She took it. → She didn't take it.",
+          "it": "**didn't + forma base**\n- She took it. → She didn't take it.",
+          "en": "**didn't + the base form**\n- She took it. → She didn't take it."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "?",
+        "items": [
+          {
+            "from": "You met Old Wilf.",
+            "accept": [
+              "Did you meet Old Wilf?"
+            ]
+          },
+          {
+            "from": "It snowed last night.",
+            "accept": [
+              "Did it snow last night?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Did na začetek, glagol v osnovni obliki**\n- You met him. → Did you meet him?",
+          "de": "**Did nach vorn, das Verb in der Grundform**\n- You met him. → Did you meet him?",
+          "it": "**Did all'inizio, il verbo alla forma base**\n- You met him. → Did you meet him?",
+          "en": "**Did first, the verb in the base form**\n- You met him. → Did you meet him?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Ask with the word in brackets · Vprašaj z besedo v oklepaju",
+          "de": "Ask with the word in brackets · Frag mit dem Wort in Klammern",
+          "it": "Ask with the word in brackets · Chiedi con la parola tra parentesi",
+          "en": "Ask with the word in brackets"
+        },
+        "items": [
+          {
+            "from": "They found the key. (where)",
+            "accept": [
+              "Where did they find the key?"
+            ]
+          },
+          {
+            "from": "Auntie Edna heard the news. (what)",
+            "accept": [
+              "What did Auntie Edna hear?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Vprašalnica + did + osebek + osnovna oblika**\n- Where did they find it? · What did she hear?",
+          "de": "**Fragewort + did + Subjekt + Grundform**\n- Where did they find it? · What did she hear?",
+          "it": "**Parola interrogativa + did + soggetto + forma base**\n- Where did they find it? · What did she hear?",
+          "en": "**Question word + did + subject + the base form**\n- Where did they find it? · What did she hear?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: the short answers, Who saw it?, Who saw it last?, got up and read"
+}
