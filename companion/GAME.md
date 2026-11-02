@@ -754,6 +754,24 @@ srca are rather Gorenjska's, so Primorska's fair sells mandolat as Gorizia's And
 a sprevod (povorka is labelled regional and fading), "Naj živi naše mesto!" after SSKJ's "naj živi". The toasts: "Na
 zdravje!" anywhere, "Živijo!" as one too (accepted beside it), "Bog živi!" a best wish.
 
+**Kärnten's five** (docs/plans/05-built/parties-kaernten.md has the sources, each with its URL), at A1, A2, B1 and B2:
+
+| Age | Kärnten's celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| ⛺ Lager | 🔥 Der erste Abend am Feuer: the first camp by its fire, a Kärntnerlied in several voices, one starting and the others joining in | torches round the fire | the harmonika's waltz | by the fire (Opa Sepp) |
+| 🛖 Weiler | 🌲 Die Firstfeier: the roof frame up, the ridge tree with its ribbons on the ridge, a verse, everyone who worked treated to a meal | the Firstbaum on the newest roof, garlands | the harmonika's waltz | by the fire (Müller Franz) |
+| 🏘️ Dorf | 🪗 Das Dorffest: the Tanzboden on the square, polka and waltz, Kasnudeln and Reindling | garlands, lanterns after dusk, a dance floor with its harmonika player | the harmonika's polka | on the square (Wirtin Kathi) |
+| 🏛️ Markt | 🎪 Der Wiesenmarkt: as St. Veit's and Bleiburg's, the Freyung for free and honest trade, the herald reading the market rules, the Kramer's stalls | stalls along the road, garlands | the market's hand bell, then the harmonika's polka | on the square (Mostbauer Stefan) |
+| 🏰 Stadt | 🎺 Das Stadtfest: a town's elevation as Spittal's and Hermagor's were, the charter, the flags on the houses, the bells, the band and the procession, torches after dark | banners along the road, garlands; the procession marches in | the band's polka and the church bell | on the square (Lehrerin Eva) |
+
+How they were settled: Firstfeier is Austrian for Richtfest, beside Gleichenfeier and Dachgleiche; the ridge tree with ribbons,
+the meal and the verse are from Salzburg and Tyrol, and the sources found for Carinthia say Gleichenfeier, so the name waits for
+a native check. The stolen Firstbaum (Salzburg, Bavaria) and the glass thrown from the roof are left out, not being shown for
+Carinthia. The Kirchtag, the Kufenstechen and the Lindentanz stay the calendar's festivals: a party named so would repeat them
+as if new, a Kirchtag can't come twice a year or before the church is built, and "Dorffest" is the word for what follows the
+Kirchtag in the Gailtal, not a custom of its own. The Freyung is St. Veit's, Bleiburg's market dates from 1393, and the party is
+the opening on the square, as St. Veit's is. A party's toast is "Prost!", "Zum Wohl!" or "Hoch soll sie leben!".
+
 Every curated culture has its own celebration for each age. A pack without one for an age has a gathering: "Praznovanje ·
 The celebration", the decorations and music by the age (`AgeUps.generic`), the village gathering by the fire that evening,
 no dialog. The tutor sees the days in `get_village` (`grown`, `parties`). QA: "ageup:<age>" grows the dev village's copy to
