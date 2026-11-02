@@ -1120,14 +1120,14 @@ private fun lessonUnit(vm: AppViewModel, l: School.Lesson) = vm.school.unit(l.un
 private fun lessonGo(vm: AppViewModel, l: School.Lesson): String {
     val unit = lessonUnit(vm, l) ?: return "▶️ ${bi("common.learn")}"
     val p = vm.game.state?.let { School.progress(it, unit.language, unit.id) }
-    val step: si.lanisce.lani.l10n.Localized = when (val st = School.lessonStep(l, unit, p)) {
-        School.Step.Intro -> si.lanisce.lani.l10n.Localized { si.lanisce.lani.l10n.L10n.text(it, "school.intro") }
-        is School.Step.Sheet -> unit.sheet(st.id)?.let { ws -> si.lanisce.lani.l10n.Localized { lang -> si.lanisce.lani.data.Grammar.text(ws.title, lang.code) } }
-            ?: return "▶️ ${bi("common.learn")}"
-        School.Step.Test -> si.lanisce.lani.l10n.Localized { si.lanisce.lani.l10n.L10n.text(it, "school.test") }
-        School.Step.Done, null -> return "▶️ ${bi("common.learn")}"
+    // as the unit's own button names it (ui/school: each half in its language)
+    val step = when (val st = School.lessonStep(l, unit, p)) {
+        School.Step.Intro -> si.lanisce.lani.ui.school.continueKeyLabel("school.intro")
+        is School.Step.Sheet -> unit.sheet(st.id)?.let { ws -> si.lanisce.lani.ui.school.continueLabel(ws.title) }
+        School.Step.Test -> si.lanisce.lani.ui.school.continueKeyLabel("school.test")
+        School.Step.Done, null -> null
     }
-    return "▶️ ${bi("school.continueStep", "step" to step)}"
+    return "▶️ ${step ?: bi("common.learn")}"
 }
 
 /** "Učiteljica Mojca: Pouk · Lesson: Biti …, 2 prošnji · 2 requests": what the marker over [p] stands for, for TalkBack. */

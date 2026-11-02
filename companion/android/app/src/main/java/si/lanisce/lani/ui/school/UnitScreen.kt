@@ -88,11 +88,11 @@ fun UnitScreen(vm: AppViewModel, id: String) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 TeacherSays(vm, vm.school.teacher(), if (p?.done != null) "school.unitDoneSays" else "school.today", "unit" to si.lanisce.lani.l10n.Localized { l -> Grammar.text(unit.title, l.code) })
                 when (step) {
-                    School.Step.Intro -> BigButton("▶️ ${bi("school.continueStep", "step" to bi("school.intro"))}", color = XpGold, onClick = { vm.startIntro(unit.id) })
+                    School.Step.Intro -> BigButton("▶️ ${continueKeyLabel("school.intro")}", color = XpGold, onClick = { vm.startIntro(unit.id) })
                     is School.Step.Sheet -> unit.sheet(step.id)?.let { ws ->
-                        BigButton("▶️ ${bi("school.continueStep", "step" to ws.titleShown(L10n.pair))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.WORKSHEET, ws.id) })
+                        BigButton("▶️ ${continueLabel(ws.title)}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.WORKSHEET, ws.id) })
                     }
-                    School.Step.Test -> BigButton("🎓 ${bi("school.continueStep", "step" to bi("school.test"))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test") })
+                    School.Step.Test -> BigButton("🎓 ${continueKeyLabel("school.test")}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test") })
                     School.Step.Done -> Text("✅ ${bi("school.unitIsDone")}", style = MaterialTheme.typography.titleMedium, color = AlpineGreen)
                 }
                 // knows it already: the test straight away; passed, the unit is done (tested out)

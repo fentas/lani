@@ -125,7 +125,7 @@ private fun SheetFinish(vm: AppViewModel, unit: CourseUnit, kind: SheetKind, she
             RewardSummary(done.reward, onVillage = vm::openVillage, words = giftWords(vm))
             if (kind == SheetKind.TEST && !done.passed) Text(bi("school.testAgain"), style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
             // the unit done: the next one, suggested
-            if (done.unitDone && next != null && next.id != unit.id) BigButton("★ ${bi("school.nextUnit", "unit" to next.titleShown(L10n.pair))}", color = XpGold, onClick = {
+            if (done.unitDone && next != null && next.id != unit.id) BigButton("★ ${nextUnitLabel(next.title)}", color = XpGold, onClick = {
                 vm.openUnit(next.id)
             })
             // the sheet just done goes with it
