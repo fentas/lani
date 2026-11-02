@@ -81,8 +81,8 @@ The watchtower, the church, the hut, the smithy and the field already matched.
   the round's scratchpad, `ux-map-culture-2/before/` and `after/`.
 - In the app: a village of any culture with its projects finished. QA: `companion/bin/qa-slot --steps map-landmarks` (only
   when named) on a synthetic learner of the culture (`LANI_DEV_DATA` from `make-learner.ts --target sl|it|de|en`,
-  `LANI_CULTURE`, `LANI_QA_PAIR=sl-en`): the village a town in June, the projects finished by QA's hook, each landmark shown
-  closer up (`landmark-<culture>-<id>.png` in `$LANI_QA_MAP_SHOTS`).
+  `LANI_CULTURE`, `LANI_QA_PAIR=sl-en`): the village a town, the projects finished by QA's hook, the maypole standing, each
+  landmark shown closer up (`landmark-<culture>-<id>.png` in `$LANI_QA_MAP_SHOTS`).
 
 ## Tests
 
@@ -94,12 +94,12 @@ RESULTS
 sl|it|de|en`, `LANI_CULTURE`, the phone in sl · en), slot 1, the debug build, 2026-11-02 under a machine's load near 25:
 setup, map-landmarks and the crash check passed in all four. Screenshots in the round's scratchpad,
 `ux-map-culture-2/emulator/` (`landmark-<culture>-<id>.png`, `-town.png`, `-town-closer.png`): nine landmarks finished by QA's
-hook and shown on the map, in June. The map's frame on the emulator's software rendering at detail 2: 100.9 to 107.6 ms in
+hook and shown on the map, in today's November light (so no hay on the racks: the sheets have June). The map's frame on the emulator's software rendering at detail 2: 100.9 to 107.6 ms in
 Primorska, 73.1 to 78.7 in Friuli, 89.6 to 104.9 in Carinthia, 89.6 to 95.8 in the Lake District, within the range of
 map-culture.md's and map-people.md's runs (71 to 227 ms); `MapLooksTest`'s frame budget holds.
 
-The step's camera doesn't come as close as its hook asks when the machine is busy, so the emulator's pictures show each
-landmark among its neighbours; the closer looks are the contact sheets'.
+The step's closer look is 2.5 × the fitted zoom, so each picture shows the landmark among its neighbours; the closest looks
+are the contact sheets'.
 
 ## Tap counts
 

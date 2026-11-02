@@ -214,8 +214,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        people-*.png in $LANI_QA_MAP_SHOTS;
                        "map-landmarks" (only when named) the finished projects' landmarks on the map in the culture's look,
                        on a synthetic learner of any culture (LANI_DEV_DATA, LANI_CULTURE, LANI_QA_PAIR=sl-en): the village
-                       as a town in June with the projects of MAP_LANDMARKS finished, each landmark shown closer up, the town
-                       at rest and closer; also as landmark-*.png in $LANI_QA_MAP_SHOTS;
+                       as a town with the projects of MAP_LANDMARKS finished, each landmark shown closer up, the town at rest
+                       and closer; also as landmark-*.png in $LANI_QA_MAP_SHOTS;
                        "zoom-frames" (only when named) what the map's frames cost on Teo's tablet's screen (2560 × 1600):
                        at night and by day, at the home view, at 1.5 ×, 2.5 × and 3 × the fitted zoom (QA's hook
                        "cam:zoom:<f>"), each at rest and panned, and pinched ("cam:pinch:<s>"): every frame's time and the
@@ -5081,8 +5081,8 @@ def map_landmarks():
     look"; docs/plans/05-built/map-culture-2.md), on the dev bridge's culture (any, Primorska's too: a synthetic learner of
     it, LANI_DEV_DATA from make-learner.ts --target sl|it|de|en, LANI_CULTURE, the phone in sl · en, LANI_QA_PAIR=sl-en):
     the village a town (QA's hook "hearths:mesto"), each of MAP_LANDMARKS finished ("step:<id>/<n+1>") and its landmark
-    shown on the map ("show:project:<id>") closer up ("cam:zoom:2.5") at 11 o'clock in summer ("season:06-20": the
-    maypole stands, hay on the racks), the hayrack (a building) in the town's overview closer ("zoom"). Each also as
+    shown on the map ("show:project:<id>") closer up ("cam:zoom:2.5") at 11 o'clock, the maypole standing whatever the
+    day ("season:06-20"; the picture keeps today's month), the hayrack (a building) in the town's overview closer ("zoom"). Each also as
     landmark-<culture>-<id>.png in $LANI_QA_MAP_SHOTS; the map's render time (tag TownScene) printed."""
     culture = api("/culture").get("id") or "primorska"
     out = Path(os.environ["LANI_QA_MAP_SHOTS"]) if os.environ.get("LANI_QA_MAP_SHOTS") else None
