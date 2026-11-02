@@ -1,0 +1,989 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "mir-dir",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🤝",
+  "title": {
+    "de": "Das gefällt mir, ich helfe dir",
+    "en": "Me, you, him: mir, dir, ihm",
+    "sl": "Meni, tebi, njemu: mir, dir, ihm",
+    "it": "A me, a te, a lui: mir, dir, ihm"
+  },
+  "goal": {
+    "en": "You can say who gets, likes or is helped with a pronoun (Das gefällt mir. Ich helfe dir. Es geht mir gut.): mir, dir, ihm, ihr, uns, euch, ihnen beside mich, dich, ihn.",
+    "sl": "Z zaimkom poveš, kdo kaj dobi, komu je kaj všeč in komu pomagaš (Das gefällt mir. Ich helfe dir. Es geht mir gut.): mir, dir, ihm, ihr, uns, euch, ihnen poleg mich, dich, ihn.",
+    "it": "Con un pronome sai dire chi riceve, a chi piace qualcosa e chi aiuti (Das gefällt mir. Ich helfe dir. Es geht mir gut.): mir, dir, ihm, ihr, uns, euch, ihnen accanto a mich, dich, ihn."
+  },
+  "grammar": [
+    "pronomen-dativ",
+    "dativ",
+    "akkusativ"
+  ],
+  "words": [
+    "mir",
+    "dir",
+    "ihm",
+    "ihr",
+    "uns",
+    "euch",
+    "ihnen",
+    "Ihnen",
+    "mich",
+    "dich",
+    "ihn",
+    "helfen",
+    "danken",
+    "gehören",
+    "gefallen",
+    "schmecken",
+    "glauben",
+    "antworten",
+    "kennen",
+    "suchen",
+    "es geht mir gut",
+    "das tut mir leid",
+    "kalt",
+    "müde",
+    "die Schmiede",
+    "der Keller",
+    "der Teller",
+    "der Ball",
+    "die Eltern",
+    "die Kasnudeln"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Nominativ",
+          "en": "nominative (who?)",
+          "sl": "imenovalnik (kdo?)",
+          "it": "nominativo (chi?)"
+        },
+        {
+          "de": "Akkusativ",
+          "en": "accusative (whom?)",
+          "sl": "tožilnik (koga?)",
+          "it": "accusativo (chi?)"
+        },
+        {
+          "de": "Dativ",
+          "en": "dative (to whom?)",
+          "sl": "dajalnik (komu?)",
+          "it": "dativo (a chi?)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**mir** (to me) and **dir** (to you) are the dative of **ich** and **du**, beside the accusative **mich** and **dich** you know: **Kathi gibt mir die Suppe.** (Kathi gives me the soup.) **Ich gebe dir das Buch.** (I'll give you the book.)",
+          "sl": "**mir** (meni, mi) in **dir** (tebi, ti) sta dajalnik od **ich** in **du**, poleg tožilnika **mich** in **dich**, ki ju poznaš: **Kathi gibt mir die Suppe.** (Kathi mi da juho.) **Ich gebe dir das Buch.** (Dam ti knjigo.)",
+          "it": "**mir** (a me, mi) e **dir** (a te, ti) sono il dativo di **ich** e **du**, accanto all'accusativo **mich** e **dich** che conosci: **Kathi gibt mir die Suppe.** (Kathi mi dà la minestra.) **Ich gebe dir das Buch.** (Ti do il libro.)"
+        },
+        "examples": [
+          {
+            "de": "Kathi gibt mir die Suppe.",
+            "en": "Kathi gives me the soup.",
+            "sl": "Kathi mi da juho.",
+            "it": "Kathi mi dà la minestra."
+          },
+          {
+            "de": "Ich gebe dir das Buch, {learner}.",
+            "en": "I'll give you the book, {learner}.",
+            "sl": "Dam ti knjigo, {learner}.",
+            "it": "Ti do il libro, {learner}."
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "mich",
+            "mir"
+          ],
+          [
+            "du",
+            "dich",
+            "dir"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomen-dativ",
+          "prompt": "Kathi bringt ___ einen Kaffee. (ich)",
+          "options": [
+            "mir",
+            "mich",
+            "ich"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**To whom? To me: mir**\n- Kathi bringt mir einen Kaffee.",
+            "sl": "**Komu? Meni: mir**\n- Kathi bringt mir einen Kaffee.",
+            "it": "**A chi? A me: mir**\n- Kathi bringt mir einen Kaffee."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ihm** (to him), **ihr** (to her), **ihm** (to it): **der Hund → ihm**, **die Katze → ihr**, **das Kind → ihm**. **Florian gibt ihm Wasser.** (Florian gives him water.) **ihm** is one letter from **ihn**: Ich sehe **ihn**, ich gebe **ihm** Wasser.",
+          "sl": "**ihm** (njemu, mu), **ihr** (njej, ji), **ihm** (mu): **der Hund → ihm**, **die Katze → ihr**, **das Kind → ihm**. **Florian gibt ihm Wasser.** (Florian mu da vodo.) **ihm** je črko od **ihn**: Ich sehe **ihn** (vidim ga), ich gebe **ihm** Wasser (dam mu vodo).",
+          "it": "**ihm** (a lui, gli), **ihr** (a lei, le), **ihm** (gli): **der Hund → ihm**, **die Katze → ihr**, **das Kind → ihm**. **Florian gibt ihm Wasser.** (Florian gli dà l'acqua.) **ihm** dista una lettera da **ihn**: Ich sehe **ihn** (lo vedo), ich gebe **ihm** Wasser (gli do l'acqua)."
+        },
+        "examples": [
+          {
+            "de": "Der Hund hat Durst. Florian gibt ihm Wasser.",
+            "en": "The dog is thirsty. Florian gives him water.",
+            "sl": "Pes je žejen. Florian mu da vodo.",
+            "it": "Il cane ha sete. Florian gli dà l'acqua."
+          },
+          {
+            "de": "Kathi ist müde. Stefan bringt ihr einen Kaffee.",
+            "en": "Kathi is tired. Stefan brings her a coffee.",
+            "sl": "Kathi je utrujena. Stefan ji prinese kavo.",
+            "it": "Kathi è stanca. Stefan le porta un caffè."
+          }
+        ],
+        "rows": [
+          [
+            "er",
+            "ihn",
+            "ihm"
+          ],
+          [
+            "sie",
+            "sie",
+            "ihr"
+          ],
+          [
+            "es",
+            "es",
+            "ihm"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "pronomen-dativ",
+          "text": "Die Katze hat Hunger. Lena gibt ___ Milch.",
+          "accept": [
+            "ihr"
+          ],
+          "hint": "die Katze → ?",
+          "explain": {
+            "en": "**die Katze, to her: ihr**\n- Lena gibt ihr Milch.",
+            "sl": "**die Katze, njej: ihr**\n- Lena gibt ihr Milch.",
+            "it": "**die Katze, a lei: ihr**\n- Lena gibt ihr Milch."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**uns** (to us) and **euch** (to you all) are the same in both objects. **ihnen** is to them, and **Ihnen** with a capital the polite you: **Toni zeigt uns die Schmiede.** (Toni shows us the smithy.) **Wie geht es Ihnen?** (How are you?)",
+          "sl": "**uns** (nam, nas) in **euch** (vam, vas) sta pri obeh predmetih enaka. **ihnen** je jim, **Ihnen** z veliko začetnico pa vljudni vam: **Toni zeigt uns die Schmiede.** (Toni nam pokaže kovačnico.) **Wie geht es Ihnen?** (Kako ste?)",
+          "it": "**uns** (ci, a noi) ed **euch** (vi, a voi) sono uguali nei due complementi. **ihnen** è a loro, **Ihnen** con la maiuscola è il Lei: **Toni zeigt uns die Schmiede.** (Toni ci mostra la fucina.) **Wie geht es Ihnen?** (Come sta?)"
+        },
+        "examples": [
+          {
+            "de": "Toni zeigt uns die Schmiede.",
+            "en": "Toni shows us the smithy.",
+            "sl": "Toni nam pokaže kovačnico.",
+            "it": "Toni ci mostra la fucina."
+          },
+          {
+            "de": "Ich bringe euch den Most.",
+            "en": "I'll bring you all the cider.",
+            "sl": "Prinesem vam mošt.",
+            "it": "Vi porto il sidro."
+          },
+          {
+            "de": "Die Kinder haben Hunger. Oma Resi gibt ihnen Brot.",
+            "en": "The children are hungry. Grandma Resi gives them bread.",
+            "sl": "Otroci so lačni. Babica Resi jim da kruh.",
+            "it": "I bambini hanno fame. Nonna Resi dà loro il pane."
+          }
+        ],
+        "rows": [
+          [
+            "wir",
+            "uns",
+            "uns"
+          ],
+          [
+            "ihr",
+            "euch",
+            "euch"
+          ],
+          [
+            "sie",
+            "sie",
+            "ihnen"
+          ],
+          [
+            "Sie",
+            "Sie",
+            "Ihnen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "pronomen-dativ",
+          "text": "Die Schafe haben Durst. Florian gibt ___ Wasser.",
+          "accept": [
+            "ihnen"
+          ],
+          "hint": "die Schafe → ?",
+          "explain": {
+            "en": "**die Schafe, to them: ihnen**\n- Florian gibt ihnen Wasser.",
+            "sl": "**die Schafe, njim: ihnen**\n- Florian gibt ihnen Wasser.",
+            "it": "**die Schafe, a loro: ihnen**\n- Florian gibt ihnen Wasser."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**helfen** (to help), **danken** (to thank), **gehören** (to belong), **gefallen** (to please) and **schmecken** (to taste good) take only a dative: **Ich helfe dir.** (I'll help you.) **Der Hund gehört ihr.** (The dog belongs to her.) **Das Haus gefällt mir.** (I like the house.) What you like is the subject: **Die Schafe gefallen mir.**",
+          "sl": "**helfen** (pomagati), **danken** (zahvaliti se), **gehören** (pripadati), **gefallen** (biti všeč) in **schmecken** (tekniti) imajo samo dajalnik: **Ich helfe dir.** (Pomagam ti.) **Der Hund gehört ihr.** (Pes je njen.) **Das Haus gefällt mir.** (Hiša mi je všeč.) Kar ti je všeč, je osebek: **Die Schafe gefallen mir.**",
+          "it": "**helfen** (aiutare), **danken** (ringraziare), **gehören** (appartenere), **gefallen** (piacere) e **schmecken** (avere buon sapore) vogliono solo il dativo: **Ich helfe dir.** (Ti aiuto.) **Der Hund gehört ihr.** (Il cane è suo.) **Das Haus gefällt mir.** (La casa mi piace.) Ciò che piace è il soggetto: **Die Schafe gefallen mir.**"
+        },
+        "examples": [
+          {
+            "de": "Stefan hilft mir im Keller.",
+            "en": "Stefan helps me in the cellar.",
+            "sl": "Stefan mi pomaga v kleti.",
+            "it": "Stefan mi aiuta in cantina."
+          },
+          {
+            "de": "Die Kasnudeln schmecken uns.",
+            "en": "We like the Kasnudeln.",
+            "sl": "Kasnudeln nam teknejo.",
+            "it": "I Kasnudeln ci piacciono."
+          },
+          {
+            "de": "Ich danke Ihnen, Frau Rossi.",
+            "en": "Thank you, Frau Rossi.",
+            "sl": "Hvala vam, gospa Rossi.",
+            "it": "La ringrazio, signora Rossi."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomen-dativ",
+          "prompt": "Ich helfe ___. (du)",
+          "options": [
+            "dir",
+            "dich",
+            "du"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**helfen takes the dative: dir**\n- Ich helfe dir.",
+            "sl": "**helfen ima dajalnik: dir**\n- Ich helfe dir.",
+            "it": "**helfen vuole il dativo: dir**\n- Ich helfe dir."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Es geht mir gut.** (I'm well.) How someone is goes with the dative: **Wie geht es dir?** (How are you?) **Wie geht es Ihnen?** And **Mir ist kalt.** (I'm cold.) **Das tut mir leid.** (I'm sorry.) Not ich bin kalt.",
+          "sl": "**Es geht mir gut.** (Dobro mi gre.) Kako je komu, se pove z dajalnikom: **Wie geht es dir?** (Kako ti gre?) **Wie geht es Ihnen?** In **Mir ist kalt.** (Mraz mi je.) **Das tut mir leid.** (Žal mi je.) Ne ich bin kalt.",
+          "it": "**Es geht mir gut.** (Sto bene.) Come sta qualcuno si dice col dativo: **Wie geht es dir?** (Come stai?) **Wie geht es Ihnen?** (Come sta?) E **Mir ist kalt.** (Ho freddo.) **Das tut mir leid.** (Mi dispiace.) Non ich habe kalt."
+        },
+        "examples": [
+          {
+            "de": "Wie geht es dir, Tante Mitzi? – Es geht mir gut.",
+            "en": "How are you, Aunt Mitzi? – I'm well.",
+            "sl": "Kako ti gre, teta Mitzi? – Dobro mi gre.",
+            "it": "Come stai, zia Mitzi? – Sto bene."
+          },
+          {
+            "de": "Ist dir kalt, Opa Sepp? – Ja, mir ist kalt.",
+            "en": "Are you cold, Grandpa Sepp? – Yes, I'm cold.",
+            "sl": "Te zebe, dedek Sepp? – Da, mraz mi je.",
+            "it": "Hai freddo, nonno Sepp? – Sì, ho freddo."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomen-dativ",
+          "prompt": "Wie geht es ___? (du)",
+          "options": [
+            "dir",
+            "dich",
+            "du"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wie geht es + dative: dir**\n- Wie geht es dir?",
+            "sl": "**Wie geht es + dajalnik: dir**\n- Wie geht es dir?",
+            "it": "**Wie geht es + dativo: dir**\n- Wie geht es dir?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Mich or mir?** The verb decides: **Ich sehe dich.** (I see you.) **Ich helfe dir.** (I'll help you.) A pronoun comes before a noun: **Kathi bringt ihm die Suppe.** Two pronouns: the accusative first: **Kathi bringt sie ihm.** (Kathi brings it to him.)",
+          "sl": "**Mich ali mir?** Odloči glagol: **Ich sehe dich.** (Vidim te.) **Ich helfe dir.** (Pomagam ti.) Zaimek je pred samostalnikom: **Kathi bringt ihm die Suppe.** Dva zaimka: najprej tožilnik: **Kathi bringt sie ihm.** (Kathi mu jo prinese.)",
+          "it": "**Mich o mir?** Decide il verbo: **Ich sehe dich.** (Ti vedo.) **Ich helfe dir.** (Ti aiuto.) Un pronome viene prima di un nome: **Kathi bringt ihm die Suppe.** Due pronomi: prima l'accusativo: **Kathi bringt sie ihm.** (Kathi gliela porta.)"
+        },
+        "examples": [
+          {
+            "de": "Kathi bringt ihm die Suppe.",
+            "en": "Kathi brings him the soup.",
+            "sl": "Kathi mu prinese juho.",
+            "it": "Kathi gli porta la minestra."
+          },
+          {
+            "de": "Kathi bringt sie ihm.",
+            "en": "Kathi brings it to him.",
+            "sl": "Kathi mu jo prinese.",
+            "it": "Kathi gliela porta."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomen-dativ",
+          "prompt": "Das Buch? Ich gebe ___.",
+          "options": [
+            "es dir",
+            "dir es",
+            "dich es"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Two pronouns: the accusative first**\n- Ich gebe es dir.",
+            "sl": "**Dva zaimka: najprej tožilnik**\n- Ich gebe es dir.",
+            "it": "**Due pronomi: prima l'accusativo**\n- Ich gebe es dir."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Dative: **mir, dir, ihm, ihr, ihm, uns, euch, ihnen, Ihnen**.\n\n**helfen, danken, gehören, gefallen, schmecken** take only the dative: **Ich helfe dir. Das Haus gefällt mir. Die Schafe gefallen mir.**\n\n**Es geht mir gut. Mir ist kalt.**\n\nA pronoun before a noun: **Ich gebe ihm das Buch.** Two pronouns, the accusative first: **Ich gebe es ihm.**",
+      "sl": "Dajalnik: **mir, dir, ihm, ihr, ihm, uns, euch, ihnen, Ihnen**.\n\n**helfen, danken, gehören, gefallen, schmecken** imajo samo dajalnik: **Ich helfe dir. Das Haus gefällt mir. Die Schafe gefallen mir.**\n\n**Es geht mir gut. Mir ist kalt.**\n\nZaimek pred samostalnikom: **Ich gebe ihm das Buch.** Dva zaimka, najprej tožilnik: **Ich gebe es ihm.**",
+      "it": "Dativo: **mir, dir, ihm, ihr, ihm, uns, euch, ihnen, Ihnen**.\n\n**helfen, danken, gehören, gefallen, schmecken** vogliono solo il dativo: **Ich helfe dir. Das Haus gefällt mir. Die Schafe gefallen mir.**\n\n**Es geht mir gut. Mir ist kalt.**\n\nUn pronome prima di un nome: **Ich gebe ihm das Buch.** Due pronomi, prima l'accusativo: **Ich gebe es ihm.**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "mir-dir-1",
+      "title": {
+        "de": "Mich oder mir?",
+        "en": "Mich or mir?",
+        "sl": "Mich ali mir?",
+        "it": "Mich o mir?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "pronomen-dativ",
+          "instruction": {
+            "en": "Ergänze den Dativ · Fill in the dative",
+            "sl": "Ergänze den Dativ · Dopolni dajalnik",
+            "it": "Ergänze den Dativ · Completa con il dativo"
+          },
+          "prompt": {
+            "en": "ich, mich, mir: the pronouns",
+            "sl": "ich, mich, mir: zaimki",
+            "it": "ich, mich, mir: i pronomi"
+          },
+          "columns": [
+            {
+              "en": "Akkusativ · whom?",
+              "sl": "Akkusativ · koga?",
+              "it": "Akkusativ · chi?"
+            },
+            {
+              "en": "Dativ · to whom?",
+              "sl": "Dativ · komu?",
+              "it": "Dativ · a chi?"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "mich",
+                {
+                  "accept": [
+                    "mir"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                "dich",
+                {
+                  "accept": [
+                    "dir"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er",
+              "cells": [
+                "ihn",
+                {
+                  "accept": [
+                    "ihm"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie",
+              "cells": [
+                "sie",
+                {
+                  "accept": [
+                    "ihr"
+                  ],
+                  "hint": {
+                    "en": "she, one person",
+                    "sl": "ona, ena oseba",
+                    "it": "lei, una persona"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "es",
+              "cells": [
+                "es",
+                {
+                  "accept": [
+                    "ihm"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                "uns",
+                {
+                  "accept": [
+                    "uns"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                "euch",
+                {
+                  "accept": [
+                    "euch"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                "sie · Sie",
+                {
+                  "accept": [
+                    "ihnen · Ihnen"
+                  ],
+                  "hint": {
+                    "en": "they, and the polite you",
+                    "sl": "oni, in vljudno vi",
+                    "it": "loro, e il Lei"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**mir, dir, ihm, ihr, ihm, uns, euch, ihnen**",
+            "sl": "**mir, dir, ihm, ihr, ihm, uns, euch, ihnen**",
+            "it": "**mir, dir, ihm, ihr, ihm, uns, euch, ihnen**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "pronomen-dativ",
+          "instruction": {
+            "en": "Ordne die Verben zu: dich oder dir? · Sort the verbs: dich or dir?",
+            "sl": "Ordne die Verben zu: dich oder dir? · Razvrsti glagole: dich ali dir?",
+            "it": "Ordne die Verben zu: dich oder dir? · Metti in ordine i verbi: dich o dir?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Ich … dich · accusative",
+                "sl": "Ich … dich · tožilnik",
+                "it": "Ich … dich · accusativo"
+              },
+              "words": [
+                "sehe",
+                "kenne",
+                "suche",
+                "brauche"
+              ]
+            },
+            {
+              "label": {
+                "en": "Ich … dir · dative",
+                "sl": "Ich … dir · dajalnik",
+                "it": "Ich … dir · dativo"
+              },
+              "words": [
+                "helfe",
+                "danke",
+                "glaube",
+                "antworte"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**helfen, danken, glauben, antworten: the dative**",
+            "sl": "**helfen, danken, glauben, antworten: dajalnik**",
+            "it": "**helfen, danken, glauben, antworten: il dativo**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mir-dir-2",
+      "title": {
+        "de": "In Oma Resis Küche",
+        "en": "In Grandma Resi's kitchen",
+        "sl": "V babičini kuhinji",
+        "it": "Nella cucina di nonna Resi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "pronomen-dativ",
+          "instruction": {
+            "en": "Ergänze das Pronomen · Fill in the pronoun",
+            "sl": "Ergänze das Pronomen · Dopolni zaimek",
+            "it": "Ergänze das Pronomen · Completa con il pronome"
+          },
+          "title": "In Oma Resis Küche",
+          "text": "Oma Resi kocht Kasnudeln. Lena hilft ___ (sie). Opa Sepp kommt in die Küche. Die Kasnudeln schmecken ___ (er) sehr. Oma Resi fragt: „Wie geht es ___ (du), Sepp?“ – „Es geht ___ (ich) gut.“ Dann kommen Maxi und Jakob. „Gehört der Ball ___ (ihr)?“, fragt Lena. „Ja, er gehört ___ (wir)!“ Oma Resi gibt ___ (sie · die Kinder) zwei Teller.",
+          "gaps": [
+            {
+              "accept": [
+                "ihr"
+              ],
+              "hint": {
+                "en": "sie, one person",
+                "sl": "sie, ena oseba",
+                "it": "sie, una persona"
+              }
+            },
+            {
+              "accept": [
+                "ihm"
+              ],
+              "hint": "er → ?"
+            },
+            {
+              "accept": [
+                "dir"
+              ],
+              "hint": "du → ?"
+            },
+            {
+              "accept": [
+                "mir"
+              ],
+              "hint": "ich → ?"
+            },
+            {
+              "accept": [
+                "euch"
+              ],
+              "hint": "ihr → ?"
+            },
+            {
+              "accept": [
+                "uns"
+              ],
+              "hint": "wir → ?"
+            },
+            {
+              "accept": [
+                "ihnen"
+              ],
+              "hint": {
+                "en": "they",
+                "sl": "oni",
+                "it": "loro"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "mich",
+            "ihn",
+            "dich",
+            "ihren"
+          ],
+          "translation": {
+            "en": "Grandma Resi is cooking Kasnudeln. Lena helps her. Grandpa Sepp comes into the kitchen. He likes the Kasnudeln very much. Grandma Resi asks: 'How are you, Sepp?' – 'I'm well.' Then Maxi and Jakob come. 'Does the ball belong to you?' Lena asks. 'Yes, it's ours!' Grandma Resi gives them two plates.",
+            "sl": "Babica Resi kuha Kasnudeln. Lena ji pomaga. Dedek Sepp pride v kuhinjo. Kasnudeln mu zelo teknejo. Babica Resi vpraša: »Kako ti gre, Sepp?« – »Dobro mi gre.« Nato prideta Maxi in Jakob. »Je žoga vajina?« vpraša Lena. »Da, naša je!« Babica Resi jima da dva krožnika.",
+            "it": "Nonna Resi cucina i Kasnudeln. Lena la aiuta. Nonno Sepp entra in cucina. I Kasnudeln gli piacciono molto. Nonna Resi chiede: «Come stai, Sepp?» – «Sto bene.» Poi arrivano Maxi e Jakob. «Il pallone è vostro?» chiede Lena. «Sì, è nostro!» Nonna Resi dà loro due piatti."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomen-dativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kennst du Stefan? – Ja, ich kenne ___.",
+          "options": [
+            "ihn",
+            "ihm",
+            "er"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**kennen takes the accusative: ihn**\n- Ich kenne ihn.",
+            "sl": "**kennen ima tožilnik: ihn**\n- Ich kenne ihn.",
+            "it": "**kennen vuole l'accusativo: ihn**\n- Ich kenne ihn."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomen-dativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": {
+            "en": "Frau Rossi is a guest at the inn, and you don't know her. You ask:",
+            "sl": "Gospa Rossi je gostja v gostilni in je ne poznaš. Vprašaš:",
+            "it": "La signora Rossi è un'ospite dell'osteria e non la conosci. Chiedi:"
+          },
+          "options": [
+            "Wie geht es Ihnen?",
+            "Wie geht es dir?",
+            "Wie geht es euch?"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**To a stranger: Ihnen**",
+            "sl": "**Neznanki: Ihnen**",
+            "it": "**A una sconosciuta: Ihnen**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mir-dir-3",
+      "title": {
+        "de": "Ihm, ihr, ihnen",
+        "en": "Ihm, ihr, ihnen",
+        "sl": "Ihm, ihr, ihnen",
+        "it": "Ihm, ihr, ihnen"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "pronomen-dativ",
+          "instruction": {
+            "en": "Sag es mit einem Pronomen · Say it with a pronoun",
+            "sl": "Sag es mit einem Pronomen · Povej z zaimkom",
+            "it": "Sag es mit einem Pronomen · Dillo con un pronome"
+          },
+          "items": [
+            {
+              "from": "Ich gebe dem Hund Wasser.",
+              "accept": [
+                "Ich gebe ihm Wasser."
+              ],
+              "hint": "dem Hund → ?"
+            },
+            {
+              "from": "Kathi bringt der Frau den Kaffee.",
+              "accept": [
+                "Kathi bringt ihr den Kaffee.",
+                "Sie bringt ihr den Kaffee."
+              ],
+              "hint": "der Frau → ?"
+            },
+            {
+              "from": "Eva zeigt den Kindern das Buch.",
+              "accept": [
+                "Eva zeigt ihnen das Buch.",
+                "Sie zeigt ihnen das Buch."
+              ],
+              "hint": "den Kindern → ?"
+            },
+            {
+              "from": "Stefan hilft dem Kind.",
+              "accept": [
+                "Stefan hilft ihm.",
+                "Er hilft ihm."
+              ],
+              "hint": "dem Kind → ?"
+            },
+            {
+              "from": "Das Haus gefällt meiner Mutter.",
+              "accept": [
+                "Das Haus gefällt ihr.",
+                "Es gefällt ihr."
+              ],
+              "hint": "meiner Mutter → ?"
+            },
+            {
+              "from": "Der Hund gehört Florian.",
+              "accept": [
+                "Der Hund gehört ihm.",
+                "Er gehört ihm."
+              ],
+              "hint": "Florian → ?"
+            }
+          ]
+        },
+        {
+          "type": "transform",
+          "grammar": "pronomen-dativ",
+          "instruction": {
+            "en": "Sag es mit zwei Pronomen · Say it with two pronouns: the thing too",
+            "sl": "Sag es mit zwei Pronomen · Povej z dvema zaimkoma: tudi stvar",
+            "it": "Sag es mit zwei Pronomen · Dillo con due pronomi: anche la cosa"
+          },
+          "items": [
+            {
+              "from": "Ich gebe dir das Buch.",
+              "accept": [
+                "Ich gebe es dir."
+              ],
+              "hint": {
+                "en": "the accusative first",
+                "sl": "najprej tožilnik",
+                "it": "prima l'accusativo"
+              }
+            },
+            {
+              "from": "Kathi bringt ihm die Suppe.",
+              "accept": [
+                "Kathi bringt sie ihm.",
+                "Sie bringt sie ihm."
+              ],
+              "hint": {
+                "en": "the accusative first",
+                "sl": "najprej tožilnik",
+                "it": "prima l'accusativo"
+              }
+            },
+            {
+              "from": "Toni zeigt uns den Hammer.",
+              "accept": [
+                "Toni zeigt ihn uns.",
+                "Er zeigt ihn uns."
+              ],
+              "hint": {
+                "en": "den Hammer → ihn",
+                "sl": "den Hammer → ihn",
+                "it": "den Hammer → ihn"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "pronomen-dativ",
+        "instruction": {
+          "en": "Ergänze das Pronomen · Fill in the pronoun",
+          "sl": "Ergänze das Pronomen · Dopolni zaimek",
+          "it": "Ergänze das Pronomen · Completa con il pronome"
+        },
+        "title": "Auf dem Markt",
+        "text": "Stanko hat heute viel Arbeit. Toni hilft ___ (er). Eine Frau fragt: „Gehört der Honig ___ (Sie)?“ Stanko sagt: „Ja. Schmeckt er ___ (Sie)?“ Dann kommt Kathi. „Wie geht es ___ (du)?“ Sie kauft ein Glas und dankt ___ (er).",
+        "gaps": [
+          {
+            "accept": [
+              "ihm"
+            ]
+          },
+          {
+            "accept": [
+              "Ihnen"
+            ]
+          },
+          {
+            "accept": [
+              "Ihnen"
+            ]
+          },
+          {
+            "accept": [
+              "dir"
+            ]
+          },
+          {
+            "accept": [
+              "ihm"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stanko has a lot of work today. Toni helps him. A woman asks: 'Is the honey yours?' Stanko says: 'Yes. Do you like it?' Then Kathi comes. 'How are you?' She buys a jar and thanks him.",
+          "sl": "Stanko ima danes veliko dela. Toni mu pomaga. Neka gospa vpraša: »Je med vaš?« Stanko reče: »Da. Vam tekne?« Nato pride Kathi. »Kako ti gre?« Kupi kozarec in se mu zahvali.",
+          "it": "Stanko oggi ha molto lavoro. Toni lo aiuta. Una signora chiede: «Il miele è Suo?» Stanko dice: «Sì. Le piace?» Poi arriva Kathi. «Come stai?» Compra un vasetto e lo ringrazia."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "pronomen-dativ",
+        "instruction": {
+          "en": "Ergänze den Dativ · Fill in the dative",
+          "sl": "Ergänze den Dativ · Dopolni dajalnik",
+          "it": "Ergänze den Dativ · Completa con il dativo"
+        },
+        "prompt": {
+          "en": "ich, mich, mir: the pronouns",
+          "sl": "ich, mich, mir: zaimki",
+          "it": "ich, mich, mir: i pronomi"
+        },
+        "columns": [
+          {
+            "en": "Dativ · to whom?",
+            "sl": "Dativ · komu?",
+            "it": "Dativ · a chi?"
+          }
+        ],
+        "rows": [
+          {
+            "label": "du",
+            "cells": [
+              {
+                "accept": [
+                  "dir"
+                ]
+              }
+            ]
+          },
+          {
+            "label": {
+              "en": "sie · she",
+              "sl": "sie · ona",
+              "it": "sie · lei"
+            },
+            "cells": [
+              {
+                "accept": [
+                  "ihr"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "wir",
+            "cells": [
+              {
+                "accept": [
+                  "uns"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "pronomen-dativ",
+        "instruction": {
+          "en": "Sag es mit einem Pronomen · Say it with a pronoun",
+          "sl": "Sag es mit einem Pronomen · Povej z zaimkom",
+          "it": "Sag es mit einem Pronomen · Dillo con un pronome"
+        },
+        "items": [
+          {
+            "from": "Franz gibt dem Pferd Hafer.",
+            "accept": [
+              "Franz gibt ihm Hafer.",
+              "Er gibt ihm Hafer."
+            ]
+          },
+          {
+            "from": "Der Most schmeckt meinen Eltern.",
+            "accept": [
+              "Der Most schmeckt ihnen.",
+              "Er schmeckt ihnen."
+            ]
+          },
+          {
+            "from": "Lena hilft ihrer Oma.",
+            "accept": [
+              "Lena hilft ihr.",
+              "Sie hilft ihr."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomen-dativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich suche ___. (du)",
+        "options": [
+          "dich",
+          "dir",
+          "du"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**suchen takes the accusative: dich**",
+          "sl": "**suchen ima tožilnik: dich**",
+          "it": "**suchen vuole l'accusativo: dich**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomen-dativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Schafe ___ mir.",
+        "options": [
+          "gefallen",
+          "gefällt",
+          "gefalle"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**die Schafe is the subject: gefallen**",
+          "sl": "**die Schafe je osebek: gefallen**",
+          "it": "**die Schafe è il soggetto: gefallen**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Es geht mir gut, Das tut mir leid, Gehört der Ball euch?; the Slovene tekniti for schmecken and vajina in the gap text"
+}
