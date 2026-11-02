@@ -67,7 +67,7 @@ async function common(p: Pair, client: Client) {
   const rules = client.getInstructions() ?? ''
   const guide = await guideOf(client)
   check(`pairs ${tag}: the rules fit and name the pair`, rules.length <= 2048 && rules.includes(`${p.name} learns ${p.targetName} (A1) from ${p.baseName}.`), rules.slice(0, 400))
-  check(`pairs ${tag}: the guide applies the paragraphs to ${p.targetName}, explained in ${p.baseName}`, guide.includes(`apply them to ${p.name} and ${p.targetName},\nand explain in ${p.baseName}.`), guide.slice(0, 600))
+  check(`pairs ${tag}: the guide's paragraphs hold for ${p.targetName}, explained in ${p.baseName}`, guide.includes(`The paragraphs below hold for ${p.name} and ${p.targetName}: explain in ${p.baseName}.`), guide.slice(0, 600))
   const culture = await get('/culture')
   check(`pairs ${tag}: the village is ${p.culture}, in ${p.targetName}`, culture.id === p.culture && culture.language === p.target, culture)
   const lex = await get('/lexicon/status')
