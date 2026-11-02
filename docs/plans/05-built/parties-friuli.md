@@ -23,6 +23,9 @@ Everything here is machine-written (Claude) and marked so in `review`. Nothing h
   fiaccole counts for its card.
 - **The learner's right answers use no tu or Lei.** Whoever is away has their lines said by someone else (`AgeUps.cast`), so a
   right answer that said "Lei" could land on someone the learner says tu to.
+- **Short on the card.** The moment's card shows `about` in two languages, so each is about as long as Primorska's (at most 154
+  characters in Italian, 169 in German). An earlier draft ran to 293 and pushed "Le novità" off the screen.
+- **A turn's question doesn't say what its right answer tests**, as far as it can without reading oddly: "vieni con me?", not "vieni a ballare?".
 - **Tested forms are the pack's own:** a verb as its infinitive, a noun as its singular or plural. Italian has no Wiktionary
   dictionary in the repository, so other forms of a verb (compriamo, comprerei) would neither pass the stem guess nor count
   for the card.
@@ -131,11 +134,11 @@ No credits spent. What a voice build would take (Italian, the culture's voice ca
 
 | | Characters |
 |---|---|
-| What the people say, with their replies, all 20 dialogs | 13,820 |
-| The learner's choices, if those are voiced | 3,820 |
+| What the people say, with their replies, all 20 dialogs | 13,713 |
+| The learner's choices, if those are voiced | 3,812 |
 | The packs' words and examples (some shared words' clips exist) | 1,872 |
 
-By level the people's lines are A1 2,608, A2 3,274, B1 3,718, B2 4,220. Primorska's five at A1 and A2 are 4,996. Jan decides.
+By level the people's lines are A1 2,598, A2 3,272, B1 3,674, B2 4,169. Primorska's five at A1 and A2 are 4,996. Jan decides.
 
 ## What's left
 
