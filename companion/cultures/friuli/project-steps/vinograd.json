@@ -102,7 +102,7 @@
               "choices": [
                 {
                   "it": "Io sto qui e conto!",
-                  "sl": "Jaz bom tukaj in štel!",
+                  "sl": "Jaz ostanem tukaj in štejem!",
                   "en": "I'll stay here and count!",
                   "de": "Ich bleibe hier und zähle!",
                   "ok": true,
@@ -116,7 +116,7 @@
                 },
                 {
                   "it": "Io stai qui e conto!",
-                  "sl": "Jaz bom tukaj in štel!",
+                  "sl": "Jaz ostanem tukaj in štejem!",
                   "en": "I'll stay here and count!",
                   "de": "Ich bleibe hier und zähle!",
                   "grammar": "verbi-irregolari",
@@ -594,7 +594,7 @@
               "who": "davide",
               "face": "curious",
               "it": "Ehi, sai? Io ho perso il conto. E tu, quanti sono?",
-              "sl": "Hej, veš kaj? Izgubil sem račun. Pa ti, koliko jih je?",
+              "sl": "Hej, veš kaj? Ne vem več, koliko jih je. Pa ti, koliko jih imaš?",
               "en": "Hey, you know what? I've lost count. And you, how many are there?",
               "de": "He, weißt du was? Ich habe mich verzählt. Und du, wie viele sind es?"
             },
@@ -2115,7 +2115,7 @@
             {
               "who": "matteo",
               "face": "proud",
-              "it": "Sono di ribolla gialla, l'uva vecchia del Collio. Che bello!",
+              "it": "Sono di ribolla gialla, l'uva antica del Collio. Che bello!",
               "sl": "To je rebula, stara sorta iz Collia. Kako lepo!",
               "en": "They're Ribolla gialla, the old grape of the Collio. How lovely!",
               "de": "Das ist Ribolla Gialla, die alte Traube vom Collio. Wie schön!"
@@ -2187,10 +2187,10 @@
                   },
                   "reply": {
                     "face": "confused",
-                    "it": "Eh? Ehi, ripeti, dai!",
-                    "sl": "Kaj? Hej, ponovi, no!",
-                    "en": "Eh? Hey, say it again, go on!",
-                    "de": "Hm? He, sag's noch mal!"
+                    "it": "Eh? Ripeti, dai!",
+                    "sl": "Kaj? Ponovi, no!",
+                    "en": "Eh? Say it again, go on!",
+                    "de": "Hm? Sag's noch mal!"
                   }
                 }
               ],
@@ -2205,7 +2205,7 @@
             {
               "who": "matteo",
               "face": "curious",
-              "it": "Sono di ribolla gialla, l'uva vecchia del Collio. Di che colore sarà?",
+              "it": "Sono di ribolla gialla, l'uva antica del Collio. Di che colore sarà?",
               "sl": "To je rebula, stara sorta iz Collia. Kakšne barve bo?",
               "en": "They're Ribolla gialla, the old grape of the Collio. What colour will it be?",
               "de": "Das ist Ribolla Gialla, die alte Traube vom Collio. Welche Farbe wird sie haben?"
@@ -2401,7 +2401,7 @@
               "who": "marisa",
               "face": "curious",
               "it": "Per i bambini c'è qualcosa di buono. Cosa vuoi?",
-              "sl": "Za otroke je nekaj dobrega. Kaj bi rad?",
+              "sl": "Za otroke je nekaj dobrega. Kaj bi {m:rad|f:rada}?",
               "en": "There's something nice for the children. What would you like?",
               "de": "Für die Kinder gibt es etwas Gutes. Was möchtest du?"
             },
@@ -2445,7 +2445,7 @@
               "who": "matteo",
               "face": "happy",
               "it": "Il sole scende sul Collio. Che bel rosso!",
-              "sl": "Sonce se spušča nad Collio. Kako lepa rdeča!",
+              "sl": "Sonce se spušča nad Colliem. Kako lepa rdeča!",
               "en": "The sun is going down over the Collio. What a lovely red!",
               "de": "Die Sonne sinkt über dem Collio. Was für ein schönes Rot!"
             },
@@ -2527,7 +2527,7 @@
               "who": "matteo",
               "face": "happy",
               "it": "Buonasera, {learner}! Siediti con noi: il sole scende sopra il Collio.",
-              "sl": "Dober večer, {learner}! Sedi k nam: sonce se spušča nad Collio.",
+              "sl": "Dober večer, {learner}! Sedi k nam: sonce se spušča nad Colliem.",
               "en": "Good evening, {learner}! Sit with us: the sun is going down over the Collio.",
               "de": "Guten Abend, {learner}! Setz dich zu uns: Die Sonne sinkt über dem Collio."
             },
@@ -2562,7 +2562,7 @@
                   "de": "Und gab es auch Kaninchen?",
                   "grammar": "imperfetto",
                   "why": {
-                    "sl": "Za več stvari v pretekliku rečeš c'erano. C'ero pomeni: jaz sem bil tam.",
+                    "sl": "Za več stvari v pretekliku rečeš c'erano. C'ero pomeni: tam sem {m:bil|f:bila}.",
                     "en": "For several things in the past you say c'erano. C'ero means: I was there.",
                     "de": "Für viele Dinge in der Vergangenheit sagst du c'erano. C'ero heißt: Ich war da."
                   },
@@ -2695,7 +2695,7 @@
               "who": "matteo",
               "face": "curious",
               "it": "Si è fatto tardi, ma che sera! Tu resteresti qui tutta la notte?",
-              "sl": "Pozno je že, a kakšen večer! Bi ostal{m:|f:a} tukaj vso noč?",
+              "sl": "Pozno je že, a kakšen večer! Bi {m:ostal|f:ostala} tukaj vso noč?",
               "en": "It's got late, but what an evening! Would you stay here all night?",
               "de": "Es ist spät geworden, aber was für ein Abend! Würdest du die ganze Nacht hierbleiben?"
             },
@@ -2722,14 +2722,14 @@
                   "de": "Wenn ich ein Kissen hätte, würde ich hier schlafen.",
                   "grammar": "periodo-ipotetico",
                   "why": {
-                    "sl": "Pri \"če bi imel\" (se avessi) sodi zraven \"bi spal\": dormirei. Dormirò pomeni \"bom spal\".",
+                    "sl": "Pri \"če bi {m:imel|f:imela}\" (se avessi) sodi zraven \"bi {m:spal|f:spala}\": dormirei. Dormirò pomeni \"bom {m:spal|f:spala}\".",
                     "en": "With \"if I had\" (se avessi) goes \"I would sleep\": dormirei. Dormirò means \"I will sleep\".",
                     "de": "Bei \"wenn ich hätte\" (se avessi) gehört \"ich würde schlafen\" dazu: dormirei. Dormirò heißt \"ich werde schlafen\"."
                   },
                   "reply": {
                     "face": "confused",
                     "it": "Come? Allora dormi o no? Ripeti, con calma.",
-                    "sl": "Kako? Boš spal ali ne? Ponovi, brez naglice.",
+                    "sl": "Kako? Boš {m:spal|f:spala} ali ne? Ponovi, brez naglice.",
                     "en": "What? Will you sleep or not? Say it again, nice and calmly.",
                     "de": "Wie? Schläfst du nun oder nicht? Sag's noch mal, ganz ruhig."
                   }
