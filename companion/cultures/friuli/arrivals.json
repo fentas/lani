@@ -815,6 +815,56 @@
             ] },
             {"who": "self", "it": "Allora ci vediamo in paese. Arrivederci!", "sl": "Potem pa se vidiva v vasi. Na svidenje!", "en": "See you around the village, then. Goodbye!", "de": "Dann sehen wir uns im Dorf. Auf Wiedersehen!"}
           ]
+        },
+        "B1": {
+          "late": {"who": "self", "face": "happy", "it": "Buongiorno! Finalmente! Sono in paese già da qualche giorno, ma non ci siamo ancora {m:presentati|f:{g, select, f {presentate} other {presentati}}}. Io sono {name}.", "sl": "Dober dan! Končno! Že nekaj dni sem v vasi, pa se še nisva {m:predstavila|f:{g, select, f {predstavili} other {predstavila}}}. Sem {name}.", "en": "Good day! At last! I've been in the village for a few days, and we haven't introduced ourselves yet. I'm {name}.", "de": "Guten Tag! Endlich! Ich bin schon ein paar Tage im Dorf, und wir haben uns noch nicht vorgestellt. Ich bin {name}."},
+          "lines": [
+            {"who": "self", "face": "curious", "it": "Buongiorno! Io sono {name}, {g, select, f {la nuova} other {il nuovo}} {role}. Tu devi essere {learner}?", "sl": "Dober dan! Sem {name}, {g, select, f {nova} other {novi}} {role}. Ti si gotovo {learner}?", "en": "Good day! I'm {name}, the new {role}. You must be {learner}?", "de": "Guten Tag! Ich bin {name}, jetzt {role} hier. Du bist bestimmt {learner}?"},
+            {
+              "choices": [
+                {
+                  "it": "Buongiorno! Sì, sono io. Come si trova qui da noi?",
+                  "sl": "Dober dan! Ja, to sem jaz. Kako vam je všeč pri nas?",
+                  "en": "Good day! Yes, that's me. How do you like it here?",
+                  "de": "Guten Tag! Ja, das bin ich. Wie gefällt es Ihnen bei uns?",
+                  "ok": true,
+                  "reply": {"face": "happy", "it": "Benissimo! La gente è gentile e il panorama è stupendo.", "sl": "Zelo! Ljudje so prijazni in razgled je čudovit.", "en": "Very much! The people are kind and the view is wonderful.", "de": "Sehr! Die Leute sind freundlich und die Aussicht ist wunderbar."}
+                },
+                {
+                  "it": "Buongiorno! Sì, sono io. Come ti trovi qui da noi?",
+                  "sl": "Dober dan! Ja, to sem jaz. Kako ti je všeč pri nas? (ti)",
+                  "en": "Good day! Yes, that's me. How do you like it here? (tu)",
+                  "de": "Guten Tag! Ja, das bin ich. Wie gefällt es dir bei uns?",
+                  "why": {"sl": "{first} je odrasla oseba, ki jo šele spoznavaš: reci Lei, si trova, ne ti trovi.", "en": "{first} is a grown-up you've only just met: say Lei, si trova, not ti trovi.", "de": "{first} ist erwachsen und neu für dich: Sag Lei, si trova, nicht ti trovi."},
+                  "reply": {"face": "laugh", "it": "Ti trovi? Beh, noi due facciamo amicizia in fretta!", "sl": "Ti trovi? No, midva se pa hitro spoprijateljiva!", "en": "Ti trovi? Well, we're making friends fast!", "de": "Ti trovi? Na ja, wir zwei freunden uns aber schnell an!"}
+                }
+              ]
+            },
+            {"who": "self", "it": "Prima abitavo in città, dove nessuno conosceva il proprio vicino.", "sl": "Prej sem {g, select, f {živela} other {živel}} v mestu, kjer nihče ni poznal svojega soseda.", "en": "I used to live in town, where nobody knew their neighbour.", "de": "Früher habe ich in der Stadt gewohnt, wo niemand seinen Nachbarn kannte."},
+            {"who": "self", "it": "Quando ho saputo che il paese cercava gente del mio mestiere, non ho esitato a lungo.", "sl": "Ko sem {g, select, f {slišala} other {slišal}}, da v vasi potrebujejo ljudi z mojim poklicem, se nisem dolgo {g, select, f {obotavljala} other {obotavljal}}.", "en": "When I heard that the village needed people with my trade, I didn't hesitate for long.", "de": "Als ich hörte, dass das Dorf Leute mit meinem Beruf braucht, habe ich nicht lange gezögert."},
+            {"who": "self", "face": "thinking", "it": "Spero di trovare qui una casa. E degli amici.", "sl": "{g, select, f {Upam, da bom tu našla dom. In prijatelje.} other {Upam, da bom tu našel dom. In prijatelje.}}", "en": "I hope I'll find a home here. And friends.", "de": "Ich hoffe, ich finde hier ein Zuhause. Und Freunde."},
+            {
+              "choices": [
+                {
+                  "it": "Sono {m:sicuro|f:sicura} che li troverà.",
+                  "sl": "{m:Prepričan|f:Prepričana} sem, da jih boste našli.",
+                  "en": "I'm sure you'll find them.",
+                  "de": "Ich bin sicher, Sie werden welche finden.",
+                  "ok": true,
+                  "reply": {"face": "shy", "it": "Grazie! Credo di averne già {m:trovato uno|f:trovata una}.", "sl": "{g, select, f {Hvala! Enega sem že našla, mislim.} other {Hvala! Enega sem že našel, mislim.}}", "en": "Thank you! I think I've already found one.", "de": "Danke! Einen habe ich, glaube ich, schon gefunden."}
+                },
+                {
+                  "it": "Sono {m:sicuro|f:sicura} che li troverai.",
+                  "sl": "{m:Prepričan|f:Prepričana} sem, da jih boš našel. (ti)",
+                  "en": "I'm sure you'll find them. (tu)",
+                  "de": "Ich bin sicher, du wirst welche finden.",
+                  "why": {"sl": "{first} je odrasla oseba: reci Lei, troverà, ne troverai.", "en": "{first} is a grown-up: say Lei, troverà, not troverai.", "de": "{first} ist erwachsen: Sag Lei, troverà, nicht troverai."},
+                  "reply": {"face": "thinking", "it": "Troverai? Beh, in città nessuno mi dava del tu così presto.", "sl": "Troverai? No, v mestu me nihče ni tako hitro tikal.", "en": "Troverai? Well, in town nobody said tu to me so soon.", "de": "Troverai? Na ja, in der Stadt hat mich niemand so schnell geduzt."}
+                }
+              ]
+            },
+            {"who": "self", "it": "Ci vediamo! Passa a trovarmi, qualche volta, e raccontami tutto del paese.", "sl": "Se vidimo! Pridi me kdaj obiskat, pa mi povej vse o vasi.", "en": "See you! Come and see me some time and tell me all about the village.", "de": "Bis bald! Komm mich doch mal besuchen und erzähl mir alles über das Dorf."}
+          ]
         }
       }
     },
