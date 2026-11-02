@@ -485,6 +485,7 @@ private fun SchoolPart(sc: SchoolStanding, onSchool: () -> Unit, onUnit: (String
                 }
             }
             sc.open && sc.done >= sc.of -> Caption("✅ ${bi("school.allDone")}")
+            sc.preparing -> Caption("📝 ${bi("school.preparingShort")}")
         }
     }
 }

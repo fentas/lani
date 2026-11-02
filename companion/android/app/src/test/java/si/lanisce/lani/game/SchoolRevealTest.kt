@@ -247,6 +247,18 @@ class SchoolRevealTest {
         assertTrue("B2 planned, open", School.preparing(done(village(standing), *ids.toTypedArray()), course((1..18).map { ref("c$it", planned = true) })))
     }
 
+    @Test fun `Home's tile says what the end of the written is, in both languages`() {
+        // preparing
+        assertEquals("📝 Nove ure kmalu · New lessons coming soon", si.lanisce.lani.ui.school.endOfTheWritten(done(village(linden), *a1Done), a1Then("A2" to 0)))
+        // a written level behind the school, and behind its upgrade
+        assertEquals("🔒 A2: zgradi šolo · A2: build the school", si.lanisce.lani.ui.school.endOfTheWritten(done(village(linden), *a1Done), course))
+        val b1 = Course("sl", listOf(CourseLevel("A1", listOf(ref("a1"))), CourseLevel("B1", listOf(ref("c1")))), listOf(unit("a1", "A1"), unit("c1", "B1")).associateBy { it.id })
+        assertEquals("🔒 B1: nadgradi šolo · B1: upgrade the school", si.lanisce.lani.ui.school.endOfTheWritten(done(village(school), "a1"), b1))
+        // the end of a course written to its end
+        val whole = Course("sl", listOf(CourseLevel("A1", listOf(ref("a1")))), mapOf("a1" to unit("a1", "A1")))
+        assertEquals("✅ vse opravljeno · all done", si.lanisce.lani.ui.school.endOfTheWritten(done(village(linden), "a1"), whole))
+    }
+
     @Test fun `past every unit of a course written to its end it is all done, not preparing`() {
         val levels = School.LEVELS
         val ids = levels.flatMap { l -> (1..2).map { "$l-$it" } }

@@ -205,6 +205,12 @@ class ProgressLogicTest {
         assertFalse(grammar(s = GameState(age = Age.OGENJ)).school!!.open)
         // a level the course has no units of yet
         assertNull(grammar(level = "B1").school)
+        // every written unit done, one still planned: the teacher is preparing it
+        assertFalse(sc.preparing)
+        val written = CourseFixture.course.levels.flatMap { it.units }.filter { !it.planned && it.id in CourseFixture.course.units }
+        val past = grammar(s = state.copy(course = state.course!!.copy(units = written.associate { "sl/${it.id}" to UnitProgress(started = "2026-10-13", done = "2026-10-15") }))).school!!
+        assertNull(past.next)
+        assertTrue(past.preparing)
     }
 
     @Test fun `the book's pages of the level, met and secure, the weakest first`() {

@@ -78,6 +78,8 @@ data class SchoolStanding(
     val next: UnitRef?,
     /** The class has begun (the hamlet): before, nothing to open yet. */
     val open: Boolean,
+    /** The teacher is preparing what isn't written yet ([School.preparing]): the rest of these units are to come. */
+    val preparing: Boolean = false,
 )
 
 /** A grammar page met and how well it sits ([stars] 0 to 5, null: not practised yet). */
@@ -212,6 +214,7 @@ object ProgressLogic {
             started = course.playable(lv).filter { progress[it.id] != null && progress[it.id]?.done == null },
             next = School.next(s, course),
             open = School.open(s),
+            preparing = School.preparing(s, course),
         )
     }
 
