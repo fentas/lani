@@ -1,0 +1,2918 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "mestna_ura",
+  "language": "it",
+  "review": "it, sl, en, de: machine-written (Claude), not reviewed by a native speaker",
+  "pack": "progetto-orologio",
+  "steps": [
+    {
+      "scene": "a-scuola",
+      "words": [
+        "quadrante",
+        "largo"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Buongiorno, {learner}! Oggi facciamo i conti per l'orologio del campanile.",
+              "sl": "Dober dan, {learner}! Danes računamo za uro na zvoniku.",
+              "en": "Good morning, {learner}! Today we're doing the sums for the bell tower clock.",
+              "de": "Guten Morgen, {learner}! Heute rechnen wir für die Kirchturmuhr."
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Alla lavagna c'è un cerchio. Che cos'è?",
+              "sl": "Na tabli je krog. Kaj je to?",
+              "en": "There's a circle on the blackboard. What is it?",
+              "de": "An der Tafel ist ein Kreis. Was ist das?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È il quadrante dell'orologio.",
+                  "sl": "To je številčnica ure.",
+                  "en": "It's the clock face.",
+                  "de": "Das ist das Zifferblatt der Uhr.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Esatto. Un cerchio perfetto, con il gesso.",
+                    "sl": "Točno. Popoln krog, s kredo.",
+                    "en": "Exactly. A perfect circle, in chalk.",
+                    "de": "Genau. Ein perfekter Kreis, mit Kreide."
+                  }
+                },
+                {
+                  "it": "È il piatto dell'orologio.",
+                  "sl": "To je krožnik ure.",
+                  "en": "It's the clock's plate.",
+                  "de": "Das ist der Teller der Uhr.",
+                  "why": {
+                    "de": "Von einem Teller isst du. Hier geht es um die runde Fläche, auf der man die Zeit liest.",
+                    "sl": "S krožnika ješ. Tu gre za okroglo ploskev, na kateri bereš čas.",
+                    "en": "You eat from a plate. This is about the round surface you read the time on."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il piatto? E che cosa mangia, l'orologio?",
+                    "sl": "Krožnik? Je ura lačna?",
+                    "en": "The plate? And what does the clock eat?",
+                    "de": "Der Teller? Und was isst die Uhr?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "E quanto sarà, da qui a qui, {learner}?",
+              "sl": "Koliko pa bo od tu do tu, {learner}?",
+              "en": "And how much will it be, from here to here, {learner}?",
+              "de": "Und wie viel wird das sein, von hier bis hier, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È largo due metri.",
+                  "sl": "Široka je dva metra.",
+                  "en": "It's two metres wide.",
+                  "de": "Es ist zwei Meter breit.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Due metri! Lo vedranno tutti, anche da lontano.",
+                    "sl": "Dva metra! Videli jo bodo vsi, tudi od daleč.",
+                    "en": "Two metres! Everyone will see it, even from far away.",
+                    "de": "Zwei Meter! Das sehen alle, auch von weit weg."
+                  }
+                },
+                {
+                  "it": "È dolce due chili.",
+                  "sl": "Sladka je dva kilograma.",
+                  "en": "It's two kilos sweet.",
+                  "de": "Es ist zwei Kilo süß.",
+                  "why": {
+                    "de": "Ein Zifferblatt schmeckt nach nichts, und Kilos wiegen etwas. Hier misst du von einer Seite zur anderen.",
+                    "sl": "Številčnica nima okusa, kilogrami pa merijo težo. Tu meriš od ene strani do druge.",
+                    "en": "A clock face doesn't taste of anything, and kilos measure weight. Here you measure from one side to the other."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dolce? Due chili? Non è mica una torta!",
+                    "sl": "Sladka? Dva kilograma? Saj ni torta!",
+                    "en": "Sweet? Two kilos? It's not a cake!",
+                    "de": "Süß? Zwei Kilo? Das ist doch keine Torte!"
+                  }
+                },
+                {
+                  "it": "È largo dui metri.",
+                  "sl": "Široka je dva metra.",
+                  "en": "It's two metres wide.",
+                  "de": "Es ist zwei Meter breit.",
+                  "grammar": "numeri",
+                  "why": {
+                    "de": "«Zwei» heißt immer gleich, auch vor der Mehrzahl. «Dui» gibt es nicht.",
+                    "sl": "»Dva« je vedno enak, tudi pred množino. »Dui« ne obstaja.",
+                    "en": "«Two» is always the same, even before a plural. There's no «dui»."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Dui? Come, scusa?",
+                    "sl": "Dui? Kako, prosim?",
+                    "en": "Dui? Sorry, what?",
+                    "de": "Dui? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non capisco.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I don't understand.",
+                "de": "Wie bitte? Das verstehe ich nicht."
+              }
+            },
+            {
+              "who": "elena",
+              "it": "Bene. Scriviamo alla lavagna: due metri.",
+              "sl": "Dobro. Napišimo na tablo: dva metra.",
+              "en": "Good. Let's write on the board: two metres.",
+              "de": "Gut. Schreiben wir an die Tafel: zwei Meter."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Stamattina sono salita sul campanile con un metro.",
+              "sl": "Zjutraj sem se z metrom povzpela na zvonik.",
+              "en": "This morning I climbed the bell tower with a tape measure.",
+              "de": "Heute Morgen bin ich mit einem Maßband auf den Glockenturm gestiegen."
+            },
+            {
+              "who": "bepi",
+              "face": "curious",
+              "it": "Che bel cerchio alla lavagna! Che cosa sarà, {learner}?",
+              "sl": "Kakšen lep krog na tabli! Kaj bo to, {learner}?",
+              "en": "What a fine circle on the blackboard! What will it be, {learner}?",
+              "de": "Was für ein schöner Kreis an der Tafel! Was wird das, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sarà il quadrante dell'orologio.",
+                  "sl": "To bo številčnica ure.",
+                  "en": "It'll be the clock face.",
+                  "de": "Das wird das Zifferblatt der Uhr.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, ecco! Chi ha tempo non aspetti tempo.",
+                    "sl": "Aha! Kdor ima čas, naj ne čaka.",
+                    "en": "Ah, I see! If you have time, don't wait for time.",
+                    "de": "Ah, so! Wer Zeit hat, soll nicht warten."
+                  }
+                },
+                {
+                  "it": "Sarà il coperchio dell'orologio.",
+                  "sl": "To bo pokrov ure.",
+                  "en": "It'll be the clock's lid.",
+                  "de": "Das wird der Deckel der Uhr.",
+                  "why": {
+                    "de": "Ein Deckel gehört auf einen Topf. Hier geht es um die runde Fläche, auf der man die Zeit liest.",
+                    "sl": "Pokrov spada na lonec. Tu gre za okroglo ploskev, na kateri bereš čas.",
+                    "en": "A lid belongs on a pot. This is about the round surface you read the time on."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il coperchio? L'orologio bolle, allora?",
+                    "sl": "Pokrov? Ura torej vre?",
+                    "en": "A lid? Is the clock boiling, then?",
+                    "de": "Ein Deckel? Kocht die Uhr denn?"
+                  }
+                },
+                {
+                  "it": "Esserà il quadrante dell'orologio.",
+                  "sl": "To bo številčnica ure.",
+                  "en": "It'll be the clock face.",
+                  "de": "Das wird das Zifferblatt der Uhr.",
+                  "grammar": "futuro",
+                  "why": {
+                    "de": "Essere ist im Futuro unregelmäßig: Der Stamm ist kurz, ohne «ess-».",
+                    "sl": "Essere je v prihodnjiku nepravilen: osnova je kratka, brez »ess-«.",
+                    "en": "Essere is irregular in the future: its stem is short, without «ess-»."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Esserà? Come, scusa?",
+                    "sl": "Esserà? Kako, prosim?",
+                    "en": "Esserà? Sorry, what?",
+                    "de": "Esserà? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Puoi ripetere?",
+                "sl": "Kako? Lahko ponoviš?",
+                "en": "Sorry? Can you say that again?",
+                "de": "Wie bitte? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E quanto sarà, da una parte all'altra?",
+              "sl": "In koliko bo od ene strani do druge?",
+              "en": "And how much will it be, from one side to the other?",
+              "de": "Und wie viel wird es sein, von einer Seite zur anderen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sarà largo due metri.",
+                  "sl": "Široka bo dva metra.",
+                  "en": "It'll be two metres wide.",
+                  "de": "Es wird zwei Meter breit sein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Ho misurato tre volte.",
+                    "sl": "Točno. Trikrat sem izmerila.",
+                    "en": "Exactly. I measured three times.",
+                    "de": "Genau. Ich habe dreimal gemessen."
+                  }
+                },
+                {
+                  "it": "Sarà dolce due chili.",
+                  "sl": "Sladka bo dva kilograma.",
+                  "en": "It'll be two kilos sweet.",
+                  "de": "Es wird zwei Kilo süß sein.",
+                  "why": {
+                    "de": "Eine Uhr ist nicht süß, und Kilos wiegen etwas. Hier misst du von einer Seite zur anderen.",
+                    "sl": "Ura ni sladka, kilogrami pa merijo težo. Tu meriš od ene strani do druge.",
+                    "en": "A clock isn't sweet, and kilos measure weight. Here you measure from one side to the other."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Due chili? Non è mica una torta, {learner}!",
+                    "sl": "Dva kilograma? Saj ni torta, {learner}!",
+                    "en": "Two kilos? It's not a cake, {learner}!",
+                    "de": "Zwei Kilo? Das ist doch keine Torte, {learner}!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Bene. Due metri. Adesso il campanile può aspettare la sua finestra.",
+              "sl": "Dobro. Dva metra. Zdaj zvonik lahko čaka na svoje okno.",
+              "en": "Good. Two metres. Now the tower can wait for its window.",
+              "de": "Gut. Zwei Meter. Jetzt kann der Turm auf sein Fenster warten."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Se l'orologio fosse troppo piccolo, dalla piazza non si leggerebbe niente.",
+              "sl": "Če bi bila ura premajhna, se s trga ne bi nič videlo.",
+              "en": "If the clock were too small, you couldn't read anything from the square.",
+              "de": "Wäre die Uhr zu klein, könnte man vom Platz aus nichts lesen."
+            },
+            {
+              "who": "nives",
+              "face": "thinking",
+              "it": "E se fosse troppo grande, non ci starebbe nel muro.",
+              "sl": "Prevelika pa ne bi šla v zid.",
+              "en": "And if it were too big, it wouldn't fit in the wall.",
+              "de": "Und wäre sie zu groß, würde sie nicht in die Mauer passen."
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "{learner}, quando avremo finito i calcoli, che cosa potremo disegnare?",
+              "sl": "{learner}, ko bomo končali izračune, kaj bomo lahko narisali?",
+              "en": "{learner}, when we've finished the sums, what can we draw?",
+              "de": "{learner}, wenn wir mit dem Rechnen fertig sind, was können wir dann zeichnen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Quando avremo finito, disegneremo il quadrante.",
+                  "sl": "Ko bomo končali, bomo narisali številčnico.",
+                  "en": "When we've finished, we'll draw the clock face.",
+                  "de": "Wenn wir fertig sind, zeichnen wir das Zifferblatt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Prima i conti, poi il gesso.",
+                    "sl": "Točno. Najprej računi, potem kreda.",
+                    "en": "Exactly. First the sums, then the chalk.",
+                    "de": "Genau. Erst die Rechnung, dann die Kreide."
+                  }
+                },
+                {
+                  "it": "Quando avremo finito, disegneremo il castello.",
+                  "sl": "Ko bomo končali, bomo narisali grad.",
+                  "en": "When we've finished, we'll draw the castle.",
+                  "de": "Wenn wir fertig sind, zeichnen wir das Schloss.",
+                  "why": {
+                    "de": "Ein Schloss gehört nicht auf den Glockenturm. Hier geht es um die runde Fläche der Uhr.",
+                    "sl": "Grad ne spada na zvonik. Tu gre za okroglo ploskev ure.",
+                    "en": "A castle doesn't belong on the bell tower. This is about the clock's round surface."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il castello? Bello, ma non va sul campanile!",
+                    "sl": "Grad? Lep je, ampak ne spada na zvonik!",
+                    "en": "The castle? Lovely, but it doesn't go on the tower!",
+                    "de": "Das Schloss? Schön, aber das gehört nicht auf den Turm!"
+                  }
+                },
+                {
+                  "it": "Quando saremo finito, disegneremo il quadrante.",
+                  "sl": "Ko bomo končali, bomo narisali številčnico.",
+                  "en": "When we've finished, we'll draw the clock face.",
+                  "de": "Wenn wir fertig sind, zeichnen wir das Zifferblatt.",
+                  "grammar": "futuro-anteriore",
+                  "why": {
+                    "de": "Finire nimmt hier avere: Das Futuro anteriore bildest du mit dem Futuro von avere und dem Partizip.",
+                    "sl": "Finire ima tu avere: futuro anteriore tvoriš s prihodnjikom od avere in deležnikom.",
+                    "en": "Finire takes avere here: you form the future perfect from the future of avere and the participle."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Saremo finito? Forse lo diresti in un altro modo.",
+                    "sl": "Saremo finito? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "Saremo finito? Perhaps you'd put it another way.",
+                    "de": "Saremo finito? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "E quanto verrà, da una parte all'altra? Mi piacerebbe saperlo.",
+              "sl": "Koliko pa bo od ene strani do druge? Zanima me.",
+              "en": "And how much will it come to, from one side to the other? I'd love to know.",
+              "de": "Und wie viel wird es, von einer Seite zur anderen? Das würde mich interessieren."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Dovrebbe essere largo due metri.",
+                  "sl": "Široka naj bi bila dva metra.",
+                  "en": "It should be two metres wide.",
+                  "de": "Es dürfte zwei Meter breit sein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Due metri! Allora lo vedranno anche dalla strada.",
+                    "sl": "Dva metra! Potem jo bodo videli tudi s ceste.",
+                    "en": "Two metres! Then they'll see it from the road too.",
+                    "de": "Zwei Meter! Dann sieht man sie auch von der Straße."
+                  }
+                },
+                {
+                  "it": "Dovrebbe essere caldo due chili.",
+                  "sl": "Vroča naj bi bila dva kilograma.",
+                  "en": "It should be two kilos hot.",
+                  "de": "Es dürfte zwei Kilo heiß sein.",
+                  "why": {
+                    "de": "Hitze misst man nicht in Kilo. Hier misst du von einer Seite zur anderen.",
+                    "sl": "Vročine se ne meri v kilogramih. Tu meriš od ene strani do druge.",
+                    "en": "You don't measure heat in kilos. Here you measure from one side to the other."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Caldo? E due chili? Che strano orologio!",
+                    "sl": "Vroča? In dva kilograma? Kakšna čudna ura!",
+                    "en": "Hot? And two kilos? What a strange clock!",
+                    "de": "Heiß? Und zwei Kilo? Was für eine seltsame Uhr!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Bene. Basterebbe un solo errore, e tutto sarebbe da rifare.",
+              "sl": "Dobro. Dovolj bi bila ena sama napaka in vse bi bilo treba narediti znova.",
+              "en": "Good. One single mistake would be enough, and it would all have to be done again.",
+              "de": "Gut. Ein einziger Fehler würde genügen, und alles müsste neu gemacht werden."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": [
+        "finestra",
+        "rotondo"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Buongiorno, {learner}! Oggi lavoriamo al campanile.",
+              "sl": "Dober dan, {learner}! Danes delamo na zvoniku.",
+              "en": "Good morning, {learner}! Today we're working on the bell tower.",
+              "de": "Guten Morgen, {learner}! Heute arbeiten wir am Glockenturm."
+            },
+            {
+              "who": "bepi",
+              "it": "Il muro è di mattoni, e dentro è buio. Che cosa serve, {learner}?",
+              "sl": "Zid je iz opeke in notri je temno. Kaj je potrebno, {learner}?",
+              "en": "The wall's brick, and it's dark inside. What's needed, {learner}?",
+              "de": "Die Mauer ist aus Ziegeln, und drinnen ist es dunkel. Was braucht es, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Serve una finestra rotonda.",
+                  "sl": "Potrebno je okroglo okno.",
+                  "en": "A round window's needed.",
+                  "de": "Es braucht ein rundes Fenster.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, ecco! Così ci sta l'orologio.",
+                    "sl": "Aha! Tako bo šla notri ura.",
+                    "en": "Ah, I see! That way the clock will fit.",
+                    "de": "Ah, so! Dann passt die Uhr hinein."
+                  }
+                },
+                {
+                  "it": "Serve una zuppa calda.",
+                  "sl": "Potrebna je topla juha.",
+                  "en": "A hot soup's needed.",
+                  "de": "Es braucht eine warme Suppe.",
+                  "why": {
+                    "de": "Suppe macht satt, aber in der Mauer muss eine Öffnung für die Uhr sein.",
+                    "sl": "Juha nasiti, v zidu pa mora biti odprtina za uro.",
+                    "en": "Soup fills you up, but the wall needs an opening for the clock."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una zuppa? Buona, ma l'orologio non ha fame!",
+                    "sl": "Juha? Dobra, ampak ura ni lačna!",
+                    "en": "A soup? Good, but the clock isn't hungry!",
+                    "de": "Eine Suppe? Lecker, aber die Uhr hat keinen Hunger!"
+                  }
+                },
+                {
+                  "it": "Serve una finestra rotondo.",
+                  "sl": "Potrebno je okroglo okno.",
+                  "en": "A round window's needed.",
+                  "de": "Es braucht ein rundes Fenster.",
+                  "grammar": "aggettivi-accordo",
+                  "why": {
+                    "de": "Finestra ist weiblich. Das Wiewort dahinter muss dazu passen.",
+                    "sl": "Finestra je ženskega spola. Pridevnik za njo se mora ujemati z njo.",
+                    "en": "Finestra is feminine, and the adjective after it has to match."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Rotondo? Come, scusa?",
+                    "sl": "Rotondo? Kako, prosim?",
+                    "en": "Rotondo? Sorry, what?",
+                    "de": "Rotondo? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non capisco.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I don't understand.",
+                "de": "Wie bitte? Das verstehe ich nicht."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Dove la facciamo, {learner}?",
+              "sl": "Kje ga naredimo, {learner}?",
+              "en": "Where shall we make it, {learner}?",
+              "de": "Wo machen wir es, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "La facciamo nel campanile.",
+                  "sl": "Naredimo ga v zvoniku.",
+                  "en": "We make it in the bell tower.",
+                  "de": "Wir machen es im Glockenturm.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. In alto, così si vede da lontano.",
+                    "sl": "Prav. Visoko, da se vidi od daleč.",
+                    "en": "Right. High up, so it can be seen from afar.",
+                    "de": "Richtig. Hoch oben, damit man es von Weitem sieht."
+                  }
+                },
+                {
+                  "it": "La facciamo nel pollaio.",
+                  "sl": "Naredimo ga v kurniku.",
+                  "en": "We make it in the henhouse.",
+                  "de": "Wir machen es im Hühnerstall.",
+                  "why": {
+                    "de": "Im Hühnerstall sehen nur die Hühner die Uhr. Sie soll doch das ganze Dorf sehen.",
+                    "sl": "V kurniku bi uro videle samo kokoši. Videti jo mora vsa vas.",
+                    "en": "In the henhouse only the hens would see the clock. The whole village has to see it."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Nel pollaio? Le galline sono già puntuali!",
+                    "sl": "V kurniku? Kokoši so že točne!",
+                    "en": "In the henhouse? The hens are punctual already!",
+                    "de": "Im Hühnerstall? Die Hühner sind schon pünktlich!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Ecco. La finestra c'è, tonda e scura. Aspetta l'orologio.",
+              "sl": "Tako. Okno je tu, okroglo in temno. Čaka na uro.",
+              "en": "There. The window's there, round and dark. It's waiting for the clock.",
+              "de": "So. Das Fenster ist da, rund und dunkel. Es wartet auf die Uhr.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Ieri ho portato le misure. Oggi apriamo il muro del campanile.",
+              "sl": "Včeraj sem prinesla mere. Danes odpremo zid zvonika.",
+              "en": "Yesterday I brought the measurements. Today we open up the tower wall.",
+              "de": "Gestern habe ich die Maße gebracht. Heute machen wir die Turmmauer auf."
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. Mattoni vecchi, e duri. Che cosa dobbiamo fare nel muro, {learner}?",
+              "sl": "Hm. Stare opeke, in trde. Kaj moramo narediti v zidu, {learner}?",
+              "en": "Hm. Old bricks, and hard. What do we have to make in the wall, {learner}?",
+              "de": "Hm. Alte Ziegel, und hart. Was müssen wir in die Mauer machen, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Dobbiamo fare una finestra rotonda.",
+                  "sl": "Narediti moramo okroglo okno.",
+                  "en": "We have to make a round window.",
+                  "de": "Wir müssen ein rundes Fenster machen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Hm. Rotonda è più difficile. Ma si può.",
+                    "sl": "Hm. Okroglo je težje. Ampak se da.",
+                    "en": "Hm. Round is harder. But it can be done.",
+                    "de": "Hm. Rund ist schwieriger. Aber es geht."
+                  }
+                },
+                {
+                  "it": "Dobbiamo fare una scala gialla.",
+                  "sl": "Narediti moramo rumeno lestev.",
+                  "en": "We have to make a yellow ladder.",
+                  "de": "Wir müssen eine gelbe Leiter machen.",
+                  "why": {
+                    "de": "Durch eine Leiter sieht man keine Uhr. In der Mauer muss eine Öffnung für das Zifferblatt sein.",
+                    "sl": "Skozi lestev se ure ne vidi. V zidu mora biti odprtina za številčnico.",
+                    "en": "You can't see a clock through a ladder. The wall needs an opening for the clock face."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Gialla? E dove la mettiamo, in cucina?",
+                    "sl": "Rumeno? Kam pa jo damo, v kuhinjo?",
+                    "en": "Yellow? And where do we put it, in the kitchen?",
+                    "de": "Gelb? Und wo stellen wir sie hin, in die Küche?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Quanto deve essere, rispetto al quadrante?",
+              "sl": "Kolikšno mora biti v primerjavi s številčnico?",
+              "en": "How big must it be, compared with the clock face?",
+              "de": "Wie groß muss es sein, im Vergleich zum Zifferblatt?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Deve essere più grande del quadrante.",
+                  "sl": "Večje mora biti od številčnice.",
+                  "en": "It must be bigger than the clock face.",
+                  "de": "Es muss größer sein als das Zifferblatt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Di poco, ma di più. Ho misurato.",
+                    "sl": "Točno. Malo, a več. Izmerila sem.",
+                    "en": "Exactly. By a little, but more. I've measured it.",
+                    "de": "Genau. Ein bisschen, aber mehr. Ich habe gemessen."
+                  }
+                },
+                {
+                  "it": "Deve essere più piccola del quadrante.",
+                  "sl": "Manjše mora biti od številčnice.",
+                  "en": "It must be smaller than the clock face.",
+                  "de": "Es muss kleiner sein als das Zifferblatt.",
+                  "why": {
+                    "de": "Das Zifferblatt muss durch die Öffnung passen. Denk daran, wie es dann aussieht.",
+                    "sl": "Številčnica mora iti skozi odprtino. Pomisli, kako bo to videti.",
+                    "en": "The clock face has to fit through the opening. Think how that would look."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Più piccola? Allora l'orologio resta fuori!",
+                    "sl": "Manjše? Potem ura ostane zunaj!",
+                    "en": "Smaller? Then the clock stays outside!",
+                    "de": "Kleiner? Dann bleibt die Uhr draußen!"
+                  }
+                },
+                {
+                  "it": "Deve essere più grande che il quadrante.",
+                  "sl": "Večje mora biti od številčnice.",
+                  "en": "It must be bigger than the clock face.",
+                  "de": "Es muss größer sein als das Zifferblatt.",
+                  "grammar": "comparativi",
+                  "why": {
+                    "de": "Vor einem Hauptwort heißt «als» in einem Vergleich nicht «che».",
+                    "sl": "Pred samostalnikom se »kot« v primerjavi ne reče »che«.",
+                    "en": "Before a noun, «than» in a comparison isn't «che»."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Che il quadrante? Come, scusa?",
+                    "sl": "Che il quadrante? Kako, prosim?",
+                    "en": "Che il quadrante? Sorry, what?",
+                    "de": "Che il quadrante? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Puoi ripetere?",
+                "sl": "Kako? Lahko ponoviš?",
+                "en": "Sorry? Can you say that again?",
+                "de": "Wie bitte? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "it": "Ecco. La finestra c'è, e l'ho controllata io. Due metri e un dito.",
+              "sl": "Tako. Okno je tu in sama sem ga preverila. Dva metra in prst.",
+              "en": "There. The window's there, and I've checked it myself. Two metres and a finger.",
+              "de": "So. Das Fenster ist da, und ich habe es selbst geprüft. Zwei Meter und ein Finger.",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Se si sbagliasse il posto, l'orologio resterebbe storto per sempre.",
+              "sl": "Če bi se zmotili pri mestu, bi ura za vedno ostala poševna.",
+              "en": "If the spot were wrong, the clock would stay crooked for ever.",
+              "de": "Wenn man die Stelle falsch wählte, bliebe die Uhr für immer schief."
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "E che cosa è stato deciso, alla fine? Alla radio non l'hanno detto!",
+              "sl": "Kaj je bilo na koncu odločeno? Po radiu tega niso povedali!",
+              "en": "And what was decided in the end? They didn't say on the radio!",
+              "de": "Und was wurde am Ende entschieden? Im Radio haben sie das nicht gesagt!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È stata fatta una finestra rotonda.",
+                  "sl": "Narejeno je bilo okroglo okno.",
+                  "en": "A round window has been made.",
+                  "de": "Es ist ein rundes Fenster gemacht worden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Rotonda! Che bella notizia, tutti devono saperlo.",
+                    "sl": "Okroglo! Kakšna lepa novica, vsi morajo izvedeti.",
+                    "en": "Round! What good news, everyone must hear.",
+                    "de": "Rund! Was für eine gute Nachricht, das müssen alle hören."
+                  }
+                },
+                {
+                  "it": "È stata fatta una torta quadrata.",
+                  "sl": "Narejena je bila štirikotna torta.",
+                  "en": "A square cake has been made.",
+                  "de": "Es ist eine viereckige Torte gemacht worden.",
+                  "why": {
+                    "de": "Eine Torte gehört auf den Tisch, nicht in den Turm. Und denk an die Form des Zifferblatts.",
+                    "sl": "Torta spada na mizo, ne v zvonik. In pomisli na obliko številčnice.",
+                    "en": "A cake belongs on the table, not in the tower. And think about the shape of the clock face."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una torta? Nel campanile? Questa è una notizia!",
+                    "sl": "Torta? V zvoniku? To pa je novica!",
+                    "en": "A cake? In the tower? That's news!",
+                    "de": "Eine Torte? Im Turm? Das ist mal eine Nachricht!"
+                  }
+                },
+                {
+                  "it": "È stato fatto una finestra rotonda.",
+                  "sl": "Narejeno je bilo okroglo okno.",
+                  "en": "A round window has been made.",
+                  "de": "Es ist ein rundes Fenster gemacht worden.",
+                  "grammar": "passivo",
+                  "why": {
+                    "de": "Finestra ist weiblich. Im Passiv richten sich beide Partizipien danach.",
+                    "sl": "Finestra je ženskega spola. V trpniku se oba deležnika ravnata po njej.",
+                    "en": "Finestra is feminine. In the passive both participles follow it."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Stato fatto? Forse lo diresti in un altro modo.",
+                    "sl": "Stato fatto? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "Stato fatto? Perhaps you'd put it another way.",
+                    "de": "Stato fatto? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Perché si è scelto un posto così in alto, secondo te?",
+              "sl": "Zakaj smo po tvojem izbrali mesto tako visoko?",
+              "en": "Why was a spot so high up chosen, do you think?",
+              "de": "Warum hat man wohl eine so hohe Stelle gewählt?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Perché l'orologio si veda da tutto il paese.",
+                  "sl": "Da se bo ura videla iz vse vasi.",
+                  "en": "So that the clock can be seen from all over the village.",
+                  "de": "Damit man die Uhr im ganzen Dorf sieht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Dalla piazza, dal campo, perfino dal bosco.",
+                    "sl": "Točno. S trga, s polja, celo iz gozda.",
+                    "en": "Exactly. From the square, from the field, even from the forest.",
+                    "de": "Genau. Vom Platz, vom Feld, sogar vom Wald aus."
+                  }
+                },
+                {
+                  "it": "Perché l'orologio si veda soltanto dai piccioni.",
+                  "sl": "Da bi uro videli samo golobi.",
+                  "en": "So that only the pigeons can see the clock.",
+                  "de": "Damit nur die Tauben die Uhr sehen.",
+                  "why": {
+                    "de": "Die Uhr ist für das ganze Dorf da, nicht nur für die Tauben.",
+                    "sl": "Ura je za vso vas, ne samo za golobe.",
+                    "en": "The clock is for the whole village, not just for the pigeons."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dai piccioni? Arriverebbero sempre puntuali!",
+                    "sl": "Golobi? Vedno bi prišli točno!",
+                    "en": "The pigeons? They'd always be on time!",
+                    "de": "Die Tauben? Die wären immer pünktlich!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Ecco. La finestra c'è. Prima che salga l'orologio, lasciamo asciugare la calce.",
+              "sl": "Tako. Okno je tu. Preden se ura dvigne, pustimo, da se malta posuši.",
+              "en": "There. The window's there. Before the clock goes up, we'll let the mortar dry.",
+              "de": "So. Das Fenster ist da. Bevor die Uhr hochkommt, lassen wir den Mörtel trocknen.",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "nella-fucina",
+      "words": [
+        "ingranaggio",
+        "ottone"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Buongiorno! Qui fa caldo. Il fabbro lavora per l'orologio.",
+              "sl": "Dober dan! Tu je vroče. Kovač dela za uro.",
+              "en": "Good morning! It's hot in here. The smith's working for the clock.",
+              "de": "Guten Tag! Hier ist es heiß. Der Schmied arbeitet für die Uhr.",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "{learner}, dentro l'orologio, che cosa c'è?",
+              "sl": "{learner}, kaj je v uri?",
+              "en": "{learner}, what's inside the clock?",
+              "de": "{learner}, was ist in der Uhr drin?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ci sono gli ingranaggi.",
+                  "sl": "Notri je kolesje.",
+                  "en": "There are the gears.",
+                  "de": "Da ist das Räderwerk drin.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì! Ruote con i denti. Ecco le scintille!",
+                    "sl": "Ja! Kolesa z zobmi. Tu so iskre!",
+                    "en": "Yes! Wheels with teeth. Here come the sparks!",
+                    "de": "Ja! Räder mit Zähnen. Da sind die Funken!",
+                    "fx": {
+                      "sparks": 1
+                    }
+                  }
+                },
+                {
+                  "it": "Ci sono gli spaghetti.",
+                  "sl": "Notri so špageti.",
+                  "en": "There are the spaghetti.",
+                  "de": "Da sind die Spaghetti drin.",
+                  "why": {
+                    "de": "Nudeln gehören auf den Teller. In einer Uhr drehen sich kleine Räder mit Zähnen.",
+                    "sl": "Špageti spadajo na krožnik. V uri se vrtijo majhna kolesa z zobmi.",
+                    "en": "Spaghetti belongs on a plate. Inside a clock little wheels with teeth go round."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Gli spaghetti? E chi li cucina, lassù?",
+                    "sl": "Špageti? Kdo jih pa kuha tam gori?",
+                    "en": "The spaghetti? And who cooks them up there?",
+                    "de": "Spaghetti? Und wer kocht sie da oben?"
+                  }
+                },
+                {
+                  "it": "Ci sono gli ingranaggio.",
+                  "sl": "Notri je kolesje.",
+                  "en": "There are the gears.",
+                  "de": "Da ist das Räderwerk drin.",
+                  "grammar": "plurale",
+                  "why": {
+                    "de": "«Gli» steht vor mehreren. Ein Wort auf -o ändert in der Mehrzahl seine Endung.",
+                    "sl": "»Gli« stoji pred več stvarmi. Beseda na -o v množini spremeni končnico.",
+                    "en": "«Gli» goes before more than one. A word in -o changes its ending in the plural."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Gli ingranaggio? Uno o tanti?",
+                    "sl": "Gli ingranaggio? Eno ali več?",
+                    "en": "Gli ingranaggio? One or lots?",
+                    "de": "Gli ingranaggio? Eines oder viele?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Nisem razumela.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. C'è il ferro, e c'è un metallo giallo. Che cos'è?",
+              "sl": "Hm. Tu je železo in rumena kovina. Kaj je to?",
+              "en": "Hm. There's iron, and a yellow metal. What is it?",
+              "de": "Hm. Hier ist Eisen und ein gelbes Metall. Was ist das?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Questo metallo è ottone.",
+                  "sl": "Ta kovina je medenina.",
+                  "en": "This metal is brass.",
+                  "de": "Dieses Metall ist Messing.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Hm. Sì. Giallo, e brilla.",
+                    "sl": "Hm. Ja. Rumena je in se sveti.",
+                    "en": "Hm. Yes. Yellow, and it shines.",
+                    "de": "Hm. Ja. Gelb, und es glänzt."
+                  }
+                },
+                {
+                  "it": "Questo metallo è formaggio.",
+                  "sl": "Ta kovina je sir.",
+                  "en": "This metal is cheese.",
+                  "de": "Dieses Metall ist Käse.",
+                  "why": {
+                    "de": "Käse ist auch gelb, aber den isst du. Hier geht es um ein hartes Metall aus der Schmiede.",
+                    "sl": "Tudi sir je rumen, a ga ješ. Tu gre za trdo kovino iz kovačnice.",
+                    "en": "Cheese is yellow too, but you eat it. This is about a hard metal from the smithy."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Formaggio? Giallo sì, ma non si forgia!",
+                    "sl": "Sir? Rumen že, ampak ne da se ga kovati!",
+                    "en": "Cheese? Yellow, yes, but you can't forge it!",
+                    "de": "Käse? Gelb schon, aber schmieden kann man ihn nicht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Ecco. Ferro e ottone: piano piano, l'orologio nasce qui.",
+              "sl": "Tako. Železo in medenina: počasi se ura rojeva tukaj.",
+              "en": "There. Iron and brass: little by little, the clock is born here.",
+              "de": "So. Eisen und Messing: Nach und nach entsteht hier die Uhr."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Ieri ho portato il disegno. Il fabbro non ha dormito molto, credo!",
+              "sl": "Včeraj sem prinesla risbo. Kovač ni veliko spal, mislim!",
+              "en": "Yesterday I brought the drawing. I don't think the smith slept much!",
+              "de": "Gestern habe ich die Zeichnung gebracht. Der Schmied hat wohl nicht viel geschlafen!",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "E che cosa sono queste ruote con i denti, {learner}?",
+              "sl": "Kaj pa so ta kolesa z zobmi, {learner}?",
+              "en": "And what are these wheels with teeth, {learner}?",
+              "de": "Und was sind diese Räder mit Zähnen, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sono gli ingranaggi che fanno girare le lancette.",
+                  "sl": "To je kolesje, ki vrti kazalca.",
+                  "en": "They're the gears that turn the hands.",
+                  "de": "Das ist das Räderwerk, das die Zeiger dreht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, ecco! E guarda che scintille!",
+                    "sl": "Aha! In poglej te iskre!",
+                    "en": "Ah, I see! And look at those sparks!",
+                    "de": "Ah, so! Und schau, was für Funken!",
+                    "fx": {
+                      "sparks": 1
+                    }
+                  }
+                },
+                {
+                  "it": "Sono i biscotti che fanno girare le lancette.",
+                  "sl": "To so keksi, ki vrtijo kazalca.",
+                  "en": "They're the biscuits that turn the hands.",
+                  "de": "Das sind die Kekse, die die Zeiger drehen.",
+                  "why": {
+                    "de": "Kekse isst du. In einer Uhr drehen sich Räder mit Zähnen.",
+                    "sl": "Kekse ješ. V uri se vrtijo kolesa z zobmi.",
+                    "en": "You eat biscuits. Inside a clock, wheels with teeth go round."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "I biscotti? Allora l'orologio va a colazione!",
+                    "sl": "Keksi? Potem gre ura na zajtrk!",
+                    "en": "The biscuits? Then the clock goes to breakfast!",
+                    "de": "Die Kekse? Dann geht die Uhr frühstücken!"
+                  }
+                },
+                {
+                  "it": "Sono gli ingranaggi chi fanno girare le lancette.",
+                  "sl": "To je kolesje, ki vrti kazalca.",
+                  "en": "They're the gears that turn the hands.",
+                  "de": "Das ist das Räderwerk, das die Zeiger dreht.",
+                  "grammar": "relative-che",
+                  "why": {
+                    "de": "«Chi» fragt nach einer Person. Für «der, die, das» im Nebensatz nimmst du ein anderes kleines Wort.",
+                    "sl": "»Chi« sprašuje po osebi. Za »ki« v odvisnem stavku uporabiš drugo besedico.",
+                    "en": "«Chi» asks about a person. For «that» in a clause you use another little word."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Chi? Chi sono, questi?",
+                    "sl": "Chi? Kdo pa so ti?",
+                    "en": "Chi? Who are they, then?",
+                    "de": "Chi? Wer sind die denn?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Puoi ripetere?",
+                "sl": "Kako? Lahko ponoviš?",
+                "en": "Sorry? Can you say that again?",
+                "de": "Wie bitte? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. Questi sono di ferro. Di che cosa sono gli altri?",
+              "sl": "Hm. Ta so iz železa. Iz česa so druga?",
+              "en": "Hm. These are iron. What are the others made of?",
+              "de": "Hm. Diese sind aus Eisen. Woraus sind die anderen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Gli altri sono di ottone.",
+                  "sl": "Druga so iz medenine.",
+                  "en": "The others are made of brass.",
+                  "de": "Die anderen sind aus Messing.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Hm. Sì. E brillano come l'oro.",
+                    "sl": "Hm. Ja. In svetijo se kot zlato.",
+                    "en": "Hm. Yes. And they shine like gold.",
+                    "de": "Hm. Ja. Und sie glänzen wie Gold."
+                  }
+                },
+                {
+                  "it": "Gli altri sono di gomma.",
+                  "sl": "Druga so iz gume.",
+                  "en": "The others are made of rubber.",
+                  "de": "Die anderen sind aus Gummi.",
+                  "why": {
+                    "de": "Gummi ist weich. Diese Räder müssen hart und gelb sein.",
+                    "sl": "Guma je mehka. Ta kolesa morajo biti trda in rumena.",
+                    "en": "Rubber is soft. These wheels have to be hard and yellow."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di gomma? Allora l'orologio salta!",
+                    "sl": "Iz gume? Potem bo ura poskakovala!",
+                    "en": "Rubber? Then the clock will bounce!",
+                    "de": "Aus Gummi? Dann hüpft die Uhr!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Bene. Ho contato tutti i denti. Questo orologio sarà preciso.",
+              "sl": "Dobro. Preštela sem vse zobe. Ta ura bo natančna.",
+              "en": "Good. I've counted all the teeth. This clock will be exact.",
+              "de": "Gut. Ich habe alle Zähne gezählt. Diese Uhr wird genau sein."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Un orologio è preciso solo se ogni dente è al suo posto. Basterebbe un errore piccolissimo.",
+              "sl": "Ura je natančna le, če je vsak zob na svojem mestu. Dovolj bi bila zelo majhna napaka.",
+              "en": "A clock is exact only if every tooth is in its place. The tiniest mistake would be enough.",
+              "de": "Eine Uhr ist nur genau, wenn jeder Zahn an seinem Platz ist. Der kleinste Fehler würde genügen.",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "who": "bepi",
+              "face": "curious",
+              "it": "Queste ruote con i denti, come si chiamano, {learner}?",
+              "sl": "Kako se imenujejo ta kolesa z zobmi, {learner}?",
+              "en": "What are these wheels with teeth called, {learner}?",
+              "de": "Wie heißen diese Räder mit Zähnen, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sono gli ingranaggi di cui parla la maestra.",
+                  "sl": "To je kolesje, o katerem govori učiteljica.",
+                  "en": "They're the gears the teacher is talking about.",
+                  "de": "Das ist das Räderwerk, von dem die Lehrerin spricht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, ecco! E quante scintille, per farli!",
+                    "sl": "Aha! In koliko isker, da jih naredijo!",
+                    "en": "Ah, I see! And so many sparks to make them!",
+                    "de": "Ah, so! Und so viele Funken, um sie zu machen!",
+                    "fx": {
+                      "sparks": 1
+                    }
+                  }
+                },
+                {
+                  "it": "Sono i cappelli di cui parla la maestra.",
+                  "sl": "To so klobuki, o katerih govori učiteljica.",
+                  "en": "They're the hats the teacher is talking about.",
+                  "de": "Das sind die Hüte, von denen die Lehrerin spricht.",
+                  "why": {
+                    "de": "Hüte trägt man auf dem Kopf. Die Lehrerin spricht von dem, was sich in der Uhr dreht.",
+                    "sl": "Klobuke nosimo na glavi. Učiteljica govori o tem, kar se vrti v uri.",
+                    "en": "You wear hats on your head. The teacher is talking about what goes round inside the clock."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "I cappelli? Non credo che parli di moda!",
+                    "sl": "Klobuki? Ne verjamem, da govori o modi!",
+                    "en": "The hats? I don't think she's talking about fashion!",
+                    "de": "Die Hüte? Ich glaube nicht, dass sie von Mode spricht!"
+                  }
+                },
+                {
+                  "it": "Sono gli ingranaggi di che parla la maestra.",
+                  "sl": "To je kolesje, o katerem govori učiteljica.",
+                  "en": "They're the gears the teacher is talking about.",
+                  "de": "Das ist das Räderwerk, von dem die Lehrerin spricht.",
+                  "grammar": "relativi-cui",
+                  "why": {
+                    "de": "Nach einer Präposition wie «di» steht nicht «che», sondern ein anderes kleines Wort.",
+                    "sl": "Za predlogom, kot je »di«, ne stoji »che«, ampak druga besedica.",
+                    "en": "After a preposition like «di» you don't use «che» but another little word."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Di che…? Forse lo diresti in un altro modo.",
+                    "sl": "Di che …? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "Di che…? Perhaps you'd put it another way.",
+                    "de": "Di che…? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E questi qui, gialli, di che cosa saranno fatti?",
+              "sl": "Iz česa pa so ti tukaj, rumeni?",
+              "en": "And these ones here, the yellow ones, what would they be made of?",
+              "de": "Und diese hier, die gelben, woraus sind die wohl?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Alcuni sono di ottone, che brilla come l'oro.",
+                  "sl": "Nekateri so iz medenine, ki se sveti kot zlato.",
+                  "en": "Some are made of brass, which shines like gold.",
+                  "de": "Manche sind aus Messing, das wie Gold glänzt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Il ferro per la forza, l'altro per la bellezza.",
+                    "sl": "Točno. Železo za moč, drugo za lepoto.",
+                    "en": "Exactly. Iron for strength, the other for beauty.",
+                    "de": "Genau. Eisen für die Kraft, das andere für die Schönheit."
+                  }
+                },
+                {
+                  "it": "Alcuni sono di burro, che brilla come l'oro.",
+                  "sl": "Nekateri so iz masla, ki se sveti kot zlato.",
+                  "en": "Some are made of butter, which shines like gold.",
+                  "de": "Manche sind aus Butter, die wie Gold glänzt.",
+                  "why": {
+                    "de": "Butter ist auch gelb, aber sie wird in der Wärme weich. Hier brauchst du ein Metall.",
+                    "sl": "Tudi maslo je rumeno, a se na toploti zmehča. Tu potrebuješ kovino.",
+                    "en": "Butter is yellow too, but it goes soft in the warmth. You need a metal here."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di burro? Con questo fuoco? Si scioglie subito!",
+                    "sl": "Iz masla? Ob tem ognju? Takoj se stopi!",
+                    "en": "Butter? By this fire? It'll melt at once!",
+                    "de": "Aus Butter? Bei diesem Feuer? Die schmilzt sofort!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Bene. Quando saranno montati tutti, si sentirà un tic tac che non si ferma.",
+              "sl": "Dobro. Ko bodo vsi nameščeni, se bo slišal tik tak, ki se ne ustavi.",
+              "en": "Good. When they're all fitted, you'll hear a tick-tock that doesn't stop.",
+              "de": "Gut. Wenn alle eingebaut sind, hört man ein Ticktack, das nicht aufhört."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-bottega",
+      "words": [
+        "lancetta",
+        "quercia"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Oggi siamo in bottega. L'orologio ha bisogno di due pezzi di legno.",
+              "sl": "Danes smo v delavnici. Ura potrebuje dva kosa lesa.",
+              "en": "Today we're in the workshop. The clock needs two pieces of wood.",
+              "de": "Heute sind wir in der Werkstatt. Die Uhr braucht zwei Stücke Holz."
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Due pezzi? E per che cosa, {learner}?",
+              "sl": "Dva kosa? Za kaj pa, {learner}?",
+              "en": "Two pieces? What for, {learner}?",
+              "de": "Zwei Stücke? Wofür denn, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Facciamo una lancetta grande e una piccola.",
+                  "sl": "Naredimo velik kazalec in majhnega.",
+                  "en": "We make a big hand and a small one.",
+                  "de": "Wir machen einen großen Zeiger und einen kleinen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, due lancette! Ore e minuti.",
+                    "sl": "Aha, dva kazalca! Ure in minute.",
+                    "en": "Ah, two hands! Hours and minutes.",
+                    "de": "Ah, zwei Zeiger! Stunden und Minuten."
+                  }
+                },
+                {
+                  "it": "Facciamo una forchetta grande e una piccola.",
+                  "sl": "Naredimo velike vilice in majhne.",
+                  "en": "We make a big fork and a small one.",
+                  "de": "Wir machen eine große Gabel und eine kleine.",
+                  "why": {
+                    "de": "Mit der Gabel isst du. Auf der Uhr dreht sich etwas und zeigt die Zeit.",
+                    "sl": "Z vilicami ješ. Na uri se nekaj vrti in kaže čas.",
+                    "en": "You eat with a fork. On a clock something goes round and shows the time."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una forchetta? L'orologio va a pranzo?",
+                    "sl": "Vilice? Gre ura na kosilo?",
+                    "en": "A fork? Is the clock going for lunch?",
+                    "de": "Eine Gabel? Geht die Uhr zum Mittagessen?"
+                  }
+                },
+                {
+                  "it": "Facciamo un lancetta grande e una piccola.",
+                  "sl": "Naredimo velik kazalec in majhnega.",
+                  "en": "We make a big hand and a small one.",
+                  "de": "Wir machen einen großen Zeiger und einen kleinen.",
+                  "grammar": "articoli-genere",
+                  "why": {
+                    "de": "Das Wort endet auf -a und ist weiblich. «Un» steht vor männlichen Wörtern.",
+                    "sl": "Beseda se konča na -a in je ženskega spola. »Un« stoji pred moškimi besedami.",
+                    "en": "The word ends in -a and is feminine. «Un» goes before masculine words."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Un…? Come, scusa?",
+                    "sl": "Un …? Kako, prosim?",
+                    "en": "Un…? Sorry, what?",
+                    "de": "Un…? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non capisco.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I don't understand.",
+                "de": "Wie bitte? Das verstehe ich nicht."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Di che legno le facciamo? Deve essere duro.",
+              "sl": "Iz katerega lesa ju naredimo? Mora biti trd.",
+              "en": "What wood shall we make them from? It must be hard.",
+              "de": "Aus welchem Holz machen wir sie? Es muss hart sein."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Le facciamo di quercia.",
+                  "sl": "Naredimo ju iz hrasta.",
+                  "en": "We make them from oak.",
+                  "de": "Wir machen sie aus Eiche.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Ecco: si taglia, e quanta polvere!",
+                    "sl": "Točno. Tako: režemo, in koliko prahu!",
+                    "en": "Exactly. There: we cut, and what a lot of dust!",
+                    "de": "Genau. So: Wir schneiden, und wie das staubt!",
+                    "fx": {
+                      "dust": 1
+                    }
+                  }
+                },
+                {
+                  "it": "Le facciamo di gomma.",
+                  "sl": "Naredimo ju iz gume.",
+                  "en": "We make them from rubber.",
+                  "de": "Wir machen sie aus Gummi.",
+                  "why": {
+                    "de": "Gummi biegt sich. Zeiger müssen hart und gerade sein, aus einem großen Baum.",
+                    "sl": "Guma se upogiba. Kazalca morata biti trda in ravna, iz velikega drevesa.",
+                    "en": "Rubber bends. Clock hands have to be hard and straight, from a big tree."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di gomma? Allora le ore ballano!",
+                    "sl": "Iz gume? Potem bodo ure plesale!",
+                    "en": "Rubber? Then the hours will dance!",
+                    "de": "Aus Gummi? Dann tanzen die Stunden!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Bene. Una per le ore, una per i minuti.",
+              "sl": "Dobro. Eden za ure, drugi za minute.",
+              "en": "Good. One for the hours, one for the minutes.",
+              "de": "Gut. Einer für die Stunden, einer für die Minuten."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Ieri il legno è arrivato dal bosco. Oggi lo lavoriamo.",
+              "sl": "Včeraj je les prišel iz gozda. Danes ga obdelujemo.",
+              "en": "Yesterday the wood came from the forest. Today we're working it.",
+              "de": "Gestern ist das Holz aus dem Wald gekommen. Heute bearbeiten wir es."
+            },
+            {
+              "who": "bepi",
+              "it": "Che polvere! Si vede che è duro. Che legno è, {learner}?",
+              "sl": "Kakšen prah! Vidi se, da je trd. Kateri les je to, {learner}?",
+              "en": "What dust! You can tell it's hard. What wood is it, {learner}?",
+              "de": "Was für ein Staub! Man sieht, dass es hart ist. Was für Holz ist das, {learner}?",
+              "fx": {
+                "dust": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "È legno di quercia.",
+                  "sl": "To je hrastov les.",
+                  "en": "It's oak wood.",
+                  "de": "Das ist Eichenholz.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Eh sì. Duro come la testa di un nonno!",
+                    "sl": "Ja. Trd kot dedkova glava!",
+                    "en": "Oh yes. Hard as a grandad's head!",
+                    "de": "Oh ja. Hart wie der Kopf von einem Opa!"
+                  }
+                },
+                {
+                  "it": "È legno di banana.",
+                  "sl": "To je bananin les.",
+                  "en": "It's banana wood.",
+                  "de": "Das ist Bananenholz.",
+                  "why": {
+                    "de": "Eine Bananenpflanze ist weich. Hier arbeitet man mit einem großen, harten Baum aus dem Wald.",
+                    "sl": "Bananovec je mehak. Tu delajo z velikim, trdim drevesom iz gozda.",
+                    "en": "A banana plant is soft. Here they're working with a big, hard tree from the forest."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di banana? E le scimmie, lo sanno?",
+                    "sl": "Bananin? Pa opice to vedo?",
+                    "en": "Banana? And do the monkeys know?",
+                    "de": "Banane? Und wissen das die Affen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Bene. E che cosa abbiamo intagliato, {learner}?",
+              "sl": "Dobro. In kaj smo izrezali, {learner}?",
+              "en": "Good. And what have we carved, {learner}?",
+              "de": "Gut. Und was haben wir geschnitzt, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Abbiamo intagliato le due lancette.",
+                  "sl": "Izrezali smo dva kazalca.",
+                  "en": "We've carved the two hands.",
+                  "de": "Wir haben die beiden Zeiger geschnitzt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Una corta, una lunga, ben dritte.",
+                    "sl": "Točno. Kratek in dolg, lepo ravna.",
+                    "en": "Exactly. A short one and a long one, nice and straight.",
+                    "de": "Genau. Einen kurzen und einen langen, schön gerade."
+                  }
+                },
+                {
+                  "it": "Abbiamo intagliato le due calzette.",
+                  "sl": "Izrezali smo dve nogavički.",
+                  "en": "We've carved the two little socks.",
+                  "de": "Wir haben die beiden Söckchen geschnitzt.",
+                  "why": {
+                    "de": "Söckchen strickt man aus Wolle. Aus Holz macht man hier, was sich auf der Uhr dreht.",
+                    "sl": "Nogavičke se pletejo iz volne. Iz lesa tu delajo to, kar se vrti na uri.",
+                    "en": "You knit little socks from wool. From wood they're making what goes round on the clock."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le calzette? Di legno? Che male ai piedi!",
+                    "sl": "Nogavički? Leseni? Kako bodo bolele noge!",
+                    "en": "The little socks? Wooden? How your feet would hurt!",
+                    "de": "Die Söckchen? Aus Holz? Da tun die Füße aber weh!"
+                  }
+                },
+                {
+                  "it": "Siamo intagliato le due lancette.",
+                  "sl": "Izrezali smo dva kazalca.",
+                  "en": "We've carved the two hands.",
+                  "de": "Wir haben die beiden Zeiger geschnitzt.",
+                  "grammar": "passato-prossimo",
+                  "why": {
+                    "de": "Intagliare nimmt etwas mit: Im Passato prossimo steht es mit avere, nicht mit essere.",
+                    "sl": "Intagliare ima predmet: v passato prossimo gre z avere, ne z essere.",
+                    "en": "Intagliare takes an object: in the passato prossimo it goes with avere, not essere."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Siamo intagliato? Come, scusa?",
+                    "sl": "Siamo intagliato? Kako, prosim?",
+                    "en": "Siamo intagliato? Sorry, what?",
+                    "de": "Siamo intagliato? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Nisem razumela.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "elena",
+              "it": "Adesso le ho misurate. Pesano poco, e questo è bene.",
+              "sl": "Zdaj sem ju izmerila. Malo tehtata in to je dobro.",
+              "en": "Now I've measured them. They don't weigh much, and that's good.",
+              "de": "Jetzt habe ich sie gemessen. Sie wiegen wenig, und das ist gut."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Servirebbe un legno che non si pieghi con gli anni.",
+              "sl": "Potrebovali bi les, ki se z leti ne ukrivi.",
+              "en": "We'd need a wood that doesn't warp over the years.",
+              "de": "Man bräuchte ein Holz, das sich mit den Jahren nicht verzieht."
+            },
+            {
+              "who": "bepi",
+              "face": "thinking",
+              "it": "Ecco la polvere: si sta già segando. Che cosa ne pensi, {learner}, di questo legno?",
+              "sl": "Tu je prah: že žagajo. Kaj misliš o tem lesu, {learner}?",
+              "en": "There's the dust: they're already sawing. What do you think of this wood, {learner}?",
+              "de": "Da ist der Staub: Es wird schon gesägt. Was hältst du von diesem Holz, {learner}?",
+              "fx": {
+                "dust": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sebbene la quercia sia dura, si lavora bene.",
+                  "sl": "Čeprav je hrast trd, se dobro obdeluje.",
+                  "en": "Although oak is hard, it works well.",
+                  "de": "Obwohl Eiche hart ist, lässt sie sich gut bearbeiten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Eh, è così: fa sudare, ma poi dura.",
+                    "sl": "Ja, tako je: spotiš se, potem pa zdrži.",
+                    "en": "Oh, that's how it is: it makes you sweat, but then it lasts.",
+                    "de": "Ja, so ist das: Man schwitzt, aber dann hält es."
+                  }
+                },
+                {
+                  "it": "Sebbene la panna sia dura, si lavora bene.",
+                  "sl": "Čeprav je smetana trda, se dobro obdeluje.",
+                  "en": "Although cream is hard, it works well.",
+                  "de": "Obwohl Sahne hart ist, lässt sie sich gut bearbeiten.",
+                  "why": {
+                    "de": "Sahne kommt auf den Kuchen. Hier sägt man an einem großen, harten Baum.",
+                    "sl": "Smetana pride na torto. Tu žagajo veliko, trdo drevo.",
+                    "en": "Cream goes on a cake. Here they're sawing a big, hard tree."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La panna? Montata, magari!",
+                    "sl": "Smetana? Morda stepena!",
+                    "en": "Cream? Whipped, perhaps!",
+                    "de": "Sahne? Vielleicht geschlagen!"
+                  }
+                },
+                {
+                  "it": "Sebbene la quercia è dura, si lavora bene.",
+                  "sl": "Čeprav je hrast trd, se dobro obdeluje.",
+                  "en": "Although oak is hard, it works well.",
+                  "de": "Obwohl Eiche hart ist, lässt sie sich gut bearbeiten.",
+                  "grammar": "congiunzioni",
+                  "why": {
+                    "de": "Nach «sebbene» steht der Congiuntivo.",
+                    "sl": "Za »sebbene« stoji konjunktiv.",
+                    "en": "After «sebbene» comes the subjunctive."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sebbene… è? Forse lo diresti in un altro modo.",
+                    "sl": "Sebbene … è? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "Sebbene… è? Perhaps you'd put it another way.",
+                    "de": "Sebbene… è? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E che cosa ne uscirà, da questo pezzo di legno?",
+              "sl": "In kaj bo nastalo iz tega kosa lesa?",
+              "en": "And what will come out of this piece of wood?",
+              "de": "Und was wird aus diesem Stück Holz?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ne usciranno le due lancette dell'orologio.",
+                  "sl": "Iz njega bosta nastala dva kazalca ure.",
+                  "en": "The clock's two hands will come out of it.",
+                  "de": "Daraus werden die beiden Zeiger der Uhr.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Precise, e leggere come una piuma.",
+                    "sl": "Točno. Natančna in lahka kot pero.",
+                    "en": "Exactly. Exact, and light as a feather.",
+                    "de": "Genau. Genau gearbeitet und leicht wie eine Feder."
+                  }
+                },
+                {
+                  "it": "Ne usciranno le due ciabatte dell'orologio.",
+                  "sl": "Iz njega bosta nastala dva copata ure.",
+                  "en": "The clock's two slippers will come out of it.",
+                  "de": "Daraus werden die beiden Hausschuhe der Uhr.",
+                  "why": {
+                    "de": "Eine Uhr hat keine Füße. Such das, was sich vorn auf dem Zifferblatt dreht.",
+                    "sl": "Ura nima nog. Išči tisto, kar se spredaj vrti na številčnici.",
+                    "en": "A clock hasn't got feet. Look for what goes round on the front of the clock face."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le ciabatte? Così non fa rumore sul campanile!",
+                    "sl": "Copata? Da ne bo delala hrupa na zvoniku!",
+                    "en": "The slippers? So it won't make a noise on the tower!",
+                    "de": "Die Hausschuhe? Damit sie auf dem Turm keinen Lärm macht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Bene. Se saranno leggere, gli ingranaggi le faranno girare senza fatica.",
+              "sl": "Dobro. Če bosta lahka, ju bo kolesje brez težav vrtelo.",
+              "en": "Good. If they're light, the gears will turn them without effort.",
+              "de": "Gut. Wenn sie leicht sind, dreht das Räderwerk sie ohne Mühe."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "a-scuola",
+      "words": [
+        "pennello",
+        "romano"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Il quadrante è qui, in aula. Alla lavagna ho scritto i numeri: I, V, X.",
+              "sl": "Številčnica je tu, v učilnici. Na tablo sem napisala številke: I, V, X.",
+              "en": "The clock face is here in the classroom. I've written the numbers on the blackboard: I, V, X.",
+              "de": "Das Zifferblatt ist hier im Klassenzimmer. An die Tafel habe ich die Zahlen geschrieben: I, V, X."
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Che numeri strani! Che cosa dipingiamo, {learner}?",
+              "sl": "Kakšne čudne številke! Kaj slikamo, {learner}?",
+              "en": "What strange numbers! What are we painting, {learner}?",
+              "de": "Was für seltsame Zahlen! Was malen wir, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sul quadrante dipingiamo i numeri romani.",
+                  "sl": "Na številčnico slikamo rimske številke.",
+                  "en": "On the clock face we paint Roman numerals.",
+                  "de": "Auf das Zifferblatt malen wir römische Zahlen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Come una volta! E il XII in alto, vero?",
+                    "sl": "Kot nekoč! In XII zgoraj, kajne?",
+                    "en": "Like in the old days! And XII at the top, right?",
+                    "de": "Wie früher! Und XII oben, oder?"
+                  }
+                },
+                {
+                  "it": "Sul quadrante dipingiamo i numeri magici.",
+                  "sl": "Na številčnico slikamo čarobne številke.",
+                  "en": "On the clock face we paint magic numbers.",
+                  "de": "Auf das Zifferblatt malen wir Zauberzahlen.",
+                  "why": {
+                    "de": "Zauberzahlen gibt es nur im Märchen. Schau an die Tafel: Diese Zahlen schreibt man mit I, V und X.",
+                    "sl": "Čarobne številke so samo v pravljicah. Poglej na tablo: te številke se pišejo z I, V in X.",
+                    "en": "Magic numbers only exist in fairy tales. See the blackboard: these numbers are written with I, V and X."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Magici? E che cosa fanno, spariscono?",
+                    "sl": "Čarobne? Kaj pa naredijo, izginejo?",
+                    "en": "Magic? And what do they do, disappear?",
+                    "de": "Zauberzahlen? Und was machen die, verschwinden sie?"
+                  }
+                },
+                {
+                  "it": "Su il quadrante dipingiamo i numeri romani.",
+                  "sl": "Na številčnico slikamo rimske številke.",
+                  "en": "On the clock face we paint Roman numerals.",
+                  "de": "Auf das Zifferblatt malen wir römische Zahlen.",
+                  "grammar": "preposizioni-articolate",
+                  "why": {
+                    "de": "«Su» und «il» verschmelzen zu einem einzigen Wort.",
+                    "sl": "»Su« in »il« se zlijeta v eno samo besedo.",
+                    "en": "«Su» and «il» melt together into one word."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Su il…? Come, scusa?",
+                    "sl": "Su il …? Kako, prosim?",
+                    "en": "Su il…? Sorry, what?",
+                    "de": "Su il…? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non capisco.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I don't understand.",
+                "de": "Wie bitte? Das verstehe ich nicht."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Con che cosa, {learner}? C'è il gesso, ma non basta.",
+              "sl": "S čim, {learner}? Kreda je tu, a ni dovolj.",
+              "en": "With what, {learner}? There's chalk, but it's not enough.",
+              "de": "Womit, {learner}? Kreide ist da, aber das reicht nicht."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Con il pennello, maestra.",
+                  "sl": "S čopičem, učiteljica.",
+                  "en": "With the paintbrush, Maestra.",
+                  "de": "Mit dem Pinsel, Maestra.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Bene. Nero per i numeri, e il XII in alto.",
+                    "sl": "Dobro. Črna za številke, XII pa zgoraj.",
+                    "en": "Good. Black for the numbers, and XII at the top.",
+                    "de": "Gut. Schwarz für die Zahlen, und XII oben."
+                  }
+                },
+                {
+                  "it": "Con il piede, maestra.",
+                  "sl": "Z nogo, učiteljica.",
+                  "en": "With the foot, Maestra.",
+                  "de": "Mit dem Fuß, Maestra.",
+                  "why": {
+                    "de": "Mit dem Fuß gehst du. Zum Malen brauchst du etwas mit weichen Haaren.",
+                    "sl": "Z nogo hodiš. Za slikanje potrebuješ nekaj z mehkimi dlakami.",
+                    "en": "You walk with your foot. To paint you need something with soft hairs."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il piede? Che arte! Ma non in aula.",
+                    "sl": "Z nogo? To pa je umetnost! Ampak ne v učilnici.",
+                    "en": "With your foot? What art! But not in the classroom.",
+                    "de": "Mit dem Fuß? Was für eine Kunst! Aber nicht im Klassenzimmer."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Ecco. Un numero alla volta, e il XII sempre in alto.",
+              "sl": "Tako. Številko za številko, XII pa vedno zgoraj.",
+              "en": "There. One number at a time, and XII always at the top.",
+              "de": "So. Eine Zahl nach der anderen, und XII immer oben."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Ieri ho pulito il quadrante. Oggi è pronto per la pittura.",
+              "sl": "Včeraj sem očistila številčnico. Danes je pripravljena za barvanje.",
+              "en": "Yesterday I cleaned the clock face. Today it's ready for the paint.",
+              "de": "Gestern habe ich das Zifferblatt geputzt. Heute ist es bereit für die Farbe."
+            },
+            {
+              "who": "bepi",
+              "face": "curious",
+              "it": "Li imparavamo a scuola, questi numeri. Che numeri abbiamo dipinto, {learner}?",
+              "sl": "Te številke smo se učili v šoli. Katere številke smo naslikali, {learner}?",
+              "en": "We used to learn these numbers at school. What numbers have we painted, {learner}?",
+              "de": "Diese Zahlen haben wir in der Schule gelernt. Welche Zahlen haben wir gemalt, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Abbiamo dipinto i numeri romani.",
+                  "sl": "Naslikali smo rimske številke.",
+                  "en": "We've painted Roman numerals.",
+                  "de": "Wir haben römische Zahlen gemalt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Eh sì! E il XII in alto, come una volta.",
+                    "sl": "Ja! In XII zgoraj, kot nekoč.",
+                    "en": "Oh yes! And XII at the top, as in the old days.",
+                    "de": "Oh ja! Und XII oben, wie früher."
+                  }
+                },
+                {
+                  "it": "Abbiamo dipinto i numeri di telefono.",
+                  "sl": "Naslikali smo telefonske številke.",
+                  "en": "We've painted telephone numbers.",
+                  "de": "Wir haben Telefonnummern gemalt.",
+                  "why": {
+                    "de": "Mit einer Telefonnummer rufst du jemanden an. Auf diesem Zifferblatt stehen Zahlen aus I, V und X.",
+                    "sl": "S telefonsko številko nekoga pokličeš. Na tej številčnici so številke iz I, V in X.",
+                    "en": "You ring someone with a telephone number. This clock face has numbers made of I, V and X."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di telefono? E chi chiamiamo, a mezzogiorno?",
+                    "sl": "Telefonske? Koga pa bomo klicali opoldne?",
+                    "en": "Telephone? And who shall we ring at noon?",
+                    "de": "Telefonnummern? Und wen rufen wir mittags an?"
+                  }
+                },
+                {
+                  "it": "Abbiamo dipingiuto i numeri romani.",
+                  "sl": "Naslikali smo rimske številke.",
+                  "en": "We've painted Roman numerals.",
+                  "de": "Wir haben römische Zahlen gemalt.",
+                  "grammar": "participi-irregolari",
+                  "why": {
+                    "de": "Dipingere hat ein unregelmäßiges Partizip und endet nicht auf -uto.",
+                    "sl": "Dipingere ima nepravilni deležnik in se ne konča na -uto.",
+                    "en": "Dipingere has an irregular participle: it doesn't end in -uto."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Dipingiuto? Come, scusa?",
+                    "sl": "Dipingiuto? Kako, prosim?",
+                    "en": "Dipingiuto? Sorry, what?",
+                    "de": "Dipingiuto? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Puoi ripetere?",
+                "sl": "Kako? Lahko ponoviš?",
+                "en": "Sorry? Can you say that again?",
+                "de": "Wie bitte? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E con che cosa li hai dipinti?",
+              "sl": "In s čim si jih {m:naslikal|f:naslikala}?",
+              "en": "And what did you paint them with?",
+              "de": "Und womit hast du sie gemalt?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Li ho dipinti con il pennello.",
+                  "sl": "{m:Naslikal|f:Naslikala} sem jih s čopičem.",
+                  "en": "I painted them with the paintbrush.",
+                  "de": "Ich habe sie mit dem Pinsel gemalt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Bene. Mano ferma, e neanche una macchia.",
+                    "sl": "Dobro. Mirna roka in niti ene packe.",
+                    "en": "Good. A steady hand, and not one blot.",
+                    "de": "Gut. Eine ruhige Hand und kein einziger Klecks."
+                  }
+                },
+                {
+                  "it": "Li ho dipinti con il naso.",
+                  "sl": "{m:Naslikal|f:Naslikala} sem jih z nosom.",
+                  "en": "I painted them with my nose.",
+                  "de": "Ich habe sie mit der Nase gemalt.",
+                  "why": {
+                    "de": "Mit der Nase riechst du. Zum Malen brauchst du etwas mit weichen Haaren.",
+                    "sl": "Z nosom vohaš. Za slikanje potrebuješ nekaj z mehkimi dlakami.",
+                    "en": "You smell with your nose. To paint you need something with soft hairs."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il naso? E com'è il naso, adesso?",
+                    "sl": "Z nosom? In kakšen je zdaj nos?",
+                    "en": "With your nose? And what's your nose like now?",
+                    "de": "Mit der Nase? Und wie sieht die Nase jetzt aus?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Ecco. Adesso si asciuga, e domani lo vedranno tutti.",
+              "sl": "Tako. Zdaj se suši, jutri pa jo bodo videli vsi.",
+              "en": "There. Now it's drying, and tomorrow everyone will see it.",
+              "de": "So. Jetzt trocknet es, und morgen sehen es alle."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Se usassimo i numeri comuni, nessuno si stupirebbe. Ma un campanile così vecchio merita di più.",
+              "sl": "Če bi uporabili navadne številke, se nihče ne bi čudil. Ampak tako star zvonik si zasluži več.",
+              "en": "If we used ordinary numbers, nobody would be surprised. But such an old tower deserves more.",
+              "de": "Würden wir gewöhnliche Zahlen nehmen, würde sich niemand wundern. Aber so ein alter Turm verdient mehr."
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "E adesso che cosa succede, {learner}? Il quadrante è tutto bianco!",
+              "sl": "Kaj se bo zdaj zgodilo, {learner}? Številčnica je čisto bela!",
+              "en": "What's happening now, {learner}? The clock face is all white!",
+              "de": "Was passiert jetzt, {learner}? Das Zifferblatt ist ganz weiß!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Stiamo per dipingere i numeri romani.",
+                  "sl": "Zdaj bomo naslikali rimske številke.",
+                  "en": "We're about to paint the Roman numerals.",
+                  "de": "Gleich malen wir die römischen Zahlen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, come una volta! E il XII in alto, spero.",
+                    "sl": "Aha, kot nekoč! In upam, da XII zgoraj.",
+                    "en": "Ah, like in the old days! And XII at the top, I hope.",
+                    "de": "Ah, wie früher! Und XII oben, hoffe ich."
+                  }
+                },
+                {
+                  "it": "Stiamo per dipingere i numeri segreti.",
+                  "sl": "Zdaj bomo naslikali skrivne številke.",
+                  "en": "We're about to paint the secret numbers.",
+                  "de": "Gleich malen wir die geheimen Zahlen.",
+                  "why": {
+                    "de": "Geheim sind die Zahlen auf einer Uhr nicht: Alle sollen sie lesen. Schau, wie sie an der Tafel aussehen.",
+                    "sl": "Številke na uri niso skrivne: vsi naj jih berejo. Poglej, kako so videti na tabli.",
+                    "en": "The numbers on a clock aren't secret: everyone has to read them. See how they look on the blackboard."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Segreti? Allora non dirli a nessuno!",
+                    "sl": "Skrivne? Potem jih ne povej nikomur!",
+                    "en": "Secret? Then don't tell them to anyone!",
+                    "de": "Geheim? Dann verrate sie niemandem!"
+                  }
+                },
+                {
+                  "it": "Stiamo di dipingere i numeri romani.",
+                  "sl": "Zdaj bomo naslikali rimske številke.",
+                  "en": "We're about to paint the Roman numerals.",
+                  "de": "Gleich malen wir die römischen Zahlen.",
+                  "grammar": "stare-per",
+                  "why": {
+                    "de": "Wenn etwas gleich passiert, verbindet sich «stare» nicht mit «di», sondern mit einem anderen kleinen Wort.",
+                    "sl": "Ko se bo nekaj kmalu zgodilo, se »stare« ne veže z »di«, ampak z drugo besedico.",
+                    "en": "When something's about to happen, «stare» doesn't go with «di» but with another little word."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Stiamo di…? Forse lo diresti in un altro modo.",
+                    "sl": "Stiamo di …? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "Stiamo di…? Perhaps you'd put it another way.",
+                    "de": "Stiamo di…? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Che cosa ti servirebbe, per un lavoro così preciso?",
+              "sl": "Kaj bi ti prišlo prav za tako natančno delo?",
+              "en": "What would you need for such exact work?",
+              "de": "Was würdest du für so eine genaue Arbeit brauchen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Mi servirebbe un pennello sottile.",
+                  "sl": "Prav bi mi prišel tanek čopič.",
+                  "en": "I'd need a fine paintbrush.",
+                  "de": "Ich bräuchte einen feinen Pinsel.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Ne ho preparato uno, è sul banco.",
+                    "sl": "Točno. Enega sem pripravila, na klopi je.",
+                    "en": "Exactly. I've got one ready, it's on the desk.",
+                    "de": "Genau. Ich habe einen vorbereitet, er liegt auf der Bank."
+                  }
+                },
+                {
+                  "it": "Mi servirebbe un rastrello sottile.",
+                  "sl": "Prav bi mi prišle tanke grablje.",
+                  "en": "I'd need a thin rake.",
+                  "de": "Ich bräuchte einen dünnen Rechen.",
+                  "why": {
+                    "de": "Mit einem Rechen ziehst du Heu zusammen. Zum Malen brauchst du etwas mit feinen Haaren.",
+                    "sl": "Z grabljami grabiš seno. Za slikanje potrebuješ nekaj s tankimi dlakami.",
+                    "en": "You rake hay with a rake. To paint you need something with fine hairs."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un rastrello? Per dei numeri così piccoli?",
+                    "sl": "Grablje? Za tako majhne številke?",
+                    "en": "A rake? For such small numbers?",
+                    "de": "Ein Rechen? Für so kleine Zahlen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Bene. XII in alto, VI in basso. Prima che venga sera, avremo finito.",
+              "sl": "Dobro. XII zgoraj, VI spodaj. Preden se zvečeri, bomo končali.",
+              "en": "Good. XII at the top, VI at the bottom. Before evening comes, we'll have finished.",
+              "de": "Gut. XII oben, VI unten. Bevor es Abend wird, sind wir fertig."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": [
+        "corda",
+        "alzare"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Oggi è il grande giorno. L'orologio è qui, e il campanile è là.",
+              "sl": "Danes je veliki dan. Ura je tukaj, zvonik pa tam.",
+              "en": "Today's the big day. The clock's here, and the tower's there.",
+              "de": "Heute ist der große Tag. Die Uhr ist hier, und der Turm ist dort."
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Pesa molto. Con che cosa lo tiriamo su?",
+              "sl": "Hm. Težka je. S čim jo potegnemo gor?",
+              "en": "Hm. It's heavy. What do we pull it up with?",
+              "de": "Hm. Sie ist schwer. Womit ziehen wir sie hoch?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Con le corde.",
+                  "sl": "Z vrvmi.",
+                  "en": "With the ropes.",
+                  "de": "Mit den Seilen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Hm. Sì. Corde buone, ben legate.",
+                    "sl": "Hm. Ja. Dobre vrvi, trdno zvezane.",
+                    "en": "Hm. Yes. Good ropes, tied fast.",
+                    "de": "Hm. Ja. Gute Seile, fest gebunden."
+                  }
+                },
+                {
+                  "it": "Con le tagliatelle.",
+                  "sl": "Z rezanci.",
+                  "en": "With the tagliatelle.",
+                  "de": "Mit den Bandnudeln.",
+                  "why": {
+                    "de": "Nudeln reißen sofort. Zum Hochziehen brauchst du etwas Starkes und Langes.",
+                    "sl": "Rezanci se takoj pretrgajo. Za vleko gor potrebuješ nekaj močnega in dolgega.",
+                    "en": "Noodles snap at once. To pull something up you need something strong and long."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con le tagliatelle? Sono buone, ma no!",
+                    "sl": "Z rezanci? Dobri so, ampak ne!",
+                    "en": "With tagliatelle? They're good, but no!",
+                    "de": "Mit Bandnudeln? Die sind lecker, aber nein!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Bene. {learner}, tocca a te. Che cosa dici ai vicini?",
+              "sl": "Dobro. {learner}, ti si na vrsti. Kaj rečeš sosedom?",
+              "en": "Good. {learner}, your turn. What do you say to the neighbours?",
+              "de": "Gut. {learner}, du bist dran. Was sagst du den Nachbarn?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Alzate l'orologio!",
+                  "sl": "Dvignite uro!",
+                  "en": "Lift the clock!",
+                  "de": "Hebt die Uhr hoch!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto! Tutti insieme, adesso!",
+                    "sl": "Tako je! Zdaj vsi skupaj!",
+                    "en": "Exactly! All together now!",
+                    "de": "Genau! Jetzt alle zusammen!"
+                  }
+                },
+                {
+                  "it": "Mangiate l'orologio!",
+                  "sl": "Pojejte uro!",
+                  "en": "Eat the clock!",
+                  "de": "Esst die Uhr!",
+                  "why": {
+                    "de": "Eine Uhr kann man nicht essen. Die Nachbarn sollen sie nach oben bringen.",
+                    "sl": "Ure se ne da jesti. Sosedje naj jo spravijo gor.",
+                    "en": "You can't eat a clock. The neighbours have to get it up there."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Mangiate? Tic tac, che boccone duro!",
+                    "sl": "Pojejte? Tik tak, kakšen trd grižljaj!",
+                    "en": "Eat? Tick-tock, what a tough mouthful!",
+                    "de": "Esst? Ticktack, was für ein harter Bissen!"
+                  }
+                },
+                {
+                  "it": "Alzano l'orologio!",
+                  "sl": "Dvignite uro!",
+                  "en": "Lift the clock!",
+                  "de": "Hebt die Uhr hoch!",
+                  "grammar": "imperativo",
+                  "why": {
+                    "de": "Du sprichst mehrere Leute an: Dann endet der Befehl nicht auf -ano.",
+                    "sl": "Nagovarjaš več ljudi: ukaz se zato ne konča na -ano.",
+                    "en": "You're speaking to several people, so the command doesn't end in -ano."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Alzano? Chi, loro?",
+                    "sl": "Alzano? Kdo, oni?",
+                    "en": "Alzano? Who, them?",
+                    "de": "Alzano? Wer, die?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Nisem razumela.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "elena",
+              "it": "Ecco! È su, nel campanile!",
+              "sl": "Tako! Gor je, v zvoniku!",
+              "en": "There! It's up, in the bell tower!",
+              "de": "So! Sie ist oben, im Glockenturm!",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Ho controllato tutti i nodi. Oggi non possiamo sbagliare.",
+              "sl": "Preverila sem vse vozle. Danes se ne smemo zmotiti.",
+              "en": "I've checked all the knots. We can't make a mistake today.",
+              "de": "Ich habe alle Knoten geprüft. Heute dürfen wir keinen Fehler machen."
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Ma come fa un orologio così pesante ad arrivare lassù, {learner}?",
+              "sl": "Kako pa pride tako težka ura tja gor, {learner}?",
+              "en": "But how does such a heavy clock get up there, {learner}?",
+              "de": "Aber wie kommt so eine schwere Uhr dort hinauf, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Lo possiamo alzare con le corde.",
+                  "sl": "Z vrvmi jo lahko dvignemo.",
+                  "en": "We can lift it with the ropes.",
+                  "de": "Wir können sie mit den Seilen hochziehen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, con le corde! Adesso tutti devono saperlo.",
+                    "sl": "Aha, z vrvmi! To morajo zdaj vsi izvedeti.",
+                    "en": "Ah, with the ropes! Now everyone has to know.",
+                    "de": "Ah, mit den Seilen! Das müssen jetzt alle wissen."
+                  }
+                },
+                {
+                  "it": "Lo possiamo lavare con le tagliatelle.",
+                  "sl": "Z rezanci jo lahko operemo.",
+                  "en": "We can wash it with the tagliatelle.",
+                  "de": "Wir können sie mit den Bandnudeln waschen.",
+                  "why": {
+                    "de": "Mit Nudeln wäscht man nichts, und die Uhr muss nach oben.",
+                    "sl": "Z rezanci se nič ne pere, ura pa mora gor.",
+                    "en": "You don't wash anything with noodles, and the clock has to go up."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con le tagliatelle? Che idea! E il sugo?",
+                    "sl": "Z rezanci? Kakšna zamisel! Pa omaka?",
+                    "en": "With tagliatelle? What an idea! And the sauce?",
+                    "de": "Mit Bandnudeln? Was für eine Idee! Und die Soße?"
+                  }
+                },
+                {
+                  "it": "Lo potiamo alzare con le corde.",
+                  "sl": "Z vrvmi jo lahko dvignemo.",
+                  "en": "We can lift it with the ropes.",
+                  "de": "Wir können sie mit den Seilen hochziehen.",
+                  "grammar": "modali",
+                  "why": {
+                    "de": "Potere ist unregelmäßig: Bei «wir» heißt es nicht so. «Potiamo» kommt von potare, Bäume schneiden.",
+                    "sl": "Potere je nepravilen: pri »mi« se ne glasi tako. »Potiamo« izhaja iz potare, obrezovati drevje.",
+                    "en": "Potere is irregular: that isn't its «we» form. «Potiamo» comes from potare, to prune trees."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Potiamo? Ma è un orologio, non un albero!",
+                    "sl": "Potiamo? Saj je ura, ne drevo!",
+                    "en": "Potiamo? But it's a clock, not a tree!",
+                    "de": "Potiamo? Das ist doch eine Uhr, kein Baum!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Puoi ripetere?",
+                "sl": "Kako? Lahko ponoviš?",
+                "en": "Sorry? Can you say that again?",
+                "de": "Wie bitte? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Quando sarà lassù, che cosa dobbiamo fare?",
+              "sl": "Ko bo gor, kaj moramo narediti?",
+              "en": "When it's up there, what do we have to do?",
+              "de": "Wenn sie oben ist, was müssen wir dann machen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Dobbiamo fissarlo bene nella finestra.",
+                  "sl": "Dobro jo moramo pritrditi v okno.",
+                  "en": "We have to fix it firmly in the window.",
+                  "de": "Wir müssen sie gut im Fenster befestigen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Bene e dritto. Ho portato la livella.",
+                    "sl": "Prav. Dobro in ravno. Prinesla sem libelo.",
+                    "en": "Right. Firm and straight. I've brought the spirit level.",
+                    "de": "Richtig. Gut und gerade. Ich habe die Wasserwaage mitgebracht."
+                  }
+                },
+                {
+                  "it": "Dobbiamo fissarlo bene nel forno.",
+                  "sl": "Dobro jo moramo pritrditi v peč.",
+                  "en": "We have to fix it firmly in the oven.",
+                  "de": "Wir müssen sie gut im Ofen befestigen.",
+                  "why": {
+                    "de": "Im Ofen wird gebacken. Die Öffnung im Turm wartet längst auf die Uhr.",
+                    "sl": "V peči se peče. Odprtina v zvoniku že dolgo čaka na uro.",
+                    "en": "An oven is for baking. The opening in the tower has long been waiting for the clock."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Nel forno? Ma non è una torta!",
+                    "sl": "V peč? Saj ni torta!",
+                    "en": "In the oven? But it's not a cake!",
+                    "de": "Im Ofen? Das ist doch keine Torte!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Ecco! L'orologio è su. Nessun nodo ha ceduto.",
+              "sl": "Tako! Ura je gor. Noben vozel ni popustil.",
+              "en": "There! The clock's up. Not one knot slipped.",
+              "de": "So! Die Uhr ist oben. Kein einziger Knoten hat nachgegeben.",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Perché tutto vada bene, bisogna tirare nello stesso momento.",
+              "sl": "Da bo vse šlo dobro, je treba vleči v istem trenutku.",
+              "en": "For all to go well, you have to pull at the same moment.",
+              "de": "Damit alles gut geht, muss man im selben Augenblick ziehen."
+            },
+            {
+              "who": "bepi",
+              "face": "curious",
+              "it": "Un vecchio proverbio dice: l'unione fa la forza. Che cosa bisogna fare, {learner}?",
+              "sl": "Star pregovor pravi: v slogi je moč. Kaj je treba narediti, {learner}?",
+              "en": "An old proverb says: unity is strength. What has to be done, {learner}?",
+              "de": "Ein altes Sprichwort sagt: Einigkeit macht stark. Was muss man tun, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Bisogna che l'orologio sia alzato con le corde.",
+                  "sl": "Uro je treba dvigniti z vrvmi.",
+                  "en": "The clock has to be lifted with the ropes.",
+                  "de": "Die Uhr muss mit den Seilen hochgezogen werden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Eh sì! Tante mani, e il peso non si sente.",
+                    "sl": "Ja! Veliko rok in teže se ne čuti.",
+                    "en": "Oh yes! Many hands, and you don't feel the weight.",
+                    "de": "Oh ja! Viele Hände, und man spürt das Gewicht nicht."
+                  }
+                },
+                {
+                  "it": "Bisogna che l'orologio sia cucinato con le patate.",
+                  "sl": "Uro je treba skuhati s krompirjem.",
+                  "en": "The clock has to be cooked with the potatoes.",
+                  "de": "Die Uhr muss mit den Kartoffeln gekocht werden.",
+                  "why": {
+                    "de": "Eine Uhr ist kein Essen. Sie muss nach oben in den Turm.",
+                    "sl": "Ura ni jed. Spraviti jo je treba gor v zvonik.",
+                    "en": "A clock isn't food. It has to go up into the tower."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Cucinato? Con le patate? Che cena dura!",
+                    "sl": "Kuhana? S krompirjem? Kakšna trda večerja!",
+                    "en": "Cooked? With potatoes? What a tough dinner!",
+                    "de": "Gekocht? Mit Kartoffeln? Was für ein hartes Abendessen!"
+                  }
+                },
+                {
+                  "it": "Bisogna che l'orologio è alzato con le corde.",
+                  "sl": "Uro je treba dvigniti z vrvmi.",
+                  "en": "The clock has to be lifted with the ropes.",
+                  "de": "Die Uhr muss mit den Seilen hochgezogen werden.",
+                  "grammar": "congiuntivo",
+                  "why": {
+                    "de": "Nach «bisogna che» steht der Congiuntivo.",
+                    "sl": "Za »bisogna che« stoji konjunktiv.",
+                    "en": "After «bisogna che» comes the subjunctive."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "È alzato…? Forse lo diresti in un altro modo.",
+                    "sl": "È alzato …? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "È alzato…? Perhaps you'd put it another way.",
+                    "de": "È alzato…? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Se una corda fosse troppo corta, che cosa succederebbe?",
+              "sl": "Če bi bila ena vrv prekratka, kaj bi se zgodilo?",
+              "en": "If one rope were too short, what would happen?",
+              "de": "Wäre ein Seil zu kurz, was würde dann passieren?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "L'orologio resterebbe a metà strada.",
+                  "sl": "Ura bi ostala na pol poti.",
+                  "en": "The clock would stay halfway.",
+                  "de": "Die Uhr würde auf halbem Weg stehen bleiben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Per questo le ho misurate due volte.",
+                    "sl": "Točno. Zato sem jih dvakrat izmerila.",
+                    "en": "Exactly. That's why I measured them twice.",
+                    "de": "Genau. Deshalb habe ich sie zweimal gemessen."
+                  }
+                },
+                {
+                  "it": "L'orologio imparerebbe a volare.",
+                  "sl": "Ura bi se naučila leteti.",
+                  "en": "The clock would learn to fly.",
+                  "de": "Die Uhr würde fliegen lernen.",
+                  "why": {
+                    "de": "Eine Uhr kann nicht fliegen. Denk daran, wie weit ein zu kurzes Seil reicht.",
+                    "sl": "Ura ne more leteti. Pomisli, kako daleč seže prekratka vrv.",
+                    "en": "A clock can't fly. Think how far a rope that's too short will reach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "A volare? Sarebbe una bella notizia alla radio!",
+                    "sl": "Leteti? To bi bila lepa novica na radiu!",
+                    "en": "To fly? That would be nice news on the radio!",
+                    "de": "Fliegen? Das wäre eine schöne Nachricht im Radio!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "it": "Ecco! L'orologio è su, nel campanile. Nessuno l'avrebbe detto, in così poco tempo.",
+              "sl": "Tako! Ura je gor, v zvoniku. Nihče ne bi verjel, v tako kratkem času.",
+              "en": "There! The clock's up in the tower. Nobody would have believed it, in so little time.",
+              "de": "So! Die Uhr ist oben im Turm. Das hätte niemand gedacht, in so kurzer Zeit.",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": [
+        "dodici",
+        "mezzogiorno"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Manca poco. Tutti in piazza, e nessuno parla.",
+              "sl": "Še malo. Vsi na trgu, in nihče ne govori.",
+              "en": "Not long now. Everyone on the square, and nobody talks.",
+              "de": "Nicht mehr lang. Alle auf dem Platz, und keiner redet."
+            },
+            {
+              "who": "elena",
+              "face": "surprised",
+              "it": "Ecco! L'orologio batte! Contiamo insieme, {learner}.",
+              "sl": "Tu je! Ura bije! Štejmo skupaj, {learner}.",
+              "en": "There! The clock's striking! Let's count together, {learner}.",
+              "de": "Da! Die Uhr schlägt! Zählen wir zusammen, {learner}.",
+              "fx": {
+                "strike": 1,
+                "bell": 1
+              }
+            },
+            {
+              "who": "nives",
+              "face": "surprised",
+              "it": "Quanti colpi sono?",
+              "sl": "Koliko udarcev je?",
+              "en": "How many strokes is that?",
+              "de": "Wie viele Schläge sind das?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sono dodici colpi.",
+                  "sl": "To je dvanajst udarcev.",
+                  "en": "That's twelve strokes.",
+                  "de": "Das sind zwölf Schläge.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Dodici! Proprio così!",
+                    "sl": "Dvanajst! Prav tako!",
+                    "en": "Twelve! Just so!",
+                    "de": "Zwölf! Genau so!"
+                  }
+                },
+                {
+                  "it": "Sono dieci colpi.",
+                  "sl": "To je deset udarcev.",
+                  "en": "That's ten strokes.",
+                  "de": "Das sind zehn Schläge.",
+                  "why": {
+                    "de": "Fast! Beide Zeiger stehen aber ganz oben, und da schlägt die Uhr öfter.",
+                    "sl": "Skoraj! Oba kazalca pa sta čisto zgoraj in takrat ura bije večkrat.",
+                    "en": "Nearly! But both hands are right at the top, and then the clock strikes more often."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dieci? Ne hai persi due per strada!",
+                    "sl": "Deset? Dva si {m:izgubil|f:izgubila} na poti!",
+                    "en": "Ten? You've lost two on the way!",
+                    "de": "Zehn? Da hast du unterwegs zwei verloren!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Allora, {learner}, che ore sono?",
+              "sl": "Torej, {learner}, koliko je ura?",
+              "en": "So, {learner}, what time is it?",
+              "de": "Also, {learner}, wie spät ist es?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È mezzogiorno.",
+                  "sl": "Poldne je.",
+                  "en": "It's noon.",
+                  "de": "Es ist Mittag.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Mezzogiorno in punto.",
+                    "sl": "Točno. Natanko poldne.",
+                    "en": "Exactly. Noon on the dot.",
+                    "de": "Genau. Punkt Mittag."
+                  }
+                },
+                {
+                  "it": "È mezzanotte.",
+                  "sl": "Polnoč je.",
+                  "en": "It's midnight.",
+                  "de": "Es ist Mitternacht.",
+                  "why": {
+                    "de": "Mitten in der Nacht wären alle im Bett. Hier steht das ganze Dorf auf dem Platz.",
+                    "sl": "Sredi noči bi bili vsi v postelji. Tu je vsa vas na trgu.",
+                    "en": "In the middle of the night everyone would be in bed. Here the whole village is on the square."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Mezzanotte? E allora perché non dormi?",
+                    "sl": "Polnoč? Zakaj pa potem ne spiš?",
+                    "en": "Midnight? Then why aren't you asleep?",
+                    "de": "Mitternacht? Warum schläfst du dann nicht?"
+                  }
+                },
+                {
+                  "it": "Sono mezzogiorno.",
+                  "sl": "Poldne je.",
+                  "en": "It's noon.",
+                  "de": "Es ist Mittag.",
+                  "grammar": "ore-giorni",
+                  "why": {
+                    "de": "Mezzogiorno ist eine einzige Uhrzeit: Darum steht das Verb nicht in der Mehrzahl.",
+                    "sl": "Mezzogiorno je ena sama ura, zato glagol ni v množini.",
+                    "en": "Mezzogiorno is one single time, so the verb isn't plural."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sono? Quanti mezzogiorni ci sono?",
+                    "sl": "Sono? Koliko poldnevov pa je?",
+                    "en": "Sono? How many noons are there?",
+                    "de": "Sono? Wie viele Mittage gibt es denn?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Nisem razumela.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "proud",
+              "it": "Adesso il paese ha il suo orologio.",
+              "sl": "Zdaj ima vas svojo uro.",
+              "en": "Now the village has its clock.",
+              "de": "Jetzt hat das Dorf seine Uhr."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Ieri l'abbiamo caricato per la prima volta. Adesso aspettiamo.",
+              "sl": "Včeraj smo jo prvič navili. Zdaj čakamo.",
+              "en": "Yesterday we wound it for the first time. Now we wait.",
+              "de": "Gestern haben wir sie zum ersten Mal aufgezogen. Jetzt warten wir."
+            },
+            {
+              "who": "elena",
+              "face": "surprised",
+              "it": "Ecco! Ha cominciato a battere! Senti?",
+              "sl": "Tu je! Začela je biti! Slišiš?",
+              "en": "There! It's started to strike! Do you hear?",
+              "de": "Da! Sie hat angefangen zu schlagen! Hörst du?",
+              "fx": {
+                "strike": 1,
+                "bell": 1
+              }
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Quanti colpi ha battuto, {learner}? Ho perso il conto!",
+              "sl": "Koliko udarcev je odbila, {learner}? Meni je štetje ušlo!",
+              "en": "How many strokes did it strike, {learner}? I've lost count!",
+              "de": "Wie viele Schläge waren das, {learner}? Ich habe mich verzählt!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ha battuto dodici colpi.",
+                  "sl": "Odbila je dvanajst udarcev.",
+                  "en": "It struck twelve strokes.",
+                  "de": "Sie hat zwölf Schläge geschlagen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Dodici! Non ha sbagliato di uno.",
+                    "sl": "Dvanajst! Ni se zmotila niti za enega.",
+                    "en": "Twelve! It wasn't out by a single one.",
+                    "de": "Zwölf! Um keinen einzigen vertan."
+                  }
+                },
+                {
+                  "it": "Ha battuto cento colpi.",
+                  "sl": "Odbila je sto udarcev.",
+                  "en": "It struck a hundred strokes.",
+                  "de": "Sie hat hundert Schläge geschlagen.",
+                  "why": {
+                    "de": "So viele Stunden hat kein Tag. Beide Zeiger stehen ganz oben.",
+                    "sl": "Toliko ur nima noben dan. Oba kazalca sta čisto zgoraj.",
+                    "en": "No day has that many hours. Both hands are right at the top."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Cento? Allora resteremo qui fino a sera!",
+                    "sl": "Sto? Potem bomo tu ostali do večera!",
+                    "en": "A hundred? Then we'll be here till evening!",
+                    "de": "Hundert? Dann bleiben wir bis zum Abend hier!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E che ore erano, quando ha cominciato?",
+              "sl": "In koliko je bila ura, ko je začela?",
+              "en": "And what time was it when it started?",
+              "de": "Und wie spät war es, als sie angefangen hat?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Era mezzogiorno.",
+                  "sl": "Bilo je poldne.",
+                  "en": "It was noon.",
+                  "de": "Es war Mittag.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. E il paese era tutto in silenzio.",
+                    "sl": "Točno. In vsa vas je bila tiho.",
+                    "en": "Exactly. And the whole village was silent.",
+                    "de": "Genau. Und das ganze Dorf war still."
+                  }
+                },
+                {
+                  "it": "Era notte.",
+                  "sl": "Bila je noč.",
+                  "en": "It was night.",
+                  "de": "Es war Nacht.",
+                  "why": {
+                    "de": "In der Nacht wären alle im Bett. Hier steht das ganze Dorf auf dem Platz.",
+                    "sl": "Ponoči bi bili vsi v postelji. Tu je vsa vas na trgu.",
+                    "en": "At night everyone would be in bed. Here the whole village is on the square."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Notte? Allora perché non dormivi?",
+                    "sl": "Noč? Zakaj pa potem nisi {m:spal|f:spala}?",
+                    "en": "Night? Then why weren't you asleep?",
+                    "de": "Nacht? Warum hast du dann nicht geschlafen?"
+                  }
+                },
+                {
+                  "it": "Ero mezzogiorno.",
+                  "sl": "Bilo je poldne.",
+                  "en": "It was noon.",
+                  "de": "Es war Mittag.",
+                  "grammar": "imperfetto",
+                  "why": {
+                    "de": "«Ero» heißt «ich war». Die Uhrzeit steht nicht in der Ich-Form.",
+                    "sl": "»Ero« pomeni »bil sem« ali »bila sem«. Ura ne stoji v prvi osebi.",
+                    "en": "«Ero» means «I was». The time isn't in the «I» form."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Ero? Tu eri mezzogiorno?",
+                    "sl": "Ero? Ti si {m:bil|f:bila} poldne?",
+                    "en": "Ero? You were noon?",
+                    "de": "Ero? Du warst Mittag?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Nisem razumela.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "elena",
+              "it": "Da oggi, nessuno in paese può dire: non sapevo che ore erano.",
+              "sl": "Od danes nihče v vasi ne more reči: nisem vedel, koliko je ura.",
+              "en": "From today, nobody in the village can say: I didn't know what time it was.",
+              "de": "Ab heute kann niemand im Dorf sagen: Ich wusste nicht, wie spät es ist."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Avevo promesso che oggi avrebbe battuto per la prima volta. Adesso vediamo.",
+              "sl": "Obljubila sem, da bo danes prvič bila. Zdaj bomo videli.",
+              "en": "I'd promised it would strike for the first time today. Now we'll see.",
+              "de": "Ich hatte versprochen, dass sie heute zum ersten Mal schlägt. Jetzt werden wir sehen."
+            },
+            {
+              "who": "bepi",
+              "face": "surprised",
+              "it": "Eccola! Si direbbe che tutto il paese abbia smesso di respirare.",
+              "sl": "Tu je! Človek bi rekel, da je vsa vas nehala dihati.",
+              "en": "There it is! You'd say the whole village had stopped breathing.",
+              "de": "Da ist sie! Man könnte meinen, das ganze Dorf hätte aufgehört zu atmen.",
+              "fx": {
+                "strike": 1,
+                "bell": 1
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "{learner}, se dovessi scriverlo alla lavagna, quanti colpi segneresti?",
+              "sl": "{learner}, če bi {m:moral|f:morala} to napisati na tablo, koliko udarcev bi {m:zapisal|f:zapisala}?",
+              "en": "{learner}, if you had to write it on the board, how many strokes would you put?",
+              "de": "{learner}, wenn du es an die Tafel schreiben müsstest, wie viele Schläge würdest du hinschreiben?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ne segnerei dodici.",
+                  "sl": "{m:Zapisal|f:Zapisala} bi jih dvanajst.",
+                  "en": "I'd put twelve.",
+                  "de": "Ich würde zwölf hinschreiben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Dodici, e nemmeno uno di troppo.",
+                    "sl": "Točno. Dvanajst, in niti enega preveč.",
+                    "en": "Exactly. Twelve, and not one too many.",
+                    "de": "Genau. Zwölf, und keiner zu viel."
+                  }
+                },
+                {
+                  "it": "Ne segnerei undici.",
+                  "sl": "{m:Zapisal|f:Zapisala} bi jih enajst.",
+                  "en": "I'd put eleven.",
+                  "de": "Ich würde elf hinschreiben.",
+                  "why": {
+                    "de": "Das war knapp. Beide Zeiger stehen ganz oben, und da fehlt noch ein Schlag.",
+                    "sl": "Bilo je blizu. Oba kazalca sta čisto zgoraj, en udarec pa še manjka.",
+                    "en": "That was close. Both hands are right at the top, and one stroke is still missing."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Undici? Ne avrai perso uno, contando!",
+                    "sl": "Enajst? Enega si pri štetju gotovo {m:izgubil|f:izgubila}!",
+                    "en": "Eleven? You must have lost one, counting!",
+                    "de": "Elf? Da hast du beim Zählen wohl einen verloren!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "curious",
+              "it": "E la gente, era già in piazza prima del primo colpo?",
+              "sl": "Pa so bili ljudje že na trgu pred prvim udarcem?",
+              "en": "And were people already on the square before the first stroke?",
+              "de": "Und waren die Leute schon vor dem ersten Schlag auf dem Platz?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "A mezzogiorno eravamo già tutti arrivati.",
+                  "sl": "Opoldne smo bili že vsi tu.",
+                  "en": "By noon we'd all arrived.",
+                  "de": "Mittags waren wir schon alle da.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Eh sì. E nessuno fiatava, nemmeno i bambini.",
+                    "sl": "Ja. In nihče ni črhnil, niti otroci ne.",
+                    "en": "Oh yes. And nobody said a word, not even the children.",
+                    "de": "Oh ja. Und niemand hat einen Mucks gemacht, nicht einmal die Kinder."
+                  }
+                },
+                {
+                  "it": "A mezzanotte eravamo già tutti arrivati.",
+                  "sl": "Opolnoči smo bili že vsi tu.",
+                  "en": "By midnight we'd all arrived.",
+                  "de": "Um Mitternacht waren wir schon alle da.",
+                  "why": {
+                    "de": "Um Mitternacht schläft das ganze Dorf. Denk daran, wann die Uhr geschlagen hat.",
+                    "sl": "Opolnoči vsa vas spi. Pomisli, kdaj je ura bila.",
+                    "en": "At midnight the whole village is asleep. Think when the clock struck."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "A mezzanotte? Che sonno, allora!",
+                    "sl": "Opolnoči? Potem so bili pa vsi zaspani!",
+                    "en": "At midnight? Everyone must have been sleepy!",
+                    "de": "Um Mitternacht? Da waren alle aber müde!"
+                  }
+                },
+                {
+                  "it": "A mezzogiorno avevamo già tutti arrivati.",
+                  "sl": "Opoldne smo bili že vsi tu.",
+                  "en": "By noon we'd all arrived.",
+                  "de": "Mittags waren wir schon alle da.",
+                  "grammar": "trapassato",
+                  "why": {
+                    "de": "Arrivare bildet seine Vergangenheit mit essere. Das gilt auch im Trapassato.",
+                    "sl": "Arrivare tvori preteklik z essere. To velja tudi v trapassato.",
+                    "en": "Arrivare forms its past with essere. That goes for the trapassato too."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Avevamo arrivati? Forse lo diresti in un altro modo.",
+                    "sl": "Avevamo arrivati? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "Avevamo arrivati? Perhaps you'd put it another way.",
+                    "de": "Avevamo arrivati? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "elena",
+              "it": "Da oggi tutti sapranno che ore sono. Anche chi non l'ha mai voluto sapere.",
+              "sl": "Od danes bodo vsi vedeli, koliko je ura. Tudi tisti, ki tega nikoli niso hoteli vedeti.",
+              "en": "From today everyone will know what time it is. Even those who never wanted to.",
+              "de": "Ab heute wissen alle, wie spät es ist. Auch die, die es nie wissen wollten."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
