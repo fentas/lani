@@ -349,9 +349,9 @@
       },
       {
         "say": {
-          "en": "**sitzen, stehen, liegen** say where something is. Austria's standard takes **sein**: **Opa Sepp ist auf der Bank gesessen.** (Grandpa Sepp sat on the bench.) **Das Glas ist auf dem Tisch gestanden.** (The glass stood on the table.) **Bello ist vor der Tür gelegen.** (Bello lay at the door.) Northern Germany says **hat gesessen, hat gestanden, hat gelegen**: both are right. Putting something somewhere is regular, with haben: **hat gestellt** (put), **hat gelegt** (laid), **hat gesetzt** (set), **hat gehängt** (hung).",
-          "sl": "**sitzen, stehen, liegen** povedo, kje nekaj je. Avstrijski standard ima **sein**: **Opa Sepp ist auf der Bank gesessen.** (Dedek Sepp je sedel na klopi.) **Das Glas ist auf dem Tisch gestanden.** (Kozarec je stal na mizi.) **Bello ist vor der Tür gelegen.** (Bello je ležal pred vrati.) Severna Nemčija reče **hat gesessen, hat gestanden, hat gelegen**: oboje je prav. Kar nekam postaviš, je pravilno, s haben: **hat gestellt** (postavil), **hat gelegt** (položil), **hat gesetzt** (posadil), **hat gehängt** (obesil).",
-          "it": "**sitzen, stehen, liegen** dicono dove si trova qualcosa. Lo standard austriaco ha **sein**: **Opa Sepp ist auf der Bank gesessen.** (Nonno Sepp era seduto sulla panchina.) **Das Glas ist auf dem Tisch gestanden.** (Il bicchiere era sul tavolo.) **Bello ist vor der Tür gelegen.** (Bello era sdraiato davanti alla porta.) La Germania del nord dice **hat gesessen, hat gestanden, hat gelegen**: vanno bene tutti e due. Ciò che metti da qualche parte è regolare, con haben: **hat gestellt** (messo), **hat gelegt** (posato), **hat gesetzt** (fatto sedere), **hat gehängt** (appeso)."
+          "en": "**sitzen, stehen, liegen** say where something is. Austria's standard takes **sein**: **Opa Sepp ist auf der Bank gesessen.** (Grandpa Sepp sat on the bench.) **Das Glas ist auf dem Tisch gestanden.** (The glass stood on the table.) **Bello ist vor der Tür gelegen.** (Bello lay at the door.) Northern Germany says **hat gesessen, hat gestanden, hat gelegen**: both are right. Putting it there, with haben: **hat gestellt** (put), **hat gelegt** (laid), **hat gesetzt** (set). **hängen**: **ist gehangen** (hung there), **hat gehängt** (hung it up).",
+          "sl": "**sitzen, stehen, liegen** povedo, kje nekaj je. Avstrijski standard ima **sein**: **Opa Sepp ist auf der Bank gesessen.** (Dedek Sepp je sedel na klopi.) **Das Glas ist auf dem Tisch gestanden.** (Kozarec je stal na mizi.) **Bello ist vor der Tür gelegen.** (Bello je ležal pred vrati.) Severna Nemčija reče **hat gesessen, hat gestanden, hat gelegen**: oboje je prav. Kar nekam daš, s haben: **hat gestellt** (postavil), **hat gelegt** (položil), **hat gesetzt** (posadil). **hängen**: **ist gehangen** (visel), **hat gehängt** (obesil).",
+          "it": "**sitzen, stehen, liegen** dicono dove si trova qualcosa. Lo standard austriaco ha **sein**: **Opa Sepp ist auf der Bank gesessen.** (Nonno Sepp era seduto sulla panchina.) **Das Glas ist auf dem Tisch gestanden.** (Il bicchiere era sul tavolo.) **Bello ist vor der Tür gelegen.** (Bello era sdraiato davanti alla porta.) La Germania del nord dice **hat gesessen, hat gestanden, hat gelegen**: vanno bene tutti e due. Ciò che metti, con haben: **hat gestellt** (messo), **hat gelegt** (posato), **hat gesetzt** (fatto sedere). **hängen**: **ist gehangen** (era appeso), **hat gehängt** (appeso)."
         },
         "examples": [
           {
@@ -393,6 +393,10 @@
             "ist gelegen · hat gelegen"
           ],
           [
+            "hängen",
+            "ist gehangen · hat gehangen"
+          ],
+          [
             "stellen",
             "hat gestellt"
           ],
@@ -405,7 +409,7 @@
             "hat gesetzt"
           ],
           [
-            "hängen",
+            "etwas hängen",
             "hat gehängt"
           ]
         ],
@@ -793,7 +797,8 @@
             {
               "from": "Ich stehe um sechs auf.",
               "accept": [
-                "Ich bin um sechs aufgestanden."
+                "Ich bin um sechs aufgestanden.",
+                "Um sechs bin ich aufgestanden."
               ],
               "hint": {
                 "en": "a change of state: sein",
@@ -804,7 +809,8 @@
             {
               "from": "Kathi kauft in Villach ein.",
               "accept": [
-                "Kathi hat in Villach eingekauft."
+                "Kathi hat in Villach eingekauft.",
+                "In Villach hat Kathi eingekauft."
               ]
             },
             {
@@ -822,7 +828,8 @@
             {
               "from": "Opa Sepp schläft um zehn ein.",
               "accept": [
-                "Opa Sepp ist um zehn eingeschlafen."
+                "Opa Sepp ist um zehn eingeschlafen.",
+                "Um zehn ist Opa Sepp eingeschlafen."
               ]
             },
             {
@@ -835,21 +842,27 @@
               "from": "Stefan sitzt auf der Bank.",
               "accept": [
                 "Stefan ist auf der Bank gesessen.",
-                "Stefan hat auf der Bank gesessen."
+                "Stefan hat auf der Bank gesessen.",
+                "Auf der Bank ist Stefan gesessen.",
+                "Auf der Bank hat Stefan gesessen."
               ]
             },
             {
               "from": "Der Hund liegt vor dem Ofen.",
               "accept": [
                 "Der Hund ist vor dem Ofen gelegen.",
-                "Der Hund hat vor dem Ofen gelegen."
+                "Der Hund hat vor dem Ofen gelegen.",
+                "Vor dem Ofen ist der Hund gelegen.",
+                "Vor dem Ofen hat der Hund gelegen."
               ]
             },
             {
               "from": "Das Glas steht auf dem Tisch.",
               "accept": [
                 "Das Glas ist auf dem Tisch gestanden.",
-                "Das Glas hat auf dem Tisch gestanden."
+                "Das Glas hat auf dem Tisch gestanden.",
+                "Auf dem Tisch ist das Glas gestanden.",
+                "Auf dem Tisch hat das Glas gestanden."
               ]
             },
             {
@@ -862,7 +875,9 @@
               "from": "Das Bild hängt an der Wand.",
               "accept": [
                 "Das Bild ist an der Wand gehangen.",
-                "Das Bild hat an der Wand gehangen."
+                "Das Bild hat an der Wand gehangen.",
+                "An der Wand ist das Bild gehangen.",
+                "An der Wand hat das Bild gehangen."
               ]
             },
             {
@@ -939,13 +954,15 @@
           {
             "from": "Wir telefonieren am Abend.",
             "accept": [
-              "Wir haben am Abend telefoniert."
+              "Wir haben am Abend telefoniert.",
+              "Am Abend haben wir telefoniert."
             ]
           },
           {
             "from": "Florian bleibt auf der Alm.",
             "accept": [
-              "Florian ist auf der Alm geblieben."
+              "Florian ist auf der Alm geblieben.",
+              "Auf der Alm ist Florian geblieben."
             ]
           },
           {

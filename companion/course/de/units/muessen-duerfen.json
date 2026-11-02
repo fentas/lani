@@ -286,14 +286,14 @@
         "say": {
           "en": "The modal stands second and the other verb goes to the very end, however long the sentence: **Am Sonntag muss Kathi nicht kochen.** (On Sunday Kathi doesn't have to cook.) **Ich muss heute gehen.** (never *Ich muss gehen heute*) A separable verb is whole again at the end: **Ich muss um fünf aufstehen.** (I have to get up at five.)",
           "sl": "Modalni glagol stoji na drugem mestu, drugi glagol pa čisto na koncu, naj bo stavek še tako dolg: **Am Sonntag muss Kathi nicht kochen.** (V nedeljo Kathi ni treba kuhati.) **Ich muss heute gehen.** (Danes moram iti.) Ločljivi glagol je na koncu spet cel: **Ich muss um fünf aufstehen.** (Vstati moram ob petih.)",
-          "it": "Il modale sta al secondo posto e l'altro verbo va proprio alla fine, anche in una frase lunga: **Am Sonntag muss Kathi nicht kochen.** (La domenica Kathi non deve cucinare.) **Ich muss heute gehen.** (Oggi devo andare.) Il verbo separabile torna intero alla fine: **Ich muss um fünf aufstehen.** (Devo alzarmi alle cinque.)"
+          "it": "Il modale sta al secondo posto e l'altro verbo va proprio alla fine, anche in una frase lunga: **Am Sonntag muss Kathi nicht kochen.** (La domenica Kathi non ha bisogno di cucinare.) **Ich muss heute gehen.** (Oggi devo andare.) Il verbo separabile torna intero alla fine: **Ich muss um fünf aufstehen.** (Devo alzarmi alle cinque.)"
         },
         "examples": [
           {
             "de": "Am Sonntag muss Kathi nicht kochen.",
             "en": "On Sunday Kathi doesn't have to cook.",
             "sl": "V nedeljo Kathi ni treba kuhati.",
-            "it": "La domenica Kathi non deve cucinare."
+            "it": "La domenica Kathi non ha bisogno di cucinare."
           },
           {
             "de": "Ich muss um fünf aufstehen.",
@@ -328,7 +328,7 @@
         "say": {
           "en": "The trap: **nicht müssen** is don't have to, **nicht dürfen** is mustn't. **Du musst nicht kommen.** (You don't have to come: you may, but nothing makes you.) **Du darfst nicht kommen.** (You mustn't come: it isn't allowed.) English mustn't sounds like **musst nicht** and means the opposite.",
           "sl": "Past: **nicht müssen** je ni treba, **nicht dürfen** je ne smeti. **Du musst nicht kommen.** (Ni ti treba priti: lahko prideš, ni pa nujno.) **Du darfst nicht kommen.** (Ne smeš priti: ni dovoljeno.) Slovenski ne moraš je torej **musst nicht**, ne smeš pa **darfst nicht**.",
-          "it": "La trappola: **nicht müssen** è non essere obbligati, **nicht dürfen** è non avere il permesso. **Du musst nicht kommen.** (Non sei obbligato a venire: puoi, ma non è necessario.) **Du darfst nicht kommen.** (Non puoi venire: non è permesso.) L'italiano non devi è di solito **darfst nicht**, non **musst nicht**."
+          "it": "La trappola: **nicht müssen** è non essere obbligati, **nicht dürfen** è non avere il permesso. **Du musst nicht kommen.** (Non sei obbligato a venire: puoi, ma non è necessario.) **Du darfst nicht kommen.** (Non puoi venire: non è permesso.) L'italiano non devi è spesso **darfst nicht**, non **musst nicht**."
         },
         "examples": [
           {
@@ -604,9 +604,9 @@
             "mögt"
           ],
           "translation": {
-            "en": "Monday is the day off. Kathi doesn't have to cook. She wants to sleep late. At ten Stefan phones. He has to take cider to Villach. \"Can you come along?\" Kathi likes Stefan and says yes. But she mustn't carry anything heavy, she has a bad back. Stefan says: \"You only have to drive!\"",
-            "sl": "V ponedeljek je prosti dan. Kathi ni treba kuhati. Hoče dolgo spati. Ob desetih pokliče Stefan. Mošt mora odpeljati v Beljak. »Lahko greš zraven?« Kathi ima Stefana rada in reče da. Ampak ne sme nositi težkih stvari, boli jo hrbet. Stefan reče: »Ti samo voziš!«",
-            "it": "Il lunedì è il giorno di riposo. Kathi non deve cucinare. Vuole dormire a lungo. Alle dieci telefona Stefan. Deve portare il sidro a Villach. «Puoi venire con me?» A Kathi Stefan piace e dice di sì. Ma non può portare cose pesanti, ha mal di schiena. Stefan dice: «Tu devi solo guidare!»"
+            "en": "Monday is the day off. Kathi doesn't have to cook. She wants to sleep late. At ten Stefan phones. He has to take cider to Villach. \"Can you come along?\" Kathi likes Stefan and says yes. But she mustn't carry anything heavy, she has a bad back. Stefan says: \"You're just supposed to drive!\"",
+            "sl": "V ponedeljek je prosti dan. Kathi ni treba kuhati. Hoče dolgo spati. Ob desetih pokliče Stefan. Mošt mora odpeljati v Beljak. »Lahko greš zraven?« Kathi ima Stefana rada in reče da. Ampak ne sme nositi težkih stvari, boli jo hrbet. Stefan reče: »Ti samo vozi!«",
+            "it": "Il lunedì è il giorno di riposo. Kathi non ha bisogno di cucinare. Vuole dormire a lungo. Alle dieci telefona Stefan. Deve portare il sidro a Villach. «Puoi venire con me?» A Kathi Stefan piace e dice di sì. Ma non può portare cose pesanti, ha mal di schiena. Stefan dice: «Tu devi solo guidare!»"
           },
           "explain": {
             "en": "**The modal second, the other verb at the end**\n- Kathi muss heute kochen",
@@ -762,7 +762,7 @@
           "prompt": {
             "en": "Kathi doesn't have to cook on Monday.",
             "sl": "V ponedeljek Kathi ni treba kuhati.",
-            "it": "Il lunedì Kathi non deve cucinare."
+            "it": "Il lunedì Kathi non ha bisogno di cucinare."
           },
           "tokens": [
             "muss",
@@ -784,6 +784,13 @@
               "muss",
               "am Montag",
               "nicht",
+              "kochen."
+            ],
+            [
+              "Kathi",
+              "muss",
+              "nicht",
+              "am Montag",
               "kochen."
             ]
           ],
@@ -871,7 +878,7 @@
         "translation": {
           "en": "Florian has to get up at five. The sheep want to go out to pasture. Bello isn't allowed to stay alone in the stable. In the evening Florian is supposed to take milk to the village. Grandma Resi phones: \"You don't have to cook on Sunday, I'm coming!\"",
           "sl": "Florian mora vstati ob petih. Ovce hočejo na pašo. Bello ne sme sam ostati v hlevu. Zvečer naj bi Florian odnesel mleko v vas. Babica Resi pokliče: »V nedeljo ti ni treba kuhati, jaz pridem!«",
-          "it": "Florian deve alzarsi alle cinque. Le pecore vogliono andare al pascolo. Bello non può restare da solo nella stalla. La sera Florian deve portare il latte in paese. Nonna Resi telefona: «Domenica non devi cucinare, vengo io!»"
+          "it": "Florian deve alzarsi alle cinque. Le pecore vogliono andare al pascolo. Bello non può restare da solo nella stalla. La sera Florian deve portare il latte in paese. Nonna Resi telefona: «Domenica non c'è bisogno che cucini, vengo io!»"
         }
       },
       {

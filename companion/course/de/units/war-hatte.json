@@ -39,7 +39,6 @@
     "die Schule",
     "der Winter",
     "das Fest",
-    "die Leute",
     "der Kirchtag",
     "die Kasnudeln",
     "der Reindling",
@@ -332,7 +331,7 @@
         "ask": {
           "type": "choice",
           "grammar": "praeteritum-kurz",
-          "prompt": "Beim Fest ___ viele Leute.",
+          "prompt": "Beim Fest ___ viele Kuchen.",
           "options": [
             "gab es",
             "gaben es",
@@ -341,9 +340,9 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "en": "**es gab: always the singular**\n- Es gab viele Leute · Beim Fest gab es viele Leute",
-            "sl": "**es gab: vedno ednina**\n- Es gab viele Leute · Beim Fest gab es viele Leute",
-            "it": "**es gab: sempre singolare**\n- Es gab viele Leute · Beim Fest gab es viele Leute"
+            "en": "**es gab: always the singular**\n- Es gab viele Kuchen · Beim Fest gab es viele Kuchen",
+            "sl": "**es gab: vedno ednina**\n- Es gab viele Kuchen · Beim Fest gab es viele Kuchen",
+            "it": "**es gab: sempre singolare**\n- Es gab viele Kuchen · Beim Fest gab es viele Kuchen"
           }
         }
       }
@@ -676,7 +675,8 @@
             {
               "from": "Stefan ist in Villach.",
               "accept": [
-                "Stefan war in Villach."
+                "Stefan war in Villach.",
+                "In Villach war Stefan."
               ]
             },
             {
@@ -723,7 +723,8 @@
             {
               "from": "Toni will nach Klagenfurt fahren.",
               "accept": [
-                "Toni wollte nach Klagenfurt fahren."
+                "Toni wollte nach Klagenfurt fahren.",
+                "Nach Klagenfurt wollte Toni fahren."
               ]
             }
           ],
@@ -776,7 +777,7 @@
           "sl": "Ergänze · Dopolni",
           "it": "Ergänze · Completa"
         },
-        "text": "Früher ___ (sein) im Dorf alles anders. Es ___ (geben) kein Auto. Die Kinder ___ (müssen) zu Fuß in die Schule gehen. Opa Sepp ___ (haben) nur ein Paar Schuhe. Im Winter ___ (können) er nicht auf die Alm gehen.",
+        "text": "Früher ___ (sein) im Dorf alles anders. Es ___ (geben) keine Autos. Die Kinder ___ (müssen) zu Fuß in die Schule gehen. Opa Sepp ___ (haben) nur ein Paar Schuhe. Im Winter ___ (können) er nicht auf die Alm gehen.",
         "gaps": [
           {
             "accept": [
@@ -805,9 +806,9 @@
           }
         ],
         "translation": {
-          "en": "In the old days everything was different in the village. There was no car. The children had to walk to school. Grandpa Sepp had only one pair of shoes. In winter he couldn't go up to the alpine pasture.",
-          "sl": "Včasih je bilo v vasi vse drugače. Avta ni bilo. Otroci so morali v šolo peš. Dedek Sepp je imel samo en par čevljev. Pozimi ni mogel na planino.",
-          "it": "Una volta in paese era tutto diverso. Non c'era l'auto. I bambini dovevano andare a scuola a piedi. Nonno Sepp aveva solo un paio di scarpe. D'inverno non poteva salire all'alpeggio."
+          "en": "In the old days everything was different in the village. There were no cars. The children had to walk to school. Grandpa Sepp had only one pair of shoes. In winter he couldn't go up to the alpine pasture.",
+          "sl": "Včasih je bilo v vasi vse drugače. Avtov ni bilo. Otroci so morali v šolo peš. Dedek Sepp je imel samo en par čevljev. Pozimi ni mogel na planino.",
+          "it": "Una volta in paese era tutto diverso. Non c'erano auto. I bambini dovevano andare a scuola a piedi. Nonno Sepp aveva solo un paio di scarpe. D'inverno non poteva salire all'alpeggio."
         }
       },
       {
