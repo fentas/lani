@@ -544,42 +544,8 @@ internal class BuildingPainter(private val s: SceneCtx) {
         else if (smoking) s.plume(i.sx(x0 + 1f, y0 + 1f), i.sy(x0 + 1f, y0 + 1f, 11f), b.plot * 13 + 7)
     }
 
-    private fun kozolec(b: Building, x: Float, y: Float) {
-        // "toplar": two wooden ladders under one roof; we look through the front ladder at the shaded back one
-        val x0 = x + 0.25f; val yb = y + 0.75f; val yf = y + 2.25f; val top = 14f
-        val hay = env.month in 6..11
-        val interior = Col.hex(0x3A2A1E)
-        i.panelY(x0, yb, 0.5f, 2.5f, top - 1, interior)
-        for (z in 2..12 step 2) i.line(x0, yb, z.toFloat(), x0 + 2.5f, yb, z.toFloat(), Pal.WOOD_M)
-        if (hay) for (j in 0 until 10) {
-            val u = Noise.rnd(b.plot, j, 3) * 2.4f; val v = 2f + Noise.rnd(b.plot, j, 4) * 4f
-            i.px(x0 + u, yb, v, Pal.HAY_D)
-        }
-        for (j in 0..2) postBox(x0 + j * 1.25f, yb, top)
-        // floor beams and the side frame on the +x end
-        i.line(x0 + 2.5f, yb, top - 0.5f, x0 + 2.5f, yf, top - 0.5f, Pal.WOOD_D)
-        i.line(x0 + 2.5f, yb, 7f, x0 + 2.5f, yf, 7f, Pal.WOOD_D)
-        i.line(x0 + 2.5f, yb, 1f, x0 + 2.5f, yf, 1f, Pal.WOOD_D)
-        // front ladder: light slats, hay drying over the lower rungs
-        for (z in 2..12 step 2) {
-            i.line(x0, yf, z.toFloat(), x0 + 2.5f, yf, z.toFloat(), Pal.WOOD_L)
-            i.line(x0, yf, z - 0.5f, x0 + 2.5f, yf, z - 0.5f, Pal.WOOD_D)
-        }
-        if (hay) {
-            i.panelY(x0 + 0.1f, yf, 3f, 1.05f, 7f, Pal.HAY_M)
-            i.panelY(x0 + 1.35f, yf, 3f, 1.05f, 3f, Pal.HAY_M)
-            for (j in 0 until 16) {
-                val u = Noise.rnd(b.plot, j, 5); val v = Noise.rnd(b.plot, j, 6)
-                val xx = if (j % 3 == 0) x0 + 1.35f + u * 1.05f else x0 + 0.1f + u * 1.05f
-                val zz = if (j % 3 == 0) 3f + v * 3f else 3f + v * 7f
-                i.px(xx, yf, zz, if (j % 2 == 0) Pal.HAY_L else Pal.HAY_D)
-            }
-            for (j in 0..3) i.px(x0 + 0.2f + j * 0.3f, yf, 2.5f, Pal.HAY_L)
-        }
-        for (j in 0..2) postBox(x0 + j * 1.25f, yf, top)
-        roofX(x0 - 0.45f, yb - 0.6f, top - 0.5f, 3.4f, 2.7f, 5f, tilesSideLit(), Pal.WOOD_D)
-        if (!env.snow) i.line(x0 - 0.45f, yf + 0.1f, top + 1.5f, x0 + 2.95f, yf + 0.1f, top + 1.5f, Col.hex(0x7A3220))
-    }
+    /** The kozolec as the field's scene builds it (Na polju): a single rack of oak growing with its level ([CultureBuildings.rack]). */
+    private fun kozolec(b: Building, x: Float, y: Float) = looks.rack(b, x, y, harpfe = false)
 
     internal fun postBox(x: Float, y: Float, h: Float) =
         i.box(x - 0.125f, y - 0.125f, 0f, 0.25f, 0.25f, h, Pal.WOOD_L, Pal.WOOD_D, Pal.WOOD_X)
