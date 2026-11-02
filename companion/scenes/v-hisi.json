@@ -39,8 +39,8 @@
       "when": ["afternoon"], "chance": 0.5, "dialog": "muri", "dialogs": ["muri-skrivalnice", "muri-klobasa", "muri"], "reward": { "wood": 15 }, "marker": "🐕",
       "memory": { "sl": "Murija, ki je lovil svoj rep", "en": "Muri chasing his own tail", "de": "Muri, der seinem eigenen Schwanz nachjagte", "it": "Muri che si rincorreva la coda" } },
     { "id": "fotografija", "title": { "sl": "Janez gleda staro fotografijo", "en": "Janez is looking at an old photo", "de": "Janez betrachtet ein altes Foto", "it": "Janez guarda una vecchia fotografia" }, "who": "janez",
-      "when": ["evening"], "chance": 0.4, "dialog": "fotografija", "dialogs": ["fotografija-triglav", "fotografija"], "reward": { "wisdom": 25 }, "marker": "🖼️", "needs": { "level": 3 },
-      "memory": { "sl": "večer, ko sem ti pokazal Ano", "en": "the evening I showed you Ana", "de": "den Abend, an dem ich dir Ana gezeigt habe", "it": "la sera in cui ti ho mostrato Ana" } },
+      "when": ["afternoon"], "chance": 0.4, "dialog": "fotografija", "dialogs": ["fotografija-triglav", "fotografija"], "reward": { "wisdom": 25 }, "marker": "🖼️", "needs": { "level": 3 },
+      "memory": { "sl": "dan, ko sem ti pokazal Ano", "en": "the day I showed you Ana", "de": "den Tag, an dem ich dir Ana gezeigt habe", "it": "il giorno in cui ti ho mostrato Ana" } },
     { "id": "skrivalnice", "title": { "sl": "Zala bi se igrala skrivalnice", "en": "Zala wants to play hide-and-seek", "de": "Zala möchte Verstecken spielen", "it": "Zala vuole giocare a nascondino" }, "who": "zala",
       "when": ["morning", "evening"], "chance": 0.5, "dialog": "skrivalnice", "dialogs": ["skrivalnice-vrata", "skrivalnice"], "reward": { "wood": 15 }, "marker": "🙈",
       "memory": { "sl": "skrivalnice, ko si me {m:našel|f:našla}", "en": "the hide-and-seek when you found me", "de": "das Versteckspiel, als du mich gefunden hast", "it": "il nascondino quando mi hai trovata" } }
@@ -309,7 +309,7 @@
     },
     {
       "id": "fotografija-triglav",
-      "memory": { "sl": "večer, ko sva gledala fotografijo s Triglava", "en": "the evening we looked at the photo from Triglav", "de": "den Abend, an dem wir das Foto vom Triglav angeschaut haben", "it": "la sera in cui abbiamo guardato la foto sul Triglav" },
+      "memory": { "sl": "dan, ko sva gledala fotografijo s Triglava", "en": "the day we looked at the photo from Triglav", "de": "den Tag, an dem wir das Foto vom Triglav angeschaut haben", "it": "il giorno in cui abbiamo guardato la foto sul Triglav" },
       "lines": [
         { "who": "janez", "face": "proud", "sl": "V knjigi imam staro fotografijo. To sem jaz, na Triglavu. Takrat sem bil mlad in močan.", "en": "I keep an old photo in my book. That's me, on Triglav. Back then I was young and strong.", "de": "In meinem Buch habe ich ein altes Foto. Das bin ich, auf dem Triglav. Damals war ich jung und stark.", "it": "Nel libro ho una vecchia foto. Sono io, sul Triglav. Allora ero giovane e forte." },
         { "choices": [

@@ -37,8 +37,8 @@
       "when": ["afternoon"], "months": [3, 4, 5, 6, 7, 8, 9], "chance": 0.5, "dialog": "zaba", "dialogs": ["zaba-mreza", "zaba-paglavci", "zaba"], "reward": { "food": 15 }, "marker": "🐸",
       "memory": { "sl": "žabo, ki nama je ušla v vodo", "en": "the frog that got away from us into the water", "de": "den Frosch, der uns ins Wasser entwischt ist", "it": "la rana che ci è scappata in acqua" } },
     { "id": "ribe", "title": { "sl": "Janez lovi ribe", "en": "Janez is fishing", "de": "Janez angelt", "it": "Janez pesca" }, "who": "janez",
-      "when": ["evening"], "chance": 0.45, "dialog": "ribe", "dialogs": ["ribe-stejem", "ribe-scuka", "ribe"], "reward": { "wisdom": 20 }, "marker": "🎣",
-      "memory": { "sl": "večer, ko sva lovila ribe v dežju", "en": "the evening we fished in the rain", "de": "den Abend, an dem wir im Regen geangelt haben", "it": "la sera in cui abbiamo pescato sotto la pioggia" } },
+      "when": ["afternoon"], "chance": 0.45, "dialog": "ribe", "dialogs": ["ribe-stejem", "ribe-scuka", "ribe"], "reward": { "wisdom": 20 }, "marker": "🎣",
+      "memory": { "sl": "dan, ko sva lovila ribe v dežju", "en": "the day we fished in the rain", "de": "den Tag, an dem wir im Regen geangelt haben", "it": "il giorno in cui abbiamo pescato sotto la pioggia" } },
     { "id": "zora", "title": { "sl": "Janez lovi ribe ob zori", "en": "Janez fishing at dawn", "de": "Janez angelt im Morgengrauen", "it": "Janez pesca all'alba" }, "who": "janez",
       "when": ["dawn"], "chance": 0.5, "dialog": "zora", "dialogs": ["zora-crvi", "zora-muri", "zora"], "reward": { "food": 20 }, "marker": "🎣",
       "memory": { "sl": "jutro, ko sva v megli lovila ribe", "en": "the morning we fished in the fog", "de": "den Morgen, an dem wir im Nebel geangelt haben", "it": "la mattina in cui abbiamo pescato nella nebbia" } }
@@ -135,15 +135,15 @@
       "id": "ribe",
       "sky_stays": false,
       "lines": [
-        { "who": "janez", "sl": "Dober večer, {learner}. Sedi. Zvečer so ribe lačne.", "en": "Good evening, {learner}. Sit down. In the evening the fish are hungry.", "de": "Guten Abend, {learner}. Setz dich. Am Abend haben die Fische Hunger.", "it": "Buonasera, {learner}. Siediti. La sera i pesci hanno fame.",
+        { "who": "janez", "sl": "Dober dan, {learner}. Sedi. Danes so ribe lačne.", "en": "Good day, {learner}. Sit down. Today the fish are hungry.", "de": "Guten Tag, {learner}. Setz dich. Heute haben die Fische Hunger.", "it": "Buongiorno, {learner}. Siediti. Oggi i pesci hanno fame.",
           "fx": { "bite": 0 } },
         { "choices": [
-          { "sl": "Dober večer. Ste že kaj ujeli?", "en": "Good evening. Have you caught anything yet?", "de": "Guten Abend. Haben Sie schon etwas gefangen?", "it": "Buonasera. Ha già preso qualcosa?", "ok": true,
+          { "sl": "Dober dan. Ste že kaj ujeli?", "en": "Good day. Have you caught anything yet?", "de": "Guten Tag. Haben Sie schon etwas gefangen?", "it": "Buongiorno. Ha già preso qualcosa?", "ok": true,
             "reply": { "face": "thinking", "sl": "Še nič. Potrpljenje.", "en": "Nothing yet. Patience.", "de": "Noch nichts. Geduld.", "it": "Ancora niente. Pazienza." } },
-          { "sl": "Dober večer. Si že kaj ujel?", "en": "Good evening. Have you (ti) caught anything yet?", "de": "Guten Abend. Hast du (ti) schon etwas gefangen?", "it": "Buonasera. Hai (ti) già preso qualcosa?",
+          { "sl": "Dober dan. Si že kaj ujel?", "en": "Good day. Have you (ti) caught anything yet?", "de": "Guten Tag. Hast du (ti) schon etwas gefangen?", "it": "Buongiorno. Hai (ti) già preso qualcosa?",
             "grammar": "ti-vi", "why": { "en": "Stari Janez expects vi: ste že kaj ujeli?", "de": "Stari Janez erwartet vi: ste že kaj ujeli?", "it": "Stari Janez si aspetta il vi: ste že kaj ujeli?" },
             "reply": { "face": "cross", "sl": "Si ujel? Hm. Kar na ti, s starim Janezom?", "en": "Si ujel (ti)? Hm. On ti terms straight away, with old Janez?", "de": "Si ujel (du)? Hm. Gleich per du, mit dem alten Janez?", "it": "Si ujel (tu)? Mah. Subito del tu, col vecchio Janez?" } },
-          { "sl": "Dober večer. Ste že kaj ujel?", "en": "Good evening. Have you caught anything yet?", "de": "Guten Abend. Haben Sie schon etwas gefangen?", "it": "Buonasera. Ha già preso qualcosa?",
+          { "sl": "Dober dan. Ste že kaj ujel?", "en": "Good day. Have you caught anything yet?", "de": "Guten Tag. Haben Sie schon etwas gefangen?", "it": "Buongiorno. Ha già preso qualcosa?",
             "grammar": "pretekli-cas", "why": { "en": "With vi the l-form is plural too: ste ujeli.", "de": "Mit vi steht auch die l-Form im Plural: ste ujeli.", "it": "Con il vi anche la forma in -l va al plurale: ste ujeli." },
             "reply": { "face": "confused", "sl": "Kako? Še enkrat, počasi.", "en": "What's that? Once more, slowly.", "de": "Wie bitte? Noch einmal, langsam.", "it": "Come? Ancora una volta, piano." } }
         ] },
@@ -302,9 +302,9 @@
     {
       "id": "ribe-stejem",
       "count": { "from": "dice", "min": 1, "max": 8, "gender": "f" },
-      "memory": { "sl": "večer, ko sva štela ribe v vedru", "en": "the evening we counted the fish in the bucket", "de": "den Abend, an dem wir die Fische im Eimer gezählt haben", "it": "la sera in cui abbiamo contato i pesci nel secchio" },
+      "memory": { "sl": "dan, ko sva štela ribe v vedru", "en": "the day we counted the fish in the bucket", "de": "den Tag, an dem wir die Fische im Eimer gezählt haben", "it": "il giorno in cui abbiamo contato i pesci nel secchio" },
       "lines": [
-        { "who": "janez", "sl": "Dober večer, {learner}. Danes so prijele. Poglej v vedro in preštej.", "en": "Good evening, {learner}. They were biting today. Look in the bucket and count.", "de": "Guten Abend, {learner}. Heute haben sie gebissen. Schau in den Eimer und zähl.", "it": "Buonasera, {learner}. Oggi abboccavano. Guarda nel secchio e conta.",
+        { "who": "janez", "sl": "Dober dan, {learner}. Danes so prijele. Poglej v vedro in preštej.", "en": "Good day, {learner}. They were biting today. Look in the bucket and count.", "de": "Guten Tag, {learner}. Heute haben sie gebissen. Schau in den Eimer und zähl.", "it": "Buongiorno, {learner}. Oggi abboccavano. Guarda nel secchio e conta.",
           "fx": { "bucket": 1 } },
         { "choices": [
           { "sl": "V vedru {je|sta|so|je} {n} {!riba|ribi|ribe|rib}.", "en": "There {is|are} {n} {fish|fish} in the bucket.", "de": "Im Eimer {ist|sind} {n} {Fisch|Fische}.", "it": "Nel secchio {c'è|ci sono} {n} {pesce|pesci}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
@@ -334,7 +334,7 @@
       "id": "ribe-scuka",
       "memory": { "sl": "ščuko, ki je vsak dan malo večja", "en": "the pike that gets a little bigger every day", "de": "den Hecht, der jeden Tag ein bisschen größer wird", "it": "il luccio che ogni giorno diventa un po' più grande" },
       "lines": [
-        { "who": "janez", "face": "proud", "sl": "Dober večer, {learner}. Sedi. … Veš, nekoč sem tu ujel ščuko. Tako veliko!", "en": "Good evening, {learner}. Sit down. … You know, once I caught a pike here. This big!", "de": "Guten Abend, {learner}. Setz dich. … Weißt du, einmal habe ich hier einen Hecht gefangen. So groß!", "it": "Buonasera, {learner}. Siediti. … Sai, una volta qui ho preso un luccio. Grande così!",
+        { "who": "janez", "face": "proud", "sl": "Dober dan, {learner}. Sedi. … Veš, nekoč sem tu ujel ščuko. Tako veliko!", "en": "Good day, {learner}. Sit down. … You know, once I caught a pike here. This big!", "de": "Guten Tag, {learner}. Setz dich. … Weißt du, einmal habe ich hier einen Hecht gefangen. So groß!", "it": "Buongiorno, {learner}. Siediti. … Sai, una volta qui ho preso un luccio. Grande così!",
           "fx": { "bite": 0 } },
         { "choices": [
           { "sl": "Je bila bolj velika od vas?", "en": "Was it more big than you?", "de": "War er mehr groß als Sie?", "it": "Era più grande di Lei (forma sbagliata)?",

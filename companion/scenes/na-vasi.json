@@ -41,8 +41,8 @@
       "when": ["morning", "afternoon"], "chance": 0.6, "dialog": "mlada-lipa", "dialogs": ["mlada-lipa-voda", "mlada-lipa"], "reward": { "wisdom": 25 }, "marker": "🌱", "needs": { "building": "LIPA", "level": 5, "before": true },
       "memory": { "sl": "vedro vode za mlado lipo", "en": "the bucket of water for the young linden", "de": "den Eimer Wasser für die junge Linde", "it": "il secchio d'acqua per il giovane tiglio" } },
     { "id": "muri", "title": { "sl": "Janezov pes Muri", "en": "Janez's dog Muri", "de": "Janez' Hund Muri", "it": "Muri, il cane di Janez" }, "who": "janez",
-      "when": ["evening"], "chance": 0.4, "dialog": "muri", "dialogs": ["muri-kruh", "muri"], "reward": { "wisdom": 15 }, "marker": "🐕",
-      "memory": { "sl": "večer, ko si {m:poklical|f:poklicala} Murija", "en": "the evening you called Muri", "de": "den Abend, an dem du Muri gerufen hast", "it": "la sera in cui hai chiamato Muri" } },
+      "when": ["afternoon"], "chance": 0.4, "dialog": "muri", "dialogs": ["muri-kruh", "muri"], "reward": { "wisdom": 15 }, "marker": "🐕",
+      "memory": { "sl": "dan, ko si {m:poklical|f:poklicala} Murija", "en": "the day you called Muri", "de": "den Tag, an dem du Muri gerufen hast", "it": "il giorno in cui hai chiamato Muri" } },
     { "id": "dvojina", "title": { "sl": "Mojca pri vodnjaku: dvojina!", "en": "Mojca at the well: the dual!", "de": "Mojca am Brunnen: der Dual!", "it": "Mojca al pozzo: il duale!" }, "who": "mojca",
       "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "dvojina", "dialogs": ["dvojina-vedra", "dvojina-ju", "dvojina"], "reward": { "stone": 20 }, "marker": "📚", "needs": { "age": "vas", "building": "WELL" },
       "memory": { "sl": "dva otroka in dve vedri pri vodnjaku", "en": "the two children and the two buckets by the well", "de": "die zwei Kinder und die zwei Eimer am Brunnen", "it": "i due bambini e i due secchi al pozzo" } },
@@ -135,7 +135,7 @@
           "fx": { "dog": 0 } },
         { "choices": [
           { "sl": "Ne, nisem ga {m:videl|f:videla}. Kdaj je pobegnil?", "en": "No, I have not seen him. When did he run off?", "de": "Nein, ich habe ihn nicht gesehen. Wann ist er weggelaufen?", "it": "No, non l'ho visto. Quando è scappato?", "ok": true,
-            "reply": { "face": "thinking", "sl": "Popoldne. Vedno gre k mesarju.", "en": "In the afternoon. He always goes to the butcher's.", "de": "Am Nachmittag. Er geht immer zum Metzger.", "it": "Nel pomeriggio. Va sempre dal macellaio." } },
+            "reply": { "face": "thinking", "sl": "Zjutraj. Vedno gre k mesarju.", "en": "This morning. He always goes to the butcher's.", "de": "Heute Morgen. Er geht immer zum Metzger.", "it": "Stamattina. Va sempre dal macellaio." } },
           { "sl": "Ne, nisem ga {m:videl|f:videla}. Kdaj je pobegnila?", "en": "No, I have not seen him. When did she run off?", "de": "Nein, ich habe ihn nicht gesehen. Wann ist sie weggelaufen?", "it": "No, non l'ho visto. Quando è scappata?",
             "grammar": "pretekli-cas", "why": { "en": "Pes is masculine: pobegnil. Pobegnila is feminine (mačka je pobegnila).", "de": "Pes ist männlich: pobegnil. Pobegnila ist weiblich (mačka je pobegnila).", "it": "Pes è maschile: pobegnil. Pobegnila è femminile (mačka je pobegnila)." },
             "reply": { "face": "curious", "sl": "Pobegnila? Mačka? Ne, pes. Muri.", "en": "Pobegnila (she ran off)? The cat? No, the dog. Muri.", "de": "Pobegnila (sie ist weggelaufen)? Die Katze? Nein, der Hund. Muri.", "it": "Pobegnila (è scappata, lei)? La gatta? No, il cane. Muri." } },
@@ -155,15 +155,15 @@
             "why": { "en": "Here, towards me, is sem. Tam is 'there'.", "de": "Her, zu mir hin, heißt sem. Tam heißt ‚dort‘.", "it": "Qui, verso di me, è sem. Tam significa 'là'." },
             "reply": { "face": "cross", "sl": "Tam? Zdaj pa teče tja, k mesarju!", "en": "Tam (there)? Now he's running off there, to the butcher's!", "de": "Tam (dort)? Jetzt läuft er dorthin, zum Metzger!", "it": "Tam (là)? Adesso corre là, dal macellaio!", "fx": { "dog": 0 } } }
         ] },
-        { "who": "janez", "sl": "Hvala, {learner}. Muri, domov! Lahko noč.", "en": "Thanks, {learner}. Muri, home! Good night.", "de": "Danke, {learner}. Muri, nach Hause! Gute Nacht.", "it": "Grazie, {learner}. Muri, a casa! Buonanotte.",
+        { "who": "janez", "sl": "Hvala, {learner}. Muri, domov! Na svidenje.", "en": "Thanks, {learner}. Muri, home! Goodbye.", "de": "Danke, {learner}. Muri, nach Hause! Auf Wiedersehen.", "it": "Grazie, {learner}. Muri, a casa! Arrivederci.",
           "fx": { "wag": 0 } },
         { "choices": [
-          { "sl": "Lahko noč, Janez. Lahko noč, Muri!", "en": "Good night, Janez. Good night, Muri!", "de": "Gute Nacht, Janez. Gute Nacht, Muri!", "it": "Buonanotte, Janez. Buonanotte, Muri!", "ok": true,
+          { "sl": "Na svidenje, Janez. Adijo, Muri!", "en": "Goodbye, Janez. Bye, Muri!", "de": "Auf Wiedersehen, Janez. Tschüs, Muri!", "it": "Arrivederci, Janez. Ciao, Muri!", "ok": true,
             "reply": { "face": "laugh", "sl": "Hov!", "en": "Woof!", "de": "Wuff!", "it": "Bau!" } },
           { "sl": "Lahko noči, Janez. Lahko noč, Muri!", "en": "Good nights, Janez. Good night, Muri!", "de": "Gute Nächte, Janez. Gute Nacht, Muri!", "it": "Buone notti, Janez. Buonanotte, Muri!",
-            "why": { "en": "The phrase is lahko noč. Noči is the plural or genitive.", "de": "Die Wendung heißt lahko noč. Noči ist der Plural oder der Genitiv.", "it": "L'espressione è lahko noč. Noči è il plurale o il genitivo." },
+            "why": { "en": "Lahko noč is for bedtime, and the phrase has noč: noči is the plural or genitive. By day you part with na svidenje.", "de": "Lahko noč sagt man vor dem Schlafengehen, und die Wendung hat noč: noči ist der Plural oder der Genitiv. Am Tag verabschiedest du dich mit na svidenje.", "it": "Lahko noč si dice prima di andare a dormire, e l'espressione ha noč: noči è il plurale o il genitivo. Di giorno ci si saluta con na svidenje." },
             "reply": { "face": "laugh", "sl": "Lahko noči? Koliko noči pa? Ena je dovolj.", "en": "Lahko noči (good nights)? How many nights? One's enough.", "de": "Lahko noči (gute Nächte)? Wie viele Nächte denn? Eine reicht.", "it": "Lahko noči (buone notti)? Quante notti? Una basta." } },
-          { "sl": "Lahko noč, Janez. Lahko noč, Muriju!", "en": "Good night, Janez. Good night, to-Muri!", "de": "Gute Nacht, Janez. Gute Nacht, dem-Muri!", "it": "Buonanotte, Janez. Buonanotte, a-Muri!",
+          { "sl": "Na svidenje, Janez. Adijo, Muriju!", "en": "Goodbye, Janez. Bye, to-Muri!", "de": "Auf Wiedersehen, Janez. Tschüs, dem-Muri!", "it": "Arrivederci, Janez. Ciao, a-Muri!",
             "grammar": "imenovalnik", "why": { "en": "Calling someone, or a dog, by name: the name stays as it is, Muri. Muriju is the dative.", "de": "Wenn du jemanden, oder einen Hund, beim Namen rufst, bleibt der Name, wie er ist: Muri. Muriju ist der Dativ.", "it": "Quando chiami qualcuno, o un cane, per nome, il nome resta com'è: Muri. Muriju è il dativo." },
             "reply": { "face": "confused", "sl": "Muriju? Pes samo gleda. Ne ve, da je to on.", "en": "Muriju? The dog just stares. He doesn't know that's him.", "de": "Muriju? Der Hund schaut nur. Er weiß nicht, dass er gemeint ist.", "it": "Muriju? Il cane guarda e basta. Non sa che si parla di lui." } }
         ] }
@@ -438,16 +438,16 @@
       "id": "muri-kruh",
       "memory": { "sl": "kruh, ki si ga {m:dal|f:dala} Muriju", "en": "the bread you gave Muri", "de": "das Brot, das du Muri gegeben hast", "it": "il pane che hai dato a Muri" },
       "lines": [
-        { "who": "janez", "sl": "Dober večer, {learner}. Muri je lačen. Ves dan je tekel za mačkami.", "en": "Good evening, {learner}. Muri is hungry. He's been chasing cats all day.", "de": "Guten Abend, {learner}. Muri hat Hunger. Er ist den ganzen Tag Katzen nachgelaufen.", "it": "Buonasera, {learner}. Muri ha fame. Ha rincorso i gatti tutto il giorno." },
+        { "who": "janez", "sl": "Dober dan, {learner}. Muri je lačen. Že od jutra teče za mačkami.", "en": "Good day, {learner}. Muri is hungry. He's been chasing cats since this morning.", "de": "Guten Tag, {learner}. Muri hat Hunger. Seit heute Morgen läuft er Katzen nach.", "it": "Buongiorno, {learner}. Muri ha fame. Rincorre i gatti da stamattina." },
         { "choices": [
-          { "sl": "Dober večer! Lahko dam Muri kos kruha?", "en": "Good evening! Can I give Muri (nominative) a piece of bread?", "de": "Guten Abend! Darf ich Muri (Nominativ) ein Stück Brot geben?", "it": "Buonasera! Posso dare Muri (nominativo) un pezzo di pane?",
+          { "sl": "Dober dan! Lahko dam Muri kos kruha?", "en": "Good day! Can I give Muri (nominative) a piece of bread?", "de": "Guten Tag! Darf ich Muri (Nominativ) ein Stück Brot geben?", "it": "Buongiorno! Posso dare Muri (nominativo) un pezzo di pane?",
             "grammar": "dajalnik", "why": { "en": "You give to him: the dative, Muriju (to Muri).", "de": "Du gibst ihm etwas: der Dativ, Muriju (dem Muri).", "it": "Dai qualcosa a lui: il dativo, Muriju (a Muri)." },
             "reply": { "face": "confused", "sl": "Hm? Muri te gleda. Ne razume te.", "en": "Hm? Muri's looking at you. He doesn't understand you.", "de": "Hm? Muri schaut dich an. Er versteht dich nicht.", "it": "Mm? Muri ti guarda. Non ti capisce." } },
-          { "sl": "Dober večer! Lahko dam Muriju kos kruha?", "en": "Good evening! Can I give Muri a piece of bread?", "de": "Guten Abend! Darf ich Muri ein Stück Brot geben?", "it": "Buonasera! Posso dare a Muri un pezzo di pane?", "ok": true,
+          { "sl": "Dober dan! Lahko dam Muriju kos kruha?", "en": "Good day! Can I give Muri a piece of bread?", "de": "Guten Tag! Darf ich Muri ein Stück Brot geben?", "it": "Buongiorno! Posso dare a Muri un pezzo di pane?", "ok": true,
             "reply": { "face": "laugh", "sl": "Lahko. Ampak samo malo. Muri je že debel.", "en": "You may. But only a little. Muri is fat already.", "de": "Darfst du. Aber nur ein bisschen. Muri ist schon dick.", "it": "Puoi. Ma solo un pochino. Muri è già grasso." } },
-          { "sl": "Dobro jutro! Lahko dam Muriju kos kruha?", "en": "Good morning! Can I give Muri a piece of bread?", "de": "Guten Morgen! Darf ich Muri ein Stück Brot geben?", "it": "Buongiorno! Posso dare a Muri un pezzo di pane?",
-            "why": { "en": "It is evening: dober večer. Dobro jutro is for the morning.", "de": "Es ist Abend: dober večer. Dobro jutro sagt man am Morgen.", "it": "È sera: dober večer. Dobro jutro è per la mattina." },
-            "reply": { "face": "surprised", "sl": "Jutro? {m:Fant|f:Dekle}, še Muri ve, da gre dan spat.", "en": "Jutro (morning)? {m:Lad|f:Lass}, even Muri knows the day is going to bed.", "de": "Jutro (Morgen)? {m:Junge|f:Mädchen}, sogar Muri weiß, dass der Tag schlafen geht.", "it": "Jutro (mattino)? {m:Ragazzo|f:Ragazza}, perfino Muri sa che il giorno va a dormire." } }
+          { "sl": "Dobro jutro! Lahko dam Muriju kos kruha?", "en": "Good morning! Can I give Muri a piece of bread?", "de": "Guten Morgen! Darf ich Muri ein Stück Brot geben?", "it": "Buon mattino! Posso dare a Muri un pezzo di pane?",
+            "why": { "en": "It is day now: dober dan. Dobro jutro is for the morning.", "de": "Es ist schon Tag: dober dan. Dobro jutro sagt man am Morgen.", "it": "È già giorno: dober dan. Dobro jutro è per la mattina." },
+            "reply": { "face": "surprised", "sl": "Jutro? {m:Fant|f:Dekle}, še Muri ve, da je že dan.", "en": "Jutro (morning)? {m:Lad|f:Lass}, even Muri knows it's day by now.", "de": "Jutro (Morgen)? {m:Junge|f:Mädchen}, sogar Muri weiß, dass es schon Tag ist.", "it": "Jutro (mattino)? {m:Ragazzo|f:Ragazza}, perfino Muri sa che è già giorno." } }
         ] },
         { "who": "janez", "sl": "Poglej ga, kako maha z repom. Zdaj sta prijatelja, ti in on.", "en": "Look at him wagging his tail. Now you two are friends, you and him.", "de": "Schau, wie er mit dem Schwanz wedelt. Jetzt seid ihr zwei Freunde, du und er.", "it": "Guarda come scodinzola. Adesso siete amici, tu e lui.",
           "fx": { "wag": 1 } },
@@ -461,7 +461,7 @@
           { "sl": "Ja, tudi jaz ga imam {m:rad|f:rada}.", "en": "Yes, I like him too.", "de": "Ja, ich mag ihn auch.", "it": "Sì, anch'io gli voglio bene.", "ok": true,
             "reply": { "face": "proud", "sl": "Vidiš? Kruh odpre vsa vrata. In vsa srca.", "en": "See? Bread opens every door. And every heart.", "de": "Siehst du? Brot öffnet alle Türen. Und alle Herzen.", "it": "Vedi? Il pane apre tutte le porte. E tutti i cuori." } }
         ] },
-        { "who": "janez", "sl": "No, zdaj pa domov, Muri. Lahko noč, {learner}.", "en": "Well, home now, Muri. Good night, {learner}.", "de": "So, jetzt nach Hause, Muri. Gute Nacht, {learner}.", "it": "Bene, ora a casa, Muri. Buonanotte, {learner}." }
+        { "who": "janez", "sl": "No, zdaj pa domov, Muri. Na svidenje, {learner}.", "en": "Well, home now, Muri. Goodbye, {learner}.", "de": "So, jetzt nach Hause, Muri. Auf Wiedersehen, {learner}.", "it": "Bene, ora a casa, Muri. Arrivederci, {learner}." }
       ]
     },
     {

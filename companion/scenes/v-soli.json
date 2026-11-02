@@ -44,8 +44,8 @@
       "when": ["morning"], "chance": 0.4, "dialog": "globus", "dialogs": ["globus-morje", "globus"],"reward": { "food": 15 }, "marker": "🌍", "needs": { "level": 2 },
       "memory": { "sl": "globus in Nemčijo, ki si mi jo {m:pokazal|f:pokazala}", "en": "the globe and Germany, which you showed me", "de": "den Globus und Deutschland, das du mir gezeigt hast", "it": "il mappamondo e la Germania che mi hai mostrato" } },
     { "id": "stara-sola", "title": { "sl": "Janez v svoji stari šoli", "en": "Janez in his old school", "de": "Janez in seiner alten Schule", "it": "Janez nella sua vecchia scuola" }, "who": "janez",
-      "when": ["evening"], "chance": 0.3, "dialog": "stara-sola", "dialogs": ["stara-sola-pec", "stara-sola"],"reward": { "wisdom": 20 }, "marker": "🎓",
-      "memory": { "sl": "večer v stari šoli, ko sem ti pravil o gospe Pavli", "en": "the evening in the old school when I told you about Mrs Pavla", "de": "den Abend in der alten Schule, als ich dir von Frau Pavla erzählt habe", "it": "la sera nella vecchia scuola, quando ti ho raccontato della signora Pavla" } }
+      "when": ["afternoon"], "chance": 0.3, "dialog": "stara-sola", "dialogs": ["stara-sola-pec", "stara-sola"],"reward": { "wisdom": 20 }, "marker": "🎓",
+      "memory": { "sl": "dan v stari šoli, ko sem ti pravil o gospe Pavli", "en": "the day in the old school when I told you about Mrs Pavla", "de": "den Tag in der alten Schule, als ich dir von Frau Pavla erzählt habe", "it": "il giorno nella vecchia scuola, quando ti ho raccontato della signora Pavla" } }
   ],
   "dialogs": [
     {
@@ -224,15 +224,15 @@
             "grammar": "tozilnik", "why": { "en": "Udariti takes the accusative: udarila vas je. Vam is the dative (dala vam je).", "de": "Udariti verlangt den Akkusativ: udarila vas je. Vam ist der Dativ (dala vam je).", "it": "Udariti vuole l'accusativo: udarila vas je. Vam è il dativo (dala vam je)." },
             "reply": { "face": "confused", "sl": "Vam? Hm. Stara glava. Še enkrat.", "en": "Vam? Hm. Old head. Once more.", "de": "Vam? Hm. Alter Kopf. Noch einmal.", "it": "Vam? Mah. Testa vecchia. Ancora una volta." } }
         ] },
-        { "who": "janez", "sl": "Zdaj tu uči Mojca. Dobra je. Brez palice. Pojdiva, pozno je.", "en": "Now Mojca teaches here. She is good. Without a stick. Let us two go, it is late.", "de": "Jetzt unterrichtet hier Mojca. Sie ist gut. Ohne Stock. Gehen wir zwei, es ist spät.", "it": "Adesso qui insegna Mojca. È brava. Senza bacchetta. Andiamo, noi due, è tardi." },
+        { "who": "janez", "sl": "Zdaj tu uči Mojca. Dobra je. Brez palice. Pojdiva, Muri čaka.", "en": "Now Mojca teaches here. She is good. Without a stick. Let us two go, Muri is waiting.", "de": "Jetzt unterrichtet hier Mojca. Sie ist gut. Ohne Stock. Gehen wir zwei, Muri wartet.", "it": "Adesso qui insegna Mojca. È brava. Senza bacchetta. Andiamo, noi due, Muri aspetta." },
         { "choices": [
-          { "sl": "Greva. Lahko noč, Janez. Hvala za zgodbo.", "en": "Let us go (the two of us). Good night, Janez. Thanks for the story.", "de": "Gehen wir (wir zwei). Gute Nacht, Janez. Danke für die Geschichte.", "it": "Andiamo (noi due). Buonanotte, Janez. Grazie per la storia.", "ok": true,
-            "reply": { "face": "happy", "sl": "Lahko noč. Muri, domov!", "en": "Good night. Muri, home!", "de": "Gute Nacht. Muri, nach Hause!", "it": "Buonanotte. Muri, a casa!" } },
+          { "sl": "Greva. Na svidenje, Janez. Hvala za zgodbo.", "en": "Let us go (the two of us). Goodbye, Janez. Thanks for the story.", "de": "Gehen wir (wir zwei). Auf Wiedersehen, Janez. Danke für die Geschichte.", "it": "Andiamo (noi due). Arrivederci, Janez. Grazie per la storia.", "ok": true,
+            "reply": { "face": "happy", "sl": "Na svidenje. Muri, domov!", "en": "Goodbye. Muri, home!", "de": "Auf Wiedersehen. Muri, nach Hause!", "it": "Arrivederci. Muri, a casa!" } },
           { "sl": "Greva. Hvala, Janez. Se vidimo jutri!", "en": "Let us go (the two of us). Thanks, Janez. See you tomorrow!", "de": "Gehen wir (wir zwei). Danke, Janez. Bis morgen!", "it": "Andiamo (noi due). Grazie, Janez. Ci vediamo domani!", "ok": true,
             "reply": { "face": "happy", "sl": "Jutri, ja. Pod lipo, kot vedno.", "en": "Tomorrow, yes. Under the linden, as always.", "de": "Morgen, ja. Unter der Linde, wie immer.", "it": "Domani, sì. Sotto il tiglio, come sempre." } },
-          { "sl": "Greva. Dober večer, Janez. Hvala za zgodbo.", "en": "Let us go (the two of us). Good evening, Janez. Thanks for the story.", "de": "Gehen wir (wir zwei). Guten Abend, Janez. Danke für die Geschichte.", "it": "Andiamo (noi due). Buonasera, Janez. Grazie per la storia.",
-            "why": { "en": "Dober večer is the greeting when you arrive. When you part in the evening: lahko noč (or na svidenje).", "de": "Dober večer ist der Gruß, wenn du ankommst. Zum Abschied am Abend: lahko noč (oder na svidenje).", "it": "Dober večer è il saluto quando arrivi. Per congedarsi di sera: lahko noč (o na svidenje)." },
-            "reply": { "face": "confused", "sl": "Dober večer? Ha. Prihajaš ali odhajaš?", "en": "Dober večer (good evening)? Ha. Are you coming or going?", "de": "Dober večer (guten Abend)? Ha. Kommst du oder gehst du?", "it": "Dober večer (buonasera)? Ah. Arrivi o te ne vai?" } }
+          { "sl": "Greva. Dober dan, Janez. Hvala za zgodbo.", "en": "Let us go (the two of us). Good day, Janez. Thanks for the story.", "de": "Gehen wir (wir zwei). Guten Tag, Janez. Danke für die Geschichte.", "it": "Andiamo (noi due). Buongiorno, Janez. Grazie per la storia.",
+            "why": { "en": "Dober dan is the greeting when you arrive. When you part: na svidenje.", "de": "Dober dan ist der Gruß, wenn du ankommst. Zum Abschied: na svidenje.", "it": "Dober dan è il saluto quando arrivi. Per congedarsi: na svidenje." },
+            "reply": { "face": "confused", "sl": "Dober dan? Ha. Prihajaš ali odhajaš?", "en": "Dober dan (good day)? Ha. Are you coming or going?", "de": "Dober dan (guten Tag)? Ha. Kommst du oder gehst du?", "it": "Dober dan (buongiorno)? Ah. Arrivi o te ne vai?" } }
         ] }
       ]
     }
@@ -440,7 +440,7 @@
     },
     {
       "id": "stara-sola-pec",
-      "memory": { "sl": "večer v stari šoli, ko sem ti pravil o polenih za peč", "en": "the evening in the old school when I told you about the logs for the stove", "de": "den Abend in der alten Schule, als ich dir von den Holzscheiten für den Ofen erzählt habe", "it": "la sera nella vecchia scuola, quando ti ho raccontato dei ceppi per la stufa" },
+      "memory": { "sl": "dan v stari šoli, ko sem ti pravil o polenih za peč", "en": "the day in the old school when I told you about the logs for the stove", "de": "den Tag in der alten Schule, als ich dir von den Holzscheiten für den Ofen erzählt habe", "it": "il giorno nella vecchia scuola, quando ti ho raccontato dei ceppi per la stufa" },
       "lines": [
         { "who": "janez", "face": "thinking", "sl": "Veš, pozimi je bilo tu mrzlo. Vsak otrok je moral prinesti poleno za peč.", "en": "You know, in winter it was cold here. Every child had to bring a log for the stove.", "de": "Weißt du, im Winter war es hier kalt. Jedes Kind musste ein Holzscheit für den Ofen mitbringen.", "it": "Sai, d'inverno qui faceva freddo. Ogni bambino doveva portare un ceppo per la stufa." },
         { "choices": [
@@ -464,7 +464,7 @@
             "grammar": "glagoli-sedanjik", "why": { "en": "Otroci (they): smejo. Smem is I may.", "de": "Otroci (sie): smejo. Smem heißt ich darf.", "it": "Otroci (loro): smejo. Smem è io posso." },
             "reply": { "face": "confused", "sl": "Smem? Ti smeš, seveda. Ti nisi otrok.", "en": "Smem (I may)? You may, of course. You're not a child.", "de": "Smem (ich darf)? Du darfst, natürlich. Du bist kein Kind.", "it": "Smem (io posso)? Tu puoi, certo. Non sei un bambino." } }
         ] },
-        { "who": "janez", "sl": "Časi se spreminjajo, {m:sinko|f:{learner}}. Pojdi domov, pozno je.", "en": "Times change, {m:son|f:{learner}}. Go home, it is late.", "de": "Die Zeiten ändern sich, {m:mein Junge|f:{learner}}. Geh nach Hause, es ist spät.", "it": "I tempi cambiano, {m:figliolo|f:{learner}}. Va' a casa, è tardi." }
+        { "who": "janez", "sl": "Časi se spreminjajo, {m:sinko|f:{learner}}. Pojdi domov, jaz še malo ostanem.", "en": "Times change, {m:son|f:{learner}}. Go home, I'll stay a little longer.", "de": "Die Zeiten ändern sich, {m:mein Junge|f:{learner}}. Geh nach Hause, ich bleibe noch ein bisschen.", "it": "I tempi cambiano, {m:figliolo|f:{learner}}. Va' a casa, io resto ancora un po'." }
       ]
     }
   ]
