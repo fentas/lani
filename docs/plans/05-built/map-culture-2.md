@@ -106,9 +106,10 @@ The watchtower, the church, the hut, the smithy and the field already matched.
 - `TownWindowTest`: "stamps kept" now counts the most stamps kept at once. It asked for more than 50 at the end of a land's
   frames, but the cache empties itself when full, so that size depended on when it last did; the linden's smaller crowns moved
   that moment.
-- The whole Android unit suite on the branch's tip: 483 classes, 3762 tests, none failed (2 skipped). The Python tests (251; 142,
-  11 skipped), the bridge's typecheck, its smoke (all checks passed; ports 9690, 9693, 9696, DRAMA3 9708) and `tutor-export
-  --check` (89 files) pass; nothing of the bridge changed.
+- Merged with main at bde83009 (one conflict: bin/qa's step list, by `qa-steps-union.py`; no render file of main's changed). On
+  the merged tip: the whole Android unit suite 484 classes, 3765 tests, none failed (2 skipped); the Python tests (251; 142, 11
+  skipped), the bridge's typecheck, its smoke (3471 checks; ports 9690, 9693, 9696, DRAMA3 9708), `bun build --no-bundle` of
+  the merged test files and `tutor-export --check` (89 files) pass. This branch changed nothing of the bridge.
 
 ## On the emulator
 
