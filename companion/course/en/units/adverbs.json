@@ -1,0 +1,1095 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "adverbs",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🐢",
+  "title": {
+    "en": "Quickly, carefully, well",
+    "de": "Die Adverbien: quickly, carefully, well",
+    "sl": "Prislovi: quickly, carefully, well",
+    "it": "Gli avverbi: quickly, carefully, well"
+  },
+  "goal": {
+    "sl": "Ločiš pridevnik od prislova, pišeš quickly, carefully, happily in gently, rečeš well, fast, hard, postaviš prislov za predmet in poveš faster, better, more slowly.",
+    "de": "Du unterscheidest Adjektiv und Adverb, schreibst quickly, carefully, happily und gently, sagst well, fast, hard, stellst das Adverb nach das Objekt und sagst faster, better, more slowly.",
+    "it": "Distingui aggettivo e avverbio, scrivi quickly, carefully, happily e gently, dici well, fast, hard, metti l'avverbio dopo il complemento e dici faster, better, more slowly.",
+    "en": "You can tell an adjective from an adverb, spell quickly, carefully, happily and gently, say well, fast, hard, put the adverb after the object and say faster, better, more slowly."
+  },
+  "grammar": [
+    "adverbs",
+    "word-order"
+  ],
+  "words": [
+    "slow",
+    "slowly",
+    "quick",
+    "quickly",
+    "quiet",
+    "quietly",
+    "careful",
+    "carefully",
+    "happily",
+    "easily",
+    "gentle",
+    "gently",
+    "terrible",
+    "terribly",
+    "well",
+    "fast",
+    "hard",
+    "late",
+    "early",
+    "hardly",
+    "lately",
+    "badly",
+    "clearly",
+    "loudly",
+    "beautifully",
+    "smell",
+    "taste",
+    "look",
+    "feel",
+    "friendly",
+    "lovely",
+    "darts",
+    "worse",
+    "driver",
+    "faster",
+    "harder",
+    "slower",
+    "louder",
+    "easy"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "kakšna beseda",
+          "de": "was für ein Wort",
+          "it": "che parola",
+          "en": "kind of word"
+        },
+        {
+          "sl": "pridevnik",
+          "de": "Adjektiv",
+          "it": "aggettivo",
+          "en": "adjective"
+        },
+        {
+          "sl": "prislov",
+          "de": "Adverb",
+          "it": "avverbio",
+          "en": "adverb"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Pridevnik pove, kakšna je stvar, prislov pa, kako kdo nekaj dela: **a slow walk** (počasen sprehod), a **Jack walks slowly.** (Jack hodi počasi.) **a careful driver** (previden voznik), a **Sam drives carefully.** (Sam vozi previdno.)",
+          "de": "Ein Adjektiv sagt, wie etwas ist, ein Adverb, wie man etwas tut: **a slow walk** (eine langsame Wanderung), aber **Jack walks slowly.** (Jack geht langsam.) **a careful driver** (ein vorsichtiger Fahrer), aber **Sam drives carefully.** (Sam fährt vorsichtig.) Das Deutsche sagt beides gleich, das Englische nicht.",
+          "it": "L'aggettivo dice com'è una cosa, l'avverbio come si fa qualcosa: **a slow walk** (una camminata lenta), ma **Jack walks slowly.** (Jack cammina lentamente.) **a careful driver** (un autista prudente), ma **Sam drives carefully.** (Sam guida con prudenza.)",
+          "en": "An adjective says what a thing is like, an adverb how something is done: **a slow walk**, but **Jack walks slowly.** **a careful driver**, but **Sam drives carefully.** (never *Sam drives careful.*)"
+        },
+        "examples": [
+          {
+            "en": "Jack walks slowly up the fell.",
+            "sl": "Jack počasi hodi na hrib.",
+            "de": "Jack geht langsam den Berg hinauf.",
+            "it": "Jack sale lentamente sul monte."
+          },
+          {
+            "en": "Beekeeper Arthur speaks quietly to his bees.",
+            "sl": "Čebelar Arthur tiho govori s čebelami.",
+            "de": "Imker Arthur spricht leise mit seinen Bienen.",
+            "it": "L'apicoltore Arthur parla piano alle sue api."
+          },
+          {
+            "en": "Sam drives carefully.",
+            "sl": "Sam vozi previdno.",
+            "de": "Sam fährt vorsichtig.",
+            "it": "Sam guida con prudenza."
+          }
+        ],
+        "rows": [
+          [
+            "-ly",
+            "slow",
+            "slowly"
+          ],
+          [
+            "-ly",
+            "quiet",
+            "quietly"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adverbs",
+          "text": "Mr Dixon closes the gate ___. (careful)",
+          "accept": [
+            "carefully"
+          ],
+          "explain": {
+            "sl": "**Kako zapre? Prislov**\n- a careful man · He closes it carefully.",
+            "de": "**Wie schließt er? Ein Adverb**\n- a careful man · He closes it carefully.",
+            "it": "**Come chiude? Un avverbio**\n- a careful man · He closes it carefully.",
+            "en": "**How does he close it? An adverb**\n- a careful man · He closes it carefully."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Večina dobi **-ly**: **quick, quickly** (hiter, hitro); **quiet, quietly** (tih, tiho). **-ful** obdrži oba l: **careful, carefully** (previden, previdno). Soglasnik + **-y** postane **-ily**: **happy, happily** (srečen, srečno); **easy, easily** (lahek, zlahka). Končni **-le** postane **-ly**: **gentle, gently** (nežen, nežno); **terrible, terribly** (grozen, grozno).",
+          "de": "Die meisten bekommen **-ly**: **quick, quickly** (schnell); **quiet, quietly** (leise). **-ful** behält beide l: **careful, carefully** (vorsichtig). Konsonant + **-y** wird zu **-ily**: **happy, happily** (glücklich); **easy, easily** (leicht). Ein **-le** am Ende wird zu **-ly**: **gentle, gently** (sanft); **terrible, terribly** (schrecklich).",
+          "it": "La maggior parte prende **-ly**: **quick, quickly** (veloce, velocemente); **quiet, quietly** (silenzioso, in silenzio). **-ful** tiene le due l: **careful, carefully** (prudente, con prudenza). Consonante + **-y** diventa **-ily**: **happy, happily** (felice, felicemente); **easy, easily** (facile, facilmente). Una **-le** finale diventa **-ly**: **gentle, gently** (delicato, delicatamente); **terrible, terribly** (terribile, terribilmente).",
+          "en": "Most take **-ly**: **quick, quickly**; **quiet, quietly**. **-ful** keeps both l's: **careful, carefully** (never *carefuly*). A consonant + **-y** becomes **-ily**: **happy, happily** (never *happyly*); **easy, easily**. A final **-le** becomes **-ly**: **gentle, gently**; **terrible, terribly**."
+        },
+        "examples": [
+          {
+            "en": "Mrs Birkett speaks quickly.",
+            "sl": "Gospa Birkett govori hitro.",
+            "de": "Frau Birkett spricht schnell.",
+            "it": "La signora Birkett parla velocemente."
+          },
+          {
+            "en": "Poppy sang happily in the kitchen.",
+            "sl": "Poppy je veselo pela v kuhinji.",
+            "de": "Poppy sang fröhlich in der Küche.",
+            "it": "Poppy cantava felice in cucina."
+          },
+          {
+            "en": "Arthur opens the hive gently.",
+            "sl": "Arthur nežno odpre panj.",
+            "de": "Arthur öffnet den Bienenstock sanft.",
+            "it": "Arthur apre l'arnia delicatamente."
+          }
+        ],
+        "rows": [
+          [
+            "-ful",
+            "careful",
+            "carefully"
+          ],
+          [
+            {
+              "sl": "soglasnik + y",
+              "de": "Konsonant + y",
+              "it": "consonante + y",
+              "en": "consonant + y"
+            },
+            "happy",
+            "happily"
+          ],
+          [
+            "-le",
+            "gentle",
+            "gently"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adverbs",
+          "prompt": "Poppy sang ___ in the kitchen. (happy)",
+          "options": [
+            "happily",
+            "happyly",
+            "happy"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Soglasnik + y: -ily**\n- happy → happily · easy → easily",
+            "de": "**Konsonant + y: -ily**\n- happy → happily · easy → easily",
+            "it": "**Consonante + y: -ily**\n- happy → happily · easy → easily",
+            "en": "**A consonant + y: -ily**\n- happy → happily · easy → easily"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**good** postane **well** (dobro): **Granny Maggie sings well.** (Babica Maggie dobro poje.), nikoli *sings good*. **fast**, **hard**, **late** in **early** se ne spremenijo: **Meg runs fast.** (Meg hitro teče.), nikoli *fastly*. **Mrs Birkett works hard.** (Gospa Birkett trdo dela.) **hardly** (komaj) in **lately** (zadnje čase) sta drugi besedi.",
+          "de": "**good** wird zu **well** (gut): **Granny Maggie sings well.** (Oma Maggie singt gut.), nie *sings good*. **fast**, **hard**, **late** und **early** bleiben gleich: **Meg runs fast.** (Meg läuft schnell.), nie *fastly*. **Mrs Birkett works hard.** (Frau Birkett arbeitet hart.) **hardly** (kaum) und **lately** (in letzter Zeit) sind andere Wörter.",
+          "it": "**good** diventa **well** (bene): **Granny Maggie sings well.** (Nonna Maggie canta bene.), mai *sings good*. **fast**, **hard**, **late** e **early** non cambiano: **Meg runs fast.** (Meg corre veloce.), mai *fastly*. **Mrs Birkett works hard.** (La signora Birkett lavora sodo.) **hardly** (appena) e **lately** (ultimamente) sono altre parole.",
+          "en": "**good** becomes **well**: **Granny Maggie sings well.** (never *Granny Maggie sings good.*) **fast**, **hard**, **late** and **early** don't change: **Meg runs fast.** (never *Meg runs fastly.*) **Mrs Birkett works hard.** **hardly** (almost not) and **lately** (recently) are other words."
+        },
+        "examples": [
+          {
+            "en": "Granny Maggie sings well.",
+            "sl": "Babica Maggie dobro poje.",
+            "de": "Oma Maggie singt gut.",
+            "it": "Nonna Maggie canta bene."
+          },
+          {
+            "en": "Meg runs fast.",
+            "sl": "Meg hitro teče.",
+            "de": "Meg läuft schnell.",
+            "it": "Meg corre veloce."
+          },
+          {
+            "en": "Mrs Birkett works hard.",
+            "sl": "Gospa Birkett trdo dela.",
+            "de": "Frau Birkett arbeitet hart.",
+            "it": "La signora Birkett lavora sodo."
+          },
+          {
+            "en": "The bus came late.",
+            "sl": "Avtobus je prišel pozno.",
+            "de": "Der Bus kam spät.",
+            "it": "L'autobus è arrivato tardi."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "posebna",
+              "de": "eigen",
+              "it": "a parte",
+              "en": "its own"
+            },
+            "good",
+            "well"
+          ],
+          [
+            {
+              "sl": "enako",
+              "de": "gleich",
+              "it": "uguale",
+              "en": "the same"
+            },
+            "fast",
+            "fast"
+          ],
+          [
+            {
+              "sl": "enako",
+              "de": "gleich",
+              "it": "uguale",
+              "en": "the same"
+            },
+            "hard",
+            "hard"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adverbs",
+          "text": "Granny Maggie sings ___. (good)",
+          "accept": [
+            "well"
+          ],
+          "explain": {
+            "sl": "**good → well**\n- a good singer · She sings well.",
+            "de": "**good → well**\n- a good singer · She sings well.",
+            "it": "**good → well**\n- a good singer · She sings well.",
+            "en": "**good → well**\n- a good singer · She sings well."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Prislov gre za glagol, in za predmet, če ga glagol ima: **Sam plays darts well.** (Sam dobro igra pikado.), nikoli *Sam plays well darts.* **Jack closed the gate quietly.** (Jack je tiho zaprl vrata.) Prislov na **-ly** lahko stoji tudi pred glagolom: **Jack quietly closed the gate.** Nikoli med glagolom in predmetom.",
+          "de": "Das Adverb steht nach dem Verb, und nach dem Objekt, wenn es eins hat: **Sam plays darts well.** (Sam spielt gut Darts.), nie *Sam plays well darts.* **Jack closed the gate quietly.** (Jack schloss leise das Gatter.) Ein Adverb auf **-ly** kann auch vor dem Verb stehen: **Jack quietly closed the gate.** Nie zwischen Verb und Objekt.",
+          "it": "L'avverbio va dopo il verbo, e dopo il complemento se c'è: **Sam plays darts well.** (Sam gioca bene a freccette.), mai *Sam plays well darts.* **Jack closed the gate quietly.** (Jack ha chiuso piano il cancello.) Un avverbio in **-ly** può stare anche prima del verbo: **Jack quietly closed the gate.** Mai tra il verbo e il complemento.",
+          "en": "The adverb goes after the verb, and after its object if it has one: **Sam plays darts well.** (never *Sam plays well darts.*) **Jack closed the gate quietly.** A **-ly** adverb can also stand before the verb: **Jack quietly closed the gate.** Never between the verb and its object."
+        },
+        "examples": [
+          {
+            "en": "Sam plays darts well.",
+            "sl": "Sam dobro igra pikado.",
+            "de": "Sam spielt gut Darts.",
+            "it": "Sam gioca bene a freccette."
+          },
+          {
+            "en": "Jack closed the gate quietly.",
+            "sl": "Jack je tiho zaprl vrata.",
+            "de": "Jack schloss leise das Gatter.",
+            "it": "Jack ha chiuso piano il cancello."
+          },
+          {
+            "en": "Mrs Hartley speaks English clearly.",
+            "sl": "Gospa Hartley govori angleško razločno.",
+            "de": "Frau Hartley spricht deutlich Englisch.",
+            "it": "La signora Hartley parla inglese chiaramente."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-order",
+          "prompt": {
+            "sl": "Kaj je prav?",
+            "de": "Was ist richtig?",
+            "it": "Che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "Mrs Hartley speaks English clearly.",
+            "Mrs Hartley speaks clearly English.",
+            "Mrs Hartley English speaks clearly."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Glagol, predmet, prislov**\n- speaks English clearly · plays darts well",
+            "de": "**Verb, Objekt, Adverb**\n- speaks English clearly · plays darts well",
+            "it": "**Verbo, complemento, avverbio**\n- speaks English clearly · plays darts well",
+            "en": "**Verb, object, adverb**\n- speaks English clearly · plays darts well"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za **be**, **look**, **feel**, **smell** in **taste** pride pridevnik, saj povedo, kakšna je stvar: **The soup smells good.** (Juha dobro diši.) **You look tired.** (Videti si utrujen{m:|f:a}.) **Jack is careful.** (Jack je previden.) A **Jack works carefully.** (Jack dela previdno.) **friendly** (prijazen) in **lovely** (ljubek) se končata na **-ly**, a sta pridevnika: **a friendly dog**.",
+          "de": "Nach **be**, **look**, **feel**, **smell** und **taste** kommt ein Adjektiv, denn sie sagen, wie etwas ist: **The soup smells good.** (Die Suppe riecht gut.) **You look tired.** (Du siehst müde aus.) **Jack is careful.** (Jack ist vorsichtig.) Aber **Jack works carefully.** (Jack arbeitet vorsichtig.) **friendly** (freundlich) und **lovely** (reizend) enden auf **-ly**, sind aber Adjektive: **a friendly dog**.",
+          "it": "Dopo **be**, **look**, **feel**, **smell** e **taste** viene un aggettivo, perché dicono com'è una cosa: **The soup smells good.** (La zuppa ha un buon profumo.) **You look tired.** (Sembri stanc{m:o|f:a}.) **Jack is careful.** (Jack è prudente.) Ma **Jack works carefully.** (Jack lavora con attenzione.) **friendly** (gentile) e **lovely** (adorabile) finiscono in **-ly**, ma sono aggettivi: **a friendly dog**.",
+          "en": "After **be**, **look**, **feel**, **smell** and **taste** comes an adjective, as they say what a thing is like: **The soup smells good.** **You look tired.** **Jack is careful.** But **Jack works carefully.** **friendly** and **lovely** end in **-ly** but are adjectives: **a friendly dog**."
+        },
+        "examples": [
+          {
+            "en": "The soup smells good.",
+            "sl": "Juha dobro diši.",
+            "de": "Die Suppe riecht gut.",
+            "it": "La zuppa ha un buon profumo."
+          },
+          {
+            "en": "You look tired, Sam.",
+            "sl": "Videti si utrujen, Sam.",
+            "de": "Du siehst müde aus, Sam.",
+            "it": "Sembri stanco, Sam."
+          },
+          {
+            "en": "Meg is a friendly dog.",
+            "sl": "Meg je prijazen pes.",
+            "de": "Meg ist ein freundlicher Hund.",
+            "it": "Meg è una cagna socievole."
+          }
+        ],
+        "rows": [
+          [
+            "be, look, smell",
+            "good, tired",
+            "—"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adverbs",
+          "prompt": "Granny Maggie's soup tastes ___.",
+          "options": [
+            "good",
+            "well",
+            "goodly"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**taste + pridevnik: kakšna je juha**\n- The soup tastes good. · She cooks well.",
+            "de": "**taste + Adjektiv: wie die Suppe ist**\n- The soup tastes good. · She cooks well.",
+            "it": "**taste + aggettivo: com'è la zuppa**\n- The soup tastes good. · She cooks well.",
+            "en": "**taste + an adjective: what the soup is like**\n- The soup tastes good. · She cooks well."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ko primerjaš, kako kdo kaj dela: **fast, faster** (hitreje); **hard, harder** (bolj trdo); **well, better** (bolje); **badly, worse** (slabše). Prislov na **-ly** dobi **more**: **slowly, more slowly** (počasneje). **Can you speak more slowly, please?** (Lahko govorite počasneje, prosim?) V govoru slišiš tudi **slower** in **louder**.",
+          "de": "Zum Vergleichen, wie man etwas tut: **fast, faster** (schneller); **hard, harder** (härter); **well, better** (besser); **badly, worse** (schlechter). Ein Adverb auf **-ly** bekommt **more**: **slowly, more slowly** (langsamer). **Can you speak more slowly, please?** (Können Sie bitte langsamer sprechen?) Gesprochen hörst du auch **slower** und **louder**.",
+          "it": "Per confrontare come si fa qualcosa: **fast, faster** (più veloce); **hard, harder** (più sodo); **well, better** (meglio); **badly, worse** (peggio). Un avverbio in **-ly** prende **more**: **slowly, more slowly** (più lentamente). **Can you speak more slowly, please?** (Può parlare più lentamente, per favore?) A voce senti anche **slower** e **louder**.",
+          "en": "To compare what is done: **fast, faster**; **hard, harder**; **well, better**; **badly, worse**. A **-ly** adverb takes **more**: **slowly, more slowly**. **Can you speak more slowly, please?** In speech you also hear **slower** and **louder**."
+        },
+        "examples": [
+          {
+            "en": "Can you speak more slowly, please?",
+            "sl": "Lahko govorite počasneje, prosim?",
+            "de": "Können Sie bitte langsamer sprechen?",
+            "it": "Può parlare più lentamente, per favore?"
+          },
+          {
+            "en": "Meg runs faster than Jack.",
+            "sl": "Meg teče hitreje od Jacka.",
+            "de": "Meg läuft schneller als Jack.",
+            "it": "Meg corre più veloce di Jack."
+          },
+          {
+            "en": "Harry plays football better than Alfie.",
+            "sl": "Harry igra nogomet bolje od Alfieja.",
+            "de": "Harry spielt besser Fußball als Alfie.",
+            "it": "Harry gioca a calcio meglio di Alfie."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "primerjava",
+              "de": "Vergleich",
+              "it": "confronto",
+              "en": "to compare"
+            },
+            "slowly, well",
+            "more slowly, better"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adverbs",
+          "prompt": "Can you speak ___, please?",
+          "options": [
+            "more slowly",
+            "slowlier",
+            "more slowlier"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**-ly: more**\n- more slowly · more carefully · faster · better",
+            "de": "**-ly: more**\n- more slowly · more carefully · faster · better",
+            "it": "**-ly: more**\n- more slowly · more carefully · faster · better",
+            "en": "**-ly: more**\n- more slowly · more carefully · faster · better"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**a slow walk** · **Jack walks slowly.**\n\n**carefully** · **happily** · **gently** (pravopis)\n\n**well** · **fast** · **hard** (nikoli *fastly*)\n\n**Sam plays darts well.** (za predmetom)\n\n**The soup smells good.** · **more slowly** · **better**",
+      "de": "**a slow walk** · **Jack walks slowly.**\n\n**carefully** · **happily** · **gently** (Schreibung)\n\n**well** · **fast** · **hard** (nie *fastly*)\n\n**Sam plays darts well.** (nach dem Objekt)\n\n**The soup smells good.** · **more slowly** · **better**",
+      "it": "**a slow walk** · **Jack walks slowly.**\n\n**carefully** · **happily** · **gently** (ortografia)\n\n**well** · **fast** · **hard** (mai *fastly*)\n\n**Sam plays darts well.** (dopo il complemento)\n\n**The soup smells good.** · **more slowly** · **better**",
+      "en": "**a slow walk** · **Jack walks slowly.**\n\n**carefully** · **happily** · **gently** (spelling)\n\n**well** · **fast** · **hard** (never *fastly*)\n\n**Sam plays darts well.** (after the object)\n\n**The soup smells good.** · **more slowly** · **better**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "adverbs-1",
+      "title": {
+        "sl": "Kako?",
+        "de": "Wie?",
+        "it": "Come?",
+        "en": "How?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adverbs",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Naredi prislov",
+            "de": "Bilde das Adverb",
+            "it": "Fai l'avverbio",
+            "en": "Make the adverb"
+          },
+          "columns": [
+            {
+              "sl": "how? · kako?",
+              "de": "how? · wie?",
+              "it": "how? · come?",
+              "en": "how?"
+            }
+          ],
+          "rows": [
+            {
+              "label": "quick",
+              "cells": [
+                {
+                  "accept": [
+                    "quickly"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "quiet",
+              "cells": [
+                {
+                  "accept": [
+                    "quietly"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "careful",
+              "cells": [
+                {
+                  "accept": [
+                    "carefully"
+                  ],
+                  "hint": {
+                    "sl": "dva l",
+                    "de": "zwei l",
+                    "it": "due l",
+                    "en": "two l's"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "happy",
+              "cells": [
+                {
+                  "accept": [
+                    "happily"
+                  ],
+                  "hint": "y → i"
+                }
+              ]
+            },
+            {
+              "label": "easy",
+              "cells": [
+                {
+                  "accept": [
+                    "easily"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "gentle",
+              "cells": [
+                {
+                  "accept": [
+                    "gently"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "good",
+              "cells": [
+                {
+                  "accept": [
+                    "well"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "fast",
+              "cells": [
+                {
+                  "accept": [
+                    "fast"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "hard",
+              "cells": [
+                {
+                  "accept": [
+                    "hard"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-ly, -fully, -ily, -ly za -le; good → well; fast in hard ostaneta**\n- quickly · carefully · happily · gently\n- well · fast · hard",
+            "de": "**-ly, -fully, -ily, -ly statt -le; good → well; fast und hard bleiben**\n- quickly · carefully · happily · gently\n- well · fast · hard",
+            "it": "**-ly, -fully, -ily, -ly per -le; good → well; fast e hard restano**\n- quickly · carefully · happily · gently\n- well · fast · hard",
+            "en": "**-ly, -fully, -ily, -ly for -le; good → well; fast and hard stay**\n- quickly · carefully · happily · gently\n- well · fast · hard"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "adverbs",
+          "instruction": {
+            "sl": "Sort · Stvar ali dejanje?",
+            "de": "Sort · Eine Sache oder was man tut?",
+            "it": "Sort · Una cosa o ciò che si fa?",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "a thing · stvar",
+                "de": "a thing · eine Sache",
+                "it": "a thing · una cosa",
+                "en": "a thing"
+              },
+              "words": [
+                "a careful man",
+                "a quick lunch",
+                "a friendly dog"
+              ]
+            },
+            {
+              "label": {
+                "sl": "what is done · dejanje",
+                "de": "what is done · was man tut",
+                "it": "what is done · ciò che si fa",
+                "en": "what is done"
+              },
+              "words": [
+                "sings well",
+                "works hard",
+                "walks slowly"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Pred samostalnikom pridevnik, za glagolom prislov**\n- a careful man · sings well",
+            "de": "**Vor dem Nomen ein Adjektiv, nach dem Verb ein Adverb**\n- a careful man · sings well",
+            "it": "**Prima del nome un aggettivo, dopo il verbo un avverbio**\n- a careful man · sings well",
+            "en": "**An adjective before a noun, an adverb after a verb**\n- a careful man · sings well"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adverbs-2",
+      "title": {
+        "sl": "V kovačnici",
+        "de": "In der Schmiede",
+        "it": "Alla fucina",
+        "en": "At the smithy"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adverbs",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Mr Dixon works ___ (hard) at the smithy. He doesn't talk ___ (quick): he says a few words ___ (slow) and ___ (clear). The horses stand ___ (quiet) while he works ___ (careful). Is he a ___ (good) blacksmith? Yes: he does everything ___ (good)!",
+          "gaps": [
+            {
+              "accept": [
+                "hard"
+              ]
+            },
+            {
+              "accept": [
+                "quickly"
+              ],
+              "spoken": [
+                "quick"
+              ]
+            },
+            {
+              "accept": [
+                "slowly"
+              ],
+              "spoken": [
+                "slow"
+              ]
+            },
+            {
+              "accept": [
+                "clearly"
+              ],
+              "spoken": [
+                "clear"
+              ]
+            },
+            {
+              "accept": [
+                "quietly"
+              ],
+              "spoken": [
+                "quiet"
+              ]
+            },
+            {
+              "accept": [
+                "carefully"
+              ],
+              "hint": {
+                "sl": "dva l",
+                "de": "zwei l",
+                "it": "due l",
+                "en": "two l's"
+              }
+            },
+            {
+              "accept": [
+                "good"
+              ],
+              "hint": {
+                "sl": "pred samostalnikom",
+                "de": "vor dem Nomen",
+                "it": "prima del nome",
+                "en": "before a noun"
+              }
+            },
+            {
+              "accept": [
+                "well"
+              ],
+              "hint": {
+                "sl": "za glagolom",
+                "de": "nach dem Verb",
+                "it": "dopo il verbo",
+                "en": "after a verb"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "hardly",
+            "goodly"
+          ],
+          "translation": {
+            "sl": "Gospod Dixon v kovačnici trdo dela. Ne govori hitro: počasi in razločno reče nekaj besed. Konji mirno stojijo, medtem ko on previdno dela. Je dober kovač? Ja: vse dela dobro!",
+            "de": "Herr Dixon arbeitet hart in der Schmiede. Er redet nicht schnell: Er sagt langsam und deutlich ein paar Worte. Die Pferde stehen ruhig, während er vorsichtig arbeitet. Ist er ein guter Schmied? Ja: Er macht alles gut!",
+            "it": "Il signor Dixon lavora sodo alla fucina. Non parla velocemente: dice poche parole, lentamente e chiaramente. I cavalli stanno fermi mentre lui lavora con attenzione. È un bravo fabbro? Sì: fa tutto bene!",
+            "en": "Mr Dixon works hard at the smithy. He doesn't talk quickly: he says a few words slowly and clearly. The horses stand quietly while he works carefully. Is he a good blacksmith? Yes: he does everything well!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adverbs",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Harry plays football ___.",
+          "options": [
+            "well",
+            "good",
+            "goodly"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kako igra? well**\n- He plays well. · He's a good player.",
+            "de": "**Wie spielt er? well**\n- He plays well. · He's a good player.",
+            "it": "**Come gioca? well**\n- He plays well. · He's a good player.",
+            "en": "**How does he play? well**\n- He plays well. · He's a good player."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adverbs",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Mrs Hartley looks ___ today.",
+          "options": [
+            "tired",
+            "tiredly",
+            "well tired"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**look + pridevnik**\n- You look tired. · The soup smells good.",
+            "de": "**look + Adjektiv**\n- You look tired. · The soup smells good.",
+            "it": "**look + aggettivo**\n- You look tired. · The soup smells good.",
+            "en": "**look + an adjective**\n- You look tired. · The soup smells good."
+          }
+        }
+      ]
+    },
+    {
+      "id": "adverbs-3",
+      "title": {
+        "sl": "Povej drugače",
+        "de": "Sag es anders",
+        "it": "Dillo in un altro modo",
+        "en": "Say it another way"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adverbs",
+          "instruction": {
+            "sl": "How? · Povej s prislovom",
+            "de": "How? · Sag es mit dem Adverb",
+            "it": "How? · Dillo con l'avverbio",
+            "en": "Say how"
+          },
+          "items": [
+            {
+              "from": "Sam is a slow walker.",
+              "accept": [
+                "Sam walks slowly."
+              ],
+              "spoken": [
+                "Sam walks slow."
+              ]
+            },
+            {
+              "from": "Granny Maggie is a good cook.",
+              "accept": [
+                "Granny Maggie cooks well."
+              ]
+            },
+            {
+              "from": "Mr Dixon is a hard worker.",
+              "accept": [
+                "Mr Dixon works hard."
+              ]
+            },
+            {
+              "from": "Meg is a fast runner.",
+              "accept": [
+                "Meg runs fast."
+              ]
+            },
+            {
+              "from": "Poppy is a beautiful singer.",
+              "accept": [
+                "Poppy sings beautifully."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Kdo kakšen je → kako kaj dela**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well.",
+            "de": "**Wie jemand ist → wie er etwas tut**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well.",
+            "it": "**Com'è qualcuno → come fa qualcosa**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well.",
+            "en": "**What someone is like → how they do it**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Put it in · Postavi prislov",
+            "de": "Put it in · Setz das Adverb ein",
+            "it": "Put it in · Metti l'avverbio",
+            "en": "Put it in"
+          },
+          "items": [
+            {
+              "from": "Sam plays darts. (well)",
+              "accept": [
+                "Sam plays darts well."
+              ]
+            },
+            {
+              "from": "Jack closed the gate. (quietly)",
+              "accept": [
+                "Jack closed the gate quietly.",
+                "Jack quietly closed the gate."
+              ]
+            },
+            {
+              "from": "Mrs Hartley speaks English. (clearly)",
+              "accept": [
+                "Mrs Hartley speaks English clearly."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Prislov za predmetom**\n- Sam plays darts well.\n- Jack closed the gate quietly.",
+            "de": "**Das Adverb nach dem Objekt**\n- Sam plays darts well.\n- Jack closed the gate quietly.",
+            "it": "**L'avverbio dopo il complemento**\n- Sam plays darts well.\n- Jack closed the gate quietly.",
+            "en": "**The adverb after the object**\n- Sam plays darts well.\n- Jack closed the gate quietly."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adverbs",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Harry runs ___ (fast), but Alfie runs ___ (slow). — Can you play football ___ (good), Alfie? — No, I play ___ (bad), but I try ___ (hard)!",
+        "gaps": [
+          {
+            "accept": [
+              "fast"
+            ]
+          },
+          {
+            "accept": [
+              "slowly"
+            ],
+            "spoken": [
+              "slow"
+            ]
+          },
+          {
+            "accept": [
+              "well"
+            ]
+          },
+          {
+            "accept": [
+              "badly"
+            ],
+            "spoken": [
+              "bad"
+            ]
+          },
+          {
+            "accept": [
+              "hard"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Harry teče hitro, Alfie pa počasi. — Znaš dobro igrati nogomet, Alfie? — Ne, igram slabo, a se zelo trudim!",
+          "de": "Harry läuft schnell, aber Alfie läuft langsam. — Kannst du gut Fußball spielen, Alfie? — Nein, ich spiele schlecht, aber ich gebe mir viel Mühe!",
+          "it": "Harry corre veloce, ma Alfie corre piano. — Sai giocare bene a calcio, Alfie? — No, gioco male, ma ce la metto tutta!",
+          "en": "Harry runs fast, but Alfie runs slowly. — Can you play football well, Alfie? — No, I play badly, but I try hard!"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adverbs",
+        "instruction": {
+          "sl": "How? · Povej s prislovom",
+          "de": "How? · Sag es mit dem Adverb",
+          "it": "How? · Dillo con l'avverbio",
+          "en": "Say how"
+        },
+        "items": [
+          {
+            "from": "Auntie Edna is a loud singer.",
+            "accept": [
+              "Auntie Edna sings loudly."
+            ],
+            "spoken": [
+              "Auntie Edna sings loud."
+            ]
+          },
+          {
+            "from": "Mr Tyson is a careful driver.",
+            "accept": [
+              "Mr Tyson drives carefully."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Kdo kakšen je → kako kaj dela**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well.",
+          "de": "**Wie jemand ist → wie er etwas tut**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well.",
+          "it": "**Com'è qualcuno → come fa qualcosa**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well.",
+          "en": "**What someone is like → how they do it**\n- a slow walker → Sam walks slowly.\n- a good cook → She cooks well."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "word-order",
+        "instruction": {
+          "sl": "Put it in · Postavi prislov",
+          "de": "Put it in · Setz das Adverb ein",
+          "it": "Put it in · Metti l'avverbio",
+          "en": "Put it in"
+        },
+        "items": [
+          {
+            "from": "Sam speaks German. (well)",
+            "accept": [
+              "Sam speaks German well."
+            ]
+          },
+          {
+            "from": "The children closed the door. (quietly)",
+            "accept": [
+              "The children closed the door quietly.",
+              "The children quietly closed the door."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Prislov za predmetom**\n- Sam plays darts well.\n- Jack closed the gate quietly.",
+          "de": "**Das Adverb nach dem Objekt**\n- Sam plays darts well.\n- Jack closed the gate quietly.",
+          "it": "**L'avverbio dopo il complemento**\n- Sam plays darts well.\n- Jack closed the gate quietly.",
+          "en": "**The adverb after the object**\n- Sam plays darts well.\n- Jack closed the gate quietly."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "adverbs",
+        "instruction": {
+          "sl": "Fill in the table · Dopolni tabelo",
+          "de": "Fill in the table · Ergänze die Tabelle",
+          "it": "Fill in the table · Completa la tabella",
+          "en": "Fill in the table"
+        },
+        "prompt": {
+          "sl": "Naredi prislov",
+          "de": "Bilde das Adverb",
+          "it": "Fai l'avverbio",
+          "en": "Make the adverb"
+        },
+        "columns": [
+          {
+            "sl": "how? · kako?",
+            "de": "how? · wie?",
+            "it": "how? · come?",
+            "en": "how?"
+          }
+        ],
+        "rows": [
+          {
+            "label": "angry",
+            "cells": [
+              {
+                "accept": [
+                  "angrily"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "terrible",
+            "cells": [
+              {
+                "accept": [
+                  "terribly"
+                ]
+              }
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**y → i; -le → -ly**\n- angrily · terribly",
+          "de": "**y → i; -le → -ly**\n- angrily · terribly",
+          "it": "**y → i; -le → -ly**\n- angrily · terribly",
+          "en": "**y → i; -le → -ly**\n- angrily · terribly"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adverbs",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mr Dixon is a ___ man.",
+        "options": [
+          "careful",
+          "carefully",
+          "carefuly"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Pred samostalnikom pridevnik**\n- a careful man · He works carefully.",
+          "de": "**Vor dem Nomen ein Adjektiv**\n- a careful man · He works carefully.",
+          "it": "**Prima del nome un aggettivo**\n- a careful man · He works carefully.",
+          "en": "**An adjective before a noun**\n- a careful man · He works carefully."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: spoken flat adverbs (walks slow, talk quick, stand quiet) right and labelled; She sings good as wrong; Meg as cagna"
+}
