@@ -27,9 +27,9 @@ the app taps it whole (`WordTokens`: "don't", "it's", "geht's", "foot-and-mouth"
 villagers' possessives as names (below), and ä, ö, ü as vowels when it sorts the unknown words into kinds (hält, süß
 were "sounds"). Numbers below are counted that way, before and after; the old count's are given where they differ.
 
-### German (`companion/lexicon/de.extra.json`): 880 → 2,674 entries
+### German (`companion/lexicon/de.extra.json`): 880 → 2,670 entries
 
-1,794 new entries, 337 extended, 3,763 forms added:
+1,790 new entries, 337 extended, 3,753 forms added:
 
 | Part of speech | New | Examples |
 |---|---:|---|
@@ -53,7 +53,7 @@ were "sounds"). Numbers below are counted that way, before and after; the old co
   some had no lemma among their forms (still, lieb, wissen, müssen, tun). The earlier rounds' grammar labels written
   as forms are gone (18 keys: "present, wir/sie", "past participle", "ihr" under gehen and sagen, which made a tap on
   ihr show gehen).
-- **The packs' words where the pack lacks a form** (162 entries): Hand has no Händen, fangen no fängt, dunkel no
+- **The packs' words where the pack lacks a form** (166 entries): Hand has no Händen, fangen no fängt, dunkel no
   dunklen. Each entry has the pack's own meanings, so a tap finds the pack's word (the pack's card, the pack's prompt).
 - **The irregular verbs' missing forms**: wäre, wär's, würde, wirst, werde, mag, magst, darfst, dürft, könnten, hab's,
   sag's, käme, ginge, bräuchte, and the Carinthian song's "Is schon still uman See".
@@ -93,7 +93,29 @@ spelling rules, the irregular verbs' past and participle, the nouns' plurals and
   as forms (yesss, pleeease, yaaay, brrr).
 - **The grammar book's terms and endings** (verb, noun, plural, irregular, vowel, consonant; -s, -ing, -teen, -ty), the
   night sky's stars, constellations and showers, the festivals (Mothering Sunday, Boxing Day, Shrove Tuesday).
+- **The packs' words where the pack lacks a form** (193 entries: possessives, plurals), with the pack's meanings, as in
+  German. Another language's pack that means a new noun alike gives it its article (church: die Kirche, la chiesa).
 - The villagers' possessives (Jack's, Maggie's, Wilf's) need no entry: see below.
+
+### The printed sheets keep their meanings (companion/prints/sheet.ts)
+
+The sheets read the same supplements, and take the supplement's entry of a word before a pack's, so the new entries
+could change what a course's sheet says. Printing every course in every base before and after (`school-prints --level
+all --html-only`) showed they did: English warm printed ogreti for topel, book rezervirati for knjiga, hammer its verb,
+fish and farm fell off their lists, nouns lost the article that tells their gender (church: Kirche for die Kirche),
+German gleich printed enak for takoj. Fixed in the print's rules, and in the data:
+
+- an English word listed without its "to" is no verb when a pack has the word, as an Italian word without its article
+  is no noun, unless the entry names its "to …" (the course's own to walk, to rain);
+- an entry that only repeats a pack's meaning, there for the forms the pack lacks, comes after another entry of the
+  word (rain's noun, the pack's dež, after the course's to rain);
+- an entry found only by its lemma comes after one that lists the form (the adjective gleich lists gleiche and gleichen
+  and leaves its bare form to the adverb, takoj);
+- a new entry of a pack's word has the pack's meanings, in the print's order of the packs.
+
+After them the Slovene and Italian courses' sheets are the same in every base, and the German and English ones differ
+only in what they gain: the articles sheet's milk and sun, which had no meaning there; the particle mal for "(das Mal)";
+fertig's second sense; price's "Preis, Kaufpreis" in German (prize is Preis).
 
 ### A villager's possessive is theirs (bridge/src/lexicon.ts)
 
@@ -201,13 +223,11 @@ goalkeeper", "it snows (to snow)").
 ## What's left
 
 - **The native check** (above).
+- **A tap on a bare word with two entries**: gleich shows only the adverb now, as the adjective leaves it the bare form,
+  and the same word's other readings come in the file's order (Mal the noun before mal the particle).
 - **The prompts the old entries and the packs share** (195 German, about 100 English): qa-repair's prompt-clash check
   takes them as its baseline.
 - **Forms of content written later** fall back on the lookup's "did you mean" (ENDINGS); a later round adds entries by
   hand, or with `lexicon-build --coverage --all` listing what's missing.
 - **A family's plural** (the Dixons) and the German genitive of a name ending in s, x or z (written with an apostrophe
   the tap leaves off) don't find their villager.
-- **The German and English courses' printed sheets** read the same supplements. The smoke's print checks pass, but
-  this round didn't print the sheets again: a sheet whose word now finds a supplement entry first (a pack word's entry
-  has the pack's meaning) may print a different first sense or length. Worth a `school-prints --language de|en --level
-  all --explain` run in each base.
