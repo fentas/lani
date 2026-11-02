@@ -1,0 +1,153 @@
+# Built: Friuli's village projects as short scenes, part b (friuli-projects-b, 2026-11-02)
+
+Jan, 2026-11-02: "yes complete" (wave D, batch 1, followups-10 sections 1–2). Friuli was the one culture whose thirteen village
+projects had no `project-steps/`: every step was a practice of five exercises (friuli-scenes.md, "Project steps and the ages'
+parties"). Primorska, Kärnten and the Lake District have all thirteen. This branch writes six of them; `friuli-projects-a` writes the
+other seven (the maypole, the bridge, the mill, the bocce court, the chapel, the vineyard, the bee meadow) at the same time.
+
+The projects here: the fire station (`gasilski_dom`), the playground (`igrisce`), the fountain on the square (`vodnjak_na_trgu`), the big
+hay barn (`toplar`), the lookout tower (`razgledni_stolp`) and the clock on the bell tower (`mestna_ura`). Each has its steps as short
+scenes at **A1, A2 and B1** (`companion/cultures/friuli/project-steps/`), said by the project's leader and helpers in Friuli's scenes where
+they happen, and its word pack (`packs/progetto-<name>.json`).
+
+Two helpers wrote the steps and packs (content-1: the fire station, the playground, the tower; content-2: the fountain, the barn,
+the clock); the tests, the art review, the dictionary entries, the docs and the QA are this branch's own. All the Italian, Slovene, English
+and German is machine-written, and every file's `review` says so.
+
+## The way in, before and after
+
+| A learner of Friuli taps a project's step … | Before | Now |
+|---|---|---|
+| from the projects sheet, or from its landmark on the map and then the sheet (2 taps) | a practice of 5 exercises over the village | its short scene where it happens, at the learner's level, then its line in the chronicle |
+
+Taps stay as they were. What changes is what the tap opens.
+
+## What's missing, found out
+
+Friuli had 53 packs against the others' 65. The difference is exactly the projects' packs: the Lake District has 13 `project-*` and 52 others,
+Friuli 53 others and none of them. So part b adds six, named as Friuli's are (Italian, as Kärnten's are German): `progetto-casa-dei-pompieri`,
+`progetto-parco-giochi`, `progetto-fontana`, `progetto-grande-fienile`, `progetto-torre-panoramica`, `progetto-orologio`. Pack ids are one
+across every culture (the app bundles them side by side by file name), and `progetto-` has no other user.
+
+**I spy:** the six projects' places already have their clues (`companion/ispy/scenes/`: Dai pompieri, Al parco giochi, La fontana, Il grande
+fienile, Sulla torre panoramica, L'orologio). A step opens no I spy of its own, so none were needed.
+
+**The art:** nothing was missing. The three projects a painter draws step by step already draw every stage in Friuli's look; rendered and
+looked at (`FriuliProjectStagesTest`, `build/scene-snapshots/looks/friuli-stages-*.png`):
+
+- the fountain on the square: the pegs and string, the block of white stone on its beams, the trough with its pillar and pine cone, the
+  ditch, the pipes, the water;
+- the clock in the free-standing campanile: the slit, the dark round window, the face from the step that lifts it in;
+- the big hay barn in the field, beside the brick fienile: the oak logs, the stone feet, the posts, the beams, the plank roof, the hay.
+
+The fire station, the playground and the lookout tower aren't drawn while they are built (`DRAWN_PROJECTS`), so their steps have no `done`.
+Their finished places have their looks since places-it-arts. No `task` or `line` in `projects.json` was wrong against the picture, so none changed,
+and no chronicle line in a village changes.
+
+## The steps
+
+| Project (leader) | Pack (words, new) | Where each step is played | Dialogs | Lines | Turns | Wrong (naming a page) | Tap turns | `done` lines |
+|---|---|---|---|---|---|---|---|---|
+| `gasilski_dom` (Pastore Davide) | `progetto-casa-dei-pompieri` (13, 4) | foundations, walls, the big door, the pump from Gorizia in In piazza; the first drill Al ruscello (the hose); the fête in In piazza (the band, the dancing) | 18 | 125 | 39 | 58 (19) | 0 | 0 |
+| `igrisce` (Maestra Elena) | `progetto-parco-giochi` (12, 1) | the drawings A scuola (the chalk tapped); the stones, the swing, the sandpit and slide, the first day of play In piazza | 15 | 99 | 35 | 52 (16) | 1 | 0 |
+| `vodnjak_na_trgu` (Fabbro Bruno) | `progetto-fontana` (13, 5) | the plan Nella fucina; the stone (the cart), the carving, the ditch In piazza; the spouts Nella fucina (the hammer tapped, the sparks); the water In piazza | 18 | 121 | 36 | 57 (18) | 3 | 6 |
+| `toplar` (Mugnaio Franco) | `progetto-grande-fienile` (14, 2) | the oaks Nel bosco (the oak tapped and felled); stone feet, posts, beams, roof, first hay Nel campo | 18 | 114 | 36 | 57 (18) | 3 | 12 |
+| `razgledni_stolp` (Ostessa Marisa) | `progetto-torre-panoramica` (14, 3) | the hill Nella vigna; the foundations and the fir Nel bosco (felled); the frame and the stairs over the village; the board and the first guests Sulla torre | 21 | 132 | 44 | 74 (21) | 9 | 0 |
+| `mestna_ura` (Maestra Elena) | `progetto-orologio` (14, 6) | the face's size A scuola; the round window In piazza; the gears Nella fucina; the hands In bottega; the numerals A scuola; lifted in and striking twelve In piazza | 21 | 130 | 42 | 63 (21) | 0 | 6 |
+| **6 projects, 37 steps** | **80 words, 76 different, 21 new** | **35 steps in a scene, 2 over the village** | **111** | **721** | **232** | **361 (113)** | **16** | **24** |
+
+A step whose scene isn't open today (the square in a young village, the vineyard before it is planted, a household's workshop) plays over the village
+as every culture's does. The fountain's third and sixth, the barn's third and the clock's seventh steps have no `done` by design, as `SceneCoherenceTest`'s `atTheEnd`
+says of every culture's.
+
+**The levels.** A1 is the present; A2 the passato prossimo, the imperfect, the future, pronouns and modals; **B1 is new among the cultures' steps** and asks what B1
+has: the conditional, the subjunctive, si impersonale, the passive, the pluperfect, the gerund, the period with «se», combined pronouns, «cui», reported speech. Every
+level has at least one form turn at its own level's grammar and a turn of meaning. A learner meets the highest telling up to their level (`Arrivals.levelFor`), so A1 and A2
+learners play exactly what they would in another culture, and Teo meets B1's when they reach it. The rules not yet introduced gate as anywhere: `FriuliProjectStepsTest` checks that a
+fresh learner at each level still has something to answer.
+
+**A village in the middle.** Nothing is migrated: a project's count of steps stands, and the next step is simply a dialog now. `FriuliProjectStepsTest` builds a synthetic
+village past each step of each project (never Teo's data): its count and its landmark's stage stand, the next step opens as a dialog, played to its end it counts one more and tells its
+chronicle line; a finished project offers nothing. An older app has its culture pack bundled, so it plays its practices until it is updated; it can already read the packs the
+bridge serves.
+
+**The Friulian touches**, each settled below: «Mandi!», the fogolâr, frico and polenta; the villotta at the firefighters' fête; the stone from Aurisina on the Karst at the fountain's B1;
+Monte Sabotino, Monte Santo, the Julian Alps and the sea at Grado from the tower.
+
+**Words and forms.** The 76 words of the six packs went into `companion/lexicon/it.extra.json` (378 → 454 entries), each with the forms the steps and packs say and its meaning in German and
+Slovene. A form a step asks now counts on its card, and a tap explains it in the child's language, without Wiktionary's dictionary being there.
+
+**A spoken form is never wrong.** On review, six distractors that Italians really say or that had a reading of their own came out («Si passa i mattoni», «C'è tanti sassi», «Ci vuole le
+fondamenta», «Ieri c'era due piani», «Sebbene la salita è lunga», «Ha detto che avrà fatto»), and content-2 took out its own three (sebbene with the indicative, «più grande che», «è stato fatto
+una finestra»). Each distractor left is meant to be a plain mistake. Three kinds remain for the native check: below.
+
+## How it was checked
+
+On the branch at its final content, on main 45924165 (part a isn't merged here; the lead names that branch):
+
+- **The content**: `bun test/check-culture.ts friuli` ok; `bun test/check-steps.ts friuli`: 6 files, 37 steps, 111 dialogs, 721 lines, ok; `bun test/prompt-clashes.ts`: no new clash (the
+  coined prompts: below). A scratch lint with the rules the app's tests hold (a reaction of at most 80 characters, never saying the right word; only the leader named; a helper's line without the speaker's
+  gender; pages at the level) found nothing left but one reviewed look (the tower's first step, A2: «Guarda le montagne, il mare e le vigne», all things the art draws).
+- **The Android unit suite** (lani-slot.sh): see the report's numbers. New: `FriuliProjectStepsTest` (8 tests: the steps at their levels with their words; short, said by the project's people, in a scene; reactions, played with
+  every wrong choice first; placeholders for a boy and a girl; a fresh learner has something to answer and each word is tested at each level, gated too; a helper's lines; a village partway through; the level and the fallback over the village),
+  `FriuliProjectStagesTest` (2), `StepScenesRenderTest`'s Friuli test. Changed: `SceneCoherenceTest`'s count of done lines (+24). `MentionsContentTest`, `DialogCastTest`, `WhoAnswersTest` and the rest unchanged and passing.
+- **The bridge**: `tsc` clean; the smoke on ports 9670–9688: 3,514 checks, all passed; `tutor-export --check`: 89 files match.
+- **Python**: 253 tests, and 145 with 11 skipped, all passing.
+- **The emulator**: see below.
+
+## How to use
+
+Nothing to switch on. QA with a synthetic child (never a real learner's data):
+
+```
+bun companion/bridge/test/fixtures/make-learner.ts <dir> --name Teo --target it --base de
+LANI_DEV_DATA=<dir> LANI_ENV_FILE=/dev/null LANI_CULTURE=friuli LANI_QA_SETUP_PAIR=it-de \
+companion/bin/qa-slot --no-town --steps friuli-projects-b
+```
+
+`bun test/check-steps.ts friuli [project]` (companion/bridge) checks the steps and packs; `FriuliProjectStagesTest` renders the stages (`app/build/scene-snapshots/looks/friuli-stages-*.png`).
+QA's hook "step:<project>/<n>" readies any step, and "level:B1" its telling.
+
+## Voices
+
+No ElevenLabs credits spent. A voice build of the steps in the cast's Italian voices would take **54,676 characters** (`bun test/step-chars.ts friuli`: 1,562 texts, none voiced by other content): the fire station
+9,052, the playground 7,667, the fountain 8,287, the barn 8,709, the tower 11,089, the clock 9,872. By level, of the lines and reactions counted the same way: A1 29 %, A2 33 %, B1 38 %. The 21 new words and their examples
+add about 800.
+
+## For the native speaker
+
+All machine-written. To look at first:
+
+- **Italian, distractors near real usage** (they must be plain mistakes; a spoken form is never wrong): congiuntivo after «bisogna che», «è importante che», «è necessario che» with the indicative as the wrong
+  choice (at B1: the fire station's first step, the playground's second, the fountain's first, the barn's fifth, the clock's sixth; the tower's sixth has «vorrei che c'è»); «se … -rebbe» (the fire station's drill, the barn's posts); «più sicura come ieri», «più grande come il quadrante»; «un scivolo»; «di che parla la maestra»
+  (literary rather than wrong?); «ce l'abbiamo fatto»; «Ho voglia a ballare».
+- **Italian, idioms and wording**: «bagnati come pulcini» and its joke «asciutti come pulcini»; «raccogliere i sassi dal prato» (or togliere); «Bianca e fine» of stone; «È duro, e dura»; «tre dita ogni dieci passi»;
+  «L'hanno presa dalla cava»; il piano as a storey; il progetto as a smith's drawing; la struttura for the tower's frame; la base for a post's stone foot; il cannocchiale at the top of the tower where its finished
+  place has il binocolo; «il grande fienile» (the field also has its brick fienile).
+- **Italian, jokes**: the B1 pun «Chi va piano… piano dopo piano»; «lo potiamo alzare» as a pun on potare; the speaker's own sayings, written for these steps and presented as theirs, no tradition: «Chi taglia un albero, ne pianta due»,
+  «Chi costruisce sul nulla, poi piange», «Chi sale senza fretta, arriva senza fiato»; arrabbiata and spaghetti; the black sheep; «Duro come la testa di un nonno».
+- **Slovene**: «Mokri smo kot miši», «srček» for tesoro, «mineštra», scorrere's coined prompt «teči kot voda», base as «podstavek», palo as «steber» in the lines and «kol» on its older card, «Človek bi rekel», «Meni je štetje
+  ušlo», the duals and genders generally.
+- **German**: «pudelnass», «Der Arme, der die isst», «Jause» (Austrian, on purpose), scavare's coined prompt «in der Erde graben», «zwei Kilo süß» (a deliberate absurdity).
+- **English**: «drowned rats».
+- **Facts to look at**: the block on the cart is white as the picture and the line have it, and the real Aurisina stone is light grey to taupe, so the lines say only that the stone comes from there and the
+  Romans used it; Gradež for Grado and Sabotin as the Slovene names (Sabotin's page gives Sabotino as the Italian name); the speakers' common knowledge, unsourced: oak is hard, fir soft, wood rots in water, brass shines.
+
+Sources (each fact a line states):
+
+- «Mandi»: [Friulian dictionary](https://www.lexilogos.com/english/friulian_dictionary.htm). The villotta: [Wikipedia](https://en.wikipedia.org/wiki/Villotta).
+- The stone: quarried at Aurisina/Nabrežina near Trieste since the Romans, used in Aquileia, light grey to taupe: [IUGS Geoheritage, Aurisina Stone](https://iugs-geoheritage.org/?p=13183).
+- The view: Monte Sabotino, the Collio, the Isonzo, the Friuli plain, the Julian Alps ([The Walk of Peace](https://www.thewalkofpeace.com/locations2/outdoor-museum-sabotin-the-park-of-peace/)), Monte Santo over the valley
+  ([Montagna di Viaggi](https://www.montagnadiviaggi.it/2023/12/gorizia-passeggiate-dove-camminare.html)); the names: [Sveta Gora](https://en.wikipedia.org/wiki/Sveta_Gora), [Sabotin](https://en.wikipedia.org/wiki/Sabotin).
+- Proverbs said as proverbs: «Chi ha tempo non aspetti tempo», «L'unione fa la forza» ([Wikiquote](https://it.wikiquote.org/wiki/Proverbi_italiani)). Scorso as scorrere's participle: [Treccani](https://www.treccani.it/vocabolario/scorso/).
+- Santa Barbara, the old pump from Gorizia, the Tricorno: as the existing scenes have them (places-it-arts.md).
+
+## What is left
+
+- **The native check** above, and **the voices**: about 54,700 characters, Jan's to spend.
+- **Part a**: the lead names its branch for the merge. Words in both parts' packs must keep one id and one prompt (`check-steps`, the prompt clashes and the smoke's one-word-per-id check will say); the tests here cover
+  whichever projects have steps, and their counts (37 steps of six, 24 done lines) need part a's added.
+- **The tower's steps played on a stand-in**: its board and first guests are played Sulla torre, on the watchtower's picture, as Primorska's are, since its own place opens only once it's finished.
+- **`ProjectStepsContentTest`** still checks Primorska's steps only; Friuli's have `FriuliProjectStepsTest`, the other two cultures' `check-steps`.
+- **No turn has two right answers** in these steps (a greeting, a yes): they could get a few when a native reads them; nothing requires it.
+- **Noticed, not this branch's**: `l-orologio`'s pack says «Ogni domenica Bruno carica l'orologio», while the steps say «abbiamo caricato»; nothing contradicts.
