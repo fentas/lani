@@ -8027,11 +8027,6 @@ def sheet_corrections():
         adb("shell", "wm", "size", "reset")
         adb("shell", "wm", "density", "reset")
         time.sleep(4 * slow())
-    if find(lab("tips.gotIt")) is None:  # folded with the size: its bubble again
-        c = next((c for t, c in nodes() if t.endswith(tip) and ", " in t), None)
-        if c is not None:
-            tap_at(c)
-            time.sleep(2)
     assert not problems, "; ".join(problems)
 
 
