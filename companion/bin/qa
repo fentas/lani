@@ -8384,7 +8384,8 @@ def school_unit():
         if a["type"] == "choice":
             # the question under the lines and the table (longer step by step): scrolled to its option
             option = unit_text(a["options"][a["answer"]])
-            c = option_at(option)
+            # below its prompt: the intro's table above may hold the same word (sedanjik's "dela")
+            c = option_at(option, after=prompt_piece(a.get("prompt")))
             assert c is not None, f"step {i}'s option «{option}»"
             tap_at(c)
         else:
