@@ -158,7 +158,7 @@ dual), *skloma* none.
   gives the written form, as the others do, and ob-potoku another wrong choice. Not changed here: new replies are new
   lines to voice (ElevenLabs credits, Jan's call), and content is content-fixes' ground.
 - **Deploy order**: the bridge code (fe4d6ccd) before the content (84dca0c5, 44270797): the table's `hours` and the
-  bank's B2 items need its schema; restart; the app (02ebf0df) reads the table it bundles.
+  bank's B2 items need its schema; restart; the app (02ebf0df, 0fd95ae7) reads the table and the bank it bundles.
 
 ## Native check
 
@@ -187,4 +187,35 @@ Impersonal, WhichWhose, WordOrder}`, their `hintSay.*`, `hint.ruleWhen`'s ob pol
 
 ## Tests
 
-FILLED AT THE END
+All on the branch with main merged (d4d8cfcf, main at bde83009), ports 9710–9729. No line anyone hears was added or
+changed (the new strings are the card's and the 🔊's, said by the phone's voice or live): a voice build needs 0 characters.
+
+- Bridge: `bunx tsc --noEmit -p .` clean; the smoke 3,475 checks, all passed (LANI_SMOKE_PORT 9710, LANI_SMOKE_DRAMA3_PORT
+  9728), with 15 lines of this round's rules, the written forms, every table example (100), the bank's two-case items,
+  assign_cases taking the page; `tutor-export --check` 89 files match; `bun test/hint-lens.ts` 32 turns as recorded;
+  `bun build --no-bundle` on the touched smoke files. Its first run failed one check, this round's own (an example's
+  trigger written "ob" where the line has "Ob"): 44270797.
+- Python: `case-triggers.py --check` matches; `python3 -m unittest discover -s tests` 251 OK, `-s companion/tests` 142 OK
+  (11 skipped).
+- App: the full unit suite through lani-slot.sh, 3,764 tests in 483 classes, 2 skipped, 0 failures. TurnHintTest (16:
+  the 28 pages' rules, nothing shown the turn's form; the triggers as the lens names them), TurnHintLensTest (the
+  fixture's 32 turns), HintSpeechTest (11: each new rule's sentence in every table), SentenceGrammarTest (6: the spoken
+  hour and pol), CaseTriggersTest (3), CaseTrainerTest (46: the focus over 40 sessions each for a B2 learner and a B1
+  learner who met the page, at least half of "Kateri sklon?" its own), L10nTablesTest (6).
+- Emulator QA: `companion/bin/qa-slot --slot 2 --no-town --steps hints-lens`, a synthetic learner at B1
+  (make-learner.ts, its profile's level raised; LANI_DEV_DATA), on the tree before main's lexicon commits (6bfafd19:
+  they change no screen here). Slot 2 because slot 1's dev bridge binds 8791 and 8797. Ok, no crash. Shots in the
+  session's scratchpad, ux-hints-lens-3/final/ (the first run's, before the focus's fix, in ux-hints-lens-3/):
+
+  | Shot | What it shows |
+  |---|---|
+  | 11, 12 hints-lens-deset | «Maša je ob deset.»: deset "mestnik, mn.", "Kdaj? → 5. mestnik", "Po predlogu «ob»: mestnik. (kdaj? čas) Tako se tudi reče; piše se «desetih».", ob "Zahteva mestnik: «deset»", 📖 the time page |
+  | 13–15 hints-lens-pol | «Domov gremo ob pol dveh.»: pol "Zahteva rodilnik: «dveh»", dveh "rodilnik, dv.", "Kdaj? → 2. rodilnik", "«pol» in naslednja ura" |
+  | 16 hints-lens-card-ure | ure's card in «Čez pol ure pridem.»: "rodilnik, ed.", "Po besedi količine «pol»: rodilnik.", 📖 the quantity page |
+  | 17 hints-lens-page | the page, its title *sklonoma*, its "🧩 Vadi sklone · Case trainer" |
+  | 18–22 hints-lens-task-* | the focused session: v gorah, za šotor, na lipo, v sneg, then ob zid, the page's own |
+  | 23 hints-lens-own-right | *Luka je lestev prislonil ob zid.*: "ob → 4. tožilnik", the new rule's line, 📖 to the page |
+
+  **Not seen on the emulator: the hint chip's new rules.** No curated scene names these pages, so no turn on the device
+  shows them; they are checked by the unit tests above. The first QA run met none of the page's own items in four tasks,
+  which is what led to the guarantee (Choices).
