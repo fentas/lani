@@ -90,7 +90,16 @@ RESULTS
 
 ## On the emulator
 
-QARESULTS
+`companion/bin/qa-slot --steps map-landmarks --no-town` on a synthetic learner of each culture (`make-learner.ts --target
+sl|it|de|en`, `LANI_CULTURE`, the phone in sl · en), slot 1, the debug build, 2026-11-02 under a machine's load near 25:
+setup, map-landmarks and the crash check passed in all four. Screenshots in the round's scratchpad,
+`ux-map-culture-2/emulator/` (`landmark-<culture>-<id>.png`, `-town.png`, `-town-closer.png`): nine landmarks finished by QA's
+hook and shown on the map, in June. The map's frame on the emulator's software rendering at detail 2: 100.9 to 107.6 ms in
+Primorska, 73.1 to 78.7 in Friuli, 89.6 to 104.9 in Carinthia, 89.6 to 95.8 in the Lake District, within the range of
+map-culture.md's and map-people.md's runs (71 to 227 ms); `MapLooksTest`'s frame budget holds.
+
+The step's camera doesn't come as close as its hook asks when the machine is busy, so the emulator's pictures show each
+landmark among its neighbours; the closer looks are the contact sheets'.
 
 ## Tap counts
 
