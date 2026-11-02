@@ -10080,6 +10080,22 @@ def content_fixes_2():
         steps = json.loads((culture_dir / f"project-steps/{pid}.json").read_text())["steps"]
         return {c[pair[0]] for lv in steps[n - 1]["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok")}
 
+    def choose(ok: set) -> bool:
+        """The right choice of [ok] at the learner's turn, low on its row's left: its middle may be a bold word, whose tap
+        opens its card. Only under "Your answer": a turn's answer said a moment ago reads the same in the talk above it, still
+        on screen when the lines between are short (the tower's "Ja, wir tragen ihn zusammen!"), and a tap there does nothing."""
+        if any("Izberi raje" in t for t, _ in nodes()):
+            tap("Izberi raje", 2)
+        bs = list(boxes())
+        head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
+        if head is None:
+            return False
+        for t, (x0, y0, x1, y1) in bs:
+            if y0 >= head[3] and (t in ok or any(t.startswith(o + ",") or t.startswith(o + " ") for o in ok)):
+                tap_at((x0 + 40, y1 - 18))
+                return True
+        return False
+
     def play(ok: set, end_re: str | None, marks: dict, tries=24) -> bool:
         """On through the open dialog (Next, the right choice of [ok] at a turn), a shot when a line with a key of [marks]
         is on screen; until a text matching [end_re] (a step's end card), or the turns run out with none."""
@@ -10098,7 +10114,7 @@ def content_fixes_2():
                 time.sleep(1.5)
                 continue
             time.sleep(1.5)  # the line typed in first: the choices under it stop moving
-            if answer_choice(ok):  # low on the row's left: its middle may be a bold word, whose tap opens its card
+            if choose(ok):
                 time.sleep(1.5)
                 continue
             if not tap(lab("common.next"), 3):
