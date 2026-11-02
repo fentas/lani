@@ -1449,7 +1449,7 @@ so a project is also where new words come from; the packs screen lists the proje
 | Field | What |
 |---|---|
 | `project`, `language`, `review` | the project, the pack's language, who wrote it and who checked it |
-| `pack` | the word pack of the project's words (`packs/<id>.json`, its `project` the project's id); its id is unique among every culture's packs, as the app bundles them side by side by file name: Primorska's `projekt-<project>` (`projekt-gasilski-dom`), Kärnten's `projekt-<German name>` (`projekt-feuerwehrhaus`), the Lake District's `project-<project>` (`project-gasilski-dom`) |
+| `pack` | the word pack of the project's words (`packs/<id>.json`, its `project` the project's id); its id is unique among every culture's packs, as the app bundles them side by side by file name: Primorska's `projekt-<project>` (`projekt-gasilski-dom`), Kärnten's `projekt-<German name>` (`projekt-feuerwehrhaus`), the Lake District's `project-<project>` (`project-gasilski-dom`), Friuli's `progetto-<Italian name>` (`progetto-casa-dei-pompieri`) |
 | `steps[]` | one per step of the project, in order; `null` (or a file shorter than the project): that step is the practice it always was |
 | `steps[].scene` | the scene id it is played in (one of the village's language or the pack's own); none: over the village |
 | `steps[].words` | 1–3 word ids of the pack its turns test, at every level |
@@ -1476,7 +1476,14 @@ station, the playground, the lookout tower, the fountain, the church clock and t
 timber over the village). A German noun counts as tested without its article, its forms guessed by the stem and its
 plural (German has no dictionary: `testsWord`). The church clock's last step strikes twelve: the square draws a `strike`
 from the step that hangs the clock in the tower, its hands at twelve until it runs, and the step counts twelve for the
-sound. The Lake District's six of lakeland-projects-b have theirs (37), the other seven are lakeland-projects-a's. QA's
+sound. The Lake District's six of lakeland-projects-b have theirs (37), the other seven are lakeland-projects-a's. Friuli's six of
+friuli-projects-b (the fire station, the playground, the fountain, the big hay barn, the lookout tower and the tower clock: 37 steps,
+`progetto-casa-dei-pompieri` …) are told at A1, A2 and B1, since a learner of Friuli's may aim at B1 (Teo does): a learner at B1 or above
+meets the B1 telling, with its own rules asked (the conditional, the subjunctive, si impersonale, …). They are played in Friuli's scenes
+where they happen (In piazza, Al ruscello, A scuola, Nella fucina, In bottega, Nel bosco, Nel campo, Nella vigna, Sulla torre; the tower's
+frame and stairs over the village), and name their words as Friuli's packs have them; a village partway through a project goes on from
+where it is (`FriuliProjectStepsTest`). The art needed nothing new: the square's fountain with its pine cone and its clock in the campanile
+and the field's big hay barn draw every stage in Friuli's look (`FriuliProjectStagesTest`, `StepScenesRenderTest`). QA's
 hook "step:<project>/<n>" (a debug build) readies the dev
 village for that step today and opens the projects sheet at it (`companion/bin/qa --steps project-step`).
 
