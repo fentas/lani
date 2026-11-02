@@ -905,7 +905,7 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
     // the tapped word is a form of another word the pack happens to spell alike, the supplement says so with its own
     // meaning: "piace" is piacere the verb, not the pack's greeting (nice to meet you), "piatta" flat, not the plate
     const alike = own(direct)
-    if (key !== form && plural !== form && !phrases.includes(key) && alike.length && alike.every(r => r.source === 'extra' && enScore(inEnglish(r), meant) === 0)) continue
+    if (key !== form && plural !== form && !phrases.includes(key) && alike.some(r => r.source === 'extra') && alike.every(r => enScore(inEnglish(r), meant) === 0)) continue
     const reading = candidates.reduce<Reading | undefined>((best, r) => (!best || enScore(inEnglish(r), meant) > enScore(inEnglish(best), meant) ? r : best), undefined)
     const withGrammar = reading?.grammar && own(direct).includes(reading) ? reading : ofPack(own(direct)).find(r => r.grammar)
     const grammar = withGrammar?.grammar ?? (plural === form && key !== form ? 'plural' : null)

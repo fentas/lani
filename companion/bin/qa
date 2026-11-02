@@ -313,7 +313,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        ($LANI_QA_MISSING_PAIR=it-de: the cards in it · de); also as missing-*.png in $LANI_QA_MISSING_SHOTS;
                        "it-words" (only when named) the Italian course's words in the tapped word's card for a synthetic
                        Teo (LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de): guardami, mai, c'era una volta, si lava, ce
-                       l'ho fatta, il treno, each the supplement's German meaning (docs/plans/05-built/it-print-meanings.md);
+                       l'ho fatta, il treno, la, che, vedo, nella, sul, hm, each the supplement's German meaning
+                       (docs/plans/05-built/it-print-meanings.md, supplement-it.md);
                        "supplement-words" (only when named) the older German or English content's words in the tapped
                        word's card for a synthetic learner from Slovene (LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-sl,
                        or lakeland, en-sl): zeichnet, Kasermandl, hvala, Stankos …, each with its Slovene meaning
@@ -14269,6 +14270,13 @@ IT_WORDS = [
     ("lava", "Giulia si lava le mani.", "lavarsi", "sich waschen"),
     ("fatta", "Evviva, ce l'ho fatta!", "farcela", "es schaffen"),
     ("treno", "Il treno parte alle otto.", "treno", "Zug"),
+    # supplement-it: a function word, a verb's form, a contraction, a sound, a Friulian word
+    ("la", "La casa di Nonna Rosa è piccola.", "la", "der, die, das"),
+    ("che", "Penso che Moro dorme.", "che", "dass"),
+    ("vedo", "Vedo la luna sul monte.", "vedere", "sehen"),
+    ("nella", "Il gatto dorme nella cesta.", "in", "mit Artikel"),
+    ("sul", "Il libro è sul tavolo.", "su", "auf"),
+    ("hm", "Hm, non lo so.", "hm", "hm"),
 ]
 
 
@@ -14279,7 +14287,8 @@ def it_words():
     them. QA's hook "word:<word>|<line>" opens each card as a tap in the line does (IT_WORDS): guardami is guardare
     (schauen, its imperative with mi), mai nie, volta in "C'era una volta" the expression (es war einmal), lava in "si
     lava" lavarsi (sich waschen), fatta in "ce l'ho fatta" farcela, treno Zug; each meaning German, flagged
-    machine-written. Before: no card knew guardami, the expression or farcela; a tap showed "not in the dictionary"."""
+    machine-written. Before: no card knew guardami, the expression or farcela; a tap showed "not in the dictionary".
+    supplement-it: a function word (la, che), a verb's form (vedo), a contraction (nella, sul), a sound (hm)."""
     try:
         culture = api("/culture").get("id")
     except (OSError, RuntimeError, ValueError):
