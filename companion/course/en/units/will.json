@@ -1,0 +1,784 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "will",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🤝",
+  "title": {
+    "en": "I'll help you, it'll rain",
+    "de": "Die Zukunft mit will: I'll help, it'll rain",
+    "sl": "Prihodnjik z will: I'll help, it'll rain",
+    "it": "Il futuro con will: I'll help, it'll rain"
+  },
+  "goal": {
+    "sl": "Ponudiš in obljubiš (I'll carry it, I won't tell anyone), poveš, kaj misliš, da se bo zgodilo (I think it'll rain), vprašaš Will you …? in ponudiš s Shall I …?",
+    "de": "Du bietest an und versprichst (I'll carry it, I won't tell anyone), sagst, was deiner Meinung nach passiert (I think it'll rain), fragst Will you …? und bietest an mit Shall I …?",
+    "it": "Offri e prometti (I'll carry it, I won't tell anyone), dici che cosa pensi che succederà (I think it'll rain), chiedi Will you …? e offri con Shall I …?",
+    "en": "You can offer and promise (I'll carry it, I won't tell anyone), say what you think will happen (I think it'll rain), ask Will you …? and offer with Shall I …?"
+  },
+  "grammar": ["future"],
+  "words": [
+    "will",
+    "won't",
+    "'ll",
+    "shall",
+    "to promise",
+    "to forget",
+    "to carry",
+    "to get",
+    "to ring",
+    "heavy",
+    "late",
+    "by six",
+    "probably",
+    "maybe",
+    "I'm sure",
+    "I think",
+    "race",
+    "to win",
+    "to bite",
+    "to worry",
+    "to move",
+    "seat",
+    "free",
+    "window",
+    "sandwich",
+    "lunch",
+    "wood",
+    "milk",
+    "bread",
+    "boot",
+    "to mend",
+    "to come back"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**will** (kratko **'ll**) + osnovna oblika, za vse enako, za to, kar se odločiš med govorjenjem, in za ponudbe: **That bag looks heavy. I'll carry it.** (Ta torba je težka, jaz jo nesem.) **The phone's ringing. I'll get it.** (Telefon zvoni, se jaz oglasim.) **We'll help you.** (Ti pomagamo.) Slovenščina tu reče sedanjik, angleščina nikoli *I carry it*. Brez -s: **she'll come**.",
+          "de": "**will** (kurz **'ll**) + Grundform, für alle gleich, für das, was du beim Sprechen beschließt, und für Angebote: **That bag looks heavy. I'll carry it.** (Die Tasche ist schwer, ich trage sie.) **The phone's ringing. I'll get it.** (Das Telefon läutet, ich gehe ran.) Nie *I carry it*. Kein -s: **she'll come**. Vorsicht: **I will** heißt nicht *ich will*, das ist **I want**.",
+          "it": "**will** (breve **'ll**) + la forma base, uguale per tutti, per ciò che decidi mentre parli e per le offerte: **That bag looks heavy. I'll carry it.** (Quella borsa è pesante, la porto io.) **The phone's ringing. I'll get it.** (Suona il telefono, rispondo io.) **We'll help you.** (Ti aiutiamo noi.) Mai *I carry it*. Senza -s: **she'll come**.",
+          "en": "**will** (short **'ll**) + the base form, the same for everyone, for what you decide as you speak, and for offers: **That bag looks heavy. I'll carry it.** (never *I carry it.*) **The phone's ringing. I'll get it.** **We'll help you.** No -s: **she'll come** (never *she'll comes*)."
+        },
+        "examples": [
+          {
+            "en": "That bag looks heavy. I'll carry it.",
+            "sl": "Ta torba je težka. Jaz jo nesem.",
+            "de": "Die Tasche ist schwer. Ich trage sie.",
+            "it": "Quella borsa è pesante. La porto io."
+          },
+          {
+            "en": "The phone's ringing. I'll get it.",
+            "sl": "Telefon zvoni. Se jaz oglasim.",
+            "de": "Das Telefon läutet. Ich gehe ran.",
+            "it": "Suona il telefono. Rispondo io."
+          },
+          {
+            "en": "We'll help you with the sheep.",
+            "sl": "Pomagali ti bomo z ovcami.",
+            "de": "Wir helfen dir mit den Schafen.",
+            "it": "Ti aiutiamo noi con le pecore."
+          }
+        ],
+        "rows": [
+          [
+            "will, 'll",
+            {
+              "sl": "odločeno zdaj, ponudba",
+              "de": "gerade beschlossen, ein Angebot",
+              "it": "deciso adesso, un'offerta",
+              "en": "decided now, an offer"
+            },
+            "I'll carry it."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "That bag looks heavy. ___ carry it for you.",
+          "options": ["I'll", "I'm", "I"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ponudba, odločeno zdaj: 'll + osnovna oblika**\n- I'll carry it. · I'll get it.",
+            "de": "**Ein Angebot, gerade beschlossen: 'll + Grundform**\n- I'll carry it. · I'll get it.",
+            "it": "**Un'offerta, decisa adesso: 'll + la forma base**\n- I'll carry it. · I'll get it.",
+            "en": "**An offer, decided now: 'll + the base form**\n- I'll carry it. · I'll get it."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Tudi obljuba vzame **will**, zanikano je **won't** (will not): **I'll be back by six, I promise.** (Do šestih bom nazaj, obljubim.) **I won't tell anyone.** (Nikomur ne bom povedal{m:|f:a}.) **Don't worry, we won't be late.** (Brez skrbi, ne bomo zamudili.) Za vse enako: **Meg won't bite.** (Meg ne bo ugriznila.)",
+          "de": "Auch ein Versprechen nimmt **will**, verneint heißt es **won't** (will not): **I'll be back by six, I promise.** (Bis sechs bin ich zurück, versprochen.) **I won't tell anyone.** (Ich sage es niemandem.) **Don't worry, we won't be late.** (Keine Sorge, wir kommen nicht zu spät.) Für alle gleich: **Meg won't bite.** (Meg beißt nicht.)",
+          "it": "Anche una promessa vuole **will**, e il no è **won't** (will not): **I'll be back by six, I promise.** (Alle sei sono di ritorno, te lo prometto.) **I won't tell anyone.** (Non lo dico a nessuno.) **Don't worry, we won't be late.** (Non preoccuparti, non faremo tardi.) Uguale per tutti: **Meg won't bite.** (Meg non morde.)",
+          "en": "A promise takes **will** too, and no is **won't** (will not): **I'll be back by six, I promise.** **I won't tell anyone.** **Don't worry, we won't be late.** It is the same for everyone: **Meg won't bite.**"
+        },
+        "examples": [
+          {
+            "en": "I'll be back by six, I promise.",
+            "sl": "Do šestih bom nazaj, obljubim.",
+            "de": "Bis sechs bin ich zurück, versprochen.",
+            "it": "Alle sei sono di ritorno, te lo prometto."
+          },
+          {
+            "en": "I won't tell anyone.",
+            "sl": "Nikomur ne bom povedal{m:|f:a}.",
+            "de": "Ich sage es niemandem.",
+            "it": "Non lo dico a nessuno."
+          },
+          {
+            "en": "Don't worry, we won't be late.",
+            "sl": "Brez skrbi, ne bomo zamudili.",
+            "de": "Keine Sorge, wir kommen nicht zu spät.",
+            "it": "Non preoccuparti, non faremo tardi."
+          }
+        ],
+        "rows": [
+          [
+            "won't",
+            { "sl": "ne; obljuba", "de": "nein; ein Versprechen", "it": "no; una promessa", "en": "no; a promise" },
+            "I won't tell anyone."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future",
+          "text": "Don't worry, I ___ forget. I promise. (not)",
+          "accept": ["won't"],
+          "hint": "will + not",
+          "explain": {
+            "sl": "**will + not: won't**\n- I won't forget.",
+            "de": "**will + not: won't**\n- I won't forget.",
+            "it": "**will + not: won't**\n- I won't forget.",
+            "en": "**will + not: won't**\n- I won't forget."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**will** pove tudi, kar misliš, da se bo zgodilo: **It'll rain tomorrow.** (Jutri bo deževalo.) **I think Jack will win.** (Mislim, da bo Jack zmagal.) **Sam will probably be late.** (Sam bo verjetno zamudil.) Gre z **I think** (mislim), **I'm sure** (prepričan{m:|f:a} sem), **probably** (verjetno), **maybe** (mogoče). Zanikano: **He won't come.** (Ne bo prišel.) ali **I don't think he'll come.** (Mislim, da ne bo prišel.)",
+          "de": "**will** sagt auch, was deiner Meinung nach passieren wird: **It'll rain tomorrow.** (Morgen regnet es.) **I think Jack will win.** (Ich glaube, Jack gewinnt.) **Sam will probably be late.** (Sam kommt wahrscheinlich zu spät.) Es passt zu **I think** (ich glaube), **I'm sure** (ich bin sicher), **probably** (wahrscheinlich), **maybe** (vielleicht). Verneint: **He won't come.** (Er kommt nicht.) oder **I don't think he'll come.** (Ich glaube nicht, dass er kommt.)",
+          "it": "**will** dice anche ciò che pensi che succederà: **It'll rain tomorrow.** (Domani pioverà.) **I think Jack will win.** (Credo che vincerà Jack.) **Sam will probably be late.** (Sam farà probabilmente tardi.) Va con **I think** (credo), **I'm sure** (sono sicur{m:o|f:a}), **probably** (probabilmente), **maybe** (forse). Il no: **He won't come.** (Non verrà.) o **I don't think he'll come.** (Non credo che verrà.)",
+          "en": "**will** also says what you think will happen: **It'll rain tomorrow.** **I think Jack will win.** **Sam will probably be late.** It goes with **I think**, **I'm sure**, **probably**, **maybe**. For no: **He won't come.** or **I don't think he'll come.**"
+        },
+        "examples": [
+          {
+            "en": "It'll rain tomorrow.",
+            "sl": "Jutri bo deževalo.",
+            "de": "Morgen regnet es.",
+            "it": "Domani pioverà."
+          },
+          {
+            "en": "I think Jack will win the race.",
+            "sl": "Mislim, da bo Jack zmagal na tekmi.",
+            "de": "Ich glaube, Jack gewinnt das Rennen.",
+            "it": "Credo che Jack vincerà la gara."
+          },
+          {
+            "en": "Sam will probably be late.",
+            "sl": "Sam bo verjetno zamudil.",
+            "de": "Sam kommt wahrscheinlich zu spät.",
+            "it": "Sam farà probabilmente tardi."
+          },
+          {
+            "en": "I don't think Mr Dixon will come tonight.",
+            "sl": "Mislim, da gospod Dixon nocoj ne bo prišel.",
+            "de": "Ich glaube nicht, dass Mr Dixon heute Abend kommt.",
+            "it": "Non credo che Mr Dixon verrà stasera."
+          }
+        ],
+        "rows": [
+          [
+            "will",
+            { "sl": "kar misliš", "de": "was du glaubst", "it": "ciò che pensi", "en": "what you think" },
+            "I think Jack will win."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "I think Mr Tyson ___ sell all his oats.",
+          "options": ["will", "is", "does"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kar misliš, da bo: will**\n- I think he'll sell them.",
+            "de": "**Was du glaubst: will**\n- I think he'll sell them.",
+            "it": "**Ciò che pensi: will**\n- I think he'll sell them.",
+            "en": "**What you think will happen: will**\n- I think he'll sell them."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri vprašanju gre **will** naprej: **Will you be at home tonight?** (Boš nocoj doma?) **Will it be cold?** (Bo mraz?) **Will you help me?** (Mi boš pomagal{m:|f:a}?) Kratki odgovor ima **will**: **Yes, I will.** (Ja.) **No, I won't.** (Ne.) Nikoli *Yes, I'll*.",
+          "de": "Bei der Frage kommt **will** nach vorn: **Will you be at home tonight?** (Bist du heute Abend zu Hause?) **Will it be cold?** (Wird es kalt?) **Will you help me?** (Hilfst du mir?) Die Kurzantwort behält **will**: **Yes, I will.** (Ja.) **No, I won't.** (Nein.) Nie *Yes, I'll*.",
+          "it": "Per chiedere, **will** va all'inizio: **Will you be at home tonight?** (Stasera sei a casa?) **Will it be cold?** (Farà freddo?) **Will you help me?** (Mi aiuti?) La risposta breve tiene **will**: **Yes, I will.** (Sì.) **No, I won't.** (No.) Mai *Yes, I'll*.",
+          "en": "To ask, **will** goes first: **Will you be at home tonight?** **Will it be cold?** **Will you help me?** The short answer keeps **will**: **Yes, I will.** (never *Yes, I'll.*) **No, I won't.**"
+        },
+        "examples": [
+          {
+            "en": "Will you be at home tonight? — Yes, I will.",
+            "sl": "Boš nocoj doma? — Ja.",
+            "de": "Bist du heute Abend zu Hause? — Ja.",
+            "it": "Stasera sei a casa? — Sì."
+          },
+          {
+            "en": "Will it be cold on the fell? — No, it won't.",
+            "sl": "Bo na hribu mraz? — Ne.",
+            "de": "Wird es am Berg kalt? — Nein.",
+            "it": "Farà freddo sul monte? — No."
+          },
+          {
+            "en": "Will you help me with these sacks, please?",
+            "sl": "Mi boš pomagal{m:|f:a} s temi vrečami, prosim?",
+            "de": "Hilfst du mir bitte mit den Säcken?",
+            "it": "Mi aiuti con questi sacchi, per favore?"
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+            "Will you …?",
+            "Yes, I will. No, I won't."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "Will you be at the market tomorrow?",
+          "options": ["Yes, I will.", "Yes, I'll.", "Yes, I do."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor: Yes, I will.**\n- Yes, I will. · No, I won't.",
+            "de": "**Die Kurzantwort: Yes, I will.**\n- Yes, I will. · No, I won't.",
+            "it": "**La risposta breve: Yes, I will.**\n- Yes, I will. · No, I won't.",
+            "en": "**The short answer: Yes, I will.**\n- Yes, I will. · No, I won't."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ko ponudiš ali predlagaš, britanska angleščina vpraša s **shall**, samo pri **I** in **we**: **Shall I open the window?** (Naj odprem okno?) **Shall we go?** (Gremo?) **What shall we do?** (Kaj naj naredimo?) Odgovor: **Yes, please.** (Ja, prosim.) **No, thanks.** (Ne, hvala.) Ameriško **Should I …?** je tudi prav.",
+          "de": "Beim Anbieten und Vorschlagen fragt das britische Englisch mit **shall**, nur bei **I** und **we**: **Shall I open the window?** (Soll ich das Fenster aufmachen?) **Shall we go?** (Gehen wir?) **What shall we do?** (Was machen wir?) Die Antwort: **Yes, please.** (Ja, bitte.) **No, thanks.** (Nein, danke.) Amerikanisch **Should I …?** ist auch richtig.",
+          "it": "Per offrire o proporre, l'inglese britannico chiede con **shall**, solo con **I** e **we**: **Shall I open the window?** (Apro la finestra?) **Shall we go?** (Andiamo?) **What shall we do?** (Che cosa facciamo?) La risposta: **Yes, please.** (Sì, grazie.) **No, thanks.** (No, grazie.) Anche l'americano **Should I …?** va bene.",
+          "en": "To offer or suggest, British English asks with **shall**, only with **I** and **we**: **Shall I open the window?** **Shall we go?** **What shall we do?** The answer: **Yes, please.** **No, thanks.** The American **Should I …?** is right too."
+        },
+        "examples": [
+          {
+            "en": "Shall I open the window?",
+            "sl": "Naj odprem okno?",
+            "de": "Soll ich das Fenster aufmachen?",
+            "it": "Apro la finestra?"
+          },
+          {
+            "en": "It's late. Shall we go?",
+            "sl": "Pozno je. Gremo?",
+            "de": "Es ist spät. Gehen wir?",
+            "it": "È tardi. Andiamo?"
+          },
+          {
+            "en": "What shall we do tomorrow?",
+            "sl": "Kaj naj jutri naredimo?",
+            "de": "Was machen wir morgen?",
+            "it": "Che cosa facciamo domani?"
+          }
+        ],
+        "rows": [
+          [
+            "Shall I …? Shall we …?",
+            {
+              "sl": "ponudba, predlog",
+              "de": "ein Angebot, ein Vorschlag",
+              "it": "un'offerta, una proposta",
+              "en": "an offer, an idea"
+            },
+            "Shall I open the window?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future",
+          "text": "It's cold in here. ___ I close the window?",
+          "accept": ["Shall", "Should"],
+          "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" },
+          "explain": {
+            "sl": "**Ponudba z I: Shall I …?**\n- Shall I close the window?",
+            "de": "**Ein Angebot mit I: Shall I …?**\n- Shall I close the window?",
+            "it": "**Un'offerta con I: Shall I …?**\n- Shall I close the window?",
+            "en": "**An offer with I: Shall I …?**\n- Shall I close the window?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**will** ali **going to**? Odločeno prav zdaj: **We've got no milk. — I'll get some.** (Nimamo mleka, grem ponj.) Odločeno že prej: **I know. I'm going to get some later.** (Vem, kasneje ga grem kupit.) Kar misliš: **I think it'll rain.** (Mislim, da bo deževalo.) Kar vidiš: **Look! It's going to rain.** (Poglej, deževalo bo.)",
+          "de": "**will** oder **going to**? Gerade beschlossen: **We've got no milk. — I'll get some.** (Wir haben keine Milch, ich hole welche.) Schon vorher beschlossen: **I know. I'm going to get some later.** (Ich weiß, ich hole später welche.) Was du glaubst: **I think it'll rain.** (Ich glaube, es regnet.) Was du siehst: **Look! It's going to rain.** (Schau, gleich regnet es.)",
+          "it": "**will** o **going to**? Deciso adesso: **We've got no milk. — I'll get some.** (Non c'è latte, vado a prenderlo io.) Già deciso prima: **I know. I'm going to get some later.** (Lo so, vado a prenderlo più tardi.) Ciò che pensi: **I think it'll rain.** (Credo che pioverà.) Ciò che vedi: **Look! It's going to rain.** (Guarda, sta per piovere.)",
+          "en": "**will** or **going to**? Decided just now: **We've got no milk. — I'll get some.** Decided before: **I know. I'm going to get some later.** What you think: **I think it'll rain.** What you can see: **Look! It's going to rain.**"
+        },
+        "examples": [
+          {
+            "en": "We've got no milk. — I'll get some.",
+            "sl": "Nimamo mleka. — Grem ponj.",
+            "de": "Wir haben keine Milch. — Ich hole welche.",
+            "it": "Non c'è latte. — Vado a prenderlo io."
+          },
+          {
+            "en": "I know. I'm going to get some later.",
+            "sl": "Vem. Kasneje ga grem kupit.",
+            "de": "Ich weiß. Ich hole später welche.",
+            "it": "Lo so. Vado a prenderlo più tardi."
+          },
+          {
+            "en": "I think it'll rain tomorrow.",
+            "sl": "Mislim, da bo jutri deževalo.",
+            "de": "Ich glaube, morgen regnet es.",
+            "it": "Credo che domani pioverà."
+          },
+          {
+            "en": "Look at the sky! It's going to rain.",
+            "sl": "Poglej nebo! Deževalo bo.",
+            "de": "Schau dir den Himmel an! Gleich regnet es.",
+            "it": "Guarda il cielo! Sta per piovere."
+          }
+        ],
+        "rows": [
+          [
+            "will / going to",
+            {
+              "sl": "odločeno zdaj / odločeno prej",
+              "de": "gerade beschlossen / vorher beschlossen",
+              "it": "deciso adesso / deciso prima",
+              "en": "decided now / decided before"
+            },
+            "I'll get some. I'm going to get some."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "The phone's ringing! — ___ get it.",
+          "options": ["I'll", "I'm going to", "I"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "sl": "**Odločeno prav zdaj: 'll**\n- I'll get it.",
+            "de": "**Gerade beschlossen: 'll**\n- I'll get it.",
+            "it": "**Deciso adesso: 'll**\n- I'll get it.",
+            "en": "**Decided just now: 'll**\n- I'll get it."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**will**, kratko **'ll**, + osnovna oblika, za vse: kar se odločiš zdaj, ponudbe, obljube, kar misliš, da bo: **I'll carry it.** **I won't tell anyone.** **I think it'll rain.** Vprašanje: **Will you …? Yes, I will.** Ponudba: **Shall I …?** **Shall we …?** Odločeno prej ali vidiš, da prihaja: **going to**.",
+      "de": "**will**, kurz **'ll**, + Grundform, für alle: was du gerade beschließt, Angebote, Versprechen, was du glaubst: **I'll carry it.** **I won't tell anyone.** **I think it'll rain.** Die Frage: **Will you …? Yes, I will.** Ein Angebot: **Shall I …?** **Shall we …?** Vorher beschlossen oder kommen gesehen: **going to**.",
+      "it": "**will**, breve **'ll**, + la forma base, per tutti: ciò che decidi adesso, offerte, promesse, ciò che pensi: **I'll carry it.** **I won't tell anyone.** **I think it'll rain.** La domanda: **Will you …? Yes, I will.** Un'offerta: **Shall I …?** **Shall we …?** Già deciso o visto arrivare: **going to**.",
+      "en": "**will**, short **'ll**, + the base form, for everyone: what you decide now, offers, promises, what you think will happen: **I'll carry it.** **I won't tell anyone.** **I think it'll rain.** To ask: **Will you …? Yes, I will.** To offer: **Shall I …?** **Shall we …?** Decided before, or seen coming: **going to**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "will-1",
+      "title": { "sl": "Pomagam", "de": "Ich helfe", "it": "Ti aiuto", "en": "I'll help" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "will + come · da in ne",
+            "de": "will + come · ja und nein",
+            "it": "will + come · sì e no",
+            "en": "will + come: yes and no"
+          },
+          "columns": [
+            { "sl": "yes · da", "de": "yes · ja", "it": "yes · sì", "en": "yes" },
+            { "sl": "no · ne", "de": "no · nein", "it": "no · no", "en": "no" }
+          ],
+          "rows": [
+            { "label": "I", "cells": ["will come", "won't come"] },
+            { "label": "she", "cells": [{"accept": ["will come"]}, {"accept": ["won't come"], "hint": "will + not"}] },
+            { "label": "we", "cells": [{"accept": ["will come"]}, {"accept": ["won't come"]}] },
+            { "label": "they", "cells": [{"accept": ["will come"]}, {"accept": ["won't come"]}] }
+          ],
+          "explain": {
+            "sl": "**will, won't, za vse enako**\n- she'll come · she won't come",
+            "de": "**will, won't, für alle gleich**\n- she'll come · she won't come",
+            "it": "**will, won't, uguale per tutti**\n- she'll come · she won't come",
+            "en": "**will, won't, the same for everyone**\n- she'll come · she won't come"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: an offer or a promise, or what you think will happen"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "an offer, a promise · ponudba, obljuba",
+                "de": "an offer, a promise · ein Angebot, ein Versprechen",
+                "it": "an offer, a promise · un'offerta, una promessa",
+                "en": "an offer, a promise"
+              },
+              "words": ["I'll carry that for you.", "I won't tell anyone.", "I'll be back by six."]
+            },
+            {
+              "label": {
+                "sl": "what you think · kar misliš",
+                "de": "what you think · was du glaubst",
+                "it": "what you think · ciò che pensi",
+                "en": "what you think"
+              },
+              "words": ["It'll be cold tomorrow.", "I think Jack will win.", "Sam will probably be late."]
+            }
+          ],
+          "explain": {
+            "sl": "**will pove oboje**\n- I'll carry that for you. · I think Jack will win.",
+            "de": "**will sagt beides**\n- I'll carry that for you. · I think Jack will win.",
+            "it": "**will dice tutte e due le cose**\n- I'll carry that for you. · I think Jack will win.",
+            "en": "**will says both**\n- I'll carry that for you. · I think Jack will win."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Don't worry, we ___ be late.",
+          "options": ["won't", "don't", "aren't"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Obljuba z ne: won't**\n- We won't be late.",
+            "de": "**Ein Versprechen mit nein: won't**\n- We won't be late.",
+            "it": "**Una promessa con il no: won't**\n- We won't be late.",
+            "en": "**A promise with no: won't**\n- We won't be late."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Will Auntie Edna come to the dance?",
+          "options": ["Yes, she will.", "Yes, she'll.", "Yes, she does."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor: Yes, she will.**\n- Yes, she will. · No, she won't.",
+            "de": "**Die Kurzantwort: Yes, she will.**\n- Yes, she will. · No, she won't.",
+            "it": "**La risposta breve: Yes, she will.**\n- Yes, she will. · No, she won't.",
+            "en": "**The short answer: Yes, she will.**\n- Yes, she will. · No, she won't."
+          }
+        }
+      ]
+    },
+    {
+      "id": "will-2",
+      "title": {
+        "sl": "Deževno jutro v gostilni",
+        "de": "Ein nasser Morgen im Gasthaus",
+        "it": "Una mattina di pioggia alla locanda",
+        "en": "A wet morning at the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "future",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— It's raining and the walkers haven't got coats. — Don't worry, Mrs Birkett. ___ (I) take them to the bus in the van. — Thank you, Sam! ___ you be back for lunch? — Yes, I ___. I ___ (not) be late, I promise. — ___ I make you some sandwiches? — Yes, please! — I think it ___ stop raining by two, but the fells ___ (not) be dry for days.",
+          "gaps": [
+            { "accept": ["I'll"], "hint": "I + will" },
+            {
+              "accept": ["Will"],
+              "hint": { "sl": "vprašanje", "de": "eine Frage", "it": "una domanda", "en": "a question" }
+            },
+            {
+              "accept": ["will"],
+              "hint": { "sl": "kratki odgovor", "de": "die Kurzantwort", "it": "la risposta breve", "en": "the short answer" }
+            },
+            { "accept": ["won't"], "hint": "will + not" },
+            {
+              "accept": ["Shall", "Should", "Can", "Could"],
+              "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" }
+            },
+            {
+              "accept": ["will", "is going to", "'s going to"],
+              "hint": { "sl": "kar misliš", "de": "was du glaubst", "it": "ciò che pensi", "en": "what you think" }
+            },
+            { "accept": ["won't", "aren't going to"], "hint": "will + not" }
+          ],
+          "bank": true,
+          "distractors": ["am", "does"],
+          "translation": {
+            "sl": "Dežuje, pohodniki pa nimajo plaščev. — Brez skrbi, gospa Birkett. Jaz jih peljem s kombijem na avtobus. — Hvala, Sam! Boš nazaj za kosilo? — Ja. Ne bom zamudil, obljubim. — Naj ti naredim nekaj sendvičev? — Ja, prosim! — Mislim, da bo do dveh nehalo deževati, ampak hribi še dolgo ne bodo suhi.",
+            "de": "Es regnet, und die Wanderer haben keine Mäntel. — Keine Sorge, Mrs Birkett. Ich bringe sie mit dem Lieferwagen zum Bus. — Danke, Sam! Bist du zum Mittagessen zurück? — Ja. Ich komme nicht zu spät, versprochen. — Soll ich dir ein paar Sandwiches machen? — Ja, bitte! — Ich glaube, bis zwei hört es auf zu regnen, aber die Berge bleiben noch tagelang nass.",
+            "it": "Piove e gli escursionisti non hanno il cappotto. — Non si preoccupi, Mrs Birkett. Li porto io all'autobus con il furgone. — Grazie, Sam! Torni per pranzo? — Sì. Non farò tardi, lo prometto. — Ti preparo qualche panino? — Sì, grazie! — Credo che smetterà di piovere entro le due, ma i monti resteranno bagnati per giorni.",
+            "en": "It's raining and the walkers haven't got coats. — Don't worry, Mrs Birkett. I'll take them to the bus in the van. — Thank you, Sam! Will you be back for lunch? — Yes, I will. I won't be late, I promise. — Shall I make you some sandwiches? — Yes, please! — I think it will stop raining by two, but the fells won't be dry for days."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Is this seat free? — Yes. ___ I move my bag?",
+          "options": ["Shall", "Will", "Do"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ponudba z I: Shall I …?**\n- Shall I move my bag?",
+            "de": "**Ein Angebot mit I: Shall I …?**\n- Shall I move my bag?",
+            "it": "**Un'offerta con I: Shall I …?**\n- Shall I move my bag?",
+            "en": "**An offer with I: Shall I …?**\n- Shall I move my bag?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "will-3",
+      "title": {
+        "sl": "Ponudbe in obljube",
+        "de": "Angebote und Versprechen",
+        "it": "Offerte e promesse",
+        "en": "Offers and promises"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Offer with I'll · Ponudi z I'll",
+            "de": "Offer with I'll · Biete es an mit I'll",
+            "it": "Offer with I'll · Offriti con I'll",
+            "en": "Offer with I'll"
+          },
+          "cue": "I'll …",
+          "items": [
+            {
+              "from": "That box is heavy. (carry)",
+              "accept": [
+                "I'll carry it.",
+                "I'll carry it for you.",
+                "I'll carry that.",
+                "I'll carry that for you.",
+                "I'll carry the box.",
+                "I'll carry the box for you."
+              ],
+              "hint": { "sl": "it = škatla", "de": "it = die Kiste", "it": "it = la scatola", "en": "it = the box" }
+            },
+            {
+              "from": "The gate is open. (close)",
+              "accept": [
+                "I'll close it.",
+                "I'll close it for you.",
+                "I'll close that.",
+                "I'll close the gate.",
+                "I'll close the gate for you."
+              ]
+            },
+            {
+              "from": "There's no wood for the fire. (get some)",
+              "accept": ["I'll get some.", "I'll get some wood.", "I'll get some for you.", "I'll get some wood for you."]
+            }
+          ],
+          "explain": {
+            "sl": "**'ll + osnovna oblika**\n- I'll carry it.",
+            "de": "**'ll + Grundform**\n- I'll carry it.",
+            "it": "**'ll + la forma base**\n- I'll carry it.",
+            "en": "**'ll + the base form**\n- I'll carry it."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Say it with won't · Povej z won't",
+            "de": "Say it with won't · Sag es mit won't",
+            "it": "Say it with won't · Dillo con won't",
+            "en": "Say it with won't"
+          },
+          "cue": "won't",
+          "items": [
+            { "from": "I'll tell Auntie Edna.", "accept": ["I won't tell Auntie Edna."] },
+            { "from": "Meg will bite.", "accept": ["Meg won't bite."] }
+          ],
+          "explain": {
+            "sl": "**will + not: won't**\n- I won't tell Auntie Edna.",
+            "de": "**will + not: won't**\n- I won't tell Auntie Edna.",
+            "it": "**will + not: won't**\n- I won't tell Auntie Edna.",
+            "en": "**will + not: won't**\n- I won't tell Auntie Edna."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future",
+          "instruction": { "sl": "Ask · Vprašaj", "de": "Ask · Frag", "it": "Ask · Chiedi", "en": "Ask" },
+          "cue": "?",
+          "items": [
+            { "from": "You'll be at home tonight.", "accept": ["Will you be at home tonight?"] },
+            { "from": "Arthur will sell his honey.", "accept": ["Will Arthur sell his honey?"] }
+          ],
+          "explain": {
+            "sl": "**will gre naprej**\n- You'll be at home. → Will you be at home?",
+            "de": "**will kommt nach vorn**\n- You'll be at home. → Will you be at home?",
+            "it": "**will va all'inizio**\n- You'll be at home. → Will you be at home?",
+            "en": "**will goes first**\n- You'll be at home. → Will you be at home?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Offer with Shall I …? · Ponudi s Shall I …?",
+            "de": "Offer with Shall I …? · Biete es an mit Shall I …?",
+            "it": "Offer with Shall I …? · Offriti con Shall I …?",
+            "en": "Offer with Shall I …?"
+          },
+          "cue": "Shall I …?",
+          "items": [
+            { "from": "open the window", "accept": ["Shall I open the window?", "Should I open the window?"] },
+            { "from": "make some tea", "accept": ["Shall I make some tea?", "Should I make some tea?"] }
+          ],
+          "explain": {
+            "sl": "**Shall I + osnovna oblika**\n- Shall I make some tea?",
+            "de": "**Shall I + Grundform**\n- Shall I make some tea?",
+            "it": "**Shall I + la forma base**\n- Shall I make some tea?",
+            "en": "**Shall I + the base form**\n- Shall I make some tea?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "future",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "— I think it ___ snow tonight. — Then ___ (I) bring the sheep down from the fell. — ___ I help you, Jack? — No, thanks. Meg and I ___ (not) be long. We'll be back by six, and Mrs Birkett ___ have soup for us.",
+        "gaps": [
+          { "accept": ["will", "is going to", "'s going to"] },
+          { "accept": ["I'll"] },
+          { "accept": ["Shall", "Should", "Can", "Could"] },
+          { "accept": ["won't"] },
+          { "accept": ["will"] }
+        ],
+        "translation": {
+          "sl": "Mislim, da bo nocoj snežilo. — Potem bom pripeljal ovce s hriba. — Naj ti pomagam, Jack? — Ne, hvala. Z Meg ne bova dolgo. Do šestih bova nazaj, gospa Birkett pa bo imela juho za naju.",
+          "de": "Ich glaube, heute Nacht schneit es. — Dann hole ich die Schafe vom Berg. — Soll ich dir helfen, Jack? — Nein, danke. Meg und ich brauchen nicht lang. Bis sechs sind wir zurück, und Mrs Birkett hat Suppe für uns.",
+          "it": "Credo che stanotte nevicherà. — Allora porto giù le pecore dal monte. — Ti aiuto, Jack? — No, grazie. Io e Meg non ci mettiamo molto. Alle sei siamo di ritorno e Mrs Birkett avrà la zuppa per noi.",
+          "en": "I think it will snow tonight. — Then I'll bring the sheep down from the fell. — Shall I help you, Jack? — No, thanks. Meg and I won't be long. We'll be back by six, and Mrs Birkett will have soup for us."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I'm sure you ___ like the inn.",
+        "options": ["will", "are", "do"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kar misliš, da bo: will**\n- I'm sure you'll like it.",
+          "de": "**Was du glaubst: will**\n- I'm sure you'll like it.",
+          "it": "**Ciò che pensi: will**\n- I'm sure you'll like it.",
+          "en": "**What you think will happen: will**\n- I'm sure you'll like it."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Why have you got your boots on? — ___ walk to the tarn.",
+        "options": ["I'm going to", "I'll", "I"],
+        "answer": 0,
+        "almost": [1],
+        "say_options": true,
+        "explain": {
+          "sl": "**Odločeno prej: going to**\n- I'm going to walk to the tarn.",
+          "de": "**Vorher beschlossen: going to**\n- I'm going to walk to the tarn.",
+          "it": "**Deciso prima: going to**\n- I'm going to walk to the tarn.",
+          "en": "**Decided before: going to**\n- I'm going to walk to the tarn."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "We've got no bread. — OK, ___ get some.",
+        "options": ["I'll", "I", "I'm"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Odločeno prav zdaj: 'll**\n- I'll get some.",
+          "de": "**Gerade beschlossen: 'll**\n- I'll get some.",
+          "it": "**Deciso adesso: 'll**\n- I'll get some.",
+          "en": "**Decided just now: 'll**\n- I'll get some."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "future",
+        "instruction": {
+          "sl": "Say it with won't · Povej z won't",
+          "de": "Say it with won't · Sag es mit won't",
+          "it": "Say it with won't · Dillo con won't",
+          "en": "Say it with won't"
+        },
+        "cue": "won't",
+        "items": [
+          { "from": "Mr Dixon will mend the gate.", "accept": ["Mr Dixon won't mend the gate."] },
+          { "from": "We'll be late.", "accept": ["We won't be late."] }
+        ],
+        "explain": {
+          "sl": "**will + not: won't**\n- We won't be late.",
+          "de": "**will + not: won't**\n- We won't be late.",
+          "it": "**will + not: won't**\n- We won't be late.",
+          "en": "**will + not: won't**\n- We won't be late."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "future",
+        "instruction": { "sl": "Ask · Vprašaj", "de": "Ask · Frag", "it": "Ask · Chiedi", "en": "Ask" },
+        "cue": "?",
+        "items": [
+          { "from": "It will be cold on the fell.", "accept": ["Will it be cold on the fell?"] },
+          {
+            "from": "Granny Maggie will bake tomorrow.",
+            "accept": ["Will Granny Maggie bake tomorrow?", "Tomorrow will Granny Maggie bake?"]
+          }
+        ],
+        "explain": {
+          "sl": "**will gre naprej**\n- It will be cold. → Will it be cold?",
+          "de": "**will kommt nach vorn**\n- It will be cold. → Will it be cold?",
+          "it": "**will va all'inizio**\n- It will be cold. → Will it be cold?",
+          "en": "**will goes first**\n- It will be cold. → Will it be cold?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}
