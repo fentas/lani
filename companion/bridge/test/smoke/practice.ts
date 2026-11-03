@@ -14,6 +14,8 @@ const repo = resolve(import.meta.dir, '../../..')
 /** The languages whose practice is written per base, with the culture that plays them and the bases their texts are in. */
 const LANGUAGES = [{ language: 'it', culture: 'friuli', bases: ['de', 'sl', 'en'] }]
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+/** The levels a language's practice reaches: the default aim, B2 (docs/plans/05-built/practice-it-b2.md). */
+const TO_B2 = ['A1', 'A2', 'B1', 'B2']
 const json = (dir: string, f: string) => JSON.parse(readFileSync(join(dir, f), 'utf8'))
 const files = (dir: string) => (existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith('.json')).sort() : [])
 
@@ -43,14 +45,14 @@ export default async function practice() {
     const notPerBase = raw.flatMap(({ f, input }) => untexted(input, f, []))
     check(`modules/${language}: what the learner reads is in each base (${bases.join(', ')})`, notPerBase.length === 0, notPerBase.slice(0, 12))
     check(`modules/${language}: each has what Slovene's have: a run's kinds, a translation to say and to type`, mods.every(m => ['speak', 'translate'].every(t => m.exercises.some(e => e.type === t)) && m.exercises.some(e => ['cloze', 'reorder', 'multi'].includes(e.type))), mods.map(m => [m.id, m.exercises.map(e => e.type)]))
-    for (const level of ['A1', 'A2', 'B1']) {
+    for (const level of TO_B2) {
       const at = mods.filter(m => m.level === level)
       const named = new Set(at.flatMap(m => m.exercises.flatMap(e => (e.grammar ? [e.grammar] : []))))
       check(`modules/${language}: ${level} has modules (${at.length}), naming pages of its level or below`, at.length >= 3 && [...named].every(id => LEVELS.indexOf(pages.find(p => p.id === id)!.level) <= LEVELS.indexOf(level) + 1), at.map(m => m.id))
     }
     check(`modules/${language}: a quest's giver is someone of the cast`, mods.every(m => !m.quest || cast.some(v => v.name === m.quest!.giver)), mods.filter(m => m.quest && !cast.some(v => v.name === m.quest!.giver)).map(m => [m.id, m.quest!.giver]))
     check(`modules/${language}: machine-written and saying so`, raw.every(({ input }) => /machine-written/.test(input.review ?? '')))
-    const orders = ['A1', 'A2', 'B1'].map(l => raw.filter(({ input }) => input.level === l).map(({ input }) => input.order).sort((a: number, b: number) => a - b))
+    const orders = TO_B2.map(l => raw.filter(({ input }) => input.level === l).map(({ input }) => input.order).sort((a: number, b: number) => a - b))
     check(`modules/${language}: each has its place in its level (order 1, 2, 3 …: the pace, ModuleStore.offered)`, orders.every(o => o.every((n: number, i: number) => n === i + 1)), orders)
     const tokens = mods.flatMap(m => m.exercises.flatMap(e => (e.type === 'reorder' ? [...e.tokens, ...(e.distractors ?? [])] : [])))
     check(`modules/${language}: no placeholder in a sentence's chips`, tokens.every(t => !t.includes('{')), tokens.filter(t => t.includes('{')))
@@ -79,7 +81,7 @@ export default async function practice() {
     const [turn] = of('transform')
     const ordered = turn.sets.map(s => LEVELS.indexOf(s.level))
     const size = turn.sets.flatMap(s => s.items).length
-    check(`drills/${language}: transformations the size of Slovene's (${size}), the easiest sets first, one a level at least`, size >= 200 && ordered.every((l, i) => i === 0 || l >= ordered[i - 1]) && ['A1', 'A2', 'B1'].every(l => turn.sets.some(s => s.level === l)), turn.sets.map(s => [s.id, s.level, s.items.length]))
+    check(`drills/${language}: transformations the size of Slovene's (${size}), the easiest sets first, one a level at least`, size >= 200 && ordered.every((l, i) => i === 0 || l >= ordered[i - 1]) && TO_B2.every(l => turn.sets.some(s => s.level === l)), turn.sets.map(s => [s.id, s.level, s.items.length]))
     const [fast] = of('rapid')
     const numbers = fast.sets.flatMap(s => s.numbers.flatMap(numbersOf))
     check(`drills/${language}: rapid fire's numbers 1 to 100 first, then some up to 999; the clock, days, months, dates`, JSON.stringify(numbers.slice(0, 100)) === JSON.stringify(Array.from({ length: 100 }, (_, i) => i + 1)) && numbers.some(n => n > 100) && fast.sets.filter(s => s.items.length > 0).length >= 5, fast.sets.map(s => [s.id, s.items.length]))
@@ -87,6 +89,11 @@ export default async function practice() {
     check(`drills/${language}: sentence building the size of Slovene's (${grow.builds.length}), of 3 or 4 steps`, grow.builds.length >= 60 && grow.builds.every(b => b.steps.length >= 3 && b.steps.length <= 4), grow.builds.filter(b => b.steps.length < 3 || b.steps.length > 4).map(b => b.id))
     const [guess] = of('riddle')
     check(`drills/${language}: riddles (${guess.riddles.length}), told by someone of the cast, each a pack word or a villager`, guess.riddles.length >= 40 && cast.some(v => v.id === guess.teller) && guess.riddles.every(x => !!x.word || !!x.villager))
+    const levelsOf = (d: Drill): string[] =>
+      d.kind === 'transform' || d.kind === 'rapid' ? d.sets.map(s => s.level) : d.kind === 'build' ? d.builds.map(b => b.level) : d.riddles.map(r => r.level)
+    check(`drills/${language}: each of the four reaches B2, a rapid set and a riddle at every level`, drills.every(d => TO_B2.every(l => levelsOf(d).includes(l))), drills.map(d => [d.id, TO_B2.filter(l => !levelsOf(d).includes(l))]))
+    const gated = [...turn.sets.map(s => [s.level, s.rule]), ...grow.builds.map(b => [b.level, b.rules[0]])].filter(([l]) => l !== 'A1')
+    check(`drills/${language}: above A1 every transformation and build names a rule (the road leaves it out until it is introduced)`, gated.every(([, r]) => !!r), gated.filter(([, r]) => !r))
     const said = drillTexts(drills, language)
     check(`drills/${language}: in the voice corpus, the numbers in their words`, said.length > 500 && said.some(t => t.text === 'ventitré') && said.every(t => t.source.startsWith('drill:')), said.length)
   }
