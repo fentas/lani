@@ -1,0 +1,1063 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "i-wish",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🌠",
+  "title": {
+    "sl": "Želje: I wish, if only",
+    "de": "Wünsche: I wish, if only",
+    "it": "I desideri: I wish, if only",
+    "en": "I wish I had a dog; if only I'd known"
+  },
+  "goal": {
+    "sl": "Poveš, kaj si želiš zdaj (I wish I had a dog), kaj bi {m:hotel|f:hotela}, da bi bilo takrat (I wish I'd listened), kaj naj se spremeni (I wish it would stop), in ločiš wish od hope.",
+    "de": "Du sagst, was du dir jetzt wünschst (I wish I had a dog), was damals anders sein sollte (I wish I'd listened) und was anders werden soll (I wish it would stop), und unterscheidest wish und hope.",
+    "it": "Dici che cosa vorresti adesso (I wish I had a dog), che cosa avresti voluto allora (I wish I'd listened) e che cosa dovrebbe cambiare (I wish it would stop), e distingui wish e hope.",
+    "en": "You can say what you wish now (I wish I had a dog), what you wish had happened (I wish I'd listened) and what you want to change (I wish it would stop), and tell wish from hope."
+  },
+  "grammar": [
+    "wish-if-only",
+    "second-conditional",
+    "third-conditional"
+  ],
+  "words": [
+    "wish",
+    "if only",
+    "hope",
+    "would",
+    "could",
+    "listen",
+    "listened",
+    "sell",
+    "sold",
+    "van",
+    "shout",
+    "swim",
+    "warmer",
+    "forecast",
+    "young",
+    "complain",
+    "somewhere",
+    "hate",
+    "boat",
+    "map",
+    "feel better",
+    "answer",
+    "drive",
+    "stay",
+    "snow",
+    "quarrel",
+    "dog",
+    "way",
+    "fell"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "za kaj",
+          "de": "wofür",
+          "it": "per cosa",
+          "en": "what for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**wish** (želeti si) + preteklik pove, kaj zdaj ni tako: **I wish I had a dog.** (Ko bi le {m:imel|f:imela} psa.) **I wish I knew.** (Ko bi le {m:vedel|f:vedela}.) Preteklik tu ne pomeni prej, ampak *ni res*, kot za if.",
+          "de": "**wish** (sich wünschen) + Vergangenheit sagt, was jetzt nicht so ist: **I wish I had a dog.** (Ich wünschte, ich hätte einen Hund.) **I wish I knew.** (Ich wünschte, ich wüsste es.) Die Vergangenheit heißt hier nicht früher, sondern *nicht wirklich*, wie nach if.",
+          "it": "**wish** (desiderare) + il passato dice che cosa adesso non è così: **I wish I had a dog.** (Vorrei avere un cane.) **I wish I knew.** (Magari lo sapessi.) Il passato qui non vuol dire prima, ma *non è vero*, come dopo if.",
+          "en": "**wish** + the past says what isn't so now: **I wish I had a dog.** **I wish I knew.** The past here doesn't mean earlier: it means *not really*, as after if."
+        },
+        "examples": [
+          {
+            "en": "I wish I had a dog.",
+            "sl": "Ko bi le {m:imel|f:imela} psa.",
+            "de": "Ich wünschte, ich hätte einen Hund.",
+            "it": "Vorrei avere un cane."
+          },
+          {
+            "en": "I wish I knew.",
+            "sl": "Ko bi le {m:vedel|f:vedela}.",
+            "de": "Ich wünschte, ich wüsste es.",
+            "it": "Magari lo sapessi."
+          }
+        ],
+        "rows": [
+          [
+            "wish + past",
+            {
+              "sl": "zdaj ni tako",
+              "de": "jetzt nicht so",
+              "it": "adesso non è così",
+              "en": "it isn't so now"
+            },
+            "I wish I had a dog."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wish-if-only",
+          "prompt": "I haven't got a dog. I wish I ___ one.",
+          "options": [
+            "had",
+            "have",
+            "having"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zdaj: wish + preteklik**\n- I wish I had one.",
+            "de": "**Jetzt: wish + Vergangenheit**\n- I wish I had one.",
+            "it": "**Adesso: wish + il passato**\n- I wish I had one.",
+            "en": "**Now: wish + the past**\n- I wish I had one."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Z **be** je prav oboje: **I wish it was warmer.** **I wish it were warmer.** (Ko bi le bilo topleje.) **were** je bolj uradno. Za to, česar ne znaš ali ne moreš, **could**: **I wish I could swim.** (Ko bi le {m:znal|f:znala} plavati.)",
+          "de": "Bei **be** ist beides richtig: **I wish it was warmer.** **I wish it were warmer.** (Ich wünschte, es wäre wärmer.) **were** ist förmlicher. Für das, was du nicht kannst, **could**: **I wish I could swim.** (Ich wünschte, ich könnte schwimmen.)",
+          "it": "Con **be** sono giusti tutti e due: **I wish it was warmer.** **I wish it were warmer.** (Magari facesse più caldo.) **were** è più formale. Per ciò che non sai o non puoi, **could**: **I wish I could swim.** (Magari sapessi nuotare.)",
+          "en": "With **be**, both are right: **I wish it was warmer.** **I wish it were warmer.** **were** is more formal. For what you can't do, **could**: **I wish I could swim.**"
+        },
+        "examples": [
+          {
+            "en": "I wish it was warmer.",
+            "sl": "Ko bi le bilo topleje.",
+            "de": "Ich wünschte, es wäre wärmer.",
+            "it": "Magari facesse più caldo."
+          },
+          {
+            "en": "I wish I could swim.",
+            "sl": "Ko bi le {m:znal|f:znala} plavati.",
+            "de": "Ich wünschte, ich könnte schwimmen.",
+            "it": "Magari sapessi nuotare."
+          }
+        ],
+        "rows": [
+          [
+            "wish + could",
+            {
+              "sl": "ne znaš, ne moreš",
+              "de": "du kannst es nicht",
+              "it": "non sai, non puoi",
+              "en": "you can't"
+            },
+            "I wish I could swim."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "wish-if-only",
+          "text": "I can't come tonight. I wish I ___ (can) come.",
+          "accept": [
+            "could"
+          ],
+          "hint": {
+            "sl": "can → ?",
+            "de": "can → ?",
+            "it": "can → ?",
+            "en": "can → ?"
+          },
+          "explain": {
+            "sl": "**Česar ne znaš: wish + could**\n- I wish I could come.",
+            "de": "**Was du nicht kannst: wish + could**\n- I wish I could come.",
+            "it": "**Ciò che non sai: wish + could**\n- I wish I could come.",
+            "en": "**What you can't do: wish + could**\n- I wish I could come."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**wish** + **had** + deležnik pove, kaj se takrat ni zgodilo: **I wish I'd listened.** (Ko bi {m:poslušal|f:poslušala} takrat.) **I wish I hadn't sold the van.** (Ko le ne bi {m:prodal|f:prodala} kombija.) Tudi **could have**: **I wish I could have come.** Slovenščina reče obakrat *ko bi le*, angleščina loči.",
+          "de": "**wish** + **had** + Partizip sagt, was damals nicht war: **I wish I'd listened.** (Ich wünschte, ich hätte zugehört.) **I wish I hadn't sold the van.** (Ich wünschte, ich hätte den Lieferwagen nicht verkauft.) Auch **could have**: **I wish I could have come.**",
+          "it": "**wish** + **had** + participio dice che cosa allora non è stato: **I wish I'd listened.** (Magari avessi ascoltato.) **I wish I hadn't sold the van.** (Magari non avessi venduto il furgone.) Anche **could have**: **I wish I could have come.**",
+          "en": "**wish** + **had** + the participle says what didn't happen then: **I wish I'd listened.** **I wish I hadn't sold the van.** Also **could have**: **I wish I could have come.**"
+        },
+        "examples": [
+          {
+            "en": "I wish I'd listened.",
+            "sl": "Ko bi {m:poslušal|f:poslušala} takrat.",
+            "de": "Ich wünschte, ich hätte zugehört.",
+            "it": "Magari avessi ascoltato."
+          },
+          {
+            "en": "I wish I hadn't sold the van.",
+            "sl": "Ko le ne bi {m:prodal|f:prodala} kombija.",
+            "de": "Ich wünschte, ich hätte den Lieferwagen nicht verkauft.",
+            "it": "Magari non avessi venduto il furgone."
+          }
+        ],
+        "rows": [
+          [
+            "wish + had + participle",
+            {
+              "sl": "takrat ni bilo tako",
+              "de": "damals nicht so",
+              "it": "allora non è stato così",
+              "en": "it didn't happen then"
+            },
+            "I wish I'd listened."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "wish-if-only",
+          "text": "I sold the van. I wish I ___ (not sell) it.",
+          "accept": [
+            "hadn't sold"
+          ],
+          "hint": {
+            "sl": "takrat: had + deležnik",
+            "de": "damals: had + Partizip",
+            "it": "allora: had + participio",
+            "en": "then: had + the participle"
+          },
+          "explain": {
+            "sl": "**Takrat: wish + had + deležnik**\n- I wish I hadn't sold it.",
+            "de": "**Damals: wish + had + Partizip**\n- I wish I hadn't sold it.",
+            "it": "**Allora: wish + had + participio**\n- I wish I hadn't sold it.",
+            "en": "**Then: wish + had + the participle**\n- I wish I hadn't sold it."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**wish** + **would** pove, kaj bi se moralo spremeniti: **I wish it would stop raining.** (Ko bi le nehalo deževati.) **I wish you wouldn't shout.** (Ko le ne bi {m:kričal|f:kričala}.) Zase rečeš **could**: **I wish I could stop.**",
+          "de": "**wish** + **would** sagt, was anders werden soll: **I wish it would stop raining.** (Ich wünschte, es würde aufhören zu regnen.) **I wish you wouldn't shout.** (Ich wünschte, du würdest nicht schreien.) Für dich selbst **could**: **I wish I could stop.**",
+          "it": "**wish** + **would** dice che cosa dovrebbe cambiare: **I wish it would stop raining.** (Magari smettesse di piovere.) **I wish you wouldn't shout.** (Vorrei che tu non gridassi.) Per te stess{m:o|f:a} **could**: **I wish I could stop.**",
+          "en": "**wish** + **would** says what you want to change: **I wish it would stop raining.** **I wish you wouldn't shout.** For yourself, **could**: **I wish I could stop.**"
+        },
+        "examples": [
+          {
+            "en": "I wish it would stop raining.",
+            "sl": "Ko bi le nehalo deževati.",
+            "de": "Ich wünschte, es würde aufhören zu regnen.",
+            "it": "Magari smettesse di piovere."
+          },
+          {
+            "en": "I wish you wouldn't shout.",
+            "sl": "Ko le ne bi {m:kričal|f:kričala}.",
+            "de": "Ich wünschte, du würdest nicht schreien.",
+            "it": "Vorrei che tu non gridassi."
+          }
+        ],
+        "rows": [
+          [
+            "wish + would",
+            {
+              "sl": "želiš si spremembe",
+              "de": "du willst, dass es anders wird",
+              "it": "vuoi che cambi",
+              "en": "you want it to change"
+            },
+            "I wish it would stop raining."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wish-if-only",
+          "prompt": "It's been raining for a week. I wish it ___ stop.",
+          "options": [
+            "would",
+            "will",
+            "does"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Naj se spremeni: wish + would**\n- I wish it would stop.",
+            "de": "**Es soll anders werden: wish + would**\n- I wish it would stop.",
+            "it": "**Deve cambiare: wish + would**\n- I wish it would stop.",
+            "en": "**You want it to change: wish + would**\n- I wish it would stop."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**if only** je močnejše od wish, časi so isti: **If only I knew!** (Ko bi le {m:vedel|f:vedela}!) **If only I'd known!** (Ko bi le takrat {m:vedel|f:vedela}!) **If only it would stop!** (Ko bi le nehalo!)",
+          "de": "**if only** ist stärker als wish, die Zeiten sind dieselben: **If only I knew!** (Wenn ich es nur wüsste!) **If only I'd known!** (Hätte ich es nur gewusst!) **If only it would stop!** (Wenn es nur aufhören würde!)",
+          "it": "**if only** è più forte di wish, i tempi sono gli stessi: **If only I knew!** (Se solo lo sapessi!) **If only I'd known!** (Se solo l'avessi saputo!) **If only it would stop!** (Se solo smettesse!)",
+          "en": "**if only** is stronger than wish, with the same tenses: **If only I knew!** **If only I'd known!** **If only it would stop!**"
+        },
+        "examples": [
+          {
+            "en": "If only I knew!",
+            "sl": "Ko bi le {m:vedel|f:vedela}!",
+            "de": "Wenn ich es nur wüsste!",
+            "it": "Se solo lo sapessi!"
+          },
+          {
+            "en": "If only I'd known!",
+            "sl": "Ko bi le takrat {m:vedel|f:vedela}!",
+            "de": "Hätte ich es nur gewusst!",
+            "it": "Se solo l'avessi saputo!"
+          }
+        ],
+        "rows": [
+          [
+            "if only",
+            {
+              "sl": "močneje",
+              "de": "stärker",
+              "it": "più forte",
+              "en": "stronger"
+            },
+            "If only I knew!"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "wish-if-only",
+          "text": "If only I ___ (know) the way!",
+          "accept": [
+            "knew",
+            "had known"
+          ],
+          "hint": {
+            "sl": "zdaj: preteklik",
+            "de": "jetzt: Vergangenheit",
+            "it": "adesso: il passato",
+            "en": "now: the past"
+          },
+          "explain": {
+            "sl": "**if only: isti časi kot wish**\n- If only I knew the way!",
+            "de": "**if only: dieselben Zeiten wie wish**\n- If only I knew the way!",
+            "it": "**if only: gli stessi tempi di wish**\n- If only I knew the way!",
+            "en": "**if only: the same tenses as wish**\n- If only I knew the way!"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**hope** je za to, kar se še lahko zgodi, s sedanjikom: **I hope it stops raining.** (Upam, da bo nehalo deževati.) V govoru ljudje rečejo tudi *I wish I'd have known*. Pisno velja **I wish I had known**. *I wish I would have known* je pogost spodrsljaj.",
+          "de": "**hope** ist für das, was noch geschehen kann, mit dem Präsens: **I hope it stops raining.** (Ich hoffe, es hört auf zu regnen.) Gesprochen sagt man auch *I wish I'd have known*. Geschrieben gilt **I wish I had known**. *I wish I would have known* ist ein häufiger Ausrutscher.",
+          "it": "**hope** è per ciò che può ancora succedere, col presente: **I hope it stops raining.** (Spero che smetta di piovere.) A voce si dice anche *I wish I'd have known*. Per iscritto vale **I wish I had known**. *I wish I would have known* è una svista comune.",
+          "en": "**hope** is for what may still happen, with the present: **I hope it stops raining.** In talk people also say *I wish I'd have known*. Writing wants **I wish I had known**. *I wish I would have known* is a common slip."
+        },
+        "examples": [
+          {
+            "en": "I hope it stops raining.",
+            "sl": "Upam, da bo nehalo deževati.",
+            "de": "Ich hoffe, es hört auf zu regnen.",
+            "it": "Spero che smetta di piovere."
+          }
+        ],
+        "rows": [
+          [
+            "hope + present",
+            {
+              "sl": "lahko se še zgodi",
+              "de": "kann noch geschehen",
+              "it": "può ancora succedere",
+              "en": "it may still happen"
+            },
+            "I hope it stops raining."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wish-if-only",
+          "prompt": "The forecast says it may stop. I ___ it stops soon.",
+          "options": [
+            "hope",
+            "wish",
+            "am wishing"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Lahko se še zgodi: hope + sedanjik**\n- I hope it stops soon.",
+            "de": "**Kann noch geschehen: hope + Präsens**\n- I hope it stops soon.",
+            "it": "**Può ancora succedere: hope + presente**\n- I hope it stops soon.",
+            "en": "**It may still happen: hope + the present**\n- I hope it stops soon."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "i-wish-1",
+      "title": {
+        "sl": "Zdaj, takrat, naj se spremeni",
+        "de": "Jetzt, damals, anders werden",
+        "it": "Adesso, allora, cambiare",
+        "en": "Now, then, or change"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "wish-if-only",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "zdaj ni tako",
+                "de": "jetzt nicht so",
+                "it": "adesso non è così",
+                "en": "it isn't so now"
+              },
+              "words": [
+                "I wish I had a dog.",
+                "I wish I knew.",
+                "If only it was warmer."
+              ]
+            },
+            {
+              "label": {
+                "sl": "takrat ni bilo tako",
+                "de": "damals nicht so",
+                "it": "allora non è stato così",
+                "en": "it didn't happen then"
+              },
+              "words": [
+                "I wish I'd listened.",
+                "If only I hadn't sold the van.",
+                "I wish I had gone."
+              ]
+            },
+            {
+              "label": {
+                "sl": "želiš si spremembe",
+                "de": "du willst, dass es anders wird",
+                "it": "vuoi che cambi",
+                "en": "you want it to change"
+              },
+              "words": [
+                "I wish it would stop.",
+                "I wish you wouldn't shout.",
+                "If only he would listen."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Zdaj, takrat, naj se spremeni**\n- I wish I had a dog. I wish I'd listened. I wish it would stop.",
+            "de": "**Jetzt, damals, anders werden**\n- I wish I had a dog. I wish I'd listened. I wish it would stop.",
+            "it": "**Adesso, allora, cambiare**\n- I wish I had a dog. I wish I'd listened. I wish it would stop.",
+            "en": "**Now, then, or change**\n- I wish I had a dog. I wish I'd listened. I wish it would stop."
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "wish-if-only",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "I wish",
+            "de": "I wish",
+            "it": "I wish",
+            "en": "I wish"
+          },
+          "columns": [
+            {
+              "sl": "dopolni",
+              "de": "ergänze",
+              "it": "completa",
+              "en": "fill in"
+            }
+          ],
+          "rows": [
+            {
+              "label": "I haven't got a dog. I wish I … (have) one.",
+              "cells": [
+                {
+                  "accept": [
+                    "had"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "I don't know the way. I wish I … (know) it.",
+              "cells": [
+                {
+                  "accept": [
+                    "knew"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "I can't swim. I wish I … (can) swim.",
+              "cells": [
+                {
+                  "accept": [
+                    "could"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "I didn't go. I wish I … (go).",
+              "cells": [
+                {
+                  "accept": [
+                    "had gone"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "He shouts. I wish he … (not shout).",
+              "cells": [
+                {
+                  "accept": [
+                    "wouldn't shout",
+                    "didn't shout"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Zdaj, takrat, naj se spremeni**\n- I wish I had one. I wish I had gone. I wish he wouldn't shout.",
+            "de": "**Jetzt, damals, anders werden**\n- I wish I had one. I wish I had gone. I wish he wouldn't shout.",
+            "it": "**Adesso, allora, cambiare**\n- I wish I had one. I wish I had gone. I wish he wouldn't shout.",
+            "en": "**Now, then, or change**\n- I wish I had one. I wish I had gone. I wish he wouldn't shout."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wish-if-only",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "I wish I ___ there yesterday.",
+          "options": [
+            "had been",
+            "have been",
+            "being"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Takrat: wish + had + deležnik**\n- I wish I had been there yesterday.",
+            "de": "**Damals: wish + had + Partizip**\n- I wish I had been there yesterday.",
+            "it": "**Allora: wish + had + participio**\n- I wish I had been there yesterday.",
+            "en": "**Then: wish + had + the participle**\n- I wish I had been there yesterday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "i-wish-2",
+      "title": {
+        "sl": "Ob ognju",
+        "de": "Beim Feuer",
+        "it": "Accanto al fuoco",
+        "en": "By the fire"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "wish-if-only",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "title": "Old Wilf and Sam",
+          "text": "— I wish I ___ (be) young again, Sam. — So do I, Wilf. And I wish I ___ (not sell) my old van. — If only you ___ (ask) me first! And I wish this rain ___ (stop). — It won't. I wish I ___ (live) somewhere warm. — You'd hate it. I wish you ___ (not complain) all the time. — If only I ___ (can) walk up the fell again. — I hope you ___ (feel) better tomorrow.",
+          "gaps": [
+            {
+              "accept": [
+                "was",
+                "were"
+              ],
+              "hint": {
+                "sl": "zdaj: preteklik",
+                "de": "jetzt: Vergangenheit",
+                "it": "adesso: il passato",
+                "en": "now: the past"
+              }
+            },
+            {
+              "accept": [
+                "hadn't sold"
+              ],
+              "hint": {
+                "sl": "takrat: had + deležnik",
+                "de": "damals: had + Partizip",
+                "it": "allora: had + participio",
+                "en": "then: had + the participle"
+              }
+            },
+            {
+              "accept": [
+                "had asked"
+              ],
+              "hint": {
+                "sl": "takrat: had + deležnik",
+                "de": "damals: had + Partizip",
+                "it": "allora: had + participio",
+                "en": "then: had + the participle"
+              }
+            },
+            {
+              "accept": [
+                "would stop"
+              ],
+              "hint": {
+                "sl": "naj se spremeni",
+                "de": "es soll anders werden",
+                "it": "deve cambiare",
+                "en": "you want it to change"
+              }
+            },
+            {
+              "accept": [
+                "lived",
+                "could live",
+                "was living",
+                "were living"
+              ],
+              "hint": {
+                "sl": "zdaj: preteklik",
+                "de": "jetzt: Vergangenheit",
+                "it": "adesso: il passato",
+                "en": "now: the past"
+              }
+            },
+            {
+              "accept": [
+                "wouldn't complain",
+                "didn't complain"
+              ],
+              "hint": {
+                "sl": "naj se spremeni",
+                "de": "es soll anders werden",
+                "it": "deve cambiare",
+                "en": "you want it to change"
+              }
+            },
+            {
+              "accept": [
+                "could"
+              ],
+              "hint": {
+                "sl": "can → ?",
+                "de": "can → ?",
+                "it": "can → ?",
+                "en": "can → ?"
+              }
+            },
+            {
+              "accept": [
+                "feel",
+                "will feel"
+              ],
+              "hint": {
+                "sl": "hope",
+                "de": "hope",
+                "it": "hope",
+                "en": "hope"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "will stop",
+            "has sold"
+          ],
+          "translation": {
+            "sl": "— Ko bi le bil spet mlad, Sam. — Tudi jaz, Wilf. In ko le ne bi prodal svojega starega kombija. — Ko bi me le prej vprašal! In ko bi le ta dež nehal. — Ne bo. Ko bi le živel nekje, kjer je toplo. — Ne bi ti bilo všeč. Ko le ne bi ves čas jamral. — Ko bi le spet lahko šel na hrib. — Upam, da se boš jutri bolje počutil.",
+            "de": "— Ich wünschte, ich wäre wieder jung, Sam. — Ich auch, Wilf. Und ich wünschte, ich hätte meinen alten Lieferwagen nicht verkauft. — Hättest du mich nur vorher gefragt! Und ich wünschte, dieser Regen würde aufhören. — Tut er nicht. Ich wünschte, ich würde irgendwo wohnen, wo es warm ist. — Das würde dir nicht gefallen. Ich wünschte, du würdest nicht dauernd jammern. — Wenn ich nur wieder auf den Berg gehen könnte. — Ich hoffe, es geht dir morgen besser.",
+            "it": "— Magari fossi di nuovo giovane, Sam. — Anch'io, Wilf. E magari non avessi venduto il mio vecchio furgone. — Se solo me l'avessi chiesto prima! E magari smettesse questa pioggia. — Non smetterà. Magari abitassi in un posto caldo. — Non ti piacerebbe. Vorrei che non ti lamentassi sempre. — Se solo potessi risalire sul monte. — Spero che domani ti senta meglio.",
+            "en": "— I wish I was young again, Sam. — So do I, Wilf. And I wish I hadn't sold my old van. — If only you had asked me first! And I wish this rain would stop. — It won't. I wish I lived somewhere warm. — You'd hate it. I wish you wouldn't complain all the time. — If only I could walk up the fell again. — I hope you feel better tomorrow."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wish-if-only",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We missed the bus. If only we ___ earlier!",
+          "options": [
+            "had left",
+            "have left",
+            "leaving"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**if only: isti časi kot wish**\n- If only we had left earlier!",
+            "de": "**if only: dieselben Zeiten wie wish**\n- If only we had left earlier!",
+            "it": "**if only: gli stessi tempi di wish**\n- If only we had left earlier!",
+            "en": "**if only: the same tenses as wish**\n- If only we had left earlier!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "i-wish-3",
+      "title": {
+        "sl": "Povej drugače",
+        "de": "Sag es anders",
+        "it": "Dillo in un altro modo",
+        "en": "Say it another way"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "wish-if-only",
+          "instruction": {
+            "sl": "Say it with I wish · Povej z I wish",
+            "de": "Say it with I wish · Sag es mit I wish",
+            "it": "Say it with I wish · Dillo con I wish",
+            "en": "Say it with I wish"
+          },
+          "items": [
+            {
+              "from": "I can't swim.",
+              "accept": [
+                "I wish I could swim."
+              ]
+            },
+            {
+              "from": "I don't know the way.",
+              "accept": [
+                "I wish I knew the way."
+              ]
+            },
+            {
+              "from": "I sold the van.",
+              "accept": [
+                "I wish I hadn't sold the van."
+              ]
+            },
+            {
+              "from": "I didn't listen.",
+              "accept": [
+                "I wish I had listened."
+              ]
+            },
+            {
+              "from": "It is raining.",
+              "accept": [
+                "I wish it wasn't raining.",
+                "I wish it weren't raining.",
+                "I wish it would stop raining."
+              ]
+            },
+            {
+              "from": "You always shout.",
+              "accept": [
+                "I wish you wouldn't shout.",
+                "I wish you didn't shout.",
+                "I wish you wouldn't always shout.",
+                "I wish you didn't always shout."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Zdaj, takrat, naj se spremeni**\n- I wish I could swim. I wish I hadn't sold the van.",
+            "de": "**Jetzt, damals, anders werden**\n- I wish I could swim. I wish I hadn't sold the van.",
+            "it": "**Adesso, allora, cambiare**\n- I wish I could swim. I wish I hadn't sold the van.",
+            "en": "**Now, then, or change**\n- I wish I could swim. I wish I hadn't sold the van."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "wish-if-only",
+          "instruction": {
+            "sl": "Say it with if only · Povej z if only",
+            "de": "Say it with if only · Sag es mit if only",
+            "it": "Say it with if only · Dillo con if only",
+            "en": "Say it with if only"
+          },
+          "items": [
+            {
+              "from": "I haven't got a boat.",
+              "accept": [
+                "If only I had a boat!"
+              ]
+            },
+            {
+              "from": "We didn't take the map.",
+              "accept": [
+                "If only we had taken the map!"
+              ]
+            },
+            {
+              "from": "The bus doesn't come.",
+              "accept": [
+                "If only the bus would come!",
+                "If only the bus came!"
+              ]
+            },
+            {
+              "from": "She isn't here.",
+              "accept": [
+                "If only she was here!",
+                "If only she were here!"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**if only: isti časi kot wish**\n- If only I had a boat!",
+            "de": "**if only: dieselben Zeiten wie wish**\n- If only I had a boat!",
+            "it": "**if only: gli stessi tempi di wish**\n- If only I had a boat!",
+            "en": "**if only: the same tenses as wish**\n- If only I had a boat!"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "wish-if-only",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "title": "After the quarrel",
+        "text": "I wish I ___ (have) more time. I wish I ___ (not say) that to Edna yesterday. If only she ___ (talk) to me now! I wish it ___ (stop) snowing, so I could go and see her. I hope she ___ (be) at home tomorrow.",
+        "gaps": [
+          {
+            "accept": [
+              "had"
+            ],
+            "hint": {
+              "sl": "zdaj: preteklik",
+              "de": "jetzt: Vergangenheit",
+              "it": "adesso: il passato",
+              "en": "now: the past"
+            }
+          },
+          {
+            "accept": [
+              "hadn't said"
+            ],
+            "hint": {
+              "sl": "takrat: had + deležnik",
+              "de": "damals: had + Partizip",
+              "it": "allora: had + participio",
+              "en": "then: had + the participle"
+            }
+          },
+          {
+            "accept": [
+              "would talk",
+              "talked",
+              "was talking",
+              "were talking"
+            ],
+            "hint": {
+              "sl": "naj se spremeni",
+              "de": "es soll anders werden",
+              "it": "deve cambiare",
+              "en": "you want it to change"
+            }
+          },
+          {
+            "accept": [
+              "would stop"
+            ],
+            "hint": {
+              "sl": "naj se spremeni",
+              "de": "es soll anders werden",
+              "it": "deve cambiare",
+              "en": "you want it to change"
+            }
+          },
+          {
+            "accept": [
+              "is",
+              "will be"
+            ],
+            "hint": {
+              "sl": "hope",
+              "de": "hope",
+              "it": "hope",
+              "en": "hope"
+            }
+          }
+        ],
+        "translation": {
+          "sl": "Ko bi le {m:imel|f:imela} več časa. Ko le ne bi včeraj tega {m:rekel|f:rekla} Edni. Ko bi le zdaj govorila z mano! Ko bi le nehalo snežiti, da bi lahko {m:šel|f:šla} k njej. Upam, da bo jutri doma.",
+          "de": "Ich wünschte, ich hätte mehr Zeit. Ich wünschte, ich hätte das gestern nicht zu Edna gesagt. Wenn sie nur jetzt mit mir reden würde! Ich wünschte, es würde aufhören zu schneien, damit ich zu ihr gehen könnte. Ich hoffe, sie ist morgen daheim.",
+          "it": "Magari avessi più tempo. Magari ieri non avessi detto quella cosa a Edna. Se solo adesso mi parlasse! Magari smettesse di nevicare, così potrei andare da lei. Spero che domani sia a casa.",
+          "en": "I wish I had more time. I wish I hadn't said that to Edna yesterday. If only she would talk to me now! I wish it would stop snowing, so I could go and see her. I hope she is at home tomorrow."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "wish-if-only",
+        "instruction": {
+          "sl": "Say it with I wish · Povej z I wish",
+          "de": "Say it with I wish · Sag es mit I wish",
+          "it": "Say it with I wish · Dillo con I wish",
+          "en": "Say it with I wish"
+        },
+        "items": [
+          {
+            "from": "I can't drive.",
+            "accept": [
+              "I wish I could drive."
+            ]
+          },
+          {
+            "from": "We didn't stay.",
+            "accept": [
+              "I wish we had stayed."
+            ]
+          },
+          {
+            "from": "Sam talks all the time.",
+            "accept": [
+              "I wish Sam wouldn't talk all the time.",
+              "I wish Sam didn't talk all the time."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Zdaj, takrat, naj se spremeni**\n- I wish I could drive. I wish we had stayed.",
+          "de": "**Jetzt, damals, anders werden**\n- I wish I could drive. I wish we had stayed.",
+          "it": "**Adesso, allora, cambiare**\n- I wish I could drive. I wish we had stayed.",
+          "en": "**Now, then, or change**\n- I wish I could drive. I wish we had stayed."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wish-if-only",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I wish I ___ the answer.",
+        "options": [
+          "knew",
+          "know",
+          "knowing"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Zdaj: wish + preteklik**\n- I wish I knew the answer.",
+          "de": "**Jetzt: wish + Vergangenheit**\n- I wish I knew the answer.",
+          "it": "**Adesso: wish + il passato**\n- I wish I knew the answer.",
+          "en": "**Now: wish + the past**\n- I wish I knew the answer."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wish-if-only",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "If only you ___ me!",
+        "options": [
+          "had told",
+          "have told",
+          "telling"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**if only: isti časi kot wish**\n- If only you had told me!",
+          "de": "**if only: dieselben Zeiten wie wish**\n- If only you had told me!",
+          "it": "**if only: gli stessi tempi di wish**\n- If only you had told me!",
+          "en": "**if only: the same tenses as wish**\n- If only you had told me!"
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "wish-if-only",
+        "instruction": {
+          "sl": "Fill in the table · Dopolni tabelo",
+          "de": "Fill in the table · Ergänze die Tabelle",
+          "it": "Fill in the table · Completa la tabella",
+          "en": "Fill in the table"
+        },
+        "prompt": {
+          "sl": "I wish",
+          "de": "I wish",
+          "it": "I wish",
+          "en": "I wish"
+        },
+        "columns": [
+          {
+            "sl": "dopolni",
+            "de": "ergänze",
+            "it": "completa",
+            "en": "fill in"
+          }
+        ],
+        "rows": [
+          {
+            "label": "He isn't here. I wish he … (be) here.",
+            "cells": [
+              {
+                "accept": [
+                  "was",
+                  "were"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "I ate too much. I wish I … (not eat) so much.",
+            "cells": [
+              {
+                "accept": [
+                  "hadn't eaten"
+                ]
+              }
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Zdaj, takrat, naj se spremeni**\n- I wish he was here. I wish I hadn't eaten so much.",
+          "de": "**Jetzt, damals, anders werden**\n- I wish he was here. I wish I hadn't eaten so much.",
+          "it": "**Adesso, allora, cambiare**\n- I wish he was here. I wish I hadn't eaten so much.",
+          "en": "**Now, then, or change**\n- I wish he was here. I wish I hadn't eaten so much."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}
