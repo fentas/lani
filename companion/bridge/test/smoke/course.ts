@@ -272,6 +272,22 @@ export default async function course() {
   check('get_village: the unit done', JSON.stringify(doneSummary) === '{"classroom":"2026-10-01","done":["biti"],"in_progress":[]}', doneSummary)
   check('get_course and get_village without lookups: no looked_up', !('looked_up' in after) && !('looked_up' in JSON.parse(text(await call('get_village')))))
 
+  // a unit the placement test marked, and the test the learner took (companion/COURSE.md "The placement test"): this language's
+  const placedState = {
+    ...doneState,
+    units: { 'sl/biti': { started: '2026-11-03', introDone: true, done: '2026-11-03', testedOut: true, placed: true } },
+    placements: { sl: { day: '2026-11-03', from: 'A1', level: 'A2', start: 'A2', part: 1, parts: 3, units: 1, right: 7, almost: 1, of: 9, minutes: 5 }, it: { day: '2026-11-01', from: 'A1', level: 'A1' } },
+  }
+  await put({ age: 'VAS', buildings: [school], course: placedState })
+  const placed = JSON.parse(text(await call('get_course')))
+  check(
+    "get_course: a unit the placement test marked (placed), and the test the learner took in this language",
+    placed.levels[0].units[0].placed === true && placed.levels[0].units[0].tested_out === true && placed.levels[0].units[0].done === '2026-11-03' &&
+      JSON.stringify(placed.placement) === '{"day":"2026-11-03","from":"A1","level":"A2","start":"A2 1/3","units_marked":1}' && !('placed' in after.levels[0].units[0]) && !('placement' in after),
+    placed.placement,
+  )
+  await put({ age: 'VAS', buildings: [school], course: doneState })
+
   // what Jan looked up on the cheat sheet during exercises (the village state's sheet.lookups: per page, each day's answers
   // given with one of its cards open; the last 14 days count): get_course names the units that teach each page
   const today = localDate(new Date())
