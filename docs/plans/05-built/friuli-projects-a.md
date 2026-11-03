@@ -57,9 +57,7 @@ own section. No new prompt clash (`bun test/prompt-clashes.ts`): new words got p
 Friuli had 53 packs against 65: the difference is the project packs (13 elsewhere, one pack more of Friuli's own). I spy: nothing was
 missing. All 33 of Friuli's scenes have their clues, and every slot of the scenes these steps are played in.
 
-**The supplement** (`companion/lexicon/it.extra.json`): 75 entries, the everyday words of the new steps that no Italian content had
-before (abbastanza, buttare, il coniglio, durare, oppure, reggere, la paratoia, Pinocchio …), German first, with the forms the steps use. The
-deliberately wrong forms (togliuto, sparguto) stay out, as the file's meta says of the older ones.
+**The supplement** (`companion/lexicon/it.extra.json`, merged with supplement-it's round): 73 new entries and 193 new forms of older ones, so a tap on any word of these steps means something, German first, written for a child (the new table `companion/lexicon/tools/it_cov_40_friuli_projects.txt`, built with `it_cov_build.py`; nothing of main's entries changed or lost). `lexicon-build --coverage --lang it --all` afterwards: 41 words no entry knows, all of them the wrong forms offered on purpose (togliuto, sparguto, metterebbi …) and the older ones of that kind (uovi, vedito), or sounds and spelled-out letters (g, l, ca-val-lo).
 
 ### The look
 
@@ -109,7 +107,7 @@ Everything is machine-written. To look at first:
 - **Italian, wording:** «dritto» against «diritto»; «non ha fatto una piega» (the bridge); «paratoia» (the mill, B1); «scandola»; «pala» for a wheel's paddle; «Posso aiutarla a misurare» as a child's Lei; «la radio gracchia»; «un secchio d'uva»; «Sono i coppi»; «inciampa» in a reaction.
 - **German:** Zielkugel and Bande (from the existing pack), Radschaufel, Brückenbrett, "nah heranspielen" for accostare, Hohlziegel, Bienenstand, "Tante" for zia, "Oje" for uffa.
 - **Slovene:** mlinščica for roggia, lopatica kolesa, deska za most, vodoraven, čvrst, "Tla se izravnajo", dedek for nonno; lopata for vanga, korec, ponjava, gomoljika, zeljna glava; "v Colliu, nad Colliem, iz Collia" (or Brda?), rebula; ronchi and ponca left untranslated.
-- **The supplement:** the 75 new entries' German and Slovene meanings.
+- **The supplement:** the table's German and Slovene meanings.
 
 The facts the lines state, with their sources:
 
