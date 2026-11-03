@@ -13,11 +13,13 @@ object SceneArt {
      * chapel, the palisade's gate, the lookout tower), 5 the finished projects as things of the pictures they stand in (the
      * square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's bee meadow), the
      * square's standing spots by them, its climb and its strike, and a count of the hour, 6 the places' things Friuli's look
-     * makes words (the bocce court's osteria, the playground's fontanella, the chapel's altar candle). The app asks for its scenes
-     * with it (GET /scenes?arts=6); the bridge gives an app that asks for less, or doesn't say, only what its arts drew, so
-     * an older app never gets a place it can't paint (bridge/src/scenes.ts, `forApp`).
+     * makes words (the bocce court's osteria, the playground's fontanella, the chapel's altar candle), 7 the dialogs and
+     * happenings by level (a B1 or B2 variant: [DialogLevels]; an older app plays every dialog it gets to every learner, so it
+     * gets none with a level). The app asks for its scenes with it (GET /scenes?arts=7); the bridge gives an app that asks for
+     * less, or doesn't say, only what its arts drew, so an older app never gets a place it can't paint nor a dialog above its
+     * learner (bridge/src/scenes.ts, `forApp`).
      */
-    const val VERSION = 6
+    const val VERSION = 7
 
     /** art id → object slots, back to front roughly. */
     val objects: Map<String, List<String>> = mapOf(
