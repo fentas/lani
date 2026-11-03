@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "reklamacija",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Reklamacija v trgovini", "en": "A complaint at the shop", "de": "Eine Reklamation im Geschäft", "it": "Un reclamo in negozio" },
+  "emoji": "🥾",
+  "level": "B1",
+  "setting": {
+    "en": "Two weeks ago you bought hiking boots at a sports shop in Nova Gorica. After one walk on the Karst the sole of the left boot came off. You take them back with the receipt: you want a new pair or your money back.",
+    "de": "Vor zwei Wochen hast du in einem Sportgeschäft in Nova Gorica Wanderschuhe gekauft. Nach einer einzigen Wanderung auf dem Karst hat sich die Sohle des linken Schuhs gelöst. Du bringst sie mit dem Kassenbon zurück: Du möchtest ein neues Paar oder dein Geld zurück.",
+    "it": "Due settimane fa hai comprato degli scarponi da trekking in un negozio di articoli sportivi a Nova Gorica. Dopo una sola camminata sul Carso la suola dello scarpone sinistro si è staccata. Li riporti con lo scontrino: vuoi un paio nuovo o i soldi indietro."
+  },
+  "role": "Prodajalec Gregor, a shop assistant at a sports shop in Nova Gorica. Polite but by the book: asks for the receipt and how and when the fault appeared, offers to send the boots for repair first, agrees to a new pair or a refund if {learner} insists politely. Says vi.",
+  "who": { "sl": "Prodajalec v športni trgovini", "en": "The shop assistant", "de": "Der Verkäufer im Sportgeschäft", "it": "Il commesso del negozio sportivo" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "square",
+  "goals": [
+    { "sl": "Povej, kaj je narobe s čevlji", "en": "Say what is wrong with the boots", "de": "Sag, was mit den Schuhen nicht stimmt", "it": "Di' che cosa non va negli scarponi" },
+    { "sl": "Povej, kdaj si jih {m:kupil|f:kupila}, in pokaži račun", "en": "Say when you bought them and show the receipt", "de": "Sag, wann du sie gekauft hast, und zeig den Kassenbon", "it": "Di' quando li hai comprati e mostra lo scontrino" },
+    { "sl": "Povej, kaj želiš: nov par ali denar nazaj", "en": "Say what you want: a new pair or your money back", "de": "Sag, was du möchtest: ein neues Paar oder das Geld zurück", "it": "Di' che cosa vuoi: un paio nuovo o i soldi indietro" },
+    { "sl": "Vljudno vztrajaj, ko ponudi popravilo", "en": "Politely insist when he offers a repair", "de": "Bleib höflich dabei, wenn er eine Reparatur anbietet", "it": "Insisti con gentilezza quando ti propone la riparazione" },
+    { "sl": "Dogovori se in se zahvali", "en": "Agree on a solution and thank him", "de": "Einigt euch und bedanke dich", "it": "Mettetevi d'accordo e ringrazialo" }
+  ],
+  "opener_sl": "Dober dan! Vidim, da ste prinesli čevlje nazaj. Je kaj narobe z njimi?",
+  "opener_en": {
+    "en": "Hello! I see you've brought some boots back. Is something wrong with them?",
+    "de": "Guten Tag! Ich sehe, Sie haben Schuhe zurückgebracht. Stimmt etwas nicht mit ihnen?",
+    "it": "Buongiorno! Vedo che ha riportato delle scarpe. C'è qualcosa che non va?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Pred dvema tednoma sem jih {m:kupil|f:kupila} pri vas.", "en": { "en": "I bought them here two weeks ago.", "de": "Ich habe sie vor zwei Wochen bei Ihnen gekauft.", "it": "Li ho comprati da voi due settimane fa." } },
+    { "sl": "Podplat se je odlepil že po prvem izletu.", "en": { "en": "The sole came off after the very first walk.", "de": "Die Sohle hat sich schon nach der ersten Wanderung gelöst.", "it": "La suola si è staccata già dopo la prima gita." } },
+    { "sl": "Tukaj je račun.", "en": { "en": "Here is the receipt.", "de": "Hier ist der Kassenbon.", "it": "Ecco lo scontrino." } },
+    { "sl": "Čevlji imajo še garancijo, kajne?", "en": { "en": "The boots are still under warranty, aren't they?", "de": "Die Schuhe haben doch noch Garantie, oder?", "it": "Le scarpe sono ancora in garanzia, vero?" } },
+    { "sl": "Raje bi {m:imel|f:imela} nov par.", "en": { "en": "I'd rather have a new pair.", "de": "Ich hätte lieber ein neues Paar.", "it": "Preferirei un paio nuovo." } },
+    { "sl": "Ali mi lahko vrnete denar?", "en": { "en": "Could you give me my money back?", "de": "Können Sie mir das Geld zurückgeben?", "it": "Mi può restituire i soldi?" } },
+    { "sl": "Popravilo mi ne pomaga, čevlje potrebujem za vikend.", "en": { "en": "A repair is no help: I need the boots for the weekend.", "de": "Eine Reparatur hilft mir nicht, ich brauche die Schuhe am Wochenende.", "it": "La riparazione non mi aiuta: le scarpe mi servono per il weekend." } },
+    { "sl": "Prav, se strinjam. Hvala za pomoč.", "en": { "en": "All right, I agree. Thanks for your help.", "de": "Gut, einverstanden. Danke für Ihre Hilfe.", "it": "Va bene, d'accordo. Grazie dell'aiuto." } }
+  ],
+  "packs": ["na-trznici", "cas-in-koledar", "stevila", "glagoli-vsak-dan"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

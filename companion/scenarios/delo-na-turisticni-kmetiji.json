@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "delo-na-turisticni-kmetiji",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Delo na turistični kmetiji", "en": "A job at the tourist farm", "de": "Ein Job auf dem Urlaubsbauernhof", "it": "Un lavoro all'agriturismo" },
+  "emoji": "🏡",
+  "level": "B1",
+  "setting": {
+    "en": "A tourist farm in the Vipava valley is looking for summer help: serving in the dining room and looking after guests from abroad. You saw the notice at the village shop and go to ask about the job.",
+    "de": "Ein Urlaubsbauernhof im Vipava-Tal sucht eine Sommerhilfe: in der Gaststube bedienen und sich um Gäste aus dem Ausland kümmern. Du hast den Aushang im Dorfladen gesehen und fragst nach der Stelle.",
+    "it": "Un agriturismo nella valle del Vipacco cerca un aiuto per l'estate: servire in sala e occuparsi degli ospiti stranieri. Hai visto l'annuncio nel negozio del paese e vai a chiedere del lavoro."
+  },
+  "role": "Gospa Irena, who runs a tourist farm (turistična kmetija) in the Vipava valley. Busy, direct and warm. Needs summer help in the dining room and with foreign guests; asks what {learner} can do, which languages, when they can start; explains the hours, the pay and the meals. Says vi.",
+  "who": { "sl": "Lastnica turistične kmetije", "en": "The owner of the tourist farm", "de": "Die Besitzerin des Urlaubsbauernhofs", "it": "La titolare dell'agriturismo" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "kitchen",
+  "goals": [
+    { "sl": "Povej, zakaj si {m:prišel|f:prišla}", "en": "Say why you have come", "de": "Sag, warum du gekommen bist", "it": "Di' perché sei {m:venuto|f:venuta}" },
+    { "sl": "Povej, kaj znaš in katere jezike govoriš", "en": "Say what you can do and which languages you speak", "de": "Sag, was du kannst und welche Sprachen du sprichst", "it": "Di' che cosa sai fare e che lingue parli" },
+    { "sl": "Vprašaj za delovni čas in plačilo", "en": "Ask about the hours and the pay", "de": "Frag nach der Arbeitszeit und der Bezahlung", "it": "Chiedi dell'orario e della paga" },
+    { "sl": "Povej, kdaj lahko začneš", "en": "Say when you can start", "de": "Sag, wann du anfangen kannst", "it": "Di' quando puoi cominciare" },
+    { "sl": "Dogovorita se za poskusni dan", "en": "Agree on a trial day", "de": "Vereinbart einen Probetag", "it": "Fissate una giornata di prova" }
+  ],
+  "opener_sl": "Dober dan! Ste prišli zaradi oglasa? Za poletje iščemo pomoč. Povejte mi kaj o sebi.",
+  "opener_en": {
+    "en": "Hello! Have you come about the notice? We're looking for help for the summer. Tell me a bit about yourself.",
+    "de": "Guten Tag! Sind Sie wegen der Anzeige gekommen? Wir suchen eine Hilfe für den Sommer. Erzählen Sie mir etwas über sich.",
+    "it": "Buongiorno! È {m:venuto|f:venuta} per l'annuncio? Cerchiamo un aiuto per l'estate. Mi racconti qualcosa di lei."
+  },
+  "vocabulary_hints": [
+    { "sl": "{m:Prišel|f:Prišla} sem zaradi oglasa v trgovini.", "en": { "en": "I've come about the notice in the shop.", "de": "Ich komme wegen der Anzeige im Laden.", "it": "Sono {m:venuto|f:venuta} per l'annuncio nel negozio." } },
+    { "sl": "Govorim angleško, nemško in malo italijansko.", "en": { "en": "I speak English, German and a little Italian.", "de": "Ich spreche Englisch, Deutsch und ein bisschen Italienisch.", "it": "Parlo inglese, tedesco e un po' d'italiano." } },
+    { "sl": "Lani sem {m:delal|f:delala} v kavarni.", "en": { "en": "Last year I worked in a café.", "de": "Letztes Jahr habe ich in einem Café gearbeitet.", "it": "L'anno scorso ho lavorato in un bar." } },
+    { "sl": "Kakšen je delovni čas?", "en": { "en": "What are the working hours?", "de": "Wie ist die Arbeitszeit?", "it": "Qual è l'orario di lavoro?" } },
+    { "sl": "Koliko je plačilo na uro?", "en": { "en": "What is the pay per hour?", "de": "Wie viel bezahlen Sie pro Stunde?", "it": "Quant'è la paga oraria?" } },
+    { "sl": "Je hrana vključena?", "en": { "en": "Are meals included?", "de": "Ist das Essen inbegriffen?", "it": "I pasti sono compresi?" } },
+    { "sl": "Začnem lahko že prvega julija.", "en": { "en": "I can start as early as the first of July.", "de": "Ich kann schon am ersten Juli anfangen.", "it": "Posso cominciare già il primo luglio." } },
+    { "sl": "Ob vikendih lahko delam, ob ponedeljkih pa ne.", "en": { "en": "I can work at weekends, but not on Mondays.", "de": "Am Wochenende kann ich arbeiten, montags aber nicht.", "it": "Posso lavorare nel weekend, ma non il lunedì." } },
+    { "sl": "Kdaj bi lahko {m:prišel|f:prišla} na poskusni dan?", "en": { "en": "When could I come for a trial day?", "de": "Wann könnte ich zum Probetag kommen?", "it": "Quando potrei venire per una giornata di prova?" } }
+  ],
+  "packs": ["delo-in-pisarna", "cas-in-koledar", "glagoli-vsak-dan", "v-kuhinji"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

@@ -11,7 +11,13 @@ export default async function scenarios() {
   // role-play scenarios: the repo's curated ones are served as they are
   const curatedScenarios = resolve(import.meta.dir, '../../../scenarios')
   const scenarioFiles = readdirSync(curatedScenarios).filter(f => f.endsWith('.json'))
-  check('6 curated scenarios', scenarioFiles.length === 6, scenarioFiles)
+  const levelOf = (f: string) => JSON.parse(readFileSync(join(curatedScenarios, f), 'utf8')).level
+  const byLevel = (lv: string) => scenarioFiles.filter(f => levelOf(f) === lv)
+  check('18 curated scenarios: Jan\'s six at A1, six at B1, six at B2', scenarioFiles.length === 18 && byLevel('A1').length === 6 && byLevel('B1').length === 6 && byLevel('B2').length === 6, scenarioFiles.map(f => [f, levelOf(f)]))
+  // the village's packs (companion/packs and the Primorska culture pack's): what a Slovene talk's packs must be
+  const slPacks = new Set(
+    [resolve(curatedScenarios, '../packs'), resolve(curatedScenarios, '../cultures/primorska/packs')].flatMap(d => readdirSync(d).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(d, f), 'utf8')).id)),
+  )
   for (const f of scenarioFiles) {
     const raw = JSON.parse(readFileSync(join(curatedScenarios, f), 'utf8'))
     const v = validateScenario(raw)
@@ -19,6 +25,13 @@ export default async function scenarios() {
     // Jan's six read in a German or Italian base too: every text per base (en, de, it), the title and who per language
     const texts = [raw.setting, raw.opener_en, ...raw.goals, ...raw.vocabulary_hints.map((h: any) => h.en)]
     check(`curated scenario has its texts in en, de and it, its title and who in sl too: ${f}`, texts.every(t => t?.en && t.de && t.it) && [raw.title, raw.who].every(t => t?.sl && t.en && t.de && t.it) && /machine-written/.test(raw.review), texts.filter(t => !(t?.en && t.de && t.it)))
+    // a B1 or B2 talk: a grown-up's, its goals in Slovene too (read in the pair), the village's packs, wholly machine-written
+    if (raw.level !== 'A1')
+      check(
+        `a ${raw.level} talk is a grown-up's, its goals in sl · the base, its packs the village's: ${f}`,
+        raw.audience === 'adult' && raw.goals.every((g: any) => g.sl) && raw.packs?.length > 0 && raw.packs.every((p: string) => slPacks.has(p)) && /^sl, en, de, it: machine-written/.test(raw.review),
+        { packs: raw.packs?.filter((p: string) => !slPacks.has(p)), goals: raw.goals.filter((g: any) => !g.sl) },
+      )
   }
   // the German village's role-plays (companion/scenarios/de) and the English one's (companion/scenarios/en): for a grown-up,
   // every text in each base the language has, the title, goals and who per language, machine-written
@@ -49,7 +62,36 @@ export default async function scenarios() {
   const scenarioExample = [...reference.matchAll(/```json\n([\s\S]*?)\n```/g)].map(m => m[1]).find(s => s.includes('lani.scenario/v0'))
   check('module-spec.md scenario example validates', scenarioExample && validateScenario(JSON.parse(scenarioExample)).ok, scenarioExample)
   const scList = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
-  check('GET /scenarios lists the curated scenarios', scenarioFiles.every(f => scList.some((s: any) => `${s.id}.json` === f && s.source === 'curated')), scList.map((s: any) => s.id))
+  // the smoke's learner has no level yet (A1): the A1 talks (and A2, none of Jan's), never a B1 or B2 one
+  check(
+    "GET /scenarios lists the A1 learner's curated scenarios, none at B1 or B2",
+    byLevel('A1').every(f => scList.some((s: any) => `${s.id}.json` === f && s.source === 'curated')) && !scList.some((s: any) => s.level === 'B1' || s.level === 'B2'),
+    scList.map((s: any) => [s.id, s.level]),
+  )
+  check('GET /scenarios/:id: a B2 talk is not found for an A1 learner', (await fetch(`${base}/scenarios/pri-zupanji`, { headers: auth })).status === 404)
+  {
+    // at B1 the B1 and B2 talks too, their title, goals and who in the pair, the setting and meanings in the base
+    const profile = join(dataDir, 'learner-profile.json')
+    const before = readFileSync(profile, 'utf8')
+    const p = JSON.parse(before)
+    writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, current_level: 'B1' } }, null, 2))
+    try {
+      const atB1 = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
+      check('a B1 learner is offered all 18, the B1 and B2 talks with them', scenarioFiles.every(f => atB1.some((s: any) => `${s.id}.json` === f)), atB1.map((s: any) => [s.id, s.level]))
+      const mayor = await (await fetch(`${base}/scenarios/pri-zupanji`, { headers: auth })).json()
+      check(
+        "a B2 talk served in Jan's pair: Pri županji · At the mayor's office, a goal in sl · en for a man, the setting in English",
+        mayor.title === "Pri županji · At the mayor's office" && mayor.who === 'Županja · The mayor' && mayor.level === 'B2' && mayor.goals[0] === 'Predstavi se in na kratko povej, zakaj si prišel · Introduce yourself and say briefly why you have come' && mayor.setting.startsWith('Since the bus stop was moved') && mayor.vocabulary_hints.some((h: any) => h.sl === 'Otroci hodijo ob cesti, kjer ni pločnika.'),
+        mayor,
+      )
+      const marko = atB1.find((s: any) => s.id === 'vino-za-praznovanje')
+      check("Marko's B1 talk names the cast's Vinar Marko, who plays it", marko?.role.startsWith('Vinar Marko,') && marko.level === 'B1', marko)
+      const linked = { dialogs: [{ id: 'vino', talk: 'vino-za-praznovanje', lines: [] }] } as any
+      check("a scene's \"keep talking\" into a B1 talk only for a learner it is offered to", talksOffered(linked, new Set(atB1.map((s: any) => s.id))) === linked && !('talk' in talksOffered(linked, new Set(scList.map((s: any) => s.id))).dialogs[0]))
+    } finally {
+      writeFileSync(profile, before)
+    }
+  }
   check("GET /scenarios lists none of the Italian village's (Jan's village speaks Slovene)", !scList.some((s: any) => ['al-mercato', 'dal-fornaio', 'in-gelateria'].includes(s.id)) && scList.every((s: any) => s.language === 'sl'), scList.map((s: any) => [s.id, s.language]))
   check("an adult is offered the grown-up's role-play (the inn), its texts as they were", scList.some((s: any) => s.id === 'v-gostilni' && s.audience === 'adult' && s.title === 'V gostilni · At the inn' && s.goals[0] === 'Order a drink' && s.setting.startsWith('Friday evening') && s.who === 'Natakar · The waiter'), scList.find((s: any) => s.id === 'v-gostilni'))
   check("GET /scenarios lists none of the German or English villages' (Jan's village speaks Slovene)", !scList.some((s: any) => ['beim-baecker', 'im-gasthaus', 'at-the-farm-shop', 'in-the-pub'].includes(s.id)), scList.map((s: any) => s.id))
@@ -114,6 +156,14 @@ export default async function scenarios() {
   await Bun.sleep(100)
   const rpEv = channelEvents.findLast(n => n.params?.meta?.kind === 'roleplay')
   check('roleplay reaches Claude with the scenario brief', rpEv?.params?.meta?.conversation_id?.startsWith('rp-') && rpEv.params.content.includes('Tašča Marija') && rpEv.params.content.includes('"goals"') && rpEv.params.content.includes('"language": "sl"') && !rpEv.params.content.includes('"child"'), rpEv)
+  const rpB1 = await fetch(`${base}/message`, {
+    method: 'POST',
+    headers: auth,
+    body: JSON.stringify({ kind: 'roleplay', conversation_id: 'rp-1f8b8e2c-5a1d-4d6b-9b8e-2f3c4d5e6f71', text: 'Dobro jutro!', data: { scenario_id: 'po-noci-burje', turn: 1, heard: 'Dobro jutro!' } }),
+  })
+  await Bun.sleep(100)
+  const rpB1Ev = channelEvents.findLast(n => n.params?.meta?.kind === 'roleplay')
+  check("a B1 talk's turn reaches Claude with its brief: the bora's commander, level B1, its packs", rpB1.ok && rpB1Ev?.params?.content.includes('Poveljnik Boris') && rpB1Ev.params.content.includes('"level": "B1"') && rpB1Ev.params.content.includes('"v-gasilskem-domu"'), rpB1Ev?.params?.content)
   // the character's line comes with the face it is said with (companion/SCENES.md, "Faces"): passed on to the app as written
   const rpId = 'rp-0f8b8e2c-5a1d-4d6b-9b8e-2f3c4d5e6f70'
   const said = { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", face: 'laugh', goals_done: [0] }

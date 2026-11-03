@@ -117,9 +117,28 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
 /**
  * The canned role-play above A2, for a language whose B1 and B2 talks need lines of their own (a complaint, the mayor, a
  * job interview: no soup there): lines that fit any of its B1 and B2 role-plays, picked by the brief's level. A language
- * without them keeps its own above.
+ * without them keeps its own above. Machine-written, for QA only.
  */
-const ROLEPLAY_ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {}
+const ROLEPLAY_ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {
+  sl: {
+    // any of Jan's B1 and B2 role-plays (companion/scenarios: the shop, the winemaker, the surgery, the bora, the
+    // neighbour, the tourist farm, the mayor, the interview, the doctor, the stone house, the insurance, Marko)
+    hint: { sl: 'Razumem. Bi lahko to še enkrat razložili?', en: 'I see. Could you explain that once more?', de: 'Verstehe. Könnten Sie das noch einmal erklären?', it: 'Capisco. Potrebbe spiegarlo ancora una volta?' },
+    puzzled: { sl: 'Oprostite, kako prosim? Lahko to ponovite?', en: 'Sorry, pardon? Could you say that again?', de: 'Entschuldigung, wie bitte? Können Sie das wiederholen?', it: 'Scusi, come? Può ripetere?' },
+    turns: [
+      { sl: 'Razumem. Kaj pa potem?', en: 'I see. And then?', de: 'Verstehe. Und dann?', it: 'Capisco. E poi?' },
+      { sl: 'Zanimivo. Zakaj pa?', en: 'Interesting. Why, though?', de: 'Interessant. Und warum?', it: 'Interessante. E perché?' },
+      { sl: 'Prav, to se mi zdi smiselno.', en: 'All right, that makes sense to me.', de: 'Gut, das finde ich sinnvoll.', it: 'Va bene, mi sembra sensato.' },
+      { sl: 'Dobro, hvala. Tako bomo naredili.', en: "Good, thank you. That's what we'll do.", de: 'Gut, danke. So machen wir es.', it: 'Bene, grazie. Faremo così.' },
+    ],
+    correction: {
+      en: 'Rekli bi: **Bi lahko to ponovili?** · "bi" with the -l form asks politely (the conditional).',
+      de: 'Man sagt: **Bi lahko to ponovili?** · „bi" mit der l-Form fragt höflich (der Konditional).',
+      it: 'Si dice: **Bi lahko to ponovili?** · «bi» con la forma in -l chiede con cortesia (il condizionale).',
+    },
+    practise: '*bi lahko*, *na vašem mestu bi*',
+  },
+}
 const DEBRIEF: Said = {
   en: '✅ You greeted politely.\n\n📌 Practise',
   de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe',

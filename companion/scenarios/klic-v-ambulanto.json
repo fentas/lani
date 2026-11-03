@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "klic-v-ambulanto",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Klic v ambulanto", "en": "Calling the surgery", "de": "Anruf in der Arztpraxis", "it": "Una telefonata all'ambulatorio" },
+  "emoji": "📞",
+  "level": "B1",
+  "setting": {
+    "en": "For a week you have had a cough that won't go away, and you need sick leave for work. You phone your family doctor's surgery at the health centre to make an appointment, but nothing goes to plan.",
+    "de": "Seit einer Woche hast du einen Husten, der nicht weggeht, und du brauchst eine Krankmeldung für die Arbeit. Du rufst in der Praxis deiner Hausärztin im Gesundheitszentrum an, um einen Termin zu vereinbaren, aber nichts läuft nach Plan.",
+    "it": "Da una settimana hai una tosse che non passa e ti serve il certificato di malattia per il lavoro. Telefoni all'ambulatorio del tuo medico di famiglia al centro sanitario per prendere un appuntamento, ma niente va come previsto."
+  },
+  "role": "Sestra Tanja, the nurse at the family doctor's surgery (ambulanta), on the phone. Busy but kind. The doctor is on holiday this week: she offers the substitute doctor, first at a time {learner} can't make, then another. Asks for the symptoms and the health insurance card. Says vi.",
+  "who": { "sl": "Medicinska sestra v ambulanti", "en": "The nurse at the surgery", "de": "Die Krankenschwester in der Praxis", "it": "L'infermiera dell'ambulatorio" },
+  "voice": "female",
+  "speaker": "young-woman",
+  "place": "kitchen",
+  "goals": [
+    { "sl": "Povej, zakaj kličeš", "en": "Say why you are calling", "de": "Sag, warum du anrufst", "it": "Di' perché telefoni" },
+    { "sl": "Opiši težave in kako dolgo že trajajo", "en": "Describe what's wrong and for how long", "de": "Beschreib deine Beschwerden und seit wann", "it": "Descrivi i disturbi e da quanto durano" },
+    { "sl": "Povej, da ti termin ne ustreza, in zakaj", "en": "Say the time doesn't suit you, and why", "de": "Sag, dass dir der Termin nicht passt, und warum", "it": "Di' che l'orario non ti va bene, e perché" },
+    { "sl": "Dogovori se za drug termin", "en": "Agree on another appointment", "de": "Vereinbare einen anderen Termin", "it": "Fissa un altro appuntamento" },
+    { "sl": "Povej, da potrebuješ bolniško", "en": "Say you need sick leave", "de": "Sag, dass du eine Krankmeldung brauchst", "it": "Di' che ti serve il certificato di malattia" }
+  ],
+  "opener_sl": "Splošna ambulanta, sestra Tanja, dober dan. Kako vam lahko pomagam?",
+  "opener_en": {
+    "en": "Family doctor's surgery, nurse Tanja speaking, hello. How can I help you?",
+    "de": "Hausarztpraxis, Schwester Tanja, guten Tag. Wie kann ich Ihnen helfen?",
+    "it": "Ambulatorio, sono l'infermiera Tanja, buongiorno. Come posso aiutarla?"
+  },
+  "vocabulary_hints": [
+    { "sl": "{m:Rad|f:Rada} bi se {m:naročil|f:naročila} pri zdravnici.", "en": { "en": "I'd like to make an appointment with the doctor.", "de": "Ich möchte einen Termin bei der Ärztin.", "it": "Vorrei prendere un appuntamento dalla dottoressa." } },
+    { "sl": "Že en teden kašljam in imam vročino.", "en": { "en": "I've had a cough and a temperature for a week.", "de": "Ich huste seit einer Woche und habe Fieber.", "it": "Da una settimana ho la tosse e la febbre." } },
+    { "sl": "Ob tej uri žal ne morem, ker sem v službi.", "en": { "en": "I'm afraid I can't at that time: I'm at work.", "de": "Um diese Zeit kann ich leider nicht, da bin ich in der Arbeit.", "it": "A quell'ora purtroppo non posso, sono al lavoro." } },
+    { "sl": "Ali imate kaj prej?", "en": { "en": "Have you got anything sooner?", "de": "Haben Sie etwas Früheres?", "it": "Ha qualcosa prima?" } },
+    { "sl": "Bi lahko {m:prišel|f:prišla} v petek popoldne?", "en": { "en": "Could I come on Friday afternoon?", "de": "Könnte ich am Freitagnachmittag kommen?", "it": "Potrei venire venerdì pomeriggio?" } },
+    { "sl": "Potrebujem tudi bolniško za službo.", "en": { "en": "I also need sick leave (bolniška) for work.", "de": "Ich brauche auch eine Krankmeldung für die Arbeit.", "it": "Mi serve anche il certificato di malattia per il lavoro." } },
+    { "sl": "Moram prinesti kartico zdravstvenega zavarovanja?", "en": { "en": "Do I need to bring my health insurance card?", "de": "Muss ich die Versicherungskarte mitbringen?", "it": "Devo portare la tessera sanitaria?" } },
+    { "sl": "Hvala, se vidimo v petek.", "en": { "en": "Thank you, see you on Friday.", "de": "Danke, bis Freitag.", "it": "Grazie, ci vediamo venerdì." } }
+  ],
+  "packs": ["telo-in-zdravje", "cas-in-koledar", "delo-in-pisarna"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

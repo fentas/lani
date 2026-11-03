@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "vino-za-praznovanje",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Vino za praznovanje", "en": "Wine for the party", "de": "Wein für das Fest", "it": "Vino per la festa" },
+  "emoji": "🍷",
+  "level": "B1",
+  "setting": {
+    "en": "Your family is celebrating a big birthday next month, and you want to buy the wine from Marko, the winemaker from Brda: about forty litres of rebula and merlot. He is a friend, but wine is his living: agree on the price, a discount, and how the wine gets to you.",
+    "de": "Deine Familie feiert nächsten Monat einen runden Geburtstag, und du möchtest den Wein bei Marko kaufen, dem Winzer aus Brda: etwa vierzig Liter Rebula und Merlot. Er ist ein Freund, aber vom Wein lebt er: Einigt euch auf den Preis, einen Rabatt und wie der Wein zu dir kommt.",
+    "it": "Il mese prossimo la tua famiglia festeggia un compleanno importante e vuoi comprare il vino da Marko, il vignaiolo del Collio: una quarantina di litri di ribolla e merlot. È un amico, ma col vino ci vive: mettetevi d'accordo sul prezzo, su uno sconto e su come ti arriva il vino."
+  },
+  "role": "Vinar Marko, the young winemaker from Brda (rebula, merlot). Friendly and proud of his wine, a good haggler: starts high and says why, gives a little for a big order and for cash, offers to bring the wine in his van. Drops in an Italian word (allora). Says ti to {learner}.",
+  "who": { "sl": "Vinar iz Brd", "en": "The winemaker from Brda", "de": "Der Winzer aus Brda", "it": "Il vignaiolo del Collio" },
+  "voice": "male",
+  "speaker": "young-man",
+  "goals": [
+    { "sl": "Povej, za kaj potrebuješ vino in koliko", "en": "Say what the wine is for and how much you need", "de": "Sag, wofür du den Wein brauchst und wie viel", "it": "Di' per che cosa ti serve il vino e quanto" },
+    { "sl": "Vprašaj za ceno na liter", "en": "Ask the price per litre", "de": "Frag nach dem Preis pro Liter", "it": "Chiedi il prezzo al litro" },
+    { "sl": "Prosi za popust in ponudi svojo ceno", "en": "Ask for a discount and make your own offer", "de": "Bitte um einen Rabatt und mach ein eigenes Angebot", "it": "Chiedi uno sconto e fai la tua offerta" },
+    { "sl": "Dogovorita se za dostavo in plačilo", "en": "Agree on the delivery and how you pay", "de": "Vereinbart die Lieferung und die Bezahlung", "it": "Mettetevi d'accordo sulla consegna e sul pagamento" },
+    { "sl": "Potrdi dogovor", "en": "Confirm the deal", "de": "Bestätige die Abmachung", "it": "Conferma l'accordo" }
+  ],
+  "opener_sl": "Živjo, {learner}! Slišal sem, da pripravljate veliko praznovanje. Koliko vina boste potrebovali?",
+  "opener_en": {
+    "en": "Hi, {learner}! I hear you're planning a big party. How much wine will you need?",
+    "de": "Hallo, {learner}! Ich habe gehört, ihr plant ein großes Fest. Wie viel Wein werdet ihr brauchen?",
+    "it": "Ciao, {learner}! Ho sentito che state preparando una grande festa. Quanto vino vi servirà?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Potrebovali bi okoli štirideset litrov.", "en": { "en": "We'd need about forty litres.", "de": "Wir bräuchten etwa vierzig Liter.", "it": "Ci servirebbero circa quaranta litri." } },
+    { "sl": "Pol rebule in pol merlota.", "en": { "en": "Half rebula and half merlot.", "de": "Halb Rebula, halb Merlot.", "it": "Metà ribolla e metà merlot." } },
+    { "sl": "Koliko stane liter?", "en": { "en": "How much is a litre?", "de": "Was kostet ein Liter?", "it": "Quanto costa un litro?" } },
+    { "sl": "To je zame malo predrago.", "en": { "en": "That's a bit too expensive for me.", "de": "Das ist mir ein bisschen zu teuer.", "it": "Per me è un po' troppo caro." } },
+    { "sl": "Mi daš popust, če vzamem toliko?", "en": { "en": "Will you give me a discount if I take that much?", "de": "Gibst du mir Rabatt, wenn ich so viel nehme?", "it": "Mi fai uno sconto se ne prendo così tanto?" } },
+    { "sl": "Kaj praviš na štiri evre na liter?", "en": { "en": "What do you say to four euros a litre?", "de": "Was sagst du zu vier Euro pro Liter?", "it": "Che ne dici di quattro euro al litro?" } },
+    { "sl": "Lahko vino pripelješ v soboto zjutraj?", "en": { "en": "Can you bring the wine on Saturday morning?", "de": "Kannst du den Wein am Samstagmorgen bringen?", "it": "Puoi portare il vino sabato mattina?" } },
+    { "sl": "Plačam z gotovino, ko pripelješ vino.", "en": { "en": "I'll pay cash when you bring the wine.", "de": "Ich zahle bar, wenn du den Wein bringst.", "it": "Pago in contanti quando porti il vino." } },
+    { "sl": "Dogovorjeno!", "en": { "en": "It's a deal!", "de": "Abgemacht!", "it": "Affare fatto!" } }
+  ],
+  "packs": ["v-kleti", "trzni-dan", "stevila", "druzina"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}
