@@ -12354,12 +12354,15 @@ def placement():
     assert find("za opravljene"), "the units before it counted as done"
     assert tap("Začnem tukaj"), "✓ Začnem tukaj"
     taps.append("✓ Začnem tukaj")
-    assert wait_for("Raven B1", 15), "back in the school, B1 open"
+    assert wait_for("Raven A1", 15), "back in the school"
     time.sleep(1.5)
     shot("placement-school")
+    assert find("Naslednja · Next · B1"), "the unit it starts with, B1's first, suggested next (★)"
     done_lines = [t for t, _ in nodes() if "opravljenih enot" in t or "opravljene enote" in t]
     assert done_lines, "A1 (and A2) done: one line each"
-    assert find("★ "), "the unit it starts with, suggested next"
+    assert swipes_to(lambda t: t.startswith("Raven B1"), most=6) is not None, "B1 open, further down"
+    time.sleep(1)
+    shot("placement-school-b1")
     (OUT / "placement.txt").write_text(
         f"taps from the school's card to the result: {len(taps) - 1} ({', '.join(taps[1:])}), and one to take it\n"
         f"the school after: {', '.join(done_lines)}\n"

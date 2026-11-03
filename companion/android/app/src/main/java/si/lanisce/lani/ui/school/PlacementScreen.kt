@@ -34,7 +34,6 @@ import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.ScreenClock
 import si.lanisce.lani.game.LevelPlacement
 import si.lanisce.lani.game.School
-import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.ExerciseRun
@@ -163,7 +162,9 @@ private fun PlacementResult(vm: AppViewModel) {
                     else -> TeacherSays(vm, teacher, "placement.startAt", "level" to r.start.level)
                 }
                 val first = r.start?.units?.firstOrNull()?.let { course?.units?.get(it) }
-                if (first != null && r.known >= 0) Text(bi("placement.firstUnit", "unit" to "${first.emoji} ${first.titleShown(L10n.pair)}"), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                // the unit's title in each half's own language ("Tvoja prva enota: Oče … · Your first unit: Odd nouns …")
+                val title = first?.let { u -> si.lanisce.lani.l10n.Localized { lang -> "${u.emoji} ${si.lanisce.lani.data.Grammar.text(u.title, lang.code)}" } }
+                if (title != null && r.known >= 0) Text(bi("placement.firstUnit", "unit" to title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 if (r.units.isNotEmpty()) Text("✅ ${bi("placement.marks", "n" to r.units.size)}", style = MaterialTheme.typography.bodyLarge)
                 Text(
                     if (r.rises(p.from)) bi("placement.levelRises", "from" to p.from, "level" to r.level) else bi("placement.levelStays", "level" to p.from),
