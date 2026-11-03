@@ -684,12 +684,12 @@
       "for": "\\p{L}+keit"
     },
     {
-      "word": "\\p{L}+ene[nmrs]?",
-      "for": "\\p{L}+ende[nmrs]?"
+      "word": "(?:spiel|wein|bell|lach|sing|koch|summ|schlaf|blueh|glueh|steig|komm|folg|spann|dring|sitz|steh|wart|wohn|arbeit|mahl|back|schliess|reparier|fall)ene[nmrs]?",
+      "for": "(?:spiel|wein|bell|lach|sing|koch|summ|schlaf|blueh|glueh|steig|komm|folg|spann|dring|sitz|steh|wart|wohn|arbeit|mahl|back|schliess|reparier|fall)ende[nmrs]?"
     },
     {
-      "word": "(?!ge)\\p{L}+(?:en|t)e[nmrs]?",
-      "for": "ge\\p{L}+(?:en|t)e[nmrs]?"
+      "word": "(?:backene|mahlene|schlossene|fallene|presste|fuellte|sammelte|kochte|plante|kaufte|suchte)[nmrs]?",
+      "for": "ge(?:backene|mahlene|schlossene|fallene|presste|fuellte|sammelte|kochte|plante|kaufte|suchte)[nmrs]?"
     }
   ]
 }
