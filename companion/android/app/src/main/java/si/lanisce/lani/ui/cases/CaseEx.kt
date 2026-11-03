@@ -48,6 +48,7 @@ import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.alsoAsk
 import si.lanisce.lani.data.ask
 import si.lanisce.lani.data.ofId
+import si.lanisce.lani.data.named
 import si.lanisce.lani.data.ofSlot
 import si.lanisce.lani.data.slName
 import si.lanisce.lani.data.wordAt

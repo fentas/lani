@@ -77,7 +77,7 @@ class CaseTrainerDeTest {
     }
 
     @Test
-    fun `the bundled German bank reads: its sentences under de, meanings in the base, every item's case German's`() {
+    fun `the bundled German bank reads, its sentences under de, meanings in the base, every item's case German's`() {
         assertEquals("de", bank.language)
         assertTrue(bank.items.size >= 250)
         val it0 = bank.items.first { it.id == "mit-dem-traktor" }
