@@ -1,0 +1,1210 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "too-enough",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🌡️",
+  "title": {
+    "en": "Too cold, warm enough, as good as",
+    "de": "Zu, genug, so wie: too, enough, as … as",
+    "sl": "Preveč, dovolj, tako kot: too, enough, as … as",
+    "it": "Troppo, abbastanza, come: too, enough, as … as"
+  },
+  "goal": {
+    "sl": "Poveš, kdaj je česa preveč ali dovolj (too cold to swim, warm enough, too many sheep), kako zelo (a bit, quite, very) in kdaj je dvoje enako (as tall as Sam).",
+    "de": "Du sagst, wann etwas zu viel oder genug ist (too cold to swim, warm enough, too many sheep), wie sehr (a bit, quite, very) und wann zwei gleich sind (as tall as Sam).",
+    "it": "Dici quando qualcosa è troppo o abbastanza (too cold to swim, warm enough, too many sheep), quanto (a bit, quite, very) e quando due cose sono uguali (as tall as Sam).",
+    "en": "You can say when there is too much or enough (too cold to swim, warm enough, too many sheep), how much (a bit, quite, very) and when two things are the same (as tall as Sam)."
+  },
+  "grammar": [
+    "too-enough",
+    "comparatives"
+  ],
+  "words": [
+    "too",
+    "enough",
+    "very",
+    "really",
+    "quite",
+    "a bit",
+    "too much",
+    "too many",
+    "as … as",
+    "warm",
+    "cold",
+    "hot",
+    "heavy",
+    "carry",
+    "swim",
+    "drive",
+    "ride",
+    "soup",
+    "salt",
+    "chair",
+    "noise",
+    "butter",
+    "tired",
+    "walk",
+    "pretty cold",
+    "right cold",
+    "dead good",
+    "snow",
+    "strong",
+    "clever",
+    "hammer",
+    "tea",
+    "washing-up",
+    "dry",
+    "high",
+    "lift"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "beseda",
+          "de": "Wort",
+          "it": "parola",
+          "en": "word"
+        },
+        {
+          "sl": "kaj pove",
+          "de": "was es sagt",
+          "it": "che cosa dice",
+          "en": "what it says"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**too** (preveč) pove, da je več, kot hočeš, in da je to težava: **It's too cold.** (Prehladno je.) **This soup is too hot.** (Ta juha je prevroča.) **very** (zelo) je samo veliko: **It's very cold, but I like it.** (Zelo mrzlo je, a mi je všeč.)",
+          "de": "**too** (zu) sagt, dass es mehr ist, als du willst, und dass das ein Problem ist: **It's too cold.** (Es ist zu kalt.) **This soup is too hot.** (Diese Suppe ist zu heiß.) **very** (sehr) ist nur viel: **It's very cold, but I like it.** (Es ist sehr kalt, aber mir gefällt es.)",
+          "it": "**too** (troppo) dice che è più di quanto vuoi, e che è un problema: **It's too cold.** (Fa troppo freddo.) **This soup is too hot.** (Questa minestra è troppo calda.) **very** (molto) è solo tanto: **It's very cold, but I like it.** (Fa molto freddo, ma mi piace.)",
+          "en": "**too** says it is more than you want, and that it's a problem: **It's too cold.** **This soup is too hot.** **very** only says a lot: **It's very cold, but I like it.**"
+        },
+        "examples": [
+          {
+            "en": "It's too cold. I'm going home.",
+            "sl": "Prehladno je. Grem domov.",
+            "de": "Es ist zu kalt. Ich gehe heim.",
+            "it": "Fa troppo freddo. Vado a casa."
+          },
+          {
+            "en": "This soup is too hot.",
+            "sl": "Ta juha je prevroča.",
+            "de": "Diese Suppe ist zu heiß.",
+            "it": "Questa minestra è troppo calda."
+          },
+          {
+            "en": "It's very cold, but I like it.",
+            "sl": "Zelo mrzlo je, a mi je všeč.",
+            "de": "Es ist sehr kalt, aber mir gefällt es.",
+            "it": "Fa molto freddo, ma mi piace."
+          }
+        ],
+        "rows": [
+          [
+            "too",
+            {
+              "sl": "več, kot hočeš",
+              "de": "mehr, als du willst",
+              "it": "più di quanto vuoi",
+              "en": "more than you want"
+            },
+            "It's too cold."
+          ],
+          [
+            "very",
+            {
+              "sl": "veliko",
+              "de": "viel",
+              "it": "tanto",
+              "en": "a lot"
+            },
+            "It's very cold."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "too-enough",
+          "prompt": "These boots are ___ small. I can't get them on.",
+          "options": [
+            "too",
+            "as",
+            "enough"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Težava: too**\n- These boots are too small.",
+            "de": "**Ein Problem: too**\n- These boots are too small.",
+            "it": "**Un problema: too**\n- These boots are too small.",
+            "en": "**A problem: too**\n- These boots are too small."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**enough** (dovolj) stoji za pridevnikom: **warm enough** (dovolj toplo), **big enough**. Pred samostalnikom: **enough water** (dovolj vode), **enough chairs**. Slovenščina ima pri pridevniku obratni red. **Is the water warm enough?** **We haven't got enough chairs.** (Nimamo dovolj stolov.)",
+          "de": "**enough** (genug) steht nach dem Adjektiv: **warm enough** (warm genug), **big enough**. Vor dem Nomen: **enough water** (genug Wasser), **enough chairs**. Wie im Deutschen. **Is the water warm enough?** **We haven't got enough chairs.** (Wir haben nicht genug Stühle.)",
+          "it": "**enough** (abbastanza) sta dopo l'aggettivo: **warm enough** (abbastanza caldo), **big enough**. Prima del nome: **enough water** (abbastanza acqua), **enough chairs**. Con l'aggettivo l'italiano ha l'ordine opposto. **Is the water warm enough?** **We haven't got enough chairs.** (Non abbiamo abbastanza sedie.)",
+          "en": "**enough** stands after an adjective: **warm enough**, **big enough**. Before a noun: **enough water**, **enough chairs**. **Is the water warm enough?** **We haven't got enough chairs.**"
+        },
+        "examples": [
+          {
+            "en": "Is the water warm enough?",
+            "sl": "Je voda dovolj topla?",
+            "de": "Ist das Wasser warm genug?",
+            "it": "L'acqua è abbastanza calda?"
+          },
+          {
+            "en": "We haven't got enough chairs.",
+            "sl": "Nimamo dovolj stolov.",
+            "de": "Wir haben nicht genug Stühle.",
+            "it": "Non abbiamo abbastanza sedie."
+          },
+          {
+            "en": "The van isn't big enough.",
+            "sl": "Kombi ni dovolj velik.",
+            "de": "Der Lieferwagen ist nicht groß genug.",
+            "it": "Il furgone non è abbastanza grande."
+          }
+        ],
+        "rows": [
+          [
+            "enough",
+            {
+              "sl": "kolikor je treba",
+              "de": "so viel, wie nötig",
+              "it": "quanto serve",
+              "en": "as much as you need"
+            },
+            "warm enough, enough water"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "too-enough",
+          "prompt": "Is the tea ___?",
+          "options": [
+            "hot enough",
+            "enough hot",
+            "hot too"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**enough za pridevnikom**\n- hot enough",
+            "de": "**enough nach dem Adjektiv**\n- hot enough",
+            "it": "**enough dopo l'aggettivo**\n- hot enough",
+            "en": "**enough after the adjective**\n- hot enough"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Naprej gre s **to** + osnovno obliko: **too cold to swim** (prehladno za plavanje), **warm enough to swim**, **old enough to drive**. Slovenski *za plavanje* ni *for swim*. S **for** gre oseba: **too big for me**, ali **-ing**: **too cold for swimming**. Oboje: **too heavy for me to carry**.",
+          "de": "Weiter geht es mit **to** + Grundform: **too cold to swim** (zu kalt zum Schwimmen), **warm enough to swim**, **old enough to drive**. Nicht *for swim*. **for** nimmt eine Person: **too big for me**, oder **-ing**: **too cold for swimming**. Beides: **too heavy for me to carry**.",
+          "it": "Si continua con **to** + la forma base: **too cold to swim** (troppo freddo per nuotare), **warm enough to swim**, **old enough to drive**. *per nuotare* non è *for swim*. **for** prende una persona: **too big for me**, o **-ing**: **too cold for swimming**. Tutti e due: **too heavy for me to carry**.",
+          "en": "Go on with **to** + the base form: **too cold to swim**, **warm enough to swim**, **old enough to drive**. Not *for swim*. **for** takes a person: **too big for me**, or **-ing**: **too cold for swimming**. Both: **too heavy for me to carry**."
+        },
+        "examples": [
+          {
+            "en": "Alfie is too young to drive.",
+            "sl": "Alfie je premlad za vožnjo.",
+            "de": "Alfie ist zu jung zum Autofahren.",
+            "it": "Alfie è troppo giovane per guidare."
+          },
+          {
+            "en": "Is it warm enough to swim?",
+            "sl": "Je dovolj toplo za plavanje?",
+            "de": "Ist es warm genug zum Schwimmen?",
+            "it": "Fa abbastanza caldo per nuotare?"
+          },
+          {
+            "en": "That bag is too heavy for me to carry.",
+            "sl": "Ta torba je zame pretežka.",
+            "de": "Diese Tasche ist zu schwer für mich.",
+            "it": "Questa borsa è troppo pesante per me."
+          }
+        ],
+        "rows": [
+          [
+            "too … to",
+            {
+              "sl": "zato ne gre",
+              "de": "darum geht es nicht",
+              "it": "perciò non si può",
+              "en": "so you can't"
+            },
+            "too cold to swim"
+          ],
+          [
+            "… enough to",
+            {
+              "sl": "zato gre",
+              "de": "darum geht es",
+              "it": "perciò si può",
+              "en": "so you can"
+            },
+            "old enough to drive"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "too-enough",
+          "text": "Poppy is old enough ___ ride the big horse.",
+          "accept": [
+            "to"
+          ],
+          "hint": {
+            "sl": "+ osnovna oblika",
+            "de": "+ Grundform",
+            "it": "+ la forma base",
+            "en": "+ the base form"
+          },
+          "explain": {
+            "sl": "**enough to + osnovna oblika**\n- old enough to ride",
+            "de": "**enough to + Grundform**\n- old enough to ride",
+            "it": "**enough to + la forma base**\n- old enough to ride",
+            "en": "**enough to + the base form**\n- old enough to ride"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**too much** gre s tem, kar se ne šteje: **too much salt** (preveč soli), **too much rain**. **too many** gre z množino: **too many sheep** (preveč ovc), **too many walkers**. Sam za glagolom: **You work too much.** **enough** je za oboje: **enough salt**, **enough sheep**.",
+          "de": "**too much** geht mit dem, was man nicht zählt: **too much salt** (zu viel Salz), **too much rain**. **too many** geht mit dem Plural: **too many sheep** (zu viele Schafe), **too many walkers**. Allein nach dem Verb: **You work too much.** **enough** ist für beides: **enough salt**, **enough sheep**.",
+          "it": "**too much** va con ciò che non si conta: **too much salt** (troppo sale), **too much rain**. **too many** va con il plurale: **too many sheep** (troppe pecore), **too many walkers**. Da solo dopo il verbo: **You work too much.** **enough** è per tutti e due: **enough salt**, **enough sheep**.",
+          "en": "**too much** goes with what you can't count: **too much salt**, **too much rain**. **too many** goes with a plural: **too many sheep**, **too many walkers**. Alone after a verb: **You work too much.** **enough** is for both: **enough salt**, **enough sheep**."
+        },
+        "examples": [
+          {
+            "en": "There's too much salt in the soup.",
+            "sl": "V juhi je preveč soli.",
+            "de": "In der Suppe ist zu viel Salz.",
+            "it": "C'è troppo sale nella minestra."
+          },
+          {
+            "en": "There are too many sheep on the road.",
+            "sl": "Na cesti je preveč ovc.",
+            "de": "Auf der Straße sind zu viele Schafe.",
+            "it": "Ci sono troppe pecore sulla strada."
+          },
+          {
+            "en": "You work too much.",
+            "sl": "Preveč delaš.",
+            "de": "Du arbeitest zu viel.",
+            "it": "Lavori troppo."
+          }
+        ],
+        "rows": [
+          [
+            "too much",
+            {
+              "sl": "kar se ne šteje",
+              "de": "was man nicht zählt",
+              "it": "ciò che non si conta",
+              "en": "what you can't count"
+            },
+            "too much salt"
+          ],
+          [
+            "too many",
+            {
+              "sl": "množina",
+              "de": "Plural",
+              "it": "plurale",
+              "en": "a plural"
+            },
+            "too many sheep"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "too-enough",
+          "prompt": "There are ___ people on this bus.",
+          "options": [
+            "too many",
+            "too much",
+            "too"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Množina: too many**\n- too many people",
+            "de": "**Plural: too many**\n- too many people",
+            "it": "**Plurale: too many**\n- too many people",
+            "en": "**A plural: too many**\n- too many people"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Od malo do zelo: **a bit cold** (malo mrzlo), **quite cold** (kar mrzlo), **very cold**, **really cold**. V Britaniji je **quite** *kar*, v Ameriki pogosto *zelo*. Pred samostalnikom: **quite a long walk**, **a very long walk**. V govoru tudi **pretty cold**, tu na severu **right cold**, **dead good**: pravilno.",
+          "de": "Von wenig bis sehr: **a bit cold** (ein bisschen kalt), **quite cold** (ziemlich kalt), **very cold**, **really cold**. Britisch ist **quite** *ziemlich*, amerikanisch oft *sehr*. Vor einem Nomen: **quite a long walk**, **a very long walk**. Gesprochen auch **pretty cold**, hier im Norden **right cold**, **dead good**: richtig.",
+          "it": "Da poco a molto: **a bit cold** (un po' freddo), **quite cold** (abbastanza freddo), **very cold**, **really cold**. In Gran Bretagna **quite** è *abbastanza*, in America spesso *molto*. Davanti a un nome: **quite a long walk**, **a very long walk**. A voce anche **pretty cold**, qui al nord **right cold**, **dead good**: va bene.",
+          "en": "From a little to a lot: **a bit cold**, **quite cold**, **very cold**, **really cold**. In Britain **quite** is fairly; in America it is often very. Before a noun: **quite a long walk**, **a very long walk**. In talk also **pretty cold**, and here in the North **right cold**, **dead good**: all right."
+        },
+        "examples": [
+          {
+            "en": "I'm a bit tired.",
+            "sl": "Malo sem utrujen{m:|f:a}.",
+            "de": "Ich bin ein bisschen müde.",
+            "it": "Sono un po' stanc{m:o|f:a}."
+          },
+          {
+            "en": "It's quite a long walk to the tarn.",
+            "sl": "Do jezerca je kar dolga pot.",
+            "de": "Bis zum Bergsee ist es ein ziemlich langer Weg.",
+            "it": "Fino al laghetto è una camminata abbastanza lunga."
+          },
+          {
+            "en": "Old Wilf says it's right cold today.",
+            "sl": "Stari Wilf pravi, da je danes hudo mraz.",
+            "de": "Der alte Wilf sagt, heute ist es richtig kalt.",
+            "it": "Il vecchio Wilf dice che oggi fa proprio freddo."
+          }
+        ],
+        "rows": [
+          [
+            "a bit, quite, very",
+            {
+              "sl": "koliko",
+              "de": "wie sehr",
+              "it": "quanto",
+              "en": "how much"
+            },
+            "quite cold"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "too-enough",
+          "prompt": "It's ___ long way to Keswick.",
+          "options": [
+            "quite a",
+            "a bit a",
+            "very a"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**quite + a + pridevnik**\n- quite a long way",
+            "de": "**quite + a + Adjektiv**\n- quite a long way",
+            "it": "**quite + a + aggettivo**\n- quite a long way",
+            "en": "**quite + a + adjective**\n- quite a long way"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**as … as** pove, da je enako: **Jack is as tall as Sam.** (Jack je tako visok kot Sam.) Za *tako … kot* je dvakrat **as**, ne *than*. **not as … as** pove manj: **The mill isn't as old as the inn.** = **The inn is older than the mill.** V govoru **as tall as me**, v pisavi tudi **as tall as I am**.",
+          "de": "**as … as** sagt, dass es gleich ist: **Jack is as tall as Sam.** (Jack ist so groß wie Sam.) Für *so … wie* zweimal **as**, nicht *than*. **not as … as** sagt weniger: **The mill isn't as old as the inn.** = **The inn is older than the mill.** Gesprochen **as tall as me**, geschrieben auch **as tall as I am**.",
+          "it": "**as … as** dice che è uguale: **Jack is as tall as Sam.** (Jack è alto come Sam.) Per *come* due volte **as**, non *than*. **not as … as** dice meno: **The mill isn't as old as the inn.** = **The inn is older than the mill.** A voce **as tall as me**, per iscritto anche **as tall as I am**.",
+          "en": "**as … as** says they are the same: **Jack is as tall as Sam.** **as** both times, not *than*. **not as … as** says less: **The mill isn't as old as the inn.** = **The inn is older than the mill.** In talk **as tall as me**, in writing also **as tall as I am**."
+        },
+        "examples": [
+          {
+            "en": "Jack is as tall as Sam.",
+            "sl": "Jack je tako visok kot Sam.",
+            "de": "Jack ist so groß wie Sam.",
+            "it": "Jack è alto come Sam."
+          },
+          {
+            "en": "The mill isn't as old as the inn.",
+            "sl": "Mlin ni tako star kot gostilna.",
+            "de": "Die Mühle ist nicht so alt wie das Gasthaus.",
+            "it": "Il mulino non è vecchio come la locanda."
+          },
+          {
+            "en": "The inn is older than the mill.",
+            "sl": "Gostilna je starejša od mlina.",
+            "de": "Das Gasthaus ist älter als die Mühle.",
+            "it": "La locanda è più vecchia del mulino."
+          }
+        ],
+        "rows": [
+          [
+            "as … as",
+            {
+              "sl": "enako",
+              "de": "gleich",
+              "it": "uguale",
+              "en": "the same"
+            },
+            "as tall as Sam"
+          ],
+          [
+            "not as … as",
+            {
+              "sl": "manj",
+              "de": "weniger",
+              "it": "meno",
+              "en": "less"
+            },
+            "not as old as the inn"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "too-enough",
+          "text": "Meg is as fast ___ the young dogs.",
+          "accept": [
+            "as"
+          ],
+          "hint": {
+            "sl": "dvakrat ista beseda",
+            "de": "zweimal dasselbe Wort",
+            "it": "due volte la stessa parola",
+            "en": "the same word twice"
+          },
+          "explain": {
+            "sl": "**as … as**\n- as fast as the young dogs",
+            "de": "**as … as**\n- as fast as the young dogs",
+            "it": "**as … as**\n- as fast as the young dogs",
+            "en": "**as … as**\n- as fast as the young dogs"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "too-enough-1",
+      "title": {
+        "sl": "Juha gospe Birkett",
+        "de": "Mrs Birketts Suppe",
+        "it": "La minestra di Mrs Birkett",
+        "en": "Mrs Birkett's soup"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "The soup is ___ hot: I can't eat it yet. But the bread is ___ good: everybody likes it. There's ___ salt in the soup: please don't put in any more. And there are ___ people here for one small table. We haven't got ___ chairs!",
+          "gaps": [
+            {
+              "accept": [
+                "too",
+                "so",
+                "very",
+                "really"
+              ],
+              "hint": {
+                "sl": "težava",
+                "de": "ein Problem",
+                "it": "un problema",
+                "en": "a problem"
+              }
+            },
+            {
+              "accept": [
+                "very",
+                "really",
+                "so",
+                "quite"
+              ],
+              "hint": {
+                "sl": "veliko, ni težava",
+                "de": "viel, kein Problem",
+                "it": "tanto, nessun problema",
+                "en": "a lot, no problem"
+              }
+            },
+            {
+              "accept": [
+                "enough",
+                "too much",
+                "plenty of"
+              ],
+              "hint": {
+                "sl": "kolikor je treba",
+                "de": "so viel, wie nötig",
+                "it": "quanto serve",
+                "en": "as much as you need"
+              }
+            },
+            {
+              "accept": [
+                "too many",
+                "so many"
+              ],
+              "hint": {
+                "sl": "množina",
+                "de": "Plural",
+                "it": "plurale",
+                "en": "a plural"
+              }
+            },
+            {
+              "accept": [
+                "enough",
+                "many",
+                "any"
+              ],
+              "hint": {
+                "sl": "kolikor je treba",
+                "de": "so viel, wie nötig",
+                "it": "quanto serve",
+                "en": "as much as you need"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "as"
+          ],
+          "explain": {
+            "sl": "**too: težava. very: veliko. enough: kolikor je treba**\n- The soup is too hot.",
+            "de": "**too: ein Problem. very: viel. enough: so viel, wie nötig**\n- The soup is too hot.",
+            "it": "**too: un problema. very: tanto. enough: quanto serve**\n- The soup is too hot.",
+            "en": "**too: a problem. very: a lot. enough: as much as you need**\n- The soup is too hot."
+          },
+          "translation": {
+            "sl": "Juha je prevroča: še je ne morem jesti. Kruh pa je zelo dober: vsem je všeč. V juhi je dovolj soli: prosim, ne dodajaj je več. In tu je preveč ljudi za eno majhno mizo. Nimamo dovolj stolov!",
+            "de": "Die Suppe ist zu heiß: Ich kann sie noch nicht essen. Aber das Brot ist sehr gut: Alle mögen es. In der Suppe ist genug Salz: Bitte gib nichts mehr dazu. Und es sind zu viele Leute für einen kleinen Tisch da. Wir haben nicht genug Stühle!",
+            "it": "La minestra è troppo calda: non posso ancora mangiarla. Ma il pane è molto buono: piace a tutti. Nella minestra c'è abbastanza sale: per favore non metterne altro. E qui ci sono troppe persone per un tavolino. Non abbiamo abbastanza sedie!",
+            "en": "The soup is too hot: I can't eat it yet. But the bread is very good: everybody likes it. There's enough salt in the soup: please don't put in any more. And there are too many people here for one small table. We haven't got enough chairs!"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "too much · se ne šteje",
+                "de": "too much · nicht zählbar",
+                "it": "too much · non si conta",
+                "en": "too much"
+              },
+              "words": [
+                "salt",
+                "butter",
+                "noise"
+              ]
+            },
+            {
+              "label": {
+                "sl": "too many · množina",
+                "de": "too many · Plural",
+                "it": "too many · plurale",
+                "en": "too many"
+              },
+              "words": [
+                "sheep",
+                "walkers",
+                "chairs"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**too much za to, kar se ne šteje; too many za množino**\n- too much salt · too many sheep",
+            "de": "**too much für Nichtzählbares; too many für den Plural**\n- too much salt · too many sheep",
+            "it": "**too much per ciò che non si conta; too many per il plurale**\n- too much salt · too many sheep",
+            "en": "**too much for what you can't count; too many for a plural**\n- too much salt · too many sheep"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Is the van ___ for all of us?",
+          "options": [
+            "big enough",
+            "enough big",
+            "too enough"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**enough za pridevnikom**\n- big enough",
+            "de": "**enough nach dem Adjektiv**\n- big enough",
+            "it": "**enough dopo l'aggettivo**\n- big enough",
+            "en": "**enough after the adjective**\n- big enough"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We haven't got ___ for the dance.",
+          "options": [
+            "enough chairs",
+            "chairs too",
+            "too chairs"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**enough pred samostalnikom**\n- enough chairs",
+            "de": "**enough vor dem Nomen**\n- enough chairs",
+            "it": "**enough prima del nome**\n- enough chairs",
+            "en": "**enough before the noun**\n- enough chairs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "too-enough-2",
+      "title": {
+        "sl": "Prehladno za plavanje",
+        "de": "Zu kalt zum Schwimmen",
+        "it": "Troppo freddo per nuotare",
+        "en": "Too cold to swim"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Say it with too · s too",
+            "de": "Say it with too · Sag es mit too",
+            "it": "Say it with too · dillo con too",
+            "en": "Say it with too"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "The water is very cold. We can't swim.",
+              "accept": [
+                "The water is too cold to swim.",
+                "The water is too cold to swim in.",
+                "The water is too cold for us to swim.",
+                "The water is too cold for us to swim in.",
+                "The water is too cold for swimming.",
+                "It is too cold to swim."
+              ],
+              "hint": {
+                "sl": "too … to",
+                "de": "too … to",
+                "it": "too … to",
+                "en": "too … to"
+              }
+            },
+            {
+              "from": "Alfie is very young. He can't drive.",
+              "accept": [
+                "Alfie is too young to drive.",
+                "He is too young to drive."
+              ]
+            },
+            {
+              "from": "The box is very heavy. I can't lift it.",
+              "accept": [
+                "The box is too heavy to lift.",
+                "The box is too heavy for me to lift.",
+                "The box is too heavy for me.",
+                "It is too heavy to lift.",
+                "It is too heavy for me to lift."
+              ],
+              "hint": {
+                "sl": "brez it na koncu",
+                "de": "kein it am Ende",
+                "it": "senza it in fondo",
+                "en": "no it at the end"
+              }
+            }
+          ],
+          "explain": {
+            "sl": "**too + pridevnik + to + osnovna oblika**\n- Alfie is too young to drive.",
+            "de": "**too + Adjektiv + to + Grundform**\n- Alfie is too young to drive.",
+            "it": "**too + aggettivo + to + la forma base**\n- Alfie is too young to drive.",
+            "en": "**too + adjective + to + the base form**\n- Alfie is too young to drive."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Say it with enough · z enough",
+            "de": "Say it with enough · Sag es mit enough",
+            "it": "Say it with enough · dillo con enough",
+            "en": "Say it with enough"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Poppy is old. She can ride the horse.",
+              "accept": [
+                "Poppy is old enough to ride the horse.",
+                "She is old enough to ride the horse."
+              ],
+              "hint": {
+                "sl": "… enough to",
+                "de": "… enough to",
+                "it": "… enough to",
+                "en": "… enough to"
+              }
+            },
+            {
+              "from": "The water is warm. We can swim.",
+              "accept": [
+                "The water is warm enough to swim.",
+                "The water is warm enough to swim in.",
+                "The water is warm enough for us to swim.",
+                "The water is warm enough for us to swim in.",
+                "The water is warm enough for swimming.",
+                "It is warm enough to swim."
+              ]
+            },
+            {
+              "from": "The van isn't big. It can't take us all.",
+              "accept": [
+                "The van isn't big enough to take us all.",
+                "It isn't big enough to take us all.",
+                "The van isn't big enough to take all of us."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**pridevnik + enough + to**\n- Poppy is old enough to ride the horse.",
+            "de": "**Adjektiv + enough + to**\n- Poppy is old enough to ride the horse.",
+            "it": "**aggettivo + enough + to**\n- Poppy is old enough to ride the horse.",
+            "en": "**adjective + enough + to**\n- Poppy is old enough to ride the horse."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "This coat is too big ___ me.",
+          "options": [
+            "for",
+            "to",
+            "as"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Oseba: for**\n- too big for me",
+            "de": "**Eine Person: for**\n- too big for me",
+            "it": "**Una persona: for**\n- too big for me",
+            "en": "**A person: for**\n- too big for me"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "I was too tired ___ the washing-up.",
+          "options": [
+            "to do",
+            "for do",
+            "doing"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**too … to + osnovna oblika**\n- too tired to do it",
+            "de": "**too … to + Grundform**\n- too tired to do it",
+            "it": "**too … to + la forma base**\n- too tired to do it",
+            "en": "**too … to + the base form**\n- too tired to do it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "too-enough-3",
+      "title": {
+        "sl": "Tako visok kot Sam",
+        "de": "So groß wie Sam",
+        "it": "Alto come Sam",
+        "en": "As tall as Sam"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Jack is as tall ___ Sam, but he isn't ___ strong as Sam. Meg is as clever ___ any dog in Cumbria. It's a long way to Keswick, ___ long walk for Old Wilf. He says it's ___ cold today.",
+          "gaps": [
+            {
+              "accept": [
+                "as"
+              ]
+            },
+            {
+              "accept": [
+                "as"
+              ]
+            },
+            {
+              "accept": [
+                "as"
+              ]
+            },
+            {
+              "accept": [
+                "quite a",
+                "a very",
+                "a really",
+                "a",
+                "rather a",
+                "a pretty",
+                "a quite",
+                "a bit of a",
+                "such a"
+              ],
+              "hint": {
+                "sl": "kar dolga pot",
+                "de": "ein ziemlich langer Weg",
+                "it": "una strada abbastanza lunga",
+                "en": "a fairly long walk"
+              }
+            },
+            {
+              "accept": [
+                "very",
+                "really",
+                "quite",
+                "so",
+                "pretty",
+                "a bit",
+                "too"
+              ],
+              "spoken": [
+                "right",
+                "dead",
+                "proper"
+              ],
+              "hint": {
+                "sl": "koliko mrzlo?",
+                "de": "wie kalt?",
+                "it": "quanto freddo?",
+                "en": "how cold?"
+              }
+            }
+          ],
+          "explain": {
+            "sl": "**as … as, dvakrat as**\n- Jack is as tall as Sam.",
+            "de": "**as … as, zweimal as**\n- Jack is as tall as Sam.",
+            "it": "**as … as, due volte as**\n- Jack is as tall as Sam.",
+            "en": "**as … as, as twice**\n- Jack is as tall as Sam."
+          },
+          "translation": {
+            "sl": "Jack je tako visok kot Sam, ni pa tako močan kot Sam. Meg je tako pametna kot vsak pes v Cumbrii. Do Keswicka je daleč, za starega Wilfa je to kar dolga pot. Pravi, da je danes zelo mraz.",
+            "de": "Jack ist so groß wie Sam, aber er ist nicht so stark wie Sam. Meg ist so klug wie jeder Hund in Cumbria. Bis Keswick ist es weit, für den alten Wilf ein ziemlich langer Weg. Er sagt, heute ist es sehr kalt.",
+            "it": "Jack è alto come Sam, ma non è forte come Sam. Meg è intelligente come qualsiasi cane della Cumbria. Keswick è lontana, per il vecchio Wilf è una camminata abbastanza lunga. Dice che oggi fa molto freddo.",
+            "en": "Jack is as tall as Sam, but he isn't as strong as Sam. Meg is as clever as any dog in Cumbria. It's a long way to Keswick, quite a long walk for Old Wilf. He says it's very cold today."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Say it with not as … as · z not as … as",
+            "de": "Say it with not as … as · Sag es mit not as … as",
+            "it": "Say it with not as … as · dillo con not as … as",
+            "en": "Say it with not as … as"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "The inn is older than the mill. (The mill)",
+              "accept": [
+                "The mill isn't as old as the inn.",
+                "The mill isn't so old as the inn."
+              ],
+              "hint": {
+                "sl": "old, ne older",
+                "de": "old, nicht older",
+                "it": "old, non older",
+                "en": "old, not older"
+              }
+            },
+            {
+              "from": "Sam is taller than Jack. (Jack)",
+              "accept": [
+                "Jack isn't as tall as Sam.",
+                "Jack isn't so tall as Sam."
+              ]
+            },
+            {
+              "from": "The bus is slower than the van. (fast)",
+              "accept": [
+                "The bus isn't as fast as the van.",
+                "The bus isn't so fast as the van."
+              ]
+            },
+            {
+              "from": "Keswick is bigger than our village. (Our village)",
+              "accept": [
+                "Our village isn't as big as Keswick.",
+                "Our village isn't so big as Keswick."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Osnovna oblika med as in as**\n- The mill isn't as old as the inn.",
+            "de": "**Die Grundform zwischen as und as**\n- The mill isn't as old as the inn.",
+            "it": "**La forma base tra as e as**\n- The mill isn't as old as the inn.",
+            "en": "**The plain adjective between as and as**\n- The mill isn't as old as the inn."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "too-enough",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Mr Dixon's hammer is as heavy ___ mine.",
+          "options": [
+            "as",
+            "than",
+            "that"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**as … as, ne than**\n- as heavy as mine",
+            "de": "**as … as, nicht than**\n- as heavy as mine",
+            "it": "**as … as, non than**\n- as heavy as mine",
+            "en": "**as … as, not than**\n- as heavy as mine"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "too-enough",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "It's ___ cold to walk to the tarn today, and the road isn't dry ___ for the bike. There's ___ much snow on the fell. The bus isn't as fast ___ the van, but Sam's van isn't big ___ for all of us.",
+        "gaps": [
+          {
+            "accept": [
+              "too"
+            ]
+          },
+          {
+            "accept": [
+              "enough"
+            ]
+          },
+          {
+            "accept": [
+              "too",
+              "so"
+            ]
+          },
+          {
+            "accept": [
+              "as"
+            ]
+          },
+          {
+            "accept": [
+              "enough"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Danes je prehladno za pot do jezerca, cesta pa ni dovolj suha za kolo. Na hribu je preveč snega. Avtobus ni tako hiter kot kombi, a Samov kombi ni dovolj velik za vse nas.",
+          "de": "Heute ist es zu kalt, um zum Bergsee zu gehen, und die Straße ist nicht trocken genug fürs Rad. Auf dem Fell liegt zu viel Schnee. Der Bus ist nicht so schnell wie der Lieferwagen, aber Sams Lieferwagen ist nicht groß genug für uns alle.",
+          "it": "Oggi fa troppo freddo per andare a piedi al laghetto, e la strada non è abbastanza asciutta per la bici. Sul fell c'è troppa neve. L'autobus non è veloce come il furgone, ma il furgone di Sam non è abbastanza grande per tutti noi.",
+          "en": "It's too cold to walk to the tarn today, and the road isn't dry enough for the bike. There's too much snow on the fell. The bus isn't as fast as the van, but Sam's van isn't big enough for all of us."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "too-enough",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Have we got ___ for everyone?",
+        "options": [
+          "enough eggs",
+          "eggs too",
+          "too eggs"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**enough pred samostalnikom**\n- enough eggs",
+          "de": "**enough vor dem Nomen**\n- enough eggs",
+          "it": "**enough prima del nome**\n- enough eggs",
+          "en": "**enough before the noun**\n- enough eggs"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "too-enough",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Auntie Edna has got ___ hens. She can't feed them all.",
+        "options": [
+          "too many",
+          "too much",
+          "too"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Množina: too many**\n- too many hens",
+          "de": "**Plural: too many**\n- too many hens",
+          "it": "**Plurale: too many**\n- too many hens",
+          "en": "**A plural: too many**\n- too many hens"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "too-enough",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Poppy is not ___ Alfie.",
+        "options": [
+          "as old as",
+          "as old than",
+          "old as"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**as … as**\n- not as old as Alfie",
+          "de": "**as … as**\n- not as old as Alfie",
+          "it": "**as … as**\n- not as old as Alfie",
+          "en": "**as … as**\n- not as old as Alfie"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "too-enough",
+        "instruction": {
+          "sl": "Say it with too · s too",
+          "de": "Say it with too · Sag es mit too",
+          "it": "Say it with too · dillo con too",
+          "en": "Say it with too"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "The tea is very hot. I can't drink it.",
+            "accept": [
+              "The tea is too hot to drink.",
+              "The tea is too hot for me to drink.",
+              "The tea is too hot for me.",
+              "It is too hot to drink.",
+              "It is too hot for me to drink."
+            ]
+          },
+          {
+            "from": "It's very late. We can't go out.",
+            "accept": [
+              "It's too late to go out.",
+              "It's too late for us to go out."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**too + pridevnik + to**\n- too hot to drink",
+          "de": "**too + Adjektiv + to**\n- too hot to drink",
+          "it": "**too + aggettivo + to**\n- too hot to drink",
+          "en": "**too + adjective + to**\n- too hot to drink"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "too-enough",
+        "instruction": {
+          "sl": "Say it with not as … as · z not as … as",
+          "de": "Say it with not as … as · Sag es mit not as … as",
+          "it": "Say it with not as … as · dillo con not as … as",
+          "en": "Say it with not as … as"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Jack is older than Sam. (Sam)",
+            "accept": [
+              "Sam isn't as old as Jack.",
+              "Sam isn't so old as Jack."
+            ]
+          },
+          {
+            "from": "The fell is higher than the bridge. (The bridge)",
+            "accept": [
+              "The bridge isn't as high as the fell.",
+              "The bridge isn't so high as the fell."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Osnovna oblika med as in as**\n- Sam isn't as old as Jack.",
+          "de": "**Die Grundform zwischen as und as**\n- Sam isn't as old as Jack.",
+          "it": "**La forma base tra as e as**\n- Sam isn't as old as Jack.",
+          "en": "**The plain adjective between as and as**\n- Sam isn't as old as Jack."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: quite in Britain; right cold, dead good"
+}

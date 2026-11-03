@@ -1,0 +1,998 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "phrasal-verbs",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🧩",
+  "title": {
+    "en": "Get up, look after, give up",
+    "de": "Phrasal Verbs: get up, look after",
+    "sl": "Frazni glagoli: get up, look after",
+    "it": "I phrasal verb: get up, look after"
+  },
+  "goal": {
+    "sl": "Rabiš vsakdanje frazne glagole (get up, look after, give up) in veš, kateri se razdelijo in kam gre zaimek (turn it off).",
+    "de": "Du verwendest die alltäglichen Phrasal Verbs (get up, look after, give up) und weißt, welche getrennt werden und wohin das Pronomen kommt (turn it off).",
+    "it": "Usi i phrasal verb di tutti i giorni (get up, look after, give up) e sai quali si dividono e dove va il pronome (turn it off).",
+    "en": "You can use the everyday phrasal verbs (get up, look after, give up) and know which ones part and where the pronoun goes (turn it off)."
+  },
+  "grammar": [
+    "phrasal-verbs",
+    "object-pronouns"
+  ],
+  "words": [
+    "get up",
+    "give up",
+    "look after",
+    "look for",
+    "look up",
+    "sit down",
+    "stand up",
+    "go out",
+    "come back",
+    "come in",
+    "grow up",
+    "set off",
+    "break down",
+    "hurry up",
+    "carry on",
+    "get on",
+    "get off",
+    "run out of",
+    "turn on",
+    "turn off",
+    "turn up",
+    "put on",
+    "take off",
+    "pick up",
+    "throw away",
+    "fill in",
+    "fill out",
+    "give back",
+    "write down",
+    "wake up",
+    "find out",
+    "put off",
+    "get on with",
+    "wash up",
+    "try on",
+    "boots",
+    "form",
+    "radio",
+    "apron",
+    "petrol"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "frazni glagol",
+          "de": "Phrasal Verb",
+          "it": "phrasal verb",
+          "en": "phrasal verb"
+        },
+        {
+          "sl": "kako",
+          "de": "wie",
+          "it": "come",
+          "en": "how"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**Frazni glagol** je glagol z malo besedo, skupaj pa imata nov pomen: **get up** (vstati), **give up** (odnehati), **look after** (skrbeti za), **look for** (iskati). Pomena ne sestaviš iz delov, zato se ga naučiš kot eno besedo. Spreminja se samo glagol: **Jack got up at five.** **Arthur gave up smoking.**",
+          "de": "**Ein Phrasal Verb** ist ein Verb mit einem kleinen Wort, zusammen mit neuer Bedeutung, wie *aufstehen*: **get up** (aufstehen), **give up** (aufgeben), **look after** (sich kümmern um), **look for** (suchen). Lerne es wie ein Wort. Nur das Verb ändert sich: **Jack got up at five.** **Arthur gave up smoking.**",
+          "it": "**Un phrasal verb** è un verbo con una parolina, e insieme hanno un significato nuovo, come *buttare via*: **get up** (alzarsi), **give up** (rinunciare), **look after** (occuparsi di), **look for** (cercare). Si impara come una parola. Cambia solo il verbo: **Jack got up at five.** **Arthur gave up smoking.**",
+          "en": "**A phrasal verb** is a verb with a small word, and together they have a new meaning: **get up**, **give up**, **look after**, **look for**. Learn it like one word. Only the verb changes: **Jack got up at five.** **Arthur gave up smoking.**"
+        },
+        "examples": [
+          {
+            "en": "Jack got up at five.",
+            "sl": "Jack je vstal ob petih.",
+            "de": "Jack ist um fünf aufgestanden.",
+            "it": "Jack si è alzato alle cinque."
+          },
+          {
+            "en": "Arthur gave up smoking.",
+            "sl": "Arthur je nehal kaditi.",
+            "de": "Arthur hat das Rauchen aufgegeben.",
+            "it": "Arthur ha smesso di fumare."
+          },
+          {
+            "en": "Who looks after the hens?",
+            "sl": "Kdo skrbi za kokoši?",
+            "de": "Wer kümmert sich um die Hühner?",
+            "it": "Chi si occupa delle galline?"
+          }
+        ],
+        "rows": [
+          [
+            "get up",
+            {
+              "sl": "vstati",
+              "de": "aufstehen",
+              "it": "alzarsi",
+              "en": "leave your bed"
+            },
+            "I get up at six."
+          ],
+          [
+            "give up",
+            {
+              "sl": "odnehati",
+              "de": "aufgeben",
+              "it": "rinunciare",
+              "en": "stop trying"
+            },
+            "Arthur gave up."
+          ],
+          [
+            "look after",
+            {
+              "sl": "skrbeti za",
+              "de": "sich kümmern um",
+              "it": "occuparsi di",
+              "en": "take care of"
+            },
+            "Who looks after the hens?"
+          ],
+          [
+            "look for",
+            {
+              "sl": "iskati",
+              "de": "suchen",
+              "it": "cercare",
+              "en": "try to find"
+            },
+            "I'm looking for Meg."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "phrasal-verbs",
+          "text": "Yesterday Mrs Birkett ___ up at six.",
+          "accept": [
+            "got"
+          ],
+          "hint": {
+            "sl": "preteklik od get",
+            "de": "die Vergangenheit von get",
+            "it": "il passato di get",
+            "en": "the past of get"
+          },
+          "explain": {
+            "sl": "**Spreminja se samo glagol: get → got**\n- She got up at six.",
+            "de": "**Nur das Verb ändert sich: get → got**\n- She got up at six.",
+            "it": "**Cambia solo il verbo: get → got**\n- She got up at six.",
+            "en": "**Only the verb changes: get → got**\n- She got up at six."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nekateri nimajo predmeta: **sit down, stand up, go out, come back, come in, grow up, set off, break down, hurry up, carry on**. **Come in and sit down.** (Vstopi in sedi.) **We set off at six.** (Odpravili smo se ob šestih.) **The van broke down.** (Kombi se je pokvaril.) **Carry on!** (Kar naprej!)",
+          "de": "Manche haben kein Objekt: **sit down, stand up, go out, come back, come in, grow up, set off, break down, hurry up, carry on**. **Come in and sit down.** (Komm herein und setz dich.) **We set off at six.** (Wir sind um sechs aufgebrochen.) **The van broke down.** (Der Lieferwagen hatte eine Panne.) **Carry on!** (Mach weiter!)",
+          "it": "Alcuni non hanno oggetto: **sit down, stand up, go out, come back, come in, grow up, set off, break down, hurry up, carry on**. **Come in and sit down.** (Entra e siediti.) **We set off at six.** (Siamo partiti alle sei.) **The van broke down.** (Il furgone si è guastato.) **Carry on!** (Continua!)",
+          "en": "Some have no object: **sit down, stand up, go out, come back, come in, grow up, set off, break down, hurry up, carry on**. **Come in and sit down.** **We set off at six.** **The van broke down.** **Carry on!**"
+        },
+        "examples": [
+          {
+            "en": "Come in and sit down.",
+            "sl": "Vstopi in sedi.",
+            "de": "Komm herein und setz dich.",
+            "it": "Entra e siediti."
+          },
+          {
+            "en": "We set off at six.",
+            "sl": "Odpravili smo se ob šestih.",
+            "de": "Wir sind um sechs aufgebrochen.",
+            "it": "Siamo partiti alle sei."
+          },
+          {
+            "en": "The van broke down.",
+            "sl": "Kombi se je pokvaril.",
+            "de": "Der Lieferwagen hatte eine Panne.",
+            "it": "Il furgone si è guastato."
+          }
+        ],
+        "rows": [
+          [
+            "sit down, set off",
+            {
+              "sl": "brez predmeta",
+              "de": "ohne Objekt",
+              "it": "senza oggetto",
+              "en": "no object"
+            },
+            "We set off at six."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "phrasal-verbs",
+          "prompt": "Sam's old van ___ on the way to Keswick.",
+          "options": [
+            "broke down",
+            "broke in",
+            "broke away"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pokvariti se: break down**\n- The van broke down.",
+            "de": "**Eine Panne haben: break down**\n- The van broke down.",
+            "it": "**Guastarsi: break down**\n- The van broke down.",
+            "en": "**Stop working: break down**\n- The van broke down."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nekateri imajo predmet in ostanejo skupaj: **look after, look for, get on, get off, run out of**. **Jack looks after the sheep.** **I'm looking for Meg.** (Iščem Meg.) **Get off the bus at the bridge.** **We've run out of milk.** (Zmanjkalo nam je mleka.) Zaimek pride na konec: **Jack looks after them.** V govoru tudi *get off of the bus*.",
+          "de": "Manche haben ein Objekt und bleiben zusammen: **look after, look for, get on, get off, run out of**. **Jack looks after the sheep.** **I'm looking for Meg.** (Ich suche Meg.) **Get off the bus at the bridge.** **We've run out of milk.** (Uns ist die Milch ausgegangen.) Ein Pronomen kommt ans Ende: **Jack looks after them.** Gesprochen auch *get off of the bus*.",
+          "it": "Alcuni hanno un oggetto e restano uniti: **look after, look for, get on, get off, run out of**. **Jack looks after the sheep.** **I'm looking for Meg.** (Cerco Meg.) **Get off the bus at the bridge.** **We've run out of milk.** (Abbiamo finito il latte.) Un pronome va in fondo: **Jack looks after them.** A voce anche *get off of the bus*.",
+          "en": "Some have an object and stay together: **look after, look for, get on, get off, run out of**. **Jack looks after the sheep.** **I'm looking for Meg.** **Get off the bus at the bridge.** **We've run out of milk.** A pronoun goes at the end: **Jack looks after them.** In talk also *get off of the bus*."
+        },
+        "examples": [
+          {
+            "en": "I'm looking for Meg.",
+            "sl": "Iščem Meg.",
+            "de": "Ich suche Meg.",
+            "it": "Cerco Meg."
+          },
+          {
+            "en": "Get off the bus at the bridge.",
+            "sl": "Izstopi iz avtobusa pri mostu.",
+            "de": "Steig bei der Brücke aus dem Bus aus.",
+            "it": "Scendi dall'autobus al ponte."
+          },
+          {
+            "en": "We've run out of milk.",
+            "sl": "Zmanjkalo nam je mleka.",
+            "de": "Uns ist die Milch ausgegangen.",
+            "it": "Abbiamo finito il latte."
+          }
+        ],
+        "rows": [
+          [
+            "look after, look for",
+            {
+              "sl": "ostane skupaj",
+              "de": "bleibt zusammen",
+              "it": "resta unito",
+              "en": "stays together"
+            },
+            "Jack looks after them."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "phrasal-verbs",
+          "prompt": "The dog's lost. Jack is ___.",
+          "options": [
+            "looking for her",
+            "looking her for",
+            "for her looking"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**look for ostane skupaj**\n- Jack is looking for her.",
+            "de": "**look for bleibt zusammen**\n- Jack is looking for her.",
+            "it": "**look for resta unito**\n- Jack is looking for her.",
+            "en": "**look for stays together**\n- Jack is looking for her."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Drugi se razdelijo: **turn on, turn off, put on, take off, pick up, throw away, fill in, give back, write down**. Samostalnik stoji na obeh mestih: **Turn off the radio.** = **Turn the radio off.** (Ugasni radio.) **Take off your boots.** = **Take your boots off.** (Sezuj si škornje.) Obe poti sta pravilni.",
+          "de": "Andere werden getrennt: **turn on, turn off, put on, take off, pick up, throw away, fill in, give back, write down**. Das Nomen steht an beiden Stellen: **Turn off the radio.** = **Turn the radio off.** (Mach das Radio aus.) **Take off your boots.** = **Take your boots off.** (Zieh die Stiefel aus.) Beides ist richtig.",
+          "it": "Altri si dividono: **turn on, turn off, put on, take off, pick up, throw away, fill in, give back, write down**. Il nome sta in tutti e due i posti: **Turn off the radio.** = **Turn the radio off.** (Spegni la radio.) **Take off your boots.** = **Take your boots off.** (Togliti gli stivali.) Vanno bene tutti e due.",
+          "en": "Others can part: **turn on, turn off, put on, take off, pick up, throw away, fill in, give back, write down**. A noun can stand in both places: **Turn off the radio.** = **Turn the radio off.** **Take off your boots.** = **Take your boots off.** Both are right."
+        },
+        "examples": [
+          {
+            "en": "Turn off the radio.",
+            "sl": "Ugasni radio.",
+            "de": "Mach das Radio aus.",
+            "it": "Spegni la radio."
+          },
+          {
+            "en": "Take your boots off.",
+            "sl": "Sezuj si škornje.",
+            "de": "Zieh die Stiefel aus.",
+            "it": "Togliti gli stivali."
+          },
+          {
+            "en": "Please fill in this form.",
+            "sl": "Prosim, izpolni ta obrazec.",
+            "de": "Füll bitte dieses Formular aus.",
+            "it": "Compila questo modulo, per favore."
+          }
+        ],
+        "rows": [
+          [
+            "turn off, pick up",
+            {
+              "sl": "se razdeli",
+              "de": "wird getrennt",
+              "it": "si divide",
+              "en": "can part"
+            },
+            "Turn the radio off."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "phrasal-verbs",
+          "prompt": {
+            "sl": "Which is right? · kaj je prav?",
+            "de": "Which is right? · was stimmt?",
+            "it": "Which is right? · che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "Put your coat on.",
+            "Put on coat your.",
+            "Your coat on put."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Samostalnik lahko stoji v sredi**\n- Put your coat on. · Put on your coat.",
+            "de": "**Das Nomen kann in der Mitte stehen**\n- Put your coat on. · Put on your coat.",
+            "it": "**Il nome può stare in mezzo**\n- Put your coat on. · Put on your coat.",
+            "en": "**A noun can stand in between**\n- Put your coat on. · Put on your coat."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zaimek stoji pri teh samo v sredi: **Turn it off.** (Ugasni ga.) **Pick them up.** (Poberi jih.) **Put it on.** (Obleci ga.) Nikoli *Turn off it*. Samostalnik sme na konec, zaimek ne.",
+          "de": "Ein Pronomen steht bei diesen nur in der Mitte: **Turn it off.** (Mach es aus.) **Pick them up.** (Heb sie auf.) **Put it on.** (Zieh ihn an.) Nie *Turn off it*. Das Nomen darf ans Ende, das Pronomen nicht.",
+          "it": "Un pronome sta con questi solo in mezzo: **Turn it off.** (Spegnila.) **Pick them up.** (Raccoglili.) **Put it on.** (Mettilo.) Mai *Turn off it*. Il nome può andare in fondo, il pronome no.",
+          "en": "With these a pronoun stands only in between: **Turn it off.** **Pick them up.** **Put it on.** Never *Turn off it*. A noun can go to the end, a pronoun can't."
+        },
+        "examples": [
+          {
+            "en": "Turn it off.",
+            "sl": "Ugasni ga.",
+            "de": "Mach es aus.",
+            "it": "Spegnila."
+          },
+          {
+            "en": "Pick them up.",
+            "sl": "Poberi jih.",
+            "de": "Heb sie auf.",
+            "it": "Raccoglili."
+          },
+          {
+            "en": "It's cold. Put it on.",
+            "sl": "Mraz je. Obleci ga.",
+            "de": "Es ist kalt. Zieh ihn an.",
+            "it": "Fa freddo. Mettilo."
+          }
+        ],
+        "rows": [
+          [
+            "turn it off",
+            {
+              "sl": "zaimek v sredi",
+              "de": "Pronomen dazwischen",
+              "it": "pronome in mezzo",
+              "en": "pronoun in between"
+            },
+            "Pick them up."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "phrasal-verbs",
+          "prompt": "The radio's too quiet. Please ___.",
+          "options": [
+            "turn it up",
+            "turn up it",
+            "it turn up"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zaimek v sredi**\n- Turn it up.",
+            "de": "**Das Pronomen in der Mitte**\n- Turn it up.",
+            "it": "**Il pronome in mezzo**\n- Turn it up.",
+            "en": "**The pronoun in between**\n- Turn it up."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Še nekaj vsakdanjih: **find out** (izvedeti), **look up** (poiskati v knjigi), **put off** (odložiti), **get on with** (razumeti se z), **wash up** (pomivati posodo, britansko), **fill in** (ameriško **fill out**). **Did you find out when the bus comes?** **Poppy looked up the word.** **We put off the dance until May.** **I get on with Jack.**",
+          "de": "Noch ein paar alltägliche: **find out** (herausfinden), **look up** (nachschlagen), **put off** (verschieben), **get on with** (sich verstehen mit), **wash up** (abwaschen, britisch), **fill in** (amerikanisch **fill out**). **Did you find out when the bus comes?** **Poppy looked up the word.** **We put off the dance until May.** **I get on with Jack.**",
+          "it": "Ancora qualcuno di tutti i giorni: **find out** (scoprire), **look up** (cercare in un libro), **put off** (rimandare), **get on with** (andare d'accordo con), **wash up** (lavare i piatti, britannico), **fill in** (americano **fill out**). **Did you find out when the bus comes?** **Poppy looked up the word.** **We put off the dance until May.** **I get on with Jack.**",
+          "en": "A few more for every day: **find out**, **look up** (in a book), **put off** (until later), **get on with** (someone), **wash up** (British, the dishes), **fill in** (American **fill out**). **Did you find out when the bus comes?** **Poppy looked up the word.** **We put off the dance until May.** **I get on with Jack.**"
+        },
+        "examples": [
+          {
+            "en": "Did you find out when the bus comes?",
+            "sl": "Si izvedel{m:|f:a}, kdaj pride avtobus?",
+            "de": "Hast du herausgefunden, wann der Bus kommt?",
+            "it": "Hai scoperto quando arriva l'autobus?"
+          },
+          {
+            "en": "We put off the dance until May.",
+            "sl": "Ples smo odložili do maja.",
+            "de": "Wir haben den Tanz auf Mai verschoben.",
+            "it": "Abbiamo rimandato il ballo a maggio."
+          },
+          {
+            "en": "I get on with Jack.",
+            "sl": "Z Jackom se dobro razumem.",
+            "de": "Ich verstehe mich gut mit Jack.",
+            "it": "Vado d'accordo con Jack."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "phrasal-verbs",
+          "text": "Alfie doesn't know the word, so he ___ it up.",
+          "accept": [
+            "looks",
+            "looked"
+          ],
+          "hint": {
+            "sl": "v knjigi",
+            "de": "in einem Buch",
+            "it": "in un libro",
+            "en": "in a book"
+          },
+          "explain": {
+            "sl": "**look up: poiskati v knjigi**\n- He looks it up.",
+            "de": "**look up: nachschlagen**\n- He looks it up.",
+            "it": "**look up: cercare in un libro**\n- He looks it up.",
+            "en": "**look up: find it in a book**\n- He looks it up."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "phrasal-verbs-1",
+      "title": {
+        "sl": "Jackov dan",
+        "de": "Jacks Tag",
+        "it": "La giornata di Jack",
+        "en": "Jack's day"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "phrasal-verbs",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "stays together · ostane skupaj",
+                "de": "stays together · bleibt zusammen",
+                "it": "stays together · resta unito",
+                "en": "stays together"
+              },
+              "words": [
+                "look after",
+                "look for",
+                "get off",
+                "run out of"
+              ]
+            },
+            {
+              "label": {
+                "sl": "can part · se razdeli",
+                "de": "can part · wird getrennt",
+                "it": "can part · si divide",
+                "en": "can part"
+              },
+              "words": [
+                "turn off",
+                "put on",
+                "pick up",
+                "throw away"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**look after them, a turn it off**",
+            "de": "**look after them, aber turn it off**",
+            "it": "**look after them, ma turn it off**",
+            "en": "**look after them, but turn it off**"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "phrasal-verbs",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Every day Jack gets ___ at five. He looks ___ the sheep with Meg. Sometimes they have to look ___ a lost lamb. In the evening he sits ___ by the fire and takes ___ his boots.",
+          "gaps": [
+            {
+              "accept": [
+                "up"
+              ]
+            },
+            {
+              "accept": [
+                "after"
+              ]
+            },
+            {
+              "accept": [
+                "for"
+              ]
+            },
+            {
+              "accept": [
+                "down"
+              ]
+            },
+            {
+              "accept": [
+                "off"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "into",
+            "across"
+          ],
+          "explain": {
+            "sl": "**Glagol + mala beseda = nov pomen**\n- Jack gets up at five.",
+            "de": "**Verb + kleines Wort = neue Bedeutung**\n- Jack gets up at five.",
+            "it": "**Verbo + parolina = significato nuovo**\n- Jack gets up at five.",
+            "en": "**Verb + small word = a new meaning**\n- Jack gets up at five."
+          },
+          "translation": {
+            "sl": "Jack vsak dan vstane ob petih. Z Meg skrbi za ovce. Včasih morata iskati izgubljeno jagnje. Zvečer sede k ognju in si sezuje škornje.",
+            "de": "Jeden Tag steht Jack um fünf auf. Mit Meg kümmert er sich um die Schafe. Manchmal müssen sie ein verlorenes Lamm suchen. Am Abend setzt er sich ans Feuer und zieht die Stiefel aus.",
+            "it": "Ogni giorno Jack si alza alle cinque. Con Meg si occupa delle pecore. A volte devono cercare un agnello perduto. La sera si siede vicino al fuoco e si toglie gli stivali.",
+            "en": "Every day Jack gets up at five. He looks after the sheep with Meg. Sometimes they have to look for a lost lamb. In the evening he sits down by the fire and takes off his boots."
+          }
+        }
+      ]
+    },
+    {
+      "id": "phrasal-verbs-2",
+      "title": {
+        "sl": "Ugasni ga",
+        "de": "Mach es aus",
+        "it": "Spegnilo",
+        "en": "Turn it off"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "phrasal-verbs",
+          "instruction": {
+            "sl": "Say it with the word in brackets · z besedo v oklepaju",
+            "de": "Say it with the word in brackets · Sag es mit dem Wort in Klammern",
+            "it": "Say it with the word in brackets · dillo con la parola tra parentesi",
+            "en": "Say it with the word in brackets"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Turn off the light. (it)",
+              "accept": [
+                "Turn it off."
+              ],
+              "hint": {
+                "sl": "v sredi",
+                "de": "in der Mitte",
+                "it": "in mezzo",
+                "en": "in between"
+              }
+            },
+            {
+              "from": "Pick up the bags. (them)",
+              "accept": [
+                "Pick them up."
+              ]
+            },
+            {
+              "from": "Jack looks after the sheep. (them)",
+              "accept": [
+                "Jack looks after them."
+              ],
+              "hint": {
+                "sl": "ostane skupaj",
+                "de": "bleibt zusammen",
+                "it": "resta unito",
+                "en": "stays together"
+              }
+            },
+            {
+              "from": "I'm looking for Meg. (her)",
+              "accept": [
+                "I'm looking for her."
+              ]
+            },
+            {
+              "from": "Put on your boots. (them)",
+              "accept": [
+                "Put them on."
+              ]
+            },
+            {
+              "from": "Fill in this form. (it)",
+              "accept": [
+                "Fill it in.",
+                "Fill it out."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Se razdeli: zaimek v sredi. Ostane skupaj: na koncu**\n- Turn it off. · Jack looks after them.",
+            "de": "**Getrennt: das Pronomen in der Mitte. Zusammen: am Ende**\n- Turn it off. · Jack looks after them.",
+            "it": "**Si divide: il pronome in mezzo. Resta unito: in fondo**\n- Turn it off. · Jack looks after them.",
+            "en": "**It can part: the pronoun in between. It stays together: at the end**\n- Turn it off. · Jack looks after them."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "phrasal-verbs",
+          "instruction": {
+            "sl": "Put the noun in between · samostalnik v sredo",
+            "de": "Put the noun in between · Das Nomen in die Mitte",
+            "it": "Put the noun in between · il nome in mezzo",
+            "en": "Put the noun in between"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Turn off the radio.",
+              "accept": [
+                "Turn the radio off."
+              ]
+            },
+            {
+              "from": "Take off your coat.",
+              "accept": [
+                "Take your coat off."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Samostalnik lahko stoji v sredi**\n- Turn the radio off.",
+            "de": "**Das Nomen kann in der Mitte stehen**\n- Turn the radio off.",
+            "it": "**Il nome può stare in mezzo**\n- Turn the radio off.",
+            "en": "**A noun can stand in between**\n- Turn the radio off."
+          }
+        }
+      ]
+    },
+    {
+      "id": "phrasal-verbs-3",
+      "title": {
+        "sl": "Slab dan za Sama",
+        "de": "Sams schlechter Tag",
+        "it": "Una brutta giornata per Sam",
+        "en": "Sam's bad day"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "phrasal-verbs",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "preteklik · get up → got up",
+            "de": "Vergangenheit · get up → got up",
+            "it": "passato · get up → got up",
+            "en": "the past: get up → got up"
+          },
+          "columns": [
+            {
+              "sl": "preteklik · past",
+              "de": "Vergangenheit · past",
+              "it": "passato · past",
+              "en": "past"
+            }
+          ],
+          "rows": [
+            {
+              "label": "give up",
+              "cells": [
+                {
+                  "accept": [
+                    "gave up"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "take off",
+              "cells": [
+                {
+                  "accept": [
+                    "took off"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wake up",
+              "cells": [
+                {
+                  "accept": [
+                    "woke up"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "find out",
+              "cells": [
+                {
+                  "accept": [
+                    "found out"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Spreminja se samo glagol**\n- give up → gave up",
+            "de": "**Nur das Verb ändert sich**\n- give up → gave up",
+            "it": "**Cambia solo il verbo**\n- give up → gave up",
+            "en": "**Only the verb changes**\n- give up → gave up"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "phrasal-verbs",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "On Monday Sam ___ at six (left). Near the bridge his van ___ (stopped working). He had ___ petrol (had none left). He ___ the garage's number in a book (found it). Then he ___ that it was shut (learned). In the end he ___ and walked home (stopped trying).",
+          "gaps": [
+            {
+              "accept": [
+                "set off",
+                "set out",
+                "left"
+              ]
+            },
+            {
+              "accept": [
+                "broke down"
+              ]
+            },
+            {
+              "accept": [
+                "run out of"
+              ]
+            },
+            {
+              "accept": [
+                "looked up",
+                "looked for"
+              ]
+            },
+            {
+              "accept": [
+                "found out"
+              ]
+            },
+            {
+              "accept": [
+                "gave up"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Spreminja se samo glagol: gave up, broke down**\n- He gave up.",
+            "de": "**Nur das Verb ändert sich: gave up, broke down**\n- He gave up.",
+            "it": "**Cambia solo il verbo: gave up, broke down**\n- He gave up.",
+            "en": "**Only the verb changes: gave up, broke down**\n- He gave up."
+          },
+          "translation": {
+            "sl": "V ponedeljek se je Sam odpravil ob šestih. Pri mostu se mu je kombi pokvaril. Zmanjkalo mu je bencina. V knjigi je poiskal številko delavnice. Potem je izvedel, da je zaprta. Nazadnje je odnehal in šel domov peš.",
+            "de": "Am Montag ist Sam um sechs aufgebrochen. Bei der Brücke hatte sein Lieferwagen eine Panne. Ihm war das Benzin ausgegangen. Er hat die Nummer der Werkstatt in einem Buch nachgeschlagen. Dann hat er herausgefunden, dass sie geschlossen war. Am Ende hat er aufgegeben und ist zu Fuß heimgegangen.",
+            "it": "Lunedì Sam è partito alle sei. Vicino al ponte il furgone si è guastato. Aveva finito la benzina. Ha cercato il numero dell'officina in un libro. Poi ha scoperto che era chiusa. Alla fine ha rinunciato ed è tornato a casa a piedi.",
+            "en": "On Monday Sam set off at six. Near the bridge his van broke down. He had run out of petrol. He looked up the garage's number in a book. Then he found out that it was shut. In the end he gave up and walked home."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "phrasal-verbs",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Mrs Birkett gets ___ at six and puts ___ her apron. She looks ___ the inn and everyone in it. When the walkers have gone, she picks ___ their cups. Then she sits ___ at last.",
+        "gaps": [
+          {
+            "accept": [
+              "up"
+            ]
+          },
+          {
+            "accept": [
+              "on"
+            ]
+          },
+          {
+            "accept": [
+              "after"
+            ]
+          },
+          {
+            "accept": [
+              "up"
+            ]
+          },
+          {
+            "accept": [
+              "down"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Gospa Birkett vstane ob šestih in si nadene predpasnik. Skrbi za gostilno in za vse v njej. Ko pohodniki odidejo, pobere njihove skodelice. Potem končno sede.",
+          "de": "Mrs Birkett steht um sechs auf und bindet sich die Schürze um. Sie kümmert sich um das Gasthaus und um alle darin. Wenn die Wanderer weg sind, räumt sie ihre Tassen ab. Dann setzt sie sich endlich.",
+          "it": "Mrs Birkett si alza alle sei e si mette il grembiule. Si occupa della locanda e di tutti quelli che ci sono. Quando gli escursionisti se ne sono andati, raccoglie le loro tazze. Poi finalmente si siede.",
+          "en": "Mrs Birkett gets up at six and puts on her apron. She looks after the inn and everyone in it. When the walkers have gone, she picks up their cups. Then she sits down at last."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "phrasal-verbs",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "These boots are old. I'm going to ___.",
+        "options": [
+          "throw them away",
+          "throw away them",
+          "them throw away"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Zaimek v sredi**\n- throw them away",
+          "de": "**Das Pronomen in der Mitte**\n- throw them away",
+          "it": "**Il pronome in mezzo**\n- throw them away",
+          "en": "**The pronoun in between**\n- throw them away"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "phrasal-verbs",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Have you found ___ when the bus comes?",
+        "options": [
+          "out",
+          "up",
+          "on"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Izvedeti: find out**\n- Have you found out?",
+          "de": "**Herausfinden: find out**\n- Have you found out?",
+          "it": "**Scoprire: find out**\n- Have you found out?",
+          "en": "**Learn: find out**\n- Have you found out?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "phrasal-verbs",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "We can't make scones. We've ___ butter.",
+        "options": [
+          "run out of",
+          "run of",
+          "run out"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**run out of + kaj**\n- We've run out of butter.",
+          "de": "**run out of + was**\n- We've run out of butter.",
+          "it": "**run out of + che cosa**\n- We've run out of butter.",
+          "en": "**run out of + what**\n- We've run out of butter."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "phrasal-verbs",
+        "instruction": {
+          "sl": "Say it with the word in brackets · z besedo v oklepaju",
+          "de": "Say it with the word in brackets · Sag es mit dem Wort in Klammern",
+          "it": "Say it with the word in brackets · dillo con la parola tra parentesi",
+          "en": "Say it with the word in brackets"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Wake up the children. (them)",
+            "accept": [
+              "Wake them up."
+            ]
+          },
+          {
+            "from": "Alfie looks after the hens. (them)",
+            "accept": [
+              "Alfie looks after them."
+            ]
+          },
+          {
+            "from": "Try on this coat. (it)",
+            "accept": [
+              "Try it on."
+            ]
+          },
+          {
+            "from": "I'm looking for my keys. (them)",
+            "accept": [
+              "I'm looking for them."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Se razdeli: zaimek v sredi. Ostane skupaj: na koncu**\n- Wake them up. · Alfie looks after them.",
+          "de": "**Getrennt: das Pronomen in der Mitte. Zusammen: am Ende**\n- Wake them up. · Alfie looks after them.",
+          "it": "**Si divide: il pronome in mezzo. Resta unito: in fondo**\n- Wake them up. · Alfie looks after them.",
+          "en": "**It can part: the pronoun in between. It stays together: at the end**\n- Wake them up. · Alfie looks after them."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

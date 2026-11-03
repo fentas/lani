@@ -1,0 +1,1048 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "verb-patterns",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🚶",
+  "title": {
+    "en": "I decided to go, I enjoy walking",
+    "de": "Verben mit to oder -ing: decided to, enjoy walking",
+    "sl": "Glagoli s to ali -ing: decided to, enjoy walking",
+    "it": "Verbi con to o -ing: decided to, enjoy walking"
+  },
+  "goal": {
+    "sl": "Veš, kateri glagoli vzamejo to in kateri -ing (I decided to go, I enjoy walking), rabiš -ing za predlogom (good at walking) in poveš, kaj hočeš od koga (I want you to go).",
+    "de": "Du weißt, welche Verben to und welche -ing nehmen (I decided to go, I enjoy walking), nimmst -ing nach einer Präposition (good at walking) und sagst, was du von jemandem willst (I want you to go).",
+    "it": "Sai quali verbi vogliono to e quali -ing (I decided to go, I enjoy walking), usi -ing dopo una preposizione (good at walking) e dici che cosa vuoi da qualcuno (I want you to go).",
+    "en": "You know which verbs take to and which -ing (I decided to go, I enjoy walking), use -ing after a small word (good at walking) and say what you want someone to do (I want you to go)."
+  },
+  "grammar": [
+    "verb-patterns",
+    "would-like"
+  ],
+  "words": [
+    "decide",
+    "hope",
+    "promise",
+    "agree",
+    "refuse",
+    "offer",
+    "learn",
+    "need",
+    "enjoy",
+    "finish",
+    "do you mind",
+    "keep",
+    "avoid",
+    "practise",
+    "suggest",
+    "miss",
+    "hate",
+    "start",
+    "begin",
+    "continue",
+    "prefer",
+    "stop",
+    "remember",
+    "good at",
+    "tired of",
+    "without",
+    "look forward to",
+    "want",
+    "ask",
+    "tell",
+    "help",
+    "let",
+    "make",
+    "try",
+    "training",
+    "touch",
+    "fiddle",
+    "note",
+    "view"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "vzorec",
+          "de": "Muster",
+          "it": "schema",
+          "en": "pattern"
+        },
+        {
+          "sl": "glagoli",
+          "de": "Verben",
+          "it": "verbi",
+          "en": "verbs"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za nekaterimi glagoli je **to** + osnovna oblika: **decide, want, hope, promise, agree, refuse, offer, learn, need**. **I decided to go.** (Odločil{m:|f:a} sem se, da grem.) **Jack hopes to buy more sheep.** (Jack upa, da bo kupil več ovc.) **Mrs Birkett promised to help.** V govoru je **I'll try to come** tudi **I'll try and come.**",
+          "de": "Nach manchen Verben kommt **to** + Grundform: **decide, want, hope, promise, agree, refuse, offer, learn, need**. **I decided to go.** (Ich habe beschlossen zu gehen.) **Jack hopes to buy more sheep.** (Jack hofft, mehr Schafe zu kaufen.) **Mrs Birkett promised to help.** Gesprochen ist **I'll try to come** auch **I'll try and come.**",
+          "it": "Dopo alcuni verbi viene **to** + la forma base: **decide, want, hope, promise, agree, refuse, offer, learn, need**. **I decided to go.** (Ho deciso di andare.) **Jack hopes to buy more sheep.** (Jack spera di comprare altre pecore.) **Mrs Birkett promised to help.** L'italiano dice *di*, l'inglese **to**. A voce **I'll try to come** è anche **I'll try and come.**",
+          "en": "After some verbs comes **to** + the base form: **decide, want, hope, promise, agree, refuse, offer, learn, need**. **I decided to go.** **Jack hopes to buy more sheep.** **Mrs Birkett promised to help.** In talk **I'll try to come** is also **I'll try and come.**"
+        },
+        "examples": [
+          {
+            "en": "I decided to go.",
+            "sl": "Odločil{m:|f:a} sem se, da grem.",
+            "de": "Ich habe beschlossen zu gehen.",
+            "it": "Ho deciso di andare."
+          },
+          {
+            "en": "Jack hopes to buy more sheep.",
+            "sl": "Jack upa, da bo kupil več ovc.",
+            "de": "Jack hofft, mehr Schafe zu kaufen.",
+            "it": "Jack spera di comprare altre pecore."
+          },
+          {
+            "en": "Mrs Birkett promised to help.",
+            "sl": "Gospa Birkett je obljubila, da bo pomagala.",
+            "de": "Mrs Birkett hat versprochen zu helfen.",
+            "it": "Mrs Birkett ha promesso di aiutare."
+          }
+        ],
+        "rows": [
+          [
+            "+ to",
+            "decide, want, hope, promise, agree, refuse, offer, learn, need, plan",
+            "I decided to go."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "prompt": "Sam agreed ___ the van.",
+          "options": [
+            "to wash",
+            "washing",
+            "wash"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**agree + to**\n- Sam agreed to wash the van.",
+            "de": "**agree + to**\n- Sam agreed to wash the van.",
+            "it": "**agree + to**\n- Sam agreed to wash the van.",
+            "en": "**agree + to**\n- Sam agreed to wash the van."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za drugimi je **-ing**: **enjoy, finish, mind, keep, avoid, practise, suggest, miss**. **I enjoy walking.** (Rad{m:|f:a} hodim.) **Sam finished cleaning the van.** (Sam je končal čistiti kombi.) **Do you mind waiting?** (Te moti, če počakaš?) **Keep walking!** Pravila ni, naučiš se z glagolom.",
+          "de": "Nach anderen kommt **-ing**: **enjoy, finish, mind, keep, avoid, practise, suggest, miss**. **I enjoy walking.** (Ich gehe gern zu Fuß.) **Sam finished cleaning the van.** (Sam ist mit dem Putzen des Lieferwagens fertig geworden.) **Do you mind waiting?** (Macht es dir etwas aus zu warten?) **Keep walking!** Eine Regel gibt es nicht, du lernst es mit dem Verb.",
+          "it": "Dopo altri viene **-ing**: **enjoy, finish, mind, keep, avoid, practise, suggest, miss**. **I enjoy walking.** (Mi piace camminare.) **Sam finished cleaning the van.** (Sam ha finito di pulire il furgone.) **Do you mind waiting?** (Ti dispiace aspettare?) **Keep walking!** Una regola non c'è, si impara con il verbo.",
+          "en": "After others comes **-ing**: **enjoy, finish, mind, keep, avoid, practise, suggest, miss**. **I enjoy walking.** **Sam finished cleaning the van.** **Do you mind waiting?** **Keep walking!** There's no rule: learn it with the verb."
+        },
+        "examples": [
+          {
+            "en": "I enjoy walking.",
+            "sl": "Rad{m:|f:a} hodim.",
+            "de": "Ich gehe gern zu Fuß.",
+            "it": "Mi piace camminare."
+          },
+          {
+            "en": "Sam finished cleaning the van.",
+            "sl": "Sam je končal čistiti kombi.",
+            "de": "Sam ist mit dem Putzen des Lieferwagens fertig geworden.",
+            "it": "Sam ha finito di pulire il furgone."
+          },
+          {
+            "en": "Do you mind waiting?",
+            "sl": "Te moti, če počakaš?",
+            "de": "Macht es dir etwas aus zu warten?",
+            "it": "Ti dispiace aspettare?"
+          }
+        ],
+        "rows": [
+          [
+            "+ -ing",
+            "enjoy, finish, mind, keep, avoid, practise, suggest, miss",
+            "I enjoy walking."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "prompt": "Mrs Birkett enjoys ___ for the walkers.",
+          "options": [
+            "cooking",
+            "to cook",
+            "cook"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**enjoy + -ing**\n- Mrs Birkett enjoys cooking.",
+            "de": "**enjoy + -ing**\n- Mrs Birkett enjoys cooking.",
+            "it": "**enjoy + -ing**\n- Mrs Birkett enjoys cooking.",
+            "en": "**enjoy + -ing**\n- Mrs Birkett enjoys cooking."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**like, love, hate, start, begin, continue, prefer** vzamejo oboje, pomen je isti: **I like walking.** = **I like to walk.** **It started raining.** = **It started to rain.** (Začelo je deževati.) Po **would like** pa samo to: **I'd like to go.** (Rad{m:|f:a} bi šel{m:|f:la}.)",
+          "de": "**like, love, hate, start, begin, continue, prefer** nehmen beides, die Bedeutung bleibt: **I like walking.** = **I like to walk.** **It started raining.** = **It started to rain.** (Es hat zu regnen begonnen.) Nach **would like** aber nur to: **I'd like to go.** (Ich möchte gehen.)",
+          "it": "**like, love, hate, start, begin, continue, prefer** prendono tutti e due, il significato resta: **I like walking.** = **I like to walk.** **It started raining.** = **It started to rain.** (Ha cominciato a piovere.) Dopo **would like** però solo to: **I'd like to go.** (Vorrei andare.)",
+          "en": "**like, love, hate, start, begin, continue, prefer** take both, with the same meaning: **I like walking.** = **I like to walk.** **It started raining.** = **It started to rain.** After **would like** only to: **I'd like to go.**"
+        },
+        "examples": [
+          {
+            "en": "I like walking.",
+            "sl": "Rad{m:|f:a} hodim.",
+            "de": "Ich gehe gern zu Fuß.",
+            "it": "Mi piace camminare."
+          },
+          {
+            "en": "It started to rain.",
+            "sl": "Začelo je deževati.",
+            "de": "Es hat zu regnen begonnen.",
+            "it": "Ha cominciato a piovere."
+          },
+          {
+            "en": "Old Wilf hates getting up early.",
+            "sl": "Stari Wilf sovraži zgodnje vstajanje.",
+            "de": "Der alte Wilf hasst es, früh aufzustehen.",
+            "it": "Il vecchio Wilf odia alzarsi presto."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "oboje",
+              "de": "beides",
+              "it": "tutti e due",
+              "en": "both"
+            },
+            "like, love, hate, start, begin, continue, prefer",
+            "It started raining."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "verb-patterns",
+          "text": "It began ___ at six. (snow)",
+          "accept": [
+            "snowing",
+            "to snow"
+          ],
+          "hint": {
+            "sl": "oboje je prav",
+            "de": "beides ist richtig",
+            "it": "vanno bene tutti e due",
+            "en": "both are right"
+          },
+          "explain": {
+            "sl": "**begin + -ing ali to**\n- It began snowing. · It began to snow.",
+            "de": "**begin + -ing oder to**\n- It began snowing. · It began to snow.",
+            "it": "**begin + -ing o to**\n- It began snowing. · It began to snow.",
+            "en": "**begin + -ing or to**\n- It began snowing. · It began to snow."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri **stop** in **remember** se pomen spremeni. **Stop talking!** (Nehaj govoriti!) **We stopped to talk.** (Ustavili smo se, da bi se pogovorili.) **Remember to feed the hens.** (Ne pozabi nahraniti kokoši.) **I remember seeing him at the dance.** (Spomnim se, da sem ga videl{m:|f:a} na plesu.) Najprej to, kar je še pred tabo: to; kar je že bilo: -ing.",
+          "de": "Bei **stop** und **remember** ändert sich die Bedeutung. **Stop talking!** (Hör auf zu reden!) **We stopped to talk.** (Wir sind stehen geblieben, um zu reden.) **Remember to feed the hens.** (Vergiss nicht, die Hühner zu füttern.) **I remember seeing him at the dance.** (Ich erinnere mich, dass ich ihn beim Tanz gesehen habe.) Was noch kommt: to; was schon war: -ing.",
+          "it": "Con **stop** e **remember** cambia il significato. **Stop talking!** (Smetti di parlare!) **We stopped to talk.** (Ci siamo fermati per parlare.) **Remember to feed the hens.** (Non dimenticare di dare da mangiare alle galline.) **I remember seeing him at the dance.** (Mi ricordo di averlo visto al ballo.) Ciò che deve ancora succedere: to; ciò che è già stato: -ing.",
+          "en": "With **stop** and **remember** the meaning changes. **Stop talking!** means no more talk. **We stopped to talk.** says why we stopped. **Remember to feed the hens.** is for what's still to do. **I remember seeing him at the dance.** is for what has been."
+        },
+        "examples": [
+          {
+            "en": "Stop talking!",
+            "sl": "Nehaj govoriti!",
+            "de": "Hör auf zu reden!",
+            "it": "Smetti di parlare!"
+          },
+          {
+            "en": "We stopped to talk.",
+            "sl": "Ustavili smo se, da bi se pogovorili.",
+            "de": "Wir sind stehen geblieben, um zu reden.",
+            "it": "Ci siamo fermati per parlare."
+          },
+          {
+            "en": "Remember to feed the hens.",
+            "sl": "Ne pozabi nahraniti kokoši.",
+            "de": "Vergiss nicht, die Hühner zu füttern.",
+            "it": "Non dimenticare di dare da mangiare alle galline."
+          },
+          {
+            "en": "I remember seeing him at the dance.",
+            "sl": "Spomnim se, da sem ga videl{m:|f:a} na plesu.",
+            "de": "Ich erinnere mich, dass ich ihn beim Tanz gesehen habe.",
+            "it": "Mi ricordo di averlo visto al ballo."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "drug pomen",
+              "de": "andere Bedeutung",
+              "it": "altro significato",
+              "en": "another meaning"
+            },
+            "stop, remember",
+            "We stopped to talk."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "prompt": "We stopped at the bridge ___ the view.",
+          "options": [
+            "to see",
+            "seeing",
+            "see"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zakaj smo se ustavili: to**\n- We stopped to see the view.",
+            "de": "**Warum wir stehen geblieben sind: to**\n- We stopped to see the view.",
+            "it": "**Perché ci siamo fermati: to**\n- We stopped to see the view.",
+            "en": "**Why we stopped: to**\n- We stopped to see the view."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za predlogom je vedno **-ing**: **Jack is good at training dogs.** (Jack zna dobro šolati pse.) **Thanks for coming.** (Hvala, da si prišel{m:|f:la}.) **I'm tired of waiting.** **Wash your hands before eating.** **She left without paying.** Tudi **to** je včasih predlog: **I'm looking forward to seeing you.** (Veselim se, da te vidim.)",
+          "de": "Nach einer Präposition steht immer **-ing**: **Jack is good at training dogs.** (Jack kann gut Hunde abrichten.) **Thanks for coming.** (Danke, dass du gekommen bist.) **I'm tired of waiting.** **Wash your hands before eating.** **She left without paying.** Auch **to** ist manchmal eine: **I'm looking forward to seeing you.** (Ich freue mich darauf, dich zu sehen.)",
+          "it": "Dopo una preposizione c'è sempre **-ing**: **Jack is good at training dogs.** (Jack è bravo ad addestrare i cani.) **Thanks for coming.** (Grazie di essere venut{m:o|f:a}.) **I'm tired of waiting.** **Wash your hands before eating.** **She left without paying.** Anche **to** a volte lo è: **I'm looking forward to seeing you.** (Non vedo l'ora di vederti.)",
+          "en": "After a small word like at, for, of or before there is always **-ing**: **Jack is good at training dogs.** **Thanks for coming.** **I'm tired of waiting.** **Wash your hands before eating.** **She left without paying.** Even **to** can be one: **I'm looking forward to seeing you.**"
+        },
+        "examples": [
+          {
+            "en": "Jack is good at training dogs.",
+            "sl": "Jack zna dobro šolati pse.",
+            "de": "Jack kann gut Hunde abrichten.",
+            "it": "Jack è bravo ad addestrare i cani."
+          },
+          {
+            "en": "I'm tired of waiting.",
+            "sl": "Sit{m:|f:a} sem čakanja.",
+            "de": "Ich habe es satt zu warten.",
+            "it": "Sono stanc{m:o|f:a} di aspettare."
+          },
+          {
+            "en": "I'm looking forward to seeing you.",
+            "sl": "Veselim se, da te vidim.",
+            "de": "Ich freue mich darauf, dich zu sehen.",
+            "it": "Non vedo l'ora di vederti."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "predlog + -ing",
+              "de": "Präposition + -ing",
+              "it": "preposizione + -ing",
+              "en": "small word + -ing"
+            },
+            "good at, tired of, before, without",
+            "good at walking"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "prompt": "Mr Dixon is good ___ gates.",
+          "options": [
+            "at mending",
+            "at mend",
+            "in mending"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**good at + -ing**\n- good at mending gates",
+            "de": "**good at + -ing**\n- good at mending gates",
+            "it": "**good at + -ing**\n- good at mending gates",
+            "en": "**good at + -ing**\n- good at mending gates"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**want, ask, tell, need, would like, help** + oseba + **to**: **I want you to go.** (Hočem, da greš.) Slovenski *da* tu ni that. **Mrs Birkett asked me to wait.** **He told us not to touch it.** **let** in **make** so brez to: **Let me help.** (Naj pomagam.) **The rain made us go home.**",
+          "de": "**want, ask, tell, need, would like, help** + Person + **to**: **I want you to go.** (Ich will, dass du gehst.) Das deutsche *dass* ist hier nicht that. **Mrs Birkett asked me to wait.** **He told us not to touch it.** **let** und **make** sind ohne to: **Let me help.** (Lass mich helfen.) **The rain made us go home.**",
+          "it": "**want, ask, tell, need, would like, help** + persona + **to**: **I want you to go.** (Voglio che tu vada.) *che* qui non è that. **Mrs Birkett asked me to wait.** **He told us not to touch it.** **let** e **make** sono senza to: **Let me help.** (Lascia che ti aiuti.) **The rain made us go home.**",
+          "en": "**want, ask, tell, need, would like, help** + someone + **to**: **I want you to go.** **Mrs Birkett asked me to wait.** **He told us not to touch it.** **let** and **make** take no to: **Let me help.** **The rain made us go home.**"
+        },
+        "examples": [
+          {
+            "en": "I want you to go.",
+            "sl": "Hočem, da greš.",
+            "de": "Ich will, dass du gehst.",
+            "it": "Voglio che tu vada."
+          },
+          {
+            "en": "Mrs Birkett asked me to wait.",
+            "sl": "Gospa Birkett me je prosila, naj počakam.",
+            "de": "Mrs Birkett hat mich gebeten zu warten.",
+            "it": "Mrs Birkett mi ha chiesto di aspettare."
+          },
+          {
+            "en": "Let me help.",
+            "sl": "Naj pomagam.",
+            "de": "Lass mich helfen.",
+            "it": "Lascia che ti aiuti."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "oseba + to",
+              "de": "Person + to",
+              "it": "persona + to",
+              "en": "someone + to"
+            },
+            "want, ask, tell, need",
+            "I want you to go."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "prompt": "Jack wants ___ the dogs.",
+          "options": [
+            "me to feed",
+            "that I feed",
+            "me feed"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**want + oseba + to**\n- Jack wants me to feed the dogs.",
+            "de": "**want + Person + to**\n- Jack wants me to feed the dogs.",
+            "it": "**want + persona + to**\n- Jack wants me to feed the dogs.",
+            "en": "**want + someone + to**\n- Jack wants me to feed the dogs."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "verb-patterns-1",
+      "title": {
+        "sl": "Odločil se je, rad dela",
+        "de": "Er beschließt, er arbeitet gern",
+        "it": "Ha deciso, gli piace lavorare",
+        "en": "He decided, he enjoys working"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "+ to",
+                "de": "+ to",
+                "it": "+ to",
+                "en": "+ to"
+              },
+              "words": [
+                "decide",
+                "hope",
+                "promise"
+              ]
+            },
+            {
+              "label": {
+                "sl": "+ -ing",
+                "de": "+ -ing",
+                "it": "+ -ing",
+                "en": "+ -ing"
+              },
+              "words": [
+                "enjoy",
+                "finish",
+                "mind"
+              ]
+            },
+            {
+              "label": {
+                "sl": "both · oboje",
+                "de": "both · beides",
+                "it": "both · tutti e due",
+                "en": "both"
+              },
+              "words": [
+                "like",
+                "start",
+                "hate"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Naučiš se z glagolom**\n- decide to · enjoy walking · start to, start raining",
+            "de": "**Du lernst es mit dem Verb**\n- decide to · enjoy walking · start to, start raining",
+            "it": "**Si impara con il verbo**\n- decide to · enjoy walking · start to, start raining",
+            "en": "**Learn it with the verb**\n- decide to · enjoy walking · start to, start raining"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Last week Jack decided ___ (sell) two sheep. He enjoys ___ (work) on the farm, but he needs ___ (buy) a new van. Sam offered ___ (help). They finished ___ (talk) at ten.",
+          "gaps": [
+            {
+              "accept": [
+                "to sell"
+              ]
+            },
+            {
+              "accept": [
+                "working"
+              ]
+            },
+            {
+              "accept": [
+                "to buy"
+              ]
+            },
+            {
+              "accept": [
+                "to help"
+              ]
+            },
+            {
+              "accept": [
+                "talking"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "to work",
+            "to talk"
+          ],
+          "explain": {
+            "sl": "**decide, need, offer + to; enjoy, finish + -ing**\n- He enjoys working.",
+            "de": "**decide, need, offer + to; enjoy, finish + -ing**\n- He enjoys working.",
+            "it": "**decide, need, offer + to; enjoy, finish + -ing**\n- He enjoys working.",
+            "en": "**decide, need, offer + to; enjoy, finish + -ing**\n- He enjoys working."
+          },
+          "translation": {
+            "sl": "Prejšnji teden se je Jack odločil prodati dve ovci. Rad dela na kmetiji, a mora kupiti nov kombi. Sam je ponudil pomoč. Pogovor sta končala ob desetih.",
+            "de": "Letzte Woche hat Jack beschlossen, zwei Schafe zu verkaufen. Er arbeitet gern auf dem Hof, aber er braucht einen neuen Lieferwagen. Sam hat seine Hilfe angeboten. Um zehn waren sie mit dem Reden fertig.",
+            "it": "La settimana scorsa Jack ha deciso di vendere due pecore. Gli piace lavorare alla fattoria, ma deve comprare un furgone nuovo. Sam si è offerto di aiutare. Hanno finito di parlare alle dieci.",
+            "en": "Last week Jack decided to sell two sheep. He enjoys working on the farm, but he needs to buy a new van. Sam offered to help. They finished talking at ten."
+          }
+        }
+      ]
+    },
+    {
+      "id": "verb-patterns-2",
+      "title": {
+        "sl": "Dober v šolanju psov",
+        "de": "Gut im Abrichten",
+        "it": "Bravo ad addestrare",
+        "en": "Good at training dogs"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Jack is good at ___ (train) dogs. Meg is tired of ___ (wait). \"Thanks for ___ (come),\" said Mrs Birkett. Wash your hands before ___ (eat). Old Wilf left without ___ (pay)!",
+          "gaps": [
+            {
+              "accept": [
+                "training"
+              ]
+            },
+            {
+              "accept": [
+                "waiting"
+              ]
+            },
+            {
+              "accept": [
+                "coming"
+              ]
+            },
+            {
+              "accept": [
+                "eating"
+              ]
+            },
+            {
+              "accept": [
+                "paying"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Za predlogom: -ing**\n- good at training",
+            "de": "**Nach einer Präposition: -ing**\n- good at training",
+            "it": "**Dopo una preposizione: -ing**\n- good at training",
+            "en": "**After a small word: -ing**\n- good at training"
+          },
+          "translation": {
+            "sl": "Jack zna dobro šolati pse. Meg je sita čakanja. »Hvala, da ste prišli,« je rekla gospa Birkett. Pred jedjo si umij roke. Stari Wilf je odšel, ne da bi plačal!",
+            "de": "Jack kann gut Hunde abrichten. Meg hat das Warten satt. „Danke, dass ihr gekommen seid“, sagte Mrs Birkett. Wasch dir vor dem Essen die Hände. Der alte Wilf ist gegangen, ohne zu zahlen!",
+            "it": "Jack è bravo ad addestrare i cani. Meg è stanca di aspettare. «Grazie di essere venuti», ha detto Mrs Birkett. Lavati le mani prima di mangiare. Il vecchio Wilf è andato via senza pagare!",
+            "en": "Jack is good at training dogs. Meg is tired of waiting. \"Thanks for coming,\" said Mrs Birkett. Wash your hands before eating. Old Wilf left without paying!"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Stop ___ (talk), please! I can't hear. Remember ___ (shut) the gate tonight. On the way home we stopped at the bridge ___ (look) at the beck. I remember ___ (meet) you at the dance last year.",
+          "gaps": [
+            {
+              "accept": [
+                "talking"
+              ],
+              "explain": {
+                "sl": "**Nehaj: stop + -ing**",
+                "de": "**Hör auf: stop + -ing**",
+                "it": "**Smetti: stop + -ing**",
+                "en": "**No more: stop + -ing**"
+              }
+            },
+            {
+              "accept": [
+                "to shut"
+              ],
+              "explain": {
+                "sl": "**Še pred tabo: remember + to**",
+                "de": "**Es kommt noch: remember + to**",
+                "it": "**Deve ancora succedere: remember + to**",
+                "en": "**Still to do: remember + to**"
+              }
+            },
+            {
+              "accept": [
+                "to look"
+              ],
+              "explain": {
+                "sl": "**Zakaj: stop + to**",
+                "de": "**Warum: stop + to**",
+                "it": "**Perché: stop + to**",
+                "en": "**Why: stop + to**"
+              }
+            },
+            {
+              "accept": [
+                "meeting"
+              ],
+              "explain": {
+                "sl": "**Že bilo: remember + -ing**",
+                "de": "**Schon gewesen: remember + -ing**",
+                "it": "**Già stato: remember + -ing**",
+                "en": "**Has been: remember + -ing**"
+              }
+            }
+          ],
+          "translation": {
+            "sl": "Nehaj govoriti, prosim! Ne slišim. Ne pozabi nocoj zapreti vrat. Na poti domov smo se ustavili pri mostu, da bi pogledali potok. Spomnim se, da sem te lani srečal{m:|f:a} na plesu.",
+            "de": "Hör bitte auf zu reden! Ich höre nichts. Vergiss nicht, heute Abend das Tor zu schließen. Auf dem Heimweg sind wir bei der Brücke stehen geblieben, um auf den Bach zu schauen. Ich erinnere mich, dass ich dich letztes Jahr beim Tanz getroffen habe.",
+            "it": "Smetti di parlare, per favore! Non sento. Non dimenticare di chiudere il cancello stasera. Tornando a casa ci siamo fermati al ponte a guardare il ruscello. Mi ricordo di averti incontrat{m:o|f:a} al ballo l'anno scorso.",
+            "en": "Stop talking, please! I can't hear. Remember to shut the gate tonight. On the way home we stopped at the bridge to look at the beck. I remember meeting you at the dance last year."
+          }
+        }
+      ]
+    },
+    {
+      "id": "verb-patterns-3",
+      "title": {
+        "sl": "Hočem, da greš",
+        "de": "Ich will, dass du gehst",
+        "it": "Voglio che tu vada",
+        "en": "I want you to go"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Say it with the words in brackets · z besedami v oklepaju",
+            "de": "Say it with the words in brackets · Sag es mit den Wörtern in Klammern",
+            "it": "Say it with the words in brackets · dillo con le parole tra parentesi",
+            "en": "Say it with the words in brackets"
+          },
+          "cue": "→",
+          "whole": true,
+          "items": [
+            {
+              "from": "Wait here! (She told me)",
+              "accept": [
+                "She told me to wait here."
+              ],
+              "hint": {
+                "sl": "told me + to",
+                "de": "told me + to",
+                "it": "told me + to",
+                "en": "told me + to"
+              }
+            },
+            {
+              "from": "Please help. (He asked us)",
+              "accept": [
+                "He asked us to help."
+              ],
+              "hint": {
+                "sl": "asked us + to",
+                "de": "asked us + to",
+                "it": "asked us + to",
+                "en": "asked us + to"
+              }
+            },
+            {
+              "from": "Close the gate. (Mrs Birkett wants you)",
+              "accept": [
+                "Mrs Birkett wants you to close the gate."
+              ]
+            },
+            {
+              "from": "Don't touch it! (He told me)",
+              "accept": [
+                "He told me not to touch it."
+              ],
+              "hint": {
+                "sl": "not to",
+                "de": "not to",
+                "it": "not to",
+                "en": "not to"
+              }
+            },
+            {
+              "from": "Carry this, please. (She asked Sam)",
+              "accept": [
+                "She asked Sam to carry this."
+              ]
+            },
+            {
+              "from": "Stay for dinner. (I'd like you)",
+              "accept": [
+                "I'd like you to stay for dinner."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Oseba + to, brez that**\n- She told me to wait here.",
+            "de": "**Person + to, ohne that**\n- She told me to wait here.",
+            "it": "**Persona + to, senza that**\n- She told me to wait here.",
+            "en": "**Someone + to, with no that**\n- She told me to wait here."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Let me ___ you with that bag.",
+          "options": [
+            "help",
+            "to help",
+            "helping"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**let brez to**\n- Let me help you.",
+            "de": "**let ohne to**\n- Let me help you.",
+            "it": "**let senza to**\n- Let me help you.",
+            "en": "**let takes no to**\n- Let me help you."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "The rain made us ___ home.",
+          "options": [
+            "go",
+            "to go",
+            "going"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**make brez to**\n- The rain made us go home.",
+            "de": "**make ohne to**\n- The rain made us go home.",
+            "it": "**make senza to**\n- The rain made us go home.",
+            "en": "**make takes no to**\n- The rain made us go home."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "You should practise ___ every day.",
+          "options": [
+            "speaking",
+            "to speak",
+            "speak"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**practise + -ing**\n- practise speaking",
+            "de": "**practise + -ing**\n- practise speaking",
+            "it": "**practise + -ing**\n- practise speaking",
+            "en": "**practise + -ing**\n- practise speaking"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "verb-patterns",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "I'll try ___ (come) tomorrow, but I can't promise ___ (be) on time.",
+          "gaps": [
+            {
+              "accept": [
+                "to come"
+              ],
+              "spoken": [
+                "and come"
+              ]
+            },
+            {
+              "accept": [
+                "to be"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**try, promise + to; v govoru tudi try and**\n- I'll try to come.",
+            "de": "**try, promise + to; gesprochen auch try and**\n- I'll try to come.",
+            "it": "**try, promise + to; a voce anche try and**\n- I'll try to come.",
+            "en": "**try, promise + to; in talk also try and**\n- I'll try to come."
+          },
+          "translation": {
+            "sl": "Poskusil{m:|f:a} bom priti jutri, a ne morem obljubiti, da bom pravočasno.",
+            "de": "Ich versuche, morgen zu kommen, aber ich kann nicht versprechen, pünktlich zu sein.",
+            "it": "Cercherò di venire domani, ma non posso promettere di essere puntuale.",
+            "en": "I'll try to come tomorrow, but I can't promise to be on time."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "verb-patterns",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Poppy wants ___ (learn) the fiddle, and she hopes ___ (play) at the dance. She practises ___ (play) every evening, and she's getting better at ___ (read) the notes. Mrs Hartley suggested ___ (ask) Old Wilf for help.",
+        "gaps": [
+          {
+            "accept": [
+              "to learn"
+            ]
+          },
+          {
+            "accept": [
+              "to play"
+            ]
+          },
+          {
+            "accept": [
+              "playing"
+            ]
+          },
+          {
+            "accept": [
+              "reading"
+            ]
+          },
+          {
+            "accept": [
+              "asking"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Poppy se hoče naučiti igrati gosli in upa, da bo igrala na plesu. Vsak večer vadi in vse bolje bere note. Gospa Hartley je predlagala, naj prosi za pomoč starega Wilfa.",
+          "de": "Poppy will Geige lernen, und sie hofft, beim Tanz zu spielen. Jeden Abend übt sie, und sie wird beim Notenlesen immer besser. Mrs Hartley hat vorgeschlagen, den alten Wilf um Hilfe zu bitten.",
+          "it": "Poppy vuole imparare a suonare il violino e spera di suonare al ballo. Si esercita ogni sera e legge le note sempre meglio. Mrs Hartley ha suggerito di chiedere aiuto al vecchio Wilf.",
+          "en": "Poppy wants to learn the fiddle, and she hopes to play at the dance. She practises playing every evening, and she's getting better at reading the notes. Mrs Hartley suggested asking Old Wilf for help."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "verb-patterns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Have you finished ___ the floor?",
+        "options": [
+          "washing",
+          "to wash",
+          "wash"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**finish + -ing**\n- finished washing",
+          "de": "**finish + -ing**\n- finished washing",
+          "it": "**finish + -ing**\n- finished washing",
+          "en": "**finish + -ing**\n- finished washing"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "verb-patterns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mr Tyson refused ___ the mill.",
+        "options": [
+          "to sell",
+          "selling",
+          "sell"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**refuse + to**\n- refused to sell",
+          "de": "**refuse + to**\n- refused to sell",
+          "it": "**refuse + to**\n- refused to sell",
+          "en": "**refuse + to**\n- refused to sell"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "verb-patterns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "The doctor told Auntie Edna ___ in bed.",
+        "options": [
+          "to stay",
+          "stay",
+          "staying"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**tell + oseba + to**\n- told her to stay",
+          "de": "**tell + Person + to**\n- told her to stay",
+          "it": "**tell + persona + to**\n- told her to stay",
+          "en": "**tell + someone + to**\n- told her to stay"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "verb-patterns",
+        "instruction": {
+          "sl": "Say it with the words in brackets · z besedami v oklepaju",
+          "de": "Say it with the words in brackets · Sag es mit den Wörtern in Klammern",
+          "it": "Say it with the words in brackets · dillo con le parole tra parentesi",
+          "en": "Say it with the words in brackets"
+        },
+        "cue": "→",
+        "whole": true,
+        "items": [
+          {
+            "from": "Wait for me. (I asked Jack)",
+            "accept": [
+              "I asked Jack to wait for me."
+            ]
+          },
+          {
+            "from": "Don't be late. (She told us)",
+            "accept": [
+              "She told us not to be late."
+            ]
+          },
+          {
+            "from": "I swim. (I enjoy)",
+            "accept": [
+              "I enjoy swimming."
+            ]
+          },
+          {
+            "from": "We sell the hens. (We decided)",
+            "accept": [
+              "We decided to sell the hens."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Naučiš se z glagolom**\n- I enjoy swimming. · We decided to sell.",
+          "de": "**Du lernst es mit dem Verb**\n- I enjoy swimming. · We decided to sell.",
+          "it": "**Si impara con il verbo**\n- I enjoy swimming. · We decided to sell.",
+          "en": "**Learn it with the verb**\n- I enjoy swimming. · We decided to sell."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}
