@@ -388,6 +388,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        (the ones first, half past as German counts it), the road without clips; also as pi-*.png in
                        $LANI_QA_PRACTICE_SHOTS; "practice-pace" (only when named) how the curated modules' requests reach a
                        Teo at Vas on a tablet's size; also as pace-*.png in $LANI_QA_PACE_SHOTS;
+                       "practice-en" (only when named; a learner of English from Slovene, LANI_CULTURE=lakeland) English's
+                       practice: the ✨ modules, a module's why in Slovene, the numbers (the ones first, half past as Slovene
+                       counts it), the road's drills without clips; also as pe-*.png in $LANI_QA_PRACTICE_SHOTS;
                        "school-board" (only with LANI_QA_SCHOOL_LEVEL=<level>; a learner as "course-unit"'s) the level's units all on the
                        school's screen, its folded list opened, sb-*.png in $LANI_QA_COURSE_SHOTS; "course-unit" (only when named, with
                        LANI_QA_COURSE_UNIT=<unit>: a synthetic learner of the village's language in its culture, e.g. German in
@@ -16093,6 +16096,171 @@ def practice_pace():
     return None
 
 
+def practice_en():
+    """English's practice for a learner from Slovene (docs/plans/05-built/practice-en.md), on a synthetic learner of English
+    (LANI_DEV_DATA: make-learner.ts --target en --base sl; LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-sl): Home's ✨ with
+    a module to play, no "none yet"; the sheet offers A1's, nothing above the learner's level; a module's first question
+    answered, its why in Slovene. The numbers: closed (the unit numbers as never begun), the intro skipped, the note, open; a
+    number's word written with the ones first ("seven twenty"): wrong, English's order the why; with the unit time's intro a
+    clock time written as Slovene counts the half ("half six" for 5:30): half past's why; 🔢 on Home. The road: the four
+    drills without clips named as such, no dead button. Also as pe-*.png in $LANI_QA_PRACTICE_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "lakeland":
+        return "skipped: the dev bridge's village isn't the Lake District's (LANI_CULTURE=lakeland and a learner of English)"
+    out = Path(os.environ["LANI_QA_PRACTICE_SHOTS"]) if os.environ.get("LANI_QA_PRACTICE_SHOTS") else None
+    pair = ["en", "sl"]
+    ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]
+    tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
+
+    def lab(key: str, **a) -> str:
+        def one(lang):
+            t = l10n(lang).get(key, key)
+            for k, v in a.items():
+                t = t.replace("{" + k + "}", str(v))
+            return t
+        return " · ".join(one(lang) for lang in pair)
+
+    def snap(name: str):
+        shot(f"pe-{name}")
+        if out:
+            out.mkdir(parents=True, exist_ok=True)
+            (out / f"pe-{name}.png").write_bytes(shots[-1].read_bytes())
+
+    modules = dev_bridge("/modules")
+    assert modules, "the dev bridge offers English modules"
+    assert len(modules) == 1 and modules[0]["level"] == "A1", f"one at a time, A1's: {[(m['id'], m['level']) for m in modules]}"
+    go_home()
+    tile = scroll_to(l10n("en").get("homeScreen.challenges"), 8)
+    assert tile, "the ✨ tile"
+    assert not wait_for(lab("homeLogic.noneYet"), 1), "no \"none yet\" for a learner of English"
+    snap("home-challenges")
+    tap_at(tile)
+    first = modules[0]
+    assert wait_for(first["title"], 8), f"the sheet lists {first['title']}"
+    assert not wait_for("If I had", 1) and not wait_for("I wish", 1), "nothing above the learner's level"
+    snap("challenges-sheet")
+    tap(first["title"], 4)
+    spec = dev_bridge(f"/modules/{first['id']}")
+    told = [spec["quest"]["story"].split(" · ")[-1][:24], (spec.get("description") or "")[:24]]
+    assert wait_for(told[0], 12) or wait_for(told[1], 3), f"the module's card, in Slovene: {told}"
+    snap("module-intro")
+    assert tap(lab("numbers.start").split(" · ")[0] + " ·", 4), "▶ Start"
+    labels, ex = [], None
+    for _ in range(20):
+        labels = [t for t, _ in nodes()]
+        ex = next((e for e in spec["exercises"] if e["type"] == "choice" and any(e["prompt"][:30] in t for t in labels)), None)
+        if ex:
+            break
+        time.sleep(1)
+    assert ex, f"a choice of the module on screen ({labels[:8]})"
+    snap("module-question")
+    assert tap(ex["options"][ex["answer"]], 4), "its right answer"
+    time.sleep(2 * slow())
+    assert wait_for(ex["explain"].split("**")[1][:16], 6), "its why, in Slovene"
+    snap("module-why")
+    go_home()
+
+    # the numbers: closed, the intro one tap away, the note, open
+    qa_hook("numbers:locked")
+    assert wait_for(lab("numbers.openIntro"), 12), "the closed module's way to the intro"
+    snap("numbers-locked")
+    assert tap(lab("numbers.openIntro"), 3), "open the intro"
+    assert wait_for(lab("school.knowThis"), 12), "the unit numbers's intro, one tap away"
+    snap("numbers-intro")
+    assert tap(lab("school.knowThis"), 4), "⏭ known"
+    assert wait_for(l10n("en").get("numbers.on")[:24], 45), "the note: the numbers are open"
+    snap("numbers-note")
+    qa_hook("numbers")
+    assert wait_for(lab("numbers.start"), 15), "the module open"
+    assert wait_for("11–20", 4), "its first two ranges"
+    assert wait_for(l10n("sl").get("numbers.en.tip")[:30], 4), "English's tip, in Slovene"
+    snap("numbers-open")
+
+    # ✍️ a number of 21–99 with the ones first, as Slovene says it
+    qa_hook("numbers:ranges:21-99")
+    qa_hook("numbers:only:write")
+    qa_hook("numbers")
+    assert tap(lab("numbers.start"), 8), "start a run"
+    next_label = lab("common.next")
+    answer_field = lab("playerScreen.typeAnswer")
+    shown, field = None, None
+    for _ in range(10):
+        assert wait_for(lab("numbers.ask.write"), 10), "figures to write"
+        shown = numbers_on_screen()
+        field = wait_for(answer_field, 6)
+        assert shown is not None and field, "the figures and the field"
+        if 21 <= shown <= 99 and shown % 10:
+            break
+        tap_at(field)
+        type_text("zero")
+        assert tap(lab("playerScreen.check"), 3), "check"
+        assert tap(next_label, 6), "on to the next"
+    assert 21 <= shown <= 99 and shown % 10, f"a number of 21–99 ({shown})"
+    tap_at(field)
+    keyboard_settled()
+    type_text(f"{ones[shown % 10]} {tens[shown // 10]}")
+    snap("numbers-write")
+    assert tap(lab("playerScreen.check"), 3), "check the word"
+    assert wait_for("❌", 6), "wrong: the ones first"
+    assert wait_for("najprej desetice", 4), "the order's why, in Slovene"
+    print(f"    {shown}: «{ones[shown % 10]} {tens[shown // 10]}» for «{tens[shown // 10]}-{ones[shown % 10]}»: the order's why")
+    snap("numbers-order")
+    go_home()
+
+    # 🕰️ the unit time's intro done: half past written as Slovene counts it ("half six" for 5:30)
+    qa_hook("numbers:time")
+    qa_hook("numbers:only:time_write")
+    qa_hook("numbers")
+    assert tap(lab("numbers.start"), 8), "start a run"
+    m = None
+    for _ in range(10):
+        assert wait_for(lab("numbers.en.ask.timeWrite"), 10), "a clock time to write"
+        m = next((re.search(r"(\d{1,2}):(\d\d)", t) for t, _ in nodes() if re.search(r"⏰ \d", t)), None)
+        field = wait_for(answer_field, 6)
+        assert m and field, "the time and the field"
+        if m[2] == "30" and int(m[1]) != 12:
+            break
+        tap_at(field)
+        type_text("zero")
+        assert tap(lab("playerScreen.check"), 3), "check"
+        assert tap(next_label, 6), "on to the next"
+    assert m and m[2] == "30", "half past"
+    tap_at(field)
+    keyboard_settled()
+    hour = int(m[1]) % 12 + 1
+    type_text(f"half {ones[hour]}")
+    snap("numbers-time")
+    assert tap(lab("playerScreen.check"), 3), "check the time"
+    assert wait_for("❌", 6), "wrong: half past counted as Slovene does"
+    assert wait_for("ne k naslednji", 4), "half past's why, in Slovene"
+    snap("numbers-half")
+    go_home()
+    tile = scroll_to(l10n("en").get("numbers.title"), 8)
+    assert tile, "🔢 on Home, the module open"
+    snap("home-numbers")
+
+    # the road: no clips of this learner, the drills named, no dead buttons
+    tile = scroll_to(l10n("en").get("road.title"), 6)
+    assert tile, "the 🚗 tile"
+    tap_at(tile)
+    assert wait_for(lab("road.prepare"), 6), "the sheet, nothing got ready"
+    qa_hook("road:mini")
+    if wait_for(l10n("sl").get("road.noRecordings", "")[:30], 60 * slow()):
+        print("    getting ready: no recordings in this language, said so")
+        snap("road-no-recordings")
+    else:
+        snap("road-state")
+    if any(l10n("sl").get("road.more", "?") in t for t, _ in nodes()):
+        tap(lab("road.more"), 3)
+        time.sleep(1)
+        snap("road-more")
+    go_home()
+    return None
+
+
 def road_clips() -> str | None:
     """The clips a small library ("road:mini") takes, made by the dev bridge first where its voice store lacks them. The car
     plays only what the store has (road/RoadGather: getting the road ready never has anything voiced), so a learner the dev
@@ -18941,6 +19109,7 @@ def plan():
         ("friuli-school-unit", friuli_school_unit, None, False, ""),
         ("practice-it", practice_it, None, False, ""),
         ("practice-pace", practice_pace, None, False, ""),
+        ("practice-en", practice_en, None, False, ""),
         # only with --steps course-unit: a unit of the village's language's course end to end and its print (LANI_QA_COURSE_UNIT)
         ("course-unit", course_unit, None, False, ""),
         ("school-board", school_board, None, False, ""),
@@ -19530,7 +19699,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-en") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

@@ -314,7 +314,7 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   (`companion/cultures/friuli/packs/`, its festivals' words), not Jan's Slovene ones. A learned word becomes an
   Italian card with its meaning in the learner's base language.
 - Jan's curated Slovene modules, role-plays and scenes aren't served either: another language's go in
-  `companion/modules/it/`, `companion/scenarios/it/` and `companion/scenes/it/` (the tutor writes more for the learner
+  `companion/modules/it/` (English's in `companion/modules/en/`), `companion/scenarios/it/` and `companion/scenes/it/` (the tutor writes more for the learner
   with `publish_module`, `publish_scenario`, `publish_scene`). Teo's Italian role-plays are in `companion/scenarios/it/`
   (nine, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday lunch at Nonna
   Rosa's, the playground, a phone call to the nonna, Tommaso's party); a scenario in another language than the
@@ -4536,7 +4536,7 @@ prompts (about 60 MB).
 Every session id from before still plays (a car remembers the one it played last), and the first tab keeps its id.
 A session with nothing to play stays away (`RoadMix.available`): no menu item in the car, no button on the sheet, no switch
 to it while something plays. It used to be there and do nothing. That is every drill session in a language without drills
-(German and English so far) or without their clips (Italian until voice-build has voiced them). The sheet's "Več · More" names what
+(German so far) or without their clips (Italian and English until voice-build has voiced them). The sheet's "Več · More" names what
 isn't there and why ("🔇 … posnetkov še ni"), and a getting-ready that found no clips at all says there are no recordings in
 this language.
 The sessions:
@@ -4720,7 +4720,10 @@ validates and serves them (`GET /drills`); the app bundles its own copy (for a b
 `voice-build` voices them (`drills A1`, `drills A2+`).
 
 Italian has its four too (`companion/drills/it/`: 251 transformations from A1 to the congiuntivo at B1, 80 sentences built, 58 riddles
-told by Nonno Bepi; 1,205 texts, 24,601 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md). What follows
+told by Nonno Bepi; 1,205 texts, 24,601 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md). English has
+its four (`companion/drills/en/`: 302 transformations from A1's plural to B2's should have and I wish, 80 sentences built, 53
+riddles told by Old Wilf; every text's meaning in sl, de and it, since an English cue would be the answer itself; 1,399 texts,
+37,286 characters, none voiced yet: docs/plans/05-built/practice-en.md). What follows
 describes Slovene's; a language's drills are data, its generated numbers `numberWord` (all four languages), and a session
 without clips stays away from the menu.
 
