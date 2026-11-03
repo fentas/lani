@@ -8831,15 +8831,16 @@ def production_exercise(e: dict, where: str, shots: str | None = None):
         c = find("Brez mikrofona · Can't speak now")
         if c is not None:
             tap_at(c)
-        assert wait_for("sem pravilno", 8) or wait_for("Pokaži · Reveal", 2), f"{where}: the learner rates themselves"
+        # the rating comes last on the screen, under the panel that says why: as low as the screen goes (no bar below)
+        c = scroll_to("Pokaži · Reveal", 4, bottom=2300) if not e.get("show") else None
         if shots:
             shot(f"{shots}-rate")
-        if find("Pokaži · Reveal") is not None:
-            assert tap("Pokaži · Reveal", 4), f"{where}: the model revealed"
-        c = scroll_to("sem pravilno", 4)
+        if c is not None:
+            tap_at(c)  # the model shown and said, then the two ratings
+        c = scroll_to("sem pravilno", 4, bottom=2300)
         assert c is not None, f"{where}: ✓ I said it right"
         tap_at(c)
-        assert wait_for("Pravilno", 6), f"{where}: rated right"
+        assert wait_for("Pravilno", 6) or wait_for("Naprej · Next", 2), f"{where}: rated right"
         if shots:
             shot(f"{shots}-rated")
         return
@@ -8853,8 +8854,7 @@ def production_exercise(e: dict, where: str, shots: str | None = None):
         shot(f"{shots}-empty")
         type_text(" ".join(words[:half]) + " ")
         shot(f"{shots}-half")
-        tap_at(scroll_to("Napiši v slovenščini", 4) or c)
-        type_text(" ".join(words[half:]))
+        type_text(" ".join(words[half:]))  # the field keeps its focus (its placeholder is gone now)
     else:
         type_text(model)
     if shots:
@@ -8912,6 +8912,7 @@ def school_production():
                 tap_at(c)
             assert wait_for("šteje le, ko te sliši mikrofon", 8), "the test's self-rating: it doesn't count"
             shot("production-test-rated")
+            production_exercise(e, f"test #{n}", shots="production-test")  # rated right all the same: practice
             break
         sheet_exercise(e, f"test #{n}")
         assert tap("Naprej · Next", 6), f"test #{n}: on"
@@ -9005,7 +9006,10 @@ def school_unit():
     shot("school-unit-passed")
     if star := next_unit_once("sl"):
         print(f"    {star}")
-    assert tap("Naprej · Continue", 4), "back to the unit"
+    # under the next unit's card and the village's lines (a day past 40 answers adds one): scrolled to
+    c = scroll_to("Naprej · Continue", 4, bottom=2300)
+    assert c is not None, "back to the unit"
+    tap_at(c)
     assert wait_for("Enota je opravljena", 8), "the unit done"
     end, done = time.time() + 20 * slow(), None
     while time.time() < end:  # the app pushes the village to the node
