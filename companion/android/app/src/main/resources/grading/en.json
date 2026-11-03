@@ -37,7 +37,13 @@
     ["(?<!\\p{L})(catalog|dialog|analog|monolog|prolog)(s?)(?!\\p{L})", "$1ue$2"],
     ["(?<!\\p{L})program(s?)(?!\\p{L})", "programme$1"],
     ["(?<!\\p{L})(real|organ|recogn|apolog|memor|special|summar|prior|familiar|personal)is(e|es|ed|ing|ation|ations)(?!\\p{L})", "$1iz$2"],
-    ["(?<!\\p{L})practis(e|es|ed|ing)(?!\\p{L})", "practic$1"]
+    ["(?<!\\p{L})practis(e|es|ed|ing)(?!\\p{L})", "practic$1"],
+    ["(?<!\\p{L})(if \\p{L}{1,12})'d (?=(?:come|become|run|put|cut|hit|let|set|shut|hurt|cost|read)(?!\\p{L}))", "$1 had "],
+    ["'d (?=better(?!\\p{L}))", " had "],
+    ["'d (?=(?:(?:just|already|never|ever|not|only|always|really|still|also|once) )*(?:been|gone|done|seen|known|had|taken|given|eaten|written|driven|ridden|risen|fallen|broken|spoken|stolen|chosen|frozen|forgotten|bitten|hidden|beaten|got|gotten|made|said|told|thought|brought|bought|caught|taught|sold|found|lost|left|kept|slept|felt|met|heard|held|paid|sent|spent|stood|understood|won|sung|drunk|begun|swum|rung|flown|grown|thrown|blown|drawn|shown|worn|torn|woken|built|lent|meant|led|fed|sat|shot|stuck|hung|dug|laid|agreed|freed|\\p{L}{2,}(?<!e)ed)(?!\\p{L}))", " had "],
+    ["'d (?=\\p{L})", " would "],
+    ["(?<!\\p{L})(said|told(?: \\p{L}+){1,2}) that (?=\\p{L})", "$1 "],
+    ["(?<!\\p{L})(asked(?: \\p{L}+){0,2}|ask(?: \\p{L}+){0,2}|know|knows|knew|wonder|wondered|sure|tell me|told me) whether(?: or not)?(?!\\p{L})", "$1 if"]
   ],
   "fold": [],
   "fold_hint": "none",
@@ -54,7 +60,9 @@
     ["(?<!\\p{L})(he|she)s (?=(?:(?:just|already|never|ever|not) )?(?:been|gone|come|had|eaten|met|heard|climbed|walked|cooked|visited|arrived|lived|worked|played|stayed|started|stopped|seen|won|swum|slept|flown|ridden|driven|drunk|bought|done|made|lost|broken|finished|taken|written|given|told|found|fed|painted|mended|cleaned|washed|baked|sold|sent|read|forgotten|kept|left|caught)(?!\\p{L}))", "$1 has "],
     ["(?<!\\p{L})(i|you|he|she|we|they)d (?=(?:like|love|prefer|hate|enjoy)(?!\\p{L}))", "$1 would "],
     ["(?<!\\p{L})(i|we|he|she)ll(?= \\p{L})", "$1 will"],
-    ["(?<!\\p{L})(he|she|that|there|here|what|where|who|how)s(?!\\p{L})", "$1 is"]
+    ["(?<!\\p{L})(he|she|that|there|here|what|where|who|how)s(?!\\p{L})", "$1 is"],
+    ["(?<!\\p{L})(i|you|he|she|we|they)d (?=(?:(?:just|already|never|ever|not|only|always|really|still|also|once) )*(?:been|gone|done|seen|known|had|taken|given|eaten|written|driven|ridden|risen|fallen|broken|spoken|stolen|chosen|frozen|forgotten|bitten|hidden|beaten|got|gotten|made|said|told|thought|brought|bought|caught|taught|sold|found|lost|left|kept|slept|felt|met|heard|held|paid|sent|spent|stood|understood|won|sung|drunk|begun|swum|rung|flown|grown|thrown|blown|drawn|shown|worn|torn|woken|built|lent|meant|led|fed|sat|shot|stuck|hung|dug|laid|agreed|freed|\\p{L}{2,}(?<!e)ed)(?!\\p{L}))", "$1 had "],
+    ["(?<!\\p{L})(i|you|he|she|we|they)d (?=\\p{L})", "$1 would "]
   ],
   "loose_hint": "apostrophe",
   "loose_examples": "can't, I'm",
@@ -113,7 +121,14 @@
     { "word": "rung", "for": "rang" },
     { "word": "drunk", "for": "drank" },
     { "word": "swum", "for": "swam" },
-    { "word": "begun", "for": "began" }
+    { "word": "begun", "for": "began" },
+    { "word": "would (?:have|of)", "for": "had", "after": "(?<!\\p{L})if(?!\\p{L})" },
+    { "word": "would not have", "for": "had not", "after": "(?<!\\p{L})if(?!\\p{L})" },
+    { "word": "would(?: not)? \\p{L}+", "for": "(?:did not )?\\p{L}+", "after": "(?<!\\p{L})if(?!\\p{L})" },
+    { "word": "of", "for": "have", "after": "(?<!\\p{L})(?:would|could|should|might|must)(?: not)?\\s*$" },
+    { "word": "(?:where|when|why|how|what|which|who)(?: (?:time|way|much|many|long|far|often|day))? (?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?: \\p{L}+){1,4}", "for": "(?:where|when|why|how|what|which|who)(?: (?:time|way|much|many|long|far|often|day))? .+", "after": "(?<!\\p{L})(?:ask|asks|asked|know|knows|knew|wonder|wondered|tell me|told me|sure|idea|understand|remember)(?!\\p{L})" },
+    { "word": "(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?: \\p{L}+){1,5}", "for": "(?:if|whether) .+", "after": "(?<!\\p{L})(?:ask|asks|asked|wonder|wondered)(?: \\p{L}+){0,2}\\s*$" },
+    { "word": "(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?: \\p{L}+){1,4}", "for": "(?!(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?!\\p{L})).+", "after": "(?<!\\p{L})(?:ask|asks|asked|know|knows|knew|wonder|wondered|tell me|told me|sure|idea|understand|remember)(?!\\p{L}).*(?:where|when|why|how|what|which|who)(?: (?:time|way|much|many|long|far|often|day))?\\s*$" }
   ],
   "drop_subject": false,
   "ending_letters": 1,
@@ -194,6 +209,14 @@
     { "word": "could", "for": "would" },
     { "word": "would", "for": "could" },
     { "word": "then", "for": "when" },
-    { "word": "when", "for": "then" }
+    { "word": "when", "for": "then" },
+    { "word": "must", "for": "most" },
+    { "word": "most", "for": "must" },
+    { "word": "what", "for": "that" },
+    { "word": "that", "for": "what" },
+    { "word": "where", "for": "there" },
+    { "word": "there", "for": "where" },
+    { "word": "here", "for": "there" },
+    { "word": "there", "for": "here" }
   ]
 }

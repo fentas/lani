@@ -1,0 +1,1110 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "although-however",
+  "language": "en",
+  "level": "B1",
+  "emoji": "⚖️",
+  "title": {
+    "sl": "Nasprotja: although, however, despite",
+    "de": "Gegensätze: although, however, despite",
+    "it": "I contrasti: although, however, despite",
+    "en": "Although it rained, despite the rain"
+  },
+  "goal": {
+    "sl": "Poveš nasprotje (Although it rained, we walked; despite the rain; however), namen (in order to, so that) in vzrok (because of; as a result).",
+    "de": "Du sagst einen Gegensatz (Although it rained, we walked; despite the rain; however), einen Zweck (in order to, so that) und einen Grund (because of; as a result).",
+    "it": "Dici un contrasto (Although it rained, we walked; despite the rain; however), uno scopo (in order to, so that) e una causa (because of; as a result).",
+    "en": "You can say a contrast (Although it rained, we walked; despite the rain; however), what something is for (in order to, so that) and why (because of; as a result)."
+  },
+  "grammar": [
+    "contrast-linkers",
+    "linking-words"
+  ],
+  "words": [
+    "although",
+    "though",
+    "even though",
+    "despite",
+    "in spite of",
+    "however",
+    "in order to",
+    "so that",
+    "because of",
+    "as a result",
+    "because",
+    "rain",
+    "snow",
+    "feeling",
+    "ill",
+    "late",
+    "road",
+    "closed",
+    "feed",
+    "sheep",
+    "tarn",
+    "catch",
+    "fallen",
+    "dark",
+    "storm",
+    "tree",
+    "lamb",
+    "wool",
+    "sold",
+    "wheel",
+    "mend",
+    "cheap",
+    "cold",
+    "outside",
+    "early",
+    "wind",
+    "roof",
+    "market",
+    "dance",
+    "price"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "za kaj",
+          "de": "wofür",
+          "it": "per cosa",
+          "en": "what for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**although**, **though**, **even though** (čeprav) + stavek. **Although it rained, we walked to the tarn.** (Čeprav je deževalo, smo šli do jezerca.) **We walked, even though it rained.** (Šli smo, čeprav je deževalo.) **even though** je močnejši. Če je veznik prvi, je vejica.",
+          "de": "**although**, **though**, **even though** (obwohl) + Satz. **Although it rained, we walked to the tarn.** (Obwohl es regnete, gingen wir zum Bergsee.) **We walked, even though it rained.** (Wir gingen, obwohl es regnete.) **even though** ist stärker. Steht es vorn, kommt ein Komma.",
+          "it": "**although**, **though**, **even though** (anche se, sebbene) + una frase. **Although it rained, we walked to the tarn.** (Anche se pioveva, siamo andati al laghetto.) **We walked, even though it rained.** (Siamo andati, anche se pioveva.) **even though** è più forte. Se viene prima, c'è la virgola.",
+          "en": "**although**, **though**, **even though** + a sentence. **Although it rained, we walked to the tarn.** **We walked, even though it rained.** **even though** is stronger. With it first, there is a comma."
+        },
+        "examples": [
+          {
+            "en": "Although it rained, we walked to the tarn.",
+            "sl": "Čeprav je deževalo, smo šli do jezerca.",
+            "de": "Obwohl es regnete, gingen wir zum Bergsee.",
+            "it": "Anche se pioveva, siamo andati al laghetto."
+          },
+          {
+            "en": "We walked, even though it rained.",
+            "sl": "Šli smo, čeprav je deževalo.",
+            "de": "Wir gingen, obwohl es regnete.",
+            "it": "Siamo andati, anche se pioveva."
+          },
+          {
+            "en": "Though it was cold, we sat outside.",
+            "sl": "Čeprav je bilo mrzlo, smo sedeli zunaj.",
+            "de": "Obwohl es kalt war, saßen wir draußen.",
+            "it": "Anche se faceva freddo, siamo stati fuori."
+          }
+        ],
+        "rows": [
+          [
+            "although, even though",
+            {
+              "sl": "+ stavek",
+              "de": "+ Satz",
+              "it": "+ una frase",
+              "en": "+ a sentence"
+            },
+            "Although it rained, we walked."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "prompt": "___ it was cold, we sat outside.",
+          "options": [
+            "Although",
+            "Despite",
+            "However"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**although + stavek**\n- Although it was cold, we sat outside.",
+            "de": "**although + Satz**\n- Although it was cold, we sat outside.",
+            "it": "**although + una frase**\n- Although it was cold, we sat outside.",
+            "en": "**although + a sentence**\n- Although it was cold, we sat outside."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ena veznica je dovolj: **Although it rained, we walked.** Slovenščina lahko reče *čeprav …, pa …*, pisana angleščina nima zraven but. Ali **although** ali **but**: **It rained, but we walked.** (Deževalo je, a smo šli.)",
+          "de": "Ein Bindewort genügt: **Although it rained, we walked.** Die Schrift hat kein but dazu. Entweder **although** oder **but**: **It rained, but we walked.** (Es regnete, aber wir gingen.)",
+          "it": "Basta una congiunzione: **Although it rained, we walked.** L'italiano può dire *anche se …, però …*, lo scritto inglese non aggiunge but. O **although** o **but**: **It rained, but we walked.** (Pioveva, ma siamo andati.)",
+          "en": "One joining word is enough: **Although it rained, we walked.** Writing adds no but. Either **although** or **but**: **It rained, but we walked.**"
+        },
+        "examples": [
+          {
+            "en": "Although it rained, we walked.",
+            "sl": "Čeprav je deževalo, smo šli.",
+            "de": "Obwohl es regnete, gingen wir.",
+            "it": "Anche se pioveva, siamo andati."
+          },
+          {
+            "en": "It rained, but we walked.",
+            "sl": "Deževalo je, a smo šli.",
+            "de": "Es regnete, aber wir gingen.",
+            "it": "Pioveva, ma siamo andati."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "prompt": "Although it rained, ___",
+          "options": [
+            "we walked to the tarn.",
+            "but we walked to the tarn.",
+            "so we walked to the tarn."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ena veznica je dovolj: brez but**\n- Although it rained, we walked to the tarn.",
+            "de": "**Ein Bindewort genügt: kein but**\n- Although it rained, we walked to the tarn.",
+            "it": "**Basta una congiunzione: niente but**\n- Although it rained, we walked to the tarn.",
+            "en": "**One joining word is enough: no but**\n- Although it rained, we walked to the tarn."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**despite** in **in spite of** (kljub) + samostalnik ali -ing, ne stavek: **Despite the rain, we walked.** (Kljub dežju smo šli.) **In spite of the snow, the bus came.** (Kljub snegu je avtobus prišel.) **Despite feeling ill, she came.** (Čeprav ji ni bilo dobro, je prišla.) Za **despite** ni of, **in spite of** ga ima.",
+          "de": "**despite** und **in spite of** (trotz) + Nomen oder -ing, kein Satz: **Despite the rain, we walked.** (Trotz des Regens gingen wir.) **In spite of the snow, the bus came.** (Trotz des Schnees kam der Bus.) **Despite feeling ill, she came.** (Obwohl sie sich krank fühlte, kam sie.) Nach **despite** kein of, **in spite of** hat es.",
+          "it": "**despite** e **in spite of** (nonostante) + un nome o -ing, non una frase: **Despite the rain, we walked.** (Nonostante la pioggia, siamo andati.) **In spite of the snow, the bus came.** (Nonostante la neve, l'autobus è arrivato.) **Despite feeling ill, she came.** (Anche se non stava bene, è venuta.) Dopo **despite** niente of, **in spite of** ce l'ha.",
+          "en": "**despite** and **in spite of** + a noun or -ing, not a sentence: **Despite the rain, we walked.** **In spite of the snow, the bus came.** **Despite feeling ill, she came.** No of after **despite**; **in spite of** has it."
+        },
+        "examples": [
+          {
+            "en": "Despite the rain, we walked.",
+            "sl": "Kljub dežju smo šli.",
+            "de": "Trotz des Regens gingen wir.",
+            "it": "Nonostante la pioggia, siamo andati."
+          },
+          {
+            "en": "In spite of the snow, the bus came.",
+            "sl": "Kljub snegu je avtobus prišel.",
+            "de": "Trotz des Schnees kam der Bus.",
+            "it": "Nonostante la neve, l'autobus è arrivato."
+          },
+          {
+            "en": "Despite feeling ill, she came.",
+            "sl": "Čeprav ji ni bilo dobro, je prišla.",
+            "de": "Obwohl sie sich krank fühlte, kam sie.",
+            "it": "Anche se non stava bene, è venuta."
+          }
+        ],
+        "rows": [
+          [
+            "despite, in spite of",
+            {
+              "sl": "+ samostalnik, -ing",
+              "de": "+ Nomen, -ing",
+              "it": "+ un nome, -ing",
+              "en": "+ a noun, -ing"
+            },
+            "Despite the rain, we walked."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "prompt": "We walked to the tarn ___ the rain.",
+          "options": [
+            "despite",
+            "although",
+            "despite of"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**despite, in spite of + samostalnik ali -ing**\n- We walked to the tarn despite the rain.",
+            "de": "**despite, in spite of + Nomen oder -ing**\n- We walked to the tarn despite the rain.",
+            "it": "**despite, in spite of + un nome o -ing**\n- We walked to the tarn despite the rain.",
+            "en": "**despite, in spite of + a noun or -ing**\n- We walked to the tarn despite the rain."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**however** (vendar) začne nov stavek, z vejico: **It rained. However, we walked.** (Deževalo je, vendar smo šli.) To je bolj pisno. V govoru **though** na koncu: **We walked, though.** (Pa smo vseeno šli.) **but** poveže dva dela istega stavka.",
+          "de": "**however** (jedoch) beginnt einen neuen Satz, mit Komma: **It rained. However, we walked.** (Es regnete, trotzdem gingen wir.) Das klingt eher geschrieben. Gesprochen **though** am Ende: **We walked, though.** (Wir gingen aber trotzdem.) **but** verbindet zwei Teile eines Satzes.",
+          "it": "**however** (tuttavia) comincia una frase nuova, con la virgola: **It rained. However, we walked.** (Pioveva, tuttavia siamo andati.) È più da scritto. A voce **though** alla fine: **We walked, though.** (Però siamo andati.) **but** unisce due parti della stessa frase.",
+          "en": "**however** starts a new sentence, with a comma: **It rained. However, we walked.** It's more for writing. In talk, **though** at the end: **We walked, though.** **but** joins two parts of one sentence."
+        },
+        "examples": [
+          {
+            "en": "It rained. However, we walked.",
+            "sl": "Deževalo je. Vendar smo šli.",
+            "de": "Es regnete. Trotzdem gingen wir.",
+            "it": "Pioveva. Tuttavia siamo andati."
+          },
+          {
+            "en": "We walked, though.",
+            "sl": "Pa smo vseeno šli.",
+            "de": "Wir gingen aber trotzdem.",
+            "it": "Però siamo andati."
+          }
+        ],
+        "rows": [
+          [
+            "however",
+            {
+              "sl": "nov stavek",
+              "de": "neuer Satz",
+              "it": "frase nuova",
+              "en": "a new sentence"
+            },
+            "It rained. However, we walked."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "prompt": "It was late. ___, Mrs Birkett made us some soup.",
+          "options": [
+            "However",
+            "Although",
+            "Despite"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**However: nov stavek, vejica**\n- It was late. However, Mrs Birkett made us some soup.",
+            "de": "**However: neuer Satz, Komma**\n- It was late. However, Mrs Birkett made us some soup.",
+            "it": "**However: frase nuova, virgola**\n- It was late. However, Mrs Birkett made us some soup.",
+            "en": "**However: a new sentence, a comma**\n- It was late. However, Mrs Birkett made us some soup."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Namen: **to** ali **in order to** (da bi) + osnovna oblika: **Jack got up early in order to feed the sheep.** (Jack je zgodaj vstal, da bi nahranil ovce.) **so that** + stavek s can, could, will, would: **I left early so that I could catch the bus.** (Zgodaj sem {m:šel|f:šla}, da bi {m:ujel|f:ujela} avtobus.) V govoru tudi samo **so**: *so I could catch the bus*.",
+          "de": "Zweck: **to** oder **in order to** (um zu) + Grundform: **Jack got up early in order to feed the sheep.** (Jack stand früh auf, um die Schafe zu füttern.) **so that** (damit) + Satz mit can, could, will, would: **I left early so that I could catch the bus.** (Ich ging früh, damit ich den Bus erwischte.) Gesprochen auch nur **so**: *so I could catch the bus*.",
+          "it": "Lo scopo: **to** o **in order to** (per) + la forma base: **Jack got up early in order to feed the sheep.** (Jack si è alzato presto per dare da mangiare alle pecore.) **so that** (così che) + una frase con can, could, will, would: **I left early so that I could catch the bus.** (Sono partit{m:o|f:a} presto per prendere l'autobus.) A voce anche solo **so**: *so I could catch the bus*.",
+          "en": "What for: **to** or **in order to** + the base form: **Jack got up early in order to feed the sheep.** **so that** + a sentence with can, could, will, would: **I left early so that I could catch the bus.** In talk also just **so**: *so I could catch the bus*."
+        },
+        "examples": [
+          {
+            "en": "Jack got up early in order to feed the sheep.",
+            "sl": "Jack je zgodaj vstal, da bi nahranil ovce.",
+            "de": "Jack stand früh auf, um die Schafe zu füttern.",
+            "it": "Jack si è alzato presto per dare da mangiare alle pecore."
+          },
+          {
+            "en": "I left early so that I could catch the bus.",
+            "sl": "Zgodaj sem {m:šel|f:šla}, da bi {m:ujel|f:ujela} avtobus.",
+            "de": "Ich ging früh, damit ich den Bus erwischte.",
+            "it": "Sono partit{m:o|f:a} presto per prendere l'autobus."
+          },
+          {
+            "en": "We went to Keswick to sell the wool.",
+            "sl": "V Keswick smo šli prodat volno.",
+            "de": "Wir fuhren nach Keswick, um die Wolle zu verkaufen.",
+            "it": "Siamo andati a Keswick per vendere la lana."
+          }
+        ],
+        "rows": [
+          [
+            "to, in order to",
+            {
+              "sl": "namen + osnovna oblika",
+              "de": "Zweck + Grundform",
+              "it": "scopo + forma base",
+              "en": "what for + base form"
+            },
+            "Jack got up early in order to feed the sheep."
+          ],
+          [
+            "so that",
+            {
+              "sl": "namen + stavek",
+              "de": "Zweck + Satz",
+              "it": "scopo + una frase",
+              "en": "what for + a sentence"
+            },
+            "I left early so that I could catch the bus."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "prompt": "Jack got up early ___ feed the sheep.",
+          "options": [
+            "in order to",
+            "so that",
+            "despite"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Namen: to, in order to + osnovna oblika**\n- Jack got up early in order to feed the sheep.",
+            "de": "**Zweck: to, in order to + Grundform**\n- Jack got up early in order to feed the sheep.",
+            "it": "**Scopo: to, in order to + la forma base**\n- Jack got up early in order to feed the sheep.",
+            "en": "**What for: to, in order to + the base form**\n- Jack got up early in order to feed the sheep."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Vzrok: **because** + stavek, **because of** (zaradi) + samostalnik: **We stayed because it snowed.** (Ostali smo, ker je snežilo.) **We stayed because of the snow.** (Zaradi snega smo ostali.) Kar je sledilo: **as a result** (zato), na začetku novega stavka: **The road was closed. As a result, the bus didn't come.** (Cesta je bila zaprta, zato avtobus ni prišel.)",
+          "de": "Grund: **because** (weil) + Satz, **because of** (wegen) + Nomen: **We stayed because it snowed.** (Wir blieben, weil es schneite.) **We stayed because of the snow.** (Wir blieben wegen des Schnees.) Was folgte: **as a result** (infolgedessen), am Anfang eines neuen Satzes: **The road was closed. As a result, the bus didn't come.** (Die Straße war gesperrt, darum kam der Bus nicht.)",
+          "it": "La causa: **because** (perché) + una frase, **because of** (a causa di) + un nome: **We stayed because it snowed.** (Siamo rimasti perché nevicava.) **We stayed because of the snow.** (Siamo rimasti per la neve.) Ciò che è seguito: **as a result** (di conseguenza), all'inizio di una frase nuova: **The road was closed. As a result, the bus didn't come.** (La strada era chiusa, perciò l'autobus non è arrivato.)",
+          "en": "Why: **because** + a sentence, **because of** + a noun: **We stayed because it snowed.** **We stayed because of the snow.** What followed: **as a result**, at the start of a new sentence: **The road was closed. As a result, the bus didn't come.**"
+        },
+        "examples": [
+          {
+            "en": "We stayed because it snowed.",
+            "sl": "Ostali smo, ker je snežilo.",
+            "de": "Wir blieben, weil es schneite.",
+            "it": "Siamo rimasti perché nevicava."
+          },
+          {
+            "en": "We stayed because of the snow.",
+            "sl": "Zaradi snega smo ostali.",
+            "de": "Wir blieben wegen des Schnees.",
+            "it": "Siamo rimasti per la neve."
+          },
+          {
+            "en": "The road was closed. As a result, the bus didn't come.",
+            "sl": "Cesta je bila zaprta. Zato avtobus ni prišel.",
+            "de": "Die Straße war gesperrt. Darum kam der Bus nicht.",
+            "it": "La strada era chiusa. Perciò l'autobus non è arrivato."
+          }
+        ],
+        "rows": [
+          [
+            "because of",
+            {
+              "sl": "vzrok + samostalnik",
+              "de": "Grund + Nomen",
+              "it": "causa + un nome",
+              "en": "why + a noun"
+            },
+            "We stayed because of the snow."
+          ],
+          [
+            "as a result",
+            {
+              "sl": "kar je sledilo",
+              "de": "was folgte",
+              "it": "ciò che è seguito",
+              "en": "what followed"
+            },
+            "As a result, the bus didn't come."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "prompt": "The bus didn't come ___ the snow.",
+          "options": [
+            "because of",
+            "although",
+            "so that"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**because of + samostalnik; because + stavek**\n- The bus didn't come because of the snow.",
+            "de": "**because of + Nomen; because + Satz**\n- The bus didn't come because of the snow.",
+            "it": "**because of + un nome; because + una frase**\n- The bus didn't come because of the snow.",
+            "en": "**because of + a noun; because + a sentence**\n- The bus didn't come because of the snow."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "although-however-1",
+      "title": {
+        "sl": "Stavek ali samostalnik",
+        "de": "Satz oder Nomen",
+        "it": "Frase o nome",
+        "en": "A sentence or a noun"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: what comes after it?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "+ a sentence · + stavek",
+                "de": "+ a sentence · + Satz",
+                "it": "+ a sentence · + una frase",
+                "en": "+ a sentence"
+              },
+              "words": [
+                "although",
+                "even though",
+                "because",
+                "so that"
+              ]
+            },
+            {
+              "label": {
+                "sl": "+ a noun · + samostalnik",
+                "de": "+ a noun · + Nomen",
+                "it": "+ a noun · + un nome",
+                "en": "+ a noun"
+              },
+              "words": [
+                "despite",
+                "in spite of",
+                "because of"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**despite, in spite of + samostalnik ali -ing**\n- although it rained · despite the rain",
+            "de": "**despite, in spite of + Nomen oder -ing**\n- although it rained · despite the rain",
+            "it": "**despite, in spite of + un nome o -ing**\n- although it rained · despite the rain",
+            "en": "**despite, in spite of + a noun or -ing**\n- although it rained · despite the rain"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "___ the wind, Mr Dixon mended the roof.",
+          "options": [
+            "Despite",
+            "Although",
+            "However"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**despite, in spite of + samostalnik ali -ing**\n- Despite the wind, Mr Dixon mended the roof.",
+            "de": "**despite, in spite of + Nomen oder -ing**\n- Despite the wind, Mr Dixon mended the roof.",
+            "it": "**despite, in spite of + un nome o -ing**\n- Despite the wind, Mr Dixon mended the roof.",
+            "en": "**despite, in spite of + a noun or -ing**\n- Despite the wind, Mr Dixon mended the roof."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Sam went to Keswick ___ he was ill.",
+          "options": [
+            "even though",
+            "despite",
+            "in spite of"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**although + stavek**\n- Sam went to Keswick even though he was ill.",
+            "de": "**although + Satz**\n- Sam went to Keswick even though he was ill.",
+            "it": "**although + una frase**\n- Sam went to Keswick even though he was ill.",
+            "en": "**although + a sentence**\n- Sam went to Keswick even though he was ill."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "The wool was cheap. ___, we sold it all.",
+          "options": [
+            "However",
+            "Although",
+            "Despite"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**However: nov stavek, vejica**\n- The wool was cheap. However, we sold it all.",
+            "de": "**However: neuer Satz, Komma**\n- The wool was cheap. However, we sold it all.",
+            "it": "**However: frase nuova, virgola**\n- The wool was cheap. However, we sold it all.",
+            "en": "**However: a new sentence, a comma**\n- The wool was cheap. However, we sold it all."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We were late ___ the storm.",
+          "options": [
+            "because of",
+            "although",
+            "so that"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**because of + samostalnik; because + stavek**\n- We were late because of the storm.",
+            "de": "**because of + Nomen; because + Satz**\n- We were late because of the storm.",
+            "it": "**because of + un nome; because + una frase**\n- We were late because of the storm.",
+            "en": "**because of + a noun; because + a sentence**\n- We were late because of the storm."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We got up at five ___ we could catch the first bus.",
+          "options": [
+            "so that",
+            "in order to",
+            "despite"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Namen: so that + stavek**\n- We got up at five so that we could catch the first bus.",
+            "de": "**Zweck: so that + Satz**\n- We got up at five so that we could catch the first bus.",
+            "it": "**Scopo: so that + una frase**\n- We got up at five so that we could catch the first bus.",
+            "en": "**What for: so that + a sentence**\n- We got up at five so that we could catch the first bus."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "A tree fell across the road. ___, the bus was late.",
+          "options": [
+            "As a result",
+            "Although",
+            "Despite"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kar je sledilo: As a result,**\n- A tree fell across the road. As a result, the bus was late.",
+            "de": "**Was folgte: As a result,**\n- A tree fell across the road. As a result, the bus was late.",
+            "it": "**Ciò che è seguito: As a result,**\n- A tree fell across the road. As a result, the bus was late.",
+            "en": "**What followed: As a result,**\n- A tree fell across the road. As a result, the bus was late."
+          }
+        }
+      ]
+    },
+    {
+      "id": "although-however-2",
+      "title": {
+        "sl": "Nevihta",
+        "de": "Der Sturm",
+        "it": "Il temporale",
+        "en": "The storm"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "___ the storm was bad, Jack went up the fell ___ look for his sheep. ___ the wind, he found them all. ___, a lamb was missing. He stayed out till dark ___ he could find it. The road was closed ___ a fallen tree, so he walked home. ___, he was late for the dance.",
+          "gaps": [
+            {
+              "accept": [
+                "Although",
+                "Though",
+                "Even though"
+              ],
+              "hint": {
+                "sl": "+ stavek",
+                "de": "+ Satz",
+                "it": "+ una frase",
+                "en": "+ a sentence"
+              }
+            },
+            {
+              "accept": [
+                "to",
+                "in order to",
+                "so as to"
+              ],
+              "hint": {
+                "sl": "namen",
+                "de": "Zweck",
+                "it": "scopo",
+                "en": "what for"
+              }
+            },
+            {
+              "accept": [
+                "Despite",
+                "In spite of"
+              ],
+              "hint": {
+                "sl": "+ samostalnik",
+                "de": "+ Nomen",
+                "it": "+ un nome",
+                "en": "+ a noun"
+              }
+            },
+            {
+              "accept": [
+                "However",
+                "But",
+                "Yet",
+                "Still"
+              ],
+              "hint": {
+                "sl": "nov stavek",
+                "de": "neuer Satz",
+                "it": "frase nuova",
+                "en": "a new sentence"
+              }
+            },
+            {
+              "accept": [
+                "so that"
+              ],
+              "spoken": [
+                "so"
+              ],
+              "hint": {
+                "sl": "namen + stavek",
+                "de": "Zweck + Satz",
+                "it": "scopo + una frase",
+                "en": "what for + a sentence"
+              }
+            },
+            {
+              "accept": [
+                "because of",
+                "due to",
+                "owing to"
+              ],
+              "spoken": [
+                "cos of",
+                "'cause of",
+                "cause of"
+              ],
+              "hint": {
+                "sl": "+ samostalnik",
+                "de": "+ Nomen",
+                "it": "+ un nome",
+                "en": "+ a noun"
+              }
+            },
+            {
+              "accept": [
+                "As a result",
+                "So",
+                "Because of that"
+              ],
+              "hint": {
+                "sl": "kar je sledilo",
+                "de": "was folgte",
+                "it": "ciò che è seguito",
+                "en": "what followed"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "despite of"
+          ],
+          "translation": {
+            "sl": "Čeprav je bila nevihta huda, je šel Jack na hrib iskat ovce. Kljub vetru jih je našel vse. Vendar je manjkalo jagnje. Ostal je zunaj do teme, da bi ga našel. Cesta je bila zaprta zaradi podrtega drevesa, zato je šel domov peš. Posledično je zamudil na ples.",
+            "de": "Obwohl der Sturm schlimm war, ging Jack auf den Berg, um seine Schafe zu suchen. Trotz des Windes fand er sie alle. Aber ein Lamm fehlte. Er blieb bis zur Dunkelheit draußen, damit er es finden konnte. Die Straße war wegen eines umgestürzten Baums gesperrt, also ging er zu Fuß heim. Darum kam er zu spät zum Tanz.",
+            "it": "Anche se il temporale era forte, Jack è salito sul monte a cercare le pecore. Nonostante il vento, le ha trovate tutte. Tuttavia mancava un agnello. È rimasto fuori fino a buio per trovarlo. La strada era chiusa per un albero caduto, così è tornato a piedi. Di conseguenza è arrivato tardi al ballo.",
+            "en": "Although the storm was bad, Jack went up the fell to look for his sheep. Despite the wind, he found them all. However, a lamb was missing. He stayed out till dark so that he could find it. The road was closed because of a fallen tree, so he walked home. As a result, he was late for the dance."
+          }
+        }
+      ]
+    },
+    {
+      "id": "although-however-3",
+      "title": {
+        "sl": "Poveži",
+        "de": "Verbinde",
+        "it": "Collega",
+        "en": "Join them"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Join them with the word in brackets · Poveži z besedo v oklepaju",
+            "de": "Join them with the word in brackets · Verbinde mit dem Wort in Klammern",
+            "it": "Join them with the word in brackets · Collega con la parola tra parentesi",
+            "en": "Join them with the word in brackets"
+          },
+          "items": [
+            {
+              "from": "It rained. We walked to the tarn. (although)",
+              "accept": [
+                "Although it rained, we walked to the tarn.",
+                "We walked to the tarn although it rained."
+              ]
+            },
+            {
+              "from": "Sam was ill. He went to work. (even though)",
+              "accept": [
+                "Even though Sam was ill, he went to work.",
+                "Sam went to work even though he was ill."
+              ]
+            },
+            {
+              "from": "The bus was late. We got there in time. (however)",
+              "accept": [
+                "The bus was late. However, we got there in time.",
+                "The bus was late. We got there in time, however.",
+                "The bus was late; however, we got there in time."
+              ]
+            },
+            {
+              "from": "We walked. We wanted to save money. (in order to)",
+              "accept": [
+                "We walked in order to save money.",
+                "In order to save money, we walked."
+              ]
+            },
+            {
+              "from": "Jack left early. He wanted to catch the bus. (so that)",
+              "accept": [
+                "Jack left early so that he could catch the bus.",
+                "Jack left early so that he would catch the bus.",
+                "Jack left early so that he'd catch the bus."
+              ],
+              "spoken": [
+                "Jack left early so he could catch the bus.",
+                "Jack left early so he would catch the bus."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**although + stavek**\n- It rained. We walked. → Although it rained, we walked.",
+            "de": "**although + Satz**\n- It rained. We walked. → Although it rained, we walked.",
+            "it": "**although + una frase**\n- It rained. We walked. → Although it rained, we walked.",
+            "en": "**although + a sentence**\n- It rained. We walked. → Although it rained, we walked."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "contrast-linkers",
+          "instruction": {
+            "sl": "Say it with the word in brackets, and a noun · Povej z besedo v oklepaju in samostalnikom",
+            "de": "Say it with the word in brackets, and a noun · Sag es mit dem Wort in Klammern und einem Nomen",
+            "it": "Say it with the word in brackets, and a noun · Dillo con la parola tra parentesi e un nome",
+            "en": "Say it with the word in brackets, and a noun"
+          },
+          "items": [
+            {
+              "from": "Although it rained, we walked. (despite)",
+              "accept": [
+                "Despite the rain, we walked.",
+                "We walked despite the rain.",
+                "Despite it raining, we walked.",
+                "We walked despite it raining.",
+                "Despite the fact that it rained, we walked.",
+                "We walked despite the fact that it rained."
+              ]
+            },
+            {
+              "from": "Although it snowed, the bus came. (in spite of)",
+              "accept": [
+                "In spite of the snow, the bus came.",
+                "The bus came in spite of the snow.",
+                "In spite of it snowing, the bus came.",
+                "The bus came in spite of it snowing.",
+                "In spite of the fact that it snowed, the bus came.",
+                "The bus came in spite of the fact that it snowed."
+              ]
+            },
+            {
+              "from": "We stayed because it snowed. (because of)",
+              "accept": [
+                "We stayed because of the snow.",
+                "Because of the snow, we stayed."
+              ]
+            },
+            {
+              "from": "Although it was windy, Mr Dixon mended the roof. (despite)",
+              "accept": [
+                "Despite the wind, Mr Dixon mended the roof.",
+                "Mr Dixon mended the roof despite the wind.",
+                "Despite it being windy, Mr Dixon mended the roof.",
+                "Mr Dixon mended the roof despite it being windy."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**despite, in spite of + samostalnik ali -ing**\n- Although it rained, we walked. → Despite the rain, we walked.",
+            "de": "**despite, in spite of + Nomen oder -ing**\n- Although it rained, we walked. → Despite the rain, we walked.",
+            "it": "**despite, in spite of + un nome o -ing**\n- Although it rained, we walked. → Despite the rain, we walked.",
+            "en": "**despite, in spite of + a noun or -ing**\n- Although it rained, we walked. → Despite the rain, we walked."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "contrast-linkers",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "___ it was market day, Mr Tyson stayed at the mill ___ mend the wheel. ___ the rain, Edna went to Keswick. The bus was late ___ the snow on the road.",
+        "gaps": [
+          {
+            "accept": [
+              "Although",
+              "Though",
+              "Even though"
+            ]
+          },
+          {
+            "accept": [
+              "to",
+              "in order to",
+              "so as to"
+            ]
+          },
+          {
+            "accept": [
+              "Despite",
+              "In spite of"
+            ]
+          },
+          {
+            "accept": [
+              "because of",
+              "due to",
+              "owing to"
+            ],
+            "spoken": [
+              "cos of",
+              "'cause of",
+              "cause of"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Čeprav je bil tržni dan, je gospod Tyson ostal v mlinu, da bi popravil kolo. Kljub dežju je šla Edna v Keswick. Avtobus je zamudil zaradi snega na cesti.",
+          "de": "Obwohl Markttag war, blieb Mr Tyson in der Mühle, um das Rad zu reparieren. Trotz des Regens fuhr Edna nach Keswick. Der Bus kam wegen des Schnees auf der Straße zu spät.",
+          "it": "Anche se era giorno di mercato, Mr Tyson è rimasto al mulino per riparare la ruota. Nonostante la pioggia, Edna è andata a Keswick. L'autobus era in ritardo per la neve sulla strada.",
+          "en": "Although it was market day, Mr Tyson stayed at the mill to mend the wheel. Despite the rain, Edna went to Keswick. The bus was late because of the snow on the road."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "contrast-linkers",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Although she was tired, ___",
+        "options": [
+          "she went to the dance.",
+          "but she went to the dance.",
+          "so she went to the dance."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Ena veznica je dovolj: brez but**\n- Although she was tired, she went to the dance.",
+          "de": "**Ein Bindewort genügt: kein but**\n- Although she was tired, she went to the dance.",
+          "it": "**Basta una congiunzione: niente but**\n- Although she was tired, she went to the dance.",
+          "en": "**One joining word is enough: no but**\n- Although she was tired, she went to the dance."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "contrast-linkers",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "We sat outside ___ the cold.",
+        "options": [
+          "in spite of",
+          "although",
+          "in spite"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**despite, in spite of + samostalnik ali -ing**\n- We sat outside in spite of the cold.",
+          "de": "**despite, in spite of + Nomen oder -ing**\n- We sat outside in spite of the cold.",
+          "it": "**despite, in spite of + un nome o -ing**\n- We sat outside in spite of the cold.",
+          "en": "**despite, in spite of + a noun or -ing**\n- We sat outside in spite of the cold."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "contrast-linkers",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "The price of wool fell. ___, Jack sold fewer sheep.",
+        "options": [
+          "As a result",
+          "Despite",
+          "Although"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kar je sledilo: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep.",
+          "de": "**Was folgte: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep.",
+          "it": "**Ciò che è seguito: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep.",
+          "en": "**What followed: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "contrast-linkers",
+        "instruction": {
+          "sl": "Join them with the word in brackets · Poveži z besedo v oklepaju",
+          "de": "Join them with the word in brackets · Verbinde mit dem Wort in Klammern",
+          "it": "Join them with the word in brackets · Collega con la parola tra parentesi",
+          "en": "Join them with the word in brackets"
+        },
+        "items": [
+          {
+            "from": "It was late. Mrs Birkett made soup. (although)",
+            "accept": [
+              "Although it was late, Mrs Birkett made soup.",
+              "Mrs Birkett made soup although it was late."
+            ]
+          },
+          {
+            "from": "It was cold. We sat outside. (however)",
+            "accept": [
+              "It was cold. However, we sat outside.",
+              "It was cold. We sat outside, however.",
+              "It was cold; however, we sat outside."
+            ]
+          },
+          {
+            "from": "Edna got up early. She wanted to bake. (in order to)",
+            "accept": [
+              "Edna got up early in order to bake.",
+              "In order to bake, Edna got up early."
+            ]
+          },
+          {
+            "from": "I'm leaving now. I want to catch the bus. (so that)",
+            "accept": [
+              "I'm leaving now so that I can catch the bus.",
+              "I'm leaving now so that I'll catch the bus.",
+              "I'm leaving now so that I will catch the bus."
+            ],
+            "spoken": [
+              "I'm leaving now so I can catch the bus.",
+              "I'm leaving now so I'll catch the bus."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**although + stavek**\n- It was late. Mrs Birkett made soup. → Although it was late, Mrs Birkett made soup.",
+          "de": "**although + Satz**\n- It was late. Mrs Birkett made soup. → Although it was late, Mrs Birkett made soup.",
+          "it": "**although + una frase**\n- It was late. Mrs Birkett made soup. → Although it was late, Mrs Birkett made soup.",
+          "en": "**although + a sentence**\n- It was late. Mrs Birkett made soup. → Although it was late, Mrs Birkett made soup."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "contrast-linkers",
+        "instruction": {
+          "sl": "Say it with the word in brackets, and a noun · Povej z besedo v oklepaju in samostalnikom",
+          "de": "Say it with the word in brackets, and a noun · Sag es mit dem Wort in Klammern und einem Nomen",
+          "it": "Say it with the word in brackets, and a noun · Dillo con la parola tra parentesi e un nome",
+          "en": "Say it with the word in brackets, and a noun"
+        },
+        "items": [
+          {
+            "from": "Although it was cold, we walked. (despite)",
+            "accept": [
+              "Despite the cold, we walked.",
+              "We walked despite the cold.",
+              "Despite it being cold, we walked.",
+              "We walked despite it being cold."
+            ]
+          },
+          {
+            "from": "The bus was late because it snowed. (because of)",
+            "accept": [
+              "The bus was late because of the snow.",
+              "Because of the snow, the bus was late."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**despite, in spite of + samostalnik ali -ing**\n- Although it was cold, we walked. → Despite the cold, we walked.",
+          "de": "**despite, in spite of + Nomen oder -ing**\n- Although it was cold, we walked. → Despite the cold, we walked.",
+          "it": "**despite, in spite of + un nome o -ing**\n- Although it was cold, we walked. → Despite the cold, we walked.",
+          "en": "**despite, in spite of + a noun or -ing**\n- Although it was cold, we walked. → Despite the cold, we walked."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}
