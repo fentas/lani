@@ -154,7 +154,7 @@ its `explain`), the count under the sheet. In a test an almost-right item counts
 reads in their own language — `explain`, `hint`, `instruction`, `translation`, `cue`, `label`, `prompt` and a table's
 `columns` — may instead be a text per base, `{"de": "…", "sl": "…", "en": "…"}` (English always): the learner gets it in
 their base (companion/COURSE.md "Texts in the learner's language"; the Italian units write them so, for a learner from
-German). A module you publish keeps plain strings. A curated module of another language (`companion/modules/<language>/`) may have them per base too, also its `title`, `description`, a quest's `story`, a flashcard's `back` and `note`; the bridge serves it in the learner's base, and offers the app those at or below the learner's level one request at a time, the next (its level, then its `order`) when none is open and none was asked today (a module you publish is always offered).
+German). A module you publish keeps plain strings. A curated module of another language (`companion/modules/<language>/`) may have them per base too, also its `title`, `description`, a quest's `story`, a flashcard's `back` and `note`; the bridge serves it in the learner's base, and offers the app those at or below the learner's level one request at a time, the next (the learner's own level first, then the levels below, the nearest first; within a level by its `order`) when none is open and none was asked today (a module you publish is always offered).
 
 **Spoken forms are never wrong** (Jan's household: a native speaker says *bojo*, *gremo*, *a si*). A gap, a table's
 cell to fill and a transform's line take `spoken`: what a native speaker says beside the standard answer (1-8, in the
