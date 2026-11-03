@@ -419,7 +419,7 @@
               "who": "eva",
               "face": "curious",
               "de": "Ein Pferd auf dem Spielplatz, schön! Und was hast du gezeichnet, {learner}, während die Kinder geredet haben?",
-              "sl": "Konj na igrišču, lepo! Kaj pa si ti narisal, {learner}, medtem ko so otroci govorili?",
+              "sl": "Konj na igrišču, lepo! Kaj pa si ti {m:narisal|f:narisala}, {learner}, medtem ko so otroci govorili?",
               "en": "A horse on the playground, lovely! And what did you draw, {learner}, while the children were talking?",
               "it": "Un cavallo al parco giochi, bello! E tu che cosa hai disegnato, {learner}, mentre i bambini parlavano?"
             },
@@ -427,7 +427,7 @@
               "choices": [
                 {
                   "de": "Ich habe eine bunte Rutsche gezeichnet, die bis zum Himmel geht.",
-                  "sl": "Narisal sem pisan tobogan, ki sega do neba.",
+                  "sl": "{m:Narisal|f:Narisala} sem pisan tobogan, ki sega do neba.",
                   "en": "I drew a colourful slide that goes up to the sky.",
                   "it": "Ho disegnato uno scivolo colorato che arriva fino al cielo.",
                   "ok": true,
@@ -441,7 +441,7 @@
                 },
                 {
                   "de": "Ich habe eine graue Rutsche gezeichnet, die bis zum Himmel geht.",
-                  "sl": "Narisal sem siv tobogan, ki sega do neba.",
+                  "sl": "{m:Narisal|f:Narisala} sem siv tobogan, ki sega do neba.",
                   "en": "I drew a grey slide that goes up to the sky.",
                   "it": "Ho disegnato uno scivolo grigio che arriva fino al cielo.",
                   "why": {
@@ -546,17 +546,17 @@
               "who": "eva",
               "face": "curious",
               "de": "Und du, {learner}? Was hättest du dir als Kind gewünscht?",
-              "sl": "Pa ti, {learner}? Kaj bi si ti želel kot otrok?",
+              "sl": "Pa ti, {learner}? Kaj bi si ti {m:želel|f:želela} kot otrok?",
               "en": "And you, {learner}? What would you have wished for as a child?",
-              "it": "E tu, {learner}? Che cosa avresti desiderato da bambino?"
+              "it": "E tu, {learner}? Che cosa avresti desiderato da {m:bambino|f:bambina}?"
             },
             {
               "choices": [
                 {
                   "de": "Als Kind hätte ich mir eine bunte Rutsche gewünscht, so lang wie der ganze Platz.",
-                  "sl": "Kot otrok bi si želel pisan tobogan, tako dolg kot ves trg.",
+                  "sl": "Kot otrok bi si {m:želel|f:želela} pisan tobogan, tako dolg kot ves trg.",
                   "en": "As a child I'd have wished for a colourful slide, as long as the whole square.",
-                  "it": "Da bambino avrei desiderato uno scivolo colorato, lungo come tutta la piazza.",
+                  "it": "Da {m:bambino|f:bambina} avrei desiderato uno scivolo colorato, lungo come tutta la piazza.",
                   "ok": true,
                   "reply": {
                     "face": "happy",
@@ -568,9 +568,9 @@
                 },
                 {
                   "de": "Als Kind hätte ich mir eine graue Rutsche gewünscht, so lang wie der ganze Platz.",
-                  "sl": "Kot otrok bi si želel siv tobogan, tako dolg kot ves trg.",
+                  "sl": "Kot otrok bi si {m:želel|f:želela} siv tobogan, tako dolg kot ves trg.",
                   "en": "As a child I'd have wished for a grey slide, as long as the whole square.",
-                  "it": "Da bambino avrei desiderato uno scivolo grigio, lungo come tutta la piazza.",
+                  "it": "Da {m:bambino|f:bambina} avrei desiderato uno scivolo grigio, lungo come tutta la piazza.",
                   "why": {
                     "sl": "Otroške sanje so pisane: bunt. Siva je za sanje žalostna.",
                     "en": "A child's dream is colourful: bunt. Grey is a sad colour for a dream.",
@@ -581,7 +581,7 @@
                     "de": "Grau? Als Kind? Da müssen Sie aber ein sehr ernstes Kind gewesen sein.",
                     "sl": "Sivo? Kot otrok? Potem ste bili pa zelo resen otrok.",
                     "en": "Grey? As a child? You must have been a very serious child.",
-                    "it": "Grigio? Da bambino? Allora deve essere stato un bambino molto serio."
+                    "it": "Grigio? Da bambino? Allora deve essere {m:stato un bambino molto serio|f:stata una bambina molto seria}."
                   }
                 }
               ]

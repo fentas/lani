@@ -1057,10 +1057,10 @@
                   "ok": true,
                   "reply": {
                     "face": "proud",
-                    "de": "Genau so. Du hättest Maurer werden können.",
-                    "sl": "Natanko tako. Lahko bi postal zidar.",
+                    "de": "Genau so. Du hättest {m:Maurer|f:Maurerin} werden können.",
+                    "sl": "Natanko tako. Lahko bi {m:postal zidar|f:postala zidarka}.",
                     "en": "Just so. You could have been a bricklayer.",
-                    "it": "Proprio così. Avresti potuto fare il muratore."
+                    "it": "Proprio così. Avresti potuto fare {m:il muratore|f:la muratrice}."
                   }
                 },
                 {
@@ -1106,7 +1106,7 @@
               "who": "florian",
               "face": "curious",
               "de": "Wenn wir so weitermachen, sind wir morgen fertig. Oder hättest du lieber eine Pause?",
-              "sl": "Če bomo tako nadaljevali, bomo jutri gotovi. Ali bi raje imel odmor?",
+              "sl": "Če bomo tako nadaljevali, bomo jutri gotovi. Ali bi raje {m:imel|f:imela} odmor?",
               "en": "If we keep going like this, we'll be finished tomorrow. Or would you rather have a break?",
               "it": "Se andiamo avanti così, domani abbiamo finito. O preferiresti una pausa?"
             },
@@ -1114,7 +1114,7 @@
               "choices": [
                 {
                   "de": "Eine Pause hätte ich verdient, aber wir bauen lieber weiter, solange es hell ist.",
-                  "sl": "Odmor bi si zaslužil, ampak raje gradimo naprej, dokler je svetlo.",
+                  "sl": "Odmor bi si {m:zaslužil|f:zaslužila}, ampak raje gradimo naprej, dokler je svetlo.",
                   "en": "I'd have earned a break, but we'd better keep building while it's light.",
                   "it": "Una pausa me la sarei meritata, ma è meglio continuare a costruire finché c'è luce.",
                   "ok": true,
@@ -1128,7 +1128,7 @@
                 },
                 {
                   "de": "Eine Pause hätte ich verdient, aber wir schlafen lieber weiter, solange es hell ist.",
-                  "sl": "Odmor bi si zaslužil, ampak raje spimo naprej, dokler je svetlo.",
+                  "sl": "Odmor bi si {m:zaslužil|f:zaslužila}, ampak raje spimo naprej, dokler je svetlo.",
                   "en": "I'd have earned a break, but we'd better keep sleeping while it's light.",
                   "it": "Una pausa me la sarei meritata, ma è meglio continuare a dormire finché c'è luce.",
                   "why": {
@@ -2127,7 +2127,7 @@
               "who": "toni",
               "face": "thinking",
               "de": "Die Pumpe ist zu schwer zum Tragen. Wo würdest du sie lassen, bis das Haus fertig ist?",
-              "sl": "Črpalka je pretežka za nošenje. Kje bi jo pustil, dokler hiša ni gotova?",
+              "sl": "Črpalka je pretežka za nošenje. Kje bi jo {m:pustil|f:pustila}, dokler hiša ni gotova?",
               "en": "The pump's too heavy to carry. Where would you leave it till the house is finished?",
               "it": "La pompa è troppo pesante da portare. Dove la lasceresti finché la casa non è finita?"
             },
@@ -2135,7 +2135,7 @@
               "choices": [
                 {
                   "de": "Weil sie so schwer ist, würde ich sie auf dem Wagen lassen.",
-                  "sl": "Ker je tako težka, bi jo pustil na vozu.",
+                  "sl": "Ker je tako težka, bi jo {m:pustil|f:pustila} na vozu.",
                   "en": "Because it's so heavy, I'd leave it on the cart.",
                   "it": "Visto che è così pesante, la lascerei sul carro.",
                   "ok": true,
@@ -2149,7 +2149,7 @@
                 },
                 {
                   "de": "Weil sie so leicht ist, würde ich sie auf dem Wagen lassen.",
-                  "sl": "Ker je tako lahka, bi jo pustil na vozu.",
+                  "sl": "Ker je tako lahka, bi jo {m:pustil|f:pustila} na vozu.",
                   "en": "Because it's so light, I'd leave it on the cart.",
                   "it": "Visto che è così leggera, la lascerei sul carro.",
                   "why": {
@@ -2674,9 +2674,9 @@
                   "reply": {
                     "face": "laugh",
                     "de": "Der Schuh? Dann gehst du barfuß heim!",
-                    "sl": "Čevelj? Potem greš bos domov!",
+                    "sl": "Čevelj? Potem greš {m:bos|f:bosa} domov!",
                     "en": "The shoe? Then you'll walk home barefoot!",
-                    "it": "La scarpa? Allora torni a casa scalzo!"
+                    "it": "La scarpa? Allora torni a casa {m:scalzo|f:scalza}!"
                   }
                 },
                 {
@@ -3327,7 +3327,7 @@
               "choices": [
                 {
                   "de": "Ich hätte Lust, die ganze Nacht zu feiern und zu tanzen!",
-                  "sl": "Rad bi vso noč praznoval in plesal!",
+                  "sl": "{m:Rad|f:Rada} bi vso noč {m:praznoval|f:praznovala} in {m:plesal|f:plesala}!",
                   "en": "I'd love to celebrate and dance all night!",
                   "it": "Avrei voglia di festeggiare e ballare tutta la notte!",
                   "ok": true,
@@ -3341,7 +3341,7 @@
                 },
                 {
                   "de": "Ich hätte Lust, die ganze Nacht zu schlafen und zu tanzen!",
-                  "sl": "Rad bi vso noč spal in plesal!",
+                  "sl": "{m:Rad|f:Rada} bi vso noč {m:spal|f:spala} in {m:plesal|f:plesala}!",
                   "en": "I'd love to sleep and dance all night!",
                   "it": "Avrei voglia di dormire e ballare tutta la notte!",
                   "why": {
@@ -3359,7 +3359,7 @@
                 },
                 {
                   "de": "Ich hätte Lust, die ganze Nacht feiern und zu tanzen!",
-                  "sl": "Rad bi vso noč praznoval in plesal! (zu)",
+                  "sl": "{m:Rad|f:Rada} bi vso noč {m:praznoval|f:praznovala} in {m:plesal|f:plesala}! (zu)",
                   "en": "I'd love to celebrate and dance all night! (zu)",
                   "it": "Avrei voglia di festeggiare e ballare tutta la notte! (zu)",
                   "grammar": "infinitiv-zu",
@@ -3459,7 +3459,7 @@
               "choices": [
                 {
                   "de": "Dann feiere ich lieber, als dass ich Teller wasche!",
-                  "sl": "Potem raje praznujem, kot da bi pomival krožnike!",
+                  "sl": "Potem raje praznujem, kot da bi {m:pomival|f:pomivala} krožnike!",
                   "en": "Then I'd rather celebrate than wash plates!",
                   "it": "Allora preferisco festeggiare che lavare piatti!",
                   "ok": true,
@@ -3473,7 +3473,7 @@
                 },
                 {
                   "de": "Dann schlafe ich lieber, als dass ich Teller wasche!",
-                  "sl": "Potem raje spim, kot da bi pomival krožnike!",
+                  "sl": "Potem raje spim, kot da bi {m:pomival|f:pomivala} krožnike!",
                   "en": "Then I'd rather sleep than wash plates!",
                   "it": "Allora preferisco dormire che lavare piatti!",
                   "why": {
