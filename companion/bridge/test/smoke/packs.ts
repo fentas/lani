@@ -98,6 +98,8 @@ async function packLevels(learn: (id: string, results: object[]) => Promise<Resp
     'lv-b1': curated('lv-b1', 'B1'),
     'lv-b2': curated('lv-b2', 'B2'),
     'lv-b2-started': curated('lv-b2-started', 'B2'),
+    // a B2 pack with one word the learner has from lv-b2-started (learned 1), none learned in it (own 0): not started
+    'lv-b2-shared': { ...curated('lv-b2-shared', 'B2'), words: [{ id: 'shared', sl: 'lv-b2-startedova a', en: 'lv-b2-started thing a' }, ...words('lv-b2-shared').slice(1)] },
     'lv-c1-feast': curated('lv-c1-feast', 'C1', { festival: 'kres' }),
     'lv-c1-project': curated('lv-c1-project', 'C1', { project: 'mlaj' }),
   }
@@ -112,9 +114,12 @@ async function packLevels(learn: (id: string, results: object[]) => Promise<Resp
     const every = [...ids, 'lv-c2-tutor'].sort()
     check('packs: an app that reads packs 1 gets every pack, whatever its level (GET /packs?packs=1)', JSON.stringify(await listed('?packs=1')) === JSON.stringify(every), await listed('?packs=1'))
     check('packs: … and a later version too (?packs=2)', JSON.stringify(await listed('?packs=2')) === JSON.stringify(every))
+    const shared = ((await (await fetch(`${base}/packs?packs=1`, { headers: auth })).json()) as any[]).find(p => p.id === 'lv-b2-shared')
+    check('packs: a word the learner has from another pack counts in learned, not in own (GET /packs own)', shared?.learned === 1 && shared?.own === 0, shared)
+    check('packs: … the pack the word was learned in has it as its own', ((await (await fetch(`${base}/packs?packs=1`, { headers: auth })).json()) as any[]).find(p => p.id === 'lv-b2-started')?.own === 1)
     const old = await listed()
     check(
-      'packs: an older app (no ?packs=) at A1 gets the curated packs up to A2, the B2 pack started, the festival\'s, the project\'s and the tutor\'s; no B1 or B2 pack untouched',
+      'packs: an older app (no ?packs=) at A1 gets the curated packs up to A2, the B2 pack started, the festival\'s, the project\'s and the tutor\'s; no B1 or B2 pack untouched, nor the B2 pack that only shares a word the learner has',
       JSON.stringify(old) === JSON.stringify(['lv-a2', 'lv-b2-started', 'lv-c1-feast', 'lv-c1-project', 'lv-c2-tutor']),
       old,
     )
