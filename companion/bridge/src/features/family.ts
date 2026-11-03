@@ -6,7 +6,6 @@ import type { Ctx, FeatureFactory } from '../feature'
 import { familyInstructionsFor } from '../family'
 import { LANGUAGES, learnerLangs } from '../learners'
 import { json, type Route } from '../http'
-import { learnerLangs } from '../learners'
 
 const STATIC: Record<string, [string, string]> = {
   '/family': ['index.html', 'text/html; charset=utf-8'],
