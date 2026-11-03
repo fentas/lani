@@ -113,6 +113,7 @@ import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.Spelling
 import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.Hints
+import si.lanisce.lani.data.IntroSpeech
 import si.lanisce.lani.data.Module
 import si.lanisce.lani.data.ReviewPlanner
 import si.lanisce.lani.data.ScreenClock
@@ -1344,14 +1345,14 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
 /**
  * A choice's sentence with a gap ("Nimam ___. (I don't have time.)", a word form question's "Jaz ____ na klop. (sesti)")
  * filled with its right option, when the options are in the language learned (none reads as the base), without what
- * the brackets at its end add: "Nimam časa."; null for a choice without a gap.
+ * brackets add ([IntroSpeech.filled]): "Nimam časa."; null for a choice without a gap.
  */
 private fun gapFilled(ex: Exercise.Choice): String? {
     if (!Regex("_{2,}").containsMatchIn(ex.prompt)) return null
     val a = ex.options.getOrNull(ex.answer)?.let(::unpictured) ?: return null
     val pair = L10n.pair
     if (!ex.sayOptions && ex.options.any { Spoken.looks(unpictured(it), pair.base, pair.target) }) return null
-    return ex.prompt.replace(Regex("_{2,}"), a).replace(Regex("""\s*\([^()]*\)\s*$"""), "").trim().takeIf { it.isNotEmpty() }
+    return IntroSpeech.filled(ex.prompt, Regex("_{2,}"), a).takeIf { it.isNotEmpty() }
 }
 
 internal fun sloveneOf(ex: Exercise, isSlovene: (String) -> Boolean): String? = when (ex) {
@@ -1360,8 +1361,8 @@ internal fun sloveneOf(ex: Exercise, isSlovene: (String) -> Boolean): String? = 
         ?: gapFilled(ex)
         ?: ex.options.getOrNull(ex.answer)?.let(::unpictured)?.takeIf { ex.sayOptions || isSlovene(it) }
         ?: ex.prompt.takeIf { it.isNotBlank() && isSlovene(it) }
-    // without what the brackets at its end add (a translation, a word form question's lemma: "Jaz ___. (sesti)")
-    is Exercise.Cloze -> ex.accept.firstOrNull()?.let { ex.text.replace("___", it).replace(Regex("""\s*\([^()]*\)\s*$"""), "") }
+    // without what brackets add (a translation at its end, a word form question's lemma: "Jaz ___. (sesti)", a cue after the gap)
+    is Exercise.Cloze -> ex.accept.firstOrNull()?.let { IntroSpeech.filled(ex.text, Regex("_{3,}"), it) }
     is Exercise.Reorder -> ex.solutions.firstOrNull()?.joinToString(" ")
     is Exercise.Translate -> ex.accept.firstOrNull()
     is Exercise.Scenario -> ex.accept?.firstOrNull() ?: ex.answer?.let { ex.options?.getOrNull(it) }

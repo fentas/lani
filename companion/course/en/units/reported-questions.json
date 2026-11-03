@@ -1,0 +1,1134 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "reported-questions",
+  "language": "en",
+  "level": "B1",
+  "emoji": "❓",
+  "title": {
+    "sl": "Odvisna vprašanja: he asked where I lived",
+    "de": "Indirekte Fragen: he asked where I lived",
+    "it": "Le domande indirette: he asked where I lived",
+    "en": "He asked where I lived"
+  },
+  "goal": {
+    "sl": "Poveš, kaj je kdo vprašal (He asked where I lived, She asked if I wanted tea), in vprašaš vljudno (Do you know where the inn is?).",
+    "de": "Du sagst, was jemand gefragt hat (He asked where I lived, She asked if I wanted tea), und fragst höflich (Do you know where the inn is?).",
+    "it": "Riferisci ciò che qualcuno ha chiesto (He asked where I lived, She asked if I wanted tea) e chiedi con cortesia (Do you know where the inn is?).",
+    "en": "You can report what someone asked (He asked where I lived, She asked if I wanted tea) and ask politely (Do you know where the inn is?)."
+  },
+  "grammar": [
+    "reported-questions",
+    "reported-speech",
+    "questions-do"
+  ],
+  "words": [
+    "ask",
+    "asked",
+    "if",
+    "whether",
+    "where",
+    "when",
+    "what",
+    "who",
+    "how",
+    "lived",
+    "wanted",
+    "know",
+    "tell",
+    "could",
+    "wonder",
+    "stranger",
+    "walker",
+    "room",
+    "stay",
+    "soup",
+    "bus",
+    "stop",
+    "inn",
+    "tea",
+    "help",
+    "work",
+    "leave",
+    "open",
+    "key",
+    "fox",
+    "cost",
+    "far",
+    "come from",
+    "barn",
+    "hungry",
+    "mill",
+    "was",
+    "had"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "vprašanje",
+          "de": "Frage",
+          "it": "domanda",
+          "en": "question"
+        },
+        {
+          "sl": "poročano",
+          "de": "berichtet",
+          "it": "riferito",
+          "en": "reported"
+        },
+        {
+          "sl": "kaj se spremeni",
+          "de": "was sich ändert",
+          "it": "che cosa cambia",
+          "en": "what changes"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Vprašanje z vprašalnico: **asked** + **where**, **what**, **when** … + besedni red trdilne povedi, brez do in did. »Where do you live?« → **He asked where I lived.** (Vprašal je, kje živim.) »What do you want?« → **She asked what I wanted.** (Vprašala je, kaj želim.) Čas gre korak nazaj kot pri said.",
+          "de": "Frage mit Fragewort: **asked** + **where**, **what**, **when** … + die Wortstellung des Aussagesatzes, ohne do und did. „Where do you live?“ → **He asked where I lived.** (Er fragte, wo ich wohne.) „What do you want?“ → **She asked what I wanted.** (Sie fragte, was ich wolle.) Die Zeit geht einen Schritt zurück wie bei said.",
+          "it": "Domanda con parola interrogativa: **asked** + **where**, **what**, **when** … + l'ordine della frase affermativa, senza do e did. «Where do you live?» → **He asked where I lived.** (Ha chiesto dove abitavo.) «What do you want?» → **She asked what I wanted.** (Ha chiesto che cosa volevo.) Il tempo fa un passo indietro come con said.",
+          "en": "A question with a question word: **asked** + **where**, **what**, **when** … + a statement's word order, with no do or did. “Where do you live?” → **He asked where I lived.** “What do you want?” → **She asked what I wanted.** The tense goes one step back, as with said."
+        },
+        "examples": [
+          {
+            "en": "He asked where I lived.",
+            "sl": "Vprašal je, kje živim.",
+            "de": "Er fragte, wo ich wohne.",
+            "it": "Ha chiesto dove abitavo."
+          },
+          {
+            "en": "She asked what I wanted.",
+            "sl": "Vprašala je, kaj želim.",
+            "de": "Sie fragte, was ich wolle.",
+            "it": "Ha chiesto che cosa volevo."
+          }
+        ],
+        "rows": [
+          [
+            "Where do you live?",
+            "He asked where I lived.",
+            {
+              "sl": "brez do, red trdilne povedi",
+              "de": "kein do, Wortstellung des Aussagesatzes",
+              "it": "niente do, ordine affermativo",
+              "en": "no do, a statement's order"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reported-questions",
+          "prompt": "“Where do you live?” → He asked where ___.",
+          "options": [
+            "I lived",
+            "lived I",
+            "I was live"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**asked + where: red trdilne povedi, brez do**\n- He asked where I lived.",
+            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- He asked where I lived.",
+            "it": "**asked + where: ordine affermativo, niente do**\n- He asked where I lived.",
+            "en": "**asked + where: a statement's order, no do**\n- He asked where I lived."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Da ali ne: **asked if** ali **asked whether** (ali). »Do you want tea?« → **She asked if I wanted tea.** (Vprašala je, ali želim čaj.) »Can you help?« → **He asked whether I could help.** (Vprašal je, ali lahko pomagam.) Slovenski *ali* je tu **if**.",
+          "de": "Ja oder nein: **asked if** oder **asked whether** (ob). „Do you want tea?“ → **She asked if I wanted tea.** (Sie fragte, ob ich Tee wolle.) „Can you help?“ → **He asked whether I could help.** (Er fragte, ob ich helfen könne.) Deutsches *ob* ist hier **if**.",
+          "it": "Sì o no: **asked if** o **asked whether** (se). «Do you want tea?» → **She asked if I wanted tea.** (Ha chiesto se volevo del tè.) «Can you help?» → **He asked whether I could help.** (Ha chiesto se potevo aiutare.) Il *se* italiano qui è **if**.",
+          "en": "Yes or no: **asked if** or **asked whether**. “Do you want tea?” → **She asked if I wanted tea.** “Can you help?” → **He asked whether I could help.**"
+        },
+        "examples": [
+          {
+            "en": "She asked if I wanted tea.",
+            "sl": "Vprašala je, ali želim čaj.",
+            "de": "Sie fragte, ob ich Tee wolle.",
+            "it": "Ha chiesto se volevo del tè."
+          },
+          {
+            "en": "He asked whether I could help.",
+            "sl": "Vprašal je, ali lahko pomagam.",
+            "de": "Er fragte, ob ich helfen könne.",
+            "it": "Ha chiesto se potevo aiutare."
+          }
+        ],
+        "rows": [
+          [
+            "Do you want tea?",
+            "She asked if I wanted tea.",
+            {
+              "sl": "da ali ne: if, whether",
+              "de": "ja oder nein: if, whether",
+              "it": "sì o no: if, whether",
+              "en": "yes or no: if, whether"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reported-questions",
+          "prompt": "“Do you want tea?” → She asked ___ I wanted tea.",
+          "options": [
+            "if",
+            "that",
+            "what"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Da ali ne: asked if, asked whether**\n- She asked if I wanted tea.",
+            "de": "**Ja oder nein: asked if, asked whether**\n- She asked if I wanted tea.",
+            "it": "**Sì o no: asked if, asked whether**\n- She asked if I wanted tea.",
+            "en": "**Yes or no: asked if, asked whether**\n- She asked if I wanted tea."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri be gre **was** za osebek: »Where is the inn?« → **She asked where the inn was.** (Vprašala je, kje je gostilna.) »Are you tired?« → **He asked if I was tired.** (Vprašal je, ali sem {m:utrujen|f:utrujena}.) Preteklik: »What did you see?« → **He asked what I had seen.** (Vprašal je, kaj sem {m:videl|f:videla}.) Če je še res, tudi **She asked where the inn is.**",
+          "de": "Bei be kommt **was** nach dem Subjekt: „Where is the inn?“ → **She asked where the inn was.** (Sie fragte, wo das Gasthaus sei.) „Are you tired?“ → **He asked if I was tired.** (Er fragte, ob ich müde sei.) Die Vergangenheit: „What did you see?“ → **He asked what I had seen.** (Er fragte, was ich gesehen habe.) Wenn es noch stimmt, auch **She asked where the inn is.**",
+          "it": "Con be, **was** va dopo il soggetto: «Where is the inn?» → **She asked where the inn was.** (Ha chiesto dov'era la locanda.) «Are you tired?» → **He asked if I was tired.** (Ha chiesto se ero stanc{m:o|f:a}.) Il passato: «What did you see?» → **He asked what I had seen.** (Ha chiesto che cosa avevo visto.) Se è ancora vero, anche **She asked where the inn is.**",
+          "en": "With be, **was** goes after the subject: “Where is the inn?” → **She asked where the inn was.** “Are you tired?” → **He asked if I was tired.** The past: “What did you see?” → **He asked what I had seen.** If it's still so, also **She asked where the inn is.**"
+        },
+        "examples": [
+          {
+            "en": "She asked where the inn was.",
+            "sl": "Vprašala je, kje je gostilna.",
+            "de": "Sie fragte, wo das Gasthaus sei.",
+            "it": "Ha chiesto dov'era la locanda."
+          },
+          {
+            "en": "He asked if I was tired.",
+            "sl": "Vprašal je, ali sem {m:utrujen|f:utrujena}.",
+            "de": "Er fragte, ob ich müde sei.",
+            "it": "Ha chiesto se ero stanc{m:o|f:a}."
+          },
+          {
+            "en": "He asked what I had seen.",
+            "sl": "Vprašal je, kaj sem {m:videl|f:videla}.",
+            "de": "Er fragte, was ich gesehen habe.",
+            "it": "Ha chiesto che cosa avevo visto."
+          },
+          {
+            "en": "She asked where the inn is.",
+            "sl": "Vprašala je, kje je gostilna.",
+            "de": "Sie fragte, wo das Gasthaus ist.",
+            "it": "Ha chiesto dov'è la locanda."
+          }
+        ],
+        "rows": [
+          [
+            "Where is the inn?",
+            "She asked where the inn was.",
+            {
+              "sl": "is za osebek, nazaj",
+              "de": "is nach dem Subjekt, zurück",
+              "it": "is dopo il soggetto, indietro",
+              "en": "is after the subject, back"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reported-questions",
+          "text": "“Where is the bus stop?” → She asked where the bus stop ___.",
+          "accept": [
+            "was",
+            "is"
+          ],
+          "hint": "is → ?",
+          "explain": {
+            "sl": "**asked + where: red trdilne povedi, brez do**\n- She asked where the bus stop was.",
+            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- She asked where the bus stop was.",
+            "it": "**asked + where: ordine affermativo, niente do**\n- She asked where the bus stop was.",
+            "en": "**asked + where: a statement's order, no do**\n- She asked where the bus stop was."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V sedanjiku, enak besedni red, za vljudno vprašanje in za to, česar ne veš: **Do you know where the inn is?** (Ali veš, kje je gostilna?) **Could you tell me where the bus stops?** (Mi lahko poveš, kje ustavi avtobus?) **I don't know if Jack is coming.** (Ne vem, ali Jack pride.) **I wonder what she wants.** (Zanima me, kaj želi.)",
+          "de": "Im Präsens, dieselbe Wortstellung, für eine höfliche Frage und für das, was du nicht weißt: **Do you know where the inn is?** (Weißt du, wo das Gasthaus ist?) **Could you tell me where the bus stops?** (Kannst du mir sagen, wo der Bus hält?) **I don't know if Jack is coming.** (Ich weiß nicht, ob Jack kommt.) **I wonder what she wants.** (Ich frage mich, was sie will.)",
+          "it": "Al presente, stesso ordine, per una domanda cortese e per ciò che non sai: **Do you know where the inn is?** (Sai dov'è la locanda?) **Could you tell me where the bus stops?** (Puoi dirmi dove si ferma l'autobus?) **I don't know if Jack is coming.** (Non so se Jack viene.) **I wonder what she wants.** (Mi chiedo che cosa vuole.)",
+          "en": "In the present, the same word order, for a polite question and for what you don't know: **Do you know where the inn is?** **Could you tell me where the bus stops?** **I don't know if Jack is coming.** **I wonder what she wants.**"
+        },
+        "examples": [
+          {
+            "en": "Do you know where the inn is?",
+            "sl": "Ali veš, kje je gostilna?",
+            "de": "Weißt du, wo das Gasthaus ist?",
+            "it": "Sai dov'è la locanda?"
+          },
+          {
+            "en": "Could you tell me where the bus stops?",
+            "sl": "Mi lahko poveš, kje ustavi avtobus?",
+            "de": "Kannst du mir sagen, wo der Bus hält?",
+            "it": "Puoi dirmi dove si ferma l'autobus?"
+          },
+          {
+            "en": "I don't know if Jack is coming.",
+            "sl": "Ne vem, ali Jack pride.",
+            "de": "Ich weiß nicht, ob Jack kommt.",
+            "it": "Non so se Jack viene."
+          },
+          {
+            "en": "I wonder what she wants.",
+            "sl": "Zanima me, kaj želi.",
+            "de": "Ich frage mich, was sie will.",
+            "it": "Mi chiedo che cosa vuole."
+          }
+        ],
+        "rows": [
+          [
+            "Where is the inn?",
+            "Do you know where the inn is?",
+            {
+              "sl": "vljudno, v sedanjiku",
+              "de": "höflich, im Präsens",
+              "it": "cortese, al presente",
+              "en": "polite, in the present"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reported-questions",
+          "text": "Do you know where the inn ___?",
+          "accept": [
+            "is"
+          ],
+          "hint": {
+            "sl": "za osebkom",
+            "de": "nach dem Subjekt",
+            "it": "dopo il soggetto",
+            "en": "after the subject"
+          },
+          "explain": {
+            "sl": "**Vljudno: Do you know where …? + red trdilne povedi**\n- Do you know where the inn is?",
+            "de": "**Höflich: Do you know where …? + Aussage-Wortstellung**\n- Do you know where the inn is?",
+            "it": "**Cortese: Do you know where …? + ordine affermativo**\n- Do you know where the inn is?",
+            "en": "**Polite: Do you know where …? + a statement's order**\n- Do you know where the inn is?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pisno veljata **if** in besedni red trdilne povedi: **He asked if I wanted tea.** **He asked where I lived.** Ljudje rečejo tudi drugače: na Irskem, Škotskem in severu Anglije *He asked did I want tea* in *He asked where did I live*, in pogosto se sliši *Do you know where's the inn?* To boš slišal{m:|f:a}.",
+          "de": "Geschrieben gelten **if** und die Wortstellung des Aussagesatzes: **He asked if I wanted tea.** **He asked where I lived.** Die Leute sagen es auch anders: in Irland, Schottland und Nordengland *He asked did I want tea* und *He asked where did I live*, und oft hört man *Do you know where's the inn?* Das wirst du hören.",
+          "it": "Per iscritto valgono **if** e l'ordine della frase affermativa: **He asked if I wanted tea.** **He asked where I lived.** La gente lo dice anche in altri modi: in Irlanda, in Scozia e nel nord dell'Inghilterra *He asked did I want tea* e *He asked where did I live*, e spesso si sente *Do you know where's the inn?* Lo sentirai.",
+          "en": "Writing wants **if** and a statement's word order: **He asked if I wanted tea.** **He asked where I lived.** People also say it otherwise: in Ireland, Scotland and the North *He asked did I want tea* and *He asked where did I live*, and you often hear *Do you know where's the inn?* You'll hear it."
+        },
+        "examples": [
+          {
+            "en": "He asked if I wanted tea.",
+            "sl": "Vprašal je, ali želim čaj.",
+            "de": "Er fragte, ob ich Tee wolle.",
+            "it": "Ha chiesto se volevo del tè."
+          },
+          {
+            "en": "He asked where I lived.",
+            "sl": "Vprašal je, kje živim.",
+            "de": "Er fragte, wo ich wohne.",
+            "it": "Ha chiesto dove abitavo."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reported-questions",
+          "prompt": "“Do you want tea?” → He asked ___",
+          "options": [
+            "if I wanted tea.",
+            "I wanted tea.",
+            "that I wanted tea."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Da ali ne: asked if, asked whether**\n- He asked if I wanted tea.",
+            "de": "**Ja oder nein: asked if, asked whether**\n- He asked if I wanted tea.",
+            "it": "**Sì o no: asked if, asked whether**\n- He asked if I wanted tea.",
+            "en": "**Yes or no: asked if, asked whether**\n- He asked if I wanted tea."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ko je **who** ali **what** osebek, red ostane: »Who lives here?« → **She asked who lived there.** (Vprašala je, kdo tam živi.) Kdo je bil vprašan, stoji brez to: **She asked me where I lived.** (Vprašala me je, kje živim.) *She asked to me* je napaka. Odgovor poveš s **told**: **He told me where the inn was.** (Povedal mi je, kje je gostilna.)",
+          "de": "Wenn **who** oder **what** das Subjekt ist, bleibt die Stellung: „Who lives here?“ → **She asked who lived there.** (Sie fragte, wer dort wohne.) Wer gefragt wurde, steht ohne to: **She asked me where I lived.** (Sie fragte mich, wo ich wohne.) *She asked to me* ist ein Fehler. Die Antwort gibst du mit **told**: **He told me where the inn was.** (Er sagte mir, wo das Gasthaus sei.)",
+          "it": "Quando **who** o **what** è il soggetto, l'ordine resta: «Who lives here?» → **She asked who lived there.** (Ha chiesto chi abitava lì.) Chi viene interrogato sta senza to: **She asked me where I lived.** (Mi ha chiesto dove abitavo.) *She asked to me* è un errore. Per dare la risposta, **told**: **He told me where the inn was.** (Mi ha detto dov'era la locanda.)",
+          "en": "When **who** or **what** is the subject, the order stays: “Who lives here?” → **She asked who lived there.** Who was asked stands with no to: **She asked me where I lived.** *She asked to me* is a mistake. To give the answer: **told**: **He told me where the inn was.**"
+        },
+        "examples": [
+          {
+            "en": "She asked who lived there.",
+            "sl": "Vprašala je, kdo tam živi.",
+            "de": "Sie fragte, wer dort wohne.",
+            "it": "Ha chiesto chi abitava lì."
+          },
+          {
+            "en": "She asked me where I lived.",
+            "sl": "Vprašala me je, kje živim.",
+            "de": "Sie fragte mich, wo ich wohne.",
+            "it": "Mi ha chiesto dove abitavo."
+          },
+          {
+            "en": "He told me where the inn was.",
+            "sl": "Povedal mi je, kje je gostilna.",
+            "de": "Er sagte mir, wo das Gasthaus sei.",
+            "it": "Mi ha detto dov'era la locanda."
+          }
+        ],
+        "rows": [
+          [
+            "Who lives here?",
+            "She asked who lived there.",
+            {
+              "sl": "who je osebek: red ostane",
+              "de": "who ist Subjekt: Stellung bleibt",
+              "it": "who è il soggetto: l'ordine resta",
+              "en": "who is the subject: the order stays"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reported-questions",
+          "prompt": "She ___ me where I lived.",
+          "options": [
+            "asked",
+            "said",
+            "asked to"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**asked me, brez to**\n- She asked me where I lived.",
+            "de": "**asked me, ohne to**\n- She asked me where I lived.",
+            "it": "**asked me, senza to**\n- She asked me where I lived.",
+            "en": "**asked me, with no to**\n- She asked me where I lived."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "reported-questions-1",
+      "title": {
+        "sl": "Kaj je vprašal?",
+        "de": "Was hat er gefragt?",
+        "it": "Che cosa ha chiesto?",
+        "en": "What did he ask?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: asked if, or asked + the question word"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "asked if · da ali ne",
+                "de": "asked if · ja oder nein",
+                "it": "asked if · sì o no",
+                "en": "asked if"
+              },
+              "words": [
+                "Do you live here?",
+                "Are you tired?",
+                "Can you help?",
+                "Did you see Jack?"
+              ]
+            },
+            {
+              "label": {
+                "sl": "asked + where, what … · vprašalnica",
+                "de": "asked + where, what … · Fragewort",
+                "it": "asked + where, what … · parola interrogativa",
+                "en": "asked + where, what …"
+              },
+              "words": [
+                "Where do you live?",
+                "What do you want?",
+                "When did she come?",
+                "How far is it?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Da ali ne: asked if, asked whether**\n- Do you live here? → asked if · Where do you live? → asked where",
+            "de": "**Ja oder nein: asked if, asked whether**\n- Do you live here? → asked if · Where do you live? → asked where",
+            "it": "**Sì o no: asked if, asked whether**\n- Do you live here? → asked if · Where do you live? → asked where",
+            "en": "**Yes or no: asked if, asked whether**\n- Do you live here? → asked if · Where do you live? → asked where"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "prompt": {
+            "sl": "Dokončaj",
+            "de": "Ergänze",
+            "it": "Completa",
+            "en": "Finish it"
+          },
+          "columns": [
+            {
+              "sl": "poročano",
+              "de": "berichtet",
+              "it": "riferito",
+              "en": "reported"
+            }
+          ],
+          "rows": [
+            {
+              "label": "“Where do you live?” He asked where I …",
+              "cells": [
+                {
+                  "accept": [
+                    "lived"
+                  ],
+                  "spoken": [
+                    "live"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“What do you want?” She asked what I …",
+              "cells": [
+                {
+                  "accept": [
+                    "wanted"
+                  ],
+                  "spoken": [
+                    "want"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“Where is the inn?” She asked where the inn …",
+              "cells": [
+                {
+                  "accept": [
+                    "was"
+                  ],
+                  "spoken": [
+                    "is"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“Are you tired?” He asked if I …",
+              "cells": [
+                {
+                  "accept": [
+                    "was tired"
+                  ],
+                  "spoken": [
+                    "am tired"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“Can you help?” He asked if I …",
+              "cells": [
+                {
+                  "accept": [
+                    "could help"
+                  ],
+                  "spoken": [
+                    "can help"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“Who lives here?” She asked who … there.",
+              "cells": [
+                {
+                  "accept": [
+                    "lived"
+                  ],
+                  "spoken": [
+                    "lives"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**asked + where: red trdilne povedi, brez do**\n- “Where do you live?” → He asked where I lived.",
+            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- “Where do you live?” → He asked where I lived.",
+            "it": "**asked + where: ordine affermativo, niente do**\n- “Where do you live?” → He asked where I lived.",
+            "en": "**asked + where: a statement's order, no do**\n- “Where do you live?” → He asked where I lived."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "He ___ me if I wanted tea.",
+          "options": [
+            "asked",
+            "said",
+            "asked to"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**asked me, brez to**\n- He asked me if I wanted tea.",
+            "de": "**asked me, ohne to**\n- He asked me if I wanted tea.",
+            "it": "**asked me, senza to**\n- He asked me if I wanted tea.",
+            "en": "**asked me, with no to**\n- He asked me if I wanted tea."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "“When does the bus leave?” → She asked when the bus ___.",
+          "options": [
+            "left",
+            "does",
+            "leaving"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**asked + where: red trdilne povedi, brez do**\n- She asked when the bus left.",
+            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- She asked when the bus left.",
+            "it": "**asked + where: ordine affermativo, niente do**\n- She asked when the bus left.",
+            "en": "**asked + where: a statement's order, no do**\n- She asked when the bus left."
+          }
+        }
+      ]
+    },
+    {
+      "id": "reported-questions-2",
+      "title": {
+        "sl": "Neznanec v gostilni",
+        "de": "Der Fremde im Gasthaus",
+        "it": "Lo sconosciuto alla locanda",
+        "en": "The stranger at the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "A stranger came to the inn today. He asked where ___ (I, come) from. He asked ___ we had a room, and how much it ___ (cost). I asked him how long he ___ (want) to stay. He didn't know. He asked me if ___ (it, be) far to Keswick. Do you know who he ___ (be)?",
+          "gaps": [
+            {
+              "accept": [
+                "I came"
+              ],
+              "spoken": [
+                "I come"
+              ],
+              "hint": {
+                "sl": "brez did",
+                "de": "kein did",
+                "it": "niente did",
+                "en": "no did"
+              }
+            },
+            {
+              "accept": [
+                "if",
+                "whether"
+              ],
+              "hint": {
+                "sl": "da ali ne",
+                "de": "ja oder nein",
+                "it": "sì o no",
+                "en": "yes or no"
+              }
+            },
+            {
+              "accept": [
+                "cost",
+                "costs",
+                "would cost"
+              ],
+              "hint": "cost → ?"
+            },
+            {
+              "accept": [
+                "wanted"
+              ],
+              "spoken": [
+                "wants"
+              ],
+              "hint": "want → ?"
+            },
+            {
+              "accept": [
+                "it was"
+              ],
+              "spoken": [
+                "it is",
+                "it's"
+              ],
+              "hint": {
+                "sl": "osebek najprej",
+                "de": "zuerst das Subjekt",
+                "it": "prima il soggetto",
+                "en": "the subject first"
+              }
+            },
+            {
+              "accept": [
+                "is",
+                "was"
+              ],
+              "hint": {
+                "sl": "na koncu",
+                "de": "am Ende",
+                "it": "alla fine",
+                "en": "at the end"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "that",
+            "what"
+          ],
+          "translation": {
+            "sl": "Danes je v gostilno prišel neznanec. Vprašal je, od kod sem. Vprašal je, ali imamo sobo in koliko stane. {m:Vprašal|f:Vprašala} sem ga, kako dolgo želi ostati. Ni vedel. Vprašal me je, ali je do Keswicka daleč. Ali veš, kdo je?",
+            "de": "Heute kam ein Fremder ins Gasthaus. Er fragte, woher ich komme. Er fragte, ob wir ein Zimmer hätten und wie viel es koste. Ich fragte ihn, wie lange er bleiben wolle. Er wusste es nicht. Er fragte mich, ob es weit nach Keswick sei. Weißt du, wer er ist?",
+            "it": "Oggi è arrivato alla locanda uno sconosciuto. Ha chiesto da dove venivo. Ha chiesto se avevamo una camera e quanto costava. Gli ho chiesto quanto voleva restare. Non lo sapeva. Mi ha chiesto se era lontano Keswick. Sai chi è?",
+            "en": "A stranger came to the inn today. He asked where I came from. He asked if we had a room, and how much it cost. I asked him how long he wanted to stay. He didn't know. He asked me if it was far to Keswick. Do you know who he is?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "“Is there a room?” → He asked ___ there was a room.",
+          "options": [
+            "whether",
+            "that",
+            "what"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Da ali ne: asked if, asked whether**\n- He asked whether there was a room.",
+            "de": "**Ja oder nein: asked if, asked whether**\n- He asked whether there was a room.",
+            "it": "**Sì o no: asked if, asked whether**\n- He asked whether there was a room.",
+            "en": "**Yes or no: asked if, asked whether**\n- He asked whether there was a room."
+          }
+        }
+      ]
+    },
+    {
+      "id": "reported-questions-3",
+      "title": {
+        "sl": "Povej in vprašaj",
+        "de": "Sag und frag",
+        "it": "Riferisci e chiedi",
+        "en": "Report it, ask it"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Say what was asked · Povej, kaj je kdo vprašal",
+            "de": "Say what was asked · Sag, was gefragt wurde",
+            "it": "Say what was asked · Riferisci la domanda",
+            "en": "Say what was asked"
+          },
+          "items": [
+            {
+              "from": "“Where do you work?” Mr Dixon asked me.",
+              "accept": [
+                "Mr Dixon asked me where I worked.",
+                "He asked me where I worked.",
+                "Mr Dixon asked where I worked.",
+                "He asked where I worked."
+              ],
+              "spoken": [
+                "Mr Dixon asked me where I work.",
+                "He asked me where I work.",
+                "Mr Dixon asked where I work.",
+                "He asked where I work."
+              ]
+            },
+            {
+              "from": "“Do you want some soup?” Mrs Birkett asked me.",
+              "accept": [
+                "Mrs Birkett asked me if I wanted some soup.",
+                "She asked me if I wanted some soup.",
+                "Mrs Birkett asked if I wanted some soup.",
+                "She asked if I wanted some soup."
+              ],
+              "spoken": [
+                "Mrs Birkett asked me if I want some soup.",
+                "She asked me if I want some soup.",
+                "Mrs Birkett asked if I want some soup.",
+                "She asked if I want some soup."
+              ]
+            },
+            {
+              "from": "“Where is Meg?” Jack asked me.",
+              "accept": [
+                "Jack asked me where Meg was.",
+                "He asked me where Meg was.",
+                "Jack asked where Meg was.",
+                "He asked where Meg was."
+              ],
+              "spoken": [
+                "Jack asked me where Meg is.",
+                "He asked me where Meg is.",
+                "Jack asked where Meg is.",
+                "He asked where Meg is."
+              ]
+            },
+            {
+              "from": "“Did you see the fox?” Sam asked me.",
+              "accept": [
+                "Sam asked me if I had seen the fox.",
+                "He asked me if I had seen the fox.",
+                "Sam asked if I had seen the fox.",
+                "He asked if I had seen the fox.",
+                "Sam asked me if I saw the fox.",
+                "He asked me if I saw the fox.",
+                "Sam asked if I saw the fox.",
+                "He asked if I saw the fox."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**asked + where: red trdilne povedi, brez do**\n- “Where do you work?” → He asked me where I worked.",
+            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- “Where do you work?” → He asked me where I worked.",
+            "it": "**asked + where: ordine affermativo, niente do**\n- “Where do you work?” → He asked me where I worked.",
+            "en": "**asked + where: a statement's order, no do**\n- “Where do you work?” → He asked me where I worked."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "reported-questions",
+          "instruction": {
+            "sl": "Say it with the words in brackets · Povej z besedami v oklepaju",
+            "de": "Say it with the words in brackets · Sag es mit den Wörtern in Klammern",
+            "it": "Say it with the words in brackets · Dillo con le parole tra parentesi",
+            "en": "Say it with the words in brackets"
+          },
+          "items": [
+            {
+              "from": "Where is the bus stop? (Do you know …?)",
+              "accept": [
+                "Do you know where the bus stop is?"
+              ]
+            },
+            {
+              "from": "Where does the bus stop? (Could you tell me …?)",
+              "accept": [
+                "Could you tell me where the bus stops?"
+              ]
+            },
+            {
+              "from": "Is Jack coming? (I don't know …)",
+              "accept": [
+                "I don't know if Jack is coming.",
+                "I don't know if Jack's coming."
+              ]
+            },
+            {
+              "from": "What time does the inn open? (Do you know …?)",
+              "accept": [
+                "Do you know what time the inn opens?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vljudno: Do you know where …? + red trdilne povedi**\n- Where is the bus stop? → Do you know where the bus stop is?",
+            "de": "**Höflich: Do you know where …? + Aussage-Wortstellung**\n- Where is the bus stop? → Do you know where the bus stop is?",
+            "it": "**Cortese: Do you know where …? + ordine affermativo**\n- Where is the bus stop? → Do you know where the bus stop is?",
+            "en": "**Polite: Do you know where …? + a statement's order**\n- Where is the bus stop? → Do you know where the bus stop is?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "reported-questions",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Jack asked me where the key ___ (be). I asked him ___ he had looked in the barn. He asked me what time the bus ___ (leave). Do you know what time it ___ (leave)?",
+        "gaps": [
+          {
+            "accept": [
+              "was"
+            ],
+            "spoken": [
+              "is"
+            ]
+          },
+          {
+            "accept": [
+              "if",
+              "whether"
+            ]
+          },
+          {
+            "accept": [
+              "left",
+              "leaves",
+              "would leave",
+              "was leaving"
+            ]
+          },
+          {
+            "accept": [
+              "leaves",
+              "left",
+              "will leave",
+              "is leaving"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Jack me je vprašal, kje je ključ. {m:Vprašal|f:Vprašala} sem ga, ali je pogledal v skedenj. Vprašal me je, kdaj odpelje avtobus. Ali veš, kdaj odpelje?",
+          "de": "Jack fragte mich, wo der Schlüssel sei. Ich fragte ihn, ob er in der Scheune nachgeschaut habe. Er fragte mich, wann der Bus abfahre. Weißt du, wann er abfährt?",
+          "it": "Jack mi ha chiesto dov'era la chiave. Gli ho chiesto se aveva guardato nel fienile. Mi ha chiesto a che ora partiva l'autobus. Sai a che ora parte?",
+          "en": "Jack asked me where the key was. I asked him if he had looked in the barn. He asked me what time the bus left. Do you know what time it leaves?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reported-questions",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "“Is it far?” → She asked ___ it was far.",
+        "options": [
+          "if",
+          "that",
+          "what"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Da ali ne: asked if, asked whether**\n- She asked if it was far.",
+          "de": "**Ja oder nein: asked if, asked whether**\n- She asked if it was far.",
+          "it": "**Sì o no: asked if, asked whether**\n- She asked if it was far.",
+          "en": "**Yes or no: asked if, asked whether**\n- She asked if it was far."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reported-questions",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "“What do you want?” → He asked what ___.",
+        "options": [
+          "I wanted",
+          "wanted I",
+          "I was want"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**asked + where: red trdilne povedi, brez do**\n- He asked what I wanted.",
+          "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- He asked what I wanted.",
+          "it": "**asked + where: ordine affermativo, niente do**\n- He asked what I wanted.",
+          "en": "**asked + where: a statement's order, no do**\n- He asked what I wanted."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reported-questions",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "She ___ me what I wanted.",
+        "options": [
+          "asked",
+          "said",
+          "asked to"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**asked me, brez to**\n- She asked me what I wanted.",
+          "de": "**asked me, ohne to**\n- She asked me what I wanted.",
+          "it": "**asked me, senza to**\n- She asked me what I wanted.",
+          "en": "**asked me, with no to**\n- She asked me what I wanted."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reported-questions",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Could you tell me where ___?",
+        "options": [
+          "the bus stops",
+          "stops the bus",
+          "the bus stop it"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vljudno: Do you know where …? + red trdilne povedi**\n- Could you tell me where the bus stops?",
+          "de": "**Höflich: Do you know where …? + Aussage-Wortstellung**\n- Could you tell me where the bus stops?",
+          "it": "**Cortese: Do you know where …? + ordine affermativo**\n- Could you tell me where the bus stops?",
+          "en": "**Polite: Do you know where …? + a statement's order**\n- Could you tell me where the bus stops?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reported-questions",
+        "instruction": {
+          "sl": "Say what was asked · Povej, kaj je kdo vprašal",
+          "de": "Say what was asked · Sag, was gefragt wurde",
+          "it": "Say what was asked · Riferisci la domanda",
+          "en": "Say what was asked"
+        },
+        "items": [
+          {
+            "from": "“Where do you come from?” the walker asked me.",
+            "accept": [
+              "The walker asked me where I came from.",
+              "He asked me where I came from.",
+              "The walker asked where I came from.",
+              "He asked where I came from.",
+              "She asked me where I came from.",
+              "She asked where I came from.",
+              "They asked me where I came from.",
+              "They asked where I came from."
+            ],
+            "spoken": [
+              "The walker asked me where I come from.",
+              "He asked me where I come from.",
+              "The walker asked where I come from.",
+              "He asked where I come from.",
+              "She asked me where I come from.",
+              "She asked where I come from.",
+              "They asked me where I come from.",
+              "They asked where I come from."
+            ]
+          },
+          {
+            "from": "“Are you hungry?” Edna asked me.",
+            "accept": [
+              "Edna asked me if I was hungry.",
+              "She asked me if I was hungry.",
+              "Edna asked if I was hungry.",
+              "She asked if I was hungry."
+            ],
+            "spoken": [
+              "Edna asked me if I am hungry.",
+              "She asked me if I am hungry.",
+              "Edna asked if I am hungry.",
+              "She asked if I am hungry."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**asked + where: red trdilne povedi, brez do**\n- “Are you hungry?” → Edna asked me if I was hungry.",
+          "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- “Are you hungry?” → Edna asked me if I was hungry.",
+          "it": "**asked + where: ordine affermativo, niente do**\n- “Are you hungry?” → Edna asked me if I was hungry.",
+          "en": "**asked + where: a statement's order, no do**\n- “Are you hungry?” → Edna asked me if I was hungry."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reported-questions",
+        "instruction": {
+          "sl": "Say it with the words in brackets · Povej z besedami v oklepaju",
+          "de": "Say it with the words in brackets · Sag es mit den Wörtern in Klammern",
+          "it": "Say it with the words in brackets · Dillo con le parole tra parentesi",
+          "en": "Say it with the words in brackets"
+        },
+        "items": [
+          {
+            "from": "Where is the mill? (Do you know …?)",
+            "accept": [
+              "Do you know where the mill is?"
+            ]
+          },
+          {
+            "from": "Where does Mr Tyson live? (Could you tell me …?)",
+            "accept": [
+              "Could you tell me where Mr Tyson lives?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Vljudno: Do you know where …? + red trdilne povedi**\n- Where is the mill? → Do you know where the mill is?",
+          "de": "**Höflich: Do you know where …? + Aussage-Wortstellung**\n- Where is the mill? → Do you know where the mill is?",
+          "it": "**Cortese: Do you know where …? + ordine affermativo**\n- Where is the mill? → Do you know where the mill is?",
+          "en": "**Polite: Do you know where …? + a statement's order**\n- Where is the mill? → Do you know where the mill is?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

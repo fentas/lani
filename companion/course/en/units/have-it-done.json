@@ -1,0 +1,991 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "have-it-done",
+  "language": "en",
+  "level": "B2",
+  "emoji": "✂️",
+  "title": {
+    "en": "I had my hair cut",
+    "de": "Machen lassen: I had my hair cut",
+    "sl": "Dati narediti: I had my hair cut",
+    "it": "Farsi fare: I had my hair cut"
+  },
+  "goal": {
+    "sl": "Poveš, kaj daš narediti drugemu (I had my hair cut, I'm getting the van fixed), in to ločiš od tega, kar narediš sam, ter od I had cut my hair.",
+    "de": "Du sagst, was du machen lässt (I had my hair cut, I'm getting the van fixed), und unterscheidest es von dem, was du selbst machst, und von I had cut my hair.",
+    "it": "Dici che cosa ti fai fare (I had my hair cut, I'm getting the van fixed) e lo distingui da quello che fai da solo e da I had cut my hair.",
+    "en": "You can say what you have done for you (I had my hair cut, I'm getting the van fixed), and keep it apart from what you do yourself and from I had cut my hair."
+  },
+  "grammar": [
+    "have-it-done",
+    "passive"
+  ],
+  "words": [
+    "participle",
+    "hair",
+    "spade",
+    "cut",
+    "hairdresser's",
+    "roof",
+    "mend",
+    "fix",
+    "boots",
+    "fence",
+    "windows",
+    "clean",
+    "paint",
+    "check",
+    "look at",
+    "get someone to",
+    "wallet",
+    "bag",
+    "bike",
+    "thief",
+    "break into",
+    "stolen",
+    "van",
+    "kitchen",
+    "barn",
+    "mill wheel",
+    "hive",
+    "busy",
+    "sad",
+    "looked",
+    "gotten"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "pomeni",
+          "de": "heißt",
+          "it": "vuol dire",
+          "en": "means"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**have** + stvar + deležnik pomeni, da to zate naredi nekdo drug: **I had my hair cut.** ({m:Dal|f:Dala} sem si postriči lase.) **Mrs Birkett had the roof mended.** (Gospa Birkett je dala popraviti streho.) Če narediš {m:sam|f:sama}, je to navaden glagol: **I cut my hair.**",
+          "de": "**have** + Sache + Partizip heißt, dass jemand anderer es für dich macht: **I had my hair cut.** (Ich habe mir die Haare schneiden lassen.) **Mrs Birkett had the roof mended.** (Mrs Birkett hat das Dach reparieren lassen.) Machst du es selbst, ist es ein normales Verb: **I cut my hair.**",
+          "it": "**have** + cosa + participio vuol dire che lo fa un altro per te: **I had my hair cut.** (Mi sono fatt{m:o|f:a} tagliare i capelli.) **Mrs Birkett had the roof mended.** (Mrs Birkett ha fatto riparare il tetto.) Se lo fai da sol{m:o|f:a}, è un verbo normale: **I cut my hair.**",
+          "en": "**have** + thing + the participle means someone else does it for you: **I had my hair cut.** **Mrs Birkett had the roof mended.** If you do it yourself, it's a plain verb: **I cut my hair.**"
+        },
+        "examples": [
+          {
+            "en": "I had my hair cut.",
+            "sl": "{m:Dal|f:Dala} sem si postriči lase.",
+            "de": "Ich habe mir die Haare schneiden lassen.",
+            "it": "Mi sono fatt{m:o|f:a} tagliare i capelli."
+          },
+          {
+            "en": "Mrs Birkett had the roof mended.",
+            "sl": "Gospa Birkett je dala popraviti streho.",
+            "de": "Mrs Birkett hat das Dach reparieren lassen.",
+            "it": "Mrs Birkett ha fatto riparare il tetto."
+          },
+          {
+            "en": "I cut my hair.",
+            "sl": "{m:Sam|f:Sama} sem se {m:ostrigel|f:ostrigla}.",
+            "de": "Ich habe mir die Haare geschnitten.",
+            "it": "Mi sono tagliat{m:o|f:a} i capelli."
+          }
+        ],
+        "rows": [
+          [
+            "have + thing + participle",
+            {
+              "sl": "nekdo drug naredi zate",
+              "de": "jemand anderer macht es für dich",
+              "it": "lo fa un altro per te",
+              "en": "someone else does it for you"
+            },
+            "I had my hair cut."
+          ],
+          [
+            "do it",
+            {
+              "sl": "naredi sam",
+              "de": "selbst",
+              "it": "da solo",
+              "en": "you yourself"
+            },
+            "I cut my hair."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "have-it-done",
+          "prompt": "Jack couldn't mend the roof, so he ___.",
+          "options": [
+            "had it mended",
+            "mended it",
+            "had mended it"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Nekdo drug: had + it + deležnik**\n- Jack had it mended.",
+            "de": "**Jemand anderer: had + it + Partizip**\n- Jack had it mended.",
+            "it": "**Un altro: had + it + participio**\n- Jack had it mended.",
+            "en": "**Someone else: had + it + the participle**\n- Jack had it mended."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Spremeni se le **have**: **We're having the roof mended.** (Streho nam prav zdaj popravljajo.) **We've had the roof mended.** **We'll have the roof mended.** Vprašanje in zanikanje kot pri vsakem glagolu: **Did you have your hair cut?** (Si se {m:dal|f:dala} postriči?) **I didn't have it done.**",
+          "de": "Nur **have** ändert sich: **We're having the roof mended.** (Wir lassen gerade das Dach reparieren.) **We've had the roof mended.** **We'll have the roof mended.** Frage und Verneinung wie bei jedem Verb: **Did you have your hair cut?** (Hast du dir die Haare schneiden lassen?) **I didn't have it done.**",
+          "it": "Cambia solo **have**: **We're having the roof mended.** (Stiamo facendo riparare il tetto.) **We've had the roof mended.** **We'll have the roof mended.** Domanda e negazione come per ogni verbo: **Did you have your hair cut?** (Ti sei fatt{m:o|f:a} tagliare i capelli?) **I didn't have it done.**",
+          "en": "Only **have** changes: **We're having the roof mended.** **We've had the roof mended.** **We'll have the roof mended.** Questions and no as with any verb: **Did you have your hair cut?** **I didn't have it done.**"
+        },
+        "examples": [
+          {
+            "en": "We're having the roof mended.",
+            "sl": "Streho nam prav zdaj popravljajo.",
+            "de": "Wir lassen gerade das Dach reparieren.",
+            "it": "Stiamo facendo riparare il tetto."
+          },
+          {
+            "en": "We've had the roof mended.",
+            "sl": "Dali smo popraviti streho.",
+            "de": "Wir haben das Dach reparieren lassen.",
+            "it": "Abbiamo fatto riparare il tetto."
+          },
+          {
+            "en": "We'll have the roof mended.",
+            "sl": "Dali bomo popraviti streho.",
+            "de": "Wir werden das Dach reparieren lassen.",
+            "it": "Faremo riparare il tetto."
+          },
+          {
+            "en": "Did you have your hair cut?",
+            "sl": "Si se {m:dal|f:dala} postriči?",
+            "de": "Hast du dir die Haare schneiden lassen?",
+            "it": "Ti sei fatt{m:o|f:a} tagliare i capelli?"
+          }
+        ],
+        "rows": [
+          [
+            "is having, has had, will have",
+            {
+              "sl": "vsi časi: le have se spremeni",
+              "de": "alle Zeiten: nur have ändert sich",
+              "it": "ogni tempo: cambia solo have",
+              "en": "every tense: only have changes"
+            },
+            "We've had the roof mended."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "have-it-done",
+          "text": "Where did you ___ your hair cut?",
+          "accept": [
+            "have",
+            "get"
+          ],
+          "hint": {
+            "sl": "did + osnovna oblika",
+            "de": "did + Grundform",
+            "it": "did + forma base",
+            "en": "did + the base form"
+          },
+          "explain": {
+            "sl": "**did + have + stvar + deležnik**\n- Where did you have your hair cut?",
+            "de": "**did + have + Sache + Partizip**\n- Where did you have your hair cut?",
+            "it": "**did + have + cosa + participio**\n- Where did you have your hair cut?",
+            "en": "**did + have + thing + the participle**\n- Where did you have your hair cut?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V govoru je pogosto **get**, enak pomen: **I got my hair cut.** **I'm getting the van fixed.** (Kombi mi prav zdaj popravljajo.) Tudi kot ukaz: **Get your hair cut!** (Pojdi se ostrič!) Američani rečejo tudi **I've gotten my hair cut.**, Britanci **I've had my hair cut.**",
+          "de": "Gesprochen ist **get** häufig, mit demselben Sinn: **I got my hair cut.** **I'm getting the van fixed.** (Ich lasse gerade den Lieferwagen reparieren.) Auch als Befehl: **Get your hair cut!** (Lass dir die Haare schneiden!) In Amerika auch **I've gotten my hair cut.**, in Großbritannien **I've had my hair cut.**",
+          "it": "A voce è comune **get**, con lo stesso senso: **I got my hair cut.** **I'm getting the van fixed.** (Sto facendo riparare il furgone.) Anche come ordine: **Get your hair cut!** (Fatti tagliare i capelli!) In America anche **I've gotten my hair cut.**, in Gran Bretagna **I've had my hair cut.**",
+          "en": "In talk **get** is common, with the same meaning: **I got my hair cut.** **I'm getting the van fixed.** As an order too: **Get your hair cut!** Americans also say **I've gotten my hair cut.**, the British **I've had my hair cut.**"
+        },
+        "examples": [
+          {
+            "en": "I got my hair cut.",
+            "sl": "{m:Dal|f:Dala} sem si postriči lase.",
+            "de": "Ich habe mir die Haare schneiden lassen.",
+            "it": "Mi sono fatt{m:o|f:a} tagliare i capelli."
+          },
+          {
+            "en": "I'm getting the van fixed.",
+            "sl": "Kombi mi prav zdaj popravljajo.",
+            "de": "Ich lasse gerade den Lieferwagen reparieren.",
+            "it": "Sto facendo riparare il furgone."
+          },
+          {
+            "en": "Get your hair cut!",
+            "sl": "Pojdi se ostrič!",
+            "de": "Lass dir die Haare schneiden!",
+            "it": "Fatti tagliare i capelli!"
+          },
+          {
+            "en": "I've had my hair cut.",
+            "sl": "{m:Dal|f:Dala} sem si postriči lase.",
+            "de": "Ich habe mir die Haare schneiden lassen.",
+            "it": "Mi sono fatt{m:o|f:a} tagliare i capelli."
+          }
+        ],
+        "rows": [
+          [
+            "get + thing + participle",
+            {
+              "sl": "isto, v govoru",
+              "de": "dasselbe, gesprochen",
+              "it": "lo stesso, a voce",
+              "en": "the same, in talk"
+            },
+            "I got my hair cut."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "have-it-done",
+          "prompt": "Sam ___ his van fixed in Keswick last week.",
+          "options": [
+            "got",
+            "gets to",
+            "getting"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Preteklost: got + stvar + deležnik**\n- Sam got his van fixed in Keswick.",
+            "de": "**Vergangenheit: got + Sache + Partizip**\n- Sam got his van fixed in Keswick.",
+            "it": "**Passato: got + cosa + participio**\n- Sam got his van fixed in Keswick.",
+            "en": "**The past: got + thing + the participle**\n- Sam got his van fixed in Keswick."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pazi na vrstni red: **I had my hair cut.** (nekdo drug) ni **I had cut my hair.** ({m:ostrigel|f:ostrigla} sem se {m:sam|f:sama}, še prej). Stvar stoji v sredini, za njo deležnik: **I had the gate mended** (nikoli *I had the gate mend*). Pri **cut** sta osnovna oblika in deležnik enaka, pri drugih ne: **painted, cleaned, looked at**.",
+          "de": "Achte auf die Reihenfolge: **I had my hair cut.** (jemand anderer) ist nicht **I had cut my hair.** (selbst, schon vorher). Die Sache steht in der Mitte, danach das Partizip: **I had the gate mended** (nie *I had the gate mend*). *lassen* ist hier nicht *let*. Bei **cut** sind Grundform und Partizip gleich, sonst nicht: **painted, cleaned, looked at**.",
+          "it": "Attent{m:o|f:a} all'ordine: **I had my hair cut.** (un altro) non è **I had cut my hair.** (da sol{m:o|f:a}, già prima). La cosa sta in mezzo, poi il participio: **I had the gate mended** (mai *I had the gate mend*). Qui *fare* non è *make*. Con **cut** forma base e participio sono uguali, con gli altri no: **painted, cleaned, looked at**.",
+          "en": "Mind the order: **I had my hair cut.** (someone else) isn't **I had cut my hair.** (myself, earlier). The thing stands in the middle, then the participle: **I had the gate mended** (never *I had the gate mend*). With **cut** the base form and the participle look the same, with others they don't: **painted, cleaned, looked at**."
+        },
+        "examples": [
+          {
+            "en": "I had my hair cut.",
+            "sl": "{m:Dal|f:Dala} sem si postriči lase.",
+            "de": "Ich habe mir die Haare schneiden lassen.",
+            "it": "Mi sono fatt{m:o|f:a} tagliare i capelli."
+          },
+          {
+            "en": "I had cut my hair.",
+            "sl": "{m:Sam|f:Sama} sem se že prej {m:ostrigel|f:ostrigla}.",
+            "de": "Ich hatte mir die Haare schon geschnitten.",
+            "it": "Mi ero già tagliat{m:o|f:a} i capelli."
+          },
+          {
+            "en": "I had the gate mended.",
+            "sl": "Vrata sem {m:dal|f:dala} popraviti.",
+            "de": "Ich habe das Tor reparieren lassen.",
+            "it": "Ho fatto riparare il cancello."
+          },
+          {
+            "en": "We had the windows cleaned and the door painted.",
+            "sl": "Dali smo očistiti okna in prepleskati vrata.",
+            "de": "Wir haben die Fenster putzen und die Tür streichen lassen.",
+            "it": "Abbiamo fatto pulire le finestre e dipingere la porta."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "have-it-done",
+          "prompt": "Edna went to the hairdresser's and ___.",
+          "options": [
+            "had her hair cut",
+            "had cut her hair",
+            "let her hair cut"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Stvar v sredini, za njo deležnik**\n- Edna had her hair cut.",
+            "de": "**Die Sache in der Mitte, danach das Partizip**\n- Edna had her hair cut.",
+            "it": "**La cosa in mezzo, poi il participio**\n- Edna had her hair cut.",
+            "en": "**The thing in the middle, then the participle**\n- Edna had her hair cut."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kdo je to naredil, pove **by**: **We had the gate mended by Mr Dixon.** Če je oseba v ospredju: **get** + oseba + **to**: **I'll get Jack to look at it.** ({m:Prosil|f:Prosila} bom Jacka, naj to pogleda.) Ali **have** + oseba + osnovna oblika: **I'll have Jack look at it.** Slednje je v Britaniji bolj uradno.",
+          "de": "Wer es gemacht hat, sagt **by**: **We had the gate mended by Mr Dixon.** Steht die Person im Vordergrund: **get** + Person + **to**: **I'll get Jack to look at it.** (Ich lasse Jack einen Blick darauf werfen.) Oder **have** + Person + Grundform: **I'll have Jack look at it.** Das klingt in Großbritannien förmlicher.",
+          "it": "Chi l'ha fatto lo dice **by**: **We had the gate mended by Mr Dixon.** Se conta la persona: **get** + persona + **to**: **I'll get Jack to look at it.** (Lo faccio vedere a Jack.) Oppure **have** + persona + forma base: **I'll have Jack look at it.** In Gran Bretagna suona più formale.",
+          "en": "**by** says who did it: **We had the gate mended by Mr Dixon.** When the person matters: **get** + person + **to**: **I'll get Jack to look at it.** Or **have** + person + the base form: **I'll have Jack look at it.** In Britain that sounds more formal."
+        },
+        "examples": [
+          {
+            "en": "We had the gate mended by Mr Dixon.",
+            "sl": "Vrata nam je popravil gospod Dixon.",
+            "de": "Wir haben das Tor von Mr Dixon reparieren lassen.",
+            "it": "Abbiamo fatto riparare il cancello da Mr Dixon."
+          },
+          {
+            "en": "I'll get Jack to look at it.",
+            "sl": "{m:Prosil|f:Prosila} bom Jacka, naj to pogleda.",
+            "de": "Ich lasse Jack einen Blick darauf werfen.",
+            "it": "Lo faccio vedere a Jack."
+          },
+          {
+            "en": "I'll have Jack look at it.",
+            "sl": "{m:Naročil|f:Naročila} bom Jacku, naj to pogleda.",
+            "de": "Ich lasse Jack einen Blick darauf werfen.",
+            "it": "Lo faccio vedere a Jack."
+          }
+        ],
+        "rows": [
+          [
+            "get Jack to, have Jack",
+            {
+              "sl": "kdo to naredi",
+              "de": "wer es macht",
+              "it": "chi lo fa",
+              "en": "who does it"
+            },
+            "I'll get Jack to look at it."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "have-it-done",
+          "text": "I'll get Sam ___ carry it.",
+          "accept": [
+            "to"
+          ],
+          "hint": {
+            "sl": "get + oseba + ?",
+            "de": "get + Person + ?",
+            "it": "get + persona + ?",
+            "en": "get + person + ?"
+          },
+          "explain": {
+            "sl": "**get + oseba + to**\n- I'll get Sam to carry it.",
+            "de": "**get + Person + to**\n- I'll get Sam to carry it.",
+            "it": "**get + persona + to**\n- I'll get Sam to carry it.",
+            "en": "**get + person + to**\n- I'll get Sam to carry it."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ista oblika pove tudi kaj slabega, česar nisi {m:hotel|f:hotela}: **Old Wilf had his wallet stolen on the bus.** (Staremu Wilfu so na avtobusu ukradli denarnico.) **Sam had his van broken into.** Ni naročil, zgodilo se mu je. To je isto kot **His wallet was stolen.**",
+          "de": "Dieselbe Form sagt auch etwas Schlimmes, das du nicht wolltest: **Old Wilf had his wallet stolen on the bus.** (Dem alten Wilf wurde im Bus die Geldbörse gestohlen.) **Sam had his van broken into.** Bestellt hat er das nicht, es ist ihm passiert. Das ist dasselbe wie **His wallet was stolen.**",
+          "it": "La stessa forma dice anche qualcosa di brutto che non volevi: **Old Wilf had his wallet stolen on the bus.** (Al vecchio Wilf hanno rubato il portafoglio sull'autobus.) **Sam had his van broken into.** Non l'ha chiesto lui, gli è successo. È come **His wallet was stolen.**",
+          "en": "The same form says something bad you didn't want: **Old Wilf had his wallet stolen on the bus.** **Sam had his van broken into.** He didn't ask for it; it happened to him. It's the same as **His wallet was stolen.**"
+        },
+        "examples": [
+          {
+            "en": "Old Wilf had his wallet stolen on the bus.",
+            "sl": "Staremu Wilfu so na avtobusu ukradli denarnico.",
+            "de": "Dem alten Wilf wurde im Bus die Geldbörse gestohlen.",
+            "it": "Al vecchio Wilf hanno rubato il portafoglio sull'autobus."
+          },
+          {
+            "en": "Sam had his van broken into.",
+            "sl": "Samu so vlomili v kombi.",
+            "de": "In Sams Lieferwagen wurde eingebrochen.",
+            "it": "A Sam hanno scassinato il furgone."
+          },
+          {
+            "en": "His wallet was stolen.",
+            "sl": "Ukradli so mu denarnico.",
+            "de": "Seine Geldbörse wurde gestohlen.",
+            "it": "Gli hanno rubato il portafoglio."
+          }
+        ],
+        "rows": [
+          [
+            "had … stolen",
+            {
+              "sl": "zgodi se nekaj slabega",
+              "de": "etwas Schlimmes passiert",
+              "it": "succede qualcosa di brutto",
+              "en": "something bad happens"
+            },
+            "He had his wallet stolen."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "have-it-done",
+          "prompt": "Poor Edna! She ___ on the bus to Keswick.",
+          "options": [
+            "had her bag stolen",
+            "had stolen her bag",
+            "stole her bag"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zgodilo se ji je: had + stvar + deležnik**\n- Edna had her bag stolen.",
+            "de": "**Es ist ihr passiert: had + Sache + Partizip**\n- Edna had her bag stolen.",
+            "it": "**Le è successo: had + cosa + participio**\n- Edna had her bag stolen.",
+            "en": "**It happened to her: had + thing + the participle**\n- Edna had her bag stolen."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "have-it-done-1",
+      "title": {
+        "sl": "Narediš sam ali nekdo drug",
+        "de": "Selbst oder jemand anderer",
+        "it": "Da solo o un altro",
+        "en": "Yourself or someone else"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "have-it-done",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "naredi nekdo drug",
+                "de": "jemand anderer",
+                "it": "un altro",
+                "en": "someone else"
+              },
+              "words": [
+                "Jack had his boots mended.",
+                "We got the roof fixed.",
+                "Sam had the van painted.",
+                "I'm having my hair cut."
+              ]
+            },
+            {
+              "label": {
+                "sl": "naredi sam",
+                "de": "selbst",
+                "it": "da solo",
+                "en": "yourself"
+              },
+              "words": [
+                "Jack mended his boots.",
+                "We fixed the roof.",
+                "Sam painted the van.",
+                "I'm cutting my hair."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**have, get + stvar + deležnik: nekdo drug**\n- Jack had his boots mended.",
+            "de": "**have, get + Sache + Partizip: jemand anderer**\n- Jack had his boots mended.",
+            "it": "**have, get + cosa + participio: un altro**\n- Jack had his boots mended.",
+            "en": "**have, get + thing + the participle: someone else**\n- Jack had his boots mended."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "have-it-done",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Mrs Birkett is busy. She ___ the roof mended last month, and this week she is ___ the kitchen painted. Next week she's going to ___ the windows cleaned. She ___ Mr Dixon to mend the gate yesterday. Harry needs to get his hair ___. He hasn't had it ___ since June.",
+          "gaps": [
+            {
+              "accept": [
+                "had",
+                "got"
+              ]
+            },
+            {
+              "accept": [
+                "having",
+                "getting"
+              ]
+            },
+            {
+              "accept": [
+                "have",
+                "get"
+              ]
+            },
+            {
+              "accept": [
+                "got"
+              ]
+            },
+            {
+              "accept": [
+                "cut"
+              ]
+            },
+            {
+              "accept": [
+                "cut"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "mended",
+            "did"
+          ],
+          "translation": {
+            "sl": "Gospa Birkett ima veliko dela. Prejšnji mesec je dala popraviti streho, ta teden ji pleskajo kuhinjo. Naslednji teden bo dala očistiti okna. Včeraj je gospoda Dixona pripravila do tega, da je popravil vrata. Harry se mora ostriči. Ni se strigel od junija.",
+            "de": "Mrs Birkett hat viel zu tun. Letzten Monat hat sie das Dach reparieren lassen, diese Woche lässt sie die Küche streichen. Nächste Woche lässt sie die Fenster putzen. Gestern hat sie Mr Dixon dazu gebracht, das Tor zu reparieren. Harry muss zum Friseur. Seit Juni war er nicht mehr dort.",
+            "it": "Mrs Birkett ha molto da fare. Il mese scorso ha fatto riparare il tetto, questa settimana fa dipingere la cucina. La settimana prossima farà pulire le finestre. Ieri ha fatto riparare il cancello a Mr Dixon. Harry deve farsi tagliare i capelli. Non se li fa tagliare da giugno.",
+            "en": "Mrs Birkett is busy. She had the roof mended last month, and this week she is having the kitchen painted. Next week she's going to have the windows cleaned. She got Mr Dixon to mend the gate yesterday. Harry needs to get his hair cut. He hasn't had it cut since June."
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-it-done-2",
+      "title": {
+        "sl": "Dala je popraviti",
+        "de": "Sie hat es reparieren lassen",
+        "it": "L'ha fatto riparare",
+        "en": "She had it mended"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "have-it-done",
+          "instruction": {
+            "sl": "Say it with have or get + the participle · Povej s have ali get + deležnik",
+            "de": "Say it with have or get + the participle · Sag es mit have oder get + Partizip",
+            "it": "Say it with have or get + the participle · Dillo con have o get + participio",
+            "en": "Say it with have or get + the participle"
+          },
+          "items": [
+            {
+              "from": "Mr Dixon mended my spade. (I)",
+              "accept": [
+                "I had my spade mended.",
+                "I got my spade mended.",
+                "I had my spade mended by Mr Dixon.",
+                "I got my spade mended by Mr Dixon."
+              ]
+            },
+            {
+              "from": "Sam is painting our van. (we)",
+              "accept": [
+                "We're having our van painted.",
+                "We're getting our van painted.",
+                "We're having our van painted by Sam.",
+                "We're getting our van painted by Sam."
+              ]
+            },
+            {
+              "from": "A man has cleaned Edna's windows. (Edna)",
+              "accept": [
+                "Edna has had her windows cleaned.",
+                "Edna has got her windows cleaned.",
+                "Edna has had her windows cleaned by a man.",
+                "Edna has got her windows cleaned by a man.",
+                "Edna has gotten her windows cleaned."
+              ]
+            },
+            {
+              "from": "Someone will cut the hay. (Mr Tyson)",
+              "accept": [
+                "Mr Tyson will have the hay cut.",
+                "Mr Tyson will get the hay cut.",
+                "Mr Tyson is going to have the hay cut.",
+                "Mr Tyson is going to get the hay cut."
+              ]
+            },
+            {
+              "from": "Someone cuts Jack's hair every month. (Jack)",
+              "accept": [
+                "Jack has his hair cut every month.",
+                "Jack gets his hair cut every month."
+              ]
+            },
+            {
+              "from": "A man is going to look at the van. (Sam)",
+              "accept": [
+                "Sam is going to have the van looked at.",
+                "Sam is going to get the van looked at.",
+                "Sam is going to have the van looked at by a man.",
+                "Sam is going to get the van looked at by a man."
+              ]
+            },
+            {
+              "from": "Someone stole Old Wilf's wallet. (Old Wilf)",
+              "accept": [
+                "Old Wilf had his wallet stolen.",
+                "Old Wilf got his wallet stolen."
+              ]
+            },
+            {
+              "from": "A thief broke into Sam's van. (Sam)",
+              "accept": [
+                "Sam had his van broken into.",
+                "Sam got his van broken into.",
+                "Sam had his van broken into by a thief.",
+                "Sam got his van broken into by a thief."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Osebek v oklepaju + have, get v istem času + stvar + deležnik**\n- Mr Dixon mended my spade. (I) → I had my spade mended.",
+            "de": "**Das Subjekt in Klammern + have, get in derselben Zeit + Sache + Partizip**\n- Mr Dixon mended my spade. (I) → I had my spade mended.",
+            "it": "**Il soggetto tra parentesi + have, get allo stesso tempo + cosa + participio**\n- Mr Dixon mended my spade. (I) → I had my spade mended.",
+            "en": "**The subject in brackets + have, get in the same tense + thing + the participle**\n- Mr Dixon mended my spade. (I) → I had my spade mended."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "have-it-done",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "I'm going to have my boots ___.",
+          "options": [
+            "mended",
+            "mend",
+            "mending"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**have + stvar + deležnik**\n- I'm going to have my boots mended.",
+            "de": "**have + Sache + Partizip**\n- I'm going to have my boots mended.",
+            "it": "**have + cosa + participio**\n- I'm going to have my boots mended.",
+            "en": "**have + thing + the participle**\n- I'm going to have my boots mended."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "have-it-done",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Have you ___ the fence painted yet?",
+          "options": [
+            "had",
+            "have",
+            "having"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Have you + had + stvar + deležnik**\n- Have you had the fence painted yet?",
+            "de": "**Have you + had + Sache + Partizip**\n- Have you had the fence painted yet?",
+            "it": "**Have you + had + cosa + participio**\n- Have you had the fence painted yet?",
+            "en": "**Have you + had + thing + the participle**\n- Have you had the fence painted yet?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-it-done-3",
+      "title": {
+        "sl": "Kdo to naredi",
+        "de": "Wer es macht",
+        "it": "Chi lo fa",
+        "en": "Who does it"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "have-it-done",
+          "instruction": {
+            "sl": "Say who does it, with the words in brackets · Povej, kdo to naredi, z besedami v oklepaju",
+            "de": "Say who does it, with the words in brackets · Sag, wer es macht, mit den Wörtern in Klammern",
+            "it": "Say who does it, with the words in brackets · Di' chi lo fa, con le parole tra parentesi",
+            "en": "Say who does it, with the words in brackets"
+          },
+          "items": [
+            {
+              "from": "Mr Dixon mended the gate for us. (We got)",
+              "accept": [
+                "We got Mr Dixon to mend the gate.",
+                "We got Mr Dixon to mend the gate for us."
+              ]
+            },
+            {
+              "from": "Poppy will play the fiddle for us. (I'll get)",
+              "accept": [
+                "I'll get Poppy to play the fiddle.",
+                "I'll get Poppy to play the fiddle for us."
+              ]
+            },
+            {
+              "from": "Arthur looked at the hives for me. (I had)",
+              "accept": [
+                "I had Arthur look at the hives.",
+                "I had Arthur look at the hives for me."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**get + oseba + to; have + oseba + osnovna oblika**\n- We got Mr Dixon to mend the gate.",
+            "de": "**get + Person + to; have + Person + Grundform**\n- We got Mr Dixon to mend the gate.",
+            "it": "**get + persona + to; have + persona + forma base**\n- We got Mr Dixon to mend the gate.",
+            "en": "**get + person + to; have + person + the base form**\n- We got Mr Dixon to mend the gate."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "have-it-done",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Mr Tyson's mill wheel is broken. He's going to ___ it mended. He ___ it checked last year too. Have you had your hair ___? Sam had his van ___ (break) into again. I'll get Jack ___ help you.",
+          "gaps": [
+            {
+              "accept": [
+                "have",
+                "get"
+              ]
+            },
+            {
+              "accept": [
+                "had",
+                "got"
+              ]
+            },
+            {
+              "accept": [
+                "cut",
+                "done"
+              ]
+            },
+            {
+              "accept": [
+                "broken"
+              ]
+            },
+            {
+              "accept": [
+                "to"
+              ]
+            }
+          ],
+          "translation": {
+            "sl": "Mlinsko kolo gospoda Tysona je polomljeno. Dal ga bo popraviti. Dal ga je pregledati tudi lani. Si se {m:dal|f:dala} postriči? Samu so spet vlomili v kombi. {m:Prosil|f:Prosila} bom Jacka, naj ti pomaga.",
+            "de": "Das Mühlrad von Mr Tyson ist kaputt. Er wird es reparieren lassen. Er hat es auch letztes Jahr prüfen lassen. Hast du dir die Haare schneiden lassen? In Sams Lieferwagen wurde wieder eingebrochen. Ich sage Jack, er soll dir helfen.",
+            "it": "La ruota del mulino di Mr Tyson è rotta. La farà riparare. L'ha fatta controllare anche l'anno scorso. Ti sei fatt{m:o|f:a} tagliare i capelli? A Sam hanno scassinato di nuovo il furgone. Dirò a Jack di aiutarti.",
+            "en": "Mr Tyson's mill wheel is broken. He's going to have it mended. He had it checked last year too. Have you had your hair cut? Sam had his van broken into again. I'll get Jack to help you."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "have-it-done",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "The Packhorse needs work. Mrs Birkett ___ the windows painted last week. She is ___ the door mended today. Next year she'll ___ a new roof put on. Harry ___ his bike stolen, so he's sad.",
+        "gaps": [
+          {
+            "accept": [
+              "had",
+              "got"
+            ]
+          },
+          {
+            "accept": [
+              "having",
+              "getting"
+            ]
+          },
+          {
+            "accept": [
+              "have",
+              "get"
+            ]
+          },
+          {
+            "accept": [
+              "had",
+              "got",
+              "has had"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Packhorse potrebuje popravila. Gospa Birkett je prejšnji teden dala prepleskati okna. Danes ji popravljajo vrata. Naslednje leto bo dala narediti novo streho. Harryju so ukradli kolo, zato je žalosten.",
+          "de": "Das Packhorse muss hergerichtet werden. Mrs Birkett hat letzte Woche die Fenster streichen lassen. Heute lässt sie die Tür reparieren. Nächstes Jahr lässt sie ein neues Dach machen. Harry wurde das Rad gestohlen, deshalb ist er traurig.",
+          "it": "Il Packhorse ha bisogno di lavori. La settimana scorsa Mrs Birkett ha fatto dipingere le finestre. Oggi fa riparare la porta. L'anno prossimo farà rifare il tetto. A Harry hanno rubato la bici, quindi è triste.",
+          "en": "The Packhorse needs work. Mrs Birkett had the windows painted last week. She is having the door mended today. Next year she'll have a new roof put on. Harry had his bike stolen, so he's sad."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "have-it-done",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mr Tyson doesn't cut his own hair. He ___ every month.",
+        "options": [
+          "has it cut",
+          "has cut it",
+          "cuts it"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Nekdo drug: has + it + deležnik**\n- He has it cut every month.",
+          "de": "**Jemand anderer: has + it + Partizip**\n- He has it cut every month.",
+          "it": "**Un altro: has + it + participio**\n- He has it cut every month.",
+          "en": "**Someone else: has + it + the participle**\n- He has it cut every month."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "have-it-done",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "We're having the barn ___ next week.",
+        "options": [
+          "painted",
+          "paint",
+          "to paint"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**have + stvar + deležnik**\n- We're having the barn painted.",
+          "de": "**have + Sache + Partizip**\n- We're having the barn painted.",
+          "it": "**have + cosa + participio**\n- We're having the barn painted.",
+          "en": "**have + thing + the participle**\n- We're having the barn painted."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "have-it-done",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I'll get Arthur ___ at the hives.",
+        "options": [
+          "to look",
+          "looked",
+          "look"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**get + oseba + to**\n- I'll get Arthur to look at the hives.",
+          "de": "**get + Person + to**\n- I'll get Arthur to look at the hives.",
+          "it": "**get + persona + to**\n- I'll get Arthur to look at the hives.",
+          "en": "**get + person + to**\n- I'll get Arthur to look at the hives."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "have-it-done",
+        "instruction": {
+          "sl": "Say it with have or get + the participle · Povej s have ali get + deležnik",
+          "de": "Say it with have or get + the participle · Sag es mit have oder get + Partizip",
+          "it": "Say it with have or get + the participle · Dillo con have o get + participio",
+          "en": "Say it with have or get + the participle"
+        },
+        "items": [
+          {
+            "from": "Mr Dixon mended our fence. (we)",
+            "accept": [
+              "We had our fence mended.",
+              "We got our fence mended.",
+              "We had our fence mended by Mr Dixon.",
+              "We got our fence mended by Mr Dixon."
+            ]
+          },
+          {
+            "from": "Someone is cleaning my boots. (I)",
+            "accept": [
+              "I'm having my boots cleaned.",
+              "I'm getting my boots cleaned."
+            ]
+          },
+          {
+            "from": "Someone has cut Poppy's hair. (Poppy)",
+            "accept": [
+              "Poppy has had her hair cut.",
+              "Poppy has got her hair cut.",
+              "Poppy has gotten her hair cut."
+            ]
+          },
+          {
+            "from": "Someone will check the van. (Sam)",
+            "accept": [
+              "Sam will have the van checked.",
+              "Sam will get the van checked.",
+              "Sam is going to have the van checked.",
+              "Sam is going to get the van checked."
+            ]
+          },
+          {
+            "from": "Someone took Jack's hat at the show. (Jack)",
+            "accept": [
+              "Jack had his hat taken at the show.",
+              "Jack got his hat taken at the show."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**have, get v istem času + stvar + deležnik**\n- We had our fence mended.",
+          "de": "**have, get in derselben Zeit + Sache + Partizip**\n- We had our fence mended.",
+          "it": "**have, get allo stesso tempo + cosa + participio**\n- We had our fence mended.",
+          "en": "**have, get in the same tense + thing + the participle**\n- We had our fence mended."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: I've got my hair cut, gotten; have Jack look as formal in Britain; the Slovene, German and Italian of have it done"
+}

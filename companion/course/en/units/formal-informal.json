@@ -1,0 +1,690 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "formal-informal",
+  "language": "en",
+  "level": "B2",
+  "emoji": "✉️",
+  "title": {
+    "en": "Dear Sir or Madam; cheers, see you",
+    "de": "Formell und locker: Dear Sir or Madam, cheers",
+    "sl": "Uradno in sproščeno: Dear Sir or Madam, cheers",
+    "it": "Formale e informale: Dear Sir or Madam, cheers"
+  },
+  "goal": {
+    "sl": "Napišeš uradno pismo, prošnjo in pritožbo (Dear Sir or Madam, Yours faithfully) in sporočilo prijatelju, razumeš govorjeno britanščino (gonna, gotta, innit) in poznaš britanske besede ob ameriških.",
+    "de": "Du schreibst einen formellen Brief, eine Anfrage und eine Beschwerde (Dear Sir or Madam, Yours faithfully) und eine Mail an Freunde, verstehst gesprochenes Britisch (gonna, gotta, innit) und kennst britische Wörter neben amerikanischen.",
+    "it": "Scrivi una lettera formale, una richiesta e un reclamo (Dear Sir or Madam, Yours faithfully) e una mail a un amico, capisci l'inglese britannico parlato (gonna, gotta, innit) e conosci le parole britanniche accanto a quelle americane.",
+    "en": "You can write a formal letter, a request and a complaint (Dear Sir or Madam, Yours faithfully) and an email to a friend, understand spoken British (gonna, gotta, innit) and know British words beside American ones."
+  },
+  "grammar": ["formal-informal"],
+  "words": [
+    "Dear Sir or Madam",
+    "Yours faithfully",
+    "Yours sincerely",
+    "Yours truly",
+    "grateful",
+    "complain",
+    "refund",
+    "receive",
+    "request",
+    "inform",
+    "require",
+    "timetable",
+    "innit",
+    "love",
+    "best wishes",
+    "all the best",
+    "cheers",
+    "ta",
+    "mate",
+    "marra",
+    "lad",
+    "lass",
+    "aye",
+    "dunno",
+    "gotta",
+    "wanna",
+    "lift",
+    "flat",
+    "lorry",
+    "petrol",
+    "pavement",
+    "autumn",
+    "holiday",
+    "chips",
+    "elevator",
+    "apartment",
+    "truck",
+    "sidewalk",
+    "vacation",
+    "fries"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "kje", "de": "wo", "it": "dove", "en": "where" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**Dear Sir or Madam,** (Spoštovani) pišeš, kadar ne poznaš imena, na koncu **Yours faithfully,** (S spoštovanjem). Z imenom: **Dear Mrs Birkett,** in **Yours sincerely,**. Američani končajo tudi z **Yours truly,** Za vejico v novi vrstici velika začetnica, ne mala kot v slovenščini.",
+          "de": "**Dear Sir or Madam,** (Sehr geehrte Damen und Herren) schreibst du, wenn du den Namen nicht kennst, am Ende **Yours faithfully,** (Mit freundlichen Grüßen). Mit Namen: **Dear Mrs Birkett,** und **Yours sincerely,**. Amerikaner schließen auch mit **Yours truly,** Nach dem Komma in der neuen Zeile groß, nicht klein wie im Deutschen.",
+          "it": "**Dear Sir or Madam,** (Gentili Signori) lo scrivi quando non sai il nome, alla fine **Yours faithfully,** (Distinti saluti). Con il nome: **Dear Mrs Birkett,** e **Yours sincerely,** (Cordiali saluti). Gli americani chiudono anche con **Yours truly,** Dopo la virgola, a capo, si comincia con la maiuscola.",
+          "en": "**Dear Sir or Madam,** is for when you don't know the name, ending **Yours faithfully,**. With a name: **Dear Mrs Birkett,** and **Yours sincerely,**. Americans also end with **Yours truly,** After the comma, a new line and a capital letter."
+        },
+        "examples": [
+          { "en": "Dear Sir or Madam,", "sl": "Spoštovani,", "de": "Sehr geehrte Damen und Herren,", "it": "Gentili Signori," },
+          { "en": "Yours faithfully,", "sl": "S spoštovanjem", "de": "Mit freundlichen Grüßen", "it": "Distinti saluti" },
+          {
+            "en": "Dear Mrs Birkett,",
+            "sl": "Spoštovana gospa Birkett,",
+            "de": "Sehr geehrte Mrs Birkett,",
+            "it": "Gentile signora Birkett,"
+          },
+          { "en": "Yours sincerely,", "sl": "Lep pozdrav", "de": "Mit freundlichen Grüßen", "it": "Cordiali saluti" }
+        ],
+        "rows": [
+          [
+            "Dear Sir or Madam",
+            { "sl": "uradno, brez imena", "de": "formell, ohne Namen", "it": "formale, senza nome", "en": "formal, no name" },
+            "Yours faithfully,"
+          ],
+          [
+            "Dear Mrs Birkett",
+            { "sl": "uradno, z imenom", "de": "formell, mit Namen", "it": "formale, con il nome", "en": "formal, with a name" },
+            "Yours sincerely,"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "formal-informal",
+          "prompt": "Dear Mrs Birkett, … ___",
+          "options": ["Yours sincerely,", "Yours faithfully,", "Love,"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Dear Sir or Madam … Yours faithfully. Dear Mrs Birkett … Yours sincerely**",
+            "de": "**Dear Sir or Madam … Yours faithfully. Dear Mrs Birkett … Yours sincerely**",
+            "it": "**Dear Sir or Madam … Yours faithfully. Dear Mrs Birkett … Yours sincerely**",
+            "en": "**Dear Sir or Madam … Yours faithfully. Dear Mrs Birkett … Yours sincerely**"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V uradnem pismu polne oblike: **I am writing to ask about the bus.** (Pišem vam glede avtobusa.) Prošnja: **I would be grateful if you could reply**. Konec: **I look forward to hearing from you**. Daljše besede: **receive** (prejeti, namesto get), **request** (prositi, namesto ask for), **inform** (obvestiti, namesto tell), **require** (potrebovati, namesto need).",
+          "de": "Im formellen Brief volle Formen: **I am writing to ask about the bus.** (Ich schreibe Ihnen wegen des Busses.) Die Bitte: **I would be grateful if you could reply**. Der Schluss: **I look forward to hearing from you**. Längere Wörter: **receive** (erhalten, statt get), **request** (ersuchen, statt ask for), **inform** (mitteilen, statt tell), **require** (benötigen, statt need).",
+          "it": "In una lettera formale forme estese: **I am writing to ask about the bus.** (Le scrivo a proposito dell'autobus.) La richiesta: **I would be grateful if you could reply**. La fine: **I look forward to hearing from you**. Parole più lunghe: **receive** (ricevere, per get), **request** (richiedere, per ask for), **inform** (informare, per tell), **require** (necessitare, per need).",
+          "en": "A formal letter has whole forms: **I am writing to ask about the bus.** The request: **I would be grateful if you could reply**. The end: **I look forward to hearing from you**. Longer words: **receive** for get, **request** for ask for, **inform** for tell, **require** for need."
+        },
+        "examples": [
+          {
+            "en": "I am writing to ask about the bus.",
+            "sl": "Pišem vam glede avtobusa.",
+            "de": "Ich schreibe Ihnen wegen des Busses.",
+            "it": "Le scrivo a proposito dell'autobus."
+          },
+          {
+            "en": "I would be grateful if you could reply.",
+            "sl": "{m:Hvaležen|f:Hvaležna} bi {m:bil|f:bila}, če bi mi odgovorili.",
+            "de": "Ich wäre Ihnen dankbar, wenn Sie antworten könnten.",
+            "it": "Le sarei grat{m:o|f:a} se potesse rispondere."
+          },
+          {
+            "en": "I look forward to hearing from you.",
+            "sl": "Veselim se vašega odgovora.",
+            "de": "Ich freue mich auf Ihre Antwort.",
+            "it": "Resto in attesa di una Sua risposta."
+          }
+        ],
+        "rows": [
+          [
+            "I am writing to",
+            { "sl": "zakaj pišeš", "de": "warum du schreibst", "it": "perché scrivi", "en": "why you write" },
+            "I am writing to ask about the bus."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "formal-informal",
+          "text": "I look forward to ___ from you.",
+          "accept": ["hearing"],
+          "hint": { "sl": "to + -ing", "de": "to + -ing", "it": "to + -ing", "en": "to + -ing" },
+          "explain": {
+            "sl": "**Uradno: polne oblike, I am writing to, I would be grateful**\n- I look forward to hearing from you.",
+            "de": "**Formell: volle Formen, I am writing to, I would be grateful**\n- I look forward to hearing from you.",
+            "it": "**Formale: forme estese, I am writing to, I would be grateful**\n- I look forward to hearing from you.",
+            "en": "**Formal: whole forms, I am writing to, I would be grateful**\n- I look forward to hearing from you."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pritožba pove, kaj, kdaj in kaj želiš: **I am writing to complain about the bus.** (Pišem vam, ker se želim pritožiti zaradi avtobusa.) Kaj želiš: **I would like a refund**. Prošnja je bolj vljudna z več besedami: **Could you send me the timetable?** **Would you mind closing the window?** **I was wondering if you could help**. Vljudno slabo novico: **I am afraid the bus was late.**",
+          "de": "Eine Beschwerde sagt, was passiert ist, wann, und was du willst: **I am writing to complain about the bus.** (Ich möchte mich über den Bus beschweren.) Was du willst: **I would like a refund**. Eine Bitte wird mit mehr Wörtern höflicher: **Could you send me the timetable?** **Would you mind closing the window?** **I was wondering if you could help**. Höflich eine schlechte Nachricht: **I am afraid the bus was late.**",
+          "it": "Un reclamo dice che cosa, quando e che cosa vuoi: **I am writing to complain about the bus.** (Le scrivo per lamentarmi dell'autobus.) Che cosa vuoi: **I would like a refund**. Una richiesta è più cortese con più parole: **Could you send me the timetable?** **Would you mind closing the window?** **I was wondering if you could help**. Con garbo una brutta notizia: **I am afraid the bus was late.**",
+          "en": "A complaint says what, when and what you want: **I am writing to complain about the bus.** What you want: **I would like a refund**. A request grows politer with more words: **Could you send me the timetable?** **Would you mind closing the window?** **I was wondering if you could help**. Bad news, politely: **I am afraid the bus was late.**"
+        },
+        "examples": [
+          {
+            "en": "I am writing to complain about the bus.",
+            "sl": "Pišem vam, ker se želim pritožiti zaradi avtobusa.",
+            "de": "Ich möchte mich über den Bus beschweren.",
+            "it": "Le scrivo per lamentarmi dell'autobus."
+          },
+          {
+            "en": "I would like a refund.",
+            "sl": "Želim vračilo denarja.",
+            "de": "Ich hätte gern mein Geld zurück.",
+            "it": "Vorrei un rimborso."
+          },
+          {
+            "en": "Could you send me the timetable?",
+            "sl": "Bi mi lahko poslali vozni red?",
+            "de": "Könnten Sie mir den Fahrplan schicken?",
+            "it": "Potrebbe mandarmi l'orario?"
+          },
+          {
+            "en": "Would you mind closing the window?",
+            "sl": "Bi lahko zaprli okno?",
+            "de": "Würden Sie bitte das Fenster schließen?",
+            "it": "Le dispiacerebbe chiudere la finestra?"
+          }
+        ],
+        "rows": [
+          [
+            "Could you …?",
+            { "sl": "prošnja", "de": "eine Bitte", "it": "una richiesta", "en": "a request" },
+            "Could you send me the timetable?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "formal-informal",
+          "prompt": "Would you mind ___ the window?",
+          "options": ["closing", "close", "closed"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Would you mind + -ing**\n- Would you mind closing the window?",
+            "de": "**Would you mind + -ing**\n- Would you mind closing the window?",
+            "it": "**Would you mind + -ing**\n- Would you mind closing the window?",
+            "en": "**Would you mind + -ing**\n- Would you mind closing the window?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**Hi Jack,** pišeš prijatelju, z **Hello** ali **Hi**. **Thanks for the photos!** (Hvala za fotografije.) Kratke oblike, osebek lahko odpade: **Hope you're well.** **Can't wait to see you!** Na koncu **See you soon**, **All the best**, **Best wishes**, **Cheers**, **Love**. **Thanks** je vsakdanje, **Thank you** toplejše in za pismo.",
+          "de": "**Hi Jack,** schreibst du an Freunde, mit **Hello** oder **Hi**. **Thanks for the photos!** (Danke für die Fotos.) Kurzformen, das Subjekt kann wegfallen: **Hope you're well.** **Can't wait to see you!** Am Ende **See you soon**, **All the best**, **Best wishes**, **Cheers**, **Love**. **Thanks** ist alltäglich, **Thank you** wärmer und für den Brief.",
+          "it": "**Hi Jack,** lo scrivi a un amico, con **Hello** o **Hi**. **Thanks for the photos!** (Grazie per le foto.) Forme brevi, il soggetto può cadere: **Hope you're well.** **Can't wait to see you!** Alla fine **See you soon**, **All the best**, **Best wishes**, **Cheers**, **Love**. **Thanks** si usa tutti i giorni, **Thank you** è più caloroso e va bene in una lettera.",
+          "en": "**Hi Jack,** is for a friend, with **Hello** or **Hi**. **Thanks for the photos!** Short forms, and the subject can go: **Hope you're well.** **Can't wait to see you!** At the end **See you soon**, **All the best**, **Best wishes**, **Cheers**, **Love**. **Thanks** is everyday, **Thank you** warmer, and the one for a letter."
+        },
+        "examples": [
+          {
+            "en": "Hi Jack, thanks for the photos!",
+            "sl": "Živjo, Jack, hvala za fotografije!",
+            "de": "Hi Jack, danke für die Fotos!",
+            "it": "Ciao Jack, grazie per le foto!"
+          },
+          { "en": "Hope you're well.", "sl": "Upam, da si dobro.", "de": "Hoffentlich geht's dir gut.", "it": "Spero che tu stia bene." },
+          {
+            "en": "Can't wait to see you!",
+            "sl": "Komaj čakam, da te vidim!",
+            "de": "Ich kann's kaum erwarten, dich zu sehen!",
+            "it": "Non vedo l'ora di vederti!"
+          },
+          { "en": "All the best,", "sl": "Vse dobro,", "de": "Alles Gute", "it": "Un caro saluto" }
+        ],
+        "rows": [["Hi Jack", { "sl": "prijatelju", "de": "an Freunde", "it": "a un amico", "en": "to a friend" }, "All the best, Cheers,"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "formal-informal",
+          "prompt": {
+            "sl": "S čim končaš sporočilo prijatelju?",
+            "de": "Womit endet eine Mail an einen Freund?",
+            "it": "Con che cosa finisce una mail a un amico?",
+            "en": "What ends an email to a friend?"
+          },
+          "options": ["All the best,", "Yours faithfully,", "Yours sincerely,"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Prijatelju: Hi, Thanks, All the best, Cheers**",
+            "de": "**An Freunde: Hi, Thanks, All the best, Cheers**",
+            "it": "**A un amico: Hi, Thanks, All the best, Cheers**",
+            "en": "**To a friend: Hi, Thanks, All the best, Cheers**"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Govorjena angleščina, da jo razumeš, ne za pismo: **gonna** (going to), **gotta** (got to), **wanna** (want to), **dunno** (don't know), **innit** (isn't it, zlasti mladi), **ta**, **cheers** (hvala). **I'm gonna be late.** (Zamudil{m:|f:a} bom.) **mate** in **love** sta nagovora. V Cumbrii **aye** (ja), **lad**, **lass**, na zahodu **marra** (prijatelj). V govoru je vse prav.",
+          "de": "Gesprochenes Englisch, zum Verstehen, nicht für den Brief: **gonna** (going to), **gotta** (got to), **wanna** (want to), **dunno** (don't know), **innit** (isn't it, vor allem Junge), **ta**, **cheers** (danke). **I'm gonna be late.** (Ich komme zu spät.) **mate** und **love** sind Anreden. In Cumbria **aye** (ja), **lad**, **lass**, im Westen **marra** (Freund). Gesprochen ist alles richtig.",
+          "it": "Inglese parlato, da capire, non per una lettera: **gonna** (going to), **gotta** (got to), **wanna** (want to), **dunno** (don't know), **innit** (isn't it, soprattutto i giovani), **ta**, **cheers** (grazie). **I'm gonna be late.** (Farò tardi.) **mate** e **love** servono per rivolgersi a qualcuno. In Cumbria **aye** (sì), **lad**, **lass**, a ovest **marra** (amico). A voce va tutto bene.",
+          "en": "Spoken English, for you to understand, not for a letter: **gonna** (going to), **gotta** (got to), **wanna** (want to), **dunno** (don't know), **innit** (isn't it, mostly from the young), **ta**, **cheers** (thanks). **I'm gonna be late.** **mate** and **love** are what people call each other. In Cumbria **aye** (yes), **lad**, **lass**, in the west **marra** (friend). In talk they're right."
+        },
+        "examples": [
+          { "en": "I'm gonna be late.", "sl": "Zamudil{m:|f:a} bom.", "de": "Ich komme zu spät.", "it": "Farò tardi." },
+          { "en": "We've gotta go.", "sl": "Moramo iti.", "de": "Wir müssen los.", "it": "Dobbiamo andare." },
+          { "en": "I dunno.", "sl": "Ne vem.", "de": "Keine Ahnung.", "it": "Non lo so." },
+          { "en": "Cheers, mate.", "sl": "Hvala, stari.", "de": "Danke, Kumpel.", "it": "Grazie, amico." }
+        ],
+        "rows": [["gonna, gotta, wanna", { "sl": "v govoru", "de": "gesprochen", "it": "a voce", "en": "in talk" }, "I'm gonna be late."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "formal-informal",
+          "prompt": "I dunno. = ___",
+          "options": ["I don't know.", "I don't want to.", "I have to go."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**V govoru je prav, v pismu polna oblika**\n- I dunno. → I don't know. · We've gotta go. → We have got to go.",
+            "de": "**Gesprochen richtig, im Brief die volle Form**\n- I dunno. → I don't know. · We've gotta go. → We have got to go.",
+            "it": "**A voce va bene, in una lettera la forma estesa**\n- I dunno. → I don't know. · We've gotta go. → We have got to go.",
+            "en": "**Right in talk, the whole form in a letter**\n- I dunno. → I don't know. · We've gotta go. → We have got to go."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Britanija in Amerika imata pogosto svoje besede: **lift** (dvigalo, ameriško **elevator**), **flat** (**apartment**), **lorry** (**truck**), **petrol** (**gas**), **autumn** (**fall**), **holiday** (**vacation**), **chips** (**fries**), **pavement** (**sidewalk**). Tudi zapis: **colour**, **color**; **centre**, **center**. Oboje je prav, naš tečaj govori britansko.",
+          "de": "Großbritannien und Amerika haben oft eigene Wörter: **lift** (Aufzug, amerikanisch **elevator**), **flat** (**apartment**), **lorry** (**truck**), **petrol** (**gas**), **autumn** (**fall**), **holiday** (**vacation**), **chips** (**fries**), **pavement** (**sidewalk**). Auch die Schreibung: **colour**, **color**; **centre**, **center**. Beides ist richtig, unser Kurs spricht britisch.",
+          "it": "Gran Bretagna e America hanno spesso parole proprie: **lift** (ascensore, in inglese americano **elevator**), **flat** (**apartment**), **lorry** (**truck**), **petrol** (**gas**), **autumn** (**fall**), **holiday** (**vacation**), **chips** (**fries**), **pavement** (**sidewalk**). Anche la grafia: **colour**, **color**; **centre**, **center**. Vanno bene tutti e due, il nostro corso usa l'inglese britannico.",
+          "en": "Britain and America often have their own words: **lift** (**elevator**), **flat** (**apartment**), **lorry** (**truck**), **petrol** (**gas**), **autumn** (**fall**), **holiday** (**vacation**), **chips** (**fries**), **pavement** (**sidewalk**). Spelling too: **colour**, **color**; **centre**, **center**. Both are right; this course speaks British."
+        },
+        "examples": [
+          { "en": "The lift is broken.", "sl": "Dvigalo je pokvarjeno.", "de": "Der Aufzug ist kaputt.", "it": "L'ascensore è guasto." },
+          {
+            "en": "We live in a flat.",
+            "sl": "Živimo v stanovanju.",
+            "de": "Wir wohnen in einer Wohnung.",
+            "it": "Abitiamo in un appartamento."
+          },
+          {
+            "en": "We go on holiday in the autumn.",
+            "sl": "Jeseni gremo na počitnice.",
+            "de": "Im Herbst fahren wir in den Urlaub.",
+            "it": "In autunno andiamo in vacanza."
+          },
+          {
+            "en": "The car is out of petrol.",
+            "sl": "Avtu je zmanjkalo bencina.",
+            "de": "Das Auto hat kein Benzin mehr.",
+            "it": "L'auto è senza benzina."
+          }
+        ],
+        "rows": [["lift, flat, lorry", { "sl": "britansko", "de": "britisch", "it": "britannico", "en": "British" }, "elevator, apartment, truck"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "formal-informal",
+          "text": "An American guest asks for the elevator. In Britain it's the ___.",
+          "accept": ["lift"],
+          "hint": { "sl": "dvigalo", "de": "Aufzug", "it": "ascensore", "en": "it goes up and down" },
+          "explain": {
+            "sl": "**Britansko: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "de": "**Britisch: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "it": "**Britannico: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "en": "**British: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "formal-informal-1",
+      "title": { "sl": "Uradno in sproščeno", "de": "Formell und locker", "it": "Formale e informale", "en": "Formal and informal" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "formal-informal",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            {
+              "label": { "sl": "formal · uradno", "de": "formal · formell", "it": "formal · formale", "en": "formal" },
+              "words": ["Dear Sir or Madam", "Yours faithfully", "I am writing to", "I would be grateful"]
+            },
+            {
+              "label": { "sl": "informal · sproščeno", "de": "informal · locker", "it": "informal · informale", "en": "informal" },
+              "words": ["Hi Jack", "Cheers", "Thanks for", "See you soon"]
+            }
+          ],
+          "explain": {
+            "sl": "**Uradno ali sproščeno: oboje je prav na svojem mestu**\n- Dear Sir or Madam · Hi Jack",
+            "de": "**Formell oder locker: beides ist am rechten Platz richtig**\n- Dear Sir or Madam · Hi Jack",
+            "it": "**Formale o informale: tutti e due vanno bene al posto giusto**\n- Dear Sir or Madam · Hi Jack",
+            "en": "**Formal or informal: each is right in its place**\n- Dear Sir or Madam · Hi Jack"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "formal-informal",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            {
+              "label": { "sl": "British · britansko", "de": "British · britisch", "it": "British · britannico", "en": "British" },
+              "words": ["lift", "flat", "petrol", "pavement"]
+            },
+            {
+              "label": { "sl": "American · ameriško", "de": "American · amerikanisch", "it": "American · americano", "en": "American" },
+              "words": ["elevator", "apartment", "gas", "sidewalk"]
+            }
+          ],
+          "explain": {
+            "sl": "**Britansko: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "de": "**Britisch: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "it": "**Britannico: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "en": "**British: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry"
+          }
+        }
+      ]
+    },
+    {
+      "id": "formal-informal-2",
+      "title": { "sl": "Pismo in sporočilo", "de": "Ein Brief und eine Mail", "it": "Una lettera e una mail", "en": "A letter and an email" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "formal-informal",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "Dear Sir or ___, I am ___ to complain about the bus to Keswick. It has been late every day this month. I would be ___ if you could look into this. I look forward to ___ from you. Yours ___, Mrs Birkett",
+          "gaps": [
+            { "accept": ["Madam"], "hint": { "sl": "brez imena", "de": "ohne Namen", "it": "senza nome", "en": "no name" } },
+            { "accept": ["writing"], "hint": { "sl": "zakaj pišeš", "de": "warum du schreibst", "it": "perché scrivi", "en": "why you write" } },
+            {
+              "accept": ["grateful", "thankful", "obliged"],
+              "hint": { "sl": "hvaležna", "de": "dankbar", "it": "grata", "en": "you'd be glad of it" }
+            },
+            { "accept": ["hearing"], "hint": { "sl": "to + -ing", "de": "to + -ing", "it": "to + -ing", "en": "to + -ing" } },
+            { "accept": ["faithfully", "truly"], "hint": { "sl": "brez imena", "de": "ohne Namen", "it": "senza nome", "en": "no name" } }
+          ],
+          "bank": true,
+          "distractors": ["sincerely", "lovely"],
+          "translation": {
+            "sl": "Spoštovani, pišem vam, ker se želim pritožiti zaradi avtobusa v Keswick. Ta mesec je vsak dan zamujal. Hvaležna bi bila, če bi to raziskali. Veselim se vašega odgovora. S spoštovanjem, gospa Birkett",
+            "de": "Sehr geehrte Damen und Herren, ich möchte mich über den Bus nach Keswick beschweren. Er hatte diesen Monat jeden Tag Verspätung. Ich wäre Ihnen dankbar, wenn Sie das prüfen könnten. Ich freue mich auf Ihre Antwort. Mit freundlichen Grüßen, Mrs Birkett",
+            "it": "Gentili Signori, vi scrivo per lamentarmi dell'autobus per Keswick. Questo mese è stato in ritardo ogni giorno. Vi sarei grata se poteste verificare. Resto in attesa di una vostra risposta. Distinti saluti, Mrs Birkett",
+            "en": "Dear Sir or Madam, I am writing to complain about the bus to Keswick. It has been late every day this month. I would be grateful if you could look into this. I look forward to hearing from you. Yours faithfully, Mrs Birkett"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "formal-informal",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "Hi Jack, ___ for the photos! They're great. Can't ___ to see you on Saturday. ___ you soon! All the ___, Edna",
+          "gaps": [
+            {
+              "accept": ["Thanks", "Thank you"],
+              "spoken": ["Cheers", "Ta"],
+              "hint": { "sl": "hvala, prijatelju", "de": "danke, an Freunde", "it": "grazie, a un amico", "en": "to a friend" }
+            },
+            {
+              "accept": ["wait"],
+              "hint": { "sl": "Komaj čakam", "de": "Ich kann's kaum erwarten", "it": "Non vedo l'ora", "en": "You're so glad it's coming" }
+            },
+            { "accept": ["See"], "hint": { "sl": "se vidimo", "de": "bis bald", "it": "a presto", "en": "… you soon" } },
+            { "accept": ["best"], "hint": { "sl": "vse dobro", "de": "alles Gute", "it": "un caro saluto", "en": "at the end" } }
+          ],
+          "translation": {
+            "sl": "Živjo, Jack, hvala za fotografije! Super so. Komaj čakam, da te vidim v soboto. Se kmalu vidiva! Vse dobro, Edna",
+            "de": "Hi Jack, danke für die Fotos! Sie sind toll. Ich kann's kaum erwarten, dich am Samstag zu sehen. Bis bald! Alles Gute, Edna",
+            "it": "Ciao Jack, grazie per le foto! Sono bellissime. Non vedo l'ora di vederti sabato. A presto! Un caro saluto, Edna",
+            "en": "Hi Jack, Thanks for the photos! They're great. Can't wait to see you on Saturday. See you soon! All the best, Edna"
+          }
+        }
+      ]
+    },
+    {
+      "id": "formal-informal-3",
+      "title": {
+        "sl": "Za pismo, po britansko",
+        "de": "Für den Brief, auf Britisch",
+        "it": "Per una lettera, in inglese britannico",
+        "en": "For a letter, in British"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "formal-informal",
+          "instruction": {
+            "sl": "Write it for a letter · Napiši za pismo",
+            "de": "Write it for a letter · Schreib es für einen Brief",
+            "it": "Write it for a letter · Scrivilo per una lettera",
+            "en": "Write it for a letter"
+          },
+          "items": [
+            {
+              "from": "I'm gonna write to the council.",
+              "accept": [
+                "I am going to write to the council.",
+                "I will write to the council.",
+                "I shall write to the council.",
+                "I intend to write to the council."
+              ]
+            },
+            { "from": "We've gotta talk.", "accept": ["We have got to talk.", "We have to talk.", "We must talk.", "We need to talk."] },
+            { "from": "I dunno when the bus comes.", "accept": ["I do not know when the bus comes."] },
+            {
+              "from": "I wanna see the manager.",
+              "accept": [
+                "I want to see the manager.",
+                "I would like to see the manager.",
+                "I wish to see the manager.",
+                "I should like to see the manager."
+              ]
+            },
+            {
+              "from": "Thanks for your letter.",
+              "accept": ["Thank you for your letter.", "Thank you very much for your letter.", "Many thanks for your letter."]
+            },
+            {
+              "from": "Can you send me the timetable?",
+              "accept": [
+                "Could you send me the timetable?",
+                "Would you send me the timetable?",
+                "Could you please send me the timetable?",
+                "Would you please send me the timetable?",
+                "Please could you send me the timetable?",
+                "Please would you send me the timetable?",
+                "Could you send me the timetable, please?",
+                "Would you send me the timetable, please?",
+                "Could you possibly send me the timetable?",
+                "Could you kindly send me the timetable?",
+                "Would you be able to send me the timetable?",
+                "Would you mind sending me the timetable?",
+                "I would be grateful if you could send me the timetable.",
+                "I would be grateful if you would send me the timetable.",
+                "I would appreciate it if you could send me the timetable.",
+                "Please send me the timetable."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**V pismu: polne oblike, Could you, Thank you**\n- I'm gonna write. → I am going to write.",
+            "de": "**Im Brief: volle Formen, Could you, Thank you**\n- I'm gonna write. → I am going to write.",
+            "it": "**In una lettera: forme estese, Could you, Thank you**\n- I'm gonna write. → I am going to write.",
+            "en": "**In a letter: whole forms, Could you, Thank you**\n- I'm gonna write. → I am going to write."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "formal-informal",
+          "instruction": {
+            "sl": "Say it in British English · Povej britansko",
+            "de": "Say it in British English · Sag es britisch",
+            "it": "Say it in British English · Dillo in inglese britannico",
+            "en": "Say it in British English"
+          },
+          "items": [
+            { "from": "The elevator is broken.", "accept": ["The lift is broken.", "The lift's broken."] },
+            { "from": "We live in an apartment.", "accept": ["We live in a flat."] },
+            { "from": "The truck is on the sidewalk.", "accept": ["The lorry is on the pavement.", "The truck is on the pavement."] }
+          ],
+          "explain": {
+            "sl": "**Britansko: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "de": "**Britisch: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "it": "**Britannico: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+            "en": "**British: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "formal-informal",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "Dear Mr Tyson, I am ___ to ask about the old mill. I would be ___ if you could show it to our class. I look ___ to hearing from you. Yours ___, Mrs Hartley",
+        "gaps": [
+          { "accept": ["writing"] },
+          { "accept": ["grateful", "thankful", "obliged", "delighted", "pleased", "glad", "happy"] },
+          { "accept": ["forward"] },
+          { "accept": ["sincerely", "truly"] }
+        ],
+        "translation": {
+          "sl": "Spoštovani gospod Tyson, pišem vam glede starega mlina. Hvaležna bi bila, če bi ga lahko pokazali našemu razredu. Veselim se vašega odgovora. Lep pozdrav, gospa Hartley",
+          "de": "Sehr geehrter Mr Tyson, ich schreibe Ihnen wegen der alten Mühle. Ich wäre Ihnen dankbar, wenn Sie sie unserer Klasse zeigen könnten. Ich freue mich auf Ihre Antwort. Mit freundlichen Grüßen, Mrs Hartley",
+          "it": "Gentile signor Tyson, Le scrivo a proposito del vecchio mulino. Le sarei grata se potesse mostrarlo alla nostra classe. Resto in attesa di una Sua risposta. Cordiali saluti, Mrs Hartley",
+          "en": "Dear Mr Tyson, I am writing to ask about the old mill. I would be grateful if you could show it to our class. I look forward to hearing from you. Yours sincerely, Mrs Hartley"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "formal-informal",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "We've gotta go. = ___",
+        "options": ["We have to go.", "We want to go.", "We are going home."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**V govoru je prav, v pismu polna oblika**\n- I dunno. → I don't know. · We've gotta go. → We have got to go.",
+          "de": "**Gesprochen richtig, im Brief die volle Form**\n- I dunno. → I don't know. · We've gotta go. → We have got to go.",
+          "it": "**A voce va bene, in una lettera la forma estesa**\n- I dunno. → I don't know. · We've gotta go. → We have got to go.",
+          "en": "**Right in talk, the whole form in a letter**\n- I dunno. → I don't know. · We've gotta go. → We have got to go."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "formal-informal",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Would you mind ___ me?",
+        "options": ["helping", "help", "helped"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Would you mind + -ing**\n- Would you mind closing the window?",
+          "de": "**Would you mind + -ing**\n- Would you mind closing the window?",
+          "it": "**Would you mind + -ing**\n- Would you mind closing the window?",
+          "en": "**Would you mind + -ing**\n- Would you mind closing the window?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "formal-informal",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "In Britain, a sidewalk is a ___.",
+        "options": ["pavement", "lift", "flat"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Britansko: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+          "de": "**Britisch: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+          "it": "**Britannico: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+          "en": "**British: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "formal-informal",
+        "instruction": {
+          "sl": "Write it for a letter · Napiši za pismo",
+          "de": "Write it for a letter · Schreib es für einen Brief",
+          "it": "Write it for a letter · Scrivilo per una lettera",
+          "en": "Write it for a letter"
+        },
+        "items": [
+          {
+            "from": "I'm gonna ring the council.",
+            "accept": [
+              "I am going to ring the council.",
+              "I am going to phone the council.",
+              "I am going to telephone the council.",
+              "I am going to call the council.",
+              "I will ring the council.",
+              "I shall ring the council."
+            ]
+          },
+          {
+            "from": "I wanna speak to Mr Dixon.",
+            "accept": [
+              "I want to speak to Mr Dixon.",
+              "I would like to speak to Mr Dixon.",
+              "I wish to speak to Mr Dixon.",
+              "I should like to speak to Mr Dixon."
+            ]
+          },
+          {
+            "from": "Thanks for your help.",
+            "accept": ["Thank you for your help.", "Thank you very much for your help.", "Many thanks for your help."]
+          },
+          {
+            "from": "Can you tell me what time the bus leaves?",
+            "accept": [
+              "Could you tell me what time the bus leaves?",
+              "Would you tell me what time the bus leaves?",
+              "Could you please tell me what time the bus leaves?",
+              "Would you please tell me what time the bus leaves?",
+              "Please could you tell me what time the bus leaves?",
+              "Please would you tell me what time the bus leaves?",
+              "Could you tell me what time the bus leaves, please?",
+              "Would you tell me what time the bus leaves, please?",
+              "Could you possibly tell me what time the bus leaves?",
+              "Could you kindly tell me what time the bus leaves?",
+              "Would you be able to tell me what time the bus leaves?",
+              "Would you mind telling me what time the bus leaves?",
+              "I would be grateful if you could tell me what time the bus leaves.",
+              "I would be grateful if you would tell me what time the bus leaves.",
+              "I would appreciate it if you could tell me what time the bus leaves.",
+              "Please tell me what time the bus leaves."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**V pismu: polne oblike, Could you, Thank you**\n- I'm gonna write. → I am going to write.",
+          "de": "**Im Brief: volle Formen, Could you, Thank you**\n- I'm gonna write. → I am going to write.",
+          "it": "**In una lettera: forme estese, Could you, Thank you**\n- I'm gonna write. → I am going to write.",
+          "en": "**In a letter: whole forms, Could you, Thank you**\n- I'm gonna write. → I am going to write."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "formal-informal",
+        "instruction": {
+          "sl": "Say it in British English · Povej britansko",
+          "de": "Say it in British English · Sag es britisch",
+          "it": "Say it in British English · Dillo in inglese britannico",
+          "en": "Say it in British English"
+        },
+        "items": [
+          { "from": "My car is out of gas.", "accept": ["My car is out of petrol.", "My car's out of petrol."] },
+          { "from": "We go on vacation in the fall.", "accept": ["We go on holiday in the autumn.", "We go on holiday in autumn."] }
+        ],
+        "explain": {
+          "sl": "**Britansko: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+          "de": "**Britisch: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+          "it": "**Britannico: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
+          "en": "**British: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}

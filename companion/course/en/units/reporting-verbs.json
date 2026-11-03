@@ -1,0 +1,995 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "reporting-verbs",
+  "language": "en",
+  "level": "B2",
+  "emoji": "📣",
+  "title": {
+    "en": "He advised me to wait",
+    "de": "Verben des Sagens: suggested going, advised me to",
+    "sl": "Glagoli poročanja: suggested going, advised me to",
+    "it": "I verbi per riferire: suggested going, advised me to"
+  },
+  "goal": {
+    "sl": "Namesto said rabiš suggest, advise, warn, promise, admit, deny in refuse, vsakega s svojim vzorcem (He advised me to wait, Sam suggested going by bus).",
+    "de": "Statt said nimmst du suggest, advise, warn, promise, admit, deny und refuse, jedes mit seinem Muster (He advised me to wait, Sam suggested going by bus).",
+    "it": "Invece di said usi suggest, advise, warn, promise, admit, deny e refuse, ognuno col suo schema (He advised me to wait, Sam suggested going by bus).",
+    "en": "In place of said you can use suggest, advise, warn, promise, admit, deny and refuse, each with its pattern (He advised me to wait, Sam suggested going by bus)."
+  },
+  "grammar": [
+    "reporting-verbs",
+    "reported-speech",
+    "verb-patterns"
+  ],
+  "words": [
+    "promise",
+    "refuse",
+    "agree",
+    "offer to",
+    "advise",
+    "warn",
+    "remind",
+    "suggest",
+    "admit",
+    "deny",
+    "apologise",
+    "insist on",
+    "accuse of",
+    "pattern",
+    "ice",
+    "hens",
+    "hot iron",
+    "garage",
+    "engine",
+    "oil",
+    "ring the garage",
+    "forget",
+    "touch",
+    "practise",
+    "cake",
+    "cup",
+    "money",
+    "by bus",
+    "afterwards",
+    "alone",
+    "snow",
+    "thin",
+    "told",
+    "wait",
+    "thank you for",
+    "taken",
+    "mend"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "glagol",
+          "de": "Verb",
+          "it": "verbo",
+          "en": "verb"
+        },
+        {
+          "sl": "za njim",
+          "de": "danach",
+          "it": "dopo",
+          "en": "after it"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Namesto **said** povedo nekateri glagoli več. Po **promise, refuse, agree, offer** pride **to** + osnovna oblika: **Jack promised to come.** (Jack je obljubil, da bo prišel.) **Old Wilf refused to pay.** (Stari Wilf ni hotel plačati.) **Sam offered to help.** Z ne: **He promised not to tell.**",
+          "de": "Statt **said** sagen manche Verben mehr. Nach **promise, refuse, agree, offer** kommt **to** + Grundform: **Jack promised to come.** (Jack hat versprochen zu kommen.) **Old Wilf refused to pay.** (Der alte Wilf hat sich geweigert zu zahlen.) **Sam offered to help.** Verneint: **He promised not to tell.**",
+          "it": "Invece di **said** alcuni verbi dicono di più. Dopo **promise, refuse, agree, offer** viene **to** + forma base: **Jack promised to come.** (Jack ha promesso di venire.) **Old Wilf refused to pay.** (Il vecchio Wilf si è rifiutato di pagare.) **Sam offered to help.** Col no: **He promised not to tell.**",
+          "en": "In place of **said** some verbs say more. After **promise, refuse, agree, offer** comes **to** + the base form: **Jack promised to come.** **Old Wilf refused to pay.** **Sam offered to help.** With no: **He promised not to tell.**"
+        },
+        "examples": [
+          {
+            "en": "Jack promised to come.",
+            "sl": "Jack je obljubil, da bo prišel.",
+            "de": "Jack hat versprochen zu kommen.",
+            "it": "Jack ha promesso di venire."
+          },
+          {
+            "en": "Old Wilf refused to pay.",
+            "sl": "Stari Wilf ni hotel plačati.",
+            "de": "Der alte Wilf hat sich geweigert zu zahlen.",
+            "it": "Il vecchio Wilf si è rifiutato di pagare."
+          },
+          {
+            "en": "Sam offered to help.",
+            "sl": "Sam je ponudil pomoč.",
+            "de": "Sam hat angeboten zu helfen.",
+            "it": "Sam si è offerto di aiutare."
+          },
+          {
+            "en": "He promised not to tell.",
+            "sl": "Obljubil je, da ne bo povedal.",
+            "de": "Er hat versprochen, es nicht zu sagen.",
+            "it": "Ha promesso di non dirlo."
+          }
+        ],
+        "rows": [
+          [
+            "promise, refuse, agree, offer",
+            {
+              "sl": "to + osnovna oblika",
+              "de": "to + Grundform",
+              "it": "to + forma base",
+              "en": "to + the base form"
+            },
+            "Jack promised to come."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reporting-verbs",
+          "prompt": "Old Wilf refused ___ for the soup.",
+          "options": [
+            "to pay",
+            "paying",
+            "pay"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**refuse + to**\n- Old Wilf refused to pay.",
+            "de": "**refuse + to**\n- Old Wilf refused to pay.",
+            "it": "**refuse + to**\n- Old Wilf refused to pay.",
+            "en": "**refuse + to**\n- Old Wilf refused to pay."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Po **advise, warn, remind, tell** pride oseba, potem **to**: **He advised me to wait.** (Svetoval mi je, naj počakam.) **Edna reminded me to feed the hens.** Z ne je **not to**: **Mrs Birkett warned us not to walk on the ice.** Slovenščina reče *naj*, angleščina **to**.",
+          "de": "Nach **advise, warn, remind, tell** kommt die Person, dann **to**: **He advised me to wait.** (Er hat mir geraten zu warten.) **Edna reminded me to feed the hens.** Verneint **not to**: **Mrs Birkett warned us not to walk on the ice.** Kein *dass*, die Person steht direkt nach dem Verb.",
+          "it": "Dopo **advise, warn, remind, tell** viene la persona, poi **to**: **He advised me to wait.** (Mi ha consigliato di aspettare.) **Edna reminded me to feed the hens.** Col no **not to**: **Mrs Birkett warned us not to walk on the ice.** Senza preposizione: la persona sta subito dopo il verbo.",
+          "en": "After **advise, warn, remind, tell** comes the person, then **to**: **He advised me to wait.** **Edna reminded me to feed the hens.** With no it's **not to**: **Mrs Birkett warned us not to walk on the ice.**"
+        },
+        "examples": [
+          {
+            "en": "He advised me to wait.",
+            "sl": "Svetoval mi je, naj počakam.",
+            "de": "Er hat mir geraten zu warten.",
+            "it": "Mi ha consigliato di aspettare."
+          },
+          {
+            "en": "Edna reminded me to feed the hens.",
+            "sl": "Edna me je spomnila, naj nahranim kokoši.",
+            "de": "Edna hat mich daran erinnert, die Hühner zu füttern.",
+            "it": "Edna mi ha ricordato di dare da mangiare alle galline."
+          },
+          {
+            "en": "Mrs Birkett warned us not to walk on the ice.",
+            "sl": "Gospa Birkett nas je posvarila, naj ne hodimo po ledu.",
+            "de": "Mrs Birkett hat uns davor gewarnt, auf dem Eis zu gehen.",
+            "it": "Mrs Birkett ci ha avvertiti di non camminare sul ghiaccio."
+          }
+        ],
+        "rows": [
+          [
+            "advise, warn, remind, tell",
+            {
+              "sl": "oseba + to",
+              "de": "Person + to",
+              "it": "persona + to",
+              "en": "someone + to"
+            },
+            "He advised me to wait."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reporting-verbs",
+          "prompt": "Mr Dixon ___ me not to touch the hot iron.",
+          "options": [
+            "warned",
+            "suggested",
+            "said"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**warn + oseba + not to**\n- Mr Dixon warned me not to touch the hot iron.",
+            "de": "**warn + Person + not to**\n- Mr Dixon warned me not to touch the hot iron.",
+            "it": "**warn + persona + not to**\n- Mr Dixon warned me not to touch the hot iron.",
+            "en": "**warn + someone + not to**\n- Mr Dixon warned me not to touch the hot iron."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Po **suggest, admit, deny** pride **-ing**: **Sam suggested going by bus.** (Sam je predlagal, da gremo z avtobusom.) **Harry admitted taking the cake.** (Harry je priznal, da je vzel kolač.) **He denied taking the money.** Za preteklost lahko tudi **having**: **He denied having taken it.** Pri admit tudi **admitted to taking**.",
+          "de": "Nach **suggest, admit, deny** kommt **-ing**: **Sam suggested going by bus.** (Sam hat vorgeschlagen, mit dem Bus zu fahren.) **Harry admitted taking the cake.** (Harry hat zugegeben, den Kuchen genommen zu haben.) **He denied taking the money.** Für die Vergangenheit auch **having**: **He denied having taken it.** Bei admit auch **admitted to taking**.",
+          "it": "Dopo **suggest, admit, deny** viene **-ing**: **Sam suggested going by bus.** (Sam ha proposto di andare in autobus.) **Harry admitted taking the cake.** (Harry ha ammesso di aver preso la torta.) **He denied taking the money.** Per il passato anche **having**: **He denied having taken it.** Con admit anche **admitted to taking**.",
+          "en": "After **suggest, admit, deny** comes **-ing**: **Sam suggested going by bus.** **Harry admitted taking the cake.** **He denied taking the money.** For the past **having** too: **He denied having taken it.** With admit also **admitted to taking**."
+        },
+        "examples": [
+          {
+            "en": "Sam suggested going by bus.",
+            "sl": "Sam je predlagal, da gremo z avtobusom.",
+            "de": "Sam hat vorgeschlagen, mit dem Bus zu fahren.",
+            "it": "Sam ha proposto di andare in autobus."
+          },
+          {
+            "en": "Harry admitted taking the cake.",
+            "sl": "Harry je priznal, da je vzel kolač.",
+            "de": "Harry hat zugegeben, den Kuchen genommen zu haben.",
+            "it": "Harry ha ammesso di aver preso la torta."
+          },
+          {
+            "en": "He denied taking the money.",
+            "sl": "Zanikal je, da je vzel denar.",
+            "de": "Er hat bestritten, das Geld genommen zu haben.",
+            "it": "Ha negato di aver preso i soldi."
+          },
+          {
+            "en": "He denied having taken it.",
+            "sl": "Zanikal je, da ga je vzel.",
+            "de": "Er hat bestritten, es genommen zu haben.",
+            "it": "Ha negato di averlo preso."
+          }
+        ],
+        "rows": [
+          [
+            "suggest, admit, deny",
+            "-ing",
+            "Sam suggested going by bus."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reporting-verbs",
+          "text": "Harry denied ___ (take) the cake.",
+          "accept": [
+            "taking",
+            "having taken"
+          ],
+          "hint": {
+            "sl": "deny + ?",
+            "de": "deny + ?",
+            "it": "deny + ?",
+            "en": "deny + ?"
+          },
+          "explain": {
+            "sl": "**deny + -ing**\n- Harry denied taking the cake.",
+            "de": "**deny + -ing**\n- Harry denied taking the cake.",
+            "it": "**deny + -ing**\n- Harry denied taking the cake.",
+            "en": "**deny + -ing**\n- Harry denied taking the cake."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri **suggest** pazi: **Sam suggested going by bus** (nikoli *Sam suggested me to go*), čeprav slovensko rečeš *predlagal mi je, naj grem*. Ali s stavkom: **Sam suggested that we go by bus.** **Sam suggested that we should go by bus.** Osebe ne potrebuje.",
+          "de": "Bei **suggest** aufpassen: **Sam suggested going by bus** (nie *Sam suggested me to go*), auch wenn Deutsch *er schlug mir vor zu gehen* sagt. Oder mit einem Satz: **Sam suggested that we go by bus.** **Sam suggested that we should go by bus.** Eine Person braucht es nicht.",
+          "it": "Con **suggest** attenzione: **Sam suggested going by bus** (mai *Sam suggested me to go*), anche se l'italiano dice *mi ha suggerito di andare*. O con una frase: **Sam suggested that we go by bus.** **Sam suggested that we should go by bus.** Non serve la persona.",
+          "en": "Watch **suggest**: **Sam suggested going by bus** (never *Sam suggested me to go*). Or with a clause: **Sam suggested that we go by bus.** **Sam suggested that we should go by bus.** It takes no someone + to."
+        },
+        "examples": [
+          {
+            "en": "Sam suggested going by bus.",
+            "sl": "Sam je predlagal, da gremo z avtobusom.",
+            "de": "Sam hat vorgeschlagen, mit dem Bus zu fahren.",
+            "it": "Sam ha proposto di andare in autobus."
+          },
+          {
+            "en": "Sam suggested that we go by bus.",
+            "sl": "Sam je predlagal, da gremo z avtobusom.",
+            "de": "Sam hat vorgeschlagen, dass wir mit dem Bus fahren.",
+            "it": "Sam ha proposto che andassimo in autobus."
+          },
+          {
+            "en": "Sam suggested that we should go by bus.",
+            "sl": "Sam je predlagal, naj gremo z avtobusom.",
+            "de": "Sam hat vorgeschlagen, dass wir mit dem Bus fahren sollten.",
+            "it": "Sam ha proposto che andassimo in autobus."
+          }
+        ],
+        "rows": [
+          [
+            "suggest",
+            {
+              "sl": "that + stavek",
+              "de": "that + Satz",
+              "it": "that + frase",
+              "en": "that + a clause"
+            },
+            "Sam suggested that we go by bus."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reporting-verbs",
+          "prompt": "Mr Dixon ___ the gate before the snow.",
+          "options": [
+            "suggested mending",
+            "suggested to mend",
+            "suggested me mend"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**suggest + -ing**\n- Mr Dixon suggested mending the gate.",
+            "de": "**suggest + -ing**\n- Mr Dixon suggested mending the gate.",
+            "it": "**suggest + -ing**\n- Mr Dixon suggested mending the gate.",
+            "en": "**suggest + -ing**\n- Mr Dixon suggested mending the gate."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Večina teh glagolov vzame tudi **that** + stavek, s korakom nazaj kot po said: **He admitted that he had taken it.** (Priznal je, da ga je vzel.) **She denied that she knew him.** **Jack promised that he would come.** **Mrs Birkett warned us that the ice was thin.** **that** lahko odpade.",
+          "de": "Die meisten dieser Verben nehmen auch **that** + Satz, ein Schritt zurück wie nach said: **He admitted that he had taken it.** (Er hat zugegeben, dass er es genommen hatte.) **She denied that she knew him.** **Jack promised that he would come.** **Mrs Birkett warned us that the ice was thin.** **that** kann wegfallen.",
+          "it": "La maggior parte di questi verbi prende anche **that** + frase, un passo indietro come dopo said: **He admitted that he had taken it.** (Ha ammesso di averlo preso.) **She denied that she knew him.** **Jack promised that he would come.** **Mrs Birkett warned us that the ice was thin.** **that** può cadere.",
+          "en": "Most of these verbs also take **that** + a clause, one step back as after said: **He admitted that he had taken it.** **She denied that she knew him.** **Jack promised that he would come.** **Mrs Birkett warned us that the ice was thin.** **that** can go."
+        },
+        "examples": [
+          {
+            "en": "He admitted that he had taken it.",
+            "sl": "Priznal je, da ga je vzel.",
+            "de": "Er hat zugegeben, dass er es genommen hatte.",
+            "it": "Ha ammesso di averlo preso."
+          },
+          {
+            "en": "She denied that she knew him.",
+            "sl": "Zanikala je, da ga pozna.",
+            "de": "Sie hat bestritten, dass sie ihn kannte.",
+            "it": "Ha negato di conoscerlo."
+          },
+          {
+            "en": "Jack promised that he would come.",
+            "sl": "Jack je obljubil, da bo prišel.",
+            "de": "Jack hat versprochen, dass er kommen würde.",
+            "it": "Jack ha promesso che sarebbe venuto."
+          },
+          {
+            "en": "Mrs Birkett warned us that the ice was thin.",
+            "sl": "Gospa Birkett nas je posvarila, da je led tanek.",
+            "de": "Mrs Birkett hat uns gewarnt, dass das Eis dünn sei.",
+            "it": "Mrs Birkett ci ha avvertiti che il ghiaccio era sottile."
+          }
+        ],
+        "rows": [
+          [
+            "admit, deny, promise, warn",
+            {
+              "sl": "that + stavek, korak nazaj",
+              "de": "that + Satz, ein Schritt zurück",
+              "it": "that + frase, un passo indietro",
+              "en": "that + a clause, one step back"
+            },
+            "He admitted that he had taken it."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reporting-verbs",
+          "prompt": "Mrs Birkett warned us ___ the bridge was closed.",
+          "options": [
+            "that",
+            "to",
+            "for"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**warn + oseba + that + stavek**\n- Mrs Birkett warned us that the bridge was closed.",
+            "de": "**warn + Person + that + Satz**\n- Mrs Birkett warned us that the bridge was closed.",
+            "it": "**warn + persona + that + frase**\n- Mrs Birkett warned us that the bridge was closed.",
+            "en": "**warn + someone + that + a clause**\n- Mrs Birkett warned us that the bridge was closed."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za malo besedo vedno **-ing**: **She apologised for being late.** (Opravičila se je, ker je zamujala.) **Mr Tyson insisted on paying.** (Gospod Tyson je vztrajal, da plača.) **Thank you for coming.** **They accused him of taking the money.** (Obtožili so ga, da je vzel denar.) Besedo se naučiš skupaj z glagolom.",
+          "de": "Nach dem kleinen Wort immer **-ing**: **She apologised for being late.** (Sie hat sich für die Verspätung entschuldigt.) **Mr Tyson insisted on paying.** (Mr Tyson hat darauf bestanden zu zahlen.) **Thank you for coming.** **They accused him of taking the money.** (Sie haben ihm vorgeworfen, das Geld genommen zu haben.) Das Wort lernst du mit dem Verb.",
+          "it": "Dopo la parolina sempre **-ing**: **She apologised for being late.** (Si è scusata per il ritardo.) **Mr Tyson insisted on paying.** (Mr Tyson ha insistito per pagare.) **Thank you for coming.** **They accused him of taking the money.** (Lo hanno accusato di aver preso i soldi.) La parolina si impara col verbo.",
+          "en": "After the small word, always **-ing**: **She apologised for being late.** **Mr Tyson insisted on paying.** **Thank you for coming.** **They accused him of taking the money.** Learn the small word with the verb."
+        },
+        "examples": [
+          {
+            "en": "She apologised for being late.",
+            "sl": "Opravičila se je, ker je zamujala.",
+            "de": "Sie hat sich für die Verspätung entschuldigt.",
+            "it": "Si è scusata per il ritardo."
+          },
+          {
+            "en": "Mr Tyson insisted on paying.",
+            "sl": "Gospod Tyson je vztrajal, da plača.",
+            "de": "Mr Tyson hat darauf bestanden zu zahlen.",
+            "it": "Mr Tyson ha insistito per pagare."
+          },
+          {
+            "en": "Thank you for coming.",
+            "sl": "Hvala, da si {m:prišel|f:prišla}.",
+            "de": "Danke, dass du gekommen bist.",
+            "it": "Grazie di essere venut{m:o|f:a}."
+          },
+          {
+            "en": "They accused him of taking the money.",
+            "sl": "Obtožili so ga, da je vzel denar.",
+            "de": "Sie haben ihm vorgeworfen, das Geld genommen zu haben.",
+            "it": "Lo hanno accusato di aver preso i soldi."
+          }
+        ],
+        "rows": [
+          [
+            "apologise for, insist on",
+            {
+              "sl": "mala beseda + -ing",
+              "de": "kleines Wort + -ing",
+              "it": "parolina + -ing",
+              "en": "small word + -ing"
+            },
+            "She apologised for being late."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reporting-verbs",
+          "text": "Sam apologised ___ breaking the cup.",
+          "accept": [
+            "for"
+          ],
+          "hint": {
+            "sl": "apologise + ?",
+            "de": "apologise + ?",
+            "it": "apologise + ?",
+            "en": "apologise + ?"
+          },
+          "explain": {
+            "sl": "**apologise for + -ing**\n- Sam apologised for breaking the cup.",
+            "de": "**apologise for + -ing**\n- Sam apologised for breaking the cup.",
+            "it": "**apologise for + -ing**\n- Sam apologised for breaking the cup.",
+            "en": "**apologise for + -ing**\n- Sam apologised for breaking the cup."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "reporting-verbs-1",
+      "title": {
+        "sl": "Vsak glagol s svojim vzorcem",
+        "de": "Jedes Verb mit seinem Muster",
+        "it": "Ogni verbo col suo schema",
+        "en": "Each verb with its pattern"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "reporting-verbs",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": "to",
+              "words": [
+                "promise",
+                "refuse",
+                "agree",
+                "offer"
+              ]
+            },
+            {
+              "label": {
+                "sl": "oseba + to",
+                "de": "Person + to",
+                "it": "persona + to",
+                "en": "someone + to"
+              },
+              "words": [
+                "warn",
+                "remind",
+                "tell"
+              ]
+            },
+            {
+              "label": "-ing",
+              "words": [
+                "suggest",
+                "admit",
+                "deny"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**promise to; warn someone to; suggest -ing**\n- Jack promised to come.",
+            "de": "**promise to; warn someone to; suggest -ing**\n- Jack promised to come.",
+            "it": "**promise to; warn someone to; suggest -ing**\n- Jack promised to come.",
+            "en": "**promise to; warn someone to; suggest -ing**\n- Jack promised to come."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "reporting-verbs",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Sam's van broke down last night. Jack offered ___ (help). Mr Dixon advised Sam ___ (wait) until morning. Mrs Birkett suggested ___ (ring) the garage. Sam refused ___ (pay) for a new engine. He admitted ___ (forget) the oil. The man from the garage promised ___ (come) at nine.",
+          "gaps": [
+            {
+              "accept": [
+                "to help"
+              ]
+            },
+            {
+              "accept": [
+                "to wait"
+              ]
+            },
+            {
+              "accept": [
+                "ringing"
+              ]
+            },
+            {
+              "accept": [
+                "to pay"
+              ]
+            },
+            {
+              "accept": [
+                "forgetting",
+                "having forgotten"
+              ]
+            },
+            {
+              "accept": [
+                "to come"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "helping",
+            "to ring"
+          ],
+          "translation": {
+            "sl": "Samu se je sinoči pokvaril kombi. Jack je ponudil pomoč. Gospod Dixon je Samu svetoval, naj počaka do jutra. Gospa Birkett je predlagala, da pokličejo mehanično delavnico. Sam ni hotel plačati novega motorja. Priznal je, da je pozabil na olje. Moški iz delavnice je obljubil, da pride ob devetih.",
+            "de": "Sams Lieferwagen hatte gestern Abend eine Panne. Jack hat angeboten zu helfen. Mr Dixon hat Sam geraten, bis zum Morgen zu warten. Mrs Birkett hat vorgeschlagen, die Werkstatt anzurufen. Sam hat sich geweigert, einen neuen Motor zu zahlen. Er hat zugegeben, das Öl vergessen zu haben. Der Mann von der Werkstatt hat versprochen, um neun zu kommen.",
+            "it": "Il furgone di Sam si è guastato ieri sera. Jack si è offerto di aiutare. Mr Dixon ha consigliato a Sam di aspettare fino al mattino. Mrs Birkett ha proposto di chiamare l'officina. Sam si è rifiutato di pagare un motore nuovo. Ha ammesso di aver dimenticato l'olio. L'uomo dell'officina ha promesso di venire alle nove.",
+            "en": "Sam's van broke down last night. Jack offered to help. Mr Dixon advised Sam to wait until morning. Mrs Birkett suggested ringing the garage. Sam refused to pay for a new engine. He admitted forgetting the oil. The man from the garage promised to come at nine."
+          }
+        }
+      ]
+    },
+    {
+      "id": "reporting-verbs-2",
+      "title": {
+        "sl": "Kdo je kaj rekel",
+        "de": "Wer was gesagt hat",
+        "it": "Chi ha detto che cosa",
+        "en": "Who said what"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "reporting-verbs",
+          "instruction": {
+            "sl": "Say it with the verb in brackets · Povej z glagolom v oklepaju",
+            "de": "Say it with the verb in brackets · Sag es mit dem Verb in Klammern",
+            "it": "Say it with the verb in brackets · Dillo col verbo tra parentesi",
+            "en": "Say it with the verb in brackets"
+          },
+          "items": [
+            {
+              "from": "“I'll come,” said Jack. (promise)",
+              "accept": [
+                "Jack promised to come.",
+                "Jack promised that he would come."
+              ]
+            },
+            {
+              "from": "“I won't pay,” said Old Wilf. (refuse)",
+              "accept": [
+                "Old Wilf refused to pay."
+              ]
+            },
+            {
+              "from": "“I'll carry your bag,” said Sam. (offer)",
+              "accept": [
+                "Sam offered to carry my bag.",
+                "Sam offered to carry your bag.",
+                "Sam offered to carry the bag."
+              ]
+            },
+            {
+              "from": "“You should wait,” Jack told me. (advise)",
+              "accept": [
+                "Jack advised me to wait.",
+                "Jack advised waiting.",
+                "Jack advised me that I should wait."
+              ]
+            },
+            {
+              "from": "“Don't walk on the ice,” Mrs Birkett told us. (warn)",
+              "accept": [
+                "Mrs Birkett warned us not to walk on the ice.",
+                "Mrs Birkett warned us against walking on the ice.",
+                "Mrs Birkett warned us that we shouldn't walk on the ice."
+              ],
+              "spoken": [
+                "Mrs Birkett warned us to not walk on the ice."
+              ]
+            },
+            {
+              "from": "“Let's go by bus,” said Sam. (suggest)",
+              "accept": [
+                "Sam suggested going by bus.",
+                "Sam suggested taking the bus.",
+                "Sam suggested that we go by bus.",
+                "Sam suggested that we should go by bus.",
+                "Sam suggested that we went by bus.",
+                "Sam suggested that we take the bus.",
+                "Sam suggested that they go by bus.",
+                "Sam suggested that they should go by bus."
+              ]
+            },
+            {
+              "from": "“I took the cake,” said Harry. (admit)",
+              "accept": [
+                "Harry admitted taking the cake.",
+                "Harry admitted having taken the cake.",
+                "Harry admitted to taking the cake.",
+                "Harry admitted to having taken the cake.",
+                "Harry admitted that he had taken the cake.",
+                "Harry admitted that he took the cake."
+              ]
+            },
+            {
+              "from": "“I didn't see it,” said Poppy. (deny)",
+              "accept": [
+                "Poppy denied seeing it.",
+                "Poppy denied having seen it.",
+                "Poppy denied that she had seen it.",
+                "Poppy denied that she saw it."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vsak glagol s svojim vzorcem: to, oseba + to, -ing**\n- “I'll come,” said Jack. → Jack promised to come.",
+            "de": "**Jedes Verb mit seinem Muster: to, Person + to, -ing**\n- “I'll come,” said Jack. → Jack promised to come.",
+            "it": "**Ogni verbo col suo schema: to, persona + to, -ing**\n- “I'll come,” said Jack. → Jack promised to come.",
+            "en": "**Each verb with its pattern: to, someone + to, -ing**\n- “I'll come,” said Jack. → Jack promised to come."
+          }
+        }
+      ]
+    },
+    {
+      "id": "reporting-verbs-3",
+      "title": {
+        "sl": "Mala beseda in -ing",
+        "de": "Kleines Wort und -ing",
+        "it": "Parolina e -ing",
+        "en": "A small word and -ing"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "reporting-verbs",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Edna reminded me ___ (feed) the hens. Jack apologised for ___ (be) late. Mr Tyson insisted on ___ (pay) for the soup. Mr Dixon warned me ___ (not touch) the hot iron. Arthur agreed ___ (show) us the bees.",
+          "gaps": [
+            {
+              "accept": [
+                "to feed"
+              ]
+            },
+            {
+              "accept": [
+                "being"
+              ]
+            },
+            {
+              "accept": [
+                "paying"
+              ]
+            },
+            {
+              "accept": [
+                "not to touch"
+              ],
+              "spoken": [
+                "to not touch"
+              ]
+            },
+            {
+              "accept": [
+                "to show"
+              ]
+            }
+          ],
+          "translation": {
+            "sl": "Edna me je spomnila, naj nahranim kokoši. Jack se je opravičil, ker je zamujal. Gospod Tyson je vztrajal, da plača juho. Gospod Dixon me je posvaril, naj se ne dotikam vročega železa. Arthur se je strinjal, da nam pokaže čebele.",
+            "de": "Edna hat mich daran erinnert, die Hühner zu füttern. Jack hat sich für die Verspätung entschuldigt. Mr Tyson hat darauf bestanden, die Suppe zu zahlen. Mr Dixon hat mich davor gewarnt, das heiße Eisen anzufassen. Arthur war einverstanden, uns die Bienen zu zeigen.",
+            "it": "Edna mi ha ricordato di dare da mangiare alle galline. Jack si è scusato per il ritardo. Mr Tyson ha insistito per pagare la zuppa. Mr Dixon mi ha avvertit{m:o|f:a} di non toccare il ferro caldo. Arthur ha accettato di mostrarci le api.",
+            "en": "Edna reminded me to feed the hens. Jack apologised for being late. Mr Tyson insisted on paying for the soup. Mr Dixon warned me not to touch the hot iron. Arthur agreed to show us the bees."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reporting-verbs",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "She ___ taking the money.",
+          "options": [
+            "denied",
+            "refused",
+            "promised"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**deny + -ing**\n- She denied taking the money.",
+            "de": "**deny + -ing**\n- She denied taking the money.",
+            "it": "**deny + -ing**\n- She denied taking the money.",
+            "en": "**deny + -ing**\n- She denied taking the money."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reporting-verbs",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "He advised ___ to the doctor.",
+          "options": [
+            "me to go",
+            "me go",
+            "to me going"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**advise + oseba + to**\n- He advised me to go to the doctor.",
+            "de": "**advise + Person + to**\n- He advised me to go to the doctor.",
+            "it": "**advise + persona + to**\n- He advised me to go to the doctor.",
+            "en": "**advise + someone + to**\n- He advised me to go to the doctor."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reporting-verbs",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "They accused him ___ the sheep.",
+          "options": [
+            "of stealing",
+            "to steal",
+            "on stealing"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**accuse of + -ing**\n- They accused him of stealing the sheep.",
+            "de": "**accuse of + -ing**\n- They accused him of stealing the sheep.",
+            "it": "**accuse of + -ing**\n- They accused him of stealing the sheep.",
+            "en": "**accuse of + -ing**\n- They accused him of stealing the sheep."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "reporting-verbs",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Poppy suggested ___ (walk) to the tarn. Granny Maggie warned her ___ (not go) alone. Jack offered ___ (take) her. Afterwards she thanked him for ___ (come).",
+        "gaps": [
+          {
+            "accept": [
+              "walking"
+            ]
+          },
+          {
+            "accept": [
+              "not to go"
+            ],
+            "spoken": [
+              "to not go"
+            ]
+          },
+          {
+            "accept": [
+              "to take"
+            ]
+          },
+          {
+            "accept": [
+              "coming"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Poppy je predlagala, da gredo peš do jezerca. Babica Maggie jo je posvarila, naj ne hodi sama. Jack je ponudil, da jo pelje. Potem se mu je zahvalila, da je šel z njo.",
+          "de": "Poppy hat vorgeschlagen, zum Bergsee zu gehen. Oma Maggie hat sie davor gewarnt, allein zu gehen. Jack hat angeboten, sie mitzunehmen. Danach hat sie ihm fürs Mitkommen gedankt.",
+          "it": "Poppy ha proposto di andare a piedi al laghetto. Nonna Maggie le ha raccomandato di non andare da sola. Jack si è offerto di accompagnarla. Poi l'ha ringraziato di essere venuto.",
+          "en": "Poppy suggested walking to the tarn. Granny Maggie warned her not to go alone. Jack offered to take her. Afterwards she thanked him for coming."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reporting-verbs",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mr Tyson refused ___ the mill.",
+        "options": [
+          "to sell",
+          "selling",
+          "sell"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**refuse + to**\n- Mr Tyson refused to sell the mill.",
+          "de": "**refuse + to**\n- Mr Tyson refused to sell the mill.",
+          "it": "**refuse + to**\n- Mr Tyson refused to sell the mill.",
+          "en": "**refuse + to**\n- Mr Tyson refused to sell the mill."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reporting-verbs",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Edna admitted ___ the letter.",
+        "options": [
+          "reading",
+          "to read",
+          "read"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**admit + -ing**\n- Edna admitted reading the letter.",
+          "de": "**admit + -ing**\n- Edna admitted reading the letter.",
+          "it": "**admit + -ing**\n- Edna admitted reading the letter.",
+          "en": "**admit + -ing**\n- Edna admitted reading the letter."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reporting-verbs",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mrs Hartley ___ me to practise every day.",
+        "options": [
+          "advised",
+          "suggested",
+          "said"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**advise + oseba + to**\n- Mrs Hartley advised me to practise every day.",
+          "de": "**advise + Person + to**\n- Mrs Hartley advised me to practise every day.",
+          "it": "**advise + persona + to**\n- Mrs Hartley advised me to practise every day.",
+          "en": "**advise + someone + to**\n- Mrs Hartley advised me to practise every day."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reporting-verbs",
+        "instruction": {
+          "sl": "Say it with the verb in brackets · Povej z glagolom v oklepaju",
+          "de": "Say it with the verb in brackets · Sag es mit dem Verb in Klammern",
+          "it": "Say it with the verb in brackets · Dillo col verbo tra parentesi",
+          "en": "Say it with the verb in brackets"
+        },
+        "items": [
+          {
+            "from": "“I'll mend it,” said Mr Dixon. (promise)",
+            "accept": [
+              "Mr Dixon promised to mend it.",
+              "Mr Dixon promised that he would mend it."
+            ]
+          },
+          {
+            "from": "“Let's have soup,” said Edna. (suggest)",
+            "accept": [
+              "Edna suggested having soup.",
+              "Edna suggested that we have soup.",
+              "Edna suggested that we should have soup.",
+              "Edna suggested that we had soup.",
+              "Edna suggested that they have soup.",
+              "Edna suggested that they should have soup."
+            ]
+          },
+          {
+            "from": "“I didn't open the gate,” said Jack. (deny)",
+            "accept": [
+              "Jack denied opening the gate.",
+              "Jack denied having opened the gate.",
+              "Jack denied that he had opened the gate.",
+              "Jack denied that he opened the gate."
+            ]
+          },
+          {
+            "from": "“Don't forget the milk,” Mum told me. (remind)",
+            "accept": [
+              "Mum reminded me not to forget the milk.",
+              "Mum reminded me to bring the milk.",
+              "Mum reminded me to get the milk.",
+              "Mum reminded me about the milk."
+            ],
+            "spoken": [
+              "Mum reminded me to not forget the milk."
+            ]
+          },
+          {
+            "from": "“I'm sorry I broke the cup,” said Sam. (apologise)",
+            "accept": [
+              "Sam apologised for breaking the cup.",
+              "Sam apologised for having broken the cup.",
+              "Sam apologised that he had broken the cup."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Vsak glagol s svojim vzorcem**\n- Sam apologised for breaking the cup.",
+          "de": "**Jedes Verb mit seinem Muster**\n- Sam apologised for breaking the cup.",
+          "it": "**Ogni verbo col suo schema**\n- Sam apologised for breaking the cup.",
+          "en": "**Each verb with its pattern**\n- Sam apologised for breaking the cup."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: warned us to not; suggested that we went; admitted to taking; advise without a person"
+}

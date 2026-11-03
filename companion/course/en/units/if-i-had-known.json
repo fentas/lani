@@ -1,0 +1,1151 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "if-i-had-known",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🕰️",
+  "title": {
+    "sl": "Neresnična preteklost: if I'd known",
+    "de": "Irreale Vergangenheit: if I'd known",
+    "it": "L'ipotesi nel passato: if I'd known",
+    "en": "If I'd known, I'd have come"
+  },
+  "goal": {
+    "sl": "Poveš, kaj bi bilo, če bi se takrat zgodilo drugače (If I'd known, I'd have come), ločiš oba 'd in veš, kako ljudje to rečejo.",
+    "de": "Du sagst, was gewesen wäre, wenn es damals anders gekommen wäre (If I'd known, I'd have come), unterscheidest die beiden 'd und weißt, wie die Leute es sagen.",
+    "it": "Dici che cosa sarebbe successo se allora fosse andata diversamente (If I'd known, I'd have come), distingui i due 'd e sai come lo dice la gente.",
+    "en": "You can say what would have been if things had gone differently (If I'd known, I'd have come), tell the two 'd apart and know how people say it."
+  },
+  "grammar": [
+    "third-conditional",
+    "second-conditional",
+    "past-perfect"
+  ],
+  "words": [
+    "if",
+    "known",
+    "had",
+    "would have",
+    "would've",
+    "woulda",
+    "could have",
+    "might have",
+    "hadn't",
+    "wouldn't",
+    "'d",
+    "earlier",
+    "left",
+    "caught",
+    "catch",
+    "bus",
+    "dance",
+    "miss",
+    "missed",
+    "late",
+    "key",
+    "lost",
+    "told",
+    "asked",
+    "helped",
+    "stayed",
+    "come",
+    "gone",
+    "seen",
+    "been",
+    "knew",
+    "van",
+    "broken",
+    "mill",
+    "wheel",
+    "road",
+    "closed",
+    "taken",
+    "got"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "za kaj",
+          "de": "wofür",
+          "it": "per cosa",
+          "en": "what for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kar se ni zgodilo in se ne da več spremeniti: **if** + **had** + deležnik, v drugem delu **would have** + deležnik. **If I had known, I would have come.** (Če bi {m:vedel|f:vedela}, bi {m:prišel|f:prišla}.) Nisem vedel{m:|f:a}, nisem {m:prišel|f:prišla}. **If we had left earlier, we would have caught the bus.** (Če bi šli prej, bi ujeli avtobus.)",
+          "de": "Was nicht geschehen ist und sich nicht mehr ändern lässt: **if** + **had** + Partizip, im anderen Teil **would have** + Partizip. **If I had known, I would have come.** (Wenn ich es gewusst hätte, wäre ich gekommen.) Ich wusste es nicht. **If we had left earlier, we would have caught the bus.** (Wenn wir früher gegangen wären, hätten wir den Bus erwischt.)",
+          "it": "Ciò che non è successo e non si può più cambiare: **if** + **had** + participio, **would have** + participio nell'altra parte. **If I had known, I would have come.** (Se l'avessi saputo, sarei venut{m:o|f:a}.) Non lo sapevo. **If we had left earlier, we would have caught the bus.** (Se fossimo partiti prima, avremmo preso l'autobus.)",
+          "en": "What didn't happen and can't change now: **if** + **had** + the participle, **would have** + the participle in the other half. **If I had known, I would have come.** (I didn't know, I didn't come.) **If we had left earlier, we would have caught the bus.** (We missed it.)"
+        },
+        "examples": [
+          {
+            "en": "If I had known, I would have come.",
+            "sl": "Če bi {m:vedel|f:vedela}, bi {m:prišel|f:prišla}.",
+            "de": "Wenn ich es gewusst hätte, wäre ich gekommen.",
+            "it": "Se l'avessi saputo, sarei venut{m:o|f:a}."
+          },
+          {
+            "en": "If we had left earlier, we would have caught the bus.",
+            "sl": "Če bi šli prej, bi ujeli avtobus.",
+            "de": "Wenn wir früher gegangen wären, hätten wir den Bus erwischt.",
+            "it": "Se fossimo partiti prima, avremmo preso l'autobus."
+          }
+        ],
+        "rows": [
+          [
+            "if + had + participle",
+            {
+              "sl": "za if",
+              "de": "nach if",
+              "it": "dopo if",
+              "en": "after if"
+            },
+            "If I had known, …"
+          ],
+          [
+            "would have + participle",
+            {
+              "sl": "drugi del",
+              "de": "der andere Teil",
+              "it": "l'altra parte",
+              "en": "the other half"
+            },
+            "… I would have come."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "third-conditional",
+          "prompt": "I didn't know the bus was late. If I ___, I'd have walked.",
+          "options": [
+            "had known",
+            "would have known",
+            "have known"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za if: had + deležnik**\n- If I had known, I'd have walked.",
+            "de": "**Nach if: had + Partizip**\n- If I had known, I'd have walked.",
+            "it": "**Dopo if: had + participio**\n- If I had known, I'd have walked.",
+            "en": "**After if: had + the participle**\n- If I had known, I'd have walked."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ljudje dvakrat rečejo **'d**: **If I'd known, I'd have come.** Prvi **'d** je **had**: stoji za if, za njim je deležnik. Drugi **'d** je **would**: za njim je **have**. **If she'd asked, I'd have helped.** (Če bi vprašala, bi {m:pomagal|f:pomagala}.)",
+          "de": "Man sagt zweimal **'d**: **If I'd known, I'd have come.** Das erste **'d** ist **had**: Es steht nach if, danach das Partizip. Das zweite **'d** ist **would**: Danach kommt **have**. **If she'd asked, I'd have helped.** (Wenn sie gefragt hätte, hätte ich geholfen.)",
+          "it": "Si dice due volte **'d**: **If I'd known, I'd have come.** Il primo **'d** è **had**: sta dopo if, poi viene il participio. Il secondo **'d** è **would**: poi viene **have**. **If she'd asked, I'd have helped.** (Se avesse chiesto, avrei aiutato.)",
+          "en": "People say **'d** twice: **If I'd known, I'd have come.** The first **'d** is **had**: it stands after if, the participle follows. The second **'d** is **would**: **have** follows. **If she'd asked, I'd have helped.**"
+        },
+        "examples": [
+          {
+            "en": "If I'd known, I'd have come.",
+            "sl": "Če bi {m:vedel|f:vedela}, bi {m:prišel|f:prišla}.",
+            "de": "Wenn ich es gewusst hätte, wäre ich gekommen.",
+            "it": "Se l'avessi saputo, sarei venut{m:o|f:a}."
+          },
+          {
+            "en": "If she'd asked, I'd have helped.",
+            "sl": "Če bi vprašala, bi {m:pomagal|f:pomagala}.",
+            "de": "Wenn sie gefragt hätte, hätte ich geholfen.",
+            "it": "Se avesse chiesto, avrei aiutato."
+          }
+        ],
+        "rows": [
+          [
+            "If I'd known, I'd have come",
+            {
+              "sl": "had, potem would",
+              "de": "had, dann would",
+              "it": "had, poi would",
+              "en": "had, then would"
+            },
+            "If I'd known, I'd have come."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "third-conditional",
+          "text": "If she'd asked = If she ___ asked",
+          "accept": [
+            "had"
+          ],
+          "hint": {
+            "sl": "za if",
+            "de": "nach if",
+            "it": "dopo if",
+            "en": "after if"
+          },
+          "explain": {
+            "sl": "**Prvi 'd je had, drugi would**\n- If she'd asked, I'd have helped.",
+            "de": "**Das erste 'd ist had, das zweite would**\n- If she'd asked, I'd have helped.",
+            "it": "**Il primo 'd è had, il secondo would**\n- If she'd asked, I'd have helped.",
+            "en": "**The first 'd is had, the second would**\n- If she'd asked, I'd have helped."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zanikano: **hadn't**, **wouldn't have**. **If it hadn't rained, we wouldn't have stayed.** (Če ne bi deževalo, ne bi ostali.) Drugi del ima tudi **could have** (lahko) in **might have** (morda): **If you'd asked, I could have helped.** (Če bi {m:vprašal|f:vprašala}, bi lahko {m:pomagal|f:pomagala}.) **If we'd run, we might have caught it.** (Če bi tekli, bi ga morda ujeli.)",
+          "de": "Verneint: **hadn't**, **wouldn't have**. **If it hadn't rained, we wouldn't have stayed.** (Wenn es nicht geregnet hätte, wären wir nicht geblieben.) Der andere Teil auch **could have** (hätte können) und **might have** (vielleicht): **If you'd asked, I could have helped.** (Wenn du gefragt hättest, hätte ich helfen können.) **If we'd run, we might have caught it.** (Wenn wir gelaufen wären, hätten wir ihn vielleicht erwischt.)",
+          "it": "Al negativo: **hadn't**, **wouldn't have**. **If it hadn't rained, we wouldn't have stayed.** (Se non avesse piovuto, non saremmo rimasti.) L'altra parte anche **could have** (avrei potuto) e **might have** (forse): **If you'd asked, I could have helped.** (Se avessi chiesto, avrei potuto aiutare.) **If we'd run, we might have caught it.** (Se avessimo corso, forse l'avremmo preso.)",
+          "en": "With not: **hadn't**, **wouldn't have**. **If it hadn't rained, we wouldn't have stayed.** The other half also takes **could have** and **might have**: **If you'd asked, I could have helped.** **If we'd run, we might have caught it.**"
+        },
+        "examples": [
+          {
+            "en": "If it hadn't rained, we wouldn't have stayed.",
+            "sl": "Če ne bi deževalo, ne bi ostali.",
+            "de": "Wenn es nicht geregnet hätte, wären wir nicht geblieben.",
+            "it": "Se non avesse piovuto, non saremmo rimasti."
+          },
+          {
+            "en": "If you'd asked, I could have helped.",
+            "sl": "Če bi {m:vprašal|f:vprašala}, bi lahko {m:pomagal|f:pomagala}.",
+            "de": "Wenn du gefragt hättest, hätte ich helfen können.",
+            "it": "Se avessi chiesto, avrei potuto aiutare."
+          },
+          {
+            "en": "If we'd run, we might have caught it.",
+            "sl": "Če bi tekli, bi ga morda ujeli.",
+            "de": "Wenn wir gelaufen wären, hätten wir ihn vielleicht erwischt.",
+            "it": "Se avessimo corso, forse l'avremmo preso."
+          }
+        ],
+        "rows": [
+          [
+            "hadn't, wouldn't have",
+            {
+              "sl": "ne",
+              "de": "nein",
+              "it": "no",
+              "en": "no"
+            },
+            "If it hadn't rained, we wouldn't have stayed."
+          ],
+          [
+            "could have, might have",
+            {
+              "sl": "manj gotovo",
+              "de": "weniger sicher",
+              "it": "meno sicuro",
+              "en": "less sure"
+            },
+            "If you'd asked, I could have helped."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "third-conditional",
+          "text": "If it ___ (not rain), we'd have walked to the tarn.",
+          "accept": [
+            "hadn't rained",
+            "had not rained"
+          ],
+          "hint": "had + not",
+          "explain": {
+            "sl": "**Za if: had + deležnik**\n- If it hadn't rained, we'd have walked.",
+            "de": "**Nach if: had + Partizip**\n- If it hadn't rained, we'd have walked.",
+            "it": "**Dopo if: had + participio**\n- If it hadn't rained, we'd have walked.",
+            "en": "**After if: had + the participle**\n- If it hadn't rained, we'd have walked."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kako se reče: **would have** je v govoru **would've**, sliši se kot **woulda**, zato ljudje pišejo tudi *would of*. Marsikdo reče tudi *If I'd have known*, to boš slišal{m:|f:a}. Pisno velja **If I had known**, **would have**.",
+          "de": "Wie man es sagt: **would have** ist gesprochen **would've**, es klingt wie **woulda**, darum schreibt man auch *would of*. Viele sagen auch *If I'd have known*, das wirst du hören. Geschrieben gilt **If I had known**, **would have**.",
+          "it": "Come si dice: **would have** a voce è **would've**, suona come **woulda**, perciò si scrive anche *would of*. Molti dicono anche *If I'd have known*, lo sentirai. Per iscritto vale **If I had known**, **would have**.",
+          "en": "How it's said: **would have** is **would've** in talk, it sounds like **woulda**, so people also write *would of*. Many also say *If I'd have known*, and you'll hear it. Writing wants **If I had known**, **would have**."
+        },
+        "examples": [
+          {
+            "en": "We would've come.",
+            "sl": "Prišli bi.",
+            "de": "Wir wären gekommen.",
+            "it": "Saremmo venuti."
+          },
+          {
+            "en": "I woulda told you.",
+            "sl": "Povedal{m:|f:a} bi ti.",
+            "de": "Ich hätte es dir gesagt.",
+            "it": "Te l'avrei detto."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "third-conditional",
+          "text": "If we'd known, we ___ (come).",
+          "accept": [
+            "would have come",
+            "'d have come",
+            "would've come",
+            "woulda come",
+            "could have come",
+            "might have come"
+          ],
+          "hint": {
+            "sl": "drugi del",
+            "de": "der andere Teil",
+            "it": "l'altra parte",
+            "en": "the other half"
+          },
+          "explain": {
+            "sl": "**Drugi del: would have + deležnik**\n- If we'd known, we'd have come.",
+            "de": "**Der andere Teil: would have + Partizip**\n- If we'd known, we'd have come.",
+            "it": "**L'altra parte: would have + participio**\n- If we'd known, we'd have come.",
+            "en": "**The other half: would have + the participle**\n- If we'd known, we'd have come."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Primerjaj: **If I knew, I'd tell you.** (zdaj: Če bi {m:vedel|f:vedela}, bi ti {m:povedal|f:povedala}.) **If I'd known, I'd have told you.** (takrat) Slovenščina reče obakrat *če bi {m:vedel|f:vedela}*, angleščina loči: if + preteklik za zdaj, if + **had** za takrat.",
+          "de": "Vergleiche: **If I knew, I'd tell you.** (jetzt: Wenn ich es wüsste, würde ich es dir sagen.) **If I'd known, I'd have told you.** (damals: Wenn ich es gewusst hätte, hätte ich es dir gesagt.) if + Vergangenheit für jetzt, if + **had** für damals.",
+          "it": "Confronta: **If I knew, I'd tell you.** (ora: Se lo sapessi, te lo direi.) **If I'd known, I'd have told you.** (allora: Se l'avessi saputo, te l'avrei detto.) if + il passato per ora, if + **had** per allora.",
+          "en": "Compare: **If I knew, I'd tell you.** (now) **If I'd known, I'd have told you.** (then) if + the past for now, if + **had** for then."
+        },
+        "examples": [
+          {
+            "en": "If I knew, I'd tell you.",
+            "sl": "Če bi {m:vedel|f:vedela}, bi ti {m:povedal|f:povedala}.",
+            "de": "Wenn ich es wüsste, würde ich es dir sagen.",
+            "it": "Se lo sapessi, te lo direi."
+          },
+          {
+            "en": "If I'd known, I'd have told you.",
+            "sl": "Če bi takrat {m:vedel|f:vedela}, bi ti {m:povedal|f:povedala}.",
+            "de": "Wenn ich es gewusst hätte, hätte ich es dir gesagt.",
+            "it": "Se l'avessi saputo, te l'avrei detto."
+          }
+        ],
+        "rows": [
+          [
+            "If I knew, I'd tell you",
+            {
+              "sl": "zdaj",
+              "de": "jetzt",
+              "it": "ora",
+              "en": "now"
+            },
+            "If I knew, I'd tell you."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "third-conditional",
+          "prompt": "I didn't see you yesterday. If I ___ you, I'd have said hello.",
+          "options": [
+            "had seen",
+            "would have seen",
+            "see"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zdaj: if + preteklik, would; takrat: if + had, would have**\n- If I had seen you, I'd have said hello.",
+            "de": "**Jetzt: if + Vergangenheit, would; damals: if + had, would have**\n- If I had seen you, I'd have said hello.",
+            "it": "**Ora: if + il passato, would; allora: if + had, would have**\n- If I had seen you, I'd have said hello.",
+            "en": "**Now: if + the past, would; then: if + had, would have**\n- If I had seen you, I'd have said hello."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za to, kar bi bilo takrat, je v drugem delu vedno **have**, tudi pri come in go: **She would have come.** (Prišla bi.) **We would have gone.** (Šli bi.) **I would have been late.** ({m:Zamudil|f:Zamudila} bi.) Oblika ostane ista za vse osebe.",
+          "de": "Für das, was damals gewesen wäre, steht im anderen Teil immer **have**, auch bei come und go, wo Deutsch *wäre* sagt: **She would have come.** (Sie wäre gekommen.) **We would have gone.** (Wir wären gegangen.) **I would have been late.** (Ich wäre zu spät gekommen.) Die Form bleibt für alle Personen gleich.",
+          "it": "Per ciò che sarebbe stato allora, nell'altra parte c'è sempre **have**, anche con come e go, dove l'italiano dice *sarei*: **She would have come.** (Sarebbe venuta.) **We would have gone.** (Saremmo andati.) **I would have been late.** (Sarei arrivat{m:o|f:a} in ritardo.) La forma resta uguale per tutte le persone.",
+          "en": "For what would have been, the other half always has **have**, also with come and go: **She would have come.** **We would have gone.** **I would have been late.** The form stays the same for every person."
+        },
+        "examples": [
+          {
+            "en": "She would have come.",
+            "sl": "Prišla bi.",
+            "de": "Sie wäre gekommen.",
+            "it": "Sarebbe venuta."
+          },
+          {
+            "en": "We would have gone.",
+            "sl": "Šli bi.",
+            "de": "Wir wären gegangen.",
+            "it": "Saremmo andati."
+          },
+          {
+            "en": "I would have been late.",
+            "sl": "{m:Zamudil|f:Zamudila} bi.",
+            "de": "Ich wäre zu spät gekommen.",
+            "it": "Sarei arrivat{m:o|f:a} in ritardo."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "third-conditional",
+          "prompt": "If you'd asked her, she ___ come.",
+          "options": [
+            "would have",
+            "would be",
+            "had be"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vedno have**\n- If you'd asked her, she would have come.",
+            "de": "**Immer have**\n- If you'd asked her, she would have come.",
+            "it": "**Sempre have**\n- If you'd asked her, she would have come.",
+            "en": "**Always have**\n- If you'd asked her, she would have come."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "if-i-had-known-1",
+      "title": {
+        "sl": "Oba dela",
+        "de": "Die beiden Teile",
+        "it": "Le due parti",
+        "en": "The two halves"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Za if",
+            "de": "Nach if",
+            "it": "Dopo if",
+            "en": "After if"
+          },
+          "columns": [
+            {
+              "sl": "za if",
+              "de": "nach if",
+              "it": "dopo if",
+              "en": "after if"
+            }
+          ],
+          "rows": [
+            {
+              "label": "If I … (know), I'd have come.",
+              "cells": [
+                "had known"
+              ]
+            },
+            {
+              "label": "If we … (leave) earlier, we'd have caught it.",
+              "cells": [
+                {
+                  "accept": [
+                    "had left"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "If it … (not rain), we'd have walked.",
+              "cells": [
+                {
+                  "accept": [
+                    "hadn't rained"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "If Sam … (not lose) the key, we'd have got in.",
+              "cells": [
+                {
+                  "accept": [
+                    "hadn't lost"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "I'd have helped if you … (ask).",
+              "cells": [
+                {
+                  "accept": [
+                    "had asked"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Za if: had + deležnik**\n- If I had known, I'd have come.",
+            "de": "**Nach if: had + Partizip**\n- If I had known, I'd have come.",
+            "it": "**Dopo if: had + participio**\n- If I had known, I'd have come.",
+            "en": "**After if: had + the participle**\n- If I had known, I'd have come."
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Drugi del",
+            "de": "Der andere Teil",
+            "it": "L'altra parte",
+            "en": "The other half"
+          },
+          "columns": [
+            {
+              "sl": "drugi del",
+              "de": "der andere Teil",
+              "it": "l'altra parte",
+              "en": "the other half"
+            }
+          ],
+          "rows": [
+            {
+              "label": "If I'd known, I … (come).",
+              "cells": [
+                {
+                  "accept": [
+                    "would have come",
+                    "'d have come",
+                    "could have come",
+                    "might have come"
+                  ],
+                  "spoken": [
+                    "woulda come"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "If we'd run, we … (catch) it.",
+              "cells": [
+                {
+                  "accept": [
+                    "would have caught",
+                    "'d have caught",
+                    "could have caught",
+                    "might have caught"
+                  ],
+                  "spoken": [
+                    "woulda caught"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "If it hadn't rained, we … (not go).",
+              "cells": [
+                {
+                  "accept": [
+                    "wouldn't have gone",
+                    "would not have gone",
+                    "might not have gone",
+                    "couldn't have gone"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "If she'd asked, I … (can) help.",
+              "cells": [
+                {
+                  "accept": [
+                    "could have helped"
+                  ],
+                  "spoken": [
+                    "coulda helped"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Drugi del: would have + deležnik**\n- If I'd known, I would have come.",
+            "de": "**Der andere Teil: would have + Partizip**\n- If I'd known, I would have come.",
+            "it": "**L'altra parte: would have + participio**\n- If I'd known, I would have come.",
+            "en": "**The other half: would have + the participle**\n- If I'd known, I would have come."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: 'd is had, or would"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "'d = had",
+                "de": "'d = had",
+                "it": "'d = had",
+                "en": "'d = had"
+              },
+              "words": [
+                "If I'd known",
+                "If she'd asked",
+                "If they'd left"
+              ]
+            },
+            {
+              "label": {
+                "sl": "'d = would",
+                "de": "'d = would",
+                "it": "'d = would",
+                "en": "'d = would"
+              },
+              "words": [
+                "I'd have come",
+                "she'd have helped",
+                "they'd have caught it"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Prvi 'd je had, drugi would**\n- If I'd known, I'd have come.",
+            "de": "**Das erste 'd ist had, das zweite would**\n- If I'd known, I'd have come.",
+            "it": "**Il primo 'd è had, il secondo would**\n- If I'd known, I'd have come.",
+            "en": "**The first 'd is had, the second would**\n- If I'd known, I'd have come."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "If Mr Tyson had mended the wheel, the mill ___ stopped.",
+          "options": [
+            "wouldn't have",
+            "hadn't",
+            "isn't"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Drugi del: would have + deležnik**\n- The mill wouldn't have stopped.",
+            "de": "**Der andere Teil: would have + Partizip**\n- The mill wouldn't have stopped.",
+            "it": "**L'altra parte: would have + participio**\n- The mill wouldn't have stopped.",
+            "en": "**The other half: would have + the participle**\n- The mill wouldn't have stopped."
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-i-had-known-2",
+      "title": {
+        "sl": "Zamujeni ples",
+        "de": "Der verpasste Tanz",
+        "it": "Il ballo perso",
+        "en": "The missed dance"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "— We missed the dance! If we ___ (leave) earlier, we ___ (get) there in time. — If your van ___ (not break) down, we'd have been fine! — If you ___ (tell) me the road was closed, I ___ (take) the other road. — Well, if I ___ (know), I'd have told you! — If I'd stayed at home, I ___ (not miss) the soup.",
+          "gaps": [
+            {
+              "accept": [
+                "had left"
+              ],
+              "hint": {
+                "sl": "za if",
+                "de": "nach if",
+                "it": "dopo if",
+                "en": "after if"
+              }
+            },
+            {
+              "accept": [
+                "would have got",
+                "'d have got",
+                "could have got",
+                "might have got",
+                "would have gotten"
+              ],
+              "spoken": [
+                "woulda got"
+              ],
+              "hint": {
+                "sl": "drugi del",
+                "de": "der andere Teil",
+                "it": "l'altra parte",
+                "en": "the other half"
+              }
+            },
+            {
+              "accept": [
+                "hadn't broken",
+                "had not broken"
+              ],
+              "hint": {
+                "sl": "za if",
+                "de": "nach if",
+                "it": "dopo if",
+                "en": "after if"
+              }
+            },
+            {
+              "accept": [
+                "had told"
+              ],
+              "hint": {
+                "sl": "za if",
+                "de": "nach if",
+                "it": "dopo if",
+                "en": "after if"
+              }
+            },
+            {
+              "accept": [
+                "would have taken",
+                "'d have taken",
+                "could have taken",
+                "might have taken"
+              ],
+              "spoken": [
+                "woulda taken"
+              ],
+              "hint": {
+                "sl": "drugi del",
+                "de": "der andere Teil",
+                "it": "l'altra parte",
+                "en": "the other half"
+              }
+            },
+            {
+              "accept": [
+                "had known"
+              ],
+              "spoken": [
+                "knew"
+              ],
+              "hint": {
+                "sl": "za if",
+                "de": "nach if",
+                "it": "dopo if",
+                "en": "after if"
+              }
+            },
+            {
+              "accept": [
+                "wouldn't have missed",
+                "would not have missed"
+              ],
+              "hint": {
+                "sl": "drugi del",
+                "de": "der andere Teil",
+                "it": "l'altra parte",
+                "en": "the other half"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "have left",
+            "have known"
+          ],
+          "translation": {
+            "sl": "— Ples smo zamudili! Če bi šli prej, bi prišli pravočasno. — Če se ne bi tvoj kombi pokvaril, bi bilo vse v redu! — Če bi mi {m:povedal|f:povedala}, da je cesta zaprta, bi šel po drugi poti. — No, če bi {m:vedel|f:vedela}, bi ti {m:povedal|f:povedala}! — Če bi {m:ostal|f:ostala} doma, ne bi {m:zamudil|f:zamudila} juhe.",
+            "de": "— Wir haben den Tanz verpasst! Wenn wir früher gegangen wären, wären wir rechtzeitig dort gewesen. — Wenn dein Lieferwagen nicht kaputtgegangen wäre, wäre alles gut gewesen! — Wenn du mir gesagt hättest, dass die Straße gesperrt war, hätte ich den anderen Weg genommen. — Na, wenn ich es gewusst hätte, hätte ich es dir gesagt! — Wenn ich zu Hause geblieben wäre, hätte ich die Suppe nicht verpasst.",
+            "it": "— Abbiamo perso il ballo! Se fossimo partiti prima, saremmo arrivati in tempo. — Se il tuo furgone non si fosse rotto, sarebbe andato tutto bene! — Se mi avessi detto che la strada era chiusa, avrei preso l'altra via. — Be', se l'avessi saputo, te l'avrei detto! — Se fossi rimast{m:o|f:a} a casa, non mi sarei pers{m:o|f:a} la zuppa.",
+            "en": "— We missed the dance! If we had left earlier, we would have got there in time. — If your van hadn't broken down, we'd have been fine! — If you had told me the road was closed, I would have taken the other road. — Well, if I had known, I'd have told you! — If I'd stayed at home, I wouldn't have missed the soup."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "I don't know the way. If I ___ it, I'd show you.",
+          "options": [
+            "knew",
+            "known",
+            "knowing"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zdaj: if + preteklik, would; takrat: if + had, would have**\n- If I knew it, I'd show you.",
+            "de": "**Jetzt: if + Vergangenheit, would; damals: if + had, would have**\n- If I knew it, I'd show you.",
+            "it": "**Ora: if + il passato, would; allora: if + had, would have**\n- If I knew it, I'd show you.",
+            "en": "**Now: if + the past, would; then: if + had, would have**\n- If I knew it, I'd show you."
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-i-had-known-3",
+      "title": {
+        "sl": "Povej z if",
+        "de": "Sag es mit if",
+        "it": "Dillo con if",
+        "en": "Say it with if"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Say it with if · Povej z if",
+            "de": "Say it with if · Sag es mit if",
+            "it": "Say it with if · Dillo con if",
+            "en": "Say it with if"
+          },
+          "cue": "if",
+          "items": [
+            {
+              "from": "I didn't know. I didn't come.",
+              "accept": [
+                "If I had known, I would have come.",
+                "I would have come if I had known.",
+                "If I had known, I could have come.",
+                "I could have come if I had known."
+              ],
+              "spoken": [
+                "If I had known, I woulda come.",
+                "I woulda come if I had known."
+              ]
+            },
+            {
+              "from": "We didn't leave early. We missed the bus.",
+              "accept": [
+                "If we had left early, we wouldn't have missed the bus.",
+                "We wouldn't have missed the bus if we had left early.",
+                "If we had left earlier, we wouldn't have missed the bus.",
+                "We wouldn't have missed the bus if we had left earlier.",
+                "If we had left early, we would have caught the bus.",
+                "We would have caught the bus if we had left early.",
+                "If we had left earlier, we would have caught the bus.",
+                "We would have caught the bus if we had left earlier."
+              ]
+            },
+            {
+              "from": "It rained. We stayed at the inn.",
+              "accept": [
+                "If it hadn't rained, we wouldn't have stayed at the inn.",
+                "We wouldn't have stayed at the inn if it hadn't rained."
+              ]
+            },
+            {
+              "from": "You didn't ask. I didn't help.",
+              "accept": [
+                "If you had asked, I would have helped.",
+                "I would have helped if you had asked.",
+                "If you had asked, I could have helped.",
+                "I could have helped if you had asked."
+              ],
+              "spoken": [
+                "If you had asked, I woulda helped.",
+                "I woulda helped if you had asked."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Za if: had + deležnik**\n- I didn't know. I didn't come. → If I had known, I would have come.",
+            "de": "**Nach if: had + Partizip**\n- I didn't know. I didn't come. → If I had known, I would have come.",
+            "it": "**Dopo if: had + participio**\n- I didn't know. I didn't come. → If I had known, I would have come.",
+            "en": "**After if: had + the participle**\n- I didn't know. I didn't come. → If I had known, I would have come."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "third-conditional",
+          "instruction": {
+            "sl": "Write it out: had or would · Izpiši: had ali would",
+            "de": "Write it out: had or would · Schreib es aus: had oder would",
+            "it": "Write it out: had or would · Scrivilo per esteso: had o would",
+            "en": "Write it out: had or would"
+          },
+          "items": [
+            {
+              "from": "If I'd known, I'd have come.",
+              "accept": [
+                "If I had known, I would have come."
+              ]
+            },
+            {
+              "from": "If she'd asked, he'd have stayed.",
+              "accept": [
+                "If she had asked, he would have stayed."
+              ]
+            },
+            {
+              "from": "We'd have gone if they'd told us.",
+              "accept": [
+                "We would have gone if they had told us."
+              ]
+            },
+            {
+              "from": "If you'd seen it, you'd have laughed.",
+              "accept": [
+                "If you had seen it, you would have laughed."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Prvi 'd je had, drugi would**\n- If I'd known, I'd have come. → If I had known, I would have come.",
+            "de": "**Das erste 'd ist had, das zweite would**\n- If I'd known, I'd have come. → If I had known, I would have come.",
+            "it": "**Il primo 'd è had, il secondo would**\n- If I'd known, I'd have come. → If I had known, I would have come.",
+            "en": "**The first 'd is had, the second would**\n- If I'd known, I'd have come. → If I had known, I would have come."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "third-conditional",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "If Jack ___ (see) the snow, he'd have stayed down. — If he'd stayed down, he ___ (not lose) three sheep. — He ___ (can) find them if Meg had been with him. — If I ___ (be) Jack, I'd have taken her.",
+        "gaps": [
+          {
+            "accept": [
+              "had seen"
+            ]
+          },
+          {
+            "accept": [
+              "wouldn't have lost",
+              "would not have lost"
+            ]
+          },
+          {
+            "accept": [
+              "could have found",
+              "would have found",
+              "might have found",
+              "'d have found"
+            ],
+            "spoken": [
+              "coulda found",
+              "woulda found"
+            ]
+          },
+          {
+            "accept": [
+              "had been",
+              "were"
+            ],
+            "spoken": [
+              "was"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Če bi Jack videl sneg, bi ostal spodaj. — Če bi ostal spodaj, ne bi izgubil treh ovc. — Lahko bi jih našel, če bi bila Meg z njim. — Če bi bil{m:|f:a} na Jackovem mestu, bi jo {m:vzel|f:vzela} s sabo.",
+          "de": "Wenn Jack den Schnee gesehen hätte, wäre er unten geblieben. — Wenn er unten geblieben wäre, hätte er nicht drei Schafe verloren. — Er hätte sie finden können, wenn Meg bei ihm gewesen wäre. — An Jacks Stelle hätte ich sie mitgenommen.",
+          "it": "Se Jack avesse visto la neve, sarebbe rimasto giù. — Se fosse rimasto giù, non avrebbe perso tre pecore. — Avrebbe potuto trovarle se Meg fosse stata con lui. — Se fossi stat{m:o|f:a} Jack, l'avrei portata con me.",
+          "en": "If Jack had seen the snow, he'd have stayed down. — If he'd stayed down, he wouldn't have lost three sheep. — He could have found them if Meg had been with him. — If I had been Jack, I'd have taken her."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "third-conditional",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "If I'd known you were here, I ___ brought some scones.",
+        "options": [
+          "would have",
+          "would be",
+          "had be"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vedno have**\n- I would have brought some scones.",
+          "de": "**Immer have**\n- I would have brought some scones.",
+          "it": "**Sempre have**\n- I would have brought some scones.",
+          "en": "**Always have**\n- I would have brought some scones."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "third-conditional",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "If she'd asked, I'd have helped. The first 'd is ___.",
+        "options": [
+          "had",
+          "would",
+          "did"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Prvi 'd je had, drugi would**\n- If she had asked, I would have helped.",
+          "de": "**Das erste 'd ist had, das zweite would**\n- If she had asked, I would have helped.",
+          "it": "**Il primo 'd è had, il secondo would**\n- If she had asked, I would have helped.",
+          "en": "**The first 'd is had, the second would**\n- If she had asked, I would have helped."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "third-conditional",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I haven't got the key. If I had it, I ___ open the door.",
+        "options": [
+          "would",
+          "had",
+          "am"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Zdaj: if + preteklik, would; takrat: if + had, would have**\n- If I had it, I would open the door.",
+          "de": "**Jetzt: if + Vergangenheit, would; damals: if + had, would have**\n- If I had it, I would open the door.",
+          "it": "**Ora: if + il passato, would; allora: if + had, would have**\n- If I had it, I would open the door.",
+          "en": "**Now: if + the past, would; then: if + had, would have**\n- If I had it, I would open the door."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "third-conditional",
+        "instruction": {
+          "sl": "Say it with if · Povej z if",
+          "de": "Say it with if · Sag es mit if",
+          "it": "Say it with if · Dillo con if",
+          "en": "Say it with if"
+        },
+        "cue": "if",
+        "items": [
+          {
+            "from": "I didn't see Jack. I didn't tell him.",
+            "accept": [
+              "If I had seen Jack, I would have told him.",
+              "I would have told Jack if I had seen him.",
+              "If I had seen Jack, I could have told him.",
+              "I could have told Jack if I had seen him."
+            ],
+            "spoken": [
+              "If I had seen Jack, I woulda told him.",
+              "I woulda told Jack if I had seen him."
+            ]
+          },
+          {
+            "from": "Sam lost the key. We were late.",
+            "accept": [
+              "If Sam hadn't lost the key, we wouldn't have been late.",
+              "We wouldn't have been late if Sam hadn't lost the key."
+            ]
+          },
+          {
+            "from": "It snowed. The bus didn't come.",
+            "accept": [
+              "If it hadn't snowed, the bus would have come.",
+              "The bus would have come if it hadn't snowed.",
+              "If it hadn't snowed, the bus could have come.",
+              "The bus could have come if it hadn't snowed."
+            ],
+            "spoken": [
+              "If it hadn't snowed, the bus woulda come.",
+              "The bus woulda come if it hadn't snowed."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Za if: had + deležnik**\n- It snowed. The bus didn't come. → If it hadn't snowed, the bus would have come.",
+          "de": "**Nach if: had + Partizip**\n- It snowed. The bus didn't come. → If it hadn't snowed, the bus would have come.",
+          "it": "**Dopo if: had + participio**\n- It snowed. The bus didn't come. → If it hadn't snowed, the bus would have come.",
+          "en": "**After if: had + the participle**\n- It snowed. The bus didn't come. → If it hadn't snowed, the bus would have come."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "third-conditional",
+        "instruction": {
+          "sl": "Write it out: had or would · Izpiši: had ali would",
+          "de": "Write it out: had or would · Schreib es aus: had oder would",
+          "it": "Write it out: had or would · Scrivilo per esteso: had o would",
+          "en": "Write it out: had or would"
+        },
+        "items": [
+          {
+            "from": "If he'd come, she'd have stayed.",
+            "accept": [
+              "If he had come, she would have stayed."
+            ]
+          },
+          {
+            "from": "I'd have gone if you'd asked.",
+            "accept": [
+              "I would have gone if you had asked."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Prvi 'd je had, drugi would**\n- If he'd come, she'd have stayed. → If he had come, she would have stayed.",
+          "de": "**Das erste 'd ist had, das zweite would**\n- If he'd come, she'd have stayed. → If he had come, she would have stayed.",
+          "it": "**Il primo 'd è had, il secondo would**\n- If he'd come, she'd have stayed. → If he had come, she would have stayed.",
+          "en": "**The first 'd is had, the second would**\n- If he'd come, she'd have stayed. → If he had come, she would have stayed."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

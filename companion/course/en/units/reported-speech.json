@@ -1,0 +1,1159 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "reported-speech",
+  "language": "en",
+  "level": "B1",
+  "emoji": "💬",
+  "title": {
+    "sl": "Odvisni govor: she said she was",
+    "de": "Indirekte Rede: she said she was",
+    "it": "Il discorso indiretto: she said she was",
+    "en": "She said she was tired"
+  },
+  "goal": {
+    "sl": "Poveš, kaj je kdo rekel (She said she was tired), ločiš say in tell, premakneš čas, kraj in dan ter poveš, kaj ti je kdo naročil (She told me to wait).",
+    "de": "Du sagst, was jemand gesagt hat (She said she was tired), unterscheidest say und tell, verschiebst Zeit, Ort und Tag und sagst, was man dir aufgetragen hat (She told me to wait).",
+    "it": "Riferisci ciò che qualcuno ha detto (She said she was tired), distingui say e tell, sposti tempo, luogo e giorno e dici che cosa ti è stato chiesto di fare (She told me to wait).",
+    "en": "You can report what someone said (She said she was tired), tell say from tell, shift the tense, the place and the day, and say what you were told to do (She told me to wait)."
+  },
+  "grammar": [
+    "reported-speech",
+    "past-simple"
+  ],
+  "words": [
+    "say",
+    "said",
+    "tell",
+    "told",
+    "that",
+    "ask",
+    "asked",
+    "tired",
+    "would",
+    "could",
+    "had seen",
+    "raven",
+    "sell",
+    "van",
+    "sleep",
+    "truth",
+    "story",
+    "there",
+    "then",
+    "the next day",
+    "the day before",
+    "that day",
+    "the week after",
+    "my",
+    "feed",
+    "horses",
+    "wait",
+    "doctor",
+    "open",
+    "inn",
+    "goodbye",
+    "stay",
+    "late",
+    "help",
+    "come",
+    "word",
+    "week",
+    "news",
+    "today",
+    "yesterday"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "rečeno",
+          "de": "gesagt",
+          "it": "detto",
+          "en": "said"
+        },
+        {
+          "sl": "poročano",
+          "de": "berichtet",
+          "it": "riferito",
+          "en": "reported"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kaj je kdo rekel: **said** + stavek, čas gre korak nazaj: **am, is → was**. »I'm tired.« → **She said she was tired.** (Rekla je, da je utrujena.) **that** lahko izpustiš: **She said that she was tired.** Slovenščina ostane v sedanjiku, angleščina ne: **are → were**: **They said they were late.** (Rekli so, da zamujajo.)",
+          "de": "Was jemand gesagt hat: **said** + Satz, die Zeit geht einen Schritt zurück: **am, is → was**. „I'm tired.“ → **She said she was tired.** (Sie sagte, sie sei müde.) **that** kannst du weglassen: **She said that she was tired.** Deutsch nimmt den Konjunktiv, Englisch geht zurück: **are → were**: **They said they were late.** (Sie sagten, sie seien spät dran.)",
+          "it": "Ciò che qualcuno ha detto: **said** + una frase, il tempo fa un passo indietro: **am, is → was**. «I'm tired.» → **She said she was tired.** (Ha detto che era stanca.) **that** si può togliere: **She said that she was tired.** Anche **are → were**: **They said they were late.** (Hanno detto che erano in ritardo.)",
+          "en": "What someone said: **said** + a sentence, the tense goes one step back: **am, is → was**. “I'm tired.” → **She said she was tired.** You can leave out **that**: **She said that she was tired.** And **are → were**: **They said they were late.**"
+        },
+        "examples": [
+          {
+            "en": "She said she was tired.",
+            "sl": "Rekla je, da je utrujena.",
+            "de": "Sie sagte, sie sei müde.",
+            "it": "Ha detto che era stanca."
+          },
+          {
+            "en": "She said that she was tired.",
+            "sl": "Rekla je, da je utrujena.",
+            "de": "Sie sagte, dass sie müde sei.",
+            "it": "Ha detto che era stanca."
+          },
+          {
+            "en": "They said they were late.",
+            "sl": "Rekli so, da zamujajo.",
+            "de": "Sie sagten, sie seien spät dran.",
+            "it": "Hanno detto che erano in ritardo."
+          }
+        ],
+        "rows": [
+          [
+            "am, is",
+            "was"
+          ],
+          [
+            "are",
+            "were"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reported-speech",
+          "text": "“I'm cold,” said Edna. → Edna said she ___ cold.",
+          "accept": [
+            "was",
+            "is"
+          ],
+          "hint": "am → ?",
+          "explain": {
+            "sl": "**Čas korak nazaj**\n- Edna said she was cold.",
+            "de": "**Die Zeit einen Schritt zurück**\n- Edna said she was cold.",
+            "it": "**Il tempo un passo indietro**\n- Edna said she was cold.",
+            "en": "**The tense one step back**\n- Edna said she was cold."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**say** + kaj, **tell** + komu: **She said she was tired.** **She told me she was tired.** (Povedala mi je, da je utrujena.) Pri tell navadno stoji, komu: **He told us a story.** (Povedal nam je zgodbo.) **said to me** je tudi prav. *She said me* in *She told to me* sta napaki.",
+          "de": "**say** + was, **tell** + wem: **She said she was tired.** **She told me she was tired.** (Sie sagte mir, sie sei müde.) Bei tell steht meist, wem: **He told us a story.** (Er erzählte uns eine Geschichte.) **said to me** ist auch richtig. *She said me* und *She told to me* sind Fehler.",
+          "it": "**say** + che cosa, **tell** + a chi: **She said she was tired.** **She told me she was tired.** (Mi ha detto che era stanca.) Con tell di solito c'è a chi: **He told us a story.** (Ci ha raccontato una storia.) **said to me** è anche giusto. *She said me* e *She told to me* sono errori.",
+          "en": "**say** + what, **tell** + who: **She said she was tired.** **She told me she was tired.** With tell there's usually a who: **He told us a story.** **said to me** is right too. *She said me* and *She told to me* are mistakes."
+        },
+        "examples": [
+          {
+            "en": "She told me she was tired.",
+            "sl": "Povedala mi je, da je utrujena.",
+            "de": "Sie sagte mir, sie sei müde.",
+            "it": "Mi ha detto che era stanca."
+          },
+          {
+            "en": "He told us a story.",
+            "sl": "Povedal nam je zgodbo.",
+            "de": "Er erzählte uns eine Geschichte.",
+            "it": "Ci ha raccontato una storia."
+          },
+          {
+            "en": "She said to me she was tired.",
+            "sl": "Rekla mi je, da je utrujena.",
+            "de": "Sie sagte zu mir, sie sei müde.",
+            "it": "Mi ha detto che era stanca."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reported-speech",
+          "prompt": "Edna ___ me she was tired.",
+          "options": [
+            "told",
+            "said",
+            "say"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**say + kaj; tell + komu**\n- Edna told me she was tired.",
+            "de": "**say + was; tell + wem**\n- Edna told me she was tired.",
+            "it": "**say + che cosa; tell + a chi**\n- Edna told me she was tired.",
+            "en": "**say + what; tell + who**\n- Edna told me she was tired."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Še drugi koraki nazaj: **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. **He said he would come.** (Rekel je, da bo prišel.) **She said she could help.** (Rekla je, da lahko pomaga.) Preteklik: »I saw a raven.« → **He said he had seen a raven.** (Rekel je, da je videl krokarja.) Tudi **he saw a raven** je prav.",
+          "de": "Noch mehr Schritte zurück: **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. **He said he would come.** (Er sagte, er würde kommen.) **She said she could help.** (Sie sagte, sie könne helfen.) Die Vergangenheit: „I saw a raven.“ → **He said he had seen a raven.** (Er sagte, er habe einen Raben gesehen.) Auch **he saw a raven** ist richtig.",
+          "it": "Altri passi indietro: **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. **He said he would come.** (Ha detto che sarebbe venuto.) **She said she could help.** (Ha detto che poteva aiutare.) Il passato: «I saw a raven.» → **He said he had seen a raven.** (Ha detto che aveva visto un corvo.) Anche **he saw a raven** è giusto.",
+          "en": "More steps back: **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. **He said he would come.** **She said she could help.** The past: “I saw a raven.” → **He said he had seen a raven.** **he saw a raven** is right too."
+        },
+        "examples": [
+          {
+            "en": "He said he would come.",
+            "sl": "Rekel je, da bo prišel.",
+            "de": "Er sagte, er würde kommen.",
+            "it": "Ha detto che sarebbe venuto."
+          },
+          {
+            "en": "She said she could help.",
+            "sl": "Rekla je, da lahko pomaga.",
+            "de": "Sie sagte, sie könne helfen.",
+            "it": "Ha detto che poteva aiutare."
+          },
+          {
+            "en": "He said he had seen a raven.",
+            "sl": "Rekel je, da je videl krokarja.",
+            "de": "Er sagte, er habe einen Raben gesehen.",
+            "it": "Ha detto che aveva visto un corvo."
+          }
+        ],
+        "rows": [
+          [
+            "will",
+            "would"
+          ],
+          [
+            "can",
+            "could"
+          ],
+          [
+            "am going to",
+            "was going to"
+          ],
+          [
+            "don't",
+            "didn't"
+          ],
+          [
+            "saw",
+            "had seen, saw"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reported-speech",
+          "text": "“I will come,” said Jack. → Jack said he ___ come.",
+          "accept": [
+            "would",
+            "'d",
+            "will",
+            "'ll"
+          ],
+          "hint": "will → ?",
+          "explain": {
+            "sl": "**Čas korak nazaj**\n- Jack said he would come.",
+            "de": "**Die Zeit einen Schritt zurück**\n- Jack said he would come.",
+            "it": "**Il tempo un passo indietro**\n- Jack said he would come.",
+            "en": "**The tense one step back**\n- Jack said he would come."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Če je še vedno res, ljudje čas pogosto pustijo: **She said she's tired.** (Rekla je, da je utrujena.) **Jack said he'll come.** (Jack je rekel, da bo prišel.) Tudi to je prav. Korak nazaj je vedno prav in pri pisanju najbolj varen: **She said she was tired.**",
+          "de": "Wenn es noch stimmt, lassen die Leute die Zeit oft: **She said she's tired.** (Sie sagte, sie sei müde.) **Jack said he'll come.** (Jack sagte, er komme.) Auch das ist richtig. Der Schritt zurück ist immer richtig und beim Schreiben der sichere Weg: **She said she was tired.**",
+          "it": "Se è ancora vero, spesso il tempo resta: **She said she's tired.** (Ha detto che è stanca.) **Jack said he'll come.** (Jack ha detto che verrà.) Anche questo è giusto. Il passo indietro è sempre giusto, e scrivendo è la scelta più sicura: **She said she was tired.**",
+          "en": "If it's still so, people often keep the tense: **She said she's tired.** **Jack said he'll come.** That's right too. The step back is always right, and the safe choice in writing: **She said she was tired.**"
+        },
+        "examples": [
+          {
+            "en": "She said she's tired.",
+            "sl": "Rekla je, da je utrujena.",
+            "de": "Sie sagte, sie sei müde.",
+            "it": "Ha detto che è stanca."
+          },
+          {
+            "en": "Jack said he'll come.",
+            "sl": "Jack je rekel, da bo prišel.",
+            "de": "Jack sagte, er komme.",
+            "it": "Jack ha detto che verrà."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reported-speech",
+          "text": "“The inn is open,” said Jack. → Jack said the inn ___ open.",
+          "accept": [
+            "was",
+            "is"
+          ],
+          "hint": "is → ?",
+          "explain": {
+            "sl": "**Čas korak nazaj**\n- Jack said the inn was open.",
+            "de": "**Die Zeit einen Schritt zurück**\n- Jack said the inn was open.",
+            "it": "**Il tempo un passo indietro**\n- Jack said the inn was open.",
+            "en": "**The tense one step back**\n- Jack said the inn was open."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zamenjaj osebo in besede za kraj in čas: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**. »I'll come here tomorrow.« → **She said she'd come there the next day.** (Rekla je, da bo prišla tja naslednji dan.) Če si še vedno tam in je še isti dan, besede ostanejo.",
+          "de": "Wechsle die Person und die Wörter für Ort und Zeit: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**. „I'll come here tomorrow.“ → **She said she'd come there the next day.** (Sie sagte, sie werde am nächsten Tag dorthin kommen.) Bist du noch dort und ist es noch derselbe Tag, bleiben die Wörter.",
+          "it": "Cambia la persona e le parole di luogo e tempo: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**. «I'll come here tomorrow.» → **She said she'd come there the next day.** (Ha detto che sarebbe venuta lì il giorno dopo.) Se sei ancora lì ed è lo stesso giorno, le parole restano.",
+          "en": "Change the person and the words for place and time: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**. “I'll come here tomorrow.” → **She said she'd come there the next day.** If you're still there and it's still the same day, the words stay."
+        },
+        "examples": [
+          {
+            "en": "She said she'd come there the next day.",
+            "sl": "Rekla je, da bo prišla tja naslednji dan.",
+            "de": "Sie sagte, sie werde am nächsten Tag dorthin kommen.",
+            "it": "Ha detto che sarebbe venuta lì il giorno dopo."
+          },
+          {
+            "en": "He said he had seen her the day before.",
+            "sl": "Rekel je, da jo je videl dan prej.",
+            "de": "Er sagte, er habe sie am Tag davor gesehen.",
+            "it": "Ha detto che l'aveva vista il giorno prima."
+          }
+        ],
+        "rows": [
+          [
+            "here",
+            "there"
+          ],
+          [
+            "tomorrow",
+            "the next day"
+          ],
+          [
+            "yesterday",
+            "the day before"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reported-speech",
+          "text": "On Monday Jack said, “I'll come tomorrow.” → He said he'd come ___.",
+          "accept": [
+            "the next day",
+            "the following day",
+            "the day after",
+            "on Tuesday",
+            "Tuesday",
+            "on the Tuesday",
+            "tomorrow"
+          ],
+          "hint": "tomorrow → ?",
+          "explain": {
+            "sl": "**Kraj in čas se premakneta**\n- He said he'd come the next day.",
+            "de": "**Ort und Zeit wechseln**\n- He said he'd come the next day.",
+            "it": "**Luogo e tempo cambiano**\n- He said he'd come the next day.",
+            "en": "**Place and time change**\n- He said he'd come the next day."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ukaz: **told me to** + osnovna oblika: »Wait here.« → **She told me to wait there.** (Rekla mi je, naj tam počakam.) **told me not to**: **Jack told me not to feed the dog.** (Jack mi je rekel, naj ne hranim psa.) Prošnja: **She asked me to wait.** (Prosila me je, naj počakam.)",
+          "de": "Befehl: **told me to** + Grundform: „Wait here.“ → **She told me to wait there.** (Sie sagte mir, ich solle dort warten.) **told me not to**: **Jack told me not to feed the dog.** (Jack sagte mir, ich solle den Hund nicht füttern.) Bitte: **She asked me to wait.** (Sie bat mich zu warten.)",
+          "it": "Un ordine: **told me to** + la forma base: «Wait here.» → **She told me to wait there.** (Mi ha detto di aspettare lì.) **told me not to**: **Jack told me not to feed the dog.** (Jack mi ha detto di non dare da mangiare al cane.) Una richiesta: **She asked me to wait.** (Mi ha chiesto di aspettare.)",
+          "en": "An order: **told me to** + the base form: “Wait here.” → **She told me to wait there.** **told me not to**: **Jack told me not to feed the dog.** A request: **She asked me to wait.**"
+        },
+        "examples": [
+          {
+            "en": "She told me to wait there.",
+            "sl": "Rekla mi je, naj tam počakam.",
+            "de": "Sie sagte mir, ich solle dort warten.",
+            "it": "Mi ha detto di aspettare lì."
+          },
+          {
+            "en": "Jack told me not to feed the dog.",
+            "sl": "Jack mi je rekel, naj ne hranim psa.",
+            "de": "Jack sagte mir, ich solle den Hund nicht füttern.",
+            "it": "Jack mi ha detto di non dare da mangiare al cane."
+          },
+          {
+            "en": "She asked me to wait.",
+            "sl": "Prosila me je, naj počakam.",
+            "de": "Sie bat mich zu warten.",
+            "it": "Mi ha chiesto di aspettare."
+          }
+        ],
+        "rows": [
+          [
+            "Wait.",
+            "told me to wait"
+          ],
+          [
+            "Don't feed it.",
+            "told me not to feed it"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reported-speech",
+          "prompt": "“Wait here.” → She told me ___ there.",
+          "options": [
+            "to wait",
+            "wait",
+            "waiting"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ukaz: told me to + osnovna oblika**\n- She told me to wait there.",
+            "de": "**Befehl: told me to + Grundform**\n- She told me to wait there.",
+            "it": "**Un ordine: told me to + la forma base**\n- She told me to wait there.",
+            "en": "**An order: told me to + the base form**\n- She told me to wait there."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "reported-speech-1",
+      "title": {
+        "sl": "Korak nazaj",
+        "de": "Ein Schritt zurück",
+        "it": "Un passo indietro",
+        "en": "One step back"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Korak nazaj",
+            "de": "Ein Schritt zurück",
+            "it": "Un passo indietro",
+            "en": "One step back"
+          },
+          "columns": [
+            {
+              "sl": "poročano",
+              "de": "berichtet",
+              "it": "riferito",
+              "en": "reported"
+            }
+          ],
+          "rows": [
+            {
+              "label": "“I'm tired.” She said she … tired.",
+              "cells": [
+                {
+                  "accept": [
+                    "was"
+                  ],
+                  "spoken": [
+                    "is"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“We're late.” They said they … late.",
+              "cells": [
+                {
+                  "accept": [
+                    "were"
+                  ],
+                  "spoken": [
+                    "are"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“I'll come.” He said he … come.",
+              "cells": [
+                {
+                  "accept": [
+                    "would",
+                    "'d"
+                  ],
+                  "spoken": [
+                    "will",
+                    "'ll"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“I can help.” She said she … help.",
+              "cells": [
+                {
+                  "accept": [
+                    "could"
+                  ],
+                  "spoken": [
+                    "can"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“I don't know.” He said he … know.",
+              "cells": [
+                {
+                  "accept": [
+                    "didn't",
+                    "did not"
+                  ],
+                  "spoken": [
+                    "doesn't",
+                    "does not",
+                    "don't",
+                    "do not"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "“I'm going to stay.” She said she … stay.",
+              "cells": [
+                {
+                  "accept": [
+                    "was going to"
+                  ],
+                  "spoken": [
+                    "is going to",
+                    "'s going to",
+                    "was gonna"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Čas korak nazaj**\n- “I'll come.” → He said he would come.",
+            "de": "**Die Zeit einen Schritt zurück**\n- “I'll come.” → He said he would come.",
+            "it": "**Il tempo un passo indietro**\n- “I'll come.” → He said he would come.",
+            "en": "**The tense one step back**\n- “I'll come.” → He said he would come."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: say or tell?"
+          },
+          "columns": [
+            {
+              "label": "say",
+              "words": [
+                "goodbye",
+                "to me",
+                "she was tired"
+              ]
+            },
+            {
+              "label": "tell",
+              "words": [
+                "me",
+                "us a story",
+                "the truth"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**say + kaj; tell + komu**\n- She said she was tired. · She told me.",
+            "de": "**say + was; tell + wem**\n- She said she was tired. · She told me.",
+            "it": "**say + che cosa; tell + a chi**\n- She said she was tired. · She told me.",
+            "en": "**say + what; tell + who**\n- She said she was tired. · She told me."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Jack ___ he would come at six.",
+          "options": [
+            "said",
+            "told",
+            "tell"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**say + kaj; tell + komu**\n- Jack said he would come at six.",
+            "de": "**say + was; tell + wem**\n- Jack said he would come at six.",
+            "it": "**say + che cosa; tell + a chi**\n- Jack said he would come at six.",
+            "en": "**say + what; tell + who**\n- Jack said he would come at six."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Mrs Birkett ___ us a story about the inn.",
+          "options": [
+            "told",
+            "said",
+            "say"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**say + kaj; tell + komu**\n- Mrs Birkett told us a story.",
+            "de": "**say + was; tell + wem**\n- Mrs Birkett told us a story.",
+            "it": "**say + che cosa; tell + a chi**\n- Mrs Birkett told us a story.",
+            "en": "**say + what; tell + who**\n- Mrs Birkett told us a story."
+          }
+        }
+      ]
+    },
+    {
+      "id": "reported-speech-2",
+      "title": {
+        "sl": "Ednine novice",
+        "de": "Ednas Neuigkeiten",
+        "it": "Le novità di Edna",
+        "en": "Edna's news"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "— I saw Sam last month. He ___ me he ___ (be) tired. He said he ___ (can, not) sleep. — What else did he ___? — He said he ___ (sell) the van the next week. He ___ me not to tell you. — And what did you ___ him? — I told him I ___ (not say) a word!",
+          "gaps": [
+            {
+              "accept": [
+                "told"
+              ],
+              "hint": {
+                "sl": "+ komu",
+                "de": "+ wem",
+                "it": "+ a chi",
+                "en": "+ who"
+              }
+            },
+            {
+              "accept": [
+                "was"
+              ],
+              "spoken": [
+                "is"
+              ],
+              "hint": "is → ?"
+            },
+            {
+              "accept": [
+                "couldn't",
+                "could not"
+              ],
+              "spoken": [
+                "can't",
+                "cannot"
+              ],
+              "hint": "can't → ?"
+            },
+            {
+              "accept": [
+                "say"
+              ],
+              "hint": "did + ?"
+            },
+            {
+              "accept": [
+                "would sell",
+                "'d sell",
+                "was going to sell",
+                "was selling"
+              ],
+              "spoken": [
+                "will sell",
+                "'ll sell",
+                "is going to sell",
+                "is selling"
+              ],
+              "hint": "will → ?"
+            },
+            {
+              "accept": [
+                "told",
+                "asked"
+              ],
+              "hint": {
+                "sl": "+ komu",
+                "de": "+ wem",
+                "it": "+ a chi",
+                "en": "+ who"
+              }
+            },
+            {
+              "accept": [
+                "tell"
+              ],
+              "hint": "did + ?"
+            },
+            {
+              "accept": [
+                "wouldn't say",
+                "would not say",
+                "wasn't going to say",
+                "was not going to say"
+              ],
+              "spoken": [
+                "won't say",
+                "will not say"
+              ],
+              "hint": "won't → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "said",
+            "says"
+          ],
+          "translation": {
+            "sl": "— Prejšnji mesec sem {m:videl|f:videla} Sama. Povedal mi je, da je utrujen. Rekel je, da ne more spati. — Kaj je še rekel? — Rekel je, da bo naslednji teden prodal kombi. Rekel mi je, naj ti ne povem. — In kaj si mu {m:rekel|f:rekla}? — {m:Rekel|f:Rekla} sem mu, da ne bom {m:črhnil|f:črhnila} niti besede!",
+            "de": "— Ich habe letzten Monat Sam gesehen. Er sagte mir, er sei müde. Er sagte, er könne nicht schlafen. — Was hat er noch gesagt? — Er sagte, er werde den Lieferwagen in der nächsten Woche verkaufen. Er sagte mir, ich solle es dir nicht sagen. — Und was hast du ihm gesagt? — Ich sagte ihm, ich würde kein Wort sagen!",
+            "it": "— Il mese scorso ho visto Sam. Mi ha detto che era stanco. Ha detto che non riusciva a dormire. — Che altro ha detto? — Ha detto che avrebbe venduto il furgone la settimana dopo. Mi ha detto di non dirtelo. — E tu che cosa gli hai detto? — Gli ho detto che non avrei detto una parola!",
+            "en": "— I saw Sam last month. He told me he was tired. He said he couldn't sleep. — What else did he say? — He said he would sell the van the next week. He told me not to tell you. — And what did you tell him? — I told him I wouldn't say a word!"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Kraj in čas",
+            "de": "Ort und Zeit",
+            "it": "Luogo e tempo",
+            "en": "Place and time"
+          },
+          "columns": [
+            {
+              "sl": "poročano",
+              "de": "berichtet",
+              "it": "riferito",
+              "en": "reported"
+            }
+          ],
+          "rows": [
+            {
+              "label": "here",
+              "cells": [
+                "there"
+              ]
+            },
+            {
+              "label": "today",
+              "cells": [
+                {
+                  "accept": [
+                    "that day",
+                    "that same day",
+                    "the same day"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "tomorrow",
+              "cells": [
+                {
+                  "accept": [
+                    "the next day",
+                    "the following day",
+                    "the day after"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "yesterday",
+              "cells": [
+                {
+                  "accept": [
+                    "the day before",
+                    "the previous day"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "now",
+              "cells": [
+                {
+                  "accept": [
+                    "then",
+                    "at that time",
+                    "at the time"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "next week",
+              "cells": [
+                {
+                  "accept": [
+                    "the week after",
+                    "the following week",
+                    "the next week"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Kraj in čas se premakneta**\n- tomorrow → the next day",
+            "de": "**Ort und Zeit wechseln**\n- tomorrow → the next day",
+            "it": "**Luogo e tempo cambiano**\n- tomorrow → the next day",
+            "en": "**Place and time change**\n- tomorrow → the next day"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reported-speech-3",
+      "title": {
+        "sl": "Kaj so rekli?",
+        "de": "Was haben sie gesagt?",
+        "it": "Che cosa hanno detto?",
+        "en": "What did they say?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Say what was said · Povej, kaj je bilo rečeno",
+            "de": "Say what was said · Sag, was gesagt wurde",
+            "it": "Say what was said · Riferisci ciò che è stato detto",
+            "en": "Say what was said"
+          },
+          "items": [
+            {
+              "from": "“I'm tired,” said Edna.",
+              "accept": [
+                "Edna said she was tired.",
+                "She said she was tired."
+              ],
+              "spoken": [
+                "Edna said she is tired.",
+                "She said she is tired."
+              ]
+            },
+            {
+              "from": "“I can't find Meg,” said Jack.",
+              "accept": [
+                "Jack said he couldn't find Meg.",
+                "He said he couldn't find Meg."
+              ],
+              "spoken": [
+                "Jack said he can't find Meg.",
+                "He said he can't find Meg."
+              ]
+            },
+            {
+              "from": "“I saw a raven,” said Old Wilf.",
+              "accept": [
+                "Old Wilf said he had seen a raven.",
+                "He said he had seen a raven.",
+                "Old Wilf said he saw a raven.",
+                "He said he saw a raven."
+              ]
+            },
+            {
+              "from": "“You're late,” Sam told me.",
+              "accept": [
+                "Sam told me I was late.",
+                "He told me I was late.",
+                "Sam said I was late.",
+                "He said I was late."
+              ],
+              "spoken": [
+                "Sam told me I am late.",
+                "He told me I am late."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Čas korak nazaj**\n- “I'm tired,” said Edna. → Edna said she was tired.",
+            "de": "**Die Zeit einen Schritt zurück**\n- “I'm tired,” said Edna. → Edna said she was tired.",
+            "it": "**Il tempo un passo indietro**\n- “I'm tired,” said Edna. → Edna said she was tired.",
+            "en": "**The tense one step back**\n- “I'm tired,” said Edna. → Edna said she was tired."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "reported-speech",
+          "instruction": {
+            "sl": "Say what you were told · Povej, kaj so ti naročili",
+            "de": "Say what you were told · Sag, was man dir aufgetragen hat",
+            "it": "Say what you were told · Di' che cosa ti hanno detto di fare",
+            "en": "Say what you were told"
+          },
+          "items": [
+            {
+              "from": "“Wait here,” Mrs Birkett told me.",
+              "accept": [
+                "Mrs Birkett told me to wait there.",
+                "She told me to wait there.",
+                "Mrs Birkett told me to wait here.",
+                "She told me to wait here.",
+                "Mrs Birkett said to wait there.",
+                "She said to wait there.",
+                "Mrs Birkett said to wait here.",
+                "She said to wait here."
+              ]
+            },
+            {
+              "from": "“Don't feed the horses,” Jack told me.",
+              "accept": [
+                "Jack told me not to feed the horses.",
+                "He told me not to feed the horses.",
+                "Jack said not to feed the horses.",
+                "He said not to feed the horses."
+              ],
+              "spoken": [
+                "Jack told me to not feed the horses.",
+                "He told me to not feed the horses."
+              ]
+            },
+            {
+              "from": "“Call the doctor,” Edna told me.",
+              "accept": [
+                "Edna told me to call the doctor.",
+                "She told me to call the doctor.",
+                "Edna said to call the doctor.",
+                "She said to call the doctor."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Ukaz: told me to + osnovna oblika**\n- “Wait here.” → She told me to wait there.",
+            "de": "**Befehl: told me to + Grundform**\n- “Wait here.” → She told me to wait there.",
+            "it": "**Un ordine: told me to + la forma base**\n- “Wait here.” → She told me to wait there.",
+            "en": "**An order: told me to + the base form**\n- “Wait here.” → She told me to wait there."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "reported-speech",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Mr Dixon ___ me he ___ (be) busy. He said he ___ (will) mend the gate the next day. He ___ me to come back then. I said I ___ (can) wait.",
+        "gaps": [
+          {
+            "accept": [
+              "told"
+            ]
+          },
+          {
+            "accept": [
+              "was"
+            ],
+            "spoken": [
+              "is"
+            ]
+          },
+          {
+            "accept": [
+              "would",
+              "'d"
+            ],
+            "spoken": [
+              "will",
+              "'ll"
+            ]
+          },
+          {
+            "accept": [
+              "told",
+              "asked",
+              "wanted"
+            ]
+          },
+          {
+            "accept": [
+              "could"
+            ],
+            "spoken": [
+              "can"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Gospod Dixon mi je povedal, da ima veliko dela. Rekel je, da bo naslednji dan popravil vrata. Rekel mi je, naj se takrat vrnem. {m:Rekel|f:Rekla} sem, da lahko počakam.",
+          "de": "Mr Dixon sagte mir, er sei beschäftigt. Er sagte, er werde das Tor am nächsten Tag reparieren. Er sagte mir, ich solle dann wiederkommen. Ich sagte, ich könne warten.",
+          "it": "Mr Dixon mi ha detto che era occupato. Ha detto che avrebbe riparato il cancello il giorno dopo. Mi ha detto di tornare allora. Ho detto che potevo aspettare.",
+          "en": "Mr Dixon told me he was busy. He said he would mend the gate the next day. He told me to come back then. I said I could wait."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reported-speech",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Edna ___ goodbye and went home.",
+        "options": [
+          "said",
+          "told",
+          "tell"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**say + kaj; tell + komu**\n- Edna said goodbye.",
+          "de": "**say + was; tell + wem**\n- Edna said goodbye.",
+          "it": "**say + che cosa; tell + a chi**\n- Edna said goodbye.",
+          "en": "**say + what; tell + who**\n- Edna said goodbye."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reported-speech",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "“Don't go.” → He told me ___ go.",
+        "options": [
+          "not to",
+          "no to",
+          "not"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Ukaz: told me to + osnovna oblika**\n- He told me not to go.",
+          "de": "**Befehl: told me to + Grundform**\n- He told me not to go.",
+          "it": "**Un ordine: told me to + la forma base**\n- He told me not to go.",
+          "en": "**An order: told me to + the base form**\n- He told me not to go."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reported-speech",
+        "instruction": {
+          "sl": "Say what was said · Povej, kaj je bilo rečeno",
+          "de": "Say what was said · Sag, was gesagt wurde",
+          "it": "Say what was said · Riferisci ciò che è stato detto",
+          "en": "Say what was said"
+        },
+        "items": [
+          {
+            "from": "“I'm cold,” said Arthur.",
+            "accept": [
+              "Arthur said he was cold.",
+              "He said he was cold."
+            ],
+            "spoken": [
+              "Arthur said he is cold.",
+              "He said he is cold."
+            ]
+          },
+          {
+            "from": "“I'll help,” said Mrs Hartley.",
+            "accept": [
+              "Mrs Hartley said she would help.",
+              "She said she would help."
+            ],
+            "spoken": [
+              "Mrs Hartley said she will help.",
+              "She said she will help."
+            ]
+          },
+          {
+            "from": "“I saw the fox,” said Jack.",
+            "accept": [
+              "Jack said he had seen the fox.",
+              "He said he had seen the fox.",
+              "Jack said he saw the fox.",
+              "He said he saw the fox."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Čas korak nazaj**\n- “I'm cold,” said Arthur. → Arthur said he was cold.",
+          "de": "**Die Zeit einen Schritt zurück**\n- “I'm cold,” said Arthur. → Arthur said he was cold.",
+          "it": "**Il tempo un passo indietro**\n- “I'm cold,” said Arthur. → Arthur said he was cold.",
+          "en": "**The tense one step back**\n- “I'm cold,” said Arthur. → Arthur said he was cold."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reported-speech",
+        "instruction": {
+          "sl": "Say what you were told · Povej, kaj so ti naročili",
+          "de": "Say what you were told · Sag, was man dir aufgetragen hat",
+          "it": "Say what you were told · Di' che cosa ti hanno detto di fare",
+          "en": "Say what you were told"
+        },
+        "items": [
+          {
+            "from": "“Close the gate,” Jack told me.",
+            "accept": [
+              "Jack told me to close the gate.",
+              "He told me to close the gate.",
+              "Jack said to close the gate.",
+              "He said to close the gate."
+            ]
+          },
+          {
+            "from": "“Don't be late,” Mrs Birkett told me.",
+            "accept": [
+              "Mrs Birkett told me not to be late.",
+              "She told me not to be late.",
+              "Mrs Birkett said not to be late.",
+              "She said not to be late."
+            ],
+            "spoken": [
+              "Mrs Birkett told me to not be late.",
+              "She told me to not be late."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Ukaz: told me to + osnovna oblika**\n- “Close the gate.” → Jack told me to close the gate.",
+          "de": "**Befehl: told me to + Grundform**\n- “Close the gate.” → Jack told me to close the gate.",
+          "it": "**Un ordine: told me to + la forma base**\n- “Close the gate.” → Jack told me to close the gate.",
+          "en": "**An order: told me to + the base form**\n- “Close the gate.” → Jack told me to close the gate."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

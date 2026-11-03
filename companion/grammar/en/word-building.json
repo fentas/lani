@@ -1,0 +1,135 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "word-building",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🧱",
+  "title": {
+    "sl": "Besedotvorje: predpone in pripone",
+    "de": "Wortbildung: Vorsilben und Endungen",
+    "it": "Formare le parole: prefissi e suffissi",
+    "en": "Word building: prefixes and suffixes"
+  },
+  "rule": {
+    "sl": "**Ne:** **un-**, **dis-**: **unhappy**, **disagree**. **in-** se spremeni: pred p, m **im-**: **impossible**, **impolite**; pred l **il-**: **illegal**; pred r **ir-**: **irregular**. Sicer ostane: **incorrect**. **re-** znova: **rebuild**; **mis-** narobe: **misunderstand**; **over-** preveč: **oversleep**.\n\n**Samostalnik:** iz pridevnika **-ness**: **kindness**, **happiness** (y postane i). Iz glagola **-ment**: **agreement**; **-tion**, **-sion**: **information**, **decision**. Kdo to dela: **-er**, **-or**: **farmer**, **visitor**.\n\n**Pridevnik:** **-ful** z, **-less** brez: **careful**, **careless** (v -ful en l); **-ous**: **dangerous**; **-y**: **rainy**; **-al**: **natural**; **-able**: **comfortable**.\n\n**Glagol:** **-en**: **widen**; **-ise**: **realise**, prav je tudi -ize. **Prislov:** **-ly**: **carefully**, **happily**.\n\nCela družina: **succeed**, **success**, **successful**, **successfully**, **unsuccessful**. Vrzel: sam za a, the samostalnik, pred samostalnikom pridevnik, z glagolom prislov. Ali ima stavek nikalen pomen?",
+    "de": "**Nicht:** **un-**, **dis-**: **unhappy**, **disagree**. **in-** ändert sich: vor p, m **im-**: **impossible**, **impolite**; vor l **il-**: **illegal**; vor r **ir-**: **irregular**. Sonst bleibt es: **incorrect**. **re-** wieder: **rebuild**; **mis-** falsch: **misunderstand**; **over-** zu viel: **oversleep**.\n\n**Nomen:** aus dem Adjektiv **-ness**: **kindness**, **happiness** (aus y wird i). Aus dem Verb **-ment**: **agreement**; **-tion**, **-sion**: **information**, **decision**. Wer es tut: **-er**, **-or**: **farmer**, **visitor**.\n\n**Adjektiv:** **-ful** mit, **-less** ohne: **careful**, **careless** (in -ful ein l); **-ous**: **dangerous**; **-y**: **rainy**; **-al**: **natural**; **-able**: **comfortable**.\n\n**Verb:** **-en**: **widen**; **-ise**: **realise**, auch -ize ist richtig. **Adverb:** **-ly**: **carefully**, **happily**.\n\nEine ganze Familie: **succeed**, **success**, **successful**, **successfully**, **unsuccessful**. Die Lücke: allein nach a, the ein Nomen, vor einem Nomen ein Adjektiv, beim Verb ein Adverb. Ist der Satz verneint gemeint?",
+    "it": "**Non:** **un-**, **dis-**: **unhappy**, **disagree**. **in-** cambia: prima di p, m **im-**: **impossible**, **impolite**; prima di l il-: **illegal**; prima di r **ir-**: **irregular**. Altrimenti resta: **incorrect**. **re-** di nuovo: **rebuild**; **mis-** male: **misunderstand**; **over-** troppo: **oversleep**.\n\n**Nome:** dall'aggettivo **-ness**: **kindness**, **happiness** (y diventa i). Dal verbo **-ment**: **agreement**; **-tion**, **-sion**: **information**, **decision**. Chi lo fa: **-er**, **-or**: **farmer**, **visitor**.\n\n**Aggettivo:** **-ful** con, **-less** senza: **careful**, **careless** (in -ful una l); **-ous**: **dangerous**; **-y**: **rainy**; **-al**: **natural**; **-able**: **comfortable**.\n\n**Verbo:** **-en**: **widen**; **-ise**: **realise**, va bene anche -ize. **Avverbio:** **-ly**: **carefully**, **happily**.\n\nUna famiglia intera: **succeed**, **success**, **successful**, **successfully**, **unsuccessful**. Lo spazio: da solo dopo a, the un nome, davanti a un nome un aggettivo, con un verbo un avverbio. La frase è negativa?",
+    "en": "**Not:** **un-**, **dis-**: **unhappy**, **disagree**. **in-** changes: before p, m **im-**: **impossible**, **impolite**; before l **il-**: **illegal**; before r **ir-**: **irregular**. Otherwise it stays: **incorrect**. **re-** again: **rebuild**; **mis-** wrongly: **misunderstand**; **over-** too much: **oversleep**.\n\n**A noun:** from an adjective **-ness**: **kindness**, **happiness** (y becomes i). From a verb **-ment**: **agreement**; **-tion**, **-sion**: **information**, **decision**. Who does it: **-er**, **-or**: **farmer**, **visitor**.\n\n**An adjective:** **-ful** with, **-less** without: **careful**, **careless** (one l in -ful); **-ous**: **dangerous**; **-y**: **rainy**; **-al**: **natural**; **-able**: **comfortable**.\n\n**A verb:** **-en**: **widen**; **-ise**: **realise**, -ize is right too. **An adverb:** **-ly**: **carefully**, **happily**.\n\nA whole family: **succeed**, **success**, **successful**, **successfully**, **unsuccessful**. The gap: alone after a, the a noun, before a noun an adjective, with a verb an adverb. Does the sentence mean not?"
+  },
+  "table": {
+    "head": [
+      { "sl": "del besede", "de": "Wortteil", "it": "parte della parola", "en": "word part" },
+      { "sl": "kaj naredi", "de": "was es macht", "it": "che cosa fa", "en": "what it does" },
+      { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+    ],
+    "rows": [
+      ["un-, dis-", { "sl": "ne", "de": "nicht", "it": "non", "en": "not" }, "happy → unhappy"],
+      ["im-, in-, il-, ir-", { "sl": "ne", "de": "nicht", "it": "non", "en": "not" }, "possible → impossible"],
+      [
+        "re-, mis-, over-",
+        { "sl": "znova, narobe, preveč", "de": "wieder, falsch, zu viel", "it": "di nuovo, male, troppo", "en": "again, wrongly, too much" },
+        "build → rebuild"
+      ],
+      [
+        "-ness",
+        { "sl": "pridevnik → samostalnik", "de": "Adjektiv → Nomen", "it": "aggettivo → nome", "en": "adjective → noun" },
+        "kind → kindness"
+      ],
+      [
+        "-ment, -tion, -sion",
+        { "sl": "glagol → samostalnik", "de": "Verb → Nomen", "it": "verbo → nome", "en": "verb → noun" },
+        "agree → agreement"
+      ],
+      ["-er, -or", { "sl": "kdo to dela", "de": "wer es tut", "it": "chi lo fa", "en": "who does it" }, "farmer, teacher, visitor, sailor"],
+      ["-ful, -less", { "sl": "z, brez", "de": "mit, ohne", "it": "con, senza", "en": "with, without" }, "care → careful, careless"],
+      [
+        "-ous, -y, -al, -able",
+        { "sl": "→ pridevnik", "de": "→ Adjektiv", "it": "→ aggettivo", "en": "→ adjective" },
+        "danger → dangerous, rain → rainy"
+      ],
+      [
+        "-ly, -en",
+        { "sl": "→ prislov, → glagol", "de": "→ Adverb, → Verb", "it": "→ avverbio, → verbo", "en": "→ adverb, → verb" },
+        "happy → happily, wide → widen"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "en": "It's impossible to see the path.",
+      "sl": "Poti ni mogoče videti.",
+      "de": "Man kann den Weg unmöglich sehen.",
+      "it": "È impossibile vedere il sentiero.",
+      "note": { "sl": "Pred p: im-.", "de": "Vor p: im-.", "it": "Prima di p: im-.", "en": "Before p: im-." }
+    },
+    {
+      "en": "Thank you for your kindness.",
+      "sl": "Hvala za tvojo prijaznost.",
+      "de": "Danke für deine Freundlichkeit.",
+      "it": "Grazie per la tua gentilezza.",
+      "note": { "sl": "Samostalnik: -ness.", "de": "Nomen: -ness.", "it": "Nome: -ness.", "en": "A noun: -ness." }
+    },
+    {
+      "en": "That was a good decision.",
+      "sl": "To je bila dobra odločitev.",
+      "de": "Das war eine gute Entscheidung.",
+      "it": "È stata una buona decisione.",
+      "note": { "sl": "Iz decide.", "de": "Von decide.", "it": "Da decide.", "en": "From decide." }
+    },
+    {
+      "en": "A careless visitor left the gate open.",
+      "sl": "Nepreviden obiskovalec je pustil vrata pašnika odprta.",
+      "de": "Ein unvorsichtiger Besucher ließ das Gatter offen.",
+      "it": "Un visitatore sbadato ha lasciato aperto il cancello.",
+      "note": { "sl": "Brez: -less.", "de": "Ohne: -less.", "it": "Senza: -less.", "en": "Without: -less." }
+    },
+    {
+      "en": "The road is dangerous at night.",
+      "sl": "Cesta je ponoči nevarna.",
+      "de": "Die Straße ist nachts gefährlich.",
+      "it": "La strada è pericolosa di notte.",
+      "note": { "sl": "Pridevnik: -ous.", "de": "Adjektiv: -ous.", "it": "Aggettivo: -ous.", "en": "An adjective: -ous." }
+    },
+    {
+      "en": "He drove carefully.",
+      "sl": "Vozil je previdno.",
+      "de": "Er fuhr vorsichtig.",
+      "it": "Ha guidato con prudenza.",
+      "note": { "sl": "Prislov: -ly.", "de": "Adverb: -ly.", "it": "Avverbio: -ly.", "en": "An adverb: -ly." }
+    }
+  ],
+  "modules": [],
+  "tags": ["prefix", "suffix", "word_formation", "negative_prefix", "ness", "ment", "ful", "less"],
+  "see": ["adverbs", "comparatives"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Happy, unhappy, happiness",
+      "de": "Happy, unhappy, happiness",
+      "it": "Happy, unhappy, happiness",
+      "en": "Happy, unhappy, happiness"
+    },
+    "rule": {
+      "sl": "Ne: **un-**, **dis-**, **in-**, **im-** (p, m), **il-** (l), **ir-** (r). Samostalnik: **-ness**, **-ment**, **-tion**, **-er**. Pridevnik: **-ful**, **-less**, **-ous**, **-able**. Prislov: **-ly**. Sam za a, the samostalnik; pred samostalnikom pridevnik; z glagolom prislov.",
+      "de": "Nicht: **un-**, **dis-**, **in-**, **im-** (p, m), **il-** (l), **ir-** (r). Nomen: **-ness**, **-ment**, **-tion**, **-er**. Adjektiv: **-ful**, **-less**, **-ous**, **-able**. Adverb: **-ly**. Allein nach a, the ein Nomen; vor einem Nomen ein Adjektiv; beim Verb ein Adverb.",
+      "it": "Non: **un-**, **dis-**, **in-**, **im-** (p, m), **il-** (l), **ir-** (r). Nome: **-ness**, **-ment**, **-tion**, **-er**. Aggettivo: **-ful**, **-less**, **-ous**, **-able**. Avverbio: **-ly**. Da solo dopo a, the un nome; davanti a un nome un aggettivo; con un verbo un avverbio.",
+      "en": "Not: **un-**, **dis-**, **in-**, **im-** (p, m), **il-** (l), **ir-** (r). A noun: **-ness**, **-ment**, **-tion**, **-er**. An adjective: **-ful**, **-less**, **-ous**, **-able**. An adverb: **-ly**. Alone after a, the a noun; before a noun an adjective; with a verb an adverb."
+    },
+    "examples": [
+      { "en": "Edna was unhappy.", "sl": "Edna je bila nesrečna.", "de": "Edna war unglücklich.", "it": "Edna era infelice." },
+      {
+        "en": "Sam's plan was a success.",
+        "sl": "Samov načrt je bil uspeh.",
+        "de": "Sams Plan war ein Erfolg.",
+        "it": "Il piano di Sam è stato un successo."
+      }
+    ],
+    "tip": {
+      "sl": "💡 **careful** ima en l, *careful* ni *carefull*. Slovenski *ne-* je v angleščini **un-**, **dis-**, **im-** … naučiš se ga z besedo.",
+      "de": "💡 Deutsch *un-* ist nicht immer **un-**: **impossible**, **dishonest**, **irregular**. Und **careful** mit einem l.",
+      "it": "💡 L'italiano ha *im-*, *il-*, *ir-* come l'inglese: *impossibile*, *illegale*: **impossible**, **illegal**. Ma *infelice* è **unhappy**.",
+      "en": "💡 One l in **-ful**: **careful**. y becomes i: **happiness**, **beautiful**."
+    }
+  }
+}

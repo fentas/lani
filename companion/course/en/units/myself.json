@@ -1,0 +1,1126 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "myself",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🪞",
+  "title": {
+    "en": "I did it myself; we know each other",
+    "de": "Reflexiv: myself, each other",
+    "sl": "Povratno: myself, each other",
+    "it": "Riflessivo: myself, each other"
+  },
+  "goal": {
+    "sl": "Poveš, kdaj kdo dela kaj sebi ali sam (I cut myself, I did it myself), kdaj je kdo sam (on my own), kdaj drug drugemu (each other), in rabiš one in ones.",
+    "de": "Du sagst, wann jemand etwas sich selbst tut oder selbst macht (I cut myself, I did it myself), wann jemand allein ist (on my own), wann einander (each other), und verwendest one und ones.",
+    "it": "Dici quando qualcuno fa qualcosa a se stesso o da solo (I cut myself, I did it myself), quando è solo (on my own), quando l'un l'altro (each other), e usi one e ones.",
+    "en": "You can say when people do something to themselves or with no help (I cut myself, I did it myself), when they're alone (on my own), when both ways (each other), and use one and ones."
+  },
+  "grammar": [
+    "reflexive-pronouns",
+    "object-pronouns"
+  ],
+  "words": [
+    "myself",
+    "yourself",
+    "himself",
+    "herself",
+    "itself",
+    "ourselves",
+    "yourselves",
+    "themselves",
+    "on my own",
+    "by myself",
+    "alone",
+    "each other",
+    "one another",
+    "one",
+    "ones",
+    "hurt yourself",
+    "cut",
+    "burn",
+    "enjoy",
+    "feel",
+    "meet",
+    "remember",
+    "hurry",
+    "smithy",
+    "tin",
+    "wall",
+    "wheel",
+    "phone",
+    "hair",
+    "blue",
+    "scone"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "kdo, kaj",
+          "de": "wer, was",
+          "it": "chi, che cosa",
+          "en": "who, what"
+        },
+        {
+          "sl": "oblika, pomen",
+          "de": "Form, Bedeutung",
+          "it": "forma, significato",
+          "en": "form, meaning"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kdor dela, je tudi tisti, ki se mu zgodi: **I cut myself.** (Urezal{m:|f:a} sem se.) **Alfie hurt himself.** (Alfie se je poškodoval.) **Did you enjoy yourselves?** Slovenščina ima za vse *se*, angleščina eno obliko za vsako osebo: **myself, yourself, himself, herself, itself, ourselves, yourselves, themselves**.",
+          "de": "Wer es tut, dem geschieht es auch: **I cut myself.** (Ich habe mich geschnitten.) **Alfie hurt himself.** (Alfie hat sich wehgetan.) **Did you enjoy yourselves?** Es gibt eine Form je Person: **myself, yourself, himself, herself, itself, ourselves, yourselves, themselves**.",
+          "it": "Chi fa la cosa è anche chi la riceve: **I cut myself.** (Mi sono tagliat{m:o|f:a}.) **Alfie hurt himself.** (Alfie si è fatto male.) **Did you enjoy yourselves?** C'è una forma per ogni persona: **myself, yourself, himself, herself, itself, ourselves, yourselves, themselves**.",
+          "en": "The one who does it is the one it happens to: **I cut myself.** **Alfie hurt himself.** **Did you enjoy yourselves?** There is one form for each person: **myself, yourself, himself, herself, itself, ourselves, yourselves, themselves**."
+        },
+        "examples": [
+          {
+            "en": "I cut myself.",
+            "sl": "Urezal{m:|f:a} sem se.",
+            "de": "Ich habe mich geschnitten.",
+            "it": "Mi sono tagliat{m:o|f:a}."
+          },
+          {
+            "en": "Alfie hurt himself.",
+            "sl": "Alfie se je poškodoval.",
+            "de": "Alfie hat sich wehgetan.",
+            "it": "Alfie si è fatto male."
+          },
+          {
+            "en": "Did you enjoy yourselves?",
+            "sl": "Ste se imeli lepo?",
+            "de": "Habt ihr euch gut unterhalten?",
+            "it": "Vi siete divertiti?"
+          }
+        ],
+        "rows": [
+          [
+            "I",
+            "myself",
+            "I cut myself."
+          ],
+          [
+            "you",
+            "yourself",
+            "Enjoy yourself!"
+          ],
+          [
+            "he, she, it",
+            "himself, herself, itself",
+            "Alfie hurt himself."
+          ],
+          [
+            "we",
+            "ourselves",
+            "We enjoyed ourselves."
+          ],
+          [
+            "you (two or more)",
+            "yourselves",
+            "Help yourselves!"
+          ],
+          [
+            "they",
+            "themselves",
+            "They hurt themselves."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reflexive-pronouns",
+          "text": "Mr Dixon burnt ___ at the smithy.",
+          "accept": [
+            "himself"
+          ],
+          "hint": {
+            "sl": "he → ?",
+            "de": "he → ?",
+            "it": "he → ?",
+            "en": "he → ?"
+          },
+          "explain": {
+            "sl": "**he: himself**\n- Mr Dixon burnt himself.",
+            "de": "**he: himself**\n- Mr Dixon burnt himself.",
+            "it": "**he: himself**\n- Mr Dixon burnt himself.",
+            "en": "**he: himself**\n- Mr Dixon burnt himself."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ista beseda pove, da nekdo dela sam, brez pomoči: **I did it myself.** (Naredil{m:|f:a} sem sam{m:|f:a}.) **Mrs Birkett bakes the bread herself.** **Did you make it yourself?** Ljudje rečejo tudi *hisself*, *theirselves*, na severu *meself*; pisava hoče **himself**, **themselves**, **myself**.",
+          "de": "Dasselbe Wort sagt, dass jemand es selbst tut, ohne Hilfe: **I did it myself.** (Ich habe es selbst gemacht.) **Mrs Birkett bakes the bread herself.** **Did you make it yourself?** Man sagt auch *hisself*, *theirselves*, im Norden *meself*; geschrieben steht **himself**, **themselves**, **myself**.",
+          "it": "La stessa parola dice che qualcuno lo fa da solo, senza aiuto: **I did it myself.** (L'ho fatto da sol{m:o|f:a}.) **Mrs Birkett bakes the bread herself.** **Did you make it yourself?** Si dice anche *hisself*, *theirselves*, al nord *meself*; per iscritto si usa **himself**, **themselves**, **myself**.",
+          "en": "The same word says someone does it with no help: **I did it myself.** **Mrs Birkett bakes the bread herself.** **Did you make it yourself?** People also say *hisself*, *theirselves*, and in the North *meself*; writing wants **himself**, **themselves**, **myself**."
+        },
+        "examples": [
+          {
+            "en": "I did it myself.",
+            "sl": "Naredil{m:|f:a} sem sam{m:|f:a}.",
+            "de": "Ich habe es selbst gemacht.",
+            "it": "L'ho fatto da sol{m:o|f:a}."
+          },
+          {
+            "en": "Mrs Birkett bakes the bread herself.",
+            "sl": "Gospa Birkett sama peče kruh.",
+            "de": "Mrs Birkett bäckt das Brot selbst.",
+            "it": "Mrs Birkett fa il pane da sola."
+          },
+          {
+            "en": "Did you make it yourself?",
+            "sl": "Si to naredil{m:|f:a} sam{m:|f:a}?",
+            "de": "Hast du das selbst gemacht?",
+            "it": "L'hai fatto da sol{m:o|f:a}?"
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-pronouns",
+          "prompt": "Did Poppy paint that gate ___?",
+          "options": [
+            "herself",
+            "himself",
+            "itself"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**she: herself**\n- Poppy painted it herself.",
+            "de": "**she: herself**\n- Poppy painted it herself.",
+            "it": "**she: herself**\n- Poppy painted it herself.",
+            "en": "**she: herself**\n- Poppy painted it herself."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Mnogi slovenski povratni glagoli v angleščini nimajo besede za *se*: **I feel tired.** (Počutim se utrujen{m:|f:a}.) **We met at the inn.** (Srečali smo se v gostilni.) **I remember.** (Spomnim se.) **Sit down.** **Hurry up.** **He washed and went out.** Ampak **enjoy** jo rabi: **Enjoy yourself!** (Uživaj!)",
+          "de": "Viele deutsche reflexive Verben haben im Englischen kein *sich*: **I feel tired.** (Ich fühle mich müde.) **We met at the inn.** (Wir haben uns im Gasthaus getroffen.) **I remember.** (Ich erinnere mich.) **Sit down.** **Hurry up.** **He washed and went out.** Aber **enjoy** braucht es: **Enjoy yourself!** (Viel Spaß!)",
+          "it": "Molti riflessivi italiani in inglese non hanno il *si*: **I feel tired.** (Mi sento stanc{m:o|f:a}.) **We met at the inn.** (Ci siamo incontrati alla locanda.) **I remember.** (Mi ricordo.) **Sit down.** **Hurry up.** **He washed and went out.** Ma **enjoy** ne ha bisogno: **Enjoy yourself!** (Divertiti!)",
+          "en": "Many verbs don't take it: **I feel tired.** **We met at the inn.** **I remember.** **Sit down.** **Hurry up.** **He washed and went out.** But **enjoy** needs it: **Enjoy yourself!**"
+        },
+        "examples": [
+          {
+            "en": "I feel tired.",
+            "sl": "Počutim se utrujen{m:|f:a}.",
+            "de": "Ich fühle mich müde.",
+            "it": "Mi sento stanc{m:o|f:a}."
+          },
+          {
+            "en": "We met at the inn.",
+            "sl": "Srečali smo se v gostilni.",
+            "de": "Wir haben uns im Gasthaus getroffen.",
+            "it": "Ci siamo incontrati alla locanda."
+          },
+          {
+            "en": "Enjoy yourself!",
+            "sl": "Uživaj!",
+            "de": "Viel Spaß!",
+            "it": "Divertiti!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "brez",
+              "de": "ohne",
+              "it": "senza",
+              "en": "none"
+            },
+            {
+              "sl": "ni besede za se",
+              "de": "kein sich",
+              "it": "nessun si",
+              "en": "no -self"
+            },
+            "I feel tired. We met."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-pronouns",
+          "prompt": "I ___ much better today.",
+          "options": [
+            "feel",
+            "feel myself",
+            "myself feel"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**feel: brez myself**\n- I feel much better.",
+            "de": "**feel: ohne myself**\n- I feel much better.",
+            "it": "**feel: senza myself**\n- I feel much better.",
+            "en": "**feel: no myself**\n- I feel much better."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**on my own** in **by myself** pomenita sam, brez drugih: **I live on my own.** (Živim sam{m:|f:a}.) **Old Wilf lives on his own.** **Jack works by himself.** **Did you come on your own?** **alone** pove isto. Rabiš **on** + my, his, her + **own**, ali **by** + myself, himself.",
+          "de": "**on my own** und **by myself** heißen allein: **I live on my own.** (Ich lebe allein.) **Old Wilf lives on his own.** **Jack works by himself.** **Did you come on your own?** **alone** sagt dasselbe. Du brauchst **on** + my, his, her + **own** oder **by** + myself, himself.",
+          "it": "**on my own** e **by myself** vogliono dire da solo, senza altri: **I live on my own.** (Vivo da sol{m:o|f:a}.) **Old Wilf lives on his own.** **Jack works by himself.** **Did you come on your own?** **alone** dice lo stesso. Ti serve **on** + my, his, her + **own**, o **by** + myself, himself.",
+          "en": "**on my own** and **by myself** say alone: **I live on my own.** **Old Wilf lives on his own.** **Jack works by himself.** **Did you come on your own?** **alone** says the same. It's **on** + my, his, her + **own**, or **by** + myself, himself."
+        },
+        "examples": [
+          {
+            "en": "Old Wilf lives on his own.",
+            "sl": "Stari Wilf živi sam.",
+            "de": "Der alte Wilf lebt allein.",
+            "it": "Il vecchio Wilf vive da solo."
+          },
+          {
+            "en": "Jack works by himself.",
+            "sl": "Jack dela sam.",
+            "de": "Jack arbeitet allein.",
+            "it": "Jack lavora da solo."
+          },
+          {
+            "en": "Did you come on your own?",
+            "sl": "Si prišel{m:|f:la} sam{m:|f:a}?",
+            "de": "Bist du allein gekommen?",
+            "it": "Sei venut{m:o|f:a} da sol{m:o|f:a}?"
+          }
+        ],
+        "rows": [
+          [
+            "on my own, by myself",
+            {
+              "sl": "sam",
+              "de": "allein",
+              "it": "da solo",
+              "en": "alone"
+            },
+            "Old Wilf lives on his own."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reflexive-pronouns",
+          "text": "Auntie Edna went to Keswick on her ___.",
+          "accept": [
+            "own"
+          ],
+          "hint": {
+            "sl": "alone",
+            "de": "alone",
+            "it": "alone",
+            "en": "alone"
+          },
+          "explain": {
+            "sl": "**on + her + own**\n- on her own",
+            "de": "**on + her + own**\n- on her own",
+            "it": "**on + her + own**\n- on her own",
+            "en": "**on + her + own**\n- on her own"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**each other** gre v obe smeri, drug drugega: **Jack and Sam know each other.** (Jack in Sam se poznata.) **We phone each other on Sundays.** **themselves** obrne vsakega nase: **They looked at themselves in the water.** (Gledali so se v vodi.) Slovenski *se* je oboje. Tudi **one another** je pravilno.",
+          "de": "**each other** geht in beide Richtungen, einander: **Jack and Sam know each other.** (Jack und Sam kennen sich.) **We phone each other on Sundays.** **themselves** wendet jeden auf sich selbst: **They looked at themselves in the water.** (Sie haben sich im Wasser angeschaut.) Deutsches *sich* ist beides. Auch **one another** ist richtig.",
+          "it": "**each other** va nei due sensi, l'un l'altro: **Jack and Sam know each other.** (Jack e Sam si conoscono.) **We phone each other on Sundays.** **themselves** riporta ognuno su se stesso: **They looked at themselves in the water.** (Si sono guardati nell'acqua.) L'italiano *si* è tutti e due. Anche **one another** è giusto.",
+          "en": "**each other** goes both ways: **Jack and Sam know each other.** **We phone each other on Sundays.** **themselves** turns back on each one: **They looked at themselves in the water.** **one another** is right too."
+        },
+        "examples": [
+          {
+            "en": "Jack and Sam know each other.",
+            "sl": "Jack in Sam se poznata.",
+            "de": "Jack und Sam kennen sich.",
+            "it": "Jack e Sam si conoscono."
+          },
+          {
+            "en": "We phone each other on Sundays.",
+            "sl": "Ob nedeljah se pokličemo.",
+            "de": "Am Sonntag rufen wir einander an.",
+            "it": "La domenica ci telefoniamo."
+          },
+          {
+            "en": "They looked at themselves in the water.",
+            "sl": "Gledali so se v vodi.",
+            "de": "Sie haben sich im Wasser angeschaut.",
+            "it": "Si sono guardati nell'acqua."
+          }
+        ],
+        "rows": [
+          [
+            "each other",
+            {
+              "sl": "drug drugega",
+              "de": "einander",
+              "it": "l'un l'altro",
+              "en": "both ways"
+            },
+            "Jack and Sam know each other."
+          ],
+          [
+            "themselves",
+            {
+              "sl": "vsak sebe",
+              "de": "jeder sich selbst",
+              "it": "ognuno se stesso",
+              "en": "each one back"
+            },
+            "They hurt themselves."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-pronouns",
+          "prompt": "Mrs Birkett and Auntie Edna write to ___ every week.",
+          "options": [
+            "each other",
+            "themselves",
+            "herself"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ena drugi: each other**\n- They write to each other.",
+            "de": "**Einander: each other**\n- They write to each other.",
+            "it": "**L'una all'altra: each other**\n- They write to each other.",
+            "en": "**Both ways: each other**\n- They write to each other."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**one** stoji namesto samostalnika, ki ga že poznaš, **ones** v množini: **Which coat? The red one.** (Kateri plašč: rdečega.) **I like the big ones.** (Rad{m:|f:a} imam velike.) **This one or that one?** **My boots are old. I need new ones.** Slovenščina reče samo *rdečega*, angleščina potrebuje **one**.",
+          "de": "**one** steht für ein Nomen, das du schon kennst, **ones** im Plural: **Which coat? The red one.** (Welcher Mantel: der rote.) **I like the big ones.** (Ich mag die großen.) **This one or that one?** **My boots are old. I need new ones.** Deutsch sagt nur *der rote*, Englisch braucht **one**.",
+          "it": "**one** sta per un nome già noto, **ones** al plurale: **Which coat? The red one.** (Quale cappotto: quello rosso.) **I like the big ones.** (Mi piacciono quelli grandi.) **This one or that one?** **My boots are old. I need new ones.** L'italiano dice *quello rosso*, l'inglese ha bisogno di **one**.",
+          "en": "**one** stands for a noun you've already named, **ones** for a plural: **Which coat? The red one.** **I like the big ones.** **This one or that one?** **My boots are old. I need new ones.** After an adjective English needs it."
+        },
+        "examples": [
+          {
+            "en": "Which coat? The red one.",
+            "sl": "Kateri plašč? Rdečega.",
+            "de": "Welcher Mantel? Der rote.",
+            "it": "Quale cappotto? Quello rosso."
+          },
+          {
+            "en": "I like the big ones.",
+            "sl": "Rad{m:|f:a} imam velike.",
+            "de": "Ich mag die großen.",
+            "it": "Mi piacciono quelli grandi."
+          },
+          {
+            "en": "This one or that one?",
+            "sl": "Tega ali onega?",
+            "de": "Diesen oder den da?",
+            "it": "Questo o quello?"
+          }
+        ],
+        "rows": [
+          [
+            "one, ones",
+            {
+              "sl": "namesto samostalnika",
+              "de": "statt des Nomens",
+              "it": "al posto del nome",
+              "en": "for a noun"
+            },
+            "the red one, the big ones"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-pronouns",
+          "prompt": "This scone is cold. Have you got a hot ___?",
+          "options": [
+            "one",
+            "ones",
+            "it"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ena stvar: one**\n- a hot one",
+            "de": "**Eine Sache: one**\n- a hot one",
+            "it": "**Una cosa: one**\n- a hot one",
+            "en": "**One thing: one**\n- a hot one"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "myself-1",
+      "title": {
+        "sl": "Kaj se je zgodilo Alfieju",
+        "de": "Was Alfie passiert ist",
+        "it": "Che cosa è successo ad Alfie",
+        "en": "What happened to Alfie"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "I → myself",
+            "de": "I → myself",
+            "it": "I → myself",
+            "en": "I → myself"
+          },
+          "columns": [
+            {
+              "sl": "oblika · form",
+              "de": "Form · form",
+              "it": "forma · form",
+              "en": "form"
+            }
+          ],
+          "rows": [
+            {
+              "label": "I",
+              "cells": [
+                "myself"
+              ]
+            },
+            {
+              "label": {
+                "sl": "you · ena oseba",
+                "de": "you · eine Person",
+                "it": "you · una persona",
+                "en": "you · one person"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "yourself"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "he",
+              "cells": [
+                {
+                  "accept": [
+                    "himself"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "she",
+              "cells": [
+                {
+                  "accept": [
+                    "herself"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "it",
+              "cells": [
+                {
+                  "accept": [
+                    "itself"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "we",
+              "cells": [
+                {
+                  "accept": [
+                    "ourselves"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "you · več oseb",
+                "de": "you · mehrere",
+                "it": "you · più persone",
+                "en": "you · two or more"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "yourselves"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "they",
+              "cells": [
+                {
+                  "accept": [
+                    "themselves"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Ena oblika za vsako osebo; množina -selves**\n- we → ourselves · they → themselves",
+            "de": "**Eine Form je Person; Plural -selves**\n- we → ourselves · they → themselves",
+            "it": "**Una forma per ogni persona; plurale -selves**\n- we → ourselves · they → themselves",
+            "en": "**One form for each person; plural -selves**\n- we → ourselves · they → themselves"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Alfie fell off the wall and hurt ___. Poppy cut ___ on a tin. \"Did you enjoy ___ at the dance, you two?\" asked Mrs Hartley. \"Oh yes, we enjoyed ___ very much!\" And the gate? It opened by ___.",
+          "gaps": [
+            {
+              "accept": [
+                "himself"
+              ]
+            },
+            {
+              "accept": [
+                "herself"
+              ]
+            },
+            {
+              "accept": [
+                "yourselves"
+              ]
+            },
+            {
+              "accept": [
+                "ourselves"
+              ]
+            },
+            {
+              "accept": [
+                "itself"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "themselves"
+          ],
+          "explain": {
+            "sl": "**Oblika sledi osebi**\n- Alfie hurt himself.",
+            "de": "**Die Form folgt der Person**\n- Alfie hurt himself.",
+            "it": "**La forma segue la persona**\n- Alfie hurt himself.",
+            "en": "**The form follows the person**\n- Alfie hurt himself."
+          },
+          "translation": {
+            "sl": "Alfie je padel z zidu in se poškodoval. Poppy se je urezala ob pločevinko. »Sta se imela lepo na plesu?« je vprašala gospa Hartley. »O ja, zelo lepo sva se imela!« Pa vrata? Odprla so se sama.",
+            "de": "Alfie ist von der Mauer gefallen und hat sich wehgetan. Poppy hat sich an einer Dose geschnitten. „Habt ihr euch beim Tanz gut unterhalten?“, fragte Mrs Hartley. „O ja, sehr gut!“ Und das Tor? Das ist von selbst aufgegangen.",
+            "it": "Alfie è caduto dal muro e si è fatto male. Poppy si è tagliata con una lattina. «Vi siete divertiti al ballo, voi due?» ha chiesto Mrs Hartley. «Oh sì, ci siamo divertiti molto!» E il cancello? Si è aperto da solo.",
+            "en": "Alfie fell off the wall and hurt himself. Poppy cut herself on a tin. \"Did you enjoy yourselves at the dance, you two?\" asked Mrs Hartley. \"Oh yes, we enjoyed ourselves very much!\" And the gate? It opened by itself."
+          }
+        }
+      ]
+    },
+    {
+      "id": "myself-2",
+      "title": {
+        "sl": "Sam, brez pomoči",
+        "de": "Selbst, ohne Hilfe",
+        "it": "Da solo, senza aiuto",
+        "en": "By myself, with no help"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "with -self · z -self",
+                "de": "with -self · mit -self",
+                "it": "with -self · con -self",
+                "en": "with -self"
+              },
+              "words": [
+                "hurt",
+                "burn",
+                "enjoy",
+                "help"
+              ]
+            },
+            {
+              "label": {
+                "sl": "no -self · brez -self",
+                "de": "no -self · ohne -self",
+                "it": "no -self · senza -self",
+                "en": "no -self"
+              },
+              "words": [
+                "feel",
+                "meet",
+                "remember",
+                "hurry"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**I feel tired. We met. Ampak: Enjoy yourself!**",
+            "de": "**I feel tired. We met. Aber: Enjoy yourself!**",
+            "it": "**I feel tired. We met. Ma: Enjoy yourself!**",
+            "en": "**I feel tired. We met. But: Enjoy yourself!**"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Old Wilf lives on his ___. He likes being by ___. He made ___ a chair, and he cuts his hair ___. \"I made ___ a cup of tea,\" I told him, \"and it was too hot!\"",
+          "gaps": [
+            {
+              "accept": [
+                "own"
+              ]
+            },
+            {
+              "accept": [
+                "himself"
+              ]
+            },
+            {
+              "accept": [
+                "himself"
+              ]
+            },
+            {
+              "accept": [
+                "himself"
+              ]
+            },
+            {
+              "accept": [
+                "myself"
+              ],
+              "spoken": [
+                "me"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**on his own, by himself; sam: himself**\n- He likes being by himself.",
+            "de": "**on his own, by himself; selbst: himself**\n- He likes being by himself.",
+            "it": "**on his own, by himself; da solo: himself**\n- He likes being by himself.",
+            "en": "**on his own, by himself; with no help: himself**\n- He likes being by himself."
+          },
+          "translation": {
+            "sl": "Stari Wilf živi sam. Rad je sam. Sam si je naredil stol in sam se striže. »Skuhal{m:|f:a} sem si skodelico čaja,« sem mu rekel{m:|f:la}, »in bil je prevroč!«",
+            "de": "Der alte Wilf lebt allein. Er ist gern für sich. Er hat sich einen Sessel gemacht, und er schneidet sich die Haare selbst. „Ich habe mir eine Tasse Tee gemacht“, sagte ich zu ihm, „und er war zu heiß!“",
+            "it": "Il vecchio Wilf vive da solo. Gli piace stare da solo. Si è fatto una sedia e si taglia i capelli da solo. «Mi sono fatt{m:o|f:a} una tazza di tè», gli ho detto, «ed era troppo caldo!»",
+            "en": "Old Wilf lives on his own. He likes being by himself. He made himself a chair, and he cuts his hair himself. \"I made myself a cup of tea,\" I told him, \"and it was too hot!\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "myself-3",
+      "title": {
+        "sl": "Drug drugega, rdečega",
+        "de": "Einander, den roten",
+        "it": "L'un l'altro, quello rosso",
+        "en": "Each other, the red one"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Say it with each other · z each other",
+            "de": "Say it with each other · Sag es mit each other",
+            "it": "Say it with each other · dillo con each other",
+            "en": "Say it with each other"
+          },
+          "items": [
+            {
+              "from": "Jack knows Sam. Sam knows Jack.",
+              "accept": [
+                "Jack and Sam know each other.",
+                "Sam and Jack know each other.",
+                "They know each other.",
+                "Jack and Sam know one another.",
+                "They know one another."
+              ]
+            },
+            {
+              "from": "I like Edna. Edna likes me.",
+              "accept": [
+                "Edna and I like each other.",
+                "I and Edna like each other.",
+                "We like each other.",
+                "Edna and I like one another.",
+                "We like one another."
+              ]
+            },
+            {
+              "from": "Sam helps Jack. Jack helps Sam.",
+              "accept": [
+                "Sam and Jack help each other.",
+                "Jack and Sam help each other.",
+                "They help each other.",
+                "Jack and Sam help one another.",
+                "They help one another."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Dva, v obe smeri: each other**\n- They know each other.",
+            "de": "**Zwei, in beide Richtungen: each other**\n- They know each other.",
+            "it": "**Due, nei due sensi: each other**\n- They know each other.",
+            "en": "**Two people, both ways: each other**\n- They know each other."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Say it with one or ones · z one ali ones",
+            "de": "Say it with one or ones · Sag es mit one oder ones",
+            "it": "Say it with one or ones · dillo con one o ones",
+            "en": "Say it with one or ones"
+          },
+          "items": [
+            {
+              "from": "I'd like the red coat.",
+              "accept": [
+                "I'd like the red one."
+              ]
+            },
+            {
+              "from": "I like the big eggs.",
+              "accept": [
+                "I like the big ones."
+              ],
+              "hint": {
+                "sl": "množina",
+                "de": "Plural",
+                "it": "plurale",
+                "en": "a plural"
+              }
+            },
+            {
+              "from": "Give me that book.",
+              "accept": [
+                "Give me that one."
+              ]
+            },
+            {
+              "from": "My old boots are wet. I need new boots.",
+              "accept": [
+                "My old boots are wet. I need new ones."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Ena stvar: one; več: ones**\n- the red one · the big ones",
+            "de": "**Eine Sache: one; mehrere: ones**\n- the red one · the big ones",
+            "it": "**Una cosa: one; più di una: ones**\n- the red one · the big ones",
+            "en": "**One thing: one; more: ones**\n- the red one · the big ones"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Alfie and Poppy are good friends. They help ___.",
+          "options": [
+            "each other",
+            "themselves",
+            "himself"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Drug drugemu: each other**\n- They help each other.",
+            "de": "**Einander: each other**\n- They help each other.",
+            "it": "**L'un l'altro: each other**\n- They help each other.",
+            "en": "**Both ways: each other**\n- They help each other."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We ___ at the bridge.",
+          "options": [
+            "met",
+            "met ourselves",
+            "met us"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**meet: brez -self**\n- We met at the bridge.",
+            "de": "**meet: ohne -self**\n- We met at the bridge.",
+            "it": "**meet: senza -self**\n- We met at the bridge.",
+            "en": "**meet: no -self**\n- We met at the bridge."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reflexive-pronouns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "These hens are old. I want some young ___.",
+          "options": [
+            "ones",
+            "one",
+            "it"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Več: ones**\n- some young ones",
+            "de": "**Mehrere: ones**\n- some young ones",
+            "it": "**Più di una: ones**\n- some young ones",
+            "en": "**More: ones**\n- some young ones"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "reflexive-pronouns",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Mr Tyson mended the wheel ___. He cut ___ on the saw. \"Be careful!\" said his wife. They've known ___ for forty years. He likes working on his ___. But today he needs a new saw: the old ___ is broken.",
+        "gaps": [
+          {
+            "accept": [
+              "himself"
+            ]
+          },
+          {
+            "accept": [
+              "himself"
+            ]
+          },
+          {
+            "accept": [
+              "each other",
+              "one another"
+            ]
+          },
+          {
+            "accept": [
+              "own"
+            ]
+          },
+          {
+            "accept": [
+              "one"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Gospod Tyson je sam popravil kolo. Urezal se je z žago. »Pazi!« je rekla žena. Poznata se že štirideset let. Rad dela sam. Danes pa potrebuje novo žago: stara je zlomljena.",
+          "de": "Mr Tyson hat das Rad selbst repariert. Er hat sich an der Säge geschnitten. „Pass auf!“, sagte seine Frau. Sie kennen sich seit vierzig Jahren. Er arbeitet gern allein. Aber heute braucht er eine neue Säge: Die alte ist kaputt.",
+          "it": "Mr Tyson ha riparato la ruota da solo. Si è tagliato con la sega. «Stai attento!» ha detto sua moglie. Si conoscono da quarant'anni. Gli piace lavorare da solo. Ma oggi gli serve una sega nuova: quella vecchia è rotta.",
+          "en": "Mr Tyson mended the wheel himself. He cut himself on the saw. \"Be careful!\" said his wife. They've known each other for forty years. He likes working on his own. But today he needs a new saw: the old one is broken."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reflexive-pronouns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I ___ tired after the walk.",
+        "options": [
+          "feel",
+          "feel me",
+          "feel myself"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**feel: brez myself**\n- I feel tired.",
+          "de": "**feel: ohne myself**\n- I feel tired.",
+          "it": "**feel: senza myself**\n- I feel tired.",
+          "en": "**feel: no myself**\n- I feel tired."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reflexive-pronouns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Did you all enjoy ___ at the inn?",
+        "options": [
+          "yourselves",
+          "yourself",
+          "ourselves"
+        ],
+        "answer": 0,
+        "almost": [
+          1
+        ],
+        "say_options": true,
+        "explain": {
+          "sl": "**Več oseb: yourselves**\n- Did you all enjoy yourselves?",
+          "de": "**Mehrere: yourselves**\n- Did you all enjoy yourselves?",
+          "it": "**Più persone: yourselves**\n- Did you all enjoy yourselves?",
+          "en": "**Two or more: yourselves**\n- Did you all enjoy yourselves?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reflexive-pronouns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Which scones? The small ___.",
+        "options": [
+          "ones",
+          "one",
+          "them"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Več: ones**\n- the small ones",
+          "de": "**Mehrere: ones**\n- the small ones",
+          "it": "**Più di uno: ones**\n- the small ones",
+          "en": "**More: ones**\n- the small ones"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reflexive-pronouns",
+        "instruction": {
+          "sl": "Say it with each other · z each other",
+          "de": "Say it with each other · Sag es mit each other",
+          "it": "Say it with each other · dillo con each other",
+          "en": "Say it with each other"
+        },
+        "items": [
+          {
+            "from": "Jack phones Sam. Sam phones Jack.",
+            "accept": [
+              "Jack and Sam phone each other.",
+              "Sam and Jack phone each other.",
+              "They phone each other.",
+              "Jack and Sam phone one another.",
+              "They phone one another."
+            ]
+          },
+          {
+            "from": "Edna writes to Maggie. Maggie writes to Edna.",
+            "accept": [
+              "Edna and Maggie write to each other.",
+              "Maggie and Edna write to each other.",
+              "They write to each other.",
+              "Edna and Maggie write to one another.",
+              "They write to one another."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Dva, v obe smeri: each other**\n- They write to each other.",
+          "de": "**Zwei, in beide Richtungen: each other**\n- They write to each other.",
+          "it": "**Due, nei due sensi: each other**\n- They write to each other.",
+          "en": "**Two people, both ways: each other**\n- They write to each other."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reflexive-pronouns",
+        "instruction": {
+          "sl": "Say it with one or ones · z one ali ones",
+          "de": "Say it with one or ones · Sag es mit one oder ones",
+          "it": "Say it with one or ones · dillo con one o ones",
+          "en": "Say it with one or ones"
+        },
+        "items": [
+          {
+            "from": "I'd like the blue cup.",
+            "accept": [
+              "I'd like the blue one."
+            ]
+          },
+          {
+            "from": "Where are the new boots?",
+            "accept": [
+              "Where are the new ones?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Ena stvar: one; več: ones**\n- the blue one · the new ones",
+          "de": "**Eine Sache: one; mehrere: ones**\n- the blue one · the new ones",
+          "it": "**Una cosa: one; più di una: ones**\n- the blue one · the new ones",
+          "en": "**One thing: one; more: ones**\n- the blue one · the new ones"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: hisself, theirselves, meself; I made me a cup of tea"
+}

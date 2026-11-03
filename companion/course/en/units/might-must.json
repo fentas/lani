@@ -1,0 +1,1214 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "might-must",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🤔",
+  "title": {
+    "sl": "Domneve: might, must, can't",
+    "de": "Vermutungen: might, must, can't",
+    "it": "Le supposizioni: might, must, can't",
+    "en": "It might rain; it must be Jack"
+  },
+  "goal": {
+    "sl": "Poveš, kaj je morda (It might rain), kaj sklepaš, da je gotovo tako ali gotovo ni (It must be Jack, it can't be Sam), in kaj je verjetno (He'll probably come).",
+    "de": "Du sagst, was vielleicht ist (It might rain), was du sicher schließt (It must be Jack, it can't be Sam) und was wahrscheinlich ist (He'll probably come).",
+    "it": "Dici ciò che forse è (It might rain), ciò che deduci con sicurezza (It must be Jack, it can't be Sam) e ciò che è probabile (He'll probably come).",
+    "en": "You can say what is perhaps so (It might rain), what you're sure of when you work it out (It must be Jack, it can't be Sam) and what is likely (He'll probably come)."
+  },
+  "grammar": [
+    "might-must",
+    "must-have-to"
+  ],
+  "words": [
+    "might",
+    "may",
+    "could",
+    "must",
+    "can't",
+    "couldn't",
+    "mustn't",
+    "must not",
+    "might not",
+    "probably",
+    "perhaps",
+    "maybe",
+    "fell",
+    "rain",
+    "clouds",
+    "coat",
+    "afternoon",
+    "walk",
+    "tired",
+    "hungry",
+    "ill",
+    "sleep",
+    "work",
+    "barn",
+    "light",
+    "smithy",
+    "hospital",
+    "door",
+    "wet",
+    "cold",
+    "soup",
+    "answer",
+    "broken",
+    "van",
+    "phone",
+    "has got to",
+    "working",
+    "sky",
+    "smoke",
+    "chimney"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "za kaj",
+          "de": "wofür",
+          "it": "per cosa",
+          "en": "what for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kar je mogoče: **might**, **may**, **could** + osnovna oblika. **It might rain this afternoon.** (Popoldne bo morda deževalo.) **Jack may be on the fell.** (Jack je morda na hribu.) **She could be at the inn.** (Morda je v gostilni.) Vse tri pomenijo skoraj isto, brez to in brez -s: **He might come.** (Morda pride.)",
+          "de": "Was möglich ist: **might**, **may**, **could** + Grundform. **It might rain this afternoon.** (Heute Nachmittag könnte es regnen.) **Jack may be on the fell.** (Jack ist vielleicht am Berg.) **She could be at the inn.** (Sie könnte im Gasthaus sein.) Alle drei heißen fast dasselbe, ohne to und ohne -s: **He might come.** (Vielleicht kommt er.)",
+          "it": "Ciò che è possibile: **might**, **may**, **could** + la forma base. **It might rain this afternoon.** (Oggi pomeriggio potrebbe piovere.) **Jack may be on the fell.** (Jack forse è sul monte.) **She could be at the inn.** (Potrebbe essere alla locanda.) Le tre vogliono dire quasi lo stesso, senza to e senza -s: **He might come.** (Forse viene.)",
+          "en": "What is possible: **might**, **may**, **could** + the base form. **It might rain this afternoon.** **Jack may be on the fell.** **She could be at the inn.** The three mean nearly the same, with no to and no -s: **He might come.**"
+        },
+        "examples": [
+          {
+            "en": "It might rain this afternoon.",
+            "sl": "Popoldne bo morda deževalo.",
+            "de": "Heute Nachmittag könnte es regnen.",
+            "it": "Oggi pomeriggio potrebbe piovere."
+          },
+          {
+            "en": "Jack may be on the fell.",
+            "sl": "Jack je morda na hribu.",
+            "de": "Jack ist vielleicht am Berg.",
+            "it": "Jack forse è sul monte."
+          },
+          {
+            "en": "She could be at the inn.",
+            "sl": "Morda je v gostilni.",
+            "de": "Sie könnte im Gasthaus sein.",
+            "it": "Potrebbe essere alla locanda."
+          },
+          {
+            "en": "He might come.",
+            "sl": "Morda pride.",
+            "de": "Vielleicht kommt er.",
+            "it": "Forse viene."
+          }
+        ],
+        "rows": [
+          [
+            "might, may, could",
+            {
+              "sl": "morda",
+              "de": "vielleicht",
+              "it": "forse",
+              "en": "perhaps"
+            },
+            "It might rain this afternoon."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "might-must",
+          "prompt": "Take a coat. It ___ rain this afternoon.",
+          "options": [
+            "might",
+            "is",
+            "has"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Morda: might, may, could**\n- It might rain this afternoon.",
+            "de": "**Vielleicht: might, may, could**\n- It might rain this afternoon.",
+            "it": "**Forse: might, may, could**\n- It might rain this afternoon.",
+            "en": "**Perhaps: might, may, could**\n- It might rain this afternoon."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zanikano: **might not**, **may not** (morda ne). **He might not come tonight.** (Morda nocoj ne bo prišel.) **It may not rain.** (Morda ne bo deževalo.) **couldn't** je nekaj drugega: pomeni *nemogoče*: **It couldn't be Jack.** (To ne more biti Jack.)",
+          "de": "Verneint: **might not**, **may not** (vielleicht nicht). **He might not come tonight.** (Vielleicht kommt er heute Abend nicht.) **It may not rain.** (Vielleicht regnet es nicht.) **couldn't** ist etwas anderes, es heißt *unmöglich*: **It couldn't be Jack.** (Das kann nicht Jack sein.)",
+          "it": "Al negativo: **might not**, **may not** (forse no). **He might not come tonight.** (Forse stasera non viene.) **It may not rain.** (Forse non piove.) **couldn't** è un'altra cosa, vuol dire *impossibile*: **It couldn't be Jack.** (Non può essere Jack.)",
+          "en": "With not: **might not**, **may not** (perhaps not). **He might not come tonight.** **It may not rain.** **couldn't** is something else, it means *impossible*: **It couldn't be Jack.**"
+        },
+        "examples": [
+          {
+            "en": "He might not come tonight.",
+            "sl": "Morda nocoj ne bo prišel.",
+            "de": "Vielleicht kommt er heute Abend nicht.",
+            "it": "Forse stasera non viene."
+          },
+          {
+            "en": "It may not rain.",
+            "sl": "Morda ne bo deževalo.",
+            "de": "Vielleicht regnet es nicht.",
+            "it": "Forse non piove."
+          },
+          {
+            "en": "It couldn't be Jack.",
+            "sl": "To ne more biti Jack.",
+            "de": "Das kann nicht Jack sein.",
+            "it": "Non può essere Jack."
+          }
+        ],
+        "rows": [
+          [
+            "might not, may not",
+            {
+              "sl": "morda ne",
+              "de": "vielleicht nicht",
+              "it": "forse no",
+              "en": "perhaps not"
+            },
+            "He might not come tonight."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "might-must",
+          "text": "I don't know. Sam's van is broken, so he ___ come tonight.",
+          "accept": [
+            "might not",
+            "may not",
+            "mightn't",
+            "won't",
+            "can't",
+            "cannot",
+            "couldn't",
+            "could not"
+          ],
+          "hint": {
+            "sl": "morda ne",
+            "de": "vielleicht nicht",
+            "it": "forse no",
+            "en": "perhaps not"
+          },
+          "explain": {
+            "sl": "**Morda ne: might not, may not**\n- He might not come tonight.",
+            "de": "**Vielleicht nicht: might not, may not**\n- He might not come tonight.",
+            "it": "**Forse no: might not, may not**\n- He might not come tonight.",
+            "en": "**Perhaps not: might not, may not**\n- He might not come tonight."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**can** pove, kaj se včasih zgodi: **It can rain here for days.** (Tu lahko dežuje več dni.) Za to, kar se morda zgodi danes, **might**, čeprav slovenščina reče *lahko*: **Look at those clouds. It might rain.** (Poglej tiste oblake, morda bo deževalo.)",
+          "de": "**can** sagt, was manchmal geschieht: **It can rain here for days.** (Hier kann es tagelang regnen.) Für das, was heute vielleicht geschieht, **might**, auch wenn Deutsch *kann* sagt: **Look at those clouds. It might rain.** (Schau die Wolken an, es kann regnen.)",
+          "it": "**can** dice ciò che a volte succede: **It can rain here for days.** (Qui può piovere per giorni.) Per ciò che forse succede oggi, **might**, anche se l'italiano dice *può*: **Look at those clouds. It might rain.** (Guarda quelle nuvole, può piovere.)",
+          "en": "**can** says what sometimes happens: **It can rain here for days.** For what may happen today, **might**: **Look at those clouds. It might rain.**"
+        },
+        "examples": [
+          {
+            "en": "It can rain here for days.",
+            "sl": "Tu lahko dežuje več dni.",
+            "de": "Hier kann es tagelang regnen.",
+            "it": "Qui può piovere per giorni."
+          },
+          {
+            "en": "Look at those clouds. It might rain.",
+            "sl": "Poglej tiste oblake, morda bo deževalo.",
+            "de": "Schau die Wolken an, es kann regnen.",
+            "it": "Guarda quelle nuvole, può piovere."
+          }
+        ],
+        "rows": [
+          [
+            "can",
+            {
+              "sl": "včasih",
+              "de": "manchmal",
+              "it": "a volte",
+              "en": "sometimes"
+            },
+            "It can rain here for days."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "might-must",
+          "prompt": "Look at those clouds! It ___ rain soon.",
+          "options": [
+            "might",
+            "can",
+            "has"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Včasih: can; danes, morda: might**\n- It can rain here for days. · It might rain soon.",
+            "de": "**Manchmal: can; heute, vielleicht: might**\n- It can rain here for days. · It might rain soon.",
+            "it": "**A volte: can; oggi, forse: might**\n- It can rain here for days. · It might rain soon.",
+            "en": "**Sometimes: can; today, perhaps: might**\n- It can rain here for days. · It might rain soon."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar sklepaš in je gotovo tako: **must**. **That must be Jack: it's his dog.** (To je gotovo Jack: to je njegov pes.) **You must be tired after that walk.** (Po tej poti si gotovo {m:utrujen|f:utrujena}.) Tu **must** ne pomeni *moraš*. V govoru tudi **has to** in **has got to**: **It has to be Jack.**",
+          "de": "Was du schließt und sicher ist: **must**. **That must be Jack: it's his dog.** (Das muss Jack sein: Das ist sein Hund.) **You must be tired after that walk.** (Nach dem Marsch musst du müde sein.) Hier ist **must** keine Pflicht. Gesprochen auch **has to** und **has got to**: **It has to be Jack.**",
+          "it": "Ciò che deduci ed è sicuro: **must**. **That must be Jack: it's his dog.** (Dev'essere Jack: è il suo cane.) **You must be tired after that walk.** (Dopo quella camminata devi essere stanc{m:o|f:a}.) Qui **must** non è un obbligo. A voce anche **has to** e **has got to**: **It has to be Jack.**",
+          "en": "What you work out and are sure of: **must**. **That must be Jack: it's his dog.** **You must be tired after that walk.** Here **must** isn't a rule. In talk also **has to** and **has got to**: **It has to be Jack.**"
+        },
+        "examples": [
+          {
+            "en": "That must be Jack: it's his dog.",
+            "sl": "To je gotovo Jack: to je njegov pes.",
+            "de": "Das muss Jack sein: Das ist sein Hund.",
+            "it": "Dev'essere Jack: è il suo cane."
+          },
+          {
+            "en": "You must be tired after that walk.",
+            "sl": "Po tej poti si gotovo {m:utrujen|f:utrujena}.",
+            "de": "Nach dem Marsch musst du müde sein.",
+            "it": "Dopo quella camminata devi essere stanc{m:o|f:a}."
+          },
+          {
+            "en": "It has to be Jack.",
+            "sl": "To je lahko samo Jack.",
+            "de": "Das muss Jack sein.",
+            "it": "Non può che essere Jack."
+          }
+        ],
+        "rows": [
+          [
+            "must",
+            {
+              "sl": "gotovo je tako",
+              "de": "sicher ja",
+              "it": "di sicuro sì",
+              "en": "I'm sure it is"
+            },
+            "That must be Jack: it's his dog."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "might-must",
+          "prompt": "Meg is at the door. Jack ___ be here.",
+          "options": [
+            "must",
+            "can't",
+            "isn't"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Gotovo je tako: must**\n- Jack must be here.",
+            "de": "**Sicher ja: must**\n- Jack must be here.",
+            "it": "**Di sicuro sì: must**\n- Jack must be here.",
+            "en": "**Sure it is: must**\n- Jack must be here."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar sklepaš in gotovo ni tako: **can't**, nasprotje od must. **That can't be Jack: he's in Keswick.** (To ne more biti Jack: v Keswicku je.) **He can't be hungry: he's just eaten.** (Ne more biti lačen: pravkar je jedel.) V Ameriki, na Škotskem, Irskem in severu Anglije rečejo tudi **must not**, **mustn't**: *It must not be Jack*. Pisno v Britaniji velja **can't**.",
+          "de": "Was du schließt und sicher nicht ist: **can't**, das Gegenteil von must. **That can't be Jack: he's in Keswick.** (Das kann nicht Jack sein: Er ist in Keswick.) **He can't be hungry: he's just eaten.** (Er kann nicht hungrig sein: Er hat gerade gegessen.) In Amerika, Schottland, Irland und Nordengland sagt man auch **must not**, **mustn't**: *It must not be Jack*. Geschrieben gilt in Britannien **can't**.",
+          "it": "Ciò che deduci e di sicuro non è: **can't**, il contrario di must. **That can't be Jack: he's in Keswick.** (Non può essere Jack: è a Keswick.) **He can't be hungry: he's just eaten.** (Non può avere fame: ha appena mangiato.) In America, in Scozia, in Irlanda e nel nord dell'Inghilterra si dice anche **must not**, **mustn't**: *It must not be Jack*. Per iscritto in Gran Bretagna vale **can't**.",
+          "en": "What you work out and are sure isn't so: **can't**, the opposite of must. **That can't be Jack: he's in Keswick.** **He can't be hungry: he's just eaten.** In America, Scotland, Ireland and the North people also say **must not**, **mustn't**: *It must not be Jack*. British writing wants **can't**."
+        },
+        "examples": [
+          {
+            "en": "That can't be Jack: he's in Keswick.",
+            "sl": "To ne more biti Jack: v Keswicku je.",
+            "de": "Das kann nicht Jack sein: Er ist in Keswick.",
+            "it": "Non può essere Jack: è a Keswick."
+          },
+          {
+            "en": "He can't be hungry: he's just eaten.",
+            "sl": "Ne more biti lačen: pravkar je jedel.",
+            "de": "Er kann nicht hungrig sein: Er hat gerade gegessen.",
+            "it": "Non può avere fame: ha appena mangiato."
+          }
+        ],
+        "rows": [
+          [
+            "can't",
+            {
+              "sl": "gotovo ni tako",
+              "de": "sicher nein",
+              "it": "di sicuro no",
+              "en": "I'm sure it isn't"
+            },
+            "That can't be Jack: he's in Keswick."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "might-must",
+          "text": "That ___ be Sam: he's gone to Carlisle.",
+          "accept": [
+            "can't",
+            "cannot",
+            "couldn't",
+            "could not",
+            "mustn't",
+            "must not",
+            "won't",
+            "will not"
+          ],
+          "hint": {
+            "sl": "gotovo ne",
+            "de": "sicher nicht",
+            "it": "di sicuro no",
+            "en": "sure it isn't"
+          },
+          "explain": {
+            "sl": "**Gotovo ni tako: can't**\n- That can't be Sam: he's gone to Carlisle.",
+            "de": "**Sicher nein: can't**\n- That can't be Sam: he's gone to Carlisle.",
+            "it": "**Di sicuro no: can't**\n- That can't be Sam: he's gone to Carlisle.",
+            "en": "**Sure it isn't: can't**\n- That can't be Sam: he's gone to Carlisle."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za to, kar se dogaja zdaj: be + -ing. **He must be sleeping.** (Gotovo spi.) **She might be working.** (Morda dela.) In **probably** (verjetno) za will, pred won't: **He'll probably come.** (Verjetno bo prišel.) **He probably won't come.** (Verjetno ne bo prišel.) **perhaps** in **maybe** (morda) stojita spredaj: **Maybe he's ill.** (Morda je bolan.)",
+          "de": "Für das, was gerade geschieht: be + -ing. **He must be sleeping.** (Er schläft sicher.) **She might be working.** (Vielleicht arbeitet sie gerade.) Und **probably** (wahrscheinlich) nach will, vor won't: **He'll probably come.** (Er kommt wahrscheinlich.) **He probably won't come.** (Er kommt wahrscheinlich nicht.) **perhaps** und **maybe** (vielleicht) stehen vorn: **Maybe he's ill.** (Vielleicht ist er krank.)",
+          "it": "Per ciò che succede ora: be + -ing. **He must be sleeping.** (Di sicuro dorme.) **She might be working.** (Forse sta lavorando.) E **probably** (probabilmente) dopo will, prima di won't: **He'll probably come.** (Probabilmente viene.) **He probably won't come.** (Probabilmente non viene.) **perhaps** e **maybe** (forse) vanno all'inizio: **Maybe he's ill.** (Forse è malato.)",
+          "en": "For what is going on now: be + -ing. **He must be sleeping.** **She might be working.** And **probably** after will, before won't: **He'll probably come.** **He probably won't come.** **perhaps** and **maybe** stand first: **Maybe he's ill.**"
+        },
+        "examples": [
+          {
+            "en": "He must be sleeping.",
+            "sl": "Gotovo spi.",
+            "de": "Er schläft sicher.",
+            "it": "Di sicuro dorme."
+          },
+          {
+            "en": "He'll probably come.",
+            "sl": "Verjetno bo prišel.",
+            "de": "Er kommt wahrscheinlich.",
+            "it": "Probabilmente viene."
+          },
+          {
+            "en": "He probably won't come.",
+            "sl": "Verjetno ne bo prišel.",
+            "de": "Er kommt wahrscheinlich nicht.",
+            "it": "Probabilmente non viene."
+          },
+          {
+            "en": "Maybe he's ill.",
+            "sl": "Morda je bolan.",
+            "de": "Vielleicht ist er krank.",
+            "it": "Forse è malato."
+          }
+        ],
+        "rows": [
+          [
+            "must be + -ing",
+            {
+              "sl": "zdaj",
+              "de": "gerade jetzt",
+              "it": "ora",
+              "en": "now"
+            },
+            "He must be sleeping."
+          ],
+          [
+            "will probably, probably won't",
+            {
+              "sl": "verjetno",
+              "de": "wahrscheinlich",
+              "it": "probabilmente",
+              "en": "likely"
+            },
+            "He'll probably come."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "might-must",
+          "prompt": "___ he's ill.",
+          "options": [
+            "Maybe",
+            "Must",
+            "Can"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Spredaj: maybe, perhaps**\n- Maybe he's ill.",
+            "de": "**Vorn: maybe, perhaps**\n- Maybe he's ill.",
+            "it": "**All'inizio: maybe, perhaps**\n- Maybe he's ill.",
+            "en": "**First: maybe, perhaps**\n- Maybe he's ill."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "might-must-1",
+      "title": {
+        "sl": "Kdo je pred vrati?",
+        "de": "Wer ist an der Tür?",
+        "it": "Chi c'è alla porta?",
+        "en": "Who's at the door?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: sure it is, sure it isn't, perhaps"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "sure it is · gotovo je",
+                "de": "sure it is · sicher ja",
+                "it": "sure it is · di sicuro sì",
+                "en": "sure it is"
+              },
+              "words": [
+                "It must be Jack.",
+                "You must be tired.",
+                "She must be at home."
+              ]
+            },
+            {
+              "label": {
+                "sl": "sure it isn't · gotovo ni",
+                "de": "sure it isn't · sicher nein",
+                "it": "sure it isn't · di sicuro no",
+                "en": "sure it isn't"
+              },
+              "words": [
+                "It can't be Jack.",
+                "That can't be Edna's coat.",
+                "He can't be hungry."
+              ]
+            },
+            {
+              "label": {
+                "sl": "perhaps · morda",
+                "de": "perhaps · vielleicht",
+                "it": "perhaps · forse",
+                "en": "perhaps"
+              },
+              "words": [
+                "It might be Jack.",
+                "She may be at the inn.",
+                "He could be on the fell."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**must: gotovo je; can't: gotovo ni; might, may, could: morda**\n- It must be Jack. · It can't be Jack. · It might be Jack.",
+            "de": "**must: sicher ja; can't: sicher nein; might, may, could: vielleicht**\n- It must be Jack. · It can't be Jack. · It might be Jack.",
+            "it": "**must: di sicuro sì; can't: di sicuro no; might, may, could: forse**\n- It must be Jack. · It can't be Jack. · It might be Jack.",
+            "en": "**must: sure it is; can't: sure it isn't; might, may, could: perhaps**\n- It must be Jack. · It can't be Jack. · It might be Jack."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "That's Sam's van outside. He ___ be at the inn.",
+          "options": [
+            "must",
+            "can't",
+            "isn't"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Gotovo je tako: must**\n- He must be at the inn.",
+            "de": "**Sicher ja: must**\n- He must be at the inn.",
+            "it": "**Di sicuro sì: must**\n- He must be at the inn.",
+            "en": "**Sure it is: must**\n- He must be at the inn."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Mr Dixon is in hospital. That ___ be him at the smithy.",
+          "options": [
+            "can't",
+            "must",
+            "has"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Gotovo ni tako: can't**\n- That can't be him at the smithy.",
+            "de": "**Sicher nein: can't**\n- That can't be him at the smithy.",
+            "it": "**Di sicuro no: can't**\n- That can't be him at the smithy.",
+            "en": "**Sure it isn't: can't**\n- That can't be him at the smithy."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "I'm not sure where Meg is. She ___ be in the barn.",
+          "options": [
+            "might",
+            "has",
+            "did"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Morda: might, may, could**\n- She might be in the barn.",
+            "de": "**Vielleicht: might, may, could**\n- She might be in the barn.",
+            "it": "**Forse: might, may, could**\n- She might be in the barn.",
+            "en": "**Perhaps: might, may, could**\n- She might be in the barn."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "It's very cold today. It ___ snow tonight.",
+          "options": [
+            "might",
+            "has",
+            "is"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Morda: might, may, could**\n- It might snow tonight.",
+            "de": "**Vielleicht: might, may, could**\n- It might snow tonight.",
+            "it": "**Forse: might, may, could**\n- It might snow tonight.",
+            "en": "**Perhaps: might, may, could**\n- It might snow tonight."
+          }
+        }
+      ]
+    },
+    {
+      "id": "might-must-2",
+      "title": {
+        "sl": "Mokra noč v gostilni",
+        "de": "Eine nasse Nacht im Gasthaus",
+        "it": "Una notte bagnata alla locanda",
+        "en": "A wet night at the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "— There's someone at the door. It ___ be Sam. — It ___ be Sam: he's gone to Carlisle. — Then it ___ be Jack. I can hear Meg. — Yes, and he ___ be cold and wet. It's been raining all day. — He ___ want some soup, I don't know. — I'll ask him. He ___ be hungry.",
+          "gaps": [
+            {
+              "accept": [
+                "might",
+                "may",
+                "could",
+                "must",
+                "will",
+                "'ll"
+              ],
+              "hint": {
+                "sl": "morda",
+                "de": "vielleicht",
+                "it": "forse",
+                "en": "perhaps"
+              }
+            },
+            {
+              "accept": [
+                "can't",
+                "cannot",
+                "couldn't",
+                "could not",
+                "mustn't",
+                "must not",
+                "won't",
+                "will not"
+              ],
+              "hint": {
+                "sl": "gotovo ne",
+                "de": "sicher nicht",
+                "it": "di sicuro no",
+                "en": "sure it isn't"
+              }
+            },
+            {
+              "accept": [
+                "must",
+                "has to",
+                "'s got to",
+                "has got to",
+                "will",
+                "'ll"
+              ],
+              "hint": {
+                "sl": "gotovo",
+                "de": "sicher",
+                "it": "di sicuro",
+                "en": "I'm sure"
+              }
+            },
+            {
+              "accept": [
+                "must",
+                "will",
+                "'ll",
+                "might",
+                "may",
+                "could",
+                "has to",
+                "has got to",
+                "'s got to"
+              ],
+              "hint": {
+                "sl": "gotovo",
+                "de": "sicher",
+                "it": "di sicuro",
+                "en": "I'm sure"
+              }
+            },
+            {
+              "accept": [
+                "might",
+                "may",
+                "could",
+                "might not",
+                "may not"
+              ],
+              "hint": {
+                "sl": "morda",
+                "de": "vielleicht",
+                "it": "forse",
+                "en": "perhaps"
+              }
+            },
+            {
+              "accept": [
+                "might not",
+                "may not",
+                "might",
+                "may",
+                "could",
+                "must",
+                "will",
+                "'ll",
+                "won't"
+              ],
+              "hint": {
+                "sl": "morda ne",
+                "de": "vielleicht nicht",
+                "it": "forse no",
+                "en": "perhaps not"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "has",
+            "is"
+          ],
+          "translation": {
+            "sl": "— Nekdo je pred vrati. Morda je Sam. — Ne more biti Sam: v Carlisle je šel. — Potem je gotovo Jack. Slišim Meg. — Da, in gotovo je premražen in moker. Ves dan dežuje. — Morda bi rad juho, ne vem. — Ga bom {m:vprašal|f:vprašala}. Morda ni lačen.",
+            "de": "— Da ist jemand an der Tür. Es könnte Sam sein. — Das kann nicht Sam sein: Er ist nach Carlisle gefahren. — Dann muss es Jack sein. Ich höre Meg. — Ja, und er muss durchgefroren und nass sein. Es regnet den ganzen Tag. — Vielleicht will er Suppe, ich weiß nicht. — Ich frage ihn. Vielleicht hat er keinen Hunger.",
+            "it": "— C'è qualcuno alla porta. Potrebbe essere Sam. — Non può essere Sam: è andato a Carlisle. — Allora dev'essere Jack. Sento Meg. — Sì, e dev'essere infreddolito e bagnato. Piove da tutto il giorno. — Forse vuole della zuppa, non so. — Glielo chiedo. Forse non ha fame.",
+            "en": "— There's someone at the door. It might be Sam. — It can't be Sam: he's gone to Carlisle. — Then it must be Jack. I can hear Meg. — Yes, and he must be cold and wet. It's been raining all day. — He might want some soup, I don't know. — I'll ask him. He might not be hungry."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "There's smoke from the chimney. Someone ___ be at home.",
+          "options": [
+            "must",
+            "can't",
+            "isn't"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Gotovo je tako: must**\n- Someone must be at home.",
+            "de": "**Sicher ja: must**\n- Someone must be at home.",
+            "it": "**Di sicuro sì: must**\n- Someone must be at home.",
+            "en": "**Sure it is: must**\n- Someone must be at home."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "The phone is ringing and he isn't answering. He ___ be sleeping.",
+          "options": [
+            "must",
+            "is",
+            "has"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Gotovo je tako: must**\n- He must be sleeping.",
+            "de": "**Sicher ja: must**\n- He must be sleeping.",
+            "it": "**Di sicuro sì: must**\n- He must be sleeping.",
+            "en": "**Sure it is: must**\n- He must be sleeping."
+          }
+        }
+      ]
+    },
+    {
+      "id": "might-must-3",
+      "title": {
+        "sl": "Povej drugače",
+        "de": "Sag es anders",
+        "it": "Dillo in un altro modo",
+        "en": "Say it another way"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Say it with must or can't · Povej z must ali can't",
+            "de": "Say it with must or can't · Sag es mit must oder can't",
+            "it": "Say it with must or can't · Dillo con must o can't",
+            "en": "Say it with must or can't"
+          },
+          "items": [
+            {
+              "from": "I'm sure that's Jack.",
+              "accept": [
+                "That must be Jack.",
+                "That has to be Jack.",
+                "That has got to be Jack."
+              ]
+            },
+            {
+              "from": "I'm sure that isn't Jack.",
+              "accept": [
+                "That can't be Jack.",
+                "That couldn't be Jack.",
+                "That mustn't be Jack.",
+                "That won't be Jack."
+              ]
+            },
+            {
+              "from": "I'm sure she's at home.",
+              "accept": [
+                "She must be at home.",
+                "She has to be at home.",
+                "She has got to be at home."
+              ]
+            },
+            {
+              "from": "I'm sure he isn't hungry.",
+              "accept": [
+                "He can't be hungry.",
+                "He couldn't be hungry.",
+                "He mustn't be hungry.",
+                "He won't be hungry."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Gotovo je tako: must**\n- I'm sure that's Jack. → That must be Jack. · I'm sure that isn't Jack. → That can't be Jack.",
+            "de": "**Sicher ja: must**\n- I'm sure that's Jack. → That must be Jack. · I'm sure that isn't Jack. → That can't be Jack.",
+            "it": "**Di sicuro sì: must**\n- I'm sure that's Jack. → That must be Jack. · I'm sure that isn't Jack. → That can't be Jack.",
+            "en": "**Sure it is: must**\n- I'm sure that's Jack. → That must be Jack. · I'm sure that isn't Jack. → That can't be Jack."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Say it with might · Povej z might",
+            "de": "Say it with might · Sag es mit might",
+            "it": "Say it with might · Dillo con might",
+            "en": "Say it with might"
+          },
+          "cue": "might",
+          "items": [
+            {
+              "from": "Perhaps it will rain.",
+              "accept": [
+                "It might rain.",
+                "It may rain.",
+                "It could rain."
+              ]
+            },
+            {
+              "from": "Perhaps she's at the inn.",
+              "accept": [
+                "She might be at the inn.",
+                "She may be at the inn.",
+                "She could be at the inn."
+              ]
+            },
+            {
+              "from": "Perhaps he won't come.",
+              "accept": [
+                "He might not come.",
+                "He may not come."
+              ]
+            },
+            {
+              "from": "Perhaps Jack is working.",
+              "accept": [
+                "Jack might be working.",
+                "Jack may be working.",
+                "Jack could be working."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Morda: might, may, could**\n- Perhaps it will rain. → It might rain.",
+            "de": "**Vielleicht: might, may, could**\n- Perhaps it will rain. → It might rain.",
+            "it": "**Forse: might, may, could**\n- Perhaps it will rain. → It might rain.",
+            "en": "**Perhaps: might, may, could**\n- Perhaps it will rain. → It might rain."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "might-must",
+          "instruction": {
+            "sl": "Put in probably · Dodaj probably",
+            "de": "Put in probably · Setz probably ein",
+            "it": "Put in probably · Metti probably",
+            "en": "Put in probably"
+          },
+          "cue": "probably",
+          "items": [
+            {
+              "from": "Sam will come.",
+              "accept": [
+                "Sam will probably come.",
+                "Sam'll probably come.",
+                "Sam probably will come.",
+                "Probably Sam will come.",
+                "Sam will come, probably."
+              ]
+            },
+            {
+              "from": "It won't snow.",
+              "accept": [
+                "It probably won't snow.",
+                "Probably it won't snow.",
+                "It won't snow, probably.",
+                "It won't probably snow."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**probably: za will, pred won't**\n- He'll probably come. · He probably won't come.",
+            "de": "**probably: nach will, vor won't**\n- He'll probably come. · He probably won't come.",
+            "it": "**probably: dopo will, prima di won't**\n- He'll probably come. · He probably won't come.",
+            "en": "**probably: after will, before won't**\n- He'll probably come. · He probably won't come."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "might-must",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "— Whose coat is this? It ___ be Edna's: it's too big. — It ___ be Jack's. He was here last night. — No, Jack's is green. It ___ be Mr Tyson's, I'm not sure. — His name is in it. So it ___ be his.",
+        "gaps": [
+          {
+            "accept": [
+              "can't",
+              "cannot",
+              "couldn't",
+              "could not",
+              "mustn't",
+              "must not",
+              "won't",
+              "will not"
+            ]
+          },
+          {
+            "accept": [
+              "might",
+              "may",
+              "could",
+              "must",
+              "will",
+              "'ll"
+            ]
+          },
+          {
+            "accept": [
+              "might",
+              "may",
+              "could"
+            ]
+          },
+          {
+            "accept": [
+              "must",
+              "has to",
+              "has got to",
+              "'s got to",
+              "will",
+              "'ll"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "— Čigav je ta plašč? Ne more biti Ednin: prevelik je. — Morda je Jackov. Sinoči je bil tu. — Ne, Jackov je zelen. Morda je od gospoda Tysona, nisem {m:prepričan|f:prepričana}. — Njegovo ime je notri. Torej je gotovo njegov.",
+          "de": "— Wem gehört dieser Mantel? Der kann nicht Ednas sein: Er ist zu groß. — Vielleicht gehört er Jack. Der war gestern Abend hier. — Nein, der von Jack ist grün. Vielleicht gehört er Mr Tyson, ich bin nicht sicher. — Sein Name steht drin. Also muss es seiner sein.",
+          "it": "— Di chi è questo cappotto? Non può essere di Edna: è troppo grande. — Forse è di Jack. Ieri sera era qui. — No, quello di Jack è verde. Forse è di Mr Tyson, non sono sicur{m:o|f:a}. — C'è dentro il suo nome. Quindi dev'essere suo.",
+          "en": "— Whose coat is this? It can't be Edna's: it's too big. — It might be Jack's. He was here last night. — No, Jack's is green. It might be Mr Tyson's, I'm not sure. — His name is in it. So it must be his."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "might-must",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "The light is on in the smithy. Mr Dixon ___ be working.",
+        "options": [
+          "must",
+          "can't",
+          "isn't"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Gotovo je tako: must**\n- Mr Dixon must be working.",
+          "de": "**Sicher ja: must**\n- Mr Dixon must be working.",
+          "it": "**Di sicuro sì: must**\n- Mr Dixon must be working.",
+          "en": "**Sure it is: must**\n- Mr Dixon must be working."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "might-must",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Look at the sky! It ___ snow tonight.",
+        "options": [
+          "might",
+          "can",
+          "has"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Včasih: can; danes, morda: might**\n- It might snow tonight.",
+          "de": "**Manchmal: can; heute, vielleicht: might**\n- It might snow tonight.",
+          "it": "**A volte: can; oggi, forse: might**\n- It might snow tonight.",
+          "en": "**Sometimes: can; today, perhaps: might**\n- It might snow tonight."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "might-must",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Arthur has just had a big dinner. He ___ be hungry.",
+        "options": [
+          "can't",
+          "must",
+          "isn't"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Gotovo ni tako: can't**\n- He can't be hungry.",
+          "de": "**Sicher nein: can't**\n- He can't be hungry.",
+          "it": "**Di sicuro no: can't**\n- He can't be hungry.",
+          "en": "**Sure it isn't: can't**\n- He can't be hungry."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "might-must",
+        "instruction": {
+          "sl": "Say it with must or can't · Povej z must ali can't",
+          "de": "Say it with must or can't · Sag es mit must oder can't",
+          "it": "Say it with must or can't · Dillo con must o can't",
+          "en": "Say it with must or can't"
+        },
+        "items": [
+          {
+            "from": "I'm sure that's Sam's van.",
+            "accept": [
+              "That must be Sam's van.",
+              "That has to be Sam's van.",
+              "That has got to be Sam's van."
+            ]
+          },
+          {
+            "from": "I'm sure she isn't tired.",
+            "accept": [
+              "She can't be tired.",
+              "She couldn't be tired.",
+              "She mustn't be tired.",
+              "She won't be tired."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Gotovo je tako: must**\n- I'm sure that's Sam's van. → That must be Sam's van.",
+          "de": "**Sicher ja: must**\n- I'm sure that's Sam's van. → That must be Sam's van.",
+          "it": "**Di sicuro sì: must**\n- I'm sure that's Sam's van. → That must be Sam's van.",
+          "en": "**Sure it is: must**\n- I'm sure that's Sam's van. → That must be Sam's van."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "might-must",
+        "instruction": {
+          "sl": "Say it with might · Povej z might",
+          "de": "Say it with might · Sag es mit might",
+          "it": "Say it with might · Dillo con might",
+          "en": "Say it with might"
+        },
+        "cue": "might",
+        "items": [
+          {
+            "from": "Perhaps he's in the barn.",
+            "accept": [
+              "He might be in the barn.",
+              "He may be in the barn.",
+              "He could be in the barn."
+            ]
+          },
+          {
+            "from": "Perhaps it won't rain.",
+            "accept": [
+              "It might not rain.",
+              "It may not rain."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Morda ne: might not, may not**\n- Perhaps it won't rain. → It might not rain.",
+          "de": "**Vielleicht nicht: might not, may not**\n- Perhaps it won't rain. → It might not rain.",
+          "it": "**Forse no: might not, may not**\n- Perhaps it won't rain. → It might not rain.",
+          "en": "**Perhaps not: might not, may not**\n- Perhaps it won't rain. → It might not rain."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "might-must",
+        "instruction": {
+          "sl": "Put in probably · Dodaj probably",
+          "de": "Put in probably · Setz probably ein",
+          "it": "Put in probably · Metti probably",
+          "en": "Put in probably"
+        },
+        "cue": "probably",
+        "items": [
+          {
+            "from": "Edna will stay.",
+            "accept": [
+              "Edna will probably stay.",
+              "Edna'll probably stay.",
+              "Edna probably will stay.",
+              "Probably Edna will stay.",
+              "Edna will stay, probably."
+            ]
+          },
+          {
+            "from": "Jack won't stay.",
+            "accept": [
+              "Jack probably won't stay.",
+              "Probably Jack won't stay.",
+              "Jack won't stay, probably.",
+              "Jack won't probably stay."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**probably: za will, pred won't**\n- He'll probably come.",
+          "de": "**probably: nach will, vor won't**\n- He'll probably come.",
+          "it": "**probably: dopo will, prima di won't**\n- He'll probably come.",
+          "en": "**probably: after will, before won't**\n- He'll probably come."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

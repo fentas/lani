@@ -1,0 +1,1198 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "if-i-had",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🚣",
+  "title": {
+    "sl": "Neresnični pogoj: if I had, I'd",
+    "de": "Irreale Bedingung: if I had, I'd",
+    "it": "Il periodo ipotetico: if I had, I'd",
+    "en": "If I had a boat, I'd row across"
+  },
+  "goal": {
+    "sl": "Poveš, kaj bi bilo, če bi bilo drugače (If I had a boat, I'd row across), daš nasvet (If I were you, I'd wait) in to ločiš od If it rains, I'll stay.",
+    "de": "Du sagst, was wäre, wenn es anders wäre (If I had a boat, I'd row across), gibst einen Rat (If I were you, I'd wait) und unterscheidest das von If it rains, I'll stay.",
+    "it": "Dici che cosa succederebbe se le cose fossero diverse (If I had a boat, I'd row across), dai un consiglio (If I were you, I'd wait) e lo distingui da If it rains, I'll stay.",
+    "en": "You can say what would be if things were different (If I had a boat, I'd row across), give advice (If I were you, I'd wait) and tell it from If it rains, I'll stay."
+  },
+  "grammar": [
+    "second-conditional",
+    "first-conditional"
+  ],
+  "words": [
+    "if",
+    "would",
+    "could",
+    "might",
+    "were",
+    "was",
+    "boat",
+    "row",
+    "across",
+    "nearer",
+    "often",
+    "raffle",
+    "win",
+    "sell",
+    "mill",
+    "move",
+    "wait",
+    "younger",
+    "rains",
+    "sense",
+    "save",
+    "laugh",
+    "fell",
+    "snow",
+    "stop",
+    "rain",
+    "tarn",
+    "drive",
+    "van",
+    "sheep",
+    "get up",
+    "bridge",
+    "beck",
+    "cross",
+    "money",
+    "horse",
+    "will",
+    "'d"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "za kaj",
+          "de": "wofür",
+          "it": "per cosa",
+          "en": "what for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kar ni tako ali se skoraj gotovo ne bo zgodilo: **if** + preteklik, v drugem delu **would**. **If I had a boat, I'd row across.** (Če bi {m:imel|f:imela} čoln, bi {m:veslal|f:veslala} čez.) Čolna nimam. **If Jack lived nearer, he'd come more often.** (Če bi Jack živel bliže, bi prihajal pogosteje.) Preteklik tu ne pomeni *prej*, ampak *ni zares*. **'d** je **would**.",
+          "de": "Was nicht so ist oder kaum sein wird: **if** + Vergangenheit, im anderen Teil **would**. **If I had a boat, I'd row across.** (Wenn ich ein Boot hätte, würde ich hinüberrudern.) Ich habe keines. **If Jack lived nearer, he'd come more often.** (Wenn Jack näher wohnte, käme er öfter.) Die Vergangenheit heißt hier nicht *früher*, sondern *nicht wirklich*. **'d** ist **would**.",
+          "it": "Ciò che non è così o quasi certamente non sarà: **if** + il passato, **would** nell'altra parte. **If I had a boat, I'd row across.** (Se avessi una barca, remerei fino all'altra riva.) Non ce l'ho. **If Jack lived nearer, he'd come more often.** (Se Jack abitasse più vicino, verrebbe più spesso.) Il passato qui non vuol dire *prima*, ma *non davvero*. **'d** è **would**.",
+          "en": "What isn't so, or probably won't be: **if** + the past, **would** in the other half. **If I had a boat, I'd row across.** (I haven't got one.) **If Jack lived nearer, he'd come more often.** (He lives far away.) The past here doesn't mean earlier: it means *not really*. **'d** is **would**."
+        },
+        "examples": [
+          {
+            "en": "If I had a boat, I'd row across.",
+            "sl": "Če bi {m:imel|f:imela} čoln, bi {m:veslal|f:veslala} čez.",
+            "de": "Wenn ich ein Boot hätte, würde ich hinüberrudern.",
+            "it": "Se avessi una barca, remerei fino all'altra riva."
+          },
+          {
+            "en": "If Jack lived nearer, he'd come more often.",
+            "sl": "Če bi Jack živel bliže, bi prihajal pogosteje.",
+            "de": "Wenn Jack näher wohnte, käme er öfter.",
+            "it": "Se Jack abitasse più vicino, verrebbe più spesso."
+          },
+          {
+            "en": "If Mr Tyson sold the mill, he'd move to Keswick.",
+            "sl": "Če bi gospod Tyson prodal mlin, bi se preselil v Keswick.",
+            "de": "Wenn Mr Tyson die Mühle verkaufte, würde er nach Keswick ziehen.",
+            "it": "Se Mr Tyson vendesse il mulino, si trasferirebbe a Keswick."
+          }
+        ],
+        "rows": [
+          [
+            "if + past, would",
+            {
+              "sl": "kar ni tako",
+              "de": "was nicht so ist",
+              "it": "ciò che non è così",
+              "en": "what isn't so"
+            },
+            "If I had a boat, I'd row across."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "second-conditional",
+          "prompt": "If I ___ a boat, I'd row across the tarn.",
+          "options": [
+            "had",
+            "would have",
+            "having"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- If I had a boat, I'd row across.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If I had a boat, I'd row across.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- If I had a boat, I'd row across.",
+            "en": "**After if: the past; would in the other half**\n- If I had a boat, I'd row across."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Drugi del ima lahko tudi **could** ali **might**, če je manj gotovo: **If it stopped raining, we could walk to the tarn.** (Če bi nehalo deževati, bi lahko šli do jezerca.) **If Sam sold the van, he might buy a horse.** (Če bi Sam prodal kombi, bi morda kupil konja.) Zanikanje kot običajno: **If I didn't have the sheep, I wouldn't get up at five.** (Če ne bi {m:imel|f:imela} ovc, ne bi {m:vstajal|f:vstajala} ob petih.)",
+          "de": "Der andere Teil kann auch **could** oder **might** haben, wenn es weniger sicher ist: **If it stopped raining, we could walk to the tarn.** (Wenn es aufhörte zu regnen, könnten wir zum Bergsee gehen.) **If Sam sold the van, he might buy a horse.** (Wenn Sam den Lieferwagen verkaufte, würde er vielleicht ein Pferd kaufen.) Verneint wie immer: **If I didn't have the sheep, I wouldn't get up at five.** (Ohne die Schafe würde ich nicht um fünf aufstehen.)",
+          "it": "L'altra parte può avere anche **could** o **might**, se è meno sicuro: **If it stopped raining, we could walk to the tarn.** (Se smettesse di piovere, potremmo andare al laghetto.) **If Sam sold the van, he might buy a horse.** (Se Sam vendesse il furgone, forse comprerebbe un cavallo.) Il negativo come sempre: **If I didn't have the sheep, I wouldn't get up at five.** (Se non avessi le pecore, non mi alzerei alle cinque.)",
+          "en": "The other half can also have **could** or **might**, if it's less sure: **If it stopped raining, we could walk to the tarn.** **If Sam sold the van, he might buy a horse.** With not, as usual: **If I didn't have the sheep, I wouldn't get up at five.**"
+        },
+        "examples": [
+          {
+            "en": "If it stopped raining, we could walk to the tarn.",
+            "sl": "Če bi nehalo deževati, bi lahko šli do jezerca.",
+            "de": "Wenn es aufhörte zu regnen, könnten wir zum Bergsee gehen.",
+            "it": "Se smettesse di piovere, potremmo andare al laghetto."
+          },
+          {
+            "en": "If Sam sold the van, he might buy a horse.",
+            "sl": "Če bi Sam prodal kombi, bi morda kupil konja.",
+            "de": "Wenn Sam den Lieferwagen verkaufte, würde er vielleicht ein Pferd kaufen.",
+            "it": "Se Sam vendesse il furgone, forse comprerebbe un cavallo."
+          },
+          {
+            "en": "If I didn't have the sheep, I wouldn't get up at five.",
+            "sl": "Če ne bi {m:imel|f:imela} ovc, ne bi {m:vstajal|f:vstajala} ob petih.",
+            "de": "Ohne die Schafe würde ich nicht um fünf aufstehen.",
+            "it": "Se non avessi le pecore, non mi alzerei alle cinque."
+          }
+        ],
+        "rows": [
+          [
+            "if + past, could, might",
+            {
+              "sl": "manj gotovo",
+              "de": "weniger sicher",
+              "it": "meno sicuro",
+              "en": "less sure"
+            },
+            "If it stopped raining, we could walk to the tarn."
+          ],
+          [
+            "didn't, wouldn't",
+            {
+              "sl": "ne, kot običajno",
+              "de": "nein, wie immer",
+              "it": "no, come sempre",
+              "en": "no, as usual"
+            },
+            "If I didn't have the sheep, I wouldn't get up at five."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "second-conditional",
+          "text": "If I ___ (not have) the sheep, I wouldn't get up at five.",
+          "accept": [
+            "didn't have",
+            "did not have",
+            "hadn't got",
+            "had not got"
+          ],
+          "hint": "did + not",
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- If I didn't have the sheep, I wouldn't get up at five.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If I didn't have the sheep, I wouldn't get up at five.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- If I didn't have the sheep, I wouldn't get up at five.",
+            "en": "**After if: the past; would in the other half**\n- If I didn't have the sheep, I wouldn't get up at five."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Dela lahko zamenjata mesti, potem brez vejice: **I'd row across if I had a boat.** (Čez bi {m:veslal|f:veslala}, če bi {m:imel|f:imela} čoln.) Pri vprašanju gre **would** pred osebek: **What would you do if you won the raffle?** (Kaj bi {m:naredil|f:naredila}, če bi {m:zadel|f:zadela} na srečelovu?) **Where would you live if you could choose?** (Kje bi {m:živel|f:živela}, če bi lahko {m:izbral|f:izbrala}?)",
+          "de": "Die Teile können tauschen, dann ohne Komma: **I'd row across if I had a boat.** (Ich würde hinüberrudern, wenn ich ein Boot hätte.) Bei der Frage kommt **would** vor das Subjekt: **What would you do if you won the raffle?** (Was würdest du machen, wenn du bei der Tombola gewinnen würdest?) **Where would you live if you could choose?** (Wo würdest du wohnen, wenn du wählen könntest?)",
+          "it": "Le due parti possono scambiarsi, allora senza virgola: **I'd row across if I had a boat.** (Remerei fino all'altra riva, se avessi una barca.) Per chiedere, **would** va prima del soggetto: **What would you do if you won the raffle?** (Che cosa faresti se vincessi alla lotteria?) **Where would you live if you could choose?** (Dove abiteresti se potessi scegliere?)",
+          "en": "The halves can change places, then with no comma: **I'd row across if I had a boat.** To ask, **would** goes before the subject: **What would you do if you won the raffle?** **Where would you live if you could choose?**"
+        },
+        "examples": [
+          {
+            "en": "I'd row across if I had a boat.",
+            "sl": "Čez bi {m:veslal|f:veslala}, če bi {m:imel|f:imela} čoln.",
+            "de": "Ich würde hinüberrudern, wenn ich ein Boot hätte.",
+            "it": "Remerei fino all'altra riva, se avessi una barca."
+          },
+          {
+            "en": "What would you do if you won the raffle?",
+            "sl": "Kaj bi {m:naredil|f:naredila}, če bi {m:zadel|f:zadela} na srečelovu?",
+            "de": "Was würdest du machen, wenn du bei der Tombola gewinnen würdest?",
+            "it": "Che cosa faresti se vincessi alla lotteria?"
+          },
+          {
+            "en": "Where would you live if you could choose?",
+            "sl": "Kje bi {m:živel|f:živela}, če bi lahko {m:izbral|f:izbrala}?",
+            "de": "Wo würdest du wohnen, wenn du wählen könntest?",
+            "it": "Dove abiteresti se potessi scegliere?"
+          }
+        ],
+        "rows": [
+          [
+            "would … if + past",
+            {
+              "sl": "if drugi: brez vejice",
+              "de": "if hinten: kein Komma",
+              "it": "if dopo: senza virgola",
+              "en": "if second: no comma"
+            },
+            "I'd row across if I had a boat."
+          ],
+          [
+            "What would you do if …?",
+            {
+              "sl": "vprašanje",
+              "de": "die Frage",
+              "it": "per chiedere",
+              "en": "to ask"
+            },
+            "What would you do if you won the raffle?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "second-conditional",
+          "prompt": "What ___ you do if you won the raffle?",
+          "options": [
+            "would",
+            "have",
+            "are"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vprašanje v drugem delu: would**\n- What would you do if you won the raffle?",
+            "de": "**Die Frage im anderen Teil: would**\n- What would you do if you won the raffle?",
+            "it": "**La domanda nell'altra parte: would**\n- What would you do if you won the raffle?",
+            "en": "**The question in the other half: would**\n- What would you do if you won the raffle?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri be pisno velja **were** za vse osebe: **If I were you, I'd ask Mrs Birkett.** (Na tvojem mestu bi {m:vprašal|f:vprašala} gospo Birkett.) To je nasvet. **If Meg were younger, she'd run faster.** (Če bi bila Meg mlajša, bi tekla hitreje.) Ljudje rečejo tudi **was**: *If I was you*, *If Meg was younger*. V govoru je to prav, pisno velja **were**.",
+          "de": "Bei be gilt geschrieben **were** für alle Personen: **If I were you, I'd ask Mrs Birkett.** (An deiner Stelle würde ich Mrs Birkett fragen.) Das ist ein Rat. **If Meg were younger, she'd run faster.** (Wenn Meg jünger wäre, würde sie schneller laufen.) Man sagt auch **was**: *If I was you*, *If Meg was younger*. Gesprochen ist das richtig, geschrieben gilt **were**.",
+          "it": "Con be per iscritto vale **were** per tutte le persone: **If I were you, I'd ask Mrs Birkett.** (Se fossi in te, chiederei a Mrs Birkett.) È un consiglio. **If Meg were younger, she'd run faster.** (Se Meg fosse più giovane, correrebbe più forte.) Si dice anche **was**: *If I was you*, *If Meg was younger*. A voce è giusto, per iscritto vale **were**.",
+          "en": "With be, writing wants **were** for every person: **If I were you, I'd ask Mrs Birkett.** That's advice. **If Meg were younger, she'd run faster.** People also say **was**: *If I was you*, *If Meg was younger*. In talk that's right; writing wants **were**."
+        },
+        "examples": [
+          {
+            "en": "If I were you, I'd ask Mrs Birkett.",
+            "sl": "Na tvojem mestu bi {m:vprašal|f:vprašala} gospo Birkett.",
+            "de": "An deiner Stelle würde ich Mrs Birkett fragen.",
+            "it": "Se fossi in te, chiederei a Mrs Birkett."
+          },
+          {
+            "en": "If Meg were younger, she'd run faster.",
+            "sl": "Če bi bila Meg mlajša, bi tekla hitreje.",
+            "de": "Wenn Meg jünger wäre, würde sie schneller laufen.",
+            "it": "Se Meg fosse più giovane, correrebbe più forte."
+          },
+          {
+            "en": "If I were you, I wouldn't drive in the snow.",
+            "sl": "Na tvojem mestu ne bi {m:vozil|f:vozila} po snegu.",
+            "de": "An deiner Stelle würde ich im Schnee nicht fahren.",
+            "it": "Se fossi in te, non guiderei con la neve."
+          }
+        ],
+        "rows": [
+          [
+            "If I were you, I'd …",
+            {
+              "sl": "nasvet",
+              "de": "ein Rat",
+              "it": "un consiglio",
+              "en": "advice"
+            },
+            "If I were you, I'd ask Mrs Birkett."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "second-conditional",
+          "prompt": "If I ___ you, I'd wait for the bus.",
+          "options": [
+            "were",
+            "am",
+            "be"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Nasvet: If I were you, I'd …**\n- If I were you, I'd wait for the bus.",
+            "de": "**Ein Rat: If I were you, I'd …**\n- If I were you, I'd wait for the bus.",
+            "it": "**Un consiglio: If I were you, I'd …**\n- If I were you, I'd wait for the bus.",
+            "en": "**Advice: If I were you, I'd …**\n- If I were you, I'd wait for the bus."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**would** ostane v drugem delu: **If I had time, I'd help.** Slovenščina ima *bi* v obeh delih, angleščina samo v enem: **If I knew the way, I'd tell you.** (Če bi {m:poznal|f:poznala} pot, bi ti {m:povedal|f:povedala}.) Pogosta napaka je *If I would know*: za if stoji preteklik, **If I knew**.",
+          "de": "**would** bleibt im anderen Teil: **If I had time, I'd help.** Deutsch kann *wenn ich wissen würde* sagen, Englisch nicht: **If I knew the way, I'd tell you.** (Wenn ich den Weg wüsste, würde ich ihn dir sagen.) Ein häufiger Fehler ist *If I would know*: Nach if steht die Vergangenheit, **If I knew**.",
+          "it": "**would** resta nell'altra parte: **If I had time, I'd help.** Dopo se l'italiano ha il congiuntivo, l'inglese il semplice passato: **If I knew the way, I'd tell you.** (Se sapessi la strada, te la direi.) Un errore frequente è *If I would know*: dopo if c'è il passato, **If I knew**.",
+          "en": "**would** stays in the other half: **If I had time, I'd help.** **If I knew the way, I'd tell you.** A common slip is *If I would know*: after if comes the past, **If I knew**."
+        },
+        "examples": [
+          {
+            "en": "If I had time, I'd help.",
+            "sl": "Če bi {m:imel|f:imela} čas, bi {m:pomagal|f:pomagala}.",
+            "de": "Wenn ich Zeit hätte, würde ich helfen.",
+            "it": "Se avessi tempo, aiuterei."
+          },
+          {
+            "en": "If I knew the way, I'd tell you.",
+            "sl": "Če bi {m:poznal|f:poznala} pot, bi ti {m:povedal|f:povedala}.",
+            "de": "Wenn ich den Weg wüsste, würde ich ihn dir sagen.",
+            "it": "Se sapessi la strada, te la direi."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "second-conditional",
+          "text": "If I ___ (know) the way, I'd tell you.",
+          "accept": [
+            "knew"
+          ],
+          "hint": {
+            "sl": "za if",
+            "de": "nach if",
+            "it": "dopo if",
+            "en": "after if"
+          },
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- If I knew the way, I'd tell you.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If I knew the way, I'd tell you.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- If I knew the way, I'd tell you.",
+            "en": "**After if: the past; would in the other half**\n- If I knew the way, I'd tell you."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Primerjaj s prvim pogojem: **If I have time, I'll help.** (Morda bom {m:imel|f:imela} čas.) **If I had time, I'd help.** (Časa nimam.) **If it rains, I'll stay.** (Morda bo deževalo.) **If it rained, I'd stay.** (Mislim, da ne bo.) Tisti, ki govori, izbere, kako resnično se mu zdi.",
+          "de": "Vergleiche mit der ersten Bedingung: **If I have time, I'll help.** (Vielleicht habe ich Zeit.) **If I had time, I'd help.** (Ich habe keine.) **If it rains, I'll stay.** (Es kann regnen.) **If it rained, I'd stay.** (Ich glaube nicht, dass es regnet.) Wer spricht, wählt danach, wie wirklich es ihm scheint.",
+          "it": "Confronta con la prima condizione: **If I have time, I'll help.** (Forse avrò tempo.) **If I had time, I'd help.** (Non ne ho.) **If it rains, I'll stay.** (Può piovere.) **If it rained, I'd stay.** (Non credo che pioverà.) Chi parla sceglie da quanto gli sembra reale.",
+          "en": "Set it beside the first conditional: **If I have time, I'll help.** (I may have.) **If I had time, I'd help.** (I haven't.) **If it rains, I'll stay.** (It may well rain.) **If it rained, I'd stay.** (I don't think it will.) You choose by how real it looks to you."
+        },
+        "examples": [
+          {
+            "en": "If I have time, I'll help.",
+            "sl": "Če bom {m:imel|f:imela} čas, bom {m:pomagal|f:pomagala}.",
+            "de": "Wenn ich Zeit habe, helfe ich.",
+            "it": "Se ho tempo, aiuto."
+          },
+          {
+            "en": "If it rained, I'd stay.",
+            "sl": "Če bi deževalo, bi {m:ostal|f:ostala}.",
+            "de": "Wenn es regnete, würde ich bleiben.",
+            "it": "Se piovesse, resterei."
+          }
+        ],
+        "rows": [
+          [
+            "if + present, will",
+            {
+              "sl": "kar se lahko zgodi",
+              "de": "was passieren kann",
+              "it": "ciò che può succedere",
+              "en": "what may happen"
+            },
+            "If I have time, I'll help."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "second-conditional",
+          "prompt": "I may see Jack today. If I ___ him, I'll tell him.",
+          "options": [
+            "see",
+            "sees",
+            "seeing"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Se lahko zgodi: sedanjik, will; ni tako: preteklik, would**\n- If I see him, I'll tell him. · If I saw him, I'd tell him.",
+            "de": "**Kann passieren: Präsens, will; ist nicht so: Vergangenheit, would**\n- If I see him, I'll tell him. · If I saw him, I'd tell him.",
+            "it": "**Può succedere: il presente, will; non è così: il passato, would**\n- If I see him, I'll tell him. · If I saw him, I'd tell him.",
+            "en": "**May happen: the present, will; isn't so: the past, would**\n- If I see him, I'll tell him. · If I saw him, I'd tell him."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "if-i-had-1",
+      "title": {
+        "sl": "Če bi imel čoln",
+        "de": "Wenn ich ein Boot hätte",
+        "it": "Se avessi una barca",
+        "en": "If I had a boat"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "if + preteklik, potem would",
+            "de": "if + Vergangenheit, dann would",
+            "it": "if + il passato, poi would",
+            "en": "if + the past, then would"
+          },
+          "columns": [
+            {
+              "sl": "za if",
+              "de": "nach if",
+              "it": "dopo if",
+              "en": "after if"
+            },
+            {
+              "sl": "drugi del",
+              "de": "der andere Teil",
+              "it": "l'altra parte",
+              "en": "the other half"
+            }
+          ],
+          "rows": [
+            {
+              "label": "If I … (have) a boat, I … (row) across.",
+              "cells": [
+                "had",
+                "would row"
+              ]
+            },
+            {
+              "label": "If Jack … (live) nearer, he … (come) more often.",
+              "cells": [
+                {
+                  "accept": [
+                    "lived"
+                  ]
+                },
+                {
+                  "accept": [
+                    "would come",
+                    "'d come",
+                    "could come",
+                    "might come"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "If it … (stop) raining, we … (can) go out.",
+              "cells": [
+                {
+                  "accept": [
+                    "stopped"
+                  ]
+                },
+                {
+                  "accept": [
+                    "could"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "If I … (not have) sheep, I … (not go) up the fell.",
+              "cells": [
+                {
+                  "accept": [
+                    "didn't have",
+                    "did not have",
+                    "hadn't got",
+                    "had not got"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wouldn't go",
+                    "would not go",
+                    "might not go",
+                    "couldn't go",
+                    "could not go"
+                  ],
+                  "hint": "would + not"
+                }
+              ]
+            },
+            {
+              "label": "If Sam … (sell) the van, he … (buy) a horse.",
+              "cells": [
+                {
+                  "accept": [
+                    "sold"
+                  ]
+                },
+                {
+                  "accept": [
+                    "would buy",
+                    "'d buy",
+                    "might buy",
+                    "could buy"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- If Sam sold the van, he'd buy a horse.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If Sam sold the van, he'd buy a horse.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- If Sam sold the van, he'd buy a horse.",
+            "en": "**After if: the past; would in the other half**\n- If Sam sold the van, he'd buy a horse."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Sort: it may happen, or it isn't so · Razvrsti",
+            "de": "Sort: it may happen, or it isn't so · Ordne zu",
+            "it": "Sort: it may happen, or it isn't so · Ordina",
+            "en": "Sort: it may happen, or it isn't so"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "it may happen · se lahko zgodi",
+                "de": "it may happen · kann passieren",
+                "it": "it may happen · può succedere",
+                "en": "it may happen"
+              },
+              "words": [
+                "If I have time, I'll help.",
+                "If it rains, we'll stay in.",
+                "If Jack comes, we'll have tea."
+              ]
+            },
+            {
+              "label": {
+                "sl": "it isn't so · ni tako",
+                "de": "it isn't so · ist nicht so",
+                "it": "it isn't so · non è così",
+                "en": "it isn't so"
+              },
+              "words": [
+                "If I had time, I'd help.",
+                "If it rained, we'd stay in.",
+                "If Jack came, we'd have tea."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Se lahko zgodi: sedanjik, will; ni tako: preteklik, would**\n- If it rains, we'll stay in. · If it rained, we'd stay in.",
+            "de": "**Kann passieren: Präsens, will; ist nicht so: Vergangenheit, would**\n- If it rains, we'll stay in. · If it rained, we'd stay in.",
+            "it": "**Può succedere: il presente, will; non è così: il passato, would**\n- If it rains, we'll stay in. · If it rained, we'd stay in.",
+            "en": "**May happen: the present, will; isn't so: the past, would**\n- If it rains, we'll stay in. · If it rained, we'd stay in."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "If Mrs Birkett ___ the inn, she'd miss the village.",
+          "options": [
+            "sold",
+            "would sell",
+            "to sell"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- If Mrs Birkett sold the inn, she'd miss the village.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If Mrs Birkett sold the inn, she'd miss the village.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- If Mrs Birkett sold the inn, she'd miss the village.",
+            "en": "**After if: the past; would in the other half**\n- If Mrs Birkett sold the inn, she'd miss the village."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "If I had more money, I ___ buy a new van.",
+          "options": [
+            "would",
+            "am",
+            "did"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- If I had more money, I would buy a new van.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If I had more money, I would buy a new van.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- If I had more money, I would buy a new van.",
+            "en": "**After if: the past; would in the other half**\n- If I had more money, I would buy a new van."
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-i-had-2",
+      "title": {
+        "sl": "Ob ognju",
+        "de": "Am Feuer",
+        "it": "Accanto al fuoco",
+        "en": "By the fire"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "— What ___ (you, do) if you had a lot of money, Wilf? — If I had a lot of money, I ___ (buy) the Packhorse Inn. — And if Mrs Birkett ___ (not want) to sell it? — I ___ (give) her more! If I ___ (be) you, Sam, I ___ (not laugh). If you ___ (have) any sense, you'd save your money too.",
+          "gaps": [
+            {
+              "accept": [
+                "would you do"
+              ],
+              "hint": {
+                "sl": "vprašanje: would",
+                "de": "die Frage: would",
+                "it": "la domanda: would",
+                "en": "the question: would"
+              }
+            },
+            {
+              "accept": [
+                "would buy",
+                "'d buy",
+                "could buy",
+                "might buy"
+              ],
+              "hint": {
+                "sl": "drugi del",
+                "de": "der andere Teil",
+                "it": "l'altra parte",
+                "en": "the other half"
+              }
+            },
+            {
+              "accept": [
+                "didn't want",
+                "did not want"
+              ],
+              "hint": {
+                "sl": "za if",
+                "de": "nach if",
+                "it": "dopo if",
+                "en": "after if"
+              }
+            },
+            {
+              "accept": [
+                "would give",
+                "'d give",
+                "could give",
+                "might give"
+              ],
+              "hint": {
+                "sl": "drugi del",
+                "de": "der andere Teil",
+                "it": "l'altra parte",
+                "en": "the other half"
+              }
+            },
+            {
+              "accept": [
+                "were"
+              ],
+              "spoken": [
+                "was"
+              ],
+              "hint": {
+                "sl": "nasvet",
+                "de": "ein Rat",
+                "it": "un consiglio",
+                "en": "advice"
+              }
+            },
+            {
+              "accept": [
+                "wouldn't laugh",
+                "would not laugh"
+              ],
+              "hint": {
+                "sl": "drugi del",
+                "de": "der andere Teil",
+                "it": "l'altra parte",
+                "en": "the other half"
+              }
+            },
+            {
+              "accept": [
+                "had"
+              ],
+              "hint": {
+                "sl": "za if",
+                "de": "nach if",
+                "it": "dopo if",
+                "en": "after if"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "will buy",
+            "has"
+          ],
+          "translation": {
+            "sl": "— Kaj bi {m:naredil|f:naredila}, če bi {m:imel|f:imela} veliko denarja, Wilf? — Če bi imel veliko denarja, bi kupil gostilno Packhorse. — In če je gospa Birkett ne bi hotela prodati? — Dal bi ji več! Na tvojem mestu se ne bi smejal, Sam. Če bi imel kaj pameti, bi tudi ti varčeval.",
+            "de": "— Was würdest du machen, wenn du viel Geld hättest, Wilf? — Wenn ich viel Geld hätte, würde ich das Packhorse Inn kaufen. — Und wenn Mrs Birkett es nicht verkaufen wollte? — Ich würde ihr mehr geben! An deiner Stelle würde ich nicht lachen, Sam. Wenn du Verstand hättest, würdest du dein Geld auch sparen.",
+            "it": "— Che cosa faresti se avessi molti soldi, Wilf? — Se avessi molti soldi, comprerei il Packhorse Inn. — E se Mrs Birkett non volesse venderlo? — Le darei di più! Se fossi in te, Sam, non riderei. Se avessi un po' di buon senso, risparmieresti anche tu.",
+            "en": "— What would you do if you had a lot of money, Wilf? — If I had a lot of money, I would buy the Packhorse Inn. — And if Mrs Birkett didn't want to sell it? — I would give her more! If I were you, Sam, I wouldn't laugh. If you had any sense, you'd save your money too."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "There's no bridge here. If there ___ a bridge, we could cross the beck.",
+          "options": [
+            "were",
+            "has",
+            "be"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- If there were a bridge, we could cross the beck.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If there were a bridge, we could cross the beck.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- If there were a bridge, we could cross the beck.",
+            "en": "**After if: the past; would in the other half**\n- If there were a bridge, we could cross the beck."
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-i-had-3",
+      "title": {
+        "sl": "Povej drugače",
+        "de": "Sag es anders",
+        "it": "Dillo in un altro modo",
+        "en": "Say it another way"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Say it with if · Povej z if",
+            "de": "Say it with if · Sag es mit if",
+            "it": "Say it with if · Dillo con if",
+            "en": "Say it with if"
+          },
+          "cue": "if",
+          "items": [
+            {
+              "from": "I haven't got a boat, so I can't row across.",
+              "accept": [
+                "If I had a boat, I could row across.",
+                "I could row across if I had a boat.",
+                "If I had a boat, I would row across.",
+                "I would row across if I had a boat.",
+                "If I had a boat, I would be able to row across.",
+                "I would be able to row across if I had a boat."
+              ]
+            },
+            {
+              "from": "Jack lives far away, so he doesn't come often.",
+              "accept": [
+                "If Jack lived nearer, he would come more often.",
+                "Jack would come more often if he lived nearer.",
+                "If Jack didn't live far away, he would come often.",
+                "If Jack didn't live far away, he would come more often.",
+                "Jack would come often if he didn't live far away.",
+                "Jack would come more often if he didn't live far away.",
+                "If Jack lived closer, he would come more often.",
+                "Jack would come more often if he lived closer.",
+                "If Jack didn't live so far away, he would come more often.",
+                "Jack would come more often if he didn't live so far away."
+              ]
+            },
+            {
+              "from": "It's raining, so we can't go out.",
+              "accept": [
+                "If it weren't raining, we could go out.",
+                "We could go out if it weren't raining.",
+                "If it stopped raining, we could go out.",
+                "We could go out if it stopped raining.",
+                "If it weren't raining, we would go out.",
+                "We would go out if it weren't raining.",
+                "If it stopped raining, we would go out.",
+                "We would go out if it stopped raining."
+              ],
+              "spoken": [
+                "If it wasn't raining, we could go out.",
+                "We could go out if it wasn't raining.",
+                "If it wasn't raining, we would go out.",
+                "We would go out if it wasn't raining."
+              ],
+              "hint": {
+                "sl": "za if: it weren't",
+                "de": "nach if: it weren't",
+                "it": "dopo if: it weren't",
+                "en": "after if: it weren't"
+              }
+            },
+            {
+              "from": "Sam hasn't got any money, so he won't buy the van.",
+              "accept": [
+                "If Sam had some money, he would buy the van.",
+                "If Sam had any money, he would buy the van.",
+                "If Sam had money, he would buy the van.",
+                "Sam would buy the van if he had some money.",
+                "Sam would buy the van if he had any money.",
+                "Sam would buy the van if he had money.",
+                "If Sam had the money, he would buy the van.",
+                "Sam would buy the van if he had the money.",
+                "If Sam had enough money, he would buy the van.",
+                "Sam would buy the van if he had enough money.",
+                "If Sam had the money, he could buy the van.",
+                "Sam could buy the van if he had the money.",
+                "If Sam had some money, he could buy the van.",
+                "Sam could buy the van if he had some money.",
+                "If Sam had money, he could buy the van.",
+                "Sam could buy the van if he had money."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Za if: preteklik; would v drugem delu**\n- I haven't got a boat. → If I had a boat, I could row across.",
+            "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- I haven't got a boat. → If I had a boat, I could row across.",
+            "it": "**Dopo if: il passato; would nell'altra parte**\n- I haven't got a boat. → If I had a boat, I could row across.",
+            "en": "**After if: the past; would in the other half**\n- I haven't got a boat. → If I had a boat, I could row across."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Give advice: If I were you · Daj nasvet: If I were you",
+            "de": "Give advice: If I were you · Gib einen Rat: If I were you",
+            "it": "Give advice: If I were you · Dai un consiglio: If I were you",
+            "en": "Give advice: If I were you"
+          },
+          "items": [
+            {
+              "from": "Wait for the bus.",
+              "accept": [
+                "If I were you, I'd wait for the bus.",
+                "I'd wait for the bus if I were you."
+              ],
+              "spoken": [
+                "If I was you, I'd wait for the bus.",
+                "I'd wait for the bus if I was you."
+              ]
+            },
+            {
+              "from": "Don't drive in the snow.",
+              "accept": [
+                "If I were you, I wouldn't drive in the snow.",
+                "I wouldn't drive in the snow if I were you."
+              ],
+              "spoken": [
+                "If I was you, I wouldn't drive in the snow.",
+                "I wouldn't drive in the snow if I was you."
+              ]
+            },
+            {
+              "from": "Ask Mrs Birkett.",
+              "accept": [
+                "If I were you, I'd ask Mrs Birkett.",
+                "I'd ask Mrs Birkett if I were you."
+              ],
+              "spoken": [
+                "If I was you, I'd ask Mrs Birkett.",
+                "I'd ask Mrs Birkett if I was you."
+              ]
+            },
+            {
+              "from": "Don't sell the mill.",
+              "accept": [
+                "If I were you, I wouldn't sell the mill.",
+                "I wouldn't sell the mill if I were you."
+              ],
+              "spoken": [
+                "If I was you, I wouldn't sell the mill.",
+                "I wouldn't sell the mill if I was you."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Nasvet: If I were you, I'd …**\n- Wait for the bus. → If I were you, I'd wait for the bus.",
+            "de": "**Ein Rat: If I were you, I'd …**\n- Wait for the bus. → If I were you, I'd wait for the bus.",
+            "it": "**Un consiglio: If I were you, I'd …**\n- Wait for the bus. → If I were you, I'd wait for the bus.",
+            "en": "**Advice: If I were you, I'd …**\n- Wait for the bus. → If I were you, I'd wait for the bus."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "If I ___ (win) the raffle, I'd buy a new coat. — What ___ (you, buy) if you won, Edna? — I ___ (not buy) anything. I'd save it. — If I ___ (be) you, I'd have some fun.",
+        "gaps": [
+          {
+            "accept": [
+              "won"
+            ]
+          },
+          {
+            "accept": [
+              "would you buy"
+            ]
+          },
+          {
+            "accept": [
+              "wouldn't buy",
+              "would not buy"
+            ]
+          },
+          {
+            "accept": [
+              "were"
+            ],
+            "spoken": [
+              "was"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Če bi {m:zadel|f:zadela} na srečelovu, bi {m:kupil|f:kupila} nov plašč. — Kaj bi kupila, če bi zadela, Edna? — Ne bi kupila ničesar. Prihranila bi. — Na tvojem mestu bi se malo {m:zabaval|f:zabavala}.",
+          "de": "Wenn ich bei der Tombola gewinnen würde, würde ich einen neuen Mantel kaufen. — Was würdest du kaufen, wenn du gewinnen würdest, Edna? — Ich würde nichts kaufen. Ich würde es sparen. — An deiner Stelle würde ich mir eine Freude machen.",
+          "it": "Se vincessi alla lotteria, comprerei un cappotto nuovo. — Che cosa compreresti se vincessi, Edna? — Non comprerei niente. Lo metterei da parte. — Se fossi in te, mi divertirei un po'.",
+          "en": "If I won the raffle, I'd buy a new coat. — What would you buy if you won, Edna? — I wouldn't buy anything. I'd save it. — If I were you, I'd have some fun."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "If Arthur ___ more bees, he'd sell more honey.",
+        "options": [
+          "had",
+          "would have",
+          "having"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Za if: preteklik; would v drugem delu**\n- If Arthur had more bees, he'd sell more honey.",
+          "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- If Arthur had more bees, he'd sell more honey.",
+          "it": "**Dopo if: il passato; would nell'altra parte**\n- If Arthur had more bees, he'd sell more honey.",
+          "en": "**After if: the past; would in the other half**\n- If Arthur had more bees, he'd sell more honey."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I haven't got a car. If I had one, I ___ drive you to Keswick.",
+        "options": [
+          "could",
+          "can",
+          "am"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Drugi del: would, could, might**\n- If I had one, I could drive you to Keswick.",
+          "de": "**Der andere Teil: would, could, might**\n- If I had one, I could drive you to Keswick.",
+          "it": "**L'altra parte: would, could, might**\n- If I had one, I could drive you to Keswick.",
+          "en": "**The other half: would, could, might**\n- If I had one, I could drive you to Keswick."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "It may rain today. If it rains, we ___ stay at the inn.",
+        "options": [
+          "will",
+          "did",
+          "were"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Se lahko zgodi: sedanjik, will; ni tako: preteklik, would**\n- If it rains, we will stay at the inn.",
+          "de": "**Kann passieren: Präsens, will; ist nicht so: Vergangenheit, would**\n- If it rains, we will stay at the inn.",
+          "it": "**Può succedere: il presente, will; non è così: il passato, would**\n- If it rains, we will stay at the inn.",
+          "en": "**May happen: the present, will; isn't so: the past, would**\n- If it rains, we will stay at the inn."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Say it with if · Povej z if",
+          "de": "Say it with if · Sag es mit if",
+          "it": "Say it with if · Dillo con if",
+          "en": "Say it with if"
+        },
+        "cue": "if",
+        "items": [
+          {
+            "from": "I don't know the way, so I can't tell you.",
+            "accept": [
+              "If I knew the way, I could tell you.",
+              "I could tell you if I knew the way.",
+              "If I knew the way, I would tell you.",
+              "I would tell you if I knew the way.",
+              "If I knew the way, I would be able to tell you.",
+              "I would be able to tell you if I knew the way."
+            ]
+          },
+          {
+            "from": "Meg is old, so she doesn't run fast.",
+            "accept": [
+              "If Meg were younger, she would run faster.",
+              "Meg would run faster if she were younger.",
+              "If Meg weren't old, she would run fast.",
+              "If Meg weren't old, she would run faster.",
+              "If Meg were young, she would run fast.",
+              "Meg would run fast if she were young.",
+              "Meg would run fast if she weren't old.",
+              "Meg would run faster if she weren't old.",
+              "If Meg weren't so old, she would run faster.",
+              "Meg would run faster if she weren't so old."
+            ],
+            "spoken": [
+              "If Meg was younger, she would run faster.",
+              "Meg would run faster if she was younger.",
+              "If Meg wasn't old, she would run fast.",
+              "If Meg wasn't old, she would run faster.",
+              "If Meg was young, she would run fast.",
+              "Meg would run fast if she was young.",
+              "Meg would run fast if she wasn't old.",
+              "Meg would run faster if she wasn't old."
+            ]
+          },
+          {
+            "from": "We haven't got a map, so we can't walk to the tarn.",
+            "accept": [
+              "If we had a map, we could walk to the tarn.",
+              "We could walk to the tarn if we had a map.",
+              "If we had a map, we would walk to the tarn.",
+              "We would walk to the tarn if we had a map.",
+              "If we had a map, we would be able to walk to the tarn.",
+              "We would be able to walk to the tarn if we had a map."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Za if: preteklik; would v drugem delu**\n- I don't know the way. → If I knew the way, I could tell you.",
+          "de": "**Nach if: Vergangenheit; would im anderen Teil**\n- I don't know the way. → If I knew the way, I could tell you.",
+          "it": "**Dopo if: il passato; would nell'altra parte**\n- I don't know the way. → If I knew the way, I could tell you.",
+          "en": "**After if: the past; would in the other half**\n- I don't know the way. → If I knew the way, I could tell you."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Give advice: If I were you · Daj nasvet: If I were you",
+          "de": "Give advice: If I were you · Gib einen Rat: If I were you",
+          "it": "Give advice: If I were you · Dai un consiglio: If I were you",
+          "en": "Give advice: If I were you"
+        },
+        "items": [
+          {
+            "from": "Take a coat.",
+            "accept": [
+              "If I were you, I'd take a coat.",
+              "I'd take a coat if I were you."
+            ],
+            "spoken": [
+              "If I was you, I'd take a coat.",
+              "I'd take a coat if I was you."
+            ]
+          },
+          {
+            "from": "Don't go up the fell alone.",
+            "accept": [
+              "If I were you, I wouldn't go up the fell alone.",
+              "I wouldn't go up the fell alone if I were you."
+            ],
+            "spoken": [
+              "If I was you, I wouldn't go up the fell alone.",
+              "I wouldn't go up the fell alone if I was you."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Nasvet: If I were you, I'd …**\n- Take a coat. → If I were you, I'd take a coat.",
+          "de": "**Ein Rat: If I were you, I'd …**\n- Take a coat. → If I were you, I'd take a coat.",
+          "it": "**Un consiglio: If I were you, I'd …**\n- Take a coat. → If I were you, I'd take a coat.",
+          "en": "**Advice: If I were you, I'd …**\n- Take a coat. → If I were you, I'd take a coat."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

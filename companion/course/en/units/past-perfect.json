@@ -1,0 +1,691 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "past-perfect",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🚌",
+  "title": {
+    "sl": "Predpreteklik: had gone",
+    "de": "Die Vorvergangenheit: had gone",
+    "it": "Il trapassato: had gone",
+    "en": "The bus had already gone"
+  },
+  "goal": {
+    "sl": "Poveš, kaj je bilo pred nečim v preteklosti (When we got there, the bus had gone), rabiš 'd, hadn't in by the time in veš, kdaj ostane past simple.",
+    "de": "Du sagst, was vor etwas in der Vergangenheit war (When we got there, the bus had gone), nimmst 'd, hadn't und by the time und weißt, wann das past simple bleibt.",
+    "it": "Dici ciò che è venuto prima di qualcosa nel passato (When we got there, the bus had gone), usi 'd, hadn't e by the time e sai quando resta il past simple.",
+    "en": "You can say what came before something in the past (When we got there, the bus had gone), use 'd, hadn't and by the time, and know when the past simple stays."
+  },
+  "grammar": ["past-perfect", "past-simple"],
+  "words": [
+    "had",
+    "hadn't",
+    "'d",
+    "by the time",
+    "already",
+    "just",
+    "never",
+    "before",
+    "after",
+    "because",
+    "gone",
+    "left",
+    "eaten",
+    "taken",
+    "seen",
+    "fed",
+    "fed the dogs",
+    "forgotten",
+    "close",
+    "run",
+    "been",
+    "got up",
+    "got home",
+    "got to",
+    "stop",
+    "bus",
+    "hen",
+    "sheep",
+    "hammer",
+    "smithy",
+    "lock",
+    "key",
+    "coat",
+    "kitchen",
+    "hungry",
+    "angry",
+    "sea",
+    "boat",
+    "raven",
+    "I'd like"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**The bus had gone**: **had** + deležnik, kadar že govoriš o preteklosti in je nekaj bilo še prej. **When we got to the stop, the bus had already gone.** (Ko smo prišli na postajo, je avtobus že odpeljal.) Najprej avtobus, potem mi. Za vse osebe je enako had. Slovenščina reče tu preteklik in *že*.",
+          "de": "**The bus had gone**: **had** + Partizip, wenn du schon von der Vergangenheit sprichst und etwas noch davor war. **When we got to the stop, the bus had already gone.** (Als wir zur Haltestelle kamen, war der Bus schon weg.) Zuerst der Bus, dann wir. Für alle Personen had, auch wo Deutsch *war gegangen* sagt.",
+          "it": "**The bus had gone**: **had** + il participio, quando parli già del passato e qualcosa è venuto ancora prima. **When we got to the stop, the bus had already gone.** (Quando siamo arrivati alla fermata, l'autobus era già partito.) Prima l'autobus, poi noi. Per tutte le persone had, anche dove l'italiano dice *era partito*.",
+          "en": "**The bus had gone**: **had** + the participle, when you are already talking about the past and something came earlier still. **When we got to the stop, the bus had already gone.** First the bus, then us. The same had for every person."
+        },
+        "examples": [
+          {
+            "en": "When we got to the stop, the bus had already gone.",
+            "sl": "Ko smo prišli na postajo, je avtobus že odpeljal.",
+            "de": "Als wir zur Haltestelle kamen, war der Bus schon weg.",
+            "it": "Quando siamo arrivati alla fermata, l'autobus era già partito."
+          },
+          {
+            "en": "Jack came at ten. We had eaten.",
+            "sl": "Jack je prišel ob desetih. Mi smo že jedli.",
+            "de": "Jack kam um zehn. Wir hatten schon gegessen.",
+            "it": "Jack è arrivato alle dieci. Avevamo già mangiato."
+          },
+          {
+            "en": "Mrs Birkett had closed the inn.",
+            "sl": "Gospa Birkett je že zaprla gostilno.",
+            "de": "Mrs Birkett hatte das Gasthaus schon zugesperrt.",
+            "it": "Mrs Birkett aveva già chiuso la locanda."
+          }
+        ],
+        "rows": [
+          [
+            "had + participle",
+            { "sl": "kar je bilo prej", "de": "was vorher war", "it": "ciò che è venuto prima", "en": "what came first" },
+            "The bus had already gone."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-perfect",
+          "prompt": "When Jack came, we ___ already eaten.",
+          "options": ["had", "have", "were"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kar je bilo prej: had + deležnik**\n- When we got there, the bus had gone.",
+            "de": "**Was vorher war: had + Partizip**\n- When we got there, the bus had gone.",
+            "it": "**Ciò che è venuto prima: had + il participio**\n- When we got there, the bus had gone.",
+            "en": "**What came first: had + the participle**\n- When we got there, the bus had gone."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**'d** je kratko za had: **She'd gone.** (Odšla je že.) Zanikano **hadn't**: **We hadn't eaten.** (Še nismo jedli.) Vprašanje: **Had you seen it before?** Pred deležnikom je 'd had, pred osnovno obliko would: **I'd like**. V pisanju je deležnik, **I'd gone**, čeprav nekateri rečejo *I'd went*.",
+          "de": "**'d** ist kurz für had: **She'd gone.** (Sie war schon gegangen.) Verneint **hadn't**: **We hadn't eaten.** (Wir hatten nichts gegessen.) Frage: **Had you seen it before?** Vor dem Partizip ist 'd had, vor der Grundform would: **I'd like**. Geschrieben steht das Partizip, **I'd gone**, auch wenn manche *I'd went* sagen.",
+          "it": "**'d** è la forma breve di had: **She'd gone.** (Se n'era andata.) Negativo **hadn't**: **We hadn't eaten.** (Non avevamo mangiato.) Domanda: **Had you seen it before?** Prima del participio 'd è had, prima della forma base would: **I'd like**. Per iscritto si usa il participio, **I'd gone**, anche se qualcuno dice *I'd went*.",
+          "en": "**'d** is short for had: **She'd gone.** No: **hadn't**: **We hadn't eaten.** To ask: **Had you seen it before?** Before a participle 'd is had, before a base form would: **I'd like**. Writing wants the participle, **I'd gone**, though some people say *I'd went*."
+        },
+        "examples": [
+          { "en": "She'd gone.", "sl": "Odšla je že.", "de": "Sie war schon gegangen.", "it": "Se n'era andata." },
+          { "en": "We hadn't eaten.", "sl": "Še nismo jedli.", "de": "Wir hatten nichts gegessen.", "it": "Non avevamo mangiato." },
+          {
+            "en": "Had you seen it before?",
+            "sl": "Si ga že kdaj videl{m:|f:a}?",
+            "de": "Hattest du es schon einmal gesehen?",
+            "it": "L'avevi già visto?"
+          },
+          {
+            "en": "I'd gone home. I'd like a cup of tea.",
+            "sl": "{m:Šel|f:Šla} sem domov. Rad{m:|f:a} bi skodelico čaja.",
+            "de": "Ich war heimgegangen. Ich hätte gern eine Tasse Tee.",
+            "it": "Ero andat{m:o|f:a} a casa. Vorrei una tazza di tè."
+          }
+        ],
+        "rows": [
+          ["'d", { "sl": "kratko za had", "de": "kurz für had", "it": "breve per had", "en": "short for had" }, "She'd gone."],
+          [
+            "hadn't, Had you …?",
+            { "sl": "zanikano, vprašanje", "de": "verneint, die Frage", "it": "negativo, la domanda", "en": "no, the question" },
+            "We hadn't eaten."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-perfect",
+          "text": "Sam was hungry. He ___ eaten all day.",
+          "accept": ["hadn't", "had not"],
+          "hint": "had + not",
+          "explain": {
+            "sl": "**Zanikano: hadn't + deležnik**\n- We hadn't eaten.",
+            "de": "**Verneint: hadn't + Partizip**\n- We hadn't eaten.",
+            "it": "**Negativo: hadn't + il participio**\n- We hadn't eaten.",
+            "en": "**No: hadn't + the participle**\n- We hadn't eaten."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**By the time we got there, the bus had gone.** **by the time** + past simple, v drugem delu had: ko smo prišli, je bilo že. (Ko smo prišli, je avtobus že odpeljal.) Pogosto so zraven **already**, **just** in **never … before**: **I'd never seen the sea before.** (Morja še nikoli nisem videl{m:|f:a}.)",
+          "de": "**By the time we got there, the bus had gone.** **by the time** + past simple, im anderen Teil had: Als wir kamen, war es schon so. (Als wir ankamen, war der Bus schon weg.) Oft dabei: **already**, **just** und **never … before**: **I'd never seen the sea before.** (Ich hatte das Meer noch nie gesehen.)",
+          "it": "**By the time we got there, the bus had gone.** **by the time** + past simple, nell'altra parte had: quando siamo arrivati, era già così. (Quando siamo arrivati, l'autobus era già partito.) Spesso con **already**, **just** e **never … before**: **I'd never seen the sea before.** (Non avevo mai visto il mare.)",
+          "en": "**By the time we got there, the bus had gone.** **by the time** + the past simple, had in the other half: when we came, it was already so. Often with **already**, **just** and **never … before**: **I'd never seen the sea before.**"
+        },
+        "examples": [
+          {
+            "en": "By the time we got there, the bus had gone.",
+            "sl": "Ko smo prišli, je avtobus že odpeljal.",
+            "de": "Als wir ankamen, war der Bus schon weg.",
+            "it": "Quando siamo arrivati, l'autobus era già partito."
+          },
+          {
+            "en": "The bus had just left.",
+            "sl": "Avtobus je ravno odpeljal.",
+            "de": "Der Bus war gerade abgefahren.",
+            "it": "L'autobus era appena partito."
+          },
+          {
+            "en": "I'd never seen the sea before.",
+            "sl": "Morja še nikoli nisem videl{m:|f:a}.",
+            "de": "Ich hatte das Meer noch nie gesehen.",
+            "it": "Non avevo mai visto il mare."
+          }
+        ],
+        "rows": [
+          [
+            "by the time + past simple, had",
+            { "sl": "ko je bilo že", "de": "als es schon war", "it": "quando ormai", "en": "when it was already so" },
+            "By the time we got there, the bus had gone."
+          ],
+          [
+            "had never … before",
+            { "sl": "še nikoli prej", "de": "noch nie davor", "it": "mai prima", "en": "never until then" },
+            "I'd never seen the sea before."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-perfect",
+          "prompt": "By the time Mrs Birkett came down, the fire ___ out.",
+          "options": ["had gone", "has gone", "goes"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kar je bilo prej: had + deležnik**\n- When we got there, the bus had gone.",
+            "de": "**Was vorher war: had + Partizip**\n- When we got there, the bus had gone.",
+            "it": "**Ciò che è venuto prima: had + il participio**\n- When we got there, the bus had gone.",
+            "en": "**What came first: had + the participle**\n- When we got there, the bus had gone."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**When I got home, Sam left**: Sam je šel potem. **When I got home, Sam had left**: Sam je šel prej, nisem ga več {m:videl|f:videla}. Kar poveš po vrsti, ostane v past simple: **I got up, fed the dogs and left.** (Vstal{m:|f:a} sem, nahranil{m:|f:a} pse in {m:šel|f:šla}.) had je le za tisto, kar je zunaj vrste.",
+          "de": "**When I got home, Sam left**: Sam ging danach. **When I got home, Sam had left**: Sam ging davor, ich habe ihn nicht mehr gesehen. Was der Reihe nach kommt, bleibt im past simple: **I got up, fed the dogs and left.** (Ich stand auf, fütterte die Hunde und ging.) had nur für das, was aus der Reihe fällt.",
+          "it": "**When I got home, Sam left**: Sam è andato via dopo. **When I got home, Sam had left**: Sam è andato via prima, non l'ho più visto. Ciò che racconti in ordine resta al past simple: **I got up, fed the dogs and left.** (Mi sono alzat{m:o|f:a}, ho dato da mangiare ai cani e sono uscit{m:o|f:a}.) had solo per ciò che esce dall'ordine.",
+          "en": "**When I got home, Sam left**: Sam went afterwards. **When I got home, Sam had left**: Sam went earlier, and I didn't see him. What you tell in order stays in the past simple: **I got up, fed the dogs and left.** had only for what falls out of the order."
+        },
+        "examples": [
+          {
+            "en": "When I got home, Sam left.",
+            "sl": "Ko sem {m:prišel|f:prišla} domov, je Sam odšel.",
+            "de": "Als ich heimkam, ging Sam.",
+            "it": "Quando sono arrivat{m:o|f:a} a casa, Sam è andato via."
+          },
+          {
+            "en": "When I got home, Sam had left.",
+            "sl": "Ko sem {m:prišel|f:prišla} domov, je Sam že odšel.",
+            "de": "Als ich heimkam, war Sam schon weg.",
+            "it": "Quando sono arrivat{m:o|f:a} a casa, Sam se n'era andato."
+          },
+          {
+            "en": "I got up, fed the dogs and left.",
+            "sl": "Vstal{m:|f:a} sem, nahranil{m:|f:a} pse in {m:šel|f:šla}.",
+            "de": "Ich stand auf, fütterte die Hunde und ging.",
+            "it": "Mi sono alzat{m:o|f:a}, ho dato da mangiare ai cani e sono uscit{m:o|f:a}."
+          }
+        ],
+        "rows": [
+          [
+            "when + past simple, past simple",
+            { "sl": "potem, po vrsti", "de": "danach, der Reihe nach", "it": "dopo, in ordine", "en": "afterwards, in order" },
+            "When I got home, Sam left."
+          ],
+          ["when + past simple, had", { "sl": "prej", "de": "davor", "it": "prima", "en": "earlier" }, "When I got home, Sam had left."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-perfect",
+          "prompt": "I didn't see Sam. When I got home, he ___.",
+          "options": ["had left", "leaves", "is leaving"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Dve stvari: had za tisto, kar je bilo prej**\n- When I got home, Sam had left.",
+            "de": "**Zwei Dinge: had für das, was vorher war**\n- When I got home, Sam had left.",
+            "it": "**Due cose: had per ciò che è venuto prima**\n- When I got home, Sam had left.",
+            "en": "**Two things: had for what came first**\n- When I got home, Sam had left."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**After she had fed the hens, she went in**: z **after** in **before** je vrstni red že povedan, zato je prav tudi **After she fed the hens, she went in.** Pri **because** pa je vzrok pogosto prej: **He was tired because he hadn't slept.** (Bil je utrujen, ker ni spal.)",
+          "de": "**After she had fed the hens, she went in**: Mit **after** und **before** ist die Reihenfolge schon gesagt, also stimmt auch **After she fed the hens, she went in.** Bei **because** liegt der Grund oft davor: **He was tired because he hadn't slept.** (Er war müde, weil er nicht geschlafen hatte.)",
+          "it": "**After she had fed the hens, she went in**: con **after** e **before** l'ordine è già detto, quindi va bene anche **After she fed the hens, she went in.** Con **because** la causa spesso viene prima: **He was tired because he hadn't slept.** (Era stanco perché non aveva dormito.)",
+          "en": "**After she had fed the hens, she went in**: with **after** and **before** the order is already said, so **After she fed the hens, she went in** is right too. With **because** the reason often came first: **He was tired because he hadn't slept.**"
+        },
+        "examples": [
+          {
+            "en": "After she had fed the hens, she went in.",
+            "sl": "Ko je nahranila kokoši, je šla noter.",
+            "de": "Nachdem sie die Hühner gefüttert hatte, ging sie hinein.",
+            "it": "Dopo aver dato da mangiare alle galline, è entrata."
+          },
+          {
+            "en": "After she fed the hens, she went in.",
+            "sl": "Ko je nahranila kokoši, je šla noter.",
+            "de": "Nachdem sie die Hühner gefüttert hatte, ging sie hinein.",
+            "it": "Dopo aver dato da mangiare alle galline, è entrata."
+          },
+          {
+            "en": "He was tired because he hadn't slept.",
+            "sl": "Bil je utrujen, ker ni spal.",
+            "de": "Er war müde, weil er nicht geschlafen hatte.",
+            "it": "Era stanco perché non aveva dormito."
+          }
+        ],
+        "rows": [
+          [
+            "after, before",
+            { "sl": "vrstni red je povedan", "de": "die Reihenfolge ist gesagt", "it": "l'ordine è detto", "en": "the order is said" },
+            "After she fed the hens, she went in."
+          ],
+          [
+            "because + had",
+            { "sl": "vzrok je bil prej", "de": "der Grund war davor", "it": "la causa è venuta prima", "en": "the reason came first" },
+            "He was tired because he hadn't slept."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-perfect",
+          "prompt": "Meg was hungry because nobody ___ her.",
+          "options": ["had fed", "has fed", "feeds"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vzrok je bil prej: had**\n- He was tired because he hadn't slept.",
+            "de": "**Der Grund war davor: had**\n- He was tired because he hadn't slept.",
+            "it": "**La causa è venuta prima: had**\n- He was tired because he hadn't slept.",
+            "en": "**The reason came first: had**\n- He was tired because he hadn't slept."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "past-perfect-1",
+      "title": { "sl": "Kaj je bilo prej?", "de": "Was war zuerst?", "it": "Che cosa è venuto prima?", "en": "What came first?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "past-perfect",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "glagoli · preteklik in had + deležnik",
+            "de": "Verben · Vergangenheit und had + Partizip",
+            "it": "verbi · passato e had + participio",
+            "en": "verbs: the past and had + the participle"
+          },
+          "columns": [
+            { "sl": "past simple · preteklik", "de": "past simple · Vergangenheit", "it": "past simple · passato", "en": "past simple" },
+            {
+              "sl": "had + participle · deležnik",
+              "de": "had + participle · Partizip",
+              "it": "had + participle · participio",
+              "en": "had + participle"
+            }
+          ],
+          "rows": [
+            { "label": "see", "cells": ["saw", { "accept": ["had seen"] }] },
+            { "label": "go", "cells": ["went", { "accept": ["had gone"] }] },
+            { "label": "eat", "cells": ["ate", { "accept": ["had eaten"] }] },
+            { "label": "leave", "cells": [{ "accept": ["left"] }, { "accept": ["had left"] }] },
+            { "label": "take", "cells": ["took", { "accept": ["had taken"] }] },
+            { "label": "feed", "cells": [{ "accept": ["fed"] }, { "accept": ["had fed"] }] }
+          ],
+          "explain": {
+            "sl": "**Kar je bilo prej: had + deležnik**\n- When we got there, the bus had gone.",
+            "de": "**Was vorher war: had + Partizip**\n- When we got there, the bus had gone.",
+            "it": "**Ciò che è venuto prima: had + il participio**\n- When we got there, the bus had gone.",
+            "en": "**What came first: had + the participle**\n- When we got there, the bus had gone."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "past-perfect",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            {
+              "label": { "sl": "prej · had", "de": "zuerst · had", "it": "prima · had", "en": "first · had" },
+              "words": ["the bus had left", "we had eaten", "it had stopped raining"]
+            },
+            {
+              "label": { "sl": "potem · past simple", "de": "danach · past simple", "it": "dopo · past simple", "en": "then · past simple" },
+              "words": ["we got to the stop", "Jack came in", "we went out"]
+            }
+          ],
+          "explain": {
+            "sl": "**Prej: had. Potem: past simple.**\n- When we got to the stop, the bus had left.",
+            "de": "**Zuerst: had. Danach: past simple.**\n- When we got to the stop, the bus had left.",
+            "it": "**Prima: had. Dopo: past simple.**\n- When we got to the stop, the bus had left.",
+            "en": "**First: had. Then: the past simple.**\n- When we got to the stop, the bus had left."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-perfect",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "I knew the way. I ___ there before.",
+          "options": ["had been", "have been", "am"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kar je bilo prej: had + deležnik**\n- When we got there, the bus had gone.",
+            "de": "**Was vorher war: had + Partizip**\n- When we got there, the bus had gone.",
+            "it": "**Ciò che è venuto prima: had + il participio**\n- When we got there, the bus had gone.",
+            "en": "**What came first: had + the participle**\n- When we got there, the bus had gone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-perfect-2",
+      "title": { "sl": "Jackov slab dan", "de": "Jacks schlechter Tag", "it": "La brutta giornata di Jack", "en": "Jack's bad day" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "past-perfect",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "Yesterday was a bad day for Jack. When he got up, Meg ___ (go). She ___ (run) after the sheep in the night. By the time he found her, it ___ (start) to rain. He got to the farm at ten, but he ___ (not have) breakfast, and he ___ (forget) his coat. He went to the Packhorse Inn, but Mrs Birkett ___ (close) the kitchen. He'd never ___ (be) so hungry!",
+          "gaps": [
+            { "accept": ["had gone", "'d gone", "was gone"], "hint": "go → ?" },
+            { "accept": ["had run", "'d run", "ran"], "hint": "run → ?" },
+            {
+              "accept": ["had started", "'d started"],
+              "hint": { "sl": "kaj je bilo prej?", "de": "was war zuerst?", "it": "che cosa è venuto prima?", "en": "which came first?" }
+            },
+            { "accept": ["hadn't had", "had not had"], "hint": "had + not" },
+            { "accept": ["had forgotten", "'d forgotten"], "hint": "forget → ?" },
+            { "accept": ["had closed", "'d closed"], "hint": "close → ?" },
+            { "accept": ["been"], "hint": "be → ?" }
+          ],
+          "translation": {
+            "sl": "Včeraj je imel Jack slab dan. Ko je vstal, je Meg že ni bilo. Ponoči je stekla za ovcami. Ko jo je našel, je že začelo deževati. Na kmetijo je prišel ob desetih, a ni zajtrkoval in je pozabil plašč. Šel je v gostilno Packhorse, a gospa Birkett je že zaprla kuhinjo. Še nikoli ni bil tako lačen!",
+            "de": "Gestern war ein schlechter Tag für Jack. Als er aufstand, war Meg schon weg. Sie war in der Nacht den Schafen nachgelaufen. Als er sie fand, hatte es schon zu regnen begonnen. Er kam um zehn zum Hof, aber er hatte nicht gefrühstückt und seinen Mantel vergessen. Er ging ins Packhorse Inn, aber Mrs Birkett hatte die Küche schon zugesperrt. Er war noch nie so hungrig gewesen!",
+            "it": "Ieri è stata una brutta giornata per Jack. Quando si è alzato, Meg se n'era andata. Era corsa dietro alle pecore durante la notte. Quando l'ha trovata, aveva già cominciato a piovere. È arrivato alla fattoria alle dieci, ma non aveva fatto colazione e aveva dimenticato il cappotto. È andato alla Packhorse Inn, ma Mrs Birkett aveva già chiuso la cucina. Non aveva mai avuto tanta fame!",
+            "en": "Yesterday was a bad day for Jack. When he got up, Meg had gone. She had run after the sheep in the night. By the time he found her, it had started to rain. He got to the farm at ten, but he hadn't had breakfast, and he had forgotten his coat. He went to the Packhorse Inn, but Mrs Birkett had closed the kitchen. He'd never been so hungry!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-perfect",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "When we opened the door, the dog ran out. What came first?",
+          "options": ["We opened the door.", "The dog ran out."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Po vrsti, zato dvakrat past simple**\n- We opened the door. Then the dog ran out.",
+            "de": "**Der Reihe nach, also zweimal past simple**\n- We opened the door. Then the dog ran out.",
+            "it": "**In ordine, quindi due volte il past simple**\n- We opened the door. Then the dog ran out.",
+            "en": "**In order, so the past simple twice**\n- We opened the door. Then the dog ran out."
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-perfect-3",
+      "title": {
+        "sl": "Dve stvari v enem stavku",
+        "de": "Zwei Dinge in einem Satz",
+        "it": "Due cose in una frase",
+        "en": "Two things in one sentence"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "past-perfect",
+          "instruction": {
+            "sl": "Join them, with when and had · Združi: z when in had",
+            "de": "Join them, with when and had · Verbinde: mit when und had",
+            "it": "Join them, with when and had · Unisci: con when e had",
+            "en": "Join them, with when and had"
+          },
+          "cue": "when",
+          "items": [
+            {
+              "from": "The bus left. Then we got to the stop.",
+              "accept": [
+                "When we got to the stop, the bus had left.",
+                "The bus had left when we got to the stop.",
+                "When we got to the stop, the bus had gone."
+              ]
+            },
+            {
+              "from": "Sam fed the dogs. Then I got up.",
+              "accept": [
+                "When I got up, Sam had fed the dogs.",
+                "Sam had fed the dogs when I got up.",
+                "When I got up, Sam had already fed the dogs."
+              ]
+            },
+            {
+              "from": "The rain stopped. Then we went out.",
+              "accept": [
+                "When we went out, the rain had stopped.",
+                "The rain had stopped when we went out.",
+                "When we went out, it had stopped raining."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Kar je bilo prej: had + deležnik**\n- When we got to the stop, the bus had left.",
+            "de": "**Was vorher war: had + Partizip**\n- When we got to the stop, the bus had left.",
+            "it": "**Ciò che è venuto prima: had + il participio**\n- When we got to the stop, the bus had left.",
+            "en": "**What came first: had + the participle**\n- When we got to the stop, the bus had left."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "past-perfect",
+          "instruction": {
+            "sl": "It was the first time: say it with never … before · Bilo je prvič: povej z never … before",
+            "de": "It was the first time: say it with never … before · Es war das erste Mal: Sag es mit never … before",
+            "it": "It was the first time: say it with never … before · Era la prima volta: dillo con never … before",
+            "en": "It was the first time: say it with never … before"
+          },
+          "cue": "never … before",
+          "items": [
+            {
+              "from": "It was her first time in London.",
+              "accept": [
+                "She had never been to London before.",
+                "She'd never been to London before.",
+                "She had never been in London before.",
+                "She'd never been in London before."
+              ]
+            },
+            {
+              "from": "It was my first time on a boat.",
+              "accept": ["I had never been on a boat before.", "I'd never been on a boat before."]
+            }
+          ],
+          "explain": {
+            "sl": "**had never + deležnik + before**\n- I'd never seen the sea before.",
+            "de": "**had never + Partizip + before**\n- I'd never seen the sea before.",
+            "it": "**had never + il participio + before**\n- I'd never seen the sea before.",
+            "en": "**had never + the participle + before**\n- I'd never seen the sea before."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "past-perfect",
+          "instruction": {
+            "sl": "Give the reason, with because and had · Povej vzrok: z because in had",
+            "de": "Give the reason, with because and had · Nenne den Grund: mit because und had",
+            "it": "Give the reason, with because and had · Di' la causa: con because e had",
+            "en": "Give the reason, with because and had"
+          },
+          "cue": "because",
+          "items": [
+            {
+              "from": "He didn't sleep. He was tired.",
+              "accept": ["He was tired because he hadn't slept.", "He was tired because he had not slept."]
+            },
+            {
+              "from": "I lost my key. I couldn't get in.",
+              "accept": ["I couldn't get in because I had lost my key.", "I couldn't get in because I'd lost my key."]
+            }
+          ],
+          "explain": {
+            "sl": "**because + had: vzrok je bil prej**\n- He was tired because he hadn't slept.",
+            "de": "**because + had: Der Grund war davor**\n- He was tired because he hadn't slept.",
+            "it": "**because + had: la causa è venuta prima**\n- He was tired because he hadn't slept.",
+            "en": "**because + had: the reason came first**\n- He was tired because he hadn't slept."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "past-perfect",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "When Mr Dixon came to the smithy, somebody ___ (take) his hammer. By the time he found it, the fire ___ (go) out. He'd ___ (leave) the door open. He ___ (not lock) it, and now he was angry. — I'd never ___ (see) him so angry!",
+        "gaps": [
+          { "accept": ["had taken", "'d taken"], "hint": "take → ?" },
+          { "accept": ["had gone", "'d gone"], "hint": "go → ?" },
+          { "accept": ["left"], "hint": "leave → ?" },
+          { "accept": ["hadn't locked", "had not locked"], "hint": "had + not" },
+          { "accept": ["seen"], "hint": "see → ?" }
+        ],
+        "translation": {
+          "sl": "Ko je gospod Dixon prišel v kovačnico, mu je nekdo vzel kladivo. Ko ga je našel, je ogenj že ugasnil. Pustil je odprta vrata. Ni jih zaklenil in zdaj je bil jezen. — Še nikoli ga nisem videl{m:|f:a} tako jeznega!",
+          "de": "Als Mr Dixon in die Schmiede kam, hatte jemand seinen Hammer genommen. Als er ihn fand, war das Feuer schon aus. Er hatte die Tür offen gelassen. Er hatte sie nicht zugesperrt, und jetzt war er böse. — Ich hatte ihn noch nie so böse gesehen!",
+          "it": "Quando Mr Dixon è arrivato alla fucina, qualcuno aveva preso il suo martello. Quando l'ha trovato, il fuoco si era già spento. Aveva lasciato la porta aperta. Non l'aveva chiusa a chiave, e ora era arrabbiato. — Non l'avevo mai visto così arrabbiato!",
+          "en": "When Mr Dixon came to the smithy, somebody had taken his hammer. By the time he found it, the fire had gone out. He'd left the door open. He hadn't locked it, and now he was angry. — I'd never seen him so angry!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-perfect",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "By the time we got to the inn, Mrs Birkett ___ the kitchen.",
+        "options": ["had closed", "has closed", "closes"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kar je bilo prej: had + deležnik**\n- When we got there, the bus had gone.",
+          "de": "**Was vorher war: had + Partizip**\n- When we got there, the bus had gone.",
+          "it": "**Ciò che è venuto prima: had + il participio**\n- When we got there, the bus had gone.",
+          "en": "**What came first: had + the participle**\n- When we got there, the bus had gone."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-perfect",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I was hungry because I ___ eaten.",
+        "options": ["hadn't", "haven't", "don't"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vzrok je bil prej: hadn't**\n- He was tired because he hadn't slept.",
+          "de": "**Der Grund war davor: hadn't**\n- He was tired because he hadn't slept.",
+          "it": "**La causa è venuta prima: hadn't**\n- He was tired because he hadn't slept.",
+          "en": "**The reason came first: hadn't**\n- He was tired because he hadn't slept."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-perfect",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "She'd gone. Here 'd is:",
+        "options": ["had", "would", "did"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Pred deležnikom je 'd had**\n- She'd gone. · I'd like tea.",
+          "de": "**Vor dem Partizip ist 'd had**\n- She'd gone. · I'd like tea.",
+          "it": "**Prima del participio 'd è had**\n- She'd gone. · I'd like tea.",
+          "en": "**Before a participle 'd is had**\n- She'd gone. · I'd like tea."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-perfect",
+        "instruction": {
+          "sl": "Join them, with when and had · Združi: z when in had",
+          "de": "Join them, with when and had · Verbinde: mit when und had",
+          "it": "Join them, with when and had · Unisci: con when e had",
+          "en": "Join them, with when and had"
+        },
+        "cue": "when",
+        "items": [
+          {
+            "from": "The shop closed. Then I got to Keswick.",
+            "accept": ["When I got to Keswick, the shop had closed.", "The shop had closed when I got to Keswick."]
+          },
+          {
+            "from": "Jack went out. Then Mrs Hartley came.",
+            "accept": ["When Mrs Hartley came, Jack had gone out.", "Jack had gone out when Mrs Hartley came."]
+          }
+        ],
+        "explain": {
+          "sl": "**Kar je bilo prej: had + deležnik**\n- When we got to the stop, the bus had left.",
+          "de": "**Was vorher war: had + Partizip**\n- When we got to the stop, the bus had left.",
+          "it": "**Ciò che è venuto prima: had + il participio**\n- When we got to the stop, the bus had left.",
+          "en": "**What came first: had + the participle**\n- When we got to the stop, the bus had left."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-perfect",
+        "instruction": {
+          "sl": "It was the first time: say it with never … before · Bilo je prvič: povej z never … before",
+          "de": "It was the first time: say it with never … before · Es war das erste Mal: Sag es mit never … before",
+          "it": "It was the first time: say it with never … before · Era la prima volta: dillo con never … before",
+          "en": "It was the first time: say it with never … before"
+        },
+        "cue": "never … before",
+        "items": [
+          {
+            "from": "It was Sam's first time on a horse.",
+            "accept": ["Sam had never been on a horse before.", "Sam'd never been on a horse before."]
+          },
+          {
+            "from": "It was the first time we saw a raven.",
+            "accept": ["We had never seen a raven before.", "We'd never seen a raven before."]
+          }
+        ],
+        "explain": {
+          "sl": "**had never + deležnik + before**\n- I'd never seen the sea before.",
+          "de": "**had never + Partizip + before**\n- I'd never seen the sea before.",
+          "it": "**had never + il participio + before**\n- I'd never seen the sea before.",
+          "en": "**had never + the participle + before**\n- I'd never seen the sea before."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}

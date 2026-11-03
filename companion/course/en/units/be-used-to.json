@@ -1,0 +1,1064 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "be-used-to",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🌧️",
+  "title": {
+    "sl": "Navade: would, be used to, get used to",
+    "de": "Gewohnheiten: would, be used to, get used to",
+    "it": "Le abitudini: would, be used to, get used to",
+    "en": "We would walk; I'm used to it"
+  },
+  "goal": {
+    "sl": "Poveš, kaj se je ponavljalo (We would walk), in kaj ti je običajno ali postaja (I'm used to it, You'll get used to it), in ločiš to od used to.",
+    "de": "Du sagst, was früher immer wieder geschah (We would walk) und was für dich normal ist oder wird (I'm used to it, You'll get used to it), und unterscheidest das von used to.",
+    "it": "Dici che cosa succedeva ogni volta (We would walk) e che cosa per te è normale o lo sta diventando (I'm used to it, You'll get used to it), e lo distingui da used to.",
+    "en": "You can say what happened again and again (We would walk) and what is or is becoming normal for you (I'm used to it, You'll get used to it), and tell it from used to."
+  },
+  "grammar": [
+    "would-used-to",
+    "used-to"
+  ],
+  "words": [
+    "would",
+    "be used to",
+    "get used to",
+    "used to",
+    "tarn",
+    "fells",
+    "early",
+    "get up",
+    "left",
+    "drive on the left",
+    "noise",
+    "dark",
+    "don't mind",
+    "shoe",
+    "laugh",
+    "alone",
+    "pony",
+    "cow",
+    "wake",
+    "cup of tea",
+    "story",
+    "Sunday",
+    "market day",
+    "bake",
+    "smoke",
+    "fiddle",
+    "freeze",
+    "skate",
+    "look forward to",
+    "in the country",
+    "early start"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "za kaj",
+          "de": "wofür",
+          "it": "per cosa",
+          "en": "what for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**would** + osnovna oblika pove, kaj se je v preteklosti ponavljalo. **When I was a boy, we would walk to school.** (Ko sem bil deček, smo hodili v šolo peš.) **Every Sunday Granny would bake bread.** (Vsako nedeljo je babica pekla kruh.) Kratko **'d**: **We'd walk to school.** Najprej povej, kdaj.",
+          "de": "**would** + Grundform sagt, was früher immer wieder geschah. **When I was a boy, we would walk to school.** (Als ich ein Bub war, gingen wir zu Fuß in die Schule.) **Every Sunday Granny would bake bread.** (Jeden Sonntag backte die Oma Brot.) Kurz **'d**: **We'd walk to school.** Sag zuerst, wann.",
+          "it": "**would** + forma base dice che cosa succedeva ogni volta nel passato. **When I was a boy, we would walk to school.** (Da bambino andavamo a scuola a piedi.) **Every Sunday Granny would bake bread.** (Ogni domenica la nonna faceva il pane.) Breve **'d**: **We'd walk to school.** Prima di' quando.",
+          "en": "**would** + the base form says what happened again and again in the past. **When I was a boy, we would walk to school.** **Every Sunday Granny would bake bread.** Short **'d**: **We'd walk to school.** Say when first."
+        },
+        "examples": [
+          {
+            "en": "When I was a boy, we would walk to school.",
+            "sl": "Ko sem bil deček, smo hodili v šolo peš.",
+            "de": "Als ich ein Bub war, gingen wir zu Fuß in die Schule.",
+            "it": "Da bambino andavamo a scuola a piedi."
+          },
+          {
+            "en": "Every Sunday Granny would bake bread.",
+            "sl": "Vsako nedeljo je babica pekla kruh.",
+            "de": "Jeden Sonntag backte die Oma Brot.",
+            "it": "Ogni domenica la nonna faceva il pane."
+          }
+        ],
+        "rows": [
+          [
+            "would + base form",
+            {
+              "sl": "takrat vedno znova",
+              "de": "damals immer wieder",
+              "it": "allora, ogni volta",
+              "en": "again and again then"
+            },
+            "We would walk to school."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "would-used-to",
+          "prompt": "Every Sunday we ___ to the tarn.",
+          "options": [
+            "would walk",
+            "would walked",
+            "would walking"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Takrat vedno znova: would + osnovna oblika**\n- Every Sunday we would walk to the tarn.",
+            "de": "**Damals immer wieder: would + Grundform**\n- Every Sunday we would walk to the tarn.",
+            "it": "**Allora, ogni volta: would + forma base**\n- Every Sunday we would walk to the tarn.",
+            "en": "**Again and again then: would + the base form**\n- Every Sunday we would walk to the tarn."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**would** velja za to, kar si {m:delal|f:delala}, ne za to, kako je bilo. Za stanje **used to**: **We used to have a dog.** (Včasih smo imeli psa.) **He used to live in Leeds.** (Včasih je živel v Leedsu.) Dejanja pa oboje: **We used to walk.** **We would walk.**",
+          "de": "**would** gilt für das, was man tat, nicht dafür, wie es war. Für einen Zustand **used to**: **We used to have a dog.** (Früher hatten wir einen Hund.) **He used to live in Leeds.** (Früher wohnte er in Leeds.) Für Handlungen beides: **We used to walk.** **We would walk.**",
+          "it": "**would** vale per ciò che si faceva, non per com'era. Per uno stato **used to**: **We used to have a dog.** (Una volta avevamo un cane.) **He used to live in Leeds.** (Una volta abitava a Leeds.) Per le azioni tutti e due: **We used to walk.** **We would walk.**",
+          "en": "**would** is for what you did, not for how things were. For how things were, **used to**: **We used to have a dog.** (not *We would have a dog*) **He used to live in Leeds.** For what you did, either: **We used to walk.** **We would walk.**"
+        },
+        "examples": [
+          {
+            "en": "We used to have a dog.",
+            "sl": "Včasih smo imeli psa.",
+            "de": "Früher hatten wir einen Hund.",
+            "it": "Una volta avevamo un cane."
+          },
+          {
+            "en": "He used to live in Leeds.",
+            "sl": "Včasih je živel v Leedsu.",
+            "de": "Früher wohnte er in Leeds.",
+            "it": "Una volta abitava a Leeds."
+          }
+        ],
+        "rows": [
+          [
+            "used to + base form",
+            {
+              "sl": "kako je bilo",
+              "de": "wie es war",
+              "it": "com'era",
+              "en": "how things were"
+            },
+            "We used to have a dog."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "would-used-to",
+          "text": "When I was small, we ___ (have) a cow called Bess.",
+          "accept": [
+            "used to have",
+            "had"
+          ],
+          "hint": {
+            "sl": "kako je bilo",
+            "de": "wie es war",
+            "it": "com'era",
+            "en": "how things were"
+          },
+          "explain": {
+            "sl": "**Stanje: used to, ne would**\n- When I was small, we used to have a cow called Bess.",
+            "de": "**Ein Zustand: used to, nicht would**\n- When I was small, we used to have a cow called Bess.",
+            "it": "**Uno stato: used to, non would**\n- When I was small, we used to have a cow called Bess.",
+            "en": "**How things were: used to, not would**\n- When I was small, we used to have a cow called Bess."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**be used to** + -ing ali samostalnik pomeni, da ti je nekaj običajno. **I'm used to getting up early.** (Navajen{m:|f:a} sem zgodaj vstajati.) **She's used to the rain.** (Navajena je dežja.) Zanikano **I'm not used to it**, vprašanje **Are you used to it?** Slovenščina ima tu nedoločnik, angleščina -ing.",
+          "de": "**be used to** + -ing oder ein Nomen heißt, dass etwas für dich normal ist. **I'm used to getting up early.** (Ich bin es gewohnt, früh aufzustehen.) **She's used to the rain.** (Sie ist den Regen gewohnt.) Verneint **I'm not used to it**, die Frage **Are you used to it?** Deutsch hat hier den Infinitiv, Englisch -ing.",
+          "it": "**be used to** + -ing o un nome vuol dire che per te una cosa è normale. **I'm used to getting up early.** (Sono abituat{m:o|f:a} ad alzarmi presto.) **She's used to the rain.** (È abituata alla pioggia.) Al negativo **I'm not used to it**, la domanda **Are you used to it?** L'italiano qui ha l'infinito, l'inglese -ing.",
+          "en": "**be used to** + -ing or a noun means something is normal for you. **I'm used to getting up early.** (not *I'm used to get up early*) **She's used to the rain.** With not **I'm not used to it**, to ask **Are you used to it?**"
+        },
+        "examples": [
+          {
+            "en": "I'm used to getting up early.",
+            "sl": "Navajen{m:|f:a} sem zgodaj vstajati.",
+            "de": "Ich bin es gewohnt, früh aufzustehen.",
+            "it": "Sono abituat{m:o|f:a} ad alzarmi presto."
+          },
+          {
+            "en": "She's used to the rain.",
+            "sl": "Navajena je dežja.",
+            "de": "Sie ist den Regen gewohnt.",
+            "it": "È abituata alla pioggia."
+          }
+        ],
+        "rows": [
+          [
+            "be used to + -ing, a noun",
+            {
+              "sl": "zame je to običajno",
+              "de": "für mich normal",
+              "it": "per me è normale",
+              "en": "it's normal for me"
+            },
+            "I'm used to getting up early."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "would-used-to",
+          "prompt": "Jack is used to ___ up at five.",
+          "options": [
+            "getting",
+            "get",
+            "got"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zame običajno: be used to + -ing**\n- Jack is used to getting up at five.",
+            "de": "**Für mich normal: be used to + -ing**\n- Jack is used to getting up at five.",
+            "it": "**Per me è normale: be used to + -ing**\n- Jack is used to getting up at five.",
+            "en": "**Normal for me: be used to + -ing**\n- Jack is used to getting up at five."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**get used to** pomeni, da to postaja običajno: **You'll get used to it.** (Navadil{m:|f:a} se boš.) **I'm getting used to the rain.** (Počasi se navajam na dež.) **She got used to driving on the left.** (Navadila se je voziti po levi.)",
+          "de": "**get used to** heißt, dass es normal wird: **You'll get used to it.** (Du wirst dich daran gewöhnen.) **I'm getting used to the rain.** (Ich gewöhne mich langsam an den Regen.) **She got used to driving on the left.** (Sie gewöhnte sich daran, links zu fahren.)",
+          "it": "**get used to** vuol dire che lo sta diventando: **You'll get used to it.** (Ti ci abituerai.) **I'm getting used to the rain.** (Mi sto abituando alla pioggia.) **She got used to driving on the left.** (Si è abituata a guidare a sinistra.)",
+          "en": "**get used to** means it's becoming normal: **You'll get used to it.** **I'm getting used to the rain.** **She got used to driving on the left.** (not *She got used to drive on the left*)"
+        },
+        "examples": [
+          {
+            "en": "You'll get used to it.",
+            "sl": "Navadil{m:|f:a} se boš.",
+            "de": "Du wirst dich daran gewöhnen.",
+            "it": "Ti ci abituerai."
+          },
+          {
+            "en": "I'm getting used to the rain.",
+            "sl": "Počasi se navajam na dež.",
+            "de": "Ich gewöhne mich langsam an den Regen.",
+            "it": "Mi sto abituando alla pioggia."
+          },
+          {
+            "en": "She got used to driving on the left.",
+            "sl": "Navadila se je voziti po levi.",
+            "de": "Sie gewöhnte sich daran, links zu fahren.",
+            "it": "Si è abituata a guidare a sinistra."
+          }
+        ],
+        "rows": [
+          [
+            "get used to + -ing, a noun",
+            {
+              "sl": "postaja običajno",
+              "de": "es wird normal",
+              "it": "sta diventando normale",
+              "en": "it's becoming normal"
+            },
+            "You'll get used to it."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "would-used-to",
+          "text": "It's hard at first, but you'll get used to ___ (walk) on the fells.",
+          "accept": [
+            "walking"
+          ],
+          "hint": "-ing",
+          "explain": {
+            "sl": "**Postaja običajno: get used to + -ing**\n- You'll get used to walking on the fells.",
+            "de": "**Es wird normal: get used to + -ing**\n- You'll get used to walking on the fells.",
+            "it": "**Sta diventando normale: get used to + -ing**\n- You'll get used to walking on the fells.",
+            "en": "**Becoming normal: get used to + -ing**\n- You'll get used to walking on the fells."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Trije, ki so si podobni: **I used to get up early.** (bilo je, zdaj ni več) **I'm used to getting up early.** (zame je običajno) **I'm getting used to getting up early.** (postaja običajno)",
+          "de": "Drei, die sich ähneln: **I used to get up early.** (früher so, jetzt nicht) **I'm used to getting up early.** (für mich normal) **I'm getting used to getting up early.** (es wird normal)",
+          "it": "Tre che si somigliano: **I used to get up early.** (era così, ora no) **I'm used to getting up early.** (per me è normale) **I'm getting used to getting up early.** (sta diventando normale)",
+          "en": "Three that look alike: **I used to get up early.** (it was so, not now) **I'm used to getting up early.** (it's normal for me) **I'm getting used to getting up early.** (it's becoming normal)"
+        },
+        "examples": [
+          {
+            "en": "I used to get up early.",
+            "sl": "Včasih sem {m:vstajal|f:vstajala} zgodaj.",
+            "de": "Früher bin ich früh aufgestanden.",
+            "it": "Una volta mi alzavo presto."
+          },
+          {
+            "en": "I'm used to getting up early.",
+            "sl": "Navajen{m:|f:a} sem zgodaj vstajati.",
+            "de": "Ich bin es gewohnt, früh aufzustehen.",
+            "it": "Sono abituat{m:o|f:a} ad alzarmi presto."
+          }
+        ],
+        "rows": [
+          [
+            "used to get up",
+            {
+              "sl": "bilo je, zdaj ni več",
+              "de": "früher so, jetzt nicht",
+              "it": "era così, ora no",
+              "en": "it was so, not now"
+            },
+            "I used to get up early."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "would-used-to",
+          "prompt": "I don't mind the cold: I ___ it.",
+          "options": [
+            "am used to",
+            "am using to",
+            "used"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**used to + osnovna oblika, be used to + -ing**\n- I don't mind the cold: I am used to it.",
+            "de": "**used to + Grundform, be used to + -ing**\n- I don't mind the cold: I am used to it.",
+            "it": "**used to + forma base, be used to + -ing**\n- I don't mind the cold: I am used to it.",
+            "en": "**used to + the base form, be used to + -ing**\n- I don't mind the cold: I am used to it."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**to** je tu mali predlog pred -ing, kot v **look forward to**: **I'm used to it.** Sliši se kot *use to*, zato ljudje pišejo tudi *I'm use to it*. Pisno velja **I'm used to it**. Za njim je -ing, ne osnovna oblika: **used to getting up**.",
+          "de": "**to** ist hier das kleine Wort vor -ing, wie in **look forward to**: **I'm used to it.** Es klingt wie *use to*, darum schreibt man auch *I'm use to it*. Geschrieben gilt **I'm used to it**. Danach -ing, nicht die Grundform: **used to getting up**.",
+          "it": "**to** qui è la parolina prima di -ing, come in **look forward to**: **I'm used to it.** Suona come *use to*, perciò si scrive anche *I'm use to it*. Per iscritto vale **I'm used to it**. Dopo viene -ing, non la forma base: **used to getting up**.",
+          "en": "**to** here is the small word before -ing, as in **look forward to**: **I'm used to it.** It sounds like *use to*, so people also write *I'm use to it*. Writing wants **I'm used to it**. After it comes -ing, not the base form: **used to getting up**."
+        },
+        "examples": [
+          {
+            "en": "I'm used to it.",
+            "sl": "Navajen{m:|f:a} sem.",
+            "de": "Ich bin es gewohnt.",
+            "it": "Ci sono abituat{m:o|f:a}."
+          },
+          {
+            "en": "I look forward to seeing you.",
+            "sl": "Veselim se srečanja s tabo.",
+            "de": "Ich freue mich darauf, dich zu sehen.",
+            "it": "Non vedo l'ora di vederti."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "would-used-to",
+          "text": "She isn't used to ___ (drive) in the dark.",
+          "accept": [
+            "driving"
+          ],
+          "hint": "-ing",
+          "explain": {
+            "sl": "**Zame običajno: be used to + -ing**\n- She isn't used to driving in the dark.",
+            "de": "**Für mich normal: be used to + -ing**\n- She isn't used to driving in the dark.",
+            "it": "**Per me è normale: be used to + -ing**\n- She isn't used to driving in the dark.",
+            "en": "**Normal for me: be used to + -ing**\n- She isn't used to driving in the dark."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "be-used-to-1",
+      "title": {
+        "sl": "Trije, ki so si podobni",
+        "de": "Drei, die sich ähneln",
+        "it": "Tre che si somigliano",
+        "en": "Three that look alike"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "bilo je, zdaj ni več",
+                "de": "früher so, jetzt nicht",
+                "it": "era così, ora no",
+                "en": "it was so, not now"
+              },
+              "words": [
+                "I used to live in Leeds.",
+                "We used to have a dog.",
+                "She used to smoke."
+              ]
+            },
+            {
+              "label": {
+                "sl": "zame je to običajno",
+                "de": "für mich normal",
+                "it": "per me è normale",
+                "en": "it's normal for me"
+              },
+              "words": [
+                "I'm used to the rain.",
+                "She's used to getting up early.",
+                "We're used to the cold."
+              ]
+            },
+            {
+              "label": {
+                "sl": "postaja običajno",
+                "de": "es wird normal",
+                "it": "sta diventando normale",
+                "en": "it's becoming normal"
+              },
+              "words": [
+                "I'm getting used to the rain.",
+                "You'll get used to it.",
+                "She's getting used to the dark."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**used to + osnovna oblika, be used to + -ing**\n- I used to live in Leeds. I'm used to the rain. I'm getting used to it.",
+            "de": "**used to + Grundform, be used to + -ing**\n- I used to live in Leeds. I'm used to the rain. I'm getting used to it.",
+            "it": "**used to + forma base, be used to + -ing**\n- I used to live in Leeds. I'm used to the rain. I'm getting used to it.",
+            "en": "**used to + the base form, be used to + -ing**\n- I used to live in Leeds. I'm used to the rain. I'm getting used to it."
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "used to, be used to",
+            "de": "used to, be used to",
+            "it": "used to, be used to",
+            "en": "used to, be used to"
+          },
+          "columns": [
+            {
+              "sl": "dopolni",
+              "de": "ergänze",
+              "it": "completa",
+              "en": "fill in"
+            }
+          ],
+          "rows": [
+            {
+              "label": "I'm used to … (get) up at five.",
+              "cells": [
+                {
+                  "accept": [
+                    "getting"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "She isn't used to … (drive) on the left.",
+              "cells": [
+                {
+                  "accept": [
+                    "driving"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "You'll soon get used to … (walk) so far.",
+              "cells": [
+                {
+                  "accept": [
+                    "walking"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "When I was a boy, we … (walk) to school.",
+              "cells": [
+                {
+                  "accept": [
+                    "would walk",
+                    "used to walk",
+                    "walked"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Mrs Hartley … (live) in Leeds before she came here.",
+              "cells": [
+                {
+                  "accept": [
+                    "used to live",
+                    "lived",
+                    "had lived"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**used to + osnovna oblika, be used to + -ing**\n- I'm used to getting up at five. Mrs Hartley used to live in Leeds.",
+            "de": "**used to + Grundform, be used to + -ing**\n- I'm used to getting up at five. Mrs Hartley used to live in Leeds.",
+            "it": "**used to + forma base, be used to + -ing**\n- I'm used to getting up at five. Mrs Hartley used to live in Leeds.",
+            "en": "**used to + the base form, be used to + -ing**\n- I'm used to getting up at five. Mrs Hartley used to live in Leeds."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "When I was small, we ___ have a pony.",
+          "options": [
+            "used to",
+            "would",
+            "use"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Stanje: used to, ne would**\n- When I was small, we used to have a pony.",
+            "de": "**Ein Zustand: used to, nicht would**\n- When I was small, we used to have a pony.",
+            "it": "**Uno stato: used to, non would**\n- When I was small, we used to have a pony.",
+            "en": "**How things were: used to, not would**\n- When I was small, we used to have a pony."
+          }
+        }
+      ]
+    },
+    {
+      "id": "be-used-to-2",
+      "title": {
+        "sl": "Mrs Hartley iz Leedsa",
+        "de": "Mrs Hartley aus Leeds",
+        "it": "Mrs Hartley di Leeds",
+        "en": "Mrs Hartley from Leeds"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "title": "Mrs Hartley's first year",
+          "text": "When I came here from Leeds, I wasn't used to ___ (walk) so far. In Leeds I ___ (take) the bus everywhere. I ___ (not know) anyone here at first. In the evenings I would ___ (sit) alone and read. The children ___ (laugh) at my shoes. It took me a year to get used to ___ (be) wet all the time. Now I'm used to ___ (get) up in the dark, and I ___ (not mind) the rain at all.",
+          "gaps": [
+            {
+              "accept": [
+                "walking"
+              ],
+              "hint": "-ing"
+            },
+            {
+              "accept": [
+                "used to take",
+                "would take",
+                "took",
+                "had taken"
+              ],
+              "hint": {
+                "sl": "takrat",
+                "de": "damals",
+                "it": "allora",
+                "en": "back then"
+              }
+            },
+            {
+              "accept": [
+                "didn't know"
+              ],
+              "hint": {
+                "sl": "kako je bilo",
+                "de": "wie es war",
+                "it": "com'era",
+                "en": "how things were"
+              }
+            },
+            {
+              "accept": [
+                "sit"
+              ],
+              "hint": {
+                "sl": "osnovna oblika",
+                "de": "Grundform",
+                "it": "forma base",
+                "en": "the base form"
+              }
+            },
+            {
+              "accept": [
+                "used to laugh",
+                "would laugh",
+                "laughed"
+              ],
+              "hint": {
+                "sl": "takrat",
+                "de": "damals",
+                "it": "allora",
+                "en": "back then"
+              }
+            },
+            {
+              "accept": [
+                "being"
+              ],
+              "hint": "-ing"
+            },
+            {
+              "accept": [
+                "getting"
+              ],
+              "hint": "-ing"
+            },
+            {
+              "accept": [
+                "don't mind"
+              ],
+              "hint": {
+                "sl": "zdaj",
+                "de": "jetzt",
+                "it": "adesso",
+                "en": "now"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "walk",
+            "get"
+          ],
+          "translation": {
+            "sl": "Ko sem prišla sem iz Leedsa, nisem bila navajena toliko hoditi. V Leedsu sem povsod hodila z avtobusom. Sprva tu nisem poznala nikogar. Zvečer sem sedela sama in brala. Otroci so se smejali mojim čevljem. Leto dni sem potrebovala, da sem se navadila, da sem ves čas mokra. Zdaj sem navajena vstajati v temi in dež me sploh ne moti.",
+            "de": "Als ich aus Leeds hierherkam, war ich es nicht gewohnt, so weit zu gehen. In Leeds nahm ich überall den Bus. Anfangs kannte ich hier niemanden. Am Abend saß ich allein da und las. Die Kinder lachten über meine Schuhe. Ich brauchte ein Jahr, um mich daran zu gewöhnen, dauernd nass zu sein. Jetzt bin ich es gewohnt, im Dunkeln aufzustehen, und der Regen stört mich gar nicht.",
+            "it": "Quando sono arrivata qui da Leeds, non ero abituata a camminare tanto. A Leeds prendevo l'autobus dappertutto. All'inizio qui non conoscevo nessuno. La sera stavo seduta da sola a leggere. I bambini ridevano delle mie scarpe. Mi ci è voluto un anno per abituarmi a essere sempre bagnata. Adesso sono abituata ad alzarmi al buio, e la pioggia non mi dà nessun fastidio.",
+            "en": "When I came here from Leeds, I wasn't used to walking so far. In Leeds I used to take the bus everywhere. I didn't know anyone here at first. In the evenings I would sit alone and read. The children used to laugh at my shoes. It took me a year to get used to being wet all the time. Now I'm used to getting up in the dark, and I don't mind the rain at all."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "It took Sam a year to ___ used to the hills.",
+          "options": [
+            "get",
+            "got",
+            "getting"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Postaja običajno: get used to + -ing**\n- It took Sam a year to get used to the hills.",
+            "de": "**Es wird normal: get used to + -ing**\n- It took Sam a year to get used to the hills.",
+            "it": "**Sta diventando normale: get used to + -ing**\n- It took Sam a year to get used to the hills.",
+            "en": "**Becoming normal: get used to + -ing**\n- It took Sam a year to get used to the hills."
+          }
+        }
+      ]
+    },
+    {
+      "id": "be-used-to-3",
+      "title": {
+        "sl": "Povej drugače",
+        "de": "Sag es anders",
+        "it": "Dillo in un altro modo",
+        "en": "Say it another way"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Say it with be used to · Povej z be used to",
+            "de": "Say it with be used to · Sag es mit be used to",
+            "it": "Say it with be used to · Dillo con be used to",
+            "en": "Say it with be used to"
+          },
+          "items": [
+            {
+              "from": "I get up at five. It's normal for me.",
+              "accept": [
+                "I'm used to getting up at five."
+              ]
+            },
+            {
+              "from": "The cold isn't a problem for Jack.",
+              "accept": [
+                "Jack is used to the cold.",
+                "He is used to the cold."
+              ]
+            },
+            {
+              "from": "Edna drives on the left. It's normal for her.",
+              "accept": [
+                "Edna is used to driving on the left.",
+                "She is used to driving on the left."
+              ]
+            },
+            {
+              "from": "Working at night is new to Sam, and he finds it hard.",
+              "accept": [
+                "Sam isn't used to working at night.",
+                "He isn't used to working at night."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Zame običajno: be used to + -ing**\n- I'm used to getting up at five.",
+            "de": "**Für mich normal: be used to + -ing**\n- I'm used to getting up at five.",
+            "it": "**Per me è normale: be used to + -ing**\n- I'm used to getting up at five.",
+            "en": "**Normal for me: be used to + -ing**\n- I'm used to getting up at five."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Say it with get used to · Povej z get used to",
+            "de": "Say it with get used to · Sag es mit get used to",
+            "it": "Say it with get used to · Dillo con get used to",
+            "en": "Say it with get used to"
+          },
+          "items": [
+            {
+              "from": "The noise is still new to me, but it is slowly getting better.",
+              "accept": [
+                "I'm getting used to the noise.",
+                "I'm slowly getting used to the noise."
+              ]
+            },
+            {
+              "from": "Soon the rain will be normal for you.",
+              "accept": [
+                "You'll get used to the rain.",
+                "You'll soon get used to the rain.",
+                "Soon you'll get used to the rain.",
+                "You'll get used to the rain soon."
+              ]
+            },
+            {
+              "from": "After a year the dark mornings were normal for her.",
+              "accept": [
+                "After a year she got used to the dark mornings.",
+                "She got used to the dark mornings after a year.",
+                "After a year she had got used to the dark mornings.",
+                "She had got used to the dark mornings after a year."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Postaja običajno: get used to + -ing**\n- You'll get used to the rain.",
+            "de": "**Es wird normal: get used to + -ing**\n- You'll get used to the rain.",
+            "it": "**Sta diventando normale: get used to + -ing**\n- You'll get used to the rain.",
+            "en": "**Becoming normal: get used to + -ing**\n- You'll get used to the rain."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "would-used-to",
+          "instruction": {
+            "sl": "Say it with would · Povej z would",
+            "de": "Say it with would · Sag es mit would",
+            "it": "Say it with would · Dillo con would",
+            "en": "Say it with would"
+          },
+          "items": [
+            {
+              "from": "Every Sunday we walked to the tarn.",
+              "accept": [
+                "Every Sunday we would walk to the tarn.",
+                "We would walk to the tarn every Sunday."
+              ]
+            },
+            {
+              "from": "On market days Granny baked bread.",
+              "accept": [
+                "On market days Granny would bake bread.",
+                "Granny would bake bread on market days."
+              ]
+            },
+            {
+              "from": "At night my father told us stories.",
+              "accept": [
+                "At night my father would tell us stories.",
+                "My father would tell us stories at night."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Takrat vedno znova: would + osnovna oblika**\n- Every Sunday we would walk to the tarn.",
+            "de": "**Damals immer wieder: would + Grundform**\n- Every Sunday we would walk to the tarn.",
+            "it": "**Allora, ogni volta: would + forma base**\n- Every Sunday we would walk to the tarn.",
+            "en": "**Again and again then: would + the base form**\n- Every Sunday we would walk to the tarn."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "would-used-to",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "title": "Old Wilf's story",
+        "text": "When I was a boy, we ___ (get) up at five. My father ___ (wake) me with a cup of tea. We ___ (have) a cow then. I was used to ___ (work) before school. Now I can't get used to ___ (sleep) so late!",
+        "gaps": [
+          {
+            "accept": [
+              "would get",
+              "used to get",
+              "got"
+            ],
+            "hint": {
+              "sl": "takrat",
+              "de": "damals",
+              "it": "allora",
+              "en": "back then"
+            }
+          },
+          {
+            "accept": [
+              "would wake",
+              "used to wake",
+              "woke"
+            ],
+            "hint": {
+              "sl": "takrat",
+              "de": "damals",
+              "it": "allora",
+              "en": "back then"
+            }
+          },
+          {
+            "accept": [
+              "used to have",
+              "had"
+            ],
+            "hint": {
+              "sl": "kako je bilo",
+              "de": "wie es war",
+              "it": "com'era",
+              "en": "how things were"
+            }
+          },
+          {
+            "accept": [
+              "working"
+            ],
+            "hint": "-ing"
+          },
+          {
+            "accept": [
+              "sleeping"
+            ],
+            "hint": "-ing"
+          }
+        ],
+        "translation": {
+          "sl": "Ko sem bil deček, smo vstajali ob petih. Oče me je zbujal s skodelico čaja. Takrat smo imeli kravo. Bil sem navajen delati pred šolo. Zdaj se ne morem navaditi, da spim tako dolgo!",
+          "de": "Als ich ein Bub war, standen wir um fünf auf. Mein Vater weckte mich mit einer Tasse Tee. Damals hatten wir eine Kuh. Ich war es gewohnt, vor der Schule zu arbeiten. Jetzt kann ich mich nicht daran gewöhnen, so lange zu schlafen!",
+          "it": "Da bambino ci alzavamo alle cinque. Mio padre mi svegliava con una tazza di tè. Allora avevamo una mucca. Ero abituato a lavorare prima di scuola. Adesso non riesco ad abituarmi a dormire così a lungo!",
+          "en": "When I was a boy, we used to get up at five. My father would wake me with a cup of tea. We had a cow then. I was used to working before school. Now I can't get used to sleeping so late!"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "would-used-to",
+        "instruction": {
+          "sl": "Say it with used to · Povej z used to",
+          "de": "Say it with used to · Sag es mit used to",
+          "it": "Say it with used to · Dillo con used to",
+          "en": "Say it with used to"
+        },
+        "items": [
+          {
+            "from": "Rain doesn't bother Mrs Birkett. It's normal for her.",
+            "accept": [
+              "Mrs Birkett is used to the rain.",
+              "She is used to the rain.",
+              "Mrs Birkett is used to rain.",
+              "She is used to rain."
+            ]
+          },
+          {
+            "from": "Poppy played the fiddle as a child. She doesn't now.",
+            "accept": [
+              "Poppy used to play the fiddle.",
+              "Poppy used to play the fiddle as a child.",
+              "As a child, Poppy used to play the fiddle.",
+              "Poppy used to play the fiddle when she was a child.",
+              "When she was a child, Poppy used to play the fiddle."
+            ]
+          },
+          {
+            "from": "The early starts are slowly becoming normal for me.",
+            "accept": [
+              "I'm getting used to the early starts.",
+              "I'm slowly getting used to the early starts."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**used to + osnovna oblika, be used to + -ing**\n- She is used to the rain. Poppy used to play the fiddle. I'm getting used to the early starts.",
+          "de": "**used to + Grundform, be used to + -ing**\n- She is used to the rain. Poppy used to play the fiddle. I'm getting used to the early starts.",
+          "it": "**used to + forma base, be used to + -ing**\n- She is used to the rain. Poppy used to play the fiddle. I'm getting used to the early starts.",
+          "en": "**used to + the base form, be used to + -ing**\n- She is used to the rain. Poppy used to play the fiddle. I'm getting used to the early starts."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "would-used-to",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I'm not used to ___ so much.",
+        "options": [
+          "walking",
+          "walk",
+          "walked"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Zame običajno: be used to + -ing**\n- I'm not used to walking so much.",
+          "de": "**Für mich normal: be used to + -ing**\n- I'm not used to walking so much.",
+          "it": "**Per me è normale: be used to + -ing**\n- I'm not used to walking so much.",
+          "en": "**Normal for me: be used to + -ing**\n- I'm not used to walking so much."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "would-used-to",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "In those days we ___ live by the beck.",
+        "options": [
+          "used to",
+          "would",
+          "are used to"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Stanje: used to, ne would**\n- In those days we used to live by the beck.",
+          "de": "**Ein Zustand: used to, nicht would**\n- In those days we used to live by the beck.",
+          "it": "**Uno stato: used to, non would**\n- In those days we used to live by the beck.",
+          "en": "**How things were: used to, not would**\n- In those days we used to live by the beck."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "would-used-to",
+        "instruction": {
+          "sl": "Fill in the table · Dopolni tabelo",
+          "de": "Fill in the table · Ergänze die Tabelle",
+          "it": "Fill in the table · Completa la tabella",
+          "en": "Fill in the table"
+        },
+        "prompt": {
+          "sl": "Takrat ali zdaj",
+          "de": "Damals oder jetzt",
+          "it": "Allora o adesso",
+          "en": "Then or now"
+        },
+        "columns": [
+          {
+            "sl": "dopolni",
+            "de": "ergänze",
+            "it": "completa",
+            "en": "fill in"
+          }
+        ],
+        "rows": [
+          {
+            "label": "Are you used to … (live) in the country yet?",
+            "cells": [
+              {
+                "accept": [
+                  "living"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Every winter the beck … (freeze) and we would skate.",
+            "cells": [
+              {
+                "accept": [
+                  "would freeze",
+                  "used to freeze",
+                  "froze"
+                ]
+              }
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**used to + osnovna oblika, be used to + -ing**\n- Are you used to living in the country yet?",
+          "de": "**used to + Grundform, be used to + -ing**\n- Are you used to living in the country yet?",
+          "it": "**used to + forma base, be used to + -ing**\n- Are you used to living in the country yet?",
+          "en": "**used to + the base form, be used to + -ing**\n- Are you used to living in the country yet?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

@@ -46,6 +46,9 @@ const RULE = /^(-{3,}|\*{3,}|_{3,})$/
 const NUMBERED = new RegExp(`^(\\d+)[.)]${JSPACE}+(${DOT}*)$`, 'u')
 const SPACE = new RegExp(`${JSPACE}+`, 'g')
 const TRAILING_BRACKETS = new RegExp(`${JSPACE}*\\([^()]*\\)${JSPACE}*${JEND}`, 'u')
+const BRACKETS_BEFORE_STOP = new RegExp(`${JSPACE}*\\([^()]*\\)([.!?…»”"]+)${JSPACE}*${JEND}`, 'u')
+/** A cue in brackets right after a gap: underscores, however many. */
+const CUE = new RegExp(`(?<=_)${JSPACE}*\\([^()]*\\)`, 'gu')
 /** A gap of a quick question (Sheets.GAP): three underscores or more. */
 const GAP = /_{3,}/g
 const WORD = /\p{L}+/gu
@@ -184,6 +187,9 @@ export function plain(markdown: string): string {
 /** The voice store's key of an explanation in [lang] ([plain]): the language and its text as the store keys a line. */
 export const key = (lang: string, text: string) => `${lang}|${normalizeText(text)}`
 
+/** [text] without a translation or a cue in brackets at its end, a full stop after it or not. */
+const withoutEndBrackets = (text: string) => ktTrim(replaceAll(text, TRAILING_BRACKETS, '').replace(BRACKETS_BEFORE_STOP, '$1'))
+
 /**
  * A quick question's prompt as read before it is answered, giving nothing away: the sentence with its gap as a pause,
  * without a translation in brackets at its end. Undefined for another kind of question.
@@ -191,13 +197,17 @@ export const key = (lang: string, text: string) => `${lang}|${normalizeText(text
 export function question(ask: Ask | undefined): string | undefined {
   if (!ask) return undefined
   const text = ask.type === 'choice' ? ask.prompt : ask.text
-  return said(ktTrim(replaceAll(replaceAll(text, GAP, '…'), TRAILING_BRACKETS, '')))
+  return said(withoutEndBrackets(replaceAll(text, GAP, '…')))
 }
 
-/** A sentence with its gap filled with [answer], without a translation in brackets at its end; undefined when there's no gap. */
+/**
+ * A sentence with its gap filled with [answer], without what brackets add: a cue right after the gap, wherever it stands ("By the time
+ * the bus ___ (come), I'll have finished."), and a translation or a cue at its end, with a full stop after it or not; undefined when
+ * there's no gap.
+ */
 export function gapFilled(text: string, answer: string | undefined): string | undefined {
   if (answer === undefined || !new RegExp(GAP.source).test(text)) return undefined
-  return ktTrim(replaceAll(replaceAll(text, GAP, answer), TRAILING_BRACKETS, ''))
+  return withoutEndBrackets(replaceAll(replaceAll(text, CUE, ''), GAP, answer))
 }
 
 /** The sentence of a quick question's answer, read once it is answered: its prompt with the gap filled with the right answer. */

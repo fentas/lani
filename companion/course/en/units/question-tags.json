@@ -1,0 +1,662 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "question-tags",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🏷️",
+  "title": {
+    "sl": "Vprašalni dodatki: isn't it? So do I",
+    "de": "Frageanhängsel: isn't it? So do I",
+    "it": "Le code interrogative: isn't it? So do I",
+    "en": "It's cold, isn't it?"
+  },
+  "goal": {
+    "sl": "Prosiš za pritrditev v vsakem času (It's cold, isn't it?, You saw him, didn't you?), pritrdiš (So do I, Neither can I) in odgovoriš na kratko (No, she hasn't).",
+    "de": "Du bittest um Zustimmung in jeder Zeit (It's cold, isn't it?, You saw him, didn't you?), stimmst zu (So do I, Neither can I) und antwortest kurz (No, she hasn't).",
+    "it": "Chiedi conferma in ogni tempo (It's cold, isn't it?, You saw him, didn't you?), sei d'accordo (So do I, Neither can I) e rispondi in breve (No, she hasn't).",
+    "en": "You can ask someone to agree in every tense (It's cold, isn't it?, You saw him, didn't you?), agree yourself (So do I, Neither can I), and give a short answer (No, she hasn't)."
+  },
+  "grammar": ["question-tags", "to-be"],
+  "words": [
+    "isn't it",
+    "aren't you",
+    "don't you",
+    "doesn't he",
+    "didn't you",
+    "haven't you",
+    "won't it",
+    "can't she",
+    "wasn't it",
+    "aren't I",
+    "shall we",
+    "will you",
+    "So do I",
+    "Neither do I",
+    "Nor do I",
+    "Me too",
+    "Me neither",
+    "tag",
+    "far",
+    "late",
+    "meat",
+    "brother",
+    "sister",
+    "swim",
+    "nobody",
+    "have",
+    "will",
+    "can",
+    "was",
+    "did",
+    "does",
+    "lovely",
+    "beer",
+    "brewery",
+    "drive",
+    "tonight",
+    "fish",
+    "close",
+    "door"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**It's cold, isn't it?** Dodatek prosi sogovornika, naj pritrdi. (Mraz je, a ne?) Slovenščina ima za vse *a ne?*, angleščina vzame glagol iz stavka. Pritrdilni stavek, nikalni dodatek; nikalni stavek, pritrdilni dodatek: **It isn't far, is it?** **You're Jack's brother, aren't you?**",
+          "de": "**It's cold, isn't it?** Der Anhang bittet den anderen um Zustimmung. (Es ist kalt, oder?) Deutsch hat für alles *oder?*, Englisch nimmt das Verb aus dem Satz. Bejahter Satz, verneinter Anhang; verneinter Satz, bejahter Anhang: **It isn't far, is it?** **You're Jack's brother, aren't you?**",
+          "it": "**It's cold, isn't it?** La coda chiede all'altro di essere d'accordo. (Fa freddo, vero?) L'italiano ha per tutto *vero?*, l'inglese prende il verbo dalla frase. Frase positiva, coda negativa; frase negativa, coda positiva: **It isn't far, is it?** **You're Jack's brother, aren't you?**",
+          "en": "**It's cold, isn't it?** A tag asks the other person to agree. It takes the verb from the sentence. A yes sentence, a no tag; a no sentence, a yes tag: **It isn't far, is it?** **You're Jack's brother, aren't you?**"
+        },
+        "examples": [
+          { "en": "It's cold, isn't it?", "sl": "Mraz je, a ne?", "de": "Es ist kalt, oder?", "it": "Fa freddo, vero?" },
+          { "en": "It isn't far, is it?", "sl": "Ni daleč, a ne?", "de": "Es ist nicht weit, oder?", "it": "Non è lontano, vero?" },
+          {
+            "en": "You're Jack's brother, aren't you?",
+            "sl": "Ti si Jackov brat, a ne?",
+            "de": "Du bist Jacks Bruder, oder?",
+            "it": "Sei il fratello di Jack, vero?"
+          }
+        ],
+        "rows": [
+          [
+            "…, isn't it?",
+            {
+              "sl": "pritrdilni stavek, nikalni dodatek",
+              "de": "bejaht, Anhang verneint",
+              "it": "positiva, coda negativa",
+              "en": "a yes sentence, a no tag"
+            },
+            "It's cold, isn't it?"
+          ],
+          [
+            "…, is it?",
+            {
+              "sl": "nikalni stavek, pritrdilni dodatek",
+              "de": "verneint, Anhang bejaht",
+              "it": "negativa, coda positiva",
+              "en": "a no sentence, a yes tag"
+            },
+            "It isn't far, is it?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "question-tags",
+          "prompt": "It isn't far, ___?",
+          "options": ["is it", "does it", "has it"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Nikalni stavek, pritrdilni dodatek**\n- It isn't far, is it?",
+            "de": "**Verneinter Satz, bejahter Anhang**\n- It isn't far, is it?",
+            "it": "**Frase negativa, coda positiva**\n- It isn't far, is it?",
+            "en": "**A no sentence, a yes tag**\n- It isn't far, is it?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**You live here, don't you?** Brez pomožnega glagola pride **do**, **does**, **did**. (Tu živiš, a ne?) **Jack works on the fell, doesn't he?** **You saw him, didn't you?** Nikalno: **You don't eat meat, do you?** V dodatku je vedno zaimek: Jack je he.",
+          "de": "**You live here, don't you?** Ohne Hilfsverb kommt **do**, **does**, **did**. (Du wohnst hier, oder?) **Jack works on the fell, doesn't he?** **You saw him, didn't you?** Verneint: **You don't eat meat, do you?** Im Anhang steht immer ein Pronomen: Jack ist he.",
+          "it": "**You live here, don't you?** Senza ausiliare viene **do**, **does**, **did**. (Abiti qui, vero?) **Jack works on the fell, doesn't he?** **You saw him, didn't you?** Negativo: **You don't eat meat, do you?** Nella coda c'è sempre un pronome: Jack è he.",
+          "en": "**You live here, don't you?** With no helping verb, **do**, **does**, **did**. **Jack works on the fell, doesn't he?** **You saw him, didn't you?** With no: **You don't eat meat, do you?** The tag always has a pronoun: Jack is he."
+        },
+        "examples": [
+          { "en": "You live here, don't you?", "sl": "Tu živiš, a ne?", "de": "Du wohnst hier, oder?", "it": "Abiti qui, vero?" },
+          {
+            "en": "Jack works on the fell, doesn't he?",
+            "sl": "Jack dela na hribu, a ne?",
+            "de": "Jack arbeitet am Berg, oder?",
+            "it": "Jack lavora sul monte, vero?"
+          },
+          {
+            "en": "You saw him, didn't you?",
+            "sl": "{m:Videl|f:Videla} si ga, a ne?",
+            "de": "Du hast ihn gesehen, oder?",
+            "it": "L'hai visto, vero?"
+          },
+          {
+            "en": "You don't eat meat, do you?",
+            "sl": "Ne ješ mesa, a ne?",
+            "de": "Du isst kein Fleisch, oder?",
+            "it": "Non mangi carne, vero?"
+          }
+        ],
+        "rows": [
+          [
+            "do, does, did",
+            { "sl": "brez pomožnega glagola", "de": "ohne Hilfsverb", "it": "senza ausiliare", "en": "no helping verb" },
+            "You live here, don't you?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "question-tags",
+          "prompt": "Jack lives on the fell, ___?",
+          "options": ["doesn't he", "hasn't he", "wasn't he"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Brez pomožnega glagola: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?",
+            "de": "**Ohne Hilfsverb: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?",
+            "it": "**Senza ausiliare: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?",
+            "en": "**No helping verb: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**It'll rain, won't it?** Drugi glagoli ostanejo: **have**, **will**, **can**, **was**. (Deževalo bo, a ne?) **You've been to Keswick, haven't you?** **She can swim, can't she?** **It was cold, wasn't it?** **He wasn't there, was he?** Pri **have** za to, kar imaš: **You've got a dog, haven't you?** **You have a dog, don't you?**",
+          "de": "**It'll rain, won't it?** Andere Verben bleiben: **have**, **will**, **can**, **was**. (Es wird regnen, oder?) **You've been to Keswick, haven't you?** **She can swim, can't she?** **It was cold, wasn't it?** **He wasn't there, was he?** Bei **have** für Besitz: **You've got a dog, haven't you?** **You have a dog, don't you?**",
+          "it": "**It'll rain, won't it?** Gli altri verbi restano: **have**, **will**, **can**, **was**. (Pioverà, vero?) **You've been to Keswick, haven't you?** **She can swim, can't she?** **It was cold, wasn't it?** **He wasn't there, was he?** Con **have** per ciò che possiedi: **You've got a dog, haven't you?** **You have a dog, don't you?**",
+          "en": "**It'll rain, won't it?** The other helping verbs stay: **have**, **will**, **can**, **was**. **You've been to Keswick, haven't you?** **She can swim, can't she?** **It was cold, wasn't it?** **He wasn't there, was he?** With **have** for what you own: **You've got a dog, haven't you?** **You have a dog, don't you?**"
+        },
+        "examples": [
+          { "en": "It'll rain, won't it?", "sl": "Deževalo bo, a ne?", "de": "Es wird regnen, oder?", "it": "Pioverà, vero?" },
+          {
+            "en": "You've been to Keswick, haven't you?",
+            "sl": "Si že bil{m:|f:a} v Keswicku, a ne?",
+            "de": "Du warst schon in Keswick, oder?",
+            "it": "Sei già stat{m:o|f:a} a Keswick, vero?"
+          },
+          { "en": "She can swim, can't she?", "sl": "Zna plavati, a ne?", "de": "Sie kann schwimmen, oder?", "it": "Sa nuotare, vero?" },
+          { "en": "You've got a dog, haven't you?", "sl": "Imaš psa, a ne?", "de": "Du hast einen Hund, oder?", "it": "Hai un cane, vero?" }
+        ],
+        "rows": [
+          [
+            "have, will, can, was",
+            {
+              "sl": "isti glagol kot v stavku",
+              "de": "dasselbe Verb wie im Satz",
+              "it": "lo stesso verbo della frase",
+              "en": "the sentence's own verb"
+            },
+            "It'll rain, won't it?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "question-tags",
+          "prompt": "You've been to Keswick, ___?",
+          "options": ["haven't you", "don't you", "weren't you"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Isti pomožni glagol kot v stavku**\n- It'll rain, won't it?",
+            "de": "**Dasselbe Hilfsverb wie im Satz**\n- It'll rain, won't it?",
+            "it": "**Lo stesso ausiliare della frase**\n- It'll rain, won't it?",
+            "en": "**The same helping verb as the sentence**\n- It'll rain, won't it?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**I'm late, aren't I?** je za I am. (Zamujam, a ne?) Na Škotskem in Irskem rečejo tudi *amn't I*. **There's a bus, isn't there?** **Let's go, shall we?** **Close the door, will you?** **Nobody came, did they?** Ljudje rečejo tudi *innit*, v Walesu in Indiji *isn't it* za vse osebe; v pisanju je dodatek, ki se ujema. Glas pada: pričakuješ da. Glas se dvigne: res sprašuješ.",
+          "de": "**I'm late, aren't I?** steht für I am. (Ich bin spät dran, oder?) In Schottland und Irland sagt man auch *amn't I*. **There's a bus, isn't there?** **Let's go, shall we?** **Close the door, will you?** **Nobody came, did they?** Man sagt auch *innit*, in Wales und Indien *isn't it* für alle Personen; geschrieben steht der passende Anhang. Stimme fällt: Du erwartest ein Ja. Stimme steigt: Du fragst wirklich.",
+          "it": "**I'm late, aren't I?** è per I am. (Sono in ritardo, vero?) In Scozia e Irlanda si dice anche *amn't I*. **There's a bus, isn't there?** **Let's go, shall we?** **Close the door, will you?** **Nobody came, did they?** Si dice anche *innit*, in Galles e in India *isn't it* per tutti; per iscritto la coda che corrisponde. La voce scende: ti aspetti un sì. La voce sale: chiedi davvero.",
+          "en": "**I'm late, aren't I?** is for I am. In Scotland and Ireland people also say *amn't I*. **There's a bus, isn't there?** **Let's go, shall we?** **Close the door, will you?** **Nobody came, did they?** People also say *innit*, and in Wales and India *isn't it* for every person; writing wants the tag that fits. Voice falling: you expect yes. Voice rising: you really ask."
+        },
+        "examples": [
+          { "en": "I'm late, aren't I?", "sl": "Zamujam, a ne?", "de": "Ich bin spät dran, oder?", "it": "Sono in ritardo, vero?" },
+          {
+            "en": "There's a bus, isn't there?",
+            "sl": "Avtobus vozi, a ne?",
+            "de": "Es gibt einen Bus, oder?",
+            "it": "C'è un autobus, vero?"
+          },
+          { "en": "Let's go, shall we?", "sl": "Greva, a?", "de": "Gehen wir, ja?", "it": "Andiamo, va bene?" },
+          {
+            "en": "Nobody came, did they?",
+            "sl": "Nihče ni prišel, a ne?",
+            "de": "Niemand ist gekommen, oder?",
+            "it": "Non è venuto nessuno, vero?"
+          }
+        ],
+        "rows": [
+          [
+            "aren't I, isn't there",
+            { "sl": "I am; there is", "de": "I am; there is", "it": "I am; there is", "en": "I am; there is" },
+            "I'm late, aren't I?"
+          ],
+          [
+            "shall we, will you, did they",
+            {
+              "sl": "Let's; ukaz; nobody",
+              "de": "Let's; Aufforderung; nobody",
+              "it": "Let's; ordine; nobody",
+              "en": "Let's; a command; nobody"
+            },
+            "Let's go, shall we?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "question-tags",
+          "prompt": "I'm late, ___?",
+          "options": ["aren't I", "don't I", "haven't I"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**I am: aren't I**\n- I'm late, aren't I?",
+            "de": "**I am: aren't I**\n- I'm late, aren't I?",
+            "it": "**I am: aren't I**\n- I'm late, aren't I?",
+            "en": "**I am: aren't I**\n- I'm late, aren't I?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**So do I.** (Jaz tudi.) Pritrdiš pritrdilnemu: So + isti pomožni glagol + I: **I'm tired. — So am I.** **I was late. — So was I.** Pritrdiš nikalnemu: **Neither do I.** (Jaz tudi ne.) **I can't swim. — Neither can I.** Britanci rečejo tudi **Nor do I**. Ljudje rečejo tudi **Me too.** in **Me neither.**",
+          "de": "**So do I.** (Ich auch.) Zustimmung zu einem Ja: So + dasselbe Hilfsverb + I: **I'm tired. — So am I.** **I was late. — So was I.** Zustimmung zu einem Nein: **Neither do I.** (Ich auch nicht.) **I can't swim. — Neither can I.** In Großbritannien auch **Nor do I**. Man sagt auch **Me too.** und **Me neither.**",
+          "it": "**So do I.** (Anch'io.) D'accordo con un sì: So + lo stesso ausiliare + I: **I'm tired. — So am I.** **I was late. — So was I.** D'accordo con un no: **Neither do I.** (Nemmeno io.) **I can't swim. — Neither can I.** I britannici dicono anche **Nor do I**. Si dice anche **Me too.** e **Me neither.**",
+          "en": "**So do I.** Agreeing with a yes: So + the same helping verb + I: **I'm tired. — So am I.** **I was late. — So was I.** Agreeing with a no: **Neither do I.** **I can't swim. — Neither can I.** The British also say **Nor do I**. People also say **Me too.** and **Me neither.**"
+        },
+        "examples": [
+          {
+            "en": "I like tea. — So do I.",
+            "sl": "Rad{m:|f:a} imam čaj. — Jaz tudi.",
+            "de": "Ich mag Tee. — Ich auch.",
+            "it": "Mi piace il tè. — Anche a me."
+          },
+          {
+            "en": "I'm tired. — So am I.",
+            "sl": "{m:Utrujen|f:Utrujena} sem. — Jaz tudi.",
+            "de": "Ich bin müde. — Ich auch.",
+            "it": "Sono stanc{m:o|f:a}. — Anch'io."
+          },
+          {
+            "en": "I don't eat meat. — Neither do I.",
+            "sl": "Ne jem mesa. — Jaz tudi ne.",
+            "de": "Ich esse kein Fleisch. — Ich auch nicht.",
+            "it": "Non mangio carne. — Nemmeno io."
+          },
+          {
+            "en": "I can't swim. — Neither can I.",
+            "sl": "Ne znam plavati. — Jaz tudi ne.",
+            "de": "Ich kann nicht schwimmen. — Ich auch nicht.",
+            "it": "Non so nuotare. — Nemmeno io."
+          }
+        ],
+        "rows": [
+          ["So do I, So am I", { "sl": "tudi jaz", "de": "ich auch", "it": "anch'io", "en": "me too" }, "I'm tired. — So am I."],
+          [
+            "Neither do I, Neither can I",
+            { "sl": "tudi jaz ne", "de": "ich auch nicht", "it": "nemmeno io", "en": "me neither" },
+            "I can't swim. — Neither can I."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "question-tags",
+          "prompt": "I like walking. —",
+          "options": ["So do I.", "So am I.", "So have I."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**So + pomožni glagol + I**\n- I like tea. — So do I.",
+            "de": "**So + Hilfsverb + I**\n- I like tea. — So do I.",
+            "it": "**So + ausiliare + I**\n- I like tea. — So do I.",
+            "en": "**So + the helping verb + I**\n- I like tea. — So do I."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**Yes, I do.** **No, she hasn't.** Kratek odgovor vzame pomožni glagol iz vprašanja: **Has she gone? — No, she hasn't.** **Is it cold? — Yes, it is.** Pritrdilno brez krajšave: **Yes, it is.** Začudenje je kratko vprašanje: **I've been to Leeds. — Have you?** (Res?) **I don't drink tea. — Don't you?**",
+          "de": "**Yes, I do.** **No, she hasn't.** Die Kurzantwort nimmt das Hilfsverb aus der Frage: **Has she gone? — No, she hasn't.** **Is it cold? — Yes, it is.** Beim Ja nicht verkürzt: **Yes, it is.** Staunen ist eine kurze Frage: **I've been to Leeds. — Have you?** (Wirklich?) **I don't drink tea. — Don't you?**",
+          "it": "**Yes, I do.** **No, she hasn't.** La risposta breve prende l'ausiliare dalla domanda: **Has she gone? — No, she hasn't.** **Is it cold? — Yes, it is.** Con il sì senza forma breve: **Yes, it is.** Lo stupore è una domanda breve: **I've been to Leeds. — Have you?** (Davvero?) **I don't drink tea. — Don't you?**",
+          "en": "**Yes, I do.** **No, she hasn't.** A short answer takes the helping verb from the question: **Has she gone? — No, she hasn't.** **Is it cold? — Yes, it is.** With yes, no short form: **Yes, it is.** Surprise is a short question: **I've been to Leeds. — Have you?** **I don't drink tea. — Don't you?**"
+        },
+        "examples": [
+          {
+            "en": "Has she gone? — No, she hasn't.",
+            "sl": "Je odšla? — Ne, ni.",
+            "de": "Ist sie gegangen? — Nein.",
+            "it": "Se n'è andata? — No."
+          },
+          { "en": "Is it cold? — Yes, it is.", "sl": "Je mraz? — Ja, je.", "de": "Ist es kalt? — Ja.", "it": "Fa freddo? — Sì." },
+          {
+            "en": "I've been to Leeds. — Have you?",
+            "sl": "Bil{m:|f:a} sem v Leedsu. — Res?",
+            "de": "Ich war in Leeds. — Wirklich?",
+            "it": "Sono stat{m:o|f:a} a Leeds. — Davvero?"
+          },
+          {
+            "en": "I don't drink tea. — Don't you?",
+            "sl": "Ne pijem čaja. — Res ne?",
+            "de": "Ich trinke keinen Tee. — Wirklich nicht?",
+            "it": "Non bevo tè. — Davvero?"
+          }
+        ],
+        "rows": [
+          [
+            "Yes, I do. No, she hasn't.",
+            { "sl": "kratek odgovor", "de": "Kurzantwort", "it": "risposta breve", "en": "a short answer" },
+            "Has she gone? — No, she hasn't."
+          ],
+          [
+            "Have you? Don't you?",
+            { "sl": "začudenje", "de": "Staunen", "it": "stupore", "en": "surprise" },
+            "I've been to Leeds. — Have you?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "question-tags",
+          "prompt": "Is it far? —",
+          "options": ["Yes, it is.", "Yes, it's.", "Yes, it does."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratek odgovor: pomožni glagol**\n- Yes, it is. · No, she hasn't.",
+            "de": "**Kurzantwort: das Hilfsverb**\n- Yes, it is. · No, she hasn't.",
+            "it": "**Risposta breve: l'ausiliare**\n- Yes, it is. · No, she hasn't.",
+            "en": "**A short answer: the helping verb**\n- Yes, it is. · No, she hasn't."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "question-tags-1",
+      "title": { "sl": "Mraz je, a ne?", "de": "Kalt, oder?", "it": "Fa freddo, vero?", "en": "Cold, isn't it?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "question-tags",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": { "sl": "dodatek", "de": "der Anhang", "it": "la coda", "en": "the tag" },
+          "columns": [{ "sl": "dodatek", "de": "Anhang", "it": "coda", "en": "the tag" }],
+          "rows": [
+            { "label": "It's cold,", "cells": [{ "accept": ["isn't it"], "spoken": ["innit"] }] },
+            { "label": "You live here,", "cells": [{ "accept": ["don't you"] }] },
+            { "label": "Jack saw it,", "cells": [{ "accept": ["didn't he"] }] },
+            { "label": "It isn't far,", "cells": [{ "accept": ["is it"] }] },
+            { "label": "You've been there,", "cells": [{ "accept": ["haven't you"] }] },
+            { "label": "It'll rain,", "cells": [{ "accept": ["won't it"] }] }
+          ],
+          "explain": {
+            "sl": "**Isti pomožni glagol kot v stavku**\n- It'll rain, won't it?",
+            "de": "**Dasselbe Hilfsverb wie im Satz**\n- It'll rain, won't it?",
+            "it": "**Lo stesso ausiliare della frase**\n- It'll rain, won't it?",
+            "en": "**The same helping verb as the sentence**\n- It'll rain, won't it?"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "question-tags",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            { "label": "So …", "words": ["I like tea.", "I'm tired.", "I can swim."] },
+            { "label": "Neither …", "words": ["I don't eat meat.", "I'm not tired.", "I can't swim."] }
+          ],
+          "explain": {
+            "sl": "**Pritrdilno: So. Nikalno: Neither.**\n- I like tea. — So do I. · I can't swim. — Neither can I.",
+            "de": "**Bejaht: So. Verneint: Neither.**\n- I like tea. — So do I. · I can't swim. — Neither can I.",
+            "it": "**Positivo: So. Negativo: Neither.**\n- I like tea. — So do I. · I can't swim. — Neither can I.",
+            "en": "**A yes: So. A no: Neither.**\n- I like tea. — So do I. · I can't swim. — Neither can I."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "question-tags",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Mrs Birkett works hard, ___?",
+          "options": ["doesn't she", "hasn't she", "wasn't she"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Brez pomožnega glagola: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?",
+            "de": "**Ohne Hilfsverb: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?",
+            "it": "**Senza ausiliare: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?",
+            "en": "**No helping verb: do, does, did**\n- You live here, don't you? · Jack saw it, didn't he?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question-tags-2",
+      "title": { "sl": "Klepet v gostilni", "de": "Ein Plausch im Gasthaus", "it": "Due chiacchiere alla locanda", "en": "A chat at the inn" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "question-tags",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— It's a lovely day, ___? — It is! You're staying at the inn, ___? — Yes. You don't know Mr Dixon, ___? — I do. He mended my gate. — I like walking. — So ___ I. — I've never been up Helvellyn. — ___ have I! — Let's go on Sunday, ___? — You can't come on Saturday, ___?",
+          "gaps": [
+            { "accept": ["isn't it"], "spoken": ["innit"], "hint": "it is" },
+            { "accept": ["aren't you"], "hint": "you are" },
+            { "accept": ["do you"], "hint": "you don't" },
+            { "accept": ["do"], "hint": "I like" },
+            { "accept": ["Neither", "Nor"], "hint": "never = no" },
+            { "accept": ["shall we"], "hint": "Let's" },
+            { "accept": ["can you"], "hint": "you can't" }
+          ],
+          "bank": true,
+          "distractors": ["does it", "has it"],
+          "translation": {
+            "sl": "— Lep dan je, a ne? — Res je! Si v gostilni, a ne? — Ja. Gospoda Dixona ne poznaš, a ne? — Poznam ga. Popravil mi je vrata. — Rad{m:|f:a} hodim. — Jaz tudi. — Na Helvellynu še nikoli nisem bil{m:|f:a}. — Jaz tudi ne! — Greva v nedeljo, a? — V soboto ne moreš priti, a ne?",
+            "de": "— Ein schöner Tag, oder? — Ja! Du wohnst im Gasthaus, oder? — Ja. Du kennst Mr Dixon nicht, oder? — Doch. Er hat mein Tor repariert. — Ich gehe gern wandern. — Ich auch. — Ich war noch nie auf dem Helvellyn. — Ich auch nicht! — Gehen wir am Sonntag, ja? — Am Samstag kannst du nicht kommen, oder?",
+            "it": "— È una bella giornata, vero? — Sì! Alloggi alla locanda, vero? — Sì. Non conosci Mr Dixon, vero? — Sì che lo conosco. Mi ha riparato il cancello. — Mi piace camminare. — Anche a me. — Non sono mai salit{m:o|f:a} sull'Helvellyn. — Nemmeno io! — Andiamo domenica, va bene? — Sabato non puoi venire, vero?",
+            "en": "— It's a lovely day, isn't it? — It is! You're staying at the inn, aren't you? — Yes. You don't know Mr Dixon, do you? — I do. He mended my gate. — I like walking. — So do I. — I've never been up Helvellyn. — Neither have I! — Let's go on Sunday, shall we? — You can't come on Saturday, can you?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "question-tags",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "I can't swim. —",
+          "options": ["Neither can I.", "Neither do I.", "Neither am I."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Neither + pomožni glagol + I**\n- I can't swim. — Neither can I.",
+            "de": "**Neither + Hilfsverb + I**\n- I can't swim. — Neither can I.",
+            "it": "**Neither + ausiliare + I**\n- I can't swim. — Neither can I.",
+            "en": "**Neither + the helping verb + I**\n- I can't swim. — Neither can I."
+          }
+        }
+      ]
+    },
+    {
+      "id": "question-tags-3",
+      "title": { "sl": "Dodatki in pritrditve", "de": "Anhänge und Zustimmung", "it": "Code e accordo", "en": "Tags and agreeing" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "question-tags",
+          "instruction": {
+            "sl": "Add the tag · Dodaj dodatek",
+            "de": "Add the tag · Häng den Anhang an",
+            "it": "Add the tag · Aggiungi la coda",
+            "en": "Add the tag"
+          },
+          "cue": "…?",
+          "items": [
+            { "from": "It was cold.", "accept": ["It was cold, wasn't it?"] },
+            { "from": "Jack won't come.", "accept": ["Jack won't come, will he?"] },
+            { "from": "Mrs Birkett has gone.", "accept": ["Mrs Birkett has gone, hasn't she?", "Mrs Birkett's gone, hasn't she?"] },
+            { "from": "There's a bus at nine.", "accept": ["There's a bus at nine, isn't there?"] }
+          ],
+          "explain": {
+            "sl": "**Isti pomožni glagol kot v stavku**\n- It'll rain, won't it?",
+            "de": "**Dasselbe Hilfsverb wie im Satz**\n- It'll rain, won't it?",
+            "it": "**Lo stesso ausiliare della frase**\n- It'll rain, won't it?",
+            "en": "**The same helping verb as the sentence**\n- It'll rain, won't it?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "question-tags",
+          "instruction": {
+            "sl": "Agree, with So or Neither · Pritrdi: s So ali Neither",
+            "de": "Agree, with So or Neither · Stimm zu: mit So oder Neither",
+            "it": "Agree, with So or Neither · Sii d'accordo: con So o Neither",
+            "en": "Agree, with So or Neither"
+          },
+          "items": [
+            { "from": "I like tea.", "accept": ["So do I."], "spoken": ["Me too.", "I do too."] },
+            { "from": "I can't swim.", "accept": ["Neither can I.", "Nor can I.", "I can't either."], "spoken": ["Me neither.", "Nor me."] },
+            { "from": "I was late.", "accept": ["So was I."], "spoken": ["Me too.", "I was too."] },
+            {
+              "from": "I haven't got a car.",
+              "accept": ["Neither have I.", "Nor have I.", "I haven't either."],
+              "spoken": ["Me neither.", "Nor me."]
+            }
+          ],
+          "explain": {
+            "sl": "**So ali Neither + isti pomožni glagol + I**\n- I like tea. — So do I.",
+            "de": "**So oder Neither + dasselbe Hilfsverb + I**\n- I like tea. — So do I.",
+            "it": "**So o Neither + lo stesso ausiliare + I**\n- I like tea. — So do I.",
+            "en": "**So or Neither + the same helping verb + I**\n- I like tea. — So do I."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "question-tags",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "— You're Sam's sister, ___? — Yes. You've met him, ___? — I have. He doesn't live here, ___? — No, he lives by the brewery. — I don't like beer. — ___ do I! — There's a dance tonight, ___?",
+        "gaps": [
+          { "accept": ["aren't you"], "hint": "you are" },
+          { "accept": ["haven't you"], "hint": "you've" },
+          { "accept": ["does he"], "hint": "he doesn't" },
+          { "accept": ["Neither", "Nor"], "hint": { "sl": "nikalno", "de": "verneint", "it": "negativo", "en": "a no" } },
+          { "accept": ["isn't there"], "hint": "there is" }
+        ],
+        "translation": {
+          "sl": "— Ti si Samova sestra, a ne? — Ja. Si ga že {m:spoznal|f:spoznala}, a ne? — Sem. Ne živi tu, a ne? — Ne, živi pri pivovarni. — Ne maram piva. — Jaz tudi ne! — Nocoj je ples, a ne?",
+          "de": "— Du bist Sams Schwester, oder? — Ja. Du hast ihn schon kennengelernt, oder? — Ja. Er wohnt nicht hier, oder? — Nein, er wohnt bei der Brauerei. — Ich mag kein Bier. — Ich auch nicht! — Heute Abend ist Tanz, oder?",
+          "it": "— Sei la sorella di Sam, vero? — Sì. L'hai già conosciuto, vero? — Sì. Non abita qui, vero? — No, abita vicino alla birreria. — La birra non mi piace. — Nemmeno a me! — Stasera c'è un ballo, vero?",
+          "en": "— You're Sam's sister, aren't you? — Yes. You've met him, haven't you? — I have. He doesn't live here, does he? — No, he lives by the brewery. — I don't like beer. — Neither do I! — There's a dance tonight, isn't there?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "question-tags",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Let's have some tea, ___?",
+        "options": ["shall we", "do we", "are we"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Let's: shall we**\n- Let's go, shall we?",
+          "de": "**Let's: shall we**\n- Let's go, shall we?",
+          "it": "**Let's: shall we**\n- Let's go, shall we?",
+          "en": "**Let's: shall we**\n- Let's go, shall we?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "question-tags",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I'm tired. —",
+        "options": ["So am I.", "So do I.", "So have I."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**So + pomožni glagol + I**\n- I like tea. — So do I.",
+          "de": "**So + Hilfsverb + I**\n- I like tea. — So do I.",
+          "it": "**So + ausiliare + I**\n- I like tea. — So do I.",
+          "en": "**So + the helping verb + I**\n- I like tea. — So do I."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "question-tags",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Has Jack fed the dogs? —",
+        "options": ["No, he hasn't.", "No, he doesn't.", "No, he isn't."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kratek odgovor: pomožni glagol**\n- Yes, it is. · No, she hasn't.",
+          "de": "**Kurzantwort: das Hilfsverb**\n- Yes, it is. · No, she hasn't.",
+          "it": "**Risposta breve: l'ausiliare**\n- Yes, it is. · No, she hasn't.",
+          "en": "**A short answer: the helping verb**\n- Yes, it is. · No, she hasn't."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "question-tags",
+        "instruction": {
+          "sl": "Add the tag · Dodaj dodatek",
+          "de": "Add the tag · Häng den Anhang an",
+          "it": "Add the tag · Aggiungi la coda",
+          "en": "Add the tag"
+        },
+        "cue": "…?",
+        "items": [
+          { "from": "Arthur keeps bees.", "accept": ["Arthur keeps bees, doesn't he?"] },
+          { "from": "You can't drive.", "accept": ["You can't drive, can you?"] }
+        ],
+        "explain": {
+          "sl": "**Isti pomožni glagol kot v stavku**\n- It'll rain, won't it?",
+          "de": "**Dasselbe Hilfsverb wie im Satz**\n- It'll rain, won't it?",
+          "it": "**Lo stesso ausiliare della frase**\n- It'll rain, won't it?",
+          "en": "**The same helping verb as the sentence**\n- It'll rain, won't it?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "question-tags",
+        "instruction": {
+          "sl": "Agree, with So or Neither · Pritrdi: s So ali Neither",
+          "de": "Agree, with So or Neither · Stimm zu: mit So oder Neither",
+          "it": "Agree, with So or Neither · Sii d'accordo: con So o Neither",
+          "en": "Agree, with So or Neither"
+        },
+        "items": [
+          { "from": "I've been to Keswick.", "accept": ["So have I."], "spoken": ["Me too.", "I have too."] },
+          { "from": "I don't eat fish.", "accept": ["Neither do I.", "Nor do I.", "I don't either."], "spoken": ["Me neither.", "Nor me."] }
+        ],
+        "explain": {
+          "sl": "**So ali Neither + isti pomožni glagol + I**\n- I like tea. — So do I.",
+          "de": "**So oder Neither + dasselbe Hilfsverb + I**\n- I like tea. — So do I.",
+          "it": "**So o Neither + lo stesso ausiliare + I**\n- I like tea. — So do I.",
+          "en": "**So or Neither + the same helping verb + I**\n- I like tea. — So do I."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}

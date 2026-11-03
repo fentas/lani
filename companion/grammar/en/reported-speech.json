@@ -1,0 +1,206 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "reported-speech",
+  "language": "en",
+  "level": "B1",
+  "emoji": "💬",
+  "title": {
+    "sl": "Odvisni govor: she said she was tired",
+    "de": "Indirekte Rede: she said she was tired",
+    "it": "Il discorso indiretto: she said she was tired",
+    "en": "What was said: she said she was tired"
+  },
+  "rule": {
+    "sl": "**say** + kaj: **She said she was tired.** (Rekla je, da je utrujena.) **tell** + komu: **She told me she was tired.** Tudi **said to me**, ne *said me*. **told me**, ne *told to me*. **that** lahko izpustiš.\n\nČas gre korak nazaj: **am, is → was**, **are → were**, **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. Preteklik: **I saw Jack → He said he had seen Jack**, tudi **he saw Jack**. Slovenščina ostane v sedanjiku, angleščina ne.\n\nČe je še vedno res, ljudje čas pustijo: **She said she's tired.** Tudi to je prav.\n\nZamenjaj osebo in besede za kraj in čas: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**, **now → then**.\n\nUkaz: **told me to** + osnovna oblika: **She told me to wait.** **told me not to**: **She told me not to wait.** Prošnja: **She asked me to wait.**",
+    "de": "**say** + was: **She said she was tired.** (Sie sagte, sie sei müde.) **tell** + wem: **She told me she was tired.** Auch **said to me**, nicht *said me*. **told me**, nicht *told to me*. **that** kannst du weglassen.\n\nDie Zeit geht einen Schritt zurück: **am, is → was**, **are → were**, **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. Die Vergangenheit: **I saw Jack → He said he had seen Jack**, auch **he saw Jack**. Englisch kennt keinen Konjunktiv dafür.\n\nWenn es noch stimmt, lassen die Leute die Zeit: **She said she's tired.** Auch das ist richtig.\n\nWechsle die Person und die Wörter für Ort und Zeit: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**, **now → then**.\n\nBefehl: **told me to** + Grundform: **She told me to wait.** **told me not to**: **She told me not to wait.** Bitte: **She asked me to wait.**",
+    "it": "**say** + che cosa: **She said she was tired.** (Ha detto che era stanca.) **tell** + a chi: **She told me she was tired.** Anche **said to me**, non *said me*. **told me**, non *told to me*. **that** si può togliere.\n\nIl tempo fa un passo indietro: **am, is → was**, **are → were**, **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. Il passato: **I saw Jack → He said he had seen Jack**, anche **he saw Jack**.\n\nSe è ancora vero, spesso il tempo resta: **She said she's tired.** Anche questo è giusto.\n\nCambia la persona e le parole di luogo e tempo: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**, **now → then**.\n\nUn ordine: **told me to** + la forma base: **She told me to wait.** **told me not to**: **She told me not to wait.** Una richiesta: **She asked me to wait.**",
+    "en": "**say** + what: **She said she was tired.** **tell** + who: **She told me she was tired.** Also **said to me**, not *said me*. **told me**, not *told to me*. You can leave out **that**.\n\nThe tense goes one step back: **am, is → was**, **are → were**, **will → would**, **can → could**, **am going to → was going to**, **don't → didn't**. The past: **I saw Jack → He said he had seen Jack**, also **he saw Jack**.\n\nIf it's still so, people keep the tense: **She said she's tired.** That's right too.\n\nChange the person and the words for place and time: **I → she**, **my → her**, **here → there**, **today → that day**, **tomorrow → the next day**, **yesterday → the day before**, **now → then**.\n\nAn order: **told me to** + the base form: **She told me to wait.** **told me not to**: **She told me not to wait.** A request: **She asked me to wait.**"
+  },
+  "table": {
+    "head": [
+      {
+        "sl": "rečeno",
+        "de": "gesagt",
+        "it": "detto",
+        "en": "said"
+      },
+      {
+        "sl": "poročano",
+        "de": "berichtet",
+        "it": "riferito",
+        "en": "reported"
+      },
+      {
+        "sl": "primer",
+        "de": "Beispiel",
+        "it": "esempio",
+        "en": "example"
+      }
+    ],
+    "rows": [
+      [
+        "am, is",
+        "was",
+        "She said she was tired."
+      ],
+      [
+        "are",
+        "were",
+        "They said they were late."
+      ],
+      [
+        "will",
+        "would",
+        "He said he would come."
+      ],
+      [
+        "can",
+        "could",
+        "She said she could help."
+      ],
+      [
+        "don't",
+        "didn't",
+        "He said he didn't know."
+      ],
+      [
+        "saw",
+        "had seen, saw",
+        "He said he had seen Jack."
+      ],
+      [
+        "here",
+        "there",
+        "She said she lived there."
+      ],
+      [
+        "tomorrow",
+        "the next day",
+        "He said he'd come the next day."
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "en": "She said she was tired.",
+      "sl": "Rekla je, da je utrujena.",
+      "de": "Sie sagte, sie sei müde.",
+      "it": "Ha detto che era stanca.",
+      "note": {
+        "sl": "say + kaj.",
+        "de": "say + was.",
+        "it": "say + che cosa.",
+        "en": "say + what."
+      }
+    },
+    {
+      "en": "She told me she was tired.",
+      "sl": "Povedala mi je, da je utrujena.",
+      "de": "Sie sagte mir, sie sei müde.",
+      "it": "Mi ha detto che era stanca.",
+      "note": {
+        "sl": "tell + komu.",
+        "de": "tell + wem.",
+        "it": "tell + a chi.",
+        "en": "tell + who."
+      }
+    },
+    {
+      "en": "Jack said he would come.",
+      "sl": "Jack je rekel, da bo prišel.",
+      "de": "Jack sagte, er würde kommen.",
+      "it": "Jack ha detto che sarebbe venuto.",
+      "note": {
+        "sl": "will → would.",
+        "de": "will → would.",
+        "it": "will → would.",
+        "en": "will → would."
+      }
+    },
+    {
+      "en": "He said he had seen a raven.",
+      "sl": "Rekel je, da je videl krokarja.",
+      "de": "Er sagte, er habe einen Raben gesehen.",
+      "it": "Ha detto che aveva visto un corvo.",
+      "note": {
+        "sl": "saw → had seen.",
+        "de": "saw → had seen.",
+        "it": "saw → had seen.",
+        "en": "saw → had seen."
+      }
+    },
+    {
+      "en": "She said she'd come the next day.",
+      "sl": "Rekla je, da bo prišla naslednji dan.",
+      "de": "Sie sagte, sie werde am nächsten Tag kommen.",
+      "it": "Ha detto che sarebbe venuta il giorno dopo.",
+      "note": {
+        "sl": "tomorrow → the next day.",
+        "de": "tomorrow → the next day.",
+        "it": "tomorrow → the next day.",
+        "en": "tomorrow → the next day."
+      }
+    },
+    {
+      "en": "Mrs Birkett told me to wait.",
+      "sl": "Gospa Birkett mi je rekla, naj počakam.",
+      "de": "Mrs Birkett sagte mir, ich solle warten.",
+      "it": "Mrs Birkett mi ha detto di aspettare.",
+      "note": {
+        "sl": "told me to.",
+        "de": "told me to.",
+        "it": "told me to.",
+        "en": "told me to."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "reported_speech",
+    "indirect_speech",
+    "say_tell",
+    "backshift",
+    "told_me_to"
+  ],
+  "see": [
+    "reported-questions",
+    "past-simple",
+    "future"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "She said she was tired",
+      "de": "She said she was tired",
+      "it": "She said she was tired",
+      "en": "She said she was tired"
+    },
+    "rule": {
+      "sl": "**say** + kaj, **tell** + komu: **She said she was tired.** **She told me she was tired.** Korak nazaj: **is → was**, **will → would**, **can → could**, **saw → had seen**. Če je še res, tudi **She said she's tired.** Ukaz: **She told me to wait.**",
+      "de": "**say** + was, **tell** + wem: **She said she was tired.** **She told me she was tired.** Ein Schritt zurück: **is → was**, **will → would**, **can → could**, **saw → had seen**. Wenn es noch stimmt, auch **She said she's tired.** Befehl: **She told me to wait.**",
+      "it": "**say** + che cosa, **tell** + a chi: **She said she was tired.** **She told me she was tired.** Un passo indietro: **is → was**, **will → would**, **can → could**, **saw → had seen**. Se è ancora vero, anche **She said she's tired.** Un ordine: **She told me to wait.**",
+      "en": "**say** + what, **tell** + who: **She said she was tired.** **She told me she was tired.** One step back: **is → was**, **will → would**, **can → could**, **saw → had seen**. If it's still so, also **She said she's tired.** An order: **She told me to wait.**"
+    },
+    "examples": [
+      {
+        "en": "He told us he couldn't come.",
+        "sl": "Povedal nam je, da ne more priti.",
+        "de": "Er sagte uns, er könne nicht kommen.",
+        "it": "Ci ha detto che non poteva venire."
+      },
+      {
+        "en": "Jack told me not to feed the dog.",
+        "sl": "Jack mi je rekel, naj ne hranim psa.",
+        "de": "Jack sagte mir, ich solle den Hund nicht füttern.",
+        "it": "Jack mi ha detto di non dare da mangiare al cane."
+      }
+    ],
+    "tip": {
+      "sl": "💡 Slovenščina reče *Rekla je, da je utrujena*, angleščina **she was tired**, korak nazaj.",
+      "de": "💡 Deutsch hat dafür den Konjunktiv (*sie sei müde*), Englisch geht einen Schritt zurück: **she was tired**.",
+      "it": "💡 Anche l'italiano fa un passo indietro (*era stanca*); ricorda **tell** + a chi: **She told me**.",
+      "en": "💡 **tell** usually says who: **She told me**; **say** doesn't: **She said**."
+    }
+  }
+}

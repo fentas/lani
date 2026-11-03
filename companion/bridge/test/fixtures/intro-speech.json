@@ -3345,6 +3345,663 @@
     ],
     "summary": null
    }
+  },
+  {
+   "name": "a cue in brackets, English for a learner of German: left out of the sentence read once it's answered, right after the gap in the middle of a sentence and before a full stop, and at the end with or without one; in the question a cue in the middle stays",
+   "language": "en",
+   "base": "de",
+   "title": "By Friday",
+   "clips": [],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "en": "A cue.",
+       "de": "Ein Hinweis."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "By the time the bus ___ (come), I'll have finished.",
+       "accept": [
+        "comes"
+       ]
+      }
+     },
+     {
+      "say": {
+       "en": "Before a stop.",
+       "de": "Vor dem Punkt."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "If we'd known, we ___ (come).",
+       "accept": [
+        "would have come"
+       ]
+      }
+     },
+     {
+      "say": {
+       "en": "At the end.",
+       "de": "Am Ende."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "By the time you ring, she ___ (already leave)",
+       "accept": [
+        "will already have left"
+       ]
+      }
+     },
+     {
+      "say": {
+       "en": "A choice.",
+       "de": "Eine Auswahl."
+      },
+      "ask": {
+       "type": "choice",
+       "prompt": "She was ___ (happy), and so was he.",
+       "options": [
+        "unhappy",
+        "unhappiness"
+       ],
+       "answer": 0,
+       "say_options": true
+      }
+     },
+     {
+      "say": {
+       "en": "Far from the gap.",
+       "de": "Weit weg."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Mr Tyson ___ to the fair (go).",
+       "accept": [
+        "went"
+       ]
+      }
+     },
+     {
+      "say": {
+       "en": "A bracket that is no cue.",
+       "de": "Keine Angabe."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Jack (the shepherd) ___ home. (He is going home.)",
+       "accept": [
+        "is going"
+       ]
+      }
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "already",
+     "and",
+     "bus",
+     "by",
+     "come",
+     "comes",
+     "d",
+     "fair",
+     "finished",
+     "friday",
+     "go",
+     "going",
+     "happy",
+     "have",
+     "he",
+     "home",
+     "i",
+     "if",
+     "is",
+     "jack",
+     "known",
+     "leave",
+     "left",
+     "ll",
+     "mr",
+     "ring",
+     "she",
+     "shepherd",
+     "so",
+     "the",
+     "time",
+     "to",
+     "tyson",
+     "unhappiness",
+     "unhappy",
+     "was",
+     "we",
+     "went",
+     "will",
+     "would",
+     "you"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Ein Hinweis.",
+       "lang": "de",
+       "key": "de|ein hinweis",
+       "runs": [
+        {
+         "text": "Ein Hinweis.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "By the time the bus … (come), I'll have finished.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "By the time the bus comes, I'll have finished."
+     },
+     {
+      "explanation": {
+       "plain": "Vor dem Punkt.",
+       "lang": "de",
+       "key": "de|vor dem punkt",
+       "runs": [
+        {
+         "text": "Vor dem Punkt.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "If we'd known, we ….",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "If we'd known, we would have come."
+     },
+     {
+      "explanation": {
+       "plain": "Am Ende.",
+       "lang": "de",
+       "key": "de|am ende",
+       "runs": [
+        {
+         "text": "Am Ende.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "By the time you ring, she …",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "By the time you ring, she will already have left"
+     },
+     {
+      "explanation": {
+       "plain": "Eine Auswahl.",
+       "lang": "de",
+       "key": "de|eine auswahl",
+       "runs": [
+        {
+         "text": "Eine Auswahl.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "She was … (happy), and so was he.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "She was unhappy, and so was he."
+     },
+     {
+      "explanation": {
+       "plain": "Weit weg.",
+       "lang": "de",
+       "key": "de|weit weg",
+       "runs": [
+        {
+         "text": "Weit weg.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Mr Tyson … to the fair.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Mr Tyson went to the fair."
+     },
+     {
+      "explanation": {
+       "plain": "Keine Angabe.",
+       "lang": "de",
+       "key": "de|keine angabe",
+       "runs": [
+        {
+         "text": "Keine Angabe.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Jack (the shepherd) … home.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Jack (the shepherd) is going home."
+     }
+    ],
+    "summary": null
+   }
+  },
+  {
+   "name": "a cue in brackets, Slovene for a learner of English: right after the gap, a translation at the end",
+   "language": "sl",
+   "base": "en",
+   "title": "Frazemi",
+   "clips": [],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "en": "A cue.",
+       "sl": "Namig."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Sosedov pes ___ (jaz) gre na živce.",
+       "accept": [
+        "mi"
+       ]
+      }
+     },
+     {
+      "say": {
+       "en": "A translation.",
+       "sl": "Prevod."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Na sejmu ___ videl. (I saw him at the fair.)",
+       "accept": [
+        "sem ga"
+       ]
+      }
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "frazemi",
+     "ga",
+     "gre",
+     "jaz",
+     "mi",
+     "na",
+     "pes",
+     "sem",
+     "sosedov",
+     "živce"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "A cue.",
+       "lang": "en",
+       "key": "en|a cue",
+       "runs": [
+        {
+         "text": "A cue.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Sosedov pes … (jaz) gre na živce.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Sosedov pes mi gre na živce."
+     },
+     {
+      "explanation": {
+       "plain": "A translation.",
+       "lang": "en",
+       "key": "en|a translation",
+       "runs": [
+        {
+         "text": "A translation.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Na sejmu … videl.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Na sejmu sem ga videl."
+     }
+    ],
+    "summary": null
+   }
+  },
+  {
+   "name": "a cue in brackets, Italian for a learner of German: right after the gap, before a full stop, a person in front stays",
+   "language": "it",
+   "base": "de",
+   "title": "Fare",
+   "clips": [],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "de": "Ein Hinweis.",
+       "en": "A cue."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Il vino ___ (fare) da Matteo è buono.",
+       "accept": [
+        "fatto"
+       ]
+      }
+     },
+     {
+      "say": {
+       "de": "Vor dem Punkt.",
+       "en": "Before a stop."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Marisa risponde sempre ___ (gentile).",
+       "accept": [
+        "gentilmente"
+       ]
+      }
+     },
+     {
+      "say": {
+       "de": "Die Person.",
+       "en": "The person."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "(noi) ___ al fuoco con Nonno Bepi.",
+       "accept": [
+        "stiamo"
+       ]
+      }
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "al",
+     "bepi",
+     "buono",
+     "con",
+     "da",
+     "fare",
+     "fatto",
+     "fuoco",
+     "gentilmente",
+     "il",
+     "matteo",
+     "noi",
+     "nonno",
+     "stiamo",
+     "vino",
+     "è"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Ein Hinweis.",
+       "lang": "de",
+       "key": "de|ein hinweis",
+       "runs": [
+        {
+         "text": "Ein Hinweis.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Il vino … (fare) da Matteo è buono.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Il vino fatto da Matteo è buono."
+     },
+     {
+      "explanation": {
+       "plain": "Vor dem Punkt.",
+       "lang": "de",
+       "key": "de|vor dem punkt",
+       "runs": [
+        {
+         "text": "Vor dem Punkt.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Marisa risponde sempre ….",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Marisa risponde sempre gentilmente."
+     },
+     {
+      "explanation": {
+       "plain": "Die Person.",
+       "lang": "de",
+       "key": "de|die person",
+       "runs": [
+        {
+         "text": "Die Person.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "(noi) … al fuoco con Nonno Bepi.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "(noi) stiamo al fuoco con Nonno Bepi."
+     }
+    ],
+    "summary": null
+   }
+  },
+  {
+   "name": "a cue in brackets, German for a learner of English: a cue at the end, after the full stop",
+   "language": "de",
+   "base": "en",
+   "title": "Adjektive",
+   "clips": [],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "en": "A cue.",
+       "de": "Hinweis."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Das ist ein ___ Käse. (frisch)",
+       "accept": [
+        "frischer"
+       ]
+      }
+     },
+     {
+      "say": {
+       "en": "Before a stop.",
+       "de": "Vor dem Punkt."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Kathi trinkt Kaffee mit ___ (warm) Milch.",
+       "accept": [
+        "warmer"
+       ]
+      }
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "adjektive",
+     "das",
+     "ein",
+     "frisch",
+     "frischer",
+     "ist",
+     "käse",
+     "warmer"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "A cue.",
+       "lang": "en",
+       "key": "en|a cue",
+       "runs": [
+        {
+         "text": "A cue.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Das ist ein … Käse.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Das ist ein frischer Käse."
+     },
+     {
+      "explanation": {
+       "plain": "Before a stop.",
+       "lang": "en",
+       "key": "en|before a stop",
+       "runs": [
+        {
+         "text": "Before a stop.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Kathi trinkt Kaffee mit … (warm) Milch.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Kathi trinkt Kaffee mit warmer Milch."
+     }
+    ],
+    "summary": null
+   }
   }
  ]
 }

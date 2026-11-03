@@ -1,0 +1,622 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "collocations",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🤝",
+  "title": {
+    "en": "Make a decision, do the washing up",
+    "de": "Feste Wendungen: make a decision, do the washing up",
+    "sl": "Stalne zveze: make a decision, do the washing up",
+    "it": "Le collocazioni: make a decision, do the washing up"
+  },
+  "goal": {
+    "sl": "Veš, kateri glagol gre s katerim samostalnikom (make a decision, do the washing up, take a photo, have a chat), kateri pridevnik s čim (heavy rain, strong tea) in razumeš vsakdanje britanske frazeme.",
+    "de": "Du weißt, welches Verb zu welchem Nomen gehört (make a decision, do the washing up, take a photo, have a chat), welches Adjektiv wozu (heavy rain, strong tea), und verstehst britische Redewendungen.",
+    "it": "Sai quale verbo va con quale nome (make a decision, do the washing up, take a photo, have a chat), quale aggettivo con che cosa (heavy rain, strong tea) e capisci i modi di dire britannici.",
+    "en": "You know which verb goes with which noun (make a decision, do the washing up, take a photo, have a chat), which adjective with what (heavy rain, strong tea), and you understand everyday British idioms."
+  },
+  "grammar": ["collocations"],
+  "words": [
+    "collocation",
+    "decision",
+    "mistake",
+    "noise",
+    "phone call",
+    "effort",
+    "washing up",
+    "shopping",
+    "homework",
+    "favour",
+    "business",
+    "photo",
+    "seat",
+    "care",
+    "break",
+    "exam",
+    "sit an exam",
+    "chat",
+    "rest",
+    "have a go",
+    "coffee",
+    "party",
+    "shower",
+    "bath",
+    "heavy",
+    "strong",
+    "thick",
+    "traffic",
+    "close friend",
+    "bad cold",
+    "cats and dogs",
+    "a piece of cake",
+    "under the weather",
+    "over the moon",
+    "storm in a teacup",
+    "once in a blue moon",
+    "light rain",
+    "friends",
+    "snow",
+    "wind"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "beseda", "de": "Wort", "it": "parola", "en": "word" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**make** gre s tem, kar nastane: **make a decision** (odločiti se), **a mistake** (napaka), **a noise** (hrup), **a phone call** (klic), **friends** (spoprijateljiti se), **an effort** (trud), **the bed** (postlati). Angleščina ima za *narediti* dva glagola. Britanci rečejo tudi **take a decision**.",
+          "de": "**make** steht bei dem, was entsteht: **make a decision** (eine Entscheidung treffen), **a mistake** (Fehler), **a noise** (Lärm), **a phone call** (Anruf), **friends** (Freunde finden), **an effort** (Mühe), **the bed** (das Bett machen). Für *machen* hat Englisch zwei Verben. Briten sagen auch **take a decision**.",
+          "it": "**make** va con ciò che si crea: **make a decision** (prendere una decisione), **a mistake** (errore), **a noise** (rumore), **a phone call** (telefonata), **friends** (fare amicizia), **an effort** (sforzo), **the bed** (rifare il letto). Per *fare* l'inglese ha due verbi. I britannici dicono anche **take a decision**.",
+          "en": "**make** goes with what comes to be: **make a decision**, **a mistake**, **a noise**, **a phone call**, **friends**, **an effort**, **the bed**. Other languages often have one verb where English has two. The British also say **take a decision**."
+        },
+        "examples": [
+          {
+            "en": "Jack had to make a decision.",
+            "sl": "Jack se je moral odločiti.",
+            "de": "Jack musste eine Entscheidung treffen.",
+            "it": "Jack doveva prendere una decisione."
+          },
+          {
+            "en": "I made a mistake.",
+            "sl": "{m:Naredil|f:Naredila} sem napako.",
+            "de": "Ich habe einen Fehler gemacht.",
+            "it": "Ho fatto un errore."
+          },
+          {
+            "en": "The children are making a noise.",
+            "sl": "Otroci delajo hrup.",
+            "de": "Die Kinder machen Lärm.",
+            "it": "I bambini fanno rumore."
+          },
+          { "en": "She made an effort.", "sl": "Potrudila se je.", "de": "Sie hat sich Mühe gegeben.", "it": "Ha fatto uno sforzo." }
+        ],
+        "rows": [
+          [
+            "make",
+            { "sl": "kar nastane", "de": "was entsteht", "it": "ciò che si crea", "en": "what comes to be" },
+            "make a decision, a mistake, a noise"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "collocations",
+          "prompt": "Jack had to ___ a decision.",
+          "options": ["make", "do", "go"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**make: kar nastane**\n- make a decision · make a mistake",
+            "de": "**make: was entsteht**\n- make a decision · make a mistake",
+            "it": "**make: ciò che si crea**\n- make a decision · make a mistake",
+            "en": "**make: what comes to be**\n- make a decision · make a mistake"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**do** gre z delom in opravili: **do the washing up** (pomiti posodo), **the shopping** (nakupovanje), **the cooking** (kuhanje), **your homework** (naloga), **your best** (dati vse od sebe), **a favour** (usluga), **business** (posli). V slovenščini je marsikaj od tega *narediti*, zato pazi: **I did my homework.**",
+          "de": "**do** steht bei Arbeit und Aufgaben: **do the washing up** (abwaschen), **the shopping** (einkaufen), **the cooking** (kochen), **your homework** (Hausaufgaben), **your best** (sein Bestes geben), **a favour** (einen Gefallen tun), **business** (Geschäfte machen). Auf Deutsch ist vieles davon *machen*, also Achtung: **I did my homework.**",
+          "it": "**do** va con i lavori e le faccende: **do the washing up** (lavare i piatti), **the shopping** (la spesa), **the cooking** (cucinare), **your homework** (i compiti), **your best** (fare del proprio meglio), **a favour** (un favore), **business** (affari). In italiano è quasi tutto *fare*, quindi attenzione: **I did my homework.**",
+          "en": "**do** goes with work and jobs: **do the washing up**, **the shopping**, **the cooking**, **your homework**, **your best**, **a favour**, **business**. **I did my homework.** Americans say do the dishes, and so do many Britons."
+        },
+        "examples": [
+          { "en": "Who's going to do the washing up?", "sl": "Kdo bo pomil posodo?", "de": "Wer wäscht ab?", "it": "Chi lava i piatti?" },
+          {
+            "en": "I did my homework.",
+            "sl": "{m:Naredil|f:Naredila} sem nalogo.",
+            "de": "Ich habe meine Hausaufgaben gemacht.",
+            "it": "Ho fatto i compiti."
+          },
+          { "en": "Do your best.", "sl": "Daj vse od sebe.", "de": "Gib dein Bestes.", "it": "Fa' del tuo meglio." },
+          {
+            "en": "Could you do me a favour?",
+            "sl": "Mi lahko narediš uslugo?",
+            "de": "Kannst du mir einen Gefallen tun?",
+            "it": "Mi fai un favore?"
+          }
+        ],
+        "rows": [
+          [
+            "do",
+            { "sl": "delo, opravila", "de": "Arbeit, Aufgaben", "it": "lavori, faccende", "en": "work, jobs" },
+            "do the washing up, your best"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "collocations",
+          "prompt": "Who's going to ___ the washing up?",
+          "options": ["do", "make", "have"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**do: delo in opravila**\n- do the washing up · do your best",
+            "de": "**do: Arbeit und Aufgaben**\n- do the washing up · do your best",
+            "it": "**do: lavori e faccende**\n- do the washing up · do your best",
+            "en": "**do: work and jobs**\n- do the washing up · do your best"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**take** rečemo pri **take a photo** (fotografirati), pa tudi pri **a seat** (sesti), **the bus** (peljati se z avtobusom), **your time** (ne hiteti), **care** (paziti), **a break** (odmor), **an exam** (izpit). Britansko tudi **sit an exam**. **Please take a seat.** (Izvolite sesti.)",
+          "de": "**take** sagt man bei **take a photo** (auf Deutsch *machen*), auch bei **a seat** (Platz nehmen), **the bus** (den Bus nehmen), **your time** (sich Zeit lassen), **care** (aufpassen), **a break** (Pause machen), **an exam** (Prüfung machen). Britisch auch **sit an exam**. **Please take a seat.** (Bitte nehmen Sie Platz.)",
+          "it": "**take** si usa in **take a photo** (in italiano *fare*), e anche con **a seat** (sedersi), **the bus** (prendere l'autobus), **your time** (fare con calma), **care** (stare attento), **a break** (fare una pausa), **an exam** (dare un esame). In inglese britannico anche **sit an exam**. **Please take a seat.** (Si accomodi, prego.)",
+          "en": "**take** is for **take a photo**, whatever your own language says, and **a seat**, **the bus**, **your time**, **care**, **a break**, **an exam**. In Britain **sit an exam** too. **Please take a seat.**"
+        },
+        "examples": [
+          {
+            "en": "Can you take a photo of us?",
+            "sl": "Nas lahko fotografiraš?",
+            "de": "Kannst du ein Foto von uns machen?",
+            "it": "Puoi farci una foto?"
+          },
+          { "en": "Please take a seat.", "sl": "Izvolite sesti.", "de": "Bitte nehmen Sie Platz.", "it": "Si accomodi, prego." },
+          { "en": "Take your time.", "sl": "Ne hiti.", "de": "Lass dir Zeit.", "it": "Fa' con calma." },
+          { "en": "Let's take a break.", "sl": "Vzemimo si odmor.", "de": "Machen wir eine Pause.", "it": "Facciamo una pausa." }
+        ],
+        "rows": [
+          [
+            "take",
+            { "sl": "kar vzameš", "de": "was du nimmst", "it": "ciò che prendi", "en": "what you take" },
+            "take a photo, a seat, the bus"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "collocations",
+          "prompt": "Can you ___ a photo of us?",
+          "options": ["take", "make", "do"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**take: photo, seat, bus, time**\n- take a photo · take a seat",
+            "de": "**take: photo, seat, bus, time**\n- take a photo · take a seat",
+            "it": "**take: photo, seat, bus, time**\n- take a photo · take a seat",
+            "en": "**take: photo, seat, bus, time**\n- take a photo · take a seat"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**have** gre s tem, kar doživiš ali ješ: **have a chat** (poklepetati), **a rest** (počitek), **a look** (pogled), **a go** (poskus, britansko), **a good time** (dobro se imeti), **a party** (zabava), **lunch** (kosilo), **a shower** (prha), **a bath** (kopel). Mnogo gre tudi s **take**, bolj ameriško: **take a shower**, **take a look**. Oboje je prav.",
+          "de": "**have** steht bei dem, was du erlebst oder isst: **have a chat** (plaudern), **a rest** (Ruhe), **a look** (einen Blick), **a go** (einen Versuch, britisch), **a good time** (Spaß haben), **a party** (eine Party), **lunch** (zu Mittag essen), **a shower** (duschen), **a bath** (baden). Vieles geht auch mit **take**, eher amerikanisch: **take a shower**, **take a look**. Beides ist richtig.",
+          "it": "**have** va con ciò che vivi o mangi: **have a chat** (fare due chiacchiere), **a rest** (riposarsi), **a look** (un'occhiata), **a go** (un tentativo, in Gran Bretagna), **a good time** (divertirsi), **a party** (una festa), **lunch** (pranzare), **a shower** (la doccia), **a bath** (il bagno). Molti vanno anche con **take**, più americano: **take a shower**, **take a look**. Vanno bene tutti e due.",
+          "en": "**have** goes with what you enjoy, go through or eat: **have a chat**, **a rest**, **a look**, **a go** (British), **a good time**, **a party**, **lunch**, **a shower**, **a bath**. Many go with **take** too, more in America: **take a shower**, **take a look**. Both are right."
+        },
+        "examples": [
+          {
+            "en": "Let's have a chat by the fire.",
+            "sl": "Poklepetajmo ob ognju.",
+            "de": "Plaudern wir ein bisschen am Feuer.",
+            "it": "Facciamo due chiacchiere vicino al fuoco."
+          },
+          { "en": "Have a rest.", "sl": "Odpočij si.", "de": "Ruh dich aus.", "it": "Riposati." },
+          { "en": "Can I have a go?", "sl": "Lahko poskusim?", "de": "Darf ich es mal versuchen?", "it": "Posso provare?" },
+          { "en": "We had a good time.", "sl": "Lepo smo se imeli.", "de": "Wir hatten viel Spaß.", "it": "Ci siamo divertiti." }
+        ],
+        "rows": [
+          [
+            "have",
+            { "sl": "kar doživiš", "de": "was du erlebst", "it": "ciò che vivi", "en": "what you enjoy, go through" },
+            "have a chat, a rest, lunch"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "collocations",
+          "prompt": "Let's ___ a chat by the fire.",
+          "options": ["have", "make", "do"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**have: chat, rest, look, a good time**\n- have a chat · have a rest",
+            "de": "**have: chat, rest, look, a good time**\n- have a chat · have a rest",
+            "it": "**have: chat, rest, look, a good time**\n- have a chat · have a rest",
+            "en": "**have: chat, rest, look, a good time**\n- have a chat · have a rest"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Tudi pridevnik in samostalnik gresta skupaj po navadi: **heavy rain** (močan dež), **heavy traffic**, **heavy snow**; **strong tea**, **strong wind**, **strong coffee**; **thick fog** (gosta megla); **light rain** (rahel dež); **a close friend** (dober prijatelj); **a bad cold** (hud prehlad). Slovenski *močan dež* v angleščini ni strong.",
+          "de": "Auch Adjektiv und Nomen gehören aus Gewohnheit zusammen: **heavy rain** (starker Regen), **heavy traffic**, **heavy snow**; **strong tea**, **strong wind**, **strong coffee**; **thick fog** (dichter Nebel); **light rain** (leichter Regen); **a close friend** (ein enger Freund); **a bad cold** (eine starke Erkältung). Deutsch *stark* ist bei Regen nicht strong.",
+          "it": "Anche aggettivo e nome stanno insieme per abitudine: **heavy rain** (pioggia forte), **heavy traffic**, **heavy snow**; **strong tea**, **strong wind**, **strong coffee**; **thick fog** (nebbia fitta); **light rain** (pioggia leggera); **a close friend** (un amico stretto); **a bad cold** (un brutto raffreddore). *Forte* con la pioggia non è strong.",
+          "en": "An adjective and a noun go together by habit too: **heavy rain**, **heavy traffic**, **heavy snow**; **strong tea**, **strong wind**, **strong coffee**; **thick fog**; **light rain**; **a close friend**; **a bad cold**. Rain is heavy, not strong."
+        },
+        "examples": [
+          {
+            "en": "There was heavy rain all night.",
+            "sl": "Vso noč je močno deževalo.",
+            "de": "Es regnete die ganze Nacht stark.",
+            "it": "Ha piovuto forte tutta la notte."
+          },
+          { "en": "I like strong tea.", "sl": "{m:Rad|f:Rada} imam močan čaj.", "de": "Ich mag starken Tee.", "it": "Mi piace il tè forte." },
+          {
+            "en": "You couldn't see in the thick fog.",
+            "sl": "V gosti megli se ni nič videlo.",
+            "de": "Im dichten Nebel sah man nichts.",
+            "it": "Con quella nebbia fitta non si vedeva niente."
+          },
+          {
+            "en": "Mr Dixon is a close friend.",
+            "sl": "Gospod Dixon je dober prijatelj.",
+            "de": "Mr Dixon ist ein enger Freund.",
+            "it": "Il signor Dixon è un amico stretto."
+          }
+        ],
+        "rows": [
+          [
+            "heavy, strong, thick",
+            { "sl": "pridevnik + samostalnik", "de": "Adjektiv + Nomen", "it": "aggettivo + nome", "en": "adjective + noun" },
+            "heavy rain, strong tea, thick fog"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "collocations",
+          "prompt": "There was ___ rain all night.",
+          "options": ["heavy", "strong", "tall"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+            "de": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+            "it": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+            "en": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Frazem ima stalne besede, ne pomeni tega, kar pravijo, spreminja se le glagol: **It's raining cats and dogs.** (Lije kot iz škafa.) **It was raining cats and dogs.** Še: **a piece of cake** (mala malica), **under the weather** (ni mi dobro), **over the moon** (v sedmih nebesih), **a storm in a teacup** (vihar v kozarcu vode), **once in a blue moon** (enkrat na sto let). Pogosto rečejo **It's chucking it down.**",
+          "de": "Eine Redewendung hat feste Wörter, sie heißt nicht, was sie sagt, nur das Verb ändert sich: **It's raining cats and dogs.** (Es schüttet wie aus Eimern.) **It was raining cats and dogs.** Auch: **a piece of cake** (ein Kinderspiel), **under the weather** (nicht ganz gesund), **over the moon** (im siebten Himmel), **a storm in a teacup** (ein Sturm im Wasserglas), **once in a blue moon** (alle heiligen Zeiten). Oft sagt man **It's chucking it down.**",
+          "it": "Un modo di dire ha parole fisse, non vuol dire ciò che dice, cambia solo il verbo: **It's raining cats and dogs.** (Piove a catinelle.) **It was raining cats and dogs.** Anche: **a piece of cake** (una passeggiata), **under the weather** (non sto tanto bene), **over the moon** (al settimo cielo), **a storm in a teacup** (una tempesta in un bicchier d'acqua), **once in a blue moon** (ogni morte di papa). Spesso si dice **It's chucking it down.**",
+          "en": "An idiom's words are fixed, it doesn't mean what they say, and only its verb changes: **It's raining cats and dogs.** **It was raining cats and dogs.** Also: **a piece of cake** (very easy), **under the weather** (not very well), **over the moon** (very happy), **a storm in a teacup** (a fuss about little), **once in a blue moon** (very rarely). People often say **It's chucking it down.**"
+        },
+        "examples": [
+          { "en": "It's raining cats and dogs.", "sl": "Lije kot iz škafa.", "de": "Es schüttet wie aus Eimern.", "it": "Piove a catinelle." },
+          {
+            "en": "The test was a piece of cake.",
+            "sl": "Test je bil mala malica.",
+            "de": "Der Test war ein Kinderspiel.",
+            "it": "Il test è stato una passeggiata."
+          },
+          { "en": "It's chucking it down.", "sl": "Lije kot iz škafa.", "de": "Es schüttet.", "it": "Piove a dirotto." },
+          {
+            "en": "Jack was over the moon.",
+            "sl": "Jack je bil v sedmih nebesih.",
+            "de": "Jack war im siebten Himmel.",
+            "it": "Jack era al settimo cielo."
+          }
+        ],
+        "rows": [
+          [
+            "a piece of cake",
+            { "sl": "frazem: zelo lahko", "de": "Redewendung: sehr leicht", "it": "modo di dire: facilissimo", "en": "an idiom: very easy" },
+            "It was a piece of cake."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "collocations",
+          "prompt": "I'm a bit under the weather. = ___",
+          "options": ["I'm not very well.", "I'm out in the rain.", "I'm very happy."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**under the weather: ni mi dobro**\n- I'm a bit under the weather.",
+            "de": "**under the weather: nicht ganz gesund**\n- I'm a bit under the weather.",
+            "it": "**under the weather: non sto tanto bene**\n- I'm a bit under the weather.",
+            "en": "**under the weather: not very well**\n- I'm a bit under the weather."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "collocations-1",
+      "title": { "sl": "Kateri glagol?", "de": "Welches Verb?", "it": "Quale verbo?", "en": "Which verb?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "collocations",
+          "instruction": {
+            "sl": "Sort: which verb goes with it? · Razvrsti: kateri glagol gre zraven?",
+            "de": "Sort: which verb goes with it? · Ordne zu: Welches Verb passt?",
+            "it": "Sort: which verb goes with it? · Ordina: quale verbo va bene?",
+            "en": "Sort: which verb goes with it?"
+          },
+          "columns": [
+            { "label": "make", "words": ["a mistake", "a noise", "an effort"] },
+            { "label": "do", "words": ["the washing up", "your best", "a favour"] },
+            { "label": "take", "words": ["a photo", "the bus"] },
+            { "label": "have", "words": ["a chat", "a good time"] }
+          ],
+          "explain": {
+            "sl": "**make, do, take, have: nauči se jih skupaj s samostalnikom**\n- make a mistake · do your best · take a photo · have a chat",
+            "de": "**make, do, take, have: lern sie zusammen mit dem Nomen**\n- make a mistake · do your best · take a photo · have a chat",
+            "it": "**make, do, take, have: imparali insieme al nome**\n- make a mistake · do your best · take a photo · have a chat",
+            "en": "**make, do, take, have: learn them with the noun**\n- make a mistake · do your best · take a photo · have a chat"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "collocations",
+          "instruction": {
+            "sl": "Sort: heavy or strong? · Razvrsti: heavy ali strong?",
+            "de": "Sort: heavy or strong? · Ordne zu: heavy oder strong?",
+            "it": "Sort: heavy or strong? · Ordina: heavy o strong?",
+            "en": "Sort: heavy or strong?"
+          },
+          "columns": [{ "label": "heavy", "words": ["rain", "traffic", "snow"] }, { "label": "strong", "words": ["tea", "coffee", "wind"] }],
+          "explain": {
+            "sl": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+            "de": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+            "it": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+            "en": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night."
+          }
+        }
+      ]
+    },
+    {
+      "id": "collocations-2",
+      "title": { "sl": "Jackova sobota", "de": "Jacks Samstag", "it": "Il sabato di Jack", "en": "Jack's Saturday" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "collocations",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "Last Saturday Jack ___ a big mistake: he left the gate open. He ___ his best to find the sheep, and he ___ the bus to Keswick to ask at the market. There he ___ a long chat with a farmer. In the end he ___ a decision: a new lock for the gate. That evening he ___ the washing up at the inn and ___ a rest by the fire.",
+          "gaps": [
+            { "accept": ["made"], "hint": { "sl": "kar nastane", "de": "was entsteht", "it": "ciò che si crea", "en": "what comes to be" } },
+            { "accept": ["did", "tried"], "hint": { "sl": "… his best", "de": "… his best", "it": "… his best", "en": "… his best" } },
+            { "accept": ["took", "caught", "got"], "hint": { "sl": "z avtobusom", "de": "mit dem Bus", "it": "con l'autobus", "en": "by bus" } },
+            { "accept": ["had"], "hint": { "sl": "… a chat", "de": "… a chat", "it": "… a chat", "en": "… a chat" } },
+            {
+              "accept": ["made", "took", "reached"],
+              "hint": { "sl": "odločil se je", "de": "er entschied sich", "it": "ha deciso", "en": "he decided" }
+            },
+            { "accept": ["did"], "hint": { "sl": "delo, opravilo", "de": "Arbeit", "it": "un lavoro", "en": "a job" } },
+            { "accept": ["had", "took"], "hint": { "sl": "… a rest", "de": "… a rest", "it": "… a rest", "en": "… a rest" } }
+          ],
+          "bank": true,
+          "distractors": ["maked", "taked"],
+          "translation": {
+            "sl": "Prejšnjo soboto je Jack naredil veliko napako: pustil je odprta vrata pašnika. Dal je vse od sebe, da bi našel ovce, in se z avtobusom odpeljal v Keswick vprašat na tržnico. Tam je dolgo klepetal s kmetom. Na koncu se je odločil: nova ključavnica za vrata. Tisti večer je v gostilni pomil posodo in počival ob ognju.",
+            "de": "Letzten Samstag machte Jack einen großen Fehler: Er ließ das Gatter offen. Er gab sein Bestes, um die Schafe zu finden, und nahm den Bus nach Keswick, um auf dem Markt zu fragen. Dort plauderte er lange mit einem Bauern. Am Ende traf er eine Entscheidung: ein neues Schloss für das Gatter. An dem Abend wusch er im Gasthaus ab und ruhte sich am Feuer aus.",
+            "it": "Sabato scorso Jack ha fatto un grosso errore: ha lasciato aperto il cancello. Ha fatto del suo meglio per trovare le pecore e ha preso l'autobus per Keswick per chiedere al mercato. Lì ha fatto una lunga chiacchierata con un contadino. Alla fine ha preso una decisione: una serratura nuova per il cancello. Quella sera ha lavato i piatti alla locanda e si è riposato vicino al fuoco.",
+            "en": "Last Saturday Jack made a big mistake: he left the gate open. He did his best to find the sheep, and he took the bus to Keswick to ask at the market. There he had a long chat with a farmer. In the end he made a decision: a new lock for the gate. That evening he did the washing up at the inn and had a rest by the fire."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "collocations",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "All night there was ___ rain. In the morning there was ___ fog, and you couldn't see the road. Mrs Birkett made the tea so ___ you could stand a spoon in it. Jack said the walk home was a piece of ___, but the next day he was ___ the weather.",
+          "gaps": [
+            {
+              "accept": ["heavy", "hard", "torrential", "pouring", "driving"],
+              "hint": { "sl": "veliko dežja", "de": "viel Regen", "it": "molta pioggia", "en": "a lot of rain" }
+            },
+            { "accept": ["thick", "dense", "heavy"], "hint": { "sl": "gosta", "de": "dicht", "it": "fitta", "en": "you can't see through it" } },
+            { "accept": ["strong"], "hint": { "sl": "močan", "de": "stark", "it": "forte", "en": "not weak" } },
+            { "accept": ["cake"], "hint": { "sl": "zelo lahko", "de": "sehr leicht", "it": "facilissimo", "en": "very easy" } },
+            {
+              "accept": ["under"],
+              "hint": { "sl": "ni mu bilo dobro", "de": "es ging ihm nicht gut", "it": "non stava bene", "en": "not very well" }
+            }
+          ],
+          "translation": {
+            "sl": "Vso noč je močno deževalo. Zjutraj je bila gosta megla in ceste se ni videlo. Gospa Birkett je skuhala tako močan čaj, da bi žlica stala pokonci. Jack je rekel, da je bila pot domov mala malica, a naslednji dan mu ni bilo dobro.",
+            "de": "Es regnete die ganze Nacht stark. Am Morgen war dichter Nebel, und man sah die Straße nicht. Mrs Birkett machte den Tee so stark, dass der Löffel darin stehen konnte. Jack sagte, der Heimweg sei ein Kinderspiel gewesen, aber am nächsten Tag war er nicht ganz auf der Höhe.",
+            "it": "Ha piovuto forte tutta la notte. La mattina c'era una nebbia fitta e non si vedeva la strada. La signora Birkett ha fatto un tè così forte che il cucchiaio stava in piedi. Jack ha detto che tornare a casa è stata una passeggiata, ma il giorno dopo non stava tanto bene.",
+            "en": "All night there was heavy rain. In the morning there was thick fog, and you couldn't see the road. Mrs Birkett made the tea so strong you could stand a spoon in it. Jack said the walk home was a piece of cake, but the next day he was under the weather."
+          }
+        }
+      ]
+    },
+    {
+      "id": "collocations-3",
+      "title": {
+        "sl": "Povej z make, do, take, have",
+        "de": "Sag es mit make, do, take, have",
+        "it": "Dillo con make, do, take, have",
+        "en": "Say it with make, do, take, have"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "collocations",
+          "instruction": {
+            "sl": "Say it with the verb in brackets · Povej z glagolom v oklepaju",
+            "de": "Say it with the verb in brackets · Sag es mit dem Verb in Klammern",
+            "it": "Say it with the verb in brackets · Dillo con il verbo tra parentesi",
+            "en": "Say it with the verb in brackets"
+          },
+          "items": [
+            {
+              "from": "We talked for a while. (have)",
+              "accept": [
+                "We had a chat.",
+                "We had a talk.",
+                "We had a chat for a while.",
+                "We had a talk for a while.",
+                "We had a conversation.",
+                "We had a little chat.",
+                "We had a bit of a chat."
+              ]
+            },
+            { "from": "Let's rest. (have)", "accept": ["Let's have a rest."] },
+            { "from": "Jack decided. (make)", "accept": ["Jack made a decision.", "Jack made up his mind."] },
+            { "from": "Please sit down. (take)", "accept": ["Please take a seat.", "Take a seat, please."] },
+            {
+              "from": "I photographed the tarn. (take)",
+              "accept": [
+                "I took a photo of the tarn.",
+                "I took a picture of the tarn.",
+                "I took a photograph of the tarn.",
+                "I took photos of the tarn.",
+                "I took some photos of the tarn."
+              ]
+            },
+            {
+              "from": "Could you help me? (do)",
+              "accept": ["Could you do me a favour?", "Can you do me a favour?", "Would you do me a favour?", "Will you do me a favour?"]
+            }
+          ],
+          "explain": {
+            "sl": "**make, do, take, have: nauči se jih skupaj s samostalnikom**\n- make a mistake · do your best · take a photo · have a chat",
+            "de": "**make, do, take, have: lern sie zusammen mit dem Nomen**\n- make a mistake · do your best · take a photo · have a chat",
+            "it": "**make, do, take, have: imparali insieme al nome**\n- make a mistake · do your best · take a photo · have a chat",
+            "en": "**make, do, take, have: learn them with the noun**\n- make a mistake · do your best · take a photo · have a chat"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "collocations",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "Mrs Hartley ___ a phone call. Then she ___ the shopping and ___ the bus home. In the evening she ___ a bath.",
+        "gaps": [
+          { "accept": ["made", "had", "took", "got", "received"] },
+          { "accept": ["did", "got"] },
+          { "accept": ["took", "caught", "got"] },
+          { "accept": ["had", "took", "ran"] }
+        ],
+        "translation": {
+          "sl": "Gospa Hartley je poklicala po telefonu. Potem je nakupovala in se z avtobusom odpeljala domov. Zvečer se je okopala.",
+          "de": "Mrs Hartley telefonierte. Dann kaufte sie ein und nahm den Bus nach Hause. Am Abend badete sie.",
+          "it": "La signora Hartley ha fatto una telefonata. Poi ha fatto la spesa e ha preso l'autobus per tornare a casa. La sera ha fatto il bagno.",
+          "en": "Mrs Hartley made a phone call. Then she did the shopping and took the bus home. In the evening she had a bath."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "collocations",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Sam ___ a lot of money last year.",
+        "options": ["made", "did", "went"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**make: kar nastane**\n- make a decision · make a mistake",
+          "de": "**make: was entsteht**\n- make a decision · make a mistake",
+          "it": "**make: ciò che si crea**\n- make a decision · make a mistake",
+          "en": "**make: what comes to be**\n- make a decision · make a mistake"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "collocations",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "There was ___ traffic on the road to Keswick.",
+        "options": ["heavy", "strong", "tall"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+          "de": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+          "it": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night.",
+          "en": "**Heavy rain, heavy traffic. Strong tea, strong wind**\n- There was heavy rain all night."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "collocations",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "The test was a piece of cake. = ___",
+        "options": ["It was very easy.", "It was a small cake.", "It was very hard."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**a piece of cake: zelo lahko**\n- The test was a piece of cake.",
+          "de": "**a piece of cake: sehr leicht**\n- The test was a piece of cake.",
+          "it": "**a piece of cake: facilissimo**\n- The test was a piece of cake.",
+          "en": "**a piece of cake: very easy**\n- The test was a piece of cake."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "collocations",
+        "instruction": {
+          "sl": "Say it with the verb in brackets · Povej z glagolom v oklepaju",
+          "de": "Say it with the verb in brackets · Sag es mit dem Verb in Klammern",
+          "it": "Say it with the verb in brackets · Dillo con il verbo tra parentesi",
+          "en": "Say it with the verb in brackets"
+        },
+        "items": [
+          {
+            "from": "She tried hard. (make)",
+            "accept": [
+              "She made an effort.",
+              "She made a big effort.",
+              "She made a real effort.",
+              "She made a great effort.",
+              "She made a huge effort.",
+              "She made a special effort.",
+              "She made every effort."
+            ]
+          },
+          { "from": "Let's look. (have)", "accept": ["Let's have a look."] },
+          { "from": "He helped me. (do)", "accept": ["He did me a favour."] },
+          {
+            "from": "We enjoyed ourselves. (have)",
+            "accept": [
+              "We had a good time.",
+              "We had a great time.",
+              "We had a lovely time.",
+              "We had fun.",
+              "We had a nice time.",
+              "We had a wonderful time.",
+              "We had a fantastic time.",
+              "We had a brilliant time.",
+              "We had a really good time."
+            ]
+          },
+          { "from": "Be careful. (take)", "accept": ["Take care."] }
+        ],
+        "explain": {
+          "sl": "**make, do, take, have: nauči se jih skupaj s samostalnikom**\n- make a mistake · do your best · take a photo · have a chat",
+          "de": "**make, do, take, have: lern sie zusammen mit dem Nomen**\n- make a mistake · do your best · take a photo · have a chat",
+          "it": "**make, do, take, have: imparali insieme al nome**\n- make a mistake · do your best · take a photo · have a chat",
+          "en": "**make, do, take, have: learn them with the noun**\n- make a mistake · do your best · take a photo · have a chat"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}
