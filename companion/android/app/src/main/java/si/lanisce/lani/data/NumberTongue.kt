@@ -7,7 +7,8 @@ import si.lanisce.lani.l10n.inBase
  * What "🔢 Števila · Numbers" ([NumbersPractice]) needs of a language: which unit's intro opens it, how its numbers, dates and
  * clock times are said and what else is right, what a learner gets wrong in them and why it is so. The module's ladder,
  * runs, schedule and screens are the same in every language. A new language is one of these plus its texts in the string
- * tables under [texts]; docs/plans/05-built/practice-it.md says what German and English need.
+ * tables (numbers.it.*: each named whole here, as the string tables' test reads them); docs/plans/05-built/practice-it.md says
+ * what German and English need.
  */
 abstract class NumberTongue(val lang: Lang) {
     /** The course unit whose intro opens the module, with its first two ranges. */
@@ -21,8 +22,10 @@ abstract class NumberTongue(val lang: Lang) {
     abstract val timePage: String
     /** The cheat sheet's pages a run opens it at. */
     abstract val pages: List<String>
-    /** Where its own texts are in the string tables (`<texts>.why.teen`, `<texts>.tip`, `<texts>.ask.timeWrite`). */
-    abstract val texts: String
+    /** The rule's tip on the module's screen, in the string tables. */
+    abstract val tipKey: String
+    /** The instruction of a clock time to write: it names the language's words ("Write: ob …"), in the string tables. */
+    abstract val timeWriteKey: String
     /** The months as a date says them, January first. */
     abstract val months: List<String>
 
@@ -83,17 +86,11 @@ abstract class NumberTongue(val lang: Lang) {
     /** A date's day that only looks like a slip ("sedemi" for sedmi): wrong rather than almost. */
     open fun dateSlip(day: Int, answer: String): Boolean = false
 
-    /** A text of this tongue's in the string tables. */
-    protected fun own(key: String) = "$texts.$key"
+    /** The instruction of a task asked by [mode]: a language's own where it names its words. */
+    fun ask(mode: NumberMode): String = if (mode == NumberMode.TIME_WRITE) timeWriteKey else mode.ask
 
-    /** The instruction of a task asked by [mode]: a language's own where it names its words ("Write: ob …"). */
-    fun ask(mode: NumberMode): String = if (mode == NumberMode.TIME_WRITE) own("ask.timeWrite") else mode.ask
-
-    /** The rule's tip on the module's screen. */
-    val tipKey: String get() = own("tip")
-
-    /** Why the same word apart or together is almost ({word}). */
-    val spacingKey: String get() = own("why.spacing")
+    /** Why the same word apart or together is almost, in the learner's base. */
+    abstract fun spacingWhy(word: String): String
 
     /** What a bare word is matched as: folded, no spaces or hyphens ("sedem-in-dvajset", "dva tisoč"). */
     fun key(s: String): String = Grading.fold(s, lang).replace(Regex("[\\s\\-–]+"), "")
@@ -142,7 +139,8 @@ private object SloveneNumbers : NumberTongue(Lang.SL) {
     override val datePage = "datumi"
     override val timePage = "kdaj-cas"
     override val pages = listOf(Counting.PAGE, datePage)
-    override val texts = "numbers"
+    override val tipKey = "numbers.tip"
+    override val timeWriteKey = "numbers.ask.timeWrite"
 
     /** All masculine: a date's ordinal is always -i ("peti maj"). */
     override val months = listOf("januar", "februar", "marec", "april", "maj", "junij", "julij", "avgust", "september", "oktober", "november", "december")
@@ -197,6 +195,8 @@ private object SloveneNumbers : NumberTongue(Lang.SL) {
         return inBase("numbers.why.order", "n" to n, "word" to words(n), "ones" to words(low % 10), "tens" to words(low - low % 10), "o" to low % 10, "t" to low - low % 10, "wrong" to wrong)
     }
 
+    override fun spacingWhy(word: String) = inBase("numbers.why.spacing", "word" to word)
+
     override fun dateWhy(day: Int, month: Int) = inBase("numbers.why.date", "day" to day, "ordinal" to dateDay(day), "month" to months[month - 1])
 
     override fun clockWhy(t: Int): String {
@@ -236,7 +236,8 @@ private object ItalianNumbers : NumberTongue(Lang.IT) {
     override val datePage = "ore-giorni"
     override val timePage = "ore-giorni"
     override val pages = listOf("numeri", "ore-giorni")
-    override val texts = "numbers.it"
+    override val tipKey = "numbers.it.tip"
+    override val timeWriteKey = "numbers.it.ask.timeWrite"
     override val months = listOf("gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre")
 
     override fun words(n: Int) = SpokenNumbers.italian(n)
@@ -296,26 +297,28 @@ private object ItalianNumbers : NumberTongue(Lang.IT) {
         val ones = low % 10
         return when {
             n < 11 || n == 20 -> inBase("numbers.why.plain", "n" to n, "word" to w)
-            n < 20 -> inBase(own("why.teen"), "n" to n, "word" to w)
-            n < 100 && ones == 0 -> inBase(own("why.tens"), "n" to n, "word" to w)
-            n < 100 -> {
-                val args = arrayOf("n" to n, "word" to w, "ones" to words(ones), "tens" to words(low - ones), "o" to ones, "t" to low - ones)
-                inBase(own(if (ones == 1 || ones == 8) "why.dropped" else if (ones == 3) "why.accent" else "why.compound"), *args)
-            }
-            else -> inBase(own("why.big"), "n" to n, "word" to w)
+            n < 20 -> inBase("numbers.it.why.teen", "n" to n, "word" to w)
+            n < 100 && ones == 0 -> inBase("numbers.it.why.tens", "n" to n, "word" to w)
+            n < 100 && (ones == 1 || ones == 8) -> inBase("numbers.it.why.dropped", "n" to n, "word" to w, "ones" to words(ones), "tens" to words(low - ones))
+            n < 100 && ones == 3 -> inBase("numbers.it.why.accent", "n" to n, "word" to w)
+            n < 100 -> inBase("numbers.it.why.compound", "n" to n, "word" to w, "ones" to words(ones), "tens" to words(low - ones), "o" to ones, "t" to low - ones)
+            else -> inBase("numbers.it.why.big", "n" to n, "word" to w)
         }
     }
 
     override fun orderWhy(n: Int, wrong: String): String {
         val low = n % 100
-        return inBase(own("why.order"), "n" to n, "word" to words(n), "ones" to words(low % 10), "tens" to words(low - low % 10), "o" to low % 10, "t" to low - low % 10, "wrong" to wrong)
+        return inBase("numbers.it.why.order", "word" to words(n), "ones" to words(low % 10), "tens" to words(low - low % 10), "o" to low % 10, "t" to low - low % 10, "wrong" to wrong)
     }
 
-    override fun dateWhy(day: Int, month: Int) = inBase(own("why.date"), "day" to day, "said" to dateSaid(day, month).removePrefix("Oggi è ").removeSuffix("."))
+    override fun spacingWhy(word: String) = inBase("numbers.it.why.spacing", "word" to word)
+
+    override fun dateWhy(day: Int, month: Int) = inBase("numbers.it.why.date", "day" to day, "said" to dateSaid(day, month).removePrefix("Oggi è ").removeSuffix("."))
 
     override fun clockWhy(t: Int): String {
         val time = NumbersPractice.clock(t)
-        return inBase(own(if (t % 100 == 30) "why.half" else "why.hour"), "time" to time, "said" to clockWords(t), "next" to (t / 100 % 12 + 1))
+        return if (t % 100 == 30) inBase("numbers.it.why.half", "time" to time, "said" to clockWords(t), "next" to (t / 100 % 12 + 1))
+        else inBase("numbers.it.why.hour", "time" to time, "said" to clockWords(t))
     }
 
     override fun describe(kind: NumberKind) = when (kind) {

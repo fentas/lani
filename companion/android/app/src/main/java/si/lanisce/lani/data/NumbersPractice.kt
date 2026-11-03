@@ -10,7 +10,6 @@ import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.School
 import si.lanisce.lani.l10n.Lang
-import si.lanisce.lani.l10n.inBase
 import java.time.LocalDate
 import kotlin.random.Random
 
@@ -481,14 +480,14 @@ object NumbersPractice {
         if (ex.accept.any { Grading.canonical(it, lang) == canon }) return NumberGraded(Verdict.CORRECT, ex.shown, why = why)
         // the same word apart or together, hyphens or not: almost (Slovene: one word up to 99, the hundreds and thousands apart; Italian: all one word)
         val squash = { s: String -> Grading.canonical(s, lang).replace(Regex("[\\s\\-–]+"), "") }
-        ex.accept.firstOrNull { squash(it) == squash(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, why = spacingWhy(it, tongue) + "\n" + why.orEmpty()) }
+        ex.accept.firstOrNull { squash(it) == squash(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, why = tongue.spacingWhy(it) + "\n" + why.orEmpty()) }
         val r = Grading.check(answer, ex.accept, lang)
         val other = tongue.parse(answer)?.takeIf { it != t.n && t.mode == NumberMode.WRITE }
         // another day's number or another clock time is never a slip ("undici" for dodici, "alle sei" for alle sette)
         val elsewhere = (t.mode == NumberMode.DATE && tongue.parse(answer)?.let { it != t.n } == true) || (t.mode == NumberMode.TIME_WRITE && CLOCK.any { c -> c != t.n && tongue.clockAccept(c).any { Grading.canonical(it, lang) == canon } })
         if (r.verdict == Verdict.ALMOST && r.hint == Grading.Hint.DIACRITICS) return NumberGraded(Verdict.ALMOST, r.expected, r.hint, r.marks, why)
         // č, š, ž (or an accent) forgotten and the words apart: almost too
-        ex.accept.firstOrNull { tongue.key(it) == tongue.key(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, Grading.Hint.DIACRITICS, why = spacingWhy(it, tongue) + "\n" + why.orEmpty()) }
+        ex.accept.firstOrNull { tongue.key(it) == tongue.key(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, Grading.Hint.DIACRITICS, why = tongue.spacingWhy(it) + "\n" + why.orEmpty()) }
         if (t.mode == NumberMode.WRITE) {
             if (tongue.parseSwapped(answer) == t.n) return NumberGraded(Verdict.WRONG, ex.shown, why = tongue.orderWhy(t.n, answer.trim()), kind = NumberKind.ORDER)
             // a number's word has no ending to get wrong: a slip anywhere in it is one, unless it is another number's word
@@ -527,8 +526,6 @@ object NumbersPractice {
 
     /** How [n]'s word is built ([whyOf] of a number). */
     fun numberWhy(n: Int, tongue: NumberTongue = NumberTongue.SL): String = tongue.numberWhy(n)
-
-    private fun spacingWhy(right: String, tongue: NumberTongue): String = inBase(tongue.spacingKey, "word" to right)
 
     // --- after a run ------------------------------------------------------------------------------------------------------
 
