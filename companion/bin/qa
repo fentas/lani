@@ -12364,7 +12364,7 @@ def placement():
     time.sleep(1)
     shot("placement-school-b1")
     (OUT / "placement.txt").write_text(
-        f"taps from the school's card to the result: {len(taps) - 1} ({', '.join(taps[1:])}), and one to take it\n"
+        f"taps from the school's card to the first probe: {len(taps) - 2} ({', '.join(taps[1:-1])}), the probes, then one to take its result ({taps[-1]})\n"
         f"the school after: {', '.join(done_lines)}\n"
     )
 

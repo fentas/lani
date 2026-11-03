@@ -160,7 +160,18 @@ Nothing of the course's content changed: the test asks the units' own test items
   starter, a row to everyone else (another language's units don't count); the village untouched by the test itself.
 - The bridge's smoke: `test/smoke/placement.ts` (taken above the level, replayed, kept, taken below the level and a child's
   version, refused bodies, Italian) and `test/smoke/course.ts` (`get_course`: a unit placed, the test taken).
-- QA: see "How to use"; the screenshots in the scratchpad under `ux-placement/`.
+- QA on the emulator (`companion/bin/qa-slot --steps placement`, a synthetic learner Ana, sl · en, made by
+  `test/fixtures/make-learner.ts`; the screenshots in the scratchpad under `ux-placement/before` and `after`):
+  - **Before** (an APK from before this branch, 5bd990b7 of course-en-b2-b, in main's history): a starter's school is A1
+    0/18 with "Biti" ★, nothing else; "Še o tebi" has the aim and the voice only.
+  - **After**: the school's card "🧭 Nekaj že znaš? · Know some already?" above the teacher; its page (Mojca's line, how long,
+    no cheat sheet, nothing changes until yes, "▶️ Začniva", "Pozneje"); the first probe on the stage ("1. del · Part 1",
+    a table "Imam … → Nimam …", no 📋 or 💬 in the top bar); answered by QA's hook as a learner who knows A2 (39 items,
+    24 right): "🧭 Tvoje mesto v šoli", "Začneš na ravni B1!", the first unit (Oče – očeta, dan – dneva), "32 enot pred
+    njo šteje za opravljene", "A1 → B1", the pay (+63 🌾 +159 🪨), "✓ Začnem tukaj" and "Ostanem, kjer sem"; after it the
+    school with A1 18/18 and A2 14/14 each one line, "★ Naslednja · Next · B1: Oče – očeta", B1 open further down.
+  - Found by QA and fixed: an early return inside `key { }` built for the JVM tests but couldn't be dexed (the APK
+    failed); the first unit's title came in both halves of the pair.
 
 ## Voice
 
