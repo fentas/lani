@@ -1,0 +1,1122 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "obwohl-trotzdem",
+  "language": "de",
+  "level": "B1",
+  "emoji": "☔",
+  "title": {
+    "de": "Obwohl es regnet, gehen wir",
+    "en": "Although and still: obwohl, trotzdem",
+    "sl": "Čeprav in vseeno: obwohl, trotzdem",
+    "it": "Sebbene e tuttavia: obwohl, trotzdem"
+  },
+  "goal": {
+    "en": "You can say that something happens all the same, with obwohl and the verb last (obwohl es regnet) or trotzdem and the verb next (trotzdem gehen wir), set against weil and deshalb.",
+    "sl": "Poveš, da se nekaj vseeno zgodi, z obwohl in glagolom na koncu (obwohl es regnet) ali s trotzdem in glagolom takoj za njim (trotzdem gehen wir), v primerjavi z weil in deshalb.",
+    "it": "Sai dire che qualcosa succede lo stesso, con obwohl e il verbo alla fine (obwohl es regnet) o con trotzdem e il verbo subito dopo (trotzdem gehen wir), a confronto con weil e deshalb."
+  },
+  "grammar": [
+    "obwohl-trotzdem",
+    "nebensatz",
+    "konnektoren"
+  ],
+  "words": [
+    "obwohl",
+    "trotzdem",
+    "dennoch",
+    "trotz",
+    "weil",
+    "deshalb",
+    "darum",
+    "aber",
+    "denn",
+    "und",
+    "dass",
+    "regnen",
+    "schneien",
+    "krank",
+    "müde",
+    "spazieren",
+    "aufstehen",
+    "der Regen",
+    "der Himmel",
+    "das Fieber",
+    "die Jacke",
+    "die Mühle",
+    "der Weg",
+    "steil",
+    "das Radio",
+    "die Zeitung",
+    "grau",
+    "ganz",
+    "schlecht",
+    "hören",
+    "wissen",
+    "oben"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Wort",
+          "sl": "beseda",
+          "en": "word",
+          "it": "parola"
+        },
+        {
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example",
+          "it": "esempio"
+        },
+        {
+          "de": "das Verb",
+          "sl": "glagol",
+          "en": "the verb",
+          "it": "il verbo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Wir gehen spazieren, obwohl es regnet** (we're going for a walk although it's raining). **obwohl** (although) says: this should stop it, and it doesn't. It starts a subordinate clause, so the verb goes last, as after weil: **obwohl er müde ist** (although he's tired), **obwohl sie früh aufstehen muss** (although she has to get up early).",
+          "sl": "**Wir gehen spazieren, obwohl es regnet** (gremo na sprehod, čeprav dežuje). **obwohl** (čeprav) pove: to bi moralo preprečiti, pa ne prepreči. Začne odvisnik, zato gre glagol na konec, kot za weil: **obwohl er müde ist** (čeprav je utrujen), **obwohl sie früh aufstehen muss** (čeprav mora zgodaj vstati).",
+          "it": "**Wir gehen spazieren, obwohl es regnet** (andiamo a fare una passeggiata anche se piove). **obwohl** (sebbene, anche se) dice: questo dovrebbe impedirlo, e invece no. Apre una secondaria, quindi il verbo va alla fine, come dopo weil: **obwohl er müde ist** (anche se è stanco), **obwohl sie früh aufstehen muss** (anche se deve alzarsi presto). Dopo obwohl nessun congiuntivo."
+        },
+        "examples": [
+          {
+            "de": "Stefan arbeitet, obwohl er krank ist.",
+            "en": "Stefan is working although he's ill.",
+            "sl": "Stefan dela, čeprav je bolan.",
+            "it": "Stefan lavora anche se è malato."
+          },
+          {
+            "de": "Mitzi weiß alles, obwohl sie schlecht hört.",
+            "en": "Mitzi knows everything although she doesn't hear well.",
+            "sl": "Mitzi vse ve, čeprav slabo sliši.",
+            "it": "Mitzi sa tutto anche se ci sente poco."
+          },
+          {
+            "de": "Kathi kommt, obwohl sie früh aufstehen muss.",
+            "en": "Kathi is coming although she has to get up early.",
+            "sl": "Kathi pride, čeprav mora zgodaj vstati.",
+            "it": "Kathi viene anche se deve alzarsi presto."
+          },
+          {
+            "de": "Toni hat geholfen, obwohl er keine Zeit gehabt hat.",
+            "en": "Toni helped although he had no time.",
+            "sl": "Toni je pomagal, čeprav ni imel časa.",
+            "it": "Toni ha aiutato anche se non aveva tempo."
+          }
+        ],
+        "rows": [
+          [
+            "obwohl",
+            "…, obwohl es regnet.",
+            {
+              "de": "am Ende",
+              "sl": "na koncu",
+              "en": "last",
+              "it": "alla fine"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "obwohl-trotzdem",
+          "text": "Stefan arbeitet, obwohl er krank ___. (sein)",
+          "accept": [
+            "ist"
+          ],
+          "hint": {
+            "en": "the verb last",
+            "sl": "glagol na koncu",
+            "it": "il verbo alla fine"
+          },
+          "explain": {
+            "en": "**obwohl sends the verb last**\n- obwohl er krank ist · obwohl es regnet",
+            "sl": "**obwohl pošlje glagol na konec**\n- obwohl er krank ist · obwohl es regnet",
+            "it": "**obwohl manda il verbo alla fine**\n- obwohl er krank ist · obwohl es regnet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "An **obwohl** clause can come first, so two verbs meet at the comma: **Obwohl es regnet, gehen wir spazieren** (never *Obwohl es regnet, wir gehen spazieren*). It takes the first place, so the main verb follows at once. It's the same after weil: **Weil es regnet, bleiben wir** (because it's raining, we're staying).",
+          "sl": "Odvisnik z **obwohl** lahko stoji na začetku, pri vejici pa se srečata dva glagola: **Obwohl es regnet, gehen wir spazieren** (čeprav dežuje, gremo na sprehod). Zasede prvo mesto, zato glavni glagol pride takoj. Enako je za weil: **Weil es regnet, bleiben wir** (ker dežuje, ostanemo).",
+          "it": "Una secondaria con **obwohl** può stare all'inizio, e due verbi si incontrano alla virgola: **Obwohl es regnet, gehen wir spazieren** (anche se piove, andiamo a fare una passeggiata). Occupa il primo posto, quindi il verbo principale viene subito. Lo stesso dopo weil: **Weil es regnet, bleiben wir** (poiché piove, restiamo)."
+        },
+        "examples": [
+          {
+            "de": "Obwohl es regnet, gehen wir spazieren.",
+            "en": "Although it's raining, we're going for a walk.",
+            "sl": "Čeprav dežuje, gremo na sprehod.",
+            "it": "Anche se piove, andiamo a fare una passeggiata."
+          },
+          {
+            "de": "Obwohl Kathi müde ist, kocht sie noch.",
+            "en": "Although Kathi is tired, she's still cooking.",
+            "sl": "Čeprav je Kathi utrujena, še kuha.",
+            "it": "Anche se Kathi è stanca, cucina ancora."
+          },
+          {
+            "de": "Obwohl Toni wenig spricht, hört er alles.",
+            "en": "Although Toni says little, he hears everything.",
+            "sl": "Čeprav Toni malo govori, vse sliši.",
+            "it": "Anche se Toni parla poco, sente tutto."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "obwohl-trotzdem",
+          "prompt": "Obwohl Stefan müde ist, ___.",
+          "options": [
+            "arbeitet er noch",
+            "er arbeitet noch",
+            "noch er arbeitet"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The clause first: its comma, then the main verb at once**\n- Obwohl es regnet, gehen wir spazieren.",
+            "sl": "**Odvisnik na začetku: vejica, nato takoj glavni glagol**\n- Obwohl es regnet, gehen wir spazieren.",
+            "it": "**La secondaria all'inizio: la virgola, poi subito il verbo principale**\n- Obwohl es regnet, gehen wir spazieren."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Es regnet, trotzdem gehen wir spazieren** (it's raining; we're going for a walk all the same): **trotzdem** (still, all the same) takes the first place of its sentence, so the verb comes right after it, as after deshalb. It can stand after the verb too: **Wir gehen trotzdem** (we're going all the same). **dennoch** (nevertheless) is its written twin.",
+          "sl": "**Es regnet, trotzdem gehen wir spazieren** (dežuje, vseeno gremo na sprehod): **trotzdem** (vseeno, kljub temu) zasede prvo mesto svojega stavka, zato glagol pride takoj za njim, kot za deshalb. Lahko stoji tudi za glagolom: **Wir gehen trotzdem** (vseeno gremo). **dennoch** (vendarle) je njegov pisni dvojček.",
+          "it": "**Es regnet, trotzdem gehen wir spazieren** (piove, ma andiamo lo stesso a fare una passeggiata): **trotzdem** (lo stesso, tuttavia) occupa il primo posto della sua frase, quindi il verbo viene subito dopo, come dopo deshalb. Può stare anche dopo il verbo: **Wir gehen trotzdem** (andiamo lo stesso). **dennoch** (tuttavia) è il suo gemello scritto."
+        },
+        "examples": [
+          {
+            "de": "Es regnet, trotzdem gehen wir spazieren.",
+            "en": "It's raining; we're going for a walk all the same.",
+            "sl": "Dežuje, vseeno gremo na sprehod.",
+            "it": "Piove, ma andiamo lo stesso a fare una passeggiata."
+          },
+          {
+            "de": "Stefan ist krank, trotzdem arbeitet er.",
+            "en": "Stefan is ill; he's working all the same.",
+            "sl": "Stefan je bolan, vseeno dela.",
+            "it": "Stefan è malato, ma lavora lo stesso."
+          },
+          {
+            "de": "Franz ist schon alt. Trotzdem arbeitet er jeden Tag in der Mühle.",
+            "en": "Franz is old now. He still works in the mill every day.",
+            "sl": "Franz je že star. Kljub temu vsak dan dela v mlinu.",
+            "it": "Franz è già anziano. Tuttavia lavora ogni giorno al mulino."
+          },
+          {
+            "de": "Es schneit, aber wir gehen trotzdem.",
+            "en": "It's snowing, but we're going all the same.",
+            "sl": "Sneži, a vseeno gremo.",
+            "it": "Nevica, ma andiamo lo stesso."
+          }
+        ],
+        "rows": [
+          [
+            "trotzdem",
+            "Es regnet, trotzdem gehen wir.",
+            {
+              "de": "gleich danach",
+              "sl": "takoj za njim",
+              "en": "right after it",
+              "it": "subito dopo"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "obwohl-trotzdem",
+          "prompt": "Es regnet, trotzdem ___.",
+          "options": [
+            "gehen wir spazieren",
+            "wir gehen spazieren",
+            "wir spazieren gehen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**trotzdem takes first place: the verb comes next**\n- trotzdem gehen wir · deshalb bleiben wir",
+            "sl": "**trotzdem zasede prvo mesto: glagol pride takoj**\n- trotzdem gehen wir · deshalb bleiben wir",
+            "it": "**trotzdem occupa il primo posto: il verbo viene subito**\n- trotzdem gehen wir · deshalb bleiben wir"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "One fact, two sentences: **obwohl** stands with what should stop it, **trotzdem** with what happens anyway. **Obwohl Stefan krank ist, arbeitet er** says the same as **Stefan ist krank, trotzdem arbeitet er**. Keep them on their own sides: **Stefan arbeitet, trotzdem ist er krank** (he's working, and he's ill all the same) says something else.",
+          "sl": "Eno dejstvo, dva stavka: **obwohl** stoji s tem, kar bi moralo preprečiti, **trotzdem** s tem, kar se vseeno zgodi. **Obwohl Stefan krank ist, arbeitet er** pove isto kot **Stefan ist krank, trotzdem arbeitet er**. Pazi na stran: **Stefan arbeitet, trotzdem ist er krank** (Stefan dela, vseeno je bolan) pove nekaj drugega.",
+          "it": "Un fatto, due frasi: **obwohl** sta con ciò che dovrebbe impedirlo, **trotzdem** con ciò che succede lo stesso. **Obwohl Stefan krank ist, arbeitet er** dice lo stesso di **Stefan ist krank, trotzdem arbeitet er**. Attento al lato: **Stefan arbeitet, trotzdem ist er krank** (Stefan lavora, eppure è malato) dice un'altra cosa."
+        },
+        "examples": [
+          {
+            "de": "Obwohl Stefan krank ist, arbeitet er.",
+            "en": "Although Stefan is ill, he's working.",
+            "sl": "Čeprav je Stefan bolan, dela.",
+            "it": "Anche se Stefan è malato, lavora."
+          },
+          {
+            "de": "Stefan ist krank, trotzdem arbeitet er.",
+            "en": "Stefan is ill; he's working all the same.",
+            "sl": "Stefan je bolan, vseeno dela.",
+            "it": "Stefan è malato, ma lavora lo stesso."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "obwohl-trotzdem",
+          "prompt": "Kathi ist müde, ___ kocht sie noch.",
+          "options": [
+            "trotzdem",
+            "obwohl",
+            "weil"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After the comma the verb comes next: trotzdem**\n- Kathi ist müde, trotzdem kocht sie noch. Obwohl sie müde ist, kocht sie noch.",
+            "sl": "**Za vejico glagol pride takoj: trotzdem**\n- Kathi ist müde, trotzdem kocht sie noch. Obwohl sie müde ist, kocht sie noch.",
+            "it": "**Dopo la virgola il verbo viene subito: trotzdem**\n- Kathi ist müde, trotzdem kocht sie noch. Obwohl sie müde ist, kocht sie noch."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Set them beside **weil** (because) and **deshalb** (so): the same word order, the opposite meaning. **weil** and **obwohl** send the verb last; **deshalb** and **trotzdem** take first place. **Es regnet, deshalb bleiben wir** (it's raining, so we're staying), **Es regnet, trotzdem gehen wir**. What you expect: weil, deshalb. What you don't: obwohl, trotzdem.",
+          "sl": "Postavi ju ob **weil** (ker) in **deshalb** (zato): isti besedni red, nasproten pomen. **weil** in **obwohl** pošljeta glagol na konec, **deshalb** in **trotzdem** zasedeta prvo mesto. **Es regnet, deshalb bleiben wir** (dežuje, zato ostanemo), **Es regnet, trotzdem gehen wir** (dežuje, vseeno gremo). Kar pričakuješ: weil, deshalb. Česar ne: obwohl, trotzdem.",
+          "it": "Mettili accanto a **weil** (perché) e **deshalb** (perciò): lo stesso ordine, il significato opposto. **weil** e **obwohl** mandano il verbo alla fine; **deshalb** e **trotzdem** occupano il primo posto. **Es regnet, deshalb bleiben wir** (piove, perciò restiamo), **Es regnet, trotzdem gehen wir** (piove, ma andiamo lo stesso). Ciò che ti aspetti: weil, deshalb. Ciò che non ti aspetti: obwohl, trotzdem."
+        },
+        "examples": [
+          {
+            "de": "Wir bleiben, weil es regnet.",
+            "en": "We're staying because it's raining.",
+            "sl": "Ostanemo, ker dežuje.",
+            "it": "Restiamo perché piove."
+          },
+          {
+            "de": "Wir gehen, obwohl es regnet.",
+            "en": "We're going although it's raining.",
+            "sl": "Gremo, čeprav dežuje.",
+            "it": "Andiamo anche se piove."
+          },
+          {
+            "de": "Es regnet, deshalb bleiben wir.",
+            "en": "It's raining, so we're staying.",
+            "sl": "Dežuje, zato ostanemo.",
+            "it": "Piove, perciò restiamo."
+          },
+          {
+            "de": "Es regnet, trotzdem gehen wir.",
+            "en": "It's raining; we're going all the same.",
+            "sl": "Dežuje, vseeno gremo.",
+            "it": "Piove, ma andiamo lo stesso."
+          }
+        ],
+        "rows": [
+          [
+            "weil",
+            "…, weil es regnet.",
+            {
+              "de": "am Ende",
+              "sl": "na koncu",
+              "en": "last",
+              "it": "alla fine"
+            }
+          ],
+          [
+            "deshalb",
+            "Es regnet, deshalb bleiben wir.",
+            {
+              "de": "gleich danach",
+              "sl": "takoj za njim",
+              "en": "right after it",
+              "it": "subito dopo"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "obwohl-trotzdem",
+          "prompt": "Florian ist müde, ___ geht er auf die Alm.",
+          "options": [
+            "trotzdem",
+            "deshalb",
+            "weil"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**What you expect: weil, deshalb. What you don't: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir",
+            "sl": "**Kar pričakuješ: weil, deshalb. Česar ne: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir",
+            "it": "**Ciò che ti aspetti: weil, deshalb. Ciò che non ti aspetti: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "You can say it with **aber** (but) too, which takes no place: **Es regnet, aber wir gehen** (it's raining, but we're going). And with **trotz** (despite) and a noun: **Trotz des Regens gehen wir** (despite the rain we're going). In speech you'll also hear **obwohl ich hab keine Zeit** and **trotzdem es regnet**: people say them; write **obwohl** with the verb last.",
+          "sl": "Lahko rečeš tudi z **aber** (toda), ki ne zasede mesta: **Es regnet, aber wir gehen** (dežuje, toda gremo). In s **trotz** (kljub) in samostalnikom: **Trotz des Regens gehen wir** (kljub dežju gremo). V govoru boš slišal tudi **obwohl ich hab keine Zeit** in **trotzdem es regnet**: ljudje tako govorijo; piši **obwohl** z glagolom na koncu.",
+          "it": "Puoi dirlo anche con **aber** (ma), che non occupa un posto: **Es regnet, aber wir gehen** (piove, ma andiamo). E con **trotz** (nonostante) e un nome: **Trotz des Regens gehen wir** (nonostante la pioggia andiamo). Parlando sentirai anche **obwohl ich hab keine Zeit** e **trotzdem es regnet**: la gente lo dice; scrivi **obwohl** col verbo alla fine."
+        },
+        "examples": [
+          {
+            "de": "Es regnet, aber wir gehen spazieren.",
+            "en": "It's raining, but we're going for a walk.",
+            "sl": "Dežuje, toda gremo na sprehod.",
+            "it": "Piove, ma andiamo a fare una passeggiata."
+          },
+          {
+            "de": "Trotz des Regens gehen wir spazieren.",
+            "en": "Despite the rain we're going for a walk.",
+            "sl": "Kljub dežju gremo na sprehod.",
+            "it": "Nonostante la pioggia andiamo a fare una passeggiata."
+          }
+        ],
+        "rows": [
+          [
+            "aber",
+            "Es regnet, aber wir gehen.",
+            {
+              "de": "wie immer",
+              "sl": "kot vedno",
+              "en": "as ever",
+              "it": "come sempre"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "obwohl-trotzdem",
+          "prompt": "___ des Regens gehen wir spazieren.",
+          "options": [
+            "Trotz",
+            "Obwohl",
+            "Weil"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Before a noun: trotz**\n- Trotz des Regens gehen wir. Obwohl es regnet, gehen wir.",
+            "sl": "**Pred samostalnikom: trotz**\n- Trotz des Regens gehen wir. Obwohl es regnet, gehen wir.",
+            "it": "**Davanti a un nome: trotz**\n- Trotz des Regens gehen wir. Obwohl es regnet, gehen wir."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "obwohl-trotzdem-1",
+      "title": {
+        "de": "Obwohl, trotzdem",
+        "en": "Obwohl, trotzdem",
+        "sl": "Obwohl, trotzdem",
+        "it": "Obwohl, trotzdem"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "obwohl-trotzdem",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "two facts, two sentences: the words after the word",
+            "sl": "dve dejstvi, dva stavka: besede za besedo",
+            "it": "due fatti, due frasi: le parole dopo la parola"
+          },
+          "columns": [
+            "obwohl …",
+            "trotzdem …"
+          ],
+          "rows": [
+            {
+              "label": "Es regnet. Wir gehen.",
+              "cells": [
+                "obwohl es regnet",
+                {
+                  "accept": [
+                    "trotzdem gehen wir"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Stefan ist krank. Er arbeitet.",
+              "cells": [
+                {
+                  "accept": [
+                    "obwohl er krank ist",
+                    "obwohl Stefan krank ist"
+                  ],
+                  "spoken": [
+                    "obwohl er ist krank",
+                    "obwohl Stefan ist krank"
+                  ]
+                },
+                {
+                  "accept": [
+                    "trotzdem arbeitet er",
+                    "trotzdem arbeitet Stefan"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Kathi muss früh aufstehen. Sie kommt.",
+              "cells": [
+                {
+                  "accept": [
+                    "obwohl sie früh aufstehen muss",
+                    "obwohl Kathi früh aufstehen muss"
+                  ],
+                  "spoken": [
+                    "obwohl sie muss früh aufstehen",
+                    "obwohl Kathi muss früh aufstehen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "trotzdem kommt sie",
+                    "trotzdem kommt Kathi"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Toni hat keine Zeit. Er hilft.",
+              "cells": [
+                {
+                  "accept": [
+                    "obwohl er keine Zeit hat",
+                    "obwohl Toni keine Zeit hat"
+                  ],
+                  "spoken": [
+                    "obwohl er hat keine Zeit",
+                    "obwohl Toni hat keine Zeit"
+                  ]
+                },
+                {
+                  "accept": [
+                    "trotzdem hilft er",
+                    "trotzdem hilft Toni"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Mitzi hört schlecht. Sie weiß alles.",
+              "cells": [
+                {
+                  "accept": [
+                    "obwohl sie schlecht hört",
+                    "obwohl Mitzi schlecht hört"
+                  ],
+                  "spoken": [
+                    "obwohl sie hört schlecht",
+                    "obwohl Mitzi hört schlecht"
+                  ]
+                },
+                {
+                  "accept": [
+                    "trotzdem weiß sie alles",
+                    "trotzdem weiß Mitzi alles"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**obwohl: the verb last; trotzdem: first place, then the verb**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+            "sl": "**obwohl: glagol na koncu; trotzdem: prvo mesto, nato glagol**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+            "it": "**obwohl: il verbo alla fine; trotzdem: il primo posto, poi il verbo**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "obwohl-trotzdem",
+          "instruction": {
+            "en": "Sortiere · Sort: where does the verb go?",
+            "sl": "Sortiere · Razvrsti: kam gre glagol?",
+            "it": "Sortiere · Ordina: dove va il verbo?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "am Ende · last",
+                "sl": "am Ende · na koncu",
+                "it": "am Ende · alla fine"
+              },
+              "words": [
+                "weil",
+                "obwohl",
+                "dass"
+              ]
+            },
+            {
+              "label": {
+                "en": "gleich danach · right after it",
+                "sl": "gleich danach · takoj za njim",
+                "it": "gleich danach · subito dopo"
+              },
+              "words": [
+                "deshalb",
+                "trotzdem",
+                "darum"
+              ]
+            },
+            {
+              "label": {
+                "en": "wie immer · as ever",
+                "sl": "wie immer · kot vedno",
+                "it": "wie immer · come sempre"
+              },
+              "words": [
+                "und",
+                "aber",
+                "denn"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**weil, obwohl: the verb last; deshalb, trotzdem: first place; und, aber, denn: no place**\n- weil es regnet · trotzdem gehen wir · aber wir gehen",
+            "sl": "**weil, obwohl: glagol na koncu; deshalb, trotzdem: prvo mesto; und, aber, denn: brez mesta**\n- weil es regnet · trotzdem gehen wir · aber wir gehen",
+            "it": "**weil, obwohl: il verbo alla fine; deshalb, trotzdem: il primo posto; und, aber, denn: nessun posto**\n- weil es regnet · trotzdem gehen wir · aber wir gehen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "obwohl-trotzdem-2",
+      "title": {
+        "de": "Auf den Dobratsch",
+        "en": "Up the Dobratsch",
+        "sl": "Na Dobrač",
+        "it": "Sul Dobratsch"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "obwohl-trotzdem",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Auf den Dobratsch",
+          "text": "Am Samstag gehen wir auf den Dobratsch, ___ das Wetter schlecht ist. Der Himmel ist ganz grau, ___ nimmt Kathi keine Jacke mit. Stefan kommt nicht mit, ___ er krank ist. Er hat Fieber, ___ bleibt er im Bett. ___ Opa Sepp schon alt ist, geht er mit. Der Weg ist steil, ___ erzählt er die ganze Zeit. ___ des Regens essen wir oben Brot und Speck. Es ist kalt, ___ es ist schön.",
+          "gaps": [
+            {
+              "accept": [
+                "obwohl",
+                "auch wenn"
+              ],
+              "spoken": [
+                "trotzdem"
+              ],
+              "hint": {
+                "en": "the verb last",
+                "sl": "glagol na koncu",
+                "it": "il verbo alla fine"
+              }
+            },
+            {
+              "accept": [
+                "trotzdem",
+                "dennoch"
+              ],
+              "hint": {
+                "en": "the verb next",
+                "sl": "glagol takoj",
+                "it": "il verbo subito dopo"
+              }
+            },
+            {
+              "accept": [
+                "weil",
+                "da"
+              ],
+              "hint": {
+                "en": "the verb last, a reason",
+                "sl": "glagol na koncu, razlog",
+                "it": "il verbo alla fine, un motivo"
+              }
+            },
+            {
+              "accept": [
+                "deshalb",
+                "deswegen",
+                "darum",
+                "daher",
+                "also"
+              ],
+              "hint": {
+                "en": "the verb next, as you'd expect",
+                "sl": "glagol takoj, kot pričakuješ",
+                "it": "il verbo subito dopo, come ti aspetti"
+              }
+            },
+            {
+              "accept": [
+                "Obwohl",
+                "Auch wenn"
+              ],
+              "spoken": [
+                "Trotzdem"
+              ],
+              "hint": {
+                "en": "the verb last",
+                "sl": "glagol na koncu",
+                "it": "il verbo alla fine"
+              }
+            },
+            {
+              "accept": [
+                "trotzdem",
+                "dennoch"
+              ],
+              "hint": {
+                "en": "the verb next",
+                "sl": "glagol takoj",
+                "it": "il verbo subito dopo"
+              }
+            },
+            {
+              "accept": [
+                "Trotz",
+                "Während"
+              ],
+              "hint": {
+                "en": "a noun follows",
+                "sl": "sledi samostalnik",
+                "it": "segue un nome"
+              }
+            },
+            {
+              "accept": [
+                "aber",
+                "doch"
+              ],
+              "hint": {
+                "en": "takes no place",
+                "sl": "ne zasede mesta",
+                "it": "non occupa un posto"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "dass"
+          ],
+          "translation": {
+            "en": "On Saturday we're going up the Dobratsch, although the weather is bad. The sky is all grey; Kathi isn't taking a jacket all the same. Stefan isn't coming because he's ill. He has a fever, so he's staying in bed. Although Grandpa Sepp is old now, he's coming along. The way is steep; he talks the whole time all the same. Despite the rain we eat bread and bacon up there. It's cold, but it's lovely.",
+            "sl": "V soboto gremo na Dobrač, čeprav je vreme slabo. Nebo je čisto sivo, vseeno Kathi ne vzame jakne. Stefan ne gre z nami, ker je bolan. Ima vročino, zato ostane v postelji. Čeprav je dedek Sepp že star, gre z nami. Pot je strma, vseeno ves čas pripoveduje. Kljub dežju jemo zgoraj kruh in slanino. Mraz je, toda lepo je.",
+            "it": "Sabato saliamo sul Dobratsch, anche se il tempo è brutto. Il cielo è tutto grigio, ma Kathi non prende lo stesso la giacca. Stefan non viene perché è malato. Ha la febbre, perciò resta a letto. Anche se nonno Sepp è già anziano, viene con noi. La strada è ripida, ma lui racconta lo stesso tutto il tempo. Nonostante la pioggia lassù mangiamo pane e speck. Fa freddo, ma è bello."
+          },
+          "explain": {
+            "en": "**obwohl: the verb last; trotzdem: first place, then the verb**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+            "sl": "**obwohl: glagol na koncu; trotzdem: prvo mesto, nato glagol**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+            "it": "**obwohl: il verbo alla fine; trotzdem: il primo posto, poi il verbo**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "obwohl-trotzdem",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir gehen spazieren, ___ es regnet.",
+          "options": [
+            "obwohl",
+            "deshalb",
+            "darum"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A clause with the verb last, and you wouldn't expect it: obwohl**\n- Wir gehen spazieren, obwohl es regnet.",
+            "sl": "**Odvisnik z glagolom na koncu, česar ne bi pričakoval: obwohl**\n- Wir gehen spazieren, obwohl es regnet.",
+            "it": "**Una secondaria col verbo alla fine, e non te lo aspetteresti: obwohl**\n- Wir gehen spazieren, obwohl es regnet."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "obwohl-trotzdem",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Obwohl Kathi müde ist, ___ noch.",
+          "options": [
+            "kocht sie",
+            "sie kocht",
+            "kochen sie"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The clause first: its comma, then the main verb at once**\n- Obwohl es regnet, gehen wir spazieren.",
+            "sl": "**Odvisnik na začetku: vejica, nato takoj glavni glagol**\n- Obwohl es regnet, gehen wir spazieren.",
+            "it": "**La secondaria all'inizio: la virgola, poi subito il verbo principale**\n- Obwohl es regnet, gehen wir spazieren."
+          }
+        }
+      ]
+    },
+    {
+      "id": "obwohl-trotzdem-3",
+      "title": {
+        "de": "Trotzdem!",
+        "en": "All the same!",
+        "sl": "Vseeno!",
+        "it": "Lo stesso!"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "obwohl-trotzdem",
+          "instruction": {
+            "en": "Verbinde mit dem Wort in Klammern · Join with the word in brackets",
+            "sl": "Verbinde mit dem Wort in Klammern · Poveži z besedo v oklepaju",
+            "it": "Verbinde mit dem Wort in Klammern · Unisci con la parola tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan arbeitet. Er ist krank. (obwohl)",
+              "accept": [
+                "Stefan arbeitet, obwohl er krank ist.",
+                "Obwohl er krank ist, arbeitet Stefan.",
+                "Obwohl Stefan krank ist, arbeitet er."
+              ],
+              "spoken": [
+                "Stefan arbeitet, obwohl er ist krank."
+              ]
+            },
+            {
+              "from": "Stefan ist krank. Er arbeitet. (trotzdem)",
+              "accept": [
+                "Stefan ist krank, trotzdem arbeitet er.",
+                "Stefan ist krank, er arbeitet trotzdem.",
+                "Stefan ist krank, aber er arbeitet trotzdem.",
+                "Stefan ist krank, arbeitet aber trotzdem.",
+                "Stefan ist krank, er arbeitet aber trotzdem."
+              ]
+            },
+            {
+              "from": "Kathi kommt. Sie muss früh aufstehen. (obwohl)",
+              "accept": [
+                "Kathi kommt, obwohl sie früh aufstehen muss.",
+                "Obwohl sie früh aufstehen muss, kommt Kathi.",
+                "Obwohl Kathi früh aufstehen muss, kommt sie."
+              ],
+              "spoken": [
+                "Kathi kommt, obwohl sie muss früh aufstehen."
+              ]
+            },
+            {
+              "from": "Es schneit. Florian geht auf die Alm. (trotzdem)",
+              "accept": [
+                "Es schneit, trotzdem geht Florian auf die Alm.",
+                "Es schneit, Florian geht trotzdem auf die Alm.",
+                "Es schneit, aber Florian geht trotzdem auf die Alm.",
+                "Es schneit, Florian geht aber trotzdem auf die Alm."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**obwohl: the verb last; trotzdem: first place, then the verb**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+            "sl": "**obwohl: glagol na koncu; trotzdem: prvo mesto, nato glagol**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+            "it": "**obwohl: il verbo alla fine; trotzdem: il primo posto, poi il verbo**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "obwohl-trotzdem",
+          "instruction": {
+            "en": "Beginne mit Obwohl · Start with Obwohl",
+            "sl": "Beginne mit Obwohl · Začni z Obwohl",
+            "it": "Beginne mit Obwohl · Comincia con Obwohl"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Wir gehen spazieren, obwohl es regnet.",
+              "accept": [
+                "Obwohl es regnet, gehen wir spazieren."
+              ]
+            },
+            {
+              "from": "Toni hilft, obwohl er keine Zeit hat.",
+              "accept": [
+                "Obwohl er keine Zeit hat, hilft Toni.",
+                "Obwohl Toni keine Zeit hat, hilft er."
+              ]
+            },
+            {
+              "from": "Mitzi weiß alles, obwohl sie schlecht hört.",
+              "accept": [
+                "Obwohl sie schlecht hört, weiß Mitzi alles.",
+                "Obwohl Mitzi schlecht hört, weiß sie alles."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The clause first: its comma, then the main verb at once**\n- Obwohl es regnet, gehen wir spazieren.",
+            "sl": "**Odvisnik na začetku: vejica, nato takoj glavni glagol**\n- Obwohl es regnet, gehen wir spazieren.",
+            "it": "**La secondaria all'inizio: la virgola, poi subito il verbo principale**\n- Obwohl es regnet, gehen wir spazieren."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "obwohl-trotzdem",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Tante Mitzis Radio",
+        "text": "Tante Mitzi hört Radio, ___ sie schlecht hört. Das Radio ist alt, ___ läuft es den ganzen Tag. ___ es so laut ist, schläft Lena gut. Lena wohnt bei Oma Resi, ___ Mitzi ist nicht weit weg. Mitzi kennt alle, ___ weiß sie alles. Sie erzählt es weiter, ___ es niemand wissen will.",
+        "gaps": [
+          {
+            "accept": [
+              "obwohl",
+              "auch wenn"
+            ],
+            "spoken": [
+              "trotzdem"
+            ],
+            "hint": {
+              "en": "the verb last",
+              "sl": "glagol na koncu",
+              "it": "il verbo alla fine"
+            }
+          },
+          {
+            "accept": [
+              "trotzdem",
+              "dennoch"
+            ],
+            "hint": {
+              "en": "the verb next",
+              "sl": "glagol takoj",
+              "it": "il verbo subito dopo"
+            }
+          },
+          {
+            "accept": [
+              "Obwohl",
+              "Auch wenn"
+            ],
+            "spoken": [
+              "Trotzdem"
+            ],
+            "hint": {
+              "en": "the verb last",
+              "sl": "glagol na koncu",
+              "it": "il verbo alla fine"
+            }
+          },
+          {
+            "accept": [
+              "aber",
+              "doch"
+            ],
+            "hint": {
+              "en": "takes no place",
+              "sl": "ne zasede mesta",
+              "it": "non occupa un posto"
+            }
+          },
+          {
+            "accept": [
+              "deshalb",
+              "deswegen",
+              "darum",
+              "daher",
+              "also"
+            ],
+            "hint": {
+              "en": "the verb next, as you'd expect",
+              "sl": "glagol takoj, kot pričakuješ",
+              "it": "il verbo subito dopo, come ti aspetti"
+            }
+          },
+          {
+            "accept": [
+              "obwohl",
+              "auch wenn"
+            ],
+            "spoken": [
+              "trotzdem"
+            ],
+            "hint": {
+              "en": "the verb last",
+              "sl": "glagol na koncu",
+              "it": "il verbo alla fine"
+            }
+          }
+        ],
+        "translation": {
+          "en": "Aunt Mitzi listens to the radio although she doesn't hear well. The radio is old; it's on all day all the same. Although it's so loud, Lena sleeps well. Lena stays with Grandma Resi, but Mitzi isn't far away. Mitzi knows everyone, so she knows everything. She passes it on, although nobody wants to know.",
+          "sl": "Teta Mitzi posluša radio, čeprav slabo sliši. Radio je star, vseeno je prižgan ves dan. Čeprav je tako glasen, Lena dobro spi. Lena je pri babici Resi, toda Mitzi ni daleč. Mitzi pozna vse, zato vse ve. Pripoveduje naprej, čeprav tega nihče noče vedeti.",
+          "it": "Zia Mitzi ascolta la radio anche se ci sente poco. La radio è vecchia, ma va lo stesso tutto il giorno. Anche se è così forte, Lena dorme bene. Lena sta da nonna Resi, ma Mitzi non è lontana. Mitzi conosce tutti, perciò sa tutto. Lo racconta in giro, anche se nessuno vuole saperlo."
+        },
+        "explain": {
+          "en": "**obwohl: the verb last; trotzdem: first place, then the verb**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+          "sl": "**obwohl: glagol na koncu; trotzdem: prvo mesto, nato glagol**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+          "it": "**obwohl: il verbo alla fine; trotzdem: il primo posto, poi il verbo**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "obwohl-trotzdem",
+        "instruction": {
+          "en": "Verbinde mit dem Wort in Klammern · Join with the word in brackets",
+          "sl": "Verbinde mit dem Wort in Klammern · Poveži z besedo v oklepaju",
+          "it": "Verbinde mit dem Wort in Klammern · Unisci con la parola tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Franz arbeitet. Er ist schon alt. (obwohl)",
+            "accept": [
+              "Franz arbeitet, obwohl er schon alt ist.",
+              "Obwohl er schon alt ist, arbeitet Franz.",
+              "Obwohl Franz schon alt ist, arbeitet er."
+            ],
+            "spoken": [
+              "Franz arbeitet, obwohl er ist schon alt."
+            ]
+          },
+          {
+            "from": "Der Traktor ist kaputt. Stefan fährt. (trotzdem)",
+            "accept": [
+              "Der Traktor ist kaputt, trotzdem fährt Stefan.",
+              "Der Traktor ist kaputt, Stefan fährt trotzdem.",
+              "Der Traktor ist kaputt, aber Stefan fährt trotzdem.",
+              "Der Traktor ist kaputt, Stefan fährt aber trotzdem."
+            ]
+          },
+          {
+            "from": "Eva kommt, obwohl sie müde ist. (Beginne mit Obwohl)",
+            "accept": [
+              "Obwohl sie müde ist, kommt Eva.",
+              "Obwohl Eva müde ist, kommt sie."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**obwohl: the verb last; trotzdem: first place, then the verb**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+          "sl": "**obwohl: glagol na koncu; trotzdem: prvo mesto, nato glagol**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir.",
+          "it": "**obwohl: il verbo alla fine; trotzdem: il primo posto, poi il verbo**\n- obwohl es regnet · trotzdem gehen wir · Obwohl es regnet, gehen wir."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "obwohl-trotzdem",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wir bleiben zu Hause, ___ es regnet.",
+        "options": [
+          "weil",
+          "deshalb",
+          "trotz"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**What you expect: weil, deshalb. What you don't: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir",
+          "sl": "**Kar pričakuješ: weil, deshalb. Česar ne: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir",
+          "it": "**Ciò che ti aspetti: weil, deshalb. Ciò che non ti aspetti: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "obwohl-trotzdem",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stefan ist krank, ___ bleibt er im Bett.",
+        "options": [
+          "deshalb",
+          "weil",
+          "obwohl"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**What you expect: weil, deshalb. What you don't: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir",
+          "sl": "**Kar pričakuješ: weil, deshalb. Česar ne: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir",
+          "it": "**Ciò che ti aspetti: weil, deshalb. Ciò che non ti aspetti: obwohl, trotzdem**\n- weil es regnet · deshalb bleiben wir · obwohl es regnet · trotzdem gehen wir"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "obwohl-trotzdem",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Es regnet, trotzdem ___.",
+        "options": [
+          "gehen wir",
+          "wir gehen",
+          "gehen"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**trotzdem takes first place: the verb comes next**\n- trotzdem gehen wir",
+          "sl": "**trotzdem zasede prvo mesto: glagol pride takoj**\n- trotzdem gehen wir",
+          "it": "**trotzdem occupa il primo posto: il verbo viene subito**\n- trotzdem gehen wir"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "obwohl-trotzdem",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ des Regens fährt Stefan nach Villach.",
+        "options": [
+          "Trotz",
+          "Obwohl",
+          "Weil"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Before a noun: trotz**\n- Trotz des Regens fährt Stefan.",
+          "sl": "**Pred samostalnikom: trotz**\n- Trotz des Regens fährt Stefan.",
+          "it": "**Davanti a un nome: trotz**\n- Trotz des Regens fährt Stefan."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: obwohl with the verb second and trotzdem es regnet as spoken; dennoch; Dobrač for the Dobratsch; each base's word"
+}

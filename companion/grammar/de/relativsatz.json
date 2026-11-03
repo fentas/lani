@@ -1,0 +1,346 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "relativsatz",
+  "language": "de",
+  "level": "B1",
+  "emoji": "👉",
+  "title": {
+    "de": "Der Mann, der dort steht: der Relativsatz",
+    "sl": "Der Mann, der dort steht: oziralni stavek",
+    "en": "Der Mann, der dort steht: relative clauses",
+    "it": "Der Mann, der dort steht: la frase relativa"
+  },
+  "rule": {
+    "en": "A relative clause says more about a noun. It starts with a relative pronoun, its verb goes last, and commas mark it off: Der Mann, **der dort steht**, ist Franz.\n\nThe pronoun looks like der, die, das. **Its gender and number come from the noun, its case from its job in its own clause**: Der Mann, **der** kommt (the subject). Der Mann, **den** ich kenne (the object). Der Mann, **dem** ich helfe (helfen takes the dative).\n\nOf these forms, only the dative plural isn't the article's: **die Gäste, denen Kathi hilft** (never *die Gäste, den Kathi hilft*).\n\nA preposition stands before the pronoun and decides its case: der Tisch, **auf dem** das Brot liegt; der Bus, **auf den** ich warte. They don't melt into one word: **das Haus, in dem ich wohne**, never im.\n\n**wo** works for a place: das Dorf, **wo** ich wohne; after a town's name it is the usual way: in Villach, **wo** Kathi einkauft. **was** comes after alles, nichts, etwas and a superlative used as a noun (das Beste): Alles, **was** Oma kocht, schmeckt gut.\n\nWritten German also has **welcher, welche, welches** for der, die, das: right, but heavy, and you don't need them.",
+    "sl": "Oziralni stavek pove več o samostalniku. Začne se z oziralnim zaimkom, glagol gre na konec, od drugega stavka pa ga ločita vejici: Der Mann, **der dort steht**, ist Franz.\n\nZaimek je videti kot der, die, das. **Spol in število dobi od samostalnika, sklon pa od svoje vloge v svojem stavku**: Der Mann, **der** kommt (osebek). Der Mann, **den** ich kenne (predmet). Der Mann, **dem** ich helfe (helfen zahteva dajalnik). Tako kot slovenski kateri: moški, katerega poznam; moški, kateremu pomagam.\n\nOd teh oblik samo dajalnik množine ni enak členu: **die Gäste, denen Kathi hilft** (gostje, ki jim pomaga Kathi).\n\nPredlog stoji pred zaimkom in določi sklon: der Tisch, **auf dem** das Brot liegt; der Bus, **auf den** ich warte. Ne zlijeta se v eno besedo: **das Haus, in dem ich wohne**, nikoli im.\n\n**wo** se rabi za kraj: das Dorf, **wo** ich wohne; za imenom mesta je običajen: in Villach, **wo** Kathi einkauft. **was** stoji za alles, nichts, etwas in za presežnikom v vlogi samostalnika (das Beste): Alles, **was** Oma kocht, schmeckt gut.\n\nPisna nemščina ima za der, die, das tudi **welcher, welche, welches**: pravilno, a okorno, in ne potrebuješ jih.",
+    "it": "Una frase relativa dice di più su un nome. Comincia con un pronome relativo, il verbo va alla fine, e le virgole la separano: Der Mann, **der dort steht**, ist Franz.\n\nIl pronome assomiglia a der, die, das. **Genere e numero vengono dal nome, il caso dal suo ruolo nella sua frase**: Der Mann, **der** kommt (il soggetto). Der Mann, **den** ich kenne (l'oggetto). Der Mann, **dem** ich helfe (helfen vuole il dativo). Il che italiano non cambia, il pronome tedesco sì.\n\nDi queste forme, solo il dativo plurale è diverso dall'articolo: **die Gäste, denen Kathi hilft** (gli ospiti che Kathi aiuta).\n\nLa preposizione sta davanti al pronome e ne decide il caso: der Tisch, **auf dem** das Brot liegt; der Bus, **auf den** ich warte. Non si fondono in una parola: **das Haus, in dem ich wohne**, mai im.\n\n**wo** serve per un luogo: das Dorf, **wo** ich wohne; dopo il nome di una città è il modo solito: in Villach, **wo** Kathi einkauft. **was** sta dopo alles, nichts, etwas e un superlativo usato come nome (das Beste): Alles, **was** Oma kocht, schmeckt gut.\n\nIl tedesco scritto ha anche **welcher, welche, welches** per der, die, das: giusti, ma pesanti, e non ti servono."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Fall",
+        "sl": "sklon",
+        "en": "case",
+        "it": "caso"
+      },
+      "der Mann",
+      "die Frau",
+      "das Kind"
+    ],
+    "rows": [
+      [
+        {
+          "de": "Nominativ",
+          "sl": "imenovalnik",
+          "en": "nominative",
+          "it": "nominativo"
+        },
+        "der dort steht",
+        "die dort steht",
+        "das dort steht"
+      ],
+      [
+        {
+          "de": "Akkusativ",
+          "sl": "tožilnik",
+          "en": "accusative",
+          "it": "accusativo"
+        },
+        "den ich kenne",
+        "die ich kenne",
+        "das ich kenne"
+      ],
+      [
+        {
+          "de": "Dativ",
+          "sl": "dajalnik",
+          "en": "dative",
+          "it": "dativo"
+        },
+        "dem ich helfe",
+        "der ich helfe",
+        "dem ich helfe"
+      ],
+      [
+        {
+          "de": "mit + Dativ",
+          "sl": "mit + dajalnik",
+          "en": "mit + dative",
+          "it": "mit + dativo"
+        },
+        "mit dem ich spreche",
+        "mit der ich spreche",
+        "mit dem ich spreche"
+      ],
+      [
+        {
+          "de": "für + Akkusativ",
+          "sl": "für + tožilnik",
+          "en": "für + accusative",
+          "it": "für + accusativo"
+        },
+        "für den ich koche",
+        "für die ich koche",
+        "für das ich koche"
+      ],
+      [
+        {
+          "de": "Plural",
+          "sl": "množina",
+          "en": "plural",
+          "it": "plurale"
+        },
+        "die ich kenne",
+        "die ich kenne",
+        "die ich kenne"
+      ],
+      [
+        {
+          "de": "Dativ Plural",
+          "sl": "dajalnik množine",
+          "en": "dative plural",
+          "it": "dativo plurale"
+        },
+        "denen ich helfe",
+        "denen ich helfe",
+        "denen ich helfe"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Der Mann, der dort steht, ist Franz.",
+      "en": "The man who is standing there is Franz.",
+      "sl": "Moški, ki tam stoji, je Franz.",
+      "it": "L'uomo che sta lì è Franz.",
+      "note": {
+        "en": "der Mann, the subject: der. The verb last.",
+        "sl": "der Mann, osebek: der. Glagol na koncu.",
+        "it": "der Mann, il soggetto: der. Il verbo alla fine."
+      }
+    },
+    {
+      "de": "Der Most, den Stefan macht, ist gut.",
+      "en": "The cider Stefan makes is good.",
+      "sl": "Mošt, ki ga dela Stefan, je dober.",
+      "it": "Il sidro che fa Stefan è buono.",
+      "note": {
+        "en": "Stefan macht ihn: the object, den.",
+        "sl": "Stefan macht ihn: predmet, den.",
+        "it": "Stefan macht ihn: l'oggetto, den."
+      }
+    },
+    {
+      "de": "Die Frau, der Toni hilft, ist Oma Resi.",
+      "en": "The woman Toni is helping is Grandma Resi.",
+      "sl": "Ženska, ki ji pomaga Toni, je babica Resi.",
+      "it": "La donna che Toni aiuta è nonna Resi.",
+      "note": {
+        "en": "helfen takes the dative; die Frau: der.",
+        "sl": "helfen zahteva dajalnik; die Frau: der.",
+        "it": "helfen vuole il dativo; die Frau: der."
+      }
+    },
+    {
+      "de": "Die Gäste, denen Kathi hilft, kommen aus Italien.",
+      "en": "The guests Kathi is helping come from Italy.",
+      "sl": "Gostje, ki jim pomaga Kathi, so iz Italije.",
+      "it": "Gli ospiti che Kathi aiuta vengono dall'Italia.",
+      "note": {
+        "en": "The dative plural: denen.",
+        "sl": "Dajalnik množine: denen.",
+        "it": "Il dativo plurale: denen."
+      }
+    },
+    {
+      "de": "Der Wein, den wir getrunken haben, war gut.",
+      "en": "The wine we drank was good.",
+      "sl": "Vino, ki smo ga pili, je bilo dobro.",
+      "it": "Il vino che abbiamo bevuto era buono.",
+      "note": {
+        "en": "The conjugated verb last; after the comma the main verb.",
+        "sl": "Osebna oblika na koncu; za vejico glavni glagol.",
+        "it": "Il verbo coniugato alla fine; dopo la virgola il verbo principale."
+      }
+    },
+    {
+      "de": "Der Mann, mit dem Kathi spricht, ist Stanko.",
+      "en": "The man Kathi is talking to is Stanko.",
+      "sl": "Moški, s katerim govori Kathi, je Stanko.",
+      "it": "L'uomo con cui parla Kathi è Stanko.",
+      "note": {
+        "en": "mit takes the dative: mit dem.",
+        "sl": "mit zahteva dajalnik: mit dem.",
+        "it": "mit vuole il dativo: mit dem."
+      }
+    },
+    {
+      "de": "Der Tisch, auf dem das Brot liegt, ist alt.",
+      "en": "The table the bread is lying on is old.",
+      "sl": "Miza, na kateri leži kruh, je stara.",
+      "it": "Il tavolo su cui c'è il pane è vecchio.",
+      "note": {
+        "en": "wo? the dative.",
+        "sl": "wo? dajalnik.",
+        "it": "wo? il dativo."
+      }
+    },
+    {
+      "de": "Der Tisch, auf den ich das Brot lege, ist neu.",
+      "en": "The table I'm putting the bread on is new.",
+      "sl": "Miza, na katero položim kruh, je nova.",
+      "it": "Il tavolo su cui metto il pane è nuovo.",
+      "note": {
+        "en": "wohin? the accusative.",
+        "sl": "wohin? tožilnik.",
+        "it": "wohin? l'accusativo."
+      }
+    },
+    {
+      "de": "Das ist das Dorf, wo Oma Resi wohnt.",
+      "en": "That's the village where Grandma Resi lives.",
+      "sl": "To je vas, kjer živi babica Resi.",
+      "it": "È il paese dove abita nonna Resi.",
+      "note": {
+        "en": "A place: wo, or in dem.",
+        "sl": "Kraj: wo ali in dem.",
+        "it": "Un luogo: wo, o in dem."
+      }
+    },
+    {
+      "de": "Alles, was Oma Resi kocht, schmeckt gut.",
+      "en": "Everything Grandma Resi cooks tastes good.",
+      "sl": "Vse, kar kuha babica Resi, je dobro.",
+      "it": "Tutto quello che cucina nonna Resi è buono.",
+      "note": {
+        "en": "After alles: was.",
+        "sl": "Za alles: was.",
+        "it": "Dopo alles: was."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "relative_clause",
+    "relativsatz",
+    "relativpronomen",
+    "denen",
+    "word_order",
+    "verb_final",
+    "wo",
+    "was"
+  ],
+  "see": [
+    "nebensatz",
+    "dativ",
+    "akkusativ",
+    "wechselpraepositionen",
+    "verben-praepositionen",
+    "praepositionen-dativ",
+    "praepositionen-akkusativ"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: wo after a town's name; was after etwas; welcher as heavy; each base's own words",
+  "card": {
+    "title": {
+      "de": "Der Relativsatz",
+      "sl": "Oziralni stavek",
+      "en": "Relative clauses",
+      "it": "La frase relativa"
+    },
+    "rule": {
+      "en": "**The gender from the noun, the case from its own clause, the verb last**: **der Mann, der kommt; den ich kenne; dem ich helfe**. Dative plural: **denen**. A preposition first: **mit dem, für den**. A place: **wo**. After **alles, nichts, etwas**: **was**.",
+      "sl": "**Spol od samostalnika, sklon iz svojega stavka, glagol na koncu**: **der Mann, der kommt; den ich kenne; dem ich helfe**. Dajalnik množine: **denen**. Najprej predlog: **mit dem, für den**. Kraj: **wo**. Za **alles, nichts, etwas**: **was**.",
+      "it": "**Il genere dal nome, il caso dalla sua frase, il verbo alla fine**: **der Mann, der kommt; den ich kenne; dem ich helfe**. Dativo plurale: **denen**. Prima la preposizione: **mit dem, für den**. Un luogo: **wo**. Dopo **alles, nichts, etwas**: **was**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der",
+        "die",
+        "das"
+      ],
+      "rows": [
+        [
+          {
+            "de": "Nominativ",
+            "sl": "imenovalnik",
+            "en": "nominative",
+            "it": "nominativo"
+          },
+          "der",
+          "die",
+          "das"
+        ],
+        [
+          {
+            "de": "Akkusativ",
+            "sl": "tožilnik",
+            "en": "accusative",
+            "it": "accusativo"
+          },
+          "den",
+          "die",
+          "das"
+        ],
+        [
+          {
+            "de": "Dativ",
+            "sl": "dajalnik",
+            "en": "dative",
+            "it": "dativo"
+          },
+          "dem",
+          "der",
+          "dem"
+        ],
+        [
+          {
+            "de": "Plural",
+            "sl": "množina",
+            "en": "plural",
+            "it": "plurale"
+          },
+          "die",
+          "die",
+          "die"
+        ],
+        [
+          {
+            "de": "Dativ Plural",
+            "sl": "dajalnik množine",
+            "en": "dative plural",
+            "it": "dativo plurale"
+          },
+          "denen",
+          "denen",
+          "denen"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Der Most, den Stefan macht, ist gut.",
+        "en": "The cider Stefan makes is good.",
+        "sl": "Mošt, ki ga dela Stefan, je dober.",
+        "it": "Il sidro che fa Stefan è buono."
+      },
+      {
+        "de": "Die Gäste, denen Kathi hilft, kommen aus Italien.",
+        "en": "The guests Kathi is helping come from Italy.",
+        "sl": "Gostje, ki jim pomaga Kathi, so iz Italije.",
+        "it": "Gli ospiti che Kathi aiuta vengono dall'Italia."
+      }
+    ],
+    "tip": {
+      "en": "💡 Find the case with a small sentence: Ich helfe **ihm**, so **dem**; ich kenne **ihn**, so **den**.",
+      "sl": "💡 Sklon najdeš s kratkim stavkom: Ich helfe **ihm**, torej **dem**; ich kenne **ihn**, torej **den**.",
+      "it": "💡 Il caso lo trovi con una frasetta: Ich helfe **ihm**, quindi **dem**; ich kenne **ihn**, quindi **den**."
+    }
+  }
+}
