@@ -20,7 +20,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
 C = os.path.join(ROOT, 'companion')
 CACHE = os.path.join(ROOT, '.cache/sl-sources')
 UA = 'Mozilla/5.0 (Lani content check, one request at a time; jan.guth@lanisce.si)'
-GAP = 3.0
+GAP = 2.0
 _last = [0.0]
 OFFLINE = '--offline' in sys.argv
 
@@ -350,6 +350,21 @@ def look(q):
     return sp, sl, forms
 
 
+def sloleks_pass(levels):
+    """Sloleks first (the forms the supplement needs), for every word and record; fran.si comes after, in check()."""
+    qs = []
+    for f, p in new_packs(levels):
+        for w in p['words']:
+            qs += lemma_queries(w)
+    qs += [r['lemma'] for r in extra_records()]
+    for q in dict.fromkeys(qs):
+        sl = sloleks_search(q)
+        have = wiki_forms(q) is not None
+        for e in sl or []:
+            if e.get('lemma') == q and not have:
+                sloleks_forms(e['id'])
+
+
 def check(levels):
     rows = []
     for f, p in new_packs(levels):
@@ -546,6 +561,52 @@ def supplement(levels, write):
         print(f'wrote {len(add)} entries and merged forms into {merged} to {os.path.relpath(path, ROOT)}')
 
 
+SLOT_CASE = {'i': 'nom', 'r': 'gen', 'd': 'dat', 't': 'acc', 'm': 'loc', 'o': 'ins'}
+SLOT_NUM = {'e': 'sg', 'd': 'du', 'm': 'pl'}
+
+
+def noun_table(lemma, gloss=None, force=True):
+    """
+    A forms-book table of a noun (companion/lexicon/sl.forms.json "tables") from Sloleks's paradigm, its note citing
+    SP2001's head and both URLs; None when Sloleks has no noun of that lemma. [force]: fetch the headword page even
+    when the dictionary has the lemma (the table replaces the dictionary's forms).
+    """
+    sl = sloleks_search(lemma) or []
+    hit = [e for e in sl if e.get('lemma') == lemma and e.get('category') == 'noun']
+    if not hit:
+        return None
+    e = max(hit, key=lambda e: e.get('frequency') or 0)
+    fs = sloleks_forms(e['id']) or []
+    forms = collections.defaultdict(list)
+    for form, msd in fs:
+        if msd.startswith('S') and len(msd) >= 5 and msd[3] in SLOT_NUM and msd[4] in SLOT_CASE:
+            k = f'{SLOT_CASE[msd[4]]}.{SLOT_NUM[msd[3]]}'
+            if form.lower() not in forms[k]:
+                forms[k].append(form.lower())
+    if not forms:
+        return None
+    order = [f'{c}.{n}' for n in ['sg', 'du', 'pl'] for c in ['nom', 'gen', 'dat', 'acc', 'loc', 'ins']]
+    sp = [x for x in sp2001(lemma) or [] if x['word'].lower() == lemma.lower()]
+    head = sp[0]['head'][:90].strip() if sp else None
+    note = (f'SP2001 {head}: {fran_url(lemma)} ' if head else 'Not in SP2001. ') + f'Sloleks: {sloleks_url(e["id"])}'
+    t = {'lemma': lemma, 'pos': 'noun', 'gender': GENDER.get(e.get('gender'))}
+    if gloss:
+        t['gloss'] = gloss
+    t['forms'] = {k: (forms[k][0] if len(forms[k]) == 1 else forms[k][:4]) for k in order if k in forms}
+    t['note'] = note[:300]
+    return t
+
+
+def animate_label(lemma):
+    """SP2001's label of a masculine noun: 'člov.' (a person), 'živ.' (an animal), or None."""
+    sp = [x for x in sp2001(lemma) or [] if x['word'].lower() == lemma.lower()]
+    for x in sp:
+        m = re.search(r'\b(člov|živ)\.', x['head'][:80])
+        if m:
+            return m.group(1) + '.'
+    return None
+
+
 def styled(v):
     """JSON in the supplement's style: { "k": v, … } with spaces inside an object's braces, lists tight."""
     if isinstance(v, dict):
@@ -616,6 +677,17 @@ if __name__ == '__main__':
         check(levels)
     elif a[0] == 'supplement':
         supplement(levels, '--write' in a)
+    elif a[0] == 'tables':
+        # python3 sl_sources.py tables lemma… : the forms-book tables, as JSON lines
+        for q in a[1:]:
+            if not q.startswith('--'):
+                print(json.dumps(noun_table(q), ensure_ascii=False))
+    elif a[0] == 'animate':
+        for q in a[1:]:
+            if not q.startswith('--'):
+                print(q, animate_label(q))
+    elif a[0] == 'sloleks':
+        sloleks_pass(levels)
     elif a[0] == 'auto':
         auto(levels)
     elif a[0] == 'unknown':
