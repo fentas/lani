@@ -101,7 +101,7 @@ The wrong forms offered in a choice or a bank (woauf, daan) have no entry, on pu
 
 ## Voice (no credits spent)
 
-A voice build of these six units in Eva's voice would take about **6,700 characters** of German (356 different lines, 504 in all). The explanations in the learner's language add about 15,000 in English, 14,400 in Slovene and 15,300 in Italian (39 clips each): the app asks for those on demand, or `voice-build --explanations` makes them ahead. Counted with the bridge's own `courseTexts`.
+A voice build of these six units in Eva's voice would take about **6,800 characters** of German (360 different lines, 506 in all). The explanations in the learner's language add about 15,200 in English, 14,700 in Slovene and 15,600 in Italian (39 clips each): the app asks for those on demand, or `voice-build --explanations` makes them ahead. Counted with the bridge's own `courseTexts`.
 
 ## Checks
 
