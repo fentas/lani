@@ -10089,8 +10089,18 @@ def friuli_projects_b():
         time.sleep(3 * slow())
         snap(f"fb-{tag}-map")
         name = spec["name"]["it"]
-        c = next((c for t, c in nodes() if t.startswith(name)), None) or find(name)
+        # its landmark may stand past the edge of a phone's map (the fountain's, beyond the market): the map panned, as a finger does
+        w, h = screen_size()
+        c = None
+        for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):
+            if dx:
+                adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.62)), str(int(w * (0.5 + dx))), str(int(h * 0.62)), "500")
+                time.sleep(2 * slow())
+            c = wait_for(name, 3)
+            if c is not None:
+                break
         assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
+        snap(f"fb-{tag}-landmark")
         tap_at(c)
         today = "🔨 " + l10n("it", "projectsSheet.todaysStep")
         task = spec["steps"][n - 1]["task"]["it"]
