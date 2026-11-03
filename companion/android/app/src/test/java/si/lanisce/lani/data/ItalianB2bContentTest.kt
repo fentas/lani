@@ -83,6 +83,8 @@ class ItalianB2bContentTest {
         slip("palassi", "parlassi")
         slip("vanisse", "venisse")
         slip("bellessimo", "bellissimo")
+        // a short noun's vowel stays a slip: the rule is for a verb's stem
+        for ((typed, right) in listOf("sessi" to "sassi", "pessi" to "passi", "fiste" to "feste", "tiste" to "teste", "treste" to "triste", "clesse" to "classe", "quaste" to "queste", "gassi" to "gessi")) slip(typed, right)
     }
 
     @Test fun `the other persons of the imperfect subjunctive and se's conditional are wrong, never a slip`() {

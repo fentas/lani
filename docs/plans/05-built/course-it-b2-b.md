@@ -12,7 +12,7 @@ Italian first. Marked **offered as wrong** where a line grades something people 
   dovuto venire as equals.
 - **se-potessi:** Se vincessi against se vinco as the speaker's choice; se fossi in te; Le saremmo grati in a letter to the mayor; «Se fossi
   sindaco» as a village game, and Marisa's Se io fossi sindaco (sindaca?); Se fa bello against se facesse bel tempo. **Offered as wrong**: se +
-  the conditional. **Graded wrong when typed**: dassi, stassi for dessi, stessi, which people say in places (`ending_swaps`; after the
+  the conditional. **Graded wrong when typed**: dassi, stassi for dessi, stessi, which people say in places (a paired `wrong`; after the
   merge they could be `nonstandard`, if a native speaker says so).
 - **se-avessi-saputo:** Se lo sapevo, venivo and each half-mix as spoken (Se Lorenzo lo sapeva, sarebbe venuto; Se Lorenzo l'avesse saputo,
   veniva; Se Davide dormiva, ora non era stanco; erano for sarebbero with adesso, the most doubtful); Se Tommaso fosse più attento, non avrebbe
@@ -123,10 +123,11 @@ Gerund (one subject, the reason, pur + the gerund): only teaching sites, which a
 
 `grading/it.json`, data only, pinned by `ItalianB2bContentTest`:
 
-- **`ending_swaps`, 52 new pairs, on the same stem only, so a slip elsewhere in the word stays one:** the imperfect subjunctive with another conjugation's vowel: dormessi for dormissi, dicassi for dicessi, dassi for dessi, parleste for parlaste, in -ssi, -sse, -ssero, -ste and -ssimo (-issimo as the right word left out, so bellessimo stays a slip); the remote past against the imperfetto and the future: mangiavano for mangiarono, dormiranno for dormirono, parlavamo for parlammo. Before, one vowel inside the old stem was forgiven as a slip.
+- **`wrong`, paired, the imperfect subjunctive with another conjugation's vowel:** dormessi for dormissi, dicassi for dicessi, dassi for dessi, parleste for parlaste, in -ssi, -sse, -ssero, -ste and -ssimo (-issimo as the right word left out, so bellessimo stays a slip). Before, one vowel inside the old stem was forgiven as a slip. It holds on a stem of three letters or more, or av, st, d: a first version in `ending_swaps` also took a child's nouns (sassi, feste, teste, triste, classe, queste) from almost to wrong. Left with it: cipressi, foreste and Trieste, a vowel off: wrong, not almost.
+- **`ending_swaps`, 24 new pairs, on the same stem only, so a slip elsewhere in the word stays one:** the remote past against the imperfetto and the future: mangiavano for mangiarono, dormiranno for dormirono, parlavamo for parlammo.
 - **`wrong`, paired:** avando, essando for avendo, essendo with their endings; vede and vide for one another; mese for mise; foste and fosse, deste and desse, desti and dessi for one another (one letter inside a short stem).
 
-No app code changed, and none of the new grading from course-en-a2-b (`nonstandard`) is used. Part a may add overlapping pairs for the imperfect subjunctive: `json3merge.py` unites them and a pair twice does no harm.
+No app code changed, and none of the new grading from course-en-a2-b (`nonstandard`) is used. Part a may add overlapping rules for the imperfect subjunctive: `json3merge.py` unites them and a rule twice does no harm, but if part a's are plain `ending_swaps`, a child's nouns come back with them (above).
 
 ## The words
 
@@ -150,7 +151,7 @@ python3 -I companion/lexicon/tools/it_cov_build.py "$PWD" /tmp/base.json --promp
 Run on the part's commits, after the second reads:
 
 - **The bridge:** `bunx tsc --noEmit -p .` clean; the smoke (`LANI_SMOKE_PORT=9990 LANI_SMOKE_FRIULI_PORT=9992 LANI_SMOKE_TOWN_PORT=9994 LANI_SMOKE_DRAMA3_PORT=10008`): all checks passed, 3,514 lines; its course section validates every unit, page and the outline, its prints section each step's rule line, course-speech Elena's lines per base; `tutor-export --check`: 89 files match the bridge (54 tools, 32 guide topics); the lead's `check-outline-lang.ts`: schema ok, 72 units, no page lacking, no duplicate id.
-- **The app, through `lani-slot.sh`, the course's tests only** (the brief leaves the full suite to part c and the gate): `ItalianB2bContentTest` 11, `ItalianCourseContentTest` 6, `CourseContentTest` 5, `GermanCourseContentTest` 5, `EnglishCourseContentTest` 6, `GradingLanguagesTest` 48, `GradingTest` 18, `SheetsTest` 15, `SchoolBoardTest` 7, `SchoolRevealTest` 10, `GrammarTest` 16, `CourseTest` 8, `IntroSpeechTest` 10, `IntroSpeechParityTest` 2, `GameIntroSpeechTest` 7, `IntroBoldTapTest` 2, `SpeechGradingTest` 13, `SentenceGrammarTest` 6: none failed. An earlier run's one failure was this branch's own: a helper's edit changed a unit between the build and the test.
+- **The app, through `lani-slot.sh`, the course's tests only** (the brief leaves the full suite to part c and the gate): `ItalianB2bContentTest` 11, `ItalianCourseContentTest` 6, `CourseContentTest` 5, `GermanCourseContentTest` 5, `EnglishCourseContentTest` 6, `GradingLanguagesTest` 48, `GradingTest` 18, `SheetsTest` 15, `SchoolBoardTest` 7, `SchoolRevealTest` 10, `GrammarTest` 16, `CourseTest` 8, `IntroSpeechTest` 10, `IntroSpeechParityTest` 2, `GameIntroSpeechTest` 7, `IntroBoldTapTest` 2, `SpeechGradingTest` 13, `SentenceGrammarTest` 6: none failed. An earlier run's one failure was this branch's own: a helper's edit changed a unit between the build and the test. After the last grading change (the stem limit) `ItalianB2bContentTest`, `ItalianCourseContentTest`, `GradingLanguagesTest`, `GradingTest`, `SheetsTest` and `SpeechGradingTest` ran again: none failed. The others, the smoke and the QA ran just before it; grading/it.json is read only by the app, and QA's answers are the right ones.
 - **A scratch check per unit** (validateUnit in de, sl and en, validateGrammar, the lengths, the rule lines, Elena's lines against the base's words, every bold form read by her): clean. A scratch word count of the six units and five pages against the supplement and the packs (it-print-meanings' way, as `--coverage` doesn't count the course): see "The words".
 - **Not run:** the full Android suite, the Python tests (no Python changed but two data tables the tool reads), and a 0.2.698 build (no new key: `summary`, `spoken`, `almost` are all in older units).
 
