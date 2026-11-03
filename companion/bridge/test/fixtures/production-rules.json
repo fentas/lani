@@ -1,0 +1,248 @@
+{
+  "_note": "The rules of speaking and writing items (bridge src/production.ts, app data/Production.kt): each case's rules matched against its text, how often (n) and what they match (the words as the bridge folds them: the app folds by the language's grading table, German ü as ue, so it checks n); each bad rule refused. The smoke (production) and the app's ProductionRulesParityTest read this file, so the two can't drift.",
+  "cases": [
+    {
+      "lang": "sl",
+      "rules": [
+        "bi *l",
+        "bi *la",
+        "bi *li",
+        "*l bi",
+        "*la bi"
+      ],
+      "text": "Če bi imel čas, bi šel v hribe.",
+      "matches": [
+        "bi imel",
+        "bi sel"
+      ],
+      "n": 2
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "bi … *l"
+      ],
+      "text": "Jaz bi zelo rad šel domov.",
+      "matches": [
+        "bi zelo rad sel"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "bi … *l"
+      ],
+      "text": "Bi šel?",
+      "matches": [
+        "bi sel"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "*la bi"
+      ],
+      "text": "Šla bi v kino, šla bi na morje.",
+      "matches": [
+        "sla bi",
+        "sla bi"
+      ],
+      "n": 2
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "pogovor*"
+      ],
+      "text": "Po pogovoru sva šla domov.",
+      "matches": [
+        "pogovoru"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "pogovor*"
+      ],
+      "text": "Pogovor je bil dolg.",
+      "matches": [],
+      "n": 0
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "*la"
+      ],
+      "text": "La la, bila je tam.",
+      "matches": [
+        "bila"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "ne sem"
+      ],
+      "text": "Jaz ne sem doma, nisem.",
+      "matches": [
+        "ne sem"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "šel"
+      ],
+      "text": "SEL je, ŠEL je.",
+      "matches": [
+        "sel",
+        "sel"
+      ],
+      "n": 2
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "bi"
+      ],
+      "text": "bi bi bi",
+      "matches": [
+        "bi",
+        "bi",
+        "bi"
+      ],
+      "n": 3
+    },
+    {
+      "lang": "sl",
+      "rules": [
+        "če",
+        "ko"
+      ],
+      "text": "Ko pride, če pride.",
+      "matches": [
+        "ko",
+        "ce"
+      ],
+      "n": 2
+    },
+    {
+      "lang": "de",
+      "rules": [
+        "würde … *en"
+      ],
+      "text": "Ich würde gern nach Graz fahren.",
+      "matches": [
+        "wurde gern nach graz fahren"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "de",
+      "rules": [
+        "wenn"
+      ],
+      "text": "Wenn ich Zeit hätte, wenn!",
+      "matches": [
+        "wenn",
+        "wenn"
+      ],
+      "n": 2
+    },
+    {
+      "lang": "de",
+      "rules": [
+        "hätte",
+        "wäre"
+      ],
+      "text": "Wäre ich reich, hätte ich ein Haus.",
+      "matches": [
+        "ware",
+        "hatte"
+      ],
+      "n": 2
+    },
+    {
+      "lang": "it",
+      "rules": [
+        "se *assi",
+        "se *essi",
+        "se *issi"
+      ],
+      "text": "Se avessi tempo, viaggerei.",
+      "matches": [
+        "se avessi"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "it",
+      "rules": [
+        "l'ho"
+      ],
+      "text": "L'ho visto ieri.",
+      "matches": [
+        "l ho"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "it",
+      "rules": [
+        "*rei",
+        "*resti",
+        "*rebbe"
+      ],
+      "text": "Io andrei, tu resteresti, lei verrebbe.",
+      "matches": [
+        "andrei",
+        "resteresti",
+        "verrebbe"
+      ],
+      "n": 3
+    },
+    {
+      "lang": "en",
+      "rules": [
+        "if i had",
+        "if i were"
+      ],
+      "text": "If I had more time, I would travel.",
+      "matches": [
+        "if i had"
+      ],
+      "n": 1
+    },
+    {
+      "lang": "en",
+      "rules": [
+        "would"
+      ],
+      "text": "Would you? I would.",
+      "matches": [
+        "would",
+        "would"
+      ],
+      "n": 2
+    }
+  ],
+  "refused": [
+    "… bi",
+    "bi …",
+    "bi … … šel",
+    "bi/šel",
+    "bi|šel",
+    "*",
+    "**",
+    "b*l",
+    "{m:šel|f:šla}",
+    "(bi)",
+    "*l'ho",
+    "would … *"
+  ]
+}

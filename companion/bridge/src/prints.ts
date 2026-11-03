@@ -42,7 +42,7 @@ export class Prints {
       this.kept.clear()
       this.stamp = stamp
     }
-    const key = JSON.stringify([what, o.base, o.learner, o.gender, what.kind === 'booklet' ? date : ''])
+    const key = JSON.stringify([what, o.base, o.learner, o.gender, !!o.child, what.kind === 'booklet' ? date : ''])
     const hit = this.kept.get(key)
     if (hit) {
       // the most recent last
