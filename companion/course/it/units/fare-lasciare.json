@@ -337,10 +337,10 @@
           "grammar": "fare-lasciare",
           "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
           "title": "Il trattore di Franco",
-          "text": "Il vecchio trattore di Franco non parte. «Lo ___ riparare da Bruno», dice. Bruno arriva: «Fammi ___ il motore!» Poi chiama Lorenzo: «Vieni, ___ faccio vedere come si fa.» Lorenzo vuole provare: «Nonno, ___ provare anche me!» Franco ride: «Lascia ___, ti sporchi le mani!» La sera il trattore parte. «L'ho ___ riparare e va come nuovo!» dice Franco. Anche Marisa si è ___ riparare la bici da Bruno.",
+          "text": "Il vecchio trattore di Franco non parte. «Lo ___ riparare da Bruno», dice. Bruno arriva: «Fammi ___ (vedere) il motore!» Poi chiama Lorenzo: «Vieni, ___ faccio vedere come si fa.» Lorenzo vuole provare: «Nonno, ___ provare anche me!» Franco ride: «Lascia ___, ti sporchi le mani!» La sera il trattore parte. «L'ho ___ riparare e va come nuovo!» dice Franco. Anche Marisa si è ___ riparare la bici da Bruno.",
           "gaps": [
-            {"accept": ["faccio"], "hint": {"de": "fare, ich", "sl": "fare, jaz", "en": "fare, I"}},
-            {"accept": ["vedere"], "hint": {"de": "sehen, ohne a", "sl": "videti, brez a", "en": "to see, with no a"}},
+            {"accept": ["faccio", "farò"], "hint": {"de": "fare, ich", "sl": "fare, jaz", "en": "fare, I"}},
+            {"accept": ["vedere"], "hint": {"de": "ohne a", "sl": "brez a", "en": "with no a"}},
             {"accept": ["ti"], "hint": {"de": "dir", "sl": "tebi", "en": "to you"}},
             {"accept": ["lascia", "fai", "fa'"], "hint": {"de": "lass!", "sl": "pusti!", "en": "let!"}},
             {"accept": ["stare", "perdere"], "hint": {"de": "lass das!", "sl": "pusti!", "en": "leave it!"}},
@@ -433,7 +433,7 @@
         "grammar": "fare-lasciare",
         "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
         "text": "Domani è il compleanno di Nonno Bepi. Nonna Rosa ___ fare una torta a Marisa. Giulia ha una foto di Moro: «___ faccio vedere al nonno!» Lorenzo tocca il regalo. «Lascia ___!» dice Nonna Rosa. Bruno si è ___ tagliare i capelli per la festa. La torta è buonissima. «L'ho ___ fare da Marisa», dice Nonna Rosa.",
-        "gaps": [{"accept": ["fa"]}, {"accept": ["La"]}, {"accept": ["stare", "perdere"]}, {"accept": ["fatto"]}, {"accept": ["fatta"]}],
+        "gaps": [{"accept": ["fa", "farà"]}, {"accept": ["La"]}, {"accept": ["stare", "perdere"]}, {"accept": ["fatto"]}, {"accept": ["fatta"]}],
         "translation": {
           "de": "Morgen hat Nonno Bepi Geburtstag. Nonna Rosa lässt Marisa eine Torte machen. Giulia hat ein Foto von Moro: „Ich zeige es dem Opa!“ Lorenzo fasst das Geschenk an. „Lass das!“, sagt Nonna Rosa. Bruno hat sich für das Fest die Haare schneiden lassen. Die Torte ist sehr gut. „Ich habe sie von Marisa machen lassen“, sagt Nonna Rosa.",
           "sl": "Jutri ima Nonno Bepi rojstni dan. Babica Rosa da Marisi narediti torto. Giulia ima Morovo fotografijo: »Pokazala jo bom dedku!« Lorenzo se dotakne darila. »Pusti!« reče babica Rosa. Bruno se je za praznik dal ostriči. Torta je zelo dobra. »Dala sem jo narediti Marisi,« reče babica Rosa.",

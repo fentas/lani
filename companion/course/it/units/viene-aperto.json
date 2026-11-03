@@ -329,8 +329,8 @@
           "title": "La festa in piazza",
           "text": "Sabato c'è la festa in piazza. Alle tre la piazza ___ chiusa. I tavoli ___ portati da Bruno. «Le sedie ___ (devono essere) lavate!» dice Marisa. Alle sei ___ vendono i biscotti di Nonna Rosa. Il vino ___ (deve essere) bevuto fresco, dice Matteo. Ieri il palco è ___ costruito da Franco. E i biscotti? Si sono ___ (vendere) tutti in un'ora!",
           "gaps": [
-            {"accept": ["viene", "verrà", "è", "sarà"], "hint": {"de": "la piazza → ?", "sl": "la piazza → ?", "en": "la piazza → ?"}},
-            {"accept": ["vengono", "verranno", "sono", "saranno"], "hint": {"de": "i tavoli → ?", "sl": "i tavoli → ?", "en": "i tavoli → ?"}},
+            {"accept": ["viene", "verrà", "è", "sarà", "va"], "hint": {"de": "la piazza → ?", "sl": "la piazza → ?", "en": "la piazza → ?"}},
+            {"accept": ["vengono", "verranno", "sono", "saranno", "vanno"], "hint": {"de": "i tavoli → ?", "sl": "i tavoli → ?", "en": "i tavoli → ?"}},
             {"accept": ["vanno"], "hint": {"de": "muss, für mehrere", "sl": "treba je, za več", "en": "must, for more than one"}},
             {"accept": ["si"], "hint": {"de": "ohne wer", "sl": "brez kdo", "en": "with no who"}},
             {"accept": ["va"], "hint": {"de": "muss, für einen", "sl": "treba je, za enega", "en": "must, for one"}},
@@ -436,7 +436,7 @@
         "grammar": "passivo-venire-andare",
         "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
         "text": "La mattina l'osteria di Marisa ___ aperta alle otto. Il pane ___ portato da Franco. «I bicchieri ___ (devono essere) lavati!» grida Marisa. In paese ___ dice che la sua polenta è la più buona. Ieri si sono ___ (mangiare) dieci chili di polenta!",
-        "gaps": [{"accept": ["viene", "è"]}, {"accept": ["viene", "è"]}, {"accept": ["vanno"]}, {"accept": ["si"]}, {"accept": ["mangiati"]}],
+        "gaps": [{"accept": ["viene", "è", "va"]}, {"accept": ["viene", "è", "va"]}, {"accept": ["vanno"]}, {"accept": ["si"]}, {"accept": ["mangiati"]}],
         "translation": {
           "de": "Am Morgen wird Marisas Osteria um acht geöffnet. Das Brot wird von Franco gebracht. „Die Gläser müssen gespült werden!“, ruft Marisa. Im Dorf sagt man, dass ihre Polenta die beste ist. Gestern wurden zehn Kilo Polenta gegessen!",
           "sl": "Zjutraj Marisino gostilno odprejo ob osmih. Kruh prinese Franco. »Kozarce je treba pomiti!« zakliče Marisa. V vasi pravijo, da je njena polenta najboljša. Včeraj so pojedli deset kilogramov polente!",

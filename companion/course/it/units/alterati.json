@@ -1,0 +1,551 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "alterati",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🔎",
+  "title": {
+    "it": "Casetta, gattino, ragazzaccio, nasone",
+    "de": "Klein und groß gemacht: casetta, nasone",
+    "sl": "Manjšalnice in večalnice: casetta, nasone",
+    "en": "Little and big words: casetta, nasone"
+  },
+  "goal": {
+    "de": "Du machst Wörter klein, lieb, groß oder schlecht (casetta, calduccio, nasone, tempaccio), bildest Adverbien und Gegenteile (facilmente, impossibile) und erkennst Wörter, die nur so aussehen (mulino, burrone).",
+    "sl": "Besede pomanjšaš, poljubiš, povečaš ali poslabšaš (casetta, calduccio, nasone, tempaccio), tvoriš prislove in nasprotja (facilmente, impossibile) in prepoznaš besede, ki so le videti tako (mulino, burrone).",
+    "en": "You can make words small, dear, big or bad (casetta, calduccio, nasone, tempaccio), form adverbs and opposites (facilmente, impossibile) and spot words that only look like it (mulino, burrone)."
+  },
+  "grammar": ["alterati"],
+  "words": [
+    "il gattino",
+    "la casetta",
+    "il paesello",
+    "il calduccio",
+    "il nasone",
+    "il librone",
+    "il portone",
+    "il tempaccio",
+    "il ragazzaccio",
+    "la parolaccia",
+    "il mulo",
+    "il mulino",
+    "il burro",
+    "il burrone",
+    "il lampone",
+    "il torrone",
+    "il tacchino",
+    "il postino",
+    "lentamente",
+    "felicemente",
+    "facilmente",
+    "gentilmente",
+    "regolarmente",
+    "inutile",
+    "infelice",
+    "impossibile",
+    "irregolare",
+    "illegale",
+    "la sfortuna",
+    "scontento",
+    "rifare",
+    "rileggere",
+    "il panino",
+    "la panetteria",
+    "il panettiere",
+    "il lattaio",
+    "la latteria",
+    "la libreria",
+    "la biblioteca",
+    "la coperta"
+  ],
+  "intro": {
+    "table": {"head": [{"it": "forma", "de": "Form", "sl": "oblika", "en": "form"}, {"it": "significa", "de": "heißt", "sl": "pomeni", "en": "means"}]},
+    "steps": [
+      {
+        "say": {
+          "de": "Mit **-ino, -etto, -ello** machst du etwas klein: **il gatto → il gattino** (das Kätzchen), **la casa → la casetta** (das Häuschen), **il paese → il paesello** (das Dörfchen). Das Geschlecht bleibt, das letzte **-o, -a, -e** fällt weg. **-uccio** ist klein und lieb: **Moro dorme al calduccio.** (Moro schläft schön im Warmen.) Nicht jedes Wort nimmt jede Endung: Du lernst sie, wie du sie hörst.",
+          "sl": "S **-ino, -etto, -ello** nekaj pomanjšaš: **il gatto → il gattino** (mucek), **la casa → la casetta** (hišica), **il paese → il paesello** (vasica). Spol ostane, zadnji **-o, -a, -e** odpade. **-uccio** je majhno in ljubko: **Moro dorme al calduccio.** (Moro spi na toplem.) Vsaka beseda ne sprejme vsake končnice: učiš se jih, kot jih slišiš.",
+          "en": "With **-ino, -etto, -ello** you make something small: **il gatto → il gattino** (the kitten), **la casa → la casetta** (the little house), **il paese → il paesello** (the little village). The gender stays, the last **-o, -a, -e** goes. **-uccio** is small and dear: **Moro dorme al calduccio.** (Moro is sleeping nice and warm.) Not every word takes every ending: you learn them as you hear them."
+        },
+        "examples": [
+          {
+            "it": "Il gattino dorme nella casetta.",
+            "de": "Das Kätzchen schläft im Häuschen.",
+            "sl": "Mucek spi v hišici.",
+            "en": "The kitten is sleeping in the little house."
+          },
+          {"it": "Moro dorme al calduccio.", "de": "Moro schläft schön im Warmen.", "sl": "Moro spi na toplem.", "en": "Moro is sleeping nice and warm."}
+        ],
+        "rows": [
+          ["gatto → gattino, casa → casetta, paese → paesello", {"de": "klein", "sl": "majhen", "en": "small"}],
+          ["il calduccio", {"de": "klein und lieb", "sl": "majhen in ljubek", "en": "small and dear"}]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "alterati",
+          "text": "Una piccola casa è una ___.",
+          "accept": ["casetta", "casina", "casuccia", "casettina"],
+          "hint": "casa + …",
+          "explain": {
+            "de": "**la casa** + eine Endung fürs Kleine → **la casetta** (auch casina)",
+            "sl": "**la casa** + končnica za majhno → **la casetta** (tudi casina)",
+            "en": "**la casa** + an ending for small → **la casetta** (also casina)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**-one** macht etwas groß: **il naso → il nasone** (die große Nase), **il libro → il librone** (der dicke Wälzer). Ein weibliches Wort wird dabei oft männlich: **la porta → il portone** (das große Tor). **-accio** macht etwas schlecht oder hässlich: **il tempo → il tempaccio** (das scheußliche Wetter), **la parola → la parolaccia** (das Schimpfwort). **Il ragazzaccio** (der Lausbub) ist oft auch lieb gemeint.",
+          "sl": "**-one** nekaj poveča: **il naso → il nasone** (velik nos), **il libro → il librone** (debela knjiga). Ženska beseda pri tem pogosto postane moška: **la porta → il portone** (velika vrata). **-accio** nekaj poslabša ali naredi grdo: **il tempo → il tempaccio** (grdo vreme), **la parola → la parolaccia** (kletvica). **Il ragazzaccio** (paglavec) je pogosto mišljen tudi ljubeče.",
+          "en": "**-one** makes something big: **il naso → il nasone** (the big nose), **il libro → il librone** (the huge book). A feminine word often turns masculine: **la porta → il portone** (the great door). **-accio** makes something bad or ugly: **il tempo → il tempaccio** (the awful weather), **la parola → la parolaccia** (the swear word). **Il ragazzaccio** (the rascal) is often said fondly too."
+        },
+        "examples": [
+          {
+            "it": "Che nasone ha il pupazzo di neve!",
+            "de": "Was für eine große Nase der Schneemann hat!",
+            "sl": "Kakšen velik nos ima sneženi mož!",
+            "en": "What a big nose the snowman has!"
+          },
+          {
+            "it": "Che tempaccio oggi! Davide resta a casa.",
+            "de": "Was für ein scheußliches Wetter heute! Davide bleibt zu Hause.",
+            "sl": "Kakšno grdo vreme danes! Davide ostane doma.",
+            "en": "What awful weather today! Davide is staying at home."
+          }
+        ],
+        "rows": [
+          ["il nasone, il librone, il portone", {"de": "groß", "sl": "velik", "en": "big"}],
+          ["il tempaccio, il ragazzaccio, la parolaccia", {"de": "schlecht, hässlich", "sl": "slab, grd", "en": "bad, ugly"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "alterati",
+          "prompt": "«Piove da tre giorni: che ___!»",
+          "options": ["tempaccio", "tempino", "tempone"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**schlechtes Wetter** → **-accio**: **tempaccio**\n- tempino, tempone · klein, groß: das sagt nichts über den Regen",
+            "sl": "**slabo vreme** → **-accio**: **tempaccio**\n- tempino, tempone · majhno, veliko: to o dežju nič ne pove",
+            "en": "**bad weather** → **-accio**: **tempaccio**\n- tempino, tempone · small, big: that says nothing about the rain"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Il mulino** (die Mühle) sieht nur so aus: Er ist kein kleiner **mulo** (Maultier), und **il burrone** (die Schlucht) ist kein großes Stück **burro** (Butter). Auch eigene Wörter sind **il lampone** (die Himbeere), **il torrone** (der Mandelnougat), **il tacchino** (der Truthahn) und **il postino** (der Briefträger). Im Wörterbuch stehen sie für sich.",
+          "sl": "**Il mulino** (mlin) je le videti tako: ni majhen **mulo** (mula), **il burrone** (prepad) pa ni velik kos **burro** (maslo). Besede zase so tudi **il lampone** (malina), **il torrone** (mandljev nugat), **il tacchino** (puran) in **il postino** (poštar). V slovarju imajo svoje geslo.",
+          "en": "**Il mulino** (the mill) only looks like one: it isn't a small **mulo** (mule), and **il burrone** (the ravine) isn't a big piece of **burro** (butter). Words of their own too are **il lampone** (the raspberry), **il torrone** (almond nougat), **il tacchino** (the turkey) and **il postino** (the postman). The dictionary lists them by themselves."
+        },
+        "examples": [
+          {
+            "it": "Il mulino di Franco è vecchio, ma funziona.",
+            "de": "Francos Mühle ist alt, aber sie läuft.",
+            "sl": "Francov mlin je star, a deluje.",
+            "en": "Franco's mill is old, but it works."
+          },
+          {
+            "it": "Il postino porta una lettera a Nonna Rosa.",
+            "de": "Der Briefträger bringt Nonna Rosa einen Brief.",
+            "sl": "Poštar prinese Nonni Rosi pismo.",
+            "en": "The postman brings Nonna Rosa a letter."
+          }
+        ],
+        "rows": [
+          ["il mulino, il burrone", {"de": "die Mühle, die Schlucht", "sl": "mlin, prepad", "en": "the mill, the ravine"}],
+          ["il lampone, il torrone", {"de": "die Himbeere, der Mandelnougat", "sl": "malina, mandljev nugat", "en": "the raspberry, almond nougat"}],
+          ["il tacchino, il postino", {"de": "der Truthahn, der Briefträger", "sl": "puran, poštar", "en": "the turkey, the postman"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "alterati",
+          "prompt": "«Che cos'è un lampone?»",
+          "options": ["un frutto", "un grande lampo", "un piccolo lampo"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**il lampone** ist die Himbeere → **un frutto**\n- un grande lampo, un piccolo lampo · lampo (Blitz) hat nichts damit zu tun",
+            "sl": "**il lampone** je malina → **un frutto**\n- un grande lampo, un piccolo lampo · lampo (blisk) s tem nima nič",
+            "en": "**il lampone** is a raspberry → **un frutto**\n- un grande lampo, un piccolo lampo · lampo (lightning) has nothing to do with it"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**-mente** macht aus einem Adjektiv ein Adverb, an der weiblichen Form: **lenta → lentamente** (langsam), **felice → felicemente** (glücklich). Nach **-le** und **-re** fällt das letzte **-e** weg: **facile → facilmente** (leicht), **gentile → gentilmente** (freundlich), **regolare → regolarmente** (regelmäßig).",
+          "sl": "**-mente** iz pridevnika naredi prislov, iz ženske oblike: **lenta → lentamente** (počasi), **felice → felicemente** (srečno). Za **-le** in **-re** zadnji **-e** odpade: **facile → facilmente** (lahko), **gentile → gentilmente** (prijazno), **regolare → regolarmente** (redno).",
+          "en": "**-mente** turns an adjective into an adverb, on the feminine form: **lenta → lentamente** (slowly), **felice → felicemente** (happily). After **-le** and **-re** the last **-e** goes: **facile → facilmente** (easily), **gentile → gentilmente** (kindly), **regolare → regolarmente** (regularly)."
+        },
+        "examples": [
+          {
+            "it": "Davide cammina lentamente con le sue pecore.",
+            "de": "Davide geht langsam mit seinen Schafen.",
+            "sl": "Davide hodi počasi s svojimi ovcami.",
+            "en": "Davide walks slowly with his sheep."
+          },
+          {
+            "it": "Puoi trovare facilmente l'osteria di Marisa.",
+            "de": "Du findest Marisas Osteria leicht.",
+            "sl": "Marisino gostilno zlahka najdeš.",
+            "en": "You can easily find Marisa's osteria."
+          }
+        ],
+        "rows": [
+          ["lenta → lentamente", {"de": "langsam", "sl": "počasi", "en": "slowly"}],
+          ["felice → felicemente", {"de": "glücklich", "sl": "srečno", "en": "happily"}],
+          ["facile → facilmente", {"de": "leicht", "sl": "lahko", "en": "easily"}],
+          ["regolare → regolarmente", {"de": "regelmäßig", "sl": "redno", "en": "regularly"}]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "alterati",
+          "text": "Marisa risponde sempre ___ (gentile).",
+          "accept": ["gentilmente"],
+          "hint": "-le + mente",
+          "explain": {
+            "de": "**gentile** endet auf -le: Das -e fällt weg → **gentilmente**",
+            "sl": "**gentile** se konča na -le: -e odpade → **gentilmente**",
+            "en": "**gentile** ends in -le: the -e goes → **gentilmente**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**In-** (nicht) dreht ein Adjektiv um, wie *un-*: **utile → inutile** (nutzlos), **felice → infelice** (unglücklich). Vor p und b wird es **im-**: **possibile → impossibile**; vor r **ir-**: **regolare → irregolare**; vor l **il-**: **legale → illegale**. **S-** kehrt auch um: **fortuna → sfortuna** (Pech), **contento → scontento** (unzufrieden). **Ri-** heißt *wieder*: **fare → rifare**, **leggere → rileggere**.",
+          "sl": "**In-** (ne) obrne pridevnik: **utile → inutile** (nekoristen), **felice → infelice** (nesrečen). Pred p in b postane **im-**: **possibile → impossibile**; pred r **ir-**: **regolare → irregolare**; pred l **il-**: **legale → illegale**. Tudi **s-** obrne pomen: **fortuna → sfortuna** (smola), **contento → scontento** (nezadovoljen). **Ri-** pomeni *znova*: **fare → rifare**, **leggere → rileggere**.",
+          "en": "**In-** (not) turns an adjective round, like *un-*: **utile → inutile** (useless), **felice → infelice** (unhappy). Before p and b it becomes **im-**: **possibile → impossibile**; before r **ir-**: **regolare → irregolare**; before l **il-**: **legale → illegale**. **S-** turns things round too: **fortuna → sfortuna** (bad luck), **contento → scontento** (displeased). **Ri-** means *again*: **fare → rifare**, **leggere → rileggere**."
+        },
+        "examples": [
+          {
+            "it": "È impossibile finire oggi.",
+            "de": "Es ist unmöglich, heute fertig zu werden.",
+            "sl": "Nemogoče je končati danes.",
+            "en": "It's impossible to finish today."
+          },
+          {
+            "it": "Giulia rilegge la lettera del sindaco.",
+            "de": "Giulia liest den Brief des Bürgermeisters noch einmal.",
+            "sl": "Giulia še enkrat prebere županovo pismo.",
+            "en": "Giulia rereads the mayor's letter."
+          }
+        ],
+        "rows": [
+          ["in-: inutile, infelice", {"de": "nutzlos, unglücklich", "sl": "nekoristen, nesrečen", "en": "useless, unhappy"}],
+          [
+            "im-, ir-, il-: impossibile, irregolare, illegale",
+            {"de": "unmöglich, unregelmäßig, illegal", "sl": "nemogoč, nepravilen, nezakonit", "en": "impossible, irregular, illegal"}
+          ],
+          ["s-: sfortuna, scontento", {"de": "das Pech, unzufrieden", "sl": "smola, nezadovoljen", "en": "bad luck, displeased"}],
+          ["ri-: rifare, rileggere", {"de": "noch einmal machen, noch einmal lesen", "sl": "znova narediti, znova prebrati", "en": "to redo, to reread"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "alterati",
+          "prompt": "«Questo verbo non è regolare: è ___.»",
+          "options": ["irregolare", "inregolare", "sregolare"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vor r wird in- zu ir-** → **irregolare**\n- inregolare · das n passt sich an: ir-\n- sregolare · passt hier nicht",
+            "sl": "**pred r se in- spremeni v ir-** → **irregolare**\n- inregolare · n se prilagodi: ir-\n- sregolare · tu ne gre",
+            "en": "**before r, in- becomes ir-** → **irregolare**\n- inregolare · the n changes: ir-\n- sregolare · doesn't fit here"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Aus **il pane** (das Brot) wächst eine ganze Familie: **il panino** (das Brötchen), **la panetteria** (die Bäckerei), **il panettiere** (der Bäcker). **-aio** und **-iere** sagen oft, wer es macht, **-eria** wo: **il latte, il lattaio, la latteria**. Aber Achtung: **la libreria** ist die Buchhandlung, die Bibliothek heißt **la biblioteca**.",
+          "sl": "Iz **il pane** (kruh) zraste cela družina: **il panino** (žemlja), **la panetteria** (pekarna), **il panettiere** (pek). **-aio** in **-iere** pogosto povesta, kdo to dela, **-eria** kje: **il latte, il lattaio, la latteria**. A pazi: **la libreria** je knjigarna, knjižnica je **la biblioteca**.",
+          "en": "From **il pane** (bread) a whole family grows: **il panino** (the roll), **la panetteria** (the bakery), **il panettiere** (the baker). **-aio** and **-iere** often say who does it, **-eria** where: **il latte, il lattaio, la latteria**. But careful: **la libreria** is a bookshop, a library is **la biblioteca**."
+        },
+        "examples": [
+          {
+            "it": "La panetteria apre alle sette, ma il panettiere si alza alle tre.",
+            "de": "Die Bäckerei macht um sieben auf, aber der Bäcker steht um drei auf.",
+            "sl": "Pekarna se odpre ob sedmih, pek pa vstane ob treh.",
+            "en": "The bakery opens at seven, but the baker gets up at three."
+          },
+          {
+            "it": "Compro il libro in libreria, lo prendo in prestito in biblioteca.",
+            "de": "Das Buch kaufe ich in der Buchhandlung, ausleihen kann ich es in der Bibliothek.",
+            "sl": "Knjigo kupim v knjigarni, izposodim si jo v knjižnici.",
+            "en": "I buy the book at the bookshop; I borrow it from the library."
+          }
+        ],
+        "rows": [
+          [
+            "il pane, il panino, la panetteria, il panettiere",
+            {"de": "Brot, Brötchen, Bäckerei, Bäcker", "sl": "kruh, žemlja, pekarna, pek", "en": "bread, roll, bakery, baker"}
+          ],
+          ["il latte, il lattaio, la latteria", {"de": "Milch, Milchmann, Milchgeschäft", "sl": "mleko, mlekar, mlekarna", "en": "milk, milkman, dairy"}],
+          ["la libreria, la biblioteca", {"de": "Buchhandlung, Bibliothek", "sl": "knjigarna, knjižnica", "en": "bookshop, library"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "alterati",
+          "prompt": "«Per comprare un libro vado in ___.»",
+          "options": ["libreria", "biblioteca", "panetteria"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**kaufen** → in **libreria** (Buchhandlung)\n- biblioteca · dort leihst du es aus\n- panetteria · dort gibt es Brot",
+            "sl": "**kupiti** → in **libreria** (knjigarna)\n- biblioteca · tam si jo izposodiš\n- panetteria · tam je kruh",
+            "en": "**to buy** → in **libreria** (a bookshop)\n- biblioteca · there you borrow it\n- panetteria · there you get bread"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "alterati-1",
+      "title": {"it": "Piccolo, grande, brutto", "de": "Klein, groß, schlecht", "sl": "Majhno, veliko, slabo", "en": "Small, big, bad"},
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "alterati",
+          "instruction": {"de": "Metti in ordine · Klein, groß oder schlecht?", "sl": "Metti in ordine · Majhno, veliko ali slabo?", "en": "Metti in ordine · Small, big or bad?"},
+          "columns": [
+            {"label": {"de": "piccolo · klein", "sl": "piccolo · majhno", "en": "piccolo · small"}, "words": ["il gattino", "la casetta", "il tavolino"]},
+            {"label": {"de": "grande · groß", "sl": "grande · veliko", "en": "grande · big"}, "words": ["il nasone", "il librone", "il portone"]},
+            {"label": {"de": "brutto · schlecht", "sl": "brutto · slabo", "en": "brutto · bad"}, "words": ["il tempaccio", "la parolaccia"]}
+          ],
+          "explain": {
+            "de": "**-ino, -etto** klein, **-one** groß, **-accio** schlecht\n- la porta → il portone: oft männlich",
+            "sl": "**-ino, -etto** majhno, **-one** veliko, **-accio** slabo\n- la porta → il portone: pogosto moški spol",
+            "en": "**-ino, -etto** small, **-one** big, **-accio** bad\n- la porta → il portone: often masculine"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "alterati",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Che cos'è un tacchino?»",
+          "options": ["un animale", "un piccolo tacco", "una scarpa"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**il tacchino** ist der Truthahn → **un animale**\n- un piccolo tacco · tacco (Absatz) hat nichts damit zu tun\n- una scarpa · ein Schuh ist das nicht",
+            "sl": "**il tacchino** je puran → **un animale**\n- un piccolo tacco · tacco (peta) s tem nima nič\n- una scarpa · to ni čevelj",
+            "en": "**il tacchino** is a turkey → **un animale**\n- un piccolo tacco · tacco (a heel) has nothing to do with it\n- una scarpa · it isn't a shoe"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "alterati",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«In classe non si dicono: sono ___.»",
+          "options": ["parolacce", "parolette", "paroline"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**schlechte Wörter** → **parolacce** (-accia, Mehrzahl -acce)\n- parolette, paroline · kleine Wörter, die darf man sagen",
+            "sl": "**grde besede** → **parolacce** (-accia, množina -acce)\n- parolette, paroline · majhne besede, te smeš reči",
+            "en": "**bad words** → **parolacce** (-accia, plural -acce)\n- parolette, paroline · little words, those you may say"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "alterati",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«La grande porta di una chiesa è ___.»",
+          "options": ["il portone", "la portona", "la portina"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**groß** → **il portone**: Das Wort wird männlich\n- la portona · -one bleibt hier männlich\n- la portina · die ist klein",
+            "sl": "**veliko** → **il portone**: beseda postane moškega spola\n- la portona · -one ostane tu moški spol\n- la portina · ta je majhna",
+            "en": "**big** → **il portone**: the word turns masculine\n- la portona · -one stays masculine here\n- la portina · that one is small"
+          }
+        }
+      ]
+    },
+    {
+      "id": "alterati-2",
+      "title": {"it": "Il nostro paesello", "de": "Unser Dörfchen", "sl": "Naša vasica", "en": "Our little village"},
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "alterati",
+          "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
+          "title": "Il nostro paesello",
+          "text": "Il nostro ___ (piccolo paese) è bello. Ogni mattina il ___ (chi porta la posta) passa ___ (lento) in piazza e saluta ___ (gentile). Oggi, però, c'è un ___ (brutto tempo) e Marisa chiude il ___ (grande porta) dell'osteria. Nella sua ___ (piccola casa) Zia Nives ascolta la radio con il suo ___ (piccolo gatto). Davide dice una ___ (brutta parola): ha perso il cappello. Che ___ (non fortuna)!",
+          "gaps": [
+            {"accept": ["paesello", "paesino", "paesetto"]},
+            {"accept": ["postino"]},
+            {"accept": ["lentamente"], "hint": "lenta + …"},
+            {"accept": ["gentilmente"], "hint": "-le + mente"},
+            {"accept": ["tempaccio"]},
+            {"accept": ["portone"], "hint": {"de": "wird männlich", "sl": "postane moškega spola", "en": "turns masculine"}},
+            {"accept": ["casetta", "casina", "casuccia", "casettina"]},
+            {"accept": ["gattino", "micino"]},
+            {"accept": ["parolaccia"]},
+            {"accept": ["sfortuna"]}
+          ],
+          "bank": true,
+          "distractors": ["lentomente", "gentilemente"],
+          "translation": {
+            "de": "Unser Dörfchen ist schön. Jeden Morgen kommt der Briefträger langsam über den Platz und grüßt freundlich. Heute aber ist scheußliches Wetter, und Marisa schließt das große Tor der Osteria. In ihrem Häuschen hört Zia Nives Radio, mit ihrem Kätzchen. Davide sagt ein Schimpfwort: Er hat seinen Hut verloren. So ein Pech!",
+            "sl": "Naša vasica je lepa. Vsako jutro poštar počasi pride čez trg in prijazno pozdravi. Danes pa je grdo vreme in Marisa zapre velika vrata gostilne. V svoji hišici Zia Nives posluša radio, s svojim mucem. Davide reče kletvico: izgubil je klobuk. Kakšna smola!",
+            "en": "Our little village is lovely. Every morning the postman comes slowly across the square and greets us kindly. Today, though, the weather is awful, and Marisa shuts the osteria's great door. In her little house Zia Nives listens to the radio with her kitten. Davide says a swear word: he has lost his hat. What bad luck!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "alterati",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Giulia ha sbagliato tutto: deve ___ la lettera.»",
+          "options": ["riscrivere", "iscrivere", "descrivere"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**noch einmal** → **ri-**: **riscrivere**\n- iscrivere · jemanden anmelden\n- descrivere · beschreiben",
+            "sl": "**znova** → **ri-**: **riscrivere**\n- iscrivere · nekoga vpisati\n- descrivere · opisati",
+            "en": "**again** → **ri-**: **riscrivere**\n- iscrivere · to enrol someone\n- descrivere · to describe"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "alterati",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Entrare senza biglietto è ___.»",
+          "options": ["illegale", "inlegale", "slegale"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vor l wird in- zu il-** → **illegale**\n- inlegale · das n passt sich an: il-\n- slegale · passt hier nicht",
+            "sl": "**pred l se in- spremeni v il-** → **illegale**\n- inlegale · n se prilagodi: il-\n- slegale · tu ne gre",
+            "en": "**before l, in- becomes il-** → **illegale**\n- inlegale · the n changes: il-\n- slegale · doesn't fit here"
+          }
+        }
+      ]
+    },
+    {
+      "id": "alterati-3",
+      "title": {"it": "In una parola", "de": "In einem Wort", "sl": "Z eno besedo", "en": "In one word"},
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "alterati",
+          "instruction": {"de": "Di' in una parola · Sag es in einem Wort", "sl": "Di' in una parola · Povej z eno besedo", "en": "Di' in una parola · Say it in one word"},
+          "items": [
+            {"from": "un piccolo tavolo", "accept": ["un tavolino", "un tavolinetto"]},
+            {"from": "un grande libro", "accept": ["un librone"]},
+            {"from": "un ragazzo cattivo", "accept": ["un ragazzaccio"]},
+            {"from": "una piccola barca", "accept": ["una barchetta", "una barchina"], "hint": "c + e, i → ch"}
+          ],
+          "explain": {
+            "de": "**die Endung statt des Adjektivs**, der Artikel bleibt\n- un piccolo tavolo → un tavolino\n- barca → barchetta: das h hält das c hart",
+            "sl": "**končnica namesto pridevnika**, člen ostane\n- un piccolo tavolo → un tavolino\n- barca → barchetta: h ohrani trdi c",
+            "en": "**the ending instead of the adjective**, the article stays\n- un piccolo tavolo → un tavolino\n- barca → barchetta: the h keeps the c hard"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "alterati",
+          "instruction": {"de": "Di' in una parola · Sag es in einem Wort", "sl": "Di' in una parola · Povej z eno besedo", "en": "Di' in una parola · Say it in one word"},
+          "items": [
+            {"from": "in modo felice", "accept": ["felicemente"]},
+            {"from": "in modo facile", "accept": ["facilmente"], "hint": "-le + mente"},
+            {"from": "non possibile", "accept": ["impossibile"], "hint": "in + p → im-"},
+            {"from": "leggere di nuovo", "accept": ["rileggere"]}
+          ],
+          "explain": {
+            "de": "**-mente, in-, ri-**\n- facile → facilmente: das -e fällt weg\n- possibile → impossibile: vor p im-",
+            "sl": "**-mente, in-, ri-**\n- facile → facilmente: -e odpade\n- possibile → impossibile: pred p im-",
+            "en": "**-mente, in-, ri-**\n- facile → facilmente: the -e goes\n- possibile → impossibile: before p im-"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "alterati",
+        "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
+        "text": "Che ___ (brutta giornata)! Piove, e il ___ (piccolo cane) di Lorenzo trema sotto il tavolo. Giulia parla ___ (dolce) e Lorenzo gli porta una ___ (piccola coperta). Tommaso ride: «Ma è ___ (non utile)!» e fa una ___ (grande risata).",
+        "gaps": [
+          {"accept": ["giornataccia"]},
+          {"accept": ["cagnolino", "cagnetto", "cagnino", "cagnolo"], "hint": "cane → cagn-"},
+          {"accept": ["dolcemente"]},
+          {"accept": ["copertina"]},
+          {"accept": ["inutile"]},
+          {"accept": ["risatona"]}
+        ],
+        "translation": {
+          "de": "Was für ein schlechter Tag! Es regnet, und Lorenzos Hündchen zittert unter dem Tisch. Giulia spricht sanft, und Lorenzo bringt ihm eine kleine Decke. Tommaso lacht: „Aber das ist nutzlos!“ und lacht laut los.",
+          "sl": "Kakšen slab dan! Dežuje in Lorenzov psiček se trese pod mizo. Giulia govori nežno in Lorenzo mu prinese majhno odejo. Tommaso se smeje: »Ampak to je nekoristno!« in se na glas zasmeji.",
+          "en": "What a bad day! It's raining, and Lorenzo's little dog is shivering under the table. Giulia talks gently, and Lorenzo brings it a little blanket. Tommaso laughs: \"But that's useless!\" and gives a big laugh."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "alterati",
+        "prompt": "«Che cos'è il torrone?»",
+        "options": ["un dolce", "una grande torre", "una piccola torre"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**il torrone** ist Mandelnougat → **un dolce**\n- una grande torre, una piccola torre · torre (Turm) hat nichts damit zu tun",
+          "sl": "**il torrone** je mandljev nugat → **un dolce**\n- una grande torre, una piccola torre · torre (stolp) s tem nima nič",
+          "en": "**il torrone** is almond nougat → **un dolce**\n- una grande torre, una piccola torre · torre (a tower) has nothing to do with it"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "alterati",
+        "prompt": "«Dove prendi un libro in prestito?»",
+        "options": ["in biblioteca", "in libreria", "in panetteria"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**ausleihen** → **in biblioteca**\n- in libreria · dort kaufst du es\n- in panetteria · dort gibt es Brot",
+          "sl": "**izposoditi si** → **in biblioteca**\n- in libreria · tam jo kupiš\n- in panetteria · tam je kruh",
+          "en": "**to borrow** → **in biblioteca**\n- in libreria · there you buy it\n- in panetteria · there you get bread"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "alterati",
+        "prompt": "«Quel libro è grosso e pesante: è un ___.»",
+        "options": ["librone", "libretto", "libraio"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**groß** → **-one**: **librone**\n- libretto · ein kleines Buch\n- libraio · wer Bücher verkauft",
+          "sl": "**veliko** → **-one**: **librone**\n- libretto · majhna knjiga\n- libraio · kdor prodaja knjige",
+          "en": "**big** → **-one**: **librone**\n- libretto · a small book\n- libraio · someone who sells books"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "alterati",
+        "prompt": "«Bruno non è contento del lavoro: è ___.»",
+        "options": ["scontento", "incontento", "ricontento"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**das Gegenteil von contento** → **scontento**\n- incontento · sagt man nicht\n- ricontento · ri- heißt wieder",
+          "sl": "**nasprotje od contento** → **scontento**\n- incontento · se ne reče\n- ricontento · ri- pomeni znova",
+          "en": "**the opposite of contento** → **scontento**\n- incontento · isn't said\n- ricontento · ri- means again"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "alterati",
+        "instruction": {"de": "Di' in una parola · Sag es in einem Wort", "sl": "Di' in una parola · Povej z eno besedo", "en": "Di' in una parola · Say it in one word"},
+        "items": [
+          {"from": "in modo lento", "accept": ["lentamente"]},
+          {"from": "in modo regolare", "accept": ["regolarmente"], "hint": "-re + mente"},
+          {"from": "non felice", "accept": ["infelice"]},
+          {"from": "fare di nuovo", "accept": ["rifare"]}
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: casina, casuccia, tempino, tempone, risatona, paesetto, cagnolo accepted; incontento; the German for a child"
+}

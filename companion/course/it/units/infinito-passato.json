@@ -368,22 +368,21 @@
           "grammar": "infinito-passato",
           "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
           "title": "La giornata di Marisa",
-          "text": "Dopo ___ alzata, Marisa beve un caffè. Dopo ___ bevuto il caffè, apre l'osteria. ___ la colazione dei clienti, va al mercato. Dopo essere ___ (tornare), prepara il frico. Il frico ___ (fare) da Marisa è il più buono del paese. Finito il pranzo, lava i piatti: dopo ___ lavati, si siede. «Il ___ è pronto!» grida la sera, e Tommaso corre a tavola.",
+          "text": "Dopo ___ alzata, Marisa beve un caffè. Dopo ___ bevuto il caffè, apre l'osteria. ___ (finire) la colazione dei clienti, va al mercato. Dopo essere ___ (tornare), prepara il frico. Il frico ___ (fare) da Marisa è il più buono del paese. Finito il pranzo, lava i piatti: dopo ___ lavati, si siede. «___ mangiare è pronto!» grida la sera, e Tommaso corre a tavola.",
           "gaps": [
             {"accept": ["essersi"], "hint": {"de": "alzarsi", "sl": "alzarsi", "en": "alzarsi"}},
             {"accept": ["aver", "avere"], "hint": {"de": "avere → ?", "sl": "avere → ?", "en": "avere → ?"}},
-            {
-              "accept": ["Finita"],
-              "hint": {"de": "la colazione: Wer ist vorbei?", "sl": "la colazione: kaj je končano?", "en": "la colazione: what is over?"},
-              "grammar": "participio-assoluto"
-            },
+            {"accept": ["Finita"], "hint": {"de": "la colazione → ?", "sl": "la colazione → ?", "en": "la colazione → ?"}, "grammar": "participio-assoluto"},
             {"accept": ["tornata"], "hint": {"de": "Marisa → ?", "sl": "Marisa → ?", "en": "Marisa → ?"}},
             {"accept": ["fatto"], "hint": {"de": "il frico → ?", "sl": "il frico → ?", "en": "il frico → ?"}, "grammar": "participio-assoluto"},
             {"accept": ["averli"], "hint": {"de": "i piatti → ?", "sl": "i piatti → ?", "en": "i piatti → ?"}},
-            {"accept": ["mangiare"], "hint": {"de": "das Essen, als Infinitiv", "sl": "hrana, kot nedoločnik", "en": "food, as an infinitive"}}
+            {
+              "accept": ["Il"],
+              "hint": {"de": "der Infinitiv als Nomen ist männlich", "sl": "nedoločnik kot samostalnik je moškega spola", "en": "the infinitive as a noun is masculine"}
+            }
           ],
           "bank": true,
-          "distractors": ["tornato", "fatta", "averle"],
+          "distractors": ["tornato", "fatta", "averle", "La"],
           "translation": {
             "de": "Nachdem Marisa aufgestanden ist, trinkt sie einen Kaffee. Nachdem sie den Kaffee getrunken hat, öffnet sie die Osteria. Nach dem Frühstück der Gäste geht sie auf den Markt. Nachdem sie zurückgekommen ist, macht sie Frico. Der Frico, den Marisa macht, ist der beste im Dorf. Nach dem Mittagessen spült sie das Geschirr: Nachdem sie es gespült hat, setzt sie sich. „Das Essen ist fertig!“, ruft sie am Abend, und Tommaso rennt an den Tisch.",
             "sl": "Ko vstane, Marisa spije kavo. Ko spije kavo, odpre gostilno. Po zajtrku gostov gre na tržnico. Ko se vrne, pripravi frico. Frico, ki ga naredi Marisa, je najboljši v vasi. Po kosilu pomije posodo: ko jo pomije, se usede. »Hrana je pripravljena!« zakliče zvečer in Tommaso steče k mizi.",
