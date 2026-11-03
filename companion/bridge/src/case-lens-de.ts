@@ -60,6 +60,8 @@ type Phrase = {
 type VerbHit = { tok: Tok; lemma: string; finite: boolean; person?: 1 | 2 | 3; number?: DeNumber }
 
 const PERSONAL = /^(ich|du|er|sie|es|wir|ihr|mich|dich|ihn|uns|euch|mir|dir|ihm|ihnen|sich|man)$/
+/** The numbers in words before a noun (zwei Seen, hundert Schafe): no ending, no case of their own. */
+const NUMBERS = /^(zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|elf|zwölf|zwanzig|dreißig|vierzig|fünfzig|hundert|tausend|(drei|vier|fünf|sech|sieb|acht|neun)zehn|(ein|zwei|drei|vier|fünf|sechs|sieben|acht|neun)und(zwanzig|dreißig|vierzig|fünfzig|sechzig|siebzig|achtzig|neunzig))$/
 
 export class CaseLensDe {
   private readonly f: GermanForms
@@ -284,12 +286,14 @@ export class CaseLensDe {
     }
     const adjs: Tok[] = []
     const isAdj = (a: Tok) => (this.s.dict?.grammarReadings(a.low) ?? []).some(r => r.pos === 'adj' || r.pos === 'num')
-    while (toks[k] && toks[k]!.clause === t.clause && (!toks[k]!.cap || (toks[k]!.first && isAdj(toks[k]!))) && (/^[\p{Ll}]+(e|en|er|es|em)$/u.test(toks[k]!.low) || /^\d+$/.test(toks[k]!.raw) || this.f.table.adjective_fixed.includes(toks[k]!.low)) && toks[k + 1] && toks[k + 1]!.clause === t.clause) {
+    // a number before the noun (zwischen zwei Seen): no ending, the noun's case its phrase's
+    const isNum = (a: Tok) => /^\d+$/.test(a.raw) || NUMBERS.test(a.low) || (this.s.dict?.grammarReadings(a.low) ?? []).some(r => r.pos === 'num')
+    while (toks[k] && toks[k]!.clause === t.clause && (!toks[k]!.cap || (toks[k]!.first && isAdj(toks[k]!))) && (/^[\p{Ll}]+(e|en|er|es|em)$/u.test(toks[k]!.low) || isNum(toks[k]!) || this.f.table.adjective_fixed.includes(toks[k]!.low)) && toks[k + 1] && toks[k + 1]!.clause === t.clause) {
       // an adjective before its noun: never a pronoun, a preposition, a relative's dessen; with no determiner one the
       // dictionary has (not a verb: habe Angst)
       const a = toks[k]!
       if (PERSONAL.test(a.low) || this.preps.has(a.low) || this.f.determiner(a.low).length || a.low === 'dessen' || a.low === 'deren') break
-      if (!detSlots && !isAdj(a) && !/^\d+$/.test(a.raw)) break
+      if (!detSlots && !isAdj(a) && !isNum(a)) break
       if (detSlots && !isAdj(a) && this.verbOf(a)?.finite && !/^(ge|.*(end|ene|enen|ener|enes|enem))/.test(a.low)) break
       adjs.push(a)
       k++
@@ -329,7 +333,7 @@ export class CaseLensDe {
     if (detSlots) slots = slots.filter(s => detSlots!.some(d => d.case === s.case && d.number === s.number && (s.number === 'pl' || !d.gender || !s.gender || d.gender === s.gender)))
     // the adjectives' endings after the determiner (or none: strong)
     for (const a of adjs) {
-      if (/^\d+$/.test(a.raw) || this.f.table.adjective_fixed.includes(a.low)) continue
+      if (isNum(a) || this.f.table.adjective_fixed.includes(a.low)) continue
       const ending = /em$/.test(a.low) ? 'em' : /en$/.test(a.low) ? 'en' : /er$/.test(a.low) ? 'er' : /es$/.test(a.low) ? 'es' : 'e'
       const ok = this.f.adjectiveSlots(ending, fused ? 'der' : detLemma ?? null)
       const left = slots.filter(s => ok.some(o => o.case === s.case && o.number === s.number && (s.number === 'pl' || !o.gender || !s.gender || o.gender === s.gender)))
@@ -391,7 +395,11 @@ export class CaseLensDe {
           for (const p of cp) if (p.head.i > words.at(-1)!.i && !p.prep && p.slots.some(s => s.case === 'acc')) this.settle(p, p.slots.filter(s => s.case === 'acc'), { kind: 'phrase', trigger: words.find(w => w.low === 'gibt'), rule: ph.rule })
           continue
         }
-        for (const p of cp) if (words.some(w => w === p.head)) this.settle(p, p.slots.filter(s => s.case === ph.case).length ? p.slots.filter(s => s.case === ph.case) : [{ case: ph.case, number: ph.number }], { kind: 'phrase', ...(ph.trigger ? { trigger: words.find(w => w.low === ph.trigger) } : {}), rule: ph.rule })
+        for (const p of cp) {
+          if (!words.some(w => w === p.head)) continue
+          const fit = p.slots.filter(s => s.case === ph.case && s.number === ph.number)
+          this.settle(p, fit.length ? fit : [{ case: ph.case, number: ph.number }], { kind: 'phrase', ...(ph.trigger ? { trigger: words.find(w => w.low === ph.trigger) } : {}), rule: ph.rule })
+        }
       }
       for (const p of cp) {
         if (p.kind) continue
@@ -485,7 +493,9 @@ export class CaseLensDe {
           // whom (the dative) and what (the accusative): by their forms, else the dative first (Lena gibt dem Pferd einen
           // Apfel); one object alone is what is given, unless its form says the dative (Ich kaufe zwei Semmeln)
           const canDat = objects.filter(p => p.slots.some(s => s.case === first))
-          const dat = canDat.find(p => only(p, first)) ?? (objects.length >= 2 && canDat.length ? canDat[0] : undefined)
+          // what is given already said (a phrase, an accusative by its form): the one left that can be the dative is whom
+          const given = cp.some(p => p.kind && !p.prep && p.pick?.case === 'acc')
+          const dat = canDat.find(p => only(p, first)) ?? ((objects.length >= 2 || given) && canDat.length ? canDat[0] : undefined)
           if (dat) settleAs(dat, first, only(dat, first) || subjectElsewhere && objects.length >= 2, 'verb', v.rule)
           for (const p of objects) {
             if (p === dat || p.kind || !p.slots.some(s => s.case === 'acc')) continue
@@ -641,7 +651,8 @@ export class CaseLensDe {
     for (const p of all) {
       if (p.fused) words.push({ ...this.wordCase(p, p.prep!, p.head), kind: 'fused', trigger: this.ref(p.prep!) })
       if (p.det) words.push(this.wordCase(p, p.det, p.head))
-      for (const a of p.adjs) words.push(this.wordCase(p, a, p.head))
+      // a number has no case of its own (zwei Seen): only the adjectives agree
+      for (const a of p.adjs) if (!/^\d+$/.test(a.raw) && !NUMBERS.test(a.low)) words.push(this.wordCase(p, a, p.head))
       words.push(this.wordCase(p, p.head))
     }
     const governs = new Map<number, Governs>()
