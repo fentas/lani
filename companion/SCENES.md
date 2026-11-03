@@ -1483,8 +1483,11 @@ prizes and its raising In piazza; the bridge and the mill Al ruscello (the bridg
 the linden; the vineyard's terraces Nel campo; the bee meadow Nel campo and Dalle api; the little chapel and the vineyard's evening
 over the village (docs/plans/05-built/friuli-projects-a.md). A village already past a step goes on from there. Friuli's six of
 friuli-projects-b (the fire station, the playground, the fountain, the big hay barn, the lookout tower and the tower clock: 37 steps,
-`progetto-casa-dei-pompieri` …) are told at A1, A2 and B1, since a learner of Friuli's may aim at B1 (Teo does): a learner at B1 or above
-meets the B1 telling, with its own rules asked (the conditional, the subjunctive, si impersonale, …). They are played in Friuli's scenes
+`progetto-casa-dei-pompieri` …) are told at A1, A2 and B1, since a learner of Friuli's may aim at B1 (Teo does): a learner at B1
+meets the B1 telling, with its own rules asked (the conditional, the subjunctive, si impersonale, …). Since village-b2-friuli all 78 of
+Friuli's steps have a B2 telling too, for an older learner aiming higher (a learner at B2 or above meets it): the same work in other
+words, each with a rule of B2 asked (the past conditional's auxiliary, the irreal if, the past gerund and infinitive, the participle
+alone, il quale, fare and lasciare with an infinitive, the passive with venire and andare, the conjunctions with the subjunctive). They are played in Friuli's scenes
 where they happen (In piazza, Al ruscello, A scuola, Nella fucina, In bottega, Nel bosco, Nel campo, Nella vigna, Sulla torre; the tower's
 frame and stairs over the village), and name their words as Friuli's packs have them; a village partway through a project goes on from
 where it is (`FriuliProjectStepsTest`). The art needed nothing new: the square's fountain with its pine cone and its clock in the campanile
