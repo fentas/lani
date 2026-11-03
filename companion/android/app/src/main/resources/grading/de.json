@@ -32,6 +32,18 @@
     [
       "(?<!\\p{L})w(ü|ue)rd(?!\\p{L})",
       "w$1rde"
+    ],
+    [
+      "(?<!\\p{L})so dass(?!\\p{L})",
+      "sodass"
+    ],
+    [
+      "(?<!\\p{L})in frage(?!\\p{L})",
+      "infrage"
+    ],
+    [
+      "(?<!\\p{L})(?:anderseits|andrerseits)(?!\\p{L})",
+      "andererseits"
     ]
   ],
   "fold": [
@@ -57,6 +69,7 @@
   "loose_hint": "none",
   "drop_subject": false,
   "_nonstandard_note": "nonstandard: what people say that writing doesn't want, where a unit's point is the word itself: almost, the standard form shown, one way only, no mistake recorded. weil for denn and trotzdem for obwohl; wie for als and wann for wenn (an item that lists them as spoken, als-waehrend's, has them right); täte for würde; Auf was for worauf, auf ihn for darauf for a thing; wer, was, nix for jemand, etwas, nichts. verb_second: the verb moved up behind the subject after weil and obwohl (weil er hat keine Zeit), every other word in its place. Not a worksheet item's spoken, which is right: COURSE.md, Spoken forms.",
+  "_b2c_note": "German B2's text and register (course-de-b2-c). same: so dass is sodass, in Frage is infrage, anderseits and andrerseits are andererseits (Duden has each). wrong, a word of its own and no slip: war for zwar; teuer, neuer, Feuer and heuer, Fieber and Feber, Pause and Jause, Tropfen and Topfen, Kessel and Sessel, Kosten, Karten, Kisten and Kasten, Männer and Jänner; biete and bitte, versuche and ersuche; stehle for stelle, sehe for stehe; lasse, passe for fasse. A German-German word beside an Austrian one is an accept, never a rule here.",
   "nonstandard": [
     {
       "word": "weil",
@@ -531,6 +544,94 @@
     {
       "word": "(?:der|den|dem|des|die|das)selbe[nrs]?",
       "for": "(?:der|den|dem|des|die|das)selbe[nrs]?"
+    },
+    {
+      "word": "war",
+      "for": "zwar"
+    },
+    {
+      "word": "teuer|neuer|feuer",
+      "for": "heuer"
+    },
+    {
+      "word": "heuer",
+      "for": "teuer|neuer|feuer"
+    },
+    {
+      "word": "fieber",
+      "for": "feber"
+    },
+    {
+      "word": "feber",
+      "for": "fieber"
+    },
+    {
+      "word": "pause",
+      "for": "jause"
+    },
+    {
+      "word": "jause",
+      "for": "pause"
+    },
+    {
+      "word": "tropfen",
+      "for": "topfen"
+    },
+    {
+      "word": "topfen",
+      "for": "tropfen"
+    },
+    {
+      "word": "kessel",
+      "for": "sessel"
+    },
+    {
+      "word": "sessel",
+      "for": "kessel"
+    },
+    {
+      "word": "kosten|karten|kisten",
+      "for": "kasten"
+    },
+    {
+      "word": "kasten",
+      "for": "kosten|karten|kisten"
+    },
+    {
+      "word": "maenner",
+      "for": "jaenner"
+    },
+    {
+      "word": "jaenner",
+      "for": "maenner"
+    },
+    {
+      "word": "biet(?:e|en|est|et)?",
+      "for": "bitt(?:e|en|est|et)?"
+    },
+    {
+      "word": "bitt(?:e|en|est|et)?",
+      "for": "biet(?:e|en|est|et)?"
+    },
+    {
+      "word": "versuch(?:e|st|t|en)?",
+      "for": "ersuch(?:e|st|t|en)?"
+    },
+    {
+      "word": "ersuch(?:e|st|t|en)?",
+      "for": "versuch(?:e|st|t|en)?"
+    },
+    {
+      "word": "stehl(?:e|st|t|en)?",
+      "for": "stell(?:e|st|t|en)?"
+    },
+    {
+      "word": "seh(?:e|en|t)",
+      "for": "steh(?:e|en|t)"
+    },
+    {
+      "word": "(?:l|p)ass(?:e|en|t)?",
+      "for": "fass(?:e|en|t)?"
     }
   ]
 }
