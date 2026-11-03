@@ -9,8 +9,8 @@ filter, sheets that read only the packs of their level, and "started" counted on
 
 Everything here is machine-written (Claude). Every pack's `review` says so. Please check:
 
-- **All 44 new packs** (`companion/cultures/lakeland/packs/`, listed below): the English (British usage, the examples'
-  naturalness), and the Slovene, Italian and German meanings, examples and notes (1,056 words, ~460 notes).
+- **All 46 new packs** (`companion/cultures/lakeland/packs/`, listed below): the English (British usage, the examples'
+  naturalness), and the Slovene, Italian and German meanings, examples and notes (1,104 words, 316 of them with notes).
 - **Meanings bent to keep each prompt unique.** A card is asked by its meaning, so no two English words may share a
   meaning part in a base (`bun test/prompt-clashes.ts`). The most likely to read stiffly:
   - sl: smer poti (route), prihodek od prodaje (turnover), zrel po duhu (mature), pereče vprašanje (issue),
@@ -19,21 +19,24 @@ Everything here is machine-written (Claude). Every pack's `review` says so. Plea
     pasti na izpitu / opraviti izpit (to fail / to pass), popravljati napake (to correct), spraviti v red (to fix),
     zakrpati (to mend), peči pecivo / peči meso (to bake / to roast), mešati z žlico (to stir), športni sodnik (referee),
     izid tekme (score), partija (game), nogometno igrišče (pitch), občinski svetnik (councillor), kriv dejanja (guilty),
-    poln miru (peaceful), šolsko spričevalo (school report), lazar (slug), vtikljiv (nosy), dobrosrčen (kind).
+    poln miru (peaceful), šolsko spričevalo (school report), lazar (slug), vtikljiv (nosy), dobrosrčen (kind),
+    brada iz dlak (beard, beside chin brada), nekodrav (straight hair), imeti oblečeno (to wear).
   - it: accendere un apparecchio (to switch on), storia come materia (history), tirare su i figli (to raise),
     diventare grande (to grow up; its example "Sono diventato grande in una fattoria" is stiff), nipote maschio /
     femmina (nephew / niece), chi ospita (host), rompere i rapporti (to fall out), rimestare (to stir), impervio
     (rugged), freddino (chilly), coperto di ghiaccio (icy), convinto (sure), infortunato (casualty), spettatori (audience),
-    pensione di vecchiaia (pension), diceria (rumour), tragitto (route), spina elettrica (plug).
+    pensione di vecchiaia (pension), diceria (rumour), tragitto (route), spina elettrica (plug), ricciuto (curly),
+    non riccio (straight hair), area boschiva (woodland).
   - de: Kaufpreis (price), ganz ehrlich (honestly), sich sicher (sure), zufolge (according to), Pressevertreter (the
     press), Geldschuld (debt), wert sein (worth), Faktura (invoice), in der Pfanne braten / im Ofen braten (fry /
     roast), eingießen (pour), Teespender (tea urn), Felsrinne (gully), Bergspitze (peak's neighbour), Kehle (throat),
     das Stricken, das Singen, als Hobby sammeln, in stabilem Zustand (stable), erwachsen im Verhalten (mature),
-    Rauchfangkehrer (Austrian chimney sweep), erste Klasse (first class post), Rente (pension).
+    Rauchfangkehrer (Austrian chimney sweep), erste Klasse (first class post), Rente (pension), nicht gelockt (straight
+    hair), anhaben (to wear), Tiere aufziehen (to rear).
 - **Notes on false friends and British usage** (sympathetic, sensible, actually, eventually, magazine, library, chef,
   agenda, stranger, embarrassed; petrol, pavement, queue, rubber, trolley, car park): that the base's side of each
   note is true for that base.
-- **The supplement's 281 new entries** (`companion/lexicon/en.extra.json`): their sl, de and it meanings.
+- **The supplement's 286 new entries** (`companion/lexicon/en.extra.json`): their sl, de and it meanings.
 - **The app's two new strings** (`packsScreen.forLater`, `packsScreen.forLaterWhy` in sl, en, de, it): "Za pozneje ·
   For later", "Besede za {levels}: pridejo na vrsto, ko se tvoja raven dvigne".
 
@@ -44,13 +47,13 @@ its meaning). Distinct English words in the curated packs (`companion/packs/en/`
 
 | | Before | After |
 |---|---:|---:|
-| Packs | 83 | 127 (+24 B1, +20 B2) |
-| Cards (pack words) | 1,108 | 2,164 |
-| Distinct words | 1,047 (A1 841, A2 206) | **2,103** (B1 +576, B2 +480) |
+| Packs | 83 | 129 (+25 B1, +21 B2) |
+| Cards (pack words) | 1,108 | 2,212 |
+| Distinct words | 1,047 (A1 841, A2 206) | **2,151** (B1 +600, B2 +504) |
 
 The B2 aim asks 1,000 words learned by Trg and 2,000 by Mesto (GAME.md, "Words learned per age"). A1 and A2 give 1,047,
-so Trg is reached with the starter packs alone, and B1 adds 576 more. All four levels give 2,103 for Mesto's 2,000:
-103 words (5 %) to spare. The plan had 54 packs and 1,296 words (2,343, 17 % to spare). The other ten packs are
+so Trg is reached with the starter packs alone, and B1 adds 600 more. All four levels give 2,151 for Mesto's 2,000:
+151 words (7.5 %) to spare. The plan had 54 packs and 1,296 words (2,343, 17 % to spare). The other eight packs are
 planned, with their words chosen and checked for repeats, and listed under "What's left".
 
 ## The packs
@@ -88,6 +91,7 @@ is one English word in every English pack (the smoke's lakeland check).
 | B1 | free-time | Brewer Sam | hobbies |
 | B1 | creatures-of-the-dale | Beekeeper Arthur | wild animals and birds |
 | B1 | the-body | Mrs Hartley | the body |
+| B1 | what-to-wear | Granny Maggie | looks and clothes |
 | B2 | a-new-line-of-work | Brewer Sam | running a business |
 | B2 | at-the-health-centre | Beekeeper Arthur | health and treatment |
 | B2 | ups-and-downs | Auntie Edna | stronger feelings |
@@ -108,6 +112,7 @@ is one English word in every English pack (the smoke's lakeland check).
 | B2 | law-and-order | Shepherd Jack | crime, the court |
 | B2 | books-and-stories | Old Wilf | books and literature |
 | B2 | music-and-the-arts | Granny Maggie | music, theatre, the gallery |
+| B2 | the-hill-farmers-year | Mr Tyson | hill farming today |
 
 The B2 examples use B2 structures (passives, second and third conditionals, reported speech, relative clauses) and a
 higher register where the word belongs there. The village is for grown-ups, so work, money, law, health and a funeral
@@ -124,7 +129,7 @@ No homonym needed marking.
 ## How packs reach a learner (and the shared fixes)
 
 On main, the suggestion fell back to the first unfinished pack in the files' order once the learner's own level was
-done, and the packs screen listed untouched packs in that order. With 44 B1/B2 packs, an A1 learner would have been
+done, and the packs screen listed untouched packs in that order. With 46 B1/B2 packs, an A1 learner would have been
 offered a B2 pack and seen B1/B2 packs among the A1 ones. Three commits fix this, with no English content in them, so
 that the other packs branches can take them:
 
@@ -149,9 +154,9 @@ packs screen, and their own scenes, stories or sky (none for these packs).
 
 ## The supplement and the prints
 
-- `lexicon-build --coverage --lang en`: every word of the new packs' texts is known. There are 281 new entries and 81
+- `lexicon-build --coverage --lang en`: every word of the new packs' texts is known. There are 286 new entries and 86
   forms on older entries: the packs' own words' forms carry the packs' meanings, the parts of phrases, names and other
-  words carry hand-written meanings. Words none knows: 140, against main's 151, which are the wrong forms that turns
+  words carry hand-written meanings. Words none knows: 139, against main's 151, which are the wrong forms that turns
   offer on purpose. 97.6 % of the different words are known (main 96.7 %), and 99.8 % of the words met.
 - open, burn, paint and damage list their "to …" in the supplement, so the B1/B2 sheets (passive, have-it-done,
   myself) keep them as verbs beside the packs' adjective and nouns.
@@ -161,8 +166,8 @@ packs screen, and their own scenes, stories or sky (none for these packs).
 
 ## Voice
 
-The packs' words and examples are in the voice corpus (bridge/src/voice.ts): 1,056 words (8,502 characters) and
-1,056 examples (55,686 characters), **about 64,200 characters** for a build of the new packs in the English narrator's
+The packs' words and examples are in the voice corpus (bridge/src/voice.ts): 1,104 words (8,871 characters) and
+1,104 examples (58,209 characters), **about 67,100 characters** for a build of the new packs in the English narrator's
 voice. No credits were spent.
 
 ## Tests
@@ -171,13 +176,12 @@ voice. No credits were spent.
   ids, is fixed in 92edcede. New checks: `packLevels` (old app at A1, A2 and B1, and with no level; `?packs=1` and `2`;
   `own`; `/packs/:id`) and the prints' level cap.
 - Android: PackSessionTest (9), PacksTest, HomeLogicTest, PhoneBridgeNodeTest (`/packs?packs=1` parity), the L10n tests.
-- The check script over all 44 packs: 0 problems. `bun test/prompt-clashes.ts`: no new clash.
+- The check script over all 46 packs: 0 problems. `bun test/prompt-clashes.ts`: no new clash.
 
 ## What's left
 
-1. **Ten planned packs** (`plan.json` in the scratchpad, words chosen and checked for repeats): what-to-wear,
-   making-plans, everyday-verbs, getting-things-done (B1); more-phrasal-verbs, sayings-of-the-dale,
-   the-hill-farmers-year, science-and-technology, verbs-for-the-evening-class, linking-words (B2). Writing them gives
-   2,343 distinct words (17 % to spare). The phrasal verbs, idioms and linking words will need the most prompt work.
+1. **Eight planned packs** (`plan.json` in the scratchpad, words chosen and checked for repeats): making-plans,
+   everyday-verbs, getting-things-done (B1); more-phrasal-verbs, sayings-of-the-dale, science-and-technology,
+   verbs-for-the-evening-class, linking-words (B2). Writing them gives 2,343 distinct words (17 % to spare). The phrasal verbs, idioms and linking words will need the most prompt work.
 2. The native check above.
-3. A voice build for the packs (~64,200 characters), when Jan decides.
+3. A voice build for the packs (~67,100 characters), when Jan decides.
