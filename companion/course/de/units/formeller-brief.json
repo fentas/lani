@@ -505,117 +505,76 @@
           }
         },
         {
-          "type": "table",
+          "type": "transform",
           "grammar": "formeller-brief",
           "instruction": {
-            "en": "Ergänze die Tabelle · Fill in the table",
-            "sl": "Ergänze die Tabelle · Dopolni tabelo",
-            "it": "Ergänze die Tabelle · Completa la tabella"
+            "en": "Die Anrede · Write the opening of a letter to each",
+            "sl": "Die Anrede · Napiši nagovor v pismu vsakemu",
+            "it": "Die Anrede · Scrivi l'apertura di una lettera a ciascuno"
           },
-          "prompt": {
-            "en": "the opening of a letter to each",
-            "sl": "nagovor v pismu vsakemu",
-            "it": "l'apertura di una lettera a ciascuno"
-          },
-          "columns": [
+          "cue": "→",
+          "items": [
             {
-              "en": "Anrede · the opening",
-              "sl": "Anrede · nagovor",
-              "it": "Anrede · l'apertura"
-            }
-          ],
-          "rows": [
-            {
-              "label": "Frau Mag. Anna Huber",
-              "cells": [
-                {
-                  "accept": [
-                    "Sehr geehrte Frau Magister Huber",
-                    "Sehr geehrte Frau Mag. Huber",
-                    "Sehr geehrte Frau Magistra Huber",
-                    "Sehr geehrte Frau Mag.a Huber",
-                    "Sehr geehrte Frau Magister",
-                    "Sehr geehrte Frau Magistra",
-                    "Sehr geehrte Frau Huber",
-                    "Sehr geehrte Frau Mag. Anna Huber"
-                  ]
-                }
+              "from": "Frau Mag. Anna Huber",
+              "accept": [
+                "Sehr geehrte Frau Magister Huber",
+                "Sehr geehrte Frau Mag. Huber",
+                "Sehr geehrte Frau Magistra Huber",
+                "Sehr geehrte Frau Mag.a Huber",
+                "Sehr geehrte Frau Magister",
+                "Sehr geehrte Frau Magistra",
+                "Sehr geehrte Frau Huber",
+                "Sehr geehrte Frau Mag. Anna Huber"
               ]
             },
             {
-              "label": "Herr Dr. Georg Egger",
-              "cells": [
-                {
-                  "accept": [
-                    "Sehr geehrter Herr Doktor Egger",
-                    "Sehr geehrter Herr Dr. Egger",
-                    "Sehr geehrter Herr Doktor",
-                    "Sehr geehrter Herr Egger",
-                    "Sehr geehrter Herr Dr. Georg Egger"
-                  ]
-                }
+              "from": "Herr Dr. Georg Egger",
+              "accept": [
+                "Sehr geehrter Herr Doktor Egger",
+                "Sehr geehrter Herr Dr. Egger",
+                "Sehr geehrter Herr Doktor",
+                "Sehr geehrter Herr Egger",
+                "Sehr geehrter Herr Dr. Georg Egger"
               ]
             },
             {
-              "label": "Frau Dr.in Maria Gasser",
-              "cells": [
-                {
-                  "accept": [
-                    "Sehr geehrte Frau Doktor Gasser",
-                    "Sehr geehrte Frau Dr.in Gasser",
-                    "Sehr geehrte Frau Doktorin Gasser",
-                    "Sehr geehrte Frau Dr. Gasser",
-                    "Sehr geehrte Frau Doktor",
-                    "Sehr geehrte Frau Doktorin",
-                    "Sehr geehrte Frau Gasser",
-                    "Sehr geehrte Frau Dr.in Maria Gasser"
-                  ]
-                }
+              "from": "Frau Dr.in Maria Gasser",
+              "accept": [
+                "Sehr geehrte Frau Doktor Gasser",
+                "Sehr geehrte Frau Dr.in Gasser",
+                "Sehr geehrte Frau Doktorin Gasser",
+                "Sehr geehrte Frau Dr. Gasser",
+                "Sehr geehrte Frau Doktor",
+                "Sehr geehrte Frau Doktorin",
+                "Sehr geehrte Frau Gasser",
+                "Sehr geehrte Frau Dr.in Maria Gasser"
               ]
             },
             {
-              "label": "Herr DI Hans Wieser",
-              "cells": [
-                {
-                  "accept": [
-                    "Sehr geehrter Herr Diplomingenieur Wieser",
-                    "Sehr geehrter Herr DI Wieser",
-                    "Sehr geehrter Herr Dipl.-Ing. Wieser",
-                    "Sehr geehrter Herr Diplom-Ingenieur Wieser",
-                    "Sehr geehrter Herr Diplomingenieur",
-                    "Sehr geehrter Herr Diplom-Ingenieur",
-                    "Sehr geehrter Herr Wieser",
-                    "Sehr geehrter Herr DI Hans Wieser"
-                  ]
-                }
+              "from": "Herr DI Hans Wieser",
+              "accept": [
+                "Sehr geehrter Herr Diplomingenieur Wieser",
+                "Sehr geehrter Herr DI Wieser",
+                "Sehr geehrter Herr Dipl.-Ing. Wieser",
+                "Sehr geehrter Herr Diplom-Ingenieur Wieser",
+                "Sehr geehrter Herr Diplomingenieur",
+                "Sehr geehrter Herr Diplom-Ingenieur",
+                "Sehr geehrter Herr Wieser",
+                "Sehr geehrter Herr DI Hans Wieser"
               ]
             },
             {
-              "label": {
-                "en": "the mayor, a man",
-                "sl": "župan",
-                "it": "il sindaco"
-              },
-              "cells": [
-                {
-                  "accept": [
-                    "Sehr geehrter Herr Bürgermeister"
-                  ]
-                }
+              "from": "Herr Bürgermeister Georg Pichler",
+              "accept": [
+                "Sehr geehrter Herr Bürgermeister Pichler",
+                "Sehr geehrter Herr Bürgermeister",
+                "Sehr geehrter Herr Pichler"
               ]
             },
             {
-              "label": {
-                "en": "the council: no name",
-                "sl": "občina: brez imena",
-                "it": "il comune: nessun nome"
-              },
-              "cells": [
-                {
-                  "accept": [
-                    "Sehr geehrte Damen und Herren"
-                  ]
-                }
+              "from": "die Gemeinde, kein Name",
+              "accept": [
+                "Sehr geehrte Damen und Herren"
               ]
             }
           ],
@@ -952,55 +911,36 @@
         }
       },
       {
-        "type": "table",
+        "type": "transform",
         "grammar": "formeller-brief",
         "instruction": {
-          "en": "Ergänze die Tabelle · Fill in the table",
-          "sl": "Ergänze die Tabelle · Dopolni tabelo",
-          "it": "Ergänze die Tabelle · Completa la tabella"
+          "en": "Die Anrede · Write the opening of a letter to each",
+          "sl": "Die Anrede · Napiši nagovor v pismu vsakemu",
+          "it": "Die Anrede · Scrivi l'apertura di una lettera a ciascuno"
         },
-        "prompt": {
-          "en": "the opening",
-          "sl": "nagovor",
-          "it": "l'apertura"
-        },
-        "columns": [
+        "cue": "→",
+        "items": [
           {
-            "en": "Anrede · the opening",
-            "sl": "Anrede · nagovor",
-            "it": "Anrede · l'apertura"
-          }
-        ],
-        "rows": [
-          {
-            "label": "Frau Mag.a Julia Zankl",
-            "cells": [
-              {
-                "accept": [
-                  "Sehr geehrte Frau Magister Zankl",
-                  "Sehr geehrte Frau Magistra Zankl",
-                  "Sehr geehrte Frau Mag.a Zankl",
-                  "Sehr geehrte Frau Mag. Zankl",
-                  "Sehr geehrte Frau Magister",
-                  "Sehr geehrte Frau Magistra",
-                  "Sehr geehrte Frau Zankl",
-                  "Sehr geehrte Frau Mag.a Julia Zankl"
-                ]
-              }
+            "from": "Frau Mag.a Julia Zankl",
+            "accept": [
+              "Sehr geehrte Frau Magister Zankl",
+              "Sehr geehrte Frau Magistra Zankl",
+              "Sehr geehrte Frau Mag.a Zankl",
+              "Sehr geehrte Frau Mag. Zankl",
+              "Sehr geehrte Frau Magister",
+              "Sehr geehrte Frau Magistra",
+              "Sehr geehrte Frau Zankl",
+              "Sehr geehrte Frau Mag.a Julia Zankl"
             ]
           },
           {
-            "label": "Herr Dr. Peter Schnabl",
-            "cells": [
-              {
-                "accept": [
-                  "Sehr geehrter Herr Doktor Schnabl",
-                  "Sehr geehrter Herr Dr. Schnabl",
-                  "Sehr geehrter Herr Doktor",
-                  "Sehr geehrter Herr Schnabl",
-                  "Sehr geehrter Herr Dr. Peter Schnabl"
-                ]
-              }
+            "from": "Herr Dr. Peter Schnabl",
+            "accept": [
+              "Sehr geehrter Herr Doktor Schnabl",
+              "Sehr geehrter Herr Dr. Schnabl",
+              "Sehr geehrter Herr Doktor",
+              "Sehr geehrter Herr Schnabl",
+              "Sehr geehrter Herr Dr. Peter Schnabl"
             ]
           }
         ],

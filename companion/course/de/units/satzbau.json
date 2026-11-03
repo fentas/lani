@@ -299,9 +299,9 @@
       },
       {
         "say": {
-          "en": "**nicht** (not) goes last when it denies the whole sentence: Ich kenne ihn **nicht**. Heute kommt Kathi **nicht**. But it comes before what the verb can't do without: a second verb or a split-off prefix (Ich habe ihn **nicht** gesehen, Ich rufe dich **nicht** an), a place or a preposition's object (**nicht** nach Villach, **nicht** auf ihn), an adjective or a how (**nicht** teuer, **nicht** schnell). Time words stay before it: Ich komme morgen **nicht**.",
-          "sl": "**nicht** (ne) gre na konec, kadar zanika cel stavek: Ich kenne ihn **nicht**. Heute kommt Kathi **nicht**. Pride pa pred tem, brez česar glagol ne more: pred drugim glagolom ali ločeno predpono (Ich habe ihn **nicht** gesehen, Ich rufe dich **nicht** an), krajem ali predložnim predmetom (**nicht** nach Villach, **nicht** auf ihn), pridevnikom ali načinom (**nicht** teuer, **nicht** schnell). Besede za čas ostanejo pred njim: Ich komme morgen **nicht**.",
-          "it": "**nicht** (non) va in fondo quando nega tutta la frase: Ich kenne ihn **nicht**. Heute kommt Kathi **nicht**. Ma viene prima di ciò di cui il verbo non può fare a meno: un secondo verbo o un prefisso staccato (Ich habe ihn **nicht** gesehen, Ich rufe dich **nicht** an), un luogo o un complemento con preposizione (**nicht** nach Villach, **nicht** auf ihn), un aggettivo o un modo (**nicht** teuer, **nicht** schnell). Le parole di tempo restano prima: Ich komme morgen **nicht**."
+          "en": "**nicht** (not) goes last when it denies the whole sentence: **Ich kenne ihn nicht**. **Heute kommt Kathi nicht**. But it comes before what the verb can't do without: a second verb or a split-off prefix (**Ich habe ihn nicht gesehen**, **Ich rufe dich nicht an**), a place or a preposition's object (**nicht nach Villach**, **nicht auf ihn**), an adjective or a how (**nicht teuer**, **nicht schnell**). Time words stay before it: **Ich komme morgen nicht**.",
+          "sl": "**nicht** (ne) gre na konec, kadar zanika cel stavek: **Ich kenne ihn nicht**. **Heute kommt Kathi nicht**. Pride pa pred tem, brez česar glagol ne more: pred drugim glagolom ali ločeno predpono (**Ich habe ihn nicht gesehen**, **Ich rufe dich nicht an**), krajem ali predložnim predmetom (**nicht nach Villach**, **nicht auf ihn**), pridevnikom ali načinom (**nicht teuer**, **nicht schnell**). Besede za čas ostanejo pred njim: **Ich komme morgen nicht**.",
+          "it": "**nicht** (non) va in fondo quando nega tutta la frase: **Ich kenne ihn nicht**. **Heute kommt Kathi nicht**. Ma viene prima di ciò di cui il verbo non può fare a meno: un secondo verbo o un prefisso staccato (**Ich habe ihn nicht gesehen**, **Ich rufe dich nicht an**), un luogo o un complemento con preposizione (**nicht nach Villach**, **nicht auf ihn**), un aggettivo o un modo (**nicht teuer**, **nicht schnell**). Le parole di tempo restano prima: **Ich komme morgen nicht**."
         },
         "examples": [
           {
@@ -432,9 +432,9 @@
             "it": "Ergänze die Tabelle · Completa la tabella"
           },
           "prompt": {
-            "en": "nouns become pronouns: they change places",
-            "sl": "samostalniki postanejo zaimki: zamenjajo mesto",
-            "it": "i nomi diventano pronomi: cambiano posto"
+            "en": "nouns become pronouns: write what comes after the verb",
+            "sl": "samostalniki postanejo zaimki: napiši, kar pride za glagolom",
+            "it": "i nomi diventano pronomi: scrivi ciò che viene dopo il verbo"
           },
           "columns": [
             "→ ihm, ihr …",
@@ -451,16 +451,19 @@
               "cells": [
                 {
                   "accept": [
+                    "ihm den Apfel",
                     "Stefan gibt ihm den Apfel."
                   ]
                 },
                 {
                   "accept": [
+                    "ihn dem Kind",
                     "Stefan gibt ihn dem Kind."
                   ]
                 },
                 {
                   "accept": [
+                    "ihn ihm",
                     "Stefan gibt ihn ihm."
                   ]
                 }
@@ -471,19 +474,23 @@
               "cells": [
                 {
                   "accept": [
+                    "ihm das Zimmer",
                     "Kathi zeigt ihm das Zimmer."
                   ]
                 },
                 {
                   "accept": [
+                    "es dem Gast",
                     "Kathi zeigt es dem Gast."
                   ]
                 },
                 {
                   "accept": [
+                    "es ihm",
                     "Kathi zeigt es ihm."
                   ],
                   "spoken": [
+                    "ihm's",
                     "Kathi zeigt ihm's."
                   ]
                 }
@@ -494,16 +501,19 @@
               "cells": [
                 {
                   "accept": [
+                    "ihr die Suppe",
                     "Franz bringt ihr die Suppe."
                   ]
                 },
                 {
                   "accept": [
+                    "sie der Oma",
                     "Franz bringt sie der Oma."
                   ]
                 },
                 {
                   "accept": [
+                    "sie ihr",
                     "Franz bringt sie ihr."
                   ]
                 }

@@ -515,76 +515,45 @@
           }
         },
         {
-          "type": "table",
+          "type": "transform",
           "grammar": "indem-sodass",
           "instruction": {
-            "en": "Ergänze die Tabelle · Fill in the table",
-            "sl": "Ergänze die Tabelle · Dopolni tabelo",
-            "it": "Ergänze die Tabelle · Completa la tabella"
+            "en": "Der Nebensatz · Write the clause: the verb goes last",
+            "sl": "Der Nebensatz · Napiši odvisnik: glagol gre na konec",
+            "it": "Der Nebensatz · Scrivi la secondaria: il verbo va in fondo"
           },
-          "prompt": {
-            "en": "the clause: the verb goes last",
-            "sl": "odvisnik: glagol gre na konec",
-            "it": "la secondaria: il verbo va in fondo"
-          },
-          "columns": [
+          "cue": "→",
+          "items": [
             {
-              "en": "Nebensatz · the clause",
-              "sl": "Nebensatz · odvisnik",
-              "it": "Nebensatz · la secondaria"
-            }
-          ],
-          "rows": [
-            {
-              "label": "Sie kocht selbst. (indem)",
-              "cells": [
-                {
-                  "accept": [
-                    "indem sie selbst kocht"
-                  ]
-                }
+              "from": "Sie kocht selbst. (indem)",
+              "accept": [
+                "indem sie selbst kocht"
               ]
             },
             {
-              "label": "Die Straße war gesperrt. (sodass)",
-              "cells": [
-                {
-                  "accept": [
-                    "sodass die Straße gesperrt war"
-                  ]
-                }
+              "from": "Die Straße war gesperrt. (sodass)",
+              "accept": [
+                "sodass die Straße gesperrt war"
               ]
             },
             {
-              "label": "Kathi hat es gewusst. (ohne dass)",
-              "cells": [
-                {
-                  "accept": [
-                    "ohne dass Kathi es gewusst hat",
-                    "ohne dass es Kathi gewusst hat"
-                  ]
-                }
+              "from": "Kathi hat es gewusst. (ohne dass)",
+              "accept": [
+                "ohne dass Kathi es gewusst hat",
+                "ohne dass es Kathi gewusst hat"
               ]
             },
             {
-              "label": "Toni hilft. (anstatt dass)",
-              "cells": [
-                {
-                  "accept": [
-                    "anstatt dass Toni hilft",
-                    "statt dass Toni hilft"
-                  ]
-                }
+              "from": "Toni hilft. (anstatt dass)",
+              "accept": [
+                "anstatt dass Toni hilft",
+                "statt dass Toni hilft"
               ]
             },
             {
-              "label": "Es hat geregnet. (dadurch, dass)",
-              "cells": [
-                {
-                  "accept": [
-                    "dadurch, dass es geregnet hat"
-                  ]
-                }
+              "from": "Es hat geregnet. (dadurch, dass)",
+              "accept": [
+                "dadurch, dass es geregnet hat"
               ]
             }
           ],
