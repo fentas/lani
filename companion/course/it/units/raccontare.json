@@ -127,14 +127,7 @@
           { "it": "Nel 181 a.C. i Romani fondarono Aquileia.", "de": "181 v. Chr. gründeten die Römer Aquileia.", "sl": "Leta 181 pr. n. št. so Rimljani ustanovili Oglej.", "en": "In 181 BC the Romans founded Aquileia." },
           { "it": "Franco: «Mio nonno ha costruito questo mulino, e funziona ancora.»", "de": "Franco: „Mein Großvater hat diese Mühle gebaut, und sie läuft noch.“", "sl": "Franco: »Moj ded je zgradil ta mlin in še vedno dela.«", "en": "Franco: \"My grandfather built this mill, and it still works.\"" }
         ],
-        "ask": {
-          "type": "choice", "grammar": "raccontare", "prompt": "Il libro di storia dice: «Marco Polo ___ da Venezia nel 1271.»", "options": ["partì", "partii", "partirà"], "answer": 0, "say_options": true,
-          "explain": {
-            "de": "**ein Ereignis**, lange her → **partì**\n- partii · ich\n- partirà · Zukunft",
-            "sl": "**dogodek**, davno → **partì**\n- partii · jaz\n- partirà · prihodnjik",
-            "en": "**an event**, long ago → **partì**\n- partii · I\n- partirà · the future"
-          }
-        }
+        "ask": {"type": "choice", "grammar": "raccontare", "prompt": "Il libro di storia dice: «Marco Polo ___ da Venezia nel 1271.»", "options": ["partì", "partii", "partirono"], "answer": 0, "say_options": true, "explain": {"de": "**ein Ereignis**, lange her → **partì**\n- partii · ich\n- partirono · mehrere", "sl": "**dogodek**, davno → **partì**\n- partii · jaz\n- partirono · več", "en": "**an event**, long ago → **partì**\n- partii · I\n- partirono · several"}}
       },
       {
         "say": {

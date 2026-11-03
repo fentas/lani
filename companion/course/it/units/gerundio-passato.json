@@ -101,14 +101,7 @@
           { "it": "Dopo che Lorenzo ha finito, Giulia è uscita.", "de": "Nachdem Lorenzo fertig war, ging Giulia hinaus.", "sl": "Ko je Lorenzo končal, je Giulia šla ven.", "en": "After Lorenzo had finished, Giulia went out." },
           { "it": "Siccome ho dimenticato la chiave, ho chiamato Marisa.", "de": "Weil ich den Schlüssel vergessen habe, habe ich Marisa angerufen.", "sl": "Ker sem {m:pozabil|f:pozabila} ključ, sem {m:poklical|f:poklicala} Mariso.", "en": "Since I forgot the key, I called Marisa." }
         ],
-        "ask": {
-          "type": "choice", "grammar": "gerundio-passato", "prompt": "Avendo finito il lavoro, ___", "options": ["Bruno è andato all'osteria.", "l'osteria era aperta.", "il lavoro era finito."], "answer": 0, "say_options": true,
-          "explain": {
-            "de": "**Wer hat fertig gearbeitet?** Bruno, also steht Bruno auch in der anderen Hälfte\n- l'osteria: die Osteria arbeitet nicht\n- il lavoro: die Arbeit arbeitet nicht",
-            "sl": "**Kdo je končal delo?** Bruno, zato je Bruno tudi v drugi polovici\n- l'osteria: gostilna ne dela\n- il lavoro: delo ne dela",
-            "en": "**Who finished the work?** Bruno, so Bruno is in the other half too\n- l'osteria: the osteria doesn't work\n- il lavoro: the work doesn't work"
-          }
-        }
+        "ask": {"type": "choice", "grammar": "gerundio-passato", "prompt": "«Avendo finito il lavoro, Bruno è andato all'osteria.» Chi ha finito il lavoro?", "options": ["Bruno", "Marisa", "Nessuno"], "answer": 0, "say_options": true, "explain": {"de": "**Der Gerundio hat die Person des Hauptsatzes** → **Bruno**\n- Marisa · von ihr sagt der Satz nichts\n- Nessuno · Jemand hat die Arbeit beendet", "sl": "**Gerundij ima osebo glavnega stavka** → **Bruno**\n- Marisa · o njej stavek ne pove ničesar\n- Nessuno · delo je nekdo končal", "en": "**The gerund has the main clause's person** → **Bruno**\n- Marisa · the sentence says nothing of her\n- Nessuno · someone finished the work"}}
       },
       {
         "say": {
@@ -200,14 +193,7 @@
             "en": "**ho camminato** → **avendo camminato**\n- essendo camminato: camminare takes avere\n- camminata: nothing agrees with avere"
           }
         },
-        {
-          "type": "choice", "grammar": "gerundio-passato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Essendo arrivata tardi al mercato, ___", "options": ["Marisa non ha trovato le uova.", "le uova erano finite.", "i bambini non hanno trovato le uova."], "answer": 0, "say_options": true,
-          "explain": {
-            "de": "**Wer ist spät gekommen?** Marisa, also steht sie auch in der anderen Hälfte\n- le uova: die Eier sind nicht gekommen\n- i bambini: arrivata passt nicht zu ihnen",
-            "sl": "**Kdo je prišel pozno?** Marisa, zato je tudi v drugi polovici\n- le uova: jajca niso prišla\n- i bambini: arrivata se z njimi ne ujema",
-            "en": "**Who arrived late?** Marisa, so she's in the other half too\n- le uova: the eggs didn't arrive\n- i bambini: arrivata doesn't agree with them"
-          }
-        }
+        {"type": "choice", "grammar": "gerundio-passato", "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"}, "prompt": "«Essendo arrivata tardi al mercato, Marisa non ha trovato le uova.» Chi è arrivata tardi?", "options": ["Marisa", "Zia Nives", "Nessuno"], "answer": 0, "say_options": true, "explain": {"de": "**Der Gerundio hat die Person des Hauptsatzes** → **Marisa**\n- Zia Nives · von ihr sagt der Satz nichts\n- Nessuno · Jemand ist zu spät gekommen", "sl": "**Gerundij ima osebo glavnega stavka** → **Marisa**\n- Zia Nives · o njej stavek ne pove ničesar\n- Nessuno · nekdo je prišel pozno", "en": "**The gerund has the main clause's person** → **Marisa**\n- Zia Nives · the sentence says nothing of her\n- Nessuno · someone came late"}}
       ]
     },
     {
@@ -325,14 +311,7 @@
           "en": "**la sciarpa** (it: la), cercare takes avere → **avendola cercata**\n- avendolo · for a masculine word, and then cercato\n- essendola: cercare doesn't take essere"
         }
       },
-      {
-        "type": "choice", "grammar": "gerundio-passato", "prompt": "Avendo mangiato tutto, ___", "options": ["Moro si è addormentato.", "la ciotola era vuota.", "il pane non c'era più."], "answer": 0, "say_options": true,
-        "explain": {
-          "de": "**Wer hat alles gefressen?** Moro, also steht Moro auch in der anderen Hälfte\n- la ciotola: der Napf hat nicht gefressen\n- il pane: das Brot hat nicht gefressen",
-          "sl": "**Kdo je vse pojedel?** Moro, zato je Moro tudi v drugi polovici\n- la ciotola: skleda ni jedla\n- il pane: kruh ni jedel",
-          "en": "**Who ate it all?** Moro, so Moro is in the other half too\n- la ciotola: the bowl didn't eat\n- il pane: the bread didn't eat"
-        }
-      },
+      {"type": "choice", "grammar": "gerundio-passato", "prompt": "«Avendo mangiato tutto, Moro si è addormentato.» Chi ha mangiato tutto?", "options": ["Moro", "Giulia", "Nessuno"], "answer": 0, "say_options": true, "explain": {"de": "**Der Gerundio hat die Person des Hauptsatzes** → **Moro**\n- Giulia · von ihr sagt der Satz nichts\n- Nessuno · Jemand hat alles gegessen", "sl": "**Gerundij ima osebo glavnega stavka** → **Moro**\n- Giulia · o njej stavek ne pove ničesar\n- Nessuno · nekdo je vse pojedel", "en": "**The gerund has the main clause's person** → **Moro**\n- Giulia · the sentence says nothing of her\n- Nessuno · someone ate it all"}},
       {
         "type": "sort", "grammar": "gerundio-passato", "instruction": { "de": "Prima o nello stesso momento? · Vorher oder zur selben Zeit?", "sl": "Prima o nello stesso momento? · Prej ali hkrati?", "en": "Prima o nello stesso momento? · Before or at the same time?" },
         "columns": [
