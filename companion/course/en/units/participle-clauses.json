@@ -1,0 +1,942 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "participle-clauses",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🪶",
+  "title": {
+    "en": "Walking up the fell, I saw a raven",
+    "de": "Partizipsätze: walking up, built in 1800",
+    "sl": "Deležniški stavki: walking up, built in 1800",
+    "it": "Le frasi participiali: walking up, built in 1800"
+  },
+  "goal": {
+    "sl": "Skrajšaš stavek z -ing, deležnikom in having (Walking up the fell, I saw a raven; a mill built in 1800), z istim osebkom za obe polovici.",
+    "de": "Du kürzt Sätze mit -ing, dem Partizip und having (Walking up the fell, I saw a raven; a mill built in 1800), mit demselben Subjekt für beide Hälften.",
+    "it": "Accorci le frasi con -ing, il participio e having (Walking up the fell, I saw a raven; a mill built in 1800), con lo stesso soggetto per le due metà.",
+    "en": "You can make a sentence shorter with -ing, the participle and having (Walking up the fell, I saw a raven; a mill built in 1800), with one subject for both halves."
+  },
+  "grammar": [
+    "participle-clauses",
+    "relative-clauses"
+  ],
+  "words": [
+    "participle",
+    "subject",
+    "raven",
+    "fell",
+    "lamb",
+    "tarn",
+    "gate",
+    "hay",
+    "map",
+    "tired out",
+    "feel cold",
+    "shut",
+    "bell",
+    "turn back",
+    "valley",
+    "talk to",
+    "stand",
+    "thick",
+    "wall",
+    "inside",
+    "get wet",
+    "fall asleep",
+    "bark",
+    "sing",
+    "burn",
+    "wait",
+    "mend",
+    "feed",
+    "carry",
+    "smithy",
+    "aunt",
+    "the paper",
+    "look small",
+    "keep sheep"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "pomeni",
+          "de": "heißt",
+          "it": "vuol dire",
+          "en": "means"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Dva stavka z istim osebkom skrajšaš z **-ing**: **Walking up the fell, I saw a raven.** (Ko sem {m:hodil|f:hodila} na hrib, sem {m:videl|f:videla} krokarja.) To je isto kot **While I was walking up the fell, I saw a raven.** Osebek in was odpadeta. **Feeling cold, Jack shut the door.** (Ker ga je zeblo, je Jack zaprl vrata.) To se bolj piše kot govori.",
+          "de": "Zwei Sätze mit demselben Subjekt kürzt du mit **-ing**: **Walking up the fell, I saw a raven.** (Als ich den Fell hinaufging, sah ich einen Raben.) Das ist dasselbe wie **While I was walking up the fell, I saw a raven.** Subjekt und was fallen weg. **Feeling cold, Jack shut the door.** (Weil ihm kalt war, machte Jack die Tür zu.) Das schreibt man öfter, als man es sagt.",
+          "it": "Due frasi con lo stesso soggetto si accorciano con **-ing**, come col gerundio: **Walking up the fell, I saw a raven.** (Salendo sul fell, ho visto un corvo.) È come **While I was walking up the fell, I saw a raven.** Soggetto e was cadono. **Feeling cold, Jack shut the door.** (Sentendo freddo, Jack chiuse la porta.) Si scrive più di quanto si dica.",
+          "en": "Two clauses with one subject get shorter with **-ing**: **Walking up the fell, I saw a raven.** That's the same as **While I was walking up the fell, I saw a raven.** The subject and was go. **Feeling cold, Jack shut the door.** You'll see this more in writing than in talk."
+        },
+        "examples": [
+          {
+            "en": "Walking up the fell, I saw a raven.",
+            "sl": "Ko sem {m:hodil|f:hodila} na hrib, sem {m:videl|f:videla} krokarja.",
+            "de": "Als ich den Fell hinaufging, sah ich einen Raben.",
+            "it": "Salendo sul fell, ho visto un corvo."
+          },
+          {
+            "en": "Feeling cold, Jack shut the door.",
+            "sl": "Ker ga je zeblo, je Jack zaprl vrata.",
+            "de": "Weil ihm kalt war, machte Jack die Tür zu.",
+            "it": "Sentendo freddo, Jack chiuse la porta."
+          },
+          {
+            "en": "Hearing the bell, Mrs Birkett ran to the door.",
+            "sl": "Ko je slišala zvonec, je gospa Birkett stekla k vratom.",
+            "de": "Als sie die Glocke hörte, lief Mrs Birkett zur Tür.",
+            "it": "Sentendo il campanello, Mrs Birkett corse alla porta."
+          }
+        ],
+        "rows": [
+          [
+            "walking …,",
+            {
+              "sl": "medtem ko; isti osebek",
+              "de": "während; dasselbe Subjekt",
+              "it": "mentre; lo stesso soggetto",
+              "en": "while; one subject"
+            },
+            "Walking up the fell, I saw a raven."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participle-clauses",
+          "prompt": "___ up the fell, Jack found a lost lamb.",
+          "options": [
+            "Walking",
+            "Walked",
+            "Walk"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Medtem ko je hodil: -ing**\n- Walking up the fell, Jack found a lost lamb.",
+            "de": "**Während er ging: -ing**\n- Walking up the fell, Jack found a lost lamb.",
+            "it": "**Mentre camminava: -ing**\n- Walking up the fell, Jack found a lost lamb.",
+            "en": "**While he was walking: -ing**\n- Walking up the fell, Jack found a lost lamb."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Z **-ing** poveš tudi razlog, **not** gre naprej: **Not knowing the way, we asked at the inn.** (Ker nismo poznali poti, smo vprašali v gostilni.) **Being late, Sam ran to the bus.** Da bo jasneje, lahko pred -ing stoji mala beseda: **After eating, we went home.** **While waiting for the bus, I read the paper.** Po mali besedi vedno -ing.",
+          "de": "Mit **-ing** sagst du auch einen Grund, **not** kommt nach vorn: **Not knowing the way, we asked at the inn.** (Weil wir den Weg nicht kannten, fragten wir im Gasthaus.) **Being late, Sam ran to the bus.** Klarer wird es mit einem kleinen Wort davor: **After eating, we went home.** **While waiting for the bus, I read the paper.** Nach dem kleinen Wort immer -ing.",
+          "it": "Con **-ing** dici anche un motivo, **not** va davanti: **Not knowing the way, we asked at the inn.** (Non conoscendo la strada, abbiamo chiesto alla locanda.) **Being late, Sam ran to the bus.** Per essere più chiaro, davanti può stare una parolina: **After eating, we went home.** **While waiting for the bus, I read the paper.** Dopo la parolina sempre -ing.",
+          "en": "**-ing** gives a reason too, with **not** first: **Not knowing the way, we asked at the inn.** **Being late, Sam ran to the bus.** To be clearer, a small word can come before it: **After eating, we went home.** **While waiting for the bus, I read the paper.** After the small word, always -ing."
+        },
+        "examples": [
+          {
+            "en": "Not knowing the way, we asked at the inn.",
+            "sl": "Ker nismo poznali poti, smo vprašali v gostilni.",
+            "de": "Weil wir den Weg nicht kannten, fragten wir im Gasthaus.",
+            "it": "Non conoscendo la strada, abbiamo chiesto alla locanda."
+          },
+          {
+            "en": "Being late, Sam ran to the bus.",
+            "sl": "Ker je zamujal, je Sam stekel na avtobus.",
+            "de": "Weil er spät dran war, lief Sam zum Bus.",
+            "it": "Essendo in ritardo, Sam corse all'autobus."
+          },
+          {
+            "en": "After eating, we went home.",
+            "sl": "Po jedi smo šli domov.",
+            "de": "Nach dem Essen gingen wir heim.",
+            "it": "Dopo aver mangiato, siamo andati a casa."
+          },
+          {
+            "en": "While waiting for the bus, I read the paper.",
+            "sl": "Medtem ko sem {m:čakal|f:čakala} avtobus, sem {m:bral|f:brala} časopis.",
+            "de": "Während ich auf den Bus wartete, las ich die Zeitung.",
+            "it": "Aspettando l'autobus, ho letto il giornale."
+          }
+        ],
+        "rows": [
+          [
+            "not knowing …,",
+            {
+              "sl": "ker ne",
+              "de": "weil nicht",
+              "it": "perché non",
+              "en": "because … not"
+            },
+            "Not knowing the way, we asked."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "participle-clauses",
+          "text": "___ knowing anybody there, Edna stayed at home.",
+          "accept": [
+            "Not"
+          ],
+          "hint": {
+            "sl": "ker ni poznala",
+            "de": "weil sie nicht kannte",
+            "it": "perché non conosceva",
+            "en": "because she didn't know"
+          },
+          "explain": {
+            "sl": "**Razlog z ne: not + -ing**\n- Not knowing anybody there, Edna stayed at home.",
+            "de": "**Ein Grund mit nein: not + -ing**\n- Not knowing anybody there, Edna stayed at home.",
+            "it": "**Un motivo col no: not + -ing**\n- Not knowing anybody there, Edna stayed at home.",
+            "en": "**A reason with no: not + -ing**\n- Not knowing anybody there, Edna stayed at home."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za samostalnikom **-ing** nadomesti who ali which + be: **The man standing by the gate is Jack.** (Mož, ki stoji pri vratih, je Jack.) To je **The man who is standing by the gate**. **People living in the valley know him.** Na severu rečejo tudi *the man stood by the gate*; pisava hoče **standing**.",
+          "de": "Nach einem Nomen ersetzt **-ing** who oder which + be: **The man standing by the gate is Jack.** (Der Mann, der beim Tor steht, ist Jack.) Das ist **The man who is standing by the gate**. **People living in the valley know him.** Im Norden sagt man auch *the man stood by the gate*; geschrieben steht **standing**.",
+          "it": "Dopo un nome **-ing** sostituisce who o which + be: **The man standing by the gate is Jack.** (L'uomo in piedi vicino al cancello è Jack.) È **The man who is standing by the gate**. **People living in the valley know him.** Al nord si dice anche *the man stood by the gate*; per iscritto si usa **standing**.",
+          "en": "After a noun **-ing** takes the place of who or which + be: **The man standing by the gate is Jack.** That's **The man who is standing by the gate**. **People living in the valley know him.** In the North people also say *the man stood by the gate*; writing wants **standing**."
+        },
+        "examples": [
+          {
+            "en": "The man standing by the gate is Jack.",
+            "sl": "Mož, ki stoji pri vratih, je Jack.",
+            "de": "Der Mann, der beim Tor steht, ist Jack.",
+            "it": "L'uomo in piedi vicino al cancello è Jack."
+          },
+          {
+            "en": "People living in the valley know him.",
+            "sl": "Ljudje, ki živijo v dolini, ga poznajo.",
+            "de": "Die Leute, die im Tal wohnen, kennen ihn.",
+            "it": "Chi abita nella valle lo conosce."
+          },
+          {
+            "en": "Who's the woman talking to Edna?",
+            "sl": "Kdo je ženska, ki se pogovarja z Edno?",
+            "de": "Wer ist die Frau, die mit Edna spricht?",
+            "it": "Chi è la donna che parla con Edna?"
+          }
+        ],
+        "rows": [
+          [
+            "the man standing",
+            {
+              "sl": "ki stoji",
+              "de": "der dort steht",
+              "it": "che sta lì",
+              "en": "who is standing"
+            },
+            "the man standing by the gate"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participle-clauses",
+          "prompt": "Who's the man ___ to Mrs Birkett?",
+          "options": [
+            "talking",
+            "talked",
+            "talks"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ki se pogovarja: -ing**\n- the man talking to Mrs Birkett",
+            "de": "**Der gerade spricht: -ing**\n- the man talking to Mrs Birkett",
+            "it": "**Che sta parlando: -ing**\n- the man talking to Mrs Birkett",
+            "en": "**Who is talking: -ing**\n- the man talking to Mrs Birkett"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Deležnik pomeni, da je bilo narejeno, namesto which was: **a mill built in 1800** (mlin, zgrajen leta 1800). **The cheese made on Jack's farm is the best.** Lahko stoji tudi na začetku: **Built in 1800, the mill is still there.** **Seen from the tarn, the fell looks small.** (Gledan z jezerca je hrib videti majhen.) Svoje oblike ostanejo: built, made, written, seen.",
+          "de": "Das Partizip heißt: Es wurde gemacht, statt which was: **a mill built in 1800** (eine 1800 gebaute Mühle). **The cheese made on Jack's farm is the best.** Es kann auch am Anfang stehen: **Built in 1800, the mill is still there.** **Seen from the tarn, the fell looks small.** (Vom Bergsee aus gesehen wirkt der Fell klein.) Die eigenen Formen bleiben: built, made, written, seen.",
+          "it": "Il participio dice che è stato fatto, invece di which was: **a mill built in 1800** (un mulino costruito nel 1800). **The cheese made on Jack's farm is the best.** Può stare anche all'inizio: **Built in 1800, the mill is still there.** **Seen from the tarn, the fell looks small.** (Visto dal laghetto, il fell sembra piccolo.) Le forme proprie restano: built, made, written, seen.",
+          "en": "The participle says it was done, in place of which was: **a mill built in 1800**. **The cheese made on Jack's farm is the best.** It can come first too: **Built in 1800, the mill is still there.** **Seen from the tarn, the fell looks small.** The verbs keep their own forms: built, made, written, seen."
+        },
+        "examples": [
+          {
+            "en": "Mr Tyson's is a mill built in 1800.",
+            "sl": "Mlin gospoda Tysona je bil zgrajen leta 1800.",
+            "de": "Mr Tysons Mühle ist eine Mühle, die 1800 gebaut wurde.",
+            "it": "Quello di Mr Tyson è un mulino costruito nel 1800."
+          },
+          {
+            "en": "Built in 1800, the mill is still there.",
+            "sl": "Mlin, zgrajen leta 1800, še vedno stoji.",
+            "de": "1800 gebaut, steht die Mühle noch immer.",
+            "it": "Costruito nel 1800, il mulino è ancora lì."
+          },
+          {
+            "en": "The cheese made on Jack's farm is the best.",
+            "sl": "Sir z Jackove kmetije je najboljši.",
+            "de": "Der Käse von Jacks Hof ist der beste.",
+            "it": "Il formaggio fatto alla fattoria di Jack è il migliore."
+          },
+          {
+            "en": "Seen from the tarn, the fell looks small.",
+            "sl": "Gledan z jezerca je hrib videti majhen.",
+            "de": "Vom Bergsee aus gesehen wirkt der Fell klein.",
+            "it": "Visto dal laghetto, il fell sembra piccolo."
+          }
+        ],
+        "rows": [
+          [
+            "a mill built",
+            {
+              "sl": "ki je bil zgrajen",
+              "de": "die gebaut wurde",
+              "it": "che fu costruito",
+              "en": "which was built"
+            },
+            "a mill built in 1800"
+          ],
+          [
+            "built …,",
+            {
+              "sl": "ker je, ko je bil",
+              "de": "weil, als es … wurde",
+              "it": "essendo stato",
+              "en": "as it was"
+            },
+            "Built in 1800, it's still there."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participle-clauses",
+          "prompt": "The bread ___ in this village is very good.",
+          "options": [
+            "baked",
+            "baking",
+            "bakes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ki je pečen: deležnik**\n- The bread baked in this village …",
+            "de": "**Das gebacken wird: das Partizip**\n- The bread baked in this village …",
+            "it": "**Che viene fatto: il participio**\n- The bread baked in this village …",
+            "en": "**Which is baked: the participle**\n- The bread baked in this village …"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**Having** + deležnik pove, da je bilo eno že končano, ko se je začelo drugo: **Having finished the hay, we went to the inn.** (Ko smo pospravili seno, smo šli v gostilno.) To je **After we had finished**. **Having lost the map, we turned back.** V govoru je pogostejše **After finishing the hay**.",
+          "de": "**Having** + Partizip sagt, dass das eine schon vorbei war, als das andere begann: **Having finished the hay, we went to the inn.** (Nachdem wir mit dem Heu fertig waren, gingen wir ins Gasthaus.) Das ist **After we had finished**. **Having lost the map, we turned back.** Gesprochen ist **After finishing the hay** häufiger.",
+          "it": "**Having** + participio dice che una cosa era già finita quando è cominciata l'altra: **Having finished the hay, we went to the inn.** (Finito il fieno, siamo andati alla locanda.) È **After we had finished**. **Having lost the map, we turned back.** A voce è più comune **After finishing the hay**.",
+          "en": "**Having** + the participle says one thing was over when the other began: **Having finished the hay, we went to the inn.** That's **After we had finished**. **Having lost the map, we turned back.** In talk **After finishing the hay** is more usual."
+        },
+        "examples": [
+          {
+            "en": "Having finished the hay, we went to the inn.",
+            "sl": "Ko smo pospravili seno, smo šli v gostilno.",
+            "de": "Nachdem wir mit dem Heu fertig waren, gingen wir ins Gasthaus.",
+            "it": "Finito il fieno, siamo andati alla locanda."
+          },
+          {
+            "en": "Having lost the map, we turned back.",
+            "sl": "Ker smo izgubili zemljevid, smo se obrnili.",
+            "de": "Weil wir die Karte verloren hatten, kehrten wir um.",
+            "it": "Avendo perso la cartina, siamo tornati indietro."
+          },
+          {
+            "en": "After finishing the hay, we went to the inn.",
+            "sl": "Ko smo pospravili seno, smo šli v gostilno.",
+            "de": "Nachdem wir mit dem Heu fertig waren, gingen wir ins Gasthaus.",
+            "it": "Dopo aver finito il fieno, siamo andati alla locanda."
+          }
+        ],
+        "rows": [
+          [
+            "having finished",
+            {
+              "sl": "ko je že",
+              "de": "nachdem … hatte",
+              "it": "dopo aver",
+              "en": "after finishing"
+            },
+            "Having finished, we went home."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "participle-clauses",
+          "text": "___ eaten all the soup, Old Wilf fell asleep.",
+          "accept": [
+            "Having",
+            "After having"
+          ],
+          "hint": {
+            "sl": "najprej juha",
+            "de": "zuerst die Suppe",
+            "it": "prima la zuppa",
+            "en": "the soup first"
+          },
+          "explain": {
+            "sl": "**Najprej eno: having + deležnik**\n- Having eaten all the soup, Old Wilf fell asleep.",
+            "de": "**Zuerst das eine: having + Partizip**\n- Having eaten all the soup, Old Wilf fell asleep.",
+            "it": "**Prima una cosa: having + participio**\n- Having eaten all the soup, Old Wilf fell asleep.",
+            "en": "**One thing first: having + the participle**\n- Having eaten all the soup, Old Wilf fell asleep."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Obe polovici imata isti osebek: **Walking up the fell, I saw a raven.** Hodil sem jaz in videl sem jaz. V *Walking up the fell, a raven flew over me* hodi po stavku krokar. Ljudje to rečejo in se razume, skrbna pisava pa hoče **As I was walking up the fell, a raven flew over me.** Osebek takoj za vejico je tisti, ki hodi.",
+          "de": "Beide Hälften haben dasselbe Subjekt: **Walking up the fell, I saw a raven.** Ich ging und ich sah. In *Walking up the fell, a raven flew over me* geht laut Satz der Rabe. Man sagt das, und man versteht es, sorgfältig geschrieben steht **As I was walking up the fell, a raven flew over me.** Das Subjekt gleich nach dem Komma ist der, der geht.",
+          "it": "Le due metà hanno lo stesso soggetto: **Walking up the fell, I saw a raven.** Salivo io e ho visto io. In *Walking up the fell, a raven flew over me*, a stare alla frase, cammina il corvo. Si dice e si capisce, ma nello scritto curato si usa **As I was walking up the fell, a raven flew over me.** Il soggetto subito dopo la virgola è chi cammina.",
+          "en": "Both halves have one subject: **Walking up the fell, I saw a raven.** I walked and I saw. In *Walking up the fell, a raven flew over me* the sentence has the raven walking. People say it and you understand them, but careful writing wants **As I was walking up the fell, a raven flew over me.** The subject right after the comma is the one walking."
+        },
+        "examples": [
+          {
+            "en": "Walking up the fell, I saw a raven.",
+            "sl": "Ko sem {m:hodil|f:hodila} na hrib, sem {m:videl|f:videla} krokarja.",
+            "de": "Als ich den Fell hinaufging, sah ich einen Raben.",
+            "it": "Salendo sul fell, ho visto un corvo."
+          },
+          {
+            "en": "As I was walking up the fell, a raven flew over me.",
+            "sl": "Ko sem {m:hodil|f:hodila} na hrib, je nad mano priletel krokar.",
+            "de": "Als ich den Fell hinaufging, flog ein Rabe über mich.",
+            "it": "Mentre salivo sul fell, un corvo mi è volato sopra."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participle-clauses",
+          "prompt": {
+            "sl": "Walking up the fell, a raven flew over Jack. Kdo po tem stavku hodi?",
+            "de": "Walking up the fell, a raven flew over Jack. Wer geht laut diesem Satz?",
+            "it": "Walking up the fell, a raven flew over Jack. Chi cammina, a stare alla frase?",
+            "en": "Walking up the fell, a raven flew over Jack. Who is walking, by this sentence?"
+          },
+          "options": [
+            "the raven",
+            "Jack",
+            "nobody"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Osebek za vejico: raven**\n- Walking up the fell, Jack saw a raven.",
+            "de": "**Das Subjekt nach dem Komma: raven**\n- Walking up the fell, Jack saw a raven.",
+            "it": "**Il soggetto dopo la virgola: raven**\n- Walking up the fell, Jack saw a raven.",
+            "en": "**The subject after the comma: raven**\n- Walking up the fell, Jack saw a raven."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "participle-clauses-1",
+      "title": {
+        "sl": "Kdo dela, kaj je narejeno",
+        "de": "Wer es tut, was gemacht wurde",
+        "it": "Chi lo fa, che cosa è stato fatto",
+        "en": "Who does it, what was done"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "participle-clauses",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "kdo to dela · -ing",
+                "de": "wer es tut · -ing",
+                "it": "chi lo fa · -ing",
+                "en": "who is doing it: -ing"
+              },
+              "words": [
+                "a dog barking",
+                "a woman singing",
+                "people waiting",
+                "a fire burning"
+              ]
+            },
+            {
+              "label": {
+                "sl": "kaj je narejeno · deležnik",
+                "de": "was gemacht wurde · Partizip",
+                "it": "che cosa è stato fatto · participio",
+                "en": "what was done: the participle"
+              },
+              "words": [
+                "a mill built",
+                "a letter written",
+                "eggs sold here",
+                "a gate mended"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-ing: kdo to dela; deležnik: narejeno je**\n- a dog barking, a gate mended",
+            "de": "**-ing: wer es tut; Partizip: es wurde gemacht**\n- a dog barking, a gate mended",
+            "it": "**-ing: chi lo fa; participio: è stato fatto**\n- a dog barking, a gate mended",
+            "en": "**-ing: who does it; the participle: it was done**\n- a dog barking, a gate mended"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "participle-clauses",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "___ (walk) up the fell last week, Jack heard a lamb. ___ (leave) by its mother, it was very cold. ___ (not know) what to do, he carried it home. The sheep ___ (keep) on the fell are Herdwicks. The woman ___ (feed) the lamb now is his aunt. ___ (warm) by the fire, it soon got up.",
+          "gaps": [
+            {
+              "accept": [
+                "Walking"
+              ]
+            },
+            {
+              "accept": [
+                "Left"
+              ]
+            },
+            {
+              "accept": [
+                "Not knowing"
+              ]
+            },
+            {
+              "accept": [
+                "kept"
+              ]
+            },
+            {
+              "accept": [
+                "feeding"
+              ]
+            },
+            {
+              "accept": [
+                "Warmed"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Walked",
+            "keeping"
+          ],
+          "translation": {
+            "sl": "Ko je Jack prejšnji teden hodil na hrib, je zaslišal jagnje. Mati ga je zapustila in zelo ga je zeblo. Ker ni vedel, kaj naj stori, ga je odnesel domov. Ovce, ki jih redijo na hribu, so herdwick. Ženska, ki zdaj hrani jagnje, je njegova teta. Ogreto ob ognju je kmalu vstalo.",
+            "de": "Als Jack letzte Woche den Fell hinaufging, hörte er ein Lamm. Von der Mutter verlassen, fror es sehr. Weil er nicht wusste, was er tun sollte, trug er es heim. Die Schafe auf dem Fell sind Herdwicks. Die Frau, die das Lamm jetzt füttert, ist seine Tante. Am Feuer aufgewärmt, stand es bald auf.",
+            "it": "Salendo sul fell la settimana scorsa, Jack ha sentito un agnello. Lasciato dalla madre, aveva molto freddo. Non sapendo che cosa fare, l'ha portato a casa. Le pecore tenute sul fell sono Herdwick. La donna che ora dà da mangiare all'agnello è sua zia. Scaldato vicino al fuoco, si è presto alzato.",
+            "en": "Walking up the fell last week, Jack heard a lamb. Left by its mother, it was very cold. Not knowing what to do, he carried it home. The sheep kept on the fell are Herdwicks. The woman feeding the lamb now is his aunt. Warmed by the fire, it soon got up."
+          }
+        }
+      ]
+    },
+    {
+      "id": "participle-clauses-2",
+      "title": {
+        "sl": "Krajše",
+        "de": "Kürzer",
+        "it": "Più breve",
+        "en": "Shorter"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "participle-clauses",
+          "instruction": {
+            "sl": "Make one sentence with -ing, the participle or having · Naredi en stavek z -ing, deležnikom ali having",
+            "de": "Make one sentence with -ing, the participle or having · Mach einen Satz mit -ing, dem Partizip oder having",
+            "it": "Make one sentence with -ing, the participle or having · Fanne una frase sola con -ing, il participio o having",
+            "en": "Make one sentence with -ing, the participle or having"
+          },
+          "items": [
+            {
+              "from": "I was walking up the fell. I saw a raven.",
+              "accept": [
+                "Walking up the fell, I saw a raven.",
+                "While walking up the fell, I saw a raven.",
+                "When walking up the fell, I saw a raven."
+              ]
+            },
+            {
+              "from": "Jack felt cold. He shut the door.",
+              "accept": [
+                "Feeling cold, Jack shut the door.",
+                "Feeling cold, he shut the door."
+              ]
+            },
+            {
+              "from": "We didn't know the way. We asked at the inn.",
+              "accept": [
+                "Not knowing the way, we asked at the inn."
+              ],
+              "hint": {
+                "sl": "not naprej",
+                "de": "not nach vorn",
+                "it": "not davanti",
+                "en": "not first"
+              }
+            },
+            {
+              "from": "Mrs Birkett heard the bell. She ran to the door.",
+              "accept": [
+                "Hearing the bell, Mrs Birkett ran to the door.",
+                "Hearing the bell, she ran to the door."
+              ]
+            },
+            {
+              "from": "Sam was tired out. He went to bed.",
+              "accept": [
+                "Tired out, Sam went to bed.",
+                "Being tired out, Sam went to bed.",
+                "Tired out, he went to bed.",
+                "Being tired out, he went to bed."
+              ]
+            },
+            {
+              "from": "We finished the hay. Then we went to the inn.",
+              "accept": [
+                "Having finished the hay, we went to the inn.",
+                "After finishing the hay, we went to the inn.",
+                "After having finished the hay, we went to the inn.",
+                "Finishing the hay, we went to the inn."
+              ]
+            },
+            {
+              "from": "Arthur had lost his hat. He went back for it.",
+              "accept": [
+                "Having lost his hat, Arthur went back for it.",
+                "Having lost his hat, he went back for it."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Isti osebek: enkrat, za vejico**\n- Jack felt cold. He shut the door. → Feeling cold, Jack shut the door.",
+            "de": "**Dasselbe Subjekt: einmal, nach dem Komma**\n- Jack felt cold. He shut the door. → Feeling cold, Jack shut the door.",
+            "it": "**Lo stesso soggetto: una volta, dopo la virgola**\n- Jack felt cold. He shut the door. → Feeling cold, Jack shut the door.",
+            "en": "**One subject: once, after the comma**\n- Jack felt cold. He shut the door. → Feeling cold, Jack shut the door."
+          }
+        }
+      ]
+    },
+    {
+      "id": "participle-clauses-3",
+      "title": {
+        "sl": "Mož pri vratih, mlin iz leta 1800",
+        "de": "Der Mann beim Tor, die Mühle von 1800",
+        "it": "L'uomo al cancello, il mulino del 1800",
+        "en": "The man at the gate, the mill of 1800"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "participle-clauses",
+          "instruction": {
+            "sl": "Make it shorter · Skrajšaj",
+            "de": "Make it shorter · Mach es kürzer",
+            "it": "Make it shorter · Accorciala",
+            "en": "Make it shorter"
+          },
+          "items": [
+            {
+              "from": "The man who is standing by the gate is Jack.",
+              "accept": [
+                "The man standing by the gate is Jack."
+              ]
+            },
+            {
+              "from": "People who live in the valley know him.",
+              "accept": [
+                "People living in the valley know him."
+              ]
+            },
+            {
+              "from": "Who's the woman who is talking to Edna?",
+              "accept": [
+                "Who's the woman talking to Edna?"
+              ]
+            },
+            {
+              "from": "The mill, which was built in 1800, is closed now.",
+              "accept": [
+                "The mill, built in 1800, is closed now."
+              ]
+            },
+            {
+              "from": "The cheese which is made on Jack's farm is the best.",
+              "accept": [
+                "The cheese made on Jack's farm is the best."
+              ]
+            },
+            {
+              "from": "This is a letter that was written by Beatrix Potter.",
+              "accept": [
+                "This is a letter written by Beatrix Potter."
+              ]
+            },
+            {
+              "from": "The sheep that are kept on the fell are Herdwicks.",
+              "accept": [
+                "The sheep kept on the fell are Herdwicks."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**who, which + be odpade**\n- The man who is standing → The man standing",
+            "de": "**who, which + be fallen weg**\n- The man who is standing → The man standing",
+            "it": "**who, which + be cadono**\n- The man who is standing → The man standing",
+            "en": "**who, which + be go**\n- The man who is standing → The man standing"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "participle-clauses",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "The fell ___ from the tarn looks small.",
+          "options": [
+            "seen",
+            "seeing",
+            "see"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ki ga vidiš: deležnik**\n- The fell seen from the tarn …",
+            "de": "**Das man sieht: das Partizip**\n- The fell seen from the tarn …",
+            "it": "**Che si vede: il participio**\n- The fell seen from the tarn …",
+            "en": "**Which is seen: the participle**\n- The fell seen from the tarn …"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "participle-clauses",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "___ all her work, Granny Maggie sat down.",
+          "options": [
+            "Having done",
+            "Having do",
+            "Have done"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**having + deležnik**\n- Having done all her work, …",
+            "de": "**having + Partizip**\n- Having done all her work, …",
+            "it": "**having + participio**\n- Having done all her work, …",
+            "en": "**having + the participle**\n- Having done all her work, …"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "participle-clauses",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "___ (hear) the rain, Mrs Birkett shut the windows. The man ___ (sit) by the fire is Old Wilf. The Packhorse, ___ (build) in 1750, has thick walls. ___ (not want) to get wet, we stayed inside. ___ (finish) his soup, Wilf fell asleep.",
+        "gaps": [
+          {
+            "accept": [
+              "Hearing"
+            ]
+          },
+          {
+            "accept": [
+              "sitting"
+            ]
+          },
+          {
+            "accept": [
+              "built"
+            ]
+          },
+          {
+            "accept": [
+              "Not wanting"
+            ]
+          },
+          {
+            "accept": [
+              "Having finished",
+              "After finishing",
+              "After having finished",
+              "Finishing"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Ko je zaslišala dež, je gospa Birkett zaprla okna. Mož, ki sedi ob ognju, je Stari Wilf. Packhorse, zgrajen leta 1750, ima debele zidove. Ker se nismo hoteli zmočiti, smo ostali notri. Ko je pojedel juho, je Wilf zaspal.",
+          "de": "Als sie den Regen hörte, schloss Mrs Birkett die Fenster. Der Mann beim Feuer ist der alte Wilf. Das 1750 gebaute Packhorse hat dicke Mauern. Weil wir nicht nass werden wollten, blieben wir drinnen. Nachdem er seine Suppe gegessen hatte, schlief Wilf ein.",
+          "it": "Sentendo la pioggia, Mrs Birkett ha chiuso le finestre. L'uomo seduto vicino al fuoco è il vecchio Wilf. Il Packhorse, costruito nel 1750, ha muri spessi. Non volendo bagnarci, siamo rimasti dentro. Finita la zuppa, Wilf si è addormentato.",
+          "en": "Hearing the rain, Mrs Birkett shut the windows. The man sitting by the fire is Old Wilf. The Packhorse, built in 1750, has thick walls. Not wanting to get wet, we stayed inside. Having finished his soup, Wilf fell asleep."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "participle-clauses",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "The honey ___ by Arthur's bees is very dark.",
+        "options": [
+          "made",
+          "making",
+          "makes"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Ki ga delajo: deležnik**\n- The honey made by Arthur's bees …",
+          "de": "**Der gemacht wird: das Partizip**\n- The honey made by Arthur's bees …",
+          "it": "**Che viene fatto: il participio**\n- The honey made by Arthur's bees …",
+          "en": "**Which is made: the participle**\n- The honey made by Arthur's bees …"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "participle-clauses",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ the map, we turned back.",
+        "options": [
+          "Having lost",
+          "Having lose",
+          "Have lost"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**having + deležnik**\n- Having lost the map, we turned back.",
+          "de": "**having + Partizip**\n- Having lost the map, we turned back.",
+          "it": "**having + participio**\n- Having lost the map, we turned back.",
+          "en": "**having + the participle**\n- Having lost the map, we turned back."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "participle-clauses",
+        "instruction": {
+          "sl": "Say who · Povej, kdo",
+          "de": "Say who · Sag, wer",
+          "it": "Say who · Di' chi",
+          "en": "Say who"
+        },
+        "prompt": {
+          "sl": "Carrying the lamb home, Jack saw Meg. Kdo nese jagnje?",
+          "de": "Carrying the lamb home, Jack saw Meg. Wer trägt das Lamm?",
+          "it": "Carrying the lamb home, Jack saw Meg. Chi porta l'agnello?",
+          "en": "Carrying the lamb home, Jack saw Meg. Who is carrying the lamb?"
+        },
+        "options": [
+          "Jack",
+          "Meg",
+          "the lamb"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Osebek za vejico nese**\n- Carrying the lamb home, Jack saw Meg.",
+          "de": "**Das Subjekt nach dem Komma trägt**\n- Carrying the lamb home, Jack saw Meg.",
+          "it": "**Il soggetto dopo la virgola porta**\n- Carrying the lamb home, Jack saw Meg.",
+          "en": "**The subject after the comma carries it**\n- Carrying the lamb home, Jack saw Meg."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "participle-clauses",
+        "instruction": {
+          "sl": "Make it shorter · Skrajšaj",
+          "de": "Make it shorter · Mach es kürzer",
+          "it": "Make it shorter · Accorciala",
+          "en": "Make it shorter"
+        },
+        "items": [
+          {
+            "from": "Mr Dixon saw the fire. He ran to the smithy.",
+            "accept": [
+              "Seeing the fire, Mr Dixon ran to the smithy.",
+              "Seeing the fire, he ran to the smithy."
+            ]
+          },
+          {
+            "from": "The woman who is singing at the inn is Poppy's aunt.",
+            "accept": [
+              "The woman singing at the inn is Poppy's aunt."
+            ]
+          },
+          {
+            "from": "The bridge, which was mended last year, is open again.",
+            "accept": [
+              "The bridge, mended last year, is open again."
+            ]
+          },
+          {
+            "from": "We hadn't got a map. We asked Jack.",
+            "accept": [
+              "Not having a map, we asked Jack.",
+              "Having no map, we asked Jack."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Isti osebek: enkrat; who, which + be odpade**\n- Seeing the fire, Mr Dixon ran to the smithy.",
+          "de": "**Dasselbe Subjekt: einmal; who, which + be fallen weg**\n- Seeing the fire, Mr Dixon ran to the smithy.",
+          "it": "**Lo stesso soggetto: una volta; who, which + be cadono**\n- Seeing the fire, Mr Dixon ran to the smithy.",
+          "en": "**One subject: once; who, which + be go**\n- Seeing the fire, Mr Dixon ran to the smithy."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: the man stood by the gate as the North's; a raven walking as said; Beatrix Potter's letter"
+}
