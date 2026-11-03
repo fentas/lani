@@ -197,7 +197,7 @@ private fun learningTiles(vm: AppViewModel, d: si.lanisce.lani.data.Dashboard, t
         // the school's course first (companion/GAME.md, "The school"), where the village's language has one: its screen at
         // once, also before the class begins (it says what begins it)
         si.lanisce.lani.ui.school.schoolTile(vm)?.let { st -> tile("🏫", "school.title", st, vm::openSchool) },
-        tile("📚", "homeScreen.newWords", HomeLogic.words(vm.packs.list, vm.packs.newIds), vm::openPacks),
+        tile("📚", "homeScreen.newWords", HomeLogic.words(vm.packs.list, vm.packs.newIds, vm.content.dashboard?.level), vm::openPacks),
         tile("🔤", "myWords.title", HomeLogic.myWords(words.count { it.learned }, words.count { !it.learned }), vm::openMyWords),
         tile("📖", "townScroll.grammar", HomeLogic.grammarBook(book.rows.size, book.new), vm::openGrammarBook),
         tile("✨", "homeScreen.challenges", HomeLogic.challenges(vm.content.modules, vm.content.newModules)) { sheet(Sheet.CHALLENGES) },

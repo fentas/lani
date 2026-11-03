@@ -29,6 +29,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +40,10 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.collapse
+import androidx.compose.ui.semantics.expand
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -55,7 +62,11 @@ import si.lanisce.lani.l10n.inTarget
 @Composable
 fun PacksScreen(vm: AppViewModel) {
     val all = vm.packs.list.map { vm.villagers.shown(it, vm.game.state) }
-    val packs = PackSession.order(all) { it.id in vm.packs.newIds }
+    // the packs two levels or more above the learner's, not started, wait folded at the end ("Za pozneje · For later")
+    val level = vm.content.dashboard?.level ?: "A1"
+    val packs = PackSession.order(all, level) { it.id in vm.packs.newIds }
+    val later = PackSession.later(all, level)
+    var laterOpen by rememberSaveable { mutableStateOf(false) }
     // the festivals' packs in a section of their own, the next festival first: learn them early, or celebrate to learn
     val today = LocalDate.now()
     val feasts = PackSession.feasts(all) { id -> Calendar.byId(id)?.let { Calendar.occurrence(it, today) ?: Calendar.next(it, today) } }
@@ -112,9 +123,39 @@ fun PacksScreen(vm: AppViewModel) {
         items(projects, key = { it.id }) { p ->
             PackCard(p, isNew = false, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id) }
         }
-        if (packs.isNotEmpty() || feasts.isNotEmpty() || projects.isNotEmpty()) item {
+        if (later.isNotEmpty()) item("later") {
+            LaterHeader(PackSession.levelsOf(later), later.size, laterOpen) { laterOpen = !laterOpen }
+        }
+        if (laterOpen) items(later, key = { it.id }) { p ->
+            PackCard(p, isNew = false, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id) }
+        }
+        if (packs.isNotEmpty() || feasts.isNotEmpty() || projects.isNotEmpty() || later.isNotEmpty()) item {
             TextButton(onClick = vm.chat::open, modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
                 Text("💬 ${bi("packsScreen.wantOtherWordsAsk")}")
+            }
+        }
+    }
+}
+
+/**
+ * "▸ ⏳ Za pozneje · For later (24)" and what waits there ("Besede za B1–B2 …"): the packs two levels or more above the
+ * learner's, folded until a tap opens them. TalkBack hears it as a button that expands or collapses.
+ */
+@Composable
+private fun LaterHeader(levels: String, count: Int, open: Boolean, onClick: () -> Unit) {
+    Surface(
+        onClick = onClick,
+        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 4.dp).heightIn(min = 48.dp).semantics {
+            if (open) collapse { onClick(); true } else expand { onClick(); true }
+        },
+    ) {
+        Row(Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(if (open) "▾" else "▸", modifier = Modifier.padding(end = 8.dp).clearAndSetSemantics { })
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text("⏳ ${bi("packsScreen.forLater")} ($count)", style = MaterialTheme.typography.titleMedium)
+                Text(bi("packsScreen.forLaterWhy", "levels" to levels), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
     }

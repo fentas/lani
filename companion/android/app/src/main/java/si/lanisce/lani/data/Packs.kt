@@ -118,9 +118,16 @@ data class PackInfo(
     val festival: String? = null,
     /** The village project whose words these are (game/Projects.kt's id), for a project's pack ("🏗️ projekt · project"). */
     val project: String? = null,
+    /**
+     * Of [learned], the words learned in this pack itself (their own cards; a word the learner has from another pack or a
+     * looked-up card counts in [learned] only). Null from a bridge before it said (then [learned] stands for it).
+     */
+    val own: Int? = null,
 ) {
     val left: Int get() = (total - learned).coerceAtLeast(0)
     val done: Boolean get() = total > 0 && learned >= total
+    /** Whether the learner started this pack: a word learned in it, not only one it shares with another ([own]). */
+    val started: Boolean get() = (own ?: learned) > 0
 }
 
 /** GET /packs/:id: the words, plus the ids Jan already has. */
@@ -266,33 +273,82 @@ object PackSession {
             .groupBy({ it.first }, { it.second }).map { (w, q) -> w to q.min() }
 
     /**
+     * What this app does with the packs' levels, as it asks for them (GET /packs?packs=1, [Bridge.PACKS]): 1, it orders
+     * them by the learner's level itself ([suggest], [order]) and folds those two levels or more above it ([later]). The
+     * bridge gives an app that doesn't say (an older one) only the packs up to a level above its learner's, and every pack
+     * the learner has started (bridge/src/packs.ts, `forApp`).
+     */
+    const val VERSION = 1
+
+    private val LEVELS = listOf("A1", "A2", "B1", "B2", "C1", "C2")
+
+    /** How many levels [pack] (a pack's level) is above [level] (the learner's): 0 at or below it, or either unknown. */
+    fun above(pack: String, level: String): Int {
+        val p = LEVELS.indexOf(pack)
+        val l = LEVELS.indexOf(level)
+        return if (p < 0 || l < 0) 0 else (p - l).coerceAtLeast(0)
+    }
+
+    /**
+     * Whether [p] waits under "Za pozneje · For later" ([later]) for a learner at [level]: a curated pack not started, two
+     * levels or more above theirs, not a festival's or a project's (their own sections). A pack the learner started, and
+     * every tutor pack, stays where it was.
+     */
+    fun isLater(p: PackInfo, level: String): Boolean =
+        p.source != "tutor" && !p.started && p.festival == null && p.project == null && above(p.level, level) >= 2
+
+    /**
+     * Whether [p] is under way for a learner at [level] (the suggestion's and the list's "in progress"): words learned, and
+     * for a pack above their level words learned in it ([PackInfo.started]): a B2 pack that shares a word with an A1 one
+     * (or holds a word looked up in a dialog) isn't under way for a learner at A1 or A2. At or below their level, any word
+     * learned counts, as it always did. Without a level, any word learned.
+     */
+    fun underWay(p: PackInfo, level: String?): Boolean =
+        p.learned > 0 && (level == null || above(p.level, level) == 0 || p.started)
+
+    /**
      * The pack to suggest next: a tutor pack Jan hasn't opened, then the pack of the festival that's on or coming
-     * ([festival], a calendar id: learn its words early), then one in progress, then the first untouched one at the
-     * learner's level, then any unfinished one. The other festivals' packs wait on the packs screen.
+     * ([festival], a calendar id: learn its words early), then one in progress ([underWay]), then the first untouched one at the
+     * learner's level, then the first unfinished one at or below it, then one above, the nearest level first (an A1
+     * learner who has every A1 and A2 pack gets a B1 one, never a B2 one first). The other festivals' packs wait on the
+     * packs screen.
      */
     fun suggest(packs: List<PackInfo>, level: String, festival: String? = null, isNew: (PackInfo) -> Boolean = { false }): PackInfo? {
         val open = packs.filter { !it.done && it.total > 0 }
         val plain = open.filter { it.festival == null }
         return open.firstOrNull { it.source == "tutor" && isNew(it) }
             ?: festival?.let { f -> open.firstOrNull { it.festival == f } }
-            ?: plain.firstOrNull { it.learned > 0 }
+            ?: plain.firstOrNull { underWay(it, level) }
             ?: plain.firstOrNull { it.level == level }
-            ?: plain.firstOrNull()
+            ?: plain.firstOrNull { above(it.level, level) == 0 }
+            ?: plain.minByOrNull { above(it.level, level) }
     }
 
     /**
      * Packs screen order: new tutor packs, in progress, untouched, then finished (the festivals' packs: see [feasts]; the
-     * projects': see [projects]).
+     * projects': see [projects]). With the learner's [level], the packs that wait for later ([isLater]) are left out:
+     * they are [later]'s.
      */
-    fun order(packs: List<PackInfo>, isNew: (PackInfo) -> Boolean = { false }): List<PackInfo> =
-        packs.filter { it.festival == null && it.project == null }.sortedBy { p ->
+    fun order(packs: List<PackInfo>, level: String? = null, isNew: (PackInfo) -> Boolean = { false }): List<PackInfo> =
+        packs.filter { it.festival == null && it.project == null && (level == null || !isLater(it, level)) }.sortedBy { p ->
             when {
                 p.done -> 3
                 p.source == "tutor" && isNew(p) -> 0
-                p.learned > 0 -> 1
+                underWay(p, level) -> 1
                 else -> 2
             }
         }
+
+    /**
+     * The packs for "Za pozneje · For later", folded at the end of the packs screen: those two levels or more above the
+     * learner's [level] not started ([isLater]), the nearest level first. A tap on one still learns it.
+     */
+    fun later(packs: List<PackInfo>, level: String): List<PackInfo> =
+        packs.filter { isLater(it, level) }.sortedBy { above(it.level, level) }
+
+    /** "B1–B2", "B2": the levels of [packs] ([later]'s), lowest to highest. */
+    fun levelsOf(packs: List<PackInfo>): String =
+        packs.map { it.level }.distinct().sortedBy { LEVELS.indexOf(it) }.let { if (it.size > 1) "${it.first()}–${it.last()}" else it.firstOrNull().orEmpty() }
 
     /**
      * The festivals' packs for their own section of the packs screen ("🎉 Prazniki · Feasts"), the next festival first
