@@ -188,8 +188,8 @@ data class Outcome(
 }
 
 /** Grades a typed answer: forgives diacritics and stem typos, never endings (see [Grading]). */
-private fun typed(answer: String, accept: List<String>, explain: String?): Outcome {
-    val r = Grading.check(answer, accept)
+private fun typed(answer: String, accept: List<String>, explain: String?, before: String = ""): Outcome {
+    val r = Grading.check(answer, accept, before = before)
     return Outcome(r.verdict, answer, r.expected, explain, marks = r.marks, hint = r.hint)
 }
 
@@ -732,8 +732,8 @@ private fun ExerciseView(
             if (ex.audio != null) {
                 Prompt("", ex.instruction ?: bi("content.hearGap"))
                 AudioPrompt(ex.audio)
-                TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain) }
-            } else TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, ex.instruction, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain) }
+                TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain, ex.text.substringBefore("___", "")) }
+            } else TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, ex.instruction, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain, ex.text.substringBefore("___", "")) }
         }
         is Exercise.Dictation -> {
             Prompt("", ex.instruction ?: bi("common.writeWhatHear"))
@@ -884,7 +884,7 @@ private fun AdaptiveChoiceEx(vm: AppViewModel, a: AdaptedChoice, locked: Boolean
                 ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, sayOptions = ex.sayOptions, almost = ex.almost)
             } else ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, ex.instruction, ex.say, ex.sayOptions, ex.almost)
         a.mode == TurnMode.TYPE -> {
-            TypedEx(g.shown, null, locked, done, "✍️ ${bi("adaptive.typeMissingWord")}", accept = g.accept) { t -> typed(t, g.accept, ex.explain) }
+            TypedEx(g.shown, null, locked, done, "✍️ ${bi("adaptive.typeMissingWord")}", accept = g.accept) { t -> typed(t, g.accept, ex.explain, g.before) }
             if (!locked) LetMeChooseButton { chosen = true }
         }
         else -> {
@@ -1587,6 +1587,7 @@ internal fun hintText(h: Grading.Hint): String? = when (h) {
     // the examples are the target language's own (its grading table's): l'acqua, un'amica for Italian, can't, I'm for English
     Grading.Hint.APOSTROPHE -> bi("playerScreen.mindApostrophe") + Spelling.of(L10n.pair.target).looseExamples?.let { ": $it" }.orEmpty()
     Grading.Hint.TYPO -> bi("playerScreen.looksLikeTypoSo")
+    Grading.Hint.NONSTANDARD -> bi("playerScreen.nonstandard")
     Grading.Hint.ENDING -> bi("playerScreen.checkEndingSloveneCarries")
 }
 

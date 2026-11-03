@@ -49,6 +49,14 @@
   ],
   "loose_hint": "apostrophe",
   "loose_examples": "can't, I'm",
+  "_nonstandard_note": "nonstandard: what people say that writing doesn't want: almost, the standard form shown, one way only (good for well, never well for good). A double negative only after a negative in its sentence, so Is there nothing to eat? stays wrong for anything. Not a worksheet item's spoken, which is right: COURSE.md, Spoken forms.",
+  "nonstandard": [
+    { "word": "good", "for": "well" },
+    { "word": "nothing", "for": "anything", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" },
+    { "word": "no one|no-one|nobody", "for": "anyone|anybody", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" },
+    { "word": "nowhere", "for": "anywhere", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" },
+    { "word": "no", "for": "any", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" }
+  ],
   "drop_subject": false,
   "ending_letters": 1,
   "wrong": [

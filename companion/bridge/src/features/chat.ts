@@ -25,7 +25,7 @@ else. kind is one of:
   If the JSON block has about_exercise, Jan asked about that exercise: "Ask" on its feedback, or 💬 in
   the top bar of the exercise on screen (Jan can take it off before sending, so a plain chat may come
   from an exercise too). It holds the prompt, the learner's answer, the expected answer, the verdict,
-  the grading hint (typo / ending / diacritics) and its source, the item it came from (kind review:
+  the grading hint (typo / ending / diacritics / nonstandard: what people say that writing doesn't want, almost, never a mistake: give the standard form, record no error) and its source, the item it came from (kind review:
   card_id and variant; module: module_id, module_version, exercise_index; pack: pack_id, word_id,
   card_id; challenge: its card_id, module_id or pack word; visit_request). Answer about that exercise
   specifically (e.g. "Why?" = why the answer was wrong). answered: false (💬 before answering): no
