@@ -36,4 +36,10 @@ dates): numbers_order is the tens first, as English and Italian say them (zwanzi
 numbers_spelling includes eins kept whole (einsundzwanzig) and sechs, sieben kept whole (sechszehn, siebenzig);
 numbers_ordinal_date a date's day after der (der fünfzehnte; -ste from 20, erste, dritte, siebte, achte; on ordinalzahlen),
 numbers_clock_time um + the hour, numbers_clock_time_half halb counted as English's half past (6:30 for um halb sechs; on
-uhrzeit). Austria's Jänner is the month's name, Januar right too. English has no such module yet.
+uhrzeit). Austria's Jänner is the month's name, Januar right too.
+For a learner of English (data.numbers.language "en"; the unit numbers opens it, time brings the dates and the clock):
+numbers_order is the ones first, as German and Slovene say them (seven twenty, 72 typed for twenty-seven), numbers_spelling
+also forty without its u, numbers_ordinal_date a date's ordinal (the fifteenth of May; fifth, ninth, twelfth, twentieth: fiveth,
+nineth are wrong), numbers_clock_time at + the hour, numbers_clock_time_half half past counted as German's halb or Slovene's pol
+(4:30 for half past five, "half six" written for 5:30; on time-dates); "and" left out (one hundred five) and a year in pairs
+(twenty twenty-six) are right.
