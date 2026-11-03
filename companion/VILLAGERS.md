@@ -541,7 +541,9 @@ celebrations"):
   `celebrations/<age>.json`). One who isn't in the village tonight has their lines said by another guest, else by someone
   of the village of their age, else by the host (a host who isn't here, by the first guest who is); the guests' lines say
   nothing of who says them, and no line names anyone of the cast ("Who a text may name"). Everyone who lives here
-  grows closer the first time (+2 ♥) and remembers it ("Še vedno mislim na našo veselico").
+  grows closer the first time (+2 ♥) and remembers it ("Še vedno mislim na našo veselico"). In Kärnten: Opa Sepp the first
+  evening by the fire, Müller Franz the Firstfeier, Wirtin Kathi the Dorffest, Mostbauer Stefan the Wiesenmarkt, Lehrerin Eva
+  the Stadtfest.
 - **The day's surprise.** Luka looks for his lamb, a child asks a riddle, the postman brings a letter for Marko,
   Micka, Tone or Vida (their names in the right case: "pismo za Micko", "Preberi ji ga!"), only while they live here.
   The pedlar and the pilgrim are strangers from the road (below).
