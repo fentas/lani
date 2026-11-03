@@ -159,7 +159,7 @@ export default async function meanings() {
   // uses, the expressions, written for a child in German first.
   const itExtra = JSON.parse(readFileSync(join(import.meta.dir, '../../../lexicon/it.extra.json'), 'utf8'))
   const itChecked = validateExtra(itExtra)
-  check('the Italian supplement (it.extra.json) validates, every entry, each with German and Slovene, and says a machine wrote it', itChecked.errors.length === 0 && itChecked.entries.length > 300 && itChecked.entries.every(e => !!e.meanings?.de && !!e.meanings.sl) && itExtra.meta.reviewed === false && itExtra.meta.machine_written === true, itChecked.errors)
+  check('the Italian supplement (it.extra.json) validates, every entry, each with German and Slovene, and says a machine wrote it', itChecked.errors.length === 0 && itChecked.entries.length > 1500 && itChecked.entries.every(e => !!e.meanings?.de && !!e.meanings.sl) && itExtra.meta.reviewed === false && itExtra.meta.machine_written === true, itChecked.errors)
   const phoneDir = tempDir('lani-smoke-it-phone-')
   writeFileSync(join(phoneDir, 'it.extra.json'), JSON.stringify(itExtra))
   const phone = new Lexicon({ dir: phoneDir, language: 'it', base: 'de', tutorFile: join(dataDir, 'fixture-glosses-it-phone.json') })
@@ -185,5 +185,36 @@ export default async function meanings() {
     "lookup without Wiktionary: a reflexive verb by its pronoun (si lava: lavarsi, sich waschen); the plain verb's form is not taken for it (gira il frico)",
     washes?.lemma === 'lavarsi' && washes.gloss[0] === 'sich waschen' && !turns.some(e => e.lemma === 'girarsi'),
     { washes, turns },
+  )
+  // every other word of the Italian content (supplement-it): the function words, a verb's forms by its paradigm, a
+  // contraction by what it is made of, a sound with a meaning, a Friulian or a Slovene word said to be one
+  const first = (w: string, line: string) => tap(w, line)[0]
+  const [the, her] = [first('la', 'La casa è grande.'), lookup('la', { line: 'Io la vedo.', en: 'I see her.' }, { lexicon: phone, base: 'de', packs: [], people: [], items: {} }).entries[0]]
+  check(
+    "lookup without Wiktionary, supplement-it: la is the article, the line's her the pronoun; che, non, il, un, per mean something, each machine-written",
+    the?.lemma === 'la' && the.pos === 'det' && /der, die, das/.test(the.gloss[0]) && the.gloss_via === 'claude' && her?.pos === 'pron' && first('che', 'Penso che dorme.')?.gloss[0] === 'dass' && first('non', 'Moro non morde.')?.gloss[0] === 'nicht' && first('il', 'Il cane dorme.')?.lemma === 'il' && first('un', 'Un cane abbaia.')?.lemma === 'un' && first('per', 'Questo è per te.')?.gloss[0] === 'für',
+    { the, her },
+  )
+  const [nella, sul, vedo, sees, piacciono] = [first('nella', 'Sono nella casa.'), first('sul', 'È sul tavolo.'), first('vedo', 'Vedo la luna.'), first('vide', 'Il re vide il drago.'), first('piacciono', 'Mi piacciono le mele.')]
+  check(
+    "lookup without Wiktionary, supplement-it: a contraction is its preposition (nella: in + la, sul: su + il), a verb's form its verb with its grammar, the irregular ones too (vedo, vide, piacciono)",
+    nella?.lemma === 'in' && nella.grammar === 'in + la' && sul?.lemma === 'su' && sul.grammar === 'su + il' && vedo?.lemma === 'vedere' && vedo.gloss[0] === 'sehen' && vedo.grammar === 'first-person singular present' && sees?.lemma === 'vedere' && /historic past/.test(sees.grammar ?? '') && piacciono?.lemma === 'piacere' && /third-person plural/.test(piacciono.grammar ?? ''),
+    { nella, sul, vedo, sees, piacciono },
+  )
+  const [hm, bzz, fogolar, guba] = [first('hm', 'Hm, non lo so.'), first('bzz', 'Bzz, fa l\'ape.'), first('fogolâr', 'Al fogolâr fa caldo.'), first('guba', 'Dallo sloveno guba, la piega.')]
+  const lungo = [first('lungo', 'Un viaggio lungo.'), first('lungo', 'Camminiamo lungo il fiume.')]
+  check(
+    "lookup without Wiktionary, supplement-it: a sound means what it says (hm, bzz), a Slovene word says it is one, lungo long, but along in its phrase",
+    /nachdenken/.test(hm?.gloss[0] ?? '') && /Biene/.test(bzz?.gloss[0] ?? '') && !!fogolar?.gloss[0] && /slowenisch/.test(guba?.gloss[0] ?? '') && lungo[0]?.gloss[0] === 'lang' && lungo[1]?.gloss[0] === 'entlang',
+    { hm, bzz, fogolar, guba, lungo },
+  )
+  // a name of the supplement comes first only when the line writes it as one (Bianca the sheep, bianca white); a word a
+  // pack only spells alike isn't shown for another word's form (piace is piacere the verb, not the pack's greeting)
+  const greeting = { schema: 'lani.pack/v0', id: 'x', language: 'it', title: { it: 'x' }, words: [{ id: 'piacere', it: 'Piacere!', en: 'nice to meet you', de: 'freut mich' }] } as never
+  const withPack = (w: string, line: string) => lookup(w, { line }, { lexicon: phone, base: 'de', packs: [greeting], people: [], items: {} }).entries
+  check(
+    "lookup: a supplement's name first only as a name (Questa è Bianca, una pecora bianca); a pack's word spelt alike isn't another word's form (piace: gefallen, not freut mich), the word itself still is (Piacere!)",
+    first('Bianca', 'Questa è Bianca!')?.pos === 'name' && first('bianca', 'Una pecora bianca.')?.pos !== 'name' && withPack('piace', 'Mi piace il frico.')[0]?.gloss[0].startsWith('gefallen') && !withPack('piace', 'Mi piace il frico.').some(e => e.source === 'pack') && withPack('piacere', 'Piacere, Teo!').some(e => e.source === 'pack'),
+    { bianca: first('bianca', 'Una pecora bianca.'), piace: withPack('piace', 'Mi piace il frico.') },
   )
 }

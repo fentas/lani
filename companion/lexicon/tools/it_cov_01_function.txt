@@ -1,0 +1,146 @@
+# The function words (supplement-it, 2026-11-02). In this order: an article before the pronoun that shares its form.
+# Machine-written (Claude), not reviewed. See it_cov_build.py for the format.
+# --- the old prepositions, with their bare form at last
+a | prep | | - | ~
+da | prep | | - | ~
+di | prep | | - | ~
+in | prep | | - | ~
+su | prep | | - | ~
+con | prep | | -;col@con + il;coi@con + i | ~
+# --- the articles
+il | det | m | -;lo@masculine singular (before s + consonant, z);i@masculine plural;gli@masculine plural (before a vowel, s + consonant, z);il@masculine singular | the, definite article – masculine | der, die, das – männlich (il libro: das Buch) | določni člen – moški spol
+la | det | f | -;la@feminine singular;le@feminine plural | the, definite article – feminine | der, die, das – weiblich (la casa: das Haus) | določni člen – ženski spol
+un | det | m | -;uno@masculine (before s + consonant, z);un@masculine | a, indefinite article – masculine | ein, eine – männlich (un cane: ein Hund) | nedoločni člen – moški spol
+una | det | f | -;una@feminine | a, indefinite article – feminine | ein, eine – weiblich (una casa: ein Haus) | nedoločni člen – ženski spol
+# --- se the conjunction before si's se
+se | conj | | - | if ;; whether | wenn ;; ob | če ;; ali
+# --- the personal pronouns
+io | pron | | - | I | ich | jaz
+tu | pron | | - | you – one person | du | ti
+lui | pron | | - | he, him | er, ihn | on, njega
+lei | pron | | - | she, her ;; you (polite: Lei) | sie, ihr ;; Sie (höflich: Lei) | ona, njo ;; vi (vikanje: Lei)
+noi | pron | | - | we, us | wir, uns | mi, nas
+voi | pron | | - | you – several people | ihr, euch | vi, vas (več oseb)
+loro | pron | | - | they, them | sie, ihnen (mehrere) | oni, njih
+loro | det | | - | their ;; your (polite: Loro) | ihr, ihre (von mehreren) | njihov
+esso | pron | | -;essi@masculine plural;essa@feminine singular;esse@feminine plural | it, they (of things, in writing) | es, sie (in Büchern) | ono, oni (v knjižnem jeziku)
+mi | pron | | - | me, to me | mich, mir | mene, meni, me, mi
+ti | pron | | - | you, to you – one person | dich, dir | tebe, tebi, te, ti
+lo | pron | | - | him, it | ihn, es | njega, ga
+la | pron | | - | her, it | sie – eine Person oder Sache | njo, jo
+li | pron | | - | them – masculine | sie – mehrere, männlich | njih, jih (moški spol)
+le | pron | | - | them – feminine ;; to her | sie – mehrere, weiblich ;; ihr (le dico: ich sage ihr) | njih, jih (ženski spol) ;; njej, ji
+gli | pron | | - | to him ;; to them | ihm ;; ihnen | njemu, mu ;; njim, jim
+ci | pron | | -;ce@before lo, la, li, le, ne (ce l'ho) | us, to us | uns | nas, nam
+vi | pron | | -;ve@before lo, la, li, le, ne | you, to you – several people | euch | vas, vam
+si | pron | | -;se@before lo, la, li, le, ne (se ne va) | oneself, himself, herself, themselves ;; one, people (si dice: people say) | sich ;; man (si dice: man sagt) | se (povratni zaimek) ;; se (si dice: pravijo)
+ne | pron | | - | of it, of them, some of it | davon, darüber | od tega, o tem
+me | pron | | - | me – stressed (con me: with me) | mich, mir – betont (con me: mit mir) | mene, meni – poudarjeno (con me: z mano)
+te | pron | | - | you – stressed (con te: with you) | dich, dir – betont (con te: mit dir) | tebe, tebi – poudarjeno (con te: s tabo)
+sé | pron | | - | himself, herself – stressed | sich – betont | sebe, sebi
+ci | adv | | - | there, to that place (ci vado: I go there) | da, dorthin (ci vado: ich gehe dorthin) | tam, tja
+# --- the little words
+e | conj | | -;ed@before a vowel | and | und | in
+o | conj | | - | or | oder | ali
+ma | conj | | - | but, yet | aber | ampak, a
+che | conj | | - | that ;; than | dass ;; als | da ;; kot
+che | pron | | - | who, which, that (la casa che vedo) ;; what (che fai?) | der, die, das (die Person oder Sache, von der man spricht) ;; was (che fai?) | ki, kateri ;; kaj (che fai?)
+chi | pron | | - | who | wer | kdo
+cui | pron | | - | whom, which (a cui, in cui) | dem, der, denen (in cui: in dem) | komur, čemur (in cui: v katerem)
+non | adv | | - | not | nicht | ne – pred glagolom (non so: ne vem)
+per | prep | | - | for ;; in order to | für ;; um … zu | za ;; da bi
+tra | prep | | - | between, among ;; in (tra poco: soon) | zwischen, unter ;; in (tra poco: gleich) | med ;; čez (tra poco: kmalu)
+fra | prep | | - | between, among, like tra | zwischen, unter – wie tra | med, sredi – kot tra
+perché | conj | | - | why ;; because | warum ;; weil | zakaj ;; ker
+però | conj | | - | but, however | aber, jedoch | vendar, toda
+né | conj | | - | nor (né … né: neither … nor) | weder, noch (né … né: weder … noch) | niti (né … né: niti … niti)
+quindi | conj | | - | so, therefore | also, deshalb | torej, zato
+siccome | conj | | - | since, as | da, weil | ker pač
+finché | conj | | - | until ;; as long as | bis ;; solange | dokler
+affinché | conj | | - | so that | damit | da bi, zato da
+tuttavia | conj | | - | however, yet | trotzdem, dennoch | vendar pa
+nonostante | prep | | - | despite | trotz | kljub
+dove | adv | | - | where | wo, wohin | kje, kam
+così | adv | | - | so, like this | so | tako
+ecco | adv | | -;eccomi@ecco + mi (here I am);eccoti@ecco + ti (here you are);eccolo@ecco + lo (here he is, here it is);eccola@ecco + la (here she is, here it is);eccoli@ecco + li (here they are);eccole@ecco + le (here they are);eccoci@ecco + ci (here we are);eccovi@ecco + vi (here you are);eccone@ecco + ne (here is some) | here is, here are, there! | da ist, hier ist, schau! | tukaj je, evo
+giù | adv | | - | down | hinunter, unten | dol, spodaj
+là | adv | | - | there, over there | dort drüben | tam, tamle
+qua | adv | | - | here, over here | da, hierher | sem, tule
+laggiù | adv | | - | down there | dort unten | tam doli
+quassù | adv | | - | up here | hier oben | tu zgoraj
+sopra | adv | | - | on top, above, over | oben, über, auf | nad, zgoraj
+davanti | adv | | - | in front | vorne, davor | spredaj, pred
+indietro | adv | | - | back, backwards | zurück | nazaj
+accanto | adv | | - | beside, next to | daneben | poleg, zraven
+intorno | adv | | - | around | herum, rundherum | okrog
+attorno | adv | | - | all around | ringsum | naokrog
+oltre | prep | | - | beyond, over | jenseits, über … hinaus | onstran, čez
+circa | adv | | - | about, around | ungefähr, etwa | približno
+quasi | adv | | - | almost | fast | skoraj
+davvero | adv | | - | really | wirklich | res, zares
+ormai | adv | | - | by now, by then | jetzt schon, inzwischen | zdaj že
+invece | adv | | - | instead ;; but, on the other hand | stattdessen ;; dagegen | namesto tega ;; pa, nasprotno
+magari | adv | | - | maybe ;; if only! | vielleicht ;; schön wär's! | morda ;; ko bi le!
+neanche | adv | | - | not even, neither | nicht einmal, auch nicht | niti, tudi ne
+nemmeno | adv | | - | not even | nicht einmal | še ne, niti ne
+pure | adv | | - | also, too ;; go ahead (entra pure: do come in) | auch ;; ruhig (entra pure: komm ruhig rein) | tudi ;; kar (entra pure: kar vstopi)
+cioè | adv | | - | that is, I mean | das heißt | to je, se pravi
+comunque | adv | | - | anyway | sowieso, jedenfalls | vsekakor, tako ali tako
+intanto | adv | | - | meanwhile | inzwischen, unterdessen | medtem
+anzi | adv | | - | in fact, on the contrary | sogar, im Gegenteil | celo, nasprotno
+soltanto | adv | | - | only | nur | samo
+chissà | adv | | - | who knows | wer weiß | kdo ve
+domattina | adv | | - | tomorrow morning | morgen früh | jutri zjutraj
+finalmente | adv | | - | at last | endlich | končno
+dappertutto | adv | | - | everywhere | überall | povsod
+gentilmente | adv | | - | kindly | freundlich, bitte | prijazno
+quanto | adv | | - | how much (quanto costa?) | wie viel, wie sehr | koliko
+meno | adv | | - | less ;; minus | weniger ;; minus | manj ;; minus
+peggio | adv | | - | worse | schlechter, schlimmer | slabše
+male | adv | | -;malissimo@very badly | badly | schlecht | slabo
+male | noun | m | n:mali;mal@before a word (mal di testa) | pain ;; evil (mal di testa: headache) | Schmerz ;; das Böse (mal di testa: Kopfweh) | bolečina ;; zlo (mal di testa: glavobol)
+bene | adv | | -;ben@before a word (ben fatto) | =pack
+entro | prep | | - | within, by | innerhalb, bis | v, do (časa)
+gratis | adv | | - | free, for nothing | gratis, umsonst | zastonj
+fino | prep | | -;fin@before a vowel or a, da (fin da piccolo) | until, as far as (fino a) | bis (fino a: bis) | do (fino a: do)
+verso | prep | | - | towards | in Richtung, gegen | proti, k
+contro | prep | | - | against | gegen | proti, zoper
+lungo il | prep | | -;lungo la@with the article;lungo i@with the article;lungo le@with the article;lungo il@with the article | along | entlang | vzdolž, ob
+ora | adv | | - | now, at this point | jetzt, nun | zdaj, sedaj
+# --- this, that, other, which, each
+questo | det | | a;quest'@before a vowel | this | dieser, diese, dieses | ta, to
+quello | det | | a;quel@masculine singular (before a consonant);quei@masculine plural (before a consonant);quegli@masculine plural (before a vowel, s + consonant, z) | that | jener, der da | tisti, oni
+stesso | det | | a | same | gleich, derselbe | isti
+altro | det | | a | other | andere | drug
+quale | det | | -;quali@plural;qual@before è (qual è) | which, what | welcher, welche | kateri
+qualche | det | | - | some, a few | ein paar, einige | nekaj, nekateri
+ognuno | pron | | -;ognuna@feminine | everyone, each one | jeder, jede | vsak, vsaka
+poco | det | | a | little, not much, few | wenig | malo
+qualcuno | pron | | -;qualcun@before a word (qualcun altro);qualcuna@feminine | ~
+# --- the numbers no pack has
+undici | num | | - | eleven | elf | enajst
+dodici | num | | - | twelve | zwölf | dvanajst
+tredici | num | | - | thirteen | dreizehn | trinajst
+quindici | num | | - | fifteen | fünfzehn | petnajst
+diciotto | num | | - | eighteen | achtzehn | osemnajst
+venticinque | num | | - | twenty-five | fünfundzwanzig | petindvajset
+ventotto | num | | - | twenty-eight | achtundzwanzig | osemindvajset
+cinquanta | num | | - | fifty | fünfzig | petdeset
+sessanta | num | | - | sixty | sechzig | šestdeset
+sessantotto | num | | - | sixty-eight | achtundsechzig | oseminšestdeset
+ottantadue | num | | - | eighty-two | zweiundachtzig | dvainosemdeset
+novantanove | num | | - | ninety-nine | neunundneunzig | devetindevetdeset
+centouno | num | | - | a hundred and one | hunderteins | sto ena
+duecento | num | | - | two hundred | zweihundert | dvesto
+trecento | num | | - | three hundred | dreihundert | tristo
+seicento | num | | - | six hundred | sechshundert | šeststo
+settecento | num | | - | seven hundred | siebenhundert | sedemsto
+novecento | num | | - | nine hundred | neunhundert | devetsto
+mille | num | | - | a thousand | tausend | tisoč
+duemila | num | | - | two thousand | zweitausend | dva tisoč
+tremila | num | | - | three thousand | dreitausend | tri tisoč
+diecimila | num | | - | ten thousand | zehntausend | deset tisoč
+ventimila | num | | - | twenty thousand | zwanzigtausend | dvajset tisoč
+milione | num | | -;milioni@plural | a million | Million | milijon
+secondo | num | | a | second | zweiter, der Zweite | drugi (po vrsti)
+secondo | prep | | - | according to | laut, nach | po, glede na
