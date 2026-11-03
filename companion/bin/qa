@@ -14614,7 +14614,8 @@ def cases_de_step():
     go_home()
     items = json.loads((ROOT / "companion/cases/de/bank.json").read_text())["items"]
     bare = lambda w: re.sub(r"^[^\w]+|[^\w]+$", "", w)
-    chip_of = lambda case: next((c for t, c in nodes() if t.startswith(CASE_DE_QUESTION[case]) and c[1] > 500), None)
+    # a case's chip: its question words in its text or what TalkBack reads of it ("Dativ · dajalnik, wem?")
+    chip_of = lambda case: next((c for t, c in nodes() if CASE_DE_QUESTION[case] in t and c[1] > 500 and "Fall ist" not in t), None)
     try:
         qa_hook("cases:ready")
         assert wait_for(CASES_DE_START, 15), "the trainer's screen, open"

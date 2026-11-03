@@ -138,9 +138,10 @@ export type Overview = {
 }
 
 const LEVEL_TALK = /\b(A1|A2|B1|B2|C1)\b/
-const cell = (t: Json, base: string, o: Options): PCell => {
+/** A page's cell as printed: the target's text (Slovene's, or [target]'s: German's overview) and the base's under it. */
+const cell = (t: Json, base: string, o: Options, target = 'sl'): PCell => {
   if (typeof t === 'string') return { sl: fillLearner(t, o) }
-  const sl = t?.sl
+  const sl = t?.[target]
   // "singular (ednina)" under "ednina": the translation alone
   const x = sl ? (t?.[base] ?? t?.en)?.replace(new RegExp(`\\s*\\(${sl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)\\s*$`), '') : (t?.[base] ?? t?.en)
   if (sl && x && norm(sl) !== norm(x)) return { sl, tr: x }
@@ -155,11 +156,11 @@ const paragraphs = (rule: Json, base: string, o: Options) =>
     .filter(p => p && !LEVEL_TALK.test(p))
 
 /** A grammar page's or a unit's table as printed; rows about a later level left out, as on a unit's sheet. */
-function tableOf(t: Json, from: string, base: string, o: Options): PTable | null {
+function tableOf(t: Json, from: string, base: string, o: Options, target = 'sl'): PTable | null {
   if (!t?.head?.length || !t?.rows?.length) return null
   const rows = (t.rows as Json[][]).filter(r => !r.some(c => LEVEL_TALK.test(typeof c === 'string' ? c : JSON.stringify(c))))
   if (!rows.length) return null
-  return { head: t.head.map((h: Json) => cell(h, base, o)), rows: rows.map(r => r.map(c => cell(c, base, o))), from }
+  return { head: t.head.map((h: Json) => cell(h, base, o, target)), rows: rows.map(r => r.map(c => cell(c, base, o, target))), from }
 }
 
 /**
@@ -404,7 +405,7 @@ function buildOverviewDe(c: Content, id: string, o: Options): Overview | null {
       n: '',
       name: { sl: name, tr: tr(r[0], base).replace(/\s*\([^)]*\)\s*$/, '') },
       question,
-      does: cap((note?.does ?? '').replace(/^[:\s]+/, '')),
+      does: cap((note?.does ?? '').replace(/^[:,;\s]+/, '')),
       endings: r.slice(1).map(x => tr(x, 'de').split(/\s+/)[0]).join(' · '),
       preps: { sl: prepsOf[name] ?? '—' },
       ...(note ? { example: { sl: boldForm(fillLearner(note.e.de, o), form), tr: fillLearner(tr(note.e, base), o) } } : {}),
@@ -412,8 +413,8 @@ function buildOverviewDe(c: Content, id: string, o: Options): Overview | null {
   })
   const HT = HEAD_DE.de!
   const HB = HEAD_DE[base] ?? HEAD_DE.en!
-  const head: PCell[][] = [[cell(fa.table.head[0], base, o)], [{ sl: 'Wer? Wen? Wem? Wessen?' }, { sl: 'der · die · das' }], [{ sl: HT.use, tr: HB.use }], [{ sl: 'Präpositionen', tr: base === 'sl' ? 'predlogi' : base === 'it' ? 'preposizioni' : 'prepositions' }], [{ sl: 'Beispiel', tr: base === 'sl' ? 'primer' : base === 'it' ? 'esempio' : 'example' }]]
-  const de = (p: Json) => tableOf(p.table, `grammar:${p.id}`, base, o)
+  const head: PCell[][] = [[cell(fa.table.head[0], base, o, 'de')], [{ sl: 'Wer? Wen? Wem? Wessen?' }, { sl: 'der · die · das' }], [{ sl: HT.use, tr: HB.use }], [{ sl: 'Präpositionen', tr: base === 'sl' ? 'predlogi' : base === 'it' ? 'preposizioni' : 'prepositions' }], [{ sl: 'Beispiel', tr: base === 'sl' ? 'primer' : base === 'it' ? 'esempio' : 'example' }]]
+  const de = (p: Json) => tableOf(p.table, `grammar:${p.id}`, base, o, 'de')
   const lines = paragraphs(fa.rule, base, o).map(p => condense(sentences(p), 330))
   const tipMd = fa.card?.tip ? tr(fa.card.tip, base).replace(/^\p{Extended_Pictographic}️?\s*/u, '').trim() : undefined
   const wp = page('wechselpraepositionen')
@@ -432,7 +433,7 @@ function buildOverviewDe(c: Content, id: string, o: Options): Overview | null {
   for (const pid of ['praepositionen-akkusativ', 'praepositionen-dativ', 'praepositionen-genitiv', 'verben-praepositionen']) {
     const p = page(pid)
     const t = p && de(p)
-    if (t) uses.push({ table: t, title: titled(p), source: 'book', notes: [] })
+    if (t) uses.push({ table: t, title: titled(p), source: 'book', notes: [], ...(pid === 'verben-praepositionen' ? { optional: true } : {}) })
   }
   const order = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
   const lv = [...new Set(used.map(p => p.level).filter((l: Json) => order.includes(l)))].sort((a, b) => order.indexOf(a) - order.indexOf(b))
