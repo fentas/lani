@@ -10089,7 +10089,7 @@ def friuli_projects_b():
         time.sleep(3 * slow())
         snap(f"fb-{tag}-map")
         name = spec["name"]["it"]
-        # its landmark may stand past the edge of a phone's map (the fountain's, beyond the market): the map panned, as a finger does
+        # its landmark's target comes once the app has adopted the readied village (on a loaded machine, seconds); not there, the map panned
         w, h = screen_size()
         c = None
         for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):

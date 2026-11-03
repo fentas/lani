@@ -88,12 +88,18 @@ On the branch at its final content, on main 45924165 (part a isn't merged here; 
 - **The content**: `bun test/check-culture.ts friuli` ok; `bun test/check-steps.ts friuli`: 6 files, 37 steps, 111 dialogs, 721 lines, ok; `bun test/prompt-clashes.ts`: no new clash (the
   coined prompts: below). A scratch lint with the rules the app's tests hold (a reaction of at most 80 characters, never saying the right word; only the leader named; a helper's line without the speaker's
   gender; pages at the level) found nothing left but one reviewed look (the tower's first step, A2: «Guarda le montagne, il mare e le vigne», all things the art draws).
-- **The Android unit suite** (lani-slot.sh): see the report's numbers. New: `FriuliProjectStepsTest` (8 tests: the steps at their levels with their words; short, said by the project's people, in a scene; reactions, played with
+- **The Android unit suite** (lani-slot.sh): 487 classes, 3,796 tests, 2 skipped, 0 failures. New: `FriuliProjectStepsTest` (8 tests: the steps at their levels with their words; short, said by the project's people, in a scene; reactions, played with
   every wrong choice first; placeholders for a boy and a girl; a fresh learner has something to answer and each word is tested at each level, gated too; a helper's lines; a village partway through; the level and the fallback over the village),
-  `FriuliProjectStagesTest` (2), `StepScenesRenderTest`'s Friuli test. Changed: `SceneCoherenceTest`'s count of done lines (+24). `MentionsContentTest`, `DialogCastTest`, `WhoAnswersTest` and the rest unchanged and passing.
+  `FriuliProjectStagesTest` (2), `StepScenesRenderTest`'s Friuli test. Changed: `SceneCoherenceTest`'s count of done lines (+24). `MentionsContentTest` holds the steps' names to the leader. `DialogCastTest` and `WhoAnswersTest` pass unchanged, but they read the scenes, not the steps: who says a step's lines is held by `check-steps` and `FriuliProjectStepsTest`.
 - **The bridge**: `tsc` clean; the smoke on ports 9670–9688: 3,514 checks, all passed; `tutor-export --check`: 89 files match.
 - **Python**: 253 tests, and 145 with 11 skipped, all passing.
-- **The emulator**: see below.
+- **The emulator** (`qa-slot`, a synthetic child, `LANI_CULTURE=friuli`, `LANI_CHILD=1`, it · de, a phone 1080×2400): QA's step `friuli-projects-b` green on its seventh run. Its cast is met on the dev bridge's copy first, since a village the
+  hook makes up has its leaders not yet met, and the sheet rightly offers "Fai conoscenza" and holds the step until then. Each from its landmark on the map to the projects sheet (its step, where it is played, today's words marked), "Il passo di oggi", the dialog:
+  the fire station's fourth step at A1 (the pump's cart coming up In piazza, «Arriva un treno.» with its reaction, the end card «🚒 La casa dei pompieri 4/6», the chronicle's line, +5 ♥ Davide), the fountain's second at B1 (the pegs and string on the square, then the white block on its beams from the done
+  line, the Tipp offered on its form turn, «Direi che è una pecora nera.» with its reaction, the end card 2/6, +5 ♥ Bruno). The earlier runs stopped on the step itself or on the queue's timeout, never on the app: a run that timed out waiting for an emulator, the button below the fold, the leaders not met, a tap held
+  long enough on the loaded machine to open a word's card, the right answer tapped again in the talk above, a landmark's target looked for before the village was adopted. Screenshots: the round's scratch folder `ux-friuli-projects-b/qa/` (fb-*.png).
+  Seen there, and only QA's doing: QA plays two steps in one day, which a village never does, so the pump's cart stayed on the square (`fx_stays`) into the fountain's step.
+  **Not played on the emulator**: the other four projects, an A2 telling, the two steps over the village, a tap turn, a tablet. Those are held by the unit tests only.
 
 ## How to use
 
@@ -150,4 +156,6 @@ Sources (each fact a line states):
 - **The tower's steps played on a stand-in**: its board and first guests are played Sulla torre, on the watchtower's picture, as Primorska's are, since its own place opens only once it's finished.
 - **`ProjectStepsContentTest`** still checks Primorska's steps only; Friuli's have `FriuliProjectStepsTest`, the other two cultures' `check-steps`.
 - **No turn has two right answers** in these steps (a greeting, a yes): they could get a few when a native reads them; nothing requires it.
+- **A tap on «un» says it isn't in the dictionary** on the QA bridge, which has no Italian dictionary downloaded: the supplement has di, in and da but no articles. A node with Wiktionary's Italian answers it (the smoke's Friuli section checks the download); a node without one would show this on the commonest words. Not changed here.
+- **The step's header on a phone**: «La pietra dalla cava · Stein» runs right up to the "Traduzione" chip while it wraps. It doesn't overlap; it's the shared header, not these steps.
 - **Noticed, not this branch's**: `l-orologio`'s pack says «Ogni domenica Bruno carica l'orologio», while the steps say «abbiamo caricato»; nothing contradicts.
