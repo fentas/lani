@@ -200,9 +200,9 @@ entry knew.
   FRIULI 10434, TOWN 10437, DRAMA3 10448): all checks passed, 3,719, after merging main.
 - `tutor-export --check`: 140 files match.
 - Python: `python3 -m unittest discover -s tests` and `-s companion/tests` OK.
-- Android unit tests (the whole suite, through lani-slot.sh): passed before the merge; **ANDROID-AFTER**
-- `school-prints` PDFs (each sheet fits its pages): **PDF-RESULT**
-- QA on the emulator: **QA-RESULT**
+- Android unit tests (the whole suite, through lani-slot.sh): passed before the merge and after it (4,111 tests, 0 failures).
+- `school-prints` PDFs (each sheet fits its pages): every unit of A1–B2 in en, de and it renders and fits (`school-prints --level all`); the A1 and A2 sheets differ from main's only by unit 12's *dopoldne*.
+- QA on the emulator: `qa-slot --steps packs` ok (setup, packs, crash check), and a look at the packs screen on the QA learner (A1, 407 words): the 55 packs wait folded under "⏳ Za pozneje · For later (55)", "Besede za B1–B2 …"; opened, the B1 packs with their level, giver and count (*Besede za pogovor* 4/24: words the learner has from elsewhere, still folded). Screenshots: the scratchpad's `ux-packs-sl/` (20–24). Tap counts unchanged: a pack is one tap from the packs screen, a folded one two (the fold, then the pack).
 
 ## Voice
 
