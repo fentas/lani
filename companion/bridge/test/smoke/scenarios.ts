@@ -1,11 +1,11 @@
 // Smoke checks: role-play scenarios and the roleplay protocol.
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { validateScenario } from '../../src/scenarios'
+import { ScenarioStore, talkLevelOffered, validateScenario } from '../../src/scenarios'
 import { talksOffered } from '../../src/scenes'
 import { postOffice, reference } from './fixtures'
 import { curatedTalksOf } from './village-talks'
-import { auth, base, channelEvents, check, client, dataDir, guideOf } from './harness'
+import { auth, base, channelEvents, check, client, dataDir, guideOf, tempDir } from './harness'
 
 export default async function scenarios() {
   // role-play scenarios: the repo's curated ones are served as they are
@@ -57,6 +57,26 @@ export default async function scenarios() {
   const talking = { dialogs: [{ id: 'kosilo', talk: 'nedeljsko-kosilo', lines: [] }, { id: 'vino', talk: 'v-gostilni', lines: [] }] } as any
   const forChild = talksOffered(talking, new Set(['nedeljsko-kosilo']))
   check("a child's scene leads into no grown-up's role-play; a grown-up's into both", forChild.dialogs[0].talk === 'nedeljsko-kosilo' && !('talk' in forChild.dialogs[1]) && talksOffered(talking, new Set(['nedeljsko-kosilo', 'v-gostilni'])) === talking, forChild)
+  // a talk by level (talkLevelOffered): at the learner's level or below, or one above; a tutor's at any level
+  check(
+    'a talk is offered at the learner\'s level, below it and one above: A1 meets A1 and A2, never B1 or B2; B1 meets B2',
+    talkLevelOffered('A1', 'A1') && talkLevelOffered('A2', 'A1') && !talkLevelOffered('B1', 'A1') && !talkLevelOffered('B2', 'A1') && talkLevelOffered('B1', 'A2') && !talkLevelOffered('B2', 'A2') &&
+      talkLevelOffered('B2', 'B1') && talkLevelOffered('A1', 'B2') && !talkLevelOffered('B2', 'nope') && talkLevelOffered('A2', 'nope'),
+  )
+  {
+    const curated = tempDir('lani-smoke-levels-')
+    const tutor = join(tempDir('lani-smoke-levels-tutor-'), 'scenarios')
+    mkdirSync(tutor, { recursive: true })
+    for (const [id, level] of [['na-posti-a1', 'A1'], ['na-posti-a2', 'A2'], ['na-posti-b1', 'B1'], ['na-posti-b2', 'B2']]) writeFileSync(join(curated, `${id}.json`), JSON.stringify({ ...postOffice, id, level }))
+    writeFileSync(join(tutor, 'na-posti-tutor.json'), JSON.stringify({ ...postOffice, id: 'na-posti-tutor', level: 'B2' }))
+    const store = new ScenarioStore(curated, tutor)
+    const ids = (level?: string) => store.offered(false, level).map(s => s.id).join(' ')
+    check(
+      'an A1 learner is offered the A1 and A2 talks and the tutor\'s B2 one, a B1 learner all, no level every one',
+      ids('A1') === 'na-posti-a1 na-posti-a2 na-posti-tutor' && ids('A2') === 'na-posti-a1 na-posti-a2 na-posti-b1 na-posti-tutor' && ids('B1').split(' ').length === 5 && ids().split(' ').length === 5,
+      { A1: ids('A1'), A2: ids('A2'), B1: ids('B1') },
+    )
+  }
   const lunch = await (await fetch(`${base}/scenarios/nedeljsko-kosilo`, { headers: auth })).json()
   check('GET /scenarios/:id serves the scenario', lunch.goals?.length >= 3 && lunch.opener_sl && lunch.vocabulary_hints?.length > 0, lunch)
   check('GET /scenarios/:id 404s', (await fetch(`${base}/scenarios/nope`, { headers: auth })).status === 404)

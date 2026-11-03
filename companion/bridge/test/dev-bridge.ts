@@ -114,6 +114,12 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
     practise: "*I'd like*, *how much is it?*",
   },
 }
+/**
+ * The canned role-play above A2, for a language whose B1 and B2 talks need lines of their own (a complaint, the mayor, a
+ * job interview: no soup there): lines that fit any of its B1 and B2 role-plays, picked by the brief's level. A language
+ * without them keeps its own above.
+ */
+const ROLEPLAY_ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {}
 const DEBRIEF: Said = {
   en: '✅ You greeted politely.\n\n📌 Practise',
   de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe',
@@ -155,13 +161,15 @@ async function courseLangs(): Promise<{ target: string; base: string }> {
 
 /**
  * A role-play's language: the scenario's own (its brief's language: an Italian role-play in Italian, whatever the course),
- * a visit's talk the visited town's (data.visit.language), any other the course's.
+ * a visit's talk the visited town's (data.visit.language), any other the course's; its lines by its level (ROLEPLAY_ABOVE_A2).
  */
-async function talkLangs(d: { scenario?: { language?: string }; visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
+async function talkLangs(d: { scenario?: { language?: string; level?: string }; visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
   const c = await courseLangs()
   const target = d.scenario?.language ?? d.visit?.language ?? c.target
   const base = c.base === target ? 'en' : c.base
-  return { lines: ROLEPLAY[target] ?? ROLEPLAY.sl, target, base }
+  // a B1 or B2 talk (its brief's level) in the lines above A2, where the language has them
+  const above = ['B1', 'B2', 'C1', 'C2'].includes(String(d.scenario?.level)) ? ROLEPLAY_ABOVE_A2[target] : undefined
+  return { lines: above ?? ROLEPLAY[target] ?? ROLEPLAY.sl, target, base }
 }
 
 /**
