@@ -734,6 +734,8 @@ forms cards' table, which the smoke reads):
   added in front of a line without a subject may be left out without listing it (above); one that replaces the line's
   subject (`"One so kuhale. (onidve)"`) needs both listed (`"Onidve sta kuhali."`, `"Kuhali sta."`).
 - **The word bank** for the first gap text of a unit (easier), none for the second and the test.
+- **A print's rule line is the step's first sentence and what fits of the ones with forms** (`condense`, about 200 characters: at most three sentences, and after the first only one with a bold form and a colon, or two bold forms). **A sentence ends only at a stop outside the bold**: "**A.** (One son.) With none: **B.**" keeps both, "**A.** **B.** Then a list …" is one long sentence. **The smoke asks only that one bold form survives**, so a step can lose its whole list and pass. Open a step with its rule and read its line with `ruleLine`, above all when the point is a list.
+- **A quick question in the base with a sentence of the language in it is read wholly in her voice**, when that language has more of its frequent words in it (`Kaj pomeni: Never have I seen such fog.`). So a question about a sentence puts the question in the `instruction` and the sentence in the prompt, or asks in the language learned (`Never have I seen such fog. = ___`). Italics of a base's word that looks like the language go to her voice too (German *was*, Italian *a*).
 - **The intro's table** is the rule's table built row by row: give the head once (`intro.table.head`) and each step's
   new rows; a step without rows (an agreement step) only talks and asks. The last step is the exception or the twist.
 - **The test** mixes the worksheets' types with new sentences: about 10–13 items, `pass` 80.
@@ -1371,8 +1373,8 @@ B1's last six, mood, voice and small words (docs/plans/05-built/course-de-b1-c.m
 ## The English course
 
 For grown-ups learning English in the Lake District village (the culture `lakeland`), from Slovene, German or Italian:
-visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1, A2 and
-B1 written, 18 units each, each naming the English grammar pages it teaches; B2 planned, docs/plans/05-built/outlines-2.md) and its units, written in the village's adult life: Mrs
+visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1, A2, B1 and
+B2 written, 18 units each, each naming the English grammar pages it teaches) and its units, written in the village's adult life: Mrs
 Hartley the teacher, Mrs Birkett at the Packhorse Inn, Shepherd Jack and his sheepdog Meg, Mr Dixon the blacksmith,
 Granny Maggie and Auntie Edna, Mr Tyson and his mill, Brewer Sam, Old Wilf, Arthur and his bees; the fells, the becks,
 the tarn, Keswick eight miles off. The school is the same school, and every part of it is the course's language's:
@@ -1388,7 +1390,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
 | Not for English | forms cards, counting cards, the numbers module and the case rows (Slovene's: `numbers` turns nothing on); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
-| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `EnglishB1aContentTest`, `EnglishB1bContentTest`, `EnglishB1cContentTest` (B1's parts and, the last, what people say over the 18), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
+| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `EnglishB1aContentTest`, `EnglishB1bContentTest`, `EnglishB1cContentTest` (B1's parts and, the last, what people say over the 18), `EnglishB2aContentTest`, `EnglishB2bContentTest`, `EnglishB2cContentTest` (B2's parts and, the last, what people say over the 18, an item's `spoken` against the table), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
 
 Writing an English unit: as [Writing a unit](#writing-a-unit), with the explanations in each base (du, ti and tu, as the
 app speaks to the learner), every English form in **bold** with its meaning in brackets where the base needs one; the
@@ -1634,6 +1636,72 @@ As over A1 and A2, and only in the variety the course teaches: British, as the L
 | would of, could of, should of, might of, must of; If I'd have known, If I had have known; He asked where did I live, He asked did I want tea, Do you know where's the inn?; I been waiting; I didn't used to, I use to live; ain't; innit, isn't it for any person; the man what lives there; It was broke, She was took; hisself, meself, theirselves | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
 
 Left wrong, on the native list. **would after if** (If I would have a boat, If it would rain, If I would have known): the classic mistake from German and Slovene, not what this variety says; the page names it as a common slip and a choice may offer it (the lead's ruling, 2026-11-03). Ireland's present for the perfect (I'm here since Monday). If I know the way, I'd tell you, typed in a gap: a tense mixed. said me, told to me, asked to me, despite of, Although it rained, but we walked, would be come.
+
+### The English course: B2, units 1–6
+
+B2's first six: tenses and what might have been. A wet night at the Packhorse and the walker at the door, Old Wilf's fire at the mill, the Saturday show, Mrs Hartley's first year from Leeds, the sheep on the road, Sam's van, Wilf and Sam by the fire, Jack lost on the fell:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `narrative-tenses` 🥾 | had been + -ing up to a moment; 'd been, hadn't been, Had you been …?; why it was so; how long against how many; know, own, be with no -ing; the four past tenses; was walking against had been walking; was sat, was stood; a story told in the present | narrative-tenses (new), past-simple, past-perfect, past-continuous |
+| `future-perfect` 🏁 | will have + the participle; 'll have, won't have, Will you have …?, already; by against until; by the time + the present; will have been + -ing; will be + -ing; what you suppose about now; I'll've, I'll of | future-perfect (new), future, future-continuous |
+| `be-used-to` 🌧️ | would for what happened again and again; used to, not would, for how things were; be used to + -ing or a noun; get used to; the three side by side; the small word to, I'm use to | would-used-to (new), used-to |
+| `should-have` 🤦 | should have, shouldn't have, ought to have; could have, not can have; must have, can't have, couldn't have, won't have; might have, may have, could have; needn't have against didn't need to; should've, shoulda, should of, should have went | past-modals (new), might-must |
+| `i-wish` 🌠 | wish + the past; was and were; could; wish + had + the participle; could have; wish + would, not for states; if only; hope; I wish I'd have known, I wish I would have known as a slip | wish-if-only (new), second-conditional, third-conditional |
+| `mixed-conditionals` 🔀 | if + had, would (then, so now); the two 'd; if + the past, would have (still so, so then); unless, one not; as long as, provided that, providing; in case against if; the present for the future; If I'd have listened | mixed-conditionals (new), second-conditional, third-conditional |
+
+- **The rows for wish** (`grading/en.json`, `same`): had have after wish and if only, 'd of after if, wish, if only, 'd + a verb whose participle is its base form after wish or if only + I or we. **They stand before `'d (?=better)`, where order matters.** I wish he'd come stays would.
+
+### The English course: B2, units 7–12
+
+B2's middle six: clauses and verb forms. Who is who in the valley, the lamb Jack found, the Keswick bridge and the Packhorse being mended, Long Meg's stones, Sam's bad night, Mr Tyson's sons and sheep:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `non-defining` 🔗 | with commas against with none, what that does to the meaning; which, that kept out after a comma, the object word staying; whose for people and things; the small word at the end or first, to whom, in which, where; which for a whole sentence; most of which, both of whom | relative-clauses-more (new), relative-clauses |
+| `participle-clauses` 🪶 | -ing with one subject; not first, a reason; after, before, while + -ing; -ing after a noun; the participle after a noun and first; having + the participle; one subject for both halves | participle-clauses (new), relative-clauses |
+| `passive-more` 🔧 | has been; is being, was being; had been, will be, going to be, modals; should have been, must have been, can't have been; It is said that; He is said to be, to have been | passive-more (new), passive |
+| `have-it-done` ✂️ | have + thing + the participle against doing it yourself; only have changes, did for questions; get, and American gotten; I had my hair cut against I had cut my hair; by, get someone to, have someone do; something bad, had his wallet stolen | have-it-done (new), passive |
+| `reporting-verbs` 📣 | promise, refuse, agree, offer + to; advise, warn, remind, tell + someone + to; suggest, admit, deny + -ing, having; suggest with that and no someone + to; that + a clause with the step back; apologise for, insist on, accuse of, thank for | reporting-verbs (new), reported-speech, verb-patterns |
+| `both-neither` ✌️ | both, both of, where it stands; neither, either, with not; both … and, neither … nor, either … or; every and each, for two too, every one of; all, none; most of, some of, one of, not all | quantifiers (new), some-any |
+
+- **The grading strips commas**, so a comma can only be tested by a choice, and only a prompt with no gap is safe, since a gap's choice may be typed once the rule is secure (`Forms.gap`, Adaptive). A typed line tests the words (who, which, whose), never the commas.
+- **A subject that can be read either way lets that in.** The mill that was built in 1800 is plainly right with no commas, so a line that asks which against that needs a name (the Packhorse, Hill Top), or every right answer has to be listed.
+- **A wrong option can be right but silly**, and the print's Watch out shows it as a mistake (Take both of them: they're both good). The prompt has to rule it out. **The Watch out box reads only English `never`**, in the English text; each base writes its own (nikoli, nie, mai).
+- **A long last step can leave its question out of QA's reach:** six rows of three-line cells and four examples put the field past `text_field(3)`. The cells can just name the form, as the examples say the whole sentence.
+- **QA needs the learner's data for a base:** without `LANI_DEV_DATA` from make-learner.ts `--base de`, the dev bridge serves every text per base in Slovene, though the `say` shows German.
+
+### The English course: B2, units 13–18
+
+B2's last six: emphasis, words, register. The night Edna got lost in the fog, the meeting about a car park by the tarn, a bad week at the inn, the village newsletter and a letter to it, Jack's Saturday and the weather, Mrs Birkett's complaint about the bus and an American guest:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `cleft-sentences` 🔦 | It was … who, that; a thing, a place, a time; What … is, was; What … did was; do, does, did with weight; Never have I, Rarely, Not only to recognise | emphasis (new) |
+| `so-such-whereas` ❄️ | so … that; such a … that; so much, so many; whereas, while; nevertheless, on the other hand; firstly, to sum up, as far as I'm concerned | result-linkers (new), contrast-linkers |
+| `phrasal-verbs-more` 🧰 | three-word verbs; look forward to + -ing; two words that stay together; those that part; one verb with several meanings | phrasal-verbs-more (new), phrasal-verbs |
+| `word-building` 🧱 | un-, dis-; in- and how it changes; re-, mis-, over-; -ness, -ment, -tion, -er, -or; -ful, -less, -ous and the rest; -en, -ise, -ly; reading around the gap, as B2 First asks | word-building (new) |
+| `collocations` 🤝 | make, do, take, have with their nouns; heavy rain, strong tea, thick fog; everyday idioms | collocations (new) |
+| `formal-informal` ✉️ | Dear Sir or Madam, Yours faithfully; whole forms; a complaint and a request; an email; spoken English to understand, Cumbria's words; British against American | formal-informal (new) |
+
+- **At B2, what a sentence can also say is the longest part of a line.** A polite request has sixteen right forms; an independent read found 40 things, most of them right answers not listed.
+- **The word parts are wrong, never a slip, only on the unit's own words:** each row names its words (inpossible, unregular, happyness), so inportant and imformation stay slips.
+- **A word-building choice offers real words of the family** (kindly, kind): non-words (kindment, informful) give the answer away.
+- **Italian's il- isn't bold**, because a bold il is read as the article in her English voice.
+
+### What people say, over B2
+
+As over A1 to B1, and only in the variety the course teaches. `EnglishB2aContentTest` and `EnglishB2bContentTest` hold their six units, `EnglishB2cContentTest` the 18.
+
+| What's typed | How | Verdict |
+|---|---|---|
+| was sat, was stood; shoulda, coulda, musta, mighta; If Sam was a walker; got stolen; to not touch, warned us to not walk; Each of them have, Neither of the dogs are; It was that cold we stayed in; It was Jack found her; What Jack did was he rang the inn; brought us home safe; Cheers, Ta for Thanks | the item's `spoken` | right, labelled with the standard form |
+| was and were after wish; mustn't have, won't have beside can't have; ought to have; None of them is, None of them are; It was in Keswick where we met; whilst, and for whereas; take a decision | the item's `accept`, or the table's `same` | right |
+| should of, may of, can't of, needn't of, I'll of; had of, If I'd of known; shoulda and the rest where an item doesn't list them; I been walking; was sat, I'm sat, the man stood by the gate where an item doesn't list them; I'm use to it; I wish I'd have known, If only I'd have known; to who, both of who; what for which; I don't like neither of them, I haven't got none; Neither Jack or Sam; the both of them; gonna, wanna, gotta, dunno, gimme, lemme, kinda, sorta, outta, cos; It was Jack what found her | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
+
+**An item's `spoken` wins** where it lists one: going-to's gonna, would-like's wanna, have-to's gotta, because-so's cos stay right and labelled, the table answering only where an item lists none (`Sheets.check`; `EnglishB2cContentTest` holds it over the whole course).
+
+Left wrong, on the native lists, by the lead's rulings of 2026-11-03 among them. **that after a comma** (Mr Dixon, that lives by the beck), offered as a wrong choice: no source ties it to this variety. **strong rain**, **Yours faithfully after a name**, **Yours sincerely after Dear Sir or Madam**. **I wish I would have known**, as would after if. You didn't ought to have told him; If I'd listened, I'd have been there now; I was walking for hours when I saw the inn; She did rang; I look forward to see you; They called off it; Sam suggested me to go.
 
 ## Printed sheets
 

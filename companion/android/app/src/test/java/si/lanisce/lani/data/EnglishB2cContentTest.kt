@@ -18,7 +18,8 @@ import java.io.File
  * English B2's units 13-18 (companion/course/en, docs/plans/05-built/course-en-b2-c.md): what grading/en.json gained for them (the
  * spoken forms to recognise, almost with the standard form shown; make for take and the wrong word parts of word-building, wrong and
  * no slip), what people say over these units (It was Jack what found her, It was that cold, safe for safely, Cheers), that no choice
- * or bank offers any of it, their outline lines and their six new pages with a hand-written card in every base.
+ * or bank offers any of it, their outline lines and their six new pages with a hand-written card in every base. As the level's last
+ * part: that an item's own spoken wins over the table, and what people say over all 18.
  */
 class EnglishB2cContentTest {
     private fun en(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.EN)
@@ -175,6 +176,87 @@ class EnglishB2cContentTest {
             assertTrue("$id: its test", u.test.exercises.sumOf { count(it) } in 12..15)
             assertTrue("$id is written", id in course.playable("B2").map { it.id })
         }
+    }
+
+    @Test fun `an item's own spoken wins over the table's rows, over the whole course`() {
+        val said = Regex("""(?i)(?<![\p{L}])(?:gonna|wanna|gotta|dunno|gimme|lemme|kinda|sorta|outta|cos|'cause|cause)(?![\p{L}])""")
+        var checked = 0
+        val seen = mutableSetOf<String>()
+        for ((id, u) in course.units) {
+            val sheetItems = (u.worksheets.flatMap { it.exercises } + u.test.exercises).filter { it !is Exercise.Sort }.filter { it !is Exercise.Choice }.flatMap { Sheets.items(it, Lang.EN) }
+            for (i in sheetItems) for (form in i.spoken.filter { said.containsMatchIn(it) }) {
+                val m = Sheets.check(i, form, Lang.EN)
+                assertEquals("$id: $form for ${i.accept.first()}", Verdict.CORRECT to i.accept.first(), m.verdict to m.standard)
+                checked++
+                seen += said.find(form)!!.value.lowercase()
+            }
+        }
+        assertTrue("gonna, wanna, gotta and cos are each on an item: $seen", seen.containsAll(listOf("gonna", "wanna", "gotta", "cos")) && checked >= 40)
+        // where an item lists none, the table answers: almost, with the standard form shown
+        val gap = SheetItem(accept = listOf("is going to"), grammar = null, frame = "It ${Sheets.BLANK} rain.")
+        assertEquals(Verdict.ALMOST to Hint.NONSTANDARD, Sheets.check(gap, "is gonna", Lang.EN).let { it.verdict to it.hint })
+    }
+
+    /** All 18 of B2: parts a and b hold their own six, this the level, as EnglishB1cContentTest does B1. */
+    private val b2 by lazy { course.levels.first { it.level == "B2" }.units.map { it.id } }
+
+    @Test fun `no choice and no word bank of the whole level offers what the table calls said, or an item's spoken form`() {
+        assertEquals(18, b2.size)
+        for (id in b2) {
+            val u = course.units.getValue(id)
+            val all = u.worksheets.flatMap { it.exercises } + u.test.exercises
+            val choices = all.filterIsInstance<Exercise.Choice>() + u.intro?.steps.orEmpty().mapNotNull { it.ask as? Exercise.Choice }
+            for (c in choices) {
+                val right = c.options[c.answer]
+                c.options.forEachIndexed { i, o ->
+                    if (i != c.answer && i !in c.almost) {
+                        val (typed, whole) = if (Sheets.GAP.containsMatchIn(c.prompt)) c.prompt.replace(Sheets.GAP, o) to c.prompt.replace(Sheets.GAP, right) else o to right
+                        assertTrue("$id: «$typed» offered as wrong beside «$whole»", Grading.check(typed, listOf(whole), Lang.EN).hint != Hint.NONSTANDARD)
+                    }
+                }
+            }
+            for (e in all.filterIsInstance<Exercise.GapText>()) for (d in e.distractors) for (item in Sheets.items(e, Lang.EN)) {
+                assertTrue("$id: the distractor «$d» in ${item.frame}", Grading.check(d, item.accept, Lang.EN, item.frame.substringBefore(Sheets.BLANK, "")).hint != Hint.NONSTANDARD)
+                assertTrue("$id: the distractor «$d» is said in ${item.frame}", d !in item.spoken)
+            }
+        }
+    }
+
+    @Test fun `no text of the whole level says never of a form people say`() {
+        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:If I was|mustn't|would of|woulda|shoulda|coulda|mighta|musta|should of|could of|had of|If I'd have|I wish I'd have|I been|was sat|was stood|I'm sat|I'm use to|to who|what meant|the both|Neither Jack or|I don't like neither|what found|It were|that cold|gonna|gotta|wanna|dunno|innit|ain't)[^*]*\*""", RegexOption.IGNORE_CASE)
+        val book = b2.flatMap { course.units.getValue(it).grammar }.distinct().filter { p -> json.parseToJsonElement(File(companion, "grammar/en/$p.json").readText()).jsonObject["level"]!!.jsonPrimitive.content == "B2" }
+        val texts = b2.flatMap { id ->
+            val unit = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject
+            unit["intro"]!!.jsonObject["steps"]!!.jsonArray.flatMap { s -> s.jsonObject["say"]!!.jsonObject.values.map { "$id: ${it.jsonPrimitive.content}" } }
+        } + book.flatMap { id ->
+            val p = json.parseToJsonElement(File(companion, "grammar/en/$id.json").readText()).jsonObject
+            (p["rule"]!!.jsonObject.values + p["card"]!!.jsonObject["tip"]!!.jsonObject.values).map { "$id: ${it.jsonPrimitive.content}" }
+        }
+        assertEquals(18, book.size)
+        assertEquals(emptyList<String>(), texts.filter { said.containsMatchIn(it) })
+    }
+
+    @Test fun `the whole level is written, its sheets within 35 items, its tests within 15`() {
+        fun count(e: Exercise) = if (e is Exercise.Sort) e.columns.sumOf { it.words.size } else if (e is Exercise.Choice) 1 else Sheets.items(e, Lang.EN).size
+        for (id in b2) {
+            val u = course.units.getValue(id)
+            assertTrue("$id: its sheets", u.worksheets.flatMap { it.exercises }.sumOf { count(it) } in 15..35)
+            assertTrue("$id: its test", u.test.exercises.sumOf { count(it) } in 8..15)
+            assertTrue("$id is written", id in course.playable("B2").map { it.id })
+        }
+    }
+
+    @Test fun `the rows for stood and sat are both there and hold what each part drew`() {
+        for ((typed, right) in listOf(
+            "She was sat by the fire." to "She was sitting by the fire.", "He was stood at the gate." to "He was standing at the gate.",
+            "I'm sat here." to "I'm sitting here.", "The man stood by the gate is Jack." to "The man standing by the gate is Jack.",
+        )) assertEquals(typed, Verdict.ALMOST to Hint.NONSTANDARD, en(typed, right).let { it.verdict to it.hint })
+        // the merge keeps part a's rows for the wish before the catch-all
+        assertEquals(Verdict.ALMOST to Hint.NONSTANDARD, en("I wish I'd have known.", "I wish I had known.").let { it.verdict to it.hint })
+        assertEquals(Verdict.WRONG, en("I wish I would have known.", "I wish I had known.").verdict)
+        assertEquals(Verdict.CORRECT, en("I wish I'd known.", "I wish I had known.").verdict)
+        assertEquals(Verdict.CORRECT, en("I wish he'd come.", "I wish he would come.").verdict)
+        assertEquals(Verdict.CORRECT, en("You'd better go.", "You had better go.").verdict)
     }
 
     @Test fun `each new page has its own card, in every base`() {

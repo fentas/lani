@@ -354,7 +354,7 @@ pair switches:
   for stia, dormessi for dormissi, facilemente for facilmente; `ending_swaps`: one ending for another on the same stem, dormono for dormano, sarete for sareste; Slovene's prefixed
   verbs one letter off another prefix, prenesel for prinesel, prešel for prišel, zapisal for napisal, obšel for odšel:
   another verb, B2's `predpone`). What people say that writing doesn't want is almost, the standard form shown, one way only (`nonstandard`:
-  English's good for well, It were raining, I seen it, I've saw, a double negative, would of, He asked did I want tea; COURSE.md "Spoken forms"), never a slip and never wrong.
+  English's good for well, It were raining, I seen it, I've saw, a double negative, would of, He asked did I want tea, gonna, It was Jack what found her; COURSE.md "Spoken forms"), never a slip and never wrong.
 - **Speech**: the phone's recognizer and text-to-speech take the target's locale (sl-SI, it-IT, de-DE, en-GB); the
   node's Whisper has Slovene's model and serves Italian, German and English with the general one
   ([stt-local](stt-local/README.md#languages)). ElevenLabs gets the village's `language_code`, and a narrator says a
@@ -1949,7 +1949,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 50 (15 A1, 20 A2, 15 B1) and English 49 (18 A1, 13 A2, 18 B1), each course adding
+Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 50 (15 A1, 20 A2, 15 B1) and English 67 (18 A1, 13 A2, 18 B1, 18 B2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):
@@ -1986,7 +1986,9 @@ Slovene, English and Italian; English in Slovene, Italian and German, and Englis
   `some-any` are A2, the rest A1 or B1: for B1's units `for-since`, `present-perfect-continuous`, `past-perfect`, `used-to`,
   `future-continuous`, `question-tags`, `relative-clauses`, `passive`, `verb-patterns`, `phrasal-verbs`, `too-enough`,
   `reflexive-pronouns`, `second-conditional`, `might-must`, `third-conditional`, `contrast-linkers`, `reported-speech` and
-  `reported-questions`.
+  `reported-questions`; for B2's units `narrative-tenses`, `future-perfect`, `would-used-to`, `past-modals`, `wish-if-only`,
+  `mixed-conditionals`, `relative-clauses-more`, `participle-clauses`, `passive-more`, `have-it-done`, `reporting-verbs`, `quantifiers`,
+  `emphasis`, `result-linkers`, `phrasal-verbs-more`, `word-building`, `collocations` and `formal-informal`.
 
 **What names a page:** an exercise's `"grammar": "<id>"` (any type; every exercise of the six curated modules has one),
 a culture pack's challenge question (`quests.json` `tent_move.questions[].grammar`: Luka's tent challenge names
@@ -2311,7 +2313,7 @@ card goes into "A scuola · In der Schule", the Friuli classroom ([SCENES.md](SC
 
 **The English school** (the Lake District village's: [COURSE.md](COURSE.md#the-english-course),
 docs/plans/05-built/course-en-a1-a.md). A village of the Lakeland culture gets the English course (`companion/course/en`:
-A1's and A2's units as COURSE.md lists them, the rest planned) and Mrs Hartley teaches it, in the cast's teacher voice, to the
+its 72 units, A1 to B2, as COURSE.md lists them) and Mrs Hartley teaches it, in the cast's teacher voice, to the
 grown-ups who learn English: its explanations, instructions, hints and whys in the learner's Slovene, German or Italian,
 British English with the American form accepted (grading/en.json), its sheets headed in English and the base with
 every word meant (lexicon/en.extra.json). While units are planned she is preparing the next lessons ("I'm preparing
