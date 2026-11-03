@@ -1,6 +1,6 @@
-# Built: the English course, B2 part c (2026-11-03)
+# Built: the English course, B2 part c, and B2's integration (2026-11-03)
 
-*Wave D (followups-12.md; Jan, 2026-11-02: "yes complete"). Branch `course-en-b2-c`, from the integrated English B1 (89b15d43). Everything written in a language is machine-written (Claude) and waits for a native check. Parts a and b have their own docs and native lists; this one holds part c's six units. The integration of the level comes after it, when the lead says so.*
+*Wave D (followups-12.md; Jan, 2026-11-02: "yes complete"). Branch `course-en-b2-c`, from the integrated English B1 (89b15d43). Everything written in a language is machine-written (Claude) and waits for a native check. Parts a and b have their own docs and native lists (course-en-b2-a.md, course-en-b2-b.md); this one holds part c's six units and the integration of the level.*
 
 ## Native check
 
@@ -16,6 +16,8 @@ Sources opened (Cambridge's grammar pages refused the fetch, HTTP 403, and I did
 - How B2 First asks word formation (one text, a stem word per gap, nearly always a negative): prep sites only, not Cambridge's handbook: <https://www.esl-lounge.com/student/exams/b2-first-exam-reading-use-of-english-guide-word-formation.php>, <https://tinyteflteacher.co.uk/learn-english/b2-first-exam/b2-first-exam-practice/word-formation-negatives>.
 
 **Everything else below is from my own knowledge, so it is unsourced.**
+
+**The lead's rulings of 2026-11-03:** an item's `spoken` wins over the table where gonna, wanna, gotta or cos are on an item, and gimme, lemme, kinda and the rest stay in the table. that after a comma stays a wrong choice, as a learner's mistake (part b's list). strong rain and the letter closings stay as they are. I wish I'd have known stays almost with B1's row, and I wish I would have known stays wrong (part a's list).
 
 - `spoken` on the item (right, labelled with the standard form):
   - It was that cold we stayed in, that for so in a gap (source above);
@@ -87,7 +89,7 @@ At the level's size: six intro steps with a quick question each, three worksheet
 | 17 | `collocations` 🤝 | make, do, take, have with their nouns; heavy rain, strong tea, thick fog; everyday idioms | **collocations** (new) | 34 | 12 |
 | 18 | `formal-informal` ✉️ | Dear Sir or Madam, Yours faithfully; whole forms; a complaint and a request; an email; spoken English to understand, Cumbria's words; British against American | **formal-informal** (new) | 34 | 13 |
 
-`contrast-linkers` and `phrasal-verbs` are B1's and exist at this base, so they are named at once, not left for "once merged". **Once merged, also:** nothing. The unit assumes no page of a or b.
+`contrast-linkers` and `phrasal-verbs` are B1's and exist at this base, so they are named at once, not left for "once merged". **Once merged, also:** nothing. The units assume no page of a or b.
 
 ### The six new pages (companion/grammar/en)
 
@@ -98,7 +100,7 @@ Each B2, in the format of B1's, each with a hand-written card (title, rule, two 
 - `nonstandard`: gonna, wanna, gotta, dunno, gimme, lemme, kinda, sorta, outta, cos and its spellings; what for who or that after it is, it was. A line that says "write it for a letter" therefore isn't right if copied, and isn't wrong either: almost, with the standard form shown. COURSE.md says this is what a form the unit drills needs: as `spoken`, every line would pass as right.
 - `wrong`, paired both ways: make and take in their forms; have and gave; such and much; though and through; into and onto.
 - `wrong`, this unit's mistakes, never a slip: un-, in-, im-, il-, ir- swapped on the unit's own words (inpossible, unregular, inlegal); dis-, mis-, un- likewise (misappear, disunderstand); -yness for -iness, -yful for -iful (happyness, beautyful); -er and -or on visitor, sailor, actor, teacher, farmer. They name the words: inportant, imformation, unterstand stay almost.
-- No `same` row: a noun's 's before an adjective or -ing is listed line by line (The lift's broken, Jack's looking forward to the fair), as COURSE.md says. `_note` and `_nonstandard_note` aren't touched yet, so the parts' merge has no text to fight over: they get this at the integration.
+- No `same` row: a noun's 's before an adjective or -ing is listed line by line (The lift's broken, Jack's looking forward to the fair), as COURSE.md says. `_note` and `_nonstandard_note` were left until the integration, so the parts' merge had no text to fight over.
 
 ### Words (lexicon/en.extra.json)
 
@@ -125,6 +127,37 @@ As COURSE.md "Writing a unit" and "The English course", plus what these six foun
 
 Mrs Hartley reads the intros in the cast's teacher voice. A voice build of the six units would take about 8,700 ElevenLabs characters for her English lines (473 texts: examples, quick questions, answers, the English runs) and, on demand when an intro opens or with `voice-build --explanations`, about 16,100 (Slovene), 17,100 (German) and 17,000 (Italian) for the 42 explanations (36 steps, 6 summaries). Measured with `courseTexts`, nothing voiced, no credits spent.
 
+## The integration (part c's, 2026-11-03)
+
+- **Merged in this order, with merges:** `course-en-b2-a` (8ec9eceb, 00162722), `course-en-b2-b` (5bd990b7, 5436dc95). `course-en-b1-c` hasn't moved past the base. The outline by `resolve-outline.py`; grading/en.json hunk by hunk, both sides, its layout of a rule a line kept; lexicon/en.extra.json by `json3merge.py`, then joined by lemma and part of speech; `tutor/guide/en/grammar-book.md` regenerated by `tutor-export`. bin/qa merged with no conflict.
+- **`same`'s order, read through:** part a's three rows for wish and 'd of stand before `'d (?=better)`; `EnglishB2cContentTest` holds I wish I'd known, I wish he'd come and You'd better go. Parts a's and b's stood and sat rows both stand, as they differ: after was, were, been, and after am, is, are or a noun.
+- **The supplement:** 30 entries of one lemma and part of speech joined over the two merges, forms united. A meaning that says nothing more than another is dropped; keep bees keeps part b's. Every lemma, part of speech and form of the base and of a, b and c checked present: 2,819 entries after the merges, 2,827 with the level's last words (by then, if only, minute, bother, borrow and the like).
+- **The notes:** `_note` and `_nonstandard_note` in grading/en.json name what parts a and c added; part b's were there.
+- **Full stops:** part a left three quick questions without one, because a stop hid the bracket from the reading. They have them now.
+- **COURSE.md, the README, GAME.md, grammar-spec.md:** B2's three sections and "What people say, over B2"; the craft notes on a rule line and a quick question in the base; English 67 pages (18 A1, 13 A2, 18 B1, 18 B2) and their list; GAME.md's "German and English above A2", stale since A2, now "German's B2". Counted against the files: Slovene 77, Italian 70, German 50, English 67. German's will move when its B2 lands.
+
+### The bug in its own commit (f5f47764): a cue in the sentence after a quick question
+
+After a quick question the sentence shown and read kept a cue in the middle ("By the time the bus comes (come), I'll have finished."), because `IntroSpeech.gapFilled` stripped brackets only at the very end and a full stop after them hid them. 46 quick questions across English, Italian and Slovene had it, counted over the courses at that merge (43 in the middle, 3 before a full stop); German had none.
+
+- **Now:** a cue right after the gap goes wherever it stands, and a bracket at the end goes with a full stop after it or not, its stop kept. A bracket elsewhere stays: Jack (the shepherd), (noi).
+- **The question as read before it's answered** takes the second part too, so a stop no longer makes it read the cue. **A cue in the middle of a question is still read:** "By the time the bus … (come), I'll have finished." That's left so the clips of those questions are kept: the lead's to decide.
+- **The exercise player's sentence** (a module's choice and cloze, `PlayerScreen`) had the same rule and now shares the function. **Not touched:** the road quiz's and Forms' own copies, which build a question, not this sentence.
+- **The port:** `course-speech.ts` the same; four new cases in `test/fixtures/intro-speech.json` (English, Slovene, Italian, German), read by the smoke and `IntroSpeechParityTest`; `SpeakCoverageTest` for the player.
+- **Voice:** each sentence that changes loses its clip until it's built again, for Slovene and Italian too: 5 and 7 of those questions.
+
+## Checks, on the merged branch
+
+On 0fea5cb6, the content's last commit; the commit after it is this doc. Parts a's and b's own checks are in their docs.
+
+- `bun build --no-bundle` on each of the TypeScript test files (105): all parse. `bunx tsc --noEmit -p .` clean. `tutor-export --check`: 140 files match. Python: `tests` 253 OK, `companion/tests` 164 OK (11 skipped).
+- The smoke with ports 10270– (LANI_SMOKE_DRAMA3_PORT 10288): 3,701 checks, all passed, the four new cue cases among them.
+- Android, the whole suite through lani-slot.sh: 4,068 tests, 0 failures, 0 errors. `EnglishB2aContentTest` 11, `EnglishB2bContentTest` 12, `EnglishB2cContentTest` 14, the last with the level and with an item's `spoken` against the table over the whole course. `IntroSpeechParityTest` with the new cases.
+- `lexicon-build --coverage --lang en`, against English B1: the supplement 78.1 % → 79.7 % of words, with packs and names 96.5 % → 96.7 %, each base 95.9 % → 96.1 %. `bun test/prompt-clashes.ts`: no new clash, 339 in the baseline.
+- `school-prints --language en --level all --base de|sl|it`: all 72 units fit. B2's booklet 36 pages in each base, A1's 29, A2's 31, 31 and 33, B1's 36.
+- **Emulator** (`course-unit` through qa-slot, a 1080 × 2400 phone, Ana, a synthetic learner of English from Slovene in the Lake District): `future-perfect` of part a, whole: the school, the unit, the intro with its quick questions, the summary, the sheets, the test passed, the print's preview and PDF; ✅ setup, ✅ course-unit, ✅ crash check. Screenshots: the scratchpad's ux-course-en-b2-c/future-perfect/. Read: step 4, where the sentence after the answer now says "By the time the bus comes, I'll have finished." under the prompt with its cue. **Not seen:** a `spoken` label or a nonstandard line on a screen (QA answers right; the verdicts are unit tests).
+- **Not re-read after the merges:** parts a's and b's texts, by me. Each part's doc says who read them.
+
 ## Checks, before the integration
 
 On this branch alone, with parts a and b not merged. B2's units 1 to 12 are still planned here.
@@ -141,6 +174,6 @@ On this branch alone, with parts a and b not merged. B2's units 1 to 12 are stil
 
 ## What's left
 
-- **The integration, when the lead says so:** merge a and b; COURSE.md, the README, the page counts; `_note` and `_nonstandard_note` in grading/en.json; what people say over the 18 in the level's test; the full checks.
-- The native check at the top.
-- Voice: nothing voiced. The figures above.
+- The native check at the top, and parts a's and b's.
+- **For the lead:** a cue in the middle of a quick question is still read before it's answered (above). The queue's tip isn't merged yet: the lead names it at the end.
+- Voice: nothing voiced. Part c's figures above; parts a's and b's in their docs. The whole of B2's 18, measured with `courseTexts` on the merged branch: about 24,000 characters for her English lines (1,011 texts) and, on demand, about 46,700 (sl), 49,100 (de), 48,200 (it) for the 126 explanations.
