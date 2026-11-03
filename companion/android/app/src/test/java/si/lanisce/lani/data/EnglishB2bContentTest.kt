@@ -127,6 +127,14 @@ class EnglishB2bContentTest {
         )) assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
     }
 
+    @Test fun `two cats take each, not every, and a dog with a name takes who`() {
+        val cat = items("both-neither").first { "cat its own dish" in it.frame }
+        assertEquals(Verdict.CORRECT, Sheets.check(cat, "each", Lang.EN).verdict)
+        assertEquals(Verdict.WRONG, Sheets.check(cat, "every", Lang.EN).verdict)
+        val meg = items("non-defining").first { it.accept.any { a -> a.startsWith("Meg, who") } }
+        assertEquals(Verdict.WRONG, Sheets.check(meg, "Meg, that everybody loves, is Jack's dog.", Lang.EN).verdict)
+    }
+
     @Test fun `what the table adds keeps one answer of a contraction or a that`() {
         for ((said, long) in listOf(
             "Sam suggested we go by bus." to "Sam suggested that we go by bus.",
@@ -166,7 +174,8 @@ class EnglishB2bContentTest {
         }
         takes("non-defining", "Old Wilf, ", "who", "whom")
         takes("participle-clauses", "his soup, Wilf fell asleep", "Having finished", "After finishing", "After having finished")
-        takes("passive-more", "It ${Sheets.BLANK} (open) again", "will be opened", "is going to be opened")
+        takes("passive-more", "The new door ${Sheets.BLANK} (put in)", "will be put in", "is going to be put in")
+        takes("passive-more", "The work should ${Sheets.BLANK} (finish)", "have been finished", "have finished")
         takes("have-it-done", "She ${Sheets.BLANK} the roof mended", "had", "got")
         takes("reporting-verbs", "He admitted", "forgetting", "having forgotten")
         takes("both-neither", "None of the walkers", "is", "are")
@@ -176,7 +185,8 @@ class EnglishB2bContentTest {
         }
         line("non-defining", "Mr Dixon, who lives", "Mr Dixon, who lives by the beck, is our blacksmith.", "Mr Dixon, who is our blacksmith, lives by the beck.")
         line("passive-more", "The tarn is said", "It is said that the tarn has no bottom.", "It is said the tarn has no bottom.", "The tarn is said to have no bottom.")
-        line("have-it-done", "I had my boots mended", "I had my boots mended.", "I got my boots mended.", "I had my boots mended by Mr Dixon.", "I got my boots mended by Mr Dixon.")
+        line("have-it-done", "I had my spade mended", "I had my spade mended.", "I got my spade mended.", "I had my spade mended by Mr Dixon.", "I got my spade mended by Mr Dixon.")
+        line("non-defining", "Hill Top, which", "Hill Top, which we visited last year, is in Near Sawrey.", "We visited Hill Top, which is in Near Sawrey, last year.")
         line("reporting-verbs", "Harry admitted", "Harry admitted taking the cake.", "Harry admitted having taken the cake.", "Harry admitted to taking the cake.", "Harry admitted he took the cake.", "Harry admitted that he'd taken the cake.")
         line("both-neither", "Both Jack and Sam", "Both Jack and Sam are coming.", "Jack and Sam are both coming.")
     }

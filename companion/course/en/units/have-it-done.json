@@ -12,7 +12,7 @@
   },
   "goal": {
     "sl": "Poveš, kaj daš narediti drugemu (I had my hair cut, I'm getting the van fixed), in to ločiš od tega, kar narediš sam, ter od I had cut my hair.",
-    "de": "Du sagst, was du machen lässt (I had my hair cut, I'm getting the van fixed), und hältst es auseinander von dem, was du selbst machst, und von I had cut my hair.",
+    "de": "Du sagst, was du machen lässt (I had my hair cut, I'm getting the van fixed), und unterscheidest es von dem, was du selbst machst, und von I had cut my hair.",
     "it": "Dici che cosa ti fai fare (I had my hair cut, I'm getting the van fixed) e lo distingui da quello che fai da solo e da I had cut my hair.",
     "en": "You can say what you have done for you (I had my hair cut, I'm getting the van fixed), and keep it apart from what you do yourself and from I had cut my hair."
   },
@@ -23,6 +23,7 @@
   "words": [
     "participle",
     "hair",
+    "spade",
     "cut",
     "hairdresser's",
     "roof",
@@ -78,9 +79,9 @@
     "steps": [
       {
         "say": {
-          "sl": "**have** + stvar + deležnik pomeni, da to zate naredi nekdo drug: **I had my hair cut.** ({m:Dal|f:Dala} sem si postriči lase.) **Mrs Birkett had the roof mended.** (Gospa Birkett je dala popraviti streho.) Če narediš sam, je to navaden glagol: **I cut my hair.**",
+          "sl": "**have** + stvar + deležnik pomeni, da to zate naredi nekdo drug: **I had my hair cut.** ({m:Dal|f:Dala} sem si postriči lase.) **Mrs Birkett had the roof mended.** (Gospa Birkett je dala popraviti streho.) Če narediš {m:sam|f:sama}, je to navaden glagol: **I cut my hair.**",
           "de": "**have** + Sache + Partizip heißt, dass jemand anderer es für dich macht: **I had my hair cut.** (Ich habe mir die Haare schneiden lassen.) **Mrs Birkett had the roof mended.** (Mrs Birkett hat das Dach reparieren lassen.) Machst du es selbst, ist es ein normales Verb: **I cut my hair.**",
-          "it": "**have** + cosa + participio vuol dire che lo fa un altro per te: **I had my hair cut.** (Mi sono fatt{m:o|f:a} tagliare i capelli.) **Mrs Birkett had the roof mended.** (Mrs Birkett ha fatto riparare il tetto.) Se lo fai da solo, è un verbo normale: **I cut my hair.**",
+          "it": "**have** + cosa + participio vuol dire che lo fa un altro per te: **I had my hair cut.** (Mi sono fatt{m:o|f:a} tagliare i capelli.) **Mrs Birkett had the roof mended.** (Mrs Birkett ha fatto riparare il tetto.) Se lo fai da sol{m:o|f:a}, è un verbo normale: **I cut my hair.**",
           "en": "**have** + thing + the participle means someone else does it for you: **I had my hair cut.** **Mrs Birkett had the roof mended.** If you do it yourself, it's a plain verb: **I cut my hair.**"
         },
         "examples": [
@@ -98,7 +99,7 @@
           },
           {
             "en": "I cut my hair.",
-            "sl": "{m:Ostrigel|f:Ostrigla} sem se.",
+            "sl": "{m:Sam|f:Sama} sem se {m:ostrigel|f:ostrigla}.",
             "de": "Ich habe mir die Haare geschnitten.",
             "it": "Mi sono tagliat{m:o|f:a} i capelli."
           }
@@ -117,7 +118,7 @@
           [
             "do it",
             {
-              "sl": "sam",
+              "sl": "naredi sam",
               "de": "selbst",
               "it": "da solo",
               "en": "you yourself"
@@ -128,7 +129,7 @@
         "ask": {
           "type": "choice",
           "grammar": "have-it-done",
-          "prompt": "Jack can't mend a roof, so he ___.",
+          "prompt": "Jack couldn't mend the roof, so he ___.",
           "options": [
             "had it mended",
             "mended it",
@@ -146,7 +147,7 @@
       },
       {
         "say": {
-          "sl": "Spremeni se le **have**: **We're having the roof mended.** (Dajemo popraviti streho.) **We've had the roof mended.** **We'll have the roof mended.** Vprašanje in zanikanje kot pri vsakem glagolu: **Did you have your hair cut?** (Si se {m:dal|f:dala} postriči?) **I didn't have it done.**",
+          "sl": "Spremeni se le **have**: **We're having the roof mended.** (Streho nam prav zdaj popravljajo.) **We've had the roof mended.** **We'll have the roof mended.** Vprašanje in zanikanje kot pri vsakem glagolu: **Did you have your hair cut?** (Si se {m:dal|f:dala} postriči?) **I didn't have it done.**",
           "de": "Nur **have** ändert sich: **We're having the roof mended.** (Wir lassen gerade das Dach reparieren.) **We've had the roof mended.** **We'll have the roof mended.** Frage und Verneinung wie bei jedem Verb: **Did you have your hair cut?** (Hast du dir die Haare schneiden lassen?) **I didn't have it done.**",
           "it": "Cambia solo **have**: **We're having the roof mended.** (Stiamo facendo riparare il tetto.) **We've had the roof mended.** **We'll have the roof mended.** Domanda e negazione come per ogni verbo: **Did you have your hair cut?** (Ti sei fatt{m:o|f:a} tagliare i capelli?) **I didn't have it done.**",
           "en": "Only **have** changes: **We're having the roof mended.** **We've had the roof mended.** **We'll have the roof mended.** Questions and no as with any verb: **Did you have your hair cut?** **I didn't have it done.**"
@@ -154,7 +155,7 @@
         "examples": [
           {
             "en": "We're having the roof mended.",
-            "sl": "Dajemo popraviti streho.",
+            "sl": "Streho nam prav zdaj popravljajo.",
             "de": "Wir lassen gerade das Dach reparieren.",
             "it": "Stiamo facendo riparare il tetto."
           },
@@ -213,10 +214,10 @@
       },
       {
         "say": {
-          "sl": "V govoru je pogosto **get**, enak pomen: **I got my hair cut.** **I'm getting the van fixed.** (Dajem popraviti kombi.) Tudi kot ukaz: **Get your hair cut!** (Pojdi se ostrič!) Američani rečejo tudi **I've gotten my hair cut.**, Britanci **I've got my hair cut.**",
-          "de": "Gesprochen ist **get** häufig, mit demselben Sinn: **I got my hair cut.** **I'm getting the van fixed.** (Ich lasse gerade den Lieferwagen reparieren.) Auch als Befehl: **Get your hair cut!** (Geh zum Friseur!) In Amerika auch **I've gotten my hair cut.**, in Britannien **I've got my hair cut.**",
-          "it": "A voce è comune **get**, con lo stesso senso: **I got my hair cut.** **I'm getting the van fixed.** (Sto facendo riparare il furgone.) Anche come ordine: **Get your hair cut!** (Vatti a tagliare i capelli!) In America anche **I've gotten my hair cut.**, in Gran Bretagna **I've got my hair cut.**",
-          "en": "In talk **get** is common, with the same meaning: **I got my hair cut.** **I'm getting the van fixed.** As an order too: **Get your hair cut!** Americans also say **I've gotten my hair cut.**, the British **I've got my hair cut.**"
+          "sl": "V govoru je pogosto **get**, enak pomen: **I got my hair cut.** **I'm getting the van fixed.** (Kombi mi prav zdaj popravljajo.) Tudi kot ukaz: **Get your hair cut!** (Pojdi se ostrič!) Američani rečejo tudi **I've gotten my hair cut.**, Britanci **I've had my hair cut.**",
+          "de": "Gesprochen ist **get** häufig, mit demselben Sinn: **I got my hair cut.** **I'm getting the van fixed.** (Ich lasse gerade den Lieferwagen reparieren.) Auch als Befehl: **Get your hair cut!** (Lass dir die Haare schneiden!) In Amerika auch **I've gotten my hair cut.**, in Großbritannien **I've had my hair cut.**",
+          "it": "A voce è comune **get**, con lo stesso senso: **I got my hair cut.** **I'm getting the van fixed.** (Sto facendo riparare il furgone.) Anche come ordine: **Get your hair cut!** (Fatti tagliare i capelli!) In America anche **I've gotten my hair cut.**, in Gran Bretagna **I've had my hair cut.**",
+          "en": "In talk **get** is common, with the same meaning: **I got my hair cut.** **I'm getting the van fixed.** As an order too: **Get your hair cut!** Americans also say **I've gotten my hair cut.**, the British **I've had my hair cut.**"
         },
         "examples": [
           {
@@ -227,19 +228,19 @@
           },
           {
             "en": "I'm getting the van fixed.",
-            "sl": "Dajem popraviti kombi.",
+            "sl": "Kombi mi prav zdaj popravljajo.",
             "de": "Ich lasse gerade den Lieferwagen reparieren.",
             "it": "Sto facendo riparare il furgone."
           },
           {
             "en": "Get your hair cut!",
             "sl": "Pojdi se ostrič!",
-            "de": "Geh zum Friseur!",
-            "it": "Vatti a tagliare i capelli!"
+            "de": "Lass dir die Haare schneiden!",
+            "it": "Fatti tagliare i capelli!"
           },
           {
-            "en": "I've got my hair cut.",
-            "sl": "{m:Ostrigel|f:Ostrigla} sem se pri frizerju.",
+            "en": "I've had my hair cut.",
+            "sl": "{m:Dal|f:Dala} sem si postriči lase.",
             "de": "Ich habe mir die Haare schneiden lassen.",
             "it": "Mi sono fatt{m:o|f:a} tagliare i capelli."
           }
@@ -277,9 +278,9 @@
       },
       {
         "say": {
-          "sl": "Pazi na vrstni red: **I had my hair cut.** (nekdo drug) ni **I had cut my hair.** ({m:ostrigel|f:ostrigla} sem se {m:sam|f:sama}, še prej). Stvar stoji v sredini, za njo deležnik: **I had the gate mended** (never *I had the gate mend*). Pri **cut** sta oblika in deležnik enaka, pri drugih ne: **painted, cleaned, looked at**.",
-          "de": "Achte auf die Reihenfolge: **I had my hair cut.** (jemand anderer) ist nicht **I had cut my hair.** (selbst, schon vorher). Die Sache steht in der Mitte, danach das Partizip: **I had the gate mended** (never *I had the gate mend*). *lassen* ist hier nicht *let*. Bei **cut** sind Grundform und Partizip gleich, sonst nicht: **painted, cleaned, looked at**.",
-          "it": "Attento all'ordine: **I had my hair cut.** (un altro) non è **I had cut my hair.** (da solo, già prima). La cosa sta in mezzo, poi il participio: **I had the gate mended** (never *I had the gate mend*). Qui *fare* non è *make*. Con **cut** forma base e participio sono uguali, con gli altri no: **painted, cleaned, looked at**.",
+          "sl": "Pazi na vrstni red: **I had my hair cut.** (nekdo drug) ni **I had cut my hair.** ({m:ostrigel|f:ostrigla} sem se {m:sam|f:sama}, še prej). Stvar stoji v sredini, za njo deležnik: **I had the gate mended** (nikoli *I had the gate mend*). Pri **cut** sta osnovna oblika in deležnik enaka, pri drugih ne: **painted, cleaned, looked at**.",
+          "de": "Achte auf die Reihenfolge: **I had my hair cut.** (jemand anderer) ist nicht **I had cut my hair.** (selbst, schon vorher). Die Sache steht in der Mitte, danach das Partizip: **I had the gate mended** (nie *I had the gate mend*). *lassen* ist hier nicht *let*. Bei **cut** sind Grundform und Partizip gleich, sonst nicht: **painted, cleaned, looked at**.",
+          "it": "Attent{m:o|f:a} all'ordine: **I had my hair cut.** (un altro) non è **I had cut my hair.** (da sol{m:o|f:a}, già prima). La cosa sta in mezzo, poi il participio: **I had the gate mended** (mai *I had the gate mend*). Qui *fare* non è *make*. Con **cut** forma base e participio sono uguali, con gli altri no: **painted, cleaned, looked at**.",
           "en": "Mind the order: **I had my hair cut.** (someone else) isn't **I had cut my hair.** (myself, earlier). The thing stands in the middle, then the participle: **I had the gate mended** (never *I had the gate mend*). With **cut** the base form and the participle look the same, with others they don't: **painted, cleaned, looked at**."
         },
         "examples": [
@@ -291,7 +292,7 @@
           },
           {
             "en": "I had cut my hair.",
-            "sl": "{m:Ostrigel|f:Ostrigla} sem se že prej.",
+            "sl": "{m:Sam|f:Sama} sem se že prej {m:ostrigel|f:ostrigla}.",
             "de": "Ich hatte mir die Haare schon geschnitten.",
             "it": "Mi ero già tagliat{m:o|f:a} i capelli."
           },
@@ -330,8 +331,8 @@
       {
         "say": {
           "sl": "Kdo je to naredil, pove **by**: **We had the gate mended by Mr Dixon.** Če je oseba v ospredju: **get** + oseba + **to**: **I'll get Jack to look at it.** ({m:Prosil|f:Prosila} bom Jacka, naj to pogleda.) Ali **have** + oseba + osnovna oblika: **I'll have Jack look at it.** Slednje je v Britaniji bolj uradno.",
-          "de": "Wer es gemacht hat, sagt **by**: **We had the gate mended by Mr Dixon.** Steht die Person im Vordergrund: **get** + Person + **to**: **I'll get Jack to look at it.** (Ich lasse Jack einen Blick darauf werfen.) Oder **have** + Person + Grundform: **I'll have Jack look at it.** Das klingt in Britannien förmlicher.",
-          "it": "Chi l'ha fatto lo dice **by**: **We had the gate mended by Mr Dixon.** Se conta la persona: **get** + persona + **to**: **I'll get Jack to look at it.** (Lo faccio guardare a Jack.) Oppure **have** + persona + forma base: **I'll have Jack look at it.** In Gran Bretagna suona più formale.",
+          "de": "Wer es gemacht hat, sagt **by**: **We had the gate mended by Mr Dixon.** Steht die Person im Vordergrund: **get** + Person + **to**: **I'll get Jack to look at it.** (Ich lasse Jack einen Blick darauf werfen.) Oder **have** + Person + Grundform: **I'll have Jack look at it.** Das klingt in Großbritannien förmlicher.",
+          "it": "Chi l'ha fatto lo dice **by**: **We had the gate mended by Mr Dixon.** Se conta la persona: **get** + persona + **to**: **I'll get Jack to look at it.** (Lo faccio vedere a Jack.) Oppure **have** + persona + forma base: **I'll have Jack look at it.** In Gran Bretagna suona più formale.",
           "en": "**by** says who did it: **We had the gate mended by Mr Dixon.** When the person matters: **get** + person + **to**: **I'll get Jack to look at it.** Or **have** + person + the base form: **I'll have Jack look at it.** In Britain that sounds more formal."
         },
         "examples": [
@@ -345,13 +346,13 @@
             "en": "I'll get Jack to look at it.",
             "sl": "{m:Prosil|f:Prosila} bom Jacka, naj to pogleda.",
             "de": "Ich lasse Jack einen Blick darauf werfen.",
-            "it": "Lo faccio guardare a Jack."
+            "it": "Lo faccio vedere a Jack."
           },
           {
             "en": "I'll have Jack look at it.",
-            "sl": "Jack bo to pogledal.",
+            "sl": "{m:Naročil|f:Naročila} bom Jacku, naj to pogleda.",
             "de": "Ich lasse Jack einen Blick darauf werfen.",
-            "it": "Lo faccio guardare a Jack."
+            "it": "Lo faccio vedere a Jack."
           }
         ],
         "rows": [
@@ -404,7 +405,7 @@
           {
             "en": "Sam had his van broken into.",
             "sl": "Samu so vlomili v kombi.",
-            "de": "Bei Sam wurde in den Lieferwagen eingebrochen.",
+            "de": "In Sams Lieferwagen wurde eingebrochen.",
             "it": "A Sam hanno scassinato il furgone."
           },
           {
@@ -451,7 +452,7 @@
     {
       "id": "have-it-done-1",
       "title": {
-        "sl": "Sam ali nekdo drug",
+        "sl": "Narediš sam ali nekdo drug",
         "de": "Selbst oder jemand anderer",
         "it": "Da solo o un altro",
         "en": "Yourself or someone else"
@@ -469,7 +470,7 @@
           "columns": [
             {
               "label": {
-                "sl": "nekdo drug",
+                "sl": "naredi nekdo drug",
                 "de": "jemand anderer",
                 "it": "un altro",
                 "en": "someone else"
@@ -483,7 +484,7 @@
             },
             {
               "label": {
-                "sl": "sam",
+                "sl": "naredi sam",
                 "de": "selbst",
                 "it": "da solo",
                 "en": "yourself"
@@ -554,7 +555,7 @@
             "did"
           ],
           "translation": {
-            "sl": "Gospa Birkett ima veliko dela. Prejšnji mesec je dala popraviti streho, ta teden daje prepleskati kuhinjo. Naslednji teden bo dala očistiti okna. Včeraj je gospoda Dixona pripravila do tega, da je popravil vrata. Harry se mora ostriči. Ni se strigel od junija.",
+            "sl": "Gospa Birkett ima veliko dela. Prejšnji mesec je dala popraviti streho, ta teden ji pleskajo kuhinjo. Naslednji teden bo dala očistiti okna. Včeraj je gospoda Dixona pripravila do tega, da je popravil vrata. Harry se mora ostriči. Ni se strigel od junija.",
             "de": "Mrs Birkett hat viel zu tun. Letzten Monat hat sie das Dach reparieren lassen, diese Woche lässt sie die Küche streichen. Nächste Woche lässt sie die Fenster putzen. Gestern hat sie Mr Dixon dazu gebracht, das Tor zu reparieren. Harry muss zum Friseur. Seit Juni war er nicht mehr dort.",
             "it": "Mrs Birkett ha molto da fare. Il mese scorso ha fatto riparare il tetto, questa settimana fa dipingere la cucina. La settimana prossima farà pulire le finestre. Ieri ha fatto riparare il cancello a Mr Dixon. Harry deve farsi tagliare i capelli. Non se li fa tagliare da giugno.",
             "en": "Mrs Birkett is busy. She had the roof mended last month, and this week she is having the kitchen painted. Next week she's going to have the windows cleaned. She got Mr Dixon to mend the gate yesterday. Harry needs to get his hair cut. He hasn't had it cut since June."
@@ -582,12 +583,12 @@
           },
           "items": [
             {
-              "from": "Mr Dixon mended my boots. (I)",
+              "from": "Mr Dixon mended my spade. (I)",
               "accept": [
-                "I had my boots mended.",
-                "I got my boots mended.",
-                "I had my boots mended by Mr Dixon.",
-                "I got my boots mended by Mr Dixon."
+                "I had my spade mended.",
+                "I got my spade mended.",
+                "I had my spade mended by Mr Dixon.",
+                "I got my spade mended by Mr Dixon."
               ]
             },
             {
@@ -652,10 +653,10 @@
             }
           ],
           "explain": {
-            "sl": "**Osebek v oklepaju + have, get v istem času + stvar + deležnik**\n- Mr Dixon mended my boots. (I) → I had my boots mended.",
-            "de": "**Das Subjekt in Klammern + have, get in derselben Zeit + Sache + Partizip**\n- Mr Dixon mended my boots. (I) → I had my boots mended.",
-            "it": "**Il soggetto tra parentesi + have, get allo stesso tempo + cosa + participio**\n- Mr Dixon mended my boots. (I) → I had my boots mended.",
-            "en": "**The subject in brackets + have, get in the same tense + thing + the participle**\n- Mr Dixon mended my boots. (I) → I had my boots mended."
+            "sl": "**Osebek v oklepaju + have, get v istem času + stvar + deležnik**\n- Mr Dixon mended my spade. (I) → I had my spade mended.",
+            "de": "**Das Subjekt in Klammern + have, get in derselben Zeit + Sache + Partizip**\n- Mr Dixon mended my spade. (I) → I had my spade mended.",
+            "it": "**Il soggetto tra parentesi + have, get allo stesso tempo + cosa + participio**\n- Mr Dixon mended my spade. (I) → I had my spade mended.",
+            "en": "**The subject in brackets + have, get in the same tense + thing + the participle**\n- Mr Dixon mended my spade. (I) → I had my spade mended."
           }
         },
         {
@@ -781,7 +782,8 @@
             },
             {
               "accept": [
-                "cut"
+                "cut",
+                "done"
               ]
             },
             {
@@ -797,7 +799,7 @@
           ],
           "translation": {
             "sl": "Mlinsko kolo gospoda Tysona je polomljeno. Dal ga bo popraviti. Dal ga je pregledati tudi lani. Si se {m:dal|f:dala} postriči? Samu so spet vlomili v kombi. {m:Prosil|f:Prosila} bom Jacka, naj ti pomaga.",
-            "de": "Das Mühlrad von Mr Tyson ist kaputt. Er wird es reparieren lassen. Er hat es auch letztes Jahr prüfen lassen. Hast du dir die Haare schneiden lassen? Bei Sam wurde wieder in den Lieferwagen eingebrochen. Ich sage Jack, er soll dir helfen.",
+            "de": "Das Mühlrad von Mr Tyson ist kaputt. Er wird es reparieren lassen. Er hat es auch letztes Jahr prüfen lassen. Hast du dir die Haare schneiden lassen? In Sams Lieferwagen wurde wieder eingebrochen. Ich sage Jack, er soll dir helfen.",
             "it": "La ruota del mulino di Mr Tyson è rotta. La farà riparare. L'ha fatta controllare anche l'anno scorso. Ti sei fatt{m:o|f:a} tagliare i capelli? A Sam hanno scassinato di nuovo il furgone. Dirò a Jack di aiutarti.",
             "en": "Mr Tyson's mill wheel is broken. He's going to have it mended. He had it checked last year too. Have you had your hair cut? Sam had his van broken into again. I'll get Jack to help you."
           }
@@ -840,12 +842,13 @@
           {
             "accept": [
               "had",
-              "got"
+              "got",
+              "has had"
             ]
           }
         ],
         "translation": {
-          "sl": "Packhorse potrebuje popravila. Gospa Birkett je prejšnji teden dala prepleskati okna. Danes daje popraviti vrata. Naslednje leto bo dala narediti novo streho. Harryju so ukradli kolo, zato je žalosten.",
+          "sl": "Packhorse potrebuje popravila. Gospa Birkett je prejšnji teden dala prepleskati okna. Danes ji popravljajo vrata. Naslednje leto bo dala narediti novo streho. Harryju so ukradli kolo, zato je žalosten.",
           "de": "Das Packhorse muss hergerichtet werden. Mrs Birkett hat letzte Woche die Fenster streichen lassen. Heute lässt sie die Tür reparieren. Nächstes Jahr lässt sie ein neues Dach machen. Harry wurde das Rad gestohlen, deshalb ist er traurig.",
           "it": "Il Packhorse ha bisogno di lavori. La settimana scorsa Mrs Birkett ha fatto dipingere le finestre. Oggi fa riparare la porta. L'anno prossimo farà rifare il tetto. A Harry hanno rubato la bici, quindi è triste.",
           "en": "The Packhorse needs work. Mrs Birkett had the windows painted last week. She is having the door mended today. Next year she'll have a new roof put on. Harry had his bike stolen, so he's sad."
