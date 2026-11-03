@@ -23,7 +23,7 @@ speaker, first:
   wrong preposition («provo di», «insegniamo di», «comincio di», «smesso a», «riuscire di», «ci dimentichiamo a», «aiuto
   di»), relatives («in che», «con che», «da cui» for di cui, «in cui» for su cui), «ogni giocatori», «qualche pesci»,
   «ognuna ne prendono», «qualcune», «ognuni», agreement («è stata portata» for il ponte, «chiusa il portone», «sentito la
-  notizia», «arrivato in cima» for two women), the short conditional regularised («anderei», «beverei», «poterei»,
+  notizia», «arrivato in cima» for two women), the short conditional regularised («anderei», «beverei», «averei»,
   «venirei», «sterebbe», «serverebbero»), the indicative after benché, sebbene, purché, affinché, a condizione che, a meno
   che («benché ruba», «purché li tiene», «a condizione che è»), «disse che verrebbe» (the course's page says never
   tornerebbe), «pensava che allontanino», «vorrei che suonerebbero», «stare per + gerund or participle». Never offered as
@@ -213,16 +213,26 @@ sheep bells, fog out).
 
 ## Words
 
-A tap on any word of these lines opens its card. `companion/lexicon/tools/it_cov_60_dialogs_friuli.txt` is a table of its
-own, run through `it_cov_build.py` from the file before supplement-it as its header says
+A tap on any word of these lines opens its card. `companion/lexicon/tools/it_cov_70_dialogs_friuli.txt` (60 before the merge
+with the queue) is a table of its own, run through `it_cov_build.py` from the file before supplement-it as its header says
 (`git show 45924165:companion/lexicon/it.extra.json > base.json; python3 -I companion/lexicon/tools/it_cov_build.py . base.json --write --prompts`):
 196 new entries with their meanings in en, de and sl (written by hand, for a child), and the forms of 170 older ones the
 lines use. Nothing lost (every entry, meaning and form of before is there). `lexicon-build --coverage --lang it --all`, with no
 Wiktionary as a phone has it: 99.8 % of tokens and 97.8 % of words, as before the variants (131,953 tokens now, 111,387
-before). Unknown on purpose: the wrong forms offered (anderei, beverei, venirei, sterebbe, serverebbero, ognuni, qualcune),
-the Slovene and German words quoted in a line («bi», «ristanc», «Kaffee», Elena's grandmother's sentence) and letters. One
-wrong form is a real word: «poterei» is potare's conditional (I would prune), and its card says so. `--prompts`: the six
+before). Unknown on purpose: the wrong forms offered (anderei, beverei, averei, venirei, sterebbe, serverebbero, ognuni, qualcune),
+the Slovene and German words quoted in a line («bi», «ristanc», «Kaffee», Elena's grandmother's sentence) and letters. A wrong
+form that is a real word would show that word's card on a tap: «poterei» (potare's conditional, "I would prune") was one, in
+Franco's stores (scorte-b1-famiglie); that turn now tests «avrei» against «averei», which no entry knows, so its tap shows no
+card. `--prompts`: the six
 clashes of before, none new; `bun test/prompt-clashes.ts` no new clash.
+
+After the merge with the queue (practice-en, packs-it, hint-chip-it) the table is named 70, so it comes after the packs'
+and practice's tables: the 33 words both define (cuoco, padrone, figura, consegnare, stringere, sdraiarsi …) keep their
+meanings and this table adds only the forms the variants use (cuoca, padrona, sdraiato …) with `~` lines, or leaves them to the
+others (ottocento, pentolone, ronzio, allevare, elettrico, permettere, scienziato); six glosses
+changed so no new prompt clash (annoiare, trebbiatura, stroppiare, catinella, covo, incrinare). The file rebuilt from base
+and every table, never merged by hand, with every entry and form of both sides of each merge. On the merged branch: 99.8 %
+of tokens and 98.4 % of words (351 files).
 
 ## Voices
 
@@ -268,9 +278,12 @@ in the scene and the happening's own dialog plays. Screenshots in `$LANI_QA_DIAL
 
 ## Found on the way
 
-- **The model's Marisa says tu-back.** In `al-mercato`'s `osteria-b2-sagra` (5fd43a08) the learner says «Avresti dovuto
+- **The model's Marisa said tu-back.** In `al-mercato`'s `osteria-b2-sagra` (5fd43a08) the learner said «Avresti dovuto
   chiamarmi! Ti avrei aiutata volentieri.» to Marisa, whom VILLAGERS.md has them call signora Marisa with Lei (as the old
-  osteria dialogs do: «Sì, grazie, signora Marisa!»). Here every turn to Marisa is Lei. For the model's owner.
+  osteria dialogs do: «Sì, grazie, signora Marisa!»). Fixed here after the merge with the queue (the lead's ask): «Avrebbe
+  dovuto chiamarmi! L'avrei aiutata volentieri.» against «Avrà dovuto …», the why with avrebbe and avrà, vi in Slovene
+  («Morali bi me poklicati! Z veseljem bi vam pomagal.») and Sie in German («Sie hätten mich rufen sollen! Ich hätte Ihnen
+  gern geholfen.»); dialog-levels.md's native check and model table say so.
 
 ## What's left
 
