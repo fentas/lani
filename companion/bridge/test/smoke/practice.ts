@@ -50,6 +50,8 @@ export default async function practice() {
     }
     check(`modules/${language}: a quest's giver is someone of the cast`, mods.every(m => !m.quest || cast.some(v => v.name === m.quest!.giver)), mods.filter(m => m.quest && !cast.some(v => v.name === m.quest!.giver)).map(m => [m.id, m.quest!.giver]))
     check(`modules/${language}: machine-written and saying so`, raw.every(({ input }) => /machine-written/.test(input.review ?? '')))
+    const orders = ['A1', 'A2', 'B1'].map(l => raw.filter(({ input }) => input.level === l).map(({ input }) => input.order).sort((a: number, b: number) => a - b))
+    check(`modules/${language}: each has its place in its level (order 1, 2, 3 …: the pace, ModuleStore.offered)`, orders.every(o => o.every((n: number, i: number) => n === i + 1)), orders)
     const tokens = mods.flatMap(m => m.exercises.flatMap(e => (e.type === 'reorder' ? [...e.tokens, ...(e.distractors ?? [])] : [])))
     check(`modules/${language}: no placeholder in a sentence's chips`, tokens.every(t => !t.includes('{')), tokens.filter(t => t.includes('{')))
 

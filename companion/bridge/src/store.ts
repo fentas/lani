@@ -27,6 +27,13 @@ export function validateCuratedModule(input: unknown, base: string): Validation 
   return validateModule(inBase(input, base, MODULE_BASED_KEYS))
 }
 
+/** What the pace of the curated modules reads of the village ([ModuleStore.offered]): its requests, who lives here, the local day. */
+export type VillageNow = {
+  quests: { moduleId?: unknown; done?: unknown; since?: unknown; giver?: unknown }[]
+  here: (giver: string) => boolean
+  today: string
+}
+
 /** The CEFR levels in order: a curated module above the learner's isn't offered ([ModuleStore.offered]). */
 const LEVEL_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 
@@ -142,12 +149,40 @@ export class ModuleStore {
   }
 
   /**
-   * What the app is offered (GET /modules) for a learner at [level]: every module, less the curated ones above their level
-   * (a congiuntivo for a child at A1 would come up in every run and as a villager's request; they come with the level-up).
-   * What the tutor published is always offered: the tutor chose it for this learner. The tutor's own list has them all.
+   * What the app is offered (GET /modules) for a learner at [level] and their village [at]. What the tutor published always:
+   * the tutor chose it for this learner. A curated module above their level never: it would come up in every run. A curated
+   * module with a request comes at the village's pace, as the tutor is asked to pace theirs (GAME.md "A window of requests"):
+   * the app turns every module listed into a request at once, so a list of eight is eight requests, and the tutor's rank
+   * above a villager's own: they would fill the map for weeks (docs/plans/05-built/practice-it.md "The pace"). So the list
+   * holds those asked already (dropped from it, the app would forget them as played) and, when none is open and none was
+   * asked today, the next by its level and `order` whose giver lives here. Nobody here for any of them yet: the first without
+   * its request, for the runs. The tutor's own list has them all.
    */
-  offered(level: string): ModuleInfo[] {
+  offered(level: string, at: VillageNow = { quests: [], here: () => true, today: '' }): ModuleInfo[] {
     const rank = LEVEL_ORDER.indexOf(level)
-    return this.list().filter(m => !(m.version === 1 && this.raw.has(m.id) && LEVEL_ORDER.indexOf(m.level) > rank))
+    const curated = (m: ModuleInfo) => m.version === 1 && this.raw.has(m.id)
+    const all = this.list()
+    const ownQuests = at.quests.filter(q => typeof q.moduleId === 'string' && this.raw.has(q.moduleId))
+    const asked = new Set(ownQuests.map(q => q.moduleId as string))
+    const place = (m: ModuleInfo) => [LEVEL_ORDER.indexOf(m.level), this.orderOf(m.id)] as const
+    const paced = all
+      .filter(m => curated(m) && !!m.quest && LEVEL_ORDER.indexOf(m.level) <= rank && !asked.has(m.id))
+      .sort((a, b) => place(a)[0] - place(b)[0] || place(a)[1] - place(b)[1])
+    const open = ownQuests.some(q => !q.done && (typeof q.giver !== 'string' || at.here(q.giver)))
+    const askedToday = ownQuests.some(q => typeof q.since === 'string' && q.since >= at.today)
+    const next = open || askedToday ? undefined : paced.find(m => at.here(m.quest!.giver))
+    const out = all.filter(m => {
+      if (!curated(m) || asked.has(m.id)) return true
+      if (LEVEL_ORDER.indexOf(m.level) > rank) return false
+      return !m.quest || m.id === next?.id
+    })
+    if (out.some(curated) || !paced.length) return out
+    return [...out, { ...paced[0], quest: undefined }]
+  }
+
+  /** A curated module's place in its level (its file's `order`), else after those that have one. */
+  private orderOf(id: string): number {
+    const o = (this.raw.get(id) as { order?: unknown } | undefined)?.order
+    return typeof o === 'number' ? o : Number.MAX_SAFE_INTEGER
   }
 }

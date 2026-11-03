@@ -30,7 +30,7 @@ the tutor publishes keeps plain strings.
 
 **Offered by level.** Until now every curated module was A1. The app puts every module's exercises into every run and turns
 each quest into a villager's request, so a congiuntivo module would have reached a child at A1. `GET /modules` now leaves out
-a curated module above the learner's level (`ModuleStore.offered`), on the bridge, so an older app gets this too. The tutor's
+a curated module above the learner's level (`ModuleStore.offered`, with the pace below), on the bridge, so an older app gets this too. The tutor's
 `list_modules` shows all, `GET /modules/:id` serves any, and what the tutor published is always offered. The level-up moves
 the `content` area, so the app reads the list again and the next level's modules come as new.
 
@@ -73,7 +73,7 @@ tutor's guide on the numbers says what the ids mean in Italian.
 
 | Journey | Before | After |
 |---|---|---|
-| A grammar drill | none to play: ✨ opened an empty sheet | 3: ✨, the module, "▶ Inizia" (its giver's card between) |
+| A grammar drill | none to play: ✨ opened an empty sheet | 3: ✨, the module, "▶ Inizia" (its giver's card between); the list grows one a day at most |
 | Numbers | none: no tile, the unit's page had none | 2 once `numeri`'s intro is done: 🔢, "▶ Inizia"; closed, 1 to the intro |
 | Why a car's drills aren't there | not said anywhere | 2: 🚗, "Altro · Mehr" |
 
@@ -164,11 +164,47 @@ Slovene in the modules' `sl` and the new strings (Jan's wife, as ever, with fran
 
 German (Standard, "du") in the modules, the drills and those strings: not reviewed either.
 
+## The pace
+
+The app turns every listed module with a quest block into a request at once (`GameEngine.withTutorQuests`), and every module's
+exercises into every run. Eight listed are eight requests. What that did, on a synthetic Teo at Vas (it-de, child, Friuli,
+13 people met, a tablet's window of 4; QA's `practice-pace`, `before/`, `after/` of its screenshots):
+
+| | Eight at once (first version of this branch) | One at a time |
+|---|---|---|
+| Home's ✨ | "8 new" | "1 new" |
+| Home's Today | one module under "Also" | the same one, the level's first |
+| Requests open | 11: 8 modules, 3 a villager's own | 4: 1 module, 3 a villager's own |
+| The map, the first day | 3 own and 1 module (the window keeps what it showed), "📜 +7" | 3 own and 1 module, "+0" |
+| The map, the next day on | 4 modules, no villager's own (`CuratedPaceTest`: the tutor's rank above a villager's, a giver each: Rosa, Bepi, Davide, Giulia) | 1 module and 3 of their own |
+| Which comes first | Nonno Bepi's "Ho mangiato": the last unit of A1 | "Sono o ho?": `order` follows the course |
+| The chronicle | 8 lines at once | 1 |
+| A gathering run | any of 56 grammar items, from units not reached | that module's and those before |
+
+So it wasn't a wall the first day: the window and its pins held. It was a slow takeover: for weeks every bubble would have been a
+12-question grammar drill and his own villagers' requests would wait in "Later". Tutors have a rule against that (publish_module warns at
+four open), and curated modules had none.
+
+**The rule** (`ModuleStore.offered`, on the bridge, so 0.2.698 gets it): the list holds the modules already asked (dropped, the app would
+forget them as played) and, when none is open and none was asked today, the next by level and `order` whose giver lives here. So
+one request is open at a time, at most one new one a day, in the course's order. A module not played holds the next one: that's the
+pace, and nothing in the game waits for modules. A level-up adds its modules after the level before. Nobody here for any: the first, without a request, for the runs. A
+module without a quest block and what a tutor publishes are never held. `/modules` now also depends on the `village` area, so the next
+comes without a restart.
+
+**Teo's 0.2.698:** read at its commit a37c1765 (the commit count is the version; no tag). `ContentController.reload` reads `/modules` every time
+Home comes back, so the next arrives there with no area check; `GameController.tick` calls `withTutorQuests` with the list; `Quests.fromModule`
+reads `quest` and `since`; a module gone from the list loses its request, which is why asked ones stay. `QuestQueue.of`, `RequestWindow.order`
+and `Quests.kt` are the same as now (the diff adds only `retry` and `retried`), so `CuratedPaceTest` holds for it. It was not run on that build.
+
+**Crowding out, checked:** a villager's bubbles and the arrivals' stay up (screenshot); the tutor's bar and messages aren't touched by a module's
+arrival (no event, no channel message; only `publish_module` tells the tutor); a run has one module's items, so a Stone run of 8 is that
+module's 7 and a card's, which repeats until the next comes. That is the cost of this pace: said here, not hidden.
+
 ## Deploying
 
 Curated modules are read once, when a bridge starts (`ModuleStore`): a learner's bridge restarted through the gate has them. Drills are read per request. Once
-restarted, Teo's village gets the eight A1 modules as new, each with a request from Nonna Rosa, Nonno Bepi, Pastore Davide or Giulia; the
-request window paces them (GAME.md "A window of requests"), and an older app reads them as it reads any module.
+restarted, Teo's village gets one module, `essere-avere`, with Nonno Bepi's request, and the next at the pace above. An older app reads them as it reads any module.
 
 ## What's left
 
