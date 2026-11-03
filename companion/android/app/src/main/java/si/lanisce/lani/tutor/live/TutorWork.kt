@@ -62,6 +62,9 @@ object TutorRuntime {
         HostedRuntime.ensure() ?: throw java.io.IOException("Lani on this phone isn't running")
     }
 
+    /** Whether this phone's learner is a child, as the app last said. */
+    fun lastChild(app: Context): Boolean = kotlinx.coroutines.runBlocking { Prefs(app).learnerChild() } == true
+
     /** The live tutor of this process (files/tutor-live). */
     fun live(app: Application, debug: Boolean, texts: (String, Map<String, Any?>) -> String = { k, _ -> k }): LiveTutor = live ?: synchronized(this) {
         live ?: LiveTutor(
@@ -88,6 +91,10 @@ object TutorRuntime {
             online = AndroidOnline.of(app),
         ).also { t ->
             t.photo = { id -> File(app.filesDir, "chat-photos/$id.jpg").takeIf { it.isFile } }
+            // as the background check knows them, with no view model up (AppViewModel takes over while the app is)
+            t.language = { si.lanisce.lani.l10n.LangSetting(app).pair.target.code }
+            t.base = { si.lanisce.lani.l10n.LangSetting(app).pair.base.code }
+            t.child = { lastChild(app) }
             t.schedule = { on, now -> TutorWork.schedule(app, on, now) }
             t.studioSchedule = { wake -> StudioWork.schedule(app, wake) }
             live = t

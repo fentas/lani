@@ -1711,12 +1711,15 @@ family's fallback) such a turn runs at the thread's level. A stateless call ("Al
 its level as its top-level effort.
 
 **The prefix** (`tutor/Prompt.kt`): the tools in phase A's fixed order, then the core prompt
-(`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief), its end a 1-hour cache
-breakpoint; automatic caching (5 minutes) on the last block. Nothing about the learner, nothing time-dependent.
+(`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief) and what's correct in the
+language taught (`companion/tutor/languages/`: `general.md`, then the village's language's `<code>.md`; a child's rules and
+case for a child; docs/plans/05-built/tutor-languages.md), its end a 1-hour cache breakpoint; automatic caching (5 minutes)
+on the last block. Nothing about the learner but their language and whether they are a child, nothing time-dependent.
 
 **The tools, from one spec.** `companion/bridge/src/cli/tutor-export.ts` builds the bridge (`buildBridge`: nothing
 started) in an environment of its own and writes `companion/tutor/tools/<name>.json` (every MCP tool: name,
-description, `input_schema`) and the guide, split into topics (`companion/tutor/guide/<id>.md` and `index.json`: the
+description, `input_schema`) and the guide, split into topics (`companion/tutor/guide/<id>.md` and `index.json`, with
+`guide/<language>/<id>.md` a village's own copy of a topic that reads otherwise there: the
 channel guide's paragraphs per feature, exactly as `channel_guide` gives them, and the skills the plan names: feedback,
 fix, progress, analysis, session-end, studio), with `tools/guide.json` (`guide(topic)`). `--check` compares them with
 the bridge (the smoke section `tutor` runs it): regenerate with `cd companion/bridge && bun src/cli/tutor-export.ts`
@@ -1945,7 +1948,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 21 (15 A1, 6 A2) and English 22 (18 A1, 4 A2), each course adding
+Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 35 (15 A1, 20 A2) and English 22 (18 A1, 4 A2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):
@@ -1967,8 +1970,11 @@ Slovene, English and Italian; English in Slovene, Italian and German, and Englis
   the tent's page), `sein-haben`, `praesens`, `wortstellung` (the verb in second place), `nebensatz` (the verb at the
   end), `du-sie`, `trennbare-verben`, `perfekt`, `plural`, `kein-nicht`, `modalverben` and `fragen`; and `imperativ`
   (komm, kommt, kommen Sie), `possessiv` (mein Hund, deine Katze), `uhrzeit` (um sieben, am Montag), `vokalwechsel`
-  (ich fahre, du fährst) and `zahlen`. `dativ`, `wechselpraepositionen`, `nebensatz`, `trennbare-verben`, `perfekt` and
-  `modalverben` are A2, the rest A1.
+  (ich fahre, du fährst) and `zahlen`; and for A2's units, `pronomen-dativ` (mir, dir, ihm), `praepositionen-dativ`,
+  `praepositionen-akkusativ`, `stehen-stellen` (stehen and stellen, liegen and legen), `partizip-zwei`, `praeteritum-kurz`
+  (war, hatte), `reflexive-verben`, `verben-praepositionen` (warten auf), `ordinalzahlen`, `adjektiv-der`, `adjektiv-ein`,
+  `adjektiv-null` (the adjective's endings), `steigerung` (größer als, am größten) and `konnektoren` (und, denn, deshalb, weil).
+  Those and `dativ`, `wechselpraepositionen`, `nebensatz`, `trennbare-verben`, `perfekt` and `modalverben` are A2, the rest A1.
 - **English** (`grammar/en/`, lakeland): `articles`, `plurals` (one sheep, two sheep), `to-be` (I'm ten), `to-have`,
   `present-simple`, `present-continuous`, `questions-do`, `past-simple`, `present-perfect`, `future` (going to, will),
   `can`, `there-is-are`, `some-any`, `prepositions-place` (by the pond, next to the jetty: the tent's page),

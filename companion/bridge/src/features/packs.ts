@@ -4,6 +4,7 @@ import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import type { SrItem } from '../learner'
+import { inVillageLanguage } from '../langs'
 import { LANGUAGES, learnerLangs } from '../learners'
 import { renderDeep } from '../addressee'
 import { itemId, learnedWords, learnPayload, learnRun, meaningOf, titleEn, titleFor, unmarkedHomonyms, validatePack, wordOf, type LoadedPack } from '../packs'
@@ -113,7 +114,7 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
           required: ['pack'],
         },
         handle: args => {
-          const v = validatePack(args.pack)
+          const v = validatePack(inVillageLanguage(args.pack, langs().target))
           if (!v.ok) return fail(`pack invalid, nothing published:\n${v.errors}`)
           const note = noteIn.safeParse(args.note)
           if (!note.success) return badNote()

@@ -18,7 +18,7 @@ import { cultureStepFiles, stepTellings } from '../project-steps'
 import { cultureCelebrationFiles, partyTellings } from '../celebrations'
 import { readISpy } from '../ispy'
 import { localDate } from '../rhythm'
-import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, voiceInstructions, type CorpusItem, type Redo, type VoiceStore } from '../voice'
+import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, voiceInstructionsFor, type CorpusItem, type Redo, type VoiceStore } from '../voice'
 
 // voice: a speaker of the cast (female, male, grandma, …), someone's own voice ("@micka"), or the learner's ("player":
 // their own lines in a dialog, in the cast's `player` for their gender); an unknown one is a 400, so the app tries its
@@ -216,7 +216,7 @@ export const voice: FeatureFactory = ctx => {
       // clips voice-build changes while the bridge runs (--run, --revoice-words, --denoise): the app is told
       voice.watch()
     },
-    instructions: voiceInstructions,
+    instructions: voiceInstructionsFor(language),
     routes: [
       { method: 'GET', path: '/voice/index', access: 'any', areas: ['content'], handle: () => json(voice.index()) },
       {
@@ -325,7 +325,7 @@ export const voice: FeatureFactory = ctx => {
       {
         name: 'voice_profiles',
         description:
-          "Everyone's voice (one voice per person): who speaks with a voice of their own (designed with ElevenLabs Voice Design from a Slovene sample of their lines) and who with their archetype's voice (grandma, young-man) at their own pitch and pace; who lives in the village, and any design error. Voices of one's own go to the cast first while the account has voice slots.",
+          "Everyone's voice (one voice per person): who speaks with a voice of their own (designed with ElevenLabs Voice Design from a sample of their lines) and who with their archetype's voice (grandma, young-man) at their own pitch and pace; who lives in the village, and any design error. Voices of one's own go to the cast first while the account has voice slots.",
         inputSchema: { type: 'object', properties: {} },
         handle: () => {
           profiles.syncCast()
@@ -336,7 +336,7 @@ export const voice: FeatureFactory = ctx => {
       {
         name: 'voice_redesign',
         description:
-          "Gives someone a new voice of their own (when Jan says a voice doesn't suit them): ElevenLabs Voice Design makes three takes, the clearest Slovene is kept, the old voice and its clips go. Optionally a new description in English (age, timbre, manner; always 'a native Slovene speaker'), and a voice to sound like (like: a cast speaker such as grandpa, someone's own @micka, or an ElevenLabs voice id; its sample lends the timbre, the Slovene stays native). Needs a free voice slot; takes about half a minute.",
+          "Gives someone a new voice of their own (when Jan says a voice doesn't suit them): ElevenLabs Voice Design makes three takes, the clearest in the village's language is kept, the old voice and its clips go. Optionally a new description in English (age, timbre, manner; always 'a native Slovene speaker'), and a voice to sound like (like: a cast speaker such as grandpa, someone's own @micka, or an ElevenLabs voice id; its sample lends the timbre, the Slovene stays native). Needs a free voice slot; takes about half a minute.",
         inputSchema: {
           type: 'object',
           properties: {

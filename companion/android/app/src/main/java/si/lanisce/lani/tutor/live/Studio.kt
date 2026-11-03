@@ -35,6 +35,8 @@ import si.lanisce.lani.tutor.ModelInfo
 import si.lanisce.lani.tutor.NotebookState
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.Prefix
+import si.lanisce.lani.tutor.PromptLearner
+import si.lanisce.lani.tutor.LanguageParts
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.Redact
 import si.lanisce.lani.tutor.ShadowEvent
@@ -292,12 +294,15 @@ object StudioSpecs {
     }
 
     /** The chat's prefix: the core prompt as phase A's ([Prefix.bundled]), with [CHAT]'s tools. */
-    fun chatPrefix(specs: List<ToolSpec>, guide: Guide, read: (String) -> String? = Bundle::text): Prefix =
-        Prefix(definitions(CHAT, specs), Prefix.bundled(specs, guide, read).system)
+    fun chatPrefix(specs: List<ToolSpec>, guide: Guide, read: (String) -> String? = Bundle::text, who: PromptLearner = PromptLearner()): Prefix =
+        Prefix(definitions(CHAT, specs), Prefix.bundled(specs, guide, read, who).system)
 
-    /** The studio's prefix: its own prompt (companion/tutor/studio-prompt.md), [STUDIO]'s tools, the text editor's function form. */
-    fun studioPrefix(specs: List<ToolSpec>, read: (String) -> String? = Bundle::text): Prefix {
-        val text = read("studio-prompt.md").orEmpty().trim()
+    /**
+     * The studio's prefix: its own prompt (companion/tutor/studio-prompt.md), what's correct in the language [who] learns
+     * and how to write it ([LanguageParts]), [STUDIO]'s tools, the text editor's function form.
+     */
+    fun studioPrefix(specs: List<ToolSpec>, read: (String) -> String? = Bundle::text, who: PromptLearner = PromptLearner()): Prefix {
+        val text = (listOf(read("studio-prompt.md").orEmpty().trim()) + LanguageParts.studio(who, read)).joinToString("\n\n")
         val editor = specs.firstOrNull { it.name == TEXT_EDITOR }
         return Prefix(definitions(STUDIO, specs), text, editor?.let { mapOf(TEXT_EDITOR to it.definition()) }.orEmpty())
     }
@@ -329,7 +334,8 @@ object StudioSpecs {
 class Studio(
     private val scope: CoroutineScope,
     private val io: CoroutineDispatcher,
-    private val prefix: Prefix,
+    /** Its prefix for the learner now: the village's language and whether they are a child decide its end. */
+    private val prefixNow: () -> Prefix,
     private val specs: Map<String, ToolSpec>,
     private val guide: Guide,
     private val bridge: suspend () -> LiveBridge?,
@@ -366,6 +372,7 @@ class Studio(
     /** How often a waiting batch is asked while the app is open. */
     private val pollEveryMs: Long = 30_000,
 ) {
+    private val prefix: Prefix get() = prefixNow()
     /** The jobs the bridge keeps, newest first, without their threads (the strip and the settings). */
     var jobs by mutableStateOf<List<StudioJob>>(emptyList())
         private set

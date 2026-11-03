@@ -63,6 +63,7 @@ import si.lanisce.lani.tutor.OpenRouterTransport
 import si.lanisce.lani.tutor.PartialJson
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.Prefix
+import si.lanisce.lani.tutor.PromptLearner
 import si.lanisce.lani.tutor.Prices
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.Redact
@@ -193,8 +194,12 @@ class LiveTutor(
     private val online: Online = Online.ALWAYS,
 ) {
     private val specs = StudioSpecs.load(StudioSpecs.CHAT, read)
-    private val guide = Guide(read)
-    private val prefix = StudioSpecs.chatPrefix(specs, guide, read)
+    private val guide = Guide(read) { language() to base() }
+    private val chatPrefixes = java.util.concurrent.ConcurrentHashMap<PromptLearner, Prefix>()
+    private val studioPrefixes = java.util.concurrent.ConcurrentHashMap<PromptLearner, Prefix>()
+    /** Whom the prefix is for now (a change restarts the thread as text, as an app update's does). */
+    private val who: PromptLearner get() = PromptLearner(language() ?: "sl", child())
+    private val prefix: Prefix get() = who.let { w -> chatPrefixes.getOrPut(w) { StudioSpecs.chatPrefix(specs, guide, read, w) } }
     private val prices = read("prices.json")?.let(Prices::parse) ?: Prices(emptyMap())
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private var worker: Job? = null
@@ -262,8 +267,12 @@ class LiveTutor(
     var learner: () -> String? = { null }
     var where: () -> String? = { null }
     var photo: (String) -> File? = { null }
-    /** The village's language (fran.si answers for Slovene only). */
+    /** The village's language: what the prefix says is correct, the guide's copy of a topic (fran.si answers for Slovene only). */
     var language: () -> String? = { "sl" }
+    /** The learner's base, as a code: the guide's language copies are written for any base. */
+    var base: () -> String? = { null }
+    /** Whether the learner is a child: their rules end the prefix (companion/tutor/languages/child.md). */
+    var child: () -> Boolean = { false }
     /** A reply as it's written (the chat sheet's live bubble), to [conversation]; null: it's over. */
     var onStreaming: (conversation: String, text: String?) -> Unit = { _, _ -> }
     /** A short note for the learner in the chat (the cap reached, the key refused, offline); null-safe to set late. */
@@ -291,7 +300,7 @@ class LiveTutor(
      * tools and the file tools, saved on the bridge after each step; what can wait through the Message Batches API.
      */
     val studio: Studio = Studio(
-        scope, io, StudioSpecs.studioPrefix(studioSpecs, read), studioSpecs.associateBy { it.name }, guide,
+        scope, io, { who.let { w -> studioPrefixes.getOrPut(w) { StudioSpecs.studioPrefix(studioSpecs, read, w) } } }, studioSpecs.associateBy { it.name }, guide,
         bridge = { bridge() },
         providerFor = { m -> providerFor(m) },
         batchesFor = { m -> if (ProviderId.of(m) == ProviderId.ANTHROPIC) batchesFor(baseUrl()) { vault.load() } else null },

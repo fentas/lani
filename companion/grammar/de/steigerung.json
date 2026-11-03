@@ -1,0 +1,299 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "steigerung",
+  "language": "de",
+  "level": "A2",
+  "emoji": "📈",
+  "title": {
+    "de": "Größer als, am größten: die Steigerung",
+    "sl": "Größer als, am größten: stopnjevanje",
+    "en": "Größer als, am größten: comparing",
+    "it": "Größer als, am größten: il comparativo e il superlativo"
+  },
+  "rule": {
+    "en": "More of something: the adjective takes **-er**, and what it's compared with follows **als** (than): Stefan ist **jünger als** Franz. Only -er, never a word for more: **schneller**, not mehr schnell.\n\nShort adjectives with a, o or u usually take an umlaut: **alt → älter, jung → jünger, groß → größer, lang → länger, kurz → kürzer, warm → wärmer, kalt → kälter, stark → stärker**. Others don't: **schnell, klein, billig, langsam**. **hoch → höher**, **teuer → teurer**, **dunkel → dunkler**.\n\nThe same: **so … wie** (as … as), with the plain adjective: Stanko ist **so alt wie** Oma Resi. Less: **nicht so groß wie**.\n\nThe most: **am -sten**: **am schnellsten, am kleinsten**. After -t, -d, -s, -ß, -z an e comes in: **am ältesten, am kältesten, am heißesten, am kürzesten**; but **am größten**. **hoch → am höchsten**.\n\nThree go their own way: **gut, besser, am besten**; **gern, lieber, am liebsten**; **viel, mehr, am meisten**.\n\nIn speech you'll also hear **älter wie**: people say it, and it is understood everywhere, but write **als**.",
+    "sl": "Več česa: pridevnik dobi **-er**, to, s čimer primerjaš, pa pride za **als** (kot): Stefan ist **jünger als** Franz. Samo -er, nikoli beseda za več: **schneller**, ne mehr schnell.\n\nKratki pridevniki z a, o ali u navadno dobijo preglas: **alt → älter, jung → jünger, groß → größer, lang → länger, kurz → kürzer, warm → wärmer, kalt → kälter, stark → stärker**. Drugi ne: **schnell, klein, billig, langsam**. **hoch → höher**, **teuer → teurer**, **dunkel → dunkler**.\n\nEnako: **so … wie** (tako … kot), z osnovnim pridevnikom: Stanko ist **so alt wie** Oma Resi. Manj: **nicht so groß wie**.\n\nNajveč: **am -sten**: **am schnellsten, am kleinsten**. Za -t, -d, -s, -ß, -z se vrine e: **am ältesten, am kältesten, am heißesten, am kürzesten**; a **am größten**. **hoch → am höchsten**.\n\nTrije gredo po svoje: **gut, besser, am besten**; **gern, lieber, am liebsten**; **viel, mehr, am meisten**.\n\nV govoru slišiš tudi **älter wie**: ljudje to govorijo in vsi razumejo, piši pa **als**.",
+    "it": "Di più: l'aggettivo prende **-er**, e ciò con cui si confronta segue **als** (di, che): Stefan ist **jünger als** Franz. Solo -er, mai una parola per più: **schneller**, non mehr schnell.\n\nGli aggettivi brevi con a, o o u di solito prendono l'Umlaut: **alt → älter, jung → jünger, groß → größer, lang → länger, kurz → kürzer, warm → wärmer, kalt → kälter, stark → stärker**. Altri no: **schnell, klein, billig, langsam**. **hoch → höher**, **teuer → teurer**, **dunkel → dunkler**.\n\nUguale: **so … wie** (tanto … quanto), con l'aggettivo semplice: Stanko ist **so alt wie** Oma Resi. Meno: **nicht so groß wie**.\n\nIl massimo: **am -sten**: **am schnellsten, am kleinsten**. Dopo -t, -d, -s, -ß, -z entra una e: **am ältesten, am kältesten, am heißesten, am kürzesten**; ma **am größten**. **hoch → am höchsten**.\n\nTre vanno per conto loro: **gut, besser, am besten**; **gern, lieber, am liebsten**; **viel, mehr, am meisten**.\n\nA voce senti anche **älter wie**: la gente lo dice e tutti capiscono, ma scrivi **als**."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Grundform",
+        "sl": "osnovna oblika",
+        "en": "plain form",
+        "it": "forma base"
+      },
+      {
+        "de": "Komparativ",
+        "sl": "primernik",
+        "en": "comparative",
+        "it": "comparativo"
+      },
+      {
+        "de": "Superlativ",
+        "sl": "presežnik",
+        "en": "superlative",
+        "it": "superlativo"
+      }
+    ],
+    "rows": [
+      [
+        "schnell",
+        "schneller",
+        "am schnellsten"
+      ],
+      [
+        "klein",
+        "kleiner",
+        "am kleinsten"
+      ],
+      [
+        "alt",
+        "älter",
+        "am ältesten"
+      ],
+      [
+        "jung",
+        "jünger",
+        "am jüngsten"
+      ],
+      [
+        "groß",
+        "größer",
+        "am größten"
+      ],
+      [
+        "kalt",
+        "kälter",
+        "am kältesten"
+      ],
+      [
+        "kurz",
+        "kürzer",
+        "am kürzesten"
+      ],
+      [
+        "hoch",
+        "höher",
+        "am höchsten"
+      ],
+      [
+        "teuer",
+        "teurer",
+        "am teuersten"
+      ],
+      [
+        "gut",
+        "besser",
+        "am besten"
+      ],
+      [
+        "gern",
+        "lieber",
+        "am liebsten"
+      ],
+      [
+        "viel",
+        "mehr",
+        "am meisten"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Stefan ist jünger als Franz.",
+      "sl": "Stefan je mlajši od Franza.",
+      "en": "Stefan is younger than Franz.",
+      "it": "Stefan è più giovane di Franz.",
+      "note": {
+        "en": "-er and als, with the umlaut.",
+        "sl": "-er in als, s preglasom. Slovensko od ali kot, nemško als.",
+        "it": "-er e als, con l'Umlaut."
+      }
+    },
+    {
+      "de": "Stefans Traktor ist schneller als der Traktor von Franz.",
+      "sl": "Stefanov traktor je hitrejši od Franzovega.",
+      "en": "Stefan's tractor is faster than Franz's tractor.",
+      "it": "Il trattore di Stefan è più veloce di quello di Franz.",
+      "note": {
+        "en": "No umlaut on schnell: there is no a, o, u to take it.",
+        "sl": "Pri schnell ni preglasa: ni a, o, u.",
+        "it": "Niente Umlaut su schnell: non c'è a, o, u."
+      }
+    },
+    {
+      "de": "Klagenfurt ist größer als Villach.",
+      "sl": "Celovec je večji od Beljaka.",
+      "en": "Klagenfurt is bigger than Villach.",
+      "it": "Klagenfurt è più grande di Villach.",
+      "note": {
+        "en": "groß → größer.",
+        "sl": "groß → größer.",
+        "it": "groß → größer."
+      }
+    },
+    {
+      "de": "Stanko ist so alt wie Oma Resi.",
+      "sl": "Stanko je tako star kot babica Resi.",
+      "en": "Stanko is as old as Grandma Resi.",
+      "it": "Stanko ha la stessa età di nonna Resi.",
+      "note": {
+        "en": "so … wie takes the plain adjective.",
+        "sl": "so … wie zahteva osnovni pridevnik.",
+        "it": "so … wie vuole l'aggettivo semplice."
+      }
+    },
+    {
+      "de": "Im Jänner ist es hier am kältesten.",
+      "sl": "Januarja je tu najhladneje.",
+      "en": "It's coldest here in January.",
+      "it": "Qui fa più freddo a gennaio.",
+      "note": {
+        "en": "-t: am kältesten, with an e. Austria says Jänner, Germany Januar.",
+        "sl": "-t: am kältesten, z e. Avstrija reče Jänner, Nemčija Januar.",
+        "it": "-t: am kältesten, con la e. L'Austria dice Jänner, la Germania Januar."
+      }
+    },
+    {
+      "de": "Der Dobratsch ist höher als der Kirchturm.",
+      "sl": "Dobrač je višji od cerkvenega stolpa.",
+      "en": "The Dobratsch is higher than the church tower.",
+      "it": "Il Dobratsch è più alto del campanile.",
+      "note": {
+        "en": "hoch → höher.",
+        "sl": "hoch → höher.",
+        "it": "hoch → höher."
+      }
+    },
+    {
+      "de": "Ich trinke gern Tee, lieber Kaffee, am liebsten Most.",
+      "sl": "Rad pijem čaj, raje kavo, najraje mošt.",
+      "en": "I like tea, I prefer coffee, and I like cider best.",
+      "it": "Mi piace il tè, preferisco il caffè, e più di tutto mi piace il sidro.",
+      "note": {
+        "en": "gern, lieber, am liebsten: own forms.",
+        "sl": "gern, lieber, am liebsten: svoje oblike.",
+        "it": "gern, lieber, am liebsten: forme proprie."
+      }
+    },
+    {
+      "de": "Oma Resi kocht am besten.",
+      "sl": "Babica Resi najbolje kuha.",
+      "en": "Grandma Resi cooks best.",
+      "it": "Nonna Resi cucina meglio di tutti.",
+      "note": {
+        "en": "gut, besser, am besten.",
+        "sl": "gut, besser, am besten.",
+        "it": "gut, besser, am besten."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "comparative",
+    "superlative",
+    "komparativ",
+    "superlativ",
+    "steigerung",
+    "als_wie"
+  ],
+  "see": [
+    "wortstellung",
+    "sein-haben",
+    "adjektiv-der"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: als and the spoken wie; am -esten after -t, -ß, -z; the Slovene mlajši od; Klagenfurt larger than Villach",
+  "card": {
+    "title": {
+      "de": "Größer als, am größten",
+      "sl": "Primerjava · größer als",
+      "en": "Comparing · größer als",
+      "it": "Il confronto · größer als"
+    },
+    "rule": {
+      "en": "More: **-er als** (**schneller als**), often with an umlaut (**älter, größer**). The same: **so … wie**. The most: **am -sten** (**am schnellsten**), with an e after -t, -ß, -z (**am ältesten**). **gut, besser, am besten; gern, lieber, am liebsten; viel, mehr, am meisten**.",
+      "sl": "Več: **-er als** (**schneller als**), pogosto s preglasom (**älter, größer**). Enako: **so … wie**. Največ: **am -sten** (**am schnellsten**), z e za -t, -ß, -z (**am ältesten**). **gut, besser, am besten; gern, lieber, am liebsten; viel, mehr, am meisten**.",
+      "it": "Di più: **-er als** (**schneller als**), spesso con l'Umlaut (**älter, größer**). Uguale: **so … wie**. Il massimo: **am -sten** (**am schnellsten**), con la e dopo -t, -ß, -z (**am ältesten**). **gut, besser, am besten; gern, lieber, am liebsten; viel, mehr, am meisten**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Grundform",
+          "sl": "osnovna oblika",
+          "en": "plain form",
+          "it": "forma base"
+        },
+        {
+          "de": "Komparativ",
+          "sl": "primernik",
+          "en": "comparative",
+          "it": "comparativo"
+        },
+        {
+          "de": "Superlativ",
+          "sl": "presežnik",
+          "en": "superlative",
+          "it": "superlativo"
+        }
+      ],
+      "rows": [
+        [
+          "schnell",
+          "schneller",
+          "am schnellsten"
+        ],
+        [
+          "alt",
+          "älter",
+          "am ältesten"
+        ],
+        [
+          "groß",
+          "größer",
+          "am größten"
+        ],
+        [
+          "hoch",
+          "höher",
+          "am höchsten"
+        ],
+        [
+          "gut",
+          "besser",
+          "am besten"
+        ],
+        [
+          "gern",
+          "lieber",
+          "am liebsten"
+        ],
+        [
+          "viel",
+          "mehr",
+          "am meisten"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Stefan ist jünger als Franz.",
+        "sl": "Stefan je mlajši od Franza.",
+        "en": "Stefan is younger than Franz.",
+        "it": "Stefan è più giovane di Franz."
+      },
+      {
+        "de": "Stanko ist so alt wie Oma Resi.",
+        "sl": "Stanko je tako star kot babica Resi.",
+        "en": "Stanko is as old as Grandma Resi.",
+        "it": "Stanko ha la stessa età di nonna Resi."
+      }
+    ],
+    "tip": {
+      "en": "💡 **als** after -er, **wie** after so. People also say älter wie; write **als**.",
+      "sl": "💡 **als** za -er, **wie** za so. Ljudje rečejo tudi älter wie; piši **als**.",
+      "it": "💡 **als** dopo -er, **wie** dopo so. Si dice anche älter wie; scrivi **als**."
+    }
+  }
+}
