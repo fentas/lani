@@ -1,5 +1,6 @@
 // The cheat sheet (lani.card/v0, cards.ts; companion/README.md "Cheat sheet"): its cards that aren't a grammar page's, for
 // the app (the curated ones and the tutor's), and the tutor's tools to add one, list them, take one back.
+import { forVillage, without } from '../tutor-languages'
 import { badNote, fail, noteIn, ok } from '../tool'
 import { cardIdOf, cardTitleEn, CARD_ID, sheetLookups, sheetUse, validateCard, type LoadedCard } from '../cards'
 import type { FeatureFactory } from '../feature'
@@ -32,7 +33,7 @@ export const cards: FeatureFactory = ({ cards: store, grammar: book, game, event
   const brief = (c: LoadedCard) => ({ id: c.id, title: cardTitleEn(c), level: c.level, source: c.source, grammar: c.grammar, ...(c.start ? { start: true } : {}), ...(c.markdown ? { markdown: true } : {}) })
 
   return {
-    instructions,
+    instructions: own === 'sl' ? instructions : forVillage(without(instructions, '(the pronouns 1 · 2 · 3+, biti, the question words, the numbers)', "(the pronouns, the verb to be, the question words, the numbers, as this language's book has them)"), own),
     routes: [
       { method: 'GET', path: '/cards', addressed: true, areas: ['content'], handle: () => json(store.all()) },
       {
@@ -49,7 +50,7 @@ export const cards: FeatureFactory = ({ cards: store, grammar: book, game, event
       {
         name: 'publish_card',
         description:
-          "Publish a card to the learner's cheat sheet (📋 Plonk listek): a basic you just explained, as a compact reference. markdown: the card itself as you write in chat (one bold rule line, a | table | or a - list, two or three examples, at most one 💡 tip; one phone screen), in the learner's base language with the Slovene in **bold**. grammar: the grammar pages it is about (list_grammar's ids): it comes first in their exercises. Publishing again under the same id replaces your card. Returns validation errors instead of publishing if invalid.",
+          "Publish a card to the learner's cheat sheet (📋 Plonk listek): a basic you just explained, as a compact reference. markdown: the card itself as you write in chat (one bold rule line, a | table | or a - list, two or three examples, at most one 💡 tip; one phone screen), in the learner's base language with the target language's words in **bold**. grammar: the grammar pages it is about (list_grammar's ids): it comes first in their exercises. Publishing again under the same id replaces your card. Returns validation errors instead of publishing if invalid.",
         inputSchema: {
           type: 'object',
           properties: {

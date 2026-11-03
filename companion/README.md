@@ -1711,12 +1711,15 @@ family's fallback) such a turn runs at the thread's level. A stateless call ("Al
 its level as its top-level effort.
 
 **The prefix** (`tutor/Prompt.kt`): the tools in phase A's fixed order, then the core prompt
-(`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief), its end a 1-hour cache
-breakpoint; automatic caching (5 minutes) on the last block. Nothing about the learner, nothing time-dependent.
+(`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief) and what's correct in the
+language taught (`companion/tutor/languages/`: `general.md`, then the village's language's `<code>.md`; a child's rules and
+case for a child; docs/plans/05-built/tutor-languages.md), its end a 1-hour cache breakpoint; automatic caching (5 minutes)
+on the last block. Nothing about the learner but their language and whether they are a child, nothing time-dependent.
 
 **The tools, from one spec.** `companion/bridge/src/cli/tutor-export.ts` builds the bridge (`buildBridge`: nothing
 started) in an environment of its own and writes `companion/tutor/tools/<name>.json` (every MCP tool: name,
-description, `input_schema`) and the guide, split into topics (`companion/tutor/guide/<id>.md` and `index.json`: the
+description, `input_schema`) and the guide, split into topics (`companion/tutor/guide/<id>.md` and `index.json`, with
+`guide/<language>/<id>.md` a village's own copy of a topic that reads otherwise there: the
 channel guide's paragraphs per feature, exactly as `channel_guide` gives them, and the skills the plan names: feedback,
 fix, progress, analysis, session-end, studio), with `tools/guide.json` (`guide(topic)`). `--check` compares them with
 the bridge (the smoke section `tutor` runs it): regenerate with `cd companion/bridge && bun src/cli/tutor-export.ts`
