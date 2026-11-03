@@ -118,4 +118,30 @@ class ItalianB2bContentTest {
         wrong("avendo arrivato", "essendo arrivato")
         slip("avendo fnito", "avendo finito")
     }
+
+    @Test fun `the double imperfetto is right and labelled in the irreal if-sentence, with its mixes, and never an option`() {
+        val line = sheetItems("se-avessi-saputo").first { it.accept.first() == "Se Lorenzo l'avesse saputo, sarebbe venuto." }
+        for (said in listOf("Se Lorenzo lo sapeva, veniva.", "Se Lorenzo lo sapeva, sarebbe venuto.", "Se Lorenzo l'avesse saputo, veniva.")) {
+            val m = Sheets.check(line, said, Lang.IT)
+            assertEquals(said, Verdict.CORRECT to line.accept.first(), m.verdict to m.standard)
+        }
+        assertEquals(Verdict.WRONG, Sheets.check(line, "Se Lorenzo l'avrebbe saputo, sarebbe venuto.", Lang.IT).verdict)
+    }
+
+    @Test fun `no choice of the two units with spoken forms offers one, right or wrong`() {
+        for (unit in listOf("se-avessi-saputo", "disse-che")) {
+            val said = sheetItems(unit).flatMap { it.spoken }.map { Grading.canonical(it, Lang.IT) }.toSet()
+            assertTrue("$unit has spoken forms", said.isNotEmpty())
+            for (c in exercises(unit).filterIsInstance<Exercise.Choice>()) {
+                for (o in c.options) assertFalse("$unit: «$o» in «${c.prompt}»", Grading.canonical(o, Lang.IT) in said)
+            }
+        }
+    }
+
+    @Test fun `after a past the future is the past conditional - the plain conditional is wrong, the spoken imperfetto right and labelled`() {
+        val line = sheetItems("disse-che").first { it.accept.first() == "Davide disse che sarebbe partito il giorno dopo." }
+        assertEquals(Verdict.WRONG, Sheets.check(line, "Davide disse che partirebbe il giorno dopo.", Lang.IT).verdict)
+        val m = Sheets.check(line, "Davide disse che partiva il giorno dopo.", Lang.IT)
+        assertEquals(Verdict.CORRECT to line.accept.first(), m.verdict to m.standard)
+    }
 }
