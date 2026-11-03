@@ -1,0 +1,236 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "passiv-zeiten",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🏗️",
+  "title": {
+    "de": "Das Haus ist gebaut worden: das Passiv in allen Zeiten",
+    "en": "Das Haus ist gebaut worden: the passive in every tense",
+    "sl": "Das Haus ist gebaut worden: trpnik v vseh časih",
+    "it": "Das Haus ist gebaut worden: il passivo in tutti i tempi"
+  },
+  "rule": {
+    "en": "The passive has every tense, and **worden** is the key.\n\nPerfekt: **ist or sind + the participle + worden: Das Haus ist gebaut worden.** (The house has been built.) Always sein. worden has no ge-: with a participle **worden**, with a word **geworden**: **Er ist gefragt worden. Er ist Müller geworden.** Austria talks in this tense; people write **wurde gebaut**, and the two mean the same.\n\nPlusquamperfekt: **war or waren + the participle + worden**: Das Heu **war** schon **eingebracht worden**. After nachdem and als the helper goes last: nachdem es gebaut **worden war**.\n\nWith a modal verb: the modal, then **the participle + werden** last: **Das muss gemacht werden. Der Zaun kann repariert werden.** The modal does the changing: **musste gemacht werden** (had to be done). After weil the modal goes last: weil das Dach repariert werden **muss**.\n\nThe Konjunktiv II of the modal: **Die Straße müsste repariert werden** (would have to be repaired). **Das könnte gemacht werden.**\n\nWho did it: **von + the dative**, as ever: Die Mühle ist **von Franz** repariert worden.",
+    "sl": "Trpnik ima vse čase, ključ je **worden**.\n\nPerfekt: **ist ali sind + deležnik + worden: Das Haus ist gebaut worden.** (Hiša je bila zgrajena.) Vedno sein. worden nima ge-: z deležnikom **worden**, z besedo **geworden**: **Er ist gefragt worden. Er ist Müller geworden.** V Avstriji se tako govori; piše se **wurde gebaut**, pomen je isti.\n\nPluskvamperfekt: **war ali waren + deležnik + worden**: Das Heu **war** schon **eingebracht worden**. Za nachdem in als gre pomožni glagol na konec: nachdem es gebaut **worden war**.\n\nZ modalnim glagolom: modalni glagol, nato **deležnik + werden** na koncu: **Das muss gemacht werden. Der Zaun kann repariert werden.** Spreminja se modalni glagol: **musste gemacht werden** (je bilo treba narediti). Za weil gre modalni glagol na konec: weil das Dach repariert werden **muss**.\n\nKonjunktiv II modalnega glagola: **Die Straße müsste repariert werden** (cesto bi bilo treba popraviti). **Das könnte gemacht werden.**\n\nKdo je to storil: **von + dajalnik**, kot vedno: Die Mühle ist **von Franz** repariert worden.",
+    "it": "Il passivo ha tutti i tempi, e la chiave è **worden**.\n\nPerfekt: **ist o sind + il participio + worden: Das Haus ist gebaut worden.** (La casa è stata costruita.) Sempre sein. worden non ha ge-: con un participio **worden**, con una parola **geworden**: **Er ist gefragt worden. Er ist Müller geworden.** In Austria si parla così; si scrive **wurde gebaut**, e vogliono dire lo stesso.\n\nPlusquamperfekt: **war o waren + il participio + worden**: Das Heu **war** schon **eingebracht worden**. Dopo nachdem e als l'ausiliare va alla fine: nachdem es gebaut **worden war**.\n\nCon un modale: il modale, poi **il participio + werden** alla fine: **Das muss gemacht werden. Der Zaun kann repariert werden.** A cambiare è il modale: **musste gemacht werden** (bisognava farlo). Dopo weil il modale va alla fine: weil das Dach repariert werden **muss**.\n\nIl Konjunktiv II del modale: **Die Straße müsste repariert werden** (la strada andrebbe riparata). **Das könnte gemacht werden.**\n\nChi l'ha fatto: **von + il dativo**, come sempre: Die Mühle ist **von Franz** repariert worden."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "wann",
+        "en": "when",
+        "sl": "kdaj",
+        "it": "quando"
+      },
+      "das Haus · es",
+      "die Häuser · sie"
+    ],
+    "rows": [
+      [
+        "Präsens",
+        "wird gebaut",
+        "werden gebaut"
+      ],
+      [
+        "Präteritum",
+        "wurde gebaut",
+        "wurden gebaut"
+      ],
+      [
+        "Perfekt",
+        "ist gebaut worden",
+        "sind gebaut worden"
+      ],
+      [
+        "Plusquamperfekt",
+        "war gebaut worden",
+        "waren gebaut worden"
+      ],
+      [
+        "müssen",
+        "muss gebaut werden",
+        "müssen gebaut werden"
+      ],
+      [
+        {
+          "de": "müssen, Konjunktiv",
+          "en": "müssen, Konjunktiv",
+          "sl": "müssen, konjunktiv",
+          "it": "müssen, Konjunktiv"
+        },
+        "müsste gebaut werden",
+        "müssten gebaut werden"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das Haus ist gebaut worden.",
+      "en": "The house has been built.",
+      "sl": "Hiša je bila zgrajena.",
+      "it": "La casa è stata costruita.",
+      "note": {
+        "en": "sein + the participle + worden.",
+        "sl": "sein + deležnik + worden.",
+        "it": "sein + il participio + worden."
+      }
+    },
+    {
+      "de": "Die Äpfel sind schon gepflückt worden.",
+      "en": "The apples have already been picked.",
+      "sl": "Jabolka so že obrana.",
+      "it": "Le mele sono già state raccolte.",
+      "note": {
+        "en": "More than one: sind.",
+        "sl": "Več kot eno: sind.",
+        "it": "Più di una: sind."
+      }
+    },
+    {
+      "de": "Er ist Müller geworden.",
+      "en": "He became a miller.",
+      "sl": "Postal je mlinar.",
+      "it": "È diventato mugnaio.",
+      "note": {
+        "en": "With a word: geworden.",
+        "sl": "Z besedo: geworden.",
+        "it": "Con una parola: geworden."
+      }
+    },
+    {
+      "de": "Die Mühle ist von Franz' Großvater gebaut worden.",
+      "en": "The mill was built by Franz's grandfather.",
+      "sl": "Mlin je zgradil Franzev dedek.",
+      "it": "Il mulino è stato costruito dal nonno di Franz.",
+      "note": {
+        "en": "Who: von + the dative.",
+        "sl": "Kdo: von + dajalnik.",
+        "it": "Chi: von + il dativo."
+      }
+    },
+    {
+      "de": "Als wir kamen, war das Heu schon eingebracht worden.",
+      "en": "When we came, the hay had already been brought in.",
+      "sl": "Ko smo prišli, je bilo seno že pospravljeno.",
+      "it": "Quando siamo arrivati, il fieno era già stato portato dentro.",
+      "note": {
+        "en": "Done before: war + the participle + worden.",
+        "sl": "Storjeno prej: war + deležnik + worden.",
+        "it": "Fatto prima: war + il participio + worden."
+      }
+    },
+    {
+      "de": "Das Dach muss repariert werden.",
+      "en": "The roof has to be repaired.",
+      "sl": "Streho je treba popraviti.",
+      "it": "Il tetto va riparato.",
+      "note": {
+        "en": "The modal, then the participle + werden.",
+        "sl": "Modalni glagol, nato deležnik + werden.",
+        "it": "Il modale, poi il participio + werden."
+      }
+    },
+    {
+      "de": "Der Zaun konnte nicht repariert werden.",
+      "en": "The fence couldn't be repaired.",
+      "sl": "Ograje ni bilo mogoče popraviti.",
+      "it": "Il recinto non si è potuto riparare.",
+      "note": {
+        "en": "The modal does the changing.",
+        "sl": "Spreminja se modalni glagol.",
+        "it": "A cambiare è il modale."
+      }
+    },
+    {
+      "de": "Die Straße müsste repariert werden.",
+      "en": "The road would have to be repaired.",
+      "sl": "Cesto bi bilo treba popraviti.",
+      "it": "La strada andrebbe riparata.",
+      "note": {
+        "en": "The modal's Konjunktiv II.",
+        "sl": "Konjunktiv II modalnega glagola.",
+        "it": "Il Konjunktiv II del modale."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "passive",
+    "passiv",
+    "worden",
+    "geworden",
+    "perfekt",
+    "modal"
+  ],
+  "see": [
+    "passiv",
+    "partizip-zwei",
+    "werden-futur",
+    "modalverben",
+    "plusquamperfekt"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: Austria talks in ist gebaut worden; each base",
+  "card": {
+    "title": {
+      "de": "Passiv · ist gebaut worden, muss gebaut werden",
+      "en": "The passive · ist gebaut worden, muss gebaut werden",
+      "sl": "Trpnik · ist gebaut worden, muss gebaut werden",
+      "it": "Il passivo · ist gebaut worden, muss gebaut werden"
+    },
+    "rule": {
+      "en": "**ist + the participle + worden: Das Haus ist gebaut worden.** Before: **war gebaut worden**. A modal, then the participle + **werden: Das muss gemacht werden. Die Straße müsste repariert werden.**",
+      "sl": "**ist + deležnik + worden: Das Haus ist gebaut worden.** Prej: **war gebaut worden**. Modalni glagol, nato deležnik + **werden: Das muss gemacht werden. Die Straße müsste repariert werden.**",
+      "it": "**ist + il participio + worden: Das Haus ist gebaut worden.** Prima: **war gebaut worden**. Un modale, poi il participio + **werden: Das muss gemacht werden. Die Straße müsste repariert werden.**"
+    },
+    "table": {
+      "head": [
+        {
+          "de": "wann",
+          "en": "when",
+          "sl": "kdaj",
+          "it": "quando"
+        },
+        "das Haus · es",
+        "die Häuser · sie"
+      ],
+      "rows": [
+        [
+          "Perfekt",
+          "ist gebaut worden",
+          "sind gebaut worden"
+        ],
+        [
+          "Plusquamperfekt",
+          "war gebaut worden",
+          "waren gebaut worden"
+        ],
+        [
+          "müssen",
+          "muss gebaut werden",
+          "müssen gebaut werden"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Die Brücke ist 1950 gebaut worden.",
+        "en": "The bridge was built in 1950.",
+        "sl": "Most je bil zgrajen leta 1950.",
+        "it": "Il ponte è stato costruito nel 1950."
+      },
+      {
+        "de": "Das Dach muss repariert werden.",
+        "en": "The roof has to be repaired.",
+        "sl": "Streho je treba popraviti.",
+        "it": "Il tetto va riparato."
+      }
+    ],
+    "tip": {
+      "en": "💡 With a participle **worden**; with a word **geworden**: **Er ist Müller geworden.**",
+      "sl": "💡 Z deležnikom **worden**; z besedo **geworden**: **Er ist Müller geworden.**",
+      "it": "💡 Con un participio **worden**; con una parola **geworden**: **Er ist Müller geworden.**"
+    }
+  }
+}
