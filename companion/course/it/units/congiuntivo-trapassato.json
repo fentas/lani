@@ -1,0 +1,1000 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "congiuntivo-trapassato",
+  "language": "it",
+  "level": "B2",
+  "emoji": "⏮️",
+  "title": {
+    "it": "Pensavo che fosse già partito",
+    "de": "Der Konjunktiv Plusquamperfekt: che fosse già partito",
+    "sl": "Konjunktiv predpreteklika: che fosse già partito",
+    "en": "The pluperfect subjunctive: che fosse già partito"
+  },
+  "goal": {
+    "de": "Du erkennst und sagst, was jemand über etwas dachte, das noch früher passiert war: Pensavo che Davide fosse già partito. Credevo che Lorenzo avesse già mangiato.",
+    "sl": "Prepoznaš in poveš, kaj je kdo mislil o tem, kar se je zgodilo še prej: Pensavo che Davide fosse già partito. Credevo che Lorenzo avesse già mangiato.",
+    "en": "You can recognise and say what someone thought about something that had happened even earlier: Pensavo che Davide fosse già partito. Credevo che Lorenzo avesse già mangiato."
+  },
+  "grammar": [
+    "congiuntivo-trapassato",
+    "congiuntivo-imperfetto",
+    "trapassato"
+  ],
+  "words": [
+    "pensare",
+    "credere",
+    "sperare",
+    "dimenticare",
+    "preparare",
+    "raccogliere",
+    "finire",
+    "capire",
+    "svegliarsi",
+    "tornare",
+    "dire",
+    "dispiacere",
+    "la vigna",
+    "l'uva",
+    "il pranzo",
+    "la lettera",
+    "il treno",
+    "la ciotola",
+    "il fratello",
+    "il lavoro",
+    "l'osteria",
+    "strano",
+    "vuoto",
+    "riparare",
+    "contento",
+    "secondo me",
+    "già",
+    "prima",
+    "mai",
+    "nessuno",
+    "avessi",
+    "avesse",
+    "avessimo",
+    "aveste",
+    "avessero",
+    "fossi",
+    "fosse",
+    "fossimo",
+    "foste",
+    "fossero"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "it": "chi",
+          "de": "wer",
+          "sl": "kdo",
+          "en": "who"
+        },
+        {
+          "it": "congiuntivo trapassato",
+          "de": "congiuntivo trapassato",
+          "sl": "congiuntivo trapassato",
+          "en": "congiuntivo trapassato"
+        },
+        {
+          "it": "esempio",
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Lag etwas *vor* einer Vergangenheit, nimmst du **fosse** oder **avesse** + Partizip: **Davide era già partito.** (Davide war schon losgegangen.) **Pensavo che Davide fosse già partito.** (Ich dachte, Davide wäre schon losgegangen.) Das ist der **congiuntivo trapassato**: das **trapassato** mit **fosse** für **era** und **avesse** für **aveva**.",
+          "sl": "Če se je nekaj zgodilo *pred* neko preteklostjo, vzameš **fosse** ali **avesse** + deležnik: **Davide era già partito.** (Davide je že odšel.) **Pensavo che Davide fosse già partito.** ({m:Mislil|f:Mislila} sem, da je Davide že odšel.) To je **congiuntivo trapassato**: **trapassato** s **fosse** namesto **era** in **avesse** namesto **aveva**.",
+          "en": "If something came *before* a past, take **fosse** or **avesse** + the participle: **Davide era già partito.** (Davide had already left.) **Pensavo che Davide fosse già partito.** (I thought Davide had already left.) This is the **congiuntivo trapassato**: the **trapassato** with **fosse** for **era** and **avesse** for **aveva**."
+        },
+        "examples": [
+          {
+            "it": "Davide era già partito.",
+            "de": "Davide war schon losgegangen.",
+            "sl": "Davide je že odšel.",
+            "en": "Davide had already left."
+          },
+          {
+            "it": "Pensavo che Davide fosse già partito.",
+            "de": "Ich dachte, Davide wäre schon losgegangen.",
+            "sl": "{m:Mislil|f:Mislila} sem, da je Davide že odšel.",
+            "en": "I thought Davide had already left."
+          },
+          {
+            "it": "Lorenzo aveva già mangiato.",
+            "de": "Lorenzo hatte schon gegessen.",
+            "sl": "Lorenzo je že jedel.",
+            "en": "Lorenzo had already eaten."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "lui, lei",
+              "de": "lui, lei (er, sie)",
+              "sl": "lui, lei (on, ona)",
+              "en": "lui, lei (he, she)"
+            },
+            "era → fosse · aveva → avesse",
+            "Pensavo che fosse già partito."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-trapassato",
+          "prompt": "Marisa pensava che Tommaso ___ già uscito.",
+          "options": [
+            "fosse",
+            "sia",
+            "avesse"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**pensava**, und **uscire** nimmt essere → **fosse** uscito\n- sia · nach einer Gegenwart: pensa che sia uscito\n- avesse · nur bei Verben mit avere",
+            "sl": "**pensava**, **uscire** pa ima essere → **fosse** uscito\n- sia · za sedanjikom: pensa che sia uscito\n- avesse · samo pri glagolih z avere",
+            "en": "**pensava**, and **uscire** takes essere → **fosse** uscito\n- sia · after a present: pensa che sia uscito\n- avesse · only with avere verbs"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit avere: **avessi, avesse, avessimo, aveste, avessero** + Partizip, das Partizip bleibt: **Credevo che Lorenzo avesse già mangiato.** (Ich dachte, Lorenzo hätte schon gegessen.) **Speravo che avessero capito.** (Ich hoffte, sie hätten verstanden.) io und tu sind gleich: **che io avessi, che tu avessi**.",
+          "sl": "Z avere: **avessi, avesse, avessimo, aveste, avessero** + deležnik, deležnik ostane: **Credevo che Lorenzo avesse già mangiato.** ({m:Mislil|f:Mislila} sem, da je Lorenzo že jedel.) **Speravo che avessero capito.** ({m:Upal|f:Upala} sem, da so razumeli.) io in tu sta enaka: **che io avessi, che tu avessi**.",
+          "en": "With avere: **avessi, avesse, avessimo, aveste, avessero** + the participle, which stays: **Credevo che Lorenzo avesse già mangiato.** (I thought Lorenzo had already eaten.) **Speravo che avessero capito.** (I hoped they had understood.) io and tu are the same: **che io avessi, che tu avessi**."
+        },
+        "examples": [
+          {
+            "it": "Credevo che Lorenzo avesse già mangiato.",
+            "de": "Ich dachte, Lorenzo hätte schon gegessen.",
+            "sl": "{m:Mislil|f:Mislila} sem, da je Lorenzo že jedel.",
+            "en": "I thought Lorenzo had already eaten."
+          },
+          {
+            "it": "Speravo che avessero capito.",
+            "de": "Ich hoffte, sie hätten verstanden.",
+            "sl": "{m:Upal|f:Upala} sem, da so razumeli.",
+            "en": "I hoped they had understood."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "io, tu",
+              "de": "io, tu (ich, du)",
+              "sl": "io, tu (jaz, ti)",
+              "en": "io, tu (I, you)"
+            },
+            "avessi capito, fossi tornato",
+            "Pensavo che tu avessi capito."
+          ],
+          [
+            {
+              "it": "noi · voi",
+              "de": "noi · voi (wir · ihr)",
+              "sl": "noi · voi (mi · vi)",
+              "en": "noi · voi (we · you)"
+            },
+            "avessimo capito · aveste capito",
+            "Credeva che avessimo capito."
+          ],
+          [
+            {
+              "it": "loro",
+              "de": "loro (sie)",
+              "sl": "loro (oni)",
+              "en": "loro (they)"
+            },
+            "avessero capito",
+            "Speravo che avessero capito."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiuntivo-trapassato",
+          "text": "Nonna Rosa dubitava che i bambini ___ già finito i compiti.",
+          "accept": [
+            "avessero"
+          ],
+          "hint": {
+            "de": "loro → ?",
+            "sl": "loro → ?",
+            "en": "loro → ?"
+          },
+          "explain": {
+            "de": "**i bambini** = sie, **finire i compiti** mit avere → **avessero**",
+            "sl": "**i bambini** = oni, **finire i compiti** z avere → **avessero**",
+            "en": "**i bambini** = they, **finire i compiti** with avere → **avessero**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit essere: **fossi, fosse, fossimo, foste, fossero** + Partizip, das sich nach der Person richtet: **Pensavo che Giulia fosse già tornata.** (Ich dachte, Giulia wäre schon zurück.) **Credevo che le pecore fossero uscite.** (Ich dachte, die Schafe wären hinausgegangen.)",
+          "sl": "Z essere: **fossi, fosse, fossimo, foste, fossero** + deležnik, ki se ujema z osebo: **Pensavo che Giulia fosse già tornata.** ({m:Mislil|f:Mislila} sem, da se je Giulia že vrnila.) **Credevo che le pecore fossero uscite.** ({m:Mislil|f:Mislila} sem, da so ovce šle ven.)",
+          "en": "With essere: **fossi, fosse, fossimo, foste, fossero** + the participle, agreeing with the person: **Pensavo che Giulia fosse già tornata.** (I thought Giulia was already back.) **Credevo che le pecore fossero uscite.** (I thought the sheep had gone out.)"
+        },
+        "examples": [
+          {
+            "it": "Pensavo che Giulia fosse già tornata.",
+            "de": "Ich dachte, Giulia wäre schon zurück.",
+            "sl": "{m:Mislil|f:Mislila} sem, da se je Giulia že vrnila.",
+            "en": "I thought Giulia was already back."
+          },
+          {
+            "it": "Credevo che le pecore fossero uscite.",
+            "de": "Ich dachte, die Schafe wären hinausgegangen.",
+            "sl": "{m:Mislil|f:Mislila} sem, da so ovce šle ven.",
+            "en": "I thought the sheep had gone out."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "lei",
+              "de": "lei (sie)",
+              "sl": "lei (ona)",
+              "en": "lei (she)"
+            },
+            "fosse tornata",
+            "Pensavo che fosse tornata."
+          ],
+          [
+            {
+              "it": "noi · voi",
+              "de": "noi · voi (wir · ihr)",
+              "sl": "noi · voi (mi · vi)",
+              "en": "noi · voi (we · you)"
+            },
+            "fossimo tornati · foste tornati",
+            "Credeva che fossimo tornati."
+          ],
+          [
+            {
+              "it": "loro",
+              "de": "loro (sie)",
+              "sl": "loro (oni)",
+              "en": "loro (they)"
+            },
+            "fossero tornati, fossero tornate",
+            "Credevo che fossero tornate."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiuntivo-trapassato",
+          "text": "Credevo che Marisa fosse già ___ a Gorizia. (andare)",
+          "accept": [
+            "andata"
+          ],
+          "hint": {
+            "de": "sie → -a",
+            "sl": "ona → -a",
+            "en": "she → -a"
+          },
+          "explain": {
+            "de": "**Marisa** ist eine Frau, mit essere → **andata**",
+            "sl": "**Marisa** je ženska, z essere → **andata**",
+            "en": "**Marisa** is a woman, with essere → **andata**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zwei Zeiten, zwei Formen: **Pensavo che venisse** (ich dachte, er kommt: dann oder danach), **Pensavo che fosse venuto** (ich dachte, er wäre gekommen: davor). Lies genau: **fosse** + Partizip heißt, in dem Moment war es schon passiert. **già** und **prima** helfen dir.",
+          "sl": "Dva časa, dve obliki: **Pensavo che venisse** ({m:mislil|f:mislila} sem, da pride: takrat ali potem), **Pensavo che fosse venuto** ({m:mislil|f:mislila} sem, da je prišel: prej). Beri natančno: **fosse** + deležnik pomeni, da se je tisti hip se je že zgodilo. Pomagata **già** in **prima**.",
+          "en": "Two times, two forms: **Pensavo che venisse** (I thought he was coming: then or after), **Pensavo che fosse venuto** (I thought he had come: before). Read closely: **fosse** + the participle means at that moment it had already happened. **già** and **prima** help you."
+        },
+        "examples": [
+          {
+            "it": "Pensavo che venisse.",
+            "de": "Ich dachte, er kommt.",
+            "sl": "{m:Mislil|f:Mislila} sem, da pride.",
+            "en": "I thought he was coming."
+          },
+          {
+            "it": "Pensavo che fosse venuto.",
+            "de": "Ich dachte, er wäre gekommen.",
+            "sl": "{m:Mislil|f:Mislila} sem, da je prišel.",
+            "en": "I thought he had come."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-trapassato",
+          "prompt": "«Pensavo che il treno fosse partito.» Secondo me, il treno…",
+          "options": [
+            "non c'era più",
+            "doveva ancora partire",
+            "partiva domani"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**fosse partito**: in dem Moment schon passiert → **non c'era più** (war nicht mehr da)\n- doveva ancora partire · das wäre **partisse**\n- partiva domani · das wäre **partisse domani**",
+            "sl": "**fosse partito**: tisti hip se je že zgodilo → **non c'era più** (ga ni bilo več)\n- doveva ancora partire · to bi bilo **partisse**\n- partiva domani · to bi bilo **partisse domani**",
+            "en": "**fosse partito**: already happened at that moment → **non c'era più** (it wasn't there any more)\n- doveva ancora partire · that would be **partisse**\n- partiva domani · that would be **partisse domani**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Dieselben Wörter wollen ihn: **ero contento che**, **mi dispiaceva che** (es tat mir leid, dass), **era strano che** (es war seltsam, dass), **avevo paura che**. **Era strano che Moro non avesse mangiato.** (Es war seltsam, dass Moro nicht gefressen hatte.) **Ero contento che fossero tornate.** (Ich war froh, dass sie zurückgekommen waren.)",
+          "sl": "Iste besede ga zahtevajo: **ero contento che**, **mi dispiaceva che** (žal mi je bilo, da), **era strano che** (čudno je bilo, da), **avevo paura che**. **Era strano che Moro non avesse mangiato.** (Čudno je bilo, da Moro ni jedel.) **Ero contento che fossero tornate.** (Vesel sem bil, da so se vrnile.)",
+          "en": "The same words ask for it: **ero contento che**, **mi dispiaceva che** (I was sorry that), **era strano che** (it was strange that), **avevo paura che**. **Era strano che Moro non avesse mangiato.** (It was strange that Moro hadn't eaten.) **Ero contento che fossero tornate.** (I was glad they had come back.)"
+        },
+        "examples": [
+          {
+            "it": "Era strano che Moro non avesse mangiato.",
+            "de": "Es war seltsam, dass Moro nicht gefressen hatte.",
+            "sl": "Čudno je bilo, da Moro ni jedel.",
+            "en": "It was strange that Moro hadn't eaten."
+          },
+          {
+            "it": "Ero contento che fossero tornate.",
+            "de": "Ich war froh, dass sie zurückgekommen waren.",
+            "sl": "Vesel sem bil, da so se vrnile.",
+            "en": "I was glad they had come back."
+          },
+          {
+            "it": "Mi dispiaceva che Matteo non fosse venuto.",
+            "de": "Es tat mir leid, dass Matteo nicht gekommen war.",
+            "sl": "Žal mi je bilo, da Matteo ni prišel.",
+            "en": "I was sorry Matteo hadn't come."
+          },
+          {
+            "it": "Avevo paura che le pecore fossero scappate.",
+            "de": "Ich hatte Angst, die Schafe wären weggelaufen.",
+            "sl": "{m:Bal|f:Bala} sem se, da so ovce pobegnile.",
+            "en": "I was afraid the sheep had run away."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-trapassato",
+          "prompt": "Ero contenta che Bruno ___ il cancello.",
+          "options": [
+            "avesse riparato",
+            "abbia riparato",
+            "ripari"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ero contenta** ist Vergangenheit, das Reparieren lag davor → **avesse riparato**\n- abbia riparato · nach einer Gegenwart: sono contenta che\n- ripari · nach einer Gegenwart, und jetzt",
+            "sl": "**ero contenta** je preteklost, popravilo je bilo prej → **avesse riparato**\n- abbia riparato · za sedanjikom: sono contenta che\n- ripari · za sedanjikom, in zdaj",
+            "en": "**ero contenta** is a past, the repair came before → **avesse riparato**\n- abbia riparato · after a present: sono contenta che\n- ripari · after a present, and now"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Vor allem liest und hörst du ihn, in Geschichten und Briefen: **Credevo che tu avessi dimenticato il tuo vecchio nonno.** (Ich dachte, du hättest deinen alten Opa vergessen.) Beim Reden hört man auch **pensavo che era già partito**, mit dem trapassato; geschrieben: **fosse già partito**.",
+          "sl": "Predvsem ga bereš in slišiš, v zgodbah in pismih: **Credevo che tu avessi dimenticato il tuo vecchio nonno.** (Mislil sem, da si {m:pozabil|f:pozabila} svojega starega dedka.) V govoru slišiš tudi **pensavo che era già partito**, s trapassatom; pisno: **fosse già partito**.",
+          "en": "Mostly you read and hear it, in stories and letters: **Credevo che tu avessi dimenticato il tuo vecchio nonno.** (I thought you had forgotten your old grandpa.) In talk you also hear **pensavo che era già partito**, with the trapassato; in writing: **fosse già partito**."
+        },
+        "examples": [
+          {
+            "it": "Credevo che tu avessi dimenticato il tuo vecchio nonno.",
+            "de": "Ich dachte, du hättest deinen alten Opa vergessen.",
+            "sl": "Mislil sem, da si {m:pozabil|f:pozabila} svojega starega dedka.",
+            "en": "I thought you had forgotten your old grandpa."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-trapassato",
+          "prompt": "«Credevo che Giulia avesse mangiato.» Secondo me, Giulia…",
+          "options": [
+            "non aveva più fame",
+            "doveva ancora mangiare",
+            "mangiava domani"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**avesse mangiato**: in dem Moment schon passiert → **non aveva più fame** (hatte keinen Hunger mehr)\n- doveva ancora mangiare · das wäre **mangiasse**\n- mangiava domani · das wäre **mangiasse domani**",
+            "sl": "**avesse mangiato**: tisti hip se je že zgodilo → **non aveva più fame** (ni bila več lačna)\n- doveva ancora mangiare · to bi bilo **mangiasse**\n- mangiava domani · to bi bilo **mangiasse domani**",
+            "en": "**avesse mangiato**: already happened at that moment → **non aveva più fame** (she wasn't hungry any more)\n- doveva ancora mangiare · that would be **mangiasse**\n- mangiava domani · that would be **mangiasse domani**"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "congiuntivo-trapassato-1",
+      "title": {
+        "it": "Che cosa è successo prima?",
+        "de": "Was war zuerst?",
+        "sl": "Kaj je bilo prej?",
+        "en": "What came first?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "congiuntivo-trapassato",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": {
+            "de": "il congiuntivo trapassato · der Konjunktiv Plusquamperfekt",
+            "sl": "il congiuntivo trapassato · konjunktiv predpreteklika",
+            "en": "il congiuntivo trapassato · the pluperfect subjunctive"
+          },
+          "columns": [
+            {
+              "de": "mangiare · essen",
+              "sl": "mangiare · jesti",
+              "en": "mangiare · eat"
+            },
+            {
+              "de": "tornare · zurückkommen",
+              "sl": "tornare · vrniti se",
+              "en": "tornare · come back"
+            }
+          ],
+          "rows": [
+            {
+              "label": "che io",
+              "cells": [
+                "avessi mangiato",
+                {
+                  "accept": [
+                    "fossi tornato",
+                    "fossi tornata"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "che lui",
+              "cells": [
+                {
+                  "accept": [
+                    "avesse mangiato"
+                  ]
+                },
+                "fosse tornato"
+              ]
+            },
+            {
+              "label": "che lei",
+              "cells": [
+                "avesse mangiato",
+                {
+                  "accept": [
+                    "fosse tornata"
+                  ],
+                  "hint": {
+                    "de": "sie → -a",
+                    "sl": "ona → -a",
+                    "en": "she → -a"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "che noi",
+              "cells": [
+                {
+                  "accept": [
+                    "avessimo mangiato"
+                  ]
+                },
+                {
+                  "accept": [
+                    "fossimo tornati",
+                    "fossimo tornate"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "che voi",
+              "cells": [
+                "aveste mangiato",
+                {
+                  "accept": [
+                    "foste tornati",
+                    "foste tornate"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "che loro",
+              "cells": [
+                {
+                  "accept": [
+                    "avessero mangiato"
+                  ]
+                },
+                {
+                  "accept": [
+                    "fossero tornati",
+                    "fossero tornate"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sort",
+          "grammar": "congiuntivo-trapassato",
+          "instruction": {
+            "de": "Prima o nello stesso momento? · Davor oder gleichzeitig?",
+            "sl": "Prima o nello stesso momento? · Prej ali hkrati?",
+            "en": "Prima o nello stesso momento? · Before or at the same time?"
+          },
+          "columns": [
+            {
+              "label": {
+                "de": "prima · davor",
+                "sl": "prima · prej",
+                "en": "prima · before"
+              },
+              "words": [
+                "Pensavo che fosse arrivato.",
+                "Credevo che avesse dormito.",
+                "Speravo che avessero letto.",
+                "Pensavo che fossero usciti."
+              ]
+            },
+            {
+              "label": {
+                "de": "nello stesso momento · gleichzeitig",
+                "sl": "nello stesso momento · hkrati",
+                "en": "nello stesso momento · at the same time"
+              },
+              "words": [
+                "Pensavo che arrivasse.",
+                "Credevo che dormisse.",
+                "Speravo che leggessero.",
+                "Pensavo che uscissero."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**fosse, avesse + Partizip**: davor\n- arrivasse, dormisse: gleichzeitig oder danach",
+            "sl": "**fosse, avesse + deležnik**: prej\n- arrivasse, dormisse: hkrati ali pozneje",
+            "en": "**fosse, avesse + the participle**: before\n- arrivasse, dormisse: at the same time or after"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-trapassato",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "«Pensavo che Franco avesse venduto la farina.» Secondo me, la farina…",
+          "options": [
+            "non c'era più",
+            "era ancora tutta qui",
+            "arrivava domani"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**avesse venduto**: in dem Moment schon verkauft → **non c'era più**\n- era ancora tutta qui · das wäre **non vendesse**\n- arrivava domani · das sagt der Satz nicht",
+            "sl": "**avesse venduto**: tisti hip že prodano → **non c'era più**\n- era ancora tutta qui · to bi bilo **non vendesse**\n- arrivava domani · tega stavek ne pove",
+            "en": "**avesse venduto**: already sold at that moment → **non c'era più**\n- era ancora tutta qui · that would be **non vendesse**\n- arrivava domani · the sentence doesn't say so"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-trapassato",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Maestra Elena credeva che noi ___ già arrivati.",
+          "options": [
+            "fossimo",
+            "fossero",
+            "avessimo"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**noi**, und **arrivare** nimmt essere → **fossimo** arrivati\n- fossero · sie\n- avessimo · nur bei Verben mit avere",
+            "sl": "**noi**, **arrivare** pa ima essere → **fossimo** arrivati\n- fossero · oni\n- avessimo · samo pri glagolih z avere",
+            "en": "**noi**, and **arrivare** takes essere → **fossimo** arrivati\n- fossero · they\n- avessimo · only with avere verbs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-trapassato-2",
+      "title": {
+        "it": "Nella vigna",
+        "de": "Im Weinberg",
+        "sl": "V vinogradu",
+        "en": "In the vineyard"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "congiuntivo-trapassato",
+          "instruction": {
+            "de": "Completa con il congiuntivo trapassato · Ergänze mit dem Konjunktiv Plusquamperfekt",
+            "sl": "Completa con il congiuntivo trapassato · Dopolni s konjunktivom predpreteklika",
+            "en": "Completa con il congiuntivo trapassato · Fill in with the pluperfect subjunctive"
+          },
+          "title": "Nella vigna",
+          "text": "Quando Matteo è arrivato nella vigna, non c'era nessuno. Pensava che tutti ___ (andare) a casa. Credeva che Davide e Bruno ___ (finire) il lavoro prima di lui. Era strano che nessuno gli ___ (dire) niente. Poi ha visto Marisa. «Pensavo che tu ___ (tornare) all'osteria!» «E io speravo che tu ___ (portare) il pranzo!», ha riso lei. Ma Matteo credeva che il pranzo l'___ (preparare) lei!",
+          "gaps": [
+            {
+              "accept": [
+                "fossero andati"
+              ],
+              "spoken": [
+                "erano andati"
+              ],
+              "hint": {
+                "de": "tutti, essere",
+                "sl": "tutti, essere",
+                "en": "tutti, essere"
+              }
+            },
+            {
+              "accept": [
+                "avessero finito"
+              ],
+              "spoken": [
+                "avevano finito"
+              ]
+            },
+            {
+              "accept": [
+                "avesse detto"
+              ],
+              "spoken": [
+                "aveva detto"
+              ],
+              "hint": {
+                "de": "nessuno = er",
+                "sl": "nessuno = on",
+                "en": "nessuno = he"
+              }
+            },
+            {
+              "accept": [
+                "fossi tornata"
+              ],
+              "spoken": [
+                "eri tornata"
+              ],
+              "hint": {
+                "de": "tu = Marisa",
+                "sl": "tu = Marisa",
+                "en": "tu = Marisa"
+              }
+            },
+            {
+              "accept": [
+                "avessi portato"
+              ],
+              "spoken": [
+                "avevi portato"
+              ]
+            },
+            {
+              "accept": [
+                "avesse preparato"
+              ],
+              "spoken": [
+                "aveva preparato"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "avesse andati",
+            "fosse detto"
+          ],
+          "translation": {
+            "de": "Als Matteo im Weinberg ankam, war niemand da. Er dachte, alle wären nach Hause gegangen. Er glaubte, Davide und Bruno wären vor ihm mit der Arbeit fertig geworden. Es war seltsam, dass ihm niemand etwas gesagt hatte. Dann sah er Marisa. „Ich dachte, du wärst ins Wirtshaus zurückgegangen!“ „Und ich hoffte, du hättest das Mittagessen mitgebracht!“, lachte sie. Aber Matteo dachte, das Mittagessen hätte sie gemacht!",
+            "sl": "Ko je Matteo prišel v vinograd, ni bilo nikogar. Mislil je, da so vsi šli domov. Mislil je, da sta Davide in Bruno končala delo pred njim. Čudno je bilo, da mu nihče ni nič rekel. Potem je zagledal Mariso. »Mislil sem, da si se vrnila v gostilno!« »Jaz pa sem upala, da si prinesel kosilo!« se je zasmejala. Toda Matteo je mislil, da je kosilo pripravila ona!",
+            "en": "When Matteo got to the vineyard, there was no one there. He thought everyone had gone home. He thought Davide and Bruno had finished the work before him. It was strange that no one had told him anything. Then he saw Marisa. \"I thought you had gone back to the inn!\" \"And I hoped you had brought lunch!\" she laughed. But Matteo thought she had made lunch!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-trapassato",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Era strano che la ciotola di Moro ___ ancora piena.",
+          "options": [
+            "fosse",
+            "avesse",
+            "abbia"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Hier ist es **gleichzeitig**: **era** strano, **era** piena → **fosse**\n- avesse · haben\n- abbia · nach einer Gegenwart",
+            "sl": "Tu je **hkrati**: **era** strano, **era** piena → **fosse**\n- avesse · imeti\n- abbia · za sedanjikom",
+            "en": "Here it's **at the same time**: **era** strano, **era** piena → **fosse**\n- avesse · have\n- abbia · after a present"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-trapassato-3",
+      "title": {
+        "it": "Pensavo che…",
+        "de": "Ich dachte …",
+        "sl": "Zdelo se mi je …",
+        "en": "I thought…"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "congiuntivo-trapassato",
+          "instruction": {
+            "de": "Comincia con le parole tra parentesi · Fang mit den Wörtern in Klammern an",
+            "sl": "Comincia con le parole tra parentesi · Začni z besedami v oklepaju",
+            "en": "Comincia con le parole tra parentesi · Start with the words in brackets"
+          },
+          "whole": true,
+          "items": [
+            {
+              "from": "Davide era già partito. (pensavo che)",
+              "accept": [
+                "Pensavo che Davide fosse già partito."
+              ],
+              "spoken": [
+                "Pensavo che Davide era già partito."
+              ]
+            },
+            {
+              "from": "Lorenzo aveva già fatto il bagno. (credevo che)",
+              "accept": [
+                "Credevo che Lorenzo avesse già fatto il bagno."
+              ],
+              "spoken": [
+                "Credevo che Lorenzo aveva già fatto il bagno."
+              ]
+            },
+            {
+              "from": "Le api avevano fatto molto miele. (speravo che)",
+              "accept": [
+                "Speravo che le api avessero fatto molto miele."
+              ],
+              "spoken": [
+                "Speravo che le api avevano fatto molto miele."
+              ]
+            },
+            {
+              "from": "I bambini erano già andati a letto. (pensavo che)",
+              "accept": [
+                "Pensavo che i bambini fossero già andati a letto."
+              ],
+              "spoken": [
+                "Pensavo che i bambini erano già andati a letto."
+              ]
+            },
+            {
+              "from": "Giulia si era già svegliata. (credevo che)",
+              "accept": [
+                "Credevo che Giulia si fosse già svegliata."
+              ],
+              "spoken": [
+                "Credevo che Giulia si era già svegliata."
+              ]
+            },
+            {
+              "from": "Matteo non aveva capito. (mi dispiaceva che)",
+              "accept": [
+                "Mi dispiaceva che Matteo non avesse capito."
+              ],
+              "spoken": [
+                "Mi dispiaceva che Matteo non aveva capito."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**era → fosse**, **aveva → avesse**, **erano → fossero**, **avevano → avessero**: das Partizip bleibt\n- si era svegliata → si fosse svegliata",
+            "sl": "**era → fosse**, **aveva → avesse**, **erano → fossero**, **avevano → avessero**: deležnik ostane\n- si era svegliata → si fosse svegliata",
+            "en": "**era → fosse**, **aveva → avesse**, **erano → fossero**, **avevano → avessero**: the participle stays\n- si era svegliata → si fosse svegliata"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "congiuntivo-trapassato",
+        "instruction": {
+          "de": "Completa con il congiuntivo trapassato · Ergänze mit dem Konjunktiv Plusquamperfekt",
+          "sl": "Completa con il congiuntivo trapassato · Dopolni s konjunktivom predpreteklika",
+          "en": "Completa con il congiuntivo trapassato · Fill in with the pluperfect subjunctive"
+        },
+        "text": "Zia Nives ha trovato una vecchia lettera di suo fratello: «Cara Nives, pensavo che tu ___ (partire) per Trieste. Credevo che la mamma ti ___ (dare) la mia lettera. Mi dispiaceva che i bambini non ___ (venire) alla festa. Ero contento che tu ___ (vedere) il mare.»",
+        "gaps": [
+          {
+            "accept": [
+              "fossi partita"
+            ],
+            "spoken": [
+              "eri partita"
+            ]
+          },
+          {
+            "accept": [
+              "avesse dato"
+            ],
+            "spoken": [
+              "aveva dato"
+            ]
+          },
+          {
+            "accept": [
+              "fossero venuti"
+            ],
+            "spoken": [
+              "erano venuti"
+            ]
+          },
+          {
+            "accept": [
+              "avessi visto"
+            ],
+            "spoken": [
+              "avevi visto"
+            ]
+          }
+        ],
+        "translation": {
+          "de": "Zia Nives hat einen alten Brief ihres Bruders gefunden: „Liebe Nives, ich dachte, du wärst nach Triest gefahren. Ich dachte, die Mama hätte dir meinen Brief gegeben. Es tat mir leid, dass die Kinder nicht zum Fest gekommen waren. Ich war froh, dass du das Meer gesehen hattest.“",
+          "sl": "Teta Nives je našla staro pismo svojega brata: »Draga Nives, mislil sem, da si odšla v Trst. Mislil sem, da ti je mama dala moje pismo. Žal mi je bilo, da otroci niso prišli na praznik. Vesel sem bil, da si videla morje.«",
+          "en": "Zia Nives found an old letter from her brother: \"Dear Nives, I thought you had left for Trieste. I thought Mum had given you my letter. I was sorry the children hadn't come to the festa. I was glad you had seen the sea.\""
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "congiuntivo-trapassato",
+        "instruction": {
+          "de": "Comincia con le parole tra parentesi · Fang mit den Wörtern in Klammern an",
+          "sl": "Comincia con le parole tra parentesi · Začni z besedami v oklepaju",
+          "en": "Comincia con le parole tra parentesi · Start with the words in brackets"
+        },
+        "whole": true,
+        "items": [
+          {
+            "from": "Marisa era già uscita. (credevo che)",
+            "accept": [
+              "Credevo che Marisa fosse già uscita."
+            ],
+            "spoken": [
+              "Credevo che Marisa era già uscita."
+            ]
+          },
+          {
+            "from": "Franco aveva già chiuso il mulino. (pensavo che)",
+            "accept": [
+              "Pensavo che Franco avesse già chiuso il mulino."
+            ],
+            "spoken": [
+              "Pensavo che Franco aveva già chiuso il mulino."
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**era → fosse**, **aveva → avesse**: das Partizip bleibt",
+          "sl": "**era → fosse**, **aveva → avesse**: deležnik ostane",
+          "en": "**era → fosse**, **aveva → avesse**: the participle stays"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-trapassato",
+        "prompt": "«Credevo che Lorenzo fosse tornato.» Secondo me, Lorenzo…",
+        "options": [
+          "era già a casa",
+          "doveva ancora partire",
+          "non tornava mai"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**fosse tornato**: in dem Moment schon passiert → **era già a casa**\n- doveva ancora partire · sagt der Satz nicht\n- non tornava mai · sagt der Satz nicht",
+          "sl": "**fosse tornato**: tisti hip se je že zgodilo → **era già a casa**\n- doveva ancora partire · tega stavek ne pove\n- non tornava mai · tega stavek ne pove",
+          "en": "**fosse tornato**: already happened at that moment → **era già a casa**\n- doveva ancora partire · the sentence doesn't say so\n- non tornava mai · the sentence doesn't say so"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-trapassato",
+        "prompt": "Pensavo che tu ___ già letto la lettera.",
+        "options": [
+          "avessi",
+          "avessero",
+          "fossi"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**tu**, **leggere** mit avere → **avessi** letto\n- avessero · sie\n- fossi · nur bei Verben mit essere",
+          "sl": "**tu**, **leggere** z avere → **avessi** letto\n- avessero · oni\n- fossi · samo pri glagolih z essere",
+          "en": "**tu**, **leggere** with avere → **avessi** letto\n- avessero · they\n- fossi · only with essere verbs"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-trapassato",
+        "prompt": "«Pensavo che Davide venisse.» Secondo me, Davide…",
+        "options": [
+          "doveva ancora arrivare",
+          "era già andato via",
+          "era già tornato"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**venisse**: gleichzeitig oder danach → **doveva ancora arrivare**\n- era già andato via · das wäre **fosse andato via**\n- era già tornato · das wäre **fosse tornato**",
+          "sl": "**venisse**: hkrati ali pozneje → **doveva ancora arrivare**\n- era già andato via · to bi bilo **fosse andato via**\n- era già tornato · to bi bilo **fosse tornato**",
+          "en": "**venisse**: at the same time or after → **doveva ancora arrivare**\n- era già andato via · that would be **fosse andato via**\n- era già tornato · that would be **fosse tornato**"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "congiuntivo-trapassato",
+        "instruction": {
+          "de": "Prima o nello stesso momento? · Davor oder gleichzeitig?",
+          "sl": "Prima o nello stesso momento? · Prej ali hkrati?",
+          "en": "Prima o nello stesso momento? · Before or at the same time?"
+        },
+        "columns": [
+          {
+            "label": {
+              "de": "prima · davor",
+              "sl": "prima · prej",
+              "en": "prima · before"
+            },
+            "words": [
+              "Credevo che avesse piovuto.",
+              "Pensavo che fosse caduta."
+            ]
+          },
+          {
+            "label": {
+              "de": "nello stesso momento · gleichzeitig",
+              "sl": "nello stesso momento · hkrati",
+              "en": "nello stesso momento · at the same time"
+            },
+            "words": [
+              "Credevo che piovesse.",
+              "Pensavo che cadesse."
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**avesse, fosse + Partizip**: davor\n- piovesse, cadesse: gleichzeitig",
+          "sl": "**avesse, fosse + deležnik**: prej\n- piovesse, cadesse: hkrati",
+          "en": "**avesse, fosse + the participle**: before\n- piovesse, cadesse: at the same time"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: pensava che erano andati as spoken; the secondo me choices; era strano che; Credeva che il pranzo lo avesse preparato lei"
+}

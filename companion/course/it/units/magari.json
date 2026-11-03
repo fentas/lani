@@ -1,0 +1,986 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "magari",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🌠",
+  "title": {
+    "it": "Magari venisse! Che sia lui?",
+    "de": "Wünsche und Zweifel: magari venisse, che sia lui?",
+    "sl": "Želje in dvomi: magari venisse, che sia lui?",
+    "en": "Wishes and doubts: magari venisse, che sia lui?"
+  },
+  "goal": {
+    "de": "Du wünschst dir etwas, was nicht ist oder nicht war, und fragst dich, ob etwas so ist: Magari venisse! Magari fosse venuto! Non l'avessi mai detto! Che sia lui?",
+    "sl": "Želiš si nekaj, česar ni ali ni bilo, in se sprašuješ, ali je kaj tako: Magari venisse! Magari fosse venuto! Non l'avessi mai detto! Che sia lui?",
+    "en": "You can wish for what isn't or wasn't so, and wonder whether something is so: Magari venisse! Magari fosse venuto! Non l'avessi mai detto! Che sia lui?"
+  },
+  "grammar": [
+    "congiuntivo-indipendente",
+    "congiuntivo-imperfetto"
+  ],
+  "words": [
+    "magari",
+    "almeno",
+    "se solo",
+    "forse",
+    "migliore",
+    "vincere",
+    "smettere",
+    "funzionare",
+    "bussare",
+    "dimenticare",
+    "telefonare",
+    "uscire",
+    "sapere",
+    "potere",
+    "la radio",
+    "il vento",
+    "il sole",
+    "il pallone",
+    "il postino",
+    "la farina",
+    "il mare",
+    "la pioggia",
+    "la porta",
+    "il segreto",
+    "la gara",
+    "l'osso",
+    "la gamba",
+    "vero",
+    "solo",
+    "mai",
+    "lui",
+    "venisse",
+    "fosse",
+    "avessi",
+    "congiuntivo"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "it": "parola",
+          "de": "Wort",
+          "sl": "beseda",
+          "en": "word"
+        },
+        {
+          "it": "significa",
+          "de": "heißt",
+          "sl": "pomeni",
+          "en": "means"
+        },
+        {
+          "it": "esempio",
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Magari!** allein heißt *schön wär's!* Mit dem imperfetto wünschst du dir, was nicht so ist oder kaum wird: **Magari venisse!** (Wenn er doch käme!) **Magari fossimo al mare!** (Wären wir doch am Meer!) Der congiuntivo steht hier ganz ohne erstes Verb.",
+          "sl": "**Magari!** sam pomeni *ko bi le!* Z imperfektom si želiš, kar ni tako ali komaj bo: **Magari venisse!** (Ko bi le prišel!) **Magari fossimo al mare!** (Ko bi le bili na morju!) Konjunktiv tu stoji povsem brez prvega glagola.",
+          "en": "**Magari!** alone means *if only!* With the imperfect you wish for what isn't so or hardly will be: **Magari venisse!** (If only he'd come!) **Magari fossimo al mare!** (If only we were at the sea!) The subjunctive stands here with no first verb at all."
+        },
+        "examples": [
+          {
+            "it": "Magari Davide venisse alla festa!",
+            "de": "Wenn Davide doch zum Fest käme!",
+            "sl": "Ko bi le Davide prišel na praznik!",
+            "en": "If only Davide would come to the festa!"
+          },
+          {
+            "it": "Magari fossimo al mare!",
+            "de": "Wären wir doch am Meer!",
+            "sl": "Ko bi le bili na morju!",
+            "en": "If only we were at the sea!"
+          }
+        ],
+        "rows": [
+          [
+            "magari + imperfetto",
+            {
+              "de": "wenn doch … (jetzt)",
+              "sl": "ko bi le … (zdaj)",
+              "en": "if only … (now)"
+            },
+            "Magari venisse!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "prompt": "«Vieni al mare?» «___! Devo lavorare.»",
+          "options": [
+            "Magari",
+            "Che",
+            "Sempre"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Du würdest gern, kannst aber nicht → **Magari!** (schön wär's!)\n- Che · allein keine Antwort\n- Sempre · immer",
+            "sl": "{m:Rad|f:Rada} bi, a ne moreš → **Magari!** (ko bi le!)\n- Che · sam ni odgovor\n- Sempre · vedno",
+            "en": "You'd like to, but you can't → **Magari!** (if only!)\n- Che · no answer on its own\n- Sempre · always"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Almeno** (wenigstens) und **se solo** (wenn nur) gehen genauso: **Almeno smettesse di piovere!** (Wenn es wenigstens aufhören würde zu regnen!) **Almeno ci fosse il sole!** (Wenn wenigstens die Sonne schiene!) **Se solo potessi!** (Wenn ich nur könnte!)",
+          "sl": "**Almeno** (vsaj) in **se solo** (če le) gresta enako: **Almeno smettesse di piovere!** (Ko bi vsaj nehalo deževati!) **Almeno ci fosse il sole!** (Ko bi vsaj sijalo sonce!) **Se solo potessi!** (Če bi le lahko!)",
+          "en": "**Almeno** (at least) and **se solo** (if only) work the same way: **Almeno smettesse di piovere!** (If it would at least stop raining!) **Almeno ci fosse il sole!** (If at least the sun were out!) **Se solo potessi!** (If only I could!)"
+        },
+        "examples": [
+          {
+            "it": "Almeno smettesse di piovere!",
+            "de": "Wenn es wenigstens aufhören würde zu regnen!",
+            "sl": "Ko bi vsaj nehalo deževati!",
+            "en": "If it would at least stop raining!"
+          },
+          {
+            "it": "Se solo avessi più tempo!",
+            "de": "Wenn ich nur mehr Zeit hätte!",
+            "sl": "Če bi le {m:imel|f:imela} več časa!",
+            "en": "If only I had more time!"
+          },
+          {
+            "it": "Almeno ci fosse il sole!",
+            "de": "Wenn wenigstens die Sonne schiene!",
+            "sl": "Ko bi vsaj sijalo sonce!",
+            "en": "If at least the sun were out!"
+          },
+          {
+            "it": "Se solo potessi!",
+            "de": "Wenn ich nur könnte!",
+            "sl": "Če bi le lahko!",
+            "en": "If only I could!"
+          }
+        ],
+        "rows": [
+          [
+            "almeno",
+            {
+              "de": "wenn wenigstens …",
+              "sl": "ko bi vsaj …",
+              "en": "if at least …"
+            },
+            "Almeno ci fosse il sole!"
+          ],
+          [
+            "se solo",
+            {
+              "de": "wenn nur …",
+              "sl": "če bi le …",
+              "en": "if only …"
+            },
+            "Se solo potessi!"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiuntivo-indipendente",
+          "text": "Se solo Giulia ___ più tempo per giocare! (avere)",
+          "accept": [
+            "avesse"
+          ],
+          "hint": {
+            "de": "sie → ?",
+            "sl": "ona → ?",
+            "en": "she → ?"
+          },
+          "explain": {
+            "de": "**se solo**, Giulia = sie → **avesse**",
+            "sl": "**se solo**, Giulia = ona → **avesse**",
+            "en": "**se solo**, Giulia = she → **avesse**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ist es vorbei, nimmst du das trapassato: **Magari fosse venuto!** (Wäre er doch gekommen!) **Se solo l'avessi saputo!** (Hätte ich es nur gewusst!) **Almeno avesse telefonato!** (Hätte er wenigstens angerufen!) So klagst du über das, was nicht passiert ist.",
+          "sl": "Če je mimo, vzameš trapassato: **Magari fosse venuto!** (Ko bi le prišel takrat!) **Se solo l'avessi saputo!** (Ko bi le to {m:vedel|f:vedela}!) **Almeno avesse telefonato!** (Ko bi vsaj poklical!) Tako potožiš nad tem, kar se ni zgodilo.",
+          "en": "If it's over, take the pluperfect: **Magari fosse venuto!** (If only he had come!) **Se solo l'avessi saputo!** (If only I had known!) **Almeno avesse telefonato!** (If at least he had phoned!) That's how you lament what didn't happen."
+        },
+        "examples": [
+          {
+            "it": "Magari fosse venuto!",
+            "de": "Wäre er doch gekommen!",
+            "sl": "Ko bi le prišel takrat!",
+            "en": "If only he had come!"
+          },
+          {
+            "it": "Se solo l'avessi saputo!",
+            "de": "Hätte ich es nur gewusst!",
+            "sl": "Ko bi le to {m:vedel|f:vedela}!",
+            "en": "If only I had known!"
+          },
+          {
+            "it": "Almeno avesse telefonato!",
+            "de": "Hätte er wenigstens angerufen!",
+            "sl": "Ko bi vsaj poklical!",
+            "en": "If at least he had phoned!"
+          }
+        ],
+        "rows": [
+          [
+            "magari + trapassato",
+            {
+              "de": "wenn doch … (damals)",
+              "sl": "ko bi le … (takrat)",
+              "en": "if only … (then)"
+            },
+            "Magari fosse venuto!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "prompt": "Ieri Giulia non è uscita. Magari ___ uscita!",
+          "options": [
+            "fosse",
+            "sia",
+            "avesse"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ieri**: vorbei, und **uscire** nimmt essere → **fosse** uscita\n- sia · nach einer Gegenwart: penso che sia uscita\n- avesse · nur bei Verben mit avere",
+            "sl": "**ieri**: mimo, **uscire** pa ima essere → **fosse** uscita\n- sia · za sedanjikom: penso che sia uscita\n- avesse · samo pri glagolih z avere",
+            "en": "**ieri**: over, and **uscire** takes essere → **fosse** uscita\n- sia · after a present: penso che sia uscita\n- avesse · only with avere verbs"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Es geht auch ganz ohne Wort davor: **Non l'avessi mai detto!** (Hätte ich das nur nie gesagt!) **Fosse vero!** (Wenn das nur wahr wäre!) Das erste bereut etwas, das passiert ist; das zweite wünscht, was nicht so ist.",
+          "sl": "Gre tudi povsem brez besede spredaj: **Non l'avessi mai detto!** (Ko bi le tega nikoli ne {m:rekel|f:rekla}!) **Fosse vero!** (Ko bi le bilo res!) Prvo obžaluje nekaj, kar se je zgodilo; drugo si želi, kar ni tako.",
+          "en": "It also works with no word in front: **Non l'avessi mai detto!** (If only I had never said it!) **Fosse vero!** (If only it were true!) The first regrets something that happened; the second wishes for what isn't so."
+        },
+        "examples": [
+          {
+            "it": "Non l'avessi mai detto!",
+            "de": "Hätte ich das nur nie gesagt!",
+            "sl": "Ko bi le tega nikoli ne {m:rekel|f:rekla}!",
+            "en": "If only I had never said it!"
+          },
+          {
+            "it": "Fosse vero!",
+            "de": "Wenn das nur wahr wäre!",
+            "sl": "Ko bi le bilo res!",
+            "en": "If only it were true!"
+          }
+        ],
+        "rows": [
+          [
+            "non … mai",
+            {
+              "de": "hätte ich nur nie …",
+              "sl": "ko bi le nikoli …",
+              "en": "if only I had never …"
+            },
+            "Non l'avessi mai detto!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "prompt": "Bruno ha venduto la bici. «Non l'avessi mai venduta!» Vuol dire:",
+          "options": [
+            "l'ha venduta, ma gli dispiace",
+            "non l'ha venduta",
+            "la venderà domani"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**avessi venduta**: es ist passiert, und er bereut es → **l'ha venduta, ma gli dispiace**\n- non l'ha venduta · doch, er hat sie verkauft\n- la venderà domani · es ist schon vorbei",
+            "sl": "**avessi venduta**: zgodilo se je in obžaluje → **l'ha venduta, ma gli dispiace**\n- non l'ha venduta · je, prodal jo je\n- la venderà domani · je že mimo",
+            "en": "**avessi venduta**: it happened and he regrets it → **l'ha venduta, ma gli dispiace**\n- non l'ha venduta · he did sell it\n- la venderà domani · it's already over"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein Zweifel: **che** + Präsens oder Vergangenheit als Frage: **Che sia lui?** (Ob er das ist?) **Che sia già partito?** (Ob er schon weg ist?) **Che abbia dimenticato?** (Ob er es vergessen hat?) Du fragst dich selbst und erwartest keine Antwort.",
+          "sl": "Dvom: **che** + sedanjik ali preteklik kot vprašanje: **Che sia lui?** (Je to morda on?) **Che sia già partito?** (Je morda že odšel?) **Che abbia dimenticato?** (Je morda pozabil?) Sprašuješ {m:sam|f:sama} sebe in ne pričakuješ odgovora.",
+          "en": "A doubt: **che** + the present or the past, as a question: **Che sia lui?** (Could it be him?) **Che sia già partito?** (Could he have left already?) **Che abbia dimenticato?** (Could he have forgotten?) You're asking yourself and expect no answer."
+        },
+        "examples": [
+          {
+            "it": "Hanno bussato. Che sia Tommaso?",
+            "de": "Es hat geklopft. Ob das Tommaso ist?",
+            "sl": "Nekdo je potrkal. Je to morda Tommaso?",
+            "en": "Someone knocked. Could it be Tommaso?"
+          },
+          {
+            "it": "Davide non risponde. Che sia già partito?",
+            "de": "Davide antwortet nicht. Ob er schon weg ist?",
+            "sl": "Davide se ne oglasi. Je morda že odšel?",
+            "en": "Davide isn't answering. Could he have left already?"
+          },
+          {
+            "it": "Che abbia dimenticato?",
+            "de": "Ob er es vergessen hat?",
+            "sl": "Je morda pozabil?",
+            "en": "Could he have forgotten?"
+          }
+        ],
+        "rows": [
+          [
+            "che + presente",
+            {
+              "de": "ob …? kann es sein, dass …?",
+              "sl": "ali …? je mogoče, da …?",
+              "en": "could it be …?"
+            },
+            "Che sia lui?"
+          ],
+          [
+            "che + passato",
+            {
+              "de": "ob … schon …?",
+              "sl": "ali je že …?",
+              "en": "could … already have …?"
+            },
+            "Che sia già partito?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "prompt": "Moro abbaia alla porta. Che ___ arrivato il postino?",
+          "options": [
+            "sia",
+            "abbia",
+            "fossi"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Ein Zweifel, **arrivare** mit essere → **sia** arrivato\n- abbia · nur bei Verben mit avere\n- fossi · io, tu",
+            "sl": "Dvom, **arrivare** z essere → **sia** arrivato\n- abbia · samo pri glagolih z avere\n- fossi · io, tu",
+            "en": "A doubt, **arrivare** with essere → **sia** arrivato\n- abbia · only with avere verbs\n- fossi · io, tu"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein guter Wunsch für andere: **che** + Präsens: **Che vinca il migliore!** (Möge der Beste gewinnen!) Und Vorsicht: Mit dem Indikativ heißt **magari** nur *vielleicht*: **Magari viene domani.** (Vielleicht kommt er morgen.) Vergleiche: **Magari venisse!** ist ein Wunsch.",
+          "sl": "Dobra želja za druge: **che** + sedanjik: **Che vinca il migliore!** (Naj zmaga najboljši!) In pazi: Z indikativom **magari** pomeni samo *morda*: **Magari viene domani.** (Morda pride jutri.) Primerjaj: **Magari venisse!** je želja.",
+          "en": "A good wish for others: **che** + the present: **Che vinca il migliore!** (May the best one win!) And watch out: with the indicative **magari** just means *maybe*: **Magari viene domani.** (Maybe he'll come tomorrow.) Compare: **Magari venisse!** is a wish."
+        },
+        "examples": [
+          {
+            "it": "Che vinca il migliore!",
+            "de": "Möge der Beste gewinnen!",
+            "sl": "Naj zmaga najboljši!",
+            "en": "May the best one win!"
+          },
+          {
+            "it": "Magari viene domani.",
+            "de": "Vielleicht kommt er morgen.",
+            "sl": "Morda pride jutri.",
+            "en": "Maybe he'll come tomorrow."
+          }
+        ],
+        "rows": [
+          [
+            "magari + indicativo",
+            {
+              "de": "vielleicht",
+              "sl": "morda",
+              "en": "maybe"
+            },
+            "Magari viene domani."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "prompt": "«Magari Franco è al mulino.» Vuol dire:",
+          "options": [
+            "forse è al mulino",
+            "vorrei che fosse al mulino",
+            "non è mai al mulino"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**magari** + Indikativ (**è**) → **forse** (vielleicht)\n- vorrei che fosse · das wäre **Magari fosse al mulino!**\n- non è mai · sagt der Satz nicht",
+            "sl": "**magari** + indikativ (**è**) → **forse** (morda)\n- vorrei che fosse · to bi bilo **Magari fosse al mulino!**\n- non è mai · tega stavek ne pove",
+            "en": "**magari** + the indicative (**è**) → **forse** (maybe)\n- vorrei che fosse · that would be **Magari fosse al mulino!**\n- non è mai · the sentence doesn't say so"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "magari-1",
+      "title": {
+        "it": "Desideri e dubbi",
+        "de": "Wünsche und Zweifel",
+        "sl": "Želje in dvomi",
+        "en": "Wishes and doubts"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "congiuntivo-indipendente",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": {
+            "de": "il desiderio · der Wunsch",
+            "sl": "il desiderio · želja",
+            "en": "il desiderio · the wish"
+          },
+          "columns": [
+            {
+              "de": "adesso · jetzt",
+              "sl": "adesso · zdaj",
+              "en": "adesso · now"
+            },
+            {
+              "de": "ieri · damals",
+              "sl": "ieri · takrat",
+              "en": "ieri · then"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Magari Davide (venire)",
+              "cells": [
+                "venisse",
+                {
+                  "accept": [
+                    "fosse venuto"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Magari Giulia (sapere)",
+              "cells": [
+                {
+                  "accept": [
+                    "sapesse"
+                  ]
+                },
+                "avesse saputo"
+              ]
+            },
+            {
+              "label": "Magari le pecore (restare)",
+              "cells": [
+                {
+                  "accept": [
+                    "restassero"
+                  ]
+                },
+                {
+                  "accept": [
+                    "fossero restate"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Magari tu (potere)",
+              "cells": [
+                {
+                  "accept": [
+                    "potessi"
+                  ]
+                },
+                {
+                  "accept": [
+                    "avessi potuto"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Magari noi (giocare)",
+              "cells": [
+                "giocassimo",
+                {
+                  "accept": [
+                    "avessimo giocato"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Magari Bruno (dire)",
+              "cells": [
+                {
+                  "accept": [
+                    "dicesse"
+                  ],
+                  "hint": {
+                    "de": "diceva → ?",
+                    "sl": "diceva → ?",
+                    "en": "diceva → ?"
+                  }
+                },
+                {
+                  "accept": [
+                    "avesse detto"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sort",
+          "grammar": "congiuntivo-indipendente",
+          "instruction": {
+            "de": "Desiderio, dubbio o forse? · Wunsch, Zweifel oder vielleicht?",
+            "sl": "Desiderio, dubbio o forse? · Želja, dvom ali morda?",
+            "en": "Desiderio, dubbio o forse? · A wish, a doubt or maybe?"
+          },
+          "columns": [
+            {
+              "label": {
+                "de": "desiderio · Wunsch",
+                "sl": "desiderio · želja",
+                "en": "desiderio · wish"
+              },
+              "words": [
+                "Magari venisse!",
+                "Almeno ci fosse il sole!",
+                "Se solo potessi!"
+              ]
+            },
+            {
+              "label": {
+                "de": "dubbio · Zweifel",
+                "sl": "dubbio · dvom",
+                "en": "dubbio · doubt"
+              },
+              "words": [
+                "Che sia lui?",
+                "Che sia già partito?",
+                "Che abbia dimenticato?"
+              ]
+            },
+            {
+              "label": {
+                "de": "forse · vielleicht",
+                "sl": "forse · morda",
+                "en": "forse · maybe"
+              },
+              "words": [
+                "Magari viene domani.",
+                "Magari è al mercato."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**Magari, almeno, se solo** + imperfetto: ein Wunsch\n- che + congiuntivo als Frage: ein Zweifel\n- magari + Indikativ: vielleicht",
+            "sl": "**Magari, almeno, se solo** + imperfetto: želja\n- che + konjunktiv kot vprašanje: dvom\n- magari + indikativ: morda",
+            "en": "**Magari, almeno, se solo** + the imperfect: a wish\n- che + the subjunctive as a question: a doubt\n- magari + the indicative: maybe"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Magari i bambini ___ qui adesso!",
+          "options": [
+            "fossero",
+            "siano",
+            "fosse"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Ein Wunsch, **adesso** → imperfetto, i bambini = sie → **fossero**\n- siano · nach einer Meinung: penso che siano\n- fosse · er, sie",
+            "sl": "Želja, **adesso** → imperfetto, i bambini = oni → **fossero**\n- siano · za mnenjem: penso che siano\n- fosse · on, ona",
+            "en": "A wish, **adesso** → the imperfect, i bambini = they → **fossero**\n- siano · after an opinion: penso che siano\n- fosse · he, she"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "«Non ___ mai comprato tutta questa farina!», dice Franco.",
+          "options": [
+            "avessi",
+            "abbia",
+            "avrò"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Franco bereut, was passiert ist → **avessi** comprato\n- abbia · nach einer Meinung: penso che abbia\n- avrò · Futur, nicht hier",
+            "sl": "Franco obžaluje, kar se je zgodilo → **avessi** comprato\n- abbia · za mnenjem: penso che abbia\n- avrò · prihodnjik, ne tu",
+            "en": "Franco regrets what happened → **avessi** comprato\n- abbia · after an opinion: penso che abbia\n- avrò · the future, not here"
+          }
+        }
+      ]
+    },
+    {
+      "id": "magari-2",
+      "title": {
+        "it": "Tre giorni di pioggia",
+        "de": "Drei Tage Regen",
+        "sl": "Tri dni dežja",
+        "en": "Three days of rain"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "congiuntivo-indipendente",
+          "instruction": {
+            "de": "Completa con il congiuntivo · Ergänze mit dem Konjunktiv",
+            "sl": "Completa con il congiuntivo · Dopolni s konjunktivom",
+            "en": "Completa con il congiuntivo · Fill in with the subjunctive"
+          },
+          "title": "Tre giorni di pioggia",
+          "text": "Piove da tre giorni e tutti sono all'osteria. «Magari ___ (uscire) il sole!», dice Giulia. «Almeno ___ (smettere) il vento!», dice Davide. Zia Nives batte sulla radio: «Se solo ___ (funzionare)!» Bruno guarda fuori: «Quattro giorni fa c'era ancora il sole. Magari noi ___ (andare) al mare!» Qualcuno bussa. «Che ___ (essere) Matteo?», chiede Marisa. «Che ___ (portare) il vino?» Ma è solo Moro. «Magari ___ (sapere) aprire la porta da solo!», ride Tommaso.",
+          "gaps": [
+            {
+              "accept": [
+                "uscisse"
+              ],
+              "hint": {
+                "de": "adesso → imperfetto",
+                "sl": "adesso → imperfetto",
+                "en": "adesso → imperfetto"
+              }
+            },
+            {
+              "accept": [
+                "smettesse"
+              ]
+            },
+            {
+              "accept": [
+                "funzionasse"
+              ]
+            },
+            {
+              "accept": [
+                "fossimo andati"
+              ],
+              "hint": {
+                "de": "damals → trapassato",
+                "sl": "takrat → trapassato",
+                "en": "back then → trapassato"
+              }
+            },
+            {
+              "accept": [
+                "sia"
+              ]
+            },
+            {
+              "accept": [
+                "abbia portato",
+                "porti"
+              ]
+            },
+            {
+              "accept": [
+                "sapesse"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "uscirebbe",
+            "abbia andato",
+            "fossero"
+          ],
+          "translation": {
+            "de": "Es regnet seit drei Tagen und alle sind im Wirtshaus. „Wenn doch die Sonne herauskäme!“, sagt Giulia. „Wenn wenigstens der Wind aufhören würde!“, sagt Davide. Zia Nives klopft auf das Radio: „Wenn es nur funktionieren würde!“ Bruno schaut hinaus: „Vor vier Tagen war noch Sonne. Wären wir doch ans Meer gefahren!“ Jemand klopft. „Ob das Matteo ist?“, fragt Marisa. „Ob er den Wein gebracht hat?“ Aber es ist nur Moro. „Wenn er doch die Tür allein aufmachen könnte!“, lacht Tommaso.",
+            "sl": "Že tri dni dežuje in vsi so v gostilni. »Ko bi le posijalo sonce!« pravi Giulia. »Ko bi vsaj nehal veter!« pravi Davide. Teta Nives potolče po radiu: »Če bi le delal!« Bruno pogleda ven: »Pred štirimi dnevi je še bilo sonce. Ko bi le šli na morje!« Nekdo potrka. »Je to morda Matteo?« vpraša Marisa. »Je morda prinesel vino?« A to je le Moro. »Ko bi le znal sam odpreti vrata!« se smeje Tommaso.",
+            "en": "It has been raining for three days and everyone is at the inn. \"If only the sun would come out!\" says Giulia. \"If the wind would at least stop!\" says Davide. Zia Nives taps the radio: \"If only it would work!\" Bruno looks out: \"Four days ago it was still sunny. If only we had gone to the sea!\" Someone knocks. \"Could it be Matteo?\" asks Marisa. \"Could he have brought the wine?\" But it's only Moro. \"If only he could open the door by himself!\" laughs Tommaso."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-indipendente",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Lorenzo vuole vincere la gara. Tutti gridano: «Che ___ il migliore!»",
+          "options": [
+            "vinca",
+            "vince",
+            "vinse"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Ein guter Wunsch: **che** + Präsens → **vinca**\n- vince · Indikativ: er gewinnt\n- vinse · passato remoto: er gewann",
+            "sl": "Dobra želja: **che** + sedanjik → **vinca**\n- vince · indikativ: zmaga\n- vinse · passato remoto: zmagal je",
+            "en": "A good wish: **che** + the present → **vinca**\n- vince · the indicative: he wins\n- vinse · passato remoto: he won"
+          }
+        }
+      ]
+    },
+    {
+      "id": "magari-3",
+      "title": {
+        "it": "Magari!",
+        "de": "Schön wär's!",
+        "sl": "Ko bi le!",
+        "en": "If only!"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "congiuntivo-indipendente",
+          "instruction": {
+            "de": "Di' il tuo desiderio o il tuo dubbio · Sag deinen Wunsch oder Zweifel",
+            "sl": "Di' il tuo desiderio o il tuo dubbio · Povej svojo željo ali dvom",
+            "en": "Di' il tuo desiderio o il tuo dubbio · Say your wish or your doubt"
+          },
+          "whole": true,
+          "items": [
+            {
+              "from": "Davide non viene. (magari)",
+              "accept": [
+                "Magari Davide venisse!",
+                "Magari venisse Davide!",
+                "Magari venisse!"
+              ]
+            },
+            {
+              "from": "Davide non è venuto. (magari)",
+              "accept": [
+                "Magari Davide fosse venuto!",
+                "Magari fosse venuto Davide!",
+                "Magari fosse venuto!"
+              ]
+            },
+            {
+              "from": "Non ho tempo. (se solo)",
+              "accept": [
+                "Se solo avessi tempo!",
+                "Se solo io avessi tempo!"
+              ]
+            },
+            {
+              "from": "Non c'è il sole. (almeno)",
+              "accept": [
+                "Almeno ci fosse il sole!",
+                "Ci fosse almeno il sole!"
+              ]
+            },
+            {
+              "from": "Non lo so. (se solo)",
+              "accept": [
+                "Se solo lo sapessi!",
+                "Se solo io lo sapessi!"
+              ]
+            },
+            {
+              "from": "Forse è Tommaso. (che)",
+              "accept": [
+                "Che sia Tommaso?"
+              ]
+            },
+            {
+              "from": "Forse Aldo è già partito. (che)",
+              "accept": [
+                "Che Aldo sia già partito?",
+                "Che sia già partito Aldo?",
+                "Che sia già partito?"
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**Ist nicht → imperfetto**: viene → venisse · ho → avessi · c'è → ci fosse · so → sapessi\n- **War nicht → trapassato**: è venuto → fosse venuto\n- **forse** → che + congiuntivo: è → sia",
+            "sl": "**Ni → imperfetto**: viene → venisse · ho → avessi · c'è → ci fosse · so → sapessi\n- **Ni bilo → trapassato**: è venuto → fosse venuto\n- **forse** → che + konjunktiv: è → sia",
+            "en": "**Isn't → the imperfect**: viene → venisse · ho → avessi · c'è → ci fosse · so → sapessi\n- **Wasn't → the pluperfect**: è venuto → fosse venuto\n- **forse** → che + the subjunctive: è → sia"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "congiuntivo-indipendente",
+        "instruction": {
+          "de": "Completa con il congiuntivo · Ergänze mit dem Konjunktiv",
+          "sl": "Completa con il congiuntivo · Dopolni s konjunktivom",
+          "en": "Completa con il congiuntivo · Fill in with the subjunctive"
+        },
+        "text": "Sotto il tiglio Nonno Bepi sospira. «Magari ___ (essere) ancora giovane! Se solo le mie gambe ___ (correre) come allora!» Moro lo guarda. «Che ___ (avere) fame?», chiede il nonno. «Ieri non gli ho dato niente. Almeno gli ___ (dare) un osso!»",
+        "gaps": [
+          {
+            "accept": [
+              "fossi"
+            ]
+          },
+          {
+            "accept": [
+              "corressero"
+            ]
+          },
+          {
+            "accept": [
+              "abbia"
+            ]
+          },
+          {
+            "accept": [
+              "avessi dato"
+            ],
+            "hint": {
+              "de": "ieri → trapassato",
+              "sl": "ieri → trapassato",
+              "en": "ieri → trapassato"
+            }
+          }
+        ],
+        "translation": {
+          "de": "Unter der Linde seufzt Nonno Bepi. „Wäre ich doch noch jung! Wenn meine Beine nur laufen würden wie damals!“ Moro schaut ihn an. „Ob er Hunger hat?“, fragt der Opa. „Gestern habe ich ihm nichts gegeben. Hätte ich ihm wenigstens einen Knochen gegeben!“",
+          "sl": "Pod lipo dedek Bepi vzdihne. »Ko bi bil še mlad! Če bi le moje noge tekle kot takrat!« Moro ga pogleda. »Je morda lačen?« vpraša dedek. »Včeraj mu nisem dal nič. Ko bi mu vsaj dal kost!«",
+          "en": "Under the linden Nonno Bepi sighs. \"If only I were still young! If only my legs would run as they did then!\" Moro looks at him. \"Could he be hungry?\" asks Grandpa. \"I gave him nothing yesterday. If only I had at least given him a bone!\""
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "congiuntivo-indipendente",
+        "instruction": {
+          "de": "Di' il tuo desiderio o il tuo dubbio · Sag deinen Wunsch oder Zweifel",
+          "sl": "Di' il tuo desiderio o il tuo dubbio · Povej svojo željo ali dvom",
+          "en": "Di' il tuo desiderio o il tuo dubbio · Say your wish or your doubt"
+        },
+        "whole": true,
+        "items": [
+          {
+            "from": "Non posso venire. (se solo)",
+            "accept": [
+              "Se solo potessi venire!",
+              "Se solo io potessi venire!"
+            ]
+          },
+          {
+            "from": "Marisa non ha telefonato. (almeno)",
+            "accept": [
+              "Almeno Marisa avesse telefonato!",
+              "Almeno avesse telefonato Marisa!",
+              "Almeno avesse telefonato!",
+              "Marisa avesse almeno telefonato!",
+              "Avesse almeno telefonato!"
+            ]
+          },
+          {
+            "from": "Forse Franco ha dimenticato. (che)",
+            "accept": [
+              "Che Franco abbia dimenticato?",
+              "Che abbia dimenticato Franco?",
+              "Che abbia dimenticato?"
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**Ist nicht → imperfetto**: posso → potessi\n- **War nicht → trapassato**: ha telefonato → avesse telefonato\n- **forse** → che: ha dimenticato → abbia dimenticato",
+          "sl": "**Ni → imperfetto**: posso → potessi\n- **Ni bilo → trapassato**: ha telefonato → avesse telefonato\n- **forse** → che: ha dimenticato → abbia dimenticato",
+          "en": "**Isn't → the imperfect**: posso → potessi\n- **Wasn't → the pluperfect**: ha telefonato → avesse telefonato\n- **forse** → che: ha dimenticato → abbia dimenticato"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-indipendente",
+        "prompt": "«Magari Marisa viene stasera.» Vuol dire:",
+        "options": [
+          "forse viene stasera",
+          "vorrei tanto che venisse",
+          "non viene mai"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**magari** + Indikativ (**viene**) → **forse** (vielleicht)\n- vorrei tanto che venisse · das wäre **Magari venisse!**\n- non viene mai · sagt der Satz nicht",
+          "sl": "**magari** + indikativ (**viene**) → **forse** (morda)\n- vorrei tanto che venisse · to bi bilo **Magari venisse!**\n- non viene mai · tega stavek ne pove",
+          "en": "**magari** + the indicative (**viene**) → **forse** (maybe)\n- vorrei tanto che venisse · that would be **Magari venisse!**\n- non viene mai · the sentence doesn't say so"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-indipendente",
+        "prompt": "Ieri non sono andato alla festa. Magari ci ___ andato!",
+        "options": [
+          "fossi",
+          "sia",
+          "sono"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**ieri**: vorbei, io, **andare** mit essere → **fossi** andato\n- sia · nach einer Meinung\n- sono · Indikativ: vielleicht, aber du warst nicht dort",
+          "sl": "**ieri**: mimo, io, **andare** z essere → **fossi** andato\n- sia · za mnenjem\n- sono · indikativ: morda, a te ni bilo",
+          "en": "**ieri**: over, io, **andare** with essere → **fossi** andato\n- sia · after an opinion\n- sono · the indicative: maybe, but you weren't there"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "congiuntivo-indipendente",
+        "instruction": {
+          "de": "Adesso o ieri? · Jetzt oder damals?",
+          "sl": "Adesso o ieri? · Zdaj ali takrat?",
+          "en": "Adesso o ieri? · Now or then?"
+        },
+        "columns": [
+          {
+            "label": {
+              "de": "adesso · jetzt",
+              "sl": "adesso · zdaj",
+              "en": "adesso · now"
+            },
+            "words": [
+              "Magari sapessi!",
+              "Almeno venisse!"
+            ]
+          },
+          {
+            "label": {
+              "de": "ieri · damals",
+              "sl": "ieri · takrat",
+              "en": "ieri · then"
+            },
+            "words": [
+              "Magari avessi saputo!",
+              "Almeno fosse venuto!"
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**sapessi, venisse**: jetzt\n- avessi saputo, fosse venuto: damals, es ist vorbei",
+          "sl": "**sapessi, venisse**: zdaj\n- avessi saputo, fosse venuto: takrat, je mimo",
+          "en": "**sapessi, venisse**: now\n- avessi saputo, fosse venuto: then, it's over"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: magari + the indicative as maybe; che abbia portato and che porti both; Fosse vero!; the German wishes"
+}
