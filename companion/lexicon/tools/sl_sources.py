@@ -20,7 +20,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
 C = os.path.join(ROOT, 'companion')
 CACHE = os.path.join(ROOT, '.cache/sl-sources')
 UA = 'Mozilla/5.0 (Lani content check, one request at a time; jan.guth@lanisce.si)'
-GAP = 3.5
+GAP = 3.0
 _last = [0.0]
 OFFLINE = '--offline' in sys.argv
 
@@ -306,16 +306,47 @@ def new_packs(levels):
     return out
 
 
+_wiki = None
+
+
+def wiki_forms(lemma):
+    """The forms the dictionary (sl.json, Wiktionary) has of [lemma]: {form: grammar}, or None if it lacks the lemma."""
+    global _wiki
+    if _wiki is None:
+        d = json.load(open(os.path.join(C, 'lexicon/sl.json')))
+        lem, gram = d['lemmas'], d['grammar']
+        _wiki = collections.defaultdict(dict)
+        for l in lem:
+            _wiki[l['lemma'].lower()].setdefault(l['lemma'].lower(), '')
+        for form, refs in d['forms'].items():
+            for r in refs:
+                g = gram[r[1]] if len(r) > 1 and r[1] < len(gram) else ''
+                _wiki[lem[r[0]]['lemma'].lower()][form.lower()] = g
+    return _wiki.get(lemma.lower())
+
+
 def look(q):
-    """Both sources for one word: (sp2001 entries, sloleks entries, {id: forms})."""
+    """
+    Both sources for one word: (sp2001 entries, sloleks entries, {id: forms}). A word the dictionary has already
+    (sl.json) gets no Sloleks forms page unless it is cached: its forms are the dictionary's.
+    """
     sp = sp2001(q)
     sl = sloleks_search(q)
-    if sl is None and q[0].isupper():
-        sl = None
     forms = {}
+    have = wiki_forms(q) is not None
     for e in sl or []:
         if e.get('lemma') == q:
-            forms[e['id']] = sloleks_forms(e['id'])
+            if have:
+                global OFFLINE
+                was, OFFLINE = OFFLINE, True
+                try:
+                    f = sloleks_forms(e['id'])
+                finally:
+                    OFFLINE = was
+                if f:
+                    forms[e['id']] = f
+            else:
+                forms[e['id']] = sloleks_forms(e['id'])
     return sp, sl, forms
 
 
@@ -360,6 +391,9 @@ def check(levels):
                 for form, msd in forms.get(e['id']) or []:
                     if msd.startswith('S') and len(msd) >= 5 and msd[3] == 'm' and msd[4] == 'i':
                         pl.add(form.lower())
+            if not pl and wiki_forms(q):
+                pl = {f for f, g in wiki_forms(q).items() if 'nominative' in g.split(';')[0] and 'plural' in g} | \
+                     {f for f, g in wiki_forms(q).items() if any('nominative' in part and 'plural' in part for part in g.split(';'))}
             if pl and w.get('plural') and w['plural'].lower() not in pl:
                 report['plural differs from Sloleks'].append(f'{tag}: pack {w["plural"]}, Sloleks {"/".join(sorted(pl))}')
             if pl and not w.get('plural'):
@@ -438,9 +472,14 @@ def supplement(levels, write):
             entry['source'] = src
             new.append(entry)
             seen.add(q.lower())
+    additions = []  # (record, forms): a lemma the dictionary or the supplement has, without forms the examples use
     for r in extra_records():
         q = r['lemma']
-        if (q.lower(), r['pos']) in lemmas or q.lower() in seen:
+        if q.lower() in seen:
+            continue
+        if (q.lower(), r['pos']) in lemmas:
+            if r.get('forms'):
+                additions.append((r, r['forms']))
             continue
         sp, sl, fs = look(q)
         hit = [e for e in sl or [] if e.get('lemma', '').lower() == q.lower() and e.get('category') == SL_CAT.get(r['pos'], r['pos'])]
@@ -471,19 +510,49 @@ def supplement(levels, write):
     print(f'{len(new)} new supplement entries; {len(dropped)} forms left out as another word\'s')
     for d in dropped:
         print('  left out: ' + d)
+    print(f'{len(additions)} known lemmas get forms the examples use')
     if write:
         path = os.path.join(C, 'lexicon/sl.extra.json')
         text = open(path, encoding='utf8').read()
         x = json.loads(text)
         have = {(e['lemma'], e['pos']) for e in x['entries']}
         add = [e for e in new if (e['lemma'], e['pos']) not in have]
+        lines = text.split('\n')
+        merged = 0
+        for r, fs in additions:
+            key = (r['lemma'], r['pos'])
+            if key in have:
+                # merge the forms into the supplement's own entry, on its line
+                for i, line in enumerate(lines):
+                    if line.lstrip().startswith('{') and f'"lemma": {json.dumps(r["lemma"], ensure_ascii=False)}, "pos": "{r["pos"]}"' in line:
+                        e = json.loads(line.strip().rstrip(','))
+                        new_forms = {f: g for f, g in fs.items() if f not in e['forms']}
+                        if new_forms:
+                            e['forms'].update(new_forms)
+                            lines[i] = '    ' + styled(e) + (',' if line.rstrip().endswith(',') else '')
+                            merged += 1
+                        break
+            else:
+                add.append({'lemma': r['lemma'], 'pos': r['pos'], 'gloss': [r['en']], 'forms': fs,
+                            'meanings': {'de': [r['de']], 'it': [r['it']]},
+                            'source': 'Forms the dictionary lacks, by hand (machine-written); the lemma is the dictionary\'s.'})
+        text = '\n'.join(lines)
         # one entry a line, as the file is written
-        lines = text.rstrip().rstrip('}').rstrip().rstrip(']').rstrip()
-        body = ''.join(',\n    ' + json.dumps(e, ensure_ascii=False) for e in add)
+        head = text.rstrip().rstrip('}').rstrip().rstrip(']').rstrip()
+        body = ''.join(',\n    ' + styled(e) for e in add)
         with open(path, 'w', encoding='utf8') as f:
-            f.write(lines + body + '\n  ]\n}\n')
+            f.write(head + body + '\n  ]\n}\n')
         json.load(open(path, encoding='utf8'))
-        print(f'wrote {len(add)} entries to {os.path.relpath(path, ROOT)}')
+        print(f'wrote {len(add)} entries and merged forms into {merged} to {os.path.relpath(path, ROOT)}')
+
+
+def styled(v):
+    """JSON in the supplement's style: { "k": v, … } with spaces inside an object's braces, lists tight."""
+    if isinstance(v, dict):
+        return '{ ' + ', '.join(f'{json.dumps(k, ensure_ascii=False)}: {styled(x)}' for k, x in v.items()) + ' }'
+    if isinstance(v, list):
+        return '[' + ', '.join(styled(x) for x in v) + ']'
+    return json.dumps(v, ensure_ascii=False)
 
 
 def auto(levels):
