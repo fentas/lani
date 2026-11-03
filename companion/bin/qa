@@ -4385,7 +4385,8 @@ def hint_it():
     if scene is None:
         return f"skipped: the dev bridge has no {sid}"
     turns = [l for l in next(d for d in scene["dialogs"] if d.get("id") == did)["lines"] if l.get("choices")]
-    chip, close, nxt = "📖 " + label("hint.chip"), label("common.close"), label("common.next")
+    # the chip's TalkBack text is its label alone (the 📖 is cleared from its semantics)
+    chip, close, nxt = label("hint.chip"), label("common.close"), label("common.next")
     answer, typed, choose = (label(k, half=True) for k in ("sceneDialog.answer", "adaptive.typeMissingWord", "adaptive.letMeChoose"))
     village = "‹ " + label("common.village")
     # what each turn's card says first, in the pair's base (the app's tables)
@@ -4404,6 +4405,7 @@ def hint_it():
         return False
 
     seen = []
+    plain_village()  # the village (its first-time intro skipped, when this step runs alone on a fresh install)
     try:
         qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
         if wait_for(close, 15) is None:
@@ -4412,7 +4414,8 @@ def hint_it():
             assert to_turn(), f"turn {k + 1}"
             if any(choose in t for t, _ in nodes()):
                 tap(choose, 2)
-            assert tap(chip, 6), f"turn {k + 1}: the hint chip «{chip}»"
+            shot(f"hint-it-turn-{k + 1}")
+            assert tap(chip, 6), f"turn {k + 1}: the hint chip «{chip}» (on screen: {[t[:30] for t, _ in nodes()][:14]})"
             time.sleep(1.2)
             got = wait_for(want[k][:28], 6) is not None
             seen.append(got)
@@ -4429,6 +4432,7 @@ def hint_it():
         qa_hook("happening:")
         if find(village) is not None:
             tap(village, 4)
+        plain_village()
     assert all(seen), f"the cards' first lines: {seen}"
     return None
 

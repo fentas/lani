@@ -146,12 +146,26 @@ or an article), numbers, question words.
 
 ## Tests
 
-On this branch (ports 10410–10429; no bridge change, no smoke needed):
-- App: `ItalianHintTest` 12, `TurnHintTest` 16 (unchanged: 1,066 hints, 1,053 saying a rule, 459 of 479 case turns with
+On this branch with main merged (ce42c102, main at e6209062), ports 10410–10429:
+- Bridge (untouched, run anyway): `bunx tsc --noEmit -p .` clean; the smoke 3,704 checks, all passed
+  (LANI_SMOKE_PORT 10410, LANI_SMOKE_DRAMA3_PORT 10428); `tutor-export --check` 140 files match.
+- Python: `python3 -m unittest discover -s tests` 253 OK, `-s companion/tests` 179 OK (11 skipped).
+- App: the full unit suite through lani-slot.sh, 4,112 tests in 521 classes, 0 failures, 2 skipped. Among them:
+  `ItalianHintTest` 12, `TurnHintTest` 16 (unchanged: 1,066 hints, 1,053 saying a rule, 459 of 479 case turns with
   their trigger), `HintSpeechTest` 11 (1,053 of 1,066 say something, as before), `TurnHintLensTest` 1, the l10n tests
   (`L10nTablesTest` 6: every key in sl and en, none unused) through lani-slot.sh. Kotlin compiled in-process
   (`-Pkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs=-Xmx5g`): the shared Kotlin daemon ran out of
   memory twice with other builds on it.
+
+- Emulator QA: `companion/bin/qa-slot --apk <the merged tree's debug APK> --no-town --steps hint-it` with a synthetic
+  Teo (make-learner.ts --target it --base de, LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de), slot 1: ok, no crash. At
+  each of the three turns of Marisa's jug in the cellar the card opens with its line: "mit «brocca»: nach seinem
+  Geschlecht, seiner Zahl und seinem ersten Laut" and the articles' rule; "mit «La brocca»: nach seinem Geschlecht und
+  seiner Zahl"; "Tu o Lei? Mit wem sprichst du? Familie, Freunde und Kinder: tu. Erwachsene, die du nicht gut kennst,
+  die Lehrerin, im Laden: Lei, mit dem Verb von lui und lei." Shots: the session's scratchpad, ux-hint-chip-it/
+  hint-it-1.png to -3.png (the run's all in companion/qa-shots/20261103-191402, hint-it-turn-* before each chip). In
+  sl · en the chip shows nothing at an Italian turn (the book is Slovene's, as on a visit): the step runs in an
+  Italian pair. Its first two runs failed on the step itself (the intro still up; the chip's TalkBack text has no 📖).
 
 No line anyone hears was added or changed in the voice store (the new strings are the card's and the 🔊's, said by the
 phone's voice, the Italian by the app's live voice): a voice build needs 0 characters.
