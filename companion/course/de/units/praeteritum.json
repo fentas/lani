@@ -1,0 +1,1053 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "praeteritum",
+  "language": "de",
+  "level": "B1",
+  "emoji": "📜",
+  "title": {
+    "de": "Es war einmal, er ging, sie sagte",
+    "en": "The written past: er ging, sie sagte",
+    "sl": "Pisni preteklik: er ging, sie sagte",
+    "it": "Il passato scritto: er ging, sie sagte"
+  },
+  "goal": {
+    "en": "You can read a tale in the Präteritum and write one: regular (sagte), strong (ging, kam) and mixed (dachte), and you know that in Austria people say the Perfekt instead.",
+    "sl": "Prebereš pravljico v Präteritumu in jo napišeš: pravilni (sagte), krepki (ging, kam) in mešani glagoli (dachte), in veš, da se v Avstriji namesto njega govori Perfekt.",
+    "it": "Sai leggere una fiaba al Präteritum e scriverne una: verbi regolari (sagte), forti (ging, kam) e misti (dachte), e sai che in Austria parlando si usa invece il Perfekt."
+  },
+  "grammar": [
+    "praeteritum",
+    "perfekt",
+    "praeteritum-kurz"
+  ],
+  "words": [
+    "sagen",
+    "machen",
+    "arbeiten",
+    "warten",
+    "gehen",
+    "kommen",
+    "sehen",
+    "fahren",
+    "geben",
+    "denken",
+    "bringen",
+    "wissen",
+    "kennen",
+    "werden",
+    "sitzen",
+    "stehen",
+    "liegen",
+    "tanzen",
+    "trinken",
+    "lachen",
+    "öffnen",
+    "laufen",
+    "nehmen",
+    "entstehen",
+    "das Mandl",
+    "das Fass",
+    "der Wein",
+    "reich",
+    "die Stadt",
+    "der Abend",
+    "der Ofen",
+    "der Müller",
+    "der Brief",
+    "der Markt",
+    "der Zug",
+    "Wörthersee",
+    "der See",
+    "einmal",
+    "heraus",
+    "das Werkzeug"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        "ich · er",
+        "wir · sie · Sie",
+        "Perfekt"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Es war einmal …** (Once upon a time …): tales and books tell the past in the *Präteritum*. In Austria people say the Perfekt, and it means the same: **Er ging nach Hause.** **Er ist nach Hause gegangen.** (He went home.) So you'll mostly read this tense, and write it in a story.",
+          "sl": "**Es war einmal …** (Nekoč je bilo …): pravljice in knjige pripovedujejo v *Präteritumu*. V Avstriji se govori Perfekt, in to pomeni isto: **Er ging nach Hause.** **Er ist nach Hause gegangen.** (Šel je domov.) Ta čas boš torej večinoma bral in ga pisal v zgodbi.",
+          "it": "**Es war einmal …** (C'era una volta …): fiabe e libri raccontano il passato col *Präteritum*. In Austria si dice il Perfekt, e vuol dire lo stesso: **Er ging nach Hause.** **Er ist nach Hause gegangen.** (È andato a casa.) Quindi questo tempo lo leggerai soprattutto, e lo scriverai in un racconto."
+        },
+        "examples": [
+          {
+            "de": "Es war einmal ein Müller.",
+            "en": "Once upon a time there was a miller.",
+            "sl": "Nekoč je živel mlinar.",
+            "it": "C'era una volta un mugnaio."
+          },
+          {
+            "de": "Er ging nach Hause.",
+            "en": "He went home.",
+            "sl": "Šel je domov.",
+            "it": "Andò a casa."
+          },
+          {
+            "de": "Er ist nach Hause gegangen.",
+            "en": "He went home.",
+            "sl": "Šel je domov.",
+            "it": "È andato a casa."
+          }
+        ],
+        "rows": [
+          [
+            "gehen",
+            "ging",
+            "gingen",
+            "ist gegangen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praeteritum",
+          "prompt": {
+            "en": "Which sentence says the same as „Er ging nach Hause“?",
+            "sl": "Kateri stavek pove isto kot „Er ging nach Hause“?",
+            "it": "Quale frase dice lo stesso di „Er ging nach Hause“?"
+          },
+          "options": [
+            "Er ist nach Hause gegangen.",
+            "Er geht nach Hause.",
+            "Er wird nach Hause gehen."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Say the Perfekt, write the Präteritum: the same past**\n- Er ging · Er ist gegangen",
+            "sl": "**Govori Perfekt, piši Präteritum: isti preteklik**\n- Er ging · Er ist gegangen",
+            "it": "**Di' il Perfekt, scrivi il Präteritum: lo stesso passato**\n- Er ging · Er ist gegangen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Regular verbs** take **-te**: sagen → **sagte** (said), machen → **machte** (made). ich and er are the same, and the plural adds -n: **wir sagten**, **sie machten**. After -t or -d an e comes between: arbeiten → **arbeitete** (worked), warten → **wartete** (waited).",
+          "sl": "**Pravilni glagoli** dobijo **-te**: sagen → **sagte** (rekel), machen → **machte** (naredil). ich in er sta enaka, množina doda -n: **wir sagten**, **sie machten**. Za -t ali -d pride vmes e: arbeiten → **arbeitete** (delal), warten → **wartete** (čakal).",
+          "it": "**I verbi regolari** prendono **-te**: sagen → **sagte** (disse), machen → **machte** (fece). ich ed er sono uguali, il plurale aggiunge -n: **wir sagten**, **sie machten**. Dopo -t o -d c'è una e in mezzo: arbeiten → **arbeitete** (lavorò), warten → **wartete** (aspettò)."
+        },
+        "examples": [
+          {
+            "de": "Kathi kochte eine Suppe.",
+            "en": "Kathi made a soup.",
+            "sl": "Kathi je skuhala juho.",
+            "it": "Kathi fece una minestra."
+          },
+          {
+            "de": "Die Leute lachten.",
+            "en": "The people laughed.",
+            "sl": "Ljudje so se smejali.",
+            "it": "La gente rise."
+          },
+          {
+            "de": "Stanko wartete auf den Bus.",
+            "en": "Stanko waited for the bus.",
+            "sl": "Stanko je čakal na avtobus.",
+            "it": "Stanko aspettò l'autobus."
+          }
+        ],
+        "rows": [
+          [
+            "sagen",
+            "sagte",
+            "sagten",
+            "hat gesagt"
+          ],
+          [
+            "arbeiten",
+            "arbeitete",
+            "arbeiteten",
+            "hat gearbeitet"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praeteritum",
+          "text": "Kathi ___ die Suppe. (kochen)",
+          "accept": [
+            "kochte"
+          ],
+          "hint": {
+            "en": "-te",
+            "sl": "-te",
+            "it": "-te"
+          },
+          "explain": {
+            "en": "**Regular: -te. After -t or -d: -ete**\n- sagte, machte · arbeitete, wartete",
+            "sl": "**Pravilni: -te. Za -t ali -d: -ete**\n- sagte, machte · arbeitete, wartete",
+            "it": "**Regolari: -te. Dopo -t o -d: -ete**\n- sagte, machte · arbeitete, wartete"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Strong verbs** change their vowel and take no -te: gehen → **ging** (went), kommen → **kam** (came), sehen → **sah** (saw), fahren → **fuhr** (drove), geben → **gab** (gave). ich and er have no ending at all: **Stefan kam um acht.** (Stefan came at eight.) Learn the form with the verb, as you learned the participle.",
+          "sl": "**Krepki glagoli** spremenijo samoglasnik in nimajo -te: gehen → **ging** (šel), kommen → **kam** (prišel), sehen → **sah** (videl), fahren → **fuhr** (peljal se), geben → **gab** (dal). ich in er sploh nimata končnice: **Stefan kam um acht.** (Stefan je prišel ob osmih.) Obliko se nauči z glagolom, kot deležnik.",
+          "it": "**I verbi forti** cambiano vocale e non hanno -te: gehen → **ging** (andò), kommen → **kam** (venne), sehen → **sah** (vide), fahren → **fuhr** (andò, guidò), geben → **gab** (diede). ich ed er non hanno desinenza: **Stefan kam um acht.** (Stefan venne alle otto.) Impara la forma col verbo, come il participio."
+        },
+        "examples": [
+          {
+            "de": "Stefan kam um acht.",
+            "en": "Stefan came at eight.",
+            "sl": "Stefan je prišel ob osmih.",
+            "it": "Stefan venne alle otto."
+          },
+          {
+            "de": "Stefan fuhr nach Villach.",
+            "en": "Stefan drove to Villach.",
+            "sl": "Stefan se je odpeljal v Beljak.",
+            "it": "Stefan andò a Villach."
+          },
+          {
+            "de": "Maxi sah den Hund.",
+            "en": "Maxi saw the dog.",
+            "sl": "Maxi je videl psa.",
+            "it": "Maxi vide il cane."
+          }
+        ],
+        "rows": [
+          [
+            "kommen",
+            "kam",
+            "kamen",
+            "ist gekommen"
+          ],
+          [
+            "sehen",
+            "sah",
+            "sahen",
+            "hat gesehen"
+          ],
+          [
+            "fahren",
+            "fuhr",
+            "fuhren",
+            "ist gefahren"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praeteritum",
+          "prompt": "Stefan ___ gestern nach Villach.",
+          "options": [
+            "fuhr",
+            "fahrte",
+            "fuhrte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Strong: a new vowel, no -te**\n- ging, kam, sah, fuhr · never fahrte",
+            "sl": "**Krepki: nov samoglasnik, brez -te**\n- ging, kam, sah, fuhr · nikoli fahrte",
+            "it": "**Forti: vocale nuova, senza -te**\n- ging, kam, sah, fuhr · mai fahrte"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Mixed verbs** change their vowel and still take -te: denken → **dachte** (thought), bringen → **brachte** (brought), wissen → **wusste** (knew), kennen → **kannte** (knew). **werden** is **wurde**: **Es wurde kalt.** (It turned cold.)",
+          "sl": "**Mešani glagoli** spremenijo samoglasnik in vseeno dobijo -te: denken → **dachte** (mislil), bringen → **brachte** (prinesel), wissen → **wusste** (vedel), kennen → **kannte** (poznal). **werden** je **wurde**: **Es wurde kalt.** (Postalo je mrzlo.)",
+          "it": "**I verbi misti** cambiano vocale e prendono lo stesso -te: denken → **dachte** (pensò), bringen → **brachte** (portò), wissen → **wusste** (sapeva), kennen → **kannte** (conosceva). **werden** è **wurde**: **Es wurde kalt.** (Si fece freddo.)"
+        },
+        "examples": [
+          {
+            "de": "Toni dachte an die Arbeit.",
+            "en": "Toni was thinking about the work.",
+            "sl": "Toni je mislil na delo.",
+            "it": "Toni pensava al lavoro."
+          },
+          {
+            "de": "Stefan brachte den Most.",
+            "en": "Stefan brought the cider.",
+            "sl": "Stefan je prinesel mošt.",
+            "it": "Stefan portò il sidro."
+          },
+          {
+            "de": "Es wurde kalt.",
+            "en": "It turned cold.",
+            "sl": "Postalo je mrzlo.",
+            "it": "Si fece freddo."
+          }
+        ],
+        "rows": [
+          [
+            "denken",
+            "dachte",
+            "dachten",
+            "hat gedacht"
+          ],
+          [
+            "bringen",
+            "brachte",
+            "brachten",
+            "hat gebracht"
+          ],
+          [
+            "werden",
+            "wurde",
+            "wurden",
+            "ist geworden"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praeteritum",
+          "prompt": "Toni ___ das Werkzeug in die Schmiede.",
+          "options": [
+            "brachte",
+            "bringte",
+            "bracht"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Mixed: a new vowel and -te**\n- dachte, brachte, wusste · never bringte",
+            "sl": "**Mešani: nov samoglasnik in -te**\n- dachte, brachte, wusste · nikoli bringte",
+            "it": "**Misti: vocale nuova e -te**\n- dachte, brachte, wusste · mai bringte"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**The other persons** take the present's endings: **du gingst**, **wir gingen**, **ihr gingt**, **sie gingen**. With -te: **du sagtest**, **ihr sagtet**. You'll rarely meet du and ihr here, as in talk people say **du bist gegangen**. A separable verb splits as in the present: **Der Zug kam um acht an.** (The train arrived at eight.)",
+          "sl": "**Druge osebe** imajo končnice sedanjika: **du gingst**, **wir gingen**, **ihr gingt**, **sie gingen**. S -te: **du sagtest**, **ihr sagtet**. du in ihr boš tu redko srečal, saj v govoru rečemo **du bist gegangen**. Ločljivi glagol se loči kot v sedanjiku: **Der Zug kam um acht an.** (Vlak je prispel ob osmih.)",
+          "it": "**Le altre persone** hanno le desinenze del presente: **du gingst**, **wir gingen**, **ihr gingt**, **sie gingen**. Con -te: **du sagtest**, **ihr sagtet**. Du e ihr li incontrerai di rado, perché parlando si dice **du bist gegangen**. Il verbo separabile si divide come al presente: **Der Zug kam um acht an.** (Il treno arrivò alle otto.)"
+        },
+        "examples": [
+          {
+            "de": "Die Kinder gingen in den Wald.",
+            "en": "The children went into the forest.",
+            "sl": "Otroci so šli v gozd.",
+            "it": "I bambini andarono nel bosco."
+          },
+          {
+            "de": "Der Zug kam um acht an.",
+            "en": "The train arrived at eight.",
+            "sl": "Vlak je prispel ob osmih.",
+            "it": "Il treno arrivò alle otto."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praeteritum",
+          "text": "Die Kinder ___ in den Wald. (gehen)",
+          "accept": [
+            "gingen"
+          ],
+          "hint": {
+            "en": "sie → -en",
+            "sl": "sie → -en",
+            "it": "sie → -en"
+          },
+          "explain": {
+            "en": "**ich = er. du -st, wir and sie -en, ihr -t**\n- ich kam, du kamst, wir kamen, ihr kamt · du sagtest, ihr sagtet",
+            "sl": "**ich = er. du -st, wir in sie -en, ihr -t**\n- ich kam, du kamst, wir kamen, ihr kamt · du sagtest, ihr sagtet",
+            "it": "**ich = er. du -st, wir e sie -en, ihr -t**\n- ich kam, du kamst, wir kamen, ihr kamt · du sagtest, ihr sagtet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sitzen, stehen, liegen** become **saß, stand, lag**: **Opa Sepp saß am Ofen.** (Grandpa Sepp sat by the stove.) In talk Austria says **ist gesessen**, where Germany says hat gesessen: **Er ist am Ofen gesessen.** So write the Präteritum, say the Perfekt, and use **war**, **hatte** and the modals in both.",
+          "sl": "**sitzen, stehen, liegen** postanejo **saß, stand, lag**: **Opa Sepp saß am Ofen.** (Dedek Sepp je sedel pri peči.) V govoru Avstrija reče **ist gesessen**, kjer Nemčija reče hat gesessen: **Er ist am Ofen gesessen.** Torej: piši Präteritum, govori Perfekt, **war**, **hatte** in modalne glagole pa rabi v obeh.",
+          "it": "**sitzen, stehen, liegen** diventano **saß, stand, lag**: **Opa Sepp saß am Ofen.** (Nonno Sepp sedeva vicino alla stufa.) Parlando, l'Austria dice **ist gesessen**, dove la Germania dice hat gesessen: **Er ist am Ofen gesessen.** Quindi scrivi il Präteritum, di' il Perfekt, e usa **war**, **hatte** e i modali in tutti e due."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp saß am Ofen.",
+            "en": "Grandpa Sepp sat by the stove.",
+            "sl": "Dedek Sepp je sedel pri peči.",
+            "it": "Nonno Sepp sedeva vicino alla stufa."
+          },
+          {
+            "de": "Er ist am Ofen gesessen.",
+            "en": "He sat by the stove.",
+            "sl": "Sedel je pri peči.",
+            "it": "Stava seduto vicino alla stufa."
+          },
+          {
+            "de": "Die Katze lag auf dem Tisch.",
+            "en": "The cat was lying on the table.",
+            "sl": "Mačka je ležala na mizi.",
+            "it": "Il gatto era sdraiato sul tavolo."
+          }
+        ],
+        "rows": [
+          [
+            "sitzen",
+            "saß",
+            "saßen",
+            "ist gesessen"
+          ],
+          [
+            "stehen",
+            "stand",
+            "standen",
+            "ist gestanden"
+          ],
+          [
+            "liegen",
+            "lag",
+            "lagen",
+            "ist gelegen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praeteritum",
+          "prompt": "Die Katze ___ auf dem Tisch.",
+          "options": [
+            "lag",
+            "liegte",
+            "legte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**liegen is strong: lag**\n- Die Katze lag auf dem Tisch · legte is legen's",
+            "sl": "**liegen je krepki: lag**\n- Die Katze lag auf dem Tisch · legte je od legen",
+            "it": "**liegen è forte: lag**\n- Die Katze lag auf dem Tisch · legte è di legen"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**For tales and writing.** In talk, Austria says the Perfekt.\n\n**Regular**: **-te**: sagte, arbeitete. **Strong**: a new vowel: ging, kam, sah, fuhr. **Mixed**: both: dachte, brachte, wusste. **werden**: wurde.\n\n**ich = er**: er ging, er sagte. du **-st**, wir and sie **-en**, ihr **-t**. A separable verb splits: Der Zug kam um acht an.",
+      "sl": "**Za pravljice in pisanje.** V govoru Avstrija rabi Perfekt.\n\n**Pravilni**: **-te**: sagte, arbeitete. **Krepki**: nov samoglasnik: ging, kam, sah, fuhr. **Mešani**: oboje: dachte, brachte, wusste. **werden**: wurde.\n\n**ich = er**: er ging, er sagte. du **-st**, wir in sie **-en**, ihr **-t**. Ločljivi glagol se loči: Der Zug kam um acht an.",
+      "it": "**Per le fiabe e lo scritto.** Parlando, in Austria si usa il Perfekt.\n\n**Regolari**: **-te**: sagte, arbeitete. **Forti**: vocale nuova: ging, kam, sah, fuhr. **Misti**: entrambi: dachte, brachte, wusste. **werden**: wurde.\n\n**ich = er**: er ging, er sagte. du **-st**, wir e sie **-en**, ihr **-t**. Il verbo separabile si divide: Der Zug kam um acht an."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "praeteritum-1",
+      "title": {
+        "de": "Sagte, kam, dachte",
+        "en": "The forms: sagte, kam, dachte",
+        "sl": "Oblike: sagte, kam, dachte",
+        "it": "Le forme: sagte, kam, dachte"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Präteritum · the written past",
+            "sl": "Präteritum · pisni preteklik",
+            "it": "Präteritum · il passato scritto"
+          },
+          "columns": [
+            "sagen",
+            "kommen"
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "sagte",
+                "kam"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "sagtest"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kamst"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                "sagte",
+                "kam"
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "sagten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kamen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "sagtet"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kamt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                "sagten",
+                "kamen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ich = er. du -st, wir and sie -en, ihr -t**\n- ich kam, du kamst, wir kamen, ihr kamt · du sagtest, ihr sagtet",
+            "sl": "**ich = er. du -st, wir in sie -en, ihr -t**\n- ich kam, du kamst, wir kamen, ihr kamt · du sagtest, ihr sagtet",
+            "it": "**ich = er. du -st, wir e sie -en, ihr -t**\n- ich kam, du kamst, wir kamen, ihr kamt · du sagtest, ihr sagtet"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "ich · er",
+            "sl": "ich · er",
+            "it": "ich · er"
+          },
+          "columns": [
+            "Präteritum"
+          ],
+          "rows": [
+            {
+              "label": "sehen",
+              "cells": [
+                {
+                  "accept": [
+                    "sah"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bleiben",
+              "cells": [
+                {
+                  "accept": [
+                    "blieb"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "fahren",
+              "cells": [
+                {
+                  "accept": [
+                    "fuhr"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "nehmen",
+              "cells": [
+                {
+                  "accept": [
+                    "nahm"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "denken",
+              "cells": [
+                {
+                  "accept": [
+                    "dachte"
+                  ],
+                  "hint": {
+                    "en": "with -te",
+                    "sl": "s -te",
+                    "it": "con -te"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "bringen",
+              "cells": [
+                {
+                  "accept": [
+                    "brachte"
+                  ],
+                  "hint": {
+                    "en": "with -te",
+                    "sl": "s -te",
+                    "it": "con -te"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Regular -te, strong a new vowel, mixed both**\n- sagte · ging · dachte",
+            "sl": "**Pravilni -te, krepki nov samoglasnik, mešani oboje**\n- sagte · ging · dachte",
+            "it": "**Regolari -te, forti vocale nuova, misti entrambi**\n- sagte · ging · dachte"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Ordne zu: welche Art? · Which kind of verb?",
+            "sl": "Ordne zu: welche Art? · Katera vrsta glagola?",
+            "it": "Ordne zu: welche Art? · Che tipo di verbo?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "regelmäßig · regular",
+                "sl": "regelmäßig · pravilni",
+                "it": "regelmäßig · regolari"
+              },
+              "words": [
+                "machte",
+                "wartete"
+              ]
+            },
+            {
+              "label": {
+                "en": "stark · strong",
+                "sl": "stark · krepki",
+                "it": "stark · forti"
+              },
+              "words": [
+                "ging",
+                "sah"
+              ]
+            },
+            {
+              "label": {
+                "en": "gemischt · mixed",
+                "sl": "gemischt · mešani",
+                "it": "gemischt · misti"
+              },
+              "words": [
+                "kannte",
+                "wusste"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Regular -te, strong a new vowel, mixed both**\n- sagte · ging · dachte",
+            "sl": "**Pravilni -te, krepki nov samoglasnik, mešani oboje**\n- sagte · ging · dachte",
+            "it": "**Regolari -te, forti vocale nuova, misti entrambi**\n- sagte · ging · dachte"
+          }
+        }
+      ]
+    },
+    {
+      "id": "praeteritum-2",
+      "title": {
+        "de": "Das Wörthersee-Mandl",
+        "en": "The little man of the Wörthersee",
+        "sl": "Možic z Vrbskega jezera",
+        "it": "L'omino del Wörthersee"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Das Wörthersee-Mandl",
+          "text": "Opa Sepp erzählt: Es war einmal eine reiche Stadt. Heute liegt dort der Wörthersee. Am Abend vor Ostern ___ (tanzen) die Leute und ___ (trinken) viel Wein. Da ___ (kommen) ein kleines, graues Mandl mit einem Fass. Es ___ (sagen): „Hört auf!“ Aber die Leute ___ (lachen) nur. Da ___ (öffnen) das Mandl sein Fass. Das Wasser ___ (laufen) heraus und ___ (nehmen) die ganze Stadt mit. So ___ (entstehen) der See.",
+          "gaps": [
+            {
+              "accept": [
+                "tanzten"
+              ]
+            },
+            {
+              "accept": [
+                "tranken"
+              ]
+            },
+            {
+              "accept": [
+                "kam"
+              ]
+            },
+            {
+              "accept": [
+                "sagte"
+              ]
+            },
+            {
+              "accept": [
+                "lachten"
+              ]
+            },
+            {
+              "accept": [
+                "öffnete"
+              ],
+              "hint": {
+                "en": "-ete after -n here",
+                "sl": "tu -ete za -n",
+                "it": "qui -ete dopo -n"
+              }
+            },
+            {
+              "accept": [
+                "lief"
+              ]
+            },
+            {
+              "accept": [
+                "nahm"
+              ]
+            },
+            {
+              "accept": [
+                "entstand"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "kommte",
+            "nehmte",
+            "trinkten"
+          ],
+          "translation": {
+            "en": "Grandpa Sepp tells a tale: Once upon a time there was a rich town. Today the Wörthersee lies there. On the evening before Easter the people danced and drank a lot of wine. Then a little grey man came, with a barrel. He said: \"Stop it!\" But the people only laughed. So the little man opened his barrel. The water ran out and took the whole town with it. That is how the lake came to be.",
+            "sl": "Dedek Sepp pripoveduje: Nekoč je bilo bogato mesto. Danes je tam Vrbsko jezero. Na predvečer velike noči so ljudje plesali in pili veliko vina. Tedaj je prišel majhen siv možic s sodom. Rekel je: »Nehajte!« Ljudje pa so se samo smejali. Tedaj je možic odprl svoj sod. Voda je stekla ven in odnesla vse mesto. Tako je nastalo jezero.",
+            "it": "Nonno Sepp racconta: C'era una volta una città ricca. Oggi lì c'è il Wörthersee. La sera prima di Pasqua la gente ballava e beveva molto vino. Allora arrivò un omino grigio con una botte. Disse: «Smettetela!» Ma la gente si mise solo a ridere. Allora l'omino aprì la sua botte. L'acqua uscì e si portò via tutta la città. Così nacque il lago."
+          },
+          "explain": {
+            "en": "**Regular -te, strong a new vowel, mixed both**\n- sagte · ging · dachte",
+            "sl": "**Pravilni -te, krepki nov samoglasnik, mešani oboje**\n- sagte · ging · dachte",
+            "it": "**Regolari -te, forti vocale nuova, misti entrambi**\n- sagte · ging · dachte"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Toni ___ an seine Schmiede.",
+          "options": [
+            "dachte",
+            "denkte",
+            "dachtete"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Mixed: a new vowel and -te**\n- dachte, brachte, wusste · never bringte",
+            "sl": "**Mešani: nov samoglasnik in -te**\n- dachte, brachte, wusste · nikoli bringte",
+            "it": "**Misti: vocale nuova e -te**\n- dachte, brachte, wusste · mai bringte"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir ___ lange auf den Bus.",
+          "options": [
+            "warteten",
+            "wartet",
+            "wartenten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Regular: -te. After -t or -d: -ete**\n- sagte, machte · arbeitete, wartete",
+            "sl": "**Pravilni: -te. Za -t ali -d: -ete**\n- sagte, machte · arbeitete, wartete",
+            "it": "**Regolari: -te. Dopo -t o -d: -ete**\n- sagte, machte · arbeitete, wartete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "praeteritum-3",
+      "title": {
+        "de": "Erzählen",
+        "en": "Telling it",
+        "sl": "Pripovedovanje",
+        "it": "Raccontare"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Sag es im Präteritum · Say it in the written past",
+            "sl": "Sag es im Präteritum · Povej v pisnem pretekliku",
+            "it": "Sag es im Präteritum · Dillo al passato scritto"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kathi kocht Suppe.",
+              "accept": [
+                "Kathi kochte Suppe."
+              ]
+            },
+            {
+              "from": "Stanko arbeitet bei den Bienen.",
+              "accept": [
+                "Stanko arbeitete bei den Bienen.",
+                "Bei den Bienen arbeitete Stanko."
+              ]
+            },
+            {
+              "from": "Lena liest ein Buch.",
+              "accept": [
+                "Lena las ein Buch."
+              ]
+            },
+            {
+              "from": "Der Zug kommt um acht an.",
+              "accept": [
+                "Der Zug kam um acht an.",
+                "Um acht kam der Zug an."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Regular -te, strong a new vowel, mixed both**\n- sagte · ging · dachte",
+            "sl": "**Pravilni -te, krepki nov samoglasnik, mešani oboje**\n- sagte · ging · dachte",
+            "it": "**Regolari -te, forti vocale nuova, misti entrambi**\n- sagte · ging · dachte"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "praeteritum",
+          "instruction": {
+            "en": "Sag es, wie man spricht: im Perfekt · Say it as people talk: in the Perfekt",
+            "sl": "Sag es, wie man spricht: im Perfekt · Povej, kot se govori: v Perfektu",
+            "it": "Sag es, wie man spricht: im Perfekt · Dillo come si parla: al Perfekt"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Er ging nach Hause.",
+              "accept": [
+                "Er ist nach Hause gegangen."
+              ]
+            },
+            {
+              "from": "Oma Resi saß am Ofen.",
+              "accept": [
+                "Oma Resi ist am Ofen gesessen.",
+                "Oma Resi hat am Ofen gesessen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Say the Perfekt, write the Präteritum: the same past**\n- Er ging · Er ist gegangen",
+            "sl": "**Govori Perfekt, piši Präteritum: isti preteklik**\n- Er ging · Er ist gegangen",
+            "it": "**Di' il Perfekt, scrivi il Präteritum: lo stesso passato**\n- Er ging · Er ist gegangen"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "praeteritum",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Stefan schreibt an Mitzi: Am Samstag ___ (fahren) ich nach Villach. Der Zug ___ (kommen) spät an. Ich ___ (warten) eine Stunde. Dann ___ (gehen) ich zum Markt und ___ (kaufen) Äpfel. Am Abend ___ (bringen) ich sie nach Hause.",
+        "gaps": [
+          {
+            "accept": [
+              "fuhr"
+            ]
+          },
+          {
+            "accept": [
+              "kam"
+            ]
+          },
+          {
+            "accept": [
+              "wartete"
+            ]
+          },
+          {
+            "accept": [
+              "ging"
+            ]
+          },
+          {
+            "accept": [
+              "kaufte"
+            ]
+          },
+          {
+            "accept": [
+              "brachte"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stefan writes to Mitzi: On Saturday I went to Villach. The train arrived late. I waited an hour. Then I went to the market and bought apples. In the evening I took them home.",
+          "sl": "Stefan piše Mitzi: V soboto sem se odpeljal v Beljak. Vlak je prispel pozno. Čakal sem eno uro. Potem sem šel na tržnico in kupil jabolka. Zvečer sem jih prinesel domov.",
+          "it": "Stefan scrive a Mitzi: Sabato sono andato a Villach. Il treno è arrivato tardi. Ho aspettato un'ora. Poi sono andato al mercato e ho comprato delle mele. La sera le ho portate a casa."
+        },
+        "explain": {
+          "en": "**Regular -te, strong a new vowel, mixed both**\n- sagte · ging · dachte",
+          "sl": "**Pravilni -te, krepki nov samoglasnik, mešani oboje**\n- sagte · ging · dachte",
+          "it": "**Regolari -te, forti vocale nuova, misti entrambi**\n- sagte · ging · dachte"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "praeteritum",
+        "instruction": {
+          "en": "Sag es im Präteritum · Say it in the written past",
+          "sl": "Sag es im Präteritum · Povej v pisnem pretekliku",
+          "it": "Sag es im Präteritum · Dillo al passato scritto"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Wir bleiben im Gasthaus.",
+            "accept": [
+              "Wir blieben im Gasthaus.",
+              "Im Gasthaus blieben wir."
+            ]
+          },
+          {
+            "from": "Toni denkt an die Arbeit.",
+            "accept": [
+              "Toni dachte an die Arbeit."
+            ]
+          },
+          {
+            "from": "Ihr kommt spät.",
+            "accept": [
+              "Ihr kamt spät."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Regular -te, strong a new vowel, mixed both**\n- sagte · ging · dachte",
+          "sl": "**Pravilni -te, krepki nov samoglasnik, mešani oboje**\n- sagte · ging · dachte",
+          "it": "**Regolari -te, forti vocale nuova, misti entrambi**\n- sagte · ging · dachte"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "praeteritum",
+        "instruction": {
+          "en": "Ordne zu: jetzt oder früher? · Now, or in the past?",
+          "sl": "Ordne zu: jetzt oder früher? · Zdaj ali prej?",
+          "it": "Ordne zu: jetzt oder früher? · Ora o prima?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Präsens · now",
+              "sl": "Präsens · zdaj",
+              "it": "Präsens · ora"
+            },
+            "words": [
+              "fährt",
+              "findet"
+            ]
+          },
+          {
+            "label": {
+              "en": "Präteritum · in the past",
+              "sl": "Präteritum · v preteklosti",
+              "it": "Präteritum · nel passato"
+            },
+            "words": [
+              "fuhr",
+              "fand"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Regular -te, strong a new vowel, mixed both**\n- sagte · ging · dachte",
+          "sl": "**Pravilni -te, krepki nov samoglasnik, mešani oboje**\n- sagte · ging · dachte",
+          "it": "**Regolari -te, forti vocale nuova, misti entrambi**\n- sagte · ging · dachte"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "praeteritum",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Es ___ einmal ein Müller.",
+        "options": [
+          "war",
+          "hatte",
+          "wurde"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Es war einmal: how a tale begins**\n- Es war einmal ein Müller",
+          "sl": "**Es war einmal: tako se začne pravljica**\n- Es war einmal ein Müller",
+          "it": "**Es war einmal: così comincia una fiaba**\n- Es war einmal ein Müller"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: the Wörthersee-Mandl (one version of the legend); Stefan's letter; Slovene aspect; Italian's passato remoto in the tale"
+}

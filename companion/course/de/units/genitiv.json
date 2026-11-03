@@ -1,0 +1,1002 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "genitiv",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🏡",
+  "title": {
+    "de": "Das Haus meines Vaters",
+    "en": "The genitive: des Vaters, der Mutter",
+    "sl": "Rodilnik: des Vaters, der Mutter",
+    "it": "Il genitivo: des Vaters, der Mutter"
+  },
+  "goal": {
+    "en": "You can say whose something is in writing (das Haus meines Vaters, die Küche der Wirtin, Stefans Traktor), you know the table of the four cases, and you know what people say instead (das Haus von meinem Vater).",
+    "sl": "Pisno poveš, čigavo je kaj (das Haus meines Vaters, die Küche der Wirtin, Stefans Traktor), poznaš tabelo štirih sklonov in veš, kaj se govori namesto tega (das Haus von meinem Vater).",
+    "it": "Sai dire per iscritto di chi è qualcosa (das Haus meines Vaters, die Küche der Wirtin, Stefans Traktor), conosci la tabella dei quattro casi e sai che cosa si dice invece parlando (das Haus von meinem Vater)."
+  },
+  "grammar": [
+    "genitiv",
+    "faelle"
+  ],
+  "words": [
+    "wessen",
+    "der Vater",
+    "die Mutter",
+    "das Kind",
+    "der Bruder",
+    "der Sohn",
+    "die Eltern",
+    "der Großvater",
+    "der Müller",
+    "die Wirtin",
+    "der Schmied",
+    "die Lehrerin",
+    "das Dach",
+    "die Mitte",
+    "das Ende",
+    "der Anfang",
+    "der Monat",
+    "das Jahr",
+    "die Woche",
+    "der König",
+    "der Duft",
+    "das Mehl",
+    "die Tasche",
+    "das Spiel",
+    "der Traktor",
+    "der Bach",
+    "laut",
+    "hoch",
+    "neu",
+    "kaputt",
+    "zahlen",
+    "zufrieden",
+    "der Most",
+    "der Kuchen",
+    "der Freund",
+    "vorher",
+    "eines Tages"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "en": "case",
+          "sl": "sklon",
+          "it": "caso"
+        },
+        "der · das",
+        "die",
+        "Plural"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Wessen?** (whose?) asks for the last of the four cases, the *Genitiv*. It comes after the noun it belongs to. A der or das noun takes **des** and **-s**: **das Haus des Müllers** (the miller's house), **das Ende des Sommers** (the end of the summer). So you have all four cases now.",
+          "sl": "**Wessen?** (čigav?) sprašuje po zadnjem od štirih sklonov, *Genitivu*. Stoji za samostalnikom, ki mu pripada. Samostalnik der ali das dobi **des** in **-s**: **das Haus des Müllers** (mlinarjeva hiša), **das Ende des Sommers** (konec poletja). Zdaj imaš vse štiri sklone.",
+          "it": "**Wessen?** (di chi?) chiede l'ultimo dei quattro casi, il *Genitiv*. Sta dopo il nome a cui appartiene. Un nome der o das prende **des** e **-s**: **das Haus des Müllers** (la casa del mugnaio), **das Ende des Sommers** (la fine dell'estate). Ora hai tutti e quattro i casi."
+        },
+        "examples": [
+          {
+            "de": "Das ist das Haus des Müllers.",
+            "en": "That's the miller's house.",
+            "sl": "To je mlinarjeva hiša.",
+            "it": "Questa è la casa del mugnaio."
+          },
+          {
+            "de": "Das Ende des Sommers ist schön.",
+            "en": "The end of the summer is lovely.",
+            "sl": "Konec poletja je lep.",
+            "it": "La fine dell'estate è bella."
+          },
+          {
+            "de": "Wessen Haus ist das?",
+            "en": "Whose house is that?",
+            "sl": "Čigava hiša je to?",
+            "it": "Di chi è questa casa?"
+          }
+        ],
+        "rows": [
+          [
+            "Nominativ",
+            "der Vater · das Kind",
+            "die Mutter",
+            "die Kinder"
+          ],
+          [
+            "Akkusativ",
+            "den Vater · das Kind",
+            "die Mutter",
+            "die Kinder"
+          ],
+          [
+            "Dativ",
+            "dem Vater · dem Kind",
+            "der Mutter",
+            "den Kindern"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "genitiv",
+          "text": "Das ist das Haus ___ Müllers.",
+          "accept": [
+            "des"
+          ],
+          "hint": {
+            "en": "der Müller → ?",
+            "sl": "der Müller → ?",
+            "it": "der Müller → ?"
+          },
+          "explain": {
+            "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+            "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+            "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**-s or -es?** A long noun takes **-s**: **des Vaters**, **des Kirchtags**. A short one takes **-es** or -s, both right: **des Hundes**, **des Hunds**. After -s, -ß or -z it must be **-es**: **des Hauses**, **des Platzes**. Only the genitive does this: **des Hauses**, but **dem Haus**.",
+          "sl": "**-s ali -es?** Dolg samostalnik dobi **-s**: **des Vaters**, **des Kirchtags**. Kratek dobi **-es** ali -s, oboje je prav: **des Hundes**, **des Hunds**. Za -s, -ß ali -z mora biti **-es**: **des Hauses**, **des Platzes**. To naredi le rodilnik: **des Hauses**, a **dem Haus**.",
+          "it": "**-s o -es?** Un nome lungo prende **-s**: **des Vaters**, **des Kirchtags**. Uno corto prende **-es** o -s, vanno bene tutti e due: **des Hundes**, **des Hunds**. Dopo -s, -ß o -z deve essere **-es**: **des Hauses**, **des Platzes**. Lo fa solo il genitivo: **des Hauses**, ma **dem Haus**."
+        },
+        "examples": [
+          {
+            "de": "Das Dach des Hauses ist neu.",
+            "en": "The roof of the house is new.",
+            "sl": "Streha hiše je nova.",
+            "it": "Il tetto della casa è nuovo."
+          },
+          {
+            "de": "Das ist der Platz des Hundes.",
+            "en": "That's the dog's place.",
+            "sl": "To je prostor psa.",
+            "it": "Questo è il posto del cane."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "genitiv",
+          "text": "Das Dach des ___ ist neu. (Haus)",
+          "accept": [
+            "Hauses"
+          ],
+          "explain": {
+            "en": "**After -s, -ß, -z: -es**\n- des Hauses · des Platzes",
+            "sl": "**Za -s, -ß, -z: -es**\n- des Hauses · des Platzes",
+            "it": "**Dopo -s, -ß, -z: -es**\n- des Hauses · des Platzes"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**die nouns and the plural** take **der**, and the noun stays as it is: **die Küche der Wirtin** (the innkeeper's kitchen), **das Spiel der Kinder** (the children's game). No -s here: **der Mutter**, never der Mutters. The dative looks the same in the singular, and the plural tells them apart: **der Kinder**, **den Kindern**.",
+          "sl": "**Samostalniki die in množina** dobijo **der**, samostalnik ostane, kakršen je: **die Küche der Wirtin** (gostilničarkina kuhinja), **das Spiel der Kinder** (igra otrok). Tu ni -s: **der Mutter**, nikoli der Mutters. Dajalnik je v ednini enak, razlika je v množini: **der Kinder**, **den Kindern**.",
+          "it": "**I nomi die e il plurale** prendono **der**, e il nome resta com'è: **die Küche der Wirtin** (la cucina della locandiera), **das Spiel der Kinder** (il gioco dei bambini). Qui niente -s: **der Mutter**, mai der Mutters. Il dativo è uguale al singolare, e il plurale li distingue: **der Kinder**, **den Kindern**."
+        },
+        "examples": [
+          {
+            "de": "Das ist die Küche der Wirtin.",
+            "en": "That's the innkeeper's kitchen.",
+            "sl": "To je gostilničarkina kuhinja.",
+            "it": "Questa è la cucina della locandiera."
+          },
+          {
+            "de": "Das Spiel der Kinder ist laut.",
+            "en": "The children's game is loud.",
+            "sl": "Igra otrok je glasna.",
+            "it": "Il gioco dei bambini è rumoroso."
+          }
+        ],
+        "rows": [
+          [
+            "Genitiv",
+            "des Vaters · des Kindes",
+            "der Mutter",
+            "der Kinder"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "genitiv",
+          "prompt": "Das ist die Tasche ___ Lehrerin.",
+          "options": [
+            "der",
+            "des",
+            "die"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**die noun: der, and no -s**\n- die Küche der Wirtin · die Tasche der Lehrerin",
+            "sl": "**Samostalnik die: der, in brez -s**\n- die Küche der Wirtin · die Tasche der Lehrerin",
+            "it": "**Nome die: der, e senza -s**\n- die Küche der Wirtin · die Tasche der Lehrerin"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ein, kein and mein** go as der does: **eines** Mannes, **einer** Frau, **meines** Vaters, **meiner** Mutter, **meiner** Eltern. **Das Haus meines Vaters** (my father's house). **Eines Tages** (one day) is how a tale often goes on after Es war einmal.",
+          "sl": "**ein, kein in mein** gredo kot der: **eines** Mannes, **einer** Frau, **meines** Vaters, **meiner** Mutter, **meiner** Eltern. **Das Haus meines Vaters** (hiša mojega očeta). Z **Eines Tages** (nekega dne) se pravljica pogosto nadaljuje za Es war einmal.",
+          "it": "**ein, kein e mein** fanno come der: **eines** Mannes, **einer** Frau, **meines** Vaters, **meiner** Mutter, **meiner** Eltern. **Das Haus meines Vaters** (la casa di mio padre). **Eines Tages** (un giorno): così una fiaba spesso continua dopo Es war einmal."
+        },
+        "examples": [
+          {
+            "de": "Das ist das Haus meines Vaters.",
+            "en": "That's my father's house.",
+            "sl": "To je hiša mojega očeta.",
+            "it": "Questa è la casa di mio padre."
+          },
+          {
+            "de": "Das Auto meiner Eltern ist alt.",
+            "en": "My parents' car is old.",
+            "sl": "Avto mojih staršev je star.",
+            "it": "La macchina dei miei genitori è vecchia."
+          },
+          {
+            "de": "Eines Tages kam ein Mann ins Dorf.",
+            "en": "One day a man came to the village.",
+            "sl": "Nekega dne je v vas prišel moški.",
+            "it": "Un giorno arrivò un uomo in paese."
+          }
+        ],
+        "rows": [
+          [
+            "Genitiv: ein, mein",
+            "eines Vaters · meines Kindes",
+            "einer Mutter",
+            "meiner Kinder"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "genitiv",
+          "prompt": "Das Haus ___ Vaters ist alt.",
+          "options": [
+            "meines",
+            "meiner",
+            "meinem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ein, kein, mein as der: meines Vaters, meiner Mutter**\n- das Haus meines Vaters",
+            "sl": "**ein, kein, mein kot der: meines Vaters, meiner Mutter**\n- das Haus meines Vaters",
+            "it": "**ein, kein, mein come der: meines Vaters, meiner Mutter**\n- das Haus meines Vaters"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**A name** takes **-s**, no apostrophe, and comes first with no article: **Stefans Traktor** (Stefan's tractor), **Oma Resis Küche** (Grandma Resi's kitchen). A name in -s or -z takes only the apostrophe: **Franz' Mühle** (Franz's mill).",
+          "sl": "**Ime** dobi **-s**, brez opuščaja, in stoji prvo, brez člena: **Stefans Traktor** (Stefanov traktor), **Oma Resis Küche** (kuhinja babice Resi). Ime na -s ali -z dobi le opuščaj: **Franz' Mühle** (Franzov mlin).",
+          "it": "**Un nome proprio** prende **-s**, senza apostrofo, e sta prima, senza articolo: **Stefans Traktor** (il trattore di Stefan), **Oma Resis Küche** (la cucina di Nonna Resi). Un nome in -s o -z prende solo l'apostrofo: **Franz' Mühle** (il mulino di Franz)."
+        },
+        "examples": [
+          {
+            "de": "Stefans Traktor ist kaputt.",
+            "en": "Stefan's tractor is broken.",
+            "sl": "Stefanov traktor je pokvarjen.",
+            "it": "Il trattore di Stefan è rotto."
+          },
+          {
+            "de": "Oma Resis Küche ist warm.",
+            "en": "Grandma Resi's kitchen is warm.",
+            "sl": "Kuhinja babice Resi je topla.",
+            "it": "La cucina di Nonna Resi è calda."
+          },
+          {
+            "de": "Franz' Mühle steht am Bach.",
+            "en": "Franz's mill stands by the stream.",
+            "sl": "Franzov mlin stoji ob potoku.",
+            "it": "Il mulino di Franz è sul torrente."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "genitiv",
+          "text": "___ Traktor ist kaputt. (Stefan)",
+          "accept": [
+            "Stefans"
+          ],
+          "explain": {
+            "en": "**A name: -s, first, no article, no apostrophe**\n- Stefans Traktor · Oma Resis Küche",
+            "sl": "**Ime: -s, prvo, brez člena in opuščaja**\n- Stefans Traktor · Oma Resis Küche",
+            "it": "**Un nome proprio: -s, prima, senza articolo né apostrofo**\n- Stefans Traktor · Oma Resis Küche"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**In talk** the genitive is rare. People say **von** + the dative: **das Haus von meinem Vater**, **der Hund vom Stefan**, and in the south also **dem Stefan sein Hund**. All of that is right in talk: write the genitive in a letter. With no article, von is the only way: **der Duft von Äpfeln** (the smell of apples).",
+          "sl": "**V govoru** je rodilnik redek. Rečejo **von** + dajalnik: **das Haus von meinem Vater**, **der Hund vom Stefan**, na jugu tudi **dem Stefan sein Hund**. V govoru je vse to prav: v pismu piši rodilnik. Brez člena gre samo z von: **der Duft von Äpfeln** (vonj po jabolkih).",
+          "it": "**Parlando** il genitivo è raro. Si dice **von** + il dativo: **das Haus von meinem Vater**, **der Hund vom Stefan**, e al sud anche **dem Stefan sein Hund**. Parlando va tutto bene: in una lettera scrivi il genitivo. Senza articolo si può solo con von: **der Duft von Äpfeln** (il profumo di mele)."
+        },
+        "examples": [
+          {
+            "de": "Das ist das Haus von meinem Vater.",
+            "en": "That's my father's house.",
+            "sl": "To je hiša mojega očeta.",
+            "it": "Questa è la casa di mio padre."
+          },
+          {
+            "de": "Das ist der Hund vom Stefan.",
+            "en": "That's Stefan's dog.",
+            "sl": "To je Stefanov pes.",
+            "it": "Questo è il cane di Stefan."
+          },
+          {
+            "de": "Der Duft von Äpfeln ist im ganzen Haus.",
+            "en": "The smell of apples is all through the house.",
+            "sl": "Vonj po jabolkih je po vsej hiši.",
+            "it": "Il profumo di mele è in tutta la casa."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "genitiv",
+          "prompt": "Der Duft ___ Äpfeln ist im ganzen Haus.",
+          "options": [
+            "von",
+            "des",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**With no article, only von: the plural takes -n**\n- der Duft von Äpfeln · with the article: der Duft der Äpfel",
+            "sl": "**Brez člena samo von: množina dobi -n**\n- der Duft von Äpfeln · s členom: der Duft der Äpfel",
+            "it": "**Senza articolo solo von: il plurale prende -n**\n- der Duft von Äpfeln · con l'articolo: der Duft der Äpfel"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**Whose?** der and das nouns: **des** + -s: des Vaters, des Hauses. die nouns and the plural: **der**: der Mutter, der Kinder.\n\n**meines** Vaters, **meiner** Mutter. A name: **Stefans** Traktor, **Franz'** Mühle.\n\n**In talk: von + the dative**: das Haus von meinem Vater. Write the genitive in a letter.",
+      "sl": "**Čigav?** Samostalniki der in das: **des** + -s: des Vaters, des Hauses. Samostalniki die in množina: **der**: der Mutter, der Kinder.\n\n**meines** Vaters, **meiner** Mutter. Ime: **Stefans** Traktor, **Franz'** Mühle.\n\n**V govoru: von + dajalnik**: das Haus von meinem Vater. V pismu piši rodilnik.",
+      "it": "**Di chi?** Nomi der e das: **des** + -s: des Vaters, des Hauses. Nomi die e plurale: **der**: der Mutter, der Kinder.\n\n**meines** Vaters, **meiner** Mutter. Un nome proprio: **Stefans** Traktor, **Franz'** Mühle.\n\n**Parlando: von + il dativo**: das Haus von meinem Vater. In una lettera scrivi il genitivo."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "genitiv-1",
+      "title": {
+        "de": "Des Vaters, der Mutter",
+        "en": "The forms: des Vaters, der Mutter",
+        "sl": "Oblike: des Vaters, der Mutter",
+        "it": "Le forme: des Vaters, der Mutter"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Genitiv · whose?",
+            "sl": "Genitiv · čigav?",
+            "it": "Genitiv · di chi?"
+          },
+          "columns": [
+            "Genitiv"
+          ],
+          "rows": [
+            {
+              "label": "der Vater",
+              "cells": [
+                {
+                  "accept": [
+                    "des Vaters"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "das Kind",
+              "cells": [
+                {
+                  "accept": [
+                    "des Kindes",
+                    "des Kinds"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "die Mutter",
+              "cells": [
+                {
+                  "accept": [
+                    "der Mutter"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "die Kinder",
+              "cells": [
+                {
+                  "accept": [
+                    "der Kinder"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "das Haus",
+              "cells": [
+                {
+                  "accept": [
+                    "des Hauses"
+                  ],
+                  "hint": {
+                    "en": "after -s: -es",
+                    "sl": "za -s: -es",
+                    "it": "dopo -s: -es"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "ein Mann",
+              "cells": [
+                {
+                  "accept": [
+                    "eines Mannes",
+                    "eines Manns"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "eine Frau",
+              "cells": [
+                {
+                  "accept": [
+                    "einer Frau"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "mein Bruder",
+              "cells": [
+                {
+                  "accept": [
+                    "meines Bruders"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "meine Eltern",
+              "cells": [
+                {
+                  "accept": [
+                    "meiner Eltern"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+            "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+            "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Ordne zu: Dativ oder Genitiv? · Dative, or genitive?",
+            "sl": "Ordne zu: Dativ oder Genitiv? · Dajalnik ali rodilnik?",
+            "it": "Ordne zu: Dativ oder Genitiv? · Dativo o genitivo?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Genitiv · genitive",
+                "sl": "Genitiv · rodilnik",
+                "it": "Genitiv · genitivo"
+              },
+              "words": [
+                "des Hundes",
+                "meines Vaters",
+                "eines Mannes"
+              ]
+            },
+            {
+              "label": {
+                "en": "Dativ · dative",
+                "sl": "Dativ · dajalnik",
+                "it": "Dativ · dativo"
+              },
+              "words": [
+                "dem Hund",
+                "meinem Vater",
+                "einem Mann"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+            "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+            "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+          }
+        }
+      ]
+    },
+    {
+      "id": "genitiv-2",
+      "title": {
+        "de": "Das Gasthaus zur Linde",
+        "en": "The Gasthaus zur Linde",
+        "sl": "Gostilna pri lipi",
+        "it": "La locanda del tiglio"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Das Gasthaus zur Linde",
+          "text": "Kathi erzählt: Das Gasthaus liegt in der Mitte ___ (das Dorf). Es war das Haus ___ (mein Vater) und vorher das Haus ___ (mein Großvater). Die Küche ___ (meine Mutter) war klein. Heute ist Maxi der König ___ (der Garten). Am Ende ___ (die Woche) kommen die Freunde ___ (mein Sohn). ___ (Stefan) Most steht im Keller, und Oma ___ (Resi) Kuchen mag jeder.",
+          "gaps": [
+            {
+              "accept": [
+                "des Dorfes",
+                "des Dorfs"
+              ],
+              "spoken": [
+                "vom Dorf",
+                "von dem Dorf"
+              ]
+            },
+            {
+              "accept": [
+                "meines Vaters"
+              ],
+              "spoken": [
+                "von meinem Vater"
+              ]
+            },
+            {
+              "accept": [
+                "meines Großvaters"
+              ],
+              "spoken": [
+                "von meinem Großvater"
+              ]
+            },
+            {
+              "accept": [
+                "meiner Mutter"
+              ],
+              "spoken": [
+                "von meiner Mutter"
+              ]
+            },
+            {
+              "accept": [
+                "des Gartens"
+              ],
+              "spoken": [
+                "vom Garten",
+                "von dem Garten"
+              ]
+            },
+            {
+              "accept": [
+                "der Woche"
+              ],
+              "spoken": [
+                "von der Woche"
+              ]
+            },
+            {
+              "accept": [
+                "meines Sohnes",
+                "meines Sohns"
+              ],
+              "spoken": [
+                "von meinem Sohn"
+              ]
+            },
+            {
+              "accept": [
+                "Stefans"
+              ],
+              "spoken": [
+                "dem Stefan sein"
+              ]
+            },
+            {
+              "accept": [
+                "Resis"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "meinem Vaters",
+            "der Mutters",
+            "Stefan"
+          ],
+          "translation": {
+            "en": "Kathi says: The inn is in the middle of the village. It was my father's house, and before that my grandfather's. My mother's kitchen was small. Today Maxi is the king of the garden. At the end of the week my son's friends come. Stefan's cider stands in the cellar, and everyone likes Grandma Resi's cake.",
+            "sl": "Kathi pripoveduje: Gostilna stoji sredi vasi. Bila je hiša mojega očeta, prej pa hiša mojega dedka. Kuhinja moje matere je bila majhna. Danes je Maxi kralj vrta. Ob koncu tedna pridejo prijatelji mojega sina. Stefanov mošt stoji v kleti, kolač babice Resi pa ima vsak rad.",
+            "it": "Kathi racconta: La locanda è in mezzo al paese. Era la casa di mio padre, e prima la casa di mio nonno. La cucina di mia madre era piccola. Oggi Maxi è il re del giardino. Alla fine della settimana vengono gli amici di mio figlio. Il sidro di Stefan è in cantina, e la torta di Nonna Resi piace a tutti."
+          },
+          "explain": {
+            "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+            "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+            "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wessen Traktor ist das? Das ist ___ Traktor.",
+          "options": [
+            "Stefans",
+            "Stefan",
+            "Stefanes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A name: -s, first, no article, no apostrophe**\n- Stefans Traktor · Oma Resis Küche",
+            "sl": "**Ime: -s, prvo, brez člena in opuščaja**\n- Stefans Traktor · Oma Resis Küche",
+            "it": "**Un nome proprio: -s, prima, senza articolo né apostrofo**\n- Stefans Traktor · Oma Resis Küche"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das ist das Haus ___ Eltern.",
+          "options": [
+            "meiner",
+            "meines",
+            "meinen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ein, kein, mein as der: meines Vaters, meiner Mutter**\n- das Haus meines Vaters",
+            "sl": "**ein, kein, mein kot der: meines Vaters, meiner Mutter**\n- das Haus meines Vaters",
+            "it": "**ein, kein, mein come der: meines Vaters, meiner Mutter**\n- das Haus meines Vaters"
+          }
+        }
+      ]
+    },
+    {
+      "id": "genitiv-3",
+      "title": {
+        "de": "In einem Brief, im Gespräch",
+        "en": "In a letter, in talk",
+        "sl": "V pismu, v govoru",
+        "it": "In una lettera, parlando"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Schreib es mit dem Genitiv · Write it with the genitive",
+            "sl": "Schreib es mit dem Genitiv · Napiši z rodilnikom",
+            "it": "Schreib es mit dem Genitiv · Scrivilo col genitivo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "das Haus von meinem Vater",
+              "accept": [
+                "das Haus meines Vaters"
+              ]
+            },
+            {
+              "from": "die Küche von der Wirtin",
+              "accept": [
+                "die Küche der Wirtin"
+              ]
+            },
+            {
+              "from": "das Dach von dem Haus",
+              "accept": [
+                "das Dach des Hauses"
+              ]
+            },
+            {
+              "from": "die Spiele von den Kindern",
+              "accept": [
+                "die Spiele der Kinder"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+            "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+            "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Mit dem Namen vorne · With the name first",
+            "sl": "Mit dem Namen vorne · Z imenom na začetku",
+            "it": "Mit dem Namen vorne · Col nome proprio davanti"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "der Traktor von Stefan",
+              "accept": [
+                "Stefans Traktor"
+              ],
+              "spoken": [
+                "dem Stefan sein Traktor"
+              ]
+            },
+            {
+              "from": "die Küche von Oma Resi",
+              "accept": [
+                "Oma Resis Küche"
+              ],
+              "spoken": [
+                "der Oma Resi ihre Küche"
+              ]
+            },
+            {
+              "from": "die Mühle von Franz",
+              "accept": [
+                "Franz' Mühle"
+              ],
+              "spoken": [
+                "Franz Mühle",
+                "dem Franz seine Mühle"
+              ],
+              "hint": {
+                "en": "a name in -z: only the apostrophe",
+                "sl": "ime na -z: le opuščaj",
+                "it": "un nome in -z: solo l'apostrofo"
+              }
+            }
+          ],
+          "explain": {
+            "en": "**A name: -s, first, no article, no apostrophe**\n- Stefans Traktor · Oma Resis Küche",
+            "sl": "**Ime: -s, prvo, brez člena in opuščaja**\n- Stefans Traktor · Oma Resis Küche",
+            "it": "**Un nome proprio: -s, prima, senza articolo né apostrofo**\n- Stefans Traktor · Oma Resis Küche"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "genitiv",
+          "instruction": {
+            "en": "Sag es, wie man spricht · Say it as people talk",
+            "sl": "Sag es, wie man spricht · Povej, kot se govori",
+            "it": "Sag es, wie man spricht · Dillo come si parla"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "das Haus meines Vaters",
+              "accept": [
+                "das Haus von meinem Vater"
+              ],
+              "spoken": [
+                "meinem Vater sein Haus"
+              ]
+            },
+            {
+              "from": "die Arbeit des Schmieds",
+              "accept": [
+                "die Arbeit vom Schmied",
+                "die Arbeit von dem Schmied"
+              ],
+              "spoken": [
+                "dem Schmied seine Arbeit"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**In talk: von + the dative. In a letter: the genitive**\n- das Haus von meinem Vater · das Haus meines Vaters",
+            "sl": "**V govoru: von + dajalnik. V pismu: rodilnik**\n- das Haus von meinem Vater · das Haus meines Vaters",
+            "it": "**Parlando: von + il dativo. In una lettera: il genitivo**\n- das Haus von meinem Vater · das Haus meines Vaters"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "genitiv",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Am Anfang ___ (das Jahr) hat Franz viel Arbeit. Das Mehl ___ (die Mühle) geht an Kathi, und die Gäste ___ (die Wirtin) essen frisches Brot. Am Ende ___ (der Monat) zahlt sie, und ___ (Jakob) Großvater ist zufrieden.",
+        "gaps": [
+          {
+            "accept": [
+              "des Jahres",
+              "des Jahrs"
+            ],
+            "spoken": [
+              "vom Jahr",
+              "von dem Jahr"
+            ]
+          },
+          {
+            "accept": [
+              "der Mühle"
+            ],
+            "spoken": [
+              "von der Mühle"
+            ]
+          },
+          {
+            "accept": [
+              "der Wirtin"
+            ],
+            "spoken": [
+              "von der Wirtin"
+            ]
+          },
+          {
+            "accept": [
+              "des Monats",
+              "des Monates"
+            ],
+            "spoken": [
+              "vom Monat",
+              "von dem Monat"
+            ]
+          },
+          {
+            "accept": [
+              "Jakobs"
+            ],
+            "spoken": [
+              "dem Jakob sein"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "At the beginning of the year Franz has a lot of work. The mill's flour goes to Kathi, and the innkeeper's guests eat fresh bread. At the end of the month she pays, and Jakob's grandfather is pleased.",
+          "sl": "Na začetku leta ima Franz veliko dela. Moka iz mlina gre h Kathi, gostilničarkini gostje pa jedo svež kruh. Ob koncu meseca plača in Jakobov dedek je zadovoljen.",
+          "it": "All'inizio dell'anno Franz ha molto lavoro. La farina del mulino va a Kathi, e gli ospiti della locandiera mangiano pane fresco. Alla fine del mese lei paga, e il nonno di Jakob è contento."
+        },
+        "explain": {
+          "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+          "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+          "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "genitiv",
+        "instruction": {
+          "en": "Schreib es mit dem Genitiv · Write it with the genitive",
+          "sl": "Schreib es mit dem Genitiv · Napiši z rodilnikom",
+          "it": "Schreib es mit dem Genitiv · Scrivilo col genitivo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "der Garten von meinem Bruder",
+            "accept": [
+              "der Garten meines Bruders"
+            ]
+          },
+          {
+            "from": "das Dach von der Schule",
+            "accept": [
+              "das Dach der Schule"
+            ]
+          },
+          {
+            "from": "das Auto von Kathi",
+            "accept": [
+              "Kathis Auto",
+              "das Auto Kathis"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+          "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+          "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "genitiv",
+        "instruction": {
+          "en": "Ordne zu: Dativ oder Genitiv? · Dative, or genitive?",
+          "sl": "Ordne zu: Dativ oder Genitiv? · Dajalnik ali rodilnik?",
+          "it": "Ordne zu: Dativ oder Genitiv? · Dativo o genitivo?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Genitiv · genitive",
+              "sl": "Genitiv · rodilnik",
+              "it": "Genitiv · genitivo"
+            },
+            "words": [
+              "des Tages",
+              "der Kinder"
+            ]
+          },
+          {
+            "label": {
+              "en": "Dativ · dative",
+              "sl": "Dativ · dajalnik",
+              "it": "Dativ · dativo"
+            },
+            "words": [
+              "dem Tag",
+              "den Kindern"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**der and das: des + -s. die and the plural: der**\n- des Vaters · der Mutter · der Kinder",
+          "sl": "**der in das: des + -s. die in množina: der**\n- des Vaters · der Mutter · der Kinder",
+          "it": "**der e das: des + -s. die e il plurale: der**\n- des Vaters · der Mutter · der Kinder"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "genitiv",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das ist das Ende ___ Geschichte.",
+        "options": [
+          "der",
+          "des",
+          "dem"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**die noun: der, and no -s**\n- die Küche der Wirtin · die Tasche der Lehrerin",
+          "sl": "**Samostalnik die: der, in brez -s**\n- die Küche der Wirtin · die Tasche der Lehrerin",
+          "it": "**Nome die: der, e senza -s**\n- die Küche der Wirtin · die Tasche der Lehrerin"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: der Hund vom Stefan; Franz Mühle as spoken; das Auto Kathis; which nouns take -s and -es; Slovene gostilničarkina"
+}
