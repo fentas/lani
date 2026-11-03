@@ -345,6 +345,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        LANI_QA_UNIT_PRINT=1: its sheet in the print dialog at the end;
                        QA's hook "school:<unit>": its level open, the unit as never begun): its intro's questions, its
                        first worksheet and its test answered as the file says, passed, kept done by the dev bridge;
+                       "school-production" that unit's sheet of speaking and writing (companion/COURSE.md "Speaking and
+                       writing"): the teacher's question, the self-rating the emulator's missing microphone leads to, the
+                       writing's checks ticked as the model is typed, checked right, the model; the test's speaking item
+                       rated, which doesn't count there;
                        "choices-order" (only when named; a synthetic learner, LANI_DEV_DATA) that unit played as "school-unit"
                        plays it, by the options' texts: each choice's options from the top to choices-order.txt, a shot of
                        one whose right answer isn't on top before and after its tap (it's right, the unit passes), and the
@@ -8683,6 +8687,9 @@ def sheet_exercise(e: dict, where: str):
             for w in col["words"]:
                 assert tap(unit_text(w), 4), f"{where}: the word «{w}»"
                 assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
+    elif kind in ("speaking", "writing"):
+        production_exercise(e, where)  # answered by itself: "Naprej · Next" is the caller's
+        return
     else:
         raise AssertionError(f"{where}: QA doesn't play a {kind} yet")
     assert check_sheet(), f"{where}: check"
@@ -8690,6 +8697,110 @@ def sheet_exercise(e: dict, where: str):
         # right, never a mistake: the label under the spoken answer names the standard form
         assert scroll_to("Pogovorno, prav tako prav", 6) is not None, f"{where}: a spoken answer's label"
         shot(f"school-unit-spoken-{where.replace(' ', '').replace('#', '-')}")
+
+
+def production_exercise(e: dict, where: str, shots: str | None = None):
+    """A speaking or writing item of a unit (companion/COURSE.md "Speaking and writing"), answered from the unit's file.
+    Speaking: the emulator has no microphone to speak into, so "Brez mikrofona · Can't speak now" (when the phone's
+    recognizer offers the 🎤 at all), the model revealed, "Rekla sem pravilno · I said it right": right on a worksheet, left
+    out of a test's count (the rating says so). Writing: the model typed (without č, š, ž: the checks fold them), what it
+    must use ticked as it is met on a worksheet, "Preveri · Check", right by its rules, the model and the tutor's feedback
+    on its way. [shots]: a prefix for screenshots of each stage (none: none)."""
+    kind = e["type"]
+    if kind == "speaking":
+        if e.get("ask"):
+            assert wait_for(unit_text(e["ask"])[:30], 8), f"{where}: what the teacher asks"
+        if shots:
+            shot(f"{shots}-asked")
+        c = find("Brez mikrofona · Can't speak now")
+        if c is not None:
+            tap_at(c)
+        assert wait_for("sem pravilno", 8) or wait_for("Pokaži · Reveal", 2), f"{where}: the learner rates themselves"
+        if shots:
+            shot(f"{shots}-rate")
+        if find("Pokaži · Reveal") is not None:
+            assert tap("Pokaži · Reveal", 4), f"{where}: the model revealed"
+        c = scroll_to("sem pravilno", 4)
+        assert c is not None, f"{where}: ✓ I said it right"
+        tap_at(c)
+        assert wait_for("Pravilno", 6), f"{where}: rated right"
+        if shots:
+            shot(f"{shots}-rated")
+        return
+    model = unit_text(e["model"]).translate(ASCII)
+    c = scroll_to("Napiši v slovenščini", 4) or scroll_to("Write in", 2)
+    assert c is not None, f"{where}: the field"
+    tap_at(c)
+    words = model.split(" ")
+    half = max(1, len(words) // 2)
+    if shots:
+        shot(f"{shots}-empty")
+        type_text(" ".join(words[:half]) + " ")
+        shot(f"{shots}-half")
+        tap_at(scroll_to("Napiši v slovenščini", 4) or c)
+        type_text(" ".join(words[half:]))
+    else:
+        type_text(model)
+    if shots:
+        shot(f"{shots}-typed")
+    assert check_sheet(), f"{where}: check"
+    assert wait_for("Pravilno", 8), f"{where}: right by its rules"
+    if shots:
+        shot(f"{shots}-checked")
+        if scroll_to("Primer odgovora", 6) is not None:
+            shot(f"{shots}-model")
+
+
+def school_production():
+    """Speaking and writing in a unit (companion/COURSE.md "Speaking and writing"; docs/plans/05-built/lesson-production.md):
+    $LANI_QA_UNIT's sheet of them (pogojnik-polno's "Povej in napiši" by default; QA's hook "school:<unit>" as
+    "school-unit"): its speaking items (the teacher's question in her bubble, the self-rating the emulator's missing
+    microphone leads to), its writing item (the checks ticked as the text meets them, checked right, the model, the tutor's
+    feedback on its way), the sheet's end; then the test's speaking item, whose self-rating says it doesn't count there."""
+    path = ROOT / f"companion/course/sl/units/{QA_UNIT}.json"
+    u = json.loads(path.read_text())
+    sheet = next((w for w in u["worksheets"] if any(e["type"] in ("speaking", "writing") for e in w["exercises"])), None)
+    if sheet is None:
+        return f"skipped: {QA_UNIT} has no sheet of speaking and writing"
+    go_home()
+    qa_hook(f"school:{QA_UNIT}")
+    assert wait_for("Raven A1", 10), "the school's levels"
+    if u["level"] != "A1":
+        assert scroll_to(f"Raven {u['level']}", 30) is not None, f"the level {u['level']}"
+    c = scroll_to(u["title"]["sl"], 30)
+    assert c is not None, f"the unit «{u['title']['sl']}»"
+    tap_at(c)
+    assert wait_for("Delovni listi", 12), f"the unit {QA_UNIT}'s page"
+    c = scroll_to(sheet["title"]["sl"], 10)
+    assert c is not None, f"the sheet «{sheet['title']['sl']}» on the unit's page"
+    shot("production-unit")
+    tap_at(c)
+    for n, e in enumerate(sheet["exercises"], 1):
+        time.sleep(1.5)
+        production_exercise(e, f'{sheet["id"]} #{n}', shots=f"production-{n}-{e['type']}")
+        assert tap("Naprej · Next", 6), f'{sheet["id"]} #{n}: on'
+    assert wait_for("Naprej · Continue", 10), "the sheet's end"
+    shot("production-sheet-done")
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    # the test's speaking item: rated without a microphone, it says it doesn't count in the test
+    tests = u["test"]["exercises"]
+    first = next((i for i, e in enumerate(tests) if e["type"] == "speaking"), None)
+    if first is None:
+        return
+    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    for n, e in enumerate(tests[: first + 1], 1):
+        time.sleep(1.5)
+        if e["type"] == "speaking":
+            c = find("Brez mikrofona · Can't speak now")
+            if c is not None:
+                tap_at(c)
+            assert wait_for("šteje le, ko te sliši mikrofon", 8), "the test's self-rating: it doesn't count"
+            shot("production-test-rated")
+            break
+        sheet_exercise(e, f"test #{n}")
+        assert tap("Naprej · Next", 6), f"test #{n}: on"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the test left: its answers so far kept, as the app keeps them
+    time.sleep(2)
 
 
 def school_unit():
@@ -18927,6 +19038,7 @@ def plan():
         ("sheet-corrections-types", sheet_corrections_types, go_home, False, ""),
         ("school-b1", school_b1, go_home, False, ""),
         ("school-unit", school_unit, go_home, False, ""),
+        ("school-production", school_production, go_home, False, ""),
         ("choices-order", choices_order, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-reveal", school_reveal, go_home, False, ""),
