@@ -52,9 +52,11 @@ export default async function stories() {
     janIds,
   )
   check(
-    '… each told at A1 and A2, seven at B1 too',
+    '… each told at A1 and A2, and to B2 for a learner on the way there (readings-primorska): at B1 all but the two still to come in chapters, at B2 most',
     jan.every(s => levelsOf(s).includes('A1') && levelsOf(s).includes('A2')) &&
-      jan.filter(s => levelsOf(s).includes('B1')).map(s => s.id).join() === 'zlatorog,kralj-matjaz,lepa-vida,zmaj-ljubljanski,bogatinovo-zlato,pegam-in-lambergar,veronika-deseniska',
+      jan.filter(s => !levelsOf(s).includes('B1')).map(s => s.id).join() === 'martin-krpan,jurij-kozjak' &&
+      jan.filter(s => levelsOf(s).includes('B2')).map(s => s.id).join() === 'zlatorog,kralj-matjaz,peter-klepec,lepa-vida,povodni-moz,zvon-zelja,desetnica,ajdovska-deklica,zmaj-ljubljanski,mojca-pokrajculja,kekec' &&
+      jan.every(s => levelsOf(s).every(l => ['A1', 'A2', 'B1', 'B2'].includes(l))),
     jan.map(s => [s.id, levelsOf(s)]),
   )
   check(
@@ -121,9 +123,9 @@ export default async function stories() {
   const tellings = (s: Story) => chaptersOf(s).flatMap((c, i) => LEVELS.filter(l => c.levels[l]).map(l => `${i + 1}/${l}`))
   const notedAs = (s: Story) => (s.notes ?? []).map(n => `${n.chapter ?? 1}/${n.level}`)
   check(
-    "every curated story is written down for the notebook: notes for each of its 148 tellings, a place for each picture, in the four languages, marked machine-written",
+    "every curated story is written down for the notebook: notes for each of its tellings (140 at A1 and A2, and those above), a place for each picture, in the four languages, marked machine-written",
     packs4.every(s => JSON.stringify(notedAs(s).sort()) === JSON.stringify(tellings(s).sort()) && /machine-written/.test(s.review ?? '')) &&
-      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 148 &&
+      packs4.reduce((n, s) => n + (s.notes ?? []).filter(x => x.level === 'A1' || x.level === 'A2').length, 0) === 140 &&
       packs4.every(s => (s.notes ?? []).every(n => n.after?.length === (s.pictures ?? []).filter(p => (p.chapter ?? 1) === (n.chapter ?? 1)).length &&
         n.text.every(p => ['sl', 'en', 'de', 'it'].every(l => typeof (p as Record<string, unknown>)[l] === 'string')))),
     packs4.filter(s => JSON.stringify(notedAs(s).sort()) !== JSON.stringify(tellings(s).sort())).map(s => [s.id, notedAs(s), tellings(s)]),
