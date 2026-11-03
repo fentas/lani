@@ -132,7 +132,25 @@ and "mate" follow each villager's personality (a stand-in keeps the host's word)
 
 ## How it was checked
 
-See the report's numbers at the foot of this file, on the branch merged with main.
+On the branch merged with main (0949f159, main at 1e0cdf04):
+
+- `bunx tsc --noEmit -p .`: clean; `bun build --no-bundle` on each changed test file; `tutor-export --check`: 89 files match (54 tools, 32 guide topics).
+- The smoke (`LANI_SMOKE_PORT=9730 LANI_SMOKE_FRIULI_PORT=9733 LANI_SMOKE_TOWN_PORT=9736 LANI_SMOKE_DRAMA3_PORT=9748`): all checks passed, 3521.
+- `check-culture` ok for all four cultures; `prompt-clashes`: no new clash.
+- The Android unit suite through lani-slot.sh: 487 classes, 3794 tests, 0 failures, 2 skipped, among them SceneCoherenceTest (no "look" without a cue),
+  MentionsContentTest (nobody of the cast named), CelebrationsContentTest and PartyStageTest. WhoAnswersTest and DialogReactionsTest read scenes, not parties;
+  LakelandCelebrationsTest holds the parties to the reaction rule.
+- Python: 253 tests, and 151 with 11 skipped, all passing.
+
+On the emulator (`qa --steps party`, a synthetic learner of English from Slovene, `--no-town`), with shots in the round's scratch folder `ux-parties-lakeland/`:
+
+- **The barn dance at A1**, on an APK built before the last translation fixes: the moment, the card, the party to its end with the chronicle's line, the village past that age, the
+  chronicle's ages (the merry neet, the boon day, the barn dance, the crab fair) with "Watch again" and the card offering the party again.
+- **Charter Day at B2**, on an APK of the branch before the merge with main (which changes no party): 4 turns answered, the banners and the garlands in the Lake District's colours.
+- **Not played on the emulator:** the merry neet, the boon day and the crab fair (those three by the tests alone), and a wrong choice's reaction (the step takes the right ones).
+
+The first runs stopped at "could not get back to the plain village": `bin/qa` read the village's HUD in Jan's sl · en, and on en-sl it took the Today card's "Danes" for the ring. Fixed for all
+pairs in 62db179c (the labels follow the pair the phone shows), checked on en-sl as above and on sl-en (Primorska's semenj at A1, `hearths`).
 
 - `bun test/check-celebrations.ts lakeland` and `bun test/check-culture.ts lakeland`: ok, 5 celebrations, 20 parties, 177 lines.
 - `LakelandCelebrationsTest` (7 tests, new): see its header. On the way it found "charter's" isn't a form of `charter` in the app's tokens, though
@@ -179,7 +197,7 @@ Everything is machine-written. A spoken form is never graded wrong.
 ## Credits
 
 No voice was built and no ElevenLabs credit spent. A voice build of the new lines in the cast's voices (the villagers' lines, their replies and their puzzled
-reactions, in English, all four levels) would take about 14,900 characters: Tabor 3,240, Zaselek 2,780, Vas 3,240, Trg 2,660, Mesto 2,980. The learner's own
+reactions, in English, all four levels) would take about 14,900 characters: Tabor 3,240, Zaselek 2,780, Vas 3,240, Trg 2,660, Mesto 2,970. The learner's own
 lines (every choice, right and wrong) add about 4,400 for each voice the learners have chosen.
 
 ## What's left
