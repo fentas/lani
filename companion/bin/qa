@@ -14687,6 +14687,15 @@ def cases_de_step():
         assert tap("Weiter", 10), "back"
         qa_hook("cases:only:")
 
+        # the grammar book's page faelle: its "🧩 Fälle üben" and the overview to print
+        qa_hook("grammar:faelle")
+        assert scroll_to("Fälle üben", 8), "the page's 🧩 Fälle üben"
+        shot("cases-de-grammar-page")
+        if scroll_to("Fälle im Überblick", 6):
+            shot("cases-de-overview-button")
+        back_key()
+        time.sleep(1)
+
         # the lens: a German word's case row in its line
         for word, line, en, wants, name in (
             ("Traktor", "Franz fährt mit dem Traktor aufs Feld.", "Franz drives the tractor to the field.", ["Dativ", "wem?", "mit"], "lens-de-mit"),
