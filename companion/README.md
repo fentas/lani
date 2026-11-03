@@ -4707,8 +4707,10 @@ curated in `companion/drills/<language>/<id>.json`, one file a drill (Slovene: `
 validates and serves them (`GET /drills`); the app bundles its own copy (for a bridge from before, which answers 404);
 `voice-build` voices them (`drills A1`, `drills A2+`).
 
-Italian has its four too (`companion/drills/it/`: 251 transformations from A1 to the congiuntivo at B1, 80 sentences built, 58 riddles
-told by Nonno Bepi; 1,205 texts, 24,601 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md). What follows
+Italian has its four too (`companion/drills/it/`, each to B2: 384 transformations, from A1's plural to B2's congiuntivo tenses,
+if-sentences, reported speech, venire + the participle and avendo finito; rapid fire's numbers, clock and dates at A1, then verb forms,
+linking words, centuries and years to B2; 96 sentences built; 82 riddles told by Nonno Bepi, B1's and B2's in their grammar; 1,749
+texts, about 40,600 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md and practice-it-b2.md). What follows
 describes Slovene's; a language's drills are data, its generated numbers `numberWord` (all four languages), and a session
 without clips stays away from the menu.
 
