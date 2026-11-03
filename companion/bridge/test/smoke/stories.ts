@@ -89,6 +89,11 @@ export default async function stories() {
       carinthia.every(s => s.teller === 'sepp' && s.language === 'de' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.de === 'string' && typeof t.sl === 'string' && typeof t.en === 'string' && typeof t.it === 'string') && !!s.teaser.de && !!s.memory.de),
     carinthia.map(s => [s.id, levelsOf(s)]),
   )
+  check(
+    '… every one of them at B1 and B2 too, each with its notes (readings-kaernten)',
+    carinthia.length === 16 && carinthia.every(s => JSON.stringify(levelsOf(s)) === '["A1","A2","B1","B2"]' && ['B1', 'B2'].every(lv => (s.notes ?? []).some(n => n.level === lv))),
+    carinthia.map(s => [s.id, levelsOf(s), (s.notes ?? []).map(n => n.level)]),
+  )
 
   // --- their books' pictures ------------------------------------------------------------------------------
   const lake = read('lakeland').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
