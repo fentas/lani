@@ -112,8 +112,10 @@ village get no case row, as before. GET /state says `cases` in a German village 
 - **The lens never guesses silently.** On the bank's 387 "Welcher Fall?" items (gold written apart from the lens) it reads
   all 387 right, none wrong as sure. Its likely picks are shown with the other readings. Over the 4,875 German content
   lines (Kärnten's scenes, stories, readings, the German book's examples, the packs' examples) it gives 17,503 words a
-  case: 79 % decided, 17 % likely, 4 % left open; 0.18 ms a line. Samples of those lines read by hand found the misses
-  fixed since (an imperative's object, morgen first in a sentence, a phrase with an article taken for a call).
+  case: 76 % decided, 17 % likely, 7 % left open (an exclamation with no verb, Ein Karpfen!, stays open); 0.2 ms a line.
+  Samples of those lines read by hand found the misses fixed since (an imperative's object, morgen first in a sentence,
+  a phrase with an article taken for a call, a capitalized word after a colon, Essen as das Essen and as the plural of
+  die Esse).
 - **Austrian forms are never wrong**: the lens reads, it doesn't grade. In the trainer a spoken form is an item's `spoken`
   (right, labelled), never a wrong option.
 

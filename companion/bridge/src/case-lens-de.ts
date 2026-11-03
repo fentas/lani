@@ -23,7 +23,7 @@ export type DeName = { name: string; gender?: 'm' | 'f' }
 /** What the lens reads: the table, the dictionary, the packs' nouns (gender, nominative plural). */
 export type CaseLensDeSources = { table: CaseTriggersDe; dict?: Lexicon; nouns?: Map<string, { gender: GenderKey; plural?: string }> }
 
-type Slot = { case: DeCaseKey; number: DeNumber; gender?: GenderKey }
+type Slot = { case: DeCaseKey; number: DeNumber; gender?: GenderKey; lemma?: string }
 const key = (s: Slot) => `${s.case}.${s.number}.${s.gender ?? ''}`
 const lower = (s: string) => s.toLocaleLowerCase('de')
 
@@ -200,7 +200,7 @@ export class CaseLensDe {
           const forms = [...x.forms, ...x.also]
           // a plural the lens doesn't know: the form that isn't the lemma's singular may be it
           if (num === 'pl' && !c.plural && !this.f.nNoun(c.lemma)) continue
-          if (forms.includes(w)) slots.push({ case: cs, number: num, ...(num === 'sg' ? { gender: c.gender } : { gender: c.gender }) })
+          if (forms.includes(w)) slots.push({ case: cs, number: num, gender: c.gender, lemma: c.lemma })
         }
       }
       // the singular a genitive or a plural the rules don't know: the form as the dictionary has it
@@ -348,6 +348,8 @@ export class CaseLensDe {
       if (left.length) slots = left
     }
     if (!slots.length) slots = all
+    // one spelling, two nouns (Essen: das Essen, the plural of die Esse): the lemma the phrase's forms leave
+    if (pos === 'noun') lemma = slots.find(x => x.lemma)?.lemma ?? lemma
     return { ...base, ...(detSlots && !fused ? { det: t, detLemma } : {}), adjs, head, pos, lemma, slots, all: detSlots ? all.filter(s => detSlots!.some(d => d.case === s.case && d.number === s.number)) : all }
   }
 
