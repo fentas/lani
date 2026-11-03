@@ -228,6 +228,72 @@ sealed interface Exercise {
     @Serializable @SerialName("__unsupported")
     data class Unsupported(val kind: String) : Exercise
 
+    // --- speaking and free writing in a unit (companion/COURSE.md, "Speaking and writing"; data/Production.kt) ---
+
+    /**
+     * Say it, or answer what the teacher asks ([ask]), aloud; the recognizer's take graded by [Production.grade]: [say] (the
+     * model) and [accept] right, [spoken] what people say beside them (right, labelled), [must] an open answer's checks
+     * (any sentence that meets them is right), [avoid] the unit's mistake. [show]: the model shown before ("repeat after
+     * me"); hidden by default, produced, then shown. [child]: what a child plays instead ([forChild]).
+     */
+    @Serializable @SerialName("speaking")
+    data class Speaking(
+        val prompt: String,
+        val say: String,
+        val ask: String? = null,
+        val accept: List<String> = emptyList(),
+        val spoken: List<String> = emptyList(),
+        val must: List<Must> = emptyList(),
+        val avoid: List<Avoid> = emptyList(),
+        @SerialName("min_words") val minWords: Int? = null,
+        val show: Boolean = false,
+        val instruction: String? = null,
+        val hint: String? = null,
+        val explain: String? = null,
+        val child: SpeakingChild? = null,
+        override val grammar: String? = null,
+    ) : Exercise {
+        fun answers(): List<String> = (listOf(say) + accept).distinct()
+
+        /** As a child plays it: the child's version's keys over its own (bridge production.ts forChild). */
+        fun forChild(): Speaking = child?.let { c ->
+            copy(
+                prompt = c.prompt ?: prompt, ask = c.ask ?: ask, say = c.say ?: say, accept = c.accept ?: accept, spoken = c.spoken ?: spoken,
+                must = c.must ?: must, minWords = c.minWords ?: minWords, show = c.show ?: show, child = null,
+            )
+        } ?: this
+
+        /** The module's speak exercise it plays as (ui/SpeakExercise.kt), its takes graded by [Production.grade]. */
+        fun asSpeak(): Speak = Speak(say = say, prompt = prompt, accept = accept, show = show, instruction = instruction, explain = explain, grammar = grammar)
+    }
+
+    /**
+     * A short text to a [prompt] (and the line it answers: [ask]), checked at once by [Production.check] ([must], [avoid],
+     * [length]), then read by the tutor when one is there; [model] shown once checked. A child says it first
+     * ([forChild], ui/school/ProductionExercises.kt).
+     */
+    @Serializable @SerialName("writing")
+    data class Writing(
+        val prompt: String,
+        val model: String,
+        val ask: String? = null,
+        val must: List<Must> = emptyList(),
+        val avoid: List<Avoid> = emptyList(),
+        val length: Length? = null,
+        val instruction: String? = null,
+        val hint: String? = null,
+        val explain: String? = null,
+        val child: WritingChild? = null,
+        override val grammar: String? = null,
+    ) : Exercise {
+        fun forChild(): Writing = child?.let { c ->
+            copy(prompt = c.prompt ?: prompt, ask = c.ask ?: ask, model = c.model ?: model, must = c.must ?: must, avoid = c.avoid ?: avoid, length = c.length ?: length, child = null)
+        } ?: this
+
+        /** Said aloud first, as a child does: a speaking item of its model and checks. */
+        fun spoken(): Speaking = Speaking(prompt = prompt, say = model, ask = ask, must = must, avoid = avoid, minWords = length?.min, instruction = instruction, explain = explain, grammar = grammar)
+    }
+
     // --- the school's worksheet types (companion/COURSE.md, "The school's exercise types"): a page of work at once ---
 
     /**

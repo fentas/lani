@@ -69,7 +69,8 @@ class Bridge(private val config: BridgeConfig) {
         const val GRAMMAR = "/grammar"
         const val CARDS = "/cards"
         const val CASES = "/cases"
-        const val COURSE = "/course"
+        /** The course with the school's item types this app plays (?types=2: speaking and writing too; bridge production.ts COURSE_TYPES). */
+        const val COURSE = "/course?types=2"
         const val READINGS = "/readings"
         const val ARRIVALS = "/arrivals"
         const val CULTURE = "/culture"

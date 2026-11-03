@@ -182,6 +182,12 @@ data class Outcome(
      * it stayed closed). Help, not a hint: the verdict and its pay stay, a right answer's review quality is at most 4.
      */
     val lookedUp: LookUp? = null,
+    /** A form people say was given ([Grading.Hint.SPOKEN]): right, labelled with this, the standard one. */
+    val standard: String? = null,
+    /** The learner rated themselves (no microphone or recognizer): practice, it doesn't count in a test (COURSE.md "How they count"). */
+    val rated: Boolean = false,
+    /** A speaking or writing item's checks (data/Production.kt): what it had to use and to avoid, met or not. */
+    val checks: si.lanisce.lani.data.Production.Checked? = null,
 ) {
     /** The verdict the village pays: a correct answer with hints counts as almost (one looked up on the cheat sheet pays in full). */
     val paid: Verdict get() = Hints.paid(verdict, hints)
@@ -757,6 +763,9 @@ private fun ExerciseView(
         is Exercise.Table -> si.lanisce.lani.ui.school.TableEx(vm, ex, locked, done)
         is Exercise.Transform -> si.lanisce.lani.ui.school.TransformEx(vm, ex, locked, done)
         is Exercise.Sort -> si.lanisce.lani.ui.school.SortEx(vm, ex, locked, done)
+        // speaking and free writing in a unit (ui/school/ProductionExercises.kt)
+        is Exercise.Speaking -> si.lanisce.lani.ui.school.SpeakingEx(vm, ex, locked, done)
+        is Exercise.Writing -> si.lanisce.lani.ui.school.WritingEx(vm, ex, index, locked, done)
         // a counting card of the review (ui/CountingCard.kt)
         is Exercise.Counting -> CountingEx(vm, ex, locked, done, onStep)
         // a forms card of the review (ui/FormsCardView.kt)
@@ -1327,6 +1336,8 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
                         SpeakButton(vm.speaker, s)
                     }
                 }
+                // a form people say: right, and labelled with the standard one (COURSE.md "Spoken forms")
+                o.standard?.let { Text("🗣️ ${bi("cases.spoken", "standard" to it)}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 o.tutor?.let { Markdown(it) }
                 o.explain?.let { Markdown(ExplainFormat.format(it), block = explained) }
                 book()
@@ -1368,7 +1379,9 @@ internal fun sloveneOf(ex: Exercise, isSlovene: (String) -> Boolean): String? = 
     is Exercise.Scenario -> ex.accept?.firstOrNull() ?: ex.answer?.let { ex.options?.getOrNull(it) }
     is Exercise.Dictation -> ex.audio
     is Exercise.Speak -> ex.say
-    is Exercise.Multi, is Exercise.Free, is Exercise.Unsupported -> null
+    // a speaking item's model; a writing item's model is under the text, with its 🔊
+    is Exercise.Speaking -> ex.say
+    is Exercise.Multi, is Exercise.Free, is Exercise.Unsupported, is Exercise.Writing -> null
     // a gap text heard whole, its gaps filled; the others are lists of their own
     is Exercise.GapText -> si.lanisce.lani.data.Sheets.filled(ex, ex.gaps.map { it.accept.firstOrNull() })
     is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
@@ -1522,7 +1535,8 @@ private fun expectedOf(ex: Exercise): String? = when (ex) {
     is Exercise.FormsTable -> ex.gaps.joinToString(" · ") { g -> listOf(g.before, g.answer + g.after).filter { it.isNotBlank() }.joinToString(" ") }
     is Exercise.Numeral -> ex.shown
     is Exercise.CaseTask -> si.lanisce.lani.data.CaseTrainer.expectedLine(ex)
-    is Exercise.Free, is Exercise.Unsupported, is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
+    is Exercise.Speaking -> ex.say
+    is Exercise.Free, is Exercise.Unsupported, is Exercise.Table, is Exercise.Transform, is Exercise.Sort, is Exercise.Writing -> null
 }
 
 /**
@@ -1559,6 +1573,8 @@ private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
     is Exercise.Scenario -> "scenario" to listOfNotNull(ex.scene, ex.line?.let { "„$it“" }, ex.prompt).joinToString(" · ")
     is Exercise.Dictation -> "dictation" to "🎧 ${ex.audio}"
     is Exercise.Speak -> "speak" to "🎤 ${ex.prompt} → ${ex.say}"
+    is Exercise.Speaking -> "speaking" to listOfNotNull("🎤 ${ex.prompt}", ex.ask?.let { "„$it“" }, "→ ${ex.say}").joinToString(" ")
+    is Exercise.Writing -> "writing" to listOfNotNull("✍️ ${ex.prompt}", ex.ask?.let { "„$it“" }, ex.must.takeIf { it.isNotEmpty() }?.joinToString("; ", "(", ")") { it.label }).joinToString(" ")
     is Exercise.Unsupported -> ex.kind to ex.kind
     is Exercise.GapText -> "gaptext" to listOfNotNull(ex.instruction, ex.text).joinToString(" · ")
     is Exercise.Table -> "table" to listOfNotNull(ex.instruction, ex.prompt ?: ex.lemma).joinToString(" · ")
@@ -1608,6 +1624,8 @@ internal fun hintText(h: Grading.Hint): String? = when (h) {
     Grading.Hint.TYPO -> bi("playerScreen.looksLikeTypoSo")
     Grading.Hint.NONSTANDARD -> bi("playerScreen.nonstandard")
     Grading.Hint.ENDING -> bi("playerScreen.checkEndingSloveneCarries")
+    // said by people, right: the feedback names the standard ([Outcome.standard])
+    Grading.Hint.SPOKEN -> null
 }
 
 /** The correct answer in bold, with the letters that differ from the learner's answer underlined in [color]. */
