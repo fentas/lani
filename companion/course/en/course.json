@@ -51,12 +51,12 @@
     {
       "level": "B1",
       "units": [
-        { "id": "for-since", "title": { "en": "I've lived here for ten years", "de": "Seit wann? for, since", "sl": "Odkdaj? for, since", "it": "Da quando? for, since" }, "grammar": ["present-perfect"], "planned": true },
-        { "id": "been-waiting", "title": { "en": "I've been waiting for an hour", "de": "Schon lange: I've been waiting", "sl": "Že dolgo: I've been waiting", "it": "Da tanto tempo: I've been waiting" }, "grammar": ["present-perfect"], "planned": true },
-        { "id": "past-perfect", "title": { "en": "The bus had already gone", "de": "Die Vorvergangenheit: had gone", "sl": "Predpreteklik: had gone", "it": "Il trapassato: had gone" }, "grammar": ["past-simple"], "planned": true },
-        { "id": "used-to", "title": { "en": "I used to live in Leeds", "de": "Früher: I used to", "sl": "Nekoč: I used to", "it": "Una volta: I used to" }, "grammar": ["past-simple"], "planned": true },
-        { "id": "future-forms", "title": { "en": "It'll rain, the bus leaves at nine", "de": "Alle Arten der Zukunft: will, going to, leaves", "sl": "Vsi načini prihodnosti: will, going to, leaves", "it": "Tutti i modi del futuro: will, going to, leaves" }, "grammar": ["future"], "planned": true },
-        { "id": "question-tags", "title": { "en": "It's cold, isn't it?", "de": "Frageanhängsel: isn't it? So do I", "sl": "Vprašalni dodatki: isn't it? So do I", "it": "Le code interrogative: isn't it? So do I" }, "grammar": ["to-be"], "planned": true },
+        { "id": "for-since", "title": { "en": "I've lived here for ten years", "de": "Seit wann? for, since", "sl": "Odkdaj? for, since", "it": "Da quando? for, since" }, "grammar": ["for-since", "present-perfect"] },
+        { "id": "been-waiting", "title": { "en": "I've been waiting for an hour", "de": "Schon lange: I've been waiting", "sl": "Že dolgo: I've been waiting", "it": "Da tanto tempo: I've been waiting" }, "grammar": ["present-perfect-continuous", "present-perfect"] },
+        { "id": "past-perfect", "title": { "en": "The bus had already gone", "de": "Die Vorvergangenheit: had gone", "sl": "Predpreteklik: had gone", "it": "Il trapassato: had gone" }, "grammar": ["past-perfect", "past-simple"] },
+        { "id": "used-to", "title": { "en": "I used to live in Leeds", "de": "Früher: I used to", "sl": "Nekoč: I used to", "it": "Una volta: I used to" }, "grammar": ["used-to", "past-simple"] },
+        { "id": "future-forms", "title": { "en": "It'll rain, the bus leaves at nine", "de": "Alle Arten der Zukunft: will, going to, leaves", "sl": "Vsi načini prihodnosti: will, going to, leaves", "it": "Tutti i modi del futuro: will, going to, leaves" }, "grammar": ["future-continuous", "future"] },
+        { "id": "question-tags", "title": { "en": "It's cold, isn't it?", "de": "Frageanhängsel: isn't it? So do I", "sl": "Vprašalni dodatki: isn't it? So do I", "it": "Le code interrogative: isn't it? So do I" }, "grammar": ["question-tags", "to-be"] },
         { "id": "who-which", "title": { "en": "The man who lives next door", "de": "Relativsätze: who, which, that", "sl": "Oziralni stavki: who, which, that", "it": "Le relative: who, which, that" }, "grammar": [], "planned": true },
         { "id": "passive", "title": { "en": "The bread is baked here", "de": "Das Passiv: is baked, was built", "sl": "Trpnik: is baked, was built", "it": "Il passivo: is baked, was built" }, "grammar": ["past-simple"], "planned": true },
         { "id": "verb-patterns", "title": { "en": "I decided to go, I enjoy walking", "de": "Verben mit to oder -ing: decided to, enjoy walking", "sl": "Glagoli s to ali -ing: decided to, enjoy walking", "it": "Verbi con to o -ing: decided to, enjoy walking" }, "grammar": [], "planned": true },

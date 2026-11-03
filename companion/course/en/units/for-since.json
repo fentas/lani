@@ -1,0 +1,637 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "for-since",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🏡",
+  "title": { "sl": "Odkdaj? for, since", "de": "Seit wann? for, since", "it": "Da quando? for, since", "en": "I've lived here for ten years" },
+  "goal": {
+    "sl": "Poveš, koliko časa nekaj že traja (I've lived here for ten years, since 2016), vprašaš How long have you …? in ločiš to od tega, kar je mimo (I lived in Leeds for five years).",
+    "de": "Du sagst, wie lange etwas schon dauert (I've lived here for ten years, since 2016), fragst How long have you …? und trennst es von dem, was vorbei ist (I lived in Leeds for five years).",
+    "it": "Dici da quanto tempo dura qualcosa (I've lived here for ten years, since 2016), chiedi How long have you …? e lo distingui da ciò che è finito (I lived in Leeds for five years).",
+    "en": "You can say how long something has gone on (I've lived here for ten years, since 2016), ask How long have you …?, and set it apart from what is over (I lived in Leeds for five years)."
+  },
+  "grammar": ["for-since", "present-perfect"],
+  "words": [
+    "for",
+    "since",
+    "ago",
+    "how long",
+    "for ages",
+    "ten years",
+    "a week",
+    "last summer",
+    "known",
+    "kept",
+    "taught",
+    "been",
+    "had",
+    "lived",
+    "worked",
+    "seen",
+    "run the inn",
+    "keep",
+    "teach",
+    "know",
+    "smithy",
+    "inn",
+    "mill",
+    "oven",
+    "bees",
+    "Keswick",
+    "Leeds",
+    "Penrith",
+    "Easter",
+    "all his life",
+    "a boy",
+    "a child",
+    "van",
+    "came"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**I've lived here for ten years**: kar se je začelo nekoč in še traja, gre v present perfect. (Tu živim deset let.) **Mrs Birkett has run the inn since 2011.** (Gospa Birkett vodi gostilno od leta 2011.) Slovenščina reče sedanjik, angleščina have, has + deležnik. **I live here** pove samo, da živiš tu zdaj.",
+          "de": "**I've lived here for ten years**: Was früher begonnen hat und noch andauert, steht im present perfect. (Ich wohne seit zehn Jahren hier.) **Mrs Birkett has run the inn since 2011.** (Mrs Birkett führt das Gasthaus seit 2011.) Deutsch sagt Präsens, Englisch have, has + Partizip. **I live here** sagt nur, dass du jetzt hier wohnst.",
+          "it": "**I've lived here for ten years**: ciò che è iniziato nel passato e dura ancora va al present perfect. (Vivo qui da dieci anni.) **Mrs Birkett has run the inn since 2011.** (Mrs Birkett gestisce la locanda dal 2011.) L'italiano usa il presente, l'inglese have, has + il participio. **I live here** dice solo che adesso vivi qui.",
+          "en": "**I've lived here for ten years**: what began in the past and still goes on takes the present perfect. **Mrs Birkett has run the inn since 2011.** Have or has + the participle, where your language may say the present. **I live here** only says you live here now."
+        },
+        "examples": [
+          {
+            "en": "I've lived here for ten years.",
+            "sl": "Tu živim deset let.",
+            "de": "Ich wohne seit zehn Jahren hier.",
+            "it": "Vivo qui da dieci anni."
+          },
+          {
+            "en": "Mrs Birkett has run the inn since 2011.",
+            "sl": "Gospa Birkett vodi gostilno od leta 2011.",
+            "de": "Mrs Birkett führt das Gasthaus seit 2011.",
+            "it": "Mrs Birkett gestisce la locanda dal 2011."
+          },
+          {
+            "en": "Jack has had Meg for six years.",
+            "sl": "Jack ima Meg šest let.",
+            "de": "Jack hat Meg seit sechs Jahren.",
+            "it": "Jack ha Meg da sei anni."
+          }
+        ],
+        "rows": [
+          [
+            "have, has + participle",
+            { "sl": "še traja", "de": "dauert noch an", "it": "dura ancora", "en": "still going on" },
+            "I've lived here for ten years."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "for-since",
+          "prompt": "We've ___ here for ten years.",
+          "options": ["lived", "live", "living"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**have + deležnik**\n- We've lived here for ten years.",
+            "de": "**have + Partizip**\n- We've lived here for ten years.",
+            "it": "**have + il participio**\n- We've lived here for ten years.",
+            "en": "**have + the participle**\n- We've lived here for ten years."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**for** + koliko časa: **for ten years**, **for a week**, **for ages** (že celo večnost). **since** + kdaj se je začelo: **since 2016**, **since Monday**, **since Easter**. Vprašaj se: dolžina ali začetek?",
+          "de": "Deutsch hat für beides *seit*, Englisch zwei Wörter. **for** + wie lange: **for ten years**, **for a week**, **for ages** (schon ewig). **since** + wann es begann: **since 2016**, **since Monday**, **since Easter**. Frag dich: Dauer oder Beginn?",
+          "it": "L'italiano ha *da* per tutti e due, l'inglese due parole. **for** + quanto tempo: **for ten years**, **for a week**, **for ages** (da una vita). **since** + quando è iniziato: **since 2016**, **since Monday**, **since Easter**. Chiediti: durata o inizio?",
+          "en": "**for** + how long: **for ten years**, **for a week**, **for ages**. **since** + when it began: **since 2016**, **since Monday**, **since Easter**. Ask yourself: a length, or a starting point?"
+        },
+        "examples": [
+          {
+            "en": "Arthur has kept bees for forty years.",
+            "sl": "Arthur čebelari že štirideset let.",
+            "de": "Arthur hält seit vierzig Jahren Bienen.",
+            "it": "Arthur tiene api da quarant'anni."
+          },
+          {
+            "en": "We've been here since Monday.",
+            "sl": "Tu smo od ponedeljka.",
+            "de": "Wir sind seit Montag hier.",
+            "it": "Siamo qui da lunedì."
+          },
+          {
+            "en": "I've known Sam for ages.",
+            "sl": "Sama poznam že celo večnost.",
+            "de": "Ich kenne Sam schon ewig.",
+            "it": "Conosco Sam da una vita."
+          }
+        ],
+        "rows": [
+          ["for", { "sl": "koliko časa", "de": "wie lange", "it": "quanto tempo", "en": "how long" }, "for ten years"],
+          ["since", { "sl": "kdaj se je začelo", "de": "wann es begann", "it": "quando è iniziato", "en": "when it began" }, "since 2016"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "for-since",
+          "text": "Arthur has kept bees ___ 1985.",
+          "accept": ["since"],
+          "explain": {
+            "sl": "**since + kdaj se je začelo**\n- since 2016 · since Monday",
+            "de": "**since + wann es begann**\n- since 2016 · since Monday",
+            "it": "**since + quando è iniziato**\n- since 2016 · since Monday",
+            "en": "**since + when it began**\n- since 2016 · since Monday"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**How long have you lived here?** (Odkdaj živiš tu?) Kratek odgovor: **For ten years.** **Since 2016.** Zanikano: **I haven't seen Jack for weeks.** (Jacka nisem videl{m:|f:a} že tedne.) **It hasn't rained since Monday.**",
+          "de": "**How long have you lived here?** (Wie lange wohnst du schon hier?) Kurz geantwortet: **For ten years.** **Since 2016.** Verneint: **I haven't seen Jack for weeks.** (Ich habe Jack seit Wochen nicht gesehen.) **It hasn't rained since Monday.**",
+          "it": "**How long have you lived here?** (Da quanto tempo vivi qui?) Risposta breve: **For ten years.** **Since 2016.** Negativo: **I haven't seen Jack for weeks.** (Non vedo Jack da settimane.) **It hasn't rained since Monday.**",
+          "en": "To ask: **How long have you lived here?** A short answer: **For ten years.** **Since 2016.** To say no: **I haven't seen Jack for weeks.** **It hasn't rained since Monday.**"
+        },
+        "examples": [
+          {
+            "en": "How long have you lived here? — For ten years.",
+            "sl": "Odkdaj živiš tu? — Deset let.",
+            "de": "Wie lange wohnst du schon hier? — Seit zehn Jahren.",
+            "it": "Da quanto tempo vivi qui? — Da dieci anni."
+          },
+          {
+            "en": "I haven't seen Jack for weeks.",
+            "sl": "Jacka nisem videl{m:|f:a} že tedne.",
+            "de": "Ich habe Jack seit Wochen nicht gesehen.",
+            "it": "Non vedo Jack da settimane."
+          },
+          {
+            "en": "It hasn't rained since Monday.",
+            "sl": "Od ponedeljka ni deževalo.",
+            "de": "Seit Montag hat es nicht geregnet.",
+            "it": "Non piove da lunedì."
+          }
+        ],
+        "rows": [
+          [
+            "How long have you …?",
+            { "sl": "vprašanje", "de": "die Frage", "it": "la domanda", "en": "the question" },
+            "How long have you lived here?"
+          ],
+          ["haven't, hasn't", { "sl": "zanikano", "de": "verneint", "it": "negativo", "en": "no" }, "It hasn't rained since Monday."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "for-since",
+          "prompt": "How long ___ Jack had Meg?",
+          "options": ["has", "is", "does"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack je he: has**\n- How long has Jack had Meg?",
+            "de": "**Jack ist he: has**\n- How long has Jack had Meg?",
+            "it": "**Jack è he: has**\n- How long has Jack had Meg?",
+            "en": "**Jack is he: has**\n- How long has Jack had Meg?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**I lived in Leeds for five years**: kar je mimo, gre v past simple, tudi s for. (Zdaj ne živim več tam.) **I've lived in Keswick for five years.** (Še vedno živim tam.) Z **ago** (pred) tudi past simple: **I came here ten years ago.** Vprašanje **When did you come here?** vpraša, kdaj.",
+          "de": "**I lived in Leeds for five years**: was vorbei ist, steht im past simple, auch mit for. (Jetzt wohne ich nicht mehr dort.) **I've lived in Keswick for five years.** (Ich wohne noch dort.) Mit **ago** (vor) auch das past simple: **I came here ten years ago.** **When did you come here?** fragt, wann.",
+          "it": "**I lived in Leeds for five years**: ciò che è finito va al past simple, anche con for. (Adesso non ci vivo più.) **I've lived in Keswick for five years.** (Ci vivo ancora.) Con **ago** (fa) anche il past simple: **I came here ten years ago.** **When did you come here?** chiede quando.",
+          "en": "**I lived in Leeds for five years**: what is over takes the past simple, with for too. (I don't live there now.) **I've lived in Keswick for five years.** (I still do.) With **ago**, the past simple too: **I came here ten years ago.** **When did you come here?** asks when."
+        },
+        "examples": [
+          {
+            "en": "I lived in Leeds for five years.",
+            "sl": "Pet let sem živel{m:|f:a} v Leedsu.",
+            "de": "Ich habe fünf Jahre in Leeds gewohnt.",
+            "it": "Ho vissuto a Leeds per cinque anni."
+          },
+          {
+            "en": "I've lived in Keswick for five years.",
+            "sl": "V Keswicku živim pet let.",
+            "de": "Ich wohne seit fünf Jahren in Keswick.",
+            "it": "Vivo a Keswick da cinque anni."
+          },
+          {
+            "en": "When did you come here? — Ten years ago.",
+            "sl": "Kdaj si {m:prišel|f:prišla} sem? — Pred desetimi leti.",
+            "de": "Wann bist du hergekommen? — Vor zehn Jahren.",
+            "it": "Quando sei venut{m:o|f:a} qui? — Dieci anni fa."
+          }
+        ],
+        "rows": [
+          [
+            "past simple + for",
+            { "sl": "je mimo", "de": "es ist vorbei", "it": "è finito", "en": "it's over" },
+            "I lived in Leeds for five years."
+          ],
+          ["past simple + ago", { "sl": "kdaj", "de": "wann", "it": "quando", "en": "when" }, "I came here ten years ago."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "for-since",
+          "prompt": "Sam ___ in Leeds for two years. Then he came back.",
+          "options": ["lived", "lives", "living"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Je mimo: past simple**\n- Sam lived in Leeds for two years.",
+            "de": "**Vorbei: past simple**\n- Sam lived in Leeds for two years.",
+            "it": "**È finito: past simple**\n- Sam lived in Leeds for two years.",
+            "en": "**Over: the past simple**\n- Sam lived in Leeds for two years."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**since** lahko začne cel stavek, v njem je past simple: **I've known Jack since he was a boy.** (Jacka poznam, odkar je bil deček.) **We've had the dog since we came here.** Glagoli know, have, be so tu zelo pogosti. Na Irskem rečejo tudi *I'm here since Monday*; v pisanju je **I've been here since Monday**.",
+          "de": "**since** kann einen ganzen Satz einleiten, darin steht das past simple: **I've known Jack since he was a boy.** (Ich kenne Jack, seit er ein Bub war.) **We've had the dog since we came here.** Die Verben know, have, be sind hier sehr häufig. In Irland sagt man auch *I'm here since Monday*; geschrieben steht **I've been here since Monday**.",
+          "it": "**since** può aprire una frase intera, con il past simple: **I've known Jack since he was a boy.** (Conosco Jack da quando era bambino.) **We've had the dog since we came here.** I verbi know, have, be qui sono molto comuni. In Irlanda si dice anche *I'm here since Monday*; per iscritto **I've been here since Monday**.",
+          "en": "**since** can open a whole clause, with the past simple in it: **I've known Jack since he was a boy.** **We've had the dog since we came here.** The verbs know, have and be are very common here. In Ireland people also say *I'm here since Monday*; writing wants **I've been here since Monday**."
+        },
+        "examples": [
+          {
+            "en": "I've known Jack since he was a boy.",
+            "sl": "Jacka poznam, odkar je bil deček.",
+            "de": "Ich kenne Jack, seit er ein Bub war.",
+            "it": "Conosco Jack da quando era bambino."
+          },
+          {
+            "en": "We've had the dog since we came here.",
+            "sl": "Psa imamo, odkar smo prišli sem.",
+            "de": "Wir haben den Hund, seit wir hergekommen sind.",
+            "it": "Abbiamo il cane da quando siamo venuti qui."
+          },
+          {
+            "en": "I've been here since Monday.",
+            "sl": "Tu sem od ponedeljka.",
+            "de": "Ich bin seit Montag hier.",
+            "it": "Sono qui da lunedì."
+          }
+        ],
+        "rows": [
+          [
+            "since + past simple",
+            { "sl": "začetek v stavku", "de": "der Beginn als Satz", "it": "l'inizio in una frase", "en": "the start as a clause" },
+            "since he was a boy"
+          ],
+          [
+            "known, had, been",
+            { "sl": "know, have, be", "de": "know, have, be", "it": "know, have, be", "en": "know, have, be" },
+            "I've been here since Monday."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "for-since",
+          "text": "I've known Mrs Hartley since she ___ (come) here.",
+          "accept": ["came"],
+          "hint": "come → ?",
+          "explain": {
+            "sl": "**V stavku za since: past simple**\n- since she came here",
+            "de": "**Im Satz nach since: past simple**\n- since she came here",
+            "it": "**Nella frase dopo since: past simple**\n- since she came here",
+            "en": "**In the clause after since: the past simple**\n- since she came here"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "for-since-1",
+      "title": { "sl": "Koliko časa?", "de": "Wie lange?", "it": "Quanto tempo?", "en": "How long?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "for-since",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            {
+              "label": { "sl": "for · koliko časa", "de": "for · wie lange", "it": "for · quanto tempo", "en": "for · how long" },
+              "words": ["ten years", "a week", "ages", "two hours"]
+            },
+            {
+              "label": {
+                "sl": "since · kdaj se je začelo",
+                "de": "since · wann es begann",
+                "it": "since · quando è iniziato",
+                "en": "since · when it began"
+              },
+              "words": ["2016", "Monday", "Easter", "last summer"]
+            }
+          ],
+          "explain": {
+            "sl": "**Dolžina: for. Začetek: since.**\n- for ten years · since 2016",
+            "de": "**Dauer: for. Beginn: since.**\n- for ten years · since 2016",
+            "it": "**Durata: for. Inizio: since.**\n- for ten years · since 2016",
+            "en": "**A length: for. A starting point: since.**\n- for ten years · since 2016"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "for-since",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "glagoli · preteklik in deležnik",
+            "de": "Verben · Vergangenheit und Partizip",
+            "it": "verbi · passato e participio",
+            "en": "verbs: the past and the participle"
+          },
+          "columns": [
+            { "sl": "past simple · preteklik", "de": "past simple · Vergangenheit", "it": "past simple · passato", "en": "past simple" },
+            { "sl": "participle · deležnik", "de": "participle · Partizip", "it": "participle · participio", "en": "participle" }
+          ],
+          "rows": [
+            { "label": "know", "cells": ["knew", { "accept": ["known"] }] },
+            { "label": "have", "cells": [{ "accept": ["had"] }, { "accept": ["had"] }] },
+            { "label": "keep", "cells": [{ "accept": ["kept"] }, { "accept": ["kept"] }] },
+            { "label": "teach", "cells": ["taught", { "accept": ["taught"] }] },
+            { "label": "be", "cells": ["was, were", { "accept": ["been"] }] }
+          ],
+          "explain": {
+            "sl": "**Te oblike so tu najpogostejše**\n- know · knew · known",
+            "de": "**Diese Formen sind hier die häufigsten**\n- know · knew · known",
+            "it": "**Queste forme qui sono le più comuni**\n- know · knew · known",
+            "en": "**These forms are the commonest here**\n- know · knew · known"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "for-since",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "I've known Jack ___ he was a boy.",
+          "options": ["since", "for", "ago"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**since začne stavek**\n- since he was a boy",
+            "de": "**since leitet einen Satz ein**\n- since he was a boy",
+            "it": "**since apre una frase**\n- since he was a boy",
+            "en": "**since opens a clause**\n- since he was a boy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "for-since-2",
+      "title": { "sl": "V gostilni Packhorse", "de": "Im Packhorse Inn", "it": "Alla Packhorse Inn", "en": "At the Packhorse Inn" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "for-since",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— How long ___ you lived here, Mrs Birkett? — Oh, I've lived here ___ 2011. — And Harry? — He's nine, so he's lived here ___ nine years, all his life. — Have you always had the inn? — No. I ___ (work) in Penrith for five years, then I came back. — And Jack? — I've ___ (know) him since he ___ (be) a boy. — Is he here? — No, I haven't ___ (see) him for days!",
+          "gaps": [
+            { "accept": ["have"], "hint": { "sl": "vprašanje", "de": "die Frage", "it": "la domanda", "en": "the question" } },
+            { "accept": ["since"], "hint": { "sl": "začetek", "de": "Beginn", "it": "inizio", "en": "a starting point" } },
+            { "accept": ["for"], "hint": { "sl": "dolžina", "de": "Dauer", "it": "durata", "en": "a length" } },
+            { "accept": ["worked"], "hint": { "sl": "je mimo", "de": "es ist vorbei", "it": "è finito", "en": "it's over" } },
+            { "accept": ["known"], "hint": "know → ?" },
+            {
+              "accept": ["was"],
+              "hint": { "sl": "v stavku za since", "de": "im Satz nach since", "it": "nella frase dopo since", "en": "in the clause after since" }
+            },
+            { "accept": ["seen"], "hint": "see → ?" }
+          ],
+          "bank": true,
+          "distractors": ["ago", "has"],
+          "translation": {
+            "sl": "— Odkdaj živite tu, gospa Birkett? — Oh, tu živim od leta 2011. — Pa Harry? — Devet let ima, torej živi tu že devet let, vse življenje. — Ste vedno imeli gostilno? — Ne. Pet let sem delala v Penrithu, potem sem se vrnila. — Pa Jack? — Poznam ga, odkar je bil deček. — Je tu? — Ne, že več dni ga nisem videla!",
+            "de": "— Wie lange wohnen Sie schon hier, Mrs Birkett? — Oh, ich wohne seit 2011 hier. — Und Harry? — Er ist neun, also wohnt er seit neun Jahren hier, sein ganzes Leben. — Hatten Sie immer das Gasthaus? — Nein. Ich habe fünf Jahre in Penrith gearbeitet, dann bin ich zurückgekommen. — Und Jack? — Ich kenne ihn, seit er ein Bub war. — Ist er da? — Nein, ich habe ihn seit Tagen nicht gesehen!",
+            "it": "— Da quanto tempo vive qui, Mrs Birkett? — Oh, vivo qui dal 2011. — E Harry? — Ha nove anni, quindi vive qui da nove anni, tutta la vita. — Ha sempre avuto la locanda? — No. Ho lavorato a Penrith per cinque anni, poi sono tornata. — E Jack? — Lo conosco da quando era bambino. — È qui? — No, non lo vedo da giorni!",
+            "en": "— How long have you lived here, Mrs Birkett? — Oh, I've lived here since 2011. — And Harry? — He's nine, so he's lived here for nine years, all his life. — Have you always had the inn? — No. I worked in Penrith for five years, then I came back. — And Jack? — I've known him since he was a boy. — Is he here? — No, I haven't seen him for days!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "for-since",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "We ___ in Keswick for three years. Now we live here.",
+          "options": ["lived", "live", "living"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Je mimo: past simple**\n- We lived in Keswick for three years.",
+            "de": "**Vorbei: past simple**\n- We lived in Keswick for three years.",
+            "it": "**È finito: past simple**\n- We lived in Keswick for three years.",
+            "en": "**Over: the past simple**\n- We lived in Keswick for three years."
+          }
+        }
+      ]
+    },
+    {
+      "id": "for-since-3",
+      "title": { "sl": "Koliko časa že?", "de": "Wie lange schon?", "it": "Da quanto tempo?", "en": "How long now?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "for-since",
+          "instruction": {
+            "sl": "Say how long, with for or since · Povej, koliko časa: s for ali since",
+            "de": "Say how long, with for or since · Sag, wie lange: mit for oder since",
+            "it": "Say how long, with for or since · Di' da quanto tempo: con for o since",
+            "en": "Say how long, with for or since"
+          },
+          "items": [
+            { "from": "Jack has a dog. (six years)", "accept": ["Jack has had a dog for six years.", "Jack's had a dog for six years."] },
+            {
+              "from": "Mr Dixon works at the smithy. (1995)",
+              "accept": [
+                "Mr Dixon has worked at the smithy since 1995.",
+                "Mr Dixon's worked at the smithy since 1995.",
+                "Mr Dixon has been working at the smithy since 1995.",
+                "Mr Dixon's been working at the smithy since 1995."
+              ]
+            },
+            { "from": "I know Mrs Hartley. (Easter)", "accept": ["I've known Mrs Hartley since Easter."] },
+            {
+              "from": "We are in the village. (two weeks)",
+              "accept": ["We've been in the village for two weeks."],
+              "spoken": ["We've been in the village two weeks."]
+            }
+          ],
+          "explain": {
+            "sl": "**have, has + deležnik; dolžina for, začetek since**\n- I know her. (Easter) → I've known her since Easter.",
+            "de": "**have, has + Partizip; Dauer for, Beginn since**\n- I know her. (Easter) → I've known her since Easter.",
+            "it": "**have, has + il participio; durata for, inizio since**\n- I know her. (Easter) → I've known her since Easter.",
+            "en": "**have, has + the participle; a length for, a start since**\n- I know her. (Easter) → I've known her since Easter."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "for-since",
+          "instruction": {
+            "sl": "Ask: How long? · Vprašaj: How long?",
+            "de": "Ask: How long? · Frag: How long?",
+            "it": "Ask: How long? · Chiedi: How long?",
+            "en": "Ask: How long?"
+          },
+          "cue": "how long",
+          "items": [
+            { "from": "You live in Keswick.", "accept": ["How long have you lived in Keswick?", "How long have you been living in Keswick?"] },
+            { "from": "Arthur keeps bees.", "accept": ["How long has Arthur kept bees?", "How long has Arthur been keeping bees?"] }
+          ],
+          "explain": {
+            "sl": "**How long + have, has + deležnik**\n- You live here. → How long have you lived here?",
+            "de": "**How long + have, has + Partizip**\n- You live here. → How long have you lived here?",
+            "it": "**How long + have, has + il participio**\n- You live here. → How long have you lived here?",
+            "en": "**How long + have, has + the participle**\n- You live here. → How long have you lived here?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "for-since",
+          "instruction": {
+            "sl": "Say it with no · Povej z ne",
+            "de": "Say it with no · Sag es verneint",
+            "it": "Say it with no · Dillo al negativo",
+            "en": "Say it with no"
+          },
+          "items": [
+            { "from": "I saw Jack. (weeks)", "accept": ["I haven't seen Jack for weeks."] },
+            { "from": "It rained. (Monday)", "accept": ["It hasn't rained since Monday."] }
+          ],
+          "explain": {
+            "sl": "**haven't, hasn't + deležnik + for, since**\n- I haven't seen Jack for weeks.",
+            "de": "**haven't, hasn't + Partizip + for, since**\n- I haven't seen Jack for weeks.",
+            "it": "**haven't, hasn't + il participio + for, since**\n- I haven't seen Jack for weeks.",
+            "en": "**haven't, hasn't + the participle + for, since**\n- I haven't seen Jack for weeks."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "for-since",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "Old Wilf has lived here ___ eighty-four years. Mr Tyson has ___ (have) the mill since 1990. When ___ you come here? I ___ (come) two years ago. I haven't been to Leeds ___ I was a child.",
+        "gaps": [
+          { "accept": ["for"], "hint": { "sl": "dolžina", "de": "Dauer", "it": "durata", "en": "a length" } },
+          { "accept": ["had"], "hint": "have → ?" },
+          { "accept": ["did"], "hint": "past simple" },
+          { "accept": ["came"], "hint": "ago" },
+          { "accept": ["since"], "hint": { "sl": "začetek", "de": "Beginn", "it": "inizio", "en": "a starting point" } }
+        ],
+        "translation": {
+          "sl": "Stari Wilf živi tu že štiriinosemdeset let. Gospod Tyson ima mlin od leta 1990. Kdaj si {m:prišel|f:prišla} sem? {m:Prišel|f:Prišla} sem pred dvema letoma. V Leedsu nisem bil{m:|f:a}, odkar sem bil{m:|f:a} otrok.",
+          "de": "Der alte Wilf wohnt seit vierundachtzig Jahren hier. Mr Tyson hat die Mühle seit 1990. Wann bist du hergekommen? Ich bin vor zwei Jahren gekommen. Ich war nicht mehr in Leeds, seit ich ein Kind war.",
+          "it": "Il vecchio Wilf vive qui da ottantaquattro anni. Mr Tyson ha il mulino dal 1990. Quando sei venut{m:o|f:a} qui? Sono venut{m:o|f:a} due anni fa. Non sono più stat{m:o|f:a} a Leeds da quando ero bambin{m:o|f:a}.",
+          "en": "Old Wilf has lived here for eighty-four years. Mr Tyson has had the mill since 1990. When did you come here? I came two years ago. I haven't been to Leeds since I was a child."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "for-since",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I've been here ___ Monday.",
+        "options": ["since", "for", "ago"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**since + kdaj se je začelo**\n- since 2016 · since Monday",
+          "de": "**since + wann es begann**\n- since 2016 · since Monday",
+          "it": "**since + quando è iniziato**\n- since 2016 · since Monday",
+          "en": "**since + when it began**\n- since 2016 · since Monday"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "for-since",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Granny Maggie has had that oven ___ thirty years.",
+        "options": ["for", "since", "ago"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**for + koliko časa**\n- for ten years · for a week",
+          "de": "**for + wie lange**\n- for ten years · for a week",
+          "it": "**for + quanto tempo**\n- for ten years · for a week",
+          "en": "**for + how long**\n- for ten years · for a week"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "for-since",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "How long have you known Sam? —",
+        "options": ["Since last summer.", "Last summer ago.", "For last summer."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Začetek: since**\n- since last summer",
+          "de": "**Beginn: since**\n- since last summer",
+          "it": "**Inizio: since**\n- since last summer",
+          "en": "**A starting point: since**\n- since last summer"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "for-since",
+        "instruction": {
+          "sl": "Say how long, with for or since · Povej, koliko časa: s for ali since",
+          "de": "Say how long, with for or since · Sag, wie lange: mit for oder since",
+          "it": "Say how long, with for or since · Di' da quanto tempo: con for o since",
+          "en": "Say how long, with for or since"
+        },
+        "items": [
+          { "from": "Sam has a van. (2020)", "accept": ["Sam has had a van since 2020.", "Sam's had a van since 2020."] },
+          {
+            "from": "I know Arthur. (three years)",
+            "accept": ["I've known Arthur for three years."],
+            "spoken": ["I've known Arthur three years."]
+          }
+        ],
+        "explain": {
+          "sl": "**have, has + deležnik; dolžina for, začetek since**\n- I know her. (Easter) → I've known her since Easter.",
+          "de": "**have, has + Partizip; Dauer for, Beginn since**\n- I know her. (Easter) → I've known her since Easter.",
+          "it": "**have, has + il participio; durata for, inizio since**\n- I know her. (Easter) → I've known her since Easter.",
+          "en": "**have, has + the participle; a length for, a start since**\n- I know her. (Easter) → I've known her since Easter."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "for-since",
+        "instruction": {
+          "sl": "Ask: How long? · Vprašaj: How long?",
+          "de": "Ask: How long? · Frag: How long?",
+          "it": "Ask: How long? · Chiedi: How long?",
+          "en": "Ask: How long?"
+        },
+        "cue": "how long",
+        "items": [
+          {
+            "from": "Mrs Hartley teaches here.",
+            "accept": ["How long has Mrs Hartley taught here?", "How long has Mrs Hartley been teaching here?"]
+          },
+          { "from": "You have a dog.", "accept": ["How long have you had a dog?"] }
+        ],
+        "explain": {
+          "sl": "**How long + have, has + deležnik**\n- You live here. → How long have you lived here?",
+          "de": "**How long + have, has + Partizip**\n- You live here. → How long have you lived here?",
+          "it": "**How long + have, has + il participio**\n- You live here. → How long have you lived here?",
+          "en": "**How long + have, has + the participle**\n- You live here. → How long have you lived here?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}
