@@ -145,6 +145,23 @@ class ReadingsTest {
         assertEquals(listOf("mrs-heelis-farms"), lib.filter { it.level == "B1" }.map { it.id })
     }
 
+    @Test fun `Kärnten's corner reads to B2 - three readings at B1 and three at B2, every question type and new words in each`() {
+        val lib = Cultures.library("kaernten")
+        // readings-kaernten: the Lindwurm fountain and Stefan's letter from Weitensfeld at B1 (with the Dobratsch); the
+        // Carniolan bee, the Ratschen of Holy Week and the Gailtal alpine cheese at B2
+        val b1 = listOf("der-bergsturz-am-dobratsch", "der-lindwurmbrunnen", "stefans-brief-aus-weitensfeld")
+        val b2 = listOf("der-gailtaler-almkaese", "die-kaerntner-biene", "wenn-die-glocken-schweigen")
+        assertEquals(b1, lib.filter { it.level == "B1" }.map { it.id }.sorted())
+        assertEquals(b2, lib.filter { it.level == "B2" }.map { it.id }.sorted())
+        for (r in lib.filter { it.id in b1 + b2 }) {
+            assertEquals(r.id, Readings.QUESTION_TYPES.toSet(), r.questions.mapNotNull { it.type }.toSet())
+            assertTrue(r.id, r.words.size in 4..Readings.MAX_WORDS && r.machineWritten == true && r.by != null)
+        }
+        // a B2 learner is offered the B2 readings as theirs, an A1 learner finds them harder
+        assertEquals(Readings.Fit.AT, Readings.fit("B2", "B2"))
+        assertEquals(Readings.Fit.HARDER, Readings.fit("B2", "A1"))
+    }
+
     @Test fun `a reading's length is its words to read, and about how long they take at its level`() {
         val frtalja = Cultures.load("primorska").readings.getValue("frtalja")
         val words = Readings.length(frtalja, si.lanisce.lani.l10n.Lang.SL)
