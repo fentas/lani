@@ -1418,7 +1418,7 @@ B2's last six, text and register (docs/plans/05-built/course-de-b2-c.md):
 
 - **Austria's word and Germany's are two `accept`s**, the Austrian first, on every gap, cell and whole line, in every mix (Wir fahren heuer im Januar in den Urlaub). A choice about a word asks what it means, so Germany's word stands there as the right meaning.
 - **Spoken Carinthian is `spoken`, as Slovene's `govorjeni-jezik` is**: right and labelled, the standard shown. Only what a source shows is read aloud or graded: words (lei, nit, eppes, ofn, losn, miad, Pfiati) and whole phrases (I bleib lei mehr kurz, Nit letz). No sentence is made up in dialect.
-- **`spoken` beside the point**: Auch wenn es regnet, wir gehen; dir's, ihm's; der Stefan, die Kathi; wegen dem Regen. A whole sentence doesn't fit a table's narrow cell (only its last words show): `satzbau`'s table asks what comes after the verb, and clauses and letter openings are transform lines.
+- **`spoken` beside the point**: Auch wenn es regnet, wir gehen; dir's, ihm's; der Stefan, die Kathi; wegen dem Regen. A sentence or a clause doesn't fit a table's narrow cell (only its last words show), so these are transform lines: `satzbau`'s pronouns, `indem-sodass`'s clauses, `formeller-brief`'s openings.
 - **One answer in `same`**: so dass, in Frage, anderseits, andrerseits, each from Duden. **The grading's pairs**: a word one letter off another, no slip (teuer and heuer, Fieber and Feber, Pause and Jause, Tropfen and Topfen, Kessel and Sessel, Kosten and Kasten, biete and bitte, versuche and ersuche, stehle for stelle, sehe for stehe, lasse for fasse, war for zwar). `GermanB2cContentTest`. The note is its own key, `_b2c_note`.
 
 ## The English course

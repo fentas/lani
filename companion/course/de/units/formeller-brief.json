@@ -512,7 +512,6 @@
             "sl": "Die Anrede · Napiši nagovor v pismu vsakemu",
             "it": "Die Anrede · Scrivi l'apertura di una lettera a ciascuno"
           },
-          "cue": "→",
           "items": [
             {
               "from": "Frau Mag. Anna Huber",
@@ -743,7 +742,6 @@
             "sl": "Schreib es förmlich · Napiši uradno, začni z besedami v oklepaju",
             "it": "Schreib es förmlich · Scrivilo in modo formale, cominciando con le parole tra parentesi"
           },
-          "cue": "→",
           "items": [
             {
               "from": "Schick mir bitte das Formular. (Könnten Sie)",
@@ -801,7 +799,6 @@
             "sl": "Verbinde den Text · Poveži besedilo z besedo v oklepaju",
             "it": "Verbinde den Text · Lega il testo con la parola tra parentesi"
           },
-          "cue": "→",
           "items": [
             {
               "from": "Ich habe zwanzig Flaschen bestellt. Die zwanzig Flaschen sind nicht angekommen. (diese)",
@@ -863,7 +860,7 @@
           "it": "Ergänze · Completa"
         },
         "title": "Kathi beschwert sich",
-        "text": "Sehr ___ Damen und Herren, am 3. Mai habe ich bei Ihnen zwanzig Kisten Bier bestellt. Leider sind nur zehn angekommen. ___ habe ich aber schon bezahlt. Ich möchte mich ___ diese Lieferung beschweren. ___ ersuche ich Sie, die anderen Kisten bis Freitag zu liefern. Mit freundlichen ___ Kathi Pirker.",
+        "text": "Sehr ___ Damen und Herren, am 3. Mai habe ich bei Ihnen zwanzig Kisten Bier bestellt. Leider sind nur zehn angekommen. ___ habe ich aber schon bezahlt. Ich möchte mich ___ diese Lieferung beschweren. ___ ersuche ich Sie, die anderen Kisten bis Freitag zu liefern. Mit ___ Grüßen Kathi Pirker.",
         "gaps": [
           {
             "accept": [
@@ -895,7 +892,9 @@
           },
           {
             "accept": [
-              "Grüßen"
+              "freundlichen",
+              "besten",
+              "herzlichen"
             ]
           }
         ],
@@ -918,7 +917,6 @@
           "sl": "Die Anrede · Napiši nagovor v pismu vsakemu",
           "it": "Die Anrede · Scrivi l'apertura di una lettera a ciascuno"
         },
-        "cue": "→",
         "items": [
           {
             "from": "Frau Mag.a Julia Zankl",
@@ -958,7 +956,6 @@
           "sl": "Schreib es förmlich · Napiši uradno, začni z besedami v oklepaju",
           "it": "Schreib es förmlich · Scrivilo in modo formale, cominciando con le parole tra parentesi"
         },
-        "cue": "→",
         "items": [
           {
             "from": "Ruf mich bitte an. (Könnten Sie)",
@@ -968,10 +965,9 @@
             ]
           },
           {
-            "from": "Kommst du am Freitag? (Würden Sie)",
+            "from": "Kommst du am Freitag? (Kommen Sie)",
             "accept": [
-              "Würden Sie am Freitag kommen?",
-              "Würden Sie bitte am Freitag kommen?"
+              "Kommen Sie am Freitag?"
             ]
           },
           {

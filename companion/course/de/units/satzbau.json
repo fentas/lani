@@ -424,99 +424,69 @@
       },
       "exercises": [
         {
-          "type": "table",
+          "type": "transform",
           "grammar": "satzbau",
           "instruction": {
-            "en": "Ergänze die Tabelle · Fill in the table",
-            "sl": "Ergänze die Tabelle · Dopolni tabelo",
-            "it": "Ergänze die Tabelle · Completa la tabella"
+            "en": "Sag es mit Pronomen · Say it with the pronouns in brackets",
+            "sl": "Sag es mit Pronomen · Povej z zaimki v oklepaju",
+            "it": "Sag es mit Pronomen · Dillo coi pronomi tra parentesi"
           },
-          "prompt": {
-            "en": "nouns become pronouns: write what comes after the verb",
-            "sl": "samostalniki postanejo zaimki: napiši, kar pride za glagolom",
-            "it": "i nomi diventano pronomi: scrivi ciò che viene dopo il verbo"
-          },
-          "columns": [
-            "→ ihm, ihr …",
-            "→ ihn, sie, es",
+          "items": [
             {
-              "en": "→ beide · both",
-              "sl": "→ beide · oba",
-              "it": "→ beide · entrambi"
-            }
-          ],
-          "rows": [
-            {
-              "label": "Stefan gibt dem Kind den Apfel.",
-              "cells": [
-                {
-                  "accept": [
-                    "ihm den Apfel",
-                    "Stefan gibt ihm den Apfel."
-                  ]
-                },
-                {
-                  "accept": [
-                    "ihn dem Kind",
-                    "Stefan gibt ihn dem Kind."
-                  ]
-                },
-                {
-                  "accept": [
-                    "ihn ihm",
-                    "Stefan gibt ihn ihm."
-                  ]
-                }
+              "from": "Stefan gibt dem Kind den Apfel. (ihm)",
+              "accept": [
+                "Stefan gibt ihm den Apfel."
               ]
             },
             {
-              "label": "Kathi zeigt dem Gast das Zimmer.",
-              "cells": [
-                {
-                  "accept": [
-                    "ihm das Zimmer",
-                    "Kathi zeigt ihm das Zimmer."
-                  ]
-                },
-                {
-                  "accept": [
-                    "es dem Gast",
-                    "Kathi zeigt es dem Gast."
-                  ]
-                },
-                {
-                  "accept": [
-                    "es ihm",
-                    "Kathi zeigt es ihm."
-                  ],
-                  "spoken": [
-                    "ihm's",
-                    "Kathi zeigt ihm's."
-                  ]
-                }
+              "from": "Stefan gibt dem Kind den Apfel. (ihn)",
+              "accept": [
+                "Stefan gibt ihn dem Kind."
               ]
             },
             {
-              "label": "Franz bringt der Oma die Suppe.",
-              "cells": [
-                {
-                  "accept": [
-                    "ihr die Suppe",
-                    "Franz bringt ihr die Suppe."
-                  ]
-                },
-                {
-                  "accept": [
-                    "sie der Oma",
-                    "Franz bringt sie der Oma."
-                  ]
-                },
-                {
-                  "accept": [
-                    "sie ihr",
-                    "Franz bringt sie ihr."
-                  ]
-                }
+              "from": "Stefan gibt dem Kind den Apfel. (ihn, ihm)",
+              "accept": [
+                "Stefan gibt ihn ihm."
+              ]
+            },
+            {
+              "from": "Kathi zeigt dem Gast das Zimmer. (ihm)",
+              "accept": [
+                "Kathi zeigt ihm das Zimmer."
+              ]
+            },
+            {
+              "from": "Kathi zeigt dem Gast das Zimmer. (es)",
+              "accept": [
+                "Kathi zeigt es dem Gast."
+              ]
+            },
+            {
+              "from": "Kathi zeigt dem Gast das Zimmer. (es, ihm)",
+              "accept": [
+                "Kathi zeigt es ihm."
+              ],
+              "spoken": [
+                "Kathi zeigt ihm's."
+              ]
+            },
+            {
+              "from": "Franz bringt der Oma die Suppe. (ihr)",
+              "accept": [
+                "Franz bringt ihr die Suppe."
+              ]
+            },
+            {
+              "from": "Franz bringt der Oma die Suppe. (sie)",
+              "accept": [
+                "Franz bringt sie der Oma."
+              ]
+            },
+            {
+              "from": "Franz bringt der Oma die Suppe. (sie, ihr)",
+              "accept": [
+                "Franz bringt sie ihr."
               ]
             }
           ],
@@ -1168,7 +1138,6 @@
             "sl": "An den Anfang · Besede v oklepaju na začetek; glagol ostane drugi",
             "it": "An den Anfang · Le parole tra parentesi al primo posto; il verbo resta secondo"
           },
-          "cue": "→",
           "items": [
             {
               "from": "Oma Resi backt heute einen Kuchen. (heute)",
@@ -1213,7 +1182,6 @@
             "sl": "Sag Nein · Reci ne z nicht",
             "it": "Sag Nein · Di' no con nicht"
           },
-          "cue": "→",
           "items": [
             {
               "from": "Ich kenne den Mann.",
@@ -1492,7 +1460,6 @@
           "sl": "Sag es mit Pronomen · Oba zamenjaj z zaimkoma",
           "it": "Sag es mit Pronomen · Usa i pronomi per entrambi"
         },
-        "cue": "→",
         "items": [
           {
             "from": "Lena gibt dem Hund den Knochen.",
@@ -1524,7 +1491,6 @@
           "sl": "An den Anfang · Besede v oklepaju na začetek; glagol ostane drugi",
           "it": "An den Anfang · Le parole tra parentesi al primo posto; il verbo resta secondo"
         },
-        "cue": "→",
         "items": [
           {
             "from": "Toni hat gestern das Tor repariert. (gestern)",
@@ -1560,7 +1526,6 @@
           "sl": "Sag Nein · Reci ne z nicht",
           "it": "Sag Nein · Di' no con nicht"
         },
-        "cue": "→",
         "items": [
           {
             "from": "Das Brot ist frisch.",
