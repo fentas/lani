@@ -117,7 +117,7 @@ class GermanB1aContentTest {
         wrong("seit", "seid")
         wrong("vor", "bevor")
         wrong("wirt", "wird")
-        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Schnea", "Schnee"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Scnee", "Schnee"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("wahrend", "während"))
     }
 
