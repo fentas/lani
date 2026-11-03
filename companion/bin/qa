@@ -16236,7 +16236,7 @@ def tutor_language():
         assert tap(label("common.tutor"), 6), "the settings' Tutor section"
         assert scroll_to(label("tutorLive.who"), 12), "who answers"
         assert tap(label("tutorLive.app"), 4), "in the app"
-        assert scroll_to("sk-ant-…", 4), "the key's field"
+        assert scroll_to("sk-ant-…", 4, bottom=2300), "the key's field"  # two languages' texts: it sits low, at the page's end
         tap_at(find("sk-ant-…"))
         time.sleep(slow())
         adb("shell", "input", "text", LIVE_KEY)
