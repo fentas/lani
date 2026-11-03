@@ -171,12 +171,12 @@
           "columns": ["gerundio passato"],
           "rows": [
             { "label": "Lorenzo · finire", "cells": ["avendo finito"] },
-            { "label": "Giulia · arrivare", "cells": [{ "accept": ["essendo arrivata"], "hint": "sono arrivata" }] },
+            { "label": "Giulia · arrivare", "cells": [{ "accept": ["essendo arrivata"], "hint": { "de": "ho oder sono?", "sl": "ho ali sono?", "en": "ho or sono?" } }] },
             { "label": "i bambini · uscire", "cells": [{ "accept": ["essendo usciti"] }] },
             { "label": "Marisa · preparare", "cells": [{ "accept": ["avendo preparato"] }] },
             { "label": "le pecore · scappare", "cells": [{ "accept": ["essendo scappate"], "hint": { "de": "le pecore: -e", "sl": "le pecore: -e", "en": "le pecore: -e" } }] },
             { "label": "Bruno · svegliarsi", "cells": [{ "accept": ["essendosi svegliato"], "hint": { "de": "si kommt ans Ende", "sl": "si gre na konec", "en": "si goes on the end" } }] },
-            { "label": "Zia Nives · vedere", "cells": [{ "accept": ["avendo visto"] }] },
+            { "label": "Zia Nives · vedere", "cells": [{ "accept": ["avendo visto", "avendo veduto"] }] },
             { "label": "Davide e Matteo · partire", "cells": [{ "accept": ["essendo partiti"] }] }
           ]
         },
@@ -224,7 +224,7 @@
             { "accept": ["Avendo venduto"] },
             { "accept": ["Avendo mangiato"] },
             { "accept": ["Essendosi svegliato"], "hint": { "de": "si kommt ans Ende", "sl": "si gre na konec", "en": "si goes on the end" } },
-            { "accept": ["essendo"], "explain": { "de": "**Pur** + **essendo**: obwohl er müde war\n- Dasselbe Gerundium wie immer", "sl": "**Pur** + **essendo**: čeprav je bil utrujen\n- Isti gerundij kot vedno", "en": "**Pur** + **essendo**: though he was tired\n- The same gerund as ever" } }
+            { "accept": ["essendo", "essendo stato"], "explain": { "de": "**Pur** + **essendo**: obwohl er müde war\n- Dasselbe Gerundium wie immer", "sl": "**Pur** + **essendo**: čeprav je bil utrujen\n- Isti gerundij kot vedno", "en": "**Pur** + **essendo**: though he was tired\n- The same gerund as ever" } }
           ],
           "bank": true,
           "distractors": ["Avendo arrivato", "Essendo arrivata", "Avendosi svegliato"],
@@ -252,12 +252,12 @@
           "type": "transform", "grammar": "gerundio-passato", "instruction": { "de": "Unisci con il gerundio passato · Verbinde mit dem Gerundium der Vergangenheit", "sl": "Unisci con il gerundio passato · Združi s preteklim gerundijem", "en": "Unisci con il gerundio passato · Join with the past gerund" },
           "cue": "gerundio passato",
           "items": [
-            { "from": "Aldo ha visto le api. Poi le ha seguite.", "accept": ["Avendo visto le api, Aldo le ha seguite.", "Aldo, avendo visto le api, le ha seguite."] },
-            { "from": "Giulia è tornata tardi. Non ha trovato la cena.", "accept": ["Essendo tornata tardi, Giulia non ha trovato la cena.", "Giulia, essendo tornata tardi, non ha trovato la cena."], "hint": "Giulia: -a" },
-            { "from": "Matteo e Davide sono partiti presto. Sono arrivati prima di tutti.", "accept": ["Essendo partiti presto, Matteo e Davide sono arrivati prima di tutti.", "Matteo e Davide, essendo partiti presto, sono arrivati prima di tutti."] },
-            { "from": "Marisa si è alzata alle cinque. Ha fatto il pane.", "accept": ["Essendosi alzata alle cinque, Marisa ha fatto il pane.", "Marisa, essendosi alzata alle cinque, ha fatto il pane."], "hint": { "de": "si kommt ans Ende", "sl": "si gre na konec", "en": "si goes on the end" } },
-            { "from": "Tommaso non ha capito. Ha chiesto aiuto alla maestra.", "accept": ["Non avendo capito, Tommaso ha chiesto aiuto alla maestra.", "Tommaso, non avendo capito, ha chiesto aiuto alla maestra."] },
-            { "from": "Franco ha visto Giulia. L'ha chiamata.", "accept": ["Avendo visto Giulia, Franco l'ha chiamata.", "Avendola vista, Franco ha chiamato Giulia.", "Avendola vista, Franco l'ha chiamata.", "Franco, avendo visto Giulia, l'ha chiamata."] }
+            { "from": "Aldo ha visto le api. Poi le ha seguite.", "accept": ["Avendo visto le api, Aldo le ha seguite.", "Aldo, avendo visto le api, le ha seguite.", "Aldo le ha seguite, avendo visto le api."] },
+            { "from": "Giulia è tornata tardi. Non ha trovato la cena.", "accept": ["Essendo tornata tardi, Giulia non ha trovato la cena.", "Giulia, essendo tornata tardi, non ha trovato la cena.", "Giulia non ha trovato la cena, essendo tornata tardi."], "hint": "Giulia: -a" },
+            { "from": "Matteo e Davide sono partiti presto. Sono arrivati prima di tutti.", "accept": ["Essendo partiti presto, Matteo e Davide sono arrivati prima di tutti.", "Matteo e Davide, essendo partiti presto, sono arrivati prima di tutti.", "Matteo e Davide sono arrivati prima di tutti, essendo partiti presto."] },
+            { "from": "Marisa si è alzata alle cinque. Ha fatto il pane.", "accept": ["Essendosi alzata alle cinque, Marisa ha fatto il pane.", "Marisa, essendosi alzata alle cinque, ha fatto il pane.", "Marisa ha fatto il pane, essendosi alzata alle cinque."], "hint": { "de": "si kommt ans Ende", "sl": "si gre na konec", "en": "si goes on the end" } },
+            { "from": "Tommaso non ha capito. Ha chiesto aiuto alla maestra.", "accept": ["Non avendo capito, Tommaso ha chiesto aiuto alla maestra.", "Tommaso, non avendo capito, ha chiesto aiuto alla maestra.", "Tommaso ha chiesto aiuto alla maestra, non avendo capito."] },
+            { "from": "Franco ha visto Giulia. L'ha chiamata.", "accept": ["Avendo visto Giulia, Franco l'ha chiamata.", "Avendola vista, Franco ha chiamato Giulia.", "Avendola vista, Franco l'ha chiamata.", "Franco, avendo visto Giulia, l'ha chiamata.", "Franco, avendola vista, ha chiamato Giulia.", "Franco ha chiamato Giulia, avendola vista."] }
           ],
           "explain": {
             "de": "**Der erste Satz wird zum Gerundium**, die Person kommt in die andere Hälfte\n- ha visto → avendo visto\n- è tornata → essendo tornata\n- si è alzata → essendosi alzata",
@@ -291,9 +291,9 @@
         "gaps": [
           { "accept": ["Avendo finito"] },
           { "accept": ["essendo arrivata"] },
-          { "accept": ["Avendo visto"] },
+          { "accept": ["Avendo visto", "Avendo veduto"] },
           { "accept": ["Avendo parlato"] },
-          { "accept": ["essendo"] }
+          { "accept": ["essendo", "essendo stati"] }
         ],
         "translation": {
           "de": "Zia Nives hört Radio. Nachdem er die Arbeiten auf dem Platz beendet hatte, eröffnete der Bürgermeister den neuen Brunnen. Die Blaskapelle, die zu spät gekommen war, spielte erst am Ende. Als der Bürgermeister so viele Leute sah, hielt er eine lange Rede. Nachdem er eine Stunde geredet hatte, bat er um ein Glas Wasser. Und die Kinder? Obwohl sie müde waren, spielten sie bis zum Abend im Brunnen.",
@@ -304,17 +304,17 @@
       {
         "type": "transform", "grammar": "gerundio-passato", "instruction": { "de": "Unisci con il gerundio passato · Verbinde mit dem Gerundium der Vergangenheit", "sl": "Unisci con il gerundio passato · Združi s preteklim gerundijem", "en": "Unisci con il gerundio passato · Join with the past gerund" },
         "items": [
-          { "from": "Elena ha letto la lettera. Ha sorriso.", "accept": ["Avendo letto la lettera, Elena ha sorriso.", "Elena, avendo letto la lettera, ha sorriso."] },
-          { "from": "Le pecore sono uscite dal recinto. Sono andate al fiume.", "accept": ["Essendo uscite dal recinto, le pecore sono andate al fiume.", "Le pecore, essendo uscite dal recinto, sono andate al fiume."] },
-          { "from": "Nonna Rosa si è svegliata tardi. Non ha fatto il pane.", "accept": ["Essendosi svegliata tardi, Nonna Rosa non ha fatto il pane.", "Nonna Rosa, essendosi svegliata tardi, non ha fatto il pane."] }
+          { "from": "Elena ha letto la lettera. Ha sorriso.", "accept": ["Avendo letto la lettera, Elena ha sorriso.", "Elena, avendo letto la lettera, ha sorriso.", "Elena ha sorriso, avendo letto la lettera."] },
+          { "from": "Le pecore sono uscite dal recinto. Sono andate al fiume.", "accept": ["Essendo uscite dal recinto, le pecore sono andate al fiume.", "Le pecore, essendo uscite dal recinto, sono andate al fiume.", "Le pecore sono andate al fiume, essendo uscite dal recinto."] },
+          { "from": "Nonna Rosa si è svegliata tardi. Non ha fatto il pane.", "accept": ["Essendosi svegliata tardi, Nonna Rosa non ha fatto il pane.", "Nonna Rosa, essendosi svegliata tardi, non ha fatto il pane.", "Nonna Rosa non ha fatto il pane, essendosi svegliata tardi."] }
         ]
       },
       {
-        "type": "choice", "grammar": "gerundio-passato", "prompt": "___ Lorenzo ha finito, Giulia è uscita.", "options": ["Dopo che", "Avendo", "Essendo"], "answer": 0, "say_options": true,
+        "type": "choice", "grammar": "gerundio-passato", "prompt": "___ Franco ha chiuso il mulino, Bruno è tornato a casa.", "options": ["Dopo che", "Avendo", "Essendo"], "answer": 0, "say_options": true,
         "explain": {
-          "de": "**Zwei Personen**, Lorenzo und Giulia → **dopo che**\n- avendo: danach kein ha\n- essendo: danach kein ha",
-          "sl": "**Dve osebi**, Lorenzo in Giulia → **dopo che**\n- avendo: za njim ni ha\n- essendo: za njim ni ha",
-          "en": "**Two people**, Lorenzo and Giulia → **dopo che**\n- avendo: no ha after it\n- essendo: no ha after it"
+          "de": "**Zwei Personen**, Franco und Bruno → **dopo che**\n- avendo: danach kein ha\n- essendo: danach kein ha",
+          "sl": "**Dve osebi**, Franco in Bruno → **dopo che**\n- avendo: za njim ni ha\n- essendo: za njim ni ha",
+          "en": "**Two people**, Franco and Bruno → **dopo che**\n- avendo: no ha after it\n- essendo: no ha after it"
         }
       },
       {
