@@ -65,7 +65,8 @@ class Bridge(private val config: BridgeConfig) {
     companion object {
         const val STATE = "/state"
         const val MODULES = "/modules"
-        const val PACKS = "/packs"
+        /** The packs, as this app orders them by the learner's level (an older app gets fewer: [PackSession.VERSION]). */
+        val PACKS = "/packs?packs=${PackSession.VERSION}"
         const val GRAMMAR = "/grammar"
         const val CARDS = "/cards"
         const val CASES = "/cases"
