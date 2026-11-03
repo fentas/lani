@@ -282,7 +282,6 @@
           "type": "transform",
           "grammar": "possessivi",
           "instruction": { "de": "Di chi è? · Schreib es für die Person in Klammern", "sl": "Di chi è? · Napiši za osebo v oklepaju", "en": "Di chi è? · Write it for the person in brackets" },
-          "cue": "→",
           "items": [
             { "from": "È il mio cane. (tu)", "accept": ["È il tuo cane."]},
             { "from": "È la mia tenda. (noi)", "accept": ["È la nostra tenda."]},
@@ -303,7 +302,6 @@
           "type": "transform",
           "grammar": "possessivi",
           "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
-          "cue": "→",
           "items": [
             { "from": "il mio cane", "accept": ["i miei cani"]},
             { "from": "la tua pecora", "accept": ["le tue pecore"]},
@@ -358,7 +356,6 @@
         "type": "transform",
         "grammar": "possessivi",
         "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
-        "cue": "→",
         "items": [{ "from": "la mia tenda", "accept": ["le mie tende"]}, { "from": "tuo fratello", "accept": ["i tuoi fratelli"]}]
       },
       {
