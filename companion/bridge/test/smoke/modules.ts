@@ -196,6 +196,8 @@ export default async function modules() {
   const ids = (level: string, quests: VillageNow['quests'], today: string, here: (g: string) => boolean = everyone) => store.offered(level, { quests, here, today }).filter(m => m.quest).map(m => m.id).sort().join(' ')
   const asked = (moduleId: string, since: string, done = false, giver = 'Nonna Rosa') => ({ moduleId, since, done, giver })
   check('the pace: first the one module, by its order, whatever the files\' order; none of a level above', ids('A1', [], '2026-11-03') === 'first', ids('A1', [], '2026-11-03'))
+  const led = [{ moduleId: 'a-tutors-task', helps: 'third', since: '2026-10-20', giver: 'Nonna Rosa' }]
+  check("the pace: a tutor's request that leads to a module (helps) holds it listed, and isn't its own open request", ids('A1', led, '2026-11-03') === 'first,third', ids('A1', led, '2026-11-03'))
   check('… a module with no request is always there', store.offered('A1', { quests: [], here: everyone, today: '2026-11-03' }).some(m => m.id === 'plain' && !m.quest))
   check('… while it is open, the next waits, day after day', ids('A1', [asked('first', '2026-11-03')], '2026-11-09') === 'first')
   check('… done today, the next waits for tomorrow', ids('A1', [asked('first', '2026-11-03', true)], '2026-11-03') === 'first')

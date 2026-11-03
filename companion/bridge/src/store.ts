@@ -29,7 +29,7 @@ export function validateCuratedModule(input: unknown, base: string): Validation 
 
 /** What the pace of the curated modules reads of the village ([ModuleStore.offered]): its requests, who lives here, the local day. */
 export type VillageNow = {
-  quests: { moduleId?: unknown; done?: unknown; since?: unknown; giver?: unknown }[]
+  quests: { moduleId?: unknown; helps?: unknown; done?: unknown; since?: unknown; giver?: unknown }[]
   here: (giver: string) => boolean
   today: string
 }
@@ -163,7 +163,8 @@ export class ModuleStore {
     const curated = (m: ModuleInfo) => m.version === 1 && this.raw.has(m.id)
     const all = this.list()
     const ownQuests = at.quests.filter(q => typeof q.moduleId === 'string' && this.raw.has(q.moduleId))
-    const asked = new Set(ownQuests.map(q => q.moduleId as string))
+    // a request of the tutor's that leads to a module (`helps`) holds it listed too: dropped, that request has nothing to lead to
+    const asked = new Set([...ownQuests.map(q => q.moduleId as string), ...at.quests.flatMap(q => (typeof q.helps === 'string' && this.raw.has(q.helps) ? [q.helps] : []))])
     const place = (m: ModuleInfo) => [LEVEL_ORDER.indexOf(m.level), this.orderOf(m.id)] as const
     const paced = all
       .filter(m => curated(m) && !!m.quest && LEVEL_ORDER.indexOf(m.level) <= rank && !asked.has(m.id))

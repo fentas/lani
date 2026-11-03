@@ -213,3 +213,5 @@ restarted, Teo's village gets one module, `essere-avere`, with Nonno Bepi's requ
 - German and English say "None yet" and "No grammar drills yet" until their modules are written: it's true, and it says so.
 - Modules above B1 and drills above B1: none in any language.
 - A module's exercises come into a run at the module's level, not by the page's being introduced: as Slovene's did. A child at the start of A1 may meet an A1 page the school hasn't reached (the module's why explains it).
+
+**Jan's six (checked by the lead, read only, in Jan's game.json):** five have their own request, so they stay listed. `biti-sedanjik` has none, but an open tutor request leads to it (`helps`), which the first version of the pace would have dropped from the list. `offered` now counts a `helps` as asked, so all six stay listed for Jan, as they are today.
