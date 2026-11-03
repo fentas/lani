@@ -558,6 +558,25 @@ words of quantity, measures and numbers from five, its verbs and words of feelin
 pronouns only ever the subject. The app bundles it and reads it at the turn, offline (game/CaseTriggers.kt); on the same
 turn the chip names the trigger, the case and the question the lens names (TurnHintLensTest).
 
+**Italian** (game/ItalianHints.kt, 2026-11-03; docs/plans/05-built/hint-chip-it.md): every page of the Italian book has
+its rule in words, a spoken sentence and models; no cases, so the chip names what the sentence shows of the rule,
+from word lists, and the rule alone where it shows nothing:
+
+| The turn tests | The chip | Model |
+|---|---|---|
+| an article, a fused preposition | with the next word: its gender, number and first sound | *il pane · lo zaino · l'orso* |
+| an adjective, a participle with essere | with its noun, or the subject of essere | *il gatto nero · la gatta nera* |
+| the verb's person | *Chi?* who: the pronoun, or the noun before the verb | *parlo · parli · parla* |
+| *tu* or *Lei*, an order | *Tu o Lei?* talking to: the one spoken to | *Come stai? · Come sta?* |
+| *essere* or *avere* | the participle after it; a feeling or an age (*fame, anni*) | *sono andato · ho mangiato* |
+| the plural | after a number or *i, gli, le*: more than one; *ogni*: the singular | *il gatto · i gatti* |
+| *piace*, *c'è*, *si* | what is liked or there: one or more | *Mi piacciono le fragole.* |
+| the congiuntivo | after *spero che, bisogna che, sebbene, magari* | *Spero che Moro dorma.* |
+| *se* | the if-half, or *se* in the other half | *Se piove, resto a casa.* |
+| *cui*, *che* | after the preposition; after the noun | *la casa in cui abito* |
+| a verb before an infinitive | after the modal, *vorrei, fare, per*; *a* or *di* by the verb | *Posso giocare?* |
+| the hour, the place | with the hour; with the kind of place | *alle cinque · all'una*, *a Udine · in Italia* |
+
 Give each page a short `hint` in the bases (e.g. "Kje? → 5 mestnik · Where? → locative"), so the chip reads the
 page, and let a turn override it. For Jan, add the German question where the logic is German's: *Kje?* is *Wo?*,
 *Kam?* is *Wohin?* (the same idea as the German two-way prepositions, other cases), *pomagati* takes the dative like

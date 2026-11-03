@@ -97,7 +97,7 @@ object HintSpeech {
     )
 
     /** The spoken sentence of the card's rule [key] ("hint.ruleTiVi"), a string table's key; null for a rule it lacks. */
-    fun spoken(key: String): String? = RULES[key]
+    fun spoken(key: String): String? = RULES[key] ?: ItalianHints.spoken(key)
 
     /** How many phrases of the models it says at most: a TL;DR, not the table. */
     private const val MODEL_PHRASES = 3
@@ -177,6 +177,7 @@ object HintSpeech {
             is Trigger.Partner -> if (t.lemma == "pomagati") inBase("hintSay.withHelfen", "word" to w) else inBase("hintSay.with", "word" to w)
             is Trigger.Noun -> inBase("hintSay.withNoun", "word" to w)
             is Trigger.When -> inBase("hintSay.with", "word" to w)
+            is Trigger.Asks -> inBase(t.said, Trigger.Asks.WORD to w)
             is Trigger.Cue -> when (t.kind) {
                 Trigger.Cue.Kind.WHO -> inBase("hintSay.who", "word" to w)
                 Trigger.Cue.Kind.PAST -> inBase("hintSay.whenPast", "word" to w)
@@ -190,7 +191,7 @@ object HintSpeech {
      * genitive plural"), else the case the missing word takes, or the two a preposition takes by what the sentence means.
      */
     private fun rule(h: TurnHint): List<String> {
-        h.rule?.let(RULES::get)?.let { return listOf(inBase(it)) }
+        h.rule?.let(::spoken)?.let { return listOf(inBase(it)) }
         val t = h.trigger
         if (t is Trigger.Count) return listOf(inBase("hintSay.number", "cat" to TurnHints.category(t.category)))
         val c = h.cases
