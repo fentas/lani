@@ -110,7 +110,10 @@ village get no case row, as before. GET /state says `cases` in a German village 
   n-Deklination's list, the genitive's -es or -s, the dative plural's -n); a full forms book (Slovene's) isn't needed. Two
   ports (bridge and app) are held together by the fixture, which the smoke and `CaseTrainerDeTest` both read.
 - **The lens never guesses silently.** On the bank's 387 "Welcher Fall?" items (gold written apart from the lens) it reads
-  all 387 right, none wrong as sure. Its likely picks are shown with the other readings.
+  all 387 right, none wrong as sure. Its likely picks are shown with the other readings. Over the 4,875 German content
+  lines (Kärnten's scenes, stories, readings, the German book's examples, the packs' examples) it gives 17,503 words a
+  case: 79 % decided, 17 % likely, 4 % left open; 0.18 ms a line. Samples of those lines read by hand found the misses
+  fixed since (an imperative's object, morgen first in a sentence, a phrase with an article taken for a call).
 - **Austrian forms are never wrong**: the lens reads, it doesn't grade. In the trainer a spoken form is an item's `spoken`
   (right, labelled), never a wrong option.
 
