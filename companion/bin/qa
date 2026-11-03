@@ -16130,6 +16130,18 @@ def practice_en():
             (out / f"pe-{name}.png").write_bytes(shots[-1].read_bytes())
 
     modules = dev_bridge("/modules")
+    if os.environ.get("LANI_QA_PRACTICE_BEFORE"):
+        # as main had it (the dev bridge's LANI_MODULES_DIR an empty directory): Home's ✨ and its sheet with nothing to play
+        assert not modules, f"no English modules on this bridge: {[m['id'] for m in modules]}"
+        go_home()
+        tile = scroll_to(l10n("en").get("homeScreen.challenges"), 8)
+        assert tile, "the ✨ tile"
+        snap("before-home-challenges")
+        tap_at(tile)
+        time.sleep(2 * slow())
+        snap("before-challenges-sheet")
+        go_home()
+        return None
     assert modules, "the dev bridge offers English modules"
     assert len(modules) == 1 and modules[0]["level"] == "A1", f"one at a time, A1's: {[(m['id'], m['level']) for m in modules]}"
     go_home()
@@ -16176,8 +16188,10 @@ def practice_en():
     qa_hook("numbers")
     assert wait_for(lab("numbers.start"), 15), "the module open"
     assert wait_for("11–20", 4), "its first two ranges"
-    assert wait_for(l10n("sl").get("numbers.en.tip")[:30], 4), "English's tip, in Slovene"
     snap("numbers-open")
+    assert scroll_to(l10n("sl").get("numbers.en.tip")[:30], 6, bottom=2350), "English's tip, in Slovene"
+    snap("numbers-tip")
+    go_home()
 
     # ✍️ a number of 21–99 with the ones first, as Slovene says it
     qa_hook("numbers:ranges:21-99")
