@@ -15457,7 +15457,10 @@ def parity_small():
         notes.append(f"{meet}'s introduction at B1, to its first turn's reaction")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         qa_hook("level:")
-    return "; ".join(notes) or "skipped: nothing asked of this learner"
+    if not notes:
+        return "skipped: nothing asked of this learner"
+    print("   " + "; ".join(notes))
+    return None
 
 
 def open_progress():
