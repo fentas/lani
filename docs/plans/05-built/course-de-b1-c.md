@@ -4,11 +4,13 @@ Wave D, course writers (Jan, 2026-11-02: "yes complete"). Branch `course-de-b1-c
 
 ## For the native check
 
-Austrian German first. **The first five are questions a dictionary didn't settle.**
+This part's list; parts a's and b's are first in their docs, and stand. Austrian German first. **The first six are questions a dictionary didn't settle.**
 
-1. **ich täte, ich tät for ich würde** (`haette-waere`), spoken, right and labelled on every gap and line asking for würde, and named in step 6 as dialect. Source: [Stöckle and Wittibschlager, Zur Sprachdynamik des Konjunktivs im Bairischen in Österreich, Linguistik online 114](https://bop.unibe.ch/linguistik-online/article/download/8400/11369/36106), opened: täte in Bavarian dialects of Austria (Weißbriach in Carinthia is one of its sites), giving way to würde. Does a Carinthian say it to a learner at the inn, or is it too dialect to name? If so, take off the sentence and the `spoken`.
-2. **Auf was wartest du? for Worauf wartest du?** (`woran-daran`), spoken on every wo- word typed. The only sources found are a [learners' site](https://www.studysmarter.de/schule/deutsch/grammatik/praepositionalobjekt/) ("umgangssprachlich") and a [school sheet](https://online-lernen.levrai.de/deutsch-uebungen/grammatik_5_7/18_praepositionale_objekte/arbeitsblatt/0_praepositionalobjekte_regeln_beispiele_ausdrucken.pdf), both as search extracts. [Duden, worauf](https://www.duden.de/rechtschreibung/worauf) has no note on it. From memory it is everyday Austrian.
-3. **auf ihn for a thing** (Wartest du auf den Bus? Ja, ich warte auf ihn), spoken and named in step 4 and on the page. No source says it outright; a [learners' page](https://quillbot.com/de/blog/adverbien/praepositionaladverbien/) gives the pronoun for living things "in aller Regel". An animal takes it too, by the same page: the card's tip says "a person, or an animal".
+0. **Niemand kommt nicht** (`jemand-irgendwer`) is taught as a mistake: "(never …)", and a wrong option in a choice. It is one for a learner from Slovene or Italian. But Bavarian dialects have the double negative: if a grown Carinthian says it, it belongs in the table's `nonstandard`, and the choice and the "never" go. Not looked up.
+
+1. **ich täte, ich tät for ich würde** (`haette-waere`), almost on every answer asking for würde (the table's `nonstandard`), and named in step 6 as dialect. Source: [Stöckle and Wittibschlager, Zur Sprachdynamik des Konjunktivs im Bairischen in Österreich, Linguistik online 114](https://bop.unibe.ch/linguistik-online/article/download/8400/11369/36106), opened: täte in Bavarian dialects of Austria (Weißbriach in Carinthia is one of its sites), giving way to würde. Does a Carinthian say it to a learner at the inn, or is it too dialect to name? If so, take off the sentence and the table's line.
+2. **Auf was wartest du? for Worauf wartest du?** (`woran-daran`), almost on every wo- word typed (the table). The only sources found are a [learners' site](https://www.studysmarter.de/schule/deutsch/grammatik/praepositionalobjekt/) ("umgangssprachlich") and a [school sheet](https://online-lernen.levrai.de/deutsch-uebungen/grammatik_5_7/18_praepositionale_objekte/arbeitsblatt/0_praepositionalobjekte_regeln_beispiele_ausdrucken.pdf), both as search extracts. [Duden, worauf](https://www.duden.de/rechtschreibung/worauf) has no note on it. From memory it is everyday Austrian.
+3. **auf ihn for a thing** (Wartest du auf den Bus? Ja, ich warte auf ihn), almost (the table) and named in step 4 and on the page. No source says it outright; a [learners' page](https://quillbot.com/de/blog/adverbien/praepositionaladverbien/) gives the pronoun for living things "in aller Regel". An animal takes it too, by the same page: the card's tip says "a person, or an animal".
 4. **hätt, wär, würd** (`grading/de.json`, `same`): one answer with hätte, wäre, würde, as hab is habe. No source looked for.
 5. **der gleiche and derselbe.** Taught as "careful writers keep it for two alike and derselbe for one, and in speech both are said for both", from a [paper by Umbach citing Duden](https://eclass-b.uoa.gr/modules/document/file.php/GS391/Artikel%20%26%20Materialien/Umbach%202018%20dasselbe_gleiche.pdf) (search extract): the difference is at most a tendency and hardly matters in daily use. [Duden's derselbe](https://www.duden.de/rechtschreibung/derselbe) wasn't read for it. So `der gleiche` is accepted wherever derselbe is asked, and never a wrong option.
 
@@ -45,7 +47,7 @@ The school of a Carinthian village (`LANI_CULTURE=kaernten`, a learner of German
 | 17 | `jemand-irgendwer` 👤 Jemand, niemand, irgendwer | **indefinitpronomen** | 6 | 12 | table + sort (14) · gap text with a bank + 2 choices (8) · 3 transforms (10): 32 | 12 |
 | 18 | `nicht-nur-sondern` ⚖️ Nicht nur Brot, sondern auch Wein | **doppelkonnektoren**, konnektoren | 5 | 10 | table + sort (13) · gap text with a bank + 2 choices (9) · 2 transforms + reorder (8): 30 | 12 |
 
-Bold is a page written here. `partizip-zwei` on `passiv` is more than the outline names: the participle is half the passive, and the page is one tap away on the cheat sheet. What each unit teaches:
+Bold is a page written here. `partizip-zwei` on `passiv` is more than the outline names: the participle is half the passive, and the page is one tap away on the cheat sheet. `passiv` names `werden-futur` too since the integration. What each unit teaches:
 
 - **haette-waere**: hätte, wäre, würde + the infinitive, all persons; a thing, a place or state, doing something (hätte gern, wäre gern, würde gern); asking kindly with the verb first; hatte against hätte. Its own summary card, as the page goes on to wenn. The gap text is Stefan at Kathi's, the test Oma Resi at Stanko's stall.
 - **wenn-ich-haette**: könnte, müsste, dürfte, sollte; du solltest, könntest du, dürfte ich; käme, ginge, gäbe, wüsste, with würde for the rest; wenn + the Konjunktiv II against wenn + the present; Hätte ich Zeit, … to read. The gap text is Franz dreaming, the test Opa Sepp's legs.
@@ -58,22 +60,21 @@ Bold is a page written here. `partizip-zwei` on `passiv` is more than the outlin
 
 ## The spoken forms
 
-A spoken form is never wrong (COURSE.md "Spoken forms"), so none of these is ever a choice's wrong option or a bank's distractor, and `GermanB1cContentTest` reads the six units to say so:
+Never a choice's wrong option or a bank's distractor: `GermanB1cContentTest` reads the whole course to say so. Since the integration ([below](#the-integration-parts)), two kinds:
 
-- ich täte, ich tät for ich würde; hätt, wär, würd (in `same`, as hab is);
-- Auf was, An was, Vor was, Für was, Über was for the wo- words, drauf, dran, drüber for the da- words, and auf ihn for a thing;
-- wer for jemand, was for etwas, nix for nichts.
+- **Almost, the standard form shown, no mistake recorded** (`grading/de.json`, `nonstandard`), as each is the unit's own word: täte, tät for würde; Auf was and the rest for the wo- words; auf ihn, auf den and the rest for a da- word for a thing; wer for jemand, was for etwas, nix for nichts.
+- **Right and labelled** (`spoken`), beside the unit's point: drauf, dran, drüber; Wenn ich Zeit haben würde. hätt, wär, würd are in `same`, as hab is.
 
-A quick question can't take `spoken`, so none types a wo- or da- word: those are tapped choices with no spoken option. A form both standards have is two `accept`s: jemand and jemanden, eins and eines, wärst and wärest, kämst and kämest, als auch and wie auch, der gleiche and derselbe, kommt and kommen after weder … noch and sowohl … als auch.
+A quick question can't take `spoken`, so none types a wo- or da- word: those are tapped choices with no such option. A form both standards have is two `accept`s: jemand and jemanden, eins and eines, wärst and wärest, kämst and kämest, als auch and wie auch, der gleiche and derselbe, kommt and kommen after weder … noch and sowohl … als auch.
 
 ## The new pages
 
-`konjunktiv-zwei`, `passiv`, `wo-da-woerter`, `indefinitpronomen` and `doppelkonnektoren`, all B1, in the format of the book's German pages: the rule at 1,120–1,200 characters per base (the bridge refuses over 1,200), a table, 7 or 8 examples with notes, a hand-written card with a tip. Each names only existing pages under `see`: `werden-futur` (for `passiv`) waits for part a.
+`konjunktiv-zwei`, `passiv`, `wo-da-woerter`, `indefinitpronomen` and `doppelkonnektoren`, all B1, in the format of the book's German pages: the rule at 1,120–1,200 characters per base (the bridge refuses over 1,200), a table, 7 or 8 examples with notes, a hand-written card with a tip. Each names only existing pages under `see`.
 
 **"Once merged, also", as the outline has it:**
 
 - `verben-praepositionen` on `woran-daran` and `konnektoren` on `nicht-nur-sondern` are named already: both pages exist since A2.
-- `werden-futur` on `passiv` waits for part a's page: one small commit at the integration, in the unit and its outline line.
+- `werden-futur` on `passiv`: done at the integration, in the unit, its outline line and the page's `see`.
 
 ## Grading (grading/de.json)
 
@@ -116,10 +117,62 @@ At the part's tip, before integrating anything (a and b aren't merged, so these 
 - **Without `LANI_DEV_DATA` the bridge's learner has English as base** while the app's pair is de-sl: a table's per-base columns then read in English and QA can't find the cell. That was this run's setup, not the app.
 - **A second reader** (a helper agent, no conclusions given) read the units and pages for German, Slovene, Italian and English and made 40 points. Fixed: two right answers in a choice or bank, rules stated too widely (gern's place, alles never changing, a comma before oder), glosses that read wrong (hatte was, hätte would be), sprechen mit as a thing's womit, calques, a modal + perfect infinitive above the level, answers not listed (könnte after wenn, Könntest du, short answers, word orders), spoken demonstratives (auf den, für das). It is one more machine's reading, not a native check.
 
-**Not done:** the other five units on an emulator; the other two bases on an emulator; the whole Android suite; COURSE.md, the README and the page counts (part c's, after the integration).
+## The integration (part c's)
+
+Part a (1e1e9a1e), part b (168f2eb3) and `course-de-a2-c` (011128ff, with main and the parties' words) merged in that order, with merges. The conflicts were the outline, the lexicon and the grading; `bin/qa` merged by itself, parses and has no markers. `bun build --no-bundle` on the 12 merged TypeScript test files: all parse.
+
+**The supplement.** json3merge's union was 3,002 entries, 2,918 different words by lemma, part of speech and gender: the base's 2,751 and 167 new (a 34, b 21, c 28, the A2 tip 88, four of them shared: `Regen` and `Wetter` by a and b, `satt` by b and the tip, `möglich` by c and the tip). Joined, one entry each, forms united, every lemma and every form of the base and of each revision checked present by a script over `git show`. Two more for coverage: `zögern` (gezögert, an arrival's) and `I` (Futur I): **2,920**. The wordings settled:
+- `gleich`: "equal, alike, the same", sl enak, isti, it uguale, stesso, from a's "same" and c's and the base's "alike".
+- `werden`: two readings stay, the verb's and part a's `aux` ("will"), since the lookup ranks readings by the line's translation, and one word's two jobs read better so than a gloss with three. `aux` is a part of speech no other entry has: `pos` is a free string, used only as a key.
+- `während` arrives from part a, as a conjunction and a preposition; b only accepts it.
+
+**The grading.** 94 rules in `wrong`, each part's all there. a's and c's overlap on wurde, werde, würde and on käme, gäbe: harmless, each still tested.
+
+**What people say and the unit drills.** 3f399ff2 cherry-picked from `course-en-a2-b` (its only conflict `tutor/guide/index.json`, generated: tutor-export wrote it). 68 different forms left the items' `spoken` for the table, and `GermanB1cContentTest` grades every one as almost with an accepted form shown:
+
+| Form | Where it was `spoken` | Why it moved |
+|---|---|---|
+| obwohl with the verb second, trotzdem for obwohl | `obwohl-trotzdem` | the lead's call |
+| weil with the verb second, weil for denn | `weil-denn` | the lead's call |
+| wie for als | `groesser-als` | its point is als against so … wie |
+| wann for wenn | `dass-wenn-ob` | its point is wenn set apart from wann |
+| täte, tät | `haette-waere`, `wenn-ich-haette` | würde is the unit's word |
+| Auf was and the rest; auf ihn, auf den for a thing | `woran-daran` | wo- and da- are the unit |
+| wer, was, nix | `jemand-irgendwer` | jemand, etwas, nichts are the unit |
+
+**Stayed `spoken`:** `wie` and `wann` in `als-waehrend`, whose point is als against wenn: a learner who types wie hasn't fallen for wenn. The table has both words, so anywhere no item lists them they are almost, no longer wrong.
+
+**A code change, for the lead to own: `verb_second`.** `nonstandard`'s `{word, for}` can't say a word order: two regular expressions can't check that the words are the same, so `weil .+` for `weil .+` would have passed any clause. `Spelling.verbSecond` and `Grading.verbSecondFor`, from the table's new key `"verb_second": ["weil", "obwohl"]`: the clause after one of these with its last word moved up behind the subject, every other word in place; a separable verb in its two parts. The clause ends at the accepted answer's comma, so `Obwohl es regnet, wir gehen` stays wrong. Commit eb86daf4; `course-de-b1-b`'s and English's tables don't need it, and a table without the key behaves as before. The commit's message says 86 forms: that counts each listing, 68 differ.
+
+**Same shape, not moved; the lead's to decide.** These pass a unit's own drill as right, too:
+- `wegen-trotz`: wegen dem Regen, trotz dem Schnee, während dem Essen. The outline says "a spoken form, labelled, never wrong", and `trotz dem` is common in Austria by part a's source. A table rule couldn't check the noun: `Regen` against `Regens` differ, so it would need a new key of its own.
+- `plusquamperfekt`: Nachdem ich gegessen habe, and gegessen gehabt. Whole lines in another tense: no table rule says that.
+- `genitiv`: dem Stefan sein Traktor. `von` + the dative is the outline's "right too", and standard.
+
+**`der Mann, wo dort steht`** stays as it was: not in the course, on part b's native list. `der Tag, wo` stays `spoken`.
+
+**"Once merged, also":** `werden-futur` on `passiv` was the last of B1's; the others were named as their pages were in the base. Those pointing at B2's pages wait for B2.
+
+**COURSE.md** has B1's three sections, the German course's outline line and "Spoken forms" on the two kinds and `verb_second`; A2's note on wie, weil and wann follows it. The README counts 50 German pages (15 A1, 20 A2, 15 B1). The tutor's guide is regenerated.
+
+**The prints' numbers** came right on their own: B1's lessons 1 to 18 in the outline's order.
+
+## Checks on the merged course
+
+At 3aaca2b2, before the last two commits (the two words' entries and this doc; the smoke and the content tests were run again on the tip):
+
+- `bunx tsc --noEmit -p .`: clean. `tutor-export --check`: 140 files match. `bun test/prompt-clashes.ts`: no new clash.
+- The smoke (ports 10070, 10073, 10076; Drama 3 on 10088): 3,625 checks pass, none fail.
+- Android, the whole unit suite through lani-slot: 3,875 tests in 496 classes, none failed (2 skipped). Among them `GermanB1aContentTest`, `GermanB1bContentTest`, `GermanB1cContentTest`, `GermanCourseContentTest`, `GradingNonstandardTest`, `GrammarTest`, `SchoolBoardTest`.
+- Python: 253 tests (tests) and 151 (companion/tests, 11 skipped), all pass.
+- `lexicon-build --coverage --lang de`: 99.0 % of words known, 98.6 % meant in each base, 51 unknown, as at the base.
+- `school-prints --language de`, B1 and A2, in sl, en and it: all 18 of each fit on one or two pages, no word without a meaning, lessons numbered 1 to 18. `same_fit` didn't stop a print, so 0aaf61c7 isn't taken.
+- Emulator, `--no-town --steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_DEV_DATA` from `make-learner.ts --target de --base sl`, `LANI_QA_COURSE_UNIT=obwohl-trotzdem` (part b's): setup, course-unit and the crash check ok: the steps, the summary, the first sheet, the test passed, the next unit named (`haette-waere`), the A4 print. Shots in the scratchpad's `ux-course-de-b1-c/merged/`.
+
+**Not done:** the other 17 units on an emulator; the other two bases on an emulator; a nonstandard form typed on an emulator (the app's label for it is 3f399ff2's, seen only in its tests here).
 
 ## What's left
 
-- **The integration, when the lead says so**: parts a and b merged, the "once merged" column (`werden-futur` on `passiv`), COURSE.md's section, the README's page counts, `GermanCourseContentTest`'s comment, the prints' lesson numbers (they read 1 to 6 here, 13 to 18 once merged), the supplement's entries deduped by lemma, the full checks.
-- The native check, first in this doc.
-- **Voices**: nothing was spent. See "Voice".
+- **The native check**, first in this doc and in parts a's and b's.
+- **The lead's call** on `wegen-trotz` and `plusquamperfekt`, above.
+- **Voices**: nothing was spent. See each part's "Voice".
