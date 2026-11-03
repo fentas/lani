@@ -35,9 +35,13 @@ export default async function scenarios() {
   }
   // the German village's role-plays (companion/scenarios/de) and the English one's (companion/scenarios/en): for a grown-up,
   // every text in each base the language has, the title, goals and who per language, machine-written
+  // (the Lake District's six at B1 and six at B2 too: docs/plans/05-built/talks-en.md)
+  const talkLevels: Record<string, Record<string, number>> = { de: { A1: 5, A2: 3 }, en: { A1: 5, A2: 3, B1: 6, B2: 6 } }
   for (const [language, bases] of [['de', ['sl', 'en', 'it']], ['en', ['sl', 'de', 'it', 'en']]] as const) {
     const talks = curatedTalksOf(language, [...bases])
-    check(`8 ${language} scenarios`, talks.length === 8, talks.map(t => t.f))
+    const levels = talks.reduce<Record<string, number>>((n, t) => ({ ...n, [t.raw.level]: (n[t.raw.level] ?? 0) + 1 }), {})
+    const want = talkLevels[language]
+    check(`${language} scenarios by level: ${JSON.stringify(want)}`, Object.keys({ ...levels, ...want }).every(lv => levels[lv] === want[lv]), levels)
     for (const { f, raw, missing } of talks) {
       const v = validateScenario(raw)
       check(

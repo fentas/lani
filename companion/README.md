@@ -332,7 +332,11 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   (`companion/scenarios/`: a complaint at the shop, wine for a party with Vinar Marko, a call to the surgery that goes
   wrong, the night of the bora, advice for the neighbour, a job at a tourist farm; the mayor's office hours, a job
   interview, a new doctor's history, a stone house to rent, reporting a car accident, Marko at a crossroads;
-  docs/plans/05-built/talks-sl.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
+  docs/plans/05-built/talks-sl.md), the Lake District twelve more at B1 and B2 (`companion/scenarios/en/`: a jacket
+  that leaks, a gate from Mr Dixon's smithy, the garage on the phone, the night the beck came up told to Auntie Edna,
+  advice for Granny Maggie's trip to London, a summer job at Mrs Birkett's inn; a word with the councillor, an interview
+  at the visitor centre, the new patient check, a cottage to let, a statement for the police, Jack at a crossroads;
+  docs/plans/05-built/talks-en.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
   A1 and A2 talks, never B1 or B2.
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).

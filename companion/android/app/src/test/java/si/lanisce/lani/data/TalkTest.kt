@@ -143,7 +143,7 @@ class TalkTest {
     @Test fun `every German and English scenario parses for a grown-up, its texts in the learner's pair`() {
         for ((language, pair) in listOf("de" to (si.lanisce.lani.l10n.Lang.DE to si.lanisce.lani.l10n.Lang.SL), "en" to (si.lanisce.lani.l10n.Lang.EN to si.lanisce.lani.l10n.Lang.IT))) {
             val files = scenariosOf(language)
-            assertEquals(language, 8, files.size)
+            assertTrue(language, files.size >= 8)
             inPair(pair.first, pair.second) {
                 for (f in files) {
                     val s = parseScenario(f.readText())
@@ -173,6 +173,50 @@ class TalkTest {
         assertTrue(shop.setting, shop.setting.startsWith("Sabato mattina"))
         assertEquals("Quanto costa?", shop.vocabularyHints.first { it.sl == "How much is that?" }.en)
         assertEquals("Mrs Atkinson", shop.character)
+    }
+
+    @Test fun `the Lake District's B1 and B2 talks read in every pair, for a grown-up, the cast playing its own`() {
+        val files = scenariosOf("en")
+        // eight to A2 (scenarios-de-en), six each at B1 and B2 (docs/plans/05-built/talks-en.md)
+        assertEquals(mapOf("A1" to 5, "A2" to 3, "B1" to 6, "B2" to 6), files.map { parseScenario(it.readText()).level }.groupingBy { it }.eachCount())
+        val above = files.filter { parseScenario(it.readText()).level in setOf("B1", "B2") }
+        val en = si.lanisce.lani.l10n.Lang.EN
+        for (base in listOf(si.lanisce.lani.l10n.Lang.SL, si.lanisce.lani.l10n.Lang.DE, si.lanisce.lani.l10n.Lang.IT)) inPair(en, base) {
+            for (f in above) {
+                val s = parseScenario(f.readText())
+                assertEquals("en", s.language)
+                assertEquals("adult", s.audience)
+                assertTrue(s.packs.isNotEmpty())
+                // "A statement for the police · Izjava za policijo": English, then the learner's base; no gender pair left
+                assertTrue(s.title, " · " in s.title)
+                assertTrue(s.goals.toString(), s.goals.all { " · " in it && "{m:" !in it })
+                assertTrue(s.who.orEmpty(), " · " in s.who.orEmpty())
+                assertFalse(s.setting, "{m:" in s.setting || s.vocabularyHints.any { "{m:" in it.en })
+            }
+        }
+        inPair(en, si.lanisce.lani.l10n.Lang.SL) {
+            val police = parseScenario(files.first { it.name == "a-statement-for-the-police.json" }.readText())
+            assertEquals("A statement for the police · Izjava za policijo", police.title)
+            assertEquals("The police officer · Policist", police.who)
+            assertEquals("Say precisely when and where it happened · Natančno povej, kdaj in kje se je zgodilo", police.goals.first())
+            assertTrue(police.setting, police.setting.startsWith("Včeraj popoldne"))
+            assertEquals("B2", police.level)
+            assertEquals("PC Graham", police.character)
+        }
+        val jacket = inPair(en, si.lanisce.lani.l10n.Lang.DE) { parseScenario(files.first { it.name == "the-leaky-jacket.json" }.readText()) }
+        assertEquals("The leaky jacket · Die undichte Jacke", jacket.title)
+        assertEquals("Hier ist der Kassenbon.", jacket.vocabularyHints.first { it.sl == "Here's the receipt." }.en)
+        assertEquals("B1", jacket.level)
+        assertEquals("Ryan", jacket.character)
+        val maggie = inPair(en, si.lanisce.lani.l10n.Lang.IT) { parseScenario(files.first { it.name == "maggie-goes-to-london.json" }.readText()) }
+        assertEquals("Maggie goes to London · Maggie va a Londra", maggie.title)
+        assertTrue(maggie.setting, maggie.setting.startsWith("La più vecchia amica di nonna Maggie"))
+        // the cast's own play theirs by name (Cast.talker): their sprite and voice, and the friendship grows
+        val cast = mapOf(
+            "a-gate-from-the-smithy" to "Mr Dixon", "the-night-the-beck-came-up" to "Auntie Edna", "maggie-goes-to-london" to "Granny Maggie",
+            "a-summer-job-at-the-inn" to "Mrs Birkett", "jack-at-a-crossroads" to "Shepherd Jack",
+        )
+        for ((id, name) in cast) assertEquals(id, name, parseScenario(files.first { it.nameWithoutExtension == id }.readText()).character)
     }
 
     @Test fun `Jan's scenarios read in a German base too, and as they were in English`() {

@@ -2,8 +2,9 @@
 // (companion/scenarios/<language>, docs/plans/05-built/scenarios-de-en.md) as a bridge of that village serves them to a
 // grown-up learner, each text in the learner's pair, the turn's brief for the tutor, and a tutor's own role-play.
 import type { Client } from '@modelcontextprotocol/sdk/client/index.js'
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { talkLevelOffered } from '../../src/scenarios'
 import { check } from './harness'
 
 const repo = resolve(import.meta.dir, '../../../..')
@@ -32,17 +33,32 @@ export type VillageTalks = {
   tutorTitle: string
   /** a turn the learner says first */
   hello: string
+  /**
+   * The village's talks above A2 (docs/plans/05-built/talks-en.md), checked for a learner at B1 (written into the
+   * learner's profile in [dataDir] and put back): all offered then, one of them in the pair, the cast's own playing theirs
+   * by name, a turn's brief with its level; a B2 one not found for the smoke's A1 learner.
+   */
+  above?: {
+    dataDir: string
+    sample: { id: string; level: string; title: string; goal: string; who: string; setting: string; hint: [string, string] }
+    played: Record<string, string>
+    hello: string
+  }
 }
 
 export async function villageTalks(t: VillageTalks) {
   const { village: v, language, base_url: base, auth } = t
   const get = async (path: string) => (await fetch(`${base}${path}`, { headers: auth })).json() as Promise<any>
-  const files = readdirSync(join(repo, 'companion/scenarios', language)).filter(f => f.endsWith('.json'))
+  const dir = join(repo, 'companion/scenarios', language)
+  const files = readdirSync(dir).filter(f => f.endsWith('.json'))
+  // the smoke's learner has no level (A1): the talks up to A2 (talkLevelOffered), never a B1 or B2 one
+  const levelOf = (f: string) => JSON.parse(readFileSync(join(dir, f), 'utf8')).level
+  const toA2 = files.filter(f => talkLevelOffered(levelOf(f), 'A1'))
   const scenarios = await get('/scenarios')
   check(
-    `${v}: GET /scenarios serves the ${files.length} role-plays in ${language} for a grown-up, and nothing else`,
-    files.length === 8 && scenarios.length === 8 && files.every(f => scenarios.some((s: any) => `${s.id}.json` === f && s.language === language && s.audience === 'adult' && s.source === 'curated' && /machine-written/.test(s.review))),
-    scenarios.map((s: any) => [s.id, s.language]),
+    `${v}: GET /scenarios serves the ${toA2.length} role-plays to A2 in ${language} for a grown-up (of ${files.length}), and nothing else`,
+    toA2.length === 8 && scenarios.length === toA2.length && toA2.every(f => scenarios.some((s: any) => `${s.id}.json` === f && s.language === language && s.audience === 'adult' && s.source === 'curated' && /machine-written/.test(s.review))),
+    scenarios.map((s: any) => [s.id, s.language, s.level]),
   )
   check(
     `${v}: every role-play's title, goals and who in the pair (${language} · ${t.base}), its setting and meanings strings in the base`,
@@ -82,6 +98,7 @@ export async function villageTalks(t: VillageTalks) {
     brief?.title === t.sample.brief.title && brief.goals?.[0] === t.sample.brief.goal && brief.setting?.startsWith(t.sample.brief.setting) && brief.language === language && brief.packs?.length > 0 && !brief.child,
     brief,
   )
+  if (t.above) await talksAbove(t, files, get)
   // the tutor's: in the village's language (left out: written so), a Slovene one refused
   const pub = await t.client.callTool({ name: 'publish_scenario', arguments: { scenario: t.tutorTalk } })
   const id = String(t.tutorTalk.id)
@@ -92,6 +109,53 @@ export async function villageTalks(t: VillageTalks) {
     !pub.isError && served?.language === language && served.title === t.tutorTitle && served.source === 'tutor' && sl.isError && /this village speaks/.test(JSON.stringify(sl)),
     { pub, served, sl },
   )
+}
+
+/** The village's talks above A2 for a learner at B1 ([t].above): see VillageTalks.above. */
+async function talksAbove(t: VillageTalks, files: string[], get: (path: string) => Promise<any>) {
+  const { village: v, language, base_url: base, auth } = t
+  const a = t.above!
+  check(`${v}: a ${a.sample.level} talk is not found for an A1 learner (${a.sample.id})`, (await fetch(`${base}/scenarios/${a.sample.id}`, { headers: auth })).status === 404)
+  const profile = join(a.dataDir, 'learner-profile.json')
+  const before = readFileSync(profile, 'utf8')
+  const p = JSON.parse(before)
+  writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, current_level: 'B1' } }, null, 2))
+  try {
+    const atB1 = await get('/scenarios')
+    check(
+      `${v}: a B1 learner is offered all ${files.length} role-plays, the B1 and B2 ones too`,
+      atB1.length === files.length && files.every(f => atB1.some((s: any) => `${s.id}.json` === f && s.language === language && s.audience === 'adult')) && atB1.some((s: any) => s.level === 'B2'),
+      atB1.map((s: any) => [s.id, s.level]),
+    )
+    const one = await get(`/scenarios/${a.sample.id}`)
+    check(
+      `${v}: ${a.sample.id} (${a.sample.level}) in the learner's pair: "${a.sample.title}", its setting and meanings in the base`,
+      one?.level === a.sample.level && one.title === a.sample.title && one.goals[0] === a.sample.goal && one.who === a.sample.who && one.setting.startsWith(a.sample.setting) && one.vocabulary_hints.some((h: any) => h.sl === a.sample.hint[0] && h.en === a.sample.hint[1]),
+      one,
+    )
+    const played = Object.entries(a.played)
+    const cast = new Set((await get('/villagers')).map((x: any) => x.name))
+    check(
+      `${v}: ${played.map(([, n]) => n).join(', ')} play their talks above A2, named as the cast names them`,
+      played.every(([id, name]) => cast.has(name) && atB1.find((s: any) => s.id === id)?.role.startsWith(`${name}, `)),
+      played.map(([id]) => atB1.find((s: any) => s.id === id)?.role.split(',')[0]),
+    )
+    // a turn of a talk above A2 reaches the tutor with its level and packs
+    const conv = `rp-1b2c3d4e-0000-4000-8000-00000000${language === 'de' ? 'd' : 'e'}0b1`
+    const id = played[0]?.[0] ?? a.sample.id
+    await fetch(`${base}/message`, { method: 'POST', headers: auth, body: JSON.stringify({ kind: 'roleplay', conversation_id: conv, text: a.hello, data: { scenario_id: id, turn: 1, heard: a.hello } }) })
+    await Bun.sleep(150)
+    const note = t.notes().findLast(n => n.params?.meta?.kind === 'roleplay' && n.params.meta.conversation_id === conv)
+    const brief = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(note?.params?.content))?.[1] ?? '{}').scenario
+    const want = JSON.parse(readFileSync(join(repo, 'companion/scenarios', language, `${id}.json`), 'utf8'))
+    check(
+      `${v}: a turn of ${id} reaches the tutor with its level (${want.level}) and packs, played in ${language}`,
+      brief?.level === want.level && brief.language === language && JSON.stringify(brief.packs) === JSON.stringify(want.packs) && brief.role === want.role && !brief.child,
+      brief,
+    )
+  } finally {
+    writeFileSync(profile, before)
+  }
 }
 
 /** The curated role-plays of [language] validate with every text in their bases ([bases]) and the title, goals and who per language. */

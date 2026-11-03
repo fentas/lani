@@ -9706,6 +9706,10 @@ VILLAGE_TALKS = {
         "language": "en", "pair": "en-it", "talk": "at-the-farm-shop", "tablet": False, "shot": "talk-en",
         "lines": ("Morning", "Half a dozen eggs please"), "replies": ("Lovely! Anything else?", "Really? That's nice!"),
         "foreign": ("Me veseli", "Che bello", "Wie schön"), "titles": ("Na tržnici", "V pekarni", "Al mercato", "Beim Bäcker"),
+        # a B1 or B2 talk ($LANI_QA_TALK, the learner at the level below or above: docs/plans/05-built/talks-en.md): the dev
+        # tutor's lines above A2 (test/dev-bridge.ts ROLEPLAY_ABOVE_A2); typed lines in ASCII (adb's input text)
+        "levels": {lv: {"lines": ("Morning Mr Dixon", "I can collect it myself so you needn't deliver it"),
+                        "replies": ("I see. And what happened then?", "Right. And why's that, then?")} for lv in ("B1", "B2")},
     },
 }
 TALK_DEBRIEF = {"de": "Du hast höflich gegrüßt", "en": "You greeted politely", "sl": "Tvoj pozdrav je bil vljuden", "it": "Hai salutato con gentilezza"}
@@ -9809,6 +9813,7 @@ def village_talk(village: str):
     if s is None:
         go_home()
         return f"skipped: {want} isn't offered to this learner (a talk is offered up to a level above theirs: learner.current_level)"
+    spec = {**spec, **spec.get("levels", {}).get(s.get("level"), {})}  # a B1 or B2 talk: the dev tutor's lines at its level
     c = scroll_to(s["title"], 8)
     assert c is not None, f"the role-play {s['title']} on the list"
     tap_at(c)
@@ -9890,7 +9895,8 @@ def primorska_talk():
 def lakeland_talk():
     """A grown-up's free talk in English in the Lake District village (docs/plans/05-built/scenarios-de-en.md): a synthetic
     Giulia (make-learner.ts --target en --base it; LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-it), the app in en · it:
-    village_talk's checks on "At the farm shop" (another with $LANI_QA_TALK)."""
+    village_talk's checks on "At the farm shop" (another with $LANI_QA_TALK). A B1 or B2 one (docs/plans/05-built/talks-en.md:
+    LANI_QA_TALK=a-gate-from-the-smithy, Giulia made with --level A2 or B1) is answered in the dev tutor's lines above A2."""
     return village_talk("lakeland")
 
 

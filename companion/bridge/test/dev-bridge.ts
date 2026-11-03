@@ -138,6 +138,27 @@ const ROLEPLAY_ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {
     },
     practise: '*bi lahko*, *na vašem mestu bi*',
   },
+  en: {
+    // any of the Lake District's B1 and B2 role-plays (companion/scenarios/en: the jacket, Mr Dixon's gate, the garage,
+    // the flood with Auntie Edna, Maggie's trip, the inn's summer job; the councillor, the interview, the new patient
+    // check, the cottage, the police statement, Jack at a crossroads); the correction is a learner's mistake (would
+    // after if), never what people here say (we was, aye: tutor/languages/en.md)
+    hint: { sl: 'I see. Could you explain that a bit more?', en: 'I see. Could you explain that a bit more?', de: 'Verstehe. Könnten Sie das etwas genauer erklären?', it: 'Capisco. Potrebbe spiegarlo meglio?', sl_base: 'Razumem. Bi lahko to malo bolj razložili?' },
+    puzzled: { sl: "Sorry, I didn't quite catch that. Could you say it again?", en: "Sorry, I didn't quite catch that. Could you say it again?", de: 'Entschuldigung, das habe ich nicht ganz verstanden. Können Sie das wiederholen?', it: 'Scusi, non ho capito bene. Può ripetere?', sl_base: 'Oprostite, tega nisem čisto razumel. Lahko ponovite?' },
+    turns: [
+      { sl: 'I see. And what happened then?', en: 'I see. And what happened then?', de: 'Verstehe. Und was ist dann passiert?', it: 'Capisco. E poi che cosa è successo?', sl_base: 'Razumem. Kaj pa se je zgodilo potem?' },
+      { sl: "Right. And why's that, then?", en: 'All right. And why is that?', de: 'Gut. Und warum das?', it: 'Va bene. E come mai?', sl_base: 'Prav. Zakaj pa?' },
+      { sl: 'Aye, that makes sense.', en: 'Yes, that makes sense.', de: 'Ja, das klingt vernünftig.', it: 'Sì, ha senso.', sl_base: 'Ja, to je smiselno.' },
+      { sl: "Grand. Thanks, that's what we'll do.", en: "Great. Thanks, that's what we'll do.", de: 'Prima. Danke, so machen wir es.', it: 'Perfetto. Grazie, faremo così.', sl_base: 'Odlično. Hvala, tako bomo naredili.' },
+    ],
+    correction: {
+      en: 'Better: **If I were you, I\'d book early.** · after "if", no "would": "if I were", and "I\'d" in the other half.',
+      de: 'Besser: **If I were you, I\'d book early.** · nach „if“ kein „would“: „if I were“, und „I\'d“ im anderen Satzteil.',
+      sl: 'Bolje: **If I were you, I\'d book early.** · za »if« ni »would«: »if I were«, »I\'d« pa v drugem delu.',
+      it: 'Meglio: **If I were you, I\'d book early.** · dopo «if» niente «would»: «if I were», e «I\'d» nell\'altra parte.',
+    },
+    practise: "*if I were you, I'd …*, *could you …?*",
+  },
 }
 const DEBRIEF: Said = {
   en: '✅ You greeted politely.\n\n📌 Practise',

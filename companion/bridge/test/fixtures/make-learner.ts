@@ -6,7 +6,7 @@
 // The village is the target language's culture pack's: sl Primorska, it Friuli, de Kärnten, en the Lake District.
 // --level: the learner's level (A1 by default); above A1 the language's curated modules of the levels below count as played
 // (a done request each, a month ago), so the pace (ModuleStore.offered) has the level's own first to offer.
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { parseArgs } from 'node:util'
 import { initLearnerData } from '../../src/learners'
@@ -45,9 +45,10 @@ const day = (n: number) => localDate(Date.now() + n * 86_400_000)
 const days = (v: unknown): unknown =>
   typeof v === 'string' && /^@day(-\d+)?$/.test(v) ? day(-Number(v.slice(5) || 0)) : Array.isArray(v) ? v.map(days) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, days(x)])) : v
 const fixture = JSON.parse(readFileSync(resolve(import.meta.dir, 'dev-town.json'), 'utf8'))
-// the curated modules below the learner's level, played a month ago (Slovene's in companion/modules, the others' in modules/<language>)
+// the curated modules below the learner's level, played a month ago (Slovene's in companion/modules, the others' in modules/<language>;
+// a language without curated modules has none)
 const modulesDir = join(projectDir, 'companion/modules', values.target === 'sl' ? '' : values.target!)
-const below = readdirSync(modulesDir).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(modulesDir, f), 'utf8')))
+const below = (existsSync(modulesDir) ? readdirSync(modulesDir) : []).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(modulesDir, f), 'utf8')))
   .filter(m => m.quest && LEVELS.indexOf(m.level) < LEVELS.indexOf(values.level!))
 const played = below.map(m => ({ id: `tutor-${m.id}-v1`, moduleId: m.id, giver: m.quest.giver, source: 'TUTOR', since: day(-30), done: true }))
 const state = { ...(days(fixture.state) as Record<string, unknown>), quests: played, chest: { goods: {}, tools: {} }, visitor: null, residents: cast.map((id, i) => ({ id, since: day(-40 + 5 * i) })), villagers: cast.length }
