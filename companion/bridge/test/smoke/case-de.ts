@@ -132,9 +132,9 @@ export default async function caseDe() {
   check(`… and reads most of them right (${e.right}/${e.items})`, e.right >= e.items * 0.85, e.wrongLikely.slice(0, 20))
 
   // the lens on lines of the content it wasn't built on (every 79th line, a word labelled by hand before the lens ran)
-  const held = JSON.parse(readFileSync(join(repo, 'bridge/test/fixtures/case-lens-de-heldout.json'), 'utf8')).items as { de: string; word: string; case: string; number: string }[]
+  const held = JSON.parse(readFileSync(join(repo, 'bridge/test/fixtures/case-lens-de-heldout.json'), 'utf8')).items as { de: string; word: string; nth?: number; case: string; number: string }[]
   const heldOut = held.map(it => {
-    const c = lens.at(it.de, it.word, 0, KAERNTEN_NAMES)
+    const c = lens.at(it.de, it.word, it.nth ?? 0, KAERNTEN_NAMES)
     const p = c && 'pick' in c ? c.pick : null
     return { it, p, sure: c && 'sure' in c ? c.sure : null }
   })
