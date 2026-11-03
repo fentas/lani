@@ -321,12 +321,13 @@ class StoriesTest {
         assertTrue(his.all { it.language == "en" && "A1" in it.levelsTold && "A2" in it.levelsTold })
         // readings-lakeland: told at B1 and B2 too, so a learner at B1 or B2 hears tonight's at their level, a story
         // without them at the highest below it, and a learner at A2 never above A2 the first time
-        val upper = his.filter { "B2" in it.levelsTold }
-        assertTrue(upper.size >= 8 && upper.all { "B1" in it.levelsTold })
+        assertTrue(his.all { "B1" in it.levelsTold && "B2" in it.levelsTold })
         assertEquals("B2", Stories.tonight(his, emptyMap(), "B2")!!.level)
         assertEquals("B1", Stories.tonight(his, emptyMap(), "B1")!!.level)
         assertEquals("A2", Stories.tonight(his, emptyMap(), "A2")!!.level)
-        his.firstOrNull { "B2" !in it.levelsTold }?.let { assertEquals("A2", Stories.levelFor(it, "B2")) }
+        // above B2 the B2 telling, and a retelling for a learner at B1 a level up, at B2
+        assertEquals("B2", Stories.levelFor(his.first(), "C1"))
+        assertEquals("B2", Stories.levelFor(his.first(), "B1", up = 1))
         // the ten older ones heard, the six newer ones come in their order: the Lambton Worm first
         val ten = his.take(10).associate { it.id to StoryHeard(told = 1, level = "A1") }
         assertEquals("the-lambton-worm", Stories.tonight(his, ten, "A1")!!.story.id)

@@ -2592,7 +2592,7 @@ has, the story first ([What someone has here](#what-someone-has-here)).
 
 A telling is a scene dialog told by the teller: his lines have no `who` (the happening's person says them; the panel's
 header shows him with his face, [Faces](#faces-the-person-you-talk-to-and-their-expressions): his lines and replies may
-carry a `face` as a scene's do: the curated ones have theirs, 2,463 in the 64 stories, the teller acting the tale out, about
+carry a `face` as a scene's do: the curated ones have theirs, 2,973 in the 64 stories, the teller acting the tale out, about
 half his lines, every reaction and nearly every reply; docs/plans/05-built/ux-polish.md), the first is his, and it has at least one turn for the
 learner: a question he asks ("Povej: kaj je naredil lovec?") that the
 choices answer, or a reaction ("O, ne! Ubogi Zlatorog!"); every wrong choice has its `why` and the teller's reaction as
@@ -2617,7 +2617,11 @@ its book holds):
    after its retelling again);
 3. at the learner's level in the scene's language (`Dashboard.levelIn`: the home language's level, a visit language's
    own): the highest level the story has up to it, else its easiest (A1 → A1, A2 → A2, higher → the highest there is),
-   a level up for each time it was told before: once all are heard, they are retold a level up.
+   a level up for each time it was told before: once all are heard, they are retold a level up. The curated stories
+   are told at A1 and A2 at least; Old Wilf's sixteen are told at B1 and B2 as well
+   (readings-lakeland: a B1 telling narrates with the past perfect and continuous, used to, the passive and the
+   conditionals; a B2 telling tells more of what the sources say, with participle clauses, inversion, the passive of
+   report, past modals and wishes, and its turns test those).
 
 **Never out of stories.** When fewer than three stories the learner hasn't heard to their end are left at their level
 (`storiesLeft`: those with a telling at it), the bridge asks the tutor for another, once a day at most
