@@ -19,9 +19,10 @@ object Grading {
 
     /**
      * Why an answer wasn't exact, for the feedback line: [DIACRITICS] Slovene's č/š/ž, [ACCENT] Italian's è/é/à,
-     * [UMLAUT] German's ä/ö/ü/ß (or ae/oe/ue/ss), [APOSTROPHE] Italian's elision (l'acqua, un'amica).
+     * [UMLAUT] German's ä/ö/ü/ß (or ae/oe/ue/ss), [APOSTROPHE] Italian's elision (l'acqua, un'amica), [NONSTANDARD] what people
+     * say that writing doesn't want ([Spelling.nonstandard]: the standard form is [Result.expected]).
      */
-    enum class Hint { NONE, DIACRITICS, TYPO, ENDING, ACCENT, UMLAUT, APOSTROPHE }
+    enum class Hint { NONE, DIACRITICS, TYPO, ENDING, ACCENT, UMLAUT, APOSTROPHE, NONSTANDARD }
 
     /**
      * @param expected the accepted answer closest to the learner's, in its original spelling
@@ -76,7 +77,8 @@ object Grading {
 
     fun match(answer: String, accept: List<String>, lang: Lang = target()): Verdict = check(answer, accept, lang).verdict
 
-    fun check(answer: String, accept: List<String>, lang: Lang = target()): Result {
+    /** @param before the sentence before a gap's answer, where the answer is one word of it: what [Spelling.Nonstandard.after] may need. */
+    fun check(answer: String, accept: List<String>, lang: Lang = target(), before: String = ""): Result {
         val spelling = Spelling.of(lang)
         val a = canonical(answer, lang)
         if (a.isEmpty() || accept.isEmpty()) return Result(Verdict.WRONG, Hint.NONE, accept.firstOrNull().orEmpty(), emptyList())
@@ -88,6 +90,7 @@ object Grading {
         val marks = marks(answer, best, lang)
         if (fold(best, lang) == folded) return Result(Verdict.ALMOST, spelling.foldHint, best, marks)
         if (spelling.loose.isNotEmpty() && loose(best, lang) == loose(a, lang)) return Result(Verdict.ALMOST, spelling.looseHint, best, marks)
+        nonstandardFor(folded, accept, before, lang, spelling)?.let { return Result(Verdict.ALMOST, Hint.NONSTANDARD, it, marks(answer, it, lang)) }
 
         val expectedWords = fold(best, lang).split(' ')
         val answerWords = folded.split(' ')
@@ -107,6 +110,20 @@ object Grading {
             d <= 2 && !editInStem(e, w, spelling) -> Result(Verdict.WRONG, Hint.ENDING, best, marks)
             else -> Result(Verdict.WRONG, Hint.NONE, best, marks)
         }
+    }
+
+    /** The accepted answer whose standard word [answer] ([fold]ed) has what people say in its place, if one has ([Spelling.nonstandard]). */
+    private fun nonstandardFor(answer: String, accept: List<String>, before: String, lang: Lang, spelling: Spelling): String? {
+        for (n in spelling.nonstandard) for (m in n.word.findAll(answer)) {
+            val head = answer.substring(0, m.range.first)
+            val tail = answer.substring(m.range.last + 1)
+            if (n.after != null && !n.after.containsMatchIn(canonical(before, lang) + " " + head)) continue
+            accept.firstOrNull { x ->
+                val e = fold(x, lang)
+                e.length >= head.length + tail.length && e.startsWith(head) && e.endsWith(tail) && n.forWord.matches(e.substring(head.length, e.length - tail.length))
+            }?.let { return it }
+        }
+        return null
     }
 
     /** True when every changed position of [expected] lies before its ending. */

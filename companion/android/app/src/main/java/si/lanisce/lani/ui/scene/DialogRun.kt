@@ -277,7 +277,7 @@ data class DialogRun(
         val g = gap ?: return letMeChoose()
         val turn = dialog.lines[at].choices
         val right = turn.indexOfFirst { it.ok }
-        if (Grading.check(text, g.accept).verdict != Grading.Verdict.WRONG) return pick(order(turn.size).indexOf(right), produced = true, how = Said.By.TYPE)
+        if (Grading.check(text, g.accept, before = g.before).verdict != Grading.Verdict.WRONG) return pick(order(turn.size).indexOf(right), produced = true, how = Said.By.TYPE)
         val typed = text.trim()
         val word = typed.takeIf { Forms.words(it).size == 1 }
         val sentence = word?.let { g.before + it + g.after } ?: typed

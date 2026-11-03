@@ -666,13 +666,13 @@ private fun IntroAsk(
                     if (verdict == null) {
                         DiacriticChips(value, { value = it })
                         BigButton(bi("playerScreen.check"), enabled = value.text.isNotBlank(), onClick = {
-                            val v = Grading.check(value.text, ask.accept).verdict
+                            val v = Grading.check(value.text, ask.accept, before = ask.text.substringBefore("___", "")).verdict
                             verdict = v
                             onAnswered(v, IntroSpeech.answer(ask))
                         })
                     }
                     verdict?.let { v ->
-                        val right = Grading.check(value.text, ask.accept).expected.ifBlank { ask.accept.firstOrNull().orEmpty() }
+                        val right = Grading.check(value.text, ask.accept, before = ask.text.substringBefore("___", "")).expected.ifBlank { ask.accept.firstOrNull().orEmpty() }
                         AskResult(vm, v, right, ask.explain, IntroSpeech.answer(ask), reader, said, onSaid, typed = value.text, learned = learned)
                     }
                 }
