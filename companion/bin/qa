@@ -340,6 +340,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        LANI_QA_UNIT_PRINT=1: its sheet in the print dialog at the end;
                        QA's hook "school:<unit>": its level open, the unit as never begun): its intro's questions, its
                        first worksheet and its test answered as the file says, passed, kept done by the dev bridge;
+                       "choices-order" (only when named; a synthetic learner, LANI_DEV_DATA) that unit played as "school-unit"
+                       plays it, by the options' texts: each choice's options from the top to choices-order.txt, a shot of
+                       one whose right answer isn't on top before and after its tap (it's right, the unit passes), and the
+                       unit's printed sheet against its key (docs/plans/05-built/choices-order.md);
                        "school-print" the unit biti's sheet printed ($LANI_QA_PRINT_UNIT another): fit.js in the app's
                        WebView choosing as headless Chromium does, the print dialog's preview, the PDF saved through it
                        (A4, its pages as chosen), the level's booklet ("🖨️ Vsi listi") to its dialog;
@@ -8582,6 +8586,26 @@ def prompt_piece(prompt) -> str | None:
     return best or None
 
 
+CHOICE_ROWS = None  # "choices-order": each choice met as [where, its options from the top, the right one]; None: not asked for
+
+
+def note_choice(options: list, right: str, where: str, after: str | None = None) -> bool:
+    """"choices-order" only: where a choice's options stand on screen, kept in CHOICE_ROWS, below the piece of its prompt
+    [after] (the intro's table above may hold the same word). True when the right one isn't on top: then a shot of it too."""
+    if CHOICE_ROWS is None:
+        return False
+    texts = [unit_text(o) for o in options]
+    ns = list(nodes())
+    floor = max([c[1] for t, c in ns if after and after in t] or [0])
+    rows = [t for _, t in sorted((c[1], t) for t, c in ns if t in texts and c[1] > floor)]
+    CHOICE_ROWS.append([where, rows, unit_text(right)])
+    print(f"    {where}: {' / '.join(rows)} (right: {unit_text(right)})")
+    if len(rows) < 2 or rows[0] == unit_text(right):
+        return False
+    shot(f"choices-order-not-first-{len(CHOICE_ROWS)}")
+    return True
+
+
 def sheet_exercise(e: dict, where: str):
     """One exercise of a worksheet or the test, answered right from the unit's file (typed without č, š, ž), checked,
     and on to the next: a table's cells ("<row>, <column>"), a gap text's gaps ("Vrzel n · Gap n"), a transform's lines
@@ -8612,11 +8636,17 @@ def sheet_exercise(e: dict, where: str):
             assert fill(label, unit_text(answer).translate(ASCII)), f"{where}: {label}"
     elif kind in ("choice", "multi"):
         picks = [e["options"][e["answer"]]] if kind == "choice" else [e["options"][a] for a in e["answers"]]
+        not_first = note_choice(e["options"], picks[0], where) if kind == "choice" else False
         for p in picks:
             c = option_at(unit_text(p))
             assert c is not None, f"{where}: the option «{p}»"
             tap_at(c)
         if kind == "choice":  # a tap answers it
+            if CHOICE_ROWS is not None:
+                assert wait_for("Pravilno", 6), f"{where}: «{picks[0]}» tapped wherever it stands is right"
+            if not_first:
+                time.sleep(1)
+                shot(f"choices-order-not-first-{len(CHOICE_ROWS)}-answered")
             return
     elif kind == "reorder":
         for t in e["solutions"][0]:
@@ -8675,6 +8705,7 @@ def school_unit():
             # below its prompt: the intro's table above may hold the same word (sedanjik's "dela")
             c = option_at(option, after=prompt_piece(a.get("prompt")))
             assert c is not None, f"step {i}'s option «{option}»"
+            note_choice(a["options"], a["options"][a["answer"]], f"intro step {i}", after=prompt_piece(a.get("prompt")))
             tap_at(c)
         else:
             # the field, its hint as the placeholder, under a table that grows step by step (B2's: eight rows of
@@ -8745,6 +8776,48 @@ def school_unit():
         shot(f"school-unit-print-preview-{QA_UNIT}")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the dialog closed, nothing printed
         time.sleep(2)
+
+
+def choices_order():
+    """A choice's options in the day's order (docs/plans/05-built/choices-order.md), on a unit played by the options' texts
+    ("school-unit"; $LANI_QA_UNIT): its intro's questions, its first worksheet and its test. Each choice's rows from the top
+    go to choices-order.txt; at least one right answer isn't on top, and tapped there it is right (the unit passes). Then
+    the unit's printed sheet from the dev bridge: each choice in its sheet's order, its key's answer among the options."""
+    global CHOICE_ROWS
+    CHOICE_ROWS = []
+    try:
+        school_unit()
+        rows = CHOICE_ROWS
+    finally:
+        CHOICE_ROWS = None
+    out = [f"{where}: {' / '.join(shown)} (right: {right})" for where, shown, right in rows]
+    moved = [r for r in rows if r[1] and r[1][0] != r[2]]
+    assert len(rows) >= 3 and moved, f"choices met, a right answer not on top: {out}"
+
+    # the print: its options in one order, its key the same answers
+    req = urllib.request.Request(f"http://127.0.0.1:{PORT}/course/sheet/{QA_UNIT}", headers={"authorization": f"Bearer {TOKEN}"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        html = r.read().decode()
+    with urllib.request.urlopen(req, timeout=30) as r:
+        assert r.read().decode() == html, "one order for a sheet: its page twice the same"
+    lists = re.findall(r'<ol class="ck">(.*?)</ol>', html, re.S)
+    keys = re.findall(r'<div class="answers".*?</div>', html, re.S)
+    assert lists and len(lists) == len(keys), f"the sheet's lists and keys: {len(lists)}, {len(keys)}"
+    plain_text = lambda x: re.sub(r"<[^>]+>", "", x).strip()
+    printed = 0
+    for items, key in zip(lists, keys):
+        answers = [plain_text(a) for a in re.findall(r'<span class="a"><b>\d+</b> (.*?)</span>', key, re.S)]
+        lines = [i for i in re.findall(r'<li(?: class="tk")?>.*?</li>', items, re.S) if 'class="tk"' not in i]
+        assert len(answers) == len(lines), f"a key for each line: {len(answers)}, {len(lines)}"
+        for line, answer in zip(lines, answers):
+            hint = re.search(r'<span class="hint">\((.*?)\)</span>', line, re.S)
+            if hint and " / " in hint.group(1):
+                options = [plain_text(o) for o in hint.group(1).split(" / ")]
+                assert answer in options, f"the print's key «{answer}» among its options {options}"
+                out.append(f"print: {plain_text(line)} key: {answer}")
+                printed += 1
+    (OUT / "choices-order.txt").write_text("\n".join(out) + "\n")
+    print(f"    {len(rows)} choices, {len(moved)} with the right answer not on top, all right; the print's {printed} choices against its key")
 
 
 def based(v, base: str):
@@ -17991,6 +18064,7 @@ def plan():
         ("sheet-corrections-types", sheet_corrections_types, go_home, False, ""),
         ("school-b1", school_b1, go_home, False, ""),
         ("school-unit", school_unit, go_home, False, ""),
+        ("choices-order", choices_order, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-reveal", school_reveal, go_home, False, ""),
         ("school-a2", school_a2, go_home, False, ""),
@@ -18583,7 +18657,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "party", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "party", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
