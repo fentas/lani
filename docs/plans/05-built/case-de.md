@@ -110,7 +110,9 @@ village get no case row, as before. GET /state says `cases` in a German village 
   n-Deklination's list, the genitive's -es or -s, the dative plural's -n); a full forms book (Slovene's) isn't needed. Two
   ports (bridge and app) are held together by the fixture, which the smoke and `CaseTrainerDeTest` both read.
 - **The lens never guesses silently.** On the bank's 387 "Welcher Fall?" items (gold written apart from the lens) it reads
-  all 387 right, none wrong as sure. Its likely picks are shown with the other readings. Over the 4,875 German content
+  all 387 right, none wrong as sure. On 34 held-out words of the content's lines (every 79th line, labelled by hand before
+  the lens ran: `bridge/test/fixtures/case-lens-de-heldout.json`) 33 right, none wrong as sure, one open (an exclamation
+  without a verb). Its likely picks are shown with the other readings. Over the 4,875 German content
   lines (Kärnten's scenes, stories, readings, the German book's examples, the packs' examples) it gives 17,503 words a
   case: 76 % decided, 17 % likely, 7 % left open (an exclamation with no verb, Ein Karpfen!, stays open); 0.2 ms a line.
   Samples of those lines read by hand found the misses fixed since (an imperative's object, morgen first in a sentence,
@@ -131,7 +133,7 @@ village get no case row, as before. GET /state says `cases` in a German village 
 
 - Bridge: `bunx tsc --noEmit -p .`; `bun test/check-cases.ts de` (ok); the smoke's `case-de` section (the table against
   the German book, its 54 examples through the lens, the bank's spread and what its checks catch, the lens against the
-  bank's gold, the forms fixture, `stateFeatures`) and `caseDeLive` in the Kärnten village's bridge (GET /cases, GET
+  bank's gold and on the held-out lines, the forms fixture, `stateFeatures`) and `caseDeLive` in the Kärnten village's bridge (GET /cases, GET
   /lookup with and without `lens=2`, POST /case-lens, the tools, POST /cases/done); `tutor-export --check`.
 - Python: `test_case_triggers_de.py` (the JSON is the script's).
 - App: `CaseTrainerDeTest` (the set, the bank, the forms' parity, Dekliniere, the n-Deklination, the noun's sure slots,
