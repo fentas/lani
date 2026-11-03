@@ -19,6 +19,8 @@ const LANGUAGE = /^[a-z]{2,3}$/
 /** At most this many people and places are passed on. */
 export const MAX_VILLAGERS = 80
 export const MAX_SCENES = 60
+/** A scene file's `dialogs` at most (sceneSpec); served, its `variants` come after them, among its dialogs (servedDialogs). */
+const FILE_DIALOGS = 12
 
 /** A text from another town as the app gets it: no control characters, no < or >, as long as its format allows. */
 const cleanString = (s: string) => s.replace(/[\u0000-\u001f\u007f<>]/g, ' ')
@@ -91,8 +93,12 @@ export function cleanScenes(b: any, id: string): (VisitHead & { scenes: PublicSc
   if (!head) return undefined
   const seen = new Set<string>()
   const scenes = (Array.isArray(b.scenes) ? b.scenes.slice(0, MAX_SCENES) : []).flatMap((raw: any) => {
-    const v = validateScene(raw)
-    if (!v.ok || seen.has(v.scene.id)) return []
+    // served, a scene has its variants among its dialogs: checked as its file has them (the first FILE_DIALOGS, then the
+    // variants), else a scene with more than 12 dialogs in all, its variants counted, was left out of every visit
+    const all: unknown[] = Array.isArray(raw?.dialogs) ? raw.dialogs : []
+    const checked = validateScene({ ...raw, dialogs: all.slice(0, FILE_DIALOGS), variants: all.slice(FILE_DIALOGS) })
+    if (!checked.ok || seen.has(checked.scene.id)) return []
+    const v = { scene: { ...checked.scene, dialogs: [...checked.scene.dialogs, ...checked.scene.variants], variants: [] } }
     seen.add(v.scene.id)
     const rawObjects: any[] = Array.isArray(raw?.objects) ? raw.objects : []
     const objects = v.scene.objects.map(o => {

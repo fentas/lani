@@ -89,6 +89,10 @@ export async function visits(jan: Town, mia: Town, luka: Town) {
   const tutorOnlyV = janOwnV.filter((v: any) => v.source === 'tutor' && !primorska.some(p => p.id === v.id)).map((v: any) => v.id)
   const tutorOnlyS = janOwnS.filter((s: any) => s.source === 'tutor').map((s: any) => s.id)
   check("visits: Mia visits Jan's town: its Slovene cast (primorska) and its curated places (its hills among them)", mv.language === 'sl' && mv.culture === 'primorska' && ids(mv.villagers) === ids(primorska) && ms.scenes.some((s: any) => s.id === 'na-gricih' && s.culture === 'primorska'), { villagers: ids(mv.villagers ?? []), scenes: ids(ms.scenes ?? []) })
+  // every curated place, those with more than 12 dialogs (their variants among them, as served) too: cleanScenes checks
+  // a served scene as its file has it
+  const janCurated = (janOwnS as any[]).filter(s => s.source === 'curated')
+  check("visits: … every one of its curated places, the ones with many variants too (more than 12 dialogs in all)", ids(ms.scenes.filter((s: any) => s.source === 'curated')) === ids(janCurated) && janCurated.some(s => s.dialogs.length > 12), { missing: janCurated.filter(s => !ms.scenes.some((m: any) => m.id === s.id)).map(s => s.id) })
   check("visits: … none of what Jan's tutor published", !mv.villagers.some((v: any) => tutorOnlyV.includes(v.id)) && !ms.scenes.some((s: any) => s.source !== 'curated' || (tutorOnlyS.includes(s.id) && !janOwnS.some((c: any) => c.id === s.id && c.source === 'curated'))), { tutorOnlyV, tutorOnlyS })
 
   // the child's town: Jan's bridge knows it; its people are asked for now (and kept, for when it is away)
