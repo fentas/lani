@@ -182,20 +182,20 @@ No screen changed; the units add content.
 
 ## Tests
 
-On the final content (0c266d22; nothing but this doc came after it):
+On the final content (cb90c296; nothing but this doc came after it):
 
 - **Bridge:** `bunx tsc --noEmit -p .` clean; the smoke (LANI_SMOKE_PORT=9930, FRIULI 9932, TOWN 9934, DRAMA3 9948): all 3,508 checks
   passed, among them course/en, the rule line of every step in every base, course-speech's English checks and the prompt clashes.
 - **`tutor-export --check`:** 89 files match the bridge.
-- **Android, the course's classes** (lani-slot.sh; not the whole suite, part c and the gate run it): 120 tests, 0 failures:
-  `EnglishA2bContentTest` (8, new), `EnglishCourseContentTest` (6), `GradingLanguagesTest` (48), `GrammarTest` (16), `CourseTest` (8),
-  `SchoolBoardTest` (7), `IntroSpeechTest` (10), `IntroSpeechParityTest` (2), `GameIntroSpeechTest` (7), `IntroBoldTapTest` (2),
-  `SentenceGrammarTest` (6).
+- **Android** (lani-slot.sh; not the whole suite, part c and the gate run it): 255 tests in 29 classes, 0 failures: the course's classes
+  in all four languages, `EnglishA2bContentTest` (13), `GradingNonstandardTest` (9), `NonstandardHintTest`, `GradingLanguagesTest` (48),
+  sheets, dialogs and l10n.
+- **Python:** `test_qa_fit.py` (7, new) and the other `test_qa*` tests, 27 in all.
 - **The sheets:** `school-prints` in sl, de and it, to PDF: all fit, `some-and-any`, `how-much`, `someone-anything` on one page,
   `comparatives`, `superlatives`, `adverbs` on two, the booklet 11 pages. Two previews read by eye.
 - **While writing** (scratch, not committed): `validateUnit` and `validateGrammar`; a port of the English grading over every right
   answer and every distractor against every gap; each bold form of every explanation and summary found among what her voice reads, for
-  each base; every rule line with a form on it.
+  each base; every rule line with a form on it. The port doesn't know `nonstandard`; the Android tests do.
 
 ## QA
 
@@ -203,15 +203,17 @@ Emulator QA through `companion/bin/qa-slot --steps course-unit` (a 1080 × 2400 
 Slovene in the Lake District (make-learner.ts, `LANI_CULTURE=lakeland`, `LANI_QA_SETUP_PAIR=en-sl`). Screenshots in the scratchpad under
 ux-course-en-a2-b/.
 
-- **`how-much`, on the last content:** passed whole: the school, the unit's page, the intro's five steps (choices tapped, gaps typed),
+- **`how-much`, before the spoken forms' change (cb90c296; its table's cells took `loads of`, nothing on screen changed):** passed whole: the school, the unit's page, the intro's five steps (choices tapped, gaps typed),
   the summary, the first worksheet, the test straight away and passed, its sheet printed (the dialog's preview, the PDF: A4, one
   page, WebView and Chromium chose alike).
 - **`someone-anything`, before the tables' last change:** passed whole in the same way, the PDF A4, one page. That change is covered by
   the tests, not by a run of its own.
-- **`comparatives`:** played to the print's preview, then QA's `same_fit` stopped it: the same choice in the WebView and Chromium (2
-  pages, layout two, density 0), but "over", how far its one-page try runs over, was 17 mm against 13, and QA allows 1. A line
-  wrapped differently, on a layout neither of them chose, so what prints is the same. The PDF step didn't run for it. `superlatives` and
-  `adverbs`, also two pages, may stop there too. Left as it is: a change to QA isn't this part's to make.
+- **`comparatives`, on the last content:** passed whole, the PDF A4, two pages. The first run stopped at QA's `same_fit`: the same choice in
+  the WebView and Chromium (2 pages, layout two, density 0), but "over", how far its one-page try runs over, was 17 mm against 13, and QA
+  allowed 1. A line wrapped differently, on a layout neither chose. With the same choice QA now allows 10 (0aaf61c7); the second run
+  measured 17 and 13 again and went on.
+- **`superlatives`, `adverbs`, `some-and-any`:** no emulator run. On-screen, nobody has seen `nonstandard`'s line yet: QA answers right. The
+  verdict, the hint and its text in each base are unit tests.
 
 What it found, fixed:
 - **A word broken in two** (b5909e6e): someone-anything's table in four columns printed somewher/e on the phone. The first part is in
@@ -226,8 +228,8 @@ What it found, fixed:
 ## Voice
 
 Nothing voiced. Mrs Hartley's clips of these six (`voice-build`'s `course` source, `--only teacher`): about 380 lines in her
-English voice, about 7,400 characters. The explanations, one clip a step and a summary (`--explanations`, made on demand as an intro
-opens), 40 a base: about 10,900 characters in Slovene, 11,400 in German, 11,700 in Italian. All of it for every base: about **41,400
+English voice, about 7,500 characters. The explanations, one clip a step and a summary (`--explanations`, made on demand as an intro
+opens), 40 a base: about 11,000 characters in Slovene, 11,500 in German, 11,800 in Italian. All of it for every base: about **41,800
 characters**. The three pages' examples (heard with 🔊 in the book, voiced on demand) add about 760 characters. Counted with
 `courseTexts`, as the app reads them. Spending them is Jan's to decide.
 
