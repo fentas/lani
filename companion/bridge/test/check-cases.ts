@@ -36,7 +36,7 @@ export function caseCheck(language: string, root = companion): CaseCheck {
     const js = (d: string) => (existsSync(d) ? readdirSync(d).filter(f => f.endsWith('.json')).sort().map(f => JSON.parse(readFileSync(join(d, f), 'utf8'))) : [])
     const village = join(root, 'cultures/kaernten/scenes')
     const deScenes = new Set([...scenes, ...(existsSync(village) ? readdirSync(village).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5)) : [])])
-    de = { forms: new GermanForms(t.table), dict, nouns: germanPackNouns(js(join(root, 'cultures/kaernten/packs'))), pages, scenes: deScenes }
+    de = { forms: new GermanForms(t.table), dict, nouns: germanPackNouns([...js(join(root, 'cultures/kaernten/packs')), ...js(join(root, 'packs/de'))]), pages, scenes: deScenes }
   }
   return { forms: { dict, book: new FormsBook({ dir: lexiconDir, language }), pages: new Set(pages.keys()), lines: new LineIndex([]), language }, pages, scenes, ...(de ? { de } : {}) }
 }

@@ -991,14 +991,14 @@
     }
   ],
   "contractions": [
-    {"form": "im", "preposition": "in", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "am", "preposition": "an", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "beim", "preposition": "bei", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "vom", "preposition": "von", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "zum", "preposition": "zu", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "zur", "preposition": "zu", "article": "der", "case": "dat", "genders": ["f"]},
-    {"form": "ins", "preposition": "in", "article": "das", "case": "acc", "genders": ["n"]},
-    {"form": "ans", "preposition": "an", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "im", "preposition": "in", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": true},
+    {"form": "am", "preposition": "an", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": true},
+    {"form": "beim", "preposition": "bei", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": true},
+    {"form": "vom", "preposition": "von", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": true},
+    {"form": "zum", "preposition": "zu", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": true},
+    {"form": "zur", "preposition": "zu", "article": "der", "case": "dat", "genders": ["f"], "usual": true},
+    {"form": "ins", "preposition": "in", "article": "das", "case": "acc", "genders": ["n"], "usual": true},
+    {"form": "ans", "preposition": "an", "article": "das", "case": "acc", "genders": ["n"], "usual": true},
     {"form": "aufs", "preposition": "auf", "article": "das", "case": "acc", "genders": ["n"]},
     {"form": "ums", "preposition": "um", "article": "das", "case": "acc", "genders": ["n"]},
     {"form": "durchs", "preposition": "durch", "article": "das", "case": "acc", "genders": ["n"]},
@@ -1265,6 +1265,49 @@
       "preposition": "an",
       "case": "dat",
       "rule": "adjektive-praepositionen"
+    },
+    {
+      "lemma": "bekannt",
+      "forms": ["bekannt"],
+      "preposition": "für",
+      "case": "acc",
+      "rule": "adjektive-praepositionen"
+    },
+    {
+      "lemma": "zufrieden",
+      "forms": ["zufrieden"],
+      "preposition": "mit",
+      "case": "dat",
+      "rule": "adjektive-praepositionen"
+    },
+    {"lemma": "fertig", "forms": ["fertig"], "preposition": "mit", "case": "dat", "rule": "adjektive-praepositionen"},
+    {
+      "lemma": "verheiratet",
+      "forms": ["verheiratet"],
+      "preposition": "mit",
+      "case": "dat",
+      "rule": "adjektive-praepositionen"
+    },
+    {
+      "lemma": "befreundet",
+      "forms": ["befreundet"],
+      "preposition": "mit",
+      "case": "dat",
+      "rule": "adjektive-praepositionen"
+    },
+    {
+      "lemma": "begeistert",
+      "forms": ["begeistert"],
+      "preposition": "von",
+      "case": "dat",
+      "rule": "adjektive-praepositionen"
+    },
+    {
+      "lemma": "abhängig",
+      "forms": ["abhängig"],
+      "preposition": "von",
+      "case": "dat",
+      "rule": "adjektive-praepositionen"
     }
   ],
   "verbs": [
@@ -1328,6 +1371,12 @@
         "gratulieren", "gratuliere", "gratulierst", "gratuliert", "gratulierte", "gratuliertest", "gratulierten",
         "gratuliertet", "gratulier"
       ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "glauben",
+      "forms": ["glauben", "glaube", "glaubst", "glaubt", "glaubte", "glaubtest", "glaubten", "glaubtet", "geglaubt", "glaub"],
       "takes": ["dat"],
       "rule": "dativ"
     },
@@ -2214,7 +2263,8 @@
     {"words": "frohe ostern", "case": "acc", "number": "pl", "rule": "akkusativ"},
     {"words": "viel glück", "case": "acc", "number": "sg", "rule": "akkusativ"},
     {"words": "viel spaß", "case": "acc", "number": "sg", "rule": "akkusativ"},
-    {"words": "es gibt", "case": "acc", "number": "sg", "trigger": "gibt", "rule": "akkusativ"}
+    {"words": "es gibt", "case": "acc", "number": "sg", "trigger": "gibt", "rule": "akkusativ"},
+    {"words": "gibt es", "case": "acc", "number": "sg", "trigger": "gibt", "rule": "akkusativ"}
   ],
   "roles": {
     "subject": {

@@ -96,6 +96,8 @@ const contractionEntry = z.strictObject({
   case: caseKey,
   genders: z.array(genderKey).min(1).max(2),
   spoken: z.boolean().optional(),
+  /** The usual form, written too: the article alone after its preposition wants a reason (im, am, zum, zur, beim, vom, ins, ans). */
+  usual: z.boolean().optional(),
 })
 
 /** A verb with its forms (as the generator makes them); [particle] a separable one's (zuhören: höre … zu), [joined] its forms with it. */

@@ -278,7 +278,8 @@ export class CaseLensDe {
     const head = toks[k]
     if (!head || head.clause !== t.clause) return null
     // a pronoun (no determiner, no adjectives before it)
-    if (!detSlots && !adjs.length && !head.cap || (head.first && !detSlots && !adjs.length && this.pronouns.has(head.low))) {
+    // (Sie, Ihnen: the polite you, capitalized)
+    if (!detSlots && !adjs.length && (!head.cap || head.first || /^(Sie|Ihnen|Ihrer)$/.test(head.raw)) && this.pronouns.has(head.low)) {
       const pr = this.pronouns.get(head.low)
       if (pr && !(head.low === 'ihr' && toks[k + 1]?.cap && toks[k + 1]?.clause === head.clause)) {
         const slots = pr.flatMap(p => p.slots)
@@ -288,11 +289,13 @@ export class CaseLensDe {
     if (!head.cap) return null
     const dictName = (this.s.dict?.grammarReadings(head.low) ?? []).find(r => r.pos === 'name')
     const name = this.nameOf(head, names) ?? (dictName && !this.s.nouns?.has(head.raw) ? { name: head.raw, ...(dictName.gender === 'm' || dictName.gender === 'f' ? { gender: dictName.gender } : {}) } : null)
-    const noun = name ? null : this.nounOf(head)
+    // a village's name in -s before a noun: whose (Kathis Gasthaus)
+    const whose = !name && /^\p{Lu}\p{Ll}+s$/u.test(head.raw) && names.some(n => `${n.name}s` === head.raw) && toks[k + 1]?.cap && toks[k + 1]?.clause === head.clause
+    const noun = name || whose ? null : this.nounOf(head)
     let slots: Slot[]
     let lemma: string
     let pos: Phrase['pos'] = 'noun'
-    if (name || (!noun && /^\p{Lu}\p{Ll}+s$/u.test(head.raw) && names.some(n => `${n.name}s` === head.raw))) {
+    if (name || whose) {
       pos = 'name'
       const n = name ?? names.find(x => `${x.name}s` === head.raw)!
       lemma = n.name
@@ -365,8 +368,8 @@ export class CaseLensDe {
         const startIdx = ` ${text} `.slice(0, at).trim().split(' ').filter(Boolean).length
         const span = ph.words.split(' ')
         const words = ct.slice(startIdx, startIdx + span.length)
-        if (ph.words === 'es gibt' || ph.words === 'es gab') {
-          for (const p of cp) if (p.head.i > words.at(-1)!.i && !p.prep && p.slots.some(s => s.case === 'acc')) this.settle(p, p.slots.filter(s => s.case === 'acc'), { kind: 'phrase', trigger: words[1], rule: ph.rule })
+        if (ph.words === 'es gibt' || ph.words === 'gibt es') {
+          for (const p of cp) if (p.head.i > words.at(-1)!.i && !p.prep && p.slots.some(s => s.case === 'acc')) this.settle(p, p.slots.filter(s => s.case === 'acc'), { kind: 'phrase', trigger: words.find(w => w.low === 'gibt'), rule: ph.rule })
           continue
         }
         for (const p of cp) if (words.some(w => w === p.head)) this.settle(p, p.slots.filter(s => s.case === ph.case).length ? p.slots.filter(s => s.case === ph.case) : [{ case: ph.case, number: ph.number }], { kind: 'phrase', ...(ph.trigger ? { trigger: words.find(w => w.low === ph.trigger) } : {}), rule: ph.rule })
@@ -452,19 +455,30 @@ export class CaseLensDe {
       for (const { v, tok } of governing) {
         const free = cp.filter(p => !p.kind && !p.prep)
         const [first, second] = v.takes as DeCaseKey[]
-        const fit = free.filter(p => p.slots.some(s => s.case === first))
-        // the one that can only be it, else the one whose form says it first
-        const sure = fit.filter(p => p.slots.every(s => s.case === first))
+        const subjectElsewhere = free.some(p => p.slots.length && p.slots.every(s => s.case === 'nom'))
+        // with no subject by its form, the first that can be one is it (Lena gibt dem Pferd einen Apfel)
+        const subjectLikely = subjectElsewhere ? undefined : free.find(p => p.slots.some(s => s.case === 'nom'))
+        const objects = free.filter(p => p !== subjectLikely && !p.slots.every(s => s.case === 'nom'))
+        const only = (p: Phrase, c: DeCaseKey) => p.slots.every(s => s.case === c)
+        const settleAs = (p: Phrase, c: DeCaseKey, sure: boolean, kind: CaseKind, rule: string) =>
+          this.settle(p, [...p.slots.filter(s => s.case === c), ...(sure ? [] : p.slots.filter(s => s.case !== c))], { kind, trigger: tok, rule, ...(sure ? {} : { sure: 'likely' as const }) })
+        if (second === 'acc') {
+          // whom (the dative) and what (the accusative): by their forms, else the dative first (Lena gibt dem Pferd einen
+          // Apfel); one object alone is what is given, unless its form says the dative (Ich kaufe zwei Semmeln)
+          const canDat = objects.filter(p => p.slots.some(s => s.case === first))
+          const dat = canDat.find(p => only(p, first)) ?? (objects.length >= 2 && canDat.length ? canDat[0] : undefined)
+          if (dat) settleAs(dat, first, only(dat, first) || subjectElsewhere && objects.length >= 2, 'verb', v.rule)
+          for (const p of objects) {
+            if (p === dat || p.kind || !p.slots.some(s => s.case === 'acc')) continue
+            settleAs(p, 'acc', only(p, 'acc') || (!!dat && subjectElsewhere), 'object', 'akkusativ')
+          }
+          continue
+        }
+        const fit = objects.filter(p => p.slots.some(s => s.case === first))
+        const sure = fit.filter(p => only(p, first))
         const notSubject = fit.filter(p => !p.slots.some(s => s.case === 'nom'))
         const pick = sure[0] ?? (fit.length === 1 ? fit[0] : notSubject.length === 1 ? notSubject[0] : undefined)
-        if (pick) {
-          const only = pick.slots.every(s => s.case === first)
-          const subjectElsewhere = free.some(p => p !== pick && p.slots.every(s => s.case === 'nom'))
-          this.settle(pick, [...pick.slots.filter(s => s.case === first), ...(only || subjectElsewhere ? [] : pick.slots.filter(s => s.case !== first))], { kind: 'verb', trigger: tok, rule: v.rule, ...(only || subjectElsewhere ? {} : { sure: 'likely' as const }) })
-        }
-        if (second === 'acc') {
-          for (const p of free) if (!p.kind && p.slots.length && p.slots.every(s => s.case === 'acc')) this.settle(p, p.slots, { kind: 'object', trigger: tok, rule: 'akkusativ' })
-        }
+        if (pick) settleAs(pick, first, only(pick, first) || subjectElsewhere, 'verb', v.rule)
       }
       // a copula: what something is stays in the nominative
       if (copula) {

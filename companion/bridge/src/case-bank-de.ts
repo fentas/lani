@@ -175,8 +175,8 @@ export function germanPackNouns(packs: { words: { de?: string; gender?: string; 
   return out
 }
 
-/** The words with which a contraction or the bare article may stand: a preposition that fuses with der and das in the singular. */
-const FUSING = new Set(['in', 'an', 'bei', 'von', 'zu', 'auf', 'um', 'durch', 'für', 'über', 'unter', 'vor', 'hinter'])
+/** The prepositions whose fusion with the article is the usual form, written too (im, am, beim, vom, zum, zur, ins, ans). */
+const FUSING = new Set(['in', 'an', 'bei', 'von', 'zu'])
 
 const norm = (s: string) => normalizeForm(s, 'de')
 
@@ -241,7 +241,7 @@ export function checkItemsDe(items: CaseItemDe[], rules: Record<string, CaseRule
           const fits = dets.some(d => d.case === key && d.number === n && (n === 'pl' || d.gender === g))
           if (!fits) p(`"${at(from)}" isn't a determiner's ${key}.${n === 'pl' ? 'pl' : g} (${dets.map(d => `${d.case}.${d.gender ?? 'pl'}`).join(', ')})`)
           // the article alone after a preposition that fuses with it: the contraction is what people say and write (zum, im, ins)
-          if (FUSING.has(before) && n === 'sg' && dets.some(d => d.kind === 'definite') && c.forms.table.contractions.some(x => x.preposition === before && x.case === key && x.genders.includes(g) && !x.spoken) && !it.note)
+          if (FUSING.has(before) && n === 'sg' && dets.some(d => d.kind === 'definite') && c.forms.table.contractions.some(x => x.preposition === before && x.case === key && x.genders.includes(g) && x.usual) && !it.note)
             p(`"${before} ${at(from)}": the contraction is the usual form; a note says why the article stands alone`)
         }
         // the adjectives between: their ending after that determiner
@@ -257,7 +257,9 @@ export function checkItemsDe(items: CaseItemDe[], rules: Record<string, CaseRule
         const noun = nounOf(c, it.lemma, g)
         const slot = c.forms.noun(it.lemma, g, noun.plural, key, n)
         const form = at(it.word)
-        if (slot.sure && slot.forms.length && ![...slot.forms, ...slot.also].map(norm).includes(norm(form)) && !(it.spoken && norm(it.spoken.form).includes(norm(form))))
+        // a fixed phrase of the table keeps its old form (zu Hause, nach Hause)
+        const fixed = c.forms.table.phrases.some(ph => norm(it.de).includes(ph.words) && ph.words.split(' ').includes(norm(form)))
+        if (slot.sure && slot.forms.length && !fixed && ![...slot.forms, ...slot.also].map(norm).includes(norm(form)) && !(it.spoken && norm(it.spoken.form).includes(norm(form))))
           p(`"${form}" isn't the ${key}.${n} of ${it.lemma} (${[...slot.forms, ...slot.also].join('/')})`)
         // an ambiguous phrase only where the sentence decides it: by its trigger, else its note
         const others = dets.filter(d => d.number === n && (n === 'pl' || d.gender === g) && d.case !== key)
@@ -312,7 +314,7 @@ export function checkRestDe(bank: Pick<CaseBankDe, 'rules' | 'frames' | 'adjecti
     if (f.det === 'jeder' && f.number === 'pl') p('jeder has no plural: alle is another frame')
     if (f.det === 'none' && f.number === 'sg' && !f.adj) p('no determiner in the singular: only with an adjective (mit frischem Brot)')
     const before = norm(f.de.slice(0, f.de.indexOf('{x}')).trim().split(/\s+/).at(-1) ?? '')
-    if (FUSING.has(before) && f.det === 'der' && f.number === 'sg') p(`"${before} {x}" with der: the contraction would be the usual form (zum, im, ins); take another determiner, or the plural`)
+    if (FUSING.has(before) && f.det === 'der' && f.number === 'sg') p(`"${before} {x}" with der: the contraction would be the usual form (zum, im, ins, am); take another determiner, or the plural`)
     for (const n of f.needs) if (!c.pages.has(n)) p(`needs "${n}": not in the grammar book`)
   }
   for (const a of bank.adjectives) {

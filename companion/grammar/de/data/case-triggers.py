@@ -144,6 +144,7 @@ DATIVE_VERBS = [
     v("antworten", ["dat"], "dativ"),
     v("folgen", ["dat"], "dativ"),
     v("gratulieren", ["dat"], "dativ", pp="gratuliert"),
+    v("glauben", ["dat"], "dativ"),
     v("vertrauen", ["dat"], "dativ", pp="vertraut"),
     v("fehlen", ["dat"], "dativ"),
     v("begegnen", ["dat"], "dativ", pp="begegnet"),
@@ -296,6 +297,13 @@ CHUNKS = [
     {"lemma": "lust", "forms": ["lust"], "preposition": "auf", "case": "acc", "rule": "adjektive-praepositionen"},
     {"lemma": "interessiert", "forms": ["interessiert"], "preposition": "an", "case": "dat", "rule": "adjektive-praepositionen"},
     {"lemma": "interesse", "forms": ["interesse"], "preposition": "an", "case": "dat", "rule": "adjektive-praepositionen"},
+    {"lemma": "bekannt", "forms": ["bekannt"], "preposition": "für", "case": "acc", "rule": "adjektive-praepositionen"},
+    {"lemma": "zufrieden", "forms": ["zufrieden"], "preposition": "mit", "case": "dat", "rule": "adjektive-praepositionen"},
+    {"lemma": "fertig", "forms": ["fertig"], "preposition": "mit", "case": "dat", "rule": "adjektive-praepositionen"},
+    {"lemma": "verheiratet", "forms": ["verheiratet"], "preposition": "mit", "case": "dat", "rule": "adjektive-praepositionen"},
+    {"lemma": "befreundet", "forms": ["befreundet"], "preposition": "mit", "case": "dat", "rule": "adjektive-praepositionen"},
+    {"lemma": "begeistert", "forms": ["begeistert"], "preposition": "von", "case": "dat", "rule": "adjektive-praepositionen"},
+    {"lemma": "abhängig", "forms": ["abhängig"], "preposition": "von", "case": "dat", "rule": "adjektive-praepositionen"},
 ]
 
 # --- prepositions ------------------------------------------------------------------------------------------------
@@ -364,14 +372,14 @@ PREPOSITIONS = [
 
 # A preposition and the article as one word.
 CONTRACTIONS = [
-    {"form": "im", "preposition": "in", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "am", "preposition": "an", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "beim", "preposition": "bei", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "vom", "preposition": "von", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "zum", "preposition": "zu", "article": "dem", "case": "dat", "genders": ["m", "n"]},
-    {"form": "zur", "preposition": "zu", "article": "der", "case": "dat", "genders": ["f"]},
-    {"form": "ins", "preposition": "in", "article": "das", "case": "acc", "genders": ["n"]},
-    {"form": "ans", "preposition": "an", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "im", "preposition": "in", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": True},
+    {"form": "am", "preposition": "an", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": True},
+    {"form": "beim", "preposition": "bei", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": True},
+    {"form": "vom", "preposition": "von", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": True},
+    {"form": "zum", "preposition": "zu", "article": "dem", "case": "dat", "genders": ["m", "n"], "usual": True},
+    {"form": "zur", "preposition": "zu", "article": "der", "case": "dat", "genders": ["f"], "usual": True},
+    {"form": "ins", "preposition": "in", "article": "das", "case": "acc", "genders": ["n"], "usual": True},
+    {"form": "ans", "preposition": "an", "article": "das", "case": "acc", "genders": ["n"], "usual": True},
     {"form": "aufs", "preposition": "auf", "article": "das", "case": "acc", "genders": ["n"]},
     {"form": "ums", "preposition": "um", "article": "das", "case": "acc", "genders": ["n"]},
     {"form": "durchs", "preposition": "durch", "article": "das", "case": "acc", "genders": ["n"]},
@@ -497,6 +505,7 @@ T = {
         {"words": "viel glück", "case": "acc", "number": "sg", "rule": "akkusativ"},
         {"words": "viel spaß", "case": "acc", "number": "sg", "rule": "akkusativ"},
         {"words": "es gibt", "case": "acc", "number": "sg", "trigger": "gibt", "rule": "akkusativ"},
+        {"words": "gibt es", "case": "acc", "number": "sg", "trigger": "gibt", "rule": "akkusativ"},
     ],
     "roles": {
         "subject": {"rule": "faelle", "examples": [ex("Der Teich ist heute ganz still.", "The pond is completely calm today.", "Teich", "nom", "sg")]},
