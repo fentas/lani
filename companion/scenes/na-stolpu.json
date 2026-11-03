@@ -4,7 +4,7 @@
   "title": { "sl": "Na stolpu", "en": "On the watchtower", "de": "Auf dem Wachturm", "it": "Sulla torre di guardia" },
   "emoji": "🗼",
   "level": "A2",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "watchtower",
   "from": ["watchtower"],
   "pack": "na-stolpu",
@@ -33,10 +33,10 @@
   ],
   "happenings": [
     { "id": "straza", "title": { "sl": "Luka je na straži", "en": "Luka is on watch", "de": "Luka hält Wache", "it": "Luka è di guardia" }, "who": "luka",
-      "when": ["evening", "night"], "chance": 0.55, "dialog": "straza", "dialogs": ["straza-zvezde", "straza-megla", "straza"], "reward": { "wood": 20 }, "marker": "🔥",
+      "when": ["evening", "night"], "chance": 0.55, "dialog": "straza", "dialogs": ["straza-b2-srne", "straza-b1-ovce", "straza-zvezde", "straza-megla", "straza"], "reward": { "wood": 20 }, "marker": "🔥",
       "memory": { "sl": "noč na straži, ko so iz gozda prišli volkovi", "en": "the night on watch when the wolves came out of the forest", "de": "die Nacht auf Wache, als die Wölfe aus dem Wald kamen", "it": "la notte di guardia in cui i lupi sono usciti dal bosco" } },
     { "id": "krosnjar", "title": { "sl": "Nejc išče krošnjarja", "en": "Nejc is looking out for the pedlar", "de": "Nejc hält Ausschau nach dem Hausierer", "it": "Nejc cerca con gli occhi il venditore ambulante" }, "who": "nejc",
-      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "krosnjar", "dialogs": ["krosnjar-daljnogled", "krosnjar-denar", "krosnjar"], "reward": { "wisdom": 15 }, "marker": "🔭",
+      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "krosnjar", "dialogs": ["krosnjar-b2-daljnogled", "krosnjar-b1-bonboni", "krosnjar-daljnogled", "krosnjar-denar", "krosnjar"], "reward": { "wisdom": 15 }, "marker": "🔭",
       "memory": { "sl": "krošnjarja, ki sva ga s stolpa videla na cesti", "en": "the pedlar we spotted on the road from the tower", "de": "den Hausierer, den wir vom Turm aus auf der Straße entdeckt haben", "it": "il venditore ambulante che abbiamo avvistato sulla strada dalla torre" } },
     { "id": "nevihta", "title": { "sl": "France vidi nevihto", "en": "France sees a storm coming", "de": "France sieht ein Gewitter kommen", "it": "France vede arrivare un temporale" }, "who": "france",
       "when": ["afternoon"], "months": [4, 5, 6, 7, 8, 9, 10], "chance": 0.4, "dialog": "nevihta", "dialogs": ["nevihta-sekunde", "nevihta-seno", "nevihta"], "reward": { "food": 15 }, "marker": "⛈️",
@@ -329,6 +329,689 @@
         ] },
         { "who": "france", "face": "laugh", "sl": "Uspelo nama je! Seno je na suhem, midva pa mokra.", "en": "We two made it! The hay is in the dry, and we're both soaked.", "de": "Wir zwei haben's geschafft! Das Heu ist im Trockenen, und wir sind nass.", "it": "Ce l'abbiamo fatta! Il fieno è all'asciutto, e noi due fradici.",
           "sky": { "rain": 0.75, "gloom": 0.85 } }
+      ]
+    },
+    {
+      "id": "straza-b1-ovce",
+      "level": "B1",
+      "memory": {
+        "sl": "noč, ko si {m:stražil|f:stražila} namesto mene",
+        "en": "the night you kept watch in my place",
+        "de": "die Nacht, in der du für mich Wache gehalten hast",
+        "it": "la notte in cui hai fatto la guardia al posto mio"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "curious",
+          "sl": "Ej, {learner}! Grem pogledat, ali so ovce v staji. Bi medtem ti {m:stražil|f:stražila}?",
+          "en": "Hey, {learner}! I'm going to check whether the sheep are in the pen. Would you keep watch meanwhile?",
+          "de": "He, {learner}! Ich gehe nachsehen, ob die Schafe im Stall sind. Würdest du inzwischen Wache halten?",
+          "it": "Ehi, {learner}! Vado a vedere se le pecore sono nell'ovile. Faresti tu la guardia nel frattempo?"
+        },
+        {
+          "who": "luka",
+          "sl": "Ponoči je tu gori temno kot v rogu. Te ni strah?",
+          "en": "At night it's pitch dark up here. Aren't you scared?",
+          "de": "Nachts ist es hier oben stockfinster. Hast du keine Angst?",
+          "it": "Di notte quassù è buio pesto. Non hai paura?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Malo me je strah, ampak bom {m:zdržal|f:zdržala}. Pojdi kar.",
+              "en": "I'm a bit scared, but I'll manage. Off you go.",
+              "de": "Ein bisschen Angst habe ich, aber ich halte durch. Geh nur.",
+              "it": "Un po' di paura ce l'ho, ma resisto. Vai pure.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "{m:Pogumen|f:Pogumna} si! Če kaj slišiš, zatrobi v rog.",
+                "en": "You're brave! If you hear anything, blow the horn.",
+                "de": "Du bist mutig! Wenn du etwas hörst, blas ins Horn.",
+                "it": "Sei {m:coraggioso|f:coraggiosa}! Se senti qualcosa, suona il corno."
+              }
+            },
+            {
+              "sl": "Malo sem strah, ampak bom {m:zdržal|f:zdržala}. Pojdi kar.",
+              "en": "I am a bit fear, but I'll manage. Off you go.",
+              "de": "Ich bin ein bisschen Angst, aber ich halte durch. Geh nur.",
+              "it": "Sono un po' paura, ma resisto. Vai pure.",
+              "grammar": "custva",
+              "why": {
+                "en": "Fear is said of you in the accusative, with je: strah me je. Sem strah would make you the fear.",
+                "de": "Angst sagt man mit dem Akkusativ und je: strah me je. Sem strah machte dich selbst zur Angst.",
+                "it": "La paura si dice con l'accusativo e je: strah me je. Sem strah farebbe di te la paura stessa."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Si ti strah? Ha, potem bodo volkovi bežali pred tabo!",
+                "en": "You're the fear? Ha, then the wolves will run away from you!",
+                "de": "Du bist die Angst? Ha, dann rennen die Wölfe vor dir davon!",
+                "it": "Sei tu la paura? Ah, allora i lupi scapperanno da te!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Lani je nekdo na straži zaspal, pa so lisice odnesle tri kokoši.",
+          "en": "Last year someone fell asleep on watch, and the foxes carried off three hens.",
+          "de": "Letztes Jahr ist jemand auf Wache eingeschlafen, und die Füchse haben drei Hühner geholt.",
+          "it": "L'anno scorso qualcuno si è addormentato di guardia, e le volpi si sono portate via tre galline."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne skrbi. Nihče ne bo zaspal. Obljubim.",
+              "en": "Don't worry. Nobody will fall asleep. I promise.",
+              "de": "Keine Sorge. Niemand wird einschlafen. Versprochen.",
+              "it": "Non preoccuparti. Nessuno si addormenterà. Te lo prometto.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Super. Če vidiš lisico, zatrobi dvakrat. Ej, pa ne zaspi!",
+                "en": "Great. If you see a fox, blow twice. Hey, and don't nod off!",
+                "de": "Super. Wenn du einen Fuchs siehst, blas zweimal. He, und schlaf nicht ein!",
+                "it": "Ottimo. Se vedi una volpe, suona due volte. Ehi, e non addormentarti!"
+              }
+            },
+            {
+              "sl": "Ne skrbi. Nekdo ne bo zaspal. Obljubim.",
+              "en": "Don't worry. Somebody won't fall asleep. I promise.",
+              "de": "Keine Sorge. Jemand wird nicht einschlafen. Versprochen.",
+              "it": "Non preoccuparti. Qualcuno non si addormenterà. Te lo prometto.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Nobody is nihče, and it doubles the no: nihče ne bo zaspal. Nekdo is somebody.",
+                "de": "Niemand heißt nihče, und es verdoppelt das Nein: nihče ne bo zaspal. Nekdo ist jemand.",
+                "it": "Nessuno è nihče, e raddoppia il no: nihče ne bo zaspal. Nekdo è qualcuno."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nekdo? Kdo pa? Saj tu ni nikogar drugega!",
+                "en": "Somebody? Who, then? There's nobody else here!",
+                "de": "Jemand? Wer denn? Hier ist doch sonst keiner!",
+                "it": "Qualcuno? E chi? Qui non c'è nessun altro!"
+              }
+            },
+            {
+              "sl": "Ne skrbi. Nihče bo zaspal. Obljubim.",
+              "en": "Don't worry. Nobody will (no ne) fall asleep. I promise.",
+              "de": "Keine Sorge. Niemand wird (ohne ne) einschlafen. Versprochen.",
+              "it": "Non preoccuparti. Nessuno (senza ne) si addormenterà. Te lo prometto.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Nihče doubles the no: the verb keeps its ne, nihče ne bo zaspal.",
+                "de": "Nihče verdoppelt das Nein: das Verb behält sein ne, nihče ne bo zaspal.",
+                "it": "Nihče raddoppia il no: il verbo tiene il suo ne, nihče ne bo zaspal."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nihče bo? Hm, tako bodo lisice spet site.",
+                "en": "Nobody will? Hm, then the foxes will be full again.",
+                "de": "Niemand wird? Hm, dann werden die Füchse wieder satt.",
+                "it": "Nessuno sì? Mm, così le volpi si rimpinzano di nuovo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Hvala, {learner}. Takoj sem nazaj. No, mogoče malo kasneje, ovce so trmaste.",
+          "en": "Thanks, {learner}. I'll be right back. Well, maybe a bit later, sheep are stubborn.",
+          "de": "Danke, {learner}. Ich bin gleich zurück. Na ja, vielleicht etwas später, Schafe sind stur.",
+          "it": "Grazie, {learner}. Torno subito. Be', magari un po' più tardi, le pecore sono testarde."
+        }
+      ]
+    },
+    {
+      "id": "straza-b2-srne",
+      "level": "B2",
+      "memory": {
+        "sl": "noč, ko sem ti zaupal zgodbo o srnah",
+        "en": "the night I told you the story of the deer",
+        "de": "die Nacht, in der ich dir die Geschichte mit den Rehen anvertraut habe",
+        "it": "la notte in cui ti ho confidato la storia dei caprioli"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "shy",
+          "sl": "Ej, {learner}, nekaj ti povem, ampak ne povej naprej. Lani sem tukaj zatrobil sredi noči.",
+          "en": "Hey, {learner}, I'll tell you something, but don't pass it on. Last year I blew the horn up here in the middle of the night.",
+          "de": "He, {learner}, ich erzähl dir was, aber sag es nicht weiter. Letztes Jahr habe ich hier mitten in der Nacht ins Horn geblasen.",
+          "it": "Ehi, {learner}, ti dico una cosa, ma non dirlo in giro. L'anno scorso quassù ho suonato il corno in piena notte."
+        },
+        {
+          "who": "luka",
+          "face": "laugh",
+          "sl": "V gozdu sem videl oči in mislil, da so volkovi. Ko je prišla vsa vas z baklami, so bile srne že pobegnile.",
+          "en": "I saw eyes in the forest and thought they were wolves. When the whole village came with torches, the deer had already run off.",
+          "de": "Im Wald sah ich Augen und dachte, es wären Wölfe. Als das ganze Dorf mit Fackeln kam, waren die Rehe schon davongelaufen.",
+          "it": "Ho visto degli occhi nel bosco e ho pensato che fossero lupi. Quando è arrivato tutto il paese con le torce, i caprioli erano già scappati."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej si naredil iz muhe slona. Ampak bolje tako kot obratno.",
+              "en": "So you made a mountain out of a molehill. But better that than the other way round.",
+              "de": "Du hast also aus einer Mücke einen Elefanten gemacht. Aber besser so als umgekehrt.",
+              "it": "Allora hai fatto di una mosca un elefante. Ma meglio così che il contrario.",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "sl": "Ja, tako je rekel tudi oče. Pa se mi še danes vsi smejijo.",
+                "en": "Yes, that's what Dad said too. And everyone still laughs at me today.",
+                "de": "Ja, das hat Papa auch gesagt. Und alle lachen heute noch über mich.",
+                "it": "Sì, l'ha detto anche papà. E ancora oggi ridono tutti di me."
+              }
+            },
+            {
+              "sl": "Torej si naredil iz miši slona. Ampak bolje tako kot obratno.",
+              "en": "So you made an elephant out of a mouse. But better that than the other way round.",
+              "de": "Du hast also aus einer Maus einen Elefanten gemacht. Aber besser so als umgekehrt.",
+              "it": "Allora hai fatto di un topo un elefante. Ma meglio così che il contrario.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is narediti iz muhe slona (out of a fly an elephant); an idiom keeps its words.",
+                "de": "Die Wendung heißt narediti iz muhe slona (aus einer Fliege einen Elefanten); eine Redewendung behält ihre Wörter.",
+                "it": "Il modo di dire è narediti iz muhe slona (di una mosca un elefante); un modo di dire tiene le sue parole."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Iz miši? Ha, miši je bilo tam pa res dovolj!",
+                "en": "Out of a mouse? Ha, there were plenty of mice up there, that's true!",
+                "de": "Aus einer Maus? Ha, Mäuse gab es da wirklich genug!",
+                "it": "Di un topo? Ah, di topi lì ce n'erano davvero tanti!"
+              }
+            },
+            {
+              "sl": "Torej si bil strahopetec, ne pa stražar.",
+              "en": "So you were a coward, not a watchman.",
+              "de": "Du warst also ein Feigling und kein Wächter.",
+              "it": "Allora eri un fifone, non una sentinella.",
+              "why": {
+                "en": "Luka did his duty and raised the alarm: tease him gently, but grant he was right to blow the horn.",
+                "de": "Luka hat seine Pflicht getan und Alarm geschlagen: zieh ihn sanft auf, aber gib zu, dass das Blasen richtig war.",
+                "it": "Luka ha fatto il suo dovere dando l'allarme: prendilo in giro con garbo, ma riconosci che ha fatto bene a suonare."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Strahopetec? Ej, zatrobil sem, nisem pa zbežal!",
+                "en": "A coward? Hey, I blew the horn, but I didn't run!",
+                "de": "Ein Feigling? He, ich habe ins Horn geblasen, aber ich bin nicht weggelaufen!",
+                "it": "Un fifone? Ehi, ho suonato il corno, mica sono scappato!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Če bi bil počakal še minuto, bi bil videl, da so srne. Ampak v temi človek ne ve.",
+          "en": "If I'd waited one more minute, I'd have seen they were deer. But in the dark you don't know.",
+          "de": "Hätte ich noch eine Minute gewartet, hätte ich gesehen, dass es Rehe waren. Aber im Dunkeln weiß man es nicht.",
+          "it": "Se avessi aspettato ancora un minuto, avrei visto che erano caprioli. Ma al buio uno non lo sa."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak če bi bili res volkovi, bi bil zdaj vaški junak.",
+              "en": "Of course, but if they really had been wolves, you'd be the village hero now.",
+              "de": "Sicher, aber wären es wirklich Wölfe gewesen, wärst du jetzt der Held des Dorfes.",
+              "it": "Certo, ma se fossero stati davvero lupi, adesso saresti l'eroe del paese.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Ha! Vaški junak … To mi je všeč. Če bo treba, bom spet zatrobil.",
+                "en": "Ha! The village hero … I like that. If need be, I'll blow it again.",
+                "de": "Ha! Der Held des Dorfes … Das gefällt mir. Wenn es sein muss, blase ich wieder.",
+                "it": "Ah! L'eroe del paese … Mi piace. Se servirà, suonerò di nuovo."
+              }
+            },
+            {
+              "sl": "Seveda, ampak če so bili res volkovi, bi bil zdaj vaški junak.",
+              "en": "Of course, but if they really were wolves, you'd be the village hero now.",
+              "de": "Sicher, aber wenn es wirklich Wölfe waren, wärst du jetzt der Held des Dorfes.",
+              "it": "Certo, ma se erano davvero lupi, adesso saresti l'eroe del paese.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "They weren't wolves: what wasn't so takes the conditional, če bi bili volkovi. Če so bili says they were.",
+                "de": "Es waren keine Wölfe: was nicht so war, steht im Konditional, če bi bili volkovi. Če so bili sagt, sie waren es.",
+                "it": "Non erano lupi: ciò che non era così vuole il condizionale, če bi bili volkovi. Če so bili dice che lo erano."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "So bili? Ne, ne, srne so bile! Saj sem ti povedal.",
+                "en": "They were? No, no, they were deer! I told you.",
+                "de": "Sie waren es? Nein, nein, es waren Rehe! Ich hab's dir doch gesagt.",
+                "it": "Lo erano? No, no, erano caprioli! Te l'ho detto."
+              }
+            },
+            {
+              "sl": "Seveda. Zato naslednjič raje ne trobi nikoli.",
+              "en": "Of course. So next time, better never blow it at all.",
+              "de": "Sicher. Darum blas nächstes Mal lieber gar nicht.",
+              "it": "Certo. Quindi la prossima volta meglio non suonare mai.",
+              "why": {
+                "en": "A watchman must raise the alarm when in doubt: never blowing the horn would be worse than a false alarm.",
+                "de": "Ein Wächter muss im Zweifel Alarm schlagen: nie ins Horn zu blasen wäre schlimmer als ein falscher Alarm.",
+                "it": "Una sentinella nel dubbio deve dare l'allarme: non suonare mai sarebbe peggio di un falso allarme."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Nikoli? Potem lahko volkovi pridejo kar v vas!",
+                "en": "Never? Then the wolves can walk right into the village!",
+                "de": "Nie? Dann können die Wölfe glatt ins Dorf spazieren!",
+                "it": "Mai? Allora i lupi possono entrare dritti in paese!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Prav. Ti pazi na gozd, jaz pa na zvezde. Kdor prvi kaj zagleda, dobi jabolko.",
+          "en": "Right. You keep an eye on the forest, I'll watch the stars. Whoever spots something first gets an apple.",
+          "de": "Gut. Du passt auf den Wald auf, ich auf die Sterne. Wer zuerst etwas entdeckt, kriegt einen Apfel.",
+          "it": "Bene. Tu tieni d'occhio il bosco, io le stelle. Chi vede qualcosa per primo, si prende una mela."
+        }
+      ]
+    },
+    {
+      "id": "krosnjar-b1-bonboni",
+      "level": "B1",
+      "memory": {
+        "sl": "bonbone, ki si mi jih {m:obljubil|f:obljubila}",
+        "en": "the sweets you promised me",
+        "de": "die Bonbons, die du mir versprochen hast",
+        "it": "le caramelle che mi hai promesso"
+      },
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "happy",
+          "sl": "{learner}! Mama pravi, da ima krošnjar letos žepne nože. Ampak mi ga ne pusti kupiti.",
+          "en": "{learner}! Mum says the pedlar has pocket knives this year. But she won't let me buy one.",
+          "de": "{learner}! Mama sagt, der Hausierer hat heuer Taschenmesser. Aber sie lässt mich keins kaufen.",
+          "it": "{learner}! La mamma dice che quest'anno l'ambulante ha i coltellini. Ma non me ne lascia comprare uno."
+        },
+        {
+          "who": "nejc",
+          "face": "curious",
+          "sl": "Kaj bi ti {m:kupil|f:kupila}, če bi {m:imel|f:imela} denar?",
+          "en": "What would you buy if you had money?",
+          "de": "Was würdest du kaufen, wenn du Geld hättest?",
+          "it": "Tu cosa compreresti, se avessi i soldi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz bi {m:kupil|f:kupila} knjigo z zgodbami. Tebi bi pa {m:kupil|f:kupila} bonbone.",
+              "en": "I'd buy a book of stories. And for you I'd buy sweets.",
+              "de": "Ich würde ein Buch mit Geschichten kaufen. Und dir würde ich Bonbons kaufen.",
+              "it": "Io comprerei un libro di storie. E a te comprerei le caramelle.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Bonbone! Ti si {m:najboljši|f:najboljša}, {learner}!",
+                "en": "Sweets! You're the best, {learner}!",
+                "de": "Bonbons! Du bist der Beste, {learner}!",
+                "it": "Caramelle! Sei {m:il migliore|f:la migliore}, {learner}!"
+              }
+            },
+            {
+              "sl": "Jaz bom {m:kupil|f:kupila} knjigo z zgodbami. Tebi bi pa {m:kupil|f:kupila} bonbone.",
+              "en": "I will buy a book of stories. And for you I'd buy sweets.",
+              "de": "Ich werde ein Buch mit Geschichten kaufen. Und dir würde ich Bonbons kaufen.",
+              "it": "Io comprerò un libro di storie. E a te comprerei le caramelle.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "It's only if you had the money: the conditional, jaz bi {m:kupil|f:kupila}. Bom says you will buy it.",
+                "de": "Es geht nur darum, wenn du Geld hättest: der Konditional, jaz bi {m:kupil|f:kupila}. Bom heißt, du kaufst es wirklich.",
+                "it": "È solo se avessi i soldi: il condizionale, jaz bi {m:kupil|f:kupila}. Bom dice che lo comprerai davvero."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Boš? Super! Kdaj gremo?",
+                "en": "You will? Great! When are we going?",
+                "de": "Wirklich? Super! Wann gehen wir?",
+                "it": "Davvero? Forte! Quando andiamo?"
+              }
+            },
+            {
+              "sl": "Jaz bi {m:kupil|f:kupila} knjigo z zgodbami. Tebe bi pa {m:kupil|f:kupila} bonbone.",
+              "en": "I'd buy a book of stories. And you (accusative) I'd buy sweets.",
+              "de": "Ich würde ein Buch mit Geschichten kaufen. Und dich (Akkusativ) würde ich Bonbons kaufen.",
+              "it": "Io comprerei un libro di storie. E te (accusativo) comprerei le caramelle.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Buying for someone takes the dative: tebi (for you). Tebe is the accusative.",
+                "de": "Für jemanden kaufen steht mit dem Dativ: tebi (dir). Tebe ist der Akkusativ.",
+                "it": "Comprare per qualcuno vuole il dativo: tebi (a te). Tebe è l'accusativo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Mene bi kdo kupil? Ha ha, nisem naprodaj!",
+                "en": "Somebody would buy me? Ha ha, I'm not for sale!",
+                "de": "Mich würde jemand kaufen? Ha ha, ich bin nicht zu verkaufen!",
+                "it": "Qualcuno comprerebbe me? Ah ah, non sono in vendita!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Hitreje, {learner}!",
+            "en": "What? Faster, {learner}!",
+            "de": "Was? Schneller, {learner}!",
+            "it": "Cosa? Più veloce, {learner}!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "thinking",
+          "sl": "Mama pravi, da denar, ki ga zapraviš za bonbone, ne zraste nazaj.",
+          "en": "Mum says money you spend on sweets doesn't grow back.",
+          "de": "Mama sagt, Geld, das man für Bonbons ausgibt, wächst nicht nach.",
+          "it": "La mamma dice che i soldi spesi in caramelle non ricrescono."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem jo vprašaj, ali lahko dobiš vsaj enega.",
+              "en": "Then ask her whether you can have at least one.",
+              "de": "Dann frag sie, ob du wenigstens eins haben darfst.",
+              "it": "Allora chiedile se puoi averne almeno una.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Dobra ideja! Če reče ja, ti dam polovico.",
+                "en": "Good idea! If she says yes, I'll give you half.",
+                "de": "Gute Idee! Wenn sie Ja sagt, kriegst du die Hälfte.",
+                "it": "Bella idea! Se dice di sì, te ne do metà."
+              }
+            },
+            {
+              "sl": "Potem jo vprašaj, da lahko dobiš vsaj enega.",
+              "en": "Then ask her that you can have at least one.",
+              "de": "Dann frag sie, dass du wenigstens eins haben darfst.",
+              "it": "Allora chiedile che puoi averne almeno una.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech a yes-no question is passed on with ali (or če): vprašaj, ali lahko dobiš. Da is for a statement.",
+                "de": "In der indirekten Rede gibt man eine Ja-Nein-Frage mit ali (oder če) weiter: vprašaj, ali lahko dobiš. Da steht für eine Aussage.",
+                "it": "Nel discorso indiretto una domanda sì-no si riferisce con ali (o če): vprašaj, ali lahko dobiš. Da è per un'affermazione."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ji rečem, da lahko? Ha, mama bo rekla ne!",
+                "en": "I tell her I can? Ha, Mum will say no!",
+                "de": "Ich sag ihr, dass ich darf? Ha, Mama sagt sicher Nein!",
+                "it": "Le dico che posso? Ah, la mamma dirà di no!"
+              }
+            },
+            {
+              "sl": "Potem jo vprašaj, ali lahko dobim vsaj enega.",
+              "en": "Then ask her whether I can have at least one.",
+              "de": "Dann frag sie, ob ich wenigstens eins haben darf.",
+              "it": "Allora chiedile se posso averne almeno una io.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the person changes: Nejc wants the sweet, so ali lahko dobiš (you). Dobim would be you, the speaker.",
+                "de": "In der indirekten Rede ändert sich die Person: Nejc will das Bonbon, also ali lahko dobiš (du). Dobim wärst du selbst.",
+                "it": "Nel discorso indiretto la persona cambia: la caramella la vuole Nejc, quindi ali lahko dobiš (tu). Dobim saresti tu che parli."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Ti? Hej, bonbon je moj!",
+                "en": "You? Hey, the sweet is mine!",
+                "de": "Du? He, das Bonbon gehört mir!",
+                "it": "Tu? Ehi, la caramella è mia!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Hitreje, {learner}!",
+            "en": "What? Faster, {learner}!",
+            "de": "Was? Schneller, {learner}!",
+            "it": "Cosa? Più veloce, {learner}!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "laugh",
+          "sl": "Pridi, greva do vrat! Kdor je prvi pri krošnjarju, dobi največji bonbon!",
+          "en": "Come on, let's go to the gate! Whoever gets to the pedlar first gets the biggest sweet!",
+          "de": "Komm, wir laufen zum Tor! Wer zuerst beim Hausierer ist, kriegt das größte Bonbon!",
+          "it": "Dai, andiamo al portone! Chi arriva primo dall'ambulante, si prende la caramella più grande!"
+        }
+      ]
+    },
+    {
+      "id": "krosnjar-b2-daljnogled",
+      "level": "B2",
+      "memory": {
+        "sl": "daljnogled, ki sem ga kupil s svojim denarjem",
+        "en": "the telescope I bought with my own money",
+        "de": "das Fernrohr, das ich mit meinem eigenen Geld gekauft habe",
+        "it": "il cannocchiale che ho comprato con i miei soldi"
+      },
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "surprised",
+          "sl": "{learner}! Krošnjar pravi, da je imel ta daljnogled nekoč pravi kapitan. Na ladji v Trstu!",
+          "en": "{learner}! The pedlar says this telescope once belonged to a real captain. On a ship in Trieste!",
+          "de": "{learner}! Der Hausierer sagt, dieses Fernrohr hat einmal einem echten Kapitän gehört. Auf einem Schiff in Triest!",
+          "it": "{learner}! L'ambulante dice che questo cannocchiale era di un vero capitano. Su una nave a Trieste!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pazi, da ne kupiš mačka v žaklju. Krošnjarji radi pretiravajo.",
+              "en": "Careful you don't buy a pig in a poke. Pedlars like to exaggerate.",
+              "de": "Pass auf, dass du nicht die Katze im Sack kaufst. Hausierer übertreiben gern.",
+              "it": "Attento a non comprare a scatola chiusa. Gli ambulanti esagerano volentieri.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Mačka? Ha ha! Ne, ne, daljnogled je čisto pravi. Sem ga že preizkusil.",
+                "en": "A cat? Ha ha! No, no, the telescope is quite real. I've tried it already.",
+                "de": "Eine Katze? Ha ha! Nein, nein, das Fernrohr ist ganz echt. Ich hab's schon ausprobiert.",
+                "it": "Un gatto? Ah ah! No, no, il cannocchiale è verissimo. L'ho già provato."
+              }
+            },
+            {
+              "sl": "Pazi, da ne kupiš psa v žaklju. Krošnjarji radi pretiravajo.",
+              "en": "Careful you don't buy a dog in a poke. Pedlars like to exaggerate.",
+              "de": "Pass auf, dass du nicht den Hund im Sack kaufst. Hausierer übertreiben gern.",
+              "it": "Attento a non comprare un cane nel sacco. Gli ambulanti esagerano volentieri.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is kupiti mačka v žaklju (a cat in a sack); an idiom keeps its words.",
+                "de": "Die Wendung heißt kupiti mačka v žaklju (die Katze im Sack); eine Redewendung behält ihre Wörter.",
+                "it": "Il modo di dire è kupiti mačka v žaklju (un gatto nel sacco); un modo di dire tiene le sue parole."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Psa? Ha ha, saj je daljnogled, ne kuža!",
+                "en": "A dog? Ha ha, it's a telescope, not a puppy!",
+                "de": "Einen Hund? Ha ha, das ist doch ein Fernrohr, kein Hündchen!",
+                "it": "Un cane? Ah ah, è un cannocchiale, mica un cagnolino!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Hitreje, {learner}!",
+            "en": "What? Faster, {learner}!",
+            "de": "Was? Schneller, {learner}!",
+            "it": "Cosa? Più veloce, {learner}!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "thinking",
+          "sl": "Mogoče pa res ni bil kapitanov. Ampak meni je vseeno všeč.",
+          "en": "Maybe it really wasn't the captain's. But I like it all the same.",
+          "de": "Vielleicht hat es wirklich nicht dem Kapitän gehört. Aber mir gefällt es trotzdem.",
+          "it": "Forse non era davvero del capitano. Ma a me piace lo stesso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Četudi ni bil kapitanov, je lep. In zvezde z njim vidiš enako dobro.",
+              "en": "Even if it wasn't the captain's, it's lovely. And you see the stars with it just as well.",
+              "de": "Auch wenn es nicht dem Kapitän gehört hat, ist es schön. Und die Sterne siehst du damit genauso gut.",
+              "it": "Anche se non era del capitano, è bello. E con quello le stelle le vedi bene uguale.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res je! Nocoj bom z njim iskal Veliki voz.",
+                "en": "That's true! Tonight I'll look for the Great Bear with it.",
+                "de": "Stimmt! Heute Nacht suche ich damit den Großen Wagen.",
+                "it": "È vero! Stanotte ci cerco il Grande Carro."
+              }
+            },
+            {
+              "sl": "Četudi ni bil kapitanov, zato je lep. In zvezde z njim vidiš enako dobro.",
+              "en": "Even if it wasn't the captain's, that's why it's lovely. And you see the stars with it just as well.",
+              "de": "Auch wenn es nicht dem Kapitän gehört hat, deshalb ist es schön. Und die Sterne siehst du damit genauso gut.",
+              "it": "Anche se non era del capitano, per questo è bello. E con quello le stelle le vedi bene uguale.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Četudi (even if) already sets the two halves against each other: the main clause goes on without zato (so).",
+                "de": "Četudi (auch wenn) stellt die beiden Hälften schon gegeneinander: der Hauptsatz geht ohne zato (deshalb) weiter.",
+                "it": "Četudi (anche se) mette già a confronto le due parti: la principale continua senza zato (quindi)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Zato je lep? Ker ni kapitanov? Čudna logika!",
+                "en": "That's why it's lovely? Because it isn't the captain's? Odd logic!",
+                "de": "Deshalb ist es schön? Weil es nicht dem Kapitän gehört? Komische Logik!",
+                "it": "Per questo è bello? Perché non è del capitano? Strana logica!"
+              }
+            },
+            {
+              "sl": "Kljub temu ni bil kapitanov, je lep. In zvezde z njim vidiš enako dobro.",
+              "en": "All the same it wasn't the captain's, it's lovely. And you see the stars with it just as well.",
+              "de": "Trotzdem hat es nicht dem Kapitän gehört, es ist schön. Und die Sterne siehst du damit genauso gut.",
+              "it": "Lo stesso non era del capitano, è bello. E con quello le stelle le vedi bene uguale.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Kljub temu (all the same) can't start a clause of its own: kljub temu da, or četudi.",
+                "de": "Kljub temu (trotzdem) kann keinen Nebensatz einleiten: kljub temu da, oder četudi.",
+                "it": "Kljub temu (lo stesso) non può introdurre una subordinata: kljub temu da, oppure četudi."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kljub temu … kaj? Stavek je pa ostal na pol!",
+                "en": "All the same … what? That sentence stopped halfway!",
+                "de": "Trotzdem … was? Der Satz ist ja auf halbem Weg stehen geblieben!",
+                "it": "Lo stesso … cosa? La frase è rimasta a metà!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Hitreje, {learner}!",
+            "en": "What? Faster, {learner}!",
+            "de": "Was? Schneller, {learner}!",
+            "it": "Cosa? Più veloce, {learner}!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "sad",
+          "sl": "Ampak denarja nimam. Mama pravi, da bi ga moral zaslužiti sam. Kako?",
+          "en": "But I haven't got any money. Mum says I ought to earn it myself. How?",
+          "de": "Aber ich habe kein Geld. Mama sagt, ich sollte es mir selbst verdienen. Wie?",
+          "it": "Ma i soldi non ce li ho. La mamma dice che dovrei guadagnarmeli da solo. Come?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kaj pa, če bi pomagal mami v gostilni? Za vsak dan bi dobil nekaj centov.",
+              "en": "What if you helped your mum at the inn? You'd get a few cents for each day.",
+              "de": "Wie wäre es, wenn du Mama im Gasthaus hilfst? Für jeden Tag bekämst du ein paar Cent.",
+              "it": "E se aiutassi la mamma all'osteria? Per ogni giorno ti prenderesti qualche centesimo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Super! Bom pomival kozarce. Mama bo vesela, jaz pa bogat!",
+                "en": "Great! I'll wash the glasses. Mum will be pleased, and I'll be rich!",
+                "de": "Super! Ich spüle die Gläser. Mama freut sich, und ich werde reich!",
+                "it": "Forte! Laverò i bicchieri. La mamma sarà contenta e io ricco!"
+              }
+            },
+            {
+              "sl": "Kaj pa, če bi pomagal mamo v gostilni? Za vsak dan bi dobil nekaj centov.",
+              "en": "What if you helped your mum (accusative) at the inn? You'd get a few cents for each day.",
+              "de": "Wie wäre es, wenn du die Mama (Akkusativ) im Gasthaus hilfst? Für jeden Tag bekämst du ein paar Cent.",
+              "it": "E se aiutassi la mamma (accusativo) all'osteria? Per ogni giorno ti prenderesti qualche centesimo.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Pomagati (to help) takes the dative, like German helfen: mami.",
+                "de": "Pomagati (helfen) steht mit dem Dativ, wie helfen: mami.",
+                "it": "Pomagati (aiutare) regge il dativo, come il tedesco helfen: mami."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Mamo? Kam bi jo pa nesel? Ha ha!",
+                "en": "Mamo? Where would I carry her to? Ha ha!",
+                "de": "Mamo? Wohin soll ich sie denn tragen? Ha ha!",
+                "it": "Mamo? E dove dovrei portarla? Ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Hitreje, {learner}!",
+            "en": "What? Faster, {learner}!",
+            "de": "Was? Schneller, {learner}!",
+            "it": "Cosa? Più veloce, {learner}!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "proud",
+          "sl": "V enem tednu bom imel daljnogled. In ti boš {m:prvi|f:prva} na vrsti!",
+          "en": "In one week I'll have the telescope. And you'll get the first turn!",
+          "de": "In einer Woche habe ich das Fernrohr. Und du bist als {m:Erster|f:Erste} dran!",
+          "it": "Fra una settimana avrò il cannocchiale. E tu sarai {m:il primo|f:la prima} a provarlo!"
+        }
       ]
     }
   ]
