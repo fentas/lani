@@ -1,0 +1,999 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "werden-futur",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🔮",
+  "title": {
+    "de": "Es wird kalt, ich werde kommen",
+    "en": "Werden and the future: ich werde kommen",
+    "sl": "Werden in prihodnjik: ich werde kommen",
+    "it": "Werden e il futuro: ich werde kommen"
+  },
+  "goal": {
+    "en": "You can say what someone or something becomes (Es wird kalt, Maxi wird zehn), promise something and make a guess with werden (Ich werde dir helfen, Er wird wohl schlafen), and you know when the present is enough (Morgen fahre ich).",
+    "sl": "Poveš, kaj kdo ali kaj postane (Es wird kalt, Maxi wird zehn), kaj obljubiš in kaj domnevaš z werden (Ich werde dir helfen, Er wird wohl schlafen), in veš, kdaj zadostuje sedanjik (Morgen fahre ich).",
+    "it": "Sai dire che cosa diventa qualcuno o qualcosa (Es wird kalt, Maxi wird zehn), promettere e fare un'ipotesi con werden (Ich werde dir helfen, Er wird wohl schlafen), e sai quando basta il presente (Morgen fahre ich)."
+  },
+  "grammar": [
+    "werden-futur"
+  ],
+  "words": [
+    "werden",
+    "müde",
+    "rot",
+    "nass",
+    "alt",
+    "kurz",
+    "der Schnee",
+    "schneien",
+    "der Schneemann",
+    "wohl",
+    "sicher",
+    "heuer",
+    "die Mühle",
+    "der Keller",
+    "das Wochenende",
+    "morgen",
+    "die Lehrerin",
+    "der Arzt",
+    "der Wirt",
+    "bald",
+    "holen",
+    "bauen",
+    "bringen",
+    "helfen",
+    "das Radio",
+    "hoffen",
+    "glauben",
+    "der Herbst",
+    "der Tag",
+    "die Nacht",
+    "der Montag",
+    "der Sonntag",
+    "wirklich",
+    "der Kirchtag",
+    "das Fest"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "wer",
+          "en": "who",
+          "sl": "kdo",
+          "it": "chi"
+        },
+        "werden",
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**werden** (to become) changes its vowel, as **geben** does: **ich werde** (I become), **du wirst** (you become), **er wird** (he becomes). Mind the letters: **wirst** has no d, **wird** has no t. **Es wird kalt.** (It's getting cold.)",
+          "sl": "**werden** (postati) spremeni samoglasnik, kot **geben**: **ich werde** (postanem), **du wirst** (postaneš), **er wird** (postane). Pazi na črke: **wirst** je brez d, **wird** brez t. **Es wird kalt.** (Postaja mrzlo.)",
+          "it": "**werden** (diventare) cambia vocale, come **geben**: **ich werde** (divento), **du wirst** (diventi), **er wird** (diventa). Attenzione alle lettere: **wirst** non ha la d, **wird** non ha la t. **Es wird kalt.** (Comincia a fare freddo.)"
+        },
+        "examples": [
+          {
+            "de": "Es wird kalt.",
+            "en": "It's getting cold.",
+            "sl": "Postaja mrzlo.",
+            "it": "Comincia a fare freddo."
+          },
+          {
+            "de": "Ich werde müde.",
+            "en": "I'm getting tired.",
+            "sl": "Utrujam se.",
+            "it": "Mi sto stancando."
+          },
+          {
+            "de": "Du wirst rot!",
+            "en": "You're going red!",
+            "sl": "Zardevaš!",
+            "it": "Stai arrossendo!"
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "werde",
+            "müde"
+          ],
+          [
+            "du",
+            "wirst",
+            "rot"
+          ],
+          [
+            "er · sie · es",
+            "wird",
+            "kalt"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "werden-futur",
+          "text": "Es ___ kalt. (werden)",
+          "accept": [
+            "wird"
+          ],
+          "hint": {
+            "en": "es → ?",
+            "sl": "es → ?",
+            "it": "es → ?"
+          },
+          "explain": {
+            "en": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "sl": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "it": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the plural the forms are regular: **wir werden** (we become), **ihr werdet** (you all become), **sie werden** (they become), **Sie werden** (you, polite). **Die Tage werden kurz.** (The days are getting short.)",
+          "sl": "V množini so oblike pravilne: **wir werden** (postanemo), **ihr werdet** (postanete), **sie werden** (postanejo), **Sie werden** (postanete, vikanje). **Die Tage werden kurz.** (Dnevi postajajo kratki.)",
+          "it": "Al plurale le forme sono regolari: **wir werden** (diventiamo), **ihr werdet** (diventate), **sie werden** (diventano), **Sie werden** (Lei diventa). **Die Tage werden kurz.** (Le giornate si accorciano.)"
+        },
+        "examples": [
+          {
+            "de": "Die Tage werden kurz.",
+            "en": "The days are getting short.",
+            "sl": "Dnevi postajajo kratki.",
+            "it": "Le giornate si accorciano."
+          },
+          {
+            "de": "Wir werden alt.",
+            "en": "We're getting old.",
+            "sl": "Staramo se.",
+            "it": "Stiamo invecchiando."
+          },
+          {
+            "de": "Ihr werdet ganz nass!",
+            "en": "You're getting soaked!",
+            "sl": "Čisto mokri boste!",
+            "it": "Vi state bagnando tutti!"
+          }
+        ],
+        "rows": [
+          [
+            "wir",
+            "werden",
+            "alt"
+          ],
+          [
+            "ihr",
+            "werdet",
+            "nass"
+          ],
+          [
+            "sie · Sie",
+            "werden",
+            "müde"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "werden-futur",
+          "prompt": "Ihr ___ ganz nass.",
+          "options": [
+            "werdet",
+            "wird",
+            "werden"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "sl": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "it": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**werden** + an adjective or a noun says what someone becomes. A job takes no article and stays in the nominative: **Lena wird Lehrerin.** (Lena is going to be a teacher.) An age too: **Maxi wird bald zehn.** (Maxi will soon be ten.) The Perfekt goes with sein: **Es ist kalt geworden.** (It has turned cold.)",
+          "sl": "**werden** + pridevnik ali samostalnik pove, kaj kdo postane. Poklic je brez člena in ostane v imenovalniku: **Lena wird Lehrerin.** (Lena bo učiteljica.) Tudi starost: **Maxi wird bald zehn.** (Maxi bo kmalu star deset let.) Perfekt je s sein: **Es ist kalt geworden.** (Postalo je mrzlo.)",
+          "it": "**werden** + un aggettivo o un nome dice che cosa diventa qualcuno. Il mestiere non ha articolo e resta al nominativo: **Lena wird Lehrerin.** (Lena farà la maestra.) Anche l'età: **Maxi wird bald zehn.** (Maxi compirà presto dieci anni.) Il Perfekt vuole sein: **Es ist kalt geworden.** (Si è fatto freddo.)"
+        },
+        "examples": [
+          {
+            "de": "Stefan wird Wirt.",
+            "en": "Stefan is going to be an innkeeper.",
+            "sl": "Stefan bo gostilničar.",
+            "it": "Stefan farà l'oste."
+          },
+          {
+            "de": "Maxi wird bald zehn.",
+            "en": "Maxi will soon be ten.",
+            "sl": "Maxi bo kmalu star deset let.",
+            "it": "Maxi compirà presto dieci anni."
+          },
+          {
+            "de": "Es ist kalt geworden.",
+            "en": "It has turned cold.",
+            "sl": "Postalo je mrzlo.",
+            "it": "Si è fatto freddo."
+          }
+        ],
+        "rows": [
+          [
+            "Lena",
+            "wird",
+            "Lehrerin"
+          ],
+          [
+            "Maxi",
+            "wird",
+            "zehn"
+          ],
+          [
+            "es",
+            "ist … geworden",
+            "kalt"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "werden-futur",
+          "prompt": "Es ___ kalt geworden.",
+          "options": [
+            "ist",
+            "hat",
+            "wird"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**geworden goes with sein**\n- Es ist kalt geworden · Maxi ist groß geworden",
+            "sl": "**geworden gre s sein**\n- Es ist kalt geworden · Maxi ist groß geworden",
+            "it": "**geworden vuole sein**\n- Es ist kalt geworden · Maxi ist groß geworden"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**The future** (*Futur I*) is werden + an infinitive at the very end: **Ich werde dir helfen.** (I'll help you.) People use it to promise something, or to say firmly what is going to happen: **Wir werden am Sonntag kommen.** (We will come on Sunday.)",
+          "sl": "**Prihodnjik** (*Futur I*) je werden + nedoločnik čisto na koncu: **Ich werde dir helfen.** (Pomagal ti bom.) S tem kaj obljubimo ali trdno povemo, kaj se bo zgodilo: **Wir werden am Sonntag kommen.** (V nedeljo bomo prišli.)",
+          "it": "**Il futuro** (*Futur I*) è werden + un infinito proprio alla fine: **Ich werde dir helfen.** (Ti aiuterò.) Lo si usa per promettere qualcosa, o per dire con fermezza che cosa succederà: **Wir werden am Sonntag kommen.** (Verremo domenica.)"
+        },
+        "examples": [
+          {
+            "de": "Ich werde dir helfen.",
+            "en": "I'll help you.",
+            "sl": "Pomagal ti bom.",
+            "it": "Ti aiuterò."
+          },
+          {
+            "de": "Wir werden am Sonntag kommen.",
+            "en": "We will come on Sunday.",
+            "sl": "V nedeljo bomo prišli.",
+            "it": "Verremo domenica."
+          },
+          {
+            "de": "Wirst du das wirklich machen?",
+            "en": "Are you really going to do that?",
+            "sl": "Boš to res naredil?",
+            "it": "Lo farai davvero?"
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "werde",
+            "dir helfen"
+          ],
+          [
+            "wir",
+            "werden",
+            "am Sonntag kommen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "werden-futur",
+          "prompt": {
+            "en": "Oma Resi is carrying a heavy basket. You promise her:",
+            "sl": "Oma Resi nese težko košaro. Obljubiš ji:",
+            "it": "Oma Resi porta un cesto pesante. Le prometti:"
+          },
+          "options": [
+            "Ich werde dir helfen.",
+            "Ich werde helfen dir.",
+            "Ich helfe werde dir."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**werden in second place, the infinitive at the very end**\n- Ich werde dir helfen · Wir werden kommen",
+            "sl": "**werden na drugem mestu, nedoločnik čisto na koncu**\n- Ich werde dir helfen · Wir werden kommen",
+            "it": "**werden al secondo posto, l'infinito proprio alla fine**\n- Ich werde dir helfen · Wir werden kommen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "With **wohl** (probably) or **sicher** (surely), werden makes a guess about now, no future at all: **Er wird wohl noch schlafen.** (He's probably still asleep.) **Kathi wird sicher in der Küche sein.** (Kathi must be in the kitchen.)",
+          "sl": "Z **wohl** (verjetno) ali **sicher** (gotovo) je werden domneva o sedanjosti, sploh ne prihodnost: **Er wird wohl noch schlafen.** (Verjetno še spi.) **Kathi wird sicher in der Küche sein.** (Kathi je gotovo v kuhinji.)",
+          "it": "Con **wohl** (probabilmente) o **sicher** (sicuramente), werden fa un'ipotesi sul presente, non è affatto futuro: **Er wird wohl noch schlafen.** (Starà ancora dormendo.) **Kathi wird sicher in der Küche sein.** (Kathi sarà in cucina.)"
+        },
+        "examples": [
+          {
+            "de": "Er wird wohl noch schlafen.",
+            "en": "He's probably still asleep.",
+            "sl": "Verjetno še spi.",
+            "it": "Starà ancora dormendo."
+          },
+          {
+            "de": "Kathi wird sicher in der Küche sein.",
+            "en": "Kathi must be in the kitchen.",
+            "sl": "Kathi je gotovo v kuhinji.",
+            "it": "Kathi sarà in cucina."
+          }
+        ],
+        "rows": [
+          [
+            "er",
+            "wird",
+            "wohl schlafen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "werden-futur",
+          "prompt": {
+            "en": "Stefan's tractor is outside the inn. You guess:",
+            "sl": "Stefanov traktor stoji pred gostilno. Domnevaš:",
+            "it": "Il trattore di Stefan è davanti alla locanda. Immagini:"
+          },
+          "options": [
+            "Er wird wohl im Gasthaus sein.",
+            "Er wird wohl im Gasthaus ist.",
+            "Er wird im Gasthaus wohl sind."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A guess about now: werden + wohl + the infinitive**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein",
+            "sl": "**Domneva o sedanjosti: werden + wohl + nedoločnik**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein",
+            "it": "**Un'ipotesi sul presente: werden + wohl + infinito**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "For what will simply happen, people mostly say the present with a time word, and it is right: **Morgen fahre ich nach Villach.** (Tomorrow I'm going to Villach.) So too with **heuer** (this year, in Austria): **Heuer fahren wir nicht weg.** In a clause werden comes last: **Ich glaube, dass es schneien wird.** (I think it will snow.)",
+          "sl": "Za to, kar se bo preprosto zgodilo, večinoma rečemo sedanjik s časovno besedo, in to je prav: **Morgen fahre ich nach Villach.** (Jutri grem v Beljak.) Enako s **heuer** (letos, v Avstriji): **Heuer fahren wir nicht weg.** V odvisniku je werden zadnji: **Ich glaube, dass es schneien wird.** (Mislim, da bo snežilo.)",
+          "it": "Per quello che semplicemente succederà si dice perlopiù il presente con una parola di tempo, ed è giusto: **Morgen fahre ich nach Villach.** (Domani vado a Villach.) Lo stesso con **heuer** (quest'anno, in Austria): **Heuer fahren wir nicht weg.** Nella secondaria werden va in fondo: **Ich glaube, dass es schneien wird.** (Credo che nevicherà.)"
+        },
+        "examples": [
+          {
+            "de": "Morgen fahre ich nach Villach.",
+            "en": "Tomorrow I'm going to Villach.",
+            "sl": "Jutri grem v Beljak.",
+            "it": "Domani vado a Villach."
+          },
+          {
+            "de": "Heuer fahren wir nicht weg.",
+            "en": "We're not going away this year.",
+            "sl": "Letos ne gremo nikamor.",
+            "it": "Quest'anno non andiamo via."
+          },
+          {
+            "de": "Ich glaube, dass es schneien wird.",
+            "en": "I think it will snow.",
+            "sl": "Mislim, da bo snežilo.",
+            "it": "Credo che nevicherà."
+          }
+        ],
+        "rows": [
+          [
+            "morgen",
+            "fahre ich",
+            "nach Villach"
+          ],
+          [
+            "…, dass es",
+            "schneien wird",
+            "–"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "werden-futur",
+          "prompt": "Ich glaube, dass es morgen ___.",
+          "options": [
+            "schneien wird",
+            "wird schneien",
+            "schneien werden"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**In a clause the infinitive and then werden come last**\n- …, dass es schneien wird",
+            "sl": "**V odvisniku sta na koncu nedoločnik in nato werden**\n- …, dass es schneien wird",
+            "it": "**Nella secondaria vanno in fondo l'infinito e poi werden**\n- …, dass es schneien wird"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**werden**: ich **werde**, du **wirst**, er **wird**, wir **werden**, ihr **werdet**, sie **werden**.\n\n**To become**: Es wird kalt. Maxi wird zehn. The Perfekt: ist geworden.\n\n**The future**: werde + the infinitive last: Ich werde dir helfen. For a promise, and with **wohl** for a guess: Er wird wohl schlafen.\n\n**The everyday way** to say what will happen: the present with a time word: Morgen fahre ich.",
+      "sl": "**werden**: ich **werde**, du **wirst**, er **wird**, wir **werden**, ihr **werdet**, sie **werden**.\n\n**Postati**: Es wird kalt. Maxi wird zehn. Perfekt: ist geworden.\n\n**Prihodnjik**: werde + nedoločnik na koncu: Ich werde dir helfen. Za obljubo in z **wohl** za domnevo: Er wird wohl schlafen.\n\n**Vsakdanji način** za to, kar se bo zgodilo: sedanjik s časovno besedo: Morgen fahre ich.",
+      "it": "**werden**: ich **werde**, du **wirst**, er **wird**, wir **werden**, ihr **werdet**, sie **werden**.\n\n**Diventare**: Es wird kalt. Maxi wird zehn. Il Perfekt: ist geworden.\n\n**Il futuro**: werde + l'infinito alla fine: Ich werde dir helfen. Per una promessa e con **wohl** per un'ipotesi: Er wird wohl schlafen.\n\n**Il modo di tutti i giorni** per ciò che succederà: il presente con una parola di tempo: Morgen fahre ich."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "werden-futur-1",
+      "title": {
+        "de": "Werde, wirst, wird",
+        "en": "The forms: werde, wirst, wird",
+        "sl": "Oblike: werde, wirst, wird",
+        "it": "Le forme: werde, wirst, wird"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "werden · to become",
+            "sl": "werden · postati",
+            "it": "werden · diventare"
+          },
+          "columns": [
+            "Präsens",
+            "Perfekt"
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "werde",
+                "bin geworden"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "wirst"
+                  ],
+                  "hint": {
+                    "en": "no d",
+                    "sl": "brez d",
+                    "it": "senza d"
+                  }
+                },
+                {
+                  "accept": [
+                    "bist geworden"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                {
+                  "accept": [
+                    "wird"
+                  ],
+                  "hint": {
+                    "en": "no t",
+                    "sl": "brez t",
+                    "it": "senza t"
+                  }
+                },
+                {
+                  "accept": [
+                    "ist geworden"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "werden"
+                  ]
+                },
+                "sind geworden"
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "werdet"
+                  ]
+                },
+                {
+                  "accept": [
+                    "seid geworden"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                {
+                  "accept": [
+                    "werden"
+                  ]
+                },
+                {
+                  "accept": [
+                    "sind geworden"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "sl": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "it": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Ordne zu: werden oder Futur? · To become, or the future?",
+            "sl": "Ordne zu: werden oder Futur? · Postati ali prihodnost?",
+            "it": "Ordne zu: werden oder Futur? · Diventare o futuro?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "werden · to become",
+                "sl": "werden · postati",
+                "it": "werden · diventare"
+              },
+              "words": [
+                "wird kalt",
+                "werden müde",
+                "wirst Arzt"
+              ]
+            },
+            {
+              "label": {
+                "en": "Futur · the future",
+                "sl": "Futur · prihodnost",
+                "it": "Futur · il futuro"
+              },
+              "words": [
+                "wird kommen",
+                "werden essen",
+                "wirst helfen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**+ an adjective or a noun: to become. + an infinitive: the future**\n- Es wird kalt · Es wird schneien",
+            "sl": "**+ pridevnik ali samostalnik: postati. + nedoločnik: prihodnost**\n- Es wird kalt · Es wird schneien",
+            "it": "**+ aggettivo o nome: diventare. + infinito: il futuro**\n- Es wird kalt · Es wird schneien"
+          }
+        }
+      ]
+    },
+    {
+      "id": "werden-futur-2",
+      "title": {
+        "de": "Der erste Schnee",
+        "en": "The first snow",
+        "sl": "Prvi sneg",
+        "it": "La prima neve"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der erste Schnee",
+          "text": "Tante Mitzi hört Radio Kärnten und erzählt im Gasthaus alles. „Heuer ___ der Winter früh kommen. Am Wochenende ___ es kalt, und am Montag ___ es sicher schneien.“ Kathi lacht: „Dann ___ ich viel Suppe kochen.“ Stefan sagt: „Und ich ___ den Most in den Keller bringen.“ Die Kinder rufen: „Wir ___ einen Schneemann bauen!“ Mitzi fragt Florian: „Und du? ___ du die Schafe heute holen?“ Florian lacht: „Ja, und ihr ___ mir helfen!“",
+          "gaps": [
+            {
+              "accept": [
+                "wird"
+              ]
+            },
+            {
+              "accept": [
+                "wird"
+              ]
+            },
+            {
+              "accept": [
+                "wird"
+              ]
+            },
+            {
+              "accept": [
+                "werde"
+              ]
+            },
+            {
+              "accept": [
+                "werde"
+              ]
+            },
+            {
+              "accept": [
+                "werden"
+              ]
+            },
+            {
+              "accept": [
+                "Wirst"
+              ]
+            },
+            {
+              "accept": [
+                "werdet"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "wirdst",
+            "wurde"
+          ],
+          "translation": {
+            "en": "Aunt Mitzi listens to Radio Kärnten and tells everyone at the inn. \"This year winter will come early. At the weekend it'll turn cold, and on Monday it will surely snow.\" Kathi laughs: \"Then I'll make a lot of soup.\" Stefan says: \"And I'll take the cider down to the cellar.\" The children shout: \"We'll build a snowman!\" Mitzi asks Florian: \"And you? Will you fetch the sheep today?\" Florian laughs: \"Yes, and you'll all help me!\"",
+            "sl": "Teta Mitzi posluša Radio Kärnten in v gostilni vse pove. »Letos bo zima prišla zgodaj. Konec tedna bo mrzlo, v ponedeljek pa bo gotovo snežilo.« Kathi se smeje: »Potem bom skuhala veliko juhe.« Stefan pravi: »Jaz pa bom odnesel mošt v klet.« Otroci kličejo: »Naredili bomo sneženega moža!« Mitzi vpraša Floriana: »Kaj pa ti? Boš ovce pripeljal danes?« Florian se smeje: »Ja, vi pa mi boste pomagali!«",
+            "it": "Zia Mitzi ascolta Radio Kärnten e racconta tutto alla locanda. «Quest'anno l'inverno arriverà presto. Nel fine settimana farà freddo e lunedì nevicherà di sicuro.» Kathi ride: «Allora farò tanta minestra.» Stefan dice: «E io porterò il sidro in cantina.» I bambini gridano: «Faremo un pupazzo di neve!» Mitzi chiede a Florian: «E tu? Andrai a prendere le pecore oggi?» Florian ride: «Sì, e voi mi aiuterete!»"
+          },
+          "explain": {
+            "en": "**werden in second place, the infinitive at the very end**\n- Ich werde dir helfen · Wir werden kommen",
+            "sl": "**werden na drugem mestu, nedoločnik čisto na koncu**\n- Ich werde dir helfen · Wir werden kommen",
+            "it": "**werden al secondo posto, l'infinito proprio alla fine**\n- Ich werde dir helfen · Wir werden kommen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi ___ wohl noch in der Küche sein.",
+          "options": [
+            "wird",
+            "ist",
+            "werden"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A guess about now: werden + wohl + the infinitive**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein",
+            "sl": "**Domneva o sedanjosti: werden + wohl + nedoločnik**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein",
+            "it": "**Un'ipotesi sul presente: werden + wohl + infinito**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Maxi ist neun. Im Mai ___ er zehn.",
+          "options": [
+            "wird",
+            "wirst",
+            "werde"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "sl": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+            "it": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "werden-futur-3",
+      "title": {
+        "de": "Versprochen!",
+        "en": "A promise!",
+        "sl": "Obljubljeno!",
+        "it": "Promesso!"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Sag es im Futur · Say it in the future",
+            "sl": "Sag es im Futur · Povej v prihodnjiku",
+            "it": "Sag es im Futur · Dillo al futuro"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich helfe dir.",
+              "accept": [
+                "Ich werde dir helfen."
+              ]
+            },
+            {
+              "from": "Stefan bringt den Most.",
+              "accept": [
+                "Stefan wird den Most bringen."
+              ]
+            },
+            {
+              "from": "Wir kommen am Sonntag.",
+              "accept": [
+                "Wir werden am Sonntag kommen.",
+                "Am Sonntag werden wir kommen."
+              ]
+            },
+            {
+              "from": "Kommst du zum Kirchtag?",
+              "accept": [
+                "Wirst du zum Kirchtag kommen?"
+              ]
+            },
+            {
+              "from": "Es schneit heute Nacht.",
+              "accept": [
+                "Es wird heute Nacht schneien.",
+                "Heute Nacht wird es schneien."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**werden in second place, the infinitive at the very end**\n- Ich werde dir helfen · Wir werden kommen",
+            "sl": "**werden na drugem mestu, nedoločnik čisto na koncu**\n- Ich werde dir helfen · Wir werden kommen",
+            "it": "**werden al secondo posto, l'infinito proprio alla fine**\n- Ich werde dir helfen · Wir werden kommen"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Vermute mit wohl · Make a guess with wohl",
+            "sl": "Vermute mit wohl · Domnevaj z wohl",
+            "it": "Vermute mit wohl · Fai un'ipotesi con wohl"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Er ist in der Mühle.",
+              "accept": [
+                "Er wird wohl in der Mühle sein."
+              ]
+            },
+            {
+              "from": "Kathi hat viel Arbeit.",
+              "accept": [
+                "Kathi wird wohl viel Arbeit haben."
+              ]
+            },
+            {
+              "from": "Die Kinder schlafen schon.",
+              "accept": [
+                "Die Kinder werden wohl schon schlafen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A guess about now: werden + wohl + the infinitive**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein",
+            "sl": "**Domneva o sedanjosti: werden + wohl + nedoločnik**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein",
+            "it": "**Un'ipotesi sul presente: werden + wohl + infinito**\n- Er wird wohl schlafen · Kathi wird wohl in der Küche sein"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "werden-futur",
+          "instruction": {
+            "en": "Mach einen Satz mit dass · Make it a clause with dass",
+            "sl": "Mach einen Satz mit dass · Naredi odvisnik z dass",
+            "it": "Mach einen Satz mit dass · Fai una secondaria con dass"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Es wird schneien. (Ich glaube, dass …)",
+              "accept": [
+                "Ich glaube, dass es schneien wird.",
+                "Ich glaube, es wird schneien."
+              ]
+            },
+            {
+              "from": "Stefan wird kommen. (Ich hoffe, dass …)",
+              "accept": [
+                "Ich hoffe, dass Stefan kommen wird.",
+                "Ich hoffe, Stefan wird kommen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**In a clause the infinitive and then werden come last**\n- …, dass es schneien wird",
+            "sl": "**V odvisniku sta na koncu nedoločnik in nato werden**\n- …, dass es schneien wird",
+            "it": "**Nella secondaria vanno in fondo l'infinito e poi werden**\n- …, dass es schneien wird"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "werden-futur",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Der Herbst ist da. Die Tage ___ kurz, und es ___ am Abend kalt. Lena ist acht, aber im Juni ___ sie neun. Sie sagt: „Ich ___ Lehrerin!“ Oma Resi lacht: „Du ___ sicher eine gute Lehrerin.“",
+        "gaps": [
+          {
+            "accept": [
+              "werden"
+            ]
+          },
+          {
+            "accept": [
+              "wird"
+            ]
+          },
+          {
+            "accept": [
+              "wird"
+            ]
+          },
+          {
+            "accept": [
+              "werde"
+            ]
+          },
+          {
+            "accept": [
+              "wirst"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Autumn is here. The days are getting short, and it turns cold in the evening. Lena is eight, but in June she will be nine. She says: \"I'm going to be a teacher!\" Granny Resi laughs: \"You'll surely be a good teacher.\"",
+          "sl": "Jesen je tu. Dnevi postajajo kratki in zvečer postaja mrzlo. Lena je stara osem let, junija pa jih bo devet. Pravi: »Učiteljica bom!« Babica Resi se smeje: »Gotovo boš dobra učiteljica.«",
+          "it": "È arrivato l'autunno. Le giornate si accorciano e la sera comincia a fare freddo. Lena ha otto anni, ma a giugno ne compirà nove. Dice: «Farò la maestra!» Nonna Resi ride: «Sarai di sicuro una brava maestra.»"
+        },
+        "explain": {
+          "en": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+          "sl": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet",
+          "it": "**werden: werde, wirst, wird, werden, werdet, werden**\n- du wirst · er wird · ihr werdet"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "werden-futur",
+        "instruction": {
+          "en": "Sag es im Futur · Say it in the future",
+          "sl": "Sag es im Futur · Povej v prihodnjiku",
+          "it": "Sag es im Futur · Dillo al futuro"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Kathi kocht heute Suppe.",
+            "accept": [
+              "Kathi wird heute Suppe kochen.",
+              "Heute wird Kathi Suppe kochen."
+            ]
+          },
+          {
+            "from": "Wir bleiben zu Hause.",
+            "accept": [
+              "Wir werden zu Hause bleiben."
+            ]
+          },
+          {
+            "from": "Ihr singt beim Fest.",
+            "accept": [
+              "Ihr werdet beim Fest singen.",
+              "Beim Fest werdet ihr singen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**werden in second place, the infinitive at the very end**\n- Ich werde dir helfen · Wir werden kommen",
+          "sl": "**werden na drugem mestu, nedoločnik čisto na koncu**\n- Ich werde dir helfen · Wir werden kommen",
+          "it": "**werden al secondo posto, l'infinito proprio alla fine**\n- Ich werde dir helfen · Wir werden kommen"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "werden-futur",
+        "instruction": {
+          "en": "Ordne zu: werden oder Futur? · To become, or the future?",
+          "sl": "Ordne zu: werden oder Futur? · Postati ali prihodnost?",
+          "it": "Ordne zu: werden oder Futur? · Diventare o futuro?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "werden · to become",
+              "sl": "werden · postati",
+              "it": "werden · diventare"
+            },
+            "words": [
+              "wird alt",
+              "wirst Wirt"
+            ]
+          },
+          {
+            "label": {
+              "en": "Futur · the future",
+              "sl": "Futur · prihodnost",
+              "it": "Futur · il futuro"
+            },
+            "words": [
+              "wird bleiben",
+              "werden singen"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**+ an adjective or a noun: to become. + an infinitive: the future**\n- Es wird kalt · Es wird schneien",
+          "sl": "**+ pridevnik ali samostalnik: postati. + nedoločnik: prihodnost**\n- Es wird kalt · Es wird schneien",
+          "it": "**+ aggettivo o nome: diventare. + infinito: il futuro**\n- Es wird kalt · Es wird schneien"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "werden-futur",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Morgen ___ ich nach Villach.",
+        "options": [
+          "fahre",
+          "fahren",
+          "fährt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The present with a time word: the usual way to say it**\n- Morgen fahre ich nach Villach",
+          "sl": "**Sedanjik s časovno besedo: običajni način**\n- Morgen fahre ich nach Villach",
+          "it": "**Il presente con una parola di tempo: il modo solito**\n- Morgen fahre ich nach Villach"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Stefan wird Wirt and Lena wird Lehrerin; Heuer wird der Winter früh kommen and the rest of Mitzi's forecast; am Wochenende as Austria says it; wohl and sicher for a guess; the Slovene for a guess (Verjetno še spi) and the masculine in Pomagal ti bom; Italian's Starà and sarà for a guess, l'oste, farà la maestra"
+}
