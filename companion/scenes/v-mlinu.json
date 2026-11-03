@@ -4,7 +4,7 @@
   "title": { "sl": "V mlinu", "en": "In the mill", "de": "In der Mühle", "it": "Nel mulino" },
   "emoji": "🌾",
   "level": "A2",
-  "review": "all machine-written (Claude), not reviewed by a native speaker: lines, reactions, variants, de, it; standard Slovene, no spoken forms; the mill words koš, gred, zobnik, žleb, merica to check",
+  "review": "all machine-written (Claude), not native-reviewed: lines, reactions, variants, B1 and B2 variants, de, it; standard Slovene, no spoken forms; the mill words koš, gred, zobnik, žleb, merica to check",
   "art": "mill",
   "from": ["project:mlin"],
   "pack": "v-mlinu",
@@ -67,7 +67,7 @@
       "weekdays": [1, 2, 3, 4, 5, 6],
       "chance": 0.5,
       "dialog": "melje",
-      "dialogs": ["melje-ljudje", "melje-zobnik", "melje"],
+      "dialogs": ["melje-b2-vrsta", "melje-b1-potok", "melje-ljudje", "melje-zobnik", "melje"],
       "reward": { "food": 20 },
       "marker": "🌾",
       "memory": {
@@ -163,7 +163,7 @@
       "when": ["afternoon"],
       "chance": 0.45,
       "dialog": "micka",
-      "dialogs": ["micka-potica", "micka"],
+      "dialogs": ["micka-b2-potica", "micka-b1-moka", "micka-potica", "micka"],
       "reward": { "food": 20 },
       "marker": "🧺",
       "memory": {
@@ -2693,6 +2693,596 @@
           "en": "Good night, {learner}. The cat will keep an eye on the mill.",
           "de": "Gute Nacht, {learner}. Die Katze passt auf die Mühle auf.",
           "it": "Buonanotte, {learner}. La gatta farà la guardia al mulino."
+        }
+      ]
+    },
+    {
+      "id": "melje-b1-potok",
+      "level": "B1",
+      "months": [
+        7,
+        8
+      ],
+      "memory": {
+        "sl": "suho poletje, ko je mlin komaj mlel",
+        "en": "the dry summer when the mill barely ground",
+        "de": "den trockenen Sommer, als die Mühle kaum mahlte",
+        "it": "l'estate secca in cui il mulino macinava a malapena"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Dober dan, {learner}. Že tri tedne ni deževalo. Če ne bo kmalu dežja, bo potok presuh za mlinsko kolo.",
+          "en": "Good day, {learner}. It hasn't rained for three weeks. If there's no rain soon, the stream will be too dry for the mill wheel.",
+          "de": "Guten Tag, {learner}. Seit drei Wochen hat es nicht geregnet. Wenn nicht bald Regen kommt, ist der Bach zu trocken für das Mühlrad.",
+          "it": "Buongiorno, {learner}. Non piove da tre settimane. Se non piove presto, il ruscello sarà troppo secco per la ruota del mulino."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ali se kdo v vasi spomni takega poletja?",
+              "en": "Does anyone in the village remember a summer like this?",
+              "de": "Erinnert sich jemand im Dorf an so einen Sommer?",
+              "it": "Qualcuno in paese si ricorda un'estate così?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Oče je pravil, da je bilo tako, ko je bil otrok. Takrat je stari mlin v dolini stal ves avgust.",
+                "en": "Father used to say it was like this when he was a boy. Back then the old mill in the valley stood still all August.",
+                "de": "Vater erzählte, so war es, als er ein Kind war. Damals stand die alte Mühle im Tal den ganzen August still.",
+                "it": "Il papà raccontava che era così quando lui era bambino. Allora il vecchio mulino a valle rimase fermo tutto agosto."
+              }
+            },
+            {
+              "sl": "Ali se nihče v vasi spomni takega poletja?",
+              "en": "Does nobody in the village remember a summer like this (no ne)?",
+              "de": "Erinnert sich niemand im Dorf an so einen Sommer (ohne ne)?",
+              "it": "Nessuno in paese si ricorda un'estate così (senza ne)?",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Nihče doubles the no: it needs ne with the verb (nihče se ne spomni). To ask about anyone at all, plain kdo: ali se kdo spomni?",
+                "de": "Nihče verdoppelt die Verneinung: es braucht ne beim Verb (nihče se ne spomni). Um nach irgendwem zu fragen, einfach kdo: ali se kdo spomni?",
+                "it": "Nihče raddoppia la negazione: vuole ne col verbo (nihče se ne spomni). Per chiedere di qualcuno, semplicemente kdo: ali se kdo spomni?"
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nihče? Jaz se spomnim, pa sem nekdo!",
+                "en": "Nobody? I remember, and I'm somebody!",
+                "de": "Niemand? Ich erinnere mich, und ich bin jemand!",
+                "it": "Nessuno? Io me lo ricordo, e sono qualcuno!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, po vrsti. Kot pri štetju.",
+            "en": "Hm? Once more, in order. Like counting.",
+            "de": "Hm? Noch einmal, der Reihe nach. Wie beim Zählen.",
+            "it": "Mm? Ancora una volta, in ordine. Come quando si conta."
+          }
+        },
+        {
+          "who": "france",
+          "face": "curious",
+          "sl": "Potok je zdaj tako nizek, da se kolo komaj vrti. Kaj naj zmeljem najprej, pšenico ali koruzo?",
+          "en": "The stream is so low now that the wheel barely turns. What should I grind first, the wheat or the maize?",
+          "de": "Der Bach ist jetzt so niedrig, dass sich das Rad kaum dreht. Was soll ich zuerst mahlen, den Weizen oder den Mais?",
+          "it": "Il ruscello è così basso che la ruota gira appena. Cosa macino prima, il grano o il mais?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Najprej pšenico, ker ljudje kruh potrebujejo vsak dan.",
+              "en": "The wheat first, because people need bread every day.",
+              "de": "Zuerst den Weizen, weil die Leute jeden Tag Brot brauchen.",
+              "it": "Prima il grano, perché la gente ha bisogno di pane ogni giorno.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Pšenica, sedem vreč. Sedem, sedem. Koruza pa počaka na dež.",
+                "en": "Right. Wheat, seven sacks. Seven, seven. The maize can wait for the rain.",
+                "de": "Gut. Weizen, sieben Säcke. Sieben, sieben. Der Mais wartet auf den Regen.",
+                "it": "Va bene. Grano, sette sacchi. Sette, sette. Il mais aspetterà la pioggia."
+              }
+            },
+            {
+              "sl": "Najprej pšenico, čeprav ljudje kruh potrebujejo vsak dan.",
+              "en": "The wheat first, although people need bread every day.",
+              "de": "Zuerst den Weizen, obwohl die Leute jeden Tag Brot brauchen.",
+              "it": "Prima il grano, anche se la gente ha bisogno di pane ogni giorno.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "You give the reason: ker is because. Čeprav means although, as if bread every day spoke against the wheat.",
+                "de": "Du nennst den Grund: ker ist weil. Čeprav heißt obwohl, als spräche das tägliche Brot gegen den Weizen.",
+                "it": "Dai il motivo: ker è perché. Čeprav vuol dire anche se, come se il pane di ogni giorno fosse contro il grano."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Čeprav? Potem pa raje koruzo? Zdaj pa ne vem več.",
+                "en": "Although? So the maize after all? Now I don't know any more.",
+                "de": "Obwohl? Dann doch lieber den Mais? Jetzt weiß ich gar nichts mehr.",
+                "it": "Anche se? Allora meglio il mais? Adesso non so più niente."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, po vrsti. Kot pri štetju.",
+            "en": "Hm? Once more, in order. Like counting.",
+            "de": "Hm? Noch einmal, der Reihe nach. Wie beim Zählen.",
+            "it": "Mm? Ancora una volta, in ordine. Come quando si conta."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Če bo jutri deževalo, bo mlin spet pel. Sosedje smo, {learner}: skupaj bomo zdržali.",
+          "en": "If it rains tomorrow, the mill will sing again. We're neighbours, {learner}: together we'll get through.",
+          "de": "Wenn es morgen regnet, singt die Mühle wieder. Wir sind Nachbarn, {learner}: zusammen halten wir durch.",
+          "it": "Se domani piove, il mulino tornerà a cantare. Siamo vicini, {learner}: insieme ce la faremo."
+        }
+      ]
+    },
+    {
+      "id": "melje-b2-vrsta",
+      "level": "B2",
+      "memory": {
+        "sl": "dan, ko je bila vrsta do vrat",
+        "en": "the day the queue reached the door",
+        "de": "den Tag, an dem die Schlange bis zur Tür reichte",
+        "it": "il giorno in cui la fila arrivava alla porta"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Dober dan, {learner}. Danes je vrsta do vrat: Micka, Luka, pol vasi. Vsi hočejo moko še danes.",
+          "en": "Good day, {learner}. Today the queue reaches the door: Micka, Luka, half the village. Everyone wants flour today.",
+          "de": "Guten Tag, {learner}. Heute reicht die Schlange bis zur Tür: Micka, Luka, das halbe Dorf. Alle wollen noch heute Mehl.",
+          "it": "Buongiorno, {learner}. Oggi la fila arriva alla porta: Micka, Luka, mezzo paese. Tutti vogliono la farina oggi stesso."
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Luka je prišel prvi. Micka pa pravi, da je čakala že včeraj, ampak jaz sem bil zaprl, preden je prišla.",
+          "en": "Luka came first. But Micka says she was already waiting yesterday, only I had closed before she arrived.",
+          "de": "Luka kam als Erster. Aber Micka sagt, sie habe schon gestern gewartet, nur hatte ich zugemacht, bevor sie kam.",
+          "it": "Luka è arrivato per primo. Ma Micka dice che aspettava già ieri, solo che io avevo chiuso prima che arrivasse."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kdor prej pride, prej melje. Ampak Micka je bila tu že včeraj.",
+              "en": "First come, first served, they say. But Micka was here yesterday already.",
+              "de": "Wer zuerst kommt, mahlt zuerst. Aber Micka war schon gestern da.",
+              "it": "Chi primo arriva, meglio alloggia. Ma Micka era qui già ieri.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Prav praviš. Pa vseeno ne vem, kako naj to povem Luki.",
+                "en": "You're right. All the same, I don't know how to tell Luka.",
+                "de": "Recht hast du. Trotzdem weiß ich nicht, wie ich das Luka sagen soll.",
+                "it": "Hai ragione. Però non so come dirlo a Luka."
+              }
+            },
+            {
+              "sl": "Kdor prej pride, prej pije. Ampak Micka je bila tu že včeraj.",
+              "en": "Whoever comes first drinks first. But Micka was here yesterday already.",
+              "de": "Wer zuerst kommt, trinkt zuerst. Aber Micka war schon gestern da.",
+              "it": "Chi primo arriva, primo beve. Ma Micka era qui già ieri.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "A proverb keeps its words: kdor prej pride, prej melje (first come, first served), from the mill itself.",
+                "de": "Ein Sprichwort behält seine Wörter: kdor prej pride, prej melje (wer zuerst kommt, mahlt zuerst), aus der Mühle selbst.",
+                "it": "Un proverbio tiene le sue parole: kdor prej pride, prej melje (chi prima arriva, prima macina), dal mulino stesso."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Pije? To pa v gostilni, {learner}, ne v mlinu!",
+                "en": "Drinks? That's at the inn, {learner}, not at the mill!",
+                "de": "Trinkt? Das ist im Gasthaus, {learner}, nicht in der Mühle!",
+                "it": "Beve? Questo all'osteria, {learner}, non al mulino!"
+              }
+            },
+            {
+              "sl": "Ampak Micka je včeraj prišla, ko je bil mlin še odprt.",
+              "en": "But yesterday Micka came while the mill was still open.",
+              "de": "Aber Micka kam gestern, als die Mühle noch offen war.",
+              "it": "Ma ieri Micka è arrivata quando il mulino era ancora aperto.",
+              "grammar": "predpreteklik",
+              "why": {
+                "en": "Sem bil zaprl, preden je prišla is the pluperfect: France had already closed before Micka came, so she found the door shut.",
+                "de": "Sem bil zaprl, preden je prišla ist das Plusquamperfekt: France hatte schon zugemacht, bevor Micka kam, also fand sie die Tür zu.",
+                "it": "Sem bil zaprl, preden je prišla è il trapassato: France aveva già chiuso prima che Micka arrivasse, e lei ha trovato la porta chiusa."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Odprt? Ne, ne, ko je prišla, so bila vrata že zaklenjena.",
+                "en": "Open? No, no, when she came the door was already locked.",
+                "de": "Offen? Nein, nein, als sie kam, war die Tür schon abgeschlossen.",
+                "it": "Aperto? No, no, quando è arrivata la porta era già chiusa a chiave."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, po vrsti. Kot pri štetju.",
+            "en": "Hm? Once more, in order. Like counting.",
+            "de": "Hm? Noch einmal, der Reihe nach. Wie beim Zählen.",
+            "it": "Mm? Ancora una volta, in ordine. Come quando si conta."
+          }
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Če dam Micki prednost, bo Luka užaljen. Če je ne dam, bo užaljena Micka. Kaj bi ti {m:naredil|f:naredila}?",
+          "en": "If I let Micka go first, Luka will be offended. If I don't, Micka will be. What would you do?",
+          "de": "Lasse ich Micka vor, ist Luka gekränkt. Lasse ich sie nicht vor, ist Micka gekränkt. Was würdest du tun?",
+          "it": "Se do la precedenza a Micka, Luka si offende. Se non gliela do, si offende Micka. Tu cosa faresti?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Najprej Mickino, saj je čakala že včeraj. Luka bo počakal, kljub temu da je bil danes prvi.",
+              "en": "Micka's first, since she was waiting yesterday. Luka will wait, even though he was first today.",
+              "de": "Zuerst Mickas, sie hat ja schon gestern gewartet. Luka wartet, obwohl er heute der Erste war.",
+              "it": "Prima quello di Micka, visto che aspettava già ieri. Luka aspetterà, anche se oggi è arrivato primo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Micka najprej, Luka potem. In Luki vzamem merico manj, za čakanje.",
+                "en": "Right. Micka first, Luka after. And I'll take one measure less from Luka, for the wait.",
+                "de": "Gut. Micka zuerst, Luka danach. Und von Luka nehme ich ein Maß weniger, fürs Warten.",
+                "it": "Bene. Prima Micka, poi Luka. E a Luka prendo una misura in meno, per l'attesa."
+              }
+            },
+            {
+              "sl": "Najprej Mickino, saj je čakala že včeraj. Luka bo počakal, kljub temu je bil danes prvi.",
+              "en": "Micka's first, since she was waiting yesterday. Luka will wait, nevertheless he was first today.",
+              "de": "Zuerst Mickas, sie hat ja schon gestern gewartet. Luka wartet, trotzdem war er heute der Erste.",
+              "it": "Prima quello di Micka, visto che aspettava già ieri. Luka aspetterà, tuttavia oggi è arrivato primo.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Kljub temu da joins a clause, as čeprav does, and čeprav means although: kljub temu da je bil prvi. Kljub temu alone is nevertheless.",
+                "de": "Kljub temu da leitet einen Nebensatz ein, wie čeprav, und čeprav heißt obwohl: kljub temu da je bil prvi. Kljub temu allein ist trotzdem.",
+                "it": "Kljub temu da introduce una frase, come čeprav, e čeprav vuol dire anche se: kljub temu da je bil prvi. Kljub temu (senza da) è tuttavia."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kljub temu … in? Zdaj sem se pa zgubil pri štetju.",
+                "en": "Nevertheless … and? Now I've lost count.",
+                "de": "Trotzdem … und? Jetzt habe ich mich verzählt.",
+                "it": "Tuttavia … e? Adesso ho perso il conto."
+              }
+            },
+            {
+              "sl": "Zmeljite najprej svoje žito. Sosedje naj počakajo.",
+              "en": "Grind your own grain first. The neighbours can wait.",
+              "de": "Mahlen Sie zuerst Ihr eigenes Korn. Die Nachbarn sollen warten.",
+              "it": "Macini prima il Suo grano. I vicini aspettino.",
+              "why": {
+                "en": "France is weighing two neighbours, Micka and Luka: putting himself first answers a question he didn't ask, and isn't his way (sosedje smo).",
+                "de": "France wägt zwei Nachbarn ab, Micka und Luka: sich selbst vorzuziehen beantwortet eine Frage, die er nicht gestellt hat, und ist nicht seine Art (sosedje smo).",
+                "it": "France soppesa due vicini, Micka e Luka: mettere sé stesso per primo risponde a una domanda che non ha fatto, e non è da lui (sosedje smo)."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Svoje? Ne, ne. Sosedje smo, {learner}!",
+                "en": "My own? No, no. We're neighbours, {learner}!",
+                "de": "Mein eigenes? Nein, nein. Wir sind Nachbarn, {learner}!",
+                "it": "Il mio? No, no. Siamo vicini, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, po vrsti. Kot pri štetju.",
+            "en": "Hm? Once more, in order. Like counting.",
+            "de": "Hm? Noch einmal, der Reihe nach. Wie beim Zählen.",
+            "it": "Mm? Ancora una volta, in ordine. Come quando si conta."
+          }
+        },
+        {
+          "who": "france",
+          "face": "laugh",
+          "sl": "Kdor prej pride, prej melje, kdor pa čaka, dobi popust. Tako je pri meni.",
+          "en": "First come, first ground, and whoever waits gets a discount. That's how it is with me.",
+          "de": "Wer zuerst kommt, mahlt zuerst, und wer wartet, bekommt Rabatt. So ist das bei mir.",
+          "it": "Chi prima arriva, prima macina, e chi aspetta ha lo sconto. Da me funziona così."
+        }
+      ]
+    },
+    {
+      "id": "micka-b1-moka",
+      "level": "B1",
+      "memory": {
+        "sl": "fino moko za potico",
+        "en": "the fine flour for the potica",
+        "de": "das feine Mehl für die Potica",
+        "it": "la farina fine per la potizza"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "curious",
+          "sl": "Dober dan, {learner}! France je šel po vodo, jaz pa moram domov h kosilu. Mu boš nekaj {m:povedal|f:povedala}?",
+          "en": "Good day, {learner}! France has gone for water, and I have to go home to cook lunch. Will you tell him something?",
+          "de": "Guten Tag, {learner}! France holt Wasser, und ich muss heim zum Mittagessen. Richtest du ihm etwas aus?",
+          "it": "Buongiorno, {learner}! France è andato a prendere l'acqua, e io devo tornare a casa per il pranzo. Gli riferisci una cosa?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda. Kaj naj povem Francetu?",
+              "en": "Of course. What shall I tell France?",
+              "de": "Natürlich. Was soll ich France sagen?",
+              "it": "Certo. Cosa devo dire a France?",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "sl": "Naj zmelje drobno, za potico. Lani je bila moka groba, pa se je potica drobila.",
+                "en": "To grind it fine, for potica. Last year the flour was coarse, and the potica crumbled.",
+                "de": "Er soll fein mahlen, für die Potica. Letztes Jahr war das Mehl grob, und die Potica ist zerbröselt.",
+                "it": "Che la macini fine, per la potizza. L'anno scorso la farina era grossa, e la potizza si sbriciolava."
+              }
+            },
+            {
+              "sl": "Seveda. Kaj naj povem Francu?",
+              "en": "Of course. What shall I tell Franc?",
+              "de": "Natürlich. Was soll ich Franc sagen?",
+              "it": "Certo. Cosa devo dire a Franc?",
+              "grammar": "sklanjatev-posebnosti",
+              "why": {
+                "en": "France, a masculine name in -e, grows a t as soon as an ending comes: Francetu (like Tone, Toneta). Francu is to a Franc.",
+                "de": "France, ein männlicher Name auf -e, bekommt ein t, sobald eine Endung kommt: Francetu (wie Tone, Toneta). Francu ist an einen Franc.",
+                "it": "France, nome maschile in -e, prende una t appena arriva una desinenza: Francetu (come Tone, Toneta). Francu è a un Franc."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Francu? Franc je moj bratranec v Trstu, {learner}!",
+                "en": "Franc? Franc is my cousin in Trieste, {learner}!",
+                "de": "Franc? Franc ist mein Cousin in Triest, {learner}!",
+                "it": "Franc? Franc è mio cugino a Trieste, {learner}!"
+              }
+            },
+            {
+              "sl": "Seveda. Kaj naj povem France?",
+              "en": "Of course. What shall I tell France?",
+              "de": "Natürlich. Was soll ich France sagen?",
+              "it": "Certo. Cosa devo dire a France?",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "You tell something to someone: povedati takes the dative, Francetu.",
+                "de": "Man sagt jemandem etwas: povedati verlangt den Dativ, Francetu.",
+                "it": "Si dice qualcosa a qualcuno: povedati vuole il dativo, Francetu."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "France … kaj z njim? Povej do konca, prosim.",
+                "en": "France … what about him? Finish what you're saying, please.",
+                "de": "France … was ist mit ihm? Sag es zu Ende, bitte.",
+                "it": "France … cosa c'entra? Finisci la frase, per favore."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "worried",
+          "sl": "Če bo moka spet groba, bo vsa vas rekla, da Micka ne zna več peči.",
+          "en": "If the flour is coarse again, the whole village will say Micka can't bake any more.",
+          "de": "Wenn das Mehl wieder grob ist, sagt das ganze Dorf, Micka könne nicht mehr backen.",
+          "it": "Se la farina è di nuovo grossa, tutto il paese dirà che Micka non sa più cuocere."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Nihče ne bo rekel česa takega. Vaša potica je najboljša v vasi.",
+              "en": "Nobody will say anything like that. Your potica is the best in the village.",
+              "de": "Niemand wird so etwas sagen. Ihre Potica ist die beste im Dorf.",
+              "it": "Nessuno dirà una cosa del genere. La Sua potizza è la migliore del paese.",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "sl": "Ti si pa {m:priden|f:pridna}. Za to dobiš prvi kos, še toplega.",
+                "en": "Aren't you a dear. For that you get the first slice, still warm.",
+                "de": "Du bist aber lieb. Dafür bekommst du das erste Stück, noch warm.",
+                "it": "Ma che {m:bravo|f:brava}. Per questo ti spetta la prima fetta, ancora calda."
+              }
+            },
+            {
+              "sl": "Nihče bo rekel česa takega. Vaša potica je najboljša v vasi.",
+              "en": "Nobody will say anything like that (no ne). Your potica is the best in the village.",
+              "de": "Niemand wird so etwas sagen (ohne ne). Ihre Potica ist die beste im Dorf.",
+              "it": "Nessuno dirà una cosa del genere (senza ne). La Sua potizza è la migliore del paese.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Nihče doubles the no: the verb keeps its ne, nihče ne bo rekel.",
+                "de": "Nihče verdoppelt die Verneinung: das Verb behält sein ne, nihče ne bo rekel.",
+                "it": "Nihče raddoppia la negazione: il verbo tiene il suo ne, nihče ne bo rekel."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nihče bo rekel? Kdo pa je ta Nihče, {learner}?",
+                "en": "Nobody will say? And who is this Nobody, {learner}?",
+                "de": "Niemand wird sagen? Wer ist denn dieser Niemand, {learner}?",
+                "it": "Nessuno dirà? E chi è questo Nessuno, {learner}?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Pridi, pridi v nedeljo. In povej Francetu: drobno!",
+          "en": "Come on Sunday, do come. And tell France: fine!",
+          "de": "Komm am Sonntag, komm nur. Und sag France: fein!",
+          "it": "Vieni, vieni domenica. E di' a France: fine!"
+        }
+      ]
+    },
+    {
+      "id": "micka-b2-potica",
+      "level": "B2",
+      "memory": {
+        "sl": "potico brez sladkorja, ki je vseeno zmagala",
+        "en": "the potica without sugar that won all the same",
+        "de": "die Potica ohne Zucker, die trotzdem gewonnen hat",
+        "it": "la potizza senza zucchero che ha vinto lo stesso"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "laugh",
+          "sl": "Veš, {learner}, lani bi bila na prazniku v Trnovem skoraj izgubila. Prvič po tridesetih letih!",
+          "en": "You know, {learner}, last year at the feast in Trnovo I very nearly lost. For the first time in thirty years!",
+          "de": "Weißt du, {learner}, letztes Jahr hätte ich beim Fest in Trnovo fast verloren. Zum ersten Mal seit dreißig Jahren!",
+          "it": "Sai, {learner}, l'anno scorso alla festa di Trnovo per poco non perdevo. Per la prima volta in trent'anni!"
+        },
+        {
+          "who": "babica",
+          "face": "shy",
+          "sl": "Pozabila sem sladkor v nadevu. Sodnik je pojedel en kos, potem še enega, in rekel, da je posebna.",
+          "en": "I forgot the sugar in the filling. The judge ate one slice, then another, and said it was special.",
+          "de": "Ich hatte den Zucker in der Füllung vergessen. Der Richter aß ein Stück, dann noch eins, und sagte, sie sei besonders.",
+          "it": "Avevo dimenticato lo zucchero nel ripieno. Il giudice ne ha mangiata una fetta, poi un'altra, e ha detto che era speciale."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej ste vseeno zmagali? Brez sladkorja?",
+              "en": "So you won after all? Without sugar?",
+              "de": "Sie haben also trotzdem gewonnen? Ohne Zucker?",
+              "it": "Quindi ha vinto lo stesso? Senza zucchero?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Zmagala, ja. Sodnik je imel orehe rajši kot sladkor, hvala bogu.",
+                "en": "Won, yes. The judge liked walnuts better than sugar, thank God.",
+                "de": "Gewonnen, ja. Der Richter mochte Nüsse lieber als Zucker, Gott sei Dank.",
+                "it": "Vinto, sì. Al giudice piacevano le noci più dello zucchero, grazie a Dio."
+              }
+            },
+            {
+              "sl": "Škoda, da ste izgubili. Letos boste gotovo zmagali.",
+              "en": "A pity you lost. This year you'll surely win.",
+              "de": "Schade, dass Sie verloren haben. Dieses Jahr gewinnen Sie bestimmt.",
+              "it": "Peccato che abbia perso. Quest'anno vincerà di sicuro.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Skoraj bi bila izgubila is a near miss in the past conditional: she nearly lost, and didn't.",
+                "de": "Skoraj bi bila izgubila ist ein Beinahe im Konditional der Vergangenheit: sie hätte fast verloren, hat es aber nicht.",
+                "it": "Skoraj bi bila izgubila è un per poco nel condizionale passato: stava per perdere, e non ha perso."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Izgubila? Jaz? Ne, ne, samo skoraj!",
+                "en": "Lost? Me? No, no, only nearly!",
+                "de": "Verloren? Ich? Nein, nein, nur fast!",
+                "it": "Persa? Io? No, no, solo per poco!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "worried",
+          "sl": "Letos pa pravijo, da bo tekmovala tudi neka gospa iz Gorice, ki peče v slaščičarni. Kaj misliš, se moram bati?",
+          "en": "This year, though, they say a lady from Gorizia will compete too, one who bakes in a pastry shop. What do you think, should I be afraid?",
+          "de": "Dieses Jahr, sagt man, macht auch eine Dame aus Gorizia mit, die in einer Konditorei bäckt. Was meinst du, muss ich mich fürchten?",
+          "it": "Quest'anno però dicono che gareggerà anche una signora di Gorizia, una che fa la pasticciera. Cosa ne pensi, devo avere paura?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Morda zna lepo peči, ampak pri vas se peče z ljubeznijo, ne po receptu.",
+              "en": "She may bake beautifully, but at yours baking is done with love, not by the recipe.",
+              "de": "Vielleicht backt sie schön, aber bei Ihnen wird mit Liebe gebacken, nicht nach Rezept.",
+              "it": "Forse sa fare bei dolci, ma da Lei si cuoce con amore, non con la ricetta.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imaš. Letos bo šlo kot po maslu. In s sladkorjem!",
+                "en": "You're right. This year it'll go like a dream. And with sugar!",
+                "de": "Recht hast du. Dieses Jahr geht es wie geschmiert. Und mit Zucker!",
+                "it": "Hai ragione. Quest'anno andrà liscio come l'olio. E con lo zucchero!"
+              }
+            },
+            {
+              "sl": "Morda zna lepo peči, ampak pri vas se pečete z ljubeznijo, ne po receptu.",
+              "en": "She may bake beautifully, but at yours you bake yourselves with love, not by the recipe.",
+              "de": "Vielleicht backt sie schön, aber bei Ihnen backen Sie sich mit Liebe, nicht nach Rezept.",
+              "it": "Forse sa fare bei dolci, ma da Lei vi cuocete con amore, non con la ricetta.",
+              "grammar": "brezosebno",
+              "why": {
+                "en": "The impersonal se has no subject: the verb is in the third person singular, pri vas se peče (baking is done). Se pečete is you baking yourselves.",
+                "de": "Das unpersönliche se hat kein Subjekt: das Verb steht in der 3. Person Singular, pri vas se peče (es wird gebacken). Se pečete heißt, ihr backt euch selbst.",
+                "it": "Il se impersonale non ha soggetto: il verbo va alla terza persona singolare, pri vas se peče (si cuoce). Se pečete è voi che vi cuocete."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Se pečem? Samo poleti, na soncu, {learner}!",
+                "en": "Bake myself? Only in summer, in the sun, {learner}!",
+                "de": "Ich backe mich? Nur im Sommer, in der Sonne, {learner}!",
+                "it": "Mi cuocio? Solo d'estate, al sole, {learner}!"
+              }
+            },
+            {
+              "sl": "Potem raje sploh ne tekmujte. Slaščičarka je gotovo boljša.",
+              "en": "Then better not compete at all. The pastry cook is surely better.",
+              "de": "Dann treten Sie lieber gar nicht an. Die Konditorin ist sicher besser.",
+              "it": "Allora meglio non gareggiare. La pasticciera è di sicuro più brava.",
+              "why": {
+                "en": "Micka wants courage, not to give up: she has won for thirty years. Grant the lady her skill, then back Micka.",
+                "de": "Micka will Mut, nicht aufgeben: sie gewinnt seit dreißig Jahren. Gib der Dame ihr Können zu und halte dann zu Micka.",
+                "it": "Micka vuole coraggio, non arrendersi: vince da trent'anni. Riconosci la bravura della signora, poi sostieni Micka."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Ne tekmovati? Joj, tega pa nočem slišati, {learner}!",
+                "en": "Not compete? Oh, I won't hear of that, {learner}!",
+                "de": "Nicht antreten? Ach, davon will ich nichts hören, {learner}!",
+                "it": "Non gareggiare? Oddio, questo non lo voglio sentire, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Zdaj pa pomagaj stresti pšenico v koš. Za zmagovalno potico je treba fine moke.",
+          "en": "Now help me tip the wheat into the hopper. A winning potica needs fine flour.",
+          "de": "Jetzt hilf mir, den Weizen in den Trichter zu schütten. Für eine Siegerpotica braucht man feines Mehl.",
+          "it": "Adesso aiutami a versare il grano nella tramoggia. Per una potizza vincente ci vuole farina fine."
         }
       ]
     }
