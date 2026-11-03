@@ -162,7 +162,7 @@ ahead. These count the units only, as `voice-build`'s `course` source reads them
   fitted their sentence, gehangen asked before it was taught, Es gab viele Leute, some Slovene. It is one more machine's reading, not a native check.
 - **Android, through lani-slot** (not the whole suite, as the brief says): 137 tests, none failed: GermanA2bContentTest 8, GermanCourseContentTest 5, GradingLanguagesTest 48,
   SchoolBoardTest 7, GrammarTest 16, CourseTest 8, PrintsTest 6, CheatSheetTest 19, SchoolRevealTest 10, IntroBoldTapTest 2, IntroSpeechParityTest 2, SentenceGrammarTest 6.
-- **tsc**: clean. **`tutor-export --check`**: 89 files match the bridge. **`bun test/prompt-clashes.ts`**: no new clash. **`lexicon-build --coverage --lang de`**: as before.
+- **The smoke** with this branch's ports (9870–9889): all checks passed, 3,508. **tsc**: clean. **`tutor-export --check`**: 89 files match the bridge. **`bun test/prompt-clashes.ts`**: no new clash. **`lexicon-build --coverage --lang de`**: as before.
 - **Prints**: `school-prints --language de --level A2 --base en|sl|it`, the six units: `reflexiv` on one page, the others on two, every step's point on the rule line. On this branch they
   read "Lektion 1" to "6"; they become 7 to 12 once part a lands.
 - **Emulator** (qa-slot, slot 2, `--steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=partizip-perfekt`): a synthetic learner of German from Slovene
