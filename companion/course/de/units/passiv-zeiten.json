@@ -1,0 +1,938 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passiv-zeiten",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🏗️",
+  "title": {
+    "de": "Das Haus ist gebaut worden",
+    "en": "The passive in every tense: ist gebaut worden",
+    "sl": "Trpnik v vseh časih: ist gebaut worden",
+    "it": "Il passivo in tutti i tempi: ist gebaut worden"
+  },
+  "goal": {
+    "en": "You can say what has been done (Das Haus ist gebaut worden), what had been done (war gebaut worden) and what must or could be done (muss repariert werden, könnte repariert werden).",
+    "sl": "Znaš povedati, kaj je bilo storjeno (Das Haus ist gebaut worden), kaj je bilo že prej storjeno (war gebaut worden) in kaj je treba ali bi se dalo storiti (muss repariert werden, könnte repariert werden).",
+    "it": "Sai dire che cosa è stato fatto (Das Haus ist gebaut worden), che cosa era già stato fatto (war gebaut worden) e che cosa si deve o si potrebbe fare (muss repariert werden, könnte repariert werden)."
+  },
+  "grammar": [
+    "passiv-zeiten",
+    "passiv"
+  ],
+  "words": [
+    "bauen",
+    "reparieren",
+    "pflücken",
+    "melken",
+    "sammeln",
+    "streichen",
+    "decken",
+    "mähen",
+    "mahlen",
+    "kehren",
+    "einbringen",
+    "wegräumen",
+    "abbauen",
+    "austrinken",
+    "die Mühle",
+    "das Dach",
+    "das Rad",
+    "das Fenster",
+    "die Wiese",
+    "das Mehl",
+    "die Bühne",
+    "der Platz",
+    "das Fest",
+    "sauber"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "wann",
+          "en": "when",
+          "sl": "kdaj",
+          "it": "quando"
+        },
+        "das Haus · es",
+        "die Häuser · sie"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Das Haus ist gebaut worden** (never *Das Haus ist gebaut geworden*): the house has been built, the Perfekt of the passive. It is **ist** or **sind** + the participle + **worden**: always sein, and **worden** with no ge-. **Die Brücke ist 1950 gebaut worden** (The bridge was built in 1950). Austria talks in this tense; **wurde gebaut** is what people write, and the two mean the same.",
+          "sl": "**Das Haus ist gebaut worden** (Hiša je bila zgrajena): perfekt trpnika. Je **ist** ali **sind** + deležnik + **worden**: vedno sein in **worden** brez ge-. **Die Brücke ist 1950 gebaut worden** (Most je bil zgrajen leta 1950). V Avstriji se tako govori; **wurde gebaut** se piše, pomen je isti.",
+          "it": "**Das Haus ist gebaut worden** (La casa è stata costruita): il Perfekt del passivo. È **ist** o **sind** + il participio + **worden**: sempre sein, e **worden** senza ge-. **Die Brücke ist 1950 gebaut worden** (Il ponte è stato costruito nel 1950). In Austria si parla così; **wurde gebaut** è ciò che si scrive, e vogliono dire lo stesso."
+        },
+        "examples": [
+          {
+            "de": "Das Haus ist gebaut worden.",
+            "en": "The house has been built.",
+            "sl": "Hiša je bila zgrajena.",
+            "it": "La casa è stata costruita."
+          },
+          {
+            "de": "Die Brücke ist 1950 gebaut worden.",
+            "en": "The bridge was built in 1950.",
+            "sl": "Most je bil zgrajen leta 1950.",
+            "it": "Il ponte è stato costruito nel 1950."
+          }
+        ],
+        "rows": [
+          [
+            "Präsens",
+            "wird gebaut",
+            "werden gebaut"
+          ],
+          [
+            "Präteritum",
+            "wurde gebaut",
+            "wurden gebaut"
+          ],
+          [
+            "Perfekt",
+            "ist gebaut worden",
+            "sind gebaut worden"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv-zeiten",
+          "text": "Der Zaun ist gestern repariert ___.",
+          "accept": [
+            "worden"
+          ],
+          "hint": {
+            "en": "werden's participle, no ge-",
+            "sl": "deležnik od werden, brez ge-",
+            "it": "il participio di werden, senza ge-"
+          },
+          "explain": {
+            "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "ich **bin gefragt worden** (I've been asked), du **bist**, wir **sind**, ihr **seid gefragt worden**: sein changes, the rest stays. Who did it comes as before, with **von** + the dative: Die Mühle ist **von Franz' Großvater** gebaut worden (The mill was built by Franz's grandfather).",
+          "sl": "ich **bin gefragt worden** (vprašali so me), du **bist**, wir **sind**, ihr **seid gefragt worden**: spreminja se sein, drugo ostane. Kdo je to storil, pove kot prej **von** + dajalnik: Die Mühle ist **von Franz' Großvater** gebaut worden (Mlin je zgradil Franzev dedek).",
+          "it": "ich **bin gefragt worden** (mi hanno chiesto), du **bist**, wir **sind**, ihr **seid gefragt worden**: cambia sein, il resto resta. Chi l'ha fatto si dice come prima, con **von** + il dativo: Die Mühle ist **von Franz' Großvater** gebaut worden (Il mulino è stato costruito dal nonno di Franz)."
+        },
+        "examples": [
+          {
+            "de": "Ich bin nicht gefragt worden.",
+            "en": "I wasn't asked.",
+            "sl": "Mene niso vprašali.",
+            "it": "A me non l'hanno chiesto."
+          },
+          {
+            "de": "Die Mühle ist von Franz' Großvater gebaut worden.",
+            "en": "The mill was built by Franz's grandfather.",
+            "sl": "Mlin je zgradil Franzev dedek.",
+            "it": "Il mulino è stato costruito dal nonno di Franz."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv-zeiten",
+          "prompt": "Die Äpfel ___ schon gepflückt worden.",
+          "options": [
+            "sind",
+            "ist",
+            "haben"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**worden** goes with a participle, **geworden** (become) with an adjective or a noun: **Er ist gefragt worden** (He has been asked), but **Er ist Müller geworden** (He became a miller), **Es ist kalt geworden** (It's got cold). Both come from werden, and the word before them decides.",
+          "sl": "**worden** gre z deležnikom, **geworden** (postal) s pridevnikom ali samostalnikom: **Er ist gefragt worden** (vprašali so ga), toda **Er ist Müller geworden** (Postal je mlinar), **Es ist kalt geworden** (Postalo je hladno). Oba sta iz werden, odloči beseda pred njima.",
+          "it": "**worden** va con un participio, **geworden** (diventato) con un aggettivo o un nome: **Er ist gefragt worden** (gli hanno chiesto), ma **Er ist Müller geworden** (È diventato mugnaio), **Es ist kalt geworden** (Si è fatto freddo). Vengono tutti e due da werden, e decide la parola prima."
+        },
+        "examples": [
+          {
+            "de": "Er ist Müller geworden.",
+            "en": "He became a miller.",
+            "sl": "Postal je mlinar.",
+            "it": "È diventato mugnaio."
+          },
+          {
+            "de": "Es ist kalt geworden.",
+            "en": "It's got cold.",
+            "sl": "Postalo je hladno.",
+            "it": "Si è fatto freddo."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv-zeiten",
+          "text": "Gestern war Stefan gesund. Heute ist er krank ___.",
+          "accept": [
+            "geworden"
+          ],
+          "hint": {
+            "en": "krank is an adjective, not a participle",
+            "sl": "krank je pridevnik, ne deležnik",
+            "it": "krank è un aggettivo, non un participio"
+          },
+          "explain": {
+            "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**war gebaut worden** (had been built): what had already been done at some point in the past. Als wir kamen, **war** das Heu schon **eingebracht worden** (When we came, the hay had already been brought in). After nachdem or als the helper goes last: Nachdem die Brücke gebaut **worden war**, kamen mehr Gäste.",
+          "sl": "**war gebaut worden** (je bil že zgrajen): kar je bilo v preteklosti že storjeno. Als wir kamen, **war** das Heu schon **eingebracht worden** (Ko smo prišli, je bilo seno že pospravljeno). Za nachdem ali als gre pomožni glagol na konec: Nachdem die Brücke gebaut **worden war**, kamen mehr Gäste.",
+          "it": "**war gebaut worden** (era stato costruito): ciò che nel passato era già stato fatto. Als wir kamen, **war** das Heu schon **eingebracht worden** (Quando siamo arrivati, il fieno era già stato portato dentro). Dopo nachdem o als l'ausiliare va alla fine: Nachdem die Brücke gebaut **worden war**, kamen mehr Gäste."
+        },
+        "examples": [
+          {
+            "de": "Als wir kamen, war das Heu schon eingebracht worden.",
+            "en": "When we came, the hay had already been brought in.",
+            "sl": "Ko smo prišli, je bilo seno že pospravljeno.",
+            "it": "Quando siamo arrivati, il fieno era già stato portato dentro."
+          },
+          {
+            "de": "Nachdem die Brücke gebaut worden war, kamen mehr Gäste.",
+            "en": "After the bridge had been built, more guests came.",
+            "sl": "Potem ko je bil most zgrajen, je prišlo več gostov.",
+            "it": "Dopo che il ponte era stato costruito, sono arrivati più ospiti."
+          }
+        ],
+        "rows": [
+          [
+            "Plusquamperfekt",
+            "war gebaut worden",
+            "waren gebaut worden"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv-zeiten",
+          "text": "Als Toni kam, ___ der Zaun schon repariert worden.",
+          "accept": [
+            "war"
+          ],
+          "hint": {
+            "en": "before he came: the past of sein",
+            "sl": "preden je prišel: preteklik od sein",
+            "it": "prima che arrivasse: il passato di sein"
+          },
+          "explain": {
+            "en": "**What had been done: war or waren + the participle + worden**\n- Das Heu war schon eingebracht worden.",
+            "sl": "**Kar je bilo že storjeno: war ali waren + deležnik + worden**\n- Das Heu war schon eingebracht worden.",
+            "it": "**Ciò che era già stato fatto: war o waren + il participio + worden**\n- Das Heu war schon eingebracht worden."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Das muss gemacht werden** (That has to be done): a modal verb, then the participle + **werden** at the end. **kann repariert werden** (can be repaired), **darf nicht geöffnet werden** (mustn't be opened), **soll gebaut werden** (is to be built). The modal does the changing: **musste gemacht werden** (had to be done). After weil it goes last: weil das Dach repariert werden **muss**.",
+          "sl": "**Das muss gemacht werden** (To je treba narediti): modalni glagol, nato deležnik + **werden** na koncu. **kann repariert werden** (se da popraviti), **darf nicht geöffnet werden** (se ne sme odpreti), **soll gebaut werden** (naj bi se zgradil). Spreminja se modalni glagol: **musste gemacht werden** (je bilo treba narediti). Za weil gre na konec: weil das Dach repariert werden **muss**.",
+          "it": "**Das muss gemacht werden** (Bisogna farlo): un modale, poi il participio + **werden** alla fine. **kann repariert werden** (si può riparare), **darf nicht geöffnet werden** (non si deve aprire), **soll gebaut werden** (deve essere costruito). A cambiare è il modale: **musste gemacht werden** (bisognava farlo). Dopo weil va alla fine: weil das Dach repariert werden **muss**."
+        },
+        "examples": [
+          {
+            "de": "Das Dach muss repariert werden.",
+            "en": "The roof has to be repaired.",
+            "sl": "Streho je treba popraviti.",
+            "it": "Il tetto va riparato."
+          },
+          {
+            "de": "Der Zaun konnte nicht repariert werden.",
+            "en": "The fence couldn't be repaired.",
+            "sl": "Ograje ni bilo mogoče popraviti.",
+            "it": "Il recinto non si è potuto riparare."
+          }
+        ],
+        "rows": [
+          [
+            "müssen",
+            "muss gebaut werden",
+            "müssen gebaut werden"
+          ],
+          [
+            {
+              "de": "müssen, damals",
+              "en": "müssen, back then",
+              "sl": "müssen, takrat",
+              "it": "müssen, allora"
+            },
+            "musste gebaut werden",
+            "mussten gebaut werden"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv-zeiten",
+          "prompt": "Der Weg muss bald ___.",
+          "options": [
+            "repariert werden",
+            "repariert worden",
+            "reparieren wird"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A modal verb, then the participle + werden last**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "sl": "**Modalni glagol, nato deležnik + werden na koncu**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "it": "**Un modale, poi il participio + werden alla fine**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**müsste gemacht werden** (would have to be done), **könnte repariert werden** (could be repaired), **sollte gebaut werden** (ought to be built): the Konjunktiv II of the modal, the rest the same. It says what would be needed or possible, or it asks kindly: **Könnte** das heute gemacht **werden**? **Die Straße müsste repariert werden.**",
+          "sl": "**müsste gemacht werden** (bi bilo treba narediti), **könnte repariert werden** (bi se dalo popraviti), **sollte gebaut werden** (bi bilo treba zgraditi): konjunktiv II modalnega glagola, drugo enako. Pove, kaj bi bilo treba ali mogoče, ali vpraša vljudno: **Könnte** das heute gemacht **werden**? **Die Straße müsste repariert werden.**",
+          "it": "**müsste gemacht werden** (bisognerebbe farlo), **könnte repariert werden** (si potrebbe riparare), **sollte gebaut werden** (si dovrebbe costruire): il Konjunktiv II del modale, il resto uguale. Dice che cosa sarebbe necessario o possibile, o chiede con gentilezza: **Könnte** das heute gemacht **werden**? **Die Straße müsste repariert werden.**"
+        },
+        "examples": [
+          {
+            "de": "Die Straße müsste repariert werden.",
+            "en": "The road would have to be repaired.",
+            "sl": "Cesto bi bilo treba popraviti.",
+            "it": "La strada andrebbe riparata."
+          },
+          {
+            "de": "Könnte das heute gemacht werden?",
+            "en": "Could that be done today?",
+            "sl": "Bi se to dalo narediti danes?",
+            "it": "Si potrebbe fare oggi?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "müssen, Konjunktiv",
+              "en": "müssen, Konjunktiv",
+              "sl": "müssen, konjunktiv",
+              "it": "müssen, Konjunktiv"
+            },
+            "müsste gebaut werden",
+            "müssten gebaut werden"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv-zeiten",
+          "text": "Wenn die Gemeinde Geld hätte, ___ die Brücke repariert werden. (können)",
+          "accept": [
+            "könnte"
+          ],
+          "hint": {
+            "en": "the Konjunktiv II of können",
+            "sl": "konjunktiv II od können",
+            "it": "il Konjunktiv II di können"
+          },
+          "explain": {
+            "en": "**A modal verb, then the participle + werden last**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "sl": "**Modalni glagol, nato deležnik + werden na koncu**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "it": "**Un modale, poi il participio + werden alla fine**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passiv-zeiten-1",
+      "title": {
+        "de": "Worden, geworden",
+        "en": "Worden, geworden",
+        "sl": "Worden, geworden",
+        "it": "Worden, geworden"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "werden, with the participle: Perfekt and Plusquamperfekt",
+            "sl": "werden z deležnikom: perfekt in pluskvamperfekt",
+            "it": "werden con il participio: Perfekt e Plusquamperfekt"
+          },
+          "columns": [
+            "Perfekt",
+            "Plusquamperfekt"
+          ],
+          "rows": [
+            {
+              "label": "der Zaun",
+              "cells": [
+                {
+                  "accept": [
+                    "ist repariert worden"
+                  ]
+                },
+                "war repariert worden"
+              ]
+            },
+            {
+              "label": "die Äpfel",
+              "cells": [
+                {
+                  "accept": [
+                    "sind gepflückt worden"
+                  ]
+                },
+                {
+                  "accept": [
+                    "waren gepflückt worden"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ich",
+              "cells": [
+                "bin gefragt worden",
+                {
+                  "accept": [
+                    "war gefragt worden"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "bist gefragt worden"
+                  ]
+                },
+                {
+                  "accept": [
+                    "warst gefragt worden"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "sind gefragt worden"
+                  ]
+                },
+                "waren gefragt worden"
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "seid gefragt worden"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wart gefragt worden"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Sortiere · Sort: worden or geworden?",
+            "sl": "Sortiere · Razvrsti: worden ali geworden?",
+            "it": "Sortiere · Ordina: worden o geworden?"
+          },
+          "columns": [
+            {
+              "label": "ist … worden",
+              "words": [
+                "gebaut",
+                "geholt",
+                "repariert",
+                "gepflückt"
+              ]
+            },
+            {
+              "label": "ist … geworden",
+              "words": [
+                "kalt",
+                "krank",
+                "Müller"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passiv-zeiten-2",
+      "title": {
+        "de": "Die Mühle",
+        "en": "The mill",
+        "sl": "Mlin",
+        "it": "Il mulino"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Die Mühle",
+          "text": "Franz' Mühle ist im Frühling repariert ___. Zuerst ___ das Dach neu gedeckt worden. Dann ___ die Fenster gestrichen worden. Als Kathi kam, ___ schon alles sauber gemacht worden. Aber die Tür muss noch repariert ___. Auch das Rad ___ neu gebaut werden, sagt Toni, aber dafür gibt es kein Geld. Franz ist sehr froh ___: Jetzt kann er wieder Mehl mahlen. Alle haben ihn ___ (fragen), wann das Fest ist.",
+          "gaps": [
+            {
+              "accept": [
+                "worden"
+              ]
+            },
+            {
+              "accept": [
+                "ist",
+                "war"
+              ]
+            },
+            {
+              "accept": [
+                "sind",
+                "waren"
+              ]
+            },
+            {
+              "accept": [
+                "war"
+              ]
+            },
+            {
+              "accept": [
+                "werden"
+              ]
+            },
+            {
+              "accept": [
+                "könnte",
+                "müsste",
+                "sollte",
+                "muss",
+                "soll",
+                "kann"
+              ]
+            },
+            {
+              "accept": [
+                "geworden",
+                "gewesen"
+              ]
+            },
+            {
+              "accept": [
+                "gefragt"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "hat",
+            "wurde",
+            "haben"
+          ],
+          "translation": {
+            "en": "Franz's mill was repaired in the spring. First the roof was newly covered. Then the windows were painted. When Kathi came, everything had already been cleaned. But the door still has to be repaired. The wheel could be built new too, says Toni, but there's no money for it. Franz has become very happy: now he can grind flour again. Everyone has asked him when the party is.",
+            "sl": "Franzev mlin so spomladi popravili. Najprej so na novo pokrili streho. Potem so prepleskali okna. Ko je prišla Kathi, je bilo že vse očiščeno. A vrata je treba še popraviti. Tudi kolo bi se dalo narediti na novo, pravi Toni, a za to ni denarja. Franz je postal zelo vesel: zdaj lahko spet melje moko. Vsi so ga vprašali, kdaj bo slavje.",
+            "it": "Il mulino di Franz è stato riparato in primavera. Prima è stato rifatto il tetto. Poi sono state verniciate le finestre. Quando è arrivata Kathi, era già stato pulito tutto. Ma la porta va ancora riparata. Anche la ruota si potrebbe rifare, dice Toni, ma non ci sono i soldi. Franz è diventato molto contento: adesso può di nuovo macinare la farina. Tutti gli hanno chiesto quando sarà la festa."
+          },
+          "explain": {
+            "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Nachdem die Wiese gemäht worden ___, kam der Regen.",
+          "options": [
+            "war",
+            "wird",
+            "hatte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**What had been done: war or waren + the participle + worden**\n- Das Heu war schon eingebracht worden.",
+            "sl": "**Kar je bilo že storjeno: war ali waren + deležnik + worden**\n- Das Heu war schon eingebracht worden.",
+            "it": "**Ciò che era già stato fatto: war o waren + il participio + worden**\n- Das Heu war schon eingebracht worden."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das Dach ___ repariert werden.",
+          "options": [
+            "muss",
+            "ist",
+            "hat"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A modal verb, then the participle + werden last**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "sl": "**Modalni glagol, nato deležnik + werden na koncu**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "it": "**Un modale, poi il participio + werden alla fine**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passiv-zeiten-3",
+      "title": {
+        "de": "Was schon gemacht ist",
+        "en": "What has been done",
+        "sl": "Kaj je že narejeno",
+        "it": "Che cosa è già stato fatto"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Ins Perfekt · Into the Perfekt",
+            "sl": "Ins Perfekt · V perfekt",
+            "it": "Ins Perfekt · Al Perfekt"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Die Mühle wird repariert.",
+              "accept": [
+                "Die Mühle ist repariert worden."
+              ]
+            },
+            {
+              "from": "Die Kühe werden gemolken.",
+              "accept": [
+                "Die Kühe sind gemolken worden."
+              ]
+            },
+            {
+              "from": "Ich werde gefragt.",
+              "accept": [
+                "Ich bin gefragt worden."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Ins Passiv, mit von · Into the passive, with von",
+            "sl": "Ins Passiv, mit von · V trpnik, z von",
+            "it": "Ins Passiv, mit von · Al passivo, con von"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Toni hat den Zaun repariert.",
+              "accept": [
+                "Der Zaun ist von Toni repariert worden.",
+                "Der Zaun wurde von Toni repariert."
+              ]
+            },
+            {
+              "from": "Oma Resi hat den Kuchen gebacken.",
+              "accept": [
+                "Der Kuchen ist von Oma Resi gebacken worden.",
+                "Der Kuchen wurde von Oma Resi gebacken."
+              ]
+            },
+            {
+              "from": "Die Kinder haben die Äpfel gesammelt.",
+              "accept": [
+                "Die Äpfel sind von den Kindern gesammelt worden.",
+                "Die Äpfel wurden von den Kindern gesammelt."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+            "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "passiv-zeiten",
+          "instruction": {
+            "en": "Ins Passiv, mit dem Modalverb · Into the passive, with the modal verb",
+            "sl": "Ins Passiv, mit dem Modalverb · V trpnik, z modalnim glagolom",
+            "it": "Ins Passiv, mit dem Modalverb · Al passivo, con il modale"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Man muss das Dach reparieren.",
+              "accept": [
+                "Das Dach muss repariert werden."
+              ]
+            },
+            {
+              "from": "Man kann die Tür nicht öffnen.",
+              "accept": [
+                "Die Tür kann nicht geöffnet werden."
+              ]
+            },
+            {
+              "from": "Man sollte den Weg bauen.",
+              "accept": [
+                "Der Weg sollte gebaut werden."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A modal verb, then the participle + werden last**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "sl": "**Modalni glagol, nato deležnik + werden na koncu**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+            "it": "**Un modale, poi il participio + werden alla fine**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "passiv-zeiten",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Nach dem Kirchtag",
+        "text": "Der Kirchtag ist vorbei. Viel ist schon gemacht ___. Die Tische ___ weggeräumt worden. Das Bier ___ ausgetrunken worden. Als Stefan kam, ___ der Platz schon gekehrt worden. Aber die Bühne muss noch abgebaut ___. Alle sind müde ___.",
+        "gaps": [
+          {
+            "accept": [
+              "worden"
+            ]
+          },
+          {
+            "accept": [
+              "sind",
+              "waren"
+            ]
+          },
+          {
+            "accept": [
+              "ist",
+              "war"
+            ]
+          },
+          {
+            "accept": [
+              "war"
+            ]
+          },
+          {
+            "accept": [
+              "werden"
+            ]
+          },
+          {
+            "accept": [
+              "geworden",
+              "gewesen"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "The Kirchtag is over. A lot has already been done. The tables have been cleared away. The beer has been drunk up. When Stefan came, the square had already been swept. But the stage still has to be taken down. Everyone has got tired.",
+          "sl": "Žegnanja je konec. Veliko je že narejenega. Mize so pospravili. Pivo so spili. Ko je prišel Stefan, je bil trg že pometen. A oder je treba še podreti. Vsi so postali utrujeni.",
+          "it": "Il Kirchtag è finito. Molto è già stato fatto. I tavoli sono stati portati via. La birra è stata bevuta. Quando è arrivato Stefan, la piazza era già stata spazzata. Ma il palco va ancora smontato. Tutti si sono stancati."
+        },
+        "explain": {
+          "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+          "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+          "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passiv-zeiten",
+        "instruction": {
+          "en": "Ins Perfekt · Into the Perfekt",
+          "sl": "Ins Perfekt · V perfekt",
+          "it": "Ins Perfekt · Al Perfekt"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Der Most wird gepresst.",
+            "accept": [
+              "Der Most ist gepresst worden."
+            ]
+          },
+          {
+            "from": "Ihr werdet gefragt.",
+            "accept": [
+              "Ihr seid gefragt worden."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+          "sl": "**Perfekt: ist ali sind + deležnik + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
+          "it": "**Perfekt: ist o sind + il participio + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passiv-zeiten",
+        "instruction": {
+          "en": "Ins Passiv, mit dem Modalverb · Into the passive, with the modal verb",
+          "sl": "Ins Passiv, mit dem Modalverb · V trpnik, z modalnim glagolom",
+          "it": "Ins Passiv, mit dem Modalverb · Al passivo, con il modale"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Man muss den Zaun streichen.",
+            "accept": [
+              "Der Zaun muss gestrichen werden."
+            ]
+          },
+          {
+            "from": "Man kann das Fenster nicht öffnen.",
+            "accept": [
+              "Das Fenster kann nicht geöffnet werden."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**A modal verb, then the participle + werden last**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+          "sl": "**Modalni glagol, nato deležnik + werden na koncu**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+          "it": "**Un modale, poi il participio + werden alla fine**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv-zeiten",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Brücke ist 1950 gebaut ___.",
+        "options": [
+          "worden",
+          "geworden",
+          "werden"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv-zeiten",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stefan ist Bauer ___.",
+        "options": [
+          "geworden",
+          "worden",
+          "gebaut"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv-zeiten",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Straße ___ repariert werden, aber es gibt kein Geld.",
+        "options": [
+          "müsste",
+          "müssten",
+          "wäre"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A modal verb, then the participle + werden last**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+          "sl": "**Modalni glagol, nato deležnik + werden na koncu**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
+          "it": "**Un modale, poi il participio + werden alla fine**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Austria talks in ist gebaut worden; das Dach decken; der Platz wird gekehrt; das Rad of a mill; each base: trpnik, passivo"
+}

@@ -1,0 +1,306 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "modalverben-vermutung",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🤔",
+  "title": {
+    "de": "Er soll reich sein: Modalverben für die Vermutung",
+    "en": "Er soll reich sein: modal verbs for how sure you are",
+    "sl": "Er soll reich sein: modalni glagoli za domnevo",
+    "it": "Er soll reich sein: i modali per le supposizioni"
+  },
+  "rule": {
+    "en": "Modal verbs can say how sure you are, or who says so. The other verb stays last.\n\n**muss**, nearly sure: **Das muss Kathi sein.** **müsste**, what should be so: **Er müsste schon da sein.** **dürfte**, most likely: **Er dürfte zu Hause sein.** **könnte**, perhaps: **Das könnte Stefan sein.** **kann nicht**, surely not: **Das kann nicht Stefan sein.**\n\n**soll**: others say so, and you don't vouch for it: **Er soll reich sein.** **will**: he says so himself, and you doubt it: **Franz will den Bären gesehen haben.** In the present, **Er will reich sein** mostly means he wants to be.\n\nWhat's already happened: the modal, then the participle + **haben** or **sein**: **Er muss das gewusst haben. Er soll gestern gekommen sein.** Not the same as **Er hat kommen müssen** (he had to come).\n\n**Futur II**, a guess at what has happened: **wird** + the participle + **haben** or **sein**, mostly with schon or wohl: **Er wird schon angekommen sein. Sie wird es vergessen haben.** About now: **Er wird wohl zu Hause sein.**\n\nTalk also says it plainly, with wohl, sicher or wahrscheinlich: **Er ist wohl schon angekommen.**",
+    "sl": "Modalni glagoli lahko povedo, kako gotov si ali kdo to pravi. Drugi glagol ostane na koncu.\n\n**muss**, skoraj gotovo: **Das muss Kathi sein.** **müsste**, kar naj bi bilo: **Er müsste schon da sein.** **dürfte**, verjetno: **Er dürfte zu Hause sein.** **könnte**, morda: **Das könnte Stefan sein.** **kann nicht**, gotovo ne: **Das kann nicht Stefan sein.**\n\n**soll**: tako pravijo drugi, ti za to ne jamčiš: **Er soll reich sein.** **will**: tako pravi sam, ti pa dvomiš: **Franz will den Bären gesehen haben.** V sedanjiku **Er will reich sein** večinoma pomeni, da hoče biti bogat.\n\nKar se je že zgodilo: modalni glagol, nato deležnik + **haben** ali **sein**: **Er muss das gewusst haben. Er soll gestern gekommen sein.** Ni isto kot **Er hat kommen müssen** (moral je priti).\n\n**Futur II**, domneva o tem, kar se je zgodilo: **wird** + deležnik + **haben** ali **sein**, največkrat s schon ali wohl: **Er wird schon angekommen sein. Sie wird es vergessen haben.** Za sedanjost: **Er wird wohl zu Hause sein.**\n\nV pogovoru se reče tudi preprosto, z wohl, sicher ali wahrscheinlich: **Er ist wohl schon angekommen.**",
+    "it": "I modali possono dire quanto sei sicuro, o chi lo dice. L'altro verbo resta alla fine.\n\n**muss**, quasi sicuro: **Das muss Kathi sein.** **müsste**, ciò che dovrebbe essere: **Er müsste schon da sein.** **dürfte**, probabile: **Er dürfte zu Hause sein.** **könnte**, forse: **Das könnte Stefan sein.** **kann nicht**, di certo no: **Das kann nicht Stefan sein.**\n\n**soll**: lo dicono gli altri, e tu non ne rispondi: **Er soll reich sein.** **will**: lo dice lui, e tu ne dubiti: **Franz will den Bären gesehen haben.** Al presente, **Er will reich sein** per lo più vuol dire che vuole esserlo.\n\nCiò che è già successo: il modale, poi il participio + **haben** o **sein**: **Er muss das gewusst haben. Er soll gestern gekommen sein.** Non è come **Er hat kommen müssen** (è dovuto venire).\n\n**Futur II**, un'ipotesi su ciò che è successo: **wird** + il participio + **haben** o **sein**, per lo più con schon o wohl: **Er wird schon angekommen sein. Sie wird es vergessen haben.** Per il presente: **Er wird wohl zu Hause sein.**\n\nParlando si dice anche semplicemente, con wohl, sicher o wahrscheinlich: **Er ist wohl schon angekommen.**"
+  },
+  "table": {
+    "head": [
+      {
+        "de": "wie sicher?",
+        "en": "how sure?",
+        "sl": "kako gotovo?",
+        "it": "quanto è sicuro?"
+      },
+      {
+        "de": "jetzt",
+        "en": "now",
+        "sl": "zdaj",
+        "it": "adesso"
+      },
+      {
+        "de": "vorher",
+        "en": "before",
+        "sl": "prej",
+        "it": "prima"
+      }
+    ],
+    "rows": [
+      [
+        {
+          "de": "fast sicher",
+          "en": "nearly sure",
+          "sl": "skoraj gotovo",
+          "it": "quasi sicuro"
+        },
+        "er muss da sein",
+        "er muss da gewesen sein"
+      ],
+      [
+        {
+          "de": "wahrscheinlich",
+          "en": "most likely",
+          "sl": "verjetno",
+          "it": "probabilmente"
+        },
+        "er dürfte da sein",
+        "er dürfte da gewesen sein"
+      ],
+      [
+        {
+          "de": "vielleicht",
+          "en": "perhaps",
+          "sl": "morda",
+          "it": "forse"
+        },
+        "er könnte da sein",
+        "er könnte da gewesen sein"
+      ],
+      [
+        {
+          "de": "sicher nicht",
+          "en": "surely not",
+          "sl": "gotovo ne",
+          "it": "di certo no"
+        },
+        "er kann nicht da sein",
+        "er kann nicht da gewesen sein"
+      ],
+      [
+        {
+          "de": "andere sagen es",
+          "en": "others say so",
+          "sl": "pravijo drugi",
+          "it": "lo dicono gli altri"
+        },
+        "er soll da sein",
+        "er soll da gewesen sein"
+      ],
+      [
+        {
+          "de": "er sagt es selbst",
+          "en": "he says so himself",
+          "sl": "pravi sam",
+          "it": "lo dice lui"
+        },
+        "—",
+        "er will da gewesen sein"
+      ],
+      [
+        {
+          "de": "ich vermute es",
+          "en": "I guess so",
+          "sl": "domnevam",
+          "it": "suppongo"
+        },
+        "er wird da sein",
+        "er wird da gewesen sein"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das muss Kathi sein.",
+      "en": "That must be Kathi.",
+      "sl": "To je gotovo Kathi.",
+      "it": "Dev'essere Kathi.",
+      "note": {
+        "en": "Nearly sure.",
+        "sl": "Skoraj gotovo.",
+        "it": "Quasi sicuro."
+      }
+    },
+    {
+      "de": "Er dürfte zu Hause sein.",
+      "en": "He's most likely at home.",
+      "sl": "Verjetno je doma.",
+      "it": "Probabilmente è a casa.",
+      "note": {
+        "en": "Most likely; darf doesn't guess.",
+        "sl": "Verjetno; darf ne domneva.",
+        "it": "Probabile; darf non fa ipotesi."
+      }
+    },
+    {
+      "de": "Das kann nicht Stefan sein.",
+      "en": "That can't be Stefan.",
+      "sl": "To ne more biti Stefan.",
+      "it": "Non può essere Stefan.",
+      "note": {
+        "en": "Surely not.",
+        "sl": "Gotovo ne.",
+        "it": "Di certo no."
+      }
+    },
+    {
+      "de": "Er soll reich sein.",
+      "en": "They say he's rich.",
+      "sl": "Pravijo, da je bogat.",
+      "it": "Dicono che sia ricco.",
+      "note": {
+        "en": "Others say so.",
+        "sl": "Pravijo drugi.",
+        "it": "Lo dicono gli altri."
+      }
+    },
+    {
+      "de": "Franz will den Bären gesehen haben.",
+      "en": "Franz claims to have seen the bear.",
+      "sl": "Franz trdi, da je videl medveda.",
+      "it": "Franz sostiene di aver visto l'orso.",
+      "note": {
+        "en": "He says so himself, and you doubt it.",
+        "sl": "Pravi sam, ti pa dvomiš.",
+        "it": "Lo dice lui, e tu ne dubiti."
+      }
+    },
+    {
+      "de": "Er muss das gewusst haben.",
+      "en": "He must have known that.",
+      "sl": "To je gotovo vedel.",
+      "it": "Deve averlo saputo.",
+      "note": {
+        "en": "The modal, then the participle + haben.",
+        "sl": "Modalni glagol, nato deležnik + haben.",
+        "it": "Il modale, poi il participio + haben."
+      }
+    },
+    {
+      "de": "Er soll gestern gekommen sein.",
+      "en": "He's said to have come yesterday.",
+      "sl": "Baje je prišel včeraj.",
+      "it": "Pare che sia arrivato ieri.",
+      "note": {
+        "en": "kommen: the participle + sein.",
+        "sl": "kommen: deležnik + sein.",
+        "it": "kommen: il participio + sein."
+      }
+    },
+    {
+      "de": "Er wird schon angekommen sein.",
+      "en": "He'll have arrived by now.",
+      "sl": "Gotovo je že prispel.",
+      "it": "Sarà già arrivato.",
+      "note": {
+        "en": "Futur II: a guess.",
+        "sl": "Futur II: domneva.",
+        "it": "Futur II: un'ipotesi."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "modal",
+    "vermutung",
+    "duerfte",
+    "soll",
+    "will",
+    "futur"
+  ],
+  "see": [
+    "modalverben",
+    "konjunktiv-zwei",
+    "werden-futur",
+    "indirekte-rede",
+    "perfekt"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: dürfte in Austria; will as a claim; how sure each one is, from grammars only; each base",
+  "card": {
+    "title": {
+      "de": "Wie sicher? · muss, dürfte, soll, will",
+      "en": "How sure? · muss, dürfte, soll, will",
+      "sl": "Kako gotovo? · muss, dürfte, soll, will",
+      "it": "Quanto è sicuro? · muss, dürfte, soll, will"
+    },
+    "rule": {
+      "en": "How sure: **Das muss Kathi sein. Er dürfte zu Hause sein. Das könnte Stefan sein.** Who says so: **Er soll reich sein**, others; **Franz will den Bären gesehen haben**, he himself. A guess: **Er wird schon angekommen sein.**",
+      "sl": "Kako gotovo: **Das muss Kathi sein. Er dürfte zu Hause sein. Das könnte Stefan sein.** Kdo pravi: **Er soll reich sein**, drugi; **Franz will den Bären gesehen haben**, on sam. Domneva: **Er wird schon angekommen sein.**",
+      "it": "Quanto è sicuro: **Das muss Kathi sein. Er dürfte zu Hause sein. Das könnte Stefan sein.** Chi lo dice: **Er soll reich sein**, gli altri; **Franz will den Bären gesehen haben**, lui stesso. Un'ipotesi: **Er wird schon angekommen sein.**"
+    },
+    "table": {
+      "head": [
+        {
+          "de": "wie sicher?",
+          "en": "how sure?",
+          "sl": "kako gotovo?",
+          "it": "quanto è sicuro?"
+        },
+        {
+          "de": "jetzt",
+          "en": "now",
+          "sl": "zdaj",
+          "it": "adesso"
+        },
+        {
+          "de": "vorher",
+          "en": "before",
+          "sl": "prej",
+          "it": "prima"
+        }
+      ],
+      "rows": [
+        [
+          {
+            "de": "fast sicher",
+            "en": "nearly sure",
+            "sl": "skoraj gotovo",
+            "it": "quasi sicuro"
+          },
+          "er muss da sein",
+          "er muss da gewesen sein"
+        ],
+        [
+          {
+            "de": "wahrscheinlich",
+            "en": "most likely",
+            "sl": "verjetno",
+            "it": "probabilmente"
+          },
+          "er dürfte da sein",
+          "er dürfte da gewesen sein"
+        ],
+        [
+          {
+            "de": "andere sagen es",
+            "en": "others say so",
+            "sl": "pravijo drugi",
+            "it": "lo dicono gli altri"
+          },
+          "er soll da sein",
+          "er soll da gewesen sein"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Er dürfte zu Hause sein.",
+        "en": "He's most likely at home.",
+        "sl": "Verjetno je doma.",
+        "it": "Probabilmente è a casa."
+      },
+      {
+        "de": "Er soll gestern gekommen sein.",
+        "en": "He's said to have come yesterday.",
+        "sl": "Baje je prišel včeraj.",
+        "it": "Pare che sia arrivato ieri."
+      }
+    ],
+    "tip": {
+      "en": "💡 **Er muss gekommen sein**: I'm nearly sure he came. **Er hat kommen müssen**: he had to come.",
+      "sl": "💡 **Er muss gekommen sein**: skoraj gotovo je prišel. **Er hat kommen müssen**: moral je priti.",
+      "it": "💡 **Er muss gekommen sein**: quasi certamente è venuto. **Er hat kommen müssen**: è dovuto venire."
+    }
+  }
+}

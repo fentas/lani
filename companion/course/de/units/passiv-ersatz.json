@@ -1,0 +1,899 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passiv-ersatz",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🔧",
+  "title": {
+    "de": "Das lässt sich machen, das ist machbar",
+    "en": "Other ways to the passive: lässt sich, ist zu, -bar",
+    "sl": "Namesto trpnika: lässt sich, ist zu, -bar",
+    "it": "Altri modi per il passivo: lässt sich, ist zu, -bar"
+  },
+  "goal": {
+    "en": "You can say what can or must be done in other ways than the passive (Das lässt sich machen, Das ist zu bezahlen, Das ist machbar) and tell the action from the state (wird geöffnet, ist geöffnet).",
+    "sl": "Znaš povedati, kaj se da ali je treba storiti, tudi brez trpnika (Das lässt sich machen, Das ist zu bezahlen, Das ist machbar), in ločiš dejanje od stanja (wird geöffnet, ist geöffnet).",
+    "it": "Sai dire che cosa si può o si deve fare anche senza il passivo (Das lässt sich machen, Das ist zu bezahlen, Das ist machbar) e distingui l'azione dallo stato (wird geöffnet, ist geöffnet)."
+  },
+  "grammar": [
+    "passiv-ersatz",
+    "passiv"
+  ],
+  "words": [
+    "bezahlen",
+    "aufsperren",
+    "öffnen",
+    "lösen",
+    "nirgends",
+    "die Rechnung",
+    "die Miete",
+    "der Schlüssel",
+    "die Presse",
+    "die Schraube",
+    "die Anleitung",
+    "die Schrift",
+    "das Schwammerl",
+    "die Beere",
+    "das Hemd",
+    "die Uhr",
+    "das Problem",
+    "machbar",
+    "essbar",
+    "trinkbar",
+    "unlesbar",
+    "eröffnen",
+    "ausschalten",
+    "gesperrt",
+    "geschlossen",
+    "kaputt"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        "Passiv",
+        {
+          "de": "anders gesagt",
+          "en": "said otherwise",
+          "sl": "drugače povedano",
+          "it": "detto in altro modo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Das lässt sich machen** (That can be done): **sich lassen** + the infinitive says it can be done, and people say it all the time. **Der Zaun lässt sich reparieren** (The fence can be repaired). Several: **Die Fenster lassen sich nicht öffnen** (The windows won't open). The past: **Das ließ sich machen** (That could be done). The sich stays: **Das lässt sich machen** (not *Das lässt machen*).",
+          "sl": "**Das lässt sich machen** (To se da narediti): **sich lassen** + nedoločnik pove, da se da, in ljudje to rečejo ves čas. **Der Zaun lässt sich reparieren** (Ograjo se da popraviti). Za več: **Die Fenster lassen sich nicht öffnen** (Okna se ne dajo odpreti). Preteklost: **Das ließ sich machen** (To se je dalo narediti). **sich** ostane.",
+          "it": "**Das lässt sich machen** (Si può fare): **sich lassen** + l'infinito dice che si può fare, e lo si dice continuamente. **Der Zaun lässt sich reparieren** (Il recinto si può riparare). Per più cose: **Die Fenster lassen sich nicht öffnen** (Le finestre non si aprono). Il passato: **Das ließ sich machen** (Si poteva fare). Il **sich** resta."
+        },
+        "examples": [
+          {
+            "de": "Das lässt sich machen.",
+            "en": "That can be done.",
+            "sl": "To se da narediti.",
+            "it": "Si può fare."
+          },
+          {
+            "de": "Die Fenster lassen sich nicht öffnen.",
+            "en": "The windows won't open.",
+            "sl": "Okna se ne dajo odpreti.",
+            "it": "Le finestre non si aprono."
+          }
+        ],
+        "rows": [
+          [
+            "kann repariert werden",
+            "lässt sich reparieren"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv-ersatz",
+          "text": "Die Tür ___ sich nicht aufsperren. (lassen)",
+          "accept": [
+            "lässt"
+          ],
+          "hint": {
+            "en": "lassen: a vowel change, as in fahren",
+            "sl": "lassen: menjava samoglasnika, kot pri fahren",
+            "it": "lassen: la vocale cambia, come in fahren"
+          },
+          "explain": {
+            "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Das ist zu machen** (that can, or must, be done): **sein** + **zu** + the infinitive. It says can: **Das ist nicht zu machen** (That can't be done), **Der Schlüssel ist nirgends zu finden** (The key is nowhere to be found). Or must: **Die Rechnung ist bis Freitag zu bezahlen** (The bill must be paid by Friday), as official letters write it. The sentence tells you which. A separable verb: **Die Tür ist aufzumachen** (not *Die Tür ist zu aufmachen*).",
+          "sl": "**Das ist zu machen** (to se da ali je treba narediti): **sein** + **zu** + nedoločnik. Lahko pomeni, da se da: **Das ist nicht zu machen** (Tega se ne da narediti), **Der Schlüssel ist nirgends zu finden** (Ključa ni nikjer). Ali da je treba: **Die Rechnung ist bis Freitag zu bezahlen** (Račun je treba plačati do petka), tako pišejo uradna pisma. Stavek pove, kaj. Ločljiv glagol: **aufzumachen**.",
+          "it": "**Das ist zu machen** (si può, o si deve, fare): **sein** + **zu** + l'infinito. Può dire che si può: **Das ist nicht zu machen** (Non si può fare), **Der Schlüssel ist nirgends zu finden** (La chiave non si trova da nessuna parte). O che si deve: **Die Rechnung ist bis Freitag zu bezahlen** (La fattura va pagata entro venerdì), come scrivono le lettere ufficiali. Lo dice la frase. Un verbo separabile: **aufzumachen**."
+        },
+        "examples": [
+          {
+            "de": "Der Schlüssel ist nirgends zu finden.",
+            "en": "The key is nowhere to be found.",
+            "sl": "Ključa ni nikjer.",
+            "it": "La chiave non si trova da nessuna parte."
+          },
+          {
+            "de": "Die Rechnung ist bis Freitag zu bezahlen.",
+            "en": "The bill must be paid by Friday.",
+            "sl": "Račun je treba plačati do petka.",
+            "it": "La fattura va pagata entro venerdì."
+          }
+        ],
+        "rows": [
+          [
+            "kann repariert werden",
+            "ist zu reparieren"
+          ],
+          [
+            "muss bezahlt werden",
+            "ist zu bezahlen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv-ersatz",
+          "prompt": "Die Miete ist bis Montag ___.",
+          "options": [
+            "zu bezahlen",
+            "bezahlen",
+            "zu bezahlt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sein + zu + the infinitive: it can, or must, be done**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen.",
+            "sl": "**sein + zu + nedoločnik: to se da ali je treba**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen.",
+            "it": "**sein + zu + l'infinito: si può, o si deve, fare**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**machbar** (doable): a verb's stem + **-bar** says it can be done: **essbar** (edible), **trinkbar** (drinkable), **lesbar** (legible), **waschbar** (washable), **reparierbar** (repairable). **un-** says it can't: **unlesbar** (illegible). It's an adjective, so it takes endings: **essbare Schwammerl** (edible mushrooms). Not every verb has one: learn them as words.",
+          "sl": "**machbar** (izvedljiv): osnova glagola + **-bar** pove, da se da: **essbar** (užiten), **trinkbar** (piten), **lesbar** (čitljiv), **waschbar** (pralen), **reparierbar** (popravljiv). **un-** pove, da se ne da: **unlesbar** (nečitljiv). Je pridevnik, zato ima končnice: **essbare Schwammerl** (užitne gobe). Nima ga vsak glagol: uči se jih kot besede.",
+          "it": "**machbar** (fattibile): il tema di un verbo + **-bar** dice che si può fare: **essbar** (commestibile), **trinkbar** (bevibile), **lesbar** (leggibile), **waschbar** (lavabile), **reparierbar** (riparabile). **un-** dice che non si può: **unlesbar** (illeggibile). È un aggettivo, quindi ha le desinenze: **essbare Schwammerl** (funghi commestibili). Non tutti i verbi ce l'hanno: imparali come parole."
+        },
+        "examples": [
+          {
+            "de": "Das ist machbar.",
+            "en": "That's doable.",
+            "sl": "To je izvedljivo.",
+            "it": "È fattibile."
+          },
+          {
+            "de": "Diese Schwammerl sind essbar.",
+            "en": "These mushrooms are edible.",
+            "sl": "Te gobe so užitne.",
+            "it": "Questi funghi sono commestibili."
+          }
+        ],
+        "rows": [
+          [
+            "kann repariert werden",
+            "ist reparierbar"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv-ersatz",
+          "text": "Das Wasser kann man trinken. Es ist ___.",
+          "accept": [
+            "trinkbar"
+          ],
+          "hint": {
+            "en": "the stem + -bar",
+            "sl": "osnova + -bar",
+            "it": "il tema + -bar"
+          },
+          "explain": {
+            "en": "**The stem + -bar: it can be done**\n- machbar · essbar · lesbar",
+            "sl": "**Osnova + -bar: to se da**\n- machbar · essbar · lesbar",
+            "it": "**Il tema + -bar: si può fare**\n- machbar · essbar · lesbar"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**man** stays the everyday way: **Das kann man machen** (That can be done). So one sentence has several shapes: Der Zaun **kann repariert werden**; Der Zaun **lässt sich reparieren**; Der Zaun **ist zu reparieren**; Der Zaun **ist reparierbar**; **Man kann** den Zaun **reparieren**. With man the object stays accusative: **den** Zaun.",
+          "sl": "**man** ostane vsakdanji način: **Das kann man machen** (To se lahko naredi). En stavek ima torej več oblik: Der Zaun **kann repariert werden**; Der Zaun **lässt sich reparieren**; Der Zaun **ist zu reparieren**; Der Zaun **ist reparierbar**; **Man kann** den Zaun **reparieren**. Pri man ostane predmet v tožilniku: **den** Zaun.",
+          "it": "**man** resta il modo di ogni giorno: **Das kann man machen** (Si può fare). Una frase ha quindi più forme: Der Zaun **kann repariert werden**; Der Zaun **lässt sich reparieren**; Der Zaun **ist zu reparieren**; Der Zaun **ist reparierbar**; **Man kann** den Zaun **reparieren**. Con man l'oggetto resta all'accusativo: **den** Zaun."
+        },
+        "examples": [
+          {
+            "de": "Man kann den Zaun reparieren.",
+            "en": "The fence can be repaired.",
+            "sl": "Ograjo se da popraviti.",
+            "it": "Il recinto si può riparare."
+          }
+        ],
+        "rows": [
+          [
+            "kann repariert werden",
+            "man kann es reparieren"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv-ersatz",
+          "prompt": "Man kann das Brot noch essen. → Das Brot ___ noch essen.",
+          "options": [
+            "lässt sich",
+            "ist zu",
+            "ist"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Die Tür wird geöffnet** (The door is being opened): something is going on, the action. **Die Tür ist geöffnet** (The door is open): it's done and stays so, the state: sein + the participle. **Das Gasthaus ist von 10 bis 22 Uhr geöffnet.** **Die Suppe ist gekocht** (The soup is cooked). And **ist geöffnet worden** (has been opened) is the action again, in the Perfekt.",
+          "sl": "**Die Tür wird geöffnet** (Vrata se odpirajo): nekaj se dogaja, dejanje. **Die Tür ist geöffnet** (Vrata so odprta): je končano in tako ostane, stanje: sein + deležnik. **Das Gasthaus ist von 10 bis 22 Uhr geöffnet.** **Die Suppe ist gekocht** (Juha je skuhana). **ist geöffnet worden** (so jih odprli) pa je spet dejanje, v perfektu.",
+          "it": "**Die Tür wird geöffnet** (La porta viene aperta): sta succedendo qualcosa, l'azione. **Die Tür ist geöffnet** (La porta è aperta): è fatto e resta così, lo stato: sein + il participio. **Das Gasthaus ist von 10 bis 22 Uhr geöffnet.** **Die Suppe ist gekocht** (La zuppa è cotta). E **ist geöffnet worden** (è stata aperta) è di nuovo l'azione, nel Perfekt."
+        },
+        "examples": [
+          {
+            "de": "Die Tür wird geöffnet.",
+            "en": "The door is being opened.",
+            "sl": "Vrata se odpirajo.",
+            "it": "La porta viene aperta."
+          },
+          {
+            "de": "Die Tür ist geöffnet.",
+            "en": "The door is open.",
+            "sl": "Vrata so odprta.",
+            "it": "La porta è aperta."
+          },
+          {
+            "de": "Das Gasthaus ist von 10 bis 22 Uhr geöffnet.",
+            "en": "The inn is open from 10 a.m. to 10 p.m.",
+            "sl": "Gostilna je odprta od 10. do 22. ure.",
+            "it": "L'osteria è aperta dalle 10 alle 22."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv-ersatz",
+          "prompt": "Die Fenster ___ den ganzen Tag geöffnet.",
+          "options": [
+            "sind",
+            "werden",
+            "wurde"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**werden: the action. sein: the state**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+            "sl": "**werden: dejanje. sein: stanje**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+            "it": "**werden: l'azione. sein: lo stato**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the past it's **war geöffnet** (was open) against **wurde geöffnet** (was opened): Das Gasthaus **war** gestern **geschlossen** (the inn was closed yesterday); Das Gasthaus **wurde** 1890 **eröffnet** (the inn first opened in 1890). In Austria you'll also hear and read **gesperrt** for closed, and **Das Gasthaus hat offen** (the inn is open).",
+          "sl": "V preteklosti je **war geöffnet** (je bilo odprto) proti **wurde geöffnet** (so odprli): Das Gasthaus **war** gestern **geschlossen** (gostilna je bila včeraj zaprta); Das Gasthaus **wurde** 1890 **eröffnet** (gostilno so prvič odprli leta 1890). V Avstriji boš slišal in bral tudi **gesperrt** za zaprto in **Das Gasthaus hat offen** (gostilna je odprta).",
+          "it": "Nel passato è **war geöffnet** (era aperto) contro **wurde geöffnet** (è stato aperto): Das Gasthaus **war** gestern **geschlossen** (ieri l'osteria era chiusa); Das Gasthaus **wurde** 1890 **eröffnet** (l'osteria ha aperto per la prima volta nel 1890). In Austria senti e leggi anche **gesperrt** per chiuso, e **Das Gasthaus hat offen** (l'osteria è aperta)."
+        },
+        "examples": [
+          {
+            "de": "Das Gasthaus war gestern geschlossen.",
+            "en": "The inn was closed yesterday.",
+            "sl": "Gostilna je bila včeraj zaprta.",
+            "it": "Ieri l'osteria era chiusa."
+          },
+          {
+            "de": "Das Gasthaus wurde 1890 eröffnet.",
+            "en": "The inn first opened in 1890.",
+            "sl": "Gostilno so prvič odprli leta 1890.",
+            "it": "L'osteria ha aperto per la prima volta nel 1890."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv-ersatz",
+          "text": "Der Zaun ___ gestern von Toni repariert.",
+          "accept": [
+            "wurde"
+          ],
+          "hint": {
+            "en": "something was going on: the action",
+            "sl": "nekaj se je dogajalo: dejanje",
+            "it": "stava succedendo qualcosa: l'azione"
+          },
+          "explain": {
+            "en": "**In the past: wurde, the action; war, the state**\n- Das Gasthaus wurde 1890 eröffnet. · Das Gasthaus war gestern geschlossen.",
+            "sl": "**V preteklosti: wurde, dejanje; war, stanje**\n- Das Gasthaus wurde 1890 eröffnet. · Das Gasthaus war gestern geschlossen.",
+            "it": "**Nel passato: wurde, l'azione; war, lo stato**\n- Das Gasthaus wurde 1890 eröffnet. · Das Gasthaus war gestern geschlossen."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passiv-ersatz-1",
+      "title": {
+        "de": "Lässt sich, ist zu, -bar",
+        "en": "Lässt sich, ist zu, -bar",
+        "sl": "Lässt sich, ist zu, -bar",
+        "it": "Lässt sich, ist zu, -bar"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "It can be done: three ways",
+            "sl": "To se da: trije načini",
+            "it": "Si può fare: tre modi"
+          },
+          "columns": [
+            "sich lassen",
+            "sein + zu",
+            "-bar"
+          ],
+          "rows": [
+            {
+              "label": "reparieren",
+              "cells": [
+                "lässt sich reparieren",
+                {
+                  "accept": [
+                    "ist zu reparieren"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ist reparierbar"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "essen",
+              "cells": [
+                {
+                  "accept": [
+                    "lässt sich essen"
+                  ]
+                },
+                "ist zu essen",
+                {
+                  "accept": [
+                    "ist essbar"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "lesen",
+              "cells": [
+                {
+                  "accept": [
+                    "lässt sich lesen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ist zu lesen"
+                  ]
+                },
+                "ist lesbar"
+              ]
+            },
+            {
+              "label": "waschen",
+              "cells": [
+                {
+                  "accept": [
+                    "lässt sich waschen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ist zu waschen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ist waschbar"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Sortiere · Sort: the action, or the state?",
+            "sl": "Sortiere · Razvrsti: dejanje ali stanje?",
+            "it": "Sortiere · Ordina: l'azione o lo stato?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Es passiert gerade · it is going on",
+                "sl": "Es passiert gerade · dogaja se",
+                "it": "Es passiert gerade · sta succedendo"
+              },
+              "words": [
+                "Die Tür wird geöffnet.",
+                "Der Tisch wird gedeckt.",
+                "Die Straße wird gesperrt.",
+                "Das Licht wird ausgeschaltet."
+              ]
+            },
+            {
+              "label": {
+                "en": "Es ist schon so · it is so already",
+                "sl": "Es ist schon so · tako že je",
+                "it": "Es ist schon so · è già così"
+              },
+              "words": [
+                "Das Fenster ist geöffnet.",
+                "Die Suppe ist gekocht.",
+                "Der Weg ist gesperrt.",
+                "Das Radio ist ausgeschaltet."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**werden: the action. sein: the state**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+            "sl": "**werden: dejanje. sein: stanje**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+            "it": "**werden: l'azione. sein: lo stato**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passiv-ersatz-2",
+      "title": {
+        "de": "Die alte Presse",
+        "en": "The old press",
+        "sl": "Stara stiskalnica",
+        "it": "Il vecchio torchio"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Die alte Presse",
+          "text": "Stefans Mostpresse ist kaputt. Toni schaut sie an: „Das lässt ___ reparieren. Die Presse ist noch gut, sie ist ___ (reparieren).“ Aber die Schrauben ___ sich nicht lösen, und die Anleitung ist nicht mehr ___ (lesen). „Das ist bis Freitag zu ___ (machen)“, sagt Toni, „und die Rechnung ist am Montag zu ___ (bezahlen).“ Am Freitag ___ die Presse fertig repariert, und Stefan ist froh.",
+          "gaps": [
+            {
+              "accept": [
+                "sich"
+              ]
+            },
+            {
+              "accept": [
+                "reparierbar",
+                "zu reparieren"
+              ]
+            },
+            {
+              "accept": [
+                "lassen"
+              ]
+            },
+            {
+              "accept": [
+                "lesbar",
+                "zu lesen"
+              ]
+            },
+            {
+              "accept": [
+                "machen"
+              ]
+            },
+            {
+              "accept": [
+                "bezahlen"
+              ]
+            },
+            {
+              "accept": [
+                "ist",
+                "wird"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "lässt",
+            "gemacht",
+            "bezahlt"
+          ],
+          "translation": {
+            "en": "Stefan's cider press is broken. Toni looks at it: “That can be repaired. The press is still good, it's repairable.” But the screws won't come loose, and the instructions can no longer be read. “This can be done by Friday,” says Toni, “and the bill is to be paid on Monday.” On Friday the press is repaired, and Stefan is happy.",
+            "sl": "Stefanova stiskalnica za mošt je pokvarjena. Toni si jo ogleda: »To se da popraviti. Stiskalnica je še dobra, popravljiva je.« A vijaki se ne dajo odviti in navodila niso več čitljiva. »To se da narediti do petka,« pravi Toni, »račun pa je treba plačati v ponedeljek.« V petek je stiskalnica popravljena in Stefan je vesel.",
+            "it": "Il torchio da sidro di Stefan è rotto. Toni lo guarda: «Si può riparare. Il torchio è ancora buono, è riparabile.» Ma le viti non si svitano, e le istruzioni non sono più leggibili. «Si può fare entro venerdì», dice Toni, «e la fattura va pagata lunedì.» Venerdì il torchio è riparato, e Stefan è contento."
+          },
+          "explain": {
+            "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das Fenster ___ sich nicht öffnen.",
+          "options": [
+            "lässt",
+            "ist",
+            "hat"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Komm herein, der Tisch ist schon ___.",
+          "options": [
+            "gedeckt",
+            "decken",
+            "deckt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**werden: the action. sein: the state**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+            "sl": "**werden: dejanje. sein: stanje**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+            "it": "**werden: l'azione. sein: lo stato**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passiv-ersatz-3",
+      "title": {
+        "de": "Das geht auch anders",
+        "en": "There are other ways",
+        "sl": "Gre tudi drugače",
+        "it": "Si può dire anche così"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Sag es mit sich lassen · Say it with sich lassen",
+            "sl": "Sag es mit sich lassen · Povej s sich lassen",
+            "it": "Sag es mit sich lassen · Dillo con sich lassen"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Zaun kann repariert werden.",
+              "accept": [
+                "Der Zaun lässt sich reparieren."
+              ]
+            },
+            {
+              "from": "Die Fenster können nicht geöffnet werden.",
+              "accept": [
+                "Die Fenster lassen sich nicht öffnen."
+              ]
+            },
+            {
+              "from": "Das kann gemacht werden.",
+              "accept": [
+                "Das lässt sich machen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+            "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Sag es mit sein + zu · Say it with sein + zu",
+            "sl": "Sag es mit sein + zu · Povej s sein + zu",
+            "it": "Sag es mit sein + zu · Dillo con sein + zu"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Die Rechnung muss bezahlt werden.",
+              "accept": [
+                "Die Rechnung ist zu bezahlen."
+              ]
+            },
+            {
+              "from": "Der Schlüssel kann nicht gefunden werden.",
+              "accept": [
+                "Der Schlüssel ist nicht zu finden."
+              ]
+            },
+            {
+              "from": "Die Tür muss zugemacht werden.",
+              "accept": [
+                "Die Tür ist zuzumachen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**sein + zu + the infinitive: it can, or must, be done**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen.",
+            "sl": "**sein + zu + nedoločnik: to se da ali je treba**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen.",
+            "it": "**sein + zu + l'infinito: si può, o si deve, fare**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "passiv-ersatz",
+          "instruction": {
+            "en": "Sag es mit -bar · Say it with -bar",
+            "sl": "Sag es mit -bar · Povej z -bar",
+            "it": "Sag es mit -bar · Dillo con -bar"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das Wasser kann man trinken.",
+              "accept": [
+                "Das Wasser ist trinkbar."
+              ]
+            },
+            {
+              "from": "Die Schrift kann man nicht lesen.",
+              "accept": [
+                "Die Schrift ist nicht lesbar.",
+                "Die Schrift ist unlesbar."
+              ]
+            },
+            {
+              "from": "Das kann man machen.",
+              "accept": [
+                "Das ist machbar."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The stem + -bar: it can be done**\n- machbar · essbar · lesbar",
+            "sl": "**Osnova + -bar: to se da**\n- machbar · essbar · lesbar",
+            "it": "**Il tema + -bar: si può fare**\n- machbar · essbar · lesbar"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "passiv-ersatz",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Mitzis altes Haus",
+        "text": "Tante Mitzi will ihr altes Haus verkaufen. Stefan sagt: „Das Dach lässt ___ reparieren, und die Fenster ___ sich leicht streichen. Das ist ___ (machen), aber der Preis ist mir zu hoch.“ Mitzi sagt: „Das Haus ist bis Mai zu ___ (verkaufen). Die Tür ___ schon geöffnet: Komm herein!“ Das Haus ___ 1950 gebaut.",
+        "gaps": [
+          {
+            "accept": [
+              "sich"
+            ]
+          },
+          {
+            "accept": [
+              "lassen"
+            ]
+          },
+          {
+            "accept": [
+              "machbar",
+              "zu machen"
+            ]
+          },
+          {
+            "accept": [
+              "verkaufen"
+            ]
+          },
+          {
+            "accept": [
+              "ist"
+            ]
+          },
+          {
+            "accept": [
+              "wurde"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Aunt Mitzi wants to sell her old house. Stefan says: “The roof can be repaired, and the windows are easy to paint. That's doable, but the price is too high for me.” Mitzi says: “The house has to be sold by May. The door is already open: come in!” The house was built in 1950.",
+          "sl": "Teta Mitzi hoče prodati svojo staro hišo. Stefan pravi: »Streho se da popraviti in okna se dajo zlahka prepleskati. To je izvedljivo, a cena je zame previsoka.« Mitzi pravi: »Hišo je treba prodati do maja. Vrata so že odprta: vstopi!« Hišo so zgradili leta 1950.",
+          "it": "Zia Mitzi vuole vendere la sua vecchia casa. Stefan dice: «Il tetto si può riparare, e le finestre si verniciano facilmente. È fattibile, ma il prezzo per me è troppo alto.» Mitzi dice: «La casa va venduta entro maggio. La porta è già aperta: entra!» La casa è stata costruita nel 1950."
+        },
+        "explain": {
+          "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+          "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+          "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passiv-ersatz",
+        "instruction": {
+          "en": "Sag es mit sich lassen · Say it with sich lassen",
+          "sl": "Sag es mit sich lassen · Povej s sich lassen",
+          "it": "Sag es mit sich lassen · Dillo con sich lassen"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Die Uhr kann repariert werden.",
+            "accept": [
+              "Die Uhr lässt sich reparieren."
+            ]
+          },
+          {
+            "from": "Der Brief kann nicht gelesen werden.",
+            "accept": [
+              "Der Brief lässt sich nicht lesen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**sich lassen + the infinitive: it can be done**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+          "sl": "**sich lassen + nedoločnik: to se da**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen.",
+          "it": "**sich lassen + l'infinito: si può fare**\n- Das lässt sich machen. · Die Fenster lassen sich nicht öffnen."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passiv-ersatz",
+        "instruction": {
+          "en": "Sag es mit -bar · Say it with -bar",
+          "sl": "Sag es mit -bar · Povej z -bar",
+          "it": "Sag es mit -bar · Dillo con -bar"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Diese Beeren kann man essen.",
+            "accept": [
+              "Diese Beeren sind essbar."
+            ]
+          },
+          {
+            "from": "Das Hemd kann man waschen.",
+            "accept": [
+              "Das Hemd ist waschbar."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**The stem + -bar: it can be done**\n- machbar · essbar · lesbar",
+          "sl": "**Osnova + -bar: to se da**\n- machbar · essbar · lesbar",
+          "it": "**Il tema + -bar: si può fare**\n- machbar · essbar · lesbar"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv-ersatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das Problem ist leicht ___.",
+        "options": [
+          "zu lösen",
+          "lösen",
+          "gelöst zu"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**sein + zu + the infinitive: it can, or must, be done**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen.",
+          "sl": "**sein + zu + nedoločnik: to se da ali je treba**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen.",
+          "it": "**sein + zu + l'infinito: si può, o si deve, fare**\n- Das ist nicht zu machen. · Die Rechnung ist zu bezahlen."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv-ersatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Es ist dunkel: Das Licht ___ schon ausgeschaltet.",
+        "options": [
+          "ist",
+          "wird",
+          "wurden"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**werden: the action. sein: the state**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+          "sl": "**werden: dejanje. sein: stanje**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet.",
+          "it": "**werden: l'azione. sein: lo stato**\n- Die Tür wird geöffnet. · Die Tür ist geöffnet."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv-ersatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Diese Schwammerl sind ___.",
+        "options": [
+          "essbar",
+          "essen",
+          "essbare"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The stem + -bar: it can be done**\n- machbar · essbar · lesbar",
+          "sl": "**Osnova + -bar: to se da**\n- machbar · essbar · lesbar",
+          "it": "**Il tema + -bar: si può fare**\n- machbar · essbar · lesbar"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: gesperrt for closed; hat offen; Schwammerl; die Rechnung ist zu bezahlen; each base: se da, si può"
+}
