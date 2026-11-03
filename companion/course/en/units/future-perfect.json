@@ -1,0 +1,1122 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "future-perfect",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🏁",
+  "title": {
+    "sl": "Do takrat: I'll have finished, I'll be working",
+    "de": "Bis dahin: I'll have finished, I'll be working",
+    "it": "Entro allora: I'll have finished, I'll be working",
+    "en": "By Friday I'll have finished"
+  },
+  "goal": {
+    "sl": "Poveš, kaj bo do nekega časa že narejeno (By Friday I'll have finished), kako dolgo že takrat, in ločiš by in until.",
+    "de": "Du sagst, was bis zu einem Zeitpunkt fertig sein wird (By Friday I'll have finished) und wie lange dann schon, und unterscheidest by und until.",
+    "it": "Dici che cosa sarà fatto entro un certo momento (By Friday I'll have finished) e da quanto tempo, e distingui by e until.",
+    "en": "You can say what will be done by a certain time (By Friday I'll have finished) and how long by then, and tell by and until apart."
+  },
+  "grammar": [
+    "future-perfect",
+    "future",
+    "future-continuous"
+  ],
+  "words": [
+    "by then",
+    "by the time",
+    "until",
+    "will have",
+    "already",
+    "gate",
+    "mend",
+    "mended",
+    "scones",
+    "bake",
+    "noon",
+    "tent",
+    "put up",
+    "show",
+    "visitor",
+    "bees",
+    "keep bees",
+    "hall",
+    "wall",
+    "tune",
+    "letter",
+    "bill",
+    "wash up",
+    "run the inn",
+    "melt",
+    "walker",
+    "news",
+    "hear",
+    "get in",
+    "barn",
+    "wheel",
+    "mile",
+    "as soon as"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "za kaj",
+          "de": "wofür",
+          "it": "per cosa",
+          "en": "what for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**will have** + deležnik pove, kaj bo do nekega časa že narejeno. **By Friday I'll have finished the gate.** (Do petka bom {m:dokončal|f:dokončala} vrata.) **By noon Mrs Birkett will have baked the scones.** (Do poldneva bo Mrs Birkett spekla sconese.)",
+          "de": "**will have** + Partizip sagt, was bis zu einem Zeitpunkt fertig sein wird. **By Friday I'll have finished the gate.** (Bis Freitag werde ich das Tor fertig haben.) **By noon Mrs Birkett will have baked the scones.** (Bis Mittag wird Mrs Birkett die Scones gebacken haben.)",
+          "it": "**will have** + participio dice che cosa sarà fatto entro un certo momento. **By Friday I'll have finished the gate.** (Entro venerdì avrò finito il cancello.) **By noon Mrs Birkett will have baked the scones.** (Entro mezzogiorno Mrs Birkett avrà sfornato gli scone.)",
+          "en": "**will have** + the participle says what will be done by a certain time. **By Friday I'll have finished the gate.** **By noon Mrs Birkett will have baked the scones.**"
+        },
+        "examples": [
+          {
+            "en": "By Friday I'll have finished the gate.",
+            "sl": "Do petka bom {m:dokončal|f:dokončala} vrata.",
+            "de": "Bis Freitag werde ich das Tor fertig haben.",
+            "it": "Entro venerdì avrò finito il cancello."
+          },
+          {
+            "en": "By noon Mrs Birkett will have baked the scones.",
+            "sl": "Do poldneva bo Mrs Birkett spekla sconese.",
+            "de": "Bis Mittag wird Mrs Birkett die Scones gebacken haben.",
+            "it": "Entro mezzogiorno Mrs Birkett avrà sfornato gli scone."
+          }
+        ],
+        "rows": [
+          [
+            "will have + participle",
+            {
+              "sl": "do takrat narejeno",
+              "de": "bis dahin fertig",
+              "it": "fatto entro allora",
+              "en": "done by then"
+            },
+            "By Friday I'll have finished."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future-perfect",
+          "prompt": "By Friday Mr Dixon ___ the gate.",
+          "options": [
+            "will have mended",
+            "will have mend",
+            "will mended"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Do takrat narejeno: will have + deležnik**\n- By Friday Mr Dixon will have mended the gate.",
+            "de": "**Bis dahin fertig: will have + Partizip**\n- By Friday Mr Dixon will have mended the gate.",
+            "it": "**Fatto entro allora: will have + participio**\n- By Friday Mr Dixon will have mended the gate.",
+            "en": "**Done by then: will have + the participle**\n- By Friday Mr Dixon will have mended the gate."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kratko **'ll have**, zanikano **won't have**, v vprašanju **will** spredaj: **We won't have finished by six.** (Do šestih ne bomo končali.) **Will you have finished by six?** (Boš do šestih {m:končal|f:končala}?) Tudi **already**: **She'll already have left.** (Takrat bo že odšla.)",
+          "de": "Kurz **'ll have**, verneint **won't have**, in der Frage **will** vorn: **We won't have finished by six.** (Bis sechs werden wir nicht fertig sein.) **Will you have finished by six?** (Bist du bis sechs fertig?) Auch **already**: **She'll already have left.** (Dann ist sie schon weg.)",
+          "it": "Breve **'ll have**, al negativo **won't have**, nella domanda **will** davanti: **We won't have finished by six.** (Entro le sei non avremo finito.) **Will you have finished by six?** (Avrai finito entro le sei?) Anche **already**: **She'll already have left.** (Sarà già partita.)",
+          "en": "Short **'ll have**, with not **won't have**, and to ask, **will** comes first: **We won't have finished by six.** **Will you have finished by six?** Also **already**: **She'll already have left.**"
+        },
+        "examples": [
+          {
+            "en": "We won't have finished by six.",
+            "sl": "Do šestih ne bomo končali.",
+            "de": "Bis sechs werden wir nicht fertig sein.",
+            "it": "Entro le sei non avremo finito."
+          },
+          {
+            "en": "Will you have finished by six?",
+            "sl": "Boš do šestih {m:končal|f:končala}?",
+            "de": "Bist du bis sechs fertig?",
+            "it": "Avrai finito entro le sei?"
+          },
+          {
+            "en": "She'll already have left.",
+            "sl": "Takrat bo že odšla.",
+            "de": "Dann ist sie schon weg.",
+            "it": "Sarà già partita."
+          }
+        ],
+        "rows": [
+          [
+            "'ll have, won't have, Will you have …?",
+            {
+              "sl": "kratko, ne, vprašanje",
+              "de": "kurz, nein, Frage",
+              "it": "breve, no, domanda",
+              "en": "short, no, a question"
+            },
+            "Will you have finished by six?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future-perfect",
+          "text": "By the time you ring, she ___ (already leave)",
+          "accept": [
+            "will already have left",
+            "will have already left",
+            "will have left already"
+          ],
+          "hint": "will have + …",
+          "explain": {
+            "sl": "**Do takrat narejeno: will have + deležnik**\n- By the time you ring, she'll already have left.",
+            "de": "**Bis dahin fertig: will have + Partizip**\n- By the time you ring, she'll already have left.",
+            "it": "**Fatto entro allora: will have + participio**\n- By the time you ring, she'll already have left.",
+            "en": "**Done by then: will have + the participle**\n- By the time you ring, she'll already have left."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**by** pove zadnji trenutek, **until** pa, do kdaj traja: **Finish it by six.** (Končaj najpozneje do šestih.) **Wait until six.** (Počakaj do šestih.) Slovensko *do* je oboje. Tudi **by then** (do takrat): **By then we'll have eaten.**",
+          "de": "**by** sagt den letzten Moment, **until**, wie lange es dauert: **Finish it by six.** (Mach es bis spätestens sechs fertig.) **Wait until six.** (Warte bis sechs.) Deutsch *bis* ist beides. Auch **by then** (bis dahin): **By then we'll have eaten.**",
+          "it": "**by** dice il termine, **until** fino a quando: **Finish it by six.** (Finiscilo entro le sei.) **Wait until six.** (Aspetta fino alle sei.) L'italiano distingue *entro* e *fino a*. Anche **by then** (entro allora): **By then we'll have eaten.**",
+          "en": "**by** says the last moment, **until** how long it goes on: **Finish it by six.** (not *Finish it until six*) **Wait until six.** Also **by then**: **By then we'll have eaten.**"
+        },
+        "examples": [
+          {
+            "en": "Finish it by six.",
+            "sl": "Končaj najpozneje do šestih.",
+            "de": "Mach es bis spätestens sechs fertig.",
+            "it": "Finiscilo entro le sei."
+          },
+          {
+            "en": "Wait until six.",
+            "sl": "Počakaj do šestih.",
+            "de": "Warte bis sechs.",
+            "it": "Aspetta fino alle sei."
+          }
+        ],
+        "rows": [
+          [
+            "by, by then",
+            {
+              "sl": "najpozneje takrat",
+              "de": "spätestens dann",
+              "it": "entro allora",
+              "en": "at the latest"
+            },
+            "By then we'll have eaten."
+          ],
+          [
+            "until",
+            {
+              "sl": "do kdaj traja",
+              "de": "wie lange es dauert",
+              "it": "fino a quando",
+              "en": "how long it goes on"
+            },
+            "I'll work until six."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future-perfect",
+          "prompt": "I need the van back ___ Friday: the show is on Saturday.",
+          "options": [
+            "by",
+            "since",
+            "during"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**by je najpozneje takrat, until do kdaj traja**\n- I need the van back by Friday.",
+            "de": "**by ist spätestens dann, until wie lange es dauert**\n- I need the van back by Friday.",
+            "it": "**by è il termine, until fino a quando**\n- I need the van back by Friday.",
+            "en": "**by is the last moment, until how long it goes on**\n- I need the van back by Friday."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**by the time** ima za sabo sedanjik: **By the time you get here, we'll have eaten.** (Ko boš {m:prišel|f:prišla}, bomo že pojedli.) Slovenščina reče tu prihodnjik, angleščina pa **you get**. Tako tudi **when** in **as soon as**.",
+          "de": "**by the time** nimmt das Präsens: **By the time you get here, we'll have eaten.** (Bis du kommst, haben wir schon gegessen.) Wie Deutsch: **you get**, kein will. So auch **when** und **as soon as**.",
+          "it": "**by the time** vuole il presente: **By the time you get here, we'll have eaten.** (Quando arriverai, avremo già mangiato.) L'italiano qui dice il futuro, l'inglese **you get**. Così anche **when** e **as soon as**.",
+          "en": "**by the time** takes the present: **By the time you get here, we'll have eaten.** (not *By the time you will get here*) The same goes for **when** and **as soon as**."
+        },
+        "examples": [
+          {
+            "en": "By the time you get here, we'll have eaten.",
+            "sl": "Ko boš {m:prišel|f:prišla}, bomo že pojedli.",
+            "de": "Bis du kommst, haben wir schon gegessen.",
+            "it": "Quando arriverai, avremo già mangiato."
+          }
+        ],
+        "rows": [
+          [
+            "by the time + present",
+            {
+              "sl": "sedanjik",
+              "de": "Präsens",
+              "it": "presente",
+              "en": "the present"
+            },
+            "By the time you get here, …"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future-perfect",
+          "text": "By the time the bus ___ (come), I'll have finished.",
+          "accept": [
+            "comes"
+          ],
+          "hint": {
+            "sl": "sedanjik",
+            "de": "Präsens",
+            "it": "presente",
+            "en": "the present"
+          },
+          "explain": {
+            "sl": "**Po by the time sedanjik**\n- By the time the bus comes, I'll have finished.",
+            "de": "**Nach by the time das Präsens**\n- By the time the bus comes, I'll have finished.",
+            "it": "**Dopo by the time il presente**\n- By the time the bus comes, I'll have finished.",
+            "en": "**After by the time, the present**\n- By the time the bus comes, I'll have finished."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**will have been** + -ing pove, kako dolgo že takrat: **In June I'll have been living here for ten years.** (Junija bom tu {m:živel|f:živela} že deset let.) **will be** + -ing pa, kaj se bo ravno dogajalo: **At six I'll be cooking.** (Ob šestih bom ravno {m:kuhal|f:kuhala}.) **By six I'll have cooked dinner.** (Do šestih bom {m:skuhal|f:skuhala} večerjo.)",
+          "de": "**will have been** + -ing sagt, wie lange dann schon: **In June I'll have been living here for ten years.** (Im Juni wohne ich schon zehn Jahre hier.) **will be** + -ing, was genau dann im Gang ist: **At six I'll be cooking.** (Um sechs werde ich gerade kochen.) **By six I'll have cooked dinner.** (Bis sechs werde ich das Abendessen gekocht haben.)",
+          "it": "**will have been** + -ing dice da quanto tempo, allora: **In June I'll have been living here for ten years.** (A giugno abiterò qui da dieci anni.) **will be** + -ing ciò che sarà in corso proprio allora: **At six I'll be cooking.** (Alle sei starò cucinando.) **By six I'll have cooked dinner.** (Entro le sei avrò preparato la cena.)",
+          "en": "**will have been** + -ing says how long, by then: **In June I'll have been living here for ten years.** **will be** + -ing says what will be going on at that moment: **At six I'll be cooking.** **By six I'll have cooked dinner.**"
+        },
+        "examples": [
+          {
+            "en": "In June I'll have been living here for ten years.",
+            "sl": "Junija bom tu {m:živel|f:živela} že deset let.",
+            "de": "Im Juni wohne ich schon zehn Jahre hier.",
+            "it": "A giugno abiterò qui da dieci anni."
+          },
+          {
+            "en": "At six I'll be cooking.",
+            "sl": "Ob šestih bom ravno {m:kuhal|f:kuhala}.",
+            "de": "Um sechs werde ich gerade kochen.",
+            "it": "Alle sei starò cucinando."
+          },
+          {
+            "en": "By six I'll have cooked dinner.",
+            "sl": "Do šestih bom {m:skuhal|f:skuhala} večerjo.",
+            "de": "Bis sechs werde ich das Abendessen gekocht haben.",
+            "it": "Entro le sei avrò preparato la cena."
+          }
+        ],
+        "rows": [
+          [
+            "will have been + -ing",
+            {
+              "sl": "kako dolgo že, takrat",
+              "de": "wie lange dann schon",
+              "it": "da quanto tempo, allora",
+              "en": "how long, by then"
+            },
+            "I'll have been living here for ten years."
+          ],
+          [
+            "will be + -ing",
+            {
+              "sl": "ravno takrat",
+              "de": "genau dann",
+              "it": "proprio allora",
+              "en": "going on at that moment"
+            },
+            "At six I'll be cooking."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future-perfect",
+          "text": "Next year Arthur ___ (keep) bees for fifty years.",
+          "accept": [
+            "will have been keeping",
+            "will have kept"
+          ],
+          "hint": {
+            "sl": "kako dolgo že",
+            "de": "wie lange schon",
+            "it": "da quanto tempo",
+            "en": "how long by then"
+          },
+          "explain": {
+            "sl": "**Kako dolgo že, takrat: will have been + -ing**\n- Next year Arthur will have been keeping bees for fifty years.",
+            "de": "**Wie lange dann schon: will have been + -ing**\n- Next year Arthur will have been keeping bees for fifty years.",
+            "it": "**Da quanto tempo, allora: will have been + -ing**\n- Next year Arthur will have been keeping bees for fifty years.",
+            "en": "**How long by then: will have been + -ing**\n- Next year Arthur will have been keeping bees for fifty years."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**will have** pove tudi domnevo o sedanjosti: **Jack will have got home by now.** (Jack je zdaj gotovo že doma.) **You'll have heard the news.** (Novico si gotovo že {m:slišal|f:slišala}.) V govoru je **I'll've**, zato ljudje pišejo tudi *I'll of*. Pisno velja **I'll have**.",
+          "de": "**will have** drückt auch eine Vermutung über die Gegenwart aus: **Jack will have got home by now.** (Jack wird jetzt schon daheim sein.) **You'll have heard the news.** (Du hast die Neuigkeit sicher schon gehört.) Gesprochen ist es **I'll've**, darum schreibt man auch *I'll of*. Geschrieben gilt **I'll have**.",
+          "it": "**will have** dice anche un'ipotesi sul presente: **Jack will have got home by now.** (Jack sarà già a casa.) **You'll have heard the news.** (Avrai già sentito la notizia.) A voce è **I'll've**, perciò si scrive anche *I'll of*. Per iscritto vale **I'll have**.",
+          "en": "**will have** also says what you suppose about now: **Jack will have got home by now.** **You'll have heard the news.** In talk it's **I'll've**, so people also write *I'll of*. Writing wants **I'll have**."
+        },
+        "examples": [
+          {
+            "en": "Jack will have got home by now.",
+            "sl": "Jack je zdaj gotovo že doma.",
+            "de": "Jack wird jetzt schon daheim sein.",
+            "it": "Jack sarà già a casa."
+          },
+          {
+            "en": "You'll have heard the news.",
+            "sl": "Novico si gotovo že {m:slišal|f:slišala}.",
+            "de": "Du hast die Neuigkeit sicher schon gehört.",
+            "it": "Avrai già sentito la notizia."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future-perfect",
+          "prompt": "It's nine o'clock. Sam ___ the inn by now.",
+          "options": [
+            "will have left",
+            "will have leave",
+            "will left"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Domneva o sedanjosti: will have + deležnik**\n- Sam will have left the inn by now.",
+            "de": "**Vermutung über die Gegenwart: will have + Partizip**\n- Sam will have left the inn by now.",
+            "it": "**Un'ipotesi sul presente: will have + participio**\n- Sam will have left the inn by now.",
+            "en": "**What you suppose about now: will have + the participle**\n- Sam will have left the inn by now."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "future-perfect-1",
+      "title": {
+        "sl": "Do sobote",
+        "de": "Bis Samstag",
+        "it": "Entro sabato",
+        "en": "By Saturday"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Kaj bo do takrat narejeno",
+            "de": "Was bis dahin fertig ist",
+            "it": "Che cosa sarà fatto entro allora",
+            "en": "What will be done by then"
+          },
+          "columns": [
+            "will have + participle"
+          ],
+          "rows": [
+            {
+              "label": "By Friday Mr Dixon … (mend) the gate.",
+              "cells": [
+                "will have mended"
+              ]
+            },
+            {
+              "label": "By noon Mrs Birkett … (bake) the scones.",
+              "cells": [
+                {
+                  "accept": [
+                    "will have baked"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "By Saturday Jack … (count) the last sheep.",
+              "cells": [
+                {
+                  "accept": [
+                    "will have counted"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "By the weekend Sam … (not sell) all the beer.",
+              "cells": [
+                {
+                  "accept": [
+                    "won't have sold"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "By six we … (put) up the tents.",
+              "cells": [
+                {
+                  "accept": [
+                    "will have put"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "By lunch Edna … (tell) the whole village.",
+              "cells": [
+                {
+                  "accept": [
+                    "will have told"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Do takrat narejeno: will have + deležnik**\n- By Friday Mr Dixon will have mended the gate.",
+            "de": "**Bis dahin fertig: will have + Partizip**\n- By Friday Mr Dixon will have mended the gate.",
+            "it": "**Fatto entro allora: will have + participio**\n- By Friday Mr Dixon will have mended the gate.",
+            "en": "**Done by then: will have + the participle**\n- By Friday Mr Dixon will have mended the gate."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": "… by Friday",
+              "words": [
+                "finish the gate",
+                "pay the bill",
+                "send the letter",
+                "get to Keswick"
+              ]
+            },
+            {
+              "label": "… until Friday",
+              "words": [
+                "wait here",
+                "stay at the inn",
+                "keep the van",
+                "sleep in the barn"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**by je najpozneje takrat, until do kdaj traja**\n- Finish the gate by Friday. Wait here until Friday.",
+            "de": "**by ist spätestens dann, until wie lange es dauert**\n- Finish the gate by Friday. Wait here until Friday.",
+            "it": "**by è il termine, until fino a quando**\n- Finish the gate by Friday. Wait here until Friday.",
+            "en": "**by is the last moment, until how long it goes on**\n- Finish the gate by Friday. Wait here until Friday."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Ring after eight: by then we ___ dinner.",
+          "options": [
+            "will have had",
+            "will be have",
+            "will had"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Do takrat narejeno: will have + deležnik**\n- By then we will have had dinner.",
+            "de": "**Bis dahin fertig: will have + Partizip**\n- By then we will have had dinner.",
+            "it": "**Fatto entro allora: will have + participio**\n- By then we will have had dinner.",
+            "en": "**Done by then: will have + the participle**\n- By then we will have had dinner."
+          }
+        }
+      ]
+    },
+    {
+      "id": "future-perfect-2",
+      "title": {
+        "sl": "Pred razstavo",
+        "de": "Vor der Ausstellung",
+        "it": "Prima della fiera",
+        "en": "Before the show"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "title": "Mrs Hartley's note",
+          "text": "The show is on Saturday. By Thursday Mr Dixon ___ (already mend) the gate. By Friday morning Mrs Birkett ___ (bake) two hundred scones. At three on Friday we ___ (put) up the tents, so please don't ring. By the time the visitors ___ (come), everything will be ready. By then Arthur ___ (keep) bees for forty-nine years, and by lunch he ___ (tell) everyone. I ___ (see) you there at ten!",
+          "gaps": [
+            {
+              "accept": [
+                "will already have mended",
+                "will have already mended"
+              ],
+              "hint": "will have + …"
+            },
+            {
+              "accept": [
+                "will have baked"
+              ],
+              "hint": "will have + …"
+            },
+            {
+              "accept": [
+                "will be putting",
+                "are putting"
+              ],
+              "hint": {
+                "sl": "ravno takrat",
+                "de": "genau dann",
+                "it": "proprio allora",
+                "en": "at that moment"
+              }
+            },
+            {
+              "accept": [
+                "come"
+              ],
+              "hint": {
+                "sl": "sedanjik",
+                "de": "Präsens",
+                "it": "presente",
+                "en": "the present"
+              }
+            },
+            {
+              "accept": [
+                "will have kept",
+                "will have been keeping"
+              ],
+              "hint": {
+                "sl": "kako dolgo že",
+                "de": "wie lange schon",
+                "it": "da quanto tempo",
+                "en": "how long by then"
+              }
+            },
+            {
+              "accept": [
+                "will have told"
+              ],
+              "hint": "will have + …"
+            },
+            {
+              "accept": [
+                "will see",
+                "will be seeing"
+              ],
+              "hint": {
+                "sl": "prihodnost",
+                "de": "die Zukunft",
+                "it": "il futuro",
+                "en": "the future"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "will come",
+            "will has told"
+          ],
+          "translation": {
+            "sl": "Razstava je v soboto. Do četrtka bo Mr Dixon že popravil vrata. Do petka zjutraj bo Mrs Birkett spekla dvesto sconesov. V petek ob treh bomo ravno postavljali šotore, zato prosim ne kličite. Ko bodo prišli obiskovalci, bo vse pripravljeno. Takrat bo Arthur čebelaril že devetinštirideset let, in do kosila bo to povedal vsem. Se vidimo tam ob desetih!",
+            "de": "Die Ausstellung ist am Samstag. Bis Donnerstag wird Mr Dixon das Tor schon repariert haben. Bis Freitag früh wird Mrs Birkett zweihundert Scones gebacken haben. Am Freitag um drei stellen wir gerade die Zelte auf, also bitte nicht anrufen. Bis die Besucher kommen, ist alles fertig. Bis dahin hält Arthur schon neunundvierzig Jahre Bienen, und bis Mittag wird er es allen erzählt haben. Wir sehen uns dort um zehn!",
+            "it": "La fiera è sabato. Entro giovedì Mr Dixon avrà già riparato il cancello. Entro venerdì mattina Mrs Birkett avrà sfornato duecento scone. Venerdì alle tre staremo montando le tende, quindi per favore non telefonate. Quando arriveranno i visitatori, sarà tutto pronto. A quel punto Arthur terrà api da quarantanove anni, ed entro pranzo lo avrà detto a tutti. Ci vediamo lì alle dieci!",
+            "en": "The show is on Saturday. By Thursday Mr Dixon will already have mended the gate. By Friday morning Mrs Birkett will have baked two hundred scones. At three on Friday we'll be putting up the tents, so please don't ring. By the time the visitors come, everything will be ready. By then Arthur will have kept bees for forty-nine years, and by lunch he will have told everyone. I'll see you there at ten!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Don't wait for me: I ___ until late.",
+          "options": [
+            "will be working",
+            "will been working",
+            "will working"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ravno takrat: will be + -ing**\n- I will be working until late.",
+            "de": "**Genau dann: will be + -ing**\n- I will be working until late.",
+            "it": "**Proprio allora: will be + -ing**\n- I will be working until late.",
+            "en": "**Going on at that moment: will be + -ing**\n- I will be working until late."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "By the time you ___ the letter, I will have left.",
+          "options": [
+            "read",
+            "will reading",
+            "will be read"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Po by the time sedanjik**\n- By the time you read the letter, I will have left.",
+            "de": "**Nach by the time das Präsens**\n- By the time you read the letter, I will have left.",
+            "it": "**Dopo by the time il presente**\n- By the time you read the letter, I will have left.",
+            "en": "**After by the time, the present**\n- By the time you read the letter, I will have left."
+          }
+        }
+      ]
+    },
+    {
+      "id": "future-perfect-3",
+      "title": {
+        "sl": "Povej drugače",
+        "de": "Sag es anders",
+        "it": "Dillo in un altro modo",
+        "en": "Say it another way"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Say what will be done by then · Povej, kaj bo takrat narejeno",
+            "de": "Say what will be done by then · Sag, was dann fertig sein wird",
+            "it": "Say what will be done by then · Di' che cosa sarà fatto entro allora",
+            "en": "Say what will be done by then"
+          },
+          "cue": "will have",
+          "items": [
+            {
+              "from": "Mr Dixon is mending the gate. (by Friday)",
+              "accept": [
+                "By Friday Mr Dixon will have mended the gate.",
+                "Mr Dixon will have mended the gate by Friday."
+              ]
+            },
+            {
+              "from": "Mrs Birkett is baking the scones. (by noon)",
+              "accept": [
+                "By noon Mrs Birkett will have baked the scones.",
+                "Mrs Birkett will have baked the scones by noon."
+              ]
+            },
+            {
+              "from": "We are painting the hall. (by the weekend)",
+              "accept": [
+                "By the weekend we will have painted the hall.",
+                "We will have painted the hall by the weekend."
+              ]
+            },
+            {
+              "from": "Jack is building the wall, but slowly. (not finish, by Sunday)",
+              "accept": [
+                "By Sunday Jack won't have finished the wall.",
+                "Jack won't have finished the wall by Sunday."
+              ]
+            },
+            {
+              "from": "Poppy is learning the tune. (by the dance)",
+              "accept": [
+                "By the dance Poppy will have learned the tune.",
+                "Poppy will have learned the tune by the dance.",
+                "By the dance Poppy will have learnt the tune.",
+                "Poppy will have learnt the tune by the dance."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Do takrat narejeno: will have + deležnik**\n- By Friday Mr Dixon will have mended the gate.",
+            "de": "**Bis dahin fertig: will have + Partizip**\n- By Friday Mr Dixon will have mended the gate.",
+            "it": "**Fatto entro allora: will have + participio**\n- By Friday Mr Dixon will have mended the gate.",
+            "en": "**Done by then: will have + the participle**\n- By Friday Mr Dixon will have mended the gate."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Say how long by then · Povej, kako dolgo že takrat",
+            "de": "Say how long by then · Sag, wie lange dann schon",
+            "it": "Say how long by then · Di' da quanto tempo, allora",
+            "en": "Say how long by then"
+          },
+          "items": [
+            {
+              "from": "Arthur has kept bees for 49 years. (next year: 50)",
+              "accept": [
+                "Next year Arthur will have been keeping bees for 50 years.",
+                "Next year Arthur will have kept bees for 50 years.",
+                "By next year Arthur will have been keeping bees for 50 years.",
+                "By next year Arthur will have kept bees for 50 years.",
+                "Next year Arthur will have been keeping bees for fifty years.",
+                "Next year Arthur will have kept bees for fifty years.",
+                "By next year Arthur will have been keeping bees for fifty years.",
+                "By next year Arthur will have kept bees for fifty years.",
+                "Arthur will have been keeping bees for 50 years next year.",
+                "Arthur will have been keeping bees for 50 years by next year.",
+                "Arthur will have kept bees for 50 years next year.",
+                "Arthur will have kept bees for 50 years by next year.",
+                "Arthur will have been keeping bees for fifty years next year.",
+                "Arthur will have been keeping bees for fifty years by next year.",
+                "Arthur will have kept bees for fifty years next year.",
+                "Arthur will have kept bees for fifty years by next year."
+              ]
+            },
+            {
+              "from": "I have lived here for nine years. (in June: ten)",
+              "accept": [
+                "In June I will have been living here for ten years.",
+                "In June I will have lived here for ten years.",
+                "By June I will have been living here for ten years.",
+                "By June I will have lived here for ten years.",
+                "In June I will have been living here for 10 years.",
+                "In June I will have lived here for 10 years.",
+                "By June I will have been living here for 10 years.",
+                "By June I will have lived here for 10 years.",
+                "I will have been living here for ten years in June.",
+                "I will have lived here for ten years in June.",
+                "I will have been living here for ten years by June.",
+                "I will have lived here for ten years by June.",
+                "I will have been living here for 10 years in June.",
+                "I will have lived here for 10 years in June.",
+                "I will have been living here for 10 years by June.",
+                "I will have lived here for 10 years by June."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Kako dolgo že, takrat: will have been + -ing**\n- Next year Arthur will have been keeping bees for 50 years.",
+            "de": "**Wie lange dann schon: will have been + -ing**\n- Next year Arthur will have been keeping bees for 50 years.",
+            "it": "**Da quanto tempo, allora: will have been + -ing**\n- Next year Arthur will have been keeping bees for 50 years.",
+            "en": "**How long by then: will have been + -ing**\n- Next year Arthur will have been keeping bees for 50 years."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future-perfect",
+          "instruction": {
+            "sl": "Join them with by the time · Združi z by the time",
+            "de": "Join them with by the time · Verbinde sie mit by the time",
+            "it": "Join them with by the time · Uniscile con by the time",
+            "en": "Join them with by the time"
+          },
+          "items": [
+            {
+              "from": "We eat at six. You get here at seven.",
+              "accept": [
+                "By the time you get here, we will have eaten.",
+                "We will have eaten by the time you get here.",
+                "By the time you get here, we will already have eaten.",
+                "By the time you get here, we will have already eaten.",
+                "We will already have eaten by the time you get here.",
+                "We will have already eaten by the time you get here."
+              ]
+            },
+            {
+              "from": "The bus goes at nine. Sam gets up at ten.",
+              "accept": [
+                "By the time Sam gets up, the bus will have gone.",
+                "By the time Sam gets up, the bus will have left.",
+                "By the time Sam gets up, the bus will already have gone.",
+                "By the time Sam gets up, the bus will already have left.",
+                "By the time Sam gets up, the bus will have already gone.",
+                "By the time Sam gets up, the bus will have already left.",
+                "The bus will have gone by the time Sam gets up.",
+                "The bus will have left by the time Sam gets up.",
+                "The bus will already have gone by the time Sam gets up.",
+                "The bus will already have left by the time Sam gets up.",
+                "The bus will have already gone by the time Sam gets up.",
+                "The bus will have already left by the time Sam gets up."
+              ]
+            },
+            {
+              "from": "The snow melts in April. The walkers come in May.",
+              "accept": [
+                "By the time the walkers come, the snow will have melted.",
+                "The snow will have melted by the time the walkers come."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Po by the time sedanjik**\n- By the time you get here, we will have eaten.",
+            "de": "**Nach by the time das Präsens**\n- By the time you get here, we will have eaten.",
+            "it": "**Dopo by the time il presente**\n- By the time you get here, we will have eaten.",
+            "en": "**After by the time, the present**\n- By the time you get here, we will have eaten."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "future-perfect",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "title": "Mrs Birkett's message",
+        "text": "Your bus gets in at eight, but by the time you ___ (get) here, the kitchen will be closed. We ___ (eat) by then. At eight I ___ (wash) up, so come round the back. In May we ___ (run) the inn for twenty years! You ___ (hear) that already, I expect.",
+        "gaps": [
+          {
+            "accept": [
+              "get"
+            ],
+            "hint": {
+              "sl": "sedanjik",
+              "de": "Präsens",
+              "it": "presente",
+              "en": "the present"
+            }
+          },
+          {
+            "accept": [
+              "will have eaten"
+            ],
+            "hint": "will have + …"
+          },
+          {
+            "accept": [
+              "will be washing"
+            ],
+            "hint": {
+              "sl": "ravno takrat",
+              "de": "genau dann",
+              "it": "proprio allora",
+              "en": "at that moment"
+            }
+          },
+          {
+            "accept": [
+              "will have been running",
+              "will have run"
+            ],
+            "hint": {
+              "sl": "kako dolgo že",
+              "de": "wie lange schon",
+              "it": "da quanto tempo",
+              "en": "how long by then"
+            }
+          },
+          {
+            "accept": [
+              "will have heard"
+            ],
+            "hint": {
+              "sl": "domneva",
+              "de": "Vermutung",
+              "it": "un'ipotesi",
+              "en": "what you suppose"
+            }
+          }
+        ],
+        "translation": {
+          "sl": "Tvoj avtobus pride ob osmih, ampak ko boš {m:prišel|f:prišla} sem, bo kuhinja že zaprta. Takrat bomo že pojedli. Ob osmih bom ravno pomivala, zato pridi na zadnja vrata. Maja bomo gostilno vodili že dvajset let! To si gotovo že {m:slišal|f:slišala}.",
+          "de": "Dein Bus kommt um acht an, aber bis du da bist, ist die Küche zu. Bis dahin haben wir gegessen. Um acht wasche ich gerade ab, also komm hinten herum. Im Mai führen wir das Gasthaus schon zwanzig Jahre! Das hast du sicher schon gehört.",
+          "it": "Il tuo autobus arriva alle otto, ma quando arriverai qui, la cucina sarà chiusa. A quel punto avremo già mangiato. Alle otto starò lavando i piatti, quindi passa dal retro. A maggio gestiremo la locanda da vent'anni! L'avrai già sentito, immagino.",
+          "en": "Your bus gets in at eight, but by the time you get here, the kitchen will be closed. We'll have eaten by then. At eight I'll be washing up, so come round the back. In May we'll have been running the inn for twenty years! You'll have heard that already, I expect."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "future-perfect",
+        "instruction": {
+          "sl": "Say what will be done by then · Povej, kaj bo takrat narejeno",
+          "de": "Say what will be done by then · Sag, was dann fertig sein wird",
+          "it": "Say what will be done by then · Di' che cosa sarà fatto entro allora",
+          "en": "Say what will be done by then"
+        },
+        "items": [
+          {
+            "from": "Mr Tyson is mending the wheel. (by Monday)",
+            "accept": [
+              "By Monday Mr Tyson will have mended the wheel.",
+              "Mr Tyson will have mended the wheel by Monday."
+            ]
+          },
+          {
+            "from": "The bus goes at five. We get there at six.",
+            "accept": [
+              "By the time we get there, the bus will have gone.",
+              "The bus will have gone by the time we get there.",
+              "By the time we get there, the bus will have left.",
+              "The bus will have left by the time we get there."
+            ]
+          },
+          {
+            "from": "It's a long book. (not finish, by Friday)",
+            "accept": [
+              "By Friday I won't have finished the book.",
+              "I won't have finished the book by Friday.",
+              "By Friday I won't have finished it.",
+              "I won't have finished it by Friday."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Do takrat narejeno: will have + deležnik**\n- By Monday Mr Tyson will have mended the wheel.",
+          "de": "**Bis dahin fertig: will have + Partizip**\n- By Monday Mr Tyson will have mended the wheel.",
+          "it": "**Fatto entro allora: will have + participio**\n- By Monday Mr Tyson will have mended the wheel.",
+          "en": "**Done by then: will have + the participle**\n- By Monday Mr Tyson will have mended the wheel."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future-perfect",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Please stay ___ the rain stops.",
+        "options": [
+          "until",
+          "by",
+          "since"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**by je najpozneje takrat, until do kdaj traja**\n- Please stay until the rain stops.",
+          "de": "**by ist spätestens dann, until wie lange es dauert**\n- Please stay until the rain stops.",
+          "it": "**by è il termine, until fino a quando**\n- Please stay until the rain stops.",
+          "en": "**by is the last moment, until how long it goes on**\n- Please stay until the rain stops."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future-perfect",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Will you ___ the letter by tomorrow?",
+        "options": [
+          "have written",
+          "had written",
+          "has written"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Do takrat narejeno: will have + deležnik**\n- Will you have written the letter by tomorrow?",
+          "de": "**Bis dahin fertig: will have + Partizip**\n- Will you have written the letter by tomorrow?",
+          "it": "**Fatto entro allora: will have + participio**\n- Will you have written the letter by tomorrow?",
+          "en": "**Done by then: will have + the participle**\n- Will you have written the letter by tomorrow?"
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "future-perfect",
+        "instruction": {
+          "sl": "Fill in the table · Dopolni tabelo",
+          "de": "Fill in the table · Ergänze die Tabelle",
+          "it": "Fill in the table · Completa la tabella",
+          "en": "Fill in the table"
+        },
+        "prompt": {
+          "sl": "Do takrat",
+          "de": "Bis dahin",
+          "it": "Entro allora",
+          "en": "By then"
+        },
+        "columns": [
+          {
+            "sl": "dopolni",
+            "de": "ergänze",
+            "it": "completa",
+            "en": "fill in"
+          }
+        ],
+        "rows": [
+          {
+            "label": "By Sunday we … (walk) a hundred miles.",
+            "cells": [
+              {
+                "accept": [
+                  "will have walked"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "By the time she … (wake) up, we will have left.",
+            "cells": [
+              {
+                "accept": [
+                  "wakes"
+                ]
+              }
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Do takrat narejeno: will have + deležnik**\n- By Sunday we will have walked a hundred miles.",
+          "de": "**Bis dahin fertig: will have + Partizip**\n- By Sunday we will have walked a hundred miles.",
+          "it": "**Fatto entro allora: will have + participio**\n- By Sunday we will have walked a hundred miles.",
+          "en": "**Done by then: will have + the participle**\n- By Sunday we will have walked a hundred miles."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}
