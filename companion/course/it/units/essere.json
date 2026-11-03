@@ -196,7 +196,6 @@
         {
           "type": "transform", "grammar": "essere-avere",
           "instruction": { "de": "Cambia la persona · Sag es für die Person in Klammern", "sl": "Cambia la persona · Povej za osebo v oklepaju", "en": "Cambia la persona · Say it for the person in brackets" },
-          "cue": "→",
           "items": [
             { "from": "Sono a casa. (Giulia)", "accept": ["Giulia è a casa."], "hint": "Giulia = lei" },
             { "from": "Sei al mare. (noi)", "accept": ["Noi siamo al mare."], "hint": "noi → ?" },
@@ -246,7 +245,6 @@
       {
         "type": "transform", "grammar": "essere-avere",
         "instruction": { "de": "Cambia la persona · Sag es für die Person in Klammern", "sl": "Cambia la persona · Povej za osebo v oklepaju", "en": "Cambia la persona · Say it for the person in brackets" },
-        "cue": "→",
         "items": [
           { "from": "Sono nel bosco. (tu)", "accept": ["Tu sei nel bosco."] },
           { "from": "È al mare. (voi)", "accept": ["Voi siete al mare."] },
