@@ -10,6 +10,8 @@ import { VillagerStore } from '../src/villagers'
 
 const language = process.argv[2] ?? 'it'
 const culture = { it: 'friuli', de: 'kaernten', en: 'lakeland', sl: 'primorska' }[language] ?? 'friuli'
+/** The bases a module's texts are read in: the course's of the language (COURSE.md). */
+const bases = { it: ['de', 'sl', 'en'], de: ['sl', 'en', 'it'], en: ['sl', 'de', 'it'], sl: ['en', 'de', 'it'] }[language] ?? ['en', 'de', 'sl']
 const repo = resolve(import.meta.dir, '../..')
 const tmp = join(process.env.TMPDIR ?? '/tmp', `check-practice-${process.pid}`)
 const grammarPages = new GrammarStore(join(repo, 'grammar', language), language, join(tmp, 'g')).all()
@@ -31,7 +33,7 @@ for (const f of existsSync(dDir) ? readdirSync(dDir).filter(f => f.endsWith('.js
 const mDir = language === 'sl' ? join(repo, 'modules') : join(repo, 'modules', language)
 for (const f of existsSync(mDir) ? readdirSync(mDir).filter(f => f.endsWith('.json')).sort() : []) {
   const raw = JSON.parse(readFileSync(join(mDir, f), 'utf8'))
-  for (const base of ['en', 'de', 'sl']) {
+  for (const base of bases) {
     const v = validateCuratedModule(raw, base)
     if (!v.ok) { bad++; console.log(`✖ modules/${language}/${f} (${base})\n${v.errors}`); break }
     const named = [...new Set(v.spec.exercises.flatMap(e => (e.grammar ? [e.grammar] : [])))].filter(g => !pages.has(g))
