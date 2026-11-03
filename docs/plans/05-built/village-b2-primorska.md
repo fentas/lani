@@ -83,11 +83,12 @@ same moment. Each step's words are tested by a one-word swap, as the checks want
   `bun test/check-steps.ts primorska`: 13 files, 78 steps, 312 dialogs, 2,103 lines, ok. `companion/bin/content-count`:
   Primorska's steps A1 78 · A2 78 · B1 78 · B2 78, parties A1–B2 5 each, arrivals A1–B2 14 each.
 - `bunx tsc --noEmit -p .` after merging main (615fddee4): clean.
-- The smoke (LANI_SMOKE_PORT=10770, LANI_SMOKE_DRAMA3_PORT=10788): all checks passed after the parties and arrivals.
+- The smoke (LANI_SMOKE_PORT=10770, LANI_SMOKE_DRAMA3_PORT=10788): all checks passed after the parties and arrivals,
+  and again after all 78 steps and merging main (3,719 checks).
 - The supplement: the forms the word checks needed (medenjak, trak, končnica, gugalnica, tobogan, veselica).
-- **Coverage fell** (`companion/bin/lexicon-build --coverage --lang sl`): 95.5 → 95.3 % of tokens with the supplement
-  (97.2 → 96.9 with pack words and names), after parties, arrivals and the first seven projects' steps. The new lines use
-  511 word forms neither dictionary knows (`.lani-lead-kit/village-b2-primorska/unknown-words.txt`, made by `newwords.py` there);
+- **Coverage fell** (`companion/bin/lexicon-build --coverage --lang sl`): 95.5 → 95.1 % of tokens with the supplement
+  (97.2 → 96.6 with pack words and names; 111,345 → 139,141 tokens), after all of it. The first seven projects' lines
+  already used 511 word forms neither dictionary knows (`.lani-lead-kit/village-b2-primorska/unknown-words.txt`, made by `newwords.py` there);
   their supplement entries are left to do (each wants its lemma and form settled, not guessed).
 
 ## Voices (nothing spent)
