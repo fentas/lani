@@ -156,9 +156,9 @@
       },
       {
         "say": {
-          "en": "**worden** goes with a participle, **geworden** (become) with a word: **Er ist gefragt worden** (He has been asked), but **Er ist Müller geworden** (He became a miller), **Es ist kalt geworden** (It's got cold). Both come from werden, and the word before them decides.",
-          "sl": "**worden** gre z deležnikom, **geworden** (postal) z besedo: **Er ist gefragt worden** (vprašali so ga), toda **Er ist Müller geworden** (Postal je mlinar), **Es ist kalt geworden** (Postalo je hladno). Oba sta iz werden, odloči beseda pred njima.",
-          "it": "**worden** va con un participio, **geworden** (diventato) con una parola: **Er ist gefragt worden** (gli hanno chiesto), ma **Er ist Müller geworden** (È diventato mugnaio), **Es ist kalt geworden** (Si è fatto freddo). Vengono tutti e due da werden, e decide la parola prima."
+          "en": "**worden** goes with a participle, **geworden** (become) with an adjective or a noun: **Er ist gefragt worden** (He has been asked), but **Er ist Müller geworden** (He became a miller), **Es ist kalt geworden** (It's got cold). Both come from werden, and the word before them decides.",
+          "sl": "**worden** gre z deležnikom, **geworden** (postal) s pridevnikom ali samostalnikom: **Er ist gefragt worden** (vprašali so ga), toda **Er ist Müller geworden** (Postal je mlinar), **Es ist kalt geworden** (Postalo je hladno). Oba sta iz werden, odloči beseda pred njima.",
+          "it": "**worden** va con un participio, **geworden** (diventato) con un aggettivo o un nome: **Er ist gefragt worden** (gli hanno chiesto), ma **Er ist Müller geworden** (È diventato mugnaio), **Es ist kalt geworden** (Si è fatto freddo). Vengono tutti e due da werden, e decide la parola prima."
         },
         "examples": [
           {
@@ -178,19 +178,19 @@
         "ask": {
           "type": "cloze",
           "grammar": "passiv-zeiten",
-          "text": "Stefan ist krank ___.",
+          "text": "Gestern war Stefan gesund. Heute ist er krank ___.",
           "accept": [
             "geworden"
           ],
           "hint": {
-            "en": "krank is a word, no participle",
-            "sl": "krank je beseda, ne deležnik",
-            "it": "krank è una parola, non un participio"
+            "en": "krank is an adjective, not a participle",
+            "sl": "krank je pridevnik, ne deležnik",
+            "it": "krank è un aggettivo, non un participio"
           },
           "explain": {
-            "en": "**worden with a participle; geworden with a word**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-            "sl": "**worden z deležnikom; geworden z besedo**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-            "it": "**worden con un participio; geworden con una parola**\n- Er ist gefragt worden. · Er ist Müller geworden."
+            "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
           }
         }
       },
@@ -335,9 +335,9 @@
             "könnte"
           ],
           "hint": {
-            "en": "konnte, with an umlaut",
-            "sl": "konnte, s preglasom",
-            "it": "konnte, con la dieresi"
+            "en": "the Konjunktiv II of können",
+            "sl": "konjunktiv II od können",
+            "it": "il Konjunktiv II di können"
           },
           "explain": {
             "en": "**A modal verb, then the participle + werden last**\n- Das Dach muss repariert werden. · Die Straße müsste repariert werden.",
@@ -474,7 +474,7 @@
               "label": "ist … worden",
               "words": [
                 "gebaut",
-                "gefragt",
+                "geholt",
                 "repariert",
                 "gepflückt"
               ]
@@ -489,9 +489,9 @@
             }
           ],
           "explain": {
-            "en": "**worden with a participle; geworden with a word**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-            "sl": "**worden z deležnikom; geworden z besedo**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-            "it": "**worden con un participio; geworden con una parola**\n- Er ist gefragt worden. · Er ist Müller geworden."
+            "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+            "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
           }
         }
       ]
@@ -523,12 +523,14 @@
             },
             {
               "accept": [
-                "ist"
+                "ist",
+                "war"
               ]
             },
             {
               "accept": [
-                "sind"
+                "sind",
+                "waren"
               ]
             },
             {
@@ -566,13 +568,13 @@
           "bank": true,
           "distractors": [
             "hat",
-            "wird",
+            "wurde",
             "haben"
           ],
           "translation": {
             "en": "Franz's mill was repaired in the spring. First the roof was newly covered. Then the windows were painted. When Kathi came, everything had already been cleaned. But the door still has to be repaired. The wheel could be built new too, says Toni, but there's no money for it. Franz has become very happy: now he can grind flour again. Everyone has asked him when the party is.",
             "sl": "Franzev mlin so spomladi popravili. Najprej so na novo pokrili streho. Potem so prepleskali okna. Ko je prišla Kathi, je bilo že vse očiščeno. A vrata je treba še popraviti. Tudi kolo bi se dalo narediti na novo, pravi Toni, a za to ni denarja. Franz je postal zelo vesel: zdaj lahko spet melje moko. Vsi so ga vprašali, kdaj bo slavje.",
-            "it": "Il mulino di Franz è stato riparato in primavera. Prima è stato rifatto il tetto. Poi sono state dipinte le finestre. Quando è arrivata Kathi, era già stato pulito tutto. Ma la porta va ancora riparata. Anche la ruota si potrebbe rifare, dice Toni, ma non ci sono i soldi. Franz è diventato molto contento: adesso può di nuovo macinare la farina. Tutti gli hanno chiesto quando sarà la festa."
+            "it": "Il mulino di Franz è stato riparato in primavera. Prima è stato rifatto il tetto. Poi sono state verniciate le finestre. Quando è arrivata Kathi, era già stato pulito tutto. Ma la porta va ancora riparata. Anche la ruota si potrebbe rifare, dice Toni, ma non ci sono i soldi. Franz è diventato molto contento: adesso può di nuovo macinare la farina. Tutti gli hanno chiesto quando sarà la festa."
           },
           "explain": {
             "en": "**Perfekt: ist or sind + the participle + worden**\n- Das Haus ist gebaut worden. · Die Äpfel sind gepflückt worden.",
@@ -767,12 +769,14 @@
           },
           {
             "accept": [
-              "sind"
+              "sind",
+              "waren"
             ]
           },
           {
             "accept": [
-              "ist"
+              "ist",
+              "war"
             ]
           },
           {
@@ -878,9 +882,9 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "en": "**worden with a participle; geworden with a word**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-          "sl": "**worden z deležnikom; geworden z besedo**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-          "it": "**worden con un participio; geworden con una parola**\n- Er ist gefragt worden. · Er ist Müller geworden."
+          "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
         }
       },
       {
@@ -900,9 +904,9 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "en": "**worden with a participle; geworden with a word**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-          "sl": "**worden z deležnikom; geworden z besedo**\n- Er ist gefragt worden. · Er ist Müller geworden.",
-          "it": "**worden con un participio; geworden con una parola**\n- Er ist gefragt worden. · Er ist Müller geworden."
+          "en": "**worden with a participle; geworden with an adjective or a noun**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "sl": "**worden z deležnikom; geworden s pridevnikom ali samostalnikom**\n- Er ist gefragt worden. · Er ist Müller geworden.",
+          "it": "**worden con un participio; geworden con un aggettivo o un nome**\n- Er ist gefragt worden. · Er ist Müller geworden."
         }
       },
       {
