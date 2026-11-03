@@ -320,11 +320,14 @@
             "ci sarà"
           ],
           "answer": 0,
+          "almost": [
+            1
+          ],
           "say_options": true,
           "explain": {
-            "de": "**a meno che non** + congiuntivo → **ci sia**\n- c'è · Indikativ\n- ci sarà · Futur",
-            "sl": "**a meno che non** + konjunktiv → **ci sia**\n- c'è · indikativ\n- ci sarà · prihodnjik",
-            "en": "**a meno che non** + the subjunctive → **ci sia**\n- c'è · the indicative\n- ci sarà · the future"
+            "de": "**a meno che non** + congiuntivo → **ci sia**\n- c'è: beim Reden manchmal, in der Schule **ci sia**\n- ci sarà · Futur",
+            "sl": "**a meno che non** + konjunktiv → **ci sia**\n- c'è: včasih v govoru, v šoli **ci sia**\n- ci sarà · prihodnjik",
+            "en": "**a meno che non** + the subjunctive → **ci sia**\n- c'è: sometimes in talk, at school **ci sia**\n- ci sarà · the future"
           }
         }
       },
@@ -387,7 +390,7 @@
       {
         "say": {
           "de": "Dieselbe Person braucht oft kein **che**: **Vengo, a patto di tornare presto.** (Ich komme, unter der Bedingung, dass ich bald zurück bin.) **a condizione di** ebenso. Für **affinché** sagst du **per**: **Lo ripeto per capire.** (Ich wiederhole es, um es zu verstehen.)",
-          "sl": "Ista oseba pogosto ne potrebuje **che**: **Vengo, a patto di tornare presto.** (Pridem, pod pogojem, da se kmalu vrnem.) Prav tako **a condizione di**. Namesto **affinché** rečeš **per**: **Lo ripeto per capire.** (Ponovim, da bi razumel.)",
+          "sl": "Ista oseba pogosto ne potrebuje **che**: **Vengo, a patto di tornare presto.** (Pridem, pod pogojem, da se kmalu vrnem.) Prav tako **a condizione di**. Namesto **affinché** rečeš **per**: **Lo ripeto per capire.** (Ponovim, da bi {m:razumel|f:razumela}.)",
           "en": "The same person often needs no **che**: **Vengo, a patto di tornare presto.** (I'll come on condition that I'm back soon.) **a condizione di** too. For **affinché** say **per**: **Lo ripeto per capire.** (I repeat it to understand.)"
         },
         "examples": [
@@ -400,7 +403,7 @@
           {
             "it": "Lo ripeto per capire.",
             "de": "Ich wiederhole es, um es zu verstehen.",
-            "sl": "Ponovim, da bi razumel.",
+            "sl": "Ponovim, da bi {m:razumel|f:razumela}.",
             "en": "I repeat it to understand."
           },
           {
@@ -545,14 +548,14 @@
           "options": [
             "piove",
             "piova",
-            "piovesse"
+            "pioverebbe"
           ],
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "**anche se** + Indikativ → **piove**\n- piova · nach **benché**: benché piova\n- piovesse · nach **benché** in der Vergangenheit, oder nur ausgedacht: anche se piovesse",
-            "sl": "**anche se** + indikativ → **piove**\n- piova · za **benché**: benché piova\n- piovesse · za **benché** v preteklosti ali samo predstava: anche se piovesse",
-            "en": "**anche se** + the indicative → **piove**\n- piova · after **benché**: benché piova\n- piovesse · after **benché** in the past, or only imagined: anche se piovesse"
+            "de": "**anche se** + Indikativ → **piove**\n- piova · nach **benché**: benché piova\n- pioverebbe · Konditional, nicht nach anche se",
+            "sl": "**anche se** + indikativ → **piove**\n- piova · za **benché**: benché piova\n- pioverebbe · pogojnik, ne za anche se",
+            "en": "**anche se** + the indicative → **piove**\n- piova · after **benché**: benché piova\n- pioverebbe · the conditional, not after anche se"
           }
         },
         {
@@ -669,6 +672,9 @@
             {
               "accept": [
                 "arrivi"
+              ],
+              "spoken": [
+                "arriva"
               ]
             }
           ],
@@ -679,9 +685,9 @@
             "darete"
           ],
           "translation": {
-            "de": "Es ist der Tag der Weinlese. Obwohl es ein wenig regnet, gehen alle in Matteos Weinberg. „Ich helfe euch, solange ihr mir ein Glas Ribolla gebt“, lacht Bruno. Obwohl er alt ist, trägt Nonno Bepi einen Korb. Matteo geht langsam, damit er nicht zurückbleibt. Tommaso darf mitkommen, unter der Bedingung, dass er den Ball zu Hause lässt. Giulia isst die Trauben, als ob sie noch nie etwas gegessen hätte. Wir werden heute Abend fertig, es sei denn, das Gewitter kommt.",
-            "sl": "Danes je trgatev. Čeprav malo dežuje, gredo vsi v Matteov vinograd. »Pomagam vam, če mi le daste kozarec ribolle,« se smeje Bruno. Čeprav je star, dedek Bepi nosi košaro. Matteo hodi počasi, da ne bi zaostal. Tommaso lahko pride pod pogojem, da pusti žogo doma. Giulia je grozdje, kot da še nikoli ni nič jedla. Končamo nocoj, razen če pride nevihta.",
-            "en": "It's the day of the grape harvest. Although it's raining a little, everyone goes to Matteo's vineyard. \"I'll help you as long as you give me a glass of ribolla,\" Bruno laughs. Although he is old, Nonno Bepi carries a basket. Matteo walks slowly so that he doesn't fall behind. Tommaso can come on condition that he leaves his ball at home. Giulia eats the grapes as if she had never eaten anything. We'll finish tonight unless the storm comes."
+            "de": "Es ist der Tag der Weinlese. Obwohl es ein wenig regnet, gehen alle in Matteos Weinberg. „Ich helfe euch, solange ihr mir ein Glas Ribolla gebt“, lacht Bruno. Obwohl er alt ist, trägt Nonno Bepi einen Korb. Matteo geht langsam, damit Nonno Bepi nicht zurückbleibt. Tommaso darf mitkommen, unter der Bedingung, dass er den Ball zu Hause lässt. Giulia isst die Trauben, als ob sie noch nie etwas gegessen hätte. Wir werden heute Abend fertig, es sei denn, das Gewitter kommt.",
+            "sl": "Danes je trgatev. Čeprav malo dežuje, gredo vsi v Matteov vinograd. »Pomagam vam, če mi le daste kozarec ribolle,« se smeje Bruno. Čeprav je star, dedek Bepi nosi košaro. Matteo hodi počasi, da dedek ne bi zaostal. Tommaso lahko pride pod pogojem, da pusti žogo doma. Giulia je grozdje, kot da še nikoli ni nič jedla. Končamo nocoj, razen če pride nevihta.",
+            "en": "It's the day of the grape harvest. Although it's raining a little, everyone goes to Matteo's vineyard. \"I'll help you as long as you give me a glass of ribolla,\" Bruno laughs. Although he is old, Nonno Bepi carries a basket. Matteo walks slowly so that Nonno Bepi doesn't fall behind. Tommaso can come on condition that he leaves his ball at home. Giulia eats the grapes as if she had never eaten anything. We'll finish tonight unless the storm comes."
           }
         },
         {
@@ -762,7 +768,8 @@
               "accept": [
                 "Vengo, a meno che non piova.",
                 "A meno che non piova, vengo.",
-                "Vengo, a meno che piova."
+                "Vengo, a meno che piova.",
+                "A meno che piova, vengo."
               ],
               "hint": {
                 "de": "Es sei denn, es regnet: das non bleibt",
@@ -834,6 +841,9 @@
           {
             "accept": [
               "faccia"
+            ],
+            "spoken": [
+              "fa"
             ]
           }
         ],
@@ -857,7 +867,9 @@
             "from": "Sono stanco. Ti aiuto. (sebbene)",
             "accept": [
               "Sebbene sia stanco, ti aiuto.",
-              "Ti aiuto, sebbene sia stanco."
+              "Ti aiuto, sebbene sia stanco.",
+              "Sebbene io sia stanco, ti aiuto.",
+              "Ti aiuto, sebbene io sia stanco."
             ]
           },
           {
@@ -939,15 +951,15 @@
             },
             "words": [
               "anche se",
-              "perché",
+              "siccome",
               "quando"
             ]
           }
         ],
         "explain": {
-          "de": "**benché, purché, a meno che non** + piova\n- anche se, perché (weil), quando + piove",
-          "sl": "**benché, purché, a meno che non** + piova\n- anche se, perché (ker), quando + piove",
-          "en": "**benché, purché, a meno che non** + piova\n- anche se, perché (because), quando + piove"
+          "de": "**benché, purché, a meno che non** + piova\n- anche se, siccome (weil), quando + piove",
+          "sl": "**benché, purché, a meno che non** + piova\n- anche se, siccome (ker), quando + piove",
+          "en": "**benché, purché, a meno che non** + piova\n- anche se, siccome (because), quando + piove"
         }
       }
     ]

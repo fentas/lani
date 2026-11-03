@@ -202,9 +202,9 @@
       },
       {
         "say": {
-          "de": "Für mehrere: **abbiano** und **siano** (sie), **abbiamo** und **siamo** (wir), **abbiate** und **siate** (ihr). Mit essere endet das Partizip auf **-i** oder **-e**: **Penso che i bambini siano usciti.** (Ich glaube, die Kinder sind hinausgegangen.) **Credo che le pecore abbiano mangiato.** (Ich glaube, die Schafe haben gefressen.)",
-          "sl": "Za več oseb: **abbiano** in **siano** (oni), **abbiamo** in **siamo** (mi), **abbiate** in **siate** (vi). Z essere se deležnik konča na **-i** ali **-e**: **Penso che i bambini siano usciti.** (Mislim, da so otroci šli ven.) **Credo che le pecore abbiano mangiato.** (Mislim, da so ovce jedle.)",
-          "en": "For several people: **abbiano** and **siano** (they), **abbiamo** and **siamo** (we), **abbiate** and **siate** (you). With essere the participle ends in **-i** or **-e**: **Penso che i bambini siano usciti.** (I think the children have gone out.) **Credo che le pecore abbiano mangiato.** (I think the sheep have eaten.)"
+          "de": "Für mehrere: **abbiano** und **siano** (sie), **abbiamo** und **siamo** (wir), **abbiate** und **siate** (ihr). Mit essere endet das Partizip auf **-i** oder **-e**: **Penso che i bambini siano usciti.** (Ich glaube, die Kinder sind hinausgegangen.) **Credo che le pecore siano uscite.** (Ich glaube, die Schafe sind hinausgegangen.)",
+          "sl": "Za več oseb: **abbiano** in **siano** (oni), **abbiamo** in **siamo** (mi), **abbiate** in **siate** (vi). Z essere se deležnik konča na **-i** ali **-e**: **Penso che i bambini siano usciti.** (Mislim, da so otroci šli ven.) **Credo che le pecore siano uscite.** (Mislim, da so ovce šle ven.)",
+          "en": "For several people: **abbiano** and **siano** (they), **abbiamo** and **siamo** (we), **abbiate** and **siate** (you). With essere the participle ends in **-i** or **-e**: **Penso che i bambini siano usciti.** (I think the children have gone out.) **Credo che le pecore siano uscite.** (I think the sheep have gone out.)"
         },
         "examples": [
           {
@@ -214,10 +214,10 @@
             "en": "I think the children have gone out."
           },
           {
-            "it": "Credo che le pecore abbiano mangiato.",
-            "de": "Ich glaube, die Schafe haben gefressen.",
-            "sl": "Mislim, da so ovce jedle.",
-            "en": "I think the sheep have eaten."
+            "it": "Credo che le pecore siano uscite.",
+            "de": "Ich glaube, die Schafe sind hinausgegangen.",
+            "sl": "Mislim, da so ovce šle ven.",
+            "en": "I think the sheep have gone out."
           }
         ],
         "rows": [
@@ -285,7 +285,7 @@
           },
           {
             "it": "Dubito che Zia Nives abbia sentito il campanello.",
-            "de": "Ich bezweifle, dass Zia Nives die Glocke gehört hat.",
+            "de": "Ich bezweifle, dass Zia Nives die Klingel gehört hat.",
             "sl": "Dvomim, da je teta Nives slišala zvonec.",
             "en": "I doubt Zia Nives heard the bell."
           },
@@ -319,9 +319,9 @@
       },
       {
         "say": {
-          "de": "Passiert es jetzt oder später, nimmst du **venga**; ist es schon vorbei, **sia venuto**: **Penso che Bruno venga domani.** (Ich glaube, Bruno kommt morgen.) **Penso che Bruno sia venuto ieri.** (Ich glaube, Bruno ist gestern gekommen.) Wörter wie **già**, **ieri**, **stamattina** zeigen dir, dass es vorbei ist.",
-          "sl": "Če se dogaja zdaj ali pozneje, vzameš **venga**; če je že mimo, **sia venuto**: **Penso che Bruno venga domani.** (Mislim, da Bruno pride jutri.) **Penso che Bruno sia venuto ieri.** (Mislim, da je Bruno prišel včeraj.) Besede kot **già**, **ieri**, **stamattina** pokažejo, da je mimo.",
-          "en": "If it is happening now or later, take **venga**; if it's over, **sia venuto**: **Penso che Bruno venga domani.** (I think Bruno is coming tomorrow.) **Penso che Bruno sia venuto ieri.** (I think Bruno came yesterday.) Words like **già**, **ieri**, **stamattina** show you it's over."
+          "de": "Passiert es jetzt oder später, nimmst du **venga**; ist es schon vorbei, **sia venuto**: **Penso che Bruno venga domani.** (Ich glaube, Bruno kommt morgen.) **Penso che Bruno sia venuto ieri.** (Ich glaube, Bruno ist gestern gekommen.) Wörter wie **già** und **ieri** zeigen dir, dass es vorbei ist.",
+          "sl": "Če se dogaja zdaj ali pozneje, vzameš **venga**; če je že mimo, **sia venuto**: **Penso che Bruno venga domani.** (Mislim, da Bruno pride jutri.) **Penso che Bruno sia venuto ieri.** (Mislim, da je Bruno prišel včeraj.) Besede kot **già** in **ieri** pokažejo, da je mimo.",
+          "en": "If it is happening now or later, take **venga**; if it's over, **sia venuto**: **Penso che Bruno venga domani.** (I think Bruno is coming tomorrow.) **Penso che Bruno sia venuto ieri.** (I think Bruno came yesterday.) Words like **già** and **ieri** show you it's over."
         },
         "examples": [
           {
@@ -340,7 +340,7 @@
         "ask": {
           "type": "choice",
           "grammar": "congiuntivo-passato",
-          "prompt": "Credo che stamattina Franco ___ dieci sacchi di farina.",
+          "prompt": "Credo che ieri Franco ___ dieci sacchi di farina.",
           "options": [
             "abbia venduto",
             "venda",
@@ -349,9 +349,9 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "**stamattina** ist vorbei → **abbia venduto**\n- venda · jetzt oder später\n- vende · jetzt, Indikativ",
-            "sl": "**stamattina** je mimo → **abbia venduto**\n- venda · zdaj ali pozneje\n- vende · zdaj, indikativ",
-            "en": "**stamattina** is over → **abbia venduto**\n- venda · now or later\n- vende · now, the indicative"
+            "de": "**ieri** ist vorbei → **abbia venduto**\n- venda · jetzt oder später\n- vende · jetzt, Indikativ",
+            "sl": "**ieri** je mimo → **abbia venduto**\n- venda · zdaj ali pozneje\n- vende · zdaj, indikativ",
+            "en": "**ieri** is over → **abbia venduto**\n- venda · now or later\n- vende · now, the indicative"
           }
         }
       },
@@ -378,7 +378,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "congiuntivo-passato",
-          "text": "Penso che Giulia si ___ già alzata.",
+          "text": "Dubito che Giulia si ___ già alzata.",
           "accept": [
             "sia"
           ],
@@ -618,9 +618,9 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "**vendere** mit avere → **abbia venduto**, das Partizip bleibt\n- sia venduto · hieße: wäre verkauft worden\n- abbia venduti: ohne l' oder li bleibt -o",
-            "sl": "**vendere** z avere → **abbia venduto**, deležnik ostane\n- sia venduto · bi pomenilo: da je bil prodan\n- abbia venduti: brez l' ali li ostane -o",
-            "en": "**vendere** with avere → **abbia venduto**, the participle stays\n- sia venduto · would mean: has been sold\n- abbia venduti: with no l' or li it stays -o"
+            "de": "**vendere** mit avere → **abbia venduto**, das Partizip bleibt\n- sia venduto: vendere nimmt avere\n- abbia venduti: ohne l' oder li bleibt -o",
+            "sl": "**vendere** z avere → **abbia venduto**, deležnik ostane\n- sia venduto: vendere ima avere\n- abbia venduti: brez l' ali li ostane -o",
+            "en": "**vendere** with avere → **abbia venduto**, the participle stays\n- sia venduto: vendere takes avere\n- abbia venduti: with no l' or li it stays -o"
           }
         }
       ]
@@ -629,8 +629,8 @@
       "id": "congiuntivo-passato-2",
       "title": {
         "it": "La chiave del mulino",
-        "de": "Der Schlüssel der Mühle",
-        "sl": "Ključ mlina",
+        "de": "Der Schlüssel zur Mühle",
+        "sl": "Ključ od mlina",
         "en": "The key to the mill"
       },
       "exercises": [
@@ -722,8 +722,8 @@
             "abbia uscito"
           ],
           "translation": {
-            "de": "Franco findet den Schlüssel der Mühle nicht. „Ich glaube, Lorenzo hat den Schlüssel zum Spielen genommen“, sagt er. Giulia ist nicht einverstanden: „Ich glaube nicht, dass Lorenzo heute Morgen hinausgegangen ist.“ Zia Nives glaubt, der Briefträger hat auf dem Platz einen Schlüssel gefunden. Bruno bezweifelt, dass die Kinder zur Mühle gegangen sind. Am Ende schaut Franco in die Tasche. „Da ist er! Es tut mir leid, dass alle umsonst gesucht haben!“ „Ich freue mich, dass du ihn gefunden hast“, lacht Marisa.",
-            "sl": "Franco ne najde ključa mlina. »Mislim, da je Lorenzo vzel ključ za igro,« pravi. Giulia se ne strinja: »Ne verjamem, da je Lorenzo zjutraj šel ven.« Teta Nives misli, da je poštar našel ključ na trgu. Bruno dvomi, da so otroci šli do mlina. Na koncu Franco pogleda v žep. »Tu je! Žal mi je, da so vsi iskali zaman!« »Vesela sem, da si ga našel,« se smeje Marisa.",
+            "de": "Franco findet den Schlüssel zur Mühle nicht. „Ich glaube, Lorenzo hat den Schlüssel zum Spielen genommen“, sagt er. Giulia ist nicht einverstanden: „Ich glaube nicht, dass Lorenzo heute Morgen hinausgegangen ist.“ Zia Nives glaubt, der Briefträger hat auf dem Platz einen Schlüssel gefunden. Bruno bezweifelt, dass die Kinder zur Mühle gegangen sind. Am Ende schaut Franco in die Tasche. „Da ist er! Es tut mir leid, dass alle umsonst gesucht haben!“ „Ich freue mich, dass du ihn gefunden hast“, lacht Marisa.",
+            "sl": "Franco ne najde ključa od mlina. »Mislim, da je Lorenzo vzel ključ za igro,« pravi. Giulia se ne strinja: »Ne verjamem, da je Lorenzo zjutraj šel ven.« Teta Nives misli, da je poštar našel ključ na trgu. Bruno dvomi, da so otroci šli do mlina. Na koncu Franco pogleda v žep. »Tu je! Žal mi je, da so vsi iskali zaman!« »Vesela sem, da si ga našel,« se smeje Marisa.",
             "en": "Franco can't find the key to the mill. \"I think Lorenzo took the key to play with,\" he says. Giulia doesn't agree: \"I don't think Lorenzo went out this morning.\" Zia Nives thinks the postman found a key in the square. Bruno doubts the children went to the mill. In the end Franco looks in his pocket. \"Here it is! I'm sorry everyone searched for nothing!\" \"I'm glad you found it,\" Marisa laughs."
           }
         },
@@ -963,9 +963,9 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "de": "**lasciare** mit avere → **abbia lasciato**, das Partizip bleibt\n- sia lasciata: lasciare nimmt avere\n- abbia lasciata: il cancello ist nicht davor",
-          "sl": "**lasciare** z avere → **abbia lasciato**, deležnik ostane\n- sia lasciata: lasciare ima avere\n- abbia lasciata: il cancello ni spredaj",
-          "en": "**lasciare** with avere → **abbia lasciato**, the participle stays\n- sia lasciata: lasciare takes avere\n- abbia lasciata: il cancello isn't in front"
+          "de": "**lasciare** mit avere → **abbia lasciato**, das Partizip bleibt\n- sia lasciata: lasciare nimmt avere\n- abbia lasciata: mit avere richtet es sich nicht nach Giulia",
+          "sl": "**lasciare** z avere → **abbia lasciato**, deležnik ostane\n- sia lasciata: lasciare ima avere\n- abbia lasciata: z avere se ne ujema z Giulio",
+          "en": "**lasciare** with avere → **abbia lasciato**, the participle stays\n- sia lasciata: lasciare takes avere\n- abbia lasciata: with avere it doesn't agree with Giulia"
         }
       },
       {

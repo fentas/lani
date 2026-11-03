@@ -12,7 +12,7 @@
   },
   "goal": {
     "de": "Du erzählst, was du damals dachtest, hofftest und wolltest, und sagst, was du dir wünschst: Pensavo che fosse qui. Nonna voleva che Giulia mangiasse. Vorrei che tu venissi.",
-    "sl": "Poveš, kaj si takrat mislil, upal in hotel, in kaj si želiš: Pensavo che fosse qui. Nonna voleva che Giulia mangiasse. Vorrei che tu venissi.",
+    "sl": "Poveš, kaj si takrat {m:mislil|f:mislila}, {m:upal|f:upala} in {m:hotel|f:hotela}, in kaj si želiš: Pensavo che fosse qui. Nonna voleva che Giulia mangiasse. Vorrei che tu venissi.",
     "en": "You can tell what you thought, hoped and wanted back then, and say what you wish: Pensavo che fosse qui. Nonna voleva che Giulia mangiasse. Vorrei che tu venissi."
   },
   "grammar": [
@@ -87,7 +87,7 @@
       {
         "say": {
           "de": "Steht das erste Verb in der Vergangenheit, wird aus **sia** ein **fosse**: **Penso che sia qui.** (Ich glaube, er ist hier.) **Pensavo che fosse qui.** (Ich dachte, er wäre hier.) Das ist der **congiuntivo imperfetto**. Du kennst ihn schon von **se fossi** (wenn ich wäre).",
-          "sl": "Ko je prvi glagol v preteklosti, **sia** postane **fosse**: **Penso che sia qui.** (Mislim, da je tu.) **Pensavo che fosse qui.** (Mislil sem, da je tu.) To je **congiuntivo imperfetto**. Poznaš ga že iz **se fossi** (če bi bil).",
+          "sl": "Ko je prvi glagol v preteklosti, **sia** postane **fosse**: **Penso che sia qui.** (Mislim, da je tu.) **Pensavo che fosse qui.** ({m:Mislil|f:Mislila} sem, da je tu.) To je **congiuntivo imperfetto**. Poznaš ga že iz **se fossi** (če bi bil).",
           "en": "When the first verb is in the past, **sia** becomes **fosse**: **Penso che sia qui.** (I think he's here.) **Pensavo che fosse qui.** (I thought he was here.) This is the **congiuntivo imperfetto**. You know it from **se fossi** (if I were)."
         },
         "examples": [
@@ -141,7 +141,7 @@
       {
         "say": {
           "de": "Die anderen Verben: **-are → -asse**, **-ere → -esse**, **-ire → -isse**: **Nonna voleva che Giulia mangiasse.** (Oma wollte, dass Giulia isst.) **Speravo che Davide leggesse la lettera.** (Ich hoffte, Davide würde den Brief lesen.) **Credevo che Moro dormisse.** (Ich dachte, Moro schläft.)",
-          "sl": "Drugi glagoli: **-are → -asse**, **-ere → -esse**, **-ire → -isse**: **Nonna voleva che Giulia mangiasse.** (Babica je hotela, da Giulia je.) **Speravo che Davide leggesse la lettera.** (Upal sem, da bo Davide prebral pismo.) **Credevo che Moro dormisse.** (Mislil sem, da Moro spi.)",
+          "sl": "Drugi glagoli: **-are → -asse**, **-ere → -esse**, **-ire → -isse**: **Nonna voleva che Giulia mangiasse.** (Babica je hotela, da Giulia je.) **Speravo che Davide leggesse la lettera.** ({m:Upal|f:Upala} sem, da bo Davide prebral pismo.) **Credevo che Moro dormisse.** ({m:Mislil|f:Mislila} sem, da Moro spi.)",
           "en": "The other verbs: **-are → -asse**, **-ere → -esse**, **-ire → -isse**: **Nonna voleva che Giulia mangiasse.** (Grandma wanted Giulia to eat.) **Speravo che Davide leggesse la lettera.** (I hoped Davide would read the letter.) **Credevo che Moro dormisse.** (I thought Moro was asleep.)"
         },
         "examples": [
@@ -262,7 +262,7 @@
       {
         "say": {
           "de": "Einige haben eigene Formen: **essere → fossi**, **dare → dessi**, **stare → stessi**. **fare, dire, bere** nehmen den Stamm des imperfetto: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Pensavo che facesse freddo.** (Ich dachte, es wäre kalt.) **avere** ist regelmäßig: **avessi**.",
-          "sl": "Nekateri imajo svoje oblike: **essere → fossi**, **dare → dessi**, **stare → stessi**. **fare, dire, bere** vzamejo osnovo iz imperfekta: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Pensavo che facesse freddo.** (Mislil sem, da je mraz.) **avere** je pravilen: **avessi**.",
+          "sl": "Nekateri imajo svoje oblike: **essere → fossi**, **dare → dessi**, **stare → stessi**. **fare, dire, bere** vzamejo osnovo iz imperfekta: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Pensavo che facesse freddo.** ({m:Mislil|f:Mislila} sem, da je mraz.) **avere** je pravilen: **avessi**.",
           "en": "Some have forms of their own: **essere → fossi**, **dare → dessi**, **stare → stessi**. **fare, dire, bere** take the imperfetto's stem: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Pensavo che facesse freddo.** (I thought it was cold.) **avere** is regular: **avessi**."
         },
         "examples": [
@@ -314,7 +314,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "congiuntivo-imperfetto",
-          "text": "Giulia sperava che il nonno non ___ niente alla nonna. (dire)",
+          "text": "Giulia voleva che il nonno non ___ niente alla nonna. (dire)",
           "accept": [
             "dicesse"
           ],
@@ -333,7 +333,7 @@
       {
         "say": {
           "de": "Auch **vorrei che** (ich möchte, dass) will diese Form, obwohl es jetzt ist: **Vorrei che tu venissi.** (Ich möchte, dass du kommst.) Ebenso **mi piacerebbe che** (es würde mir gefallen, wenn) und **sarebbe meglio che** (es wäre besser, wenn). Beim Reden hört man auch **vorrei che venga**; in der Schule und geschrieben: **venissi**.",
-          "sl": "Tudi **vorrei che** (rad bi, da) zahteva to obliko, čeprav gre za zdaj: **Vorrei che tu venissi.** (Rad bi, da prideš.) Prav tako **mi piacerebbe che** (všeč bi mi bilo, da) in **sarebbe meglio che** (bolje bi bilo, da). V govoru slišiš tudi **vorrei che venga**; v šoli in pisno: **venissi**.",
+          "sl": "Tudi **vorrei che** ({m:rad|f:rada} bi, da) zahteva to obliko, čeprav gre za zdaj: **Vorrei che tu venissi.** ({m:Rad|f:Rada} bi, da prideš.) Prav tako **mi piacerebbe che** (všeč bi mi bilo, da) in **sarebbe meglio che** (bolje bi bilo, da). V govoru slišiš tudi **vorrei che venga**; v šoli in pisno: **venissi**.",
           "en": "**Vorrei che** (I'd like) wants this form too, though it's about now: **Vorrei che tu venissi.** (I'd like you to come.) So do **mi piacerebbe che** (I'd love it if) and **sarebbe meglio che** (it would be better if). In talk you also hear **vorrei che venga**; at school and in writing: **venissi**."
         },
         "examples": [
@@ -383,7 +383,7 @@
       {
         "say": {
           "de": "Auch die Bindewörter von früher gehen mit: **prima che**, **senza che**, **perché** (damit): **Il nonno parlava piano perché Lorenzo capisse.** (Der Opa sprach langsam, damit Lorenzo versteht.) Beim Indikativ bleiben **sapevo che** (ich wusste, dass), **quando** und **dopo che**: **Sapevo che era qui.** Dieselbe Person: **Pensavo di essere in ritardo.** (Ich dachte, ich wäre spät dran.)",
-          "sl": "Tudi prejšnji vezniki gredo zraven: **prima che**, **senza che**, **perché** (da bi): **Il nonno parlava piano perché Lorenzo capisse.** (Dedek je govoril počasi, da bi Lorenzo razumel.) Pri indikativu ostanejo **sapevo che** (vedel sem, da), **quando** in **dopo che**: **Sapevo che era qui.** Ista oseba: **Pensavo di essere in ritardo.** (Mislil sem, da zamujam.)",
+          "sl": "Tudi prejšnji vezniki gredo zraven: **prima che**, **senza che**, **perché** (da bi): **Il nonno parlava piano perché Lorenzo capisse.** (Dedek je govoril počasi, da bi Lorenzo razumel.) Pri indikativu ostanejo **sapevo che** ({m:vedel|f:vedela} sem, da), **quando** in **dopo che**: **Sapevo che era qui.** Ista oseba: **Pensavo di essere in ritardo.** ({m:Mislil|f:Mislila} sem, da zamujam.)",
           "en": "The linking words you know go along too: **prima che**, **senza che**, **perché** (so that): **Il nonno parlava piano perché Lorenzo capisse.** (Grandpa spoke slowly so that Lorenzo would understand.) Staying with the indicative: **sapevo che** (I knew that), **quando** and **dopo che**: **Sapevo che era qui.** The same person: **Pensavo di essere in ritardo.** (I thought I was late.)"
         },
         "examples": [
@@ -422,11 +422,14 @@
             "sia"
           ],
           "answer": 0,
+          "almost": [
+            1
+          ],
           "say_options": true,
           "explain": {
-            "de": "**sapevo che**: du weißt es sicher → Indikativ: **era**\n- fosse · nach pensavo, credevo\n- sia · nach einer Gegenwart",
-            "sl": "**sapevo che**: to zagotovo veš → indikativ: **era**\n- fosse · za pensavo, credevo\n- sia · za sedanjikom",
-            "en": "**sapevo che**: you know it for sure → the indicative: **era**\n- fosse · after pensavo, credevo\n- sia · after a present"
+            "de": "**sapevo che**: du weißt es sicher → Indikativ: **era**\n- fosse: beim Reden manchmal, in der Schule **era**\n- sia · nach einer Gegenwart",
+            "sl": "**sapevo che**: to zagotovo veš → indikativ: **era**\n- fosse: včasih v govoru, v šoli **era**\n- sia · za sedanjikom",
+            "en": "**sapevo che**: you know it for sure → the indicative: **era**\n- fosse: sometimes in talk, at school **era**\n- sia · after a present"
           }
         }
       }
@@ -785,6 +788,9 @@
               "accept": [
                 "diceste"
               ],
+              "spoken": [
+                "diciate"
+              ],
               "hint": {
                 "de": "voi: ohne -ss-",
                 "sl": "voi: brez -ss-",
@@ -801,7 +807,7 @@
           "translation": {
             "de": "Unter der Linde erzählt Nonno Bepi: „Als Kind dachte ich, der Mond wäre aus Käse. Ich dachte, die Sonne schläft im Meer und die Fische wecken sie jeden Morgen. Meine Mutter wollte, dass ich abends zu Hause bleibe, aber ich hoffte, sie würde mich nicht hinausgehen sehen. Ich wollte, dass mein Bruder mit mir die Sterne anschauen kommt. Und ihr? Ich möchte, dass ihr mir sagt, was ihr als Kinder gedacht habt!“",
             "sl": "Pod lipo dedek Bepi pripoveduje: »Kot otrok sem mislil, da je luna iz sira. Mislil sem, da sonce spi v morju in da ga ribe vsako jutro zbudijo. Mama je hotela, da zvečer ostanem doma, jaz pa sem upal, da me ne bo videla, ko grem ven. Hotel sem, da gre brat z mano gledat zvezde. Pa vi? Rad bi, da mi poveste, kaj ste mislili, ko ste bili majhni!«",
-            "en": "Under the linden Nonno Bepi tells: \"As a child I thought the moon was made of cheese. I thought the sun slept in the sea and the fish woke it every morning. My mother wanted me to stay at home in the evening, but I hoped she wouldn't see me go out. I wanted my brother to come with me to look at the stars. And you? I'd like you to tell me what you thought when you were small!\""
+            "en": "Under the linden Nonno Bepi tells a story: \"As a child I thought the moon was made of cheese. I thought the sun slept in the sea and the fish woke it every morning. My mother wanted me to stay at home in the evening, but I hoped she wouldn't see me go out. I wanted my brother to come with me to look at the stars. And you? I'd like you to tell me what you thought when you were small!\""
           }
         },
         {
@@ -833,7 +839,7 @@
       "title": {
         "it": "Allora pensavo…",
         "de": "Damals dachte ich …",
-        "sl": "Takrat sem mislil …",
+        "sl": "Takrat se mi je zdelo …",
         "en": "Back then I thought…"
       },
       "exercises": [
@@ -883,10 +889,12 @@
             {
               "from": "Penso che tu dica la verità. (pensavo)",
               "accept": [
-                "Pensavo che tu dicessi la verità."
+                "Pensavo che tu dicessi la verità.",
+                "Pensavo che dicessi la verità."
               ],
               "spoken": [
-                "Pensavo che tu dicevi la verità."
+                "Pensavo che tu dicevi la verità.",
+                "Pensavo che dicevi la verità."
               ]
             },
             {
@@ -953,6 +961,9 @@
             "accept": [
               "ascoltaste"
             ],
+            "spoken": [
+              "ascoltiate"
+            ],
             "hint": {
               "de": "voi: ohne -ss-",
               "sl": "voi: brez -ss-",
@@ -975,7 +986,7 @@
         ],
         "translation": {
           "de": "Marisa wollte, dass alle zu Matteos Fest ins Wirtshaus kommen. Tommaso dachte, das Fest fängt um acht an, aber Zia Nives glaubte, es wäre um sieben. „Ich möchte, dass ihr zuhört, wenn ich rede!“, sagte Marisa. Bruno hoffte, dass es Frico gibt, und Matteo wollte, dass der Opa ein Glas mit ihm trinkt.",
-          "sl": "Marisa je hotela, da vsi pridejo v gostilno na Matteov praznik. Tommaso je mislil, da se praznik začne ob osmih, teta Nives pa je mislila, da je ob sedmih. »Rada bi, da poslušate, ko govorim!« je rekla Marisa. Bruno je upal, da bo frico, Matteo pa je hotel, da dedek z njim popije kozarec.",
+          "sl": "Marisa je hotela, da vsi pridejo v gostilno na Matteovo praznovanje. Tommaso je mislil, da se praznovanje začne ob osmih, teta Nives pa je mislila, da je ob sedmih. »Rada bi, da poslušate, ko govorim!« je rekla Marisa. Bruno je upal, da bo frico, Matteo pa je hotel, da dedek z njim popije kozarec.",
           "en": "Marisa wanted everyone to come to the inn for Matteo's party. Tommaso thought the party started at eight, but Zia Nives thought it was at seven. \"I'd like you to listen when I speak!\" said Marisa. Bruno hoped there would be frico, and Matteo wanted Grandpa to drink a glass with him."
         }
       },

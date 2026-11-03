@@ -124,7 +124,7 @@
           "say_options": true,
           "explain": {
             "de": "Du würdest gern, kannst aber nicht → **Magari!** (schön wär's!)\n- Che · allein keine Antwort\n- Sempre · immer",
-            "sl": "Rad bi, a ne moreš → **Magari!** (ko bi le!)\n- Che · sam ni odgovor\n- Sempre · vedno",
+            "sl": "{m:Rad|f:Rada} bi, a ne moreš → **Magari!** (ko bi le!)\n- Che · sam ni odgovor\n- Sempre · vedno",
             "en": "You'd like to, but you can't → **Magari!** (if only!)\n- Che · no answer on its own\n- Sempre · always"
           }
         }
@@ -203,14 +203,14 @@
       {
         "say": {
           "de": "Ist es vorbei, nimmst du das trapassato: **Magari fosse venuto!** (Wäre er doch gekommen!) **Se solo l'avessi saputo!** (Hätte ich es nur gewusst!) **Almeno avesse telefonato!** (Hätte er wenigstens angerufen!) So klagst du über das, was nicht passiert ist.",
-          "sl": "Če je mimo, vzameš trapassato: **Magari fosse venuto!** (Ko bi le prišel!) **Se solo l'avessi saputo!** (Ko bi le to vedel!) **Almeno avesse telefonato!** (Ko bi vsaj poklical!) Tako potožiš nad tem, kar se ni zgodilo.",
+          "sl": "Če je mimo, vzameš trapassato: **Magari fosse venuto!** (Ko bi le prišel takrat!) **Se solo l'avessi saputo!** (Ko bi le to {m:vedel|f:vedela}!) **Almeno avesse telefonato!** (Ko bi vsaj poklical!) Tako potožiš nad tem, kar se ni zgodilo.",
           "en": "If it's over, take the pluperfect: **Magari fosse venuto!** (If only he had come!) **Se solo l'avessi saputo!** (If only I had known!) **Almeno avesse telefonato!** (If at least he had phoned!) That's how you lament what didn't happen."
         },
         "examples": [
           {
             "it": "Magari fosse venuto!",
             "de": "Wäre er doch gekommen!",
-            "sl": "Ko bi le prišel!",
+            "sl": "Ko bi le prišel takrat!",
             "en": "If only he had come!"
           },
           {
@@ -240,7 +240,7 @@
         "ask": {
           "type": "choice",
           "grammar": "congiuntivo-indipendente",
-          "prompt": "Ieri Matteo non è venuto. Magari ___ venuto!",
+          "prompt": "Ieri Giulia non è uscita. Magari ___ uscita!",
           "options": [
             "fosse",
             "sia",
@@ -249,16 +249,16 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "**ieri**: vorbei, und **venire** nimmt essere → **fosse** venuto\n- sia · nach einer Gegenwart: penso che sia venuto\n- avesse · nur bei Verben mit avere",
-            "sl": "**ieri**: mimo, **venire** pa ima essere → **fosse** venuto\n- sia · za sedanjikom: penso che sia venuto\n- avesse · samo pri glagolih z avere",
-            "en": "**ieri**: over, and **venire** takes essere → **fosse** venuto\n- sia · after a present: penso che sia venuto\n- avesse · only with avere verbs"
+            "de": "**ieri**: vorbei, und **uscire** nimmt essere → **fosse** uscita\n- sia · nach einer Gegenwart: penso che sia uscita\n- avesse · nur bei Verben mit avere",
+            "sl": "**ieri**: mimo, **uscire** pa ima essere → **fosse** uscita\n- sia · za sedanjikom: penso che sia uscita\n- avesse · samo pri glagolih z avere",
+            "en": "**ieri**: over, and **uscire** takes essere → **fosse** uscita\n- sia · after a present: penso che sia uscita\n- avesse · only with avere verbs"
           }
         }
       },
       {
         "say": {
           "de": "Es geht auch ganz ohne Wort davor: **Non l'avessi mai detto!** (Hätte ich das nur nie gesagt!) **Fosse vero!** (Wenn das nur wahr wäre!) Das erste bereut etwas, das passiert ist; das zweite wünscht, was nicht so ist.",
-          "sl": "Gre tudi povsem brez besede spredaj: **Non l'avessi mai detto!** (Ko bi le tega nikoli ne rekel!) **Fosse vero!** (Ko bi le bilo res!) Prvo obžaluje nekaj, kar se je zgodilo; drugo si želi, kar ni tako.",
+          "sl": "Gre tudi povsem brez besede spredaj: **Non l'avessi mai detto!** (Ko bi le tega nikoli ne {m:rekel|f:rekla}!) **Fosse vero!** (Ko bi le bilo res!) Prvo obžaluje nekaj, kar se je zgodilo; drugo si želi, kar ni tako.",
           "en": "It also works with no word in front: **Non l'avessi mai detto!** (If only I had never said it!) **Fosse vero!** (If only it were true!) The first regrets something that happened; the second wishes for what isn't so."
         },
         "examples": [
@@ -289,25 +289,25 @@
         "ask": {
           "type": "choice",
           "grammar": "congiuntivo-indipendente",
-          "prompt": "Bruno ha raccontato il segreto. «Non l'avessi mai detto!» Vuol dire:",
+          "prompt": "Bruno ha venduto la bici. «Non l'avessi mai venduta!» Vuol dire:",
           "options": [
-            "l'ha detto, ma gli dispiace",
-            "non l'ha detto",
-            "lo dirà domani"
+            "l'ha venduta, ma gli dispiace",
+            "non l'ha venduta",
+            "la venderà domani"
           ],
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "**avessi detto**: es ist passiert, und er bereut es → **l'ha detto, ma gli dispiace**\n- non l'ha detto · doch, er hat es gesagt\n- lo dirà domani · es ist schon vorbei",
-            "sl": "**avessi detto**: zgodilo se je in obžaluje → **l'ha detto, ma gli dispiace**\n- non l'ha detto · je, rekel je\n- lo dirà domani · je že mimo",
-            "en": "**avessi detto**: it happened and he regrets it → **l'ha detto, ma gli dispiace**\n- non l'ha detto · he did say it\n- lo dirà domani · it's already over"
+            "de": "**avessi venduta**: es ist passiert, und er bereut es → **l'ha venduta, ma gli dispiace**\n- non l'ha venduta · doch, er hat sie verkauft\n- la venderà domani · es ist schon vorbei",
+            "sl": "**avessi venduta**: zgodilo se je in obžaluje → **l'ha venduta, ma gli dispiace**\n- non l'ha venduta · je, prodal jo je\n- la venderà domani · je že mimo",
+            "en": "**avessi venduta**: it happened and he regrets it → **l'ha venduta, ma gli dispiace**\n- non l'ha venduta · he did sell it\n- la venderà domani · it's already over"
           }
         }
       },
       {
         "say": {
           "de": "Ein Zweifel: **che** + Präsens oder Vergangenheit als Frage: **Che sia lui?** (Ob er das ist?) **Che sia già partito?** (Ob er schon weg ist?) **Che abbia dimenticato?** (Ob er es vergessen hat?) Du fragst dich selbst und erwartest keine Antwort.",
-          "sl": "Dvom: **che** + sedanjik ali preteklik kot vprašanje: **Che sia lui?** (Je to morda on?) **Che sia già partito?** (Je morda že odšel?) **Che abbia dimenticato?** (Je morda pozabil?) Sprašuješ sam sebe in ne pričakuješ odgovora.",
+          "sl": "Dvom: **che** + sedanjik ali preteklik kot vprašanje: **Che sia lui?** (Je to morda on?) **Che sia già partito?** (Je morda že odšel?) **Che abbia dimenticato?** (Je morda pozabil?) Sprašuješ {m:sam|f:sama} sebe in ne pričakuješ odgovora.",
           "en": "A doubt: **che** + the present or the past, as a question: **Che sia lui?** (Could it be him?) **Che sia già partito?** (Could he have left already?) **Che abbia dimenticato?** (Could he have forgotten?) You're asking yourself and expect no answer."
         },
         "examples": [
@@ -603,14 +603,14 @@
           "options": [
             "fossero",
             "siano",
-            "saranno"
+            "fosse"
           ],
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "Ein Wunsch, **adesso** → imperfetto, i bambini = sie → **fossero**\n- siano · nach einer Meinung: penso che siano\n- saranno · Futur",
-            "sl": "Želja, **adesso** → imperfetto, i bambini = oni → **fossero**\n- siano · za mnenjem: penso che siano\n- saranno · prihodnjik",
-            "en": "A wish, **adesso** → the imperfect, i bambini = they → **fossero**\n- siano · after an opinion: penso che siano\n- saranno · the future"
+            "de": "Ein Wunsch, **adesso** → imperfetto, i bambini = sie → **fossero**\n- siano · nach einer Meinung: penso che siano\n- fosse · er, sie",
+            "sl": "Želja, **adesso** → imperfetto, i bambini = oni → **fossero**\n- siano · za mnenjem: penso che siano\n- fosse · on, ona",
+            "en": "A wish, **adesso** → the imperfect, i bambini = they → **fossero**\n- siano · after an opinion: penso che siano\n- fosse · he, she"
           }
         },
         {
@@ -625,14 +625,14 @@
           "options": [
             "avessi",
             "abbia",
-            "avrei"
+            "avrò"
           ],
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "Franco bereut, was passiert ist → **avessi** comprato\n- abbia · nach einer Meinung: penso che abbia\n- avrei · ein Konditional, nicht hier",
-            "sl": "Franco obžaluje, kar se je zgodilo → **avessi** comprato\n- abbia · za mnenjem: penso che abbia\n- avrei · pogojnik, ne tu",
-            "en": "Franco regrets what happened → **avessi** comprato\n- abbia · after an opinion: penso che abbia\n- avrei · a conditional, not here"
+            "de": "Franco bereut, was passiert ist → **avessi** comprato\n- abbia · nach einer Meinung: penso che abbia\n- avrò · Futur, nicht hier",
+            "sl": "Franco obžaluje, kar se je zgodilo → **avessi** comprato\n- abbia · za mnenjem: penso che abbia\n- avrò · prihodnjik, ne tu",
+            "en": "Franco regrets what happened → **avessi** comprato\n- abbia · after an opinion: penso che abbia\n- avrò · the future, not here"
           }
         }
       ]
@@ -655,7 +655,7 @@
             "en": "Completa con il congiuntivo · Fill in with the subjunctive"
           },
           "title": "Tre giorni di pioggia",
-          "text": "Piove da tre giorni e tutti sono all'osteria. «Magari ___ (uscire) il sole!», dice Giulia. «Almeno ___ (smettere) il vento!», dice Davide. Zia Nives batte sulla radio: «Se solo ___ (funzionare)!» Bruno guarda fuori: «Ieri c'era ancora il sole. Magari noi ___ (andare) al mare!» Qualcuno bussa. «Che ___ (essere) Matteo?», chiede Marisa. «Che ___ (portare) il vino?» Ma è solo Moro. «Magari ___ (sapere) aprire la porta da solo!», ride Tommaso.",
+          "text": "Piove da tre giorni e tutti sono all'osteria. «Magari ___ (uscire) il sole!», dice Giulia. «Almeno ___ (smettere) il vento!», dice Davide. Zia Nives batte sulla radio: «Se solo ___ (funzionare)!» Bruno guarda fuori: «Quattro giorni fa c'era ancora il sole. Magari noi ___ (andare) al mare!» Qualcuno bussa. «Che ___ (essere) Matteo?», chiede Marisa. «Che ___ (portare) il vino?» Ma è solo Moro. «Magari ___ (sapere) aprire la porta da solo!», ride Tommaso.",
           "gaps": [
             {
               "accept": [
@@ -682,9 +682,9 @@
                 "fossimo andati"
               ],
               "hint": {
-                "de": "ieri → trapassato",
-                "sl": "ieri → trapassato",
-                "en": "ieri → trapassato"
+                "de": "damals → trapassato",
+                "sl": "takrat → trapassato",
+                "en": "back then → trapassato"
               }
             },
             {
@@ -711,9 +711,9 @@
             "fossero"
           ],
           "translation": {
-            "de": "Es regnet seit drei Tagen und alle sind im Wirtshaus. „Wenn doch die Sonne herauskäme!“, sagt Giulia. „Wenn wenigstens der Wind aufhören würde!“, sagt Davide. Zia Nives klopft auf das Radio: „Wenn es nur funktionieren würde!“ Bruno schaut hinaus: „Gestern war noch Sonne. Wären wir doch ans Meer gefahren!“ Jemand klopft. „Ob das Matteo ist?“, fragt Marisa. „Ob er den Wein gebracht hat?“ Aber es ist nur Moro. „Wenn er doch die Tür allein aufmachen könnte!“, lacht Tommaso.",
-            "sl": "Že tri dni dežuje in vsi so v gostilni. »Ko bi le posijalo sonce!« pravi Giulia. »Ko bi vsaj nehal veter!« pravi Davide. Teta Nives potolče po radiu: »Če bi le delal!« Bruno pogleda ven: »Včeraj je še bilo sonce. Ko bi le šli na morje!« Nekdo potrka. »Je to morda Matteo?« vpraša Marisa. »Je morda prinesel vino?« A to je le Moro. »Ko bi le znal sam odpreti vrata!« se smeje Tommaso.",
-            "en": "It has been raining for three days and everyone is at the inn. \"If only the sun would come out!\" says Giulia. \"If the wind would at least stop!\" says Davide. Zia Nives taps the radio: \"If only it would work!\" Bruno looks out: \"Yesterday it was still sunny. If only we had gone to the sea!\" Someone knocks. \"Could it be Matteo?\" asks Marisa. \"Could he have brought the wine?\" But it's only Moro. \"If only he could open the door by himself!\" laughs Tommaso."
+            "de": "Es regnet seit drei Tagen und alle sind im Wirtshaus. „Wenn doch die Sonne herauskäme!“, sagt Giulia. „Wenn wenigstens der Wind aufhören würde!“, sagt Davide. Zia Nives klopft auf das Radio: „Wenn es nur funktionieren würde!“ Bruno schaut hinaus: „Vor vier Tagen war noch Sonne. Wären wir doch ans Meer gefahren!“ Jemand klopft. „Ob das Matteo ist?“, fragt Marisa. „Ob er den Wein gebracht hat?“ Aber es ist nur Moro. „Wenn er doch die Tür allein aufmachen könnte!“, lacht Tommaso.",
+            "sl": "Že tri dni dežuje in vsi so v gostilni. »Ko bi le posijalo sonce!« pravi Giulia. »Ko bi vsaj nehal veter!« pravi Davide. Teta Nives potolče po radiu: »Če bi le delal!« Bruno pogleda ven: »Pred štirimi dnevi je še bilo sonce. Ko bi le šli na morje!« Nekdo potrka. »Je to morda Matteo?« vpraša Marisa. »Je morda prinesel vino?« A to je le Moro. »Ko bi le znal sam odpreti vrata!« se smeje Tommaso.",
+            "en": "It has been raining for three days and everyone is at the inn. \"If only the sun would come out!\" says Giulia. \"If the wind would at least stop!\" says Davide. Zia Nives taps the radio: \"If only it would work!\" Bruno looks out: \"Four days ago it was still sunny. If only we had gone to the sea!\" Someone knocks. \"Could it be Matteo?\" asks Marisa. \"Could he have brought the wine?\" But it's only Moro. \"If only he could open the door by himself!\" laughs Tommaso."
           }
         },
         {
@@ -778,19 +778,22 @@
             {
               "from": "Non ho tempo. (se solo)",
               "accept": [
-                "Se solo avessi tempo!"
+                "Se solo avessi tempo!",
+                "Se solo io avessi tempo!"
               ]
             },
             {
               "from": "Non c'è il sole. (almeno)",
               "accept": [
-                "Almeno ci fosse il sole!"
+                "Almeno ci fosse il sole!",
+                "Ci fosse almeno il sole!"
               ]
             },
             {
               "from": "Non lo so. (se solo)",
               "accept": [
-                "Se solo lo sapessi!"
+                "Se solo lo sapessi!",
+                "Se solo io lo sapessi!"
               ]
             },
             {
@@ -875,7 +878,8 @@
           {
             "from": "Non posso venire. (se solo)",
             "accept": [
-              "Se solo potessi venire!"
+              "Se solo potessi venire!",
+              "Se solo io potessi venire!"
             ]
           },
           {
@@ -883,7 +887,9 @@
             "accept": [
               "Almeno Marisa avesse telefonato!",
               "Almeno avesse telefonato Marisa!",
-              "Almeno avesse telefonato!"
+              "Almeno avesse telefonato!",
+              "Marisa avesse almeno telefonato!",
+              "Avesse almeno telefonato!"
             ]
           },
           {
@@ -925,14 +931,14 @@
         "options": [
           "fossi",
           "sia",
-          "sarei"
+          "sono"
         ],
         "answer": 0,
         "say_options": true,
         "explain": {
-          "de": "**ieri**: vorbei, io, **andare** mit essere → **fossi** andato\n- sia · nach einer Meinung\n- sarei · ein Konditional, nicht hier",
-          "sl": "**ieri**: mimo, io, **andare** z essere → **fossi** andato\n- sia · za mnenjem\n- sarei · pogojnik, ne tu",
-          "en": "**ieri**: over, io, **andare** with essere → **fossi** andato\n- sia · after an opinion\n- sarei · a conditional, not here"
+          "de": "**ieri**: vorbei, io, **andare** mit essere → **fossi** andato\n- sia · nach einer Meinung\n- sono · Indikativ: vielleicht, aber du warst nicht dort",
+          "sl": "**ieri**: mimo, io, **andare** z essere → **fossi** andato\n- sia · za mnenjem\n- sono · indikativ: morda, a te ni bilo",
+          "en": "**ieri**: over, io, **andare** with essere → **fossi** andato\n- sia · after an opinion\n- sono · the indicative: maybe, but you weren't there"
         }
       },
       {
