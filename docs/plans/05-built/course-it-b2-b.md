@@ -112,7 +112,7 @@ Gerund (one subject, the reason, pur + the gerund): only teaching sites, which a
   verrà is taught and never asked. Raccontare's gaps name their tense.
 - **A spoken form is never wrong, and never an option**: se lo sapevo, venivo; ha detto che veniva; mi chiese dov'era: in `spoken`, right and labelled, each mix a line can have listed whole. dasse and fossimo venuti, regional speech, were taken off
   the choices at the second read. A remoto for today is never graded wrong: it's how the South talks, so no choice offers andai against sono andato for stamattina.
-- **No wrong option that is right Italian in its sentence**: partiva for Marco Polo is the history books' imperfetto narrativo, abbiamo with verremmo didn't fit but dovessi after Matteo might have, pioveva fits both columns: all gone at the second read.
+- **No wrong option that is right Italian in its sentence**: partiva for Marco Polo (the history books' imperfetto narrativo), Verremmo, se abbiamo tempo, Matteo's se non dovessi guidare (he might be talking to someone), pioveva in a sort where it fits both columns: all gone at the second read.
   se-potessi's se vinco is `almost`: right Italian, but not what the prompt says.
 - **Several right answers listed**: both orders of an if-sentence, the subject in either half or left out, l'avessi and lo avessi, disse and ha detto, venire or andare, avendo visto and veduto, ora or adesso left out.
 - **A table's cell short**, as English A2 found: a phone's field holds about nine letters in three columns, twelve in two, eighteen in one. The past conditional's table asks only for the helper (… mangiato, … venuto).
@@ -139,19 +139,31 @@ git show 25f469d0^:companion/lexicon/it.extra.json > /tmp/base.json   # the file
 python3 -I companion/lexicon/tools/it_cov_build.py "$PWD" /tmp/base.json --prompts --write
 ```
 
-**What stays out** (the part's own count, the scratch list against the supplement and the packs): dasse is gone with its option; the endings -ando, -endo, -sse, -ssero, -ssi, -ssimo, -ste named in the rules; anch and vent, the elided anch'io and vent'anni, which a tap reads as the word after them; irrealta, a page's tag. Everything else on the list was German or English in a bold rule line or a tag. Coverage (`lexicon-build --coverage --lang it`): RESULT_COVERAGE.
+**What stays out** (the part's own count, the scratch list against the supplement and the packs): dasse is gone with its option; the endings -ando, -endo, -sse, -ssero, -ssi, -ssimo, -ste named in the rules; anch and vent, the elided anch'io and vent'anni, which a tap reads as the word after them; irrealta, a page's tag. Everything else on the list was German or English in a bold rule line or a tag. Coverage (`lexicon-build --coverage --lang it`): 99.9 % of the words met and 99.3 % of the different words, as before, 213 files against 208 (`c` from a.C. joins the letters that stay out); 1,905 entries against 1,873.
 
 ## The prints
 
-RESULT_PRINTS
+`companion/bin/school-prints --language it --level B2 --base <de, sl, en> --learner Teo --gender m`, to PDF: every sheet fits two pages in all three bases, none has a word without a meaning, and the booklet of these six has 14 pages (the cover, the contents, 12). The closest to the edge is `condizionale-passato`'s, at the tightest layout but one ("tighter (3)") in Slovene and English, its table of 17 rows. Each step's rule line keeps a bold form (the smoke's check, and se-potessi's fifth step and gerundio-passato's first needed a first sentence with their forms). Previews: the scratchpad's `prints-b2b/<base>/previews/`.
 
 ## Checks
 
-RESULT_CHECKS
+Run on the part's commits, after the second reads:
+
+- **The bridge:** `bunx tsc --noEmit -p .` clean; the smoke (`LANI_SMOKE_PORT=9990 LANI_SMOKE_FRIULI_PORT=9992 LANI_SMOKE_TOWN_PORT=9994 LANI_SMOKE_DRAMA3_PORT=10008`): all checks passed, 3,514 lines; its course section validates every unit, page and the outline, its prints section each step's rule line, course-speech Elena's lines per base; `tutor-export --check`: 89 files match the bridge (54 tools, 32 guide topics); the lead's `check-outline-lang.ts`: schema ok, 72 units, no page lacking, no duplicate id.
+- **The app, through `lani-slot.sh`, the course's tests only** (the brief leaves the full suite to part c and the gate): `ItalianB2bContentTest` 11, `ItalianCourseContentTest` 6, `CourseContentTest` 5, `GermanCourseContentTest` 5, `EnglishCourseContentTest` 6, `GradingLanguagesTest` 48, `GradingTest` 18, `SheetsTest` 15, `SchoolBoardTest` 7, `SchoolRevealTest` 10, `GrammarTest` 16, `CourseTest` 8, `IntroSpeechTest` 10, `IntroSpeechParityTest` 2, `GameIntroSpeechTest` 7, `IntroBoldTapTest` 2, `SpeechGradingTest` 13, `SentenceGrammarTest` 6: none failed. An earlier run's one failure was this branch's own: a helper's edit changed a unit between the build and the test.
+- **A scratch check per unit** (validateUnit in de, sl and en, validateGrammar, the lengths, the rule lines, Elena's lines against the base's words, every bold form read by her): clean. A scratch word count of the six units and five pages against the supplement and the packs (it-print-meanings' way, as `--coverage` doesn't count the course): see "The words".
+- **Not run:** the full Android suite, the Python tests (no Python changed but two data tables the tool reads), and a 0.2.698 build (no new key: `summary`, `spoken`, `almost` are all in older units).
 
 ## QA (emulator, `companion/bin/qa-slot`)
 
-RESULT_QA
+Through `qa-slot` (slot 2), a synthetic Teo (`make-learner.ts --name Teo --target it --base de`, `LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo`), the APK built through `lani-slot.sh`:
+
+```
+LANI_DEV_DATA=<teo> LANI_ENV_FILE=/dev/null LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo \
+LANI_QA_COURSE_UNIT=se-avessi-saputo LANI_QA_COURSE_SHOTS=<shots> companion/bin/qa-slot --no-build --no-town --steps course-unit
+```
+
+`setup`, `course-unit` and the crash check ok. `se-avessi-saputo` played end to end: its six steps with their quick questions, the summary card (its new page), the first worksheet's four exercises, the test, passed, the next unit (`disse-che`) named in both languages, the unit kept done by the dev bridge; its sheet printed from the unit (fit.js in the WebView, the dialog's preview, the PDF, A4). Shots: the scratchpad's `ux-course-it-b2-b/shots/` (`cu-*.png`). No "before" run: before this branch the unit was a planned line, read-only. Tap counts: no screen changed; a written unit is one tap from the school's screen, as every one.
 
 ## A second read
 
