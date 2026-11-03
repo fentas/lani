@@ -116,6 +116,8 @@ At the part's tip, before anything is integrated (a and c aren't merged, so thes
 
 - **A second reader** (a helper agent, no conclusions given) read the units and pages for German, Slovene, Italian and English and made 40 points. Fixed: two wrong options that were right (*ihre Enkel*, *Er ist angestellt*), an answer not listed (gekommenen), pronouns for a thing that the unit itself teaches against (bekannt für ihn for the Most), rules stated too widely (people in -ent and -at, verbs of change with sein, Partizip I as only the present, a dative preposition with etwas Gutem), word orders and the Präteritum not accepted, von forms moved to `spoken` where the genitive is asked, quick questions repeating their step, English and Slovene and Italian calques. **Not taken:** dropping "Ja, damit." from `accept` (B1's answers have the same shape), and Kundmachung changed to Ankündigung (kept, and on the list above). It is one more machine's reading, not a native check.
 
+**Seen on the emulator, not changed:** in a table of three columns on a phone, a long typed cell (dem Menschen, ein Angestellter) shows only its end, in `herr-kollege`'s and `der-bekannte`'s first sheets. Both are graded and marked right. The field's width is the app's, not this part's, so it is for whoever owns the sheets' layout.
+
 **Not done:** the other five units on an emulator; the other two bases on an emulator; the whole Android suite (part c and the gate run it).
 
 ## For part c, when it integrates
