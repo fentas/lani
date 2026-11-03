@@ -99,6 +99,7 @@ class PlainVillage(unittest.TestCase):
             ("🕯️ Dan spomina na mrtve · Remembrance Day", (985, 205)),
             ("Naslednji cilj · Next goal: Trg", (400, 340)),
             ("Danes in kmalu · Today and coming up: Dan spomina", (990, 340)),
+            ("Danes", (1000, 380)),  # the card's word, as the emulator showed it on 2026-11-03
         ]
         with on_pair("sl-en"):
             self.assertEqual(qa.hud_ring(feast), (985, 205))

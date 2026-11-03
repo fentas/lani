@@ -4955,14 +4955,16 @@ def trade():
 
 
 def hud_ring(ns=None):
-    """The HUD's ring (its centre), or None. On a feast day its label is the feast's ("Dan spomina na mrtve"), so then the rightmost
-    thing of the bar above the cards, never today's card, whose label starts as the ring's may ("Danes in kmalu")."""
+    """The HUD's ring (its centre), or None: in the bar, above the cards, whose own words may start as the ring's label may ("Danes"
+    of today's card). On a feast day its label is the feast's ("Dan spomina na mrtve"), so then the bar's rightmost."""
     ns = list(nodes()) if ns is None else ns
-    soon = hud_soon()
-    named = next((c for t, c in ns if t.startswith(hud_ring_starts()) and not t.startswith(soon)), None)
+    cards = [c[1] for t, c in ns if t.startswith((hud_goal(), hud_soon()))]
+    floor = min(cards) - 60 if cards else 10**6
+    bar = [(t, c) for t, c in ns if t and c[1] < floor]
+    named = next((c for t, c in bar if t.startswith(hud_ring_starts())), None)
     if named is not None:
         return named
-    return max(((c for t, c in ns if t and c[0] > 860 and 100 < c[1] < 270 and not t.startswith(soon))), key=lambda c: c[0], default=None)
+    return max((c for t, c in bar if c[0] > 860 and c[1] > 100), key=lambda c: c[0], default=None)
 
 
 def hud_cards(shown: bool, timeout=6.0) -> bool:
@@ -9969,6 +9971,7 @@ def course_unit():
             print(f"    {unit}: {outcome or 'ok'}", flush=True)
             if outcome:
                 skipped.append(f"{unit}: {outcome}")
+            go_home()  # the school keeps its scroll: an earlier level's row would lie above it
         except Exception as e:  # the next unit opens from Home, whatever this one left open
             print(f"    {unit}: FAILED: {e}", flush=True)
             shot(f"cu-failed-{unit}")
