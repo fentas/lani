@@ -40,8 +40,8 @@
       "meanings": { "de": ["aufrollen"], "sl": ["zviti"] } },
     { "lemma": "immaginare", "pos": "verb", "gloss": ["to imagine"],
       "forms": {
-        "immaginalo": "second-person singular imperative, with lo (it, him)", "immagina": "third-person singular present; second-person singular imperative",
-        "immaginare": "infinitive"
+        "immaginalo": "second-person singular imperative, with lo (it, him)", "immagino": "first-person singular present",
+        "immagina": "third-person singular present; second-person singular imperative", "immaginare": "infinitive"
       },
       "meanings": { "de": ["sich vorstellen"], "sl": ["predstavljati si"] } },
     { "lemma": "cividalese", "pos": "noun", "gloss": ["a person from Cividale"], "forms": { "cividalese": "singular", "cividalesi": "plural" },
@@ -418,7 +418,7 @@
       "forms": { "panino": "singular", "panini": "plural" },
       "meanings": { "de": ["Brötchen, belegtes Brot"], "sl": ["sendvič, žemlja"] } },
     { "lemma": "pascolo", "pos": "noun", "gender": "m", "gloss": ["pasture"],
-      "forms": { "pascolo": "singular" },
+      "forms": { "pascolo": "singular", "pascoli": "plural" },
       "meanings": { "de": ["Weide"], "sl": ["pašnik"] } },
     { "lemma": "pettine", "pos": "noun", "gender": "m", "gloss": ["comb"],
       "forms": { "pettine": "singular" },
@@ -721,7 +721,9 @@
         "andresti": "second-person singular conditional", "andremmo": "first-person plural conditional", "andò": "third-person singular historic past",
         "andarono": "third-person plural historic past", "vada": "first/second/third-person singular present subjunctive",
         "vadano": "third-person plural present subjunctive", "va'": "second-person singular imperative", "andare": "infinitive", "andato": "past participle",
-        "andata": "feminine singular past participle", "andati": "masculine plural past participle", "andrai": "second-person singular future"
+        "andata": "feminine singular past participle", "andati": "masculine plural past participle", "andrai": "second-person singular future",
+        "andrebbe": "third-person singular conditional", "andai": "first-person singular historic past", "andasti": "second-person singular historic past",
+        "andammo": "first-person plural historic past", "andaste": "second-person plural historic past; second-person plural imperfect subjunctive"
       },
       "meanings": { "de": ["gehen; fahren"], "sl": ["iti"] } },
     { "lemma": "apparecchiare", "pos": "verb", "gloss": ["to lay the table"],
@@ -742,7 +744,8 @@
         "arrivava": "third-person singular imperfect", "arriverà": "third-person singular future", "arriveresti": "second-person singular conditional",
         "arrivò": "third-person singular historic past", "arrivarono": "third-person plural historic past", "arrivare": "infinitive",
         "arrivato": "past participle", "arrivata": "feminine singular past participle", "arrivati": "masculine plural past participle",
-        "arrivavano": "third-person plural imperfect", "arrivando": "gerund"
+        "arrivavate": "second-person plural imperfect", "arrivavano": "third-person plural imperfect", "arriverebbe": "third-person singular conditional",
+        "arrivereste": "second-person plural conditional", "arrivando": "gerund"
       },
       "meanings": { "de": ["ankommen"], "sl": ["priti, prispeti"] } },
     { "lemma": "ascoltare", "pos": "verb", "gloss": ["to listen (to)"],
@@ -753,11 +756,29 @@
         "ascoltate": "second-person plural present; second-person plural imperative; feminine plural past participle",
         "ascoltano": "third-person plural present", "ascoltavano": "third-person plural imperfect", "ascolterebbe": "third-person singular conditional",
         "ascoltare": "infinitive", "ascoltando": "gerund", "ascoltato": "past participle", "ascoltata": "feminine singular past participle",
-        "ascoltale": "second-person singular imperative, with le (them; to her)", "ascoltatemi": "second-person plural imperative, with mi (me)"
+        "ascoltale": "second-person singular imperative, with le (them; to her)", "ascoltatemi": "second-person plural imperative, with mi (me)",
+        "ascoltavi": "second-person singular imperfect"
       },
       "meanings": { "de": ["zuhören, hören"], "sl": ["poslušati"] } },
     { "lemma": "avere", "pos": "verb", "gloss": ["to have"],
-      "forms": { "ho": "first-person singular present", "hai": "second-person singular present", "ha": "third-person singular present", "abbiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "avete": "second-person plural present", "hanno": "third-person plural present", "avevo": "first-person singular imperfect", "avevi": "second-person singular imperfect", "aveva": "third-person singular imperfect", "avevamo": "first-person plural imperfect", "avevate": "second-person plural imperfect", "avevano": "third-person plural imperfect", "avrò": "first-person singular future", "avrai": "second-person singular future", "avrà": "third-person singular future", "avremo": "first-person plural future", "avrete": "second-person plural future", "avranno": "third-person plural future", "avrei": "first-person singular conditional", "avrebbe": "third-person singular conditional", "avremmo": "first-person plural conditional", "ebbe": "third-person singular historic past", "ebbero": "third-person plural historic past", "abbia": "first/second/third-person singular present subjunctive", "abbiano": "third-person plural present subjunctive", "avessi": "first/second-person singular imperfect subjunctive", "avesse": "third-person singular imperfect subjunctive", "avessimo": "first-person plural imperfect subjunctive", "avessero": "third-person plural imperfect subjunctive", "avere": "infinitive", "avuto": "past participle", "avuta": "feminine singular past participle", "avermi": "infinitive, with mi (me)" },
+      "forms": {
+        "ho": "first-person singular present", "hai": "second-person singular present", "ha": "third-person singular present",
+        "abbiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
+        "avete": "second-person plural present", "hanno": "third-person plural present", "avevo": "first-person singular imperfect",
+        "avevi": "second-person singular imperfect", "aveva": "third-person singular imperfect", "avevamo": "first-person plural imperfect",
+        "avevate": "second-person plural imperfect", "avevano": "third-person plural imperfect", "avrò": "first-person singular future",
+        "avrai": "second-person singular future", "avrà": "third-person singular future", "avremo": "first-person plural future",
+        "avrete": "second-person plural future", "avranno": "third-person plural future", "avrei": "first-person singular conditional",
+        "avrebbe": "third-person singular conditional", "avremmo": "first-person plural conditional", "ebbe": "third-person singular historic past",
+        "ebbero": "third-person plural historic past", "abbia": "first/second/third-person singular present subjunctive",
+        "abbiano": "third-person plural present subjunctive", "avessi": "first/second-person singular imperfect subjunctive",
+        "avesse": "third-person singular imperfect subjunctive", "avessimo": "first-person plural imperfect subjunctive",
+        "avessero": "third-person plural imperfect subjunctive", "avere": "infinitive", "avuto": "past participle", "avuta": "feminine singular past participle",
+        "avermi": "infinitive, with mi (me)", "avresti": "second-person singular conditional", "avreste": "second-person plural conditional",
+        "avrebbero": "third-person plural conditional", "ebbi": "first-person singular historic past", "avesti": "second-person singular historic past",
+        "avemmo": "first-person plural historic past", "aveste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "avendo": "gerund"
+      },
       "meanings": { "de": ["haben"], "sl": ["imeti"] } },
     { "lemma": "avvicinarsi", "pos": "verb", "gloss": ["to come closer"],
       "forms": {
@@ -774,7 +795,7 @@
     { "lemma": "bussare", "pos": "verb", "gloss": ["to knock"],
       "forms": {
         "bussa": "third-person singular present; second-person singular imperative", "bussare": "infinitive", "bussato": "past participle",
-        "bussava": "third-person singular imperfect"
+        "bussava": "third-person singular imperfect", "bussò": "third-person singular historic past"
       },
       "meanings": { "de": ["klopfen, anklopfen"], "sl": ["potrkati"] } },
     { "lemma": "capire", "pos": "verb", "gloss": ["to understand"],
@@ -784,7 +805,8 @@
         "capiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "capite": "second-person plural present; second-person plural imperative; feminine plural past participle", "capiscono": "third-person plural present",
         "capiremo": "first-person plural future", "capisca": "first/second/third-person singular present subjunctive",
-        "capiscano": "third-person plural present subjunctive", "capire": "infinitive", "capito": "past participle"
+        "capiscano": "third-person plural present subjunctive", "capire": "infinitive", "capito": "past participle",
+        "capireste": "second-person plural conditional"
       },
       "meanings": { "de": ["verstehen"], "sl": ["razumeti"] } },
     { "lemma": "chiamarsi", "pos": "verb", "gloss": ["to be called (mi chiamo: my name is)"],
@@ -801,7 +823,7 @@
         "chiediamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "chiedono": "third-person plural present", "chiederò": "first-person singular future", "chiese": "third-person singular historic past",
         "chiedere": "infinitive", "chiesto": "past participle", "chiesta": "feminine singular past participle",
-        "chiedigli": "second-person singular imperative, with gli (to him, to them)"
+        "chiedigli": "second-person singular imperative, with gli (to him, to them)", "chiederei": "first-person singular conditional"
       },
       "meanings": { "de": ["fragen; bitten"], "sl": ["vprašati; prositi"] } },
     { "lemma": "cominciare", "pos": "verb", "gloss": ["to begin, to start"],
@@ -839,7 +861,12 @@
         "dato": "past participle", "data": "feminine singular past participle", "dammi": "second-person singular imperative, with mi (me)",
         "dammelo": "second-person singular imperative, with me lo (it to me)", "dammela": "second-person singular imperative, with me la (it to me)",
         "darci": "infinitive, with ci (us; there)", "darsi": "infinitive, with si (oneself)", "darmelo": "infinitive, with me lo (it to me)",
-        "dargli": "infinitive, with gli: give him", "davano": "third-person plural imperfect", "dalli": "second-person singular imperative, with li (them)"
+        "dargli": "infinitive, with gli: give him", "davano": "third-person plural imperfect", "darebbe": "third-person singular conditional",
+        "darebbero": "third-person plural conditional", "diedi": "first-person singular historic past", "desti": "second-person singular historic past",
+        "diede": "third-person singular historic past", "demmo": "first-person plural historic past",
+        "deste": "second-person plural historic past; second-person plural imperfect subjunctive", "diedero": "third-person plural historic past",
+        "dessi": "first/second-person singular imperfect subjunctive", "desse": "third-person singular imperfect subjunctive",
+        "dalli": "second-person singular imperative, with li (them)"
       },
       "meanings": { "de": ["geben", "geben (dammi: gib mir; dargli: ihm geben)"], "sl": ["dati", "dati (dammi: daj mi; dargli: dati mu)"] } },
     { "lemma": "dimenticare", "pos": "verb", "gloss": ["to forget"],
@@ -849,7 +876,22 @@
       },
       "meanings": { "de": ["vergessen"], "sl": ["pozabiti"] } },
     { "lemma": "dire", "pos": "verb", "gloss": ["to say, to tell"],
-      "forms": { "dico": "first-person singular present", "dici": "second-person singular present", "dice": "third-person singular present", "diciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "dite": "second-person plural present; second-person plural imperative", "dicono": "third-person plural present", "dicevo": "first-person singular imperfect", "diceva": "third-person singular imperfect", "dicevamo": "first-person plural imperfect", "dicevano": "third-person plural imperfect", "dirò": "first-person singular future", "direbbe": "third-person singular conditional", "disse": "third-person singular historic past", "dissero": "third-person plural historic past", "di'": "second-person singular imperative", "dire": "infinitive", "dicendo": "gerund", "detto": "past participle", "dimmi": "second-person singular imperative, with mi (me)", "dillo": "second-person singular imperative, with lo (it, him)", "dille": "second-person singular imperative, with le (them; to her)", "dimmelo": "second-person singular imperative, with me lo (it to me)", "diglielo": "second-person singular imperative, with glielo (it to him, to her)", "dirlo": "infinitive, with lo (it, him)", "dicendogli": "gerund, with gli (to him, to them)" },
+      "forms": {
+        "dico": "first-person singular present", "dici": "second-person singular present", "dice": "third-person singular present",
+        "diciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
+        "dite": "second-person plural present; second-person plural imperative", "dicono": "third-person plural present",
+        "dicevo": "first-person singular imperfect", "diceva": "third-person singular imperfect", "dicevamo": "first-person plural imperfect",
+        "dicevano": "third-person plural imperfect", "dirò": "first-person singular future", "direbbe": "third-person singular conditional",
+        "disse": "third-person singular historic past", "dissero": "third-person plural historic past", "di'": "second-person singular imperative",
+        "dire": "infinitive", "dicendo": "gerund", "detto": "past participle", "dimmi": "second-person singular imperative, with mi (me)",
+        "dillo": "second-person singular imperative, with lo (it, him)", "dille": "second-person singular imperative, with le (them; to her)",
+        "dimmelo": "second-person singular imperative, with me lo (it to me)", "diglielo": "second-person singular imperative, with glielo (it to him, to her)",
+        "dirlo": "infinitive, with lo (it, him)", "dicendogli": "gerund, with gli (to him, to them)", "dissi": "first-person singular historic past",
+        "dicesti": "second-person singular historic past", "dicemmo": "first-person plural historic past",
+        "diceste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "dicessi": "first/second-person singular imperfect subjunctive", "dicesse": "third-person singular imperfect subjunctive",
+        "dirmelo": "infinitive, with me lo (it to me)"
+      },
       "meanings": { "de": ["sagen", "sagen (dimmi: sag mir)"], "sl": ["reči, povedati", "reči, povedati (dimmi: povej mi)"] } },
     { "lemma": "divertirsi", "pos": "verb", "gloss": ["to have fun"],
       "forms": {
@@ -866,7 +908,8 @@
         "dobbiamo": "first-person plural present; first-person plural present subjunctive", "dovete": "second-person plural present",
         "devono": "third-person plural present", "dovevi": "second-person singular imperfect", "doveva": "third-person singular imperfect",
         "dovevano": "third-person plural imperfect", "dovrei": "first-person singular conditional", "dovresti": "second-person singular conditional",
-        "dovrebbero": "third-person plural conditional", "dovere": "infinitive"
+        "dovrebbero": "third-person plural conditional", "dovere": "infinitive", "dovrebbe": "third-person singular conditional",
+        "dovessi": "first/second-person singular imperfect subjunctive", "dovesse": "third-person singular imperfect subjunctive", "dovuto": "past participle"
       },
       "meanings": { "de": ["müssen"], "sl": ["morati"] } },
     { "lemma": "essere", "pos": "verb", "gloss": ["to be"],
@@ -884,7 +927,9 @@
         "siano": "third-person plural present subjunctive", "fossi": "first/second-person singular imperfect subjunctive",
         "fosse": "third-person singular imperfect subjunctive", "fossimo": "first-person plural imperfect subjunctive",
         "fossero": "third-person plural imperfect subjunctive", "essere": "infinitive", "stato": "past participle", "stata": "feminine singular past participle",
-        "stati": "masculine plural past participle", "state": "feminine plural past participle", "esserci": "infinitive, with ci (us; there)"
+        "stati": "masculine plural past participle", "state": "feminine plural past participle", "esserci": "infinitive, with ci (us; there)",
+        "fui": "first-person singular historic past", "fummo": "first-person plural historic past",
+        "foste": "second-person plural historic past; second-person plural imperfect subjunctive", "essendo": "gerund"
       },
       "meanings": { "de": ["sein"], "sl": ["biti"] } },
     { "lemma": "fare", "pos": "verb", "gloss": ["to do, to make"],
@@ -902,7 +947,11 @@
         "fa'": "second-person singular imperative", "fare": "infinitive", "facendo": "gerund", "fatto": "past participle",
         "fatta": "feminine singular past participle", "fatti": "masculine plural past participle", "fatte": "feminine plural past participle",
         "fammi": "second-person singular imperative, with mi (me)", "farlo": "infinitive, with lo (it, him)", "farla": "infinitive, with la (it, her)",
-        "fargli": "infinitive, with gli (to him, to them)", "facendolo": "gerund, with lo (it, him)", "far": "infinitive (shortened)",
+        "fargli": "infinitive, with gli (to him, to them)", "facendolo": "gerund, with lo (it, him)", "feci": "first-person singular historic past",
+        "facesti": "second-person singular historic past", "facemmo": "first-person plural historic past",
+        "faceste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "facessi": "first/second-person singular imperfect subjunctive", "facesse": "third-person singular imperfect subjunctive",
+        "facessimo": "first-person plural imperfect subjunctive", "facessero": "third-person plural imperfect subjunctive", "far": "infinitive (shortened)",
         "fallo": "second-person singular imperative, with lo (it, him)", "falla": "second-person singular imperative, with la (it, her)"
       },
       "meanings": { "de": ["machen, tun"], "sl": ["delati"] } },
@@ -973,7 +1022,9 @@
         "lavoriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "lavorate": "second-person plural present; second-person plural imperative; feminine plural past participle", "lavorano": "third-person plural present",
         "lavoriate": "second-person plural present subjunctive", "lavorare": "infinitive", "lavorando": "gerund", "lavorato": "past participle",
-        "lavorati": "masculine plural past participle", "lavorava": "third-person singular imperfect"
+        "lavorati": "masculine plural past participle", "lavorava": "third-person singular imperfect", "lavorerei": "first-person singular conditional",
+        "lavorerebbe": "third-person singular conditional", "lavorassi": "first/second-person singular imperfect subjunctive",
+        "lavorasse": "third-person singular imperfect subjunctive"
       },
       "meanings": { "de": ["arbeiten"], "sl": ["delati"] } },
     { "lemma": "mandare", "pos": "verb", "gloss": ["to send"],
@@ -1011,7 +1062,7 @@
     { "lemma": "nevicare", "pos": "verb", "gloss": ["to snow"],
       "forms": {
         "nevica": "third-person singular present; second-person singular imperative", "nevicasse": "third-person singular imperfect subjunctive",
-        "nevicare": "infinitive", "nevicato": "past participle"
+        "nevicare": "infinitive", "nevicava": "third-person singular imperfect", "nevicato": "past participle"
       },
       "meanings": { "de": ["schneien"], "sl": ["snežiti"] } },
     { "lemma": "parlare", "pos": "verb", "gloss": ["to speak, to talk"],
@@ -1026,7 +1077,9 @@
         "parleresti": "second-person singular conditional", "parlerebbe": "third-person singular conditional", "parleremmo": "first-person plural conditional",
         "parlereste": "second-person plural conditional", "parlerebbero": "third-person plural conditional", "parlò": "third-person singular historic past",
         "parlasse": "third-person singular imperfect subjunctive", "parlare": "infinitive", "parlando": "gerund", "parlato": "past participle",
-        "parlati": "masculine plural past participle"
+        "parlati": "masculine plural past participle", "parlaste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "parlassi": "first/second-person singular imperfect subjunctive", "parlassimo": "first-person plural imperfect subjunctive",
+        "parlassero": "third-person plural imperfect subjunctive"
       },
       "meanings": { "de": ["sprechen, reden"], "sl": ["govoriti"] } },
     { "lemma": "partire", "pos": "verb", "gloss": ["to leave, to set off"],
@@ -1037,7 +1090,8 @@
         "partirà": "third-person singular future", "partiremo": "first-person plural future", "partiranno": "third-person plural future",
         "partì": "third-person singular historic past", "partirono": "third-person plural historic past",
         "parta": "first/second/third-person singular present subjunctive", "partire": "infinitive", "partendo": "gerund", "partito": "past participle",
-        "partita": "feminine singular past participle", "partiti": "masculine plural past participle", "partivano": "third-person plural imperfect"
+        "partita": "feminine singular past participle", "partiti": "masculine plural past participle", "partiva": "third-person singular imperfect",
+        "partivamo": "first-person plural imperfect", "partivano": "third-person plural imperfect", "partirebbero": "third-person plural conditional"
       },
       "meanings": { "de": ["abfahren, losfahren"], "sl": ["oditi, odpotovati"] } },
     { "lemma": "pensare", "pos": "verb", "gloss": ["to think"],
@@ -1072,7 +1126,9 @@
         "potrebbe": "third-person singular conditional", "potremmo": "first-person plural conditional", "potreste": "second-person plural conditional",
         "potrebbero": "third-person plural conditional", "possa": "first/second/third-person singular present subjunctive",
         "possano": "third-person plural present subjunctive", "potessi": "first/second-person singular imperfect subjunctive",
-        "potesse": "third-person singular imperfect subjunctive", "potere": "infinitive"
+        "potesse": "third-person singular imperfect subjunctive", "potere": "infinitive",
+        "poteste": "second-person plural historic past; second-person plural imperfect subjunctive", "potessimo": "first-person plural imperfect subjunctive",
+        "potessero": "third-person plural imperfect subjunctive", "potuto": "past participle"
       },
       "meanings": { "de": ["können; dürfen"], "sl": ["moči; smeti"] } },
     { "lemma": "preferire", "pos": "verb", "gloss": ["to prefer"],
@@ -1095,7 +1151,9 @@
         "prendere": "infinitive", "preso": "past participle", "presa": "feminine singular past participle", "prenderlo": "infinitive, with lo (it, him)",
         "prendimi": "second-person singular imperative, with mi (me)", "prendilo": "second-person singular imperative, with lo (it, him)",
         "prendila": "second-person singular imperative, with la (it, her)", "prendili": "second-person singular imperative, with li (them)",
-        "prendile": "second-person singular imperative, with le (them; to her)", "prendevano": "third-person plural imperfect"
+        "prendile": "second-person singular imperative, with le (them; to her)", "prendevamo": "first-person plural imperfect",
+        "prendevano": "third-person plural imperfect", "prendesti": "second-person singular historic past", "prendemmo": "first-person plural historic past",
+        "prendeste": "second-person plural historic past; second-person plural imperfect subjunctive"
       },
       "meanings": { "de": ["nehmen"], "sl": ["vzeti"] } },
     { "lemma": "preparare", "pos": "verb", "gloss": ["to prepare, to make"],
@@ -1120,7 +1178,8 @@
         "racconterò": "first-person singular future", "racconteresti": "second-person singular conditional",
         "racconterebbe": "third-person singular conditional", "raccontare": "infinitive", "raccontando": "gerund", "raccontato": "past participle",
         "raccontami": "second-person singular imperative, with mi (me)", "raccontalo": "second-person singular imperative, with lo (it, him)",
-        "raccontaci": "second-person singular imperative, with ci (us; there)"
+        "raccontaci": "second-person singular imperative, with ci (us; there)", "racconterei": "first-person singular conditional",
+        "racconterebbero": "third-person plural conditional"
       },
       "meanings": { "de": ["erzählen"], "sl": ["pripovedovati"] } },
     { "lemma": "regalare", "pos": "verb", "gloss": ["to give (as a present)"],
@@ -1149,7 +1208,11 @@
         "sappiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "sapete": "second-person plural present", "sanno": "third-person plural present", "sapevo": "first-person singular imperfect",
         "sapevi": "second-person singular imperfect", "sapeva": "third-person singular imperfect", "sapevano": "third-person plural imperfect",
-        "sappia": "first/second/third-person singular present subjunctive", "sapesse": "third-person singular imperfect subjunctive", "sapere": "infinitive"
+        "sappia": "first/second/third-person singular present subjunctive", "sapesse": "third-person singular imperfect subjunctive", "sapere": "infinitive",
+        "saprei": "first-person singular conditional", "sapremmo": "first-person plural conditional", "seppi": "first-person singular historic past",
+        "sapesti": "second-person singular historic past", "seppe": "third-person singular historic past", "sapemmo": "first-person plural historic past",
+        "sapeste": "second-person plural historic past; second-person plural imperfect subjunctive", "seppero": "third-person plural historic past",
+        "sapessimo": "first-person plural imperfect subjunctive", "saputo": "past participle"
       },
       "meanings": { "de": ["wissen; können"], "sl": ["vedeti; znati"] } },
     { "lemma": "scappare", "pos": "verb", "gloss": ["to run away"],
@@ -1195,14 +1258,16 @@
         "stavamo": "first-person plural imperfect", "stia": "first/second/third-person singular present subjunctive",
         "stiano": "third-person plural present subjunctive", "sta'": "second-person singular imperative", "stare": "infinitive", "stando": "gerund",
         "stato": "past participle", "stata": "feminine singular past participle", "stati": "masculine plural past participle",
-        "stavano": "third-person plural imperfect"
+        "stavano": "third-person plural imperfect", "stessi": "first/second-person singular imperfect subjunctive",
+        "stesse": "third-person singular imperfect subjunctive", "stessero": "third-person plural imperfect subjunctive"
       },
       "meanings": { "de": ["sein; bleiben (come stai?: wie geht's dir?)"], "sl": ["biti; ostati (come stai?: kako si?)"] } },
     { "lemma": "telefonare", "pos": "verb", "gloss": ["to phone, to call"],
       "forms": {
         "telefono": "first-person singular present", "telefoni": "second-person singular present; first/second/third-person singular present subjunctive",
         "telefona": "third-person singular present; second-person singular imperative", "telefonare": "infinitive",
-        "telefonata": "feminine singular past participle"
+        "telefonata": "feminine singular past participle", "telefonava": "third-person singular imperfect", "telefonerò": "first-person singular future",
+        "telefonerei": "first-person singular conditional", "telefonassi": "first/second-person singular imperfect subjunctive", "telefonato": "past participle"
       },
       "meanings": { "de": ["anrufen, telefonieren"], "sl": ["poklicati, telefonirati"] } },
     { "lemma": "tenere", "pos": "verb", "gloss": ["to hold; to keep"],
@@ -1254,7 +1319,12 @@
         "venne": "third-person singular historic past", "vennero": "third-person plural historic past",
         "venga": "first/second/third-person singular present subjunctive", "vengano": "third-person plural present subjunctive", "venire": "infinitive",
         "venuto": "past participle", "venuta": "feminine singular past participle", "venuti": "masculine plural past participle",
-        "veniva": "third-person singular imperfect", "venivano": "third-person plural imperfect"
+        "veniva": "third-person singular imperfect", "venivano": "third-person plural imperfect", "verrebbe": "third-person singular conditional",
+        "venni": "first-person singular historic past", "venisti": "second-person singular historic past", "venimmo": "first-person plural historic past",
+        "veniste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "venissi": "first/second-person singular imperfect subjunctive", "venisse": "third-person singular imperfect subjunctive",
+        "venissimo": "first-person plural imperfect subjunctive", "venissero": "third-person plural imperfect subjunctive",
+        "venute": "feminine plural past participle"
       },
       "meanings": { "de": ["kommen"], "sl": ["priti"] } },
     { "lemma": "vestirsi", "pos": "verb", "gloss": ["to get dressed"],
@@ -1436,8 +1506,9 @@
         "aiuta": "third-person singular present; second-person singular imperative",
         "aiutiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "aiutate": "second-person plural present; second-person plural imperative; feminine plural past participle", "aiutano": "third-person plural present",
-        "aiutava": "third-person singular imperfect", "aiutavano": "third-person plural imperfect", "aiutare": "infinitive", "aiutato": "past participle",
-        "aiutarmi": "infinitive, with mi (me)", "aiutarti": "infinitive, with ti (you)", "aiutarla": "infinitive, with la (it, her)",
+        "aiutava": "third-person singular imperfect", "aiutavano": "third-person plural imperfect", "aiuterei": "first-person singular conditional",
+        "aiuterebbe": "third-person singular conditional", "aiutare": "infinitive", "aiutato": "past participle", "aiutarmi": "infinitive, with mi (me)",
+        "aiutarti": "infinitive, with ti (you)", "aiutarla": "infinitive, with la (it, her)", "aiutarci": "infinitive, with ci (us; there)",
         "aiutami": "second-person singular imperative, with mi (me)", "aiutalo": "second-person singular imperative, with lo (it, him)",
         "aiutala": "second-person singular imperative, with la (it, her)", "aiutiamolo": "first-person plural imperative, with lo (it, him)",
         "aiutatemi": "second-person plural imperative, with mi (me)"
@@ -1449,9 +1520,11 @@
         "vedi": "second-person singular present; second-person singular imperative", "vede": "third-person singular present",
         "vediamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "vedete": "second-person plural present; second-person plural imperative", "vedono": "third-person plural present",
-        "vedevo": "first-person singular imperfect", "vedeva": "third-person singular imperfect", "vedrò": "first-person singular future",
-        "vedrai": "second-person singular future", "vedrà": "third-person singular future", "vedremo": "first-person plural future",
-        "vide": "third-person singular historic past", "videro": "third-person plural historic past",
+        "vedevo": "first-person singular imperfect", "vedeva": "third-person singular imperfect", "vedevano": "third-person plural imperfect",
+        "vedrò": "first-person singular future", "vedrai": "second-person singular future", "vedrà": "third-person singular future",
+        "vedremo": "first-person plural future", "vidi": "first-person singular historic past", "vedesti": "second-person singular historic past",
+        "vide": "third-person singular historic past", "vedemmo": "first-person plural historic past",
+        "vedeste": "second-person plural historic past; second-person plural imperfect subjunctive", "videro": "third-person plural historic past",
         "veda": "first/second/third-person singular present subjunctive", "vedere": "infinitive", "visto": "past participle",
         "vista": "feminine singular past participle", "viste": "feminine plural past participle", "vederla": "infinitive, with la (it, her)",
         "vederle": "infinitive, with le (them; to her)"
@@ -1819,7 +1892,7 @@
       },
       "meanings": { "de": ["jener, der da"], "sl": ["tisti, oni"] } },
     { "lemma": "stesso", "pos": "det", "gloss": ["same"],
-      "forms": { "stesso": "masculine singular", "stessa": "feminine singular" },
+      "forms": { "stesso": "masculine singular", "stessa": "feminine singular", "stessi": "masculine plural", "stesse": "feminine plural" },
       "meanings": { "de": ["gleich, derselbe"], "sl": ["isti"] } },
     { "lemma": "altro", "pos": "det", "gloss": ["other"],
       "forms": { "altro": "masculine singular", "altra": "feminine singular", "altri": "masculine plural", "altre": "feminine plural" },
@@ -2364,6 +2437,12 @@
     { "lemma": "issi", "pos": "phrase", "gloss": ["the ending -issi: I, you, of -ire verbs (dormissi, se dormissi)"],
       "forms": { "issi": null },
       "meanings": { "de": ["die Endung -issi: ich, du, von Verben auf -ire (dormissi)"], "sl": ["končnica -issi: jaz, ti, pri glagolih na -ire (dormissi)"] } },
+    { "lemma": "a piedi", "pos": "phrase", "gloss": ["on foot"],
+      "forms": { "a piedi": null },
+      "meanings": { "de": ["zu Fuß"], "sl": ["peš"] } },
+    { "lemma": "chiedere scusa", "pos": "phrase", "gloss": ["to say sorry", "to ask forgiveness"],
+      "forms": { "chiederei scusa": "first-person singular conditional", "chiedere scusa": null },
+      "meanings": { "de": ["um Verzeihung bitten"], "sl": ["prositi za oproščenje"] } },
     { "lemma": "congratulazioni", "pos": "intj", "gloss": ["congratulations"],
       "forms": { "congratulazioni": null },
       "meanings": { "de": ["Herzlichen Glückwunsch, gratuliere"], "sl": ["čestitke"] } },
@@ -2581,7 +2660,7 @@
       "forms": { "ballo": "singular", "balli": "plural" },
       "meanings": { "de": ["Tanz"], "sl": ["ples"] } },
     { "lemma": "bambina", "pos": "noun", "gender": "f", "gloss": ["little girl"],
-      "forms": { "bambina": "singular" },
+      "forms": { "bambina": "singular", "bambine": "plural" },
       "meanings": { "de": ["kleines Mädchen"], "sl": ["deklica"] } },
     { "lemma": "barba", "pos": "noun", "gender": "f", "gloss": ["beard"],
       "forms": { "barba": "singular" },
@@ -3709,7 +3788,7 @@
       "forms": { "quantità": "singular; plural" },
       "meanings": { "de": ["Menge"], "sl": ["količina"] } },
     { "lemma": "ragazza", "pos": "noun", "gender": "f", "gloss": ["girl"],
-      "forms": { "ragazza": "singular" },
+      "forms": { "ragazza": "singular", "ragazze": "plural" },
       "meanings": { "de": ["Mädchen, Mädel"], "sl": ["dekle, punca"] } },
     { "lemma": "ragazzo", "pos": "noun", "gender": "m", "gloss": ["boy"],
       "forms": { "ragazzo": "singular", "ragazzi": "plural" },
@@ -4191,6 +4270,15 @@
     { "lemma": "taglio", "pos": "noun", "gender": "m", "gloss": ["cut, slit (un taglio sulle castagne)"],
       "forms": { "taglio": "singular", "tagli": "plural" },
       "meanings": { "de": ["Schnitt (un taglio sulle castagne)"], "sl": ["rez (un taglio sulle castagne)"] } },
+    { "lemma": "gnocchi", "pos": "noun", "gender": "m", "gloss": ["gnocchi (small potato dumplings)"],
+      "forms": { "gnocchi": "singular; plural" },
+      "meanings": { "de": ["Gnocchi (kleine Kartoffelknödel)"], "sl": ["njoki (krompirjevi cmoki)"] } },
+    { "lemma": "lotteria", "pos": "noun", "gender": "f", "gloss": ["lottery"],
+      "forms": { "lotteria": "singular" },
+      "meanings": { "de": ["Lotterie"], "sl": ["loterija"] } },
+    { "lemma": "doppio", "pos": "noun", "gender": "m", "gloss": ["twice as much"],
+      "forms": { "doppio": "singular; plural" },
+      "meanings": { "de": ["doppelt so viel"], "sl": ["dvakrat toliko"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -4556,9 +4644,10 @@
         "leggevamo": "first-person plural imperfect", "leggevate": "second-person plural imperfect", "leggevano": "third-person plural imperfect",
         "leggerò": "first-person singular future", "leggerai": "second-person singular future", "leggerà": "third-person singular future",
         "leggeremo": "first-person plural future", "leggerete": "second-person plural future", "leggeranno": "third-person plural future",
-        "leggerebbe": "third-person singular conditional", "leggerebbero": "third-person plural conditional", "lesse": "third-person singular historic past",
-        "legga": "first/second/third-person singular present subjunctive", "leggano": "third-person plural present subjunctive", "leggere": "infinitive",
-        "leggendo": "gerund", "letto": "past participle", "letti": "masculine plural past participle", "leggerlo": "infinitive, with lo (it, him)",
+        "leggerei": "first-person singular conditional", "leggerebbe": "third-person singular conditional", "leggerebbero": "third-person plural conditional",
+        "lesse": "third-person singular historic past", "legga": "first/second/third-person singular present subjunctive",
+        "leggano": "third-person plural present subjunctive", "leggere": "infinitive", "leggendo": "gerund", "letto": "past participle",
+        "letti": "masculine plural past participle", "leggerlo": "infinitive, with lo (it, him)",
         "leggilo": "second-person singular imperative, with lo (it, him)", "leggila": "second-person singular imperative, with la (it, her)"
       },
       "meanings": { "de": ["lesen"], "sl": ["brati"] } },
@@ -4986,6 +5075,12 @@
     { "lemma": "coperto", "pos": "adj", "gloss": ["covered (al coperto: under a roof)"],
       "forms": { "coperto": "masculine singular", "coperta": "feminine singular", "coperte": "feminine plural" },
       "meanings": { "de": ["bedeckt (al coperto: unter Dach)"], "sl": ["pokrit (al coperto: pod streho)"] } },
+    { "lemma": "grato", "pos": "adj", "gloss": ["grateful"],
+      "forms": { "grato": "masculine singular", "grata": "feminine singular", "grati": "masculine plural", "grate": "feminine plural" },
+      "meanings": { "de": ["dankbar"], "sl": ["hvaležen"] } },
+    { "lemma": "sfortunato", "pos": "adj", "gloss": ["unlucky"],
+      "forms": { "sfortunato": "masculine singular", "sfortunata": "feminine singular" },
+      "meanings": { "de": ["vom Pech verfolgt"], "sl": ["nesrečen, smolast"] } },
     { "lemma": "abbaiare", "pos": "verb", "gloss": ["to bark"],
       "forms": {
         "abbaia": "third-person singular present; second-person singular imperative", "abbaiano": "third-person plural present",
@@ -5007,7 +5102,8 @@
       "forms": {
         "mi alzo": "first-person singular present", "ti alzi": "second-person singular present; second-person singular present subjunctive",
         "si alza": "third-person singular present", "ci alziamo": "first-person plural present; first-person plural present subjunctive",
-        "vi alzate": "second-person plural present", "si alzano": "third-person plural present", "alzarmi": "infinitive, with mi (myself)",
+        "vi alzate": "second-person plural present", "si alzano": "third-person plural present", "si alzava": "third-person singular imperfect",
+        "si alzerebbe": "third-person singular conditional", "si è alzato": "third-person singular present perfect", "alzarmi": "infinitive, with mi (myself)",
         "alzarti": "infinitive, with ti (yourself)", "alzarsi": "infinitive", "alzandomi": "gerund, with mi (myself)", "alzandoti": "gerund, with ti (yourself)",
         "alzandosi": "gerund, with si (himself, herself)", "alzati": "second-person singular imperative, with ti (yourself)"
       },
@@ -5018,10 +5114,11 @@
         "apre": "third-person singular present",
         "apriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "aprite": "second-person plural present; second-person plural imperative", "aprono": "third-person plural present",
-        "aprivano": "third-person plural imperfect", "aprirà": "third-person singular future", "apra": "first/second/third-person singular present subjunctive",
-        "aprire": "infinitive", "aprendo": "gerund", "aperto": "past participle", "aperta": "feminine singular past participle",
-        "aperte": "feminine plural past participle", "aprirsi": "infinitive, with si (oneself)",
-        "aprile": "second-person singular imperative, with le (them; to her)", "apritela": "second-person singular imperative, with te la (it to you)"
+        "aprivano": "third-person plural imperfect", "aprirà": "third-person singular future", "aprirei": "first-person singular conditional",
+        "aprirebbero": "third-person plural conditional", "apra": "first/second/third-person singular present subjunctive", "aprire": "infinitive",
+        "aprendo": "gerund", "aperto": "past participle", "aperta": "feminine singular past participle", "aperte": "feminine plural past participle",
+        "aprirsi": "infinitive, with si (oneself)", "aprile": "second-person singular imperative, with le (them; to her)",
+        "apritela": "second-person singular imperative, with te la (it to you)"
       },
       "meanings": { "de": ["aufmachen, öffnen"], "sl": ["odpreti"] } },
     { "lemma": "aspettare", "pos": "verb", "gloss": ["to wait (for)"],
@@ -5077,7 +5174,9 @@
         "bevete": "second-person plural present; second-person plural imperative", "bevono": "third-person plural present",
         "bevevo": "first-person singular imperfect", "beveva": "third-person singular imperfect", "bevevano": "third-person plural imperfect",
         "berrò": "first-person singular future", "berrà": "third-person singular future", "berremo": "first-person plural future",
-        "berrei": "first-person singular conditional", "beva": "first/second/third-person singular present subjunctive", "bere": "infinitive",
+        "berrei": "first-person singular conditional", "berrebbe": "third-person singular conditional",
+        "beveste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "beva": "first/second/third-person singular present subjunctive", "bevessi": "first/second-person singular imperfect subjunctive", "bere": "infinitive",
         "bevendo": "gerund", "bevuto": "past participle"
       },
       "meanings": { "de": ["trinken"], "sl": ["piti"] } },
@@ -5119,11 +5218,11 @@
         "chiamo": "first-person singular present", "chiami": "second-person singular present; first/second/third-person singular present subjunctive",
         "chiama": "third-person singular present; second-person singular imperative",
         "chiamiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
-        "chiamano": "third-person plural present", "chiamava": "third-person singular imperfect", "chiamavano": "third-person plural imperfect",
-        "chiamerei": "first-person singular conditional", "chiamerebbe": "third-person singular conditional", "chiamò": "third-person singular historic past",
-        "chiamare": "infinitive", "chiamando": "gerund", "chiamato": "past participle", "chiamarmi": "infinitive, with mi (me)",
-        "chiamarsi": "infinitive, with si (oneself)", "chiamalo": "second-person singular imperative, with lo (it, him)",
-        "chiamala": "second-person singular imperative, with la (it, her)"
+        "chiamano": "third-person plural present", "chiamava": "third-person singular imperfect", "chiamavate": "second-person plural imperfect",
+        "chiamavano": "third-person plural imperfect", "chiamerei": "first-person singular conditional", "chiamerebbe": "third-person singular conditional",
+        "chiamò": "third-person singular historic past", "chiamare": "infinitive", "chiamando": "gerund", "chiamato": "past participle",
+        "chiamata": "feminine singular past participle", "chiamarmi": "infinitive, with mi (me)", "chiamarsi": "infinitive, with si (oneself)",
+        "chiamalo": "second-person singular imperative, with lo (it, him)", "chiamala": "second-person singular imperative, with la (it, her)"
       },
       "meanings": { "de": ["anrufen"], "sl": ["poklicati"] } },
     { "lemma": "chiudere", "pos": "verb", "gloss": ["to shut"],
@@ -5134,7 +5233,8 @@
         "chiudete": "second-person plural present; second-person plural imperative", "chiudono": "third-person plural present",
         "chiudeva": "third-person singular imperfect", "chiuderà": "third-person singular future",
         "chiusi": "first-person singular historic past; masculine plural past participle", "chiuda": "first/second/third-person singular present subjunctive",
-        "chiudere": "infinitive", "chiuso": "past participle", "chiusa": "feminine singular past participle", "chiuderlo": "infinitive, with lo (it, him)"
+        "chiudesse": "third-person singular imperfect subjunctive", "chiudere": "infinitive", "chiuso": "past participle",
+        "chiusa": "feminine singular past participle", "chiuderlo": "infinitive, with lo (it, him)"
       },
       "meanings": { "de": ["zumachen, schließen"], "sl": ["zapreti"] } },
     { "lemma": "cigolare", "pos": "verb", "gloss": ["to creak"],
@@ -5165,7 +5265,8 @@
         "costruisco": "first-person singular present", "costruisci": "second-person singular present; second-person singular imperative",
         "costruisce": "third-person singular present",
         "costruiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
-        "costruiscono": "third-person plural present", "costruire": "infinitive", "costruito": "past participle", "costruirmi": "infinitive, with mi (me)"
+        "costruiscono": "third-person plural present", "costruire": "infinitive", "costruito": "past participle",
+        "costruiti": "masculine plural past participle", "costruirmi": "infinitive, with mi (me)"
       },
       "meanings": { "de": ["bauen"], "sl": ["zgraditi, narediti"] } },
     { "lemma": "covare", "pos": "verb", "gloss": ["to smoulder"],
@@ -5203,9 +5304,12 @@
         "dormivo": "first-person singular imperfect", "dormiva": "third-person singular imperfect", "dormivamo": "first-person plural imperfect",
         "dormivano": "third-person plural imperfect", "dormirò": "first-person singular future", "dormirai": "second-person singular future",
         "dormirà": "third-person singular future", "dormiremo": "first-person plural future", "dormiranno": "third-person plural future",
-        "dormirei": "first-person singular conditional", "dormirebbe": "third-person singular conditional", "dormì": "third-person singular historic past",
-        "dormirono": "third-person plural historic past", "dorma": "first/second/third-person singular present subjunctive",
-        "dormiate": "second-person plural present subjunctive", "dormano": "third-person plural present subjunctive", "dormire": "infinitive",
+        "dormirei": "first-person singular conditional", "dormirebbe": "third-person singular conditional", "dormireste": "second-person plural conditional",
+        "dormirebbero": "third-person plural conditional", "dormii": "first-person singular historic past", "dormisti": "second-person singular historic past",
+        "dormì": "third-person singular historic past", "dormimmo": "first-person plural historic past",
+        "dormiste": "second-person plural historic past; second-person plural imperfect subjunctive", "dormirono": "third-person plural historic past",
+        "dorma": "first/second/third-person singular present subjunctive", "dormiate": "second-person plural present subjunctive",
+        "dormano": "third-person plural present subjunctive", "dormissi": "first/second-person singular imperfect subjunctive", "dormire": "infinitive",
         "dormendo": "gerund", "dormito": "past participle"
       },
       "meanings": { "de": ["schlafen"], "sl": ["spati"] } },
@@ -5297,12 +5401,12 @@
         "mangiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "mangiate": "second-person plural present; second-person plural present subjunctive; second-person plural imperative; feminine plural past participle",
         "mangiano": "third-person plural present", "mangiava": "third-person singular imperfect", "mangiavamo": "first-person plural imperfect",
-        "mangiavano": "third-person plural imperfect", "mangerò": "first-person singular future", "mangerai": "second-person singular future",
-        "mangerà": "third-person singular future", "mangeremo": "first-person plural future", "mangeranno": "third-person plural future",
-        "mangerei": "first-person singular conditional", "mangerebbe": "third-person singular conditional", "mangeremmo": "first-person plural conditional",
-        "mangerebbero": "third-person plural conditional", "mangino": "third-person plural present subjunctive", "mangiare": "infinitive", "mangiando": "gerund",
-        "mangiato": "past participle", "mangiata": "feminine singular past participle", "mangiati": "masculine plural past participle",
-        "mangiarlo": "infinitive, with lo (it, him)", "mangiarla": "infinitive, with la (it, her)",
+        "mangiavate": "second-person plural imperfect", "mangiavano": "third-person plural imperfect", "mangerò": "first-person singular future",
+        "mangerai": "second-person singular future", "mangerà": "third-person singular future", "mangeremo": "first-person plural future",
+        "mangeranno": "third-person plural future", "mangerei": "first-person singular conditional", "mangerebbe": "third-person singular conditional",
+        "mangeremmo": "first-person plural conditional", "mangerebbero": "third-person plural conditional", "mangino": "third-person plural present subjunctive",
+        "mangiare": "infinitive", "mangiando": "gerund", "mangiato": "past participle", "mangiata": "feminine singular past participle",
+        "mangiati": "masculine plural past participle", "mangiarlo": "infinitive, with lo (it, him)", "mangiarla": "infinitive, with la (it, her)",
         "mangialo": "second-person singular imperative, with lo (it, him)", "mangiala": "second-person singular imperative, with la (it, her)",
         "mangiali": "second-person singular imperative, with li (them)", "mangiale": "second-person singular imperative, with le (them; to her)",
         "mangiatela": "second-person singular imperative, with te la (it to you)"
@@ -5403,8 +5507,9 @@
     { "lemma": "rispondere", "pos": "verb", "gloss": ["to answer"],
       "forms": {
         "rispondo": "first-person singular present", "rispondi": "second-person singular present; second-person singular imperative",
-        "risponde": "third-person singular present", "rispose": "third-person singular historic past", "risposero": "third-person plural historic past",
-        "rispondere": "infinitive", "risposto": "past participle", "risposta": "feminine singular past participle"
+        "risponde": "third-person singular present", "rispondeva": "third-person singular imperfect", "rispose": "third-person singular historic past",
+        "risposero": "third-person plural historic past", "rispondere": "infinitive", "risposto": "past participle",
+        "risposta": "feminine singular past participle"
       },
       "meanings": { "de": ["rangehen, antworten"], "sl": ["oglasiti se, odgovoriti"] } },
     { "lemma": "ronzare", "pos": "verb", "gloss": ["to buzz"],
@@ -5607,9 +5712,10 @@
         "trova": "third-person singular present; second-person singular imperative",
         "troviamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "trovate": "second-person plural present; second-person plural imperative; feminine plural past participle", "trovano": "third-person plural present",
-        "trovare": "infinitive", "trovato": "past participle", "trovata": "feminine singular past participle", "trovati": "masculine plural past participle",
-        "trovarmi": "infinitive, with mi (me)", "trovarci": "infinitive, with ci (us; there)", "trovami": "second-person singular imperative, with mi (me)",
-        "trovalo": "second-person singular imperative, with lo (it, him)", "trovala": "second-person singular imperative, with la (it, her)"
+        "troverà": "third-person singular future", "trovare": "infinitive", "trovato": "past participle", "trovata": "feminine singular past participle",
+        "trovati": "masculine plural past participle", "trovarmi": "infinitive, with mi (me)", "trovarci": "infinitive, with ci (us; there)",
+        "trovami": "second-person singular imperative, with mi (me)", "trovalo": "second-person singular imperative, with lo (it, him)",
+        "trovala": "second-person singular imperative, with la (it, her)"
       },
       "meanings": { "de": ["finden"], "sl": ["najti"] } },
     { "lemma": "uscire", "pos": "verb", "gloss": ["to go out"],
@@ -5636,7 +5742,8 @@
         "vince": "third-person singular present",
         "vinciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "vincono": "third-person plural present", "vincevano": "third-person plural imperfect", "vincerei": "first-person singular conditional",
-        "vinca": "first/second/third-person singular present subjunctive", "vincere": "infinitive", "vinto": "past participle"
+        "vinca": "first/second/third-person singular present subjunctive", "vincessi": "first/second-person singular imperfect subjunctive",
+        "vincere": "infinitive", "vinto": "past participle"
       },
       "meanings": { "de": ["gewinnen"], "sl": ["zmagati"] } },
     { "lemma": "abbassare", "pos": "verb", "gloss": ["to lower, to turn down"],
@@ -5695,7 +5802,8 @@
         "alza": "third-person singular present; second-person singular imperative",
         "alziamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "alzate": "second-person plural present; second-person plural imperative; feminine plural past participle", "alzano": "third-person plural present",
-        "alzare": "infinitive", "alzando": "gerund", "alzato": "past participle", "alzati": "masculine plural past participle",
+        "alzava": "third-person singular imperfect", "alzerebbe": "third-person singular conditional", "alzare": "infinitive", "alzando": "gerund",
+        "alzato": "past participle", "alzata": "feminine singular past participle", "alzati": "masculine plural past participle",
         "alzarmi": "infinitive, with mi (me)", "alzarti": "infinitive, with ti (you)", "alzarsi": "infinitive, with si (oneself)",
         "alzandomi": "gerund, with mi (me)", "alzandoti": "gerund, with ti (you)", "alzandosi": "gerund, with si (oneself)"
       },
@@ -5726,9 +5834,10 @@
       "meanings": { "de": ["anlehnen, abstellen"], "sl": ["nasloniti"] } },
     { "lemma": "arrabbiarsi", "pos": "verb", "gloss": ["to get angry"],
       "forms": {
-        "si arrabbia": "third-person singular present", "si è arrabbiato": "third-person singular present perfect",
-        "arrabbia": "third-person singular present; second-person singular imperative", "arrabbiato": "past participle",
-        "arrabbiata": "feminine singular past participle", "arrabbiarsi": "infinitive"
+        "si arrabbia": "third-person singular present", "si arrabbiava": "third-person singular imperfect",
+        "si è arrabbiato": "third-person singular present perfect", "si è arrabbiata": "third-person singular present perfect (feminine)",
+        "arrabbiarsi": "infinitive", "arrabbia": "third-person singular present; second-person singular imperative",
+        "arrabbiava": "third-person singular imperfect", "arrabbiato": "past participle", "arrabbiata": "feminine singular past participle"
       },
       "meanings": { "de": ["wütend werden, sich ärgern"], "sl": ["razjeziti se"] } },
     { "lemma": "arrampicarsi", "pos": "verb", "gloss": ["to climb"],
@@ -5769,15 +5878,16 @@
         "bagno": "first-person singular present", "bagni": "second-person singular present; first/second/third-person singular present subjunctive",
         "bagna": "third-person singular present; second-person singular imperative",
         "bagnate": "second-person plural present; second-person plural imperative; feminine plural past participle", "bagnano": "third-person plural present",
-        "bagnato": "past participle", "bagnata": "feminine singular past participle", "bagnati": "masculine plural past participle",
+        "bagnavamo": "first-person plural imperfect", "bagnato": "past participle", "bagnata": "feminine singular past participle",
+        "bagnati": "masculine plural past participle", "bagnarsi": "infinitive, with si (oneself)",
         "bagniamoci": "first-person plural imperative, with ci (us; there)", "bagnare": "infinitive"
       },
       "meanings": { "de": ["nass machen"], "sl": ["zmočiti"] } },
     { "lemma": "bagnarsi", "pos": "verb", "gloss": ["to get wet"],
       "forms": {
-        "si bagna": "third-person singular present", "si bagnano": "third-person plural present",
-        "bagnati": "second-person singular imperative, with ti (yourself)", "bagniamoci": "first-person plural imperative, with ci (ourselves)",
-        "bagnarsi": "infinitive"
+        "si bagna": "third-person singular present", "si bagnano": "third-person plural present", "ci bagnavamo": "first-person plural imperfect",
+        "ci siamo bagnati": "first-person plural present perfect", "bagnarsi": "infinitive", "bagnati": "second-person singular imperative, with ti (yourself)",
+        "bagniamoci": "first-person plural imperative, with ci (ourselves)"
       },
       "meanings": { "de": ["nass werden"], "sl": ["zmočiti se"] } },
     { "lemma": "bollire", "pos": "verb", "gloss": ["to boil"],
@@ -5812,7 +5922,7 @@
     { "lemma": "cambiare", "pos": "verb", "gloss": ["to change, to switch"],
       "forms": {
         "cambio": "first-person singular present", "cambia": "third-person singular present; second-person singular imperative",
-        "cambiavano": "third-person plural imperfect", "cambiare": "infinitive"
+        "cambiavano": "third-person plural imperfect", "cambierei": "first-person singular conditional", "cambiare": "infinitive"
       },
       "meanings": { "de": ["ändern, wechseln"], "sl": ["spremeniti, zamenjati"] } },
     { "lemma": "camminare", "pos": "verb", "gloss": ["to walk, to go on foot"],
@@ -5845,8 +5955,9 @@
         "compro": "first-person singular present", "compri": "second-person singular present; first/second/third-person singular present subjunctive",
         "compra": "third-person singular present; second-person singular imperative",
         "compriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
-        "comprate": "second-person plural present; second-person plural imperative; feminine plural past participle", "comprare": "infinitive",
-        "comprato": "past participle", "comprati": "masculine plural past participle"
+        "comprate": "second-person plural present; second-person plural imperative; feminine plural past participle",
+        "comprava": "third-person singular imperfect", "comprerei": "first-person singular conditional", "comprare": "infinitive", "comprato": "past participle",
+        "comprati": "masculine plural past participle"
       },
       "meanings": { "de": ["kaufen"], "sl": ["kupiti"] } },
     { "lemma": "condire", "pos": "verb", "gloss": ["to dress, to season"],
@@ -5885,7 +5996,7 @@
     { "lemma": "controllare", "pos": "verb", "gloss": ["to check, to inspect"],
       "forms": {
         "controllo": "first-person singular present", "controlla": "third-person singular present; second-person singular imperative",
-        "controllato": "past participle", "controllare": "infinitive"
+        "controllava": "third-person singular imperfect", "controllare": "infinitive", "controllato": "past participle"
       },
       "meanings": { "de": ["kontrollieren, nachschauen"], "sl": ["preveriti"] } },
     { "lemma": "coprirsi", "pos": "verb", "gloss": ["to cover up, to wrap up"],
@@ -5907,23 +6018,27 @@
         "correte": "second-person plural present; second-person plural imperative", "corrono": "third-person plural present",
         "correva": "third-person singular imperfect", "correvano": "third-person plural imperfect", "correrei": "first-person singular conditional",
         "correrebbe": "third-person singular conditional", "corsi": "first-person singular historic past; masculine plural past participle",
-        "corresse": "third-person singular imperfect subjunctive", "correre": "infinitive", "correndo": "gerund", "corso": "past participle",
-        "corsa": "feminine singular past participle"
+        "corressi": "first/second-person singular imperfect subjunctive", "corresse": "third-person singular imperfect subjunctive", "correre": "infinitive",
+        "correndo": "gerund", "corso": "past participle", "corsa": "feminine singular past participle"
       },
       "meanings": { "de": ["laufen, rennen"], "sl": ["teči"] } },
     { "lemma": "correggere", "pos": "verb", "gloss": ["to correct"],
       "forms": {
-        "corresse": "third-person singular historic past", "corretto": "past participle", "correggerle": "infinitive, with le (them; to her)",
-        "correggere": "infinitive"
+        "corressi": "first-person singular historic past", "corresse": "third-person singular historic past", "corretto": "past participle",
+        "correggerle": "infinitive, with le (them; to her)", "correggere": "infinitive"
       },
       "meanings": { "de": ["verbessern, ausbessern"], "sl": ["popraviti napako"] } },
     { "lemma": "costare", "pos": "verb", "gloss": ["to cost"],
-      "forms": { "costa": "third-person singular present; second-person singular imperative", "costano": "third-person plural present", "costare": "infinitive" },
+      "forms": {
+        "costa": "third-person singular present; second-person singular imperative", "costano": "third-person plural present", "costare": "infinitive",
+        "costata": "feminine singular past participle"
+      },
       "meanings": { "de": ["kosten"], "sl": ["stati (koliko stane?)"] } },
     { "lemma": "credere", "pos": "verb", "gloss": ["to believe, to think"],
       "forms": {
-        "credo": "first-person singular present", "crederanno": "third-person plural future", "crederle": "infinitive, with le (them; to her)",
-        "credere": "infinitive"
+        "credo": "first-person singular present", "crederanno": "third-person plural future", "credesti": "second-person singular historic past",
+        "credemmo": "first-person plural historic past", "credeste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "credere": "infinitive", "crederle": "infinitive, with le (them; to her)"
       },
       "meanings": { "de": ["glauben"], "sl": ["verjeti, misliti"] } },
     { "lemma": "cucire", "pos": "verb", "gloss": ["to sew"],
@@ -5999,7 +6114,7 @@
         "ferma": "third-person singular present; second-person singular imperative",
         "fermiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "fermava": "third-person singular imperfect", "fermato": "past participle", "fermata": "feminine singular past participle",
-        "fermarmi": "infinitive, with mi (me)", "fermare": "infinitive"
+        "fermarmi": "infinitive, with mi (me)", "fermarsi": "infinitive, with si (oneself)", "fermare": "infinitive"
       },
       "meanings": { "de": ["anhalten, stoppen"], "sl": ["ustaviti"] } },
     { "lemma": "fiorire", "pos": "verb", "gloss": ["to bloom, to flower"],
@@ -6112,7 +6227,7 @@
         "lascio": "first-person singular present", "lascia": "third-person singular present; second-person singular imperative",
         "lasciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "lasciava": "third-person singular imperfect", "lasciato": "past participle", "lasciata": "feminine singular past participle",
-        "lasciali": "second-person singular imperative, with li (them)", "lasciare": "infinitive"
+        "lasciami": "second-person singular imperative, with mi (me)", "lasciali": "second-person singular imperative, with li (them)", "lasciare": "infinitive"
       },
       "meanings": { "de": ["lassen, zurücklassen"], "sl": ["pustiti"] } },
     { "lemma": "legare", "pos": "verb", "gloss": ["to tie"],
@@ -6220,7 +6335,10 @@
       "forms": { "paga": "third-person singular present; second-person singular imperative", "pagare": "infinitive" },
       "meanings": { "de": ["zahlen, bezahlen"], "sl": ["plačati"] } },
     { "lemma": "pascolare", "pos": "verb", "gloss": ["to graze"],
-      "forms": { "pascolo": "first-person singular present", "pascolare": "infinitive" },
+      "forms": {
+        "pascolo": "first-person singular present", "pascoli": "second-person singular present; first/second/third-person singular present subjunctive",
+        "pascolare": "infinitive"
+      },
       "meanings": { "de": ["weiden"], "sl": ["pasti, pasti se"] } },
     { "lemma": "passare", "pos": "verb", "gloss": ["to pass, to go past", "to hand (passami: pass me)", "to spend (time)"],
       "forms": {
@@ -6235,8 +6353,9 @@
       "meanings": { "de": ["vorbeigehen, vorbeikommen", "reichen (passami: gib mir)", "verbringen (Zeit)"], "sl": ["iti mimo", "podati (passami: podaj mi)", "preživeti (čas)"] } },
     { "lemma": "perdere", "pos": "verb", "gloss": ["to lose"],
       "forms": {
-        "perde": "third-person singular present", "perdeva": "third-person singular imperfect", "perdere": "infinitive", "perso": "past participle",
-        "persa": "feminine singular past participle", "perduto": "past participle"
+        "perde": "third-person singular present", "perdeva": "third-person singular imperfect", "perderebbe": "third-person singular conditional",
+        "perdereste": "second-person plural conditional", "perdere": "infinitive", "perso": "past participle", "persa": "feminine singular past participle",
+        "perduto": "past participle"
       },
       "meanings": { "de": ["verlieren"], "sl": ["izgubiti"] } },
     { "lemma": "perdersi", "pos": "verb", "gloss": ["to get lost"],
@@ -6260,7 +6379,7 @@
         "piaccio": "first-person singular present", "piaci": "second-person singular present; second-person singular imperative",
         "piace": "third-person singular present", "piacciono": "third-person plural present", "piacerà": "third-person singular future",
         "piacerei": "first-person singular conditional", "piaceresti": "second-person singular conditional", "piacerebbe": "third-person singular conditional",
-        "piacere": "infinitive"
+        "piacere": "infinitive", "piaciuto": "past participle"
       },
       "meanings": { "de": ["gefallen, schmecken (mi piace: ich mag es)"], "sl": ["biti všeč (mi piace: všeč mi je)"] } },
     { "lemma": "piantare", "pos": "verb", "gloss": ["to plant, to put in the ground"],
@@ -6440,11 +6559,15 @@
       "forms": {
         "rompo": "first-person singular present", "rompi": "second-person singular present; second-person singular imperative",
         "rompe": "third-person singular present", "rompere": "infinitive", "rotto": "past participle", "rotta": "feminine singular past participle",
-        "romperle": "infinitive, with le (them; to her)", "rompile": "second-person singular imperative, with le (them; to her)"
+        "romperle": "infinitive, with le (them; to her)", "rompersi": "infinitive, with si (oneself)",
+        "rompile": "second-person singular imperative, with le (them; to her)"
       },
       "meanings": { "de": ["kaputt machen, brechen"], "sl": ["zlomiti, razbiti"] } },
     { "lemma": "rompersi", "pos": "verb", "gloss": ["to get broken"],
-      "forms": { "si rompe": "third-person singular present", "rompersi": "infinitive" },
+      "forms": {
+        "si rompe": "third-person singular present", "si è rotto": "third-person singular present perfect",
+        "si è rotta": "third-person singular present perfect (feminine)", "rompersi": "infinitive"
+      },
       "meanings": { "de": ["kaputtgehen"], "sl": ["zlomiti se, razbiti se"] } },
     { "lemma": "rotolare", "pos": "verb", "gloss": ["to roll, to tumble"],
       "forms": { "rotolo": "first-person singular present", "rotola": "third-person singular present; second-person singular imperative", "rotolare": "infinitive" },
@@ -6678,10 +6801,10 @@
       "forms": { "strofina": "third-person singular present; second-person singular imperative", "strofinare": "infinitive" },
       "meanings": { "de": ["reiben, schrubben"], "sl": ["drgniti"] } },
     { "lemma": "studiare", "pos": "verb", "gloss": ["to study, to learn"],
-      "forms": { "studia": "third-person singular present; second-person singular imperative", "studiare": "infinitive" },
+      "forms": { "studia": "third-person singular present; second-person singular imperative", "studiare": "infinitive", "studiato": "past participle" },
       "meanings": { "de": ["lernen, studieren"], "sl": ["učiti se, študirati"] } },
     { "lemma": "succedere", "pos": "verb", "gloss": ["to happen"],
-      "forms": { "succede": "third-person singular present", "successo": "past participle", "successa": "feminine singular past participle", "succedere": "infinitive" },
+      "forms": { "succede": "third-person singular present", "succedere": "infinitive", "successo": "past participle", "successa": "feminine singular past participle" },
       "meanings": { "de": ["passieren"], "sl": ["zgoditi se"] } },
     { "lemma": "sussurrare", "pos": "verb", "gloss": ["to whisper"],
       "forms": { "sussurrare": "infinitive" },
@@ -6758,7 +6881,8 @@
       "forms": {
         "vende": "third-person singular present",
         "vendiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
-        "vendono": "third-person plural present", "vendeva": "third-person singular imperfect", "vendere": "infinitive", "venduto": "past participle"
+        "vendono": "third-person plural present", "vendeva": "third-person singular imperfect", "venderebbe": "third-person singular conditional",
+        "vendere": "infinitive", "venduto": "past participle"
       },
       "meanings": { "de": ["verkaufen"], "sl": ["prodati, prodajati"] } },
     { "lemma": "vestire", "pos": "verb", "gloss": ["to dress someone"],
@@ -6784,6 +6908,12 @@
         "volata": "feminine singular past participle"
       },
       "meanings": { "de": ["fliegen"], "sl": ["leteti"] } },
+    { "lemma": "avvisare", "pos": "verb", "gloss": ["to let someone know", "to warn"],
+      "forms": {
+        "avvisate": "second-person plural present; second-person plural imperative; feminine plural past participle", "avvisare": "infinitive",
+        "avvisarle": "infinitive, with le (them; to her)"
+      },
+      "meanings": { "de": ["Bescheid sagen", "warnen"], "sl": ["obvestiti", "opozoriti"] } },
     { "lemma": "Davide", "pos": "name", "gloss": ["Davide (the shepherd)"],
       "forms": { "davide": null },
       "meanings": { "de": ["Davide (der Hirte)"], "sl": ["Davide (pastir)"] } },
