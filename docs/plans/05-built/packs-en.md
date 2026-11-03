@@ -174,9 +174,9 @@ voice. No credits were spent.
 
 ## Tests
 
-- Bridge: `bunx tsc --noEmit -p .` clean. Smoke (ports 10490…, DRAMA3 10508): 3,755 checks. Its one failure, the word
-  ids, is fixed in 92edcede. New checks: `packLevels` (old app at A1, A2 and B1, and with no level; `?packs=1` and `2`;
-  `own`; `/packs/:id`) and the prints' level cap.
+- Bridge: `bunx tsc --noEmit -p .` clean. Smoke after merging main (ports 10490…, DRAMA3 10508): **3,762 checks, all
+  passed**. New checks: `packLevels` (old app at A1, A2 and B1, and with no level; `?packs=1` and `2`; `own`; `/packs/:id`)
+  and the prints' level cap (a B2 pack sharing open leaves the A1 to-be sheet as it was).
 - Android: the full unit suite after merging main, 4,110 tests, 0 failures (PackSessionTest 9, PhoneBridgeNodeTest's
   `/packs?packs=1` parity among them).
 - Python: `tests` 253 OK, `companion/tests` 179 OK (11 skipped). `tutor-export --check`: 140 files match.
