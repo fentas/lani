@@ -1,0 +1,363 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "formeller-brief",
+  "language": "de",
+  "level": "B2",
+  "emoji": "✉️",
+  "title": {
+    "de": "Der formelle Brief: Anrede, Titel, Schluss",
+    "en": "The formal letter: opening, titles, close",
+    "sl": "Uradno pismo: nagovor, naziv, zaključek",
+    "it": "La lettera formale: apertura, titoli, chiusa"
+  },
+  "rule": {
+    "en": "A formal letter has its parts in order: place and date, **Betreff:** (subject), the opening, the text, the close, your name, **Beilage:** (enclosed; in Germany **Anlage:**).\n\n**The opening**: **Sehr geehrte Frau …,** to a woman, **Sehr geehrter Herr …,** to a man, **Sehr geehrte Damen und Herren,** with no name; then a small letter. In Austria often an exclamation mark, then a capital.\n\n**Titles**: Austria names them: **Frau Magister**, **Herr Doktor**, **Herr Bürgermeister**. Short, before the name: **Mag.**, **Mag.a**, **Dr.**, **Dr.in**, **DI** or **Dipl.-Ing.** A BA or MA stays out of the opening. Never a higher one than the person has.\n\n**A request**: **Ich bitte Sie um** + the accusative; stiffer **Ich ersuche Sie, … zu …**. Kinder is the Konjunktiv II: **Könnten Sie** mir bitte …? **Ich wäre Ihnen dankbar, wenn** …\n\n**A complaint**: **Ich möchte mich über** die Rechnung **beschweren**. **Leider muss ich Ihnen mitteilen, dass** …\n\n**Tying it together**: **dabei**, **dafür**, **daher** and **diese** take first place, the verb next: **Diese** sind nicht angekommen.\n\n**The close**: **Mit freundlichen Grüßen**, no comma, no full stop. **Sie**, **Ihnen**, **Ihr** with a capital.",
+    "sl": "Uradno pismo ima dele po vrsti: kraj in datum, **Betreff:** (zadeva), nagovor, besedilo, zaključek, ime, **Beilage:** (priloga; v Nemčiji **Anlage:**).\n\n**Nagovor**: **Sehr geehrte Frau …,** ženski, **Sehr geehrter Herr …,** moškemu, **Sehr geehrte Damen und Herren,** brez imena; nato mala črka. V Avstriji pogosto klicaj, nato velika črka.\n\n**Naziv**: Avstrija ga pove: **Frau Magister**, **Herr Doktor**, **Herr Bürgermeister**. Na kratko pred imenom: **Mag.**, **Mag.a**, **Dr.**, **Dr.in**, **DI** ali **Dipl.-Ing.** BA ali MA ostane zunaj nagovora. Nikoli višji, kot ga oseba ima.\n\n**Prošnja**: **Ich bitte Sie um** + tožilnik; bolj togo **Ich ersuche Sie, … zu …**. Prijaznejši je konjunktiv II: **Könnten Sie** mir bitte …? **Ich wäre Ihnen dankbar, wenn** …\n\n**Pritožba**: **Ich möchte mich über** die Rechnung **beschweren**. **Leider muss ich Ihnen mitteilen, dass** …\n\n**Povezava**: **dabei**, **dafür**, **daher** in **diese** zasedejo prvo mesto, glagol za njimi: **Diese** sind nicht angekommen.\n\n**Zaključek**: **Mit freundlichen Grüßen**, brez vejice in pike. **Sie**, **Ihnen**, **Ihr** z veliko črko.",
+    "it": "Una lettera formale ha le sue parti in ordine: luogo e data, **Betreff:** (oggetto), l'apertura, il testo, la chiusa, il nome, **Beilage:** (allegato; in Germania **Anlage:**).\n\n**L'apertura**: **Sehr geehrte Frau …,** a una donna, **Sehr geehrter Herr …,** a un uomo, **Sehr geehrte Damen und Herren,** senza nome; poi la minuscola. In Austria spesso un punto esclamativo, poi la maiuscola.\n\n**I titoli**: l'Austria li nomina: **Frau Magister**, **Herr Doktor**, **Herr Bürgermeister**. Brevi, prima del nome: **Mag.**, **Mag.a**, **Dr.**, **Dr.in**, **DI** o **Dipl.-Ing.** BA o MA restano fuori dall'apertura. Mai uno più alto di quello che ha.\n\n**La richiesta**: **Ich bitte Sie um** + accusativo; più rigido **Ich ersuche Sie, … zu …**. Più gentile il congiuntivo II: **Könnten Sie** mir bitte …? **Ich wäre Ihnen dankbar, wenn** …\n\n**Il reclamo**: **Ich möchte mich über** die Rechnung **beschweren**. **Leider muss ich Ihnen mitteilen, dass** …\n\n**Per legare**: **dabei**, **dafür**, **daher** e **diese** occupano il primo posto, il verbo dopo: **Diese** sind nicht angekommen.\n\n**La chiusa**: **Mit freundlichen Grüßen**, senza virgola né punto. **Sie**, **Ihnen**, **Ihr** con la maiuscola."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Teil",
+        "en": "part",
+        "sl": "del",
+        "it": "parte"
+      },
+      {
+        "de": "Bedeutung",
+        "en": "meaning",
+        "sl": "pomen",
+        "it": "significato"
+      },
+      {
+        "de": "Beispiel",
+        "en": "example",
+        "sl": "primer",
+        "it": "esempio"
+      }
+    ],
+    "rows": [
+      [
+        "Sehr geehrte Frau …, Sehr geehrter Herr …,",
+        {
+          "en": "the opening",
+          "sl": "nagovor",
+          "it": "l'apertura"
+        },
+        "Sehr geehrte Frau Magister Huber,"
+      ],
+      [
+        "Sehr geehrte Damen und Herren,",
+        {
+          "en": "no name known",
+          "sl": "ime ni znano",
+          "it": "nessun nome noto"
+        },
+        "Sehr geehrte Damen und Herren,"
+      ],
+      [
+        "Mag., Mag.a · Dr., Dr.in · DI",
+        {
+          "en": "titles, before the name",
+          "sl": "naziva, pred imenom",
+          "it": "i titoli, prima del nome"
+        },
+        "Frau Mag. Huber, Herr Dr. Egger"
+      ],
+      [
+        "Betreff:",
+        {
+          "en": "the subject line",
+          "sl": "zadeva",
+          "it": "l'oggetto"
+        },
+        "Betreff: Der Weg zum Obstgarten"
+      ],
+      [
+        "Ich bitte Sie um …",
+        {
+          "en": "a request",
+          "sl": "prošnja",
+          "it": "una richiesta"
+        },
+        "Ich bitte Sie um eine Antwort."
+      ],
+      [
+        "Ich ersuche Sie, … zu …",
+        {
+          "en": "a request, stiffer",
+          "sl": "prošnja, bolj uradna",
+          "it": "una richiesta, più formale"
+        },
+        "Ich ersuche Sie, die Kisten zu liefern."
+      ],
+      [
+        "Könnten Sie …? Ich wäre Ihnen dankbar, wenn …",
+        {
+          "en": "kindly: Konjunktiv II",
+          "sl": "vljudno: konjunktiv II",
+          "it": "con garbo: congiuntivo II"
+        },
+        "Könnten Sie mir bitte antworten?"
+      ],
+      [
+        "Ich möchte mich über … beschweren.",
+        {
+          "en": "a complaint",
+          "sl": "pritožba",
+          "it": "un reclamo"
+        },
+        "Ich möchte mich über die Rechnung beschweren."
+      ],
+      [
+        "dabei, dafür, diese, daher",
+        {
+          "en": "words that tie a text",
+          "sl": "besede, ki povezujejo besedilo",
+          "it": "parole che legano il testo"
+        },
+        "Diese sind nicht angekommen."
+      ],
+      [
+        "Mit freundlichen Grüßen",
+        {
+          "en": "the close: no comma",
+          "sl": "zaključek: brez vejice",
+          "it": "la chiusa: senza virgola"
+        },
+        "Mit freundlichen Grüßen"
+      ],
+      [
+        "Beilage:",
+        {
+          "en": "enclosed, in Germany Anlage",
+          "sl": "priloga, v Nemčiji Anlage",
+          "it": "allegato, in Germania Anlage"
+        },
+        "Beilage: Rechnung"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Sehr geehrte Frau Magister Huber,",
+      "en": "Dear Ms Huber,",
+      "sl": "Spoštovana gospa Huber,",
+      "it": "Gentile signora Huber,",
+      "note": {
+        "en": "A woman: geehrte. A comma, then a small letter.",
+        "sl": "Ženska: geehrte. Vejica, nato mala črka.",
+        "it": "Una donna: geehrte. Virgola, poi la minuscola."
+      }
+    },
+    {
+      "de": "Sehr geehrter Herr Dr. Egger,",
+      "en": "Dear Dr Egger,",
+      "sl": "Spoštovani gospod dr. Egger,",
+      "it": "Egregio dott. Egger,",
+      "note": {
+        "en": "A man: geehrter. The title short, before the name.",
+        "sl": "Moški: geehrter. Naziv na kratko, pred imenom.",
+        "it": "Un uomo: geehrter. Il titolo breve, prima del nome."
+      }
+    },
+    {
+      "de": "Ich bitte Sie um eine Antwort bis Freitag.",
+      "en": "I ask you for a reply by Friday.",
+      "sl": "Prosim vas za odgovor do petka.",
+      "it": "Le chiedo una risposta entro venerdì.",
+      "note": {
+        "en": "bitten um + the accusative.",
+        "sl": "bitten um + tožilnik.",
+        "it": "bitten um + accusativo."
+      }
+    },
+    {
+      "de": "Könnten Sie mir bitte das Formular schicken?",
+      "en": "Could you please send me the form?",
+      "sl": "Bi mi lahko poslali obrazec?",
+      "it": "Potrebbe mandarmi il modulo, per favore?",
+      "note": {
+        "en": "Courtesy: the Konjunktiv II.",
+        "sl": "Vljudnost: konjunktiv II.",
+        "it": "Cortesia: il congiuntivo II."
+      }
+    },
+    {
+      "de": "Ich wäre Ihnen dankbar, wenn Sie bald antworten würden.",
+      "en": "I would be grateful if you replied soon.",
+      "sl": "Hvaležen bi vam bil, če bi kmalu odgovorili.",
+      "it": "Le sarei grato se rispondesse presto.",
+      "note": {
+        "en": "Ihnen with a capital.",
+        "sl": "Ihnen z veliko črko.",
+        "it": "Ihnen con la maiuscola."
+      }
+    },
+    {
+      "de": "Ich möchte mich über die Rechnung beschweren.",
+      "en": "I wish to complain about the invoice.",
+      "sl": "Rad bi se pritožil zaradi računa.",
+      "it": "Vorrei fare un reclamo per la fattura.",
+      "note": {
+        "en": "über + the accusative.",
+        "sl": "über + tožilnik.",
+        "it": "über + accusativo."
+      }
+    },
+    {
+      "de": "Ich habe zwanzig Flaschen bestellt. Diese sind nicht angekommen.",
+      "en": "I ordered twenty bottles. These have not arrived.",
+      "sl": "Naročil sem dvajset steklenic. Te niso prispele.",
+      "it": "Ho ordinato venti bottiglie. Queste non sono arrivate.",
+      "note": {
+        "en": "diese: the ones just named.",
+        "sl": "diese: pravkar omenjene.",
+        "it": "diese: quelle appena nominate."
+      }
+    },
+    {
+      "de": "Mit freundlichen Grüßen",
+      "en": "Yours sincerely",
+      "sl": "S spoštovanjem",
+      "it": "Cordiali saluti",
+      "note": {
+        "en": "No comma, no full stop.",
+        "sl": "Brez vejice in pike.",
+        "it": "Senza virgola né punto."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "letter",
+    "brief",
+    "formal",
+    "register",
+    "titel",
+    "magister",
+    "doktor",
+    "anrede",
+    "gruss",
+    "beschwerde",
+    "konjunktiv"
+  ],
+  "see": [
+    "du-sie",
+    "konjunktiv-zwei",
+    "konnektoren",
+    "obwohl-trotzdem"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: Frau Magister, Mag.a, Dr.in; the ! after the opening; ersuchen; Beilage; each phrase",
+  "card": {
+    "title": {
+      "de": "Der formelle Brief",
+      "en": "Formal letter · Sehr geehrte, Mit freundlichen Grüßen",
+      "sl": "Uradno pismo · Sehr geehrte, Mit freundlichen Grüßen",
+      "it": "Lettera formale · Sehr geehrte, Mit freundlichen Grüßen"
+    },
+    "rule": {
+      "en": "**Sehr geehrte Frau Magister Huber,** then a small letter. **Könnten Sie** …? **Ich wäre Ihnen dankbar, wenn** … **Mit freundlichen Grüßen**, no comma. **Beilage:** for what you send along.",
+      "sl": "**Sehr geehrte Frau Magister Huber,** nato mala črka. **Könnten Sie** …? **Ich wäre Ihnen dankbar, wenn** … **Mit freundlichen Grüßen**, brez vejice. **Beilage:** za to, kar pošlješ zraven.",
+      "it": "**Sehr geehrte Frau Magister Huber,** poi la minuscola. **Könnten Sie** …? **Ich wäre Ihnen dankbar, wenn** … **Mit freundlichen Grüßen**, senza virgola. **Beilage:** per quello che mandi insieme."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Teil",
+          "en": "part",
+          "sl": "del",
+          "it": "parte"
+        },
+        {
+          "de": "Bedeutung",
+          "en": "meaning",
+          "sl": "pomen",
+          "it": "significato"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ],
+      "rows": [
+        [
+          "Sehr geehrte Frau …, Sehr geehrter Herr …,",
+          {
+            "en": "the opening",
+            "sl": "nagovor",
+            "it": "l'apertura"
+          },
+          "Sehr geehrte Frau Magister Huber,"
+        ],
+        [
+          "Mag., Mag.a · Dr., Dr.in · DI",
+          {
+            "en": "titles, before the name",
+            "sl": "naziva, pred imenom",
+            "it": "i titoli, prima del nome"
+          },
+          "Frau Mag. Huber, Herr Dr. Egger"
+        ],
+        [
+          "Könnten Sie …? Ich wäre Ihnen dankbar, wenn …",
+          {
+            "en": "kindly: Konjunktiv II",
+            "sl": "vljudno: konjunktiv II",
+            "it": "con garbo: congiuntivo II"
+          },
+          "Könnten Sie mir bitte antworten?"
+        ],
+        [
+          "dabei, dafür, diese, daher",
+          {
+            "en": "words that tie a text",
+            "sl": "besede, ki povezujejo besedilo",
+            "it": "parole che legano il testo"
+          },
+          "Diese sind nicht angekommen."
+        ],
+        [
+          "Mit freundlichen Grüßen",
+          {
+            "en": "the close: no comma",
+            "sl": "zaključek: brez vejice",
+            "it": "la chiusa: senza virgola"
+          },
+          "Mit freundlichen Grüßen"
+        ],
+        [
+          "Beilage:",
+          {
+            "en": "enclosed, in Germany Anlage",
+            "sl": "priloga, v Nemčiji Anlage",
+            "it": "allegato, in Germania Anlage"
+          },
+          "Beilage: Rechnung"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Sehr geehrte Frau Magister Huber,",
+        "en": "Dear Ms Huber,",
+        "sl": "Spoštovana gospa Huber,",
+        "it": "Gentile signora Huber,"
+      },
+      {
+        "de": "Könnten Sie mir bitte das Formular schicken?",
+        "en": "Could you please send me the form?",
+        "sl": "Bi mi lahko poslali obrazec?",
+        "it": "Potrebbe mandarmi il modulo, per favore?"
+      }
+    ],
+    "tip": {
+      "en": "💡 A letter to an office: Sie with a capital, a title where one is known, the verb in the Konjunktiv II.",
+      "sl": "💡 Pismo uradu: Sie z veliko črko, naziv, če ga poznaš, glagol v konjunktivu II.",
+      "it": "💡 Una lettera a un ufficio: Sie con la maiuscola, il titolo se lo conosci, il verbo al congiuntivo II."
+    }
+  }
+}

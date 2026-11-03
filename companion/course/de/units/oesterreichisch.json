@@ -1,0 +1,1213 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "oesterreichisch",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🏔️",
+  "title": {
+    "de": "Heuer, Jänner, ich bin gesessen",
+    "en": "Austrian German: heuer, Jänner, ich bin gesessen",
+    "sl": "Avstrijska nemščina: heuer, Jänner, ich bin gesessen",
+    "it": "Il tedesco austriaco: heuer, Jänner, ich bin gesessen"
+  },
+  "goal": {
+    "en": "You know what Austria says otherwise than Germany, in words and grammar, and can use both; you understand spoken Carinthian (lei, nit, eppes) and can write it in the standard.",
+    "sl": "Veš, kaj Avstrija pove drugače kot Nemčija, v besedah in slovnici, in znaš uporabiti oboje; razumeš govorjeno koroščino (lei, nit, eppes) in jo znaš napisati knjižno.",
+    "it": "Sai che cosa l'Austria dice in modo diverso dalla Germania, nelle parole e nella grammatica, e sai usare entrambe le forme; capisci il carinziano parlato (lei, nit, eppes) e sai scriverlo in lingua standard."
+  },
+  "grammar": [
+    "oesterreichisch",
+    "perfekt"
+  ],
+  "words": [
+    "heuer",
+    "der Jänner",
+    "der Feber",
+    "der Paradeiser",
+    "der Erdapfel",
+    "die Marille",
+    "der Topfen",
+    "das Obers",
+    "der Karfiol",
+    "der Sessel",
+    "der Kasten",
+    "die Stiege",
+    "das Spital",
+    "das Sackerl",
+    "die Semmel",
+    "die Jause",
+    "die Tomate",
+    "die Kartoffel",
+    "die Aprikose",
+    "der Quark",
+    "die Sahne",
+    "der Stuhl",
+    "der Schrank",
+    "die Treppe",
+    "die Tüte",
+    "das Brötchen",
+    "der Blumenkohl",
+    "der Urlaub",
+    "gesessen",
+    "gestanden",
+    "gelegen",
+    "sich ausgehen",
+    "lei",
+    "nit",
+    "eppes",
+    "Pfiati",
+    "letz",
+    "miad",
+    "ofn",
+    "der Knödel"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "in Österreich",
+          "en": "in Austria",
+          "sl": "v Avstriji",
+          "it": "in Austria"
+        },
+        {
+          "de": "in Deutschland",
+          "en": "in Germany",
+          "sl": "v Nemčiji",
+          "it": "in Germania"
+        },
+        {
+          "de": "Bedeutung",
+          "en": "meaning",
+          "sl": "pomen",
+          "it": "significato"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**heuer** (this year), **der Jänner** (January) and **der Feber** (February) are Austria's own: Heuer war der Jänner kalt. Germany says dieses Jahr, Januar, Februar. Austria's words are standard: on a calendar and in a newspaper, not dialect. In this village you'll hear and read them, and nobody minds the others: everything in this unit is one country's word beside another's, and both are right.",
+          "sl": "**heuer** (letos), **der Jänner** (januar) in **der Feber** (februar) so avstrijski: Heuer war der Jänner kalt. Nemčija reče dieses Jahr, Januar, Februar. Avstrijske besede so knjižne: na koledarju in v časopisu, ne narečje. V tej vasi jih slišiš in bereš, drugih pa nihče ne zameri: vse v tej enoti je beseda ene države ob besedi druge, in oboje je prav.",
+          "it": "**heuer** (quest'anno), **der Jänner** (gennaio) e **der Feber** (febbraio) sono dell'Austria: Heuer war der Jänner kalt. La Germania dice dieses Jahr, Januar, Februar. Le parole austriache sono standard: sul calendario e sul giornale, non dialetto. In questo paese le senti e le leggi, e nessuno se la prende per le altre: tutto in questa unità è la parola di un paese accanto a quella di un altro, e sono giuste tutte e due."
+        },
+        "examples": [
+          {
+            "de": "Heuer war der Jänner kalt.",
+            "en": "This year January was cold.",
+            "sl": "Letos je bil januar mrzel.",
+            "it": "Quest'anno gennaio è stato freddo."
+          },
+          {
+            "de": "Im Feber fahren wir auf den Dobratsch.",
+            "en": "In February we're going up the Dobratsch.",
+            "sl": "Februarja gremo na Dobrač.",
+            "it": "A febbraio andiamo sul Dobratsch."
+          }
+        ],
+        "rows": [
+          [
+            "der Jänner",
+            "der Januar",
+            {
+              "en": "January",
+              "sl": "januar",
+              "it": "gennaio"
+            }
+          ],
+          [
+            "der Feber",
+            "der Februar",
+            {
+              "en": "February",
+              "sl": "februar",
+              "it": "febbraio"
+            }
+          ],
+          [
+            "heuer",
+            "dieses Jahr",
+            {
+              "en": "this year",
+              "sl": "letos",
+              "it": "quest'anno"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ fahren wir nach Villach, nächstes Jahr nicht.",
+          "options": [
+            "Heuer",
+            "Teuer",
+            "Gestern"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**heuer: this year, all over Austria. Jänner, Feber: the months. Both countries' words are right**\n- Heuer war der Jänner kalt.",
+            "sl": "**heuer: letos, po vsej Avstriji. Jänner, Feber: meseca. Besede obeh držav so prav**\n- Heuer war der Jänner kalt.",
+            "it": "**heuer: quest'anno, in tutta l'Austria. Jänner, Feber: i mesi. Le parole di tutti e due i paesi sono giuste**\n- Heuer war der Jänner kalt."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**der Paradeiser** (tomato), **der Erdapfel** (potato), **die Marille** (apricot), **der Topfen** (curd cheese), **das Obers** (cream), the kitchen is where Austria differs most. Germany says Tomate, Kartoffel, Aprikose, Quark, Sahne. Twenty-three such words, Marillen and Topfen among them, were written into the treaty when Austria joined the EU. So a Carinthian menu has them, and a guest from Hamburg asks what they are.",
+          "sl": "**der Paradeiser** (paradižnik), **der Erdapfel** (krompir), **die Marille** (marelica), **der Topfen** (skuta), **das Obers** (smetana): kuhinja je tam, kjer se Avstrija najbolj razlikuje. Nemčija reče Tomate, Kartoffel, Aprikose, Quark, Sahne. Triindvajset takih besed, med njimi Marillen in Topfen, je bilo zapisanih v pogodbo, ko je Avstrija vstopila v EU. Koroški jedilni list jih ima, gost iz Hamburga pa vpraša, kaj so.",
+          "it": "**der Paradeiser** (pomodoro), **der Erdapfel** (patata), **die Marille** (albicocca), **der Topfen** (quark), **das Obers** (panna): la cucina è dove l'Austria è più diversa. La Germania dice Tomate, Kartoffel, Aprikose, Quark, Sahne. Ventitré parole così, tra cui Marillen e Topfen, furono scritte nel trattato quando l'Austria entrò nell'UE. Un menù carinziano le ha, e un ospite di Amburgo chiede che cosa sono."
+        },
+        "examples": [
+          {
+            "de": "Oma Resi macht Marillenknödel mit Topfen.",
+            "en": "Oma Resi is making apricot dumplings with curd cheese.",
+            "sl": "Babica Resi dela marelične cmoke s skuto.",
+            "it": "Nonna Resi fa i canederli di albicocche col quark."
+          },
+          {
+            "de": "Ich hätte gern Erdäpfel und einen Paradeisersalat.",
+            "en": "I'd like potatoes and a tomato salad.",
+            "sl": "Rad bi krompir in paradižnikovo solato.",
+            "it": "Vorrei patate e un'insalata di pomodori."
+          }
+        ],
+        "rows": [
+          [
+            "der Paradeiser",
+            "die Tomate",
+            {
+              "en": "tomato",
+              "sl": "paradižnik",
+              "it": "pomodoro"
+            }
+          ],
+          [
+            "der Erdapfel",
+            "die Kartoffel",
+            {
+              "en": "potato",
+              "sl": "krompir",
+              "it": "patata"
+            }
+          ],
+          [
+            "die Marille",
+            "die Aprikose",
+            {
+              "en": "apricot",
+              "sl": "marelica",
+              "it": "albicocca"
+            }
+          ],
+          [
+            "der Topfen",
+            "der Quark",
+            {
+              "en": "curd cheese",
+              "sl": "skuta",
+              "it": "quark"
+            }
+          ],
+          [
+            "das Obers",
+            "die Sahne",
+            {
+              "en": "cream",
+              "sl": "smetana",
+              "it": "panna"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Oma Resi sagt: Hol mir zwei Paradeiser! Was holst du?",
+          "options": [
+            "Tomaten",
+            "Kartoffeln",
+            "Aprikosen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Paradeiser, Erdäpfel, Topfen, Obers, Marillen: Austria. Tomaten, Kartoffeln, Quark, Sahne, Aprikosen: Germany. Both are right**",
+            "sl": "**Paradeiser, Erdäpfel, Topfen, Obers, Marillen: Avstrija. Tomaten, Kartoffeln, Quark, Sahne, Aprikosen: Nemčija. Oboje je prav**",
+            "it": "**Paradeiser, Erdäpfel, Topfen, Obers, Marillen: Austria. Tomaten, Kartoffeln, Quark, Sahne, Aprikosen: Germania. Giuste tutte e due**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**der Sessel** (chair), **der Kasten** (cupboard), **die Stiege** (stairs), **das Spital** (hospital), **das Sackerl** (bag), **die Semmel** (bread roll): the house and the day. Germany says Stuhl, Schrank, Treppe, Krankenhaus, Tüte, Brötchen. Careful with Sessel: in Germany it's an armchair. **die Jause** (a snack, a cold bite) has no one word in Germany, and it came to Austria from Slovene južina.",
+          "sl": "**der Sessel** (stol), **der Kasten** (omara), **die Stiege** (stopnice), **das Spital** (bolnišnica), **das Sackerl** (vrečka), **die Semmel** (žemlja): hiša in dan. Nemčija reče Stuhl, Schrank, Treppe, Krankenhaus, Tüte, Brötchen. Pazi pri Sessel: v Nemčiji je to naslanjač. **die Jause** (malica, hladen prigrizek) v Nemčiji nima ene besede, v Avstrijo pa je prišla iz slovenske južine.",
+          "it": "**der Sessel** (sedia), **der Kasten** (armadio), **die Stiege** (scale), **das Spital** (ospedale), **das Sackerl** (sacchetto), **die Semmel** (panino): la casa e il giorno. La Germania dice Stuhl, Schrank, Treppe, Krankenhaus, Tüte, Brötchen. Attento a Sessel: in Germania è una poltrona. **die Jause** (la merenda, uno spuntino freddo) in Germania non ha una parola sola, e in Austria è arrivata dallo sloveno južina."
+        },
+        "examples": [
+          {
+            "de": "Stell die Kiste nicht auf den Sessel!",
+            "en": "Don't put the crate on the chair!",
+            "sl": "Ne postavljaj zaboja na stol!",
+            "it": "Non mettere la cassa sulla sedia!"
+          },
+          {
+            "de": "Um zehn gibt es eine Jause.",
+            "en": "At ten there's a snack.",
+            "sl": "Ob desetih je malica.",
+            "it": "Alle dieci c'è la merenda."
+          }
+        ],
+        "rows": [
+          [
+            "der Sessel",
+            "der Stuhl",
+            {
+              "en": "chair",
+              "sl": "stol",
+              "it": "sedia"
+            }
+          ],
+          [
+            "der Kasten",
+            "der Schrank",
+            {
+              "en": "cupboard",
+              "sl": "omara",
+              "it": "armadio"
+            }
+          ],
+          [
+            "die Stiege",
+            "die Treppe",
+            {
+              "en": "stairs",
+              "sl": "stopnice",
+              "it": "scale"
+            }
+          ],
+          [
+            "das Spital",
+            "das Krankenhaus",
+            {
+              "en": "hospital",
+              "sl": "bolnišnica",
+              "it": "ospedale"
+            }
+          ],
+          [
+            "das Sackerl",
+            "die Tüte",
+            {
+              "en": "bag",
+              "sl": "vrečka",
+              "it": "sacchetto"
+            }
+          ],
+          [
+            "die Semmel",
+            "das Brötchen",
+            {
+              "en": "bread roll",
+              "sl": "žemlja",
+              "it": "panino"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Die Teller sind im ___ in der Küche.",
+          "options": [
+            "Kasten",
+            "Sessel",
+            "Spital"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sessel, Kasten, Stiege, Sackerl, Spital: Austria. Stuhl, Schrank, Treppe, Tüte, Krankenhaus: Germany. Both are right**",
+            "sl": "**Sessel, Kasten, Stiege, Sackerl, Spital: Avstrija. Stuhl, Schrank, Treppe, Tüte, Krankenhaus: Nemčija. Oboje je prav**",
+            "it": "**Sessel, Kasten, Stiege, Sackerl, Spital: Austria. Stuhl, Schrank, Treppe, Tüte, Krankenhaus: Germania. Giuste tutte e due**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ich bin gesessen** (I sat), **gestanden** (stood), **gelegen** (lay): in Austria these three take sein, as in southern Germany and Switzerland. Northern Germany says hat gesessen, and that's right too. So: Oma Resi **ist** am Ofen **gesessen**. Die Kiste **ist** im Keller **gestanden**. Ich **bin** im Gras **gelegen**. And talk tells the past in the Perfekt: the Präteritum stays in writing, but for war and wollte.",
+          "sl": "**ich bin gesessen** (sedel sem), **gestanden** (stal), **gelegen** (ležal): v Avstriji imajo ti trije sein, kot na jugu Nemčije in v Švici. Sever Nemčije reče hat gesessen, in tudi to je prav. Torej: Oma Resi **ist** am Ofen **gesessen**. Die Kiste **ist** im Keller **gestanden**. Ich **bin** im Gras **gelegen**. V govoru se preteklost pove v perfektu: preterit ostane v pisavi, razen war in wollte.",
+          "it": "**ich bin gesessen** (sono stato seduto), **gestanden** (in piedi), **gelegen** (sdraiato): in Austria questi tre vogliono sein, come nel sud della Germania e in Svizzera. Il nord della Germania dice hat gesessen, e va bene anche quello. Quindi: Oma Resi **ist** am Ofen **gesessen**. Die Kiste **ist** im Keller **gestanden**. Ich **bin** im Gras **gelegen**. E parlando il passato si racconta col Perfekt: il Präteritum resta nello scritto, tranne war e wollte."
+        },
+        "examples": [
+          {
+            "de": "Oma Resi ist am Ofen gesessen.",
+            "en": "Oma Resi sat by the stove.",
+            "sl": "Babica Resi je sedela pri peči.",
+            "it": "Nonna Resi stava seduta accanto alla stufa."
+          },
+          {
+            "de": "Ich bin im Gras gelegen.",
+            "en": "I lay in the grass.",
+            "sl": "Ležal sem v travi.",
+            "it": "Sono stato sdraiato sull'erba."
+          }
+        ],
+        "rows": [
+          [
+            "ich bin gesessen",
+            "ich habe gesessen",
+            {
+              "en": "I sat",
+              "sl": "sedel sem",
+              "it": "sono stato seduto"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "oesterreichisch",
+          "text": "Stefan ___ gestern lang vor dem Gasthaus gestanden.",
+          "accept": [
+            "ist",
+            "hat"
+          ],
+          "hint": {
+            "en": "sein in Austria",
+            "sl": "sein v Avstriji",
+            "it": "sein in Austria"
+          },
+          "explain": {
+            "en": "**sitzen, stehen, liegen take sein in Austria: ich bin gesessen. haben is right in Germany's north**",
+            "sl": "**sitzen, stehen, liegen imajo v Avstriji sein: ich bin gesessen. haben je prav na severu Nemčije**",
+            "it": "**sitzen, stehen, liegen in Austria vogliono sein: ich bin gesessen. haben va bene nel nord della Germania**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**um fünf Euro** (for five euros) is what things cost in Austria; Germany buys für. **auf Urlaub** (on holiday), Germany in den Urlaub. **in der Arbeit** (at work), **zu Ostern** (at Easter). **auf etwas vergessen** (to forget): Ich habe auf deinen Geburtstag vergessen. **Das geht sich aus** (that works out, there's just enough time or money). And **das Cola**, **das E-Mail**, neuter here.",
+          "sl": "**um fünf Euro** (za pet evrov) je cena v Avstriji; Nemčija kupuje für. **auf Urlaub** (na dopust), Nemčija in den Urlaub. **in der Arbeit** (v službi), **zu Ostern** (za veliko noč). **auf etwas vergessen** (pozabiti): Ich habe auf deinen Geburtstag vergessen. **Das geht sich aus** (to se izide, časa ali denarja je ravno dovolj). In **das Cola**, **das E-Mail**, tukaj srednjega spola.",
+          "it": "**um fünf Euro** (per cinque euro) è il prezzo in Austria; la Germania compra für. **auf Urlaub** (in ferie), la Germania in den Urlaub. **in der Arbeit** (al lavoro), **zu Ostern** (a Pasqua). **auf etwas vergessen** (dimenticare): Ich habe auf deinen Geburtstag vergessen. **Das geht sich aus** (ce la si fa, il tempo o i soldi bastano giusti). E **das Cola**, **das E-Mail**, qui neutri."
+        },
+        "examples": [
+          {
+            "de": "Die Semmel gibt es um fünfzig Cent.",
+            "en": "You can get the bread roll for fifty cents.",
+            "sl": "Žemlja je petdeset centov.",
+            "it": "Il panino costa cinquanta centesimi."
+          },
+          {
+            "de": "Das geht sich nicht aus.",
+            "en": "That won't work out: there isn't enough time.",
+            "sl": "To se ne izide.",
+            "it": "Non ce la si fa."
+          }
+        ],
+        "rows": [
+          [
+            "um fünf Euro",
+            "für fünf Euro",
+            {
+              "en": "for five euros",
+              "sl": "za pet evrov",
+              "it": "per cinque euro"
+            }
+          ],
+          [
+            "auf Urlaub",
+            "in den Urlaub",
+            {
+              "en": "on holiday",
+              "sl": "na dopust",
+              "it": "in ferie"
+            }
+          ],
+          [
+            "auf etwas vergessen",
+            "etwas vergessen",
+            {
+              "en": "to forget",
+              "sl": "pozabiti",
+              "it": "dimenticare"
+            }
+          ],
+          [
+            "Das geht sich aus.",
+            "Das klappt.",
+            {
+              "en": "it works out",
+              "sl": "to se izide",
+              "it": "ce la si fa"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "oesterreichisch",
+          "text": "Das Sackerl kostet zehn Cent. Ich kaufe es ___ zehn Cent.",
+          "accept": [
+            "um",
+            "für"
+          ],
+          "hint": {
+            "en": "Austria or Germany: either word",
+            "sl": "Avstrija ali Nemčija: katera koli beseda",
+            "it": "Austria o Germania: una delle due parole"
+          },
+          "explain": {
+            "en": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: Austria's; für, in den Urlaub and vergessen with an object are right too**",
+            "sl": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: avstrijsko; für, in den Urlaub in vergessen s predmetom so tudi prav**",
+            "it": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: dell'Austria; für, in den Urlaub e vergessen con l'oggetto vanno bene anche**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**lei** (only), **nit** (not), **eppes** (something): spoken Carinthian, which you'll hear at Kathi's and need only understand. Vowels stretch: **ofn** (offen), **losn** (lassen). There's no ü: **miad** (müde). Goodbye is **Pfiati**. Each valley has its own. None of this is wrong, and none of it goes in a letter: you hear **Ich hab lei zwei Euro** and write Ich habe nur zwei Euro.",
+          "sl": "**lei** (samo), **nit** (ne), **eppes** (nekaj): govorjena koroščina, ki jo slišiš pri Kathi in jo moraš le razumeti. Samoglasniki se raztegnejo: **ofn** (offen), **losn** (lassen). Ü-ja ni: **miad** (müde). Na svidenje je **Pfiati**. Vsaka dolina ima svoje. Nič od tega ni narobe in nič od tega ne gre v pismo: slišiš **Ich hab lei zwei Euro**, napišeš Ich habe nur zwei Euro.",
+          "it": "**lei** (solo), **nit** (non), **eppes** (qualcosa): il carinziano parlato, che senti da Kathi e devi solo capire. Le vocali si allungano: **ofn** (offen), **losn** (lassen). Non c'è la ü: **miad** (müde). Arrivederci è **Pfiati**. Ogni valle ha il suo. Niente di questo è sbagliato e niente va in una lettera: senti **Ich hab lei zwei Euro** e scrivi Ich habe nur zwei Euro."
+        },
+        "examples": [
+          {
+            "de": "Ich hab lei zwei Euro.",
+            "en": "I've only got two euros.",
+            "sl": "Imam samo dva evra.",
+            "it": "Ho solo due euro."
+          },
+          {
+            "de": "Pfiati, Kathi!",
+            "en": "Bye, Kathi!",
+            "sl": "Na svidenje, Kathi!",
+            "it": "Ciao, Kathi!"
+          }
+        ],
+        "rows": [
+          [
+            "lei, nit, eppes",
+            "nur, nicht, etwas",
+            {
+              "en": "spoken Carinthian",
+              "sl": "govorjena koroščina",
+              "it": "carinziano parlato"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "»Das ist nit letz.« Was sagt Kathi über den Most?",
+          "options": [
+            "Er ist gut.",
+            "Er ist schlecht.",
+            "Er ist zu teuer."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. You hear them; you write the standard**",
+            "sl": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. To slišiš; pišeš standardno**",
+            "it": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. Li senti; scrivi lo standard**"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "oesterreichisch-1",
+      "title": {
+        "de": "Zwei Wörter, ein Ding",
+        "en": "Two words, one thing",
+        "sl": "Dve besedi, ena stvar",
+        "it": "Due parole, una cosa"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Sortiere · Sort: which words are one thing?",
+            "sl": "Sortiere · Razvrsti: katere besede so ena stvar?",
+            "it": "Sortiere · Ordina: quali parole sono una cosa sola?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "tomato",
+                "sl": "paradižnik",
+                "it": "pomodoro"
+              },
+              "words": [
+                "der Paradeiser",
+                "die Tomate"
+              ]
+            },
+            {
+              "label": {
+                "en": "potato",
+                "sl": "krompir",
+                "it": "patata"
+              },
+              "words": [
+                "der Erdapfel",
+                "die Kartoffel"
+              ]
+            },
+            {
+              "label": {
+                "en": "cream",
+                "sl": "smetana",
+                "it": "panna"
+              },
+              "words": [
+                "das Obers",
+                "die Sahne"
+              ]
+            },
+            {
+              "label": {
+                "en": "chair",
+                "sl": "stol",
+                "it": "sedia"
+              },
+              "words": [
+                "der Sessel",
+                "der Stuhl"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Austria's word first; Germany's is right too, and everyone understands both**",
+            "sl": "**Najprej avstrijska beseda; tudi nemška je prav, vsi razumejo obe**",
+            "it": "**Prima la parola austriaca; anche quella tedesca è giusta, e tutti capiscono entrambe**"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "as they say it in the village; Germany's word is right too",
+            "sl": "kot rečejo v vasi; tudi nemška beseda je prav",
+            "it": "come si dice in paese; anche la parola tedesca va bene"
+          },
+          "columns": [
+            {
+              "en": "in Kärnten · in Carinthia",
+              "sl": "in Kärnten · na Koroškem",
+              "it": "in Kärnten · in Carinzia"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "en": "this year",
+                "sl": "letos",
+                "it": "quest'anno"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "heuer",
+                    "dieses Jahr"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "January",
+                "sl": "januar",
+                "it": "gennaio"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "Jänner",
+                    "Januar"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "apricot",
+                "sl": "marelica",
+                "it": "albicocca"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "Marille",
+                    "Aprikose"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "curd cheese",
+                "sl": "skuta",
+                "it": "quark"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "Topfen",
+                    "Quark"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "hospital",
+                "sl": "bolnišnica",
+                "it": "ospedale"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "Spital",
+                    "Krankenhaus"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "stairs",
+                "sl": "stopnice",
+                "it": "scale"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "Stiege",
+                    "Treppe"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "bag",
+                "sl": "vrečka",
+                "it": "sacchetto"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "Sackerl",
+                    "Tüte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "cupboard",
+                "sl": "omara",
+                "it": "armadio"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "Kasten",
+                    "Schrank"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Austria's word first; Germany's is right too, and everyone understands both**",
+            "sl": "**Najprej avstrijska beseda; tudi nemška je prav, vsi razumejo obe**",
+            "it": "**Prima la parola austriaca; anche quella tedesca è giusta, e tutti capiscono entrambe**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "oesterreichisch-2",
+      "title": {
+        "de": "Oma Resis Zettel",
+        "en": "Oma Resi's note",
+        "sl": "Listek babice Resi",
+        "it": "Il biglietto di nonna Resi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Oma Resis Zettel",
+          "text": "Toni, ___ (dieses Jahr) mache ich die Knödel selbst. Hol bitte ___ (Quark), ___ (Kartoffeln) und ein Glas ___ (Aprikosen). Frag auch nach ___ (Sahne). Das Geld liegt im ___ (Schrank). Stell alles auf den ___ (Stuhl) in der Küche. Toni sagt: Das alles um zwanzig Euro? Das geht sich nicht ___. Und ich bin gestern lang im Gasthaus ___ (sitzen).",
+          "gaps": [
+            {
+              "accept": [
+                "heuer",
+                "dieses Jahr"
+              ]
+            },
+            {
+              "accept": [
+                "Topfen",
+                "Quark"
+              ]
+            },
+            {
+              "accept": [
+                "Erdäpfel",
+                "Kartoffeln"
+              ]
+            },
+            {
+              "accept": [
+                "Marillen",
+                "Aprikosen"
+              ]
+            },
+            {
+              "accept": [
+                "Obers",
+                "Sahne"
+              ]
+            },
+            {
+              "accept": [
+                "Kasten",
+                "Schrank"
+              ]
+            },
+            {
+              "accept": [
+                "Sessel",
+                "Stuhl"
+              ]
+            },
+            {
+              "accept": [
+                "aus"
+              ]
+            },
+            {
+              "accept": [
+                "gesessen"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Feber",
+            "Spital",
+            "Stiege"
+          ],
+          "translation": {
+            "en": "Toni, this year I'm making the dumplings myself. Please fetch curd cheese, potatoes and a jar of apricots. Ask for cream too. The money is in the cupboard. Put it all on the chair in the kitchen. Toni says: all that for twenty euros? That won't work out. And I sat in the inn for a long time yesterday.",
+            "sl": "Toni, letos sama delam cmoke. Prinesi, prosim, skuto, krompir in kozarec marelic. Vprašaj tudi za smetano. Denar je v omari. Vse postavi na stol v kuhinji. Toni reče: Vse to za dvajset evrov? To se ne izide. In včeraj sem dolgo sedel v gostilni.",
+            "it": "Toni, quest'anno i canederli li faccio io. Per favore prendi quark, patate e un vasetto di albicocche. Chiedi anche la panna. I soldi sono nell'armadio. Metti tutto sulla sedia in cucina. Toni dice: tutto questo per venti euro? Non ce la si fa. E ieri sono stato seduto a lungo all'osteria."
+          },
+          "explain": {
+            "en": "**Austria's word first; Germany's is right too, and everyone understands both**",
+            "sl": "**Najprej avstrijska beseda; tudi nemška je prav, vsi razumejo obe**",
+            "it": "**Prima la parola austriaca; anche quella tedesca è giusta, e tutti capiscono entrambe**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Auf der Karte steht Karfiol. Was bekommst du?",
+          "options": [
+            "Blumenkohl",
+            "Kartoffeln",
+            "Sahne"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Paradeiser, Erdäpfel, Topfen, Obers, Marillen: Austria. Tomaten, Kartoffeln, Quark, Sahne, Aprikosen: Germany. Both are right**",
+            "sl": "**Paradeiser, Erdäpfel, Topfen, Obers, Marillen: Avstrija. Tomaten, Kartoffeln, Quark, Sahne, Aprikosen: Nemčija. Oboje je prav**",
+            "it": "**Paradeiser, Erdäpfel, Topfen, Obers, Marillen: Austria. Tomaten, Kartoffeln, Quark, Sahne, Aprikosen: Germania. Giuste tutte e due**"
+          }
+        },
+        {
+          "type": "multi",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": {
+            "en": "Which sentences are right German? Pick all.",
+            "sl": "Kateri stavki so pravilni? Izberi vse.",
+            "it": "Quali frasi sono giuste? Scegli tutte."
+          },
+          "options": [
+            "Ich kaufe es um fünf Euro.",
+            "Ich kaufe es für fünf Euro.",
+            "Ich kaufe es an fünf Euro."
+          ],
+          "answers": [
+            0,
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "en": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: Austria's; für, in den Urlaub and vergessen with an object are right too**",
+            "sl": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: avstrijsko; für, in den Urlaub in vergessen s predmetom so tudi prav**",
+            "it": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: dell'Austria; für, in den Urlaub e vergessen con l'oggetto vanno bene anche**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "oesterreichisch-3",
+      "title": {
+        "de": "Wie man es sagt, wie man es schreibt",
+        "en": "As it is said, as it is written",
+        "sl": "Kako se reče, kako se piše",
+        "it": "Come si dice, come si scrive"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Sag es wie in Kärnten · Say it as Carinthia does; Germany's form is right too",
+            "sl": "Sag es wie in Kärnten · Povej kot na Koroškem; tudi nemška oblika je prav",
+            "it": "Sag es wie in Kärnten · Dillo come in Carinzia; anche la forma tedesca va bene"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Wir fahren dieses Jahr im Januar in den Urlaub.",
+              "accept": [
+                "Wir fahren heuer im Jänner auf Urlaub.",
+                "Wir fahren heuer im Jänner in den Urlaub.",
+                "Wir fahren heuer im Januar auf Urlaub.",
+                "Wir fahren heuer im Januar in den Urlaub.",
+                "Wir fahren dieses Jahr im Jänner auf Urlaub.",
+                "Wir fahren dieses Jahr im Jänner in den Urlaub.",
+                "Wir fahren dieses Jahr im Januar auf Urlaub.",
+                "Wir fahren dieses Jahr im Januar in den Urlaub."
+              ]
+            },
+            {
+              "from": "Lena isst ein Brötchen mit Tomate.",
+              "accept": [
+                "Lena isst eine Semmel mit Paradeiser.",
+                "Lena isst eine Semmel mit Tomate.",
+                "Lena isst ein Brötchen mit Paradeiser.",
+                "Lena isst ein Brötchen mit Tomate."
+              ]
+            },
+            {
+              "from": "Ich habe auf dem Stuhl gesessen.",
+              "accept": [
+                "Ich bin auf dem Sessel gesessen.",
+                "Ich bin auf dem Stuhl gesessen.",
+                "Ich habe auf dem Sessel gesessen.",
+                "Ich habe auf dem Stuhl gesessen."
+              ]
+            },
+            {
+              "from": "Er kauft es für fünf Euro.",
+              "accept": [
+                "Er kauft es um fünf Euro.",
+                "Er kauft es für fünf Euro."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Austria's word first; Germany's is right too, and everyone understands both**",
+            "sl": "**Najprej avstrijska beseda; tudi nemška je prav, vsi razumejo obe**",
+            "it": "**Prima la parola austriaca; anche quella tedesca è giusta, e tutti capiscono entrambe**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "oesterreichisch",
+          "instruction": {
+            "en": "Schreib es standardsprachlich · Write it in the standard: spoken is right too",
+            "sl": "Schreib es standardsprachlich · Napiši knjižno: tudi govorjeno je prav",
+            "it": "Schreib es standardsprachlich · Scrivilo in lingua standard: anche il parlato va bene"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich komme lei morgen.",
+              "accept": [
+                "Ich komme nur morgen.",
+                "Ich komme bloß morgen."
+              ],
+              "spoken": [
+                "Ich komme lei morgen."
+              ]
+            },
+            {
+              "from": "Hast du eppes gehört?",
+              "accept": [
+                "Hast du etwas gehört?"
+              ],
+              "spoken": [
+                "Hast du eppes gehört?",
+                "Hast du was gehört?"
+              ]
+            },
+            {
+              "from": "Die Tür ist ofn.",
+              "accept": [
+                "Die Tür ist offen."
+              ],
+              "spoken": [
+                "Die Tür ist ofn."
+              ]
+            },
+            {
+              "from": "Ich bin miad.",
+              "accept": [
+                "Ich bin müde."
+              ],
+              "spoken": [
+                "Ich bin miad."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. You hear them; you write the standard**",
+            "sl": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. To slišiš; pišeš standardno**",
+            "it": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. Li senti; scrivi lo standard**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "oesterreichisch",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Bei Kathi",
+        "text": "Kathi kocht ___ (dieses Jahr) mit Stankos Honig. Zur Suppe gibt es ___ (Kartoffeln). Zum Kuchen gibt es ___ (Sahne). Im ___ (Januar) ist das Gasthaus zu. Gestern ___ Stanko lang vor der Tür gestanden.",
+        "gaps": [
+          {
+            "accept": [
+              "heuer",
+              "dieses Jahr"
+            ]
+          },
+          {
+            "accept": [
+              "Erdäpfel",
+              "Kartoffeln"
+            ]
+          },
+          {
+            "accept": [
+              "Obers",
+              "Sahne"
+            ]
+          },
+          {
+            "accept": [
+              "Jänner",
+              "Januar"
+            ]
+          },
+          {
+            "accept": [
+              "ist",
+              "hat"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "This year Kathi is cooking with Stanko's honey. With the soup there are potatoes. With the cake there's cream. In January the inn is closed. Yesterday Stanko stood at the door for a long time.",
+          "sl": "Kathi letos kuha s Stankovim medom. K juhi je krompir. K kolaču je smetana. Januarja je gostilna zaprta. Včeraj je Stanko dolgo stal pred vrati.",
+          "it": "Quest'anno Kathi cucina col miele di Stanko. Con la zuppa ci sono le patate. Con la torta c'è la panna. A gennaio l'osteria è chiusa. Ieri Stanko è stato a lungo davanti alla porta."
+        },
+        "explain": {
+          "en": "**Austria's word first; Germany's is right too, and everyone understands both**",
+          "sl": "**Najprej avstrijska beseda; tudi nemška je prav, vsi razumejo obe**",
+          "it": "**Prima la parola austriaca; anche quella tedesca è giusta, e tutti capiscono entrambe**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "oesterreichisch",
+        "instruction": {
+          "en": "Sag es wie in Kärnten · Say it as Carinthia does; Germany's form is right too",
+          "sl": "Sag es wie in Kärnten · Povej kot na Koroškem; tudi nemška oblika je prav",
+          "it": "Sag es wie in Kärnten · Dillo come in Carinzia; anche la forma tedesca va bene"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Die Tomaten kosten zwei Euro.",
+            "accept": [
+              "Die Paradeiser kosten zwei Euro.",
+              "Die Tomaten kosten zwei Euro."
+            ]
+          },
+          {
+            "from": "Ich habe im Gras gelegen.",
+            "accept": [
+              "Ich bin im Gras gelegen.",
+              "Ich habe im Gras gelegen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Austria's word first; Germany's is right too, and everyone understands both**",
+          "sl": "**Najprej avstrijska beseda; tudi nemška je prav, vsi razumejo obe**",
+          "it": "**Prima la parola austriaca; anche quella tedesca è giusta, e tutti capiscono entrambe**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "oesterreichisch",
+        "instruction": {
+          "en": "Schreib es standardsprachlich · Write it in the standard: spoken is right too",
+          "sl": "Schreib es standardsprachlich · Napiši knjižno: tudi govorjeno je prav",
+          "it": "Schreib es standardsprachlich · Scrivilo in lingua standard: anche il parlato va bene"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Das ist nit teuer.",
+            "accept": [
+              "Das ist nicht teuer."
+            ],
+            "spoken": [
+              "Das ist nit teuer."
+            ]
+          },
+          {
+            "from": "Ich habe lei einen Euro.",
+            "accept": [
+              "Ich habe nur einen Euro.",
+              "Ich habe bloß einen Euro."
+            ],
+            "spoken": [
+              "Ich habe lei einen Euro.",
+              "Ich hab lei einen Euro."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. You hear them; you write the standard**",
+          "sl": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. To slišiš; pišeš standardno**",
+          "it": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. Li senti; scrivi lo standard**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "oesterreichisch",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi sagt: Das geht sich aus. Was meint sie?",
+        "options": [
+          "Es reicht gerade.",
+          "Es ist zu spät.",
+          "Sie geht weg."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: Austria's; für, in den Urlaub and vergessen with an object are right too**",
+          "sl": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: avstrijsko; für, in den Urlaub in vergessen s predmetom so tudi prav**",
+          "it": "**um fünf Euro, auf Urlaub, in der Arbeit, zu Ostern, auf etwas vergessen, es geht sich aus: dell'Austria; für, in den Urlaub e vergessen con l'oggetto vanno bene anche**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "oesterreichisch",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Um zehn gibt es eine Jause. Was gibt es?",
+        "options": [
+          "etwas Kleines zum Essen",
+          "eine Pause ohne Essen",
+          "einen Brief"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Sessel, Kasten, Stiege, Sackerl, Spital: Austria. Stuhl, Schrank, Treppe, Tüte, Krankenhaus: Germany. Both are right**",
+          "sl": "**Sessel, Kasten, Stiege, Sackerl, Spital: Avstrija. Stuhl, Schrank, Treppe, Tüte, Krankenhaus: Nemčija. Oboje je prav**",
+          "it": "**Sessel, Kasten, Stiege, Sackerl, Spital: Austria. Stuhl, Schrank, Treppe, Tüte, Krankenhaus: Germania. Giuste tutte e due**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "oesterreichisch",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "»Pfiati!« Was macht Stanko?",
+        "options": [
+          "Er geht.",
+          "Er kommt.",
+          "Er fragt."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. You hear them; you write the standard**",
+          "sl": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. To slišiš; pišeš standardno**",
+          "it": "**lei: nur. nit: nicht. eppes: etwas. ofn: offen. miad: müde. Li senti; scrivi lo standard**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: the words; Das geht sich aus; auf etwas vergessen; lei, nit, eppes, ofn, miad, letz, Pfiati; Jause and južina; each base"
+}
