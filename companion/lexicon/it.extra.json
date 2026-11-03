@@ -914,7 +914,7 @@
         "devono": "third-person plural present", "dovevi": "second-person singular imperfect", "doveva": "third-person singular imperfect",
         "dovevano": "third-person plural imperfect", "dovrei": "first-person singular conditional", "dovresti": "second-person singular conditional",
         "dovrebbero": "third-person plural conditional", "dovere": "infinitive", "dovrebbe": "third-person singular conditional",
-        "dovessi": "first/second-person singular imperfect subjunctive", "dovesse": "third-person singular imperfect subjunctive", "dovuto": "past participle"
+        "dovesse": "third-person singular imperfect subjunctive", "dovuto": "past participle"
       },
       "meanings": { "de": ["müssen"], "sl": ["morati"] } },
     { "lemma": "essere", "pos": "verb", "gloss": ["to be"],
@@ -1550,8 +1550,8 @@
         "vide": "third-person singular historic past", "vedemmo": "first-person plural historic past",
         "vedeste": "second-person plural historic past; second-person plural imperfect subjunctive", "videro": "third-person plural historic past",
         "veda": "first/second/third-person singular present subjunctive", "vedere": "infinitive", "visto": "past participle",
-        "vista": "feminine singular past participle", "viste": "feminine plural past participle", "vederla": "infinitive, with la (it, her)",
-        "vederle": "infinitive, with le (them; to her)"
+        "vista": "feminine singular past participle", "viste": "feminine plural past participle", "veduto": "past participle",
+        "vederla": "infinitive, with la (it, her)", "vederle": "infinitive, with le (them; to her)"
       },
       "meanings": { "de": ["sehen"], "sl": ["videti"] } },
     { "lemma": "guarire", "pos": "verb", "gloss": ["to heal, to get well"],
@@ -2469,6 +2469,9 @@
     { "lemma": "chiedere scusa", "pos": "phrase", "gloss": ["to say sorry", "to ask forgiveness"],
       "forms": { "chiederei scusa": "first-person singular conditional", "chiedere scusa": null },
       "meanings": { "de": ["um Verzeihung bitten"], "sl": ["prositi za oproščenje"] } },
+    { "lemma": "in tempo", "pos": "phrase", "gloss": ["in time"],
+      "forms": { "in tempo": null },
+      "meanings": { "de": ["rechtzeitig"], "sl": ["pravočasno"] } },
     { "lemma": "congratulazioni", "pos": "intj", "gloss": ["congratulations"],
       "forms": { "congratulazioni": null },
       "meanings": { "de": ["Herzlichen Glückwunsch, gratuliere"], "sl": ["čestitke"] } },
@@ -4326,6 +4329,12 @@
     { "lemma": "ambra", "pos": "noun", "gender": "f", "gloss": ["amber"],
       "forms": { "ambra": "singular" },
       "meanings": { "de": ["Bernstein"], "sl": ["jantar"] } },
+    { "lemma": "passato prossimo", "pos": "noun", "gender": "m", "gloss": ["the perfect tense (ho mangiato)"],
+      "forms": { "passato prossimo": "singular; plural" },
+      "meanings": { "de": ["das Perfekt (ho mangiato)"], "sl": ["sestavljeni preteklik (ho mangiato)"] } },
+    { "lemma": "presente storico", "pos": "noun", "gender": "m", "gloss": ["the historic present"],
+      "forms": { "presente storico": "singular; plural" },
+      "meanings": { "de": ["das historische Präsens"], "sl": ["zgodovinski sedanjik"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -6195,7 +6204,7 @@
       },
       "meanings": { "de": ["befestigen", "anstarren"], "sl": ["pritrditi", "strmeti v"] } },
     { "lemma": "fondere", "pos": "verb", "gloss": ["to melt"],
-      "forms": { "fondo": "first-person singular present", "fuso": "past participle", "fondere": "infinitive" },
+      "forms": { "fondo": "first-person singular present", "fondano": "third-person plural present subjunctive", "fuso": "past participle", "fondere": "infinitive" },
       "meanings": { "de": ["schmelzen"], "sl": ["topiti, stopiti"] } },
     { "lemma": "forgiare", "pos": "verb", "gloss": ["to forge, to hammer (iron)"],
       "forms": { "forgia": "third-person singular present; second-person singular imperative", "forgiare": "infinitive", "forgiato": "past participle" },
@@ -6988,7 +6997,10 @@
       "forms": { "si lamenta": "third-person singular present", "lamentarsi": "infinitive", "lamenta": "third-person singular present; second-person singular imperative" },
       "meanings": { "de": ["sich beklagen"], "sl": ["pritoževati se"] } },
     { "lemma": "fondare", "pos": "verb", "gloss": ["to found (a town)"],
-      "forms": { "fondo": "first-person singular present", "fondarono": "third-person plural historic past", "fondare": "infinitive" },
+      "forms": {
+        "fondo": "first-person singular present", "fondano": "third-person plural present", "fondarono": "third-person plural historic past",
+        "fondare": "infinitive"
+      },
       "meanings": { "de": ["gründen"], "sl": ["ustanoviti"] } },
     { "lemma": "divenire", "pos": "verb", "gloss": ["to become – in a story"],
       "forms": { "divenne": "third-person singular historic past", "divenire": "infinitive" },

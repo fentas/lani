@@ -217,11 +217,11 @@
           }
         },
         {
-          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se Aldo mi ___ un vasetto di miele, sarei contenta.", "options": ["desse", "darebbe", "dasse"], "answer": 0, "say_options": true,
+          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se Aldo mi ___ un vasetto di miele, sarei contenta.", "options": ["desse", "darebbe", "dessi"], "answer": 0, "say_options": true,
           "explain": {
-            "de": "**Aldo** (lui), dare hat einen eigenen Stamm → **desse**\n- darebbe: nach se nie\n- dasse: gibt es nicht",
-            "sl": "**Aldo** (lui), dare ima svojo osnovo → **desse**\n- darebbe: za se nikoli\n- dasse: ne obstaja",
-            "en": "**Aldo** (lui), dare has a stem of its own → **desse**\n- darebbe: never after se\n- dasse: there's no such form"
+            "de": "**Aldo** (lui), dare hat einen eigenen Stamm → **desse**\n- darebbe: nach se nie\n- dessi · ich, du",
+            "sl": "**Aldo** (lui), dare ima svojo osnovo → **desse**\n- darebbe: za se nikoli\n- dessi · jaz, ti",
+            "en": "**Aldo** (lui), dare has a stem of its own → **desse**\n- darebbe: never after se\n- dessi · I, you"
           }
         }
       ]
