@@ -5,7 +5,7 @@
   "title": { "en": "In the mill", "sl": "V mlinu", "it": "Nel mulino", "de": "In der Mühle" },
   "emoji": "🌾",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "mill",
   "from": ["project:mlin"],
   "pack": "in-the-mill",
@@ -68,7 +68,7 @@
       "weekdays": [1, 2, 3, 4, 5, 6],
       "chance": 0.5,
       "dialog": "grind",
-      "dialogs": ["grind-count", "grind"],
+      "dialogs": ["grind-b2-fine", "grind-b1-notebook", "grind-count", "grind"],
       "reward": { "food": 20 },
       "marker": "🌾",
       "memory": {
@@ -157,7 +157,7 @@
       "when": ["morning"],
       "chance": 0.4,
       "dialog": "multure",
-      "dialogs": ["multure-weigh", "multure"],
+      "dialogs": ["multure-b2-honest", "multure-b1-light", "multure-weigh", "multure"],
       "reward": { "food": 15 },
       "marker": "🥣",
       "memory": {
@@ -1813,6 +1813,79 @@
             "de": "Hm? Noch mal. Langsam."
           }
         }
+      ]
+    },
+    {
+      "id": "grind-b2-fine", "level": "B2",
+      "memory": {"en": "ten sacks by six, fine as dust", "sl": "deset vreč do šestih, drobno kot prah", "it": "dieci sacchi entro le sei, fini come polvere", "de": "zehn Säcke bis sechs, fein wie Staub"},
+      "lines": [
+        {"who": "tyson", "en": "Now watch, {m:lad|f:lass}. The oats are being ground as we speak. Four sacks an hour, from now till six.", "sl": "Zdaj pa glej. Oves se melje prav zdaj. Štiri vreče na uro, od zdaj do šestih.", "it": "Ora guarda, {m:ragazzo|f:ragazza}. L'avena si sta macinando proprio adesso. Quattro sacchi all'ora, da adesso fino alle sei.", "de": "Jetzt pass auf, {m:Junge|f:Mädchen}. Der Hafer wird gerade gemahlen. Vier Säcke pro Stunde, von jetzt bis sechs."},
+        {"who": "tyson", "face": "curious", "en": "We started at half past three. By six, how much will be done?", "sl": "Začeli smo ob pol štirih. Koliko bo narejeno do šestih?", "it": "Abbiamo cominciato alle tre e mezza. Per le sei, quanto sarà fatto?", "de": "Angefangen haben wir um halb vier. Wie viel ist bis sechs erledigt?"},
+        { "choices": [
+          {"en": "Ten sacks will have been ground by six.", "sl": "Do šestih bo zmletih deset vreč.", "it": "Per le sei saranno stati macinati dieci sacchi.", "de": "Bis sechs werden zehn Säcke gemahlen worden sein.", "ok": true, "reply": {"face": "proud", "en": "Ten. Right. Write it in the book.", "sl": "Deset. Prav. Zapiši v knjigo.", "it": "Dieci. Bene. Scrivilo nel quaderno.", "de": "Zehn. Richtig. Schreib's ins Buch."}},
+          {"en": "Ten sacks will have ground by six.", "sl": "Do šestih bo zmletih deset vreč.", "it": "Per le sei saranno stati macinati dieci sacchi.", "de": "Bis sechs werden zehn Säcke gemahlen worden sein.", "grammar": "passive-more", "why": {"en": "The future passive: will have been + the participle. The sacks don't do the grinding.", "sl": "Prihodnji trpnik: will have been + deležnik. Vreče ne meljejo same.", "it": "Il passivo futuro: will have been + il participio. I sacchi non macinano da soli.", "de": "Das Passiv der Zukunft: will have been + Partizip. Die Säcke mahlen nicht selbst."}, "reply": {"face": "cross", "en": "Will have ground? The sacks grind nothing, {m:lad|f:lass}.", "sl": "Will have ground? Vreče ne meljejo ničesar.", "it": "Will have ground? I sacchi non macinano niente, {m:ragazzo|f:ragazza}.", "de": "Will have ground? Säcke mahlen gar nichts, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "proud", "en": "And it's finer than the old mill's. My stones grind fine; theirs ground coarse.", "sl": "In je bolj droben kot iz starega mlina. Moji kamni meljejo drobno, njihovi so mleli grobo.", "it": "Ed è più fine di quello del vecchio mulino. Le mie macine macinano fine, le loro grosso.", "de": "Und es ist feiner als das aus der alten Mühle. Meine Steine mahlen fein, ihre mahlten grob."},
+        { "choices": [
+          {"en": "Your oatmeal is fine, whereas the old mill's was coarse.", "sl": "Vaša moka je drobna, medtem ko je bila iz starega mlina groba.", "it": "La Sua farina d'avena è fine, mentre quella del vecchio mulino era grossa.", "de": "Ihr Hafermehl ist fein, während das der alten Mühle grob war.", "ok": true, "reply": {"face": "happy", "en": "Exactly. Maggie says her porridge has never been smoother.", "sl": "Natanko. Maggie pravi, da njena kaša še nikoli ni bila tako gladka.", "it": "Esatto. Maggie dice che il suo porridge non è mai stato così liscio.", "de": "Genau. Maggie sagt, ihr Porridge war noch nie so glatt."}},
+          {"en": "Your oatmeal is fine, whereas the old mill's was fine too.", "sl": "Vaša moka je drobna, medtem ko je bila tudi iz starega mlina drobna.", "it": "La Sua farina d'avena è fine, mentre anche quella del vecchio mulino era fine.", "de": "Ihr Hafermehl ist fein, während das der alten Mühle auch fein war.", "grammar": "result-linkers", "why": {"en": "Whereas sets two different facts side by side: fine here, coarse at the old mill.", "sl": "Whereas postavi dve različni dejstvi drugo ob drugo: tu drobno, v starem mlinu grobo.", "it": "Whereas mette a confronto due fatti diversi: qui fine, al vecchio mulino grossa.", "de": "Whereas stellt zwei verschiedene Tatsachen nebeneinander: hier fein, in der alten Mühle grob."}, "reply": {"face": "surprised", "en": "Fine too? Then why build a new mill, {m:lad|f:lass}?", "sl": "Tudi drobna? Zakaj potem nov mlin?", "it": "Fine anche quella? E allora perché un mulino nuovo, {m:ragazzo|f:ragazza}?", "de": "Auch fein? Wozu dann eine neue Mühle, {m:Junge|f:Mädchen}?"}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Ten sacks by six, fine as dust. The village won't go hungry.", "sl": "Prav. Deset vreč do šestih, drobno kot prah. Vas ne bo lačna.", "it": "Bene. Dieci sacchi entro le sei, fini come polvere. Il villaggio non avrà fame.", "de": "Gut. Zehn Säcke bis sechs, fein wie Staub. Das Dorf muss nicht hungern."}
+      ]
+    },
+    {
+      "id": "grind-b1-notebook", "level": "B1",
+      "memory": {"en": "the ten sacks in my notebook", "sl": "deset vreč v moji beležki", "it": "i dieci sacchi nel mio taccuino", "de": "die zehn Säcke in meinem Notizbuch"},
+      "lines": [
+        {"who": "tyson", "en": "Now watch, {m:lad|f:lass}. The oats go in the hopper at the top. The stones turn below.", "sl": "Zdaj pa glej. Oves gre v lijak na vrhu. Spodaj se vrtita kamna.", "it": "Ora guarda, {m:ragazzo|f:ragazza}. L'avena va nella tramoggia in cima. Sotto girano le macine.", "de": "Jetzt pass auf, {m:Junge|f:Mädchen}. Der Hafer kommt oben in den Trichter. Unten drehen sich die Steine."},
+        {"who": "tyson", "face": "curious", "en": "You've been watching those stones a while. How long, would you say?", "sl": "Že kar nekaj časa gledaš kamna. Koliko časa, kaj praviš?", "it": "Guardi quelle macine da un po'. Da quanto, secondo te?", "de": "Du schaust den Steinen schon eine Weile zu. Wie lange, was meinst du?"},
+        { "choices": [
+          {"en": "For ten minutes. It's hard to stop!", "sl": "Deset minut. Težko je nehati!", "it": "Da dieci minuti. È difficile smettere!", "de": "Seit zehn Minuten. Man kann kaum aufhören!", "ok": true, "reply": {"face": "laugh", "en": "Ten minutes. I counted. I count everything.", "sl": "Deset minut. Štel sem. Vse štejem.", "it": "Dieci minuti. Li ho contati. Io conto tutto.", "de": "Zehn Minuten. Ich hab gezählt. Ich zähle alles."}},
+          {"en": "Since ten minutes. It's hard to stop!", "sl": "Deset minut. Težko je nehati!", "it": "Da dieci minuti. È difficile smettere!", "de": "Seit zehn Minuten. Man kann kaum aufhören!", "grammar": "for-since", "why": {"en": "For + how long: for ten minutes. Since + when it began: since three o'clock.", "sl": "For + kako dolgo: for ten minutes. Since + kdaj se je začelo: since three o'clock.", "it": "For + quanto dura: for ten minutes. Since + quando è cominciato: since three o'clock.", "de": "For + wie lange: for ten minutes. Since + wann es anfing: since three o'clock."}, "reply": {"face": "curious", "en": "Since ten minutes? Since which minute, {m:lad|f:lass}?", "sl": "Since ten minutes? Od katere minute?", "it": "Since ten minutes? Da quale minuto, {m:ragazzo|f:ragazza}?", "de": "Since ten minutes? Seit welcher Minute, {m:Junge|f:Mädchen}?"}}
+        ] },
+        {"who": "tyson", "en": "Right. Ten sacks done. My notebook's on the shelf. Write the number in, will you?", "sl": "Prav. Deset vreč je narejenih. Beležka je na polici. Vpiši številko, prosim.", "it": "Bene. Dieci sacchi fatti. Il taccuino è sullo scaffale. Scrivi il numero, per favore.", "de": "Gut. Zehn Säcke fertig. Mein Notizbuch liegt im Regal. Trägst du die Zahl ein?"},
+        { "choices": [
+          {"en": "Of course. I'll fill it in for you.", "sl": "Seveda. {m:Vpisal|f:Vpisala} vam jo bom.", "it": "Certo. Lo compilo io per Lei.", "de": "Natürlich. Ich trag sie für Sie ein.", "ok": true, "reply": {"face": "happy", "en": "Ten. In your best writing, mind.", "sl": "Deset. Z najlepšo pisavo, prosim.", "it": "Dieci. Con la tua scrittura migliore, eh.", "de": "Zehn. In deiner schönsten Schrift, bitte."}},
+          {"en": "Of course. I'll fill in it for you.", "sl": "Seveda. {m:Vpisal|f:Vpisala} vam jo bom.", "it": "Certo. Lo compilo io per Lei.", "de": "Natürlich. Ich trag sie für Sie ein.", "grammar": "phrasal-verbs", "why": {"en": "With it, the small word goes after: fill it in. With a noun both work: fill in the form.", "sl": "Pri it gre majhna beseda za njim: fill it in. S samostalnikom gre oboje: fill in the form.", "it": "Con it la parolina va dopo: fill it in. Con un nome vanno bene tutte e due: fill in the form.", "de": "Bei it kommt das kleine Wort danach: fill it in. Mit einem Nomen geht beides: fill in the form."}, "reply": {"face": "cross", "en": "Fill in it? Count again, {m:lad|f:lass}. Wrong order.", "sl": "Fill in it? Še enkrat. Napačen vrstni red.", "it": "Fill in it? Riconta, {m:ragazzo|f:ragazza}. Ordine sbagliato.", "de": "Fill in it? Noch mal, {m:Junge|f:Mädchen}. Falsche Reihenfolge."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Ten sacks. That's porridge for the whole village till spring.", "sl": "Deset vreč. To je kaša za vso vas do pomladi.", "it": "Dieci sacchi. È porridge per tutto il villaggio fino a primavera.", "de": "Zehn Säcke. Das ist Porridge fürs ganze Dorf bis zum Frühling."}
+      ]
+    },
+    {
+      "id": "multure-b2-honest", "level": "B2",
+      "memory": {"en": "the honest measure and the old miller who taught Mr Tyson", "sl": "pošteno merico in starega mlinarja, ki je učil gospoda Tysona", "it": "la misura onesta e il vecchio mugnaio che insegnò al signor Tyson", "de": "das ehrliche Maß und den alten Müller, der Mr Tyson ausgebildet hat"},
+      "lines": [
+        {"who": "dixon", "en": "Morning. My notebook. Three sacks, three measures. Exact, like always.", "sl": "Jutro. Moja beležka. Tri vreče, tri merice. Natančno, kot vedno.", "it": "Buongiorno. Il mio taccuino. Tre sacchi, tre misure. Esatto, come sempre.", "de": "Morgen. Mein Notizbuch. Drei Säcke, drei Maß. Genau, wie immer."},
+        {"who": "dixon", "face": "curious", "en": "A miller who cheats on the multure is… not honest. What's the one word?", "sl": "Mlinar, ki goljufa pri merici, je … ni pošten. Kako se reče z eno besedo?", "it": "Un mugnaio che imbroglia sulla molenda è… non onesto. Qual è la parola?", "de": "Ein Müller, der bei der Mahlmetze schummelt, ist … nicht ehrlich. Wie heißt das in einem Wort?"},
+        { "choices": [
+          {"en": "Dishonest.", "sl": "Nepošten.", "it": "Disonesto.", "de": "Unehrlich.", "ok": true, "reply": {"en": "Dishonest. And Mr Tyson's never been that. Not once.", "sl": "Nepošten. In gospod Tyson tak ni bil nikoli. Niti enkrat.", "it": "Disonesto. E il signor Tyson non lo è mai stato. Mai.", "de": "Unehrlich. Und das war Mr Tyson nie. Kein einziges Mal."}},
+          {"en": "Unhonest.", "sl": "Nepošten.", "it": "Disonesto.", "de": "Unehrlich.", "grammar": "word-building", "why": {"en": "Honest takes dis-: dishonest, like disagree. Un- goes with happy, kind, fair.", "sl": "Honest dobi dis-: dishonest, kot disagree. Un- gre s happy, kind, fair.", "it": "Honest prende dis-: dishonest, come disagree. Un- va con happy, kind, fair.", "de": "Honest bekommt dis-: dishonest, wie disagree. Un- passt zu happy, kind, fair."}, "reply": {"face": "cross", "en": "Unhonest? Not a word. Not in my book, {m:lad|f:lass}.", "sl": "Unhonest? Te besede ni. V moji beležki že ne.", "it": "Unhonest? Non è una parola. Non nel mio taccuino, {m:ragazzo|f:ragazza}.", "de": "Unhonest? Kein Wort. Nicht in meinem Buch, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "thinking", "en": "It was the old miller in the next dale who taught Mr Tyson the trade.", "sl": "Obrti je gospoda Tysona naučil prav stari mlinar v sosednji dolini.", "it": "È stato il vecchio mugnaio della valle vicina a insegnare il mestiere al signor Tyson.", "de": "Es war der alte Müller im Nachbartal, der Mr Tyson das Handwerk beigebracht hat."},
+        { "choices": [
+          {"en": "So Mr Tyson learnt it from the old miller.", "sl": "Torej se je gospod Tyson naučil od starega mlinarja.", "it": "Quindi il signor Tyson l'ha imparato dal vecchio mugnaio.", "de": "Mr Tyson hat es also vom alten Müller gelernt.", "ok": true, "reply": {"en": "Aye. As a boy. Fifty years ago.", "sl": "Ja. Kot deček. Pred petdesetimi leti.", "it": "Sì. Da ragazzo. Cinquant'anni fa.", "de": "Ja. Als Junge. Vor fünfzig Jahren."}},
+          {"en": "So the old miller learnt it from Mr Tyson.", "sl": "Torej se je stari mlinar naučil od gospoda Tysona.", "it": "Quindi il vecchio mugnaio l'ha imparato dal signor Tyson.", "de": "Der alte Müller hat es also von Mr Tyson gelernt.", "grammar": "emphasis", "why": {"en": "It was the old miller who taught him: the old miller did the teaching, Mr Tyson learnt.", "sl": "It was the old miller who taught him: učil je stari mlinar, gospod Tyson se je učil.", "it": "It was the old miller who taught him: insegnava il vecchio mugnaio, il signor Tyson imparava.", "de": "It was the old miller who taught him: Der alte Müller hat gelehrt, Mr Tyson gelernt."}, "reply": {"face": "surprised", "en": "Other way round? Mr Tyson was ten, {m:lad|f:lass}!", "sl": "Obratno? Gospod Tyson je imel deset let!", "it": "Al contrario? Il signor Tyson aveva dieci anni, {m:ragazzo|f:ragazza}!", "de": "Andersrum? Mr Tyson war zehn, {m:Junge|f:Mädchen}!"}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Three sacks, three measures. Written down. Good morning.", "sl": "Tri vreče, tri merice. Zapisano. Lep dan.", "it": "Tre sacchi, tre misure. Scritto. Buona giornata.", "de": "Drei Säcke, drei Maß. Aufgeschrieben. Guten Morgen."}
+      ]
+    },
+    {
+      "id": "multure-b1-light", "level": "B1",
+      "memory": {"en": "the light sack and the miller's fair pay", "sl": "lahko vrečo in mlinarjevo pošteno plačilo", "it": "il sacco leggero e la giusta paga del mugnaio", "de": "den leichten Sack und den gerechten Lohn des Müllers"},
+      "lines": [
+        {"who": "dixon", "en": "Morning. Three sacks of oats for grinding. The miller takes his multure: one measure from every sack.", "sl": "Jutro. Tri vreče ovsa za mletje. Mlinar vzame svojo merico: en mernik iz vsake vreče.", "it": "Buongiorno. Tre sacchi d'avena da macinare. Il mugnaio prende la sua molenda: una misura da ogni sacco.", "de": "Morgen. Drei Säcke Hafer zum Mahlen. Der Müller nimmt seine Mahlmetze: ein Maß aus jedem Sack."},
+        {"who": "dixon", "face": "curious", "en": "Lift this one. Feels light, doesn't it?", "sl": "Dvigni tole. Lahka je, kajne?", "it": "Solleva questo. Leggero, vero?", "de": "Heb den mal. Fühlt sich leicht an, oder?"},
+        { "choices": [
+          {"en": "It must weigh less than the others.", "sl": "Gotovo tehta manj kot drugi.", "it": "Deve pesare meno degli altri.", "de": "Er muss weniger wiegen als die anderen.", "ok": true, "reply": {"en": "Aye. Twenty-four kilos. The others twenty-five.", "sl": "Ja. Štiriindvajset kilogramov. Drugi petindvajset.", "it": "Sì. Ventiquattro chili. Gli altri venticinque.", "de": "Ja. Vierundzwanzig Kilo. Die anderen fünfundzwanzig."}},
+          {"en": "It must weighs less than the others.", "sl": "Gotovo tehta manj kot drugi.", "it": "Deve pesare meno degli altri.", "de": "Er muss weniger wiegen als die anderen.", "grammar": "might-must", "why": {"en": "Must takes the base form, with no -s: it must weigh.", "sl": "Must zahteva osnovno obliko, brez -s: it must weigh.", "it": "Must vuole la forma base, senza -s: it must weigh.", "de": "Must nimmt die Grundform, ohne -s: it must weigh."}, "reply": {"face": "cross", "en": "Must weighs? It's right, or it isn't, {m:lad|f:lass}.", "sl": "Must weighs? Ali je prav ali pa ni.", "it": "Must weighs? O è giusto o non lo è, {m:ragazzo|f:ragazza}.", "de": "Must weighs? Entweder es stimmt, oder nicht, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "en": "Mr Tyson's been at the stones since dawn.", "sl": "Gospod Tyson je pri kamnih že od zore.", "it": "Il signor Tyson è alle macine dall'alba.", "de": "Mr Tyson ist seit dem Morgengrauen an den Steinen."},
+        {"who": "dixon", "face": "curious", "en": "Does he earn his measure, then?", "sl": "Si torej zasluži svojo merico?", "it": "Allora se la guadagna, la sua misura?", "de": "Verdient er sich dann sein Maß?"},
+        { "choices": [
+          {"en": "He's been working since dawn, so he deserves it.", "sl": "Dela že od zore, zato si jo zasluži.", "it": "Lavora dall'alba, quindi se la merita.", "de": "Er arbeitet seit dem Morgengrauen, also hat er es verdient.", "ok": true, "reply": {"en": "Aye. Fair work, fair pay.", "sl": "Ja. Pošteno delo, pošteno plačilo.", "it": "Sì. Lavoro onesto, paga onesta.", "de": "Ja. Ehrliche Arbeit, ehrlicher Lohn."}},
+          {"en": "He's working since dawn, so he deserves it.", "sl": "Dela že od zore, zato si jo zasluži.", "it": "Lavora dall'alba, quindi se la merita.", "de": "Er arbeitet seit dem Morgengrauen, also hat er es verdient.", "grammar": "present-perfect-continuous", "why": {"en": "From dawn up to now: has been + -ing, he's been working since dawn.", "sl": "Od zore do zdaj: has been + -ing, he's been working since dawn.", "it": "Dall'alba fino ad adesso: has been + -ing, he's been working since dawn.", "de": "Vom Morgengrauen bis jetzt: has been + -ing, he's been working since dawn."}, "reply": {"face": "cross", "en": "He's working since? Again, {m:lad|f:lass}. Properly.", "sl": "He's working since? Še enkrat. Kot se spodobi.", "it": "He's working since? Di nuovo, {m:ragazzo|f:ragazza}. Come si deve.", "de": "He's working since? Noch mal, {m:Junge|f:Mädchen}. Ordentlich."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Three measures. One for him. Fair.", "sl": "Tri merice. Ena zanj. Pošteno.", "it": "Tre misure. Una per lui. Giusto.", "de": "Drei Maß. Eins für ihn. Gerecht."}
       ]
     }
   ]
