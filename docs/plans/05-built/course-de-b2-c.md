@@ -17,6 +17,8 @@ This part's list; parts a's and b's are first in their docs, and stand. Austrian
 7. **in der Arbeit** (`oesterreichisch`): [Wikipedia](https://de.wikipedia.org/wiki/%C3%96sterreichisches_Deutsch) gives it, and says it is southern German too. zu Ostern was taken out: a second reader says it's normal in Germany too. Named in step 5 and on the page only.
 8. **The opening without a title** (`formeller-brief`): *Sehr geehrte Frau Huber* for Frau Mag. Anna Huber is accepted, as Germany writes it and as a younger Austrian might. Is it fair to grade right on a sheet whose point is the title? **losn** is also dialect for listening (a second reader's note, not looked up).
 
+**Stay almost by the lead's ruling, for the native check all the same:** `Er sagt, er ist krank` (part a's list), `den Mensch`, `dem Bub`, `mit Herr Moser` (part b's).
+
 Then the sentences, for naturalness:
 
 - **indem-sodass**: "Franz rettete sein Mehl, indem er die Säcke nach oben trug"; "Toni half ihm, ohne dass man ihn bitten musste"; "Dadurch, dass alle mithalfen, war die Arbeit am Abend fertig"; "Und anstatt dass Franz Geld zahlte, gab es für alle eine Jause"; "Anstatt dass Toni hilft, arbeitet Kathi allein"; "Der Bach ist jetzt zu tief, um zu Fuß durchzugehen".
@@ -144,7 +146,31 @@ The lead's order, with merges: part a (853442b2), part b (7a6d301f), then `cours
 
 **A test ADB can't pass:** the QA types no ä, ö, ü, ß, so such an answer counts half. `formeller-brief`'s test stopped at 9 of 12 with none wrong. Two gaps and a line now ask for another word (Mit ___ Grüßen, Kommen Sie am Freitag?), and it is reachable. `moechten`, `haette-waere`, `wenn-ich-haette` and `haette-gewusst` stay out of reach for the same reason: a QA limit, as a learner has the letter chips.
 
-**Found, not done:** older pages' `see` don't point on to B2's (konjunktiv-zwei to konjunktiv-vergangenheit, passiv to passiv-zeiten): no outline asks for it.
+**Found, not done:**
+- Older pages' `see` don't point on to B2's (konjunktiv-zwei to konjunktiv-vergangenheit, passiv to passiv-zeiten): no outline asks for it.
+- Six older German units keep intro tables over twelve rows: `partizip-perfekt` 16, `zahlen` 15, `am-ersten-mai` 14, `werden-futur` 14, `perfekt` 13, `wem-dativ` 13. Not checked on an emulator, and changing them changes what their prints show.
+
+## Checks on the merged course
+
+**At the tip, 9a06ac1e** (it differs from 6d510035 only in two units' intro rows and this doc):
+- `bunx tsc --noEmit -p .`: clean. The smoke (ports 10210, 10213, 10216; Drama 3 on 10228): 3,697 checks pass, none fail. `tutor-export --check`: 140 files match.
+- Android, the German classes and the school's: 225 tests in 37 classes, none failed. Among them all of `GermanA2*`, `GermanB1*`, `GermanB2*`, `GermanCourseContentTest`, `GrammarTest`, `SchoolBoardTest`, `CheatSheetTest`, `IntroSpeechParityTest`.
+- `school-prints --language de --level B2` in en, sl and it: all 18 fit two pages, no word without a meaning; booklets of 38, 35 and 35 pages.
+- Emulator, `oesterreichisch`, base en: setup, course-unit and the crash check ok, through the sheet, the test passed and the print.
+
+**At 6d510035:**
+- Android, **the whole unit suite** through lani-slot: 4,026 tests in 514 classes, none failed (2 skipped).
+- `bun test/prompt-clashes.ts`: exit 0, no new clash. `lexicon-build --coverage --lang de`: 99.1 % of words known, 98.7 % meant in each base (at the base 99.0 and 98.6), 51 unknown, as at the base.
+- Emulator, `satzbau`, base sl: ok, its first sheet whole sentences in full-width lines, the arrow alone. `formeller-brief`, base it: ok, its openings as lines, the test passed, the print.
+
+**At b0a9c50f** (nothing Python or TypeScript changed since):
+- `bun build --no-bundle` on the 10 TypeScript test files changed since the base: all parse.
+- Python: 253 tests (tests) and 158 (companion/tests, 11 skipped), all pass.
+- Emulator, `indem-sodass`, base en: ok, its clauses as lines. `konjunktiv-eins` (part a's), base sl: ok, the next unit named.
+
+Each emulator run: `--no-town --steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-<base>`, `LANI_DEV_DATA` from `make-learner.ts --target de --base <base>`. Shots in the scratchpad's `ux-course-de-b2-c/<unit>/` and `merged-<unit>/` (cu-*).
+
+**Not done:** the other 13 units of B2 on an emulator; a `spoken` or `nonstandard` form typed on an emulator (the app's labels for them are seen in their tests here only); a full reading of the 18 prints (2 pages looked at).
 
 ## What's left
 
