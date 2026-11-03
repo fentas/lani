@@ -1,0 +1,642 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "word-building",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🧱",
+  "title": {
+    "en": "Happy, unhappy, happiness",
+    "de": "Wortbildung: unhappy, happiness",
+    "sl": "Besedotvorje: unhappy, happiness",
+    "it": "La formazione delle parole: unhappy, happiness"
+  },
+  "goal": {
+    "sl": "Iz ene besede narediš več: nasprotja (unhappy, impossible), samostalnike (kindness, decision), pridevnike (careful, careless) in cele družine besed, kot jih sprašuje B2 First.",
+    "de": "Aus einem Wort machst du mehrere: Gegenteile (unhappy, impossible), Nomen (kindness, decision), Adjektive (careful, careless) und ganze Wortfamilien, wie B2 First sie abfragt.",
+    "it": "Da una parola ne fai altre: contrari (unhappy, impossible), nomi (kindness, decision), aggettivi (careful, careless) e intere famiglie di parole, come chiede il B2 First.",
+    "en": "You can make more words from one: opposites (unhappy, impossible), nouns (kindness, decision), adjectives (careful, careless) and whole families of words, as B2 First asks."
+  },
+  "grammar": ["word-building"],
+  "words": [
+    "unhappy",
+    "unkind",
+    "unlucky",
+    "disagree",
+    "dislike",
+    "dishonest",
+    "disappear",
+    "impossible",
+    "impolite",
+    "impatient",
+    "illegal",
+    "irregular",
+    "incorrect",
+    "rebuild",
+    "misunderstand",
+    "oversleep",
+    "happiness",
+    "kindness",
+    "darkness",
+    "illness",
+    "agreement",
+    "information",
+    "invitation",
+    "decision",
+    "careful",
+    "careless",
+    "useful",
+    "useless",
+    "hopeful",
+    "beautiful",
+    "dangerous",
+    "famous",
+    "natural",
+    "comfortable",
+    "widen",
+    "shorten",
+    "realise",
+    "succeed",
+    "successful",
+    "unsuccessful"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "del besede", "de": "Wortteil", "it": "parte della parola", "en": "word part" },
+        { "sl": "kaj naredi", "de": "was es macht", "it": "che cosa fa", "en": "what it does" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**happy → unhappy.** (srečen → nesrečen) **un-** in **dis-** pomenita ne, drugega se ne spremeni: **unkind** (neprijazen), **unlucky** (nesrečen); **disagree** (ne strinjati se), **dislike** (ne marati), **dishonest** (nepošten). **disappear** (izginiti) je le še ena beseda z **dis-**. Kateri je pravi, se naučiš z besedo.",
+          "de": "**happy → unhappy.** (glücklich → unglücklich) **un-** und **dis-** heißen nicht, sonst ändert sich nichts: **unkind** (unfreundlich), **unlucky** (glücklos); **disagree** (nicht einverstanden sein), **dislike** (nicht mögen), **dishonest** (unehrlich). **disappear** (verschwinden) ist noch ein Wort mit **dis-**. Welches passt, lernst du mit dem Wort.",
+          "it": "**happy → unhappy.** (felice → infelice) **un-** e **dis-** vogliono dire non, il resto non cambia: **unkind** (scortese), **unlucky** (sfortunato); **disagree** (non essere d'accordo), **dislike** (non gradire), **dishonest** (disonesto). **disappear** (sparire) è un'altra parola con **dis-**. Quale va bene lo impari con la parola.",
+          "en": "**happy → unhappy.** **un-** and **dis-** say not, and nothing else changes: **unkind**, **unlucky**; **disagree**, **dislike**, **dishonest**. **disappear** is one more word with **dis-**. Which one it takes, you learn with the word."
+        },
+        "examples": [
+          { "en": "Edna was unhappy.", "sl": "Edna je bila nesrečna.", "de": "Edna war unglücklich.", "it": "Edna era infelice." },
+          {
+            "en": "Jack and Sam disagree.",
+            "sl": "Jack in Sam se ne strinjata.",
+            "de": "Jack und Sam sind nicht einer Meinung.",
+            "it": "Jack e Sam non sono d'accordo."
+          },
+          {
+            "en": "The sheep disappeared in the fog.",
+            "sl": "Ovce so izginile v megli.",
+            "de": "Die Schafe verschwanden im Nebel.",
+            "it": "Le pecore sono sparite nella nebbia."
+          }
+        ],
+        "rows": [["un-, dis-", { "sl": "ne", "de": "nicht", "it": "non", "en": "not" }, "happy → unhappy"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "word-building",
+          "text": "Edna wasn't happy. She was ___ (happy).",
+          "accept": ["unhappy"],
+          "hint": { "sl": "ne", "de": "nicht", "it": "non", "en": "not" },
+          "explain": {
+            "sl": "**un-, dis- = ne; drugega se ne spremeni**\n- happy → unhappy · agree → disagree",
+            "de": "**un-, dis- = nicht; sonst ändert sich nichts**\n- happy → unhappy · agree → disagree",
+            "it": "**un-, dis- = non; il resto non cambia**\n- happy → unhappy · agree → disagree",
+            "en": "**un-, dis- = not; nothing else changes**\n- happy → unhappy · agree → disagree"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**possible → impossible.** (mogoč → nemogoč) Pred p in m je **im-**: **impolite** (nevljuden), **impatient** (nestrpen). Pred l je **il-**: **illegal** (nezakonit). Pred r je **ir-**: **irregular** (nereden). Pogosto **in-**: **incorrect** (napačen). **re-** pomeni znova: **rebuild** (obnoviti); **mis-** narobe: **misunderstand** (narobe razumeti); **over-** preveč: **oversleep** (predolgo spati).",
+          "de": "**possible → impossible.** (möglich → unmöglich) Vor p und m steht **im-**: **impolite** (unhöflich), **impatient** (ungeduldig). Vor l steht **il-**: **illegal** (illegal). Vor r steht **ir-**: **irregular** (unregelmäßig). Oft **in-**: **incorrect** (falsch). **re-** heißt wieder: **rebuild** (wieder aufbauen); **mis-** falsch: **misunderstand** (missverstehen); **over-** zu viel: **oversleep** (verschlafen).",
+          "it": "**possible → impossible.** (possibile → impossibile) Prima di p e m c'è **im-**: **impolite** (scortese), **impatient** (impaziente). Prima di l c'è il-: **illegal** (illegale). Prima di r c'è **ir-**: **irregular** (irregolare). Spesso **in-**: **incorrect** (sbagliato). **re-** vuol dire di nuovo: **rebuild** (ricostruire); **mis-** male: **misunderstand** (fraintendere); **over-** troppo: **oversleep** (dormire troppo).",
+          "en": "**possible → impossible.** Before p and m it's **im-**: **impolite**, **impatient**. Before l it's **il-**: **illegal**. Before r it's **ir-**: **irregular**. Often **in-**: **incorrect**. **re-** says again: **rebuild**; **mis-** wrongly: **misunderstand**; **over-** too much: **oversleep**."
+        },
+        "examples": [
+          {
+            "en": "It's impossible to see the path.",
+            "sl": "Poti ni mogoče videti.",
+            "de": "Man kann den Weg unmöglich sehen.",
+            "it": "È impossibile vedere il sentiero."
+          },
+          {
+            "en": "Parking here is illegal.",
+            "sl": "Parkiranje tukaj je nezakonito.",
+            "de": "Hier zu parken ist illegal.",
+            "it": "Parcheggiare qui è illegale."
+          },
+          {
+            "en": "They rebuilt the bridge.",
+            "sl": "Most so obnovili.",
+            "de": "Sie haben die Brücke wieder aufgebaut.",
+            "it": "Hanno ricostruito il ponte."
+          },
+          {
+            "en": "I misunderstood you.",
+            "sl": "Narobe sem te {m:razumel|f:razumela}.",
+            "de": "Ich habe dich missverstanden.",
+            "it": "Ti ho frainteso."
+          }
+        ],
+        "rows": [
+          ["im-, in-, il-, ir-", { "sl": "ne", "de": "nicht", "it": "non", "en": "not" }, "possible → impossible"],
+          [
+            "re-, mis-, over-",
+            {
+              "sl": "znova, narobe, preveč",
+              "de": "wieder, falsch, zu viel",
+              "it": "di nuovo, male, troppo",
+              "en": "again, wrongly, too much"
+            },
+            "build → rebuild"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-building",
+          "prompt": "The bus comes when it likes: it's very ___.",
+          "options": ["irregular", "unregular", "inregular"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pred p, m: im-. Pred l: il-. Pred r: ir-**\n- possible → impossible · legal → illegal · regular → irregular",
+            "de": "**Vor p, m: im-. Vor l: il-. Vor r: ir-**\n- possible → impossible · legal → illegal · regular → irregular",
+            "it": "**Prima di p, m: im-. Prima di l: il-. Prima di r: ir-**\n- possible → impossible · legal → illegal · regular → irregular",
+            "en": "**Before p, m: im-. Before l: il-. Before r: ir-**\n- possible → impossible · legal → illegal · regular → irregular"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**happy → happiness.** (srečen → sreča) Samostalnik iz pridevnika: **-ness**, y postane i: **kindness**, **darkness**, **illness**. Iz glagola: **-ment**: **agreement**; **-tion**, **-sion**: **information**, **invitation**, **decision** (iz decide). Kdo to dela: **-er**, **-or**: **farmer**, **teacher**, **visitor**, **sailor**.",
+          "de": "**happy → happiness.** (glücklich → Glück) Ein Nomen aus einem Adjektiv: **-ness**, aus y wird i: **kindness**, **darkness**, **illness**. Aus einem Verb: **-ment**: **agreement**; **-tion**, **-sion**: **information**, **invitation**, **decision** (von decide). Wer es tut: **-er**, **-or**: **farmer**, **teacher**, **visitor**, **sailor**.",
+          "it": "**happy → happiness.** (felice → felicità) Un nome da un aggettivo: **-ness**, y diventa i: **kindness**, **darkness**, **illness**. Da un verbo: **-ment**: **agreement**; **-tion**, **-sion**: **information**, **invitation**, **decision** (da decide). Chi lo fa: **-er**, **-or**: **farmer**, **teacher**, **visitor**, **sailor**.",
+          "en": "**happy → happiness.** A noun from an adjective: **-ness**, y becoming i: **kindness**, **darkness**, **illness**. From a verb: **-ment**: **agreement**; **-tion**, **-sion**: **information**, **invitation**, **decision** (from decide). Who does it: **-er**, **-or**: **farmer**, **teacher**, **visitor**, **sailor**."
+        },
+        "examples": [
+          {
+            "en": "Thanks for your kindness.",
+            "sl": "Hvala za tvojo prijaznost.",
+            "de": "Danke für deine Freundlichkeit.",
+            "it": "Grazie per la tua gentilezza."
+          },
+          { "en": "We have an agreement.", "sl": "Imamo dogovor.", "de": "Wir haben eine Vereinbarung.", "it": "Abbiamo un accordo." },
+          {
+            "en": "That was a good decision.",
+            "sl": "To je bila dobra odločitev.",
+            "de": "Das war eine gute Entscheidung.",
+            "it": "È stata una buona decisione."
+          },
+          {
+            "en": "The visitors came from Keswick.",
+            "sl": "Obiskovalci so prišli iz Keswicka.",
+            "de": "Die Besucher kamen aus Keswick.",
+            "it": "I visitatori sono venuti da Keswick."
+          }
+        ],
+        "rows": [
+          [
+            "-ness",
+            { "sl": "pridevnik → samostalnik", "de": "Adjektiv → Nomen", "it": "aggettivo → nome", "en": "adjective → noun" },
+            "kind → kindness"
+          ],
+          [
+            "-ment, -tion, -sion",
+            { "sl": "glagol → samostalnik", "de": "Verb → Nomen", "it": "verbo → nome", "en": "verb → noun" },
+            "agree → agreement"
+          ],
+          [
+            "-er, -or",
+            { "sl": "kdo to dela", "de": "wer es tut", "it": "chi lo fa", "en": "who does it" },
+            "farmer, teacher, visitor, sailor"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-building",
+          "prompt": "Thanks for your ___.",
+          "options": ["kindness", "kindment", "kindful"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**-ness: iz pridevnika samostalnik; y postane i**\n- kind → kindness · happy → happiness",
+            "de": "**-ness: aus dem Adjektiv ein Nomen; aus y wird i**\n- kind → kindness · happy → happiness",
+            "it": "**-ness: dall'aggettivo un nome; y diventa i**\n- kind → kindness · happy → happiness",
+            "en": "**-ness: a noun from an adjective; y becomes i**\n- kind → kindness · happy → happiness"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**care → careful, careless.** (previden, neprevidna) **-ful** pomeni z, **-less** brez: **useful** (koristen), **useless** (neuporaben), **hopeful** (upajoč). V **-ful** je en l. **beautiful** (iz beauty): y postane i. Druge končnice: **dangerous** (iz danger), **famous** (fame), **rainy** (rain), **natural** (nature), **comfortable** (comfort).",
+          "de": "**care → careful, careless.** (vorsichtig, unvorsichtig) **-ful** heißt mit, **-less** ohne: **useful** (nützlich), **useless** (nutzlos), **hopeful** (hoffnungsvoll). In **-ful** steht ein l. **beautiful** (von beauty): aus y wird i. Andere Endungen: **dangerous** (von danger), **famous** (fame), **rainy** (rain), **natural** (nature), **comfortable** (comfort).",
+          "it": "**care → careful, careless.** (prudente, sbadato) **-ful** vuol dire con, **-less** senza: **useful** (utile), **useless** (inutile), **hopeful** (fiducioso). In **-ful** c'è una l. **beautiful** (da beauty): y diventa i. Altre finali: **dangerous** (da danger), **famous** (fame), **rainy** (rain), **natural** (nature), **comfortable** (comfort).",
+          "en": "**care → careful, careless.** **-ful** says with, **-less** without: **useful**, **useless**, **hopeful**. One l in **-ful**. **beautiful** (from beauty): y becomes i. Other endings: **dangerous** (from danger), **famous** (fame), **rainy** (rain), **natural** (nature), **comfortable** (comfort)."
+        },
+        "examples": [
+          {
+            "en": "Be careful on the fell.",
+            "sl": "Na hribu {m:bodi previden|f:bodi previdna}.",
+            "de": "Sei vorsichtig am Berg.",
+            "it": "Sta' attent{m:o|f:a} sul monte."
+          },
+          {
+            "en": "A careless visitor left the gate open.",
+            "sl": "Neprevidni obiskovalec je pustil vrata pašnika odprta.",
+            "de": "Ein unvorsichtiger Besucher ließ das Gatter offen.",
+            "it": "Un visitatore sbadato ha lasciato aperto il cancello."
+          },
+          { "en": "The fell is beautiful.", "sl": "Hrib je lep.", "de": "Der Berg ist schön.", "it": "Il monte è bello." },
+          {
+            "en": "The road is dangerous at night.",
+            "sl": "Cesta je ponoči nevarna.",
+            "de": "Die Straße ist nachts gefährlich.",
+            "it": "La strada è pericolosa di notte."
+          }
+        ],
+        "rows": [
+          ["-ful, -less", { "sl": "z, brez", "de": "mit, ohne", "it": "con, senza", "en": "with, without" }, "care → careful, careless"],
+          [
+            "-ous, -y, -al, -able",
+            { "sl": "→ pridevnik", "de": "→ Adjektiv", "it": "→ aggettivo", "en": "→ adjective" },
+            "danger → dangerous, rain → rainy"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "word-building",
+          "text": "Someone ___ (care) left the gate open.",
+          "accept": ["careless"],
+          "hint": { "sl": "brez", "de": "ohne", "it": "senza", "en": "without" },
+          "explain": {
+            "sl": "**-ful = z, -less = brez; -ful z enim l**\n- care → careful, careless",
+            "de": "**-ful = mit, -less = ohne; -ful mit einem l**\n- care → careful, careless",
+            "it": "**-ful = con, -less = senza; -ful con una l**\n- care → careful, careless",
+            "en": "**-ful = with, -less = without; one l in -ful**\n- care → careful, careless"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**wide → widen.** (širok → razširiti) Glagol iz pridevnika: **-en**: **shorten**, **widen**. **-ise**: **realise** (iz real; prav je tudi -ize). Prislov: **-ly**: **careful → carefully**, **happy → happily**. Cela družina: **succeed** (uspeti), **success** (uspeh), **successful** (uspešen), **unsuccessful** (neuspešen).",
+          "de": "**wide → widen.** (breit → breiter machen) Ein Verb aus einem Adjektiv: **-en**: **shorten**, **widen**. **-ise**: **realise** (von real; auch -ize ist richtig). Ein Adverb: **-ly**: **careful → carefully**, **happy → happily**. Eine ganze Familie: **succeed** (Erfolg haben), **success** (Erfolg), **successful** (erfolgreich), **unsuccessful** (erfolglos).",
+          "it": "**wide → widen.** (largo → allargare) Un verbo da un aggettivo: **-en**: **shorten**, **widen**. **-ise**: **realise** (da real; va bene anche -ize). Un avverbio: **-ly**: **careful → carefully**, **happy → happily**. Una famiglia intera: **succeed** (riuscire), **success** (successo), **successful** (riuscito), **unsuccessful** (senza successo).",
+          "en": "**wide → widen.** A verb from an adjective: **-en**: **shorten**, **widen**. **-ise**: **realise** (from real; -ize is right too). An adverb: **-ly**: **careful → carefully**, **happy → happily**. A whole family: **succeed**, **success**, **successful**, **unsuccessful**."
+        },
+        "examples": [
+          {
+            "en": "They want to widen the road.",
+            "sl": "Cesto hočejo razširiti.",
+            "de": "Sie wollen die Straße breiter machen.",
+            "it": "Vogliono allargare la strada."
+          },
+          { "en": "He drove carefully.", "sl": "Vozil je previdno.", "de": "Er fuhr vorsichtig.", "it": "Ha guidato con prudenza." },
+          {
+            "en": "Sam's plan was a success.",
+            "sl": "Samov načrt je bil uspeh.",
+            "de": "Sams Plan war ein Erfolg.",
+            "it": "Il piano di Sam è stato un successo."
+          },
+          {
+            "en": "He is a successful brewer.",
+            "sl": "Je uspešen pivovar.",
+            "de": "Er ist ein erfolgreicher Brauer.",
+            "it": "È un birraio di successo."
+          }
+        ],
+        "rows": [
+          [
+            "-ly, -en",
+            { "sl": "→ prislov, → glagol", "de": "→ Adverb, → Verb", "it": "→ avverbio, → verbo", "en": "→ adverb, → verb" },
+            "happy → happily, wide → widen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-building",
+          "prompt": "She is a very ___ driver.",
+          "options": ["careful", "carefully", "carefulness"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pred samostalnikom pridevnik, z glagolom prislov**\n- a careful driver · He drove carefully.",
+            "de": "**Vor einem Nomen ein Adjektiv, beim Verb ein Adverb**\n- a careful driver · He drove carefully.",
+            "it": "**Davanti a un nome un aggettivo, con un verbo un avverbio**\n- a careful driver · He drove carefully.",
+            "en": "**Before a noun an adjective, with a verb an adverb**\n- a careful driver · He drove carefully."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**The darkness of the morning soon lifted.** (Jutranja tema je kmalu izginila.) Poglej okoli vrzeli. Za **a**, **the** pride samostalnik; pred samostalnikom pridevnik: **a useful tool**; z glagolom prislov: **She spoke quietly.** Potem vprašaj: ali stavek pomeni ne? Je več ljudi, torej množina? Tako sprašuje izpit B2 First: beseda v oklepaju, ena vrzel.",
+          "de": "**The darkness of the morning soon lifted.** (Die Dunkelheit des Morgens verschwand bald.) Schau um die Lücke. Nach **a**, **the** kommt ein Nomen; vor einem Nomen ein Adjektiv: **a useful tool**; beim Verb ein Adverb: **She spoke quietly.** Dann frag dich: Heißt der Satz nicht? Sind es mehrere, also Plural? So fragt die Prüfung B2 First: ein Wort in Klammern, eine Lücke.",
+          "it": "**The darkness of the morning soon lifted.** (Il buio del mattino è presto svanito.) Guarda intorno al vuoto. Dopo **a**, **the** viene un nome; davanti a un nome un aggettivo: **a useful tool**; con un verbo un avverbio: **She spoke quietly.** Poi chiediti: la frase vuol dire non? Sono più di uno, quindi plurale? Così chiede l'esame B2 First: una parola tra parentesi, un vuoto.",
+          "en": "**The darkness of the morning soon lifted.** Look around the gap. After **a**, **the** comes a noun; before a noun, an adjective: **a useful tool**; with a verb, an adverb: **She spoke quietly.** Then ask: does the sentence mean not? Are there several, so a plural? This is how the B2 First exam asks it: a word in brackets, one gap."
+        },
+        "examples": [
+          {
+            "en": "The darkness of the morning soon lifted.",
+            "sl": "Jutranja tema je kmalu izginila.",
+            "de": "Die Dunkelheit des Morgens verschwand bald.",
+            "it": "Il buio del mattino è presto svanito."
+          },
+          {
+            "en": "It's a useful tool.",
+            "sl": "To je koristno orodje.",
+            "de": "Das ist ein nützliches Werkzeug.",
+            "it": "È un attrezzo utile."
+          },
+          { "en": "She spoke quietly.", "sl": "Govorila je tiho.", "de": "Sie sprach leise.", "it": "Parlava piano." }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "word-building",
+          "text": "The ___ (decide) wasn't easy.",
+          "accept": ["decision"],
+          "hint": { "sl": "za the: samostalnik", "de": "nach the: ein Nomen", "it": "dopo the: un nome", "en": "after the: a noun" },
+          "explain": {
+            "sl": "**Poglej okoli vrzeli: katera besedna vrsta, in ali stavek pomeni ne?**\n- the darkness · a useful tool · She drove carefully.",
+            "de": "**Schau um die Lücke: welche Wortart, und heißt der Satz nicht?**\n- the darkness · a useful tool · She drove carefully.",
+            "it": "**Guarda intorno al vuoto: che tipo di parola, e la frase vuol dire non?**\n- the darkness · a useful tool · She drove carefully.",
+            "en": "**Look around the gap: what kind of word, and does the sentence mean not?**\n- the darkness · a useful tool · She drove carefully."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "word-building-1",
+      "title": { "sl": "Spredaj in zadaj", "de": "Vorn und hinten", "it": "Davanti e in fondo", "en": "At the front, at the end" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "word-building",
+          "instruction": {
+            "sl": "Sort: which goes in front? · Razvrsti: kaj gre spredaj?",
+            "de": "Sort: which goes in front? · Ordne zu: Was kommt davor?",
+            "it": "Sort: which goes in front? · Ordina: che cosa va davanti?",
+            "en": "Sort: which goes in front?"
+          },
+          "columns": [
+            { "label": "un-", "words": ["happy", "lucky"] },
+            { "label": "dis-", "words": ["agree", "honest"] },
+            { "label": "im-", "words": ["possible", "polite"] },
+            { "label": "il-, ir-", "words": ["legal", "regular"] }
+          ],
+          "explain": {
+            "sl": "**Pred p, m: im-. Pred l: il-. Pred r: ir-**\n- possible → impossible · legal → illegal · regular → irregular",
+            "de": "**Vor p, m: im-. Vor l: il-. Vor r: ir-**\n- possible → impossible · legal → illegal · regular → irregular",
+            "it": "**Prima di p, m: im-. Prima di l: il-. Prima di r: ir-**\n- possible → impossible · legal → illegal · regular → irregular",
+            "en": "**Before p, m: im-. Before l: il-. Before r: ir-**\n- possible → impossible · legal → illegal · regular → irregular"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "word-building",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": { "sl": "z, brez", "de": "mit, ohne", "it": "con, senza", "en": "with, without" },
+          "columns": ["-ful", "-less"],
+          "rows": [
+            { "label": "care", "cells": [{ "accept": ["careful"] }, { "accept": ["careless"] }] },
+            { "label": "hope", "cells": [{ "accept": ["hopeful"] }, { "accept": ["hopeless"] }] },
+            { "label": "use", "cells": [{ "accept": ["useful"] }, { "accept": ["useless"] }] }
+          ],
+          "explain": {
+            "sl": "**-ful = z, -less = brez; -ful z enim l**\n- care → careful, careless",
+            "de": "**-ful = mit, -less = ohne; -ful mit einem l**\n- care → careful, careless",
+            "it": "**-ful = con, -less = senza; -ful con una l**\n- care → careful, careless",
+            "en": "**-ful = with, -less = without; one l in -ful**\n- care → careful, careless"
+          }
+        }
+      ]
+    },
+    {
+      "id": "word-building-2",
+      "title": { "sl": "Vaški časopis", "de": "Die Dorfzeitung", "it": "Il giornalino del paese", "en": "The village newsletter" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "word-building",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "Last Saturday's show was a great ___ (succeed). Everyone was ___ (hope) about the weather, and the ___ (dark) of the morning soon lifted. Thanks to the ___ (kind) of Mrs Birkett, nobody went hungry. The only ___ (disappoint) was the bus, which was as ___ (regular) as ever. Many ___ (visit) stayed till evening.",
+          "gaps": [
+            {
+              "accept": ["success"],
+              "hint": { "sl": "za a: samostalnik", "de": "nach a: ein Nomen", "it": "dopo a: un nome", "en": "after a: a noun" }
+            },
+            {
+              "accept": ["hopeful"],
+              "hint": { "sl": "pridevnik, z", "de": "Adjektiv, mit", "it": "aggettivo, con", "en": "an adjective, with" }
+            },
+            {
+              "accept": ["darkness"],
+              "hint": { "sl": "za the: samostalnik", "de": "nach the: ein Nomen", "it": "dopo the: un nome", "en": "after the: a noun" }
+            },
+            {
+              "accept": ["kindness"],
+              "hint": { "sl": "za the: samostalnik", "de": "nach the: ein Nomen", "it": "dopo the: un nome", "en": "after the: a noun" }
+            },
+            {
+              "accept": ["disappointment"],
+              "hint": { "sl": "za the: samostalnik", "de": "nach the: ein Nomen", "it": "dopo the: un nome", "en": "after the: a noun" }
+            },
+            { "accept": ["irregular"], "hint": { "sl": "ne, pred r", "de": "nicht, vor r", "it": "non, prima di r", "en": "not, before r" } },
+            { "accept": ["visitors"], "hint": { "sl": "več ljudi", "de": "mehrere Leute", "it": "più persone", "en": "several people" } }
+          ],
+          "bank": true,
+          "distractors": ["unregular", "successful"],
+          "translation": {
+            "sl": "Sobotna razstava je bila velik uspeh. Vsi so upali na lepo vreme in jutranja tema je kmalu izginila. Po zaslugi prijaznosti gospe Birkett nihče ni ostal lačen. Razočaral je le avtobus, ki je vozil neredno kot vedno. Veliko obiskovalcev je ostalo do večera.",
+            "de": "Die Schau am letzten Samstag war ein großer Erfolg. Alle hofften auf gutes Wetter, und die Dunkelheit des Morgens verschwand bald. Dank der Freundlichkeit von Mrs Birkett blieb niemand hungrig. Die einzige Enttäuschung war der Bus, unregelmäßig wie immer. Viele Besucher blieben bis zum Abend.",
+            "it": "La mostra di sabato scorso è stata un gran successo. Tutti speravano nel bel tempo, e il buio del mattino è presto svanito. Grazie alla gentilezza della signora Birkett, nessuno è rimasto a stomaco vuoto. L'unica delusione è stato l'autobus, irregolare come sempre. Molti visitatori sono rimasti fino a sera.",
+            "en": "Last Saturday's show was a great success. Everyone was hopeful about the weather, and the darkness of the morning soon lifted. Thanks to the kindness of Mrs Birkett, nobody went hungry. The only disappointment was the bus, which was as irregular as ever. Many visitors stayed till evening."
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "word-building",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": { "sl": "samostalnik iz besede", "de": "das Nomen zum Wort", "it": "il nome dalla parola", "en": "the noun from the word" },
+          "columns": [{ "sl": "noun · samostalnik", "de": "noun · Nomen", "it": "noun · nome", "en": "noun" }],
+          "rows": [
+            { "label": "ill", "cells": [{ "accept": ["illness"] }] },
+            { "label": "agree", "cells": [{ "accept": ["agreement"] }] },
+            { "label": "decide", "cells": [{ "accept": ["decision"] }] },
+            { "label": "inform", "cells": [{ "accept": ["information"] }] }
+          ],
+          "explain": {
+            "sl": "**-ment, -tion, -sion: iz glagola samostalnik**\n- agree → agreement · inform → information · decide → decision",
+            "de": "**-ment, -tion, -sion: aus dem Verb ein Nomen**\n- agree → agreement · inform → information · decide → decision",
+            "it": "**-ment, -tion, -sion: dal verbo un nome**\n- agree → agreement · inform → information · decide → decision",
+            "en": "**-ment, -tion, -sion: a noun from a verb**\n- agree → agreement · inform → information · decide → decision"
+          }
+        }
+      ]
+    },
+    {
+      "id": "word-building-3",
+      "title": { "sl": "Pismo uredništvu", "de": "Ein Leserbrief", "it": "Una lettera al giornalino", "en": "A letter to the newsletter" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "word-building",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "I'd like to thank the ___ (farm) who found my dog. In that fog it was almost ___ (possible) to see the path, but he knew the way. He is a ___ (care) driver, and he brought us home ___ (safe). The road is ___ (danger) at night. When will the council ___ (wide) it?",
+          "gaps": [
+            { "accept": ["farmer"], "hint": { "sl": "kdo to dela", "de": "wer es tut", "it": "chi lo fa", "en": "who does it" } },
+            { "accept": ["impossible"], "hint": { "sl": "ne", "de": "nicht", "it": "non", "en": "not" } },
+            {
+              "accept": ["careful"],
+              "hint": { "sl": "pred samostalnikom, z", "de": "vor einem Nomen, mit", "it": "davanti a un nome, con", "en": "before a noun, with" }
+            },
+            {
+              "accept": ["safely"],
+              "spoken": ["safe"],
+              "hint": { "sl": "z glagolom", "de": "beim Verb", "it": "con un verbo", "en": "with a verb" }
+            },
+            { "accept": ["dangerous"], "hint": { "sl": "pridevnik", "de": "ein Adjektiv", "it": "un aggettivo", "en": "an adjective" } },
+            { "accept": ["widen"], "hint": { "sl": "glagol", "de": "ein Verb", "it": "un verbo", "en": "a verb" } }
+          ],
+          "translation": {
+            "sl": "Rad bi se zahvalil kmetu, ki je našel mojega psa. V tisti megli poti skoraj ni bilo mogoče videti, a on je poznal pot. Je previden voznik in varno nas je pripeljal domov. Cesta je ponoči nevarna. Kdaj jo bo občina razširila?",
+            "de": "Ich möchte dem Bauern danken, der meinen Hund gefunden hat. In dem Nebel war der Weg fast nicht zu sehen, aber er kannte ihn. Er ist ein vorsichtiger Fahrer und brachte uns sicher nach Hause. Die Straße ist nachts gefährlich. Wann macht die Gemeinde sie breiter?",
+            "it": "Vorrei ringraziare il contadino che ha trovato il mio cane. Con quella nebbia era quasi impossibile vedere il sentiero, ma lui conosceva la strada. È un guidatore prudente e ci ha riportati a casa sani e salvi. La strada è pericolosa di notte. Quando la allargherà il comune?",
+            "en": "I'd like to thank the farmer who found my dog. In that fog it was almost impossible to see the path, but he knew the way. He is a careful driver, and he brought us home safely. The road is dangerous at night. When will the council widen it?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "word-building",
+          "instruction": {
+            "sl": "Say it with the word in brackets · Povej z besedo v oklepaju",
+            "de": "Say it with the word in brackets · Sag es mit dem Wort in Klammern",
+            "it": "Say it with the word in brackets · Dillo con la parola tra parentesi",
+            "en": "Say it with the word in brackets"
+          },
+          "items": [
+            {
+              "from": "Nobody can go up the fell today. (impossible)",
+              "accept": [
+                "It is impossible to go up the fell today.",
+                "Going up the fell is impossible today.",
+                "It is impossible for anyone to go up the fell today."
+              ]
+            },
+            { "from": "Sam decided quickly. (decision)", "accept": ["Sam made a quick decision.", "Sam took a quick decision."] },
+            { "from": "The visitor wasn't careful. (careless)", "accept": ["The visitor was careless."] }
+          ],
+          "explain": {
+            "sl": "**Ena beseda se spremeni, stavek pove isto**\n- She isn't patient. → She is impatient.",
+            "de": "**Ein Wort ändert sich, der Satz sagt dasselbe**\n- She isn't patient. → She is impatient.",
+            "it": "**Cambia una parola, la frase dice lo stesso**\n- She isn't patient. → She is impatient.",
+            "en": "**One word changes, the sentence says the same**\n- She isn't patient. → She is impatient."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "word-building",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "It was a ___ (beauty) morning, and the ___ (visit) from Keswick walked up to the tarn. One man was very ___ (polite) and left all his rubbish by the water. That was ___ (legal), and Mr Tyson told him so. “I'm sorry for the ___ (understand),” the man said ___ (quiet).",
+        "gaps": [
+          { "accept": ["beautiful"] },
+          { "accept": ["visitors"] },
+          { "accept": ["impolite", "rude"] },
+          { "accept": ["illegal"] },
+          { "accept": ["misunderstanding"] },
+          { "accept": ["quietly"] }
+        ],
+        "translation": {
+          "sl": "Bilo je lepo jutro in obiskovalci iz Keswicka so se povzpeli do jezerca. Neki moški je bil zelo nevljuden in je vse smeti pustil ob vodi. To je bilo nezakonito in gospod Tyson mu je to povedal. »Oprostite za nesporazum,« je tiho rekel moški.",
+          "de": "Es war ein schöner Morgen, und die Besucher aus Keswick stiegen zum Bergsee hinauf. Ein Mann war sehr unhöflich und ließ seinen ganzen Müll am Wasser liegen. Das war illegal, und Mr Tyson sagte es ihm. „Das Missverständnis tut mir leid“, sagte der Mann leise.",
+          "it": "Era un bel mattino, e i visitatori di Keswick sono saliti al laghetto. Un uomo è stato molto scortese e ha lasciato tutti i rifiuti vicino all'acqua. Era illegale, e il signor Tyson glielo ha detto. «Mi scusi per il malinteso», ha detto piano l'uomo.",
+          "en": "It was a beautiful morning, and the visitors from Keswick walked up to the tarn. One man was very impolite and left all his rubbish by the water. That was illegal, and Mr Tyson told him so. “I'm sorry for the misunderstanding,” the man said quietly."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "word-building",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "This knife can't cut anything. It's ___.",
+        "options": ["useless", "useful", "usefully"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**-ful = z, -less = brez; -ful z enim l**\n- care → careful, careless",
+          "de": "**-ful = mit, -less = ohne; -ful mit einem l**\n- care → careful, careless",
+          "it": "**-ful = con, -less = senza; -ful con una l**\n- care → careful, careless",
+          "en": "**-ful = with, -less = without; one l in -ful**\n- care → careful, careless"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "word-building",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "We need some ___ about the bus.",
+        "options": ["information", "informful", "informness"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**-ment, -tion, -sion: iz glagola samostalnik**\n- agree → agreement · inform → information · decide → decision",
+          "de": "**-ment, -tion, -sion: aus dem Verb ein Nomen**\n- agree → agreement · inform → information · decide → decision",
+          "it": "**-ment, -tion, -sion: dal verbo un nome**\n- agree → agreement · inform → information · decide → decision",
+          "en": "**-ment, -tion, -sion: a noun from a verb**\n- agree → agreement · inform → information · decide → decision"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "word-building",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "He spoke to her ___.",
+        "options": ["kindly", "kindness", "unkindful"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Pred samostalnikom pridevnik, z glagolom prislov**\n- a careful driver · He drove carefully.",
+          "de": "**Vor einem Nomen ein Adjektiv, beim Verb ein Adverb**\n- a careful driver · He drove carefully.",
+          "it": "**Davanti a un nome un aggettivo, con un verbo un avverbio**\n- a careful driver · He drove carefully.",
+          "en": "**Before a noun an adjective, with a verb an adverb**\n- a careful driver · He drove carefully."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "word-building",
+        "instruction": {
+          "sl": "Say it with the word in brackets · Povej z besedo v oklepaju",
+          "de": "Say it with the word in brackets · Sag es mit dem Wort in Klammern",
+          "it": "Say it with the word in brackets · Dillo con la parola tra parentesi",
+          "en": "Say it with the word in brackets"
+        },
+        "items": [
+          { "from": "She isn't patient. (impatient)", "accept": ["She is impatient."] },
+          { "from": "They don't agree. (disagree)", "accept": ["They disagree."] },
+          { "from": "The answer isn't right. (incorrect)", "accept": ["The answer is incorrect."] }
+        ],
+        "explain": {
+          "sl": "**Ena beseda se spremeni, stavek pove isto**\n- She isn't patient. → She is impatient.",
+          "de": "**Ein Wort ändert sich, der Satz sagt dasselbe**\n- She isn't patient. → She is impatient.",
+          "it": "**Cambia una parola, la frase dice lo stesso**\n- She isn't patient. → She is impatient.",
+          "en": "**One word changes, the sentence says the same**\n- She isn't patient. → She is impatient."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}

@@ -140,7 +140,18 @@
     { "word": "of", "for": "have", "after": "(?<!\\p{L})(?:would|could|should|might|must)(?: not)?\\s*$" },
     { "word": "(?:where|when|why|how|what|which|who)(?: (?:time|way|much|many|long|far|often|day))? (?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?: \\p{L}+){1,4}", "for": "(?:where|when|why|how|what|which|who)(?: (?:time|way|much|many|long|far|often|day))? .+", "after": "(?<!\\p{L})(?:ask|asks|asked|know|knows|knew|wonder|wondered|tell me|told me|sure|idea|understand|remember)(?!\\p{L})" },
     { "word": "(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?: \\p{L}+){1,5}", "for": "(?:if|whether) .+", "after": "(?<!\\p{L})(?:ask|asks|asked|wonder|wondered)(?: \\p{L}+){0,2}\\s*$" },
-    { "word": "(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?: \\p{L}+){1,4}", "for": "(?!(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?!\\p{L})).+", "after": "(?<!\\p{L})(?:ask|asks|asked|know|knows|knew|wonder|wondered|tell me|told me|sure|idea|understand|remember)(?!\\p{L}).*(?:where|when|why|how|what|which|who)(?: (?:time|way|much|many|long|far|often|day))?\\s*$" }
+    { "word": "(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?: \\p{L}+){1,4}", "for": "(?!(?:did|do|does|is|are|was|were|has|have|had|can|could|will|would)(?!\\p{L})).+", "after": "(?<!\\p{L})(?:ask|asks|asked|know|knows|knew|wonder|wondered|tell me|told me|sure|idea|understand|remember)(?!\\p{L}).*(?:where|when|why|how|what|which|who)(?: (?:time|way|much|many|long|far|often|day))?\\s*$" },
+    { "word": "gonna", "for": "going to" },
+    { "word": "wanna", "for": "want to|want a" },
+    { "word": "gotta", "for": "(?:have |has )?got to|have to|has to|must" },
+    { "word": "dunno", "for": "do not know" },
+    { "word": "gimme", "for": "give me" },
+    { "word": "lemme", "for": "let me" },
+    { "word": "kinda", "for": "kind of" },
+    { "word": "sorta", "for": "sort of" },
+    { "word": "outta", "for": "out of" },
+    { "word": "'?cos|'?cause|coz|cuz", "for": "because" },
+    { "word": "what", "for": "who|that", "after": "(?<!\\p{L})(?:it|that) (?:is|was)(?!\\p{L})" }
   ],
   "drop_subject": false,
   "ending_letters": 1,
@@ -233,6 +244,22 @@
     { "word": "where", "for": "there" },
     { "word": "there", "for": "where" },
     { "word": "here", "for": "there" },
-    { "word": "there", "for": "here" }
+    { "word": "there", "for": "here" },
+    { "word": "(make|makes|making)", "for": "(take|takes|taking)" },
+    { "word": "(take|takes|taking)", "for": "(make|makes|making)" },
+    { "word": "have", "for": "gave" },
+    { "word": "gave", "for": "have" },
+    { "word": "such", "for": "much" },
+    { "word": "much", "for": "such" },
+    { "word": "though", "for": "through" },
+    { "word": "through", "for": "though" },
+    { "word": "into", "for": "onto" },
+    { "word": "onto", "for": "into" },
+    { "word": "(?:un|in|im|il|ir)(?:possible|polite|patient|legal|regular|responsible|correct|expensive|happy|kind|lucky|tidy|safe|usual|fair)", "for": "(?:un|in|im|il|ir)(?:possible|polite|patient|legal|regular|responsible|correct|expensive|happy|kind|lucky|tidy|safe|usual|fair)" },
+    { "word": "(?:dis|mis|un)(?:agree|like|honest|appear|appoint|understand)\\p{L}*", "for": "(?:dis|mis|un)(?:agree|like|honest|appear|appoint|understand)\\p{L}*" },
+    { "word": ".*yness", "for": ".*iness" },
+    { "word": ".*yful", "for": ".*iful" },
+    { "word": "(visit|sail|act)ers?", "for": "(visit|sail|act)ors?" },
+    { "word": "(teach|farm)ors?", "for": "(teach|farm)ers?" }
   ]
 }
