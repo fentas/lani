@@ -1,0 +1,1011 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "zwar-aber",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🤝",
+  "title": {
+    "de": "Zwar teuer, aber gut",
+    "en": "Contrasts: zwar … aber, auch wenn, während",
+    "sl": "Nasprotja: zwar … aber, auch wenn, während",
+    "it": "I contrasti: zwar … aber, auch wenn, während"
+  },
+  "goal": {
+    "en": "You can weigh one thing against another, each with its word order: zwar teuer, aber gut; allerdings ist er weit; auch wenn es regnet; während man in Deutschland Januar sagt; einerseits … andererseits.",
+    "sl": "Znaš pretehtati eno proti drugemu, vsako s svojim besednim redom: zwar teuer, aber gut; allerdings ist er weit; auch wenn es regnet; während man in Deutschland Januar sagt; einerseits … andererseits.",
+    "it": "Sai confrontare una cosa con un'altra, ognuna col suo ordine delle parole: zwar teuer, aber gut; allerdings ist er weit; auch wenn es regnet; während man in Deutschland Januar sagt; einerseits … andererseits."
+  },
+  "grammar": [
+    "zwar-aber",
+    "konnektoren",
+    "obwohl-trotzdem"
+  ],
+  "words": [
+    "zwar",
+    "aber",
+    "doch",
+    "jedoch",
+    "allerdings",
+    "dennoch",
+    "trotzdem",
+    "auch wenn",
+    "selbst wenn",
+    "obwohl",
+    "während",
+    "wohingegen",
+    "einerseits",
+    "andererseits",
+    "anderseits",
+    "andrerseits",
+    "und zwar",
+    "der Most",
+    "teuer",
+    "pünktlich",
+    "laut",
+    "interessant",
+    "verdienen",
+    "sparen",
+    "fehlen",
+    "reichen",
+    "riesig",
+    "der Traktor",
+    "das Zelt",
+    "nass",
+    "weit"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Wort",
+          "en": "word",
+          "sl": "beseda",
+          "it": "parola"
+        },
+        {
+          "de": "Bedeutung",
+          "en": "meaning",
+          "sl": "pomen",
+          "it": "significato"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**zwar … aber** (true …, but) first gives way, then says what counts: Der Most ist **zwar** teuer, **aber** er ist gut. zwar stands in the middle, or takes first place with the verb next: **Zwar ist** er teuer, aber er ist gut. aber takes no place, as you know, and has a comma before it. Between two words it's shorter still: **zwar** teuer, **aber** gut.",
+          "sl": "**zwar … aber** (sicer …, toda) najprej popusti, nato pove, kar šteje: Der Most ist **zwar** teuer, **aber** er ist gut. zwar stoji v sredini ali zasede prvo mesto, glagol takoj za njim: **Zwar ist** er teuer, aber er ist gut. aber ne zasede mesta, kot veš, pred njim je vejica. Med dvema besedama je še krajše: **zwar** teuer, **aber** gut.",
+          "it": "**zwar … aber** (sì …, ma) prima concede, poi dice quello che conta: Der Most ist **zwar** teuer, **aber** er ist gut. zwar sta in mezzo, oppure occupa il primo posto col verbo subito dopo: **Zwar ist** er teuer, aber er ist gut. aber non occupa un posto, come sai, e ha la virgola prima. Tra due parole è ancora più breve: **zwar** teuer, **aber** gut."
+        },
+        "examples": [
+          {
+            "de": "Der Most ist zwar teuer, aber er ist gut.",
+            "en": "True, the cider is dear, but it's good.",
+            "sl": "Mošt je sicer drag, toda dober je.",
+            "it": "Il sidro sì è caro, ma è buono."
+          },
+          {
+            "de": "Zwar ist Toni müde, aber er arbeitet weiter.",
+            "en": "Toni is tired, it's true, but he keeps working.",
+            "sl": "Toni je sicer utrujen, toda dela naprej.",
+            "it": "È vero che Toni è stanco, ma continua a lavorare."
+          }
+        ],
+        "rows": [
+          [
+            "zwar … aber",
+            {
+              "en": "true …, but",
+              "sl": "sicer …, toda",
+              "it": "sì …, ma"
+            },
+            "zwar teuer, aber gut"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das Gasthaus ist ___ klein, aber die Suppe ist gut.",
+          "options": [
+            "zwar",
+            "weder",
+            "sowohl"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**zwar gives way, in the middle or first with the verb next; aber takes no place**\n- Der Most ist zwar teuer, aber er ist gut.\n- Zwar ist er teuer, aber er ist gut.",
+            "sl": "**zwar popusti, v sredini ali prvo z glagolom takoj za njim; aber ne zasede mesta**\n- Der Most ist zwar teuer, aber er ist gut.\n- Zwar ist er teuer, aber er ist gut.",
+            "it": "**zwar concede, in mezzo o al primo posto col verbo subito dopo; aber non occupa un posto**\n- Der Most ist zwar teuer, aber er ist gut.\n- Zwar ist er teuer, aber er ist gut."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**jedoch** (however) and **allerdings** (though) say what aber says, more in writing, but they take a place: first, with the verb next, or further in. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. After a comma, jedoch may also take no place, as aber does. **dennoch** (all the same) sits where trotzdem sits: Der Weg war weit, **dennoch kam** Kathi pünktlich.",
+          "sl": "**jedoch** (vendar) in **allerdings** (sicer pa) povesta isto kot aber, bolj v pisanju, vendar zasedeta mesto: prvo, glagol takoj za njim, ali dlje v stavku. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. Za vejico lahko jedoch tudi ne zasede mesta, kot aber. **dennoch** (kljub temu) stoji tam kot trotzdem: Der Weg war weit, **dennoch kam** Kathi pünktlich.",
+          "it": "**jedoch** (tuttavia) e **allerdings** (però) dicono quello che dice aber, più nello scritto, ma occupano un posto: il primo, col verbo subito dopo, o più avanti. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. Dopo la virgola jedoch può anche non occupare un posto, come aber. **dennoch** (ciononostante) sta dove sta trotzdem: Der Weg war weit, **dennoch kam** Kathi pünktlich."
+        },
+        "examples": [
+          {
+            "de": "Der Most ist gut. Allerdings ist er teuer.",
+            "en": "The cider is good. It's dear, though.",
+            "sl": "Mošt je dober. Sicer pa je drag.",
+            "it": "Il sidro è buono. Però è caro."
+          },
+          {
+            "de": "Der Weg war weit, dennoch kam Kathi pünktlich.",
+            "en": "The way was long; all the same, Kathi came on time.",
+            "sl": "Pot je bila dolga, kljub temu je Kathi prišla točno.",
+            "it": "La strada era lunga; ciononostante Kathi arrivò puntuale."
+          }
+        ],
+        "rows": [
+          [
+            "jedoch, allerdings",
+            {
+              "en": "however, though",
+              "sl": "vendar, sicer pa",
+              "it": "tuttavia, però"
+            },
+            "Allerdings ist er teuer."
+          ],
+          [
+            "dennoch",
+            {
+              "en": "all the same",
+              "sl": "kljub temu",
+              "it": "ciononostante"
+            },
+            "dennoch kam sie"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Die Mühle ist alt. ___ läuft sie noch gut.",
+          "options": [
+            "Allerdings",
+            "Aber",
+            "Sondern"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**allerdings, dennoch and mostly jedoch take a place: the verb comes right after them**\n- Allerdings ist der Weg weit.\n- Der Weg war weit, dennoch kam Kathi pünktlich.",
+            "sl": "**allerdings, dennoch in večinoma jedoch zasedejo mesto: glagol pride takoj za njimi**\n- Allerdings ist der Weg weit.\n- Der Weg war weit, dennoch kam Kathi pünktlich.",
+            "it": "**allerdings, dennoch e di solito jedoch occupano un posto: il verbo viene subito dopo**\n- Allerdings ist der Weg weit.\n- Der Weg war weit, dennoch kam Kathi pünktlich."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**auch wenn** (even if) and **selbst wenn** (even if) send the verb last and say that it makes no difference: **Auch wenn** es regnet, gehen wir. **obwohl** takes a fact; auch wenn takes a fact or only a maybe. With what isn't so, the Konjunktiv II: **Selbst wenn** ich Zeit hätte, käme ich nicht. After such a clause you'll also hear the main clause in its own order: Auch wenn es regnet, wir gehen. Writing wants the verb next.",
+          "sl": "**auch wenn** (tudi če) in **selbst wenn** (celo če) pošljeta glagol na konec in povesta, da to nič ne spremeni: **Auch wenn** es regnet, gehen wir. **obwohl** vzame dejstvo; auch wenn dejstvo ali le možnost. Pri tem, kar ni res, konjunktiv II: **Selbst wenn** ich Zeit hätte, käme ich nicht. Za takim odvisnikom slišiš tudi glavni stavek v njegovem redu: Auch wenn es regnet, wir gehen. V pisanju pride glagol takoj.",
+          "it": "**auch wenn** (anche se) e **selbst wenn** (persino se) mandano il verbo alla fine e dicono che non cambia niente: **Auch wenn** es regnet, gehen wir. **obwohl** vuole un fatto; auch wenn un fatto o solo un forse. Per ciò che non è, il congiuntivo II: **Selbst wenn** ich Zeit hätte, käme ich nicht. Dopo una frase così senti anche la principale nel suo ordine: Auch wenn es regnet, wir gehen. Nello scritto il verbo viene subito."
+        },
+        "examples": [
+          {
+            "de": "Auch wenn es regnet, gehen wir.",
+            "en": "Even if it rains, we're going.",
+            "sl": "Tudi če dežuje, gremo.",
+            "it": "Anche se piove, andiamo."
+          },
+          {
+            "de": "Selbst wenn ich Zeit hätte, käme ich nicht.",
+            "en": "Even if I had time, I wouldn't come.",
+            "sl": "Celo če bi imel čas, ne bi prišel.",
+            "it": "Anche se avessi tempo, non verrei."
+          }
+        ],
+        "rows": [
+          [
+            "auch wenn, selbst wenn",
+            {
+              "en": "even if",
+              "sl": "tudi če, celo če",
+              "it": "anche se"
+            },
+            "auch wenn es regnet"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "zwar-aber",
+          "text": "Auch wenn es morgen ___ (schneien), fährt der Bus.",
+          "accept": [
+            "schneit"
+          ],
+          "hint": {
+            "en": "the verb last",
+            "sl": "glagol na koncu",
+            "it": "il verbo alla fine"
+          },
+          "explain": {
+            "en": "**auch wenn, selbst wenn: it makes no difference; the verb last**\n- Auch wenn es regnet, gehen wir.\n- Selbst wenn ich Zeit hätte, käme ich nicht.",
+            "sl": "**auch wenn, selbst wenn: nič ne spremeni; glagol na koncu**\n- Auch wenn es regnet, gehen wir.\n- Selbst wenn ich Zeit hätte, käme ich nicht.",
+            "it": "**auch wenn, selbst wenn: non cambia niente; verbo alla fine**\n- Auch wenn es regnet, gehen wir.\n- Selbst wenn ich Zeit hätte, käme ich nicht."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**während** (whereas) and **wohingegen** (whereas, in writing) set two things side by side, with the verb last: In Kärnten sagt man Jänner, **während** man in Deutschland Januar sagt. So während has three jobs now: at the same time, with a clause; during, with the genitive (während des Essens); and this one. If nothing happens at the same time, it's this one.",
+          "sl": "**während** (medtem ko) in **wohingegen** (medtem ko, v pisanju) postavita dve stvari drugo ob drugo, glagol na koncu: In Kärnten sagt man Jänner, **während** man in Deutschland Januar sagt. Tako ima während zdaj tri naloge: istočasno, z odvisnikom; med, z rodilnikom (während des Essens); in to. Če se nič ne dogaja istočasno, je to.",
+          "it": "**während** (mentre) e **wohingegen** (mentre invece, nello scritto) mettono due cose a confronto, col verbo alla fine: In Kärnten sagt man Jänner, **während** man in Deutschland Januar sagt. Così während ha ora tre compiti: nello stesso tempo, con una secondaria; durante, col genitivo (während des Essens); e questo. Se nulla succede nello stesso tempo, è questo."
+        },
+        "examples": [
+          {
+            "de": "In Kärnten sagt man Jänner, während man in Deutschland Januar sagt.",
+            "en": "In Carinthia they say Jänner, whereas in Germany they say Januar.",
+            "sl": "Na Koroškem rečejo Jänner, medtem ko v Nemčiji rečejo Januar.",
+            "it": "In Carinzia si dice Jänner, mentre in Germania si dice Januar."
+          },
+          {
+            "de": "Franz ist schon alt, wohingegen Toni noch jung ist.",
+            "en": "Franz is old now, whereas Toni is still young.",
+            "sl": "Franz je že star, medtem ko je Toni še mlad.",
+            "it": "Franz è già vecchio, mentre invece Toni è ancora giovane."
+          }
+        ],
+        "rows": [
+          [
+            "während, wohingegen",
+            {
+              "en": "whereas",
+              "sl": "medtem ko",
+              "it": "mentre invece"
+            },
+            "während Toni jung ist"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stefan mag Most, ___ Kathi lieber Wein trinkt.",
+          "options": [
+            "während",
+            "zwar",
+            "dennoch"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**während, wohingegen set two things side by side; the verb last**\n- In Kärnten sagt man Jänner, während man in Deutschland Januar sagt.",
+            "sl": "**während, wohingegen postavita dve stvari drugo ob drugo; glagol na koncu**\n- In Kärnten sagt man Jänner, während man in Deutschland Januar sagt.",
+            "it": "**während, wohingegen mettono due cose a confronto; verbo alla fine**\n- In Kärnten sagt man Jänner, während man in Deutschland Januar sagt."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**einerseits … andererseits** (on the one hand … on the other) weighs two sides. Each takes first place, the verb next: **Einerseits ist** die Mühle schön, **andererseits kostet** sie viel. Each can also stand in the middle: Die Mühle ist **einerseits** schön, **andererseits** teuer. **anderseits** and **andrerseits** are the same word. It leaves the choice open; zwar … aber has made it.",
+          "sl": "**einerseits … andererseits** (po eni strani … po drugi) pretehta dve strani. Vsak zasede prvo mesto, glagol takoj za njim: **Einerseits ist** die Mühle schön, **andererseits kostet** sie viel. Vsak lahko stoji tudi v sredini: Die Mühle ist **einerseits** schön, **andererseits** teuer. **anderseits** in **andrerseits** sta ista beseda. Izbiro pusti odprto; zwar … aber jo je že naredil.",
+          "it": "**einerseits … andererseits** (da un lato … dall'altro) pesa due lati. Ognuno occupa il primo posto, col verbo subito dopo: **Einerseits ist** die Mühle schön, **andererseits kostet** sie viel. Possono stare anche in mezzo: Die Mühle ist **einerseits** schön, **andererseits** teuer. **anderseits** e **andrerseits** sono la stessa parola. Lascia aperta la scelta; zwar … aber l'ha già fatta."
+        },
+        "examples": [
+          {
+            "de": "Einerseits ist die Mühle schön, andererseits kostet sie viel.",
+            "en": "On the one hand the mill is lovely, on the other it costs a lot.",
+            "sl": "Po eni strani je mlin lep, po drugi veliko stane.",
+            "it": "Da un lato il mulino è bello, dall'altro costa molto."
+          },
+          {
+            "de": "Die Stadt ist einerseits laut, andererseits interessant.",
+            "en": "The town is noisy on the one hand, interesting on the other.",
+            "sl": "Mesto je po eni strani glasno, po drugi zanimivo.",
+            "it": "La città da un lato è rumorosa, dall'altro interessante."
+          }
+        ],
+        "rows": [
+          [
+            "einerseits … andererseits",
+            {
+              "en": "on the one hand … on the other",
+              "sl": "po eni strani … po drugi",
+              "it": "da un lato … dall'altro"
+            },
+            "einerseits schön, andererseits teuer"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "zwar-aber",
+          "text": "Einerseits will Kathi tanzen, ___ ist sie müde.",
+          "accept": [
+            "andererseits"
+          ],
+          "hint": {
+            "en": "the other side",
+            "sl": "druga stran",
+            "it": "l'altro lato"
+          },
+          "explain": {
+            "en": "**einerseits and andererseits weigh two sides, each with the verb next**\n- Einerseits ist die Mühle schön, andererseits kostet sie viel.",
+            "sl": "**einerseits in andererseits pretehtata dve strani, vsak z glagolom takoj za njim**\n- Einerseits ist die Mühle schön, andererseits kostet sie viel.",
+            "it": "**einerseits e andererseits pesano due lati, ognuno col verbo subito dopo**\n- Einerseits ist die Mühle schön, andererseits kostet sie viel."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**The word order** is the point of them all, in three kinds. No place: **aber**, **doch**, so the sentence goes on as usual. First place, the verb next: **zwar**, **allerdings**, **dennoch**, **einerseits**. The verb last: **auch wenn**, **selbst wenn**, **während**, **wohingegen**, and obwohl. One more **zwar**, and it has nothing to do with this: **und zwar** means namely: Ich komme morgen, **und zwar** um acht.",
+          "sl": "**Besedni red** je pri vseh bistvo, v treh vrstah. Brez mesta: **aber**, **doch**, stavek gre naprej kot vedno. Prvo mesto, glagol takoj za njim: **zwar**, **allerdings**, **dennoch**, **einerseits**. Glagol na koncu: **auch wenn**, **selbst wenn**, **während**, **wohingegen** in obwohl. Še en **zwar**, ki nima nič s tem: **und zwar** pomeni in sicer: Ich komme morgen, **und zwar** um acht.",
+          "it": "**L'ordine delle parole** è il punto di tutte, in tre tipi. Nessun posto: **aber**, **doch**, e la frase va avanti come sempre. Primo posto, verbo subito dopo: **zwar**, **allerdings**, **dennoch**, **einerseits**. Verbo alla fine: **auch wenn**, **selbst wenn**, **während**, **wohingegen** e obwohl. Un altro **zwar**, che non c'entra: **und zwar** vuol dire e precisamente: Ich komme morgen, **und zwar** um acht."
+        },
+        "examples": [
+          {
+            "de": "Es regnete, doch wir gingen.",
+            "en": "It was raining, but we went.",
+            "sl": "Deževalo je, toda šli smo.",
+            "it": "Pioveva, ma siamo andati."
+          },
+          {
+            "de": "Ich komme morgen, und zwar um acht.",
+            "en": "I'm coming tomorrow, at eight to be exact.",
+            "sl": "Pridem jutri, in sicer ob osmih.",
+            "it": "Vengo domani, e precisamente alle otto."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Der Weg ist schön, ___ er weit ist.",
+          "options": [
+            "auch wenn",
+            "dennoch",
+            "allerdings"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**No place: aber, doch. First place, the verb next: zwar, allerdings, dennoch, einerseits. The verb last: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "sl": "**Brez mesta: aber, doch. Prvo mesto, glagol takoj za njim: zwar, allerdings, dennoch, einerseits. Glagol na koncu: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "it": "**Nessun posto: aber, doch. Primo posto, verbo subito dopo: zwar, allerdings, dennoch, einerseits. Verbo alla fine: auch wenn, selbst wenn, während, wohingegen, obwohl**"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "zwar-aber-1",
+      "title": {
+        "de": "Welches Wort, welche Stellung",
+        "en": "Which word, which order",
+        "sl": "Katera beseda, kateri red",
+        "it": "Quale parola, quale ordine"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the words for each meaning",
+            "sl": "besede za vsak pomen",
+            "it": "le parole per ogni significato"
+          },
+          "columns": [
+            {
+              "en": "erster Teil · first part",
+              "sl": "erster Teil · prvi del",
+              "it": "erster Teil · prima parte"
+            },
+            {
+              "en": "zweiter Teil · second part",
+              "sl": "zweiter Teil · drugi del",
+              "it": "zweiter Teil · seconda parte"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "en": "true …, but",
+                "sl": "sicer …, toda",
+                "it": "sì …, ma"
+              },
+              "cells": [
+                "zwar",
+                {
+                  "accept": [
+                    "aber",
+                    "doch",
+                    "jedoch",
+                    "allerdings"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "on the one hand … on the other",
+                "sl": "po eni strani … po drugi",
+                "it": "da un lato … dall'altro"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "einerseits"
+                  ]
+                },
+                {
+                  "accept": [
+                    "andererseits"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "even if",
+                "sl": "tudi če",
+                "it": "anche se"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "auch wenn",
+                    "selbst wenn"
+                  ]
+                },
+                "—"
+              ]
+            },
+            {
+              "label": {
+                "en": "whereas",
+                "sl": "medtem ko",
+                "it": "mentre invece"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "während",
+                    "wohingegen"
+                  ]
+                },
+                "—"
+              ]
+            },
+            {
+              "label": {
+                "en": "although (a fact)",
+                "sl": "čeprav (dejstvo)",
+                "it": "sebbene (un fatto)"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "obwohl"
+                  ]
+                },
+                "—"
+              ]
+            },
+            {
+              "label": {
+                "en": "all the same",
+                "sl": "kljub temu",
+                "it": "ciononostante"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "dennoch",
+                    "trotzdem"
+                  ]
+                },
+                "—"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**True, but: zwar … aber. Two sides: einerseits … andererseits. Even if: auch wenn, selbst wenn. Whereas: während, wohingegen**",
+            "sl": "**Sicer, toda: zwar … aber. Dve strani: einerseits … andererseits. Tudi če: auch wenn, selbst wenn. Medtem ko: während, wohingegen**",
+            "it": "**Sì, ma: zwar … aber. Due lati: einerseits … andererseits. Anche se: auch wenn, selbst wenn. Mentre invece: während, wohingegen**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Sortiere · Sort: what comes after the word?",
+            "sl": "Sortiere · Razvrsti: kaj pride za besedo?",
+            "it": "Sortiere · Ordina: che cosa viene dopo la parola?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "kein Platz · takes no place",
+                "sl": "kein Platz · brez mesta",
+                "it": "kein Platz · nessun posto"
+              },
+              "words": [
+                "aber",
+                "doch",
+                "und"
+              ]
+            },
+            {
+              "label": {
+                "en": "erster Platz, dann das Verb · first place, then the verb",
+                "sl": "erster Platz, dann das Verb · prvo mesto, nato glagol",
+                "it": "erster Platz, dann das Verb · primo posto, poi il verbo"
+              },
+              "words": [
+                "allerdings",
+                "dennoch",
+                "einerseits"
+              ]
+            },
+            {
+              "label": {
+                "en": "das Verb am Ende · the verb last",
+                "sl": "das Verb am Ende · glagol na koncu",
+                "it": "das Verb am Ende · il verbo alla fine"
+              },
+              "words": [
+                "auch wenn",
+                "selbst wenn",
+                "wohingegen",
+                "obwohl"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**No place: aber, doch. First place, the verb next: zwar, allerdings, dennoch, einerseits. The verb last: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "sl": "**Brez mesta: aber, doch. Prvo mesto, glagol takoj za njim: zwar, allerdings, dennoch, einerseits. Glagol na koncu: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "it": "**Nessun posto: aber, doch. Primo posto, verbo subito dopo: zwar, allerdings, dennoch, einerseits. Verbo alla fine: auch wenn, selbst wenn, während, wohingegen, obwohl**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zwar-aber-2",
+      "title": {
+        "de": "Der Kirchtag im Regen",
+        "en": "The Kirchtag in the rain",
+        "sl": "Žegnanje v dežju",
+        "it": "Il Kirchtag sotto la pioggia"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der Kirchtag im Regen",
+          "text": "Heuer war der Kirchtag ___ kurz, aber schön. ___ wollten alle tanzen, andererseits wollte keiner nass werden. Stefan sagte: Auch ___ es regnet, bleibe ich da. Die Jungen tanzten im Zelt, ___ die Alten im Gasthaus saßen. Die Suppe war teuer, ___ kauften alle eine. Kathi verdiente gut, ___ Mitzi wenig verkaufte. ___ wenn es nächstes Jahr schneit, kommen alle wieder. ___ war der Weg nach Hause nass.",
+          "gaps": [
+            {
+              "accept": [
+                "zwar"
+              ]
+            },
+            {
+              "accept": [
+                "Einerseits"
+              ]
+            },
+            {
+              "accept": [
+                "wenn"
+              ]
+            },
+            {
+              "accept": [
+                "während",
+                "wohingegen"
+              ]
+            },
+            {
+              "accept": [
+                "dennoch",
+                "trotzdem"
+              ]
+            },
+            {
+              "accept": [
+                "wohingegen",
+                "während"
+              ]
+            },
+            {
+              "accept": [
+                "Selbst",
+                "Auch"
+              ]
+            },
+            {
+              "accept": [
+                "Allerdings",
+                "Jedoch"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "aber",
+            "sondern",
+            "weder"
+          ],
+          "translation": {
+            "en": "This year the Kirchtag was short, true, but lovely. On the one hand everyone wanted to dance, on the other nobody wanted to get wet. Stefan said: even if it rains, I'm staying. The young danced in the tent, whereas the old sat in the inn. The soup was dear; all the same, everyone bought one. Kathi earned well, whereas Mitzi sold little. Even if it snows next year, everyone will come again. The way home was wet, though.",
+            "sl": "Letos je bilo žegnanje sicer kratko, toda lepo. Po eni strani so hoteli vsi plesati, po drugi se nihče ni hotel zmočiti. Stefan je rekel: Tudi če dežuje, ostanem. Mladi so plesali v šotoru, medtem ko so stari sedeli v gostilni. Juha je bila draga, kljub temu so jo vsi kupili. Kathi je dobro zaslužila, medtem ko je Mitzi malo prodala. Celo če bo drugo leto snežilo, bodo vsi spet prišli. Sicer pa je bila pot domov mokra.",
+            "it": "Quest'anno il Kirchtag è stato sì breve, ma bello. Da un lato tutti volevano ballare, dall'altro nessuno voleva bagnarsi. Stefan ha detto: anche se piove, io resto. I giovani ballavano nel tendone, mentre i vecchi sedevano all'osteria. La zuppa era cara, ciononostante tutti ne hanno comprata una. Kathi ha guadagnato bene, mentre Mitzi ha venduto poco. Anche se l'anno prossimo nevica, torneranno tutti. Però la strada di casa era bagnata."
+          },
+          "explain": {
+            "en": "**No place: aber, doch. First place, the verb next: zwar, allerdings, dennoch, einerseits. The verb last: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "sl": "**Brez mesta: aber, doch. Prvo mesto, glagol takoj za njim: zwar, allerdings, dennoch, einerseits. Glagol na koncu: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "it": "**Nessun posto: aber, doch. Primo posto, verbo subito dopo: zwar, allerdings, dennoch, einerseits. Verbo alla fine: auch wenn, selbst wenn, während, wohingegen, obwohl**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Der Weg war weit, ___.",
+          "options": [
+            "dennoch kam Kathi pünktlich",
+            "dennoch Kathi kam pünktlich",
+            "dennoch pünktlich Kathi kam"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**allerdings, dennoch and mostly jedoch take a place: the verb comes right after them**\n- Allerdings ist der Weg weit.\n- Der Weg war weit, dennoch kam Kathi pünktlich.",
+            "sl": "**allerdings, dennoch in večinoma jedoch zasedejo mesto: glagol pride takoj za njimi**\n- Allerdings ist der Weg weit.\n- Der Weg war weit, dennoch kam Kathi pünktlich.",
+            "it": "**allerdings, dennoch e di solito jedoch occupano un posto: il verbo viene subito dopo**\n- Allerdings ist der Weg weit.\n- Der Weg war weit, dennoch kam Kathi pünktlich."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Mitzi ist schon müde, ___.",
+          "options": [
+            "während Kathi noch tanzt",
+            "während Kathi tanzt noch",
+            "während tanzt Kathi noch"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**während, wohingegen set two things side by side; the verb last**\n- In Kärnten sagt man Jänner, während man in Deutschland Januar sagt.",
+            "sl": "**während, wohingegen postavita dve stvari drugo ob drugo; glagol na koncu**\n- In Kärnten sagt man Jänner, während man in Deutschland Januar sagt.",
+            "it": "**während, wohingegen mettono due cose a confronto; verbo alla fine**\n- In Kärnten sagt man Jänner, während man in Deutschland Januar sagt."
+          }
+        }
+      ]
+    },
+    {
+      "id": "zwar-aber-3",
+      "title": {
+        "de": "Ja, aber",
+        "en": "Yes, but",
+        "sl": "Da, ampak",
+        "it": "Sì, ma"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Verbinde · Join them with the words in brackets",
+            "sl": "Verbinde · Poveži z besedami v oklepaju",
+            "it": "Verbinde · Unisci con le parole tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Most ist teuer. Er ist gut. (zwar … aber)",
+              "accept": [
+                "Der Most ist zwar teuer, aber er ist gut.",
+                "Der Most ist zwar teuer, aber gut.",
+                "Zwar ist der Most teuer, aber er ist gut.",
+                "Zwar ist der Most teuer, aber gut.",
+                "Der Most ist zwar teuer, er ist aber gut.",
+                "Zwar ist der Most teuer, er ist aber gut."
+              ]
+            },
+            {
+              "from": "Die Mühle ist schön. Sie kostet viel. (einerseits … andererseits)",
+              "accept": [
+                "Einerseits ist die Mühle schön, andererseits kostet sie viel.",
+                "Die Mühle ist einerseits schön, andererseits kostet sie viel.",
+                "Die Mühle ist einerseits schön, kostet andererseits aber viel.",
+                "Die Mühle ist einerseits schön, kostet aber andererseits viel.",
+                "Die Mühle ist einerseits schön, kostet andererseits viel."
+              ]
+            },
+            {
+              "from": "Es regnet vielleicht. Wir gehen. (auch wenn)",
+              "accept": [
+                "Auch wenn es regnet, gehen wir.",
+                "Wir gehen, auch wenn es regnet.",
+                "Auch wenn es vielleicht regnet, gehen wir.",
+                "Wir gehen, auch wenn es vielleicht regnet."
+              ],
+              "spoken": [
+                "Auch wenn es regnet, wir gehen.",
+                "Auch wenn es vielleicht regnet, wir gehen."
+              ]
+            },
+            {
+              "from": "Franz ist alt. Toni ist jung. (während)",
+              "accept": [
+                "Franz ist alt, während Toni jung ist.",
+                "Während Franz alt ist, ist Toni jung.",
+                "Toni ist jung, während Franz alt ist.",
+                "Während Toni jung ist, ist Franz alt."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**No place: aber, doch. First place, the verb next: zwar, allerdings, dennoch, einerseits. The verb last: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "sl": "**Brez mesta: aber, doch. Prvo mesto, glagol takoj za njim: zwar, allerdings, dennoch, einerseits. Glagol na koncu: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+            "it": "**Nessun posto: aber, doch. Primo posto, verbo subito dopo: zwar, allerdings, dennoch, einerseits. Verbo alla fine: auch wenn, selbst wenn, während, wohingegen, obwohl**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "zwar-aber",
+          "instruction": {
+            "en": "Sag es anders · Say it another way, with the word in brackets",
+            "sl": "Sag es anders · Povej drugače, z besedo v oklepaju",
+            "it": "Sag es anders · Dillo in un altro modo, con la parola tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Obwohl Kathi müde ist, tanzt sie. (zwar … aber)",
+              "accept": [
+                "Kathi ist zwar müde, aber sie tanzt.",
+                "Zwar ist Kathi müde, aber sie tanzt.",
+                "Kathi ist zwar müde, tanzt aber.",
+                "Kathi ist zwar müde, aber tanzt.",
+                "Kathi ist zwar müde, sie tanzt aber.",
+                "Zwar ist Kathi müde, sie tanzt aber.",
+                "Zwar ist Kathi müde, tanzt aber."
+              ]
+            },
+            {
+              "from": "Es regnete, aber wir gingen. (dennoch)",
+              "accept": [
+                "Es regnete, dennoch gingen wir.",
+                "Es regnete, wir gingen dennoch."
+              ]
+            },
+            {
+              "from": "Der Weg ist schön, aber weit. (allerdings)",
+              "accept": [
+                "Der Weg ist schön, allerdings ist er weit.",
+                "Der Weg ist schön, allerdings weit.",
+                "Der Weg ist schön, er ist allerdings weit.",
+                "Der Weg ist schön, ist allerdings weit."
+              ]
+            },
+            {
+              "from": "In Kärnten sagt man Jänner, in Deutschland Januar. (wohingegen)",
+              "accept": [
+                "In Kärnten sagt man Jänner, wohingegen man in Deutschland Januar sagt.",
+                "In Deutschland sagt man Januar, wohingegen man in Kärnten Jänner sagt.",
+                "In Kärnten sagt man Jänner, wohingegen in Deutschland Januar gesagt wird."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Each word brings its own order**\n- …, dennoch gingen wir.\n- …, allerdings ist er weit.\n- …, wohingegen man in Deutschland Januar sagt.",
+            "sl": "**Vsaka beseda prinese svoj red**\n- …, dennoch gingen wir.\n- …, allerdings ist er weit.\n- …, wohingegen man in Deutschland Januar sagt.",
+            "it": "**Ogni parola porta il suo ordine**\n- …, dennoch gingen wir.\n- …, allerdings ist er weit.\n- …, wohingegen man in Deutschland Januar sagt."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "zwar-aber",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der neue Traktor",
+        "text": "Stefans neuer Traktor ist ___ teuer, aber stark. ___ braucht er ihn, andererseits fehlt ihm das Geld. Kathi sagt: Der alte läuft noch, ___ ist er laut. Selbst ___ du sparst, reicht es nicht. Toni hat einen kleinen Traktor, ___ der von Stefan riesig ist. Stefan kauft ihn ___, auch wenn Kathi Nein sagt.",
+        "gaps": [
+          {
+            "accept": [
+              "zwar"
+            ]
+          },
+          {
+            "accept": [
+              "Einerseits"
+            ]
+          },
+          {
+            "accept": [
+              "allerdings",
+              "jedoch",
+              "dennoch",
+              "trotzdem"
+            ]
+          },
+          {
+            "accept": [
+              "wenn"
+            ]
+          },
+          {
+            "accept": [
+              "während",
+              "wohingegen"
+            ]
+          },
+          {
+            "accept": [
+              "dennoch",
+              "trotzdem"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stefan's new tractor is dear, true, but strong. On the one hand he needs it, on the other he lacks the money. Kathi says: the old one still runs, though it's noisy. Even if you save, it won't be enough. Toni has a small tractor, whereas Stefan's is huge. Stefan buys it all the same, even if Kathi says no.",
+          "sl": "Stefanov novi traktor je sicer drag, toda močan. Po eni strani ga potrebuje, po drugi mu manjka denarja. Kathi reče: Stari še teče, je pa glasen. Celo če varčuješ, ne bo dovolj. Toni ima majhen traktor, medtem ko je Stefanov ogromen. Stefan ga vseeno kupi, tudi če Kathi reče ne.",
+          "it": "Il nuovo trattore di Stefan è sì caro, ma potente. Da un lato gli serve, dall'altro gli mancano i soldi. Kathi dice: quello vecchio funziona ancora, però è rumoroso. Anche se risparmi, non basta. Toni ha un trattore piccolo, mentre quello di Stefan è enorme. Stefan lo compra lo stesso, anche se Kathi dice di no."
+        },
+        "explain": {
+          "en": "**No place: aber, doch. First place, the verb next: zwar, allerdings, dennoch, einerseits. The verb last: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+          "sl": "**Brez mesta: aber, doch. Prvo mesto, glagol takoj za njim: zwar, allerdings, dennoch, einerseits. Glagol na koncu: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+          "it": "**Nessun posto: aber, doch. Primo posto, verbo subito dopo: zwar, allerdings, dennoch, einerseits. Verbo alla fine: auch wenn, selbst wenn, während, wohingegen, obwohl**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "zwar-aber",
+        "instruction": {
+          "en": "Verbinde · Join them with the words in brackets",
+          "sl": "Verbinde · Poveži z besedami v oklepaju",
+          "it": "Verbinde · Unisci con le parole tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Die Alm ist weit. Sie ist schön. (zwar … aber)",
+            "accept": [
+              "Die Alm ist zwar weit, aber sie ist schön.",
+              "Die Alm ist zwar weit, aber schön.",
+              "Zwar ist die Alm weit, aber sie ist schön.",
+              "Zwar ist die Alm weit, aber schön.",
+              "Die Alm ist zwar weit, sie ist aber schön.",
+              "Zwar ist die Alm weit, sie ist aber schön."
+            ]
+          },
+          {
+            "from": "Toni hat vielleicht keine Zeit. Er kommt. (selbst wenn)",
+            "accept": [
+              "Selbst wenn Toni keine Zeit hat, kommt er.",
+              "Toni kommt, selbst wenn er keine Zeit hat.",
+              "Selbst wenn er keine Zeit hat, kommt Toni."
+            ],
+            "spoken": [
+              "Selbst wenn Toni keine Zeit hat, er kommt."
+            ]
+          },
+          {
+            "from": "Das Brot ist frisch. Der Käse ist alt. (wohingegen)",
+            "accept": [
+              "Das Brot ist frisch, wohingegen der Käse alt ist.",
+              "Der Käse ist alt, wohingegen das Brot frisch ist."
+            ]
+          },
+          {
+            "from": "Der Hund ist alt, aber er läuft schnell. (dennoch)",
+            "accept": [
+              "Der Hund ist alt, dennoch läuft er schnell.",
+              "Der Hund ist alt, er läuft dennoch schnell."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**No place: aber, doch. First place, the verb next: zwar, allerdings, dennoch, einerseits. The verb last: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+          "sl": "**Brez mesta: aber, doch. Prvo mesto, glagol takoj za njim: zwar, allerdings, dennoch, einerseits. Glagol na koncu: auch wenn, selbst wenn, während, wohingegen, obwohl**",
+          "it": "**Nessun posto: aber, doch. Primo posto, verbo subito dopo: zwar, allerdings, dennoch, einerseits. Verbo alla fine: auch wenn, selbst wenn, während, wohingegen, obwohl**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "zwar-aber",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stanko ist zwar alt, ___.",
+        "options": [
+          "aber er arbeitet viel",
+          "aber arbeitet er viel",
+          "er aber viel arbeitet"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**zwar gives way, in the middle or first with the verb next; aber takes no place**\n- Der Most ist zwar teuer, aber er ist gut.\n- Zwar ist er teuer, aber er ist gut.",
+          "sl": "**zwar popusti, v sredini ali prvo z glagolom takoj za njim; aber ne zasede mesta**\n- Der Most ist zwar teuer, aber er ist gut.\n- Zwar ist er teuer, aber er ist gut.",
+          "it": "**zwar concede, in mezzo o al primo posto col verbo subito dopo; aber non occupa un posto**\n- Der Most ist zwar teuer, aber er ist gut.\n- Zwar ist er teuer, aber er ist gut."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "zwar-aber",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Einerseits ist das Dorf ruhig, ___.",
+        "options": [
+          "andererseits ist es weit weg",
+          "andererseits es ist weit weg",
+          "andererseits weit weg es ist"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**einerseits and andererseits weigh two sides, each with the verb next**\n- Einerseits ist die Mühle schön, andererseits kostet sie viel.",
+          "sl": "**einerseits in andererseits pretehtata dve strani, vsak z glagolom takoj za njim**\n- Einerseits ist die Mühle schön, andererseits kostet sie viel.",
+          "it": "**einerseits e andererseits pesano due lati, ognuno col verbo subito dopo**\n- Einerseits ist die Mühle schön, andererseits kostet sie viel."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: jedoch with no place; Auch wenn es regnet, wir gehen as spoken; zwar first; während for whereas; und zwar; each base"
+}

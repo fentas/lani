@@ -1,0 +1,1480 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "satzbau",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🪜",
+  "title": {
+    "de": "Gestern hat mir Oma im Garten geholfen",
+    "en": "Word order: what comes first, what comes last",
+    "sl": "Besedni red: kaj je prvo, kaj zadnje",
+    "it": "L'ordine delle parole: cosa viene prima e cosa dopo"
+  },
+  "goal": {
+    "en": "You can order the middle of a sentence: pronouns first, the dative before the accusative, time, cause, manner, place; you can choose what goes first and where nicht goes.",
+    "sl": "Znaš urediti sredino stavka: najprej zaimki, dajalnik pred tožilnikom, čas, vzrok, način, kraj; znaš izbrati, kaj je prvo in kam gre nicht.",
+    "it": "Sai mettere in ordine il centro della frase: prima i pronomi, il dativo prima dell'accusativo, tempo, causa, modo, luogo; sai scegliere che cosa va al primo posto e dove va nicht."
+  },
+  "grammar": [
+    "satzbau",
+    "wortstellung",
+    "kein-nicht",
+    "pronomen-dativ"
+  ],
+  "words": [
+    "der Garten",
+    "helfen",
+    "gestern",
+    "die Bank",
+    "sich setzen",
+    "hinsetzen",
+    "der Apfel",
+    "zeigen",
+    "der Gast",
+    "das Zimmer",
+    "wegen",
+    "der Regen",
+    "der Traktor",
+    "versprechen",
+    "der Kuchen",
+    "der Most",
+    "nicht",
+    "sondern",
+    "anrufen",
+    "der Knochen",
+    "schenken",
+    "das Tor",
+    "reparieren",
+    "zählen",
+    "frisch",
+    "die Mühle",
+    "das Mehl",
+    "der Nachbar"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Regel",
+          "en": "rule",
+          "sl": "pravilo",
+          "it": "regola"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**mir** (to me) and the other pronouns come first in the middle of a sentence, straight after the verb: Gestern hat **mir** Oma im Garten geholfen. Between the verb and the end (the *Mittelfeld*) German has a usual order, and small known words lead. A noun subject may come before the pronoun too: Gestern hat Oma **mir** geholfen. **sich** is one of them: Dann setzt **sich** Stefan hin.",
+          "sl": "**mir** (meni) in drugi zaimki so v sredini stavka prvi, takoj za glagolom: Gestern hat **mir** Oma im Garten geholfen. Med glagolom in koncem (*Mittelfeld*) ima nemščina običajni red, majhne znane besede so spredaj. Samostalnik kot osebek lahko stoji tudi pred zaimkom: Gestern hat Oma **mir** geholfen. Tudi **sich** je med njimi: Dann setzt **sich** Stefan hin.",
+          "it": "**mir** (a me) e gli altri pronomi vengono per primi in mezzo alla frase, subito dopo il verbo: Gestern hat **mir** Oma im Garten geholfen. Tra il verbo e la fine (il *Mittelfeld*) il tedesco ha un ordine solito, e le parole piccole e note stanno davanti. Un nome soggetto può stare anche prima del pronome: Gestern hat Oma **mir** geholfen. Anche **sich** è uno di loro: Dann setzt **sich** Stefan hin."
+        },
+        "examples": [
+          {
+            "de": "Gestern hat mir Oma im Garten geholfen.",
+            "en": "Yesterday Grandma helped me in the garden.",
+            "sl": "Včeraj mi je babica pomagala na vrtu.",
+            "it": "Ieri la nonna mi ha aiutato in giardino."
+          },
+          {
+            "de": "Dann setzt sich Stefan auf die Bank.",
+            "en": "Then Stefan sits down on the bench.",
+            "sl": "Nato se Stefan usede na klop.",
+            "it": "Poi Stefan si siede sulla panchina."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "pronouns first, after the verb",
+              "sl": "zaimki prvi, za glagolom",
+              "it": "prima i pronomi, dopo il verbo"
+            },
+            "Gestern hat mir Oma geholfen."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Dann wäscht ___.",
+          "options": [
+            "sich Toni am Brunnen die Hände",
+            "am Brunnen sich Toni die Hände",
+            "Toni am Brunnen sich die Hände"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Pronouns come first in the middle, straight after the verb**\n- Gestern hat mir Oma im Garten geholfen.",
+            "sl": "**Zaimki so v sredini prvi, takoj za glagolom**\n- Gestern hat mir Oma im Garten geholfen.",
+            "it": "**In mezzo i pronomi vengono per primi, subito dopo il verbo**\n- Gestern hat mir Oma im Garten geholfen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ihn ihm** (it to him): with two pronouns the accusative comes first: Ich gebe **es ihm**. A pronoun comes before a noun, whichever case it is: Ich gebe **ihm** den Apfel. Ich gebe **ihn** dem Kind. Two nouns go the other way, the dative first: Ich gebe **dem Kind den Apfel**. In speech es shrinks and may hang on the dative: Ich geb **dir's**. That's fine too.",
+          "sl": "**ihn ihm** (ga njemu): pri dveh zaimkih je najprej tožilnik: Ich gebe **es ihm**. Zaimek stoji pred samostalnikom, v katerem koli sklonu: Ich gebe **ihm** den Apfel. Ich gebe **ihn** dem Kind. Dva samostalnika gresta obratno, najprej dajalnik: Ich gebe **dem Kind den Apfel**. V govoru se es skrči in se lahko obesi na dajalnik: Ich geb **dir's**. Tudi to je v redu.",
+          "it": "**ihn ihm** (glielo): con due pronomi viene prima l'accusativo: Ich gebe **es ihm**. Il pronome sta prima del nome, in qualsiasi caso: Ich gebe **ihm** den Apfel. Ich gebe **ihn** dem Kind. Due nomi vanno al contrario, prima il dativo: Ich gebe **dem Kind den Apfel**. Parlando es si accorcia e può attaccarsi al dativo: Ich geb **dir's**. Va bene anche così."
+        },
+        "examples": [
+          {
+            "de": "Ich gebe dem Kind den Apfel.",
+            "en": "I'm giving the child the apple.",
+            "sl": "Dam otroku jabolko.",
+            "it": "Do la mela al bambino."
+          },
+          {
+            "de": "Ich gebe ihn ihm.",
+            "en": "I'm giving it to him.",
+            "sl": "Dam mu ga.",
+            "it": "Gliela do."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "two pronouns: accusative, dative",
+              "sl": "dva zaimka: tožilnik, dajalnik",
+              "it": "due pronomi: accusativo, dativo"
+            },
+            "Ich gebe es ihm."
+          ],
+          [
+            {
+              "en": "pronoun before noun",
+              "sl": "zaimek pred samostalnikom",
+              "it": "pronome prima del nome"
+            },
+            "Ich gebe ihn dem Kind."
+          ],
+          [
+            {
+              "en": "two nouns: dative, accusative",
+              "sl": "dva samostalnika: dajalnik, tožilnik",
+              "it": "due nomi: dativo, accusativo"
+            },
+            "Ich gebe dem Kind den Apfel."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Der Apfel? Stefan gibt ___.",
+          "options": [
+            "ihn dem Kind",
+            "dem Kind ihn",
+            "ihn das Kind"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Two nouns: the dative first. A pronoun before a noun. Two pronouns: the accusative first**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "sl": "**Dva samostalnika: najprej dajalnik. Zaimek pred samostalnikom. Dva zaimka: najprej tožilnik**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "it": "**Due nomi: prima il dativo. Il pronome prima del nome. Due pronomi: prima l'accusativo**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**heute wegen des Regens mit dem Auto nach Villach**: after the pronouns the usual order is time, cause, manner, place (learners say *te-ka-mo-lo*). Stefan fährt **heute wegen des Regens mit dem Auto nach Villach**. It's usual, not a law: cause and time change places easily. What the verb needs, its place above all, stays at the end, and what's new moves toward it.",
+          "sl": "**heute wegen des Regens mit dem Auto nach Villach**: za zaimki je običajni red čas, vzrok, način, kraj (učenci rečejo *te-ka-mo-lo*). Stefan fährt **heute wegen des Regens mit dem Auto nach Villach**. To je običajno, ne zakon: vzrok in čas zlahka zamenjata mesti. Kar glagol potrebuje, predvsem kraj, ostane na koncu, in novo se pomika proti njemu.",
+          "it": "**heute wegen des Regens mit dem Auto nach Villach**: dopo i pronomi l'ordine solito è tempo, causa, modo, luogo (chi studia dice *te-ka-mo-lo*). Stefan fährt **heute wegen des Regens mit dem Auto nach Villach**. È un'abitudine, non una legge: causa e tempo si scambiano facilmente il posto. Quello che serve al verbo, soprattutto il luogo, resta in fondo, e il nuovo gli si avvicina."
+        },
+        "examples": [
+          {
+            "de": "Stefan fährt heute wegen des Regens mit dem Auto nach Villach.",
+            "en": "Stefan is driving to Villach today by car because of the rain.",
+            "sl": "Stefan se danes zaradi dežja z avtom pelje v Beljak.",
+            "it": "Stefan oggi per via della pioggia va in macchina a Villach."
+          },
+          {
+            "de": "Kathi arbeitet morgen zu Hause.",
+            "en": "Kathi is working at home tomorrow.",
+            "sl": "Kathi jutri dela doma.",
+            "it": "Kathi domani lavora a casa."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "time, cause, manner, place",
+              "sl": "čas, vzrok, način, kraj",
+              "it": "tempo, causa, modo, luogo"
+            },
+            "heute wegen des Regens mit dem Auto nach Villach"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Toni fährt ___.",
+          "options": [
+            "morgen mit dem Traktor nach Villach",
+            "nach Villach mit dem Traktor morgen",
+            "mit dem Traktor nach Villach morgen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The usual order: time, cause, manner, place; the place stays last**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach.",
+            "sl": "**Običajni red: čas, vzrok, način, kraj; kraj ostane zadnji**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach.",
+            "it": "**L'ordine solito: tempo, causa, modo, luogo; il luogo resta in fondo**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Den Most** (the cider) can take first place, and so can almost any one part; the verb stays second and the subject moves behind it. First place holds what you're talking about, or what you set against something: **Den Most** hat Stefan gemacht, das Bier nicht. **Heute** backt Oma Resi einen Kuchen. The neutral start is the subject or a time.",
+          "sl": "**Den Most** (mošt) lahko zasede prvo mesto, in skoraj vsak drug del; glagol ostane drugi, osebek gre za njega. Na prvem mestu je to, o čemer govoriš, ali kar postaviš proti čemu drugemu: **Den Most** hat Stefan gemacht, das Bier nicht. **Heute** backt Oma Resi einen Kuchen. Nevtralen začetek je osebek ali čas.",
+          "it": "**Den Most** (il sidro) può occupare il primo posto, e così quasi ogni altra parte; il verbo resta secondo e il soggetto gli passa dietro. Al primo posto sta ciò di cui parli, o ciò che metti a confronto: **Den Most** hat Stefan gemacht, das Bier nicht. **Heute** backt Oma Resi einen Kuchen. L'inizio neutro è il soggetto o un tempo."
+        },
+        "examples": [
+          {
+            "de": "Den Most hat Stefan gemacht, das Bier nicht.",
+            "en": "The cider Stefan made himself; the beer, no.",
+            "sl": "Mošt je naredil Stefan, pivo pa ne.",
+            "it": "Il sidro l'ha fatto Stefan, la birra no."
+          },
+          {
+            "de": "Heute backt Oma Resi einen Kuchen.",
+            "en": "Today Oma Resi is baking a cake.",
+            "sl": "Danes babica Resi peče kolač.",
+            "it": "Oggi nonna Resi fa una torta."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "first place: one part, then the verb",
+              "sl": "prvo mesto: en del, nato glagol",
+              "it": "primo posto: una parte, poi il verbo"
+            },
+            "Den Most hat Stefan gemacht."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Diesen Honig ___.",
+          "options": [
+            "hat Stanko gemacht",
+            "Stanko hat gemacht",
+            "hat gemacht Stanko"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**One part goes first, and the verb stays second: the subject moves behind it**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht.",
+            "sl": "**En del gre prvi, glagol ostane drugi: osebek gre za njega**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht.",
+            "it": "**Una parte va al primo posto e il verbo resta secondo: il soggetto passa dietro**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**nicht** (not) goes last when it denies the whole sentence: Ich kenne ihn **nicht**. Heute kommt Kathi **nicht**. But it comes before what the verb can't do without: a second verb (Ich habe ihn **nicht** gesehen), a place (Wir fahren **nicht** nach Villach), an adjective (Der Most ist **nicht** teuer). Time words stay before it: Ich komme morgen **nicht**.",
+          "sl": "**nicht** (ne) gre na konec, kadar zanika cel stavek: Ich kenne ihn **nicht**. Heute kommt Kathi **nicht**. Pride pa pred tem, brez česar glagol ne more: pred drugim glagolom (Ich habe ihn **nicht** gesehen), krajem (Wir fahren **nicht** nach Villach), pridevnikom (Der Most ist **nicht** teuer). Besede za čas ostanejo pred njim: Ich komme morgen **nicht**.",
+          "it": "**nicht** (non) va in fondo quando nega tutta la frase: Ich kenne ihn **nicht**. Heute kommt Kathi **nicht**. Ma viene prima di ciò di cui il verbo non può fare a meno: un secondo verbo (Ich habe ihn **nicht** gesehen), un luogo (Wir fahren **nicht** nach Villach), un aggettivo (Der Most ist **nicht** teuer). Le parole di tempo restano prima: Ich komme morgen **nicht**."
+        },
+        "examples": [
+          {
+            "de": "Ich habe ihn nicht gesehen.",
+            "en": "I didn't see him.",
+            "sl": "Nisem ga videl.",
+            "it": "Non l'ho visto."
+          },
+          {
+            "de": "Wir fahren morgen nicht nach Villach.",
+            "en": "We're not going to Villach tomorrow.",
+            "sl": "Jutri ne gremo v Beljak.",
+            "it": "Domani non andiamo a Villach."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "nicht at the end: the whole sentence",
+              "sl": "nicht na koncu: cel stavek",
+              "it": "nicht in fondo: tutta la frase"
+            },
+            "Ich kenne ihn nicht."
+          ],
+          [
+            {
+              "en": "nicht before a second verb, a place, an adjective",
+              "sl": "nicht pred drugim glagolom, krajem, pridevnikom",
+              "it": "nicht prima di un secondo verbo, un luogo, un aggettivo"
+            },
+            "Ich habe ihn nicht gesehen."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi hat ___.",
+          "options": [
+            "den Kuchen nicht gebacken",
+            "den Kuchen gebacken nicht",
+            "nicht gebacken den Kuchen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nicht goes last, but before a second verb, a place and an adjective**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "sl": "**nicht gre na konec, a pred drugi glagol, kraj in pridevnik**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "it": "**nicht va in fondo, ma prima di un secondo verbo, di un luogo e di un aggettivo**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Nicht Stefan** (not Stefan): right before one word, nicht denies only that word, and sondern usually says what's true: **Nicht Stefan** hat das gemacht, sondern Kathi. Ich fahre **nicht heute**, sondern morgen. Compare: Ich fahre heute nicht is a plain no; Ich fahre nicht heute says another day. Slovene and Italian can put their no in front of the verb; German moves nicht to what it's about.",
+          "sl": "**Nicht Stefan** (ne Stefan): tik pred besedo nicht zanika samo to besedo, sondern pa navadno pove, kaj je res: **Nicht Stefan** hat das gemacht, sondern Kathi. Ich fahre **nicht heute**, sondern morgen. Primerjaj: Ich fahre heute nicht je preprost ne; Ich fahre nicht heute pomeni drug dan. Slovenščina da svoj ne pred glagol; nemščina premakne nicht k tistemu, o čemer gre.",
+          "it": "**Nicht Stefan** (non Stefan): subito prima di una parola, nicht nega solo quella, e sondern di solito dice che cosa è vero: **Nicht Stefan** hat das gemacht, sondern Kathi. Ich fahre **nicht heute**, sondern morgen. Confronta: Ich fahre heute nicht è un semplice no; Ich fahre nicht heute vuol dire un altro giorno. L'italiano mette il suo non davanti al verbo; il tedesco sposta nicht su ciò di cui si parla."
+        },
+        "examples": [
+          {
+            "de": "Nicht Stefan hat das gemacht, sondern Kathi.",
+            "en": "It wasn't Stefan who did it, but Kathi.",
+            "sl": "Tega ni naredil Stefan, ampak Kathi.",
+            "it": "Non è stato Stefan a farlo, ma Kathi."
+          },
+          {
+            "de": "Ich fahre nicht heute, sondern morgen.",
+            "en": "I'm not going today, but tomorrow.",
+            "sl": "Ne grem danes, ampak jutri.",
+            "it": "Non vado oggi, ma domani."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "nicht before one word: only that word",
+              "sl": "nicht pred eno besedo: samo ta beseda",
+              "it": "nicht prima di una parola: solo quella"
+            },
+            "Nicht Stefan, sondern Kathi."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi kommt ___, sondern morgen.",
+          "options": [
+            "nicht heute",
+            "heute nicht",
+            "nichts heute"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nicht right before one word denies only that word; sondern says what is true**\n- Nicht Stefan hat das gemacht, sondern Kathi.\n- Ich fahre nicht heute, sondern morgen.",
+            "sl": "**nicht tik pred besedo zanika samo to besedo; sondern pove, kaj je res**\n- Nicht Stefan hat das gemacht, sondern Kathi.\n- Ich fahre nicht heute, sondern morgen.",
+            "it": "**nicht subito prima di una parola nega solo quella; sondern dice che cosa è vero**\n- Nicht Stefan hat das gemacht, sondern Kathi.\n- Ich fahre nicht heute, sondern morgen."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "satzbau-1",
+      "title": {
+        "de": "Pronomen und nicht",
+        "en": "Pronouns and nicht",
+        "sl": "Zaimki in nicht",
+        "it": "I pronomi e nicht"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "nouns become pronouns: they change places",
+            "sl": "samostalniki postanejo zaimki: zamenjajo mesto",
+            "it": "i nomi diventano pronomi: cambiano posto"
+          },
+          "columns": [
+            "→ ihm, ihr …",
+            "→ ihn, sie, es",
+            "→ beide · both"
+          ],
+          "rows": [
+            {
+              "label": "Stefan gibt dem Kind den Apfel.",
+              "cells": [
+                {
+                  "accept": [
+                    "Stefan gibt ihm den Apfel."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Stefan gibt ihn dem Kind."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Stefan gibt ihn ihm."
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Kathi zeigt dem Gast das Zimmer.",
+              "cells": [
+                {
+                  "accept": [
+                    "Kathi zeigt ihm das Zimmer."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Kathi zeigt es dem Gast."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Kathi zeigt es ihm."
+                  ],
+                  "spoken": [
+                    "Kathi zeigt ihm's."
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Franz bringt der Oma die Suppe.",
+              "cells": [
+                {
+                  "accept": [
+                    "Franz bringt ihr die Suppe."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Franz bringt sie der Oma."
+                  ]
+                },
+                {
+                  "accept": [
+                    "Franz bringt sie ihr."
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Two nouns: the dative first. A pronoun before a noun. Two pronouns: the accusative first**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "sl": "**Dva samostalnika: najprej dajalnik. Zaimek pred samostalnikom. Dva zaimka: najprej tožilnik**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "it": "**Due nomi: prima il dativo. Il pronome prima del nome. Due pronomi: prima l'accusativo**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Sortiere · Sort: where is nicht?",
+            "sl": "Sortiere · Razvrsti: kje je nicht?",
+            "it": "Sortiere · Ordina: dov'è nicht?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "am Ende · last",
+                "sl": "am Ende · na koncu",
+                "it": "am Ende · in fondo"
+              },
+              "words": [
+                "Ich kenne ihn nicht.",
+                "Kathi kommt heute nicht."
+              ]
+            },
+            {
+              "label": {
+                "en": "vor dem zweiten Verb · before a second verb",
+                "sl": "vor dem zweiten Verb · pred drugim glagolom",
+                "it": "vor dem zweiten Verb · prima di un secondo verbo"
+              },
+              "words": [
+                "Ich habe ihn nicht gesehen.",
+                "Er kann nicht kommen."
+              ]
+            },
+            {
+              "label": {
+                "en": "vor Ort oder Adjektiv · before a place or an adjective",
+                "sl": "vor Ort oder Adjektiv · pred krajem ali pridevnikom",
+                "it": "vor Ort oder Adjektiv · prima di un luogo o un aggettivo"
+              },
+              "words": [
+                "Sie fährt nicht nach Villach.",
+                "Der Most ist nicht teuer."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**nicht goes last, but before a second verb, a place and an adjective**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "sl": "**nicht gre na konec, a pred drugi glagol, kraj in pridevnik**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "it": "**nicht va in fondo, ma prima di un secondo verbo, di un luogo e di un aggettivo**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer."
+          }
+        }
+      ]
+    },
+    {
+      "id": "satzbau-2",
+      "title": {
+        "de": "Die Reihenfolge",
+        "en": "The order",
+        "sl": "Vrstni red",
+        "it": "L'ordine"
+      },
+      "exercises": [
+        {
+          "type": "reorder",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Yesterday Grandma helped me in the garden.",
+            "sl": "Včeraj mi je babica pomagala na vrtu.",
+            "it": "Ieri la nonna mi ha aiutato in giardino."
+          },
+          "tokens": [
+            "Gestern",
+            "hat",
+            "mir",
+            "Oma",
+            "im Garten",
+            "geholfen"
+          ],
+          "solutions": [
+            [
+              "Gestern",
+              "hat",
+              "mir",
+              "Oma",
+              "im Garten",
+              "geholfen"
+            ],
+            [
+              "Gestern",
+              "hat",
+              "Oma",
+              "mir",
+              "im Garten",
+              "geholfen"
+            ],
+            [
+              "Gestern",
+              "hat",
+              "mir",
+              "im Garten",
+              "Oma",
+              "geholfen"
+            ],
+            [
+              "Oma",
+              "hat",
+              "mir",
+              "gestern",
+              "im Garten",
+              "geholfen"
+            ],
+            [
+              "Im Garten",
+              "hat",
+              "mir",
+              "Oma",
+              "gestern",
+              "geholfen"
+            ],
+            [
+              "Im Garten",
+              "hat",
+              "Oma",
+              "mir",
+              "gestern",
+              "geholfen"
+            ],
+            [
+              "Im Garten",
+              "hat",
+              "mir",
+              "gestern",
+              "Oma",
+              "geholfen"
+            ],
+            [
+              "Mir",
+              "hat",
+              "Oma",
+              "gestern",
+              "im Garten",
+              "geholfen"
+            ],
+            [
+              "Mir",
+              "hat",
+              "gestern",
+              "Oma",
+              "im Garten",
+              "geholfen"
+            ],
+            [
+              "Mir",
+              "hat",
+              "gestern",
+              "im Garten",
+              "Oma",
+              "geholfen"
+            ]
+          ],
+          "explain": {
+            "en": "**Pronouns come first in the middle, straight after the verb**\n- Gestern hat mir Oma im Garten geholfen.",
+            "sl": "**Zaimki so v sredini prvi, takoj za glagolom**\n- Gestern hat mir Oma im Garten geholfen.",
+            "it": "**In mezzo i pronomi vengono per primi, subito dopo il verbo**\n- Gestern hat mir Oma im Garten geholfen."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "The apple? Stefan gives it to the child.",
+            "sl": "Jabolko? Stefan ga da otroku.",
+            "it": "La mela? Stefan la dà al bambino."
+          },
+          "tokens": [
+            "Stefan",
+            "gibt",
+            "ihn",
+            "dem Kind"
+          ],
+          "solutions": [
+            [
+              "Stefan",
+              "gibt",
+              "ihn",
+              "dem Kind"
+            ],
+            [
+              "Ihn",
+              "gibt",
+              "Stefan",
+              "dem Kind"
+            ],
+            [
+              "Dem Kind",
+              "gibt",
+              "ihn",
+              "Stefan"
+            ]
+          ],
+          "explain": {
+            "en": "**Two nouns: the dative first. A pronoun before a noun. Two pronouns: the accusative first**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "sl": "**Dva samostalnika: najprej dajalnik. Zaimek pred samostalnikom. Dva zaimka: najprej tožilnik**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "it": "**Due nomi: prima il dativo. Il pronome prima del nome. Due pronomi: prima l'accusativo**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "The apple? I give it to him.",
+            "sl": "Jabolko? Dam mu ga.",
+            "it": "La mela? Gliela do."
+          },
+          "tokens": [
+            "Ich",
+            "gebe",
+            "ihn",
+            "ihm"
+          ],
+          "solutions": [
+            [
+              "Ich",
+              "gebe",
+              "ihn",
+              "ihm"
+            ],
+            [
+              "Ihm",
+              "gebe",
+              "ich",
+              "ihn"
+            ],
+            [
+              "Ihn",
+              "gebe",
+              "ich",
+              "ihm"
+            ]
+          ],
+          "explain": {
+            "en": "**Two nouns: the dative first. A pronoun before a noun. Two pronouns: the accusative first**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "sl": "**Dva samostalnika: najprej dajalnik. Zaimek pred samostalnikom. Dva zaimka: najprej tožilnik**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "it": "**Due nomi: prima il dativo. Il pronome prima del nome. Due pronomi: prima l'accusativo**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Stefan is driving to Villach today by car because of the rain.",
+            "sl": "Stefan se danes zaradi dežja z avtom pelje v Beljak.",
+            "it": "Stefan oggi per via della pioggia va in macchina a Villach."
+          },
+          "tokens": [
+            "Stefan",
+            "fährt",
+            "heute",
+            "wegen des Regens",
+            "mit dem Auto",
+            "nach Villach"
+          ],
+          "solutions": [
+            [
+              "Stefan",
+              "fährt",
+              "heute",
+              "wegen des Regens",
+              "mit dem Auto",
+              "nach Villach"
+            ],
+            [
+              "Stefan",
+              "fährt",
+              "wegen des Regens",
+              "heute",
+              "mit dem Auto",
+              "nach Villach"
+            ],
+            [
+              "Stefan",
+              "fährt",
+              "heute",
+              "mit dem Auto",
+              "wegen des Regens",
+              "nach Villach"
+            ],
+            [
+              "heute",
+              "fährt",
+              "Stefan",
+              "wegen des Regens",
+              "mit dem Auto",
+              "nach Villach"
+            ],
+            [
+              "heute",
+              "fährt",
+              "Stefan",
+              "mit dem Auto",
+              "wegen des Regens",
+              "nach Villach"
+            ],
+            [
+              "wegen des Regens",
+              "fährt",
+              "Stefan",
+              "heute",
+              "mit dem Auto",
+              "nach Villach"
+            ],
+            [
+              "mit dem Auto",
+              "fährt",
+              "Stefan",
+              "heute",
+              "wegen des Regens",
+              "nach Villach"
+            ],
+            [
+              "nach Villach",
+              "fährt",
+              "Stefan",
+              "heute",
+              "wegen des Regens",
+              "mit dem Auto"
+            ]
+          ],
+          "explain": {
+            "en": "**The usual order: time, cause, manner, place; the place stays last**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach.",
+            "sl": "**Običajni red: čas, vzrok, način, kraj; kraj ostane zadnji**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach.",
+            "it": "**L'ordine solito: tempo, causa, modo, luogo; il luogo resta in fondo**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "I didn't see him.",
+            "sl": "Nisem ga videl.",
+            "it": "Non l'ho visto."
+          },
+          "tokens": [
+            "Ich",
+            "habe",
+            "ihn",
+            "nicht",
+            "gesehen"
+          ],
+          "solutions": [
+            [
+              "Ich",
+              "habe",
+              "ihn",
+              "nicht",
+              "gesehen"
+            ],
+            [
+              "Ihn",
+              "habe",
+              "ich",
+              "nicht",
+              "gesehen"
+            ]
+          ],
+          "explain": {
+            "en": "**nicht goes last, but before a second verb, a place and an adjective**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "sl": "**nicht gre na konec, a pred drugi glagol, kraj in pridevnik**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "it": "**nicht va in fondo, ma prima di un secondo verbo, di un luogo e di un aggettivo**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Kathi isn't going to Villach tomorrow: she's staying at home.",
+            "sl": "Kathi jutri ne gre v Beljak: ostane doma.",
+            "it": "Kathi domani non va a Villach: resta a casa."
+          },
+          "tokens": [
+            "Kathi",
+            "fährt",
+            "morgen",
+            "nicht",
+            "nach Villach"
+          ],
+          "solutions": [
+            [
+              "Kathi",
+              "fährt",
+              "morgen",
+              "nicht",
+              "nach Villach"
+            ],
+            [
+              "Morgen",
+              "fährt",
+              "Kathi",
+              "nicht",
+              "nach Villach"
+            ],
+            [
+              "Nach Villach",
+              "fährt",
+              "Kathi",
+              "morgen",
+              "nicht"
+            ]
+          ],
+          "explain": {
+            "en": "**nicht goes last, but before a second verb, a place and an adjective**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "sl": "**nicht gre na konec, a pred drugi glagol, kraj in pridevnik**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "it": "**nicht va in fondo, ma prima di un secondo verbo, di un luogo e di un aggettivo**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Der Apfel? Toni gibt ___.",
+          "options": [
+            "ihn ihm",
+            "ihm ihn",
+            "ihn er"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Two nouns: the dative first. A pronoun before a noun. Two pronouns: the accusative first**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "sl": "**Dva samostalnika: najprej dajalnik. Zaimek pred samostalnikom. Dva zaimka: najprej tožilnik**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+            "it": "**Due nomi: prima il dativo. Il pronome prima del nome. Due pronomi: prima l'accusativo**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ich kenne ___.",
+          "options": [
+            "ihn nicht",
+            "nicht ihn",
+            "nichts ihn"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nicht goes last, but before a second verb, a place and an adjective**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "sl": "**nicht gre na konec, a pred drugi glagol, kraj in pridevnik**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "it": "**nicht va in fondo, ma prima di un secondo verbo, di un luogo e di un aggettivo**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer."
+          }
+        }
+      ]
+    },
+    {
+      "id": "satzbau-3",
+      "title": {
+        "de": "Stefan bringt den Most",
+        "en": "Stefan brings the cider",
+        "sl": "Stefan prinese mošt",
+        "it": "Stefan porta il sidro"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Stefan bringt den Most",
+          "text": "Kathi braucht Most für den Kirchtag. Stefan hat ___ (es, ihr) gestern versprochen. Heute bringt er ___ (ihn, ihr) mit dem Traktor. Der Weg ist ___ weit, aber der Traktor ist alt. Am Gasthaus setzt ___ Stefan auf die Bank. Kathi fragt: Warum hast du mich ___ angerufen?",
+          "gaps": [
+            {
+              "accept": [
+                "es ihr"
+              ],
+              "spoken": [
+                "ihr's"
+              ],
+              "hint": {
+                "en": "the accusative first",
+                "sl": "najprej tožilnik",
+                "it": "prima l'accusativo"
+              }
+            },
+            {
+              "accept": [
+                "ihn ihr"
+              ],
+              "hint": {
+                "en": "the accusative first",
+                "sl": "najprej tožilnik",
+                "it": "prima l'accusativo"
+              }
+            },
+            {
+              "accept": [
+                "nicht"
+              ]
+            },
+            {
+              "accept": [
+                "sich"
+              ]
+            },
+            {
+              "accept": [
+                "nicht"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "ihr ihn",
+            "nichts",
+            "ihm"
+          ],
+          "translation": {
+            "en": "Kathi needs cider for the Kirchtag. Stefan promised it to her yesterday. Today he's bringing it to her by tractor. The way isn't far, but the tractor is old. At the inn Stefan sits down on the bench. Kathi asks: why didn't you phone me?",
+            "sl": "Kathi potrebuje mošt za žegnanje. Stefan ji ga je včeraj obljubil. Danes ji ga pripelje s traktorjem. Pot ni daleč, a traktor je star. Pri gostilni se Stefan usede na klop. Kathi vpraša: Zakaj me nisi poklical?",
+            "it": "A Kathi serve il sidro per il Kirchtag. Stefan gliel'ha promesso ieri. Oggi glielo porta col trattore. La strada non è lunga, ma il trattore è vecchio. All'osteria Stefan si siede sulla panchina. Kathi chiede: perché non mi hai telefonato?"
+          },
+          "explain": {
+            "en": "**After the verb: pronouns, then time, cause, manner, place. nicht last, or before a second verb, a place, an adjective**",
+            "sl": "**Za glagolom: zaimki, nato čas, vzrok, način, kraj. nicht na koncu ali pred drugim glagolom, krajem, pridevnikom**",
+            "it": "**Dopo il verbo: i pronomi, poi tempo, causa, modo, luogo. nicht in fondo, o prima di un secondo verbo, un luogo, un aggettivo**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "An den Anfang · Put the words in brackets first; the verb stays second",
+            "sl": "An den Anfang · Besede v oklepaju na začetek; glagol ostane drugi",
+            "it": "An den Anfang · Le parole tra parentesi al primo posto; il verbo resta secondo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Oma Resi backt heute einen Kuchen. (heute)",
+              "accept": [
+                "Heute backt Oma Resi einen Kuchen."
+              ],
+              "spoken": [
+                "Heute backt die Oma Resi einen Kuchen."
+              ]
+            },
+            {
+              "from": "Stefan hat den Most gemacht. (den Most)",
+              "accept": [
+                "Den Most hat Stefan gemacht."
+              ],
+              "spoken": [
+                "Den Most hat der Stefan gemacht."
+              ]
+            },
+            {
+              "from": "Wir fahren wegen des Regens nicht auf die Alm. (wegen des Regens)",
+              "accept": [
+                "Wegen des Regens fahren wir nicht auf die Alm."
+              ],
+              "spoken": [
+                "Wegen dem Regen fahren wir nicht auf die Alm."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**One part goes first, and the verb stays second: the subject moves behind it**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht.",
+            "sl": "**En del gre prvi, glagol ostane drugi: osebek gre za njega**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht.",
+            "it": "**Una parte va al primo posto e il verbo resta secondo: il soggetto passa dietro**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht."
+          },
+          "whole": true
+        },
+        {
+          "type": "transform",
+          "grammar": "satzbau",
+          "instruction": {
+            "en": "Sag Nein · Say no with nicht",
+            "sl": "Sag Nein · Reci ne z nicht",
+            "it": "Sag Nein · Di no con nicht"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich kenne den Mann.",
+              "accept": [
+                "Ich kenne den Mann nicht."
+              ]
+            },
+            {
+              "from": "Kathi hat mir geholfen.",
+              "accept": [
+                "Kathi hat mir nicht geholfen."
+              ],
+              "spoken": [
+                "Die Kathi hat mir nicht geholfen."
+              ]
+            },
+            {
+              "from": "Wir fahren nach Villach.",
+              "accept": [
+                "Wir fahren nicht nach Villach."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**nicht goes last, but before a second verb, a place and an adjective**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "sl": "**nicht gre na konec, a pred drugi glagol, kraj in pridevnik**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+            "it": "**nicht va in fondo, ma prima di un secondo verbo, di un luogo e di un aggettivo**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "reorder",
+        "grammar": "satzbau",
+        "instruction": {
+          "en": "Bilde den Satz · Put the sentence in order",
+          "sl": "Bilde den Satz · Sestavi stavek",
+          "it": "Bilde den Satz · Metti in ordine la frase"
+        },
+        "prompt": {
+          "en": "Today Kathi is bringing me the soup.",
+          "sl": "Danes mi Kathi prinese juho.",
+          "it": "Oggi Kathi mi porta la zuppa."
+        },
+        "tokens": [
+          "Heute",
+          "bringt",
+          "mir",
+          "Kathi",
+          "die Suppe"
+        ],
+        "solutions": [
+          [
+            "Heute",
+            "bringt",
+            "mir",
+            "Kathi",
+            "die Suppe"
+          ],
+          [
+            "Heute",
+            "bringt",
+            "Kathi",
+            "mir",
+            "die Suppe"
+          ],
+          [
+            "Kathi",
+            "bringt",
+            "mir",
+            "heute",
+            "die Suppe"
+          ],
+          [
+            "Die Suppe",
+            "bringt",
+            "mir",
+            "Kathi",
+            "heute"
+          ],
+          [
+            "Die Suppe",
+            "bringt",
+            "mir",
+            "heute",
+            "Kathi"
+          ],
+          [
+            "Mir",
+            "bringt",
+            "Kathi",
+            "heute",
+            "die Suppe"
+          ],
+          [
+            "Mir",
+            "bringt",
+            "heute",
+            "Kathi",
+            "die Suppe"
+          ]
+        ],
+        "explain": {
+          "en": "**Pronouns come first in the middle, straight after the verb**\n- Gestern hat mir Oma im Garten geholfen.",
+          "sl": "**Zaimki so v sredini prvi, takoj za glagolom**\n- Gestern hat mir Oma im Garten geholfen.",
+          "it": "**In mezzo i pronomi vengono per primi, subito dopo il verbo**\n- Gestern hat mir Oma im Garten geholfen."
+        }
+      },
+      {
+        "type": "reorder",
+        "grammar": "satzbau",
+        "instruction": {
+          "en": "Bilde den Satz · Put the sentence in order",
+          "sl": "Bilde den Satz · Sestavi stavek",
+          "it": "Bilde den Satz · Metti in ordine la frase"
+        },
+        "prompt": {
+          "en": "The book? Toni gives it to the neighbour.",
+          "sl": "Knjiga? Toni jo da sosedu.",
+          "it": "Il libro? Toni lo dà al vicino."
+        },
+        "tokens": [
+          "Toni",
+          "gibt",
+          "es",
+          "dem Nachbarn"
+        ],
+        "solutions": [
+          [
+            "Toni",
+            "gibt",
+            "es",
+            "dem Nachbarn"
+          ],
+          [
+            "Dem Nachbarn",
+            "gibt",
+            "es",
+            "Toni"
+          ]
+        ],
+        "explain": {
+          "en": "**Two nouns: the dative first. A pronoun before a noun. Two pronouns: the accusative first**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+          "sl": "**Dva samostalnika: najprej dajalnik. Zaimek pred samostalnikom. Dva zaimka: najprej tožilnik**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+          "it": "**Due nomi: prima il dativo. Il pronome prima del nome. Due pronomi: prima l'accusativo**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm."
+        }
+      },
+      {
+        "type": "reorder",
+        "grammar": "satzbau",
+        "instruction": {
+          "en": "Bilde den Satz · Put the sentence in order",
+          "sl": "Bilde den Satz · Sestavi stavek",
+          "it": "Bilde den Satz · Metti in ordine la frase"
+        },
+        "prompt": {
+          "en": "Franz is working at the mill tomorrow because of the flour.",
+          "sl": "Franz jutri zaradi moke dela v mlinu.",
+          "it": "Domani Franz per via della farina lavora al mulino."
+        },
+        "tokens": [
+          "Franz",
+          "arbeitet",
+          "morgen",
+          "wegen des Mehls",
+          "in der Mühle"
+        ],
+        "solutions": [
+          [
+            "Franz",
+            "arbeitet",
+            "morgen",
+            "wegen des Mehls",
+            "in der Mühle"
+          ],
+          [
+            "Franz",
+            "arbeitet",
+            "wegen des Mehls",
+            "morgen",
+            "in der Mühle"
+          ],
+          [
+            "Morgen",
+            "arbeitet",
+            "Franz",
+            "wegen des Mehls",
+            "in der Mühle"
+          ],
+          [
+            "Wegen des Mehls",
+            "arbeitet",
+            "Franz",
+            "morgen",
+            "in der Mühle"
+          ],
+          [
+            "In der Mühle",
+            "arbeitet",
+            "Franz",
+            "morgen",
+            "wegen des Mehls"
+          ]
+        ],
+        "explain": {
+          "en": "**The usual order: time, cause, manner, place; the place stays last**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach.",
+          "sl": "**Običajni red: čas, vzrok, način, kraj; kraj ostane zadnji**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach.",
+          "it": "**L'ordine solito: tempo, causa, modo, luogo; il luogo resta in fondo**\n- Stefan fährt heute wegen des Regens mit dem Auto nach Villach."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "satzbau",
+        "instruction": {
+          "en": "Sag es mit Pronomen · Use pronouns for both",
+          "sl": "Sag es mit Pronomen · Oba zamenjaj z zaimkoma",
+          "it": "Sag es mit Pronomen · Usa i pronomi per entrambi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Lena gibt dem Hund den Knochen.",
+            "accept": [
+              "Lena gibt ihn ihm."
+            ]
+          },
+          {
+            "from": "Mitzi schenkt der Kathi das Buch.",
+            "accept": [
+              "Mitzi schenkt es ihr."
+            ],
+            "spoken": [
+              "Mitzi schenkt ihr's."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Two nouns: the dative first. A pronoun before a noun. Two pronouns: the accusative first**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+          "sl": "**Dva samostalnika: najprej dajalnik. Zaimek pred samostalnikom. Dva zaimka: najprej tožilnik**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm.",
+          "it": "**Due nomi: prima il dativo. Il pronome prima del nome. Due pronomi: prima l'accusativo**\n- Ich gebe dem Kind den Apfel.\n- Ich gebe ihm den Apfel. · Ich gebe ihn dem Kind. · Ich gebe ihn ihm."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "satzbau",
+        "instruction": {
+          "en": "An den Anfang · Put the words in brackets first; the verb stays second",
+          "sl": "An den Anfang · Besede v oklepaju na začetek; glagol ostane drugi",
+          "it": "An den Anfang · Le parole tra parentesi al primo posto; il verbo resta secondo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Toni hat gestern das Tor repariert. (gestern)",
+            "accept": [
+              "Gestern hat Toni das Tor repariert."
+            ],
+            "spoken": [
+              "Gestern hat der Toni das Tor repariert."
+            ]
+          },
+          {
+            "from": "Kathi kocht die Suppe. (die Suppe)",
+            "accept": [
+              "Die Suppe kocht Kathi."
+            ],
+            "spoken": [
+              "Die Suppe kocht die Kathi."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**One part goes first, and the verb stays second: the subject moves behind it**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht.",
+          "sl": "**En del gre prvi, glagol ostane drugi: osebek gre za njega**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht.",
+          "it": "**Una parte va al primo posto e il verbo resta secondo: il soggetto passa dietro**\n- Heute backt Oma Resi einen Kuchen.\n- Den Most hat Stefan gemacht."
+        },
+        "whole": true
+      },
+      {
+        "type": "transform",
+        "grammar": "satzbau",
+        "instruction": {
+          "en": "Sag Nein · Say no with nicht",
+          "sl": "Sag Nein · Reci ne z nicht",
+          "it": "Sag Nein · Di no con nicht"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Das Brot ist frisch.",
+            "accept": [
+              "Das Brot ist nicht frisch."
+            ]
+          },
+          {
+            "from": "Florian hat die Schafe gezählt.",
+            "accept": [
+              "Florian hat die Schafe nicht gezählt."
+            ],
+            "spoken": [
+              "Der Florian hat die Schafe nicht gezählt."
+            ]
+          },
+          {
+            "from": "Ich komme morgen.",
+            "accept": [
+              "Ich komme morgen nicht."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**nicht goes last, but before a second verb, a place and an adjective**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+          "sl": "**nicht gre na konec, a pred drugi glagol, kraj in pridevnik**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer.",
+          "it": "**nicht va in fondo, ma prima di un secondo verbo, di un luogo e di un aggettivo**\n- Ich kenne ihn nicht.\n- Ich habe ihn nicht gesehen. · Wir fahren nicht nach Villach. · Der Most ist nicht teuer."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "satzbau",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi fährt ___ heute, sondern morgen.",
+        "options": [
+          "nicht",
+          "nichts",
+          "kein"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**nicht right before one word denies only that word; sondern says what is true**\n- Nicht Stefan hat das gemacht, sondern Kathi.\n- Ich fahre nicht heute, sondern morgen.",
+          "sl": "**nicht tik pred besedo zanika samo to besedo; sondern pove, kaj je res**\n- Nicht Stefan hat das gemacht, sondern Kathi.\n- Ich fahre nicht heute, sondern morgen.",
+          "it": "**nicht subito prima di una parola nega solo quella; sondern dice che cosa è vero**\n- Nicht Stefan hat das gemacht, sondern Kathi.\n- Ich fahre nicht heute, sondern morgen."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: dir's, ihr's as spoken; der Stefan, die Oma; each order a reorder accepts; nicht heute; te-ka-mo-lo's name; each base"
+}

@@ -1,0 +1,1120 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "nomen-verb",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🧷",
+  "title": {
+    "de": "Eine Entscheidung treffen",
+    "en": "Noun and verb: eine Entscheidung treffen",
+    "sl": "Samostalnik in glagol: eine Entscheidung treffen",
+    "it": "Nome e verbo: eine Entscheidung treffen"
+  },
+  "goal": {
+    "en": "You can use the fixed pairs of a meeting and a letter, with their plain verbs: eine Entscheidung treffen, Bescheid sagen, in Frage stellen, zur Verfügung stehen, Rücksicht nehmen.",
+    "sl": "Znaš uporabljati stalne pare s sestanka in iz pisma, z njihovimi preprostimi glagoli: eine Entscheidung treffen, Bescheid sagen, in Frage stellen, zur Verfügung stehen, Rücksicht nehmen.",
+    "it": "Sai usare le coppie fisse di una riunione e di una lettera, coi loro verbi semplici: eine Entscheidung treffen, Bescheid sagen, in Frage stellen, zur Verfügung stehen, Rücksicht nehmen."
+  },
+  "grammar": [
+    "nomen-verb",
+    "stehen-stellen"
+  ],
+  "words": [
+    "die Entscheidung",
+    "treffen",
+    "fällen",
+    "entscheiden",
+    "der Bescheid",
+    "die Verfügung",
+    "die Rücksicht",
+    "der Abschied",
+    "der Antrag",
+    "beantragen",
+    "der Vorschlag",
+    "vorschlagen",
+    "der Beschluss",
+    "fassen",
+    "beschließen",
+    "die Hilfe",
+    "leisten",
+    "die Kritik",
+    "üben",
+    "infrage",
+    "bezweifeln",
+    "sich verabschieden",
+    "die Förderung",
+    "die Gemeinde",
+    "der Gemeinderat",
+    "der Gemeindesaal",
+    "die Bürgermeisterin",
+    "die Zahl",
+    "der Brunnen",
+    "das Werkzeug",
+    "der Saal",
+    "der Nachbar"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Paar",
+          "en": "pair",
+          "sl": "par",
+          "it": "coppia"
+        },
+        {
+          "de": "Bedeutung",
+          "en": "meaning",
+          "sl": "pomen",
+          "it": "significato"
+        },
+        {
+          "de": "einfaches Verb",
+          "en": "plain verb",
+          "sl": "preprost glagol",
+          "it": "verbo semplice"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**eine Entscheidung treffen** (make a decision) is a pair: the noun says what happens, the verb only carries it. Each noun has its own verb, and it isn't yours: English makes a decision, German meets one, **treffen**. So learn the two together. **entscheiden** (decide) says the same; the pair is what you'll read in a letter and hear at a meeting.",
+          "sl": "**eine Entscheidung treffen** (sprejeti odločitev) je par: samostalnik pove, kaj se zgodi, glagol ga le nosi. Vsak samostalnik ima svoj glagol, in ni nujno tvoj: slovensko odločitev sprejmeš, nemško jo srečaš, **treffen**. Zato se uči oboje skupaj. **entscheiden** (odločiti) pove isto; par boš bral v pismu in slišal na sestanku.",
+          "it": "**eine Entscheidung treffen** (prendere una decisione) è una coppia: il nome dice che cosa succede, il verbo lo porta soltanto. Ogni nome ha il suo verbo, e non è il tuo: in italiano la decisione si prende, in tedesco si incontra, **treffen**. Quindi impara i due insieme. **entscheiden** (decidere) dice lo stesso; la coppia la leggi in una lettera e la senti a una riunione."
+        },
+        "examples": [
+          {
+            "de": "Wir treffen morgen eine Entscheidung.",
+            "en": "We'll make a decision tomorrow.",
+            "sl": "Jutri sprejmemo odločitev.",
+            "it": "Domani prendiamo una decisione."
+          },
+          {
+            "de": "Der Gemeinderat fasst einen Beschluss.",
+            "en": "The council passes a resolution.",
+            "sl": "Občinski svet sprejme sklep.",
+            "it": "Il consiglio comunale prende una delibera."
+          }
+        ],
+        "rows": [
+          [
+            "eine Entscheidung treffen",
+            {
+              "en": "make a decision",
+              "sl": "sprejeti odločitev",
+              "it": "prendere una decisione"
+            },
+            "entscheiden"
+          ],
+          [
+            "einen Beschluss fassen",
+            {
+              "en": "pass a resolution",
+              "sl": "sprejeti sklep",
+              "it": "prendere una delibera"
+            },
+            "beschließen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi muss heute eine Entscheidung ___.",
+          "options": [
+            "treffen",
+            "nehmen",
+            "stellen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The noun says it; the verb belongs to it, and is learned with it**\n- Wir treffen morgen eine Entscheidung.",
+            "sl": "**Pove samostalnik; glagol spada k njemu in se ga učiš skupaj z njim**\n- Wir treffen morgen eine Entscheidung.",
+            "it": "**Lo dice il nome; il verbo gli appartiene, e si impara con lui**\n- Wir treffen morgen eine Entscheidung."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**stellen** (put) goes with what you put to someone: **eine Frage stellen** (ask a question), **einen Antrag stellen** (put in an application). **in Frage stellen** (call into question) is to doubt it; **infrage** in one word is the same, and so is **in Frage kommen** (be an option): Das kommt nicht **in Frage**! That's a firm no. An application goes **an** someone and **auf** something: einen Antrag auf eine Förderung.",
+          "sl": "**stellen** (postaviti) gre s tem, kar komu postaviš: **eine Frage stellen** (postaviti vprašanje), **einen Antrag stellen** (vložiti vlogo). **in Frage stellen** (postaviti pod vprašaj) pomeni dvomiti; **infrage** v eni besedi je isto, tudi **in Frage kommen** (priti v poštev): Das kommt nicht **in Frage**! To je odločen ne. Vloga gre **an** nekoga in **auf** nekaj: einen Antrag auf eine Förderung.",
+          "it": "**stellen** (mettere) va con ciò che metti davanti a qualcuno: **eine Frage stellen** (fare una domanda), **einen Antrag stellen** (presentare una domanda). **in Frage stellen** (mettere in dubbio) è dubitarne; **infrage** in una parola è lo stesso, e così **in Frage kommen** (entrare in considerazione): Das kommt nicht **in Frage**! È un no secco. La domanda va **an** qualcuno e **auf** qualcosa: einen Antrag auf eine Förderung."
+        },
+        "examples": [
+          {
+            "de": "Stefan stellt bei der Gemeinde einen Antrag.",
+            "en": "Stefan is putting in an application with the council.",
+            "sl": "Stefan vloži vlogo na občini.",
+            "it": "Stefan presenta una domanda al comune."
+          },
+          {
+            "de": "Das kommt nicht in Frage!",
+            "en": "That's out of the question!",
+            "sl": "To ne pride v poštev!",
+            "it": "Non se ne parla!"
+          }
+        ],
+        "rows": [
+          [
+            "eine Frage stellen",
+            {
+              "en": "ask a question",
+              "sl": "postaviti vprašanje",
+              "it": "fare una domanda"
+            },
+            "fragen"
+          ],
+          [
+            "einen Antrag stellen",
+            {
+              "en": "put in an application",
+              "sl": "vložiti vlogo",
+              "it": "presentare una domanda"
+            },
+            "beantragen"
+          ],
+          [
+            "in Frage stellen",
+            {
+              "en": "call into question",
+              "sl": "postaviti pod vprašaj",
+              "it": "mettere in dubbio"
+            },
+            "bezweifeln"
+          ],
+          [
+            "in Frage kommen",
+            {
+              "en": "be an option",
+              "sl": "priti v poštev",
+              "it": "entrare in considerazione"
+            },
+            "möglich sein"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "nomen-verb",
+          "text": "Darf ich Ihnen eine Frage ___?",
+          "accept": [
+            "stellen"
+          ],
+          "hint": {
+            "en": "which verb goes with Frage?",
+            "sl": "kateri glagol gre s Frage?",
+            "it": "quale verbo va con Frage?"
+          },
+          "explain": {
+            "en": "**stellen goes with Frage, Antrag and zur Verfügung**\n- eine Frage stellen · einen Antrag stellen · in Frage stellen · zur Verfügung stellen",
+            "sl": "**stellen gre s Frage, Antrag in zur Verfügung**\n- eine Frage stellen · einen Antrag stellen · in Frage stellen · zur Verfügung stellen",
+            "it": "**stellen va con Frage, Antrag e zur Verfügung**\n- eine Frage stellen · einen Antrag stellen · in Frage stellen · zur Verfügung stellen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**zur Verfügung stehen** (be available) and **zur Verfügung stellen** (make available) differ as stehen and stellen always do: what stands is there, what's put was put by someone. Der Saal **steht** uns **zur Verfügung**. Die Gemeinde **stellt** uns den Saal **zur Verfügung**. So stellen takes a dative and an accusative, stehen only a dative. A letter's favourite: Ich stehe Ihnen gern zur Verfügung.",
+          "sl": "**zur Verfügung stehen** (biti na voljo) in **zur Verfügung stellen** (dati na voljo) se razlikujeta kot vedno stehen in stellen: kar stoji, je tam, kar je postavljeno, je nekdo postavil. Der Saal **steht** uns **zur Verfügung**. Die Gemeinde **stellt** uns den Saal **zur Verfügung**. stellen ima zato dajalnik in tožilnik, stehen samo dajalnik. Stavek iz pisem: Ich stehe Ihnen gern zur Verfügung.",
+          "it": "**zur Verfügung stehen** (essere a disposizione) e **zur Verfügung stellen** (mettere a disposizione) differiscono come sempre stehen e stellen: ciò che sta, c'è; ciò che è messo, l'ha messo qualcuno. Der Saal **steht** uns **zur Verfügung**. Die Gemeinde **stellt** uns den Saal **zur Verfügung**. Quindi stellen vuole dativo e accusativo, stehen solo il dativo. La frase preferita delle lettere: Ich stehe Ihnen gern zur Verfügung."
+        },
+        "examples": [
+          {
+            "de": "Der Saal steht uns zur Verfügung.",
+            "en": "The hall is available to us.",
+            "sl": "Dvorana nam je na voljo.",
+            "it": "La sala è a nostra disposizione."
+          },
+          {
+            "de": "Die Gemeinde stellt uns den Saal zur Verfügung.",
+            "en": "The council is making the hall available to us.",
+            "sl": "Občina nam da dvorano na voljo.",
+            "it": "Il comune ci mette a disposizione la sala."
+          }
+        ],
+        "rows": [
+          [
+            "zur Verfügung stehen",
+            {
+              "en": "be available",
+              "sl": "biti na voljo",
+              "it": "essere a disposizione"
+            },
+            "da sein"
+          ],
+          [
+            "zur Verfügung stellen",
+            {
+              "en": "make available",
+              "sl": "dati na voljo",
+              "it": "mettere a disposizione"
+            },
+            "geben"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Mein Traktor ___ dir am Samstag zur Verfügung.",
+          "options": [
+            "steht",
+            "stellt",
+            "nimmt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**stehen: it is there for you. stellen: someone gives it**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung.",
+            "sl": "**stehen: je na voljo. stellen: nekdo da na voljo**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung.",
+            "it": "**stehen: è a disposizione. stellen: qualcuno lo mette a disposizione**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**nehmen** (take) goes with **Rücksicht nehmen auf** (show consideration for, + the accusative): Bitte nimm **Rücksicht auf** die Nachbarn. **Abschied nehmen von** (say goodbye to, solemnly; a whole village does it at a funeral). **Platz nehmen** (take a seat), what the doctor's assistant says: Nehmen Sie bitte **Platz**! None has an article, and the preposition decides the case: auf + the accusative, von + the dative.",
+          "sl": "**nehmen** (vzeti) gre z **Rücksicht nehmen auf** (ozirati se na, + tožilnik): Bitte nimm **Rücksicht auf** die Nachbarn. **Abschied nehmen von** (posloviti se od, slovesno; tako se cela vas poslovi na pogrebu). **Platz nehmen** (sesti), kot reče sestra pri zdravniku: Nehmen Sie bitte **Platz**! Noben nima člena, sklon določa predlog: auf + tožilnik, von + dajalnik.",
+          "it": "**nehmen** (prendere) va con **Rücksicht nehmen auf** (avere riguardo per, + accusativo): Bitte nimm **Rücksicht auf** die Nachbarn. **Abschied nehmen von** (congedarsi da, in modo solenne: tutto il paese a un funerale). **Platz nehmen** (accomodarsi), come dice l'assistente del medico: Nehmen Sie bitte **Platz**! Nessuno ha l'articolo, e il caso lo decide la preposizione: auf + accusativo, von + dativo."
+        },
+        "examples": [
+          {
+            "de": "Bitte nimm Rücksicht auf die Nachbarn.",
+            "en": "Please show consideration for the neighbours.",
+            "sl": "Prosim, ozri se na sosede.",
+            "it": "Per favore, abbi riguardo per i vicini."
+          },
+          {
+            "de": "Nehmen Sie bitte Platz!",
+            "en": "Please take a seat!",
+            "sl": "Prosim, sedite!",
+            "it": "Si accomodi, prego!"
+          }
+        ],
+        "rows": [
+          [
+            "Rücksicht nehmen auf",
+            {
+              "en": "show consideration for",
+              "sl": "ozirati se na",
+              "it": "avere riguardo per"
+            },
+            "berücksichtigen"
+          ],
+          [
+            "Abschied nehmen von",
+            {
+              "en": "say goodbye to",
+              "sl": "posloviti se od",
+              "it": "congedarsi da"
+            },
+            "sich verabschieden"
+          ],
+          [
+            "Platz nehmen",
+            {
+              "en": "take a seat",
+              "sl": "sesti",
+              "it": "accomodarsi"
+            },
+            "sich setzen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "nomen-verb",
+          "text": "Das ganze Dorf nimmt ___ von Opa Sepps altem Freund.",
+          "accept": [
+            "Abschied"
+          ],
+          "hint": {
+            "en": "saying goodbye, solemnly",
+            "sl": "slovesno poslavljanje",
+            "it": "un addio solenne"
+          },
+          "explain": {
+            "en": "**nehmen goes with Rücksicht, Abschied and Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen",
+            "sl": "**nehmen gre z Rücksicht, Abschied in Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen",
+            "it": "**nehmen va con Rücksicht, Abschied e Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Bescheid** (word, notice) has no article, and three verbs: **Bescheid sagen** and **Bescheid geben** (let someone know), both with a dative: Sag mir **Bescheid**! **Bescheid wissen** (know about it): Weißt du schon **Bescheid**? In the same way: **einen Vorschlag machen** (make a suggestion), **Hilfe leisten** (give help), **Kritik üben an** (criticise). From the office, der **Bescheid** is also an authority's written decision.",
+          "sl": "**Bescheid** (sporočilo) nima člena, ima pa tri glagole: **Bescheid sagen** in **Bescheid geben** (dati vedeti), oba z dajalnikom: Sag mir **Bescheid**! **Bescheid wissen** (biti na tekočem): Weißt du schon **Bescheid**? Podobno: **einen Vorschlag machen** (dati predlog), **Hilfe leisten** (nuditi pomoč), **Kritik üben an** (kritizirati). Z urada je der **Bescheid** tudi pisna odločba.",
+          "it": "**Bescheid** (notizia) non ha articolo, e ha tre verbi: **Bescheid sagen** e **Bescheid geben** (far sapere), col dativo: Sag mir **Bescheid**! **Bescheid wissen** (essere al corrente): Weißt du schon **Bescheid**? Allo stesso modo: **einen Vorschlag machen** (fare una proposta), **Hilfe leisten** (prestare aiuto), **Kritik üben an** (criticare). Dagli uffici, der **Bescheid** è anche il provvedimento scritto."
+        },
+        "examples": [
+          {
+            "de": "Sag mir bitte Bescheid, wenn du kommst.",
+            "en": "Please let me know when you're coming.",
+            "sl": "Prosim, sporoči mi, ko prideš.",
+            "it": "Fammi sapere quando vieni, per favore."
+          },
+          {
+            "de": "Franz macht einen Vorschlag.",
+            "en": "Franz makes a suggestion.",
+            "sl": "Franz da predlog.",
+            "it": "Franz fa una proposta."
+          }
+        ],
+        "rows": [
+          [
+            "Bescheid sagen, geben",
+            {
+              "en": "let someone know",
+              "sl": "sporočiti, dati vedeti",
+              "it": "far sapere"
+            },
+            "informieren"
+          ],
+          [
+            "Bescheid wissen",
+            {
+              "en": "know about it",
+              "sl": "biti na tekočem",
+              "it": "essere al corrente"
+            },
+            "informiert sein"
+          ],
+          [
+            "einen Vorschlag machen",
+            {
+              "en": "make a suggestion",
+              "sl": "dati predlog",
+              "it": "fare una proposta"
+            },
+            "vorschlagen"
+          ],
+          [
+            "Hilfe leisten",
+            {
+              "en": "give help",
+              "sl": "nuditi pomoč",
+              "it": "prestare aiuto"
+            },
+            "helfen"
+          ],
+          [
+            "Kritik üben an",
+            {
+              "en": "criticise",
+              "sl": "kritizirati",
+              "it": "criticare"
+            },
+            "kritisieren"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Gib mir bitte ___, wenn der Bus kommt.",
+          "options": [
+            "Bescheid",
+            "Antrag",
+            "Platz"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Bescheid: no article, and sagen, geben or wissen**\n- Sag mir bitte Bescheid!\n- Weißt du schon Bescheid?",
+            "sl": "**Bescheid: brez člena, in sagen, geben ali wissen**\n- Sag mir bitte Bescheid!\n- Weißt du schon Bescheid?",
+            "it": "**Bescheid: senza articolo, con sagen, geben o wissen**\n- Sag mir bitte Bescheid!\n- Weißt du schon Bescheid?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**The sentence** treats a pair as a bracket: the verb second, the noun at the end, the rest between: Wir **treffen** morgen im Saal eine **Entscheidung**. To say no, a noun with an article or none takes **kein**: Wir treffen heute **keine** Entscheidung. A preposition + noun takes **nicht**, right before it: Das kommt **nicht** in Frage. Der Saal steht uns **nicht** zur Verfügung. In talk the plain verb does just as well: both are right.",
+          "sl": "**Stavek** ima par za oklepaj: glagol na drugem mestu, samostalnik na koncu, vse drugo vmes: Wir **treffen** morgen im Saal eine **Entscheidung**. Za ne vzame samostalnik s členom ali brez njega **kein**: Wir treffen heute **keine** Entscheidung. Predlog + samostalnik vzame **nicht**, tik pred njim: Das kommt **nicht** in Frage. Der Saal steht uns **nicht** zur Verfügung. V pogovoru je preprost glagol enako dober: oboje je prav.",
+          "it": "**La frase** tratta la coppia come una parentesi: il verbo al secondo posto, il nome in fondo, il resto in mezzo: Wir **treffen** morgen im Saal eine **Entscheidung**. Per dire no, un nome con o senza articolo vuole **kein**: Wir treffen heute **keine** Entscheidung. Preposizione + nome vuole **nicht**, subito prima: Das kommt **nicht** in Frage. Der Saal steht uns **nicht** zur Verfügung. Parlando il verbo semplice va altrettanto bene: sono giusti tutti e due."
+        },
+        "examples": [
+          {
+            "de": "Wir treffen morgen im Saal eine Entscheidung.",
+            "en": "We'll make a decision tomorrow in the hall.",
+            "sl": "Jutri v dvorani sprejmemo odločitev.",
+            "it": "Domani in sala prendiamo una decisione."
+          },
+          {
+            "de": "Der Saal steht uns nicht zur Verfügung.",
+            "en": "The hall isn't available to us.",
+            "sl": "Dvorana nam ni na voljo.",
+            "it": "La sala non è a nostra disposizione."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Heute nehmen wir ___ Rücksicht auf das Wetter.",
+          "options": [
+            "keine",
+            "nicht",
+            "nichts"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A noun with an article or none: kein. A preposition + noun: nicht, before it**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage.",
+            "sl": "**Samostalnik s členom ali brez: kein. Predlog + samostalnik: nicht pred njim**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage.",
+            "it": "**Un nome con o senza articolo: kein. Preposizione + nome: nicht, prima**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "nomen-verb-1",
+      "title": {
+        "de": "Welches Verb?",
+        "en": "Which verb?",
+        "sl": "Kateri glagol?",
+        "it": "Quale verbo?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the verb that belongs to the noun",
+            "sl": "glagol, ki spada k samostalniku",
+            "it": "il verbo che appartiene al nome"
+          },
+          "columns": [
+            {
+              "en": "Nomen · noun",
+              "sl": "Nomen · samostalnik",
+              "it": "Nomen · nome"
+            },
+            {
+              "en": "Verb · verb",
+              "sl": "Verb · glagol",
+              "it": "Verb · verbo"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "en": "to decide",
+                "sl": "odločiti",
+                "it": "decidere"
+              },
+              "cells": [
+                "eine Entscheidung",
+                {
+                  "accept": [
+                    "treffen",
+                    "fällen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "to apply for",
+                "sl": "zaprositi za",
+                "it": "richiedere"
+              },
+              "cells": [
+                "einen Antrag",
+                {
+                  "accept": [
+                    "stellen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "to ask",
+                "sl": "vprašati",
+                "it": "chiedere"
+              },
+              "cells": [
+                "eine Frage",
+                {
+                  "accept": [
+                    "stellen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "to show consideration",
+                "sl": "ozirati se",
+                "it": "avere riguardo"
+              },
+              "cells": [
+                "Rücksicht",
+                {
+                  "accept": [
+                    "nehmen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "to let someone know",
+                "sl": "dati vedeti",
+                "it": "far sapere"
+              },
+              "cells": [
+                "Bescheid",
+                {
+                  "accept": [
+                    "sagen",
+                    "geben"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "to suggest",
+                "sl": "predlagati",
+                "it": "proporre"
+              },
+              "cells": [
+                "einen Vorschlag",
+                {
+                  "accept": [
+                    "machen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "to give help",
+                "sl": "nuditi pomoč",
+                "it": "prestare aiuto"
+              },
+              "cells": [
+                "Hilfe",
+                {
+                  "accept": [
+                    "leisten"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The noun says it; the verb belongs to it, and is learned with it**\n- Wir treffen morgen eine Entscheidung.",
+            "sl": "**Pove samostalnik; glagol spada k njemu in se ga učiš skupaj z njim**\n- Wir treffen morgen eine Entscheidung.",
+            "it": "**Lo dice il nome; il verbo gli appartiene, e si impara con lui**\n- Wir treffen morgen eine Entscheidung."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Sortiere · Sort by the verb",
+            "sl": "Sortiere · Razvrsti po glagolu",
+            "it": "Sortiere · Ordina secondo il verbo"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "stellen · put",
+                "sl": "stellen · postaviti",
+                "it": "stellen · mettere"
+              },
+              "words": [
+                "eine Frage",
+                "einen Antrag",
+                "in Frage"
+              ]
+            },
+            {
+              "label": {
+                "en": "nehmen · take",
+                "sl": "nehmen · vzeti",
+                "it": "nehmen · prendere"
+              },
+              "words": [
+                "Rücksicht",
+                "Abschied",
+                "Platz"
+              ]
+            },
+            {
+              "label": {
+                "en": "treffen, fassen · decide",
+                "sl": "treffen, fassen · odločati",
+                "it": "treffen, fassen · decidere"
+              },
+              "words": [
+                "eine Entscheidung",
+                "einen Beschluss"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**stellen: Frage, Antrag. nehmen: Rücksicht, Abschied, Platz. treffen: Entscheidung. fassen: Beschluss**",
+            "sl": "**stellen: Frage, Antrag. nehmen: Rücksicht, Abschied, Platz. treffen: Entscheidung. fassen: Beschluss**",
+            "it": "**stellen: Frage, Antrag. nehmen: Rücksicht, Abschied, Platz. treffen: Entscheidung. fassen: Beschluss**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nomen-verb-2",
+      "title": {
+        "de": "Im Gemeindesaal",
+        "en": "In the village hall",
+        "sl": "V občinski dvorani",
+        "it": "Nella sala comunale"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Im Gemeindesaal",
+          "text": "Im Gemeindesaal wollen heute alle eine Entscheidung ___: Wann ist heuer der Kirchtag? Die Gemeinde stellt den Saal zur ___. Zuerst stellt Kathi eine ___. Dann macht Stefan einen ___: den zweiten Sonntag im August. Mitzi sagt: Das kommt nicht in Frage, da bin ich weg. Toni sagt: Wir müssen ___ auf Mitzi nehmen. Franz stellt einen ___ auf mehr Geld. Die Bürgermeisterin sagt: Ich gebe euch morgen ___. Der Saal ___ euch auch am Samstag zur Verfügung.",
+          "gaps": [
+            {
+              "accept": [
+                "treffen",
+                "fällen"
+              ]
+            },
+            {
+              "accept": [
+                "Verfügung"
+              ]
+            },
+            {
+              "accept": [
+                "Frage"
+              ]
+            },
+            {
+              "accept": [
+                "Vorschlag"
+              ]
+            },
+            {
+              "accept": [
+                "Rücksicht"
+              ]
+            },
+            {
+              "accept": [
+                "Antrag"
+              ]
+            },
+            {
+              "accept": [
+                "Bescheid"
+              ]
+            },
+            {
+              "accept": [
+                "steht"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "nehmen",
+            "stellt",
+            "Platz"
+          ],
+          "translation": {
+            "en": "In the village hall everyone wants to reach a decision today: when is the Kirchtag this year? The council is making the hall available. First Kathi asks a question. Then Stefan makes a suggestion: the second Sunday in August. Mitzi says: that's out of the question, I'll be away then. Toni says: we must show consideration for Mitzi. Franz puts in an application for more money. The mayor says: I'll let you know tomorrow. The hall is available to you on Saturday too.",
+            "sl": "V občinski dvorani hočejo danes vsi sprejeti odločitev: kdaj je letos žegnanje? Občina da dvorano na voljo. Najprej Kathi postavi vprašanje. Nato Stefan da predlog: druga nedelja v avgustu. Mitzi reče: To ne pride v poštev, takrat me ni. Toni reče: Moramo se ozirati na Mitzi. Franz vloži vlogo za več denarja. Županja reče: Jutri vam sporočim. Dvorana vam je na voljo tudi v soboto.",
+            "it": "Nella sala comunale oggi tutti vogliono prendere una decisione: quando è quest'anno il Kirchtag? Il comune mette a disposizione la sala. Prima Kathi fa una domanda. Poi Stefan fa una proposta: la seconda domenica di agosto. Mitzi dice: non se ne parla, in quei giorni sono via. Toni dice: dobbiamo avere riguardo per Mitzi. Franz presenta una domanda per avere più soldi. La sindaca dice: vi faccio sapere domani. La sala è a vostra disposizione anche sabato."
+          },
+          "explain": {
+            "en": "**Noun and verb are one thing, the verb second, the noun at the end: Wir treffen morgen eine Entscheidung. The plain verb says the same**",
+            "sl": "**Samostalnik in glagol sta eno, glagol na drugem mestu, samostalnik na koncu: Wir treffen morgen eine Entscheidung. Preprost glagol pove isto**",
+            "it": "**Nome e verbo sono una cosa sola, il verbo al secondo posto, il nome in fondo: Wir treffen morgen eine Entscheidung. Il verbo semplice dice lo stesso**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ich ___ dir meinen Traktor gern zur Verfügung.",
+          "options": [
+            "stelle",
+            "stehe",
+            "nehme"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**stehen: it is there for you. stellen: someone gives it**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung.",
+            "sl": "**stehen: je na voljo. stellen: nekdo da na voljo**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung.",
+            "it": "**stehen: è a disposizione. stellen: qualcuno lo mette a disposizione**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Bitte nehmen Sie ___! Der Doktor kommt gleich.",
+          "options": [
+            "Platz",
+            "Frage",
+            "Antrag"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nehmen goes with Rücksicht, Abschied and Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen",
+            "sl": "**nehmen gre z Rücksicht, Abschied in Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen",
+            "it": "**nehmen va con Rücksicht, Abschied e Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nomen-verb-3",
+      "title": {
+        "de": "Mit Nomen, ohne Nomen",
+        "en": "With a noun, without one",
+        "sl": "S samostalnikom, brez njega",
+        "it": "Col nome, senza nome"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Mit dem Nomen · Say it with the noun in brackets",
+            "sl": "Mit dem Nomen · Povej s samostalnikom v oklepaju",
+            "it": "Mit dem Nomen · Dillo col nome tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Wir entscheiden morgen. (Entscheidung)",
+              "accept": [
+                "Wir treffen morgen eine Entscheidung.",
+                "Morgen treffen wir eine Entscheidung.",
+                "Wir fällen morgen eine Entscheidung.",
+                "Morgen fällen wir eine Entscheidung."
+              ]
+            },
+            {
+              "from": "Stefan beantragt eine Förderung. (Antrag)",
+              "accept": [
+                "Stefan stellt einen Antrag auf eine Förderung.",
+                "Stefan stellt einen Antrag auf Förderung."
+              ]
+            },
+            {
+              "from": "Informiere mich bitte! (Bescheid)",
+              "accept": [
+                "Sag mir bitte Bescheid!",
+                "Gib mir bitte Bescheid!",
+                "Bitte sag mir Bescheid!",
+                "Bitte gib mir Bescheid!"
+              ]
+            },
+            {
+              "from": "Franz schlägt etwas vor. (Vorschlag)",
+              "accept": [
+                "Franz macht einen Vorschlag."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Noun and verb are one thing, the verb second, the noun at the end: Wir treffen morgen eine Entscheidung. The plain verb says the same**",
+            "sl": "**Samostalnik in glagol sta eno, glagol na drugem mestu, samostalnik na koncu: Wir treffen morgen eine Entscheidung. Preprost glagol pove isto**",
+            "it": "**Nome e verbo sono una cosa sola, il verbo al secondo posto, il nome in fondo: Wir treffen morgen eine Entscheidung. Il verbo semplice dice lo stesso**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Mit dem einfachen Verb · Say it with the plain verb in brackets",
+            "sl": "Mit dem einfachen Verb · Povej s preprostim glagolom v oklepaju",
+            "it": "Mit dem einfachen Verb · Dillo col verbo semplice tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kathi nimmt Abschied von Stefan. (sich verabschieden)",
+              "accept": [
+                "Kathi verabschiedet sich von Stefan."
+              ]
+            },
+            {
+              "from": "Toni stellt die Zahlen in Frage. (bezweifeln)",
+              "accept": [
+                "Toni bezweifelt die Zahlen."
+              ]
+            },
+            {
+              "from": "Bitte nehmen Sie Platz! (sich setzen)",
+              "accept": [
+                "Bitte setzen Sie sich!",
+                "Setzen Sie sich bitte!"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The plain verb says the same, in fewer words**\n- Kathi verabschiedet sich von Stefan.\n- Toni bezweifelt die Zahlen.",
+            "sl": "**Preprost glagol pove isto, z manj besedami**\n- Kathi verabschiedet sich von Stefan.\n- Toni bezweifelt die Zahlen.",
+            "it": "**Il verbo semplice dice lo stesso, con meno parole**\n- Kathi verabschiedet sich von Stefan.\n- Toni bezweifelt die Zahlen."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "nomen-verb",
+          "instruction": {
+            "en": "Sag Nein · Say no: kein or nicht",
+            "sl": "Sag Nein · Reci ne: kein ali nicht",
+            "it": "Sag Nein · Di no: kein o nicht"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Wir treffen heute eine Entscheidung.",
+              "accept": [
+                "Wir treffen heute keine Entscheidung."
+              ]
+            },
+            {
+              "from": "Das kommt in Frage.",
+              "accept": [
+                "Das kommt nicht in Frage."
+              ]
+            },
+            {
+              "from": "Der Saal steht uns zur Verfügung.",
+              "accept": [
+                "Der Saal steht uns nicht zur Verfügung."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A noun with an article or none: kein. A preposition + noun: nicht, before it**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage.",
+            "sl": "**Samostalnik s členom ali brez: kein. Predlog + samostalnik: nicht pred njim**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage.",
+            "it": "**Un nome con o senza articolo: kein. Preposizione + nome: nicht, prima**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "nomen-verb",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der Brunnen am Platz",
+        "text": "Der Brunnen am Platz ist kaputt. Toni macht einen ___: Wir stellen bei der Gemeinde einen ___. Die Gemeinde muss eine Entscheidung ___. Stanko fragt: Kommt ein neuer Brunnen in ___? Franz stellt sein Werkzeug zur ___. Oma Resi sagt: Sagt mir ___, wenn ihr fertig seid.",
+        "gaps": [
+          {
+            "accept": [
+              "Vorschlag"
+            ]
+          },
+          {
+            "accept": [
+              "Antrag"
+            ]
+          },
+          {
+            "accept": [
+              "treffen",
+              "fällen"
+            ]
+          },
+          {
+            "accept": [
+              "Frage"
+            ]
+          },
+          {
+            "accept": [
+              "Verfügung"
+            ]
+          },
+          {
+            "accept": [
+              "Bescheid"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "The fountain on the square is broken. Toni makes a suggestion: we'll put in an application with the council. The council has to make a decision. Stanko asks: is a new fountain an option? Franz makes his tools available. Oma Resi says: let me know when you're done.",
+          "sl": "Vodnjak na trgu je pokvarjen. Toni da predlog: Na občini vložimo vlogo. Občina mora sprejeti odločitev. Stanko vpraša: Pride nov vodnjak v poštev? Franz da svoje orodje na voljo. Babica Resi reče: Sporočite mi, ko boste gotovi.",
+          "it": "La fontana in piazza è rotta. Toni fa una proposta: presentiamo una domanda al comune. Il comune deve prendere una decisione. Stanko chiede: una fontana nuova entra in considerazione? Franz mette a disposizione i suoi attrezzi. Nonna Resi dice: fatemi sapere quando avete finito."
+        },
+        "explain": {
+          "en": "**Noun and verb are one thing, the verb second, the noun at the end: Wir treffen morgen eine Entscheidung. The plain verb says the same**",
+          "sl": "**Samostalnik in glagol sta eno, glagol na drugem mestu, samostalnik na koncu: Wir treffen morgen eine Entscheidung. Preprost glagol pove isto**",
+          "it": "**Nome e verbo sono una cosa sola, il verbo al secondo posto, il nome in fondo: Wir treffen morgen eine Entscheidung. Il verbo semplice dice lo stesso**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "nomen-verb",
+        "instruction": {
+          "en": "Mit dem Nomen · Say it with the noun in brackets",
+          "sl": "Mit dem Nomen · Povej s samostalnikom v oklepaju",
+          "it": "Mit dem Nomen · Dillo col nome tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Die Nachbarn fragen viel. (Fragen)",
+            "accept": [
+              "Die Nachbarn stellen viele Fragen."
+            ]
+          },
+          {
+            "from": "Mitzi beantragt eine Förderung. (Antrag)",
+            "accept": [
+              "Mitzi stellt einen Antrag auf eine Förderung.",
+              "Mitzi stellt einen Antrag auf Förderung."
+            ]
+          },
+          {
+            "from": "Kathi entscheidet heute. (Entscheidung)",
+            "accept": [
+              "Kathi trifft heute eine Entscheidung.",
+              "Heute trifft Kathi eine Entscheidung.",
+              "Kathi fällt heute eine Entscheidung.",
+              "Heute fällt Kathi eine Entscheidung."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Noun and verb are one thing, the verb second, the noun at the end: Wir treffen morgen eine Entscheidung. The plain verb says the same**",
+          "sl": "**Samostalnik in glagol sta eno, glagol na drugem mestu, samostalnik na koncu: Wir treffen morgen eine Entscheidung. Preprost glagol pove isto**",
+          "it": "**Nome e verbo sono una cosa sola, il verbo al secondo posto, il nome in fondo: Wir treffen morgen eine Entscheidung. Il verbo semplice dice lo stesso**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "nomen-verb",
+        "instruction": {
+          "en": "Sag Nein · Say no: kein or nicht",
+          "sl": "Sag Nein · Reci ne: kein ali nicht",
+          "it": "Sag Nein · Di no: kein o nicht"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Stefan nimmt Rücksicht auf uns.",
+            "accept": [
+              "Stefan nimmt keine Rücksicht auf uns.",
+              "Stefan nimmt auf uns keine Rücksicht."
+            ]
+          },
+          {
+            "from": "Der Traktor steht dir zur Verfügung.",
+            "accept": [
+              "Der Traktor steht dir nicht zur Verfügung."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**A noun with an article or none: kein. A preposition + noun: nicht, before it**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage.",
+          "sl": "**Samostalnik s členom ali brez: kein. Predlog + samostalnik: nicht pred njim**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage.",
+          "it": "**Un nome con o senza articolo: kein. Preposizione + nome: nicht, prima**\n- Wir treffen heute keine Entscheidung.\n- Das kommt nicht in Frage."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nomen-verb",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Am Samstag ___ dir der Saal zur Verfügung.",
+        "options": [
+          "steht",
+          "stellt",
+          "nimmt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**stehen: it is there for you. stellen: someone gives it**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung.",
+          "sl": "**stehen: je na voljo. stellen: nekdo da na voljo**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung.",
+          "it": "**stehen: è a disposizione. stellen: qualcuno lo mette a disposizione**\n- Der Saal steht uns zur Verfügung.\n- Die Gemeinde stellt uns den Saal zur Verfügung."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nomen-verb",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Bitte nimm ___ auf die Kinder!",
+        "options": [
+          "Rücksicht",
+          "Abschied",
+          "Bescheid"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**nehmen goes with Rücksicht, Abschied and Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen",
+          "sl": "**nehmen gre z Rücksicht, Abschied in Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen",
+          "it": "**nehmen va con Rücksicht, Abschied e Platz**\n- Rücksicht nehmen · Abschied nehmen · Platz nehmen"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Abschied nehmen; Antrag auf; Kritik üben an; a Bürgermeisterin; the plain verbs; each base: odločitev, sklep, vloga"
+}
