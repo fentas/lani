@@ -11,9 +11,9 @@
     "it": "Effetto e contrasto: so … that, whereas"
   },
   "goal": {
-    "sl": "Poveš, kaj je iz česa nastalo (so cold that, such a cold night that), postaviš dve dejstvi drugo ob drugo (whereas, nevertheless, on the other hand) in urediš svoj govor (firstly, to sum up, as far as I'm concerned).",
-    "de": "Du sagst, was woraus wurde (so cold that, such a cold night that), stellst zwei Dinge nebeneinander (whereas, nevertheless, on the other hand) und ordnest deine Rede (firstly, to sum up, as far as I'm concerned).",
-    "it": "Dici che cosa ne è derivato (so cold that, such a cold night that), metti a confronto due fatti (whereas, nevertheless, on the other hand) e dai ordine al discorso (firstly, to sum up, as far as I'm concerned).",
+    "sl": "Poveš, kakšna je posledica (so cold that, such a cold night that), postaviš dve dejstvi drugo ob drugo (whereas, nevertheless, on the other hand) in urediš svoj govor (firstly, to sum up, as far as I'm concerned).",
+    "de": "Du sagst, welche Folge etwas hat (so cold that, such a cold night that), stellst zwei Dinge einander gegenüber (whereas, nevertheless, on the other hand) und ordnest deine Rede (firstly, to sum up, as far as I'm concerned).",
+    "it": "Esprimi una conseguenza (so cold that, such a cold night that), metti a confronto due fatti (whereas, nevertheless, on the other hand) e dai ordine al discorso (firstly, to sum up, as far as I'm concerned).",
     "en": "You can say what came of something (so cold that, such a cold night that), set two facts side by side (whereas, nevertheless, on the other hand) and keep an argument in order (firstly, to sum up, as far as I'm concerned)."
   },
   "grammar": ["result-linkers", "contrast-linkers"],
@@ -70,14 +70,14 @@
     "steps": [
       {
         "say": {
-          "sl": "**It was so cold that we stayed.** (Bilo je tako mrzlo, da smo ostali.) **so** + pridevnik ali prislov, potem **that** + kar je iz tega nastalo. **Mr Tyson spoke so quietly that nobody heard.** V govoru **that** odpade: **It was so cold we stayed.** To ni **so that** (da bi) iz B1. V Britaniji rečejo tudi *It was that cold we stayed*; v pisanju **so**.",
-          "de": "**It was so cold that we stayed.** (Es war so kalt, dass wir geblieben sind.) **so** + Adjektiv oder Adverb, dann **that** + was daraus wurde. **Mr Tyson spoke so quietly that nobody heard.** Gesprochen fällt **that** weg: **It was so cold we stayed.** Das ist nicht **so that** (damit) aus B1. In Britannien sagt man auch *It was that cold we stayed*; geschrieben **so**.",
-          "it": "**It was so cold that we stayed.** (Faceva così freddo che siamo rimasti.) **so** + aggettivo o avverbio, poi **that** + ciò che ne è derivato. **Mr Tyson spoke so quietly that nobody heard.** A voce **that** cade: **It was so cold we stayed.** Non è **so that** (affinché) del B1. In Gran Bretagna si dice anche *It was that cold we stayed*; per iscritto **so**.",
-          "en": "**It was so cold that we stayed.** **so** + an adjective or an adverb, then **that** + what came of it. **Mr Tyson spoke so quietly that nobody heard.** In talk **that** may go: **It was so cold we stayed.** It isn't B1's **so that** (what for). In Britain people also say *It was that cold we stayed*; writing wants **so**."
+          "sl": "**It was so cold that we stayed in.** (Bilo je tako mrzlo, da smo ostali.) **so** + pridevnik ali prislov, potem **that** + posledica. **Mr Tyson spoke so quietly that nobody heard.** V govoru **that** odpade: **It was so cold we stayed in.** To ni **so that** (da bi) iz B1. V Britaniji rečejo tudi *It was that cold we stayed in*; v pisanju **so**.",
+          "de": "**It was so cold that we stayed in.** (Es war so kalt, dass wir geblieben sind.) **so** + Adjektiv oder Adverb, dann **that** + die Folge. **Mr Tyson spoke so quietly that nobody heard.** Gesprochen fällt **that** weg: **It was so cold we stayed in.** Das ist nicht **so that** (damit) aus B1. In Großbritannien sagt man auch *It was that cold we stayed in*; geschrieben **so**.",
+          "it": "**It was so cold that we stayed in.** (Faceva così freddo che siamo rimasti.) **so** + aggettivo o avverbio, poi **that** + la conseguenza. **Mr Tyson spoke so quietly that nobody heard.** A voce **that** cade: **It was so cold we stayed in.** Non è **so that** (affinché) del B1. In Gran Bretagna si dice anche *It was that cold we stayed in*; per iscritto **so**.",
+          "en": "**It was so cold that we stayed in.** **so** + an adjective or an adverb, then **that** + what came of it. **Mr Tyson spoke so quietly that nobody heard.** In talk **that** may go: **It was so cold we stayed in.** It isn't B1's **so that** (what for). In Britain people also say *It was that cold we stayed in*; writing wants **so**."
         },
         "examples": [
           {
-            "en": "It was so cold that we stayed.",
+            "en": "It was so cold that we stayed in.",
             "sl": "Bilo je tako mrzlo, da smo ostali.",
             "de": "Es war so kalt, dass wir geblieben sind.",
             "it": "Faceva così freddo che siamo rimasti."
@@ -89,7 +89,7 @@
             "it": "Il signor Tyson parlava così piano che nessuno ha sentito."
           },
           {
-            "en": "It was so cold we stayed.",
+            "en": "It was so cold we stayed in.",
             "sl": "Bilo je tako mrzlo, da smo ostali.",
             "de": "Es war so kalt, dass wir geblieben sind.",
             "it": "Faceva così freddo che siamo rimasti."
@@ -99,7 +99,7 @@
           [
             "so … that",
             { "sl": "+ pridevnik, prislov", "de": "+ Adjektiv, Adverb", "it": "+ aggettivo, avverbio", "en": "+ an adjective, an adverb" },
-            "It was so cold that we stayed."
+            "It was so cold that we stayed in."
           ]
         ],
         "ask": {
@@ -119,14 +119,14 @@
       },
       {
         "say": {
-          "sl": "**It was such a cold night that we stayed.** (To je bila tako mrzla noč, da smo ostali.) **such a**, **such an** + (pridevnik) + samostalnik. Množina in kar se ne šteje sta brez **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** Vrstni red je drugačen kot v slovenščini: najprej **such a**, potem **cold night**.",
-          "de": "**It was such a cold night that we stayed.** (Es war so eine kalte Nacht, dass wir geblieben sind.) **such a**, **such an** + (Adjektiv) + Nomen. Plural und Unzählbares stehen ohne **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** Die Reihenfolge wie bei *so eine kalte Nacht*: erst **such a**, dann **cold night**.",
-          "it": "**It was such a cold night that we stayed.** (Era una notte così fredda che siamo rimasti.) **such a**, **such an** + (aggettivo) + nome. Il plurale e ciò che non si conta stanno senza **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** L'ordine non è quello italiano: prima **such a**, poi **cold night**.",
-          "en": "**It was such a cold night that we stayed.** **such a**, **such an** + (an adjective) + a noun. Plurals and what you can't count have no **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** The order: first **such a**, then **cold night**."
+          "sl": "**It was such a cold night that we stayed in.** (To je bila tako mrzla noč, da smo ostali.) **such a**, **such an** + (pridevnik) + samostalnik. Množina in kar se ne šteje sta brez **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** Vrstni red je drugačen kot v slovenščini: najprej **such a**, potem **cold night**.",
+          "de": "**It was such a cold night that we stayed in.** (Es war so eine kalte Nacht, dass wir geblieben sind.) **such a**, **such an** + (Adjektiv) + Nomen. Plural und Unzählbares stehen ohne **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** Die Reihenfolge wie bei *so eine kalte Nacht*: erst **such a**, dann **cold night**.",
+          "it": "**It was such a cold night that we stayed in.** (Era una notte così fredda che siamo rimasti.) **such a**, **such an** + (aggettivo) + nome. Il plurale e ciò che non si conta vanno senza **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** L'ordine non è quello italiano: prima **such a**, poi **cold night**.",
+          "en": "**It was such a cold night that we stayed in.** **such a**, **such an** + (an adjective) + a noun. Plurals and what you can't count have no **a**: **We had such bad weather that the bridge closed.** **They are such nice people.** The order: first **such a**, then **cold night**."
         },
         "examples": [
           {
-            "en": "It was such a cold night that we stayed.",
+            "en": "It was such a cold night that we stayed in.",
             "sl": "To je bila tako mrzla noč, da smo ostali.",
             "de": "Es war so eine kalte Nacht, dass wir geblieben sind.",
             "it": "Era una notte così fredda che siamo rimasti."
@@ -148,21 +148,21 @@
           [
             "such a … that",
             { "sl": "+ samostalnik", "de": "+ Nomen", "it": "+ un nome", "en": "+ a noun" },
-            "It was such a cold night that we stayed."
+            "It was such a cold night that we stayed in."
           ]
         ],
         "ask": {
           "type": "choice",
           "grammar": "result-linkers",
-          "prompt": "It was ___ night that we stayed.",
+          "prompt": "It was ___ night that we stayed in.",
           "options": ["such a cold", "a such cold", "such cold"],
           "answer": 0,
           "say_options": true,
           "explain": {
-            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed. · We had such bad weather."
+            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed in. · We had such bad weather."
           }
         }
       },
@@ -170,7 +170,7 @@
         "say": {
           "sl": "Pred samostalnikom **so much** za to, česar ne šteješ, **so many** za množino: **There was so much rain that the beck rose.** (Toliko je deževalo, da je potok narasel.) **There were so many people that the hall was full.** Tudi **so few**, **so little**. Enako pove **such a lot of**: **There was such a lot of rain.**",
           "de": "Vor einem Nomen **so much** für Unzählbares, **so many** für den Plural: **There was so much rain that the beck rose.** (Es regnete so viel, dass der Bach anstieg.) **There were so many people that the hall was full.** Auch **so few**, **so little**. Dasselbe sagt **such a lot of**: **There was such a lot of rain.**",
-          "it": "Davanti a un nome **so much** per ciò che non si conta, **so many** per il plurale: **There was so much rain that the beck rose.** (Ha piovuto così tanto che il torrente si è alzato.) **There were so many people that the hall was full.** Anche **so few**, **so little**. Lo stesso dice **such a lot of**: **There was such a lot of rain.**",
+          "it": "Davanti a un nome **so much** per ciò che non si conta, **so many** per il plurale: **There was so much rain that the beck rose.** (Ha piovuto così tanto che il torrente si è alzato.) **There were so many people that the hall was full.** Anche **so few**, **so little**. Dice lo stesso **such a lot of**: **There was such a lot of rain.**",
           "en": "Before a noun, **so much** for what you can't count, **so many** for a plural: **There was so much rain that the beck rose.** **There were so many people that the hall was full.** Also **so few**, **so little**. **such a lot of** says the same: **There was such a lot of rain.**"
         },
         "examples": [
@@ -178,7 +178,7 @@
             "en": "There was so much rain that the beck rose.",
             "sl": "Toliko je deževalo, da je potok narasel.",
             "de": "Es regnete so viel, dass der Bach anstieg.",
-            "it": "Ha piovuto così tanto che il torrente si è alzato."
+            "it": "Ha piovuto così tanto che il torrente si è ingrossato."
           },
           {
             "en": "There were so many people that the hall was full.",
@@ -217,27 +217,27 @@
       },
       {
         "say": {
-          "sl": "**Jack likes the fell, whereas Sam likes the town.** (Jack ima rad hribe, medtem ko ima Sam rad mesto.) **whereas**, **while** (medtem ko) postavita dve dejstvi drugo ob drugo, z vejico. **while** lahko stoji spredaj: **While Jack likes the fell, Sam likes the town.** **although** iz B1 je za to, kar preseneča: **Although it was cold, we walked.**",
-          "de": "**Jack likes the fell, whereas Sam likes the town.** (Jack mag die Berge, während Sam die Stadt mag.) **whereas**, **while** (während) stellen zwei Dinge nebeneinander, mit Komma. **while** kann vorn stehen: **While Jack likes the fell, Sam likes the town.** **although** aus B1 ist für das, was überrascht: **Although it was cold, we walked.**",
-          "it": "**Jack likes the fell, whereas Sam likes the town.** (A Jack piace il monte, mentre a Sam piace la città.) **whereas**, **while** (mentre) mettono a confronto due fatti, con la virgola. **while** può stare davanti: **While Jack likes the fell, Sam likes the town.** **although** del B1 è per ciò che sorprende: **Although it was cold, we walked.**",
-          "en": "**Jack likes the fell, whereas Sam likes the town.** **whereas**, **while** set two facts side by side, with a comma. **while** can come first: **While Jack likes the fell, Sam likes the town.** B1's **although** is for what surprises: **Although it was cold, we walked.**"
+          "sl": "**Jack likes the fell, whereas Sam likes the town.** (Jack ima rad hribe, medtem ko ima Sam rad mesto.) **whereas**, **while** (medtem ko) postavita dve dejstvi drugo ob drugo, z vejico. Lahko stojita tudi spredaj: **While Jack likes the fell, Sam likes the town.** **although** iz B1 je za to, kar preseneča: **Although it was cold, we walked.**",
+          "de": "**Jack likes the fell, whereas Sam likes the town.** (Jack mag die Berge, während Sam die Stadt mag.) **whereas**, **while** (während) stellen zwei Dinge einander gegenüber, mit Komma. Beide können auch vorn stehen: **While Jack likes the fell, Sam likes the town.** **although** aus B1 ist für das, was überrascht: **Although it was cold, we walked.**",
+          "it": "**Jack likes the fell, whereas Sam likes the town.** (A Jack piace la montagna, mentre a Sam piace la città.) **whereas**, **while** (mentre) mettono a confronto due fatti, con la virgola. Possono stare anche davanti: **While Jack likes the fell, Sam likes the town.** **although** del B1 è per ciò che sorprende: **Although it was cold, we walked.**",
+          "en": "**Jack likes the fell, whereas Sam likes the town.** **whereas**, **while** set two facts side by side, with a comma. Both can come first: **While Jack likes the fell, Sam likes the town.** B1's **although** is for what surprises: **Although it was cold, we walked.**"
         },
         "examples": [
           {
             "en": "Jack likes the fell, whereas Sam likes the town.",
             "sl": "Jack ima rad hribe, medtem ko ima Sam rad mesto.",
             "de": "Jack mag die Berge, während Sam die Stadt mag.",
-            "it": "A Jack piace il monte, mentre a Sam piace la città."
+            "it": "A Jack piace la montagna, mentre a Sam piace la città."
           },
           {
             "en": "While Jack likes the fell, Sam likes the town.",
             "sl": "Medtem ko ima Jack rad hribe, ima Sam rad mesto.",
             "de": "Während Jack die Berge mag, mag Sam die Stadt.",
-            "it": "Mentre a Jack piace il monte, a Sam piace la città."
+            "it": "Mentre a Jack piace la montagna, a Sam piace la città."
           },
           {
             "en": "Although it was cold, we walked.",
-            "sl": "Čeprav je bilo mrzlo, smo hodili.",
+            "sl": "Čeprav je bilo mrzlo, smo šli peš.",
             "de": "Obwohl es kalt war, gingen wir zu Fuß.",
             "it": "Anche se faceva freddo, abbiamo camminato."
           }
@@ -247,7 +247,7 @@
             "whereas, while",
             {
               "sl": "dve dejstvi drugo ob drugem",
-              "de": "zwei Dinge nebeneinander",
+              "de": "zwei Dinge im Vergleich",
               "it": "due fatti a confronto",
               "en": "two facts side by side"
             },
@@ -263,7 +263,7 @@
           "say_options": true,
           "explain": {
             "sl": "**whereas, while: dve dejstvi drugo ob drugem, z vejico**\n- Jack likes the fell, whereas Sam likes the town.",
-            "de": "**whereas, while: zwei Dinge nebeneinander, mit Komma**\n- Jack likes the fell, whereas Sam likes the town.",
+            "de": "**whereas, while: zwei Dinge im Vergleich, mit Komma**\n- Jack likes the fell, whereas Sam likes the town.",
             "it": "**whereas, while: due fatti a confronto, con la virgola**\n- Jack likes the fell, whereas Sam likes the town.",
             "en": "**whereas, while: two facts side by side, with a comma**\n- Jack likes the fell, whereas Sam likes the town."
           }
@@ -271,10 +271,10 @@
       },
       {
         "say": {
-          "sl": "**The road is narrow. Nevertheless, the bus gets through.** (Cesta je ozka, a avtobus kljub temu pride skozi.) **nevertheless** (kljub temu) je težji **however**: nov stavek, vejica. **on the other hand** (po drugi strani) pove drugo plat: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Lahko tudi prej **on the one hand**.",
-          "de": "**The road is narrow. Nevertheless, the bus gets through.** (Die Straße ist schmal, trotzdem kommt der Bus durch.) **nevertheless** (dennoch) ist ein gewichtigeres **however**: neuer Satz, Komma. **on the other hand** (andererseits) nennt die andere Seite: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Davor auch **on the one hand**.",
-          "it": "**The road is narrow. Nevertheless, the bus gets through.** (La strada è stretta, tuttavia l'autobus passa.) **nevertheless** (tuttavia) è un **however** più solenne: frase nuova, virgola. **on the other hand** (d'altra parte) dice l'altro lato: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Prima anche **on the one hand**.",
-          "en": "**The road is narrow. Nevertheless, the bus gets through.** **nevertheless** is a weightier **however**: a new sentence, a comma. **on the other hand** gives the other side: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Before it, **on the one hand** too."
+          "sl": "**The road is narrow. Nevertheless, the bus gets through.** (Cesta je ozka, a avtobus kljub temu pride skozi.) **nevertheless** (kljub temu) je bolj knjižni **however**: navadno nov stavek, vejica. **on the other hand** (po drugi strani) pove drugo plat: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Lahko tudi prej **on the one hand**.",
+          "de": "**The road is narrow. Nevertheless, the bus gets through.** (Die Straße ist schmal, trotzdem kommt der Bus durch.) **nevertheless** (dennoch) ist ein formelleres **however**: meist ein neuer Satz, mit Komma. **on the other hand** (andererseits) nennt die andere Seite: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Davor auch **on the one hand**.",
+          "it": "**The road is narrow. Nevertheless, the bus gets through.** (La strada è stretta, tuttavia l'autobus passa.) **nevertheless** (tuttavia) è un **however** più solenne: di solito frase nuova, virgola. **on the other hand** (d'altra parte) presenta l'altra faccia: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Prima anche **on the one hand**.",
+          "en": "**The road is narrow. Nevertheless, the bus gets through.** **nevertheless** is a more formal **however**: usually a new sentence, a comma. **on the other hand** gives the other side: **The car park would bring visitors. On the other hand, it would spoil the tarn.** Before it, **on the one hand** too."
         },
         "examples": [
           {
@@ -286,19 +286,19 @@
           {
             "en": "The car park would bring visitors. On the other hand, it would spoil the tarn.",
             "sl": "Parkirišče bi prineslo obiskovalce. Po drugi strani bi pokvarilo jezerce.",
-            "de": "Der Parkplatz würde Besucher bringen. Andererseits würde er den Bergsee verderben.",
+            "de": "Der Parkplatz würde Besucher bringen. Andererseits würde er den Bergsee verschandeln.",
             "it": "Il parcheggio porterebbe visitatori. D'altra parte rovinerebbe il laghetto."
           }
         ],
         "rows": [
           [
             "nevertheless",
-            { "sl": "nov stavek, vejica", "de": "neuer Satz, Komma", "it": "frase nuova, virgola", "en": "a new sentence, a comma" },
+            { "sl": "navadno nov stavek", "de": "meist neuer Satz", "it": "di solito frase nuova", "en": "usually a new sentence" },
             "Nevertheless, the bus gets through."
           ],
           [
             "on the other hand",
-            { "sl": "druga plat", "de": "die andere Seite", "it": "l'altro lato", "en": "the other side" },
+            { "sl": "druga plat", "de": "die andere Seite", "it": "l'altra faccia", "en": "the other side" },
             "On the other hand, it would spoil the tarn."
           ]
         ],
@@ -307,11 +307,11 @@
           "grammar": "result-linkers",
           "text": "It would bring money. On the other ___, it would spoil the tarn.",
           "accept": ["hand"],
-          "hint": { "sl": "druga plat", "de": "die andere Seite", "it": "l'altro lato", "en": "the other side" },
+          "hint": { "sl": "druga plat", "de": "die andere Seite", "it": "l'altra faccia", "en": "the other side" },
           "explain": {
             "sl": "**On the other hand: druga plat**\n- It would bring money. On the other hand, it would spoil the tarn.",
             "de": "**On the other hand: die andere Seite**\n- It would bring money. On the other hand, it would spoil the tarn.",
-            "it": "**On the other hand: l'altro lato**\n- It would bring money. On the other hand, it would spoil the tarn.",
+            "it": "**On the other hand: l'altra faccia**\n- It would bring money. On the other hand, it would spoil the tarn.",
             "en": "**On the other hand: the other side**\n- It would bring money. On the other hand, it would spoil the tarn."
           }
         }
@@ -319,7 +319,7 @@
       {
         "say": {
           "sl": "**firstly** (prvič), **secondly** (drugič), **finally** (nazadnje), **to sum up** (če povzamem) dajo govoru red. Kar misliš: **as far as I'm concerned** (kar se mene tiče), **in my opinion**, **personally**. Tudi **first of all**, **in conclusion**. **as far as I know** je drugo: kolikor vem.",
-          "de": "**firstly** (erstens), **secondly** (zweitens), **finally** (schließlich), **to sum up** (zusammengefasst) ordnen die Rede. Was du meinst: **as far as I'm concerned** (was mich betrifft), **in my opinion**, **personally**. Auch **first of all**, **in conclusion**. **as far as I know** ist etwas anderes: soviel ich weiß.",
+          "de": "**firstly** (erstens), **secondly** (zweitens), **finally** (schließlich), **to sum up** (kurz gesagt) ordnen die Rede. Was du meinst: **as far as I'm concerned** (was mich betrifft), **in my opinion**, **personally**. Auch **first of all**, **in conclusion**. **as far as I know** ist etwas anderes: soviel ich weiß.",
           "it": "**firstly** (in primo luogo), **secondly** (in secondo luogo), **finally** (infine), **to sum up** (per riassumere) danno ordine al discorso. Ciò che pensi: **as far as I'm concerned** (per quanto mi riguarda), **in my opinion**, **personally**. Anche **first of all**, **in conclusion**. **as far as I know** è un'altra cosa: per quanto ne so.",
           "en": "**firstly**, **secondly**, **finally**, **to sum up** keep an argument in order. What you think: **as far as I'm concerned**, **in my opinion**, **personally**. Also **first of all**, **in conclusion**. **as far as I know** is another thing: it says what you know."
         },
@@ -333,7 +333,7 @@
           {
             "en": "To sum up, it's too expensive.",
             "sl": "Če povzamem, predrago je.",
-            "de": "Zusammengefasst ist es zu teuer.",
+            "de": "Kurz gesagt: Es ist zu teuer.",
             "it": "Per riassumere, costa troppo."
           },
           {
@@ -396,10 +396,10 @@
             }
           ],
           "explain": {
-            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed. · We had such bad weather."
+            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed in. · We had such bad weather."
           }
         },
         {
@@ -426,10 +426,10 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed. · We had such bad weather."
+            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed in. · We had such bad weather."
           }
         },
         {
@@ -441,10 +441,10 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed. · We had such bad weather."
+            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed in. · We had such bad weather."
           }
         },
         {
@@ -526,25 +526,36 @@
               "hint": { "sl": "+ pridevnik", "de": "+ Adjektiv", "it": "+ un aggettivo", "en": "+ an adjective" }
             },
             {
-              "accept": ["whereas", "while", "but", "although", "though"],
+              "accept": ["whereas", "while", "whilst", "but", "and", "although", "though"],
               "hint": {
                 "sl": "dve dejstvi drugo ob drugem",
-                "de": "zwei Dinge nebeneinander",
+                "de": "zwei Dinge im Vergleich",
                 "it": "due fatti a confronto",
                 "en": "two facts side by side"
               }
             },
             {
-              "accept": ["Firstly", "First", "First of all"],
+              "accept": ["Firstly", "First", "First of all", "To begin with", "To start with", "For a start", "For one thing"],
               "hint": { "sl": "prva točka", "de": "der erste Punkt", "it": "il primo punto", "en": "the first point" }
             },
             {
-              "accept": ["Secondly", "Second"],
+              "accept": ["Secondly", "Second", "Next", "Then", "Also", "Moreover", "What's more"],
               "hint": { "sl": "druga točka", "de": "der zweite Punkt", "it": "il secondo punto", "en": "the second point" }
             },
             { "accept": ["up"], "hint": { "sl": "to sum …", "de": "to sum …", "it": "to sum …", "en": "to sum …" } },
             {
-              "accept": ["Nevertheless", "However", "Even so", "Still", "All the same", "On the other hand"],
+              "accept": [
+                "Nevertheless",
+                "However",
+                "Even so",
+                "Still",
+                "All the same",
+                "On the other hand",
+                "Nonetheless",
+                "That said",
+                "Having said that",
+                "Mind you"
+              ],
               "hint": {
                 "sl": "nov stavek, kljub temu",
                 "de": "neuer Satz, trotzdem",
@@ -557,9 +568,9 @@
           "bank": true,
           "distractors": ["despite", "very"],
           "translation": {
-            "sl": "Bila je tako mrzla noč, da je na sestanek prišlo samo dvajset ljudi. V šoli je bilo tako mrzlo, da smo imeli plašče na sebi. Gospod Tyson hoče parkirišče ob jezercu, gospa Birkett pa ne. »Prvič, cesta je ozka,« je rekla. »Drugič, obiskovalci puščajo smeti. Če povzamem, pokvarilo bi jezerce.« Gospod Tyson je vstal. »Morda imate prav. Kljub temu vas potrebuje denar. Kar se mene tiče, ga moramo zgraditi.«",
-            "de": "Es war so eine kalte Nacht, dass nur zwanzig Leute zur Versammlung kamen. In der Schule war es so kalt, dass wir die Mäntel anbehielten. Mr Tyson will einen Parkplatz am Bergsee, Mrs Birkett nicht. „Erstens ist die Straße schmal“, sagte sie. „Zweitens lassen Besucher Müll liegen. Zusammengefasst würde es den Bergsee verderben.“ Mr Tyson stand auf. „Vielleicht haben Sie recht. Trotzdem braucht das Dorf das Geld. Was mich betrifft, sollten wir ihn bauen.“",
-            "it": "Era una notte così fredda che alla riunione sono venute solo venti persone. A scuola faceva così freddo che abbiamo tenuto i cappotti. Il signor Tyson vuole un parcheggio vicino al laghetto, la signora Birkett no. «In primo luogo, la strada è stretta», ha detto. «In secondo luogo, i visitatori lasciano rifiuti. Per riassumere, rovinerebbe il laghetto.» Il signor Tyson si è alzato. «Forse ha ragione. Tuttavia il paese ha bisogno di soldi. Per quanto mi riguarda, dovremmo costruirlo.»",
+            "sl": "Bila je tako mrzla noč, da je na sestanek prišlo samo dvajset ljudi. V šoli je bilo tako mrzlo, da smo imeli plašče na sebi. Gospod Tyson hoče parkirišče ob jezercu, gospa Birkett pa ne. »Prvič, cesta je ozka,« je rekla. »Drugič, obiskovalci puščajo smeti. Če povzamem, pokvarilo bi jezerce.« Gospod Tyson je vstal. »Morda imate prav. Kljub temu naša vas potrebuje denar. Kar se mene tiče, bi ga morali zgraditi.«",
+            "de": "Es war so eine kalte Nacht, dass nur zwanzig Leute zur Versammlung kamen. In der Schule war es so kalt, dass wir die Mäntel anbehielten. Mr Tyson will einen Parkplatz am Bergsee, Mrs Birkett nicht. „Erstens ist die Straße schmal“, sagte sie. „Zweitens lassen Besucher Müll liegen. Kurz gesagt: Er würde den Bergsee verschandeln.“ Mr Tyson stand auf. „Vielleicht haben Sie recht. Trotzdem braucht das Dorf das Geld. Was mich betrifft, sollten wir ihn bauen.“",
+            "it": "Era una notte così fredda che alla riunione sono venute solo venti persone. A scuola faceva così freddo che abbiamo tenuto addosso i cappotti. Il signor Tyson vuole un parcheggio vicino al laghetto, la signora Birkett no. «In primo luogo, la strada è stretta», ha detto. «In secondo luogo, i visitatori lasciano rifiuti. Per riassumere, rovinerebbe il laghetto.» Il signor Tyson si è alzato. «Forse ha ragione. Tuttavia il paese ha bisogno di soldi. Per quanto mi riguarda, dovremmo costruirlo.»",
             "en": "It was such a cold night that only twenty people came to the meeting. The school was so cold that we kept our coats on. Mr Tyson wants a car park by the tarn, whereas Mrs Birkett doesn't. “Firstly, the road is narrow,” she said. “Secondly, visitors leave rubbish. To sum up, it would spoil the tarn.” Mr Tyson stood up. “You may be right. Nevertheless, the village needs the money. As far as I'm concerned, we should build it.”"
           }
         }
@@ -607,10 +618,10 @@
             }
           ],
           "explain": {
-            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed. · We had such bad weather."
+            "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+            "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed in. · We had such bad weather."
           }
         },
         {
@@ -629,7 +640,10 @@
                 "It was such bad weather that the bridge closed.",
                 "We had such bad weather that the bridge closed.",
                 "It was such bad weather the bridge closed.",
-                "We had such bad weather the bridge closed."
+                "We had such bad weather the bridge closed.",
+                "There was such bad weather that the bridge closed.",
+                "There was such bad weather the bridge closed.",
+                "The weather was such that the bridge closed."
               ]
             },
             {
@@ -674,7 +688,10 @@
                 "The road is narrow. Nevertheless, the bus gets through.",
                 "The road is narrow. The bus gets through nevertheless.",
                 "The road is narrow. The bus nevertheless gets through.",
-                "The road is narrow but nevertheless the bus gets through."
+                "The road is narrow but nevertheless the bus gets through.",
+                "The road is narrow but the bus nevertheless gets through.",
+                "The road is narrow but the bus gets through nevertheless.",
+                "The road's narrow. Nevertheless, the bus gets through."
               ]
             },
             {
@@ -682,13 +699,16 @@
               "accept": [
                 "A car park brings money. On the other hand, it spoils the tarn.",
                 "A car park brings money. It spoils the tarn, on the other hand.",
-                "On the one hand, a car park brings money. On the other hand, it spoils the tarn."
+                "On the one hand, a car park brings money. On the other hand, it spoils the tarn.",
+                "A car park brings money but on the other hand it spoils the tarn.",
+                "A car park brings money. It does, on the other hand, spoil the tarn.",
+                "On the one hand a car park brings money, on the other it spoils the tarn."
               ]
             }
           ],
           "explain": {
             "sl": "**whereas, while: dve dejstvi drugo ob drugem, z vejico**\n- Jack likes the fell, whereas Sam likes the town.",
-            "de": "**whereas, while: zwei Dinge nebeneinander, mit Komma**\n- Jack likes the fell, whereas Sam likes the town.",
+            "de": "**whereas, while: zwei Dinge im Vergleich, mit Komma**\n- Jack likes the fell, whereas Sam likes the town.",
             "it": "**whereas, while: due fatti a confronto, con la virgola**\n- Jack likes the fell, whereas Sam likes the town.",
             "en": "**whereas, while: two facts side by side, with a comma**\n- Jack likes the fell, whereas Sam likes the town."
           }
@@ -707,13 +727,13 @@
         "gaps": [
           { "accept": ["such"] },
           { "accept": ["so"], "spoken": ["that"] },
-          { "accept": ["whereas", "while", "but", "although", "though"] },
-          { "accept": ["As"] }
+          { "accept": ["whereas", "while", "whilst", "but", "and", "although", "though"] },
+          { "accept": ["As", "So"] }
         ],
         "translation": {
-          "sl": "Poletje je bilo tako mokro, da je bila košnja pozna. Potok je bil tako visok, da so zaprli most. Jackova kmetija je na hribu, kmetija gospoda Tysona pa v dolini. »Kar se mene tiče, si moramo pomagati,« je rekel Jack.",
-          "de": "Es war so ein nasser Sommer, dass das Heu spät dran war. Der Bach war so hoch, dass die Brücke gesperrt wurde. Jacks Hof liegt am Berg, während der von Mr Tyson im Tal liegt. „Was mich betrifft, sollten wir einander helfen“, sagte Jack.",
-          "it": "È stata un'estate così piovosa che il fieno è arrivato tardi. Il torrente era così alto che hanno chiuso il ponte. La fattoria di Jack è sul monte, mentre quella del signor Tyson è nella valle. «Per quanto mi riguarda, dovremmo aiutarci», ha detto Jack.",
+          "sl": "Poletje je bilo tako deževno, da je bila košnja pozna. Potok je tako narasel, da so zaprli most. Jackova kmetija je na hribu, kmetija gospoda Tysona pa v dolini. »Kar se mene tiče, bi si morali pomagati,« je rekel Jack.",
+          "de": "Es war so ein nasser Sommer, dass die Heuernte spät dran war. Der Bach war so hoch, dass die Brücke gesperrt wurde. Jacks Hof liegt am Berg, während der von Mr Tyson im Tal liegt. „Was mich betrifft, sollten wir einander helfen“, sagte Jack.",
+          "it": "È stata un'estate così piovosa che la fienagione è stata tardiva. Il torrente era così alto che hanno chiuso il ponte. La fattoria di Jack è in montagna, mentre quella del signor Tyson è nella valle. «Per quanto mi riguarda, dovremmo aiutarci», ha detto Jack.",
           "en": "It was such a wet summer that the hay was late. The beck was so high that the bridge closed. Jack's farm is on the fell, whereas Mr Tyson's is in the valley. “As far as I'm concerned, we should help each other,” said Jack."
         }
       },
@@ -741,10 +761,10 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-          "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-          "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-          "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed. · We had such bad weather."
+          "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+          "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+          "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+          "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed in. · We had such bad weather."
         }
       },
       {
@@ -756,10 +776,10 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "sl": "**Nevertheless: nov stavek, vejica**\n- The road is narrow. Nevertheless, the bus gets through.",
-          "de": "**Nevertheless: neuer Satz, Komma**\n- The road is narrow. Nevertheless, the bus gets through.",
-          "it": "**Nevertheless: frase nuova, virgola**\n- The road is narrow. Nevertheless, the bus gets through.",
-          "en": "**Nevertheless: a new sentence, a comma**\n- The road is narrow. Nevertheless, the bus gets through."
+          "sl": "**Nevertheless: navadno nov stavek, vejica**\n- The road is narrow. Nevertheless, the bus gets through.",
+          "de": "**Nevertheless: meist neuer Satz, Komma**\n- The road is narrow. Nevertheless, the bus gets through.",
+          "it": "**Nevertheless: di solito frase nuova, virgola**\n- The road is narrow. Nevertheless, the bus gets through.",
+          "en": "**Nevertheless: usually a new sentence, a comma**\n- The road is narrow. Nevertheless, the bus gets through."
         }
       },
       {
@@ -787,10 +807,10 @@
           }
         ],
         "explain": {
-          "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-          "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-          "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed. · We had such bad weather.",
-          "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed. · We had such bad weather."
+          "sl": "**such a + (pridevnik) + samostalnik; množina in neštevno brez a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+          "de": "**such a + (Adjektiv) + Nomen; Plural und Unzählbares ohne a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+          "it": "**such a + (aggettivo) + nome; plurale e non numerabili senza a**\n- It was such a cold night that we stayed in. · We had such bad weather.",
+          "en": "**such a + (an adjective) + a noun; no a with plurals and with what you can't count**\n- It was such a cold night that we stayed in. · We had such bad weather."
         }
       },
       {
@@ -818,7 +838,10 @@
               "The fell is steep. Nevertheless, Mr Tyson walks up it every day.",
               "The fell is steep. Mr Tyson nevertheless walks up it every day.",
               "The fell is steep. Mr Tyson walks up it every day nevertheless.",
-              "The fell is steep but nevertheless Mr Tyson walks up it every day."
+              "The fell is steep but nevertheless Mr Tyson walks up it every day.",
+              "The fell is steep but Mr Tyson nevertheless walks up it every day.",
+              "The fell is steep but Mr Tyson walks up it every day nevertheless.",
+              "The fell's steep. Nevertheless, Mr Tyson walks up it every day."
             ]
           },
           {
@@ -826,15 +849,18 @@
             "accept": [
               "The bus is slow. On the other hand, it is cheap.",
               "The bus is slow. It is cheap, on the other hand.",
-              "On the one hand, the bus is slow. On the other hand, it is cheap."
+              "On the one hand, the bus is slow. On the other hand, it is cheap.",
+              "The bus is slow but on the other hand it is cheap.",
+              "The bus is slow. It is, on the other hand, cheap.",
+              "On the one hand the bus is slow, on the other it is cheap."
             ]
           }
         ],
         "explain": {
-          "sl": "**Nevertheless: nov stavek, vejica**\n- The road is narrow. Nevertheless, the bus gets through.",
-          "de": "**Nevertheless: neuer Satz, Komma**\n- The road is narrow. Nevertheless, the bus gets through.",
-          "it": "**Nevertheless: frase nuova, virgola**\n- The road is narrow. Nevertheless, the bus gets through.",
-          "en": "**Nevertheless: a new sentence, a comma**\n- The road is narrow. Nevertheless, the bus gets through."
+          "sl": "**Nevertheless: navadno nov stavek, vejica**\n- The road is narrow. Nevertheless, the bus gets through.",
+          "de": "**Nevertheless: meist neuer Satz, Komma**\n- The road is narrow. Nevertheless, the bus gets through.",
+          "it": "**Nevertheless: di solito frase nuova, virgola**\n- The road is narrow. Nevertheless, the bus gets through.",
+          "en": "**Nevertheless: usually a new sentence, a comma**\n- The road is narrow. Nevertheless, the bus gets through."
         }
       }
     ]

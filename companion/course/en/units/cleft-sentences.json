@@ -110,8 +110,8 @@
       {
         "say": {
           "sl": "Stvar, kraj ali čas ima **that**, samo oseba **who**: **It was the fog that stopped him.** (Ustavila ga je megla.) **It was in Keswick that we met.** **It was on Saturday that she got lost.** Tudi v sedanjiku: **It's the cold that I hate.** Tako popraviš, kar je kdo rekel narobe: ne v Penrithu, v Keswicku.",
-          "de": "Ein Ding, ein Ort oder eine Zeit hat **that**, nur eine Person **who**: **It was the fog that stopped him.** (Es war der Nebel, der ihn aufgehalten hat.) **It was in Keswick that we met.** **It was on Saturday that she got lost.** Auch im Präsens: **It's the cold that I hate.** So stellst du richtig, was jemand falsch gesagt hat: nicht in Penrith, in Keswick.",
-          "it": "Una cosa, un luogo o un tempo vogliono **that**, solo una persona **who**: **It was the fog that stopped him.** (È stata la nebbia a fermarlo.) **It was in Keswick that we met.** **It was on Saturday that she got lost.** Anche al presente: **It's the cold that I hate.** Così correggi ciò che qualcuno ha detto male: non a Penrith, a Keswick.",
+          "de": "Bei einer Sache, einem Ort oder einer Zeitangabe steht **that**, nur bei einer Person **who**: **It was the fog that stopped him.** (Es war der Nebel, der ihn aufgehalten hat.) **It was in Keswick that we met.** **It was on Saturday that she got lost.** Auch im Präsens: **It's the cold that I hate.** So stellst du richtig, was jemand falsch gesagt hat: nicht in Penrith, in Keswick.",
+          "it": "Una cosa, un luogo o un momento vogliono **that**, solo una persona **who**: **It was the fog that stopped him.** (È stata la nebbia a fermarlo.) **It was in Keswick that we met.** **It was on Saturday that she got lost.** Anche al presente: **It's the cold that I hate.** Così correggi ciò che qualcuno ha detto male: non a Penrith, a Keswick.",
           "en": "A thing, a place or a time takes **that**, and only a person **who**: **It was the fog that stopped him.** **It was in Keswick that we met.** **It was on Saturday that she got lost.** In the present too: **It's the cold that I hate.** It's how you put right what someone got wrong: not in Penrith, in Keswick."
         },
         "examples": [
@@ -123,7 +123,7 @@
           },
           {
             "en": "It was in Keswick that we met.",
-            "sl": "V Keswicku sva se {m:spoznala|f:spoznali}.",
+            "sl": "V Keswicku sva se spoznala.",
             "de": "In Keswick haben wir uns kennengelernt.",
             "it": "È a Keswick che ci siamo conosciuti."
           },
@@ -131,7 +131,7 @@
             "en": "It was on Saturday that she got lost.",
             "sl": "V soboto se je izgubila.",
             "de": "Am Samstag hat sie sich verirrt.",
-            "it": "È sabato che si è persa."
+            "it": "È stato sabato che si è persa."
           },
           {
             "en": "It's the cold that I hate.",
@@ -143,7 +143,7 @@
         "rows": [
           [
             "It was … that",
-            { "sl": "stvar, kraj, čas", "de": "Ding, Ort, Zeit", "it": "cosa, luogo, tempo", "en": "a thing, a place, a time" },
+            { "sl": "stvar, kraj, čas", "de": "Sache, Ort, Zeit", "it": "cosa, luogo, momento", "en": "a thing, a place, a time" },
             "It was in Keswick that we met."
           ]
         ],
@@ -156,8 +156,8 @@
           "say_options": true,
           "explain": {
             "sl": "**Stvar, kraj, čas: that, who samo za osebo**\n- It was on Saturday that she got lost.",
-            "de": "**Ding, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
-            "it": "**Cosa, luogo, tempo: that, who solo per le persone**\n- It was on Saturday that she got lost.",
+            "de": "**Sache, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
+            "it": "**Cosa, luogo, momento: that, who solo per le persone**\n- It was on Saturday that she got lost.",
             "en": "**A thing, a place, a time: that; who only for a person**\n- It was on Saturday that she got lost."
           }
         }
@@ -213,8 +213,8 @@
       },
       {
         "say": {
-          "sl": "**What Jack did was ring the inn.** (Jack je naredil tole: poklical je gostilno.) Za dejanje: **What** + kdo + **did was** + osnovna oblika, **rang** je samo v **did**. Sme tudi **to**: **What Edna did was to walk home.** V govoru tudi **What I did was, I rang the inn.** Krajše: **All I did was ask.** (Samo {m:vprašal|f:vprašala} sem.)",
-          "de": "**What Jack did was ring the inn.** (Jack rief einfach im Gasthaus an.) Für eine Handlung: **What** + wer + **did was** + die Grundform; die Vergangenheit steckt in **did**, nicht in *rang*. Auch **to** geht: **What Edna did was to walk home.** Gesprochen auch **What I did was, I rang the inn.** Kürzer: **All I did was ask.** (Ich habe nur gefragt.)",
+          "sl": "**What Jack did was ring the inn.** (Jack je naredil tole: poklical je gostilno.) Za dejanje: **What** + kdo + **did was** + osnovna oblika, preteklik je v **did**, ne v *rang*. Sme tudi **to**: **What Edna did was to walk home.** V govoru tudi **What I did was, I rang the inn.** Krajše: **All I did was ask.** (Samo {m:vprašal|f:vprašala} sem.)",
+          "de": "**What Jack did was ring the inn.** (Jack hat einfach im Gasthaus angerufen.) Für eine Handlung: **What** + wer + **did was** + die Grundform; die Vergangenheit steckt in **did**, nicht in *rang*. Auch **to** geht: **What Edna did was to walk home.** Gesprochen auch **What I did was, I rang the inn.** Kürzer: **All I did was ask.** (Ich habe nur gefragt.)",
           "it": "**What Jack did was ring the inn.** (Quello che ha fatto Jack è stato chiamare la locanda.) Per un'azione: **What** + chi + **did was** + la forma base; il passato è in **did**, non in *rang*. Si può dire anche con **to**: **What Edna did was to walk home.** A voce anche **What I did was, I rang the inn.** Più breve: **All I did was ask.** (Ho solo chiesto.)",
           "en": "**What Jack did was ring the inn.** For an action: **What** + who + **did was** + the base form; the past is in **did**, not in *rang*. **to** may come too: **What Edna did was to walk home.** In talk also **What I did was, I rang the inn.** Shorter: **All I did was ask.**"
         },
@@ -222,13 +222,13 @@
           {
             "en": "What Jack did was ring the inn.",
             "sl": "Jack je naredil tole: poklical je gostilno.",
-            "de": "Jack rief einfach im Gasthaus an.",
+            "de": "Jack hat einfach im Gasthaus angerufen.",
             "it": "Quello che ha fatto Jack è stato chiamare la locanda."
           },
           {
             "en": "What Edna did was walk home.",
             "sl": "Edna je preprosto šla peš domov.",
-            "de": "Edna ging einfach zu Fuß heim.",
+            "de": "Edna ist einfach zu Fuß heimgegangen.",
             "it": "Quello che ha fatto Edna è stato tornare a casa a piedi."
           },
           { "en": "All I did was ask.", "sl": "Samo {m:vprašal|f:vprašala} sem.", "de": "Ich habe nur gefragt.", "it": "Ho solo chiesto." }
@@ -256,9 +256,9 @@
       },
       {
         "say": {
-          "sl": "**do**, **does**, **did** + osnovna oblika, izgovorjeno močno, kadar kdo dvomi: **I do like your soup.** (Juha mi je res všeč.) **She did ring, twice.** **He does work hard.** Preteklik je samo v **did**: **did ring**. Tudi prijazno, gostu: **Do sit down.** (Kar sedite.)",
+          "sl": "**do**, **does**, **did** + osnovna oblika, izgovorjeno močno, kadar kdo dvomi: **I do like your soup.** (Juha mi je res všeč.) **She did ring, twice.** **He does work hard.** Preteklik je samo v **did**: **did ring**. Tudi prijazno, gostu: **Do sit down.** (Kar sedi.)",
           "de": "**do**, **does**, **did** + die Grundform, betont gesprochen, wenn jemand zweifelt: **I do like your soup.** (Deine Suppe schmeckt mir wirklich.) **She did ring, twice.** **He does work hard.** Die Vergangenheit steckt nur in **did**: **did ring**. Auch herzlich, zu einem Gast: **Do sit down.** (Setz dich doch.)",
-          "it": "**do**, **does**, **did** + la forma base, detto con forza, quando qualcuno dubita: **I do like your soup.** (La tua zuppa mi piace davvero.) **She did ring, twice.** **He does work hard.** Il passato è solo in **did**: **did ring**. Anche con calore, a un ospite: **Do sit down.** (Siediti, dai.)",
+          "it": "**do**, **does**, **did** + la forma base, pronunciato con enfasi, quando qualcuno dubita: **I do like your soup.** (La tua zuppa mi piace davvero.) **She did ring, twice.** **He does work hard.** Il passato è solo in **did**: **did ring**. Anche con calore, a un ospite: **Do sit down.** (Siediti, dai.)",
           "en": "**do**, **does**, **did** + the base form, said with weight, when someone doubts it: **I do like your soup.** **She did ring, twice.** **He does work hard.** The past is only in **did**: **did ring**. Warmly too, to a guest: **Do sit down.**"
         },
         "examples": [
@@ -275,7 +275,7 @@
             "it": "Ma ha chiamato, due volte."
           },
           { "en": "He does work hard.", "sl": "Res trdo dela.", "de": "Er arbeitet wirklich hart.", "it": "Lavora davvero sodo." },
-          { "en": "Do sit down.", "sl": "Kar sedite.", "de": "Setz dich doch.", "it": "Siediti, dai." }
+          { "en": "Do sit down.", "sl": "Kar sedi.", "de": "Setz dich doch.", "it": "Siediti, dai." }
         ],
         "rows": [
           [
@@ -283,7 +283,7 @@
             {
               "sl": "+ osnovna oblika, s poudarkom",
               "de": "+ Grundform, betont",
-              "it": "+ forma base, con forza",
+              "it": "+ forma base, con enfasi",
               "en": "+ the base form, with weight"
             },
             "She did ring, twice."
@@ -306,10 +306,10 @@
       },
       {
         "say": {
-          "sl": "**Never have I seen such fog.** (Še nikoli nisem {m:videl|f:videla} take megle.) To prepoznaj, v zgodbah in govorih: za **Never**, **Rarely**, **Not only** pride glagol naprej, kot v vprašanju. Pomeni isto kot **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, she also lost a shoe.** Sam ti ni treba tako govoriti.",
-          "de": "**Never have I seen such fog.** (Noch nie habe ich solchen Nebel gesehen.) Das erkennst du in Geschichten und Reden: Nach **Never**, **Rarely**, **Not only** kommt das Verb zuerst, wie in einer Frage. Es heißt dasselbe wie **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, she also lost a shoe.** Selbst musst du so nicht reden.",
-          "it": "**Never have I seen such fog.** (Non ho mai visto una nebbia così.) Da riconoscere, nei racconti e nei discorsi: dopo **Never**, **Rarely**, **Not only** il verbo viene prima, come in una domanda. Vuol dire lo stesso di **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, she also lost a shoe.** Tu non devi parlare così.",
-          "en": "**Never have I seen such fog.** To recognise, in stories and speeches: after **Never**, **Rarely**, **Not only** the verb comes first, as in a question. It says the same as **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, she also lost a shoe.** You needn't talk like that yourself."
+          "sl": "**Never have I seen such fog.** (Še nikoli nisem {m:videl|f:videla} take megle.) To moraš znati prepoznati v zgodbah in govorih: za **Never**, **Rarely**, **Not only** stoji pomožni glagol pred osebkom, kot v vprašanju. Pomeni isto kot **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, but she also lost a shoe.** Tebi ni treba tako govoriti.",
+          "de": "**Never have I seen such fog.** (Noch nie habe ich solchen Nebel gesehen.) Das erkennst du in Geschichten und Reden: Nach **Never**, **Rarely**, **Not only** steht das Hilfsverb vor dem Subjekt, wie in einer Frage. Es heißt dasselbe wie **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, but she also lost a shoe.** Selbst musst du so nicht reden.",
+          "it": "**Never have I seen such fog.** (Non ho mai visto una nebbia così.) Da riconoscere, nei racconti e nei discorsi: dopo **Never**, **Rarely**, **Not only** l'ausiliare viene prima del soggetto, come in una domanda. Vuol dire lo stesso di **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, but she also lost a shoe.** Tu non hai bisogno di parlare così.",
+          "en": "**Never have I seen such fog.** To recognise, in stories and speeches: after **Never**, **Rarely**, **Not only** the helping verb comes before the subject, as in a question. It says the same as **I have never seen such fog.** **Rarely do we get such a night.** **Not only did she get lost, but she also lost a shoe.** You needn't talk like that yourself."
         },
         "examples": [
           {
@@ -325,7 +325,7 @@
             "it": "Raramente abbiamo una notte così."
           },
           {
-            "en": "Not only did she get lost, she also lost a shoe.",
+            "en": "Not only did she get lost, but she also lost a shoe.",
             "sl": "Ne samo da se je izgubila, izgubila je tudi čevelj.",
             "de": "Sie hat sich nicht nur verirrt, sie hat auch einen Schuh verloren.",
             "it": "Non solo si è persa, ha perso anche una scarpa."
@@ -335,10 +335,10 @@
           [
             "Never have I …",
             {
-              "sl": "prepoznaj: v pisanju",
-              "de": "erkennen: geschrieben",
-              "it": "da riconoscere: nello scritto",
-              "en": "to recognise: in writing"
+              "sl": "prepoznaj: zgodbe, govori",
+              "de": "erkennen: Geschichten, Reden",
+              "it": "da riconoscere: racconti, discorsi",
+              "en": "to recognise: stories, speeches"
             },
             "Never have I seen such fog."
           ]
@@ -377,8 +377,8 @@
             {
               "label": {
                 "sl": "It was … that · stvar, kraj, čas",
-                "de": "It was … that · Ding, Ort, Zeit",
-                "it": "It was … that · cosa, luogo, tempo",
+                "de": "It was … that · Sache, Ort, Zeit",
+                "it": "It was … that · cosa, luogo, momento",
                 "en": "It was … that: a thing, a place, a time"
               },
               "words": ["the fog", "in Keswick", "on Saturday", "the cold"]
@@ -386,8 +386,8 @@
           ],
           "explain": {
             "sl": "**Stvar, kraj, čas: that, who samo za osebo**\n- It was on Saturday that she got lost.",
-            "de": "**Ding, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
-            "it": "**Cosa, luogo, tempo: that, who solo per le persone**\n- It was on Saturday that she got lost.",
+            "de": "**Sache, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
+            "it": "**Cosa, luogo, momento: that, who solo per le persone**\n- It was on Saturday that she got lost.",
             "en": "**A thing, a place, a time: that; who only for a person**\n- It was on Saturday that she got lost."
           }
         },
@@ -416,8 +416,8 @@
           "say_options": true,
           "explain": {
             "sl": "**Stvar, kraj, čas: that, who samo za osebo**\n- It was on Saturday that she got lost.",
-            "de": "**Ding, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
-            "it": "**Cosa, luogo, tempo: that, who solo per le persone**\n- It was on Saturday that she got lost.",
+            "de": "**Sache, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
+            "it": "**Cosa, luogo, momento: that, who solo per le persone**\n- It was on Saturday that she got lost.",
             "en": "**A thing, a place, a time: that; who only for a person**\n- It was on Saturday that she got lost."
           }
         },
@@ -455,15 +455,19 @@
           "type": "choice",
           "grammar": "emphasis",
           "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
-          "prompt": "Not only did she get lost, she also lost a shoe. = ___",
-          "options": ["She got lost and she lost a shoe.", "She didn't get lost.", "She only lost a shoe."],
+          "prompt": "Not only did she get lost, but she also lost a shoe. = ___",
+          "options": [
+            "She got lost and she lost a shoe.",
+            "She didn't get lost, and she has both her shoes.",
+            "She only lost a shoe, and she didn't get lost."
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
-            "sl": "**Not only did she … = naredila je to in še nekaj**\n- Not only did she get lost, she also lost a shoe.",
-            "de": "**Not only did she … = sie tat das und noch etwas**\n- Not only did she get lost, she also lost a shoe.",
-            "it": "**Not only did she … = ha fatto questo e anche altro**\n- Not only did she get lost, she also lost a shoe.",
-            "en": "**Not only did she … = she did that and something else too**\n- Not only did she get lost, she also lost a shoe."
+            "sl": "**Not only did she … = naredila je to in še nekaj**\n- Not only did she get lost, but she also lost a shoe.",
+            "de": "**Not only did she … = sie tat das und noch etwas**\n- Not only did she get lost, but she also lost a shoe.",
+            "it": "**Not only did she … = ha fatto questo e anche altro**\n- Not only did she get lost, but she also lost a shoe.",
+            "en": "**Not only did she … = she did that and something else too**\n- Not only did she get lost, but she also lost a shoe."
           }
         }
       ]
@@ -478,26 +482,26 @@
           "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
           "text": "It was on Saturday ___ Auntie Edna got lost on the fell. It was the fog ___ stopped her. It was Jack ___ found her, with Meg. What she needed ___ a cup of tea. What Mrs Birkett did ___ make soup for everybody. “I ___ like your soup,” said Edna. “I know. You ___ say so last time,” said Mrs Birkett.",
           "gaps": [
-            { "accept": ["that", "when"], "hint": { "sl": "čas", "de": "eine Zeit", "it": "un tempo", "en": "a time" } },
-            { "accept": ["that", "which"], "hint": { "sl": "stvar", "de": "ein Ding", "it": "una cosa", "en": "a thing" } },
+            { "accept": ["that", "when"], "hint": { "sl": "čas", "de": "eine Zeitangabe", "it": "un momento", "en": "a time" } },
+            { "accept": ["that", "which"], "hint": { "sl": "stvar", "de": "eine Sache", "it": "una cosa", "en": "a thing" } },
             { "accept": ["who", "that"], "hint": { "sl": "oseba", "de": "eine Person", "it": "una persona", "en": "a person" } },
             { "accept": ["was"], "hint": { "sl": "preteklik", "de": "Vergangenheit", "it": "passato", "en": "the past" } },
             { "accept": ["was"], "hint": { "sl": "preteklik", "de": "Vergangenheit", "it": "passato", "en": "the past" } },
             {
               "accept": ["do", "really"],
-              "hint": { "sl": "s poudarkom, sedanjik", "de": "betont, Präsens", "it": "con forza, presente", "en": "with weight, the present" }
+              "hint": { "sl": "s poudarkom, sedanjik", "de": "betont, Präsens", "it": "con enfasi, presente", "en": "with weight, the present" }
             },
             {
               "accept": ["did"],
-              "hint": { "sl": "s poudarkom, preteklik", "de": "betont, Vergangenheit", "it": "con forza, passato", "en": "with weight, the past" }
+              "hint": { "sl": "s poudarkom, preteklik", "de": "betont, Vergangenheit", "it": "con enfasi, passato", "en": "with weight, the past" }
             }
           ],
           "bank": true,
           "distractors": ["does", "why"],
           "translation": {
-            "sl": "V soboto se je teta Edna izgubila na hribu. Ustavila jo je megla. Našel jo je Jack, z Meg. Potrebovala je skodelico čaja. Gospa Birkett je vsem skuhala juho. »Tvoja juha mi je res všeč,« je rekla Edna. »Vem. Saj si to {m:rekel|f:rekla} že zadnjič,« je rekla gospa Birkett.",
+            "sl": "V soboto se je teta Edna izgubila na hribu. Ustavila jo je megla. Našel jo je Jack, z Meg. Potrebovala je skodelico čaja. Gospa Birkett je vsem skuhala juho. »Tvoja juha mi je res všeč,« je rekla Edna. »Vem. Saj si to rekla že zadnjič,« je rekla gospa Birkett.",
             "de": "Am Samstag hat sich Tante Edna am Berg verirrt. Der Nebel hat sie aufgehalten. Jack hat sie gefunden, mit Meg. Was sie brauchte, war eine Tasse Tee. Mrs Birkett kochte für alle Suppe. „Deine Suppe schmeckt mir wirklich“, sagte Edna. „Ich weiß. Das hast du schon letztes Mal gesagt“, sagte Mrs Birkett.",
-            "it": "È sabato che zia Edna si è persa sul monte. È stata la nebbia a fermarla. È stato Jack a trovarla, con Meg. Ciò di cui aveva bisogno era una tazza di tè. La signora Birkett ha fatto la zuppa per tutti. «La tua zuppa mi piace davvero», ha detto Edna. «Lo so. L'hai detto anche l'altra volta», ha detto la signora Birkett.",
+            "it": "È stato sabato che zia Edna si è persa in montagna. È stata la nebbia a fermarla. È stato Jack a trovarla, con Meg. Ciò di cui aveva bisogno era una tazza di tè. La signora Birkett ha fatto la zuppa per tutti. «La tua zuppa mi piace davvero», ha detto Edna. «Lo so. L'hai detto anche l'altra volta», ha detto la signora Birkett.",
             "en": "It was on Saturday that Auntie Edna got lost on the fell. It was the fog that stopped her. It was Jack who found her, with Meg. What she needed was a cup of tea. What Mrs Birkett did was make soup for everybody. “I do like your soup,” said Edna. “I know. You did say so last time,” said Mrs Birkett."
           }
         }
@@ -505,7 +509,7 @@
     },
     {
       "id": "cleft-sentences-3",
-      "title": { "sl": "Povej s poudarkom", "de": "Sag es betont", "it": "Dillo con forza", "en": "Say it with weight" },
+      "title": { "sl": "Povej s poudarkom", "de": "Sag es betont", "it": "Dillo con enfasi", "en": "Say it with weight" },
       "exercises": [
         {
           "type": "transform",
@@ -524,7 +528,8 @@
             },
             {
               "from": "The fog stopped him. (the fog)",
-              "accept": ["It was the fog that stopped him.", "It was the fog which stopped him.", "It is the fog that stopped him."]
+              "accept": ["It was the fog that stopped him.", "It was the fog which stopped him.", "It is the fog that stopped him."],
+              "spoken": ["It was the fog stopped him."]
             },
             {
               "from": "We met in Keswick. (in Keswick)",
@@ -532,7 +537,9 @@
                 "It was in Keswick that we met.",
                 "It was in Keswick where we met.",
                 "It was Keswick where we met.",
-                "It was in Keswick we met."
+                "It was in Keswick we met.",
+                "It was Keswick that we met in.",
+                "It was Keswick we met in."
               ]
             },
             {
@@ -542,7 +549,8 @@
                 "It was on Saturday when she got lost.",
                 "It was Saturday when she got lost.",
                 "It was Saturday that she got lost.",
-                "It was on Saturday she got lost."
+                "It was on Saturday she got lost.",
+                "It was Saturday she got lost."
               ]
             },
             {
@@ -599,7 +607,7 @@
           "instruction": {
             "sl": "Say it with weight: do, does, did · Povej s poudarkom: do, does, did",
             "de": "Say it with weight: do, does, did · Sag es betont: do, does, did",
-            "it": "Say it with weight: do, does, did · Dillo con forza: do, does, did",
+            "it": "Say it with weight: do, does, did · Dillo con enfasi: do, does, did",
             "en": "Say it with weight: do, does, did"
           },
           "items": [
@@ -624,14 +632,28 @@
             "en": "Write it the plain way"
           },
           "items": [
-            { "from": "Never have I seen such fog.", "accept": ["I have never seen such fog.", "I never saw such fog."] },
+            {
+              "from": "Never have I seen such fog.",
+              "accept": [
+                "I have never seen such fog.",
+                "I never saw such fog.",
+                "I have never seen such fog before.",
+                "I have never seen fog like this.",
+                "I have never seen fog like this before.",
+                "I have never seen fog like that.",
+                "I have never seen fog like that before."
+              ]
+            },
             {
               "from": "Rarely do we get such a night.",
               "accept": [
                 "We rarely get such a night.",
                 "We seldom get such a night.",
                 "We don't often get such a night.",
-                "We hardly ever get such a night."
+                "We hardly ever get such a night.",
+                "We rarely get a night like this.",
+                "We don't often get a night like this.",
+                "We rarely get such nights."
               ]
             }
           ],
@@ -653,11 +675,16 @@
         "grammar": "emphasis",
         "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
         "text": "It was Arthur ___ saved the bees. It was the cold ___ nearly killed them. What they needed ___ sugar. “You ___ look after them well,” said Mr Tyson.",
-        "gaps": [{ "accept": ["who", "that"] }, { "accept": ["that", "which"] }, { "accept": ["was"] }, { "accept": ["do", "really"] }],
+        "gaps": [
+          { "accept": ["who", "that"] },
+          { "accept": ["that", "which"] },
+          { "accept": ["was"] },
+          { "accept": ["do", "did", "really", "certainly", "always"] }
+        ],
         "translation": {
           "sl": "Čebele je rešil Arthur. Skoraj jih je pomoril mraz. Potrebovale so sladkor. »Res dobro skrbiš zanje,« je rekel gospod Tyson.",
           "de": "Es war Arthur, der die Bienen gerettet hat. Die Kälte hätte sie fast umgebracht. Was sie brauchten, war Zucker. „Du kümmerst dich wirklich gut um sie“, sagte Mr Tyson.",
-          "it": "È stato Arthur a salvare le api. È stato il freddo a quasi ucciderle. Ciò di cui avevano bisogno era lo zucchero. «Te ne occupi davvero bene», ha detto il signor Tyson.",
+          "it": "È stato Arthur a salvare le api. È stato il freddo a rischiare di ucciderle. Ciò di cui avevano bisogno era lo zucchero. «Te ne occupi davvero bene», ha detto il signor Tyson.",
           "en": "It was Arthur who saved the bees. It was the cold that nearly killed them. What they needed was sugar. “You do look after them well,” said Mr Tyson."
         }
       },
@@ -671,8 +698,8 @@
         "say_options": true,
         "explain": {
           "sl": "**Stvar, kraj, čas: that, who samo za osebo**\n- It was on Saturday that she got lost.",
-          "de": "**Ding, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
-          "it": "**Cosa, luogo, tempo: that, who solo per le persone**\n- It was on Saturday that she got lost.",
+          "de": "**Sache, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
+          "it": "**Cosa, luogo, momento: that, who solo per le persone**\n- It was on Saturday that she got lost.",
           "en": "**A thing, a place, a time: that; who only for a person**\n- It was on Saturday that she got lost."
         }
       },
@@ -728,13 +755,18 @@
           },
           {
             "from": "The bus stopped in the snow. (in the snow)",
-            "accept": ["It was in the snow that the bus stopped.", "It was in the snow where the bus stopped.", "It was in the snow the bus stopped."]
+            "accept": [
+              "It was in the snow that the bus stopped.",
+              "It was in the snow where the bus stopped.",
+              "It was in the snow the bus stopped.",
+              "It was the snow that the bus stopped in."
+            ]
           }
         ],
         "explain": {
           "sl": "**Stvar, kraj, čas: that, who samo za osebo**\n- It was on Saturday that she got lost.",
-          "de": "**Ding, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
-          "it": "**Cosa, luogo, tempo: that, who solo per le persone**\n- It was on Saturday that she got lost.",
+          "de": "**Sache, Ort, Zeit: that, who nur für Personen**\n- It was on Saturday that she got lost.",
+          "it": "**Cosa, luogo, momento: that, who solo per le persone**\n- It was on Saturday that she got lost.",
           "en": "**A thing, a place, a time: that; who only for a person**\n- It was on Saturday that she got lost."
         }
       },
@@ -768,7 +800,7 @@
         "instruction": {
           "sl": "Say it with weight: do, does, did · Povej s poudarkom: do, does, did",
           "de": "Say it with weight: do, does, did · Sag es betont: do, does, did",
-          "it": "Say it with weight: do, does, did · Dillo con forza: do, does, did",
+          "it": "Say it with weight: do, does, did · Dillo con enfasi: do, does, did",
           "en": "Say it with weight: do, does, did"
         },
         "items": [
