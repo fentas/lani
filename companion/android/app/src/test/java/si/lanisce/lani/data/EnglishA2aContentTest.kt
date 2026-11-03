@@ -54,7 +54,8 @@ class EnglishA2aContentTest {
             assertEquals("$base for $past", Verdict.WRONG, en(base, past))
             assertEquals("$past for $base", Verdict.WRONG, en(past, base))
         }
-        listOf("sung" to "sang", "drunk" to "drank", "begun" to "began", "swum" to "swam").forEach { (typed, right) -> assertEquals(typed, Verdict.WRONG, en(typed, right)) }
+        // said too (I sung, I drunk): what people say, almost, the standard form shown (EnglishA2cContentTest)
+        listOf("sung" to "sang", "drunk" to "drank", "begun" to "began", "swum" to "swam").forEach { (typed, right) -> assertEquals(typed, Verdict.ALMOST, en(typed, right)) }
         assertEquals(Verdict.WRONG, en("met", "meet"))
         assertEquals(Verdict.WRONG, en("feel", "fell"))
         assertEquals(Verdict.WRONG, en("want", "went"))

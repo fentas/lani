@@ -87,7 +87,7 @@ class EnglishA2cContentTest {
             "I seen a raven yesterday." to "I saw a raven yesterday.", "I done the washing up." to "I did the washing up.",
             "I've saw a raven." to "I've seen a raven.", "He's went to Keswick." to "He's gone to Keswick.", "She's took the bus." to "She has taken the bus.",
             "Have you ate yet?" to "Have you eaten yet?", "I haven't never been to Carlisle." to "I've never been to Carlisle.",
-            "Mr Tyson hasn't never seen the sea." to "Mr Tyson has never seen the sea.", "He telled us a story." to "He told us a story.", "Jack catched the bus." to "Jack caught the bus.",
+            "Mr Tyson hasn't never seen the sea." to "Mr Tyson has never seen the sea.", "He telled us a story." to "He told us a story.", "I sung at the dance." to "I sang at the dance.", "Jack catched the bus." to "Jack caught the bus.",
         )) {
             val r = en(typed, right)
             assertEquals(typed, Verdict.ALMOST to Hint.NONSTANDARD, r.verdict to r.hint)

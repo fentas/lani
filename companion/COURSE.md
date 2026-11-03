@@ -1201,8 +1201,8 @@ their gaps (places as the fixed chunks of units 1–6):
 ## The English course
 
 For grown-ups learning English in the Lake District village (the culture `lakeland`), from Slovene, German or Italian:
-visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1,
-18 units, each naming the English grammar pages it teaches) and its units, written in the village's adult life: Mrs
+visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1 and
+A2 written, 18 units each, each naming the English grammar pages it teaches; B1 and B2 planned, docs/plans/05-built/outlines-2.md) and its units, written in the village's adult life: Mrs
 Hartley the teacher, Mrs Birkett at the Packhorse Inn, Shepherd Jack and his sheepdog Meg, Mr Dixon the blacksmith,
 Granny Maggie and Auntie Edna, Mr Tyson and his mill, Brewer Sam, Old Wilf, Arthur and his bees; the fells, the becks,
 the tarn, Keswick eight miles off. The school is the same school, and every part of it is the course's language's:
@@ -1218,7 +1218,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
 | Not for English | forms cards, counting cards, the numbers module and the case rows (Slovene's: `numbers` turns nothing on); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
-| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
+| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
 
 Writing an English unit: as [Writing a unit](#writing-a-unit), with the explanations in each base (du, ti and tu, as the
 app speaks to the learner), every English form in **bold** with its meaning in brackets where the base needs one; the
@@ -1329,6 +1329,72 @@ Old Wilf by the fire, the bus to Keswick, the market):
 - **A contraction without its apostrophe** (cant, isnt, Im, theyre, wasnt) is almost, with the apostrophe hint and
   English's examples (`loose`, `loose_examples`: "can't, I'm"), never right; its, were, well, lets stay words of their
   own, so were for we're is wrong.
+
+### The English course: A2, units 1–6
+
+A2's first six units, commands and the past, after all of A1 (A1 left the imperative out, so A2 opens with it):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `imperatives` 📢 | the base form for everyone; Don't + the base form; be; always, never; Let's, Let's not; please, Could you …?; directions, recipes, signs | imperatives (new; its card is the summary) |
+| `past-regular` 🚶 | -ed for every person, no helping verb; yesterday, last week, ago; -e + -d, the doubled consonant, -y → -ied against stayed; the three sounds; British learnt, burnt, dreamt with learned accepted | past-simple (a summary of its own) |
+| `past-irregular` 🧳 | about thirty irregular pasts, by families; put, cut, shut the same; read said like red; told and said; told in a story with -ed verbs | past-simple (a summary of its own) |
+| `did-you` 🔍 | didn't and Did + the base form; short answers; Where did you go?; who as the subject takes no did; be takes no did | past-simple, questions-do (a summary of its own) |
+| `past-continuous` ⏳ | was, were + -ing; wasn't, weren't, Were you …?; the long action with when; while; -ing's spelling; state verbs without -ing; how a story opens | past-continuous (new), past-simple, present-continuous |
+| `because-so` 🔗 | and, but, or; because against so, one in a sentence; Why? Because …; when, before, after and their comma; then; all of it in a story | linking-words (new), past-simple |
+
+- **A summary of its own** where a page goes on further than the unit that heads it: `past-simple` has the past's questions, which `did-you` brings.
+- **cos, 'cause and cause** are right on every gap whose answer is because, labelled with because; `Don't let's wait` beside Let's not wait.
+- **Paired mistakes** (`wrong`), each only for a word of its rule: stoped, planed for stopped, planned; openned, visitted; carryed, staied; come for came, make for made and the other way (did you came?); fell and feel, want and went, wore and were, sold and told, bought, brought, caught, taught, thought, fought; then for than or when; rainning, waitting. goed, runned, heared were wrong already; walkd, becouse, hapy stay slips.
+
+### The English course: A2, units 7–12
+
+A2's middle six: how much, comparing, how, after the past (units 1–6). The Lakeland's own: a jar of Arthur's honey, Keswick further away than the mill, Alfie the youngest in the family:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `some-and-any` 🥛 | countable and uncountable; some in statements and offers, any in questions and negatives; no article before what can't be counted; some in a plain question spoken | some-any, articles |
+| `how-much` 🧮 | much and many, a lot of, a few and a little, how much and how many; loads of, There's not many boats spoken | some-any, plurals |
+| `comparatives` 📏 | -er and more, the spelling (bigger, happier), good and bad, than; further and farther; more bigger left wrong | comparatives (new) |
+| `superlatives` 🏆 | the -est and the most; best, worst; in the village, of the three; without the where no noun follows, plain right (Alfie is youngest) | comparatives, articles |
+| `adverbs` 🐢 | -ly and its spelling; well, fast, hard; an adjective for a thing, an adverb for what is done; where each goes; good for well and a flat adverb `nonstandard` | adverbs (new), word-order |
+| `someone-anything` 🔎 | some-, any-, no-, every- with -one, -thing, -where; one negative in writing, a double negative `nonstandard`; someone and something in a question spoken; no one with nobody and no-one | indefinite-pronouns (new), some-any |
+
+- **A bold form is read in her voice only if the intro shows that very word**: wetter, easier and money had to go into `words`.
+- **A page's `rule` is at most 1,200 characters per base**, a `review` at most 200.
+- **Paired mistakes**: then and than; biger, hoter only for big, hot, thin, fat, wet, sad, red, fit; happyer, easyest for a word in -ier, -iest; happyly for -ily; carefuly. usualy stays a slip. A trap for whoever writes more: `.*[^aeiou]y(er|est)` makes shyer wrong for shier, so a unit that asks those lists both.
+
+### The English course: A2, units 13–18
+
+A2's last six: the future, must, the perfect, if. Saturday's dance at the Packhorse Inn, Mrs Birkett's rules for the help, a wet morning with Sam's van, Jack and Meg on the fell, Old Wilf by the fire, a walker who has never been to the Lakes:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `going-to` 🗺️ | going to for a plan and for what you can see coming; am, is, are + -ing for what is arranged; never the plain present (Morgen besuche ich, jutri grem, domani vado); gonna spoken | future, present-continuous (a summary of its own) |
+| `will` 🤝 | decided now and offers (never I carry it), promises and won't, what you think; Will you …? Yes, I will (never Yes, I'll); Shall I …? with Should I …? and Scotland's and Ireland's Will I …?; will against going to; I will isn't ich will | future (a summary of its own) |
+| `have-to` ☝️ | have to, has to, Do you have to …?, had to, have got to with gotta; must with no to; mustn't against don't have to (muss nicht), can't, needn't; should | must-have-to (new), can |
+| `would-like` ☕ | want to, wanna; 'd like with a thing and with to; Would you like …? Yes, please; Could you …?, Could I …?; like, love, enjoy, hate + -ing (never enjoy to); like against 'd like | would-like (new) |
+| `have-you-ever` 🐦 | have, has + the participle for your life so far; its forms; gone and been; ever, never with one no in writing; just; already, yet; the past simple as soon as you say when; American I just saw Jack, Did you feed the dogs yet? accepted | present-perfect (a summary of its own, no since or for: B1), past-simple |
+| `if-it-rains` ☔ | if + the present in both halves, always so; if + the present, will; the halves either way, the comma; if against when (German's wenn for both), the present after both (never if it will rain, Slovene's če bo); the other half with can, should, a command | first-conditional (new), future |
+
+- **A bracketed translation is one sentence** ("(Die Tasche ist schwer, ich trage sie.)"): the sheet's rule line splits at a sentence end even inside brackets, and "(Die Tasche ist schwer. Ich trage sie.)" printed cut.
+- **A gap takes all that is right**, not only what the unit teaches: "___ I close the window?" takes Shall, Should, Can, Could, May, with Will spoken; "You look tired. You ___ rest." takes should, must, have to, need to, ought to; "I think it ___ snow" takes will and is going to; "Have you ___ been to the Lakes?" takes ever and never.
+- **The plain present isn't always wrong**: a timetable's "The bus leaves at nine" is right, so it isn't offered as a mistake, nor is the colloquial "It's raining tomorrow".
+- **A choice's `almost`** for what is right but off the point: "I'm going to" where the phone is ringing, "I'll" for what was decided before.
+- **'s before a participle is has in the grading**, listed once: she's seen = she has seen, Jack's never been; before one that could be an adjective or a passive (done, made, lost, closed, written …) only with just, already, never, ever or an object after it, so it's written stays it is. `same`'s order matters: these rules stand before he's → he is. A name's 's before -ing still lists its long form beside it; before going to it doesn't need to.
+- **Typed without the apostrophe, almost**: hes seen, id like, and ill help, well go only before another word, so the words themselves stay words.
+
+### What people say, over the whole of A2
+
+As [Spoken forms](#spoken-forms): no form people say is a wrong choice or a bank's distractor, no text says never of it (the intro and the page say people say it and writing wants the other), and typed it is one of two things. `EnglishA2bContentTest` holds it for its six units, `EnglishA2cContentTest` for all 18.
+
+| What's typed | How | Verdict |
+|---|---|---|
+| gonna, wanna, gotta; cos, 'cause; some in a plain question; There's no walkers; loads of; Will I …? beside Shall I …? | the item's `spoken` | right, labelled with the standard form |
+| good for well, a flat adverb; a double negative after a negative (nothing, no one, not never); It were raining, We was late; I seen it, I done it, I sung; a past for a participle after have (I've saw, He's went, She's took); telled, knowed, catched | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
+| amn't | a contraction like any: am not | right |
+
+Left wrong, on the native list: more bigger, gooder, as for than, How much eggs?, tastes well; he have to (East Anglia's); come, give, run for came, gave, ran (the cue copied, and what the unit teaches); haven't to. A1's `to-be` ("never amn't") and `was-were` ("never you was") still say never: for a decision.
 
 ## Printed sheets
 

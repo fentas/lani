@@ -353,7 +353,8 @@ pair switches:
   (`wrong`: Italian's anderò for andrò, venito for venuto, glilo for glielo, leggando for leggendo, sarai for sarei, sta
   for stia; `ending_swaps`: one ending for another on the same stem, dormono for dormano, sarete for sareste; Slovene's prefixed
   verbs one letter off another prefix, prenesel for prinesel, prešel for prišel, zapisal for napisal, obšel for odšel:
-  another verb, B2's `predpone`).
+  another verb, B2's `predpone`). What people say that writing doesn't want is almost, the standard form shown, one way only (`nonstandard`:
+  English's good for well, It were raining, I seen it, I've saw, a double negative; COURSE.md "Spoken forms"), never a slip and never wrong.
 - **Speech**: the phone's recognizer and text-to-speech take the target's locale (sl-SI, it-IT, de-DE, en-GB); the
   node's Whisper has Slovene's model and serves Italian, German and English with the general one
   ([stt-local](stt-local/README.md#languages)). ElevenLabs gets the village's `language_code`, and a narrator says a
@@ -1945,7 +1946,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 52 pages (15 A1, 19 A2, 18 B1), German 21 (15 A1, 6 A2) and English 22 (18 A1, 4 A2), each course adding
+Italian has 52 pages (15 A1, 19 A2, 18 B1), German 21 (15 A1, 6 A2) and English 31 (18 A1, 13 A2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):
@@ -1973,8 +1974,10 @@ Slovene, English and Italian; English in Slovene, Italian and German, and Englis
   `present-simple`, `present-continuous`, `questions-do`, `past-simple`, `present-perfect`, `future` (going to, will),
   `can`, `there-is-are`, `some-any`, `prepositions-place` (by the pond, next to the jetty: the tent's page),
   `possessive-s` and `word-order`; and `pronouns` (I, you, he, she, it), `object-pronouns` (me, him, her, them),
-  `this-that`, `numbers`, `time-dates` (at seven, on Monday, in May) and `was-were`. `past-simple`, `present-perfect`,
-  `future` and `some-any` are A2, the rest A1.
+  `this-that`, `numbers`, `time-dates` (at seven, on Monday, in May) and `was-were`; and for A2's units `imperatives`,
+  `past-continuous`, `linking-words` (because, so, when), `comparatives` (and the superlative), `adverbs`, `indefinite-pronouns`
+  (someone, anything), `must-have-to`, `would-like` and `first-conditional`. Those and `past-simple`, `present-perfect`, `future` and
+  `some-any` are A2, the rest A1.
 
 **What names a page:** an exercise's `"grammar": "<id>"` (any type; every exercise of the six curated modules has one),
 a culture pack's challenge question (`quests.json` `tent_move.questions[].grammar`: Luka's tent challenge names
@@ -2296,7 +2299,7 @@ card goes into "A scuola · In der Schule", the Friuli classroom ([SCENES.md](SC
 
 **The English school** (the Lake District village's: [COURSE.md](COURSE.md#the-english-course),
 docs/plans/05-built/course-en-a1-a.md). A village of the Lakeland culture gets the English course (`companion/course/en`:
-A1's units as COURSE.md lists them, the rest planned) and Mrs Hartley teaches it, in the cast's teacher voice, to the
+A1's and A2's units as COURSE.md lists them, the rest planned) and Mrs Hartley teaches it, in the cast's teacher voice, to the
 grown-ups who learn English: its explanations, instructions, hints and whys in the learner's Slovene, German or Italian,
 British English with the American form accepted (grading/en.json), its sheets headed in English and the base with
 every word meant (lexicon/en.extra.json). While units are planned she is preparing the next lessons ("I'm preparing
@@ -3306,7 +3309,9 @@ preposition for another, delle or alle for dalle; another tense or mood one lett
 fosti for fossi, andò for andrò), and one ending typed for another on the same stem (`ending_swaps`: the subjunctive's
 and the indicative's, dormono for dormano, parlate for parliate; the conditional's and the future's, sarete for
 sareste), a slip elsewhere in such a word (bambeno for bambino) still one; German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
-contractions (don't = do not). Choosing a dialog's answer by voice folds the same letters. Speech
+contractions (don't = do not, she's seen = she has seen), and what people say that writing doesn't want (`nonstandard`: good for well, It
+were raining, I've saw; almost, with the standard form and "People say it like this; in writing it's the form shown", the tutor sees `hint:
+nonstandard`). Choosing a dialog's answer by voice folds the same letters. Speech
 labels name the target language (`{targetLang, select, …}` in the string tables).
 
 ## Word lookup
