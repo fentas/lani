@@ -392,7 +392,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        school's screen, its folded list opened, sb-*.png in $LANI_QA_COURSE_SHOTS; "course-unit" (only when named, with
                        LANI_QA_COURSE_UNIT=<unit>: a synthetic learner of the village's language in its culture, e.g. German in
                        Kärnten: LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en) that unit of the course end to end and its
-                       sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "friuli-watchtower" (only when named; the same learner)
+                       sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "typed-forms" (only when named; the same learner)
+                       a form people say typed in each of the course's bases, nonstandard and spoken, what the screen said in
+                       typed-forms.txt, tf-*.png; "friuli-watchtower" (only when named; the same learner)
                        Teo's watchtower at level 2 (QA's hook "hearths:trg"): its card on the map and "🚪 Entra" into
                        Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening
                        (fw-*.png there too); "visit-places" (only when named; on a visit to the Carinthian town,
@@ -10246,6 +10248,119 @@ def course_unit_one(unit: str, shots_dir: str | None):
     return None
 
 
+# What a learner may type that writing doesn't want (COURSE.md "Spoken forms"), per course: kind ("nonstandard": almost, the
+# standard form shown; "spoken": an item's, right and labelled), unit, sheet, the field (a line, a gap, or a table's
+# (row, column index)), what is typed, and the standard form the app shows. Each is in a sheet's first exercise.
+TYPED_FORMS = {
+    "en": [
+        ("nonstandard", "adverbs", "adverbs-3", ("line", 2), "Granny Maggie cooks good", "Granny Maggie cooks well."),
+        ("spoken", "because-so", "because-so-3", ("line", 3), "We walked cos the bus was late", "We walked because the bus was late."),
+    ],
+    "de": [
+        ("nonstandard", "obwohl-trotzdem", "obwohl-trotzdem-1", ("cell", "Stefan ist krank. Er arbeitet.", 0), "obwohl er ist krank", "obwohl er krank ist"),
+        ("spoken", "als-waehrend", "als-waehrend-3", ("line", 1), "Wie Stefan kam, regnete es", "Als Stefan kam, regnete es."),
+    ],
+    "it": [
+        ("nonstandard", "benche-purche", "benche-purche-3", ("line", 1), "Benché piove, Davide esce", "Benché piova, Davide esce."),
+        ("spoken", "concordanza-tempi", "concordanza-tempi-3", ("line", 1), "Pensavo che Davide veniva", "Pensavo che Davide venisse."),
+    ],
+    "sl": [
+        ("spoken", "govorjeni-jezik", "govorjeni-jezik-3", ("line", 2), "Jutri moram delat", "Jutri moram delati."),
+    ],
+}
+COURSE_BASES = {"en": ("sl", "de", "it"), "de": ("en", "sl", "it"), "it": ("de", "sl", "en"), "sl": ("en", "de", "it")}
+
+
+def typed_forms():
+    """What the learner sees for a form people say, in every base of the village's language's course, only when named (a
+    synthetic learner as "course-unit"'s; LANI_QA_FORMS_BASES=de limits the bases): QA otherwise only answers right, so no
+    one had seen these on a screen. Each of [TYPED_FORMS] typed into its sheet, opened through QA's hook, the rest of its first
+    exercise answered right, and checked: "nonstandard" almost, the standard form and "People say it like this; in writing it's
+    the form shown"; "spoken" right, "🗣️ Spoken, and right too; the standard form: …". tf-<lang>-<base>-*.png; what the screen
+    said around it in typed-forms.txt, also in $LANI_QA_COURSE_SHOTS."""
+    lang = api("/culture").get("language") or "sl"
+    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
+    bases = [b for b in (os.environ.get("LANI_QA_FORMS_BASES") or ",".join(COURSE_BASES[lang])).split(",") if b]
+    said, problems = [], []
+    before = os.environ.get("LANI_QA_PAIR")
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def typer(t: str):
+        type_letters(t, lang)
+
+    def fields(e: dict, pair: tuple) -> list:
+        """The exercise's typed fields: (TalkBack's name, the item's right answer)."""
+        if e["type"] == "table":
+            return [(f'{r["label"]}, {e["columns"][c]}', cell["accept"][0]) for r in e["rows"] for c, cell in enumerate(r["cells"]) if isinstance(cell, dict)]
+        key, items = ("school.gapN", e["gaps"]) if e["type"] == "gaptext" else ("school.lineN", e["items"])
+        return [(label(key, pair).replace("{n}", str(i)), it["accept"][0]) for i, it in enumerate(items, 1)]
+
+    try:
+        for base in bases:
+            pair = (lang, base)
+            os.environ["LANI_QA_PAIR"] = f"{lang}-{base}"  # what go_home and the labels read: the phone's pair from here
+            qa_hook(f"pair:{lang}-{base}")
+            for kind, unit, sheet, where, text, standard in TYPED_FORMS[lang]:
+                tag = f"tf-{lang}-{base}-{kind}"
+                u = based(json.loads((ROOT / f"companion/course/{lang}/units/{unit}.json").read_text()), base)
+                first = next(w for w in u["worksheets"] if w["id"] == sheet)["exercises"][0]
+                target = (
+                    label("school.lineN", pair).replace("{n}", str(where[1])) if where[0] == "line"
+                    else label("school.gapN", pair).replace("{n}", str(where[1])) if where[0] == "gap"
+                    else f"{where[1]}, {first['columns'][where[2]]}"
+                )
+                go_home()
+                qa_hook(f"sheet:{unit}/{sheet}")
+                time.sleep(2)
+                for name, right in fields(first, pair):
+                    answer = text if name == target else re.sub(r"[!?.,]+$", "", unit_text(right))
+                    assert fill(name, answer, typer), f"{unit}: the field «{name}»"
+                    if name == target:
+                        snap(f"{tag}-typed")
+                assert tap_above(label("playerScreen.check", pair), 2400), f"{unit}: check"
+                time.sleep(2.5)
+                shown = (
+                    label("playerScreen.nonstandard", pair) if kind == "nonstandard"
+                    else "🗣️ " + " · ".join(app_texts(lg)["cases.spoken"].replace("{standard}", standard) for lg in pair)
+                )
+                snap(f"{tag}-checked")
+                seen = []
+                c = None
+                for k in range(9):  # as it stands checked (at the first line not quite right), else from the sheet's top down
+                    ns = list(nodes())
+                    seen += [t for t, _ in ns if t and t not in seen]
+                    c = next((xy for t, xy in ns if shown in t), None)
+                    if c is not None:
+                        break
+                    if k == 0:
+                        sheet_scroll(down=False, times=3)
+                    else:
+                        sheet_scroll(down=True)
+                snap(f"{tag}-hint")
+                said.append(f"{lang}-{base} {kind} {unit}/{sheet}, typed «{text}»:\n  " + "\n  ".join(seen))
+                if c is None:
+                    problems.append(f"{lang}-{base} {unit}: «{shown}» not on screen")
+                if not any(standard.rstrip(".") in t for t in seen):
+                    problems.append(f"{lang}-{base} {unit}: the standard form «{standard}» not on screen")
+    finally:
+        if before is None:
+            os.environ.pop("LANI_QA_PAIR", None)
+        else:
+            os.environ["LANI_QA_PAIR"] = before
+        qa_hook(f"pair:{before or ''}")
+        (OUT / "typed-forms.txt").write_text("\n\n".join(said) + "\n")
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(OUT / "typed-forms.txt", out / "typed-forms.txt")
+    assert not problems, "; ".join(problems)
+    return None
+
+
 def friuli_watchtower():
     """Teo's watchtower (docs/plans/05-built/places-it-buildings.md): a child learning Italian from German in the Friuli
     village (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1,
@@ -19073,6 +19188,8 @@ def plan():
         ("practice-pace", practice_pace, None, False, ""),
         # only with --steps course-unit: a unit of the village's language's course end to end and its print (LANI_QA_COURSE_UNIT)
         ("course-unit", course_unit, None, False, ""),
+        # only when named: what the learner sees for a form people say, in every base
+        ("typed-forms", typed_forms, None, False, ""),
         ("school-board", school_board, None, False, ""),
         # only with --steps friuli-talk: Teo's free talk in Italian, Al mercato end to end (the same learner)
         ("friuli-talk", friuli_talk, None, False, ""),
@@ -19660,7 +19777,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("typed-forms", "choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
