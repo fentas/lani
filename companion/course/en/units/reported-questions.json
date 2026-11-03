@@ -90,7 +90,7 @@
           "sl": "Vprašanje z vprašalnico: **asked** + **where**, **what**, **when** … + besedni red trdilne povedi, brez do in did. »Where do you live?« → **He asked where I lived.** (Vprašal je, kje živim.) »What do you want?« → **She asked what I wanted.** (Vprašala je, kaj želim.) Čas gre korak nazaj kot pri said.",
           "de": "Frage mit Fragewort: **asked** + **where**, **what**, **when** … + die Wortstellung des Aussagesatzes, ohne do und did. „Where do you live?“ → **He asked where I lived.** (Er fragte, wo ich wohne.) „What do you want?“ → **She asked what I wanted.** (Sie fragte, was ich wolle.) Die Zeit geht einen Schritt zurück wie bei said.",
           "it": "Domanda con parola interrogativa: **asked** + **where**, **what**, **when** … + l'ordine della frase affermativa, senza do e did. «Where do you live?» → **He asked where I lived.** (Ha chiesto dove abitavo.) «What do you want?» → **She asked what I wanted.** (Ha chiesto che cosa volevo.) Il tempo fa un passo indietro come con said.",
-          "en": "A question with a question word: **asked** + **where**, **what**, **when** … + a statement's word order, with no do or did. \"Where do you live?\" → **He asked where I lived.** \"What do you want?\" → **She asked what I wanted.** The tense goes one step back, as with said."
+          "en": "A question with a question word: **asked** + **where**, **what**, **when** … + a statement's word order, with no do or did. “Where do you live?” → **He asked where I lived.** “What do you want?” → **She asked what I wanted.** The tense goes one step back, as with said."
         },
         "examples": [
           {
@@ -121,7 +121,7 @@
         "ask": {
           "type": "choice",
           "grammar": "reported-questions",
-          "prompt": "\"Where do you live?\" → He asked where ___.",
+          "prompt": "“Where do you live?” → He asked where ___.",
           "options": [
             "I lived",
             "lived I",
@@ -142,7 +142,7 @@
           "sl": "Da ali ne: **asked if** ali **asked whether** (ali). »Do you want tea?« → **She asked if I wanted tea.** (Vprašala je, ali želim čaj.) »Can you help?« → **He asked whether I could help.** (Vprašal je, ali lahko pomagam.) Slovenski *ali* je tu **if**.",
           "de": "Ja oder nein: **asked if** oder **asked whether** (ob). „Do you want tea?“ → **She asked if I wanted tea.** (Sie fragte, ob ich Tee wolle.) „Can you help?“ → **He asked whether I could help.** (Er fragte, ob ich helfen könne.) Deutsches *ob* ist hier **if**.",
           "it": "Sì o no: **asked if** o **asked whether** (se). «Do you want tea?» → **She asked if I wanted tea.** (Ha chiesto se volevo del tè.) «Can you help?» → **He asked whether I could help.** (Ha chiesto se potevo aiutare.) Il *se* italiano qui è **if**.",
-          "en": "Yes or no: **asked if** or **asked whether**. \"Do you want tea?\" → **She asked if I wanted tea.** \"Can you help?\" → **He asked whether I could help.**"
+          "en": "Yes or no: **asked if** or **asked whether**. “Do you want tea?” → **She asked if I wanted tea.** “Can you help?” → **He asked whether I could help.**"
         },
         "examples": [
           {
@@ -173,7 +173,7 @@
         "ask": {
           "type": "choice",
           "grammar": "reported-questions",
-          "prompt": "\"Do you want tea?\" → She asked ___ I wanted tea.",
+          "prompt": "“Do you want tea?” → She asked ___ I wanted tea.",
           "options": [
             "if",
             "that",
@@ -194,7 +194,7 @@
           "sl": "Pri be gre **was** za osebek: »Where is the inn?« → **She asked where the inn was.** (Vprašala je, kje je gostilna.) »Are you tired?« → **He asked if I was tired.** (Vprašal je, ali sem {m:utrujen|f:utrujena}.) Preteklik: »What did you see?« → **He asked what I had seen.** (Vprašal je, kaj sem {m:videl|f:videla}.) Če je še res, tudi **She asked where the inn is.**",
           "de": "Bei be kommt **was** nach dem Subjekt: „Where is the inn?“ → **She asked where the inn was.** (Sie fragte, wo das Gasthaus sei.) „Are you tired?“ → **He asked if I was tired.** (Er fragte, ob ich müde sei.) Die Vergangenheit: „What did you see?“ → **He asked what I had seen.** (Er fragte, was ich gesehen habe.) Wenn es noch stimmt, auch **She asked where the inn is.**",
           "it": "Con be, **was** va dopo il soggetto: «Where is the inn?» → **She asked where the inn was.** (Ha chiesto dov'era la locanda.) «Are you tired?» → **He asked if I was tired.** (Ha chiesto se ero stanc{m:o|f:a}.) Il passato: «What did you see?» → **He asked what I had seen.** (Ha chiesto che cosa avevo visto.) Se è ancora vero, anche **She asked where the inn is.**",
-          "en": "With be, **was** goes after the subject: \"Where is the inn?\" → **She asked where the inn was.** \"Are you tired?\" → **He asked if I was tired.** The past: \"What did you see?\" → **He asked what I had seen.** If it's still so, also **She asked where the inn is.**"
+          "en": "With be, **was** goes after the subject: “Where is the inn?” → **She asked where the inn was.** “Are you tired?” → **He asked if I was tired.** The past: “What did you see?” → **He asked what I had seen.** If it's still so, also **She asked where the inn is.**"
         },
         "examples": [
           {
@@ -237,7 +237,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "reported-questions",
-          "text": "\"Where is the bus stop?\" → She asked where the bus stop ___.",
+          "text": "“Where is the bus stop?” → She asked where the bus stop ___.",
           "accept": [
             "was",
             "is"
@@ -341,7 +341,7 @@
         "ask": {
           "type": "choice",
           "grammar": "reported-questions",
-          "prompt": "\"Do you want tea?\" → He asked ___",
+          "prompt": "“Do you want tea?” → He asked ___",
           "options": [
             "if I wanted tea.",
             "I wanted tea.",
@@ -362,7 +362,7 @@
           "sl": "Ko je **who** ali **what** osebek, red ostane: »Who lives here?« → **She asked who lived there.** (Vprašala je, kdo tam živi.) Kdo je bil vprašan, stoji brez to: **She asked me where I lived.** (Vprašala me je, kje živim.) *She asked to me* je napaka. Odgovor poveš s **told**: **He told me where the inn was.** (Povedal mi je, kje je gostilna.)",
           "de": "Wenn **who** oder **what** das Subjekt ist, bleibt die Stellung: „Who lives here?“ → **She asked who lived there.** (Sie fragte, wer dort wohne.) Wer gefragt wurde, steht ohne to: **She asked me where I lived.** (Sie fragte mich, wo ich wohne.) *She asked to me* ist ein Fehler. Die Antwort gibst du mit **told**: **He told me where the inn was.** (Er sagte mir, wo das Gasthaus sei.)",
           "it": "Quando **who** o **what** è il soggetto, l'ordine resta: «Who lives here?» → **She asked who lived there.** (Ha chiesto chi abitava lì.) Chi viene interrogato sta senza to: **She asked me where I lived.** (Mi ha chiesto dove abitavo.) *She asked to me* è un errore. Per dare la risposta, **told**: **He told me where the inn was.** (Mi ha detto dov'era la locanda.)",
-          "en": "When **who** or **what** is the subject, the order stays: \"Who lives here?\" → **She asked who lived there.** Who was asked stands with no to: **She asked me where I lived.** *She asked to me* is a mistake. To give the answer: **told**: **He told me where the inn was.**"
+          "en": "When **who** or **what** is the subject, the order stays: “Who lives here?” → **She asked who lived there.** Who was asked stands with no to: **She asked me where I lived.** *She asked to me* is a mistake. To give the answer: **told**: **He told me where the inn was.**"
         },
         "examples": [
           {
@@ -498,7 +498,7 @@
           ],
           "rows": [
             {
-              "label": "\"Where do you live?\" He asked where I …",
+              "label": "“Where do you live?” He asked where I …",
               "cells": [
                 {
                   "accept": [
@@ -511,7 +511,7 @@
               ]
             },
             {
-              "label": "\"What do you want?\" She asked what I …",
+              "label": "“What do you want?” She asked what I …",
               "cells": [
                 {
                   "accept": [
@@ -524,7 +524,7 @@
               ]
             },
             {
-              "label": "\"Where is the inn?\" She asked where the inn …",
+              "label": "“Where is the inn?” She asked where the inn …",
               "cells": [
                 {
                   "accept": [
@@ -537,7 +537,7 @@
               ]
             },
             {
-              "label": "\"Are you tired?\" He asked if I …",
+              "label": "“Are you tired?” He asked if I …",
               "cells": [
                 {
                   "accept": [
@@ -550,7 +550,7 @@
               ]
             },
             {
-              "label": "\"Can you help?\" He asked if I …",
+              "label": "“Can you help?” He asked if I …",
               "cells": [
                 {
                   "accept": [
@@ -563,7 +563,7 @@
               ]
             },
             {
-              "label": "\"Who lives here?\" She asked who … there.",
+              "label": "“Who lives here?” She asked who … there.",
               "cells": [
                 {
                   "accept": [
@@ -577,10 +577,10 @@
             }
           ],
           "explain": {
-            "sl": "**asked + where: red trdilne povedi, brez do**\n- \"Where do you live?\" → He asked where I lived.",
-            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- \"Where do you live?\" → He asked where I lived.",
-            "it": "**asked + where: ordine affermativo, niente do**\n- \"Where do you live?\" → He asked where I lived.",
-            "en": "**asked + where: a statement's order, no do**\n- \"Where do you live?\" → He asked where I lived."
+            "sl": "**asked + where: red trdilne povedi, brez do**\n- “Where do you live?” → He asked where I lived.",
+            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- “Where do you live?” → He asked where I lived.",
+            "it": "**asked + where: ordine affermativo, niente do**\n- “Where do you live?” → He asked where I lived.",
+            "en": "**asked + where: a statement's order, no do**\n- “Where do you live?” → He asked where I lived."
           }
         },
         {
@@ -616,7 +616,7 @@
             "it": "Choose · Scegli",
             "en": "Choose"
           },
-          "prompt": "\"When does the bus leave?\" → She asked when the bus ___.",
+          "prompt": "“When does the bus leave?” → She asked when the bus ___.",
           "options": [
             "left",
             "does",
@@ -745,7 +745,7 @@
             "it": "Choose · Scegli",
             "en": "Choose"
           },
-          "prompt": "\"Is there a room?\" → He asked ___ there was a room.",
+          "prompt": "“Is there a room?” → He asked ___ there was a room.",
           "options": [
             "whether",
             "that",
@@ -782,7 +782,7 @@
           },
           "items": [
             {
-              "from": "\"Where do you work?\" Mr Dixon asked me.",
+              "from": "“Where do you work?” Mr Dixon asked me.",
               "accept": [
                 "Mr Dixon asked me where I worked.",
                 "He asked me where I worked.",
@@ -797,7 +797,7 @@
               ]
             },
             {
-              "from": "\"Do you want some soup?\" Mrs Birkett asked me.",
+              "from": "“Do you want some soup?” Mrs Birkett asked me.",
               "accept": [
                 "Mrs Birkett asked me if I wanted some soup.",
                 "She asked me if I wanted some soup.",
@@ -812,7 +812,7 @@
               ]
             },
             {
-              "from": "\"Where is Meg?\" Jack asked me.",
+              "from": "“Where is Meg?” Jack asked me.",
               "accept": [
                 "Jack asked me where Meg was.",
                 "He asked me where Meg was.",
@@ -827,7 +827,7 @@
               ]
             },
             {
-              "from": "\"Did you see the fox?\" Sam asked me.",
+              "from": "“Did you see the fox?” Sam asked me.",
               "accept": [
                 "Sam asked me if I had seen the fox.",
                 "He asked me if I had seen the fox.",
@@ -841,10 +841,10 @@
             }
           ],
           "explain": {
-            "sl": "**asked + where: red trdilne povedi, brez do**\n- \"Where do you work?\" → He asked me where I worked.",
-            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- \"Where do you work?\" → He asked me where I worked.",
-            "it": "**asked + where: ordine affermativo, niente do**\n- \"Where do you work?\" → He asked me where I worked.",
-            "en": "**asked + where: a statement's order, no do**\n- \"Where do you work?\" → He asked me where I worked."
+            "sl": "**asked + where: red trdilne povedi, brez do**\n- “Where do you work?” → He asked me where I worked.",
+            "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- “Where do you work?” → He asked me where I worked.",
+            "it": "**asked + where: ordine affermativo, niente do**\n- “Where do you work?” → He asked me where I worked.",
+            "en": "**asked + where: a statement's order, no do**\n- “Where do you work?” → He asked me where I worked."
           }
         },
         {
@@ -954,7 +954,7 @@
           "it": "Choose · Scegli",
           "en": "Choose"
         },
-        "prompt": "\"Is it far?\" → She asked ___ it was far.",
+        "prompt": "“Is it far?” → She asked ___ it was far.",
         "options": [
           "if",
           "that",
@@ -978,7 +978,7 @@
           "it": "Choose · Scegli",
           "en": "Choose"
         },
-        "prompt": "\"What do you want?\" → He asked what ___.",
+        "prompt": "“What do you want?” → He asked what ___.",
         "options": [
           "I wanted",
           "wanted I",
@@ -1052,7 +1052,7 @@
         },
         "items": [
           {
-            "from": "\"Where do you come from?\" the walker asked me.",
+            "from": "“Where do you come from?” the walker asked me.",
             "accept": [
               "The walker asked me where I came from.",
               "He asked me where I came from.",
@@ -1075,7 +1075,7 @@
             ]
           },
           {
-            "from": "\"Are you hungry?\" Edna asked me.",
+            "from": "“Are you hungry?” Edna asked me.",
             "accept": [
               "Edna asked me if I was hungry.",
               "She asked me if I was hungry.",
@@ -1091,10 +1091,10 @@
           }
         ],
         "explain": {
-          "sl": "**asked + where: red trdilne povedi, brez do**\n- \"Are you hungry?\" → Edna asked me if I was hungry.",
-          "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- \"Are you hungry?\" → Edna asked me if I was hungry.",
-          "it": "**asked + where: ordine affermativo, niente do**\n- \"Are you hungry?\" → Edna asked me if I was hungry.",
-          "en": "**asked + where: a statement's order, no do**\n- \"Are you hungry?\" → Edna asked me if I was hungry."
+          "sl": "**asked + where: red trdilne povedi, brez do**\n- “Are you hungry?” → Edna asked me if I was hungry.",
+          "de": "**asked + where: Wortstellung des Aussagesatzes, kein do**\n- “Are you hungry?” → Edna asked me if I was hungry.",
+          "it": "**asked + where: ordine affermativo, niente do**\n- “Are you hungry?” → Edna asked me if I was hungry.",
+          "en": "**asked + where: a statement's order, no do**\n- “Are you hungry?” → Edna asked me if I was hungry."
         }
       },
       {
