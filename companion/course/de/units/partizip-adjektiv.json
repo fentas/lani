@@ -1,0 +1,938 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "partizip-adjektiv",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🥖",
+  "title": {
+    "de": "Der spielende Hund, das gebackene Brot",
+    "en": "Participles as adjectives: spielend, gebacken",
+    "sl": "Deležniki kot pridevniki: spielend, gebacken",
+    "it": "I participi come aggettivi: spielend, gebacken"
+  },
+  "goal": {
+    "en": "You can put a participle before a noun with the right ending: what is going on (der spielende Hund), what was done (das gebackene Brot), what has happened (der gefallene Schnee).",
+    "sl": "Znaš postaviti deležnik pred samostalnik s pravo končnico: kaj se dogaja (der spielende Hund), kaj so naredili (das gebackene Brot), kaj se je zgodilo (der gefallene Schnee).",
+    "it": "Sai mettere un participio davanti a un nome con la desinenza giusta: ciò che succede (der spielende Hund), ciò che è stato fatto (das gebackene Brot), ciò che è successo (der gefallene Schnee)."
+  },
+  "grammar": [
+    "partizip-adjektiv",
+    "adjektiv-tabelle",
+    "partizip-zwei"
+  ],
+  "words": [
+    "spielend",
+    "weinend",
+    "bellend",
+    "lachend",
+    "singend",
+    "kochend",
+    "summend",
+    "glühend",
+    "blühend",
+    "steigend",
+    "kommend",
+    "folgend",
+    "spannend",
+    "dringend",
+    "gebacken",
+    "gefüllt",
+    "gepresst",
+    "repariert",
+    "geschlossen",
+    "gefallen",
+    "angekommen",
+    "verschwunden",
+    "vergangen",
+    "gebraucht",
+    "die Nudel",
+    "der Krug",
+    "die Kanne",
+    "der Amboss",
+    "das Eisen",
+    "das Dach"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Verb",
+          "en": "verb",
+          "sl": "glagol",
+          "it": "verbo"
+        },
+        {
+          "de": "Partizip I",
+          "en": "Partizip I",
+          "sl": "Partizip I",
+          "it": "Partizip I"
+        },
+        {
+          "de": "Partizip II",
+          "en": "Partizip II",
+          "sl": "Partizip II",
+          "it": "Partizip II"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**der spielende Hund**: **Partizip I** is the infinitive with **-d**: spielen → **spielend** (playing). Before a noun it says what the noun is doing right now: der Hund, der spielt = **der spielende Hund**. das Kind, das weint = **das weinende Kind**. wandern → wandernd, lächeln → lächelnd: the same.",
+          "sl": "**der spielende Hund**: **Partizip I** je nedoločnik z **-d**: spielen → **spielend** (ki se igra). Pred samostalnikom pove, kaj samostalnik prav zdaj počne: der Hund, der spielt = **der spielende Hund**. das Kind, das weint = **das weinende Kind**. wandern → wandernd, lächeln → lächelnd: enako.",
+          "it": "**der spielende Hund**: il **Partizip I** è l'infinito con **-d**: spielen → **spielend** (che gioca). Davanti a un nome dice che cosa fa il nome in questo momento: der Hund, der spielt = **der spielende Hund**. das Kind, das weint = **das weinende Kind**. wandern → wandernd, lächeln → lächelnd: uguale."
+        },
+        "examples": [
+          {
+            "de": "Der spielende Hund gehört Florian.",
+            "en": "The dog that's playing is Florian's.",
+            "sl": "Pes, ki se igra, je Florianov.",
+            "it": "Il cane che gioca è di Florian."
+          },
+          {
+            "de": "Das weinende Kind sucht seine Mutter.",
+            "en": "The crying child is looking for its mother.",
+            "sl": "Otrok, ki joka, išče mamo.",
+            "it": "Il bambino che piange cerca la mamma."
+          }
+        ],
+        "rows": [
+          [
+            "spielen",
+            "der spielende Hund",
+            "—"
+          ],
+          [
+            "weinen",
+            "das weinende Kind",
+            "—"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-adjektiv",
+          "prompt": "Der ___ Mann ist Stefan.",
+          "options": [
+            "singende",
+            "singend",
+            "gesungene"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**He is singing now: Partizip I, with der's -e**\n- der singende Mann",
+            "sl": "**Zdaj poje: Partizip I, z -e za der**\n- der singende Mann",
+            "it": "**Sta cantando ora: Partizip I, con la -e dopo der**\n- der singende Mann"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ein bellender Hund, mit einem lachenden Kind**: before a noun a participle takes an adjective's endings, the whole table: **ein bellender Hund**, **eine singende Frau**, **ein lachendes Kind**, **mit einem lachenden Kind**, **bellende Hunde**. With no noun after it there is no ending: Kathi kommt **lachend** herein (laughing).",
+          "sl": "**ein bellender Hund, mit einem lachenden Kind**: pred samostalnikom dobi deležnik pridevnikove končnice, vso tabelo: **ein bellender Hund**, **eine singende Frau**, **ein lachendes Kind**, **mit einem lachenden Kind**, **bellende Hunde**. Brez samostalnika za njim je brez končnice: Kathi kommt **lachend** herein (smeje se).",
+          "it": "**ein bellender Hund, mit einem lachenden Kind**: davanti a un nome il participio prende le desinenze dell'aggettivo, tutta la tabella: **ein bellender Hund**, **eine singende Frau**, **ein lachendes Kind**, **mit einem lachenden Kind**, **bellende Hunde**. Senza un nome dopo, niente desinenza: Kathi kommt **lachend** herein (ridendo)."
+        },
+        "examples": [
+          {
+            "de": "Ein bellender Hund läuft über den Platz.",
+            "en": "A barking dog runs across the square.",
+            "sl": "Lajajoč pes teče čez trg.",
+            "it": "Un cane che abbaia corre per la piazza."
+          },
+          {
+            "de": "Kathi gibt dem weinenden Kind ein Stück Reindling.",
+            "en": "Kathi gives the crying child a piece of Reindling.",
+            "sl": "Kathi da jokajočemu otroku kos reindlinga.",
+            "it": "Kathi dà al bambino che piange un pezzo di Reindling."
+          }
+        ],
+        "rows": [
+          [
+            "bellen",
+            "ein bellender Hund",
+            "—"
+          ],
+          [
+            "lachen",
+            "mit einem lachenden Kind",
+            "—"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-adjektiv",
+          "prompt": "Wir hören ein ___ Kind.",
+          "options": [
+            "lachendes",
+            "lachende",
+            "lachenden"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ein + a das noun: -es**\n- ein lachendes Kind",
+            "sl": "**ein + samostalnik das: -es**\n- ein lachendes Kind",
+            "it": "**ein + un nome das: -es**\n- ein lachendes Kind"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**das gebackene Brot**: **Partizip II** before a noun says what was done to it: das Brot, das gebacken wurde = **das gebackene Brot**. der Traktor, der repariert wurde = **der reparierte Traktor**. **die gefüllten Nudeln**, **frisch gepresster Most**. Its endings are an adjective's too, and you know its forms from the Perfekt.",
+          "sl": "**das gebackene Brot**: **Partizip II** pred samostalnikom pove, kaj so z njim naredili: das Brot, das gebacken wurde = **das gebackene Brot**. der Traktor, der repariert wurde = **der reparierte Traktor**. **die gefüllten Nudeln**, **frisch gepresster Most**. Tudi njegove končnice so pridevnikove, oblike pa poznaš iz perfekta.",
+          "it": "**das gebackene Brot**: il **Partizip II** davanti a un nome dice che cosa è stato fatto: das Brot, das gebacken wurde = **das gebackene Brot**. der Traktor, der repariert wurde = **der reparierte Traktor**. **die gefüllten Nudeln**, **frisch gepresster Most**. Anche le sue desinenze sono quelle dell'aggettivo, e le forme le conosci dal Perfekt."
+        },
+        "examples": [
+          {
+            "de": "Das gebackene Brot liegt auf dem Tisch.",
+            "en": "The baked bread is on the table.",
+            "sl": "Pečeni kruh je na mizi.",
+            "it": "Il pane cotto è sul tavolo."
+          },
+          {
+            "de": "Toni zeigt den reparierten Traktor.",
+            "en": "Toni shows the repaired tractor.",
+            "sl": "Toni pokaže popravljeni traktor.",
+            "it": "Toni mostra il trattore riparato."
+          },
+          {
+            "de": "Kathi kocht gefüllte Nudeln.",
+            "en": "Kathi is cooking stuffed noodles.",
+            "sl": "Kathi kuha polnjene rezance.",
+            "it": "Kathi cucina pasta ripiena."
+          }
+        ],
+        "rows": [
+          [
+            "backen",
+            "—",
+            "das gebackene Brot"
+          ],
+          [
+            "reparieren",
+            "—",
+            "der reparierte Traktor"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "partizip-adjektiv",
+          "text": "Stefan trinkt frisch ___ Most. (pressen)",
+          "accept": [
+            "gepressten"
+          ],
+          "hint": {
+            "en": "der Most, the accusative, no article",
+            "sl": "der Most, tožilnik, brez člena",
+            "it": "der Most, l'accusativo, senza articolo"
+          },
+          "explain": {
+            "en": "**Partizip II + the ending: it was done**\n- das gebackene Brot · die gefüllten Nudeln",
+            "sl": "**Partizip II + končnica: to so naredili**\n- das gebackene Brot · die gefüllten Nudeln",
+            "it": "**Partizip II + la desinenza: è stato fatto**\n- das gebackene Brot · die gefüllten Nudeln"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**das kochende Wasser, das gekochte Ei**: the two say different things. **Partizip I** is going on now, and the noun does it: the water **kocht** (is boiling). **Partizip II** is done, and was done to the noun: the egg **wurde gekocht** (was boiled). So **die steigenden Preise** (prices going up), **die geschlossene Tür** (the closed door).",
+          "sl": "**das kochende Wasser, das gekochte Ei**: oba povesta nekaj drugega. **Partizip I** se dogaja zdaj in samostalnik to počne: voda **kocht** (vre). **Partizip II** je končan in so to naredili s samostalnikom: jajce **wurde gekocht** (so skuhali). Torej **die steigenden Preise** (cene, ki rastejo), **die geschlossene Tür** (zaprta vrata).",
+          "it": "**das kochende Wasser, das gekochte Ei**: i due dicono cose diverse. Il **Partizip I** succede ora, e lo fa il nome: l'acqua **kocht** (bolle). Il **Partizip II** è finito, ed è stato fatto al nome: l'uovo **wurde gekocht** (è stato bollito). Quindi **die steigenden Preise** (i prezzi che salgono), **die geschlossene Tür** (la porta chiusa)."
+        },
+        "examples": [
+          {
+            "de": "Oma Resi gießt kochendes Wasser in die Kanne.",
+            "en": "Granny Resi pours boiling water into the pot.",
+            "sl": "Babica Resi nalije vrelo vodo v vrč.",
+            "it": "Nonna Resi versa acqua bollente nella teiera."
+          },
+          {
+            "de": "Maxi isst ein gekochtes Ei.",
+            "en": "Maxi is eating a boiled egg.",
+            "sl": "Maxi je kuhano jajce.",
+            "it": "Maxi mangia un uovo sodo."
+          }
+        ],
+        "rows": [
+          [
+            "kochen",
+            "das kochende Wasser",
+            "das gekochte Ei"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-adjektiv",
+          "prompt": "Stanko kommt nicht hinein. Er steht vor der ___ Tür.",
+          "options": [
+            "geschlossenen",
+            "schließenden",
+            "geschlossene"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Someone has closed it: Partizip II. vor der: -en**\n- vor der geschlossenen Tür",
+            "sl": "**Nekdo jih je zaprl: Partizip II. vor der: -en**\n- vor der geschlossenen Tür",
+            "it": "**Qualcuno l'ha chiusa: Partizip II. vor der: -en**\n- vor der geschlossenen Tür"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**der gefallene Schnee, die angekommenen Gäste**: with a verb that takes **sein** in the Perfekt, Partizip II says what has happened, and the noun did it: der Schnee, der gefallen ist = **der gefallene Schnee**. die Gäste, die angekommen sind = **die angekommenen Gäste**. das Schaf, das verschwunden ist = **das verschwundene Schaf**.",
+          "sl": "**der gefallene Schnee, die angekommenen Gäste**: pri glagolu, ki ima v perfektu **sein**, Partizip II pove, kaj se je zgodilo, in to je storil samostalnik: der Schnee, der gefallen ist = **der gefallene Schnee**. die Gäste, die angekommen sind = **die angekommenen Gäste**. das Schaf, das verschwunden ist = **das verschwundene Schaf**.",
+          "it": "**der gefallene Schnee, die angekommenen Gäste**: con un verbo che al Perfekt ha **sein**, il Partizip II dice che cosa è successo, e l'ha fatto il nome: der Schnee, der gefallen ist = **der gefallene Schnee**. die Gäste, die angekommen sind = **die angekommenen Gäste**. das Schaf, das verschwunden ist = **das verschwundene Schaf**."
+        },
+        "examples": [
+          {
+            "de": "Florian sucht das verschwundene Schaf.",
+            "en": "Florian is looking for the sheep that has gone missing.",
+            "sl": "Florian išče izginulo ovco.",
+            "it": "Florian cerca la pecora scomparsa."
+          },
+          {
+            "de": "Die angekommenen Gäste haben Hunger.",
+            "en": "The guests who have arrived are hungry.",
+            "sl": "Gostje, ki so prišli, so lačni.",
+            "it": "Gli ospiti arrivati hanno fame."
+          }
+        ],
+        "rows": [
+          [
+            "fallen",
+            "—",
+            "der gefallene Schnee"
+          ],
+          [
+            "ankommen",
+            "—",
+            "die angekommenen Gäste"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-adjektiv",
+          "prompt": "Der ___ Schnee liegt auf dem Dach.",
+          "options": [
+            "gefallene",
+            "fallende",
+            "gefallen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A verb with sein: it has happened**\n- der gefallene Schnee · das verschwundene Schaf",
+            "sl": "**Glagol s sein: to se je zgodilo**\n- der gefallene Schnee · das verschwundene Schaf",
+            "it": "**Un verbo con sein: è successo**\n- der gefallene Schnee · das verschwundene Schaf"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**die kommende Woche, spannend, geschlossen**: some participles are plain adjectives by now: **in der kommenden Woche** (next week), **im vergangenen Jahr** (last year), **das folgende Beispiel**, **spannend** (exciting), **dringend** (urgent), **gebraucht** (used). After **sein** they take no ending: Das Buch ist spannend. Die Tür ist geschlossen. For what is going on now, say the verb: Das Wasser kocht.",
+          "sl": "**die kommende Woche, spannend, geschlossen**: nekateri deležniki so danes pravi pridevniki: **in der kommenden Woche** (prihodnji teden), **im vergangenen Jahr** (lani), **das folgende Beispiel**, **spannend** (napet), **dringend** (nujen), **gebraucht** (rabljen). Za **sein** so brez končnice: Das Buch ist spannend. Die Tür ist geschlossen. Za to, kar se dogaja zdaj, reci glagol: Das Wasser kocht.",
+          "it": "**die kommende Woche, spannend, geschlossen**: alcuni participi ormai sono semplici aggettivi: **in der kommenden Woche** (la settimana prossima), **im vergangenen Jahr** (l'anno scorso), **das folgende Beispiel**, **spannend** (avvincente), **dringend** (urgente), **gebraucht** (usato). Dopo **sein** non hanno desinenza: Das Buch ist spannend. Die Tür ist geschlossen. Per ciò che succede ora, usa il verbo: Das Wasser kocht."
+        },
+        "examples": [
+          {
+            "de": "In der kommenden Woche ist Kirchtag.",
+            "en": "The Kirchtag is next week.",
+            "sl": "Prihodnji teden je žegnanje.",
+            "it": "La settimana prossima c'è il Kirchtag."
+          },
+          {
+            "de": "Das Buch ist spannend.",
+            "en": "The book is exciting.",
+            "sl": "Knjiga je napeta.",
+            "it": "Il libro è avvincente."
+          }
+        ],
+        "rows": [
+          [
+            "kommen",
+            "die kommende Woche",
+            "—"
+          ],
+          [
+            "vergehen",
+            "—",
+            "das vergangene Jahr"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-adjektiv",
+          "prompt": "Die Geschichte von Opa Sepp ist ___.",
+          "options": [
+            "spannend",
+            "spannende",
+            "gespannt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After sein: no ending**\n- Die Geschichte ist spannend.",
+            "sl": "**Za sein: brez končnice**\n- Die Geschichte ist spannend.",
+            "it": "**Dopo sein: niente desinenza**\n- Die Geschichte ist spannend."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "partizip-adjektiv-1",
+      "title": {
+        "de": "Spielend, gespielt",
+        "en": "Spielend, gespielt",
+        "sl": "Spielend, gespielt",
+        "it": "Spielend, gespielt"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "partizip-adjektiv",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the two participles, before an ending",
+            "sl": "oba deležnika, še brez končnice",
+            "it": "i due participi, prima della desinenza"
+          },
+          "columns": [
+            {
+              "en": "Partizip I",
+              "sl": "Partizip I",
+              "it": "Partizip I"
+            },
+            {
+              "en": "Partizip II",
+              "sl": "Partizip II",
+              "it": "Partizip II"
+            }
+          ],
+          "rows": [
+            {
+              "label": "spielen",
+              "cells": [
+                "spielend",
+                "gespielt"
+              ]
+            },
+            {
+              "label": "kochen",
+              "cells": [
+                {
+                  "accept": [
+                    "kochend"
+                  ]
+                },
+                {
+                  "accept": [
+                    "gekocht"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "backen",
+              "cells": [
+                "backend",
+                {
+                  "accept": [
+                    "gebacken"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "weinen",
+              "cells": [
+                {
+                  "accept": [
+                    "weinend"
+                  ]
+                },
+                "geweint"
+              ]
+            },
+            {
+              "label": "mahlen",
+              "cells": [
+                {
+                  "accept": [
+                    "mahlend"
+                  ]
+                },
+                {
+                  "accept": [
+                    "gemahlen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "schließen",
+              "cells": [
+                "schließend",
+                {
+                  "accept": [
+                    "geschlossen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "reparieren",
+              "cells": [
+                {
+                  "accept": [
+                    "reparierend"
+                  ]
+                },
+                {
+                  "accept": [
+                    "repariert"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Partizip I: going on now. Partizip II: done, or with sein, happened. The ending: an adjective's**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "sl": "**Partizip I: dogaja se zdaj. Partizip II: narejeno, s sein pa zgodilo se je. Končnica: pridevnikova**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "it": "**Partizip I: succede ora. Partizip II: è stato fatto, con sein è successo. La desinenza: dell'aggettivo**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "partizip-adjektiv",
+          "instruction": {
+            "en": "Sortiere · Sort: what does it say?",
+            "sl": "Sortiere · Razvrsti: kaj pove?",
+            "it": "Sortiere · Ordina: che cosa dice?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "tut es gerade · is doing it now",
+                "sl": "tut es gerade · to prav zdaj počne",
+                "it": "tut es gerade · lo sta facendo ora"
+              },
+              "words": [
+                "das weinende Kind",
+                "die blühende Wiese",
+                "der bellende Hund"
+              ]
+            },
+            {
+              "label": {
+                "en": "wurde gemacht · was done",
+                "sl": "wurde gemacht · so naredili",
+                "it": "wurde gemacht · è stato fatto"
+              },
+              "words": [
+                "das gebackene Brot",
+                "der reparierte Traktor",
+                "die gefüllten Nudeln"
+              ]
+            },
+            {
+              "label": {
+                "en": "ist passiert · has happened",
+                "sl": "ist passiert · se je zgodilo",
+                "it": "ist passiert · è successo"
+              },
+              "words": [
+                "der gefallene Schnee",
+                "die angekommenen Gäste",
+                "das verschwundene Schaf"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Partizip I: going on now. Partizip II: done, or with sein, happened. The ending: an adjective's**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "sl": "**Partizip I: dogaja se zdaj. Partizip II: narejeno, s sein pa zgodilo se je. Končnica: pridevnikova**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "it": "**Partizip I: succede ora. Partizip II: è stato fatto, con sein è successo. La desinenza: dell'aggettivo**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partizip-adjektiv-2",
+      "title": {
+        "de": "Oma Resi kocht",
+        "en": "Granny Resi is cooking",
+        "sl": "Babica Resi kuha",
+        "it": "Nonna Resi cucina"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "partizip-adjektiv",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Oma Resi kocht",
+          "text": "Oma Resi kocht für den Kirchtag. Auf dem Herd steht ein Topf mit ___ (kochen) Wasser. Die ___ (füllen) Nudeln kommen hinein. Neben dem Herd liegt das ___ (backen) Brot, und im Krug ist frisch ___ (pressen) Most. Die ___ (spielen) Kinder laufen durch die Küche. Ein ___ (bellen) Hund läuft hinterher. Die ___ (ankommen) Gäste warten schon. Oma Resi lacht: In der ___ (kommen) Woche koche ich nicht!",
+          "gaps": [
+            {
+              "accept": [
+                "kochendem"
+              ]
+            },
+            {
+              "accept": [
+                "gefüllten"
+              ]
+            },
+            {
+              "accept": [
+                "gebackene"
+              ]
+            },
+            {
+              "accept": [
+                "gepresster"
+              ]
+            },
+            {
+              "accept": [
+                "spielenden"
+              ]
+            },
+            {
+              "accept": [
+                "bellender"
+              ]
+            },
+            {
+              "accept": [
+                "angekommenen"
+              ]
+            },
+            {
+              "accept": [
+                "kommenden"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "kochendes",
+            "gebacken",
+            "gefüllte"
+          ],
+          "translation": {
+            "en": "Granny Resi is cooking for the Kirchtag. On the stove is a pot of boiling water. The stuffed noodles go in. By the stove lies the baked bread, and in the jug is freshly pressed cider. The children at play run through the kitchen. A barking dog runs after them. The guests who have arrived are already waiting. Granny Resi laughs: next week I'm not cooking!",
+            "sl": "Babica Resi kuha za žegnanje. Na štedilniku je lonec z vrelo vodo. Polnjeni rezanci gredo vanj. Ob štedilniku je pečeni kruh, v vrču pa sveže stisnjen mošt. Otroci, ki se igrajo, tekajo po kuhinji. Za njimi teče lajajoč pes. Gostje, ki so prišli, že čakajo. Babica Resi se smeje: Prihodnji teden ne bom kuhala!",
+            "it": "Nonna Resi cucina per il Kirchtag. Sul fornello c'è una pentola di acqua bollente. La pasta ripiena ci finisce dentro. Accanto al fornello c'è il pane cotto, e nella brocca sidro appena spremuto. I bambini che giocano corrono per la cucina. Dietro corre un cane che abbaia. Gli ospiti arrivati aspettano già. Nonna Resi ride: la settimana prossima non cucino!"
+          },
+          "explain": {
+            "en": "**Partizip I: going on now. Partizip II: done, or with sein, happened. The ending: an adjective's**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "sl": "**Partizip I: dogaja se zdaj. Partizip II: narejeno, s sein pa zgodilo se je. Končnica: pridevnikova**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "it": "**Partizip I: succede ora. Partizip II: è stato fatto, con sein è successo. La desinenza: dell'aggettivo**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "partizip-adjektiv",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das Kind isst ein ___ Ei.",
+          "options": [
+            "gekochtes",
+            "kochendes",
+            "gekocht"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Partizip II + the ending: it was done**\n- das gebackene Brot · die gefüllten Nudeln",
+            "sl": "**Partizip II + končnica: to so naredili**\n- das gebackene Brot · die gefüllten Nudeln",
+            "it": "**Partizip II + la desinenza: è stato fatto**\n- das gebackene Brot · die gefüllten Nudeln"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "partizip-adjektiv",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stanko sieht die ___ Bienen.",
+          "options": [
+            "summenden",
+            "gesummten",
+            "summend"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Partizip I: the infinitive + d + the ending. It is going on now**\n- der bellende Hund · ein lachendes Kind",
+            "sl": "**Partizip I: nedoločnik + d + končnica. Dogaja se zdaj**\n- der bellende Hund · ein lachendes Kind",
+            "it": "**Partizip I: l'infinito + d + la desinenza. Succede ora**\n- der bellende Hund · ein lachendes Kind"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partizip-adjektiv-3",
+      "title": {
+        "de": "Kürzer gesagt",
+        "en": "Said more shortly",
+        "sl": "Povedano krajše",
+        "it": "Detto più in breve"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "partizip-adjektiv",
+          "instruction": {
+            "en": "Sag es kürzer · Say it more shortly",
+            "sl": "Sag es kürzer · Povej krajše",
+            "it": "Sag es kürzer · Dillo più in breve"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "der Hund, der bellt",
+              "accept": [
+                "der bellende Hund"
+              ]
+            },
+            {
+              "from": "das Brot, das gebacken wurde",
+              "accept": [
+                "das gebackene Brot"
+              ]
+            },
+            {
+              "from": "der Schnee, der gefallen ist",
+              "accept": [
+                "der gefallene Schnee"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Partizip I: going on now. Partizip II: done, or with sein, happened. The ending: an adjective's**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "sl": "**Partizip I: dogaja se zdaj. Partizip II: narejeno, s sein pa zgodilo se je. Končnica: pridevnikova**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "it": "**Partizip I: succede ora. Partizip II: è stato fatto, con sein è successo. La desinenza: dell'aggettivo**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "partizip-adjektiv",
+          "instruction": {
+            "en": "Im ganzen Satz · In the whole sentence",
+            "sl": "Im ganzen Satz · V celem stavku",
+            "it": "Im ganzen Satz · In tutta la frase"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich sehe den Hund, der schläft.",
+              "accept": [
+                "Ich sehe den schlafenden Hund."
+              ]
+            },
+            {
+              "from": "Stefan hilft dem Kind, das weint.",
+              "accept": [
+                "Stefan hilft dem weinenden Kind."
+              ]
+            },
+            {
+              "from": "Wir essen die Erdäpfel, die gekocht wurden.",
+              "accept": [
+                "Wir essen die gekochten Erdäpfel."
+              ]
+            },
+            {
+              "from": "Kathi begrüßt die Gäste, die angekommen sind.",
+              "accept": [
+                "Kathi begrüßt die angekommenen Gäste."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Partizip I: going on now. Partizip II: done, or with sein, happened. The ending: an adjective's**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "sl": "**Partizip I: dogaja se zdaj. Partizip II: narejeno, s sein pa zgodilo se je. Končnica: pridevnikova**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+            "it": "**Partizip I: succede ora. Partizip II: è stato fatto, con sein è successo. La desinenza: dell'aggettivo**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "partizip-adjektiv",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "In der Schmiede",
+        "text": "Toni arbeitet in der Schmiede. Das ___ (glühen) Eisen liegt auf dem Amboss. Neben ihm steht der ___ (reparieren) Traktor von Stefan. Ein ___ (lachen) Kind schaut durch die Tür. Die ___ (ankommen) Kunden warten im Hof. Sie trinken ___ (pressen) Most. Im ___ (vergehen) Jahr hatte Toni weniger Arbeit.",
+        "gaps": [
+          {
+            "accept": [
+              "glühende"
+            ]
+          },
+          {
+            "accept": [
+              "reparierte"
+            ]
+          },
+          {
+            "accept": [
+              "lachendes"
+            ]
+          },
+          {
+            "accept": [
+              "angekommenen"
+            ]
+          },
+          {
+            "accept": [
+              "gepressten"
+            ]
+          },
+          {
+            "accept": [
+              "vergangenen"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Toni is working in the smithy. The red-hot iron lies on the anvil. Next to him stands Stefan's repaired tractor. A laughing child looks through the door. The customers who have arrived wait in the yard. They're drinking pressed cider. Last year Toni had less work.",
+          "sl": "Toni dela v kovačnici. Žareče železo je na nakovalu. Ob njem stoji Stefanov popravljeni traktor. Otrok, ki se smeje, gleda skozi vrata. Stranke, ki so prišle, čakajo na dvorišču. Pijejo stisnjen mošt. Lani je imel Toni manj dela.",
+          "it": "Toni lavora nella fucina. Il ferro rovente è sull'incudine. Accanto a lui c'è il trattore riparato di Stefan. Un bambino che ride guarda dalla porta. I clienti arrivati aspettano nel cortile. Bevono sidro spremuto. L'anno scorso Toni aveva meno lavoro."
+        },
+        "explain": {
+          "en": "**Partizip I: going on now. Partizip II: done, or with sein, happened. The ending: an adjective's**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+          "sl": "**Partizip I: dogaja se zdaj. Partizip II: narejeno, s sein pa zgodilo se je. Končnica: pridevnikova**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+          "it": "**Partizip I: succede ora. Partizip II: è stato fatto, con sein è successo. La desinenza: dell'aggettivo**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "partizip-adjektiv",
+        "instruction": {
+          "en": "Im ganzen Satz · In the whole sentence",
+          "sl": "Im ganzen Satz · V celem stavku",
+          "it": "Im ganzen Satz · In tutta la frase"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich höre das Kind, das lacht.",
+            "accept": [
+              "Ich höre das lachende Kind."
+            ]
+          },
+          {
+            "from": "Das ist der Traktor, der repariert wurde.",
+            "accept": [
+              "Das ist der reparierte Traktor."
+            ]
+          },
+          {
+            "from": "Wir suchen das Schaf, das verschwunden ist.",
+            "accept": [
+              "Wir suchen das verschwundene Schaf."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Partizip I: going on now. Partizip II: done, or with sein, happened. The ending: an adjective's**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+          "sl": "**Partizip I: dogaja se zdaj. Partizip II: narejeno, s sein pa zgodilo se je. Končnica: pridevnikova**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee",
+          "it": "**Partizip I: succede ora. Partizip II: è stato fatto, con sein è successo. La desinenza: dell'aggettivo**\n- der bellende Hund · das gebackene Brot · der gefallene Schnee"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "partizip-adjektiv",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das Wasser im Topf ___.",
+        "options": [
+          "kocht",
+          "kochend",
+          "gekocht"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**What is going on now: the verb**\n- Das Wasser kocht.",
+          "sl": "**Kar se dogaja zdaj: glagol**\n- Das Wasser kocht.",
+          "it": "**Ciò che succede ora: il verbo**\n- Das Wasser kocht."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "partizip-adjektiv",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die ___ Bienen fliegen zum Apfelbaum.",
+        "options": [
+          "summenden",
+          "gesummten",
+          "summende"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Partizip I: the infinitive + d + the ending. It is going on now**\n- der bellende Hund · ein lachendes Kind",
+          "sl": "**Partizip I: nedoločnik + d + končnica. Dogaja se zdaj**\n- der bellende Hund · ein lachendes Kind",
+          "it": "**Partizip I: l'infinito + d + la desinenza. Succede ora**\n- der bellende Hund · ein lachendes Kind"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "partizip-adjektiv",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Film ist ___.",
+        "options": [
+          "spannend",
+          "spannende",
+          "gespannt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**After sein: no ending**\n- Der Film ist spannend.",
+          "sl": "**Za sein: brez končnice**\n- Der Film ist spannend.",
+          "it": "**Dopo sein: niente desinenza**\n- Der Film ist spannend."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Topf mit kochendem Wasser; frisch gepresster Most; das glühende Eisen; die summenden Bienen; each base"
+}

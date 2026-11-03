@@ -1,0 +1,936 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "nominalisierung",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🧾",
+  "title": {
+    "de": "Beim Kochen, wegen des Regens",
+    "en": "Verbs into nouns: beim Kochen, nach dem Essen",
+    "sl": "Iz glagolov v samostalnike: beim Kochen, nach dem Essen",
+    "it": "Dai verbi ai nomi: beim Kochen, nach dem Essen"
+  },
+  "goal": {
+    "en": "You can make nouns from verbs and adjectives (das Kochen, die Lösung, die Krankheit) and turn a clause into a phrase and back (weil es regnet, wegen des Regens).",
+    "sl": "Znaš narediti samostalnike iz glagolov in pridevnikov (das Kochen, die Lösung, die Krankheit) in spremeniti stavek v zvezo in nazaj (weil es regnet, wegen des Regens).",
+    "it": "Sai fare nomi da verbi e aggettivi (das Kochen, die Lösung, die Krankheit) e trasformare una frase in un'espressione e viceversa (weil es regnet, wegen des Regens)."
+  },
+  "grammar": [
+    "nominalisierung",
+    "praepositionen-genitiv"
+  ],
+  "words": [
+    "das Kochen",
+    "die Lösung",
+    "die Einladung",
+    "die Erklärung",
+    "die Übung",
+    "die Bezahlung",
+    "die Öffnung",
+    "die Ankunft",
+    "die Abfahrt",
+    "die Hilfe",
+    "der Anfang",
+    "die Reparatur",
+    "die Krankheit",
+    "die Gesundheit",
+    "die Freiheit",
+    "die Schönheit",
+    "die Freundlichkeit",
+    "die Höflichkeit",
+    "die Möglichkeit",
+    "die Traurigkeit",
+    "die Müdigkeit",
+    "der Regen",
+    "der Sturm",
+    "die Kälte",
+    "die Bühne",
+    "pünktlich",
+    "heuer"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Verb, Adjektiv, Satz",
+          "en": "verb, adjective, clause",
+          "sl": "glagol, pridevnik, stavek",
+          "it": "verbo, aggettivo, frase"
+        },
+        {
+          "de": "Nomen",
+          "en": "noun",
+          "sl": "samostalnik",
+          "it": "nome"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**das Kochen, beim Kochen**: any infinitive can be a noun: it takes a capital and **das**: **das Kochen** (cooking), **das Essen**, **das Schlafen**. **beim** says while: **beim Kochen** (while cooking). **zum** says what for: Wasser **zum Kochen**. And **vor dem Schlafen**, **nach dem Essen**.",
+          "sl": "**das Kochen, beim Kochen**: vsak nedoločnik je lahko samostalnik: dobi veliko začetnico in **das**: **das Kochen** (kuhanje), **das Essen**, **das Schlafen**. **beim** pove med: **beim Kochen** (med kuhanjem). **zum** pove za kaj: Wasser **zum Kochen**. In **vor dem Schlafen**, **nach dem Essen**.",
+          "it": "**das Kochen, beim Kochen**: ogni infinito può diventare un nome: prende la maiuscola e **das**: **das Kochen** (il cucinare), **das Essen**, **das Schlafen**. **beim** dice mentre: **beim Kochen** (mentre si cucina). **zum** dice per che cosa: Wasser **zum Kochen**. E **vor dem Schlafen**, **nach dem Essen**."
+        },
+        "examples": [
+          {
+            "de": "Beim Kochen hört Oma Resi Radio.",
+            "en": "Granny Resi listens to the radio while cooking.",
+            "sl": "Med kuhanjem babica Resi posluša radio.",
+            "it": "Mentre cucina, nonna Resi ascolta la radio."
+          },
+          {
+            "de": "Nach dem Essen schläft Opa Sepp.",
+            "en": "After the meal Grandpa Sepp sleeps.",
+            "sl": "Po jedi dedek Sepp spi.",
+            "it": "Dopo mangiato nonno Sepp dorme."
+          }
+        ],
+        "rows": [
+          [
+            "kochen",
+            "das Kochen, beim Kochen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nominalisierung",
+          "prompt": "___ Arbeiten singt Toni immer.",
+          "options": [
+            "Beim",
+            "Vom",
+            "Zum"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**beim + an infinitive: while**\n- beim Arbeiten",
+            "sl": "**beim + nedoločnik: med**\n- beim Arbeiten",
+            "it": "**beim + un infinito: mentre**\n- beim Arbeiten"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**die Lösung, die Einladung**: many verbs make a noun in **-ung**, always **die**: lösen → **die Lösung** (the solution), einladen → **die Einladung** (the invitation), üben → **die Übung**. Others have a noun of their own, to learn with the verb: ankommen → **die Ankunft** (the arrival), abfahren → **die Abfahrt**, helfen → **die Hilfe**, anfangen → **der Anfang**, reparieren → **die Reparatur**.",
+          "sl": "**die Lösung, die Einladung**: veliko glagolov naredi samostalnik na **-ung**, vedno **die**: lösen → **die Lösung** (rešitev), einladen → **die Einladung** (vabilo), üben → **die Übung**. Drugi imajo svojega, ki se ga učiš z glagolom: ankommen → **die Ankunft** (prihod), abfahren → **die Abfahrt**, helfen → **die Hilfe**, anfangen → **der Anfang**, reparieren → **die Reparatur**.",
+          "it": "**die Lösung, die Einladung**: molti verbi fanno un nome in **-ung**, sempre **die**: lösen → **die Lösung** (la soluzione), einladen → **die Einladung** (l'invito), üben → **die Übung**. Altri hanno un nome proprio, da imparare con il verbo: ankommen → **die Ankunft** (l'arrivo), abfahren → **die Abfahrt**, helfen → **die Hilfe**, anfangen → **der Anfang**, reparieren → **die Reparatur**."
+        },
+        "examples": [
+          {
+            "de": "Die Einladung kommt mit der Post.",
+            "en": "The invitation comes by post.",
+            "sl": "Vabilo pride po pošti.",
+            "it": "L'invito arriva per posta."
+          },
+          {
+            "de": "Die Reparatur dauert zwei Tage.",
+            "en": "The repair takes two days.",
+            "sl": "Popravilo traja dva dni.",
+            "it": "La riparazione dura due giorni."
+          }
+        ],
+        "rows": [
+          [
+            "lösen",
+            "die Lösung"
+          ],
+          [
+            "ankommen",
+            "die Ankunft"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "nominalisierung",
+          "text": "Franz hat für das Problem keine ___. (lösen)",
+          "accept": [
+            "Lösung"
+          ],
+          "explain": {
+            "en": "**-ung, -heit, -keit: always die. -keit after -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "sl": "**-ung, -heit, -keit: vedno die. -keit za -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "it": "**-ung, -heit, -keit: sempre die. -keit dopo -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**die Krankheit, die Freundlichkeit**: adjectives make nouns in **-heit** or **-keit**, always **die**. **-heit**: krank → **die Krankheit** (the illness), gesund → **die Gesundheit**, frei → **die Freiheit**. **-keit** after -lich, -ig, -bar: freundlich → **die Freundlichkeit** (kindness), möglich → **die Möglichkeit**, traurig → **die Traurigkeit**. And müde → **die Müdigkeit**.",
+          "sl": "**die Krankheit, die Freundlichkeit**: pridevniki naredijo samostalnike na **-heit** ali **-keit**, vedno **die**. **-heit**: krank → **die Krankheit** (bolezen), gesund → **die Gesundheit**, frei → **die Freiheit**. **-keit** za -lich, -ig, -bar: freundlich → **die Freundlichkeit** (prijaznost), möglich → **die Möglichkeit**, traurig → **die Traurigkeit**. In müde → **die Müdigkeit**.",
+          "it": "**die Krankheit, die Freundlichkeit**: gli aggettivi fanno nomi in **-heit** o **-keit**, sempre **die**. **-heit**: krank → **die Krankheit** (la malattia), gesund → **die Gesundheit**, frei → **die Freiheit**. **-keit** dopo -lich, -ig, -bar: freundlich → **die Freundlichkeit** (la gentilezza), möglich → **die Möglichkeit**, traurig → **die Traurigkeit**. E müde → **die Müdigkeit**."
+        },
+        "examples": [
+          {
+            "de": "Die Gesundheit ist das Wichtigste.",
+            "en": "Health is the most important thing.",
+            "sl": "Zdravje je najpomembnejše.",
+            "it": "La salute è la cosa più importante."
+          },
+          {
+            "de": "Danke für die Freundlichkeit!",
+            "en": "Thank you for your kindness!",
+            "sl": "Hvala za prijaznost!",
+            "it": "Grazie della gentilezza!"
+          }
+        ],
+        "rows": [
+          [
+            "krank",
+            "die Krankheit"
+          ],
+          [
+            "freundlich",
+            "die Freundlichkeit"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "nominalisierung",
+          "text": "Kathi ist bekannt für ihre ___. (höflich)",
+          "accept": [
+            "Höflichkeit"
+          ],
+          "explain": {
+            "en": "**-ung, -heit, -keit: always die. -keit after -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "sl": "**-ung, -heit, -keit: vedno die. -keit za -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "it": "**-ung, -heit, -keit: sempre die. -keit dopo -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**wegen des Regens, trotz des Regens**: a clause can become a phrase, and the noun takes its preposition's case. weil es regnet → **wegen des Regens**. obwohl es regnet → **trotz des Regens**. In talk **wegen dem Regen** and **trotz dem Regen** are right too; write the genitive in a letter. A noun alone stays bare: **wegen Regen**.",
+          "sl": "**wegen des Regens, trotz des Regens**: stavek lahko postane zveza, samostalnik pa dobi sklon svojega predloga. weil es regnet → **wegen des Regens**. obwohl es regnet → **trotz des Regens**. V govoru sta prav tudi **wegen dem Regen** in **trotz dem Regen**; v pismu piši rodilnik. Samostalnik sam ostane gol: **wegen Regen**.",
+          "it": "**wegen des Regens, trotz des Regens**: una frase può diventare un'espressione, e il nome prende il caso della sua preposizione. weil es regnet → **wegen des Regens**. obwohl es regnet → **trotz des Regens**. A voce vanno bene anche **wegen dem Regen** e **trotz dem Regen**; in una lettera scrivi il genitivo. Un nome da solo resta com'è: **wegen Regen**."
+        },
+        "examples": [
+          {
+            "de": "Weil es regnet, bleiben wir zu Hause.",
+            "en": "Because it's raining, we're staying at home.",
+            "sl": "Ker dežuje, ostanemo doma.",
+            "it": "Poiché piove, restiamo a casa."
+          },
+          {
+            "de": "Wegen des Regens bleiben wir zu Hause.",
+            "en": "Because of the rain we're staying at home.",
+            "sl": "Zaradi dežja ostanemo doma.",
+            "it": "A causa della pioggia restiamo a casa."
+          },
+          {
+            "de": "Trotz des Regens kommen alle.",
+            "en": "In spite of the rain, everyone's coming.",
+            "sl": "Kljub dežju pridejo vsi.",
+            "it": "Nonostante la pioggia vengono tutti."
+          }
+        ],
+        "rows": [
+          [
+            "weil es regnet",
+            "wegen des Regens"
+          ],
+          [
+            "obwohl es regnet",
+            "trotz des Regens"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nominalisierung",
+          "prompt": "Obwohl es schneit, fährt Stefan. Das heißt: ___ des Schnees fährt Stefan.",
+          "options": [
+            "Trotz",
+            "Wegen",
+            "Bei"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**obwohl: trotz**\n- trotz des Schnees",
+            "sl": "**obwohl: trotz**\n- trotz des Schnees",
+            "it": "**obwohl: trotz**\n- trotz des Schnees"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**bei meiner Ankunft, vor dem Essen**: for time: als ich ankam → **bei meiner Ankunft** (on my arrival). wenn es regnet → **bei Regen**. bevor wir essen → **vor dem Essen**. nachdem wir gegessen haben → **nach dem Essen**. während wir essen → **während des Essens**, **beim Essen**. **ich** becomes **mein**, **wir** becomes **unser**.",
+          "sl": "**bei meiner Ankunft, vor dem Essen**: za čas: als ich ankam → **bei meiner Ankunft** (ob mojem prihodu). wenn es regnet → **bei Regen**. bevor wir essen → **vor dem Essen**. nachdem wir gegessen haben → **nach dem Essen**. während wir essen → **während des Essens**, **beim Essen**. **ich** postane **mein**, **wir** postane **unser**.",
+          "it": "**bei meiner Ankunft, vor dem Essen**: per il tempo: als ich ankam → **bei meiner Ankunft** (al mio arrivo). wenn es regnet → **bei Regen**. bevor wir essen → **vor dem Essen**. nachdem wir gegessen haben → **nach dem Essen**. während wir essen → **während des Essens**, **beim Essen**. **ich** diventa **mein**, **wir** diventa **unser**."
+        },
+        "examples": [
+          {
+            "de": "Als ich ankam, war Kathi nicht da.",
+            "en": "When I arrived, Kathi wasn't there.",
+            "sl": "Ko sem prišel, Kathi ni bilo.",
+            "it": "Quando sono arrivato, Kathi non c'era."
+          },
+          {
+            "de": "Bei meiner Ankunft war Kathi nicht da.",
+            "en": "On my arrival Kathi wasn't there.",
+            "sl": "Ob mojem prihodu Kathi ni bilo.",
+            "it": "Al mio arrivo Kathi non c'era."
+          }
+        ],
+        "rows": [
+          [
+            "als ich ankam",
+            "bei meiner Ankunft"
+          ],
+          [
+            "bevor wir essen",
+            "vor dem Essen"
+          ],
+          [
+            "nachdem wir gegessen haben",
+            "nach dem Essen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nominalisierung",
+          "prompt": "Bevor wir schlafen, lesen wir. Das heißt: ___ dem Schlafen lesen wir.",
+          "options": [
+            "Vor",
+            "Nach",
+            "Bei"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**bevor: vor**\n- vor dem Schlafen",
+            "sl": "**bevor: vor**\n- vor dem Schlafen",
+            "it": "**bevor: vor**\n- vor dem Schlafen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**die Ankunft des Zuges**: the clause's people and things come along. The subject or the object goes in the genitive: der Zug kommt an → **die Ankunft des Zuges**; man repariert die Mühle → **die Reparatur der Mühle**. A pronoun becomes a possessive: wir kommen an → **unsere Ankunft**. An adverb becomes an adjective: pünktlich → **seine pünktliche Ankunft**. In talk keep the clause; notices and letters like the noun.",
+          "sl": "**die Ankunft des Zuges**: ljudje in stvari iz stavka gredo zraven. Osebek ali predmet gre v rodilnik: der Zug kommt an → **die Ankunft des Zuges**; man repariert die Mühle → **die Reparatur der Mühle**. Zaimek postane svojilni: wir kommen an → **unsere Ankunft**. Prislov postane pridevnik: pünktlich → **seine pünktliche Ankunft**. V govoru obdrži stavek; obvestila in pisma imajo radi samostalnik.",
+          "it": "**die Ankunft des Zuges**: le persone e le cose della frase vengono con lui. Il soggetto o l'oggetto va al genitivo: der Zug kommt an → **die Ankunft des Zuges**; man repariert die Mühle → **die Reparatur der Mühle**. Un pronome diventa possessivo: wir kommen an → **unsere Ankunft**. Un avverbio diventa aggettivo: pünktlich → **seine pünktliche Ankunft**. A voce tieni la frase; avvisi e lettere preferiscono il nome."
+        },
+        "examples": [
+          {
+            "de": "Die Reparatur der Mühle dauert lange.",
+            "en": "The repair of the mill is taking a long time.",
+            "sl": "Popravilo mlina traja dolgo.",
+            "it": "La riparazione del mulino dura molto."
+          },
+          {
+            "de": "Nach der Ankunft des Zuges gehen wir.",
+            "en": "After the train's arrival we'll go.",
+            "sl": "Po prihodu vlaka gremo.",
+            "it": "Dopo l'arrivo del treno andiamo."
+          }
+        ],
+        "rows": [
+          [
+            "der Zug kommt an",
+            "die Ankunft des Zuges"
+          ],
+          [
+            "wir kommen an",
+            "unsere Ankunft"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nominalisierung",
+          "prompt": "Der Bus fährt ab. Das heißt: die Abfahrt ___ Busses",
+          "options": [
+            "des",
+            "dem",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Who or what goes in the genitive; ich becomes mein, wir unser**\n- die Ankunft des Zuges · bei meiner Ankunft",
+            "sl": "**Kdo ali kaj gre v rodilnik; ich postane mein, wir unser**\n- die Ankunft des Zuges · bei meiner Ankunft",
+            "it": "**Chi o che cosa va al genitivo; ich diventa mein, wir unser**\n- die Ankunft des Zuges · bei meiner Ankunft"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "nominalisierung-1",
+      "title": {
+        "de": "Vom Wort zum Nomen",
+        "en": "From a word to a noun",
+        "sl": "Od besede do samostalnika",
+        "it": "Dalla parola al nome"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "nominalisierung",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the noun, with its article",
+            "sl": "samostalnik s členom",
+            "it": "il nome, con l'articolo"
+          },
+          "columns": [
+            {
+              "en": "Nomen · noun",
+              "sl": "Nomen · samostalnik",
+              "it": "Nomen · nome"
+            }
+          ],
+          "rows": [
+            {
+              "label": "lösen",
+              "cells": [
+                "die Lösung"
+              ]
+            },
+            {
+              "label": "einladen",
+              "cells": [
+                {
+                  "accept": [
+                    "die Einladung",
+                    "Einladung"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "erklären",
+              "cells": [
+                {
+                  "accept": [
+                    "die Erklärung",
+                    "Erklärung"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ankommen",
+              "cells": [
+                {
+                  "accept": [
+                    "die Ankunft",
+                    "Ankunft"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "helfen",
+              "cells": [
+                {
+                  "accept": [
+                    "die Hilfe",
+                    "Hilfe"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "krank",
+              "cells": [
+                {
+                  "accept": [
+                    "die Krankheit",
+                    "Krankheit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "gesund",
+              "cells": [
+                {
+                  "accept": [
+                    "die Gesundheit",
+                    "Gesundheit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "freundlich",
+              "cells": [
+                {
+                  "accept": [
+                    "die Freundlichkeit",
+                    "Freundlichkeit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "müde",
+              "cells": [
+                {
+                  "accept": [
+                    "die Müdigkeit",
+                    "Müdigkeit"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-ung, -heit, -keit: always die. -keit after -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "sl": "**-ung, -heit, -keit: vedno die. -keit za -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "it": "**-ung, -heit, -keit: sempre die. -keit dopo -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "nominalisierung",
+          "instruction": {
+            "en": "Sortiere · Sort: which ending makes the noun?",
+            "sl": "Sortiere · Razvrsti: katera končnica naredi samostalnik?",
+            "it": "Sortiere · Ordina: quale desinenza fa il nome?"
+          },
+          "columns": [
+            {
+              "label": "-ung",
+              "words": [
+                "üben",
+                "bezahlen",
+                "öffnen"
+              ]
+            },
+            {
+              "label": "-heit",
+              "words": [
+                "frei",
+                "schön"
+              ]
+            },
+            {
+              "label": "-keit",
+              "words": [
+                "höflich",
+                "möglich",
+                "traurig"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-ung, -heit, -keit: always die. -keit after -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "sl": "**-ung, -heit, -keit: vedno die. -keit za -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+            "it": "**-ung, -heit, -keit: sempre die. -keit dopo -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nominalisierung-2",
+      "title": {
+        "de": "Der Kirchtag im Regen",
+        "en": "The Kirchtag in the rain",
+        "sl": "Žegnanje v dežju",
+        "it": "Il Kirchtag sotto la pioggia"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "nominalisierung",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der Kirchtag im Regen",
+          "text": "Der Kirchtag beginnt heuer spät. ___ des Regens warten alle im Gasthaus. Beim ___ (singen) wird es lustig. Nach dem ___ (essen) kommt die Sonne. ___ der Kälte tanzen alle auf dem Platz. Bei meiner ___ (ankommen) war Kathi noch in der Küche. Die ___ (reparieren) der Bühne ist fertig. Danke für die ___ (einladen)! Und danke für eure ___ (freundlich)!",
+          "gaps": [
+            {
+              "accept": [
+                "Wegen",
+                "Während"
+              ]
+            },
+            {
+              "accept": [
+                "Singen"
+              ]
+            },
+            {
+              "accept": [
+                "Essen"
+              ]
+            },
+            {
+              "accept": [
+                "Trotz"
+              ]
+            },
+            {
+              "accept": [
+                "Ankunft"
+              ]
+            },
+            {
+              "accept": [
+                "Reparatur"
+              ]
+            },
+            {
+              "accept": [
+                "Einladung"
+              ]
+            },
+            {
+              "accept": [
+                "Freundlichkeit"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Krankheit",
+            "Ankommen",
+            "Reparieren"
+          ],
+          "translation": {
+            "en": "This year the Kirchtag starts late. Because of the rain everyone waits in the inn. While they sing it gets merry. After the meal the sun comes out. In spite of the cold everyone dances on the square. On my arrival Kathi was still in the kitchen. The repair of the stage is finished. Thank you for the invitation! And thank you for your kindness!",
+            "sl": "Letos se žegnanje začne pozno. Zaradi dežja vsi čakajo v gostilni. Med petjem postane veselo. Po jedi posije sonce. Kljub mrazu vsi plešejo na trgu. Ob mojem prihodu je bila Kathi še v kuhinji. Popravilo odra je končano. Hvala za vabilo! In hvala za vašo prijaznost!",
+            "it": "Quest'anno il Kirchtag comincia tardi. A causa della pioggia tutti aspettano nella locanda. Cantando ci si diverte. Dopo mangiato esce il sole. Nonostante il freddo tutti ballano sulla piazza. Al mio arrivo Kathi era ancora in cucina. La riparazione del palco è finita. Grazie dell'invito! E grazie della vostra gentilezza!"
+          },
+          "explain": {
+            "en": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. The verb becomes a noun**\n- weil es regnet: wegen des Regens",
+            "sl": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. Glagol postane samostalnik**\n- weil es regnet: wegen des Regens",
+            "it": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. Il verbo diventa un nome**\n- weil es regnet: wegen des Regens"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "nominalisierung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ des Essens erzählt Opa Sepp.",
+          "options": [
+            "Während",
+            "Wegen",
+            "Trotz"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**während des Essens: at the same time**\n- während wir essen",
+            "sl": "**während des Essens: ob istem času**\n- während wir essen",
+            "it": "**während des Essens: nello stesso momento**\n- während wir essen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "nominalisierung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi freut sich über die ___ von Stefan.",
+          "options": [
+            "Hilfe",
+            "Helfung",
+            "Helfe"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**helfen has a noun of its own**\n- die Hilfe",
+            "sl": "**helfen ima svoj samostalnik**\n- die Hilfe",
+            "it": "**helfen ha un nome proprio**\n- die Hilfe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nominalisierung-3",
+      "title": {
+        "de": "Satz und Nomen",
+        "en": "Clause and noun",
+        "sl": "Stavek in samostalnik",
+        "it": "Frase e nome"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "nominalisierung",
+          "instruction": {
+            "en": "Mit einem Nomen · With a noun",
+            "sl": "Mit einem Nomen · S samostalnikom",
+            "it": "Mit einem Nomen · Con un nome"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Weil es regnet, bleiben wir zu Hause.",
+              "accept": [
+                "Wegen des Regens bleiben wir zu Hause.",
+                "Wegen Regen bleiben wir zu Hause.",
+                "Wegen Regens bleiben wir zu Hause."
+              ],
+              "spoken": [
+                "Wegen dem Regen bleiben wir zu Hause."
+              ]
+            },
+            {
+              "from": "Obwohl es regnet, kommen alle.",
+              "accept": [
+                "Trotz des Regens kommen alle.",
+                "Trotz Regen kommen alle.",
+                "Trotz Regens kommen alle."
+              ],
+              "spoken": [
+                "Trotz dem Regen kommen alle."
+              ]
+            },
+            {
+              "from": "Als ich ankam, war es schon dunkel.",
+              "accept": [
+                "Bei meiner Ankunft war es schon dunkel."
+              ]
+            },
+            {
+              "from": "Bevor wir essen, trinken wir Most.",
+              "accept": [
+                "Vor dem Essen trinken wir Most."
+              ]
+            },
+            {
+              "from": "Nachdem wir gegessen haben, gehen wir.",
+              "accept": [
+                "Nach dem Essen gehen wir."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. The verb becomes a noun**\n- weil es regnet: wegen des Regens",
+            "sl": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. Glagol postane samostalnik**\n- weil es regnet: wegen des Regens",
+            "it": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. Il verbo diventa un nome**\n- weil es regnet: wegen des Regens"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "nominalisierung",
+          "instruction": {
+            "en": "Mit einem Satz · With a clause",
+            "sl": "Mit einem Satz · S stavkom",
+            "it": "Mit einem Satz · Con una frase"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Wegen der Krankheit von Toni ist die Schmiede zu.",
+              "accept": [
+                "Weil Toni krank ist, ist die Schmiede zu.",
+                "Die Schmiede ist zu, weil Toni krank ist."
+              ]
+            },
+            {
+              "from": "Beim Kochen singt Oma Resi.",
+              "accept": [
+                "Wenn Oma Resi kocht, singt sie.",
+                "Während Oma Resi kocht, singt sie.",
+                "Oma Resi singt, wenn sie kocht.",
+                "Oma Resi singt, während sie kocht."
+              ]
+            },
+            {
+              "from": "Nach der Ankunft des Zuges gehen wir.",
+              "accept": [
+                "Nachdem der Zug angekommen ist, gehen wir.",
+                "Wenn der Zug angekommen ist, gehen wir.",
+                "Wir gehen, nachdem der Zug angekommen ist.",
+                "Wir gehen, wenn der Zug angekommen ist."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The noun becomes a verb again, and goes last in its clause**\n- wegen des Regens: weil es regnet",
+            "sl": "**Samostalnik spet postane glagol in gre na konec odvisnika**\n- wegen des Regens: weil es regnet",
+            "it": "**Il nome torna verbo, e va alla fine della sua frase**\n- wegen des Regens: weil es regnet"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "nominalisierung",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Die Mühle",
+        "text": "___ des Sturms ist die Mühle kaputt. Die ___ (reparieren) dauert lange. Beim ___ (arbeiten) singt Franz. ___ der Kälte arbeitet er draußen. Nach der ___ (ankommen) des Zuges kommt Stanko und hilft. Danke für deine ___ (helfen)!",
+        "gaps": [
+          {
+            "accept": [
+              "Wegen"
+            ]
+          },
+          {
+            "accept": [
+              "Reparatur"
+            ]
+          },
+          {
+            "accept": [
+              "Arbeiten"
+            ]
+          },
+          {
+            "accept": [
+              "Trotz"
+            ]
+          },
+          {
+            "accept": [
+              "Ankunft"
+            ]
+          },
+          {
+            "accept": [
+              "Hilfe"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Because of the storm the mill is broken. The repair is taking a long time. While he works, Franz sings. In spite of the cold he works outside. After the train's arrival Stanko comes and helps. Thank you for your help!",
+          "sl": "Zaradi viharja je mlin pokvarjen. Popravilo traja dolgo. Med delom Franz poje. Kljub mrazu dela zunaj. Po prihodu vlaka pride Stanko in pomaga. Hvala za tvojo pomoč!",
+          "it": "A causa della tempesta il mulino è rotto. La riparazione dura molto. Lavorando, Franz canta. Nonostante il freddo lavora fuori. Dopo l'arrivo del treno Stanko viene ad aiutare. Grazie del tuo aiuto!"
+        },
+        "explain": {
+          "en": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. The verb becomes a noun**\n- weil es regnet: wegen des Regens",
+          "sl": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. Glagol postane samostalnik**\n- weil es regnet: wegen des Regens",
+          "it": "**weil: wegen. obwohl: trotz. als: bei. bevor: vor. nachdem: nach. Il verbo diventa un nome**\n- weil es regnet: wegen des Regens"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "nominalisierung",
+        "instruction": {
+          "en": "Mit einem Nomen · With a noun",
+          "sl": "Mit einem Nomen · S samostalnikom",
+          "it": "Mit einem Nomen · Con un nome"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Weil es schneit, fährt kein Bus.",
+            "accept": [
+              "Wegen des Schnees fährt kein Bus.",
+              "Wegen Schnee fährt kein Bus.",
+              "Wegen Schnees fährt kein Bus."
+            ],
+            "spoken": [
+              "Wegen dem Schnee fährt kein Bus."
+            ]
+          },
+          {
+            "from": "Als Stefan ankam, schlief Kathi.",
+            "accept": [
+              "Bei Stefans Ankunft schlief Kathi.",
+              "Bei der Ankunft von Stefan schlief Kathi.",
+              "Bei seiner Ankunft schlief Kathi."
+            ]
+          },
+          {
+            "from": "Der Bus fährt ab. (die Abfahrt …)",
+            "accept": [
+              "die Abfahrt des Busses",
+              "die Abfahrt von dem Bus",
+              "die Abfahrt vom Bus"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Who or what goes in the genitive; ich becomes mein, wir unser**\n- die Ankunft des Zuges · bei meiner Ankunft",
+          "sl": "**Kdo ali kaj gre v rodilnik; ich postane mein, wir unser**\n- die Ankunft des Zuges · bei meiner Ankunft",
+          "it": "**Chi o che cosa va al genitivo; ich diventa mein, wir unser**\n- die Ankunft des Zuges · bei meiner Ankunft"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nominalisierung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die ___ ist das Wichtigste.",
+        "options": [
+          "Gesundheit",
+          "Gesundkeit",
+          "Gesundlich"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**-ung, -heit, -keit: always die. -keit after -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+          "sl": "**-ung, -heit, -keit: vedno die. -keit za -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+          "it": "**-ung, -heit, -keit: sempre die. -keit dopo -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nominalisierung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Nach der Arbeit kommt die ___.",
+        "options": [
+          "Müdigkeit",
+          "Müdheit",
+          "Müdung"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**-ung, -heit, -keit: always die. -keit after -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+          "sl": "**-ung, -heit, -keit: vedno die. -keit za -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit",
+          "it": "**-ung, -heit, -keit: sempre die. -keit dopo -lich, -ig, -bar**\n- die Lösung · die Krankheit · die Freundlichkeit"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nominalisierung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ Kochen singt Oma Resi.",
+        "options": [
+          "Beim",
+          "Vom",
+          "Zum"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**An infinitive as a noun: das. beim: while. zum: what for**\n- das Kochen · beim Kochen · zum Kochen",
+          "sl": "**Nedoločnik kot samostalnik: das. beim: med. zum: za kaj**\n- das Kochen · beim Kochen · zum Kochen",
+          "it": "**Un infinito come nome: das. beim: mentre. zum: per che cosa**\n- das Kochen · beim Kochen · zum Kochen"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: wegen dem Regen, trotz dem Regen as spoken; Beim Singen wird es lustig; die Abfahrt vom Bus; each base"
+}

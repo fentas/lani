@@ -1,0 +1,996 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "stolz-auf",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🏅",
+  "title": {
+    "de": "Stolz auf, zufrieden mit, bekannt für",
+    "en": "Adjectives with prepositions: stolz auf, zufrieden mit",
+    "sl": "Pridevniki s predlogi: stolz auf, zufrieden mit",
+    "it": "Aggettivi con preposizione: stolz auf, zufrieden mit"
+  },
+  "goal": {
+    "en": "You can use adjectives and nouns with their fixed preposition and case (stolz auf den Most, zufrieden mit dem Essen, Angst vor dem Regen), ask with worauf and answer with darauf, dass ….",
+    "sl": "Znaš uporabljati pridevnike in samostalnike z njihovim stalnim predlogom in sklonom (stolz auf den Most, zufrieden mit dem Essen, Angst vor dem Regen), vprašati z worauf in odgovoriti z darauf, dass ….",
+    "it": "Sai usare aggettivi e nomi con la loro preposizione fissa e il caso (stolz auf den Most, zufrieden mit dem Essen, Angst vor dem Regen), chiedere con worauf e rispondere con darauf, dass …."
+  },
+  "grammar": [
+    "adjektive-praepositionen",
+    "wo-da-woerter"
+  ],
+  "words": [
+    "stolz",
+    "gespannt",
+    "neugierig",
+    "froh",
+    "bekannt",
+    "verliebt",
+    "zufrieden",
+    "fertig",
+    "verheiratet",
+    "abhängig",
+    "begeistert",
+    "interessiert",
+    "befreundet",
+    "die Angst",
+    "das Interesse",
+    "die Lust",
+    "der Stolz",
+    "die Hoffnung",
+    "die Liebe",
+    "der Grund",
+    "der Frost",
+    "der Enkel",
+    "das Tal"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Adjektiv, Nomen + Präposition",
+          "en": "adjective, noun + preposition",
+          "sl": "pridevnik, samostalnik + predlog",
+          "it": "aggettivo, nome + preposizione"
+        },
+        {
+          "de": "Fall, Frage",
+          "en": "case, question",
+          "sl": "sklon, vprašanje",
+          "it": "caso, domanda"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**stolz auf, froh über, bekannt für**: as with verbs, many adjectives have a fixed preposition, and it decides the case. Learn them as one chunk. With the accusative: **stolz auf** (proud of), **gespannt auf** (eager for), **neugierig auf** (curious about), **froh über** (glad about; Austria also says **froh um**), **bekannt für** (known for), **verliebt in** (in love with).",
+          "sl": "**stolz auf, froh über, bekannt für**: kot pri glagolih ima veliko pridevnikov stalni predlog, in ta določa sklon. Uči se jih kot eno zvezo. S tožilnikom: **stolz auf** (ponosen na), **gespannt auf** (ki nestrpno čaka), **neugierig auf** (radoveden glede), **froh über** (vesel česa; v Avstriji tudi **froh um**), **bekannt für** (znan po), **verliebt in** (zaljubljen v).",
+          "it": "**stolz auf, froh über, bekannt für**: come per i verbi, molti aggettivi hanno una preposizione fissa, e questa decide il caso. Imparali come un blocco unico. Con l'accusativo: **stolz auf** (fiero di), **gespannt auf** (impaziente di), **neugierig auf** (curioso di), **froh über** (contento di; in Austria anche **froh um**), **bekannt für** (noto per), **verliebt in** (innamorato di)."
+        },
+        "examples": [
+          {
+            "de": "Kathi ist stolz auf ihr Gasthaus.",
+            "en": "Kathi is proud of her inn.",
+            "sl": "Kathi je ponosna na svojo gostilno.",
+            "it": "Kathi è fiera della sua locanda."
+          },
+          {
+            "de": "Ich bin froh über die Hilfe.",
+            "en": "I'm glad of the help.",
+            "sl": "Vesel sem pomoči.",
+            "it": "Sono contento dell'aiuto."
+          }
+        ],
+        "rows": [
+          [
+            "stolz auf",
+            {
+              "de": "Akkusativ",
+              "en": "accusative",
+              "sl": "tožilnik",
+              "it": "accusativo"
+            },
+            "stolz auf den Sohn"
+          ],
+          [
+            "froh über",
+            {
+              "de": "Akkusativ",
+              "en": "accusative",
+              "sl": "tožilnik",
+              "it": "accusativo"
+            },
+            "froh über die Hilfe"
+          ],
+          [
+            "bekannt für",
+            {
+              "de": "Akkusativ",
+              "en": "accusative",
+              "sl": "tožilnik",
+              "it": "accusativo"
+            },
+            "bekannt für den Most"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "prompt": "Stefan ist stolz ___ seinen Most.",
+          "options": [
+            "auf",
+            "an",
+            "mit"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**stolz auf + the accusative**\n- stolz auf seinen Most",
+            "sl": "**stolz auf + tožilnik**\n- stolz auf seinen Most",
+            "it": "**stolz auf + l'accusativo**\n- stolz auf seinen Most"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**zufrieden mit, abhängig von**: with the dative: **zufrieden mit** (pleased with), **fertig mit** (finished with), **verheiratet mit** (married to), **abhängig von** (dependent on), **begeistert von** (delighted with), **interessiert an** (interested in).",
+          "sl": "**zufrieden mit, abhängig von**: z dajalnikom: **zufrieden mit** (zadovoljen z), **fertig mit** (gotov z), **verheiratet mit** (poročen z), **abhängig von** (odvisen od), **begeistert von** (navdušen nad), **interessiert an** (zainteresiran za).",
+          "it": "**zufrieden mit, abhängig von**: con il dativo: **zufrieden mit** (soddisfatto di), **fertig mit** (che ha finito con), **verheiratet mit** (sposato con), **abhängig von** (dipendente da), **begeistert von** (entusiasta di), **interessiert an** (interessato a)."
+        },
+        "examples": [
+          {
+            "de": "Die Gäste sind zufrieden mit dem Essen.",
+            "en": "The guests are pleased with the food.",
+            "sl": "Gostje so zadovoljni s hrano.",
+            "it": "Gli ospiti sono soddisfatti del cibo."
+          },
+          {
+            "de": "Stefan ist abhängig vom Wetter.",
+            "en": "Stefan depends on the weather.",
+            "sl": "Stefan je odvisen od vremena.",
+            "it": "Stefan dipende dal tempo."
+          }
+        ],
+        "rows": [
+          [
+            "zufrieden mit",
+            {
+              "de": "Dativ",
+              "en": "dative",
+              "sl": "dajalnik",
+              "it": "dativo"
+            },
+            "zufrieden mit dem Essen"
+          ],
+          [
+            "abhängig von",
+            {
+              "de": "Dativ",
+              "en": "dative",
+              "sl": "dajalnik",
+              "it": "dativo"
+            },
+            "abhängig vom Wetter"
+          ],
+          [
+            "interessiert an",
+            {
+              "de": "Dativ",
+              "en": "dative",
+              "sl": "dajalnik",
+              "it": "dativo"
+            },
+            "interessiert an dem Haus"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "prompt": "Franz ist fertig ___ der Arbeit.",
+          "options": [
+            "mit",
+            "von",
+            "an"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**fertig mit + the dative**\n- fertig mit der Arbeit",
+            "sl": "**fertig mit + dajalnik**\n- fertig mit der Arbeit",
+            "it": "**fertig mit + il dativo**\n- fertig mit der Arbeit"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Angst vor, Interesse an, Lust auf**: nouns have them too: **die Angst vor** + dative (fear of), **das Interesse an** + dative (interest in; **für** is right too), **die Lust auf** + accusative (a wish for), **der Stolz auf** (pride in), **die Hoffnung auf** (hope of), **die Liebe zu** (love of), **der Grund für** (reason for).",
+          "sl": "**Angst vor, Interesse an, Lust auf**: imajo jih tudi samostalniki: **die Angst vor** + dajalnik (strah pred), **das Interesse an** + dajalnik (zanimanje za; prav je tudi **für**), **die Lust auf** + tožilnik (želja po), **der Stolz auf** (ponos na), **die Hoffnung auf** (upanje na), **die Liebe zu** (ljubezen do), **der Grund für** (razlog za).",
+          "it": "**Angst vor, Interesse an, Lust auf**: li hanno anche i nomi: **die Angst vor** + dativo (paura di), **das Interesse an** + dativo (interesse per; va bene anche **für**), **die Lust auf** + accusativo (voglia di), **der Stolz auf** (orgoglio per), **die Hoffnung auf** (speranza di), **die Liebe zu** (amore per), **der Grund für** (motivo di)."
+        },
+        "examples": [
+          {
+            "de": "Hast du Lust auf einen Kaffee?",
+            "en": "Do you feel like a coffee?",
+            "sl": "Si želiš kave?",
+            "it": "Hai voglia di un caffè?"
+          },
+          {
+            "de": "Maxi hat Angst vor dem Gewitter.",
+            "en": "Maxi is afraid of the thunderstorm.",
+            "sl": "Maxi se boji nevihte.",
+            "it": "Maxi ha paura del temporale."
+          }
+        ],
+        "rows": [
+          [
+            "Angst vor",
+            {
+              "de": "Dativ",
+              "en": "dative",
+              "sl": "dajalnik",
+              "it": "dativo"
+            },
+            "Angst vor dem Gewitter"
+          ],
+          [
+            "Lust auf",
+            {
+              "de": "Akkusativ",
+              "en": "accusative",
+              "sl": "tožilnik",
+              "it": "accusativo"
+            },
+            "Lust auf einen Kaffee"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "prompt": "Hast du Lust ___ eine Suppe?",
+          "options": [
+            "auf",
+            "vor",
+            "an"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**die Lust auf + the accusative**\n- Lust auf eine Suppe",
+            "sl": "**die Lust auf + tožilnik**\n- Lust auf eine Suppe",
+            "it": "**die Lust auf + l'accusativo**\n- Lust auf eine Suppe"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Worauf bist du stolz? Darauf!** The wo- and da- words work here as with verbs. A thing: **Worauf** bist du stolz? Ich bin **darauf** stolz. **Womit** bist du zufrieden? **Damit**. A person: **Auf wen** bist du stolz? **Auf ihn**. **Mit wem** bist du zufrieden? **Mit ihr**. In speech **drauf** is right too, and you'll hear **Auf was**; write worauf.",
+          "sl": "**Worauf bist du stolz? Darauf!** Besede z wo- in da- delujejo tu kot pri glagolih. Stvar: **Worauf** bist du stolz? Ich bin **darauf** stolz. **Womit** bist du zufrieden? **Damit**. Oseba: **Auf wen** bist du stolz? **Auf ihn**. **Mit wem** bist du zufrieden? **Mit ihr**. V govoru je tudi **drauf** prav, slišiš pa še **Auf was**; piši worauf.",
+          "it": "**Worauf bist du stolz? Darauf!** Le parole con wo- e da- funzionano qui come con i verbi. Una cosa: **Worauf** bist du stolz? Ich bin **darauf** stolz. **Womit** bist du zufrieden? **Damit**. Una persona: **Auf wen** bist du stolz? **Auf ihn**. **Mit wem** bist du zufrieden? **Mit ihr**. A voce va bene anche **drauf**, e senti **Auf was**; scrivi worauf."
+        },
+        "examples": [
+          {
+            "de": "Worauf ist Stefan stolz?",
+            "en": "What is Stefan proud of?",
+            "sl": "Na kaj je Stefan ponosen?",
+            "it": "Di che cosa è fiero Stefan?"
+          },
+          {
+            "de": "Auf wen ist Oma Resi stolz?",
+            "en": "Who is Granny Resi proud of?",
+            "sl": "Na koga je babica Resi ponosna?",
+            "it": "Di chi è fiera nonna Resi?"
+          }
+        ],
+        "rows": [
+          [
+            "stolz auf",
+            "worauf? auf wen?",
+            "darauf, auf ihn"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "prompt": "Bist du mit dem Essen zufrieden? Ja, ich bin ___ zufrieden.",
+          "options": [
+            "damit",
+            "darauf",
+            "womit"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A thing: wo-, da-. A person: the preposition + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+            "sl": "**Stvar: wo-, da-. Oseba: predlog + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+            "it": "**Una cosa: wo-, da-. Una persona: la preposizione + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**stolz darauf, dass …**: a da- word points ahead to a clause, whose verb goes last: Stefan ist **stolz darauf, dass** sein Most so gut ist. Kathi ist **zufrieden damit, dass** alle kommen. Or with zu: Ich bin **stolz darauf, hier zu arbeiten**. After **froh** it is often left out: Ich bin **froh, dass** du kommst.",
+          "sl": "**stolz darauf, dass …**: beseda z da- kaže naprej na odvisnik, katerega glagol gre na konec: Stefan ist **stolz darauf, dass** sein Most so gut ist. Kathi ist **zufrieden damit, dass** alle kommen. Ali z zu: Ich bin **stolz darauf, hier zu arbeiten**. Za **froh** pogosto odpade: Ich bin **froh, dass** du kommst.",
+          "it": "**stolz darauf, dass …**: una parola con da- indica la frase che segue, il cui verbo va alla fine: Stefan ist **stolz darauf, dass** sein Most so gut ist. Kathi ist **zufrieden damit, dass** alle kommen. Oppure con zu: Ich bin **stolz darauf, hier zu arbeiten**. Dopo **froh** spesso si omette: Ich bin **froh, dass** du kommst."
+        },
+        "examples": [
+          {
+            "de": "Stefan ist stolz darauf, dass sein Most so gut ist.",
+            "en": "Stefan is proud that his cider is so good.",
+            "sl": "Stefan je ponosen, da je njegov mošt tako dober.",
+            "it": "Stefan è fiero che il suo sidro sia così buono."
+          },
+          {
+            "de": "Ich habe Angst davor, dass es regnet.",
+            "en": "I'm afraid it will rain.",
+            "sl": "Bojim se, da bo deževalo.",
+            "it": "Ho paura che piova."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "prompt": "Kathi ist zufrieden ___, dass alle kommen.",
+          "options": [
+            "damit",
+            "darauf",
+            "davon"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**zufrieden mit: damit, dass**\n- zufrieden damit, dass alle kommen",
+            "sl": "**zufrieden mit: damit, dass**\n- zufrieden damit, dass alle kommen",
+            "it": "**zufrieden mit: damit, dass**\n- zufrieden damit, dass alle kommen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**bekannt für, bekannt mit**: one adjective, two prepositions, two meanings: **bekannt für** (known for), **bekannt mit** (acquainted with). The same with a noun: **Angst vor** (afraid of), **Angst um** (afraid for). **gut in** (good at), **gut zu** (good to). So the chunk is what you learn, not the word alone.",
+          "sl": "**bekannt für, bekannt mit**: en pridevnik, dva predloga, dva pomena: **bekannt für** (znan po), **bekannt mit** (seznanjen z). Enako pri samostalniku: **Angst vor** (strah pred), **Angst um** (strah za). **gut in** (dober v), **gut zu** (dober do). Uči se torej zvezo, ne le besedo.",
+          "it": "**bekannt für, bekannt mit**: un aggettivo, due preposizioni, due significati: **bekannt für** (noto per), **bekannt mit** (che conosce qualcuno). Lo stesso con un nome: **Angst vor** (paura di), **Angst um** (paura per). **gut in** (bravo in), **gut zu** (buono con). Si impara quindi il blocco, non la parola da sola."
+        },
+        "examples": [
+          {
+            "de": "Stanko ist bekannt für seinen Honig.",
+            "en": "Stanko is known for his honey.",
+            "sl": "Stanko je znan po svojem medu.",
+            "it": "Stanko è noto per il suo miele."
+          },
+          {
+            "de": "Ich bin mit Stanko bekannt.",
+            "en": "I'm acquainted with Stanko.",
+            "sl": "S Stankom se poznava.",
+            "it": "Conosco Stanko."
+          }
+        ],
+        "rows": [
+          [
+            "bekannt mit",
+            {
+              "de": "Dativ",
+              "en": "dative",
+              "sl": "dajalnik",
+              "it": "dativo"
+            },
+            "bekannt mit Stanko"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "prompt": "Ich bin seit Jahren ___ Stanko bekannt.",
+          "options": [
+            "mit",
+            "für",
+            "von"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**bekannt mit: you know the person**\n- mit Stanko bekannt",
+            "sl": "**bekannt mit: poznaš osebo**\n- mit Stanko bekannt",
+            "it": "**bekannt mit: conosci la persona**\n- mit Stanko bekannt"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "stolz-auf-1",
+      "title": {
+        "de": "Stolz auf, zufrieden mit",
+        "en": "Stolz auf, zufrieden mit",
+        "sl": "Stolz auf, zufrieden mit",
+        "it": "Stolz auf, zufrieden mit"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "which preposition?",
+            "sl": "kateri predlog?",
+            "it": "quale preposizione?"
+          },
+          "columns": [
+            {
+              "en": "Präposition · preposition",
+              "sl": "Präposition · predlog",
+              "it": "Präposition · preposizione"
+            }
+          ],
+          "rows": [
+            {
+              "label": "stolz",
+              "cells": [
+                "auf"
+              ]
+            },
+            {
+              "label": "zufrieden",
+              "cells": [
+                {
+                  "accept": [
+                    "mit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "abhängig",
+              "cells": [
+                {
+                  "accept": [
+                    "von"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "interessiert",
+              "cells": [
+                {
+                  "accept": [
+                    "an"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "froh",
+              "cells": [
+                {
+                  "accept": [
+                    "über",
+                    "um"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "fertig",
+              "cells": [
+                {
+                  "accept": [
+                    "mit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "verliebt",
+              "cells": [
+                {
+                  "accept": [
+                    "in"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Angst",
+              "cells": [
+                {
+                  "accept": [
+                    "vor"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Lust",
+              "cells": [
+                {
+                  "accept": [
+                    "auf"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Interesse",
+              "cells": [
+                {
+                  "accept": [
+                    "an",
+                    "für"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Learn adjective, preposition and case as one chunk**\n- stolz auf den Most · zufrieden mit dem Essen",
+            "sl": "**Pridevnik, predlog in sklon se uči kot eno zvezo**\n- stolz auf den Most · zufrieden mit dem Essen",
+            "it": "**Impara aggettivo, preposizione e caso come un blocco unico**\n- stolz auf den Most · zufrieden mit dem Essen"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Sortiere · Sort: which case?",
+            "sl": "Sortiere · Razvrsti: kateri sklon?",
+            "it": "Sortiere · Ordina: quale caso?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "+ Akkusativ · accusative",
+                "sl": "+ Akkusativ · tožilnik",
+                "it": "+ Akkusativ · accusativo"
+              },
+              "words": [
+                "stolz auf",
+                "gespannt auf",
+                "froh über",
+                "bekannt für"
+              ]
+            },
+            {
+              "label": {
+                "en": "+ Dativ · dative",
+                "sl": "+ Dativ · dajalnik",
+                "it": "+ Dativ · dativo"
+              },
+              "words": [
+                "zufrieden mit",
+                "abhängig von",
+                "interessiert an",
+                "Angst vor"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**auf, über, für, in with these: the accusative. mit, von, an, vor: the dative**\n- stolz auf den Most · zufrieden mit dem Essen",
+            "sl": "**auf, über, für, in pri teh: tožilnik. mit, von, an, vor: dajalnik**\n- stolz auf den Most · zufrieden mit dem Essen",
+            "it": "**auf, über, für, in con questi: l'accusativo. mit, von, an, vor: il dativo**\n- stolz auf den Most · zufrieden mit dem Essen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stolz-auf-2",
+      "title": {
+        "de": "Stefans Most",
+        "en": "Stefan's cider",
+        "sl": "Stefanov mošt",
+        "it": "Il sidro di Stefan"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Stefans Most",
+          "text": "Stefan ist stolz ___ seinen Most. Im ganzen Tal ist er bekannt ___ ihn. Kathi ist zufrieden ___ dem Most, und die Gäste sind begeistert ___ ihm. Aber Stefan ist abhängig ___ dem Wetter. Er hat Angst ___ dem Frost. Heute ist er froh ___ die Sonne. Hast du Lust ___ ein Glas?, fragt er Franz.",
+          "gaps": [
+            {
+              "accept": [
+                "auf"
+              ]
+            },
+            {
+              "accept": [
+                "für"
+              ]
+            },
+            {
+              "accept": [
+                "mit"
+              ]
+            },
+            {
+              "accept": [
+                "von"
+              ]
+            },
+            {
+              "accept": [
+                "von"
+              ]
+            },
+            {
+              "accept": [
+                "vor"
+              ]
+            },
+            {
+              "accept": [
+                "über",
+                "um"
+              ],
+              "hint": {
+                "en": "Austria says two things",
+                "sl": "v Avstriji se reče dvoje",
+                "it": "in Austria si dicono due cose"
+              }
+            },
+            {
+              "accept": [
+                "auf"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "aus",
+            "nach",
+            "zu"
+          ],
+          "translation": {
+            "en": "Stefan is proud of his cider. All over the valley he's known for it. Kathi is pleased with the cider, and the guests are delighted with it. But Stefan depends on the weather. He's afraid of frost. Today he's glad of the sun. Do you feel like a glass?, he asks Franz.",
+            "sl": "Stefan je ponosen na svoj mošt. V vsej dolini je znan po njem. Kathi je zadovoljna z moštom, gostje pa so nad njim navdušeni. A Stefan je odvisen od vremena. Boji se pozebe. Danes je vesel sonca. Si želiš kozarec?, vpraša Franza.",
+            "it": "Stefan è fiero del suo sidro. In tutta la valle è noto per questo. Kathi è soddisfatta del sidro, e gli ospiti ne sono entusiasti. Ma Stefan dipende dal tempo. Ha paura del gelo. Oggi è contento del sole. Hai voglia di un bicchiere?, chiede a Franz."
+          },
+          "explain": {
+            "en": "**Learn adjective, preposition and case as one chunk**\n- stolz auf den Most · zufrieden mit dem Essen",
+            "sl": "**Pridevnik, predlog in sklon se uči kot eno zvezo**\n- stolz auf den Most · zufrieden mit dem Essen",
+            "it": "**Impara aggettivo, preposizione e caso come un blocco unico**\n- stolz auf den Most · zufrieden mit dem Essen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stanko hat Interesse ___ dem Haus.",
+          "options": [
+            "an",
+            "auf",
+            "von"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**das Interesse an + the dative**\n- Interesse an dem Haus",
+            "sl": "**das Interesse an + dajalnik**\n- Interesse an dem Haus",
+            "it": "**das Interesse an + il dativo**\n- Interesse an dem Haus"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Oma Resi ist stolz auf ___ Enkel.",
+          "options": [
+            "ihren",
+            "ihrem",
+            "ihre"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**stolz auf + the accusative**\n- auf ihren Enkel",
+            "sl": "**stolz auf + tožilnik**\n- auf ihren Enkel",
+            "it": "**stolz auf + l'accusativo**\n- auf ihren Enkel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stolz-auf-3",
+      "title": {
+        "de": "Worauf? Darauf!",
+        "en": "Worauf? Darauf!",
+        "sl": "Worauf? Darauf!",
+        "it": "Worauf? Darauf!"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Frag danach · Ask about what comes after the preposition",
+            "sl": "Frag danach · Vprašaj po tem, kar je za predlogom",
+            "it": "Frag danach · Chiedi ciò che segue la preposizione"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan ist stolz auf den Most.",
+              "accept": [
+                "Worauf ist Stefan stolz?"
+              ]
+            },
+            {
+              "from": "Kathi ist stolz auf Lena.",
+              "accept": [
+                "Auf wen ist Kathi stolz?"
+              ]
+            },
+            {
+              "from": "Franz ist zufrieden mit der Arbeit.",
+              "accept": [
+                "Womit ist Franz zufrieden?"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A thing: wo-, da-. A person: the preposition + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+            "sl": "**Stvar: wo-, da-. Oseba: predlog + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+            "it": "**Una cosa: wo-, da-. Una persona: la preposizione + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Antworte kurz · Answer briefly, with no noun",
+            "sl": "Antworte kurz · Odgovori na kratko, brez samostalnika",
+            "it": "Antworte kurz · Rispondi in breve, senza il nome"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Bist du zufrieden mit dem Essen?",
+              "accept": [
+                "Ja, ich bin damit zufrieden.",
+                "Ja, ich bin zufrieden damit.",
+                "Ja, damit bin ich zufrieden.",
+                "Ja, damit."
+              ]
+            },
+            {
+              "from": "Bist du stolz auf deinen Sohn?",
+              "accept": [
+                "Ja, ich bin stolz auf ihn.",
+                "Ja, ich bin auf ihn stolz.",
+                "Ja, auf ihn bin ich stolz.",
+                "Ja, auf ihn."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A thing: wo-, da-. A person: the preposition + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+            "sl": "**Stvar: wo-, da-. Oseba: predlog + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+            "it": "**Una cosa: wo-, da-. Una persona: la preposizione + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "adjektive-praepositionen",
+          "instruction": {
+            "en": "Verbinde die Sätze · Join the sentences",
+            "sl": "Verbinde die Sätze · Združi stavka",
+            "it": "Verbinde die Sätze · Unisci le frasi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kathi ist stolz. Ihr Gasthaus ist voll. (darauf, dass)",
+              "accept": [
+                "Kathi ist stolz darauf, dass ihr Gasthaus voll ist."
+              ],
+              "spoken": [
+                "Kathi ist stolz drauf, dass ihr Gasthaus voll ist."
+              ]
+            },
+            {
+              "from": "Mitzi hat Angst. Es regnet. (davor, dass)",
+              "accept": [
+                "Mitzi hat Angst davor, dass es regnet."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A da- word points ahead; the verb goes last**\n- stolz darauf, dass sein Most gut ist",
+            "sl": "**Beseda z da- kaže naprej; glagol gre na konec**\n- stolz darauf, dass sein Most gut ist",
+            "it": "**Una parola con da- indica ciò che segue; il verbo va alla fine**\n- stolz darauf, dass sein Most gut ist"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adjektive-praepositionen",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Am Abend bei Kathi",
+        "text": "Am Abend sitzen alle bei Kathi. Oma Resi ist stolz ___ ihre Enkel. Franz ist fertig ___ der Arbeit. Stanko ist bekannt ___ seinen Honig, und Toni ist ___ Stanko befreundet. Alle sind gespannt ___ den Kirchtag. Nur Tante Mitzi hat Angst ___ dem Regen.",
+        "gaps": [
+          {
+            "accept": [
+              "auf"
+            ]
+          },
+          {
+            "accept": [
+              "mit"
+            ]
+          },
+          {
+            "accept": [
+              "für"
+            ]
+          },
+          {
+            "accept": [
+              "mit"
+            ]
+          },
+          {
+            "accept": [
+              "auf"
+            ]
+          },
+          {
+            "accept": [
+              "vor"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "In the evening everyone is sitting at Kathi's. Granny Resi is proud of her grandchildren. Franz has finished work. Stanko is known for his honey, and Toni is a friend of Stanko's. Everyone is eager for the Kirchtag. Only Aunt Mitzi is afraid of the rain.",
+          "sl": "Zvečer vsi sedijo pri Kathi. Babica Resi je ponosna na svoje vnuke. Franz je končal delo. Stanko je znan po svojem medu, Toni pa je s Stankom prijatelj. Vsi nestrpno čakajo žegnanje. Le teta Mitzi se boji dežja.",
+          "it": "La sera sono tutti da Kathi. Nonna Resi è fiera dei suoi nipoti. Franz ha finito il lavoro. Stanko è noto per il suo miele, e Toni è amico di Stanko. Tutti non vedono l'ora del Kirchtag. Solo zia Mitzi ha paura della pioggia."
+        },
+        "explain": {
+          "en": "**Learn adjective, preposition and case as one chunk**\n- stolz auf den Most · zufrieden mit dem Essen",
+          "sl": "**Pridevnik, predlog in sklon se uči kot eno zvezo**\n- stolz auf den Most · zufrieden mit dem Essen",
+          "it": "**Impara aggettivo, preposizione e caso come un blocco unico**\n- stolz auf den Most · zufrieden mit dem Essen"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adjektive-praepositionen",
+        "instruction": {
+          "en": "Schreib den Satz · Write the sentence",
+          "sl": "Schreib den Satz · Napiši stavek",
+          "it": "Schreib den Satz · Scrivi la frase"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Stanko ist bekannt für den Honig. (Frag danach)",
+            "accept": [
+              "Wofür ist Stanko bekannt?"
+            ]
+          },
+          {
+            "from": "Hast du Angst vor dem Regen? (Antworte kurz)",
+            "accept": [
+              "Ja, ich habe Angst davor.",
+              "Ja, davor habe ich Angst.",
+              "Ja, davor."
+            ]
+          },
+          {
+            "from": "Stefan ist stolz. Sein Most ist gut. (darauf, dass)",
+            "accept": [
+              "Stefan ist stolz darauf, dass sein Most gut ist."
+            ],
+            "spoken": [
+              "Stefan ist stolz drauf, dass sein Most gut ist."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**A thing: wo-, da-. A person: the preposition + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+          "sl": "**Stvar: wo-, da-. Oseba: predlog + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn.",
+          "it": "**Una cosa: wo-, da-. Una persona: la preposizione + wen, wem, ihn, ihr**\n- Worauf? Darauf. · Auf wen? Auf ihn."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektive-praepositionen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Gäste sind begeistert ___ der Suppe.",
+        "options": [
+          "von",
+          "auf",
+          "an"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**begeistert von + the dative**\n- begeistert von der Suppe",
+          "sl": "**begeistert von + dajalnik**\n- begeistert von der Suppe",
+          "it": "**begeistert von + il dativo**\n- begeistert von der Suppe"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektive-praepositionen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi ist froh, ___ du kommst.",
+        "options": [
+          "dass",
+          "worauf",
+          "wofür"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**froh, dass: the da- word is often left out**\n- froh, dass du kommst",
+          "sl": "**froh, dass: beseda z da- pogosto odpade**\n- froh, dass du kommst",
+          "it": "**froh, dass: la parola con da- spesso si omette**\n- froh, dass du kommst"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektive-praepositionen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich habe Lust ___ einen Most.",
+        "options": [
+          "auf",
+          "vor",
+          "an"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**die Lust auf + the accusative**\n- Lust auf einen Most",
+          "sl": "**die Lust auf + tožilnik**\n- Lust auf einen Most",
+          "it": "**die Lust auf + l'accusativo**\n- Lust auf einen Most"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: froh um (Duden: Austrian); Interesse für; bekannt mit; drauf as spoken; gut in, gut zu; each base"
+}
