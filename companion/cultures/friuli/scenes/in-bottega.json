@@ -10,7 +10,7 @@
   },
   "emoji": "🔨",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; scene-replier.md: to check",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; scene-replier.md: to check; B1, B2 variants: machine-written, unreviewed",
   "art": "workshop",
   "from": [
     "house"
@@ -146,6 +146,8 @@
       "chance": 0.5,
       "dialog": "martello",
       "dialogs": [
+        "martello-b2-attrezzi",
+        "martello-b1-cassetta",
         "martello-chiodi",
         "martello"
       ],
@@ -239,6 +241,8 @@
       "chance": 0.4,
       "dialog": "sedia",
       "dialogs": [
+        "sedia-b2-segno",
+        "sedia-b1-faggio",
         "sedia-gambe",
         "sedia"
       ],
@@ -1337,6 +1341,462 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "martello-b1-cassetta",
+      "level": "B1",
+      "memory": {
+        "it": "la cassetta delle mele diventata una stalla",
+        "sl": "zabojček za jabolka, ki je postal hlev",
+        "en": "the apple crate that became a stable",
+        "de": "die Apfelkiste, die ein Stall wurde"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "it": "Buongiorno, {learner}. Questa cassetta ha una tavola rotta. La aggiustiamo insieme?",
+          "sl": "Dober dan, {learner}. Ta zabojček ima zlomljeno desko. Ga popraviva skupaj?",
+          "en": "Good morning, {learner}. This crate has a broken board. Shall we mend it together?",
+          "de": "Guten Morgen, {learner}. Diese Kiste hat ein kaputtes Brett. Reparieren wir sie zusammen?"
+        },
+        {
+          "who": "franco",
+          "it": "Ci portavo le mele al mercato. Adesso la vuole Lorenzo, per farci la stalla dei suoi cavallini di legno.",
+          "sl": "V njem sem nosil jabolka na tržnico. Zdaj ga hoče Lorenzo, za hlev svojih lesenih konjičkov.",
+          "en": "I used to carry apples to market in it. Now Lorenzo wants it, to make a stable for his little wooden horses.",
+          "de": "Darin hab ich die Äpfel auf den Markt gebracht. Jetzt will Lorenzo sie, als Stall für seine Holzpferdchen."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora la cassetta in cui c'erano le mele diventa una stalla!",
+              "sl": "Potem zabojček, v katerem so bila jabolka, postane hlev!",
+              "en": "So the crate the apples were in becomes a stable!",
+              "de": "Dann wird die Kiste, in der die Äpfel waren, ein Stall!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Proprio così. Lorenzo è contento, e anch'io. Niente si butta.",
+                "sl": "Prav tako. Lorenzo je vesel, pa tudi jaz. Nič se ne zavrže.",
+                "en": "Exactly. Lorenzo's happy, and so am I. Nothing gets thrown away.",
+                "de": "Genau. Lorenzo freut sich, und ich mich auch. Nichts wird weggeworfen."
+              }
+            },
+            {
+              "it": "Allora la cassetta di cui c'erano le mele diventa una stalla!",
+              "sl": "Potem zabojček, v katerem so bila jabolka, postane hlev!",
+              "en": "So the crate the apples were in becomes a stable!",
+              "de": "Dann wird die Kiste, in der die Äpfel waren, ein Stall!",
+              "grammar": "relativi-cui",
+              "why": {
+                "sl": "Jabolka so bila v zabojčku: in cui. Di cui je »o katerem«.",
+                "en": "The apples were in the crate: in cui. Di cui is «about which».",
+                "de": "Die Äpfel waren in der Kiste: in cui. Di cui heißt «von der»."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Di cui? Parli della cassetta, o delle mele? Mmm, riprova.",
+                "sl": "Di cui? Govoriš o zabojčku ali o jabolkih? Hm, še enkrat.",
+                "en": "Di cui? Are you talking about the crate, or the apples? Hmm, try again.",
+                "de": "Di cui? Sprichst du von der Kiste oder von den Äpfeln? Hm, nochmal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "it": "Servono ancora quattro chiodi. Poi la portiamo a Lorenzo.",
+          "sl": "Potrebujemo še štiri žeblje. Potem ga neseva Lorenzu.",
+          "en": "We still need four nails. Then we'll take it to Lorenzo.",
+          "de": "Wir brauchen noch vier Nägel. Dann bringen wir sie Lorenzo."
+        },
+        {
+          "choices": [
+            {
+              "it": "Quando avremo battuto l'ultimo chiodo, gli faremo una sorpresa!",
+              "sl": "Ko bova zabila zadnji žebelj, ga bova presenetila!",
+              "en": "When we've hammered in the last nail, we'll give him a surprise!",
+              "de": "Wenn wir den letzten Nagel eingeschlagen haben, machen wir ihm eine Überraschung!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Bene. Quattro chiodi, due mani, una sorpresa.",
+                "sl": "Dobro. Štirje žeblji, dve roki, eno presenečenje.",
+                "en": "Good. Four nails, two hands, one surprise.",
+                "de": "Gut. Vier Nägel, zwei Hände, eine Überraschung."
+              }
+            },
+            {
+              "it": "Quando saremo battuto l'ultimo chiodo, gli faremo una sorpresa!",
+              "sl": "Ko bova zabila zadnji žebelj, ga bova presenetila!",
+              "en": "When we've hammered in the last nail, we'll give him a surprise!",
+              "de": "Wenn wir den letzten Nagel eingeschlagen haben, machen wir ihm eine Überraschung!",
+              "grammar": "futuro-anteriore",
+              "why": {
+                "sl": "Battere ima avere: abbiamo battuto, zato avremo battuto.",
+                "en": "Battere takes avere: abbiamo battuto, so avremo battuto.",
+                "de": "Battere bildet mit avere: abbiamo battuto, also avremo battuto."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Saremo battuto? Chi ci batte? Il martello? Ah, no, grazie!",
+                "sl": "Saremo battuto? Kdo naju bo tepel? Kladivo? Ah, ne, hvala!",
+                "en": "Saremo battuto? Who's beating us? The hammer? Oh no, thank you!",
+                "de": "Saremo battuto? Wer schlägt uns denn? Der Hammer? Ach nein, danke!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Bum, bum, bum! Ecco fatto. {m:Bravo|f:Brava}, sei {m:un vero falegname|f:una vera falegname}.",
+          "sl": "Bum, bum, bum! Tako. {m:Priden|f:Pridna}, {m:pravi mizar|f:prava mizarka} si.",
+          "en": "Bang, bang, bang! All done. Well done, you're a real carpenter.",
+          "de": "Bum, bum, bum! Fertig. Gut gemacht, du bist {m:ein echter Schreiner|f:eine echte Schreinerin}."
+        }
+      ]
+    },
+    {
+      "id": "martello-b2-attrezzi",
+      "level": "B2",
+      "memory": {
+        "it": "gli attrezzi dello zio di Manzano",
+        "sl": "orodje strica iz Manzana",
+        "en": "the tools of the uncle from Manzano",
+        "de": "das Werkzeug vom Onkel aus Manzano"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "it": "Vedi questi attrezzi? Erano di mio zio, falegname a Manzano. Dopo aver lavorato quarant'anni, me li regalò tutti.",
+          "sl": "Vidiš to orodje? Bilo je od mojega strica, mizarja v Manzanu. Ko je štirideset let delal, mi ga je vsega podaril.",
+          "en": "See these tools? They were my uncle's, a carpenter in Manzano. After working forty years, he gave them all to me.",
+          "de": "Siehst du dieses Werkzeug? Es gehörte meinem Onkel, Schreiner in Manzano. Nach vierzig Jahren Arbeit schenkte er mir alles."
+        },
+        {
+          "who": "franco",
+          "face": "thinking",
+          "it": "Io credevo che li avesse già venduti. Invece li teneva per me, avvolti in un panno, come un tesoro.",
+          "sl": "Mislil sem, da ga je že prodal. Pa ga je hranil zame, zavitega v krpo, kot zaklad.",
+          "en": "I thought he'd already sold them. Instead he was keeping them for me, wrapped in a cloth, like treasure.",
+          "de": "Ich dachte, er hätte es schon verkauft. Stattdessen hob er es für mich auf, in ein Tuch gewickelt, wie einen Schatz."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora li aveva conservati apposta per Lei!",
+              "sl": "Potem ga je hranil nalašč za vas!",
+              "en": "So he'd kept them specially for you!",
+              "de": "Dann hatte er es extra für Sie aufbewahrt!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Apposta. Diceva che le mie mani erano le uniche giuste per la sua pialla.",
+                "sl": "Nalašč. Rekel je, da so moje roke edine prave za njegov oblič.",
+                "en": "Specially. He said my hands were the only right ones for his plane.",
+                "de": "Extra. Er sagte, meine Hände seien die einzig richtigen für seinen Hobel."
+              }
+            },
+            {
+              "it": "Allora Suo zio li aveva venduti a un altro falegname.",
+              "sl": "Potem ga je vaš stric prodal drugemu mizarju.",
+              "en": "So your uncle had sold them to another carpenter.",
+              "de": "Dann hatte Ihr Onkel es einem anderen Schreiner verkauft.",
+              "why": {
+                "sl": "Franco je mislil, da jih je prodal, a stric jih je hranil zanj.",
+                "en": "Franco thought he'd sold them, but his uncle kept them for him.",
+                "de": "Franco dachte, er hätte sie verkauft, aber der Onkel hat sie für ihn aufbewahrt."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Venduti? No, no: li aveva tenuti per me, avvolti nel panno. Te l'ho appena detto!",
+                "sl": "Prodal? Ne, ne: hranil ga je zame, zavitega v krpo. Pravkar sem ti povedal!",
+                "en": "Sold? No, no: he'd kept them for me, wrapped in the cloth. I've just told you!",
+                "de": "Verkauft? Nein, nein: Er hatte es für mich aufgehoben, im Tuch. Ich hab's dir gerade gesagt!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Un giorno li darò a Lorenzo. Ma lui vuole fare il trattorista, non il falegname. Che cosa mi consigli?",
+          "sl": "Nekoč jih bom dal Lorenzu. Ampak on hoče biti traktorist, ne mizar. Kaj mi svetuješ?",
+          "en": "One day I'll give them to Lorenzo. But he wants to drive a tractor, not be a carpenter. What do you advise?",
+          "de": "Eines Tages geb ich es Lorenzo. Aber er will Traktorfahrer werden, kein Schreiner. Was rätst du mir?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Glieli dia lo stesso: purché li tenga con cura, potrà farci anche un trattore di legno!",
+              "sl": "Vseeno mu ga dajte: samo da ga skrbno hrani, lahko z njim naredi tudi lesen traktor!",
+              "en": "Give them to him anyway: as long as he looks after them, he can make a wooden tractor with them!",
+              "de": "Geben Sie es ihm trotzdem: Solange er gut darauf aufpasst, kann er damit sogar einen Holztraktor bauen!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Un trattore di legno! Questa gliela racconto stasera, gli piacerà.",
+                "sl": "Lesen traktor! To mu povem nocoj, všeč mu bo.",
+                "en": "A wooden tractor! I'll tell him that tonight, he'll love it.",
+                "de": "Ein Holztraktor! Das erzähl ich ihm heute Abend, das wird ihm gefallen."
+              }
+            },
+            {
+              "it": "Glieli dia lo stesso: purché li tiene con cura, potrà farci anche un trattore di legno!",
+              "sl": "Vseeno mu ga dajte: samo da ga skrbno hrani, lahko z njim naredi tudi lesen traktor!",
+              "en": "Give them to him anyway: as long as he looks after them, he can make a wooden tractor with them!",
+              "de": "Geben Sie es ihm trotzdem: Solange er gut darauf aufpasst, kann er damit sogar einen Holztraktor bauen!",
+              "grammar": "congiunzioni-congiuntivo",
+              "why": {
+                "sl": "Purché vedno zahteva konjunktiv: purché li tenga.",
+                "en": "Purché always takes the congiuntivo: purché li tenga.",
+                "de": "Purché verlangt immer den Konjunktiv: purché li tenga."
+              },
+              "reply": {
+                "face": "thinking",
+                "it": "Purché li tiene…? Mmm, l'idea è buona, la frase ha un chiodo storto.",
+                "sl": "Purché li tiene …? Hm, ideja je dobra, stavek pa ima kriv žebelj.",
+                "en": "Purché li tiene…? Hmm, the idea's good, the sentence has a bent nail.",
+                "de": "Purché li tiene …? Hm, die Idee ist gut, der Satz hat einen krummen Nagel."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Allora gli attrezzi passeranno a Lorenzo. Lo zio sarebbe contento. Martello, sega e pazienza: non serve altro.",
+          "sl": "Potem bo orodje prešlo na Lorenza. Stric bi bil vesel. Kladivo, žaga in potrpežljivost: nič drugega ne potrebuješ.",
+          "en": "Then the tools will pass to Lorenzo. My uncle would be pleased. Hammer, saw and patience: nothing else is needed.",
+          "de": "Dann geht das Werkzeug an Lorenzo. Der Onkel wäre froh. Hammer, Säge und Geduld: Mehr braucht man nicht."
+        }
+      ]
+    },
+    {
+      "id": "sedia-b1-faggio",
+      "level": "B1",
+      "memory": {
+        "it": "la sedia di faggio appesa al muro",
+        "sl": "bukov stol na steni",
+        "en": "the beech chair hanging on the wall",
+        "de": "den Buchenstuhl an der Wand"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Vedi quella sedia appesa al muro? È di faggio, fatta a mano, come a Manzano. Indovina chi l'ha fatta.",
+          "sl": "Vidiš tisti stol na steni? Bukov je, ročno narejen, kot v Manzanu. Ugani, kdo ga je naredil.",
+          "en": "See that chair hanging on the wall? It's beech, handmade, as in Manzano. Guess who made it.",
+          "de": "Siehst du den Stuhl an der Wand? Er ist aus Buche, handgemacht, wie in Manzano. Rate mal, wer ihn gemacht hat."
+        },
+        {
+          "choices": [
+            {
+              "it": "È stata fatta da Lei, signor Franco?",
+              "sl": "Ste ga naredili vi, gospod Franco?",
+              "en": "Was it made by you, Signor Franco?",
+              "de": "Wurde er von Ihnen gemacht, Herr Franco?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Sì, da me! L'inverno scorso, una gamba alla settimana.",
+                "sl": "Ja, jaz! Lansko zimo, eno nogo na teden.",
+                "en": "Yes, by me! Last winter, one leg a week.",
+                "de": "Ja, von mir! Letzten Winter, ein Bein pro Woche."
+              }
+            },
+            {
+              "it": "È stato fatto da Lei, signor Franco?",
+              "sl": "Ste ga naredili vi, gospod Franco?",
+              "en": "Was it made by you, Signor Franco?",
+              "de": "Wurde er von Ihnen gemacht, Herr Franco?",
+              "grammar": "passivo",
+              "why": {
+                "sl": "La sedia je ženskega spola: è stata fatta.",
+                "en": "La sedia is feminine: è stata fatta.",
+                "de": "La sedia ist weiblich: è stata fatta."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Fatto? Chi? Il martello? Qui parliamo della sedia, {learner}!",
+                "sl": "Fatto? Kdo? Kladivo? Tukaj govoriva o stolu, {learner}!",
+                "en": "Fatto? Who? The hammer? We're talking about the chair here, {learner}!",
+                "de": "Fatto? Wer? Der Hammer? Wir reden hier vom Stuhl, {learner}!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "E sai perché la tengo appesa al muro e non in cucina?",
+          "sl": "Pa veš, zakaj ga imam na steni in ne v kuhinji?",
+          "en": "And do you know why I keep it on the wall and not in the kitchen?",
+          "de": "Und weißt du, warum ich ihn an der Wand hab und nicht in der Küche?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Siccome è la più bella, la tiene appesa come un quadro?",
+              "sl": "Ker je najlepši, ga imate obešenega kot sliko?",
+              "en": "Since it's the nicest, you keep it hanging like a picture?",
+              "de": "Weil er der schönste ist, hängen Sie ihn auf wie ein Bild?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Proprio così! Una sedia così non si usa: si guarda.",
+                "sl": "Prav tako! Takega stola se ne uporablja: se ga gleda.",
+                "en": "Exactly! A chair like that isn't for using: it's for looking at.",
+                "de": "Genau! So einen Stuhl benutzt man nicht: Man schaut ihn an."
+              }
+            },
+            {
+              "it": "Anche se è la più bella, la tiene appesa come un quadro?",
+              "sl": "Ker je najlepši, ga imate obešenega kot sliko?",
+              "en": "Since it's the nicest, you keep it hanging like a picture?",
+              "de": "Weil er der schönste ist, hängen Sie ihn auf wie ein Bild?",
+              "grammar": "congiunzioni",
+              "why": {
+                "sl": "Anche se pomeni čeprav; razlog na začetku stavka pove siccome (ker).",
+                "en": "Anche se means even though; a reason at the start is siccome (since).",
+                "de": "Anche se heißt obwohl; einen Grund am Satzanfang nennt siccome (weil)."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Anche se è bella? Allora la appendo… per punizione? Non ti seguo!",
+                "sl": "Čeprav je lep? Ga potem obesim … za kazen? Ne sledim ti!",
+                "en": "Even though it's nice? So I hang it up… as a punishment? I can't follow you!",
+                "de": "Obwohl er schön ist? Häng ich ihn dann … zur Strafe auf? Ich komm nicht mit!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Il giorno in cui sarai grande, te ne faccio una uguale. Promesso, parola di mugnaio.",
+          "sl": "Ko boš {m:velik|f:velika}, ti naredim enakega. Obljubim, beseda mlinarja.",
+          "en": "The day you're grown up, I'll make you one just like it. Promise, a miller's word.",
+          "de": "Wenn du groß bist, mach ich dir einen genauso. Versprochen, Müllerehrenwort."
+        }
+      ]
+    },
+    {
+      "id": "sedia-b2-segno",
+      "level": "B2",
+      "memory": {
+        "it": "il segno segreto sotto la gamba della sedia",
+        "sl": "skrivno znamenje pod nogo stola",
+        "en": "the secret mark under the chair's leg",
+        "de": "das geheime Zeichen unter dem Stuhlbein"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "it": "A Manzano, una volta, si facevano sedie in quasi ogni casa. Si diceva che un buon falegname riconoscesse la sua sedia anche al buio.",
+          "sl": "V Manzanu so nekoč skoraj v vsaki hiši delali stole. Pravili so, da dober mizar svoj stol prepozna tudi v temi.",
+          "en": "In Manzano, in the old days, chairs were made in almost every house. They said a good carpenter would know his chair even in the dark.",
+          "de": "In Manzano machte man früher in fast jedem Haus Stühle. Man sagte, ein guter Schreiner erkenne seinen Stuhl sogar im Dunkeln."
+        },
+        {
+          "choices": [
+            {
+              "it": "Quindi, se Le bendassero gli occhi, riconoscerebbe la Sua sedia?",
+              "sl": "Torej, če bi vam zavezali oči, bi prepoznali svoj stol?",
+              "en": "So, if they blindfolded you, would you recognise your chair?",
+              "de": "Also, wenn man Ihnen die Augen verbinden würde, würden Sie Ihren Stuhl erkennen?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Subito! Dalle gambe. Le mie hanno sempre un piccolo segno, qui sotto.",
+                "sl": "Takoj! Po nogah. Moje imajo vedno majhno znamenje, tukaj spodaj.",
+                "en": "At once! By the legs. Mine always have a little mark, under here.",
+                "de": "Sofort! An den Beinen. Meine haben immer ein kleines Zeichen, hier unten."
+              }
+            },
+            {
+              "it": "Quindi, se Le benderebbero gli occhi, riconoscerebbe la Sua sedia?",
+              "sl": "Torej, če bi vam zavezali oči, bi prepoznali svoj stol?",
+              "en": "So, if they blindfolded you, would you recognise your chair?",
+              "de": "Also, wenn man Ihnen die Augen verbinden würde, würden Sie Ihren Stuhl erkennen?",
+              "grammar": "congiuntivo-imperfetto",
+              "why": {
+                "sl": "Za se pride konjunktiv: se Le bendassero. Pogojnik gre v drugo polovico.",
+                "en": "After se comes the congiuntivo: se Le bendassero. The conditional goes in the other half.",
+                "de": "Nach se kommt der Konjunktiv: se Le bendassero. Der Konditional gehört in die andere Hälfte."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Benderebbero… riconoscerebbe… Mmm, troppi «-ebbe» in una frase sola, {learner}.",
+                "sl": "Benderebbero … riconoscerebbe … Hm, preveč »-ebbe« v enem stavku, {learner}.",
+                "en": "Benderebbero… riconoscerebbe… Hmm, too many «-ebbe» in one sentence, {learner}.",
+                "de": "Benderebbero … riconoscerebbe … Hm, zu viele «-ebbe» in einem Satz, {learner}."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "it": "Mio zio il segno lo faceva con un chiodo caldo: un piccolo sole. Io faccio una F, come Franco. Semplice, come me.",
+          "sl": "Moj stric ga je delal z vročim žebljem: majhno sonce. Jaz naredim F, kot Franco. Preprosto, kot jaz.",
+          "en": "My uncle made the mark with a hot nail: a little sun. I make an F, for Franco. Simple, like me.",
+          "de": "Mein Onkel machte das Zeichen mit einem heißen Nagel: eine kleine Sonne. Ich mach ein F, wie Franco. Einfach, wie ich."
+        },
+        {
+          "who": "franco",
+          "face": "thinking",
+          "it": "Oggi le sedie si fanno nelle fabbriche, tutte uguali. Più comode, forse. Tuttavia una sedia fatta a mano racconta chi l'ha fatta.",
+          "sl": "Danes stole delajo v tovarnah, vse enake. Morda bolj udobne. Vendar ročno narejen stol pove, kdo ga je naredil.",
+          "en": "Today chairs are made in factories, all the same. More comfortable, perhaps. Yet a handmade chair tells you who made it.",
+          "de": "Heute macht man Stühle in Fabriken, alle gleich. Bequemer vielleicht. Trotzdem erzählt ein handgemachter Stuhl, wer ihn gemacht hat."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora la Sua sedia racconta di un mugnaio paziente, che conta anche i chiodi!",
+              "sl": "Potem vaš stol pripoveduje o potrpežljivem mlinarju, ki šteje celo žeblje!",
+              "en": "Then your chair tells of a patient miller, who even counts the nails!",
+              "de": "Dann erzählt Ihr Stuhl von einem geduldigen Müller, der sogar die Nägel zählt!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, ah! Proprio così: dodici chiodi, uno per uno.",
+                "sl": "Ha, ha! Prav tako: dvanajst žebljev, enega za drugim.",
+                "en": "Ha, ha! Exactly: twelve nails, one by one.",
+                "de": "Ha, ha! Genau: zwölf Nägel, einer nach dem anderen."
+              }
+            },
+            {
+              "it": "Allora le sedie della fabbrica raccontano di più, perché sono tutte uguali.",
+              "sl": "Potem stoli iz tovarne povedo več, ker so vsi enaki.",
+              "en": "Then factory chairs tell more, because they're all the same.",
+              "de": "Dann erzählen Fabrikstühle mehr, weil sie alle gleich sind.",
+              "why": {
+                "sl": "Franco pravi nasprotno: ker so vsi enaki, ne povedo ničesar o tem, kdo jih je naredil.",
+                "en": "Franco says the opposite: being all the same, they tell nothing of who made them.",
+                "de": "Franco sagt das Gegenteil: Weil sie alle gleich sind, erzählen sie nichts davon, wer sie gemacht hat."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Di più? Tutte uguali non raccontano niente, {learner}: sono mute come i sassi.",
+                "sl": "Več? Vsi enaki ne povedo ničesar, {learner}: nemi so kot kamni.",
+                "en": "More? All the same, they tell nothing, {learner}: they're as dumb as stones.",
+                "de": "Mehr? Alle gleich erzählen sie gar nichts, {learner}: Die sind stumm wie Steine."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Un giorno ti insegno a fare il segno sotto la gamba. Così anche le tue sedie diranno chi le ha fatte.",
+          "sl": "Nekoč te naučim narediti znamenje pod nogo. Tako bodo tudi tvoji stoli povedali, kdo jih je naredil.",
+          "en": "One day I'll teach you to make the mark under the leg. Then your chairs will tell who made them too.",
+          "de": "Eines Tages bring ich dir bei, das Zeichen unter das Bein zu machen. Dann erzählen auch deine Stühle, wer sie gemacht hat."
         }
       ]
     }

@@ -5,7 +5,7 @@
   "title": { "it": "Il ponte", "sl": "Most", "en": "The bridge", "de": "Die Brücke" },
   "emoji": "🌉",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "stream",
   "from": ["project:most"],
   "pack": "il-ponte",
@@ -41,7 +41,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "carro",
-      "dialogs": ["carro-conto", "carro"],
+      "dialogs": ["carro-b2-guado", "carro-b1-tavole", "carro-conto", "carro"],
       "reward": { "wood": 20},
       "marker": "🐴",
       "memory": { "it": "il carro che abbiamo guardato passare sul ponte", "sl": "voz, ki sva ga gledala, kako pelje čez most", "en": "the cart we watched cross the bridge", "de": "den Wagen, den wir über die Brücke fahren sahen" }
@@ -65,7 +65,7 @@
       "when": ["morning"],
       "chance": 0.4,
       "dialog": "piena",
-      "dialogs": ["piena-neve", "piena"],
+      "dialogs": ["piena-b2-largo", "piena-b1-pietre", "piena-neve", "piena"],
       "reward": { "stone": 20},
       "marker": "🌊",
       "memory": { "it": "il ruscello alto e il nostro ponte forte", "sl": "visok potok in najin trdni most", "en": "the high stream and our strong bridge", "de": "den hohen Bach und unsere starke Brücke" }
@@ -1219,6 +1219,105 @@
         },
         { "who": "aldo", "it": "Prima del ponte il carro non passava. Adesso è facile.", "sl": "Pred mostom voz ni mogel čez. Zdaj je lahko.", "en": "Before the bridge the cart couldn't get across. Now it's easy.", "de": "Vor der Brücke kam der Wagen nicht hinüber. Jetzt ist es leicht." },
         { "who": "aldo", "face": "happy", "it": "Buonanotte, {learner}. Piano, piano… le api dormono.", "sl": "Lahko noč, {learner}. Tiho, tiho … čebele spijo.", "en": "Good night, {learner}. Quietly, quietly… the bees are asleep.", "de": "Gute Nacht, {learner}. Leise, leise … die Bienen schlafen." }
+      ]
+    },
+    {
+      "id": "carro-b1-tavole",
+      "level": "B1",
+      "memory": { "it": "il carro di tavole per i banchi della scuola", "sl": "voz desk za šolske klopi", "en": "the cart of planks for the school's benches", "de": "den Wagen voller Bretter für die Schulbänke" },
+      "lines": [
+        { "who": "franco", "it": "Buongiorno, {learner}! Guarda: arriva un carro pieno di tavole. Sono per i banchi nuovi della scuola.", "sl": "Dober dan, {learner}! Poglej: prihaja voz poln desk. Za nove šolske klopi so.", "en": "Good morning, {learner}! Look: a cart full of planks is coming. They're for the school's new benches.", "de": "Guten Morgen, {learner}! Schau: Da kommt ein Wagen voller Bretter. Die sind für die neuen Schulbänke." },
+        { "who": "franco", "face": "curious", "it": "Sai da dove vengono?", "sl": "Veš, od kod so?", "en": "Do you know where they come from?", "de": "Weißt du, woher sie kommen?" },
+        { "choices": [
+          { "it": "Sono state tagliate nel bosco, vero?", "sl": "Narezali so jih v gozdu, ne?", "en": "They were cut in the wood, weren't they?", "de": "Die wurden im Wald geschnitten, oder?", "ok": true,
+            "reply": { "face": "happy", "it": "Giusto. Nel bosco di faggi, sopra il paese. Legno buono, che non si piega.", "sl": "Prav. V bukovem gozdu nad vasjo. Dober les, ki se ne upogiba.", "en": "Right. In the beech wood above the village. Good wood that doesn't bend.", "de": "Richtig. Im Buchenwald über dem Dorf. Gutes Holz, das sich nicht biegt." } },
+          { "it": "Sono stati tagliati nel bosco, vero?", "sl": "Narezali so jih v gozdu, ne?", "en": "They were cut in the wood, weren't they?", "de": "Die wurden im Wald geschnitten, oder?",
+            "grammar": "passivo", "why": { "sl": "Le tavole so ženskega spola in množina: sono state tagliate.", "en": "Le tavole are feminine and plural: sono state tagliate.", "de": "Le tavole sind weiblich und Mehrzahl: sono state tagliate." },
+            "reply": { "face": "curious", "it": "Tagliati? Mmm, qui ci sono tavole, non tronchi, {learner}!", "sl": "Tagliati? Hm, tu so deske, ne debla, {learner}!", "en": "Tagliati? Hmm, these are planks, not logs, {learner}!", "de": "Tagliati? Hm, das sind Bretter, keine Stämme, {learner}!" } }
+        ] },
+        { "who": "franco", "face": "thinking", "it": "Il carrettiere dice che il cavallo è nervoso: sulle tavole del ponte, gli zoccoli fanno rumore.", "sl": "Voznik pravi, da je konj nemiren: na deskah mostu kopita ropotajo.", "en": "The carter says the horse is nervous: on the bridge's boards, his hooves make a noise.", "de": "Der Fuhrmann sagt, das Pferd ist nervös: Auf den Brettern der Brücke klappern die Hufe." },
+        { "choices": [
+          { "it": "Lo aiuto io a tenere il cavallo, così passa tranquillo.", "sl": "Jaz mu pomagam držati konja, da gre mirno čez.", "en": "I'll help him hold the horse, so it crosses calmly.", "de": "Ich helf ihm, das Pferd zu halten, dann geht es ruhig hinüber.", "ok": true,
+            "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}. Una mano sul collo, e parlagli piano. I cavalli capiscono.", "sl": "{m:Priden|f:Pridna}. Roko na vrat, in govori mu tiho. Konji razumejo.", "en": "Good. A hand on his neck, and talk to him softly. Horses understand.", "de": "Gut. Eine Hand an den Hals, und red leise mit ihm. Pferde verstehen das." } },
+          { "it": "Lo aiuto io di tenere il cavallo, così passa tranquillo.", "sl": "Jaz mu pomagam držati konja, da gre mirno čez.", "en": "I'll help him hold the horse, so it crosses calmly.", "de": "Ich helf ihm, das Pferd zu halten, dann geht es ruhig hinüber.",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Aiutare gre z a: aiutare a tenere.", "en": "Aiutare takes a: aiutare a tenere.", "de": "Aiutare steht mit a: aiutare a tenere." },
+            "reply": { "face": "curious", "it": "Aiuto di…? Mmm, il cavallo ti capirà, ma il carrettiere forse no!", "sl": "Aiuto di …? Hm, konj te bo razumel, voznik pa morda ne!", "en": "Aiuto di…? Hmm, the horse will understand you, but maybe not the carter!", "de": "Aiuto di …? Hm, das Pferd versteht dich, aber der Fuhrmann vielleicht nicht!" } }
+        ] },
+        { "who": "franco", "face": "happy", "it": "Piano, piano… ed eccolo dall'altra parte! Un ponte fatto bene regge tutto, anche i banchi di scuola.", "sl": "Počasi, počasi … in že je na drugi strani! Dobro narejen most zdrži vse, tudi šolske klopi.", "en": "Slowly, slowly… and there he is on the other side! A well-made bridge holds anything, even school benches.", "de": "Langsam, langsam … und da ist er drüben! Eine gut gebaute Brücke hält alles, sogar Schulbänke." }
+      ]
+    },
+    {
+      "id": "carro-b2-guado",
+      "level": "B2",
+      "memory": { "it": "il guado di prima del ponte", "sl": "brod iz časov pred mostom", "en": "the ford from before the bridge", "de": "die Furt von vor der Brücke" },
+      "lines": [
+        { "who": "franco", "face": "thinking", "it": "Prima del ponte, i carri passavano nell'acqua, al guado. Con la piena, si aspettava anche tre giorni sulla riva.", "sl": "Pred mostom so vozovi vozili skozi vodo, čez brod. Ob povodnji so na bregu čakali tudi tri dni.", "en": "Before the bridge, carts went through the water, at the ford. With the stream in flood, people waited on the bank for up to three days.", "de": "Vor der Brücke fuhren die Wagen durchs Wasser, an der Furt. Bei Hochwasser wartete man auch drei Tage am Ufer." },
+        { "who": "franco", "it": "Una volta mio padre provò a passare lo stesso, e il fieno finì tutto nel ruscello. Lui e il cavallo, per fortuna, no.", "sl": "Nekoč je moj oče vseeno poskusil priti čez, in vse seno je končalo v potoku. On in konj na srečo ne.", "en": "Once my father tried to cross anyway, and all the hay ended up in the stream. He and the horse, luckily, didn't.", "de": "Einmal versuchte mein Vater es trotzdem, und das ganze Heu landete im Bach. Er und das Pferd zum Glück nicht." },
+        { "choices": [
+          { "it": "Se avesse aspettato la fine della piena, il fieno si sarebbe salvato.", "sl": "Če bi bil počakal, da voda upade, bi se seno rešilo.", "en": "If he'd waited for the flood to end, the hay would have been saved.", "de": "Hätte er das Ende des Hochwassers abgewartet, wäre das Heu gerettet worden.", "ok": true,
+            "reply": { "face": "thinking", "it": "Lo diceva anche lui, dopo. «Chi ha fretta perde il fieno», ripeteva.", "sl": "To je rekel tudi on, pozneje. »Kdor se mudi, izgubi seno,« je ponavljal.", "en": "He said so himself, afterwards. «Who hurries loses the hay», he kept saying.", "de": "Das sagte er danach selbst. «Wer es eilig hat, verliert das Heu», wiederholte er." } },
+          { "it": "Se fosse aspettato la fine della piena, il fieno si sarebbe salvato.", "sl": "Če bi bil počakal, da voda upade, bi se seno rešilo.", "en": "If he'd waited for the flood to end, the hay would have been saved.", "de": "Hätte er das Ende des Hochwassers abgewartet, wäre das Heu gerettet worden.",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Aspettare ima avere: ha aspettato, zato se avesse aspettato.", "en": "Aspettare takes avere: ha aspettato, so se avesse aspettato.", "de": "Aspettare bildet mit avere: ha aspettato, also se avesse aspettato." },
+            "reply": { "face": "laugh", "it": "Se fosse aspettato? Da chi, dal fieno? Ah, ah! Il fieno non aspettava nessuno.", "sl": "Se fosse aspettato? Kdo naj bi ga čakal, seno? Ha, ha! Seno ni čakalo nikogar.", "en": "Se fosse aspettato? Waited for by whom, the hay? Ha, ha! The hay waited for nobody.", "de": "Se fosse aspettato? Von wem erwartet, vom Heu? Ha, ha! Das Heu hat auf niemanden gewartet." } }
+        ] },
+        { "who": "franco", "it": "Costruito il ponte, nessuno ha più perso un carro. Però i vecchi dicevano che il guado era più bello: ci si fermava a parlare, aspettando.", "sl": "Ko je bil most zgrajen, nihče več ni izgubil voza. Ampak stari so rekli, da je bil brod lepši: med čakanjem so se ustavili in se pogovarjali.", "en": "Once the bridge was built, nobody lost a cart again. But the old folk said the ford was nicer: you stopped to talk while you waited.", "de": "Seit die Brücke steht, hat keiner mehr einen Wagen verloren. Aber die Alten sagten, die Furt war schöner: Man blieb beim Warten stehen und redete." },
+        { "choices": [
+          { "it": "È vero, ma il ponte è più sicuro. E poi anche sul ponte ci si può fermare a parlare!", "sl": "Res je, ampak most je varnejši. Pa tudi na mostu se lahko ustaviš in pogovarjaš!", "en": "That's true, but the bridge is safer. And anyway, you can stop and talk on the bridge too!", "de": "Stimmt, aber die Brücke ist sicherer. Und außerdem kann man auch auf der Brücke stehen bleiben und reden!", "ok": true,
+            "reply": { "face": "happy", "it": "Hai ragione. Fermiamoci qui, allora: un mugnaio e {m:un amico|f:un'amica}, sul ponte, a contare i carri.", "sl": "Prav imaš. Ustaviva se tukaj: mlinar in {m:prijatelj|f:prijateljica}, na mostu, ki štejeta vozove.", "en": "You're right. Let's stop here, then: a miller and a friend, on the bridge, counting carts.", "de": "Du hast recht. Bleiben wir hier stehen: ein Müller und {m:ein Freund|f:eine Freundin}, auf der Brücke, beim Wagenzählen." } },
+          { "it": "Allora era meglio senza il ponte, e con il fieno nel ruscello.", "sl": "Potem je bilo bolje brez mostu, s senom v potoku.", "en": "So it was better without the bridge, with the hay in the stream.", "de": "Dann war es besser ohne Brücke, mit dem Heu im Bach.",
+            "why": { "sl": "Stari so imeli radi pogovore ob brodu, ne izgubljenega sena; most jih ne prepoveduje.", "en": "The old folk liked the talks at the ford, not the lost hay; the bridge doesn't stop them.", "de": "Die Alten mochten das Reden an der Furt, nicht das verlorene Heu; die Brücke verbietet es ja nicht." },
+            "reply": { "face": "confused", "it": "Il fieno nel ruscello? No, no! Quello non l'ha mai voluto nessuno.", "sl": "Seno v potoku? Ne, ne! Tega ni nikoli nihče hotel.", "en": "The hay in the stream? No, no! Nobody ever wanted that.", "de": "Das Heu im Bach? Nein, nein! Das wollte nie jemand." } }
+        ] },
+        { "who": "franco", "it": "Ecco un carro che arriva. Uno. Lo scrivo. E tu, intanto, raccontami qualcosa.", "sl": "Glej, prihaja voz. Eden. Zapišem ga. Ti pa mi medtem kaj povej.", "en": "Here comes a cart. One. I'll write it down. And meanwhile, you tell me something.", "de": "Da kommt ein Wagen. Einer. Ich schreib ihn auf. Und du erzählst mir derweil etwas." }
+      ]
+    },
+    {
+      "id": "piena-b1-pietre",
+      "level": "B1",
+      "memory": { "it": "le pietre grandi su cui poggia il ponte", "sl": "velike kamne, na katerih stoji most", "en": "the big stones the bridge rests on", "de": "die großen Steine, auf denen die Brücke ruht" },
+      "lines": [
+        { "who": "bruno", "it": "Buongiorno. Stanotte è piovuto tanto. Guarda il ruscello: è alto e marrone.", "sl": "Dober dan. Ponoči je močno deževalo. Poglej potok: visok je in rjav.", "en": "Good morning. It rained a lot last night. Look at the stream: it's high and brown.", "de": "Guten Morgen. Heute Nacht hat es viel geregnet. Schau den Bach an: Er ist hoch und braun." },
+        { "choices": [
+          { "it": "L'acqua sta per arrivare alle tavole del ponte!", "sl": "Voda bo kmalu segla do desk mostu!", "en": "The water's about to reach the bridge's boards!", "de": "Das Wasser reicht gleich bis an die Bretter der Brücke!", "ok": true,
+            "reply": { "face": "thinking", "it": "No. Manca ancora un metro. Il ponte è alto apposta.", "sl": "Ne. Manjka še en meter. Most je nalašč visok.", "en": "No. There's still a metre to go. The bridge is high on purpose.", "de": "Nein. Es fehlt noch ein Meter. Die Brücke ist absichtlich hoch." } },
+          { "it": "L'acqua sta per arrivando alle tavole del ponte!", "sl": "Voda bo kmalu segla do desk mostu!", "en": "The water's about to reach the bridge's boards!", "de": "Das Wasser reicht gleich bis an die Bretter der Brücke!",
+            "grammar": "stare-per", "why": { "sl": "Za stare per pride nedoločnik: sta per arrivare.", "en": "After stare per comes the infinitive: sta per arrivare.", "de": "Nach stare per kommt die Grundform: sta per arrivare." },
+            "reply": { "face": "cross", "it": "Arrivando? Sta per… arrivando? No. Frase storta. Di nuovo.", "sl": "Arrivando? Sta per … arrivando? Ne. Kriv stavek. Še enkrat.", "en": "Arrivando? Sta per… arrivando? No. Crooked sentence. Again.", "de": "Arrivando? Sta per … arrivando? Nein. Schiefer Satz. Nochmal." } }
+        ] },
+        { "who": "bruno", "face": "curious", "it": "Sai perché la piena non lo porta via?", "sl": "Veš, zakaj ga povodenj ne odnese?", "en": "Do you know why the flood doesn't carry it away?", "de": "Weißt du, warum das Hochwasser sie nicht mitreißt?" },
+        { "choices": [
+          { "it": "Perché le pietre su cui poggia sono grandi e pesanti?", "sl": "Ker so kamni, na katerih stoji, veliki in težki?", "en": "Because the stones it rests on are big and heavy?", "de": "Weil die Steine, auf denen sie ruht, groß und schwer sind?", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Pietre grandi, ferri dritti. Lavoro fatto bene.", "sl": "Prav. Veliki kamni, ravna železa. Dobro opravljeno delo.", "en": "Right. Big stones, straight irons. Work done well.", "de": "Richtig. Große Steine, gerade Eisen. Gute Arbeit." } },
+          { "it": "Perché le pietre in cui poggia sono grandi e pesanti?", "sl": "Ker so kamni, na katerih stoji, veliki in težki?", "en": "Because the stones it rests on are big and heavy?", "de": "Weil die Steine, auf denen sie ruht, groß und schwer sind?",
+            "grammar": "relativi-cui", "why": { "sl": "Poggiare gre s su (na): poggia su, zato su cui.", "en": "Poggiare takes su (on): poggia su, so su cui.", "de": "Poggiare steht mit su (auf): poggia su, also su cui." },
+            "reply": { "face": "cross", "it": "In cui? Il ponte non sta dentro le pietre. Sta sopra.", "sl": "In cui? Most ni v kamnih. Je na njih.", "en": "In cui? The bridge isn't inside the stones. It's on top.", "de": "In cui? Die Brücke steckt nicht in den Steinen. Sie liegt darauf." } }
+        ] },
+        { "who": "bruno", "it": "Domani l'acqua scende. Io torno alla fucina. Tu stai lontano dalla riva, oggi.", "sl": "Jutri voda upade. Jaz se vrnem v kovačnico. Ti pa danes ostani stran od brega.", "en": "Tomorrow the water goes down. I'll go back to the forge. You stay away from the bank today.", "de": "Morgen sinkt das Wasser. Ich geh zurück in die Schmiede. Du bleibst heute weg vom Ufer." }
+      ]
+    },
+    {
+      "id": "piena-b2-largo",
+      "level": "B2",
+      "memory": { "it": "il ponte che Franco voleva più largo", "sl": "most, ki ga je Franco hotel širšega", "en": "the bridge Franco wanted wider", "de": "die Brücke, die Franco breiter wollte" },
+      "lines": [
+        { "who": "bruno", "it": "Questo ponte l'abbiamo fatto insieme. Franco le misure, il paese le pietre, io il ferro.", "sl": "Ta most smo naredili skupaj. Franco mere, vas kamne, jaz železo.", "en": "We made this bridge together. Franco the measurements, the village the stones, me the iron.", "de": "Diese Brücke haben wir zusammen gebaut. Franco die Maße, das Dorf die Steine, ich das Eisen." },
+        { "who": "bruno", "face": "thinking", "it": "Stanotte l'acqua era altissima. Il vecchio ponte di legno, quello di quando Bepi era bambino, non avrebbe resistito.", "sl": "Ponoči je bila voda zelo visoko. Stari leseni most, tisti iz Bepijevega otroštva, ne bi zdržal.", "en": "Last night the water was very high. The old wooden bridge, the one from when Bepi was a boy, wouldn't have held.", "de": "Heute Nacht stand das Wasser sehr hoch. Die alte Holzbrücke, die aus Bepis Kindheit, hätte nicht gehalten." },
+        { "choices": [
+          { "it": "Se il ponte fosse ancora di legno, stamattina non ci sarebbe più.", "sl": "Če bi bil most še vedno lesen, ga danes zjutraj ne bi bilo več.", "en": "If the bridge were still wooden, it wouldn't be there this morning.", "de": "Wäre die Brücke noch aus Holz, wäre sie heute Morgen nicht mehr da.", "ok": true,
+            "reply": { "face": "proud", "it": "Esatto. Pietra e ferro: la piena passa sotto e se ne va.", "sl": "Tako je. Kamen in železo: povodenj gre spodaj in odide.", "en": "Exactly. Stone and iron: the flood passes underneath and goes on its way.", "de": "Genau. Stein und Eisen: Das Hochwasser geht unten durch und zieht weiter." } },
+          { "it": "Se il ponte sarebbe ancora di legno, stamattina non ci sarebbe più.", "sl": "Če bi bil most še vedno lesen, ga danes zjutraj ne bi bilo več.", "en": "If the bridge were still wooden, it wouldn't be there this morning.", "de": "Wäre die Brücke noch aus Holz, wäre sie heute Morgen nicht mehr da.",
+            "grammar": "periodo-ipotetico", "why": { "sl": "Za se nikoli pogojnik: se fosse, potem non ci sarebbe.", "en": "After se, never the conditional: se fosse, then non ci sarebbe.", "de": "Nach se nie der Konditional: se fosse, dann non ci sarebbe." },
+            "reply": { "face": "cross", "it": "Sarebbe… sarebbe? Due volte. Una basta. Di nuovo.", "sl": "Sarebbe … sarebbe? Dvakrat. Enkrat je dovolj. Še enkrat.", "en": "Sarebbe… sarebbe? Twice. Once is enough. Again.", "de": "Sarebbe … sarebbe? Zweimal. Einmal reicht. Nochmal." } }
+        ] },
+        { "who": "bruno", "face": "curious", "it": "Franco però dice che avremmo dovuto farlo più largo, per due carri. Io dico che uno basta. Tu che ne pensi?", "sl": "Franco pa pravi, da bi ga morali narediti širšega, za dva vozova. Jaz pravim, da je en dovolj. Kaj misliš ti?", "en": "But Franco says we should have made it wider, for two carts. I say one's enough. What do you think?", "de": "Franco sagt aber, wir hätten sie breiter bauen sollen, für zwei Wagen. Ich sag, einer reicht. Was meinst du?" },
+        { "choices": [
+          { "it": "Avete ragione tutti e due: per oggi uno basta, per domani chissà.", "sl": "Oba imata prav: za danes je en dovolj, za jutri kdo ve.", "en": "You're both right: for today one's enough, for tomorrow who knows.", "de": "Ihr habt beide recht: Für heute reicht einer, für morgen wer weiß.", "ok": true,
+            "reply": { "face": "laugh", "it": "Hm. Risposta da sindaco. Bene. Lo dico a Franco, così stasera siamo tutti contenti.", "sl": "Hm. Odgovor kot od župana. Dobro. Povem Francu, da bomo zvečer vsi zadovoljni.", "en": "Hm. An answer fit for a mayor. Good. I'll tell Franco, so we're all happy tonight.", "de": "Hm. Eine Antwort wie vom Bürgermeister. Gut. Ich sag's Franco, dann sind heute Abend alle zufrieden." } },
+          { "it": "Allora il ponte va rifatto subito, più largo.", "sl": "Potem je treba most takoj narediti na novo, širšega.", "en": "Then the bridge must be rebuilt right away, wider.", "de": "Dann muss die Brücke sofort neu gebaut werden, breiter.",
+            "why": { "sl": "Bruno meni, da je en voz dovolj; nihče ne pravi, da je treba most podreti in narediti znova.", "en": "Bruno thinks one cart is enough; nobody says it must be pulled down and rebuilt.", "de": "Bruno meint, ein Wagen reicht; niemand sagt, man müsse die Brücke abreißen und neu bauen." },
+            "reply": { "face": "cross", "it": "Rifatto? No. Il ponte è nuovo. E regge. Ascolta bene.", "sl": "Na novo? Ne. Most je nov. In drži. Dobro poslušaj.", "en": "Rebuilt? No. The bridge is new. And it holds. Listen carefully.", "de": "Neu gebaut? Nein. Die Brücke ist neu. Und sie hält. Hör gut zu." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Ho controllato tutto. Pietre, ferri, chiodi. Torno alla fucina. Buona giornata, {learner}.", "sl": "Dobro. Vse sem pregledal. Kamne, železa, žeblje. Vrnem se v kovačnico. Lep dan, {learner}.", "en": "Good. I've checked everything. Stones, irons, nails. Back to the forge. Have a good day, {learner}.", "de": "Gut. Ich hab alles geprüft. Steine, Eisen, Nägel. Zurück in die Schmiede. Schönen Tag, {learner}." }
       ]
     }
   ]

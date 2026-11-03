@@ -10,7 +10,7 @@
   },
   "emoji": "⛪",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "church",
   "from": [
     "church"
@@ -179,6 +179,8 @@
       "chance": 0.5,
       "dialog": "candela",
       "dialogs": [
+        "candela-b2-campana",
+        "candela-b1-stoppino",
         "candela-bora",
         "candela-conta",
         "candela"
@@ -242,6 +244,8 @@
       "chance": 0.4,
       "dialog": "organo",
       "dialogs": [
+        "organo-b2-gorizia",
+        "organo-b1-coro",
         "organo-forte",
         "organo"
       ],
@@ -1955,6 +1959,465 @@
           "fx": {
             "organ": 0
           }
+        }
+      ]
+    },
+    {
+      "id": "candela-b1-stoppino",
+      "level": "B1",
+      "memory": {
+        "it": "le candele che abbiamo acceso una per una",
+        "sl": "sveče, ki sva jih {m:prižgala|f:prižgali} eno za drugo",
+        "en": "the candles we lit one by one",
+        "de": "die Kerzen, die wir eine nach der anderen angezündet haben"
+      },
+      "lines": [
+        {
+          "who": "rosa",
+          "it": "{learner}, vieni, tesoro. Piano, siamo in chiesa. Stasera accendiamo tre candele: per la famiglia, per i vicini e per chi è lontano.",
+          "sl": "{learner}, pridi, srček. Počasi, v cerkvi sva. Nocoj prižgeva tri sveče: za družino, za sosede in za tiste, ki so daleč.",
+          "en": "{learner}, come, sweetheart. Gently, we're in church. Tonight we'll light three candles: for the family, for the neighbours, and for those far away.",
+          "de": "{learner}, komm, Schatz. Leise, wir sind in der Kirche. Heute zünden wir drei Kerzen an: für die Familie, für die Nachbarn und für die, die weit weg sind."
+        },
+        {
+          "who": "rosa",
+          "face": "curious",
+          "it": "I fiammiferi sono nella mia borsa. Me li prendi tu? Io ho le mani fredde.",
+          "sl": "Vžigalice so v moji torbi. Mi jih vzameš ti? Jaz imam mrzle roke.",
+          "en": "The matches are in my bag. Will you get them for me? My hands are cold.",
+          "de": "Die Streichhölzer sind in meiner Tasche. Holst du sie mir? Ich hab kalte Hände."
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, nonna, te li prendo subito.",
+              "sl": "Ja, babica, takoj ti jih vzamem.",
+              "en": "Yes, Nonna, I'll get them for you right away.",
+              "de": "Ja, Oma, ich hol sie dir sofort.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie, tesoro. Sei sempre {m:pronto|f:pronta} ad aiutare, come il mio angelo custode.",
+                "sl": "Hvala, srček. Vedno si {m:pripravljen|f:pripravljena} pomagati, kot moj angel varuh.",
+                "en": "Thank you, sweetheart. You're always ready to help, like my guardian angel.",
+                "de": "Danke, Schatz. Du bist immer bereit zu helfen, wie mein Schutzengel."
+              }
+            },
+            {
+              "it": "Sì, nonna, ti li prendo subito.",
+              "sl": "Ja, babica, takoj ti jih vzamem.",
+              "en": "Yes, Nonna, I'll get them for you right away.",
+              "de": "Ja, Oma, ich hol sie dir sofort.",
+              "grammar": "pronomi-combinati",
+              "why": {
+                "sl": "Pred li postane ti te: te li prendo.",
+                "en": "Before li, ti becomes te: te li prendo.",
+                "de": "Vor li wird ti zu te: te li prendo."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Ti li…? Tesoro, in chiesa si sussurra, ma le parole devono essere giuste lo stesso!",
+                "sl": "Ti li …? Srček, v cerkvi se šepeta, ampak besede morajo biti vseeno prave!",
+                "en": "Ti li…? Sweetheart, in church we whisper, but the words still have to be right!",
+                "de": "Ti li …? Schatz, in der Kirche flüstert man, aber die Wörter müssen trotzdem stimmen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "rosa",
+          "it": "Il primo fiammifero si è spento subito. Lo stoppino di questa candela è troppo corto.",
+          "sl": "Prva vžigalica je takoj ugasnila. Stenj te sveče je prekratek.",
+          "en": "The first match went out at once. This candle's wick is too short.",
+          "de": "Das erste Streichholz ist gleich ausgegangen. Der Docht dieser Kerze ist zu kurz."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora provo ad accenderla con la candela vicina, quella che brucia già.",
+              "sl": "Potem jo poskusim prižgati s sosednjo svečo, tisto, ki že gori.",
+              "en": "Then I'll try lighting it from the candle next to it, the one that's already burning.",
+              "de": "Dann versuch ich sie an der Kerze daneben anzuzünden, die schon brennt.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Che idea! Una candela accende l'altra. Così fa anche la gente buona.",
+                "sl": "Kakšna ideja! Ena sveča prižge drugo. Tako delajo tudi dobri ljudje.",
+                "en": "What an idea! One candle lights the other. Good people do that too.",
+                "de": "Was für eine Idee! Eine Kerze zündet die andere an. So machen es auch gute Menschen."
+              }
+            },
+            {
+              "it": "Allora provo di accenderla con la candela vicina, quella che brucia già.",
+              "sl": "Potem jo poskusim prižgati s sosednjo svečo, tisto, ki že gori.",
+              "en": "Then I'll try lighting it from the candle next to it, the one that's already burning.",
+              "de": "Dann versuch ich sie an der Kerze daneben anzuzünden, die schon brennt.",
+              "grammar": "infinito-preposizioni",
+              "why": {
+                "sl": "Provare gre z a: provo ad accenderla (pred a postane ad).",
+                "en": "Provare takes a: provo ad accenderla (before a, ad).",
+                "de": "Provare steht mit a: provo ad accenderla (vor a wird es ad)."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Provo di…? Mmm, la candela aspetta, ma la frase non è ancora accesa.",
+                "sl": "Provo di …? Hm, sveča čaka, stavek pa še ni prižgan.",
+                "en": "Provo di…? Hmm, the candle's waiting, but the sentence isn't lit yet.",
+                "de": "Provo di …? Hm, die Kerze wartet, aber der Satz brennt noch nicht."
+              }
+            }
+          ]
+        },
+        {
+          "who": "rosa",
+          "face": "happy",
+          "it": "Ecco, tre candele accese. Adesso stiamo un minuto in silenzio, e poi a casa: la minestra è pronta.",
+          "sl": "Tako, tri sveče gorijo. Zdaj bodiva minuto tiho, potem pa domov: juha je pripravljena.",
+          "en": "There, three candles lit. Now let's be quiet for a minute, and then home: the soup is ready.",
+          "de": "So, drei Kerzen brennen. Jetzt sind wir eine Minute still, und dann nach Hause: Die Suppe ist fertig."
+        }
+      ]
+    },
+    {
+      "id": "candela-b2-campana",
+      "level": "B2",
+      "memory": {
+        "it": "la campana nuova che arrivò sul carro",
+        "sl": "novi zvon, ki je prišel na vozu",
+        "en": "the new bell that came on the cart",
+        "de": "die neue Glocke, die auf dem Wagen kam"
+      },
+      "lines": [
+        {
+          "who": "rosa",
+          "face": "thinking",
+          "it": "Sai, tesoro, la campana grande del campanile arrivò quando avevo sei anni. La portarono da Udine su un carro tirato da quattro buoi.",
+          "sl": "Veš, srček, veliki zvon v zvoniku je prišel, ko sem imela šest let. Pripeljali so ga iz Vidma na vozu, ki so ga vlekli štirje voli.",
+          "en": "You know, sweetheart, the big bell in the bell tower arrived when I was six. They brought it from Udine on a cart pulled by four oxen.",
+          "de": "Weißt du, Schatz, die große Glocke im Kirchturm kam, als ich sechs war. Man brachte sie aus Udine auf einem Wagen, den vier Ochsen zogen."
+        },
+        {
+          "who": "rosa",
+          "it": "Tutto il paese era in piazza. Il parroco disse che, se la campana fosse arrivata sana, avremmo fatto festa per tre giorni.",
+          "sl": "Vsa vas je bila na trgu. Župnik je rekel, da bomo tri dni praznovali, če bo zvon prišel cel.",
+          "en": "The whole village was on the square. The priest said that if the bell arrived safely, we'd celebrate for three days.",
+          "de": "Das ganze Dorf war auf dem Platz. Der Pfarrer sagte, wenn die Glocke heil ankäme, würden wir drei Tage feiern."
+        },
+        {
+          "choices": [
+            {
+              "it": "E la campana arrivò sana? Allora la festa si fece davvero!",
+              "sl": "Je zvon prišel cel? Potem je bil praznik res!",
+              "en": "And did the bell arrive safely? Then the party really happened!",
+              "de": "Und kam die Glocke heil an? Dann gab es das Fest wirklich!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Sanissima! E per tre giorni si mangiò, si cantò e si ballò. Io mi addormentai sotto un tavolo.",
+                "sl": "Čisto cel! In tri dni so jedli, peli in plesali. Jaz sem zaspala pod mizo.",
+                "en": "Perfectly safe! And for three days we ate, sang and danced. I fell asleep under a table.",
+                "de": "Ganz heil! Und drei Tage lang wurde gegessen, gesungen und getanzt. Ich bin unter einem Tisch eingeschlafen."
+              }
+            },
+            {
+              "it": "E la campana arrivai sana? Allora la festa si fece davvero!",
+              "sl": "Je zvon prišel cel? Potem je bil praznik res!",
+              "en": "And did the bell arrive safely? Then the party really happened!",
+              "de": "Und kam die Glocke heil an? Dann gab es das Fest wirklich!",
+              "grammar": "raccontare",
+              "why": {
+                "sl": "Govoriš o zvonu (lei): arrivò. Arrivai je jaz.",
+                "en": "You're talking about the bell (lei): arrivò. Arrivai is I.",
+                "de": "Du sprichst von der Glocke (sie): arrivò. Arrivai heißt ich."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Arrivai? Io? Non sono mica arrivata su un carro con i buoi, tesoro!",
+                "sl": "Arrivai? Jaz? Saj nisem prišla na vozu z voli, srček!",
+                "en": "Arrivai? Me? I didn't arrive on an ox cart, sweetheart!",
+                "de": "Arrivai? Ich? Ich bin doch nicht auf einem Ochsenkarren gekommen, Schatz!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "rosa",
+          "face": "curious",
+          "it": "Adesso la campana suona anche per te, ogni mezzogiorno. Secondo te, che cosa direbbe, se potesse parlare?",
+          "sl": "Zdaj zvon zvoni tudi zate, vsak dan opoldne. Kaj misliš, kaj bi rekel, če bi znal govoriti?",
+          "en": "Now the bell rings for you too, every noon. What do you think it would say, if it could talk?",
+          "de": "Jetzt läutet die Glocke auch für dich, jeden Mittag. Was würde sie sagen, meinst du, wenn sie sprechen könnte?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Direbbe: «A tavola, che la polenta si fredda!»",
+              "sl": "Rekel bi: »K mizi, da se polenta ne shladi!«",
+              "en": "It would say: «To the table, before the polenta gets cold!»",
+              "de": "Sie würde sagen: «An den Tisch, bevor die Polenta kalt wird!»",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, ah! Proprio così. Una campana friulana non può pensare ad altro!",
+                "sl": "Ha, ha! Prav tako. Furlanski zvon ne more misliti na nič drugega!",
+                "en": "Ha, ha! Exactly. A Friulian bell can't think of anything else!",
+                "de": "Ha, ha! Genau. Eine friaulische Glocke kann an nichts anderes denken!"
+              }
+            },
+            {
+              "it": "Dirà: «A tavola, che la polenta si fredda!»",
+              "sl": "Rekel bi: »K mizi, da se polenta ne shladi!«",
+              "en": "It would say: «To the table, before the polenta gets cold!»",
+              "de": "Sie würde sagen: «An den Tisch, bevor die Polenta kalt wird!»",
+              "grammar": "condizionale",
+              "why": {
+                "sl": "Rosa si to samo predstavlja (se potesse): pogojnik, direbbe. Dirà je prihodnjik.",
+                "en": "Rosa only imagines it (se potesse): the conditional, direbbe. Dirà is the future.",
+                "de": "Rosa stellt es sich nur vor (se potesse): Konditional, direbbe. Dirà ist die Zukunft."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Dirà? Allora domani la campana parla davvero? Devo venire ad ascoltarla!",
+                "sl": "Dirà? Potem bo zvon jutri res govoril? Moram ga priti poslušat!",
+                "en": "Dirà? So tomorrow the bell will really talk? I must come and listen!",
+                "de": "Dirà? Dann spricht die Glocke morgen wirklich? Da muss ich kommen und zuhören!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "rosa",
+          "face": "happy",
+          "it": "Adesso andiamo a casa, tesoro. E domani a mezzogiorno, quando suona, pensa a quei quattro buoi.",
+          "sl": "Zdaj pa domov, srček. Jutri opoldne, ko bo zvonilo, pa pomisli na tiste štiri vole.",
+          "en": "Now let's go home, sweetheart. And tomorrow at noon, when it rings, think of those four oxen.",
+          "de": "Jetzt gehen wir heim, Schatz. Und morgen Mittag, wenn sie läutet, denk an die vier Ochsen."
+        }
+      ]
+    },
+    {
+      "id": "organo-b1-coro",
+      "level": "B1",
+      "memory": {
+        "it": "il coro della domenica",
+        "sl": "nedeljski zbor",
+        "en": "the Sunday choir",
+        "de": "den Sonntagschor"
+      },
+      "lines": [
+        {
+          "who": "nives",
+          "it": "Shh, {learner}! L'organista prova i canti per domenica. Io non sento bene: che cosa ha detto al coro?",
+          "sl": "Pst, {learner}! Organist vadi pesmi za nedeljo. Jaz slabo slišim: kaj je rekel zboru?",
+          "en": "Shh, {learner}! The organist is practising the songs for Sunday. I can't hear well: what did he tell the choir?",
+          "de": "Psst, {learner}! Der Organist probt die Lieder für Sonntag. Ich hör schlecht: Was hat er dem Chor gesagt?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ha detto ai cantanti di aprire il libro a pagina dodici.",
+              "sl": "Pevcem je rekel, naj odprejo knjigo na dvanajsti strani.",
+              "en": "He told the singers to open the book at page twelve.",
+              "de": "Er hat den Sängern gesagt, sie sollen das Buch auf Seite zwölf aufschlagen.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Pagina dodici! È il mio canto preferito. Lo cantavo da ragazza.",
+                "sl": "Dvanajsta stran! To je moja najljubša pesem. Pela sem jo kot dekle.",
+                "en": "Page twelve! That's my favourite song. I sang it as a girl.",
+                "de": "Seite zwölf! Das ist mein Lieblingslied. Das hab ich als Mädchen gesungen."
+              }
+            },
+            {
+              "it": "Ha detto ai cantanti aprire il libro a pagina dodici.",
+              "sl": "Pevcem je rekel, naj odprejo knjigo na dvanajsti strani.",
+              "en": "He told the singers to open the book at page twelve.",
+              "de": "Er hat den Sängern gesagt, sie sollen das Buch auf Seite zwölf aufschlagen.",
+              "grammar": "discorso-indiretto",
+              "why": {
+                "sl": "Naročilo poveš naprej z di in nedoločnikom: ha detto di aprire.",
+                "en": "An order is passed on with di and the infinitive: ha detto di aprire.",
+                "de": "Eine Aufforderung gibst du mit di und der Grundform weiter: ha detto di aprire."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Ha detto… aprire? Aprire che cosa, la porta? Lo ripeti, per favore?",
+                "sl": "Je rekel … odpreti? Kaj odpreti, vrata? Ponoviš, prosim?",
+                "en": "He said… open? Open what, the door? Will you say it again, please?",
+                "de": "Er hat gesagt … aufmachen? Was aufmachen, die Tür? Sagst du es nochmal, bitte?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "nives",
+          "face": "curious",
+          "it": "Da giovane cantavo nel coro, sai? Se tu potessi cantare domenica, ti piacerebbe venire con me?",
+          "sl": "Ko sem bila mlada, sem pela v zboru, veš? Če bi lahko v nedeljo {m:pel|f:pela}, bi {m:šel|f:šla} z mano?",
+          "en": "When I was young I sang in the choir, you know? If you could sing on Sunday, would you like to come with me?",
+          "de": "Als ich jung war, hab ich im Chor gesungen, weißt du? Wenn du am Sonntag singen könntest, würdest du gern mitkommen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, zia, verrei volentieri! Ma tu mi aiuti con le parole.",
+              "sl": "Ja, teta, z veseljem bi {m:šel|f:šla}! Ampak ti mi pomagaj z besedami.",
+              "en": "Yes, Zia, I'd gladly come! But you help me with the words.",
+              "de": "Ja, Tante, ich würde gern mitkommen! Aber du hilfst mir mit den Wörtern.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Io con le parole, tu con le orecchie: insieme facciamo un cantante intero!",
+                "sl": "Jaz z besedami, ti z ušesi: skupaj sva cel pevec!",
+                "en": "Me with the words, you with the ears: together we make one whole singer!",
+                "de": "Ich mit den Wörtern, du mit den Ohren: Zusammen sind wir ein ganzer Sänger!"
+              }
+            },
+            {
+              "it": "Sì, zia, venirei volentieri! Ma tu mi aiuti con le parole.",
+              "sl": "Ja, teta, z veseljem bi {m:šel|f:šla}! Ampak ti mi pomagaj z besedami.",
+              "en": "Yes, Zia, I'd gladly come! But you help me with the words.",
+              "de": "Ja, Tante, ich würde gern mitkommen! Aber du hilfst mir mit den Wörtern.",
+              "grammar": "condizionale",
+              "why": {
+                "sl": "Venire ima kratek pogojnik: verrei (kot verrò).",
+                "en": "Venire has a short conditional: verrei (as in verrò).",
+                "de": "Venire hat einen kurzen Konditional: verrei (wie verrò)."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Venirei? Come? Cosa? Questa la radio non l'ha mai detta!",
+                "sl": "Venirei? Kako? Kaj? Tega radio še nikoli ni rekel!",
+                "en": "Venirei? What? What's that? The radio's never said that one!",
+                "de": "Venirei? Wie? Was? Das hat das Radio noch nie gesagt!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "nives",
+          "face": "happy",
+          "it": "Allora domenica tutti e due in chiesa, alle dieci. Lo dico due volte: alle dieci! Alle dieci!",
+          "sl": "Potem sva v nedeljo oba v cerkvi, ob desetih. Povem dvakrat: ob desetih! Ob desetih!",
+          "en": "Then on Sunday the two of us in church, at ten. I'll say it twice: at ten! At ten!",
+          "de": "Dann Sonntag wir zwei in der Kirche, um zehn. Ich sag's zweimal: um zehn! Um zehn!"
+        }
+      ]
+    },
+    {
+      "id": "organo-b2-gorizia",
+      "level": "B2",
+      "memory": {
+        "it": "il coro del duomo di Gorizia",
+        "sl": "zbor goriške stolnice",
+        "en": "the choir of Gorizia cathedral",
+        "de": "den Chor im Dom von Görz"
+      },
+      "lines": [
+        {
+          "who": "nives",
+          "face": "thinking",
+          "it": "Quando abitavo a Gorizia, cantavo nel coro del duomo. Il maestro diceva che avevo la voce più forte di tutte le contralto.",
+          "sl": "Ko sem živela v Gorici, sem pela v zboru v stolnici. Zborovodja je rekel, da imam najmočnejši glas od vseh altistk.",
+          "en": "When I lived in Gorizia, I sang in the cathedral choir. The choirmaster said I had the strongest voice of all the altos.",
+          "de": "Als ich in Görz wohnte, sang ich im Domchor. Der Chorleiter sagte, ich hätte die kräftigste Stimme aller Altistinnen."
+        },
+        {
+          "who": "nives",
+          "face": "laugh",
+          "it": "Forse per questo adesso non sento bene: avrò cantato troppo forte, per quarant'anni!",
+          "sl": "Morda zato zdaj slabo slišim: najbrž sem štirideset let pela preglasno!",
+          "en": "Maybe that's why I can't hear well now: I must have sung too loud, for forty years!",
+          "de": "Vielleicht hör ich deshalb jetzt schlecht: Ich werde vierzig Jahre zu laut gesungen haben!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora l'organo di domenica lo sentirai benissimo, anche senza la radio!",
+              "sl": "Potem boš nedeljske orgle slišala odlično, tudi brez radia!",
+              "en": "Then you'll hear Sunday's organ perfectly, even without the radio!",
+              "de": "Dann hörst du die Orgel am Sonntag bestens, auch ohne Radio!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, ah! L'organo sì: è l'unica cosa più forte della mia voce.",
+                "sl": "Ha, ha! Orgle že: to je edino, kar je glasnejše od mojega glasu.",
+                "en": "Ha, ha! The organ, yes: it's the only thing louder than my voice.",
+                "de": "Ha, ha! Die Orgel schon: Sie ist das Einzige, was lauter ist als meine Stimme."
+              }
+            },
+            {
+              "it": "Allora non hai mai cantato nel coro, zia?",
+              "sl": "Potem nisi nikoli pela v zboru, teta?",
+              "en": "So you never sang in the choir, Zia?",
+              "de": "Dann hast du nie im Chor gesungen, Tante?",
+              "why": {
+                "sl": "Nives je štirideset let pela v zboru goriške stolnice: avrò cantato je ugibanje o vzroku, ne zanikanje.",
+                "en": "Nives sang in Gorizia's cathedral choir for forty years: avrò cantato guesses the cause, it doesn't deny it.",
+                "de": "Nives hat vierzig Jahre im Domchor von Görz gesungen: avrò cantato vermutet den Grund, es verneint nichts."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Mai? Come? Cosa? Quarant'anni nel coro del duomo, {learner}! Lo dico due volte: quaranta!",
+                "sl": "Nikoli? Kako? Kaj? Štirideset let v stolničnem zboru, {learner}! Povem dvakrat: štirideset!",
+                "en": "Never? What? Forty years in the cathedral choir, {learner}! I'll say it twice: forty!",
+                "de": "Nie? Wie? Was? Vierzig Jahre im Domchor, {learner}! Ich sag's zweimal: vierzig!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "nives",
+          "face": "curious",
+          "it": "Il maestro una volta mi disse che, se avessi studiato canto a Trieste, sarei diventata famosa. Tu che dici, aveva ragione?",
+          "sl": "Zborovodja mi je nekoč rekel, da bi postala slavna, če bi študirala petje v Trstu. Kaj praviš, je imel prav?",
+          "en": "The choirmaster once told me that if I'd studied singing in Trieste, I'd have become famous. What do you say, was he right?",
+          "de": "Der Chorleiter sagte mir einmal, hätte ich in Triest Gesang studiert, wäre ich berühmt geworden. Was meinst du, hatte er recht?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Forse sì. Ma se fossi diventata famosa, non saresti qui a cantare con noi!",
+              "sl": "Morda. Ampak če bi postala slavna, ne bi bila tukaj in pela z nami!",
+              "en": "Maybe. But if you'd become famous, you wouldn't be here singing with us!",
+              "de": "Vielleicht. Aber wärst du berühmt geworden, wärst du nicht hier und würdest mit uns singen!",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "it": "Oh, {learner}! Che bella cosa da dire a una vecchia zia. Meglio qui, sì.",
+                "sl": "Oh, {learner}! Kako lepo je to reči stari teti. Bolje tukaj, ja.",
+                "en": "Oh, {learner}! What a lovely thing to say to an old aunt. Better here, yes.",
+                "de": "Oh, {learner}! Was für eine schöne Sache, das einer alten Tante zu sagen. Lieber hier, ja."
+              }
+            },
+            {
+              "it": "Forse sì. Ma se fossi diventata famosa, non avresti qui a cantare con noi!",
+              "sl": "Morda. Ampak če bi postala slavna, ne bi bila tukaj in pela z nami!",
+              "en": "Maybe. But if you'd become famous, you wouldn't be here singing with us!",
+              "de": "Vielleicht. Aber wärst du berühmt geworden, wärst du nicht hier und würdest mit uns singen!",
+              "grammar": "periodo-ipotetico-irrealta",
+              "why": {
+                "sl": "Biti tukaj je essere: saresti qui. Avresti qui ne pove ničesar.",
+                "en": "Being here is essere: saresti qui. Avresti qui says nothing.",
+                "de": "Hier sein ist essere: saresti qui. Avresti qui sagt nichts."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Non avresti… che cosa? Come? Mi manca un pezzo della frase, {learner}!",
+                "sl": "Ne bi imela … česa? Kako? Manjka mi košček stavka, {learner}!",
+                "en": "You wouldn't have… what? How's that? I'm missing a piece of the sentence, {learner}!",
+                "de": "Du hättest … was nicht? Wie? Mir fehlt ein Stück vom Satz, {learner}!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "nives",
+          "face": "happy",
+          "it": "Allora domenica cantiamo insieme, piano piano. Cioè… io forte, tu piano. Così ci sentono tutti e due!",
+          "sl": "Potem v nedeljo pojeva skupaj, tiho. Se pravi … jaz glasno, ti tiho. Tako naju bodo slišali oba!",
+          "en": "Then on Sunday we'll sing together, softly. I mean… me loud, you soft. That way they'll hear us both!",
+          "de": "Dann singen wir am Sonntag zusammen, leise. Also … ich laut, du leise. So hört man uns beide!"
         }
       ]
     }

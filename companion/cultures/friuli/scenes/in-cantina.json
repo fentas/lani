@@ -10,7 +10,7 @@
   },
   "emoji": "🍷",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, unreviewed; wine only for the grown-ups, the must (grape juice) for the child; scene-replier.md: to check",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, unreviewed; wine only for the grown-ups, the must (grape juice) for the child; scene-replier.md: to check; B1, B2 variants too",
   "art": "cellar",
   "from": [
     "house"
@@ -141,6 +141,8 @@
       "chance": 0.5,
       "dialog": "brocca",
       "dialogs": [
+        "brocca-b2-volta",
+        "brocca-b1-ordini",
         "brocca-bottiglie",
         "brocca"
       ],
@@ -170,6 +172,8 @@
       "chance": 0.45,
       "dialog": "candela",
       "dialogs": [
+        "candela-b2-confine",
+        "candela-b1-botte",
         "candela-bicchiere",
         "candela"
       ],
@@ -1396,6 +1400,465 @@
           "sl": "Hvala, {learner}. Pravi {m:vinogradnik|f:vinogradnica} si!",
           "en": "Thank you, {learner}. You're a real winemaker!",
           "de": "Danke, {learner}. Du bist {m:ein echter Winzer|f:eine echte Winzerin}!"
+        }
+      ]
+    },
+    {
+      "id": "brocca-b1-ordini",
+      "level": "B1",
+      "memory": {
+        "it": "gli ordini dei clienti che mi hai ripetuto",
+        "sl": "naročila gostov, ki si mi jih {m:ponovil|f:ponovila}",
+        "en": "the customers' orders you repeated to me",
+        "de": "die Bestellungen der Gäste, die du mir wiederholt hast"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "it": "Buongiorno, {learner}! Sono scesa in cantina di corsa: all'osteria ci sono già sei clienti, e io non ricordo più che cosa vogliono.",
+          "sl": "Dober dan, {learner}! Na hitro sem prišla dol v klet: v gostilni je že šest gostov, jaz pa se ne spomnim več, kaj hočejo.",
+          "en": "Good morning, {learner}! I rushed down to the cellar: there are already six customers in the osteria, and I can't remember what they want.",
+          "de": "Guten Morgen, {learner}! Ich bin schnell in den Keller runter: In der Osteria sitzen schon sechs Gäste, und ich weiß nicht mehr, was sie wollen."
+        },
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Tu eri al tavolo vicino alla finestra. Che cosa ti ha chiesto il signore con il cappello?",
+          "sl": "Ti si {m:bil|f:bila} pri mizi ob oknu. Kaj te je vprašal gospod s klobukom?",
+          "en": "You were at the table by the window. What did the man with the hat ask you?",
+          "de": "Du warst am Tisch beim Fenster. Was hat dich der Herr mit dem Hut gefragt?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Mi ha chiesto se oggi c'è il frico.",
+              "sl": "Vprašal me je, ali je danes frico.",
+              "en": "He asked me if there's frico today.",
+              "de": "Er hat mich gefragt, ob es heute Frico gibt.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "C'è, c'è! Il frico c'è sempre. Uno per il signore con il cappello.",
+                "sl": "Je, je! Frico je vedno. Enega za gospoda s klobukom.",
+                "en": "There is, there is! There's always frico. One for the man with the hat.",
+                "de": "Gibt's, gibt's! Frico gibt's immer. Einen für den Herrn mit dem Hut."
+              }
+            },
+            {
+              "it": "Mi ha chiesto che oggi c'è il frico.",
+              "sl": "Vprašal me je, ali je danes frico.",
+              "en": "He asked me if there's frico today.",
+              "de": "Er hat mich gefragt, ob es heute Frico gibt.",
+              "grammar": "discorso-indiretto",
+              "why": {
+                "sl": "Vprašanje z da ali ne poveš naprej s se: mi ha chiesto se.",
+                "en": "A yes-or-no question is told on with se: mi ha chiesto se.",
+                "de": "Eine Ja-Nein-Frage gibst du mit se weiter: mi ha chiesto se."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Che c'è il frico? Me l'ha chiesto o me l'ha detto? Arrivo, arrivo… ma non ho capito!",
+                "sl": "Da je frico? Me je vprašal ali mi je rekel? Že grem, že grem … ampak nisem razumela!",
+                "en": "That there's frico? Did he ask me or tell me? Coming, coming… but I didn't get it!",
+                "de": "Dass es Frico gibt? Hat er gefragt oder gesagt? Ich komm ja … aber ich hab's nicht verstanden!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "thinking",
+          "it": "E la signora con il cane? Lei mi ha detto qualcosa sulla brocca d'acqua, ma c'era troppo rumore.",
+          "sl": "Pa gospa s psom? Rekla mi je nekaj o vrču vode, ampak je bilo preveč hrupa.",
+          "en": "And the lady with the dog? She told me something about the water jug, but there was too much noise.",
+          "de": "Und die Dame mit dem Hund? Sie hat etwas vom Wasserkrug gesagt, aber es war zu laut."
+        },
+        {
+          "choices": [
+            {
+              "it": "Ha detto di portarle una brocca d'acqua fresca, per lei e per il cane.",
+              "sl": "Rekla je, naj ji prinesete vrč sveže vode, zanjo in za psa.",
+              "en": "She said to bring her a jug of cool water, for her and the dog.",
+              "de": "Sie hat gesagt, Sie sollen ihr einen Krug kühles Wasser bringen, für sie und den Hund.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Per il cane anche? Allora due ciotole: una per la signora, una per lui!",
+                "sl": "Tudi za psa? Potem dve skledici: eno za gospo, eno zanj!",
+                "en": "For the dog too? Then two bowls: one for the lady, one for him!",
+                "de": "Für den Hund auch? Dann zwei Schalen: eine für die Dame, eine für ihn!"
+              }
+            },
+            {
+              "it": "Ha detto di portarmi una brocca d'acqua fresca, per lei e per il cane.",
+              "sl": "Rekla je, naj ji prinesete vrč sveže vode, zanjo in za psa.",
+              "en": "She said to bring her a jug of cool water, for her and the dog.",
+              "de": "Sie hat gesagt, Sie sollen ihr einen Krug kühles Wasser bringen, für sie und den Hund.",
+              "grammar": "discorso-indiretto",
+              "why": {
+                "sl": "Gospa je rekla »portami« (prinesi mi); ko poveš naprej, je portarle (prinesti njej).",
+                "en": "The lady said «portami» (bring me); passed on, it's portarle (bring her).",
+                "de": "Die Dame sagte «portami» (bring mir); weitergesagt heißt es portarle (ihr bringen)."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Portarti l'acqua? A te? Ma tu non hai sete, {learner}, la signora sì!",
+                "sl": "Tebi prinesti vodo? Ti nisi {m:žejen|f:žejna}, {learner}, gospa pa je!",
+                "en": "Bring you water? But you're not the thirsty one, {learner}, the lady is!",
+                "de": "Dir Wasser bringen? Du hast doch keinen Durst, {learner}, die Dame schon!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Che memoria! Sei meglio del mio quaderno. Adesso su, di corsa: i clienti aspettano!",
+          "sl": "Kakšen spomin! Boljši si od mojega zvezka. Zdaj pa gor, hitro: gostje čakajo!",
+          "en": "What a memory! You're better than my notebook. Now up, quick: the customers are waiting!",
+          "de": "Was für ein Gedächtnis! Du bist besser als mein Heft. Jetzt rauf, schnell: Die Gäste warten!"
+        }
+      ]
+    },
+    {
+      "id": "brocca-b2-volta",
+      "level": "B2",
+      "memory": {
+        "it": "la volta di pietra della cantina",
+        "sl": "kamniti obok kleti",
+        "en": "the cellar's stone vault",
+        "de": "das Steingewölbe des Kellers"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "thinking",
+          "it": "Questa cantina l'ha scavata il bisnonno di Matteo, più di cent'anni fa. Pensa: senza macchine, solo con il piccone e le mani.",
+          "sl": "To klet je izkopal Matteov praded, pred več kot sto leti. Pomisli: brez strojev, samo s krampom in rokami.",
+          "en": "Matteo's great-grandfather dug this cellar, more than a hundred years ago. Imagine: no machines, just a pick and his hands.",
+          "de": "Diesen Keller hat Matteos Urgroßvater gegraben, vor über hundert Jahren. Stell dir vor: ohne Maschinen, nur mit Spitzhacke und Händen."
+        },
+        {
+          "who": "marisa",
+          "it": "La volta di pietra tiene fresco anche ad agosto. Se l'avessero fatta di mattoni, dicono, d'estate qui farebbe caldo come in cucina.",
+          "sl": "Kamniti obok ohranja hlad tudi avgusta. Če bi ga bili naredili iz opeke, pravijo, bi bilo tu poleti vroče kot v kuhinji.",
+          "en": "The stone vault keeps it cool even in August. If they'd made it of bricks, they say, it would be as hot as the kitchen in summer.",
+          "de": "Das Steingewölbe hält es sogar im August kühl. Hätte man es aus Ziegeln gebaut, sagt man, wäre es hier im Sommer heiß wie in der Küche."
+        },
+        {
+          "choices": [
+            {
+              "it": "Quindi è stato un bene che l'abbiano fatta di pietra, anche se ci sarà voluto molto più tempo.",
+              "sl": "Torej je bilo dobro, da so ga naredili iz kamna, čeprav je gotovo trajalo veliko dlje.",
+              "en": "So it was a good thing they made it of stone, even if it must have taken much longer.",
+              "de": "Dann war es gut, dass sie es aus Stein gemacht haben, auch wenn es sicher viel länger gedauert hat.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Molto di più: tre inverni, racconta Matteo. Ma la pietra non ha fretta, e nemmeno le cantine.",
+                "sl": "Veliko dlje: tri zime, pripoveduje Matteo. Ampak kamen se ne mudi, kleti pa tudi ne.",
+                "en": "Much longer: three winters, Matteo says. But stone's in no hurry, and nor are cellars.",
+                "de": "Viel länger: drei Winter, erzählt Matteo. Aber Stein hat keine Eile, Keller auch nicht."
+              }
+            },
+            {
+              "it": "Quindi è stato un bene che l'abbiano fatto di pietra, anche se ci sarà voluto molto più tempo.",
+              "sl": "Torej je bilo dobro, da so ga naredili iz kamna, čeprav je gotovo trajalo veliko dlje.",
+              "en": "So it was a good thing they made it of stone, even if it must have taken much longer.",
+              "de": "Dann war es gut, dass sie es aus Stein gemacht haben, auch wenn es sicher viel länger gedauert hat.",
+              "grammar": "congiuntivo-passato",
+              "why": {
+                "sl": "Deležnik se ujema z la (la volta): l'abbiano fatta.",
+                "en": "The participle agrees with la (la volta): l'abbiano fatta.",
+                "de": "Das Partizip richtet sich nach la (la volta): l'abbiano fatta."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Fatto? Il bisnonno ha fatto… che cosa? Io parlavo della volta, {learner}!",
+                "sl": "Fatto? Praded je naredil … kaj? Jaz sem govorila o oboku, {learner}!",
+                "en": "Fatto? The great-grandfather made… what? I was talking about the vault, {learner}!",
+                "de": "Fatto? Der Urgroßvater hat … was gemacht? Ich hab vom Gewölbe gesprochen, {learner}!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Oggi c'è chi vuole mettere il frigorifero in tutte le cantine. Più comodo, certo. Tu come la vedi: meglio la pietra o la macchina?",
+          "sl": "Danes nekateri hočejo dati hladilnik v vse kleti. Bolj udobno, seveda. Kaj pa ti misliš: je boljši kamen ali stroj?",
+          "en": "Today some people want a fridge in every cellar. More convenient, of course. How do you see it: better stone or the machine?",
+          "de": "Heute wollen manche in jeden Keller einen Kühlschrank stellen. Bequemer, sicher. Wie siehst du das: lieber Stein oder Maschine?"
+        },
+        {
+          "choices": [
+            {
+              "it": "La pietra, purché funzioni: non fa rumore e non consuma niente.",
+              "sl": "Kamen, samo da deluje: ne ropota in nič ne porabi.",
+              "en": "Stone, as long as it works: it makes no noise and uses nothing.",
+              "de": "Der Stein, solange er funktioniert: Er macht keinen Lärm und verbraucht nichts.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Parli come Matteo! Lui dice che la cantina respira, e il frigorifero no.",
+                "sl": "Govoriš kot Matteo! On pravi, da klet diha, hladilnik pa ne.",
+                "en": "You sound like Matteo! He says the cellar breathes, and the fridge doesn't.",
+                "de": "Du redest wie Matteo! Er sagt, der Keller atmet, und der Kühlschrank nicht."
+              }
+            },
+            {
+              "it": "La pietra, perché funzioni: non fa rumore e non consuma niente.",
+              "sl": "Kamen, samo da deluje: ne ropota in nič ne porabi.",
+              "en": "Stone, as long as it works: it makes no noise and uses nothing.",
+              "de": "Der Stein, solange er funktioniert: Er macht keinen Lärm und verbraucht nichts.",
+              "grammar": "congiunzioni-congiuntivo",
+              "why": {
+                "sl": "Perché s konjunktivom pove namen (da bi); za pogoj (samo da) rečeš purché.",
+                "en": "Perché with the congiuntivo says a purpose; for a condition (as long as), say purché.",
+                "de": "Perché mit dem Konjunktiv nennt einen Zweck; für eine Bedingung (solange) sagst du purché."
+              },
+              "reply": {
+                "face": "thinking",
+                "it": "Perché funzioni? Allora la pietra la mettiamo apposta per farla funzionare? Mmm.",
+                "sl": "Da bi delovala? Potem kamen postavimo nalašč, da bi deloval? Hm.",
+                "en": "So that it works? So we put the stone there specially to make it work? Hmm.",
+                "de": "Damit sie funktioniert? Dann legen wir den Stein extra hin, damit er funktioniert? Hm."
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Allora la volta resta com'è. E adesso su, che il frico si fredda e i clienti si arrabbiano!",
+          "sl": "Potem obok ostane, kakršen je. Zdaj pa gor, da se frico ne shladi in se gostje ne razjezijo!",
+          "en": "Then the vault stays as it is. And now up we go, before the frico gets cold and the customers get cross!",
+          "de": "Dann bleibt das Gewölbe, wie es ist. Und jetzt rauf, sonst wird der Frico kalt und die Gäste ärgern sich!"
+        }
+      ]
+    },
+    {
+      "id": "candela-b1-botte",
+      "level": "B1",
+      "memory": {
+        "it": "la botte che il nonno di Matteo aveva fatto",
+        "sl": "sod, ki ga je naredil Matteov dedek",
+        "en": "the barrel Matteo's grandfather had made",
+        "de": "das Fass, das Matteos Opa gemacht hatte"
+      },
+      "lines": [
+        {
+          "who": "matteo",
+          "it": "Ecco, la candela è accesa. Vedi quella botte grande in fondo? L'aveva fatta mio nonno, prima che nascessi io.",
+          "sl": "Tako, sveča gori. Vidiš tisti velik sod zadaj? Naredil ga je moj dedek, preden sem se rodil.",
+          "en": "There, the candle's lit. See that big barrel at the back? My grandfather had made it, before I was born.",
+          "de": "So, die Kerze brennt. Siehst du das große Fass dahinten? Das hatte mein Opa gemacht, bevor ich geboren wurde."
+        },
+        {
+          "choices": [
+            {
+              "it": "L'aveva fatta lui? Con quale legno?",
+              "sl": "Ga je naredil on? Iz katerega lesa?",
+              "en": "He'd made it himself? From which wood?",
+              "de": "Das hatte er selbst gemacht? Aus welchem Holz?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Di rovere, il legno più forte. Dentro ci dorme il vino, al fresco e al buio.",
+                "sl": "Iz hrastovine, najmočnejšega lesa. V njem spi vino, v hladu in temi.",
+                "en": "Oak, the strongest wood. The wine sleeps in it, cool and in the dark.",
+                "de": "Aus Eiche, dem stärksten Holz. Darin schläft der Wein, kühl und im Dunkeln."
+              }
+            },
+            {
+              "it": "L'era fatta lui? Con quale legno?",
+              "sl": "Ga je naredil on? Iz katerega lesa?",
+              "en": "He'd made it himself? From which wood?",
+              "de": "Das hatte er selbst gemacht? Aus welchem Holz?",
+              "grammar": "trapassato",
+              "why": {
+                "sl": "Fare ima avere: l'ha fatta, zato l'aveva fatta.",
+                "en": "Fare takes avere: l'ha fatta, so l'aveva fatta.",
+                "de": "Fare bildet mit avere: l'ha fatta, also l'aveva fatta."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "L'era fatta? Mmm, così sembra che la botte si sia fatta da sola!",
+                "sl": "L'era fatta? Hm, tako zveni, kot da se je sod naredil sam!",
+                "en": "L'era fatta? Hmm, that sounds as if the barrel made itself!",
+                "de": "L'era fatta? Hm, das klingt, als hätte sich das Fass selbst gemacht!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Il vino è per i grandi, si capisce. Ma se la botte fosse piena di succo d'uva, quanto succo ti piacerebbe bere?",
+          "sl": "Vino je za odrasle, seveda. Ampak če bi bil sod poln grozdnega soka, koliko soka bi {m:rad spil|f:rada spila}?",
+          "en": "Wine is for grown-ups, of course. But if the barrel were full of grape juice, how much juice would you like to drink?",
+          "de": "Wein ist für die Großen, klar. Aber wenn das Fass voller Traubensaft wäre, wie viel Saft würdest du gern trinken?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ne berrei un bicchiere al giorno, così durerebbe tutto l'anno!",
+              "sl": "{m:Spil|f:Spila} bi en kozarec na dan, da bi zdržal vse leto!",
+              "en": "I'd drink one glass a day, so it would last all year!",
+              "de": "Ich würde ein Glas am Tag trinken, dann würde es das ganze Jahr reichen!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Saggio! Io invece lo finirei in una settimana, e poi niente succo fino all'anno dopo!",
+                "sl": "Pametno! Jaz bi ga pa spil v enem tednu, potem pa do drugega leta nič soka!",
+                "en": "Wise! I'd finish it in a week, and then no juice till next year!",
+                "de": "Klug! Ich würde ihn in einer Woche leer trinken, und dann bis nächstes Jahr keinen Saft!"
+              }
+            },
+            {
+              "it": "Ne beverei un bicchiere al giorno, così durerebbe tutto l'anno!",
+              "sl": "{m:Spil|f:Spila} bi en kozarec na dan, da bi zdržal vse leto!",
+              "en": "I'd drink one glass a day, so it would last all year!",
+              "de": "Ich würde ein Glas am Tag trinken, dann würde es das ganze Jahr reichen!",
+              "grammar": "condizionale",
+              "why": {
+                "sl": "Bere ima kratek pogojnik: berrei (kot berrò).",
+                "en": "Bere has a short conditional: berrei (as in berrò).",
+                "de": "Bere hat einen kurzen Konditional: berrei (wie berrò)."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Beverei? Mmm, questa parola è più vecchia della botte! Riprova.",
+                "sl": "Beverei? Hm, ta beseda je starejša od soda! Še enkrat.",
+                "en": "Beverei? Hmm, that word is older than the barrel! Try again.",
+                "de": "Beverei? Hm, das Wort ist älter als das Fass! Nochmal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Bene. Adesso la candela la lasciamo qui per il vino, e noi torniamo su, al sole.",
+          "sl": "Dobro. Zdaj svečo pustiva tukaj za vino, midva pa greva gor, na sonce.",
+          "en": "Good. Now we'll leave the candle here for the wine, and we'll go back up, into the sun.",
+          "de": "Gut. Jetzt lassen wir die Kerze hier beim Wein, und wir gehen wieder rauf, in die Sonne."
+        }
+      ]
+    },
+    {
+      "id": "candela-b2-confine",
+      "level": "B2",
+      "memory": {
+        "it": "la cantina tra Gorizia e Nova Gorica",
+        "sl": "klet med Gorico in Novo Gorico",
+        "en": "the cellar between Gorizia and Nova Gorica",
+        "de": "den Keller zwischen Görz und Nova Gorica"
+      },
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "thinking",
+          "it": "Sai, {learner}, metà dell'uva di questa cantina viene dalle vigne del mio amico Marko, dall'altra parte del confine, in Brda.",
+          "sl": "Veš, {learner}, pol grozdja v tej kleti je iz vinogradov mojega prijatelja Marka, z druge strani meje, iz Brd.",
+          "en": "You know, {learner}, half the grapes in this cellar come from my friend Marko's vineyards, across the border, in Brda.",
+          "de": "Weißt du, {learner}, die Hälfte der Trauben in diesem Keller kommt aus den Weinbergen meines Freundes Marko, jenseits der Grenze, in Brda."
+        },
+        {
+          "who": "matteo",
+          "it": "Quando eravamo ragazzi, c'era ancora il confine vero, con i controlli. Se ci avessero detto che un giorno avremmo lavorato insieme, non ci avremmo creduto.",
+          "sl": "Ko sva bila fanta, je bila meja še prava, s kontrolami. Če bi nama bili rekli, da bova nekoč delala skupaj, ne bi verjela.",
+          "en": "When we were boys, there was still a real border, with checks. If someone had told us that one day we'd work together, we wouldn't have believed it.",
+          "de": "Als wir Jungen waren, gab es noch eine echte Grenze, mit Kontrollen. Hätte man uns gesagt, dass wir eines Tages zusammenarbeiten würden, hätten wir es nicht geglaubt."
+        },
+        {
+          "choices": [
+            {
+              "it": "E invece adesso il confine è solo una linea sulla carta.",
+              "sl": "Zdaj pa je meja samo črta na zemljevidu.",
+              "en": "And now the border's just a line on the map.",
+              "de": "Und jetzt ist die Grenze nur noch eine Linie auf der Karte.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Proprio così. Per l'uva, il Collio e il Brda sono una collina sola.",
+                "sl": "Prav tako. Za grozdje sta Collio in Brda en sam hrib.",
+                "en": "Exactly. For the grapes, the Collio and Brda are one single hill.",
+                "de": "Genau. Für die Trauben sind das Collio und Brda ein einziger Hügel."
+              }
+            },
+            {
+              "it": "Quindi tu e Marko non lavorate insieme?",
+              "sl": "Torej s Markom ne delata skupaj?",
+              "en": "So you and Marko don't work together?",
+              "de": "Du und Marko arbeitet also nicht zusammen?",
+              "why": {
+                "sl": "Matteo pravi, da takrat ne bi verjela; zdaj pa skupaj delata: pol grozdja je Markovega.",
+                "en": "Matteo says back then they wouldn't have believed it; now they do work together: half the grapes are Marko's.",
+                "de": "Matteo sagt, damals hätten sie es nicht geglaubt; jetzt arbeiten sie zusammen: die Hälfte der Trauben ist Markos."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Non lavoriamo insieme? Ma metà di quest'uva è sua! Te l'ho appena detto.",
+                "sl": "Ne delava skupaj? Saj je pol tega grozdja njegovega! Pravkar sem ti povedal.",
+                "en": "We don't work together? But half these grapes are his! I've just told you.",
+                "de": "Wir arbeiten nicht zusammen? Die Hälfte dieser Trauben ist doch seine! Hab ich dir gerade gesagt."
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Marko mi disse una volta: «Quando toglieranno le sbarre, verrò a trovarti in bicicletta.» Secondo te, l'ha fatto?",
+          "sl": "Marko mi je nekoč rekel: »Ko bodo odstranili zapornice, te bom prišel obiskat s kolesom.« Kaj misliš, je to naredil?",
+          "en": "Marko once told me: «When they take the barriers away, I'll come and see you by bike.» Do you think he did?",
+          "de": "Marko sagte mir einmal: «Wenn sie die Schranken wegnehmen, besuch ich dich mit dem Fahrrad.» Hat er es getan, meinst du?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sicuramente! Disse che sarebbe venuto, e un amico mantiene la parola.",
+              "sl": "Zagotovo! Rekel je, da bo prišel, in prijatelj drži besedo.",
+              "en": "Surely! He said he would come, and a friend keeps his word.",
+              "de": "Bestimmt! Er sagte, er würde kommen, und ein Freund hält sein Wort.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Il primo giorno, alle sette di mattina! Con la bicicletta e due bottiglie in mano.",
+                "sl": "Prvi dan, ob sedmih zjutraj! S kolesom in dvema steklenicama v rokah.",
+                "en": "The very first day, at seven in the morning! With his bike and two bottles in his hands.",
+                "de": "Am ersten Tag, um sieben Uhr früh! Mit dem Fahrrad und zwei Flaschen in der Hand."
+              }
+            },
+            {
+              "it": "Sicuramente! Disse che verrebbe, e un amico mantiene la parola.",
+              "sl": "Zagotovo! Rekel je, da bo prišel, in prijatelj drži besedo.",
+              "en": "Surely! He said he would come, and a friend keeps his word.",
+              "de": "Bestimmt! Er sagte, er würde kommen, und ein Freund hält sein Wort.",
+              "grammar": "discorso-indiretto-passato",
+              "why": {
+                "sl": "Prihodnost, povedana iz preteklosti, je pretekli pogojnik: disse che sarebbe venuto.",
+                "en": "A future told from the past takes the past conditional: disse che sarebbe venuto.",
+                "de": "Eine Zukunft aus der Vergangenheit erzählt steht im Konditional der Vergangenheit: disse che sarebbe venuto."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Verrebbe? Se… che cosa? Marko non mette mai un «se»: lui viene e basta!",
+                "sl": "Verrebbe? Če … kaj? Marko nikoli ne postavlja pogojev: pride in pika!",
+                "en": "Verrebbe? If… what? Marko never puts an «if»: he just comes!",
+                "de": "Verrebbe? Wenn … was? Marko macht nie ein «wenn»: Er kommt einfach!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Adesso ogni settembre facciamo la vendemmia insieme, una settimana da lui e una da me. Il confine lo attraversiamo con i cesti dell'uva.",
+          "sl": "Zdaj vsak september skupaj trgava, en teden pri njem in en teden pri meni. Mejo prečkava s koši grozdja.",
+          "en": "Now every September we do the harvest together, a week at his place and a week at mine. We cross the border with baskets of grapes.",
+          "de": "Jetzt machen wir jeden September die Weinlese zusammen, eine Woche bei ihm und eine bei mir. Die Grenze überqueren wir mit Traubenkörben."
         }
       ]
     }

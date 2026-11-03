@@ -10,7 +10,7 @@
   },
   "emoji": "🌳",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "square",
   "from": [
     "lipa",
@@ -172,6 +172,8 @@
       "chance": 0.6,
       "dialog": "panchina",
       "dialogs": [
+        "panchina-b2-tiglio",
+        "panchina-b1-caffe",
         "panchina-neve",
         "panchina-campane",
         "panchina"
@@ -250,6 +252,8 @@
       "chance": 0.5,
       "dialog": "pozzo",
       "dialogs": [
+        "pozzo-b2-acquedotto",
+        "pozzo-b1-orto",
         "pozzo-secchi",
         "pozzo-freddo",
         "pozzo"
@@ -2531,6 +2535,105 @@
             "dance": 1
           }
         }
+      ]
+    },
+    {
+      "id": "panchina-b1-caffe",
+      "level": "B1",
+      "memory": { "it": "il caffè che mi hai portato alla panchina", "sl": "kava, ki si mi jo {m:prinesel|f:prinesla} na klop", "en": "the coffee you brought me at the bench", "de": "den Kaffee, den du mir zur Bank gebracht hast" },
+      "lines": [
+        { "who": "bepi", "it": "Buongiorno, {learner}. Ogni mattina aspetto qualcuno che mi porti un caffè dall'osteria. Oggi però Tommaso è a scuola.", "sl": "Dobro jutro, {learner}. Vsako jutro čakam, da mi kdo prinese kavo iz gostilne. Danes pa je Tommaso v šoli.", "en": "Good morning, {learner}. Every morning I wait for someone to bring me a coffee from the osteria. But today Tommaso's at school.", "de": "Guten Morgen, {learner}. Jeden Morgen warte ich, dass mir jemand einen Kaffee aus der Osteria bringt. Heute ist Tommaso aber in der Schule." },
+        { "choices": [
+          { "it": "Te lo porto io, nonno! Torno subito.", "sl": "Jaz ti jo prinesem, dedek! Takoj se vrnem.", "en": "I'll bring it to you, Grandpa! Back in a minute.", "de": "Ich bring ihn dir, Opa! Bin gleich zurück.", "ok": true,
+            "reply": { "face": "happy", "it": "Che {m:caro|f:cara}! Dì a Marisa che è per il vecchio Bepi: lei sa come lo voglio.", "sl": "Kako {m:ljub|f:ljuba} si! Povej Marisi, da je za starega Bepija: ona ve, kakšno hočem.", "en": "How sweet! Tell Marisa it's for old Bepi: she knows how I like it.", "de": "Wie lieb! Sag Marisa, er ist für den alten Bepi: Sie weiß, wie ich ihn mag." } },
+          { "it": "Ti lo porto io, nonno! Torno subito.", "sl": "Jaz ti jo prinesem, dedek! Takoj se vrnem.", "en": "I'll bring it to you, Grandpa! Back in a minute.", "de": "Ich bring ihn dir, Opa! Bin gleich zurück.",
+            "grammar": "pronomi-combinati", "why": { "sl": "Pred lo postane ti te: te lo porto.", "en": "Before lo, ti becomes te: te lo porto.", "de": "Vor lo wird ti zu te: te lo porto." },
+            "reply": { "face": "curious", "it": "Ti lo…? Mmm, il caffè arriva, ma la frase è rimasta all'osteria!", "sl": "Ti lo …? Hm, kava bo prišla, stavek pa je ostal v gostilni!", "en": "Ti lo…? Hmm, the coffee's coming, but the sentence stayed at the osteria!", "de": "Ti lo …? Hm, der Kaffee kommt, aber der Satz ist in der Osteria geblieben!" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Eccoti! {m:Sei stato velocissimo|f:Sei stata velocissima}. E Marisa che cosa ti ha detto?", "sl": "Tu si! {m:Bil si zelo hiter|f:Bila si zelo hitra}. Pa kaj ti je rekla Marisa?", "en": "There you are! You were really quick. And what did Marisa say to you?", "de": "Da bist du! Du warst superschnell. Und was hat Marisa dir gesagt?" },
+        { "choices": [
+          { "it": "Ha detto che il caffè è senza zucchero, come piace a te.", "sl": "Rekla je, da je kava brez sladkorja, kot ti je všeč.", "en": "She said the coffee's without sugar, the way you like it.", "de": "Sie hat gesagt, der Kaffee ist ohne Zucker, so wie du ihn magst.", "ok": true,
+            "reply": { "face": "proud", "it": "Brava Marisa. Amaro come la vita, dolce come il paese. Ah, che buono!", "sl": "Pridna Marisa. Grenka kot življenje, sladka kot vas. Ah, kako dobra!", "en": "Good old Marisa. Bitter as life, sweet as the village. Ah, how good!", "de": "Brave Marisa. Bitter wie das Leben, süß wie das Dorf. Ah, wie gut!" } },
+          { "it": "Ha detto che il caffè è senza zucchero, come piace a me.", "sl": "Rekla je, da je kava brez sladkorja, kot ti je všeč.", "en": "She said the coffee's without sugar, the way you like it.", "de": "Sie hat gesagt, der Kaffee ist ohne Zucker, so wie du ihn magst.",
+            "grammar": "discorso-indiretto", "why": { "sl": "Marisa je rekla »come piace a lui«; tebi, nonnu, to povem: come piace a te.", "en": "Marisa said «as he likes it»; to Nonno you say: come piace a te.", "de": "Marisa sagte «wie er ihn mag»; dem Opa sagst du: come piace a te." },
+            "reply": { "face": "surprised", "it": "A te? Ma tu il caffè non lo bevi, sei troppo {m:piccolo|f:piccola}! È per me!", "sl": "Tebi? Saj ti kave ne piješ, {m:premajhen|f:premajhna} si! Zame je!", "en": "You? But you don't drink coffee, you're too little! It's for me!", "de": "Dir? Du trinkst doch keinen Kaffee, du bist zu klein! Der ist für mich!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Siediti qui con me, all'ombra del tiglio. Il caffè è per me, ma la compagnia è per tutti e due.", "sl": "Sedi sem k meni, v senco lipe. Kava je zame, družba pa za oba.", "en": "Sit here with me, in the linden's shade. The coffee's for me, but the company's for both of us.", "de": "Setz dich zu mir, in den Schatten der Linde. Der Kaffee ist für mich, aber die Gesellschaft für uns beide." }
+      ]
+    },
+    {
+      "id": "panchina-b2-tiglio",
+      "level": "B2",
+      "memory": { "it": "il vecchio tiglio della piazza e quello nuovo", "sl": "staro lipo na trgu in novo", "en": "the old linden on the square and the new one", "de": "die alte Linde auf dem Platz und die neue" },
+      "lines": [
+        { "who": "bepi", "face": "thinking", "it": "Quando ero bambino, in piazza c'era un tiglio vecchissimo. Mio padre diceva che, finché il tiglio fosse rimasto in piedi, il paese si sarebbe sempre ritrovato lì sotto.", "sl": "Ko sem bil otrok, je na trgu stala prastara lipa. Oče je rekel, da se bo vas vedno zbirala pod njo, dokler bo lipa stala.", "en": "When I was a boy, there was an ancient linden on the square. My father said that as long as the linden stood, the village would always gather under it.", "de": "Als ich ein Kind war, stand auf dem Platz eine uralte Linde. Mein Vater sagte, solange die Linde stehe, würde sich das Dorf immer darunter treffen." },
+        { "who": "bepi", "it": "Un inverno la bora la spezzò in due. Per anni la piazza rimase vuota e triste… finché non avete piantato questo tiglio giovane.", "sl": "Neko zimo jo je burja prelomila na dvoje. Leta in leta je bil trg prazen in žalosten … dokler niste posadili te mlade lipe.", "en": "One winter the bora split it in two. For years the square stayed empty and sad… until you all planted this young linden.", "de": "Eines Winters brach die Bora sie entzwei. Jahrelang blieb der Platz leer und traurig … bis ihr diese junge Linde gepflanzt habt." },
+        { "choices": [
+          { "it": "Quindi tuo padre disse che il paese si sarebbe ritrovato sotto il tiglio, e adesso succede di nuovo.", "sl": "Torej je tvoj oče rekel, da se bo vas zbirala pod lipo, in zdaj se to spet dogaja.", "en": "So your father said the village would gather under the linden, and now it's happening again.", "de": "Dein Vater sagte also, das Dorf würde sich unter der Linde treffen, und jetzt passiert es wieder.", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così. Un tiglio nuovo, e il paese è tornato. Mio padre sarebbe contento.", "sl": "Prav tako. Nova lipa, in vas se je vrnila. Moj oče bi bil vesel.", "en": "Exactly. A new linden, and the village has come back. My father would be glad.", "de": "Genau. Eine neue Linde, und das Dorf ist zurück. Mein Vater wäre froh." } },
+          { "it": "Quindi tuo padre disse che il paese si ritroverebbe sotto il tiglio, e adesso succede di nuovo.", "sl": "Torej je tvoj oče rekel, da se bo vas zbirala pod lipo, in zdaj se to spet dogaja.", "en": "So your father said the village would gather under the linden, and now it's happening again.", "de": "Dein Vater sagte also, das Dorf würde sich unter der Linde treffen, und jetzt passiert es wieder.",
+            "grammar": "discorso-indiretto-passato", "why": { "sl": "Prihodnost iz preteklosti je pretekli pogojnik: disse che si sarebbe ritrovato.", "en": "A future seen from the past takes the past conditional: disse che si sarebbe ritrovato.", "de": "Eine Zukunft aus der Vergangenheit steht im Konditional der Vergangenheit: disse che si sarebbe ritrovato." },
+            "reply": { "face": "thinking", "it": "Si ritroverebbe…? Se che cosa? Mio padre non metteva condizioni, {m:piccolo|f:piccola}: lo sapeva e basta.", "sl": "Si ritroverebbe …? Če kaj? Moj oče ni postavljal pogojev, {m:mali|f:mala}: vedel je in pika.", "en": "Si ritroverebbe…? If what? My father set no conditions, little one: he just knew.", "de": "Si ritroverebbe …? Wenn was? Mein Vater stellte keine Bedingungen, {m:Kleiner|f:Kleine}: Er wusste es einfach." } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Adesso però qualcuno dice che questo tiglio è troppo piccolo: fa ombra solo a due persone. Tu che ne pensi?", "sl": "Zdaj pa nekateri pravijo, da je ta lipa premajhna: senco daje samo dvema. Kaj ti misliš?", "en": "But now some people say this linden is too small: it only shades two people. What do you think?", "de": "Jetzt sagen aber manche, diese Linde sei zu klein: Sie gibt nur zwei Leuten Schatten. Was meinst du?" },
+        { "choices": [
+          { "it": "Che crescerà, nonno, come sono cresciuti tutti i bambini del paese! E intanto due posti bastano: uno per te e uno per me.", "sl": "Da bo zrasla, dedek, kot so zrasli vsi otroci v vasi! Medtem pa dva prostora zadostujeta: eden zate in eden zame.", "en": "That it'll grow, Grandpa, as all the village children have grown! And meanwhile two places are enough: one for you and one for me.", "de": "Dass sie wächst, Opa, so wie alle Kinder im Dorf gewachsen sind! Und bis dahin reichen zwei Plätze: einer für dich und einer für mich.", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, ah! Questa la racconto stasera. Un vecchio, un tiglio giovane e {m:un piccolo filosofo|f:una piccola filosofa}!", "sl": "Ha, ha! To povem nocoj. Starec, mlada lipa in {m:mali filozof|f:mala filozofinja}!", "en": "Ha, ha! I'll tell that one tonight. An old man, a young linden and a little philosopher!", "de": "Ha, ha! Das erzähl ich heute Abend. Ein Alter, eine junge Linde und {m:ein kleiner Philosoph|f:eine kleine Philosophin}!" } },
+          { "it": "Che va tagliato, perché un tiglio piccolo non diventa mai grande.", "sl": "Da jo je treba posekati, ker majhna lipa nikoli ne postane velika.", "en": "That it should be cut down, because a small linden never gets big.", "de": "Dass man sie fällen sollte, weil eine kleine Linde nie groß wird.",
+            "why": { "sl": "Mlada drevesa rastejo; tudi stara lipa je bila nekoč majhna.", "en": "Young trees grow; the old linden was small once too.", "de": "Junge Bäume wachsen; auch die alte Linde war einmal klein." },
+            "reply": { "face": "surprised", "it": "Tagliato? Un tiglio giovane? Ma anche quello vecchio era piccolo, una volta!", "sl": "Posekati? Mlado lipo? Saj je bila tudi stara nekoč majhna!", "en": "Cut down? A young linden? But the old one was small once too!", "de": "Fällen? Eine junge Linde? Die alte war doch auch mal klein!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Il tiglio resta, e la panchina anche. Chi va piano va sano e va lontano: anche gli alberi.", "sl": "Lipa ostane, klop tudi. Kdor počasi hodi, daleč pride: tudi drevesa.", "en": "The linden stays, and so does the bench. Slow and steady goes far: trees too.", "de": "Die Linde bleibt, und die Bank auch. Wer langsam geht, kommt weit: auch Bäume." }
+      ]
+    },
+    {
+      "id": "pozzo-b1-orto",
+      "level": "B1",
+      "memory": { "it": "l'orto della scuola annaffiato con l'acqua del pozzo", "sl": "šolski vrt, zalit z vodo iz vodnjaka", "en": "the school garden watered from the well", "de": "den Schulgarten, gegossen mit Brunnenwasser" },
+      "lines": [
+        { "who": "elena", "it": "Buongiorno, {learner}! I pomodori dell'orto della scuola hanno sete. Bisogna portare l'acqua dal pozzo prima che arrivi il caldo.", "sl": "Dober dan, {learner}! Paradižniki na šolskem vrtu so žejni. Vodo iz vodnjaka je treba prinesti, preden pride vročina.", "en": "Good morning, {learner}! The tomatoes in the school garden are thirsty. We must bring water from the well before the heat comes.", "de": "Guten Morgen, {learner}! Die Tomaten im Schulgarten haben Durst. Wir müssen Wasser vom Brunnen holen, bevor die Hitze kommt." },
+        { "who": "elena", "face": "curious", "it": "Ogni bambino porta un secchio. Ma il secchio grande è pesante. Come facciamo?", "sl": "Vsak otrok nese eno vedro. Ampak veliko vedro je težko. Kako bomo naredili?", "en": "Each child carries a bucket. But the big bucket is heavy. What shall we do?", "de": "Jedes Kind trägt einen Eimer. Aber der große Eimer ist schwer. Wie machen wir das?" },
+        { "choices": [
+          { "it": "Lo portiamo in due: io lo tengo da una parte, Lorenzo dall'altra.", "sl": "Neseva ga v dvoje: jaz ga držim na eni strani, Lorenzo na drugi.", "en": "We'll carry it in twos: I hold one side, Lorenzo the other.", "de": "Wir tragen ihn zu zweit: Ich halte ihn auf der einen Seite, Lorenzo auf der anderen.", "ok": true,
+            "reply": { "face": "happy", "it": "Ottima idea. In due il lavoro pesa la metà.", "sl": "Odlična ideja. V dvoje je delo pol lažje.", "en": "Great idea. In twos the work weighs half as much.", "de": "Tolle Idee. Zu zweit wiegt die Arbeit nur halb so viel." } },
+          { "it": "Lo lasciamo qui, così i pomodori aspettano la pioggia.", "sl": "Pustimo ga tukaj, pa naj paradižniki počakajo na dež.", "en": "We'll leave it here, and the tomatoes can wait for the rain.", "de": "Wir lassen ihn hier, dann warten die Tomaten auf den Regen.",
+            "why": { "sl": "Učiteljica pravi, da so paradižniki žejni zdaj in da je treba vodo prinesti, preden pride vročina.", "en": "The teacher says the tomatoes are thirsty now and the water must come before the heat.", "de": "Die Lehrerin sagt, die Tomaten haben jetzt Durst und das Wasser muss vor der Hitze kommen." },
+            "reply": { "face": "worried", "it": "Aspettare la pioggia? Ma oggi il cielo è azzurro, {learner}! I pomodori non ce la fanno.", "sl": "Čakati na dež? Saj je danes nebo modro, {learner}! Paradižniki tega ne bodo zdržali.", "en": "Wait for the rain? But the sky's blue today, {learner}! The tomatoes won't make it.", "de": "Auf Regen warten? Heute ist der Himmel doch blau, {learner}! Die Tomaten schaffen das nicht." } }
+        ] },
+        { "who": "elena", "face": "thinking", "it": "Brava squadra. Adesso, un'ultima domanda per casa: quando tiri su il secchio, perché lo fai piano?", "sl": "Dobra ekipa. Zdaj pa še zadnje vprašanje za domov: ko vlečeš vedro gor, zakaj to delaš počasi?", "en": "Good team. Now, one last question for homework: when you pull up the bucket, why do you do it slowly?", "de": "Gutes Team. Jetzt noch eine letzte Frage für zu Hause: Wenn du den Eimer hochziehst, warum machst du das langsam?" },
+        { "choices": [
+          { "it": "Perché, tirandolo su in fretta, l'acqua esce dal secchio.", "sl": "Ker voda pljuskne iz vedra, če ga vlečeš prehitro.", "en": "Because, pulling it up quickly, the water spills out of the bucket.", "de": "Weil, wenn man ihn schnell hochzieht, das Wasser aus dem Eimer schwappt.", "ok": true,
+            "reply": { "face": "proud", "it": "Esatto! Piano e con calma, e l'acqua arriva tutta. Come la grammatica.", "sl": "Tako je! Počasi in mirno, pa pride vsa voda gor. Kot pri slovnici.", "en": "Exactly! Slowly and calmly, and all the water arrives. Like grammar.", "de": "Genau! Langsam und ruhig, und das ganze Wasser kommt an. Wie bei der Grammatik." } },
+          { "it": "Perché, tirato su in fretta, l'acqua esce dal secchio.", "sl": "Ker voda pljuskne iz vedra, če ga vlečeš prehitro.", "en": "Because, pulling it up quickly, the water spills out of the bucket.", "de": "Weil, wenn man ihn schnell hochzieht, das Wasser aus dem Eimer schwappt.",
+            "grammar": "gerundio", "why": { "sl": "Kako to delaš, pove gerundij: tirandolo (ko ga vlečeš). Tirato je deležnik.", "en": "How you do it is the gerund: tirandolo. Tirato is the participle.", "de": "Wie du es tust, sagt das Gerundium: tirandolo. Tirato ist das Partizip." },
+            "reply": { "face": "curious", "it": "Tirato su? Chi, l'acqua o il secchio? Mmm, alla lavagna lo scriverei in un altro modo.", "sl": "Tirato su? Kdo, voda ali vedro? Hm, na tablo bi to napisala drugače.", "en": "Tirato su? Who, the water or the bucket? Hmm, on the board I'd write it differently.", "de": "Tirato su? Wer, das Wasser oder der Eimer? Hm, an der Tafel würde ich es anders schreiben." } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Benissimo. Pomodori annaffiati, compiti fatti. Adesso a scuola, suona la campanella!", "sl": "Odlično. Paradižniki zaliti, naloga narejena. Zdaj pa v šolo, zvonec zvoni!", "en": "Very good. Tomatoes watered, homework done. Now to school, the bell's ringing!", "de": "Sehr gut. Tomaten gegossen, Hausaufgabe erledigt. Jetzt ab in die Schule, die Glocke läutet!" }
+      ]
+    },
+    {
+      "id": "pozzo-b2-acquedotto",
+      "level": "B2",
+      "memory": { "it": "il pozzo di quando non c'era l'acquedotto", "sl": "vodnjak iz časov, ko ni bilo vodovoda", "en": "the well from before there was running water", "de": "den Brunnen aus der Zeit vor der Wasserleitung" },
+      "lines": [
+        { "who": "elena", "it": "Lo sai che, prima dell'acquedotto, nei paesi l'acqua si prendeva solo dai pozzi come questo? Veniva tirata su a mano, secchio dopo secchio.", "sl": "Veš, da so pred vodovodom po vaseh vodo zajemali samo iz vodnjakov, kot je ta? Vlekli so jo gor ročno, vedro za vedrom.", "en": "Did you know that before running water, villages got their water only from wells like this one? It was drawn up by hand, bucket after bucket.", "de": "Weißt du, dass man vor der Wasserleitung in den Dörfern das Wasser nur aus Brunnen wie diesem holte? Es wurde mit der Hand hochgezogen, Eimer für Eimer." },
+        { "who": "elena", "face": "thinking", "it": "Mia nonna raccontava che, a Nova Gorica, le ragazze si davano appuntamento al pozzo. Avendo un secchio in mano, avevano sempre una scusa per uscire di casa.", "sl": "Moja babica je pripovedovala, da so se dekleta v Novi Gorici dobivala pri vodnjaku. Ker so imela vedro v roki, so imela vedno izgovor, da gredo od doma.", "en": "My grandmother used to say that in Nova Gorica the girls met up at the well. Having a bucket in hand, they always had an excuse to leave the house.", "de": "Meine Oma erzählte, dass sich in Nova Gorica die Mädchen am Brunnen verabredeten. Mit einem Eimer in der Hand hatten sie immer eine Ausrede, aus dem Haus zu gehen." },
+        { "choices": [
+          { "it": "Quindi il pozzo serviva non solo per l'acqua, ma anche per parlare.", "sl": "Torej vodnjak ni bil samo za vodo, ampak tudi za pogovor.", "en": "So the well wasn't just for water, but for talking too.", "de": "Der Brunnen war also nicht nur fürs Wasser da, sondern auch zum Reden.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così. Era la radio di allora: qui si sapevano tutte le notizie, prima di Zia Nives!", "sl": "Prav tako. Bil je takratni radio: tu so se izvedele vse novice, še pred teto Nives!", "en": "Exactly. It was the radio of those days: all the news was known here, even before Zia Nives!", "de": "Genau. Er war das Radio von damals: Hier erfuhr man alle Neuigkeiten, noch vor Zia Nives!" } },
+          { "it": "Quindi le ragazze non andavano mai a prendere l'acqua.", "sl": "Torej dekleta nikoli niso hodila po vodo.", "en": "So the girls never went to fetch water.", "de": "Die Mädchen gingen also nie Wasser holen.",
+            "why": { "sl": "Dekleta so hodila po vodo; vedro jim je bilo tudi izgovor za klepet.", "en": "The girls did fetch water; the bucket was also their excuse for a chat.", "de": "Die Mädchen holten sehr wohl Wasser; der Eimer war auch ihre Ausrede zum Plaudern." },
+            "reply": { "face": "surprised", "it": "Mai? Ma no! Ci andavano anche tre volte al giorno, con una scusa diversa ogni volta.", "sl": "Nikoli? Kje pa! Hodila so tudi trikrat na dan, vsakič z drugim izgovorom.", "en": "Never? Oh no! They went up to three times a day, with a different excuse each time.", "de": "Nie? Aber nein! Sie gingen sogar dreimal am Tag, jedes Mal mit einer anderen Ausrede." } }
+        ] },
+        { "who": "elena", "face": "curious", "it": "Oggi l'acqua arriva in casa da sola, e il pozzo è quasi un monumento. Secondo te, che cosa abbiamo guadagnato e che cosa abbiamo perso?", "sl": "Danes voda sama pride v hišo, vodnjak pa je skoraj spomenik. Kaj misliš, kaj smo pridobili in kaj izgubili?", "en": "Today water comes into the house by itself, and the well is almost a monument. What do you think we've gained, and what have we lost?", "de": "Heute kommt das Wasser von allein ins Haus, und der Brunnen ist fast ein Denkmal. Was haben wir gewonnen und was verloren, meinst du?" },
+        { "choices": [
+          { "it": "Abbiamo guadagnato tempo; tuttavia abbiamo perso un posto in cui tutti si incontravano.", "sl": "Pridobili smo čas; vendar smo izgubili kraj, kjer so se vsi srečevali.", "en": "We've gained time; however, we've lost a place where everyone met.", "de": "Wir haben Zeit gewonnen; allerdings haben wir einen Ort verloren, an dem sich alle trafen.", "ok": true,
+            "reply": { "face": "proud", "it": "Una risposta da tema in classe! Ma possiamo ritrovarlo: la ricreazione la facciamo qui.", "sl": "Odgovor kot za spis v razredu! Ampak lahko ga spet najdemo: odmor bomo imeli tukaj.", "en": "An answer worthy of a class essay! But we can find it again: we'll have break time here.", "de": "Eine Antwort wie für einen Aufsatz! Aber wir können ihn wiederfinden: Die Pause machen wir hier." } },
+          { "it": "Abbiamo guadagnato tempo; anzi abbiamo perso un posto in cui tutti si incontravano.", "sl": "Pridobili smo čas; vendar smo izgubili kraj, kjer so se vsi srečevali.", "en": "We've gained time; however, we've lost a place where everyone met.", "de": "Wir haben Zeit gewonnen; allerdings haben wir einen Ort verloren, an dem sich alle trafen.",
+            "grammar": "connettivi", "why": { "sl": "Anzi gre še dlje v isto smer; izguba je nasprotje dobička, zato tuttavia.", "en": "Anzi goes further the same way; a loss is the opposite of a gain, so tuttavia.", "de": "Anzi geht weiter in dieselbe Richtung; ein Verlust ist das Gegenteil eines Gewinns, also tuttavia." },
+            "reply": { "face": "thinking", "it": "Anzi? Allora perdere un posto è ancora meglio che guadagnare tempo? Mmm, non credo.", "sl": "Anzi? Potem je izgubiti kraj še bolje kot pridobiti čas? Hm, ne verjamem.", "en": "Anzi? So losing a place is even better than gaining time? Hmm, I don't think so.", "de": "Anzi? Dann ist einen Ort zu verlieren noch besser als Zeit zu gewinnen? Hm, ich glaube nicht." } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Allora domani, alla ricreazione, tutti al pozzo. Chissà quante notizie scopriremo!", "sl": "Potem jutri med odmorom vsi k vodnjaku. Kdo ve, koliko novic bomo izvedeli!", "en": "Then tomorrow at break, everyone to the well. Who knows how much news we'll find out!", "de": "Dann morgen in der Pause alle zum Brunnen. Wer weiß, wie viele Neuigkeiten wir erfahren!" }
       ]
     }
   ]
