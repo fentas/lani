@@ -72,10 +72,11 @@ This branch wrote units 13–15 and gave 16–18 to a helper with the same brief
 
 ## Tests
 
-To be repeated by the full checks once parts a and b are integrated.
+To be repeated in full once parts a and b are integrated (the full Android suite, Python, the emulator QA are for then).
 
 - **Format:** `validateGrammar` and `validateUnit` in de, sl and en for all of it; `bunx tsc --noEmit -p .` clean.
-- **The app:** `ItalianB2cContentTest`, `ItalianCourseContentTest` (every right answer right, no distractor right or almost, every text per base), `SchoolBoardTest`, `GrammarTest`, `GradingLanguagesTest`, `GradingTest`, `IntroSpeech*`, `SentenceGrammarTest`, `CourseTest`, through lani-slot.sh. Results: the report.
+- **The smoke** (`LANI_SMOKE_PORT=10010`, `LANI_SMOKE_FRIULI_PORT=10013`, `LANI_SMOKE_TOWN_PORT=10015`, `LANI_SMOKE_DRAMA3_PORT=10028`): all 3,514 checks passed, among them the course, grammar, course-speech, friuli and prints sections and the prompt clashes. `tutor-export --check`: 89 files match the bridge.
+- **The app**, through lani-slot.sh: `ItalianB2cContentTest` (6 tests, new), `ItalianCourseContentTest`, `SchoolBoardTest`, `GrammarTest`, `GradingLanguagesTest`, `GradingTest`, `IntroSpeech*`, `SentenceGrammarTest`, `CourseTest`: 147 tests, none failed.
 - **Prints:** above.
 
 ## Voice
@@ -84,7 +85,7 @@ Nothing voiced, no credits spent. A voice build of these six units would take ab
 
 ## What's left
 
-- **Part c's integration**, when the lead says: parts a and b, then COURSE.md, the README, the page counts and the course's content test.
+- **Part c's integration**, when the lead says: parts a and b, then COURSE.md, the README, the page counts and the course's content test; the full Android suite, Python and a short emulator QA of one unit and its print, none of them run yet.
 - **The "once merged, also" column:** none of these six has an entry.
-- **`see` on these pages** can name B2's a and b pages once merged: `infinito-passato` and `gerundio-passato`, `fare-lasciare` and nothing yet.
+- **`see` on these pages** can name parts a's and b's pages once merged (`infinito-passato` and `gerundio-passato`, `relativi-il-quale` and `congiunzioni-congiuntivo`).
 - **Machine-written:** every unit and page, until a native speaker has read them.
