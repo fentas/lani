@@ -221,6 +221,17 @@ another culture's): an older app's `?arts=6` gets none of the market's levelled 
 B2 variant opens with its first line, at `level:B1` the B1 one; at `level:B1` the B2 variant asked for isn't in the scene
 and at `level:A1` the B1 one isn't: the happening's own dialog plays. Screenshots also in `$LANI_QA_LEVELS_SHOTS`.
 
+## Verified
+
+On 51b7ab99 (main e6209062 merged in, no conflicts): `bunx tsc --noEmit`; the smoke, 3,726 checks green (dialog-levels'
+25 among them); `tutor-export --check`; `check-culture` for primorska, friuli, kaernten and lakeland; the Android suite,
+4,110 tests (2 skipped, none failed); the Python suites (253 and 179). Emulator QA through `qa-slot --steps dialog-levels`
+on two synthetic learners with a market: Primorska (Slovene from English) and Friuli (Italian from German, the phone in
+sl · en), each: B2 opens Vida's or Marisa's B2 variant, B1 the B1 one, and the happening's own dialog where the variant
+asked for is above the level. Screenshots in the scratchpad's `ux-dialog-levels/` (levels-<culture>-b2, -b1,
+-b1-asked-b2, -a1-asked-b1). Not run on the emulator: Kärnten and the Lake District (the same code; their content is
+checked by the smoke and the scene tests), a tablet, a visit.
+
 ## What's left
 
 - The other 128 scenes' B1/B2 variants: the eight content writers, by this guide.
