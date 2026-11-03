@@ -74,15 +74,15 @@
     "steps": [
       {
         "say": {
-          "sl": "**should have** + deležnik pove, kaj bi bilo prav, a se ni zgodilo. **You should have told me.** (Moral{m:|f:a} bi mi povedati.) **I shouldn't have said that.** (Tega ne bi {m:smel|f:smela} reči.) Tudi **ought to have**.",
-          "de": "**should have** + Partizip sagt, was richtig gewesen wäre, aber nicht war. **You should have told me.** (Du hättest es mir sagen sollen.) **I shouldn't have said that.** (Das hätte ich nicht sagen sollen.) Auch **ought to have**.",
-          "it": "**should have** + participio dice che cosa sarebbe stato giusto, ma non è stato. **You should have told me.** (Avresti dovuto dirmelo.) **I shouldn't have said that.** (Non avrei dovuto dirlo.) Anche **ought to have**.",
-          "en": "**should have** + the participle says what was right and didn't happen. **You should have told me.** **I shouldn't have said that.** Also **ought to have**."
+          "sl": "**should have** + deležnik pove, kaj bi bilo prav, a se ni zgodilo. **You should have told me.** ({m:Moral|f:Morala} bi mi povedati.) **shouldn't have**, kaj ni bilo prav, a se je zgodilo: **I shouldn't have said that.** (Tega ne bi {m:smel|f:smela} reči.) Tudi **ought to have**.",
+          "de": "**should have** + Partizip sagt, was richtig gewesen wäre, aber nicht geschah. **You should have told me.** (Du hättest es mir sagen sollen.) **shouldn't have**, was falsch war, aber geschah: **I shouldn't have said that.** (Das hätte ich nicht sagen sollen.) Auch **ought to have**.",
+          "it": "**should have** + participio dice che cosa sarebbe stato giusto, ma non è successo. **You should have told me.** (Avresti dovuto dirmelo.) **shouldn't have**, che cosa era sbagliato, ma è successo: **I shouldn't have said that.** (Non avrei dovuto dirlo.) Anche **ought to have**.",
+          "en": "**should have** + the participle says what was right and didn't happen. **You should have told me.** (not *You should told me*) **shouldn't have** says what was wrong and did: **I shouldn't have said that.** Also **ought to have**."
         },
         "examples": [
           {
             "en": "You should have told me.",
-            "sl": "Moral{m:|f:a} bi mi povedati.",
+            "sl": "{m:Moral|f:Morala} bi mi povedati.",
             "de": "Du hättest es mir sagen sollen.",
             "it": "Avresti dovuto dirmelo."
           },
@@ -98,8 +98,8 @@
             "should have, shouldn't have",
             {
               "sl": "bilo bi prav, a se ni zgodilo",
-              "de": "wäre richtig gewesen, war aber nicht",
-              "it": "sarebbe stato giusto, ma no",
+              "de": "wäre richtig gewesen, geschah aber nicht",
+              "it": "sarebbe stato giusto, ma non è successo",
               "en": "it was right, and it didn't happen"
             },
             "You should have told me."
@@ -127,9 +127,9 @@
       {
         "say": {
           "sl": "**could have** + deležnik pove, kaj je bilo mogoče, a se ni zgodilo. **We could have gone by bus.** (Lahko bi šli z avtobusom.) Tudi kot očitek: **You could have told me!** (Lahko bi mi {m:povedal|f:povedala}!) Nikoli **can have** za preteklost.",
-          "de": "**could have** + Partizip sagt, was möglich war, aber nicht war. **We could have gone by bus.** (Wir hätten mit dem Bus fahren können.) Auch als Vorwurf: **You could have told me!** (Du hättest es mir sagen können!) Für damals nicht **can have**.",
-          "it": "**could have** + participio dice che cosa era possibile, ma non è stato. **We could have gone by bus.** (Avremmo potuto prendere l'autobus.) Anche come rimprovero: **You could have told me!** (Avresti potuto dirmelo!) Per il passato non **can have**.",
-          "en": "**could have** + the participle says what was possible and didn't happen. **We could have gone by bus.** Also to complain: **You could have told me!** For the past, not **can have**."
+          "de": "**could have** + Partizip sagt, was möglich gewesen wäre, aber nicht geschah. **We could have gone by bus.** (Wir hätten mit dem Bus fahren können.) Auch als Vorwurf: **You could have told me!** (Du hättest es mir sagen können!) Für damals nicht **can have**.",
+          "it": "**could have** + participio dice che cosa era possibile, ma non è successo. **We could have gone by bus.** (Avremmo potuto prendere l'autobus.) Anche come rimprovero: **You could have told me!** (Avresti potuto dirmelo!) Per il passato non **can have**.",
+          "en": "**could have** + the participle says what was possible and didn't happen. **We could have gone by bus.** Also to complain: **You could have told me!** (not *You can have told me*)"
         },
         "examples": [
           {
@@ -150,8 +150,8 @@
             "could have",
             {
               "sl": "bilo je mogoče, a se ni zgodilo",
-              "de": "war möglich, war aber nicht",
-              "it": "era possibile, ma no",
+              "de": "wäre möglich gewesen, geschah aber nicht",
+              "it": "era possibile, ma non è successo",
               "en": "it was possible, and it didn't happen"
             },
             "We could have gone by bus."
@@ -168,7 +168,7 @@
           "hint": "… have + …",
           "explain": {
             "sl": "**Bilo je mogoče: could have + deležnik**\n- We could have gone by bus, but we walked.",
-            "de": "**War möglich: could have + Partizip**\n- We could have gone by bus, but we walked.",
+            "de": "**Wäre möglich gewesen: could have + Partizip**\n- We could have gone by bus, but we walked.",
             "it": "**Era possibile: could have + participio**\n- We could have gone by bus, but we walked.",
             "en": "**It was possible: could have + the participle**\n- We could have gone by bus, but we walked."
           }
@@ -176,7 +176,7 @@
       },
       {
         "say": {
-          "sl": "**must have** pove, da si {m:prepričan|f:prepričana}, da se je zgodilo: **It must have been Sam.** (Gotovo je bil Sam.) **can't have**, **couldn't have**, da se ni: **It can't have been Poppy.** (To ni mogla biti Poppy.) Tudi **won't have**. Nekateri rečejo *mustn't have*; britanska pisava ima **can't have**.",
+          "sl": "**must have** pove, da si {m:prepričan|f:prepričana}, da se je zgodilo: **It must have been Sam.** (Gotovo je bil Sam.) **can't have**, **couldn't have**, da se ni: **It can't have been Poppy.** (To ni mogla biti Poppy.) Tudi **won't have**. Nekateri rečejo *mustn't have*; v britanski pisni rabi velja **can't have**.",
           "de": "**must have** sagt, dass du sicher bist, dass es so war: **It must have been Sam.** (Es muss Sam gewesen sein.) **can't have**, **couldn't have**, dass es nicht so war: **It can't have been Poppy.** (Das kann nicht Poppy gewesen sein.) Auch **won't have**. Manche sagen *mustn't have*; britisch geschrieben gilt **can't have**.",
           "it": "**must have** dice che sei sicur{m:o|f:a} che è stato così: **It must have been Sam.** (Dev'essere stato Sam.) **can't have**, **couldn't have**, che non è stato così: **It can't have been Poppy.** (Non può essere stata Poppy.) Anche **won't have**. Alcuni dicono *mustn't have*; lo scritto britannico vuole **can't have**.",
           "en": "**must have** says you're sure it did happen: **It must have been Sam.** **can't have**, **couldn't have**, that it didn't: **It can't have been Poppy.** Also **won't have**. Some people say *mustn't have*; British writing wants **can't have**."
@@ -201,7 +201,7 @@
             {
               "sl": "gotovo se je zgodilo",
               "de": "sicher war es so",
-              "it": "sicuramente è così",
+              "it": "sicuramente è stato così",
               "en": "I'm sure it did"
             },
             "It must have been Sam."
@@ -220,7 +220,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "past-modals",
-          "text": "Poppy was at school, so it ___ (be) her.",
+          "text": "Poppy was at school, so it ___ (can't, be) her.",
           "accept": [
             "can't have been",
             "couldn't have been",
@@ -278,11 +278,11 @@
         "ask": {
           "type": "choice",
           "grammar": "past-modals",
-          "prompt": "I don't know who it was. It ___ been the wind.",
+          "prompt": "I don't know what it was. It ___ been the wind.",
           "options": [
             "might have",
             "might has",
-            "might"
+            "might be"
           ],
           "answer": 0,
           "say_options": true,
@@ -296,7 +296,7 @@
       },
       {
         "say": {
-          "sl": "**needn't have**: {m:storil|f:storila} si, a ni bilo treba: **I needn't have run.** (Ni mi bilo treba teči.) Tekel{m:|f:a} sem. **didn't need to** pove le, da ni bilo treba: **I didn't need to run, so I walked.** (Ni mi bilo treba teči, zato sem {m:šel|f:šla} peš.)",
+          "sl": "**needn't have**: {m:storil|f:storila} si, a ni bilo treba: **I needn't have run.** (Ne bi mi bilo treba teči.) {m:Tekel|f:Tekla} sem. **didn't need to** pove le, da ni bilo treba: **I didn't need to run, so I walked.** (Ni mi bilo treba teči, zato sem {m:šel|f:šla} peš.)",
           "de": "**needn't have**: Du hast es getan, unnötig: **I needn't have run.** (Ich hätte nicht laufen müssen.) Ich bin gelaufen. **didn't need to** sagt nur, dass es nicht nötig war: **I didn't need to run, so I walked.** (Ich musste nicht laufen, also ging ich zu Fuß.)",
           "it": "**needn't have**: l'hai fatto, ma non serviva: **I needn't have run.** (Non c'era bisogno che corressi.) Ho corso. **didn't need to** dice solo che non serviva: **I didn't need to run, so I walked.** (Non avevo bisogno di correre, quindi ho camminato.)",
           "en": "**needn't have**: you did it, and it wasn't necessary: **I needn't have run.** **didn't need to** says only that it wasn't necessary: **I didn't need to run, so I walked.**"
@@ -304,7 +304,7 @@
         "examples": [
           {
             "en": "I needn't have run.",
-            "sl": "Ni mi bilo treba teči.",
+            "sl": "Ne bi mi bilo treba teči.",
             "de": "Ich hätte nicht laufen müssen.",
             "it": "Non c'era bisogno che corressi."
           },
@@ -319,7 +319,7 @@
           [
             "needn't have",
             {
-              "sl": "storil si, a ni bilo treba",
+              "sl": "{m:storil|f:storila} si, a ni bilo treba",
               "de": "du hast es getan, unnötig",
               "it": "l'hai fatto, ma non serviva",
               "en": "you did it, and it wasn't necessary"
@@ -352,7 +352,7 @@
             "en": "you ran"
           },
           "explain": {
-            "sl": "**Storil si, a ni bilo treba: needn't have**\n- I needn't have run.",
+            "sl": "**{m:Storil|f:Storila} si, a ni bilo treba: needn't have**\n- I needn't have run.",
             "de": "**Getan, aber unnötig: needn't have**\n- I needn't have run.",
             "it": "**L'hai fatto, ma non serviva: needn't have**\n- I needn't have run.",
             "en": "**You did it, and it wasn't necessary: needn't have**\n- I needn't have run."
@@ -361,7 +361,7 @@
       },
       {
         "say": {
-          "sl": "Vedno **have** + deležnik: **You should have gone.** (Moral{m:|f:a} bi iti.) V govoru **should've**, **could've**, **must've**, sliši se kot *shoulda*, *coulda*, *musta*, zato ljudje pišejo tudi *should of*. Marsikdo reče tudi *should have went*. Pisno velja **should have gone**.",
+          "sl": "Vedno **have** + deležnik: **You should have gone.** ({m:Moral|f:Morala} bi iti.) V govoru **should've**, **could've**, **must've**, sliši se kot *shoulda*, *coulda*, *musta*, zato ljudje pišejo tudi *should of*. Marsikdo reče tudi *should have went*. Pisno velja **should have gone**.",
           "de": "Immer **have** + Partizip: **You should have gone.** (Du hättest gehen sollen.) Gesprochen **should've**, **could've**, **must've**, es klingt wie *shoulda*, *coulda*, *musta*, darum schreibt man auch *should of*. Manche sagen auch *should have went*. Geschrieben gilt **should have gone**.",
           "it": "Sempre **have** + participio: **You should have gone.** (Saresti dovut{m:o|f:a} andare.) A voce **should've**, **could've**, **must've**, suona come *shoulda*, *coulda*, *musta*, perciò si scrive anche *should of*. Alcuni dicono anche *should have went*. Per iscritto vale **should have gone**.",
           "en": "Always **have** + the participle: **You should have gone.** In talk **should've**, **could've**, **must've**, which sound like *shoulda*, *coulda*, *musta*, so people also write *should of*. Some people also say *should have went*. Writing wants **should have gone**."
@@ -369,7 +369,7 @@
         "examples": [
           {
             "en": "You should have gone.",
-            "sl": "Moral{m:|f:a} bi iti.",
+            "sl": "{m:Moral|f:Morala} bi iti.",
             "de": "Du hättest gehen sollen.",
             "it": "Saresti dovut{m:o|f:a} andare."
           },
@@ -532,7 +532,7 @@
               "label": {
                 "sl": "gotovo se je zgodilo",
                 "de": "sicher war es so",
-                "it": "sicuramente è così",
+                "it": "sicuramente è stato così",
                 "en": "I'm sure it did"
               },
               "words": [
@@ -620,7 +620,7 @@
             "en": "Fill in"
           },
           "title": "The sheep on the road",
-          "text": "— The sheep are all over the road! Someone ___ (must, leave) the gate open. — It ___ (can't, be) Poppy: she was at school. — It ___ (might, be) the wind. — The wind doesn't lift a latch. It ___ (must, be) Sam: he was here with the van. — You ___ (should, ask) him, then. — Well, you ___ (could, tell) me earlier! I ___ (needn't, run) all the way here: Meg has brought them back.",
+          "text": "— The sheep were all over the road this morning! Someone ___ (must, leave) the gate open. — It ___ (can't, be) Poppy: she was at school. — It ___ (might, be) the wind. — The wind doesn't lift a latch. It ___ (must, be) Sam: he was here with the van. — You ___ (should, ask) him, then. Meg has brought them back, anyway. — Well, you ___ (could, tell) me! I ___ (needn't, run) all the way here.",
           "gaps": [
             {
               "accept": [
@@ -715,10 +715,10 @@
             "must has left"
           ],
           "translation": {
-            "sl": "— Ovce so po vsej cesti! Nekdo je gotovo pustil vrata odprta. — To ni mogla biti Poppy: bila je v šoli. — Morda je bil veter. — Veter ne dvigne zapaha. Gotovo je bil Sam: bil je tu s kombijem. — Moral bi ga vprašati. — No, lahko bi mi povedal prej! Ni mi bilo treba teči vso pot sem: Meg jih je pripeljala nazaj.",
-            "de": "— Die Schafe sind überall auf der Straße! Jemand muss das Tor offen gelassen haben. — Das kann nicht Poppy gewesen sein: Sie war in der Schule. — Vielleicht war es der Wind. — Der Wind hebt keine Klinke. Es muss Sam gewesen sein: Er war mit dem Lieferwagen da. — Dann hättest du ihn fragen sollen. — Na, das hättest du mir früher sagen können! Ich hätte nicht den ganzen Weg laufen müssen: Meg hat sie zurückgebracht.",
-            "it": "— Le pecore sono per tutta la strada! Qualcuno dev'aver lasciato aperto il cancello. — Non può essere stata Poppy: era a scuola. — Forse è stato il vento. — Il vento non alza un chiavistello. Dev'essere stato Sam: era qui col furgone. — Allora avresti dovuto chiederglielo. — Be', avresti potuto dirmelo prima! Non c'era bisogno che corressi fin qui: Meg le ha riportate indietro.",
-            "en": "— The sheep are all over the road! Someone must have left the gate open. — It can't have been Poppy: she was at school. — It might have been the wind. — The wind doesn't lift a latch. It must have been Sam: he was here with the van. — You should have asked him, then. — Well, you could have told me earlier! I needn't have run all the way here: Meg has brought them back."
+            "sl": "— Davi so bile ovce po vsej cesti! Nekdo je gotovo pustil vrata odprta. — To ni mogla biti Poppy: bila je v šoli. — Morda je bil veter. — Veter ne dvigne zapaha. Gotovo je bil Sam: bil je tu s kombijem. — Moral bi ga vprašati. Meg jih je tako ali tako pripeljala nazaj. — No, lahko bi mi povedal! Ne bi mi bilo treba teči vso pot sem.",
+            "de": "— Heute früh waren die Schafe überall auf der Straße! Jemand muss das Tor offen gelassen haben. — Das kann nicht Poppy gewesen sein: Sie war in der Schule. — Vielleicht war es der Wind. — Der Wind hebt keinen Riegel. Es muss Sam gewesen sein: Er war mit dem Lieferwagen da. — Dann hättest du ihn fragen sollen. Meg hat sie ohnehin zurückgebracht. — Na, das hättest du mir sagen können! Ich hätte nicht den ganzen Weg laufen müssen.",
+            "it": "— Stamattina c'erano pecore su tutta la strada! Qualcuno dev'aver lasciato aperto il cancello. — Non può essere stata Poppy: era a scuola. — Forse è stato il vento. — Il vento non alza un chiavistello. Dev'essere stato Sam: era qui col furgone. — Allora avresti dovuto chiederglielo. Tanto Meg le ha riportate indietro. — Be', avresti potuto dirmelo! Non c'era bisogno che corressi fin qui.",
+            "en": "— The sheep were all over the road this morning! Someone must have left the gate open. — It can't have been Poppy: she was at school. — It might have been the wind. — The wind doesn't lift a latch. It must have been Sam: he was here with the van. — You should have asked him, then. Meg has brought them back, anyway. — Well, you could have told me! I needn't have run all the way here."
           }
         },
         {
@@ -887,7 +887,7 @@
             }
           ],
           "explain": {
-            "sl": "**Storil si, a ni bilo treba: needn't have**\n- I needn't have taken an umbrella.",
+            "sl": "**{m:Storil|f:Storila} si, a ni bilo treba: needn't have**\n- I needn't have taken an umbrella.",
             "de": "**Getan, aber unnötig: needn't have**\n- I needn't have taken an umbrella.",
             "it": "**L'hai fatto, ma non serviva: needn't have**\n- I needn't have taken an umbrella.",
             "en": "**You did it, and it wasn't necessary: needn't have**\n- I needn't have taken an umbrella."
@@ -931,7 +931,8 @@
           },
           {
             "accept": [
-              "must have been"
+              "must have been",
+              "must be"
             ],
             "spoken": [
               "musta been"
@@ -949,7 +950,8 @@
               "couldn't have been",
               "mustn't have been",
               "must not have been",
-              "won't have been"
+              "won't have been",
+              "can't be"
             ],
             "hint": {
               "sl": "gotovo ne",
@@ -972,9 +974,9 @@
           }
         ],
         "translation": {
-          "sl": "— Moral bi mi povedati, da je kombi pokvarjen. V tem času bi lahko šel peš v Keswick! — Gotovo je bil akumulator. — To ne more biti akumulator: je nov. — No, potem mi ga danes zjutraj ni bilo treba umiti.",
+          "sl": "— Moral bi mi povedati, da je kombi pokvarjen. V tem času bi lahko šel peš v Keswick! — Gotovo je bil akumulator. — To ni mogel biti akumulator: je nov. — No, potem mi ga danes zjutraj ne bi bilo treba umiti.",
           "de": "— Du hättest mir sagen sollen, dass der Lieferwagen kaputt ist. In der Zeit hätte ich nach Keswick gehen können! — Es muss die Batterie gewesen sein. — Die Batterie kann es nicht gewesen sein: Sie ist neu. — Na, dann hätte ich ihn heute früh nicht waschen müssen.",
-          "it": "— Avresti dovuto dirmi che il furgone era rotto. In quel tempo avrei potuto andare a piedi a Keswick! — Dev'essere stata la batteria. — Non può essere stata la batteria: è nuova. — Be', allora stamattina non c'era bisogno che lo lavassi.",
+          "it": "— Avresti dovuto dirmi che il furgone era rotto. In tutto quel tempo sarei potuto andare a piedi a Keswick! — Dev'essere stata la batteria. — Non può essere stata la batteria: è nuova. — Be', allora stamattina non c'era bisogno che lo lavassi.",
           "en": "— You should have told me the van was broken. I could have walked to Keswick in that time! — It must have been the battery. — It can't have been the battery: it's new. — Well, I needn't have washed it this morning, then."
         }
       },
@@ -1064,7 +1066,7 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "sl": "**Storil si, a ni bilo treba: needn't have**\n- You needn't have shouted.",
+          "sl": "**{m:Storil|f:Storila} si, a ni bilo treba: needn't have**\n- You needn't have shouted.",
           "de": "**Getan, aber unnötig: needn't have**\n- You needn't have shouted.",
           "it": "**L'hai fatto, ma non serviva: needn't have**\n- You needn't have shouted.",
           "en": "**You did it, and it wasn't necessary: needn't have**\n- You needn't have shouted."
