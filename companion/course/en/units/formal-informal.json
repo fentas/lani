@@ -319,12 +319,11 @@
         ],
         "rows": [["lift, flat, lorry", { "sl": "britansko", "de": "britisch", "it": "britannico", "en": "British" }, "elevator, apartment, truck"]],
         "ask": {
-          "type": "choice",
+          "type": "cloze",
           "grammar": "formal-informal",
-          "prompt": "An American guest asks for the elevator. In Britain it's the ___.",
-          "options": ["lift", "flat", "lorry"],
-          "answer": 0,
-          "say_options": true,
+          "text": "An American guest asks for the elevator. In Britain it's the ___.",
+          "accept": ["lift"],
+          "hint": { "sl": "dvigalo", "de": "Aufzug", "it": "ascensore", "en": "it goes up and down" },
           "explain": {
             "sl": "**Britansko: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
             "de": "**Britisch: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
