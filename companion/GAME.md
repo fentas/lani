@@ -1740,8 +1740,14 @@ Primorska's corner has, besides what the chest holds, Babica Micka's morning ("J
 A1: she gets up at six, bakes bread, Luka comes by with the sheep), Vinar Marko's letter ("Pismo od Marka · A letter
 from Marko", A1: an invitation to the grape harvest on Saturday) and Stari Janez on the bora ("Burja · The bora", A2:
 the stones on the roofs, the clear sky after it, the pršut it dries); each with five questions, one of every type, and
-five or six new words. The chest's readings have their questions' types, a true/false statement (the potica: a word in
-context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
+five or six new words. Above them, for a learner on the way to B2 (readings-primorska): Vinar Marko on the osmica ("Osmica",
+B1: Joseph II's eight days of 1784, the green branches at the crossroads, the long table), Ančka's radio piece on Nova
+Gorica and Gorizia ("Dve mesti, en trg · Two towns, one square", B2: the border of 1947 across the station square, Ravnikar's
+new town, the fence down in 2004, GO! 2025), Stari Janez on what his grandfather told him of the Isonzo Front ("Soška
+fronta", B2: Sabotin, the twelve battles, Kobarid, the Walk of Peace) and Mojca's letter from the carnival in Cerkno ("Pismo
+iz Cerknega · A letter from Cerkno", B2: the laufarji's wooden masks, the Pust of moss, his trial and sentence); each with
+five questions, one of every type, and seven or eight new words. The chest's readings have their questions' types, a
+true/false statement (the potica: a word in context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
 readings say so in their `review`). Friuli's corner has as many, nine: besides Nonna Rosa's recipes and Nonno Bepi's
 books, Tommaso's letter and Giulia's trip to Aquileia (A1), the Tagliamento and the cjarsons (A2), the pilgrims of
 Monte Lussari (B1), each with five questions of every type (see "The friuli pack"). The Lake District's has nine too:

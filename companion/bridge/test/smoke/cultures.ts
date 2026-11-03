@@ -620,6 +620,14 @@ export default async function cultures() {
   const kr = cultureReadings(culturesDir, 'kaernten', 'de')
   check("kaernten's nine readings (the chest's four, the corner's five newer) are in German with Slovene, English and Italian on every line", kr.errors.length === 0 && kr.readings.size === 9 && [...kr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.de && t.sl && t.en && t.it)), kr.errors)
 
+  const byLevel = (lv: string) => [...pr.readings.values()].filter(r => r.level === lv).map(r => r.id).sort().join()
+  check(
+    "primorska's readings go to B2 (readings-primorska): three at B1 and three at B2, every line in Slovene, English, German and Italian, each newer one with every question type",
+    pr.errors.length === 0 && byLevel('B1') === 'osmica,potica,zdravljica' && byLevel('B2') === 'dve-mesti-en-trg,pismo-iz-cerknega,soska-fronta' &&
+      [...pr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.sl && t.en && t.de && t.it)) &&
+      ['osmica', 'dve-mesti-en-trg', 'pismo-iz-cerknega', 'soska-fronta'].every(id => new Set(pr.readings.get(id)?.questions.map(q => q.type)).size === 5),
+    [pr.errors, byLevel('B1'), byLevel('B2')],
+  )
   const badReads = tempDir('lani-smoke-readings-')
   cpSync(join(culturesDir, 'primorska'), join(badReads, 'primorska'), { recursive: true })
   const frtalja = JSON.parse(readFileSync(join(badReads, 'primorska/readings/frtalja.json'), 'utf8'))

@@ -145,6 +145,23 @@ class ReadingsTest {
         assertEquals(listOf("mrs-heelis-farms"), lib.filter { it.level == "B1" }.map { it.id })
     }
 
+    @Test fun `Jan's corner goes to B2, three readings at B1 and three at B2 at least, every question type and new words in the newer ones`() {
+        val lib = Cultures.library("primorska")
+        val newer = listOf("dve-mesti-en-trg", "osmica", "pismo-iz-cerknega", "soska-fronta")
+        assertEquals(listOf("osmica", "potica", "zdravljica"), lib.filter { it.level == "B1" }.map { it.id }.sorted())
+        assertEquals(listOf("dve-mesti-en-trg", "pismo-iz-cerknega", "soska-fronta"), lib.filter { it.level == "B2" }.map { it.id }.sorted())
+        for (r in lib.filter { it.id in newer }) {
+            assertEquals(r.id, Readings.QUESTION_TYPES.toSet(), r.questions.mapNotNull { it.type }.toSet())
+            assertTrue(r.id, r.words.size in 6..Readings.MAX_WORDS && r.machineWritten == true)
+            // longer a level up: B1 about 200 words, B2 250 and more
+            val words = Readings.length(r, si.lanisce.lani.l10n.Lang.SL)
+            assertTrue("${r.id}: $words words", if (r.level == "B1") words in 170..260 else words in 220..360)
+        }
+        // a B2 learner's corner starts with them
+        val order = Readings.corner(lib, "B2", read = emptySet(), lang = si.lanisce.lani.l10n.Lang.SL)
+        assertEquals(setOf("dve-mesti-en-trg", "pismo-iz-cerknega", "soska-fronta"), order.take(3).map { it.id }.toSet())
+    }
+
     @Test fun `a reading's length is its words to read, and about how long they take at its level`() {
         val frtalja = Cultures.load("primorska").readings.getValue("frtalja")
         val words = Readings.length(frtalja, si.lanisce.lani.l10n.Lang.SL)
