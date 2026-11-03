@@ -16042,9 +16042,10 @@ def practice_it_b2():
     assert tile, "the ✨ tile"
     snap("home-challenges")
     tap_at(tile)
-    assert scroll_to(first["title"][:24], 10), f"the sheet lists {first['title']}"
+    row = scroll_to(first["title"][:24], 10, bottom=2250)  # the sheet's last row: no tutor bar over it
+    assert row, f"the sheet lists {first['title']}"
     snap("challenges-sheet")
-    tap(first["title"][:24], 4)
+    tap_at(row)
     spec = dev_bridge(f"/modules/{first['id']}")
     told = [spec["quest"]["story"].split(" · ")[1][:24], (spec.get("description") or "")[:24]]
     assert wait_for(told[0], 12) or wait_for(told[1], 3), f"the module's card, in German: {told}"

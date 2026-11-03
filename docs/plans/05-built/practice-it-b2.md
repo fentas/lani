@@ -35,6 +35,9 @@ files say so in `review`. No ElevenLabs call was made.
 - fare-lasciare-passivo: `Ti lo`, `faccio gliela`, `gli la faccio`, `è venuto riparato`, `viene aperto` for la fucina. Nothing has si +
   a singular verb with a plural object (`si vende le uova`): if that is a spoken form, nothing grades it.
 - lettera-al-sindaco: `Ti scrivo` to the mayor is **almost**; `A causa di piove`, `perché la pioggia`; `la cui`/`i cui` for il vino.
+- racconta-come-ando: `Ieri andai al mercato` is **right** (the South's remoto for yesterday, as the page says); `fondorono`, `io
+  andò`, `dissi` for il re, `fu`/`fummo` for i due fratelli, `ebbi`/`avesse` for il gatto, `dormirono` after mentre; is "i due fratelli
+  furono di nuovo a casa" natural, or would a teller say erano? "Un giorno il re fa una grande festa" is accepted (telling in the present).
 
 **Italian, lines to read:** "Spero che la torta vi sia piaciuta"; "Dubito che ieri le pecore abbiano mangiato tutta l'erba"; "Alle
 otto pensavo che Davide fosse già partito, invece era ancora qui"; "Credevo che fosse un drago, invece era una nuvola"; "Ti do l'uva,
@@ -58,18 +61,18 @@ conditional; "Sehr geehrter Herr Bürgermeister" assumes a man (the course says 
 **Slovene (Jan's wife, with fran.si for what is standard):** the conditional without *bil* ("Če bi se Lorenzo naučil poštevanko, bi
 jo zdaj znal"; "če bi takrat imel čas, bi prišel" to tell the past one apart); "Da le ne bi deževalo do trgatve!"; "Ko bi le sijalo
 sonce!"; "Brunu pomaga Lorenzo" for si fa aiutare (the course's choice); "Po poročanju radia naj bi župan kupil traktor"; šagra,
-Čedad; "pomanjševalnice"; the lexicon's "vasica – v zgodbah" (villaggio), "majhen kozarec" (bicchierino), "spet se vrniti" (ritornare).
+Čedad; "pomanjševalnice"; "spet sta bila doma" (the dual), "Kot mladenič je Bepi z očetom šel v Trst"; the lexicon's "vasica – v zgodbah" (villaggio), "majhen kozarec" (bicchierino), "spet se vrniti" (ritornare).
 
 ## What was missing (verified on f9339ab8)
 
 | | Before | Now |
 |---|---|---|
-| Modules (`companion/modules/it`) | 21: A1 8, A2 8, B1 5; none at B2 | 29: B2 8 (orders 1–8) |
+| Modules (`companion/modules/it`) | 21: A1 8, A2 8, B1 5; none at B2 | 30: B2 9 (orders 1–9) |
 | 🔄 Transformations | 13 sets, 251 items, A1–B1 | 22 sets, 384 items: B1 4 sets (+ passato remoto, si impersonale), B2 7 sets, 104 items |
 | ⚡ Rapid fire | 8 sets, A1 only | 16 sets: A2 2, B1 2, B2 4 (131 listed items more) |
 | 🧱 Sentence building | 80 builds, A1–B1 | 96: B2 16 |
 | 🕵️ Riddles | 58, A1–A2 | 82: B1 13, B2 11 |
-| B2 grammar pages naming a module | 0 of 18 | 17 of 18 (not `raccontare`) |
+| B2 grammar pages naming a module | 0 of 18 | 18 of 18 |
 
 None of it was there already.
 
@@ -85,11 +88,12 @@ None of it was there already.
 | 6 | `avendo-finito` | Mugnaio Franco 🧑‍🌾 | gerundio-passato, infinito-passato, participio-assoluto | avendo mangiato, essendosi alzato, dopo essere tornati, finita la vendemmia, pur avendo |
 | 7 | `fare-lasciare-passivo` | Fabbro Bruno ⚒️ | fare-lasciare, passivo-venire-andare | te lo faccio vedere, lasciami provare, si fa aiutare; viene aperta, vanno lavati, si vendono |
 | 8 | `lettera-al-sindaco` | Ostessa Marisa 🍷 | connettivi, relativi-il-quale, alterati | a letter to the mayor: Le scrivo, tuttavia, anzi, La ringrazio; il cui, dalla quale, chiunque venga; pentolone |
+| 9 | `racconta-come-ando` | Lorenzo 👦 | raccontare, passato-remoto | a story for Lorenzo: disse, furono, ebbe, prese, vennero, dormimmo, fece; mentre + the picture; the presente storico; the prossimo accepted everywhere |
 
 Each has twelve exercises (choice with its options read aloud, multi, cloze with a hint, reorder with distractors, translate, speak
 with `show: false`), each naming its page, every text the learner reads in `de`, `sl` and `en`, the learner's gender as `{m:…|f:…}`
-where a form agrees with them. The quest is a request from its giver, stone 60 and wisdom 10, as B1's. Four of the givers had no
-module before (Aldo, Matteo, Tommaso, Nives).
+where a form agrees with them. The quest is a request from its giver, stone 60 and wisdom 10, as B1's. Five of the givers had no
+module before (Aldo, Matteo, Tommaso, Nives, Lorenzo).
 
 **How the gaps were chosen.** A spoken form is never wrong (followups-10/12), and Italian speech often uses the indicative where
 writing wants the subjunctive. So a gap uses a trigger without a spoken indicative (dubito che, volere che, prima che, senza che,
@@ -98,7 +102,13 @@ a wrong option is wrong Italian or wrong by its own sentence. Where tu's present
 aiuti, tu ti lavi), the item asks another person.
 
 **The pages.** Each B2 page now names the module with two or more of its exercises (`modules`), so its "🎯 Vadi · Practise" runs them
-and playing the module unlocks it (GAME.md "The grammar book"); periodo-ipotetico names se-avessi beside condizionale-se.
+and playing the module unlocks it (GAME.md "The grammar book"); periodo-ipotetico names se-avessi beside condizionale-se, passato-remoto
+racconta-come-ando beside trapassato-remoto.
+
+**Telling a story** follows the page `raccontare`: the remoto for what is far, the prossimo for what is near and, in Friuli, nearly
+always; the South has the remoto for yesterday too; none is wrong. So racconta-come-ando's gaps and its translation accept the prossimo
+(dormimmo or abbiamo dormito), its multi has five right ways to tell, and a wrong option is only a wrong form or person (dissi for
+il re, fondorono).
 
 ## The drills
 
@@ -141,8 +151,8 @@ changes what comes next for existing learners above A1.
 ## The words
 
 `lexicon-build --coverage --lang it`: before 99.8 % of tokens, 97.8 % of the different words (115 none knows); with the new modules
-and before the lexicon, 97.3 % (145); after, 99.8 % and 97.7 % (125: the ten left are the modules' sounds and the wrong form
-`lasciomi`, which stays out). The coverage doesn't count the drills: a scan of their new texts against the supplement, the pack
+and before the lexicon, 97.3 % (145); after, with the ninth module too, 99.8 % and 97.8 % (116: the baseline's and the two wrong
+forms `lasciomi` and `fondorono`, which stay out). The coverage doesn't count the drills: a scan of their new texts against the supplement, the pack
 words and the cast found 59 unknown and finds none now. `it_cov_build.py` run from 45924165's file kept 98 more forms of entries it
 already has; the table `it_cov_60_practice_b2.txt` adds 21 entries and two superlatives. Nothing lost (compared entry by entry),
 no new prompt clash (`--prompts`: the six there were; `bun test/prompt-clashes.ts`: the baseline).
@@ -158,7 +168,24 @@ no new prompt clash (`--prompts`: the six there were; `bun test/prompt-clashes.t
 
 A step `practice-it-b2` (only when named) on a synthetic learner at B2: `make-learner.ts <dir> --target it --base de --name Ana
 --level B2` (new: `--level` sets the level, the aim one higher, and records the curated modules below as played a month ago).
-Results below under "Checks".
+
+```
+LANI_DEV_DATA=<dir>/data LANI_CULTURE=friuli LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Ana LANI_QA_PRACTICE_SHOTS=<shots> \
+  companion/bin/qa-slot --no-town --steps practice-it-b2
+```
+
+Run on slot 1 with this branch's APK: setup ok, practice-it-b2 ok, no crash. The bridge offered 22: the 21 played and B2's first,
+`penso-che-sia-stato` from Apicoltore Aldo. Screenshots pb-*.png in the scratchpad's ux-practice-it-b2/: Home's ✨ ("22 nuove"), the
+sheet with the B2 module last, its card, the first question, its why in German ("Schon passiert → abbia + Partizip …", the new page
+"Il congiuntivo passato" unlocked), the next question. The first run failed in the step itself (the sheet's last row lies below the
+tutor bar's line, which the sheet doesn't have); `scroll_to(…, bottom=2250)` fixed it.
+
+What QA showed besides, from the fixture, not from this branch: the app founds its own village at setup, so it hasn't met Aldo and
+Nonna Rosa hosts the card (as practice-it's QA saw); a fresh install marks all 22 listed modules new, and Home's "Poi · Außerdem"
+offers A1's "Rosso, rossa, rossi" first. A learner who came up through the levels has played those; a learner placed at B2 would
+see it, the finding above.
+
+Not run: the car with clips (none are voiced), a hunt at B2 (no QA hook opens one; the chips count is from the files), Teo's tablet.
 
 ## Voice
 
@@ -172,8 +199,8 @@ Bepi's voice for the riddles):
 | Building B2 | 51 | 1,907 |
 | Riddles B1, B2 (Nonno Bepi) | 99 | 3,483 |
 | **The new drill texts** | 538 | 16,031 |
-| The B2 modules (`say`, options read aloud, the male rendering) | 149 | 2,766 |
-| **Together** | 687 | about 18,800, about 9,400 credits on `eleven_v4_turbo` |
+| The B2 modules (`say`, options read aloud, the male rendering) | 169 | 3,121 |
+| **Together** | 707 | about 19,150, about 9,600 credits on `eleven_v4_turbo` |
 
 All of Italian's drills together are now 1,749 distinct texts, about 40,600 characters. `voice-build` gives `drills A2+` a low
 priority, so a short budget voices the easiest first. Jan's decision.
@@ -184,7 +211,6 @@ See the report's numbers at the end of this file.
 
 ## What's left
 
-- `raccontare` (B2 unit 11, the passato remoto used, the presente storico) has no module.
 - The car's drills have no `sl` meaning (as before): a Slovene-speaking learner of Italian hears English cues.
 - The placement finding above.
 - Nothing voiced; the road leaves the drills out until it is.
