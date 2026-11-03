@@ -19,7 +19,7 @@ flagged so in each file's `review`.
 (`artikel-genus`, `akkusativ`, `modalverben`, `nebensatz`); the German book has no page above A2 yet, so B2 names none. Registers
 as the cast has them: everyone says du to the learner, and what the learner says to Franz, Kathi, Toni and Eva avoids du. Every
 word a tap meets is in `companion/lexicon/de.extra.json` (90 new entries, more forms on 27 others), with Slovene and Italian
-meanings. What the stage looks like is `4dbd6960` (parties-friuli): the banners, garlands and awning are Austria's.
+meanings. What the stage looks like is `4dbd6960` (parties-friuli): the banners, garlands and awning are Austria's (seen at the Stadtfest).
 
 A village already past an age: the chronicle's "Watch again" shows the new celebration and offers its party. Nothing comes up by
 itself (no party tonight, no decorations), an earlier age's party pays nothing, and the party of the village's own age pays once
@@ -81,13 +81,15 @@ is a plain name for it: the sources say Stadterhebung and Stadterhebungsfeier.
 - `bun test/check-celebrations.ts kaernten`, `bun test/check-culture.ts kaernten`, `bun test/prompt-clashes.ts` (one new clash met and settled: das Standl has its own prompt beside der Marktstand).
 - `KaerntenCelebrationsTest` (7) and the smoke's three new checks.
 - `companion/bin/lexicon-build --coverage --lang de --all`: none of these words is left unknown.
-- QA: `companion/bin/qa --steps party` (the shared step, 4e8e7bdd). See the report for what was played.
+- QA through qa-slot, `--steps party` (the shared step, 4e8e7bdd), a synthetic learner of German from Slovene (de-sl): the Dorffest at A1 and the Stadtfest at B2, each to its end (3 turns), the moment, the card, then the village past that age (the Dorf's: grown to the Markt) and the chronicle's Watch again offering the party. Shots: scratchpad `ux-parties-kaernten/qa-kaernten`, sheets `vas-sheet.png`, `mesto-sheet.png`. The Firstfeier, the first evening and the Wiesenmarkt weren't played on the emulator, nor A2 and B1 of any: the tests read them all.
+- The speakers on the emulator's stage: the synthetic village has nobody living in it, so the host says the guests' lines (`AgeUps.cast`'s last resort). A village with its people wasn't played.
 
 ## Shared commits
 
 `c40cc47c` (the validator counts a word with its article), `4e8e7bdd` (QA's `party`), both this branch's and on their own for the
-others; `4dbd6960` (parties-friuli: the stage in the culture's colours) and `c572dc3a` (parties-lakeland: check-celebrations keeps
-the dictionary's flags) cherry-picked.
+others; `4dbd6960` (parties-friuli: the stage in the culture's colours), `c572dc3a` (parties-lakeland: check-celebrations keeps
+the dictionary's flags) and `62db179c` (parties-lakeland: QA's HUD labels in the pair the phone shows, confirmed here on de-sl)
+cherry-picked.
 
 ## For a native check
 
