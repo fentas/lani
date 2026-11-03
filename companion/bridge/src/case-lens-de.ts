@@ -535,6 +535,14 @@ export class CaseLensDe {
       }
       // the rest: the subject (nominative) and the object (accusative) by their forms, then by elimination and order
       const finite = verbs.find(v => v.finite)
+      // sie, the subject of a verb that says its number (Sie bellen: they; sie bellt: she): that number
+      if (finite?.number) {
+        for (const p of cp) {
+          if (p.kind || p.prep || p.pos !== 'pron' || p.lemma !== 'sie') continue
+          const fit = p.slots.filter(x => x.case !== 'nom' || x.number === finite.number)
+          if (fit.length && fit.length < p.slots.length) p.slots = fit
+        }
+      }
       const rest_ = cp.filter(p => !p.kind && !p.prep)
       const subjects = rest_.filter(p => p.slots.length && p.slots.every(s => s.case === 'nom'))
       for (const p of subjects) this.settle(p, p.slots, { kind: 'subject', ...(finite ? { trigger: finite.tok } : {}), rule: 'faelle' })
