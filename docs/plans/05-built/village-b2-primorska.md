@@ -87,8 +87,8 @@ same moment. Each step's words are tested by a one-word swap, as the checks want
   and again after all 78 steps and merging main (3,719 checks).
 - The supplement: the forms the word checks needed (medenjak, trak, končnica, gugalnica, tobogan, veselica).
 - **Coverage fell** (`companion/bin/lexicon-build --coverage --lang sl`): 95.5 → 95.1 % of tokens with the supplement
-  (97.2 → 96.6 with pack words and names; 111,345 → 139,141 tokens), after all of it. The first seven projects' lines
-  already used 511 word forms neither dictionary knows (`.lani-lead-kit/village-b2-primorska/unknown-words.txt`, made by `newwords.py` there);
+  (97.2 → 96.6 with pack words and names; 111,345 → 139,141 tokens), after all of it. The new lines use
+  821 word forms neither dictionary knows (`.lani-lead-kit/village-b2-primorska/unknown-words.txt`, made by `newwords.py` there);
   their supplement entries are left to do (each wants its lemma and form settled, not guessed).
 
 ## Voices (nothing spent)
@@ -112,7 +112,7 @@ to cast.
    greetings, missed, the breakout's four, 2 nights, the keeper's own meeting, 6 tales; 88 KB of JSON at A2 alone) are
    at A1 and A2. The brief's line ("Primorska's keeper has 44 levelled talks, the others 1 … give the others a cycle to
    B2") reads as the other cultures' work; Primorska's own B1/B2 cycle is the next step if "to B2" covers it too.
-2. The lexicon coverage: supplement entries for the 511 word forms in `.lani-lead-kit/village-b2-primorska/unknown-words.txt`
+2. The lexicon coverage: supplement entries for the 821 word forms in `.lani-lead-kit/village-b2-primorska/unknown-words.txt`
    (re-made with `newwords.py <coverage output>`), each form's lemma settled against Sloleks, not guessed.
 3. The Android content tests (Arrivals*, Celebrations*, ProjectSteps*, SceneCoherence, StepScenesRender, DialogReactions,
    WhoAnswers, IntroductionContent) and a short QA through qa-slot (one B2 step: "level:B2" then "step:mlaj/1"; one B2
