@@ -9594,7 +9594,7 @@ def school_board():
     if folded is not None:
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
-    return f"{level}: all {len(titles)} units on the school's screen, written"
+    print(f"    {level}: all {len(titles)} units on the school's screen, written")
 
 
 def course_unit():
