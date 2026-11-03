@@ -1152,7 +1152,7 @@ school is the course's language's:
 | Austrian standard | the village's German: Grüß Gott, Servus, Baba, Jänner, heuer, Paradeiser, Erdapfel, Topfen, Sackerl; where Germany says otherwise (Januar, Tomate, Kartoffel, Tschüss), that form is accepted too and named in the explanation |
 | The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
 | Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
-| Not for German | forms cards, counting cards and the numbers module, case rows, the cases overview (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
+| Not for German | forms cards, counting cards and the numbers module, case rows (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`). German has its own cases overview (`faelle`, "The cases overview") and case trainer (docs/plans/05-built/case-de.md) |
 | Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GermanB1aContentTest`, `GermanB1bContentTest` and `GermanB1cContentTest` (B1's, and that no choice or bank of the course offers what the table's `nonstandard` says people say), `GermanB2aContentTest`, `GermanB2bContentTest` and `GermanB2cContentTest` (B2's), `GradingNonstandardTest`, `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
 
 Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
@@ -1877,6 +1877,14 @@ fits a unit's sheet (tighter, then without its optional parts) and reports it (`
 companion/bin/school-prints --overview skloni --png             # ~/.local/share/lani/prints/sl-skloni-en/pregled-sklonov.pdf
 companion/bin/school-prints --overview skloni --base de --explain   # in German, and what each case's row took
 ```
+
+**German's overview**, "Der, den, dem, des: die vier Fälle" (`ueberblick-faelle`, docs/plans/05-built/case-de.md), is made
+the same way from German's pages: the four cases at a glance (`faelle`'s table, its examples' notes, the prepositions
+pages' first columns), how to find the case (`faelle`'s rule and tip), Wo? Wohin? (`wechselpraepositionen`), the endings
+(`adjektiv-tabelle`, `n-deklination`), the pronouns (`pronomen-dativ`) and the prepositions with their case (the three
+prepositions pages, `verben-praepositionen`); German's headings first, the base's (sl, en, it) second.
+`companion/bin/school-prints --overview faelle --language de --base sl`; the app offers it on the page `faelle`, on the units
+naming it and on their levels.
 
 The bridge serves it as `GET /course/overview/skloni` (`x-lani-print-name: pregled-sklonov`; `?base=`, `?learner=`,
 `?gender=` as a sheet's; a page without an overview is a `404`), kept as the sheets are. The app offers it as

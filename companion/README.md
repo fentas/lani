@@ -2153,8 +2153,8 @@ One idea: show a sentence and I pick what case this is?"): short sessions on the
 task at a time with feedback at once, towards what decides a case more than its endings. Its rules are
 `app/.../data/CaseTrainer.kt` (pure), the shared look `data/CaseLook.kt` (each case's id, number, question words and
 colour: the contract with the case lens), the bank `data/CaseBank.kt`, the screens `ui/cases/`, the rest
-`app/CasesController.kt`; the bridge's `bridge/src/case-bank.ts` and `features/cases.ts`. Slovene only, as the forms
-book. Why it is built so: docs/plans/05-built/case-trainer.md.
+`app/CasesController.kt`; the bridge's `bridge/src/case-bank.ts` and `features/cases.ts`. Slovene's and German's
+("German's case trainer" below). Why it is built so: docs/plans/05-built/case-trainer.md.
 
 **Where it opens.** Home's tile "🧩 Skloni" once it is open (its line: the tutor's assignment, what comes back, the
 weakest case), Home's "Danes · Today" idea (the tutor's assignment or items due again right after the tutor's modules, a
@@ -2270,6 +2270,21 @@ both: `data/CaseLook.kt` on the app's `game.Case`, `ui/cases/CaseColors.kt`.
 
 QA: `companion/bin/qa --steps cases` (on a synthetic learner: LANI_DEV_DATA). Tests: `CaseTrainerTest`; the smoke's
 `case-trainer`.
+
+### German's case trainer
+
+"🧩 Fälle · Cases" in a German village (docs/plans/05-built/case-de.md): the same trainer on German's four cases in the
+course's order (Nominativ, Akkusativ, Dativ, Genitiv; `data/CaseLook.kt` `CaseSets.DE`), its bank
+`companion/cases/de/bank.json` (format `bridge/src/case-bank-de.ts`: the sentence under `de`, its meaning under `sl`,
+`en`, `it`; `phrase`, the noun phrase framed; the noun's `gender`). "Welcher Fall?" frames the noun phrase; "Warum?"
+asks the deciding word; "Wo oder wohin?" asks the two-way prepositions (in der Hütte, in die Hütte), wo, wohin or woher,
+zu, bei or nach; "Dekliniere!" types the phrase with the frame's determiner (`det`) and an adjective ("Heute helfe ich ___
+(mein Opa)" → meinem Opa), the forms by German's rules (`data/GermanForms.kt`, the bridge's `german-forms.ts`, held
+together by `bridge/test/fixtures/german-forms.json`), graded in German, the n-Deklination's bare form right and
+labelled; the storm in four cases. The learner's nouns come from GET /cases's `learner_nouns` (their cards that are a
+pack's nouns, gender and plural). Its pages (`CaseLook.PAGES_DE`), units (`CaseTrainer.CASE_UNITS_DE`, each with its
+focus) and labels (`cases.de.*` where Slovene's say six cases or Tožilnik) are its own. Check the bank with
+`cd companion/bridge && bun test/check-cases.ts de`.
 
 ## The school's course
 
@@ -4112,6 +4127,17 @@ feeling (a verb's forms made as the lens makes them), the pronouns only ever the
 app's older rules of its own (`Triggers`) are gone. On the turns of `bridge/test/fixtures/hint-lens.json` the chip names
 the trigger, the case and the question the lens names (`TurnHintLensTest`; the smoke checks the lens still answers them
 so, `bun test/hint-lens.ts --write` records them again).
+
+**German's lens** (docs/plans/05-built/case-de.md): a German village's word shows its case the same way, read by
+`bridge/src/case-lens-de.ts` from German's own trigger table (`companion/grammar/de/data/case-triggers.json`, made by
+`case-triggers.py` beside it; schema `bridge/src/case-triggers-de.ts`: every determiner's forms, the adjective endings,
+the prepositions by case, the contractions, the verbs, adjectives and nouns with a dative, a genitive or a fixed
+preposition, the n-Deklination) and its forms (`bridge/src/german-forms.ts`). It reads the noun phrase (the article,
+the adjectives' endings, the noun) and lets the sentence decide; a form people say is read as what it is (wegen dem
+Regen: a dative, written des Regens; dem Stefan sein Hund: a dative, written Stefans Hund). Its own lines are
+`caseLens.de.*`. GET /lookup gives it only to an app that sends `lens=2` (an older app knows Slovene's six cases only);
+the colours (POST /case-lens) the same as Slovene's. Four cases, German's questions (wer? was? · wen? was? · wem? ·
+wessen?), Slovene's colours for the same case, unnumbered.
 
 ### Forms cards
 

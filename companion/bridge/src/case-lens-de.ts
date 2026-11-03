@@ -136,9 +136,30 @@ export class CaseLensDe {
     return out
   }
 
+  /** The packs' nouns by their other forms (the plural, its dative, the genitive): made once. */
+  private formIndex: Map<string, { lemma: string; gender: GenderKey; plural?: string }[]> | null = null
+  private nounForms() {
+    if (this.formIndex) return this.formIndex
+    const m = new Map<string, { lemma: string; gender: GenderKey; plural?: string }[]>()
+    const put = (form: string, x: { lemma: string; gender: GenderKey; plural?: string }) => m.set(form, [...(m.get(form) ?? []), x])
+    for (const [lemma, x] of this.s.nouns ?? []) {
+      const n = { lemma, gender: x.gender, ...(x.plural ? { plural: x.plural } : {}) }
+      if (x.plural) {
+        put(x.plural, n)
+        if (this.f.dativePlural(x.plural) !== x.plural) put(this.f.dativePlural(x.plural), n)
+      }
+      const g = this.f.genitive(lemma)
+      for (const f of [...g.forms, ...g.also]) put(f, n)
+    }
+    this.formIndex = m
+    return m
+  }
+
   /** A noun's readings by its form: its lemma, gender, the slots the form can be in; null for a word that isn't one. */
   private nounOf(tok: Tok): { lemma: string; gender?: GenderKey; slots: Slot[] } | null {
     if (!tok.cap) return null
+    // the sentence's first word, capitalized as any: a noun only when it is no other word (Morgen kommt er: morgen)
+    if (tok.first && (this.s.dict?.grammarReadings(tok.low) ?? []).some(r => r.pos !== 'noun' && r.pos !== 'name')) return null
     const w = tok.raw
     const fromNouns = this.s.nouns
     const candidates: { lemma: string; gender: GenderKey; plural?: string }[] = []
@@ -149,9 +170,7 @@ export class CaseLensDe {
     if (own) add(w, own.gender, own.plural)
     const n = this.f.nNoun(w) ?? this.f.table.n_declension.find(x => x.oblique === w || x.genitive === w || x.plural === w)
     if (n) add(n.lemma, n.gender ?? 'm', n.plural ?? n.oblique)
-    for (const [lemma, x] of fromNouns ?? []) {
-      if (x.plural === w || (x.plural && this.f.dativePlural(x.plural) === w) || this.f.genitive(lemma).forms.concat(this.f.genitive(lemma).also).includes(w)) add(lemma, x.gender, x.plural)
-    }
+    for (const x of this.nounForms().get(w) ?? []) add(x.lemma, x.gender, x.plural)
     for (const r of this.s.dict?.grammarReadings(tok.low) ?? []) {
       if (r.pos !== 'noun' || !r.gender) continue
       const lemma = r.lemma.charAt(0).toLocaleUpperCase('de') + r.lemma.slice(1)
@@ -325,10 +344,10 @@ export class CaseLensDe {
   private settle(p: Phrase, slots: Slot[], how: { kind: CaseKind; sure?: CaseSure; trigger?: Tok; rule: string; sense?: string; written?: string }) {
     const left = slots.length ? slots : p.slots
     const cases = new Set(left.map(s => s.case))
-    const numbers = new Set(left.map(s => s.number))
     p.options = dedupe(left)
     p.pick = cases.size === 1 ? left[0] : undefined
-    p.sure = how.sure ?? (cases.size === 1 ? (numbers.size === 1 ? 'decided' : 'decided') : 'ambiguous')
+    // one case left is decided (its number may stay open: a noun the lens doesn't know); more, ambiguous
+    p.sure = how.sure ?? (cases.size === 1 ? 'decided' : 'ambiguous')
     if (!p.pick && how.sure === 'likely') p.pick = left[0]
     p.kind = how.kind
     p.trigger = how.trigger
@@ -338,7 +357,7 @@ export class CaseLensDe {
   }
 
   /** Each phrase's case, decided by its sentence (see the file's head). */
-  private decide(toks: Tok[], phrases: Phrase[], names: DeName[]) {
+  private decide(toks: Tok[], phrases: Phrase[]) {
     const clauses = [...new Set(toks.map(t => t.clause))]
     for (const c of clauses) {
       const ct = toks.filter(t => t.clause === c)
@@ -616,7 +635,7 @@ export class CaseLensDe {
     const phrases = this.phrasesOf(toks, names)
     const rel = this.relatives(toks, phrases)
     const all = [...phrases.filter(p => !rel.some(r => r.head === p.head || r.head === p.det)), ...rel].sort((a, b) => a.head.i - b.head.i)
-    this.decide(toks, all.filter(p => p.pos !== 'rel'), names)
+    this.decide(toks, all.filter(p => p.pos !== 'rel'))
     this.decideRelatives(toks, rel, all)
     const words: WordCase[] = []
     for (const p of all) {
