@@ -68,6 +68,15 @@ writeFileSync(join(modulesDir, 'curated-demo.json'), JSON.stringify({
     { type: 'cloze', text: 'Jaz ___ Jan.', accept: ['sem'] },
   ],
 }))
+// One above the learner's level, its texts per base (modules.ts): not offered until the level comes.
+writeFileSync(join(modulesDir, 'curated-later.json'), JSON.stringify({
+  schema: 'lani.module/v0', id: 'curated-later', title: { en: 'Later', de: 'Später' }, description: { en: 'For B1.', de: 'Für B1.' }, level: 'B1',
+  exercises: [
+    { type: 'choice', instruction: { en: 'Pick the form', de: 'Wähl die Form' }, prompt: 'Jaz ___ Jan.', options: ['sem', 'si'], answer: 0, explain: { en: 'jaz → sem', de: 'jaz → sem (ich bin)' } },
+    { type: 'flashcard', front: 'hvala', back: { en: 'thanks', de: 'danke' } },
+  ],
+  quest: { giver: 'Babica Micka', story: { en: 'Later · A story', de: 'Später · Eine Geschichte' }, reward: { stone: 5 } },
+}))
 // The school's course: a small Slovene one (course-fixture.ts) in a temp root, so the repo's companion/course doesn't
 // affect the checks (test/smoke/course.ts validates the repo's files on their own).
 export const courseRoot = tempDir('lani-smoke-course-')

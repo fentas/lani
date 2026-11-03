@@ -65,7 +65,9 @@ the app, and its `explain` gets "📖 V knjigo · To the book". Tag every exerci
 ```json
 { "type": "choice", "prompt": "Your neighbour at 8:00 — you say…", "options": ["Dober jutro", "Dobro jutro", "Dobra jutro"], "answer": 1, "explain": "jutro is neuter → dobro" }
 ```
-2-6 options. `answer` is the 0-based index. Make distractors plausible near-misses.
+2-6 options. `answer` is the 0-based index in the file. Make distractors plausible near-misses. The app and the printed
+sheets show the options in an order of their own (the same through a day, another the next: `data/ChoiceOrder.kt`), so
+their order here doesn't matter, and nothing may lean on it: no "the second one", no "both of the above".
 Optional `almost`: the indices of options that are almost right, a real answer that doesn't fit here (the wrong register,
 a near form). Picking one is **almost**, as a typo in a typed answer is (paid as almost), and the `explain` says why the
 answer fits better: write one that covers it. Not the answer itself, and at least one option stays wrong.
@@ -105,7 +107,7 @@ Always graded by Claude via a `kind="answer"` channel event.
 ```json
 { "type": "multi", "prompt": "Which greetings are polite (vi)?", "options": ["Dober dan", "Živjo", "Dobro jutro", "Oj"], "answers": [0, 2], "explain": "živjo and oj are for friends." }
 ```
-3-8 options, `answers` lists every correct index. All right and none wrong = correct. One miss or one extra = almost.
+3-8 options, `answers` lists every correct index (shown in an order of the app's, as a `choice`'s). All right and none wrong = correct. One miss or one extra = almost.
 The app shows a checkbox on each option and the number picked on its Check button ("Preveri · Check (2)").
 
 ### `scenario` — a situation to respond to
@@ -152,7 +154,7 @@ its `explain`), the count under the sheet. In a test an almost-right item counts
 reads in their own language — `explain`, `hint`, `instruction`, `translation`, `cue`, `label`, `prompt` and a table's
 `columns` — may instead be a text per base, `{"de": "…", "sl": "…", "en": "…"}` (English always): the learner gets it in
 their base (companion/COURSE.md "Texts in the learner's language"; the Italian units write them so, for a learner from
-German). Modules keep plain strings.
+German). A module you publish keeps plain strings. A curated module of another language (`companion/modules/<language>/`) may have them per base too, also its `title`, `description`, a quest's `story`, a flashcard's `back` and `note`; the bridge serves it in the learner's base, and offers the app those at or below the learner's level one request at a time, the next (its level, then its `order`) when none is open and none was asked today (a module you publish is always offered).
 
 **Spoken forms are never wrong** (Jan's household: a native speaker says *bojo*, *gremo*, *a si*). A gap, a table's
 cell to fill and a transform's line take `spoken`: what a native speaker says beside the standard answer (1-8, in the
@@ -632,7 +634,7 @@ New types need two changes that ship together: the validator (`companion/bridge/
 - in another target language, its own table decides (`app/src/main/resources/grading/<code>.json`): Italian's accents (`e`↔`è`, `perche`/`perchè`/`perche'`↔`perché`, `citta`↔`città`) and its apostrophes (`un amica`↔`un'amica`, `la acqua`/`l acqua`↔`l'acqua`) are **almost**, with an accent or apostrophe hint; German's `ae`/`oe`/`ue`/`ss` for `ä`/`ö`/`ü`/`ß` are **almost** (umlaut hint); English contractions are the same answer (`don't` = `do not`, `it's` = `it is`)
 - **one typo in a word's stem** (a missing, extra, wrong or swapped letter; word of 4+ letters) is **almost**: `zivo` → `živjo`, `hvlaa` → `hvala`; a word of 9+ letters forgives two (`Burgermaister` → `Bürgermeister`)
 - **anything in a word's ending stays wrong**, because endings carry the grammar: the last letter of words up to 5 letters, the last 2 of longer words. `moj` → `moja`, `Berlin` → `Berlina` and `imenujme` → `imenujem` are wrong, with a "check the ending" hint
-- **what people say that writing doesn't want** (a table's `nonstandard`; English's `good` for `well`, a double negative after a negative) is **almost**, one way only, with the standard form shown and hint `nonstandard`: never call it a mistake (COURSE.md, "Spoken forms")
+- **what people say that writing doesn't want** (a table's `nonstandard`; English's `good` for `well`, a flat adverb such as `walk slow`, a double negative after a negative; German's `wann` for `wenn`, `weil` with the verb second) is **almost**, one way only, with the standard form shown and hint `nonstandard`: never call it a mistake (COURSE.md, "Spoken forms")
 - **a known mistake is never a typo**: a language's table may list words that are grammar mistakes one letter off the right word (`wrong`; Italian's regular stem where a form has its own: `anderò` for `andrò`, `ferò` for `farò`, `mangierò` for `mangerò`, `venito` for `venuto`; B1's combined pronouns, `glilo` for `glielo`, `dammilo` for `dammelo`, and the gerund with the other verbs' ending, `leggando` for `leggendo`, `farendo` for `facendo`; an articulated preposition for another: `delle` for `dalle`, `alla` or `della` for `dalla`; B1's other tense or mood one letter off: `sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`, `andò` for `andrò`): wrong, not forgiven as a slip in the stem; and so is one ending typed for another on the same stem (`ending_swaps`, pairs of the right ending and the typed one; Italian's subjunctive and indicative, `dormono` for `dormano`, `parlate` for `parliate`, and the conditional and the future, `sarete` for `sareste`), while a slip elsewhere in such a word (`bambeno` for `bambino`) stays one
 - Italian's `lo`/`la` not elided before *avere* is almost only where the participle agrees (`la ho vista` for `l'ho vista`, and B1's `glielo ho dato` for `gliel'ho dato`); `lo ho vista` has the pronoun's gender wrong, and is wrong
 - the app highlights the differing letters in the correct answer

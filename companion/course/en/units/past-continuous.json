@@ -1,0 +1,1058 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "past-continuous",
+  "language": "en",
+  "level": "A2",
+  "emoji": "⏳",
+  "title": {
+    "en": "I was walking when it started",
+    "de": "Die Verlaufsform der Vergangenheit: I was walking",
+    "sl": "Prav takrat: I was walking",
+    "it": "Il passato progressivo: I was walking"
+  },
+  "goal": {
+    "sl": "Poveš, kaj se je ravno dogajalo (I was walking), kaj se je zgodilo medtem (when it started to rain, while I was cooking), in vprašaš What were you doing?",
+    "de": "Du sagst, was gerade los war (I was walking) und was dabei passierte (when it started to rain, while I was cooking), und fragst What were you doing?",
+    "it": "Dici che cosa stava succedendo (I was walking) e che cosa è successo intanto (when it started to rain, while I was cooking), e chiedi What were you doing?",
+    "en": "You can say what was going on (I was walking), what happened meanwhile (when it started to rain, while I was cooking), and ask What were you doing?"
+  },
+  "grammar": [
+    "past-continuous",
+    "past-simple",
+    "present-continuous"
+  ],
+  "words": [
+    "while",
+    "when",
+    "suddenly",
+    "shear",
+    "fishing",
+    "snowing",
+    "blow",
+    "wind",
+    "storm",
+    "start",
+    "rain",
+    "story",
+    "tell",
+    "fire",
+    "phone",
+    "ring",
+    "cook",
+    "knit",
+    "listen",
+    "lie",
+    "sit",
+    "make",
+    "know",
+    "want",
+    "stairs",
+    "wash up",
+    "sack",
+    "carry",
+    "open",
+    "bell",
+    "read",
+    "sleep",
+    "work"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "kdo, kaj",
+          "de": "wer, was",
+          "it": "chi, che cosa",
+          "en": "who, what"
+        },
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Ko poveš, kaj se je ravno dogajalo v nekem trenutku v preteklosti, rečeš **was** ali **were** + glagol z **-ing**: **I was walking.** (Ravno sem hodil{m:|f:a}.) **Jack was shearing.** (Jack je ravno strigel.) **We were working.** (Ravno smo delali.) Slovenščina to pove z nedovršnim glagolom.",
+          "de": "Um zu sagen, was in einem Moment der Vergangenheit gerade los war, nimmst du **was** oder **were** + Verb mit **-ing**: **I was walking.** (Ich ging gerade.) **Jack was shearing.** (Jack schor gerade.) **We were working.** (Wir arbeiteten gerade.) Wie das present continuous, nur mit was und were.",
+          "it": "Per dire che cosa stava succedendo in un momento del passato usi **was** o **were** + il verbo in **-ing**: **I was walking.** (Stavo camminando.) **Jack was shearing.** (Jack stava tosando.) **We were working.** (Stavamo lavorando.) È come stare + gerundio al passato.",
+          "en": "To say what was going on at a moment in the past, use **was** or **were** + the verb with **-ing**: **I was walking.** **Jack was shearing.** **We were working.** It is the present continuous with was and were."
+        },
+        "examples": [
+          {
+            "en": "At ten o'clock I was walking to the inn.",
+            "sl": "Ob desetih sem ravno hodil{m:|f:a} proti gostilni.",
+            "de": "Um zehn Uhr ging ich gerade zum Gasthaus.",
+            "it": "Alle dieci stavo camminando verso la locanda."
+          },
+          {
+            "en": "Jack was shearing the sheep all morning.",
+            "sl": "Jack je vse dopoldne strigel ovce.",
+            "de": "Jack schor den ganzen Vormittag die Schafe.",
+            "it": "Jack ha tosato le pecore per tutta la mattina."
+          },
+          {
+            "en": "We were working in the barn at six.",
+            "sl": "Ob šestih smo delali v skednju.",
+            "de": "Um sechs arbeiteten wir in der Scheune.",
+            "it": "Alle sei stavamo lavorando nel fienile."
+          }
+        ],
+        "rows": [
+          [
+            "I, he, she, it",
+            "was + -ing",
+            "Jack was shearing."
+          ],
+          [
+            "you, we, they",
+            "were + -ing",
+            "We were working."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-continuous",
+          "prompt": "Mr Dixon ___ at the smithy at nine.",
+          "options": [
+            "was working",
+            "was work",
+            "working"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mr Dixon je he: was + -ing**\n- he was working · they were working",
+            "de": "**Mr Dixon ist he: was + -ing**\n- he was working · they were working",
+            "it": "**Mr Dixon è he: was + -ing**\n- he was working · they were working",
+            "en": "**Mr Dixon is he: was + -ing**\n- he was working · they were working"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zanikanje je **wasn't** ali **weren't**: **It wasn't raining.** (Ni deževalo.) **They weren't listening.** (Niso poslušali.) Za vprašanje gre was ali were na začetek: **Were you sleeping?** (Si ravno spal{m:|f:a}?) **What were you doing?** (Kaj si ravno delal{m:|f:a}?) **Yes, I was.** **No, I wasn't.** Nikoli *Did you sleeping?*",
+          "de": "Verneint heißt es **wasn't** oder **weren't**: **It wasn't raining.** (Es regnete nicht.) **They weren't listening.** (Sie hörten nicht zu.) In der Frage kommt was oder were nach vorn: **Were you sleeping?** (Hast du gerade geschlafen?) **What were you doing?** (Was hast du gerade gemacht?) **Yes, I was.** **No, I wasn't.** Nie *Did you sleeping?*",
+          "it": "La negazione è **wasn't** o **weren't**: **It wasn't raining.** (Non pioveva.) **They weren't listening.** (Non stavano ascoltando.) Per chiedere, was o were va all'inizio: **Were you sleeping?** (Stavi dormendo?) **What were you doing?** (Che cosa stavi facendo?) **Yes, I was.** **No, I wasn't.** Mai *Did you sleeping?*",
+          "en": "For no, say **wasn't** or **weren't**: **It wasn't raining.** **They weren't listening.** To ask, was or were goes first: **Were you sleeping?** **What were you doing?** **Yes, I was.** **No, I wasn't.** Never *Did you sleeping?*"
+        },
+        "examples": [
+          {
+            "en": "It wasn't raining this morning.",
+            "sl": "Danes zjutraj ni deževalo.",
+            "de": "Heute Morgen hat es nicht geregnet.",
+            "it": "Stamattina non pioveva."
+          },
+          {
+            "en": "They weren't listening to Mrs Hartley.",
+            "sl": "Niso poslušali gospe Hartley.",
+            "de": "Sie hörten Mrs Hartley nicht zu.",
+            "it": "Non stavano ascoltando la signora Hartley."
+          },
+          {
+            "en": "Were you sleeping? — No, I wasn't.",
+            "sl": "Si ravno spal{m:|f:a}? — Ne.",
+            "de": "Hast du gerade geschlafen? — Nein.",
+            "it": "Stavi dormendo? — No."
+          },
+          {
+            "en": "What were you doing at the tarn?",
+            "sl": "Kaj si delal{m:|f:a} pri jezeru?",
+            "de": "Was hast du am See gemacht?",
+            "it": "Che cosa stavi facendo al laghetto?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "ne",
+              "de": "nein",
+              "it": "no",
+              "en": "no"
+            },
+            "wasn't, weren't + -ing",
+            "It wasn't raining."
+          ],
+          [
+            {
+              "sl": "vprašanje",
+              "de": "Frage",
+              "it": "domanda",
+              "en": "question"
+            },
+            "Was …? Were …? + -ing",
+            "What were you doing?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-continuous",
+          "text": "What ___ you doing at ten o'clock? (be)",
+          "accept": [
+            "were"
+          ],
+          "hint": "you → ?",
+          "explain": {
+            "sl": "**Vprašanje: were pred you, brez did**\n- What were you doing? · Were you sleeping?",
+            "de": "**Die Frage: were vor you, ohne did**\n- What were you doing? · Were you sleeping?",
+            "it": "**La domanda: were prima di you, senza did**\n- What were you doing? · Were you sleeping?",
+            "en": "**To ask: were before you, no did**\n- What were you doing? · Were you sleeping?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Glavna raba je z **when** (ko): **I was walking when it started to rain.** (Ravno sem hodil{m:|f:a}, ko je začelo deževati.) Dolgo dejanje je z **-ing**, kratko v *past simple*. **We were eating when Sam came in.** (Ravno smo jedli, ko je vstopil Sam.)",
+          "de": "Das Wichtigste ist **when** (als): **I was walking when it started to rain.** (Ich ging gerade, als es zu regnen begann.) Das Lange steht mit **-ing**, das Kurze im *past simple*. **We were eating when Sam came in.** (Wir aßen gerade, als Sam hereinkam.)",
+          "it": "L'uso principale è con **when** (quando): **I was walking when it started to rain.** (Stavo camminando quando ha cominciato a piovere.) Il fatto lungo va in **-ing**, quello breve al *past simple*. **We were eating when Sam came in.** (Stavamo mangiando quando è entrato Sam.)",
+          "en": "The main use is with **when**: **I was walking when it started to rain.** The long one takes **-ing**, the short one the past simple. **We were eating when Sam came in.**"
+        },
+        "examples": [
+          {
+            "en": "I was walking when it started to rain.",
+            "sl": "Ravno sem hodil{m:|f:a}, ko je začelo deževati.",
+            "de": "Ich ging gerade, als es zu regnen begann.",
+            "it": "Stavo camminando quando ha cominciato a piovere."
+          },
+          {
+            "en": "We were eating when Sam came in.",
+            "sl": "Ravno smo jedli, ko je vstopil Sam.",
+            "de": "Wir aßen gerade, als Sam hereinkam.",
+            "it": "Stavamo mangiando quando è entrato Sam."
+          },
+          {
+            "en": "Auntie Edna was knitting when the radio stopped.",
+            "sl": "Teta Edna je ravno pletla, ko je radio utihnil.",
+            "de": "Tante Edna strickte gerade, als das Radio verstummte.",
+            "it": "Zia Edna stava lavorando a maglia quando la radio si è spenta."
+          }
+        ],
+        "rows": [
+          [
+            "when",
+            {
+              "sl": "dolgo z -ing, kratko v past simple",
+              "de": "das Lange mit -ing, das Kurze im past simple",
+              "it": "il lungo in -ing, il breve al past simple",
+              "en": "the long one -ing, the short one past simple"
+            },
+            "I was walking when it started to rain."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-continuous",
+          "prompt": "I was walking when it ___ to rain.",
+          "options": [
+            "started",
+            "starting",
+            "starts"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratko dejanje: past simple**\n- I was walking when it started to rain.",
+            "de": "**Das Kurze: past simple**\n- I was walking when it started to rain.",
+            "it": "**Il fatto breve: past simple**\n- I was walking when it started to rain.",
+            "en": "**The short one: past simple**\n- I was walking when it started to rain."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**while** (medtem ko) gre z dolgim dejanjem, z **-ing**: **While I was cooking, the phone rang.** (Medtem ko sem kuhal{m:|f:a}, je zazvonil telefon.) **The phone rang while I was cooking.** Dve dolgi dejanji hkrati: **While Jack was shearing, Meg was sleeping.** (Medtem ko je Jack strigel, je Meg spala.) Nikoli *during I was cooking*.",
+          "de": "**while** (während) steht beim Langen, mit **-ing**: **While I was cooking, the phone rang.** (Während ich kochte, klingelte das Telefon.) **The phone rang while I was cooking.** Zwei lange Dinge zugleich: **While Jack was shearing, Meg was sleeping.** (Während Jack schor, schlief Meg.) Nie *during I was cooking*.",
+          "it": "**while** (mentre) va con il fatto lungo, in **-ing**: **While I was cooking, the phone rang.** (Mentre cucinavo, è squillato il telefono.) **The phone rang while I was cooking.** Due fatti lunghi insieme: **While Jack was shearing, Meg was sleeping.** (Mentre Jack tosava, Meg dormiva.) Mai *during I was cooking*.",
+          "en": "**while** goes with the long one, with **-ing**: **While I was cooking, the phone rang.** **The phone rang while I was cooking.** Two long things at once: **While Jack was shearing, Meg was sleeping.** Never *during I was cooking*."
+        },
+        "examples": [
+          {
+            "en": "While I was cooking, the phone rang.",
+            "sl": "Medtem ko sem kuhal{m:|f:a}, je zazvonil telefon.",
+            "de": "Während ich kochte, klingelte das Telefon.",
+            "it": "Mentre cucinavo, è squillato il telefono."
+          },
+          {
+            "en": "While Jack was shearing, Meg was sleeping.",
+            "sl": "Medtem ko je Jack strigel, je Meg spala.",
+            "de": "Während Jack schor, schlief Meg.",
+            "it": "Mentre Jack tosava, Meg dormiva."
+          },
+          {
+            "en": "Old Wilf fell asleep while Auntie Edna was talking.",
+            "sl": "Stari Wilf je zaspal, medtem ko je teta Edna govorila.",
+            "de": "Der alte Wilf schlief ein, während Tante Edna redete.",
+            "it": "Il vecchio Wilf si è addormentato mentre zia Edna parlava."
+          }
+        ],
+        "rows": [
+          [
+            "while",
+            {
+              "sl": "z dolgim dejanjem",
+              "de": "beim Langen",
+              "it": "con il fatto lungo",
+              "en": "with the long one"
+            },
+            "While I was cooking, the phone rang."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-continuous",
+          "prompt": "___ Jack was shearing, Meg was sleeping.",
+          "options": [
+            "While",
+            "During",
+            "Then"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**while + dolgo dejanje**\n- While Jack was shearing, … · … while I was cooking.",
+            "de": "**while + das Lange**\n- While Jack was shearing, … · … while I was cooking.",
+            "it": "**while + il fatto lungo**\n- While Jack was shearing, … · … while I was cooking.",
+            "en": "**while + the long one**\n- While Jack was shearing, … · … while I was cooking."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pravopis je kot v sedanjiku: make → **making**, sit → **sitting**, lie → **lying**. Glagoli za stanja tudi tu nimajo -ing: **know**, **like**, **want**, **need**: **I knew the way.** (Poznal{m:|f:a} sem pot.) Nikoli *I was knowing the way*. **She wanted a cup of tea.** (Hotela je skodelico čaja.)",
+          "de": "Die Schreibung ist wie im Präsens: make → **making**, sit → **sitting**, lie → **lying**. Verben für Zustände bekommen auch hier kein -ing: **know**, **like**, **want**, **need**: **I knew the way.** (Ich kannte den Weg.) Nie *I was knowing the way*. **She wanted a cup of tea.** (Sie wollte eine Tasse Tee.)",
+          "it": "L'ortografia è come al presente: make → **making**, sit → **sitting**, lie → **lying**. I verbi di stato non prendono -ing neanche qui: **know**, **like**, **want**, **need**: **I knew the way.** (Conoscevo la strada.) Mai *I was knowing the way*. **She wanted a cup of tea.** (Voleva una tazza di tè.)",
+          "en": "The spelling is as in the present: make → **making**, sit → **sitting**, lie → **lying**. Verbs for states take no -ing here either: **know**, **like**, **want**, **need**: **I knew the way.** Never *I was knowing the way*. **She wanted a cup of tea.**"
+        },
+        "examples": [
+          {
+            "en": "Mrs Birkett was making the beds.",
+            "sl": "Gospa Birkett je ravno postiljala.",
+            "de": "Mrs Birkett machte gerade die Betten.",
+            "it": "La signora Birkett stava rifacendo i letti."
+          },
+          {
+            "en": "Meg was lying by the fire.",
+            "sl": "Meg je ležala ob ognju.",
+            "de": "Meg lag am Feuer.",
+            "it": "Meg era sdraiata accanto al fuoco."
+          },
+          {
+            "en": "I knew the way.",
+            "sl": "Poznal{m:|f:a} sem pot.",
+            "de": "Ich kannte den Weg.",
+            "it": "Conoscevo la strada."
+          },
+          {
+            "en": "She wanted a cup of tea.",
+            "sl": "Hotela je skodelico čaja.",
+            "de": "Sie wollte eine Tasse Tee.",
+            "it": "Voleva una tazza di tè."
+          }
+        ],
+        "rows": [
+          [
+            "make, sit, lie",
+            "making, sitting, lying",
+            "Meg was lying by the fire."
+          ],
+          [
+            "know, like, want, need",
+            {
+              "sl": "brez -ing",
+              "de": "ohne -ing",
+              "it": "senza -ing",
+              "en": "no -ing"
+            },
+            "I knew the way."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-continuous",
+          "text": "Meg was ___ by the fire. (lie)",
+          "accept": [
+            "lying"
+          ],
+          "hint": "-ie → -y",
+          "explain": {
+            "sl": "**lie → lying, kot v sedanjiku**\n- make → making · sit → sitting",
+            "de": "**lie → lying, wie im Präsens**\n- make → making · sit → sitting",
+            "it": "**lie → lying, come al presente**\n- make → making · sit → sitting",
+            "en": "**lie → lying, as in the present**\n- make → making · sit → sitting"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zgodba se pogosto začne tako, najprej kaj se je dogajalo, potem kaj se je zgodilo: **It was raining and the wind was blowing.** (Deževalo je in pihal je veter.) **Old Wilf was sitting by the fire.** (Stari Wilf je sedel ob ognju.) **Suddenly the door opened.** (Nenadoma so se odprla vrata.) Ozadje z -ing, nov dogodek v *past simple*.",
+          "de": "So beginnt oft eine Geschichte, zuerst was gerade los war, dann was geschah: **It was raining and the wind was blowing.** (Es regnete, und der Wind blies.) **Old Wilf was sitting by the fire.** (Der alte Wilf saß am Feuer.) **Suddenly the door opened.** (Plötzlich ging die Tür auf.) Das Drumherum mit -ing, das Neue im *past simple*.",
+          "it": "Spesso una storia comincia così, prima che cosa stava succedendo, poi che cosa è successo: **It was raining and the wind was blowing.** (Pioveva e soffiava il vento.) **Old Wilf was sitting by the fire.** (Il vecchio Wilf era seduto accanto al fuoco.) **Suddenly the door opened.** (All'improvviso la porta si è aperta.) Lo sfondo in -ing, il fatto nuovo al *past simple*.",
+          "en": "A story often opens this way, first what was going on, then what happened: **It was raining and the wind was blowing.** **Old Wilf was sitting by the fire.** **Suddenly the door opened.** The scene with -ing, the new thing in the past simple."
+        },
+        "examples": [
+          {
+            "en": "It was raining and the wind was blowing.",
+            "sl": "Deževalo je in pihal je veter.",
+            "de": "Es regnete, und der Wind blies.",
+            "it": "Pioveva e soffiava il vento."
+          },
+          {
+            "en": "Old Wilf was sitting by the fire.",
+            "sl": "Stari Wilf je sedel ob ognju.",
+            "de": "Der alte Wilf saß am Feuer.",
+            "it": "Il vecchio Wilf era seduto accanto al fuoco."
+          },
+          {
+            "en": "Suddenly the door opened.",
+            "sl": "Nenadoma so se odprla vrata.",
+            "de": "Plötzlich ging die Tür auf.",
+            "it": "All'improvviso la porta si è aperta."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "zgodba",
+              "de": "Geschichte",
+              "it": "storia",
+              "en": "a story"
+            },
+            {
+              "sl": "ozadje z -ing, nov dogodek v past simple",
+              "de": "das Drumherum mit -ing, das Neue im past simple",
+              "it": "lo sfondo in -ing, il fatto nuovo al past simple",
+              "en": "the scene -ing, the new thing past simple"
+            },
+            "It was raining. Suddenly the door opened."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-continuous",
+          "prompt": "Old Wilf ___ by the fire when the door opened.",
+          "options": [
+            "was sitting",
+            "was sit",
+            "is sitting"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ozadje: was + -ing**\n- He was sitting by the fire. · It was raining.",
+            "de": "**Das Drumherum: was + -ing**\n- He was sitting by the fire. · It was raining.",
+            "it": "**Lo sfondo: was + -ing**\n- He was sitting by the fire. · It was raining.",
+            "en": "**The scene: was + -ing**\n- He was sitting by the fire. · It was raining."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "past-continuous-1",
+      "title": {
+        "sl": "Kaj se je ravno dogajalo?",
+        "de": "Was war gerade los?",
+        "it": "Che cosa stava succedendo?",
+        "en": "What was going on?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "past-continuous",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "walk, past continuous",
+            "de": "walk, past continuous",
+            "it": "walk, past continuous",
+            "en": "walk, past continuous"
+          },
+          "columns": [
+            {
+              "sl": "yes · da",
+              "de": "yes · ja",
+              "it": "yes · sì",
+              "en": "yes"
+            },
+            {
+              "sl": "no · ne",
+              "de": "no · nein",
+              "it": "no · no",
+              "en": "no"
+            },
+            {
+              "sl": "question · vprašanje",
+              "de": "question · Frage",
+              "it": "question · domanda",
+              "en": "question"
+            }
+          ],
+          "rows": [
+            {
+              "label": "I … walking",
+              "cells": [
+                "was",
+                {
+                  "accept": [
+                    "wasn't"
+                  ]
+                },
+                "Was I"
+              ]
+            },
+            {
+              "label": "you … walking",
+              "cells": [
+                {
+                  "accept": [
+                    "were"
+                  ],
+                  "hint": {
+                    "sl": "tudi za eno osebo",
+                    "de": "auch für eine Person",
+                    "it": "anche per una persona",
+                    "en": "for one person too"
+                  }
+                },
+                "weren't",
+                {
+                  "accept": [
+                    "Were you"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "she … walking",
+              "cells": [
+                "was",
+                {
+                  "accept": [
+                    "wasn't"
+                  ]
+                },
+                {
+                  "accept": [
+                    "Was she"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "they … walking",
+              "cells": [
+                {
+                  "accept": [
+                    "were"
+                  ]
+                },
+                {
+                  "accept": [
+                    "weren't"
+                  ]
+                },
+                "Were they"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**be v pretekliku + -ing**\n- I was working · she was working\n- we were working · they were working",
+            "de": "**be in der Vergangenheit + -ing**\n- I was working · she was working\n- we were working · they were working",
+            "it": "**be al passato + -ing**\n- I was working · she was working\n- we were working · they were working",
+            "en": "**be in the past + -ing**\n- I was working · she was working\n- we were working · they were working"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "past-continuous",
+          "instruction": {
+            "sl": "Right or wrong? · Prav ali narobe?",
+            "de": "Right or wrong? · Richtig oder falsch?",
+            "it": "Right or wrong? · Giusto o sbagliato?",
+            "en": "Right or wrong?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "right · prav",
+                "de": "right · richtig",
+                "it": "right · giusto",
+                "en": "right"
+              },
+              "words": [
+                "I was sleeping.",
+                "They were eating.",
+                "I knew the way."
+              ]
+            },
+            {
+              "label": {
+                "sl": "wrong · narobe",
+                "de": "wrong · falsch",
+                "it": "wrong · sbagliato",
+                "en": "wrong"
+              },
+              "words": [
+                "I sleeping.",
+                "They was eating.",
+                "I was knowing the way."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**be + -ing; glagoli za stanja brez -ing**\n- I was sleeping. · They were eating. · I knew the way.",
+            "de": "**be + -ing; Verben für Zustände ohne -ing**\n- I was sleeping. · They were eating. · I knew the way.",
+            "it": "**be + -ing; i verbi di stato senza -ing**\n- I was sleeping. · They were eating. · I knew the way.",
+            "en": "**be + -ing; verbs for states take no -ing**\n- I was sleeping. · They were eating. · I knew the way."
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-continuous-2",
+      "title": {
+        "sl": "Neurje v gostilni",
+        "de": "Das Unwetter im Gasthaus",
+        "it": "Il temporale alla locanda",
+        "en": "The storm at the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "past-continuous",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Last Friday there was a big storm. It ___ (rain) all evening and the wind ___ (blow). Mrs Birkett ___ (cook) in the kitchen and the children ___ (play) by the fire. While Old Wilf ___ (tell) a story, the lights went out! — What ___ you doing, Jack? — I ___ (sit) on the stairs with Meg, but we ___ (not sleep)!",
+          "gaps": [
+            {
+              "accept": [
+                "was raining"
+              ]
+            },
+            {
+              "accept": [
+                "was blowing"
+              ]
+            },
+            {
+              "accept": [
+                "was cooking"
+              ]
+            },
+            {
+              "accept": [
+                "were playing"
+              ],
+              "hint": "they → ?"
+            },
+            {
+              "accept": [
+                "was telling"
+              ],
+              "explain": {
+                "sl": "**while + dolgo dejanje z -ing**\n- While he was telling a story, the lights went out.",
+                "de": "**while + das Lange mit -ing**\n- While he was telling a story, the lights went out.",
+                "it": "**while + il fatto lungo in -ing**\n- While he was telling a story, the lights went out.",
+                "en": "**while + the long one with -ing**\n- While he was telling a story, the lights went out."
+              }
+            },
+            {
+              "accept": [
+                "were"
+              ],
+              "hint": "you → ?"
+            },
+            {
+              "accept": [
+                "was sitting"
+              ],
+              "hint": "sit → ?"
+            },
+            {
+              "accept": [
+                "weren't sleeping"
+              ],
+              "hint": "were + not"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "was rain",
+            "was tell",
+            "is cooking"
+          ],
+          "translation": {
+            "sl": "Prejšnji petek je bilo veliko neurje. Ves večer je deževalo in pihal je veter. Gospa Birkett je kuhala v kuhinji, otroci pa so se igrali ob ognju. Medtem ko je stari Wilf pripovedoval zgodbo, je ugasnila luč! — Kaj si pa delal, Jack? — Sedel sem na stopnicah z Meg, ampak nisva spala!",
+            "de": "Letzten Freitag gab es ein großes Unwetter. Es regnete den ganzen Abend, und der Wind blies. Mrs Birkett kochte in der Küche, und die Kinder spielten am Feuer. Während der alte Wilf eine Geschichte erzählte, ging das Licht aus! — Was hast du gerade gemacht, Jack? — Ich saß mit Meg auf der Treppe, aber wir schliefen nicht!",
+            "it": "Venerdì scorso c'è stato un grande temporale. Ha piovuto tutta la sera e soffiava il vento. La signora Birkett stava cucinando in cucina e i bambini giocavano accanto al fuoco. Mentre il vecchio Wilf raccontava una storia, è andata via la luce! — Che cosa stavi facendo, Jack? — Ero seduto sulle scale con Meg, ma non dormivamo!",
+            "en": "Last Friday there was a big storm. It was raining all evening and the wind was blowing. Mrs Birkett was cooking in the kitchen and the children were playing by the fire. While Old Wilf was telling a story, the lights went out! — What were you doing, Jack? — I was sitting on the stairs with Meg, but we weren't sleeping!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-continuous",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "The phone rang ___ I was washing up.",
+          "options": [
+            "while",
+            "during",
+            "then"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**while + cel stavek z -ing**\n- The phone rang while I was washing up.",
+            "de": "**while + ein ganzer Satz mit -ing**\n- The phone rang while I was washing up.",
+            "it": "**while + una frase intera in -ing**\n- The phone rang while I was washing up.",
+            "en": "**while + a whole sentence with -ing**\n- The phone rang while I was washing up."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-continuous",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We were eating when Sam ___ in.",
+          "options": [
+            "came",
+            "coming",
+            "come"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratko dejanje: past simple**\n- come → came\n- We were eating when Sam came in.",
+            "de": "**Das Kurze: past simple**\n- come → came\n- We were eating when Sam came in.",
+            "it": "**Il fatto breve: past simple**\n- come → came\n- We were eating when Sam came in.",
+            "en": "**The short one: past simple**\n- come → came\n- We were eating when Sam came in."
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-continuous-3",
+      "title": {
+        "sl": "Povej in poveži",
+        "de": "Sag es und verbinde",
+        "it": "Dillo e collega",
+        "en": "Say it and join it"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "past-continuous",
+          "instruction": {
+            "sl": "Put it in the past · Postavi v preteklost",
+            "de": "Put it in the past · Setz es in die Vergangenheit",
+            "it": "Put it in the past · Mettilo al passato",
+            "en": "Put it in the past"
+          },
+          "cue": "am, is → was; are → were",
+          "items": [
+            {
+              "from": "I'm working.",
+              "accept": [
+                "I was working."
+              ]
+            },
+            {
+              "from": "They aren't listening.",
+              "accept": [
+                "They weren't listening."
+              ]
+            },
+            {
+              "from": "Are you sleeping?",
+              "accept": [
+                "Were you sleeping?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**am, is → was; are → were; -ing ostane**\n- I'm working. → I was working.\n- Are you sleeping? → Were you sleeping?",
+            "de": "**am, is → was; are → were; -ing bleibt**\n- I'm working. → I was working.\n- Are you sleeping? → Were you sleeping?",
+            "it": "**am, is → was; are → were; -ing resta**\n- I'm working. → I was working.\n- Are you sleeping? → Were you sleeping?",
+            "en": "**am, is → was; are → were; -ing stays**\n- I'm working. → I was working.\n- Are you sleeping? → Were you sleeping?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "past-continuous",
+          "instruction": {
+            "sl": "Join them with the word in brackets · Poveži z besedo v oklepaju",
+            "de": "Join them with the word in brackets · Verbinde mit dem Wort in Klammern",
+            "it": "Join them with the word in brackets · Collega con la parola tra parentesi",
+            "en": "Join them with the word in brackets"
+          },
+          "items": [
+            {
+              "from": "I was walking. It started to rain. (when)",
+              "accept": [
+                "I was walking when it started to rain.",
+                "When it started to rain, I was walking."
+              ]
+            },
+            {
+              "from": "We were eating. Sam came in. (when)",
+              "accept": [
+                "We were eating when Sam came in.",
+                "When Sam came in, we were eating."
+              ]
+            },
+            {
+              "from": "I was cooking. The phone rang. (while)",
+              "accept": [
+                "The phone rang while I was cooking.",
+                "While I was cooking, the phone rang."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**when s kratkim, while z dolgim dejanjem**\n- I was walking when it started to rain.\n- While I was cooking, the phone rang.",
+            "de": "**when beim Kurzen, while beim Langen**\n- I was walking when it started to rain.\n- While I was cooking, the phone rang.",
+            "it": "**when con il fatto breve, while con il lungo**\n- I was walking when it started to rain.\n- While I was cooking, the phone rang.",
+            "en": "**when with the short one, while with the long one**\n- I was walking when it started to rain.\n- While I was cooking, the phone rang."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "past-continuous",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "At eight o'clock it ___ (snow). Mr Tyson ___ (carry) sacks to the mill when the Keswick bus ___ (stop) at the bridge. — ___ you working, Sam? — No, I ___. I was sleeping!",
+        "gaps": [
+          {
+            "accept": [
+              "was snowing"
+            ]
+          },
+          {
+            "accept": [
+              "was carrying"
+            ]
+          },
+          {
+            "accept": [
+              "stopped"
+            ]
+          },
+          {
+            "accept": [
+              "Were"
+            ]
+          },
+          {
+            "accept": [
+              "wasn't"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Ob osmih je snežilo. Gospod Tyson je ravno nosil vreče v mlin, ko se je avtobus iz Keswicka ustavil pri mostu. — Si delal, Sam? — Ne. Spal sem!",
+          "de": "Um acht Uhr schneite es. Mr Tyson trug gerade Säcke zur Mühle, als der Bus aus Keswick an der Brücke hielt. — Hast du gerade gearbeitet, Sam? — Nein. Ich habe geschlafen!",
+          "it": "Alle otto nevicava. Il signor Tyson stava portando i sacchi al mulino quando l'autobus di Keswick si è fermato al ponte. — Stavi lavorando, Sam? — No. Stavo dormendo!",
+          "en": "At eight o'clock it was snowing. Mr Tyson was carrying sacks to the mill when the Keswick bus stopped at the bridge. — Were you working, Sam? — No, I wasn't. I was sleeping!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-continuous",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "While Arthur ___ to his bees, it started to rain.",
+        "options": [
+          "was talking",
+          "talking",
+          "did talk"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**while + was, were + -ing**\n- While Arthur was talking, it started to rain.",
+          "de": "**while + was, were + -ing**\n- While Arthur was talking, it started to rain.",
+          "it": "**while + was, were + -ing**\n- While Arthur was talking, it started to rain.",
+          "en": "**while + was, were + -ing**\n- While Arthur was talking, it started to rain."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-continuous",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "What ___ you doing when the bell rang?",
+        "options": [
+          "were",
+          "did",
+          "are"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vprašanje z were, brez did**\n- What were you doing? · Were you sleeping?",
+          "de": "**Die Frage mit were, ohne did**\n- What were you doing? · Were you sleeping?",
+          "it": "**La domanda con were, senza did**\n- What were you doing? · Were you sleeping?",
+          "en": "**Ask with were, no did**\n- What were you doing? · Were you sleeping?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-continuous",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I ___ the way to the tarn.",
+        "options": [
+          "knew",
+          "was knowing",
+          "knowing"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**know je stanje: brez -ing**\n- I knew the way. · She wanted tea.",
+          "de": "**know ist ein Zustand: ohne -ing**\n- I knew the way. · She wanted tea.",
+          "it": "**know è uno stato: senza -ing**\n- I knew the way. · She wanted tea.",
+          "en": "**know is a state: no -ing**\n- I knew the way. · She wanted tea."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-continuous",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "The bell rang ___ we were having tea.",
+        "options": [
+          "while",
+          "during",
+          "then"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**while + cel stavek z -ing**\n- The bell rang while we were having tea.",
+          "de": "**while + ein ganzer Satz mit -ing**\n- The bell rang while we were having tea.",
+          "it": "**while + una frase intera in -ing**\n- The bell rang while we were having tea.",
+          "en": "**while + a whole sentence with -ing**\n- The bell rang while we were having tea."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-continuous",
+        "instruction": {
+          "sl": "Put it in the past · Postavi v preteklost",
+          "de": "Put it in the past · Setz es in die Vergangenheit",
+          "it": "Put it in the past · Mettilo al passato",
+          "en": "Put it in the past"
+        },
+        "cue": "am, is → was; are → were",
+        "items": [
+          {
+            "from": "Meg is lying by the fire.",
+            "accept": [
+              "Meg was lying by the fire."
+            ]
+          },
+          {
+            "from": "We aren't working.",
+            "accept": [
+              "We weren't working."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**is → was; aren't → weren't**\n- Meg was lying by the fire. · We weren't working.",
+          "de": "**is → was; aren't → weren't**\n- Meg was lying by the fire. · We weren't working.",
+          "it": "**is → was; aren't → weren't**\n- Meg was lying by the fire. · We weren't working.",
+          "en": "**is → was; aren't → weren't**\n- Meg was lying by the fire. · We weren't working."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-continuous",
+        "instruction": {
+          "sl": "Join them with when · Poveži z when",
+          "de": "Join them with when · Verbinde mit when",
+          "it": "Join them with when · Collega con when",
+          "en": "Join them with when"
+        },
+        "cue": "when",
+        "items": [
+          {
+            "from": "I was reading. Sam came in.",
+            "accept": [
+              "I was reading when Sam came in.",
+              "When Sam came in, I was reading."
+            ]
+          },
+          {
+            "from": "We were talking. The lights went out.",
+            "accept": [
+              "We were talking when the lights went out.",
+              "When the lights went out, we were talking."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**when s kratkim dejanjem**\n- I was reading when Sam came in.",
+          "de": "**when beim Kurzen**\n- I was reading when Sam came in.",
+          "it": "**when con il fatto breve**\n- I was reading when Sam came in.",
+          "en": "**when with the short one**\n- I was reading when Sam came in."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: shearing all morning, washing up, the lights went out, I was fishing"
+}

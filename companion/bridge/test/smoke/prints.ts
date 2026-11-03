@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path'
 import { sheetsOf, unitDoc } from '../../../prints/build'
 import { headsOf } from '../../../prints/html'
 import { buildOverview, markAdjective, markDeclension, OVERVIEWS, overviewDoc } from '../../../prints/overview'
-import { Dictionary, loadContent, markEndings, plain, ruleLine } from '../../../prints/sheet'
+import { Dictionary, levelsOf, loadContent, markEndings, plain, printedOrder, ruleLine } from '../../../prints/sheet'
 import { auth, base, check, courseRoot, curatedDir, tempDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../../..')
@@ -41,6 +41,25 @@ export default async function prints() {
 
   const ana = await (await get('/course/sheet/biti?learner=Ana&gender=f&base=de')).text()
   check('?learner, ?gender and ?base say otherwise: Ana, in German', ana.includes('Jaz <b>sem</b> Ana.') && !ana.includes('Jaz <b>sem</b> Jan.') && ana.includes('<html lang="de"') && ana.includes('Die Regel'), ana.slice(ana.indexOf('<body>'), ana.indexOf('<body>') + 400))
+
+  // --- a choice's options on paper: not the file's order, one order for a sheet, its key the same answer -------------------
+  for (const language of ['sl', 'it', 'de', 'en']) {
+    const c = loadContent(repo, language)
+    const made = () => levelsOf(c).flatMap(l => sheetsOf(c, l, { base: 'en', learner: 'Jan', gender: 'm' })).flatMap(s => s.check.filter(x => x.hint?.includes(' / ')).map(x => ({ unit: s.id, ...x })))
+    const asked = made()
+    const offEnd = asked.filter(x => !x.hint!.split(' / ').includes(x.a))
+    const first = asked.filter(x => x.hint!.split(' / ')[0] === x.a).length
+    check(
+      `${language}: a choice printed names its options in the sheet's order, the key's answer among them, first in about one of three (${first} of ${asked.length}; the files have most first)`,
+      asked.length >= 20 && offEnd.length === 0 && first / asked.length < 0.65,
+      [asked.length, first, offEnd.slice(0, 3)],
+    )
+    check(`… ${language}: the same order on every print of the sheet`, JSON.stringify(made()) === JSON.stringify(asked))
+  }
+  check(
+    '… the order is only a display: the same options, no date or learner in the seed',
+    printedOrder(['a', 'b', 'c'], 'unit\nq').join() === printedOrder(['a', 'b', 'c'], 'unit\nq').join() && printedOrder(['a', 'b', 'c'], 'unit\nq').sort().join() === 'a,b,c',
+  )
 
   // --- a level's booklet ------------------------------------------------------------------------------------------------
   const booklet = await get('/course/booklet/A1')

@@ -1,0 +1,820 @@
+{
+  "schema": "lani.drill/v0",
+  "id": "gradnja",
+  "kind": "build",
+  "language": "it",
+  "emoji": "🧱",
+  "title": {"it": "Costruire le frasi", "en": "Sentence building", "de": "Sätze bauen"},
+  "about": {"en": "A sentence grown in three or four steps: say it, then \"Now add: tomorrow\", say the longer one, hear it. The village's words and people; a build of a rule not introduced to the learner yet isn't played.", "de": "Ein Satz wächst in drei oder vier Schritten: sag ihn, dann \"Jetzt dazu: morgen\", sag den längeren Satz und hör ihn. Die Wörter und Leute des Dorfes; ein Satz mit einer Regel, die dem Lernenden noch nicht vorgestellt wurde, wird nicht gespielt."},
+  "builds": [
+    {
+      "id": "al-mercato",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Vado.", "en": "I'm going.", "de": "Ich gehe."},
+        {"add": {"en": "to the market", "de": "auf den Markt"}, "it": "Vado al mercato.", "en": "I'm going to the market.", "de": "Ich gehe auf den Markt."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "it": "Domani vado al mercato.", "en": "Tomorrow I'm going to the market.", "de": "Morgen gehe ich auf den Markt."},
+        {"add": {"en": "with Nonna Rosa", "de": "mit Nonna Rosa"}, "it": "Domani vado al mercato con Nonna Rosa.", "en": "Tomorrow I'm going to the market with Nonna Rosa.", "de": "Morgen gehe ich mit Nonna Rosa auf den Markt."}
+      ]
+    },
+    {
+      "id": "latte-mattina",
+      "level": "A1",
+      "steps": [
+        {"it": "Bevo il latte.", "en": "I drink milk.", "de": "Ich trinke Milch."},
+        {"add": {"en": "every morning", "de": "jeden Morgen"}, "it": "Ogni mattina bevo il latte.", "en": "Every morning I drink milk.", "de": "Jeden Morgen trinke ich Milch."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "it": "Ogni mattina bevo il latte in cucina.", "en": "Every morning I drink milk in the kitchen.", "de": "Jeden Morgen trinke ich in der Küche Milch."},
+        {"add": {"en": "but today I'm drinking tea", "de": "aber heute trinke ich Tee"}, "it": "Ogni mattina bevo il latte in cucina, ma oggi bevo il tè.", "en": "Every morning I drink milk in the kitchen, but today I'm drinking tea.", "de": "Jeden Morgen trinke ich in der Küche Milch, aber heute trinke ich Tee."}
+      ]
+    },
+    {
+      "id": "giulia-mela",
+      "level": "A1",
+      "steps": [
+        {"it": "Giulia mangia una mela.", "en": "Giulia is eating an apple.", "de": "Giulia isst einen Apfel."},
+        {"add": {"en": "in the garden", "de": "im Garten"}, "it": "Giulia mangia una mela in giardino.", "en": "Giulia is eating an apple in the garden.", "de": "Giulia isst im Garten einen Apfel."},
+        {"add": {"en": "with Lorenzo", "de": "mit Lorenzo"}, "it": "Giulia mangia una mela in giardino con Lorenzo.", "en": "Giulia is eating an apple in the garden with Lorenzo.", "de": "Giulia isst mit Lorenzo im Garten einen Apfel."}
+      ]
+    },
+    {
+      "id": "davide-pecore",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Davide conta le pecore.", "en": "Davide is counting the sheep.", "de": "Davide zählt die Schafe."},
+        {"add": {"en": "every evening", "de": "jeden Abend"}, "it": "Ogni sera Davide conta le pecore.", "en": "Every evening Davide counts the sheep.", "de": "Jeden Abend zählt Davide die Schafe."},
+        {"add": {"en": "on the hill", "de": "auf dem Hügel"}, "it": "Ogni sera Davide conta le pecore sulla collina.", "en": "Every evening Davide counts the sheep on the hill.", "de": "Jeden Abend zählt Davide auf dem Hügel die Schafe."}
+      ]
+    },
+    {
+      "id": "nonna-polenta",
+      "level": "A1",
+      "steps": [
+        {"it": "Nonna Rosa cucina.", "en": "Nonna Rosa is cooking.", "de": "Nonna Rosa kocht."},
+        {"add": {"en": "polenta", "de": "Polenta"}, "it": "Nonna Rosa cucina la polenta.", "en": "Nonna Rosa is cooking polenta.", "de": "Nonna Rosa kocht Polenta."},
+        {"add": {"en": "today", "de": "heute"}, "it": "Oggi Nonna Rosa cucina la polenta.", "en": "Today Nonna Rosa is cooking polenta.", "de": "Heute kocht Nonna Rosa Polenta."},
+        {"add": {"en": "for the children", "de": "für die Kinder"}, "it": "Oggi Nonna Rosa cucina la polenta per i bambini.", "en": "Today Nonna Rosa is cooking polenta for the children.", "de": "Heute kocht Nonna Rosa Polenta für die Kinder."}
+      ]
+    },
+    {
+      "id": "tommaso-pallone",
+      "level": "A1",
+      "steps": [
+        {"it": "Tommaso gioca.", "en": "Tommaso is playing.", "de": "Tommaso spielt."},
+        {"add": {"en": "with the ball", "de": "mit dem Ball"}, "it": "Tommaso gioca con il pallone.", "en": "Tommaso is playing with the ball.", "de": "Tommaso spielt mit dem Ball."},
+        {"add": {"en": "in the square", "de": "auf dem Platz"}, "it": "Tommaso gioca con il pallone in piazza.", "en": "Tommaso is playing with the ball in the square.", "de": "Tommaso spielt auf dem Platz mit dem Ball."},
+        {"add": {"en": "after school", "de": "nach der Schule"}, "it": "Dopo la scuola Tommaso gioca con il pallone in piazza.", "en": "After school Tommaso plays with the ball in the square.", "de": "Nach der Schule spielt Tommaso auf dem Platz mit dem Ball."}
+      ]
+    },
+    {
+      "id": "gatto-tavolo",
+      "level": "A1",
+      "rules": ["dove-preposizioni"],
+      "steps": [
+        {"it": "Il gatto dorme.", "en": "The cat is sleeping.", "de": "Die Katze schläft."},
+        {"add": {"en": "under the table", "de": "unter dem Tisch"}, "it": "Il gatto dorme sotto il tavolo.", "en": "The cat is sleeping under the table.", "de": "Die Katze schläft unter dem Tisch."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "it": "Il gatto dorme sotto il tavolo in cucina.", "en": "The cat is sleeping under the table in the kitchen.", "de": "Die Katze schläft in der Küche unter dem Tisch."}
+      ]
+    },
+    {
+      "id": "ho-fame",
+      "level": "A1",
+      "rules": ["ce-ci-sono"],
+      "steps": [
+        {"it": "Ho fame.", "en": "I'm hungry.", "de": "Ich habe Hunger."},
+        {"add": {"en": "and thirsty", "de": "und Durst"}, "it": "Ho fame e sete.", "en": "I'm hungry and thirsty.", "de": "Ich habe Hunger und Durst."},
+        {"add": {"en": "but there's no bread", "de": "aber es gibt kein Brot"}, "it": "Ho fame e sete, ma non c'è pane.", "en": "I'm hungry and thirsty, but there's no bread.", "de": "Ich habe Hunger und Durst, aber es gibt kein Brot."}
+      ]
+    },
+    {
+      "id": "casa-nonna",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "La casa è piccola.", "en": "The house is small.", "de": "Das Haus ist klein."},
+        {"add": {"en": "Grandma's", "de": "von Oma"}, "it": "La casa della nonna è piccola.", "en": "Grandma's house is small.", "de": "Das Haus von Oma ist klein."},
+        {"add": {"en": "but beautiful", "de": "aber schön"}, "it": "La casa della nonna è piccola ma bella.", "en": "Grandma's house is small but beautiful.", "de": "Das Haus von Oma ist klein, aber schön."}
+      ]
+    },
+    {
+      "id": "lorenzo-scuola",
+      "level": "A1",
+      "steps": [
+        {"it": "Lorenzo va a scuola.", "en": "Lorenzo goes to school.", "de": "Lorenzo geht in die Schule."},
+        {"add": {"en": "on foot", "de": "zu Fuß"}, "it": "Lorenzo va a scuola a piedi.", "en": "Lorenzo goes to school on foot.", "de": "Lorenzo geht zu Fuß in die Schule."},
+        {"add": {"en": "every day", "de": "jeden Tag"}, "it": "Ogni giorno Lorenzo va a scuola a piedi.", "en": "Every day Lorenzo goes to school on foot.", "de": "Jeden Tag geht Lorenzo zu Fuß in die Schule."},
+        {"add": {"en": "with Giulia", "de": "mit Giulia"}, "it": "Ogni giorno Lorenzo va a scuola a piedi con Giulia.", "en": "Every day Lorenzo goes to school on foot with Giulia.", "de": "Jeden Tag geht Lorenzo mit Giulia zu Fuß in die Schule."}
+      ]
+    },
+    {
+      "id": "stasera-otto",
+      "level": "A1",
+      "rules": ["ore-giorni"],
+      "steps": [
+        {"it": "Mangiamo.", "en": "We're eating.", "de": "Wir essen."},
+        {"add": {"en": "at eight", "de": "um acht"}, "it": "Mangiamo alle otto.", "en": "We're eating at eight.", "de": "Wir essen um acht."},
+        {"add": {"en": "this evening", "de": "heute Abend"}, "it": "Stasera mangiamo alle otto.", "en": "This evening we're eating at eight.", "de": "Heute Abend essen wir um acht."},
+        {"add": {"en": "at Nonna Rosa's", "de": "bei Nonna Rosa"}, "it": "Stasera mangiamo alle otto da Nonna Rosa.", "en": "This evening we're eating at eight at Nonna Rosa's.", "de": "Heute Abend essen wir um acht bei Nonna Rosa."}
+      ]
+    },
+    {
+      "id": "cane-bosco",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Il cane corre.", "en": "The dog is running.", "de": "Der Hund läuft."},
+        {"add": {"en": "in the wood", "de": "im Wald"}, "it": "Il cane corre nel bosco.", "en": "The dog is running in the wood.", "de": "Der Hund läuft im Wald."},
+        {"add": {"en": "with Tommaso", "de": "mit Tommaso"}, "it": "Il cane corre nel bosco con Tommaso.", "en": "The dog is running in the wood with Tommaso.", "de": "Der Hund läuft mit Tommaso im Wald."}
+      ]
+    },
+    {
+      "id": "gelato-fragola",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Prendo un gelato.", "en": "I'll have an ice cream.", "de": "Ich nehme ein Eis."},
+        {"add": {"en": "strawberry", "de": "Erdbeere"}, "it": "Prendo un gelato alla fragola.", "en": "I'll have a strawberry ice cream.", "de": "Ich nehme ein Erdbeereis."},
+        {"add": {"en": "and a glass of water", "de": "und ein Glas Wasser"}, "it": "Prendo un gelato alla fragola e un bicchiere d'acqua.", "en": "I'll have a strawberry ice cream and a glass of water.", "de": "Ich nehme ein Erdbeereis und ein Glas Wasser."},
+        {"add": {"en": "please", "de": "bitte"}, "it": "Prendo un gelato alla fragola e un bicchiere d'acqua, per favore.", "en": "I'll have a strawberry ice cream and a glass of water, please.", "de": "Ich nehme ein Erdbeereis und ein Glas Wasser, bitte."}
+      ]
+    },
+    {
+      "id": "mi-piace-frico",
+      "level": "A1",
+      "rules": ["piacere"],
+      "steps": [
+        {"it": "Mi piace il frico.", "en": "I like frico.", "de": "Ich mag Frico."},
+        {"add": {"en": "very much", "de": "sehr"}, "it": "Mi piace molto il frico.", "en": "I like frico very much.", "de": "Ich mag Frico sehr."},
+        {"add": {"en": "but not fish", "de": "aber keinen Fisch"}, "it": "Mi piace molto il frico, ma non il pesce.", "en": "I like frico very much, but not fish.", "de": "Ich mag Frico sehr, aber keinen Fisch."},
+        {"add": {"en": "and you?", "de": "und du?"}, "it": "Mi piace molto il frico, ma non il pesce. E a te?", "en": "I like frico very much, but not fish. And you?", "de": "Ich mag Frico sehr, aber keinen Fisch. Und du?"}
+      ]
+    },
+    {
+      "id": "ponte-fiume",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Il ponte è lungo.", "en": "The bridge is long.", "de": "Die Brücke ist lang."},
+        {"add": {"en": "over the river", "de": "über den Fluss"}, "it": "Il ponte sul fiume è lungo.", "en": "The bridge over the river is long.", "de": "Die Brücke über den Fluss ist lang."},
+        {"add": {"en": "and very old", "de": "und sehr alt"}, "it": "Il ponte sul fiume è lungo e molto vecchio.", "en": "The bridge over the river is long and very old.", "de": "Die Brücke über den Fluss ist lang und sehr alt."}
+      ]
+    },
+    {
+      "id": "ape-fiori",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "L'ape vola.", "en": "The bee is flying.", "de": "Die Biene fliegt."},
+        {"add": {"en": "from flower to flower", "de": "von Blume zu Blume"}, "it": "L'ape vola di fiore in fiore.", "en": "The bee flies from flower to flower.", "de": "Die Biene fliegt von Blume zu Blume."},
+        {"add": {"en": "in Aldo's meadow", "de": "auf Aldos Wiese"}, "it": "L'ape vola di fiore in fiore nel prato di Aldo.", "en": "The bee flies from flower to flower in Aldo's meadow.", "de": "Die Biene fliegt auf Aldos Wiese von Blume zu Blume."}
+      ]
+    },
+    {
+      "id": "bruno-fucina",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Bruno lavora.", "en": "Bruno is working.", "de": "Bruno arbeitet."},
+        {"add": {"en": "in the forge", "de": "in der Schmiede"}, "it": "Bruno lavora nella fucina.", "en": "Bruno is working in the forge.", "de": "Bruno arbeitet in der Schmiede."},
+        {"add": {"en": "from morning to evening", "de": "von morgens bis abends"}, "it": "Bruno lavora nella fucina dalla mattina alla sera.", "en": "Bruno works in the forge from morning to evening.", "de": "Bruno arbeitet von morgens bis abends in der Schmiede."}
+      ]
+    },
+    {
+      "id": "marisa-osteria",
+      "level": "A1",
+      "rules": ["ore-giorni"],
+      "steps": [
+        {"it": "Marisa apre l'osteria.", "en": "Marisa opens the inn.", "de": "Marisa öffnet das Gasthaus."},
+        {"add": {"en": "at ten", "de": "um zehn"}, "it": "Marisa apre l'osteria alle dieci.", "en": "Marisa opens the inn at ten.", "de": "Marisa öffnet das Gasthaus um zehn."},
+        {"add": {"en": "every day", "de": "jeden Tag"}, "it": "Ogni giorno Marisa apre l'osteria alle dieci.", "en": "Every day Marisa opens the inn at ten.", "de": "Jeden Tag öffnet Marisa das Gasthaus um zehn."},
+        {"add": {"en": "but not on Mondays", "de": "aber nicht montags"}, "it": "Ogni giorno Marisa apre l'osteria alle dieci, ma non il lunedì.", "en": "Every day Marisa opens the inn at ten, but not on Mondays.", "de": "Jeden Tag öffnet Marisa das Gasthaus um zehn, aber nicht montags."}
+      ]
+    },
+    {
+      "id": "aldo-miele",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Aldo vende il miele.", "en": "Aldo sells honey.", "de": "Aldo verkauft Honig."},
+        {"add": {"en": "at the market", "de": "auf dem Markt"}, "it": "Aldo vende il miele al mercato.", "en": "Aldo sells honey at the market.", "de": "Aldo verkauft Honig auf dem Markt."},
+        {"add": {"en": "on Saturday", "de": "am Samstag"}, "it": "Sabato Aldo vende il miele al mercato.", "en": "On Saturday Aldo is selling honey at the market.", "de": "Am Samstag verkauft Aldo Honig auf dem Markt."}
+      ]
+    },
+    {
+      "id": "maestra-lavagna",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "La maestra scrive.", "en": "The teacher is writing.", "de": "Die Lehrerin schreibt."},
+        {"add": {"en": "on the blackboard", "de": "an die Tafel"}, "it": "La maestra scrive alla lavagna.", "en": "The teacher is writing on the blackboard.", "de": "Die Lehrerin schreibt an die Tafel."},
+        {"add": {"en": "a long word", "de": "ein langes Wort"}, "it": "La maestra scrive una parola lunga alla lavagna.", "en": "The teacher is writing a long word on the blackboard.", "de": "Die Lehrerin schreibt ein langes Wort an die Tafel."}
+      ]
+    },
+    {
+      "id": "zia-radio",
+      "level": "A1",
+      "steps": [
+        {"it": "Zia Nives ascolta la radio.", "en": "Zia Nives is listening to the radio.", "de": "Zia Nives hört Radio."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "it": "Zia Nives ascolta la radio in cucina.", "en": "Zia Nives is listening to the radio in the kitchen.", "de": "Zia Nives hört in der Küche Radio."},
+        {"add": {"en": "every morning", "de": "jeden Morgen"}, "it": "Ogni mattina Zia Nives ascolta la radio in cucina.", "en": "Every morning Zia Nives listens to the radio in the kitchen.", "de": "Jeden Morgen hört Zia Nives in der Küche Radio."}
+      ]
+    },
+    {
+      "id": "franco-farina",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Franco porta la farina.", "en": "Franco is bringing the flour.", "de": "Franco bringt das Mehl."},
+        {"add": {"en": "to the market", "de": "auf den Markt"}, "it": "Franco porta la farina al mercato.", "en": "Franco is bringing the flour to the market.", "de": "Franco bringt das Mehl auf den Markt."},
+        {"add": {"en": "with the tractor", "de": "mit dem Traktor"}, "it": "Franco porta la farina al mercato con il trattore.", "en": "Franco is bringing the flour to the market with the tractor.", "de": "Franco bringt das Mehl mit dem Traktor auf den Markt."}
+      ]
+    },
+    {
+      "id": "matteo-vigna",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Matteo lavora nella vigna.", "en": "Matteo is working in the vineyard.", "de": "Matteo arbeitet im Weinberg."},
+        {"add": {"en": "today", "de": "heute"}, "it": "Oggi Matteo lavora nella vigna.", "en": "Today Matteo is working in the vineyard.", "de": "Heute arbeitet Matteo im Weinberg."},
+        {"add": {"en": "with his friends", "de": "mit den Freunden"}, "it": "Oggi Matteo lavora nella vigna con gli amici.", "en": "Today Matteo is working in the vineyard with his friends.", "de": "Heute arbeitet Matteo mit den Freunden im Weinberg."}
+      ]
+    },
+    {
+      "id": "bambini-piazza",
+      "level": "A1",
+      "rules": ["ce-ci-sono"],
+      "steps": [
+        {"it": "Ci sono tre bambini.", "en": "There are three children.", "de": "Da sind drei Kinder."},
+        {"add": {"en": "in the square", "de": "auf dem Platz"}, "it": "Ci sono tre bambini in piazza.", "en": "There are three children in the square.", "de": "Auf dem Platz sind drei Kinder."},
+        {"add": {"en": "and a dog", "de": "und ein Hund"}, "it": "Ci sono tre bambini e un cane in piazza.", "en": "There are three children and a dog in the square.", "de": "Auf dem Platz sind drei Kinder und ein Hund."}
+      ]
+    },
+    {
+      "id": "libro-letto",
+      "level": "A1",
+      "steps": [
+        {"it": "Leggo un libro.", "en": "I'm reading a book.", "de": "Ich lese ein Buch."},
+        {"add": {"en": "in bed", "de": "im Bett"}, "it": "Leggo un libro a letto.", "en": "I'm reading a book in bed.", "de": "Ich lese im Bett ein Buch."},
+        {"add": {"en": "every evening", "de": "jeden Abend"}, "it": "Ogni sera leggo un libro a letto.", "en": "Every evening I read a book in bed.", "de": "Jeden Abend lese ich im Bett ein Buch."}
+      ]
+    },
+    {
+      "id": "chiamo-nonna",
+      "level": "A1",
+      "steps": [
+        {"it": "Chiamo la nonna.", "en": "I'm calling Grandma.", "de": "Ich rufe Oma an."},
+        {"add": {"en": "this evening", "de": "heute Abend"}, "it": "Stasera chiamo la nonna.", "en": "This evening I'm calling Grandma.", "de": "Heute Abend rufe ich Oma an."},
+        {"add": {"en": "with Dad's phone", "de": "mit Papas Telefon"}, "it": "Stasera chiamo la nonna con il telefono di papà.", "en": "This evening I'm calling Grandma with Dad's phone.", "de": "Heute Abend rufe ich Oma mit Papas Telefon an."}
+      ]
+    },
+    {
+      "id": "apri-porta",
+      "level": "A1",
+      "rules": ["imperativo"],
+      "steps": [
+        {"it": "Apri la porta!", "en": "Open the door!", "de": "Mach die Tür auf!"},
+        {"add": {"en": "and the window", "de": "und das Fenster"}, "it": "Apri la porta e la finestra!", "en": "Open the door and the window!", "de": "Mach die Tür und das Fenster auf!"},
+        {"add": {"en": "please", "de": "bitte"}, "it": "Apri la porta e la finestra, per favore!", "en": "Open the door and the window, please!", "de": "Mach bitte die Tür und das Fenster auf!"}
+      ]
+    },
+    {
+      "id": "vieni-qui",
+      "level": "A1",
+      "rules": ["imperativo"],
+      "steps": [
+        {"it": "Vieni qui!", "en": "Come here!", "de": "Komm her!"},
+        {"add": {"en": "right now", "de": "sofort"}, "it": "Vieni qui subito!", "en": "Come here right now!", "de": "Komm sofort her!"},
+        {"add": {"en": "Tommaso", "de": "Tommaso"}, "it": "Vieni qui subito, Tommaso!", "en": "Come here right now, Tommaso!", "de": "Komm sofort her, Tommaso!"}
+      ]
+    },
+    {
+      "id": "pane-formaggio",
+      "level": "A1",
+      "steps": [
+        {"it": "Mangio pane e formaggio.", "en": "I'm eating bread and cheese.", "de": "Ich esse Brot und Käse."},
+        {"add": {"en": "for breakfast", "de": "zum Frühstück"}, "it": "Mangio pane e formaggio a colazione.", "en": "I'm eating bread and cheese for breakfast.", "de": "Ich esse Brot und Käse zum Frühstück."},
+        {"add": {"en": "with Lorenzo", "de": "mit Lorenzo"}, "it": "Mangio pane e formaggio a colazione con Lorenzo.", "en": "I'm eating bread and cheese for breakfast with Lorenzo.", "de": "Ich esse mit Lorenzo Brot und Käse zum Frühstück."}
+      ]
+    },
+    {
+      "id": "piove-montagne",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Piove.", "en": "It's raining.", "de": "Es regnet."},
+        {"add": {"en": "today", "de": "heute"}, "it": "Oggi piove.", "en": "It's raining today.", "de": "Heute regnet es."},
+        {"add": {"en": "in the mountains", "de": "in den Bergen"}, "it": "Oggi piove sulle montagne.", "en": "It's raining in the mountains today.", "de": "Heute regnet es in den Bergen."},
+        {"add": {"en": "but not here", "de": "aber nicht hier"}, "it": "Oggi piove sulle montagne, ma non qui.", "en": "It's raining in the mountains today, but not here.", "de": "Heute regnet es in den Bergen, aber nicht hier."}
+      ]
+    },
+    {
+      "id": "freddo-gennaio",
+      "level": "A1",
+      "rules": ["ore-giorni"],
+      "steps": [
+        {"it": "Fa freddo.", "en": "It's cold.", "de": "Es ist kalt."},
+        {"add": {"en": "in the mountains", "de": "in den Bergen"}, "it": "Fa freddo in montagna.", "en": "It's cold in the mountains.", "de": "In den Bergen ist es kalt."},
+        {"add": {"en": "in January", "de": "im Januar"}, "it": "A gennaio fa freddo in montagna.", "en": "In January it's cold in the mountains.", "de": "Im Januar ist es in den Bergen kalt."},
+        {"add": {"en": "but it's warm by the fogolâr", "de": "aber am Fogolâr ist es warm"}, "it": "A gennaio fa freddo in montagna, ma vicino al fogolâr fa caldo.", "en": "In January it's cold in the mountains, but it's warm by the fogolâr.", "de": "Im Januar ist es in den Bergen kalt, aber am Fogolâr ist es warm."}
+      ]
+    },
+    {
+      "id": "casa-fiume",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Abito in una casa.", "en": "I live in a house.", "de": "Ich wohne in einem Haus."},
+        {"add": {"en": "small", "de": "klein"}, "it": "Abito in una casa piccola.", "en": "I live in a small house.", "de": "Ich wohne in einem kleinen Haus."},
+        {"add": {"en": "near the river", "de": "am Fluss"}, "it": "Abito in una casa piccola vicino al fiume.", "en": "I live in a small house near the river.", "de": "Ich wohne in einem kleinen Haus am Fluss."}
+      ]
+    },
+    {
+      "id": "fratello-sorella",
+      "level": "A1",
+      "rules": ["essere-avere"],
+      "steps": [
+        {"it": "Ho un fratello.", "en": "I have a brother.", "de": "Ich habe einen Bruder."},
+        {"add": {"en": "and a sister", "de": "und eine Schwester"}, "it": "Ho un fratello e una sorella.", "en": "I have a brother and a sister.", "de": "Ich habe einen Bruder und eine Schwester."},
+        {"add": {"en": "and a cat", "de": "und eine Katze"}, "it": "Ho un fratello, una sorella e un gatto.", "en": "I have a brother, a sister and a cat.", "de": "Ich habe einen Bruder, eine Schwester und eine Katze."}
+      ]
+    },
+    {
+      "id": "dove-vai",
+      "level": "A1",
+      "rules": ["domande"],
+      "steps": [
+        {"it": "Dove vai?", "en": "Where are you going?", "de": "Wohin gehst du?"},
+        {"add": {"en": "today", "de": "heute"}, "it": "Dove vai oggi?", "en": "Where are you going today?", "de": "Wohin gehst du heute?"},
+        {"add": {"en": "with Tommaso", "de": "mit Tommaso"}, "it": "Dove vai oggi con Tommaso?", "en": "Where are you going with Tommaso today?", "de": "Wohin gehst du heute mit Tommaso?"}
+      ]
+    },
+    {
+      "id": "che-mangi",
+      "level": "A1",
+      "rules": ["domande"],
+      "steps": [
+        {"it": "Che cosa mangi?", "en": "What are you eating?", "de": "Was isst du?"},
+        {"add": {"en": "for lunch", "de": "zu Mittag"}, "it": "Che cosa mangi a pranzo?", "en": "What do you eat for lunch?", "de": "Was isst du zu Mittag?"},
+        {"add": {"en": "today", "de": "heute"}, "it": "Che cosa mangi oggi a pranzo?", "en": "What are you eating for lunch today?", "de": "Was isst du heute zu Mittag?"}
+      ]
+    },
+    {
+      "id": "quanti-anni",
+      "level": "A1",
+      "rules": ["numeri"],
+      "steps": [
+        {"it": "Lorenzo ha sei anni.", "en": "Lorenzo is six.", "de": "Lorenzo ist sechs."},
+        {"add": {"en": "and Giulia eight", "de": "und Giulia acht"}, "it": "Lorenzo ha sei anni e Giulia otto.", "en": "Lorenzo is six and Giulia eight.", "de": "Lorenzo ist sechs und Giulia acht."},
+        {"add": {"en": "and Tommaso nine", "de": "und Tommaso neun"}, "it": "Lorenzo ha sei anni, Giulia otto e Tommaso nove.", "en": "Lorenzo is six, Giulia eight and Tommaso nine.", "de": "Lorenzo ist sechs, Giulia acht und Tommaso neun."}
+      ]
+    },
+    {
+      "id": "pecore-stalla",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Le pecore dormono.", "en": "The sheep are sleeping.", "de": "Die Schafe schlafen."},
+        {"add": {"en": "in the stable", "de": "im Stall"}, "it": "Le pecore dormono nella stalla.", "en": "The sheep are sleeping in the stable.", "de": "Die Schafe schlafen im Stall."},
+        {"add": {"en": "at night", "de": "nachts"}, "it": "Di notte le pecore dormono nella stalla.", "en": "At night the sheep sleep in the stable.", "de": "Nachts schlafen die Schafe im Stall."}
+      ]
+    },
+    {
+      "id": "cavallo-fieno",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Il cavallo mangia il fieno.", "en": "The horse is eating hay.", "de": "Das Pferd frisst Heu."},
+        {"add": {"en": "in the stable", "de": "im Stall"}, "it": "Il cavallo mangia il fieno nella stalla.", "en": "The horse is eating hay in the stable.", "de": "Das Pferd frisst im Stall Heu."},
+        {"add": {"en": "in the evening", "de": "am Abend"}, "it": "La sera il cavallo mangia il fieno nella stalla.", "en": "In the evening the horse eats hay in the stable.", "de": "Am Abend frisst das Pferd im Stall Heu."}
+      ]
+    },
+    {
+      "id": "lorenzo-mele",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Lorenzo conta le mele.", "en": "Lorenzo is counting the apples.", "de": "Lorenzo zählt die Äpfel."},
+        {"add": {"en": "in the crate", "de": "in der Kiste"}, "it": "Lorenzo conta le mele nella cassetta.", "en": "Lorenzo is counting the apples in the crate.", "de": "Lorenzo zählt die Äpfel in der Kiste."},
+        {"add": {"en": "one, two, three", "de": "eins, zwei, drei"}, "it": "Lorenzo conta le mele nella cassetta: una, due, tre!", "en": "Lorenzo is counting the apples in the crate: one, two, three!", "de": "Lorenzo zählt die Äpfel in der Kiste: eins, zwei, drei!"}
+      ]
+    },
+    {
+      "id": "rana-stagno",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "La rana salta.", "en": "The frog is jumping.", "de": "Der Frosch springt."},
+        {"add": {"en": "into the pond", "de": "in den Teich"}, "it": "La rana salta nello stagno.", "en": "The frog is jumping into the pond.", "de": "Der Frosch springt in den Teich."},
+        {"add": {"en": "and Giulia laughs", "de": "und Giulia lacht"}, "it": "La rana salta nello stagno e Giulia ride.", "en": "The frog jumps into the pond and Giulia laughs.", "de": "Der Frosch springt in den Teich und Giulia lacht."}
+      ]
+    },
+    {
+      "id": "uccello-albero",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "L'uccello canta.", "en": "The bird is singing.", "de": "Der Vogel singt."},
+        {"add": {"en": "in the tree", "de": "auf dem Baum"}, "it": "L'uccello canta sull'albero.", "en": "The bird is singing in the tree.", "de": "Der Vogel singt auf dem Baum."},
+        {"add": {"en": "in the morning", "de": "am Morgen"}, "it": "La mattina l'uccello canta sull'albero.", "en": "In the morning the bird sings in the tree.", "de": "Am Morgen singt der Vogel auf dem Baum."}
+      ]
+    },
+    {
+      "id": "nuvola-bianca",
+      "level": "A1",
+      "rules": ["ce-ci-sono", "aggettivi-accordo"],
+      "steps": [
+        {"it": "C'è una nuvola.", "en": "There's a cloud.", "de": "Da ist eine Wolke."},
+        {"add": {"en": "in the sky", "de": "am Himmel"}, "it": "C'è una nuvola nel cielo.", "en": "There's a cloud in the sky.", "de": "Am Himmel ist eine Wolke."},
+        {"add": {"en": "white", "de": "weiß"}, "it": "C'è una nuvola bianca nel cielo.", "en": "There's a white cloud in the sky.", "de": "Am Himmel ist eine weiße Wolke."},
+        {"add": {"en": "over the tower", "de": "über dem Turm"}, "it": "C'è una nuvola bianca nel cielo sopra la torre.", "en": "There's a white cloud in the sky over the tower.", "de": "Am Himmel über dem Turm ist eine weiße Wolke."}
+      ]
+    },
+    {
+      "id": "torta-domenica",
+      "level": "A1",
+      "rules": ["verbi-irregolari"],
+      "steps": [
+        {"it": "Faccio una torta.", "en": "I'm making a cake.", "de": "Ich mache einen Kuchen."},
+        {"add": {"en": "with Nonna Rosa", "de": "mit Nonna Rosa"}, "it": "Faccio una torta con Nonna Rosa.", "en": "I'm making a cake with Nonna Rosa.", "de": "Ich mache mit Nonna Rosa einen Kuchen."},
+        {"add": {"en": "on Sunday", "de": "am Sonntag"}, "it": "Domenica faccio una torta con Nonna Rosa.", "en": "On Sunday I'm making a cake with Nonna Rosa.", "de": "Am Sonntag mache ich mit Nonna Rosa einen Kuchen."},
+        {"add": {"en": "for Giulia", "de": "für Giulia"}, "it": "Domenica faccio una torta con Nonna Rosa per Giulia.", "en": "On Sunday I'm making a cake with Nonna Rosa for Giulia.", "de": "Am Sonntag mache ich mit Nonna Rosa einen Kuchen für Giulia."}
+      ]
+    },
+    {
+      "id": "legna-fuoco",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Porto la legna.", "en": "I'm carrying the firewood.", "de": "Ich trage das Holz."},
+        {"add": {"en": "to the fire", "de": "zum Feuer"}, "it": "Porto la legna al fuoco.", "en": "I'm carrying the firewood to the fire.", "de": "Ich trage das Holz zum Feuer."},
+        {"add": {"en": "for Nonno Bepi", "de": "für Nonno Bepi"}, "it": "Porto la legna al fuoco per Nonno Bepi.", "en": "I'm carrying the firewood to the fire for Nonno Bepi.", "de": "Ich trage das Holz für Nonno Bepi zum Feuer."}
+      ]
+    },
+    {
+      "id": "bepi-tiglio",
+      "level": "A1",
+      "steps": [
+        {"it": "Nonno Bepi racconta una storia.", "en": "Nonno Bepi is telling a story.", "de": "Nonno Bepi erzählt eine Geschichte."},
+        {"add": {"en": "under the linden", "de": "unter der Linde"}, "it": "Nonno Bepi racconta una storia sotto il tiglio.", "en": "Nonno Bepi is telling a story under the linden.", "de": "Nonno Bepi erzählt unter der Linde eine Geschichte."},
+        {"add": {"en": "every evening", "de": "jeden Abend"}, "it": "Ogni sera Nonno Bepi racconta una storia sotto il tiglio.", "en": "Every evening Nonno Bepi tells a story under the linden.", "de": "Jeden Abend erzählt Nonno Bepi unter der Linde eine Geschichte."}
+      ]
+    },
+    {
+      "id": "giochiamo",
+      "level": "A1",
+      "steps": [
+        {"it": "Giochiamo.", "en": "We're playing.", "de": "Wir spielen."},
+        {"add": {"en": "in the garden", "de": "im Garten"}, "it": "Giochiamo in giardino.", "en": "We're playing in the garden.", "de": "Wir spielen im Garten."},
+        {"add": {"en": "after lunch", "de": "nach dem Mittagessen"}, "it": "Giochiamo in giardino dopo pranzo.", "en": "We're playing in the garden after lunch.", "de": "Wir spielen nach dem Mittagessen im Garten."},
+        {"add": {"en": "with the dog", "de": "mit dem Hund"}, "it": "Giochiamo in giardino con il cane dopo pranzo.", "en": "We're playing in the garden with the dog after lunch.", "de": "Wir spielen nach dem Mittagessen mit dem Hund im Garten."}
+      ]
+    },
+    {
+      "id": "acqua-fontana",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Bevo l'acqua.", "en": "I'm drinking water.", "de": "Ich trinke Wasser."},
+        {"add": {"en": "at the fountain", "de": "am Brunnen"}, "it": "Bevo l'acqua alla fontana.", "en": "I'm drinking water at the fountain.", "de": "Ich trinke am Brunnen Wasser."},
+        {"add": {"en": "because I'm thirsty", "de": "weil ich Durst habe"}, "it": "Bevo l'acqua alla fontana perché ho sete.", "en": "I'm drinking water at the fountain because I'm thirsty.", "de": "Ich trinke am Brunnen Wasser, weil ich Durst habe."}
+      ]
+    },
+    {
+      "id": "vado-a-letto",
+      "level": "A1",
+      "rules": ["ore-giorni"],
+      "steps": [
+        {"it": "Vado a letto.", "en": "I'm going to bed.", "de": "Ich gehe ins Bett."},
+        {"add": {"en": "at nine", "de": "um neun"}, "it": "Vado a letto alle nove.", "en": "I'm going to bed at nine.", "de": "Ich gehe um neun ins Bett."},
+        {"add": {"en": "because I'm sleepy", "de": "weil ich müde bin"}, "it": "Vado a letto alle nove perché ho sonno.", "en": "I'm going to bed at nine because I'm sleepy.", "de": "Ich gehe um neun ins Bett, weil ich müde bin."}
+      ]
+    },
+    {
+      "id": "mani-fredde",
+      "level": "A1",
+      "rules": ["aggettivi-accordo"],
+      "steps": [
+        {"it": "Ho le mani fredde.", "en": "My hands are cold.", "de": "Meine Hände sind kalt."},
+        {"add": {"en": "and my feet", "de": "und meine Füße"}, "it": "Ho le mani e i piedi freddi.", "en": "My hands and feet are cold.", "de": "Meine Hände und Füße sind kalt."},
+        {"add": {"en": "today", "de": "heute"}, "it": "Oggi ho le mani e i piedi freddi.", "en": "Today my hands and feet are cold.", "de": "Heute sind meine Hände und Füße kalt."}
+      ]
+    },
+    {
+      "id": "testa",
+      "level": "A1",
+      "steps": [
+        {"it": "Mi fa male la testa.", "en": "My head hurts.", "de": "Mir tut der Kopf weh."},
+        {"add": {"en": "today", "de": "heute"}, "it": "Oggi mi fa male la testa.", "en": "Today my head hurts.", "de": "Heute tut mir der Kopf weh."},
+        {"add": {"en": "a little", "de": "ein bisschen"}, "it": "Oggi mi fa un po' male la testa.", "en": "Today my head hurts a little.", "de": "Heute tut mir der Kopf ein bisschen weh."}
+      ]
+    },
+    {
+      "id": "bicicletta-fiume",
+      "level": "A1",
+      "rules": ["preposizioni-articolate"],
+      "steps": [
+        {"it": "Giulia va in bicicletta.", "en": "Giulia is riding her bike.", "de": "Giulia fährt Fahrrad."},
+        {"add": {"en": "to the river", "de": "zum Fluss"}, "it": "Giulia va in bicicletta al fiume.", "en": "Giulia is riding her bike to the river.", "de": "Giulia fährt mit dem Fahrrad zum Fluss."},
+        {"add": {"en": "on Sundays", "de": "sonntags"}, "it": "La domenica Giulia va in bicicletta al fiume.", "en": "On Sundays Giulia rides her bike to the river.", "de": "Sonntags fährt Giulia mit dem Fahrrad zum Fluss."}
+      ]
+    },
+    {
+      "id": "gatto-soffitta",
+      "level": "A1",
+      "steps": [
+        {"it": "Cerco il gatto.", "en": "I'm looking for the cat.", "de": "Ich suche die Katze."},
+        {"add": {"en": "in the attic", "de": "auf dem Dachboden"}, "it": "Cerco il gatto in soffitta.", "en": "I'm looking for the cat in the attic.", "de": "Ich suche die Katze auf dem Dachboden."},
+        {"add": {"en": "with Tommaso", "de": "mit Tommaso"}, "it": "Cerco il gatto in soffitta con Tommaso.", "en": "I'm looking for the cat in the attic with Tommaso.", "de": "Ich suche mit Tommaso die Katze auf dem Dachboden."}
+      ]
+    },
+    {
+      "id": "negozio-aperto",
+      "level": "A1",
+      "rules": ["ore-giorni"],
+      "steps": [
+        {"it": "Il negozio è aperto.", "en": "The shop is open.", "de": "Der Laden ist offen."},
+        {"add": {"en": "today", "de": "heute"}, "it": "Oggi il negozio è aperto.", "en": "Today the shop is open.", "de": "Heute ist der Laden offen."},
+        {"add": {"en": "until six", "de": "bis sechs"}, "it": "Oggi il negozio è aperto fino alle sei.", "en": "Today the shop is open until six.", "de": "Heute ist der Laden bis sechs offen."}
+      ]
+    },
+    {
+      "id": "ieri-polenta",
+      "level": "A2",
+      "rules": ["passato-prossimo"],
+      "steps": [
+        {"it": "Ho mangiato.", "en": "I ate.", "de": "Ich habe gegessen."},
+        {"add": {"en": "polenta", "de": "Polenta"}, "it": "Ho mangiato la polenta.", "en": "I ate polenta.", "de": "Ich habe Polenta gegessen."},
+        {"add": {"en": "yesterday", "de": "gestern"}, "it": "Ieri ho mangiato la polenta.", "en": "Yesterday I ate polenta.", "de": "Gestern habe ich Polenta gegessen."},
+        {"add": {"en": "at Nonna Rosa's", "de": "bei Nonna Rosa"}, "it": "Ieri ho mangiato la polenta da Nonna Rosa.", "en": "Yesterday I ate polenta at Nonna Rosa's.", "de": "Gestern habe ich bei Nonna Rosa Polenta gegessen."}
+      ]
+    },
+    {
+      "id": "giulia-ciliegie",
+      "level": "A2",
+      "rules": ["passato-prossimo"],
+      "steps": [
+        {"it": "Giulia è andata al mercato.", "en": "Giulia went to the market.", "de": "Giulia ist auf den Markt gegangen."},
+        {"add": {"en": "yesterday", "de": "gestern"}, "it": "Ieri Giulia è andata al mercato.", "en": "Yesterday Giulia went to the market.", "de": "Gestern ist Giulia auf den Markt gegangen."},
+        {"add": {"en": "with Zia Nives", "de": "mit Zia Nives"}, "it": "Ieri Giulia è andata al mercato con Zia Nives.", "en": "Yesterday Giulia went to the market with Zia Nives.", "de": "Gestern ist Giulia mit Zia Nives auf den Markt gegangen."},
+        {"add": {"en": "and bought cherries", "de": "und hat Kirschen gekauft"}, "it": "Ieri Giulia è andata al mercato con Zia Nives e ha comprato le ciliegie.", "en": "Yesterday Giulia went to the market with Zia Nives and bought cherries.", "de": "Gestern ist Giulia mit Zia Nives auf den Markt gegangen und hat Kirschen gekauft."}
+      ]
+    },
+    {
+      "id": "andremo-mare",
+      "level": "A2",
+      "rules": ["futuro"],
+      "steps": [
+        {"it": "Andremo al mare.", "en": "We'll go to the seaside.", "de": "Wir werden ans Meer fahren."},
+        {"add": {"en": "next week", "de": "nächste Woche"}, "it": "La settimana prossima andremo al mare.", "en": "Next week we'll go to the seaside.", "de": "Nächste Woche werden wir ans Meer fahren."},
+        {"add": {"en": "with the whole family", "de": "mit der ganzen Familie"}, "it": "La settimana prossima andremo al mare con tutta la famiglia.", "en": "Next week we'll go to the seaside with the whole family.", "de": "Nächste Woche werden wir mit der ganzen Familie ans Meer fahren."}
+      ]
+    },
+    {
+      "id": "vorrei-gelato",
+      "level": "A2",
+      "rules": ["vorrei"],
+      "steps": [
+        {"it": "Vorrei un gelato.", "en": "I'd like an ice cream.", "de": "Ich möchte ein Eis."},
+        {"add": {"en": "chocolate", "de": "Schokolade"}, "it": "Vorrei un gelato al cioccolato.", "en": "I'd like a chocolate ice cream.", "de": "Ich möchte ein Schokoladeneis."},
+        {"add": {"en": "with cream", "de": "mit Sahne"}, "it": "Vorrei un gelato al cioccolato con la panna.", "en": "I'd like a chocolate ice cream with cream.", "de": "Ich möchte ein Schokoladeneis mit Sahne."},
+        {"add": {"en": "please", "de": "bitte"}, "it": "Vorrei un gelato al cioccolato con la panna, per favore.", "en": "I'd like a chocolate ice cream with cream, please.", "de": "Ich möchte bitte ein Schokoladeneis mit Sahne."}
+      ]
+    },
+    {
+      "id": "devo-aiutare",
+      "level": "A2",
+      "rules": ["modali"],
+      "steps": [
+        {"it": "Devo aiutare.", "en": "I have to help.", "de": "Ich muss helfen."},
+        {"add": {"en": "Nonna Rosa", "de": "Nonna Rosa"}, "it": "Devo aiutare Nonna Rosa.", "en": "I have to help Nonna Rosa.", "de": "Ich muss Nonna Rosa helfen."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "it": "Devo aiutare Nonna Rosa in cucina.", "en": "I have to help Nonna Rosa in the kitchen.", "de": "Ich muss Nonna Rosa in der Küche helfen."},
+        {"add": {"en": "this evening", "de": "heute Abend"}, "it": "Stasera devo aiutare Nonna Rosa in cucina.", "en": "This evening I have to help Nonna Rosa in the kitchen.", "de": "Heute Abend muss ich Nonna Rosa in der Küche helfen."}
+      ]
+    },
+    {
+      "id": "posso-calcio",
+      "level": "A2",
+      "rules": ["modali"],
+      "steps": [
+        {"it": "Posso giocare.", "en": "I can play.", "de": "Ich kann spielen."},
+        {"add": {"en": "football", "de": "Fußball"}, "it": "Posso giocare a calcio.", "en": "I can play football.", "de": "Ich kann Fußball spielen."},
+        {"add": {"en": "after my homework", "de": "nach den Hausaufgaben"}, "it": "Posso giocare a calcio dopo i compiti.", "en": "I can play football after my homework.", "de": "Ich kann nach den Hausaufgaben Fußball spielen."},
+        {"add": {"en": "with Tommaso", "de": "mit Tommaso"}, "it": "Posso giocare a calcio con Tommaso dopo i compiti.", "en": "I can play football with Tommaso after my homework.", "de": "Ich kann nach den Hausaufgaben mit Tommaso Fußball spielen."}
+      ]
+    },
+    {
+      "id": "sto-mangiando",
+      "level": "A2",
+      "rules": ["stare-gerundio"],
+      "steps": [
+        {"it": "Sto mangiando.", "en": "I'm eating right now.", "de": "Ich esse gerade."},
+        {"add": {"en": "frico", "de": "Frico"}, "it": "Sto mangiando il frico.", "en": "I'm eating frico right now.", "de": "Ich esse gerade Frico."},
+        {"add": {"en": "with Lorenzo", "de": "mit Lorenzo"}, "it": "Sto mangiando il frico con Lorenzo.", "en": "I'm eating frico with Lorenzo right now.", "de": "Ich esse gerade mit Lorenzo Frico."}
+      ]
+    },
+    {
+      "id": "mi-alzo",
+      "level": "A2",
+      "rules": ["riflessivi"],
+      "steps": [
+        {"it": "Mi alzo.", "en": "I get up.", "de": "Ich stehe auf."},
+        {"add": {"en": "at seven", "de": "um sieben"}, "it": "Mi alzo alle sette.", "en": "I get up at seven.", "de": "Ich stehe um sieben auf."},
+        {"add": {"en": "every morning", "de": "jeden Morgen"}, "it": "Ogni mattina mi alzo alle sette.", "en": "Every morning I get up at seven.", "de": "Jeden Morgen stehe ich um sieben auf."},
+        {"add": {"en": "and I wash", "de": "und wasche mich"}, "it": "Ogni mattina mi alzo alle sette e mi lavo.", "en": "Every morning I get up at seven and wash.", "de": "Jeden Morgen stehe ich um sieben auf und wasche mich."}
+      ]
+    },
+    {
+      "id": "mulino-fiume",
+      "level": "A2",
+      "rules": ["imperfetto"],
+      "steps": [
+        {"it": "C'era un mulino.", "en": "There was a mill.", "de": "Es gab eine Mühle."},
+        {"add": {"en": "near the river", "de": "am Fluss"}, "it": "C'era un mulino vicino al fiume.", "en": "There was a mill near the river.", "de": "Es gab eine Mühle am Fluss."},
+        {"add": {"en": "once", "de": "früher"}, "it": "Una volta c'era un mulino vicino al fiume.", "en": "Once there was a mill near the river.", "de": "Früher gab es eine Mühle am Fluss."}
+      ]
+    },
+    {
+      "id": "nonna-da-giovane",
+      "level": "A2",
+      "rules": ["imperfetto"],
+      "steps": [
+        {"it": "Nonna Rosa faceva il pane.", "en": "Nonna Rosa used to make bread.", "de": "Nonna Rosa backte früher Brot."},
+        {"add": {"en": "every Saturday", "de": "jeden Samstag"}, "it": "Nonna Rosa faceva il pane ogni sabato.", "en": "Nonna Rosa used to make bread every Saturday.", "de": "Nonna Rosa backte früher jeden Samstag Brot."},
+        {"add": {"en": "when she was young", "de": "als sie jung war"}, "it": "Da giovane Nonna Rosa faceva il pane ogni sabato.", "en": "When she was young, Nonna Rosa made bread every Saturday.", "de": "Als sie jung war, backte Nonna Rosa jeden Samstag Brot."}
+      ]
+    },
+    {
+      "id": "piu-alta",
+      "level": "A2",
+      "rules": ["comparativi"],
+      "steps": [
+        {"it": "Giulia è più alta.", "en": "Giulia is taller.", "de": "Giulia ist größer."},
+        {"add": {"en": "than Lorenzo", "de": "als Lorenzo"}, "it": "Giulia è più alta di Lorenzo.", "en": "Giulia is taller than Lorenzo.", "de": "Giulia ist größer als Lorenzo."},
+        {"add": {"en": "but Lorenzo is faster", "de": "aber Lorenzo ist schneller"}, "it": "Giulia è più alta di Lorenzo, ma Lorenzo è più veloce.", "en": "Giulia is taller than Lorenzo, but Lorenzo is faster.", "de": "Giulia ist größer als Lorenzo, aber Lorenzo ist schneller."}
+      ]
+    },
+    {
+      "id": "mio-cane",
+      "level": "A2",
+      "rules": ["possessivi"],
+      "steps": [
+        {"it": "Il mio cane dorme.", "en": "My dog is sleeping.", "de": "Mein Hund schläft."},
+        {"add": {"en": "under my bed", "de": "unter meinem Bett"}, "it": "Il mio cane dorme sotto il mio letto.", "en": "My dog is sleeping under my bed.", "de": "Mein Hund schläft unter meinem Bett."},
+        {"add": {"en": "every night", "de": "jede Nacht"}, "it": "Ogni notte il mio cane dorme sotto il mio letto.", "en": "Every night my dog sleeps under my bed.", "de": "Jede Nacht schläft mein Hund unter meinem Bett."}
+      ]
+    },
+    {
+      "id": "cane-che-abbaia",
+      "level": "A2",
+      "rules": ["relative-che"],
+      "steps": [
+        {"it": "Vedo il cane.", "en": "I see the dog.", "de": "Ich sehe den Hund."},
+        {"add": {"en": "that's barking", "de": "der bellt"}, "it": "Vedo il cane che abbaia.", "en": "I see the dog that's barking.", "de": "Ich sehe den Hund, der bellt."},
+        {"add": {"en": "in the garden", "de": "im Garten"}, "it": "Vedo il cane che abbaia in giardino.", "en": "I see the dog that's barking in the garden.", "de": "Ich sehe den Hund, der im Garten bellt."}
+      ]
+    },
+    {
+      "id": "ci-vado",
+      "level": "A2",
+      "rules": ["ci-ne"],
+      "steps": [
+        {"it": "Ci vado.", "en": "I'm going there.", "de": "Ich gehe dorthin."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "it": "Ci vado domani.", "en": "I'm going there tomorrow.", "de": "Ich gehe morgen dorthin."},
+        {"add": {"en": "with Giulia", "de": "mit Giulia"}, "it": "Ci vado domani con Giulia.", "en": "I'm going there tomorrow with Giulia.", "de": "Ich gehe morgen mit Giulia dorthin."}
+      ]
+    },
+    {
+      "id": "lo-vedo",
+      "level": "A2",
+      "rules": ["pronomi-diretti"],
+      "steps": [
+        {"it": "Lo vedo.", "en": "I see him.", "de": "Ich sehe ihn."},
+        {"add": {"en": "every day", "de": "jeden Tag"}, "it": "Lo vedo ogni giorno.", "en": "I see him every day.", "de": "Ich sehe ihn jeden Tag."},
+        {"add": {"en": "at the market", "de": "auf dem Markt"}, "it": "Lo vedo ogni giorno al mercato.", "en": "I see him every day at the market.", "de": "Ich sehe ihn jeden Tag auf dem Markt."}
+      ]
+    },
+    {
+      "id": "del-pane",
+      "level": "A2",
+      "rules": ["partitivo"],
+      "steps": [
+        {"it": "Compro del pane.", "en": "I'm buying some bread.", "de": "Ich kaufe etwas Brot."},
+        {"add": {"en": "and some apples", "de": "und ein paar Äpfel"}, "it": "Compro del pane e delle mele.", "en": "I'm buying some bread and some apples.", "de": "Ich kaufe etwas Brot und ein paar Äpfel."},
+        {"add": {"en": "at the market", "de": "auf dem Markt"}, "it": "Compro del pane e delle mele al mercato.", "en": "I'm buying some bread and some apples at the market.", "de": "Ich kaufe auf dem Markt etwas Brot und ein paar Äpfel."}
+      ]
+    },
+    {
+      "id": "lettera-bepi",
+      "level": "A2",
+      "rules": ["passato-prossimo", "participi-irregolari"],
+      "steps": [
+        {"it": "Giulia ha scritto una lettera.", "en": "Giulia wrote a letter.", "de": "Giulia hat einen Brief geschrieben."},
+        {"add": {"en": "to Nonno Bepi", "de": "an Nonno Bepi"}, "it": "Giulia ha scritto una lettera a Nonno Bepi.", "en": "Giulia wrote a letter to Nonno Bepi.", "de": "Giulia hat einen Brief an Nonno Bepi geschrieben."},
+        {"add": {"en": "yesterday", "de": "gestern"}, "it": "Ieri Giulia ha scritto una lettera a Nonno Bepi.", "en": "Yesterday Giulia wrote a letter to Nonno Bepi.", "de": "Gestern hat Giulia einen Brief an Nonno Bepi geschrieben."}
+      ]
+    },
+    {
+      "id": "andrei-mare",
+      "level": "B1",
+      "rules": ["condizionale"],
+      "steps": [
+        {"it": "Andrei al mare.", "en": "I'd go to the seaside.", "de": "Ich würde ans Meer fahren."},
+        {"add": {"en": "gladly", "de": "gern"}, "it": "Andrei volentieri al mare.", "en": "I'd gladly go to the seaside.", "de": "Ich würde gern ans Meer fahren."},
+        {"add": {"en": "but it's raining", "de": "aber es regnet"}, "it": "Andrei volentieri al mare, ma piove.", "en": "I'd gladly go to the seaside, but it's raining.", "de": "Ich würde gern ans Meer fahren, aber es regnet."}
+      ]
+    },
+    {
+      "id": "penso-venga",
+      "level": "B1",
+      "rules": ["congiuntivo"],
+      "steps": [
+        {"it": "Penso che Giulia venga.", "en": "I think Giulia is coming.", "de": "Ich glaube, dass Giulia kommt."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "it": "Penso che Giulia venga domani.", "en": "I think Giulia is coming tomorrow.", "de": "Ich glaube, dass Giulia morgen kommt."},
+        {"add": {"en": "with her grandmother", "de": "mit der Oma"}, "it": "Penso che Giulia venga domani con la nonna.", "en": "I think Giulia is coming tomorrow with her grandmother.", "de": "Ich glaube, dass Giulia morgen mit der Oma kommt."}
+      ]
+    },
+    {
+      "id": "voglio-mangi",
+      "level": "B1",
+      "rules": ["congiuntivo"],
+      "steps": [
+        {"it": "Voglio che Lorenzo mangi.", "en": "I want Lorenzo to eat.", "de": "Ich will, dass Lorenzo isst."},
+        {"add": {"en": "the soup", "de": "die Suppe"}, "it": "Voglio che Lorenzo mangi la minestra.", "en": "I want Lorenzo to eat the soup.", "de": "Ich will, dass Lorenzo die Suppe isst."},
+        {"add": {"en": "before going out", "de": "bevor er rausgeht"}, "it": "Voglio che Lorenzo mangi la minestra prima di uscire.", "en": "I want Lorenzo to eat the soup before going out.", "de": "Ich will, dass Lorenzo die Suppe isst, bevor er rausgeht."}
+      ]
+    },
+    {
+      "id": "se-piove",
+      "level": "B1",
+      "rules": ["periodo-ipotetico"],
+      "steps": [
+        {"it": "Se piove, resto a casa.", "en": "If it rains, I'll stay at home.", "de": "Wenn es regnet, bleibe ich zu Hause."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "it": "Se domani piove, resto a casa.", "en": "If it rains tomorrow, I'll stay at home.", "de": "Wenn es morgen regnet, bleibe ich zu Hause."},
+        {"add": {"en": "and read a book", "de": "und lese ein Buch"}, "it": "Se domani piove, resto a casa e leggo un libro.", "en": "If it rains tomorrow, I'll stay at home and read a book.", "de": "Wenn es morgen regnet, bleibe ich zu Hause und lese ein Buch."}
+      ]
+    },
+    {
+      "id": "mentre-nonna",
+      "level": "B1",
+      "rules": ["congiunzioni"],
+      "steps": [
+        {"it": "Giulia canta.", "en": "Giulia is singing.", "de": "Giulia singt."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "it": "Giulia canta in cucina.", "en": "Giulia is singing in the kitchen.", "de": "Giulia singt in der Küche."},
+        {"add": {"en": "while Grandma makes bread", "de": "während Oma Brot backt"}, "it": "Giulia canta in cucina mentre la nonna fa il pane.", "en": "Giulia is singing in the kitchen while Grandma makes bread.", "de": "Giulia singt in der Küche, während Oma Brot backt."}
+      ]
+    },
+    {
+      "id": "casa-cui",
+      "level": "B1",
+      "rules": ["relativi-cui", "possessivi"],
+      "steps": [
+        {"it": "Questa è la casa.", "en": "This is the house.", "de": "Das ist das Haus."},
+        {"add": {"en": "I live in", "de": "in dem ich wohne"}, "it": "Questa è la casa in cui abito.", "en": "This is the house I live in.", "de": "Das ist das Haus, in dem ich wohne."},
+        {"add": {"en": "with my grandmother", "de": "mit meiner Oma"}, "it": "Questa è la casa in cui abito con mia nonna.", "en": "This is the house I live in with my grandmother.", "de": "Das ist das Haus, in dem ich mit meiner Oma wohne."}
+      ]
+    },
+    {
+      "id": "riccio-camminando",
+      "level": "B1",
+      "rules": ["gerundio", "passato-prossimo"],
+      "steps": [
+        {"it": "Ho visto un riccio.", "en": "I saw a hedgehog.", "de": "Ich habe einen Igel gesehen."},
+        {"add": {"en": "walking in the wood", "de": "beim Spaziergang im Wald"}, "it": "Camminando nel bosco, ho visto un riccio.", "en": "Walking in the wood, I saw a hedgehog.", "de": "Beim Spaziergang im Wald habe ich einen Igel gesehen."},
+        {"add": {"en": "yesterday", "de": "gestern"}, "it": "Ieri, camminando nel bosco, ho visto un riccio.", "en": "Yesterday, walking in the wood, I saw a hedgehog.", "de": "Gestern habe ich beim Spaziergang im Wald einen Igel gesehen."}
+      ]
+    },
+    {
+      "id": "si-mangia",
+      "level": "B1",
+      "rules": ["si-impersonale"],
+      "steps": [
+        {"it": "Si mangia il frico.", "en": "People eat frico.", "de": "Man isst Frico."},
+        {"add": {"en": "in Friuli", "de": "in Friaul"}, "it": "In Friuli si mangia il frico.", "en": "In Friuli people eat frico.", "de": "In Friaul isst man Frico."},
+        {"add": {"en": "with polenta", "de": "mit Polenta"}, "it": "In Friuli si mangia il frico con la polenta.", "en": "In Friuli people eat frico with polenta.", "de": "In Friaul isst man Frico mit Polenta."}
+      ]
+    },
+    {
+      "id": "sto-per-partire",
+      "level": "B1",
+      "rules": ["stare-per"],
+      "steps": [
+        {"it": "Sto per partire.", "en": "I'm about to leave.", "de": "Ich fahre gleich ab."},
+        {"add": {"en": "for Udine", "de": "nach Udine"}, "it": "Sto per partire per Udine.", "en": "I'm about to leave for Udine.", "de": "Ich fahre gleich nach Udine ab."},
+        {"add": {"en": "with Zia Nives", "de": "mit Zia Nives"}, "it": "Sto per partire per Udine con Zia Nives.", "en": "I'm about to leave for Udine with Zia Nives.", "de": "Ich fahre gleich mit Zia Nives nach Udine ab."}
+      ]
+    },
+    {
+      "id": "te-lo-do",
+      "level": "B1",
+      "rules": ["pronomi-combinati"],
+      "steps": [
+        {"it": "Te lo do.", "en": "I'll give it to you.", "de": "Ich gebe es dir."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "it": "Te lo do domani.", "en": "I'll give it to you tomorrow.", "de": "Ich gebe es dir morgen."},
+        {"add": {"en": "at school", "de": "in der Schule"}, "it": "Te lo do domani a scuola.", "en": "I'll give it to you tomorrow at school.", "de": "Ich gebe es dir morgen in der Schule."}
+      ]
+    }
+  ],
+  "machine_written": true,
+  "review": "it, en, de: machine-written (Claude), not reviewed by a native speaker"
+}

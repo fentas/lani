@@ -1,0 +1,1019 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "how-much",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🧮",
+  "title": {
+    "en": "How much? How many? A few, a little",
+    "de": "Wie viel? how much, how many, a few",
+    "sl": "Koliko? how much, how many, a few",
+    "it": "Quanto? how much, how many, a few"
+  },
+  "goal": {
+    "sl": "Vprašaš how much in how many, poveš veliko z a lot of, ne veliko z much in many ter malo z a few in a little, in vprašaš po ceni.",
+    "de": "Du fragst how much und how many, sagst viel mit a lot of, nicht viel mit much und many, wenig mit a few und a little, und fragst nach dem Preis.",
+    "it": "Chiedi how much e how many, dici tanto con a lot of, non molto con much e many, poco con a few e a little, e chiedi il prezzo.",
+    "en": "You can ask how much and how many, say a lot with a lot of, not a lot with much and many, a small amount with a few and a little, and ask a price."
+  },
+  "grammar": [
+    "some-any",
+    "plurals"
+  ],
+  "words": [
+    "how much",
+    "how many",
+    "much",
+    "many",
+    "a lot of",
+    "lots of",
+    "a few",
+    "a little",
+    "a bit of",
+    "not many",
+    "not much",
+    "money",
+    "people",
+    "time",
+    "snow",
+    "pound",
+    "jar",
+    "sack",
+    "oats",
+    "flour",
+    "hay",
+    "honey",
+    "cheese",
+    "sugar",
+    "basket",
+    "mill",
+    "market",
+    "only",
+    "count"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "koliko",
+          "de": "wie viel",
+          "it": "quanto",
+          "en": "how much"
+        },
+        {
+          "sl": "šteješ",
+          "de": "zählbar",
+          "it": "si conta",
+          "en": "you can count"
+        },
+        {
+          "sl": "ne šteješ",
+          "de": "unzählbar",
+          "it": "non si conta",
+          "en": "you can't count"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**How many** (koliko) vpraša po tem, kar šteješ, z množino: **How many sheep has Jack got?** (Koliko ovc ima Jack?) **How much** (koliko) vpraša po tem, česar ne šteješ: **How much milk is there?** (Koliko mleka je?) Slovenščina ima za oboje eno besedo, angleščina dve.",
+          "de": "**How many** (wie viele) fragt nach Zählbarem, mit dem Plural: **How many sheep has Jack got?** (Wie viele Schafe hat Jack?) **How much** (wie viel) fragt nach Unzählbarem: **How much milk is there?** (Wie viel Milch ist da?)",
+          "it": "**How many** (quanti, quante) chiede ciò che si conta, con il plurale: **How many sheep has Jack got?** (Quante pecore ha Jack?) **How much** (quanto, quanta) chiede ciò che non si conta: **How much milk is there?** (Quanto latte c'è?)",
+          "en": "**How many** asks about what you can count, with a plural: **How many sheep has Jack got?** (never *How much sheep has Jack got?*) **How much** asks about what you can't: **How much milk is there?**"
+        },
+        "examples": [
+          {
+            "en": "How many sheep has Jack got?",
+            "sl": "Koliko ovc ima Jack?",
+            "de": "Wie viele Schafe hat Jack?",
+            "it": "Quante pecore ha Jack?"
+          },
+          {
+            "en": "How much milk is there?",
+            "sl": "Koliko mleka je?",
+            "de": "Wie viel Milch ist da?",
+            "it": "Quanto latte c'è?"
+          },
+          {
+            "en": "How many eggs did Poppy find?",
+            "sl": "Koliko jajc je našla Poppy?",
+            "de": "Wie viele Eier hat Poppy gefunden?",
+            "it": "Quante uova ha trovato Poppy?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "koliko?",
+              "de": "wie viel?",
+              "it": "quanto?",
+              "en": "how much?"
+            },
+            "How many sheep?",
+            "How much milk?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "some-any",
+          "prompt": "How ___ eggs are there in the basket?",
+          "options": [
+            "many",
+            "much",
+            "a lot"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jajca šteješ: how many**\n- How many eggs? · How much milk?",
+            "de": "**Eier zählt man: how many**\n- How many eggs? · How much milk?",
+            "it": "**Le uova si contano: how many**\n- How many eggs? · How much milk?",
+            "en": "**You can count eggs: how many**\n- How many eggs? · How much milk?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**a lot of** (veliko) gre z obojim, v trdilnem stavku: **Jack has got a lot of sheep.** (Jack ima veliko ovc.) **There's a lot of hay in the barn.** (V skednju je veliko sena.) **lots of** je isto. Ne pozabi **of**, nikoli *a lot sheep*. Sam: **How much honey? — A lot.** (Koliko medu? — Veliko.)",
+          "de": "**a lot of** (viel, viele) geht mit beidem, im bejahten Satz: **Jack has got a lot of sheep.** (Jack hat viele Schafe.) **There's a lot of hay in the barn.** (In der Scheune ist viel Heu.) **lots of** ist dasselbe. Vergiss **of** nicht, nie *a lot sheep*. Allein: **How much honey? — A lot.** (Wie viel Honig? — Viel.)",
+          "it": "**a lot of** (molto, tanti) va con tutti e due, nelle frasi affermative: **Jack has got a lot of sheep.** (Jack ha tante pecore.) **There's a lot of hay in the barn.** (Nel fienile c'è tanto fieno.) **lots of** è lo stesso. Non dimenticare **of**, mai *a lot sheep*. Da solo: **How much honey? — A lot.** (Quanto miele? — Tanto.)",
+          "en": "**a lot of** goes with both, in a yes sentence: **Jack has got a lot of sheep.** **There's a lot of hay in the barn.** **lots of** is the same. Don't forget **of**: **a lot of sheep** (never *a lot sheep*). Alone: **How much honey? — A lot.**"
+        },
+        "examples": [
+          {
+            "en": "Jack has got a lot of sheep.",
+            "sl": "Jack ima veliko ovc.",
+            "de": "Jack hat viele Schafe.",
+            "it": "Jack ha tante pecore."
+          },
+          {
+            "en": "There's a lot of hay in the barn.",
+            "sl": "V skednju je veliko sena.",
+            "de": "In der Scheune ist viel Heu.",
+            "it": "Nel fienile c'è tanto fieno."
+          },
+          {
+            "en": "How much honey has Arthur got? — A lot.",
+            "sl": "Koliko medu ima Arthur? — Veliko.",
+            "de": "Wie viel Honig hat Arthur? — Viel.",
+            "it": "Quanto miele ha Arthur? — Tanto."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "veliko",
+              "de": "viel",
+              "it": "tanto",
+              "en": "a lot"
+            },
+            "a lot of sheep",
+            "a lot of hay"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "some-any",
+          "text": "Mr Tyson has got a lot ___ oats.",
+          "accept": [
+            "of"
+          ],
+          "explain": {
+            "sl": "**Vedno a lot of**\n- a lot of oats · a lot of hay",
+            "de": "**Immer a lot of**\n- a lot of oats · a lot of hay",
+            "it": "**Sempre a lot of**\n- a lot of oats · a lot of hay",
+            "en": "**Always a lot of**\n- a lot of oats · a lot of hay"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V zanikanem stavku in vprašanju sta **many** in **much** (veliko): **There aren't many walkers today.** (Danes ni veliko pohodnikov.) **We haven't got much time.** (Nimamo veliko časa.) **Is there much snow on the fell?** (Je na hribu veliko snega?) V trdilnem stavku reci **a lot of**: **We've got a lot of time.**, nikoli *We've got much time.*",
+          "de": "Im verneinten Satz und in der Frage stehen **many** und **much** (viele, viel): **There aren't many walkers today.** (Heute sind nicht viele Wanderer da.) **We haven't got much time.** (Wir haben nicht viel Zeit.) **Is there much snow on the fell?** (Liegt viel Schnee am Berg?) Im bejahten Satz sag **a lot of**: **We've got a lot of time.**, nie *We've got much time.*",
+          "it": "Nelle frasi negative e nelle domande si usano **many** e **much** (molti, molto): **There aren't many walkers today.** (Oggi non ci sono molti escursionisti.) **We haven't got much time.** (Non abbiamo molto tempo.) **Is there much snow on the fell?** (C'è molta neve sul monte?) Nelle frasi affermative di' **a lot of**: **We've got a lot of time.**, mai *We've got much time.*",
+          "en": "In a no sentence and a question it's **many** and **much**: **There aren't many walkers today.** **We haven't got much time.** **Is there much snow on the fell?** In a yes sentence say **a lot of**: **We've got a lot of time.** (never *We've got much time.*) It's right in a no sentence too: **We haven't got a lot of time.**"
+        },
+        "examples": [
+          {
+            "en": "There aren't many walkers today.",
+            "sl": "Danes ni veliko pohodnikov.",
+            "de": "Heute sind nicht viele Wanderer da.",
+            "it": "Oggi non ci sono molti escursionisti."
+          },
+          {
+            "en": "We haven't got much time.",
+            "sl": "Nimamo veliko časa.",
+            "de": "Wir haben nicht viel Zeit.",
+            "it": "Non abbiamo molto tempo."
+          },
+          {
+            "en": "Is there much snow on the fell?",
+            "sl": "Je na hribu veliko snega?",
+            "de": "Liegt viel Schnee am Berg?",
+            "it": "C'è molta neve sul monte?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "ne veliko",
+              "de": "nicht viel",
+              "it": "non molto",
+              "en": "not a lot"
+            },
+            "not many walkers",
+            "not much time"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "some-any",
+          "prompt": "There isn't ___ milk in the jug.",
+          "options": [
+            "much",
+            "many",
+            "a few"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zanikano, mleka ne šteješ: much**\n- There isn't much milk. · There aren't many eggs.",
+            "de": "**Verneint, Milch zählt man nicht: much**\n- There isn't much milk. · There aren't many eggs.",
+            "it": "**Negativa, il latte non si conta: much**\n- There isn't much milk. · There aren't many eggs.",
+            "en": "**A no sentence, you can't count milk: much**\n- There isn't much milk. · There aren't many eggs."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Majhna količina: **a few** (nekaj, par) pri tem, kar šteješ, **a little** (malo) pri tem, česar ne: **a few eggs** (nekaj jajc), **a few walkers** (par pohodnikov); **a little milk** (malo mleka), **a little sugar** (malo sladkorja). **a bit of** (malo) je vsakdanja beseda za **a little**: **a bit of cheese** (malo sira).",
+          "de": "Eine kleine Menge: **a few** (ein paar) bei Zählbarem, **a little** (ein wenig) bei Unzählbarem: **a few eggs** (ein paar Eier), **a few walkers** (ein paar Wanderer); **a little milk** (ein wenig Milch), **a little sugar** (ein wenig Zucker). **a bit of** (ein bisschen) sagt man im Alltag für **a little**: **a bit of cheese** (ein bisschen Käse).",
+          "it": "Una piccola quantità: **a few** (alcuni, qualche) con ciò che si conta, **a little** (un po' di) con ciò che non si conta: **a few eggs** (qualche uovo), **a few walkers** (alcuni escursionisti); **a little milk** (un po' di latte), **a little sugar** (un po' di zucchero). **a bit of** (un po' di) è la parola di ogni giorno per **a little**: **a bit of cheese** (un po' di formaggio).",
+          "en": "A small amount: **a few** with what you can count, **a little** with what you can't: **a few eggs**, **a few walkers**; **a little milk**, **a little sugar** (never *a few sugar*). **a bit of** is the everyday word for **a little**: **a bit of cheese**."
+        },
+        "examples": [
+          {
+            "en": "Granny Maggie has got a few eggs.",
+            "sl": "Babica Maggie ima nekaj jajc.",
+            "de": "Oma Maggie hat ein paar Eier.",
+            "it": "Nonna Maggie ha qualche uovo."
+          },
+          {
+            "en": "Can I have a little milk in my tea?",
+            "sl": "Lahko dobim malo mleka v čaj?",
+            "de": "Kann ich ein wenig Milch in den Tee haben?",
+            "it": "Posso avere un po' di latte nel tè?"
+          },
+          {
+            "en": "There's a bit of cheese in the kitchen.",
+            "sl": "V kuhinji je malo sira.",
+            "de": "In der Küche ist ein bisschen Käse.",
+            "it": "In cucina c'è un po' di formaggio."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "malo",
+              "de": "wenig",
+              "it": "poco",
+              "en": "a small amount"
+            },
+            "a few eggs",
+            "a little milk, a bit of milk"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "some-any",
+          "prompt": "Can I have a ___ sugar, please?",
+          "options": [
+            "little",
+            "few",
+            "many"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Sladkorja ne šteješ: a little**\n- a little sugar · a few eggs",
+            "de": "**Zucker zählt man nicht: a little**\n- a little sugar · a few eggs",
+            "it": "**Lo zucchero non si conta: a little**\n- a little sugar · a few eggs",
+            "en": "**You can't count sugar: a little**\n- a little sugar · a few eggs"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kratki odgovori: **How many? — A lot. Not many. A few.** **How much? — A lot. Not much. A little.** **people** (ljudje) je množina: **How many people?** **money** (denar) in **time** (čas) ne šteješ: **How much time have we got?** (Koliko časa imamo?) Cena: **How much is the honey? — Four pounds.** (Koliko stane med? — Štiri funte.)",
+          "de": "Kurze Antworten: **How many? — A lot. Not many. A few.** **How much? — A lot. Not much. A little.** **people** (Leute) ist Plural: **How many people?** **money** (Geld) und **time** (Zeit) zählt man nicht: **How much time have we got?** (Wie viel Zeit haben wir?) Der Preis: **How much is the honey? — Four pounds.** (Wie viel kostet der Honig? — Vier Pfund.)",
+          "it": "Le risposte brevi: **How many? — A lot. Not many. A few.** **How much? — A lot. Not much. A little.** **people** (la gente) è plurale: **How many people?** **money** (denaro) e **time** (tempo) non si contano: **How much time have we got?** (Quanto tempo abbiamo?) Il prezzo: **How much is the honey? — Four pounds.** (Quanto costa il miele? — Quattro sterline.)",
+          "en": "Short answers: **How many? — A lot. Not many. A few.** **How much? — A lot. Not much. A little.** **people** is a plural: **How many people?** You can't count **money** and **time**: **How much time have we got?** The price: **How much is the honey? — Four pounds.**"
+        },
+        "examples": [
+          {
+            "en": "How many people are at the inn? — Not many.",
+            "sl": "Koliko ljudi je v gostilni? — Ne veliko.",
+            "de": "Wie viele Leute sind im Gasthaus? — Nicht viele.",
+            "it": "Quanta gente c'è alla locanda? — Non molta."
+          },
+          {
+            "en": "How much time have we got? — Not much.",
+            "sl": "Koliko časa imamo? — Ne veliko.",
+            "de": "Wie viel Zeit haben wir? — Nicht viel.",
+            "it": "Quanto tempo abbiamo? — Non molto."
+          },
+          {
+            "en": "How much is the honey? — Four pounds.",
+            "sl": "Koliko stane med? — Štiri funte.",
+            "de": "Wie viel kostet der Honig? — Vier Pfund.",
+            "it": "Quanto costa il miele? — Quattro sterline."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "kratko",
+              "de": "kurz",
+              "it": "in breve",
+              "en": "short"
+            },
+            "A lot. Not many. A few.",
+            "A lot. Not much. A little."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "some-any",
+          "text": "How ___ is the honey? — Four pounds.",
+          "accept": [
+            "much"
+          ],
+          "explain": {
+            "sl": "**Cena: how much**\n- How much is it? · How much is the honey?",
+            "de": "**Der Preis: how much**\n- How much is it? · How much is the honey?",
+            "it": "**Il prezzo: how much**\n- How much is it? · How much is the honey?",
+            "en": "**The price: how much**\n- How much is it? · How much is the honey?"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**How many sheep?** · **How much milk?** (koliko)\n\n**a lot of sheep** · **a lot of hay** (veliko, trdilno)\n\n**There aren't many walkers.** · **We haven't got much time.** (zanikano, vprašanje)\n\n**a few eggs** · **a little milk** · **a bit of cheese** (malo)\n\n**How much is the honey?** (cena)",
+      "de": "**How many sheep?** · **How much milk?** (wie viel)\n\n**a lot of sheep** · **a lot of hay** (viel, bejaht)\n\n**There aren't many walkers.** · **We haven't got much time.** (verneint, Frage)\n\n**a few eggs** · **a little milk** · **a bit of cheese** (wenig)\n\n**How much is the honey?** (der Preis)",
+      "it": "**How many sheep?** · **How much milk?** (quanto)\n\n**a lot of sheep** · **a lot of hay** (tanto, affermativa)\n\n**There aren't many walkers.** · **We haven't got much time.** (negativa, domanda)\n\n**a few eggs** · **a little milk** · **a bit of cheese** (poco)\n\n**How much is the honey?** (il prezzo)",
+      "en": "**How many sheep?** · **How much milk?** (how much)\n\n**a lot of sheep** · **a lot of hay** (a lot, yes)\n\n**There aren't many walkers.** · **We haven't got much time.** (no, a question)\n\n**a few eggs** · **a little milk** · **a bit of cheese** (a small amount)\n\n**How much is the honey?** (the price)"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "how-much-1",
+      "title": {
+        "sl": "Koliko?",
+        "de": "Wie viel?",
+        "it": "Quanto?",
+        "en": "How much?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": "How many …?",
+              "words": [
+                "eggs",
+                "walkers",
+                "people",
+                "sacks"
+              ]
+            },
+            {
+              "label": "How much …?",
+              "words": [
+                "milk",
+                "money",
+                "hay",
+                "time"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**how many: kar šteješ; how much: česar ne šteješ**\n- How many people? · How much money?",
+            "de": "**how many: Zählbares; how much: Unzählbares**\n- How many people? · How much money?",
+            "it": "**how many: ciò che si conta; how much: ciò che non si conta**\n- How many people? · How much money?",
+            "en": "**how many: what you can count; how much: what you can't**\n- How many people? · How much money?"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "veliko, ne veliko, malo",
+            "de": "viel, nicht viel, wenig",
+            "it": "tanto, non molto, poco",
+            "en": "a lot, not a lot, a small amount"
+          },
+          "columns": [
+            {
+              "sl": "a lot · veliko",
+              "de": "a lot · viel",
+              "it": "a lot · tanto",
+              "en": "a lot"
+            },
+            {
+              "sl": "not a lot · ne veliko",
+              "de": "not a lot · nicht viel",
+              "it": "not a lot · non molto",
+              "en": "not a lot"
+            },
+            {
+              "sl": "a small amount · malo",
+              "de": "a small amount · wenig",
+              "it": "a small amount · poco",
+              "en": "a small amount"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "sl": "sheep · ovce",
+                "de": "sheep · Schafe",
+                "it": "sheep · pecore",
+                "en": "sheep"
+              },
+              "cells": [
+                "a lot of",
+                {
+                  "accept": [
+                    "not many",
+                    "not a lot of"
+                  ],
+                  "hint": "many"
+                },
+                {
+                  "accept": [
+                    "a few"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "milk · mleko",
+                "de": "milk · Milch",
+                "it": "milk · latte",
+                "en": "milk"
+              },
+              "cells": [
+                "a lot of",
+                {
+                  "accept": [
+                    "not much",
+                    "not a lot of"
+                  ],
+                  "hint": "much"
+                },
+                {
+                  "accept": [
+                    "a little",
+                    "a bit of"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "walkers · pohodniki",
+                "de": "walkers · Wanderer",
+                "it": "walkers · escursionisti",
+                "en": "walkers"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "a lot of",
+                    "lots of"
+                  ],
+                  "spoken": [
+                    "loads of"
+                  ]
+                },
+                "not many",
+                "a few"
+              ]
+            },
+            {
+              "label": {
+                "sl": "sugar · sladkor",
+                "de": "sugar · Zucker",
+                "it": "sugar · zucchero",
+                "en": "sugar"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "a lot of",
+                    "lots of"
+                  ],
+                  "spoken": [
+                    "loads of"
+                  ]
+                },
+                "not much",
+                {
+                  "accept": [
+                    "a little",
+                    "a bit of"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Kar šteješ: many, a few; česar ne šteješ: much, a little; a lot of z obojim**\n- not many sheep · a few sheep\n- not much milk · a little milk",
+            "de": "**Zählbares: many, a few; Unzählbares: much, a little; a lot of bei beidem**\n- not many sheep · a few sheep\n- not much milk · a little milk",
+            "it": "**Ciò che si conta: many, a few; ciò che non si conta: much, a little; a lot of con tutti e due**\n- not many sheep · a few sheep\n- not much milk · a little milk",
+            "en": "**What you can count: many, a few; what you can't: much, a little; a lot of with both**\n- not many sheep · a few sheep\n- not much milk · a little milk"
+          }
+        }
+      ]
+    },
+    {
+      "id": "how-much-2",
+      "title": {
+        "sl": "Na tržnici",
+        "de": "Auf dem Markt",
+        "it": "Al mercato",
+        "en": "At the market"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "At the market Mrs Birkett talks to Arthur. — How ___ honey have you got today? — Not ___, only two jars. — How ___ is a jar? — Four pounds. — And how ___ eggs has Granny Maggie got? — Only a ___, about six. — There aren't ___ people here today. — No, but there's a ___ of cheese!",
+          "gaps": [
+            {
+              "accept": [
+                "much"
+              ],
+              "hint": {
+                "sl": "med",
+                "de": "Honig",
+                "it": "miele",
+                "en": "honey"
+              }
+            },
+            {
+              "accept": [
+                "much"
+              ],
+              "hint": {
+                "sl": "kratek odgovor",
+                "de": "kurze Antwort",
+                "it": "risposta breve",
+                "en": "a short answer"
+              }
+            },
+            {
+              "accept": [
+                "much"
+              ],
+              "hint": {
+                "sl": "cena",
+                "de": "der Preis",
+                "it": "il prezzo",
+                "en": "the price"
+              }
+            },
+            {
+              "accept": [
+                "many"
+              ],
+              "hint": {
+                "sl": "jajca",
+                "de": "Eier",
+                "it": "uova",
+                "en": "eggs"
+              }
+            },
+            {
+              "accept": [
+                "few"
+              ],
+              "hint": {
+                "sl": "nekaj jajc",
+                "de": "ein paar Eier",
+                "it": "qualche uovo",
+                "en": "some eggs"
+              }
+            },
+            {
+              "accept": [
+                "many",
+                "a lot of"
+              ],
+              "hint": "not + ?"
+            },
+            {
+              "accept": [
+                "lot",
+                "bit"
+              ],
+              "spoken": [
+                "load"
+              ],
+              "hint": "a … of"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "little",
+            "some"
+          ],
+          "translation": {
+            "sl": "Na tržnici se gospa Birkett pogovarja z Arthurjem. — Koliko medu imaš danes? — Ne veliko, samo dva kozarca. — Koliko stane kozarec? — Štiri funte. — In koliko jajc ima babica Maggie? — Samo nekaj, kakih šest. — Danes tu ni veliko ljudi. — Ne, je pa veliko sira!",
+            "de": "Auf dem Markt spricht Frau Birkett mit Arthur. — Wie viel Honig hast du heute? — Nicht viel, nur zwei Gläser. — Wie viel kostet ein Glas? — Vier Pfund. — Und wie viele Eier hat Oma Maggie? — Nur ein paar, etwa sechs. — Heute sind nicht viele Leute hier. — Nein, aber es gibt viel Käse!",
+            "it": "Al mercato la signora Birkett parla con Arthur. — Quanto miele hai oggi? — Non molto, solo due vasetti. — Quanto costa un vasetto? — Quattro sterline. — E quante uova ha nonna Maggie? — Solo qualcuna, circa sei. — Oggi qui non c'è molta gente. — No, ma c'è tanto formaggio!",
+            "en": "At the market Mrs Birkett talks to Arthur. — How much honey have you got today? — Not much, only two jars. — How much is a jar? — Four pounds. — And how many eggs has Granny Maggie got? — Only a few, about six. — There aren't many people here today. — No, but there's a lot of cheese!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "There's ___ hay in the barn.",
+          "options": [
+            "a lot of",
+            "many",
+            "a few"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Sena ne šteješ, trdilno: a lot of**\n- There's a lot of hay. · a little hay",
+            "de": "**Heu zählt man nicht, bejaht: a lot of**\n- There's a lot of hay. · a little hay",
+            "it": "**Il fieno non si conta, affermativa: a lot of**\n- There's a lot of hay. · a little hay",
+            "en": "**You can't count hay, a yes sentence: a lot of**\n- There's a lot of hay. · a little hay"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Can I have a ___ scones, Granny?",
+          "options": [
+            "few",
+            "little",
+            "much"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Scone šteješ: a few**\n- a few scones · a little butter",
+            "de": "**Scones zählt man: a few**\n- a few scones · a little butter",
+            "it": "**Gli scones si contano: a few**\n- a few scones · a little butter",
+            "en": "**You can count scones: a few**\n- a few scones · a little butter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "how-much-3",
+      "title": {
+        "sl": "Vprašaj in zanikaj",
+        "de": "Frage und verneine",
+        "it": "Chiedi e nega",
+        "en": "Ask and say no"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "How …?",
+          "items": [
+            {
+              "from": "Jack has got fifty sheep.",
+              "accept": [
+                "How many sheep has Jack got?",
+                "How many sheep does Jack have?"
+              ],
+              "hint": "many"
+            },
+            {
+              "from": "There's a lot of honey in the kitchen.",
+              "accept": [
+                "How much honey is there in the kitchen?",
+                "How much honey is in the kitchen?"
+              ]
+            },
+            {
+              "from": "There are ten walkers at the inn.",
+              "accept": [
+                "How many walkers are there at the inn?",
+                "How many walkers are at the inn?"
+              ]
+            },
+            {
+              "from": "Mrs Birkett has got a lot of money.",
+              "accept": [
+                "How much money has Mrs Birkett got?",
+                "How much money does Mrs Birkett have?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**how many z množino, how much s tem, česar ne šteješ**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?",
+            "de": "**how many mit dem Plural, how much mit Unzählbarem**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?",
+            "it": "**how many con il plurale, how much con ciò che non si conta**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?",
+            "en": "**how many with a plural, how much with what you can't count**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Say no · Zanikaj",
+            "de": "Say no · Verneine",
+            "it": "Say no · Fai la negazione",
+            "en": "Say no"
+          },
+          "cue": "not",
+          "items": [
+            {
+              "from": "We've got a lot of time.",
+              "accept": [
+                "We haven't got much time.",
+                "We haven't got a lot of time.",
+                "We don't have much time.",
+                "We don't have a lot of time."
+              ],
+              "hint": "much"
+            },
+            {
+              "from": "There are a lot of boats on the lake.",
+              "accept": [
+                "There aren't many boats on the lake.",
+                "There aren't a lot of boats on the lake."
+              ],
+              "spoken": [
+                "There's not many boats on the lake."
+              ]
+            },
+            {
+              "from": "Mr Tyson has got a lot of sacks.",
+              "accept": [
+                "Mr Tyson hasn't got many sacks.",
+                "Mr Tyson hasn't got a lot of sacks.",
+                "Mr Tyson doesn't have many sacks.",
+                "Mr Tyson doesn't have a lot of sacks."
+              ]
+            },
+            {
+              "from": "There's a lot of snow on the fell.",
+              "accept": [
+                "There isn't much snow on the fell.",
+                "There isn't a lot of snow on the fell."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow.",
+            "de": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow.",
+            "it": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow.",
+            "en": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Mr Tyson counts everything. — How ___ sacks of oats are there in the mill? — A ___: two hundred. — And how ___ flour have we got? — Not ___. Only a ___.",
+        "gaps": [
+          {
+            "accept": [
+              "many"
+            ]
+          },
+          {
+            "accept": [
+              "lot"
+            ],
+            "spoken": [
+              "load"
+            ]
+          },
+          {
+            "accept": [
+              "much"
+            ]
+          },
+          {
+            "accept": [
+              "much"
+            ]
+          },
+          {
+            "accept": [
+              "little",
+              "bit"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Gospod Tyson šteje vse. — Koliko vreč ovsa je v mlinu? — Veliko: dvesto. — In koliko moke imamo? — Ne veliko. Samo malo.",
+          "de": "Herr Tyson zählt alles. — Wie viele Säcke Hafer sind in der Mühle? — Viele: zweihundert. — Und wie viel Mehl haben wir? — Nicht viel. Nur ein wenig.",
+          "it": "Il signor Tyson conta tutto. — Quanti sacchi d'avena ci sono al mulino? — Tanti: duecento. — E quanta farina abbiamo? — Non molta. Solo un po'.",
+          "en": "Mr Tyson counts everything. — How many sacks of oats are there in the mill? — A lot: two hundred. — And how much flour have we got? — Not much. Only a little."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "How …?",
+        "items": [
+          {
+            "from": "There are twenty people at the inn.",
+            "accept": [
+              "How many people are there at the inn?",
+              "How many people are at the inn?"
+            ]
+          },
+          {
+            "from": "There's a lot of milk in the kitchen.",
+            "accept": [
+              "How much milk is there in the kitchen?",
+              "How much milk is in the kitchen?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**how many z množino, how much s tem, česar ne šteješ**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?",
+          "de": "**how many mit dem Plural, how much mit Unzählbarem**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?",
+          "it": "**how many con il plurale, how much con ciò che non si conta**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?",
+          "en": "**how many with a plural, how much with what you can't count**\n- There are ten walkers. → How many walkers are there?\n- There's a lot of honey. → How much honey is there?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Say no · Zanikaj",
+          "de": "Say no · Verneine",
+          "it": "Say no · Fai la negazione",
+          "en": "Say no"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "We've got a lot of apples.",
+            "accept": [
+              "We haven't got many apples.",
+              "We haven't got a lot of apples.",
+              "We don't have many apples.",
+              "We don't have a lot of apples."
+            ]
+          },
+          {
+            "from": "There's a lot of cheese.",
+            "accept": [
+              "There isn't much cheese.",
+              "There isn't a lot of cheese."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow.",
+          "de": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow.",
+          "it": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow.",
+          "en": "**a lot of → not many, not much**\n- a lot of boats → There aren't many boats.\n- a lot of snow → There isn't much snow.\n- right too: There isn't a lot of snow."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Is there ___ snow on Cat Bells?",
+        "options": [
+          "much",
+          "many",
+          "a few"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vprašanje, snega ne šteješ: much**\n- Is there much snow? · Are there many walkers?",
+          "de": "**Frage, Schnee zählt man nicht: much**\n- Is there much snow? · Are there many walkers?",
+          "it": "**Domanda, la neve non si conta: much**\n- Is there much snow? · Are there many walkers?",
+          "en": "**A question, you can't count snow: much**\n- Is there much snow? · Are there many walkers?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "How ___ is the cheese? — Three pounds fifty.",
+        "options": [
+          "much",
+          "many",
+          "lot"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Cena: how much**\n- How much is it? · How much is the cheese?",
+          "de": "**Der Preis: how much**\n- How much is it? · How much is the cheese?",
+          "it": "**Il prezzo: how much**\n- How much is it? · How much is the cheese?",
+          "en": "**The price: how much**\n- How much is it? · How much is the cheese?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Auntie Edna has got a ___ friends in Keswick.",
+        "options": [
+          "few",
+          "little",
+          "much"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Prijatelje šteješ: a few**\n- a few friends · a little time",
+          "de": "**Freunde zählt man: a few**\n- a few friends · a little time",
+          "it": "**Gli amici si contano: a few**\n- a few friends · a little time",
+          "en": "**You can count friends: a few**\n- a few friends · a little time"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: much in a yes sentence as wrong (We've got much time); a bit of as everyday; a jar of honey at four pounds"
+}
