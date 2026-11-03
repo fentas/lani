@@ -122,9 +122,9 @@
             "it": "potrei, con la dieresi"
           },
           "explain": {
-            "en": "**could: könnte, with the umlaut**\n- konnte was, könnte would be",
-            "sl": "**bi lahko: könnte, s preglasom**\n- konnte je bilo, könnte bi bilo",
-            "it": "**potrei: könnte, con la dieresi**\n- konnte era, könnte sarebbe"
+            "en": "**could: könnte, with the umlaut**\n- konnte = could (in the past), könnte = could (now, if …)",
+            "sl": "**bi lahko: könnte, s preglasom**\n- konnte = je lahko, könnte = bi lahko",
+            "it": "**potrei: könnte, con la dieresi**\n- konnte = poteva, könnte = potrebbe"
           }
         }
       },
@@ -235,8 +235,8 @@
       {
         "say": {
           "en": "**Wenn ich Zeit hätte, käme ich** (If I had time, I'd come): but I have none. This is what isn't so, and both parts take the Konjunktiv II: **hätte**, then **käme** or **würde kommen**. The verb goes last after wenn: **wenn ich Zeit hätte** (never *wenn ich hätte Zeit*). What can really happen keeps the present: Wenn ich Zeit **habe**, **komme** ich.",
-          "sl": "**Wenn ich Zeit hätte, käme ich** (če bi imel čas, bi prišel): a časa nimam. To je tisto, kar ni res, in oba dela imata konjunktiv II: **hätte**, nato **käme** ali **würde kommen**. Za wenn gre glagol na konec, zato se glagola srečata ob vejici. Kar se lahko res zgodi, ostane v sedanjiku: Wenn ich Zeit **habe**, **komme** ich.",
-          "it": "**Wenn ich Zeit hätte, käme ich** (se avessi tempo, verrei): ma non ne ho. È ciò che non è vero, e tutte e due le parti prendono il Konjunktiv II: **hätte**, poi **käme** o **würde kommen**. Dopo wenn il verbo va alla fine, così due verbi si incontrano alla virgola. Ciò che può succedere davvero resta al presente: Wenn ich Zeit **habe**, **komme** ich."
+          "sl": "**Wenn ich Zeit hätte, käme ich** (če bi imel čas, bi prišel): a časa nimam. To je tisto, kar ni res, in oba dela imata konjunktiv II: **hätte**, nato **käme** ali **würde kommen**. Za wenn gre glagol na konec: **wenn ich Zeit hätte** (nikoli *wenn ich hätte Zeit*). Kar se lahko res zgodi, ostane v sedanjiku: Wenn ich Zeit **habe**, **komme** ich.",
+          "it": "**Wenn ich Zeit hätte, käme ich** (se avessi tempo, verrei): ma non ne ho. È ciò che non è vero, e tutte e due le parti prendono il Konjunktiv II: **hätte**, poi **käme** o **würde kommen**. Dopo wenn il verbo va alla fine: **wenn ich Zeit hätte** (mai *wenn ich hätte Zeit*). Ciò che può succedere davvero resta al presente: Wenn ich Zeit **habe**, **komme** ich."
         },
         "examples": [
           {
@@ -454,7 +454,7 @@
               },
               "words": [
                 "Wenn ich Zeit hätte, käme ich.",
-                "Wenn es regnen würde, blieben wir hier.",
+                "Wenn es regnen würde, würden wir hier bleiben.",
                 "Wenn Stefan käme, würden wir essen."
               ]
             }
@@ -480,12 +480,12 @@
           "type": "gaptext",
           "grammar": "konjunktiv-zwei",
           "instruction": {
-            "en": "Ergänze · Fill in",
-            "sl": "Ergänze · Dopolni",
-            "it": "Ergänze · Completa"
+            "en": "Ergänze im Konjunktiv II · Fill in with the Konjunktiv II",
+            "sl": "Ergänze im Konjunktiv II · Dopolni s konjunktivom II",
+            "it": "Ergänze im Konjunktiv II · Completa con il Konjunktiv II"
           },
           "title": "Wenn Franz reich wäre",
-          "text": "Müller Franz sitzt in der Mühle und träumt. Wenn ich reich ___, würde ich nicht mehr arbeiten. Wenn ich ein Auto ___, ___ ich jeden Tag nach Villach fahren. Kathi lacht: Du ___ weniger träumen! Du ___ die Mühle reparieren. Wenn du mir helfen ___, wäre die Arbeit schneller fertig, sagt Franz. Das ___ ich gern tun, aber ich habe keine Zeit.",
+          "text": "Franz, der Müller, sitzt in der Mühle und träumt. Wenn ich reich ___, würde ich nicht mehr arbeiten. Wenn ich ein Auto ___, ___ ich jeden Tag nach Villach fahren. Kathi lacht: Du ___ weniger träumen! Du ___ die Mühle reparieren. Wenn du mir helfen ___, wäre die Arbeit schneller fertig, sagt Franz. Das ___ ich gern tun, aber ich habe keine Zeit.",
           "gaps": [
             {
               "accept": [
@@ -499,7 +499,12 @@
             },
             {
               "accept": [
-                "würde"
+                "würde",
+                "könnte"
+              ],
+              "spoken": [
+                "täte",
+                "tät"
               ]
             },
             {
@@ -524,7 +529,12 @@
             },
             {
               "accept": [
-                "würde"
+                "würde",
+                "möchte"
+              ],
+              "spoken": [
+                "täte",
+                "tät"
               ]
             }
           ],
@@ -619,17 +629,21 @@
                 "Ich käme, wenn ich Zeit hätte."
               ],
               "spoken": [
-                "Wenn ich Zeit haben würde, würde ich kommen."
+                "Wenn ich Zeit haben würde, würde ich kommen.",
+                "Ich würde kommen, wenn ich Zeit haben würde."
               ]
             },
             {
               "from": "Stefan hat kein Auto. Er fährt nicht nach Villach.",
               "accept": [
                 "Wenn Stefan ein Auto hätte, würde er nach Villach fahren.",
-                "Stefan würde nach Villach fahren, wenn er ein Auto hätte."
+                "Stefan würde nach Villach fahren, wenn er ein Auto hätte.",
+                "Wenn Stefan ein Auto hätte, führe er nach Villach.",
+                "Stefan führe nach Villach, wenn er ein Auto hätte."
               ],
               "spoken": [
-                "Wenn Stefan ein Auto haben würde, würde er nach Villach fahren."
+                "Wenn Stefan ein Auto haben würde, würde er nach Villach fahren.",
+                "Stefan würde nach Villach fahren, wenn er ein Auto haben würde."
               ]
             },
             {
@@ -704,19 +718,22 @@
             {
               "from": "Kannst du mir helfen?",
               "accept": [
-                "Könntest du mir helfen?"
+                "Könntest du mir helfen?",
+                "Könntest du mir bitte helfen?"
               ]
             },
             {
               "from": "Darf ich kurz telefonieren?",
               "accept": [
-                "Dürfte ich kurz telefonieren?"
+                "Dürfte ich kurz telefonieren?",
+                "Dürfte ich bitte kurz telefonieren?"
               ]
             },
             {
               "from": "Können Sie mir sagen, wo Kathi ist?",
               "accept": [
-                "Könnten Sie mir sagen, wo Kathi ist?"
+                "Könnten Sie mir sagen, wo Kathi ist?",
+                "Könnten Sie mir bitte sagen, wo Kathi ist?"
               ]
             }
           ],
@@ -736,9 +753,9 @@
         "type": "gaptext",
         "grammar": "konjunktiv-zwei",
         "instruction": {
-          "en": "Ergänze · Fill in",
-          "sl": "Ergänze · Dopolni",
-          "it": "Ergänze · Completa"
+          "en": "Ergänze im Konjunktiv II · Fill in with the Konjunktiv II",
+          "sl": "Ergänze im Konjunktiv II · Dopolni s konjunktivom II",
+          "it": "Ergänze im Konjunktiv II · Completa con il Konjunktiv II"
         },
         "title": "Wenn Opa Sepp jung wäre",
         "text": "Wenn ich jung ___, würde ich auf den Dobratsch steigen, sagt Opa Sepp. Wenn ich gute Beine ___, ___ ich jeden Tag auf die Alm gehen. Lena fragt: ___ du mir den Weg zeigen? Das ___ ich gern tun, aber meine Beine sind alt. Du ___ mit Florian gehen.",
@@ -755,7 +772,12 @@
           },
           {
             "accept": [
-              "würde"
+              "würde",
+              "könnte"
+            ],
+            "spoken": [
+              "täte",
+              "tät"
             ]
           },
           {
@@ -766,13 +788,19 @@
           },
           {
             "accept": [
-              "würde"
+              "würde",
+              "möchte"
+            ],
+            "spoken": [
+              "täte",
+              "tät"
             ]
           },
           {
             "accept": [
               "solltest",
-              "könntest"
+              "könntest",
+              "müsstest"
             ]
           }
         ],
@@ -804,7 +832,8 @@
               "Toni würde das Haus kaufen, wenn er Geld hätte."
             ],
             "spoken": [
-              "Wenn Toni Geld haben würde, würde er das Haus kaufen."
+              "Wenn Toni Geld haben würde, würde er das Haus kaufen.",
+              "Toni würde das Haus kaufen, wenn er Geld haben würde."
             ]
           },
           {
@@ -836,13 +865,16 @@
           {
             "from": "Kannst du das Fenster zumachen?",
             "accept": [
-              "Könntest du das Fenster zumachen?"
+              "Könntest du das Fenster zumachen?",
+              "Könntest du bitte das Fenster zumachen?",
+              "Könntest du das Fenster bitte zumachen?"
             ]
           },
           {
             "from": "Darf ich hier rauchen?",
             "accept": [
-              "Dürfte ich hier rauchen?"
+              "Dürfte ich hier rauchen?",
+              "Dürfte ich hier bitte rauchen?"
             ]
           }
         ],

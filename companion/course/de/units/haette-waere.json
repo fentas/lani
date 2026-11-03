@@ -202,9 +202,9 @@
       },
       {
         "say": {
-          "en": "**ich hätte gern, ich wäre gern, ich würde gern**: three ways to wish, by what you wish for. A thing: **ich hätte gern** ein Bier. A place or a state: **ich wäre gern** zu Hause, reich. Doing something: **ich würde gern** schlafen. **gern** (gladly) comes right after the verb. **Ich möchte** (I'd like) says much the same.",
-          "sl": "**ich hätte gern, ich wäre gern, ich würde gern**: trije načini želje, odvisno od tega, kaj si želiš. Stvar: **ich hätte gern** ein Bier. Kraj ali stanje: **ich wäre gern** zu Hause, reich. Dejanje: **ich würde gern** schlafen. **gern** (rad) pride takoj za glagolom. **Ich möchte** (rad bi) pove skoraj isto.",
-          "it": "**ich hätte gern, ich wäre gern, ich würde gern**: tre modi di desiderare, secondo ciò che desideri. Una cosa: **ich hätte gern** ein Bier. Un luogo o uno stato: **ich wäre gern** zu Hause, reich. Fare qualcosa: **ich würde gern** schlafen. **gern** (volentieri) viene subito dopo il verbo. **Ich möchte** (vorrei) dice più o meno lo stesso."
+          "en": "**ich hätte gern, ich wäre gern, ich würde gern**: three ways to wish, by what you wish for. A thing: **ich hätte gern** ein Bier. A place or a state: **ich wäre gern** zu Hause, reich. Doing something: **ich würde gern** schlafen. **gern** (gladly) comes after the verb, before the thing, the place or the infinitive. **Ich möchte** (I'd like) says much the same.",
+          "sl": "**ich hätte gern, ich wäre gern, ich würde gern**: trije načini želje, odvisno od tega, kaj si želiš. Stvar: **ich hätte gern** ein Bier. Kraj ali stanje: **ich wäre gern** zu Hause, reich. Dejanje: **ich würde gern** schlafen. **gern** (rad) pride za glagolom, pred stvarjo, krajem ali nedoločnikom. **Ich möchte** (rad bi) pove skoraj isto.",
+          "it": "**ich hätte gern, ich wäre gern, ich würde gern**: tre modi di desiderare, secondo ciò che desideri. Una cosa: **ich hätte gern** ein Bier. Un luogo o uno stato: **ich wäre gern** zu Hause, reich. Fare qualcosa: **ich würde gern** schlafen. **gern** (volentieri) viene dopo il verbo, prima della cosa, del luogo o dell'infinito. **Ich möchte** (vorrei) dice più o meno lo stesso."
         },
         "examples": [
           {
@@ -319,9 +319,9 @@
       }
     ],
     "summary": {
-      "en": "Haben, sein and werden wish with an umlaut: **hätte, wäre, würde**.\n\nA thing: **Ich hätte gern eine Suppe.** A place or a state: **Ich wäre gern zu Hause.** Doing something: **Ich würde gern tanzen.**\n\nAsking kindly, the verb first: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** was, **hätte** would be.",
-      "sl": "Haben, sein in werden izrazijo željo s preglasom: **hätte, wäre, würde**.\n\nStvar: **Ich hätte gern eine Suppe.** Kraj ali stanje: **Ich wäre gern zu Hause.** Dejanje: **Ich würde gern tanzen.**\n\nVljudna prošnja, glagol prvi: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** je bilo, **hätte** bi bilo.",
-      "it": "Haben, sein e werden desiderano con la dieresi: **hätte, wäre, würde**.\n\nUna cosa: **Ich hätte gern eine Suppe.** Un luogo o uno stato: **Ich wäre gern zu Hause.** Fare qualcosa: **Ich würde gern tanzen.**\n\nChiedere con garbo, il verbo per primo: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** era, **hätte** sarebbe."
+      "en": "Haben, sein and werden wish with an umlaut: **hätte, wäre, würde**.\n\nA thing: **Ich hätte gern eine Suppe.** A place or a state: **Ich wäre gern zu Hause.** Doing something: **Ich würde gern tanzen.**\n\nAsking kindly, the verb first: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** = had, **hätte** = would have.",
+      "sl": "Haben, sein in werden izrazijo željo s preglasom: **hätte, wäre, würde**.\n\nStvar: **Ich hätte gern eine Suppe.** Kraj ali stanje: **Ich wäre gern zu Hause.** Dejanje: **Ich würde gern tanzen.**\n\nVljudna prošnja, glagol prvi: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** = je imel, **hätte** = bi imel.",
+      "it": "Haben, sein e werden desiderano con la dieresi: **hätte, wäre, würde**.\n\nUna cosa: **Ich hätte gern eine Suppe.** Un luogo o uno stato: **Ich wäre gern zu Hause.** Fare qualcosa: **Ich würde gern tanzen.**\n\nChiedere con garbo, il verbo per primo: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** = aveva, **hätte** = avrebbe."
     }
   },
   "worksheets": [
@@ -638,13 +638,15 @@
             {
               "from": "Ich will eine Suppe.",
               "accept": [
-                "Ich hätte gern eine Suppe."
+                "Ich hätte gern eine Suppe.",
+                "Ich würde gern eine Suppe haben."
               ]
             },
             {
               "from": "Ich will auf der Alm sein.",
               "accept": [
-                "Ich wäre gern auf der Alm."
+                "Ich wäre gern auf der Alm.",
+                "Ich würde gern auf der Alm sein."
               ]
             },
             {
@@ -686,21 +688,29 @@
               "from": "Hilf mir!",
               "accept": [
                 "Würdest du mir helfen?",
-                "Würdest du mir bitte helfen?"
+                "Würdest du mir bitte helfen?",
+                "Könntest du mir helfen?",
+                "Könntest du mir bitte helfen?"
               ]
             },
             {
               "from": "Mach das Fenster zu!",
               "accept": [
                 "Würdest du das Fenster zumachen?",
-                "Würdest du bitte das Fenster zumachen?"
+                "Würdest du bitte das Fenster zumachen?",
+                "Würdest du das Fenster bitte zumachen?",
+                "Könntest du das Fenster zumachen?",
+                "Könntest du bitte das Fenster zumachen?",
+                "Könntest du das Fenster bitte zumachen?"
               ]
             },
             {
               "from": "Bring mir ein Bier!",
               "accept": [
                 "Würdest du mir ein Bier bringen?",
-                "Würdest du mir bitte ein Bier bringen?"
+                "Würdest du mir bitte ein Bier bringen?",
+                "Könntest du mir ein Bier bringen?",
+                "Könntest du mir bitte ein Bier bringen?"
               ]
             },
             {
@@ -708,7 +718,10 @@
               "accept": [
                 "Würden Sie bitte morgen kommen?",
                 "Würden Sie morgen bitte kommen?",
-                "Würden Sie morgen kommen?"
+                "Würden Sie morgen kommen?",
+                "Könnten Sie bitte morgen kommen?",
+                "Könnten Sie morgen bitte kommen?",
+                "Könnten Sie morgen kommen?"
               ]
             }
           ],
@@ -808,7 +821,10 @@
           {
             "from": "Hilfst du mir?",
             "accept": [
-              "Würdest du mir helfen?"
+              "Würdest du mir helfen?",
+              "Würdest du mir bitte helfen?",
+              "Könntest du mir helfen?",
+              "Könntest du mir bitte helfen?"
             ]
           }
         ],

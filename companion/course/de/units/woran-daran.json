@@ -132,13 +132,13 @@
             "de": "Wofür interessierst du dich?",
             "en": "What are you interested in?",
             "sl": "Za kaj se zanimaš?",
-            "it": "Per che cosa ti interessi?"
+            "it": "Di che cosa ti interessi?"
           },
           {
             "de": "Stanko interessiert sich dafür.",
             "en": "Stanko is interested in it.",
             "sl": "Stanko se zanima za to.",
-            "it": "Stanko si interessa a questo."
+            "it": "Stanko se ne interessa."
           },
           {
             "de": "Wovor hast du Angst?",
@@ -154,7 +154,7 @@
             "dafür"
           ],
           [
-            "sprechen mit",
+            "anfangen mit",
             "womit?",
             "damit"
           ],
@@ -194,9 +194,9 @@
       },
       {
         "say": {
-          "en": "**woran, daran; worüber, darüber; worum, darum**: a preposition that starts with a vowel needs an r to join on: **worauf** (never *woauf*), **daran** (never *daan*). über → **worüber**, **darüber**; um → **worum**, **darum**. In speech the a often goes: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: right.",
-          "sl": "**woran, daran; worüber, darüber; worum, darum**: predlog, ki se začne s samoglasnikom, potrebuje r. an → **woran**, **daran**; über → **worüber**, **darüber**; um → **worum**, **darum**; auf → **worauf**, **darauf**. V govoru a pogosto odpade: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: prav.",
-          "it": "**woran, daran; worüber, darüber; worum, darum**: una preposizione che comincia con una vocale ha bisogno della r. an → **woran**, **daran**; über → **worüber**, **darüber**; um → **worum**, **darum**; auf → **worauf**, **darauf**. A voce la a spesso cade: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: va bene."
+          "en": "**woran, daran; worüber, darüber; worum, darum**: a preposition that starts with a vowel needs an r to join on: **worauf** (never *woauf*), **daran** (never *daan*). an → **woran**; auf → **darauf**; über → **worüber**, **darüber**; um → **worum**, **darum**. In speech the a often goes: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: right.",
+          "sl": "**woran, daran; worüber, darüber; worum, darum**: predlog, ki se začne s samoglasnikom, potrebuje r (nikoli *woauf*, *daan*). an → **woran**, **daran**; über → **worüber**, **darüber**; um → **worum**, **darum**; auf → **worauf**, **darauf**. V govoru a pogosto odpade: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: prav.",
+          "it": "**woran, daran; worüber, darüber; worum, darum**: una preposizione che comincia con una vocale ha bisogno della r (mai *woauf*, *daan*). an → **woran**, **daran**; über → **worüber**, **darüber**; um → **worum**, **darum**; auf → **worauf**, **darauf**. A voce la a spesso cade: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: va bene."
         },
         "examples": [
           {
@@ -435,7 +435,7 @@
               ]
             },
             {
-              "label": "sprechen mit",
+              "label": "anfangen mit",
               "cells": [
                 {
                   "accept": [
@@ -562,7 +562,8 @@
               ],
               "spoken": [
                 "drauf",
-                "auf ihn"
+                "auf ihn",
+                "auf den"
               ]
             },
             {
@@ -579,7 +580,8 @@
               ],
               "spoken": [
                 "drauf",
-                "auf ihn"
+                "auf ihn",
+                "auf den"
               ]
             },
             {
@@ -608,6 +610,9 @@
             {
               "accept": [
                 "Dafür"
+              ],
+              "spoken": [
+                "Für das"
               ]
             }
           ],
@@ -620,7 +625,7 @@
           "translation": {
             "en": "Stefan is sitting at Kathi's. What are you waiting for?, Kathi asks. The bus. I've been waiting for it a long time. And what are you thinking of? The Kirchtag. I'm looking forward to it already. Who are you talking to over there? Franz. I often talk to him about the mill. What else do you talk about? The weather. He's interested in that too.",
             "sl": "Stefan sedi pri Kathi. Na kaj čakaš?, vpraša Kathi. Na avtobus. Že dolgo čakam nanj. In na kaj misliš? Na žegnanje. Že se ga veselim. S kom govoriš tam? S Franzem. Z njim pogosto govorim o mlinu. O čem še govorita? O vremenu. Za to se tudi zanima.",
-            "it": "Stefan è seduto da Kathi. Che cosa aspetti?, chiede Kathi. L'autobus. Lo aspetto già da molto. E a che cosa pensi? Al Kirchtag. Non vedo già l'ora. Con chi parli laggiù? Con Franz. Parlo spesso con lui del mulino. Di che cos'altro parlate? Del tempo. Si interessa anche di quello."
+            "it": "Stefan è seduto da Kathi. Che cosa aspetti?, chiede Kathi. L'autobus. Lo aspetto già da molto. E a che cosa pensi? Al Kirchtag. Non vedo l'ora. Con chi parli laggiù? Con Franz. Parlo spesso con lui del mulino. Di che cos'altro parlate? Del tempo. Si interessa anche di quello."
           },
           "explain": {
             "en": "**A thing: wo- and da-, with an r before a vowel**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
@@ -678,7 +683,7 @@
       "id": "woran-daran-3",
       "title": {
         "de": "Frag und antworte kurz",
-        "en": "Ask, and answer short",
+        "en": "Ask, and answer briefly",
         "sl": "Vprašaj in odgovori na kratko",
         "it": "Chiedi e rispondi in breve"
       },
@@ -740,7 +745,7 @@
           "type": "transform",
           "grammar": "wo-da-woerter",
           "instruction": {
-            "en": "Antworte kurz · Answer short, with no noun",
+            "en": "Antworte kurz · Answer briefly, with no noun",
             "sl": "Antworte kurz · Odgovori na kratko, brez samostalnika",
             "it": "Antworte kurz · Rispondi in breve, senza il nome"
           },
@@ -749,23 +754,33 @@
             {
               "from": "Wartest du auf den Bus?",
               "accept": [
-                "Ja, ich warte darauf."
+                "Ja, ich warte darauf.",
+                "Ich warte darauf.",
+                "Ja, darauf.",
+                "Ja, darauf warte ich."
               ],
               "spoken": [
                 "Ja, ich warte drauf.",
-                "Ja, ich warte auf ihn."
+                "Ja, ich warte auf ihn.",
+                "Ja, ich warte auf den."
               ]
             },
             {
               "from": "Wartest du auf Mitzi?",
               "accept": [
-                "Ja, ich warte auf sie."
+                "Ja, ich warte auf sie.",
+                "Ich warte auf sie.",
+                "Ja, auf sie.",
+                "Ja, auf sie warte ich."
               ]
             },
             {
               "from": "Freust du dich über das Geschenk?",
               "accept": [
-                "Ja, ich freue mich darüber."
+                "Ja, ich freue mich darüber.",
+                "Ich freue mich darüber.",
+                "Ja, darüber.",
+                "Ja, darüber freue ich mich."
               ],
               "spoken": [
                 "Ja, ich freue mich drüber."
@@ -774,7 +789,10 @@
             {
               "from": "Sprichst du mit Stefan?",
               "accept": [
-                "Ja, ich spreche mit ihm."
+                "Ja, ich spreche mit ihm.",
+                "Ich spreche mit ihm.",
+                "Ja, mit ihm.",
+                "Ja, mit ihm spreche ich."
               ]
             }
           ],
@@ -799,7 +817,7 @@
           "it": "Ergänze · Completa"
         },
         "title": "Tante Mitzi fragt",
-        "text": "Tante Mitzi fragt immer alles. ___ wartest du?, fragt sie Lena. Auf den Bus. Und ___ wen wartet Maxi? Auf seine Mutter. Er wartet schon lange auf ___. ___ hast du Angst, Jakob? Vor dem Gewitter. Ich habe auch ___ Angst, sagt Mitzi. Dann lachen alle ___.",
+        "text": "Tante Mitzi will immer alles wissen. ___ wartest du?, fragt sie Lena. Auf den Bus. Und ___ wen wartet Maxi? Auf seine Mutter. Er wartet schon lange auf ___. ___ hast du Angst, Jakob? Vor dem Gewitter. Ich habe auch Angst ___, sagt Mitzi. Dann lachen alle ___.",
         "gaps": [
           {
             "accept": [
@@ -830,6 +848,10 @@
           {
             "accept": [
               "davor"
+            ],
+            "spoken": [
+              "vor ihm",
+              "vor dem"
             ]
           },
           {
@@ -838,13 +860,18 @@
             ],
             "spoken": [
               "drüber"
-            ]
+            ],
+            "hint": {
+              "en": "lachen über",
+              "sl": "lachen über",
+              "it": "lachen über"
+            }
           }
         ],
         "translation": {
-          "en": "Aunt Mitzi always asks about everything. What are you waiting for?, she asks Lena. The bus. And who is Maxi waiting for? His mother. He's been waiting for her a long time. What are you afraid of, Jakob? The thunderstorm. I'm afraid of it too, says Mitzi. Then they all laugh about it.",
-          "sl": "Teta Mitzi vedno vse sprašuje. Na kaj čakaš?, vpraša Leno. Na avtobus. In na koga čaka Maxi? Na mamo. Že dolgo čaka nanjo. Česa se bojiš, Jakob? Nevihte. Tudi jaz se ga bojim, reče Mitzi. Potem se vsi temu smejijo.",
-          "it": "Zia Mitzi chiede sempre tutto. Che cosa aspetti?, chiede a Lena. L'autobus. E chi aspetta Maxi? Sua madre. La aspetta già da molto. Di che cosa hai paura, Jakob? Del temporale. Anch'io ne ho paura, dice Mitzi. Poi tutti ci ridono sopra."
+          "en": "Aunt Mitzi always wants to know everything. What are you waiting for?, she asks Lena. The bus. And who is Maxi waiting for? His mother. He's been waiting for her a long time. What are you afraid of, Jakob? The thunderstorm. I'm afraid of it too, says Mitzi. Then they all laugh about it.",
+          "sl": "Teta Mitzi hoče vedno vse vedeti. Na kaj čakaš?, vpraša Leno. Na avtobus. In na koga čaka Maxi? Na mamo. Že dolgo čaka nanjo. Česa se bojiš, Jakob? Nevihte. Tudi jaz se je bojim, reče Mitzi. Potem se vsi temu smejijo.",
+          "it": "Zia Mitzi vuole sempre sapere tutto. Che cosa aspetti?, chiede a Lena. L'autobus. E chi aspetta Maxi? Sua madre. La aspetta già da molto. Di che cosa hai paura, Jakob? Del temporale. Anch'io ne ho paura, dice Mitzi. Poi tutti ci ridono sopra."
         },
         "explain": {
           "en": "**A thing: wo- and da-, with an r before a vowel**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
@@ -888,7 +915,7 @@
         "type": "transform",
         "grammar": "wo-da-woerter",
         "instruction": {
-          "en": "Antworte kurz · Answer short, with no noun",
+          "en": "Antworte kurz · Answer briefly, with no noun",
           "sl": "Antworte kurz · Odgovori na kratko, brez samostalnika",
           "it": "Antworte kurz · Rispondi in breve, senza il nome"
         },
@@ -897,17 +924,24 @@
           {
             "from": "Denkst du an den Kirchtag?",
             "accept": [
-              "Ja, ich denke daran."
+              "Ja, ich denke daran.",
+              "Ich denke daran.",
+              "Ja, daran.",
+              "Ja, daran denke ich."
             ],
             "spoken": [
               "Ja, ich denke dran.",
-              "Ja, ich denke an ihn."
+              "Ja, ich denke an ihn.",
+              "Ja, ich denke an den."
             ]
           },
           {
             "from": "Wartest du auf Toni?",
             "accept": [
-              "Ja, ich warte auf ihn."
+              "Ja, ich warte auf ihn.",
+              "Ich warte auf ihn.",
+              "Ja, auf ihn.",
+              "Ja, auf ihn warte ich."
             ]
           }
         ],
