@@ -1591,6 +1591,12 @@ rises by itself. The treasure map is how it rises: an opt-in test at the end of 
 | 🔁 The reviews | Of the reviews of the last 14 days, of the cards of the level and below (the card's `difficulty`; a card above the level is a stretch, a card without one counts): 80 % right, and 30 reviews at least. |
 | 📅 The time | 10 days of practice at the level (days with a session in the log), over 14 days or more since the level began (the profile's `learner.level_since`, which update-db.py sets when a report changes the level; else the day the profile was made). |
 
+A level the book has no pages of yet (German and English above A2 today, Italian above B1, any language above B2) has no
+rules to secure: the grammar sign can't tell, and it says so instead of passing with 0 / 0. The map's sign reads "– Knjiga
+še nima pravil ravni B1: ta znak zaenkrat ne šteje · The book has no rules of B1 yet: this sign doesn't count for now", the
+progress screen's line ➖ "—" with the same caption (`Readiness.noPages`). It holds nothing back (never a wall): the reviews and the
+time decide.
+
 **The offer.** Once all three are there, the storyteller (the teller of the evening stories: Stari Janez; else the
 riddles' teller) gives the map: the chronicle says "🗺️ Stari Janez je našel star zemljevid", a 🗺️ bubble waits by the
 fire, Home has a row "🗺️ Stari Janez ima zate star zemljevid · Stari Janez has an old map for you", and the chest keeps it

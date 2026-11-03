@@ -512,10 +512,15 @@ shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
   of it folded ("📝 14 enot v A2 · 14 units in A2", "🔒 Zaklenjeno · Locked" in the list). The levels after it aren't
   shown until it opens.
 
-- **Nothing written left to do, more planned** (every written unit of the open levels done, or none written yet: the
-  Italian course's first days): the teacher says she is preparing the next lessons, kindly, under her welcome
-  (`School.preparing`; "Pripravljam naslednje ure. Kmalu se spet vidiva!", Maestra Elena's "Sto preparando le prossime
-  lezioni. Torna presto!"), and Home's tile says "📝 Nove ure kmalu" instead of "✅ vse opravljeno".
+- **Nothing written left to do, more to come** (every written unit done, or none written yet: the Italian course's first
+  days; no written unit behind a closed level; and a unit still planned, or a level the outline lists with no units, in a
+  level open or not: German and English past A1, Italian past B1): the teacher says she is preparing the next lessons,
+  kindly, under her welcome (`School.preparing`; "Pripravljam naslednje ure. Kmalu se spet vidiva!", Maestra Elena's "Sto
+  preparando le prossime lezioni. Torna presto!"), and Home's tile says "📝 Nove ure kmalu" instead of "✅ vse opravljeno".
+- **Written units behind a closed level** (the open levels done, the next one waiting for the school: `School.waiting`):
+  the first closed level says what opens it, as above, and Home's tile says it too: "🔒 A2: zgradi šolo · A2: build the
+  school", "🔒 B1: nadgradi šolo · B1: upgrade the school".
+- **Past a course written to its end** (every level the outline lists written, every unit done): "✅ vse opravljeno".
 
 The rules that open a level are unchanged (`School.isOpen`: A1 with the hamlet; A2 with the school standing and A1's
 written units done, i.e. every A1 test passed; B1 and B2 with the school's levels 2 and 3 and the level before done; a

@@ -1208,7 +1208,7 @@ newcomer|birth}`) tells the tutor someone moved in, so they can give them lines 
 | `GET` | `/audio/index` | family recordings: normalized Slovene text → `[{file, speaker, recorded_at, text}]` |
 | `POST` | `/audio?text=…&speaker=…` | a recording (raw body or multipart `file`; m4a, ogg or webm, max 2 MB), stored at the voice clips' loudness |
 | `GET`, `DELETE` | `/audio/file/:name` | one recording |
-| `GET`, `PUT` | `/family/api/settings` | the partner's name, emoji and Slovene "from" form (`Maje`) |
+| `GET`, `PUT` | `/family/api/settings` | the partner's name, emoji and Slovene "from" form (`Maje`); `GET` also the learner's name and languages (`language`, `base`) |
 | `GET` | `/family/api/words` | words and phrases to record (pack words, examples, vocabulary cards) |
 | `GET`, `POST` | `/family/api/challenges` | partner challenges `{type: question\|translate\|say, text, hint?}` with answers and feedback |
 | `POST` | `/family/api/challenges/:id/answer` | `{text, spoken}`: Jan's answer (app token only) → `partner_answer` to Claude |
@@ -2031,7 +2031,9 @@ controller `app/CheatSheetController.kt`, the sheet `ui/CheatSheetSheet.kt`; the
   (cut at a word past 240 characters, never inside bold) and its first two examples. The curated deck of the basics is
   such cards (machine-written, not reviewed by a native speaker): biti, imeti and iti, the present's endings, the past,
   the future, the six cases at a glance, noun gender by ending, the plural, adjective agreement, the question words and
-  ti or vi.
+  ti or vi. In Italian, German and English every A1 page has its own card, since a page's first sentence is often only
+  a lead-in ("Italian says *like* the other way round:"): the rule in one line, the trap as its tip, the page's table
+  and examples. Pages above A1 there make their cards from the page.
 - **Curated cards no page fits** (`companion/cards/<language>/<id>.json`, `lani.card/v0`, `bridge/src/cards.ts`): the
   same face, a title per language, and the pages they belong to (`grammar`): the pronouns 1 · 2 · 3+ (jaz, midva, mi;
   me, ve, one; vi polite), kje or kam (v, na + locative or accusative), the numbers 1–20 and the tens, the possessives
@@ -2059,7 +2061,8 @@ its first cell and each other with its column's name, "ti, imeti: imaš"; the ch
 **Unlocked as you go.** A page's card unlocks the day the learner meets its page (the grammar book's "met",
 `GameState.grammar`: an exercise or a module naming it, a page shown from a why, a school unit's introduction), a curated
 card with the first of its pages, an A1 basic marked `start` from the start (the pronouns, biti, the question words, the
-numbers), a pinned or the tutor's at once. What unlocks a page is one call: `vm.cheat.met(pageIds)` (the same as
+numbers; in Italian and German to be, the question words, the numbers and the articles; in English to be, questions with do, the
+numbers and the pronouns), a pinned or the tutor's at once. What unlocks a page is one call: `vm.cheat.met(pageIds)` (the same as
 `vm.grammar.meet(pageIds, announce = true)`: the book's pages and their cards; the school's units call it with their
 pages). Locked cards aren't listed (no spoilers); the sheet ends with "🔒 Še 23 kartic · 23 more cards as you go". A card
 never opened is "✨ Novo · New" (a pinned one isn't: pinning it opened it).
@@ -4233,7 +4236,12 @@ The learner's family can take part in two ways:
   Jan", and the tutor's note goes back to the sender's progress screen.
 
 The family page is served by the bridge at `/family`. It uses its own token,
-`<data>/app/family-token` (generated on first start, like the app token).
+`<data>/app/family-token` (generated on first start, like the app token). It speaks the learner's two languages, as
+the app does ("Aiuta Teo a imparare l'italiano · Hilf Teo, Italienisch zu lernen"; `GET /family/api/settings` says which:
+`language`, `base`; a bridge from before that has Slovene and English): its labels, the samples in its fields, the words
+to record glossed in the base. Its texts live in `web/family/app.js` (`STRINGS`, `SAMPLES`, each in sl, en, de and it;
+machine-written, not reviewed by a native speaker). The Slovene "from" form is asked only of a family helping with
+Slovene; a page opened without its key speaks the browser's language, else English.
 
 ### Give the partner access
 

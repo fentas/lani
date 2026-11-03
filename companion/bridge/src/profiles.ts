@@ -81,6 +81,8 @@ const VOICES: Record<string, string> = {
 const PLAIN_SAMPLES: Record<string, string> = {
   sl: 'Dober dan! Lepo, da si prišel. Danes je v vasi veliko dela, pa tudi dovolj časa za klepet. Kako si kaj? Pridi, sedi malo k meni.',
   it: 'Buongiorno! Che bello che sei venuto. Oggi in paese c\'è tanto lavoro, ma anche tempo per fare due chiacchiere. Come stai? Vieni, siediti un po\' qui con me.',
+  de: 'Grüß Gott! Schön, dass du da bist. Heute gibt es im Dorf viel Arbeit, aber auch genug Zeit zum Plaudern. Wie geht es dir denn? Komm, setz dich ein bisschen zu mir.',
+  en: "Hello there! How lovely that you've come. There's plenty of work in the village today, but time for a good chat as well. How are you keeping? Come on, sit down here with me for a bit.",
 }
 const plainSample = (language = 'sl') => PLAIN_SAMPLES[language] ?? PLAIN_SAMPLES.sl
 

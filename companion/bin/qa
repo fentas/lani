@@ -209,6 +209,11 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        dev bridge's Slovene learner: the culture and the course apart): the map, the bocce court's card and
                        inside (NOI | VOI, the osteria), the osteria, the fontanella and the altar candle tapped (their word
                        cards), the cramâr under his crassigne at the gate; also as cs-*.png in $LANI_QA_CULTURE_SHOTS;
+                       "parity-small" (only when named) small things that read wrong, on what the dev bridge's learner is
+                       (docs/plans/05-built/parity-small.md): a learner of German at B1 past A1 (make-learner.ts --target de
+                       --base en, LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): new lessons coming on the school's tile, the
+                       grammar sign that doesn't count; LANI_QA_START_CARD a start card opened; LANI_QA_MEET=<id> their B1
+                       introduction (QA's hooks "level:B1", "meet:<id>"); LANI_QA_PARITY_SHOTS=<dir> the shots;
                        "friuli-looks" (only when named) Friuli's outdoor scenes in its look on a synthetic Italian learner
                        (LANI_DEV_DATA from make-learner.ts --target it, LANI_CULTURE=friuli, LANI_QA_PAIR=sl-en): the
                        village as a Vas, then Nel campo, Nel bosco, Al ruscello, Allo stagno and Il mare by day and closer,
@@ -15601,6 +15606,93 @@ def road_quiz():
 PROGRESS = "📊 Napredek · Progress"
 
 
+def parity_small():
+    """Small things that read wrong (docs/plans/05-built/parity-small.md), named only, each on what the dev bridge's learner is;
+    the app in the learner's own pair (LANI_QA_SETUP_PAIR). A learner of German at B1 (LANI_DEV_DATA from make-learner.ts
+    --target de --base en, its learner.current_level B1; LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): past German's A1
+    (QA's hook "school:reveal") the teacher says she is preparing the next lessons, the school's tile on Home says they're
+    coming, not all done; "🧭 Bis B2" has the grammar sign ➖ with no pages at B1, the treasure map's sign "–". Any learner: the
+    cheat sheet (QA's hook "cheat") with $LANI_QA_START_CARD, a start card, opened; with $LANI_QA_MEET (a villager's id) their
+    introduction at B1 (QA's hooks "level:B1", "meet:<id>"), on to its first turn, the wrong choice's reaction. Shots in
+    $LANI_QA_PARITY_SHOTS as ps-*.png."""
+    out = Path(os.environ["LANI_QA_PARITY_SHOTS"]) if os.environ.get("LANI_QA_PARITY_SHOTS") else None
+    notes = []
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    culture = api("/culture").get("id")
+    if culture == "kaernten":
+        qa_hook("school:reveal")
+        time.sleep(2 * slow())
+        said = label("school.preparing", half=True)
+        assert wait_for(said, 10), f"the teacher: {said}, past A1 with A2 not written"
+        snap("ps-school-preparing")
+        go_home()
+        tile = scroll_to(label("school.preparingShort"), 8)
+        assert tile, "Home's school tile says new lessons are coming"
+        assert find(label("school.allDone")) is None, "not all done"
+        snap("ps-home-tile")
+        line = scroll_to(label("common.progress"), 6)
+        assert line, "Home's progress line"
+        tap_at(line)
+        time.sleep(3 * slow())
+        assert scroll_to("The book has no pages of B1 yet", 8), "the grammar sign says the book has no pages of B1"
+        snap("ps-progress-sign")
+        hit = on_screen(label("treasure.title"))
+        assert hit is not None, "the way to the treasure map"
+        tap_at(hit[1])
+        time.sleep(2 * slow())
+        assert scroll_to("The book has no rules of B1 yet", 4), "the map's sign says it doesn't count"
+        snap("ps-treasure-sign")
+        notes.append("German at B1: preparing, the sign doesn't count")
+        go_home()
+    card = os.environ.get("LANI_QA_START_CARD")
+    if card:
+        qa_hook("cheat")
+        assert wait_for(label("cheatSheet.title"), 6), "the cheat sheet"
+        time.sleep(1)
+        snap("ps-cheat")
+        assert tap(card, 4), f"the start card {card}"
+        time.sleep(1)
+        snap("ps-cheat-card")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        go_home()
+        notes.append(f"the start card {card}")
+    meet = os.environ.get("LANI_QA_MEET")
+    if meet:
+        qa_hook("level:B1")
+        qa_hook(f"meet:{meet}")
+        time.sleep(3 * slow())
+        snap(f"ps-meet-{meet}")
+        language = api("/culture").get("language", "sl")
+        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"]["B1"]
+        first = next(x for x in spec["lines"] if "choices" in x)
+        wrong = next(c for c in first["choices"] if not c.get("ok"))[language]
+        wrong = re.split(r"[{]", wrong)[0].strip()
+        for _ in range(8):
+            if find(wrong) is not None:
+                break
+            tap(label("common.next"), 2)
+            time.sleep(1.5 * slow())
+        assert find(wrong) is not None, f"{meet}'s first turn: {wrong}"
+        snap(f"ps-meet-{meet}-turn")
+        assert tap(wrong, 3), f"the wrong choice: {wrong}"
+        time.sleep(2 * slow())
+        snap(f"ps-meet-{meet}-reaction")
+        notes.append(f"{meet}'s introduction at B1, to its first turn's reaction")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        qa_hook("level:")
+    if not notes:
+        return "skipped: nothing asked of this learner"
+    print("   " + "; ".join(notes))
+    return None
+
+
 def open_progress():
     """Home's "📊 Napredek · Progress" line to the progress screen, the node's stats on it."""
     go_home()
@@ -18111,6 +18203,8 @@ def plan():
         ("fire-ages", fire_ages, v, False, ""),
         ("storm", storm, v, False, ""),
         ("coast", coast, v, False, ""),
+        # only with --steps parity-small: small things that read wrong, on what the dev bridge's learner is
+        ("parity-small", parity_small, go_home, False, ""),
         # only with --steps friuli-looks: Friuli's outdoor scenes in its look (a synthetic Friuli learner)
         ("friuli-looks", friuli_looks, v, False, ""),
         # only with --steps map-looks: the village map in its culture's look (a synthetic learner of another culture)
@@ -18657,7 +18751,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "party", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

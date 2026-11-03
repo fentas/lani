@@ -455,6 +455,56 @@
             ] },
             { "who": "tyson", "face": "proud", "en": "Forty-two. He counts better than me. Right, off you go, you two.", "sl": "Dvainštirideset. Šteje bolje kot jaz. No, pa pojdita, vidva.", "it": "Quarantadue. Conta meglio di me. Bene, andate pure, voi due.", "de": "Zweiundvierzig. Er zählt besser als ich. So, dann los, ihr zwei." }
           ]
+        },
+        "B1": {
+          "late": {"who": "tyson", "en": "There you are. Alfie's been here a few days now, and you two haven't met.", "sl": "Tu si. Alfie je tukaj že nekaj dni, vidva pa se še nista spoznala.", "it": "Eccoti. Alfie è qui già da qualche giorno, e voi due non vi siete ancora conosciuti.", "de": "Da bist du ja. Alfie ist schon ein paar Tage hier, und ihr zwei kennt euch noch nicht."},
+          "lines": [
+            {"who": "tyson", "en": "Come here. This is Alfie, my grandson. He's come to live with me, so you'll be seeing a lot of him.", "sl": "Pridi sem. To je Alfie, moj vnuk. Prišel je živet k meni, tako da ga boš še veliko {m:videl|f:videla}.", "it": "Vieni qui. Lui è Alfie, mio nipote. È venuto a stare da me, quindi lo vedrai spesso.", "de": "Komm her. Das ist Alfie, mein Enkel. Er wohnt jetzt bei mir, du wirst ihn also oft sehen."},
+            {"who": "alfie", "face": "shy", "en": "Hi … I'm six. I've counted all Grandad's sheep, but they keep moving.", "sl": "Živjo … Star sem šest let. Preštel sem vse dedkove ovce, ampak se kar naprej premikajo.", "it": "Ciao … Ho sei anni. Ho contato tutte le pecore del nonno, ma continuano a muoversi.", "de": "Hallo … Ich bin sechs. Ich habe alle Schafe von Opa gezählt, aber sie bewegen sich dauernd."},
+            {
+              "choices": [
+                {
+                  "en": "Hi, Alfie! How many did you count?",
+                  "sl": "Živjo, Alfie! Koliko si jih preštel?",
+                  "it": "Ciao, Alfie! Quante ne hai contate?",
+                  "de": "Hallo, Alfie! Wie viele hast du gezählt?",
+                  "ok": true,
+                  "reply": {"face": "proud", "en": "Forty-two. No, forty-three. No … a lot!", "sl": "Dvainštirideset. Ne, triinštirideset. Ne … veliko!", "it": "Quarantadue. No, quarantatré. No … tante!", "de": "Zweiundvierzig. Nein, dreiundvierzig. Nein … ganz viele!"}
+                },
+                {
+                  "en": "Hi, Alfie! How many you counted?",
+                  "sl": "Živjo, Alfie! Koliko si jih preštel? (brez did)",
+                  "it": "Ciao, Alfie! Quante ne hai contate? (senza did)",
+                  "de": "Hallo, Alfie! Wie viele hast du gezählt? (ohne did)",
+                  "why": {"sl": "Pri vprašanju v preteklosti rabiš did: How many did you count?", "it": "La domanda al passato vuole did: How many did you count?", "de": "Die Frage in der Vergangenheit braucht did: How many did you count?"},
+                  "reply": {"face": "confused", "en": "How many I … what? Say it slowly, I'm only six.", "sl": "Koliko jaz … kaj? Povej počasi, star sem šele šest let.", "it": "Quante io … cosa? Dillo piano, ho solo sei anni.", "de": "Wie viele ich … was? Sag es langsam, ich bin erst sechs."}
+                }
+              ]
+            },
+            {"who": "tyson", "en": "He came from Penrith on the bus, with a bag bigger than he is. He told the driver how many sheep he could see, all the way.", "sl": "Prišel je iz Penritha z avtobusom, s torbo, večjo od sebe. Šoferju je vso pot pravil, koliko ovc vidi.", "it": "È arrivato da Penrith in autobus, con una borsa più grande di lui. All'autista ha detto per tutto il viaggio quante pecore vedeva.", "de": "Er ist mit dem Bus aus Penrith gekommen, mit einer Tasche, die größer war als er. Dem Fahrer hat er die ganze Fahrt erzählt, wie viele Schafe er sieht."},
+            {"who": "alfie", "face": "proud", "en": "I like it here, because there's a red tractor and a beck. Yesterday I fell in the beck. Only a bit.", "sl": "Tukaj mi je všeč, ker je tu rdeč traktor in potok. Včeraj sem padel v potok. Samo malo.", "it": "Qui mi piace, perché c'è un trattore rosso e un ruscello. Ieri sono caduto nel ruscello. Solo un po'.", "de": "Mir gefällt es hier, weil es einen roten Traktor und einen Bach gibt. Gestern bin ich in den Bach gefallen. Nur ein bisschen."},
+            {
+              "choices": [
+                {
+                  "en": "Oh no! Did you get very wet?",
+                  "sl": "O ne! Si se zelo zmočil?",
+                  "it": "Oh no! Ti sei bagnato molto?",
+                  "de": "Oh nein! Bist du sehr nass geworden?",
+                  "ok": true,
+                  "reply": {"face": "laugh", "en": "Just my socks. And my trousers. And my jumper.", "sl": "Samo nogavice. In hlače. In pulover.", "it": "Solo i calzini. E i pantaloni. E il maglione.", "de": "Nur die Socken. Und die Hose. Und der Pulli."}
+                },
+                {
+                  "en": "Oh no! Did you got very wet?",
+                  "sl": "O ne! Si se zelo zmočil? (did z got)",
+                  "it": "Oh no! Ti sei bagnato molto? (did con got)",
+                  "de": "Oh nein! Bist du sehr nass geworden? (did mit got)",
+                  "why": {"sl": "Za did glagol ostane v osnovni obliki: Did you get, ne Did you got.", "it": "Dopo did il verbo resta alla forma base: Did you get, non Did you got.", "de": "Nach did bleibt das Verb in der Grundform: Did you get, nicht Did you got."},
+                  "reply": {"face": "laugh", "en": "Did I got? Hee hee! That sounds funny.", "sl": "Did I got? Hihi! To se sliši smešno.", "it": "Did I got? Ih ih! Suona buffo.", "de": "Did I got? Hihi! Das klingt lustig."}
+                }
+              ]
+            },
+            {"who": "tyson", "face": "proud", "en": "Wet socks every day. Right, off you go, you two. Mind the beck.", "sl": "Vsak dan mokre nogavice. Dobro, pa pojdita. Pazita na potok.", "it": "Ogni giorno calzini bagnati. Su, andate voi due. Attenti al ruscello.", "de": "Jeden Tag nasse Socken. Also, ab mit euch zwei. Passt auf den Bach auf."}
+          ]
         }
       }
     },
@@ -903,6 +953,56 @@
                 "reply": { "face": "surprised", "en": "You don't believe … what? Me? It's true! Ask Sam!", "sl": "Ne verjameš … česa? Meni? Res je! Vprašaj Sama!", "it": "Non credi … a cosa? A me? È vero! Chiedi a Sam!", "de": "Du glaubst … was nicht? Mir? Es stimmt! Frag Sam!" } }
             ] }
           ]
+        },
+        "B1": {
+          "late": {"who": "birkett", "en": "Love, wait! You haven't met Harry, my son. Harry! Come here!", "sl": "{m:Dragi|f:Draga}, počakaj! Harryja, mojega sina, pa še ne poznaš. Harry! Pridi sem!", "it": "{m:Caro|f:Cara}, aspetta! Non conosci ancora Harry, mio figlio. Harry! Vieni qui!", "de": "{m:Mein Lieber|f:Meine Liebe}, warte! Du kennst Harry noch nicht, meinen Sohn. Harry! Komm her!"},
+          "lines": [
+            {"who": "birkett", "en": "Love, this is Harry, my son. He's been with his granny in Kendal, but now he lives here with me.", "sl": "{m:Dragi|f:Draga}, to je Harry, moj sin. Bil je pri babici v Kendalu, zdaj pa živi tukaj pri meni.", "it": "{m:Caro|f:Cara}, questo è Harry, mio figlio. Stava dalla nonna a Kendal, ma adesso abita qui con me.", "de": "{m:Mein Lieber|f:Meine Liebe}, das ist Harry, mein Sohn. Er war bei seiner Oma in Kendal, aber jetzt wohnt er hier bei mir."},
+            {"who": "harry", "face": "proud", "en": "Hiya! I'm nine. I help at the inn, so I know every walker's boots. Yours are new!", "sl": "Živjo! Star sem devet let. Pomagam v gostilni, zato poznam čevlje vseh pohodnikov. Tvoji so novi!", "it": "Ciao! Ho nove anni. Aiuto alla locanda, quindi conosco gli scarponi di tutti gli escursionisti. I tuoi sono nuovi!", "de": "Hi! Ich bin neun. Ich helfe im Gasthaus, darum kenne ich die Stiefel aller Wanderer. Deine sind neu!"},
+            {
+              "choices": [
+                {
+                  "en": "They are! I bought them last week.",
+                  "sl": "Res so! {m:Kupil|f:Kupila} sem jih prejšnji teden.",
+                  "it": "È vero! Li ho comprati la settimana scorsa.",
+                  "de": "Stimmt! Ich habe sie letzte Woche gekauft.",
+                  "ok": true,
+                  "reply": {"face": "laugh", "en": "Knew it! You'll need them for the race.", "sl": "Sem vedel! {m:Potreboval|f:Potrebovala} jih boš za tekmo.", "it": "Lo sapevo! Ti serviranno per la gara.", "de": "Wusste ich es doch! Die brauchst du für das Rennen."}
+                },
+                {
+                  "en": "They are! I buyed them last week.",
+                  "sl": "Res so! {m:Kupil|f:Kupila} sem jih prejšnji teden. (buyed)",
+                  "it": "È vero! Li ho comprati la settimana scorsa. (buyed)",
+                  "de": "Stimmt! Ich habe sie letzte Woche gekauft. (buyed)",
+                  "why": {"sl": "Buy je nepravilen glagol: v preteklosti je bought, ne buyed.", "it": "Buy è irregolare: al passato fa bought, non buyed.", "de": "Buy ist unregelmäßig: in der Vergangenheit bought, nicht buyed."},
+                  "reply": {"face": "surprised", "en": "Buyed? Is that what walkers say? Mum, listen to this!", "sl": "Buyed? Tako pravijo pohodniki? Mami, poslušaj to!", "it": "Buyed? Dicono così gli escursionisti? Mamma, senti questa!", "de": "Buyed? Sagen das die Wanderer? Mama, hör dir das an!"}
+                }
+              ]
+            },
+            {"who": "birkett", "face": "laugh", "en": "Harry, leave our friend alone. Mind you, he's usually right about boots.", "sl": "Harry, pusti {m:našega prijatelja|f:našo prijateljico} pri miru. Ampak glede čevljev ima navadno prav.", "it": "Harry, lascia {m:il nostro amico|f:la nostra amica} in pace. Però sugli scarponi di solito ha ragione.", "de": "Harry, lass {m:unseren Freund|f:unsere Freundin} in Ruhe. Aber bei Stiefeln hat er meistens recht."},
+            {"who": "harry", "face": "proud", "en": "I'm going to play for Carlisle United one day. Last Saturday I scored three goals before the church bell rang.", "sl": "Nekoč bom igral za Carlisle United. Prejšnjo soboto sem dal tri gole, preden je zazvonil zvon.", "it": "Un giorno giocherò per il Carlisle United. Sabato scorso ho segnato tre gol prima che suonasse la campana della chiesa.", "de": "Eines Tages spiele ich für Carlisle United. Letzten Samstag habe ich drei Tore geschossen, bevor die Kirchenglocke geläutet hat."},
+            {
+              "choices": [
+                {
+                  "en": "Three goals! How long have you been playing?",
+                  "sl": "Trije goli! Kako dolgo že igraš?",
+                  "it": "Tre gol! Da quanto tempo giochi?",
+                  "de": "Drei Tore! Wie lange spielst du schon?",
+                  "ok": true,
+                  "reply": {"face": "happy", "en": "Since I was four! Race you to the tarn, I'll tell you there!", "sl": "Od četrtega leta! Kdo bo prej pri jezeru? Tam ti povem!", "it": "Da quando avevo quattro anni! Facciamo una gara fino al laghetto, là ti racconto!", "de": "Seit ich vier bin! Wer zuerst am Bergsee ist? Dort erzähle ich dir alles!"}
+                },
+                {
+                  "en": "Three goals! How long are you playing?",
+                  "sl": "Trije goli! Kako dolgo že igraš? (brez have been)",
+                  "it": "Tre gol! Da quanto tempo giochi? (senza have been)",
+                  "de": "Drei Tore! Wie lange spielst du schon? (ohne have been)",
+                  "why": {"sl": "Za to, kar traja do zdaj, rabiš present perfect: How long have you been playing?", "it": "Per ciò che dura fino a ora serve il present perfect: How long have you been playing?", "de": "Was bis jetzt andauert, steht im Present Perfect: How long have you been playing?"},
+                  "reply": {"face": "laugh", "en": "How long am I playing? Till the bell rings, I told you!", "sl": "Kako dolgo bom igral? Dokler ne zazvoni, sem ti rekel!", "it": "Quanto giocherò? Finché suona la campana, te l'ho detto!", "de": "Wie lange ich spiele? Bis die Glocke läutet, hab ich doch gesagt!"}
+                }
+              ]
+            },
+            {"who": "birkett", "face": "laugh", "en": "And he's always running. Harry, no football in the kitchen!", "sl": "Pa vedno teka naokrog. Harry, žoga ne sodi v kuhinjo!", "it": "E corre sempre. Harry, niente pallone in cucina!", "de": "Und er rennt immer herum. Harry, kein Fußball in der Küche!"}
+          ]
         }
       }
     },
@@ -1037,6 +1137,56 @@
                 "reply": { "face": "confused", "en": "She bake …? Hm. I'm new here: say it again, slowly?", "sl": "She bake …? Hm. {g, select, f {Nova} other {Nov}} sem tukaj: še enkrat, počasi?", "it": "She bake …? Mm. Sono {g, select, f {nuova} other {nuovo}} qui: me lo ripeti piano?", "de": "She bake …? Hm. Ich bin neu hier: noch mal, langsam?" } }
             ] },
             { "who": "self", "en": "I'm glad I came here. See you soon, neighbour!", "sl": "{g, select, f {Vesela} other {Vesel}} sem, da sem {g, select, f {prišla} other {prišel}} sem. Se vidiva, {m:sosed|f:soseda}!", "it": "Sono {g, select, f {contenta} other {contento}} di essere qui. A presto, {m:vicino|f:vicina}!", "de": "Ich bin froh, dass ich hergekommen bin. Bis bald, {m:Nachbar|f:Nachbarin}!" }
+          ]
+        },
+        "B1": {
+          "late": {"who": "self", "face": "happy", "en": "Hello! At last! I've been in the village for a few days, and we still haven't met. I'm {name}.", "sl": "Živjo! Končno! Že nekaj dni sem v vasi, pa se še nisva {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}. Jaz sem {name}.", "it": "Ciao! Finalmente! Sono in paese già da qualche giorno, ma non ci siamo ancora {m:conosciuti|f:{g, select, f {conosciute} other {conosciuti}}}. Io sono {name}.", "de": "Hallo! Endlich! Ich bin schon ein paar Tage im Dorf, und wir haben uns immer noch nicht kennengelernt. Ich bin {name}."},
+          "lines": [
+            {"who": "self", "face": "curious", "en": "Hello! I'm {name}, the new {role}. You must be {learner}?", "sl": "Živjo! Jaz sem {name}, {g, select, f {nova} other {nov}} {role}. Ti si gotovo {learner}?", "it": "Ciao! Io sono {name} e adesso lavoro in paese come {role}. Tu devi essere {learner}?", "de": "Hallo! Ich bin {name} und arbeite jetzt als {role} im Dorf. Du bist bestimmt {learner}?"},
+            {
+              "choices": [
+                {
+                  "en": "Hello! Yes, that's me. How long have you been here?",
+                  "sl": "Živjo! Ja, to sem jaz. Kako dolgo si že tu?",
+                  "it": "Ciao! Sì, sono io. Da quanto tempo sei qui?",
+                  "de": "Hallo! Ja, das bin ich. Wie lange bist du schon hier?",
+                  "ok": true,
+                  "reply": {"face": "happy", "en": "Only three days, but it already feels like home.", "sl": "Samo tri dni, pa se že počutim kot doma.", "it": "Solo tre giorni, ma mi sento già a casa.", "de": "Erst drei Tage, aber es fühlt sich schon wie zu Hause an."}
+                },
+                {
+                  "en": "Hello! Yes, that's me. How long are you here?",
+                  "sl": "Živjo! Ja, to sem jaz. Kako dolgo si že tu? (brez have been)",
+                  "it": "Ciao! Sì, sono io. Da quanto tempo sei qui? (senza have been)",
+                  "de": "Hallo! Ja, das bin ich. Wie lange bist du schon hier? (ohne have been)",
+                  "why": {"sl": "Za to, kar traja do zdaj, rabiš present perfect: How long have you been here?", "it": "Per ciò che dura fino a ora serve il present perfect: How long have you been here?", "de": "Was bis jetzt andauert, steht im Present Perfect: How long have you been here?"},
+                  "reply": {"face": "laugh", "en": "How long am I here? Oh, I'm staying, I hope!", "sl": "Kako dolgo bom tu? O, upam, da kar ostanem!", "it": "Quanto resterò qui? Oh, spero di restare!", "de": "Wie lange ich hier bleibe? Oh, hoffentlich für immer!"}
+                }
+              ]
+            },
+            {"who": "self", "en": "I used to live in town, where nobody knew their neighbours.", "sl": "Prej sem {g, select, f {živela} other {živel}} v mestu, kjer nihče ni poznal svojih sosedov.", "it": "Prima abitavo in città, dove nessuno conosceva i propri vicini.", "de": "Früher habe ich in der Stadt gewohnt, wo niemand seine Nachbarn kannte."},
+            {"who": "self", "en": "When I heard that the village needed someone like me, I didn't think twice.", "sl": "Ko sem {g, select, f {slišala} other {slišal}}, da vas potrebuje nekoga, kot sem jaz, se nisem dolgo {g, select, f {obotavljala} other {obotavljal}}.", "it": "Quando ho saputo che il paese cercava qualcuno come me, non ci ho pensato due volte.", "de": "Als ich hörte, dass das Dorf jemanden wie mich braucht, habe ich nicht lange überlegt."},
+            {"who": "self", "face": "thinking", "en": "I hope I'll make some friends here. It isn't easy at first, is it?", "sl": "Upam, da bom tu {g, select, f {našla} other {našel}} prijatelje. Na začetku ni lahko, kajne?", "it": "Spero di farmi degli amici qui. All'inizio non è facile, vero?", "de": "Ich hoffe, ich finde hier ein paar Freunde. Am Anfang ist es nicht leicht, oder?"},
+            {
+              "choices": [
+                {
+                  "en": "You'll soon make friends. Everybody here says hello.",
+                  "sl": "Kmalu boš {g, select, f {našla} other {našel}} prijatelje. Tukaj vsak pozdravi.",
+                  "it": "Ti farai presto degli amici. Qui tutti salutano.",
+                  "de": "Du findest bald Freunde. Hier grüßt jeder.",
+                  "ok": true,
+                  "reply": {"face": "shy", "en": "Thank you. I think I've already made one.", "sl": "Hvala. Mislim, da {g, select, f {sem enega že našla} other {sem enega že našel}}.", "it": "Grazie. Credo di averne già {m:trovato uno|f:trovata una}.", "de": "Danke. Einen habe ich, glaube ich, schon gefunden."}
+                },
+                {
+                  "en": "You'll soon do friends. Everybody here says hello.",
+                  "sl": "Kmalu boš {g, select, f {našla} other {našel}} prijatelje. Tukaj vsak pozdravi. (do friends)",
+                  "it": "Ti farai presto degli amici. Qui tutti salutano. (do friends)",
+                  "de": "Du findest bald Freunde. Hier grüßt jeder. (do friends)",
+                  "why": {"sl": "V angleščini rečeš make friends, ne do friends.", "it": "In inglese si dice make friends, non do friends.", "de": "Auf Englisch heißt es make friends, nicht do friends."},
+                  "reply": {"face": "thinking", "en": "Do friends? Hm … I've never tried that!", "sl": "Do friends? Hm … tega pa še nisem {g, select, f {poskusila} other {poskusil}}!", "it": "Do friends? Mh … non l'ho mai provato!", "de": "Do friends? Hm … das habe ich noch nie probiert!"}
+                }
+              ]
+            },
+            {"who": "self", "en": "See you soon! Come round for a cup of tea and tell me all about the village.", "sl": "Se vidimo! Pridi kdaj na čaj, pa mi povej vse o vasi.", "it": "A presto! Passa a prendere un tè e raccontami tutto del paese.", "de": "Bis bald! Komm doch auf eine Tasse Tee vorbei und erzähl mir alles über das Dorf."}
           ]
         }
       }

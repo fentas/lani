@@ -1578,6 +1578,16 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         openSchool()
     }
 
+    /** QA's "meet:<id>" (a debug build, app/QaHooks.kt): the dev village's [id] moved in and not met yet, their introduction opened. */
+    fun qaMeet(id: String) {
+        val today = java.time.LocalDate.now().toString()
+        game.apply { s ->
+            val here = if (s.residents.any { it.id == id }) s.residents else s.residents + si.lanisce.lani.game.villagers.Resident(id, today)
+            s.copy(residents = here, bonds = s.bonds + (id to (s.bonds[id] ?: si.lanisce.lani.game.villagers.Bond()).copy(met = null)))
+        }
+        villagers.meet(id)
+    }
+
     /**
      * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
      * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.

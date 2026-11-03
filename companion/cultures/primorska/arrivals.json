@@ -735,6 +735,56 @@
             },
             {"who": "france", "sl": "Adijo, {m:sosed|f:soseda}! Grem na njivo. Pridi kadarkoli.", "en": "Bye, neighbour! I'm off to the field. Come any time.", "de": "Tschüss, {m:Nachbar|f:Nachbarin}! Ich geh aufs Feld. Komm, wann du willst.", "it": "Ciao, {m:vicino|f:vicina}! Vado al campo. Vieni quando vuoi."}
           ]
+        },
+        "B1": {
+          "late": {"who": "france", "sl": "Dober dan! Že dolgo si v vasi, pa se še nisva spoznala. France sem, mlinar.", "en": "Good day! You've been in the village a long time, and we still haven't met. I'm France, the miller.", "de": "Guten Tag! Du bist schon lange im Dorf, und wir kennen uns noch nicht. Ich bin France, der Müller.", "it": "Buongiorno! Sei in paese da tanto tempo e non ci conosciamo ancora. Sono France, il mugnaio."},
+          "lines": [
+            {"who": "france", "sl": "Dober dan! Jaz sem France, mlinar in kmet. Dolga leta sem vozil žito v stari mlin v dolini: tri ure tja in tri ure nazaj.", "en": "Good day! I'm France, miller and farmer. For years I carted grain to the old mill in the valley: three hours there and three back.", "de": "Guten Tag! Ich bin France, Müller und Bauer. Jahrelang habe ich das Getreide zur alten Mühle im Tal gefahren: drei Stunden hin und drei zurück.", "it": "Buongiorno! Sono France, mugnaio e contadino. Per anni ho portato il grano al vecchio mulino a valle: tre ore all'andata e tre al ritorno."},
+            {"who": "france", "face": "proud", "sl": "Vedno s Sivkom, mojim konjem. Zdaj je star, ampak pot še vedno pozna bolje kot jaz.", "en": "Always with Sivko, my horse. He's old now, but he still knows the way better than I do.", "de": "Immer mit Sivko, meinem Pferd. Er ist jetzt alt, aber den Weg kennt er immer noch besser als ich.", "it": "Sempre con Sivko, il mio cavallo. Adesso è vecchio, ma la strada la conosce ancora meglio di me."},
+            {"who": "france", "face": "curious", "sl": "Zadnjič sva peljala sedem vreč. Sedem, sedem! Kaj praviš, je to veliko?", "en": "Last time the two of us took seven sacks. Seven, seven! What do you say, is that a lot?", "de": "Letztes Mal haben wir zwei sieben Säcke gefahren. Sieben, sieben! Was sagst du, ist das viel?", "it": "L'ultima volta in due abbiamo portato sette sacchi. Sette, sette! Che ne dici, sono tanti?"},
+            {
+              "choices": [
+                {
+                  "sl": "Sedem vreč je bilo res veliko!",
+                  "en": "Seven sacks really was a lot!",
+                  "de": "Sieben Säcke, das war wirklich viel!",
+                  "it": "Sette sacchi erano davvero tanti!",
+                  "ok": true,
+                  "reply": {"face": "laugh", "sl": "Je bilo! Sivko je bil potem tri dni slabe volje.", "en": "It was! Sivko was in a bad mood for three days after.", "de": "Das war es! Sivko hatte danach drei Tage schlechte Laune.", "it": "Eccome! Sivko è rimasto di cattivo umore per tre giorni."}
+                },
+                {
+                  "sl": "Sedem vreč so bile res veliko!",
+                  "en": "Seven sacks really was a lot! (so bile: plural)",
+                  "de": "Sieben Säcke, das war wirklich viel! (so bile: Plural)",
+                  "it": "Sette sacchi erano davvero tanti! (so bile: plurale)",
+                  "why": {"en": "From five on, the verb stands in the neuter singular: sedem vreč je bilo, not so bile.", "de": "Ab fünf steht das Verb im Neutrum Singular: sedem vreč je bilo, nicht so bile.", "it": "Da cinque in su il verbo è al neutro singolare: sedem vreč je bilo, non so bile."},
+                  "reply": {"face": "confused", "sl": "So bile? Kdo? Vreče pri meni ne hodijo same!", "en": "So bile? Who? Sacks don't walk by themselves at my place!", "de": "So bile? Wer denn? Bei mir laufen Säcke nicht von allein!", "it": "So bile? Chi? Da me i sacchi non camminano da soli!"}
+                }
+              ]
+            },
+            {"who": "france", "sl": "Prišel sem, ker je zemlja tukaj dobra in ker je vas potrebovala mlinarja. Samo vreme me skrbi. Vedno.", "en": "I came because the land is good here and the village needed a miller. Only the weather worries me. Always.", "de": "Ich bin gekommen, weil der Boden hier gut ist und das Dorf einen Müller gebraucht hat. Nur das Wetter macht mir Sorgen. Immer.", "it": "Sono venuto perché qui la terra è buona e al paese serviva un mugnaio. Solo il tempo mi preoccupa. Sempre."},
+            {
+              "choices": [
+                {
+                  "sl": "Bi mi nekoč pokazali, kako se melje žito?",
+                  "en": "Would you show me some day how grain is milled?",
+                  "de": "Würden Sie mir einmal zeigen, wie man Getreide mahlt?",
+                  "it": "Mi farebbe vedere un giorno come si macina il grano?",
+                  "ok": true,
+                  "reply": {"face": "happy", "sl": "Seveda! Sosedje smo. In od soseda ne vzamem niti centa.", "en": "Of course! We're neighbours. And I don't take a cent from a neighbour.", "de": "Natürlich! Wir sind Nachbarn. Und von einem Nachbarn nehme ich keinen Cent.", "it": "Certo! Siamo vicini. E da un vicino non prendo un centesimo."}
+                },
+                {
+                  "sl": "Bi mi nekoč pokazal, kako se melje žito?",
+                  "en": "Would you show me some day how grain is milled? (ti)",
+                  "de": "Würdest du mir einmal zeigen, wie man Getreide mahlt?",
+                  "it": "Mi faresti vedere un giorno come si macina il grano?",
+                  "why": {"en": "France says ti to you, but expects vi back. With vi the conditional ends in -li: bi mi pokazali.", "de": "France duzt dich, erwartet aber vi (Sie) zurück. Mit vi endet der Konditional auf -li: bi mi pokazali.", "it": "France ti dà del tu, ma si aspetta il vi (Lei). Con vi il condizionale finisce in -li: bi mi pokazali."},
+                  "reply": {"face": "thinking", "sl": "Pokazal? Hm. Tega ne bom štel. Vprašaj še enkrat, lepo.", "en": "Pokazal? Hm. I won't count that. Ask again, nicely.", "de": "Pokazal? Hm. Das zähle ich nicht. Frag noch einmal, schön.", "it": "Pokazal? Mh. Questa non la conto. Chiedi di nuovo, per bene."}
+                }
+              ]
+            },
+            {"who": "france", "sl": "Adijo, {m:sosed|f:soseda}! Grem na njivo. Pridi kadarkoli.", "en": "Bye, neighbour! I'm off to the field. Come any time.", "de": "Tschüss, {m:Nachbar|f:Nachbarin}! Ich geh aufs Feld. Komm, wann du willst.", "it": "Ciao, {m:vicino|f:vicina}! Vado al campo. Vieni quando vuoi."}
+          ]
         }
       }
     },
@@ -841,6 +891,57 @@
             },
             {"who": "tine", "face": "shy", "sl": "{learner} … se bojiš teme? Jaz se malo.", "en": "{learner} … are you afraid of the dark? I am, a bit.", "de": "{learner} … hast du Angst im Dunkeln? Ich ein bisschen.", "it": "{learner} … hai paura del buio? Io un pochino."}
           ]
+        },
+        "B1": {
+          "late": {"who": "france", "sl": "{learner}, počakaj! Mojega vnuka ti še nisem predstavil. Tine, pridi sem!", "en": "{learner}, wait! I haven't introduced my grandson to you yet. Tine, come here!", "de": "{learner}, warte! Meinen Enkel habe ich dir noch nicht vorgestellt. Tine, komm her!", "it": "{learner}, aspetta! Non ti ho ancora presentato mio nipote. Tine, vieni qui!"},
+          "lines": [
+            {"who": "france", "sl": "{learner}, to je moj vnuk Tine. Malo je sramežljiv. Dokler te ne pozna, seveda.", "en": "{learner}, this is my grandson Tine. He's a bit shy. Until he knows you, that is.", "de": "{learner}, das ist mein Enkel Tine. Er ist ein bisschen schüchtern. Bis er dich kennt, natürlich.", "it": "{learner}, questo è mio nipote Tine. È un po' timido. Finché non ti conosce, si capisce."},
+            {"who": "tine", "face": "shy", "sl": "… Živjo. Tine sem. Star sem šest let. Znam šteti do veliko!", "en": "… Hi. I'm Tine. I'm six. I can count to a lot!", "de": "… Hallo. Ich bin Tine. Ich bin sechs. Ich kann bis ganz viel zählen!", "it": "… Ciao. Sono Tine. Ho sei anni. So contare fino a tanto!"},
+            {
+              "choices": [
+                {
+                  "sl": "Živjo, Tine! Koliko kokoši ima dedek?",
+                  "en": "Hi, Tine! How many hens has your grandpa got?",
+                  "de": "Hallo, Tine! Wie viele Hühner hat dein Opa?",
+                  "it": "Ciao, Tine! Quante galline ha il nonno?",
+                  "ok": true,
+                  "reply": {"face": "proud", "sl": "Ena, dva, tri, štiri … veliko! Dedek ve.", "en": "One, two, three, four … a lot! Grandpa knows.", "de": "Eins, zwei, drei, vier … ganz viele! Opa weiß es.", "it": "Una, due, tre, quattro … tante! Il nonno lo sa."}
+                },
+                {
+                  "sl": "Živjo, Tine! Koliko kokoše ima dedek?",
+                  "en": "Hi, Tine! How many hens has your grandpa got? (kokoše: not the genitive plural)",
+                  "de": "Hallo, Tine! Wie viele Hühner hat dein Opa? (kokoše: nicht der Genitiv Plural)",
+                  "it": "Ciao, Tine! Quante galline ha il nonno? (kokoše: non è il genitivo plurale)",
+                  "why": {"en": "After koliko comes the genitive plural, and kokoš has kokoši.", "de": "Nach koliko steht der Genitiv Plural, und kokoš hat kokoši.", "it": "Dopo koliko viene il genitivo plurale, e kokoš fa kokoši."},
+                  "reply": {"face": "laugh", "sl": "Kokoše? Hihi! Čudno govoriš.", "en": "Kokoše? Hee hee! You talk funny.", "de": "Kokoše? Hihi! Du redest lustig.", "it": "Kokoše? Ih ih! Parli strano."}
+                }
+              ]
+            },
+            {"who": "tine", "sl": "Živim pri dedku in babici. Dedek pravi, da sem prišel samo za en teden. To je bilo že zdavnaj!", "en": "I live with Grandpa and Grandma. Grandpa says I only came for a week. That was ages ago!", "de": "Ich wohne bei Opa und Oma. Opa sagt, ich bin nur für eine Woche gekommen. Das war vor ewig langer Zeit!", "it": "Abito con il nonno e la nonna. Il nonno dice che sono venuto solo per una settimana. È stato tantissimo tempo fa!"},
+            {"who": "france", "face": "laugh", "sl": "Res je. Prišel je za en teden, pa je ostal. Zdaj hodi za mano kot moj rep.", "en": "It's true. He came for a week and stayed. Now he follows me about like my tail.", "de": "Stimmt. Er ist für eine Woche gekommen und geblieben. Jetzt läuft er mir nach wie mein Schwanz.", "it": "È vero. È venuto per una settimana ed è rimasto. Adesso mi segue come la mia coda."},
+            {"who": "tine", "face": "proud", "sl": "Imam konja. Lesenega! Ime mu je Sivko, kot dedkovemu. Samo moj nič ne je.", "en": "I've got a horse. A wooden one! He's called Sivko, like Grandpa's. Only mine doesn't eat anything.", "de": "Ich habe ein Pferd. Aus Holz! Es heißt Sivko, wie das von Opa. Nur meins frisst nichts.", "it": "Ho un cavallo. Di legno! Si chiama Sivko, come quello del nonno. Solo che il mio non mangia niente."},
+            {
+              "choices": [
+                {
+                  "sl": "Lep konj! Si mu sam dal ime?",
+                  "en": "Nice horse! Did you name him yourself?",
+                  "de": "Schönes Pferd! Hast du ihm selbst den Namen gegeben?",
+                  "it": "Bel cavallo! Il nome glielo hai dato tu?",
+                  "ok": true,
+                  "reply": {"face": "proud", "sl": "Ja! Najprej je bil Konj. Potem Sivko.", "en": "Yes! First he was Horse. Then Sivko.", "de": "Ja! Zuerst hieß es Pferd. Dann Sivko.", "it": "Sì! Prima era Cavallo. Poi Sivko."}
+                },
+                {
+                  "sl": "Lep konj! Ste mu sami dali ime?",
+                  "en": "Nice horse! Did you name him yourself? (vi)",
+                  "de": "Schönes Pferd! Haben Sie ihm selbst den Namen gegeben?",
+                  "it": "Bel cavallo! Il nome glielo ha dato Lei?",
+                  "why": {"en": "Tine is six: to a child you say ti: si mu dal, not ste mu dali.", "de": "Tine ist sechs: Zu einem Kind sagst du ti: si mu dal, nicht ste mu dali.", "it": "Tine ha sei anni: a un bambino dai del tu: si mu dal, non ste mu dali."},
+                  "reply": {"face": "laugh", "sl": "Ste? Jaz nisem veliko ljudi. Jaz sem samo Tine.", "en": "Ste? I'm not lots of people. I'm only Tine.", "de": "Ste? Ich bin nicht viele Leute. Ich bin nur Tine.", "it": "Ste? Io non sono tante persone. Sono solo Tine."}
+                }
+              ]
+            },
+            {"who": "tine", "face": "shy", "sl": "{learner} … se bojiš medveda? Jaz se malo. In teme.", "en": "{learner} … are you scared of the bear? I am, a bit. And of the dark.", "de": "{learner} … hast du Angst vor dem Bären? Ich ein bisschen. Und vor der Dunkelheit.", "it": "{learner} … hai paura dell'orso? Io un po'. E del buio."}
+          ]
         }
       }
     },
@@ -942,6 +1043,58 @@
                   "it": "Grazie della notizia! (novica non all'accusativo)",
                   "why": {"en": "After za (for), the noun goes into the accusative: hvala za novico.", "de": "Nach za (für) steht das Nomen im Akkusativ: hvala za novico.", "it": "Dopo za (per) il nome va all'accusativo: hvala za novico."},
                   "reply": {"face": "curious", "sl": "Kaj? Novica? Katera? Imaš še eno? Povej!", "en": "What? News? Which? Have you got another one? Tell me!", "de": "Was? Neuigkeit? Welche? Hast du noch eine? Erzähl!", "it": "Cosa? Una notizia? Quale? Ne hai un'altra? Racconta!"}
+                }
+              ]
+            },
+            {"who": "micka", "face": "laugh", "sl": "Ančka, pusti {m:fanta|f:dekle}. {learner}, zdaj cela vas ve, da se poznata!", "en": "Ančka, leave {m:the lad|f:the lass} alone. {learner}, now the whole village knows you two have met!", "de": "Ančka, lass {m:den Jungen|f:das Mädchen} in Ruhe. {learner}, jetzt weiß das ganze Dorf, dass ihr euch kennt!", "it": "Ančka, lascia stare {m:il ragazzo|f:la ragazza}. {learner}, adesso tutto il paese sa che vi conoscete!"}
+          ]
+        },
+        "B1": {
+          "late": {"who": "micka", "sl": "{learner}, počakaj! Mojo sestro moraš spoznati. Ančka, pridi sem!", "en": "{learner}, wait! You must meet my sister. Ančka, come here!", "de": "{learner}, warte! Du musst meine Schwester kennenlernen. Ančka, komm her!", "it": "{learner}, aspetta! Devi conoscere mia sorella. Ančka, vieni qui!"},
+          "lines": [
+            {"who": "micka", "sl": "{learner}, to je Ančka, moja mlajša sestra. Prišla je iz Trnovega, ker pravi, da tam ni več nobenih novic.", "en": "{learner}, this is Ančka, my younger sister. She's come from Trnovo, because she says there's no news there any more.", "de": "{learner}, das ist Ančka, meine jüngere Schwester. Sie ist aus Trnovo gekommen, weil es dort, sagt sie, keine Neuigkeiten mehr gibt.", "it": "{learner}, questa è Ančka, mia sorella minore. È venuta da Trnovo, perché dice che là non ci sono più notizie."},
+            {"who": "ancka", "face": "confused", "sl": "Kaj? Starejša? Jaz nisem starejša! … A, ti si {learner}! Sem že slišala, da si {m:prišel|f:prišla} sem zaradi jezika.", "en": "What? Older? I'm not older! … Ah, you're {learner}! I've heard you came here for the language.", "de": "Was? Älter? Ich bin nicht älter! … Ah, du bist {learner}! Ich habe schon gehört, dass du wegen der Sprache hergekommen bist.", "it": "Cosa? Più vecchia? Io non sono più vecchia! … Ah, tu sei {learner}! Ho già sentito che sei {m:venuto|f:venuta} qui per la lingua."},
+            {"who": "ancka", "face": "curious", "sl": "Kdo ti je pa povedal zame? Micka? Kaj je rekla? Glasneje!", "en": "Who told you about me, then? Micka? What did she say? Louder!", "de": "Wer hat dir denn von mir erzählt? Micka? Was hat sie gesagt? Lauter!", "it": "Chi ti ha parlato di me? Micka? Che cosa ha detto? Più forte!"},
+            {
+              "choices": [
+                {
+                  "sl": "Rekla je, da vse veste prej kot radio.",
+                  "en": "She said you know everything before the radio does.",
+                  "de": "Sie hat gesagt, dass Sie alles vor dem Radio wissen.",
+                  "it": "Ha detto che Lei sa tutto prima della radio.",
+                  "ok": true,
+                  "reply": {"face": "laugh", "sl": "Prej kot radio! Micka, slišiš? Končno nekdo, ki razume!", "en": "Before the radio! Micka, do you hear? At last, someone who understands!", "de": "Vor dem Radio! Micka, hörst du? Endlich jemand, der versteht!", "it": "Prima della radio! Micka, senti? Finalmente qualcuno che capisce!"}
+                },
+                {
+                  "sl": "Rekla je, da vse veš prej kot radio.",
+                  "en": "She said you know everything before the radio does. (ti)",
+                  "de": "Sie hat gesagt, dass du alles vor dem Radio weißt.",
+                  "it": "Ha detto che tu sai tutto prima della radio.",
+                  "why": {"en": "Ančka says ti to you, but expects vi back: veste, not veš.", "de": "Ančka duzt dich, erwartet aber vi (Sie) zurück: veste, nicht veš.", "it": "Ančka ti dà del tu, ma si aspetta il vi (Lei): veste, non veš."},
+                  "reply": {"face": "surprised", "sl": "Veš? Tikaš me? Micka, slišiš? Spet me nekdo tika!", "en": "Veš? You're saying ti to me? Micka, do you hear? Someone's saying ti to me again!", "de": "Veš? Du duzt mich? Micka, hörst du? Schon wieder duzt mich jemand!", "it": "Veš? Mi dai del tu? Micka, senti? Di nuovo qualcuno mi dà del tu!"}
+                }
+              ]
+            },
+            {"who": "ancka", "sl": "Prišla sem k sestri. In z radiem, seveda! V Trnovem ga je poslušala vsa ulica, zdaj ga bo cela vas.", "en": "I've come to my sister's. With my radio, of course! In Trnovo the whole street listened to it, now the whole village will.", "de": "Ich bin zu meiner Schwester gekommen. Mit dem Radio, natürlich! In Trnovo hat es die ganze Straße gehört, jetzt hört es das ganze Dorf.", "it": "Sono venuta da mia sorella. Con la radio, si capisce! A Trnovo l'ascoltava tutta la strada, adesso l'ascolterà tutto il paese."},
+            {"who": "micka", "face": "laugh", "sl": "Hočeš nočeš. Slišijo ga še na paši.", "en": "Like it or not. They can hear it up on the pasture.", "de": "Ob man will oder nicht. Man hört es noch auf der Weide.", "it": "Che si voglia o no. Si sente fino al pascolo."},
+            {"who": "ancka", "face": "surprised", "sl": "Radio Koper pravi, da bo jutri burja. Sto kilometrov na uro! Imaš zaprta okna?", "en": "Radio Koper says there'll be burja tomorrow. A hundred kilometres an hour! Are your windows shut?", "de": "Radio Koper sagt, morgen kommt die Bora. Hundert Kilometer pro Stunde! Sind deine Fenster zu?", "it": "Radio Capodistria dice che domani ci sarà la bora. Cento chilometri all'ora! Hai le finestre chiuse?"},
+            {
+              "choices": [
+                {
+                  "sl": "Nimam zaprtih oken. Grem jih takoj zapret!",
+                  "en": "My windows aren't shut. I'll go and shut them right away!",
+                  "de": "Meine Fenster sind nicht zu. Ich gehe sie gleich zumachen!",
+                  "it": "Non ho le finestre chiuse. Vado subito a chiuderle!",
+                  "ok": true,
+                  "reply": {"face": "happy", "sl": "Prav! Burja ne čaka. Jaz pa grem povedat naprej!", "en": "Right! The burja doesn't wait. And I'm off to pass it on!", "de": "Recht so! Die Bora wartet nicht. Und ich gehe es weitersagen!", "it": "Bene! La bora non aspetta. E io vado a dirlo in giro!"}
+                },
+                {
+                  "sl": "Nimam zaprta okna. Grem jih takoj zapret!",
+                  "en": "My windows aren't shut. I'll go and shut them right away! (zaprta okna: not the genitive)",
+                  "de": "Meine Fenster sind nicht zu. Ich gehe sie gleich zumachen! (zaprta okna: nicht der Genitiv)",
+                  "it": "Non ho le finestre chiuse. Vado subito a chiuderle! (zaprta okna: non è il genitivo)",
+                  "why": {"en": "After a negative the object goes into the genitive: nimam zaprtih oken, not zaprta okna.", "de": "Nach einer Verneinung steht das Objekt im Genitiv: nimam zaprtih oken, nicht zaprta okna.", "it": "Dopo una negazione il complemento va al genitivo: nimam zaprtih oken, non zaprta okna."},
+                  "reply": {"face": "confused", "sl": "Kaj nimaš? Okna? Glasneje! Saj imaš okna, ali ne?", "en": "You haven't got what? Windows? Louder! You do have windows, don't you?", "de": "Was hast du nicht? Fenster? Lauter! Du hast doch Fenster, oder?", "it": "Che cosa non hai? Le finestre? Più forte! Le finestre le hai, no?"}
                 }
               ]
             },
@@ -1205,6 +1358,57 @@
             },
             {"who": "tone", "face": "happy", "sl": "Daj roko. Zdaj se poznava.", "en": "Give me your hand. Now we know each other.", "de": "Gib mir die Hand. Jetzt kennen wir uns.", "it": "Dammi la mano. Adesso ci conosciamo."}
           ]
+        },
+        "B1": {
+          "late": {"who": "tone", "sl": "{learner}, ne? Dan. Midva se še ne poznava.", "en": "{learner}, right? 'Day. We don't know each other yet.", "de": "{learner}, oder? Tag. Wir zwei kennen uns noch nicht.", "it": "{learner}, vero? Salve. Noi due non ci conosciamo ancora."},
+          "lines": [
+            {"who": "tone", "face": "curious", "sl": "Dan. Ti si {learner}, ne? Tone. Kovač.", "en": "Day. You're {learner}, right? Tone. Blacksmith.", "de": "Tag. Du bist {learner}, oder? Tone. Schmied.", "it": "Salve. Tu sei {learner}, vero? Tone. Fabbro."},
+            {
+              "choices": [
+                {
+                  "sl": "Ja. Dober dan! Me veseli, da sva se spoznala.",
+                  "en": "Yes. Good day! I'm glad we've met.",
+                  "de": "Ja. Guten Tag! Schön, dass wir uns kennengelernt haben.",
+                  "it": "Sì. Buongiorno! Mi fa piacere che ci siamo conosciuti.",
+                  "ok": true,
+                  "reply": {"face": "proud", "sl": "Hm. Tudi mene. Dvojina je prava.", "en": "Hm. Me too. That's the right dual.", "de": "Hm. Mich auch. Der Dual stimmt.", "it": "Mh. Anche a me. Il duale è giusto."}
+                },
+                {
+                  "sl": "Ja. Dober dan! Me veseli, da smo se spoznali.",
+                  "en": "Yes. Good day! I'm glad we've met. (plural, as if there were more of us)",
+                  "de": "Ja. Guten Tag! Schön, dass wir uns kennengelernt haben. (Plural, als wären wir mehr)",
+                  "it": "Sì. Buongiorno! Mi fa piacere che ci siamo conosciuti. (plurale, come se fossimo in tanti)",
+                  "why": {"en": "You and Tone are two: sva se spoznala, not the plural smo se spoznali.", "de": "Du und Tone seid zwei: sva se spoznala, nicht der Plural smo se spoznali.", "it": "Tu e Tone siete in due: sva se spoznala, non il plurale smo se spoznali."},
+                  "reply": {"face": "thinking", "sl": "Smo? Koliko vas pa je? Jaz vidim {m:enega|f:eno}.", "en": "Smo? How many of you are there? I see one.", "de": "Smo? Wie viele seid ihr denn? Ich sehe {m:einen|f:eine}.", "it": "Smo? Quanti siete? Io ne vedo {m:uno|f:una}."}
+                }
+              ]
+            },
+            {"who": "tone", "sl": "Prej sem imel kovačnico ob cesti proti Gorici. Naročila pišem v črno knjižico. Vsako. Točno.", "en": "I used to have a smithy on the road to Gorizia. I write the orders in a little black book. Every one. Exactly.", "de": "Früher hatte ich eine Schmiede an der Straße nach Gorizia. Die Aufträge schreibe ich in ein schwarzes Büchlein. Jeden. Genau.", "it": "Prima avevo una fucina sulla strada per Gorizia. Gli ordini li scrivo in un libretto nero. Tutti. Esatti."},
+            {"who": "tone", "sl": "Potem so rekli, da vas potrebuje kovača. Zato sem tu. Z ženo, Tončko.", "en": "Then they said the village needed a smith. So I'm here. With my wife, Tončka.", "de": "Dann hieß es, das Dorf braucht einen Schmied. Darum bin ich hier. Mit meiner Frau, Tončka.", "it": "Poi hanno detto che al paese serviva un fabbro. Perciò sono qui. Con mia moglie, Tončka."},
+            {"who": "tone", "face": "proud", "sl": "Tončka pravi, da smrčim. Zato spim v kovačnici, ob topli steni. Meni je prav.", "en": "Tončka says I snore. So I sleep in the smithy, by the warm wall. Suits me.", "de": "Tončka sagt, ich schnarche. Darum schlafe ich in der Schmiede, an der warmen Wand. Mir ist's recht.", "it": "Tončka dice che russo. Così dormo nella fucina, vicino al muro caldo. A me va bene."},
+            {"who": "tone", "face": "curious", "sl": "Kaj potrebuješ? Povej točno: kaj, koliko in do kdaj.", "en": "What do you need? Say it exactly: what, how many and by when.", "de": "Was brauchst du? Sag es genau: was, wie viel und bis wann.", "it": "Che cosa ti serve? Dillo con precisione: che cosa, quanto e per quando."},
+            {
+              "choices": [
+                {
+                  "sl": "{m:Potreboval|f:Potrebovala} bi dva noža, do petka, prosim.",
+                  "en": "I'd need two knives, by Friday, please.",
+                  "de": "Ich bräuchte zwei Messer, bis Freitag, bitte.",
+                  "it": "Avrei bisogno di due coltelli, entro venerdì, per favore.",
+                  "ok": true,
+                  "reply": {"sl": "Dva noža. Do petka. Zapisano.", "en": "Two knives. By Friday. Written down.", "de": "Zwei Messer. Bis Freitag. Notiert.", "it": "Due coltelli. Entro venerdì. Scritto."}
+                },
+                {
+                  "sl": "{m:Potreboval|f:Potrebovala} bi dva noži, do petka, prosim.",
+                  "en": "I'd need two knives, by Friday, please. (noži: plural)",
+                  "de": "Ich bräuchte zwei Messer, bis Freitag, bitte. (noži: Plural)",
+                  "it": "Avrei bisogno di due coltelli, entro venerdì, per favore. (noži: plurale)",
+                  "why": {"en": "Dva takes the dual: dva noža, not the plural noži.", "de": "Dva verlangt den Dual: dva noža, nicht den Plural noži.", "it": "Dva vuole il duale: dva noža, non il plurale noži."},
+                  "reply": {"face": "thinking", "sl": "Noži? Hm. Dva ali veliko? Knjižica hoče točno.", "en": "Noži? Hm. Two or a lot? The book wants it exact.", "de": "Noži? Hm. Zwei oder viele? Das Büchlein will es genau.", "it": "Noži? Mh. Due o tanti? Il libretto vuole precisione."}
+                }
+              ]
+            },
+            {"who": "tone", "face": "happy", "sl": "Daj roko. Zdaj se poznava.", "en": "Give me your hand. Now we know each other.", "de": "Gib mir die Hand. Jetzt kennen wir uns.", "it": "Dammi la mano. Adesso ci conosciamo."}
+          ]
         }
       }
     },
@@ -1317,6 +1521,57 @@
             },
             {"who": "marko", "face": "happy", "sl": "Allora, kozarec rebule? Na zdravje, {learner}! Za dobre sosede!", "en": "Allora, a glass of rebula? Cheers, {learner}! To good neighbours!", "de": "Allora, ein Glas Rebula? Prost, {learner}! Auf gute Nachbarn!", "it": "Allora, un bicchiere di rebula? Salute, {learner}! Ai buoni vicini!"}
           ]
+        },
+        "B1": {
+          "late": {"who": "marko", "face": "laugh", "sl": "Allora, {learner}! Jaz sem Marko. Toliko časa si že tu, pa še nisva spila kozarca skupaj!", "en": "Allora, {learner}! I'm Marko. You've been here so long, and we still haven't had a glass together!", "de": "Allora, {learner}! Ich bin Marko. Du bist schon so lange hier, und wir haben noch kein Glas zusammen getrunken!", "it": "Allora, {learner}! Io sono Marko. Sei qui da così tanto e non abbiamo ancora bevuto un bicchiere insieme!"},
+          "lines": [
+            {"who": "marko", "face": "curious", "sl": "Ej, ciao! Ti si {learner}, ne? Jaz sem Marko. Allora, sediva malo, to je dolga zgodba.", "en": "Hey, ciao! You're {learner}, right? I'm Marko. Allora, let's sit down a bit, it's a long story.", "de": "Hey, ciao! Du bist {learner}, oder? Ich bin Marko. Allora, setzen wir uns kurz, das ist eine lange Geschichte.", "it": "Ehi, ciao! Tu sei {learner}, vero? Io sono Marko. Allora, sediamoci un po', è una lunga storia."},
+            {"who": "marko", "face": "proud", "sl": "Moj nono je imel trte na obeh straneh meje. Vsak dan je šel s prepustnico čez mejo, da je obrezal svoje trte.", "en": "My nono (grandad) had vines on both sides of the border. Every day he crossed with a pass to prune his own vines.", "de": "Mein Nono (Opa) hatte Reben auf beiden Seiten der Grenze. Jeden Tag ging er mit einem Passierschein hinüber, um seine eigenen Reben zu schneiden.", "it": "Mio nonno aveva viti su tutti e due i lati del confine. Ogni giorno passava con il lasciapassare per potare le sue viti."},
+            {"who": "marko", "sl": "Zdaj meje skoraj ni več. Vino prodajam na obeh straneh, vsakih nekaj dni pa pridem gor s kombijem.", "en": "Now the border has almost gone. I sell wine on both sides, and every few days I come up here with the van.", "de": "Jetzt gibt es die Grenze fast nicht mehr. Ich verkaufe Wein auf beiden Seiten, und alle paar Tage komme ich mit dem Lieferwagen herauf.", "it": "Adesso il confine quasi non c'è più. Vendo il vino da tutte e due le parti, e ogni pochi giorni salgo quassù con il furgone."},
+            {"who": "marko", "face": "curious", "sl": "Pa ti, {learner}? Zakaj si {m:prišel|f:prišla} sem?", "en": "And you, {learner}? Why did you come here?", "de": "Und du, {learner}? Warum bist du hergekommen?", "it": "E tu, {learner}? Perché sei {m:venuto|f:venuta} qui?"},
+            {
+              "choices": [
+                {
+                  "sl": "Ker se hočem naučiti slovensko.",
+                  "en": "Because I want to learn Slovene.",
+                  "de": "Weil ich Slowenisch lernen will.",
+                  "it": "Perché voglio imparare lo sloveno.",
+                  "ok": true,
+                  "reply": {"face": "proud", "sl": "Bravo! Pravi kraj. Tukaj se naučiš tudi malo italijansko, gratis!", "en": "Bravo! The right place. Here you'll pick up a bit of Italian too, for free!", "de": "Bravo! Der richtige Ort. Hier lernst du auch ein bisschen Italienisch, gratis!", "it": "Bravo! Il posto giusto. Qui impari anche un po' di italiano, gratis!"}
+                },
+                {
+                  "sl": "Ker hočem naučiti slovensko.",
+                  "en": "Because I want to teach Slovene. (no se)",
+                  "de": "Weil ich Slowenisch beibringen will. (ohne se)",
+                  "it": "Perché voglio insegnare lo sloveno. (senza se)",
+                  "why": {"en": "Without se, naučiti means to teach someone. To learn is naučiti se.", "de": "Ohne se heißt naučiti jemandem etwas beibringen. Lernen heißt naučiti se.", "it": "Senza se, naučiti vuol dire insegnare a qualcuno. Imparare è naučiti se."},
+                  "reply": {"face": "laugh", "sl": "Naučiti? Koga pa? Si {m:učitelj|f:učiteljica}? Ha ha!", "en": "Teach? Teach who? Are you a teacher? Ha ha!", "de": "Beibringen? Wem denn? Bist du {m:Lehrer|f:Lehrerin}? Ha ha!", "it": "Insegnare? A chi? Sei {m:maestro|f:maestra}? Ah ah!"}
+                }
+              ]
+            },
+            {"who": "marko", "sl": "Veš, kdaj moraš priti v Brda? Septembra, za trgatev. To je najlepši teden v letu.", "en": "You know when you must come to Brda? In September, for the grape harvest. It's the best week of the year.", "de": "Weißt du, wann du nach Brda kommen musst? Im September, zur Weinlese. Das ist die schönste Woche im Jahr.", "it": "Sai quando devi venire nel Collio? A settembre, per la vendemmia. È la settimana più bella dell'anno."},
+            {
+              "choices": [
+                {
+                  "sl": "Če bom {m:imel|f:imela} čas, bom {m:prišel|f:prišla}. Hvala!",
+                  "en": "If I have time, I'll come. Thank you!",
+                  "de": "Wenn ich Zeit habe, komme ich. Danke!",
+                  "it": "Se avrò tempo, verrò. Grazie!",
+                  "ok": true,
+                  "reply": {"face": "laugh", "sl": "Čas? Allora, čas se najde. Grozdje ne čaka!", "en": "Time? Allora, you find time. Grapes don't wait!", "de": "Zeit? Allora, Zeit findet sich. Die Trauben warten nicht!", "it": "Il tempo? Allora, il tempo si trova. L'uva non aspetta!"}
+                },
+                {
+                  "sl": "Če bi {m:imel|f:imela} čas, bom {m:prišel|f:prišla}. Hvala!",
+                  "en": "If I had time, I'll come. Thank you!",
+                  "de": "Wenn ich Zeit hätte, werde ich kommen. Danke!",
+                  "it": "Se avessi tempo, verrò. Grazie!",
+                  "why": {"en": "Keep both halves alike: če bom {m:imel|f:imela} … bom {m:prišel|f:prišla} (if I have, I'll come), or če bi … bi (if I had, I'd come). Not bi with bom.", "de": "Beide Hälften gleich: če bom {m:imel|f:imela} … bom {m:prišel|f:prišla} (wenn ich habe, komme ich) oder če bi … bi (wenn ich hätte, käme ich). Nicht bi mit bom.", "it": "Le due metà uguali: če bom {m:imel|f:imela} … bom {m:prišel|f:prišla} (se avrò, verrò) oppure če bi … bi (se avessi, verrei). Non bi con bom."},
+                  "reply": {"face": "thinking", "sl": "Bi ali bom? Allora, odloči se! Ha ha!", "en": "Would or will? Allora, make up your mind! Ha ha!", "de": "Würde oder werde? Allora, entscheide dich! Ha ha!", "it": "Verrei o verrò? Allora, deciditi! Ah ah!"}
+                }
+              ]
+            },
+            {"who": "marko", "face": "happy", "sl": "Allora, kozarec rebule? Na zdravje, {learner}! Za dobre sosede!", "en": "Allora, a glass of rebula? Cheers, {learner}! To good neighbours!", "de": "Allora, ein Glas Rebula? Prost, {learner}! Auf gute Nachbarn!", "it": "Allora, un bicchiere di rebula? Salute, {learner}! Ai buoni vicini!"}
+          ]
         }
       }
     },
@@ -1415,6 +1670,57 @@
                   "it": "Una jota, per favore! (jota non all'accusativo)",
                   "why": {"en": "When you order, the dish goes into the accusative: joto, prosim (like kavo, prosim).", "de": "Beim Bestellen steht das Gericht im Akkusativ: joto, prosim (wie kavo, prosim).", "it": "Quando ordini, il piatto va all'accusativo: joto, prosim (come kavo, prosim)."},
                   "reply": {"face": "laugh", "sl": "Jota? Jota ni tukaj, jota je v loncu! Ha ha!", "en": "Jota? Jota isn't here, jota's in the pot! Ha ha!", "de": "Jota? Jota ist nicht hier, Jota ist im Topf! Haha!", "it": "Jota? La jota non è qui, la jota è nella pentola! Ah ah!"}
+                }
+              ]
+            },
+            {"who": "vida", "sl": "Sedite, sedite! Bitte, prosim!", "en": "Sit down, sit down! Bitte, prosim!", "de": "Setzen Sie sich, setzen Sie sich! Bitte, prosim!", "it": "Si sieda, si sieda! Bitte, prosim!"}
+          ]
+        },
+        "B1": {
+          "late": {"who": "vida", "face": "shy", "sl": "{learner}! Oprostite, toliko dela imam, da se sploh še nisva {m:spoznala|f:spoznali}! Vida sem.", "en": "{learner}! Sorry, I've got so much work that we haven't even met yet! I'm Vida.", "de": "{learner}! Entschuldigung, ich habe so viel Arbeit, dass wir uns noch nicht einmal kennengelernt haben! Ich bin Vida.", "it": "{learner}! Mi scusi, ho così tanto lavoro che non ci siamo nemmeno ancora {m:conosciuti|f:conosciute}! Sono Vida."},
+          "lines": [
+            {"who": "vida", "face": "curious", "sl": "Dober dan, dober dan! Vi ste {learner}? Jaz sem Vida. Sedite, sedite, takoj bom pri vas.", "en": "Good day, good day! You're {learner}? I'm Vida. Sit down, sit down, I'll be right with you.", "de": "Guten Tag, guten Tag! Sie sind {learner}? Ich bin Vida. Setzen Sie sich, setzen Sie sich, ich bin gleich bei Ihnen.", "it": "Buongiorno, buongiorno! Lei è {learner}? Io sono Vida. Si sieda, si sieda, arrivo subito."},
+            {"who": "vida", "face": "proud", "sl": "V Trnovem sem imela gostilno, s teraso nad dolino. Vsako poletje so prihajali nemški gostje, zaradi jote in razgleda. Bitte!", "en": "In Trnovo I had an inn, with a terrace above the valley. Every summer German guests came, for the jota and the view. Bitte!", "de": "In Trnovo hatte ich ein Gasthaus, mit einer Terrasse über dem Tal. Jeden Sommer kamen deutsche Gäste, wegen der Jota und der Aussicht. Bitte!", "it": "A Trnovo avevo un'osteria, con una terrazza sulla valle. Ogni estate arrivavano ospiti tedeschi, per la jota e per il panorama. Bitte!"},
+            {"who": "vida", "face": "laugh", "sl": "Ko sem slišala, da v vasi ni gostilne, sem si rekla: Vida, tam te potrebujejo! In sem prišla, s sinom in z loncem.", "en": "When I heard there was no inn in the village, I said to myself: Vida, they need you there! And I came, with my son and my pot.", "de": "Als ich hörte, dass es im Dorf kein Gasthaus gibt, habe ich mir gesagt: Vida, dort brauchen sie dich! Und ich bin gekommen, mit meinem Sohn und meinem Topf.", "it": "Quando ho saputo che in paese non c'era un'osteria, mi sono detta: Vida, lì hanno bisogno di te! E sono venuta, con mio figlio e la mia pentola."},
+            {"who": "vida", "face": "curious", "sl": "Izvolite, kava. Kaj pa za jesti? Jota? Štruklji?", "en": "Here's your coffee. And something to eat? Jota (bean and sauerkraut stew)? Štruklji (rolled dumplings)?", "de": "Bitte, Ihr Kaffee. Und zu essen? Jota (Bohnen-Sauerkraut-Eintopf)? Štruklji (gerollte Knödel)?", "it": "Ecco il caffè. E da mangiare? Jota (minestra di fagioli e crauti)? Štruklji (rotolini di pasta)?"},
+            {
+              "choices": [
+                {
+                  "sl": "Joto, prosim, in kozarec vode.",
+                  "en": "Jota, please, and a glass of water.",
+                  "de": "Jota, bitte, und ein Glas Wasser.",
+                  "it": "La jota, per favore, e un bicchiere d'acqua.",
+                  "ok": true,
+                  "reply": {"face": "happy", "sl": "Takoj! Lepa beseda lepo mesto najde.", "en": "Right away! A kind word finds a good place.", "de": "Sofort! Ein gutes Wort findet einen guten Platz.", "it": "Subito! Una bella parola trova un bel posto."}
+                },
+                {
+                  "sl": "Joto, prosim, in kozarec voda.",
+                  "en": "Jota, please, and a glass of water. (voda: not the genitive)",
+                  "de": "Jota, bitte, und ein Glas Wasser. (voda: nicht der Genitiv)",
+                  "it": "La jota, per favore, e un bicchiere d'acqua. (voda: non è il genitivo)",
+                  "why": {"en": "A glass of something takes the genitive: kozarec vode, not kozarec voda.", "de": "Ein Glas von etwas verlangt den Genitiv: kozarec vode, nicht kozarec voda.", "it": "Un bicchiere di qualcosa vuole il genitivo: kozarec vode, non kozarec voda."},
+                  "reply": {"face": "laugh", "sl": "Kozarec voda? Ha ha! Kako se pa to pije?", "en": "Kozarec voda? Ha ha! And how do you drink that?", "de": "Kozarec voda? Ha ha! Und wie trinkt man das?", "it": "Kozarec voda? Ah ah! E come si beve?"}
+                }
+              ]
+            },
+            {"who": "vida", "face": "curious", "sl": "Povejte mi še: ste že kdaj jedli joto?", "en": "Tell me one more thing: have you ever eaten jota?", "de": "Sagen Sie mir noch: Haben Sie schon einmal Jota gegessen?", "it": "Mi dica ancora: ha già mangiato la jota?"},
+            {
+              "choices": [
+                {
+                  "sl": "Nisem je še {m:jedel|f:jedla}, sem pa veliko {m:slišal|f:slišala} o njej.",
+                  "en": "I haven't eaten it yet, but I've heard a lot about it.",
+                  "de": "Ich habe sie noch nicht gegessen, aber schon viel von ihr gehört.",
+                  "it": "Non l'ho ancora mangiata, ma ne ho sentito parlare molto.",
+                  "ok": true,
+                  "reply": {"face": "proud", "sl": "Potem boste danes prvič! Počasi, vroča je.", "en": "Then today's your first time! Slowly, it's hot.", "de": "Dann heute zum ersten Mal! Langsam, sie ist heiß.", "it": "Allora oggi è la prima volta! Piano, è calda."}
+                },
+                {
+                  "sl": "Nisem jo še {m:jedel|f:jedla}, sem pa veliko {m:slišal|f:slišala} o njej.",
+                  "en": "I haven't eaten it yet, but I've heard a lot about it. (jo: not the genitive)",
+                  "de": "Ich habe sie noch nicht gegessen, aber schon viel von ihr gehört. (jo: nicht der Genitiv)",
+                  "it": "Non l'ho ancora mangiata, ma ne ho sentito parlare molto. (jo: non è il genitivo)",
+                  "why": {"en": "After a negative the pronoun goes into the genitive: nisem je {m:jedel|f:jedla}, not nisem jo.", "de": "Nach einer Verneinung steht das Pronomen im Genitiv: nisem je {m:jedel|f:jedla}, nicht nisem jo.", "it": "Dopo una negazione il pronome va al genitivo: nisem je {m:jedel|f:jedla}, non nisem jo."},
+                  "reply": {"face": "laugh", "sl": "Nisem jo? Ha ha! Moja učiteljica bi že prijela za kredo!", "en": "Nisem jo? Ha ha! My teacher would be reaching for the chalk by now!", "de": "Nisem jo? Ha ha! Meine Lehrerin hätte jetzt schon die Kreide in der Hand!", "it": "Nisem jo? Ah ah! La mia maestra avrebbe già preso il gesso in mano!"}
                 }
               ]
             },
@@ -1525,6 +1831,57 @@
               ]
             },
             {"who": "nejc", "sl": "Z Zalo in Tinetom igramo vsak dan. Jutri ob treh, ja? Ti si v golu!", "en": "Zala, Tine and I play every day. Tomorrow at three, OK? You're in goal!", "de": "Zala, Tine und ich spielen jeden Tag. Morgen um drei, ja? Du bist im Tor!", "it": "Io, Zala e Tine giochiamo tutti i giorni. Domani alle tre, va bene? Tu stai in porta!"}
+          ]
+        },
+        "B1": {
+          "late": {"who": "vida", "sl": "{learner}, počakajte! Mojega Nejca še niste spoznali, kajne?", "en": "{learner}, wait! You haven't met my Nejc yet, have you?", "de": "{learner}, warten Sie! Meinen Nejc haben Sie noch nicht kennengelernt, oder?", "it": "{learner}, aspetti! Il mio Nejc non l'ha ancora conosciuto, vero?"},
+          "lines": [
+            {"who": "vida", "face": "laugh", "sl": "{learner}, to je moj sin Nejc. Pomaga mi v gostilni. No, včasih. Kadar je lačen.", "en": "{learner}, this is my son Nejc. He helps me at the inn. Well, sometimes. When he's hungry.", "de": "{learner}, das ist mein Sohn Nejc. Er hilft mir im Gasthaus. Na ja, manchmal. Wenn er Hunger hat.", "it": "{learner}, questo è mio figlio Nejc. Mi aiuta all'osteria. Be', a volte. Quando ha fame."},
+            {"who": "nejc", "face": "proud", "sl": "Živjo, {learner}! Jaz sem Nejc! Star sem devet let in najhitreje tečem v vasi! Ne verjameš? Lahko tekmujeva!", "en": "Hi, {learner}! I'm Nejc! I'm nine and I run the fastest in the village! Don't believe me? We can race!", "de": "Hallo, {learner}! Ich bin Nejc! Ich bin neun und laufe am schnellsten im Dorf! Glaubst du nicht? Wir können um die Wette laufen!", "it": "Ciao, {learner}! Io sono Nejc! Ho nove anni e corro più veloce di tutti in paese! Non ci credi? Possiamo fare una gara!"},
+            {
+              "choices": [
+                {
+                  "sl": "Prav, tekmujva! Ampak ne prehitro, prosim.",
+                  "en": "All right, let's race! But not too fast, please.",
+                  "de": "Gut, laufen wir um die Wette! Aber nicht zu schnell, bitte.",
+                  "it": "Va bene, facciamo la gara! Ma non troppo veloce, per favore.",
+                  "ok": true,
+                  "reply": {"face": "happy", "sl": "Super! Do ribnika in nazaj. Ha ha, jaz že tečem!", "en": "Great! To the pond and back. Ha ha, I'm off already!", "de": "Super! Bis zum Teich und zurück. Ha ha, ich laufe schon!", "it": "Forte! Fino allo stagno e ritorno. Ah ah, io sto già correndo!"}
+                },
+                {
+                  "sl": "Prav, tekmujmo! Ampak ne prehitro, prosim.",
+                  "en": "All right, let's race! But not too fast, please. (plural, as if there were more of us)",
+                  "de": "Gut, laufen wir um die Wette! Aber nicht zu schnell, bitte. (Plural, als wären wir mehr)",
+                  "it": "Va bene, facciamo la gara! Ma non troppo veloce, per favore. (plurale, come se fossimo in tanti)",
+                  "why": {"en": "You and Nejc are two: tekmujva, with the dual's -va, not the plural's -mo.", "de": "Du und Nejc seid zwei: tekmujva, mit der Dualendung -va, nicht mit der Pluralendung -mo.", "it": "Tu e Nejc siete in due: tekmujva, con -va del duale, non con -mo del plurale."},
+                  "reply": {"face": "laugh", "sl": "Tekmujmo? Koliko pa nas je? Samo ti in jaz!", "en": "Tekmujmo? How many of us are there? Only you and me!", "de": "Tekmujmo? Wie viele sind wir denn? Nur du und ich!", "it": "Tekmujmo? Quanti siamo? Solo tu e io!"}
+                }
+              ]
+            },
+            {"who": "nejc", "sl": "Prej sem živel v Trnovem, v gostilni. Tam sem poznal vse goste. In vse njihove pse!", "en": "I used to live in Trnovo, at the inn. There I knew all the guests. And all their dogs!", "de": "Früher habe ich in Trnovo gewohnt, im Gasthaus. Dort habe ich alle Gäste gekannt. Und alle ihre Hunde!", "it": "Prima abitavo a Trnovo, all'osteria. Là conoscevo tutti gli ospiti. E tutti i loro cani!"},
+            {"who": "vida", "face": "surprised", "sl": "In veste, kje sem ga včeraj našla? Na drevesu! Rekel je, da gleda, ali že prihajajo gostje.", "en": "And do you know where I found him yesterday? Up a tree! He said he was watching whether the guests were coming yet.", "de": "Und wissen Sie, wo ich ihn gestern gefunden habe? Auf einem Baum! Er hat gesagt, er schaut, ob schon Gäste kommen.", "it": "E sa dove l'ho trovato ieri? Su un albero! Ha detto che guardava se arrivavano già gli ospiti."},
+            {
+              "to": "nejc",
+              "choices": [
+                {
+                  "sl": "Nejc, kaj si pa res delal na drevesu?",
+                  "en": "Nejc, what were you really doing up that tree?",
+                  "de": "Nejc, was hast du denn wirklich auf dem Baum gemacht?",
+                  "it": "Nejc, che cosa facevi davvero sull'albero?",
+                  "ok": true,
+                  "reply": {"face": "laugh", "sl": "Gledal sem, ali prihajajo gostje! In jedel češnje. Malo.", "en": "I was watching for guests! And eating cherries. A bit.", "de": "Ich habe geschaut, ob Gäste kommen! Und Kirschen gegessen. Ein bisschen.", "it": "Guardavo se arrivavano gli ospiti! E mangiavo ciliegie. Un po'."}
+                },
+                {
+                  "sl": "Nejc, kaj si pa res naredil na drevesu?",
+                  "en": "Nejc, what did you really get done up that tree? (naredil: a finished deed)",
+                  "de": "Nejc, was hast du denn wirklich auf dem Baum fertig gemacht? (naredil: abgeschlossen)",
+                  "it": "Nejc, che cosa hai combinato davvero sull'albero? (naredil: azione conclusa)",
+                  "why": {"en": "Naredil (perfective) asks what you got done. For what was going on up there, take the imperfective: delal.", "de": "Naredil (vollendet) fragt, was du fertig gebracht hast. Für das, was gerade im Gang war, nimm das Imperfektiv: delal.", "it": "Naredil (perfettivo) chiede che cosa hai portato a termine. Per ciò che stava succedendo lassù usa l'imperfettivo: delal."},
+                  "reply": {"face": "surprised", "sl": "Naredil? Nič nisem naredil! Drevo je še celo!", "en": "Naredil? I didn't do anything! The tree's still in one piece!", "de": "Naredil? Ich habe gar nichts gemacht! Der Baum ist noch ganz!", "it": "Naredil? Non ho fatto niente! L'albero è ancora intero!"}
+                }
+              ]
+            },
+            {"who": "nejc", "sl": "Jutri ob treh igramo nogomet, ja? Ti si v golu!", "en": "Tomorrow at three we're playing football, yes? You're in goal!", "de": "Morgen um drei spielen wir Fußball, ja? Du bist im Tor!", "it": "Domani alle tre giochiamo a calcio, va bene? Tu stai in porta!"}
           ]
         }
       }
@@ -1772,6 +2129,57 @@
                   "it": "Psst … li vedo! (jih: per tre o più)",
                   "why": {"en": "For two, the pronoun is the dual ju (them two); jih is for three or more.", "de": "Bei zweien steht das Pronomen im Dual: ju (die zwei); jih ist für drei und mehr.", "it": "Per due si usa il pronome duale ju (loro due); jih è per tre o più."},
                   "reply": {"face": "curious", "sl": "Jih? Koliko pa jih vidiš? Jaz samo dve.", "en": "Jih? How many do you see, then? I see only two.", "de": "Jih? Wie viele siehst du denn? Ich nur zwei.", "it": "Jih? Quanti ne vedi, allora? Io solo due."}
+                }
+              ]
+            }
+          ]
+        },
+        "B1": {
+          "late": {"who": "janez", "sl": "{m:Fant|f:Dekle}, počakaj. Jožeta še ne poznaš, kajne? Lovec je, moj stari prijatelj.", "en": "Wait, {m:lad|f:lass}. You don't know Jože yet, do you? He's a hunter, an old friend of mine.", "de": "Warte, {m:Junge|f:Mädchen}. Jože kennst du noch nicht, oder? Er ist Jäger, ein alter Freund von mir.", "it": "Aspetta, {m:ragazzo|f:ragazza}. Jože non lo conosci ancora, vero? È un cacciatore, un mio vecchio amico."},
+          "lines": [
+            {"who": "janez", "sl": "{m:Fant|f:Dekle}, to je Jože, moj stari prijatelj. Lovec je, kot sem bil jaz nekoč.", "en": "{m:Lad|f:Lass}, this is Jože, an old friend of mine. He's a hunter, as I once was.", "de": "{m:Junge|f:Mädchen}, das ist Jože, ein alter Freund von mir. Er ist Jäger, wie ich es einmal war.", "it": "{m:Ragazzo|f:Ragazza}, questo è Jože, un mio vecchio amico. È cacciatore, come lo ero io una volta."},
+            {"who": "joze", "sl": "Lovski blagor! Pst … govoriva tiho, srne so blizu.", "en": "Lovski blagor! Psst … let's talk quietly, the deer are close.", "de": "Lovski blagor! Pst … reden wir leise, die Rehe sind nah.", "it": "Lovski blagor! Psst … parliamo piano, i caprioli sono vicini."},
+            {
+              "choices": [
+                {
+                  "sl": "Lovski blagor! Oprostite, bom tiše.",
+                  "en": "Lovski blagor! Sorry, I'll be quieter.",
+                  "de": "Lovski blagor! Entschuldigen Sie, ich bin leiser.",
+                  "it": "Lovski blagor! Mi scusi, parlerò più piano.",
+                  "ok": true,
+                  "reply": {"face": "happy", "sl": "Dobro. Srne so mirne, jaz tudi.", "en": "Good. The deer are calm, and so am I.", "de": "Gut. Die Rehe sind ruhig, ich auch.", "it": "Bene. I caprioli sono tranquilli, e anch'io."}
+                },
+                {
+                  "sl": "Lovski blagor! Oprosti, bom tiše.",
+                  "en": "Lovski blagor! Sorry, I'll be quieter. (ti)",
+                  "de": "Lovski blagor! Entschuldige, ich bin leiser.",
+                  "it": "Lovski blagor! Scusa, parlerò più piano.",
+                  "why": {"en": "Jože says ti to you, but expects vi back: oprostite, not oprosti.", "de": "Jože duzt dich, erwartet aber vi (Sie) zurück: oprostite, nicht oprosti.", "it": "Jože ti dà del tu, ma si aspetta il vi (Lei): oprostite, non oprosti."},
+                  "reply": {"face": "thinking", "sl": "Oprosti? Hm … sva midva že kdaj skupaj sedela na preži?", "en": "Oprosti? Hm … have the two of us ever sat in the high seat together?", "de": "Oprosti? Hm … sind wir zwei je zusammen auf dem Hochsitz gesessen?", "it": "Oprosti? Mh … noi due siamo mai stati insieme sulla torretta?"}
+                }
+              ]
+            },
+            {"who": "joze", "face": "proud", "sl": "Trideset let že sedim na preži. Srn ne streljam rad. Raje jih štejem, ob zori in ob mraku.", "en": "I've been sitting in the high seat for thirty years. I don't like shooting the deer. I'd rather count them, at dawn and at dusk.", "de": "Seit dreißig Jahren sitze ich auf dem Hochsitz. Ich schieße nicht gern auf Rehe. Lieber zähle ich sie, im Morgengrauen und in der Dämmerung.", "it": "Da trent'anni sto sulla torretta. Non mi piace sparare ai caprioli. Preferisco contarli, all'alba e al tramonto."},
+            {"who": "joze", "sl": "Pozimi jim nosim seno. Ko je sneg globok, jih ne najdeš na travniku, najdeš pa njihove sledi.", "en": "In winter I bring them hay. When the snow is deep you won't find them on the meadow, but you will find their tracks.", "de": "Im Winter bringe ich ihnen Heu. Wenn der Schnee tief liegt, findest du sie nicht auf der Wiese, aber ihre Spuren schon.", "it": "In inverno porto loro il fieno. Quando la neve è alta non li trovi sul prato, ma le loro tracce sì."},
+            {"who": "janez", "sl": "Stara prijatelja sva. Skupaj sva hodila na lov, ko sva bila mlada. On je vedno videl več.", "en": "We two are old friends. We went hunting together when we were young. He always saw more.", "de": "Wir zwei sind alte Freunde. Wir sind zusammen auf die Jagd gegangen, als wir jung waren. Er hat immer mehr gesehen.", "it": "Noi due siamo vecchi amici. Andavamo a caccia insieme quando eravamo giovani. Lui vedeva sempre di più."},
+            {"who": "joze", "face": "surprised", "sl": "Pst! Poglej, tam ob gozdu … dve srni. Kaj delata?", "en": "Psst! Look, over there by the wood … two deer. What are they doing?", "de": "Pst! Schau, dort beim Wald … zwei Rehe. Was machen sie?", "it": "Psst! Guarda, là vicino al bosco … due caprioli. Che cosa fanno?"},
+            {
+              "choices": [
+                {
+                  "sl": "Pst … paseta se.",
+                  "en": "Psst … they are grazing.",
+                  "de": "Pst … sie grasen.",
+                  "it": "Psst … stanno pascolando.",
+                  "ok": true,
+                  "reply": {"face": "happy", "sl": "Tako. Zdaj pa tiho … samo glejva.", "en": "That's it. Now quiet … we just watch.", "de": "Genau. Jetzt still … wir schauen nur.", "it": "Così. Adesso zitti … guardiamo e basta."}
+                },
+                {
+                  "sl": "Pst … pasejo se.",
+                  "en": "Psst … they are grazing. (plural, as if there were more of them)",
+                  "de": "Pst … sie grasen. (Plural, als wären es mehr)",
+                  "it": "Psst … stanno pascolando. (plurale, come se fossero tanti)",
+                  "why": {"en": "Two deer take the dual: paseta se (the two of them are grazing), not the plural pasejo se.", "de": "Zwei Rehe verlangen den Dual: paseta se (die beiden grasen), nicht den Plural pasejo se.", "it": "Due caprioli vogliono il duale: paseta se (loro due pascolano), non il plurale pasejo se."},
+                  "reply": {"face": "thinking", "sl": "Pasejo? Koliko pa jih vidiš? Jaz samo dve.", "en": "Pasejo? How many can you see, then? I only see two.", "de": "Pasejo? Wie viele siehst du denn? Ich nur zwei.", "it": "Pasejo? Quanti ne vedi? Io solo due."}
                 }
               ]
             }
