@@ -104,3 +104,29 @@ As COURSE.md "Writing a unit" and "The English course", plus what these six foun
 
 Mrs Hartley reads the intros in the cast's teacher voice. A voice build of these six units would take about 7,700 ElevenLabs characters for her English lines (321 texts: examples, quick questions, answers, the bold runs) and, on demand or with `voice-build --explanations`, about 9,800 (Slovene), 10,400 (German) and 10,100 (Italian) for the explanations. This is my own count from the files, not `voice-build`'s plan. Nothing was voiced; no credits spent.
 
+## Checks, on 5b8b2c9a (the content's last commit)
+
+Parts a and b run these; the whole Android suite is part c's and the gate's, so it wasn't run here.
+
+- `bunx tsc --noEmit -p .` clean. `tutor-export --check`: 89 files match.
+- The smoke with ports 10130– (LANI_SMOKE_DRAMA3_PORT 10148): 3,521 checks, all passed.
+- Android through lani-slot.sh, the course's classes only: 220 tests, 0 failures. `EnglishB1bContentTest` 10, `EnglishCourseContentTest` 6, `EnglishA2aContentTest` 8, `EnglishA2bContentTest` 14, `EnglishA2cContentTest` 11, `SchoolBoardTest` 7, `SchoolRevealTest` 10, `IntroBoldTapTest` 2, `IntroSpeechParityTest` 2, the grading classes and the other courses' content tests.
+- `lexicon-build --coverage --lang en`: the supplement 78.6 % → 79.5 % of words, with packs and names 98.1 %, each base 97.4 %: not fallen. `bun test/prompt-clashes.ts`: no new clash, 339 in the baseline.
+- **The prints:** `school-prints --language en --level B1 --base sl|de|it`: all six fit in each base: who-which 2 pages, passive 2, verb-patterns 1, phrasal-verbs 2, too-enough 2, myself 2; the booklet 13 pages. `--base en` is refused, as for any course. `--explain` read for sl: the Watch out boxes offer none of what people say.
+- A scratchpad port of the grading (not committed) probed each unit before the Kotlin tests: every accepted answer right, no distractor right, no wrong option `nonstandard`. The Kotlin tests are what count.
+
+## QA
+
+Through `companion/bin/qa-slot --steps course-unit`, a 1080 × 2400 phone, Ana, a synthetic learner of English in the Lake District. Screenshots in the scratchpad under ux-course-en-b1-b/<unit>/.
+
+- **`myself` from Italian, on the last content: passed whole:** the school, the unit, the intro's six steps with their quick questions, the summary, the first worksheet, the test passed, the print's preview and PDF; ✅ setup, ✅ course-unit, ✅ crash check.
+- **`who-which` from German (three runs) and `phrasal-verbs` from Slovene (one) stopped at the test's last exercise: `test #5: Line 4`. It isn't the app:** the screenshots show the fourth line's field on screen and empty. QA's `fill` looks for a field above y = 1850 (`scroll_to`'s `bottom`), and a four-line transform on a screen with nothing left to scroll puts it at about 1878. The first of the who-which runs was my own timeout, cut off while the build waited for a slot. Both units' intros, first worksheet and test up to there passed; their prints were not seen on the emulator. **For the lead:** `bin/qa` is shared, so I left it. `fill` could pass a lower `bottom`; any unit with four lines in a test's transform will meet this.
+- **What the runs found, fixed:** `cue: "→"` showed as "→ (→)" between a line and its answer (5b8b2c9a); the cue went.
+- **Not seen on a screen:** `nonstandard`'s line and a spoken form's label for these units (QA answers right; the verdicts are unit tests); worksheets 2 and 3 of any unit; verb-patterns, passive and too-enough, which ran in tests and prints only.
+- Tap counts: no journey changed.
+
+## What's left
+
+- The native check at the top. Above all whether the past-for-participle rows and `what` belong in `nonstandard`, which rest on what I know of English, with no good source found for was broke, was took and meself.
+- For part c, at integration: A2's 7993ca10 (`nonstandard` 54 → 45) and this part's 12 rows; `hope`, `agree`, `sell` joined by lemma; COURSE.md's "The English course: B1, units 7–12" from this doc's table and "How the units are written"; the README's and grammar-spec's page counts (six new pages here).
+- The voice figures above.
