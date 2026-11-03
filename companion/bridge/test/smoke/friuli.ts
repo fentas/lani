@@ -5,7 +5,7 @@
 // the child, and speaks with the pack's voice cast, in Italian (the phone's Italian TTS while the cast has no voices).
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { initLearnerData } from '../../src/learners'
 import { labelShown, meant, said } from '../../src/langs'
@@ -220,6 +220,25 @@ export default async function friuli() {
     const scenarios = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
     const scenes = await (await fetch(`${base}/scenes`, { headers: auth })).json()
     check('friuli: no Slovene modules, role-plays or scenes for the Italian village', Array.isArray(modules) && !modules.some((m: any) => m.id === 'dvojina-osnove') && Array.isArray(scenarios) && !scenarios.some((s: any) => s.id === 'v-pekarni') && JSON.stringify(scenes).indexOf('ob-ognju') < 0 && !scenes.some((s: any) => s.id === 'na-gricih'), { modules: modules.length, scenarios: scenarios.length, scenes: scenes.map((s: any) => s.id) })
+    // Teo's practice as data: the modules at the learner's level in the learner's base, the car's drills
+    const itModules = readdirSync(join(repo, 'companion/modules/it')).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(repo, 'companion/modules/it', f), 'utf8')))
+    const atA1 = itModules.filter(m => m.level === 'A1').sort((x, y) => x.order - y.order).map(m => m.id)
+    check('friuli: the Italian modules have their places, each level 1, 2, 3 …', ['A1', 'A2', 'B1'].every(l => JSON.stringify(itModules.filter(m => m.level === l).map(m => m.order).sort((x, y) => x - y)) === JSON.stringify(itModules.filter(m => m.level === l).map((_, i) => i + 1))), itModules.map(m => [m.id, m.order]))
+    check('friuli: GET /modules offers one Italian module at first, the level\'s first, not eight requests at once', modules.length === 1 && modules[0].id === atA1[0] && modules[0].level === 'A1' && !!modules[0].quest, modules.map((m: any) => [m.id, m.level]))
+    const gamePath = join(dataDir, 'app/game.json')
+    const savedGame = existsSync(gamePath) ? readFileSync(gamePath, 'utf8') : undefined
+    const giver0 = itModules.find(m => m.id === atA1[0]).quest.giver
+    const quest0 = { id: `tutor-${atA1[0]}-v1`, moduleId: atA1[0], giver: giver0, source: 'TUTOR', since: '2026-01-01', done: true }
+    writeFileSync(gamePath, JSON.stringify({ rev: 1, state: { quests: [quest0] } }))
+    const next = await (await fetch(`${base}/modules`, { headers: auth })).json()
+    check('friuli: that one played on an earlier day, the next comes, the first stays listed', JSON.stringify(next.map((m: any) => m.id)) === JSON.stringify(atA1.slice(0, 2)) || JSON.stringify(next.map((m: any) => m.id).sort()) === JSON.stringify(atA1.slice(0, 2).sort()), next.map((m: any) => m.id))
+    if (savedGame === undefined) rmSync(gamePath, { force: true })
+    else writeFileSync(gamePath, savedGame)
+    const raw0 = itModules.find(m => m.id === atA1[0])
+    const served0 = await (await fetch(`${base}/modules/${atA1[0]}`, { headers: auth })).json()
+    check('friuli: a module\'s texts come as plain strings in the learner\'s base (Slovene here)', served0.title === raw0.title.sl && served0.quest.story === raw0.quest.story.sl && raw0.exercises.every((e: any, i: number) => !e.explain?.sl || e.explain.sl.includes('{') || served0.exercises[i].explain === e.explain.sl), served0.title)
+    const itDrills = await (await fetch(`${base}/drills`, { headers: auth })).json()
+    check('friuli: GET /drills serves the four Italian drills', Array.isArray(itDrills) && itDrills.length === 4 && itDrills.every((d: any) => d.language === 'it' && d.source === 'curated'), itDrills.map?.((d: any) => d.id))
     // Teo's role-plays: the Italian ones (companion/scenarios/it), for a child, their texts in the child's pair (it · sl)
     const itFiles = readdirSync(join(repo, 'companion/scenarios/it')).filter(f => f.endsWith('.json'))
     check('friuli: GET /scenarios serves the 9 Italian role-plays, and nothing else', itFiles.length === 9 && scenarios.length === 9 && itFiles.every(f => scenarios.some((s: any) => `${s.id}.json` === f && s.language === 'it' && s.audience === 'child' && s.source === 'curated')), scenarios.map((s: any) => s.id))

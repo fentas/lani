@@ -537,10 +537,15 @@ shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
   of it folded ("📝 14 enot v A2 · 14 units in A2", "🔒 Zaklenjeno · Locked" in the list). The levels after it aren't
   shown until it opens.
 
-- **Nothing written left to do, more planned** (every written unit of the open levels done, or none written yet: the
-  Italian course's first days): the teacher says she is preparing the next lessons, kindly, under her welcome
-  (`School.preparing`; "Pripravljam naslednje ure. Kmalu se spet vidiva!", Maestra Elena's "Sto preparando le prossime
-  lezioni. Torna presto!"), and Home's tile says "📝 Nove ure kmalu" instead of "✅ vse opravljeno".
+- **Nothing written left to do, more to come** (every written unit done, or none written yet: the Italian course's first
+  days; no written unit behind a closed level; and a unit still planned, or a level the outline lists with no units, in a
+  level open or not: German and English past A1, Italian past B1): the teacher says she is preparing the next lessons,
+  kindly, under her welcome (`School.preparing`; "Pripravljam naslednje ure. Kmalu se spet vidiva!", Maestra Elena's "Sto
+  preparando le prossime lezioni. Torna presto!"), and Home's tile says "📝 Nove ure kmalu" instead of "✅ vse opravljeno".
+- **Written units behind a closed level** (the open levels done, the next one waiting for the school: `School.waiting`):
+  the first closed level says what opens it, as above, and Home's tile says it too: "🔒 A2: zgradi šolo · A2: build the
+  school", "🔒 B1: nadgradi šolo · B1: upgrade the school".
+- **Past a course written to its end** (every level the outline lists written, every unit done): "✅ vse opravljeno".
 
 The rules that open a level are unchanged (`School.isOpen`: A1 with the hamlet; A2 with the school standing and A1's
 written units done, i.e. every A1 test passed; B1 and B2 with the school's levels 2 and 3 and the level before done; a
@@ -797,7 +802,8 @@ course's language's, not Slovene's:
 | Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too |
 | The blackboard | "Benvenuti!" and the day as Italy writes it (28/10/2026) before the first unit; the unit's title and forms in chalk (à, è, ' written) |
 | Prints | headed in Italian and the base ("Regola · Die Regel", "Unità"), the words from the Italian and the culture's packs with their article; Slovene as a base for an Italian course |
-| Not for Italian | forms cards, counting cards and the numbers module (Slovene's: `numeri` turns nothing on), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
+| The numbers module | `numeri`'s intro opens "🔢 Numeri · Zahlen" (README.md "Numbers"), `ore-giorni`'s brings its dates and clock times |
+| Not for Italian | forms cards and counting cards (Slovene's), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
 | Checked | `ItalianCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the Italian grading, no decoy right, every text per base in de, sl and en), `SchoolBoardTest` (the blackboard writes every letter of the Italian course), the smoke's course, course-speech and Friuli sections |
 
 While units are still planned (`"planned": true`), the school is no dead end: a level's planned units are folded
@@ -871,7 +877,7 @@ the possessives (units 7–12), and use only those around their gaps:
   forms only ("tu → ?", "noi: -iamo") stays a string. An instruction is the Italian label, then the base:
   "Completa la tabella · Füll die Tabelle aus".
 - **Not used, being Slovene-only**: a table cell's or a line's `lemma` and `form` (the forms book is Slovene's:
-  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards, counting cards or numbers module), the smoke's
+  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards or counting cards; the numbers module is opened by `numeri`, as above), the smoke's
   check of a gap's answer against the word in brackets (the dictionary's forms, Slovene only).
 
 ### The Italian course: A2, units 1–6
@@ -1071,8 +1077,8 @@ order, B1's earlier ones only lightly:
 
 ## The German course
 
-The German course is `companion/course/de/`: the outline (A1, 18 units, the grammar book's German pages to teach) and
-its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
+The German course is `companion/course/de/`: the outline (A1 and A2 written, 18 units each, the grammar book's German
+pages to teach; B1 and B2 planned, docs/plans/05-built/outlines-2.md) and its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
 Gasthaus, Mostbauer Stefan's cider, Tante Mitzi, Müller Franz and his mill, Schmied Toni, Imker Stanko, Hirte Florian
 and his sheep, Opa Sepp's stories, Oma Resi's kitchen, the Kirchtag). It serves a learner of German from Slovene, English
 or Italian (a visitor, a neighbour across the border), and is the same school as the others: the bridge serves the course
@@ -1090,7 +1096,7 @@ school is the course's language's:
 | The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
 | Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
 | Not for German | forms cards, counting cards and the numbers module, case rows, the cases overview (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
-| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
+| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
 
 Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
 the learner's own data (an age is Stefan's, not the learner's). The explanations in English, Slovene and Italian, every
@@ -1197,6 +1203,60 @@ their gaps (places as the fixed chunks of units 1–6):
   (anrufen for angerufen, einkauft).
 - **Their words in the supplement** (`lexicon/de.extra.json`): the possessives' forms, möchten and können, the time's
   little words and the days; the verbs part b added (kommen, machen, fahren, geben, sprechen …) are part b's entries.
+
+### The German course: A2, units 1–6
+
+A2's first six units, the dative and where things are (docs/plans/05-built/course-de-a2-a.md). They come after all of A1:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `wem-dativ` 🎁 | who gets something: dem, der, dem, den + -n; einem, einer, meinem, keinem; geben, zeigen, schenken with the person before the thing | dativ, faelle |
+| `mir-dir` 🤝 | mir, dir, ihm, ihr, uns, euch, ihnen beside mich, dich, ihn; gefallen, helfen, schmecken, gehören, danken; es geht mir gut | pronomen-dativ, dativ, akkusativ |
+| `mit-nach-bei` 🚌 | aus, bei, mit, nach, seit, von, zu; beim, vom, zum, zur; wo? bei, wohin? zu, woher? von; nach Hause, zu Hause, daheim | praepositionen-dativ, dativ |
+| `fuer-ohne` 🧭 | bis, durch, für, gegen, ohne, um, always the accusative; only a der noun shows it; bis zum, where zu decides; set against the dative's list | praepositionen-akkusativ, akkusativ |
+| `wo-wohin` 📍 | an, auf, hinter, in, neben, über, unter, vor, zwischen: wo? the dative, wohin? the accusative; im, ins, am, ans | wechselpraepositionen, dativ, akkusativ |
+| `stehen-stellen` 🥛 | stehen and stellen, liegen and legen, sitzen and setzen, hängen: the state with the dative, the movement with the accusative; present only; der Sessel, der Kasten | stehen-stellen, wechselpraepositionen |
+
+- **Only what came before around a gap**: no modal but möchten and können, no adjective with an ending, no weil or denn, no reflexive beyond the chunks Setz dich! and Ich setze mich. Prepositions before their unit are fixed chunks (im Gasthaus, in die Küche, auf der Alm). No weak noun takes the dative (Herr, Bub, Bauer, Hirte and Nachbar are left out: `herr-kollege` is B2's), so Herr Rossi only stands as the subject.
+- **A summary of its own** (`intro.summary`) on each, where the unit's first page goes on further than the unit.
+- **Spoken, right and labelled**: nach Haus for nach Hause, am Tisch, am Sessel and am Platz for auf dem. Every long form is accepted beside its contraction (zu dem Arzt, in das).
+- **Their size** runs above the guide: 32 to 35 items a unit. If one feels long, the second sheet's two choices go first.
+- **The grading's pairs**: legen and liegen, setzen and sitzen (legt for liegt, setzt for sitzt: a verb of its own); ihren for ihnen, auch for euch, noch for nach, geben or gehen for gegen, ich hilfe, each way where it can go wrong each way. `GermanA2aContentTest`.
+
+### The German course: A2, units 7–12
+
+A2's middle six units, more verbs (docs/plans/05-built/course-de-a2-b.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `muessen-duerfen` 🚦 | müssen, dürfen, wollen, sollen, mögen; the infinitive last; nicht müssen against nicht dürfen; Magst du …? | modalverben, wortstellung |
+| `partizip-perfekt` 🧩 | ge-…-t, ge-…-en, mixed, separable, none; haben or sein; ist gesessen, gestanden, gelegen with hat accepted; hat gestellt, hat gelegt | partizip-zwei, perfekt, trennbare-verben |
+| `war-hatte` 🕰️ | war, hatte, the modals' -te with no umlaut, es gab; beside the Perfekt, ist gewesen as right | praeteritum-kurz, sein-haben, modalverben |
+| `reflexiv` 🪞 | mich … sich; verbs that come with it, sich verkühlen; its place; Perfekt with haben; mir, dir when the verb has another object; Setz dich! | reflexive-verben, pronomen-dativ |
+| `warten-auf` 🚏 | each chunk with its case: warten auf, denken an, sich freuen auf and über, sprechen mit and über, Angst haben vor, von; pronouns for people | verben-praepositionen, akkusativ, dativ |
+| `am-ersten-mai` 📅 | -te, -ste; der erste Mai, am ersten Mai, vom … bis zum; vor zwei Tagen, in einer Woche; Jänner, Feber, heuer | ordinalzahlen, uhrzeit, zahlen |
+
+- **A form both standards have is two `accept`s, never a `spoken`**: ist gesessen and hat gesessen, Jänner and Januar, Feber and Februar, siebte and siebente. A choice never offers one as wrong: `multi` asks for both.
+- **A reflexive line's person in brackets**: `"whole": true` on the list, as the bracket replaces the subject.
+- **The grading's pairs**: a participle typed for another a letter away (gesessen, gegessen; gekommen, bekommen, genommen; gesucht, besucht; gestellt, bestellt); a mixed verb's with the infinitive's vowel (gewisst, gekennt); a modal's plural vowel on the singular (ich konn, du wollst), müsst against musst; kannte, darfte, willte for konnte, durfte, wollte; könnte, müsste, dürfte, hätte against konnte, musste, durfte, hatte, and wäre against war, either way; -te for an ordinal's -ste (zwanzigte). `GermanA2bContentTest`.
+
+### The German course: A2, units 13–18
+
+A2's last six units, adjective endings, comparing and clauses (docs/plans/05-built/course-de-a2-c.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `adjektiv-der` 🐕 | no ending after sein; after der, die, das -e in five places, -en everywhere else; dieser, jeder, welcher the same; hoch → hohe, teuer → teure, dunkel → dunkle | adjektiv-der, artikel-genus, faelle |
+| `adjektiv-ein` 🏠 | -er and -es where ein, kein, mein have no ending of their own, everywhere else as after der; kein and the possessives in the plural, -en; der neue Hut against ein neuer Hut | adjektiv-ein, adjektiv-der, possessiv, kein-nicht |
+| `adjektiv-null` 🥖 | no article: der's ending on the adjective (frischer Käse, mit heißem Tee, mit warmer Milch); plurals, viele, einige, wenige, a number; Guten Morgen but Gute Nacht; Lieber Stefan | adjektiv-null, adjektiv-der |
+| `groesser-als` 📈 | -er als; the umlaut and the words with none; so … wie; am -sten, with an e after -t, -ß, -z; gut, gern, viel. After sein or a verb only: before a noun is B1's | steigerung |
+| `weil-denn` 🔗 | und, aber, oder, denn, sondern take no place; deshalb (deswegen, darum) takes first place; weil sends the verb last; a weil clause first; Warum? Weil … | konnektoren, nebensatz, wortstellung |
+| `dass-wenn-ob` ❓ | dass after glauben, wissen, hoffen, denken, sagen; wenn set apart from wann; ob against wenn; a question word kept, the verb last; a separable verb whole at the end | nebensatz, fragen, wortstellung |
+
+- **A spoken form is never a wrong option**, so these three are `spoken` on every gap and line they fit, and offered wrong nowhere: wie for als, weil with the verb second, wann for wenn. A quick question can't take `spoken`, so none has als or wenn for its answer. A choice on the word order offers denn's and deshalb's own mistakes (Denn er krank ist, deshalb sie geht), never weil er hat; a gap before a clause with the verb second takes `denn` with `weil` as spoken.
+- **An adjective's table has article and adjective in a cell (der große, den großen), the noun in the head**: the print marks an ending in a cell of two words at most. The pages' tables have the whole phrase.
+- **The print marks what differs**: große⟦r⟧ and große⟦n⟧, as kleine⟦s⟧: a column can't tell the adjective's stem from its -e.
+- **The grading's pairs**: the comparative's and superlative's umlaut left out or put where none goes (alter for älter, kalter for kälter, grosser for größer, altesten for ältesten, größer for großer), hoher and hocher for höher, hoche for hohe, größesten for größten, denn, dann, wenn and wann for each other. An adjective's ending needs no rule. `GermanA2cContentTest`.
 
 ## The English course
 

@@ -754,6 +754,37 @@ srca are rather Gorenjska's, so Primorska's fair sells mandolat as Gorizia's And
 a sprevod (povorka is labelled regional and fading), "Naj živi naše mesto!" after SSKJ's "naj živi". The toasts: "Na
 zdravje!" anywhere, "Živijo!" as one too (accepted beside it), "Bog živi!" a best wish.
 
+The Lake District's five come from Cumbrian customs, settled in docs/plans/05-built/parties-lakeland.md with their sources:
+
+| Age | Its celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| ⛺ Tabor | 🎶 A merry neet: in old Cumberland a night of pies, a fiddle and songs at the alehouse; the camp has no alehouse yet, so it's by the fire | torches round the fire | the waltz | by the fire (Old Wilf) |
+| 🛖 Zaselek | 🤝 The boon day: a day's work the neighbours give for free, at a ploughing, a clipping or a new clay house; whoever had the help feeds them all | little flags, torches | the waltz | by the fire (Mr Tyson) |
+| 🏘️ Vas | 🎻 The barn dance: easy country dances, a caller and the Cumberland Square Eight, on boards on the green, as no barn would hold everyone | little flags, the boards | the polka | on the square (Mrs Birkett) |
+| 🏛️ Trg | 🍎 The crab fair, after Egremont's: apples thrown from a cart, a greasy pole, gurning through a horse collar | stalls, little flags | the market's bell, the polka | on the square (Brewer Sam) |
+| 🏰 Mesto | 📜 Charter Day, after Broughton's and Carlisle's proclamations: a procession to the market place, the words read out to the crowd, pennies for the children, fair cake and ale | banners, little flags | the band and the church bell | on the square (Mrs Hartley) |
+
+Its dialogs are written at A1, A2, B1 and B2. The rushbearing and the shepherds' meet stay what they are, festivals of the calendar
+with their own days, packs, readings and stories; a party doesn't sell them as new. The music is the app's own (the accordion's waltz
+and polka, the brass band); a fiddle isn't among the sounds, though the lines and the card name one.
+**Kärnten's five** (docs/plans/05-built/parties-kaernten.md has the sources, each with its URL), at A1, A2, B1 and B2:
+
+| Age | Kärnten's celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| ⛺ Lager | 🔥 Der erste Abend am Feuer: the first camp by its fire, a Kärntnerlied in several voices, one starting and the others joining in | torches round the fire | the harmonika's waltz | by the fire (Opa Sepp) |
+| 🛖 Weiler | 🌲 Die Firstfeier: the roof frame up, the ridge tree with its ribbons on the ridge, a verse, everyone who worked treated to a meal | the Firstbaum on the newest roof, garlands | the harmonika's waltz | by the fire (Müller Franz) |
+| 🏘️ Dorf | 🪗 Das Dorffest: the Tanzboden on the square, polka and waltz, Kasnudeln and Reindling | garlands, lanterns after dusk, a dance floor with its harmonika player | the harmonika's polka | on the square (Wirtin Kathi) |
+| 🏛️ Markt | 🎪 Der Wiesenmarkt: as St. Veit's and Bleiburg's, the Freyung for free and honest trade, the herald reading the market rules, the Kramer's stalls | stalls along the road, garlands | the market's hand bell, then the harmonika's polka | on the square (Mostbauer Stefan) |
+| 🏰 Stadt | 🎺 Das Stadtfest: a town's elevation as Spittal's and Hermagor's were, the charter, the flags on the houses, the bells, the band and the procession, torches after dark | banners along the road, garlands; the procession marches in | the band's polka and the church bell | on the square (Lehrerin Eva) |
+
+How they were settled: Firstfeier is Austrian for Richtfest, beside Gleichenfeier and Dachgleiche; the ridge tree with ribbons,
+the meal and the verse are from Salzburg and Tyrol, and the sources found for Carinthia say Gleichenfeier, so the name waits for
+a native check. The stolen Firstbaum (Salzburg, Bavaria) and the glass thrown from the roof are left out, not being shown for
+Carinthia. The Kirchtag, the Kufenstechen and the Lindentanz stay the calendar's festivals: a party named so would repeat them
+as if new, a Kirchtag can't come twice a year or before the church is built, and "Dorffest" is the word for what follows the
+Kirchtag in the Gailtal, not a custom of its own. The Freyung is St. Veit's, Bleiburg's market dates from 1393, and the party is
+the opening on the square, as St. Veit's is. A party's toast is "Prost!", "Zum Wohl!" or "Hoch soll sie leben!".
+
 Every curated culture has its own celebration for each age. A pack without one for an age has a gathering: "Praznovanje ·
 The celebration", the decorations and music by the age (`AgeUps.generic`), the village gathering by the fire that evening,
 no dialog. The tutor sees the days in `get_village` (`grown`, `parties`). QA: "ageup:<age>" grows the dev village's copy to
@@ -1572,6 +1603,12 @@ rises by itself. The treasure map is how it rises: an opt-in test at the end of 
 | 🔁 The reviews | Of the reviews of the last 14 days, of the cards of the level and below (the card's `difficulty`; a card above the level is a stretch, a card without one counts): 80 % right, and 30 reviews at least. |
 | 📅 The time | 10 days of practice at the level (days with a session in the log), over 14 days or more since the level began (the profile's `learner.level_since`, which update-db.py sets when a report changes the level; else the day the profile was made). |
 
+A level the book has no pages of yet (German and English above A2 today, Italian above B1, any language above B2) has no
+rules to secure: the grammar sign can't tell, and it says so instead of passing with 0 / 0. The map's sign reads "– Knjiga
+še nima pravil ravni B1: ta znak zaenkrat ne šteje · The book has no rules of B1 yet: this sign doesn't count for now", the
+progress screen's line ➖ "—" with the same caption (`Readiness.noPages`). It holds nothing back (never a wall): the reviews and the
+time decide.
+
 **The offer.** Once all three are there, the storyteller (the teller of the evening stories: Stari Janez; else the
 riddles' teller) gives the map: the chronicle says "🗺️ Stari Janez je našel star zemljevid", a 🗺️ bubble waits by the
 fire, Home has a row "🗺️ Stari Janez ima zate star zemljevid · Stari Janez has an old map for you", and the chest keeps it
@@ -2244,7 +2281,9 @@ Places: Gorizia and Nova Gorica, Cormòns, San Floriano del Collio, the Isonzo, 
 Cividale, Castelmonte (the pilgrim's sanctuary), Grado, San Daniele, the Carnia (the cramaro, the pedlar, comes from
 there). The cast has Primorska's roles (VILLAGERS.md, "The friuli cast"); the ids of resources, buildings and projects
 are the game's, named in Italian (the kozolec is "Il fienile", the lipa "Il tiglio", the maypole "L'albero della
-cuccagna", the town clock "L'orologio del campanile").
+cuccagna", the town clock "L'orologio del campanile"). Its projects play their steps as short scenes (`project-steps/`, their words
+in `packs/progetto-<Italian name>.json`), at A1, A2 and B1 (docs/plans/05-built/friuli-projects-a.md and -b.md); a step without its
+file is the practice it was.
 
 | Festival | Day | Leads (the first here) | Good |
 |---|---|---|---|

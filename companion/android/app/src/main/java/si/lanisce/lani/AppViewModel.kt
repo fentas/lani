@@ -244,6 +244,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         t.learner = { content.dashboard?.name }
         t.where = ::whereNow
         t.language = { grammar.language }
+        t.base = { si.lanisce.lani.l10n.L10n.ownPair.base.code }
+        // unknown at a start before the towns came: the phone's last word on it
+        t.child = { if (childKnown) child else si.lanisce.lani.tutor.live.TutorRuntime.lastChild(app) }
         t.photo = { id -> chat.photos?.file(id)?.takeIf { it.isFile } }
         // the reply as it's written, in the chat's typing bubble; the final message (the bridge's reply event) replaces it
         t.onStreaming = { conversation, text -> if (conversation == "main") chat.streaming = text }
@@ -366,7 +369,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     )
     /** "🔢 Števila · Numbers": the numbers module, open with the unit stevila's intro (app/NumbersController, data/NumbersPractice). */
     val numbers: si.lanisce.lani.app.NumbersController = si.lanisce.lani.app.NumbersController(
-        viewModelScope, game, chat, notices, course = { school.course }, canSay = { speaker.canSay }, canListen = { canListen() },
+        viewModelScope, game, chat, notices, course = { school.course },
+        language = { content.dashboard?.let { it.language ?: it.pair.target.code } ?: L10n.pair.target.code },
+        canSay = { speaker.canSay }, canListen = { canListen() },
     )
     /**
      * "🧩 Skloni · Cases": the case trainer (app/CasesController, data/CaseTrainer): its bank, sessions focused or mixed,
@@ -1578,6 +1583,16 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         openSchool()
     }
 
+    /** QA's "meet:<id>" (a debug build, app/QaHooks.kt): the dev village's [id] moved in and not met yet, their introduction opened. */
+    fun qaMeet(id: String) {
+        val today = java.time.LocalDate.now().toString()
+        game.apply { s ->
+            val here = if (s.residents.any { it.id == id }) s.residents else s.residents + si.lanisce.lani.game.villagers.Resident(id, today)
+            s.copy(residents = here, bonds = s.bonds + (id to (s.bonds[id] ?: si.lanisce.lani.game.villagers.Bond()).copy(met = null)))
+        }
+        villagers.meet(id)
+    }
+
     /**
      * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
      * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
@@ -2013,12 +2028,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         val now = System.currentTimeMillis()
         val today = java.time.LocalDate.now()
         when {
-            what == "locked" -> game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now))) }
+            what == "locked" -> game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now)), numbers.tongue) }
             what == "ready" -> {
-                game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now))) }
-                school.unit(si.lanisce.lani.data.NumbersPractice.UNIT)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
+                game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now)), numbers.tongue) }
+                school.unit((numbers.tongue ?: si.lanisce.lani.data.NumberTongue.SL).unit)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
             }
-            what == "time" -> school.unit(si.lanisce.lani.data.NumbersPractice.TIME_UNIT)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
+            what == "time" -> school.unit((numbers.tongue ?: si.lanisce.lani.data.NumberTongue.SL).timeUnit)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
             what.startsWith("ranges:") -> game.apply { si.lanisce.lani.app.QaHooks.numbersRanges(it, what.removePrefix("ranges:"), today) }
             what == "again" -> game.apply { si.lanisce.lani.app.QaHooks.numbersAgain(it, today) }
             what == "near" -> game.apply { si.lanisce.lani.app.QaHooks.numbersNear(it) }

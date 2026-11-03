@@ -13,9 +13,10 @@ data class GuideTopic(val id: String, val title: String, val summary: String)
  * The guide on demand (plan 5, "The guide on demand"): the channel guide's paragraphs and the skills, split into
  * topics at build time from the bridge's own text (companion/tutor/guide, by the bridge's tutor-export script), one
  * returned per `guide(topic)` call. The paragraphs are written for Jan; another learner's name replaces it, as the
- * bridge does.
+ * bridge does. A topic that reads otherwise in another village has its copy in guide/<the village's language>/, written
+ * for any base: {base} and {base_code} there are the learner's ([pair]: the village's language and the base, as codes).
  */
-class Guide(private val read: (String) -> String? = Bundle::text) {
+class Guide(private val read: (String) -> String? = Bundle::text, private val pair: () -> Pair<String?, String?> = { null to null }) {
     val topics: List<GuideTopic> by lazy {
         val raw = read("guide/index.json") ?: return@lazy emptyList()
         runCatching {
@@ -29,9 +30,49 @@ class Guide(private val read: (String) -> String? = Bundle::text) {
     /** Topic [id]'s text for [learner] (null: the paragraphs' own name), or null when there is no such topic. */
     fun topic(id: String, learner: String? = null): String? {
         if (topics.none { it.id == id }) return null
-        val text = read("guide/$id.md") ?: return null
+        val (language, base) = pair()
+        val own = language?.takeIf { it != "sl" }?.let { read("guide/$it/$id.md") }
+        val text = own?.let { inBase(it, base) } ?: read("guide/$id.md") ?: return null
         return if (learner.isNullOrBlank() || learner == "Jan") text else text.replace(Regex("""\bJan\b"""), learner)
     }
+
+    /** A language's own copy of a topic for the learner's [base] (a code; none known: said in general words, English's keys). */
+    private fun inBase(text: String, base: String?): String =
+        text.replace("{base}", BASE_NAMES[base] ?: "the learner's base language").replace("{base_code}", base?.takeIf { it in BASE_NAMES } ?: "en")
+
+    private companion object {
+        /** The bases the app has (companion/bridge/src/learners.ts `LANGUAGES`). */
+        val BASE_NAMES = mapOf("sl" to "Slovene", "en" to "English", "de" to "German", "it" to "Italian")
+    }
+}
+
+/**
+ * Whom a prefix is for: what it says about correct language is the village's language's, a child's case on top
+ * (companion/tutor/languages). Jan's is the default.
+ */
+data class PromptLearner(val language: String = "sl", val child: Boolean = false)
+
+/**
+ * The parts of companion/tutor/languages a prefix ends with: general.md (what holds in every language), then
+ * <language>.md, whose sections are read by their titles: its first ("## Correct Italian") for everyone, "## A child …"
+ * for a child, "## Writing …" for the studio, which writes content. A language without a file: only what is general.
+ */
+object LanguageParts {
+    private fun sections(text: String?): List<String> =
+        text?.let { Prefix.uncommented(it) }.orEmpty().split(Regex("(?m)^(?=## )")).map { it.trim() }.filter { it.isNotEmpty() }
+
+    private fun own(who: PromptLearner, read: (String) -> String?, writing: Boolean): List<String> {
+        val all = sections(read("languages/${who.language}.md"))
+        val first = all.filter { !it.startsWith("## A child") && !it.startsWith("## Writing") }
+        return first + (if (writing) all.filter { it.startsWith("## Writing") } else emptyList()) +
+            (if (who.child) sections(read("languages/child.md")) + all.filter { it.startsWith("## A child") } else emptyList())
+    }
+
+    /** What the tutor in the chat reads after the core prompt. */
+    fun chat(who: PromptLearner, read: (String) -> String?): List<String> = sections(read("languages/general.md")) + own(who, read, writing = false)
+
+    /** What the studio reads after its prompt. */
+    fun studio(who: PromptLearner, read: (String) -> String?): List<String> = own(who, read, writing = true)
 }
 
 /**
@@ -100,10 +141,10 @@ class Prefix(
          * The bundled prefix: the core prompt (companion/tutor/core-prompt.md), its HTML comments left out (they are for
          * whoever edits it: where a rule came from; never sent). The guide's topics are listed once, in the `guide`
          * tool's description (companion/tutor/tools/guide.json, made with the topics); a guide without that tool gets the
-         * list here.
+         * list here. Then what's correct in the language [who] learns ([LanguageParts]).
          */
-        fun bundled(specs: List<ToolSpec>, guide: Guide, read: (String) -> String? = Bundle::text): Prefix {
-            val core = uncommented(read("core-prompt.md").orEmpty())
+        fun bundled(specs: List<ToolSpec>, guide: Guide, read: (String) -> String? = Bundle::text, who: PromptLearner = PromptLearner()): Prefix {
+            val core = (listOf(uncommented(read("core-prompt.md").orEmpty())) + LanguageParts.chat(who, read)).joinToString("\n\n")
             val listed = specs.any { it.name == "guide" && guide.topics.all { t -> it.description.contains(t.id) } }
             val topics = guide.topics.joinToString("\n") { "- `${it.id}`: ${it.title}. ${it.summary}" }
             val text = if (listed || topics.isEmpty()) core else "$core\n\n## The guide's topics (`guide(topic)`)\n\n$topics"

@@ -8,7 +8,7 @@ import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import type { GameDoc } from '../game'
 import { json } from '../http'
-import { labelEn, labelShown } from '../langs'
+import { inVillageLanguage, labelEn, labelShown } from '../langs'
 import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { FACES_SAID } from '../scenes'
@@ -193,7 +193,7 @@ export const stories: FeatureFactory = ({ stories, scenes, packs, villagers, eve
           required: ['story'],
         },
         handle: args => {
-          const v = validateStory(args.story, refs())
+          const v = validateStory(inVillageLanguage(args.story, language), refs())
           if (!v.ok) return fail(`story invalid, nothing published:\n${v.errors}`)
           if (v.story.language !== language) return fail(`story invalid, nothing published:\n✖ language: the village speaks "${language}", the story is in "${v.story.language}"`)
           const errs = continuesErrors(v.story)

@@ -227,7 +227,8 @@ class CourseContentTest : CourseContentChecks("sl", Lang.SL)
 
 /**
  * The German course (companion/course/de, the Carinthian village's school, for adults from Slovene, English and Italian)
- * as the app plays it, by [CourseContentChecks] with the German grading (grading/de.json: the plural's and the present's
- * umlaut, kein, the numbers): no distractor even almost right, every text per base in en, sl and it.
+ * as the app plays it, A1 and A2, by [CourseContentChecks] with the German grading (grading/de.json: the plural's and the
+ * present's umlaut, kein, the numbers, A2's pairs): no distractor even almost right, every text per base in en, sl and it.
+ * A2's own pairs and spoken forms: [GermanA2aContentTest], [GermanA2bContentTest], [GermanA2cContentTest].
  */
 class GermanCourseContentTest : CourseContentChecks("de", Lang.DE, listOf("sl", "en", "it"))

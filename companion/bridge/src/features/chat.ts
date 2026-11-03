@@ -2,6 +2,7 @@
 // relay (tool approvals answered from the app). A session_end whose results were answered with the cheat
 // sheet open (looked_up) gets a line naming the topics looked up. The chat's photos (chat-images.ts): PUT, GET and
 // DELETE /chat/images/<id>, and a chat message that names one (image: {id}) carries its path to the tutor.
+import { forVillage } from '../tutor-languages'
 import { join } from 'node:path'
 import { z } from 'zod'
 import { lookedUpNote, resultsLookedUp } from '../answers'
@@ -213,7 +214,7 @@ export const chat: FeatureFactory = ctx => {
   }
 
   return {
-    instructions,
+    instructions: forVillage(instructions, ctx.culture.manifest?.language ?? 'sl'),
     routes: [
       { method: 'POST', path: '/message', handle: ({ req, url }) => outbox.once(req, url.pathname, handleMessage) },
       // the chat's photos (chat-images.ts): the app's token only; the id is the photo's message's client id

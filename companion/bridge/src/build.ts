@@ -63,6 +63,7 @@ import { addressed, bearer, json, loadToken, router, type Role, type Route } fro
 import { FormsBook } from './forms'
 import { caseTriggersPath, CaseTriggersFile } from './case-triggers'
 import { Learner } from './learner'
+import { languageParts } from './tutor-languages'
 import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, learnerLangs, profileFromEnv, type DataPlace, type Profile } from './learners'
 import { Lexicon } from './lexicon'
 import { Outbox } from './outbox'
@@ -265,8 +266,9 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     channel: platform.channel,
     outbox: new Outbox(join(appDir, 'client-ids.json'), log),
     // The curated modules, scenarios and scenes are the village's language's: Slovene ones in their directories, another
-    // language's in a subdirectory of its code (companion/modules/it), none yet: the tutor writes them for the learner.
-    modules: new ModuleStore(join(appDir, 'modules'), ofLanguage(env.LANI_MODULES_DIR ?? join(projectDir, 'companion/modules')), log),
+    // language's in a subdirectory of its code (companion/modules/it: its modules' texts per base in the learner's). A
+    // language without any: the tutor writes them for the learner.
+    modules: new ModuleStore(join(appDir, 'modules'), ofLanguage(env.LANI_MODULES_DIR ?? join(projectDir, 'companion/modules')), log, () => learnerLangs(dataDir, language).base),
     // The curated word packs of the village's language, then its culture pack's own (its festivals' and its places' words).
     packs: new PackStore(packsDirs(env.LANI_PACKS_DIR ?? join(projectDir, 'companion/packs'), culturesDir, culture.id, language), join(appDir, 'packs'), log),
     // The grammar book of the village's language (companion/grammar/<language>: sl, it, de, en), then the tutor's pages.
@@ -317,6 +319,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
       emit: e => ctx.events.emit(e),
       // recordings at the loudness of the voice clips (ffmpeg, when the node has it)
       level: platform.level,
+      languages: () => learnerLangs(dataDir, language),
     }),
     voice: voicing.store({ appDir, ctx: () => ctx }),
     voiceEngines: voicing.engines?.() ?? {},
@@ -362,7 +365,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   const guide = () =>
     learnerInstructions(features.flatMap(f => f.instructions ?? []), profile, learnerFacts(dataDir), dataDir, {
       id: culture.id, language, region: culture.manifest?.region.en, ...tutorOf(culture.manifest),
-    }, place)
+    }, place, profile.isDefault && language === 'sl' ? [] : languageParts(cfg.projectDir, language, profile.child))
   // Claude Code cuts a server's instructions at INSTRUCTIONS_LIMIT characters; the guide is several times
   // that. The instructions are the rules that fit, and the tool hands out the whole guide.
   const rulesNow = () => channelRules(profile, learnerFacts(dataDir), dataDir, place)

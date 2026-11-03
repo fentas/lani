@@ -63,7 +63,7 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   renders every frame of a recording that is sped up again afterwards (with the animator duration scale at 1/f for
  *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
  * - "step:<project>/<n>": the village (the dev bridge's copy) gets ready for step n of that project today ([readyStep]:
- *   its steps before it done, none today yet, the stores and the 🤝 it costs, a treat for a feast), and the projects sheet
+ *   its steps before it done, none today yet, the stores and the 🤝 it costs, a treat for a feast, its leader living here and met), and the projects sheet
  *   opens at it ([project]): QA plays it from there (companion/SCENES.md, "Project steps"); a step past its last
  *   ("step:most/7") has the project finished. "step:" lets it go again.
  * - "season:<day>": the landmarks with a season (the maypole, game/ProjectSeasons) stand or not as on that day
@@ -92,6 +92,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   open ([readyUnit]: a B1 unit without A2 done and the school upgraded), for QA to play it from the school's levels.
  *   "school:reveal" readies the village for the school's reveal ([readyReveal]: the school standing, every unit of A1 done,
  *   A2 begun) and the school opens: a level a bit at a time (companion/COURSE.md, "What the school shows").
+ * - "meet:<id>": that villager moved in and not met yet (the dev bridge's copy), their introduction opened at the learner's
+ *   level, or "level:<lv>"'s (companion/VILLAGERS.md "Arrivals": Tone's B1, "meet:tone" after "level:B1").
  * - "sheet:<unit>/<sheet>": the class readied (as "school") and that sheet of the unit played at once ("sheet:sedanjik/
  *   sedanjik-3", "sheet:biti/test": the unit's test), as its button in the unit starts it ([sheetOf]): a sheet's
  *   corrections looked at without playing the units before it.
@@ -385,7 +387,7 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
-        schoolUnit: (String) -> Unit = {}, schoolReveal: () -> Unit = {},
+        schoolUnit: (String) -> Unit = {}, schoolReveal: () -> Unit = {}, meet: (String) -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
@@ -491,6 +493,7 @@ object QaHooks {
             command == "school" -> school()
             command.startsWith("sheet:") -> sheetOf(command.removePrefix("sheet:"))?.let { (unit, id) -> sheet(unit, id) }
             command == "school:reveal" -> schoolReveal()
+            command.startsWith("meet:") -> command.removePrefix("meet:").trim().takeIf { it.isNotEmpty() }?.let(meet)
             command.startsWith("school:") -> command.removePrefix("school:").trim().takeIf { it.isNotEmpty() }?.let(schoolUnit)
             command.startsWith("build:") -> {
                 val name = command.removePrefix("build:").trim().uppercase()
@@ -671,10 +674,15 @@ object QaHooks {
         s.copy(course = s.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key(si.lanisce.lani.data.Counting.LANGUAGE, si.lanisce.lani.data.Counting.UNIT)) })
 
     /**
-     * [s] with the numbers module as never played ("numbers:locked", "numbers:ready"): no ranges opened by a run, no
-     * number missed. A debug build's, on the dev bridge's copy.
+     * [s] with the numbers module as never played ("numbers:locked", "numbers:ready"): its unit as never begun (another
+     * language's: Slovene's is [readyCounting]'s), no ranges opened by a run, no number missed. A debug build's, on the dev
+     * bridge's copy.
      */
-    fun readyNumbers(s: si.lanisce.lani.game.GameState): si.lanisce.lani.game.GameState = s.copy(numbers = null)
+    fun readyNumbers(s: si.lanisce.lani.game.GameState, tongue: si.lanisce.lani.data.NumberTongue? = null): si.lanisce.lani.game.GameState =
+        s.copy(
+            numbers = null,
+            course = tongue?.let { t -> s.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key(t.lang.code, t.unit)) } } ?: s.course,
+        )
 
     /** [s] with the numbers' ranges open up to [id] ("numbers:ranges:<id>"), each opened [today]. */
     fun numbersRanges(s: si.lanisce.lani.game.GameState, id: String, today: java.time.LocalDate): si.lanisce.lani.game.GameState {
@@ -750,6 +758,15 @@ object QaHooks {
         if (step.help) r = r.copy(help = maxOf(r.help, si.lanisce.lani.game.Catalog.stepHelp(spec.age)))
         if (step.kind == si.lanisce.lani.game.StepKind.FEAST && si.lanisce.lani.game.Projects.treat(r) == null) {
             si.lanisce.lani.game.Catalog.goods.values.firstOrNull { it.food && !it.rare }?.let { g -> r = si.lanisce.lani.game.Chest.add(r, g.id, 1) }
+        }
+        // a project waits for its leader: they live here and are met (a village without named residents counts everyone as here)
+        if (r.residents.isNotEmpty()) {
+            val leader = spec.leader
+            if (r.residents.none { it.id == leader }) {
+                r = r.copy(residents = r.residents + si.lanisce.lani.game.villagers.Resident(leader, today.toString()), villagers = maxOf(r.villagers, r.residents.size + 1))
+            }
+            val bond = r.bonds[leader] ?: si.lanisce.lani.game.villagers.Bond()
+            if (bond.met == null) r = r.copy(bonds = r.bonds + (leader to bond.copy(met = today.toString())))
         }
         return r
     }

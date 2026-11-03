@@ -96,9 +96,21 @@
       }
     }
   ],
-  "modules": [],
+  "modules": ["mi-piace", "pronomi-gli-le"],
   "tags": ["piacere", "mi_piace", "like", "likes", "indirect_object", "dative"],
   "see": ["essere-avere", "presente-regolare", "domande"],
   "machine_written": true,
-  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "rule": {
+      "sl": "Kot v slovenščini: kar ti je všeč, je osebek. **Piace** za eno stvar ali glagol (**mi piace il miele, mi piace nuotare**), **piacciono** za več (**mi piacciono le mele**).",
+      "en": "Italian says *like* the other way round: what you like is the subject. **Piace** with one thing or a verb (**mi piace il miele, mi piace nuotare**), **piacciono** with more (**mi piacciono le mele**).",
+      "de": "Wie bei *mir gefällt*: Was dir gefällt, ist das Subjekt. **Piace** bei einer Sache oder einem Verb (**mi piace il miele, mi piace nuotare**), **piacciono** bei mehreren (**mi piacciono le mele**)."
+    },
+    "tip": {
+      "sl": "💡 Stvar obdrži člen: **mi piace il miele**, ne *mi piace miele*. Z imenom **a**: **a Giulia piace nuotare**.",
+      "en": "💡 The thing keeps its article: **mi piace il miele**, not *mi piace miele*. With a name, **a**: **a Giulia piace nuotare**.",
+      "de": "💡 Die Sache behält ihren Artikel: **mi piace il miele**, nicht *mi piace miele*. Mit einem Namen **a**: **a Giulia piace nuotare**."
+    }
+  }
 }

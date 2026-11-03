@@ -1,0 +1,127 @@
+{
+  "schema": "lani.celebration/v0",
+  "age": "tabor",
+  "language": "de",
+  "review": "Machine-written (Claude), not reviewed by a native speaker; to check: Stoßen wir an with tea, der Vorsänger, mehrstimmig gedacht",
+  "emoji": "🔥",
+  "name": {"de": "Der erste Abend am Feuer", "sl": "Prvi večer ob ognju", "en": "The first evening by the fire", "it": "La prima sera accanto al fuoco"},
+  "about": {"de": "Am ersten Abend im Lager sitzen alle ums Feuer. Einer beginnt ein Kärntnerlied, und die anderen singen mehrstimmig mit.", "sl": "Prvi večer v taboru vsi sedijo ob ognju. Eden začne koroško pesem, drugi pa mu večglasno pritegnejo.", "en": "On the first evening in the camp everyone sits round the fire. One person starts a Carinthian song, and the others join in, in harmony.", "it": "La prima sera all'accampamento stanno tutti intorno al fuoco. Uno attacca un canto carinziano e gli altri si uniscono a più voci."},
+  "moment": {"de": "Rund ums Feuer gehen die Fackeln an.", "sl": "Okrog ognja zagorijo bakle.", "en": "The torches are lit round the fire.", "it": "Intorno al fuoco si accendono le torce."},
+  "line": {"de": "Am ersten Abend haben wir am Feuer ein Kärntnerlied gesungen.", "sl": "Prvi večer smo ob ognju zapeli koroško pesem.", "en": "On the first evening we sang a Carinthian song by the fire.", "it": "La prima sera abbiamo cantato un canto carinziano accanto al fuoco."},
+  "memory": {"de": "unseren ersten Abend am Feuer", "sl": "naš prvi večer ob ognju", "en": "our first evening by the fire", "it": "la nostra prima sera accanto al fuoco"},
+  "decor": ["torches"],
+  "music": "valcek",
+  "place": "fire",
+  "host": "sepp",
+  "guests": ["resi", "florian", "lena"],
+  "pack": "feier-erster-abend",
+  "words": ["fackel", "singen"],
+  "levels": {
+    "A1": { "lines": [
+      {"who": "sepp", "face": "happy", "de": "Schön, {learner}! Heute ist unser erster Abend am Feuer.", "sl": "Lepo, {learner}! Danes je naš prvi večer ob ognju.", "en": "Lovely, {learner}! Tonight is our first evening by the fire.", "it": "Che bello, {learner}! Stasera è la nostra prima sera accanto al fuoco."},
+      {"who": "florian", "de": "Es wird dunkel. Was brauchen wir jetzt?", "sl": "Temni se. Kaj zdaj potrebujemo?", "en": "It's getting dark. What do we need now?", "it": "Si fa buio. Che cosa ci serve adesso?"},
+      { "choices": [
+        {"de": "Wir brauchen eine Fackel.", "sl": "Potrebujemo baklo.", "en": "We need a torch.", "it": "Ci serve una torcia.", "ok": true,
+          "reply": {"face": "happy", "de": "Ja! Die Fackel macht Licht.", "sl": "Ja! Bakla da svetlobo.", "en": "Yes! The torch gives light.", "it": "Sì! La torcia fa luce."} },
+        {"de": "Wir brauchen eine Kuh.", "sl": "Potrebujemo kravo.", "en": "We need a cow.", "it": "Ci serve una mucca.", "why": {"en": "Eine Kuh is a cow. For light in the dark you need a torch: die Fackel.", "sl": "Eine Kuh je krava. Za svetlobo v temi potrebuješ baklo: die Fackel.", "it": "Eine Kuh è una mucca. Per fare luce al buio ci vuole una torcia: die Fackel."},
+          "reply": {"face": "laugh", "de": "Eine Kuh? Die schläft doch schon!", "sl": "Kravo? Ta vendar že spi!", "en": "A cow? She's asleep already!", "it": "Una mucca? Ma quella dorme già!"} },
+        {"de": "Wir brauchen eine Gabel.", "sl": "Potrebujemo vilice.", "en": "We need a fork.", "it": "Ci serve una forchetta.", "why": {"en": "Eine Gabel is a fork. For light in the dark you need a torch: die Fackel.", "sl": "Eine Gabel so vilice. Za svetlobo v temi potrebuješ baklo: die Fackel.", "it": "Eine Gabel è una forchetta. Per fare luce al buio ci vuole una torcia: die Fackel."},
+          "reply": {"face": "confused", "de": "Eine Gabel? Wir essen doch noch nicht!", "sl": "Vilice? Saj še ne jemo!", "en": "A fork? We aren't eating yet!", "it": "Una forchetta? Ma non stiamo ancora mangiando!"} }
+      ] },
+      {"who": "lena", "face": "curious", "de": "Und was machen wir jetzt am Feuer?", "sl": "In kaj bomo zdaj počeli ob ognju?", "en": "And what shall we do by the fire now?", "it": "E adesso che cosa facciamo accanto al fuoco?"},
+      { "choices": [
+        {"de": "Wir singen zusammen.", "sl": "Skupaj pojemo.", "en": "We sing together.", "it": "Cantiamo insieme.", "ok": true,
+          "reply": {"face": "happy", "de": "Ja! Wir singen ein Kärntnerlied.", "sl": "Ja! Zapojemo koroško pesem.", "en": "Yes! We'll sing a Carinthian song.", "it": "Sì! Cantiamo un canto carinziano."} },
+        {"de": "Wir schlafen zusammen.", "sl": "Skupaj spimo.", "en": "We sleep together.", "it": "Dormiamo insieme.", "why": {"en": "Schlafen is to sleep. By the fire tonight, people sing: singen.", "sl": "Schlafen pomeni spati. Nocoj ob ognju pojemo: singen.", "it": "Schlafen vuol dire dormire. Stasera accanto al fuoco si canta: singen."},
+          "reply": {"face": "laugh", "de": "Schlafen? Aber es ist doch so schön hier!", "sl": "Spati? Saj je tu tako lepo!", "en": "Sleep? But it's so lovely here!", "it": "Dormire? Ma qui è così bello!"} }
+      ] },
+      {"who": "sepp", "de": "Ich fange an, und ihr singt mit. Hört gut zu!", "sl": "Začnem jaz, vi pa pojte z mano. Dobro poslušajte!", "en": "I'll start, and you sing along. Listen well!", "it": "Comincio io e voi cantate con me. Ascoltate bene!"},
+      {"who": "resi", "face": "happy", "de": "Der Tee ist heiß. Stoßen wir an: auf unser Lager!", "sl": "Čaj je vroč. Nazdravimo: na naš tabor!", "en": "The tea is hot. Let's drink a toast: to our camp!", "it": "Il tè è caldo. Brindiamo: al nostro accampamento!"},
+      { "choices": [
+        {"de": "Prost!", "sl": "Na zdravje!", "en": "Cheers!", "it": "Salute!", "ok": true,
+          "reply": {"face": "happy", "de": "Prost! Das ist ein schöner Abend.", "sl": "Na zdravje! To je lep večer.", "en": "Cheers! This is a lovely evening.", "it": "Salute! È una bella serata."} },
+        {"de": "Gute Nacht!", "sl": "Lahko noč!", "en": "Good night!", "it": "Buonanotte!", "why": {"en": "Gute Nacht is what you say before bed. Answering a toast, you say: Prost!", "sl": "Gute Nacht rečeš pred spanjem. Na zdravico odgovoriš: Prost!", "it": "Gute Nacht si dice prima di andare a letto. A un brindisi si risponde: Prost!"},
+          "reply": {"face": "laugh", "de": "Gute Nacht? Der Abend fängt doch erst an!", "sl": "Lahko noč? Saj se večer šele začenja!", "en": "Good night? The evening's only just starting!", "it": "Buonanotte? Ma la serata è appena cominciata!"} }
+      ] }
+    ] },
+    "A2": { "lines": [
+      {"who": "sepp", "face": "proud", "de": "{learner}, heute haben wir unser Lager gebaut. Das müssen wir feiern!", "sl": "{learner}, danes smo postavili naš tabor. To moramo proslaviti!", "en": "{learner}, today we built our camp. We have to celebrate that!", "it": "{learner}, oggi abbiamo costruito il nostro accampamento. Dobbiamo festeggiare!"},
+      {"who": "florian", "de": "Ohne Licht sehen wir nichts mehr. Was soll ich rund ums Feuer aufstellen?", "sl": "Brez luči ne vidimo več ničesar. Kaj naj postavim okrog ognja?", "en": "Without light we can't see a thing. What should I put up round the fire?", "it": "Senza luce non vediamo più niente. Che cosa devo mettere intorno al fuoco?"},
+      { "choices": [
+        {"de": "Am besten die Fackeln.", "sl": "Najbolje bakle.", "en": "The torches would be best.", "it": "Le torce sarebbero la cosa migliore.", "ok": true,
+          "reply": {"face": "happy", "de": "Gut, dann sehen wir auch die Gesichter.", "sl": "Dobro, potem vidimo tudi obraze.", "en": "Good, then we can see people's faces too.", "it": "Bene, così vediamo anche le facce."} },
+        {"de": "Am besten die Töpfe.", "sl": "Najbolje lonce.", "en": "The pots would be best.", "it": "Le pentole sarebbero la cosa migliore.", "why": {"en": "Töpfe are pots. To see in the dark, you put up torches: die Fackeln.", "sl": "Töpfe so lonci. Da v temi kaj vidiš, postaviš bakle: die Fackeln.", "it": "Töpfe sono le pentole. Per vedere al buio si mettono le torce: die Fackeln."},
+          "reply": {"face": "laugh", "de": "Die Töpfe? Kochen wir denn rund ums ganze Feuer?", "sl": "Lonce? Bomo mar kuhali okrog in okrog ognja?", "en": "The pots? Are we cooking all the way round the fire?", "it": "Le pentole? Cuciniamo tutto intorno al fuoco?"} }
+      ] },
+      {"who": "lena", "face": "curious", "de": "Was ist eigentlich ein Kärntnerlied?", "sl": "Kaj pa je pravzaprav koroška pesem?", "en": "What actually is a Carinthian song?", "it": "Che cos'è esattamente un canto carinziano?"},
+      {"who": "sepp", "de": "Ein Lied mit mehreren Stimmen. Einer beginnt, und die anderen kommen dazu. Und was machen wir heute am Abend, {learner}?", "sl": "Pesem z več glasovi. Eden začne, drugi se pridružijo. In kaj bomo nocoj počeli, {learner}?", "en": "A song with several voices. One person starts and the others join in. And what are we doing this evening, {learner}?", "it": "Un canto a più voci. Uno comincia e gli altri si aggiungono. E che cosa facciamo stasera, {learner}?"},
+      { "choices": [
+        {"de": "Am Abend singen wir.", "sl": "Zvečer pojemo.", "en": "In the evening we sing.", "it": "La sera cantiamo.", "ok": true,
+          "reply": {"face": "happy", "de": "Genau. Ich beginne, und du kommst dazu.", "sl": "Tako je. Jaz začnem, ti pa se pridružiš.", "en": "Exactly. I'll start, and you join in.", "it": "Esatto. Comincio io e tu ti aggiungi."} },
+        {"de": "Am Abend rechnen wir.", "sl": "Zvečer računamo.", "en": "In the evening we do sums.", "it": "La sera facciamo i conti.", "why": {"en": "Rechnen is to do sums. By the fire people sing: singen.", "sl": "Rechnen pomeni računati. Ob ognju pojemo: singen.", "it": "Rechnen vuol dire fare i conti. Accanto al fuoco si canta: singen."},
+          "reply": {"face": "laugh", "de": "Rechnen? Am Feuer? Nein, nein!", "sl": "Računati? Ob ognju? Ne, ne!", "en": "Sums? By the fire? No, no!", "it": "I conti? Accanto al fuoco? No, no!"} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Der Tee ist fertig. Worauf stoßen wir an?", "sl": "Čaj je skuhan. Na kaj nazdravimo?", "en": "There's tea. What shall we drink to?", "it": "C'è il tè. A che cosa brindiamo?"},
+      { "choices": [
+        {"de": "Zum Wohl! Auf das neue Lager!", "sl": "Na zdravje! Na novi tabor!", "en": "Your health! To the new camp!", "it": "Salute! Al nuovo accampamento!", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Das hast du schön gesagt.", "sl": "Na zdravje! Lepo povedano.", "en": "Your health! Nicely said.", "it": "Salute! Ben detto."} },
+        {"de": "Zum Wohl! Auf den neuen Zahnarzt!", "sl": "Na zdravje! Na novega zobozdravnika!", "en": "Your health! To the new dentist!", "it": "Salute! Al nuovo dentista!", "why": {"en": "Zahnarzt is a dentist, and there's none here. Tonight you drink to the camp: das Lager.", "sl": "Zahnarzt je zobozdravnik, in tu ga ni. Nocoj nazdraviš taboru: das Lager.", "it": "Zahnarzt è il dentista, e qui non c'è. Stasera si brinda all'accampamento: das Lager."},
+          "reply": {"face": "laugh", "de": "Den Zahnarzt? Den haben wir hier zum Glück nicht!", "sl": "Zobozdravnika? Tega tu na srečo nimamo!", "en": "The dentist? Luckily we don't have one here!", "it": "Il dentista? Per fortuna qui non c'è!"} }
+      ] }
+    ] },
+    "B1": { "lines": [
+      {"who": "sepp", "face": "thinking", "de": "Als ich klein war, saßen wir an solchen Abenden immer ums Feuer. Wenn es dunkel wird, ist die Arbeit vorbei.", "sl": "V mojem otroštvu smo na takšne večere vedno sedeli ob ognju. Ko se stemni, je dela konec.", "en": "When I was small, we always sat round the fire on evenings like this. When it gets dark the work is over.", "it": "Da bambini, in sere come questa stavamo sempre intorno al fuoco. Quando fa buio il lavoro è finito."},
+      {"who": "florian", "de": "Damit niemand im Dunkeln stolpert, müssen wir noch etwas aufstellen. Was würdest du nehmen?", "sl": "Da se nihče ne spotakne v temi, moramo še nekaj postaviti. Kaj bi {m:vzel|f:vzela} ti?", "en": "So that nobody trips in the dark, we still need to put something up. What would you use?", "it": "Perché nessuno inciampi al buio, dobbiamo ancora mettere qualcosa. Tu che cosa useresti?"},
+      { "choices": [
+        {"de": "Ich würde Fackeln nehmen, dann sieht man den Weg.", "sl": "{m:Vzel|f:Vzela} bi bakle, potem se vidi pot.", "en": "I'd use torches, then you can see the path.", "it": "Userei le torce, così si vede il sentiero.", "ok": true,
+          "reply": {"face": "happy", "de": "Stimmt, und sie sehen auch noch schön aus.", "sl": "Res je, in še lepo so videti.", "en": "True, and they look nice as well.", "it": "Vero, e sono anche belle da vedere."} },
+        {"de": "Ich würde Regenschirme nehmen, dann sieht man den Weg.", "sl": "{m:Vzel|f:Vzela} bi dežnike, potem se vidi pot.", "en": "I'd use umbrellas, then you can see the path.", "it": "Userei gli ombrelli, così si vede il sentiero.", "why": {"en": "Regenschirme are umbrellas. They give no light. For that you need torches: Fackeln.", "sl": "Regenschirme so dežniki. Ti ne dajejo svetlobe. Za to potrebuješ bakle: Fackeln.", "it": "Regenschirme sono gli ombrelli. Non fanno luce. Per questo ci vogliono le torce: Fackeln."},
+          "reply": {"face": "laugh", "de": "Regenschirme? Damit sieht man gar nichts!", "sl": "Dežniki? Z njimi se nič ne vidi!", "en": "Umbrellas? You can't see a thing with those!", "it": "Gli ombrelli? Con quelli non si vede niente!"} }
+      ] },
+      {"who": "sepp", "de": "Ein Kärntnerlied ist nichts für einen allein. Der Vorsänger führt, aber die anderen Stimmen gehören genauso dazu.", "sl": "Koroška pesem ni za enega samega. Predpevec vodi, a drugi glasovi so prav tako del nje.", "en": "A Carinthian song isn't for one person alone. The lead singer leads, but the other voices belong to it just as much.", "it": "Un canto carinziano non è per uno solo. Il primo cantore guida, ma le altre voci ne fanno parte allo stesso modo."},
+      {"who": "lena", "face": "curious", "de": "Und was machen wir, bevor wir schlafen gehen?", "sl": "In kaj bomo počeli, preden gremo spat?", "en": "And what shall we do before we go to bed?", "it": "E che cosa facciamo prima di andare a dormire?"},
+      { "choices": [
+        {"de": "Bevor wir schlafen gehen, singen wir noch ein Lied.", "sl": "Preden gremo spat, zapojemo še eno pesem.", "en": "Before we go to bed, we'll sing one more song.", "it": "Prima di andare a dormire, cantiamo ancora una canzone.", "ok": true,
+          "reply": {"face": "happy", "de": "Super! Hoffentlich dauert es lange.", "sl": "Super! Upam, da bo trajalo dolgo.", "en": "Great! I hope it goes on for a long time.", "it": "Fantastico! Spero che duri a lungo."} },
+        {"de": "Bevor wir schlafen gehen, essen wir noch ein Lied.", "sl": "Preden gremo spat, pojemo še eno pesem.", "en": "Before we go to bed, we'll eat one more song.", "it": "Prima di andare a dormire, mangiamo ancora una canzone.", "why": {"en": "Essen is to eat. A song is something you sing: singen.", "sl": "Essen pomeni jesti. Pesem se poje: singen.", "it": "Essen vuol dire mangiare. Una canzone si canta: singen."},
+          "reply": {"face": "laugh", "de": "Ein Lied essen? Das möchte ich sehen!", "sl": "Pesem jesti? To pa bi bilo treba videti!", "en": "Eat a song? I'd like to see that!", "it": "Mangiare una canzone? Questa la voglio vedere!"} },
+        {"de": "Bevor wir schlafen gehen, wir singen noch ein Lied.", "sl": "Preden gremo spat, zapojemo še eno pesem.", "en": "Before we go to bed, we'll sing one more song.", "it": "Prima di andare a dormire, cantiamo ancora una canzone.", "grammar": "nebensatz", "why": {"en": "After a clause with bevor, the verb comes first in the main clause: singen wir.", "sl": "Po stavku z bevor je glagol v glavnem stavku na prvem mestu: singen wir.", "it": "Dopo una frase con bevor, nella principale il verbo viene per primo: singen wir."},
+          "reply": {"face": "thinking", "de": "Hm, das klingt noch etwas holprig. Aber ich verstehe dich.", "sl": "Hm, to še malo šepa. A razumem te.", "en": "Hmm, that still sounds a bit bumpy. But I understand you.", "it": "Mah, suona ancora un po' zoppicante. Ma ti capisco."} }
+      ] },
+      {"who": "resi", "face": "happy", "de": "Dann stoßen wir an, bevor der Tee kalt wird.", "sl": "Potem nazdravimo, preden se čaj ohladi.", "en": "Then let's drink a toast before the tea gets cold.", "it": "Allora brindiamo prima che il tè si raffreddi."},
+      { "choices": [
+        {"de": "Zum Wohl! Auf alle, die heute mitgeholfen haben!", "sl": "Na zdravje! Na vse, ki so danes pomagali!", "en": "Your health! To everyone who helped today!", "it": "Salute! A tutti quelli che oggi hanno dato una mano!", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Ohne sie gäbe es dieses Lager nicht.", "sl": "Na zdravje! Brez njih tega tabora ne bi bilo.", "en": "Your health! Without them there'd be no camp.", "it": "Salute! Senza di loro questo accampamento non ci sarebbe."} },
+        {"de": "Zum Wohl! Auf alle, die heute nichts getan haben!", "sl": "Na zdravje! Na vse, ki danes niso naredili ničesar!", "en": "Your health! To everyone who did nothing today!", "it": "Salute! A tutti quelli che oggi non hanno fatto niente!", "why": {"en": "Nichts getan means did nothing. A toast thanks those who helped: mitgeholfen.", "sl": "Nichts getan pomeni ničesar naredili. Zdravica se zahvali tistim, ki so pomagali: mitgeholfen.", "it": "Nichts getan vuol dire non hanno fatto niente. Un brindisi ringrazia chi ha aiutato: mitgeholfen."},
+          "reply": {"face": "laugh", "de": "Auf die Faulen? Na, die freuen sich sicher!", "sl": "Na lenuhe? No, ti bodo pa veseli!", "en": "To the lazy ones? Well, they'll be pleased!", "it": "Ai pigri? Be', loro saranno contenti!"} }
+      ] }
+    ] },
+    "B2": { "lines": [
+      {"who": "sepp", "face": "thinking", "de": "Heute Abend wird nicht mehr gearbeitet. Der erste Abend in einem neuen Lager gehört dem Feuer und dem Gesang.", "sl": "Nocoj se ne dela več. Prvi večer v novem taboru pripada ognju in petju.", "en": "No more work this evening. The first evening in a new camp belongs to the fire and to singing.", "it": "Stasera non si lavora più. La prima sera in un accampamento nuovo appartiene al fuoco e al canto."},
+      {"who": "florian", "de": "Wäre es nicht schon so dunkel, könnte man von hier aus den Dobratsch sehen. Was würdest du rund ums Feuer aufstellen lassen?", "sl": "Če ne bi bilo že tako temno, bi se od tod videl Dobrač. Kaj bi {m:dal|f:dala} postaviti okrog ognja?", "en": "If it weren't so dark already, you could see the Dobratsch from here. What would you have put up round the fire?", "it": "Se non fosse già così buio, da qui si vedrebbe il Dobratsch. Che cosa faresti mettere intorno al fuoco?"},
+      { "choices": [
+        {"de": "Ich würde rundherum Fackeln aufstellen lassen.", "sl": "Naokrog bi {m:dal|f:dala} postaviti bakle.", "en": "I'd have torches put up all round.", "it": "Farei mettere delle torce tutto intorno.", "ok": true,
+          "reply": {"face": "happy", "de": "Das wird dem Abend guttun. Und dem Weg zum Zelt auch.", "sl": "To bo večeru dobro delo. In tudi poti do šotora.", "en": "That'll do the evening good. And the path to the tent too.", "it": "Farà bene alla serata. E anche al sentiero per la tenda."} },
+        {"de": "Ich würde rundherum Liegestühle aufstellen lassen.", "sl": "Naokrog bi {m:dal|f:dala} postaviti ležalnike.", "en": "I'd have deck chairs put up all round.", "it": "Farei mettere delle sdraio tutto intorno.", "why": {"en": "Liegestühle are deck chairs. In the dark you need light: Fackeln.", "sl": "Liegestühle so ležalniki. V temi potrebuješ svetlobo: Fackeln.", "it": "Liegestühle sono le sdraio. Al buio ci vuole luce: Fackeln."},
+          "reply": {"face": "laugh", "de": "Liegestühle? Wir sind hier doch nicht am Faaker See!", "sl": "Ležalnike? Saj nismo ob Baškem jezeru!", "en": "Deck chairs? We're not at the Faaker See here!", "it": "Le sdraio? Mica siamo al Faaker See!"} }
+      ] },
+      {"who": "sepp", "de": "Das Kärntnerlied ist übrigens mehrstimmig gedacht. Der Vorsänger gibt den Ton an, aber ein Solist ist er nicht.", "sl": "Koroška pesem je sicer zamišljena večglasno. Predpevec da ton, solist pa ni.", "en": "A Carinthian song is in fact meant for several voices. The lead singer gives the note, but isn't a soloist.", "it": "Il canto carinziano, del resto, è pensato a più voci. Il primo cantore dà il tono, ma non è un solista."},
+      {"who": "lena", "face": "curious", "de": "Und was heißt das für jemanden, der nicht so gut singen kann?", "sl": "In kaj to pomeni za nekoga, ki ne zna tako dobro peti?", "en": "And what does that mean for someone who can't sing very well?", "it": "E che cosa vuol dire per chi non sa cantare tanto bene?"},
+      { "choices": [
+        {"de": "Dass auch schwache Stimmen singen dürfen.", "sl": "Da smejo peti tudi šibki glasovi.", "en": "That weak voices are allowed to sing too.", "it": "Che possono cantare anche le voci deboli.", "ok": true,
+          "reply": {"face": "happy", "de": "Genau so ist es. Einer allein wäre auch viel zu wenig.", "sl": "Prav tako je. Eden sam bi bil tudi veliko premalo.", "en": "That's exactly it. One alone would be far too few anyway.", "it": "È proprio così. Uno solo sarebbe comunque troppo poco."} },
+        {"de": "Dass auch schwache Stimmen schweigen müssen.", "sl": "Da morajo tudi šibki glasovi molčati.", "en": "That weak voices have to stay silent too.", "it": "Che anche le voci deboli devono tacere.", "why": {"en": "Schweigen müssen is to have to stay silent. In a song for several voices, everyone may sing: singen dürfen.", "sl": "Schweigen müssen pomeni morati molčati. V večglasni pesmi sme peti vsak: singen dürfen.", "it": "Schweigen müssen vuol dire dover tacere. In un canto a più voci possono cantare tutti: singen dürfen."},
+          "reply": {"face": "surprised", "de": "Schweigen? Dann wäre es aber ein sehr stiller Abend!", "sl": "Molčati? Potem bi bil to zelo tih večer!", "en": "Silent? Then it'd be a very quiet evening!", "it": "Tacere? Allora sarebbe una serata molto silenziosa!"} }
+      ] },
+      {"who": "sepp", "de": "Eines der bekanntesten heißt Is schon still uman See. Manche nennen es die heimliche Hymne Kärntens.", "sl": "Ena najbolj znanih se imenuje Is schon still uman See. Nekateri ji pravijo skrivna himna Koroške.", "en": "One of the best known is called Is schon still uman See. Some call it Carinthia's secret anthem.", "it": "Uno dei più noti si chiama Is schon still uman See. Alcuni lo chiamano l'inno segreto della Carinzia."},
+      {"who": "resi", "face": "happy", "de": "Bevor das Lied angestimmt wird, stoßen wir noch an.", "sl": "Preden zapojemo pesem, še nazdravimo.", "en": "Before the song is struck up, let's drink a toast.", "it": "Prima di intonare il canto, facciamo ancora un brindisi."},
+      { "choices": [
+        {"de": "Zum Wohl! Auf dass dieses Feuer nie ausgeht!", "sl": "Na zdravje! Da ta ogenj nikoli ne bi ugasnil!", "en": "Your health! May this fire never go out!", "it": "Salute! Che questo fuoco non si spenga mai!", "ok": true,
+          "reply": {"face": "happy", "de": "Zum Wohl! Das ist ein schöner Wunsch für ein neues Lager.", "sl": "Na zdravje! To je lepa želja za nov tabor.", "en": "Your health! That's a fine wish for a new camp.", "it": "Salute! È un bell'augurio per un accampamento nuovo."} },
+        {"de": "Zum Wohl! Auf dass dieses Feuer bald ausgeht!", "sl": "Na zdravje! Da bi ta ogenj kmalu ugasnil!", "en": "Your health! May this fire go out soon!", "it": "Salute! Che questo fuoco si spenga presto!", "why": {"en": "Bald ausgehen is to go out soon. A toast wishes something good: nie ausgehen, never go out.", "sl": "Bald ausgehen pomeni kmalu ugasniti. Zdravica želi nekaj dobrega: nie ausgehen, nikoli ne ugasniti.", "it": "Bald ausgehen vuol dire spegnersi presto. Un brindisi augura qualcosa di bello: nie ausgehen, non spegnersi mai."},
+          "reply": {"face": "worried", "de": "Bald schon? Dann sitzen wir ja im Dunkeln!", "sl": "Že kmalu? Potem pa sedimo v temi!", "en": "Soon? Then we'd be sitting in the dark!", "it": "Così presto? Allora restiamo al buio!"} }
+      ] },
+      {"who": "sepp", "de": "Also dann. Ich fange an, und ihr kommt dazu, wenn ihr so weit seid.", "sl": "No, pa dajmo. Začnem jaz, vi pa se pridružite, ko boste pripravljeni.", "en": "Right then. I'll start, and you join in when you're ready.", "it": "Allora. Comincio io e voi vi aggiungete quando siete pronti."}
+    ] }
+  }
+}

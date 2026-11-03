@@ -209,6 +209,11 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        dev bridge's Slovene learner: the culture and the course apart): the map, the bocce court's card and
                        inside (NOI | VOI, the osteria), the osteria, the fontanella and the altar candle tapped (their word
                        cards), the cramâr under his crassigne at the gate; also as cs-*.png in $LANI_QA_CULTURE_SHOTS;
+                       "parity-small" (only when named) small things that read wrong, on what the dev bridge's learner is
+                       (docs/plans/05-built/parity-small.md): a learner of German at B1 past A1 (make-learner.ts --target de
+                       --base en, LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): new lessons coming on the school's tile, the
+                       grammar sign that doesn't count; LANI_QA_START_CARD a start card opened; LANI_QA_MEET=<id> their B1
+                       introduction (QA's hooks "level:B1", "meet:<id>"); LANI_QA_PARITY_SHOTS=<dir> the shots;
                        "friuli-looks" (only when named) Friuli's outdoor scenes in its look on a synthetic Italian learner
                        (LANI_DEV_DATA from make-learner.ts --target it, LANI_CULTURE=friuli, LANI_QA_PAIR=sl-en): the
                        village as a Vas, then Nel campo, Nel bosco, Al ruscello, Allo stagno and Il mare by day and closer,
@@ -374,7 +379,13 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        roll call on (no «Vedo, vedo» offered during it); "friuli-school-unit" (the same learner, a run of its
                        own: each is about 8 minutes) a unit end to end, $LANI_QA_IT_UNIT (ciao by default; an A2 unit
                        after the school with A1 done), kept done, then its sheet printed (fit.js as in Chromium, the PDF);
-                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "course-unit" (only when named, with
+                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "practice-it" (only when named, the same learner)
+                       Italian's practice: the ✨ modules at the learner's level, a module's why in German, the numbers
+                       (the ones first, half past as German counts it), the road without clips; also as pi-*.png in
+                       $LANI_QA_PRACTICE_SHOTS; "practice-pace" (only when named) how the curated modules' requests reach a
+                       Teo at Vas on a tablet's size; also as pace-*.png in $LANI_QA_PACE_SHOTS;
+                       "school-board" (only with LANI_QA_SCHOOL_LEVEL=<level>; a learner as "course-unit"'s) the level's units all on the
+                       school's screen, its folded list opened, sb-*.png in $LANI_QA_COURSE_SHOTS; "course-unit" (only when named, with
                        LANI_QA_COURSE_UNIT=<unit>: a synthetic learner of the village's language in its culture, e.g. German in
                        Kärnten: LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en) that unit of the course end to end and its
                        sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "friuli-watchtower" (only when named; the same learner)
@@ -402,6 +413,12 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "lakeland-projects" (only when named; the same learner and culture) the Lake District's project
                        places: the bowling green and the packhorse bridge finished, each from its landmark's card, Old
                        Wilf's game, the wood and the round's other places by their links (lp-*.png too);
+                       "friuli-projects-b" (only when named; a learner of Italian from German, LANI_CULTURE=friuli) the
+                       fire station's fourth step at A1 and the fountain's second at B1, each from its landmark on the map
+                       through the projects sheet, a wrong choice, to its end card (fb-*.png);
+                       "friuli-projects" (only when named; a synthetic Teo, LANI_CULTURE=friuli, LANI_CHILD=1,
+                       LANI_QA_SETUP_PAIR=it-de) Friuli's projects as scenes: the bridge and the greasy pole in the middle, each
+                       from its landmark and played through a step, the fir tapped in the wood, the chapel's bell (fp-*.png);
                        "lakeland-projects-b" (only when named; the same learner) the rescue hut and the bank barn
                        finished, each from its landmark's card into its scene, Jack's stretcher, the beck from its card,
                        the playground, the fountain, the clock, the viewing station and the tarn by their links (lb-*.png);
@@ -449,6 +466,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        validator then published (on the dev bridge, the banner), a story through the text editor refused
                        then written, a slow job with the app killed mid-way and started again, the job resumed from the
                        dev bridge's copy (LANI_QA_STUDIO_SHOTS: also copied there as studio-*.png);
+                       "tutor-language" (only when named) the tutor in the app for a learner of Italian from German
+                       (LANI_DEV_DATA: make-learner.ts --target it --base de, LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de):
+                       the prefix the mock gets ends with what's correct in Italian, none of Slovene's rules;
                        "tutor-live" the tutor in the app answering for real against the mock and the dev bridge's tutor
                        session: the settings' "🧑‍🏫 Učitelj · Tutor", "In the app", a fake key, attached; a chat
                        whose reply streams into the chat (a screenshot mid-way) and stays, the dev tutor hearing nothing;
@@ -9679,6 +9699,78 @@ TYPED_FOLD = {
 }
 
 
+def school_board():
+    """Every unit of a level of the village's language's course on the school's screen, only when named
+    ($LANI_QA_SCHOOL_LEVEL=A2; the pair and the learner as "course-unit"'s): the level's count with nothing planned, its
+    folded list opened, each unit's title on a row or in it. sb-*.png in $LANI_QA_COURSE_SHOTS."""
+    level = os.environ.get("LANI_QA_SCHOOL_LEVEL")
+    if not level:
+        return "skipped: no level named (LANI_QA_SCHOOL_LEVEL)"
+    lang = api("/culture").get("language") or "sl"
+    outline = json.loads((ROOT / f"companion/course/{lang}/course.json").read_text())
+    units = next(lv["units"] for lv in outline["levels"] if lv["level"] == level)
+    planned = [u["id"] for u in units if u.get("planned")]
+    assert not planned, f"planned in the outline: {planned}"
+    pair = (os.environ.get("LANI_QA_SETUP_PAIR") or f"{lang}-en").split("-")
+    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    qa_hook(f"pair:{'-'.join(pair)}")
+    qa_hook(f"school:{units[0]['id']}")  # the level open, none of its units begun
+    time.sleep(2)
+    row = l10n(pair[0]).get("school.level", "").replace("{level}", level)
+    assert wait_for(row, 15) or scroll_to(row, 12) is not None, "the school's levels"
+    # the level's count: "Geschafft: 9/18" below its row (units done before this step stay done), nothing planned beside it
+    below = find(row)
+    assert below is not None, "the level's row"
+    count = re.compile(rf"\b\d+/{len(units)}\b")
+    line = next((t for t, c in nodes() if count.search(t) and c[1] > below[1]), None)
+    assert line is not None, f"the level's count, of {len(units)}"
+    tail = l10n(pair[0]).get("school.morePlanned", "").split("}")[-1].strip()
+    assert not (tail and tail in line), f"planned units beside the count: {line}"
+    snap("sb-level")
+    titles = {u["id"]: unit_text(u["title"][lang]) for u in units}
+    seen: set[str] = set()
+
+    def note():
+        texts = [t for t, _ in nodes()]
+        seen.update(uid for uid, title in titles.items() if any(title in t for t in texts))
+
+    # the rows, down to the folded row ("Noch 15 Einheiten in A2"), which opens a sheet of the rest
+    folded = None
+    for _ in range(8):
+        note()
+        folded = next((c for t, c in nodes() if re.search(rf"\d+ \w+ in {level}\b", t) and 300 < c[1] < 2150), None)
+        if folded is not None:
+            break
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(1)
+    snap("sb-rows")
+    if folded is not None:  # none when every unit is a row already
+        tap_at(folded)
+        time.sleep(1.5)
+        for i in range(14):
+            note()
+            if i % 2 == 0:
+                snap(f"sb-units-{i // 2 + 1}")
+            if len(seen) == len(titles):
+                break
+            adb("shell", "input", "swipe", "540", "1900", "540", "1100", "500")
+            time.sleep(1)
+    missing = [uid for uid in titles if uid not in seen]
+    assert not missing, f"not on the school's screen: {missing}"
+    snap("sb-units-last")
+    if folded is not None:
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    print(f"    {level}: all {len(titles)} units on the school's screen, written")
+
+
 def course_unit():
     """A unit of the village's language's course end to end, for a synthetic learner of that language in its culture's
     village (LANI_DEV_DATA: make-learner.ts --target <language> --base <base>; LANI_CULTURE=<culture>,
@@ -10186,6 +10278,171 @@ def polish_cues():
         qa_hook("hour:")
         qa_hook("hearths:")
     return f"skipped {', '.join(skipped)}" if skipped else None
+
+
+def friuli_projects_b():
+    """Friuli's village projects as short scenes, part b (docs/plans/05-built/friuli-projects-b.md): a synthetic child learning
+    Italian from German in the Friuli village (LANI_DEV_DATA: make-learner.ts --name Teo --target it --base de; LANI_CULTURE=friuli,
+    LANI_QA_SETUP_PAIR=it-de), the app in it · de, the village a Trg (QA's hook "hearths:trg"). Three projects opened from the map, each
+    in the middle ("step:<project>/<n>": the steps before it done, a village partway through): the fire station's fourth step at A1
+    (the pump on its cart coming up the square), the fountain's second at B1 ("level:B1": the white stone from the quarry on its cart,
+    its block on the square from its done line), the bridge's fifth at A2 (one of friuli-projects-a's). Each: its landmark on the map, a tap, the projects sheet at it, "Today's step",
+    the dialog in its scene, a wrong choice with its reaction, the right ones, the end card and its line. Also as fb-*.png in
+    $LANI_QA_FRIULI_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "friuli":
+        return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
+    pair = ["it", "de"]
+    out = Path(os.environ["LANI_QA_FRIULI_SHOTS"]) if os.environ.get("LANI_QA_FRIULI_SHOTS") else None
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    culture_dir = ROOT / "companion/cultures/friuli"
+    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def to_village():
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 40 * slow()
+        while time.time() < end and find(lab("villageScreen.scroll")) is None:
+            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
+            if c is not None:
+                tap_at(c)
+            time.sleep(1.5)
+        assert find(lab("villageScreen.scroll")) is not None, "the village"
+        time.sleep(2)
+
+    def play(project: str, n: int, level: str, tag: str):
+        """Step [n] of [project], from its landmark on the map to its end card, at [level]."""
+        spec = projects[project]
+        step = json.loads((culture_dir / f"project-steps/{project}.json").read_text())["steps"][n - 1]
+        lines = step["levels"][level]["lines"]
+        # as they are said to the synthetic Teo: his name, the boy's form of a pair
+        say = lambda s: re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s).replace("{learner}", "Teo")
+        right = {say(c["it"]) for l in lines for c in l.get("choices", []) if c.get("ok")}
+        wrong = {say(c["it"]): say(c["reply"]["it"]) for l in lines for c in l.get("choices", []) if not c.get("ok")}
+        said = [say(l["it"]) for l in lines if not l.get("choices")]
+        qa_hook(f"level:{level}")
+        qa_hook(f"step:{project}/{n}")
+        to_village()
+        qa_hook(f"show:project:{project}")
+        time.sleep(3 * slow())
+        snap(f"fb-{tag}-map")
+        name = spec["name"]["it"]
+        # its landmark's target comes once the app has adopted the readied village (on a loaded machine, seconds); not there, the map panned
+        w, h = screen_size()
+        c = None
+        for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):
+            if dx:
+                adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.62)), str(int(w * (0.5 + dx))), str(int(h * 0.62)), "500")
+                time.sleep(2 * slow())
+            c = wait_for(name, 3)
+            if c is not None:
+                break
+        assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
+        snap(f"fb-{tag}-landmark")
+        tap_at(c)
+        today = "🔨 " + l10n("it", "projectsSheet.todaysStep")
+        task = spec["steps"][n - 1]["task"]["it"]
+        assert wait_for(task, 10), f"the projects sheet at {name}: its step {n}, {task}"
+        time.sleep(1.5)
+        snap(f"fb-{tag}-sheet")
+        # its own button, under the step and the project's words: the first "Today's step" below its title
+        btn = None
+        for _ in range(10):
+            title = find(name)
+            below = sorted((c for t, c in nodes() if today in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
+            if below and below[0][1] < screen_size()[1] - 120:
+                btn = below[0]
+                break
+            w, h = screen_size()
+            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.65)), str(w // 2), str(int(h * 0.45)), "400")
+            time.sleep(1)
+        assert btn is not None, f"{name}'s {today}"
+        tap_at(btn)
+        progress = f"{name} {n}/{len(spec['steps'])}"
+        assert wait_for(progress, 12), f"the step's dialog: {progress}"
+        time.sleep(2 * slow())
+        snap(f"fb-{tag}-opens")
+        assert any(t.startswith(s[:24]) or s[:24] in t for t, _ in nodes() for s in said), f"{name}: its first line at {level}"
+        def choice(wanted) -> bool:
+            """Taps the row of a choice in [wanted] under "Your answer" (what was said stays in the talk above), low on its left: a word's
+            middle, held on a slow emulator, opens the word's card."""
+            bs = list(boxes())
+            head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
+            if head is None:
+                return False
+            for t, (x0, y0, x1, y1) in bs:
+                if y0 >= head[3] and (t in wanted or any(t.startswith(o + ",") or t.startswith(o + " ") for o in wanted)):
+                    tap_at((x0 + 40, y1 - 18))
+                    return True
+            return False
+
+        made_mistake = False
+        for k in range(30):
+            texts = [t for t, _ in nodes()]
+            if any(t.strip().endswith(f"{name} {n}/{len(spec['steps'])}") and t.strip() != progress and ":" not in t for t in texts):
+                break  # the end card
+            if any(l10n("it", "words.addToMyWords") in t or "Chiedi all'insegnante" in t for t in texts):  # a tap the slow emulator took for a long press
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+                continue
+            shown = [w for w in wrong if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts)]
+            if not made_mistake and shown:
+                snap(f"fb-{tag}-turn")
+                assert choice({shown[0]}), f"the wrong choice «{shown[0]}»"
+                time.sleep(2 * slow())
+                snap(f"fb-{tag}-wrong")
+                assert any(wrong[shown[0]][:20] in t for t, _ in nodes()), f"the reaction to «{shown[0]}»: {wrong[shown[0]]}"
+                made_mistake = True
+                continue
+            if choice(right):
+                time.sleep(2 * slow())
+                continue
+            if not tap(lab("common.next"), 3):
+                time.sleep(1)
+        snap(f"fb-{tag}-end")
+        assert made_mistake, f"{name}: a turn with a wrong choice was played"
+        line = spec["steps"][n - 1]["line"]["it"]
+        assert scroll_to(line[:24], 3) is not None, f"its line for the chronicle: {line}"
+        snap(f"fb-{tag}-line")
+
+    qa_hook("pair:it-de")
+    try:
+        to_village()
+        qa_hook("hearths:trg")
+        time.sleep(2 * slow())
+        # on the village the hook made up (the dev bridge's copy, which the app adopts): the cast met, the two leaders living here,
+        # the learner's voice chosen, so "My voice" isn't offered over a dialog's first line
+        snap_state = dev_bridge("/game")
+        st = snap_state["state"]
+        for v in api("/villagers"):
+            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
+            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+        for leader in ("davide", "bruno", "franco"):
+            if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
+                st["residents"].append({"id": leader, "since": "2026-01-01"})
+        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+        dev_bridge("/learner/voice", {"voice": "default"})
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
+        time.sleep(5 * slow())
+        qa_hook("hour:11")
+        qa_hook("bubbles:0")
+        play("gasilski_dom", 4, "A1", "pump")
+        play("vodnjak_na_trgu", 2, "B1", "stone")
+        play("most", 5, "A2", "planks")  # one of friuli-projects-a's, on the union
+    finally:
+        qa_hook("level:")
+        qa_hook("step:")
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+        qa_hook("pair:")
 
 
 def lakeland_projects_b():
@@ -10953,6 +11210,189 @@ def lakeland_places():
         restore = os.environ.get("LANI_QA_PAIR")
         qa_hook(f"pair:{restore}" if restore else "pair:")
     return None
+
+def friuli_projects():
+    """Friuli's village projects as scenes, part a (docs/plans/05-built/friuli-projects-a.md): a synthetic Teo (make-learner.ts
+    --target it --base de, LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de), the village a Trg (QA's hook
+    "hearths:trg"), its cast met. Two projects in the middle (QA's hook "step:<project>/<n>"), each from its landmark on the map
+    ("show:project:<id>") to the projects sheet, its "🔨" button into its scene and played to its end card: the bridge's fifth step
+    at A1 by the stream (its planks laid as its done line says so), the greasy pole's third at B1 on the square (the trunk
+    soaped, its bucket by its foot). The greasy pole's first in the wood at A2, the fir tapped in the picture; the little chapel's
+    last at A2, over the village, its bell. Also as fp-*.png in $LANI_QA_FRIULI_PROJECTS_SHOTS."""
+    global HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "friuli":
+        return "skipped: the dev bridge's village isn't Friuli's (LANI_CULTURE=friuli and a learner of Italian)"
+    pair = ["it", "de"]
+    out = Path(os.environ["LANI_QA_FRIULI_PROJECTS_SHOTS"]) if os.environ.get("LANI_QA_FRIULI_PROJECTS_SHOTS") else None
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    half = lambda key: l10n(pair[0]).get(key, key)
+    back = lab("common.village")
+    culture_dir = ROOT / "companion/cultures/friuli"
+    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def to_village():
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 40 * slow()
+        while time.time() < end and find(lab("villageScreen.scroll")) is None:
+            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
+            if c is not None:
+                tap_at(c)
+            time.sleep(1.5)
+        assert find(lab("villageScreen.scroll")) is not None, "the village"
+        time.sleep(2)
+
+    def telling(pid: str, n: int, level: str) -> list:
+        return json.loads((culture_dir / f"project-steps/{pid}.json").read_text())["steps"][n - 1]["levels"][level]["lines"]
+
+    def choose(ok: set) -> bool:
+        """The right choice of [ok] under "Your answer", low on its row's left (its middle may be a bold word, whose tap opens its card)."""
+        bs = list(boxes())
+        head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
+        if head is None:
+            return False
+        for t, (x0, y0, x1, y1) in bs:
+            if y0 >= head[3] and (t in ok or any(t.startswith(o + ",") or t.startswith(o + " ") for o in ok)):
+                tap_at((x0 + 40, y1 - 18))
+                return True
+        return False
+
+    def play(lines: list, end_re: str, marks: dict, tries=26) -> bool:
+        """On through the open dialog (Next, the right choice at a turn, a tap turn's right place, where it is one), a shot when a
+        line starting with a key of [marks] is on screen, until a text matching [end_re] (the end card)."""
+        ok = {c["it"].replace("{learner}", "") for l in lines for c in l.get("choices", []) if c.get("ok")}
+        seen = set()
+        tapped = False
+        for _ in range(tries):
+            labels = [t for t, _ in nodes()]
+            for key, name in marks.items():
+                if name not in seen and any(key in t for t in labels):
+                    seen.add(name)
+                    time.sleep(1.5)
+                    snap(name)
+            if any(re.search(end_re, t.strip()) for t in labels):
+                return True
+            if any(w in t for t in labels for w in WORD_CARD):
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+                continue
+            if not tapped and any(half("sceneDialog.findInScene") in t for t in labels):
+                got = tap_places()
+                assert got is not None, "the debug build's log of the tap turn's places"
+                right, at = got
+                snap("fp-tap-turn")
+                tap_at(at[right])
+                tapped = True
+                time.sleep(2)
+                continue
+            time.sleep(1.5)
+            if choose(ok):
+                time.sleep(1.5)
+                continue
+            if not tap(lab("common.next"), 3):
+                time.sleep(1)
+        return False
+
+    def step(pid: str, n: int, level: str, tag: str, where: str | None, from_map: bool):
+        """Step [n] of [pid] at [level]: readied (the village in the middle of the project), its landmark on the map and the projects
+        sheet, or the sheet from the HUD; its "🔨" button; played to its end card, its done line shot."""
+        qa_hook(f"level:{level}")
+        qa_hook(f"step:{pid}/{n}")
+        to_village()
+        name = projects[pid]["name"]["it"]
+        if from_map:
+            qa_hook(f"show:project:{pid}")
+            time.sleep(3 * slow())
+            snap(f"fp-{tag}-map")
+            qa_hook("show:")
+            assert tap(name, 8), f"{name}'s landmark on the map"
+        else:
+            assert hud_tap(lab("common.villageProjects")), "the projects chip"
+        assert wait_for(half("projectsSheet.oneStepDayWhole"), 10), "the projects sheet"
+        time.sleep(1.5)
+        btn = None
+        seen = False
+        for _ in range(8):
+            title = find(name)
+            seen = seen or title is not None
+            below = sorted((c for t, c in nodes() if half("projectsSheet.todaysStep") in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
+            if seen and below and below[0][1] < 2280:
+                btn = below[0]
+                break
+            adb("shell", "input", "swipe", "540", "1500", "540", "1100", "400")
+            time.sleep(1)
+        assert btn is not None, f"{name}'s 🔨"
+        snap(f"fp-{tag}-sheet")
+        tap_at(btn)
+        if where is not None:
+            assert wait_for(back, 12), f"the step opens in {where}"
+        time.sleep(3 * slow())
+        snap(f"fp-{tag}-opens")
+        lines = telling(pid, n, level)
+        marks = {l["it"].replace("{learner}", "").strip()[:24]: f"fp-{tag}-work" for l in lines if l.get("done") or (l.get("fx") or {}).get("bell") or (l.get("fx") or {}).get("fell")}
+        ended = play(lines, rf" {n}/{len(projects[pid]['steps'])}$", marks)
+        time.sleep(1)
+        snap(f"fp-{tag}-done")
+        assert ended, f"{name}: played to its end card {n}/{len(projects[pid]['steps'])}"
+        b = find(half("common.backScene")) or find(half("arrivals.backVillage")) or end_button(half("common.backScene"), swipes=2) or find(half("arrivals.backVillage"))
+        if b is not None:
+            tap_at(b)
+            time.sleep(1.5)
+        if find(back) is not None:
+            snap(f"fp-{tag}-after")
+            tap(back, 4)
+        time.sleep(1.5)
+
+    saved = (HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING)
+    HUD_GOAL, HUD_SOON, HUD_SETTLEMENT = lab("villageHud.nextGoal") + ": ", lab("villageHud.soon"), lab("villageHud.settlement") + ": "
+    HUD_RING = (half("villageScreen.age") + " · ", half("common.today"))
+    qa_hook("pair:it-de")
+    adb("logcat", "-c")
+    try:
+        to_village()
+        qa_hook("hearths:trg")
+        time.sleep(2 * slow())
+        # the cast met on the dev bridge's copy, which the app adopts (a step's leader QA's hook readies); the learner's voice chosen, so
+        # "My voice" isn't offered over a dialog's first line
+        snap_state = dev_bridge("/game")
+        st = snap_state["state"]
+        for v in api("/villagers"):
+            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
+            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+        dev_bridge("/learner/voice", {"voice": "default"})
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
+        time.sleep(5 * slow())
+        to_village()
+        qa_hook("hour:11")
+        qa_hook("bubbles:0")
+        # LANI_QA_FRIULI_PROJECTS_ONLY: only these (comma-separated: bridge, pole, fir, chapel)
+        only = [x for x in os.environ.get("LANI_QA_FRIULI_PROJECTS_ONLY", "").split(",") if x]
+        for pid, n, level, tag, where, from_map in (
+            ("most", 5, "A1", "bridge", "al-ruscello", True), ("mlaj", 3, "B1", "pole", "in-piazza", True),
+            ("mlaj", 1, "A2", "fir", "nel-bosco", False), ("kapelica", 6, "A2", "chapel", None, False),
+        ):
+            if not only or tag in only:
+                step(pid, n, level, tag, where, from_map)
+    finally:
+        HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING = saved
+        qa_hook("level:")
+        qa_hook("step:")
+        qa_hook("show:")
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+        qa_hook("hearths:")
+    return None
+
 
 def lakeland_projects():
     """The Lake District's project places, part a (docs/plans/05-built/lakeland-projects-a.md): a learner of English from
@@ -15313,6 +15753,269 @@ def voice_node_clip():
 ROAD_DUE_AHEAD_DAYS = 3  # road/RoadGather.DUE_AHEAD_DAYS: the cards due within these days go to the car
 
 
+def practice_it():
+    """Italian's practice for a child from German (docs/plans/05-built/practice-it.md), on a synthetic Teo (LANI_DEV_DATA:
+    make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de,
+    LANI_QA_LEARNER=Teo): Home's ✨ with modules to play, no "none yet"; the sheet offers A1's and none above the learner's
+    level; a module's first question answered, its why in German. The numbers: closed (the unit numeri as never begun), the
+    intro skipped, the note, the tile on Home; a number's word written with the ones first: wrong, Italian's order the why;
+    with ore-giorni's intro a clock time written the German way ("alle sei e mezza" for 5:30): half past's why. The road: no
+    clips of this learner, so getting ready says there are no recordings in this language; with QA's fake voice (LANI_DEV_FAKE_ELEVENLABS=1)
+    a small library, the buttons of what plays, the drills without clips named as such. Also as pi-*.png in
+    $LANI_QA_PRACTICE_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "friuli":
+        return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
+    out = Path(os.environ["LANI_QA_PRACTICE_SHOTS"]) if os.environ.get("LANI_QA_PRACTICE_SHOTS") else None
+    pair = ["it", "de"]
+
+    def lab(key: str, **a) -> str:
+        def one(lang):
+            t = l10n(lang).get(key, key)
+            for k, v in a.items():
+                t = t.replace("{" + k + "}", str(v))
+            return t
+        return " · ".join(one(lang) for lang in pair)
+
+    def snap(name: str):
+        shot(f"pi-{name}")
+        if out:
+            out.mkdir(parents=True, exist_ok=True)
+            (out / f"pi-{name}.png").write_bytes(shots[-1].read_bytes())
+
+    def word(n: int) -> str:
+        ones = ["", "uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove"]
+        tens = ["", "", "venti", "trenta", "quaranta", "cinquanta", "sessanta", "settanta", "ottanta", "novanta"]
+        t, u = tens[n // 10], n % 10
+        return t[:-1] + ones[u] if u in (1, 8) else t + "tre" if u == 3 else t + ones[u]
+
+    modules = dev_bridge("/modules")
+    assert modules, "the dev bridge offers Italian modules"
+    assert len(modules) == 1 and modules[0]["level"] == "A1", f"the level's first, one at a time: {[(m['id'], m['level']) for m in modules]}"
+    go_home()
+    tile = scroll_to(l10n("it").get("homeScreen.challenges"), 8)
+    assert tile, "the ✨ tile"
+    assert not wait_for(lab("homeLogic.noneYet"), 1), "no \"none yet\" for a learner of Italian"
+    snap("home-challenges")
+    tap_at(tile)
+    first = modules[0]
+    assert wait_for(first["title"], 8), f"the sheet lists {first['title']}"
+    assert not wait_for("congiuntivo", 1), "nothing above the learner's level"
+    snap("challenges-sheet")
+    tap(first["title"], 4)
+    spec = dev_bridge(f"/modules/{first['id']}")
+    # its card, in German: its giver's story, or with the giver not met yet (this fixture's people) what it is about, someone else hosting
+    told = [spec["quest"]["story"].split(" · ")[1][:24], (spec.get("description") or "")[:24]]
+    assert wait_for(told[0], 12) or wait_for(told[1], 3), f"the module's card, in German: {told}"
+    snap("module-intro")
+    assert tap(lab("numbers.start").split(" · ")[0] + " ·", 4), "▶ Inizia"
+    labels = []
+    for _ in range(20):
+        labels = [t for t, _ in nodes()]
+        ex = next((e for e in spec["exercises"] if e["type"] == "choice" and any(e["prompt"] in t for t in labels)), None)
+        if ex:
+            break
+        time.sleep(1)
+    assert ex, f"a choice of the module on screen ({labels[:8]})"
+    snap("module-question")
+    assert tap(ex["options"][ex["answer"]], 4), "its right answer"
+    time.sleep(2 * slow())
+    assert wait_for(ex["explain"].split("**")[1][:16], 6), "its why, in German"
+    snap("module-why")
+    go_home()
+
+    # the numbers: closed, the intro one tap away, the note, on Home
+    qa_hook("numbers:locked")
+    assert wait_for(lab("numbers.openIntro"), 12), "the closed module's way to the intro"
+    snap("numbers-locked")
+    assert tap(lab("numbers.openIntro"), 3), "open the intro"
+    assert wait_for(lab("school.knowThis"), 12), "the unit numeri's intro, one tap away"
+    snap("numbers-intro")
+    assert tap(lab("school.knowThis"), 4), "⏭ known"
+    assert wait_for(l10n("it").get("numbers.on")[:24], 45), "the note: the numbers are open"
+    snap("numbers-note")
+    qa_hook("numbers")
+    assert wait_for(lab("numbers.start"), 15), "the module open"
+    assert wait_for("11–20", 4), "its first two ranges"
+    snap("numbers-open")
+
+    # ✍️ a number of 21–99: the ones first, as German says it
+    qa_hook("numbers:ranges:21-99")
+    qa_hook("numbers:only:write")
+    qa_hook("numbers")
+    assert tap(lab("numbers.start"), 8), "start a run"
+    next_label = lab("common.next")
+    answer_field = lab("playerScreen.typeAnswer")
+    shown = None
+    for _ in range(10):
+        assert wait_for(lab("numbers.ask.write"), 10), "figures to write"
+        shown = numbers_on_screen()
+        field = wait_for(answer_field, 6)
+        assert shown is not None and field, "the figures and the field"
+        if 21 <= shown <= 99 and shown % 10:
+            break
+        tap_at(field)
+        type_text("zero")
+        assert tap(lab("playerScreen.check"), 3), "check"
+        assert tap(next_label, 6), "on to the next"
+    assert 21 <= shown <= 99 and shown % 10, f"a number of 21–99 ({shown})"
+    tap_at(field)
+    keyboard_settled()
+    tens = ["", "", "venti", "trenta", "quaranta", "cinquanta", "sessanta", "settanta", "ottanta", "novanta"][shown // 10]
+    ones = ["", "uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove"][shown % 10]
+    type_text(f"{ones} {tens}")
+    snap("numbers-write")
+    assert tap(lab("playerScreen.check"), 3), "check the word"
+    assert wait_for("❌", 6), "wrong: the ones first"
+    assert wait_for("Zehner zuerst", 4), "the order's why, in German"
+    print(f"    {shown}: «{ones} {tens}» for «{word(shown)}»: the order's why")
+    snap("numbers-order")
+    go_home()
+
+    # 🕰️ ore-giorni's intro done: a clock time written, half past as German counts it
+    qa_hook("numbers:time")
+    qa_hook("numbers:only:time_write")
+    qa_hook("numbers")
+    assert tap(lab("numbers.start"), 8), "start a run"
+    for _ in range(10):
+        assert wait_for(lab("numbers.it.ask.timeWrite"), 10), "a clock time to write"
+        m = next((re.search(r"(\d{1,2}):(\d\d)", t) for t, _ in nodes() if re.search(r"⏰ \d", t)), None)
+        field = wait_for(answer_field, 6)
+        assert m and field, "the time and the field"
+        if m[2] == "30" and int(m[1]) not in (12,):
+            break
+        tap_at(field)
+        type_text("zero")
+        assert tap(lab("playerScreen.check"), 3), "check"
+        assert tap(next_label, 6), "on to the next"
+    assert m[2] == "30", "half past"
+    tap_at(field)
+    keyboard_settled()
+    hour = int(m[1]) % 12 + 1
+    said = "all'una" if hour == 1 else f"alle {word(hour) if hour > 20 else ['', 'una', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove', 'dieci', 'undici', 'dodici'][hour]}"
+    type_text(f"{said} e mezza")
+    snap("numbers-time")
+    assert tap(lab("playerScreen.check"), 3), "check the time"
+    assert wait_for("❌", 6), "wrong: half past counted as German does"
+    assert wait_for("e mezza zählt", 4), "half past's why, in German"
+    snap("numbers-half")
+    go_home()
+    tile = scroll_to(l10n("it").get("numbers.title"), 8)
+    assert tile, "🔢 on Home, the module open"
+    snap("home-numbers")
+
+    # the road: no clips, no dead buttons
+    tile = scroll_to(l10n("it").get("road.title"), 6)
+    assert tile, "the 🚗 tile"
+    tap_at(tile)
+    assert wait_for(lab("road.prepare"), 6), "the sheet, nothing got ready"
+    qa_hook("road:mini")
+    if wait_for(l10n("de").get("road.noRecordings", "")[:30], 60 * slow()):
+        print("    getting ready: no recordings in this language, said so")
+        snap("road-no-recordings")
+    else:
+        snap("road-state")
+    labels = [t for t, _ in nodes()]
+    if any(l10n("de").get("road.more", "?") in t for t in labels):
+        tap(lab("road.more"), 3)
+        time.sleep(1)
+        snap("road-more")
+    go_home()
+    return None
+
+
+def practice_pace():
+    """How a language's curated modules reach the village (docs/plans/05-built/practice-it.md "The pace"), on a synthetic
+    Teo at Vas (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1,
+    LANI_QA_PAIR=sl-en) on a tablet's size (the map's window of four): what the bridge offers, Home's card and ✨, the map's
+    bubbles, the Scroll's villagers with what waits in "Later", the chronicle's lines, and the village's requests as the
+    dev bridge keeps them. It prints what it saw; with LANI_QA_PACE_MAX the requests of curated modules open at most that many.
+    Also as pace-*.png in $LANI_QA_PACE_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "friuli":
+        return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
+    out = Path(os.environ["LANI_QA_PACE_SHOTS"]) if os.environ.get("LANI_QA_PACE_SHOTS") else None
+
+    def snap(name: str):
+        shot(f"pace-{name}")
+        if out:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"pace-{name}.png")
+
+    try:
+        adb("shell", "wm", "density", "320")
+        adb("shell", "wm", "size", "1600x2560")
+        time.sleep(5 * slow())
+        offered = dev_bridge("/modules")
+        print(f"    offered: {[(m['id'], m['level'], (m.get('quest') or {}).get('giver')) for m in offered]}")
+        qa_hook("event:")
+        qa_hook("hour:11")
+        go_home()
+        time.sleep(6 * slow())  # the module list read, the requests added and kept
+        print(f"    Home: {[t for t, _ in nodes()][:14]}")
+        snap("home")
+        tile = scroll_to("Izzivi", 8)
+        print(f"    ✨: {[t for t, c in nodes() if c[1] > (tile[1] - 40 if tile else 0) and c[1] < (tile[1] + 90 if tile else 0)]}")
+        snap("home-tile")
+        plain_village()
+        time.sleep(3 * slow())
+        bubbles = request_bubbles()
+        print(f"    map: {len(bubbles)} request bubbles: {bubbles}")
+        snap("map")
+        open_scroll()
+        scroll_card("Prebivalci · Villagers: ")
+        snap("scroll")
+        time.sleep(1)
+        print(f"    scroll: {[t for t, _ in nodes() if '·' in t][:30]}")
+        state = api("/game").get("state") or {}
+        quests = state.get("quests") or []
+        tutor = [q for q in quests if q.get("source") == "TUTOR"]
+        local = [q for q in quests if q.get("source") != "TUTOR"]
+        print(f"    the village keeps: tutor's {len(tutor)} ({sum(1 for q in tutor if not q.get('done'))} open: {[q.get('moduleId') for q in tutor if not q.get('done')]}), local {len(local)} open {sum(1 for q in local if not q.get('done'))}: {[q.get('giver') for q in local if not q.get('done')]}")
+        print(f"    pace.up: {[(u.get('id')) for u in (state.get('pace') or {}).get('up', [])]}")
+        print(f"    the chronicle's last: {[e.get('text') for e in (state.get('log') or [])[-10:]]}")
+        plain_village()
+        limit = os.environ.get("LANI_QA_PACE_MAX")
+        if limit:
+            assert sum(1 for q in tutor if not q.get("done")) <= int(limit), "more curated requests open than the pace allows"
+            assert len(offered) == 1, f"one module at first: {offered}"
+            # the first done, asked yesterday (a day later, as the village keeps it): the next, and only it, comes up
+            snap_state = dev_bridge("/game")
+            st = snap_state["state"]
+            yesterday = time.strftime("%Y-%m-%d", time.localtime(time.time() - 86400))
+            for q in st["quests"]:
+                if q.get("source") == "TUTOR":
+                    q["done"], q["since"] = True, yesterday
+            dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+            next_day = dev_bridge("/modules")
+            print(f"    a day later: offered {[m['id'] for m in next_day]}")
+            assert len(next_day) == 2 and next_day[0]["id"] != next_day[1]["id"], "the next module, and only it"
+            adb("shell", "am", "force-stop", PKG)
+            adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+            time.sleep(15 * slow())
+            go_home()
+            time.sleep(6 * slow())
+            scroll_to("Izzivi", 8)
+            snap("day2-home")
+            plain_village()
+            time.sleep(3 * slow())
+            state = api("/game").get("state") or {}
+            tutor = [q for q in state.get("quests") or [] if q.get("source") == "TUTOR"]
+            print(f"    a day later the village keeps: tutor's {len(tutor)}, open {[q.get('moduleId') for q in tutor if not q.get('done')]}; up {[(u.get('id')) for u in (state.get('pace') or {}).get('up', [])]}; bubbles {request_bubbles()}")
+            snap("day2-map")
+            assert sum(1 for q in tutor if not q.get("done")) == 1, "one open"
+    finally:
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+    return None
+
+
 def road_clips() -> str | None:
     """The clips a small library ("road:mini") takes, made by the dev bridge first where its voice store lacks them. The car
     plays only what the store has (road/RoadGather: getting the road ready never has anything voiced), so a learner the dev
@@ -15387,9 +16090,9 @@ def road():
     the Slovene plays the answer (the same item, on past the pause), next after it the next item, the app still running
     and playing; paused. "❓ Kviz" from the sheet: next while the second option is read picks it (its feedback plays,
     "✓ …" or "✗ …"), previous during the next question's options asks it again, paused. Then as Android Auto does
-    ("road:car": the platform's media browser browses the root's two tabs, "🚗 Za pot" a grid of four and "Več" a list,
-    and plays each session from its id): every session with items on the phone plays, none fails ("Failed to load
-    selection" in a car), the app still runs."""
+    ("road:car": the platform's media browser browses the root's two tabs, "🚗 Za pot" a grid of four and "Več" a list of
+    the sessions with something to play, and plays each session from its id): every session with items on the phone plays,
+    none fails ("Failed to load selection" in a car), none with nothing is listed, the app still runs."""
     if why := road_clips():
         return why
     go_home()
@@ -15473,7 +16176,13 @@ def road():
     assert not failed, " / ".join(failed)
     assert any(l.startswith("tabs: 2 (road:tab ") and " road:more " in l for l in log), "the root's two tabs (🚗 Za pot, Več)"
     assert any(l.startswith("tab road:tab: 4 (road:mix road:quiz road:easy road:story) grid") for l in log), "🚗 Za pot: a grid of four"
-    assert any(l.startswith("tab road:more: 9 ") and " list" in l for l in log), "Več: a list of nine"
+    # "Več": a list of the sessions with something to play; one with nothing stays away (a small library has no drills without clips)
+    more = next((l for l in log if l.startswith("tab road:more: ") and " list" in l), None)
+    assert more, "Več: a list"
+    listed = re.search(r"\((.*?)\)", more)[1].split()
+    assert listed and not [k for k in listed if not sessions.get(k)], f"Več lists a session with nothing to play: {listed} of {sessions}"
+    missing = [k for k, n in sessions.items() if n and k not in listed and k not in ("road:mix", "road:quiz", "road:easy", "road:story")]
+    assert not missing, f"Več leaves out sessions with items: {missing}"
     assert any(l.startswith("session road:mix: playing") for l in log), "🚗 Za pot (▶ Nadaljuj) didn't play from its id"
     assert any(l.startswith("session road:quiz: playing") for l in log), "❓ Kviz didn't play from its id"
     silent = [k for k, n in sessions.items() if n and not any(l.startswith(f"session {k}: playing") for l in log)]
@@ -15537,6 +16246,93 @@ def road_quiz():
 
 
 PROGRESS = "📊 Napredek · Progress"
+
+
+def parity_small():
+    """Small things that read wrong (docs/plans/05-built/parity-small.md), named only, each on what the dev bridge's learner is;
+    the app in the learner's own pair (LANI_QA_SETUP_PAIR). A learner of German at B1 (LANI_DEV_DATA from make-learner.ts
+    --target de --base en, its learner.current_level B1; LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): past German's A1
+    (QA's hook "school:reveal") the teacher says she is preparing the next lessons, the school's tile on Home says they're
+    coming, not all done; "🧭 Bis B2" has the grammar sign ➖ with no pages at B1, the treasure map's sign "–". Any learner: the
+    cheat sheet (QA's hook "cheat") with $LANI_QA_START_CARD, a start card, opened; with $LANI_QA_MEET (a villager's id) their
+    introduction at B1 (QA's hooks "level:B1", "meet:<id>"), on to its first turn, the wrong choice's reaction. Shots in
+    $LANI_QA_PARITY_SHOTS as ps-*.png."""
+    out = Path(os.environ["LANI_QA_PARITY_SHOTS"]) if os.environ.get("LANI_QA_PARITY_SHOTS") else None
+    notes = []
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    culture = api("/culture").get("id")
+    if culture == "kaernten":
+        qa_hook("school:reveal")
+        time.sleep(2 * slow())
+        said = label("school.preparing", half=True)
+        assert wait_for(said, 10), f"the teacher: {said}, past A1 with A2 not written"
+        snap("ps-school-preparing")
+        go_home()
+        tile = scroll_to(label("school.preparingShort"), 8)
+        assert tile, "Home's school tile says new lessons are coming"
+        assert find(label("school.allDone")) is None, "not all done"
+        snap("ps-home-tile")
+        line = scroll_to(label("common.progress"), 6)
+        assert line, "Home's progress line"
+        tap_at(line)
+        time.sleep(3 * slow())
+        assert scroll_to("The book has no pages of B1 yet", 8), "the grammar sign says the book has no pages of B1"
+        snap("ps-progress-sign")
+        hit = on_screen(label("treasure.title"))
+        assert hit is not None, "the way to the treasure map"
+        tap_at(hit[1])
+        time.sleep(2 * slow())
+        assert scroll_to("The book has no rules of B1 yet", 4), "the map's sign says it doesn't count"
+        snap("ps-treasure-sign")
+        notes.append("German at B1: preparing, the sign doesn't count")
+        go_home()
+    card = os.environ.get("LANI_QA_START_CARD")
+    if card:
+        qa_hook("cheat")
+        assert wait_for(label("cheatSheet.title"), 6), "the cheat sheet"
+        time.sleep(1)
+        snap("ps-cheat")
+        assert tap(card, 4), f"the start card {card}"
+        time.sleep(1)
+        snap("ps-cheat-card")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        go_home()
+        notes.append(f"the start card {card}")
+    meet = os.environ.get("LANI_QA_MEET")
+    if meet:
+        qa_hook("level:B1")
+        qa_hook(f"meet:{meet}")
+        time.sleep(3 * slow())
+        snap(f"ps-meet-{meet}")
+        language = api("/culture").get("language", "sl")
+        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"]["B1"]
+        first = next(x for x in spec["lines"] if "choices" in x)
+        wrong = next(c for c in first["choices"] if not c.get("ok"))[language]
+        wrong = re.split(r"[{]", wrong)[0].strip()
+        for _ in range(8):
+            if find(wrong) is not None:
+                break
+            tap(label("common.next"), 2)
+            time.sleep(1.5 * slow())
+        assert find(wrong) is not None, f"{meet}'s first turn: {wrong}"
+        snap(f"ps-meet-{meet}-turn")
+        assert tap(wrong, 3), f"the wrong choice: {wrong}"
+        time.sleep(2 * slow())
+        snap(f"ps-meet-{meet}-reaction")
+        notes.append(f"{meet}'s introduction at B1, to its first turn's reaction")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        qa_hook("level:")
+    if not notes:
+        return "skipped: nothing asked of this learner"
+    print("   " + "; ".join(notes))
+    return None
 
 
 def open_progress():
@@ -16379,6 +17175,58 @@ def tutor_live():
     finally:
         mock.terminate()
         os.environ.pop("LANI_TUTOR_MOCK_SLOW_MS", None)
+
+
+def tutor_language():
+    """The tutor in the app for a learner of Italian from German (only when named; LANI_DEV_DATA from make-learner.ts --target
+    it --base de, LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de), against QA's mock: a chat answered, and the request's prefix
+    ends with what's correct in Italian, with none of Slovene's rules (docs/plans/05-built/tutor-languages.md)."""
+    t, b = pair_now()
+    assert t == "it", f"a learner of Italian: {t}-{b}"
+    mock = start_tutor_mock()
+    def keep(name):
+        shot(f"tutor-language-{name}")
+        if SCRATCH_SHOTS:
+            Path(SCRATCH_SHOTS).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(SCRATCH_SHOTS) / f"tutor-language-{name}.png")
+    try:
+        qa_hook(f"tutorlive:{SHADOW_MOCK}")
+        go_home()
+        to_top()
+        assert tap(label("common.settings"), 6), "Home's settings"
+        assert tap(label("common.tutor"), 6), "the settings' Tutor section"
+        assert scroll_to(label("tutorLive.who"), 12), "who answers"
+        assert tap(label("tutorLive.app"), 4), "in the app"
+        assert scroll_to("sk-ant-…", 4, bottom=2300), "the key's field"  # two languages' texts: it sits low, at the page's end
+        tap_at(find("sk-ant-…"))
+        time.sleep(slow())
+        adb("shell", "input", "text", LIVE_KEY)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        assert tap(label("tutorLive.keyCheck"), 4), "the key's check"
+        assert wait_for(l10n(b, "tutorLive.state.IDLE").split(":")[0], 20), "attached: the tutor in the app answers"
+        keep("settings")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        go_home()
+        assert tap(label("common.yourTutor"), 6), "the tutor bar"
+        assert wait_for(l10n(b, "tutorLive.chatDisclosure").split("(")[0].strip(), 8), "the chat says an AI answers"
+        assert tap(l10n(t, "chatSheet.write"), 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Ciao%sche%svuol%sdire%smandi")
+        time.sleep(0.5)
+        assert tap(label("common.send"), 4), "send"
+        assert wait_for(MOCK_TUTOR, 40), "the mock's reply"
+        keep("chat")
+        posts = [r for r in mock_api("/mock/requests") if r.get("path") == "/v1/messages"]
+        assert posts, "the mock's calls"
+        system = "\n".join(x.get("text", "") for x in ((posts[-1].get("body") or {}).get("system") or []))
+        (OUT / "tutor-language-system.txt").write_text(system)
+        assert "## Correct language, in every language" in system and "## Correct Italian" in system, "what's correct in Italian in the prefix"
+        assert "## Correct Slovene" not in system and "*grem spat*" not in system, "none of Slovene's rules in it"
+        assert "## A child" not in system and "## Writing" not in system, "not a child's, not the studio's"
+    finally:
+        mock.terminate()
 
 
 STUDIO_SHOTS = os.environ.get("LANI_QA_STUDIO_SHOTS")  # also copied there as studio-<name>.png
@@ -18013,8 +18861,11 @@ def plan():
         # the Friuli village's school for Teo (LANI_CULTURE=friuli, a synthetic learner of Italian from German)
         ("friuli-school", friuli_school, None, False, ""),
         ("friuli-school-unit", friuli_school_unit, None, False, ""),
+        ("practice-it", practice_it, None, False, ""),
+        ("practice-pace", practice_pace, None, False, ""),
         # only with --steps course-unit: a unit of the village's language's course end to end and its print (LANI_QA_COURSE_UNIT)
         ("course-unit", course_unit, None, False, ""),
+        ("school-board", school_board, None, False, ""),
         # only with --steps friuli-talk: Teo's free talk in Italian, Al mercato end to end (the same learner)
         ("friuli-talk", friuli_talk, None, False, ""),
         # only with --steps kaernten-talk / lakeland-talk: a grown-up's free talk in German, in English (a synthetic learner)
@@ -18026,8 +18877,12 @@ def plan():
         ("lakeland-places", lakeland_places, None, False, ""),
         # only with --steps lakeland-projects: the Lake District's project places, part a (lakeland-projects-a)
         ("lakeland-projects", lakeland_projects, None, False, ""),
+        # only with --steps friuli-projects: Friuli's village projects as scenes, part a (friuli-projects-a)
+        ("friuli-projects", friuli_projects, None, False, ""),
         # only with --steps lakeland-projects-b: the Lake District's third wave, part b (two projects from the map, the beck)
         ("lakeland-projects-b", lakeland_projects_b, None, False, ""),
+        # only with --steps friuli-projects-b: Friuli's projects as short scenes, part b (two projects from the map, a step of each)
+        ("friuli-projects-b", friuli_projects_b, None, False, ""),
         # only with --steps kaernten-projects-a: the Carinthian village's projects and its wood (kaernten-projects-a)
         ("kaernten-projects-a", kaernten_projects_a, None, False, ""),
         # skipped outside Carinthia and the Lake District: content-fixes-2's steps and green as the learner meets them
@@ -18048,6 +18903,8 @@ def plan():
         ("fire-ages", fire_ages, v, False, ""),
         ("storm", storm, v, False, ""),
         ("coast", coast, v, False, ""),
+        # only with --steps parity-small: small things that read wrong, on what the dev bridge's learner is
+        ("parity-small", parity_small, go_home, False, ""),
         # only with --steps friuli-looks: Friuli's outdoor scenes in its look (a synthetic Friuli learner)
         ("friuli-looks", friuli_looks, v, False, ""),
         # only with --steps map-looks: the village map in its culture's look (a synthetic learner of another culture)
@@ -18110,6 +18967,7 @@ def plan():
         ("data-sheet", data_sheet, go_home, False, ""),
         ("studio", studio, go_home, False, ""),
         ("tutor-live", tutor_live, go_home, False, ""),
+        ("tutor-language", tutor_language, go_home, False, ""),
         # only with --steps town-progress-child: the app paired again with the second town (a child's)
         ("town-progress-child", town_progress_child, None, False, ""),
         # only with --steps hosted: no node, a fresh install on the phone's own bridge
@@ -18594,7 +19452,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "party", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "party", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "friuli-projects", "friuli-projects-b", "tutor-language", "parity-small", "practice-it", "practice-pace") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

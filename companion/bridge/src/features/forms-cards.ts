@@ -249,7 +249,7 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
   }
 
   return {
-    instructions,
+    instructions: language === 'sl' ? instructions : `Forms cards are Slovene's: this village's language has none, so no review names one and no mistake is forms_*.`,
     routes: [
       { method: 'POST', path: '/forms-cards', handle: ({ req, url }) => outbox.once(req, url.pathname, handle) },
       { method: 'GET', path: '/forms-cards', handle: ({ url }) => tables(url) },

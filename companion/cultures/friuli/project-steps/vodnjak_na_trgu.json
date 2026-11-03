@@ -1,0 +1,2663 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "vodnjak_na_trgu",
+  "language": "it",
+  "review": "it, sl, en, de: machine-written (Claude), not reviewed by a native speaker",
+  "pack": "progetto-fontana",
+  "steps": [
+    {
+      "scene": "nella-fucina",
+      "words": [
+        "progetto",
+        "cannella"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. {learner}, vieni qui. C'è un foglio sull'incudine.",
+              "sl": "Hm. {learner}, pridi sem. Na nakovalu je list papirja.",
+              "en": "Hm. {learner}, come here. There's a sheet of paper on the anvil.",
+              "de": "Hm. {learner}, komm her. Auf dem Amboss liegt ein Blatt Papier."
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Oh, un disegno! Una fontana per la piazza?",
+              "sl": "O, risba! Vodnjak za trg?",
+              "en": "Oh, a drawing! A fountain for the square?",
+              "de": "Oh, eine Zeichnung! Ein Brunnen für den Platz?"
+            },
+            {
+              "who": "bruno",
+              "it": "Sì. {learner}, che cos'è questo foglio?",
+              "sl": "Ja. {learner}, kaj je ta list?",
+              "en": "Yes. {learner}, what is this sheet?",
+              "de": "Ja. {learner}, was ist dieses Blatt?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È il progetto della fontana.",
+                  "sl": "To je načrt vodnjaka.",
+                  "en": "It's the plan of the fountain.",
+                  "de": "Das ist der Plan vom Brunnen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. L'ho fatto io. Tutto a matita.",
+                    "sl": "Tako je. Sam sem ga naredil. Vse s svinčnikom.",
+                    "en": "Right. I made it myself. All in pencil.",
+                    "de": "Richtig. Den habe ich selbst gemacht. Alles mit Bleistift."
+                  }
+                },
+                {
+                  "it": "È la ricetta della fontana.",
+                  "sl": "To je recept vodnjaka.",
+                  "en": "It's the fountain's recipe.",
+                  "de": "Das ist das Rezept vom Brunnen.",
+                  "why": {
+                    "de": "Ein Rezept brauchst du zum Kochen. Hier ist etwas zum Bauen gezeichnet.",
+                    "sl": "Recept potrebuješ za kuhanje. Tu je narisano nekaj za gradnjo.",
+                    "en": "You need a recipe for cooking. This is a drawing of something to build."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una ricetta? Acqua e sale? Hm!",
+                    "sl": "Recept? Voda in sol? Hm!",
+                    "en": "A recipe? Water and salt? Hm!",
+                    "de": "Ein Rezept? Wasser und Salz? Hm!"
+                  }
+                },
+                {
+                  "it": "È la progetto della fontana.",
+                  "sl": "To je načrt vodnjaka.",
+                  "en": "It's the plan of the fountain.",
+                  "de": "Das ist der Plan vom Brunnen.",
+                  "grammar": "articoli-genere",
+                  "why": {
+                    "de": "Das Wort endet auf -o und ist männlich. Dann passt «la» nicht davor.",
+                    "sl": "Beseda se konča na -o in je moškega spola. Zato «la» ne paše pred njo.",
+                    "en": "The word ends in -o and is masculine, so «la» doesn't go before it."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "La…? Come, scusa?",
+                    "sl": "La…? Kako, prosim?",
+                    "en": "La…? Sorry, what?",
+                    "de": "La…? Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Non ho capito.",
+                "sl": "Hm? Nisem razumel.",
+                "en": "Hm? I didn't understand.",
+                "de": "Hm? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "E l'acqua? Da dove esce?",
+              "sl": "Pa voda? Kje priteče ven?",
+              "en": "And the water? Where does it come out?",
+              "de": "Und das Wasser? Wo kommt es heraus?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Esce dalle quattro cannelle.",
+                  "sl": "Priteče iz štirih cevi.",
+                  "en": "It comes out of the four spouts.",
+                  "de": "Es kommt aus den vier Röhren.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Quattro cannelle! Che bello.",
+                    "sl": "Štiri cevi! Kako lepo.",
+                    "en": "Four spouts! How lovely.",
+                    "de": "Vier Röhren! Wie schön."
+                  }
+                },
+                {
+                  "it": "Esce dalle quattro tasche.",
+                  "sl": "Priteče iz štirih žepov.",
+                  "en": "It comes out of the four pockets.",
+                  "de": "Es kommt aus den vier Taschen.",
+                  "why": {
+                    "de": "Taschen hat deine Hose. Ein Brunnen hat etwas anderes, woraus das Wasser läuft.",
+                    "sl": "Žepe imajo tvoje hlače. Vodnjak ima nekaj drugega, iz česar teče voda.",
+                    "en": "Your trousers have pockets. A fountain has something else for the water to run from."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dalle tasche? Allora ci bagniamo tutti!",
+                    "sl": "Iz žepov? Potem bomo vsi mokri!",
+                    "en": "From the pockets? Then we'll all get wet!",
+                    "de": "Aus den Taschen? Dann werden wir alle nass!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Una per ogni lato. Adesso ci serve la pietra.",
+              "sl": "Hm. Po ena na vsaki strani. Zdaj potrebujemo kamen.",
+              "en": "Hm. One on each side. Now we need the stone.",
+              "de": "Hm. Eine auf jeder Seite. Jetzt brauchen wir den Stein."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Ieri sera ho disegnato una cosa. È lì, sull'incudine.",
+              "sl": "Hm. Včeraj zvečer sem nekaj narisal. Tam je, na nakovalu.",
+              "en": "Hm. Last night I drew something. It's there, on the anvil.",
+              "de": "Hm. Gestern Abend habe ich etwas gezeichnet. Es liegt dort auf dem Amboss."
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Una fontana! Da quanto tempo la volevamo, in piazza!",
+              "sl": "Vodnjak! Kako dolgo smo si ga že želeli na trgu!",
+              "en": "A fountain! How long we've wanted one on the square!",
+              "de": "Ein Brunnen! Wie lange wollten wir schon einen auf dem Platz!"
+            },
+            {
+              "who": "bruno",
+              "it": "{learner}, che cosa hai visto sull'incudine?",
+              "sl": "{learner}, kaj si {m:videl|f:videla} na nakovalu?",
+              "en": "{learner}, what did you see on the anvil?",
+              "de": "{learner}, was hast du auf dem Amboss gesehen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ho visto il progetto della fontana.",
+                  "sl": "{m:Videl|f:Videla} sem načrt vodnjaka.",
+                  "en": "I saw the plan of the fountain.",
+                  "de": "Ich habe den Plan vom Brunnen gesehen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Bene. È pronto, finalmente. Hm.",
+                    "sl": "Dobro. Končno je gotov. Hm.",
+                    "en": "Good. It's ready at last. Hm.",
+                    "de": "Gut. Er ist endlich fertig. Hm."
+                  }
+                },
+                {
+                  "it": "Ho visto il conto della fontana.",
+                  "sl": "{m:Videl|f:Videla} sem račun za vodnjak.",
+                  "en": "I saw the bill for the fountain.",
+                  "de": "Ich habe die Rechnung für den Brunnen gesehen.",
+                  "why": {
+                    "de": "Eine Rechnung kommt erst, wenn man bezahlen muss. Auf dem Blatt ist aber etwas gezeichnet.",
+                    "sl": "Račun pride šele, ko je treba plačati. Na listu pa je nekaj narisano.",
+                    "en": "A bill only comes when you have to pay. But there's a drawing on this sheet."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il conto? Non abbiamo ancora cominciato!",
+                    "sl": "Račun? Saj še nismo začeli!",
+                    "en": "The bill? We haven't even started!",
+                    "de": "Die Rechnung? Wir haben noch gar nicht angefangen!"
+                  }
+                },
+                {
+                  "it": "Ho vedato il progetto della fontana.",
+                  "sl": "{m:Videl|f:Videla} sem načrt vodnjaka.",
+                  "en": "I saw the plan of the fountain.",
+                  "de": "Ich habe den Plan vom Brunnen gesehen.",
+                  "grammar": "participi-irregolari",
+                  "why": {
+                    "de": "Vedere hat ein unregelmäßiges Partizip: Es endet nicht auf -ato.",
+                    "sl": "Vedere ima nepravilni deležnik: ne konča se na -ato.",
+                    "en": "Vedere has an irregular participle: it doesn't end in -ato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Vedato? Hm. Come, scusa?",
+                    "sl": "Vedato? Hm. Kako, prosim?",
+                    "en": "Vedato? Hm. Sorry, what?",
+                    "de": "Vedato? Hm. Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Puoi ripetere?",
+                "sl": "Hm? Lahko ponoviš?",
+                "en": "Hm? Can you say that again?",
+                "de": "Hm? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E l'acqua, da dove uscirà?",
+              "sl": "Pa voda, kje bo pritekla ven?",
+              "en": "And the water, where will it come out?",
+              "de": "Und das Wasser, wo wird es herauskommen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Uscirà dalle cannelle.",
+                  "sl": "Pritekla bo iz cevi.",
+                  "en": "It'll come out of the spouts.",
+                  "de": "Es wird aus den Röhren kommen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Dalle cannelle, certo! Ce ne saranno quattro.",
+                    "sl": "Seveda, iz cevi! Štiri bodo.",
+                    "en": "From the spouts, of course! There'll be four.",
+                    "de": "Aus den Röhren, klar! Es werden vier sein."
+                  }
+                },
+                {
+                  "it": "Uscirà dalle scarpe.",
+                  "sl": "Pritekla bo iz čevljev.",
+                  "en": "It'll come out of the shoes.",
+                  "de": "Es wird aus den Schuhen kommen.",
+                  "why": {
+                    "de": "Schuhe trägst du an den Füßen. Ein Brunnen hat etwas anderes, woraus das Wasser läuft.",
+                    "sl": "Čevlje nosiš na nogah. Vodnjak ima nekaj drugega, iz česar teče voda.",
+                    "en": "You wear shoes on your feet. A fountain has something else for the water to run from."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dalle scarpe? Che piedi bagnati!",
+                    "sl": "Iz čevljev? Kako mokre noge!",
+                    "en": "From the shoes? What wet feet!",
+                    "de": "Aus den Schuhen? Was für nasse Füße!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Il disegno c'è. Adesso ci vorrà la pietra.",
+              "sl": "Hm. Risba je. Zdaj bo treba dobiti kamen.",
+              "en": "Hm. The drawing's done. Now we'll need the stone.",
+              "de": "Hm. Die Zeichnung ist da. Jetzt brauchen wir den Stein."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Ci ho pensato tutto l'inverno. Se la piazza avesse una fontana, la gente si fermerebbe.",
+              "sl": "Hm. Vso zimo sem razmišljal o tem. Če bi imel trg vodnjak, bi se ljudje ustavljali.",
+              "en": "Hm. I thought about it all winter. If the square had a fountain, people would stop there.",
+              "de": "Hm. Den ganzen Winter habe ich darüber nachgedacht. Wenn der Platz einen Brunnen hätte, würden die Leute dort stehen bleiben."
+            },
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "Sull'incudine c'è un disegno. Le misure, spero, saranno giuste.",
+              "sl": "Na nakovalu je risba. Upam, da so mere prave.",
+              "en": "There's a drawing on the anvil. I hope the measurements are right.",
+              "de": "Auf dem Amboss liegt eine Zeichnung. Die Maße stimmen hoffentlich."
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, prima di toccare la pietra, che cosa conta di più?",
+              "sl": "{learner}, kaj je najpomembnejše, preden se dotakneš kamna?",
+              "en": "{learner}, before you touch the stone, what matters most?",
+              "de": "{learner}, was ist am wichtigsten, bevor du den Stein anfasst?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È importante che il progetto sia giusto.",
+                  "sl": "Pomembno je, da je načrt pravi.",
+                  "en": "It's important that the plan is right.",
+                  "de": "Es ist wichtig, dass der Plan stimmt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Sì. Il ferro si corregge, la pietra no.",
+                    "sl": "Hm. Ja. Železo lahko popraviš, kamna ne.",
+                    "en": "Hm. Yes. You can correct iron, not stone.",
+                    "de": "Hm. Ja. Eisen kann man korrigieren, Stein nicht."
+                  }
+                },
+                {
+                  "it": "È importante che il pranzo sia giusto.",
+                  "sl": "Pomembno je, da je kosilo pravo.",
+                  "en": "It's important that lunch is right.",
+                  "de": "Es ist wichtig, dass das Mittagessen stimmt.",
+                  "why": {
+                    "de": "Essen ist schön, aber hier geht es um das, was auf dem Blatt gezeichnet ist.",
+                    "sl": "Kosilo je lepa stvar, a tu gre za tisto, kar je narisano na listu.",
+                    "en": "Lunch is nice, but this is about what's drawn on the sheet."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il pranzo? Hm. Anche quello, ma dopo.",
+                    "sl": "Kosilo? Hm. Tudi to, ampak pozneje.",
+                    "en": "Lunch? Hm. That too, but later.",
+                    "de": "Das Mittagessen? Hm. Das auch, aber später."
+                  }
+                },
+                {
+                  "it": "È importante che il progetto è giusto.",
+                  "sl": "Pomembno je, da je načrt pravi.",
+                  "en": "It's important that the plan is right.",
+                  "de": "Es ist wichtig, dass der Plan stimmt.",
+                  "grammar": "congiuntivo-espressioni",
+                  "why": {
+                    "de": "Nach «è importante che» steht der Congiuntivo.",
+                    "sl": "Za «è importante che» stoji konjunktiv.",
+                    "en": "After «è importante che» comes the subjunctive."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "«Che… è»? Forse lo diresti in un altro modo.",
+                    "sl": "»Che … è«? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "«Che… è»? Perhaps you'd put it another way.",
+                    "de": "«Che… è»? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Come hai detto?",
+                "sl": "Hm? Kako si {m:rekel|f:rekla}?",
+                "en": "Hm? What did you say?",
+                "de": "Hm? Wie hast du gesagt?"
+              }
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "E da dove uscirebbe l'acqua, secondo te?",
+              "sl": "Pa kje bi po tvojem pritekla voda?",
+              "en": "And where would the water come out, do you think?",
+              "de": "Und wo würde das Wasser deiner Meinung nach herauskommen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Uscirebbe dalle cannelle di ferro.",
+                  "sl": "Pritekla bi iz železnih cevi.",
+                  "en": "It would come out of the iron spouts.",
+                  "de": "Es würde aus den eisernen Röhren kommen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ecco. Quattro lati, quattro cannelle: i conti tornano.",
+                    "sl": "Tako. Štiri strani, štiri cevi: račun se izide.",
+                    "en": "There. Four sides, four spouts: the sums work out.",
+                    "de": "Genau. Vier Seiten, vier Röhren: Die Rechnung geht auf."
+                  }
+                },
+                {
+                  "it": "Uscirebbe dalle campane di ferro.",
+                  "sl": "Pritekla bi iz železnih zvonov.",
+                  "en": "It would come out of the iron bells.",
+                  "de": "Es würde aus den eisernen Glocken kommen.",
+                  "why": {
+                    "de": "Glocken läuten im Turm. Hier suchst du das, woraus am Brunnen das Wasser läuft.",
+                    "sl": "Zvonovi zvonijo v zvoniku. Tu iščeš tisto, iz česar pri vodnjaku teče voda.",
+                    "en": "Bells ring in the tower. You're looking for what the water runs from at a fountain."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dalle campane? Un concerto bagnato, allora!",
+                    "sl": "Iz zvonov? Potem bo to moker koncert!",
+                    "en": "From the bells? A wet concert, then!",
+                    "de": "Aus den Glocken? Dann gibt es ein nasses Konzert!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Così, da qualunque parte si arrivi, si può bere.",
+              "sl": "Hm. Tako lahko piješ, od koder koli prideš.",
+              "en": "Hm. That way you can drink whichever side you come from.",
+              "de": "Hm. So kann man trinken, von welcher Seite man auch kommt."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": [
+        "cava",
+        "pietra",
+        "bianco"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "franco",
+              "face": "happy",
+              "it": "Mandi! Ecco il carro! Arriva da lontano.",
+              "sl": "Mandi! Tu je voz! Prihaja od daleč.",
+              "en": "Mandi! Here's the cart! It's coming from far away.",
+              "de": "Mandi! Da ist der Wagen! Er kommt von weit her.",
+              "fx": {
+                "cart-stone": 1
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. {learner}, che cosa c'è sul carro?",
+              "sl": "Hm. {learner}, kaj je na vozu?",
+              "en": "Hm. {learner}, what's on the cart?",
+              "de": "Hm. {learner}, was ist auf dem Wagen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sul carro c'è una pietra bianca.",
+                  "sl": "Na vozu je bel kamen.",
+                  "en": "There's a white stone on the cart.",
+                  "de": "Auf dem Wagen ist ein weißer Stein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. Bella, e anche pesante.",
+                    "sl": "Ja. Lep je in tudi težak.",
+                    "en": "Yes. A fine one, and heavy too.",
+                    "de": "Ja. Ein schöner, und schwer ist er auch."
+                  }
+                },
+                {
+                  "it": "Sul carro c'è una mucca bianca.",
+                  "sl": "Na vozu je bela krava.",
+                  "en": "There's a white cow on the cart.",
+                  "de": "Auf dem Wagen ist eine weiße Kuh.",
+                  "why": {
+                    "de": "Aus einer Kuh kannst du keinen Brunnen machen. Was liegt da groß und schwer auf dem Wagen?",
+                    "sl": "Iz krave ne moreš narediti vodnjaka. Kaj leži veliko in težko na vozu?",
+                    "en": "You can't make a fountain out of a cow. What's lying there, big and heavy, on the cart?"
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una mucca? Allora abbiamo anche il latte!",
+                    "sl": "Krava? Potem imamo tudi mleko!",
+                    "en": "A cow? Then we've got milk too!",
+                    "de": "Eine Kuh? Dann haben wir auch Milch!"
+                  }
+                },
+                {
+                  "it": "Sul carro c'è una pietra bianco.",
+                  "sl": "Na vozu je bel kamen.",
+                  "en": "There's a white stone on the cart.",
+                  "de": "Auf dem Wagen ist ein weißer Stein.",
+                  "grammar": "aggettivi-accordo",
+                  "why": {
+                    "de": "Pietra ist weiblich. Das Wiewort dahinter muss zu ihm passen.",
+                    "sl": "Pietra je ženskega spola. Pridevnik za njo se mora ujemati z njo.",
+                    "en": "Pietra is feminine, and the adjective after it has to match."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Bianco…? Hm. Come, scusa?",
+                    "sl": "Bianco …? Hm. Kako, prosim?",
+                    "en": "Bianco…? Hm. Sorry, what?",
+                    "de": "Bianco…? Hm. Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Non ho capito.",
+                "sl": "Hm? Nisem razumel.",
+                "en": "Hm? I didn't understand.",
+                "de": "Hm? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "Da dove viene, secondo te?",
+              "sl": "Od kod prihaja, kaj misliš?",
+              "en": "Where does it come from, do you think?",
+              "de": "Woher kommt er, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Viene dalla cava.",
+                  "sl": "Prihaja iz kamnoloma.",
+                  "en": "It comes from the quarry.",
+                  "de": "Er kommt aus dem Steinbruch.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Dal monte, con il carro.",
+                    "sl": "Ja! Z gore, z vozom.",
+                    "en": "Yes! From the mountain, by cart.",
+                    "de": "Ja! Vom Berg, mit dem Wagen."
+                  }
+                },
+                {
+                  "it": "Viene dalla cucina.",
+                  "sl": "Prihaja iz kuhinje.",
+                  "en": "It comes from the kitchen.",
+                  "de": "Er kommt aus der Küche.",
+                  "why": {
+                    "de": "In der Küche wird gekocht. Stein holt man von woanders.",
+                    "sl": "V kuhinji se kuha. Kamen dobimo drugje.",
+                    "en": "People cook in a kitchen. Stone comes from somewhere else."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dalla cucina? Che minestra dura!",
+                    "sl": "Iz kuhinje? Kakšna trda juha!",
+                    "en": "From the kitchen? What a hard soup!",
+                    "de": "Aus der Küche? Was für eine harte Suppe!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Ecco. È in piazza, su due travi.",
+              "sl": "Hm. Tako. Na trgu je, na dveh tramovih.",
+              "en": "Hm. There. It's on the square, on two beams.",
+              "de": "Hm. So. Er ist auf dem Platz, auf zwei Balken.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "Siamo partiti con il buio. Ma eccoci!",
+              "sl": "Odšli smo še v temi. Ampak tu smo!",
+              "en": "We set off in the dark. But here we are!",
+              "de": "Wir sind im Dunkeln losgefahren. Aber hier sind wir!",
+              "fx": {
+                "cart-stone": 1
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. {learner}, che cosa hanno portato?",
+              "sl": "Hm. {learner}, kaj so pripeljali?",
+              "en": "Hm. {learner}, what have they brought?",
+              "de": "Hm. {learner}, was haben sie gebracht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Hanno portato una pietra bianca.",
+                  "sl": "Pripeljali so bel kamen.",
+                  "en": "They've brought a white stone.",
+                  "de": "Sie haben einen weißen Stein gebracht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. E pesa come tre buoi.",
+                    "sl": "Ja. In težak je kot trije voli.",
+                    "en": "Yes. And it weighs as much as three oxen.",
+                    "de": "Ja. Und er wiegt so viel wie drei Ochsen."
+                  }
+                },
+                {
+                  "it": "Hanno portato una torta nera.",
+                  "sl": "Pripeljali so črno torto.",
+                  "en": "They've brought a black cake.",
+                  "de": "Sie haben eine schwarze Torte gebracht.",
+                  "why": {
+                    "de": "Eine Torte wäre fein, aber aus Kuchen baut man keinen Brunnen. Und schau, wie hell das Ding auf dem Wagen ist.",
+                    "sl": "Torta bi bila dobra, a iz nje ne moreš zgraditi vodnjaka. Pa poglej, kako svetlo je tisto na vozu.",
+                    "en": "A cake would be nice, but you can't build a fountain from it. And see how light that thing on the cart is."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una torta? Allora chiamo subito i bambini!",
+                    "sl": "Torta? Potem takoj pokličem otroke!",
+                    "en": "A cake? Then I'll call the children right away!",
+                    "de": "Eine Torte? Dann rufe ich sofort die Kinder!"
+                  }
+                },
+                {
+                  "it": "Sono portato una pietra bianca.",
+                  "sl": "Pripeljali so bel kamen.",
+                  "en": "They've brought a white stone.",
+                  "de": "Sie haben einen weißen Stein gebracht.",
+                  "grammar": "passato-prossimo",
+                  "why": {
+                    "de": "Portare nimmt etwas mit: Im Passato prossimo steht es mit avere, nicht mit essere.",
+                    "sl": "Portare ima predmet: v passato prossimo gre z avere, ne z essere.",
+                    "en": "Portare carries something: in the passato prossimo it goes with avere, not essere."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sono… portato? Tu? Sul carro?",
+                    "sl": "Sono … portato? Ti? Na vozu?",
+                    "en": "Sono… portato? You? On the cart?",
+                    "de": "Sono… portato? Du? Auf dem Wagen?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Puoi ripetere?",
+                "sl": "Hm? Lahko ponoviš?",
+                "en": "Hm? Can you say that again?",
+                "de": "Hm? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E dove l'hanno presa, secondo te?",
+              "sl": "Pa kje so ga dobili, kaj misliš?",
+              "en": "And where did they get it, do you think?",
+              "de": "Und wo haben sie ihn geholt, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "L'hanno presa dalla cava.",
+                  "sl": "Vzeli so ga iz kamnoloma.",
+                  "en": "They got it from the quarry.",
+                  "de": "Sie haben ihn aus dem Steinbruch geholt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Già, lassù c'è pietra per cento fontane!",
+                    "sl": "Ja, tam gori je kamna za sto vodnjakov!",
+                    "en": "Yes, there's stone up there for a hundred fountains!",
+                    "de": "Ja, da oben gibt es Stein für hundert Brunnen!"
+                  }
+                },
+                {
+                  "it": "L'hanno presa dalla farmacia.",
+                  "sl": "Vzeli so ga iz lekarne.",
+                  "en": "They got it from the chemist's.",
+                  "de": "Sie haben ihn aus der Apotheke geholt.",
+                  "why": {
+                    "de": "In der Apotheke gibt es Medizin. Stein holt man von woanders.",
+                    "sl": "V lekarni imajo zdravila. Kamen dobimo drugje.",
+                    "en": "A chemist's sells medicine. Stone comes from somewhere else."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dalla farmacia? Una pastiglia un po' grossa!",
+                    "sl": "Iz lekarne? Malo velika tableta!",
+                    "en": "From the chemist's? A rather big pill!",
+                    "de": "Aus der Apotheke? Eine etwas große Tablette!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Adesso è qui, su due travi. Domani vedremo.",
+              "sl": "Hm. Zdaj je tukaj, na dveh tramovih. Jutri bomo videli.",
+              "en": "Hm. Now it's here, on two beams. We'll see tomorrow.",
+              "de": "Hm. Jetzt ist er hier, auf zwei Balken. Morgen sehen wir weiter.",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "franco",
+              "face": "happy",
+              "it": "Ecco il carro! Se non l'avessimo caricato bene, sarebbe ancora per strada.",
+              "sl": "Tu je voz! Če ga ne bi dobro naložili, bi še vedno stal na poti.",
+              "en": "Here's the cart! If we hadn't loaded it well, it would still be on the road.",
+              "de": "Da ist der Wagen! Hätten wir ihn nicht gut beladen, wäre er noch unterwegs.",
+              "fx": {
+                "cart-stone": 1
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. {learner}, come lo descriveresti, questo blocco?",
+              "sl": "Hm. {learner}, kako bi {m:opisal|f:opisala} ta blok?",
+              "en": "Hm. {learner}, how would you describe this block?",
+              "de": "Hm. {learner}, wie würdest du diesen Block beschreiben?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Direi che è una pietra bianca.",
+                  "sl": "{m:Rekel|f:Rekla} bi, da je to bel kamen.",
+                  "en": "I'd say it's a white stone.",
+                  "de": "Ich würde sagen, das ist ein weißer Stein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Bianca e fine. L'ho scelta io.",
+                    "sl": "Hm. Bel in fin. Sam sem ga izbral.",
+                    "en": "Hm. White and fine. I chose it myself.",
+                    "de": "Hm. Weiß und fein. Ich habe ihn selbst ausgesucht."
+                  }
+                },
+                {
+                  "it": "Direi che è una pecora nera.",
+                  "sl": "{m:Rekel|f:Rekla} bi, da je to črna ovca.",
+                  "en": "I'd say it's a black sheep.",
+                  "de": "Ich würde sagen, das ist ein schwarzes Schaf.",
+                  "why": {
+                    "de": "Ein Schaf läuft von selbst und braucht keinen Karren. Schau, was da hell und schwer auf den Balken liegen soll.",
+                    "sl": "Ovca hodi sama in ne potrebuje voza. Poglej, kaj naj bi svetlo in težko ležalo na tramovih.",
+                    "en": "A sheep walks by itself and needs no cart. See what's meant to lie on the beams, pale and heavy."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una pecora nera? Hm. Ce n'è sempre una.",
+                    "sl": "Črna ovca? Hm. Ena je vedno.",
+                    "en": "A black sheep? Hm. There's always one.",
+                    "de": "Ein schwarzes Schaf? Hm. Eins gibt es immer."
+                  }
+                },
+                {
+                  "it": "Direbbi che è una pietra bianca.",
+                  "sl": "{m:Rekel|f:Rekla} bi, da je to bel kamen.",
+                  "en": "I'd say it's a white stone.",
+                  "de": "Ich würde sagen, das ist ein weißer Stein.",
+                  "grammar": "condizionale",
+                  "why": {
+                    "de": "Dire ist im Condizionale kurz und hat für «ich» nur eine Endung: -ei, ohne -bb-.",
+                    "sl": "Dire je v pogojniku kratek in ima za »jaz« samo končnico -ei, brez -bb-.",
+                    "en": "In the conditional, dire is short and «I» has just the ending -ei, with no -bb-."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Direbbi? Hm. Non ti seguo.",
+                    "sl": "Direbbi? Hm. Ne razumem te.",
+                    "en": "Direbbi? Hm. I'm not following you.",
+                    "de": "Direbbi? Hm. Das verstehe ich nicht."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Come hai detto?",
+                "sl": "Hm? Kako si {m:rekel|f:rekla}?",
+                "en": "Hm? What did you say?",
+                "de": "Hm? Wie hast du gesagt?"
+              }
+            },
+            {
+              "who": "bruno",
+              "it": "Viene da Aurisina, sul Carso, vicino a Trieste.",
+              "sl": "Prihaja iz Nabrežine, na Krasu, blizu Trsta.",
+              "en": "It comes from Aurisina, on the Karst, near Trieste.",
+              "de": "Er kommt aus Aurisina, auf dem Karst, nahe bei Triest."
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "Lassù si lavora dai tempi dei Romani, che la usarono per Aquileia. Sai che cosa c'è?",
+              "sl": "Tam gori delajo že od časov Rimljanov, ki so ga uporabljali za Oglej. Veš, kaj je tam?",
+              "en": "They've worked up there since Roman times; the Romans used it for Aquileia. Do you know what's there?",
+              "de": "Dort oben arbeitet man schon seit der Römerzeit. Die Römer haben ihn für Aquileia verwendet. Weißt du, was dort ist?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "So che c'è una cava molto antica.",
+                  "sl": "Vem, da je tam zelo star kamnolom.",
+                  "en": "I know there's a very old quarry.",
+                  "de": "Ich weiß, dass dort ein sehr alter Steinbruch ist.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Esatto. E pensa quanta strada ha fatto questo blocco!",
+                    "sl": "Tako je. In pomisli, kako dolgo pot je prepotoval ta blok!",
+                    "en": "Exactly. And think how far this block has come!",
+                    "de": "Genau. Und stell dir vor, wie weit dieser Block gereist ist!"
+                  }
+                },
+                {
+                  "it": "So che c'è una giostra molto antica.",
+                  "sl": "Vem, da je tam zelo star vrtiljak.",
+                  "en": "I know there's a very old merry-go-round.",
+                  "de": "Ich weiß, dass dort ein sehr altes Karussell ist.",
+                  "why": {
+                    "de": "Auf einem Karussell fährt man im Kreis. Von dort oben kommen aber schwere Blöcke.",
+                    "sl": "Na vrtiljaku se voziš v krogu. Od tam zgoraj pa prihajajo težki bloki.",
+                    "en": "You ride round in circles on a merry-go-round. But heavy blocks come from up there."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una giostra romana? Mi piacerebbe vederla!",
+                    "sl": "Rimski vrtiljak? Tega bi si pa vsi ogledali!",
+                    "en": "A Roman merry-go-round? I'd love to see that!",
+                    "de": "Ein römisches Karussell? Das würde ich gern sehen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Ora è qui, su due travi. Prima che la tocchi lo scalpello, lasciamola riposare.",
+              "sl": "Hm. Zdaj je tu, na dveh tramovih. Preden se ga dotakne dleto, naj počiva.",
+              "en": "Hm. Now it's here, on two beams. Before the chisel touches it, let it rest.",
+              "de": "Hm. Jetzt ist er hier, auf zwei Balken. Bevor der Meißel ihn berührt, soll er ruhen.",
+              "done": true
+            }
+          ]
+        }
+      },
+      "fx_stays": true
+    },
+    {
+      "scene": "in-piazza",
+      "words": [
+        "scalpello",
+        "vasca"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Oggi comincio a scolpire. Mi serve un attrezzo.",
+              "sl": "Hm. Danes začnem klesati. Potrebujem orodje.",
+              "en": "Hm. Today I start carving. I need a tool.",
+              "de": "Hm. Heute fange ich an zu meißeln. Ich brauche ein Werkzeug."
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, che cosa mi dai?",
+              "sl": "{learner}, kaj mi daš?",
+              "en": "{learner}, what will you give me?",
+              "de": "{learner}, was gibst du mir?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ecco lo scalpello, signor Bruno.",
+                  "sl": "Tu je dleto, gospod Bruno.",
+                  "en": "Here's the chisel, Mr Bruno.",
+                  "de": "Hier ist der Meißel, Herr Bruno.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Bene. Adesso si comincia.",
+                    "sl": "Hm. Dobro. Zdaj začnemo.",
+                    "en": "Hm. Good. Now we begin.",
+                    "de": "Hm. Gut. Jetzt geht's los."
+                  }
+                },
+                {
+                  "it": "Ecco lo spazzolino, signor Bruno.",
+                  "sl": "Tu je zobna ščetka, gospod Bruno.",
+                  "en": "Here's the toothbrush, Mr Bruno.",
+                  "de": "Hier ist die Zahnbürste, Herr Bruno.",
+                  "why": {
+                    "de": "Mit der Zahnbürste putzt du dir die Zähne. In den harten Stein kommt sie nicht.",
+                    "sl": "Z zobno ščetko si umivaš zobe. V trd kamen z njo ne prideš.",
+                    "en": "You brush your teeth with a toothbrush. It won't get into hard stone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Lo spazzolino? La pietra ha i denti? Hm!",
+                    "sl": "Zobna ščetka? Ima kamen zobe? Hm!",
+                    "en": "The toothbrush? Has the stone got teeth? Hm!",
+                    "de": "Die Zahnbürste? Hat der Stein Zähne? Hm!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "Che cosa c'è nel progetto, qui al centro?",
+              "sl": "Kaj je na načrtu, tukaj na sredini?",
+              "en": "What's on the plan, here in the middle?",
+              "de": "Was ist auf dem Plan, hier in der Mitte?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Al centro c'è una grande vasca.",
+                  "sl": "Na sredini je veliko korito.",
+                  "en": "In the middle there's a big basin.",
+                  "de": "In der Mitte ist ein großes Becken.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Una vasca così? Che lavoro!",
+                    "sl": "Tako korito? Kakšno delo!",
+                    "en": "A basin like that? What work!",
+                    "de": "So ein Becken? Was für eine Arbeit!"
+                  }
+                },
+                {
+                  "it": "Al centro c'è una grande pizza.",
+                  "sl": "Na sredini je velika pica.",
+                  "en": "In the middle there's a big pizza.",
+                  "de": "In der Mitte ist eine große Pizza.",
+                  "why": {
+                    "de": "Eine Pizza kommt aus dem Ofen, nicht aus dem Stein. Such das, worin das Wasser steht.",
+                    "sl": "Pica pride iz peči, ne iz kamna. Išči tisto, v čemer stoji voda.",
+                    "en": "A pizza comes out of an oven, not out of stone. Look for what holds the water."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una pizza di pietra? Un po' dura!",
+                    "sl": "Kamnita pica? Malo trda!",
+                    "en": "A stone pizza? A bit hard!",
+                    "de": "Eine Pizza aus Stein? Ein bisschen hart!"
+                  }
+                },
+                {
+                  "it": "Al centro ci sono una grande vasca.",
+                  "sl": "Na sredini je veliko korito.",
+                  "en": "In the middle there's a big basin.",
+                  "de": "In der Mitte ist ein großes Becken.",
+                  "grammar": "ce-ci-sono",
+                  "why": {
+                    "de": "Es ist nur eines. «Ci sono» steht nur, wenn es mehrere sind.",
+                    "sl": "Je samo eno. »Ci sono« stoji samo, če jih je več.",
+                    "en": "There's only one. «Ci sono» is only for more than one."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Ci sono? Quante sono?",
+                    "sl": "Ci sono? Koliko jih je?",
+                    "en": "Ci sono? How many are there?",
+                    "de": "Ci sono? Wie viele sind es?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non capisco.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I don't understand.",
+                "de": "Wie bitte? Das verstehe ich nicht."
+              }
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Ancora tanto lavoro. Tutta la settimana.",
+              "sl": "Hm. Še veliko dela. Ves teden.",
+              "en": "Hm. Still a lot of work. All week.",
+              "de": "Hm. Noch viel Arbeit. Die ganze Woche."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Ho già segnato la linea sulla pietra. Adesso devo scolpire.",
+              "sl": "Hm. Črto na kamnu sem že označil. Zdaj moram klesati.",
+              "en": "Hm. I've already marked the line on the stone. Now I have to carve.",
+              "de": "Hm. Die Linie auf dem Stein habe ich schon angezeichnet. Jetzt muss ich meißeln."
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Con il martello e basta? Non credo.",
+              "sl": "Samo s kladivom? Ne verjamem.",
+              "en": "With just the hammer? I don't think so.",
+              "de": "Nur mit dem Hammer? Das glaube ich nicht."
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "No. {learner}, che cosa mi hai portato dalla fucina?",
+              "sl": "Ne. {learner}, kaj si mi {m:prinesel|f:prinesla} iz kovačnice?",
+              "en": "No. {learner}, what have you brought me from the smithy?",
+              "de": "Nein. {learner}, was hast du mir aus der Schmiede mitgebracht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Le ho portato lo scalpello.",
+                  "sl": "{m:Prinesel|f:Prinesla} sem vam dleto.",
+                  "en": "I've brought you the chisel.",
+                  "de": "Ich habe Ihnen den Meißel mitgebracht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Quello giusto. Grazie.",
+                    "sl": "Hm. Pravo. Hvala.",
+                    "en": "Hm. The right one. Thanks.",
+                    "de": "Hm. Den richtigen. Danke."
+                  }
+                },
+                {
+                  "it": "Le ho portato lo scolapasta.",
+                  "sl": "{m:Prinesel|f:Prinesla} sem vam cedilo.",
+                  "en": "I've brought you the colander.",
+                  "de": "Ich habe Ihnen das Nudelsieb mitgebracht.",
+                  "why": {
+                    "de": "Mit dem Nudelsieb gießt du Nudeln ab. In Stein schneidet es nicht.",
+                    "sl": "S cedilom odcejaš testenine. Kamna se z njim ne da klesati.",
+                    "en": "A colander is for draining pasta. It can't cut stone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Lo scolapasta? Stasera la pietra al sugo? Hm!",
+                    "sl": "Cedilo? Nocoj kamen v omaki? Hm!",
+                    "en": "The colander? Stone in sauce tonight? Hm!",
+                    "de": "Das Nudelsieb? Heute Abend Stein mit Soße? Hm!"
+                  }
+                },
+                {
+                  "it": "La ho portato lo scalpello.",
+                  "sl": "{m:Prinesel|f:Prinesla} sem vam dleto.",
+                  "en": "I've brought you the chisel.",
+                  "de": "Ich habe Ihnen den Meißel mitgebracht.",
+                  "grammar": "pronomi-indiretti",
+                  "why": {
+                    "de": "Wem du etwas bringst, der braucht das kleine Wort für «Ihnen». «La» heißt «Sie», wie in «ich sehe Sie».",
+                    "sl": "Komur nekaj prineseš, zanj rabiš besedico za »vam«. »La« pomeni »vas«, kot v »vidim vas«.",
+                    "en": "To bring someone something, you need the little word for «to you». «La» means «you» as in «I see you»."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "La…? Hm. Come, scusa?",
+                    "sl": "La …? Hm. Kako, prosim?",
+                    "en": "La…? Hm. Sorry, what?",
+                    "de": "La…? Hm. Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Puoi ripetere?",
+                "sl": "Hm? Lahko ponoviš?",
+                "en": "Hm? Can you say that again?",
+                "de": "Hm? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E questa pietra, che cosa diventerà?",
+              "sl": "In kaj bo iz tega kamna?",
+              "en": "And this stone, what will it become?",
+              "de": "Und was wird aus diesem Stein?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Diventerà una grande vasca.",
+                  "sl": "Iz njega bo veliko korito.",
+                  "en": "It'll become a big basin.",
+                  "de": "Daraus wird ein großes Becken.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Che meraviglia! E ci starà tanta acqua.",
+                    "sl": "Čudovito! In veliko vode bo šlo vanj.",
+                    "en": "Wonderful! And it'll hold a lot of water.",
+                    "de": "Wunderbar! Und da passt viel Wasser hinein."
+                  }
+                },
+                {
+                  "it": "Diventerà una grande statua.",
+                  "sl": "Iz njega bo velik kip.",
+                  "en": "It'll become a big statue.",
+                  "de": "Daraus wird eine große Statue.",
+                  "why": {
+                    "de": "Eine Statue steht nur da. Für den Brunnen brauchst du etwas, worin Wasser stehen kann.",
+                    "sl": "Kip samo stoji. Za vodnjak potrebuješ nekaj, v čemer lahko stoji voda.",
+                    "en": "A statue just stands there. A fountain needs something that holds water."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una statua? Di chi? Del signor Bruno?",
+                    "sl": "Kip? Koga? Gospoda Bruna?",
+                    "en": "A statue? Of whom? Of Mr Bruno?",
+                    "de": "Eine Statue? Von wem? Von Herrn Bruno?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Tutta la settimana con lo scalpello. E c'è ancora tanto lavoro.",
+              "sl": "Hm. Ves teden z dletom. In še veliko dela je.",
+              "en": "Hm. All week with the chisel. And there's still a lot of work.",
+              "de": "Hm. Die ganze Woche mit dem Meißel. Und es gibt noch viel Arbeit."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Non è una pietra facile. Bisogna togliere poco alla volta.",
+              "sl": "Hm. To ni lahek kamen. Treba je odvzemati po malem.",
+              "en": "Hm. It's not an easy stone. You have to take away a little at a time.",
+              "de": "Hm. Das ist kein leichter Stein. Man muss immer nur ein bisschen wegnehmen."
+            },
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "Credo che con la pietra non si possa avere fretta.",
+              "sl": "Mislim, da se pri kamnu ne sme hiteti.",
+              "en": "I believe you can't be in a hurry with stone.",
+              "de": "Ich glaube, bei Stein darf man es nicht eilig haben."
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, come si toglie un po' alla volta, secondo te?",
+              "sl": "{learner}, kako se po tvojem odvzema po malem?",
+              "en": "{learner}, how do you take away a little at a time, do you think?",
+              "de": "{learner}, wie nimmt man deiner Meinung nach immer nur ein bisschen weg?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Scolpendo piano, con lo scalpello.",
+                  "sl": "S počasnim klesanjem, z dletom.",
+                  "en": "By carving slowly, with the chisel.",
+                  "de": "Indem man langsam meißelt, mit dem Meißel.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Così. Colpo dopo colpo.",
+                    "sl": "Hm. Tako. Udarec za udarcem.",
+                    "en": "Hm. That's it. Blow after blow.",
+                    "de": "Hm. So. Schlag um Schlag."
+                  }
+                },
+                {
+                  "it": "Scolpendo piano, con il cucchiaio.",
+                  "sl": "S počasnim klesanjem, z žlico.",
+                  "en": "By carving slowly, with the spoon.",
+                  "de": "Indem man langsam meißelt, mit dem Löffel.",
+                  "why": {
+                    "de": "Mit dem Löffel isst du Suppe. Stein braucht ein hartes, scharfes Werkzeug.",
+                    "sl": "Z žlico ješ juho. Za kamen je potrebno trdo, ostro orodje.",
+                    "en": "A spoon is for eating soup. Stone needs a hard, sharp tool."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il cucchiaio? Fra cent'anni, forse!",
+                    "sl": "Z žlico? Čez sto let morda!",
+                    "en": "With a spoon? In a hundred years, perhaps!",
+                    "de": "Mit dem Löffel? In hundert Jahren vielleicht!"
+                  }
+                },
+                {
+                  "it": "Scolpindo piano, con lo scalpello.",
+                  "sl": "S počasnim klesanjem, z dletom.",
+                  "en": "By carving slowly, with the chisel.",
+                  "de": "Indem man langsam meißelt, mit dem Meißel.",
+                  "grammar": "gerundio",
+                  "why": {
+                    "de": "Bei Verben auf -ire endet das Gerundio nicht auf -indo. Sie haben dieselbe Endung wie die Verben auf -ere.",
+                    "sl": "Pri glagolih na -ire se gerundij ne konča na -indo. Imajo isto končnico kot glagoli na -ere.",
+                    "en": "Verbs in -ire don't make the gerund in -indo. They take the same ending as -ere verbs."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Scolpindo? Hm. Non ti seguo.",
+                    "sl": "Scolpindo? Hm. Ne razumem te.",
+                    "en": "Scolpindo? Hm. I'm not following you.",
+                    "de": "Scolpindo? Hm. Das verstehe ich nicht."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Come hai detto?",
+                "sl": "Hm? Kako si {m:rekel|f:rekla}?",
+                "en": "Hm? What did you say?",
+                "de": "Hm? Wie hast du gesagt?"
+              }
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "E perché si fa tutto da un solo blocco?",
+              "sl": "Zakaj pa vse delajo iz enega samega bloka?",
+              "en": "And why is it all made from one single block?",
+              "de": "Und warum macht man alles aus einem einzigen Block?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Perché la vasca non perda acqua.",
+                  "sl": "Da korito ne bo puščalo vode.",
+                  "en": "So that the basin doesn't leak water.",
+                  "de": "Damit das Becken kein Wasser verliert.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Niente perdite, niente conti da rifare.",
+                    "sl": "Tako je. Nič puščanja, nič novega računanja.",
+                    "en": "Right. No leaks, no sums to do again.",
+                    "de": "Richtig. Keine Lecks, keine neue Rechnerei."
+                  }
+                },
+                {
+                  "it": "Perché la barca non perda acqua.",
+                  "sl": "Da čoln ne bo puščal vode.",
+                  "en": "So that the boat doesn't leak water.",
+                  "de": "Damit das Boot kein Wasser verliert.",
+                  "why": {
+                    "de": "Ein Boot gehört aufs Wasser, nicht auf den Platz. Such das große Steinstück, das hier entsteht.",
+                    "sl": "Čoln spada na vodo, ne na trg. Išči velik kamniti kos, ki tu nastaja.",
+                    "en": "A boat belongs on the water, not on the square. Look for the big stone piece being made here."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La barca? Siamo in piazza, non a Grado!",
+                    "sl": "Čoln? Na trgu smo, ne v Gradežu!",
+                    "en": "The boat? We're on the square, not at Grado!",
+                    "de": "Das Boot? Wir sind auf dem Platz, nicht in Grado!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Una settimana, e sembra ancora una pietra. C'è ancora tanto lavoro.",
+              "sl": "Hm. En teden, pa je še vedno videti kot kamen. Še veliko dela je.",
+              "en": "Hm. A week, and it still looks like a stone. There's still a lot of work.",
+              "de": "Hm. Eine Woche, und es sieht immer noch wie ein Stein aus. Es gibt noch viel Arbeit."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": [
+        "fosso",
+        "scavare"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. La vasca aspetta. Manca l'acqua.",
+              "sl": "Hm. Korito čaka. Manjka voda.",
+              "en": "Hm. The basin is waiting. The water's missing.",
+              "de": "Hm. Das Becken wartet. Das Wasser fehlt."
+            },
+            {
+              "who": "matteo",
+              "face": "happy",
+              "it": "Noi vicini siamo qui, con le pale!",
+              "sl": "Mi, sosedje, smo tu, z lopatami!",
+              "en": "We neighbours are here, with the shovels!",
+              "de": "Wir Nachbarn sind da, mit den Schaufeln!"
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, che cosa fanno i vicini con le pale?",
+              "sl": "{learner}, kaj sosedje počnejo z lopatami?",
+              "en": "{learner}, what do the neighbours do with the shovels?",
+              "de": "{learner}, was machen die Nachbarn mit den Schaufeln?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Con le pale i vicini scavano un fosso.",
+                  "sl": "Z lopatami sosedje kopljejo jarek.",
+                  "en": "With the shovels the neighbours dig a ditch.",
+                  "de": "Mit den Schaufeln graben die Nachbarn einen Graben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Sì. Dalla sorgente fino a qui.",
+                    "sl": "Hm. Ja. Od izvira do sem.",
+                    "en": "Hm. Yes. From the spring to here.",
+                    "de": "Hm. Ja. Von der Quelle bis hierher."
+                  }
+                },
+                {
+                  "it": "Con le pale i vicini lavano un gatto.",
+                  "sl": "Z lopatami sosedje umivajo mačko.",
+                  "en": "With the shovels the neighbours wash a cat.",
+                  "de": "Mit den Schaufeln waschen die Nachbarn eine Katze.",
+                  "why": {
+                    "de": "Eine Schaufel ist nicht zum Waschen da, und eine Katze mag das gar nicht. Das Wasser braucht einen Weg im Boden.",
+                    "sl": "Lopata ni za umivanje, pa še mačka tega sploh nima rada. Voda potrebuje pot po tleh.",
+                    "en": "A shovel isn't for washing, and a cat wouldn't like that at all. The water needs a way through the ground."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un gatto? Scappa prima di bagnarsi!",
+                    "sl": "Mačka? Zbeži, preden se zmoči!",
+                    "en": "A cat? It'll run off before it gets wet!",
+                    "de": "Eine Katze? Die läuft weg, bevor sie nass wird!"
+                  }
+                },
+                {
+                  "it": "Con le pale i vicini scavono un fosso.",
+                  "sl": "Z lopatami sosedje kopljejo jarek.",
+                  "en": "With the shovels the neighbours dig a ditch.",
+                  "de": "Mit den Schaufeln graben die Nachbarn einen Graben.",
+                  "grammar": "presente-regolare",
+                  "why": {
+                    "de": "Scavare endet auf -are. Bei «sie» (Mehrzahl) heißt die Endung dann nicht -ono.",
+                    "sl": "Scavare se konča na -are. Pri »oni« končnica potem ni -ono.",
+                    "en": "Scavare ends in -are, so for «they» the ending isn't -ono."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Scavono? Hm. Come, scusa?",
+                    "sl": "Scavono? Hm. Kako, prosim?",
+                    "en": "Scavono? Hm. Sorry, what?",
+                    "de": "Scavono? Hm. Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Non ho capito.",
+                "sl": "Hm? Nisem razumel.",
+                "en": "Hm? I didn't understand.",
+                "de": "Hm? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "E che cosa porta l'acqua fino alla piazza?",
+              "sl": "Kaj pa pripelje vodo do trga?",
+              "en": "And what brings the water to the square?",
+              "de": "Und was bringt das Wasser bis zum Platz?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Il fosso porta l'acqua.",
+                  "sl": "Jarek pripelje vodo.",
+                  "en": "The ditch brings the water.",
+                  "de": "Der Graben bringt das Wasser.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ecco! Piano piano, tutta in discesa.",
+                    "sl": "Tako je! Počasi, ves čas navzdol.",
+                    "en": "That's it! Slowly, downhill all the way.",
+                    "de": "Genau! Langsam, immer bergab."
+                  }
+                },
+                {
+                  "it": "La bicicletta porta l'acqua.",
+                  "sl": "Kolo pripelje vodo.",
+                  "en": "The bicycle brings the water.",
+                  "de": "Das Fahrrad bringt das Wasser.",
+                  "why": {
+                    "de": "Auf dem Fahrrad bringst du nur einen Eimer mit. Für viel Wasser braucht es einen Weg im Boden.",
+                    "sl": "S kolesom lahko pripelješ samo eno vedro. Za veliko vode je potrebna pot po tleh.",
+                    "en": "A bicycle only carries one bucket. A lot of water needs a way through the ground."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La bicicletta? E chi pedala tutto il giorno?",
+                    "sl": "Kolo? Kdo pa bo ves dan poganjal?",
+                    "en": "The bicycle? And who'll pedal all day?",
+                    "de": "Das Fahrrad? Und wer tritt den ganzen Tag in die Pedale?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Ecco. L'acqua corre nel fosso, fino alla piazza.",
+              "sl": "Hm. Tako. Voda teče po jarku, vse do trga.",
+              "en": "Hm. There. The water runs along the ditch, all the way to the square.",
+              "de": "Hm. So. Das Wasser läuft im Graben, bis zum Platz.",
+              "fx": {
+                "fountain": 1
+              },
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. La sorgente è lassù, sopra il paese. L'acqua deve venire fino a qui.",
+              "sl": "Hm. Izvir je tam gori, nad vasjo. Voda mora priti do sem.",
+              "en": "Hm. The spring is up there, above the village. The water has to come all the way here.",
+              "de": "Hm. Die Quelle ist dort oben, über dem Dorf. Das Wasser muss bis hierher kommen."
+            },
+            {
+              "who": "elena",
+              "face": "happy",
+              "it": "Ieri abbiamo contato: trecento passi!",
+              "sl": "Včeraj smo prešteli: tristo korakov!",
+              "en": "Yesterday we counted: three hundred paces!",
+              "de": "Gestern haben wir gezählt: dreihundert Schritte!"
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, i vicini sono già al lavoro. Che cosa stanno facendo?",
+              "sl": "{learner}, sosedje že delajo. Kaj počnejo?",
+              "en": "{learner}, the neighbours are already at work. What are they doing?",
+              "de": "{learner}, die Nachbarn sind schon bei der Arbeit. Was machen sie gerade?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Stanno scavando un fosso.",
+                  "sl": "Kopljejo jarek.",
+                  "en": "They're digging a ditch.",
+                  "de": "Sie graben gerade einen Graben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Dritto, fino alla sorgente.",
+                    "sl": "Ja. Naravnost, vse do izvira.",
+                    "en": "Yes. Straight, all the way to the spring.",
+                    "de": "Ja. Gerade, bis zur Quelle."
+                  }
+                },
+                {
+                  "it": "Stanno lavando un ponte.",
+                  "sl": "Umivajo most.",
+                  "en": "They're washing a bridge.",
+                  "de": "Sie waschen gerade eine Brücke.",
+                  "why": {
+                    "de": "Hier auf dem Platz ist keine Brücke. Und mit Schaufeln wäscht man nichts.",
+                    "sl": "Tu na trgu ni mostu. Z lopatami pa se tudi nič ne umiva.",
+                    "en": "There's no bridge here on the square. And you don't wash anything with shovels."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un ponte? Con il sapone, magari?",
+                    "sl": "Most? Morda z milom?",
+                    "en": "A bridge? With soap, perhaps?",
+                    "de": "Eine Brücke? Vielleicht mit Seife?"
+                  }
+                },
+                {
+                  "it": "Stanno scavare un fosso.",
+                  "sl": "Kopljejo jarek.",
+                  "en": "They're digging a ditch.",
+                  "de": "Sie graben gerade einen Graben.",
+                  "grammar": "stare-gerundio",
+                  "why": {
+                    "de": "Nach «stare» steht nicht die Grundform, sondern das Gerundio.",
+                    "sl": "Za »stare« ne stoji nedoločnik, ampak gerundij.",
+                    "en": "After «stare» you don't use the infinitive, you use the gerund."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Stanno… scavare? Hm. Come?",
+                    "sl": "Stanno … scavare? Hm. Kako?",
+                    "en": "Stanno… scavare? Hm. What?",
+                    "de": "Stanno… scavare? Hm. Wie?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Puoi ripetere?",
+                "sl": "Hm? Lahko ponoviš?",
+                "en": "Hm? Can you say that again?",
+                "de": "Hm? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Da dove verrà tutta quest'acqua, secondo te?",
+              "sl": "Od kod bo prišla vsa ta voda, kaj misliš?",
+              "en": "Where will all this water come from, do you think?",
+              "de": "Woher wird all das Wasser kommen, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Verrà dalla sorgente.",
+                  "sl": "Pritekla bo iz izvira.",
+                  "en": "It'll come from the spring.",
+                  "de": "Es wird von der Quelle kommen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, e sarà buonissima!",
+                    "sl": "Ja, in odlična bo!",
+                    "en": "Yes, and it'll be delicious!",
+                    "de": "Ja, und es wird köstlich sein!"
+                  }
+                },
+                {
+                  "it": "Verrà dal forno.",
+                  "sl": "Pritekla bo iz peči.",
+                  "en": "It'll come from the oven.",
+                  "de": "Es wird aus dem Ofen kommen.",
+                  "why": {
+                    "de": "Im Ofen wird Brot gebacken, da kommt kein Wasser heraus. Überleg, wo oben der Graben anfängt.",
+                    "sl": "V peči se peče kruh, voda ne priteče iz nje. Pomisli, kje se zgoraj začne jarek.",
+                    "en": "You bake bread in an oven; no water comes out of it. Think where the ditch begins, up above."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dal forno? Allora avremo l'acqua calda!",
+                    "sl": "Iz peči? Potem bomo imeli toplo vodo!",
+                    "en": "From the oven? Then we'll have hot water!",
+                    "de": "Aus dem Ofen? Dann haben wir warmes Wasser!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Ecco. L'acqua è arrivata: corre nel fosso, fino alla piazza.",
+              "sl": "Hm. Tako. Voda je prišla: teče po jarku, vse do trga.",
+              "en": "Hm. There. The water has arrived: it runs along the ditch, all the way to the square.",
+              "de": "Hm. So. Das Wasser ist da: Es läuft im Graben bis zum Platz.",
+              "fx": {
+                "fountain": 1
+              },
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. La vasca è a buon punto, ma senz'acqua non serve a niente.",
+              "sl": "Hm. Korito je že daleč, ampak brez vode ni za nič.",
+              "en": "Hm. The basin is coming along, but without water it's no use.",
+              "de": "Hm. Das Becken ist schon weit, aber ohne Wasser nützt es nichts."
+            },
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "Se il terreno scendesse sempre un po', l'acqua verrebbe da sola. Bastano tre dita ogni dieci passi.",
+              "sl": "Če bi teren ves čas malo padal, bi voda kar pritekla. Dovolj so trije prsti na deset korakov.",
+              "en": "If the ground sloped down a little all the way, the water would come by itself. Three fingers every ten paces is enough.",
+              "de": "Wenn das Gelände immer ein wenig abfiele, käme das Wasser von selbst. Drei Finger auf zehn Schritte reichen."
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, le pale sono pronte. Da che cosa si parte?",
+              "sl": "{learner}, lopate so pripravljene. S čim začnemo?",
+              "en": "{learner}, the shovels are ready. What do we start with?",
+              "de": "{learner}, die Schaufeln sind bereit. Womit fangen wir an?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Cominciamo a scavare il fosso.",
+                  "sl": "Začnimo kopati jarek.",
+                  "en": "Let's start digging the ditch.",
+                  "de": "Fangen wir an, den Graben auszuheben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Sì. Prima che venga il caldo.",
+                    "sl": "Hm. Ja. Preden pride vročina.",
+                    "en": "Hm. Yes. Before the heat comes.",
+                    "de": "Hm. Ja. Bevor die Hitze kommt."
+                  }
+                },
+                {
+                  "it": "Cominciamo a stirare il vestito.",
+                  "sl": "Začnimo likati obleko.",
+                  "en": "Let's start ironing the dress.",
+                  "de": "Fangen wir an, das Kleid zu bügeln.",
+                  "why": {
+                    "de": "Bügeln kannst du für das Fest. Das Wasser braucht jetzt einen Weg im Boden.",
+                    "sl": "Likaš lahko za praznik. Voda zdaj potrebuje pot po tleh.",
+                    "en": "You can iron for the fête. Right now the water needs a way through the ground."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il vestito? Per la festa c'è ancora tempo!",
+                    "sl": "Obleka? Za praznik je še čas!",
+                    "en": "The dress? There's still time for the fête!",
+                    "de": "Das Kleid? Bis zum Fest ist noch Zeit!"
+                  }
+                },
+                {
+                  "it": "Cominciamo di scavare il fosso.",
+                  "sl": "Začnimo kopati jarek.",
+                  "en": "Let's start digging the ditch.",
+                  "de": "Fangen wir an, den Graben auszuheben.",
+                  "grammar": "infinito-preposizioni",
+                  "why": {
+                    "de": "Cominciare verbindet sich nicht mit «di», es braucht ein anderes kleines Wort vor dem Infinitiv.",
+                    "sl": "Cominciare se ne veže z »di«, pred nedoločnikom potrebuje drugo besedico.",
+                    "en": "Cominciare doesn't go with «di»: it needs another little word before the infinitive."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Cominciamo… di? Hm. Come?",
+                    "sl": "Cominciamo … di? Hm. Kako?",
+                    "en": "Cominciamo… di? Hm. What?",
+                    "de": "Cominciamo… di? Hm. Wie?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Come hai detto?",
+                "sl": "Hm? Kako si {m:rekel|f:rekla}?",
+                "en": "Hm? What did you say?",
+                "de": "Hm? Wie hast du gesagt?"
+              }
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "E perché deve scendere sempre, secondo te?",
+              "sl": "Zakaj pa mora ves čas padati, kaj misliš?",
+              "en": "And why does it have to go downhill all the way, do you think?",
+              "de": "Und warum muss es immer bergab gehen, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Perché l'acqua non sale da sola.",
+                  "sl": "Ker voda sama ne teče navzgor.",
+                  "en": "Because water doesn't go uphill by itself.",
+                  "de": "Weil Wasser nicht von selbst bergauf fließt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Esatto. I numeri dicono lo stesso.",
+                    "sl": "Tako je. Številke pravijo isto.",
+                    "en": "Exactly. The numbers say the same.",
+                    "de": "Genau. Die Zahlen sagen dasselbe."
+                  }
+                },
+                {
+                  "it": "Perché l'acqua ha paura del buio.",
+                  "sl": "Ker se voda boji teme.",
+                  "en": "Because water's afraid of the dark.",
+                  "de": "Weil das Wasser Angst vor der Dunkelheit hat.",
+                  "why": {
+                    "de": "Wasser hat keine Angst, das wäre nur in einer Geschichte so. Denk daran, wie es von selbst läuft.",
+                    "sl": "Voda se ne boji, to bi bilo samo v pravljici. Pomisli, kako teče sama od sebe.",
+                    "en": "Water isn't afraid of anything, except in a story. Think about which way it runs by itself."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Del buio? Sarebbe una bella storia!",
+                    "sl": "Teme? To bi bila lepa pravljica!",
+                    "en": "Of the dark? That would make a nice story!",
+                    "de": "Vor der Dunkelheit? Das wäre eine schöne Geschichte!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Ecco. L'acqua corre lungo il fosso. Bravi, vicini.",
+              "sl": "Hm. Tako. Voda teče po jarku. Bravo, sosedje.",
+              "en": "Hm. There. The water's running along the ditch. Well done, neighbours.",
+              "de": "Hm. So. Das Wasser läuft den Graben entlang. Gut gemacht, Nachbarn.",
+              "fx": {
+                "fountain": 1
+              },
+              "done": true
+            }
+          ]
+        }
+      },
+      "fx_stays": true
+    },
+    {
+      "scene": "nella-fucina",
+      "words": [
+        "ferro",
+        "martello"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Il fuoco è pronto. Oggi faccio le cannelle.",
+              "sl": "Hm. Ogenj je pripravljen. Danes delam cevi.",
+              "en": "Hm. The fire's ready. Today I'm making the spouts.",
+              "de": "Hm. Das Feuer ist bereit. Heute mache ich die Röhren.",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "Sono di legno, {learner}?",
+              "sl": "So lesene, {learner}?",
+              "en": "Are they made of wood, {learner}?",
+              "de": "Sind sie aus Holz, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "No, sono di ferro.",
+                  "sl": "Ne, železne so.",
+                  "en": "No, they're made of iron.",
+                  "de": "Nein, sie sind aus Eisen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Di ferro, certo. Così durano cent'anni.",
+                    "sl": "Seveda, železne. Tako zdržijo sto let.",
+                    "en": "Iron, of course. That way they last a hundred years.",
+                    "de": "Aus Eisen, klar. So halten sie hundert Jahre."
+                  }
+                },
+                {
+                  "it": "No, sono di burro.",
+                  "sl": "Ne, iz masla so.",
+                  "en": "No, they're made of butter.",
+                  "de": "Nein, sie sind aus Butter.",
+                  "why": {
+                    "de": "Butter schmilzt neben dem Feuer sofort. In der Schmiede arbeitet man mit etwas Hartem.",
+                    "sl": "Maslo se ob ognju takoj stopi. V kovačnici delajo z nečim trdim.",
+                    "en": "Butter melts by the fire at once. In a smithy they work with something hard."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di burro? Con questo fuoco? Ah ah!",
+                    "sl": "Iz masla? Ob tem ognju? Ha ha!",
+                    "en": "Butter? By this fire? Ha ha!",
+                    "de": "Aus Butter? Bei diesem Feuer? Haha!"
+                  }
+                },
+                {
+                  "it": "No, hanno di ferro.",
+                  "sl": "Ne, železne so.",
+                  "en": "No, they're made of iron.",
+                  "de": "Nein, sie sind aus Eisen.",
+                  "grammar": "essere-avere",
+                  "why": {
+                    "de": "Wenn du sagst, woraus etwas ist, brauchst du «sein» (essere), nicht «haben» (avere).",
+                    "sl": "Ko poveš, iz česa je nekaj, potrebuješ »biti« (essere), ne »imeti« (avere).",
+                    "en": "To say what something is made of, you need «to be» (essere), not «to have» (avere)."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Hanno? Che cosa hanno?",
+                    "sl": "Imajo? Kaj imajo?",
+                    "en": "They have? Have what?",
+                    "de": "Sie haben? Was haben sie?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non capisco.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I don't understand.",
+                "de": "Wie bitte? Das verstehe ich nicht."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. {learner}, il ferro è caldo. Con che cosa lo batto?",
+              "sl": "Hm. {learner}, železo je vroče. S čim naj ga tolčem?",
+              "en": "Hm. {learner}, the iron is hot. What do I hit it with?",
+              "de": "Hm. {learner}, das Eisen ist heiß. Womit schlage ich es?"
+            },
+            {
+              "choices": [
+                {
+                  "tap": "hammer",
+                  "it": "Con il martello.",
+                  "sl": "S kladivom.",
+                  "en": "With the hammer.",
+                  "de": "Mit dem Hammer.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Tac, tac, tac. Ecco le scintille!",
+                    "sl": "Ja. Tak, tak, tak. Tu so iskre!",
+                    "en": "Yes. Clang, clang, clang. There go the sparks!",
+                    "de": "Ja. Kling, kling, kling. Da sind die Funken!",
+                    "fx": {
+                      "sparks": 1
+                    }
+                  }
+                },
+                {
+                  "tap": "bucket",
+                  "it": "Con il secchio.",
+                  "sl": "Z vedrom.",
+                  "en": "With the bucket.",
+                  "de": "Mit dem Eimer.",
+                  "why": {
+                    "de": "Im Eimer trägst du Wasser. Zum Schlagen ist er zu leicht.",
+                    "sl": "V vedru nosiš vodo. Za udarjanje je prelahko.",
+                    "en": "You carry water in a bucket. It's too light for hitting."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il secchio? Bel rumore, e niente cannelle!",
+                    "sl": "Z vedrom? Lep hrup, cevi pa nič!",
+                    "en": "With the bucket? A fine noise, and no spouts!",
+                    "de": "Mit dem Eimer? Schöner Lärm, und keine Röhren!"
+                  }
+                },
+                {
+                  "tap": "horseshoe",
+                  "it": "Con il ferro di cavallo.",
+                  "sl": "S podkvijo.",
+                  "en": "With the horseshoe.",
+                  "de": "Mit dem Hufeisen.",
+                  "why": {
+                    "de": "Das Hufeisen gehört dem Pferd an den Fuß. Damit schlägt man nicht.",
+                    "sl": "Podkev spada konju na kopito. Z njo se ne tolče.",
+                    "en": "A horseshoe belongs on a horse's foot. You don't hit things with it."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il ferro di cavallo? Il cavallo lo vuole indietro!",
+                    "sl": "Podkev? Konj jo hoče nazaj!",
+                    "en": "The horseshoe? The horse wants it back!",
+                    "de": "Das Hufeisen? Das Pferd will es zurück!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Una è fatta. Ancora tre, e sono quattro.",
+              "sl": "Hm. Ena je narejena. Še tri, pa so štiri.",
+              "en": "Hm. One's done. Three more, and that's four.",
+              "de": "Hm. Eine ist fertig. Noch drei, dann sind es vier."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Ho acceso la forgia stamattina. Adesso è caldissima.",
+              "sl": "Hm. Zjutraj sem zakuril kovaško ognjišče. Zdaj je zelo vroče.",
+              "en": "Hm. I lit the forge this morning. Now it's very hot.",
+              "de": "Hm. Ich habe die Esse heute Morgen angezündet. Jetzt ist sie sehr heiß.",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "happy",
+              "it": "Ieri le cannelle erano solo un disegno!",
+              "sl": "Včeraj so bile cevi samo risba!",
+              "en": "Yesterday the spouts were only a drawing!",
+              "de": "Gestern waren die Röhren nur eine Zeichnung!"
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, di che cosa le faccio?",
+              "sl": "{learner}, iz česa naj jih naredim?",
+              "en": "{learner}, what shall I make them from?",
+              "de": "{learner}, woraus soll ich sie machen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Le faccia di ferro, signor Bruno.",
+                  "sl": "Naredite jih iz železa, gospod Bruno.",
+                  "en": "Make them of iron, Mr Bruno.",
+                  "de": "Machen Sie sie aus Eisen, Herr Bruno.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Sì. È duro, e dura.",
+                    "sl": "Hm. Ja. Trdo je in traja.",
+                    "en": "Hm. Yes. It's hard, and it lasts.",
+                    "de": "Hm. Ja. Es ist hart, und es hält."
+                  }
+                },
+                {
+                  "it": "Le faccia di cioccolato, signor Bruno.",
+                  "sl": "Naredite jih iz čokolade, gospod Bruno.",
+                  "en": "Make them of chocolate, Mr Bruno.",
+                  "de": "Machen Sie sie aus Schokolade, Herr Bruno.",
+                  "why": {
+                    "de": "Schokolade schmilzt am Feuer, und im Wasser ist sie bald weg. Für Röhren brauchst du etwas Hartes.",
+                    "sl": "Čokolada se ob ognju stopi, v vodi pa kmalu izgine. Za cevi potrebuješ nekaj trdega.",
+                    "en": "Chocolate melts by the fire and soon disappears in water. Spouts need something hard."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di cioccolato? I bambini le finiscono in un giorno!",
+                    "sl": "Iz čokolade? Otroci jih pojedo v enem dnevu!",
+                    "en": "Chocolate? The children would finish them in a day!",
+                    "de": "Aus Schokolade? Die Kinder essen sie an einem Tag auf!"
+                  }
+                },
+                {
+                  "it": "Li faccia di ferro, signor Bruno.",
+                  "sl": "Naredite jih iz železa, gospod Bruno.",
+                  "en": "Make them of iron, Mr Bruno.",
+                  "de": "Machen Sie sie aus Eisen, Herr Bruno.",
+                  "grammar": "pronomi-diretti",
+                  "why": {
+                    "de": "Cannelle ist weiblich und Mehrzahl. «Li» steht nur für männliche Wörter.",
+                    "sl": "Cannelle je ženskega spola in v množini. »Li« stoji samo za moške besede.",
+                    "en": "Cannelle is feminine plural. «Li» stands only for masculine words."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Li? Chi sono, questi «li»? Hm.",
+                    "sl": "Li? Kdo pa so ti »li«? Hm.",
+                    "en": "Li? Who are these «li»? Hm.",
+                    "de": "Li? Wer sind denn diese «li»? Hm."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Puoi ripetere?",
+                "sl": "Hm? Lahko ponoviš?",
+                "en": "Hm? Can you say that again?",
+                "de": "Hm? Kannst du das wiederholen?"
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. Ecco il ferro, tutto rosso. Che cosa mi passi, adesso?",
+              "sl": "Hm. Tu je železo, čisto rdeče. Kaj mi zdaj podaš?",
+              "en": "Hm. Here's the iron, all red. What will you pass me now?",
+              "de": "Hm. Hier ist das Eisen, ganz rot. Was gibst du mir jetzt?"
+            },
+            {
+              "choices": [
+                {
+                  "tap": "hammer",
+                  "it": "Le passo il martello.",
+                  "sl": "Podam vam kladivo.",
+                  "en": "I'll pass you the hammer.",
+                  "de": "Ich gebe Ihnen den Hammer.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Grazie. Tac, tac! Guarda le scintille!",
+                    "sl": "Hvala. Tak, tak! Poglej iskre!",
+                    "en": "Thanks. Clang, clang! Look at the sparks!",
+                    "de": "Danke. Kling, kling! Schau, die Funken!",
+                    "fx": {
+                      "sparks": 1
+                    }
+                  }
+                },
+                {
+                  "tap": "bucket",
+                  "it": "Le passo il secchio.",
+                  "sl": "Podam vam vedro.",
+                  "en": "I'll pass you the bucket.",
+                  "de": "Ich gebe Ihnen den Eimer.",
+                  "why": {
+                    "de": "Der Eimer kommt erst danach, zum Abkühlen. Jetzt muss das heiße Eisen geschlagen werden.",
+                    "sl": "Vedro pride šele pozneje, za hlajenje. Zdaj je treba tolči po vročem železu.",
+                    "en": "The bucket comes later, for cooling. Right now the hot iron needs hitting."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il secchio? Aspetta, non ho ancora battuto niente!",
+                    "sl": "Vedro? Počakaj, saj še nisem nič potolkel!",
+                    "en": "The bucket? Wait, I haven't hit anything yet!",
+                    "de": "Den Eimer? Warte, ich habe noch gar nichts geschlagen!"
+                  }
+                },
+                {
+                  "tap": "tongs",
+                  "it": "Le passo le tenaglie.",
+                  "sl": "Podam vam klešče.",
+                  "en": "I'll pass you the tongs.",
+                  "de": "Ich gebe Ihnen die Zange.",
+                  "why": {
+                    "de": "Mit der Zange wird das Eisen schon festgehalten. Zum Schlagen brauchst du etwas anderes.",
+                    "sl": "S kleščami se železo že drži. Za tolčenje potrebuješ nekaj drugega.",
+                    "en": "The tongs are already holding the iron. For hitting it you need something else."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le tenaglie? Ce le ho già in mano!",
+                    "sl": "Klešče? Saj jih že držim!",
+                    "en": "The tongs? I've already got them in my hand!",
+                    "de": "Die Zange? Die habe ich doch schon in der Hand!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. La prima è fatta. Stasera saranno tutte e quattro.",
+              "sl": "Hm. Prva je narejena. Nocoj bodo vse štiri.",
+              "en": "Hm. The first one's done. By tonight all four will be.",
+              "de": "Hm. Die erste ist fertig. Heute Abend sind es alle vier."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Il ferro si lavora finché è rosso. Se si raffredda, si ricomincia.",
+              "sl": "Hm. Železo se obdeluje, dokler je rdeče. Če se ohladi, se začne znova.",
+              "en": "Hm. You work iron while it's red. If it cools, you start again.",
+              "de": "Hm. Eisen bearbeitet man, solange es rot ist. Wird es kalt, fängt man von vorn an.",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Non sarebbe più semplice usare il legno? Che cosa ne pensi, {learner}?",
+              "sl": "Ali ne bi bilo preprosteje uporabiti les? Kaj misliš, {learner}?",
+              "en": "Wouldn't it be simpler to use wood? What do you think, {learner}?",
+              "de": "Wäre es nicht einfacher, Holz zu nehmen? Was meinst du, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Si usa il ferro perché dura di più.",
+                  "sl": "Uporablja se železo, ker dlje zdrži.",
+                  "en": "You use iron because it lasts longer.",
+                  "de": "Man nimmt Eisen, weil es länger hält.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Il legno, con l'acqua, marcirebbe presto.",
+                    "sl": "Tako je. Les bi v vodi hitro strohnel.",
+                    "en": "Right. Wood would soon rot in water.",
+                    "de": "Richtig. Holz würde im Wasser bald faulen."
+                  }
+                },
+                {
+                  "it": "Si usa il formaggio perché dura di più.",
+                  "sl": "Uporablja se sir, ker dlje zdrži.",
+                  "en": "You use cheese because it lasts longer.",
+                  "de": "Man nimmt Käse, weil er länger hält.",
+                  "why": {
+                    "de": "Käse isst man. Eine Brunnenröhre muss aus etwas sein, das aus der Schmiede kommt.",
+                    "sl": "Sir se je. Cev vodnjaka mora biti iz nečesa, kar pride iz kovačnice.",
+                    "en": "You eat cheese. A fountain's spout must be made of something from the smithy."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il formaggio? Dura fino a pranzo, al massimo!",
+                    "sl": "Sir? Zdrži kvečjemu do kosila!",
+                    "en": "Cheese? It lasts till lunch at the most!",
+                    "de": "Käse? Der hält höchstens bis zum Mittagessen!"
+                  }
+                },
+                {
+                  "it": "Si usano il ferro perché dura di più.",
+                  "sl": "Uporablja se železo, ker dlje zdrži.",
+                  "en": "You use iron because it lasts longer.",
+                  "de": "Man nimmt Eisen, weil es länger hält.",
+                  "grammar": "si-impersonale",
+                  "why": {
+                    "de": "Il ferro ist nur eines. Mit «si» richtet sich das Verb danach und steht dann nicht in der Mehrzahl.",
+                    "sl": "Il ferro je samo eno. Pri »si« se glagol ravna po njem in zato ni v množini.",
+                    "en": "Il ferro is singular. With «si» the verb follows it, so it isn't plural."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Si usano? Quanti sono, allora?",
+                    "sl": "Si usano? Koliko pa jih je?",
+                    "en": "Si usano? How many are there, then?",
+                    "de": "Si usano? Wie viele sind es denn?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. È rosso. Va battuto adesso, prima che si raffreddi. Con che cosa?",
+              "sl": "Hm. Rdeče je. Treba ga je tolči zdaj, preden se ohladi. S čim?",
+              "en": "Hm. It's red. It has to be struck now, before it cools. With what?",
+              "de": "Hm. Es ist rot. Es muss jetzt geschlagen werden, bevor es abkühlt. Womit?"
+            },
+            {
+              "choices": [
+                {
+                  "tap": "hammer",
+                  "it": "Con il martello, finché è caldo.",
+                  "sl": "S kladivom, dokler je vroče.",
+                  "en": "With the hammer, while it's hot.",
+                  "de": "Mit dem Hammer, solange es heiß ist.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Ecco. Le scintille volano, e il ferro ascolta.",
+                    "sl": "Hm. Tako. Iskre letijo in železo posluša.",
+                    "en": "Hm. There. The sparks fly, and the iron listens.",
+                    "de": "Hm. So. Die Funken fliegen, und das Eisen hört zu.",
+                    "fx": {
+                      "sparks": 1
+                    }
+                  }
+                },
+                {
+                  "tap": "bucket",
+                  "it": "Con il secchio, finché è caldo.",
+                  "sl": "Z vedrom, dokler je vroče.",
+                  "en": "With the bucket, while it's hot.",
+                  "de": "Mit dem Eimer, solange es heiß ist.",
+                  "why": {
+                    "de": "Der Eimer ist für danach, zum Abkühlen. Geschlagen wird mit etwas anderem.",
+                    "sl": "Vedro je za pozneje, za hlajenje. Tolče se z nečim drugim.",
+                    "en": "The bucket is for afterwards, for cooling. You strike with something else."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il secchio? Prima si batte, poi si bagna!",
+                    "sl": "Z vedrom? Najprej se tolče, potem se zmoči!",
+                    "en": "With the bucket? First you strike, then you wet it!",
+                    "de": "Mit dem Eimer? Erst schlägt man, dann macht man es nass!"
+                  }
+                },
+                {
+                  "tap": "tongs",
+                  "it": "Con le tenaglie, finché è caldo.",
+                  "sl": "S kleščami, dokler je vroče.",
+                  "en": "With the tongs, while it's hot.",
+                  "de": "Mit der Zange, solange es heiß ist.",
+                  "why": {
+                    "de": "Mit der Zange hält man das Eisen fest. Zum Schlagen ist sie nicht da.",
+                    "sl": "S kleščami se železo drži. Za tolčenje niso.",
+                    "en": "Tongs hold the iron. They're not for striking."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le tenaglie lo tengono fermo. Ma chi lo batte?",
+                    "sl": "Klešče ga držijo pri miru. Kdo pa ga tolče?",
+                    "en": "The tongs hold it still. But who's hitting it?",
+                    "de": "Die Zange hält es fest. Aber wer schlägt darauf?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Quando saranno finite tutte e quattro, le monterò sulla vasca.",
+              "sl": "Hm. Ko bodo vse štiri gotove, jih bom namestil na korito.",
+              "en": "Hm. When all four are done, I'll fit them to the basin.",
+              "de": "Hm. Wenn alle vier fertig sind, setze ich sie an das Becken."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": [
+        "scorrere",
+        "fresco"
+      ],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Le cannelle sono a posto. Apro l'acqua.",
+              "sl": "Hm. Cevi so na mestu. Odprem vodo.",
+              "en": "Hm. The spouts are in place. I'm opening the water.",
+              "de": "Hm. Die Röhren sind an ihrem Platz. Ich drehe das Wasser auf."
+            },
+            {
+              "who": "matteo",
+              "face": "surprised",
+              "it": "Oh! Ecco l'acqua! I bambini ridono!",
+              "sl": "O! Tu je voda! Otroci se smejijo!",
+              "en": "Oh! Here's the water! The children are laughing!",
+              "de": "Oh! Da ist das Wasser! Die Kinder lachen!",
+              "fx": {
+                "fountain": 1
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, che cosa fa l'acqua?",
+              "sl": "{learner}, kaj dela voda?",
+              "en": "{learner}, what's the water doing?",
+              "de": "{learner}, was macht das Wasser?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "L'acqua scorre nella vasca.",
+                  "sl": "Voda teče v korito.",
+                  "en": "The water flows into the basin.",
+                  "de": "Das Wasser fließt ins Becken.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Sì. Proprio come nel progetto.",
+                    "sl": "Hm. Ja. Prav kot na načrtu.",
+                    "en": "Hm. Yes. Just as on the plan.",
+                    "de": "Hm. Ja. Genau wie auf dem Plan."
+                  }
+                },
+                {
+                  "it": "L'acqua dorme nella vasca.",
+                  "sl": "Voda spi v koritu.",
+                  "en": "The water's sleeping in the basin.",
+                  "de": "Das Wasser schläft im Becken.",
+                  "why": {
+                    "de": "Das Wasser schläft nicht: Es bewegt sich und macht Geräusche. Such das Wort dafür.",
+                    "sl": "Voda ne spi: premika se in dela šum. Išči besedo za to.",
+                    "en": "Water doesn't sleep: it moves and makes a sound. Find the word for that."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dorme? Con tutto questo rumore?",
+                    "sl": "Spi? Ob vsem tem hrupu?",
+                    "en": "Sleeping? With all this noise?",
+                    "de": "Es schläft? Bei diesem Lärm?"
+                  }
+                },
+                {
+                  "it": "L'acqua scorre in la vasca.",
+                  "sl": "Voda teče v korito.",
+                  "en": "The water flows into the basin.",
+                  "de": "Das Wasser fließt ins Becken.",
+                  "grammar": "preposizioni-articolate",
+                  "why": {
+                    "de": "«In» und «la» verschmelzen zu einem einzigen Wort.",
+                    "sl": "»In« in »la« se zlijeta v eno samo besedo.",
+                    "en": "«In» and «la» melt together into one word."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "In la…? Hm. Come, scusa?",
+                    "sl": "In la …? Hm. Kako, prosim?",
+                    "en": "In la…? Hm. Sorry, what?",
+                    "de": "In la…? Hm. Wie bitte?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Hm? Non ho capito.",
+                "sl": "Hm? Nisem razumel.",
+                "en": "Hm? I didn't understand.",
+                "de": "Hm? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Metti la mano sotto la cannella. Com'è l'acqua?",
+              "sl": "Daj roko pod cev. Kakšna je voda?",
+              "en": "Put your hand under the spout. What's the water like?",
+              "de": "Halt die Hand unter die Röhre. Wie ist das Wasser?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "L'acqua è fresca!",
+                  "sl": "Voda je hladna!",
+                  "en": "The water's cool!",
+                  "de": "Das Wasser ist kühl!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, che bella! Viene dalla sorgente.",
+                    "sl": "Ja, kako lepo! Prihaja iz izvira.",
+                    "en": "Yes, how lovely! It comes from the spring.",
+                    "de": "Ja, wie schön! Es kommt von der Quelle."
+                  }
+                },
+                {
+                  "it": "L'acqua è calda!",
+                  "sl": "Voda je topla!",
+                  "en": "The water's warm!",
+                  "de": "Das Wasser ist warm!",
+                  "why": {
+                    "de": "Warm ist das Wasser im Topf. Dieses kommt aus einer Quelle im Berg.",
+                    "sl": "Topla je voda v loncu. Ta prihaja iz izvira v hribu.",
+                    "en": "The water in a pot is warm. This comes from a spring in the hills."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Calda? La sorgente non ha la stufa!",
+                    "sl": "Topla? Izvir nima peči!",
+                    "en": "Warm? The spring hasn't got a stove!",
+                    "de": "Warm? Die Quelle hat doch keinen Ofen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bruno",
+              "face": "proud",
+              "it": "Hm. Funziona. La nostra fontana.",
+              "sl": "Hm. Deluje. Naš vodnjak.",
+              "en": "Hm. It works. Our fountain.",
+              "de": "Hm. Er funktioniert. Unser Brunnen."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Ho finito. Le cannelle sono al loro posto. Adesso vediamo.",
+              "sl": "Hm. Končal sem. Cevi so na svojem mestu. Zdaj bomo videli.",
+              "en": "Hm. I've finished. The spouts are in their places. Now we'll see.",
+              "de": "Hm. Ich bin fertig. Die Röhren sind an ihrem Platz. Jetzt sehen wir mal."
+            },
+            {
+              "who": "elena",
+              "face": "surprised",
+              "it": "Ecco! L'acqua è uscita! E sentite come ridono i bambini!",
+              "sl": "Tu je! Voda je pritekla! In poslušajte, kako se otroci smejijo!",
+              "en": "There! The water's come out! And hear how the children are laughing!",
+              "de": "Da! Das Wasser ist herausgekommen! Und hört nur, wie die Kinder lachen!",
+              "fx": {
+                "fountain": 1
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, quando hai capito che funzionava?",
+              "sl": "{learner}, kdaj si {m:razumel|f:razumela}, da deluje?",
+              "en": "{learner}, when did you realise it was working?",
+              "de": "{learner}, wann hast du gemerkt, dass er funktioniert?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Quando l'acqua ha cominciato a scorrere.",
+                  "sl": "Ko je voda začela teči.",
+                  "en": "When the water started to flow.",
+                  "de": "Als das Wasser zu fließen begann.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Anch'io. E ho respirato.",
+                    "sl": "Hm. Tudi jaz. In sem si oddahnil.",
+                    "en": "Hm. Me too. And I breathed out.",
+                    "de": "Hm. Ich auch. Und ich habe aufgeatmet."
+                  }
+                },
+                {
+                  "it": "Quando l'acqua ha cominciato a cantare.",
+                  "sl": "Ko je voda začela peti.",
+                  "en": "When the water started to sing.",
+                  "de": "Als das Wasser zu singen begann.",
+                  "why": {
+                    "de": "Singen tun die Leute beim Fest. Wasser tut etwas anderes: Es läuft von oben nach unten.",
+                    "sl": "Pojejo ljudje na prazniku. Voda dela nekaj drugega: gre od zgoraj navzdol.",
+                    "en": "People sing at a fête. Water does something else: it goes from high to low."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "A cantare? Io sento solo i bambini!",
+                    "sl": "Peti? Jaz slišim samo otroke!",
+                    "en": "To sing? I can only hear the children!",
+                    "de": "Zu singen? Ich höre nur die Kinder!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "E l'hai assaggiata? Com'era?",
+              "sl": "Si jo {m:poskusil|f:poskusila}? Kakšna se ti je zdela?",
+              "en": "And did you taste it? What was it like?",
+              "de": "Und hast du es probiert? Wie war es?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Era fresca e buona.",
+                  "sl": "Bila je hladna in dobra.",
+                  "en": "It was cool and good.",
+                  "de": "Es war kühl und gut.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! Viene dritta dalla sorgente.",
+                    "sl": "Ja! Prihaja naravnost iz izvira.",
+                    "en": "Yes! It comes straight from the spring.",
+                    "de": "Ja! Es kommt direkt von der Quelle."
+                  }
+                },
+                {
+                  "it": "Era salata e buona.",
+                  "sl": "Bila je slana in dobra.",
+                  "en": "It was salty and good.",
+                  "de": "Es war salzig und gut.",
+                  "why": {
+                    "de": "Salzig ist das Meer. Dieses Wasser kommt aus einer Quelle im Berg.",
+                    "sl": "Slano je morje. Ta voda prihaja iz izvira v hribu.",
+                    "en": "The sea is salty. This water comes from a spring in the hills."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Salata? Mica siamo al mare!",
+                    "sl": "Slana? Saj nismo na morju!",
+                    "en": "Salty? We're not at the seaside!",
+                    "de": "Salzig? Wir sind doch nicht am Meer!"
+                  }
+                },
+                {
+                  "it": "Erava fresca e buona.",
+                  "sl": "Bila je hladna in dobra.",
+                  "en": "It was cool and good.",
+                  "de": "Es war kühl und gut.",
+                  "grammar": "imperfetto",
+                  "why": {
+                    "de": "Essere ist im Imperfetto unregelmäßig und hat kein -av-.",
+                    "sl": "Essere je v imperfektu nepravilen in nima -av-.",
+                    "en": "Essere is irregular in the imperfetto, with no -av-."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Erava? Questa non la conosco.",
+                    "sl": "Erava? Tega pa ne poznam.",
+                    "en": "Erava? I don't know that one.",
+                    "de": "Erava? Das kenne ich nicht."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "proud",
+              "it": "Hm. La nostra fontana. Ne valeva la pena.",
+              "sl": "Hm. Naš vodnjak. Splačalo se je.",
+              "en": "Hm. Our fountain. It was worth it.",
+              "de": "Hm. Unser Brunnen. Es hat sich gelohnt."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bruno",
+              "it": "Hm. Se non ho sbagliato i conti, tra un attimo si sentirà.",
+              "sl": "Hm. Če se nisem zmotil, se bo čez trenutek slišalo.",
+              "en": "Hm. If I haven't got the sums wrong, you'll hear it in a moment.",
+              "de": "Hm. Wenn ich mich nicht verrechnet habe, hört man es gleich."
+            },
+            {
+              "who": "franco",
+              "face": "surprised",
+              "it": "Eccola! Esce da tutte e quattro! I bambini ridono come se avessero vinto alla festa!",
+              "sl": "Tu je! Teče iz vseh štirih! Otroci se smejijo, kot da bi zmagali na prazniku!",
+              "en": "Here it is! It's coming out of all four! The children are laughing as if they'd won at the fête!",
+              "de": "Da ist es! Es kommt aus allen vier! Die Kinder lachen, als hätten sie beim Fest gewonnen!",
+              "fx": {
+                "fountain": 1
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "{learner}, che cosa senti?",
+              "sl": "{learner}, kaj slišiš?",
+              "en": "{learner}, what do you hear?",
+              "de": "{learner}, was hörst du?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sento l'acqua che scorre.",
+                  "sl": "Slišim vodo, ki teče.",
+                  "en": "I can hear the water flowing.",
+                  "de": "Ich höre das Wasser fließen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hm. Anch'io. E non si ferma più.",
+                    "sl": "Hm. Tudi jaz. In nič več se ne ustavi.",
+                    "en": "Hm. Me too. And it won't stop any more.",
+                    "de": "Hm. Ich auch. Und es hört nicht mehr auf."
+                  }
+                },
+                {
+                  "it": "Sento l'acqua che abbaia.",
+                  "sl": "Slišim vodo, ki laja.",
+                  "en": "I can hear the water barking.",
+                  "de": "Ich höre das Wasser bellen.",
+                  "why": {
+                    "de": "Bellen tut ein Hund. Wasser macht etwas anderes, wenn es durch die Röhre läuft.",
+                    "sl": "Laja pes. Voda dela nekaj drugega, ko gre skozi cev.",
+                    "en": "Dogs bark. Water does something else as it goes through the spout."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Che abbaia? Allora bisogna darle un osso!",
+                    "sl": "Ki laja? Potem ji je treba dati kost!",
+                    "en": "Barking? Then we'd better give it a bone!",
+                    "de": "Bellen? Dann müssen wir ihm einen Knochen geben!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "Perché non ne bevi un sorso? E allora, che cosa diciamo?",
+              "sl": "Zakaj ne spiješ požirka? No, kaj torej rečemo?",
+              "en": "Why don't you have a sip? So, what do we say?",
+              "de": "Warum trinkst du nicht einen Schluck? Und, was sagen wir?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ce l'abbiamo fatta: è fresca!",
+                  "sl": "Uspelo nam je: hladna je!",
+                  "en": "We did it: it's cool!",
+                  "de": "Wir haben es geschafft: Es ist kühl!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, tutti insieme! E adesso, un altro sorso.",
+                    "sl": "Ja, vsi skupaj! Zdaj pa še en požirek.",
+                    "en": "Yes, all together! And now, another sip.",
+                    "de": "Ja, alle zusammen! Und jetzt noch einen Schluck."
+                  }
+                },
+                {
+                  "it": "Ce l'abbiamo fatta: è gialla!",
+                  "sl": "Uspelo nam je: rumena je!",
+                  "en": "We did it: it's yellow!",
+                  "de": "Wir haben es geschafft: Es ist gelb!",
+                  "why": {
+                    "de": "Gelb ist die Sonne, das Wasser nicht. Denk daran, was du an einem heißen Tag im Mund spürst.",
+                    "sl": "Rumeno je sonce, voda ne. Pomisli, kaj čutiš v ustih v vročem dnevu.",
+                    "en": "The sun is yellow, the water isn't. Think what you feel in your mouth on a hot day."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Gialla? Sarà il sole che ci batte sopra!",
+                    "sl": "Rumena? To bo sonce, ki sije nanjo!",
+                    "en": "Yellow? It must be the sun shining on it!",
+                    "de": "Gelb? Das ist wohl die Sonne, die darauf scheint!"
+                  }
+                },
+                {
+                  "it": "Ce l'abbiamo fatto: è fresca!",
+                  "sl": "Uspelo nam je: hladna je!",
+                  "en": "We did it: it's cool!",
+                  "de": "Wir haben es geschafft: Es ist kühl!",
+                  "grammar": "verbi-pronominali",
+                  "why": {
+                    "de": "Bei «farcela» steckt ein weibliches «la» drin. Darum passt das Partizip dazu und endet nicht auf -o.",
+                    "sl": "V »farcela« je žensko »la«. Zato se deležnik ujema z njim in se ne konča na -o.",
+                    "en": "«Farcela» hides a feminine «la», so the participle matches it and doesn't end in -o."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Fatto? Forse lo diresti in un altro modo.",
+                    "sl": "Fatto? Morda bi to {m:rekel|f:rekla} drugače.",
+                    "en": "Fatto? Perhaps you'd say that another way.",
+                    "de": "Fatto? Vielleicht würdest du das anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come, scusa? Ripeti, per favore.",
+                "sl": "Kako, prosim? Ponovi, prosim.",
+                "en": "Sorry? Say it again, please.",
+                "de": "Wie bitte? Sag es bitte noch einmal."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "proud",
+              "it": "Hm. Qui la gente si incontrerà. Ne valeva la pena.",
+              "sl": "Hm. Tu se bodo ljudje srečevali. Splačalo se je.",
+              "en": "Hm. People will meet here. It was worth it.",
+              "de": "Hm. Hier werden sich die Leute treffen. Es hat sich gelohnt."
+            }
+          ]
+        }
+      },
+      "fx_stays": true
+    }
+  ]
+}

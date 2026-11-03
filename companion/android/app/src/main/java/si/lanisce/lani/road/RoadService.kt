@@ -353,7 +353,8 @@ class RoadService : MediaLibraryService() {
     /** The items under [parent] ([RoadMenu.children]): where to get ready first, when the phone has nothing yet. */
     private fun children(parent: String): List<MediaItem>? {
         library = store.readLibrary() ?: RoadLibrary()
-        return RoadMenu.children(parent, ready = library.items.isNotEmpty())?.map(::node)
+        val on = RoadMix.available(library, today())
+        return RoadMenu.children(parent, ready = library.items.isNotEmpty(), has = { it in on })?.map(::node)
     }
 
     /** A session's media id, or an item's queued before: what a controller asked to play. */
@@ -413,7 +414,7 @@ class RoadService : MediaLibraryService() {
      */
     private fun buttons(): List<CommandButton> {
         val item = current() ?: return emptyList()
-        val toggles = RoadMenu.actions(playing).map { to ->
+        val toggles = RoadMenu.actions(playing, has = { RoadMix.has(it, library, today()) }).map { to ->
             val back = playing == to
             CommandButton.Builder(CommandButton.ICON_UNDEFINED)
                 .setCustomIconResId(if (back) R.drawable.ic_road_mix else if (to == QUIZ) R.drawable.ic_road_quiz else R.drawable.ic_road_easy)

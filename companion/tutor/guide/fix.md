@@ -126,4 +126,4 @@ Both cards are Jan's own data: no note for the developer.
 - **Keep ids.** Reviews, packs and scenes refer to them.
 - **Curated content: override and note, never edit it from the session.**
 - **A mistake that was the item's fault never counts against Jan.**
-- **Linguistic correctness first.** Accept only what is right; if unsure an answer is standard Slovene, say so and don't accept it.
+- **Linguistic correctness first.** Accept only what is right; if unsure an answer is standard in the language, say so and don't accept it. A dictionary outside the app can be reached for Slovene only (fran.si): in another language, what the packs, the grammar book and the lexicon don't settle stays unsettled: don't count it against the learner either, and say a native speaker should check it (`native_check`).

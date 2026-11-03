@@ -1,0 +1,724 @@
+{
+  "schema": "lani.drill/v0",
+  "id": "uganke",
+  "kind": "riddle",
+  "language": "it",
+  "emoji": "🕵️",
+  "title": {"it": "Indovinelli", "en": "Riddles", "de": "Rätsel"},
+  "teller": "bepi",
+  "about": {"en": "Nonno Bepi describes a thing, an animal, a person or a place of the village in three or four short clues. Guess aloud, then hear the answer and the clues again with their meaning. Every answer is a word of the packs, or someone of the village.", "de": "Nonno Bepi beschreibt ein Ding, ein Tier, einen Menschen oder einen Ort des Dorfes in drei oder vier kurzen Hinweisen. Rate laut, dann hörst du die Antwort und die Hinweise noch einmal mit ihrer Bedeutung. Jede Antwort ist ein Wort der Pakete oder jemand aus dem Dorf."},
+  "riddles": [
+    {
+      "id": "tavolo",
+      "level": "A1",
+      "word": "casa-e-cucina/tavolo",
+      "clues": [
+        {"it": "Sono di legno.", "en": "I'm made of wood.", "de": "Ich bin aus Holz."},
+        {"it": "Ho quattro gambe.", "en": "I have four legs.", "de": "Ich habe vier Beine."},
+        {"it": "Su di me ci sono i piatti.", "en": "There are plates on me.", "de": "Auf mir stehen Teller."},
+        {"it": "La famiglia mangia qui.", "en": "The family eats here.", "de": "Die Familie isst hier."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il tavolo!", "en": "The table!", "de": "Der Tisch!"}
+    },
+    {
+      "id": "pane",
+      "level": "A1",
+      "word": "cibo/pane",
+      "clues": [
+        {"it": "Sono fatto di farina e acqua.", "en": "I'm made of flour and water.", "de": "Ich bin aus Mehl und Wasser."},
+        {"it": "Nonna Rosa mi fa in casa.", "en": "Nonna Rosa makes me at home.", "de": "Nonna Rosa macht mich zu Hause."},
+        {"it": "Mi mangi con il formaggio.", "en": "You eat me with cheese.", "de": "Du isst mich mit Käse."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il pane!", "en": "Bread!", "de": "Brot!"}
+    },
+    {
+      "id": "latte",
+      "level": "A1",
+      "word": "cibo/latte",
+      "clues": [
+        {"it": "Sono bianco.", "en": "I'm white.", "de": "Ich bin weiß."},
+        {"it": "Vengo dalla mucca.", "en": "I come from the cow.", "de": "Ich komme von der Kuh."},
+        {"it": "Il gatto mi beve volentieri.", "en": "The cat likes drinking me.", "de": "Die Katze trinkt mich gern."},
+        {"it": "Mi bevi a colazione.", "en": "You drink me at breakfast.", "de": "Du trinkst mich zum Frühstück."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il latte!", "en": "Milk!", "de": "Milch!"}
+    },
+    {
+      "id": "gatto",
+      "level": "A1",
+      "word": "famiglia/gatto",
+      "clues": [
+        {"it": "Ho quattro zampe e una lunga coda.", "en": "I have four paws and a long tail.", "de": "Ich habe vier Pfoten und einen langen Schwanz."},
+        {"it": "Dico miao.", "en": "I say miaow.", "de": "Ich sage miau."},
+        {"it": "Prendo i topi.", "en": "I catch mice.", "de": "Ich fange Mäuse."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il gatto!", "en": "The cat!", "de": "Die Katze!"}
+    },
+    {
+      "id": "cane",
+      "level": "A1",
+      "word": "famiglia/cane",
+      "clues": [
+        {"it": "Ho quattro zampe.", "en": "I have four paws.", "de": "Ich habe vier Pfoten."},
+        {"it": "Abbaio quando arriva qualcuno.", "en": "I bark when someone comes.", "de": "Ich belle, wenn jemand kommt."},
+        {"it": "Corro con i bambini.", "en": "I run with the children.", "de": "Ich laufe mit den Kindern."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il cane!", "en": "The dog!", "de": "Der Hund!"}
+    },
+    {
+      "id": "uovo",
+      "level": "A1",
+      "word": "cibo/uovo",
+      "clues": [
+        {"it": "La gallina mi fa.", "en": "The hen makes me.", "de": "Das Huhn legt mich."},
+        {"it": "Sono bianco fuori.", "en": "I'm white on the outside.", "de": "Außen bin ich weiß."},
+        {"it": "Sono giallo dentro.", "en": "I'm yellow on the inside.", "de": "Innen bin ich gelb."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'uovo!", "en": "The egg!", "de": "Das Ei!"}
+    },
+    {
+      "id": "mela",
+      "level": "A1",
+      "word": "cibo/mela",
+      "clues": [
+        {"it": "Sono rotonda.", "en": "I'm round.", "de": "Ich bin rund."},
+        {"it": "Sono rossa o verde.", "en": "I'm red or green.", "de": "Ich bin rot oder grün."},
+        {"it": "Cresco su un albero.", "en": "I grow on a tree.", "de": "Ich wachse auf einem Baum."},
+        {"it": "Giulia mi mangia a merenda.", "en": "Giulia eats me as a snack.", "de": "Giulia isst mich zwischendurch."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La mela!", "en": "The apple!", "de": "Der Apfel!"}
+    },
+    {
+      "id": "polenta",
+      "level": "A1",
+      "word": "cibo/polenta",
+      "clues": [
+        {"it": "Sono gialla.", "en": "I'm yellow.", "de": "Ich bin gelb."},
+        {"it": "Sono fatta di farina di mais.", "en": "I'm made of cornmeal.", "de": "Ich bin aus Maismehl."},
+        {"it": "Nonna Rosa mi gira nella pentola.", "en": "Nonna Rosa stirs me in the pot.", "de": "Nonna Rosa rührt mich im Topf um."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La polenta!", "en": "Polenta!", "de": "Polenta!"}
+    },
+    {
+      "id": "frico",
+      "level": "A1",
+      "word": "cibo/frico",
+      "clues": [
+        {"it": "Sono di formaggio e patate.", "en": "I'm made of cheese and potatoes.", "de": "Ich bin aus Käse und Kartoffeln."},
+        {"it": "Sono un piatto del Friuli.", "en": "I'm a dish from Friuli.", "de": "Ich bin ein Gericht aus Friaul."},
+        {"it": "Sono caldo e buono.", "en": "I'm hot and good.", "de": "Ich bin heiß und lecker."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il frico!", "en": "Frico!", "de": "Frico!"}
+    },
+    {
+      "id": "gelato",
+      "level": "A1",
+      "word": "cibo/gelato",
+      "clues": [
+        {"it": "Sono freddo e dolce.", "en": "I'm cold and sweet.", "de": "Ich bin kalt und süß."},
+        {"it": "Ho tanti gusti.", "en": "I come in many flavours.", "de": "Ich habe viele Sorten."},
+        {"it": "In estate tutti mi vogliono.", "en": "In summer everyone wants me.", "de": "Im Sommer wollen mich alle."},
+        {"it": "Al sole divento acqua.", "en": "In the sun I turn to water.", "de": "In der Sonne werde ich zu Wasser."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il gelato!", "en": "Ice cream!", "de": "Eis!"}
+    },
+    {
+      "id": "letto",
+      "level": "A1",
+      "word": "casa-e-cucina/letto",
+      "clues": [
+        {"it": "Sono in camera.", "en": "I'm in the bedroom.", "de": "Ich bin im Schlafzimmer."},
+        {"it": "Ho un cuscino.", "en": "I have a pillow.", "de": "Ich habe ein Kissen."},
+        {"it": "Di notte dormi su di me.", "en": "At night you sleep on me.", "de": "Nachts schläfst du auf mir."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il letto!", "en": "The bed!", "de": "Das Bett!"}
+    },
+    {
+      "id": "mano",
+      "level": "A1",
+      "word": "il-corpo/mano",
+      "clues": [
+        {"it": "Ho cinque dita.", "en": "I have five fingers.", "de": "Ich habe fünf Finger."},
+        {"it": "Sto in fondo al braccio.", "en": "I'm at the end of the arm.", "de": "Ich bin am Ende des Arms."},
+        {"it": "Con me scrivi e mangi.", "en": "You write and eat with me.", "de": "Mit mir schreibst und isst du."},
+        {"it": "Mi lavi prima di pranzo.", "en": "You wash me before lunch.", "de": "Du wäschst mich vor dem Mittagessen."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La mano!", "en": "The hand!", "de": "Die Hand!"}
+    },
+    {
+      "id": "naso",
+      "level": "A1",
+      "word": "il-corpo/naso",
+      "clues": [
+        {"it": "Sono in mezzo alla faccia.", "en": "I'm in the middle of the face.", "de": "Ich bin mitten im Gesicht."},
+        {"it": "Sento il profumo del pane.", "en": "I smell the scent of bread.", "de": "Ich rieche den Duft von Brot."},
+        {"it": "Con il raffreddore lavoro male.", "en": "With a cold I work badly.", "de": "Bei Schnupfen arbeite ich schlecht."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il naso!", "en": "The nose!", "de": "Die Nase!"}
+    },
+    {
+      "id": "scuola",
+      "level": "A1",
+      "word": "in-paese/scuola",
+      "clues": [
+        {"it": "Maestra Elena lavora qui.", "en": "Maestra Elena works here.", "de": "Maestra Elena arbeitet hier."},
+        {"it": "La mattina vengono i bambini.", "en": "In the morning the children come.", "de": "Morgens kommen die Kinder."},
+        {"it": "Qui leggi e scrivi.", "en": "Here you read and write.", "de": "Hier liest und schreibst du."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La scuola!", "en": "The school!", "de": "Die Schule!"}
+    },
+    {
+      "id": "chiesa",
+      "level": "A1",
+      "word": "in-paese/chiesa",
+      "clues": [
+        {"it": "Sono in piazza.", "en": "I'm in the square.", "de": "Ich stehe auf dem Platz."},
+        {"it": "Ho un campanile.", "en": "I have a bell tower.", "de": "Ich habe einen Glockenturm."},
+        {"it": "La domenica la gente viene qui.", "en": "On Sundays people come here.", "de": "Sonntags kommen die Leute hierher."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La chiesa!", "en": "The church!", "de": "Die Kirche!"}
+    },
+    {
+      "id": "ponte",
+      "level": "A1",
+      "word": "in-paese/ponte",
+      "clues": [
+        {"it": "Sono sopra il fiume.", "en": "I'm over the river.", "de": "Ich bin über dem Fluss."},
+        {"it": "Sono di pietra.", "en": "I'm made of stone.", "de": "Ich bin aus Stein."},
+        {"it": "Con me passi sull'altra riva.", "en": "With me you cross to the other bank.", "de": "Mit mir kommst du ans andere Ufer."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il ponte!", "en": "The bridge!", "de": "Die Brücke!"}
+    },
+    {
+      "id": "ape",
+      "level": "A1",
+      "word": "dalle-api/ape",
+      "clues": [
+        {"it": "Sono piccola.", "en": "I'm small.", "de": "Ich bin klein."},
+        {"it": "Volo di fiore in fiore.", "en": "I fly from flower to flower.", "de": "Ich fliege von Blume zu Blume."},
+        {"it": "Faccio il miele.", "en": "I make honey.", "de": "Ich mache Honig."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'ape!", "en": "The bee!", "de": "Die Biene!"}
+    },
+    {
+      "id": "miele",
+      "level": "A1",
+      "word": "dalle-api/miele",
+      "clues": [
+        {"it": "Sono giallo e dolce.", "en": "I'm yellow and sweet.", "de": "Ich bin gelb und süß."},
+        {"it": "Le api mi fanno.", "en": "The bees make me.", "de": "Die Bienen machen mich."},
+        {"it": "Aldo mi vende al mercato.", "en": "Aldo sells me at the market.", "de": "Aldo verkauft mich auf dem Markt."},
+        {"it": "Sono buono sul pane.", "en": "I'm good on bread.", "de": "Auf Brot schmecke ich gut."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il miele!", "en": "Honey!", "de": "Honig!"}
+    },
+    {
+      "id": "rana",
+      "level": "A1",
+      "word": "allo-stagno/rana",
+      "clues": [
+        {"it": "Sono verde.", "en": "I'm green.", "de": "Ich bin grün."},
+        {"it": "Abito nello stagno.", "en": "I live in the pond.", "de": "Ich wohne im Teich."},
+        {"it": "Salto e dico cra cra.", "en": "I jump and say croak croak.", "de": "Ich springe und sage quak quak."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La rana!", "en": "The frog!", "de": "Der Frosch!"}
+    },
+    {
+      "id": "farfalla",
+      "level": "A1",
+      "word": "animali-del-bosco/farfalla",
+      "clues": [
+        {"it": "Ho le ali colorate.", "en": "I have colourful wings.", "de": "Ich habe bunte Flügel."},
+        {"it": "Volo sui fiori.", "en": "I fly over the flowers.", "de": "Ich fliege über den Blumen."},
+        {"it": "Non faccio rumore.", "en": "I make no noise.", "de": "Ich mache keinen Lärm."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La farfalla!", "en": "The butterfly!", "de": "Der Schmetterling!"}
+    },
+    {
+      "id": "scoiattolo",
+      "level": "A1",
+      "word": "animali-del-bosco/scoiattolo",
+      "clues": [
+        {"it": "Sono piccolo e veloce.", "en": "I'm small and quick.", "de": "Ich bin klein und schnell."},
+        {"it": "Ho una grande coda.", "en": "I have a big tail.", "de": "Ich habe einen großen Schwanz."},
+        {"it": "Abito sugli alberi.", "en": "I live in the trees.", "de": "Ich wohne auf den Bäumen."},
+        {"it": "Mangio le nocciole.", "en": "I eat hazelnuts.", "de": "Ich fresse Haselnüsse."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Lo scoiattolo!", "en": "The squirrel!", "de": "Das Eichhörnchen!"}
+    },
+    {
+      "id": "gufo",
+      "level": "A1",
+      "word": "animali-del-bosco/gufo",
+      "clues": [
+        {"it": "Sono un uccello.", "en": "I'm a bird.", "de": "Ich bin ein Vogel."},
+        {"it": "Ho gli occhi grandi.", "en": "I have big eyes.", "de": "Ich habe große Augen."},
+        {"it": "Di giorno dormo.", "en": "During the day I sleep.", "de": "Tagsüber schlafe ich."},
+        {"it": "Di notte volo nel bosco.", "en": "At night I fly in the wood.", "de": "Nachts fliege ich im Wald."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il gufo!", "en": "The owl!", "de": "Die Eule!"}
+    },
+    {
+      "id": "riccio",
+      "level": "A1",
+      "word": "animali-del-bosco/riccio",
+      "clues": [
+        {"it": "Sono piccolo.", "en": "I'm small.", "de": "Ich bin klein."},
+        {"it": "Ho tante spine.", "en": "I have lots of spines.", "de": "Ich habe viele Stacheln."},
+        {"it": "Dormo tutto l'inverno.", "en": "I sleep all winter.", "de": "Ich schlafe den ganzen Winter."},
+        {"it": "Quando ho paura, divento una palla.", "en": "When I'm scared, I turn into a ball.", "de": "Wenn ich Angst habe, werde ich zu einer Kugel."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il riccio!", "en": "The hedgehog!", "de": "Der Igel!"}
+    },
+    {
+      "id": "cavallo",
+      "level": "A1",
+      "word": "nel-campo/cavallo",
+      "clues": [
+        {"it": "Ho quattro zampe e corro veloce.", "en": "I have four legs and run fast.", "de": "Ich habe vier Beine und laufe schnell."},
+        {"it": "Mangio il fieno.", "en": "I eat hay.", "de": "Ich fresse Heu."},
+        {"it": "Fabbro Bruno mi fa i ferri.", "en": "Fabbro Bruno makes my shoes.", "de": "Fabbro Bruno macht mir die Hufeisen."},
+        {"it": "Lorenzo mi vuole bene.", "en": "Lorenzo loves me.", "de": "Lorenzo hat mich lieb."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il cavallo!", "en": "The horse!", "de": "Das Pferd!"}
+    },
+    {
+      "id": "spaventapasseri",
+      "level": "A1",
+      "word": "nel-campo/spaventapasseri",
+      "clues": [
+        {"it": "Sto nel campo.", "en": "I stand in the field.", "de": "Ich stehe auf dem Feld."},
+        {"it": "Ho un cappello e una giacca vecchia.", "en": "I have a hat and an old jacket.", "de": "Ich habe einen Hut und eine alte Jacke."},
+        {"it": "Non mi muovo mai.", "en": "I never move.", "de": "Ich bewege mich nie."},
+        {"it": "I corvi hanno paura di me.", "en": "Crows are afraid of me.", "de": "Die Krähen haben Angst vor mir."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Lo spaventapasseri!", "en": "The scarecrow!", "de": "Die Vogelscheuche!"}
+    },
+    {
+      "id": "mulino",
+      "level": "A1",
+      "word": "al-ruscello/mulino",
+      "clues": [
+        {"it": "Sono vicino all'acqua.", "en": "I'm near the water.", "de": "Ich bin nah am Wasser."},
+        {"it": "Ho una grande ruota.", "en": "I have a big wheel.", "de": "Ich habe ein großes Rad."},
+        {"it": "Dentro di me il grano diventa farina.", "en": "Inside me, grain becomes flour.", "de": "In mir wird Korn zu Mehl."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il mulino!", "en": "The mill!", "de": "Die Mühle!"}
+    },
+    {
+      "id": "martello",
+      "level": "A1",
+      "word": "nella-fucina/martello",
+      "clues": [
+        {"it": "Sono pesante.", "en": "I'm heavy.", "de": "Ich bin schwer."},
+        {"it": "Batto il ferro.", "en": "I hit the iron.", "de": "Ich schlage auf das Eisen."},
+        {"it": "Fabbro Bruno mi usa ogni giorno.", "en": "Fabbro Bruno uses me every day.", "de": "Fabbro Bruno benutzt mich jeden Tag."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il martello!", "en": "The hammer!", "de": "Der Hammer!"}
+    },
+    {
+      "id": "chiave",
+      "level": "A1",
+      "word": "l-orologio/chiave",
+      "clues": [
+        {"it": "Sono piccola e di ferro.", "en": "I'm small and made of iron.", "de": "Ich bin klein und aus Eisen."},
+        {"it": "Apro la porta.", "en": "I open the door.", "de": "Ich öffne die Tür."},
+        {"it": "Se mi perdi, resti fuori.", "en": "If you lose me, you stay outside.", "de": "Wenn du mich verlierst, bleibst du draußen."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La chiave!", "en": "The key!", "de": "Der Schlüssel!"}
+    },
+    {
+      "id": "orologio",
+      "level": "A1",
+      "word": "in-cucina/orologio",
+      "clues": [
+        {"it": "Ho due lancette.", "en": "I have two hands.", "de": "Ich habe zwei Zeiger."},
+        {"it": "Faccio tic tac.", "en": "I go tick-tock.", "de": "Ich mache ticktack."},
+        {"it": "Ti dico che ore sono.", "en": "I tell you what time it is.", "de": "Ich sage dir, wie spät es ist."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'orologio!", "en": "The clock!", "de": "Die Uhr!"}
+    },
+    {
+      "id": "luna",
+      "level": "A1",
+      "word": "al-fuoco/luna",
+      "clues": [
+        {"it": "Di notte sono nel cielo.", "en": "At night I'm in the sky.", "de": "Nachts bin ich am Himmel."},
+        {"it": "A volte sono rotonda.", "en": "Sometimes I'm round.", "de": "Manchmal bin ich rund."},
+        {"it": "A volte sono sottile.", "en": "Sometimes I'm thin.", "de": "Manchmal bin ich schmal."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La luna!", "en": "The moon!", "de": "Der Mond!"}
+    },
+    {
+      "id": "fuoco",
+      "level": "A1",
+      "word": "al-fuoco/fuoco",
+      "clues": [
+        {"it": "Sono caldo.", "en": "I'm hot.", "de": "Ich bin heiß."},
+        {"it": "Sono rosso e giallo.", "en": "I'm red and yellow.", "de": "Ich bin rot und gelb."},
+        {"it": "Mangio la legna.", "en": "I eat firewood.", "de": "Ich fresse Holz."},
+        {"it": "La sera i bambini cantano vicino a me.", "en": "In the evening the children sing near me.", "de": "Abends singen die Kinder neben mir."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il fuoco!", "en": "Fire!", "de": "Das Feuer!"}
+    },
+    {
+      "id": "albero",
+      "level": "A1",
+      "word": "nel-bosco/albero",
+      "clues": [
+        {"it": "Sono alto.", "en": "I'm tall.", "de": "Ich bin hoch."},
+        {"it": "Ho i rami e le foglie.", "en": "I have branches and leaves.", "de": "Ich habe Äste und Blätter."},
+        {"it": "Gli uccelli cantano su di me.", "en": "Birds sing on me.", "de": "Die Vögel singen auf mir."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'albero!", "en": "The tree!", "de": "Der Baum!"}
+    },
+    {
+      "id": "fungo",
+      "level": "A1",
+      "word": "nel-bosco/fungo",
+      "clues": [
+        {"it": "Cresco nel bosco.", "en": "I grow in the wood.", "de": "Ich wachse im Wald."},
+        {"it": "Ho un cappello ma non ho la testa.", "en": "I have a hat but no head.", "de": "Ich habe einen Hut, aber keinen Kopf."},
+        {"it": "Aldo mi cerca in autunno.", "en": "Aldo looks for me in autumn.", "de": "Aldo sucht mich im Herbst."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il fungo!", "en": "The mushroom!", "de": "Der Pilz!"}
+    },
+    {
+      "id": "lavagna",
+      "level": "A1",
+      "word": "a-scuola/lavagna",
+      "clues": [
+        {"it": "Sono a scuola.", "en": "I'm at school.", "de": "Ich bin in der Schule."},
+        {"it": "Sono grande e nera.", "en": "I'm big and black.", "de": "Ich bin groß und schwarz."},
+        {"it": "La maestra scrive su di me con il gesso.", "en": "The teacher writes on me with chalk.", "de": "Die Lehrerin schreibt mit Kreide auf mich."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La lavagna!", "en": "The blackboard!", "de": "Die Tafel!"}
+    },
+    {
+      "id": "matita",
+      "level": "A1",
+      "word": "a-scuola/matita",
+      "clues": [
+        {"it": "Sono sottile e di legno.", "en": "I'm thin and made of wood.", "de": "Ich bin dünn und aus Holz."},
+        {"it": "Sto nell'astuccio.", "en": "I'm in the pencil case.", "de": "Ich bin im Federmäppchen."},
+        {"it": "Con me scrivi e disegni.", "en": "With me you write and draw.", "de": "Mit mir schreibst und zeichnest du."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La matita!", "en": "The pencil!", "de": "Der Bleistift!"}
+    },
+    {
+      "id": "altalena",
+      "level": "A1",
+      "word": "al-parco-giochi/altalena",
+      "clues": [
+        {"it": "Sono al parco.", "en": "I'm in the park.", "de": "Ich bin im Park."},
+        {"it": "Ho due corde e un sedile.", "en": "I have two ropes and a seat.", "de": "Ich habe zwei Seile und einen Sitz."},
+        {"it": "Vado avanti e indietro.", "en": "I go back and forth.", "de": "Ich gehe hin und her."},
+        {"it": "I bambini ridono su di me.", "en": "The children laugh on me.", "de": "Die Kinder lachen auf mir."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'altalena!", "en": "The swing!", "de": "Die Schaukel!"}
+    },
+    {
+      "id": "ombrello",
+      "level": "A1",
+      "word": "l-orologio/ombrello",
+      "clues": [
+        {"it": "Quando piove, mi apri.", "en": "When it rains, you open me.", "de": "Wenn es regnet, machst du mich auf."},
+        {"it": "Quando non piove, mi chiudi.", "en": "When it doesn't rain, you close me.", "de": "Wenn es nicht regnet, machst du mich zu."},
+        {"it": "Sotto di me non ti bagni.", "en": "Under me you don't get wet.", "de": "Unter mir wirst du nicht nass."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'ombrello!", "en": "The umbrella!", "de": "Der Regenschirm!"}
+    },
+    {
+      "id": "bicicletta",
+      "level": "A1",
+      "word": "in-piazza/bicicletta",
+      "clues": [
+        {"it": "Ho due ruote.", "en": "I have two wheels.", "de": "Ich habe zwei Räder."},
+        {"it": "Non ho il motore.", "en": "I have no engine.", "de": "Ich habe keinen Motor."},
+        {"it": "Mi spingi con i piedi.", "en": "You push me with your feet.", "de": "Du bewegst mich mit den Füßen."},
+        {"it": "Con me Giulia va al fiume.", "en": "With me Giulia goes to the river.", "de": "Mit mir fährt Giulia zum Fluss."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La bicicletta!", "en": "The bicycle!", "de": "Das Fahrrad!"}
+    },
+    {
+      "id": "rosa",
+      "level": "A1",
+      "villager": "rosa",
+      "clues": [
+        {"it": "È la nonna di Giulia.", "en": "She's Giulia's grandmother.", "de": "Sie ist Giulias Oma."},
+        {"it": "Cucina tutto il giorno.", "en": "She cooks all day.", "de": "Sie kocht den ganzen Tag."},
+        {"it": "Dice sempre: Mangia, mangia!", "en": "She always says: Eat, eat!", "de": "Sie sagt immer: Iss, iss!"}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Nonna Rosa!", "en": "Nonna Rosa!", "de": "Nonna Rosa!"}
+    },
+    {
+      "id": "bruno",
+      "level": "A1",
+      "villager": "bruno",
+      "clues": [
+        {"it": "Lavora nella fucina.", "en": "He works in the forge.", "de": "Er arbeitet in der Schmiede."},
+        {"it": "Parla poco.", "en": "He doesn't say much.", "de": "Er spricht wenig."},
+        {"it": "Batte il ferro tutto il giorno.", "en": "He hammers iron all day.", "de": "Er schlägt den ganzen Tag das Eisen."}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Fabbro Bruno!", "en": "Fabbro Bruno!", "de": "Fabbro Bruno!"}
+    },
+    {
+      "id": "davide",
+      "level": "A1",
+      "villager": "davide",
+      "clues": [
+        {"it": "È giovane.", "en": "He's young.", "de": "Er ist jung."},
+        {"it": "Sta sempre sulle colline.", "en": "He's always on the hills.", "de": "Er ist immer auf den Hügeln."},
+        {"it": "Chiama le pecore per nome.", "en": "He calls the sheep by name.", "de": "Er ruft die Schafe beim Namen."}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Pastore Davide!", "en": "Pastore Davide!", "de": "Pastore Davide!"}
+    },
+    {
+      "id": "giulia",
+      "level": "A1",
+      "villager": "giulia",
+      "clues": [
+        {"it": "Ha otto anni.", "en": "She's eight.", "de": "Sie ist acht."},
+        {"it": "Chiede sempre: Perché?", "en": "She always asks: Why?", "de": "Sie fragt immer: Warum?"},
+        {"it": "Ama gli animali e le ciliegie.", "en": "She loves animals and cherries.", "de": "Sie liebt Tiere und Kirschen."}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Giulia!", "en": "Giulia!", "de": "Giulia!"}
+    },
+    {
+      "id": "lorenzo",
+      "level": "A1",
+      "villager": "lorenzo",
+      "clues": [
+        {"it": "Ha sei anni.", "en": "He's six.", "de": "Er ist sechs."},
+        {"it": "Conta tutto: uno, due, tre!", "en": "He counts everything: one, two, three!", "de": "Er zählt alles: eins, zwei, drei!"},
+        {"it": "Ama i cavalli e il trattore.", "en": "He loves horses and the tractor.", "de": "Er liebt Pferde und den Traktor."}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Lorenzo!", "en": "Lorenzo!", "de": "Lorenzo!"}
+    },
+    {
+      "id": "tommaso",
+      "level": "A1",
+      "villager": "tommaso",
+      "clues": [
+        {"it": "Ha nove anni.", "en": "He's nine.", "de": "Er ist neun."},
+        {"it": "Ha sempre un pallone.", "en": "He always has a ball.", "de": "Er hat immer einen Ball."},
+        {"it": "Dice sempre: Dai, andiamo!", "en": "He always says: Come on, let's go!", "de": "Er sagt immer: Komm, gehen wir!"}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Tommaso!", "en": "Tommaso!", "de": "Tommaso!"}
+    },
+    {
+      "id": "aldo",
+      "level": "A1",
+      "villager": "aldo",
+      "clues": [
+        {"it": "Parla piano piano.", "en": "He speaks very softly.", "de": "Er spricht ganz leise."},
+        {"it": "Lavora con le api.", "en": "He works with bees.", "de": "Er arbeitet mit Bienen."},
+        {"it": "Vende il miele di acacia.", "en": "He sells acacia honey.", "de": "Er verkauft Akazienhonig."}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Apicoltore Aldo!", "en": "Apicoltore Aldo!", "de": "Apicoltore Aldo!"}
+    },
+    {
+      "id": "nives",
+      "level": "A1",
+      "villager": "nives",
+      "clues": [
+        {"it": "È la sorella di Nonna Rosa.", "en": "She's Nonna Rosa's sister.", "de": "Sie ist Nonna Rosas Schwester."},
+        {"it": "Ha sempre una piccola radio.", "en": "She always has a little radio.", "de": "Sie hat immer ein kleines Radio."},
+        {"it": "Dice: Come? Cosa hai detto?", "en": "She says: What? What did you say?", "de": "Sie sagt: Wie bitte? Was hast du gesagt?"}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Zia Nives!", "en": "Zia Nives!", "de": "Zia Nives!"}
+    },
+    {
+      "id": "marisa",
+      "level": "A1",
+      "villager": "marisa",
+      "clues": [
+        {"it": "Lavora all'osteria.", "en": "She works at the inn.", "de": "Sie arbeitet im Gasthaus."},
+        {"it": "Porta tre piatti su un braccio.", "en": "She carries three plates on one arm.", "de": "Sie trägt drei Teller auf einem Arm."},
+        {"it": "Dice sempre: Subito, subito!", "en": "She always says: Right away, right away!", "de": "Sie sagt immer: Sofort, sofort!"}
+      ],
+      "ask": {"it": "Chi è?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"it": "Ostessa Marisa!", "en": "Ostessa Marisa!", "de": "Ostessa Marisa!"}
+    },
+    {
+      "id": "vento",
+      "level": "A2",
+      "word": "leggende/vento",
+      "clues": [
+        {"it": "Non mi vedi, ma mi senti.", "en": "You can't see me, but you can feel me.", "de": "Du siehst mich nicht, aber du spürst mich."},
+        {"it": "Muovo le foglie e le nuvole.", "en": "I move the leaves and the clouds.", "de": "Ich bewege die Blätter und die Wolken."},
+        {"it": "Faccio volare gli aquiloni.", "en": "I make kites fly.", "de": "Ich lasse die Drachen fliegen."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il vento!", "en": "The wind!", "de": "Der Wind!"}
+    },
+    {
+      "id": "bora",
+      "level": "A2",
+      "word": "leggende/bora",
+      "clues": [
+        {"it": "Sono un vento freddo e forte.", "en": "I'm a cold, strong wind.", "de": "Ich bin ein kalter, starker Wind."},
+        {"it": "Soffio d'inverno, soprattutto a Trieste.", "en": "I blow in winter, above all in Trieste.", "de": "Ich blase im Winter, vor allem in Triest."},
+        {"it": "Nonna Rosa si preoccupa quando arrivo.", "en": "Nonna Rosa worries when I come.", "de": "Nonna Rosa macht sich Sorgen, wenn ich komme."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La bora!", "en": "The bora!", "de": "Die Bora!"}
+    },
+    {
+      "id": "lacrima",
+      "level": "A2",
+      "word": "leggende/lacrima",
+      "clues": [
+        {"it": "Sono una piccola goccia.", "en": "I'm a little drop.", "de": "Ich bin ein kleiner Tropfen."},
+        {"it": "Sono salata.", "en": "I'm salty.", "de": "Ich bin salzig."},
+        {"it": "Scendo dagli occhi quando sei triste.", "en": "I run from your eyes when you're sad.", "de": "Ich laufe aus den Augen, wenn du traurig bist."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La lacrima!", "en": "The tear!", "de": "Die Träne!"}
+    },
+    {
+      "id": "sogno",
+      "level": "A2",
+      "word": "leggende/sogno",
+      "clues": [
+        {"it": "Arrivo di notte, quando dormi.", "en": "I come at night, when you're asleep.", "de": "Ich komme nachts, wenn du schläfst."},
+        {"it": "A volte sono bello, a volte strano.", "en": "Sometimes I'm lovely, sometimes strange.", "de": "Manchmal bin ich schön, manchmal seltsam."},
+        {"it": "La mattina spesso mi dimentichi.", "en": "In the morning you often forget me.", "de": "Morgens vergisst du mich oft."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il sogno!", "en": "The dream!", "de": "Der Traum!"}
+    },
+    {
+      "id": "inverno",
+      "level": "A2",
+      "word": "racconti/inverno",
+      "clues": [
+        {"it": "Sono la stagione più fredda.", "en": "I'm the coldest season.", "de": "Ich bin die kälteste Jahreszeit."},
+        {"it": "Porto la neve sulle montagne.", "en": "I bring snow to the mountains.", "de": "Ich bringe Schnee auf die Berge."},
+        {"it": "Dopo di me viene la primavera.", "en": "After me comes spring.", "de": "Nach mir kommt der Frühling."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'inverno!", "en": "Winter!", "de": "Der Winter!"}
+    },
+    {
+      "id": "anno",
+      "level": "A2",
+      "word": "racconti/anno",
+      "clues": [
+        {"it": "Ho dodici mesi.", "en": "I have twelve months.", "de": "Ich habe zwölf Monate."},
+        {"it": "Comincio a gennaio.", "en": "I begin in January.", "de": "Ich beginne im Januar."},
+        {"it": "Finisco a dicembre.", "en": "I end in December.", "de": "Ich ende im Dezember."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'anno!", "en": "The year!", "de": "Das Jahr!"}
+    },
+    {
+      "id": "camicia",
+      "level": "A2",
+      "word": "racconti/camicia",
+      "clues": [
+        {"it": "Ho i bottoni e due maniche.", "en": "I have buttons and two sleeves.", "de": "Ich habe Knöpfe und zwei Ärmel."},
+        {"it": "Mi metti sotto la giacca.", "en": "You put me on under your jacket.", "de": "Du ziehst mich unter der Jacke an."},
+        {"it": "Prima mi lavano, poi mi stirano.", "en": "First they wash me, then they iron me.", "de": "Erst werde ich gewaschen, dann gebügelt."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La camicia!", "en": "The shirt!", "de": "Das Hemd!"}
+    },
+    {
+      "id": "cielo",
+      "level": "A2",
+      "word": "il-cielo/cielo",
+      "clues": [
+        {"it": "Sono sopra di te.", "en": "I'm above you.", "de": "Ich bin über dir."},
+        {"it": "Di giorno sono azzurro.", "en": "During the day I'm blue.", "de": "Am Tag bin ich blau."},
+        {"it": "Di notte sono pieno di stelle.", "en": "At night I'm full of stars.", "de": "Nachts bin ich voller Sterne."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il cielo!", "en": "The sky!", "de": "Der Himmel!"}
+    },
+    {
+      "id": "stella-cadente",
+      "level": "A2",
+      "word": "il-cielo/stella-cadente",
+      "clues": [
+        {"it": "Attraverso il cielo in un attimo.", "en": "I cross the sky in a moment.", "de": "Ich fliege im Nu über den Himmel."},
+        {"it": "Mi vedi solo di notte.", "en": "You only see me at night.", "de": "Du siehst mich nur nachts."},
+        {"it": "Quando mi vedi, esprimi un desiderio.", "en": "When you see me, you make a wish.", "de": "Wenn du mich siehst, wünschst du dir etwas."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "La stella cadente!", "en": "The shooting star!", "de": "Die Sternschnuppe!"}
+    },
+    {
+      "id": "orizzonte",
+      "level": "A2",
+      "word": "il-cielo/orizzonte",
+      "clues": [
+        {"it": "Sono dove il cielo incontra la terra.", "en": "I'm where the sky meets the land.", "de": "Ich bin dort, wo der Himmel die Erde trifft."},
+        {"it": "Mi vedi lontano, sul mare.", "en": "You see me far away, on the sea.", "de": "Du siehst mich weit weg, auf dem Meer."},
+        {"it": "Più cammini, più mi allontano.", "en": "The more you walk, the further I go.", "de": "Je weiter du gehst, desto weiter weg bin ich."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "L'orizzonte!", "en": "The horizon!", "de": "Der Horizont!"}
+    },
+    {
+      "id": "carbone",
+      "level": "A2",
+      "word": "alla-carbonaia/carbone",
+      "clues": [
+        {"it": "Sono nero.", "en": "I'm black.", "de": "Ich bin schwarz."},
+        {"it": "Prima ero legno.", "en": "I used to be wood.", "de": "Früher war ich Holz."},
+        {"it": "Il carbonaio mi fa nel bosco.", "en": "The charcoal burner makes me in the wood.", "de": "Der Köhler macht mich im Wald."}
+      ],
+      "ask": {"it": "Che cosa sono?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"it": "Il carbone!", "en": "Charcoal!", "de": "Die Holzkohle!"}
+    }
+  ],
+  "machine_written": true,
+  "review": "it, en, de: machine-written (Claude), not reviewed by a native speaker"
+}

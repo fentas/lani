@@ -102,8 +102,11 @@ class ReadinessTest {
     @Test fun `a level without pages has nothing to secure`() {
         val r = LevelReadiness.of("B2", pages, named, { Mastery.NEW }, reviews(level = "B2"), weekdays, since, today)
         assertTrue(r.pages.isEmpty())
+        assertTrue(r.noPages)
+        // holds nothing back (never a wall): the two other signs decide
         assertTrue(r.grammar)
         assertEquals("C1", r.to)
+        assertFalse(LevelReadiness.of("A1", pages, named, { Mastery.NEW }, emptyList(), weekdays, since, today).noPages)
     }
 
     @Test fun `the reviews, two weeks of the level's cards, enough of them, most kept`() {
