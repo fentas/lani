@@ -176,10 +176,10 @@
       },
       {
         "say": {
-          "sl": "Za zanikanje daš **not** (ne) za glagol: **I'm not** (nisem), **he isn't** (ni), **we aren't** (nismo). **Jack isn't at home.** (Jacka ni doma.) **The sheep aren't in the field.** (Ovc ni na polju.) **He's not** in **we're not** pomenita isto. Nikoli *I amn't*: samo **I'm not**.",
-          "de": "Zum Verneinen kommt **not** (nicht) nach dem Verb: **I'm not** (ich bin nicht), **he isn't** (er ist nicht), **we aren't** (wir sind nicht). **Jack isn't at home.** (Jack ist nicht zu Hause.) **The sheep aren't in the field.** (Die Schafe sind nicht auf der Weide.) **He's not** und **we're not** heißen dasselbe. Nie *I amn't*: nur **I'm not**.",
-          "it": "Per dire di no metti **not** (non) dopo il verbo: **I'm not** (non sono), **he isn't** (non è), **we aren't** (non siamo). **Jack isn't at home.** (Jack non è a casa.) **The sheep aren't in the field.** (Le pecore non sono nel campo.) **He's not** e **we're not** vogliono dire lo stesso. Mai *I amn't*: solo **I'm not**.",
-          "en": "To say no, put **not** after the verb: **I'm not** (I am not), **he isn't** (he is not), **we aren't** (we are not). **Jack isn't at home.** **The sheep aren't in the field.** **He's not** and **we're not** mean the same. For I it is only **I'm not** (never *I amn't*)."
+          "sl": "Za zanikanje daš **not** (ne) za glagol: **I'm not** (nisem), **he isn't** (ni), **we aren't** (nismo). **Jack isn't at home.** (Jacka ni doma.) **The sheep aren't in the field.** (Ovc ni na polju.) **He's not** in **we're not** pomenita isto. Za I je v pisanju **I'm not**; na Škotskem in Irskem rečejo tudi *I amn't*.",
+          "de": "Zum Verneinen kommt **not** (nicht) nach dem Verb: **I'm not** (ich bin nicht), **he isn't** (er ist nicht), **we aren't** (wir sind nicht). **Jack isn't at home.** (Jack ist nicht zu Hause.) **The sheep aren't in the field.** (Die Schafe sind nicht auf der Weide.) **He's not** und **we're not** heißen dasselbe. Bei I steht geschrieben **I'm not**; in Schottland und Irland sagt man auch *I amn't*.",
+          "it": "Per dire di no metti **not** (non) dopo il verbo: **I'm not** (non sono), **he isn't** (non è), **we aren't** (non siamo). **Jack isn't at home.** (Jack non è a casa.) **The sheep aren't in the field.** (Le pecore non sono nel campo.) **He's not** e **we're not** vogliono dire lo stesso. Con I per iscritto si usa **I'm not**; in Scozia e in Irlanda dicono anche *I amn't*.",
+          "en": "To say no, put **not** after the verb: **I'm not** (I am not), **he isn't** (he is not), **we aren't** (we are not). **Jack isn't at home.** **The sheep aren't in the field.** **He's not** and **we're not** mean the same. For I writing wants **I'm not**; in Scotland and Ireland people also say *I amn't*."
         },
         "examples": [
           {
@@ -415,7 +415,7 @@
             {
               "from": "I'm hungry.",
               "accept": ["I'm not hungry."],
-              "hint": { "sl": "nikoli amn't", "de": "nie amn't", "it": "mai amn't", "en": "never amn't" }
+              "hint": "I am + not"
             },
             { "from": "We're ready.", "accept": ["We aren't ready."] },
             { "from": "The sheep are in the field.", "accept": ["The sheep aren't in the field."] },

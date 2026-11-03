@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path'
 import { sheetsOf, unitDoc } from '../../../prints/build'
 import { headsOf } from '../../../prints/html'
 import { buildOverview, markAdjective, markDeclension, OVERVIEWS, overviewDoc } from '../../../prints/overview'
-import { Dictionary, levelsOf, loadContent, plain, printedOrder, ruleLine } from '../../../prints/sheet'
+import { Dictionary, levelsOf, loadContent, markEndings, plain, printedOrder, ruleLine } from '../../../prints/sheet'
 import { auth, base, check, courseRoot, curatedDir, tempDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../../..')
@@ -160,6 +160,20 @@ export default async function prints() {
       steps > 500 && lost.length === 0,
       lost,
     )
+  }
+
+  // --- a column of one word's forms, most of them the same: the cell that differs names the stem ------------------------
+  {
+    const column = (...cells: string[]) => {
+      const t = { head: [{ tr: 'case' }, { sl: 'der Hund' }], rows: cells.map(sl => [{ tr: 'a row' }, { sl }]) }
+      markEndings(t as Parameters<typeof markEndings>[0])
+      return t.rows.map(r => r[1].sl)
+    }
+    const großer = column('ein großer', 'einen großen', 'einem großen', 'keine großen', 'keinen großen')
+    const piace = column('mi piace', 'mi piacciono', 'mi piace', 'mi piace')
+    const halb = column('halb acht', 'halb zwölf', 'halb neun', 'Viertel acht')
+    check("the print marks ein große⟦r⟧ though most of the column is großen; not half of mi piace beside mi piacciono, nor a word's last letter where no other form of it stands (halb acht)",
+      großer[0] === 'ein große⟦r⟧' && großer[1] === 'einen große⟦n⟧' && piace.every(c => !c?.includes('⟦')) && halb.every(c => !c?.includes('⟦')), [großer, piace, halb])
   }
 
   // --- a German or an English course's sheet: its headings, its words without their article --------------------------------

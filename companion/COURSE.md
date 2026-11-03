@@ -439,6 +439,35 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
 - An older bridge refuses the key (the sheets are strict objects): a unit with `spoken` goes out after the bridge.
   `CourseContentTest` grades every spoken form right with the standard one as its label.
 
+**What people say that writing doesn't want (`nonstandard`, in `grading/<language>.json`).** A second thing, on purpose not called
+`spoken`, because its verdict is another:
+
+| | an item's `spoken` (the unit) | the language's `nonstandard` (the grading table) |
+|---|---|---|
+| Is | what a native says too, a form the course accepts | a form that is said, and that the unit teaches writing without |
+| Verdict | right, pays as right | almost, pays half, never wrong and never a slip |
+| Where | one gap, cell or line, listed by the unit | every answer of the language, also in reviews, modules and a dialog's typed turn |
+| Shows | "🗣️ Spoken, and right too; the standard form: …" | the correction with the standard form and "People say it like this; in writing it's the form shown" (`Hint.NONSTANDARD`, the tutor sees `hint: nonstandard`) |
+
+```json
+"nonstandard": [
+  { "word": "good", "for": "well" },
+  { "word": "slow", "for": "slowly" },
+  { "word": "nothing", "for": "anything", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" }
+]
+```
+
+- `word` (a regular expression, matched whole in the answer as `Grading.fold` writes it) stands where the right answer has what `for`
+  matches, the rest being the same: "He sings good" for He sings well; one way only, so "a well blacksmith" stays wrong.
+- `after` (optional): the text before it must have this: the answer's own words and, for a gap, the sentence before it
+  (`Grading.check`'s `before`). "I didn't see ___": nothing is almost; "Is there ___ to eat?": nothing stays wrong.
+- A choice never offers such a form as a wrong option (nor a bank as a distractor: a form the sheet offers is wrong, `Sheets.check`): use
+  a wrong form nobody says, or a typed gap or a line. Name both in the intro and on the page: people say it, writing wants the other,
+  not "never".
+- The table is in the APK, no bridge route serves it and no bridge or script port grades an answer: the app's verdict is what is stored,
+  so an older app grades with the table it has (`good` for `well` wrong there) and an older bridge stores the hint as any other
+  (a free string, `answers.ts`). A table without the key behaves as before.
+
 ## Homework (lani.worksheet/v0)
 
 The tutor adds worksheets to a unit (`publish_worksheet`): homework after a unit, an extra sheet on what the learner
@@ -777,7 +806,8 @@ course's language's, not Slovene's:
 | Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too |
 | The blackboard | "Benvenuti!" and the day as Italy writes it (28/10/2026) before the first unit; the unit's title and forms in chalk (à, è, ' written) |
 | Prints | headed in Italian and the base ("Regola · Die Regel", "Unità"), the words from the Italian and the culture's packs with their article; Slovene as a base for an Italian course |
-| Not for Italian | forms cards, counting cards and the numbers module (Slovene's: `numeri` turns nothing on), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
+| The numbers module | `numeri`'s intro opens "🔢 Numeri · Zahlen" (README.md "Numbers"), `ore-giorni`'s brings its dates and clock times |
+| Not for Italian | forms cards and counting cards (Slovene's), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
 | Checked | `ItalianCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the Italian grading, no decoy right, every text per base in de, sl and en), `SchoolBoardTest` (the blackboard writes every letter of the Italian course), the smoke's course, course-speech and Friuli sections |
 
 While units are still planned (`"planned": true`), the school is no dead end: a level's planned units are folded
@@ -851,7 +881,7 @@ the possessives (units 7–12), and use only those around their gaps:
   forms only ("tu → ?", "noi: -iamo") stays a string. An instruction is the Italian label, then the base:
   "Completa la tabella · Füll die Tabelle aus".
 - **Not used, being Slovene-only**: a table cell's or a line's `lemma` and `form` (the forms book is Slovene's:
-  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards, counting cards or numbers module), the smoke's
+  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards or counting cards; the numbers module is opened by `numeri`, as above), the smoke's
   check of a gap's answer against the word in brackets (the dictionary's forms, Slovene only).
 
 ### The Italian course: A2, units 1–6
@@ -1051,8 +1081,8 @@ order, B1's earlier ones only lightly:
 
 ## The German course
 
-The German course is `companion/course/de/`: the outline (A1, 18 units, the grammar book's German pages to teach) and
-its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
+The German course is `companion/course/de/`: the outline (A1 and A2 written, 18 units each, the grammar book's German
+pages to teach; B1 and B2 planned, docs/plans/05-built/outlines-2.md) and its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
 Gasthaus, Mostbauer Stefan's cider, Tante Mitzi, Müller Franz and his mill, Schmied Toni, Imker Stanko, Hirte Florian
 and his sheep, Opa Sepp's stories, Oma Resi's kitchen, the Kirchtag). It serves a learner of German from Slovene, English
 or Italian (a visitor, a neighbour across the border), and is the same school as the others: the bridge serves the course
@@ -1070,7 +1100,7 @@ school is the course's language's:
 | The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
 | Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
 | Not for German | forms cards, counting cards and the numbers module, case rows, the cases overview (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
-| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
+| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
 
 Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
 the learner's own data (an age is Stefan's, not the learner's). The explanations in English, Slovene and Italian, every
@@ -1178,11 +1208,65 @@ their gaps (places as the fixed chunks of units 1–6):
 - **Their words in the supplement** (`lexicon/de.extra.json`): the possessives' forms, möchten and können, the time's
   little words and the days; the verbs part b added (kommen, machen, fahren, geben, sprechen …) are part b's entries.
 
+### The German course: A2, units 1–6
+
+A2's first six units, the dative and where things are (docs/plans/05-built/course-de-a2-a.md). They come after all of A1:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `wem-dativ` 🎁 | who gets something: dem, der, dem, den + -n; einem, einer, meinem, keinem; geben, zeigen, schenken with the person before the thing | dativ, faelle |
+| `mir-dir` 🤝 | mir, dir, ihm, ihr, uns, euch, ihnen beside mich, dich, ihn; gefallen, helfen, schmecken, gehören, danken; es geht mir gut | pronomen-dativ, dativ, akkusativ |
+| `mit-nach-bei` 🚌 | aus, bei, mit, nach, seit, von, zu; beim, vom, zum, zur; wo? bei, wohin? zu, woher? von; nach Hause, zu Hause, daheim | praepositionen-dativ, dativ |
+| `fuer-ohne` 🧭 | bis, durch, für, gegen, ohne, um, always the accusative; only a der noun shows it; bis zum, where zu decides; set against the dative's list | praepositionen-akkusativ, akkusativ |
+| `wo-wohin` 📍 | an, auf, hinter, in, neben, über, unter, vor, zwischen: wo? the dative, wohin? the accusative; im, ins, am, ans | wechselpraepositionen, dativ, akkusativ |
+| `stehen-stellen` 🥛 | stehen and stellen, liegen and legen, sitzen and setzen, hängen: the state with the dative, the movement with the accusative; present only; der Sessel, der Kasten | stehen-stellen, wechselpraepositionen |
+
+- **Only what came before around a gap**: no modal but möchten and können, no adjective with an ending, no weil or denn, no reflexive beyond the chunks Setz dich! and Ich setze mich. Prepositions before their unit are fixed chunks (im Gasthaus, in die Küche, auf der Alm). No weak noun takes the dative (Herr, Bub, Bauer, Hirte and Nachbar are left out: `herr-kollege` is B2's), so Herr Rossi only stands as the subject.
+- **A summary of its own** (`intro.summary`) on each, where the unit's first page goes on further than the unit.
+- **Spoken, right and labelled**: nach Haus for nach Hause, am Tisch, am Sessel and am Platz for auf dem. Every long form is accepted beside its contraction (zu dem Arzt, in das).
+- **Their size** runs above the guide: 32 to 35 items a unit. If one feels long, the second sheet's two choices go first.
+- **The grading's pairs**: legen and liegen, setzen and sitzen (legt for liegt, setzt for sitzt: a verb of its own); ihren for ihnen, auch for euch, noch for nach, geben or gehen for gegen, ich hilfe, each way where it can go wrong each way. `GermanA2aContentTest`.
+
+### The German course: A2, units 7–12
+
+A2's middle six units, more verbs (docs/plans/05-built/course-de-a2-b.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `muessen-duerfen` 🚦 | müssen, dürfen, wollen, sollen, mögen; the infinitive last; nicht müssen against nicht dürfen; Magst du …? | modalverben, wortstellung |
+| `partizip-perfekt` 🧩 | ge-…-t, ge-…-en, mixed, separable, none; haben or sein; ist gesessen, gestanden, gelegen with hat accepted; hat gestellt, hat gelegt | partizip-zwei, perfekt, trennbare-verben |
+| `war-hatte` 🕰️ | war, hatte, the modals' -te with no umlaut, es gab; beside the Perfekt, ist gewesen as right | praeteritum-kurz, sein-haben, modalverben |
+| `reflexiv` 🪞 | mich … sich; verbs that come with it, sich verkühlen; its place; Perfekt with haben; mir, dir when the verb has another object; Setz dich! | reflexive-verben, pronomen-dativ |
+| `warten-auf` 🚏 | each chunk with its case: warten auf, denken an, sich freuen auf and über, sprechen mit and über, Angst haben vor, von; pronouns for people | verben-praepositionen, akkusativ, dativ |
+| `am-ersten-mai` 📅 | -te, -ste; der erste Mai, am ersten Mai, vom … bis zum; vor zwei Tagen, in einer Woche; Jänner, Feber, heuer | ordinalzahlen, uhrzeit, zahlen |
+
+- **A form both standards have is two `accept`s, never a `spoken`**: ist gesessen and hat gesessen, Jänner and Januar, Feber and Februar, siebte and siebente. A choice never offers one as wrong: `multi` asks for both.
+- **A reflexive line's person in brackets**: `"whole": true` on the list, as the bracket replaces the subject.
+- **The grading's pairs**: a participle typed for another a letter away (gesessen, gegessen; gekommen, bekommen, genommen; gesucht, besucht; gestellt, bestellt); a mixed verb's with the infinitive's vowel (gewisst, gekennt); a modal's plural vowel on the singular (ich konn, du wollst), müsst against musst; kannte, darfte, willte for konnte, durfte, wollte; könnte, müsste, dürfte, hätte against konnte, musste, durfte, hatte, and wäre against war, either way; -te for an ordinal's -ste (zwanzigte). `GermanA2bContentTest`.
+
+### The German course: A2, units 13–18
+
+A2's last six units, adjective endings, comparing and clauses (docs/plans/05-built/course-de-a2-c.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `adjektiv-der` 🐕 | no ending after sein; after der, die, das -e in five places, -en everywhere else; dieser, jeder, welcher the same; hoch → hohe, teuer → teure, dunkel → dunkle | adjektiv-der, artikel-genus, faelle |
+| `adjektiv-ein` 🏠 | -er and -es where ein, kein, mein have no ending of their own, everywhere else as after der; kein and the possessives in the plural, -en; der neue Hut against ein neuer Hut | adjektiv-ein, adjektiv-der, possessiv, kein-nicht |
+| `adjektiv-null` 🥖 | no article: der's ending on the adjective (frischer Käse, mit heißem Tee, mit warmer Milch); plurals, viele, einige, wenige, a number; Guten Morgen but Gute Nacht; Lieber Stefan | adjektiv-null, adjektiv-der |
+| `groesser-als` 📈 | -er als; the umlaut and the words with none; so … wie; am -sten, with an e after -t, -ß, -z; gut, gern, viel. After sein or a verb only: before a noun is B1's | steigerung |
+| `weil-denn` 🔗 | und, aber, oder, denn, sondern take no place; deshalb (deswegen, darum) takes first place; weil sends the verb last; a weil clause first; Warum? Weil … | konnektoren, nebensatz, wortstellung |
+| `dass-wenn-ob` ❓ | dass after glauben, wissen, hoffen, denken, sagen; wenn set apart from wann; ob against wenn; a question word kept, the verb last; a separable verb whole at the end | nebensatz, fragen, wortstellung |
+
+- **A spoken form is never a wrong option**, so these three are `spoken` on every gap and line they fit, and offered wrong nowhere: wie for als, weil with the verb second, wann for wenn. A quick question can't take `spoken`, so none has als or wenn for its answer. A choice on the word order offers denn's and deshalb's own mistakes (Denn er krank ist, deshalb sie geht), never weil er hat; a gap before a clause with the verb second takes `denn` with `weil` as spoken.
+- **An adjective's table has article and adjective in a cell (der große, den großen), the noun in the head**: the print marks an ending in a cell of two words at most. The pages' tables have the whole phrase.
+- **The print marks what differs**: große⟦r⟧ and große⟦n⟧, as kleine⟦s⟧: a column can't tell the adjective's stem from its -e.
+- **The grading's pairs**: the comparative's and superlative's umlaut left out or put where none goes (alter for älter, kalter for kälter, grosser for größer, altesten for ältesten, größer for großer), hoher and hocher for höher, hoche for hohe, größesten for größten, denn, dann, wenn and wann for each other. An adjective's ending needs no rule. `GermanA2cContentTest`.
+
 ## The English course
 
 For grown-ups learning English in the Lake District village (the culture `lakeland`), from Slovene, German or Italian:
-visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1,
-18 units, each naming the English grammar pages it teaches) and its units, written in the village's adult life: Mrs
+visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1 and
+A2 written, 18 units each, each naming the English grammar pages it teaches; B1 and B2 planned, docs/plans/05-built/outlines-2.md) and its units, written in the village's adult life: Mrs
 Hartley the teacher, Mrs Birkett at the Packhorse Inn, Shepherd Jack and his sheepdog Meg, Mr Dixon the blacksmith,
 Granny Maggie and Auntie Edna, Mr Tyson and his mill, Brewer Sam, Old Wilf, Arthur and his bees; the fells, the becks,
 the tarn, Keswick eight miles off. The school is the same school, and every part of it is the course's language's:
@@ -1198,7 +1282,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
 | Not for English | forms cards, counting cards, the numbers module and the case rows (Slovene's: `numbers` turns nothing on); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
-| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
+| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
 
 Writing an English unit: as [Writing a unit](#writing-a-unit), with the explanations in each base (du, ti and tu, as the
 app speaks to the learner), every English form in **bold** with its meaning in brackets where the base needs one; the
@@ -1222,7 +1306,7 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
 | Unit | Teaches | Its pages |
 |---|---|---|
 | `hello` 👋 | hello, hi, good morning, afternoon, evening, good night only when you leave; I'm, My name's, What's your name?, And you?; you for everyone, Mr, Mrs, Ms, Miss with the surname; This is Jack. He's a shepherd. Nice to meet you (too); How are you? Fine, thanks; goodbye, bye, see you | pronouns (its own summary card: the greetings) |
-| `to-be` 🟰 | I am, you are, he/she/it is, we/you/they are (two with and are they); I'm … they're, Jack's on the fell; not after the verb (isn't, aren't, I'm not, never amn't); Are you …? Is she …? Yes, I am (never Yes, I'm); I'm hungry, I'm cold with be | to-be, pronouns |
+| `to-be` 🟰 | I am, you are, he/she/it is, we/you/they are (two with and are they); I'm … they're, Jack's on the fell; not after the verb (isn't, aren't, I'm not; in Scotland and Ireland also I amn't, named, right when typed); Are you …? Is she …? Yes, I am (never Yes, I'm); I'm hungry, I'm cold with be | to-be, pronouns |
 | `articles` 🏷️ | a for one thing named the first time, the same before every noun; an by the sound (an hour, a uniform); the for what both know, the village's one; a with a job (Jack is a shepherd); no article in general (Dogs are friendly) and in at home, at school, in bed, by bus | articles |
 | `plurals` 🐑 | + -s; -es after s, x, ch, sh, potatoes; -y → -ies, -ay, -ey + -s; -f, -fe → -ves (but roofs); men, women, children, feet, teeth, mice, people; sheep, fish, deer the same, the verb showing how many; the plural from two on | plurals, articles |
 | `have-got` 🐕 | I've got, she's got ('s is has here); haven't got, hasn't got; Have you got …? Yes, I have; have alone and American Do you have …? (both right); have breakfast, have a cup of tea, never have got | to-have |
@@ -1242,7 +1326,7 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
   Zähl".
 - **A wrong form in a step's English as "**right** (never *wrong*)"**: the sheet's "Watch out" pairs a "never *X*"
   with the most alike bold form of its paragraph, so "Never *I amn't*: only **I'm not**" printed I amn't against we
-  aren't; "**I'm not** (never *I amn't*)" pairs them.
+  aren't; "**I'm not** (never *I amn't*)" paired them. (I amn't is said, so `to-be` no longer says never of it: [What people say](#what-people-say-over-a1-and-a2).)
 
 
 ### The English course: units 7–12
@@ -1293,7 +1377,7 @@ Old Wilf by the fire, the bus to Keswick, the market):
 | `present-continuous` 🏃 | am, is, are + -ing for now (I'm walking: the others' present, gerade, stare); isn't, aren't; Are you …? Yes, I am; What are you doing?; making, sitting, swimming, lying; every day and usually with the present simple, now, Look!, Listen! with -ing; know, like, want, need, understand never with -ing | present-continuous, present-simple |
 | `time` 🕖 | What time is it? It's seven o'clock; past up to half past, to the next hour after it (five past seven, a quarter to eight); British half seven for 7:30 (halb acht, pol osmih: never halb sieben), the digital seven thirty and the American ten after eight accepted; at a clock time and at night; on a day and a date (on Monday, on the first of May), at the weekend (on the weekend accepted), every Sunday with none; in a month, a season, a year, a part of the day; the capitals; the ordinals (first, second, third, fifth, ninth, twelfth, twentieth, twenty-first): written 1 May, said the first of May | time-dates (new), numbers |
 | `object-pronouns` 👉 | me, you, him, her, it, us, them after a verb and after a preposition; the subject before the verb, the object after it (She likes him. He likes her.); her the object and the possessive, him never his; a pet with a name him or her, a thing it; It's me. Me too.; one pronoun only (never I know him Jack.); Give me the key, Give it to me | object-pronouns (new), pronouns |
-| `was-were` ⏮️ | was for I, he, she, it; were for you, we, they, and you were for one person (never you was); wasn't, weren't; Was it …? Were you …? Yes, I was (never Yes, I were); yesterday, last night, two days ago; there was, there were; where and were; born with was (Auntie Edna was born in 1952, never is born) | was-were (new), to-be |
+| `was-were` ⏮️ | was for I, he, she, it; were for you, we, they, and you were for one person (people also say you was, named; writing wants you were); wasn't, weren't; Was it …? Were you …? Yes, I was (in the North also Yes, I were, named; never Yes, I wasn't); yesterday, last night, two days ago; there was, there were; where and were; born with was (Auntie Edna was born in 1952, never is born) | was-were (new), to-be |
 
 - **Pages written for them**: `time-dates`, `object-pronouns` and `was-were`, each A1 with its cheat-sheet card (the
   book had the place prepositions, can and the present continuous; past-simple is A2, so was and were have a page of
@@ -1309,6 +1393,74 @@ Old Wilf by the fire, the bus to Keswick, the market):
 - **A contraction without its apostrophe** (cant, isnt, Im, theyre, wasnt) is almost, with the apostrophe hint and
   English's examples (`loose`, `loose_examples`: "can't, I'm"), never right; its, were, well, lets stay words of their
   own, so were for we're is wrong.
+
+### The English course: A2, units 1–6
+
+A2's first six units, commands and the past, after all of A1 (A1 left the imperative out, so A2 opens with it):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `imperatives` 📢 | the base form for everyone; Don't + the base form; be; always, never; Let's, Let's not; please, Could you …?; directions, recipes, signs | imperatives (new; its card is the summary) |
+| `past-regular` 🚶 | -ed for every person, no helping verb; yesterday, last week, ago; -e + -d, the doubled consonant, -y → -ied against stayed; the three sounds; British learnt, burnt, dreamt with learned accepted | past-simple (a summary of its own) |
+| `past-irregular` 🧳 | about thirty irregular pasts, by families; put, cut, shut the same; read said like red; told and said; told in a story with -ed verbs | past-simple (a summary of its own) |
+| `did-you` 🔍 | didn't and Did + the base form; short answers; Where did you go?; who as the subject takes no did; be takes no did | past-simple, questions-do (a summary of its own) |
+| `past-continuous` ⏳ | was, were + -ing; wasn't, weren't, Were you …?; the long action with when; while; -ing's spelling; state verbs without -ing; how a story opens | past-continuous (new), past-simple, present-continuous |
+| `because-so` 🔗 | and, but, or; because against so, one in a sentence; Why? Because …; when, before, after and their comma; then; all of it in a story | linking-words (new), past-simple |
+
+- **A summary of its own** where a page goes on further than the unit that heads it: `past-simple` has the past's questions, which `did-you` brings.
+- **cos, 'cause and cause** are right on every gap whose answer is because, labelled with because; `Don't let's wait` beside Let's not wait.
+- **Paired mistakes** (`wrong`), each only for a word of its rule: stoped, planed for stopped, planned; openned, visitted; carryed, staied; come for came, make for made and the other way (did you came?); fell and feel, want and went, wore and were, sold and told, bought, brought, caught, taught, thought, fought; then for than or when; rainning, waitting. goed, runned, heared were wrong already; walkd, becouse, hapy stay slips.
+
+### The English course: A2, units 7–12
+
+A2's middle six: how much, comparing, how, after the past (units 1–6). The Lakeland's own: a jar of Arthur's honey, Keswick further away than the mill, Alfie the youngest in the family:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `some-and-any` 🥛 | countable and uncountable; some in statements and offers, any in questions and negatives; no article before what can't be counted; some in a plain question spoken | some-any, articles |
+| `how-much` 🧮 | much and many, a lot of, a few and a little, how much and how many; loads of, There's not many boats spoken | some-any, plurals |
+| `comparatives` 📏 | -er and more, the spelling (bigger, happier), good and bad, than; further and farther; more bigger left wrong | comparatives (new) |
+| `superlatives` 🏆 | the -est and the most; best, worst; in the village, of the three; without the where no noun follows, plain right (Alfie is youngest) | comparatives, articles |
+| `adverbs` 🐢 | -ly and its spelling; well, fast, hard; an adjective for a thing, an adverb for what is done; where each goes; good for well and a flat adverb `nonstandard` | adverbs (new), word-order |
+| `someone-anything` 🔎 | some-, any-, no-, every- with -one, -thing, -where; one negative in writing, a double negative `nonstandard`; someone and something in a question spoken; no one with nobody and no-one | indefinite-pronouns (new), some-any |
+
+- **A bold form is read in her voice only if the intro shows that very word**: wetter, easier and money had to go into `words`.
+- **A page's `rule` is at most 1,200 characters per base**, a `review` at most 200.
+- **Paired mistakes**: then and than; biger, hoter only for big, hot, thin, fat, wet, sad, red, fit; happyer, easyest for a word in -ier, -iest; happyly for -ily; carefuly. usualy stays a slip. A trap for whoever writes more: `.*[^aeiou]y(er|est)` makes shyer wrong for shier, so a unit that asks those lists both.
+
+### The English course: A2, units 13–18
+
+A2's last six: the future, must, the perfect, if. Saturday's dance at the Packhorse Inn, Mrs Birkett's rules for the help, a wet morning with Sam's van, Jack and Meg on the fell, Old Wilf by the fire, a walker who has never been to the Lakes:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `going-to` 🗺️ | going to for a plan and for what you can see coming; am, is, are + -ing for what is arranged; never the plain present (Morgen besuche ich, jutri grem, domani vado); gonna spoken | future, present-continuous (a summary of its own) |
+| `will` 🤝 | decided now and offers (never I carry it), promises and won't, what you think; Will you …? Yes, I will (never Yes, I'll); Shall I …? with Should I …? and Scotland's and Ireland's Will I …?; will against going to; I will isn't ich will | future (a summary of its own) |
+| `have-to` ☝️ | have to, has to, Do you have to …?, had to, have got to with gotta; must with no to; mustn't against don't have to (muss nicht), can't, needn't; should | must-have-to (new), can |
+| `would-like` ☕ | want to, wanna; 'd like with a thing and with to; Would you like …? Yes, please; Could you …?, Could I …?; like, love, enjoy, hate + -ing (never enjoy to); like against 'd like | would-like (new) |
+| `have-you-ever` 🐦 | have, has + the participle for your life so far; its forms; gone and been; ever, never with one no in writing; just; already, yet; the past simple as soon as you say when; American I just saw Jack, Did you feed the dogs yet? accepted | present-perfect (a summary of its own, no since or for: B1), past-simple |
+| `if-it-rains` ☔ | if + the present in both halves, always so; if + the present, will; the halves either way, the comma; if against when (German's wenn for both), the present after both (never if it will rain, Slovene's če bo); the other half with can, should, a command | first-conditional (new), future |
+
+- **A bracketed translation is one sentence** ("(Die Tasche ist schwer, ich trage sie.)"): the sheet's rule line splits at a sentence end even inside brackets, and "(Die Tasche ist schwer. Ich trage sie.)" printed cut.
+- **A gap takes all that is right**, not only what the unit teaches: "___ I close the window?" takes Shall, Should, Can, Could, May, with Will spoken; "You look tired. You ___ rest." takes should, must, have to, need to, ought to; "I think it ___ snow" takes will and is going to; "Have you ___ been to the Lakes?" takes ever and never.
+- **The plain present isn't always wrong**: a timetable's "The bus leaves at nine" is right, so it isn't offered as a mistake, nor is the colloquial "It's raining tomorrow".
+- **A choice's `almost`** for what is right but off the point: "I'm going to" where the phone is ringing, "I'll" for what was decided before.
+- **'s before a participle is has in the grading**, listed once: she's seen = she has seen, Jack's never been; before one that could be an adjective or a passive (done, made, lost, closed, written …) only with just, already, never, ever or an object after it, so it's written stays it is. `same`'s order matters: these rules stand before he's → he is. A name's 's before -ing still lists its long form beside it; before going to it doesn't need to.
+- **Typed without the apostrophe, almost**: hes seen, id like, and ill help, well go only before another word, so the words themselves stay words.
+
+### What people say, over A1 and A2
+
+As [Spoken forms](#spoken-forms): no form grown-ups really say is a wrong choice or a bank's distractor, no text says never of it (the intro and the page say people say it and writing wants the other), and typed it is one of two things. `EnglishA2bContentTest` holds it for its six units, `EnglishA2cContentTest` for the 36 of both levels.
+
+| What's typed | How | Verdict |
+|---|---|---|
+| gonna, wanna, gotta; cos, 'cause; some in a plain question; There's no walkers; loads of; Will I …? beside Shall I …? | the item's `spoken` | right, labelled with the standard form |
+| good for well, a flat adverb; a double negative after a negative (nothing, no one, not never); It were raining, We was late, Yes, I were, There was a lot of walkers; I seen it, I done it, I sung; a past for a participle after have (I've saw, He's went, She's took) | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
+| amn't | a contraction like any: am not | right |
+
+**`nonstandard` is for what grown-ups really say.** A child's or a learner's regular past (telled, catched, knowed, throwed, growed) isn't, any more than gooder and more bigger: those are wrong, and a sheet may offer them (`past-irregular`'s telled).
+
+Left wrong, on the native list: more bigger, gooder, as for than, How much eggs?, tastes well; he have to (East Anglia's), still a wrong choice in `have-to`; come, give, run for came, gave, ran (the cue copied, and what the unit teaches); haven't to; I've knew, I've flew.
 
 ## Printed sheets
 

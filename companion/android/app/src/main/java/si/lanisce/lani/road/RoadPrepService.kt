@@ -167,6 +167,8 @@ class RoadPrepService : Service() {
             }
             RoadPrepState.library = result.library
             RoadPrepState.problem = when {
+                // nothing had its clips: no recordings in this language yet, nothing the learner can do about it here
+                result.clipsTried == 0 && result.library.items.none { it.kind != Kind.KIT } -> bi("road.noRecordings")
                 result.noVoice -> bi("road.noVoice")
                 result.clipsTried > 0 && result.clipsFailed == result.clipsTried && !room.full -> bi("road.needsNode")
                 room.full -> bi("road.cap")

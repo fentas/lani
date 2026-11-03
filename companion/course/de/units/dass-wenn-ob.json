@@ -1,0 +1,864 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "dass-wenn-ob",
+  "language": "de",
+  "level": "A2",
+  "emoji": "❓",
+  "title": {
+    "de": "Ich weiß nicht, ob er kommt",
+    "en": "Clauses: dass, wenn, ob, wo",
+    "sl": "Odvisniki: dass, wenn, ob, wo",
+    "it": "Le subordinate: dass, wenn, ob, wo"
+  },
+  "goal": {
+    "en": "You can say what you think and know (Ich glaube, dass er kommt), what happens if (Wenn es regnet, bleiben wir hier) and what you don't know (Ich weiß nicht, ob er kommt, wo er ist).",
+    "sl": "Poveš, kaj misliš in veš (Ich glaube, dass er kommt), kaj se zgodi, če (Wenn es regnet, bleiben wir hier), in česa ne veš (Ich weiß nicht, ob er kommt, wo er ist).",
+    "it": "Sai dire che cosa pensi e sai (Ich glaube, dass er kommt), che cosa succede se (Wenn es regnet, bleiben wir hier) e che cosa non sai (Ich weiß nicht, ob er kommt, wo er ist)."
+  },
+  "grammar": [
+    "nebensatz",
+    "fragen",
+    "wortstellung"
+  ],
+  "words": [
+    "dass",
+    "wenn",
+    "ob",
+    "glauben",
+    "wissen",
+    "hoffen",
+    "denken",
+    "sagen",
+    "fragen",
+    "regnen",
+    "aufsperren",
+    "mitkommen",
+    "anrufen",
+    "zurückkommen",
+    "abfahren",
+    "beginnen",
+    "der Bus",
+    "der Almabtrieb",
+    "das Wetter",
+    "die Sonne",
+    "die Alm",
+    "der Kirchtag",
+    "wo",
+    "wann",
+    "wie",
+    "scheinen",
+    "baden",
+    "genau"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Hauptsatz",
+          "sl": "glavni stavek",
+          "en": "main clause",
+          "it": "frase principale"
+        },
+        {
+          "de": "Wort",
+          "sl": "beseda",
+          "en": "word",
+          "it": "parola"
+        },
+        {
+          "de": "Nebensatz (Verb am Ende)",
+          "sl": "odvisnik (glagol na koncu)",
+          "en": "clause (verb last)",
+          "it": "secondaria (verbo alla fine)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "After **glauben** (to believe), **wissen** (to know), **hoffen** (to hope), **denken** (to think) and **sagen** (to say) comes **dass** (that), and the verb goes last: Ich glaube, **dass Oma heute kommt** (that Grandma is coming today). A comma before it, and two s: **das** with one s is the article. After glauben and denken you may leave dass out, and then the verb stays second: Ich glaube, Oma kommt heute.",
+          "sl": "Za **glauben** (verjeti), **wissen** (vedeti), **hoffen** (upati), **denken** (misliti) in **sagen** (reči) pride **dass** (da) in glagol gre na konec: Ich glaube, **dass Oma heute kommt** (da babica danes pride). Pred njim vejica, in dva s: **das** z enim s je člen. Za glauben in denken lahko dass izpustiš, potem pa glagol ostane drugi: Ich glaube, Oma kommt heute.",
+          "it": "Dopo **glauben** (credere), **wissen** (sapere), **hoffen** (sperare), **denken** (pensare) e **sagen** (dire) viene **dass** (che), e il verbo va alla fine: Ich glaube, **dass Oma heute kommt** (che la nonna viene oggi). Prima la virgola, e due s: **das** con una s è l'articolo. Dopo glauben e denken puoi togliere dass, e allora il verbo resta secondo: Ich glaube, Oma kommt heute."
+        },
+        "examples": [
+          {
+            "de": "Ich glaube, dass Oma heute kommt.",
+            "en": "I think Grandma is coming today.",
+            "sl": "Mislim, da babica danes pride.",
+            "it": "Credo che la nonna venga oggi."
+          },
+          {
+            "de": "Mitzi sagt, dass Kathi müde ist.",
+            "en": "Mitzi says that Kathi is tired.",
+            "sl": "Mitzi pravi, da je Kathi utrujena.",
+            "it": "Mitzi dice che Kathi è stanca."
+          }
+        ],
+        "rows": [
+          [
+            "Ich glaube,",
+            "dass",
+            "Oma heute kommt."
+          ],
+          [
+            "Mitzi sagt,",
+            "dass",
+            "Kathi müde ist."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "nebensatz",
+          "text": "Ich hoffe, ___ du morgen Zeit hast.",
+          "accept": [
+            "dass"
+          ],
+          "hint": {
+            "en": "two s",
+            "sl": "dva s",
+            "it": "due s"
+          },
+          "explain": {
+            "en": "**After hoffen: dass, with two s**\n- Ich hoffe, dass du Zeit hast.",
+            "sl": "**Za hoffen: dass, z dvema s**\n- Ich hoffe, dass du Zeit hast.",
+            "it": "**Dopo hoffen: dass, con due s**\n- Ich hoffe, dass du Zeit hast."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**wenn** (if, when) says on what condition: Wir bleiben zu Hause, **wenn es regnet** (if it rains). It often comes first, and then two verbs meet at the comma: **Wenn es regnet, bleiben wir** zu Hause. In some regions you'll also hear **wann** for it: people say it, but write **wenn**. As a question, When? is always **wann**: **Wann** kommt der Bus?",
+          "sl": "**wenn** (če, ko) pove pogoj: Wir bleiben zu Hause, **wenn es regnet** (če dežuje). Pogosto je prvi, in tedaj se glagola srečata ob vejici: **Wenn es regnet, bleiben wir** zu Hause. Ponekod slišiš zanj tudi **wann**: ljudje to govorijo, piši pa **wenn**. Kot vprašanje je Kdaj? vedno **wann**: **Wann** kommt der Bus?",
+          "it": "**wenn** (se, quando) dice a quale condizione: Wir bleiben zu Hause, **wenn es regnet** (se piove). Spesso viene prima, e allora due verbi si incontrano alla virgola: **Wenn es regnet, bleiben wir** zu Hause. In alcune zone senti anche **wann** al suo posto: si dice, ma scrivi **wenn**. Come domanda, Quando? è sempre **wann**: **Wann** kommt der Bus?"
+        },
+        "examples": [
+          {
+            "de": "Wenn es regnet, bleiben wir zu Hause.",
+            "en": "If it rains, we'll stay at home.",
+            "sl": "Če dežuje, ostanemo doma.",
+            "it": "Se piove, restiamo a casa."
+          },
+          {
+            "de": "Wir gehen baden, wenn die Sonne scheint.",
+            "en": "We'll go swimming when the sun's out.",
+            "sl": "Kopat se gremo, ko sije sonce.",
+            "it": "Andiamo a fare il bagno quando c'è il sole."
+          }
+        ],
+        "rows": [
+          [
+            "Wir bleiben zu Hause,",
+            "wenn",
+            "es regnet."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nebensatz",
+          "prompt": "___ die Sonne scheint, gehen wir auf die Alm.",
+          "options": [
+            "Wenn",
+            "Ob",
+            "Dass"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**On this condition: wenn**\n- Wenn die Sonne scheint, gehen wir auf die Alm.",
+            "sl": "**Pod tem pogojem: wenn**\n- Wenn die Sonne scheint, gehen wir auf die Alm.",
+            "it": "**A questa condizione: wenn**\n- Wenn die Sonne scheint, gehen wir auf die Alm."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ob** (whether, if) is a yes or no question inside a sentence: Kommt Stefan? Ich weiß nicht, **ob Stefan kommt** (whether Stefan is coming). English says if for both, but **wenn** is only a condition. After **wissen** and **fragen** (to ask), a yes or no is **ob**.",
+          "sl": "**ob** (ali) je vprašanje z da ali ne znotraj stavka: Kommt Stefan? Ich weiß nicht, **ob Stefan kommt** (ali Stefan pride). Slovensko rečemo tudi če (ne vem, če pride), nemško pa je **wenn** samo pogoj. Za **wissen** in **fragen** (vprašati) je da ali ne **ob**.",
+          "it": "**ob** (se) è una domanda con sì o no dentro una frase: Kommt Stefan? Ich weiß nicht, **ob Stefan kommt** (se Stefan viene). L'italiano dice se per tutti e due i casi, ma **wenn** è solo una condizione. Dopo **wissen** e **fragen** (chiedere), un sì o no è **ob**."
+        },
+        "examples": [
+          {
+            "de": "Ich weiß nicht, ob Stefan kommt.",
+            "en": "I don't know whether Stefan is coming.",
+            "sl": "Ne vem, ali Stefan pride.",
+            "it": "Non so se Stefan viene."
+          },
+          {
+            "de": "Kathi fragt, ob du Zeit hast.",
+            "en": "Kathi is asking whether you have time.",
+            "sl": "Kathi sprašuje, ali imaš čas.",
+            "it": "Kathi chiede se hai tempo."
+          }
+        ],
+        "rows": [
+          [
+            "Ich weiß nicht,",
+            "ob",
+            "Stefan kommt."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nebensatz",
+          "prompt": "Ich weiß nicht, ___ Toni heute arbeitet.",
+          "options": [
+            "ob",
+            "wenn",
+            "denn"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A yes or no inside the sentence: ob**\n- Arbeitet Toni heute? → ob Toni heute arbeitet",
+            "sl": "**Da ali ne znotraj stavka: ob**\n- Arbeitet Toni heute? → ob Toni heute arbeitet",
+            "it": "**Un sì o no dentro la frase: ob**\n- Arbeitet Toni heute? → ob Toni heute arbeitet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A question with a question word keeps it, and the verb goes last: Wo ist Kathi? Ich weiß nicht, **wo Kathi ist** (where Kathi is). Wann kommt der Bus? Kannst du mir sagen, **wann der Bus kommt** (when the bus is coming)? It's a polite way to ask a stranger too: Wissen Sie, **wie spät es ist** (what time it is)?",
+          "sl": "Vprašanje z vprašalnico jo obdrži, glagol pa gre na konec: Wo ist Kathi? Ich weiß nicht, **wo Kathi ist** (kje je Kathi). Wann kommt der Bus? Kannst du mir sagen, **wann der Bus kommt** (kdaj pride avtobus)? Tako tudi vljudno vprašaš neznanca: Wissen Sie, **wie spät es ist** (koliko je ura)?",
+          "it": "Una domanda con un interrogativo lo tiene, e il verbo va alla fine: Wo ist Kathi? Ich weiß nicht, **wo Kathi ist** (dov'è Kathi). Wann kommt der Bus? Kannst du mir sagen, **wann der Bus kommt** (quando arriva l'autobus)? È anche un modo gentile di chiedere a uno sconosciuto: Wissen Sie, **wie spät es ist** (che ore sono)?"
+        },
+        "examples": [
+          {
+            "de": "Ich weiß nicht, wo Kathi ist.",
+            "en": "I don't know where Kathi is.",
+            "sl": "Ne vem, kje je Kathi.",
+            "it": "Non so dove sia Kathi."
+          },
+          {
+            "de": "Wissen Sie, wie spät es ist?",
+            "en": "Do you know what time it is?",
+            "sl": "Ali veste, koliko je ura?",
+            "it": "Sa che ore sono?"
+          }
+        ],
+        "rows": [
+          [
+            "Ich weiß nicht,",
+            "wo",
+            "Kathi ist."
+          ],
+          [
+            "Wissen Sie,",
+            "wie",
+            "spät es ist?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "nebensatz",
+          "text": "Weißt du, wann der Bus ___? (kommen)",
+          "accept": [
+            "kommt"
+          ],
+          "hint": {
+            "en": "the verb last",
+            "sl": "glagol na koncu",
+            "it": "il verbo alla fine"
+          },
+          "explain": {
+            "en": "**A question word keeps its place, the verb goes last**\n- Wann kommt der Bus? → wann der Bus kommt",
+            "sl": "**Vprašalnica ostane, glagol gre na konec**\n- Wann kommt der Bus? → wann der Bus kommt",
+            "it": "**L'interrogativo resta, il verbo va alla fine**\n- Wann kommt der Bus? → wann der Bus kommt"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A separable verb comes together at the end, in one word: Stefan kommt mit → Ich weiß nicht, ob Stefan **mitkommt** (is coming along). Kathi sperrt um sieben auf → Ich weiß, dass Kathi um sieben **aufsperrt** (opens up). With two verbs the conjugated one is last: dass er kommen **kann** (can come), ob er **angerufen hat** (has phoned).",
+          "sl": "Ločljivi glagol se na koncu združi v eno besedo: Stefan kommt mit → Ich weiß nicht, ob Stefan **mitkommt** (pride zraven). Kathi sperrt um sieben auf → Ich weiß, dass Kathi um sieben **aufsperrt** (odpre). Pri dveh glagolih je spregani zadnji: dass er kommen **kann** (lahko pride), ob er **angerufen hat** (je poklical).",
+          "it": "Un verbo separabile si riunisce alla fine, in una parola: Stefan kommt mit → Ich weiß nicht, ob Stefan **mitkommt** (viene anche lui). Kathi sperrt um sieben auf → Ich weiß, dass Kathi um sieben **aufsperrt** (apre). Con due verbi quello coniugato è l'ultimo: dass er kommen **kann** (può venire), ob er **angerufen hat** (ha telefonato)."
+        },
+        "examples": [
+          {
+            "de": "Ich weiß, dass Kathi um sieben aufsperrt.",
+            "en": "I know that Kathi opens up at seven.",
+            "sl": "Vem, da Kathi odpre ob sedmih.",
+            "it": "So che Kathi apre alle sette."
+          },
+          {
+            "de": "Mitzi fragt, ob Stefan angerufen hat.",
+            "en": "Mitzi is asking whether Stefan has phoned.",
+            "sl": "Mitzi sprašuje, ali je Stefan poklical.",
+            "it": "Mitzi chiede se Stefan ha telefonato."
+          }
+        ],
+        "rows": [
+          [
+            "Ich weiß,",
+            "dass",
+            "Kathi um sieben aufsperrt."
+          ],
+          [
+            "Mitzi fragt,",
+            "ob",
+            "Stefan angerufen hat."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "nebensatz",
+          "prompt": "Ich weiß nicht, ob Florian heute ___.",
+          "options": [
+            "mitkommt",
+            "kommt mit",
+            "mit kommt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A separable verb is whole at the end**\n- Florian kommt mit. → ob Florian mitkommt",
+            "sl": "**Ločljivi glagol je na koncu cel**\n- Florian kommt mit. → ob Florian mitkommt",
+            "it": "**Un verbo separabile è intero alla fine**\n- Florian kommt mit. → ob Florian mitkommt"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "dass-wenn-ob-1",
+      "title": {
+        "de": "Dass oder ob?",
+        "en": "Dass or ob?",
+        "sl": "Dass ali ob?",
+        "it": "Dass o ob?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "nebensatz",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the verb goes last",
+            "sl": "glagol gre na konec",
+            "it": "il verbo va alla fine"
+          },
+          "columns": [
+            "Ich glaube, dass …",
+            "Ich weiß nicht, ob …"
+          ],
+          "rows": [
+            {
+              "label": "Oma kommt heute.",
+              "cells": [
+                "dass Oma heute kommt",
+                "ob Oma heute kommt"
+              ]
+            },
+            {
+              "label": "Toni arbeitet.",
+              "cells": [
+                {
+                  "accept": [
+                    "dass Toni arbeitet"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ob Toni arbeitet"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Stefan kommt mit.",
+              "cells": [
+                {
+                  "accept": [
+                    "dass Stefan mitkommt"
+                  ],
+                  "hint": {
+                    "en": "mit + kommt, one word",
+                    "sl": "mit + kommt, ena beseda",
+                    "it": "mit + kommt, una parola"
+                  }
+                },
+                {
+                  "accept": [
+                    "ob Stefan mitkommt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Kathi kann kochen.",
+              "cells": [
+                {
+                  "accept": [
+                    "dass Kathi kochen kann"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ob Kathi kochen kann"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**dass, wenn, ob and a question word send the verb last**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+            "sl": "**dass, wenn, ob in vprašalnica pošljejo glagol na konec**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+            "it": "**dass, wenn, ob e un interrogativo mandano il verbo alla fine**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "nebensatz",
+          "instruction": {
+            "en": "Sortiere · Sort: dass, wenn or ob?",
+            "sl": "Sortiere · Razvrsti: dass, wenn ali ob?",
+            "it": "Sortiere · Ordina: dass, wenn o ob?"
+          },
+          "columns": [
+            {
+              "label": "dass",
+              "words": [
+                "Ich glaube, … Oma heute kommt.",
+                "Mitzi sagt, … Kathi müde ist."
+              ]
+            },
+            {
+              "label": "wenn",
+              "words": [
+                "… es regnet, bleiben wir hier.",
+                "Wir gehen baden, … es heiß ist."
+              ]
+            },
+            {
+              "label": "ob",
+              "words": [
+                "Ich weiß nicht, … Stefan kommt.",
+                "Kathi fragt, … du Zeit hast."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**What you think or say: dass; on what condition: wenn; yes or no: ob**",
+            "sl": "**Kaj misliš ali rečeš: dass; pod katerim pogojem: wenn; da ali ne: ob**",
+            "it": "**Che cosa pensi o dici: dass; a quale condizione: wenn; sì o no: ob**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dass-wenn-ob-2",
+      "title": {
+        "de": "Was Tante Mitzi weiß",
+        "en": "What Aunt Mitzi knows",
+        "sl": "Kaj ve teta Mitzi",
+        "it": "Che cosa sa zia Mitzi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "nebensatz",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Tante Mitzi weiß alles",
+          "text": "Tante Mitzi weiß, ___ Stefan morgen nach Villach fährt. Sie weiß auch, ___ er zurückkommt: um sechs. ___ es regnet, fährt er mit dem Auto. Aber sie weiß nicht, ___ Florian mitkommt. Sie fragt Kathi: Weißt du, ___ Florian ist? Kathi sagt, dass er auf der Alm ___ (sein). Mitzi hofft, dass er heute noch ___ (anrufen).",
+          "gaps": [
+            {
+              "accept": [
+                "dass"
+              ]
+            },
+            {
+              "accept": [
+                "wann"
+              ],
+              "hint": {
+                "en": "at what time?",
+                "sl": "ob kateri uri?",
+                "it": "a che ora?"
+              }
+            },
+            {
+              "accept": [
+                "Wenn"
+              ],
+              "spoken": [
+                "Wann"
+              ],
+              "hint": {
+                "en": "on what condition?",
+                "sl": "pod katerim pogojem?",
+                "it": "a quale condizione?"
+              }
+            },
+            {
+              "accept": [
+                "ob"
+              ],
+              "hint": {
+                "en": "yes or no?",
+                "sl": "da ali ne?",
+                "it": "sì o no?"
+              }
+            },
+            {
+              "accept": [
+                "wo"
+              ],
+              "hint": {
+                "en": "at what place?",
+                "sl": "na katerem mestu?",
+                "it": "in che posto?"
+              }
+            },
+            {
+              "accept": [
+                "ist"
+              ]
+            },
+            {
+              "accept": [
+                "anruft"
+              ],
+              "hint": {
+                "en": "whole, at the end",
+                "sl": "cel, na koncu",
+                "it": "intero, alla fine"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "das",
+            "ruft an",
+            "sein"
+          ],
+          "translation": {
+            "en": "Aunt Mitzi knows that Stefan is going to Villach tomorrow. She also knows when he's coming back: at six. If it rains, he'll go by car. But she doesn't know whether Florian is going with him. She asks Kathi: do you know where Florian is? Kathi says he's up on the alpine pasture. Mitzi hopes he'll phone today.",
+            "sl": "Teta Mitzi ve, da se Stefan jutri pelje v Beljak. Ve tudi, kdaj se vrne: ob šestih. Če bo deževalo, se bo peljal z avtom. Ne ve pa, ali gre Florian zraven. Kathi vpraša: Ali veš, kje je Florian? Kathi pravi, da je na planini. Mitzi upa, da bo danes še poklical.",
+            "it": "Zia Mitzi sa che Stefan domani va a Villach. Sa anche quando torna: alle sei. Se piove, va in macchina. Ma non sa se Florian va con lui. Chiede a Kathi: sai dov'è Florian? Kathi dice che è all'alpeggio. Mitzi spera che telefoni ancora oggi."
+          },
+          "explain": {
+            "en": "**dass, wenn, ob and a question word send the verb last**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+            "sl": "**dass, wenn, ob in vprašalnica pošljejo glagol na konec**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+            "it": "**dass, wenn, ob e un interrogativo mandano il verbo alla fine**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "nebensatz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wissen Sie, ___ spät es ist?",
+          "options": [
+            "wie",
+            "ob",
+            "wo"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wie spät ist es? → wie spät es ist**",
+            "sl": "**Wie spät ist es? → wie spät es ist**",
+            "it": "**Wie spät ist es? → wie spät es ist**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dass-wenn-ob-3",
+      "title": {
+        "de": "Ich weiß nicht …",
+        "en": "I don't know …",
+        "sl": "Ne vem …",
+        "it": "Non so …"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "nebensatz",
+          "instruction": {
+            "en": "Sag es mit dass · Say it with dass",
+            "sl": "Sag es mit dass · Povej z dass",
+            "it": "Sag es mit dass · Dillo con dass"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Oma kommt heute. (Ich glaube)",
+              "accept": [
+                "Ich glaube, dass Oma heute kommt."
+              ]
+            },
+            {
+              "from": "Kathi sperrt um sieben auf. (Ich weiß)",
+              "accept": [
+                "Ich weiß, dass Kathi um sieben aufsperrt."
+              ]
+            },
+            {
+              "from": "Stefan kann nicht kommen. (Mitzi sagt)",
+              "accept": [
+                "Mitzi sagt, dass Stefan nicht kommen kann."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**dass, then the verb last**\n- dass Oma heute kommt · dass Kathi aufsperrt · dass er kommen kann",
+            "sl": "**dass, nato glagol na koncu**\n- dass Oma heute kommt · dass Kathi aufsperrt · dass er kommen kann",
+            "it": "**dass, poi il verbo alla fine**\n- dass Oma heute kommt · dass Kathi aufsperrt · dass er kommen kann"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "nebensatz",
+          "instruction": {
+            "en": "Stell die Frage im Satz · Put the question inside the sentence",
+            "sl": "Stell die Frage im Satz · Postavi vprašanje v stavek",
+            "it": "Stell die Frage im Satz · Metti la domanda nella frase"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kommt Stefan? (Ich weiß nicht)",
+              "accept": [
+                "Ich weiß nicht, ob Stefan kommt."
+              ]
+            },
+            {
+              "from": "Wo wohnt Toni? (Weißt du)",
+              "accept": [
+                "Weißt du, wo Toni wohnt?"
+              ]
+            },
+            {
+              "from": "Hat Kathi heute Zeit? (Ich frage)",
+              "accept": [
+                "Ich frage, ob Kathi heute Zeit hat."
+              ]
+            },
+            {
+              "from": "Wann beginnt der Kirchtag? (Kannst du mir sagen)",
+              "accept": [
+                "Kannst du mir sagen, wann der Kirchtag beginnt?"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Yes or no: ob; a question word stays; the verb last**\n- ob Stefan kommt · wo Toni wohnt",
+            "sl": "**Da ali ne: ob; vprašalnica ostane; glagol na koncu**\n- ob Stefan kommt · wo Toni wohnt",
+            "it": "**Sì o no: ob; l'interrogativo resta; il verbo alla fine**\n- ob Stefan kommt · wo Toni wohnt"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "nebensatz",
+          "instruction": {
+            "en": "Beginne mit Wenn · Start with Wenn",
+            "sl": "Beginne mit Wenn · Začni z Wenn",
+            "it": "Beginne mit Wenn · Comincia con Wenn"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Wir bleiben zu Hause, wenn es regnet.",
+              "accept": [
+                "Wenn es regnet, bleiben wir zu Hause."
+              ],
+              "spoken": [
+                "Wann es regnet, bleiben wir zu Hause."
+              ]
+            },
+            {
+              "from": "Stefan fährt mit dem Auto, wenn es schneit.",
+              "accept": [
+                "Wenn es schneit, fährt Stefan mit dem Auto."
+              ],
+              "spoken": [
+                "Wann es schneit, fährt Stefan mit dem Auto."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Wenn first: two verbs meet at the comma**\n- Wenn es regnet, bleiben wir zu Hause.",
+            "sl": "**Wenn prvi: glagola se srečata ob vejici**\n- Wenn es regnet, bleiben wir zu Hause.",
+            "it": "**Wenn per primo: due verbi si incontrano alla virgola**\n- Wenn es regnet, bleiben wir zu Hause."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "nebensatz",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der Almabtrieb",
+        "text": "Im September ist der Almabtrieb. Florian hofft, ___ das Wetter schön bleibt. ___ es regnet, gehen die Kühe langsam. Stefan fragt, ___ er helfen kann. Niemand weiß genau, ___ der Almabtrieb beginnt. Mitzi glaubt, dass er am Samstag ___ (sein). Und Kathi fragt, ob alle bei ihr essen ___ (wollen).",
+        "gaps": [
+          {
+            "accept": [
+              "dass"
+            ]
+          },
+          {
+            "accept": [
+              "Wenn"
+            ],
+            "spoken": [
+              "Wann"
+            ]
+          },
+          {
+            "accept": [
+              "ob"
+            ]
+          },
+          {
+            "accept": [
+              "wann"
+            ]
+          },
+          {
+            "accept": [
+              "ist"
+            ]
+          },
+          {
+            "accept": [
+              "wollen"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "In September the cows come down from the alpine pasture. Florian hopes the weather stays fine. If it rains, the cows go slowly. Stefan asks whether he can help. Nobody knows exactly when it starts. Mitzi thinks it's on Saturday. And Kathi asks whether everyone wants to eat at her place.",
+          "sl": "Septembra je vrnitev s planine. Florian upa, da bo vreme lepo. Če dežuje, krave hodijo počasi. Stefan vpraša, ali lahko pomaga. Nihče ne ve natanko, kdaj se začne. Mitzi misli, da je v soboto. Kathi pa vpraša, ali hočejo vsi jesti pri njej.",
+          "it": "A settembre c'è la discesa dall'alpeggio. Florian spera che il tempo resti bello. Se piove, le mucche vanno piano. Stefan chiede se può aiutare. Nessuno sa con precisione quando comincia. Mitzi crede che sia sabato. E Kathi chiede se tutti vogliono mangiare da lei."
+        },
+        "explain": {
+          "en": "**dass, wenn, ob and a question word send the verb last**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+          "sl": "**dass, wenn, ob in vprašalnica pošljejo glagol na konec**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+          "it": "**dass, wenn, ob e un interrogativo mandano il verbo alla fine**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "nebensatz",
+        "instruction": {
+          "en": "Stell die Frage im Satz · Put the question inside the sentence",
+          "sl": "Stell die Frage im Satz · Postavi vprašanje v stavek",
+          "it": "Stell die Frage im Satz · Metti la domanda nella frase"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Kommt Maxi mit? (Lena fragt)",
+            "accept": [
+              "Lena fragt, ob Maxi mitkommt."
+            ]
+          },
+          {
+            "from": "Wie heißt die neue Lehrerin? (Weißt du)",
+            "accept": [
+              "Weißt du, wie die neue Lehrerin heißt?"
+            ]
+          },
+          {
+            "from": "Wo ist der Schlüssel? (Ich weiß nicht)",
+            "accept": [
+              "Ich weiß nicht, wo der Schlüssel ist."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**dass, wenn, ob and a question word send the verb last**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+          "sl": "**dass, wenn, ob in vprašalnica pošljejo glagol na konec**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist",
+          "it": "**dass, wenn, ob e un interrogativo mandano il verbo alla fine**\n- dass Oma kommt · wenn es regnet · ob er kommt · wo Kathi ist"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nebensatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Weißt du, ___ der Bus nach Villach abfährt? – Um acht.",
+        "options": [
+          "wann",
+          "wenn",
+          "dass"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The question When? stays wann, inside a sentence too**\n- Wann fährt der Bus ab? → wann der Bus abfährt",
+          "sl": "**Vprašanje Kdaj? ostane wann, tudi v stavku**\n- Wann fährt der Bus ab? → wann der Bus abfährt",
+          "it": "**La domanda Quando? resta wann, anche dentro una frase**\n- Wann fährt der Bus ab? → wann der Bus abfährt"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nebensatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Mitzi sagt, ___ Kathi heute kocht.",
+        "options": [
+          "dass",
+          "das",
+          "ob"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**After sagen: dass, with two s**\n- das Haus · dass Kathi kocht",
+          "sl": "**Za sagen: dass, z dvema s**\n- das Haus · dass Kathi kocht",
+          "it": "**Dopo sagen: dass, con due s**\n- das Haus · dass Kathi kocht"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "nebensatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich weiß nicht, ob Stefan heute ___.",
+        "options": [
+          "anruft",
+          "ruft an",
+          "an ruft"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A separable verb is whole at the end**\n- Stefan ruft an. → ob Stefan anruft",
+          "sl": "**Ločljivi glagol je na koncu cel**\n- Stefan ruft an. → ob Stefan anruft",
+          "it": "**Un verbo separabile è intero alla fine**\n- Stefan ruft an. → ob Stefan anruft"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: dass, ob, wenn; is wann for wenn said in Carinthia?; aufsperren; Almabtrieb; Slovene ne vem, če"
+}

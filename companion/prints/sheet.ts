@@ -898,6 +898,23 @@ export function markEndings(t: PTable) {
       }
     }
     if (!best.stem) return out
+    // the stem is the whole word of the cells that share it (großen, of ein großer, einen großen, einem großen …), so it
+    // leaves nothing to mark: the cell that differs names the stem that does (große-r, große-n)
+    const inColumn = cells.map(x => {
+      const ws = wordsOf(x.w)
+      return norm(ws[best.at === 0 ? 0 : ws.length - 1] ?? '')
+    })
+    if (inColumn.every(v => !v.startsWith(best.stem) || v === best.stem)) {
+      for (let k = best.stem.length - 1; k >= 3; k--) {
+        const p = best.stem.slice(0, k)
+        const sharing = inColumn.filter(v => v.startsWith(p))
+        if (sharing.length > best.share) {
+          // an ending, not another word of the stem (piace, of mi piace and mi piacciono: no stem marks both)
+          if (sharing.every(v => v.length - p.length <= 3)) best = { ...best, stem: p, share: sharing.length }
+          break
+        }
+      }
+    }
     for (const { i, w } of cells) {
       const ws = wordsOf(w)
       const word = ws[best.at === 0 ? 0 : ws.length - 1]

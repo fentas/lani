@@ -256,7 +256,7 @@ object Sheets {
                 }
             }
         }
-        val r = Grading.check(answer, item.accept, lang)
+        val r = Grading.check(answer, item.accept, lang, item.frame.substringBefore(BLANK, ""))
         // a distractor is a wrong form the sheet offers on purpose (pesom for psom: the e that drops; sedli, sesti's, for
         // sedeli: the other aspect), so picked or typed it is wrong, never a slip in the stem forgiven as almost
         if (r.verdict == Verdict.ALMOST && item.wrong.any { Grading.canonical(it, lang) == Grading.canonical(answer, lang) }) {

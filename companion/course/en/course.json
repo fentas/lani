@@ -25,7 +25,75 @@
         { "id": "was-were", "title": { "en": "I was, you were", "de": "War, waren: I was, you were", "sl": "Bil sem: I was, you were", "it": "Ero, eri: I was, you were" }, "grammar": ["was-were", "to-be"] }
       ]
     },
-    { "level": "A2", "units": [] }
+    {
+      "level": "A2",
+      "units": [
+        { "id": "imperatives", "title": { "en": "Sit down! Don't run! Let's go!", "de": "Der Imperativ: sit down, don't run", "sl": "Velelnik: sit down, don't run", "it": "L'imperativo: sit down, don't run" }, "grammar": ["imperatives"] },
+        { "id": "past-regular", "title": { "en": "I walked, she stayed", "de": "Die Vergangenheit, regelmäßig: I walked", "sl": "Preteklik, pravilni glagoli: I walked", "it": "Il passato, verbi regolari: I walked" }, "grammar": ["past-simple"] },
+        { "id": "past-irregular", "title": { "en": "I went, I saw, I took", "de": "Die Vergangenheit, unregelmäßig: I went, I saw", "sl": "Preteklik, nepravilni glagoli: I went, I saw", "it": "Il passato, verbi irregolari: I went, I saw" }, "grammar": ["past-simple"] },
+        { "id": "did-you", "title": { "en": "Did you go? I didn't.", "de": "Fragen und Verneinung in der Vergangenheit: did, didn't", "sl": "Vprašanja in zanikanje v pretekliku: did, didn't", "it": "Domande e negazione al passato: did, didn't" }, "grammar": ["past-simple", "questions-do"] },
+        { "id": "past-continuous", "title": { "en": "I was walking when it started", "de": "Die Verlaufsform der Vergangenheit: I was walking", "sl": "Prav takrat: I was walking", "it": "Il passato progressivo: I was walking" }, "grammar": ["past-continuous", "past-simple", "present-continuous"] },
+        { "id": "because-so", "title": { "en": "It rained, so we stayed", "de": "Sätze verbinden: because, so, when", "sl": "Povezovanje stavkov: because, so, when", "it": "Collegare le frasi: because, so, when" }, "grammar": ["linking-words", "past-simple"] },
+        { "id": "some-and-any", "title": { "en": "Some bread, any milk", "de": "Some und any: some bread, any milk", "sl": "Some in any: some bread, any milk", "it": "Some e any: some bread, any milk" }, "grammar": ["some-any", "articles"] },
+        { "id": "how-much", "title": { "en": "How much? How many? A few, a little", "de": "Wie viel? how much, how many, a few", "sl": "Koliko? how much, how many, a few", "it": "Quanto? how much, how many, a few" }, "grammar": ["some-any", "plurals"] },
+        { "id": "comparatives", "title": { "en": "Bigger, better, more useful", "de": "Der Komparativ: bigger than, more useful", "sl": "Primernik: bigger than, more useful", "it": "Il comparativo: bigger than, more useful" }, "grammar": ["comparatives"] },
+        { "id": "superlatives", "title": { "en": "The biggest, the best", "de": "Der Superlativ: the biggest, the best", "sl": "Presežnik: the biggest, the best", "it": "Il superlativo: the biggest, the best" }, "grammar": ["comparatives", "articles"] },
+        { "id": "adverbs", "title": { "en": "Quickly, carefully, well", "de": "Die Adverbien: quickly, carefully, well", "sl": "Prislovi: quickly, carefully, well", "it": "Gli avverbi: quickly, carefully, well" }, "grammar": ["adverbs", "word-order"] },
+        { "id": "someone-anything", "title": { "en": "Someone, anything, nothing", "de": "Jemand, etwas: someone, anything, nothing", "sl": "Nekdo, nekaj: someone, anything, nothing", "it": "Qualcuno, qualcosa: someone, anything, nothing" }, "grammar": ["indefinite-pronouns", "some-any"] },
+        { "id": "going-to", "title": { "en": "I'm going to walk; I'm meeting Jack", "de": "Pläne: I'm going to, I'm meeting", "sl": "Načrti: I'm going to, I'm meeting", "it": "I progetti: I'm going to, I'm meeting" }, "grammar": ["future", "present-continuous"] },
+        { "id": "will", "title": { "en": "I'll help you, it'll rain", "de": "Die Zukunft mit will: I'll help, it'll rain", "sl": "Prihodnjik z will: I'll help, it'll rain", "it": "Il futuro con will: I'll help, it'll rain" }, "grammar": ["future"] },
+        { "id": "have-to", "title": { "en": "I have to, you must, you should", "de": "Pflicht und Rat: have to, must, should", "sl": "Obveznost in nasvet: have to, must, should", "it": "Dovere e consigli: have to, must, should" }, "grammar": ["must-have-to", "can"] },
+        { "id": "would-like", "title": { "en": "I'd like to go, I enjoy walking", "de": "Wünsche und Vorlieben: I'd like to, I enjoy walking", "sl": "Želje in všečnost: I'd like to, I enjoy walking", "it": "Desideri e gusti: I'd like to, I enjoy walking" }, "grammar": ["would-like"] },
+        { "id": "have-you-ever", "title": { "en": "Have you ever seen a raven?", "de": "Das Present Perfect: have you ever, I've just", "sl": "Sedanji perfekt: have you ever, I've just", "it": "Il present perfect: have you ever, I've just" }, "grammar": ["present-perfect", "past-simple"] },
+        { "id": "if-it-rains", "title": { "en": "If it rains, I'll stay", "de": "Bedingungen: if it rains, I'll stay", "sl": "Pogoji: if it rains, I'll stay", "it": "Le condizioni: if it rains, I'll stay" }, "grammar": ["first-conditional", "future"] }
+      ]
+    },
+    {
+      "level": "B1",
+      "units": [
+        { "id": "for-since", "title": { "en": "I've lived here for ten years", "de": "Seit wann? for, since", "sl": "Odkdaj? for, since", "it": "Da quando? for, since" }, "grammar": ["present-perfect"], "planned": true },
+        { "id": "been-waiting", "title": { "en": "I've been waiting for an hour", "de": "Schon lange: I've been waiting", "sl": "Že dolgo: I've been waiting", "it": "Da tanto tempo: I've been waiting" }, "grammar": ["present-perfect"], "planned": true },
+        { "id": "past-perfect", "title": { "en": "The bus had already gone", "de": "Die Vorvergangenheit: had gone", "sl": "Predpreteklik: had gone", "it": "Il trapassato: had gone" }, "grammar": ["past-simple"], "planned": true },
+        { "id": "used-to", "title": { "en": "I used to live in Leeds", "de": "Früher: I used to", "sl": "Nekoč: I used to", "it": "Una volta: I used to" }, "grammar": ["past-simple"], "planned": true },
+        { "id": "future-forms", "title": { "en": "It'll rain, the bus leaves at nine", "de": "Alle Arten der Zukunft: will, going to, leaves", "sl": "Vsi načini prihodnosti: will, going to, leaves", "it": "Tutti i modi del futuro: will, going to, leaves" }, "grammar": ["future"], "planned": true },
+        { "id": "question-tags", "title": { "en": "It's cold, isn't it?", "de": "Frageanhängsel: isn't it? So do I", "sl": "Vprašalni dodatki: isn't it? So do I", "it": "Le code interrogative: isn't it? So do I" }, "grammar": ["to-be"], "planned": true },
+        { "id": "who-which", "title": { "en": "The man who lives next door", "de": "Relativsätze: who, which, that", "sl": "Oziralni stavki: who, which, that", "it": "Le relative: who, which, that" }, "grammar": [], "planned": true },
+        { "id": "passive", "title": { "en": "The bread is baked here", "de": "Das Passiv: is baked, was built", "sl": "Trpnik: is baked, was built", "it": "Il passivo: is baked, was built" }, "grammar": ["past-simple"], "planned": true },
+        { "id": "verb-patterns", "title": { "en": "I decided to go, I enjoy walking", "de": "Verben mit to oder -ing: decided to, enjoy walking", "sl": "Glagoli s to ali -ing: decided to, enjoy walking", "it": "Verbi con to o -ing: decided to, enjoy walking" }, "grammar": [], "planned": true },
+        { "id": "phrasal-verbs", "title": { "en": "Get up, look after, give up", "de": "Phrasal Verbs: get up, look after", "sl": "Frazni glagoli: get up, look after", "it": "I phrasal verb: get up, look after" }, "grammar": ["object-pronouns"], "planned": true },
+        { "id": "too-enough", "title": { "en": "Too cold, warm enough, as good as", "de": "Zu, genug, so wie: too, enough, as … as", "sl": "Preveč, dovolj, tako kot: too, enough, as … as", "it": "Troppo, abbastanza, come: too, enough, as … as" }, "grammar": [], "planned": true },
+        { "id": "myself", "title": { "en": "I did it myself; we know each other", "de": "Reflexiv: myself, each other", "sl": "Povratno: myself, each other", "it": "Riflessivo: myself, each other" }, "grammar": ["object-pronouns"], "planned": true },
+        { "id": "if-i-had", "title": { "en": "If I had a boat, I'd row across", "de": "Irreale Bedingung: if I had, I'd", "sl": "Neresnični pogoj: if I had, I'd", "it": "Il periodo ipotetico: if I had, I'd" }, "grammar": [], "planned": true },
+        { "id": "might-must", "title": { "en": "It might rain; it must be Jack", "de": "Vermutungen: might, must, can't", "sl": "Domneve: might, must, can't", "it": "Le supposizioni: might, must, can't" }, "grammar": [], "planned": true },
+        { "id": "if-i-had-known", "title": { "en": "If I'd known, I'd have come", "de": "Irreale Vergangenheit: if I'd known", "sl": "Neresnična preteklost: if I'd known", "it": "L'ipotesi nel passato: if I'd known" }, "grammar": [], "planned": true },
+        { "id": "although-however", "title": { "en": "Although it rained, despite the rain", "de": "Gegensätze: although, however, despite", "sl": "Nasprotja: although, however, despite", "it": "I contrasti: although, however, despite" }, "grammar": [], "planned": true },
+        { "id": "reported-speech", "title": { "en": "She said she was tired", "de": "Indirekte Rede: she said she was", "sl": "Odvisni govor: she said she was", "it": "Il discorso indiretto: she said she was" }, "grammar": ["past-simple"], "planned": true },
+        { "id": "reported-questions", "title": { "en": "He asked where I lived", "de": "Indirekte Fragen: he asked where I lived", "sl": "Odvisna vprašanja: he asked where I lived", "it": "Le domande indirette: he asked where I lived" }, "grammar": ["questions-do"], "planned": true }
+      ]
+    },
+    {
+      "level": "B2",
+      "units": [
+        { "id": "narrative-tenses", "title": { "en": "I had been walking for hours", "de": "Erzählzeiten: had been walking", "sl": "Pripovedni časi: had been walking", "it": "I tempi del racconto: had been walking" }, "grammar": ["past-simple"], "planned": true },
+        { "id": "future-perfect", "title": { "en": "By Friday I'll have finished", "de": "Bis dahin: I'll have finished, I'll be working", "sl": "Do takrat: I'll have finished, I'll be working", "it": "Entro allora: I'll have finished, I'll be working" }, "grammar": ["future"], "planned": true },
+        { "id": "be-used-to", "title": { "en": "We would walk; I'm used to it", "de": "Gewohnheiten: would, be used to, get used to", "sl": "Navade: would, be used to, get used to", "it": "Le abitudini: would, be used to, get used to" }, "grammar": [], "planned": true },
+        { "id": "should-have", "title": { "en": "You should have told me", "de": "Modalverben in der Vergangenheit: should have, can't have", "sl": "Modalni glagoli v pretekliku: should have, can't have", "it": "I modali al passato: should have, can't have" }, "grammar": [], "planned": true },
+        { "id": "i-wish", "title": { "en": "I wish I had a dog; if only I'd known", "de": "Wünsche: I wish, if only", "sl": "Želje: I wish, if only", "it": "I desideri: I wish, if only" }, "grammar": [], "planned": true },
+        { "id": "mixed-conditionals", "title": { "en": "If I'd listened, I'd be there now", "de": "Gemischte Bedingungen: if I'd listened, unless", "sl": "Mešani pogoji: if I'd listened, unless", "it": "Condizioni miste: if I'd listened, unless" }, "grammar": [], "planned": true },
+        { "id": "non-defining", "title": { "en": "Mr Dixon, who lives by the beck", "de": "Mehr Relativsätze: who mit Komma, whose, whom", "sl": "Več oziralnih stavkov: who z vejico, whose, whom", "it": "Altre relative: who con la virgola, whose, whom" }, "grammar": [], "planned": true },
+        { "id": "participle-clauses", "title": { "en": "Walking up the fell, I saw a raven", "de": "Partizipsätze: walking up, built in 1800", "sl": "Deležniški stavki: walking up, built in 1800", "it": "Le frasi participiali: walking up, built in 1800" }, "grammar": [], "planned": true },
+        { "id": "passive-more", "title": { "en": "It has been repaired; it is said that", "de": "Mehr Passiv: has been repaired, it is said", "sl": "Več trpnika: has been repaired, it is said", "it": "Ancora il passivo: has been repaired, it is said" }, "grammar": [], "planned": true },
+        { "id": "have-it-done", "title": { "en": "I had my hair cut", "de": "Machen lassen: I had my hair cut", "sl": "Dati narediti: I had my hair cut", "it": "Farsi fare: I had my hair cut" }, "grammar": [], "planned": true },
+        { "id": "reporting-verbs", "title": { "en": "He advised me to wait", "de": "Verben des Sagens: suggested going, advised me to", "sl": "Glagoli poročanja: suggested going, advised me to", "it": "I verbi per riferire: suggested going, advised me to" }, "grammar": [], "planned": true },
+        { "id": "both-neither", "title": { "en": "Both, neither, each, all of them", "de": "Beide, keiner: both, neither, each", "sl": "Oba, nobeden: both, neither, each", "it": "Entrambi, nessuno: both, neither, each" }, "grammar": ["some-any"], "planned": true },
+        { "id": "cleft-sentences", "title": { "en": "It was Jack who found her", "de": "Hervorheben: it was Jack who, what I need", "sl": "Poudarjanje: it was Jack who, what I need", "it": "Mettere in rilievo: it was Jack who, what I need" }, "grammar": [], "planned": true },
+        { "id": "so-such-whereas", "title": { "en": "So cold that we stayed", "de": "Folge und Gegensatz: so … that, whereas", "sl": "Posledica in nasprotje: so … that, whereas", "it": "Effetto e contrasto: so … that, whereas" }, "grammar": [], "planned": true },
+        { "id": "phrasal-verbs-more", "title": { "en": "Put up with, come across, run out of", "de": "Mehr Phrasal Verbs: put up with, come across", "sl": "Več fraznih glagolov: put up with, come across", "it": "Altri phrasal verb: put up with, come across" }, "grammar": [], "planned": true },
+        { "id": "word-building", "title": { "en": "Happy, unhappy, happiness", "de": "Wortbildung: unhappy, happiness", "sl": "Besedotvorje: unhappy, happiness", "it": "La formazione delle parole: unhappy, happiness" }, "grammar": [], "planned": true },
+        { "id": "collocations", "title": { "en": "Make a decision, do the washing up", "de": "Feste Wendungen: make a decision, do the washing up", "sl": "Stalne zveze: make a decision, do the washing up", "it": "Le collocazioni: make a decision, do the washing up" }, "grammar": [], "planned": true },
+        { "id": "formal-informal", "title": { "en": "Dear Sir or Madam; cheers, see you", "de": "Formell und locker: Dear Sir or Madam, cheers", "sl": "Uradno in sproščeno: Dear Sir or Madam, cheers", "it": "Formale e informale: Dear Sir or Madam, cheers" }, "grammar": [], "planned": true }
+      ]
+    }
   ],
   "machine_written": true,
   "review": "machine-written, not reviewed by a native speaker"

@@ -89,7 +89,7 @@ async function areas() {
 
   // each read the app makes again on a Back says the areas it depends on, at their versions now
   const reads: [string, string[]][] = [
-    ['/state', ['learner']], ['/packs', ['learner', 'content']], ['/modules', ['content']], ['/grammar', ['content']], ['/cards', ['content']],
+    ['/state', ['learner']], ['/packs', ['learner', 'content']], ['/modules', ['content', 'village']], ['/grammar', ['content']], ['/cards', ['content']],
     ['/course', ['content']], ['/readings', ['content']], ['/cases', ['content']], ['/scenes?arts=1', ['content']], ['/villagers?time=day', ['content']],
     ['/arrivals', ['content']], ['/culture', ['content']], ['/scenarios', ['content']], ['/stories', ['content']], ['/drills', ['content']],
     ['/voice/index', ['content']], ['/voice/profiles', ['content']], ['/towns', ['towns', 'content']], ['/towns/guests', ['towns', 'content']],

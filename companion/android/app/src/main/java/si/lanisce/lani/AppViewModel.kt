@@ -369,7 +369,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     )
     /** "🔢 Števila · Numbers": the numbers module, open with the unit stevila's intro (app/NumbersController, data/NumbersPractice). */
     val numbers: si.lanisce.lani.app.NumbersController = si.lanisce.lani.app.NumbersController(
-        viewModelScope, game, chat, notices, course = { school.course }, canSay = { speaker.canSay }, canListen = { canListen() },
+        viewModelScope, game, chat, notices, course = { school.course },
+        language = { content.dashboard?.let { it.language ?: it.pair.target.code } ?: L10n.pair.target.code },
+        canSay = { speaker.canSay }, canListen = { canListen() },
     )
     /**
      * "🧩 Skloni · Cases": the case trainer (app/CasesController, data/CaseTrainer): its bank, sessions focused or mixed,
@@ -2026,12 +2028,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         val now = System.currentTimeMillis()
         val today = java.time.LocalDate.now()
         when {
-            what == "locked" -> game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now))) }
+            what == "locked" -> game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now)), numbers.tongue) }
             what == "ready" -> {
-                game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now))) }
-                school.unit(si.lanisce.lani.data.NumbersPractice.UNIT)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
+                game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now)), numbers.tongue) }
+                school.unit((numbers.tongue ?: si.lanisce.lani.data.NumberTongue.SL).unit)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
             }
-            what == "time" -> school.unit(si.lanisce.lani.data.NumbersPractice.TIME_UNIT)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
+            what == "time" -> school.unit((numbers.tongue ?: si.lanisce.lani.data.NumberTongue.SL).timeUnit)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
             what.startsWith("ranges:") -> game.apply { si.lanisce.lani.app.QaHooks.numbersRanges(it, what.removePrefix("ranges:"), today) }
             what == "again" -> game.apply { si.lanisce.lani.app.QaHooks.numbersAgain(it, today) }
             what == "near" -> game.apply { si.lanisce.lani.app.QaHooks.numbersNear(it) }

@@ -2,8 +2,9 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { validateModule } from '../../src/spec'
+import { ModuleStore, validateCuratedModule, type VillageNow } from '../../src/store'
 import { reference, spec } from './fixtures'
-import { auth, base, check, client, dataDir } from './harness'
+import { auth, base, check, client, dataDir, tempDir } from './harness'
 
 const text = (r: any) => (r.content ?? []).map((c: any) => c.text ?? '').join('\n')
 
@@ -170,6 +171,46 @@ export default async function modules() {
   check('curated module is listed', listed2.some((m: any) => m.id === 'curated-demo' && m.version === 1), listed2)
   const cur = await (await fetch(`${base}/modules/curated-demo`, { headers: auth })).json()
   check('curated module is served', cur.exercises?.length === 2)
+  // a curated module above the learner's level isn't offered: it would come up in every run and as a request
+  check('a curated module above the learner\'s level is not offered to the app …', !listed2.some((m: any) => m.id === 'curated-later'), listed2)
+  const toolList = text(await client.callTool({ name: 'list_modules', arguments: {} }))
+  check('… the tutor still sees it …', toolList.includes('curated-later'), toolList)
+  const later = await (await fetch(`${base}/modules/curated-later`, { headers: auth })).json()
+  check('… and it is served by its id, its texts per base as plain strings in the learner\'s base (else in English): an app of any age reads them', later.title === 'Later' && later.description === 'For B1.' && later.quest?.story === 'Later · A story' && later.exercises?.[0]?.instruction === 'Pick the form' && later.exercises?.[0]?.explain === 'jaz → sem' && later.exercises?.[1]?.back === 'thanks', later)
+  const curatedIn = (input: unknown, b: string) => validateCuratedModule(input, b)
+  const based = { schema: 'lani.module/v0', id: 'based', title: { en: 'Later', de: 'Später' }, level: 'A1', exercises: [{ type: 'choice', prompt: { en: 'Pick', de: 'Wähl' }, options: ['a', 'b'], answer: 0 }] }
+  const inDe = curatedIn(based, 'de')
+  check('a curated module in German where it has German, in English where the base has none', inDe.ok && inDe.spec.title === 'Später' && (inDe.spec.exercises[0] as any).prompt === 'Wähl' && curatedIn(based, 'sl').ok && (curatedIn(based, 'sl') as any).spec.title === 'Later', inDe)
+  check('a text per base without its English is refused', !curatedIn({ ...based, title: { de: 'Später' } }, 'de').ok)
+  check('a tutor\'s module keeps plain strings', !validateModule(based).ok)
+
+  // the pace of a language's curated modules: one request open at a time, at most one new a day, in their order
+  const paceDir = tempDir('lani-smoke-pace-')
+  const pacedFile = (id: string, order: number, giver = 'Nonna Rosa', level = 'A1') => writeFileSync(join(paceDir, `${id}.json`), JSON.stringify({
+    schema: 'lani.module/v0', id, title: id, level, order, exercises: [{ type: 'choice', prompt: 'x ___', options: ['a', 'b'], answer: 0 }], quest: { giver, story: 's', reward: { stone: 5 } },
+  }))
+  pacedFile('third', 3); pacedFile('first', 1); pacedFile('second', 2, 'Giulia'); pacedFile('later', 1, 'Nonna Rosa', 'A2')
+  writeFileSync(join(paceDir, 'plain.json'), JSON.stringify({ schema: 'lani.module/v0', id: 'plain', title: 'p', level: 'A1', exercises: [{ type: 'choice', prompt: 'x ___', options: ['a', 'b'], answer: 0 }] }))
+  const store = new ModuleStore(join(paceDir, 'tutor'), paceDir)
+  const everyone = () => true
+  const ids = (level: string, quests: VillageNow['quests'], today: string, here: (g: string) => boolean = everyone) => store.offered(level, { quests, here, today }).filter(m => m.quest).map(m => m.id).sort().join(' ')
+  const asked = (moduleId: string, since: string, done = false, giver = 'Nonna Rosa') => ({ moduleId, since, done, giver })
+  check('the pace: first the one module, by its order, whatever the files\' order; none of a level above', ids('A1', [], '2026-11-03') === 'first', ids('A1', [], '2026-11-03'))
+  const led = [{ moduleId: 'a-tutors-task', helps: 'third', since: '2026-10-20', giver: 'Nonna Rosa' }]
+  check("the pace: a tutor's request that leads to a module (helps) holds it listed, and isn't its own open request", ids('A1', led, '2026-11-03') === 'first third', ids('A1', led, '2026-11-03'))
+  check('… a module with no request is always there', store.offered('A1', { quests: [], here: everyone, today: '2026-11-03' }).some(m => m.id === 'plain' && !m.quest))
+  check('… while it is open, the next waits, day after day', ids('A1', [asked('first', '2026-11-03')], '2026-11-09') === 'first')
+  check('… done today, the next waits for tomorrow', ids('A1', [asked('first', '2026-11-03', true)], '2026-11-03') === 'first')
+  check('… done and asked before today: the next comes, and the one played stays listed (the app keeps it as played)', ids('A1', [asked('first', '2026-11-03', true)], '2026-11-04') === 'first second')
+  check('… a giver who doesn\'t live here: the next one who does', ids('A1', [asked('first', '2026-11-03', true)], '2026-11-04', g => g !== 'Giulia') === 'first third')
+  check('… an open request of a giver who has left doesn\'t hold the others back', ids('A1', [asked('first', '2026-11-03', false)], '2026-11-04', g => g !== 'Nonna Rosa') === 'first second')
+  check('… nobody here for any of them: no request, a module with none is there for the runs', store.offered('A1', { quests: [], here: () => false, today: '2026-11-03' }).every(m => !m.quest))
+  const loneDir = tempDir('lani-smoke-pace-lone-')
+  writeFileSync(join(loneDir, 'only.json'), readFileSync(join(paceDir, 'first.json'), 'utf8'))
+  const lone = new ModuleStore(join(loneDir, 'tutor'), loneDir).offered('A1', { quests: [], here: () => false, today: '2026-11-03' })
+  check('… and with none such: the first, without its request, so that a run has its drills', lone.length === 1 && lone[0].id === 'first' && !lone[0].quest, lone)
+  const allDone = ['first', 'second', 'third'].map(id => asked(id, '2026-11-03', true))
+  check('… all played: nothing new until the level-up, then its next', ids('A1', allDone, '2026-11-09') === 'first second third' && ids('A2', allDone, '2026-11-09') === 'first later second third')
   const over = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'curated-demo', title: 'Rewritten' } } })
   check('tutor rewrite of a curated module becomes v2', JSON.stringify(over).includes('v2'), over)
 
