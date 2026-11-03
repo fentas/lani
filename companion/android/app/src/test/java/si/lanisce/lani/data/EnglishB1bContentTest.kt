@@ -180,6 +180,6 @@ class EnglishB1bContentTest {
         takes("too-enough", "We haven't got", "enough", "any", "many")
         takes("too-enough", "He says it's", "very", "really", "quite", "pretty", "a bit")
         takes("myself", "known", "each other", "one another")
-        takes("phrasal-verbs", "at six (left)", "set off", "set out", "left")
+        takes("phrasal-verbs", "at six (left)", "set off", "set out")
     }
 }
