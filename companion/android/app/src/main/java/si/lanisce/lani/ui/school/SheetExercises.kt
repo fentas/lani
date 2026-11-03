@@ -158,7 +158,10 @@ private fun outcomeOf(marks: List<ItemMark>, explain: String?): Outcome {
     return Outcome(Sheets.verdict(v), Sheets.scoreText(v), null, explain, hints = marks.count { it.hinted }, sheet = marks)
 }
 
-/** How many lines a table's cell grows to, so that a long answer shows whole in a narrow cell (a phone, three columns: "dem Menschen"). */
+/**
+ * How many lines a table's cell or a transform's line grows to, so that a long answer shows whole: a phone's three columns ("dem
+ * Menschen"), a sentence longer than the screen, a line beside a long cue ("→ (me, him, her, it, us, them)").
+ */
 private const val WRAPPED_LINES = 4
 
 /** A wrapping cell's size: a point smaller, so that a word as long as "Menschen" stays whole in a phone's narrow column. */
@@ -615,7 +618,7 @@ internal fun TransformEx(vm: AppViewModel, ex: Exercise.Transform, locked: Boole
                     Text(arrow, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(start = 28.dp, end = 8.dp))
                     SheetField(
                         values[i], { v -> values[i] = v }, bi("school.lineN", "n" to i + 1), marks?.getOrNull(i), locked || marks != null,
-                        active == i && marks == null, onFocus = { active = i }, modifier = Modifier.weight(1f), minWidth = 120,
+                        active == i && marks == null, onFocus = { active = i }, modifier = Modifier.weight(1f), minWidth = 120, wraps = true,
                     )
                 }
                 // once checked, its correction right under its field (the arrow's room kept, unseen)
