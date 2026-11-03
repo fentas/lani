@@ -1,0 +1,920 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "weil-denn",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🔗",
+  "title": {
+    "de": "Weil es regnet, denn es regnet",
+    "en": "Because: weil, denn, deshalb",
+    "sl": "Ker: weil, denn, deshalb",
+    "it": "Perché: weil, denn, deshalb"
+  },
+  "goal": {
+    "en": "You can give a reason three ways: denn es regnet, deshalb bleibt er zu Hause, weil es regnet; and you can correct with sondern and join with und, aber, oder.",
+    "sl": "Razlog poveš na tri načine: denn es regnet, deshalb bleibt er zu Hause, weil es regnet; popravljaš s sondern in povezuješ z und, aber, oder.",
+    "it": "Sai dare un motivo in tre modi: denn es regnet, deshalb bleibt er zu Hause, weil es regnet; sai correggere con sondern e unire con und, aber, oder."
+  },
+  "grammar": [
+    "konnektoren",
+    "nebensatz",
+    "wortstellung"
+  ],
+  "words": [
+    "und",
+    "aber",
+    "oder",
+    "denn",
+    "sondern",
+    "deshalb",
+    "deswegen",
+    "darum",
+    "weil",
+    "warum",
+    "regnen",
+    "bleiben",
+    "arbeiten",
+    "müde",
+    "krank",
+    "böse",
+    "froh",
+    "kaputt",
+    "anrufen",
+    "aufstehen",
+    "reparieren",
+    "antworten",
+    "erzählen",
+    "der Saft",
+    "der Ruhetag",
+    "die Zeit",
+    "der Traktor"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Satz 1",
+          "sl": "prvi stavek",
+          "en": "first sentence",
+          "it": "prima frase"
+        },
+        {
+          "de": "Wort",
+          "sl": "beseda",
+          "en": "word",
+          "it": "parola"
+        },
+        {
+          "de": "Satz 2",
+          "sl": "drugi stavek",
+          "en": "second sentence",
+          "it": "seconda frase"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**und** (and), **aber** (but) and **oder** (or) you know: they take no place, and the verb stays second. **denn** (because) works the same: Stefan bleibt zu Hause, **denn es regnet** (because it's raining). It gives a reason, and its sentence goes on as usual.",
+          "sl": "**und** (in), **aber** (ampak) in **oder** (ali) že poznaš: ne zasedejo mesta in glagol ostane drugi. **denn** (kajti, ker) deluje enako: Stefan bleibt zu Hause, **denn es regnet** (ker dežuje). Pove razlog, njegov stavek pa gre naprej kot običajno.",
+          "it": "**und** (e), **aber** (ma) e **oder** (o) li conosci: non occupano un posto, e il verbo resta secondo. **denn** (perché) funziona allo stesso modo: Stefan bleibt zu Hause, **denn es regnet** (perché piove). Dà un motivo, e la sua frase prosegue come al solito."
+        },
+        "examples": [
+          {
+            "de": "Stefan bleibt zu Hause, denn es regnet.",
+            "en": "Stefan is staying at home, because it's raining.",
+            "sl": "Stefan ostane doma, ker dežuje.",
+            "it": "Stefan resta a casa, perché piove."
+          },
+          {
+            "de": "Kathi kocht nicht, denn sie ist müde.",
+            "en": "Kathi isn't cooking, because she's tired.",
+            "sl": "Kathi ne kuha, ker je utrujena.",
+            "it": "Kathi non cucina, perché è stanca."
+          }
+        ],
+        "rows": [
+          [
+            "Stefan arbeitet",
+            "und",
+            "Florian schläft."
+          ],
+          [
+            "Stefan bleibt zu Hause,",
+            "denn",
+            "es regnet."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "konnektoren",
+          "prompt": "Toni kommt nicht, ___ er hat keine Zeit.",
+          "options": [
+            "denn",
+            "deshalb",
+            "sondern"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A reason, and the verb stays second: denn**\n- denn er hat keine Zeit",
+            "sl": "**Razlog, glagol ostane drugi: denn**\n- denn er hat keine Zeit",
+            "it": "**Un motivo, e il verbo resta secondo: denn**\n- denn er hat keine Zeit"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sondern** (but rather) also takes no place. It comes after **nicht** or **kein**, when the second part corrects the first: Das ist kein Most, **sondern Saft** (not cider but juice). **aber** corrects nothing: Kathi ist müde, **aber sie arbeitet** (but she's working).",
+          "sl": "Tudi **sondern** (temveč) ne zasede mesta. Pride za **nicht** ali **kein**, ko drugi del popravi prvega: Das ist kein Most, **sondern Saft** (ne mošt, temveč sok). **aber** ničesar ne popravi: Kathi ist müde, **aber sie arbeitet** (a dela).",
+          "it": "Anche **sondern** (bensì) non occupa un posto. Viene dopo **nicht** o **kein**, quando la seconda parte corregge la prima: Das ist kein Most, **sondern Saft** (non sidro, bensì succo). **aber** non corregge niente: Kathi ist müde, **aber sie arbeitet** (ma lavora)."
+        },
+        "examples": [
+          {
+            "de": "Das ist kein Most, sondern Saft.",
+            "en": "That's not cider but juice.",
+            "sl": "To ni mošt, temveč sok.",
+            "it": "Non è sidro, bensì succo."
+          },
+          {
+            "de": "Stefan fährt nicht heute, sondern morgen.",
+            "en": "Stefan isn't going today but tomorrow.",
+            "sl": "Stefan se ne pelje danes, temveč jutri.",
+            "it": "Stefan non parte oggi, bensì domani."
+          }
+        ],
+        "rows": [
+          [
+            "Das ist kein Most,",
+            "sondern",
+            "Saft."
+          ],
+          [
+            "Es regnet,",
+            "aber",
+            "Toni arbeitet."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "konnektoren",
+          "prompt": "Das ist nicht Stefan, ___ Florian.",
+          "options": [
+            "sondern",
+            "aber",
+            "denn"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After nicht, a correction: sondern**\n- nicht Stefan, sondern Florian",
+            "sl": "**Za nicht, popravek: sondern**\n- nicht Stefan, sondern Florian",
+            "it": "**Dopo nicht, una correzione: sondern**\n- nicht Stefan, sondern Florian"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**deshalb** (that's why, so) is different: it takes the first place of its sentence, so the verb comes right after it, then the person: Es regnet, **deshalb bleibt Stefan** zu Hause (so Stefan is staying at home). The reason comes first this time. **deswegen** and **darum** mean the same and work the same.",
+          "sl": "**deshalb** (zato) je drugačen: zasede prvo mesto svojega stavka, zato pride glagol takoj za njim, nato oseba: Es regnet, **deshalb bleibt Stefan** zu Hause (zato Stefan ostane doma). Tokrat je razlog prvi. **deswegen** in **darum** pomenita isto in delujeta enako.",
+          "it": "**deshalb** (perciò) è diverso: occupa il primo posto della sua frase, quindi il verbo viene subito dopo, poi la persona: Es regnet, **deshalb bleibt Stefan** zu Hause (perciò Stefan resta a casa). Questa volta il motivo viene prima. **deswegen** e **darum** significano lo stesso e funzionano allo stesso modo."
+        },
+        "examples": [
+          {
+            "de": "Es regnet, deshalb bleibt Stefan zu Hause.",
+            "en": "It's raining, so Stefan is staying at home.",
+            "sl": "Dežuje, zato Stefan ostane doma.",
+            "it": "Piove, perciò Stefan resta a casa."
+          },
+          {
+            "de": "Der Traktor ist kaputt, deshalb repariert Stefan ihn.",
+            "en": "The tractor is broken, so Stefan is repairing it.",
+            "sl": "Traktor je pokvarjen, zato ga Stefan popravlja.",
+            "it": "Il trattore è rotto, perciò Stefan lo ripara."
+          }
+        ],
+        "rows": [
+          [
+            "Es regnet,",
+            "deshalb",
+            "bleibt Stefan zu Hause."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "konnektoren",
+          "prompt": "Kathi ist müde, deshalb ___ früh ins Bett.",
+          "options": [
+            "geht sie",
+            "sie geht",
+            "gehen sie"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**deshalb, then the verb, then the person**\n- deshalb geht sie · deshalb bleibt Stefan",
+            "sl": "**deshalb, nato glagol, nato oseba**\n- deshalb geht sie · deshalb bleibt Stefan",
+            "it": "**deshalb, poi il verbo, poi la persona**\n- deshalb geht sie · deshalb bleibt Stefan"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**weil** (because) starts a subordinate clause, and the verb goes to the very end: Stefan bleibt zu Hause, **weil es regnet** (because it's raining). With two verbs the conjugated one is last: **weil er arbeiten muss** (because he has to work). A separable verb stays whole: **weil sie früh aufsteht** (because she gets up early). In speech you'll hear **weil ich hab keine Zeit** too: people say it, but write the verb last.",
+          "sl": "**weil** (ker) začne odvisnik in glagol gre čisto na konec: Stefan bleibt zu Hause, **weil es regnet** (ker dežuje). Pri dveh glagolih je spregani zadnji: **weil er arbeiten muss** (ker mora delati). Ločljivi glagol ostane cel: **weil sie früh aufsteht** (ker zgodaj vstaja). V govoru slišiš tudi **weil ich hab keine Zeit**: ljudje to govorijo, piši pa glagol na koncu.",
+          "it": "**weil** (perché) apre una secondaria, e il verbo va proprio alla fine: Stefan bleibt zu Hause, **weil es regnet** (perché piove). Con due verbi quello coniugato è l'ultimo: **weil er arbeiten muss** (perché deve lavorare). Un verbo separabile resta intero: **weil sie früh aufsteht** (perché si alza presto). A voce senti anche **weil ich hab keine Zeit**: si dice, ma scrivi il verbo alla fine."
+        },
+        "examples": [
+          {
+            "de": "Stefan bleibt zu Hause, weil es regnet.",
+            "en": "Stefan is staying at home because it's raining.",
+            "sl": "Stefan ostane doma, ker dežuje.",
+            "it": "Stefan resta a casa perché piove."
+          },
+          {
+            "de": "Toni kommt nicht, weil er arbeiten muss.",
+            "en": "Toni isn't coming because he has to work.",
+            "sl": "Toni ne pride, ker mora delati.",
+            "it": "Toni non viene perché deve lavorare."
+          }
+        ],
+        "rows": [
+          [
+            "Stefan bleibt zu Hause,",
+            "weil",
+            "es regnet."
+          ],
+          [
+            "Toni kommt nicht,",
+            "weil",
+            "er arbeiten muss."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konnektoren",
+          "text": "Kathi ist müde, weil sie viel ___. (arbeiten)",
+          "accept": [
+            "arbeitet"
+          ],
+          "hint": {
+            "en": "the verb last, for sie",
+            "sl": "glagol na koncu, za sie",
+            "it": "il verbo alla fine, per sie"
+          },
+          "explain": {
+            "en": "**weil sends the verb to the end**\n- weil es regnet · weil er arbeiten muss · weil sie früh aufsteht",
+            "sl": "**weil pošlje glagol na konec**\n- weil es regnet · weil er arbeiten muss · weil sie früh aufsteht",
+            "it": "**weil manda il verbo alla fine**\n- weil es regnet · weil er arbeiten muss · weil sie früh aufsteht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A **weil** clause can come first. Then the main sentence goes on with its verb, so two verbs meet at the comma: **Weil es regnet, bleibt Stefan** zu Hause (because it's raining, Stefan is staying at home). And the answer to **Warum?** (why?) is weil: Warum bleibt Stefan zu Hause? **Weil es regnet.** Not denn: it never comes first.",
+          "sl": "Stavek z **weil** je lahko prvi. Potem gre glavni stavek naprej s svojim glagolom, zato se glagola srečata ob vejici: **Weil es regnet, bleibt Stefan** zu Hause (ker dežuje, Stefan ostane doma). In odgovor na **Warum?** (zakaj?) je weil: Warum bleibt Stefan zu Hause? **Weil es regnet.** Ne denn: ta nikoli ni prvi.",
+          "it": "Una frase con **weil** può venire prima. Allora la frase principale prosegue con il suo verbo, così due verbi si incontrano alla virgola: **Weil es regnet, bleibt Stefan** zu Hause (poiché piove, Stefan resta a casa). E la risposta a **Warum?** (perché?) è weil: Warum bleibt Stefan zu Hause? **Weil es regnet.** Non denn: non viene mai per primo."
+        },
+        "examples": [
+          {
+            "de": "Weil es regnet, bleibt Stefan zu Hause.",
+            "en": "Because it's raining, Stefan is staying at home.",
+            "sl": "Ker dežuje, Stefan ostane doma.",
+            "it": "Poiché piove, Stefan resta a casa."
+          },
+          {
+            "de": "Warum ist Florian froh? Weil er sein Schaf gefunden hat.",
+            "en": "Why is Florian happy? Because he's found his sheep.",
+            "sl": "Zakaj je Florian vesel? Ker je našel svojo ovco.",
+            "it": "Perché Florian è contento? Perché ha trovato la sua pecora."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "konnektoren",
+          "prompt": "___ es regnet, bleibt Stefan zu Hause.",
+          "options": [
+            "Weil",
+            "Denn",
+            "Deshalb"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Only weil can come first here**\n- Weil es regnet, bleibt Stefan zu Hause.",
+            "sl": "**Tu je lahko prvi samo weil**\n- Weil es regnet, bleibt Stefan zu Hause.",
+            "it": "**Qui può venire prima solo weil**\n- Weil es regnet, bleibt Stefan zu Hause."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "weil-denn-1",
+      "title": {
+        "de": "Drei Wege, ein Grund",
+        "en": "Three ways, one reason",
+        "sl": "Trije načini, en razlog",
+        "it": "Tre modi, un motivo"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "one reason, three orders",
+            "sl": "en razlog, trije vrstni redi",
+            "it": "un motivo, tre ordini"
+          },
+          "columns": [
+            "denn …",
+            "deshalb …",
+            "weil …"
+          ],
+          "rows": [
+            {
+              "label": "sie ist müde",
+              "cells": [
+                "denn sie ist müde",
+                "deshalb ist sie müde",
+                "weil sie müde ist"
+              ]
+            },
+            {
+              "label": "er hat keine Zeit",
+              "cells": [
+                {
+                  "accept": [
+                    "denn er hat keine Zeit"
+                  ]
+                },
+                {
+                  "accept": [
+                    "deshalb hat er keine Zeit"
+                  ]
+                },
+                {
+                  "accept": [
+                    "weil er keine Zeit hat"
+                  ],
+                  "spoken": [
+                    "weil er hat keine Zeit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Toni arbeitet viel",
+              "cells": [
+                {
+                  "accept": [
+                    "denn Toni arbeitet viel"
+                  ]
+                },
+                {
+                  "accept": [
+                    "deshalb arbeitet Toni viel"
+                  ]
+                },
+                {
+                  "accept": [
+                    "weil Toni viel arbeitet"
+                  ],
+                  "spoken": [
+                    "weil Toni arbeitet viel"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**denn: the verb second; deshalb: first place, then the verb; weil: the verb last**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "sl": "**denn: glagol drugi; deshalb: prvo mesto, nato glagol; weil: glagol na koncu**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "it": "**denn: il verbo secondo; deshalb: primo posto, poi il verbo; weil: il verbo alla fine**\n- denn es regnet · deshalb bleibt er · weil es regnet"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das ist nicht Kathi, ___ Mitzi.",
+          "options": [
+            "sondern",
+            "aber",
+            "oder"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After nicht, a correction: sondern**\n- nicht Kathi, sondern Mitzi",
+            "sl": "**Za nicht, popravek: sondern**\n- nicht Kathi, sondern Mitzi",
+            "it": "**Dopo nicht, una correzione: sondern**\n- nicht Kathi, sondern Mitzi"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi ist müde, ___ sie arbeitet weiter.",
+          "options": [
+            "aber",
+            "sondern",
+            "denn"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A but with no correction: aber**\n- Kathi ist müde, aber sie arbeitet weiter.",
+            "sl": "**A brez popravka: aber**\n- Kathi ist müde, aber sie arbeitet weiter.",
+            "it": "**Un ma senza correzione: aber**\n- Kathi ist müde, aber sie arbeitet weiter."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Sortiere · Sort: where is the verb?",
+            "sl": "Sortiere · Razvrsti: kje je glagol?",
+            "it": "Sortiere · Ordina: dov'è il verbo?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "zweiter Platz · second",
+                "sl": "drugo mesto · drugi",
+                "it": "secondo posto · secondo"
+              },
+              "words": [
+                "denn es regnet",
+                "aber Toni arbeitet"
+              ]
+            },
+            {
+              "label": {
+                "en": "gleich danach · right after",
+                "sl": "takoj za tem · takoj za",
+                "it": "subito dopo · subito dopo"
+              },
+              "words": [
+                "deshalb bleibt er",
+                "darum kommt sie"
+              ]
+            },
+            {
+              "label": {
+                "en": "am Ende · last",
+                "sl": "na koncu · zadnji",
+                "it": "alla fine · ultimo"
+              },
+              "words": [
+                "weil es regnet",
+                "weil sie müde ist"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**denn: the verb second; deshalb: first place, then the verb; weil: the verb last**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "sl": "**denn: glagol drugi; deshalb: prvo mesto, nato glagol; weil: glagol na koncu**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "it": "**denn: il verbo secondo; deshalb: primo posto, poi il verbo; weil: il verbo alla fine**\n- denn es regnet · deshalb bleibt er · weil es regnet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "weil-denn-2",
+      "title": {
+        "de": "Was Tante Mitzi erzählt",
+        "en": "What Aunt Mitzi tells",
+        "sl": "Kaj pripoveduje teta Mitzi",
+        "it": "Che cosa racconta zia Mitzi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Warum kommt Stefan nicht?",
+          "text": "Stefan kommt heute nicht, ___ er muss arbeiten. Sein Traktor ist kaputt, ___ repariert er ihn selbst. Er macht das nicht morgen, ___ heute. Toni hilft ihm, ___ er ist sein Freund. Kathi ist böse, ___ Stefan nicht angerufen hat. Sie ruft ihn an, ___ er antwortet nicht. Mitzi erzählt es allen, weil sie gern ___ (reden).",
+          "gaps": [
+            {
+              "accept": [
+                "denn"
+              ],
+              "spoken": [
+                "weil"
+              ],
+              "hint": {
+                "en": "verb second",
+                "sl": "glagol drugi",
+                "it": "verbo secondo"
+              }
+            },
+            {
+              "accept": [
+                "deshalb",
+                "deswegen",
+                "darum"
+              ],
+              "hint": {
+                "en": "then the verb",
+                "sl": "nato glagol",
+                "it": "poi il verbo"
+              }
+            },
+            {
+              "accept": [
+                "sondern"
+              ],
+              "hint": "nicht …, ?"
+            },
+            {
+              "accept": [
+                "denn"
+              ],
+              "spoken": [
+                "weil"
+              ],
+              "hint": {
+                "en": "verb second",
+                "sl": "glagol drugi",
+                "it": "verbo secondo"
+              }
+            },
+            {
+              "accept": [
+                "weil"
+              ],
+              "hint": {
+                "en": "the verb is last",
+                "sl": "glagol je zadnji",
+                "it": "il verbo è l'ultimo"
+              }
+            },
+            {
+              "accept": [
+                "aber"
+              ]
+            },
+            {
+              "accept": [
+                "redet"
+              ],
+              "hint": {
+                "en": "the verb last, for sie",
+                "sl": "glagol na koncu, za sie",
+                "it": "il verbo alla fine, per sie"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "oder",
+            "reden"
+          ],
+          "translation": {
+            "en": "Stefan isn't coming today, because he has to work. His tractor is broken, so he's repairing it himself. He isn't doing it tomorrow but today. Toni is helping him, because he's his friend. Kathi is cross because Stefan hasn't phoned. She rings him, but he doesn't answer. Mitzi tells everyone, because she likes talking.",
+            "sl": "Stefan danes ne pride, ker mora delati. Njegov traktor je pokvarjen, zato ga popravlja sam. Tega ne dela jutri, temveč danes. Toni mu pomaga, ker je njegov prijatelj. Kathi je jezna, ker Stefan ni poklical. Pokliče ga, a se ne oglasi. Mitzi to pove vsem, ker rada govori.",
+            "it": "Stefan oggi non viene, perché deve lavorare. Il suo trattore è rotto, perciò lo ripara da solo. Non lo fa domani, bensì oggi. Toni lo aiuta, perché è suo amico. Kathi è arrabbiata perché Stefan non ha telefonato. Lo chiama, ma lui non risponde. Mitzi lo racconta a tutti, perché le piace parlare."
+          },
+          "explain": {
+            "en": "**denn: the verb second; deshalb: first place, then the verb; weil: the verb last**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "sl": "**denn: glagol drugi; deshalb: prvo mesto, nato glagol; weil: glagol na koncu**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "it": "**denn: il verbo secondo; deshalb: primo posto, poi il verbo; weil: il verbo alla fine**\n- denn es regnet · deshalb bleibt er · weil es regnet"
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "It's raining, so Stefan is staying at home.",
+            "sl": "Dežuje, zato Stefan ostane doma.",
+            "it": "Piove, perciò Stefan resta a casa."
+          },
+          "tokens": [
+            "bleibt",
+            "Es regnet,",
+            "zu Hause.",
+            "deshalb",
+            "Stefan"
+          ],
+          "solutions": [
+            [
+              "Es regnet,",
+              "deshalb",
+              "bleibt",
+              "Stefan",
+              "zu Hause."
+            ]
+          ],
+          "explain": {
+            "en": "**deshalb, then the verb, then the person**",
+            "sl": "**deshalb, nato glagol, nato oseba**",
+            "it": "**deshalb, poi il verbo, poi la persona**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "weil-denn-3",
+      "title": {
+        "de": "Warum?",
+        "en": "Why?",
+        "sl": "Zakaj?",
+        "it": "Perché?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Verbinde mit dem Wort in Klammern · Join with the word in brackets",
+            "sl": "Verbinde mit dem Wort in Klammern · Poveži z besedo v oklepaju",
+            "it": "Verbinde mit dem Wort in Klammern · Unisci con la parola tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan bleibt zu Hause. Es regnet. (denn)",
+              "accept": [
+                "Stefan bleibt zu Hause, denn es regnet."
+              ]
+            },
+            {
+              "from": "Es regnet. Stefan bleibt zu Hause. (deshalb)",
+              "accept": [
+                "Es regnet, deshalb bleibt Stefan zu Hause."
+              ]
+            },
+            {
+              "from": "Kathi ist müde. Sie arbeitet viel. (weil)",
+              "accept": [
+                "Kathi ist müde, weil sie viel arbeitet."
+              ],
+              "spoken": [
+                "Kathi ist müde, weil sie arbeitet viel."
+              ]
+            },
+            {
+              "from": "Toni kommt nicht. Er muss arbeiten. (weil)",
+              "accept": [
+                "Toni kommt nicht, weil er arbeiten muss."
+              ],
+              "spoken": [
+                "Toni kommt nicht, weil er muss arbeiten."
+              ]
+            },
+            {
+              "from": "Florian ist froh. Er hat sein Schaf gefunden. (weil)",
+              "accept": [
+                "Florian ist froh, weil er sein Schaf gefunden hat."
+              ],
+              "spoken": [
+                "Florian ist froh, weil er hat sein Schaf gefunden."
+              ]
+            },
+            {
+              "from": "Kathi ist müde. Sie steht um fünf auf. (weil)",
+              "accept": [
+                "Kathi ist müde, weil sie um fünf aufsteht."
+              ],
+              "spoken": [
+                "Kathi ist müde, weil sie steht um fünf auf."
+              ],
+              "hint": {
+                "en": "a separable verb stays whole",
+                "sl": "ločljivi glagol ostane cel",
+                "it": "un verbo separabile resta intero"
+              }
+            }
+          ],
+          "explain": {
+            "en": "**denn: the verb second; deshalb: first place, then the verb; weil: the verb last**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "sl": "**denn: glagol drugi; deshalb: prvo mesto, nato glagol; weil: glagol na koncu**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+            "it": "**denn: il verbo secondo; deshalb: primo posto, poi il verbo; weil: il verbo alla fine**\n- denn es regnet · deshalb bleibt er · weil es regnet"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "konnektoren",
+          "instruction": {
+            "en": "Beginne mit Weil · Start with Weil",
+            "sl": "Beginne mit Weil · Začni z Weil",
+            "it": "Beginne mit Weil · Comincia con Weil"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan bleibt zu Hause, weil es regnet.",
+              "accept": [
+                "Weil es regnet, bleibt Stefan zu Hause."
+              ]
+            },
+            {
+              "from": "Mitzi ist froh, weil Kathi kommt.",
+              "accept": [
+                "Weil Kathi kommt, ist Mitzi froh."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Weil first: two verbs meet at the comma**\n- Weil es regnet, bleibt Stefan zu Hause.",
+            "sl": "**Weil prvi: glagola se srečata ob vejici**\n- Weil es regnet, bleibt Stefan zu Hause.",
+            "it": "**Weil per primo: due verbi si incontrano alla virgola**\n- Weil es regnet, bleibt Stefan zu Hause."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "konnektoren",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Kathis Ruhetag",
+        "text": "Am Montag ist das Gasthaus zu, ___ Kathi hat Ruhetag. Sie ist müde, ___ schläft sie lange. Sie bleibt nicht zu Hause, ___ sie fährt nach Villach. Dort kauft sie Schuhe, ___ ihre alten Schuhe kaputt ___ (sein). Am Abend kommt sie zurück, ___ sie ist noch nicht müde.",
+        "gaps": [
+          {
+            "accept": [
+              "denn"
+            ],
+            "spoken": [
+              "weil"
+            ]
+          },
+          {
+            "accept": [
+              "deshalb",
+              "deswegen",
+              "darum"
+            ]
+          },
+          {
+            "accept": [
+              "sondern"
+            ]
+          },
+          {
+            "accept": [
+              "weil"
+            ]
+          },
+          {
+            "accept": [
+              "sind"
+            ]
+          },
+          {
+            "accept": [
+              "aber"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "On Monday the inn is closed, because it's Kathi's day off. She's tired, so she sleeps late. She doesn't stay at home but goes to Villach. There she buys shoes, because her old shoes are worn out. In the evening she comes back, but she isn't tired yet.",
+          "sl": "V ponedeljek je gostilna zaprta, ker ima Kathi prost dan. Utrujena je, zato dolgo spi. Ne ostane doma, temveč se odpelje v Beljak. Tam kupi čevlje, ker so njeni stari čevlji uničeni. Zvečer se vrne, a še ni utrujena.",
+          "it": "Il lunedì l'osteria è chiusa, perché Kathi ha il giorno di riposo. È stanca, perciò dorme a lungo. Non resta a casa, bensì va a Villach. Lì compra delle scarpe, perché le sue vecchie scarpe sono rotte. La sera torna, ma non è ancora stanca."
+        },
+        "explain": {
+          "en": "**denn: the verb second; deshalb: first place, then the verb; weil: the verb last**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+          "sl": "**denn: glagol drugi; deshalb: prvo mesto, nato glagol; weil: glagol na koncu**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+          "it": "**denn: il verbo secondo; deshalb: primo posto, poi il verbo; weil: il verbo alla fine**\n- denn es regnet · deshalb bleibt er · weil es regnet"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "konnektoren",
+        "instruction": {
+          "en": "Verbinde mit dem Wort in Klammern · Join with the word in brackets",
+          "sl": "Verbinde mit dem Wort in Klammern · Poveži z besedo v oklepaju",
+          "it": "Verbinde mit dem Wort in Klammern · Unisci con la parola tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Der Bus kommt nicht. Es schneit. (weil)",
+            "accept": [
+              "Der Bus kommt nicht, weil es schneit."
+            ]
+          },
+          {
+            "from": "Es schneit. Der Bus kommt nicht. (deshalb)",
+            "accept": [
+              "Es schneit, deshalb kommt der Bus nicht."
+            ]
+          },
+          {
+            "from": "Maxi ist froh. Er darf mitkommen. (weil)",
+            "accept": [
+              "Maxi ist froh, weil er mitkommen darf."
+            ],
+            "spoken": [
+              "Maxi ist froh, weil er darf mitkommen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**denn: the verb second; deshalb: first place, then the verb; weil: the verb last**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+          "sl": "**denn: glagol drugi; deshalb: prvo mesto, nato glagol; weil: glagol na koncu**\n- denn es regnet · deshalb bleibt er · weil es regnet",
+          "it": "**denn: il verbo secondo; deshalb: primo posto, poi il verbo; weil: il verbo alla fine**\n- denn es regnet · deshalb bleibt er · weil es regnet"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konnektoren",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Es regnet, deshalb ___ im Stall.",
+        "options": [
+          "arbeitet Franz",
+          "Franz arbeitet",
+          "arbeiten Franz"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**deshalb, then the verb, then the person**\n- deshalb arbeitet Franz",
+          "sl": "**deshalb, nato glagol, nato oseba**\n- deshalb arbeitet Franz",
+          "it": "**deshalb, poi il verbo, poi la persona**\n- deshalb arbeitet Franz"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konnektoren",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Warum bleibt Stefan zu Hause?",
+        "options": [
+          "Weil er krank ist.",
+          "Denn er krank ist.",
+          "Deshalb er krank ist."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Warum? Weil …, the verb last**\n- Weil er krank ist.",
+          "sl": "**Warum? Weil …, glagol na koncu**\n- Weil er krank ist.",
+          "it": "**Warum? Weil …, il verbo alla fine**\n- Weil er krank ist."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konnektoren",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das ist kein Wein, ___ Most.",
+        "options": [
+          "sondern",
+          "aber",
+          "weil"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**After kein, a correction: sondern**\n- kein Wein, sondern Most",
+          "sl": "**Za kein, popravek: sondern**\n- kein Wein, sondern Most",
+          "it": "**Dopo kein, una correzione: sondern**\n- kein Wein, sondern Most"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: denn, deshalb, weil for one reason; spoken weil with the verb second, accepted; sondern, aber; ruhetag; each base's ker"
+}

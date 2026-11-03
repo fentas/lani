@@ -1,0 +1,1028 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "wo-wohin",
+  "language": "de",
+  "level": "A2",
+  "emoji": "📍",
+  "title": {
+    "de": "In der Küche, in die Küche",
+    "en": "Where or where to? in der Küche, in die Küche",
+    "sl": "Kje ali kam? in der Küche, in die Küche",
+    "it": "Stato o moto: in der Küche, in die Küche"
+  },
+  "goal": {
+    "en": "You can say where something is and where it goes (Kathi ist in der Küche. Kathi geht in die Küche.): in, an, auf, vor, hinter, neben, über, unter, zwischen, with the dative for wo? and the accusative for wohin?",
+    "sl": "Poveš, kje kaj je in kam gre (Kathi ist in der Küche. Kathi geht in die Küche.): in, an, auf, vor, hinter, neben, über, unter, zwischen, z dajalnikom za wo? in tožilnikom za wohin?",
+    "it": "Sai dire dove si trova qualcosa e dove va (Kathi ist in der Küche. Kathi geht in die Küche.): in, an, auf, vor, hinter, neben, über, unter, zwischen, col dativo per wo? e l'accusativo per wohin?"
+  },
+  "grammar": [
+    "wechselpraepositionen",
+    "dativ",
+    "akkusativ"
+  ],
+  "words": [
+    "in",
+    "an",
+    "auf",
+    "vor",
+    "hinter",
+    "neben",
+    "über",
+    "unter",
+    "zwischen",
+    "im",
+    "ins",
+    "am",
+    "ans",
+    "wo",
+    "wohin",
+    "die Küche",
+    "der Keller",
+    "der Wald",
+    "der See",
+    "die Alm",
+    "der Tisch",
+    "das Dorf",
+    "die Kirche",
+    "die Brücke",
+    "die Linde",
+    "der Bach",
+    "der Baum",
+    "das Feld",
+    "der Platz",
+    "die Schmiede",
+    "der Garten",
+    "die Tür",
+    "der Ofen",
+    "die Bank",
+    "die Vögel",
+    "springen",
+    "sitzen",
+    "schnell",
+    "offen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Wo? + Dativ",
+          "en": "Wo? (where?) + dative",
+          "sl": "Wo? (kje?) + dajalnik",
+          "it": "Wo? (dove?) + dativo"
+        },
+        {
+          "de": "Wohin? + Akkusativ",
+          "en": "Wohin? (where to?) + accusative",
+          "sl": "Wohin? (kam?) + tožilnik",
+          "it": "Wohin? (verso dove?) + accusativo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**in der Küche** (in the kitchen) answers **wo?** and takes the dative; **in die Küche** (into the kitchen) answers **wohin?** and takes the accusative: **Kathi ist in der Küche. Kathi geht in die Küche.** Sein, bleiben, wohnen stay; gehen, fahren, laufen go somewhere.",
+          "sl": "**in der Küche** (v kuhinji) odgovarja na **wo?** (kje?) in ima dajalnik; **in die Küche** (v kuhinjo) odgovarja na **wohin?** (kam?) in ima tožilnik, kot v slovenščini: **Kathi ist in der Küche. Kathi geht in die Küche.** Sein, bleiben, wohnen ostanejo; gehen, fahren, laufen gredo nekam.",
+          "it": "**in der Küche** (in cucina, stato) risponde a **wo?** (dove?) e vuole il dativo; **in die Küche** (in cucina, moto) risponde a **wohin?** (verso dove?) e vuole l'accusativo: **Kathi ist in der Küche. Kathi geht in die Küche.** Sein, bleiben, wohnen restano; gehen, fahren, laufen vanno da qualche parte."
+        },
+        "examples": [
+          {
+            "de": "Kathi ist in der Küche.",
+            "en": "Kathi is in the kitchen.",
+            "sl": "Kathi je v kuhinji.",
+            "it": "Kathi è in cucina."
+          },
+          {
+            "de": "Kathi geht in die Küche.",
+            "en": "Kathi goes into the kitchen.",
+            "sl": "Kathi gre v kuhinjo.",
+            "it": "Kathi va in cucina."
+          }
+        ],
+        "rows": [
+          [
+            "in der Küche",
+            "in die Küche"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wechselpraepositionen",
+          "prompt": "Kathi geht in ___ Küche.",
+          "options": [
+            "die",
+            "der",
+            "den"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wohin? The accusative: die**\n- Kathi geht in die Küche.",
+            "sl": "**Kam? Tožilnik: die**\n- Kathi geht in die Küche.",
+            "it": "**Verso dove? L'accusativo: die**\n- Kathi geht in die Küche."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**im** is in dem, **ins** is in das: **im Gasthaus** (at the inn), **ins Gasthaus** (to the inn). A der noun: **im Wald** (in the forest), **in den Wald** (into the forest). **Wir sind im Wald. Wir gehen in den Wald.**",
+          "sl": "**im** je in dem, **ins** je in das: **im Gasthaus** (v gostilni), **ins Gasthaus** (v gostilno). Samostalnik z der: **im Wald** (v gozdu), **in den Wald** (v gozd). **Wir sind im Wald. Wir gehen in den Wald.**",
+          "it": "**im** è in dem, **ins** è in das: **im Gasthaus** (all'osteria, stato), **ins Gasthaus** (all'osteria, moto). Un nome con der: **im Wald** (nel bosco), **in den Wald** (verso il bosco, dentro il bosco). **Wir sind im Wald. Wir gehen in den Wald.**"
+        },
+        "examples": [
+          {
+            "de": "Stefan ist im Keller.",
+            "en": "Stefan is in the cellar.",
+            "sl": "Stefan je v kleti.",
+            "it": "Stefan è in cantina."
+          },
+          {
+            "de": "Wir gehen heute ins Gasthaus.",
+            "en": "We're going to the inn today.",
+            "sl": "Danes gremo v gostilno.",
+            "it": "Oggi andiamo all'osteria."
+          }
+        ],
+        "rows": [
+          [
+            "im Gasthaus",
+            "ins Gasthaus"
+          ],
+          [
+            "im Wald",
+            "in den Wald"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "wechselpraepositionen",
+          "text": "Wir gehen heute ___ Gasthaus.",
+          "accept": [
+            "ins",
+            "in das"
+          ],
+          "hint": "in + das",
+          "explain": {
+            "en": "**Wohin? das Gasthaus: ins**\n- Wir gehen heute ins Gasthaus.",
+            "sl": "**Kam? das Gasthaus: ins**\n- Wir gehen heute ins Gasthaus.",
+            "it": "**Verso dove? das Gasthaus: ins**\n- Wir gehen heute ins Gasthaus."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**an** (at, by the side of) and **auf** (on, on top of) work the same: **am See, an den See** (at the lake, to the lake), **auf der Alm, auf die Alm**. **am** is an dem, **ans** an das. In Austria you'll also hear **am Tisch** for auf dem Tisch, in speech.",
+          "sl": "**an** (ob, na robu) in **auf** (na, na vrhu) delujeta enako: **am See, an den See** (ob jezeru, k jezeru), **auf der Alm, auf die Alm** (na planini, na planino). **am** je an dem, **ans** an das. V Avstriji slišiš v govoru tudi **am Tisch** za auf dem Tisch.",
+          "it": "**an** (a, accanto a) e **auf** (su, sopra) funzionano allo stesso modo: **am See, an den See** (al lago, stato e moto), **auf der Alm, auf die Alm** (all'alpeggio, stato e moto). **am** è an dem, **ans** an das. In Austria si sente anche, parlando, **am Tisch** per auf dem Tisch."
+        },
+        "examples": [
+          {
+            "de": "Florian ist auf der Alm.",
+            "en": "Florian is on the alpine pasture.",
+            "sl": "Florian je na planini.",
+            "it": "Florian è all'alpeggio."
+          },
+          {
+            "de": "Am Sonntag fahren wir an den See.",
+            "en": "On Sunday we're going to the lake.",
+            "sl": "V nedeljo gremo k jezeru.",
+            "it": "Domenica andiamo al lago."
+          },
+          {
+            "de": "Die Suppe ist auf dem Tisch.",
+            "en": "The soup is on the table.",
+            "sl": "Juha je na mizi.",
+            "it": "La minestra è in tavola."
+          }
+        ],
+        "rows": [
+          [
+            "am See",
+            "an den See"
+          ],
+          [
+            "auf der Alm",
+            "auf die Alm"
+          ],
+          [
+            "auf dem Tisch",
+            "auf den Tisch"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wechselpraepositionen",
+          "prompt": "Florian ist auf ___ Alm.",
+          "options": [
+            "der",
+            "die",
+            "dem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wo? die Alm in the dative: der**\n- Florian ist auf der Alm.",
+            "sl": "**Kje? die Alm v dajalniku: der**\n- Florian ist auf der Alm.",
+            "it": "**Dove? die Alm al dativo: der**\n- Florian ist auf der Alm."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**vor** (in front of), **hinter** (behind) and **neben** (next to) too: **vor dem Haus, vor das Haus**; **hinter der Kirche, hinter die Kirche**; **neben dem Gasthaus, neben das Gasthaus**. **Der Traktor ist hinter dem Haus. Stefan fährt ihn hinter das Haus.**",
+          "sl": "Tudi **vor** (pred), **hinter** (za) in **neben** (poleg, ob): **vor dem Haus, vor das Haus** (pred hišo); **hinter der Kirche, hinter die Kirche** (za cerkvijo, za cerkev); **neben dem Gasthaus, neben das Gasthaus**. **Der Traktor ist hinter dem Haus. Stefan fährt ihn hinter das Haus.**",
+          "it": "Anche **vor** (davanti a), **hinter** (dietro) e **neben** (accanto a): **vor dem Haus, vor das Haus**; **hinter der Kirche, hinter die Kirche**; **neben dem Gasthaus, neben das Gasthaus**. **Der Traktor ist hinter dem Haus. Stefan fährt ihn hinter das Haus.** (Il trattore è dietro la casa. Stefan lo porta dietro la casa.)"
+        },
+        "examples": [
+          {
+            "de": "Der Traktor ist hinter dem Haus.",
+            "en": "The tractor is behind the house.",
+            "sl": "Traktor je za hišo.",
+            "it": "Il trattore è dietro la casa."
+          },
+          {
+            "de": "Stefan fährt den Traktor hinter das Haus.",
+            "en": "Stefan drives the tractor behind the house.",
+            "sl": "Stefan zapelje traktor za hišo.",
+            "it": "Stefan porta il trattore dietro la casa."
+          },
+          {
+            "de": "Die Schule ist neben der Kirche.",
+            "en": "The school is next to the church.",
+            "sl": "Šola je poleg cerkve.",
+            "it": "La scuola è accanto alla chiesa."
+          }
+        ],
+        "rows": [
+          [
+            "vor dem Haus",
+            "vor das Haus"
+          ],
+          [
+            "hinter der Kirche",
+            "hinter die Kirche"
+          ],
+          [
+            "neben dem Gasthaus",
+            "neben das Gasthaus"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "wechselpraepositionen",
+          "text": "Der Hund ist vor ___ Haus.",
+          "accept": [
+            "dem"
+          ],
+          "hint": {
+            "en": "Wo? das Haus",
+            "sl": "Kje? das Haus",
+            "it": "Dove? das Haus"
+          },
+          "explain": {
+            "en": "**Wo? das → dem**\n- Der Hund ist vor dem Haus.",
+            "sl": "**Kje? das → dem**\n- Der Hund ist vor dem Haus.",
+            "it": "**Dove? das → dem**\n- Der Hund ist vor dem Haus."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**über** (over), **unter** (under) and **zwischen** (between) make nine: **über dem Dorf, über die Brücke**; **unter der Linde, unter die Linde**; **zwischen den Häusern, zwischen die Häuser**. In the plural wo? takes den + -n, wohin? die.",
+          "sl": "**über** (nad, čez), **unter** (pod) in **zwischen** (med) so devet: **über dem Dorf, über die Brücke**; **unter der Linde, unter die Linde**; **zwischen den Häusern, zwischen die Häuser**. V množini ima wo? den + -n, wohin? pa die.",
+          "it": "**über** (sopra), **unter** (sotto) e **zwischen** (fra) fanno nove: **über dem Dorf, über die Brücke**; **unter der Linde, unter die Linde**; **zwischen den Häusern, zwischen die Häuser**. Al plurale wo? vuole den + -n, wohin? die."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp sitzt unter der Linde.",
+            "en": "Grandpa Sepp is sitting under the lime tree.",
+            "sl": "Dedek Sepp sedi pod lipo.",
+            "it": "Nonno Sepp è seduto sotto il tiglio."
+          },
+          {
+            "de": "Die Kinder laufen über die Brücke.",
+            "en": "The children run across the bridge.",
+            "sl": "Otroci tečejo čez most.",
+            "it": "I bambini corrono sul ponte."
+          },
+          {
+            "de": "Die Katze ist zwischen den Häusern.",
+            "en": "The cat is between the houses.",
+            "sl": "Mačka je med hišami.",
+            "it": "Il gatto è fra le case."
+          }
+        ],
+        "rows": [
+          [
+            "über dem Dorf",
+            "über die Brücke"
+          ],
+          [
+            "unter der Linde",
+            "unter die Linde"
+          ],
+          [
+            "zwischen den Häusern",
+            "zwischen die Häuser"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wechselpraepositionen",
+          "prompt": "Opa Sepp sitzt unter ___ Linde.",
+          "options": [
+            "der",
+            "die",
+            "den"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wo? die Linde in the dative: der**\n- Opa Sepp sitzt unter der Linde.",
+            "sl": "**Kje? die Linde v dajalniku: der**\n- Opa Sepp sitzt unter der Linde.",
+            "it": "**Dove? die Linde al dativo: der**\n- Opa Sepp sitzt unter der Linde."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Bello läuft im Garten** runs around inside it; **Bello läuft in den Garten** runs into it: ask wo? or wohin?, then pick the case. These nine alone change: **zum See** (always zu + dative) means the same as **an den See**, and **beim Bäcker** stays dative.",
+          "sl": "**Bello läuft im Garten**: teče po vrtu, ostane v njem; **Bello läuft in den Garten**: steče na vrt. Vprašaj wo? ali wohin?, nato izberi sklon. Menja jih samo teh devet: **zum See** (vedno zu + dajalnik) pomeni isto kot **an den See**, **beim Bäcker** pa ostane v dajalniku.",
+          "it": "**Bello läuft im Garten**: corre nel giardino, ci resta; **Bello läuft in den Garten**: corre verso il giardino, ci entra. Chiedi wo? o wohin?, poi scegli il caso. Cambiano solo queste nove: **zum See** (sempre zu + dativo) significa come **an den See**, e **beim Bäcker** resta al dativo."
+        },
+        "examples": [
+          {
+            "de": "Bello läuft im Garten.",
+            "en": "Bello is running around in the garden.",
+            "sl": "Bello teka po vrtu.",
+            "it": "Bello corre in giardino."
+          },
+          {
+            "de": "Bello läuft in den Garten.",
+            "en": "Bello runs into the garden.",
+            "sl": "Bello steče na vrt.",
+            "it": "Bello corre verso il giardino."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wechselpraepositionen",
+          "prompt": "Die Tür ist offen. Bello läuft schnell in ___ Garten.",
+          "options": [
+            "den",
+            "dem",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**He goes in, so wohin?: den**\n- Bello läuft in den Garten.",
+            "sl": "**Gre noter, torej wohin?: den**\n- Bello läuft in den Garten.",
+            "it": "**Entra, quindi wohin?: den**\n- Bello läuft in den Garten."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Nine prepositions, two cases: **in, an, auf, vor, hinter, neben, über, unter, zwischen**.\n\n**Wo?** The dative: **in der Küche, im Wald, am See**.\n\n**Wohin?** The accusative: **in die Küche, in den Wald, an den See**.\n\n**im** (in dem), **ins** (in das), **am** (an dem), **ans** (an das). Ask the question first.",
+      "sl": "Devet predlogov, dva sklona: **in, an, auf, vor, hinter, neben, über, unter, zwischen**.\n\n**Wo?** (kje?) Dajalnik: **in der Küche, im Wald, am See**.\n\n**Wohin?** (kam?) Tožilnik: **in die Küche, in den Wald, an den See**.\n\n**im** (in dem), **ins** (in das), **am** (an dem), **ans** (an das). Najprej vprašaj.",
+      "it": "Nove preposizioni, due casi: **in, an, auf, vor, hinter, neben, über, unter, zwischen**.\n\n**Wo?** (dove?) Il dativo: **in der Küche, im Wald, am See**.\n\n**Wohin?** (verso dove?) L'accusativo: **in die Küche, in den Wald, an den See**.\n\n**im** (in dem), **ins** (in das), **am** (an dem), **ans** (an das). Prima fai la domanda."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "wo-wohin-1",
+      "title": {
+        "de": "Wo? Wohin?",
+        "en": "Where? Where to?",
+        "sl": "Kje? Kam?",
+        "it": "Dove? Verso dove?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Ergänze Wo? und Wohin? · Fill in where and where to",
+            "sl": "Ergänze Wo? und Wohin? · Dopolni kje in kam",
+            "it": "Ergänze Wo? und Wohin? · Completa con stato e moto"
+          },
+          "prompt": {
+            "en": "preposition + noun",
+            "sl": "predlog + samostalnik",
+            "it": "preposizione + nome"
+          },
+          "columns": [
+            {
+              "en": "Wo? + dative",
+              "sl": "Wo? + dajalnik",
+              "it": "Wo? + dativo"
+            },
+            {
+              "en": "Wohin? + accusative",
+              "sl": "Wohin? + tožilnik",
+              "it": "Wohin? + accusativo"
+            }
+          ],
+          "rows": [
+            {
+              "label": "in + die Küche",
+              "cells": [
+                {
+                  "accept": [
+                    "in der Küche"
+                  ]
+                },
+                {
+                  "accept": [
+                    "in die Küche"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "in + das Gasthaus",
+              "cells": [
+                {
+                  "accept": [
+                    "im Gasthaus",
+                    "in dem Gasthaus"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ins Gasthaus",
+                    "in das Gasthaus"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "an + der See",
+              "cells": [
+                {
+                  "accept": [
+                    "am See",
+                    "an dem See"
+                  ]
+                },
+                {
+                  "accept": [
+                    "an den See"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "auf + die Alm",
+              "cells": [
+                {
+                  "accept": [
+                    "auf der Alm"
+                  ]
+                },
+                {
+                  "accept": [
+                    "auf die Alm"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "unter + der Baum",
+              "cells": [
+                {
+                  "accept": [
+                    "unter dem Baum"
+                  ]
+                },
+                {
+                  "accept": [
+                    "unter den Baum"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Wo? the dative · Wohin? the accusative**",
+            "sl": "**Kje? dajalnik · Kam? tožilnik**",
+            "it": "**Dove? il dativo · Verso dove? l'accusativo**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Ordne zu: Wo? oder Wohin? · Sort: where or where to?",
+            "sl": "Ordne zu: Wo? oder Wohin? · Razvrsti: kje ali kam?",
+            "it": "Ordne zu: Wo? oder Wohin? · Metti in ordine: stato o moto?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Wo? · where?",
+                "sl": "Wo? · kje?",
+                "it": "Wo? · dove?"
+              },
+              "words": [
+                "im Dorf",
+                "am Bach",
+                "in der Schule"
+              ]
+            },
+            {
+              "label": {
+                "en": "Wohin? · where to?",
+                "sl": "Wohin? · kam?",
+                "it": "Wohin? · verso dove?"
+              },
+              "words": [
+                "ins Dorf",
+                "an den Bach",
+                "in die Schule"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**im Dorf, ins Dorf; am Bach, an den Bach**",
+            "sl": "**im Dorf, ins Dorf; am Bach, an den Bach**",
+            "it": "**im Dorf, ins Dorf; am Bach, an den Bach**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wo-wohin-2",
+      "title": {
+        "de": "Ein Morgen im Dorf",
+        "en": "A morning in the village",
+        "sl": "Jutro v vasi",
+        "it": "Un mattino al villaggio"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Ergänze den Artikel · Fill in the article",
+            "sl": "Ergänze den Artikel · Dopolni člen",
+            "it": "Ergänze den Artikel · Completa con l'articolo"
+          },
+          "title": "Ein Morgen im Dorf",
+          "text": "Am Morgen geht Kathi in ___ (die) Küche. Die Suppe ist schon auf ___ (der) Tisch. Maxi läuft ___ (in + das) Dorf. Stefan ist ___ (in + der) Keller. Florian geht auf ___ (die) Alm. Opa Sepp sitzt unter ___ (die) Linde. Die Kinder laufen über ___ (die) Brücke und an ___ (der) Bach. Und der Hund? Er ist vor ___ (die) Tür.",
+          "gaps": [
+            {
+              "accept": [
+                "die"
+              ],
+              "hint": "Wohin?"
+            },
+            {
+              "accept": [
+                "dem"
+              ],
+              "hint": "Wo?"
+            },
+            {
+              "accept": [
+                "ins",
+                "in das"
+              ],
+              "hint": "Wohin?"
+            },
+            {
+              "accept": [
+                "im",
+                "in dem"
+              ],
+              "hint": "Wo?"
+            },
+            {
+              "accept": [
+                "die"
+              ],
+              "hint": "Wohin?"
+            },
+            {
+              "accept": [
+                "der"
+              ],
+              "hint": "Wo?"
+            },
+            {
+              "accept": [
+                "die"
+              ],
+              "hint": "Wohin?"
+            },
+            {
+              "accept": [
+                "den"
+              ],
+              "hint": "Wohin?"
+            },
+            {
+              "accept": [
+                "der"
+              ],
+              "hint": "Wo?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "das",
+            "ans"
+          ],
+          "translation": {
+            "en": "In the morning Kathi goes into the kitchen. The soup is already on the table. Maxi runs into the village. Stefan is in the cellar. Florian goes up to the alpine pasture. Grandpa Sepp is sitting under the lime tree. The children run across the bridge and to the stream. And the dog? It's in front of the door.",
+            "sl": "Zjutraj gre Kathi v kuhinjo. Juha je že na mizi. Maxi teče v vas. Stefan je v kleti. Florian gre na planino. Dedek Sepp sedi pod lipo. Otroci tečejo čez most in k potoku. In pes? Pred vrati je.",
+            "it": "Al mattino Kathi va in cucina. La minestra è già in tavola. Maxi corre al villaggio. Stefan è in cantina. Florian va all'alpeggio. Nonno Sepp è seduto sotto il tiglio. I bambini corrono sul ponte e al ruscello. E il cane? È davanti alla porta."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wo ist Toni? – Er ist ___ Schmiede.",
+          "options": [
+            "in der",
+            "in die",
+            "ins"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wo? The dative: in der**\n- Er ist in der Schmiede.",
+            "sl": "**Kje? Dajalnik: in der**\n- Er ist in der Schmiede.",
+            "it": "**Dove? Il dativo: in der**\n- Er ist in der Schmiede."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wohin geht Lena? – Sie geht ___ Schule.",
+          "options": [
+            "in die",
+            "in der",
+            "im"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wohin? The accusative: in die**\n- Sie geht in die Schule.",
+            "sl": "**Kam? Tožilnik: in die**\n- Sie geht in die Schule.",
+            "it": "**Verso dove? L'accusativo: in die**\n- Sie geht in die Schule."
+          }
+        }
+      ]
+    },
+    {
+      "id": "wo-wohin-3",
+      "title": {
+        "de": "Wo oder wohin?",
+        "en": "Where or where to?",
+        "sl": "Kje ali kam?",
+        "it": "Stato o moto?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Von Wo? zu Wohin? · From where it is to where it goes",
+            "sl": "Von Wo? zu Wohin? · Iz kje v kam",
+            "it": "Von Wo? zu Wohin? · Da dove si trova a dove va"
+          },
+          "items": [
+            {
+              "from": "Kathi ist in der Küche. (gehen)",
+              "accept": [
+                "Kathi geht in die Küche."
+              ],
+              "hint": {
+                "en": "Wohin? + accusative",
+                "sl": "Wohin? + tožilnik",
+                "it": "Wohin? + accusativo"
+              }
+            },
+            {
+              "from": "Stefan ist im Keller. (gehen)",
+              "accept": [
+                "Stefan geht in den Keller."
+              ],
+              "hint": {
+                "en": "der Keller",
+                "sl": "der Keller",
+                "it": "der Keller"
+              }
+            },
+            {
+              "from": "Florian ist auf der Alm. (gehen)",
+              "accept": [
+                "Florian geht auf die Alm."
+              ],
+              "hint": {
+                "en": "Wohin? + accusative",
+                "sl": "Wohin? + tožilnik",
+                "it": "Wohin? + accusativo"
+              }
+            },
+            {
+              "from": "Wir sind im Gasthaus. (gehen)",
+              "accept": [
+                "Wir gehen ins Gasthaus.",
+                "Wir gehen in das Gasthaus."
+              ],
+              "hint": {
+                "en": "das Gasthaus",
+                "sl": "das Gasthaus",
+                "it": "das Gasthaus"
+              }
+            }
+          ]
+        },
+        {
+          "type": "transform",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Von Wohin? zu Wo? · From where it goes to where it is",
+            "sl": "Von Wohin? zu Wo? · Iz kam v kje",
+            "it": "Von Wohin? zu Wo? · Da dove va a dove si trova"
+          },
+          "items": [
+            {
+              "from": "Toni geht in die Schmiede. (sein)",
+              "accept": [
+                "Toni ist in der Schmiede."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            },
+            {
+              "from": "Die Kinder gehen auf den Platz. (sein)",
+              "accept": [
+                "Die Kinder sind auf dem Platz."
+              ],
+              "spoken": [
+                "Die Kinder sind am Platz."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            },
+            {
+              "from": "Oma Resi geht in den Garten. (sein)",
+              "accept": [
+                "Oma Resi ist im Garten.",
+                "Oma Resi ist in dem Garten."
+              ],
+              "hint": {
+                "en": "Wo? + dative",
+                "sl": "Wo? + dajalnik",
+                "it": "Wo? + dativo"
+              }
+            }
+          ]
+        },
+        {
+          "type": "reorder",
+          "grammar": "wechselpraepositionen",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "In the morning Kathi goes into the kitchen.",
+            "sl": "Zjutraj gre Kathi v kuhinjo.",
+            "it": "Al mattino Kathi va in cucina."
+          },
+          "tokens": [
+            "in die Küche.",
+            "Am Morgen",
+            "geht",
+            "Kathi"
+          ],
+          "solutions": [
+            [
+              "Am Morgen",
+              "geht",
+              "Kathi",
+              "in die Küche."
+            ],
+            [
+              "Kathi",
+              "geht",
+              "am Morgen",
+              "in die Küche."
+            ]
+          ],
+          "explain": {
+            "en": "**The verb second, wohin? last**",
+            "sl": "**Glagol drugi, kam? na koncu**",
+            "it": "**Il verbo secondo, wohin? alla fine**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "wechselpraepositionen",
+        "instruction": {
+          "en": "Ergänze den Artikel · Fill in the article",
+          "sl": "Ergänze den Artikel · Dopolni člen",
+          "it": "Ergänze den Artikel · Completa con l'articolo"
+        },
+        "title": "Am Abend",
+        "text": "Am Abend geht Stanko ___ (in + das) Gasthaus. Kathi ist in ___ (die) Küche. Stanko sitzt neben ___ (der) Ofen. Die Katze springt auf ___ (der) Tisch. Dann läuft sie unter ___ (die) Bank.",
+        "gaps": [
+          {
+            "accept": [
+              "ins",
+              "in das"
+            ]
+          },
+          {
+            "accept": [
+              "der"
+            ]
+          },
+          {
+            "accept": [
+              "dem"
+            ]
+          },
+          {
+            "accept": [
+              "den"
+            ]
+          },
+          {
+            "accept": [
+              "die"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "In the evening Stanko goes to the inn. Kathi is in the kitchen. Stanko is sitting next to the stove. The cat jumps onto the table. Then it runs under the bench.",
+          "sl": "Zvečer gre Stanko v gostilno. Kathi je v kuhinji. Stanko sedi ob peči. Mačka skoči na mizo. Nato steče pod klop.",
+          "it": "La sera Stanko va all'osteria. Kathi è in cucina. Stanko è seduto accanto alla stufa. Il gatto salta sul tavolo. Poi corre sotto la panca."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "wechselpraepositionen",
+        "instruction": {
+          "en": "Ergänze Wo? und Wohin? · Fill in where and where to",
+          "sl": "Ergänze Wo? und Wohin? · Dopolni kje in kam",
+          "it": "Ergänze Wo? und Wohin? · Completa con stato e moto"
+        },
+        "prompt": {
+          "en": "preposition + noun",
+          "sl": "predlog + samostalnik",
+          "it": "preposizione + nome"
+        },
+        "columns": [
+          {
+            "en": "Wo? + dative",
+            "sl": "Wo? + dajalnik",
+            "it": "Wo? + dativo"
+          },
+          {
+            "en": "Wohin? + accusative",
+            "sl": "Wohin? + tožilnik",
+            "it": "Wohin? + accusativo"
+          }
+        ],
+        "rows": [
+          {
+            "label": "in + der Wald",
+            "cells": [
+              {
+                "accept": [
+                  "im Wald",
+                  "in dem Wald"
+                ]
+              },
+              {
+                "accept": [
+                  "in den Wald"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "hinter + das Haus",
+            "cells": [
+              {
+                "accept": [
+                  "hinter dem Haus"
+                ]
+              },
+              {
+                "accept": [
+                  "hinter das Haus"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "wechselpraepositionen",
+        "instruction": {
+          "en": "Von Wo? zu Wohin? · From where it is to where it goes",
+          "sl": "Von Wo? zu Wohin? · Iz kje v kam",
+          "it": "Von Wo? zu Wohin? · Da dove si trova a dove va"
+        },
+        "items": [
+          {
+            "from": "Eva ist in der Schule. (gehen)",
+            "accept": [
+              "Eva geht in die Schule."
+            ]
+          },
+          {
+            "from": "Franz ist auf dem Feld. (gehen)",
+            "accept": [
+              "Franz geht auf das Feld.",
+              "Franz geht aufs Feld."
+            ]
+          },
+          {
+            "from": "Wir sind am Bach. (gehen)",
+            "accept": [
+              "Wir gehen an den Bach."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "wechselpraepositionen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Vögel sind über ___ Dorf.",
+        "options": [
+          "dem",
+          "das",
+          "den"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Wo? das → dem**",
+          "sl": "**Kje? das → dem**",
+          "it": "**Dove? das → dem**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wechselpraepositionen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stefan fährt den Traktor zwischen ___ Bäume.",
+        "options": [
+          "die",
+          "den",
+          "der"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Wohin? The plural: die**",
+          "sl": "**Kam? Množina: die**",
+          "it": "**Verso dove? Il plurale: die**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: am Tisch and am Platz as spoken in Austria, aufs Feld; Italian stato and moto; Slovene k jezeru for an den See"
+}

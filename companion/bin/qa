@@ -379,7 +379,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        roll call on (no «Vedo, vedo» offered during it); "friuli-school-unit" (the same learner, a run of its
                        own: each is about 8 minutes) a unit end to end, $LANI_QA_IT_UNIT (ciao by default; an A2 unit
                        after the school with A1 done), kept done, then its sheet printed (fit.js as in Chromium, the PDF);
-                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "course-unit" (only when named, with
+                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "school-board" (only with LANI_QA_SCHOOL_LEVEL=<level>; a learner as "course-unit"'s) the level's units all on the
+                       school's screen, its folded list opened, sb-*.png in $LANI_QA_COURSE_SHOTS; "course-unit" (only when named, with
                        LANI_QA_COURSE_UNIT=<unit>: a synthetic learner of the village's language in its culture, e.g. German in
                        Kärnten: LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en) that unit of the course end to end and its
                        sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "friuli-watchtower" (only when named; the same learner)
@@ -9687,6 +9688,78 @@ TYPED_FOLD = {
 }
 
 
+def school_board():
+    """Every unit of a level of the village's language's course on the school's screen, only when named
+    ($LANI_QA_SCHOOL_LEVEL=A2; the pair and the learner as "course-unit"'s): the level's count with nothing planned, its
+    folded list opened, each unit's title on a row or in it. sb-*.png in $LANI_QA_COURSE_SHOTS."""
+    level = os.environ.get("LANI_QA_SCHOOL_LEVEL")
+    if not level:
+        return "skipped: no level named (LANI_QA_SCHOOL_LEVEL)"
+    lang = api("/culture").get("language") or "sl"
+    outline = json.loads((ROOT / f"companion/course/{lang}/course.json").read_text())
+    units = next(lv["units"] for lv in outline["levels"] if lv["level"] == level)
+    planned = [u["id"] for u in units if u.get("planned")]
+    assert not planned, f"planned in the outline: {planned}"
+    pair = (os.environ.get("LANI_QA_SETUP_PAIR") or f"{lang}-en").split("-")
+    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    qa_hook(f"pair:{'-'.join(pair)}")
+    qa_hook(f"school:{units[0]['id']}")  # the level open, none of its units begun
+    time.sleep(2)
+    row = l10n(pair[0]).get("school.level", "").replace("{level}", level)
+    assert wait_for(row, 15) or scroll_to(row, 12) is not None, "the school's levels"
+    # the level's count: "Geschafft: 9/18" below its row (units done before this step stay done), nothing planned beside it
+    below = find(row)
+    assert below is not None, "the level's row"
+    count = re.compile(rf"\b\d+/{len(units)}\b")
+    line = next((t for t, c in nodes() if count.search(t) and c[1] > below[1]), None)
+    assert line is not None, f"the level's count, of {len(units)}"
+    tail = l10n(pair[0]).get("school.morePlanned", "").split("}")[-1].strip()
+    assert not (tail and tail in line), f"planned units beside the count: {line}"
+    snap("sb-level")
+    titles = {u["id"]: unit_text(u["title"][lang]) for u in units}
+    seen: set[str] = set()
+
+    def note():
+        texts = [t for t, _ in nodes()]
+        seen.update(uid for uid, title in titles.items() if any(title in t for t in texts))
+
+    # the rows, down to the folded row ("Noch 15 Einheiten in A2"), which opens a sheet of the rest
+    folded = None
+    for _ in range(8):
+        note()
+        folded = next((c for t, c in nodes() if re.search(rf"\d+ \w+ in {level}\b", t) and 300 < c[1] < 2150), None)
+        if folded is not None:
+            break
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(1)
+    snap("sb-rows")
+    if folded is not None:  # none when every unit is a row already
+        tap_at(folded)
+        time.sleep(1.5)
+        for i in range(14):
+            note()
+            if i % 2 == 0:
+                snap(f"sb-units-{i // 2 + 1}")
+            if len(seen) == len(titles):
+                break
+            adb("shell", "input", "swipe", "540", "1900", "540", "1100", "500")
+            time.sleep(1)
+    missing = [uid for uid in titles if uid not in seen]
+    assert not missing, f"not on the school's screen: {missing}"
+    snap("sb-units-last")
+    if folded is not None:
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    print(f"    {level}: all {len(titles)} units on the school's screen, written")
+
+
 def course_unit():
     """A unit of the village's language's course end to end, for a synthetic learner of that language in its culture's
     village (LANI_DEV_DATA: make-learner.ts --target <language> --base <base>; LANI_CULTURE=<culture>,
@@ -18151,6 +18224,7 @@ def plan():
         ("friuli-school-unit", friuli_school_unit, None, False, ""),
         # only with --steps course-unit: a unit of the village's language's course end to end and its print (LANI_QA_COURSE_UNIT)
         ("course-unit", course_unit, None, False, ""),
+        ("school-board", school_board, None, False, ""),
         # only with --steps friuli-talk: Teo's free talk in Italian, Al mercato end to end (the same learner)
         ("friuli-talk", friuli_talk, None, False, ""),
         # only with --steps kaernten-talk / lakeland-talk: a grown-up's free talk in German, in English (a synthetic learner)

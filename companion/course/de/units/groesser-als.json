@@ -1,0 +1,918 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "groesser-als",
+  "language": "de",
+  "level": "A2",
+  "emoji": "📈",
+  "title": {
+    "de": "Größer als, so groß wie, am größten",
+    "en": "Comparing: größer als, am größten",
+    "sl": "Primerjava: größer als, am größten",
+    "it": "Il confronto: größer als, am größten"
+  },
+  "goal": {
+    "en": "You can compare: schneller als, älter als, so groß wie, am schnellsten, am ältesten, with besser, lieber and mehr.",
+    "sl": "Znaš primerjati: schneller als, älter als, so groß wie, am schnellsten, am ältesten, z besser, lieber in mehr.",
+    "it": "Sai fare confronti: schneller als, älter als, so groß wie, am schnellsten, am ältesten, con besser, lieber e mehr."
+  },
+  "grammar": [
+    "steigerung"
+  ],
+  "words": [
+    "schnell",
+    "klein",
+    "billig",
+    "langsam",
+    "alt",
+    "jung",
+    "groß",
+    "lang",
+    "kurz",
+    "warm",
+    "kalt",
+    "stark",
+    "hoch",
+    "teuer",
+    "gut",
+    "gern",
+    "viel",
+    "besser",
+    "lieber",
+    "mehr",
+    "am besten",
+    "am liebsten",
+    "am meisten",
+    "als",
+    "wie",
+    "der Kirchturm",
+    "der Traktor",
+    "das Pferd",
+    "der Krapfen",
+    "die Wette",
+    "arbeiten",
+    "laufen",
+    "vergleichen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Grundform",
+          "sl": "osnovna oblika",
+          "en": "plain form",
+          "it": "forma base"
+        },
+        {
+          "de": "Komparativ",
+          "sl": "primernik",
+          "en": "comparative",
+          "it": "comparativo"
+        },
+        {
+          "de": "Superlativ",
+          "sl": "presežnik",
+          "en": "superlative",
+          "it": "superlativo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "To say more, the adjective takes **-er**, and what you compare with comes after **als** (than): **schneller als** (faster than), **kleiner als** (smaller than). Only -er: never a word for more in front of it. Stefans Traktor ist **schneller als** der Traktor von Franz.",
+          "sl": "Za več dobi pridevnik **-er**, to, s čimer primerjaš, pa pride za **als** (kot): **schneller als** (hitrejši kot), **kleiner als** (manjši kot). Samo -er: nikoli beseda za več pred njim. Stefans Traktor ist **schneller als** der Traktor von Franz.",
+          "it": "Per dire di più l'aggettivo prende **-er**, e ciò con cui confronti viene dopo **als** (di, che): **schneller als** (più veloce di), **kleiner als** (più piccolo di). Solo -er: mai una parola per più davanti. Stefans Traktor ist **schneller als** der Traktor von Franz."
+        },
+        "examples": [
+          {
+            "de": "Stefans Traktor ist schneller als der Traktor von Franz.",
+            "en": "Stefan's tractor is faster than Franz's tractor.",
+            "sl": "Stefanov traktor je hitrejši od Franzovega.",
+            "it": "Il trattore di Stefan è più veloce di quello di Franz."
+          },
+          {
+            "de": "Villach ist kleiner als Klagenfurt.",
+            "en": "Villach is smaller than Klagenfurt.",
+            "sl": "Beljak je manjši od Celovca.",
+            "it": "Villach è più piccola di Klagenfurt."
+          }
+        ],
+        "rows": [
+          [
+            "schnell",
+            "schneller",
+            "am schnellsten"
+          ],
+          [
+            "klein",
+            "kleiner",
+            "am kleinsten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "steigerung",
+          "text": "Das Bier ist ___ als der Wein. (billig)",
+          "accept": [
+            "billiger"
+          ],
+          "hint": {
+            "en": "billig + the ending for more",
+            "sl": "billig + končnica za več",
+            "it": "billig + la desinenza per di più"
+          },
+          "explain": {
+            "en": "**billig → billiger**\n- schnell → schneller · klein → kleiner",
+            "sl": "**billig → billiger**\n- schnell → schneller · klein → kleiner",
+            "it": "**billig → billiger**\n- schnell → schneller · klein → kleiner"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Short adjectives with a, o or u usually take an umlaut too: **alt → älter** (older), **jung → jünger** (younger), **groß → größer** (bigger), **kurz → kürzer** (shorter), and **lang, warm, kalt, stark** the same. Three more change: **hoch → höher** (higher), **teuer → teurer** (dearer), **dunkel → dunkler** (darker).",
+          "sl": "Kratki pridevniki z a, o ali u navadno dobijo tudi preglas: **alt → älter** (starejši), **jung → jünger** (mlajši), **groß → größer** (večji), **kurz → kürzer** (krajši), enako **lang, warm, kalt, stark**. Še trije se spremenijo: **hoch → höher** (višji), **teuer → teurer** (dražji), **dunkel → dunkler** (temnejši).",
+          "it": "Gli aggettivi brevi con a, o o u di solito prendono anche l'Umlaut: **alt → älter** (più vecchio), **jung → jünger** (più giovane), **groß → größer** (più grande), **kurz → kürzer** (più corto), e allo stesso modo **lang, warm, kalt, stark**. Altri tre cambiano: **hoch → höher** (più alto), **teuer → teurer** (più caro), **dunkel → dunkler** (più scuro)."
+        },
+        "examples": [
+          {
+            "de": "Stefan ist jünger als Franz.",
+            "en": "Stefan is younger than Franz.",
+            "sl": "Stefan je mlajši od Franza.",
+            "it": "Stefan è più giovane di Franz."
+          },
+          {
+            "de": "Der Dobratsch ist höher als der Kirchturm.",
+            "en": "The Dobratsch is higher than the church tower.",
+            "sl": "Dobrač je višji od cerkvenega stolpa.",
+            "it": "Il Dobratsch è più alto del campanile."
+          }
+        ],
+        "rows": [
+          [
+            "alt",
+            "älter",
+            "am ältesten"
+          ],
+          [
+            "jung",
+            "jünger",
+            "am jüngsten"
+          ],
+          [
+            "groß",
+            "größer",
+            "am größten"
+          ],
+          [
+            "hoch",
+            "höher",
+            "am höchsten"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "steigerung",
+          "prompt": "Oma Resi ist ___ als Tante Mitzi. (alt)",
+          "options": [
+            "älter",
+            "alter",
+            "mehr alt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**alt → älter, with the umlaut**\n- jung → jünger · groß → größer",
+            "sl": "**alt → älter, s preglasom**\n- jung → jünger · groß → größer",
+            "it": "**alt → älter, con l'Umlaut**\n- jung → jünger · groß → größer"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "For the same, take **so … wie** (as … as) with the plain adjective: **so alt wie** (as old as), and for less **nicht so groß wie** (not as big as). So **als** goes after -er, **wie** after so. In speech you'll also hear **älter wie**: people say it, and everyone understands, but write **als**.",
+          "sl": "Za enako vzemi **so … wie** (tako … kot) z osnovnim pridevnikom: **so alt wie** (tako star kot), za manj pa **nicht so groß wie** (ne tako velik kot). **als** pride torej za -er, **wie** za so. V govoru slišiš tudi **älter wie**: ljudje to govorijo in vsi razumejo, piši pa **als**.",
+          "it": "Per dire uguale usa **so … wie** (tanto … quanto) con l'aggettivo semplice: **so alt wie** (vecchio quanto), e per meno **nicht so groß wie** (non grande quanto). Quindi **als** va dopo -er, **wie** dopo so. A voce senti anche **älter wie**: la gente lo dice e tutti capiscono, ma scrivi **als**."
+        },
+        "examples": [
+          {
+            "de": "Stanko ist so alt wie Oma Resi.",
+            "en": "Stanko is as old as Grandma Resi.",
+            "sl": "Stanko je tako star kot babica Resi.",
+            "it": "Stanko ha la stessa età di nonna Resi."
+          },
+          {
+            "de": "Villach ist nicht so groß wie Klagenfurt.",
+            "en": "Villach isn't as big as Klagenfurt.",
+            "sl": "Beljak ni tako velik kot Celovec.",
+            "it": "Villach non è grande quanto Klagenfurt."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "steigerung",
+          "prompt": "Der Most ist so gut ___ der Wein.",
+          "options": [
+            "wie",
+            "als",
+            "dass"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**so … wie**\n- so gut wie · besser als",
+            "sl": "**so … wie**\n- so gut wie · besser als",
+            "it": "**so … wie**\n- so gut wie · besser als"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "For the most, say **am** and add **-sten**: **am schnellsten** (fastest), **am kleinsten** (smallest), with the same umlaut: **am jüngsten** (youngest). After -t, -d, -s, -ß, -z an e comes in: **am ältesten** (oldest), **am kältesten** (coldest), **am kürzesten** (shortest); only **am größten** (biggest) doesn't, and **hoch** gives **am höchsten** (highest).",
+          "sl": "Za največ reci **am** in dodaj **-sten**: **am schnellsten** (najhitreje), **am kleinsten** (najmanjši), z istim preglasom: **am jüngsten** (najmlajši). Za -t, -d, -s, -ß, -z se vrine e: **am ältesten** (najstarejši), **am kältesten** (najhladneje), **am kürzesten** (najkrajši); le **am größten** (največji) ne, **hoch** pa da **am höchsten** (najvišji).",
+          "it": "Per il massimo di' **am** e aggiungi **-sten**: **am schnellsten** (il più veloce), **am kleinsten** (il più piccolo), con lo stesso Umlaut: **am jüngsten** (il più giovane). Dopo -t, -d, -s, -ß, -z entra una e: **am ältesten** (il più vecchio), **am kältesten** (il più freddo), **am kürzesten** (il più corto); solo **am größten** (il più grande) no, e **hoch** dà **am höchsten** (il più alto)."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp ist am ältesten.",
+            "en": "Grandpa Sepp is the oldest.",
+            "sl": "Dedek Sepp je najstarejši.",
+            "it": "Nonno Sepp è il più vecchio."
+          },
+          {
+            "de": "Im Jänner ist es hier am kältesten.",
+            "en": "It's coldest here in January.",
+            "sl": "Januarja je tu najhladneje.",
+            "it": "Qui fa più freddo a gennaio."
+          }
+        ],
+        "rows": [
+          [
+            "kalt",
+            "kälter",
+            "am kältesten"
+          ],
+          [
+            "kurz",
+            "kürzer",
+            "am kürzesten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "steigerung",
+          "text": "Von den Kindern ist Jakob am ___. (jung)",
+          "accept": [
+            "jüngsten"
+          ],
+          "hint": {
+            "en": "am + the umlaut + -sten",
+            "sl": "am + preglas + -sten",
+            "it": "am + l'Umlaut + -sten"
+          },
+          "explain": {
+            "en": "**jung → am jüngsten**\n- Jakob is six, Lena eight, Maxi nine.",
+            "sl": "**jung → am jüngsten**\n- Jakob ima šest let, Lena osem, Maxi devet.",
+            "it": "**jung → am jüngsten**\n- Jakob ha sei anni, Lena otto, Maxi nove."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Three go their own way, and you need them every day: **gut, besser, am besten** (good, better, best); **gern, lieber, am liebsten** (gladly, preferably, most of all); **viel, mehr, am meisten** (much, more, most). Ich trinke **gern** Tee, **lieber** Kaffee, **am liebsten** Most.",
+          "sl": "Trije gredo po svoje in jih potrebuješ vsak dan: **gut, besser, am besten** (dober, boljši, najboljši); **gern, lieber, am liebsten** (rad, raje, najraje); **viel, mehr, am meisten** (veliko, več, največ). Ich trinke **gern** Tee, **lieber** Kaffee, **am liebsten** Most.",
+          "it": "Tre vanno per conto loro, e servono ogni giorno: **gut, besser, am besten** (buono, migliore, il migliore); **gern, lieber, am liebsten** (volentieri, piuttosto, più di tutto); **viel, mehr, am meisten** (molto, di più, più di tutti). Ich trinke **gern** Tee, **lieber** Kaffee, **am liebsten** Most."
+        },
+        "examples": [
+          {
+            "de": "Ich trinke gern Tee, lieber Kaffee, am liebsten Most.",
+            "en": "I like tea, I prefer coffee, and I like cider best.",
+            "sl": "Rad pijem čaj, raje kavo, najraje mošt.",
+            "it": "Mi piace il tè, preferisco il caffè, e più di tutto mi piace il sidro."
+          },
+          {
+            "de": "Oma Resi kocht am besten.",
+            "en": "Grandma Resi cooks best.",
+            "sl": "Babica Resi najbolje kuha.",
+            "it": "Nonna Resi cucina meglio di tutti."
+          }
+        ],
+        "rows": [
+          [
+            "gut",
+            "besser",
+            "am besten"
+          ],
+          [
+            "gern",
+            "lieber",
+            "am liebsten"
+          ],
+          [
+            "viel",
+            "mehr",
+            "am meisten"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "steigerung",
+          "prompt": "Stefan trinkt gern Wein, aber noch ___ Most. (gern)",
+          "options": [
+            "lieber",
+            "gerner",
+            "besser"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**gern, lieber, am liebsten**\n- gut, besser, am besten · viel, mehr, am meisten",
+            "sl": "**gern, lieber, am liebsten**\n- gut, besser, am besten · viel, mehr, am meisten",
+            "it": "**gern, lieber, am liebsten**\n- gut, besser, am besten · viel, mehr, am meisten"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "groesser-als-1",
+      "title": {
+        "de": "Älter, am ältesten",
+        "en": "Older, oldest",
+        "sl": "Starejši, najstarejši",
+        "it": "Più vecchio, il più vecchio"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the forms",
+            "sl": "oblike",
+            "it": "le forme"
+          },
+          "columns": [
+            {
+              "de": "Komparativ",
+              "sl": "primernik",
+              "en": "comparative",
+              "it": "comparativo"
+            },
+            {
+              "de": "Superlativ",
+              "sl": "presežnik",
+              "en": "superlative",
+              "it": "superlativo"
+            }
+          ],
+          "rows": [
+            {
+              "label": "schnell",
+              "cells": [
+                "schneller",
+                "am schnellsten"
+              ]
+            },
+            {
+              "label": "alt",
+              "cells": [
+                {
+                  "accept": [
+                    "älter"
+                  ]
+                },
+                {
+                  "accept": [
+                    "am ältesten"
+                  ],
+                  "hint": {
+                    "en": "-t: with an e",
+                    "sl": "-t: z e",
+                    "it": "-t: con la e"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "groß",
+              "cells": [
+                {
+                  "accept": [
+                    "größer"
+                  ]
+                },
+                {
+                  "accept": [
+                    "am größten"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "gut",
+              "cells": [
+                {
+                  "accept": [
+                    "besser"
+                  ]
+                },
+                {
+                  "accept": [
+                    "am besten"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "gern",
+              "cells": [
+                {
+                  "accept": [
+                    "lieber"
+                  ]
+                },
+                {
+                  "accept": [
+                    "am liebsten"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**More: -er als; the same: so … wie; the most: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten",
+            "sl": "**Več: -er als; enako: so … wie; največ: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten",
+            "it": "**Di più: -er als; uguale: so … wie; il massimo: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Sortiere · Sort: with an umlaut or not?",
+            "sl": "Sortiere · Razvrsti: s preglasom ali ne?",
+            "it": "Sortiere · Ordina: con l'Umlaut o no?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "mit Umlaut · with one",
+                "sl": "mit Umlaut · s preglasom",
+                "it": "mit Umlaut · con"
+              },
+              "words": [
+                "alt",
+                "jung",
+                "kurz"
+              ]
+            },
+            {
+              "label": {
+                "en": "ohne Umlaut · without",
+                "sl": "ohne Umlaut · brez",
+                "it": "ohne Umlaut · senza"
+              },
+              "words": [
+                "schnell",
+                "klein",
+                "billig"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Short words with a, o, u take one; not every word has one to take**\n- alt → älter · schnell → schneller",
+            "sl": "**Kratke besede z a, o, u ga dobijo; ne vsaka ga ima**\n- alt → älter · schnell → schneller",
+            "it": "**Le parole brevi con a, o, u lo prendono; non tutte ce l'hanno**\n- alt → älter · schnell → schneller"
+          }
+        }
+      ]
+    },
+    {
+      "id": "groesser-als-2",
+      "title": {
+        "de": "Müller Franz vergleicht",
+        "en": "Miller Franz compares",
+        "sl": "Mlinar Franz primerja",
+        "it": "Il mugnaio Franz confronta"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Franz vergleicht alles",
+          "text": "Seine Mühle ist ___ (alt) als die Schmiede. Stefans Traktor ist ___ (schnell) als sein Traktor. Der Most ist so gut ___ der Wein. Im Jänner ist es kälter ___ im März. Villach ist ___ (klein) als Klagenfurt. Oma Resi kocht am ___ (gut). Und wer arbeitet am ___ (viel)? Franz natürlich!",
+          "gaps": [
+            {
+              "accept": [
+                "älter"
+              ],
+              "hint": {
+                "en": "with the umlaut",
+                "sl": "s preglasom",
+                "it": "con l'Umlaut"
+              }
+            },
+            {
+              "accept": [
+                "schneller"
+              ]
+            },
+            {
+              "accept": [
+                "wie"
+              ],
+              "hint": "so … ?"
+            },
+            {
+              "accept": [
+                "als"
+              ],
+              "spoken": [
+                "wie"
+              ],
+              "hint": {
+                "en": "after -er",
+                "sl": "za -er",
+                "it": "dopo -er"
+              }
+            },
+            {
+              "accept": [
+                "kleiner"
+              ]
+            },
+            {
+              "accept": [
+                "besten"
+              ],
+              "hint": "gut, besser, ?"
+            },
+            {
+              "accept": [
+                "meisten"
+              ],
+              "hint": "viel, mehr, ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "alter",
+            "besser",
+            "mehr"
+          ],
+          "translation": {
+            "en": "His mill is older than the forge. Stefan's tractor is faster than his tractor. The cider is as good as the wine. In January it's colder than in March. Villach is smaller than Klagenfurt. Grandma Resi cooks best. And who works the most? Franz, of course!",
+            "sl": "Njegov mlin je starejši od kovačnice. Stefanov traktor je hitrejši od njegovega. Mošt je tako dober kot vino. Januarja je hladneje kot marca. Beljak je manjši od Celovca. Babica Resi najbolje kuha. In kdo največ dela? Franz seveda!",
+            "it": "Il suo mulino è più vecchio della fucina. Il trattore di Stefan è più veloce del suo. Il sidro è buono quanto il vino. A gennaio fa più freddo che a marzo. Villach è più piccola di Klagenfurt. Nonna Resi cucina meglio di tutti. E chi lavora di più? Franz, naturalmente!"
+          },
+          "explain": {
+            "en": "**More: -er als; the same: so … wie; the most: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten",
+            "sl": "**Več: -er als; enako: so … wie; največ: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten",
+            "it": "**Di più: -er als; uguale: so … wie; il massimo: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ich esse ___ Reindling als Kuchen. (gern)",
+          "options": [
+            "lieber",
+            "besser",
+            "mehr gern"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**gern → lieber**\n- gern, lieber, am liebsten",
+            "sl": "**gern → lieber**\n- gern, lieber, am liebsten",
+            "it": "**gern → lieber**\n- gern, lieber, am liebsten"
+          }
+        }
+      ]
+    },
+    {
+      "id": "groesser-als-3",
+      "title": {
+        "de": "Wer ist am …?",
+        "en": "Who is the most …?",
+        "sl": "Kdo je naj…?",
+        "it": "Chi è il più …?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Vergleiche · Compare",
+            "sl": "Vergleiche · Primerjaj",
+            "it": "Vergleiche · Confronta"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan, Franz (jung)",
+              "accept": [
+                "Stefan ist jünger als Franz."
+              ],
+              "spoken": [
+                "Stefan ist jünger wie Franz."
+              ]
+            },
+            {
+              "from": "der Dobratsch, der Kirchturm (hoch)",
+              "accept": [
+                "Der Dobratsch ist höher als der Kirchturm."
+              ],
+              "spoken": [
+                "Der Dobratsch ist höher wie der Kirchturm."
+              ]
+            },
+            {
+              "from": "der Traktor, das Pferd (schnell)",
+              "accept": [
+                "Der Traktor ist schneller als das Pferd."
+              ],
+              "spoken": [
+                "Der Traktor ist schneller wie das Pferd."
+              ]
+            },
+            {
+              "from": "der Most, das Wasser (gut)",
+              "accept": [
+                "Der Most ist besser als das Wasser."
+              ],
+              "spoken": [
+                "Der Most ist besser wie das Wasser."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-er als, often with an umlaut**\n- jünger als · höher als · besser als",
+            "sl": "**-er als, pogosto s preglasom**\n- jünger als · höher als · besser als",
+            "it": "**-er als, spesso con l'Umlaut**\n- jünger als · höher als · besser als"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Sag es mit so … wie · Say it with so … wie",
+            "sl": "Sag es mit so … wie · Povej s so … wie",
+            "it": "Sag es mit so … wie · Dillo con so … wie"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Die Suppe ist heiß. Der Tee auch.",
+              "accept": [
+                "Die Suppe ist so heiß wie der Tee."
+              ]
+            },
+            {
+              "from": "Kathi arbeitet viel. Toni auch.",
+              "accept": [
+                "Kathi arbeitet so viel wie Toni."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**so + the plain adjective + wie**\n- so heiß wie · so viel wie",
+            "sl": "**so + osnovni pridevnik + wie**\n- so heiß wie · so viel wie",
+            "it": "**so + l'aggettivo semplice + wie**\n- so heiß wie · so viel wie"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Sag es mit am … · Say it with am …",
+            "sl": "Sag es mit am … · Povej z am …",
+            "it": "Sag es mit am … · Dillo con am …"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Opa Sepp ist alt.",
+              "accept": [
+                "Opa Sepp ist am ältesten."
+              ]
+            },
+            {
+              "from": "Lena läuft schnell.",
+              "accept": [
+                "Lena läuft am schnellsten."
+              ]
+            },
+            {
+              "from": "Oma Resi kocht gut.",
+              "accept": [
+                "Oma Resi kocht am besten."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**am -sten, with an e after -t, -ß, -z**\n- am ältesten · am schnellsten · am besten",
+            "sl": "**am -sten, z e za -t, -ß, -z**\n- am ältesten · am schnellsten · am besten",
+            "it": "**am -sten, con la e dopo -t, -ß, -z**\n- am ältesten · am schnellsten · am besten"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "steigerung",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der Wettlauf am Kirchtag",
+        "text": "Am Kirchtag laufen die Kinder um die Wette. Maxi ist ___ (alt) als Lena, aber Lena ist so schnell ___ Maxi. Jakob ist am ___ (jung) und ___ (klein) als die anderen. Am Ende läuft Lena am ___ (schnell). Maxi isst ___ (gern) Krapfen als Kuchen. Und Kathi sagt: Ein Krapfen ist ___ (gut) als gar nichts!",
+        "gaps": [
+          {
+            "accept": [
+              "älter"
+            ]
+          },
+          {
+            "accept": [
+              "wie"
+            ],
+            "hint": "so … ?"
+          },
+          {
+            "accept": [
+              "jüngsten"
+            ]
+          },
+          {
+            "accept": [
+              "kleiner"
+            ]
+          },
+          {
+            "accept": [
+              "schnellsten"
+            ]
+          },
+          {
+            "accept": [
+              "lieber"
+            ],
+            "hint": "gern, ?"
+          },
+          {
+            "accept": [
+              "besser"
+            ],
+            "hint": "gut, ?"
+          }
+        ],
+        "translation": {
+          "en": "At the Kirchtag the children have a race. Maxi is older than Lena, but Lena is as fast as Maxi. Jakob is the youngest and smaller than the others. In the end Lena runs fastest. Maxi prefers doughnuts to cake. And Kathi says: a doughnut is better than nothing at all!",
+          "sl": "Na žegnanju otroci tekmujejo v teku. Maxi je starejši od Lene, a Lena je tako hitra kot Maxi. Jakob je najmlajši in manjši od drugih. Na koncu Lena teče najhitreje. Maxi raje je krofe kot pecivo. In Kathi reče: Krof je boljši kot nič!",
+          "it": "Alla sagra i bambini fanno una gara di corsa. Maxi è più grande di Lena, ma Lena è veloce quanto Maxi. Jakob è il più giovane ed è più piccolo degli altri. Alla fine Lena corre più veloce di tutti. Maxi preferisce i krapfen alla torta. E Kathi dice: un krapfen è meglio di niente!"
+        },
+        "explain": {
+          "en": "**More: -er als; the same: so … wie; the most: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten",
+          "sl": "**Več: -er als; enako: so … wie; največ: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten",
+          "it": "**Di più: -er als; uguale: so … wie; il massimo: am -sten**\n- schneller als · so schnell wie · am schnellsten · älter · am ältesten"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "steigerung",
+        "instruction": {
+          "en": "Vergleiche · Compare",
+          "sl": "Vergleiche · Primerjaj",
+          "it": "Vergleiche · Confronta"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Oma Resi, Tante Mitzi (alt)",
+            "accept": [
+              "Oma Resi ist älter als Tante Mitzi."
+            ],
+            "spoken": [
+              "Oma Resi ist älter wie Tante Mitzi."
+            ]
+          },
+          {
+            "from": "der Jänner, der März (kalt)",
+            "accept": [
+              "Der Jänner ist kälter als der März.",
+              "Der Januar ist kälter als der März."
+            ],
+            "spoken": [
+              "Der Jänner ist kälter wie der März.",
+              "Der Januar ist kälter wie der März."
+            ]
+          },
+          {
+            "from": "Klagenfurt, Villach (groß)",
+            "accept": [
+              "Klagenfurt ist größer als Villach."
+            ],
+            "spoken": [
+              "Klagenfurt ist größer wie Villach."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**-er als, often with an umlaut**\n- älter als · kälter als · größer als",
+          "sl": "**-er als, pogosto s preglasom**\n- älter als · kälter als · größer als",
+          "it": "**-er als, spesso con l'Umlaut**\n- älter als · kälter als · größer als"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "steigerung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Dobratsch ist ___ als der Kirchturm. (hoch)",
+        "options": [
+          "höher",
+          "hoher",
+          "hocher"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**hoch → höher**\n- hoch, höher, am höchsten",
+          "sl": "**hoch → höher**\n- hoch, höher, am höchsten",
+          "it": "**hoch → höher**\n- hoch, höher, am höchsten"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "steigerung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Uhr ist ___ als der Hut. (teuer)",
+        "options": [
+          "teurer",
+          "teuer",
+          "teuerste"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**teuer → teurer**\n- dunkel → dunkler",
+          "sl": "**teuer → teurer**\n- dunkel → dunkler",
+          "it": "**teuer → teurer**\n- dunkel → dunkler"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "steigerung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wer spricht am ___? Tante Mitzi! (viel)",
+        "options": [
+          "meisten",
+          "vielsten",
+          "mehr"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**viel, mehr, am meisten**\n- gut, besser, am besten",
+          "sl": "**viel, mehr, am meisten**\n- gut, besser, am besten",
+          "it": "**viel, mehr, am meisten**\n- gut, besser, am besten"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: als and the spoken wie; lieber Krapfen als Kuchen; ages by the cast; Klagenfurt larger than Villach"
+}
