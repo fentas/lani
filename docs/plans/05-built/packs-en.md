@@ -130,7 +130,7 @@ No homonym needed marking.
 
 On main, the suggestion fell back to the first unfinished pack in the files' order once the learner's own level was
 done, and the packs screen listed untouched packs in that order. With 46 B1/B2 packs, an A1 learner would have been
-offered a B2 pack and seen B1/B2 packs among the A1 ones. Three commits fix this, with no English content in them, so
+offered a B2 pack and seen B1/B2 packs among the A1 ones. Four commits fix this, with no English content in them, so
 that the other packs branches can take them:
 
 - **3c5f3ba5, the packs by level.** `PackSession.suggest` goes: a new tutor pack, the festival's, one in progress, the
@@ -145,7 +145,8 @@ that the other packs branches can take them:
   pack is under way, out of "For later" and sent to an older app only when `own > 0`.
 - **d47937e1, sheets read only the packs of their level.** A printed sheet took a word's meaning from any pack, so the
   English A1 sheets printed the B1 pack's open (odprt) for the course's verb open (odpreti). `Dictionary.at(level)`
-  reads the packs at or below the unit's level. A word only a higher pack has falls back to the supplement and the
+  reads the packs at or below the unit's level, and an A1 sheet reads the A2 packs too (1894f03a: they always did, e.g.
+  Italian A1 preposizioni's il Friuli from an A2 feast pack). A word only a higher pack has falls back to the supplement and the
   course. 9f52ee3e's order (packs-de: the B1+ packs after the A1/A2 ones) still decides on B1 and B2 sheets.
 
 The window of requests carries no packs: a villager's request runs on the learner's cards of its topics, which are only
@@ -160,8 +161,9 @@ packs screen, and their own scenes, stories or sky (none for these packs).
   offer on purpose. 97.6 % of the different words are known (main 96.7 %), and 99.8 % of the words met.
 - open, burn, paint and damage list their "to …" in the supplement, so the B1/B2 sheets (passive, have-it-done,
   myself) keep them as verbs beside the packs' adjective and nouns.
-- `school-prints --level all --html-only` for every course (sl, it, de, en) in every base, once with every B1+ pack
-  hidden and once with them in: 0 lines differ on every A1 and A2 sheet and booklet. On the English B1/B2 sheets, broken
+- `school-prints --level all --html-only` for every course (sl, it, de, en) in every base, with every B1+ pack hidden
+  under the code before the cap (7caadabd) and under this code (0 lines differ on any sheet: existing sheets are as
+  they were), and with the packs in (0 lines differ on every A1 and A2 sheet and booklet). On the English B1/B2 sheets, broken
   (pokvarjen), stranger (neznanec, no longer "strange's" čuden) and training (usposabljanje) take the packs' meanings.
 
 ## Voice
@@ -175,7 +177,15 @@ voice. No credits were spent.
 - Bridge: `bunx tsc --noEmit -p .` clean. Smoke (ports 10490…, DRAMA3 10508): 3,755 checks. Its one failure, the word
   ids, is fixed in 92edcede. New checks: `packLevels` (old app at A1, A2 and B1, and with no level; `?packs=1` and `2`;
   `own`; `/packs/:id`) and the prints' level cap.
-- Android: PackSessionTest (9), PacksTest, HomeLogicTest, PhoneBridgeNodeTest (`/packs?packs=1` parity), the L10n tests.
+- Android: the full unit suite after merging main, 4,110 tests, 0 failures (PackSessionTest 9, PhoneBridgeNodeTest's
+  `/packs?packs=1` parity among them).
+- Python: `tests` 253 OK, `companion/tests` 179 OK (11 skipped). `tutor-export --check`: 140 files match.
+- Emulator QA (`qa-slot --steps packs-later`, new and named only): a synthetic learner of English at A1 from Slovene
+  (make-learner.ts --target en --base sl, LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-sl). An older app's GET /packs
+  holds no untouched B1/B2 pack. The packs screen lists the A1 and A2 packs and the projects. At its end, "⏳ For later ·
+  Za pozneje (46)" is folded with "Words for B1–B2 …". A tap opens it, B1 first (At work · Na delu, Back to school …).
+  Screenshots in the scratchpad's ux-packs-en/. Taps: reaching a B1 pack was the list's own scroll on main, among the
+  A1 ones; now it is the scroll to the end, plus 1 tap on the fold.
 - The check script over all 46 packs: 0 problems. `bun test/prompt-clashes.ts`: no new clash.
 
 ## What's left
