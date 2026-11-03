@@ -39,7 +39,6 @@
     "mitkommen",
     "anrufen",
     "einkaufen",
-    "abholen",
     "zumachen",
     "besuchen",
     "verstehen",
@@ -105,10 +104,10 @@
             "it": "Stefan comincia a spremere il sidro."
           },
           {
-            "de": "Es hört auf zu regnen.",
-            "en": "It's stopping raining.",
-            "sl": "Neha deževati.",
-            "it": "Smette di piovere."
+            "de": "Es hat aufgehört zu regnen.",
+            "en": "It has stopped raining.",
+            "sl": "Nehalo je deževati.",
+            "it": "Ha smesso di piovere."
           },
           {
             "de": "Toni hofft, heute fertig zu werden.",
@@ -915,7 +914,7 @@
           "it": "Ergänze · Completa"
         },
         "title": "Florian auf der Alm",
-        "text": "Florian hat Lust, heute auf die Alm ___ gehen. Er versucht, früh ___ (aufstehen). Er nimmt einen Stock mit, ___ den Weg leichter zu machen. Er ruft Toni an, ___ dieser die Schafe unten abholt. ___ lange zu warten, geht er gleich los. Er geht, ___ etwas zu essen.",
+        "text": "Florian hat Lust, heute auf die Alm ___ gehen. Er versucht, früh ___ (aufstehen). Er nimmt einen Stock mit, ___ den Weg leichter zu machen. Er ruft Toni an, ___ die Schafe unten nicht allein sind. ___ lange zu warten, geht er gleich los. Er geht, ___ etwas zu essen.",
         "gaps": [
           {
             "accept": [
@@ -976,9 +975,9 @@
           }
         ],
         "translation": {
-          "en": "Florian feels like going up to the mountain pasture today. He tries to get up early. He takes a stick along to make the way easier. He calls Toni so that he can fetch the sheep down below. Instead of waiting long, he sets off at once. He goes without eating anything.",
-          "sl": "Florian ima danes voljo iti na planino. Poskuša zgodaj vstati. S seboj vzame palico, da si olajša pot. Pokliče Tonija, da spodaj prevzame ovce. Namesto da bi dolgo čakal, gre takoj. Gre, ne da bi kaj pojedel.",
-          "it": "Florian oggi ha voglia di andare sull'alpeggio. Cerca di alzarsi presto. Prende un bastone per rendere il cammino più facile. Chiama Toni perché vada a prendere le pecore giù a valle. Invece di aspettare a lungo, parte subito. Parte senza mangiare niente."
+          "en": "Florian feels like going up to the mountain pasture today. He tries to get up early. He takes a stick along to make the way easier. He calls Toni so that the sheep down below aren't alone. Instead of waiting long, he sets off at once. He goes without eating anything.",
+          "sl": "Florian ima danes voljo iti na planino. Poskuša zgodaj vstati. S seboj vzame palico, da si olajša pot. Pokliče Tonija, da ovce spodaj ne bodo same. Namesto da bi dolgo čakal, gre takoj. Gre, ne da bi kaj pojedel.",
+          "it": "Florian oggi ha voglia di andare sull'alpeggio. Cerca di alzarsi presto. Prende un bastone per rendere il cammino più facile. Chiama Toni perché le pecore giù a valle non restino sole. Invece di aspettare a lungo, parte subito. Parte senza mangiare niente."
         },
         "explain": {
           "en": "**zu and the verb last; um, ohne, statt in front**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten",
@@ -1019,9 +1018,9 @@
             ]
           },
           {
-            "from": "Ich helfe dir. (Ich hoffe)",
+            "from": "Ich rufe dich morgen an. (Ich versuche)",
             "accept": [
-              "Ich hoffe, dir zu helfen."
+              "Ich versuche, dich morgen anzurufen."
             ]
           }
         ],
@@ -1100,5 +1099,5 @@
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Es hört auf zu regnen; pressen for cider; Bi šel zraven?; ohne was zu sagen as accepted; the commas"
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: pressen for cider; Bi šel zraven?; ohne was zu sagen as accepted; the commas"
 }

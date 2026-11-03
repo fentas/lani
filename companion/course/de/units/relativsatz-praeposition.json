@@ -444,10 +444,14 @@
             "it": "la preposizione e il pronome: il genere dalla colonna, il caso dalla preposizione"
           },
           "columns": [
-            "der Mann",
-            "die Frau",
-            "das Kind",
-            "die Leute"
+            "der",
+            "die",
+            "das",
+            {
+              "en": "Plural · plural",
+              "sl": "Plural · množina",
+              "it": "Plural · plurale"
+            }
           ],
           "rows": [
             {
@@ -456,17 +460,20 @@
                 "mit dem",
                 {
                   "accept": [
-                    "mit der"
+                    "mit der",
+                    "der"
                   ]
                 },
                 {
                   "accept": [
-                    "mit dem"
+                    "mit dem",
+                    "dem"
                   ]
                 },
                 {
                   "accept": [
-                    "mit denen"
+                    "mit denen",
+                    "denen"
                   ],
                   "hint": {
                     "en": "not the article's form",
@@ -481,18 +488,21 @@
               "cells": [
                 {
                   "accept": [
-                    "für den"
+                    "für den",
+                    "den"
                   ]
                 },
                 "für die",
                 {
                   "accept": [
-                    "für das"
+                    "für das",
+                    "das"
                   ]
                 },
                 {
                   "accept": [
-                    "für die"
+                    "für die",
+                    "die"
                   ]
                 }
               ]
@@ -503,17 +513,20 @@
                 "auf dem",
                 {
                   "accept": [
-                    "auf der"
+                    "auf der",
+                    "der"
                   ]
                 },
                 {
                   "accept": [
-                    "auf dem"
+                    "auf dem",
+                    "dem"
                   ]
                 },
                 {
                   "accept": [
-                    "auf denen"
+                    "auf denen",
+                    "denen"
                   ]
                 }
               ]
@@ -524,13 +537,15 @@
                 "auf den",
                 {
                   "accept": [
-                    "auf die"
+                    "auf die",
+                    "die"
                   ]
                 },
                 "auf das",
                 {
                   "accept": [
-                    "auf die"
+                    "auf die",
+                    "die"
                   ]
                 }
               ]
