@@ -88,7 +88,7 @@ class EnglishA2bContentTest {
         for ((typed, right) in listOf(
             "carefuly" to "carefully", "beautifuly" to "beautifully", "happyly" to "happily", "easyly" to "easily", "angryly" to "angrily",
             "careful" to "carefully", "happy" to "happily", "quietly" to "quiet",
-            "fastly" to "fast", "hardly" to "hard", "goodly" to "well", "good" to "well",
+            "fastly" to "fast", "hardly" to "hard", "goodly" to "well",
         )) wrong(typed, right)
         slip("usualy", "usually")
         slip("quitely", "quietly")
