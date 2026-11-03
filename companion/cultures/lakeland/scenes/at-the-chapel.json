@@ -5,7 +5,7 @@
   "title": { "en": "At the chapel", "sl": "Pri kapelici", "it": "Alla cappella", "de": "An der Kapelle" },
   "emoji": "⛪",
   "level": "A1",
-  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not reviewed by a native speaker; check: love, the yew's age, fresh as a daisy, tisa, Eibe, tasso, zvon",
+  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not native-checked; check: love, the yew's age, fresh as a daisy, tisa, Eibe, tasso, zvon; B1, B2 variants too",
   "art": "chapel",
   "from": ["project:kapelica"],
   "pack": "at-the-chapel",
@@ -75,7 +75,7 @@
       "when": ["afternoon"],
       "chance": 0.5,
       "dialog": "bell",
-      "dialogs": ["bell-count", "bell-gate", "bell"],
+      "dialogs": ["bell-b2-chapel", "bell-b1-wedding", "bell-count", "bell-gate", "bell"],
       "reward": { "stone": 15 },
       "marker": "🔔",
       "memory": {
@@ -92,7 +92,7 @@
       "when": ["morning", "afternoon"],
       "chance": 0.5,
       "dialog": "bench",
-      "dialogs": ["bench-hay", "bench-snow", "bench"],
+      "dialogs": ["bench-b2-yew", "bench-b1-lid", "bench-hay", "bench-snow", "bench"],
       "reward": { "food": 15 },
       "marker": "🫖",
       "memory": { "en": "the tea under the old yew", "sl": "čaj pod staro tiso", "it": "il tè sotto il vecchio tasso", "de": "den Tee unter der alten Eibe" }
@@ -2083,6 +2083,79 @@
           "it": "A luglio lo falciano. Poi le rondini ci acchiappano le mosche sopra!",
           "de": "Im Juli wird sie gemäht. Dann fangen die Schwalben darüber Fliegen!"
         }
+      ]
+    },
+    {
+      "id": "bell-b1-wedding", "level": "B1",
+      "memory": {"en": "the new bell rope for the wedding", "sl": "novo vrv za zvon za poroko", "it": "la nuova corda della campana per il matrimonio", "de": "das neue Glockenseil für die Hochzeit"},
+      "lines": [
+        {"who": "dixon", "en": "Afternoon, {m:lad|f:lass}. A wedding on Saturday. They asked me to ring the bell.", "sl": "Dober dan. V soboto je poroka. Prosili so me, naj zvonim.", "it": "Buon pomeriggio, {m:ragazzo|f:ragazza}. Sabato c'è un matrimonio. Mi hanno chiesto di suonare la campana.", "de": "Tag, {m:Junge|f:Mädchen}. Am Samstag ist Hochzeit. Sie haben mich gebeten, die Glocke zu läuten."},
+        {"who": "dixon", "face": "curious", "en": "You've rung it once. Do you like ringing bells?", "sl": "Enkrat si že {m:zvonil|f:zvonila}. {m:Rad|f:Rada} zvoniš?", "it": "L'hai già suonata una volta. Ti piace suonare le campane?", "de": "Du hast sie schon mal geläutet. Läutest du gern Glocken?"},
+        { "choices": [
+          {"en": "Yes, I enjoy ringing them, but never at a wedding.", "sl": "Ja, {m:rad|f:rada} zvonim, ampak še nikoli na poroki.", "it": "Sì, mi piace suonarle, ma mai a un matrimonio.", "de": "Ja, ich läute gern, aber noch nie bei einer Hochzeit.", "ok": true, "reply": {"en": "Then Saturday's your first. You can pull with me.", "sl": "Potem boš v soboto prvič. Lahko vlečeš z mano.", "it": "Allora sabato sarà la prima volta. Puoi tirare con me.", "de": "Dann ist Samstag dein erstes Mal. Du kannst mit mir ziehen."}},
+          {"en": "Yes, I enjoy to ring them, but never at a wedding.", "sl": "Ja, {m:rad|f:rada} zvonim, ampak še nikoli na poroki.", "it": "Sì, mi piace suonarle, ma mai a un matrimonio.", "de": "Ja, ich läute gern, aber noch nie bei einer Hochzeit.", "grammar": "verb-patterns", "why": {"en": "Enjoy takes -ing: enjoy ringing. To + the base form goes after want, decide, hope.", "sl": "Enjoy zahteva -ing: enjoy ringing. To z osnovno obliko gre za want, decide, hope.", "it": "Enjoy vuole -ing: enjoy ringing. To + la forma base va dopo want, decide, hope.", "de": "Enjoy nimmt -ing: enjoy ringing. To + Grundform steht nach want, decide, hope."}, "reply": {"face": "cross", "en": "Enjoy to ring? It's right, or it isn't, {m:lad|f:lass}.", "sl": "Enjoy to ring? Ali je prav ali pa ni.", "it": "Enjoy to ring? O è giusto o non lo è, {m:ragazzo|f:ragazza}.", "de": "Enjoy to ring? Entweder es stimmt, oder nicht, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "thinking", "en": "Last wedding, the rope broke. By the time I'd climbed up with a new one, they'd left.", "sl": "Na zadnji poroki se je vrv strgala. Ko sem splezal gor z novo, so že odšli.", "it": "All'ultimo matrimonio la corda si è rotta. Quando sono salito con una nuova, se n'erano già andati.", "de": "Bei der letzten Hochzeit ist das Seil gerissen. Bis ich mit einem neuen oben war, waren sie schon weg."},
+        {"who": "dixon", "face": "curious", "en": "Why did it break, do you think?", "sl": "Zakaj se je strgala, kaj misliš?", "it": "Perché si è rotta, secondo te?", "de": "Warum ist es gerissen, was meinst du?"},
+        { "choices": [
+          {"en": "Maybe someone had pulled it too hard the week before.", "sl": "Morda jo je kdo teden prej premočno vlekel.", "it": "Forse qualcuno l'aveva tirata troppo forte la settimana prima.", "de": "Vielleicht hatte jemand eine Woche vorher zu fest daran gezogen.", "ok": true, "reply": {"en": "Aye. The boys. Every day for a month. Now I check it every week.", "sl": "Ja. Fantje. Mesec dni vsak dan. Zdaj jo pregledam vsak teden.", "it": "Sì. I ragazzi. Ogni giorno per un mese. Ora la controllo ogni settimana.", "de": "Ja. Die Jungs. Einen Monat lang jeden Tag. Jetzt prüf ich es jede Woche."}},
+          {"en": "Maybe someone had pull it too hard the week before.", "sl": "Morda jo je kdo teden prej premočno vlekel.", "it": "Forse qualcuno l'aveva tirata troppo forte la settimana prima.", "de": "Vielleicht hatte jemand eine Woche vorher zu fest daran gezogen.", "grammar": "past-perfect", "why": {"en": "Had + the participle for the earlier past: had pulled.", "sl": "Had + deležnik za tisto, kar je bilo še prej: had pulled.", "it": "Had + il participio per il passato più lontano: had pulled.", "de": "Had + Partizip für das, was noch früher war: had pulled."}, "reply": {"face": "cross", "en": "Had pull? Say it right, {m:lad|f:lass}.", "sl": "Had pull? Povej pravilno.", "it": "Had pull? Dillo giusto, {m:ragazzo|f:ragazza}.", "de": "Had pull? Sag es richtig, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "New rope's on. Saturday, you ring. Twelve strokes, no more.", "sl": "Nova vrv je gor. V soboto zvoniš ti. Dvanajst udarcev, nič več.", "it": "La corda nuova è su. Sabato suoni tu. Dodici rintocchi, non di più.", "de": "Das neue Seil hängt. Samstag läutest du. Zwölf Schläge, nicht mehr."}
+      ]
+    },
+    {
+      "id": "bench-b2-yew", "level": "B2",
+      "memory": {"en": "the old yew and my mother's Sundays", "sl": "stari tisu in mamine nedelje", "it": "il vecchio tasso e le domeniche di mia madre", "de": "die alte Eibe und die Sonntage meiner Mutter"},
+      "lines": [
+        {"who": "maggie", "en": "Hello, love. Sit down. This yew was old when my granny was a girl. Some say it's a thousand years old.", "sl": "Živijo. Sedi. Ta tisa je bila stara že, ko je bila moja babica deklica. Nekateri pravijo, da je stara tisoč let.", "it": "Ciao, {m:caro|f:cara}. Siediti. Questo tasso era già vecchio quando mia nonna era bambina. Qualcuno dice che ha mille anni.", "de": "Hallo, Schätzchen. Setz dich. Diese Eibe war schon alt, als meine Oma ein Mädchen war. Manche sagen, sie ist tausend Jahre alt."},
+        {"who": "maggie", "face": "curious", "en": "What do you like best about this spot?", "sl": "Kaj ti je tu najbolj všeč?", "it": "Che cosa ti piace di più di questo posto?", "de": "Was gefällt dir hier am besten?"},
+        { "choices": [
+          {"en": "What I like most is the quiet.", "sl": "Najbolj mi je všeč tišina.", "it": "Quello che mi piace di più è il silenzio.", "de": "Am meisten mag ich die Stille.", "ok": true, "reply": {"face": "happy", "en": "The quiet. Aye, and a cup of tea in it.", "sl": "Tišina. Ja, in skodelica čaja v njej.", "it": "Il silenzio. Sì, e una tazza di tè.", "de": "Die Stille. Ja, und eine Tasse Tee dazu."}},
+          {"en": "What I like most it is the quiet.", "sl": "Najbolj mi je všeč tišina.", "it": "Quello che mi piace di più è il silenzio.", "de": "Am meisten mag ich die Stille.", "grammar": "emphasis", "why": {"en": "What … is: the what-clause is the subject, so there's no it. What I like most is the quiet.", "sl": "What … is: stavek z what je osebek, zato ni it. What I like most is the quiet.", "it": "What … is: la frase con what è il soggetto, quindi niente it. What I like most is the quiet.", "de": "What … is: Der Satz mit what ist das Subjekt, also kein it. What I like most is the quiet."}, "reply": {"face": "confused", "en": "It is the quiet? What is, love? Now you've lost me.", "sl": "It is the quiet? Kaj pa? Zdaj si me {m:zmedel|f:zmedla}.", "it": "It is the quiet? Che cosa, {m:caro|f:cara}? Mi sono persa.", "de": "It is the quiet? Was denn, Schätzchen? Jetzt komm ich nicht mit."}}
+        ] },
+        {"who": "maggie", "face": "thinking", "en": "If my mother hadn't brought me here every Sunday, I wouldn't love it the way I do.", "sl": "Če me mama ne bi vsako nedeljo pripeljala sem, mi danes ne bi bilo tako všeč.", "it": "Se mia madre non mi avesse portata qui ogni domenica, non mi piacerebbe così tanto.", "de": "Hätte meine Mutter mich nicht jeden Sonntag hergebracht, würde ich es nicht so lieben."},
+        { "choices": [
+          {"en": "So it's because of her that you still come here.", "sl": "Torej prihajaš sem še danes zaradi nje.", "it": "Quindi è per lei che vieni ancora qui.", "de": "Dann kommst du also ihretwegen noch immer her.", "ok": true, "reply": {"face": "happy", "en": "That's it, love. Every Sunday, with a flask, like this one.", "sl": "Tako je. Vsako nedeljo, s termovko, kot je ta.", "it": "Proprio così. Ogni domenica, con un thermos come questo.", "de": "Genau, Schätzchen. Jeden Sonntag, mit einer Thermoskanne wie dieser."}},
+          {"en": "So you never came here with her.", "sl": "Torej nikoli nisi prišla sem z njo.", "it": "Quindi non sei mai venuta qui con lei.", "de": "Du bist also nie mit ihr hergekommen.", "why": {"en": "If she hadn't brought me … I wouldn't: she did bring her, and that's why Maggie loves it.", "sl": "Če me ne bi pripeljala … ne bi: pripeljala jo je in zato ji je tu všeč.", "it": "Se non mi avesse portata … non: l'ha portata, ed è per questo che le piace.", "de": "Hätte sie mich nicht hergebracht … würde ich nicht: Sie hat sie hergebracht, darum liebt Maggie es."}, "reply": {"face": "surprised", "en": "Never? Every Sunday of my childhood, love!", "sl": "Nikoli? Vsako nedeljo mojega otroštva!", "it": "Mai? Ogni domenica della mia infanzia, {m:caro|f:cara}!", "de": "Nie? Jeden Sonntag meiner Kindheit, Schätzchen!"}}
+        ] },
+        {"who": "maggie", "face": "happy", "en": "Here, have the last of the tea. I'll bring the big flask next time.", "sl": "Na, popij še ostanek čaja. Naslednjič prinesem veliko termovko.", "it": "Tieni, bevi l'ultimo goccio di tè. La prossima volta porto il thermos grande.", "de": "Hier, trink den Rest Tee. Nächstes Mal bring ich die große Thermoskanne."}
+      ]
+    },
+    {
+      "id": "bell-b2-chapel", "level": "B2",
+      "memory": {"en": "the bell I carried down from the old chapel", "sl": "zvon, ki sem ga prinesel s stare kapele", "it": "la campana che ho portato giù dalla vecchia cappella", "de": "die Glocke, die ich von der alten Kapelle heruntergetragen habe"},
+      "lines": [
+        {"who": "dixon", "en": "Afternoon, {m:lad|f:lass}. This bell's older than me. It hung in the old chapel up the dale, the one whose roof fell in.", "sl": "Dober dan. Ta zvon je starejši od mene. Visel je v stari kapeli više v dolini, tisti, ki se ji je udrla streha.", "it": "Buon pomeriggio, {m:ragazzo|f:ragazza}. Questa campana è più vecchia di me. Stava nella vecchia cappella su per la valle, quella a cui è crollato il tetto.", "de": "Tag, {m:Junge|f:Mädchen}. Diese Glocke ist älter als ich. Sie hing in der alten Kapelle weiter oben im Tal, der, deren Dach eingestürzt ist."},
+        { "choices": [
+          {"en": "The chapel whose roof fell in? I've walked past it.", "sl": "Kapela, ki se ji je udrla streha? Mimo nje sem že {m:hodil|f:hodila}.", "it": "La cappella a cui è crollato il tetto? Ci sono {m:passato|f:passata} davanti.", "de": "Die Kapelle, deren Dach eingestürzt ist? Da bin ich schon vorbeigegangen.", "ok": true, "reply": {"en": "Aye. Nettles and sheep in it now.", "sl": "Ja. Zdaj so v njej koprive in ovce.", "it": "Sì. Adesso ci sono ortiche e pecore.", "de": "Ja. Jetzt wachsen Brennnesseln drin, und Schafe stehen da."}},
+          {"en": "The chapel that its roof fell in? I've walked past it.", "sl": "Kapela, ki se ji je udrla streha? Mimo nje sem že {m:hodil|f:hodila}.", "it": "La cappella a cui è crollato il tetto? Ci sono {m:passato|f:passata} davanti.", "de": "Die Kapelle, deren Dach eingestürzt ist? Da bin ich schon vorbeigegangen.", "grammar": "relative-clauses-more", "why": {"en": "For something that belongs: whose. The chapel whose roof fell in, not that its roof.", "sl": "Za nekaj, kar pripada: whose. The chapel whose roof fell in, ne that its roof.", "it": "Per qualcosa che appartiene: whose. The chapel whose roof fell in, non that its roof.", "de": "Für etwas, das dazugehört: whose. The chapel whose roof fell in, nicht that its roof."}, "reply": {"face": "cross", "en": "That its roof? Again. Properly, {m:lad|f:lass}.", "sl": "That its roof? Še enkrat. Kot se spodobi.", "it": "That its roof? Di nuovo. Come si deve, {m:ragazzo|f:ragazza}.", "de": "That its roof? Noch mal. Ordentlich, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "en": "I carried it down on my back when I was twenty. It took all day, and three stops at the beck.", "sl": "Prinesel sem ga na hrbtu, ko sem imel dvajset let. Trajalo je ves dan, s tremi postanki ob potoku.", "it": "L'ho portata giù sulla schiena a vent'anni. Ci è voluto tutto il giorno, con tre soste al torrente.", "de": "Ich hab sie mit zwanzig auf dem Rücken heruntergetragen. Es hat den ganzen Tag gedauert, mit drei Pausen am Bach."},
+        {"who": "dixon", "face": "curious", "en": "What do you make of that?", "sl": "Kaj praviš na to?", "it": "Che ne dici?", "de": "Was sagst du dazu?"},
+        { "choices": [
+          {"en": "You must have made a huge effort.", "sl": "Gotovo ste se zelo potrudili.", "it": "Deve aver fatto uno sforzo enorme.", "de": "Das muss Sie eine Riesenanstrengung gekostet haben.", "ok": true, "reply": {"face": "proud", "en": "I did. My back still tells me so on cold mornings.", "sl": "Sem. Hrbet me na to še danes spomni ob mrzlih jutrih.", "it": "Sì. La schiena me lo ricorda ancora nelle mattine fredde.", "de": "Ja. Mein Rücken erinnert mich an kalten Morgen noch daran."}},
+          {"en": "You must have done a huge effort.", "sl": "Gotovo ste se zelo potrudili.", "it": "Deve aver fatto uno sforzo enorme.", "de": "Das muss Sie eine Riesenanstrengung gekostet haben.", "grammar": "collocations", "why": {"en": "It's make an effort: make goes with an effort, a mistake, a noise; do with work and jobs.", "sl": "Reče se make an effort: make gre z an effort, a mistake, a noise; do z delom in opravili.", "it": "Si dice make an effort: make va con an effort, a mistake, a noise; do con il lavoro e le faccende.", "de": "Es heißt make an effort: make steht bei an effort, a mistake, a noise; do bei Arbeit und Erledigungen."}, "reply": {"face": "cross", "en": "Done an effort? That's not how it's said, {m:lad|f:lass}.", "sl": "Done an effort? Tako se pa ne reče.", "it": "Done an effort? Non si dice così, {m:ragazzo|f:ragazza}.", "de": "Done an effort? So sagt man das nicht, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Now it rings for weddings here. Not bad, for a bell from a chapel with no roof.", "sl": "Zdaj zvoni tu za poroke. Ni slabo za zvon iz kapele brez strehe.", "it": "Ora suona qui per i matrimoni. Niente male, per una campana di una cappella senza tetto.", "de": "Jetzt läutet sie hier zu Hochzeiten. Nicht schlecht für eine Glocke aus einer Kapelle ohne Dach."}
+      ]
+    },
+    {
+      "id": "bench-b1-lid", "level": "B1",
+      "memory": {"en": "sixty years on the bench under the yew", "sl": "šestdeset let na klopi pod tiso", "it": "sessant'anni sulla panchina sotto il tasso", "de": "sechzig Jahre auf der Bank unter der Eibe"},
+      "lines": [
+        {"who": "maggie", "face": "happy", "en": "Hello, love! Sit down by me. I've been coming to this bench for sixty years.", "sl": "Živijo! Sedi k meni. Na to klop prihajam že šestdeset let.", "it": "Ciao, {m:caro|f:cara}! Siediti vicino a me. Vengo su questa panchina da sessant'anni.", "de": "Hallo, Schätzchen! Setz dich zu mir. Ich komme seit sechzig Jahren auf diese Bank."},
+        {"who": "maggie", "face": "curious", "en": "And you, love? How long have you lived in the dale now?", "sl": "Pa ti? Koliko časa že živiš v dolini?", "it": "E tu, {m:caro|f:cara}? Da quanto vivi nella valle?", "de": "Und du, Schätzchen? Wie lange wohnst du jetzt schon im Tal?"},
+        { "choices": [
+          {"en": "I've lived here for a few months now.", "sl": "Tukaj živim že nekaj mesecev.", "it": "Vivo qui da qualche mese.", "de": "Ich wohne jetzt seit ein paar Monaten hier.", "ok": true, "reply": {"face": "happy", "en": "A few months! You're one of us already, love.", "sl": "Nekaj mesecev! Saj si že {m:eden|f:ena} od nas.", "it": "Qualche mese! Sei già {m:uno|f:una} di noi, {m:caro|f:cara}.", "de": "Ein paar Monate! Du gehörst schon zu uns, Schätzchen."}},
+          {"en": "I've lived here since a few months now.", "sl": "Tukaj živim že nekaj mesecev.", "it": "Vivo qui da qualche mese.", "de": "Ich wohne jetzt seit ein paar Monaten hier.", "grammar": "for-since", "why": {"en": "For + how long: for a few months. Since + when it began: since May.", "sl": "For + kako dolgo: for a few months. Since + kdaj se je začelo: since May.", "it": "For + quanto dura: for a few months. Since + quando è cominciato: since May.", "de": "For + wie lange: for a few months. Since + wann es anfing: since May."}, "reply": {"face": "curious", "en": "Since a few months? Since when, love?", "sl": "Since a few months? Od kdaj pa?", "it": "Since a few months? Da quando, {m:caro|f:cara}?", "de": "Since a few months? Seit wann denn, Schätzchen?"}}
+        ] },
+        {"who": "maggie", "face": "worried", "en": "Oh, butter fingers! I've dropped the lid of my flask. Can you get it, love?", "sl": "Ojoj, kako sem nerodna! Pokrovček termovke mi je padel. Mi ga podaš?", "it": "Oh, che sbadata! Mi è caduto il tappo del thermos. Me lo prendi, {m:caro|f:cara}?", "de": "Ach, ich Tollpatsch! Mir ist der Deckel der Thermoskanne runtergefallen. Holst du ihn mir, Schätzchen?"},
+        { "choices": [
+          {"en": "Don't worry, I'll pick it up.", "sl": "Ne skrbi, ga bom {m:pobral|f:pobrala}.", "it": "Non preoccuparti, lo raccolgo io.", "de": "Keine Sorge, ich heb ihn auf.", "ok": true, "reply": {"face": "happy", "en": "Thank you, love. My knees don't bend like they used to.", "sl": "Hvala. Kolena se mi ne upogibajo več tako kot nekoč.", "it": "Grazie, {m:caro|f:cara}. Le mie ginocchia non si piegano più come una volta.", "de": "Danke, Schätzchen. Meine Knie beugen sich nicht mehr wie früher."}},
+          {"en": "Don't worry, I'll pick up it.", "sl": "Ne skrbi, ga bom {m:pobral|f:pobrala}.", "it": "Non preoccuparti, lo raccolgo io.", "de": "Keine Sorge, ich heb ihn auf.", "grammar": "phrasal-verbs", "why": {"en": "With it or them, the small word goes after it: pick it up.", "sl": "Pri it ali them gre majhna beseda za njim: pick it up.", "it": "Con it o them, la parolina va dopo: pick it up.", "de": "Bei it oder them kommt das kleine Wort danach: pick it up."}, "reply": {"face": "confused", "en": "Pick up it? My poor lid's still down there, love.", "sl": "Pick up it? Moj ubogi pokrovček je še vedno spodaj.", "it": "Pick up it? Il mio povero tappo è ancora lì per terra.", "de": "Pick up it? Mein armer Deckel liegt immer noch da unten."}}
+        ] },
+        {"who": "maggie", "face": "happy", "en": "There. Tea, quiet, and a friend. What more could anyone want?", "sl": "Tako. Čaj, tišina in prijatelj. Kaj bi si človek še želel?", "it": "Ecco. Tè, silenzio e un amico. Cosa si può volere di più?", "de": "So. Tee, Stille und ein Freund. Was will man mehr?"}
       ]
     }
   ]
