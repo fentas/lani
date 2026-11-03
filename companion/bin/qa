@@ -39,7 +39,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        wrong guess, found (QA's hook "happening:ob-ognju/lovljenje/lovljenje-skrivalnice"); "field-cues"
                        the cues of the field, the tower, the market and the pond: the hare startled out of the grass,
                        the pedlar on the road, the hen on the cart (a tap turn), Muri barking by the jetty, each dialog
-                       opened through the hook and played to its cue; "sheets-settle" flings into the end of Home, the
+                       opened through the hook and played to its cue; "dialog-levels" the market's innkeeper at
+                       QA's "level:B2", "level:B1" and "level:A1": the B2 and the B1 variant, and the happening's own
+                       dialog where the asked one is above the learner (an older app's ?arts=6: none of them;
+                       LANI_DEV_DATA a synthetic learner with a market, LANI_CULTURE for another culture's); "sheets-settle" flings into the end of Home, the
                        tutor chat's sheet and the challenges' sheet, each still a second later (no endless bounce);
                        "navigation" the back stack (docs/plans/05-built/navigation.md): Home's ⚙️ and 🤝, the settings'
                        tutor in two taps, Friends, the grammar book and My words in one, Back from each to Home, a run's
@@ -2389,6 +2392,64 @@ def play_to(said: str, ok_texts: set, tries=10) -> bool:
         if not answer_choice(ok_texts):
             tap("Naprej · Next", 2)
     return find(said) is not None
+
+
+# dialogs by level (docs/plans/05-built/dialog-levels.md): each culture's market, its innkeeper's happening: the B2
+# variant and its first line, the B1 one and its, and the happening's own dialog's (what a learner below meets instead)
+DIALOG_LEVELS_QA = {
+    "primorska": ("na-trznici", "gostilna", "gostilna-b2-sir", "kakšna sreča, da ste tu", "gostilna-b1-gost", "gost iz Ljubljane", "Poglejte to gnečo"),
+    "friuli": ("al-mercato", "osteria", "osteria-b2-sagra", "il frico è finito alle otto", "osteria-b1-messaggio", "ti ha detto qualcosa per me", "Che confusione oggi"),
+    "kaernten": ("auf-dem-markt", "gasthaus", "gasthaus-b2-kirchtag", "der Kirchtag falle heuer aus", "gasthaus-b1-hochzeit", "Hochzeitsgesellschaft", "Ich kaufe für das Gasthaus ein"),
+    "lakeland": ("at-the-market", "inn", "inn-b2-jam", "done something daft", "inn-b1-walker", "grumbling at you", "Twelve walkers"),
+}
+
+
+def dialog_levels():
+    """The village speaks at the learner's level (companion/SCENES.md, "Dialogs by level"), in the dev bridge's culture
+    (LANI_CULTURE, a synthetic learner of it with a market: LANI_DEV_DATA from make-learner.ts): an older app's request
+    (?arts=6) gets none of the market's levelled dialogs; at QA's "level:B2" the innkeeper's B2 variant opens with its
+    first line, at "level:B1" the B1 one; at "level:B1" the B2 variant asked for isn't in the scene, and at "level:A1" the
+    B1 one isn't: the happening's own dialog plays instead (QaHooks.withForced finds no such dialog). Screenshots of each,
+    also in $LANI_QA_LEVELS_SHOTS."""
+    culture = api("/culture").get("id") or "primorska"
+    if culture not in DIALOG_LEVELS_QA:
+        return f"skipped: no market of {culture}'s to look at"
+    sid, hid, b2, b2_line, b1, b1_line, own_line = DIALOG_LEVELS_QA[culture]
+    scene = next((x for x in api("/scenes?arts=99") if isinstance(x, dict) and x.get("id") == sid), None)
+    if scene is None:
+        return f"skipped: the dev bridge has no {sid}"
+    levels = {d["id"]: d.get("level") for d in scene["dialogs"]}
+    assert levels.get(b2) == "B2" and levels.get(b1) == "B1", f"the bridge serves {sid}'s levelled variants: {levels}"
+    old = next((x for x in api("/scenes?arts=6") if isinstance(x, dict) and x.get("id") == sid), None)
+    assert old is not None and not any(d.get("level") for d in old["dialogs"]) and b1 not in {d["id"] for d in old["dialogs"]}, "an older app gets none"
+    out = Path(os.environ["LANI_QA_LEVELS_SHOTS"]) if os.environ.get("LANI_QA_LEVELS_SHOTS") else None
+
+    def play(level: str, variant: str, expect: str, name: str, absent: str | None = None):
+        qa_hook(f"level:{level}")
+        qa_hook(f"happening:{sid}/{hid}/{variant}", f"scene:{sid}@{sid}/{hid}")
+        try:
+            if wait_for("Zapri · Close", 15) is None:
+                raise AssertionError(f"{sid}/{hid} at {level}: its dialog didn't open (the market isn't in the dev village?)")
+            got = wait_for(expect, 15)
+            shot(f"levels-{culture}-{name}")
+            if out is not None:
+                out.mkdir(parents=True, exist_ok=True)
+                shutil.copy(shots[-1], out / f"levels-{culture}-{name}.png")
+            assert got is not None, f"at {level}, {variant} asked for: «{expect}»"
+            assert absent is None or find(absent) is None, f"at {level}: «{absent}» is above the learner"
+            tap("Zapri · Close", 3)
+        finally:
+            qa_hook("happening:")
+        plain_village()
+
+    try:
+        play("B2", b2, b2_line, "b2")
+        play("B1", b1, b1_line, "b1")
+        play("B1", b2, own_line, "b1-asked-b2", absent=b2_line)
+        play("A1", b1, own_line, "a1-asked-b1", absent=b1_line)
+    finally:
+        qa_hook("level:")
+    return None
 
 
 def field_cues():
@@ -18886,6 +18947,8 @@ def plan():
         # only when named: an answer's feedback card on the tablet on its side, upright, on the phone
         ("feedback-tablet", feedback_tablet, go_home, False, ""),
         ("field-cues", field_cues, v, False, ""),
+        # the market's dialogs by level: B2, B1, and what a learner below meets instead (an older app: none)
+        ("dialog-levels", dialog_levels, v, False, ""),
         ("counting-dialogs", counting_dialogs, v, False, ""),
         ("forest", forest, v, False, ""),
         ("zoom", zoom, v, False, ""),
