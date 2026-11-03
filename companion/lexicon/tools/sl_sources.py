@@ -661,6 +661,11 @@ def styled(v):
     return json.dumps(v, ensure_ascii=False)
 
 
+# Pack words the case lens derives from their endings and the smoke tests it on (test/smoke/case-lens.ts: "Na vrhu mlaja
+# visi nagrada."): no supplement entry of theirs, or the lens would read them instead of deriving them.
+LEFT_TO_THE_LENS = {'mlaj'}
+
+
 def auto(levels):
     """
     The example words no entry knows that are forms of a pack word (any Slovene pack's, a single word) whose lemma the
@@ -690,7 +695,7 @@ def auto(levels):
             stem = k[:n]
             if k.endswith(('ovati', 'evati')):
                 stem = k[:-5]
-            if t.startswith(stem) and k not in have:
+            if t.startswith(stem) and k not in have and k not in LEFT_TO_THE_LENS:
                 cands.append((k, w))
         for k, w in cands:
             pos = 'noun' if w.get('gender') else None
