@@ -475,7 +475,9 @@ export class Dictionary {
     // pack's early, not prestare's I lend); an Italian word listed without its article is not the noun (freddo, the
     // adjective, is the pack's kalt; il freddo the supplement's Kälte), an English word listed without its "to" not the
     // verb (warm, the pack's topel, not to warm; book, hammer, fish the packs' nouns) unless the course names it so (rain)
-    const shadowed = (x: { pos: string; named: boolean }) => ((this.language === 'it' && x.pos === 'noun') || (this.language === 'en' && x.pos === 'verb' && !x.named)) && !this.bare(word) && this.packs.has(k)
+    // … nor an adjective when the pack's word is a noun (piatto, the pack's Teller, not flach; buio its Dunkelheit)
+    const packNoun = (w: Json | undefined) => !!w && (!!w.gender || !!w.noun || typeof w.plural === 'string')
+    const shadowed = (x: { pos: string; named: boolean }) => ((this.language === 'it' && (x.pos === 'noun' || (x.pos === 'adj' && packNoun(this.packs.get(k))))) || (this.language === 'en' && x.pos === 'verb' && !x.named)) && !this.bare(word) && this.packs.has(k)
     const mine = sup.filter(x => x.inBase && x.self && !shadowed(x))
     if (mine.length) {
       const rank = (p: string) => (POS_RANK.indexOf(p) < 0 ? 50 : POS_RANK.indexOf(p))
