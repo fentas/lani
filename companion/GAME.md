@@ -2477,7 +2477,10 @@ wild goat and a Herdwick ram here), its words in `packs/on-the-fell.json`; its c
 Penrith, the hob and eleven more, companion/SCENES.md "Stories"; words in `packs/tales.json`, `packs/legends.json` and
 `packs/yarns.json`). The starter packs of English are in `companion/packs/en/`: `greetings`, `family`,
 `home-and-kitchen`, `food`, `numbers-and-time`, `in-the-village` (A1, 21–24 words each, without articles, with their
-plurals, examples in all four languages, and notes on false friends and British words). The thanks goods are the
+plurals, examples in all four languages, and notes on false friends and British words). The B1 and B2 packs are the
+culture's: 46 of 24 words each in `cultures/lakeland/packs/` (work, health, feelings, opinions, the news, the fells,
+travel, money, repairs, the village hall and the parish council, the climate, the law …, each with a giver of the cast),
+so that the curated packs hold 2,151 different words for the B2 aim's 2,000 by Mesto (docs/plans/05-built/packs-en.md). The thanks goods are the
 region's (sticky toffee pudding, porridge oats, heather honey, Herdwick wool, Lakeland ale, a knitted tea cosy, Kendal
 mint cake, tatie pot …); the packman sells Cumberland ham, Morecambe Bay shrimps, tea and spices from Whitehaven. Granny
 Maggie's recipes are tatie pot (A1) and sticky toffee pudding (A2), Old Wilf's old book a page about counting sheep the
