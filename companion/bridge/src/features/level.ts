@@ -1,6 +1,7 @@
 // The level-up ("🗺️ Zemljevid zaklada · The treasure map"): the app's treasure hunt tests the end of the learner's level
 // and, passed, posts the next level (POST /level). Persisted like a flashcard review: update-db.py sets the language's
 // current_level and level_since, no LLM; the tutor hears it and plans the new level.
+import { without } from '../tutor-languages'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
@@ -105,7 +106,7 @@ export function levelPayload(d: LevelUp, o: { session_id: string; date: string; 
 /** POST /learner/target: the aim ("🎯 Cilj · Aim"), a CEFR level. */
 const targetIn = z.object({ level: cefr })
 
-export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, grammar }) => {
+export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, grammar, culture }) => {
   /**
    * The home language's level and aim, as the profile says them: [next], a raise waiting for the village's next age
    * (learner.target_level_next: its level and the age it starts with; aim.ts), null when none waits.
@@ -175,7 +176,7 @@ export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, gram
   }
 
   return {
-    instructions,
+    instructions: (culture.manifest?.language ?? 'sl') === 'sl' ? instructions : without(instructions, `Stari Janez gives it; Napredek's "🗺️ Zemljevid zaklada ›" (the path to the next level: the signs and what's missing, then "Sem pripravljen") starts it too.`, `A villager gives it; the progress screen's treasure map (the path to the next level: the signs and what's missing, then "I'm ready") starts it too.`),
     routes: [
       { method: 'POST', path: '/level', handle: ({ req, url }) => outbox.once(req, url.pathname, handleLevel) },
       // the aim ("🎯 Cilj · Aim"): the learner's level and target_level; the app's setup sets it

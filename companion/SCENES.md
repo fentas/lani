@@ -1499,8 +1499,9 @@ Primorska's first evening by the fire, likof, veselica, semenj, the town's feast
 without its scene is, over the village (`ui/scene/ProjectStepScene.kt`, `SceneController.startParty`; the talk is a
 `StepTalk` with its `party`): no picture to tap in, no weather; instead all the village on a festive stage, the
 backdrop of where it is (the fire at night, the square in the evening: `StagePlace.NIGHT`, `StagePlace.FEAST`) with garlands
-of flags strung across its top (lanterns in them at night) and at its sides what the village put up for it, so its lines
-have it in view (`PartyDecor`, by the celebration's `decor`: the first camp's torches flickering, the likof's roof with its
+of flags strung across its top (lanterns in them at night) and at its sides what the village put up for it, in the
+culture's colours as its map has them (`MapLook.festive`: Friuli's blue and gold and its eagle, Austria's red and white,
+St George's cross), so its lines have it in view (`PartyDecor`, by the celebration's `decor`: the first camp's torches flickering, the likof's roof with its
 little spruce and ribbons, the veselica's dance floor with a couple turning at each side, the semenj's stalls with honey
 hearts and whistles, the town's banners), who speaks in front (the host first, big), everyone else who
 lives here and is in the village tonight behind them, smaller (`AgeUps.crowd`, at most 14), the celebration's name in the

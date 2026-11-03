@@ -1,0 +1,126 @@
+{
+  "schema": "lani.celebration/v0",
+  "age": "mesto",
+  "language": "de",
+  "review": "Machine-written (Claude), not reviewed by a native speaker; to check: das Stadtfest as the feast of a town's elevation (the sources say Stadterhebung), Hoch soll sie leben, die Festtafel, die Musikkapelle",
+  "emoji": "🎺",
+  "name": {"de": "Das Stadtfest", "sl": "Mestni praznik", "en": "The town's feast", "it": "La festa della città"},
+  "about": {"de": "Der Markt wird zur Stadt erhoben: Die Urkunde wird gezeigt, an den Häusern hängen Fahnen, die Glocken läuten, und die Musikkapelle führt den Festzug durch die Straßen.", "sl": "Trg postane mesto: pokažejo listino, na hišah visijo zastave, zvonovi zvonijo, godba pa vodi sprevod po ulicah.", "en": "The market town is raised to a town: the charter is shown, flags hang on the houses, the bells ring, and the band leads the procession through the streets.", "it": "Il borgo viene elevato a città: si mostra l'atto ufficiale, alle case sono appese le bandiere, le campane suonano e la banda guida il corteo per le strade."},
+  "moment": {"de": "Die Fahnen gehen hoch, und der Festzug marschiert durch die Stadt.", "sl": "Zastave gredo gor, sprevod pa koraka skozi mesto.", "en": "The flags go up, and the procession marches through the town.", "it": "Le bandiere salgono e il corteo marcia per la città."},
+  "line": {"de": "Beim Stadtfest ist die Musikkapelle vorausmarschiert, und über dem Platz hat die Fahne geweht.", "sl": "Na mestnem prazniku je godba korakala spredaj, nad trgom pa je plapolala zastava.", "en": "At the town's feast the band marched in front, and the flag flew over the square.", "it": "Alla festa della città la banda ha marciato in testa e sulla piazza ha sventolato la bandiera."},
+  "memory": {"de": "unser Stadtfest", "sl": "naš mestni praznik", "en": "our town's feast", "it": "la nostra festa della città"},
+  "decor": ["banners", "bunting"],
+  "music": "godba",
+  "place": "square",
+  "host": "eva",
+  "guests": ["sepp", "toni", "kathi", "maxi"],
+  "pack": "feier-stadtfest",
+  "words": ["musikkapelle", "fahne"],
+  "levels": {
+    "A1": { "lines": [
+      {"who": "eva", "face": "proud", "de": "Heute sind wir eine Stadt! Hier ist die Urkunde.", "sl": "Danes smo mesto! Tu je listina.", "en": "Today we're a town! Here's the charter.", "it": "Oggi siamo una città! Ecco l'atto ufficiale."},
+      {"who": "toni", "de": "Hör! Es kommt Musik. Wer spielt da?", "sl": "Poslušaj! Prihaja glasba. Kdo igra?", "en": "Listen! There's music coming. Who's playing?", "it": "Senti! Arriva la musica. Chi suona?"},
+      { "choices": [
+        {"de": "Da spielt die Musikkapelle.", "sl": "Tam igra godba.", "en": "That's the band playing.", "it": "Lì suona la banda.", "ok": true,
+          "reply": {"face": "happy", "de": "Ja. Sie spielt laut und schön.", "sl": "Ja. Igra glasno in lepo.", "en": "Yes. They play loud and well.", "it": "Sì. Suona forte e bene."} },
+        {"de": "Da spielt die Katze.", "sl": "Tam igra mačka.", "en": "That's the cat playing.", "it": "Lì suona il gatto.", "why": {"en": "Die Katze is a cat. The music in a procession comes from the band: die Musikkapelle.", "sl": "Die Katze je mačka. Glasba v sprevodu je godba: die Musikkapelle.", "it": "Die Katze è il gatto. La musica in un corteo viene dalla banda: die Musikkapelle."},
+          "reply": {"face": "laugh", "de": "Die Katze? Mit der Trompete?", "sl": "Mačka? S trobento?", "en": "The cat? With a trumpet?", "it": "Il gatto? Con la tromba?"} }
+      ] },
+      {"who": "maxi", "face": "curious", "de": "Was weht da oben am Mast, {learner}?", "sl": "Kaj plapola tam zgoraj na drogu, {learner}?", "en": "What's flying up there on the mast, {learner}?", "it": "Che cosa sventola lassù sull'asta, {learner}?"},
+      { "choices": [
+        {"de": "Oben weht die Fahne.", "sl": "Zgoraj plapola zastava.", "en": "The flag is flying up there.", "it": "Lassù sventola la bandiera.", "ok": true,
+          "reply": {"face": "happy", "de": "Ja! Die ist aber groß!", "sl": "Ja! Ta je pa velika!", "en": "Yes! Isn't it big!", "it": "Sì! Com'è grande!"} },
+        {"de": "Oben weht die Hose.", "sl": "Zgoraj plapolajo hlače.", "en": "The trousers are flying up there.", "it": "Lassù sventolano i pantaloni.", "why": {"en": "Die Hose is a pair of trousers. On the mast flies the flag: die Fahne.", "sl": "Die Hose so hlače. Na drogu plapola zastava: die Fahne.", "it": "Die Hose sono i pantaloni. Sull'asta sventola la bandiera: die Fahne."},
+          "reply": {"face": "laugh", "de": "Die Hose? Ha ha, wer hat denn die aufgehängt?", "sl": "Hlače? Ha ha, kdo jih je pa obesil?", "en": "The trousers? Ha ha, who hung those up?", "it": "I pantaloni? Ah ah, chi li ha appesi?"} },
+        {"de": "Oben weht der Fahne.", "sl": "Zgoraj plapola zastava.", "en": "The flag is flying up there.", "it": "Lassù sventola la bandiera.", "grammar": "artikel-genus", "why": {"en": "Fahne is feminine: die Fahne, not der.", "sl": "Fahne je ženskega spola: die Fahne, ne der.", "it": "Fahne è femminile: die Fahne, non der."},
+          "reply": {"face": "thinking", "de": "Hm, fast! Das Wort stimmt, aber vorne wackelt es noch.", "sl": "Hm, skoraj! Beseda je prava, spredaj pa še šepa.", "en": "Hmm, nearly! The word's right, but the front's still wobbly.", "it": "Mm, quasi! La parola è giusta, ma davanti traballa ancora."} }
+      ] },
+      {"who": "eva", "face": "happy", "de": "Und jetzt rufen wir alle zusammen!", "sl": "Zdaj pa vsi skupaj zakličimo!", "en": "And now we all shout together!", "it": "E adesso gridiamo tutti insieme!"},
+      { "choices": [
+        {"de": "Hoch die Stadt!", "sl": "Naj živi mesto!", "en": "Long live the town!", "it": "Viva la città!", "ok": true,
+          "reply": {"face": "happy", "de": "Hoch! Das hat man bis zum Dobratsch gehört.", "sl": "Živelo! To se je slišalo do Dobrača.", "en": "Hurrah! They heard that as far as the Dobratsch.", "it": "Evviva! Si è sentito fino al Dobratsch."} },
+        {"de": "Gute Besserung!", "sl": "Hitro ozdravi!", "en": "Get well soon!", "it": "Guarisci presto!", "why": {"en": "Gute Besserung is said to someone who is ill. At the feast, you shout: Hoch die Stadt!", "sl": "Gute Besserung rečeš bolniku. Na prazniku zakličeš: Hoch die Stadt!", "it": "Gute Besserung si dice a chi è malato. Alla festa si grida: Hoch die Stadt!"},
+          "reply": {"face": "laugh", "de": "Gute Besserung? Aber hier ist doch niemand krank!", "sl": "Hitro ozdravi? Saj tu nihče ni bolan!", "en": "Get well soon? But nobody here is ill!", "it": "Guarisci presto? Ma qui non è malato nessuno!"} }
+      ] },
+      {"who": "sepp", "de": "Langsam, langsam! Der Festzug geht durch die ganze Stadt.", "sl": "Počasi, počasi! Sprevod gre skozi vse mesto.", "en": "Slowly, slowly! The procession goes through the whole town.", "it": "Piano, piano! Il corteo attraversa tutta la città."}
+    ] },
+    "A2": { "lines": [
+      {"who": "eva", "face": "proud", "de": "{learner}, stell dir vor! Wir haben die Urkunde bekommen. Jetzt sind wir eine richtige Stadt!", "sl": "{learner}, pomisli! Dobili smo listino. Zdaj smo pravo mesto!", "en": "{learner}, just think! We've got the charter. Now we're a real town!", "it": "{learner}, pensa! Abbiamo ricevuto l'atto ufficiale. Adesso siamo una vera città!"},
+      {"who": "sepp", "de": "Die Häuser am Platz sind schön geschmückt, und die Glocken läuten schon.", "sl": "Hiše na trgu so lepo okrašene in zvonovi že zvonijo.", "en": "The houses on the square are beautifully decorated, and the bells are already ringing.", "it": "Le case sulla piazza sono ben addobbate e le campane suonano già."},
+      {"who": "maxi", "face": "curious", "de": "Der Festzug kommt! Wer geht ganz vorn?", "sl": "Sprevod prihaja! Kdo gre čisto spredaj?", "en": "The procession is coming! Who's right at the front?", "it": "Arriva il corteo! Chi c'è proprio davanti?"},
+      { "choices": [
+        {"de": "Ganz vorn geht die Musikkapelle.", "sl": "Čisto spredaj gre godba.", "en": "The band is right at the front.", "it": "Proprio davanti c'è la banda.", "ok": true,
+          "reply": {"face": "happy", "de": "Ja, und man hört sie durch die ganze Stadt.", "sl": "Ja, in slišati jo je po vsem mestu.", "en": "Yes, and you can hear them all through the town.", "it": "Sì, e si sente per tutta la città."} },
+        {"de": "Ganz vorn geht die Ziege.", "sl": "Čisto spredaj gre koza.", "en": "The goat is right at the front.", "it": "Proprio davanti c'è la capra.", "why": {"en": "Die Ziege is a goat. At the head of the procession goes the band: die Musikkapelle.", "sl": "Die Ziege je koza. Na čelu sprevoda gre godba: die Musikkapelle.", "it": "Die Ziege è la capra. In testa al corteo c'è la banda: die Musikkapelle."},
+          "reply": {"face": "laugh", "de": "Die Ziege? Das wäre aber ein lustiger Festzug!", "sl": "Koza? To bi bil pa zabaven sprevod!", "en": "The goat? That'd be a funny procession!", "it": "La capra? Sarebbe un corteo divertente!"} }
+      ] },
+      {"who": "kathi", "de": "Und was hängt da an der langen Stange? Ich sehe so schlecht ohne Brille.", "sl": "In kaj visi tam na dolgem drogu? Brez očal tako slabo vidim.", "en": "And what's that hanging on the long pole? I can't see well without my glasses.", "it": "E che cosa pende da quella lunga asta? Senza occhiali ci vedo così male."},
+      { "choices": [
+        {"de": "Das ist die neue Fahne.", "sl": "To je nova zastava.", "en": "That's the new flag.", "it": "È la bandiera nuova.", "ok": true,
+          "reply": {"face": "happy", "de": "Ach so! Die ist aber schön.", "sl": "Aha! Ta je pa lepa.", "en": "Oh, I see! Isn't it lovely.", "it": "Ah, ecco! Com'è bella."} },
+        {"de": "Das ist die neue Bratpfanne.", "sl": "To je nova ponev.", "en": "That's the new frying pan.", "it": "È la padella nuova.", "why": {"en": "Die Bratpfanne is a frying pan. On the pole hangs the flag: die Fahne.", "sl": "Die Bratpfanne je ponev. Na drogu visi zastava: die Fahne.", "it": "Die Bratpfanne è la padella. Sull'asta c'è la bandiera: die Fahne."},
+          "reply": {"face": "laugh", "de": "Eine Bratpfanne? Die hätte ich gern in der Küche!", "sl": "Ponev? To bi imeli radi v kuhinji!", "en": "A frying pan? That'd be welcome in the kitchen!", "it": "Una padella? Quella la vorrei in cucina!"} }
+      ] },
+      {"who": "eva", "face": "happy", "de": "Und nun: ein Hoch auf unsere Stadt!", "sl": "In zdaj: naj živi naše mesto!", "en": "And now: three cheers for our town!", "it": "E ora: un evviva per la nostra città!"},
+      { "choices": [
+        {"de": "Hoch soll sie leben!", "sl": "Naj živi!", "en": "Long may it live!", "it": "Che viva a lungo!", "ok": true,
+          "reply": {"face": "happy", "de": "Hoch! Und noch einmal!", "sl": "Živelo! In še enkrat!", "en": "Hurrah! And once more!", "it": "Evviva! E ancora una volta!"} },
+        {"de": "Hoch soll sie fallen!", "sl": "Naj visoko pade!", "en": "May it fall from a height!", "it": "Che cada dall'alto!", "why": {"en": "Fallen is to fall. The toast goes: Hoch soll sie leben!", "sl": "Fallen pomeni pasti. Zdravica se glasi: Hoch soll sie leben!", "it": "Fallen vuol dire cadere. Il brindisi dice: Hoch soll sie leben!"},
+          "reply": {"face": "laugh", "de": "Fallen? Das hoffen wir aber nicht!", "sl": "Pasti? Upamo, da ne!", "en": "Fall? We hope not!", "it": "Cadere? Speriamo di no!"} }
+      ] },
+      {"who": "toni", "de": "Gut gesagt. Und jetzt gehen wir alle hinter der Musik her.", "sl": "Dobro povedano. Zdaj pa vsi gremo za glasbo.", "en": "Well said. And now we all follow the music.", "it": "Ben detto. E adesso seguiamo tutti la musica."}
+    ] },
+    "B1": { "lines": [
+      {"who": "eva", "face": "proud", "de": "Lange haben wir darauf gewartet, und heute ist es so weit: Die Urkunde ist da, und wir dürfen uns Stadt nennen.", "sl": "Dolgo smo čakali in danes je napočil ta dan: listina je tu in smemo se imenovati mesto.", "en": "We've waited a long time, and today's the day: the charter is here, and we may call ourselves a town.", "it": "Abbiamo aspettato a lungo e oggi è il giorno: l'atto è arrivato e possiamo chiamarci città."},
+      {"who": "sepp", "face": "thinking", "de": "Als Spittal Stadt wurde, haben die Glocken eine ganze Stunde lang geläutet. Das habe ich oft erzählt bekommen.", "sl": "Ko je Špital postal mesto, so zvonovi zvonili celo uro. To so mi pogosto pripovedovali.", "en": "When Spittal became a town, the bells rang for a whole hour. I've often been told that.", "it": "Quando Spittal è diventata città, le campane hanno suonato per un'ora intera. Me l'hanno raccontato spesso."},
+      {"who": "maxi", "face": "curious", "de": "Was wäre ein Festzug ohne Marsch? Wer soll den denn spielen?", "sl": "Kaj bi bil sprevod brez koračnice? Kdo naj jo pa igra?", "en": "What would a procession be without a march? Who's supposed to play it?", "it": "Che cosa sarebbe un corteo senza marcia? Chi la deve suonare?"},
+      { "choices": [
+        {"de": "Den soll die Musikkapelle spielen, das ist doch klar.", "sl": "To naj igra godba, to je vendar jasno.", "en": "The band should play it, of course.", "it": "La deve suonare la banda, è chiaro.", "ok": true,
+          "reply": {"face": "happy", "de": "Stimmt! Die übt schon seit Wochen.", "sl": "Res je! Že tedne vadi.", "en": "True! They've been practising for weeks.", "it": "Vero! Si esercita già da settimane."} },
+        {"de": "Den soll die Hühnerschar spielen, das ist doch klar.", "sl": "To naj igra jata kokoši, to je vendar jasno.", "en": "The flock of hens should play it, of course.", "it": "La deve suonare il branco di galline, è chiaro.", "why": {"en": "Die Hühnerschar is a flock of hens. A march is played by the band: die Musikkapelle.", "sl": "Die Hühnerschar je jata kokoši. Koračnico igra godba: die Musikkapelle.", "it": "Die Hühnerschar è un branco di galline. La marcia la suona la banda: die Musikkapelle."},
+          "reply": {"face": "laugh", "de": "Die Hühner? Die gackern höchstens im Takt!", "sl": "Kokoši? Te kvečjemu kokodakajo v taktu!", "en": "The hens? At most they'd cluck in time!", "it": "Le galline? Al massimo chiocciano a tempo!"} }
+      ] },
+      {"who": "kathi", "de": "Am Platz wird gleich etwas hochgezogen, das alle sehen sollen. Was ist das?", "sl": "Na trgu bodo zdaj nekaj dvignili, kar naj vidijo vsi. Kaj je to?", "en": "Something is about to be hoisted on the square for everyone to see. What is it?", "it": "Sulla piazza stanno per issare qualcosa che tutti devono vedere. Che cos'è?"},
+      { "choices": [
+        {"de": "Das ist die neue Fahne mit dem Wappen.", "sl": "To je nova zastava z grbom.", "en": "That's the new flag with the coat of arms.", "it": "È la bandiera nuova con lo stemma.", "ok": true,
+          "reply": {"face": "happy", "de": "Genau. Die hängt ab heute hier.", "sl": "Tako je. Ta bo od danes visela tu.", "en": "Exactly. It hangs here from today on.", "it": "Esatto. Da oggi è appesa qui."} },
+        {"de": "Das ist die neue Wäsche mit dem Wappen.", "sl": "To je novo perilo z grbom.", "en": "That's the new washing with the coat of arms.", "it": "È il bucato nuovo con lo stemma.", "why": {"en": "Die Wäsche is the washing. What's hoisted on the square is the flag: die Fahne.", "sl": "Die Wäsche je perilo. Na trgu dvignejo zastavo: die Fahne.", "it": "Die Wäsche è il bucato. Sulla piazza si issa la bandiera: die Fahne."},
+          "reply": {"face": "laugh", "de": "Die Wäsche? Die hängt man lieber hinterm Haus auf!", "sl": "Perilo? To se raje obesi za hišo!", "en": "The washing? You'd better hang that behind the house!", "it": "Il bucato? Quello è meglio appenderlo dietro casa!"} }
+      ] },
+      {"who": "eva", "de": "Bevor wir uns an die Festtafel setzen, möchte ich allen danken, die dafür gearbeitet haben. Wie sagt man jetzt?", "sl": "Preden sedemo za praznično mizo, hvala vsem, ki so delali za to. Kaj se zdaj reče?", "en": "Before we sit down at the feast table, I'd like to thank everyone who worked for this. What do we say now?", "it": "Prima di sederci alla tavola della festa, vorrei ringraziare tutti quelli che hanno lavorato per questo. Che cosa si dice adesso?"},
+      { "choices": [
+        {"de": "Hoch soll sie leben, unsere Stadt!", "sl": "Naj živi naše mesto!", "en": "Long may it live, our town!", "it": "Che viva a lungo, la nostra città!", "ok": true,
+          "reply": {"face": "happy", "de": "Hoch! Das hört man bis in die Nachbarschaft.", "sl": "Živelo! To se sliši do sosedov.", "en": "Hurrah! They can hear that next door.", "it": "Evviva! Si sente fino dai vicini."} },
+        {"de": "Schlecht soll sie leben, unsere Stadt!", "sl": "Slabo naj živi naše mesto!", "en": "Long may it live badly, our town!", "it": "Che viva male, la nostra città!", "why": {"en": "Schlecht means badly. The toast goes: Hoch soll sie leben!", "sl": "Schlecht pomeni slabo. Zdravica se glasi: Hoch soll sie leben!", "it": "Schlecht vuol dire male. Il brindisi dice: Hoch soll sie leben!"},
+          "reply": {"face": "surprised", "de": "Schlecht? Na hör einmal, das war aber kein Trinkspruch!", "sl": "Slabo? No, poslušaj, to pa ni bila zdravica!", "en": "Badly? Come now, that was no toast!", "it": "Male? Ma senti, questo non era un brindisi!"} }
+      ] },
+      {"who": "toni", "de": "Gut. Wenn es dunkel wird, gehen wir mit den Fackeln durch die Stadt.", "sl": "Dobro. Ko se stemni, gremo z baklami skozi mesto.", "en": "Good. When it gets dark, we'll go through the town with the torches.", "it": "Bene. Quando fa buio, attraversiamo la città con le torce."}
+    ] },
+    "B2": { "lines": [
+      {"who": "eva", "face": "proud", "de": "Das Land hat entschieden, die Urkunde wurde überreicht, und damit sind wir offiziell zur Stadt erhoben worden.", "sl": "Dežela je odločila, listina je bila izročena in s tem smo uradno povzdignjeni v mesto.", "en": "The province has decided, the charter has been handed over, and with that we've officially been raised to a town.", "it": "Il Land ha deciso, l'atto è stato consegnato e con ciò siamo stati ufficialmente elevati a città."},
+      {"who": "sepp", "face": "thinking", "de": "Als Hermagor 1930 Stadt wurde, hat man erst ein Dreivierteljahr später gefeiert, dafür aber umso ausgiebiger. Wir warten nicht so lange.", "sl": "Ko je Šmohor leta 1930 postal mesto, so praznovali šele tri četrt leta pozneje, zato pa toliko bolj temeljito. Mi ne čakamo tako dolgo.", "en": "When Hermagor became a town in 1930, they only celebrated nine months later, but all the more thoroughly for it. We won't wait that long.", "it": "Quando Hermagor diventò città, nel 1930, si festeggiò solo nove mesi dopo, ma tanto più a lungo. Noi non aspettiamo così tanto."},
+      {"who": "maxi", "face": "curious", "de": "Die Straßen sind voll! Wer führt eigentlich den Festzug an?", "sl": "Ulice so polne! Kdo pravzaprav vodi sprevod?", "en": "The streets are full! Who actually leads the procession?", "it": "Le strade sono piene! Chi guida il corteo, in realtà?"},
+      { "choices": [
+        {"de": "Üblicherweise führt ihn die Musikkapelle an.", "sl": "Običajno ga vodi godba.", "en": "Usually the band leads it.", "it": "Di solito lo guida la banda.", "ok": true,
+          "reply": {"face": "happy", "de": "Dann marschiere ich gleich dahinter!", "sl": "Potem pa korakam takoj za njo!", "en": "Then I'll march right behind it!", "it": "Allora marcio subito dietro!"} },
+        {"de": "Üblicherweise führt ihn die Milchkuh an.", "sl": "Običajno ga vodi molznica.", "en": "Usually the dairy cow leads it.", "it": "Di solito lo guida la mucca da latte.", "why": {"en": "Die Milchkuh is a dairy cow. A procession is led by the band: die Musikkapelle.", "sl": "Die Milchkuh je molznica. Sprevod vodi godba: die Musikkapelle.", "it": "Die Milchkuh è la mucca da latte. Il corteo lo guida la banda: die Musikkapelle."},
+          "reply": {"face": "laugh", "de": "Die Milchkuh? So ein Festzug käme aber nie ans Ziel!", "sl": "Molznica? Tak sprevod pa ne bi nikoli prišel do cilja!", "en": "The dairy cow? A procession like that would never arrive!", "it": "La mucca da latte? Un corteo così non arriverebbe mai!"} }
+      ] },
+      {"who": "kathi", "de": "Und was wird dort am Platz feierlich gehisst, sobald die Musik verstummt?", "sl": "In kaj bodo tam na trgu slovesno dvignili, ko glasba utihne?", "en": "And what will be solemnly hoisted there on the square as soon as the music stops?", "it": "E che cosa verrà issato solennemente sulla piazza appena la musica tace?"},
+      { "choices": [
+        {"de": "Dort wird die neue Fahne gehisst.", "sl": "Tam dvignejo novo zastavo.", "en": "The new flag is hoisted there.", "it": "Lì viene issata la bandiera nuova.", "ok": true,
+          "reply": {"face": "happy", "de": "Richtig, mit dem Wappen darauf.", "sl": "Prav, z grbom na njej.", "en": "Right, with the coat of arms on it.", "it": "Giusto, con sopra lo stemma."} },
+        {"de": "Dort wird die neue Speisekarte gehisst.", "sl": "Tam dvignejo nov jedilni list.", "en": "The new menu is hoisted there.", "it": "Lì viene issato il menù nuovo.", "why": {"en": "Die Speisekarte is a menu. What's hoisted at a town's feast is the flag: die Fahne.", "sl": "Die Speisekarte je jedilni list. Na mestnem prazniku dvignejo zastavo: die Fahne.", "it": "Die Speisekarte è il menù. Alla festa della città si issa la bandiera: die Fahne."},
+          "reply": {"face": "laugh", "de": "Die Speisekarte? Das wäre zumindest gut fürs Gasthaus!", "sl": "Jedilni list? To bi bilo vsaj dobro za gostilno!", "en": "The menu? That would at least be good for the inn!", "it": "Il menù? Almeno farebbe bene all'osteria!"} }
+      ] },
+      {"who": "eva", "de": "Bevor wir zur Festtafel gehen, darf ich um einen Trinkspruch bitten. {learner}, magst du?", "sl": "Preden gremo za praznično mizo, smem prositi za zdravico. {learner}, bi?", "en": "Before we go to the feast table, may I ask for a toast? {learner}, would you?", "it": "Prima di andare alla tavola della festa, posso chiedere un brindisi? {learner}, vuoi farlo tu?"},
+      { "choices": [
+        {"de": "Gern: Hoch soll sie leben, und möge sie allen eine Heimat sein!", "sl": "{m:Rad|f:Rada}: naj živi in naj bo vsem dom!", "en": "Gladly: long may it live, and may it be a home to all!", "it": "Volentieri: che viva a lungo e sia una casa per tutti!", "ok": true,
+          "reply": {"face": "happy", "de": "Hoch! Schöner hätte man es nicht sagen können.", "sl": "Živelo! Lepše se ne bi dalo povedati.", "en": "Hurrah! It couldn't have been put more nicely.", "it": "Evviva! Non si poteva dire meglio."} },
+        {"de": "Gern: Hoch soll sie leben, und möge sie allen eine Last sein!", "sl": "{m:Rad|f:Rada}: naj živi in naj bo vsem breme!", "en": "Gladly: long may it live, and may it be a burden to all!", "it": "Volentieri: che viva a lungo e sia un peso per tutti!", "why": {"en": "Eine Last is a burden. A toast wishes something good: eine Heimat, a home.", "sl": "Eine Last je breme. Zdravica želi nekaj dobrega: eine Heimat, dom.", "it": "Eine Last è un peso. Un brindisi augura qualcosa di bello: eine Heimat, una casa."},
+          "reply": {"face": "surprised", "de": "Eine Last? Das war hoffentlich nur ein Versprecher!", "sl": "Breme? To je bil upam samo spodrsljaj!", "en": "A burden? I hope that was just a slip of the tongue!", "it": "Un peso? Spero sia stato solo un lapsus!"} }
+      ] },
+      {"who": "toni", "de": "Schön gesagt. Wenn es dunkel wird, ziehen wir mit den Fackeln weiter.", "sl": "Lepo povedano. Ko se stemni, gremo naprej z baklami.", "en": "Well said. When it gets dark, we'll move on with the torches.", "it": "Ben detto. Quando fa buio, proseguiamo con le torce."}
+    ] }
+  }
+}

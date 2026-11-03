@@ -28,7 +28,7 @@ import java.io.File
  * as the app reads them: every age after the first its own tradition with a party at A1 and A2, its word pack bundled,
  * each dialog short (a toast, a song or a dance, a task), said by its host and guests of the cast, its placeholders well
  * formed for a man and a woman, a fresh learner left something to answer, every word it declares tested at both levels in
- * a form the dictionary knows; and the other cultures' generic gathering.
+ * a form the dictionary knows.
  */
 class CelebrationsContentTest {
     private val root = listOf(File("../.."), File(".."), File("companion")).first { File(it, "cultures").isDirectory }
@@ -174,17 +174,6 @@ class CelebrationsContentTest {
             val d = AgeUps.dialog(c, level, "sl") ?: continue
             for (l in d.lines) if (l.who != null && l.who in c.guests) {
                 assertTrue("${c.age} $level: ${l.who}'s «${l.sl}»", !gendered.containsMatchIn(l.sl.orEmpty().lowercase()))
-            }
-        }
-    }
-
-    @Test fun `the other cultures have the generic gathering`() {
-        for (id in listOf("friuli", "kaernten", "lakeland")) {
-            Cultures.use(Cultures.load(id))
-            for (a in Age.entries.drop(1)) {
-                val c = AgeUps.celebration(a)
-                assertTrue("$id $a: generic", c.generic)
-                assertFalse("$id $a: no party", c.party)
             }
         }
     }

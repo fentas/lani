@@ -63,6 +63,7 @@ import { addressed, bearer, json, loadToken, router, type Role, type Route } fro
 import { FormsBook } from './forms'
 import { caseTriggersPath, CaseTriggersFile } from './case-triggers'
 import { Learner } from './learner'
+import { languageParts } from './tutor-languages'
 import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, learnerLangs, profileFromEnv, type DataPlace, type Profile } from './learners'
 import { Lexicon } from './lexicon'
 import { Outbox } from './outbox'
@@ -317,6 +318,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
       emit: e => ctx.events.emit(e),
       // recordings at the loudness of the voice clips (ffmpeg, when the node has it)
       level: platform.level,
+      languages: () => learnerLangs(dataDir, language),
     }),
     voice: voicing.store({ appDir, ctx: () => ctx }),
     voiceEngines: voicing.engines?.() ?? {},
@@ -362,7 +364,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   const guide = () =>
     learnerInstructions(features.flatMap(f => f.instructions ?? []), profile, learnerFacts(dataDir), dataDir, {
       id: culture.id, language, region: culture.manifest?.region.en, ...tutorOf(culture.manifest),
-    }, place)
+    }, place, profile.isDefault && language === 'sl' ? [] : languageParts(cfg.projectDir, language, profile.child))
   // Claude Code cuts a server's instructions at INSTRUCTIONS_LIMIT characters; the guide is several times
   // that. The instructions are the rules that fit, and the tool hands out the whole guide.
   const rulesNow = () => channelRules(profile, learnerFacts(dataDir), dataDir, place)

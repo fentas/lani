@@ -92,6 +92,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   open ([readyUnit]: a B1 unit without A2 done and the school upgraded), for QA to play it from the school's levels.
  *   "school:reveal" readies the village for the school's reveal ([readyReveal]: the school standing, every unit of A1 done,
  *   A2 begun) and the school opens: a level a bit at a time (companion/COURSE.md, "What the school shows").
+ * - "meet:<id>": that villager moved in and not met yet (the dev bridge's copy), their introduction opened at the learner's
+ *   level, or "level:<lv>"'s (companion/VILLAGERS.md "Arrivals": Tone's B1, "meet:tone" after "level:B1").
  * - "sheet:<unit>/<sheet>": the class readied (as "school") and that sheet of the unit played at once ("sheet:sedanjik/
  *   sedanjik-3", "sheet:biti/test": the unit's test), as its button in the unit starts it ([sheetOf]): a sheet's
  *   corrections looked at without playing the units before it.
@@ -385,7 +387,7 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
-        schoolUnit: (String) -> Unit = {}, schoolReveal: () -> Unit = {},
+        schoolUnit: (String) -> Unit = {}, schoolReveal: () -> Unit = {}, meet: (String) -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
@@ -491,6 +493,7 @@ object QaHooks {
             command == "school" -> school()
             command.startsWith("sheet:") -> sheetOf(command.removePrefix("sheet:"))?.let { (unit, id) -> sheet(unit, id) }
             command == "school:reveal" -> schoolReveal()
+            command.startsWith("meet:") -> command.removePrefix("meet:").trim().takeIf { it.isNotEmpty() }?.let(meet)
             command.startsWith("school:") -> command.removePrefix("school:").trim().takeIf { it.isNotEmpty() }?.let(schoolUnit)
             command.startsWith("build:") -> {
                 val name = command.removePrefix("build:").trim().uppercase()

@@ -240,7 +240,7 @@ export function wishlistEntry(a: Record<string, unknown>, day = new Date().toISO
     `- **What:** ${line(a.what_is_wrong)}`,
     ...(a.suggested_fix ? [`- **Fix:** ${line(a.suggested_fix)}`] : []),
     ...(a.item && typeof a.item === 'object' ? [`- **Item:** \`${JSON.stringify(a.item).replace(/`/g, "'")}\``] : []),
-    ...(a.native_check === true ? ['- **Native check:** a native speaker should check this Slovene'] : []),
+    ...(a.native_check === true ? ['- **Native check:** a native speaker should check this text'] : []),
     `- **From:** the app's tutor (report_problem, kind ${kind}); not in Lani's GitHub discussions yet: the app has no GitHub sign-in for them`,
     '',
   ].join('\n')

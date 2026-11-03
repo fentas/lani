@@ -1208,7 +1208,7 @@ newcomer|birth}`) tells the tutor someone moved in, so they can give them lines 
 | `GET` | `/audio/index` | family recordings: normalized Slovene text → `[{file, speaker, recorded_at, text}]` |
 | `POST` | `/audio?text=…&speaker=…` | a recording (raw body or multipart `file`; m4a, ogg or webm, max 2 MB), stored at the voice clips' loudness |
 | `GET`, `DELETE` | `/audio/file/:name` | one recording |
-| `GET`, `PUT` | `/family/api/settings` | the partner's name, emoji and Slovene "from" form (`Maje`) |
+| `GET`, `PUT` | `/family/api/settings` | the partner's name, emoji and Slovene "from" form (`Maje`); `GET` also the learner's name and languages (`language`, `base`) |
 | `GET` | `/family/api/words` | words and phrases to record (pack words, examples, vocabulary cards) |
 | `GET`, `POST` | `/family/api/challenges` | partner challenges `{type: question\|translate\|say, text, hint?}` with answers and feedback |
 | `POST` | `/family/api/challenges/:id/answer` | `{text, spoken}`: Jan's answer (app token only) → `partner_answer` to Claude |
@@ -1711,12 +1711,15 @@ family's fallback) such a turn runs at the thread's level. A stateless call ("Al
 its level as its top-level effort.
 
 **The prefix** (`tutor/Prompt.kt`): the tools in phase A's fixed order, then the core prompt
-(`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief), its end a 1-hour cache
-breakpoint; automatic caching (5 minutes) on the last block. Nothing about the learner, nothing time-dependent.
+(`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief) and what's correct in the
+language taught (`companion/tutor/languages/`: `general.md`, then the village's language's `<code>.md`; a child's rules and
+case for a child; docs/plans/05-built/tutor-languages.md), its end a 1-hour cache breakpoint; automatic caching (5 minutes)
+on the last block. Nothing about the learner but their language and whether they are a child, nothing time-dependent.
 
 **The tools, from one spec.** `companion/bridge/src/cli/tutor-export.ts` builds the bridge (`buildBridge`: nothing
 started) in an environment of its own and writes `companion/tutor/tools/<name>.json` (every MCP tool: name,
-description, `input_schema`) and the guide, split into topics (`companion/tutor/guide/<id>.md` and `index.json`: the
+description, `input_schema`) and the guide, split into topics (`companion/tutor/guide/<id>.md` and `index.json`, with
+`guide/<language>/<id>.md` a village's own copy of a topic that reads otherwise there: the
 channel guide's paragraphs per feature, exactly as `channel_guide` gives them, and the skills the plan names: feedback,
 fix, progress, analysis, session-end, studio), with `tools/guide.json` (`guide(topic)`). `--check` compares them with
 the bridge (the smoke section `tutor` runs it): regenerate with `cd companion/bridge && bun src/cli/tutor-export.ts`
@@ -2031,7 +2034,9 @@ controller `app/CheatSheetController.kt`, the sheet `ui/CheatSheetSheet.kt`; the
   (cut at a word past 240 characters, never inside bold) and its first two examples. The curated deck of the basics is
   such cards (machine-written, not reviewed by a native speaker): biti, imeti and iti, the present's endings, the past,
   the future, the six cases at a glance, noun gender by ending, the plural, adjective agreement, the question words and
-  ti or vi.
+  ti or vi. In Italian, German and English every A1 page has its own card, since a page's first sentence is often only
+  a lead-in ("Italian says *like* the other way round:"): the rule in one line, the trap as its tip, the page's table
+  and examples. Pages above A1 there make their cards from the page.
 - **Curated cards no page fits** (`companion/cards/<language>/<id>.json`, `lani.card/v0`, `bridge/src/cards.ts`): the
   same face, a title per language, and the pages they belong to (`grammar`): the pronouns 1 · 2 · 3+ (jaz, midva, mi;
   me, ve, one; vi polite), kje or kam (v, na + locative or accusative), the numbers 1–20 and the tens, the possessives
@@ -2059,7 +2064,8 @@ its first cell and each other with its column's name, "ti, imeti: imaš"; the ch
 **Unlocked as you go.** A page's card unlocks the day the learner meets its page (the grammar book's "met",
 `GameState.grammar`: an exercise or a module naming it, a page shown from a why, a school unit's introduction), a curated
 card with the first of its pages, an A1 basic marked `start` from the start (the pronouns, biti, the question words, the
-numbers), a pinned or the tutor's at once. What unlocks a page is one call: `vm.cheat.met(pageIds)` (the same as
+numbers; in Italian and German to be, the question words, the numbers and the articles; in English to be, questions with do, the
+numbers and the pronouns), a pinned or the tutor's at once. What unlocks a page is one call: `vm.cheat.met(pageIds)` (the same as
 `vm.grammar.meet(pageIds, announce = true)`: the book's pages and their cards; the school's units call it with their
 pages). Locked cards aren't listed (no spoilers); the sheet ends with "🔒 Še 23 kartic · 23 more cards as you go". A card
 never opened is "✨ Novo · New" (a pinned one isn't: pinning it opened it).
@@ -4233,7 +4239,12 @@ The learner's family can take part in two ways:
   Jan", and the tutor's note goes back to the sender's progress screen.
 
 The family page is served by the bridge at `/family`. It uses its own token,
-`<data>/app/family-token` (generated on first start, like the app token).
+`<data>/app/family-token` (generated on first start, like the app token). It speaks the learner's two languages, as
+the app does ("Aiuta Teo a imparare l'italiano · Hilf Teo, Italienisch zu lernen"; `GET /family/api/settings` says which:
+`language`, `base`; a bridge from before that has Slovene and English): its labels, the samples in its fields, the words
+to record glossed in the base. Its texts live in `web/family/app.js` (`STRINGS`, `SAMPLES`, each in sl, en, de and it;
+machine-written, not reviewed by a native speaker). The Slovene "from" form is asked only of a family helping with
+Slovene; a page opened without its key speaks the browser's language, else English.
 
 ### Give the partner access
 
@@ -5071,6 +5082,7 @@ LANI_DEV_DATA=<a synthetic Slovene learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-
 LANI_DEV_DATA=<a synthetic learner of the culture's language> LANI_CULTURE=lakeland LANI_QA_PAIR=sl-en LANI_QA_POLISH_SHOTS=<dir> companion/bin/qa-slot --no-town --steps polish-cues   # what polish-content changed in a culture's pictures (docs/plans/05-built/polish-content.md): the pedlar on the road to the gate under his culture's load (Primorska's krošnja, Friuli's crassigne, Carinthia's Kraxe, the Lakes' pack), in the Lakes the foxes by the wood by day and at night and the watch's first turn asked to be typed
 companion/bin/qa --steps quests-threat           # the requests during wolves (none on the map, waiting in the Scroll, Home's strip) and back after; a drill whose task is passed under Later (a synthetic learner: LANI_DEV_DATA)
 companion/bin/qa --steps age-up                  # Zaselek to Vas and Vas to Trg: each moment beat by beat, its card, the veselica at A1 to its end, the chronicle's Watch again (recorded)
+LANI_CULTURE=kaernten LANI_QA_SETUP_PAIR=de-en LANI_QA_PARTY_AGE=trg LANI_QA_PARTY_LEVEL=B1 companion/bin/qa --steps party  # one age's party in the dev bridge's culture to its end, at that level, read in the phone's pair (vas and A1 by default); the moment, the card, then the village past that age and the chronicle's Watch again
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps counting                # counting cards: the unit stevila's intro skipped and its note, a card's four steps (one wrong), the lines said, the cheat sheet, 💬, typed
