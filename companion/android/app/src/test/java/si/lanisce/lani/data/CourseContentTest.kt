@@ -115,6 +115,20 @@ abstract class CourseContentChecks(
                         val words = e.columns.flatMap { it.words }
                         assertEquals("$where: no word twice", words.size, words.map { it.lowercase() }.toSet().size)
                     }
+                    // speaking and writing (COURSE.md "Speaking and writing"), as the app grades them by the language's table,
+                    // a child's version too: the model and every accepted answer right, every spoken one right and labelled,
+                    // a writing's model meeting every check
+                    is Exercise.Speaking -> for (x in listOf(e, e.forChild()).distinct()) {
+                        x.answers().forEach { a -> assertEquals("$where: «$a»", Verdict.CORRECT, Production.grade(x, a, lang).verdict) }
+                        x.spoken.forEach { sp ->
+                            val r = Production.grade(x, sp, lang)
+                            assertEquals("$where: the spoken «$sp»", Verdict.CORRECT to Grading.Hint.SPOKEN, r.verdict to r.hint)
+                        }
+                    }
+                    is Exercise.Writing -> for (x in listOf(e, e.forChild()).distinct()) {
+                        val c = Production.check(x.model, x.must, x.avoid, x.length, lang)
+                        assertEquals("$where: the model meets its checks (${c.must.filter { !it.met }.map { it.label }}, ${c.avoid.flatMap { it.hits }}, ${c.words} words)", Verdict.CORRECT, Production.verdict(c))
+                    }
                     else -> {}
                 }
             }
