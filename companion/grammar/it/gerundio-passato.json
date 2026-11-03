@@ -1,0 +1,163 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "gerundio-passato",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🏁",
+  "title": {
+    "it": "Avendo finito, essendo arrivato: il gerundio passato",
+    "sl": "Avendo finito, essendo arrivato: pretekli gerundij",
+    "en": "Avendo finito, essendo arrivato: the past gerund",
+    "de": "Avendo finito, essendo arrivato: das Gerundium der Vergangenheit"
+  },
+  "rule": {
+    "en": "**Avendo** or **essendo** + the participle says what was done first: **Avendo finito i compiti, Lorenzo è uscito.** (Having finished his homework, Lorenzo went out.) **Camminando** runs at the same time; this one is over already. A verb takes the same helper as in the passato prossimo: **ho finito → avendo finito**, **sono arrivata → essendo arrivata** (never *avendo arrivato*), and with **essendo** the participle agrees.\n\nIt often gives the reason too: **Non avendo capito, Tommaso ha chiesto aiuto.** **Essendo** alone gives a reason: **Essendo in due, abbiamo finito presto.** A set case with no person: **Essendo domenica, il forno è chiuso.**\n\nBoth halves belong to one person. For another: **Dopo che Lorenzo ha finito, Giulia è uscita.** The little words go on the end: **avendolo visto**, **avendola vista** (with la the participle agrees), **avendogli parlato**, **essendosi alzata**. **Non** goes before, **già** after: **non avendo capito**, **avendo già mangiato**.\n\nWith **pur** it means although: **Pur essendo stanco, Davide ha continuato.**\n\nIn speech people mostly say **dopo che** or **siccome**; the **gerundio passato** is for telling and writing.",
+    "sl": "**Avendo** ali **essendo** + deležnik pove, kaj je bilo narejeno najprej: **Avendo finito i compiti, Lorenzo è uscito.** (Ko je Lorenzo naredil naloge, je šel ven.) **Camminando** teče hkrati; to je že mimo. Glagol ima istega pomožnika kot v passato prossimo: **ho finito → avendo finito**, **sono arrivata → essendo arrivata** (nikoli *avendo arrivato*), in z **essendo** se deležnik ujema.\n\nPogosto pove tudi razlog: **Non avendo capito, Tommaso ha chiesto aiuto.** **Essendo** sam pove razlog: **Essendo in due, abbiamo finito presto.** Ustaljeno, brez osebe: **Essendo domenica, il forno è chiuso.**\n\nObe polovici sodita k isti osebi. Za drugo: **Dopo che Lorenzo ha finito, Giulia è uscita.** Male besede gredo na konec: **avendolo visto**, **avendola vista** (z la se deležnik ujema), **avendogli parlato**, **essendosi alzata**. **Non** je spredaj, **già** za njim: **non avendo capito**, **avendo già mangiato**.\n\nS **pur** pomeni čeprav: **Pur essendo stanco, Davide ha continuato.**\n\nV govoru večinoma rečejo **dopo che** ali **siccome**; **gerundio passato** je za pripovedovanje in pisanje.",
+    "de": "**Avendo** oder **essendo** + Partizip sagt, was zuerst getan war: **Avendo finito i compiti, Lorenzo è uscito.** (Als Lorenzo mit den Aufgaben fertig war, ging er hinaus.) **Camminando** läuft zur selben Zeit; dies hier ist schon vorbei. Ein Verb nimmt dieselbe Hilfe wie im passato prossimo: **ho finito → avendo finito**, **sono arrivata → essendo arrivata** (nie *avendo arrivato*), und mit **essendo** passt sich das Partizip an.\n\nOft sagt es auch den Grund: **Non avendo capito, Tommaso ha chiesto aiuto.** **Essendo** allein sagt einen Grund: **Essendo in due, abbiamo finito presto.** Feste Wendung ohne Person: **Essendo domenica, il forno è chiuso.**\n\nBeide Hälften gehören einer Person. Für eine andere: **Dopo che Lorenzo ha finito, Giulia è uscita.** Die kleinen Wörter kommen ans Ende: **avendolo visto**, **avendola vista** (mit la passt sich das Partizip an), **avendogli parlato**, **essendosi alzata**. **Non** davor, **già** danach: **non avendo capito**, **avendo già mangiato**.\n\nMit **pur** heißt es obwohl: **Pur essendo stanco, Davide ha continuato.**\n\nBeim Reden sagt man meist **dopo che** oder **siccome**; das **gerundio passato** ist fürs Erzählen und Schreiben."
+  },
+  "table": {
+    "head": [
+      { "it": "verbo", "sl": "glagol", "en": "verb", "de": "Verb" },
+      { "it": "gerundio passato", "sl": "gerundio passato", "en": "gerundio passato", "de": "gerundio passato" },
+      { "it": "vuol dire", "sl": "pomeni", "en": "means", "de": "heißt" }
+    ],
+    "rows": [
+      ["finire", "avendo finito", { "it": "dopo che ha finito", "sl": "ko je končal", "en": "having finished", "de": "als er fertig war" }],
+      ["arrivare", "essendo arrivato, arrivata", { "it": "dopo che è arrivato, arrivata", "sl": "ko je prišel, prišla", "en": "having arrived", "de": "als er, sie angekommen war" }],
+      ["partire", "essendo partiti, partite", { "it": "dopo che sono partiti, partite", "sl": "ko so odšli", "en": "having left", "de": "als sie abgereist waren" }],
+      ["capire", "non avendo capito", { "it": "siccome non ha capito", "sl": "ker ni razumel", "en": "not having understood", "de": "weil er nicht verstanden hatte" }],
+      ["vederlo", "avendolo visto", { "it": "dopo che l'ha visto", "sl": "ko ga je videl", "en": "having seen him", "de": "als er ihn gesehen hatte" }],
+      ["vederla", "avendola vista", { "it": "dopo che l'ha vista", "sl": "ko jo je videl", "en": "having seen her", "de": "als er sie gesehen hatte" }],
+      ["parlargli", "avendogli parlato", { "it": "dopo che gli ha parlato", "sl": "ko je govoril z njim", "en": "having spoken to him", "de": "als er mit ihm gesprochen hatte" }],
+      ["alzarsi", "essendosi alzata", { "it": "dopo che si è alzata", "sl": "ko je vstala", "en": "having got up", "de": "als sie aufgestanden war" }],
+      ["essere", "pur essendo stanco", { "it": "anche se è stanco", "sl": "čeprav je utrujen", "en": "though he is tired", "de": "obwohl er müde ist" }],
+      ["mangiare", "pur avendo mangiato", { "it": "anche se ha mangiato", "sl": "čeprav je jedel", "en": "though he has eaten", "de": "obwohl er gegessen hat" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Avendo finito i compiti, Lorenzo è uscito.",
+      "sl": "Ko je Lorenzo naredil naloge, je šel ven.",
+      "en": "Having finished his homework, Lorenzo went out.",
+      "de": "Als Lorenzo mit den Aufgaben fertig war, ging er hinaus.",
+      "note": {
+        "sl": "Najprej naloge, potem ven; obakrat Lorenzo.",
+        "en": "First the homework, then out; both Lorenzo.",
+        "de": "Erst die Aufgaben, dann hinaus; beide Male Lorenzo."
+      }
+    },
+    {
+      "it": "Essendo arrivata tardi, Giulia non ha trovato posto.",
+      "sl": "Ker je Giulia prišla pozno, ni našla prostora.",
+      "en": "Having arrived late, Giulia couldn't find a seat.",
+      "de": "Weil Giulia spät gekommen war, fand sie keinen Platz.",
+      "note": {
+        "sl": "Sono arrivata → essendo arrivata: -a za Giulio.",
+        "en": "Sono arrivata → essendo arrivata: -a for Giulia.",
+        "de": "Sono arrivata → essendo arrivata: -a für Giulia."
+      }
+    },
+    {
+      "it": "Non avendo capito la domanda, Tommaso ha guardato Giulia.",
+      "sl": "Ker Tommaso ni razumel vprašanja, je pogledal Giulio.",
+      "en": "Not having understood the question, Tommaso looked at Giulia.",
+      "de": "Weil Tommaso die Frage nicht verstanden hatte, schaute er Giulia an."
+    },
+    {
+      "it": "Zia Nives? Avendola vista in piazza, Bruno l'ha salutata.",
+      "sl": "Teta Nives? Ko jo je Bruno videl na trgu, jo je pozdravil.",
+      "en": "Zia Nives? Having seen her on the square, Bruno said hello to her.",
+      "de": "Zia Nives? Als Bruno sie auf dem Platz gesehen hatte, grüßte er sie.",
+      "note": {
+        "sl": "La gre na konec: avendola; vista se ujema.",
+        "en": "La goes on the end: avendola; vista agrees.",
+        "de": "La kommt ans Ende: avendola; vista passt sich an."
+      }
+    },
+    {
+      "it": "Essendosi alzata presto, Nonna Rosa ha fatto il pane.",
+      "sl": "Ker je babica Rosa zgodaj vstala, je spekla kruh.",
+      "en": "Having got up early, Nonna Rosa made the bread.",
+      "de": "Weil Nonna Rosa früh aufgestanden war, backte sie das Brot."
+    },
+    {
+      "it": "Dopo che Lorenzo ha finito, Giulia è uscita.",
+      "sl": "Ko je Lorenzo končal, je Giulia šla ven.",
+      "en": "After Lorenzo had finished, Giulia went out.",
+      "de": "Nachdem Lorenzo fertig war, ging Giulia hinaus.",
+      "note": {
+        "sl": "Dve osebi: dopo che, ne gerundij.",
+        "en": "Two people: dopo che, not the gerund.",
+        "de": "Zwei Personen: dopo che, nicht das Gerundium."
+      }
+    },
+    {
+      "it": "Essendo in due, abbiamo finito presto.",
+      "sl": "Ker sva bila dva, sva hitro končala.",
+      "en": "As there were two of us, we finished quickly.",
+      "de": "Weil wir zu zweit waren, waren wir schnell fertig."
+    },
+    {
+      "it": "Pur essendo stanco, Davide ha continuato a lavorare.",
+      "sl": "Čeprav je bil utrujen, je Davide delal naprej.",
+      "en": "Though he was tired, Davide went on working.",
+      "de": "Obwohl er müde war, arbeitete Davide weiter.",
+      "note": {
+        "sl": "Pur + gerundij: čeprav, ista oseba.",
+        "en": "Pur + the gerund: although, the same person.",
+        "de": "Pur + Gerundium: obwohl, dieselbe Person."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["gerundio_passato", "past_gerund", "avendo", "essendo", "pur"],
+  "see": ["gerundio", "passato-prossimo", "congiunzioni"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "it": "Il gerundio passato · avendo finito, essendo arrivato",
+      "sl": "Pretekli gerundij · avendo finito, essendo arrivato",
+      "en": "The past gerund · avendo finito, essendo arrivato",
+      "de": "Gerundium der Vergangenheit · avendo finito, essendo arrivato"
+    },
+    "rule": {
+      "en": "What was done first, or the reason: **avendo** or **essendo** + the participle, the same helper as in the passato prossimo. **Essendo arrivata** agrees. Both halves are one person. On the end: **avendolo visto**. **Pur essendo stanco**: although.",
+      "sl": "Kar je bilo najprej, ali razlog: **avendo** ali **essendo** + deležnik, isti pomožnik kot v passato prossimo. **Essendo arrivata** se ujema. Obe polovici sta ista oseba. Na konec: **avendolo visto**. **Pur essendo stanco**: čeprav.",
+      "de": "Was zuerst war, oder der Grund: **avendo** oder **essendo** + Partizip, dieselbe Hilfe wie im passato prossimo. **Essendo arrivata** passt sich an. Beide Hälften sind eine Person. Ans Ende: **avendolo visto**. **Pur essendo stanco**: obwohl."
+    },
+    "table": {
+      "head": [
+        { "it": "verbo", "sl": "glagol", "en": "verb", "de": "Verb" },
+        { "it": "gerundio passato", "sl": "gerundio passato", "en": "gerundio passato", "de": "gerundio passato" }
+      ],
+      "rows": [
+        ["finire", "avendo finito"],
+        ["arrivare", "essendo arrivato, arrivata"],
+        ["partire", "essendo partiti, partite"],
+        ["vederla", "avendola vista"],
+        ["alzarsi", "essendosi alzata"],
+        ["capire", "non avendo capito"]
+      ]
+    },
+    "examples": [
+      {
+        "it": "Avendo finito i compiti, Lorenzo è uscito.",
+        "sl": "Ko je Lorenzo naredil naloge, je šel ven.",
+        "en": "Having finished his homework, Lorenzo went out.",
+        "de": "Als Lorenzo mit den Aufgaben fertig war, ging er hinaus."
+      },
+      {
+        "it": "Essendo arrivata tardi, Giulia non ha trovato posto.",
+        "sl": "Ker je Giulia prišla pozno, ni našla prostora.",
+        "en": "Having arrived late, Giulia couldn't find a seat.",
+        "de": "Weil Giulia spät gekommen war, fand sie keinen Platz."
+      }
+    ],
+    "tip": {
+      "en": "💡 In speech **dopo che** and **siccome** are more usual: **Siccome ho dimenticato la chiave, ho chiamato Marisa.** The **gerundio passato** is for telling and writing.",
+      "sl": "💡 V govoru sta bolj običajna **dopo che** in **siccome**: **Siccome ho dimenticato la chiave, ho chiamato Marisa.** **Gerundio passato** je za pripovedovanje in pisanje.",
+      "de": "💡 Beim Reden sind **dopo che** und **siccome** üblicher: **Siccome ho dimenticato la chiave, ho chiamato Marisa.** Das **gerundio passato** ist fürs Erzählen und Schreiben."
+    }
+  }
+}

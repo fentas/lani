@@ -1,0 +1,348 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "se-potessi",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🌠",
+  "title": { "it": "Se potessi, verrei", "de": "Wenn es möglich wäre: se potessi, verrei", "sl": "Če bi bilo mogoče: se potessi, verrei", "en": "If it could be: se potessi, verrei" },
+  "goal": {
+    "de": "Du sagst in jeder Person, was wäre, wenn es anders wäre (Se potessi, verrei. Se sapessimo la strada, andremmo a piedi.), gibst einen Rat (Se fossi in te, …) und bittest höflich (Se potesse aiutarci, Le saremmo grati.).",
+    "sl": "V vsaki osebi poveš, kaj bi bilo, če bi bilo drugače (Se potessi, verrei. Se sapessimo la strada, andremmo a piedi.), daš nasvet (Se fossi in te, …) in vljudno prosiš (Se potesse aiutarci, Le saremmo grati.).",
+    "en": "In every person you can say what would be if things were different (Se potessi, verrei. Se sapessimo la strada, andremmo a piedi.), give advice (Se fossi in te, …) and ask politely (Se potesse aiutarci, Le saremmo grati.)."
+  },
+  "grammar": ["periodo-ipotetico", "condizionale"],
+  "words": ["anche se", "avere", "parlare", "potere", "venire", "sapere", "facevo", "dicevo", "bevevo", "il condizionale", "vincere", "ridere", "correre", "telefonare", "il sindaco", "il frico", "l'osteria", "il mulino", "il pascolo", "la lotteria", "la barca", "la strada", "la bicicletta", "il fieno", "il tetto", "il turista", "le api", "il miele", "il forno", "il doppio", "zitto", "grato", "grata", "a piedi", "chiedere scusa", "se fossi in te", "Le", "Grado", "Sabotino"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "se …", "de": "se … (wenn)", "sl": "se … (če)", "en": "se … (if)" },
+        { "it": "le forme", "de": "die Formen", "sl": "oblike", "en": "the forms" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Se potessi, verrei.** (Wenn ich könnte, würde ich kommen.) Das **se fossi** kennst du schon. Genauso geht es mit jedem Verb, und du nimmst den Vokal der Grundform: **parlare → parlassi**, **potere → potessi**, **venire → venissi**. Für io und tu ist die Form gleich. Für lui und lei endet sie auf **-sse**: **parlasse**, **potesse**, **venisse**.",
+          "sl": "**Se potessi, verrei.** (Če bi mogel, bi prišel.) **Se fossi** že poznaš. Enako gre z vsakim glagolom, samoglasnik pa vzameš iz nedoločnika: **parlare → parlassi**, **potere → potessi**, **venire → venissi**. Za io in tu je oblika ista. Za lui in lei se konča na **-sse**: **parlasse**, **potesse**, **venisse**.",
+          "en": "**Se potessi, verrei.** (If I could, I'd come.) You know **se fossi** already. Every verb goes the same way, with the vowel of its infinitive: **parlare → parlassi**, **potere → potessi**, **venire → venissi**. The form is the same for io and tu. For lui and lei it ends in **-sse**: **parlasse**, **potesse**, **venisse**."
+        },
+        "examples": [
+          { "it": "Se potessi, verrei alla sagra.", "de": "Wenn ich könnte, würde ich zur Sagra kommen.", "sl": "Če bi {m:mogel|f:mogla}, bi {m:prišel|f:prišla} na šagro.", "en": "If I could, I'd come to the sagra." },
+          { "it": "Se Marisa chiudesse l'osteria, dove andremmo la sera?", "de": "Wenn Marisa die Osteria zumachen würde, wohin würden wir am Abend gehen?", "sl": "Če bi Marisa zaprla gostilno, kam bi hodili zvečer?", "en": "If Marisa closed the osteria, where would we go in the evening?" }
+        ],
+        "rows": [
+          ["se io, se tu", "parlassi, potessi, venissi"],
+          ["se lui, se lei", "parlasse, potesse, venisse"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Se Bruno ___ di meno, sarebbe meno stanco.", "options": ["lavorasse", "lavorassi", "lavorerebbe"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Bruno** (lui), nach se → **lavorasse**\n- lavorassi · ich, du\n- lavorerebbe: nach se nie",
+            "sl": "**Bruno** (lui), za se → **lavorasse**\n- lavorassi · jaz, ti\n- lavorerebbe: za se nikoli",
+            "en": "**Bruno** (lui), after se → **lavorasse**\n- lavorassi · I, you\n- lavorerebbe: never after se"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **-ssimo** für noi (**potessimo**, wenn wir könnten), **-ste** für voi (**poteste**, wenn ihr könntet), **-ssero** für loro (**potessero**, wenn sie könnten). Achte auf voi: **foste**, **parlaste**, **veniste** haben nur ein s und ein t; **fosse**, **parlasse**, **venisse** sind lui und lei.",
+          "sl": "Za več oseb: **-ssimo** za noi (**potessimo**, če bi mogli), **-ste** za voi (**poteste**, če bi mogli, vi), **-ssero** za loro (**potessero**, če bi mogli, oni). Pazi na voi: **foste**, **parlaste**, **veniste** imajo en s in t; **fosse**, **parlasse**, **venisse** so lui in lei.",
+          "en": "For several people: **-ssimo** for noi (**potessimo**, if we could), **-ste** for voi (**poteste**, if you could), **-ssero** for loro (**potessero**, if they could). Mind voi: **foste**, **parlaste**, **veniste** have one s and a t; **fosse**, **parlasse**, **venisse** are lui and lei."
+        },
+        "examples": [
+          { "it": "Se sapessimo la strada, andremmo a piedi.", "de": "Wenn wir den Weg wüssten, würden wir zu Fuß gehen.", "sl": "Če bi poznali pot, bi šli peš.", "en": "If we knew the way, we'd walk." },
+          { "it": "Nonna Rosa: «Se veniste domenica, vi farei il frico.»", "de": "Nonna Rosa: „Wenn ihr am Sonntag kommen würdet, würde ich euch Frico machen.“", "sl": "Babica Rosa: »Če bi prišli v nedeljo, bi vam naredila frico.«", "en": "Nonna Rosa: \"If you came on Sunday, I'd make you frico.\"" }
+        ],
+        "rows": [
+          ["se noi", "parlassimo, potessimo, venissimo"],
+          ["se voi", "parlaste, poteste, veniste"],
+          ["se loro", "parlassero, potessero, venissero"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "periodo-ipotetico", "text": "Se le api ___ (parlare), racconterebbero tante storie.", "accept": ["parlassero"],
+          "hint": { "de": "sie, mehrere", "sl": "one, več", "en": "they, several" },
+          "explain": {
+            "de": "**le api** (loro), nach se → **parlassero**\n- parlasse · er, sie, nur eine\n- parlerebbero: nach se nie",
+            "sl": "**le api** (loro), za se → **parlassero**\n- parlasse · on, ona, samo ena\n- parlerebbero: za se nikoli",
+            "en": "**le api** (loro), after se → **parlassero**\n- parlasse · he, she, just one\n- parlerebbero: never after se"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein paar haben einen eigenen Stamm: **essere** (**fossi**, **fosse**, **fossimo**, **foste**, **fossero**), **dare** (**dessi**, wenn ich gäbe), **stare** (**stessi**, wenn ich bliebe). Und **fare**, **dire**, **bere** nehmen den Stamm vom imperfetto: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Avere** ist regelmäßig: **avessi**.",
+          "sl": "Nekateri imajo svojo osnovo: **essere** (**fossi**, **fosse**, **fossimo**, **foste**, **fossero**), **dare** (**dessi**, če bi dal), **stare** (**stessi**, če bi ostal). **Fare**, **dire**, **bere** pa vzamejo osnovo iz imperfetto: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Avere** je pravilen: **avessi**.",
+          "en": "A few have a stem of their own: **essere** (**fossi**, **fosse**, **fossimo**, **foste**, **fossero**), **dare** (**dessi**, if I gave), **stare** (**stessi**, if I stayed). And **fare**, **dire**, **bere** take the imperfetto's stem: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Avere** is regular: **avessi**."
+        },
+        "examples": [
+          { "it": "Se facesse bel tempo, andremmo a Grado.", "de": "Wenn schönes Wetter wäre, würden wir nach Grado fahren.", "sl": "Če bi bilo lepo vreme, bi šli v Gradež.", "en": "If the weather were fine, we'd go to Grado." },
+          { "it": "Se Tommaso stesse zitto un minuto, Moro dormirebbe.", "de": "Wenn Tommaso eine Minute still wäre, würde Moro schlafen.", "sl": "Če bi bil Tommaso eno minuto tiho, bi Moro spal.", "en": "If Tommaso kept quiet for a minute, Moro would sleep." }
+        ],
+        "rows": [
+          ["essere", "fossi, fosse, fossimo, foste, fossero"],
+          ["dare, stare", "dessi, stessi, desse, stesse"],
+          ["fare, dire, bere", "facessi, dicessi, bevessi"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Se Tommaso ___ la verità, Marisa non sarebbe arrabbiata.", "options": ["dicesse", "direbbe", "dicessi"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Tommaso** (lui), nach se, Stamm von dicevo → **dicesse**\n- direbbe: nach se nie\n- dicessi · ich, du",
+            "sl": "**Tommaso** (lui), za se, osnova iz dicevo → **dicesse**\n- direbbe: za se nikoli\n- dicessi · jaz, ti",
+            "en": "**Tommaso** (lui), after se, the stem of dicevo → **dicesse**\n- direbbe: never after se\n- dicessi · I, you"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "In die andere Hälfte kommt das **condizionale**: **verrei**, **potrei**, **sapremmo**. Die **se**-Hälfte darf auch hinten stehen: **Verrei, se potessi.** Nach **se** nie das condizionale, auch wenn Deutsch zweimal *würde* sagen kann: **se potessi** (nie *se potrei*), **se fossi** (nie *se sarei*).",
+          "sl": "V drugo polovico pride **condizionale**: **verrei**, **potrei**, **sapremmo**. Polovica s **se** je lahko tudi zadaj: **Verrei, se potessi.** Za **se** nikoli condizionale, čeprav ima slovenščina obakrat *bi*: **se potessi** (nikoli *se potrei*), **se fossi** (nikoli *se sarei*).",
+          "en": "The **condizionale** goes in the other half: **verrei**, **potrei**, **sapremmo**. The **se** half can come last too: **Verrei, se potessi.** Never the condizionale after **se**, even though English says *would* so easily: **se potessi** (never *se potrei*), **se fossi** (never *se sarei*)."
+        },
+        "examples": [
+          { "it": "Verrei anch'io, se avessi una bicicletta.", "de": "Ich würde auch kommen, wenn ich ein Fahrrad hätte.", "sl": "Tudi jaz bi {m:prišel|f:prišla}, če bi {m:imel|f:imela} kolo.", "en": "I'd come too, if I had a bicycle." },
+          { "it": "Il fieno sarebbe già in casa, se Franco avesse un trattore.", "de": "Das Heu wäre schon im Haus, wenn Franco einen Traktor hätte.", "sl": "Seno bi bilo že pod streho, če bi Franco imel traktor.", "en": "The hay would be in by now, if Franco had a tractor." }
+        ],
+        "rows": [
+          [{ "it": "l'altra metà", "de": "die andere Hälfte", "sl": "druga polovica", "en": "the other half" }, "verrei, potrei, sapremmo, sarebbe"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Verremmo anche noi, se ___ tempo.", "options": ["avessimo", "avremmo", "avrebbero"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**verremmo** ist das condizionale, also nach **se** → **avessimo**\n- avremmo: nach se nie\n- avrebbero: nach se nie, und sie, mehrere",
+            "sl": "**verremmo** je condizionale, torej za **se** → **avessimo**\n- avremmo: za se nikoli\n- avrebbero: za se nikoli, in oni",
+            "en": "**verremmo** is the condizionale, so after **se** → **avessimo**\n- avremmo: never after se\n- avrebbero: never after se, and it's they"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Se vinco, ti compro un gelato** (wenn ich gewinne, kaufe ich dir ein Eis) kann wirklich passieren; an **se vincessi, comprerei una barca** (wenn ich gewinnen würde, würde ich ein Boot kaufen) glaubst du selbst kaum. Beides ist richtig: Oft entscheidest du selbst, und die Form sagt, wie du es siehst.",
+          "sl": "**Se vinco, ti compro un gelato** (če zmagam, ti kupim sladoled) se res lahko zgodi; v **se vincessi, comprerei una barca** (če bi zmagal, bi kupil čoln) sam komaj verjameš. Oboje je prav: pogosto sam odločiš, oblika pa pove, kako to vidiš.",
+          "en": "**Se vinco, ti compro un gelato** (if I win, I'll buy you an ice cream) can really happen; **se vincessi, comprerei una barca** (if I won, I'd buy a boat) you hardly believe yourself. Both are right: it's often up to you, and the form says how you see it."
+        },
+        "examples": [
+          { "it": "Se domani piove, resto a casa.", "de": "Wenn es morgen regnet, bleibe ich zu Hause.", "sl": "Če bo jutri deževalo, bom {m:ostal|f:ostala} doma.", "en": "If it rains tomorrow, I'll stay at home." },
+          { "it": "Se domani piovesse, Matteo perderebbe tutta l'uva.", "de": "Wenn es morgen regnen sollte, würde Matteo alle Trauben verlieren.", "sl": "Če bi jutri deževalo, bi Matteo izgubil vse grozdje.", "en": "If it were to rain tomorrow, Matteo would lose all his grapes." }
+        ],
+        "rows": [
+          [{ "it": "può succedere", "de": "kann passieren", "sl": "se lahko zgodi", "en": "it can happen" }, "se vinco, ti compro un gelato"],
+          [{ "it": "lo immagino", "de": "nur vorgestellt", "sl": "si predstavljam", "en": "I only imagine it" }, "se vincessi, comprerei una barca"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": { "de": "Franco glaubt nicht, dass er bei der Lotterie gewinnt. Was sagt er?", "sl": "Franco ne verjame, da bo na loteriji zadel. Kaj reče?", "en": "Franco doesn't think he'll win the lottery. What does he say?" }, "options": ["Se vincessi, cambierei il tetto del mulino.", "Se vinco, cambio il tetto del mulino.", "Se vincerei, cambierei il tetto del mulino."], "answer": 0, "almost": [1], "say_options": true,
+          "explain": {
+            "de": "**Er glaubt nicht daran** → **se vincessi … cambierei**\n- se vinco: richtiges Italienisch, aber so kann es wirklich passieren\n- se vincerei: nach se nie",
+            "sl": "**Ne verjame** → **se vincessi … cambierei**\n- se vinco: prava italijanščina, a tako se res lahko zgodi\n- se vincerei: za se nikoli",
+            "en": "**He doesn't believe it** → **se vincessi … cambierei**\n- se vinco: right Italian, but that says it can really happen\n- se vincerei: never after se"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zwei feste Wendungen: Einen Rat gibst du mit **se fossi in te** (wenn ich du wäre, an deiner Stelle). Höflich bittest du mit **se potesse** (wenn Sie könnten) und **Le sarei grato** (ich wäre Ihnen dankbar): So steht es in einem Brief an den Bürgermeister. Eine Frau schreibt **grata**, mehrere schreiben **Le saremmo grati**.",
+          "sl": "Dve stalni besedni zvezi: nasvet daš s **se fossi in te** (če bi bil na tvojem mestu). Vljudno prosiš s **se potesse** (če bi lahko, vikanje) in **Le sarei grato** (hvaležen bi vam bil): tako piše v pismu županu. Ženska napiše **grata**, več oseb **Le saremmo grati**.",
+          "en": "Two fixed phrases: give advice with **se fossi in te** (if I were you). Ask politely with **se potesse** (if you could, to someone you call Lei) and **Le sarei grato** (I'd be grateful to you): that's how a letter to the mayor goes. A woman writes **grata**, several people **Le saremmo grati**."
+        },
+        "examples": [
+          { "it": "Se fossi in te, chiederei scusa a Nonna Rosa.", "de": "An deiner Stelle würde ich mich bei Nonna Rosa entschuldigen.", "sl": "Na tvojem mestu bi se {m:opravičil|f:opravičila} babici Rosi.", "en": "If I were you, I'd say sorry to Nonna Rosa." },
+          { "it": "Signor sindaco, se potesse aiutarci, Le saremmo molto grati.", "de": "Herr Bürgermeister, wenn Sie uns helfen könnten, wären wir Ihnen sehr dankbar.", "sl": "Gospod župan, če bi nam lahko pomagali, bi vam bili zelo hvaležni.", "en": "Mayor, if you could help us, we'd be very grateful to you." }
+        ],
+        "rows": [
+          [{ "it": "un consiglio", "de": "ein Rat", "sl": "nasvet", "en": "advice" }, "se fossi in te, chiederei scusa"],
+          [{ "it": "una lettera", "de": "ein Brief", "sl": "pismo", "en": "a letter" }, "se potesse aiutarci, Le saremmo grati"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "periodo-ipotetico", "text": "Se ___ in te, non mangerei tutta la torta. (essere)", "accept": ["fossi"],
+          "hint": { "de": "wenn ich …", "sl": "če bi jaz …", "en": "if I …" },
+          "explain": {
+            "de": "**ein Rat** → **se fossi in te** (an deiner Stelle)\n- sarei: nach se nie\n- fosse · er, sie",
+            "sl": "**nasvet** → **se fossi in te** (na tvojem mestu)\n- sarei: za se nikoli\n- fosse · on, ona",
+            "en": "**advice** → **se fossi in te** (if I were you)\n- sarei: never after se\n- fosse · he, she"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "de": "Was wäre, wenn es anders wäre: **se** + **-ssi, -sse, -ssimo, -ste, -ssero**, in der anderen Hälfte das **condizionale**: **Se potessi, verrei.** Der Vokal kommt von der Grundform: **parlassi, potessi, venissi**. Eigene Stämme: **fossi, dessi, stessi, facessi, dicessi, bevessi**. Die se-Hälfte darf vorn oder hinten stehen. Nach se nie das condizionale.",
+      "sl": "Kaj bi bilo, če bi bilo drugače: **se** + **-ssi, -sse, -ssimo, -ste, -ssero**, v drugi polovici **condizionale**: **Se potessi, verrei.** Samoglasnik je iz nedoločnika: **parlassi, potessi, venissi**. Svoje osnove: **fossi, dessi, stessi, facessi, dicessi, bevessi**. Polovica s se je lahko spredaj ali zadaj. Za se nikoli condizionale.",
+      "en": "What would be if things were different: **se** + **-ssi, -sse, -ssimo, -ste, -ssero**, the **condizionale** in the other half: **Se potessi, verrei.** The vowel comes from the infinitive: **parlassi, potessi, venissi**. Stems of their own: **fossi, dessi, stessi, facessi, dicessi, bevessi**. The se half can come first or last. Never the condizionale after se."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "se-potessi-1",
+      "title": { "it": "Le forme dopo se", "de": "Die Formen nach se", "sl": "Oblike za se", "en": "The forms after se" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "periodo-ipotetico", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "columns": ["parlare", "venire"],
+          "rows": [
+            { "label": "se io", "cells": ["parlassi", { "accept": ["venissi"] }] },
+            { "label": "se tu", "cells": [{ "accept": ["parlassi"] }, "venissi"] },
+            { "label": "se lui, lei", "cells": [{ "accept": ["parlasse"] }, { "accept": ["venisse"] }] },
+            { "label": "se noi", "cells": [{ "accept": ["parlassimo"] }, "venissimo"] },
+            { "label": "se voi", "cells": ["parlaste", { "accept": ["veniste"], "hint": { "de": "ein s, dann t", "sl": "en s, nato t", "en": "one s, then t" } }] },
+            { "label": "se loro", "cells": [{ "accept": ["parlassero"] }, { "accept": ["venissero"] }] }
+          ]
+        },
+        {
+          "type": "table", "grammar": "periodo-ipotetico", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "columns": ["essere", "fare"],
+          "rows": [
+            { "label": "se io", "cells": ["fossi", { "accept": ["facessi"], "hint": "facevo → ?" }] },
+            { "label": "se lui, lei", "cells": [{ "accept": ["fosse"] }, "facesse"] },
+            { "label": "se noi", "cells": [{ "accept": ["fossimo"] }, { "accept": ["facessimo"] }] },
+            { "label": "se voi", "cells": [{ "accept": ["foste"] }, "faceste"] },
+            { "label": "se loro", "cells": ["fossero", { "accept": ["facessero"] }] }
+          ]
+        },
+        {
+          "type": "sort", "grammar": "periodo-ipotetico", "instruction": { "de": "Dopo se o nell'altra metà? · Nach se oder in der anderen Hälfte?", "sl": "Dopo se o nell'altra metà? · Za se ali v drugi polovici?", "en": "Dopo se o nell'altra metà? · After se or in the other half?" },
+          "columns": [
+            { "label": { "de": "se … · nach se", "sl": "se … · za se", "en": "se … · after se" }, "words": ["potessi", "fossimo", "dicesse"] },
+            { "label": { "de": "… · in der anderen Hälfte", "sl": "… · v drugi polovici", "en": "… · in the other half" }, "words": ["verrei", "saremmo", "direbbe"] }
+          ],
+          "explain": {
+            "de": "**Nach se: -ssi, -sse, -ssimo, -ste, -ssero** · in der anderen Hälfte das **condizionale**\n- Se potessi, verrei.\n- Se fossimo qui, saremmo contenti.",
+            "sl": "**Za se: -ssi, -sse, -ssimo, -ste, -ssero** · v drugi polovici **condizionale**\n- Se potessi, verrei.\n- Se fossimo qui, saremmo contenti.",
+            "en": "**After se: -ssi, -sse, -ssimo, -ste, -ssero** · the **condizionale** in the other half\n- Se potessi, verrei.\n- Se fossimo qui, saremmo contenti."
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se voi ___ più attenti, non perdereste sempre le chiavi.", "options": ["foste", "fosse", "sareste"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**voi**, nach se → **foste**\n- fosse · er, sie\n- sareste: nach se nie",
+            "sl": "**voi**, za se → **foste**\n- fosse · on, ona\n- sareste: za se nikoli",
+            "en": "**voi**, after se → **foste**\n- fosse · he, she\n- sareste: never after se"
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se Aldo mi ___ un vasetto di miele, sarei contenta.", "options": ["desse", "darebbe", "dessi"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Aldo** (lui), dare hat einen eigenen Stamm → **desse**\n- darebbe: nach se nie\n- dessi · ich, du",
+            "sl": "**Aldo** (lui), dare ima svojo osnovo → **desse**\n- darebbe: za se nikoli\n- dessi · jaz, ti",
+            "en": "**Aldo** (lui), dare has a stem of its own → **desse**\n- darebbe: never after se\n- dessi · I, you"
+          }
+        }
+      ]
+    },
+    {
+      "id": "se-potessi-2",
+      "title": { "it": "Se fossi sindaco", "de": "Wenn ich Bürgermeister wäre", "sl": "Če bi bil župan", "en": "If I were mayor" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "periodo-ipotetico", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "Se fossi sindaco",
+          "text": "Una sera all'osteria giocano a «Se fossi sindaco». Marisa dice: «Se io ___ (essere) sindaco, farei una sagra ogni mese.» Franco dice: «Se il mulino ___ (avere) un tetto nuovo, lavorerei meglio.» Bruno ride: «Se voi ___ (parlare) di meno, io ___ (dormire) di più!» Aldo dice piano: «Se tutti ___ (stare) zitti, le api sarebbero contente.» E Nonno Bepi? «Se ___ (potere), racconterei una storia.»",
+          "gaps": [
+            { "accept": ["fossi"] },
+            { "accept": ["avesse"], "hint": { "de": "il mulino: lui", "sl": "il mulino: lui", "en": "il mulino: lui" } },
+            { "accept": ["parlaste"], "hint": { "de": "voi", "sl": "voi", "en": "voi" } },
+            { "accept": ["dormirei"], "hint": { "de": "die andere Hälfte", "sl": "druga polovica", "en": "the other half" } },
+            { "accept": ["stessero"], "explain": { "de": "**tutti** (loro), stare hat einen eigenen Stamm → **stessero**", "sl": "**tutti** (loro), stare ima svojo osnovo → **stessero**", "en": "**tutti** (loro), stare has a stem of its own → **stessero**" } },
+            { "accept": ["potessi"] }
+          ],
+          "bank": true,
+          "distractors": ["sarei", "potrei", "dormissi"],
+          "translation": {
+            "de": "Eines Abends spielen sie in der Osteria „Wenn ich Bürgermeister wäre“. Marisa sagt: „Wenn ich Bürgermeisterin wäre, würde ich jeden Monat eine Sagra machen.“ Franco sagt: „Wenn die Mühle ein neues Dach hätte, würde ich besser arbeiten.“ Bruno lacht: „Wenn ihr weniger reden würdet, würde ich mehr schlafen!“ Aldo sagt leise: „Wenn alle still wären, wären die Bienen zufrieden.“ Und Nonno Bepi? „Wenn ich könnte, würde ich eine Geschichte erzählen.“",
+            "sl": "Nekega večera se v gostilni igrajo »Če bi bil župan«. Marisa reče: »Če bi bila županja, bi vsak mesec priredila šagro.« Franco reče: »Če bi imel mlin novo streho, bi bolje delal.« Bruno se smeje: »Če bi manj govorili, bi jaz več spal!« Aldo reče tiho: »Če bi bili vsi tiho, bi bile čebele zadovoljne.« In dedek Bepi? »Če bi mogel, bi povedal zgodbo.«",
+            "en": "One evening at the osteria they play \"If I were mayor\". Marisa says: \"If I were mayor, I'd have a sagra every month.\" Franco says: \"If the mill had a new roof, I'd work better.\" Bruno laughs: \"If you talked less, I'd sleep more!\" Aldo says softly: \"If everyone kept quiet, the bees would be happy.\" And Nonno Bepi? \"If I could, I'd tell a story.\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Matteo berrebbe un altro bicchiere, se non ___ guidare.", "options": ["dovesse", "dovrebbe", "dovrei"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**se** + **Matteo** (lui) → **dovesse**; die se-Hälfte steht hier hinten\n- dovrebbe: nach se nie\n- dovrei: nach se nie, und ich",
+            "sl": "**se** + **Matteo** (lui) → **dovesse**; polovica s se je tu zadaj\n- dovrebbe: za se nikoli\n- dovrei: za se nikoli, in jaz",
+            "en": "**se** + **Matteo** (lui) → **dovesse**; the se half comes last here\n- dovrebbe: never after se\n- dovrei: never after se, and it's I"
+          }
+        }
+      ]
+    },
+    {
+      "id": "se-potessi-3",
+      "title": { "it": "Se solo fosse così", "de": "Wenn es nur so wäre", "sl": "Ko bi le bilo tako", "en": "If only it were so" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "periodo-ipotetico", "instruction": { "de": "Non è vero, lo immagini · Es ist nicht so, du stellst es dir nur vor", "sl": "Non è vero, lo immagini · Ni res, samo predstavljaš si", "en": "Non è vero, lo immagini · It isn't so, you only imagine it" },
+          "whole": true,
+          "items": [
+            { "from": "Se posso, vengo.", "accept": ["Se potessi, verrei.", "Verrei, se potessi."], "hint": "se … + condizionale" },
+            { "from": "Se Giulia ha tempo, ti aiuta.", "accept": ["Se Giulia avesse tempo, ti aiuterebbe.", "Giulia ti aiuterebbe, se avesse tempo.", "Ti aiuterebbe, se Giulia avesse tempo.", "Se avesse tempo, Giulia ti aiuterebbe."] },
+            { "from": "Se fa bello, andiamo a Grado.", "accept": ["Se facesse bello, andremmo a Grado.", "Andremmo a Grado, se facesse bello."], "hint": "facevo → ?" },
+            { "from": "Se i bambini sono stanchi, dormono.", "accept": ["Se i bambini fossero stanchi, dormirebbero.", "I bambini dormirebbero, se fossero stanchi.", "Dormirebbero, se i bambini fossero stanchi.", "Se fossero stanchi, i bambini dormirebbero."] },
+            { "from": "Se sapete la strada, arrivate prima.", "accept": ["Se sapeste la strada, arrivereste prima.", "Arrivereste prima, se sapeste la strada."], "hint": { "de": "voi, ein s", "sl": "voi, en s", "en": "voi, one s" } },
+            { "from": "Bruno ti aiuta, se glielo dici.", "accept": ["Bruno ti aiuterebbe, se glielo dicessi.", "Se glielo dicessi, Bruno ti aiuterebbe.", "Se glielo dicessi, ti aiuterebbe."] },
+            { "from": "Se mi dai il libro, lo leggo.", "accept": ["Se mi dessi il libro, lo leggerei.", "Lo leggerei, se mi dessi il libro."] }
+          ],
+          "explain": {
+            "de": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, in der anderen Hälfte das condizionale**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se mi dai → se mi dessi",
+            "sl": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, v drugi polovici condizionale**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se mi dai → se mi dessi",
+            "en": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, the condizionale in the other half**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se mi dai → se mi dessi"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "periodo-ipotetico", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Il sindaco chiede che cosa manca al paese. Marisa dice: «Se ci ___ (essere) più turisti, aprirei anche a pranzo.» Franco dice: «Se io ___ (avere) un trattore nuovo, lavorerei il doppio.» Davide dice: «Se voi ___ (vedere) i pascoli del Sabotino, capireste.» Aldo dice piano: «Se tutti ___ (parlare) più piano, le api ___ (dare) più miele.»",
+        "gaps": [
+          { "accept": ["fossero"] },
+          { "accept": ["avessi"] },
+          { "accept": ["vedeste"] },
+          { "accept": ["parlassero"] },
+          { "accept": ["darebbero"] }
+        ],
+        "translation": {
+          "de": "Der Bürgermeister fragt, was dem Dorf fehlt. Marisa sagt: „Wenn mehr Touristen da wären, würde ich auch mittags aufmachen.“ Franco sagt: „Wenn ich einen neuen Traktor hätte, würde ich doppelt so viel arbeiten.“ Davide sagt: „Wenn ihr die Weiden am Sabotino sehen würdet, würdet ihr es verstehen.“ Aldo sagt leise: „Wenn alle leiser reden würden, würden die Bienen mehr Honig geben.“",
+          "sl": "Župan vpraša, kaj vasi manjka. Marisa reče: »Če bi bilo več turistov, bi odprla tudi za kosilo.« Franco reče: »Če bi imel nov traktor, bi delal dvakrat več.« Davide reče: »Če bi videli pašnike na Sabotinu, bi razumeli.« Aldo reče tiho: »Če bi vsi tiše govorili, bi čebele dale več medu.«",
+          "en": "The mayor asks what the village lacks. Marisa says: \"If there were more tourists, I'd open at lunchtime too.\" Franco says: \"If I had a new tractor, I'd work twice as much.\" Davide says: \"If you saw the pastures on the Sabotino, you'd understand.\" Aldo says softly: \"If everyone spoke more quietly, the bees would give more honey.\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "periodo-ipotetico", "instruction": { "de": "Non è vero, lo immagini · Es ist nicht so, du stellst es dir nur vor", "sl": "Non è vero, lo immagini · Ni res, samo predstavljaš si", "en": "Non è vero, lo immagini · It isn't so, you only imagine it" },
+        "whole": true,
+        "items": [
+          { "from": "Se Tommaso corre, arriva primo.", "accept": ["Se Tommaso corresse, arriverebbe primo.", "Tommaso arriverebbe primo, se corresse.", "Arriverebbe primo, se Tommaso corresse.", "Se corresse, Tommaso arriverebbe primo."] },
+          { "from": "Se bevete il latte, dormite meglio.", "accept": ["Se beveste il latte, dormireste meglio.", "Dormireste meglio, se beveste il latte."] },
+          { "from": "Vado al mare, se Nonna Rosa viene con me.", "accept": ["Andrei al mare, se Nonna Rosa venisse con me.", "Se Nonna Rosa venisse con me, andrei al mare."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Se fossi in te, ___ a Nonna Rosa.", "options": ["telefonerei", "telefonassi", "telefonerò"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**die andere Hälfte** → das condizionale: **telefonerei**\n- telefonassi: das gehört nach se\n- telefonerò · ich werde anrufen",
+          "sl": "**druga polovica** → condizionale: **telefonerei**\n- telefonassi: to gre za se\n- telefonerò · bom poklical",
+          "en": "**the other half** → the condizionale: **telefonerei**\n- telefonassi: that belongs after se\n- telefonerò · I'll phone"
+        }
+      },
+      {
+        "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Anche se Lorenzo ___, non arriverebbe in tempo.", "options": ["corresse", "correrebbe", "corressi"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**anche se** (auch wenn) ist wie se → **corresse**\n- correrebbe: nach se nie\n- corressi · ich, du",
+          "sl": "**anche se** (tudi če) je kot se → **corresse**\n- correrebbe: za se nikoli\n- corressi · jaz, ti",
+          "en": "**anche se** (even if) works like se → **corresse**\n- correrebbe: never after se\n- corressi · I, you"
+        }
+      },
+      {
+        "type": "sort", "grammar": "periodo-ipotetico", "instruction": { "de": "Dopo se o nell'altra metà? · Nach se oder in der anderen Hälfte?", "sl": "Dopo se o nell'altra metà? · Za se ali v drugi polovici?", "en": "Dopo se o nell'altra metà? · After se or in the other half?" },
+        "columns": [
+          { "label": { "de": "se … · nach se", "sl": "se … · za se", "en": "se … · after se" }, "words": ["sapessimo", "bevessi"] },
+          { "label": { "de": "… · in der anderen Hälfte", "sl": "… · v drugi polovici", "en": "… · in the other half" }, "words": ["sapremmo", "berrei"] }
+        ],
+        "explain": {
+          "de": "**Nach se: -ssi, -sse, -ssimo, -ste, -ssero** · in der anderen Hälfte das **condizionale**\n- Se sapessimo, verremmo.\n- Se tu chiedessi, sapremmo.",
+          "sl": "**Za se: -ssi, -sse, -ssimo, -ste, -ssero** · v drugi polovici **condizionale**\n- Se sapessimo, verremmo.\n- Se tu chiedessi, sapremmo.",
+          "en": "**After se: -ssi, -sse, -ssimo, -ste, -ssero** · the **condizionale** in the other half\n- Se sapessimo, verremmo.\n- Se tu chiedessi, sapremmo."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Se vincessi against se vinco, se fossi in te, Le saremmo grati, «Se fossi sindaco» as a game, the German hätte and würde for a child"
+}
