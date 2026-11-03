@@ -224,5 +224,8 @@ and at `level:A1` the B1 one isn't: the happening's own dialog plays. Screenshot
 ## What's left
 
 - The other 128 scenes' B1/B2 variants: the eight content writers, by this guide.
+- The Italian, German and English model lines against their dictionaries (`lexicon-build --coverage`): the checkout has
+  only Slovene's, so their words' supplement entries are left to a run where the dictionaries are.
+- The native check above, and the voice build (12,200 characters) when Jan spends the credits.
 - An older app's learner at B1+ (on 0.2.698) never gets the levelled variants, and `allHeard` counts them as theirs, so
   the tutor isn't asked about a happening whose levelled variants that app never plays. It ends with the app's update.
