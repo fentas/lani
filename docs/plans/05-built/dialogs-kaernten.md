@@ -300,8 +300,19 @@ Deutscherin, angeknabbernd, des Names) and what was left before.
   (DialogReactionsTest: 39 reactions shortened or reworded); no line says "schau" about what the picture can't show
   (SceneCoherenceTest: 27 lines said otherwise); a wrong choice's translation never reads like the right one's to a man or
   a woman (the smoke).
-- Android, through lani-slot.sh: ANDROID_RESULT
-- Emulator: QA_RESULT
+- Android, through lani-slot.sh: the scene tests (`si.lanisce.lani.game.scene.*`, 36 classes with DialogLevelsTest,
+  DialogReactionsTest, WhoAnswersTest, VariantsContentTest, ScenesContentTest, CultureScenesTest, SceneCoherenceTest) and
+  IntroductionContentTest: 273 tests, none failed. The whole suite comes with the integration (followups-15.md).
+- `python3 -m unittest discover -s tests`: 253 OK; `-s companion/tests`: 164 OK (11 skipped).
+- Emulator, through qa-slot: `LANI_DEV_DATA=$(bun test/fixtures/make-learner.ts <dir> --target de --base en)
+  LANI_CULTURE=kaernten LANI_QA_PAIR=sl-en companion/bin/qa-slot --steps kaernten-levels` (a new named-only step in
+  bin/qa beside the model's `dialog-levels`): an older app's `?arts=6` gets none of the field's and the square's levelled
+  variants; at `level:B2` Franz's `pferd-b2-kufenstechen` and Kathi's `gasthaus-b2-bewertung` open with their first lines,
+  at `level:B1` `pferd-b1-aepfel` and `gasthaus-b1-speisekarte`; at `level:A1` the square's B1 variant isn't in the scene
+  and Kathi's own dialog plays ("Setz dich, ich komme gleich"), the B1 line nowhere. Setup, the step and the crash check
+  ok. Screenshots: `levels-kaernten-{feld-b2,feld-b1,platz-b2,platz-b1,platz-a1}.png` in the scratchpad's
+  ux-dialogs-kaernten/ and companion/qa-shots/20261103-214250-slot2. Without LANI_QA_PAIR=sl-en QA's setup doesn't find
+  Home on a German learner's phone (its labels are de · en).
 
 ## What's left
 
