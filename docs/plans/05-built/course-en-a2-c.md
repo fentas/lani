@@ -10,13 +10,14 @@ Machine-written, not reviewed by a native speaker. British English first, then e
 
 **British English**
 - going-to: "walk to the tarn"; "clean the barn"; "a table for eight"; "Mr Dixon is seeing the doctor on Friday"; "It's in the
-  diary" (said, in the bases); "No, I amn't." offered as a wrong choice; "She's going to sell her van" and "Those sheep are going
+  diary" (said, in the bases); "No, I not." offered as a wrong choice; "She's going to sell her van" and "Those sheep are going
   to get out!" as the sort's plan and what you can see; gonna as a spoken form, right when typed; "I visit Granny tomorrow" as
   wrong (the plain present; a timetable's "The bus leaves at nine" is left out of the unit on purpose); "Jack's gonna sell …".
-- will: "Shall I …?" as British, "Should I …?" accepted as American, and Can, Could, May accepted in the same gaps; "Meg won't
+- will: "Shall I …?" as British, "Should I …?" accepted as American, "Will I …?" named in the step and right (spoken) as Scotland's and
+  Ireland's, and Can, Could, May accepted in the same gaps; "Meg won't
   bite"; "I'll get it" for the phone; "Yes, I'll." as wrong; "I'm going to" as the choice's `almost` where you decide now, "I'll"
   where it was decided before; "I don't think he'll come"; "the fells won't be dry for days"; "Is this seat free? — Yes. Shall I
-  move my bag?".
+  move my bag?" with "Am I" and "Do I" as its wrong options.
 - have-to: "have got to" as British talk; gotta as a spoken form; "You mustn't feed the horses"; "We mustn't be late" (not allowed,
   or a bad idea?); "You needn't pay" as British, accepted with "don't need to"; "You must close the gate" and "Walkers must stay on
   the path" as a notice's rules; "You can't park here" as not allowed; "wash up"; "ought to" accepted beside should; "may not"
@@ -24,7 +25,8 @@ Machine-written, not reviewed by a native speaker. British English first, then e
 - would-like: "I'd love to." as a reply; "Would you like a table by the fire?"; "Yes, I want." and "Do you like a scone?" as wrong
   choices; "I'd love some soup" accepted in the "I'd ___" gap; "May we have the bill" and "Will you pass me …" accepted; wanna as a
   spoken form, right when typed.
-- have-you-ever: "been to the Lakes"; "walked round the tarn"; "He's gone to Keswick" against "He's been to Keswick"; "Mr Tyson has
+- have-you-ever: "Have you never been to the Lakes?" taken in the gap beside ever; people say *I've saw*, *I haven't never been* (the step's and the page's wording);
+  "been to the Lakes"; "walked round the tarn"; "He's gone to Keswick" against "He's been to Keswick"; "Mr Tyson has
   never seen the sea"; "Has Mr Dixon ever mended a clock?"; American accepted: I just saw Jack, Did you feed the dogs yet?, Did you
   ever see a raven?, I never saw a raven., Mrs Hartley never went to Carlisle.
 - if-it-rains: "the beck rises"; "If hens are hungry, they make a noise."; zero forms accepted when joining (If it rains, I stay at
@@ -65,6 +67,13 @@ Machine-written, not reviewed by a native speaker. British English first, then e
 **The supplement** (lexicon/en.extra.json): going to, gonna, wanna, gotta, have to, have got to, don't have to, needn't, shouldn't,
 ought to, would like, I'd like, I'd love to, a moment ago, by six, diary, advice; free with both its senses ("brezplačen; prost
 (sedež)", "kostenlos; frei (ein Platz)", "gratis; libero (un posto)"), smoke's "kaditi; kaditi se (dimnik)".
+
+**What people say, over the whole level** (Jan's rule, 2026-11-03, through the lead; COURSE.md "What people say, over the whole of A2"). Please say which of these are really said, and where:
+- Now `nonstandard`, almost with the standard form shown: It were raining, Old Wilf were sitting, We was late; I seen it, I done it, I sung, I drunk, I begun, I swum, I rung; I've saw, He's went, She's took, I've ate, I've wrote and the rest of its list after have, has, had; I haven't never been; telled, knowed, growed, throwed, catched, drawed, blowed.
+- Right, labelled: Will I open the window? beside Shall I; gonna, wanna, gotta.
+- Right, no label: I amn't, since n't is not (the grading has always read it so).
+- **Left wrong, for you to say:** he have to, Jack have to (East Anglia's third person; offered as a wrong choice in have-to); come, give, run for came, gave, ran (I come home yesterday: the cue copied, and what the unit teaches); haven't to and hasn't to typed (the North, Ireland; no longer offered); I've seen it yesterday and We have been to Keswick last week as wrong; I was knowing the way (past-continuous); Where you went?, Because it rained, so we stayed; and b's more bigger, gooder, as for than, How much eggs?, tastes well.
+- **A1 still says never:** `to-be` (*I amn't*, its table's hint "never amn't") and `was-were` (*you was*, *Yes, I were*), and they are offered as wrong choices there. The rule was asked for parts a and c, so A1 is left as it is and its explanations keep their clips: a decision for the lead. Typed, you was and I were are now almost even in A1, since the table is the language's.
 
 ## What was built
 
@@ -124,34 +133,39 @@ As COURSE.md "Writing a unit" and "The English course", plus what these six foun
 - **A choice's `almost`** for what is right but off the point: "I'm going to" where the phone is ringing, "I'll" for what was decided before.
 - **'s + a participle** is has in the grading, listed once; a name's 's before -ing still lists its long form beside it.
 
+## The integration (part c's, 2026-11-03)
+
+- **Merged in this order, with merges:** `course-en-a2-a` (899fa0f7), `course-en-a2-b` (846b6704), main (1e0cdf04, then b476ebd6 with Friuli's parties). The outline by
+  `resolve-outline.py`, grading/en.json and lexicon/en.extra.json by `json3merge.py`; grading's own layout put back (a rule a line, so the diff is the rules), and `same` and `loose` read through:
+  part c's rules still stand before he's → he is, which `EnglishA2cContentTest` also holds. bin/qa merged without a conflict.
+- **The supplement:** 2,227 entries at the base, 2,333 now. json3merge keeps a base entry and each part's extended copy, so 22 lemmas two parts had touched were joined by lemma and part of speech (their forms united, a changed meaning kept); every lemma and form of a, b and c checked present. Where two parts wrote a meaning for one verb, the first stands: clean's "počistiti, čistiti", "sauber machen, putzen". Then what was still without an entry over all 18 units: nowhere, no-one, 'cause, syllable, singer, scene, tiredly, tiredness, someplace, anyplace, everyplace, and the wrong forms on the sheets as forms of their words. Left: thinner, hoter, hotest (hot and thin are pack words with no entry here).
+- **What people say over the level:** as COURSE.md says and the list above: b's rule applied to a and c, nonstandard's new rows, `EnglishA2cContentTest` holding all 18 units. What the sweep replaced: "No, I amn't.", were working, were sitting, were raining, Was you, telled, haven't to, hasn't to, Will I, haven't never, hasn't never, He's went.
+- **The tables:** b found on the emulator that a cell's field shows about nine letters in three columns, twelve in two, eighteen in one. Parts a's and c's had answers up to 20 letters in two and three columns: imperatives, did-you, past-continuous, going-to, have-to, would-like, if-it-rains now have one column or the frame in the row's label. superlatives' "the most useful dog" (19, one column) stays.
+- **Sizes:** the sheets 28 to 33 items, the tests 12 or 13: nothing above 35 to cut.
+- **"Once merged, also":** English A2's rows have none. B1's that point at A2's pages (verb-patterns, too-enough, if-i-had, might-must, although-however, narrative-tenses) stay for B1, as German did.
+- **The prints:** `school-prints --language en --level all --base de|sl|it`: all 36 units of A1 and A2 fit in each base, A2's booklet 31 pages (de, sl), 33 (it); "Unit 13/18" on going-to's: the numbers come right by themselves.
+- **COURSE.md, the README, grammar-spec.md:** A2's three sections and what people say; English 31 pages (18 A1, 13 A2) and their list; `nonstandard` in the README's two Grading passages. **A conflict to expect:** German A2 rewrites the same README and grammar-spec lines ("German 21 … and English 22"); whichever lands second keeps both counts.
+
 ## Read aloud
 
-Mrs Hartley reads the intros in the cast's teacher voice. A voice build of the six units would take about 8,200 ElevenLabs characters
-for her English lines (349 texts: examples, quick questions, answers, the English runs) and, on demand when an intro opens or with
-`voice-build --explanations`, about 12,400 (Slovene), 13,600 (German) and 13,100 (Italian) for the explanations. Nothing was voiced; no
-credits spent.
+Mrs Hartley reads the intros in the cast's teacher voice. A voice build of part c's six units would take about 8,200 ElevenLabs characters
+for her English lines (350 texts: examples, quick questions, answers, the English runs) and, on demand when an intro opens or with
+`voice-build --explanations`, about 12,500 (Slovene), 13,700 (German) and 13,200 (Italian) for the explanations. The whole of A2's 18 units,
+measured on the merged branch: about 23,100 (1,066 texts) and 33,500, 35,900, 35,800. Nothing was voiced; no credits spent.
 
-## Checks, before the integration
+## Checks, on the merged branch (f2a98349; main at b476ebd6)
 
-- `bunx tsc --noEmit -p .` clean; the smoke with ports 9950– (LANI_SMOKE_DRAMA3_PORT 9968): 3508 checks, all passed: course/en validates
-  with the six units and their pages; each step's point on the sheet's rule line in every base; the Lakeland school's course-speech;
-  the English sheet; the supplement's meanings. `tutor-export --check`: 89 files match.
-- Android, through lani-slot.sh, only the course's: `EnglishA2cContentTest` (7), `EnglishCourseContentTest` (6), `GradingLanguagesTest`
-  (48), `GradingTest` (18), `SpeechGradingTest` (13), `SheetsTest` (15), `GrammarTest` (16), `CourseTest` (8), `SchoolBoardTest` (7),
-  `IntroSpeechParityTest` (2), `PrintsTest` (6), `SentenceGrammarTest` (6), `ApostropheHintTest` (2): 154 tests, 0 failures.
-- Quick checks while writing (scripts in the scratchpad's en-a2-c/): the bridge's `validateUnit` in each base and `validateGrammar` for
-  every unit and page, lengths, each step's rule line with no bracket cut; a TypeScript port of `Grading.check` with grading/en.json
-  for every accept, every distractor against every gap, and the likely wrong answers.
-- Prints: `school-prints --language en --level A2 --base de|sl|it --units …`: every sheet fits (going-to, have-to, would-like and
-  have-you-ever on two pages; will and if-it-rains on one, two in Italian), every word of the six units meant in each base; the "Watch out" boxes read on
-  have-to and have-you-ever.
+- `bun build --no-bundle` on each of the merged TypeScript test files (6): all parse. `bunx tsc --noEmit -p .` clean. `tutor-export --check`: 89 files match. Python: `tests` 253 OK, `companion/tests` 158 OK (11 skipped).
+- The smoke with ports 9950– (LANI_SMOKE_DRAMA3_PORT 9968): 3,521 checks, all passed.
+- Android, the whole suite through lani-slot.sh: 3,838 tests, 0 failures, 0 errors. The first full run had one failure: part b's `GradingNonstandardTest` pinned the table at 14 rows, and it has 54 now; it now says only that English has one.
+- `EnglishA2aContentTest` 8, `EnglishA2bContentTest` 14, `EnglishA2cContentTest` 11, the last for the whole level: no choice or bank offers what people say, no text says never of it.
+- `lexicon-build --coverage --lang en`: the supplement 78.3 % → 78.6 % of words, with packs and names 98.0 % → 98.1 %, each base 97.3 % → 97.4 %. `bun test/prompt-clashes.ts`: no new clash, 339 in the baseline.
+- The prints, on the final content: `school-prints --language en --level A2 --base de|sl|it`: all 18 fit, the booklet 31, 31 and 33 pages; A1's 18 fit too, in the run just before the last small changes. The "Watch out" boxes (`--explain`) offer none of the forms replaced.
+- **Emulator** (`course-unit` through qa-slot, a 1080 × 2400 phone, Ana, a synthetic learner of English in the Lake District): `past-continuous` from German, `adverbs` from Slovene, `have-you-ever` from Italian, each whole: the school (A1 18/18, A2 16/18, the hook's), the unit, the intro with its quick questions, the summary, the sheets, the test passed, the print's preview and PDF; ✅ setup, ✅ course-unit, ✅ crash check each. They ran on 6f33c5f6: the one commit after them drops past-continuous's doubled prompt, which the run showed. Screenshots: the scratchpad's ux-course-en-a2-c/<unit>/. Read: past-continuous's table in its short cells, have-you-ever's school and step 3 with its new wrong options. **Not seen:** nonstandard's line on a screen (QA answers right; the verdict, the hint and the text are unit tests), and the `school-board` step, which comes with German A2.
+- Tap counts: no journey changed.
 
-## Not done yet
+## What's left
 
-- The integration of parts a and b, COURSE.md's section, the README and the docs' page counts, the whole Android suite, Python, the merge
-  of main and the emulator QA: part c does them when the lead says.
-- Parts a and b are assumed as the outline has them; a sentence of these units uses their grammar around a gap (the past simple,
-  didn't, because, so, then, comparatives aren't needed, someone, anyone).
-- **At the merge:** check that grading/en.json's `same` still has the new rules before `(it|that|…)'s → is` and its `loose` rule before
-  `(he|she|…)s → is` (json3merge appends a list's new items, and order matters; `EnglishA2cContentTest` fails if not). Lemmas whose
-  forms two parts extended become two entries of the list after json3merge: a pass that joins them by lemma and part of speech.
+- The native check at the top, and a decision on A1's `to-be` and `was-were`, which still say never.
+- The voice figures above.
+- B1's "once merged, also" rows that point at A2's pages, for B1's writers.
