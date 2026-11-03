@@ -3939,8 +3939,8 @@ others; the rest wait for the next. `card.py show` tells how the app asks one.
 
 "🔢 Števila · Numbers" (Jan: "Do we learn numbers in school at some point? Would be nice: a separate test module."): a
 practice module of the numbers themselves, beside the counting cards (which count a noun). Its rules are
-`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene, Italian and English so far; what follows
-is Slovene's, Italian's and English's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
+`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene, Italian, German and English; what follows
+is Slovene's, the others' differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
 screen, the run, the number pad: `NumeralEx.kt`), the rest `app/NumbersController.kt`.
 
 **Where it opens.** The intro of the A1 unit `stevila` opens it (finished, or skipped as known: as for counting cards),
@@ -4023,6 +4023,16 @@ quindici; il primo, l'otto, l'undici), so `numbers_ordinal_date` is a date's day
 for "alle cinque e mezza" and "alle sei e mezza" written for 5:30 are `numbers_clock_time_half`, German's "halb" counted
 into Italian. `NumbersItalianTest` holds its table; QA's step `practice-it`.
 
+**In German** (Austrian standard; docs/plans/05-built/practice-de.md) the unit `zahlen`'s intro opens it, `uhrzeit`'s brings the clock,
+`am-ersten-mai`'s (page `ordinalzahlen`) the dates. The words are one word, the ones first, as the page counts them
+(`SpokenNumbers.german`: einundzwanzig, hundertzwanzig, zweitausendsechsundzwanzig; einhundert, eintausend, hundertundeins, a year's
+neunzehnhundertneunundachtzig and zwo right too); the tens first, as English and Italian say them (zwanzigsieben, 72 typed for
+siebenundzwanzig), are `numbers_order`; eins, sechs and sieben kept whole (einsundzwanzig, sechszehn, siebenzig) are wrong, the
+learner's own words. A date's day is the ordinal after der ("Heute ist der ___ Mai. (15.)" → fünfzehnte; -te to 19, -ste from 20,
+erste, dritte, siebte, achte; einste, achtte, zwanzigte wrong), the month Jänner with Januar right too. A clock time is um + the
+hour (um eins, um ein Uhr, fünf Uhr dreißig, siebzehn Uhr dreißig); halb counts towards the next hour, so 6:30 typed for "um halb
+sechs" and "halb fünf" written for 5:30 are `numbers_clock_time_half`. `NumbersGermanTest` holds its table.
+
 **In English** (British; docs/plans/05-built/practice-en.md; `data/EnglishNumbers.kt`) the unit `numbers`'s intro opens it,
 `time`'s brings the dates and the clock (page `time-dates`). The tens come first with a hyphen (`SpokenNumbers.english`:
 twenty-seven, one hundred and five, two thousand and twenty-six), so 72 typed for twenty-seven and "seven twenty" are
@@ -4033,8 +4043,7 @@ fifteenth; the fifteenth of May, May the fifteenth right too), and a regular ord
 "nineth", "twelveth", "twentyth") is wrong, not a slip. A clock time is at + the hour (at five; five o'clock, at noon, at
 midday right too); half past counts from the hour that is there, so 4:30 typed for "at half past five" and "half six" or
 "half past six" written for 5:30 are `numbers_clock_time_half`, German's "halb" and Slovene's "pol" counted into English;
-"half five" (British speech) and "five thirty" are right. A language without a `NumberTongue` (German so far) has no tile
-and no module. `NumbersEnglishTest` holds its table; QA's step `practice-en`.
+"half five" (British speech) and "five thirty" are right. `NumbersEnglishTest` holds its table; QA's step `practice-en`.
 
 ### The case lens
 
@@ -4537,7 +4546,7 @@ prompts (about 60 MB).
 Every session id from before still plays (a car remembers the one it played last), and the first tab keeps its id.
 A session with nothing to play stays away (`RoadMix.available`): no menu item in the car, no button on the sheet, no switch
 to it while something plays. It used to be there and do nothing. That is every drill session in a language without drills
-(German so far) or without their clips (Italian and English until voice-build has voiced them). The sheet's "Več · More" names what
+or without their clips (Italian, German and English until voice-build has voiced them). The sheet's "Več · More" names what
 isn't there and why ("🔇 … posnetkov še ni"), and a getting-ready that found no clips at all says there are no recordings in
 this language.
 The sessions:
@@ -4720,11 +4729,16 @@ curated in `companion/drills/<language>/<id>.json`, one file a drill (Slovene: `
 validates and serves them (`GET /drills`); the app bundles its own copy (for a bridge from before, which answers 404);
 `voice-build` voices them (`drills A1`, `drills A2+`).
 
-Italian has its four too (`companion/drills/it/`: 251 transformations from A1 to the congiuntivo at B1, 80 sentences built, 58 riddles
-told by Nonno Bepi; 1,205 texts, 24,601 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md). English has
-its four (`companion/drills/en/`: 302 transformations from A1's plural to B2's should have and I wish, 80 sentences built, 53
-riddles told by Old Wilf; every text's meaning in sl, de and it, since an English cue would be the answer itself; 1,399 texts,
-37,286 characters, none voiced yet: docs/plans/05-built/practice-en.md). What follows
+Italian has its four too (`companion/drills/it/`, each to B2: 384 transformations, from A1's plural to B2's congiuntivo tenses,
+if-sentences, reported speech, venire + the participle and avendo finito; rapid fire's numbers, clock and dates at A1, then verb forms,
+linking words, centuries and years to B2; 96 sentences built; 82 riddles told by Nonno Bepi, B1's and B2's in their grammar; 1,749
+texts, about 40,600 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md and practice-it-b2.md), and German
+its four (`companion/drills/de/`: 300 transformations from the plural at A1 to reported speech at B2, 81 sentences built, 55 riddles
+told by Opa Sepp, every text in de, en, sl and it; 1,425 texts, 40,884 characters to voice, none voiced yet:
+docs/plans/05-built/practice-de.md), and English its four (`companion/drills/en/`: 302 transformations from A1's plural to B2's
+should have and I wish, 80 sentences built, 53 riddles told by Old Wilf; every text's meaning in sl, de and it, since an English
+cue would be the answer itself; rapid fire to B2's numbers as the news says them; 1,430 texts, 37,896 characters, none voiced yet: docs/plans/05-built/practice-en.md).
+What follows
 describes Slovene's; a language's drills are data, its generated numbers `numberWord` (all four languages), and a session
 without clips stays away from the menu.
 

@@ -7,8 +7,8 @@ import si.lanisce.lani.l10n.inBase
  * What "🔢 Števila · Numbers" ([NumbersPractice]) needs of a language: which unit's intro opens it, how its numbers, dates and
  * clock times are said and what else is right, what a learner gets wrong in them and why it is so. The module's ladder,
  * runs, schedule and screens are the same in every language. A new language is one of these plus its texts in the string
- * tables (numbers.it.*: each named whole here, as the string tables' test reads them); docs/plans/05-built/practice-it.md says
- * what German and English need. English's is [EnglishNumbers] (its own file).
+ * tables (numbers.it.*, numbers.de.*: each named whole here, as the string tables' test reads them); docs/plans/05-built/practice-it.md
+ * says what a language needs, practice-de.md what German's does. English's is [EnglishNumbers] (its own file).
  */
 abstract class NumberTongue(val lang: Lang) {
     /** The course unit whose intro opens the module, with its first two ranges. */
@@ -125,10 +125,11 @@ abstract class NumberTongue(val lang: Lang) {
 
         val SL: NumberTongue get() = SloveneNumbers
         val IT: NumberTongue get() = ItalianNumbers
+        val DE: NumberTongue get() = GermanNumbers
         val EN: NumberTongue get() = EnglishNumbers
 
         /** The languages the module speaks. */
-        val ALL: List<NumberTongue> get() = listOf(SloveneNumbers, ItalianNumbers, EnglishNumbers)
+        val ALL: List<NumberTongue> get() = listOf(SloveneNumbers, ItalianNumbers, GermanNumbers, EnglishNumbers)
     }
 }
 
@@ -331,5 +332,146 @@ private object ItalianNumbers : NumberTongue(Lang.IT) {
         NumberKind.DATE -> "A date's day: the plain number with il, only the first is primo (il quindici maggio, il primo maggio, l'otto maggio)"
         NumberKind.TIME -> "A clock time with alle (alle cinque, all'una)"
         NumberKind.TIME_HALF -> "Half past counts from the hour that is there (alle cinque e mezza = 5:30, German halb sechs)"
+    }
+}
+
+/**
+ * German's numbers ([SpokenNumbers.german], as the course's page zahlen counts them; Austrian standard): the ones first, joined
+ * by und, all one word (siebenundzwanzig, hundertzwanzig, zweitausendsechsundzwanzig), 1 is ein inside a number
+ * (einundzwanzig); a date's day the ordinal after der, -te up to 19 and -ste from 20 (der fünfzehnte Mai, der erste, dritte,
+ * siebte, achte), the month as Austria says it (Jänner, Januar right too); the clock um + the hour, halb towards the next hour
+ * (um halb sechs is 5:30, as Slovene's pol šestih: English's half past and Italian's e mezza count the other way). The course's
+ * unit zahlen opens it, uhrzeit brings the clock, am-ersten-mai the dates (its page ordinalzahlen). Machine-written, like the others.
+ */
+private object GermanNumbers : NumberTongue(Lang.DE) {
+    override val unit = "zahlen"
+    override val timeUnit = "uhrzeit"
+    override val dateUnit = "am-ersten-mai"
+    override val datePage = "ordinalzahlen"
+    override val timePage = "uhrzeit"
+    override val pages = listOf("zahlen", "uhrzeit", "ordinalzahlen")
+    override val tipKey = "numbers.de.tip"
+    override val timeWriteKey = "numbers.de.ask.timeWrite"
+    override val months = listOf("Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember")
+
+    /** The other names a month goes by: Germany's Januar, Austria's Feber. */
+    private fun monthsAlso(month: Int) = when (month) {
+        1 -> listOf("Januar")
+        2 -> listOf("Feber")
+        else -> emptyList()
+    }
+
+    override fun words(n: Int) = SpokenNumbers.german(n)
+    override fun also(n: Int) = SpokenNumbers.germanAlso(n)
+
+    /** The tens first, as English and Italian say them: "zwanzigsieben", "zwanzig und sieben" for 27. */
+    override fun swappedWords(n: Int): List<String> {
+        val low = n % 100
+        if (low < 21 || low % 10 == 0) return emptyList()
+        val head = (n - low).takeIf { it > 0 }?.let(::words).orEmpty()
+        val tens = words(low - low % 10)
+        val ones = words(low % 10)
+        return listOf("$head$tens$ones", "$head${tens}und$ones")
+    }
+
+    override fun dateDay(day: Int) = SpokenNumbers.germanOrdinal(day)
+    override fun dateFrame(day: Int, month: Int) = "Heute ist der ___ ${months[month - 1]}. ($day.)"
+    override fun dateSaid(day: Int, month: Int) = "Heute ist der ${dateDay(day)} ${months[month - 1]}."
+
+    override fun dateAccept(day: Int, month: Int): List<String> {
+        val days = listOf(dateDay(day)) + if (day == 7) listOf("siebente") else emptyList()
+        val names = listOf(months[month - 1]) + monthsAlso(month)
+        return days.flatMap { d -> listOf(d, "der $d") + names.flatMap { m -> listOf("$d $m", "der $d $m", "Heute ist der $d $m.") } }.distinct()
+    }
+
+    override fun dateShown(day: Int, month: Int) = "$day. ${months[month - 1]}"
+
+    /** A clock's hour as it is said: eins (um eins), but ein before Uhr (um ein Uhr). */
+    private fun hour(h: Int) = words(h)
+
+    private fun hourUhr(h: Int) = if (h == 1) "ein" else words(h)
+
+    override fun clockWords(t: Int): String {
+        val h = t / 100
+        return if (t % 100 == 30) "um halb ${hour(h % 12 + 1)}" else "um ${hour(h)}"
+    }
+
+    override fun clockAccept(t: Int): List<String> {
+        val h = t / 100
+        val heads = if (t % 100 == 30) {
+            val half = "halb ${hour(h % 12 + 1)}"
+            listOf(half, "${hourUhr(h)} Uhr dreißig") + (if (h < 12) listOf("${words(h + 12)} Uhr dreißig") else emptyList())
+        } else {
+            listOf(hour(h), "${hourUhr(h)} Uhr") + (if (h < 12) listOf("${words(h + 12)} Uhr") else emptyList())
+        }
+        val noon = if (t == 1200) listOf("zu Mittag", "Mittag", "um Mitternacht", "Mitternacht", "zu Mitternacht") else emptyList()
+        return listOf(clockWords(t)) + (heads.flatMap { listOf("um $it", it) } + noon).filter { it != clockWords(t) }
+    }
+
+    /** "halb sechs" read as half past six: 6:30 typed for 5:30. */
+    override fun halfHeard(h: Int) = h % 12 + 1
+
+    /** 5:30 written as English's half past five or Italian's cinque e mezza: "halb fünf". */
+    override fun halfWritten(t: Int) = (t / 100).let { h -> listOf("halb ${hour(h)}", "um halb ${hour(h)}") }
+
+    override fun numberWhy(n: Int): String {
+        val w = words(n)
+        val low = n % 100
+        val ones = low % 10
+        return when {
+            n <= 12 -> inBase("numbers.why.plain", "n" to n, "word" to w)
+            n < 20 -> inBase("numbers.de.why.teen", "n" to n, "word" to w)
+            n < 100 && ones == 0 -> inBase("numbers.de.why.tens", "n" to n, "word" to w)
+            n < 100 && ones == 1 -> inBase("numbers.de.why.ein", "n" to n, "word" to w, "tens" to words(low - ones))
+            n < 100 -> inBase("numbers.de.why.compound", "n" to n, "word" to w, "ones" to words(ones), "tens" to words(low - ones), "o" to ones, "t" to low - ones)
+            else -> inBase("numbers.de.why.big", "n" to n, "word" to w)
+        }
+    }
+
+    override fun orderWhy(n: Int, wrong: String): String {
+        val low = n % 100
+        val ones = low % 10
+        return inBase("numbers.de.why.order", "word" to words(n), "ones" to (if (ones == 1) "ein" else words(ones)), "tens" to words(low - ones), "o" to ones, "t" to low - ones, "wrong" to wrong)
+    }
+
+    override fun spacingWhy(word: String) = inBase("numbers.de.why.spacing", "word" to word)
+
+    override fun dateWhy(day: Int, month: Int) = inBase("numbers.de.why.date", "day" to day, "ordinal" to dateDay(day), "month" to months[month - 1])
+
+    override fun clockWhy(t: Int): String {
+        val time = NumbersPractice.clock(t)
+        return if (t % 100 == 30) inBase("numbers.de.why.half", "time" to time, "said" to clockWords(t), "next" to (t / 100 % 12 + 1))
+        else inBase("numbers.de.why.hour", "time" to time, "said" to clockWords(t))
+    }
+
+    override fun describe(kind: NumberKind) = when (kind) {
+        NumberKind.LISTENING -> "A German number heard and typed in figures wrong"
+        NumberKind.READING -> "A German number word read and typed in figures wrong"
+        NumberKind.SPELLING -> "A number's German word written wrong"
+        NumberKind.ORDER -> "The ones and the tens swapped: German says the ones first, joined by und, in one word (siebenundzwanzig = 7 + 20), English and Italian the tens first"
+        NumberKind.SPEAKING -> "A number said wrong in German"
+        NumberKind.DATE -> "A date's day as an ordinal after der: -te up to 19, -ste from 20 (der fünfzehnte Mai, der zwanzigste; erste, dritte, siebte, achte)"
+        NumberKind.TIME -> "A clock time with um (um fünf, um eins, um ein Uhr)"
+        NumberKind.TIME_HALF -> "Half past counts towards the next hour (um halb sechs = 5:30), not as English half past five or Italian le cinque e mezza"
+    }
+
+    /** Words of the learner's own making: eins kept in a longer number (einsundzwanzig), sechs and sieben kept whole (sechszehn, siebenzig). */
+    override fun ownWord(answer: String, shown: String): Boolean {
+        val a = key(answer)
+        val s = key(shown)
+        return ("einsund" in a && "einund" in s) || ("sechsz" in a && "sechz" in s) || ("siebenz" in a && "siebz" in s)
+    }
+
+    /** A day built by the rule where it doesn't hold (einste, dreite, achtte; zwanzigte, zehnste): wrong rather than almost. */
+    override fun dateSlip(day: Int, answer: String): Boolean {
+        val built = when (day) {
+            1 -> listOf("einste", "einte")
+            3 -> listOf("dreite", "dreiste")
+            7, 8 -> listOf(words(day) + "te").filter { it != dateDay(day) && it != "siebente" }
+            in 2..19 -> listOf(words(day) + "ste")
+            else -> listOf(words(day) + "te")
+        }
+        val a = key(answer)
+        return built.any { key(it) in a }
     }
 }

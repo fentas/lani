@@ -70,14 +70,14 @@ class NumbersItalianTest {
         course = CourseProgress(units = if (unit != null) mapOf(unit to UnitProgress(intro = 6, introDone = true)) else emptyMap()),
     )
 
-    @Test fun `the unit numeri opens it, Slovene's stevila doesn't, German has none yet`() {
+    @Test fun `the unit numeri opens it, Slovene's stevila doesn't, German's and English's units are theirs`() {
         assertTrue(NumbersPractice.open(state(), it))
         assertNull(NumbersPractice.lock(state(), it))
         assertFalse(NumbersPractice.open(state(null), it))
         assertFalse(NumbersPractice.open(state("sl/stevila"), it))
         assertEquals(NumbersPractice.Lock.INTRO, NumbersPractice.lock(state(null), it))
         assertFalse(NumbersPractice.open(state(), NumberTongue.SL))
-        assertNull(NumberTongue.of("de"))
+        assertNotNull(NumberTongue.of("de"))
         assertNotNull(NumberTongue.of("en"))
         assertNotNull(NumberTongue.of("sl"))
     }

@@ -43,7 +43,8 @@ object SpokenNumbers {
     fun forms(n: Int, lang: Lang): List<String> = when (lang) {
         Lang.SL -> sl(n)
         Lang.IT -> listOf(it(n)) + (if (n == 1) listOf("una", "un") else emptyList())
-        Lang.DE -> listOf(de(n)) + (if (n == 1) listOf("ein", "eine", "einen", "einem", "einer") else emptyList())
+        // 100 to 199 are hundert… as often as einhundert… (hundertzwanzig): a text may write either
+        Lang.DE -> listOf(de(n)) + (if (n == 1) listOf("ein", "eine", "einen", "einem", "einer") else emptyList()) + (if (n in 100..199) listOf(de(n).removePrefix("ein")) else emptyList())
         Lang.EN -> listOf(en(n))
     }
 
@@ -195,6 +196,65 @@ object SpokenNumbers {
             val head = (if (h == 1) "ein" else DE_ONES[h]) + "hundert"
             if (n % 100 == 0) head else head + (if (n % 100 == 1) "eins" else de(n % 100))
         }
+    }
+
+    /** The largest number [german] writes out. */
+    const val DE_MAX = 999_999
+
+    /**
+     * [n] (0 … [DE_MAX]) in German words as the course's page zahlen counts it, all one word, the ones first: 21
+     * einundzwanzig, 100 hundert, 120 hundertzwanzig, 101 hunderteins, 1000 tausend, 1100 tausendeinhundert, 2026
+     * zweitausendsechsundzwanzig. A number that begins with a hundred or a thousand says it without ein; inside, einhundert.
+     * The numbers module's words ([NumberTongue] of German); [germanAlso] has the other ways.
+     */
+    fun german(n: Int): String {
+        require(n in 0..DE_MAX) { "$n is outside 0 … $DE_MAX" }
+        return germanForms(n).first()
+    }
+
+    /**
+     * The other German words a bare [n] is right as, never another number's: einhundert and eintausend beside hundert and
+     * tausend, und after them (hundertundeins, tausendundeins), a year's hundreds (1100 to 1999: neunzehnhundertneunundachtzig),
+     * zwo for zwei (said on the phone).
+     */
+    fun germanAlso(n: Int): List<String> {
+        require(n in 0..DE_MAX) { "$n is outside 0 … $DE_MAX" }
+        val year = if (n in 1100..1999) {
+            val low = n % 100
+            val head = de(n / 100) + "hundert"
+            if (low == 0) listOf(head) else (if (low == 1) "eins" else de(low)).let { listOf(head + it, head + "und" + it) }
+        } else emptyList()
+        return (germanForms(n).drop(1) + year + (if (n == 2) listOf("zwo") else emptyList())).distinct()
+    }
+
+    /** Every way of writing [n] (below 1000 when [start] is false: inside a larger number), the course's first. */
+    private fun germanForms(n: Int, start: Boolean = true): List<String> {
+        if (n < 100) return listOf(de(n))
+        if (n < 1000) {
+            val h = n / 100
+            val low = n % 100
+            val heads = if (h == 1) (if (start) listOf("hundert", "einhundert") else listOf("einhundert", "hundert")) else listOf(DE_ONES[h] + "hundert")
+            if (low == 0) return heads
+            val rest = if (low == 1) "eins" else de(low)
+            return heads.flatMap { listOf(it + rest, it + "und" + rest) }
+        }
+        val t = n / 1000
+        val low = n % 1000
+        val heads = if (t == 1) listOf("tausend", "eintausend") else germanForms(t).map { it + "tausend" }
+        if (low == 0) return heads
+        val lows = if (low < 100) (if (low == 1) "eins" else de(low)).let { listOf(it, "und$it") } else germanForms(low, start = false)
+        return heads.flatMap { h -> lows.map { h + it } }
+    }
+
+    private val DE_ORDINALS = mapOf(1 to "erste", 3 to "dritte", 7 to "siebte", 8 to "achte")
+
+    /**
+     * [n] (1 … 99) as a German ordinal with the ending -e, as after der ("Heute ist der fünfzehnte Mai."): erste, zweite,
+     * dritte, vierte … siebte, achte (one t) … neunzehnte with -te; from 20 -ste (zwanzigste, einundzwanzigste, dreißigste).
+     */
+    fun germanOrdinal(n: Int): String {
+        require(n in 1..99) { "$n is outside 1 … 99" }
+        return DE_ORDINALS[n] ?: (de(n) + if (n < 20) "te" else "ste")
     }
 
     // --- English ------------------------------------------------------------------------------------------------
