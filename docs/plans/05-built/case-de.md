@@ -56,7 +56,8 @@ characters to build.
   right; des Busses not sure, never asked), the dative plural's -n.
 - **The trainer's German bank** (`companion/cases/de/bank.json`; format `bridge/src/case-bank-de.ts`, Slovene's format
   with the sentence under `de` and the meaning under `sl`, `en`, `it`): 456 items, 387 "Welcher Fall?" and 69 "Wo oder
-  wohin?" (45 wo or wohin, 12 wo, wohin or woher, 12 zu, bei or nach; 57 with the village's scene). An item frames its noun
+  wohin?" (45 wo or wohin, 12 wo, wohin or woher, 12 zu, bei or nach; 49 with the village's scene); 25 sentences from the
+  German grammar book's examples, the rest written on the course's pages in the village's world. An item frames its noun
   phrase (`phrase`: the article, the adjectives, the noun) and names the noun's gender, so the checks hold the article,
   the adjectives and the noun to the case. 31 frames for "Dekliniere!" naming their cue's determiner; 15 adjectives; 25
   fallback nouns; 8 mass nouns. Spread and checks below.
