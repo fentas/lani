@@ -2790,7 +2790,8 @@ def story_faces():
     in the panel's header (TalkBack: who and how), a still face by his lines; its lines played (Naprej), the right choice
     picked at each turn; the faces his portrait showed (the log's Faces lines: "Stari Janez TALK thinking"), the content's
     beside the moment's (a smile at the start), to story-faces.txt. Whichever village it is: Stari Janez by the fire,
-    Nonno Bepi al fuoco. Also as story-*.png in $LANI_QA_STORY_SHOTS."""
+    Nonno Bepi al fuoco. Also as story-*.png in $LANI_QA_STORY_SHOTS. $LANI_QA_STORY_LEVEL (A1 … B2): the learner's level
+    for it (QA's hook "level:<lv>"), so tonight's story is told at that level, and the telling's level in story-faces.txt."""
     def snap(name: str):
         shot(f"story-{name}")
         if d := os.environ.get("LANI_QA_STORY_SHOTS"):
@@ -2820,7 +2821,10 @@ def story_faces():
             i = m.end()
         return re.compile(out + re.escape(text[i:]))
 
+    level = os.environ.get("LANI_QA_STORY_LEVEL", "").strip().upper()
     try:
+        if level:
+            qa_hook(f"level:{level}")
         qa_hook(f"happening:{sc['id']}/{h['id']}", f"scene:{sc['id']}")
         assert wait_for(f"‹ {label('common.village')}", 12) or wait_for(teller, 8), f"the scene {sc['id']}"
         if (tip := find(label("tips.gotIt"))) is not None:  # a tip's card over "Here today" (a new village's): out of the way
@@ -2875,12 +2879,14 @@ def story_faces():
         got = faces_shown(teller, timeout=2)
         moment = {"neutral", "happy"}
         own = sorted({f for f in got if f not in moment})
-        (OUT / "story-faces.txt").write_text(f"{teller} in {sc['id']}: {' '.join(got)}\nthe content's: {', '.join(own)}\n")
+        (OUT / "story-faces.txt").write_text(f"{teller} in {sc['id']}: {' '.join(got)}\nthe content's: {', '.join(own)}\n" + (f"told at {level}\n" if level else ""))
         print(f"    {teller}'s faces: {got}")
         assert own, f"{teller} told it with the moment's faces only: {got}"
         tap(close, 3)
     finally:
         qa_hook("happening:")
+        if level:
+            qa_hook("level:")
     return None
 
 

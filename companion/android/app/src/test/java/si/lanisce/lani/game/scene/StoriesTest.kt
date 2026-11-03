@@ -56,13 +56,8 @@ class StoriesTest {
     @Test fun `the campfire comes with Janez's stories, in their order, read in Jan's pair`() {
         assertEquals(order, stories.map { it.id })
         assertTrue(stories.all { "A1" in it.levelsTold && "A2" in it.levelsTold })
-        // B1 and B2 tellings (readings-primorska): every story at B1 but the two in chapters still to come, most at B2
-        assertEquals(listOf("martin-krpan", "jurij-kozjak"), stories.filter { "B1" !in it.levelsTold }.map { it.id })
-        assertEquals(
-            listOf("zlatorog", "kralj-matjaz", "peter-klepec", "lepa-vida", "povodni-moz", "zvon-zelja", "desetnica", "ajdovska-deklica", "zmaj-ljubljanski", "mojca-pokrajculja", "kekec"),
-            stories.filter { "B2" in it.levelsTold }.map { it.id },
-        )
-        assertTrue(stories.all { s -> s.levelsTold.none { it in setOf("C1", "C2") } })
+        // every story told at A1, A2, B1 and B2 (readings-primorska: the B1 and B2 tellings for a learner on the way to B2), in every chapter
+        assertEquals(stories.map { it.id to listOf("A1", "A2", "B1", "B2") }, stories.map { it.id to it.levelsTold })
         // the gold of Bogatin goes on from Zlatorog, and joins its book
         assertEquals("zlatorog", stories.first { it.id == "bogatinovo-zlato" }.continues)
         val krpan = stories.first { it.id == "martin-krpan" }

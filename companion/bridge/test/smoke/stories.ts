@@ -52,11 +52,8 @@ export default async function stories() {
     janIds,
   )
   check(
-    '… each told at A1 and A2, and to B2 for a learner on the way there (readings-primorska): at B1 all but the two still to come in chapters, at B2 most',
-    jan.every(s => levelsOf(s).includes('A1') && levelsOf(s).includes('A2')) &&
-      jan.filter(s => !levelsOf(s).includes('B1')).map(s => s.id).join() === 'martin-krpan,jurij-kozjak' &&
-      jan.filter(s => levelsOf(s).includes('B2')).map(s => s.id).join() === 'zlatorog,kralj-matjaz,peter-klepec,lepa-vida,povodni-moz,zvon-zelja,desetnica,ajdovska-deklica,zmaj-ljubljanski,mojca-pokrajculja,kekec' &&
-      jan.every(s => levelsOf(s).every(l => ['A1', 'A2', 'B1', 'B2'].includes(l))),
+    '… each told at A1, A2, B1 and B2, in every chapter (readings-primorska: B1 and B2 for a learner on the way to B2)',
+    jan.every(s => levelsOf(s).join() === 'A1,A2,B1,B2'),
     jan.map(s => [s.id, levelsOf(s)]),
   )
   check(
