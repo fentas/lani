@@ -312,7 +312,8 @@ private fun RoleButtons(ex: Exercise.CaseTask, said: String?, enabled: Boolean, 
 internal fun explain(ex: Exercise.CaseTask, whyRight: Boolean?): String {
     val k = Case.ofId(ex.case) ?: return ex.line
     val decider = when {
-        ex.taps.isNotEmpty() && ex.kind == "which" && ex.role == null -> ex.taps.mapNotNull { ex.wordAt(it) }.distinct().joinToString(" + ") { "**$it**" }
+        // German's in the sentence's order ("**Denk** + **an**", "**warte** + **auf**"); Slovene's the trigger first, as always
+        ex.taps.isNotEmpty() && ex.kind == "which" && ex.role == null -> (if (ex.lang == "de") ex.taps.sorted() else ex.taps).mapNotNull { ex.wordAt(it) }.distinct().joinToString(" + ") { "**$it**" }
         ex.kind == "place" && ex.taps.isNotEmpty() -> ex.taps.mapNotNull { ex.wordAt(it) }.joinToString(" + ") { "**$it**" }
         ex.role != null -> "**${roleLabel(ex.role)}**"
         else -> "**${ex.ruleSl}**"
