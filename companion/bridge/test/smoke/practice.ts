@@ -12,13 +12,16 @@ import { check, culturesDir, dataDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../..')
 /** The languages whose practice is written per base, with the culture that plays them and the bases their texts are in. */
-const LANGUAGES = [{ language: 'it', culture: 'friuli', bases: ['de', 'sl', 'en'] }]
+const LANGUAGES = [
+  { language: 'it', culture: 'friuli', bases: ['de', 'sl', 'en'], levels: ['A1', 'A2', 'B1'], twentyThree: 'ventitré' },
+  { language: 'en', culture: 'lakeland', bases: ['sl', 'de', 'it'], levels: ['A1', 'A2', 'B1', 'B2'], twentyThree: 'twenty-three' },
+]
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 const json = (dir: string, f: string) => JSON.parse(readFileSync(join(dir, f), 'utf8'))
 const files = (dir: string) => (existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith('.json')).sort() : [])
 
 export default async function practice() {
-  for (const { language, culture, bases } of LANGUAGES) {
+  for (const { language, culture, bases, levels, twentyThree } of LANGUAGES) {
     const pages = new GrammarStore(join(repo, 'grammar', language), language, join(dataDir, `unused-grammar-practice-${language}`)).all()
     const pageIds = new Set(pages.map(p => p.id))
     const cast = new VillagerStore(join(culturesDir, culture, 'villagers'), join(dataDir, `unused-villagers-practice-${language}`)).all()
@@ -43,14 +46,14 @@ export default async function practice() {
     const notPerBase = raw.flatMap(({ f, input }) => untexted(input, f, []))
     check(`modules/${language}: what the learner reads is in each base (${bases.join(', ')})`, notPerBase.length === 0, notPerBase.slice(0, 12))
     check(`modules/${language}: each has what Slovene's have: a run's kinds, a translation to say and to type`, mods.every(m => ['speak', 'translate'].every(t => m.exercises.some(e => e.type === t)) && m.exercises.some(e => ['cloze', 'reorder', 'multi'].includes(e.type))), mods.map(m => [m.id, m.exercises.map(e => e.type)]))
-    for (const level of ['A1', 'A2', 'B1']) {
+    for (const level of levels) {
       const at = mods.filter(m => m.level === level)
       const named = new Set(at.flatMap(m => m.exercises.flatMap(e => (e.grammar ? [e.grammar] : []))))
       check(`modules/${language}: ${level} has modules (${at.length}), naming pages of its level or below`, at.length >= 3 && [...named].every(id => LEVELS.indexOf(pages.find(p => p.id === id)!.level) <= LEVELS.indexOf(level) + 1), at.map(m => m.id))
     }
     check(`modules/${language}: a quest's giver is someone of the cast`, mods.every(m => !m.quest || cast.some(v => v.name === m.quest!.giver)), mods.filter(m => m.quest && !cast.some(v => v.name === m.quest!.giver)).map(m => [m.id, m.quest!.giver]))
     check(`modules/${language}: machine-written and saying so`, raw.every(({ input }) => /machine-written/.test(input.review ?? '')))
-    const orders = ['A1', 'A2', 'B1'].map(l => raw.filter(({ input }) => input.level === l).map(({ input }) => input.order).sort((a: number, b: number) => a - b))
+    const orders = ['A1', 'A2', 'B1', 'B2'].map(l => raw.filter(({ input }) => input.level === l).map(({ input }) => input.order).sort((a: number, b: number) => a - b))
     check(`modules/${language}: each has its place in its level (order 1, 2, 3 …: the pace, ModuleStore.offered)`, orders.every(o => o.every((n: number, i: number) => n === i + 1)), orders)
     const tokens = mods.flatMap(m => m.exercises.flatMap(e => (e.type === 'reorder' ? [...e.tokens, ...(e.distractors ?? [])] : [])))
     check(`modules/${language}: no placeholder in a sentence's chips`, tokens.every(t => !t.includes('{')), tokens.filter(t => t.includes('{')))
@@ -73,21 +76,25 @@ export default async function practice() {
       else if (d.kind === 'build') for (const b of d.builds) b.steps.forEach(x => (texts.push(x as Record<string, string>), x.add && cues.push(x.add)))
       else for (const x of d.riddles) texts.push(...x.clues, x.ask, x.answer)
     }
-    const lacks = [...texts.filter(t => !t[language] || !t.en || !t.de), ...cues.filter(t => !t.en || !t.de)]
-    check(`drills/${language}: every text in English and German, every instruction and cue too (${texts.length} texts)`, lacks.length === 0, lacks.slice(0, 10))
+    // what the learner hears before answering is in their base: English's drills say English, so its meanings are in each base
+    const heard = language === 'en' ? bases : ['en', 'de']
+    const lacks = [...texts.filter(t => !t[language] || heard.some(b => !t[b])), ...cues.filter(t => heard.some(b => !t[b]))]
+    check(`drills/${language}: every text in ${heard.join(', ')}, every instruction and cue too (${texts.length} texts)`, lacks.length === 0, lacks.slice(0, 10))
     check(`drills/${language}: nothing voiced has a phrase separator (/ →) or a placeholder`, texts.every(t => !/[/→{]/.test(t[language])), texts.filter(t => /[/→{]/.test(t[language])).map(t => t[language]))
     const [turn] = of('transform')
     const ordered = turn.sets.map(s => LEVELS.indexOf(s.level))
     const size = turn.sets.flatMap(s => s.items).length
-    check(`drills/${language}: transformations the size of Slovene's (${size}), the easiest sets first, one a level at least`, size >= 200 && ordered.every((l, i) => i === 0 || l >= ordered[i - 1]) && ['A1', 'A2', 'B1'].every(l => turn.sets.some(s => s.level === l)), turn.sets.map(s => [s.id, s.level, s.items.length]))
+    check(`drills/${language}: transformations the size of Slovene's (${size}), the easiest sets first, one a level at least`, size >= 200 && ordered.every((l, i) => i === 0 || l >= ordered[i - 1]) && levels.every(l => turn.sets.some(s => s.level === l)), turn.sets.map(s => [s.id, s.level, s.items.length]))
     const [fast] = of('rapid')
     const numbers = fast.sets.flatMap(s => s.numbers.flatMap(numbersOf))
     check(`drills/${language}: rapid fire's numbers 1 to 100 first, then some up to 999; the clock, days, months, dates`, JSON.stringify(numbers.slice(0, 100)) === JSON.stringify(Array.from({ length: 100 }, (_, i) => i + 1)) && numbers.some(n => n > 100) && fast.sets.filter(s => s.items.length > 0).length >= 5, fast.sets.map(s => [s.id, s.items.length]))
     const [grow] = of('build')
     check(`drills/${language}: sentence building the size of Slovene's (${grow.builds.length}), of 3 or 4 steps`, grow.builds.length >= 60 && grow.builds.every(b => b.steps.length >= 3 && b.steps.length <= 4), grow.builds.filter(b => b.steps.length < 3 || b.steps.length > 4).map(b => b.id))
+    check(`drills/${language}: sentence building at each level the modules have (${levels.join(', ')})`, levels.every(l => grow.builds.some(b => b.level === l)), [...new Set(grow.builds.map(b => b.level))])
     const [guess] = of('riddle')
     check(`drills/${language}: riddles (${guess.riddles.length}), told by someone of the cast, each a pack word or a villager`, guess.riddles.length >= 40 && cast.some(v => v.id === guess.teller) && guess.riddles.every(x => !!x.word || !!x.villager))
+    check(`drills/${language}: riddles above A1 too`, guess.riddles.some(x => x.level !== 'A1'), [...new Set(guess.riddles.map(x => x.level))])
     const said = drillTexts(drills, language)
-    check(`drills/${language}: in the voice corpus, the numbers in their words`, said.length > 500 && said.some(t => t.text === 'ventitré') && said.every(t => t.source.startsWith('drill:')), said.length)
+    check(`drills/${language}: in the voice corpus, the numbers in their words`, said.length > 500 && said.some(t => t.text === twentyThree) && said.every(t => t.source.startsWith('drill:')), said.length)
   }
 }
