@@ -1,0 +1,437 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "adjektiv-tabelle",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🧮",
+  "title": {
+    "de": "Alle Adjektivendungen in einer Tabelle",
+    "sl": "Vse končnice pridevnika v eni tabeli",
+    "en": "All the adjective endings in one table",
+    "it": "Tutte le desinenze dell'aggettivo in una tabella"
+  },
+  "rule": {
+    "en": "**The ending shows the case once.** Where the article shows the gender and the case, the adjective is quiet and takes **-e** or **-en**. Where the article shows nothing, or there is none, the adjective shows it.\n\nAfter **der, die, das, dieser, jeder, welcher, alle**: **-e** in five places (der, die and das in the nominative, die and das in the accusative), **-en** everywhere else: **der gute Wein, den guten Wein, dem guten Wein, des guten Weines, die guten Äpfel**.\n\nAfter **ein, kein, mein**: the same, except where the article has no ending: **ein guter Wein, ein gutes Brot**.\n\nWith no article, and after **viele, einige** or a number: der's ending on the adjective: **guter Wein, gute Milch, gutes Brot, guten Wein, gutem Wein, guter Milch**.\n\nThe genitive: after an article always **-en**. With no article **-er** for a die noun and a plural (**guter Milch, guter Äpfel**), **-en** for a der or das noun, whose own -s shows the case (**guten Weines, guten Brotes**).\n\nTwo adjectives take the same ending: **ein guter alter Freund**. A comparative or superlative takes it too: **der bessere Wein, der beste Wein**.",
+    "sl": "**Končnica pokaže sklon enkrat.** Kjer člen pokaže spol in sklon, je pridevnik tih in ima **-e** ali **-en**. Kjer člen ne pokaže ničesar ali ga ni, to pokaže pridevnik.\n\nZa **der, die, das, dieser, jeder, welcher, alle**: **-e** na petih mestih (der, die in das v imenovalniku, die in das v tožilniku), **-en** povsod drugod: **der gute Wein, den guten Wein, dem guten Wein, des guten Weines, die guten Äpfel**.\n\nZa **ein, kein, mein**: enako, razen kjer člen nima končnice: **ein guter Wein, ein gutes Brot**.\n\nBrez člena ter za **viele, einige** in številom: končnica člena na pridevniku: **guter Wein, gute Milch, gutes Brot, guten Wein, gutem Wein, guter Milch**.\n\nRodilnik: za členom vedno **-en**. Brez člena **-er** za samostalnik z die in množino (**guter Milch, guter Äpfel**), **-en** za samostalnik z der ali das, ker sklon pokaže njegov -s (**guten Weines, guten Brotes**).\n\nDva pridevnika imata isto končnico: **ein guter alter Freund**. Tudi primernik in presežnik jo dobita: **der bessere Wein, der beste Wein**.",
+    "it": "**La desinenza mostra il caso una volta.** Dove l'articolo mostra il genere e il caso, l'aggettivo tace e ha **-e** o **-en**. Dove l'articolo non mostra nulla, o non c'è, lo mostra l'aggettivo.\n\nDopo **der, die, das, dieser, jeder, welcher, alle**: **-e** in cinque posti (der, die e das al nominativo, die e das all'accusativo), **-en** ovunque altrove: **der gute Wein, den guten Wein, dem guten Wein, des guten Weines, die guten Äpfel**.\n\nDopo **ein, kein, mein**: lo stesso, tranne dove l'articolo non ha desinenza: **ein guter Wein, ein gutes Brot**.\n\nSenza articolo, e dopo **viele, einige** o un numero: la desinenza di der sull'aggettivo: **guter Wein, gute Milch, gutes Brot, guten Wein, gutem Wein, guter Milch**.\n\nIl genitivo: dopo un articolo sempre **-en**. Senza articolo **-er** per un nome con die e per il plurale (**guter Milch, guter Äpfel**), **-en** per un nome con der o das, perché il caso lo mostra la sua -s (**guten Weines, guten Brotes**).\n\nDue aggettivi hanno la stessa desinenza: **ein guter alter Freund**. Anche il comparativo e il superlativo la prendono: **der bessere Wein, der beste Wein**."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Fall",
+        "sl": "sklon",
+        "en": "case",
+        "it": "caso"
+      },
+      {
+        "de": "nach der",
+        "sl": "za der",
+        "en": "after der",
+        "it": "dopo der"
+      },
+      {
+        "de": "nach ein",
+        "sl": "za ein",
+        "en": "after ein",
+        "it": "dopo ein"
+      },
+      {
+        "de": "ohne Artikel",
+        "sl": "brez člena",
+        "en": "no article",
+        "it": "senza articolo"
+      }
+    ],
+    "rows": [
+      [
+        {
+          "de": "der · Nominativ",
+          "sl": "der · imenovalnik",
+          "en": "der · nominative",
+          "it": "der · nominativo"
+        },
+        "der gute Wein",
+        "ein guter Wein",
+        "guter Wein"
+      ],
+      [
+        {
+          "de": "der · Akkusativ",
+          "sl": "der · tožilnik",
+          "en": "der · accusative",
+          "it": "der · accusativo"
+        },
+        "den guten Wein",
+        "einen guten Wein",
+        "guten Wein"
+      ],
+      [
+        {
+          "de": "der · Dativ",
+          "sl": "der · dajalnik",
+          "en": "der · dative",
+          "it": "der · dativo"
+        },
+        "dem guten Wein",
+        "einem guten Wein",
+        "gutem Wein"
+      ],
+      [
+        {
+          "de": "der · Genitiv",
+          "sl": "der · rodilnik",
+          "en": "der · genitive",
+          "it": "der · genitivo"
+        },
+        "des guten Weines",
+        "eines guten Weines",
+        "guten Weines"
+      ],
+      [
+        {
+          "de": "die · Nom., Akk.",
+          "sl": "die · im., tož.",
+          "en": "die · nom., acc.",
+          "it": "die · nom., acc."
+        },
+        "die gute Milch",
+        "eine gute Milch",
+        "gute Milch"
+      ],
+      [
+        {
+          "de": "die · Dat., Gen.",
+          "sl": "die · daj., rod.",
+          "en": "die · dat., gen.",
+          "it": "die · dat., gen."
+        },
+        "der guten Milch",
+        "einer guten Milch",
+        "guter Milch"
+      ],
+      [
+        {
+          "de": "das · Nom., Akk.",
+          "sl": "das · im., tož.",
+          "en": "das · nom., acc.",
+          "it": "das · nom., acc."
+        },
+        "das gute Brot",
+        "ein gutes Brot",
+        "gutes Brot"
+      ],
+      [
+        {
+          "de": "das · Dativ",
+          "sl": "das · dajalnik",
+          "en": "das · dative",
+          "it": "das · dativo"
+        },
+        "dem guten Brot",
+        "einem guten Brot",
+        "gutem Brot"
+      ],
+      [
+        {
+          "de": "das · Genitiv",
+          "sl": "das · rodilnik",
+          "en": "das · genitive",
+          "it": "das · genitivo"
+        },
+        "des guten Brotes",
+        "eines guten Brotes",
+        "guten Brotes"
+      ],
+      [
+        {
+          "de": "Plural · Nom., Akk.",
+          "sl": "množina · im., tož.",
+          "en": "plural · nom., acc.",
+          "it": "plurale · nom., acc."
+        },
+        "die guten Äpfel",
+        "keine guten Äpfel",
+        "gute Äpfel"
+      ],
+      [
+        {
+          "de": "Plural · Dativ",
+          "sl": "množina · dajalnik",
+          "en": "plural · dative",
+          "it": "plurale · dativo"
+        },
+        "den guten Äpfeln",
+        "keinen guten Äpfeln",
+        "guten Äpfeln"
+      ],
+      [
+        {
+          "de": "Plural · Genitiv",
+          "sl": "množina · rodilnik",
+          "en": "plural · genitive",
+          "it": "plurale · genitivo"
+        },
+        "der guten Äpfel",
+        "keiner guten Äpfel",
+        "guter Äpfel"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Der gute Wein kommt aus Brda.",
+      "en": "The good wine comes from Brda.",
+      "sl": "Dobro vino je iz Brd.",
+      "it": "Il vino buono viene da Brda.",
+      "note": {
+        "en": "der shows the case: -e.",
+        "sl": "der pokaže sklon: -e.",
+        "it": "der mostra il caso: -e."
+      }
+    },
+    {
+      "de": "Das ist ein guter Wein.",
+      "en": "That's a good wine.",
+      "sl": "To je dobro vino.",
+      "it": "È un buon vino.",
+      "note": {
+        "en": "ein shows nothing: -er.",
+        "sl": "ein ne pokaže ničesar: -er.",
+        "it": "ein non mostra nulla: -er."
+      }
+    },
+    {
+      "de": "Guter Wein ist teuer.",
+      "en": "Good wine is expensive.",
+      "sl": "Dobro vino je drago.",
+      "it": "Il buon vino è caro.",
+      "note": {
+        "en": "Nothing in front: -er.",
+        "sl": "Spredaj ni ničesar: -er.",
+        "it": "Davanti non c'è nulla: -er."
+      }
+    },
+    {
+      "de": "Mit einem guten Freund ist alles leichter.",
+      "en": "With a good friend everything is easier.",
+      "sl": "Z dobrim prijateljem je vse lažje.",
+      "it": "Con un buon amico è tutto più facile.",
+      "note": {
+        "en": "einem shows the case: -en.",
+        "sl": "einem pokaže sklon: -en.",
+        "it": "einem mostra il caso: -en."
+      }
+    },
+    {
+      "de": "Kathi trinkt Kaffee mit warmer Milch.",
+      "en": "Kathi drinks coffee with warm milk.",
+      "sl": "Kathi pije kavo s toplim mlekom.",
+      "it": "Kathi beve il caffè col latte caldo.",
+      "note": {
+        "en": "No article, dative of die: -er.",
+        "sl": "Brez člena, dajalnik od die: -er.",
+        "it": "Senza articolo, dativo di die: -er."
+      }
+    },
+    {
+      "de": "Die Farbe des neuen Traktors ist rot.",
+      "en": "The colour of the new tractor is red.",
+      "sl": "Barva novega traktorja je rdeča.",
+      "it": "Il colore del trattore nuovo è rosso.",
+      "note": {
+        "en": "The genitive after an article: -en.",
+        "sl": "Rodilnik za členom: -en.",
+        "it": "Il genitivo dopo un articolo: -en."
+      }
+    },
+    {
+      "de": "Wegen schlechten Wetters bleibt Florian im Tal.",
+      "en": "Because of bad weather Florian is staying in the valley.",
+      "sl": "Zaradi slabega vremena Florian ostane v dolini.",
+      "it": "A causa del brutto tempo Florian resta a valle.",
+      "note": {
+        "en": "No article, das, genitive: -en, as -s shows the case.",
+        "sl": "Brez člena, das, rodilnik: -en, ker sklon pokaže -s.",
+        "it": "Senza articolo, das, genitivo: -en, perché il caso lo mostra la -s."
+      }
+    },
+    {
+      "de": "Alle guten Freunde kommen.",
+      "en": "All the good friends are coming.",
+      "sl": "Pridejo vsi dobri prijatelji.",
+      "it": "Vengono tutti i buoni amici.",
+      "note": {
+        "en": "alle counts as an article: -en.",
+        "sl": "alle šteje kot člen: -en.",
+        "it": "alle conta come un articolo: -en."
+      }
+    },
+    {
+      "de": "Viele gute Freunde kommen.",
+      "en": "Many good friends are coming.",
+      "sl": "Pride veliko dobrih prijateljev.",
+      "it": "Vengono molti buoni amici.",
+      "note": {
+        "en": "viele doesn't: -e.",
+        "sl": "viele ne: -e.",
+        "it": "viele no: -e."
+      }
+    },
+    {
+      "de": "Der ältere Mann ist mein bester Freund.",
+      "en": "The older man is my best friend.",
+      "sl": "Starejši mož je moj najboljši prijatelj.",
+      "it": "L'uomo più anziano è il mio migliore amico.",
+      "note": {
+        "en": "A comparative and a superlative take the ending too.",
+        "sl": "Tudi primernik in presežnik dobita končnico.",
+        "it": "Anche il comparativo e il superlativo prendono la desinenza."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "adjective_endings",
+    "adjektiv",
+    "adjektivendung",
+    "adjektiv_tabelle",
+    "all_cases",
+    "genitive_adjective",
+    "strong_weak"
+  ],
+  "see": [
+    "adjektiv-der",
+    "adjektiv-ein",
+    "adjektiv-null",
+    "faelle",
+    "steigerung",
+    "dativ",
+    "akkusativ"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: guten Weines, wegen schlechten Wetters; alle guten against viele gute; mit gutem altem Wein",
+  "card": {
+    "title": {
+      "de": "Alle Adjektivendungen",
+      "sl": "Vse končnice pridevnika",
+      "en": "All adjective endings",
+      "it": "Tutte le desinenze"
+    },
+    "rule": {
+      "en": "**The ending shows the case once.** The article shows it: **-e** or **-en** (**der gute, den guten, des guten**). It doesn't, or there's none: the adjective does (**ein guter, ein gutes, guter, gutem**). Genitive with no article: **-en**, but **-er** for die and the plural.",
+      "sl": "**Končnica pokaže sklon enkrat.** Člen ga pokaže: **-e** ali **-en** (**der gute, den guten, des guten**). Ne pokaže ali ga ni: pokaže ga pridevnik (**ein guter, ein gutes, guter, gutem**). Rodilnik brez člena: **-en**, za die in množino pa **-er**.",
+      "it": "**La desinenza mostra il caso una volta.** L'articolo lo mostra: **-e** o **-en** (**der gute, den guten, des guten**). Non lo mostra, o non c'è: lo mostra l'aggettivo (**ein guter, ein gutes, guter, gutem**). Genitivo senza articolo: **-en**, ma **-er** per die e il plurale."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der",
+        "ein",
+        "—"
+      ],
+      "rows": [
+        [
+          {
+            "de": "Nominativ",
+            "sl": "imenovalnik",
+            "en": "nominative",
+            "it": "nominativo"
+          },
+          "der gute",
+          "ein guter",
+          "guter"
+        ],
+        [
+          {
+            "de": "Akkusativ",
+            "sl": "tožilnik",
+            "en": "accusative",
+            "it": "accusativo"
+          },
+          "den guten",
+          "einen guten",
+          "guten"
+        ],
+        [
+          {
+            "de": "Dativ",
+            "sl": "dajalnik",
+            "en": "dative",
+            "it": "dativo"
+          },
+          "dem guten",
+          "einem guten",
+          "gutem"
+        ],
+        [
+          {
+            "de": "Genitiv",
+            "sl": "rodilnik",
+            "en": "genitive",
+            "it": "genitivo"
+          },
+          "des guten",
+          "eines guten",
+          "guten"
+        ],
+        [
+          {
+            "de": "die: Dat., Gen.",
+            "sl": "die: daj., rod.",
+            "en": "die: dat., gen.",
+            "it": "die: dat., gen."
+          },
+          "der guten",
+          "einer guten",
+          "guter"
+        ],
+        [
+          {
+            "de": "das: Nom., Akk.",
+            "sl": "das: im., tož.",
+            "en": "das: nom., acc.",
+            "it": "das: nom., acc."
+          },
+          "das gute",
+          "ein gutes",
+          "gutes"
+        ],
+        [
+          {
+            "de": "Plural",
+            "sl": "množina",
+            "en": "plural",
+            "it": "plurale"
+          },
+          "die guten",
+          "keine guten",
+          "gute"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Mit einem guten Freund ist alles leichter.",
+        "en": "With a good friend everything is easier.",
+        "sl": "Z dobrim prijateljem je vse lažje.",
+        "it": "Con un buon amico è tutto più facile."
+      },
+      {
+        "de": "Die Farbe des neuen Traktors ist rot.",
+        "en": "The colour of the new tractor is red.",
+        "sl": "Barva novega traktorja je rdeča.",
+        "it": "Il colore del trattore nuovo è rosso."
+      }
+    ],
+    "tip": {
+      "en": "💡 Look left first: does the word before it show the case? **alle** does (**alle guten**), **viele** doesn't (**viele gute**).",
+      "sl": "💡 Najprej poglej levo: ali beseda pred njim pokaže sklon? **alle** ga (**alle guten**), **viele** ne (**viele gute**).",
+      "it": "💡 Guarda prima a sinistra: la parola davanti mostra il caso? **alle** sì (**alle guten**), **viele** no (**viele gute**)."
+    }
+  }
+}
