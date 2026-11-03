@@ -129,7 +129,8 @@ export class CaseLensDe {
     let last = 0
     let first = true
     for (const m of line.matchAll(/[\p{L}\p{M}]+|\d+/gu)) {
-      const between = line.slice(last, m.index)
+      // a figure's full stop is an ordinal's (am 1. Mai), no sentence's end
+      const between = line.slice(last, m.index).replace(/^\.(?=\s)/, out.length && /^\d+$/.test(out.at(-1)!.raw) ? '' : '.')
       if (out.length && /[,;:–—()]|[.!?…]\s/.test(between)) clause++
       // a sentence starts after . ! ? and after a colon (Er hat gesagt: Schieb …), capitalized as any
       if (/[.!?…:]/.test(between)) first = true
@@ -349,7 +350,8 @@ export class CaseLensDe {
     }
     if (!slots.length) slots = all
     // a number from two counts a plural, also a measure said as one (zwei Kilo, drei Liter)
-    if (adjs.some(a => isNum(a) && !/^(1|eins?)$/.test(a.low))) {
+    // (a number in words: a figure may be an ordinal, am 1. Mai; an ordinal word, ersten, is an adjective)
+    if (adjs.some(a => NUMBERS.test(a.low))) {
       const pl = slots.filter(x => x.number === 'pl')
       slots = pl.length ? pl : dedupe(slots.map(x => ({ ...x, number: 'pl' as const })))
     }
