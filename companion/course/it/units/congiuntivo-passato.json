@@ -1,0 +1,1013 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "congiuntivo-passato",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🧳",
+  "title": {
+    "it": "Penso che sia partito",
+    "de": "Der Konjunktiv der Vergangenheit: penso che sia partito",
+    "sl": "Konjunktiv preteklika: penso che sia partito",
+    "en": "The past subjunctive: penso che sia partito"
+  },
+  "goal": {
+    "de": "Du sagst, was du über etwas glaubst, bezweifelst oder fühlst, das schon passiert ist: Penso che Davide sia partito. Mi dispiace che Matteo non abbia mangiato.",
+    "sl": "Poveš, kaj misliš, o čem dvomiš ali kaj čutiš o tem, kar se je že zgodilo: Penso che Davide sia partito. Mi dispiace che Matteo non abbia mangiato.",
+    "en": "You can say what you think, doubt or feel about what has already happened: Penso che Davide sia partito. Mi dispiace che Matteo non abbia mangiato."
+  },
+  "grammar": [
+    "congiuntivo-passato",
+    "congiuntivo",
+    "passato-prossimo"
+  ],
+  "words": [
+    "pensare",
+    "credere",
+    "dubitare",
+    "sembrare",
+    "dispiacere",
+    "sperare",
+    "partire",
+    "tornare",
+    "uscire",
+    "arrivare",
+    "alzarsi",
+    "svegliarsi",
+    "addormentarsi",
+    "vendere",
+    "perdere",
+    "lasciare",
+    "trovare",
+    "cercare",
+    "sentire",
+    "divertirsi",
+    "il peccato",
+    "sicuro",
+    "la chiave",
+    "il mulino",
+    "il cancello",
+    "il campanello",
+    "il postino",
+    "il formaggio",
+    "il miele",
+    "la piazza",
+    "la tasca",
+    "la bottiglia",
+    "la festa",
+    "la pecora",
+    "l'alba",
+    "la stalla",
+    "stamattina",
+    "già",
+    "abbia",
+    "sia"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "it": "chi",
+          "de": "wer",
+          "sl": "kdo",
+          "en": "who"
+        },
+        {
+          "it": "congiuntivo passato",
+          "de": "congiuntivo passato",
+          "sl": "congiuntivo passato",
+          "en": "congiuntivo passato"
+        },
+        {
+          "it": "esempio",
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Du kennst **penso che sia** (ich glaube, dass es so ist). Ist es *schon passiert*, nimmst du **abbia** + Partizip: **Penso che Moro abbia mangiato.** (Ich glaube, Moro hat gefressen.) Das ist der **congiuntivo passato**: gebaut wie **ha mangiato**, nur mit **abbia** statt **ha**.",
+          "sl": "Poznaš **penso che sia** (mislim, da je tako). Če se je *že zgodilo*, vzameš **abbia** + deležnik: **Penso che Moro abbia mangiato.** (Mislim, da je Moro jedel.) To je **congiuntivo passato**: zgrajen kot **ha mangiato**, le z **abbia** namesto **ha**.",
+          "en": "You know **penso che sia** (I think it is so). If it has *already happened*, take **abbia** + the participle: **Penso che Moro abbia mangiato.** (I think Moro has eaten.) This is the **congiuntivo passato**: built like **ha mangiato**, with **abbia** for **ha**."
+        },
+        "examples": [
+          {
+            "it": "Penso che Moro abbia mangiato.",
+            "de": "Ich glaube, Moro hat gefressen.",
+            "sl": "Mislim, da je Moro jedel.",
+            "en": "I think Moro has eaten."
+          },
+          {
+            "it": "Credo che Lorenzo abbia già finito i compiti.",
+            "de": "Ich glaube, Lorenzo ist mit den Hausaufgaben schon fertig.",
+            "sl": "Mislim, da je Lorenzo že končal naloge.",
+            "en": "I think Lorenzo has already finished his homework."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "che io, tu, lui, lei",
+              "de": "che io, tu, lui, lei (ich, du, er, sie)",
+              "sl": "che io, tu, lui, lei (jaz, ti, on, ona)",
+              "en": "che io, tu, lui, lei (I, you, he, she)"
+            },
+            "abbia mangiato",
+            "Penso che Moro abbia mangiato."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-passato",
+          "prompt": "Nonna Rosa crede che Giulia ___ già fatto il letto.",
+          "options": [
+            "abbia",
+            "sia",
+            "ha"
+          ],
+          "answer": 0,
+          "almost": [
+            2
+          ],
+          "say_options": true,
+          "explain": {
+            "de": "**fare**: passato prossimo mit avere → **abbia** fatto\n- sia · nur bei Verben mit essere\n- ha: beim Reden, in der Schule **abbia**",
+            "sl": "**fare**: passato prossimo z avere → **abbia** fatto\n- sia · samo pri glagolih z essere\n- ha: v govoru, v šoli **abbia**",
+            "en": "**fare**: passato prossimo with avere → **abbia** fatto\n- sia · only with essere verbs\n- ha: in talk, at school **abbia**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Verben mit essere nehmen **sia** + Partizip, und das Partizip richtet sich nach der Person: **Penso che Davide sia partito.** (Ich glaube, Davide ist losgegangen.) **Penso che Giulia sia partita.** (Ich glaube, Giulia ist losgegangen.) Wie **è partito, è partita**.",
+          "sl": "Glagoli z essere imajo **sia** + deležnik, deležnik pa se ujema z osebo: **Penso che Davide sia partito.** (Mislim, da je Davide odšel.) **Penso che Giulia sia partita.** (Mislim, da je Giulia odšla.) Kot **è partito, è partita**.",
+          "en": "Verbs with essere take **sia** + the participle, and the participle agrees with the person: **Penso che Davide sia partito.** (I think Davide has left.) **Penso che Giulia sia partita.** (I think Giulia has left.) As in **è partito, è partita**."
+        },
+        "examples": [
+          {
+            "it": "Penso che Davide sia partito.",
+            "de": "Ich glaube, Davide ist losgegangen.",
+            "sl": "Mislim, da je Davide odšel.",
+            "en": "I think Davide has left."
+          },
+          {
+            "it": "Credo che Marisa sia andata a Gorizia.",
+            "de": "Ich glaube, Marisa ist nach Gorizia gefahren.",
+            "sl": "Mislim, da je Marisa šla v Gorico.",
+            "en": "I think Marisa has gone to Gorizia."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "che io, tu, lui",
+              "de": "che io, tu, lui (ich, du, er)",
+              "sl": "che io, tu, lui (jaz, ti, on)",
+              "en": "che io, tu, lui (I, you, he)"
+            },
+            "sia partito",
+            "Penso che Davide sia partito."
+          ],
+          [
+            {
+              "it": "che io, tu, lei",
+              "de": "che io, tu, lei (ich, du, sie)",
+              "sl": "che io, tu, lei (jaz, ti, ona)",
+              "en": "che io, tu, lei (I, you, she)"
+            },
+            "sia partita",
+            "Penso che Giulia sia partita."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiuntivo-passato",
+          "text": "Credo che Zia Nives sia già ___ a casa. (tornare)",
+          "accept": [
+            "tornata"
+          ],
+          "hint": {
+            "de": "sie → -a",
+            "sl": "ona → -a",
+            "en": "she → -a"
+          },
+          "explain": {
+            "de": "**Zia Nives** ist eine Frau, mit essere → **tornata**",
+            "sl": "**Zia Nives** je ženska, z essere → **tornata**",
+            "en": "**Zia Nives** is a woman, with essere → **tornata**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **abbiano** und **siano** (sie), **abbiamo** und **siamo** (wir), **abbiate** und **siate** (ihr). Mit essere endet das Partizip auf **-i** oder **-e**: **Penso che i bambini siano usciti.** (Ich glaube, die Kinder sind hinausgegangen.) **Credo che le pecore abbiano mangiato.** (Ich glaube, die Schafe haben gefressen.)",
+          "sl": "Za več oseb: **abbiano** in **siano** (oni), **abbiamo** in **siamo** (mi), **abbiate** in **siate** (vi). Z essere se deležnik konča na **-i** ali **-e**: **Penso che i bambini siano usciti.** (Mislim, da so otroci šli ven.) **Credo che le pecore abbiano mangiato.** (Mislim, da so ovce jedle.)",
+          "en": "For several people: **abbiano** and **siano** (they), **abbiamo** and **siamo** (we), **abbiate** and **siate** (you). With essere the participle ends in **-i** or **-e**: **Penso che i bambini siano usciti.** (I think the children have gone out.) **Credo che le pecore abbiano mangiato.** (I think the sheep have eaten.)"
+        },
+        "examples": [
+          {
+            "it": "Penso che i bambini siano usciti.",
+            "de": "Ich glaube, die Kinder sind hinausgegangen.",
+            "sl": "Mislim, da so otroci šli ven.",
+            "en": "I think the children have gone out."
+          },
+          {
+            "it": "Credo che le pecore abbiano mangiato.",
+            "de": "Ich glaube, die Schafe haben gefressen.",
+            "sl": "Mislim, da so ovce jedle.",
+            "en": "I think the sheep have eaten."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "che noi",
+              "de": "che noi (wir)",
+              "sl": "che noi (mi)",
+              "en": "che noi (we)"
+            },
+            "abbiamo mangiato, siamo partiti",
+            "Penso che abbiamo sbagliato."
+          ],
+          [
+            {
+              "it": "che voi",
+              "de": "che voi (ihr)",
+              "sl": "che voi (vi)",
+              "en": "che voi (you)"
+            },
+            "abbiate mangiato, siate partiti",
+            "Spero che abbiate mangiato."
+          ],
+          [
+            {
+              "it": "che loro",
+              "de": "che loro (sie)",
+              "sl": "che loro (oni)",
+              "en": "che loro (they)"
+            },
+            "abbiano mangiato, siano partiti, siano partite",
+            "Penso che siano usciti."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-passato",
+          "prompt": "Penso che Bianca e Nerina ___ già tornate nella stalla.",
+          "options": [
+            "siano",
+            "sia",
+            "abbiano"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**tornare** mit essere, **Bianca e Nerina** sind zwei → **siano** tornate\n- sia · nur eine\n- abbiano · nur bei Verben mit avere",
+            "sl": "**tornare** z essere, **Bianca e Nerina** sta dve → **siano** tornate\n- sia · samo ena\n- abbiano · samo pri glagolih z avere",
+            "en": "**tornare** with essere, **Bianca e Nerina** are two → **siano** tornate\n- sia · one only\n- abbiano · only with avere verbs"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Er steht nach einer *Meinung*, einem *Zweifel* oder einem *Gefühl*: **mi sembra che** (mir scheint, dass), **dubito che** (ich bezweifle, dass), **non sono sicuro che** (ich bin nicht sicher, dass), **sono contento che**, **mi dispiace che**, **peccato che**. Nach **so che** (ich weiß, dass) bleibt der Indikativ: **So che è partito.** Beim Reden hört man auch **mi dispiace che non è venuto**.",
+          "sl": "Rabi se za *mnenjem*, *dvomom* ali *občutkom*: **mi sembra che** (zdi se mi, da), **dubito che** (dvomim, da), **non sono sicuro che** (nisem prepričan, da), **sono contento che**, **mi dispiace che**, **peccato che**. Za **so che** (vem, da) ostane indikativ: **So che è partito.** V govoru slišiš tudi **mi dispiace che non è venuto**.",
+          "en": "It comes after an *opinion*, a *doubt* or a *feeling*: **mi sembra che** (it seems to me that), **dubito che** (I doubt that), **non sono sicuro che** (I'm not sure that), **sono contento che**, **mi dispiace che**, **peccato che**. After **so che** (I know that) the indicative stays: **So che è partito.** In talk you also hear **mi dispiace che non è venuto**."
+        },
+        "examples": [
+          {
+            "it": "Mi dispiace che Matteo non sia venuto alla festa.",
+            "de": "Es tut mir leid, dass Matteo nicht zum Fest gekommen ist.",
+            "sl": "Žal mi je, da Matteo ni prišel na praznik.",
+            "en": "I'm sorry Matteo didn't come to the festa."
+          },
+          {
+            "it": "Dubito che Zia Nives abbia sentito il campanello.",
+            "de": "Ich bezweifle, dass Zia Nives die Glocke gehört hat.",
+            "sl": "Dvomim, da je teta Nives slišala zvonec.",
+            "en": "I doubt Zia Nives heard the bell."
+          },
+          {
+            "it": "So che è partito.",
+            "de": "Ich weiß, dass er losgegangen ist.",
+            "sl": "Vem, da je odšel.",
+            "en": "I know he has left."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-passato",
+          "prompt": "Peccato che Aldo non ___ venuto al mercato.",
+          "options": [
+            "sia",
+            "è",
+            "abbia"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "de": "**peccato che**: ein Gefühl, **venire** mit essere → **sia** venuto\n- è: beim Reden, in der Schule **sia**\n- abbia · nur bei Verben mit avere",
+            "sl": "**peccato che**: občutek, **venire** z essere → **sia** venuto\n- è: v govoru, v šoli **sia**\n- abbia · samo pri glagolih z avere",
+            "en": "**peccato che**: a feeling, **venire** with essere → **sia** venuto\n- è: in talk, at school **sia**\n- abbia · only with avere verbs"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Passiert es jetzt oder später, nimmst du **venga**; ist es schon vorbei, **sia venuto**: **Penso che Bruno venga domani.** (Ich glaube, Bruno kommt morgen.) **Penso che Bruno sia venuto ieri.** (Ich glaube, Bruno ist gestern gekommen.) Wörter wie **già**, **ieri**, **stamattina** zeigen dir, dass es vorbei ist.",
+          "sl": "Če se dogaja zdaj ali pozneje, vzameš **venga**; če je že mimo, **sia venuto**: **Penso che Bruno venga domani.** (Mislim, da Bruno pride jutri.) **Penso che Bruno sia venuto ieri.** (Mislim, da je Bruno prišel včeraj.) Besede kot **già**, **ieri**, **stamattina** pokažejo, da je mimo.",
+          "en": "If it is happening now or later, take **venga**; if it's over, **sia venuto**: **Penso che Bruno venga domani.** (I think Bruno is coming tomorrow.) **Penso che Bruno sia venuto ieri.** (I think Bruno came yesterday.) Words like **già**, **ieri**, **stamattina** show you it's over."
+        },
+        "examples": [
+          {
+            "it": "Penso che Bruno venga domani.",
+            "de": "Ich glaube, Bruno kommt morgen.",
+            "sl": "Mislim, da Bruno pride jutri.",
+            "en": "I think Bruno is coming tomorrow."
+          },
+          {
+            "it": "Penso che Bruno sia venuto ieri.",
+            "de": "Ich glaube, Bruno ist gestern gekommen.",
+            "sl": "Mislim, da je Bruno prišel včeraj.",
+            "en": "I think Bruno came yesterday."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-passato",
+          "prompt": "Credo che stamattina Franco ___ dieci sacchi di farina.",
+          "options": [
+            "abbia venduto",
+            "venda",
+            "vende"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**stamattina** ist vorbei → **abbia venduto**\n- venda · jetzt oder später\n- vende · jetzt, Indikativ",
+            "sl": "**stamattina** je mimo → **abbia venduto**\n- venda · zdaj ali pozneje\n- vende · zdaj, indikativ",
+            "en": "**stamattina** is over → **abbia venduto**\n- venda · now or later\n- vende · now, the indicative"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Kleine Wörter stehen vor **abbia** und **sia**: **Penso che si sia addormentato.** (Ich glaube, er ist eingeschlafen.) Rückbezügliche Verben nehmen immer essere. **lo** und **la** werden zu **l'**, und das Partizip richtet sich nach ihnen: **Non credo che Marisa l'abbia vista.** (Ich glaube nicht, dass Marisa sie gesehen hat.)",
+          "sl": "Male besede stojijo pred **abbia** in **sia**: **Penso che si sia addormentato.** (Mislim, da je zaspal.) Povratni glagoli imajo vedno essere. **lo** in **la** postaneta **l'**, deležnik pa se ujema z njima: **Non credo che Marisa l'abbia vista.** (Ne verjamem, da jo je Marisa videla.)",
+          "en": "Small words stand before **abbia** and **sia**: **Penso che si sia addormentato.** (I think he has fallen asleep.) Reflexive verbs always take essere. **lo** and **la** become **l'**, and the participle agrees with them: **Non credo che Marisa l'abbia vista.** (I don't think Marisa saw her.)"
+        },
+        "examples": [
+          {
+            "it": "Penso che Nonno Bepi si sia addormentato.",
+            "de": "Ich glaube, Nonno Bepi ist eingeschlafen.",
+            "sl": "Mislim, da je dedek Bepi zaspal.",
+            "en": "I think Nonno Bepi has fallen asleep."
+          },
+          {
+            "it": "Non credo che Marisa l'abbia vista.",
+            "de": "Ich glaube nicht, dass Marisa sie gesehen hat.",
+            "sl": "Ne verjamem, da jo je Marisa videla.",
+            "en": "I don't think Marisa saw her."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiuntivo-passato",
+          "text": "Penso che Giulia si ___ già alzata.",
+          "accept": [
+            "sia"
+          ],
+          "hint": {
+            "de": "rückbezüglich → essere",
+            "sl": "povratni → essere",
+            "en": "reflexive → essere"
+          },
+          "explain": {
+            "de": "**alzarsi**: rückbezüglich, mit essere → si **sia** alzata",
+            "sl": "**alzarsi**: povratni, z essere → si **sia** alzata",
+            "en": "**alzarsi**: reflexive, with essere → si **sia** alzata"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "congiuntivo-passato-1",
+      "title": {
+        "it": "Abbia o sia?",
+        "de": "Abbia oder sia?",
+        "sl": "Abbia ali sia?",
+        "en": "Abbia or sia?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "congiuntivo-passato",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": {
+            "de": "il congiuntivo passato · der Konjunktiv der Vergangenheit",
+            "sl": "il congiuntivo passato · konjunktiv preteklika",
+            "en": "il congiuntivo passato · the past subjunctive"
+          },
+          "columns": [
+            {
+              "de": "mangiare · essen",
+              "sl": "mangiare · jesti",
+              "en": "mangiare · eat"
+            },
+            {
+              "de": "arrivare · ankommen",
+              "sl": "arrivare · prispeti",
+              "en": "arrivare · arrive"
+            }
+          ],
+          "rows": [
+            {
+              "label": "che io",
+              "cells": [
+                "abbia mangiato",
+                {
+                  "accept": [
+                    "sia arrivato",
+                    "sia arrivata"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "che tu",
+              "cells": [
+                {
+                  "accept": [
+                    "abbia mangiato"
+                  ]
+                },
+                "sia arrivato, sia arrivata"
+              ]
+            },
+            {
+              "label": "che lui",
+              "cells": [
+                {
+                  "accept": [
+                    "abbia mangiato"
+                  ]
+                },
+                {
+                  "accept": [
+                    "sia arrivato"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "che lei",
+              "cells": [
+                "abbia mangiato",
+                {
+                  "accept": [
+                    "sia arrivata"
+                  ],
+                  "hint": {
+                    "de": "sie → -a",
+                    "sl": "ona → -a",
+                    "en": "she → -a"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "che noi",
+              "cells": [
+                {
+                  "accept": [
+                    "abbiamo mangiato"
+                  ]
+                },
+                {
+                  "accept": [
+                    "siamo arrivati",
+                    "siamo arrivate"
+                  ],
+                  "hint": {
+                    "de": "mehrere → -i, -e",
+                    "sl": "več → -i, -e",
+                    "en": "several → -i, -e"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "che voi",
+              "cells": [
+                {
+                  "accept": [
+                    "abbiate mangiato"
+                  ],
+                  "hint": "-iate"
+                },
+                "siate arrivati, siate arrivate"
+              ]
+            },
+            {
+              "label": "che loro",
+              "cells": [
+                {
+                  "accept": [
+                    "abbiano mangiato"
+                  ]
+                },
+                {
+                  "accept": [
+                    "siano arrivati",
+                    "siano arrivate"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sort",
+          "grammar": "congiuntivo-passato",
+          "instruction": {
+            "de": "Abbia o sia? · Welches Hilfsverb?",
+            "sl": "Abbia o sia? · Kateri pomožni glagol?",
+            "en": "Abbia o sia? · Which helping verb?"
+          },
+          "columns": [
+            {
+              "label": {
+                "de": "abbia … · haben",
+                "sl": "abbia … · imeti",
+                "en": "abbia … · have"
+              },
+              "words": [
+                "mangiato",
+                "letto",
+                "detto",
+                "venduto"
+              ]
+            },
+            {
+              "label": {
+                "de": "sia … · sein",
+                "sl": "sia … · biti",
+                "en": "sia … · be"
+              },
+              "words": [
+                "venuto",
+                "rimasto",
+                "nato",
+                "partito"
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**abbia** wie **ha mangiato**, **sia** wie **è venuto**\n- è rimasto, è nato, è partito → sia\n- ha letto, ha detto, ha venduto → abbia",
+            "sl": "**abbia** kot **ha mangiato**, **sia** kot **è venuto**\n- è rimasto, è nato, è partito → sia\n- ha letto, ha detto, ha venduto → abbia",
+            "en": "**abbia** as in **ha mangiato**, **sia** as in **è venuto**\n- è rimasto, è nato, è partito → sia\n- ha letto, ha detto, ha venduto → abbia"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-passato",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Sono contenta che Davide e Matteo ___ a Grado.",
+          "options": [
+            "siano andati",
+            "sia andato",
+            "abbiano andato"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**andare** mit essere, zwei Männer → **siano andati**\n- sia andato · nur einer\n- abbiano andato: andare nimmt essere",
+            "sl": "**andare** z essere, dva moška → **siano andati**\n- sia andato · samo eden\n- abbiano andato: andare ima essere",
+            "en": "**andare** with essere, two men → **siano andati**\n- sia andato · one only\n- abbiano andato: andare takes essere"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-passato",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Non sono sicuro che Aldo ___ tutto il miele.",
+          "options": [
+            "abbia venduto",
+            "sia venduto",
+            "abbia venduti"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vendere** mit avere → **abbia venduto**, das Partizip bleibt\n- sia venduto · hieße: wäre verkauft worden\n- abbia venduti: ohne l' oder li bleibt -o",
+            "sl": "**vendere** z avere → **abbia venduto**, deležnik ostane\n- sia venduto · bi pomenilo: da je bil prodan\n- abbia venduti: brez l' ali li ostane -o",
+            "en": "**vendere** with avere → **abbia venduto**, the participle stays\n- sia venduto · would mean: has been sold\n- abbia venduti: with no l' or li it stays -o"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-passato-2",
+      "title": {
+        "it": "La chiave del mulino",
+        "de": "Der Schlüssel der Mühle",
+        "sl": "Ključ mlina",
+        "en": "The key to the mill"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "congiuntivo-passato",
+          "instruction": {
+            "de": "Completa con il congiuntivo passato · Ergänze mit dem Konjunktiv der Vergangenheit",
+            "sl": "Completa con il congiuntivo passato · Dopolni s konjunktivom preteklika",
+            "en": "Completa con il congiuntivo passato · Fill in with the past subjunctive"
+          },
+          "title": "La chiave del mulino",
+          "text": "Franco non trova la chiave del mulino. «Penso che Lorenzo ___ (prendere) la chiave per giocare», dice. Giulia non è d'accordo: «Non credo che Lorenzo ___ (uscire) stamattina.» Zia Nives crede che il postino ___ (trovare) una chiave in piazza. Bruno dubita che i bambini ___ (andare) al mulino. Alla fine Franco guarda in tasca. «Eccola! Mi dispiace che tutti ___ (cercare) per niente!» «Sono contenta che tu l'___ (trovare)», ride Marisa.",
+          "gaps": [
+            {
+              "accept": [
+                "abbia preso"
+              ],
+              "spoken": [
+                "ha preso"
+              ],
+              "hint": {
+                "de": "prendere: Partizip?",
+                "sl": "prendere: deležnik?",
+                "en": "prendere: its participle?"
+              }
+            },
+            {
+              "accept": [
+                "sia uscito"
+              ],
+              "spoken": [
+                "è uscito"
+              ]
+            },
+            {
+              "accept": [
+                "abbia trovato"
+              ],
+              "spoken": [
+                "ha trovato"
+              ]
+            },
+            {
+              "accept": [
+                "siano andati"
+              ],
+              "hint": {
+                "de": "mehrere, essere",
+                "sl": "več, essere",
+                "en": "several, essere"
+              }
+            },
+            {
+              "accept": [
+                "abbiano cercato"
+              ],
+              "spoken": [
+                "hanno cercato"
+              ],
+              "hint": {
+                "de": "tutti → sie",
+                "sl": "tutti → oni",
+                "en": "tutti → they"
+              }
+            },
+            {
+              "accept": [
+                "abbia trovata"
+              ],
+              "spoken": [
+                "hai trovata"
+              ],
+              "hint": {
+                "de": "l' = la → -a",
+                "sl": "l' = la → -a",
+                "en": "l' = la → -a"
+              },
+              "explain": {
+                "de": "**l'** steht für **la chiave** → das Partizip richtet sich danach: **trovata**",
+                "sl": "**l'** je **la chiave** → deležnik se ujema: **trovata**",
+                "en": "**l'** stands for **la chiave** → the participle agrees: **trovata**"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "sia preso",
+            "abbia uscito"
+          ],
+          "translation": {
+            "de": "Franco findet den Schlüssel der Mühle nicht. „Ich glaube, Lorenzo hat den Schlüssel zum Spielen genommen“, sagt er. Giulia ist nicht einverstanden: „Ich glaube nicht, dass Lorenzo heute Morgen hinausgegangen ist.“ Zia Nives glaubt, der Briefträger hat auf dem Platz einen Schlüssel gefunden. Bruno bezweifelt, dass die Kinder zur Mühle gegangen sind. Am Ende schaut Franco in die Tasche. „Da ist er! Es tut mir leid, dass alle umsonst gesucht haben!“ „Ich freue mich, dass du ihn gefunden hast“, lacht Marisa.",
+            "sl": "Franco ne najde ključa mlina. »Mislim, da je Lorenzo vzel ključ za igro,« pravi. Giulia se ne strinja: »Ne verjamem, da je Lorenzo zjutraj šel ven.« Teta Nives misli, da je poštar našel ključ na trgu. Bruno dvomi, da so otroci šli do mlina. Na koncu Franco pogleda v žep. »Tu je! Žal mi je, da so vsi iskali zaman!« »Vesela sem, da si ga našel,« se smeje Marisa.",
+            "en": "Franco can't find the key to the mill. \"I think Lorenzo took the key to play with,\" he says. Giulia doesn't agree: \"I don't think Lorenzo went out this morning.\" Zia Nives thinks the postman found a key in the square. Bruno doubts the children went to the mill. In the end Franco looks in his pocket. \"Here it is! I'm sorry everyone searched for nothing!\" \"I'm glad you found it,\" Marisa laughs."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-passato",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Lo so: Davide ___ ieri sera.",
+          "options": [
+            "è partito",
+            "sia partito",
+            "abbia partito"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**lo so**: du weißt es sicher → Indikativ: **è partito**\n- sia partito · bei einer Meinung, einem Zweifel\n- abbia partito: partire nimmt essere",
+            "sl": "**lo so**: to zagotovo veš → indikativ: **è partito**\n- sia partito · pri mnenju, dvomu\n- abbia partito: partire ima essere",
+            "en": "**lo so**: you know it for sure → the indicative: **è partito**\n- sia partito · with an opinion, a doubt\n- abbia partito: partire takes essere"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-passato-3",
+      "title": {
+        "it": "Che cosa ne pensi?",
+        "de": "Was meinst du dazu?",
+        "sl": "Kaj misliš o tem?",
+        "en": "What do you think?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "congiuntivo-passato",
+          "instruction": {
+            "de": "Comincia con le parole tra parentesi · Fang mit den Wörtern in Klammern an",
+            "sl": "Comincia con le parole tra parentesi · Začni z besedami v oklepaju",
+            "en": "Comincia con le parole tra parentesi · Start with the words in brackets"
+          },
+          "whole": true,
+          "items": [
+            {
+              "from": "Davide ha venduto il formaggio. (penso che)",
+              "accept": [
+                "Penso che Davide abbia venduto il formaggio."
+              ],
+              "spoken": [
+                "Penso che Davide ha venduto il formaggio."
+              ]
+            },
+            {
+              "from": "Giulia è tornata dal mare. (credo che)",
+              "accept": [
+                "Credo che Giulia sia tornata dal mare."
+              ],
+              "spoken": [
+                "Credo che Giulia è tornata dal mare."
+              ]
+            },
+            {
+              "from": "Bruno non ha finito il lavoro. (mi dispiace che)",
+              "accept": [
+                "Mi dispiace che Bruno non abbia finito il lavoro."
+              ],
+              "spoken": [
+                "Mi dispiace che Bruno non ha finito il lavoro."
+              ]
+            },
+            {
+              "from": "Le pecore sono uscite dalla stalla. (ho paura che)",
+              "accept": [
+                "Ho paura che le pecore siano uscite dalla stalla."
+              ],
+              "spoken": [
+                "Ho paura che le pecore sono uscite dalla stalla."
+              ]
+            },
+            {
+              "from": "Aldo ha venduto tutto il miele. (sono contento che)",
+              "accept": [
+                "Sono contento che Aldo abbia venduto tutto il miele."
+              ],
+              "spoken": [
+                "Sono contento che Aldo ha venduto tutto il miele."
+              ]
+            },
+            {
+              "from": "I bambini si sono svegliati presto. (mi sembra che)",
+              "accept": [
+                "Mi sembra che i bambini si siano svegliati presto."
+              ],
+              "spoken": [
+                "Mi sembra che i bambini si sono svegliati presto."
+              ]
+            },
+            {
+              "from": "Marisa ha visto Matteo in piazza. (dubito che)",
+              "accept": [
+                "Dubito che Marisa abbia visto Matteo in piazza."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**ha → abbia**, **è → sia**, **sono → siano**: das Partizip bleibt\n- ha venduto → abbia venduto\n- si sono svegliati → si siano svegliati",
+            "sl": "**ha → abbia**, **è → sia**, **sono → siano**: deležnik ostane\n- ha venduto → abbia venduto\n- si sono svegliati → si siano svegliati",
+            "en": "**ha → abbia**, **è → sia**, **sono → siano**: the participle stays\n- ha venduto → abbia venduto\n- si sono svegliati → si siano svegliati"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "congiuntivo-passato",
+        "instruction": {
+          "de": "Completa con il congiuntivo passato · Ergänze mit dem Konjunktiv der Vergangenheit",
+          "sl": "Completa con il congiuntivo passato · Dopolni s konjunktivom preteklika",
+          "en": "Completa con il congiuntivo passato · Fill in with the past subjunctive"
+        },
+        "text": "Dopo la festa Marisa guarda la piazza vuota. «Credo che tutti ___ (divertirsi)», dice. Matteo risponde: «Mi sembra che Tommaso ___ (mangiare) tre fette di gubana!» «Peccato che Zia Nives ___ (andare) a casa così presto», dice Marisa. «E tu? Sei contenta che le bottiglie ___ (finire)?» «Sì, ma dubito che Bruno ___ (lavare) i bicchieri.»",
+        "gaps": [
+          {
+            "accept": [
+              "si siano divertiti"
+            ],
+            "spoken": [
+              "si sono divertiti"
+            ],
+            "hint": {
+              "de": "tutti, rückbezüglich",
+              "sl": "tutti, povratni",
+              "en": "tutti, reflexive"
+            }
+          },
+          {
+            "accept": [
+              "abbia mangiato"
+            ],
+            "spoken": [
+              "ha mangiato"
+            ]
+          },
+          {
+            "accept": [
+              "sia andata"
+            ],
+            "spoken": [
+              "è andata"
+            ]
+          },
+          {
+            "accept": [
+              "siano finite"
+            ],
+            "spoken": [
+              "sono finite"
+            ],
+            "hint": {
+              "de": "le bottiglie finiscono → essere",
+              "sl": "le bottiglie finiscono → essere",
+              "en": "le bottiglie finiscono → essere"
+            }
+          },
+          {
+            "accept": [
+              "abbia lavato"
+            ]
+          }
+        ],
+        "translation": {
+          "de": "Nach dem Fest schaut Marisa auf den leeren Platz. „Ich glaube, alle haben sich gut unterhalten“, sagt sie. Matteo antwortet: „Mir scheint, Tommaso hat drei Stück Gubana gegessen!“ „Schade, dass Zia Nives so früh nach Hause gegangen ist“, sagt Marisa. „Und du? Freust du dich, dass die Flaschen leer sind?“ „Ja, aber ich bezweifle, dass Bruno die Gläser gewaschen hat.“",
+          "sl": "Po prazniku Marisa pogleda prazen trg. »Mislim, da so se vsi zabavali,« pravi. Matteo odgovori: »Zdi se mi, da je Tommaso pojedel tri kose gubane!« »Škoda, da je teta Nives šla domov tako zgodaj,« pravi Marisa. »Pa ti? Si vesela, da so steklenice prazne?« »Ja, ampak dvomim, da je Bruno pomil kozarce.«",
+          "en": "After the festa Marisa looks at the empty square. \"I think everyone had a good time,\" she says. Matteo answers: \"It seems to me Tommaso ate three slices of gubana!\" \"A pity Zia Nives went home so early,\" says Marisa. \"And you? Are you glad the bottles have run out?\" \"Yes, but I doubt Bruno has washed the glasses.\""
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "congiuntivo-passato",
+        "instruction": {
+          "de": "Comincia con le parole tra parentesi · Fang mit den Wörtern in Klammern an",
+          "sl": "Comincia con le parole tra parentesi · Začni z besedami v oklepaju",
+          "en": "Comincia con le parole tra parentesi · Start with the words in brackets"
+        },
+        "whole": true,
+        "items": [
+          {
+            "from": "Lorenzo ha perso la palla. (mi dispiace che)",
+            "accept": [
+              "Mi dispiace che Lorenzo abbia perso la palla."
+            ],
+            "spoken": [
+              "Mi dispiace che Lorenzo ha perso la palla."
+            ]
+          },
+          {
+            "from": "Maestra Elena è arrivata presto. (credo che)",
+            "accept": [
+              "Credo che Maestra Elena sia arrivata presto."
+            ],
+            "spoken": [
+              "Credo che Maestra Elena è arrivata presto."
+            ]
+          },
+          {
+            "from": "I gatti si sono addormentati sul divano. (penso che)",
+            "accept": [
+              "Penso che i gatti si siano addormentati sul divano."
+            ],
+            "spoken": [
+              "Penso che i gatti si sono addormentati sul divano."
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**ha → abbia**, **è → sia**, **sono → siano**: das Partizip bleibt",
+          "sl": "**ha → abbia**, **è → sia**, **sono → siano**: deležnik ostane",
+          "en": "**ha → abbia**, **è → sia**, **sono → siano**: the participle stays"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-passato",
+        "prompt": "Mi sembra che Giulia ___ il cancello aperto.",
+        "options": [
+          "abbia lasciato",
+          "sia lasciata",
+          "abbia lasciata"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**lasciare** mit avere → **abbia lasciato**, das Partizip bleibt\n- sia lasciata: lasciare nimmt avere\n- abbia lasciata: il cancello ist nicht davor",
+          "sl": "**lasciare** z avere → **abbia lasciato**, deležnik ostane\n- sia lasciata: lasciare ima avere\n- abbia lasciata: il cancello ni spredaj",
+          "en": "**lasciare** with avere → **abbia lasciato**, the participle stays\n- sia lasciata: lasciare takes avere\n- abbia lasciata: il cancello isn't in front"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "congiuntivo-passato",
+        "instruction": {
+          "de": "Quando? · Wann passiert es?",
+          "sl": "Quando? · Kdaj se zgodi?",
+          "en": "Quando? · When does it happen?"
+        },
+        "columns": [
+          {
+            "label": {
+              "de": "già successo · schon passiert",
+              "sl": "già successo · se je že zgodilo",
+              "en": "già successo · already happened"
+            },
+            "words": [
+              "Penso che sia venuto.",
+              "Credo che abbia letto."
+            ]
+          },
+          {
+            "label": {
+              "de": "ora o dopo · jetzt oder später",
+              "sl": "ora o dopo · zdaj ali pozneje",
+              "en": "ora o dopo · now or later"
+            },
+            "words": [
+              "Penso che venga.",
+              "Credo che legga."
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**sia venuto, abbia letto**: schon passiert\n- venga, legga: jetzt oder später",
+          "sl": "**sia venuto, abbia letto**: se je že zgodilo\n- venga, legga: zdaj ali pozneje",
+          "en": "**sia venuto, abbia letto**: already happened\n- venga, legga: now or later"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: credo che è, ho paura che sono as spoken; dubito che without one; l'abbia trovata; sia venduto's why"
+}
