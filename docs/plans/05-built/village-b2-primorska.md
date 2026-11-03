@@ -69,6 +69,11 @@ same moment. Each step's words are tested by a one-word swap, as the checks want
   (https://dlib.si/stream/URN:NBN:SI:DOC-9LYRT1RS/1900221c-36b5-4899-9384-0ec3940d0890/PDF).
 - trak: SP2001 "trák -ú/-a, -ôvi -ôv" (https://fran.si/iskanje?FilteredDictionaryIds=134&View=1&Query=trak): the supplement's
   traku, trakov; medenjak's forms are regular (-a, -om, -ov, -ih).
+- barantati: SSKJ² "pog." (haggle; https://fran.si/iskanje?FilteredDictionaryIds=133&View=1&Query=barantati): only in
+  Ančka's line at the fair, never a choice graded either way. krmišče: SSKJ², the hunting sense labelled "lov."
+  (https://fran.si/iskanje?FilteredDictionaryIds=133&View=1&Query=krmi%C5%A1%C4%8De), Jože's B2 arrival. suhozid is no SSKJ²
+  headword and "suhi zid" isn't shown either (https://fran.si/iskanje?FilteredDictionaryIds=133&View=1&Query=suhozid; the
+  stone-masons' terminology dictionary has one): the vineyard's and the chapel's "suhi zid / suh zid" wait for the native check.
 - Larch shingles don't rot readily (mlin B1), shingles split by hand (mlin B2), the mlaj peeled but for its green top with a
   wreath and ribbons (as the A1/A2 tellings have it): general, no new custom is claimed.
 
