@@ -184,7 +184,12 @@ The packs' words and examples are in the voice corpus (`pack words`, `examples`)
   3,768 passed and one failed, the friuli lookup of "Rosa" (fixed in a308afe9, above). With packs-en's level filter alone the
   Italian sheets' check failed on A1 preposizioni's "il Friuli" (only an A2 pack gives it); its follow-up 1894f03a, taken here,
   is the fix. On the tip: **3,772 checks, all passed**.
-- **The Android suite**: (below)
+- **The Android suite** (lani-slot.sh, `testDebugUnitTest`, started on a308afe9): 521 classes, 4,106 tests, 2 skipped, 2 failed,
+  both `PhoneBridgeNodeTest` (`packs`, `packsForThisApp`: "$[0].own: node 0, phone null"). Its Kotlin had been compiled before
+  packs-en's 9e07e082 (here dba6a88d) was cherry-picked in mid-run, while the node bridge it compares with was read from the
+  new source, which has `own` on GET /packs. Run again on the tip (`PackSessionTest` 9, `PhoneBridgeNodeTest` 26,
+  `HomonymTest` 10, `WordStickersTest` 6): **all pass**. The other content tests that read the packs (`BaseLanguagesTest`,
+  `FriuliCultureTest`, `MentionsContentTest`, `DialogWordsContentTest` …) passed in the full run with the 59 packs.
 
 ## Commits
 
