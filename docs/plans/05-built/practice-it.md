@@ -89,8 +89,8 @@ text in the language plus `en` and `de`, the riddles' `teller` someone of the cu
 District's storyteller), `word` from its packs. The buttons come by themselves once there are clips.
 
 **Numbers:** one object in `NumberTongue.kt`, its name in `ALL`, its texts in the four string tables under `numbers.de.*` or
-`numbers.en.*` (`tip`, `ask.timeWrite`, `why.teen`, `why.tens`, `why.compound`, `why.big`, `why.order`, `why.spacing`, `why.date`,
-`why.hour`, `why.half`), its unit in `NUMBERS_UNITS` (`bridge/src/game.ts`), and a test as `NumbersItalianTest`.
+`numbers.en.*`, as Italian's are (`tip`, `ask.timeWrite`, `why.*`: each named whole in the object, because `L10nTablesTest` reads keys
+and their arguments from the code, and each message's arguments must be in its Slovene or English one), its unit in `NUMBERS_UNITS` (`bridge/src/game.ts`), and a test as `NumbersItalianTest`.
 
 | | German (`zahlen`, `uhrzeit`, Austrian) | English (`numbers`, `time`, British) |
 |---|---|---|
@@ -125,7 +125,19 @@ the live reserve. No new mechanism: say so to Jan if the reserve matters.
 
 ## Checks
 
-@@CHECKS@@
+Run on this branch, merged with main 1e0cdf04:
+
+- Bridge: `tsc`; the smoke, all checks passed (3,545), its new section `practice.ts` and friuli.ts's serving; `tutor-export --check`.
+- Android: the full unit suite, 3,802 tests, 0 failures. New: `NumbersItalianTest` (11), `ItalianPracticeTest` (4), two in `RoadMenuTest`.
+  `NumbersPracticeTest` is unchanged and passes.
+- Python: `tests` and `companion/tests`.
+- Tap coverage after: `lexicon-build --coverage --lang it` 99.9 % of tokens, 99.1 % of words; about 50 words and forms the new content
+  brought went into `lexicon/it.extra.json`. That count leaves out the drills, so they were scanned separately.
+- QA through `qa-slot` on a synthetic Teo (`--steps practice-it`, screenshots pi-*.png): the ✨ tile with modules, the sheet at A1 only, a
+  module from Nonna Rosa's card with its why in German, the numbers closed, its intro skipped, the note, open, the ones first's why,
+  half past's why, 🔢 on Home, the road's sheet without drills. Slovene regression on a synthetic learner: `--steps numbers,road`,
+  with the car's browser listing five sessions under "Več" (the four drills, without clips, left out) and all of them playing.
+- Not run: a number heard in Italian on the emulator (the code is shared with Slovene's, which QA hears), a real car, Teo's tablet size.
 
 ## For a native check
 
@@ -151,6 +163,12 @@ Slovene in the modules' `sl` and the new strings (Jan's wife, as ever, with fran
 (the book has Giuliin and Giulijin), "Mislim, da ja", "Hočeš sir? Ja, malo ga hočem", "Za omleto" for frittata, the `numbers.it.*` and `road.notRecordedYet`, `road.noRecordings` lines.
 
 German (Standard, "du") in the modules, the drills and those strings: not reviewed either.
+
+## Deploying
+
+Curated modules are read once, when a bridge starts (`ModuleStore`): a learner's bridge restarted through the gate has them. Drills are read per request. Once
+restarted, Teo's village gets the eight A1 modules as new, each with a request from Nonna Rosa, Nonno Bepi, Pastore Davide or Giulia; the
+request window paces them (GAME.md "A window of requests"), and an older app reads them as it reads any module.
 
 ## What's left
 
