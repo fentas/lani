@@ -607,6 +607,51 @@ def animate_label(lemma):
     return None
 
 
+def wiki_gaps(levels):
+    """
+    The example words no entry knows that are forms of a word the dictionary (sl.json) has without them: each found by
+    its stem among the pack words and the records, confirmed by Sloleks's paradigm, and written as a record with the
+    forms the examples use to sl_extra_words/auto-wiki.json (made by this command), which `supplement` adds.
+    """
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import sl_packs_check as chk
+    unknown = chk.unknown_tokens(tuple(levels))
+    words = {}
+    for f, p in chk.load_packs():
+        for w in p['words']:
+            k = chk.key_of(w)
+            if ' ' not in k and w.get('en'):
+                words.setdefault(k, (w['en'], w.get('de', w['en']), w.get('it', w['en']), 'noun' if w.get('gender') else None))
+    for r in extra_records():
+        words.setdefault(r['lemma'].lower(), (r['en'], r['de'], r['it'], r['pos']))
+    path = os.path.join(EXTRA_DIR, 'auto-wiki.json')
+    recs = {}
+    for t in sorted(unknown):
+        for k, (en, de, it, pos) in words.items():
+            if wiki_forms(k) is None:
+                continue
+            n = max(3, len(k) - 2)
+            stem = k[:-5] if k.endswith(('ovati', 'evati')) else k[:n]
+            if not t.startswith(stem):
+                continue
+            sl = sloleks_search(k) or []
+            hit = [e for e in sl if e.get('lemma', '').lower() == k and (not pos or SL_CAT.get(pos, pos) == e.get('category'))]
+            if not hit:
+                continue
+            e = max(hit, key=lambda e: e.get('frequency') or 0)
+            table = labelled(sloleks_forms(e['id']) or [], e['category'])
+            if t in table:
+                rp = {v: kk for kk, v in SL_CAT.items()}.get(e['category'], e['category'])
+                r = recs.setdefault(k, {'lemma': k, 'pos': rp, 'en': en, 'de': de, 'it': it, 'forms': {}, 'auto': True})
+                if t not in (wiki_forms(k) or {}):
+                    r['forms'][t] = table[t]
+                break
+    recs = {k: r for k, r in recs.items() if r['forms']}
+    with open(path, 'w', encoding='utf8') as f:
+        f.write('[\n' + ',\n'.join('  ' + json.dumps(r, ensure_ascii=False) for r in sorted(recs.values(), key=lambda r: r['lemma'])) + '\n]\n')
+    print(f'{len(recs)} dictionary lemmas get {sum(len(r["forms"]) for r in recs.values())} forms')
+
+
 def styled(v):
     """JSON in the supplement's style: { "k": v, … } with spaces inside an object's braces, lists tight."""
     if isinstance(v, dict):
@@ -677,6 +722,8 @@ if __name__ == '__main__':
         check(levels)
     elif a[0] == 'supplement':
         supplement(levels, '--write' in a)
+    elif a[0] == 'wiki-gaps':
+        wiki_gaps(levels)
     elif a[0] == 'tables':
         # python3 sl_sources.py tables lemma… : the forms-book tables, as JSON lines
         for q in a[1:]:
