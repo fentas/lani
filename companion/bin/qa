@@ -843,12 +843,18 @@ def screen_xml() -> str:
     return adb("shell", "cat", "/sdcard/ui.xml", check=False)
 
 
+def node_attr(node: str, key: str) -> str:
+    """The attribute [key] of a node of the dump, unescaped; "" without it. uiautomator's serializer writes a value that
+    holds a double quote between single quotes (text='"Wait here." → She told me ___ there.'): read only between double
+    ones, such a text was no text, and a choice's question with direct speech in it was never found."""
+    m = re.search(key + r"""=(?:"([^"]*)"|'([^']*)')""", node)
+    return html.unescape(m.group(1) if m.group(1) is not None else m.group(2)) if m else ""
+
+
 def nodes():
     xml = screen_xml()
     for n in re.findall(r"<node [^>]*?>", xml):
-        def attr(k):
-            m = re.search(k + r'="([^"]*)"', n)
-            return html.unescape(m.group(1)) if m else ""
+        attr = lambda k: node_attr(n, k)
         b = list(map(int, re.findall(r"\d+", attr("bounds")))) or [0, 0, 0, 0]
         yield attr(" text") or attr("content-desc"), ((b[0] + b[2]) // 2, (b[1] + b[3]) // 2)
 
@@ -857,9 +863,7 @@ def boxes():
     """Every labelled node's bounds: (text, (x0, y0, x1, y1))."""
     xml = screen_xml()
     for n in re.findall(r"<node [^>]*?>", xml):
-        def attr(k):
-            m = re.search(k + r'="([^"]*)"', n)
-            return html.unescape(m.group(1)) if m else ""
+        attr = lambda k: node_attr(n, k)
         b = list(map(int, re.findall(r"\d+", attr("bounds")))) or [0, 0, 0, 0]
         if t := attr(" text") or attr("content-desc"):
             yield t, tuple(b)
@@ -2920,9 +2924,8 @@ def top_bar_pills(back: str) -> list:
     xml = adb("shell", "cat", "/sdcard/ui.xml", check=False)
     def label(n: str) -> str:
         for k in (" text", "content-desc"):
-            m = re.search(k + r'="([^"]*)"', n)
-            if m and m.group(1):
-                return html.unescape(m.group(1))
+            if t := node_attr(n, k):
+                return t
         return ""
     def is_pill(t: str) -> bool:
         return t == back or ": kartica in nadgradnja" in t or t.startswith("📚 ") or t.startswith("Odkrito ")
@@ -4386,7 +4389,7 @@ def portraits_of(name: str):
     smiles"), the name alone at rest (a node whose description is the name; the name's own text has no description)."""
     out = []
     for n in re.findall(r"<node [^>]*?>", screen_xml()):
-        d = html.unescape((re.search(r'content-desc="([^"]*)"', n) or [None, ""])[1])
+        d = node_attr(n, "content-desc")
         if d == name or d.startswith(name + ", "):
             b = list(map(int, re.findall(r"\d+", (re.search(r'bounds="([^"]*)"', n) or [None, ""])[1]))) or [0, 0, 0, 0]
             out.append((d, tuple(b)))
@@ -7954,8 +7957,10 @@ def village_hud():
 
 def fill(label: str, text: str) -> bool:
     """Types [text] into the field TalkBack calls [label] (a worksheet's gap, cell or line: "Vrzel 2 · Gap 2"); False when
-    there is none on screen (scrolled to first)."""
-    c = scroll_to(label, 3)
+    there is none on screen (scrolled to first). A field the screen can't scroll any higher (the fourth line of a test's
+    transform, about 1880 px, on a screen with nothing left to scroll) may lie under scroll_to's limit: taken while it is
+    clear of the bottom bar, as option_at takes an option."""
+    c = scroll_to(label, 3) or scroll_to(label, 0, bottom=2150)
     if c is None:
         return False
     tap_at(c)
@@ -9898,8 +9903,7 @@ def course_unit():
             ns = re.findall(r"<node [^>]*?>", screen_xml())
             bottom = 2150
             for n in ns:
-                t = re.search(r' text="([^"]*)"', n)
-                if t and check in html.unescape(t.group(1)) and (m := re.search(r'bounds="([^"]*)"', n)):
+                if check in node_attr(n, " text") and (m := re.search(r'bounds="([^"]*)"', n)):
                     b = list(map(int, re.findall(r"\d+", m.group(1))))
                     if len(b) == 4 and 300 < b[1] < 2400:
                         bottom = b[1]
