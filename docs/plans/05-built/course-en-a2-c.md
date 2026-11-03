@@ -167,6 +167,15 @@ measured on the merged branch: about 23,100 (1,066 texts) and 33,500, 35,900, 35
 - **Emulator** (`course-unit` through qa-slot, a 1080 × 2400 phone, Ana, a synthetic learner of English in the Lake District): `past-continuous` from German, `adverbs` from Slovene, `have-you-ever` from Italian, each whole: the school (A1 18/18, A2 16/18, the hook's), the unit, the intro with its quick questions, the summary, the sheets, the test passed, the print's preview and PDF; ✅ setup, ✅ course-unit, ✅ crash check each. They ran on 6f33c5f6: the one commit after them drops past-continuous's doubled prompt, which the run showed. Screenshots: the scratchpad's ux-course-en-a2-c/<unit>/. Read: past-continuous's table in its short cells, have-you-ever's school and step 3 with its new wrong options. **Not seen:** nonstandard's line on a screen (QA answers right; the verdict, the hint and the text are unit tests), and the `school-board` step, which comes with German A2.
 - Tap counts: no journey changed.
 
+## Checks after the lead's reading and the queue's merge (1ecac789, with `friuli-projects-b` at 50d712f6)
+
+- `bun build --no-bundle` on the 20 TypeScript test files merged since cf7d5083: all parse. tsc clean. `tutor-export`: 0 written after the merge's own 5; `--check`: 140 files match. `prompt-clashes`: no new clash. No conflict markers left; bin/qa and tutor/guide/index.json parse.
+- The smoke with ports 9950–: 3,688 checks, all passed.
+- Android, the course's and grading's classes only: 207 tests, 0 failures (`EnglishA2cContentTest` 12, `EnglishA2bContentTest` 14, `EnglishA2aContentTest` 8, `EnglishCourseContentTest` 6, `GermanCourseContentTest` 5, `ItalianCourseContentTest` 6, `CourseContentTest` 5, `GradingLanguagesTest` 48, `GradingNonstandardTest` 10, `GradingTest` 18, `SheetsTest` 15, `GrammarTest` 16 and the others). The whole suite is the gate's.
+- Prints, `--level all --base de|sl|it`: all 36 English units fit in each base; the booklets 29 and 31 pages (de, sl), 29 and 33 (it).
+- **Not rerun after these changes:** the emulator (its last run was on 6f33c5f6, before A1's change and the merge) and Python.
+- **grading/en.json since cf7d5083:** nine `nonstandard` rows out and its note; nothing in `same`, `loose` or `wrong`; `Grading.kt`, `Spelling.kt`, `Sheets.kt` unchanged.
+
 ## What's left
 
 - The native check at the top, and a decision on A1's `to-be` and `was-were`, which still say never.
