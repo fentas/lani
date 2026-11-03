@@ -22,7 +22,9 @@ line) names only people who are in the village and whom the learner has met (get
 a happening that names anyone else back until they are (Zala's "Anton toči med!" waits for Anton), and publish_scene
 says which. A happening may have several dialogs, its variants ("dialogs": ids of the scene's dialogs or "variants"):
 the app plays one not heard yet, then, once all are heard, the one heard longest ago after a few days, never the same
-twice in a row. A dialog may count something with the village's number of the day ("count": {n} and forms like
+twice in a row. A dialog or a happening may say the level it is written for ("level": "B1"; companion/SCENES.md
+"Dialogs by level"): the app plays a learner what is at or below their level, their own level's first, and what has no
+level to everyone; a happening for everyone keeps a dialog without a level as its "dialog". A dialog may count something with the village's number of the day ("count": {n} and forms like
 {ovca|ovci|ovce|ovc}, the wrong choices "wrong_form": companion/SCENES.md "Numbers"). dialog_variants_heard: the
 learner has heard every dialog of a happening; write a fresh one with publish_dialog_variant (the same situation, other
 words, another point of grammar, at their level, around a weak spot the note names), no message to the learner needed;
