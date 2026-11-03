@@ -1065,6 +1065,56 @@
                 "reply": { "face": "confused", "de": "Sie helfen? Hm … Wen denn?", "sl": "Sie helfen? Hm … Komu pa?", "en": "Sie helfen? Hm … Help who?", "it": "Sie helfen? Mh … Aiutare chi?" } }
             ] }
           ]
+        },
+        "B1": {
+          "late": {"who": "self", "face": "happy", "de": "Grüß Gott! Endlich! Ich bin schon ein paar Tage im Dorf, aber wir haben uns noch nicht kennengelernt. Ich bin {name}.", "sl": "Dober dan! Končno! Že nekaj dni sem v vasi, pa se še ne poznava. Sem {name}.", "en": "Hello! At last! I've been in the village for a few days, and we haven't met yet. I'm {name}.", "it": "Buongiorno! Finalmente! Sono in paese già da qualche giorno e non ci conosciamo ancora. Io sono {name}."},
+          "lines": [
+            {"who": "self", "face": "curious", "de": "Grüß Gott! Ich heiße {name} und bin {role}. Sie sind bestimmt {learner}?", "sl": "Dober dan! Ime mi je {name} in sem {role}. Vi ste gotovo {learner}?", "en": "Hello! My name is {name}, and I'm the new {role}. You must be {learner}?", "it": "Buongiorno! Mi chiamo {name} e sono {g, select, f {la nuova} other {il nuovo}} {role}. Lei dev'essere {learner}?"},
+            {
+              "choices": [
+                {
+                  "de": "Grüß Gott! Ja, das bin ich. Wie gefällt es Ihnen bei uns?",
+                  "sl": "Dober dan! Ja, to sem jaz. Kako vam je všeč pri nas?",
+                  "en": "Hello! Yes, that's me. How do you like it here?",
+                  "it": "Buongiorno! Sì, sono io. Come si trova da noi?",
+                  "ok": true,
+                  "reply": {"face": "happy", "de": "Sehr! Die Leute sind freundlich und die Aussicht ist wunderbar.", "sl": "Zelo! Ljudje so prijazni in razgled je čudovit.", "en": "Very much! The people are kind and the view is wonderful.", "it": "Benissimo! La gente è gentile e il panorama è stupendo."}
+                },
+                {
+                  "de": "Grüß Gott! Ja, das bin ich. Wie gefällt es Sie bei uns?",
+                  "sl": "Dober dan! Ja, to sem jaz. Kako vam je všeč pri nas? (Sie: ni dajalnik)",
+                  "en": "Hello! Yes, that's me. How do you like it here? (Sie: not the dative)",
+                  "it": "Buongiorno! Sì, sono io. Come si trova da noi? (Sie: non è il dativo)",
+                  "why": {"sl": "Gefallen zahteva dajalnik: es gefällt Ihnen, ne es gefällt Sie.", "en": "Gefallen takes the dative: es gefällt Ihnen, not es gefällt Sie.", "it": "Gefallen vuole il dativo: es gefällt Ihnen, non es gefällt Sie."},
+                  "reply": {"face": "laugh", "de": "Gefällt Sie? Wen meinen Sie denn?", "sl": "Gefällt Sie? Koga pa mislite?", "en": "Gefällt Sie? Who do you mean, then?", "it": "Gefällt Sie? Chi intende, scusi?"}
+                }
+              ]
+            },
+            {"who": "self", "de": "Früher habe ich in der Stadt gewohnt, wo niemand seinen Nachbarn gekannt hat.", "sl": "Prej sem {g, select, f {živela} other {živel}} v mestu, kjer nihče ni poznal svojega soseda.", "en": "I used to live in town, where nobody knew their neighbour.", "it": "Prima abitavo in città, dove nessuno conosceva il proprio vicino."},
+            {"who": "self", "de": "Als ich gehört habe, dass das Dorf Leute mit meinem Beruf braucht, habe ich nicht lange gezögert.", "sl": "Ko sem {g, select, f {slišala} other {slišal}}, da v vasi potrebujejo ljudi z mojim poklicem, se nisem dolgo {g, select, f {obotavljala} other {obotavljal}}.", "en": "When I heard that the village needed people with my trade, I didn't hesitate for long.", "it": "Quando ho saputo che il paese cercava gente del mio mestiere, non ho esitato a lungo."},
+            {"who": "self", "face": "thinking", "de": "Ich hoffe, ich finde hier ein Zuhause. Und Freunde.", "sl": "{g, select, f {Upam, da bom tu našla dom. In prijatelje.} other {Upam, da bom tu našel dom. In prijatelje.}}", "en": "I hope I'll find a home here. And friends.", "it": "Spero di trovare qui una casa. E degli amici."},
+            {
+              "choices": [
+                {
+                  "de": "Ich bin sicher, dass Sie welche finden werden.",
+                  "sl": "{m:Prepričan|f:Prepričana} sem, da jih boste našli.",
+                  "en": "I'm sure you'll find them.",
+                  "it": "Sono {m:sicuro|f:sicura} che li troverà.",
+                  "ok": true,
+                  "reply": {"face": "shy", "de": "Danke! Einen habe ich, glaube ich, schon gefunden.", "sl": "{g, select, f {Hvala! Enega sem že našla, mislim.} other {Hvala! Enega sem že našel, mislim.}}", "en": "Thank you! I think I've already found one.", "it": "Grazie! Credo di averne già {m:trovato uno|f:trovata una}."}
+                },
+                {
+                  "de": "Ich bin sicher, dass Sie werden welche finden.",
+                  "sl": "{m:Prepričan|f:Prepričana} sem, da jih boste našli. (werden sredi stavka)",
+                  "en": "I'm sure you'll find them. (werden in the middle)",
+                  "it": "Sono {m:sicuro|f:sicura} che li troverà. (werden in mezzo)",
+                  "why": {"sl": "V stavku z dass gre glagol na konec: dass Sie welche finden werden.", "en": "After dass the verb goes to the end: dass Sie welche finden werden.", "it": "Dopo dass il verbo va in fondo: dass Sie welche finden werden."},
+                  "reply": {"face": "thinking", "de": "Dass Sie werden … was? Hm, Sie sind ja noch neuer hier als ich!", "sl": "Dass Sie werden … kaj? Hm, vi ste pa še bolj novi tu kot jaz!", "en": "Dass Sie werden … what? Hm, you're even newer here than I am!", "it": "Dass Sie werden … cosa? Mh, Lei è qui ancora più nuovo di me!"}
+                }
+              ]
+            },
+            {"who": "self", "de": "Auf Wiedersehen! Kommen Sie doch einmal auf einen Kaffee und erzählen Sie mir alles über das Dorf.", "sl": "Na svidenje! Pridite kdaj na kavo, pa mi povejte vse o vasi.", "en": "Goodbye! Come round for coffee some time and tell me all about the village.", "it": "Arrivederci! Passi a prendere un caffè, qualche volta, e mi racconti tutto del paese."}
+          ]
         }
       }
     },
