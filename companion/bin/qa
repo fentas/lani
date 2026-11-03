@@ -14676,7 +14676,8 @@ def cases_de_step():
         field = wait_for("Schreib", 6)
         assert field, "the answer field"
         tap_at(field)
-        type_text(ascii_of(m.group(1)))
+        # adb types no umlaut: the German way without them (die Kuehe), wrong either way, the cue in its nominative
+        type_text(ascii_of(m.group(1)).replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("Ä", "Ae").replace("Ö", "Oe").replace("Ü", "Ue").replace("ß", "ss"))
         shot("cases-de-decline")
         assert tap(CASES_DE_CHECK, 3), "check"
         assert wait_for("❌", 6) or wait_for("🟡", 2) or wait_for("✅", 2), "graded"

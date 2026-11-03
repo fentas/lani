@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.CaseBanks
+import si.lanisce.lani.data.CaseSets
 import si.lanisce.lani.data.CaseTrainer
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grading.Verdict
@@ -341,10 +342,11 @@ internal fun explain(ex: Exercise.CaseTask, whyRight: Boolean?): String {
     ).joinToString("\n")
 }
 
-/** "ed." / "dv." / "mn.": a number in short, as the school writes it. */
-private fun shortNumber(n: String): String = when (n) {
-    "pl" -> "mn."
-    "du" -> "dv."
+/** "ed." / "dv." / "mn.": a number in short, as the school writes it (German's "Sg." / "Pl."). */
+private fun shortNumber(n: String): String = when {
+    CaseSets.current.language == "de" -> if (n == "pl") "Pl." else "Sg."
+    n == "pl" -> "mn."
+    n == "du" -> "dv."
     else -> "ed."
 }
 
