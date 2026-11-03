@@ -5,7 +5,7 @@
 // is written for it but its headings: a page fixed or a unit added prints as it is the next time. fit.js fits it to its
 // pages as it fits a unit (tighter, then without its optional parts).
 import { levelOfUnit, type Doc } from './build'
-import { BASES, cellHtml, documentHtml, esc, h2, HOUSE, LANGUAGE_NAMES, md, SL } from './html'
+import { BASES, cellHtml, documentHtml, esc, h2, headsOf, HOUSE, LANGUAGE_NAMES, md, SL } from './html'
 import { condense, fillLearner, norm, plain, sentences, tr, type Content, type Options, type PCell, type PTable } from './sheet'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,6 +14,8 @@ type Json = any
 /** The overviews there are, by the grammar page they start from: its file's name and what it is made of. */
 export const OVERVIEWS: Record<string, { name: string }> = {
   skloni: { name: 'pregled-sklonov' },
+  // German's four cases (docs/plans/05-built/case-de.md), from its page faelle
+  faelle: { name: 'ueberblick-faelle' },
 }
 
 /** The overview's headings (the only words written for it): Slovene first, then the base. */
@@ -76,6 +78,36 @@ const HEAD = {
 }
 type Heads = (typeof HEAD)['en']
 
+/**
+ * German's overview's headings (the only words written for it): German first, then the base (Slovene, English,
+ * Italian). Machine-written, for the native check.
+ */
+const HEAD_DE: Record<string, Heads & { overview: string }> = {
+  de: {
+    overview: 'Überblick', glance: 'Die vier Fälle', use: 'wozu', howto: 'So findest du den Fall', numbers: '', where: 'Wo? Wohin?',
+    endings: 'Die Endungen: Artikel, Adjektiv, Nomen', adjectives: '', pronouns: 'Personalpronomen', uses: 'Präpositionen und ihr Fall',
+    book: 'aus der Grammatik', unit: 'aus der Lektion der Schule',
+  },
+  sl: {
+    overview: 'Pregled', glance: 'Štirje skloni na prvi pogled', use: 'čemu', howto: 'Kako najdeš sklon', numbers: '', where: 'Kje? Kam?',
+    endings: 'Končnice: člen, pridevnik, samostalnik', adjectives: '', pronouns: 'Osebni zaimki', uses: 'Predlogi in njihov sklon',
+    book: 'iz slovnice', unit: 'iz šolske enote',
+  },
+  en: {
+    overview: 'Overview', glance: 'The four cases at a glance', use: 'what it does', howto: 'How to find the case', numbers: '', where: 'Where? Where to?',
+    endings: 'The endings: article, adjective, noun', adjectives: '', pronouns: 'Personal pronouns', uses: 'Prepositions and their case',
+    book: 'from the grammar book', unit: 'from the school’s unit',
+  },
+  it: {
+    overview: 'Sintesi', glance: 'I quattro casi in breve', use: 'a che serve', howto: 'Come trovare il caso', numbers: '', where: 'Dove? Verso dove?',
+    endings: 'Le desinenze: articolo, aggettivo, nome', adjectives: '', pronouns: 'I pronomi personali', uses: 'Le preposizioni e il loro caso',
+    book: 'dalla grammatica', unit: 'dall’unità della scuola',
+  },
+}
+
+/** An overview's headings: the target's (its first line) and the base's. */
+type OHeads = { target: Heads & { overview: string }; base: Heads }
+
 /** A row of the cases at a glance: the case, its question, what it does, its endings, its prepositions, an example. */
 export type GlanceRow = { n: string; name: PCell; question: string; does: string; endings: string; preps: PCell; example?: { sl: string; tr: string } }
 /** A table with where it comes from (a page or a unit), its caption's title, and lines that go with it. */
@@ -101,6 +133,8 @@ export type Overview = {
   /** What it was made of: grammar:<id> and unit:<id>, in order (the generator's --explain, the checks). */
   sources: string[]
   unreviewed: boolean
+  /** Its headings: Slovene's and the base's, or German's and the base's. */
+  heads: OHeads
 }
 
 const LEVEL_TALK = /\b(A1|A2|B1|B2|C1)\b/
@@ -195,6 +229,7 @@ function noteOf(examples: Json[], caseName: string, base: string): { e: Json; do
 export function buildOverview(c: Content, id: string, o: Options): Overview | null {
   const spec = OVERVIEWS[id]
   const sk = c.pages.get(id)
+  if (spec && sk && id === 'faelle' && c.language === 'de') return buildOverviewDe(c, id, o)
   if (!spec || !sk || id !== 'skloni') return null
   const base = BASES[o.base] ? o.base : 'en'
   const sources: string[] = [`grammar:${id}`]
@@ -327,6 +362,101 @@ export function buildOverview(c: Content, id: string, o: Options): Overview | nu
     uses,
     sources,
     unreviewed,
+    heads: { target: { ...HEAD.sl, overview: HEAD.sl.overview } as unknown as Heads & { overview: string }, base: (HEAD as Json)[base] as Heads },
+  }
+}
+
+/**
+ * German's overview (docs/plans/05-built/case-de.md), from its grammar book's pages as they are: the four cases at a glance
+ * (faelle's table: the case, its question, the article of each gender; what each does from its examples' notes; the
+ * prepositions that take it from their pages' tables; an example), how to find the case (faelle's rule and its card's
+ * tip), wo or wohin (wechselpraepositionen's table); the endings (adjektiv-tabelle's, n-deklination's); the pronouns
+ * (pronomen-dativ's); the prepositions and the verbs' prepositions with their case. Nothing is written for it but its
+ * headings, so a page fixed prints as it is the next time.
+ */
+function buildOverviewDe(c: Content, id: string, o: Options): Overview | null {
+  const spec = OVERVIEWS[id]!
+  const fa = c.pages.get(id)
+  if (!fa?.table?.rows?.length) return null
+  const base = BASES[o.base] && o.base !== 'de' ? o.base : 'en'
+  const sources: string[] = [`grammar:${id}`]
+  const used: Json[] = [fa]
+  const page = (pid: string) => {
+    const p = c.pages.get(pid)
+    if (p) {
+      if (!sources.includes(`grammar:${pid}`)) sources.push(`grammar:${pid}`)
+      used.push(p)
+    }
+    return p
+  }
+  const titled = (p: Json) => ({ sl: tr(p.title, c.language), tr: tr(p.title, base) })
+  const firstColumn = (pid: string) => ((page(pid)?.table?.rows ?? []) as Json[][]).map(r => tr(r[0], 'de')).filter(Boolean).join(', ')
+  const prepsOf: Record<string, string> = { Akkusativ: firstColumn('praepositionen-akkusativ'), Dativ: firstColumn('praepositionen-dativ'), Genitiv: firstColumn('praepositionen-genitiv') }
+  const rows: GlanceRow[] = (fa.table.rows as Json[][]).map(r => {
+    const label = tr(r[0], 'de')
+    const name = label.replace(/\s*\([^)]*\)\s*$/, '')
+    const question = label.match(/\(([^)]*)\)/)?.[1] ?? ''
+    // the example whose note opens with the case's name in the base (Imenovalnik:, Nominativ:)
+    const baseName = tr(r[0], base).replace(/\s*\([^)]*\)\s*$/, '')
+    const note = noteOf(fa.examples ?? [], baseName, base) ?? noteOf(fa.examples ?? [], name, base)
+    const form = tr(r[1], 'de')
+    return {
+      n: '',
+      name: { sl: name, tr: tr(r[0], base).replace(/\s*\([^)]*\)\s*$/, '') },
+      question,
+      does: cap((note?.does ?? '').replace(/^[:\s]+/, '')),
+      endings: r.slice(1).map(x => tr(x, 'de').split(/\s+/)[0]).join(' · '),
+      preps: { sl: prepsOf[name] ?? '—' },
+      ...(note ? { example: { sl: boldForm(fillLearner(note.e.de, o), form), tr: fillLearner(tr(note.e, base), o) } } : {}),
+    }
+  })
+  const HT = HEAD_DE.de!
+  const HB = HEAD_DE[base] ?? HEAD_DE.en!
+  const head: PCell[][] = [[cell(fa.table.head[0], base, o)], [{ sl: 'Wer? Wen? Wem? Wessen?' }, { sl: 'der · die · das' }], [{ sl: HT.use, tr: HB.use }], [{ sl: 'Präpositionen', tr: base === 'sl' ? 'predlogi' : base === 'it' ? 'preposizioni' : 'prepositions' }], [{ sl: 'Beispiel', tr: base === 'sl' ? 'primer' : base === 'it' ? 'esempio' : 'example' }]]
+  const de = (p: Json) => tableOf(p.table, `grammar:${p.id}`, base, o)
+  const lines = paragraphs(fa.rule, base, o).map(p => condense(sentences(p), 330))
+  const tipMd = fa.card?.tip ? tr(fa.card.tip, base).replace(/^\p{Extended_Pictographic}️?\s*/u, '').trim() : undefined
+  const wp = page('wechselpraepositionen')
+  const wt = wp && de(wp)
+  const where: OTable | undefined = wt ? { table: wt, title: titled(wp), source: 'book', notes: paragraphs(wp.rule, base, o).slice(-2).map(x => condense(sentences(x), 170)) } : undefined
+  const endings: OTable[] = []
+  for (const pid of ['adjektiv-tabelle', 'n-deklination']) {
+    const p = page(pid)
+    const t = p && de(p)
+    if (t) endings.push({ table: t, title: titled(p), source: 'book', notes: paragraphs(p.rule, base, o).slice(0, 1).map(x => condense(sentences(x), 170)) })
+  }
+  const pd = page('pronomen-dativ')
+  const pt = pd && de(pd)
+  const pronouns: OTable | undefined = pt ? { table: pt, title: titled(pd), source: 'book', notes: paragraphs(pd.rule, base, o).slice(1, 3).map(x => condense(sentences(x), 150)) } : undefined
+  const uses: OTable[] = []
+  for (const pid of ['praepositionen-akkusativ', 'praepositionen-dativ', 'praepositionen-genitiv', 'verben-praepositionen']) {
+    const p = page(pid)
+    const t = p && de(p)
+    if (t) uses.push({ table: t, title: titled(p), source: 'book', notes: [] })
+  }
+  const order = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+  const lv = [...new Set(used.map(p => p.level).filter((l: Json) => order.includes(l)))].sort((a, b) => order.indexOf(a) - order.indexOf(b))
+  const unreviewed = used.some(p => {
+    const review = String(p.review ?? '')
+    return p.machine_written !== false || !/\breviewed by\b/i.test(review) || /\bnot reviewed\b/i.test(review)
+  })
+  return {
+    id,
+    name: spec.name,
+    base,
+    language: c.language,
+    emoji: fa.emoji ?? '🧩',
+    title: { sl: tr(fa.title, 'de'), tr: tr(fa.title, base) },
+    levels: lv.length > 1 ? `${lv[0]}–${lv[lv.length - 1]}` : (lv[0] ?? ''),
+    glance: { head, rows },
+    howto: { lines, ...(tipMd ? { tip: tipMd } : {}) },
+    ...(where ? { where } : {}),
+    endings,
+    ...(pronouns ? { pronouns } : {}),
+    uses,
+    sources,
+    unreviewed,
+    heads: { target: HT, base: HB },
   }
 }
 
@@ -339,16 +469,17 @@ function otable(x: OTable, h: Heads, cls = ''): string {
   const body = t.rows
     .map(r => `<tr>${r.map((c, j) => (j === 0 ? `<th scope="row">${cellHtml(c, 'label')}</th>` : `<td${glossCol[j] ? ' class="gc"' : ''}>${cellHtml(c, 'cell')}</td>`)).join('')}</tr>`)
     .join('')
-  const from = x.source === 'unit' ? `🏫 ${md(x.title.sl)}<span> · ${esc(h.unit)}</span>` : `📖 ${md(x.title.sl)}<span> · ${esc(h.book)}</span>`
+  const from = x.source === 'unit' ? `🏫 ${md(x.title.sl)}<span> · ${esc(h.unit ?? '')}</span>` : `📖 ${md(x.title.sl)}<span> · ${esc(h.book ?? '')}</span>`
   return `<div class="tbl${cls ? ` ${cls}` : ''}${x.optional ? ' opt' : ''}"><table class="forms o-t cols-${t.head.length}"><caption>${from}</caption>${head}<tbody>${body}</tbody></table></div>`
 }
 
 const notes = (xs: string[], cls = '') => (xs.length ? `<ul class="o-notes${cls ? ` ${cls}` : ''}">${xs.map(x => `<li>${md(x)}</li>`).join('')}</ul>` : '')
 
 function header(v: Overview, h: Heads, mini: boolean): string {
-  const mark = `<div class="mark">${HOUSE}<div><span class="lani">Lani</span><span class="school">${esc(SL.school)} · ${esc(LANGUAGE_NAMES[v.language] ?? v.language)}</span></div><span class="level">${esc(v.levels)}</span></div>`
-  const num = `<div class="num"><small>${esc(HEAD.sl.overview)}</small>${v.glance.rows.length}</div>`
-  if (mini) return `<header class="head mini"><div class="num">${v.glance.rows.length}</div><div class="titles"><h1><span class="emoji">${v.emoji}</span>${md(v.title.sl)}</h1><div class="sub">${esc(SL.continued)} · ${esc((BASES[v.base] ?? BASES.en).continued)}</div></div>${mark}</header>`
+  const T = headsOf(v.language)
+  const mark = `<div class="mark">${HOUSE}<div><span class="lani">Lani</span><span class="school">${esc(T.school)} · ${esc(LANGUAGE_NAMES[v.language] ?? v.language)}</span></div><span class="level">${esc(v.levels)}</span></div>`
+  const num = `<div class="num"><small>${esc(v.heads.target.overview)}</small>${v.glance.rows.length}</div>`
+  if (mini) return `<header class="head mini"><div class="num">${v.glance.rows.length}</div><div class="titles"><h1><span class="emoji">${v.emoji}</span>${md(v.title.sl)}</h1><div class="sub">${esc(T.continued)} · ${esc((BASES[v.base] ?? BASES.en).continued)}</div></div>${mark}</header>`
   const sub = v.title.tr && v.title.tr !== v.title.sl ? `<div class="sub">${md(v.title.tr)}</div>` : ''
   return `<header class="head">${num}<div class="titles"><h1><span class="emoji">${v.emoji}</span>${md(v.title.sl)}</h1>${sub}</div>${mark}</header>`
 }
@@ -359,40 +490,42 @@ function glance(v: Overview, h: Heads): string {
   const rows = g.rows
     .map(
       r =>
-        `<tr><th scope="row" class="g0"><span class="o-n">${esc(r.n)}</span><span class="f">${md(r.name.sl ?? '')}</span>${r.name.tr ? `<span class="g">${md(r.name.tr)}</span>` : ''}</th>` +
+        `<tr><th scope="row" class="g0">${r.n ? `<span class="o-n">${esc(r.n)}</span>` : ''}<span class="f">${md(r.name.sl ?? '')}</span>${r.name.tr ? `<span class="g">${md(r.name.tr)}</span>` : ''}</th>` +
         `<td class="g1"><span class="f q">${md(r.question)}</span>${r.endings ? `<span class="f e">${md(r.endings)}</span>` : ''}</td>` +
         `<td class="g2">${md(r.does)}</td>` +
         `<td class="g3">${r.preps.sl ? `<span class="f">${md(r.preps.sl)}</span>` : `<span class="g">${md(r.preps.tr ?? '')}</span>`}</td>` +
         `<td class="g4">${r.example ? `<span class="ex-sl">${md(r.example.sl)}</span><span class="ex-tr">${md(r.example.tr)}</span>` : ''}</td></tr>`,
     )
     .join('')
-  return `<section class="sec o-glance">${h2('rule', HEAD.sl.glance, h.glance)}<table class="forms o-g"><thead>${headRow}</thead><tbody>${rows}</tbody></table></section>`
+  return `<section class="sec o-glance">${h2('rule', v.heads.target.glance, h.glance)}<table class="forms o-g"><thead>${headRow}</thead><tbody>${rows}</tbody></table></section>`
 }
 
 function footer(v: Overview, h: Heads): string {
   const b = BASES[v.base] ?? BASES.en
-  const left = `Lani · ${esc(SL.school)} · ${esc(LANGUAGE_NAMES[v.language] ?? v.language)} · ${esc(HEAD.sl.overview)}: ${md(v.title.sl)}`
-  const mid = v.unreviewed ? `${esc(SL.machine)} · ${esc(b.machine)}` : ''
+  const T = headsOf(v.language)
+  const left = `Lani · ${esc(T.school)} · ${esc(LANGUAGE_NAMES[v.language] ?? v.language)} · ${esc(v.heads.target.overview)}: ${md(v.title.sl)}`
+  const mid = v.unreviewed ? `${esc(T.machine)} · ${esc(b.machine)}` : ''
   return `<footer class="foot"><span class="f-l">${left}</span><span class="f-m">${mid}</span><span class="pn"></span></footer>`
 }
 
 /** The overview's three pages: the cases and how to find them; the endings; the adjectives, pronouns and uses. */
 export function overviewHtml(v: Overview): string {
-  const h = ((HEAD as Json)[v.base] ?? HEAD.en) as Heads
-  const howto = `<section class="sec o-howto">${h2('rule', HEAD.sl.howto, h.howto)}<ol class="o-how">${v.howto.lines.map(x => `<li>${md(x)}</li>`).join('')}${v.howto.tip ? `<li class="tip opt">${md(v.howto.tip)}</li>` : ''}</ol></section>`
-  const numbers = v.numbers ? `<section class="sec o-numbers">${h2('table', HEAD.sl.numbers, h.numbers)}${otable(v.numbers, h)}${notes(v.numbers.notes)}</section>` : ''
-  const where = v.where ? `<section class="sec o-where">${h2('examples', HEAD.sl.where, h.where)}${otable(v.where, h, 'wide')}</section>` : ''
+  const h = v.heads.base
+  const S = v.heads.target
+  const howto = `<section class="sec o-howto">${h2('rule', S.howto, h.howto)}<ol class="o-how">${v.howto.lines.map(x => `<li>${md(x)}</li>`).join('')}${v.howto.tip ? `<li class="tip opt">${md(v.howto.tip)}</li>` : ''}</ol></section>`
+  const numbers = v.numbers ? `<section class="sec o-numbers">${h2('table', S.numbers, h.numbers)}${otable(v.numbers, h)}${notes(v.numbers.notes)}</section>` : ''
+  const where = v.where ? `<section class="sec o-where">${h2('examples', S.where, h.where)}${otable(v.where, h, 'wide')}</section>` : ''
   const one = `<div class="sheet"><div class="body">${header(v, h, false)}${glance(v, h)}<div class="o-duo">${howto}${numbers}</div>${where}</div>${footer(v, h)}</div>`
 
   const endings = v.endings.length
-    ? `<section class="sec o-endings">${h2('table', HEAD.sl.endings, h.endings)}${v.endings
+    ? `<section class="sec o-endings">${h2('table', S.endings, h.endings)}${v.endings
         .map(e => `<div class="o-decl">${otable(e, h)}${notes(e.notes)}</div>`)
         .join('')}</section>`
     : ''
-  const adjectives = v.adjectives ? `<section class="sec o-adj">${h2('words', HEAD.sl.adjectives, h.adjectives)}${otable(v.adjectives, h, 'wide')}</section>` : ''
+  const adjectives = v.adjectives ? `<section class="sec o-adj">${h2('words', S.adjectives, h.adjectives)}${otable(v.adjectives, h, 'wide')}</section>` : ''
   const two = `<div class="sheet"><div class="body">${header(v, h, true)}${endings}${adjectives}</div>${footer(v, h)}</div>`
 
-  const pronouns = v.pronouns ? `<section class="sec o-pron">${h2('watch', HEAD.sl.pronouns, h.pronouns)}<div class="o-decl">${otable(v.pronouns, h)}${notes(v.pronouns.notes)}</div></section>` : ''
+  const pronouns = v.pronouns ? `<section class="sec o-pron">${h2('watch', S.pronouns, h.pronouns)}<div class="o-decl">${otable(v.pronouns, h)}${notes(v.pronouns.notes)}</div></section>` : ''
   // the uses in two columns about as long, the longest table first (a row with a gloss under its label counts double),
   // each column in the book's order
   const rowsOf = (u: OTable) => u.table.rows.reduce((n, r) => n + (r[0]?.tr ? 2 : 1), 2)
@@ -401,7 +534,7 @@ export function overviewHtml(v: Overview): string {
   for (const u of [...v.uses].sort((a, b) => rowsOf(b) - rowsOf(a))) cols[size(cols[0]) <= size(cols[1]) ? 0 : 1].push(u)
   for (const c of cols) c.sort((a, b) => v.uses.indexOf(a) - v.uses.indexOf(b))
   if (cols[1].length && v.uses.indexOf(cols[1][0]) < v.uses.indexOf(cols[0][0] ?? cols[1][0])) cols.reverse()
-  const uses = v.uses.length ? `<section class="sec o-uses">${h2('check', HEAD.sl.uses, h.uses)}<div class="o-cols">${cols.map(c => `<div class="o-col">${c.map(u => otable(u, h)).join('')}</div>`).join('')}</div></section>` : ''
+  const uses = v.uses.length ? `<section class="sec o-uses">${h2('check', S.uses, h.uses)}<div class="o-cols">${cols.map(c => `<div class="o-col">${c.map(u => otable(u, h)).join('')}</div>`).join('')}</div></section>` : ''
   const three = `<div class="sheet"><div class="body">${header(v, h, true)}${pronouns}${uses}</div>${footer(v, h)}</div>`
   return `<section class="overview" data-unit="${esc(v.id)}">${one}${two}${three}</section>`
 }

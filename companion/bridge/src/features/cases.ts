@@ -6,7 +6,8 @@
 import { z } from 'zod'
 import { bankCounts, CASE_EN, CASES, CASES_LANGUAGES, caseItem, casesOf, checkItems, type CaseCheck, type CaseItem } from '../case-bank'
 import { caseItemDe, checkItemsDe, DE_CASE_EN, DE_CASES, germanPackNouns, type CaseBankDe, type CaseCheckDe, type CaseItemDe } from '../case-bank-de'
-import { GermanForms } from '../german-forms'
+import { bareNoun, GermanForms } from '../german-forms'
+import { itemId } from '../packs'
 import type { FeatureFactory } from '../feature'
 import { LineIndex } from '../forms'
 import { json, readJson } from '../http'
@@ -193,6 +194,26 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
   }
   const state = () => (game.read()?.state as { cases?: unknown } | undefined)?.cases
 
+  /**
+   * A German village's learner's nouns for "Dekliniere!": each of their cards that is a pack's noun, with its gender and
+   * nominative plural (the app's cards have neither; its own rules decline them: data/GermanForms.kt). An older app
+   * ignores the field.
+   */
+  function learnerNounsDe(): { card: string; lemma: string; gender: string; plural?: string }[] {
+    const items = learner.srItems()
+    const out: { card: string; lemma: string; gender: string; plural?: string }[] = []
+    for (const p of packs.all()) {
+      for (const w of p.words as { id: string; de?: string; gender?: string; plural?: string }[]) {
+        const card = itemId(p.id, w.id)
+        const lemma = bareNoun(w.de)
+        if (!items[card] || !lemma || !w.gender || !['m', 'f', 'n'].includes(w.gender) || out.some(o => o.card === card)) continue
+        const plural = bareNoun(w.plural)
+        out.push({ card, lemma, gender: w.gender, ...(plural ? { plural } : {}) })
+      }
+    }
+    return out
+  }
+
   async function handleDone(req: Request): Promise<Response> {
     if (!slovene) return json({ error: `the case trainer is Slovene's and German's; this village speaks "${language}"` }, 400)
     const r = casesDone.safeParse(await readJson(req))
@@ -224,7 +245,8 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
         addressed: true,
         handle: () => {
           const s = slovene ? store.served() : null
-          return s ? json(s) : json({ error: `no case trainer for "${language}"` }, 404)
+          if (!s) return json({ error: `no case trainer for "${language}"` }, 404)
+          return json(german ? { ...s, learner_nouns: learnerNounsDe() } : s)
         },
       },
       { method: 'POST', path: '/cases/done', handle: ({ req, url }) => outbox.once(req, url.pathname, handleDone) },
