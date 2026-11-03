@@ -76,12 +76,19 @@ object OtherForms {
 
     /** A term's words for a child, in the learner's base ("presente · Präsens — was jetzt ist"), when there are some. */
     private fun kid(term: String): String? =
-        if (!child || term.removePrefix("wordForms.") !in KID) null else runCatching { inBase(term.replace("wordForms.", "wordForms.kid.")) }.getOrNull()?.takeIf { it.isNotBlank() }
+        if (!child) null else KID[term]?.let { runCatching { inBase(it) }.getOrNull() }?.takeIf { it.isNotBlank() }
 
-    /** The terms with a child's words (wordForms.kid.<term> in every language). */
-    private val KID = setOf(
-        "present", "perfect", "imperfect", "future", "conditional", "subjunctive", "subjunctiveImperfect", "remotePast", "imperative", "gerund",
-        "plural", "adjective", "comparative", "preterite", "konjunktiv2", "past", "ingForm", "pastParticiple",
+    /** The terms with a child's words, and their keys (in every language's table). */
+    private val KID = mapOf(
+        "wordForms.present" to "wordForms.kid.present", "wordForms.perfect" to "wordForms.kid.perfect",
+        "wordForms.imperfect" to "wordForms.kid.imperfect", "wordForms.future" to "wordForms.kid.future",
+        "wordForms.conditional" to "wordForms.kid.conditional", "wordForms.subjunctive" to "wordForms.kid.subjunctive",
+        "wordForms.subjunctiveImperfect" to "wordForms.kid.subjunctiveImperfect", "wordForms.remotePast" to "wordForms.kid.remotePast",
+        "wordForms.imperative" to "wordForms.kid.imperative", "wordForms.gerund" to "wordForms.kid.gerund",
+        "wordForms.plural" to "wordForms.kid.plural", "wordForms.adjective" to "wordForms.kid.adjective",
+        "wordForms.comparative" to "wordForms.kid.comparative", "wordForms.preterite" to "wordForms.kid.preterite",
+        "wordForms.konjunktiv2" to "wordForms.kid.konjunktiv2", "wordForms.past" to "wordForms.kid.past",
+        "wordForms.ingForm" to "wordForms.kid.ingForm", "wordForms.pastParticiple" to "wordForms.kid.pastParticiple",
     )
 
     /** A term in the learner's pair, glossed for a child: "presente · Präsens (jetzt)". */
@@ -93,6 +100,9 @@ object OtherForms {
         val number = key.substringAfter('.', "")
         return if (lang == "de" && caseOf(key) != null) "$t — ${bi(if (number == "pl") "wordForms.plural" else "wordForms.singular")}" else t
     }
+
+    /** What a locked form is called where the card says what opens it: a German case without its number, else [label]. */
+    fun lockLabel(lang: String, key: String): String = if (lang == "de" && caseOf(key) != null) term(termKey(lang, key)) else label(lang, key)
 
     /** German's four cases in the school's order (1. Nominativ, 2. Genitiv, 3. Dativ, 4. Akkusativ). */
     private val DE_CASES = listOf("nom", "gen", "dat", "acc")
@@ -235,7 +245,7 @@ object OtherForms {
         val lang = of(lemma) ?: return emptyList()
         fun cell(key: String, render: (String) -> String = { it }): WordForms.Cell? {
             val s = lemma.slot(key) ?: return null
-            return WordForms.Cell(key, render(text(s)), locks(s), label(lang, key))
+            return WordForms.Cell(key, render(text(s)), locks(s), lockLabel(lang, key))
         }
         val sections = mutableListOf<WordForms.Section>()
         val numbers = listOf("sg", "pl")
@@ -285,7 +295,8 @@ object OtherForms {
                         "wordForms.pastParticiple" to cell("pp") { "have $it" },
                         "wordForms.ingForm" to cell("ing") { "am $it" },
                     ).filter { it.second != null }.map { (k, c) -> inTarget(k) to listOf(c) }
-                    if (rows.isNotEmpty()) sections += WordForms.Section(term("wordForms.title"), listOf(WordForms.ONE), rows)
+                    // no title of its own: the card's "📚 Forms" is its title, the rows say their tenses
+                    if (rows.isNotEmpty()) sections += WordForms.Section("", listOf(WordForms.ONE), rows)
                 }
             }
             lemma.pos == "noun" && lang == "de" -> {
@@ -336,7 +347,7 @@ object OtherForms {
                 val i = (p - 1) + ni * 3
                 val participle = if (!agree) part else part.dropLast(1) + if (n == "sg") "o/a" else "i/e"
                 val refl = if (reflexive(lemma)) "${IT_REFLEXIVE[i]} " else ""
-                WordForms.Cell("pp", "${pronouns.getValue("$p$n")} $refl${forms[i]} $participle", locks(pp), label(lang, "pp"))
+                WordForms.Cell("pp", "${pronouns.getValue("$p$n")} $refl${forms[i]} $participle", locks(pp), lockLabel(lang, "pp"))
             }
         }
         return WordForms.Section(term("wordForms.perfect"), numbers, rows)

@@ -148,17 +148,31 @@ plural noun (genitori, parents), braccio (Wiktionary gives its two plurals only 
 
 ## Verified (on f9339ab8 + this branch)
 
-- Bridge: `bunx tsc --noEmit -p .`; the smoke with ports 10390–10409: all checks passed (3,721 before the forms cards,
-  see the report for the last run), among them `test/smoke/forms-other.ts` (17 checks: the tag reading, the pages, every
-  page in its book, the files valid with their licence, andare's va and vado alone, essere's sono, bello's forms, Haus's
-  cases, fahren on vokalwechsel, be's am/is/are/was/were, go's went/gone, mangiare's lines, eat's lines and no gerund
-  line), and in the friuli, kaernten and lakeland sections GET /forms with and without v=2, German's forms cards and
-  their holding back from an older app's GET /state.
+- Bridge: `bunx tsc --noEmit -p .`; the smoke with ports 10390–10409: 3,723 checks, all passed, among them
+  `test/smoke/forms-other.ts` (17: the tag reading, the pages, every page in its book, the files valid with their
+  licence, andare's va and vado alone, essere's sono, bello's forms, Haus's cases, fahren on vokalwechsel, be's
+  am/is/are/was/were, go's went/gone, mangiare's lines, eat's lines and no gerund line), and in the friuli, kaernten and
+  lakeland sections GET /forms with and without v=2, German's forms cards (Haus's table with dem Haus given, fahren's
+  card made on demand) and their holding back from an older app's GET /state. `tutor-export --check`: 140 files match.
+  Every touched TypeScript test file parses (`bun build --no-bundle`).
+- Python: 253 and 164 tests (11 skipped), OK.
+- Android: the full suite, 4,113 tests: 2 failures of `L10nTablesTest` (the child's keys built at run time), fixed by
+  naming them; that class and the forms tests run again green (see the report).
 - A sample read of the files: mangiare, andare, essere, fare, dare, sapere, lavarsi, finire, bello, buono, casa, uovo;
   Haus, Herr, Junge, Frau, fahren, abfahren, sitzen, sein, wissen, gut, schön; be, have, go, eat, learn, child, good,
   sheep.
-- Android: `OtherFormsTest` (10), `FormsCardOtherTest` (6), `WordFormsTest`, `FormsCardTest`; the full suite and the
-  emulator QA as the report says.
+- Emulator QA, `companion/bin/qa-slot --steps forms-other` on a synthetic learner each, screenshots in the scratchpad
+  under `ux-forms-tap/{friuli,kaernten,lakeland}/`:
+  - Teo (friuli, a child, it · de): "case" in a line opens la casa's card with "casa · case"; "mangia" added by ➕ shows
+    mangiare's present by person ("io mangio … loro mangiano"), its imperative open, the A2/B1 tenses 🔒 with the child's
+    words ("passato prossimo · Perfekt (ist schon passiert)"), "📖 Wiktionary" under it; a review's form question in a
+    real line: "Giulia ama i gatti, Tommaso invece ama i ____. (cane)", „Giulia liebt Katzen, Tommaso dagegen liebt
+    Hunde.", typed (a noun has one other form only).
+  - Eva (kaernten, de · sl): "Häusern" opens das Haus's four cases with the article ("das Haus | die Häuser", 2. and 3.
+    🔒 until Genitiv and Dativ), "fährt" fahren's Präsens ("du fährst"); a question "zwei ____ (Haus)" chosen among
+    Häusern, Häuser, Hauses, Haus.
+  - Ana (lakeland, en · sl): "houses" house's plural; "went" go's forms a row each ("present · he, she goes", the past
+    and the participle 🔒 until their A2 pages, "-ing form · am going"); a form question.
 
 ## What's left
 

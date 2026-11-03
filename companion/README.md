@@ -3857,7 +3857,8 @@ language has its own slots (`LANG_KEYS` in `bridge/src/paradigms.ts`), each on a
   Wiktionary (CC BY-SA 4.0) via kaikki.org" under it; a review's form question in a real line or a frame of its language
   ("Io ____.", "Penso che io ____.", "Lui è ____.", "mit den ____", "Yesterday I ____."). Never asked: the word's own
   form, a form the same as the word (cut, cut), a German case the same as its nominative (dem Haus: the article is the
-  case) or a plural's case the same as its nominative plural. A card's front gives its word and what it is: "la casa",
+  case) or a plural's case the same as its nominative plural, Italian's passato remoto (its page teaches it to recognise:
+  read in the table, a forms card's cell given). A card's front gives its word and what it is: "la casa",
   "der Wald" a noun, "to run" a verb (`WordFormsWire.lemmaOf`, `posOf`). For a child (Teo) the terms say what they mean
   too: "presente · Präsens (jetzt)", "imperfetto · Imperfekt (wie es früher war)" (`wordForms.kid.*`).
 - **Forms cards** for the three as well (below, "Forms cards"): `POST` and `GET /forms-cards` with `v: 2`; `GET /state`

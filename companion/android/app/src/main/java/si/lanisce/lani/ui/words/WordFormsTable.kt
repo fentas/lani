@@ -75,7 +75,8 @@ fun WordFormsTable(vm: AppViewModel, word: String, pos: String?, gloss: List<Str
 private fun Section(s: WordForms.Section) {
     val columns = s.columns.indices.filter { c -> s.rows.any { (_, cells) -> cells.getOrNull(c)?.open == true } }
     val anyOpen = s.rows.any { (_, cells) -> cells.any { it?.open == true } }
-    Text(
+    // a section without a title of its own (English's forms, a row each): the card's "📚" heads it
+    if (s.title.isNotBlank()) Text(
         s.title + if (anyOpen) "" else " 🔒",
         style = MaterialTheme.typography.labelLarge,
         color = MaterialTheme.colorScheme.primary,

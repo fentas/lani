@@ -14997,7 +14997,7 @@ def it_words():
 # Haus, house; a verb added from its card by ➕), and a piece of the table's grammar terms.
 FORMS_OTHER = {
     "friuli": [
-        ("case", "Le case sono vecchie.", "case", "plurale"),
+        ("case", "Le case sono vecchie.", "casa", "plurale"),
         ("mangia", "Il gatto mangia il pane.", "io mangio", "presente"),
     ],
     "kaernten": [
@@ -15006,7 +15006,7 @@ FORMS_OTHER = {
     ],
     "lakeland": [
         ("houses", "The houses are old.", "houses", "plural"),
-        ("went", "She went up the fell.", "went", "past"),
+        ("went", "She went up the fell.", "he, she goes", "past"),
     ],
 }
 
@@ -15036,15 +15036,17 @@ def forms_other():
         qa_hook(shlex.quote(f"word:{word}|{line}"))
         time.sleep(3)
         add = next((c for t, c in nodes() if t.startswith("➕")), None)
-        if add is not None and find(form) is None:
+        if add is not None:
             tap_at(add)
             time.sleep(3)
+        # the table's title ("📚 Forme · Formen"), below the meaning: the word's own text is above it, never the proof
         for _ in range(4):
-            if find(form) is not None:
+            if find(FORMS_TITLE) is not None and find(form) is not None:
                 break
             adb("shell", "input", "swipe", "540", "1800", "540", "900", "300")
             time.sleep(1)
-        assert wait_for(form, 15), f"«{word}»'s card shows its table: {form}"
+        assert wait_for(FORMS_TITLE, 15), f"«{word}»'s card shows its table (📚)"
+        assert wait_for(form, 15), f"«{word}»'s table: {form}"
         assert find(term) is not None, f"«{word}»'s table names {term}"
         shot(f"forms-other-{culture}-{word}")
         print(f"    {word}: {form}, {term}")
@@ -15068,6 +15070,9 @@ def forms_other():
         qa_hook("forms:off")
         go_home()
 
+
+# The forms table's title on a word's card (l10n wordForms.title, after its 📚).
+FORMS_TITLE = "📚 "
 
 # A form question's instruction in the pair of each culture's synthetic learner (l10n wordForms.fillForm: it · de, de · sl, en · sl).
 FILL_FORM_OTHER = {"friuli": "Inserisci la forma giusta", "kaernten": "Setze die richtige Form ein", "lakeland": "Fill in the right form"}
