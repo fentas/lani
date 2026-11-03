@@ -425,38 +425,44 @@
             "it": "to go · in modo diretto, con garbo",
             "en": "to go: plainly, politely"
           },
-          "columns": [
-            { "sl": "want to · naravnost", "de": "want to · direkt", "it": "want to · diretto", "en": "want to" },
-            {
-              "sl": "would like to · vljudno",
-              "de": "would like to · höflich",
-              "it": "would like to · con garbo",
-              "en": "would like to"
-            }
-          ],
+          "columns": [{"sl": "+ go", "de": "+ go", "it": "+ go", "en": "+ go"}],
           "rows": [
-            { "label": "I", "cells": ["want to go", "would like to go"] },
             {
-              "label": "you",
-              "cells": [{"accept": ["want to go"], "spoken": ["wanna go"]}, {"accept": ["would like to go", "'d like to go"]}]
+              "label": { "sl": "I, naravnost", "de": "I, direkt", "it": "I, in modo diretto", "en": "I, plainly" },
+              "cells": ["want to go"]
             },
             {
-              "label": "she",
+              "label": { "sl": "I, vljudno", "de": "I, höflich", "it": "I, con garbo", "en": "I, politely" },
+              "cells": ["would like to go"]
+            },
+            {
+              "label": { "sl": "you, naravnost", "de": "you, direkt", "it": "you, in modo diretto", "en": "you, plainly" },
+              "cells": [{"accept": ["want to go"], "spoken": ["wanna go"]}]
+            },
+            {
+              "label": { "sl": "you, vljudno", "de": "you, höflich", "it": "you, con garbo", "en": "you, politely" },
+              "cells": [{"accept": ["would like to go", "'d like to go"]}]
+            },
+            {
+              "label": { "sl": "she, naravnost", "de": "she, direkt", "it": "she, in modo diretto", "en": "she, plainly" },
               "cells": [
                 {
                   "accept": ["wants to go"],
                   "hint": { "sl": "he, she: -s", "de": "he, she: -s", "it": "he, she: -s", "en": "he, she: -s" }
-                },
-                { "accept": ["would like to go", "'d like to go"] }
+                }
               ]
             },
             {
-              "label": "we",
-              "cells": [{"accept": ["want to go"], "spoken": ["wanna go"]}, {"accept": ["would like to go", "'d like to go"]}]
+              "label": { "sl": "she, vljudno", "de": "she, höflich", "it": "she, con garbo", "en": "she, politely" },
+              "cells": [{"accept": ["would like to go", "'d like to go"]}]
             },
             {
-              "label": "they",
-              "cells": [{"accept": ["want to go"], "spoken": ["wanna go"]}, {"accept": ["would like to go", "'d like to go"]}]
+              "label": { "sl": "we, naravnost", "de": "we, direkt", "it": "we, in modo diretto", "en": "we, plainly" },
+              "cells": [{"accept": ["want to go"], "spoken": ["wanna go"]}]
+            },
+            {
+              "label": { "sl": "we, vljudno", "de": "we, höflich", "it": "we, con garbo", "en": "we, politely" },
+              "cells": [{"accept": ["would like to go", "'d like to go"]}]
             }
           ],
           "explain": {

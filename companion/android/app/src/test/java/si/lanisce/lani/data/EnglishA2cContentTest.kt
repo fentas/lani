@@ -115,8 +115,8 @@ class EnglishA2cContentTest {
         for (i in shall) assertEquals(Verdict.CORRECT to "Shall", Sheets.check(i, "Will", Lang.EN).let { it.verdict to it.standard })
         val line = items("will").first { it.accept.first() == "Shall I open the window?" }
         assertEquals(Verdict.CORRECT to "Shall I open the window?", Sheets.check(line, "Will I open the window?", Lang.EN).let { it.verdict to it.standard })
-        val gonna = items("going-to").first { "are gonna walk" in it.spoken }
-        assertEquals(Verdict.CORRECT to "are going to walk", Sheets.check(gonna, "are gonna walk", Lang.EN).let { it.verdict to it.standard })
+        val gonna = items("going-to").first { "are gonna" in it.spoken }
+        assertEquals(Verdict.CORRECT to "are going to", Sheets.check(gonna, "are gonna", Lang.EN).let { it.verdict to it.standard })
     }
 
     /** All 18 of A2: part b's EnglishA2bContentTest holds its six, this the level. */

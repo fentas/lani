@@ -386,24 +386,42 @@
             "it": "have to + go · sì e no",
             "en": "have to + go: yes and no"
           },
-          "columns": [
-            { "sl": "yes · da", "de": "yes · ja", "it": "yes · sì", "en": "yes" },
-            { "sl": "no · ne", "de": "no · nein", "it": "no · no", "en": "no" }
-          ],
+          "columns": [{"sl": "+ go", "de": "+ go", "it": "+ go", "en": "+ go"}],
           "rows": [
-            { "label": "I", "cells": ["have to go", "don't have to go"] },
+            { "label": {"sl": "I · da", "de": "I · ja", "it": "I · sì", "en": "I · yes"}, "cells": ["have to go"] },
             {
-              "label": "she",
+              "label": { "sl": "I · ne", "de": "I · nein", "it": "I · no", "en": "I · no" },
+              "cells": ["don't have to go"]
+            },
+            {
+              "label": { "sl": "she · da", "de": "she · ja", "it": "she · sì", "en": "she · yes" },
               "cells": [
                 {
                   "accept": ["has to go"],
                   "hint": { "sl": "she: has", "de": "she: has", "it": "she: has", "en": "she: has" }
-                },
-                { "accept": ["doesn't have to go"], "hint": "does + not" }
+                }
               ]
             },
-            { "label": "we", "cells": [{"accept": ["have to go"]}, {"accept": ["don't have to go"]}] },
-            { "label": "Jack", "cells": [{"accept": ["has to go"]}, {"accept": ["doesn't have to go"]}] }
+            {
+              "label": { "sl": "she · ne", "de": "she · nein", "it": "she · no", "en": "she · no" },
+              "cells": [{"accept": ["doesn't have to go"], "hint": "does + not"}]
+            },
+            {
+              "label": { "sl": "we · da", "de": "we · ja", "it": "we · sì", "en": "we · yes" },
+              "cells": [{"accept": ["have to go"]}]
+            },
+            {
+              "label": { "sl": "we · ne", "de": "we · nein", "it": "we · no", "en": "we · no" },
+              "cells": [{"accept": ["don't have to go"]}]
+            },
+            {
+              "label": { "sl": "Jack · da", "de": "Jack · ja", "it": "Jack · sì", "en": "Jack · yes" },
+              "cells": [{"accept": ["has to go"]}]
+            },
+            {
+              "label": { "sl": "Jack · ne", "de": "Jack · nein", "it": "Jack · no", "en": "Jack · no" },
+              "cells": [{"accept": ["doesn't have to go"]}]
+            }
           ],
           "explain": {
             "sl": "**have to, has to; don't have to, doesn't have to**\n- she has to go · she doesn't have to go",

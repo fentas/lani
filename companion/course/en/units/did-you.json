@@ -470,23 +470,32 @@
           },
           "columns": [
             {
-              "sl": "no · ne",
-              "de": "no · nein",
-              "it": "no · no",
-              "en": "no"
-            },
-            {
-              "sl": "question · vprašanje",
-              "de": "question · Frage",
-              "it": "question · domanda",
-              "en": "question"
+              "sl": "no, question · ne, vprašanje",
+              "de": "no, question · nein, Frage",
+              "it": "no, question · no, domanda",
+              "en": "no, or a question"
             }
           ],
           "rows": [
             {
-              "label": "you went",
+              "label": {
+                "sl": "you went · ne",
+                "de": "you went · nein",
+                "it": "you went · no",
+                "en": "you went · no"
+              },
               "cells": [
-                "You didn't go.",
+                "You didn't go."
+              ]
+            },
+            {
+              "label": {
+                "sl": "you went · ?",
+                "de": "you went · ?",
+                "it": "you went · ?",
+                "en": "you went · ?"
+              },
+              "cells": [
                 {
                   "accept": [
                     "Did you go?"
@@ -495,13 +504,28 @@
               ]
             },
             {
-              "label": "she saw it",
+              "label": {
+                "sl": "she saw it · ne",
+                "de": "she saw it · nein",
+                "it": "she saw it · no",
+                "en": "she saw it · no"
+              },
               "cells": [
                 {
                   "accept": [
                     "She didn't see it."
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "she saw it · ?",
+                "de": "she saw it · ?",
+                "it": "she saw it · ?",
+                "en": "she saw it · ?"
+              },
+              "cells": [
                 {
                   "accept": [
                     "Did she see it?"
@@ -510,24 +534,54 @@
               ]
             },
             {
-              "label": "they walked",
+              "label": {
+                "sl": "they walked · ne",
+                "de": "they walked · nein",
+                "it": "they walked · no",
+                "en": "they walked · no"
+              },
               "cells": [
                 {
                   "accept": [
                     "They didn't walk."
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "they walked · ?",
+                "de": "they walked · ?",
+                "it": "they walked · ?",
+                "en": "they walked · ?"
+              },
+              "cells": [
                 "Did they walk?"
               ]
             },
             {
-              "label": "he had time",
+              "label": {
+                "sl": "he had time · ne",
+                "de": "he had time · nein",
+                "it": "he had time · no",
+                "en": "he had time · no"
+              },
               "cells": [
                 {
                   "accept": [
                     "He didn't have time."
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "he had time · ?",
+                "de": "he had time · ?",
+                "it": "he had time · ?",
+                "en": "he had time · ?"
+              },
+              "cells": [
                 {
                   "accept": [
                     "Did he have time?"

@@ -482,34 +482,47 @@
           },
           "columns": [
             {
-              "sl": "do it · naredi",
-              "de": "do it · tu es",
-              "it": "do it · fallo",
-              "en": "do it"
-            },
-            {
-              "sl": "don't · ne",
-              "de": "don't · nicht",
-              "it": "don't · non farlo",
-              "en": "don't"
-            },
-            {
-              "sl": "together · skupaj",
-              "de": "together · gemeinsam",
-              "it": "together · insieme",
-              "en": "together"
+              "sl": "the verb · glagol",
+              "de": "the verb · das Verb",
+              "it": "the verb · il verbo",
+              "en": "the verb"
             }
           ],
           "rows": [
             {
-              "label": "wait",
+              "label": {
+                "sl": "wait · naredi",
+                "de": "wait · tu es",
+                "it": "wait · fallo",
+                "en": "wait · do it"
+              },
               "cells": [
-                "Wait!",
+                "Wait!"
+              ]
+            },
+            {
+              "label": {
+                "sl": "wait · ne",
+                "de": "wait · nicht",
+                "it": "wait · non farlo",
+                "en": "wait · don't"
+              },
+              "cells": [
                 {
                   "accept": [
                     "Don't wait!"
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "wait · skupaj",
+                "de": "wait · gemeinsam",
+                "it": "wait · insieme",
+                "en": "wait · together"
+              },
+              "cells": [
                 {
                   "accept": [
                     "Let's wait!"
@@ -518,30 +531,69 @@
               ]
             },
             {
-              "label": "go home",
+              "label": {
+                "sl": "go home · naredi",
+                "de": "go home · tu es",
+                "it": "go home · fallo",
+                "en": "go home · do it"
+              },
               "cells": [
                 {
                   "accept": [
                     "Go home!"
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "go home · ne",
+                "de": "go home · nicht",
+                "it": "go home · non farlo",
+                "en": "go home · don't"
+              },
+              "cells": [
                 {
                   "accept": [
                     "Don't go home!"
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "go home · skupaj",
+                "de": "go home · gemeinsam",
+                "it": "go home · insieme",
+                "en": "go home · together"
+              },
+              "cells": [
                 "Let's go home!"
               ]
             },
             {
-              "label": "be quiet",
+              "label": {
+                "sl": "be quiet · naredi",
+                "de": "be quiet · tu es",
+                "it": "be quiet · fallo",
+                "en": "be quiet · do it"
+              },
               "cells": [
                 {
                   "accept": [
                     "Be quiet!"
                   ]
-                },
-                "—",
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "be quiet · skupaj",
+                "de": "be quiet · gemeinsam",
+                "it": "be quiet · insieme",
+                "en": "be quiet · together"
+              },
+              "cells": [
                 {
                   "accept": [
                     "Let's be quiet!"
@@ -550,15 +602,18 @@
               ]
             },
             {
-              "label": "be late",
+              "label": {
+                "sl": "be late · ne",
+                "de": "be late · nicht",
+                "it": "be late · non farlo",
+                "en": "be late · don't"
+              },
               "cells": [
-                "—",
                 {
                   "accept": [
                     "Don't be late!"
                   ]
-                },
-                "—"
+                }
               ]
             }
           ],

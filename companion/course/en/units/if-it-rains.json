@@ -369,28 +369,25 @@
             "en": "if + the present, then will"
           },
           "columns": [
-            { "sl": "if … · če", "de": "if … · wenn", "it": "if … · se", "en": "if …" },
-            { "sl": "then … · potem", "de": "then … · dann", "it": "then … · allora", "en": "then …" }
+            { "sl": "za if", "de": "nach if", "it": "dopo if", "en": "after if" },
+            { "sl": "drugi del", "de": "der andere Teil", "it": "l'altra parte", "en": "the other half" }
           ],
           "rows": [
-            { "label": "it / rain · I / stay", "cells": ["if it rains", "I'll stay"] },
+            { "label": "If it … (rain), I … (stay).", "cells": ["rains", "will stay"] },
             {
-              "label": "Jack / come · we / have tea",
-              "cells": [{"accept": ["if Jack comes"]}, {"accept": ["we'll have tea"]}]
+              "label": "If Jack … (come), we … (have) tea.",
+              "cells": [{"accept": ["comes"]}, {"accept": ["will have"]}]
             },
             {
-              "label": "you / be late · you / miss the bus",
-              "cells": [{"accept": ["if you're late"]}, {"accept": ["you'll miss the bus"]}]
+              "label": "If you … (be) late, you … (miss) the bus.",
+              "cells": [{"accept": ["are"]}, {"accept": ["will miss"]}]
             },
+            { "label": "If it … (snow), they … (not go).", "cells": [{"accept": ["snows"]}, {"accept": ["won't go"]}] },
             {
-              "label": "it / snow · they / not go",
-              "cells": [{"accept": ["if it snows"]}, {"accept": ["they won't go"]}]
-            },
-            {
-              "label": "she / not call · I / go there",
+              "label": "If she … (not call), I … (go) there.",
               "cells": [
                 {
-                  "accept": ["if she doesn't call"],
+                  "accept": ["doesn't call"],
                   "hint": {
                     "sl": "she + does + not",
                     "de": "she + does + not",
@@ -398,7 +395,7 @@
                     "en": "she + does + not"
                   }
                 },
-                { "accept": ["I'll go there"] }
+                { "accept": ["will go"] }
               ]
             }
           ],

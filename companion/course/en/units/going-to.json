@@ -414,32 +414,36 @@
             "it": "going to + walk · sì e no",
             "en": "going to + walk: yes and no"
           },
-          "columns": [
-            { "sl": "yes · da", "de": "yes · ja", "it": "yes · sì", "en": "yes" },
-            { "sl": "no · ne", "de": "no · nein", "it": "no · no", "en": "no" }
-          ],
+          "columns": [{"sl": "+ walk", "de": "+ walk", "it": "+ walk", "en": "+ walk"}],
           "rows": [
-            { "label": "I", "cells": ["am going to walk", "am not going to walk"] },
+            { "label": {"sl": "I · da", "de": "I · ja", "it": "I · sì", "en": "I · yes"}, "cells": ["am going to"] },
             {
-              "label": "you",
-              "cells": [
-                { "accept": ["are going to walk"], "spoken": ["are gonna walk"] },
-                { "accept": ["aren't going to walk"], "spoken": ["aren't gonna walk"] }
-              ]
+              "label": { "sl": "I · ne", "de": "I · nein", "it": "I · no", "en": "I · no" },
+              "cells": ["am not going to"]
             },
             {
-              "label": "she",
-              "cells": [
-                { "accept": ["is going to walk", "'s going to walk"], "spoken": ["is gonna walk"] },
-                { "accept": ["isn't going to walk", "'s not going to walk"], "spoken": ["isn't gonna walk"] }
-              ]
+              "label": { "sl": "you · da", "de": "you · ja", "it": "you · sì", "en": "you · yes" },
+              "cells": [{"accept": ["are going to"], "spoken": ["are gonna"]}]
             },
             {
-              "label": "we",
-              "cells": [
-                { "accept": ["are going to walk"], "spoken": ["are gonna walk"] },
-                { "accept": ["aren't going to walk"], "spoken": ["aren't gonna walk"] }
-              ]
+              "label": { "sl": "you · ne", "de": "you · nein", "it": "you · no", "en": "you · no" },
+              "cells": [{"accept": ["aren't going to"], "spoken": ["aren't gonna"]}]
+            },
+            {
+              "label": { "sl": "she · da", "de": "she · ja", "it": "she · sì", "en": "she · yes" },
+              "cells": [{"accept": ["is going to", "'s going to"], "spoken": ["is gonna", "'s gonna"]}]
+            },
+            {
+              "label": { "sl": "she · ne", "de": "she · nein", "it": "she · no", "en": "she · no" },
+              "cells": [{"accept": ["isn't going to", "'s not going to"], "spoken": ["isn't gonna", "'s not gonna"]}]
+            },
+            {
+              "label": { "sl": "we · da", "de": "we · ja", "it": "we · sì", "en": "we · yes" },
+              "cells": [{"accept": ["are going to"], "spoken": ["are gonna"]}]
+            },
+            {
+              "label": { "sl": "we · ne", "de": "we · nein", "it": "we · no", "en": "we · no" },
+              "cells": [{"accept": ["aren't going to"], "spoken": ["aren't gonna"]}]
             }
           ],
           "explain": {
