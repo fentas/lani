@@ -1,6 +1,6 @@
 # Built: the German school's last six B1 units, 13–18 (2026-11-03)
 
-Wave D, course writers (Jan, 2026-11-02: "yes complete"). Branch `course-de-b1-c`, from the integrated German A2 (b1bdeef7): German B1's units 13–18 in the outline's order, mood, voice and small words, with their five new grammar pages. Parts a and b write units 1–12 beside it; this part integrates them when the lead says so. All of it is machine-written (Claude) and waits for a native speaker's check.
+Wave D, course writers (Jan, 2026-11-02: "yes complete"). Branch `course-de-b1-c`, from the integrated German A2 (b1bdeef7): German B1's units 13–18 in the outline's order, mood, voice and small words, with their five new grammar pages. Parts a and b wrote units 1–12 beside it; this part integrated them, as the section near the end says. All of it is machine-written (Claude) and waits for a native speaker's check.
 
 ## For the native check
 
@@ -60,7 +60,7 @@ Bold is a page written here. `partizip-zwei` on `passiv` is more than the outlin
 
 ## The spoken forms
 
-Never a choice's wrong option or a bank's distractor: `GermanB1cContentTest` reads the whole course to say so. Since the integration ([below](#the-integration-parts)), two kinds:
+Never a choice's wrong option or a bank's distractor: `GermanB1cContentTest` reads the whole course to say so. Since the integration ([below](#the-integration-part-cs)), two kinds:
 
 - **Almost, the standard form shown, no mistake recorded** (`grading/de.json`, `nonstandard`), as each is the unit's own word: täte, tät for würde; Auf was and the rest for the wo- words; auf ihn, auf den and the rest for a da- word for a thing; wer for jemand, was for etwas, nix for nichts.
 - **Right and labelled** (`spoken`), beside the unit's point: drauf, dran, drüber; Wenn ich Zeit haben würde. hätt, wär, würd are in `same`, as hab is.
@@ -126,7 +126,7 @@ Part a (1e1e9a1e), part b (168f2eb3) and `course-de-a2-c` (011128ff, with main a
 - `werden`: two readings stay, the verb's and part a's `aux` ("will"), since the lookup ranks readings by the line's translation, and one word's two jobs read better so than a gloss with three. `aux` is a part of speech no other entry has: `pos` is a free string, used only as a key.
 - `während` arrives from part a, as a conjunction and a preposition; b only accepts it.
 
-**The grading.** 94 rules in `wrong`, each part's all there. a's and c's overlap on wurde, werde, würde and on käme, gäbe: harmless, each still tested.
+**The grading.** 93 rules in `wrong`, each part's all there. a's and c's overlap on wurde, werde, würde and on käme, gäbe: harmless, each still tested.
 
 **What people say and the unit drills.** 3f399ff2 cherry-picked from `course-en-a2-b` (its only conflict `tutor/guide/index.json`, generated: tutor-export wrote it). 68 different forms left the items' `spoken` for the table, and `GermanB1cContentTest` grades every one as almost with an accepted form shown:
 
