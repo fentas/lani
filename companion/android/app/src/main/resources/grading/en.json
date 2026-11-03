@@ -113,7 +113,23 @@
     { "word": "rung", "for": "rang" },
     { "word": "drunk", "for": "drank" },
     { "word": "swum", "for": "swam" },
-    { "word": "begun", "for": "began" }
+    { "word": "begun", "for": "began" },
+    { "word": "broke", "for": "broken", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "took", "for": "taken", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "stole", "for": "stolen", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "wrote", "for": "written", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "gave", "for": "given", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "ate", "for": "eaten", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "drove", "for": "driven", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "forgot", "for": "forgotten", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "spoke", "for": "spoken", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "chose", "for": "chosen", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "tore", "for": "torn", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "froze", "for": "frozen", "after": "(?<!\\p{L})(?:am|is|are|was|were|be|been|being|got|get|gets)(?!\\p{L})" },
+    { "word": "what", "for": "who|that|which", "after": "(?<!\\p{L})(?:the|a|an|this|that|these|those|my|your|his|her|our|their|people|someone|somebody|everyone|everybody|anyone|anybody|something|everything|anything)(?!\\p{L})" },
+    { "word": "hisself", "for": "himself" },
+    { "word": "theirselves|theirself|themself", "for": "themselves" },
+    { "word": "meself", "for": "myself" }
   ],
   "drop_subject": false,
   "ending_letters": 1,
@@ -194,6 +210,9 @@
     { "word": "could", "for": "would" },
     { "word": "would", "for": "could" },
     { "word": "then", "for": "when" },
-    { "word": "when", "for": "then" }
+    { "word": "when", "for": "then" },
+    { "word": "(your|our|them|their)selfs", "for": "(your|our|them)selves" },
+    { "word": "took", "for": "look" },
+    { "word": "look", "for": "took" }
   ]
 }
