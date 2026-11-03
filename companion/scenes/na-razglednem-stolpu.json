@@ -9,7 +9,7 @@
   },
   "emoji": "⛰️",
   "level": "A2",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kanja, žig, vpisati se, zarja, the Triglav christening",
+  "review": "sl, de, it, reactions, variants, B1 and B2 variants: machine-written (Claude), not reviewed by a native speaker; to check: kanja, žig, vpisati se, zarja, the Triglav christening",
   "art": "lookout",
   "from": ["project:razgledni_stolp"],
   "pack": "na-razglednem-stolpu",
@@ -57,7 +57,7 @@
       "when": ["morning"],
       "chance": 0.55,
       "dialog": "razgled",
-      "dialogs": ["razgled-morje", "razgled-megla", "razgled"],
+      "dialogs": ["razgled-b2-tabla", "razgled-b1-nanos", "razgled-morje", "razgled-megla", "razgled"],
       "reward": { "wisdom": 20 },
       "marker": "🏔️",
       "memory": {
@@ -101,7 +101,7 @@
       "when": ["afternoon"],
       "chance": 0.45,
       "dialog": "stopnice",
-      "dialogs": ["stopnice-triglav", "stopnice"],
+      "dialogs": ["stopnice-b2-krst", "stopnice-b1-zdravnik", "stopnice-triglav", "stopnice"],
       "reward": { "wisdom": 20 },
       "marker": "🪜",
       "memory": {
@@ -1794,6 +1794,644 @@
           "de": "Gehen wir hinunter? Hundert Stufen, und dann Abendessen!",
           "it": "Scendiamo? Cento gradini, e poi la cena!",
           "fx": { "bell": 0 }
+        }
+      ]
+    },
+    {
+      "id": "razgled-b1-nanos",
+      "level": "B1",
+      "memory": {
+        "sl": "jutro, ko ste mi povedali ime Nanosa",
+        "en": "the morning you told me the name of Nanos",
+        "de": "den Morgen, an dem Sie mir den Namen des Nanos gesagt haben",
+        "it": "la mattina in cui mi ha detto il nome del Nanos"
+      },
+      "lines": [
+        {
+          "who": "vida",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}. Včeraj so me gostje vprašali, kako se imenuje tista ravna gora tam. Pa se nisem spomnila!",
+          "en": "Good morning, {learner}. Yesterday the guests asked me what that flat mountain over there is called. And I couldn't remember!",
+          "de": "Guten Morgen, {learner}. Gestern haben mich die Gäste gefragt, wie der flache Berg dort heißt. Und es ist mir nicht eingefallen!",
+          "it": "Buongiorno, {learner}. Ieri gli ospiti mi hanno chiesto come si chiama quella montagna piatta laggiù. E non me lo ricordavo!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "To je Nanos. Lahko jim poveste, da je podoben veliki mizi.",
+              "en": "That's Nanos. You can tell them it looks like a big table.",
+              "de": "Das ist der Nanos. Sie können ihnen sagen, dass er wie ein großer Tisch aussieht.",
+              "it": "È il Nanos. Può dire loro che somiglia a un grande tavolo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Nanos, seveda! Kot miza za velikane. Danes jim takoj povem.",
+                "en": "Nanos, of course! Like a table for giants. I'll tell them today, straight away.",
+                "de": "Der Nanos, natürlich! Wie ein Tisch für Riesen. Heute sage ich es ihnen gleich.",
+                "it": "Il Nanos, certo! Come un tavolo per i giganti. Oggi glielo dico subito."
+              }
+            },
+            {
+              "sl": "To je Nanos. Lahko jim poveste, da je bil podoben veliki mizi.",
+              "en": "That's Nanos. You can tell them it used to look like a big table.",
+              "de": "Das ist der Nanos. Sie können ihnen sagen, dass er wie ein großer Tisch ausgesehen hat.",
+              "it": "È il Nanos. Può dire loro che somigliava a un grande tavolo.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the tense stays as it is: it looks like a table now, da je podoben. Da je bil would mean it used to.",
+                "de": "In der indirekten Rede bleibt die Zeit: er sieht jetzt wie ein Tisch aus, da je podoben. Da je bil hieße, früher einmal.",
+                "it": "Nel discorso indiretto il tempo resta quello: somiglia a un tavolo adesso, da je podoben. Da je bil vorrebbe dire che una volta era così."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Je bil? Kaj pa zdaj? Se je čez noč spremenil?",
+                "en": "Used to? And now? Did it change overnight?",
+                "de": "Hat ausgesehen? Und jetzt? Hat er sich über Nacht verändert?",
+                "it": "Somigliava? E adesso? È cambiato in una notte?"
+              }
+            },
+            {
+              "sl": "To je Nanos. Lahko jih poveste, da je podoben veliki mizi.",
+              "en": "That's Nanos. You can tell them (accusative) it looks like a big table.",
+              "de": "Das ist der Nanos. Sie können sie (Akkusativ) sagen, dass er wie ein großer Tisch aussieht.",
+              "it": "È il Nanos. Può dirli (accusativo) che somiglia a un grande tavolo.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Povedati (to tell) takes the dative of the person: jim poveste (to them).",
+                "de": "Povedati (sagen) steht mit dem Dativ der Person: jim poveste (ihnen).",
+                "it": "Povedati (dire) vuole la persona al dativo: jim poveste (a loro)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Jih poveste? Bitte? Nisem čisto razumela.",
+                "en": "Jih poveste? Bitte? I didn't quite understand.",
+                "de": "Jih poveste? Bitte? Das habe ich nicht ganz verstanden.",
+                "it": "Jih poveste? Bitte? Non ho capito bene."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Bitte? Oprostite, nisem razumela.",
+            "en": "Bitte? Sorry, I didn't understand.",
+            "de": "Bitte? Entschuldigung, ich habe nicht verstanden.",
+            "it": "Bitte? Scusi, non ho capito."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "curious",
+          "sl": "Moji Nemci pravijo, da bi radi šli peš na vrh. Kako dolgo bi hodili?",
+          "en": "My Germans say they'd like to walk up to the top. How long would they be walking?",
+          "de": "Meine Deutschen sagen, sie würden gern zu Fuß auf den Gipfel gehen. Wie lange wären sie unterwegs?",
+          "it": "I miei tedeschi dicono che vorrebbero salire a piedi in cima. Quanto camminerebbero?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Od vasi bi hodili približno tri ure, če bi šli počasi.",
+              "en": "From the village they'd walk about three hours, if they went slowly.",
+              "de": "Vom Dorf aus wären sie etwa drei Stunden unterwegs, wenn sie langsam gingen.",
+              "it": "Dal paese camminerebbero circa tre ore, se andassero piano.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tri ure! Potem jim bom pripravila malico za na pot.",
+                "en": "Three hours! Then I'll make them a packed snack for the way.",
+                "de": "Drei Stunden! Dann mache ich ihnen eine Jause für unterwegs.",
+                "it": "Tre ore! Allora preparo loro una merenda per la strada."
+              }
+            },
+            {
+              "sl": "Od vasi bi hodili približno tri uri, če bi šli počasi.",
+              "en": "From the village they'd walk about three hours (uri), if they went slowly.",
+              "de": "Vom Dorf aus wären sie etwa drei Stunden (uri) unterwegs, wenn sie langsam gingen.",
+              "it": "Dal paese camminerebbero circa tre ore (uri), se andassero piano.",
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "Three and four take the plural: tri ure. Uri is the dual, for two.",
+                "de": "Drei und vier verlangen den Plural: tri ure. Uri ist der Dual, für zwei.",
+                "it": "Tre e quattro vogliono il plurale: tri ure. Uri è il duale, per due."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Dve uri ali tri? Moji gostje bodo čisto zmedeni.",
+                "en": "Two hours or three? My guests will be completely confused.",
+                "de": "Zwei Stunden oder drei? Meine Gäste werden ganz verwirrt sein.",
+                "it": "Due ore o tre? I miei ospiti saranno confusissimi."
+              }
+            },
+            {
+              "sl": "Od vasi bi hodili približno za tri ure, če bi šli počasi.",
+              "en": "From the village they'd walk for (za) about three hours, if they went slowly.",
+              "de": "Vom Dorf aus wären sie für (za) etwa drei Stunden unterwegs, wenn sie langsam gingen.",
+              "it": "Dal paese camminerebbero per (za) circa tre ore, se andassero piano.",
+              "grammar": "cas-izrazi",
+              "why": {
+                "en": "How long something lasts takes no preposition: tri ure. Za tri ure is a stay planned ahead (for three hours).",
+                "de": "Wie lange etwas dauert, steht ohne Präposition: tri ure. Za tri ure ist ein geplanter Aufenthalt (für drei Stunden).",
+                "it": "Quanto dura qualcosa si dice senza preposizione: tri ure. Za tri ure è una permanenza prevista (per tre ore)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Za tri ure? Kot da bi tam gori ostali na počitnicah!",
+                "en": "For three hours? As if they were staying up there on holiday!",
+                "de": "Für drei Stunden? Als ob sie da oben Urlaub machen!",
+                "it": "Per tre ore? Come se lassù restassero in vacanza!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Bitte? Oprostite, nisem razumela.",
+            "en": "Bitte? Sorry, I didn't understand.",
+            "de": "Bitte? Entschuldigung, ich habe nicht verstanden.",
+            "it": "Bitte? Scusi, non ho capito."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "happy",
+          "sl": "Hvala, {learner}. Lepa beseda lepo mesto najde, pravim. In dober nasvet tudi!",
+          "en": "Thank you, {learner}. A kind word finds a good place, I say. And so does good advice!",
+          "de": "Danke, {learner}. Ein schönes Wort findet einen schönen Platz, sage ich. Und ein guter Rat auch!",
+          "it": "Grazie, {learner}. Una bella parola trova un bel posto, dico io. E anche un buon consiglio!"
+        }
+      ]
+    },
+    {
+      "id": "razgled-b2-tabla",
+      "level": "B2",
+      "memory": {
+        "sl": "tablo za obiskovalce, ki sva jo {m:napisala|f:napisali}",
+        "en": "the sign for the visitors we wrote together",
+        "de": "das Schild für die Besucher, das wir zusammen geschrieben haben",
+        "it": "il cartello per i visitatori che abbiamo scritto insieme"
+      },
+      "lines": [
+        {
+          "who": "vida",
+          "face": "thinking",
+          "sl": "{learner}, občina želi, da na stolp obesim tablo za obiskovalce. Pa ne vem, kako se piše tako uradno.",
+          "en": "{learner}, the municipality wants me to hang a sign for visitors on the tower. But I don't know how to write so officially.",
+          "de": "{learner}, die Gemeinde will, dass ich am Turm ein Schild für die Besucher aufhänge. Aber ich weiß nicht, wie man so amtlich schreibt.",
+          "it": "{learner}, il comune vuole che appenda sulla torre un cartello per i visitatori. Ma non so come si scrive in modo così ufficiale."
+        },
+        {
+          "who": "vida",
+          "face": "curious",
+          "sl": "Napisala sem: »Ne mečite smeti!« Ali ni to malo grobo?",
+          "en": "I wrote: 'Don't throw litter!' Isn't that a bit rough?",
+          "de": "Ich habe geschrieben: »Werfen Sie keinen Müll weg!« Ist das nicht ein bisschen grob?",
+          "it": "Ho scritto: »Non gettate rifiuti!« Non è un po' brusco?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Malo res. Lahko bi napisali: »Spoštovani obiskovalci, prosimo, ne puščajte smeti.«",
+              "en": "A little, yes. You could write: 'Dear visitors, please do not leave litter.'",
+              "de": "Ein bisschen schon. Sie könnten schreiben: »Sehr geehrte Besucher, bitte lassen Sie keinen Müll zurück.«",
+              "it": "Un po' sì. Potrebbe scrivere: »Gentili visitatori, vi preghiamo di non lasciare rifiuti.«",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Spoštovani obiskovalci … Ja, to zveni lepo. Kot v pravem hotelu.",
+                "en": "Dear visitors … Yes, that sounds nice. Like in a proper hotel.",
+                "de": "Sehr geehrte Besucher … Ja, das klingt schön. Wie in einem richtigen Hotel.",
+                "it": "Gentili visitatori … Sì, suona bene. Come in un vero albergo."
+              }
+            },
+            {
+              "sl": "Malo res. Lahko bi napisali: »Spoštovani obiskovalci, prosimo, ne puščaj smeti.«",
+              "en": "A little, yes. You could write: 'Dear visitors, please do not (ti) leave litter.'",
+              "de": "Ein bisschen schon. Sie könnten schreiben: »Sehr geehrte Besucher, bitte lass (du) keinen Müll zurück.«",
+              "it": "Un po' sì. Potrebbe scrivere: »Gentili visitatori, ti preghiamo (tu) di non lasciare rifiuti.«",
+              "grammar": "ukazi",
+              "why": {
+                "en": "The sign speaks to many visitors, formally: the vi imperative, ne puščajte. Puščaj is for one person you say ti to.",
+                "de": "Das Schild spricht viele Besucher an, förmlich: der Imperativ mit vi, ne puščajte. Puščaj sagt man zu einer Person, die man duzt.",
+                "it": "Il cartello si rivolge a molti visitatori, in modo formale: l'imperativo con vi, ne puščajte. Puščaj è per una persona a cui si dà del tu."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Puščaj? Komu pa, enemu samemu obiskovalcu?",
+                "en": "Puščaj? To whom, one single visitor?",
+                "de": "Puščaj? Zu wem denn, einem einzigen Besucher?",
+                "it": "Puščaj? A chi, a un visitatore solo?"
+              }
+            },
+            {
+              "sl": "Malo res. Lahko bi napisali: »Ej, ljudje, smeti pa domov!«",
+              "en": "A little, yes. You could write: 'Hey, folks, take your rubbish home!'",
+              "de": "Ein bisschen schon. Sie könnten schreiben: »He, Leute, Müll nach Hause!«",
+              "it": "Un po' sì. Potrebbe scrivere: »Ehi, gente, i rifiuti a casa!«",
+              "grammar": "uradno-pismo",
+              "why": {
+                "en": "An official sign needs the formal register (Spoštovani …, prosimo …), not the way friends talk.",
+                "de": "Ein amtliches Schild braucht die förmliche Sprache (Spoštovani …, prosimo …), nicht die unter Freunden.",
+                "it": "Un cartello ufficiale vuole il registro formale (Spoštovani …, prosimo …), non il modo di parlare tra amici."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ej, ljudje? Ha! Tako govori Luka, ne občina.",
+                "en": "Hey, folks? Ha! That's how Luka talks, not the municipality.",
+                "de": "He, Leute? Ha! So redet Luka, nicht die Gemeinde.",
+                "it": "Ehi, gente? Ah! Così parla Luka, mica il comune."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Bitte? Oprostite, nisem razumela.",
+            "en": "Bitte? Sorry, I didn't understand.",
+            "de": "Bitte? Entschuldigung, ich habe nicht verstanden.",
+            "it": "Bitte? Scusi, non ho capito."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "thinking",
+          "sl": "In ogenj? Lani so neki fantje na vrhu kurili, pa je zagorela klop. Kako to napišem?",
+          "en": "And fire? Last year some lads made a fire up top, and a bench caught fire. How do I write that?",
+          "de": "Und Feuer? Letztes Jahr haben ein paar Burschen oben Feuer gemacht, und eine Bank hat zu brennen begonnen. Wie schreibe ich das?",
+          "it": "E il fuoco? L'anno scorso dei ragazzi hanno acceso un fuoco in cima, e ha preso fuoco una panchina. Come lo scrivo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Napišite: »Kurjenje ognja na stolpu je prepovedano.«",
+              "en": "Write: 'Lighting fires on the tower is prohibited.'",
+              "de": "Schreiben Sie: »Das Entzünden von Feuer auf dem Turm ist verboten.«",
+              "it": "Scriva: »È vietato accendere fuochi sulla torre.«",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Kurjenje ognja … Kot pravi uradnik! Tega se sama ne bi spomnila.",
+                "en": "Lighting fires … Like a real official! I wouldn't have thought of that myself.",
+                "de": "Das Entzünden von Feuer … Wie ein echter Beamter! Darauf wäre ich selbst nicht gekommen.",
+                "it": "Accendere fuochi … Come un vero funzionario! Da sola non ci sarei arrivata."
+              }
+            },
+            {
+              "sl": "Napišite: »Na stolpu je prepovedano kuriti ogenj.«",
+              "en": "Write: 'It is prohibited to light fires on the tower.'",
+              "de": "Schreiben Sie: »Auf dem Turm ist es verboten, Feuer zu machen.«",
+              "it": "Scriva: »Sulla torre è vietato accendere il fuoco.«",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prepovedano kuriti … Kratko in jasno. Tako bo razumel vsak.",
+                "en": "Prohibited to light … Short and clear. Everyone will understand that.",
+                "de": "Verboten, Feuer zu machen … Kurz und klar. Das versteht jeder.",
+                "it": "Vietato accendere … Breve e chiaro. Così lo capiranno tutti."
+              }
+            },
+            {
+              "sl": "Napišite: »Kurjenje ognja na stolpu je prepovedana.«",
+              "en": "Write: 'Lighting fires on the tower is prohibited (feminine).'",
+              "de": "Schreiben Sie: »Das Entzünden von Feuer auf dem Turm ist verboten (weiblich).«",
+              "it": "Scriva: »È vietata (femminile) l'accensione di fuochi sulla torre.«",
+              "grammar": "glagolniki",
+              "why": {
+                "en": "A verbal noun in -nje is neuter: kurjenje … je prepovedano (it agrees as a neuter noun).",
+                "de": "Ein Verbalsubstantiv auf -nje ist sächlich: kurjenje … je prepovedano.",
+                "it": "Un nome verbale in -nje è neutro: kurjenje … je prepovedano."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Prepovedana? Kdo, jaz? Saj samo pišem tablo!",
+                "en": "Prohibited (feminine)? Who, me? I'm only writing a sign!",
+                "de": "Verboten, weiblich? Wer, ich? Ich schreibe doch nur ein Schild!",
+                "it": "Vietata? Chi, io? Sto solo scrivendo un cartello!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Bitte? Oprostite, nisem razumela.",
+            "en": "Bitte? Sorry, I didn't understand.",
+            "de": "Bitte? Entschuldigung, ich habe nicht verstanden.",
+            "it": "Bitte? Scusi, non ho capito."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "happy",
+          "sl": "Hvala, {learner}. Za tako pomoč vas v gostilni čaka kosilo. Bitte, prosim, brez ugovorov!",
+          "en": "Thank you, {learner}. For help like that, lunch is waiting for you at the inn. Bitte, please, no objections!",
+          "de": "Danke, {learner}. Für so eine Hilfe wartet im Gasthaus ein Mittagessen auf Sie. Bitte, prosim, keine Widerrede!",
+          "it": "Grazie, {learner}. Per un aiuto così, all'osteria La aspetta il pranzo. Bitte, prego, niente obiezioni!"
+        }
+      ]
+    },
+    {
+      "id": "stopnice-b1-zdravnik",
+      "level": "B1",
+      "memory": {
+        "sl": "stopnice, ki sem jih prehodil kljub zdravniku",
+        "en": "the steps I climbed in spite of the doctor",
+        "de": "die Stufen, die ich trotz des Arztes hinaufgestiegen bin",
+        "it": "i gradini che ho salito nonostante il medico"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "worried",
+          "sl": "Uf, {learner} … Zdravnik mi je rekel, naj ne hodim več po stopnicah. Pa sem vseeno prišel.",
+          "en": "Phew, {learner} … The doctor told me not to climb stairs any more. But I came anyway.",
+          "de": "Uff, {learner} … Der Arzt hat mir gesagt, ich soll keine Treppen mehr steigen. Ich bin trotzdem gekommen.",
+          "it": "Uff, {learner} … Il medico mi ha detto di non fare più le scale. Ma sono venuto lo stesso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ste v redu? Če vam je slabo, se usedite na klop.",
+              "en": "Are you all right? If you feel unwell, sit down on the bench.",
+              "de": "Geht es Ihnen gut? Wenn Ihnen schlecht ist, setzen Sie sich auf die Bank.",
+              "it": "Sta bene? Se si sente male, si sieda sulla panchina.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Ne, ne, samo sapo moram zajeti. Star človek ni več gams.",
+                "en": "No, no, I just need to catch my breath. An old man is no chamois any more.",
+                "de": "Nein, nein, ich muss nur Luft holen. Ein alter Mann ist keine Gämse mehr.",
+                "it": "No, no, devo solo riprendere fiato. Un vecchio non è più un camoscio."
+              }
+            },
+            {
+              "sl": "Ste v redu? Če ste slabo, se usedite na klop.",
+              "en": "Are you all right? If you are bad (?), sit down on the bench.",
+              "de": "Geht es Ihnen gut? Wenn Sie schlecht sind (?), setzen Sie sich auf die Bank.",
+              "it": "Sta bene? Se Lei è male (?), si sieda sulla panchina.",
+              "grammar": "custva",
+              "why": {
+                "en": "How someone feels takes the dative, with je: (če) vam je slabo. Ste slabo has no meaning here.",
+                "de": "Wie sich jemand fühlt, steht mit dem Dativ und je: (če) vam je slabo. Ste slabo ergibt hier keinen Sinn.",
+                "it": "Come ci si sente si dice col dativo e je: (če) vam je slabo. Ste slabo qui non ha senso."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Slab? Nisem slab, samo star!",
+                "en": "Bad? I'm not bad, just old!",
+                "de": "Schlecht? Ich bin nicht schlecht, nur alt!",
+                "it": "Cattivo? Non sono cattivo, solo vecchio!"
+              }
+            },
+            {
+              "sl": "Si v redu? Če ti je slabo, se usedi na klop.",
+              "en": "Are you (ti) all right? If you feel unwell, sit down on the bench.",
+              "de": "Geht's dir gut? Wenn dir schlecht ist, setz dich auf die Bank.",
+              "it": "Stai bene? Se ti senti male, siediti sulla panchina.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older and expects vi: ste v redu, vam je slabo.",
+                "de": "Janez ist älter und erwartet vi: ste v redu, vam je slabo.",
+                "it": "Janez è più anziano e si aspetta il vi: ste v redu, vam je slabo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tikaš me? No, preveč sem utrujen za prepir.",
+                "en": "Saying ti to me? Well, I'm too tired to argue.",
+                "de": "Du duzt mich? Na, ich bin zu müde zum Streiten.",
+                "it": "Mi dai del tu? Be', sono troppo stanco per litigare."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Ko sem bil mlad, sem šel na Triglav petkrat. Zadnjič sem imel že šestdeset let.",
+          "en": "When I was young, I went up Triglav five times. The last time I was already sixty.",
+          "de": "Als ich jung war, bin ich fünfmal auf den Triglav gestiegen. Das letzte Mal war ich schon sechzig.",
+          "it": "Da giovane sono salito sul Triglav cinque volte. L'ultima volta avevo già sessant'anni."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Petkrat! Jaz bi {m:bil vesel|f:bila vesela}, če bi {m:prišel|f:prišla} gor vsaj enkrat.",
+              "en": "Five times! I'd be happy if I got up there even once.",
+              "de": "Fünfmal! Ich wäre froh, wenn ich wenigstens einmal hinaufkäme.",
+              "it": "Cinque volte! Io sarei {m:contento|f:contenta} se ci arrivassi almeno una volta.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Boš, boš. Pojdi z Lukom, on hodi kot koza.",
+                "en": "You will, you will. Go with Luka, he walks like a goat.",
+                "de": "Wirst du, wirst du. Geh mit Luka, der läuft wie eine Ziege.",
+                "it": "Ci arriverai, ci arriverai. Vai con Luka, cammina come una capra."
+              }
+            },
+            {
+              "sl": "Petkrat! Jaz bom {m:vesel|f:vesela}, če bi {m:prišel|f:prišla} gor vsaj enkrat.",
+              "en": "Five times! I will be happy if I were to get up there even once.",
+              "de": "Fünfmal! Ich werde froh sein, wenn ich wenigstens einmal hinaufkäme.",
+              "it": "Cinque volte! Io sarò {m:contento|f:contenta} se ci arrivassi almeno una volta.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "An imagined condition takes the conditional in both halves: bi {m:bil vesel|f:bila vesela}, če bi {m:prišel|f:prišla}.",
+                "de": "Eine gedachte Bedingung steht in beiden Hälften im Konditional: bi {m:bil vesel|f:bila vesela}, če bi {m:prišel|f:prišla}.",
+                "it": "Una condizione immaginata vuole il condizionale in tutte e due le parti: bi {m:bil vesel|f:bila vesela}, če bi {m:prišel|f:prišla}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Boš ali bi? Najprej se odloči, potem pa na pot!",
+                "en": "Will you or would you? Make up your mind first, then off you go!",
+                "de": "Wirst du oder würdest du? Erst entscheiden, dann los!",
+                "it": "Sarai o saresti? Prima deciditi, poi in cammino!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Pa pojdi. In ko boš na vrhu, mi pozdravi Aljažev stolp.",
+          "en": "Then go. And when you're at the top, give my greetings to Aljaž's tower.",
+          "de": "Dann geh. Und wenn du oben bist, grüß mir den Aljaž-Turm.",
+          "it": "Allora vai. E quando sei in cima, salutami la torretta di Aljaž."
+        }
+      ]
+    },
+    {
+      "id": "stopnice-b2-krst",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o mojem krstu na Triglavu",
+        "en": "the story of my christening on Triglav",
+        "de": "die Geschichte von meiner Taufe auf dem Triglav",
+        "it": "la storia del mio battesimo sul Triglav"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "laugh",
+          "sl": "Sto stopnic, {learner} … Na Triglavu jih je bilo malo več.",
+          "en": "A hundred steps, {learner} … On Triglav there were a few more.",
+          "de": "Hundert Stufen, {learner} … Auf dem Triglav waren es ein paar mehr.",
+          "it": "Cento gradini, {learner} … Sul Triglav erano un po' di più."
+        },
+        {
+          "who": "janez",
+          "face": "laugh",
+          "sl": "Ko sem bil prvič na vrhu, so me krstili. Z vrvjo po zadnjici, kot se spodobi.",
+          "en": "The first time I was at the top, they christened me. With a rope across the backside, as is proper.",
+          "de": "Als ich zum ersten Mal oben war, haben sie mich getauft. Mit dem Seil auf den Hintern, wie es sich gehört.",
+          "it": "La prima volta che sono arrivato in cima, mi hanno battezzato. Con la corda sul sedere, come si deve."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi bili vedeli, bi bili prinesli debelejše hlače, kajne?",
+              "en": "If you'd known, you'd have brought thicker trousers, wouldn't you?",
+              "de": "Hätten Sie das gewusst, hätten Sie dickere Hosen mitgenommen, oder?",
+              "it": "Se l'avesse saputo, avrebbe portato dei pantaloni più spessi, vero?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "He he. Prav imaš. Pa še enega več sem dobil, ker sem se smejal.",
+                "en": "Heh heh. You're right. And I got one more, because I laughed.",
+                "de": "He he. Du hast recht. Und einen Schlag mehr habe ich gekriegt, weil ich gelacht habe.",
+                "it": "Eh eh. Hai ragione. E me ne sono preso uno in più, perché ridevo."
+              }
+            },
+            {
+              "sl": "Če ste vedeli, bi bili prinesli debelejše hlače, kajne?",
+              "en": "If you knew, you'd have brought thicker trousers, wouldn't you?",
+              "de": "Wenn Sie es wussten, hätten Sie dickere Hosen mitgenommen, oder?",
+              "it": "Se lo sapeva, avrebbe portato dei pantaloni più spessi, vero?",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "He didn't know: what didn't happen takes the conditional, če bi bili vedeli (or če bi vedeli). Če ste vedeli says he did know.",
+                "de": "Er wusste es nicht: was nicht geschah, steht im Konditional, če bi bili vedeli (oder če bi vedeli). Če ste vedeli sagt, er wusste es.",
+                "it": "Non lo sapeva: ciò che non è successo vuole il condizionale, če bi bili vedeli (o če bi vedeli). Če ste vedeli dice che lo sapeva."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vedel? Nič nisem vedel! Zato je pa tako bolelo.",
+                "en": "Known? I knew nothing! That's why it hurt so much.",
+                "de": "Gewusst? Nichts habe ich gewusst! Darum hat es ja so wehgetan.",
+                "it": "Saputo? Non sapevo niente! Per questo ha fatto così male."
+              }
+            },
+            {
+              "sl": "To je grozno. Takšne navade bi morali prepovedati.",
+              "en": "That's dreadful. Customs like that ought to be banned.",
+              "de": "Das ist schrecklich. Solche Bräuche sollte man verbieten.",
+              "it": "È terribile. Usanze così andrebbero vietate.",
+              "why": {
+                "en": "Janez laughs about it: it's a jolly old custom of Triglav, so share the joke with him.",
+                "de": "Janez lacht darüber: es ist ein lustiger alter Triglav-Brauch, also lach mit ihm.",
+                "it": "Janez ci ride sopra: è una vecchia usanza allegra del Triglav, quindi ridi con lui."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Prepovedati? Ha, potem Triglav ne bi bil več Triglav!",
+                "en": "Ban it? Ha, then Triglav wouldn't be Triglav any more!",
+                "de": "Verbieten? Ha, dann wäre der Triglav nicht mehr der Triglav!",
+                "it": "Vietarle? Ah, allora il Triglav non sarebbe più il Triglav!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Takrat je bilo na vrhu malo ljudi. Danes je na Triglavu gneča kot na sejmu.",
+          "en": "Back then there were few people at the top. Today Triglav is as crowded as a fair.",
+          "de": "Damals waren wenige Leute oben. Heute ist auf dem Triglav ein Gedränge wie auf dem Jahrmarkt.",
+          "it": "Allora in cima c'era poca gente. Oggi sul Triglav c'è una calca come al mercato."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res je, ampak kljub gneči mora vsak Slovenec enkrat gor.",
+              "en": "That's true, but crowd or no crowd, every Slovene has to go up once.",
+              "de": "Stimmt, aber trotz des Gedränges muss jeder Slowene einmal hinauf.",
+              "it": "È vero, ma nonostante la calca ogni sloveno deve salirci una volta.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je! Vidim, da si se nekaj {m:naučil|f:naučila} od mene.",
+                "en": "That's it! I can see you've learned something from me.",
+                "de": "So ist es! Ich sehe, du hast etwas von mir gelernt.",
+                "it": "Proprio così! Vedo che hai imparato qualcosa da me."
+              }
+            },
+            {
+              "sl": "Res je, ampak kljub gnečo mora vsak Slovenec enkrat gor.",
+              "en": "That's true, but despite the crowd (accusative), every Slovene has to go up once.",
+              "de": "Stimmt, aber trotz des Gedränges (Akkusativ) muss jeder Slowene einmal hinauf.",
+              "it": "È vero, ma nonostante la calca (accusativo) ogni sloveno deve salirci una volta.",
+              "grammar": "skloni",
+              "why": {
+                "en": "Kljub (despite) takes the dative: kljub gneči.",
+                "de": "Kljub (trotz) steht mit dem Dativ: kljub gneči.",
+                "it": "Kljub (nonostante) regge il dativo: kljub gneči."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kljub gnečo? Hm, tega pa na Triglavu nisem slišal.",
+                "en": "Kljub gnečo? Hm, I never heard that on Triglav.",
+                "de": "Kljub gnečo? Hm, das habe ich auf dem Triglav nie gehört.",
+                "it": "Kljub gnečo? Mm, questa sul Triglav non l'ho mai sentita."
+              }
+            },
+            {
+              "sl": "Res je. Zato je bolje, da ne gre nihče več gor.",
+              "en": "That's true. So it's better that nobody goes up any more.",
+              "de": "Stimmt. Darum ist es besser, wenn keiner mehr hinaufgeht.",
+              "it": "È vero. Per questo è meglio che non ci salga più nessuno.",
+              "why": {
+                "en": "Janez holds that every Slovene must go up once: grant the crowd, keep the custom.",
+                "de": "Janez meint, jeder Slowene muss einmal hinauf: gib ihm das Gedränge zu, aber bleib beim Brauch.",
+                "it": "Janez sostiene che ogni sloveno deve salirci una volta: concedi la calca, tieni l'usanza."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nihče? Potem pa grem jaz še šestič, he he!",
+                "en": "Nobody? Then I'll go up a sixth time, heh heh!",
+                "de": "Keiner? Dann gehe ich eben ein sechstes Mal, he he!",
+                "it": "Nessuno? Allora ci vado io per la sesta volta, eh eh!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Ko pojdeš gor, ti posodim svojo staro palico. Pot pozna bolje kot jaz.",
+          "en": "When you go up, I'll lend you my old walking stick. It knows the way better than I do.",
+          "de": "Wenn du hinaufgehst, leihe ich dir meinen alten Stock. Der kennt den Weg besser als ich.",
+          "it": "Quando salirai, ti presto il mio vecchio bastone. Conosce la strada meglio di me."
         }
       ]
     }
