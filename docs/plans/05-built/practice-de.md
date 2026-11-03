@@ -31,7 +31,9 @@ German (Austrian standard first), then each base. Ask a native speaker of Austri
   may sound like it), "Leg das Buch auf dem Tisch!", "Ohne dir gehe ich nicht.", "Immer als es regnete", "Ich habe nicht Hund.",
   "Heute du hast Zeit?", "Fährst langsam!", "Wir haben zu Hause geblieben.", "Hätte ich nur zu Hause geblieben!", "Wir hätten
   früher fahren gesollt.", "eine Entscheidung nehmen", "Er legt einen Antrag", "zu Verfügung", "Das ist etwas neues."
-  (lower case), "Ich habe nach Villach gefahren."
+  (lower case), "Ich habe nach Villach gefahren.", "Mitzi sagt, sie seie krank." (seie may be heard in a dialect), "Wann ich jung
+  war" (Austrian speech says wie for als; wann for wenn, which the table makes almost, was taken out of the options when
+  `GermanPracticeTest` found it).
 - Forms people say, never offered as wrong and left to the grading table's almost in typed gaps: weil with the verb second
   (weil-dass's gap that wants denn), trotzdem for obwohl, wie for als, wann for wenn, the indicative or Konjunktiv II after a
   verb of saying ("er kommt", "sie hätte keine Zeit"), als ob with the indicative ("als ob er alles weiß"). Accepted as right
