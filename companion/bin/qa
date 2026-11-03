@@ -9560,35 +9560,40 @@ def school_board():
     tail = l10n(pair[0]).get("school.morePlanned", "").split("}")[-1].strip()
     assert not (tail and tail in line), f"planned units beside the count: {line}"
     snap("sb-level")
-    # the folded row: "Noch 15 Einheiten in A2"
+    titles = {u["id"]: unit_text(u["title"][lang]) for u in units}
+    seen: set[str] = set()
+
+    def note():
+        texts = [t for t, _ in nodes()]
+        seen.update(uid for uid, title in titles.items() if any(title in t for t in texts))
+
+    # the rows, down to the folded row ("Noch 15 Einheiten in A2"), which opens a sheet of the rest
     folded = None
     for _ in range(8):
+        note()
         folded = next((c for t, c in nodes() if re.search(rf"\d+ \w+ in {level}\b", t) and 300 < c[1] < 2150), None)
         if folded is not None:
             break
         adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
         time.sleep(1)
+    snap("sb-rows")
     if folded is not None:  # none when every unit is a row already
         tap_at(folded)
-        time.sleep(1)
-    scroll_up(3)
-    titles = {u["id"]: unit_text(u["title"][lang]) for u in units}
-    seen: set[str] = set()
-    for i in range(14):
-        texts = [t for t, _ in nodes()]
-        for uid, title in titles.items():
-            if any(title in t for t in texts):
-                seen.add(uid)
-        if i % 2 == 0:
-            snap(f"sb-units-{i // 2 + 1}")
-        if len(seen) == len(titles):
-            break
-        adb("shell", "input", "swipe", "540", "1700", "540", "900", "500")
-        time.sleep(1)
+        time.sleep(1.5)
+        for i in range(14):
+            note()
+            if i % 2 == 0:
+                snap(f"sb-units-{i // 2 + 1}")
+            if len(seen) == len(titles):
+                break
+            adb("shell", "input", "swipe", "540", "1900", "540", "1100", "500")
+            time.sleep(1)
     missing = [uid for uid in titles if uid not in seen]
     assert not missing, f"not on the school's screen: {missing}"
     snap("sb-units-last")
-    scroll_up(8)
+    if folded is not None:
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
     return f"{level}: all {len(titles)} units on the school's screen, written"
 
 
