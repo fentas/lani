@@ -140,9 +140,9 @@ class CaseTrainerDeTest {
         val kind = CaseTrainer.nounDe("Kind", "n", "Kinder", "otrok", forms = forms)!!
         assertEquals("den Kindern", CaseTrainer.declineDe(pool(listOf(kind)), frame("mit-pl"), kind, null, forms)!!.shown)
         assertEquals("Das schöne Kind", CaseTrainer.declineDe(pool(listOf(kind)), frame("ist-schoen"), kind, bank.adjectives.first { it.lemma == "schön" }, forms)!!.shown)
-        // a strong adjective with no article: mit frischem Brot
-        val brot = CaseTrainer.nounDe("Brot", "n", "Brote", "kruh", forms = forms)!!
-        assertEquals("frischem Brot", CaseTrainer.declineDe(pool(listOf(brot)), frame("mit-stark"), brot, bank.adjectives.first { it.lemma == "frisch" }, forms)!!.shown)
+        // a strong adjective with no article, in the plural: mit kleinen Katzen
+        val katze = CaseTrainer.nounDe("Katze", "f", "Katzen", "mačka", forms = forms)!!
+        assertEquals("kleinen Katzen", CaseTrainer.declineDe(pool(listOf(katze)), frame("mit-stark"), katze, bank.adjectives.first { it.lemma == "klein" }, forms)!!.shown)
     }
 
     @Test
