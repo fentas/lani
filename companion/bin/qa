@@ -9551,12 +9551,15 @@ def school_board():
     time.sleep(2)
     row = l10n(pair[0]).get("school.level", "").replace("{level}", level)
     assert wait_for(row, 15) or scroll_to(row, 12) is not None, "the school's levels"
-    count = f"0/{len(units)}"
-    assert scroll_to(count, 6) is not None, f"the level's count {count}"
-    snap("sb-level")
-    # nothing planned: no "N weitere folgen" beside the count (its tail, after the number)
+    # the level's count: "Geschafft: 9/18" below its row (units done before this step stay done), nothing planned beside it
+    below = find(row)
+    assert below is not None, "the level's row"
+    count = re.compile(rf"\b\d+/{len(units)}\b")
+    line = next((t for t, c in nodes() if count.search(t) and c[1] > below[1]), None)
+    assert line is not None, f"the level's count, of {len(units)}"
     tail = l10n(pair[0]).get("school.morePlanned", "").split("}")[-1].strip()
-    assert not (tail and any(count in t and tail in t for t, _ in nodes())), f"planned units beside the count: {tail}"
+    assert not (tail and tail in line), f"planned units beside the count: {line}"
+    snap("sb-level")
     # the folded row: "Noch 15 Einheiten in A2"
     folded = None
     for _ in range(8):
@@ -9565,9 +9568,9 @@ def school_board():
             break
         adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
         time.sleep(1)
-    assert folded is not None, f"the folded row of {level}"
-    tap_at(folded)
-    time.sleep(1)
+    if folded is not None:  # none when every unit is a row already
+        tap_at(folded)
+        time.sleep(1)
     scroll_up(3)
     titles = {u["id"]: unit_text(u["title"][lang]) for u in units}
     seen: set[str] = set()
