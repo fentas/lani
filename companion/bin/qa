@@ -394,7 +394,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        school's screen, its folded list opened, sb-*.png in $LANI_QA_COURSE_SHOTS; "course-unit" (only when named, with
                        LANI_QA_COURSE_UNIT=<unit>: a synthetic learner of the village's language in its culture, e.g. German in
                        Kärnten: LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en) that unit of the course end to end and its
-                       sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "friuli-watchtower" (only when named; the same learner)
+                       sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "typed-forms" (only when named; the same learner)
+                       a form people say typed in each of the course's bases, nonstandard and spoken, what the screen said in
+                       typed-forms.txt, tf-*.png; "long-cell" (only when named; German) a long answer in a narrow table cell on
+                       a phone and a tablet, lc-*.png; "friuli-watchtower" (only when named; the same learner)
                        Teo's watchtower at level 2 (QA's hook "hearths:trg"): its card on the map and "🚪 Entra" into
                        Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening
                        (fw-*.png there too); "visit-places" (only when named; on a visit to the Carinthian town,
@@ -955,6 +958,84 @@ def tap(text: str, timeout=10.0) -> bool:
 def type_text(s: str):
     adb("shell", "input", "text", s.replace(" ", "%s"))
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # hide the keyboard so bounds are stable
+    time.sleep(0.6)
+
+
+# The letters a keyboard may lack, per language, as chips under an answer's field (ui/Components.kt keyboardLetters): what adb can't
+# type (its `input text` is ASCII), and a learner taps.
+LETTER_CHIPS = {"sl": "čšžČŠŽ", "it": "àèéìòù", "de": "äöüßÄÖÜ"}
+
+
+def letter_chip(letter: str):
+    """The centre of the letter's chip, on screen and clear of the keyboard: the keyboard taken down if it hides the chips,
+    then scrolled to (the chips lie under the exercise's last field); None when it never shows."""
+    for _ in range(10):
+        top = ime_top()
+        cs = [xy for t, xy in nodes() if t == letter and 250 < xy[1] < (top if top is not None else 2300)]
+        if cs:
+            return cs[-1]
+        if top is not None:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(0.8)
+            continue
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(1)
+    return None
+
+
+def focused_field_text() -> str | None:
+    """What the focused text field holds; None when no field has the focus on screen."""
+    for n in re.findall(r"<node [^>]*?>", screen_xml()):
+        if 'focused="true"' in n and 'class="android.widget.EditText"' in n:
+            return node_attr(n, " text")
+    return None
+
+
+def type_letters(s: str, lang: str | None):
+    """Types [s] into the focused field as a learner would: adb types what it can, each letter it can't is its chip of the
+    language [lang] ([LETTER_CHIPS]), so ä and č are entered, not folded to almost. The field keeps its cursor and its focus
+    through a chip, and the keyboard is down after. A capital with only a small chip (Italian's È) is typed small, as a
+    capital doesn't count; a letter with no chip at all (Slovene's ć, đ) folded, as a keyboard without it would.
+    With the keyboard down adb's keys reach the field within a frame of each other, faster than any thumb, and came out of
+    order right after a chip ("Grüßne", "Büergrmeister"): then one at a time. What the field holds is checked, and typed again."""
+    chips = LETTER_CHIPS.get(lang or "", "")
+
+    def key(ch: str) -> str:
+        if ch.isascii() or ch in chips:
+            return ch
+        if ch.lower() in chips:
+            return ch.lower()
+        if ch == "’":
+            return "'"
+        return "".join(c for c in unicodedata.normalize("NFD", ch) if c.isascii())  # what a keyboard without it leaves
+
+    def keys(run: str):
+        adb("shell", "input", "text", run.replace(" ", "%s").replace("'", "\\'"))
+
+    want = "".join(key(c) for c in s)
+    got = None
+    for attempt in range(3):
+        for piece in re.findall(r"[\x00-\x7f]+|[^\x00-\x7f]", want):
+            if not piece.isascii():
+                c = letter_chip(piece)
+                assert c is not None, f"the letter chip «{piece}»"
+                adb("shell", "input", "tap", str(c[0]), str(c[1]))
+                time.sleep(0.5)
+            elif ime_top() is not None and not attempt:
+                keys(piece)
+                time.sleep(0.3)
+            else:
+                for ch in piece:
+                    keys(ch)
+                    time.sleep(0.15 * (attempt + 1) * slow())
+        got = focused_field_text()
+        if got is None or got == want:
+            break
+        adb("shell", "input", "keyevent", *["KEYCODE_DEL"] * (len(got) + 2), *["KEYCODE_FORWARD_DEL"] * 2)  # again, more slowly
+        time.sleep(0.5)
+    assert got is None or got == want, f"typed «{want}», the field holds «{got}»"
+    if ime_top() is not None:
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # hide the keyboard so bounds are stable
     time.sleep(0.6)
 
 
@@ -1979,7 +2060,7 @@ def village():
     to_top()
     mine = label("homeHero.myVillage", half=True)
     assert tap(mine), f"open village ({mine})"
-    skip, go_on, hud = label("common.skip", half=True), label("common.continue"), village_hud()
+    skip, go_on, hud = label("common.skip", half=True), label("common.continue"), village_bar()
     # The first-time intro, and the news of who moved in while the app was closed, may come in any order.
     end, calm = time.time() + 25, 0
     while time.time() < end and calm < 3:  # the village three times in a row, with nothing over it
@@ -2042,7 +2123,7 @@ def plain_village():
     for _ in range(8):
         ns = list(nodes())
         labels = [t for t, _ in ns]
-        if any(t in village_hud() for t in labels) and not any(t in over_village() for t in labels):
+        if any(t in village_bar() for t in labels) and not any(t in over_village() for t in labels):
             if not any(t.startswith(hud_goal()) for t in labels) and (c := hud_ring(ns)) is not None:
                 long_press(c)  # the HUD's cards hidden: back, as the steps read them (a long press on the ring; they slide in)
                 hud_cards(True)
@@ -4930,8 +5011,16 @@ def trade():
 
 
 def hud_ring(ns=None):
-    """The HUD's ring (its centre), or None."""
-    return next((c for t, c in (list(nodes()) if ns is None else ns) if t.startswith(hud_ring_starts())), None)
+    """The HUD's ring (its centre), or None: in the bar, above the cards, whose own words may start as the ring's label may ("Danes"
+    of today's card). On a feast day its label is the feast's ("Dan spomina na mrtve"), so then the bar's rightmost."""
+    ns = list(nodes()) if ns is None else ns
+    cards = [c[1] for t, c in ns if t.startswith((hud_goal(), hud_soon()))]
+    floor = min(cards) - 60 if cards else 10**6
+    bar = [(t, c) for t, c in ns if t and c[1] < floor]
+    named = next((c for t, c in bar if t.startswith(hud_ring_starts())), None)
+    if named is not None:
+        return named
+    return max((c for t, c in bar if c[0] > 860 and 100 < c[1] < 300), key=lambda c: c[0], default=None)
 
 
 def hud_cards(shown: bool, timeout=6.0) -> bool:
@@ -7896,35 +7985,44 @@ def box_starting(label: str):
     return next((b for t, b in boxes() if t.startswith(label)), None)
 
 
+def hud_resource(res: str, pair=None) -> str:
+    """How the HUD's chip of a resource starts in the pair the phone shows ("Hrana · Food: ", "Cibo · Nahrung: "): the names
+    the village's culture gives it (its world.json)."""
+    t, b = pair or pair_now()
+    culture = api("/culture").get("id") or "primorska"
+    name = json.loads((ROOT / f"companion/cultures/{culture}/world.json").read_text())["resources"][res]["name"]
+    return f"{name[t]} · {name[b]}: "
+
+
 def village_hud():
-    """The village's HUD (companion/GAME.md, "The village's HUD"): a slim bar over the map (back, the four resources, the
-    settlement's ring) and a row of cards under it (the goal, today and what's coming, the settlement); a tap on the ring
-    opens what the next age needs, its long press hides the cards (still hidden when the village is opened again) and
-    shows them; each card opens its section in the sheet
-    (the goal's steps with their buttons, the timeline, the settlement's labelled tiles), a tap on the map above it closes
-    it and opens nothing; the settlement's in German too (QA's hook "pair:sl-de"). Then QA's hook "build:field" opens the
-    plot chooser (the dev village's copy readied: its stores full, the next age's plots when its own are all taken): the
-    cards are hidden by themselves, the ★ lies below the bar and above the chooser's bar, and back from the chooser the
+    """The village's HUD (companion/GAME.md, "The village's HUD"), in the pair the phone shows: a slim bar over the map (back,
+    the resources, the settlement's ring) and a row of cards under it (the goal, today and what's coming, the settlement);
+    a tap on the ring opens what the next age needs, its long press hides the cards (still hidden when the village is opened
+    again) and shows them; each card opens its section in the sheet (the goal's steps with their buttons, the timeline, the
+    settlement's labelled tiles), a tap on the map above it closes it and opens nothing; the settlement's in another base
+    too, with German's long labels (QA's hook "pair:<target>-de"; another for a German course). Then QA's hook "build:field"
+    opens the plot chooser (the dev village's copy readied: its stores full, the next age's plots when its own are all taken):
+    the cards are hidden by themselves, the ★ lies below the bar and above the chooser's bar, and back from the chooser the
     cards are there again."""
     plain_village()
-    assert box_starting("Hrana · Food: ") and box_starting("Modrost · Wisdom: "), "the resources in the bar"
+    assert box_starting(hud_resource("food")) and box_starting(hud_resource("wisdom")), "the resources in the bar"
     ring = hud_ring()
     assert ring is not None, "the settlement's ring"
     goal = box_starting(hud_goal())
     assert goal is not None and box_starting(hud_soon()), "the goal's card and today's"
     assert goal[3] < 600, f"the cards' bottom at {goal[3]} px (the old HUD's panel reached about 1550)"
-    assert box_starting("Skrinja · The chest") is None, "no tile while no sheet is open"
+    assert box_starting(label("villageScreen.chest")) is None, "no tile while no sheet is open"
     shot("hud-cards")
 
     # a tap on the ring: what the next age needs, at once; back closes it, the cards as they were
     tap_at(ring)
-    if wait_for("Naslednja doba", 6):
+    if wait_for(app_texts(pair_now()[0])["villageSheets.nextAgeIs"].split("}")[-1].strip(), 6):  # "Naslednja doba", "La prossima età"
         shot("hud-ring-ages")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
     assert box_starting(hud_goal()) is not None, "the cards still shown after the ring's sheet"
     long_press(ring)
-    assert hud_cards(False) and box_starting("Hrana · Food: "), "the ring's long press hides the cards, the bar stays"
+    assert hud_cards(False) and box_starting(hud_resource("food")), "the ring's long press hides the cards, the bar stays"
     shot("hud-bar")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # to Home, and into the village again: still hidden
     assert wait_home(8), "home"
@@ -7933,91 +8031,106 @@ def village_hud():
     long_press(hud_ring())
     assert hud_cards(True), "the ring's long press shows the cards again"
 
+    close = label("common.close")
+
     def section(card: str, heading: str, name: str):
         b = hud_card(card)
         assert b is not None, f"the card {card}"
         tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
-        assert wait_for("Zapri · Close", 5), f"{card}'s sheet (its ✕)"
+        assert wait_for(close, 5), f"{card}'s sheet (its ✕)"
         assert find(heading) is not None, f"its section's heading {heading}"
         time.sleep(1)
         shot(name)
 
-    section(hud_goal(), "Naslednji cilj · Next goal", "hud-goal")
-    # a tap on the map above the sheet: it closes, nothing opens
-    top = box_starting(hud_goal()) or box_starting(hud_soon())
-    close = box_starting("Zapri · Close")
-    y = (top[3] + close[1]) // 2
-    adb("shell", "input", "tap", "540", str(y))
-    time.sleep(1.5)
-    labels = [t for t, _ in nodes()]
-    assert "Zapri · Close" not in labels, "a tap on the map closes the sheet"
-    assert not any(t in over_village() for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in over_village()]})"
+    tapped_map = []
 
-    section(hud_soon(), "Danes in kmalu · Today and coming up", "hud-soon")
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")
-    time.sleep(1)
-    section(hud_settlement(), "Naselje · Settlement", "hud-settlement")
-    assert box_starting("Skrinja · The chest: ") and box_starting("Napredek · Progress"), "the settlement's tiles"
-    assert tap("Zapri · Close", 3), "its ✕"
-    time.sleep(1)
+    def leave():
+        """Out of the open sheet: by a tap on the map above it, the first time there is room for one (it closes, nothing opens; a
+        sheet may reach 86 % of the screen, a long goal's does), else by Back."""
+        top, x_box = box_starting(hud_goal()) or box_starting(hud_soon()), box_starting(close)
+        room = x_box[1] - 60 - top[3]
+        if tapped_map or room < 150:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+            return
+        adb("shell", "input", "tap", "540", str(top[3] + room // 2))
+        time.sleep(1.5)
+        labels = [t for t, _ in nodes()]
+        assert close not in labels, "a tap on the map closes the sheet"
+        assert not any(t in over_village() for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in over_village()]})"
+        tapped_map.append(True)
 
-    # German: the base language's labels are the long ones
+    section(hud_goal(), label("villageHud.nextGoal"), "hud-goal")
+    leave()
+    section(hud_soon(), label("villageHud.soon"), "hud-soon")
+    leave()
+    section(hud_settlement(), label("villageHud.settlement"), "hud-settlement")
+    assert box_starting(label("villageScreen.chest") + ": ") and box_starting(label("common.progress")), "the settlement's tiles"
+    leave()
+    print(f"    a tap on the map {'closed a sheet' if tapped_map else 'not tried: every sheet too tall to leave room'}", flush=True)
+
+    # a second base, German's where it can be: its labels are the long ones
+    t, b0 = pair_now()
+    other = (t, "de" if "de" not in (t, b0) else ("sl" if "sl" not in (t, b0) else "en"))
     try:
-        qa_hook("pair:sl-de")
-        assert wait_for("Naslednji cilj · Nächstes Ziel: ", 10), "the cards in sl · de"
+        qa_hook(f"pair:{'-'.join(other)}")
+        goal_de, soon_de, set_de = label("villageHud.nextGoal", other) + ": ", label("villageHud.soon", other), label("villageHud.settlement", other) + ": "
+        assert wait_for(goal_de, 10), f"the cards in {' · '.join(other)}"
         b = None
         for _ in range(4):
-            b = box_starting("Naselje · Siedlung: ")
+            b = box_starting(set_de)
             if b is not None and b[2] <= 1080:
                 break
-            row = box_starting("Naslednji cilj · Nächstes Ziel: ") or box_starting("Danes in kmalu · Heute")
+            row = box_starting(goal_de) or box_starting(soon_de)
             y = (row[1] + row[3]) // 2
             adb("shell", "input", "swipe", "980", str(y), "160", str(y), "900")
             time.sleep(1.5)
-        assert b is not None, "the settlement's card in sl · de"
+        assert b is not None, f"the settlement's card in {' · '.join(other)}"
         tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
-        assert wait_for("Zapri · Schließen", 5), "the settlement's sheet in sl · de"
+        assert wait_for(label("common.close", other), 5), f"the settlement's sheet in {' · '.join(other)}"
         time.sleep(1)
-        shot("hud-settlement-de")
+        shot("hud-settlement-other-base")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
     finally:
-        qa_hook("pair:")
-        wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3)
+        qa_hook(f"pair:{os.environ.get('LANI_QA_PAIR', '')}")
+        wait_for(village_bar()[0], 10) or wait_for("Knjiga · Book", 3)
 
     qa_hook("build:field")
-    assert wait_for("Tukaj · Here", 10), "the plot chooser (QA's hook)"
+    assert wait_for(label("plotChooser.here"), 10), "the plot chooser (QA's hook)"
     time.sleep(2)  # the camera frames the plots to choose from
     assert hud_cards(False), "no cards while choosing"
-    bar = box_starting("Hrana · Food: ")
+    bar = box_starting(hud_resource("food"))
     assert bar is not None, "the bar while choosing"
-    star = next((b for t, b in boxes() if t.startswith("Parcela") and "★" in t), None)
+    plot_word = app_texts(pair_now()[0])["plotChooser.plot"].split("{")[0].strip()  # "Parcela"
+    star = next((b for t, b in boxes() if t.startswith(plot_word) and "★" in t), None)
     # the chooser's bar: its card ("Izberi parcelo · Choose a plot", "📍 Parcela 5 · Plot 5") and buttons
-    # (the lower half's: the HUD's "Nazaj · Back" is the bar's)
-    head = min((b for t, b in boxes() if (t.startswith("Izberi") or t.startswith("📍 ") or t == "Nazaj · Back") and b[1] > 1200), key=lambda b: b[1], default=None)
+    # (the lower half's: the HUD's back is the bar's)
+    choose_word, back = label("plotChooser.choose", half=True), label("components.back")
+    head = min((b for t, b in boxes() if (t.startswith(choose_word) or t.startswith("📍 ") or t == back) and b[1] > 1200), key=lambda b: b[1], default=None)
     assert head is not None, "the chooser's bar"
-    assert star is not None, "the ★ plot (TalkBack's \"Parcela n · Plot n, ★ Predlog · Suggested\")"
+    assert star is not None, f"the ★ plot (TalkBack's \"{plot_word} n, ★ …\")"
     cy = (star[1] + star[3]) // 2
     assert bar[3] < cy < head[1], f"the ★ at {cy} px, between the bar ({bar[3]}) and the chooser's bar ({head[1]})"
     shot("hud-plot-chooser")
-    back = max((b for t, b in boxes() if t == "Nazaj · Back"), key=lambda b: b[1], default=None)  # the chooser's, not the bar's
-    assert back is not None and back[1] > 1200, "the chooser's back"
-    tap_at(((back[0] + back[2]) // 2, (back[1] + back[3]) // 2))
+    back_b = max((b for t, b in boxes() if t == back), key=lambda b: b[1], default=None)  # the chooser's, not the bar's
+    assert back_b is not None and back_b[1] > 1200, "the chooser's back"
+    tap_at(((back_b[0] + back_b[2]) // 2, (back_b[1] + back_b[3]) // 2))
     assert hud_cards(True), "the cards again, the chooser left"
 
 
 # --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
 
-def fill(label: str, text: str) -> bool:
+def fill(label: str, text: str, typer=None) -> bool:
     """Types [text] into the field TalkBack calls [label] (a worksheet's gap, cell or line: "Vrzel 2 · Gap 2"); False when
     there is none on screen (scrolled to first). A field the screen can't scroll any higher (the fourth line of a test's
     transform, about 1880 px, on a screen with nothing left to scroll) may lie under scroll_to's limit: taken while it is
-    clear of the bottom bar, as option_at takes an option."""
+    clear of the bottom bar, as option_at takes an option. [typer]: how it is typed ([type_letters] enters a letter adb can't)."""
     c = scroll_to(label, 3) or scroll_to(label, 0, bottom=2150)
     if c is None:
         return False
     tap_at(c)
-    type_text(text)
+    (typer or type_text)(text)
     return True
 
 
@@ -8267,7 +8380,8 @@ def sheet_scroll(down: bool, times=1):
     w, h = screen_size()
     title = next((c for t, c in nodes() if t.startswith("📝 ") or t.startswith("🎓 ")), None)  # the run's title over the sheet
     top = (title or (w // 2, h // 4))[1] + 120
-    feedback = find("Ne čisto") or find("Skoraj") or find("Pravilno")
+    verdicts = app_texts(pair_now()[0])
+    feedback = next((c for t, c in nodes() if t.startswith((verdicts["playerScreen.notQuite"], verdicts["playerScreen.almost"].rstrip("!"), verdicts["playerScreen.correct"].rstrip("!")))), None)
     bottom = (feedback[1] - 160) if feedback else int(h * 0.7)
     if bottom - top < 200:
         bottom = top + 200
@@ -9822,12 +9936,6 @@ def friuli_school_unit():
 
 
 COURSE_UNIT = os.environ.get("LANI_QA_COURSE_UNIT")  # the unit "course-unit" plays, of the village's language's course
-# what adb types of a course's language: its letters a keyboard may lack as the grading folds them (almost: half an item)
-TYPED_FOLD = {
-    "sl": ASCII,
-    "it": IT_ASCII,
-    "de": str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss", "Ä": "Ae", "Ö": "Oe", "Ü": "Ue"}),
-}
 
 
 def school_board():
@@ -9912,14 +10020,38 @@ def course_unit():
     German course in the Carinthian village (docs/plans/05-built/course-de-a1-a.md), the English one in the Lake
     District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS. $LANI_QA_COURSE_SAID ("teen,ty"): endings its
     steps name in bold, each read in the language learned's voice, not the base's (tag IntroVoice; on a dev bridge with no voice
-    engine the explanation goes in its runs), docs/plans/05-built/qa-repair.md."""
-    if not COURSE_UNIT:
+    engine the explanation goes in its runs), docs/plans/05-built/qa-repair.md. Several units, comma-separated, are played in
+    one run, each to its end whatever became of the one before, their cu-*.png under $LANI_QA_COURSE_SHOTS/<unit>; the step
+    fails naming each that failed."""
+    units = [u.strip() for u in (COURSE_UNIT or "").split(",") if u.strip()]
+    if not units:
         return "skipped: no unit named (LANI_QA_COURSE_UNIT)"
+    if len(units) == 1:
+        return course_unit_one(units[0], os.environ.get("LANI_QA_COURSE_SHOTS"))
+    failed, skipped = [], []
+    for unit in units:
+        shots_dir = os.environ.get("LANI_QA_COURSE_SHOTS")
+        try:
+            outcome = course_unit_one(unit, str(Path(shots_dir) / unit) if shots_dir else None)
+            print(f"    {unit}: {outcome or 'ok'}", flush=True)
+            if outcome:
+                skipped.append(f"{unit}: {outcome}")
+            go_home()  # the school keeps its scroll: an earlier level's row would lie above it
+        except Exception as e:  # the next unit opens from Home, whatever this one left open
+            print(f"    {unit}: FAILED: {e}", flush=True)
+            shot(f"cu-failed-{unit}")
+            failed.append(f"{unit}: {e}")
+            go_home()
+    assert not failed, "; ".join(failed)
+    return "; ".join(skipped) or None
+
+
+def course_unit_one(unit: str, shots_dir: str | None):
+    """[course_unit] of one [unit], its cu-*.png also in [shots_dir]."""
     try:
         lang = (api("/culture").get("language") or "sl")
     except (OSError, RuntimeError, ValueError):
         lang = "sl"
-    unit = COURSE_UNIT
     path = ROOT / f"companion/course/{lang}/units/{unit}.json"
     if not path.exists():
         return f"skipped: no unit {unit} in the {lang} course ({path})"
@@ -9927,8 +10059,10 @@ def course_unit():
     if pair[0] != lang:
         return f"skipped: the pair {'-'.join(pair)} doesn't learn the village's language ({lang})"
     u = based(json.loads(path.read_text()), pair[1])
-    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
-    fold = TYPED_FOLD.get(lang)
+    out = Path(shots_dir) if shots_dir else None
+
+    def enter(text: str):
+        type_letters(text, lang)
 
     def msg(lg: str, key: str, **a) -> str:
         t = l10n(lg).get(key, key)
@@ -9971,10 +10105,8 @@ def course_unit():
         return None
 
     def typed(s: str) -> str:
-        """What adb types of an answer: the learner's name in, the punctuation at its end left out (graded without it),
-        the letters adb can't type folded as the grading folds them (almost right), an apostrophe escaped."""
-        t = re.sub(r"[!?.,]+$", "", unit_text(s))
-        return (t.translate(fold) if fold else t).replace("'", "\\'")
+        """What is typed of an answer: the learner's name in, the punctuation at its end left out (graded without it)."""
+        return re.sub(r"[!?.,]+$", "", unit_text(s))
 
     check, nxt = lab("playerScreen.check"), lab("common.next")
 
@@ -9992,7 +10124,7 @@ def course_unit():
             items = e["gaps"] if kind == "gaptext" else e["items"]
             for i, it in enumerate(items, 1):
                 label = lab("school.gapN" if kind == "gaptext" else "school.lineN", n=i)
-                assert fill(label, typed(it["accept"][0])), f"{where}: {label}"
+                assert fill(label, typed(it["accept"][0]), enter), f"{where}: {label}"
         elif kind == "choice":
             c = pick(unit_text(e["options"][e["answer"]]), after=prompt_piece(e.get("prompt")))
             assert c is not None, f"{where}: the option «{e['options'][e['answer']]}»"
@@ -10002,7 +10134,7 @@ def course_unit():
             c = text_field(3)
             assert c is not None, f"{where}: the gap"
             tap_at(c)
-            type_text(typed(e["accept"][0]))
+            enter(typed(e["accept"][0]))
         elif kind == "sort":
             for col in e["columns"]:
                 for w in col["words"]:
@@ -10013,7 +10145,7 @@ def course_unit():
                 for c, cell in enumerate(r["cells"]):
                     if isinstance(cell, dict):  # TalkBack's name of a cell: "<row>, <column>" (its column in the base)
                         label = f'{r["label"]}, {e["columns"][c]}'
-                        assert fill(label, typed(cell["accept"][0])), f"{where}: the cell {label}"
+                        assert fill(label, typed(cell["accept"][0]), enter), f"{where}: the cell {label}"
         elif kind == "reorder":
             # the first solution's words in its order, each the chip the app shows for it (game/ChipLabels: the
             # punctuation round it off, a capital lowered unless a name keeps it): the pool's, below the answer's row
@@ -10078,14 +10210,18 @@ def course_unit():
                 continue
             if a["type"] == "choice":
                 option = unit_text(a["options"][a["answer"]])
-                c = pick(option, after=prompt_piece(a.get("prompt")))
+                # below the question's own heading: the prompt's words may stand in the step's bubble too, over a table with the option's word
+                c = pick(option, after=half("school.quickQuestion"))
                 assert c is not None, f"step {i}'s option «{option}»"
                 tap_at(c)
             else:
                 c = text_field(3)
+                if c is None:  # no dump while the step is read and its pointer moves (a busy emulator): once it's quiet
+                    time.sleep(8 * slow())
+                    c = text_field(3)
                 assert c is not None, f"step {i}'s gap"
                 tap_at(c)
-                type_text(typed(a["accept"][0]))
+                enter(typed(a["accept"][0]))
                 assert tap_above(check, 2150), f"step {i}'s check"
             assert wait_for(half("playerScreen.correct"), 6) or wait_for(half("playerScreen.almost"), 2), f"step {i} answered right"
             snap(f"cu-intro-{i}")
@@ -10110,8 +10246,7 @@ def course_unit():
         for n, e in enumerate(tests, 1):
             time.sleep(1.5)
             exercise(e, f"test #{n}")
-            if n == 1:
-                snap("cu-test")
+            snap("cu-test" if n == 1 else f"cu-test-{n}")
             if n < len(tests):
                 assert tap(nxt, 6), f"test #{n}: on"
         assert wait_for(nxt, 6), "the test's last: on"
@@ -10119,9 +10254,16 @@ def course_unit():
         assert wait_for(half("school.unitDoneTitle"), 12), "the test passed: the unit done"
         time.sleep(2)
         snap("cu-test-passed")
+        # every answer given was the unit's own, its letters entered: none may be graded wrong
+        score = next((t for t, _ in nodes() if "❌" in t), "")
+        print(f"    {unit}'s test: {score}", flush=True)
+        assert not (m := re.search(r"❌\s*(\d+)", score)) or m.group(1) == "0", f"the unit's own answers graded wrong: {score}"
         if star := next_unit_once(lang, pair):
             print(f"    {star}")
-        assert tap(lab("common.continue"), 4), "back to the unit"
+        # the result's button may be below the fold: past 40 answers a day it says why the rewards are halved
+        c = find(lab("common.continue")) or scroll_to(lab("common.continue"), 3, bottom=2300)
+        assert c is not None, "back to the unit"
+        tap_at(c)
         assert wait_for(half("school.unitIsDone"), 8), "the unit done"
         end, done = time.time() + 20 * slow(), None
         while time.time() < end:  # the app pushes the village to the node
@@ -10166,6 +10308,180 @@ def course_unit():
     finally:
         restore = os.environ.get("LANI_QA_PAIR")
         qa_hook(f"pair:{restore}" if restore else "pair:")
+    return None
+
+
+# What a learner may type that writing doesn't want (COURSE.md "Spoken forms"), per course: kind ("nonstandard": almost, the
+# standard form shown; "spoken": an item's, right and labelled), unit, sheet, the field (a line, a gap, or a table's
+# (row, column index)), what is typed, and the standard form the app shows. Each is in a sheet's first exercise.
+TYPED_FORMS = {
+    "en": [
+        ("nonstandard", "adverbs", "adverbs-3", ("line", 2), "Granny Maggie cooks good", "Granny Maggie cooks well."),
+        ("spoken", "because-so", "because-so-3", ("line", 3), "We walked cos the bus was late", "We walked because the bus was late."),
+    ],
+    "de": [
+        ("nonstandard", "obwohl-trotzdem", "obwohl-trotzdem-1", ("cell", "Stefan ist krank. Er arbeitet.", 0), "obwohl er ist krank", "obwohl er krank ist"),
+        ("spoken", "als-waehrend", "als-waehrend-3", ("line", 1), "Wie Stefan kam, regnete es", "Als Stefan kam, regnete es."),
+    ],
+    "it": [
+        ("nonstandard", "benche-purche", "benche-purche-3", ("line", 1), "Benché piove, Davide esce", "Benché piova, Davide esce."),
+        ("spoken", "concordanza-tempi", "concordanza-tempi-3", ("line", 1), "Pensavo che Davide veniva", "Pensavo che Davide venisse."),
+    ],
+    "sl": [
+        ("spoken", "govorjeni-jezik", "govorjeni-jezik-3", ("line", 2), "Jutri moram delat", "Jutri moram delati."),
+    ],
+}
+COURSE_BASES = {"en": ("sl", "de", "it"), "de": ("en", "sl", "it"), "it": ("de", "sl", "en"), "sl": ("en", "de", "it")}
+
+
+def typed_forms():
+    """What the learner sees for a form people say, in every base of the village's language's course, only when named (a
+    synthetic learner as "course-unit"'s; LANI_QA_FORMS_BASES=de limits the bases): QA otherwise only answers right, so no
+    one had seen these on a screen. Each of [TYPED_FORMS] typed into its sheet, opened through QA's hook, the rest of its first
+    exercise answered right, and checked: "nonstandard" almost, the standard form and "People say it like this; in writing it's
+    the form shown"; "spoken" right, "🗣️ Spoken, and right too; the standard form: …". tf-<lang>-<base>-*.png; what the screen
+    said around it in typed-forms.txt, also in $LANI_QA_COURSE_SHOTS."""
+    lang = api("/culture").get("language") or "sl"
+    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
+    bases = [b for b in (os.environ.get("LANI_QA_FORMS_BASES") or ",".join(COURSE_BASES[lang])).split(",") if b]
+    said, problems = [], []
+    before = os.environ.get("LANI_QA_PAIR")
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def typer(t: str):
+        type_letters(t, lang)
+
+    def fields(e: dict, pair: tuple) -> list:
+        """The exercise's typed fields: (TalkBack's name, the item's right answer)."""
+        if e["type"] == "table":
+            return [(f'{r["label"]}, {e["columns"][c]}', cell["accept"][0]) for r in e["rows"] for c, cell in enumerate(r["cells"]) if isinstance(cell, dict)]
+        key, items = ("school.gapN", e["gaps"]) if e["type"] == "gaptext" else ("school.lineN", e["items"])
+        return [(label(key, pair).replace("{n}", str(i)), it["accept"][0]) for i, it in enumerate(items, 1)]
+
+    try:
+        for base in bases:
+            pair = (lang, base)
+            os.environ["LANI_QA_PAIR"] = f"{lang}-{base}"  # what go_home and the labels read: the phone's pair from here
+            qa_hook(f"pair:{lang}-{base}")
+            for kind, unit, sheet, where, text, standard in TYPED_FORMS[lang]:
+                tag = f"tf-{lang}-{base}-{kind}"
+                u = based(json.loads((ROOT / f"companion/course/{lang}/units/{unit}.json").read_text()), base)
+                first = next(w for w in u["worksheets"] if w["id"] == sheet)["exercises"][0]
+                target = (
+                    label("school.lineN", pair).replace("{n}", str(where[1])) if where[0] == "line"
+                    else label("school.gapN", pair).replace("{n}", str(where[1])) if where[0] == "gap"
+                    else f"{where[1]}, {first['columns'][where[2]]}"
+                )
+                go_home()
+                qa_hook(f"sheet:{unit}/{sheet}")
+                time.sleep(2)
+                for name, right in fields(first, pair):
+                    answer = text if name == target else re.sub(r"[!?.,]+$", "", unit_text(right))
+                    assert fill(name, answer, typer), f"{unit}: the field «{name}»"
+                    if name == target:
+                        snap(f"{tag}-typed")
+                assert tap_above(label("playerScreen.check", pair), 2400), f"{unit}: check"
+                time.sleep(2.5)
+                shown = (
+                    label("playerScreen.nonstandard", pair) if kind == "nonstandard"
+                    else "🗣️ " + " · ".join(app_texts(lg)["cases.spoken"].replace("{standard}", standard) for lg in pair)
+                )
+                snap(f"{tag}-checked")
+                seen = []
+                c = None
+                for k in range(9):  # as it stands checked (at the first line not quite right), else from the sheet's top down
+                    ns = list(nodes())
+                    seen += [t for t, _ in ns if t and t not in seen]
+                    c = next((xy for t, xy in ns if shown in t), None)
+                    if c is not None:
+                        break
+                    if k == 0:
+                        sheet_scroll(down=False, times=3)
+                    else:
+                        sheet_scroll(down=True)
+                snap(f"{tag}-hint")
+                said.append(f"{lang}-{base} {kind} {unit}/{sheet}, typed «{text}»:\n  " + "\n  ".join(seen))
+                if c is None:
+                    problems.append(f"{lang}-{base} {unit}: «{shown}» not on screen")
+                if not any(standard.rstrip(".") in t for t in seen):
+                    problems.append(f"{lang}-{base} {unit}: the standard form «{standard}» not on screen")
+    finally:
+        if before is None:
+            os.environ.pop("LANI_QA_PAIR", None)
+        else:
+            os.environ["LANI_QA_PAIR"] = before
+        qa_hook(f"pair:{before or ''}")
+        (OUT / "typed-forms.txt").write_text("\n\n".join(said) + "\n")
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(OUT / "typed-forms.txt", out / "typed-forms.txt")
+    assert not problems, "; ".join(problems)
+    return None
+
+
+def long_cell():
+    """A long answer typed into a narrow cell of a three-column table, only when named (German in Kärnten, as "course-unit"'s
+    learner): herr-kollege's first sheet, its row "der Mensch" ("dem Menschen", 12 letters). All of it must show in the field,
+    on a phone and on a tablet upright and on its side: lc-*.png, the fields' bounds and what they hold in long-cell.txt, also in
+    $LANI_QA_COURSE_SHOTS."""
+    unit, sheet = "herr-kollege", "herr-kollege-1"
+    pair = pair_now()
+    u = based(json.loads((ROOT / f"companion/course/de/units/{unit}.json").read_text()), pair[1])
+    table = next(w for w in u["worksheets"] if w["id"] == sheet)["exercises"][0]
+    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
+    lines = []
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def play(tag: str):
+        go_home()
+        qa_hook(f"sheet:{unit}/{sheet}")
+        time.sleep(3)
+        row = next(r for r in table["rows"] if r["label"] == "der Mensch")
+        for c, cell in enumerate(row["cells"]):
+            if isinstance(cell, dict):  # the row's cells to fill; one may be given
+                assert fill(f'der Mensch, {table["columns"][c]}', cell["accept"][0], lambda t: type_letters(t, "de")), f"the cell {c}"
+        time.sleep(1)
+        snap(f"lc-{tag}-typed")
+        for n in re.findall(r"<node [^>]*?>", screen_xml()):
+            if 'class="android.widget.EditText"' in n and "Mensch" in node_attr(n, " text"):
+                lines.append(f"{tag}: «{node_attr(n, ' text')}» bounds {node_attr(n, 'bounds')}")
+        check = label("playerScreen.check", pair)
+        for _ in range(5):  # any screen's size: a tablet on its side is 1600 px high
+            if (c := find(check)) is not None and c[1] < screen_size()[1] - 130:
+                tap_at(c)
+                break
+            sheet_scroll(down=True)
+        else:
+            raise AssertionError("check")
+        time.sleep(2.5)
+        snap(f"lc-{tag}-checked")
+
+    play("phone")
+    try:
+        adb("shell", "wm", "density", "320")
+        adb("shell", "wm", "size", "1600x2560")
+        time.sleep(3)
+        play("tablet-upright")
+        adb("shell", "wm", "size", "2560x1600")
+        time.sleep(3)
+        play("tablet-side")
+    finally:
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(3)
+    (OUT / "long-cell.txt").write_text("\n".join(lines) + "\n")
+    if out is not None:
+        shutil.copy(OUT / "long-cell.txt", out / "long-cell.txt")
     return None
 
 
@@ -13012,7 +13328,7 @@ def leave_visit():
         if (c := find(f"⌂ {host('common.home')} · ")) is not None:
             tap_at(c)
             break
-        if any(t in village_hud() for t, _ in nodes()):
+        if any(t in village_bar() for t, _ in nodes()):
             break
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1.2)
@@ -14915,7 +15231,7 @@ def pair_now() -> tuple:
     return t, b or "en"
 
 
-def village_hud() -> tuple:
+def village_bar() -> tuple:
     """The village's bottom bar's first button in the pair the phone shows (its scroll, "Zvitek · Scroll"; "Rotolo ·
     Schriftrolle" for Teo), and Jan's sl · en labels (the book, "Knjiga · Book", of a build from before the scroll)."""
     return tuple(dict.fromkeys((label("villageScreen.scroll"), "Zvitek · Scroll", "Knjiga · Book")))
@@ -14935,7 +15251,7 @@ def is_home(labels) -> bool:
     today = label("common.today")
     if not any(t == today for t in ls):
         return False
-    hud, chat = village_hud(), chat_title()
+    hud, chat = village_bar(), chat_title()
     return not any(t in hud or t.startswith(chat) for t in ls)
 
 
@@ -18997,6 +19313,9 @@ def plan():
         ("practice-pace", practice_pace, None, False, ""),
         # only with --steps course-unit: a unit of the village's language's course end to end and its print (LANI_QA_COURSE_UNIT)
         ("course-unit", course_unit, None, False, ""),
+        # only when named: what the learner sees for a form people say, in every base, and a long answer in a narrow cell
+        ("typed-forms", typed_forms, None, False, ""),
+        ("long-cell", long_cell, None, False, ""),
         ("school-board", school_board, None, False, ""),
         # only with --steps friuli-talk: Teo's free talk in Italian, Al mercato end to end (the same learner)
         ("friuli-talk", friuli_talk, None, False, ""),
@@ -19584,7 +19903,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "hint-it", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("typed-forms", "long-cell", "choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "hint-it", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
