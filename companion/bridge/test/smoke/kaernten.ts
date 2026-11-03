@@ -89,6 +89,17 @@ export default async function kaernten() {
 
     // word lookup without a German dictionary: the pack words (meant in Slovene, their article left out) and the villagers
     const lookup = async (q: string) => (await (await fetch(`${base}/lookup?${q}`, { headers: auth })).json()) as any
+    // German's own tables (paradigms.ts): to an app that reads them (v=2); an older app gets none
+    const formsDe = async (q: string) => (await (await fetch(`${base}/forms?${q}`, { headers: auth })).json()) as any
+    const [old, de2] = [await formsDe('w=Haus&w=fahren'), await formsDe('w=Haus&w=fahren&v=2')]
+    const [haus2, fahren2] = de2.words.map((w: any) => w.entries[0])
+    const atDe = (e: any, k: string) => e?.slots.find((s: any) => s.key === k)
+    check(
+      "kaernten: GET /forms: an older app (no v) none; with v=2 Haus's four cases (Häusern on dativ, needing plural), fahren's fährt on vokalwechsel, gefahren on partizip-zwei with sein",
+      old.words.every((w: any) => w.entries.length === 0) && haus2?.gender === 'n' && atDe(haus2, 'dat.pl')?.forms[0] === 'Häusern' && atDe(haus2, 'dat.pl').page === 'dativ' && atDe(haus2, 'dat.pl').needs?.[0] === 'plural' &&
+        atDe(fahren2, 'pres.3sg')?.page === 'vokalwechsel' && atDe(fahren2, 'pp')?.forms[0] === 'gefahren' && atDe(fahren2, 'pp').page === 'partizip-zwei' && fahren2.aux?.includes('sein'),
+      { old, de2 },
+    )
     const haeuser = await lookup(`w=${encodeURIComponent('Häuser')}&line=${encodeURIComponent('Die Häuser haben Balkone.')}`)
     check('kaernten: a lookup finds a German pack word by its plural, without its article, meant in Slovene', haeuser.entries[0]?.lemma === 'das Haus' && haeuser.entries[0].gloss[0]?.startsWith('hiša') && haeuser.entries[0].gloss_lang === 'sl' && haeuser.entries[0].grammar === 'plural' && haeuser.entries[0].source === 'pack', haeuser)
     const graben = await lookup(`w=graben&line=${encodeURIComponent('Wir graben ein tiefes Loch.')}`)

@@ -21,6 +21,7 @@ import { languageParam, type SrItem } from '../learner'
 import { LANGUAGES, learnerFacts, learnerLangs } from '../learners'
 import { ATTRIBUTION, glossIn, Lexicon, lookup, normalizeForm, wordItemId, type LookupEntry, type LookupResult, type Person } from '../lexicon'
 import { contentLines, formsOf, FORMS_LANGUAGES, LineIndex, partnerOf } from '../forms'
+import { isParadigmLanguage } from '../paradigms'
 import { fetchLexicon, lexiconCacheDir, parseLexicon } from '../lexicon-download'
 import { homonymCard, itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wordOf, type LoadedPack } from '../packs'
 import { labelEn } from '../langs'
@@ -614,9 +615,12 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
           // the slots (cases, the dual, the l-form), the grammar book's pages they count on and the app's tables and
           // questions are Slovene's: another language's word has none, so the word card shows no table and the review
           // asks no form (an Italian village: its dictionary has the forms, the app has no table of them yet)
-          if (!FORMS_LANGUAGES.has(language)) return json({ language, words: words.map(word => ({ word, entries: [] })), attribution: null })
+          // Italian, German and English have tables of their own (paradigms.ts: their tenses, cases and pages), served only
+          // to an app that reads them (v=2): an older one (Teo's tablet) would show them with Slovene's pronouns and frames
+          const other = isParadigmLanguage(language) && url.searchParams.get('v') === '2'
+          if (!FORMS_LANGUAGES.has(language) && !other) return json({ language, words: words.map(word => ({ word, entries: [] })), attribution: null })
           const { index, pages } = content()
-          const c = { dict, book, pages, lines: index, language }
+          const c = { dict, book, pages, lines: index, language, paradigms: dictionary.paradigms }
           const out = words.map(word => ({ word, entries: formsOf(c, word) }))
           const wiktionary = out.some(w => w.entries.some(e => e.table === 'wiktionary'))
           return json({ language, words: out, attribution: wiktionary ? ATTRIBUTION : null })
