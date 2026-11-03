@@ -160,10 +160,14 @@ export default async function friuli() {
     const acqua = await lookup(`w=${encodeURIComponent('l’acqua')}`)
     check("friuli: l’acqua (a typographic apostrophe) is the pack's l'acqua, meant in Slovene", acqua.entries[0]?.source === 'pack' && acqua.entries[0].lemma === "l'acqua" && acqua.entries[0].gloss_lang === 'sl', acqua)
 
-    // the supplement means the course's everyday words in the child's Slovene too (it.extra.json, it-print-meanings)
+    // the supplement means the course's everyday words in the child's Slovene too (it.extra.json, it-print-meanings); the
+    // commonest of them are a pack's since common-words (parole-di-ogni-giorno: essere, avere …), with the supplement's grammar
     const sono = await lookup(`w=sono&line=${encodeURIComponent('Sono di Gorizia.')}`)
     const s0 = sono.entries[0]
-    check("friuli: sono is essere, the supplement's Slovene biti (machine-written: claude) with its grammar, before Wiktionary's English", s0?.lemma === 'essere' && s0.source === 'extra' && s0.gloss[0] === 'biti' && s0.gloss_lang === 'sl' && s0.gloss_via === 'claude' && s0.grammar === 'first-person singular present; third-person plural present' && !s0.fallback, sono)
+    check("friuli: sono is parole-di-ogni-giorno's essere, biti, with the supplement's grammar", s0?.lemma === 'essere' && s0.source === 'pack' && s0.item_id === 'vocab_parole-di-ogni-giorno_essere' && s0.gloss[0] === 'biti' && s0.gloss_lang === 'sl' && s0.grammar === 'first-person singular present; third-person plural present', sono)
+    const parlo = await lookup(`w=parlo&line=${encodeURIComponent('Parlo con Giulia.')}`)
+    const p0 = parlo.entries[0]
+    check("friuli: parlo is parlare, the supplement's Slovene govoriti (machine-written: claude) with its grammar, before Wiktionary's English", p0?.lemma === 'parlare' && p0.source === 'extra' && p0.gloss[0] === 'govoriti' && p0.gloss_lang === 'sl' && p0.gloss_via === 'claude' && p0.grammar === 'first-person singular present' && !p0.fallback, parlo)
     // no Slovene meaning: the English, marked; the tutor hears of it and writes one (flagged machine-written)
     const bancoQ = `w=banco&line=${encodeURIComponent('Il banco è vecchio.')}`
     const banco = await lookup(bancoQ)
