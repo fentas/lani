@@ -2556,7 +2556,8 @@ def dialog_levels():
     (?arts=6) gets none of the market's levelled dialogs; at QA's "level:B2" the innkeeper's B2 variant opens with its
     first line, at "level:B1" the B1 one; at "level:B1" the B2 variant asked for isn't in the scene, and at "level:A1" the
     B1 one isn't: the happening's own dialog plays instead (QaHooks.withForced finds no such dialog). Screenshots of each,
-    also in $LANI_QA_LEVELS_SHOTS."""
+    also in $LANI_QA_LEVELS_SHOTS. The close label as the learner's pair shows it (say: "Close · Zapri" for a learner of
+    English, LANI_QA_SETUP_PAIR=en-sl)."""
     culture = api("/culture").get("id") or "primorska"
     if culture not in DIALOG_LEVELS_QA:
         return f"skipped: no market of {culture}'s to look at"
@@ -2574,7 +2575,7 @@ def dialog_levels():
         qa_hook(f"level:{level}")
         qa_hook(f"happening:{sid}/{hid}/{variant}", f"scene:{sid}@{sid}/{hid}")
         try:
-            if wait_for("Zapri · Close", 15) is None:
+            if wait_for(say("common.close"), 15) is None:
                 raise AssertionError(f"{sid}/{hid} at {level}: its dialog didn't open (the market isn't in the dev village?)")
             got = wait_for(expect, 15)
             shot(f"levels-{culture}-{name}")
@@ -2583,7 +2584,7 @@ def dialog_levels():
                 shutil.copy(shots[-1], out / f"levels-{culture}-{name}.png")
             assert got is not None, f"at {level}, {variant} asked for: «{expect}»"
             assert absent is None or find(absent) is None, f"at {level}: «{absent}» is above the learner"
-            tap("Zapri · Close", 3)
+            tap(say("common.close"), 3)
         finally:
             qa_hook("happening:")
         plain_village()
