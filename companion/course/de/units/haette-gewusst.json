@@ -1,0 +1,982 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "haette-gewusst",
+  "language": "de",
+  "level": "B2",
+  "emoji": "😔",
+  "title": {
+    "de": "Hätte ich das nur gewusst",
+    "en": "The past Konjunktiv: hätte gewusst, wäre gekommen",
+    "sl": "Pretekli konjunktiv: hätte gewusst, wäre gekommen",
+    "it": "Il congiuntivo passato: hätte gewusst, wäre gekommen"
+  },
+  "goal": {
+    "en": "You can say what would have been (Wenn ich das gewusst hätte, wäre ich gekommen), regret what wasn't (Hätte ich das nur gewusst!) and say what you could or should have done (Ich hätte kommen können).",
+    "sl": "Znaš povedati, kaj bi bilo (Wenn ich das gewusst hätte, wäre ich gekommen), obžalovati, česar ni bilo (Hätte ich das nur gewusst!), in povedati, kaj bi lahko ali moral storiti (Ich hätte kommen können).",
+    "it": "Sai dire che cosa sarebbe stato (Wenn ich das gewusst hätte, wäre ich gekommen), rimpiangere ciò che non è stato (Hätte ich das nur gewusst!) e dire che cosa avresti potuto o dovuto fare (Ich hätte kommen können)."
+  },
+  "grammar": [
+    "konjunktiv-vergangenheit",
+    "konjunktiv-zwei",
+    "perfekt"
+  ],
+  "words": [
+    "nur",
+    "doch",
+    "wenn",
+    "das Heu",
+    "der Wetterbericht",
+    "nass",
+    "trocken",
+    "der Wecker",
+    "läuten",
+    "wecken",
+    "verpassen",
+    "anrufen",
+    "besuchen",
+    "mitkommen",
+    "mitfahren",
+    "aufstehen",
+    "die Alm",
+    "der Schnee",
+    "der Regen",
+    "krank",
+    "müde"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        "Perfekt",
+        {
+          "de": "Was nicht war",
+          "en": "what didn't happen",
+          "sl": "česar ni bilo",
+          "it": "ciò che non è stato"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Ich wäre gekommen** (I would have come), **ich hätte geholfen** (I would have helped): this is how you say what didn't happen. It is the Perfekt with its helper changed: bin → **wäre**, habe → **hätte**, the participle last. A verb that takes sein in the Perfekt takes **wäre**; one that takes haben takes **hätte**.",
+          "sl": "**Ich wäre gekommen** (prišel bi), **ich hätte geholfen** (pomagal bi): tako poveš, česar ni bilo. Je perfekt s spremenjenim pomožnim glagolom: bin → **wäre**, habe → **hätte**, deležnik na koncu. Glagol s sein v perfektu dobi **wäre**, glagol s haben dobi **hätte**.",
+          "it": "**Ich wäre gekommen** (sarei venuto), **ich hätte geholfen** (avrei aiutato): così dici ciò che non è successo. È il Perfekt con l'ausiliare cambiato: bin → **wäre**, habe → **hätte**, il participio alla fine. Un verbo con sein nel Perfekt prende **wäre**, uno con haben prende **hätte**."
+        },
+        "examples": [
+          {
+            "de": "Ich hätte dir gern geholfen.",
+            "en": "I would gladly have helped you.",
+            "sl": "Rad bi ti pomagal.",
+            "it": "Ti avrei aiutato volentieri."
+          },
+          {
+            "de": "Stefan wäre gern mitgekommen.",
+            "en": "Stefan would have liked to come along.",
+            "sl": "Stefan bi rad šel zraven.",
+            "it": "Stefan sarebbe venuto volentieri."
+          }
+        ],
+        "rows": [
+          [
+            "ich habe gewusst",
+            "ich hätte gewusst"
+          ],
+          [
+            "ich bin gekommen",
+            "ich wäre gekommen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-vergangenheit",
+          "text": "Toni ___ uns gestern gern besucht. (haben)",
+          "accept": [
+            "hätte"
+          ],
+          "hint": {
+            "en": "besuchen: haben in the Perfekt",
+            "sl": "besuchen: v perfektu haben",
+            "it": "besuchen: nel Perfekt haben"
+          },
+          "explain": {
+            "en": "**Perfekt with haben: hätte. Perfekt with sein: wäre. The participle last**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "sl": "**Perfekt s haben: hätte. Perfekt s sein: wäre. Deležnik na koncu**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "it": "**Perfekt con haben: hätte. Perfekt con sein: wäre. Il participio alla fine**\n- Ich hätte geholfen. · Ich wäre gekommen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**du hättest, wir hätten, ihr hättet; du wärst, wir wären, ihr wärt**: the forms you know, with the participle added. Austria keeps sein with sitzen, stehen and liegen here too: **ich wäre gesessen** (I would have sat), **du wärst gelegen** (you would have lain); Germany's **hätte gesessen** is right as well.",
+          "sl": "**du hättest, wir hätten, ihr hättet; du wärst, wir wären, ihr wärt**: oblike, ki jih poznaš, z dodanim deležnikom. Avstrija tudi tu pri sitzen, stehen in liegen ohrani sein: **ich wäre gesessen** (sedel bi), **du wärst gelegen** (ležal bi); **hätte gesessen** iz Nemčije je tudi prav.",
+          "it": "**du hättest, wir hätten, ihr hättet; du wärst, wir wären, ihr wärt**: le forme che conosci, con il participio in più. Anche qui l'Austria tiene sein con sitzen, stehen e liegen: **ich wäre gesessen** (sarei stato seduto), **du wärst gelegen** (saresti stato sdraiato); **hätte gesessen** della Germania va bene lo stesso."
+        },
+        "examples": [
+          {
+            "de": "Wir hätten euch geholfen.",
+            "en": "We would have helped you.",
+            "sl": "Pomagali bi vam.",
+            "it": "Vi avremmo aiutato."
+          },
+          {
+            "de": "Ich wäre lieber im Gasthaus gesessen.",
+            "en": "I would rather have sat in the inn.",
+            "sl": "Raje bi sedel v gostilni.",
+            "it": "Sarei rimasto più volentieri seduto all'osteria."
+          }
+        ],
+        "rows": [
+          [
+            "du hast gewusst",
+            "du hättest gewusst"
+          ],
+          [
+            "du bist gekommen",
+            "du wärst gekommen"
+          ],
+          [
+            "wir haben gewusst",
+            "wir hätten gewusst"
+          ],
+          [
+            "wir sind gekommen",
+            "wir wären gekommen"
+          ],
+          [
+            "ihr habt gewusst",
+            "ihr hättet gewusst"
+          ],
+          [
+            "ihr seid gekommen",
+            "ihr wärt gekommen"
+          ],
+          [
+            "ich bin gesessen",
+            "ich wäre gesessen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-vergangenheit",
+          "prompt": "Ihr ___ uns sicher geholfen.",
+          "options": [
+            "hättet",
+            "wärt",
+            "hättest"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Perfekt with haben: hätte. Perfekt with sein: wäre. The participle last**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "sl": "**Perfekt s haben: hätte. Perfekt s sein: wäre. Deležnik na koncu**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "it": "**Perfekt con haben: hätte. Perfekt con sein: wäre. Il participio alla fine**\n- Ich hätte geholfen. · Ich wäre gekommen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Hätte ich das nur gewusst!** (If only I had known!) With the helper first and **nur** or **doch**, you regret what wasn't: **Wäre ich doch zu Hause geblieben!** (If only I'd stayed at home!) With **wenn** the helper goes last and it says the same: **Wenn ich das nur gewusst hätte!**",
+          "sl": "**Hätte ich das nur gewusst!** (Ko bi le vedel!) S pomožnim glagolom na začetku in z **nur** ali **doch** obžaluješ, česar ni bilo: **Wäre ich doch zu Hause geblieben!** (Ko bi le ostal doma!) Z **wenn** gre pomožni glagol na konec, pomen je isti: **Wenn ich das nur gewusst hätte!**",
+          "it": "**Hätte ich das nur gewusst!** (Se solo l'avessi saputo!) Con l'ausiliare all'inizio e **nur** o **doch** rimpiangi ciò che non è stato: **Wäre ich doch zu Hause geblieben!** (Se solo fossi rimasto a casa!) Con **wenn** l'ausiliare va alla fine, e dice lo stesso: **Wenn ich das nur gewusst hätte!**"
+        },
+        "examples": [
+          {
+            "de": "Hätte ich das nur gewusst!",
+            "en": "If only I had known!",
+            "sl": "Ko bi le vedel!",
+            "it": "Se solo l'avessi saputo!"
+          },
+          {
+            "de": "Wäre ich doch zu Hause geblieben!",
+            "en": "If only I'd stayed at home!",
+            "sl": "Ko bi le ostal doma!",
+            "it": "Se solo fossi rimasto a casa!"
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-vergangenheit",
+          "text": "___ ich nur früher aufgestanden!",
+          "accept": [
+            "Wäre"
+          ],
+          "hint": {
+            "en": "aufstehen: sein in the Perfekt",
+            "sl": "aufstehen: v perfektu sein",
+            "it": "aufstehen: nel Perfekt sein"
+          },
+          "explain": {
+            "en": "**Regret: the helper first with nur or doch; with wenn the helper last**\n- Hätte ich das nur gewusst! · Wenn ich das nur gewusst hätte!",
+            "sl": "**Obžalovanje: pomožni glagol na začetku z nur ali doch; z wenn pomožni glagol na konec**\n- Hätte ich das nur gewusst! · Wenn ich das nur gewusst hätte!",
+            "it": "**Il rimpianto: l'ausiliare all'inizio con nur o doch; con wenn l'ausiliare alla fine**\n- Hätte ich das nur gewusst! · Wenn ich das nur gewusst hätte!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Wenn ich das gewusst hätte, wäre ich gekommen** (If I had known that, I'd have come): but I didn't know, and I didn't come. Both parts take hätte or wäre + the participle; after **wenn** the helper goes last. With no wenn it comes first: **Hätte ich das gewusst, wäre ich gekommen.** The end can be now: Wenn ich **geschlafen hätte**, **wäre** ich jetzt nicht müde.",
+          "sl": "**Wenn ich das gewusst hätte, wäre ich gekommen** (Če bi to vedel, bi prišel): a nisem vedel in nisem prišel. Oba dela imata hätte ali wäre + deležnik; za **wenn** gre pomožni glagol na konec. Brez wenn pride na začetek: **Hätte ich das gewusst, wäre ich gekommen.** Konec je lahko zdaj: Wenn ich **geschlafen hätte**, **wäre** ich jetzt nicht müde.",
+          "it": "**Wenn ich das gewusst hätte, wäre ich gekommen** (Se l'avessi saputo, sarei venuto): ma non lo sapevo, e non sono venuto. Le due parti hanno hätte o wäre + il participio; dopo **wenn** l'ausiliare va alla fine. Senza wenn viene per primo: **Hätte ich das gewusst, wäre ich gekommen.** La fine può essere adesso: Wenn ich **geschlafen hätte**, **wäre** ich jetzt nicht müde."
+        },
+        "examples": [
+          {
+            "de": "Wenn ich das gewusst hätte, wäre ich gekommen.",
+            "en": "If I had known that, I'd have come.",
+            "sl": "Če bi to vedel, bi prišel.",
+            "it": "Se l'avessi saputo, sarei venuto."
+          },
+          {
+            "de": "Wenn es nicht geregnet hätte, hätten wir getanzt.",
+            "en": "If it hadn't rained, we'd have danced.",
+            "sl": "Če ne bi deževalo, bi plesali.",
+            "it": "Se non avesse piovuto, avremmo ballato."
+          },
+          {
+            "de": "Wenn ich geschlafen hätte, wäre ich jetzt nicht müde.",
+            "en": "If I had slept, I wouldn't be tired now.",
+            "sl": "Če bi spal, zdaj ne bi bil utrujen.",
+            "it": "Se avessi dormito, adesso non sarei stanco."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-vergangenheit",
+          "text": "Wenn der Bus gekommen ___, wäre ich nicht zu Fuß gegangen. (sein)",
+          "accept": [
+            "wäre"
+          ],
+          "hint": {
+            "en": "kommen: sein in the Perfekt",
+            "sl": "kommen: v perfektu sein",
+            "it": "kommen: nel Perfekt sein"
+          },
+          "explain": {
+            "en": "**After wenn the helper goes last; both parts take hätte or wäre + the participle**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+            "sl": "**Za wenn gre pomožni glagol na konec; oba dela imata hätte ali wäre + deležnik**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+            "it": "**Dopo wenn l'ausiliare va alla fine; le due parti hanno hätte o wäre + il participio**\n- Wenn ich das gewusst hätte, wäre ich gekommen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Ich hätte kommen können** (I could have come), **du hättest anrufen sollen** (you should have rung): a modal verb takes **hätte** and two infinitives at the end: **Ich hätte kommen können** (not *Ich hätte gekommen können*). After wenn, **hätte** stands before the two: wenn ich **hätte kommen können**. In Austria you also hear wenn ich kommen hätte können: right too.",
+          "sl": "**Ich hätte kommen können** (lahko bi prišel), **du hättest anrufen sollen** (moral bi poklicati): z modalnim glagolom je vedno **hätte** in na koncu dva nedoločnika (ne *hätte gekommen können*). Za wenn stoji **hätte** pred obema: wenn ich **hätte kommen können**. V Avstriji se sliši tudi wenn ich kommen hätte können: tudi prav.",
+          "it": "**Ich hätte kommen können** (sarei potuto venire), **du hättest anrufen sollen** (avresti dovuto telefonare): con un modale c'è sempre **hätte** e due infiniti alla fine (non *hätte gekommen können*). Dopo wenn, **hätte** sta prima dei due: wenn ich **hätte kommen können**. In Austria si sente anche wenn ich kommen hätte können: va bene anche così."
+        },
+        "examples": [
+          {
+            "de": "Ich hätte kommen können.",
+            "en": "I could have come.",
+            "sl": "Lahko bi prišel.",
+            "it": "Sarei potuto venire."
+          },
+          {
+            "de": "Du hättest anrufen sollen.",
+            "en": "You should have rung.",
+            "sl": "Moral bi poklicati.",
+            "it": "Avresti dovuto telefonare."
+          }
+        ],
+        "rows": [
+          [
+            "ich habe kommen können",
+            "ich hätte kommen können"
+          ],
+          [
+            "du hast anrufen sollen",
+            "du hättest anrufen sollen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-vergangenheit",
+          "prompt": "Du ___ früher anrufen sollen.",
+          "options": [
+            "hättest",
+            "wärst",
+            "würdest"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A modal verb: hätte and two infinitives, no participle**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+            "sl": "**Modalni glagol: hätte in dva nedoločnika, brez deležnika**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+            "it": "**Un verbo modale: hätte e due infiniti, niente participio**\n- Ich hätte kommen können. · Du hättest anrufen sollen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**hatte gewusst** (had known) and **hätte gewusst** (would have known) are one umlaut apart: the first happened, the second didn't. And **wüsste** (would know) is now, **hätte gewusst** is then: Wenn ich das **wüsste**, … (but I don't), Wenn ich das **gewusst hätte**, … (but I didn't). In speech the -e often goes: **ich hätt**, **ich wär**.",
+          "sl": "**hatte gewusst** (je že vedel) in **hätte gewusst** (bi vedel) loči en preglas: prvo se je zgodilo, drugo ne. In **wüsste** (bi vedel) je zdaj, **hätte gewusst** je takrat: Wenn ich das **wüsste**, … (pa ne vem), Wenn ich das **gewusst hätte**, … (pa nisem vedel). V govoru -e pogosto odpade: **ich hätt**, **ich wär**.",
+          "it": "**hatte gewusst** (aveva saputo) e **hätte gewusst** (avrebbe saputo) li separa una dieresi: il primo è successo, il secondo no. E **wüsste** (saprei) è adesso, **hätte gewusst** è allora: Wenn ich das **wüsste**, … (ma non lo so), Wenn ich das **gewusst hätte**, … (ma non lo sapevo). Parlando la -e spesso cade: **ich hätt**, **ich wär**."
+        },
+        "examples": [
+          {
+            "de": "Ich hätte dir geholfen, aber ich war krank.",
+            "en": "I'd have helped you, but I was ill.",
+            "sl": "Pomagal bi ti, a sem bil bolan.",
+            "it": "Ti avrei aiutato, ma ero malato."
+          },
+          {
+            "de": "Ich hatte alles vergessen.",
+            "en": "I had forgotten everything.",
+            "sl": "Vse sem bil pozabil.",
+            "it": "Avevo dimenticato tutto."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-vergangenheit",
+          "prompt": "Wir ___ gern getanzt, aber es hat geregnet.",
+          "options": [
+            "hätten",
+            "hatten",
+            "wären"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**hätte, with the umlaut: it didn't happen. hatte: it did**\n- Ich hätte es gewusst. · Ich hatte es gewusst.",
+            "sl": "**hätte, s preglasom: ni se zgodilo. hatte: zgodilo se je**\n- Ich hätte es gewusst. · Ich hatte es gewusst.",
+            "it": "**hätte, con la dieresi: non è successo. hatte: è successo**\n- Ich hätte es gewusst. · Ich hatte es gewusst."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "haette-gewusst-1",
+      "title": {
+        "de": "Hätte oder wäre?",
+        "en": "Hätte oder wäre?",
+        "sl": "Hätte oder wäre?",
+        "it": "Hätte oder wäre?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "Perfekt → what didn't happen",
+            "sl": "Perfekt → česar ni bilo",
+            "it": "Perfekt → ciò che non è stato"
+          },
+          "columns": [
+            "Perfekt",
+            "Konjunktiv"
+          ],
+          "rows": [
+            {
+              "label": "ich · wissen",
+              "cells": [
+                "habe gewusst",
+                {
+                  "accept": [
+                    "hätte gewusst",
+                    "ich hätte gewusst"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ich · kommen",
+              "cells": [
+                "bin gekommen",
+                {
+                  "accept": [
+                    "wäre gekommen",
+                    "ich wäre gekommen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "du · essen",
+              "cells": [
+                "hast gegessen",
+                {
+                  "accept": [
+                    "hättest gegessen",
+                    "du hättest gegessen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "du · gehen",
+              "cells": [
+                "bist gegangen",
+                {
+                  "accept": [
+                    "wärst gegangen",
+                    "du wärst gegangen",
+                    "wärest gegangen",
+                    "du wärest gegangen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir · helfen",
+              "cells": [
+                "haben geholfen",
+                {
+                  "accept": [
+                    "hätten geholfen",
+                    "wir hätten geholfen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir · bleiben",
+              "cells": [
+                "sind geblieben",
+                {
+                  "accept": [
+                    "wären geblieben",
+                    "wir wären geblieben"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr · arbeiten",
+              "cells": [
+                "habt gearbeitet",
+                {
+                  "accept": [
+                    "hättet gearbeitet",
+                    "ihr hättet gearbeitet"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ich · sitzen",
+              "cells": [
+                "bin gesessen",
+                {
+                  "accept": [
+                    "wäre gesessen",
+                    "ich wäre gesessen",
+                    "hätte gesessen",
+                    "ich hätte gesessen"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Perfekt with haben: hätte. Perfekt with sein: wäre. The participle last**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "sl": "**Perfekt s haben: hätte. Perfekt s sein: wäre. Deležnik na koncu**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "it": "**Perfekt con haben: hätte. Perfekt con sein: wäre. Il participio alla fine**\n- Ich hätte geholfen. · Ich wäre gekommen."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Sortiere · Sort: hätte or wäre?",
+            "sl": "Sortiere · Razvrsti: hätte ali wäre?",
+            "it": "Sortiere · Ordina: hätte o wäre?"
+          },
+          "columns": [
+            {
+              "label": "hätte",
+              "words": [
+                "gewusst",
+                "gegessen",
+                "geholfen",
+                "gearbeitet"
+              ]
+            },
+            {
+              "label": "wäre",
+              "words": [
+                "gekommen",
+                "geblieben",
+                "gegangen",
+                "aufgestanden"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Perfekt with haben: hätte. Perfekt with sein: wäre. The participle last**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "sl": "**Perfekt s haben: hätte. Perfekt s sein: wäre. Deležnik na koncu**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "it": "**Perfekt con haben: hätte. Perfekt con sein: wäre. Il participio alla fine**\n- Ich hätte geholfen. · Ich wäre gekommen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "haette-gewusst-2",
+      "title": {
+        "de": "Stefans Heu",
+        "en": "Stefan's hay",
+        "sl": "Stefanovo seno",
+        "it": "Il fieno di Stefan"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Stefans Heu",
+          "text": "Stefans Heu ist im Regen nass geworden. „Hätte ich das nur ___!“, sagt er. „Wenn ich den Wetterbericht gehört ___, hätte ich das Heu am Sonntag geholt. Dann ___ ich jetzt nicht so viel Arbeit.“ Kathi lacht: „Du ___ mich fragen können. Ich hätte es dir gesagt.“ „Und ich ___ gern gekommen“, sagt Toni, „aber du hast nicht angerufen. Du ___ anrufen sollen!“ „Wenn ihr mir geholfen ___, ___ das Heu jetzt trocken.“",
+          "gaps": [
+            {
+              "accept": [
+                "gewusst"
+              ]
+            },
+            {
+              "accept": [
+                "hätte"
+              ]
+            },
+            {
+              "accept": [
+                "hätte"
+              ]
+            },
+            {
+              "accept": [
+                "hättest"
+              ]
+            },
+            {
+              "accept": [
+                "wäre"
+              ]
+            },
+            {
+              "accept": [
+                "hättest"
+              ]
+            },
+            {
+              "accept": [
+                "hättet"
+              ]
+            },
+            {
+              "accept": [
+                "wäre"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "hatte",
+            "war",
+            "wissen"
+          ],
+          "translation": {
+            "en": "Stefan's hay got wet in the rain. “If only I had known!” he says. “If I had heard the weather forecast, I'd have fetched the hay on Sunday. Then I wouldn't have so much work now.” Kathi laughs: “You could have asked me. I'd have told you.” “And I'd gladly have come,” says Toni, “but you didn't ring. You should have rung!” “If you had helped me, the hay would be dry now.”",
+            "sl": "Stefanovo seno se je zmočilo v dežju. »Ko bi le to vedel!« pravi. »Če bi slišal vremensko napoved, bi seno pospravil v nedeljo. Potem zdaj ne bi imel toliko dela.« Kathi se smeji: »Lahko bi me vprašal. Povedala bi ti.« »In jaz bi rad prišel,« pravi Toni, »a nisi poklical. Moral bi poklicati!« »Če bi mi pomagali, bi bilo seno zdaj suho.«",
+            "it": "Il fieno di Stefan si è bagnato sotto la pioggia. «Se solo l'avessi saputo!», dice. «Se avessi sentito le previsioni del tempo, avrei portato dentro il fieno domenica. Allora adesso non avrei tanto lavoro.» Kathi ride: «Potevi chiedermelo. Te l'avrei detto.» «E io sarei venuto volentieri», dice Toni, «ma non hai telefonato. Avresti dovuto telefonare!» «Se mi aveste aiutato, adesso il fieno sarebbe asciutto.»"
+          },
+          "explain": {
+            "en": "**After wenn the helper goes last; both parts take hätte or wäre + the participle**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+            "sl": "**Za wenn gre pomožni glagol na konec; oba dela imata hätte ali wäre + deležnik**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+            "it": "**Dopo wenn l'ausiliare va alla fine; le due parti hanno hätte o wäre + il participio**\n- Wenn ich das gewusst hätte, wäre ich gekommen."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ohne den Schnee ___ wir gestern nach Villach gefahren.",
+          "options": [
+            "wären",
+            "hätten",
+            "würden"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Perfekt with haben: hätte. Perfekt with sein: wäre. The participle last**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "sl": "**Perfekt s haben: hätte. Perfekt s sein: wäre. Deležnik na koncu**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+            "it": "**Perfekt con haben: hätte. Perfekt con sein: wäre. Il participio alla fine**\n- Ich hätte geholfen. · Ich wäre gekommen."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Toni ist krank. Er ___ nicht so lange im Regen arbeiten sollen.",
+          "options": [
+            "hätte",
+            "wäre",
+            "ist"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A modal verb: hätte and two infinitives, no participle**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+            "sl": "**Modalni glagol: hätte in dva nedoločnika, brez deležnika**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+            "it": "**Un verbo modale: hätte e due infiniti, niente participio**\n- Ich hätte kommen können. · Du hättest anrufen sollen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "haette-gewusst-3",
+      "title": {
+        "de": "Was wäre gewesen?",
+        "en": "What would have been?",
+        "sl": "Kaj bi bilo?",
+        "it": "Che cosa sarebbe stato?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Sag es mit wenn · It didn't happen: say it with wenn",
+            "sl": "Sag es mit wenn · Ni se zgodilo: povej z wenn",
+            "it": "Sag es mit wenn · Non è successo: dillo con wenn"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich wusste es nicht. Ich kam nicht.",
+              "accept": [
+                "Wenn ich es gewusst hätte, wäre ich gekommen.",
+                "Ich wäre gekommen, wenn ich es gewusst hätte.",
+                "Hätte ich es gewusst, wäre ich gekommen.",
+                "Wenn ich das gewusst hätte, wäre ich gekommen.",
+                "Ich wäre gekommen, wenn ich das gewusst hätte.",
+                "Hätte ich das gewusst, wäre ich gekommen."
+              ]
+            },
+            {
+              "from": "Es hat geregnet. Wir haben nicht getanzt.",
+              "accept": [
+                "Wenn es nicht geregnet hätte, hätten wir getanzt.",
+                "Wir hätten getanzt, wenn es nicht geregnet hätte.",
+                "Hätte es nicht geregnet, hätten wir getanzt."
+              ]
+            },
+            {
+              "from": "Kathi war krank. Sie hat nicht gekocht.",
+              "accept": [
+                "Wenn Kathi nicht krank gewesen wäre, hätte sie gekocht.",
+                "Kathi hätte gekocht, wenn sie nicht krank gewesen wäre.",
+                "Wäre Kathi nicht krank gewesen, hätte sie gekocht."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**After wenn the helper goes last; both parts take hätte or wäre + the participle**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+            "sl": "**Za wenn gre pomožni glagol na konec; oba dela imata hätte ali wäre + deležnik**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+            "it": "**Dopo wenn l'ausiliare va alla fine; le due parti hanno hätte o wäre + il participio**\n- Wenn ich das gewusst hätte, wäre ich gekommen."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Bedaure es mit nur oder doch · Regret it with nur or doch",
+            "sl": "Bedaure es mit nur oder doch · Obžaluj z nur ali doch",
+            "it": "Bedaure es mit nur oder doch · Rimpiangilo con nur o doch"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich habe den Zug verpasst.",
+              "accept": [
+                "Hätte ich nur den Zug nicht verpasst!",
+                "Hätte ich den Zug nur nicht verpasst!",
+                "Hätte ich doch den Zug nicht verpasst!",
+                "Hätte ich den Zug doch nicht verpasst!",
+                "Wenn ich nur den Zug nicht verpasst hätte!",
+                "Wenn ich den Zug nur nicht verpasst hätte!",
+                "Wenn ich doch den Zug nicht verpasst hätte!",
+                "Wenn ich den Zug doch nicht verpasst hätte!"
+              ]
+            },
+            {
+              "from": "Stefan ist nicht gekommen.",
+              "accept": [
+                "Wäre Stefan nur gekommen!",
+                "Wäre Stefan doch gekommen!",
+                "Wenn Stefan nur gekommen wäre!",
+                "Wenn Stefan doch gekommen wäre!",
+                "Wäre er nur gekommen!",
+                "Wäre er doch gekommen!",
+                "Wenn er nur gekommen wäre!",
+                "Wenn er doch gekommen wäre!"
+              ]
+            },
+            {
+              "from": "Wir haben nichts gegessen.",
+              "accept": [
+                "Hätten wir nur etwas gegessen!",
+                "Hätten wir doch etwas gegessen!",
+                "Wenn wir nur etwas gegessen hätten!",
+                "Wenn wir doch etwas gegessen hätten!"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Regret: the helper first with nur or doch; with wenn the helper last**\n- Hätte ich das nur gewusst! · Wenn ich das nur gewusst hätte!",
+            "sl": "**Obžalovanje: pomožni glagol na začetku z nur ali doch; z wenn pomožni glagol na konec**\n- Hätte ich das nur gewusst! · Wenn ich das nur gewusst hätte!",
+            "it": "**Il rimpianto: l'ausiliare all'inizio con nur o doch; con wenn l'ausiliare alla fine**\n- Hätte ich das nur gewusst! · Wenn ich das nur gewusst hätte!"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-vergangenheit",
+          "instruction": {
+            "en": "Sag es mit dem Modalverb · Say it with the modal verb",
+            "sl": "Sag es mit dem Modalverb · Povej z modalnim glagolom",
+            "it": "Sag es mit dem Modalverb · Dillo con il verbo modale"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Du hast nicht angerufen. (sollen)",
+              "accept": [
+                "Du hättest anrufen sollen."
+              ]
+            },
+            {
+              "from": "Ich bin nicht gekommen. (können)",
+              "accept": [
+                "Ich hätte kommen können."
+              ]
+            },
+            {
+              "from": "Toni hat nicht geholfen. (müssen)",
+              "accept": [
+                "Toni hätte helfen müssen.",
+                "Er hätte helfen müssen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A modal verb: hätte and two infinitives, no participle**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+            "sl": "**Modalni glagol: hätte in dva nedoločnika, brez deležnika**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+            "it": "**Un verbo modale: hätte e due infiniti, niente participio**\n- Ich hätte kommen können. · Du hättest anrufen sollen."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "konjunktiv-vergangenheit",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Toni und der Zug",
+        "text": "Toni hat den Zug nach Villach verpasst. „Wäre ich nur früher ___ (aufstehen)!“, sagt er. „Wenn der Wecker geläutet ___, ___ ich jetzt schon dort.“ Mitzi sagt: „Du ___ früher schlafen gehen sollen. Wenn ich das gewusst ___, hätte ich dich geweckt. Und du ___ auch mit Stefan fahren können.“",
+        "gaps": [
+          {
+            "accept": [
+              "aufgestanden"
+            ]
+          },
+          {
+            "accept": [
+              "hätte"
+            ]
+          },
+          {
+            "accept": [
+              "wäre"
+            ]
+          },
+          {
+            "accept": [
+              "hättest"
+            ]
+          },
+          {
+            "accept": [
+              "hätte"
+            ]
+          },
+          {
+            "accept": [
+              "hättest"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Toni has missed the train to Villach. “If only I'd got up earlier!” he says. “If the alarm clock had rung, I'd be there by now.” Mitzi says: “You should have gone to bed earlier. If I'd known, I'd have woken you. And you could have gone with Stefan too.”",
+          "sl": "Toni je zamudil vlak v Beljak. »Ko bi le vstal prej!« pravi. »Če bi budilka zazvonila, bi bil zdaj že tam.« Mitzi pravi: »Moral bi prej iti spat. Če bi to vedela, bi te zbudila. Lahko pa bi šel tudi s Stefanom.«",
+          "it": "Toni ha perso il treno per Villach. «Se solo mi fossi alzato prima!», dice. «Se la sveglia avesse suonato, adesso sarei già lì.» Mitzi dice: «Saresti dovuto andare a dormire prima. Se l'avessi saputo, ti avrei svegliato. E saresti anche potuto andare con Stefan.»"
+        },
+        "explain": {
+          "en": "**After wenn the helper goes last; both parts take hätte or wäre + the participle**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "sl": "**Za wenn gre pomožni glagol na konec; oba dela imata hätte ali wäre + deležnik**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "it": "**Dopo wenn l'ausiliare va alla fine; le due parti hanno hätte o wäre + il participio**\n- Wenn ich das gewusst hätte, wäre ich gekommen."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "konjunktiv-vergangenheit",
+        "instruction": {
+          "en": "Sag es mit wenn · It didn't happen: say it with wenn",
+          "sl": "Sag es mit wenn · Ni se zgodilo: povej z wenn",
+          "it": "Sag es mit wenn · Non è successo: dillo con wenn"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Franz hatte keine Zeit. Er ist nicht gekommen.",
+            "accept": [
+              "Wenn Franz Zeit gehabt hätte, wäre er gekommen.",
+              "Franz wäre gekommen, wenn er Zeit gehabt hätte.",
+              "Hätte Franz Zeit gehabt, wäre er gekommen."
+            ]
+          },
+          {
+            "from": "Das Wetter war schlecht. Wir sind nicht auf die Alm gegangen.",
+            "accept": [
+              "Wenn das Wetter nicht schlecht gewesen wäre, wären wir auf die Alm gegangen.",
+              "Wenn das Wetter gut gewesen wäre, wären wir auf die Alm gegangen.",
+              "Wir wären auf die Alm gegangen, wenn das Wetter nicht schlecht gewesen wäre.",
+              "Wir wären auf die Alm gegangen, wenn das Wetter gut gewesen wäre.",
+              "Wäre das Wetter nicht schlecht gewesen, wären wir auf die Alm gegangen.",
+              "Wäre das Wetter gut gewesen, wären wir auf die Alm gegangen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**After wenn the helper goes last; both parts take hätte or wäre + the participle**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "sl": "**Za wenn gre pomožni glagol na konec; oba dela imata hätte ali wäre + deležnik**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "it": "**Dopo wenn l'ausiliare va alla fine; le due parti hanno hätte o wäre + il participio**\n- Wenn ich das gewusst hätte, wäre ich gekommen."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "konjunktiv-vergangenheit",
+        "instruction": {
+          "en": "Sag es mit dem Modalverb · Say it with the modal verb",
+          "sl": "Sag es mit dem Modalverb · Povej z modalnim glagolom",
+          "it": "Sag es mit dem Modalverb · Dillo con il verbo modale"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ihr habt nicht gewartet. (sollen)",
+            "accept": [
+              "Ihr hättet warten sollen."
+            ]
+          },
+          {
+            "from": "Kathi ist nicht mitgefahren. (können)",
+            "accept": [
+              "Kathi hätte mitfahren können.",
+              "Sie hätte mitfahren können."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**A modal verb: hätte and two infinitives, no participle**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+          "sl": "**Modalni glagol: hätte in dva nedoločnika, brez deležnika**\n- Ich hätte kommen können. · Du hättest anrufen sollen.",
+          "it": "**Un verbo modale: hätte e due infiniti, niente participio**\n- Ich hätte kommen können. · Du hättest anrufen sollen."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-vergangenheit",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wenn ich Zeit gehabt ___, hätte ich dir geholfen.",
+        "options": [
+          "hätte",
+          "wäre",
+          "habe"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**After wenn the helper goes last; both parts take hätte or wäre + the participle**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "sl": "**Za wenn gre pomožni glagol na konec; oba dela imata hätte ali wäre + deležnik**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "it": "**Dopo wenn l'ausiliare va alla fine; le due parti hanno hätte o wäre + il participio**\n- Wenn ich das gewusst hätte, wäre ich gekommen."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-vergangenheit",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich ___ lieber zu Hause geblieben.",
+        "options": [
+          "wäre",
+          "hätte",
+          "würde"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Perfekt with haben: hätte. Perfekt with sein: wäre. The participle last**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+          "sl": "**Perfekt s haben: hätte. Perfekt s sein: wäre. Deležnik na koncu**\n- Ich hätte geholfen. · Ich wäre gekommen.",
+          "it": "**Perfekt con haben: hätte. Perfekt con sein: wäre. Il participio alla fine**\n- Ich hätte geholfen. · Ich wäre gekommen."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-vergangenheit",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Gestern wusste ich es nicht. Wenn ich es ___ hätte, wäre ich gekommen.",
+        "options": [
+          "gewusst",
+          "wüsste",
+          "wissen"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**After wenn the helper goes last; both parts take hätte or wäre + the participle**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "sl": "**Za wenn gre pomožni glagol na konec; oba dela imata hätte ali wäre + deležnik**\n- Wenn ich das gewusst hätte, wäre ich gekommen.",
+          "it": "**Dopo wenn l'ausiliare va alla fine; le due parti hanno hätte o wäre + il participio**\n- Wenn ich das gewusst hätte, wäre ich gekommen."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: wäre gesessen; wenn ich kommen hätte können; das Heu holen; der Wecker läutet; each base: pogojnik, sarei potuto"
+}
