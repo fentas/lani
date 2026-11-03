@@ -67,9 +67,10 @@ class FriuliProjectStepsTest {
     /** The supplement's forms of each Italian lemma (what's in the repository; the phone has Wiktionary's besides). */
     private val forms: Map<String, Set<String>> by lazy {
         val extra = json.parseToJsonElement(File(root, "lexicon/it.extra.json").readText()).jsonObject
-        (extra.getValue("entries") as JsonArray).map { it.jsonObject }.associate { o ->
-            o.getValue("lemma").jsonPrimitive.content.lowercase() to (o["forms"] as? JsonObject)?.keys.orEmpty().map { it.lowercase() }.toSet()
-        }
+        // a lemma may have an entry per part of speech (piano the noun, the adverb): the forms of them all
+        (extra.getValue("entries") as JsonArray).map { it.jsonObject }.groupBy({ it.getValue("lemma").jsonPrimitive.content.lowercase() }) { o ->
+            (o["forms"] as? JsonObject)?.keys.orEmpty().map { it.lowercase() }
+        }.mapValues { (_, forms) -> forms.flatten().toSet() }
     }
 
     private val article = Regex("^(?:(?:il|lo|la|i|gli|le|un|uno|una) +|(?:l|un)['’])", RegexOption.IGNORE_CASE)

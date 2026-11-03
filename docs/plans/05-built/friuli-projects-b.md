@@ -74,8 +74,7 @@ bridge serves.
 **The Friulian touches**, each settled below: «Mandi!», the fogolâr, frico and polenta; the villotta at the firefighters' fête; the stone from Aurisina on the Karst at the fountain's B1;
 Monte Sabotino, Monte Santo, the Julian Alps and the sea at Grado from the tower.
 
-**Words and forms.** The 76 words of the six packs went into `companion/lexicon/it.extra.json` (378 → 454 entries), each with the forms the steps and packs say and its meaning in German and
-Slovene. A form a step asks now counts on its card, and a tap explains it in the child's language, without Wiktionary's dictionary being there.
+**Words and forms.** main's supplement-it (merged here) glosses the Italian content as it stood and left these steps' new words "for the next count". This branch does that count for its six projects: 119 new entries and 210 forms in 123 old ones in `companion/lexicon/it.extra.json` (1,873 → 1,992 entries), through `it_cov_build.py` with a table of their own (`companion/lexicon/tools/it_cov_30_progetti.txt`; each new meaning's prompt its own, `--prompts`). `lexicon-build --coverage --lang it --all`, with no Wiktionary, as a phone has it: 99.9 % of tokens and 98.9 % of words known, up from 99.2 % and 91.8 %. Of the 54 words no entry knows, nearly all are wrong forms offered on purpose (scavono, erava, corruti) and letters spelled out. So a tap on a step's word explains it in German or Slovene, and a form a step asks counts on its card.
 
 **A spoken form is never wrong.** On review, six distractors that Italians really say or that had a reading of their own came out («Si passa i mattoni», «C'è tanti sassi», «Ci vuole le
 fondamenta», «Ieri c'era due piani», «Sebbene la salita è lunga», «Ha detto che avrà fatto»), and content-2 took out its own three (sebbene with the indicative, «più grande che», «è stato fatto
@@ -83,7 +82,7 @@ una finestra»). Each distractor left is meant to be a plain mistake. Three kind
 
 ## How it was checked
 
-On the branch at its final content, on main 45924165 (part a isn't merged here; the lead names that branch):
+On the branch with main 1e0cdf04 merged (part a isn't merged here; the lead names that branch):
 
 - **The content**: `bun test/check-culture.ts friuli` ok; `bun test/check-steps.ts friuli`: 6 files, 37 steps, 111 dialogs, 721 lines, ok; `bun test/prompt-clashes.ts`: no new clash (the
   coined prompts: below). A scratch lint with the rules the app's tests hold (a reaction of at most 80 characters, never saying the right word; only the leader named; a helper's line without the speaker's
@@ -156,6 +155,5 @@ Sources (each fact a line states):
 - **The tower's steps played on a stand-in**: its board and first guests are played Sulla torre, on the watchtower's picture, as Primorska's are, since its own place opens only once it's finished.
 - **`ProjectStepsContentTest`** still checks Primorska's steps only; Friuli's have `FriuliProjectStepsTest`, the other two cultures' `check-steps`.
 - **No turn has two right answers** in these steps (a greeting, a yes): they could get a few when a native reads them; nothing requires it.
-- **A tap on «un» says it isn't in the dictionary** on the QA bridge, which has no Italian dictionary downloaded: the supplement has di, in and da but no articles. A node with Wiktionary's Italian answers it (the smoke's Friuli section checks the download); a node without one would show this on the commonest words. Not changed here.
 - **The step's header on a phone**: «La pietra dalla cava · Stein» runs right up to the "Traduzione" chip while it wraps. It doesn't overlap; it's the shared header, not these steps.
 - **Noticed, not this branch's**: `l-orologio`'s pack says «Ogni domenica Bruno carica l'orologio», while the steps say «abbiamo caricato»; nothing contradicts.
