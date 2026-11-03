@@ -294,7 +294,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        mistake kept by the dev bridge; then typed ("counting:type"), the keyboard up, "✋ Izberi raje";
                        "counting-dialogs" the happenings with a counting dialog (Luka's cows) opened, no placeholder left;
                        "dialogs-friuli" (named only, LANI_CULTURE=friuli) Friuli's B1 and B2 variants at "level:B1" and
-                       "level:B2" by the fire and in the kitchen, a B1 turn answered wrong then right, none at "level:A1";
+                       "level:B2" by the fire and in the kitchen, a turn answered wrong then right, a B1 rule not met yet an
+                       echo, none at "level:A1";
                        "numbers" the numbers module ("🔢 Števila · Numbers"): closed (QA's hook "numbers:locked") with
                        "📖 Odpri uvod" to the unit's intro, skipped there (its note); a number heard typed on the number
                        pad; figures → the word with the tens first (the order's why); a clock time heard ("numbers:time")
@@ -3203,9 +3204,12 @@ def dialogs_friuli():
     """Friuli's B1 and B2 variants (docs/plans/05-built/dialogs-friuli.md): with LANI_CULTURE=friuli, a synthetic Teo
     (LANI_QA_SETUP_PAIR=it-de: the app's labels in Italian and German). An older app's request (?arts=6) gets none of
     al-fuoco's or in-cucina's levelled dialogs. At QA's "level:B1" and "level:B2" a variant of each level opens with its
-    first line in two scenes (Nonna Rosa's tea by the fire, Zia Nives's radio in the kitchen), one B1 turn answered wrong
+    first line in two scenes (Nonna Rosa's tea by the fire, Zia Nives's radio in the kitchen), one turn answered wrong
     first (the reaction and the why) and then right; at "level:A1" the B1 variant asked for isn't in the scene and the
-    happening's own dialog plays. Screenshots also in $LANI_QA_DIALOGS_SHOTS."""
+    happening's own dialog plays. A synthetic learner hasn't met the B1 pages ("level:" sets the village's level, not the
+    rules introduced), so the B1 tea's turn is an echo ("Ascolta e ripeti": its wrong choices of a rule not yet go); the
+    turn answered wrong, then right, is the B2 radio's first, about meaning, which stays. Screenshots also in
+    $LANI_QA_DIALOGS_SHOTS."""
     if (api("/culture").get("id") or "primorska") != "friuli":
         return "skipped: the dev bridge's culture isn't friuli (LANI_CULTURE=friuli)"
     out = Path(os.environ["LANI_QA_DIALOGS_SHOTS"]) if os.environ.get("LANI_QA_DIALOGS_SHOTS") else None
@@ -3218,7 +3222,8 @@ def dialogs_friuli():
         old = next((x for x in api("/scenes?arts=6") if isinstance(x, dict) and x.get("id") == sid), None)
         assert old is not None and not any(d.get("level") for d in old["dialogs"]), f"an older app gets none of {sid}'s"
     # the app's labels in Teo's pair (it · de), not sl · en: l10n's common.close, common.next, sceneDialog.answer, …
-    close, nxt, why, turn_up = "Chiudi", "Avanti · Weiter", "Perché? · Warum?", ("La tua risposta", "Fammi scegliere")
+    close, nxt, why = "Chiudi", "Avanti · Weiter", "Perché? · Warum?"
+    turn_up = ("La tua risposta", "Fammi scegliere", "Scrivi la parola che manca", "Ascolta e ripeti")
 
     def keep(name: str):
         shot(f"friuli-{name}")
@@ -3254,7 +3259,12 @@ def dialogs_friuli():
             keep(name)
             assert got is not None, f"at {level}, {variant}: «{expect}»"
             assert absent is None or find(absent) is None, f"at {level}: «{absent}» is above the learner"
-            if turn is not None:
+            if turn == "echo":
+                assert to_turn(), f"{variant}: its first turn"
+                time.sleep(1.5)
+                keep(f"{name}-turn")
+                assert find("Ascolta e ripeti") is not None, f"{variant}: a B1 rule not met yet is an echo turn"
+            elif turn is not None:
                 wrong, reaction, right = turn
                 assert to_turn(), f"{variant}: its first turn"
                 time.sleep(1.5)
@@ -3262,11 +3272,9 @@ def dialogs_friuli():
                 assert pick(wrong), f"{variant}: the wrong choice «{wrong}»"
                 assert wait_for(reaction, 12) is not None, f"{variant}: the reaction «{reaction}»"
                 keep(f"{name}-reaction")
-                if tap(why, 3):
+                if tap(why, 3):  # the why opens under the choices, in the dialog (Back would close the dialog)
                     time.sleep(1)
                     keep(f"{name}-why")
-                    adb("shell", "input", "keyevent", "KEYCODE_BACK")
-                    time.sleep(1)
                 time.sleep(1.5)
                 assert pick(right), f"{variant}: the right choice «{right}»"
                 time.sleep(2.5)
@@ -3278,10 +3286,10 @@ def dialogs_friuli():
 
     try:
         play("B2", "al-fuoco", "tisana", "tisana-b2-bora", "soffia piano stasera", "fuoco-b2")
-        play("B1", "al-fuoco", "tisana", "tisana-b1-miele", "fiori di tiglio", "fuoco-b1",
-             turn=("Sì, nonna! Gli lo chiedo subito.", "con il nonno parla chiaro", "Sì, nonna! Glielo chiedo subito."))
+        play("B1", "al-fuoco", "tisana", "tisana-b1-miele", "fiori di tiglio", "fuoco-b1", turn="echo")
         play("B1", "in-cucina", "radio", "radio-b1-cane", "parla di un cane", "cucina-b1")
-        play("B2", "in-cucina", "radio", "radio-b2-meteo", "Quel meteo!", "cucina-b2")
+        play("B2", "in-cucina", "radio", "radio-b2-meteo", "Quel meteo!", "cucina-b2",
+             turn=("Peccato, zia: adesso i panni sono tutti bagnati.", "asciutti come il fieno", "Meno male che non ci hai creduto, zia!"))
         play("A1", "al-fuoco", "tisana", "tisana-b1-miele", "Buonasera, tesoro!", "fuoco-a1", absent="fiori di tiglio")
     finally:
         qa_hook("level:")
