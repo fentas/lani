@@ -1,0 +1,1028 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "non-defining",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🔗",
+  "title": {
+    "en": "Mr Dixon, who lives by the beck",
+    "de": "Mehr Relativsätze: who mit Komma, whose, whom",
+    "sl": "Več oziralnih stavkov: who z vejico, whose, whom",
+    "it": "Altre relative: who con la virgola, whose, whom"
+  },
+  "goal": {
+    "sl": "Dodaš podatek o komer koli z vejicama (Mr Dixon, who lives by the beck, …), rabiš whose, whom in in which ter which za cel stavek.",
+    "de": "Du fügst mit Kommas etwas über jemanden hinzu (Mr Dixon, who lives by the beck, …), nimmst whose, whom und in which sowie which für einen ganzen Satz.",
+    "it": "Aggiungi qualcosa su qualcuno con le virgole (Mr Dixon, who lives by the beck, …), usi whose, whom e in which, e which per una frase intera.",
+    "en": "You can add something about someone with commas (Mr Dixon, who lives by the beck, …), and use whose, whom, in which, and which for a whole sentence."
+  },
+  "grammar": [
+    "relative-clauses-more",
+    "relative-clauses"
+  ],
+  "words": [
+    "comma",
+    "relative clause",
+    "whose",
+    "whom",
+    "beck",
+    "blacksmith",
+    "smithy",
+    "mill",
+    "wheel",
+    "run an inn",
+    "baker",
+    "largest",
+    "lake",
+    "oldest",
+    "valley",
+    "Herdwick",
+    "most of",
+    "hive",
+    "steamer",
+    "pencil museum",
+    "market",
+    "oats",
+    "scone",
+    "very cross",
+    "pity",
+    "pleased",
+    "sister",
+    "famous",
+    "born",
+    "bridge",
+    "fiddle",
+    "show",
+    "spoil",
+    "green",
+    "keep bees"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "beseda",
+          "de": "Wort",
+          "it": "parola",
+          "en": "word"
+        },
+        {
+          "sl": "kaj pove",
+          "de": "was es sagt",
+          "it": "che cosa dice",
+          "en": "what it says"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Z vejicama stavek doda nekaj o osebi, ki jo že poznaš: **Mr Dixon, who lives by the beck, is our blacksmith.** (Gospod Dixon, ki živi ob potoku, je naš kovač.) Če ga izpustiš, še vedno veš, kdo je. Brez vejic pove, katera oseba: **The man who lives by the beck is our blacksmith.** Slovenščina piše vejico v obeh, angleščina samo v prvem.",
+          "de": "Mit Kommas fügt der Satz etwas über jemanden hinzu, den du schon kennst: **Mr Dixon, who lives by the beck, is our blacksmith.** (Mr Dixon, der am Bach wohnt, ist unser Schmied.) Lässt du ihn weg, weißt du noch, wer es ist. Ohne Kommas sagt er, welche Person: **The man who lives by the beck is our blacksmith.** Deutsch hat in beiden ein Komma, Englisch nur im ersten.",
+          "it": "Con le virgole la frase aggiunge qualcosa su una persona che conosci già: **Mr Dixon, who lives by the beck, is our blacksmith.** (Mr Dixon, che abita vicino al torrente, è il nostro fabbro.) Se la togli, sai ancora chi è. Senza virgole dice quale persona: **The man who lives by the beck is our blacksmith.**",
+          "en": "With commas the clause adds something about someone you already know: **Mr Dixon, who lives by the beck, is our blacksmith.** Take it out and you still know who he is. With no commas it says which person: **The man who lives by the beck is our blacksmith.**"
+        },
+        "examples": [
+          {
+            "en": "Mr Dixon, who lives by the beck, is our blacksmith.",
+            "sl": "Gospod Dixon, ki živi ob potoku, je naš kovač.",
+            "de": "Mr Dixon, der am Bach wohnt, ist unser Schmied.",
+            "it": "Mr Dixon, che abita vicino al torrente, è il nostro fabbro."
+          },
+          {
+            "en": "Mrs Birkett, who runs the Packhorse, makes the best soup in the valley.",
+            "sl": "Gospa Birkett, ki vodi Packhorse, kuha najboljšo juho v dolini.",
+            "de": "Mrs Birkett, die das Packhorse führt, macht die beste Suppe im Tal.",
+            "it": "Mrs Birkett, che gestisce il Packhorse, fa la zuppa migliore della valle."
+          },
+          {
+            "en": "The man who lives by the beck is our blacksmith.",
+            "sl": "Moški, ki živi ob potoku, je naš kovač.",
+            "de": "Der Mann, der am Bach wohnt, ist unser Schmied.",
+            "it": "L'uomo che abita vicino al torrente è il nostro fabbro."
+          }
+        ],
+        "rows": [
+          [
+            "who",
+            {
+              "sl": "z vejicama: še nekaj o osebi",
+              "de": "mit Kommas: noch etwas über jemanden",
+              "it": "con le virgole: altro su qualcuno",
+              "en": "with commas: more about someone"
+            },
+            "Mr Dixon, who …"
+          ],
+          [
+            {
+              "sl": "brez vejic",
+              "de": "ohne Kommas",
+              "it": "senza virgole",
+              "en": "no commas"
+            },
+            {
+              "sl": "katera oseba, katera stvar",
+              "de": "welche Person, welche Sache",
+              "it": "quale persona, quale cosa",
+              "en": "which person, which thing"
+            },
+            "the son who …"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "prompt": {
+            "sl": "Kateri stavek je pravilen?",
+            "de": "Welcher Satz stimmt?",
+            "it": "Quale frase è giusta?",
+            "en": "Which sentence is right?"
+          },
+          "options": [
+            "Jack, who keeps sheep, lives up on the fell.",
+            "Jack who keeps sheep lives up on the fell.",
+            "Jack, who keeps sheep lives up on the fell."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ime že pove, kdo: dve vejici**\n- Jack, who keeps sheep, lives up on the fell.",
+            "de": "**Der Name sagt schon, wer: zwei Kommas**\n- Jack, who keeps sheep, lives up on the fell.",
+            "it": "**Il nome dice già chi: due virgole**\n- Jack, who keeps sheep, lives up on the fell.",
+            "en": "**The name already says who: two commas**\n- Jack, who keeps sheep, lives up on the fell."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Vejici spremenita pomen: **Edna's son, who lives in Keswick, is a baker.** (En sin.) Brez njiju: **Edna's son who lives in Keswick is a baker.** (Več sinov.) Z vejicama sina samo opišeš, brez njih ga izbereš med drugimi. V govoru se to sliši kot kratek premor.",
+          "de": "Die Kommas ändern den Sinn: **Edna's son, who lives in Keswick, is a baker.** (Ein Sohn.) Ohne sie: **Edna's son who lives in Keswick is a baker.** (Mehrere Söhne.) Mit Kommas beschreibst du den Sohn, ohne sie wählst du ihn aus. Gesprochen hört man eine kurze Pause.",
+          "it": "Le virgole cambiano il senso: **Edna's son, who lives in Keswick, is a baker.** (Un figlio.) Senza: **Edna's son who lives in Keswick is a baker.** (Più figli.) Con le virgole descrivi il figlio, senza lo scegli tra gli altri. A voce si sente una breve pausa.",
+          "en": "The commas change the meaning: **Edna's son, who lives in Keswick, is a baker.** (One son.) With none: **Edna's son who lives in Keswick is a baker.** (More than one.) With commas you describe him; with none you pick him out from the others. In talk you hear a short pause."
+        },
+        "examples": [
+          {
+            "en": "Edna's son, who lives in Keswick, is a baker.",
+            "sl": "Ednin sin, ki živi v Keswicku, je pek.",
+            "de": "Ednas Sohn, der in Keswick wohnt, ist Bäcker.",
+            "it": "Il figlio di Edna, che abita a Keswick, fa il fornaio."
+          },
+          {
+            "en": "Edna's son who lives in Keswick is a baker.",
+            "sl": "Tisti Ednin sin, ki živi v Keswicku, je pek.",
+            "de": "Derjenige Sohn von Edna, der in Keswick wohnt, ist Bäcker.",
+            "it": "Il figlio di Edna che abita a Keswick fa il fornaio."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "How many sisters has Maggie got? · Koliko sester ima Maggie?",
+            "de": "How many sisters has Maggie got? · Wie viele Schwestern hat Maggie?",
+            "it": "How many sisters has Maggie got? · Quante sorelle ha Maggie?",
+            "en": "How many sisters has Maggie got?"
+          },
+          "prompt": "Maggie's sister, who lives in the village, has an old radio.",
+          "options": [
+            "one",
+            "more than one",
+            "none"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vejici: samo opis, sestra je ena**\n- Maggie's sister, who lives in the village, …",
+            "de": "**Kommas: nur eine Beschreibung, eine Schwester**\n- Maggie's sister, who lives in the village, …",
+            "it": "**Virgole: solo una descrizione, una sorella**\n- Maggie's sister, who lives in the village, …",
+            "en": "**Commas: just a description, one sister**\n- Maggie's sister, who lives in the village, …"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za stvari in kraje rabiš **which**: **The mill, which was built in 1800, still works.** (Mlin, ki je bil zgrajen leta 1800, še vedno dela.) Za vejico se piše **who** ali **which**; **that** ostane za stavke brez vejic. Tudi kot predmet beseda ostane: **Hill Top, which we visited last year, is in Near Sawrey.** (Hill Top, ki smo ga obiskali lani, je v Near Sawreyju.)",
+          "de": "Für Dinge und Orte nimmst du **which**: **The mill, which was built in 1800, still works.** (Die Mühle, die 1800 gebaut wurde, läuft noch immer.) Nach dem Komma steht geschrieben **who** oder **which**; **that** bleibt für Sätze ohne Kommas. Auch als Objekt bleibt das Wort: **Hill Top, which we visited last year, is in Near Sawrey.** (Hill Top, das wir letztes Jahr besucht haben, liegt in Near Sawrey.)",
+          "it": "Per cose e luoghi usi **which**: **The mill, which was built in 1800, still works.** (Il mulino, che fu costruito nel 1800, funziona ancora.) Dopo la virgola, per iscritto, si usa **who** o **which**; **that** resta per le frasi senza virgole. Anche come oggetto la parola resta: **Hill Top, which we visited last year, is in Near Sawrey.** (Hill Top, che abbiamo visitato l'anno scorso, è a Near Sawrey.)",
+          "en": "For things and places use **which**: **The mill, which was built in 1800, still works.** After a comma writing wants **who** or **which**; **that** stays for clauses with no commas. Even as the object the word stays: **Hill Top, which we visited last year, is in Near Sawrey.**"
+        },
+        "examples": [
+          {
+            "en": "The mill, which was built in 1800, still works.",
+            "sl": "Mlin, ki je bil zgrajen leta 1800, še vedno dela.",
+            "de": "Die Mühle, die 1800 gebaut wurde, läuft noch immer.",
+            "it": "Il mulino, che fu costruito nel 1800, funziona ancora."
+          },
+          {
+            "en": "Hill Top, which we visited last year, is in Near Sawrey.",
+            "sl": "Hill Top, ki smo ga obiskali lani, je v Near Sawreyju.",
+            "de": "Hill Top, das wir letztes Jahr besucht haben, liegt in Near Sawrey.",
+            "it": "Hill Top, che abbiamo visitato l'anno scorso, è a Near Sawrey."
+          },
+          {
+            "en": "Windermere, which is the largest lake in England, is full of boats.",
+            "sl": "Windermere, ki je največje jezero v Angliji, je polno čolnov.",
+            "de": "Der Windermere, der größte See Englands, ist voller Boote.",
+            "it": "Il Windermere, che è il lago più grande d'Inghilterra, è pieno di barche."
+          }
+        ],
+        "rows": [
+          [
+            "which",
+            {
+              "sl": "z vejicama: stvar, kraj",
+              "de": "mit Kommas: Sache, Ort",
+              "it": "con le virgole: cosa, luogo",
+              "en": "with commas: a thing, a place"
+            },
+            "The mill, which …"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "prompt": "The Packhorse, ___ is over 200 years old, is on the green.",
+          "options": [
+            "which",
+            "that",
+            "who"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ime, stvar, za vejico: which**\n- The Packhorse, which is over 200 years old, …",
+            "de": "**Ein Name, eine Sache, nach dem Komma: which**\n- The Packhorse, which is over 200 years old, …",
+            "it": "**Un nome, una cosa, dopo la virgola: which**\n- The Packhorse, which is over 200 years old, …",
+            "en": "**A name, a thing, after a comma: which**\n- The Packhorse, which is over 200 years old, …"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**whose** nadomesti his, her, its, their, tudi z vejicama: **Old Wilf, whose dog died last year, lives alone.** (Stari Wilf, ki mu je lani poginil pes, živi sam.) **Mrs Birkett, whose son plays football, runs the inn.** Rabiš ga tudi za stvari: **The mill, whose wheel is broken, is closed this week.** Sliši se kot *who's* (who is), a piše se drugače.",
+          "de": "**whose** steht für his, her, its, their, auch mit Kommas: **Old Wilf, whose dog died last year, lives alone.** (Der alte Wilf, dessen Hund letztes Jahr gestorben ist, lebt allein.) **Mrs Birkett, whose son plays football, runs the inn.** Es geht auch für Dinge: **The mill, whose wheel is broken, is closed this week.** Es klingt wie *who's* (who is), wird aber anders geschrieben.",
+          "it": "**whose** sta per his, her, its, their, anche con le virgole: **Old Wilf, whose dog died last year, lives alone.** (Il vecchio Wilf, il cui cane è morto l'anno scorso, vive da solo.) **Mrs Birkett, whose son plays football, runs the inn.** Va bene anche per le cose: **The mill, whose wheel is broken, is closed this week.** Suona come *who's* (who is), ma si scrive in modo diverso.",
+          "en": "**whose** stands for his, her, its, their, with commas too: **Old Wilf, whose dog died last year, lives alone.** **Mrs Birkett, whose son plays football, runs the inn.** It works for things as well: **The mill, whose wheel is broken, is closed this week.** It sounds like *who's* (who is), but it's spelt differently."
+        },
+        "examples": [
+          {
+            "en": "Old Wilf, whose dog died last year, lives alone.",
+            "sl": "Stari Wilf, ki mu je lani poginil pes, živi sam.",
+            "de": "Der alte Wilf, dessen Hund letztes Jahr gestorben ist, lebt allein.",
+            "it": "Il vecchio Wilf, il cui cane è morto l'anno scorso, vive da solo."
+          },
+          {
+            "en": "Mrs Birkett, whose son plays football, runs the inn.",
+            "sl": "Gospa Birkett, katere sin igra nogomet, vodi gostilno.",
+            "de": "Mrs Birkett, deren Sohn Fußball spielt, führt das Gasthaus.",
+            "it": "Mrs Birkett, il cui figlio gioca a calcio, gestisce la locanda."
+          },
+          {
+            "en": "The mill, whose wheel is broken, is closed this week.",
+            "sl": "Mlin, ki ima polomljeno kolo, je ta teden zaprt.",
+            "de": "Die Mühle, deren Rad kaputt ist, ist diese Woche geschlossen.",
+            "it": "Il mulino, la cui ruota è rotta, è chiuso questa settimana."
+          }
+        ],
+        "rows": [
+          [
+            "whose",
+            {
+              "sl": "his, her, its, their",
+              "de": "his, her, its, their",
+              "it": "his, her, its, their",
+              "en": "his, her, its, their"
+            },
+            "Old Wilf, whose dog …"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relative-clauses-more",
+          "text": "Arthur, ___ bees make the best honey in the valley, is very quiet.",
+          "accept": [
+            "whose"
+          ],
+          "hint": {
+            "sl": "his bees → ?",
+            "de": "his bees → ?",
+            "it": "his bees → ?",
+            "en": "his bees → ?"
+          },
+          "explain": {
+            "sl": "**his bees → whose bees**\n- Arthur, whose bees make the best honey, …",
+            "de": "**his bees → whose bees**\n- Arthur, whose bees make the best honey, …",
+            "it": "**his bees → whose bees**\n- Arthur, whose bees make the best honey, …",
+            "en": "**his bees → whose bees**\n- Arthur, whose bees make the best honey, …"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V govoru predlog ostane na koncu: **Mr Tyson, who I spoke to yesterday, was very kind.** V uradnem pisanju gre naprej, za njim **whom** ali **which**: **Mr Tyson, to whom I spoke yesterday, was very kind.** (Gospod Tyson, s katerim sem včeraj {m:govoril|f:govorila}, je bil zelo prijazen.) **the house in which she was born**, tudi **where she was born**. Ljudje rečejo tudi *to who*; pisno je **whom**.",
+          "de": "Gesprochen bleibt die Präposition am Ende: **Mr Tyson, who I spoke to yesterday, was very kind.** Förmlich steht sie vorn, danach **whom** oder **which**: **Mr Tyson, to whom I spoke yesterday, was very kind.** (Mr Tyson, mit dem ich gestern gesprochen habe, war sehr freundlich.) **the house in which she was born**, auch **where she was born**. Man sagt auch *to who*; geschrieben steht **whom**.",
+          "it": "A voce la preposizione resta in fondo: **Mr Tyson, who I spoke to yesterday, was very kind.** Nello scritto formale va davanti, poi **whom** o **which**: **Mr Tyson, to whom I spoke yesterday, was very kind.** (Mr Tyson, con cui ho parlato ieri, è stato molto gentile.) **the house in which she was born**, anche **where she was born**. Si dice anche *to who*; per iscritto si usa **whom**.",
+          "en": "In talk the small word stays at the end: **Mr Tyson, who I spoke to yesterday, was very kind.** Formal writing puts it first, then **whom** or **which**: **Mr Tyson, to whom I spoke yesterday, was very kind.** **the house in which she was born**, also **where she was born**. People also say *to who*; writing wants **whom**."
+        },
+        "examples": [
+          {
+            "en": "Mr Tyson, who I spoke to yesterday, was very kind.",
+            "sl": "Gospod Tyson, s katerim sem včeraj {m:govoril|f:govorila}, je bil zelo prijazen.",
+            "de": "Mr Tyson, mit dem ich gestern gesprochen habe, war sehr freundlich.",
+            "it": "Mr Tyson, con cui ho parlato ieri, è stato molto gentile."
+          },
+          {
+            "en": "Mr Tyson, to whom I spoke yesterday, was very kind.",
+            "sl": "Gospod Tyson, s katerim sem včeraj {m:govoril|f:govorila}, je bil zelo prijazen.",
+            "de": "Mr Tyson, mit dem ich gestern gesprochen habe, war sehr freundlich.",
+            "it": "Mr Tyson, con cui ho parlato ieri, è stato molto gentile."
+          },
+          {
+            "en": "This is the house in which she was born.",
+            "sl": "To je hiša, v kateri se je rodila.",
+            "de": "Das ist das Haus, in dem sie geboren wurde.",
+            "it": "Questa è la casa in cui è nata."
+          },
+          {
+            "en": "This is where she was born.",
+            "sl": "Tukaj se je rodila.",
+            "de": "Hier wurde sie geboren.",
+            "it": "È qui che è nata."
+          }
+        ],
+        "rows": [
+          [
+            "to whom, in which",
+            {
+              "sl": "predlog naprej: uradno",
+              "de": "Präposition vorn: förmlich",
+              "it": "preposizione davanti: formale",
+              "en": "the small word first: formal"
+            },
+            "Mr Tyson, to whom …"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "prompt": "The bridge, ___ we walked last night, is very old.",
+          "options": [
+            "over which",
+            "over that",
+            "over who"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Predlog naprej: which, stvar**\n- The bridge, over which we walked, …",
+            "de": "**Die Präposition vorn: which, eine Sache**\n- The bridge, over which we walked, …",
+            "it": "**Preposizione davanti: which, una cosa**\n- The bridge, over which we walked, …",
+            "en": "**The small word first: which, a thing**\n- The bridge, over which we walked, …"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**which** se lahko nanaša na cel stavek, kot slovenski *kar*: **The van broke down, which was a pity.** (Kombi se je pokvaril, kar je bilo škoda.) Ljudje rečejo tudi *what was a pity*; pisno je **which**. Za most of, both of: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live in Kendal**.",
+          "de": "**which** kann für einen ganzen Satz stehen, wie das deutsche was: **The van broke down, which was a pity.** (Der Lieferwagen hatte eine Panne, was schade war.) Man sagt auch *what was a pity*; geschrieben steht **which**. Nach most of, both of: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live in Kendal**.",
+          "it": "**which** può stare per una frase intera, come *il che*: **The van broke down, which was a pity.** (Il furgone si è guastato, il che è stato un peccato.) Si dice anche *what was a pity*; per iscritto si usa **which**. Dopo most of, both of: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live in Kendal**.",
+          "en": "**which** can stand for a whole sentence: **The van broke down, which was a pity.** People also say *what was a pity*; writing wants **which**. After most of, both of: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live in Kendal**."
+        },
+        "examples": [
+          {
+            "en": "The van broke down, which was a pity.",
+            "sl": "Kombi se je pokvaril, kar je bilo škoda.",
+            "de": "Der Lieferwagen hatte eine Panne, was schade war.",
+            "it": "Il furgone si è guastato, il che è stato un peccato."
+          },
+          {
+            "en": "We've got forty sheep, most of which are Herdwicks.",
+            "sl": "Imamo štirideset ovc, večinoma pasme herdwick.",
+            "de": "Wir haben vierzig Schafe, die meisten davon Herdwicks.",
+            "it": "Abbiamo quaranta pecore, la maggior parte delle quali Herdwick."
+          },
+          {
+            "en": "Mr Tyson has two sons, both of whom live in Kendal.",
+            "sl": "Gospod Tyson ima dva sinova, oba živita v Kendalu.",
+            "de": "Mr Tyson hat zwei Söhne, die beide in Kendal wohnen.",
+            "it": "Mr Tyson ha due figli, che abitano entrambi a Kendal."
+          }
+        ],
+        "rows": [
+          [
+            ", which",
+            {
+              "sl": "cel stavek pred vejico",
+              "de": "der ganze Satz davor",
+              "it": "tutta la frase prima",
+              "en": "the whole sentence before"
+            },
+            "…, which was a pity."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relative-clauses-more",
+          "text": "It rained all day, ___ meant we stayed inside.",
+          "accept": [
+            "which"
+          ],
+          "hint": {
+            "sl": "cel stavek pred vejico",
+            "de": "der ganze Satz davor",
+            "it": "tutta la frase prima",
+            "en": "the whole sentence before"
+          },
+          "explain": {
+            "sl": "**Za cel stavek: which**\n- It rained all day, which meant we stayed inside.",
+            "de": "**Für den ganzen Satz: which**\n- It rained all day, which meant we stayed inside.",
+            "it": "**Per tutta la frase: which**\n- It rained all day, which meant we stayed inside.",
+            "en": "**For the whole sentence: which**\n- It rained all day, which meant we stayed inside."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "non-defining-1",
+      "title": {
+        "sl": "Kdo je kdo v dolini",
+        "de": "Wer ist wer im Tal",
+        "it": "Chi è chi nella valle",
+        "en": "Who is who in the valley"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Keswick, ___ is eight miles away, has a market on Saturdays. Mrs Birkett, ___ inn is on the green, goes there every week. Her sister, ___ lives in Keswick, meets her for tea. Sam's van, ___ is very old, takes them home. Arthur, ___ bees make the honey, sells it there. Mr Tyson, ___ mill is by the beck, buys oats. Old Wilf, ___ we all love, tells stories under the oak. It often rains, ___ nobody minds.",
+          "gaps": [
+            {
+              "accept": [
+                "which"
+              ]
+            },
+            {
+              "accept": [
+                "whose"
+              ]
+            },
+            {
+              "accept": [
+                "who"
+              ]
+            },
+            {
+              "accept": [
+                "which"
+              ]
+            },
+            {
+              "accept": [
+                "whose"
+              ]
+            },
+            {
+              "accept": [
+                "whose"
+              ]
+            },
+            {
+              "accept": [
+                "who",
+                "whom"
+              ]
+            },
+            {
+              "accept": [
+                "which"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "that"
+          ],
+          "translation": {
+            "sl": "Keswick, ki je osem milj stran, ima ob sobotah tržnico. Gospa Birkett, ki ima gostilno na trati, gre tja vsak teden. Njena sestra, ki živi v Keswicku, se dobi z njo na čaju. Samov kombi, ki je zelo star, ju pelje domov. Arthur, čigar čebele delajo med, ga tam prodaja. Gospod Tyson, čigar mlin je ob potoku, kupuje oves. Stari Wilf, ki ga vsi imamo radi, pripoveduje zgodbe pod hrastom. Pogosto dežuje, kar nikogar ne moti.",
+            "de": "Keswick, das acht Meilen entfernt ist, hat samstags Markt. Mrs Birkett, deren Gasthaus am Dorfplatz liegt, fährt jede Woche hin. Ihre Schwester, die in Keswick wohnt, trifft sie zum Tee. Sams Lieferwagen, der sehr alt ist, bringt sie heim. Arthur, dessen Bienen den Honig machen, verkauft ihn dort. Mr Tyson, dessen Mühle am Bach liegt, kauft Hafer. Der alte Wilf, den wir alle gernhaben, erzählt unter der Eiche Geschichten. Es regnet oft, was niemanden stört.",
+            "it": "Keswick, che è a otto miglia, ha il mercato il sabato. Mrs Birkett, la cui locanda è sul prato, ci va ogni settimana. Sua sorella, che abita a Keswick, la incontra per il tè. Il furgone di Sam, che è molto vecchio, le riporta a casa. Arthur, le cui api fanno il miele, lo vende lì. Mr Tyson, il cui mulino è vicino al torrente, compra l'avena. Il vecchio Wilf, a cui vogliamo tutti bene, racconta storie sotto la quercia. Piove spesso, il che non dà fastidio a nessuno.",
+            "en": "Keswick, which is eight miles away, has a market on Saturdays. Mrs Birkett, whose inn is on the green, goes there every week. Her sister, who lives in Keswick, meets her for tea. Sam's van, which is very old, takes them home. Arthur, whose bees make the honey, sells it there. Mr Tyson, whose mill is by the beck, buys oats. Old Wilf, who we all love, tells stories under the oak. It often rains, which nobody minds."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "How many sisters has Jack got? · Koliko sester ima Jack?",
+            "de": "How many sisters has Jack got? · Wie viele Schwestern hat Jack?",
+            "it": "How many sisters has Jack got? · Quante sorelle ha Jack?",
+            "en": "How many sisters has Jack got?"
+          },
+          "prompt": "Jack's sister who works in Kendal is coming on Friday.",
+          "options": [
+            "more than one",
+            "one",
+            "none"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Brez vejic: izbere eno med več**\n- Jack's sister who works in Kendal …",
+            "de": "**Ohne Kommas: Eine wird ausgewählt**\n- Jack's sister who works in Kendal …",
+            "it": "**Senza virgole: ne sceglie una tra altre**\n- Jack's sister who works in Kendal …",
+            "en": "**No commas: it picks one out of several**\n- Jack's sister who works in Kendal …"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Which is right? · Kaj je pravilno?",
+            "de": "Which is right? · Was stimmt?",
+            "it": "Which is right? · Qual è giusta?",
+            "en": "Which is right?"
+          },
+          "prompt": {
+            "sl": "Kateri stavek je pravilen?",
+            "de": "Welcher Satz stimmt?",
+            "it": "Quale frase è giusta?",
+            "en": "Which sentence is right?"
+          },
+          "options": [
+            "Scafell Pike, which is the highest mountain in England, is not far away.",
+            "Scafell Pike which is the highest mountain in England is not far away.",
+            "Scafell Pike, that is the highest mountain in England, is not far away."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ime, za vejico: which**\n- Scafell Pike, which is the highest mountain in England, …",
+            "de": "**Ein Name, nach dem Komma: which**\n- Scafell Pike, which is the highest mountain in England, …",
+            "it": "**Un nome, dopo la virgola: which**\n- Scafell Pike, which is the highest mountain in England, …",
+            "en": "**A name, after a comma: which**\n- Scafell Pike, which is the highest mountain in England, …"
+          }
+        }
+      ]
+    },
+    {
+      "id": "non-defining-2",
+      "title": {
+        "sl": "Dva stavka v enega",
+        "de": "Zwei Sätze in einem",
+        "it": "Due frasi in una",
+        "en": "Two sentences in one"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Make one sentence with who, which or whose · Naredi en stavek z who, which ali whose",
+            "de": "Make one sentence with who, which or whose · Mach einen Satz mit who, which oder whose",
+            "it": "Make one sentence with who, which or whose · Fanne una frase sola con who, which o whose",
+            "en": "Make one sentence with who, which or whose"
+          },
+          "items": [
+            {
+              "from": "Mr Dixon lives by the beck. He is our blacksmith.",
+              "accept": [
+                "Mr Dixon, who lives by the beck, is our blacksmith.",
+                "Mr Dixon, who is our blacksmith, lives by the beck."
+              ]
+            },
+            {
+              "from": "The Packhorse was built in 1750. It is the oldest inn in the valley.",
+              "accept": [
+                "The Packhorse, which was built in 1750, is the oldest inn in the valley.",
+                "The Packhorse, which is the oldest inn in the valley, was built in 1750."
+              ]
+            },
+            {
+              "from": "Old Wilf is eighty-four. His stories are famous.",
+              "accept": [
+                "Old Wilf, whose stories are famous, is eighty-four."
+              ],
+              "hint": {
+                "sl": "his stories → ?",
+                "de": "his stories → ?",
+                "it": "his stories → ?",
+                "en": "his stories → ?"
+              }
+            },
+            {
+              "from": "Meg is Jack's dog. Everybody loves her.",
+              "accept": [
+                "Meg, who everybody loves, is Jack's dog.",
+                "Meg, whom everybody loves, is Jack's dog.",
+                "Everybody loves Meg, who is Jack's dog."
+              ],
+              "hint": {
+                "sl": "everybody loves … : who",
+                "de": "everybody loves … : who",
+                "it": "everybody loves … : who",
+                "en": "everybody loves … : who"
+              }
+            },
+            {
+              "from": "We visited Hill Top last year. It is in Near Sawrey.",
+              "accept": [
+                "Hill Top, which we visited last year, is in Near Sawrey.",
+                "We visited Hill Top, which is in Near Sawrey, last year.",
+                "Last year we visited Hill Top, which is in Near Sawrey."
+              ]
+            },
+            {
+              "from": "Poppy plays the fiddle. Her granny bakes scones.",
+              "accept": [
+                "Poppy, whose granny bakes scones, plays the fiddle."
+              ]
+            },
+            {
+              "from": "Arthur is in his seventies. He still keeps bees.",
+              "accept": [
+                "Arthur, who is in his seventies, still keeps bees.",
+                "Arthur, who still keeps bees, is in his seventies."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Drugi stavek gre med vejici, za znanim imenom**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith.",
+            "de": "**Der zweite Satz kommt zwischen Kommas, nach dem Namen**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith.",
+            "it": "**La seconda frase va tra le virgole, dopo il nome**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith.",
+            "en": "**The second sentence goes between commas, after the name**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Grasmere, ___ I lived for a year, is very pretty.",
+          "options": [
+            "where",
+            "which",
+            "who"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kraj: where ali in which**\n- Grasmere, where I lived for a year, …",
+            "de": "**Ein Ort: where oder in which**\n- Grasmere, where I lived for a year, …",
+            "it": "**Un luogo: where o in which**\n- Grasmere, where I lived for a year, …",
+            "en": "**A place: where, or in which**\n- Grasmere, where I lived for a year, …"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Mrs Hartley, ___ class meets on Mondays, is a good teacher.",
+          "options": [
+            "whose",
+            "who's",
+            "which"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**her class → whose class**\n- Mrs Hartley, whose class meets on Mondays, …",
+            "de": "**her class → whose class**\n- Mrs Hartley, whose class meets on Mondays, …",
+            "it": "**her class → whose class**\n- Mrs Hartley, whose class meets on Mondays, …",
+            "en": "**her class → whose class**\n- Mrs Hartley, whose class meets on Mondays, …"
+          }
+        }
+      ]
+    },
+    {
+      "id": "non-defining-3",
+      "title": {
+        "sl": "Uradno in za cel stavek",
+        "de": "Förmlich und für den ganzen Satz",
+        "it": "Formale e per tutta la frase",
+        "en": "Formal, and for a whole sentence"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Say it as formal writing does · Povej, kot se piše uradno",
+            "de": "Say it as formal writing does · Sag es, wie man förmlich schreibt",
+            "it": "Say it as formal writing does · Dillo come nello scritto formale",
+            "en": "Say it as formal writing does"
+          },
+          "items": [
+            {
+              "from": "Mr Tyson, who I spoke to, was kind.",
+              "accept": [
+                "Mr Tyson, to whom I spoke, was kind."
+              ]
+            },
+            {
+              "from": "Mrs Hartley, who we wrote to, answered at once.",
+              "accept": [
+                "Mrs Hartley, to whom we wrote, answered at once."
+              ]
+            },
+            {
+              "from": "Grasmere, which Wordsworth lived in, is very pretty.",
+              "accept": [
+                "Grasmere, in which Wordsworth lived, is very pretty.",
+                "Grasmere, where Wordsworth lived, is very pretty."
+              ]
+            },
+            {
+              "from": "The bridge, which we walked over, is very old.",
+              "accept": [
+                "The bridge, over which we walked, is very old."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Predlog naprej, za njim whom ali which**\n- Mr Tyson, who I spoke to → Mr Tyson, to whom I spoke",
+            "de": "**Die Präposition nach vorn, danach whom oder which**\n- Mr Tyson, who I spoke to → Mr Tyson, to whom I spoke",
+            "it": "**La preposizione davanti, poi whom o which**\n- Mr Tyson, who I spoke to → Mr Tyson, to whom I spoke",
+            "en": "**The small word first, then whom or which**\n- Mr Tyson, who I spoke to → Mr Tyson, to whom I spoke"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Make one sentence · Naredi en stavek",
+            "de": "Make one sentence · Mach einen Satz daraus",
+            "it": "Make one sentence · Fanne una frase sola",
+            "en": "Make one sentence"
+          },
+          "items": [
+            {
+              "from": "Jack came late. That isn't like him.",
+              "accept": [
+                "Jack came late, which isn't like him."
+              ]
+            },
+            {
+              "from": "It rained all week. That spoiled the show.",
+              "accept": [
+                "It rained all week, which spoiled the show."
+              ]
+            },
+            {
+              "from": "Mrs Birkett gave us soup. That was very kind of her.",
+              "accept": [
+                "Mrs Birkett gave us soup, which was very kind of her."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**That → , which**\n- Jack came late, which isn't like him.",
+            "de": "**That → , which**\n- Jack came late, which isn't like him.",
+            "it": "**That → , which**\n- Jack came late, which isn't like him.",
+            "en": "**That → , which**\n- Jack came late, which isn't like him."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "relative-clauses-more",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "We've got forty sheep, most of ___ are Herdwicks. Mr Tyson has two sons, both of ___ live in Kendal. Jack left the gate open, ___ made Mr Tyson very cross. Harry, ___ mum runs the inn, loves football. Arthur, to ___ we sold the hives, was very pleased. Windermere, ___ is the largest lake in England, is full of boats.",
+          "gaps": [
+            {
+              "accept": [
+                "which"
+              ]
+            },
+            {
+              "accept": [
+                "whom"
+              ]
+            },
+            {
+              "accept": [
+                "which"
+              ]
+            },
+            {
+              "accept": [
+                "whose"
+              ]
+            },
+            {
+              "accept": [
+                "whom"
+              ]
+            },
+            {
+              "accept": [
+                "which"
+              ]
+            }
+          ],
+          "translation": {
+            "sl": "Imamo štirideset ovc, večinoma pasme herdwick. Gospod Tyson ima dva sinova, oba živita v Kendalu. Jack je pustil vrata odprta, kar je gospoda Tysona zelo razjezilo. Harry, čigar mama vodi gostilno, ima rad nogomet. Arthur, ki smo mu prodali panje, je bil zelo vesel. Windermere, ki je največje jezero v Angliji, je polno čolnov.",
+            "de": "Wir haben vierzig Schafe, die meisten davon Herdwicks. Mr Tyson hat zwei Söhne, die beide in Kendal wohnen. Jack hat das Tor offen gelassen, was Mr Tyson sehr geärgert hat. Harry, dessen Mutter das Gasthaus führt, liebt Fußball. Arthur, dem wir die Bienenstöcke verkauft haben, hat sich sehr gefreut. Der Windermere, der größte See Englands, ist voller Boote.",
+            "it": "Abbiamo quaranta pecore, la maggior parte delle quali Herdwick. Mr Tyson ha due figli, che abitano entrambi a Kendal. Jack ha lasciato il cancello aperto, il che ha fatto molto arrabbiare Mr Tyson. Harry, la cui mamma gestisce la locanda, ama il calcio. Arthur, a cui abbiamo venduto le arnie, è stato molto contento. Il Windermere, che è il lago più grande d'Inghilterra, è pieno di barche.",
+            "en": "We've got forty sheep, most of which are Herdwicks. Mr Tyson has two sons, both of whom live in Kendal. Jack left the gate open, which made Mr Tyson very cross. Harry, whose mum runs the inn, loves football. Arthur, to whom we sold the hives, was very pleased. Windermere, which is the largest lake in England, is full of boats."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "relative-clauses-more",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Keswick, ___ is eight miles from here, has a pencil museum. Mr Dixon, ___ smithy is by the beck, made our gate. Edna, ___ everybody knows, talks all day. The bus was late, ___ made us cross. Mrs Birkett, to ___ I gave the letter, was very grateful.",
+        "gaps": [
+          {
+            "accept": [
+              "which"
+            ]
+          },
+          {
+            "accept": [
+              "whose"
+            ]
+          },
+          {
+            "accept": [
+              "who",
+              "whom"
+            ]
+          },
+          {
+            "accept": [
+              "which"
+            ]
+          },
+          {
+            "accept": [
+              "whom"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Keswick, ki je osem milj od tod, ima muzej svinčnikov. Gospod Dixon, ki ima kovačnico ob potoku, je naredil naša vrata. Edna, ki jo vsi poznajo, govori ves dan. Avtobus je zamujal, kar nas je razjezilo. Gospa Birkett, ki sem ji {m:dal|f:dala} pismo, je bila zelo hvaležna.",
+          "de": "Keswick, das acht Meilen von hier entfernt ist, hat ein Bleistiftmuseum. Mr Dixon, dessen Schmiede am Bach liegt, hat unser Tor gemacht. Edna, die jeder kennt, redet den ganzen Tag. Der Bus hatte Verspätung, was uns geärgert hat. Mrs Birkett, der ich den Brief gegeben habe, war sehr dankbar.",
+          "it": "Keswick, che è a otto miglia da qui, ha un museo delle matite. Mr Dixon, la cui fucina è vicino al torrente, ha fatto il nostro cancello. Edna, che tutti conoscono, parla tutto il giorno. L'autobus era in ritardo, il che ci ha fatto arrabbiare. Mrs Birkett, a cui ho dato la lettera, è stata molto riconoscente.",
+          "en": "Keswick, which is eight miles from here, has a pencil museum. Mr Dixon, whose smithy is by the beck, made our gate. Edna, who everybody knows, talks all day. The bus was late, which made us cross. Mrs Birkett, to whom I gave the letter, was very grateful."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relative-clauses-more",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Ullswater, ___ is very long, has old steamers on it.",
+        "options": [
+          "which",
+          "that",
+          "who"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Ime, stvar, za vejico: which**\n- Ullswater, which is very long, …",
+          "de": "**Ein Name, eine Sache, nach dem Komma: which**\n- Ullswater, which is very long, …",
+          "it": "**Un nome, una cosa, dopo la virgola: which**\n- Ullswater, which is very long, …",
+          "en": "**A name, a thing, after a comma: which**\n- Ullswater, which is very long, …"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relative-clauses-more",
+        "instruction": {
+          "sl": "How many brothers has Sam got? · Koliko bratov ima Sam?",
+          "de": "How many brothers has Sam got? · Wie viele Brüder hat Sam?",
+          "it": "How many brothers has Sam got? · Quanti fratelli ha Sam?",
+          "en": "How many brothers has Sam got?"
+        },
+        "prompt": "Sam's brother, who plays the fiddle, is here.",
+        "options": [
+          "one",
+          "more than one",
+          "none"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vejici: samo opis, brat je eden**\n- Sam's brother, who plays the fiddle, …",
+          "de": "**Kommas: nur eine Beschreibung, ein Bruder**\n- Sam's brother, who plays the fiddle, …",
+          "it": "**Virgole: solo una descrizione, un fratello**\n- Sam's brother, who plays the fiddle, …",
+          "en": "**Commas: just a description, one brother**\n- Sam's brother, who plays the fiddle, …"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relative-clauses-more",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Sam's van broke down again, ___ was bad luck.",
+        "options": [
+          "which",
+          "who",
+          "whose"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Za cel stavek: which**\n- Sam's van broke down again, which was bad luck.",
+          "de": "**Für den ganzen Satz: which**\n- Sam's van broke down again, which was bad luck.",
+          "it": "**Per tutta la frase: which**\n- Sam's van broke down again, which was bad luck.",
+          "en": "**For the whole sentence: which**\n- Sam's van broke down again, which was bad luck."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "relative-clauses-more",
+        "instruction": {
+          "sl": "Make one sentence with who, which or whose · Naredi en stavek z who, which ali whose",
+          "de": "Make one sentence with who, which or whose · Mach einen Satz mit who, which oder whose",
+          "it": "Make one sentence with who, which or whose · Fanne una frase sola con who, which o whose",
+          "en": "Make one sentence with who, which or whose"
+        },
+        "items": [
+          {
+            "from": "Mrs Hartley teaches the evening class. She lives at the school.",
+            "accept": [
+              "Mrs Hartley, who teaches the evening class, lives at the school.",
+              "Mrs Hartley, who lives at the school, teaches the evening class."
+            ]
+          },
+          {
+            "from": "Mr Tyson counts everything. His sheep are on the fell.",
+            "accept": [
+              "Mr Tyson, whose sheep are on the fell, counts everything."
+            ]
+          },
+          {
+            "from": "We saw Castlerigg on Sunday. It is near Keswick.",
+            "accept": [
+              "Castlerigg, which we saw on Sunday, is near Keswick.",
+              "We saw Castlerigg, which is near Keswick, on Sunday.",
+              "On Sunday we saw Castlerigg, which is near Keswick."
+            ]
+          },
+          {
+            "from": "Sam was late. That isn't like him.",
+            "accept": [
+              "Sam was late, which isn't like him."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Drugi stavek gre med vejici, za znanim imenom**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith.",
+          "de": "**Der zweite Satz kommt zwischen Kommas, nach dem Namen**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith.",
+          "it": "**La seconda frase va tra le virgole, dopo il nome**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith.",
+          "en": "**The second sentence goes between commas, after the name**\n- Mr Dixon lives by the beck. He is our blacksmith. → Mr Dixon, who lives by the beck, is our blacksmith."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: to who, what for which; that after a comma; Hill Top near Sawrey, Scafell, Windermere, Castlerigg"
+}

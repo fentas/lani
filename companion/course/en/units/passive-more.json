@@ -1,0 +1,1067 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passive-more",
+  "language": "en",
+  "level": "B2",
+  "emoji": "🔧",
+  "title": {
+    "en": "It has been repaired; it is said that",
+    "de": "Mehr Passiv: has been repaired, it is said",
+    "sl": "Več trpnika: has been repaired, it is said",
+    "it": "Ancora il passivo: has been repaired, it is said"
+  },
+  "goal": {
+    "sl": "Rabiš trpnik v vseh časih in z modalnimi glagoli (has been repaired, is being repaired, should have been shut) ter poveš, kar ljudje pravijo (It is said that, He is thought to be).",
+    "de": "Du nimmst das Passiv in allen Zeiten und mit Modalverben (has been repaired, is being repaired, should have been shut) und sagst, was man sagt (It is said that, He is thought to be).",
+    "it": "Usi il passivo in ogni tempo e con i modali (has been repaired, is being repaired, should have been shut) e dici quello che si dice (It is said that, He is thought to be).",
+    "en": "You can use the passive in every tense and with modals (has been repaired, is being repaired, should have been shut), and say what people say (It is said that, He is thought to be)."
+  },
+  "grammar": [
+    "passive-more",
+    "passive"
+  ],
+  "words": [
+    "passive",
+    "participle",
+    "roof",
+    "mend",
+    "repair",
+    "road",
+    "shear",
+    "flood",
+    "hay",
+    "damage",
+    "storm",
+    "stone",
+    "notice",
+    "put up",
+    "bottom",
+    "tarn",
+    "ghost",
+    "haunted",
+    "witch",
+    "Romans",
+    "count",
+    "believed",
+    "deep",
+    "safe",
+    "barn",
+    "fire",
+    "might",
+    "at the moment",
+    "beekeeper",
+    "mill wheel",
+    "thought",
+    "broken",
+    "closed",
+    "kitchen",
+    "paint",
+    "hat",
+    "soon",
+    "people"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "kdaj, kaj",
+          "de": "wann, was",
+          "it": "quando, che cosa",
+          "en": "when, what"
+        },
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kar je že narejeno, pove **has been** ali **have been** + deležnik: **The roof has been mended.** (Streho so popravili.) **The letters have been sent.** Pomemben je rezultat zdaj, ne kdaj. V govoru **It's been mended.**, **They've been sent.** Ljudje rečejo tudi *It's been broke*; pisno je **broken**.",
+          "de": "Was schon gemacht ist, sagt **has been** oder **have been** + Partizip: **The roof has been mended.** (Das Dach ist repariert worden.) **The letters have been sent.** Wichtig ist das Ergebnis jetzt, nicht wann. Gesprochen **It's been mended.**, **They've been sent.** Man sagt auch *It's been broke*; geschrieben steht **broken**.",
+          "it": "Quello che è già fatto lo dice **has been** o **have been** + participio: **The roof has been mended.** (Il tetto è stato riparato.) **The letters have been sent.** Conta il risultato ora, non quando. A voce **It's been mended.**, **They've been sent.** Si dice anche *It's been broke*; per iscritto si usa **broken**.",
+          "en": "What is already done takes **has been** or **have been** + the participle: **The roof has been mended.** **The letters have been sent.** The result now matters, not when. In talk **It's been mended.**, **They've been sent.** People also say *It's been broke*; writing wants **broken**."
+        },
+        "examples": [
+          {
+            "en": "The roof has been mended.",
+            "sl": "Streho so popravili.",
+            "de": "Das Dach ist repariert worden.",
+            "it": "Il tetto è stato riparato."
+          },
+          {
+            "en": "The letters have been sent.",
+            "sl": "Pisma so poslana.",
+            "de": "Die Briefe sind abgeschickt worden.",
+            "it": "Le lettere sono state spedite."
+          },
+          {
+            "en": "It's been mended.",
+            "sl": "Popravljeno je.",
+            "de": "Es ist repariert worden.",
+            "it": "È stato riparato."
+          },
+          {
+            "en": "They've been sent.",
+            "sl": "Poslana so.",
+            "de": "Sie sind abgeschickt worden.",
+            "it": "Sono state spedite."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "je že narejeno",
+              "de": "ist schon gemacht",
+              "it": "è già fatto",
+              "en": "already done"
+            },
+            "has been mended",
+            "The roof has been mended."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passive-more",
+          "text": "The gate has ___ painted.",
+          "accept": [
+            "been"
+          ],
+          "hint": {
+            "sl": "has + ? + deležnik",
+            "de": "has + ? + Partizip",
+            "it": "has + ? + participio",
+            "en": "has + ? + the participle"
+          },
+          "explain": {
+            "sl": "**has + been + deležnik**\n- The gate has been painted.",
+            "de": "**has + been + Partizip**\n- The gate has been painted.",
+            "it": "**has + been + participio**\n- The gate has been painted.",
+            "en": "**has + been + the participle**\n- The gate has been painted."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar se dela prav zdaj, pove **is being** ali **are being** + deležnik: **The road is being repaired.** (Cesto popravljajo.) **The sheep are being sheared.** Za preteklost **was being**: **The bridge was being mended when the flood came.** (Most so popravljali, ko je prišla poplava.) Slovenščina reče *popravljajo*.",
+          "de": "Was gerade geschieht, sagt **is being** oder **are being** + Partizip: **The road is being repaired.** (Die Straße wird gerade repariert.) **The sheep are being sheared.** Für die Vergangenheit **was being**: **The bridge was being mended when the flood came.** (Die Brücke wurde gerade repariert, als das Hochwasser kam.) *Wird gerade* ist also **is being**.",
+          "it": "Quello che si sta facendo lo dice **is being** o **are being** + participio: **The road is being repaired.** (Stanno riparando la strada.) **The sheep are being sheared.** Per il passato **was being**: **The bridge was being mended when the flood came.** (Stavano riparando il ponte quando è arrivata la piena.) L'italiano dice *stanno riparando*.",
+          "en": "What is going on right now takes **is being** or **are being** + the participle: **The road is being repaired.** **The sheep are being sheared.** For the past **was being**: **The bridge was being mended when the flood came.**"
+        },
+        "examples": [
+          {
+            "en": "The road is being repaired.",
+            "sl": "Cesto popravljajo.",
+            "de": "Die Straße wird gerade repariert.",
+            "it": "Stanno riparando la strada."
+          },
+          {
+            "en": "The sheep are being sheared.",
+            "sl": "Ovce strižejo.",
+            "de": "Die Schafe werden gerade geschoren.",
+            "it": "Stanno tosando le pecore."
+          },
+          {
+            "en": "The bridge was being mended when the flood came.",
+            "sl": "Most so popravljali, ko je prišla poplava.",
+            "de": "Die Brücke wurde gerade repariert, als das Hochwasser kam.",
+            "it": "Stavano riparando il ponte quando è arrivata la piena."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "se dela zdaj",
+              "de": "geschieht gerade",
+              "it": "si sta facendo",
+              "en": "going on now"
+            },
+            "is being mended",
+            "The road is being repaired."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive-more",
+          "prompt": "The mill wheel ___ at the moment.",
+          "options": [
+            "is being mended",
+            "is mending",
+            "is been mended"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Prav zdaj: is being + deležnik**\n- The mill wheel is being mended.",
+            "de": "**Gerade jetzt: is being + Partizip**\n- The mill wheel is being mended.",
+            "it": "**Proprio ora: is being + participio**\n- The mill wheel is being mended.",
+            "en": "**Right now: is being + the participle**\n- The mill wheel is being mended."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Tudi drugi časi: spremeni se le be, deležnik ostane: **The hay had been cut before the rain came.** (Seno je bilo pokošeno, preden je prišel dež.) **It will be finished by Friday.** **It's going to be sold.** Tudi z modalnimi: **It should be mended soon.** **It might be closed.** **It has to be done today.**",
+          "de": "Auch die anderen Zeiten: Nur be ändert sich, das Partizip bleibt: **The hay had been cut before the rain came.** (Das Heu war gemäht worden, bevor der Regen kam.) **It will be finished by Friday.** **It's going to be sold.** Auch mit Modalverben: **It should be mended soon.** **It might be closed.** **It has to be done today.**",
+          "it": "Anche gli altri tempi: cambia solo be, il participio resta: **The hay had been cut before the rain came.** (Il fieno era stato tagliato prima che arrivasse la pioggia.) **It will be finished by Friday.** **It's going to be sold.** Anche con i modali: **It should be mended soon.** **It might be closed.** **It has to be done today.**",
+          "en": "The other tenses too: only be changes, the participle stays: **The hay had been cut before the rain came.** **It will be finished by Friday.** **It's going to be sold.** With modals too: **It should be mended soon.** **It might be closed.** **It has to be done today.**"
+        },
+        "examples": [
+          {
+            "en": "The hay had been cut before the rain came.",
+            "sl": "Seno je bilo pokošeno, preden je prišel dež.",
+            "de": "Das Heu war gemäht worden, bevor der Regen kam.",
+            "it": "Il fieno era stato tagliato prima che arrivasse la pioggia."
+          },
+          {
+            "en": "It will be finished by Friday.",
+            "sl": "Do petka bo končano.",
+            "de": "Bis Freitag wird es fertig sein.",
+            "it": "Sarà finito entro venerdì."
+          },
+          {
+            "en": "It's going to be sold.",
+            "sl": "Prodali ga bodo.",
+            "de": "Es wird verkauft werden.",
+            "it": "Sarà venduto."
+          },
+          {
+            "en": "It has to be done today.",
+            "sl": "To je treba narediti danes.",
+            "de": "Das muss heute gemacht werden.",
+            "it": "Va fatto oggi."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "drugi časi",
+              "de": "andere Zeiten",
+              "it": "altri tempi",
+              "en": "other tenses"
+            },
+            "had been, will be",
+            "The hay had been cut."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive-more",
+          "prompt": "The new gate ___ next week.",
+          "options": [
+            "will be made",
+            "will made",
+            "will be make"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**will + be + deležnik**\n- The new gate will be made next week.",
+            "de": "**will + be + Partizip**\n- The new gate will be made next week.",
+            "it": "**will + be + participio**\n- The new gate will be made next week.",
+            "en": "**will + be + the participle**\n- The new gate will be made next week."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "S **should have**, **must have**, **can't have** gre **been** + deležnik: **The gate should have been shut.** (Vrata bi morala biti zaprta.) **My hat must have been taken.** (Klobuk mi je moral nekdo vzeti.) **The van can't have been mended yet.** (Kombi še ne more biti popravljen.)",
+          "de": "Nach **should have**, **must have**, **can't have** kommt **been** + Partizip: **The gate should have been shut.** (Das Tor hätte geschlossen werden sollen.) **My hat must have been taken.** (Mein Hut muss mitgenommen worden sein.) **The van can't have been mended yet.** (Der Lieferwagen kann noch nicht repariert worden sein.)",
+          "it": "Dopo **should have**, **must have**, **can't have** viene **been** + participio: **The gate should have been shut.** (Il cancello avrebbe dovuto essere chiuso.) **My hat must have been taken.** (Il mio cappello dev'essere stato preso.) **The van can't have been mended yet.** (Il furgone non può essere già stato riparato.)",
+          "en": "After **should have**, **must have**, **can't have** comes **been** + the participle: **The gate should have been shut.** **My hat must have been taken.** **The van can't have been mended yet.**"
+        },
+        "examples": [
+          {
+            "en": "The gate should have been shut.",
+            "sl": "Vrata bi morala biti zaprta.",
+            "de": "Das Tor hätte geschlossen werden sollen.",
+            "it": "Il cancello avrebbe dovuto essere chiuso."
+          },
+          {
+            "en": "My hat must have been taken.",
+            "sl": "Klobuk mi je moral nekdo vzeti.",
+            "de": "Mein Hut muss mitgenommen worden sein.",
+            "it": "Il mio cappello dev'essere stato preso."
+          },
+          {
+            "en": "The van can't have been mended yet.",
+            "sl": "Kombi še ne more biti popravljen.",
+            "de": "Der Lieferwagen kann noch nicht repariert worden sein.",
+            "it": "Il furgone non può essere già stato riparato."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "bi moralo biti, je moralo biti",
+              "de": "hätte … werden sollen, muss … worden sein",
+              "it": "avrebbe dovuto essere, deve essere stato",
+              "en": "should have, must have"
+            },
+            "should have been",
+            "It should have been shut."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passive-more",
+          "text": "The letter must have ___ lost in the post.",
+          "accept": [
+            "been"
+          ],
+          "hint": {
+            "sl": "must have + ? + deležnik",
+            "de": "must have + ? + Partizip",
+            "it": "must have + ? + participio",
+            "en": "must have + ? + the participle"
+          },
+          "explain": {
+            "sl": "**must have + been + deležnik**\n- The letter must have been lost in the post.",
+            "de": "**must have + been + Partizip**\n- The letter must have been lost in the post.",
+            "it": "**must have + been + participio**\n- The letter must have been lost in the post.",
+            "en": "**must have + been + the participle**\n- The letter must have been lost in the post."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar ljudje pravijo, se v pisanju začne z **It is said that**, **It is thought that**, **It is believed that**, **It is known that**: **It is said that the tarn has no bottom.** (Pravijo, da jezerce nima dna.) Slovenščina reče *pravijo, da*; v angleščini brez it ne gre. V govoru: **People say that**. V preteklosti: **It was thought that**.",
+          "de": "Was man sagt, beginnt geschrieben mit **It is said that**, **It is thought that**, **It is believed that**, **It is known that**: **It is said that the tarn has no bottom.** (Man sagt, dass der Bergsee keinen Grund hat.) Deutsch hat dafür *man sagt*; it muss stehen. Gesprochen **People say that**. In der Vergangenheit **It was thought that**.",
+          "it": "Quello che si dice comincia, per iscritto, con **It is said that**, **It is thought that**, **It is believed that**, **It is known that**: **It is said that the tarn has no bottom.** (Si dice che il laghetto non abbia fondo.) L'italiano dice *si dice che*; it deve esserci, e dopo non c'è congiuntivo. A voce **People say that**. Al passato **It was thought that**.",
+          "en": "What people say begins, in writing, with **It is said that**, **It is thought that**, **It is believed that**, **It is known that**: **It is said that the tarn has no bottom.** In talk **People say that**. In the past **It was thought that**."
+        },
+        "examples": [
+          {
+            "en": "It is said that the tarn has no bottom.",
+            "sl": "Pravijo, da jezerce nima dna.",
+            "de": "Man sagt, dass der Bergsee keinen Grund hat.",
+            "it": "Si dice che il laghetto non abbia fondo."
+          },
+          {
+            "en": "It is thought that the fire began in the barn.",
+            "sl": "Menijo, da se je požar začel v skednju.",
+            "de": "Man glaubt, dass das Feuer in der Scheune begann.",
+            "it": "Si pensa che l'incendio sia cominciato nel fienile."
+          },
+          {
+            "en": "It is known that Wastwater is very deep.",
+            "sl": "Znano je, da je Wastwater zelo globok.",
+            "de": "Es ist bekannt, dass der Wastwater sehr tief ist.",
+            "it": "È noto che il Wastwater è molto profondo."
+          },
+          {
+            "en": "It was thought that the bridge was safe.",
+            "sl": "Mislili so, da je most varen.",
+            "de": "Man dachte, dass die Brücke sicher sei.",
+            "it": "Si pensava che il ponte fosse sicuro."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "pravijo, da",
+              "de": "man sagt, dass",
+              "it": "si dice che",
+              "en": "people say that"
+            },
+            "It is said that",
+            "It is said that the tarn is deep."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive-more",
+          "prompt": "___ that the Packhorse has a ghost.",
+          "options": [
+            "It is said",
+            "Is said",
+            "It is say"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Brez it ne gre; say → said**\n- It is said that the Packhorse has a ghost.",
+            "de": "**it muss stehen; say → said**\n- It is said that the Packhorse has a ghost.",
+            "it": "**it deve esserci; say → said**\n- It is said that the Packhorse has a ghost.",
+            "en": "**it has to be there; say → said**\n- It is said that the Packhorse has a ghost."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Osebek lahko gre naprej, potem **to** + osnovna oblika: **Old Wilf is said to be ninety.** (Pravijo, da je Stari Wilf star devetdeset let.) **Wastwater is known to be very deep.** Za preteklost **to have** + deležnik: **Wilf is said to have seen a ghost.** **The bridge is said to have been built by the Romans.** (Pravijo, da so most zgradili Rimljani.)",
+          "de": "Das Subjekt kann nach vorn, dann **to** + Grundform: **Old Wilf is said to be ninety.** (Der alte Wilf soll neunzig sein.) **Wastwater is known to be very deep.** Für die Vergangenheit **to have** + Partizip: **Wilf is said to have seen a ghost.** **The bridge is said to have been built by the Romans.** (Die Brücke soll von den Römern gebaut worden sein.)",
+          "it": "Il soggetto può andare davanti, poi **to** + forma base: **Old Wilf is said to be ninety.** (Si dice che il vecchio Wilf abbia novant'anni.) **Wastwater is known to be very deep.** Per il passato **to have** + participio: **Wilf is said to have seen a ghost.** **The bridge is said to have been built by the Romans.** (Si dice che il ponte sia stato costruito dai Romani.)",
+          "en": "The subject can go first, then **to** + the base form: **Old Wilf is said to be ninety.** **Wastwater is known to be very deep.** For the past **to have** + the participle: **Wilf is said to have seen a ghost.** **The bridge is said to have been built by the Romans.**"
+        },
+        "examples": [
+          {
+            "en": "Old Wilf is said to be ninety.",
+            "sl": "Pravijo, da je Stari Wilf star devetdeset let.",
+            "de": "Der alte Wilf soll neunzig sein.",
+            "it": "Si dice che il vecchio Wilf abbia novant'anni."
+          },
+          {
+            "en": "Wastwater is known to be very deep.",
+            "sl": "Znano je, da je Wastwater zelo globok.",
+            "de": "Der Wastwater ist bekanntlich sehr tief.",
+            "it": "Il Wastwater è noto per essere molto profondo."
+          },
+          {
+            "en": "Wilf is said to have seen a ghost.",
+            "sl": "Pravijo, da je Wilf videl duha.",
+            "de": "Wilf soll einen Geist gesehen haben.",
+            "it": "Si dice che Wilf abbia visto un fantasma."
+          },
+          {
+            "en": "The bridge is said to have been built by the Romans.",
+            "sl": "Pravijo, da so most zgradili Rimljani.",
+            "de": "Die Brücke soll von den Römern gebaut worden sein.",
+            "it": "Si dice che il ponte sia stato costruito dai Romani."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "osebek naprej",
+              "de": "das Subjekt nach vorn",
+              "it": "il soggetto davanti",
+              "en": "the subject first"
+            },
+            "is said to be",
+            "Old Wilf is said to be ninety."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive-more",
+          "prompt": "The old mill ___ to be haunted.",
+          "options": [
+            "is said",
+            "says",
+            "said"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Osebek naprej: is said to be**\n- The old mill is said to be haunted.",
+            "de": "**Das Subjekt vorn: is said to be**\n- The old mill is said to be haunted.",
+            "it": "**Il soggetto davanti: is said to be**\n- The old mill is said to be haunted.",
+            "en": "**The subject first: is said to be**\n- The old mill is said to be haunted."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passive-more-1",
+      "title": {
+        "sl": "Vse se popravlja",
+        "de": "Alles wird repariert",
+        "it": "Si ripara tutto",
+        "en": "Everything is being mended"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "passive-more",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "trpnik · mend · the gate …",
+            "de": "Passiv · mend · the gate …",
+            "it": "passivo · mend · the gate …",
+            "en": "the passive: mend, the gate …"
+          },
+          "columns": [
+            {
+              "sl": "the gate … · popravljajo",
+              "de": "the gate … · reparieren",
+              "it": "the gate … · riparare",
+              "en": "the gate …"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "sl": "vsako leto",
+                "de": "jedes Jahr",
+                "it": "ogni anno",
+                "en": "every year"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "is mended"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "prav zdaj",
+                "de": "gerade jetzt",
+                "it": "proprio ora",
+                "en": "right now"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "is being mended"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "lani",
+                "de": "letztes Jahr",
+                "it": "l'anno scorso",
+                "en": "last year"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "was mended"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "ko je prišla poplava",
+                "de": "als das Hochwasser kam",
+                "it": "quando è arrivata la piena",
+                "en": "when the flood came"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "was being mended"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "že",
+                "de": "schon",
+                "it": "già",
+                "en": "already"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "has been mended"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "že prej, pred dežjem",
+                "de": "schon vorher, vor dem Regen",
+                "it": "già prima della pioggia",
+                "en": "before the rain"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "had been mended"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "jutri",
+                "de": "morgen",
+                "it": "domani",
+                "en": "tomorrow"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "will be mended",
+                    "is going to be mended"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "treba je",
+                "de": "es ist nötig",
+                "it": "bisogna",
+                "en": "it's needed"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "must be mended",
+                    "has to be mended",
+                    "needs to be mended",
+                    "should be mended"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Spremeni se le be**\n- is mended, is being mended, has been mended",
+            "de": "**Nur be ändert sich**\n- is mended, is being mended, has been mended",
+            "it": "**Cambia solo be**\n- is mended, is being mended, has been mended",
+            "en": "**Only be changes**\n- is mended, is being mended, has been mended"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "passive-more",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "The bridge on the Keswick road is closed. It ___ at the moment. It ___ in last year's storm. Since then nothing ___, but now new stones ___ from Kendal. The work ___ by Friday, and a notice ___ on the gate.",
+          "gaps": [
+            {
+              "accept": [
+                "is being mended"
+              ]
+            },
+            {
+              "accept": [
+                "was damaged"
+              ]
+            },
+            {
+              "accept": [
+                "has been done"
+              ]
+            },
+            {
+              "accept": [
+                "have been brought"
+              ]
+            },
+            {
+              "accept": [
+                "will be finished"
+              ]
+            },
+            {
+              "accept": [
+                "has been put up"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "is mending",
+            "has been mend"
+          ],
+          "translation": {
+            "sl": "Most na cesti v Keswick je zaprt. Prav zdaj ga popravljajo. Poškodovan je bil v lanski nevihti. Od takrat niso naredili ničesar, zdaj pa so iz Kendala pripeljali nove kamne. Delo bo končano do petka, na vrata pa so obesili obvestilo.",
+            "de": "Die Brücke an der Straße nach Keswick ist gesperrt. Sie wird gerade repariert. Sie wurde beim Sturm letztes Jahr beschädigt. Seither ist nichts gemacht worden, aber jetzt sind neue Steine aus Kendal gebracht worden. Die Arbeit wird bis Freitag fertig sein, und am Tor ist ein Schild angebracht worden.",
+            "it": "Il ponte sulla strada per Keswick è chiuso. Lo stanno riparando. È stato danneggiato nel temporale dell'anno scorso. Da allora non è stato fatto niente, ma ora sono state portate nuove pietre da Kendal. Il lavoro sarà finito entro venerdì, e sul cancello è stato messo un avviso.",
+            "en": "The bridge on the Keswick road is closed. It is being mended at the moment. It was damaged in last year's storm. Since then nothing has been done, but now new stones have been brought from Kendal. The work will be finished by Friday, and a notice has been put up on the gate."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passive-more-2",
+      "title": {
+        "sl": "Z druge strani",
+        "de": "Von der anderen Seite",
+        "it": "Dall'altro lato",
+        "en": "From the other side"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passive-more",
+          "instruction": {
+            "sl": "Say it from the other side · Obrni stavek",
+            "de": "Say it from the other side · Sag es von der anderen Seite",
+            "it": "Say it from the other side · Dillo dall'altro lato",
+            "en": "Say it from the other side"
+          },
+          "items": [
+            {
+              "from": "Someone has stolen my bike.",
+              "accept": [
+                "My bike has been stolen."
+              ],
+              "spoken": [
+                "My bike has got stolen."
+              ]
+            },
+            {
+              "from": "They are repairing the road.",
+              "accept": [
+                "The road is being repaired."
+              ]
+            },
+            {
+              "from": "They have sold the old barn.",
+              "accept": [
+                "The old barn has been sold."
+              ]
+            },
+            {
+              "from": "People were cleaning the inn when we came.",
+              "accept": [
+                "The inn was being cleaned when we came.",
+                "When we came the inn was being cleaned."
+              ]
+            },
+            {
+              "from": "They had cut the hay before the rain came.",
+              "accept": [
+                "The hay had been cut before the rain came.",
+                "Before the rain came the hay had been cut."
+              ]
+            },
+            {
+              "from": "They will finish the bridge by Friday.",
+              "accept": [
+                "The bridge will be finished by Friday.",
+                "By Friday the bridge will be finished."
+              ]
+            },
+            {
+              "from": "They should have shut the gate.",
+              "accept": [
+                "The gate should have been shut."
+              ]
+            },
+            {
+              "from": "Somebody must have taken my hat.",
+              "accept": [
+                "My hat must have been taken."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Predmet naprej; be v istem času + deležnik**\n- They are repairing the road. → The road is being repaired.",
+            "de": "**Das Objekt nach vorn; be in derselben Zeit + Partizip**\n- They are repairing the road. → The road is being repaired.",
+            "it": "**L'oggetto davanti; be allo stesso tempo + participio**\n- They are repairing the road. → The road is being repaired.",
+            "en": "**The object first; be in the same tense + the participle**\n- They are repairing the road. → The road is being repaired."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passive-more-3",
+      "title": {
+        "sl": "Pravijo, da …",
+        "de": "Man sagt, dass …",
+        "it": "Si dice che …",
+        "en": "It is said that …"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passive-more",
+          "instruction": {
+            "sl": "Say it without people · Povej brez people",
+            "de": "Say it without people · Sag es ohne people",
+            "it": "Say it without people · Dillo senza people",
+            "en": "Say it without people"
+          },
+          "items": [
+            {
+              "from": "People say that the tarn has no bottom.",
+              "accept": [
+                "It is said that the tarn has no bottom.",
+                "The tarn is said to have no bottom."
+              ]
+            },
+            {
+              "from": "People think that Old Wilf is ninety.",
+              "accept": [
+                "Old Wilf is thought to be ninety.",
+                "It is thought that Old Wilf is ninety."
+              ]
+            },
+            {
+              "from": "People believe that the mill is haunted.",
+              "accept": [
+                "The mill is believed to be haunted.",
+                "It is believed that the mill is haunted."
+              ]
+            },
+            {
+              "from": "People know that Wastwater is very deep.",
+              "accept": [
+                "Wastwater is known to be very deep.",
+                "It is known that Wastwater is very deep."
+              ]
+            },
+            {
+              "from": "People say that the Romans built the bridge.",
+              "accept": [
+                "The bridge is said to have been built by the Romans.",
+                "It is said that the bridge was built by the Romans.",
+                "It is said that the Romans built the bridge.",
+                "The Romans are said to have built the bridge."
+              ],
+              "hint": {
+                "sl": "preteklost: to have been",
+                "de": "Vergangenheit: to have been",
+                "it": "passato: to have been",
+                "en": "the past: to have been"
+              }
+            },
+            {
+              "from": "People say that Wilf saw a ghost.",
+              "accept": [
+                "Wilf is said to have seen a ghost.",
+                "It is said that Wilf saw a ghost."
+              ],
+              "hint": {
+                "sl": "preteklost: to have",
+                "de": "Vergangenheit: to have",
+                "it": "passato: to have",
+                "en": "the past: to have"
+              }
+            }
+          ],
+          "explain": {
+            "sl": "**It is said that …, ali osebek + is said to …**\n- Old Wilf is thought to be ninety.",
+            "de": "**It is said that … oder das Subjekt + is said to …**\n- Old Wilf is thought to be ninety.",
+            "it": "**It is said that … o il soggetto + is said to …**\n- Old Wilf is thought to be ninety.",
+            "en": "**It is said that …, or the subject + is said to …**\n- Old Wilf is thought to be ninety."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "passive-more",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Long Meg and her daughters, near Penrith, ___ said to be witches turned to stone. It ___ said that nobody can count them twice and get the same number. The stones ___ (think) to be very old.",
+          "gaps": [
+            {
+              "accept": [
+                "are"
+              ]
+            },
+            {
+              "accept": [
+                "is"
+              ]
+            },
+            {
+              "accept": [
+                "are thought"
+              ],
+              "hint": {
+                "sl": "think → thought",
+                "de": "think → thought",
+                "it": "think → thought",
+                "en": "think → thought"
+              }
+            }
+          ],
+          "translation": {
+            "sl": "Long Meg in njene hčere pri Penrithu naj bi bile čarovnice, spremenjene v kamen. Pravijo, da jih nihče ne more prešteti dvakrat in dobiti istega števila. Mislijo, da so kamni zelo stari.",
+            "de": "Long Meg und ihre Töchter bei Penrith sollen Hexen sein, die zu Stein geworden sind. Man sagt, niemand könne sie zweimal zählen und auf dieselbe Zahl kommen. Man glaubt, dass die Steine sehr alt sind.",
+            "it": "Si dice che Long Meg e le sue figlie, vicino a Penrith, siano streghe trasformate in pietra. Si dice che nessuno riesca a contarle due volte ottenendo lo stesso numero. Si pensa che le pietre siano molto antiche.",
+            "en": "Long Meg and her daughters, near Penrith, are said to be witches turned to stone. It is said that nobody can count them twice and get the same number. The stones are thought to be very old."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "passive-more",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "The Packhorse is closed this week. The roof ___ (mend) at the moment. The kitchen ___ (paint) already. The new door ___ (put in) on Friday. The work should ___ (finish) last week.",
+        "gaps": [
+          {
+            "accept": [
+              "is being mended"
+            ]
+          },
+          {
+            "accept": [
+              "has been painted"
+            ]
+          },
+          {
+            "accept": [
+              "will be put in",
+              "is going to be put in"
+            ]
+          },
+          {
+            "accept": [
+              "have been finished",
+              "have finished"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Packhorse je ta teden zaprt. Prav zdaj popravljajo streho. Kuhinja je že prepleskana. Nova vrata bodo vgradili v petek. Delo bi moralo biti končano že prejšnji teden.",
+          "de": "Das Packhorse ist diese Woche geschlossen. Das Dach wird gerade repariert. Die Küche ist schon gestrichen worden. Die neue Tür wird am Freitag eingebaut. Die Arbeit hätte letzte Woche fertig werden sollen.",
+          "it": "Il Packhorse è chiuso questa settimana. Stanno riparando il tetto. La cucina è già stata dipinta. La porta nuova sarà montata venerdì. Il lavoro sarebbe dovuto essere finito la settimana scorsa.",
+          "en": "The Packhorse is closed this week. The roof is being mended at the moment. The kitchen has been painted already. The new door will be put in on Friday. The work should have been finished last week."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passive-more",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "It ___ that the inn had a ghost.",
+        "options": [
+          "was said",
+          "was say",
+          "was saying"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**was + deležnik**\n- It was said that the inn had a ghost.",
+          "de": "**was + Partizip**\n- It was said that the inn had a ghost.",
+          "it": "**was + participio**\n- It was said that the inn had a ghost.",
+          "en": "**was + the participle**\n- It was said that the inn had a ghost."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passive-more",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "My hat must have ___ taken.",
+        "options": [
+          "been",
+          "being",
+          "be"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**must have + been + deležnik**\n- My hat must have been taken.",
+          "de": "**must have + been + Partizip**\n- My hat must have been taken.",
+          "it": "**must have + been + participio**\n- My hat must have been taken.",
+          "en": "**must have + been + the participle**\n- My hat must have been taken."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passive-more",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Arthur ___ to be the best beekeeper in the valley.",
+        "options": [
+          "is said",
+          "says",
+          "said"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Osebek naprej: is said to be**\n- Arthur is said to be the best beekeeper in the valley.",
+          "de": "**Das Subjekt vorn: is said to be**\n- Arthur is said to be the best beekeeper in the valley.",
+          "it": "**Il soggetto davanti: is said to be**\n- Arthur is said to be the best beekeeper in the valley.",
+          "en": "**The subject first: is said to be**\n- Arthur is said to be the best beekeeper in the valley."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passive-more",
+        "instruction": {
+          "sl": "Say it from the other side · Obrni stavek",
+          "de": "Say it from the other side · Sag es von der anderen Seite",
+          "it": "Say it from the other side · Dillo dall'altro lato",
+          "en": "Say it from the other side"
+        },
+        "items": [
+          {
+            "from": "They are shearing the sheep.",
+            "accept": [
+              "The sheep are being sheared."
+            ]
+          },
+          {
+            "from": "Someone has mended the roof.",
+            "accept": [
+              "The roof has been mended."
+            ]
+          },
+          {
+            "from": "They had closed the road before we came.",
+            "accept": [
+              "The road had been closed before we came.",
+              "Before we came the road had been closed."
+            ]
+          },
+          {
+            "from": "People say that Mrs Birkett is the best cook in the valley.",
+            "accept": [
+              "Mrs Birkett is said to be the best cook in the valley.",
+              "It is said that Mrs Birkett is the best cook in the valley."
+            ]
+          },
+          {
+            "from": "People think that the fire began in the barn.",
+            "accept": [
+              "It is thought that the fire began in the barn.",
+              "The fire is thought to have begun in the barn."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**be v istem času + deležnik; It is said that ali is said to be**\n- The roof has been mended.",
+          "de": "**be in derselben Zeit + Partizip; It is said that oder is said to be**\n- The roof has been mended.",
+          "it": "**be allo stesso tempo + participio; It is said that o is said to be**\n- The roof has been mended.",
+          "en": "**be in the same tense + the participle; It is said that or is said to be**\n- The roof has been mended."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: It's been broke; got stolen; Long Meg's legend; Wastwater's depth; Slovene and Italian of said to be"
+}

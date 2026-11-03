@@ -1,0 +1,1094 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "both-neither",
+  "language": "en",
+  "level": "B2",
+  "emoji": "✌️",
+  "title": {
+    "en": "Both, neither, each, all of them",
+    "de": "Beide, keiner: both, neither, each",
+    "sl": "Oba, nobeden: both, neither, each",
+    "it": "Entrambi, nessuno: both, neither, each"
+  },
+  "goal": {
+    "sl": "Rabiš both, either, neither za dva ter each, every, all, none za več, s pari (both … and, neither … nor) in s pravim glagolom.",
+    "de": "Du nimmst both, either, neither für zwei und each, every, all, none für mehr, mit den Paaren (both … and, neither … nor) und dem richtigen Verb.",
+    "it": "Usi both, either, neither per due ed each, every, all, none per di più, con le coppie (both … and, neither … nor) e il verbo giusto.",
+    "en": "You can use both, either, neither for two, and each, every, all, none for more, with the pairs (both … and, neither … nor) and the right verb."
+  },
+  "grammar": [
+    "quantifiers",
+    "some-any"
+  ],
+  "words": [
+    "both",
+    "either",
+    "neither",
+    "nor",
+    "each",
+    "every",
+    "all",
+    "none",
+    "most of",
+    "some of",
+    "one of",
+    "mark",
+    "asleep",
+    "path",
+    "walker",
+    "lame",
+    "sack",
+    "oats",
+    "rich",
+    "poor",
+    "swim",
+    "mice",
+    "cat",
+    "dish",
+    "radio",
+    "eggs",
+    "hens",
+    "carry",
+    "hand",
+    "arm",
+    "pair",
+    "got lost",
+    "two",
+    "mill"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "beseda",
+          "de": "Wort",
+          "it": "parola",
+          "en": "word"
+        },
+        {
+          "sl": "za koliko",
+          "de": "für wie viele",
+          "it": "per quanti",
+          "en": "for how many"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**both** je za dva, oba da: **Both dogs are asleep.** (Oba psa spita.) Pred zaimkom vedno **of**: **Both of them are asleep.**, **both of us**. Za be in pomožnim glagolom, pred drugim: **They are both tired.** **They can both swim.** **They both live here.** Tudi **I saw them both.** Ljudje rečejo tudi *the both of them*; pisno je **both of them**.",
+          "de": "**both** ist für zwei, beide ja: **Both dogs are asleep.** (Beide Hunde schlafen.) Vor einem Pronomen immer **of**: **Both of them are asleep.**, **both of us**. Nach be und Hilfsverben, vor anderen Verben: **They are both tired.** **They can both swim.** **They both live here.** Auch **I saw them both.** Man sagt auch *the both of them*; geschrieben steht **both of them**.",
+          "it": "**both** è per due, tutti e due sì: **Both dogs are asleep.** (Tutti e due i cani dormono.) Davanti a un pronome sempre **of**: **Both of them are asleep.**, **both of us**. Dopo be e gli ausiliari, prima di altri verbi: **They are both tired.** **They can both swim.** **They both live here.** Anche **I saw them both.** Si dice anche *the both of them*; per iscritto si usa **both of them**.",
+          "en": "**both** is for two, yes to both: **Both dogs are asleep.** Before a pronoun always **of**: **Both of them are asleep.**, **both of us**. After be and helping verbs, before other verbs: **They are both tired.** **They can both swim.** **They both live here.** Also **I saw them both.** People also say *the both of them*; writing wants **both of them**."
+        },
+        "examples": [
+          {
+            "en": "Both dogs are asleep.",
+            "sl": "Oba psa spita.",
+            "de": "Beide Hunde schlafen.",
+            "it": "Tutti e due i cani dormono."
+          },
+          {
+            "en": "Both of them are asleep.",
+            "sl": "Oba spita.",
+            "de": "Beide schlafen.",
+            "it": "Dormono tutti e due."
+          },
+          {
+            "en": "They are both tired.",
+            "sl": "Oba sta utrujena.",
+            "de": "Beide sind müde.",
+            "it": "Sono stanchi tutti e due."
+          },
+          {
+            "en": "They can both swim.",
+            "sl": "Oba znata plavati.",
+            "de": "Beide können schwimmen.",
+            "it": "Sanno nuotare tutti e due."
+          }
+        ],
+        "rows": [
+          [
+            "both",
+            {
+              "sl": "dva, oba da",
+              "de": "zwei, beide ja",
+              "it": "due, tutti e due sì",
+              "en": "two, yes to both"
+            },
+            "Both dogs are asleep."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "quantifiers",
+          "prompt": "Jack and Sam are tired. ___ of them want to go home.",
+          "options": [
+            "Both",
+            "Every",
+            "Either"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Dva, oba da: both**\n- Both of them want to go home.",
+            "de": "**Zwei, beide ja: both**\n- Both of them want to go home.",
+            "it": "**Due, tutti e due sì: both**\n- Both of them want to go home.",
+            "en": "**Two, yes to both: both**\n- Both of them want to go home."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**neither** je ne eden ne drugi, **either** eden ali drugi, vseeno kateri: **Neither of them is here.** (Nobenega od njiju ni tukaj.) **Either of them will do.** Glagol je pozitiven; v govoru tudi **Neither of them are here.** Z not je **either**: **I don't like either of them.** Ljudje rečejo tudi *I don't like neither of them*; pisno je **either**.",
+          "de": "**neither** ist keiner von beiden, **either** einer von beiden, egal welcher: **Neither of them is here.** (Keiner von beiden ist hier.) **Either of them will do.** Das Verb ist bejaht; gesprochen auch **Neither of them are here.** Mit not steht **either**: **I don't like either of them.** Man sagt auch *I don't like neither of them*; geschrieben steht **either**.",
+          "it": "**neither** è nessuno dei due, **either** l'uno o l'altro, non importa quale: **Neither of them is here.** (Nessuno dei due è qui.) **Either of them will do.** Il verbo è positivo; a voce anche **Neither of them are here.** Con not si usa **either**: **I don't like either of them.** Si dice anche *I don't like neither of them*; per iscritto si usa **either**.",
+          "en": "**neither** is not one and not the other, **either** one or the other, it doesn't matter which: **Neither of them is here.** **Either of them will do.** The verb says yes; in talk also **Neither of them are here.** With not it's **either**: **I don't like either of them.** People also say *I don't like neither of them*; writing wants **either**."
+        },
+        "examples": [
+          {
+            "en": "Neither of them is here.",
+            "sl": "Nobenega od njiju ni tukaj.",
+            "de": "Keiner von beiden ist hier.",
+            "it": "Nessuno dei due è qui."
+          },
+          {
+            "en": "Either of them will do.",
+            "sl": "Vseeno je, kateri od njiju.",
+            "de": "Einer von beiden reicht.",
+            "it": "Uno dei due va bene."
+          },
+          {
+            "en": "Neither of them are here.",
+            "sl": "Nobenega od njiju ni tukaj.",
+            "de": "Keiner von beiden ist hier.",
+            "it": "Nessuno dei due è qui."
+          },
+          {
+            "en": "I don't like either of them.",
+            "sl": "Ne maram nobenega od njiju.",
+            "de": "Ich mag keinen von beiden.",
+            "it": "Non mi piace nessuno dei due."
+          }
+        ],
+        "rows": [
+          [
+            "neither, either",
+            {
+              "sl": "dva: nobeden; kateri koli",
+              "de": "zwei: keiner; einer von beiden",
+              "it": "due: nessuno; uno qualsiasi",
+              "en": "two: not one; any one"
+            },
+            "Neither of them is here."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "quantifiers",
+          "prompt": "There are two paths to the tarn. Take ___ of them: it doesn't matter which.",
+          "options": [
+            "either",
+            "both",
+            "every"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Eden ali drugi, vseeno kateri: either**\n- Take either of them.",
+            "de": "**Einer von beiden, egal welcher: either**\n- Take either of them.",
+            "it": "**L'uno o l'altro, non importa quale: either**\n- Take either of them.",
+            "en": "**One or the other, it doesn't matter which: either**\n- Take either of them."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pari povezujejo dve stvari: **both … and**, **neither … nor**, **either … or**: **Both Jack and Sam are coming.** **Neither Jack nor Sam is coming.** (Ne Jack ne Sam ne prideta.) **You can either walk or take the bus.** Slovenščina ima več ne, angleščina enega. Ljudje rečejo tudi *neither Jack or Sam*; pisno je **nor**.",
+          "de": "Paare verbinden zwei Dinge: **both … and**, **neither … nor**, **either … or**: **Both Jack and Sam are coming.** **Neither Jack nor Sam is coming.** (Weder Jack noch Sam kommt.) **You can either walk or take the bus.** Es gibt nur ein Nein. Man sagt auch *neither Jack or Sam*; geschrieben steht **nor**.",
+          "it": "Le coppie uniscono due cose: **both … and**, **neither … nor**, **either … or**: **Both Jack and Sam are coming.** **Neither Jack nor Sam is coming.** (Né Jack né Sam vengono.) **You can either walk or take the bus.** C'è un solo no. Si dice anche *neither Jack or Sam*; per iscritto si usa **nor**.",
+          "en": "Pairs join two things: **both … and**, **neither … nor**, **either … or**: **Both Jack and Sam are coming.** **Neither Jack nor Sam is coming.** **You can either walk or take the bus.** There's only one no. People also say *neither Jack or Sam*; writing wants **nor**."
+        },
+        "examples": [
+          {
+            "en": "Both Jack and Sam are coming.",
+            "sl": "In Jack in Sam prideta.",
+            "de": "Sowohl Jack als auch Sam kommen.",
+            "it": "Vengono sia Jack sia Sam."
+          },
+          {
+            "en": "Neither Jack nor Sam is coming.",
+            "sl": "Ne Jack ne Sam ne prideta.",
+            "de": "Weder Jack noch Sam kommt.",
+            "it": "Né Jack né Sam vengono."
+          },
+          {
+            "en": "You can either walk or take the bus.",
+            "sl": "Lahko greš peš ali z avtobusom.",
+            "de": "Du kannst entweder zu Fuß gehen oder den Bus nehmen.",
+            "it": "Puoi andare a piedi o prendere l'autobus."
+          }
+        ],
+        "rows": [
+          [
+            "both … and, neither … nor",
+            {
+              "sl": "dva, povezana",
+              "de": "zwei, verbunden",
+              "it": "due, uniti",
+              "en": "two, joined"
+            },
+            "Neither Jack nor Sam came."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "quantifiers",
+          "prompt": "___ Edna and Maggie have got a cat.",
+          "options": [
+            "Both",
+            "Neither",
+            "Either"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**both … and**\n- Both Edna and Maggie have got a cat.",
+            "de": "**both … and**\n- Both Edna and Maggie have got a cat.",
+            "it": "**both … and**\n- Both Edna and Maggie have got a cat.",
+            "en": "**both … and**\n- Both Edna and Maggie have got a cat."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**every** gleda vse skupaj, **each** vsakega posebej; glagol je v ednini: **Every sheep has a mark.** (Vsaka ovca ima oznako.) **Each sheep has its own mark.** **each** je tudi za dva: **She had a bag in each hand.** Z of: **each of them**, **every one of them** (nikoli *every of them*). V govoru tudi **Each of them have a mark.**",
+          "de": "**every** sieht alle zusammen, **each** jeden einzeln; das Verb steht in der Einzahl: **Every sheep has a mark.** (Jedes Schaf hat ein Zeichen.) **Each sheep has its own mark.** **each** geht auch für zwei: **She had a bag in each hand.** Mit of: **each of them**, **every one of them** (nie *every of them*). Gesprochen auch **Each of them have a mark.**",
+          "it": "**every** guarda tutti insieme, **each** uno per uno; il verbo è al singolare: **Every sheep has a mark.** (Ogni pecora ha un segno.) **Each sheep has its own mark.** **each** va anche per due: **She had a bag in each hand.** Con of: **each of them**, **every one of them** (mai *every of them*). A voce anche **Each of them have a mark.**",
+          "en": "**every** looks at all of them together, **each** at one by one; the verb stays singular: **Every sheep has a mark.** **Each sheep has its own mark.** **each** works for two as well: **She had a bag in each hand.** With of: **each of them**, **every one of them** (never *every of them*). In talk also **Each of them have a mark.**"
+        },
+        "examples": [
+          {
+            "en": "Every sheep has a mark.",
+            "sl": "Vsaka ovca ima oznako.",
+            "de": "Jedes Schaf hat ein Zeichen.",
+            "it": "Ogni pecora ha un segno."
+          },
+          {
+            "en": "Each sheep has its own mark.",
+            "sl": "Vsaka ovca ima svojo oznako.",
+            "de": "Jedes Schaf hat sein eigenes Zeichen.",
+            "it": "Ogni pecora ha il suo segno."
+          },
+          {
+            "en": "She had a bag in each hand.",
+            "sl": "V vsaki roki je imela torbo.",
+            "de": "Sie hatte in jeder Hand eine Tasche.",
+            "it": "Aveva una borsa in ogni mano."
+          },
+          {
+            "en": "Each of them have a mark.",
+            "sl": "Vsaka ima oznako.",
+            "de": "Jedes hat ein Zeichen.",
+            "it": "Ognuna ha un segno."
+          }
+        ],
+        "rows": [
+          [
+            "every, each",
+            {
+              "sl": "vsak; vsak posebej",
+              "de": "jeder; jeder einzeln",
+              "it": "ogni; ognuno",
+              "en": "every; one by one"
+            },
+            "Each of them has a mark."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "quantifiers",
+          "prompt": "Jack carried a lamb in ___ arm.",
+          "options": [
+            "each",
+            "every",
+            "all"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za dva: each**\n- a lamb in each arm",
+            "de": "**Für zwei: each**\n- a lamb in each arm",
+            "it": "**Per due: each**\n- a lamb in each arm",
+            "en": "**For two: each**\n- a lamb in each arm"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**all** so vsi, **none** nobeden, za več kot dva: **All the sheep are on the fell.** **All of them are on the fell.** **None of them came.** (Nobeden ni prišel.) **none** je že ne, zato brez not. **None of them is**, **None of them are**: prav je. Ljudje rečejo tudi *I haven't got none*; pisno je **any**.",
+          "de": "**all** sind alle, **none** keiner, für mehr als zwei: **All the sheep are on the fell.** **All of them are on the fell.** **None of them came.** (Keiner ist gekommen.) **none** ist schon nein, also ohne not. **None of them is**, **None of them are**: das stimmt. Man sagt auch *I haven't got none*; geschrieben steht **any**.",
+          "it": "**all** sono tutti, **none** nessuno, per più di due: **All the sheep are on the fell.** **All of them are on the fell.** **None of them came.** (Non è venuto nessuno.) **none** è già no, quindi senza not, anche se l'italiano ha *non*. **None of them is**, **None of them are**: va bene. Si dice anche *I haven't got none*; per iscritto si usa **any**.",
+          "en": "**all** is all of them, **none** not one, for more than two: **All the sheep are on the fell.** **All of them are on the fell.** **None of them came.** **none** is already no, so there's no not. **None of them is**, **None of them are**: that's right. People also say *I haven't got none*; writing wants **any**."
+        },
+        "examples": [
+          {
+            "en": "All the sheep are on the fell.",
+            "sl": "Vse ovce so na hribu.",
+            "de": "Alle Schafe sind auf dem Fell.",
+            "it": "Tutte le pecore sono sul fell."
+          },
+          {
+            "en": "All of them are on the fell.",
+            "sl": "Vse so na hribu.",
+            "de": "Alle sind auf dem Fell.",
+            "it": "Sono tutte sul fell."
+          },
+          {
+            "en": "None of them came.",
+            "sl": "Nobeden ni prišel.",
+            "de": "Keiner ist gekommen.",
+            "it": "Non è venuto nessuno."
+          },
+          {
+            "en": "None of them are coming.",
+            "sl": "Nobeden ne pride.",
+            "de": "Keiner kommt.",
+            "it": "Non viene nessuno."
+          }
+        ],
+        "rows": [
+          [
+            "all, none",
+            {
+              "sl": "vsi; nobeden",
+              "de": "alle; keiner",
+              "it": "tutti; nessuno",
+              "en": "all of them; not one"
+            },
+            "None of them came."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "quantifiers",
+          "prompt": "We had ten eggs, but ___ of them are left.",
+          "options": [
+            "none",
+            "neither",
+            "every"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Več kot dva, nobeden: none**\n- None of them are left.",
+            "de": "**Mehr als zwei, keiner: none**\n- None of them are left.",
+            "it": "**Più di due, nessuno: none**\n- None of them are left.",
+            "en": "**More than two, not one: none**\n- None of them are left."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Še druge besede gredo pred **of them**, kot **some** in **any**: **Most of them are Herdwicks.** (Večina je pasme herdwick.) **Some of them are lost.** **One of them is lame.** **Have you seen any of them?** Pred zaimkom je **of** nujen. **Not all of them came.** pove, da nekateri niso.",
+          "de": "Auch andere Wörter stehen vor **of them**, wie **some** und **any**: **Most of them are Herdwicks.** (Die meisten sind Herdwicks.) **Some of them are lost.** **One of them is lame.** **Have you seen any of them?** Vor dem Pronomen muss **of** stehen. **Not all of them came.** sagt, dass manche nicht kamen.",
+          "it": "Anche altre parole stanno davanti a **of them**, come **some** e **any**: **Most of them are Herdwicks.** (La maggior parte sono Herdwick.) **Some of them are lost.** **One of them is lame.** **Have you seen any of them?** Davanti al pronome **of** ci vuole. **Not all of them came.** dice che alcuni non sono venuti.",
+          "en": "Other words go before **of them** too, like **some** and **any**: **Most of them are Herdwicks.** **Some of them are lost.** **One of them is lame.** **Have you seen any of them?** Before a pronoun **of** has to be there. **Not all of them came.** says some didn't."
+        },
+        "examples": [
+          {
+            "en": "Most of them are Herdwicks.",
+            "sl": "Večina je pasme herdwick.",
+            "de": "Die meisten sind Herdwicks.",
+            "it": "La maggior parte sono Herdwick."
+          },
+          {
+            "en": "Some of them are lost.",
+            "sl": "Nekatere so se izgubile.",
+            "de": "Einige haben sich verirrt.",
+            "it": "Alcune si sono perse."
+          },
+          {
+            "en": "One of them is lame.",
+            "sl": "Ena šepa.",
+            "de": "Eines lahmt.",
+            "it": "Una zoppica."
+          },
+          {
+            "en": "Not all of them came.",
+            "sl": "Niso prišli vsi.",
+            "de": "Nicht alle sind gekommen.",
+            "it": "Non sono venuti tutti."
+          }
+        ],
+        "rows": [
+          [
+            "some of, most of, one of",
+            {
+              "sl": "del celote",
+              "de": "ein Teil",
+              "it": "una parte",
+              "en": "a part of them"
+            },
+            "Most of them are Herdwicks."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "quantifiers",
+          "text": "Most ___ them are on the fell today.",
+          "accept": [
+            "of"
+          ],
+          "hint": {
+            "sl": "most + ? + them",
+            "de": "most + ? + them",
+            "it": "most + ? + them",
+            "en": "most + ? + them"
+          },
+          "explain": {
+            "sl": "**Pred zaimkom of**\n- Most of them are on the fell.",
+            "de": "**Vor dem Pronomen of**\n- Most of them are on the fell.",
+            "it": "**Davanti al pronome of**\n- Most of them are on the fell.",
+            "en": "**Before a pronoun: of**\n- Most of them are on the fell."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "both-neither-1",
+      "title": {
+        "sl": "Dva ali več",
+        "de": "Zwei oder mehr",
+        "it": "Due o di più",
+        "en": "Two or more"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "quantifiers",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "katera beseda",
+            "de": "welches Wort",
+            "it": "quale parola",
+            "en": "which word"
+          },
+          "columns": [
+            {
+              "sl": "beseda · word",
+              "de": "Wort · word",
+              "it": "parola · word",
+              "en": "word"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "sl": "dva: eden in drugi",
+                "de": "zwei: der eine und der andere",
+                "it": "due: l'uno e l'altro",
+                "en": "two: the one and the other"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "both"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "dva: ne eden ne drugi",
+                "de": "zwei: keiner von beiden",
+                "it": "due: nessuno dei due",
+                "en": "two: not one, not the other"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "neither"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "dva: kateri koli",
+                "de": "zwei: einer von beiden",
+                "it": "due: uno qualsiasi",
+                "en": "two: one or the other"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "either"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "več: vsi (of them)",
+                "de": "mehr: alle (of them)",
+                "it": "di più: tutti (of them)",
+                "en": "more: the whole lot (of them)"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "all"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "več: nobeden",
+                "de": "mehr: keiner",
+                "it": "di più: nessuno",
+                "en": "more: not one"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "none"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "vsak posebej (of them)",
+                "de": "jeder einzeln (of them)",
+                "it": "uno per uno (of them)",
+                "en": "one by one (of them)"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "each"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "vsi skupaj, ednina: ___ sheep",
+                "de": "alle zusammen, Einzahl: ___ sheep",
+                "it": "tutti insieme, singolare: ___ sheep",
+                "en": "all together, singular: ___ sheep"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "every"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Dva: both, neither, either; več: all, none, every, each**\n- both of them, all of them",
+            "de": "**Zwei: both, neither, either; mehr: all, none, every, each**\n- both of them, all of them",
+            "it": "**Due: both, neither, either; di più: all, none, every, each**\n- both of them, all of them",
+            "en": "**Two: both, neither, either; more: all, none, every, each**\n- both of them, all of them"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "quantifiers",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "dva",
+                "de": "zwei",
+                "it": "due",
+                "en": "two"
+              },
+              "words": [
+                "both dogs",
+                "either hand",
+                "neither of the two"
+              ]
+            },
+            {
+              "label": {
+                "sl": "trije ali več",
+                "de": "drei oder mehr",
+                "it": "tre o di più",
+                "en": "three or more"
+              },
+              "words": [
+                "all the sheep",
+                "every walker",
+                "none of the five"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Dva: both, either, neither**\n- both dogs, every walker",
+            "de": "**Zwei: both, either, neither**\n- both dogs, every walker",
+            "it": "**Due: both, either, neither**\n- both dogs, every walker",
+            "en": "**Two: both, either, neither**\n- both dogs, every walker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "both-neither-2",
+      "title": {
+        "sl": "Sinovi in ovce gospoda Tysona",
+        "de": "Mr Tysons Söhne und Schafe",
+        "it": "I figli e le pecore di Mr Tyson",
+        "en": "Mr Tyson's sons and sheep"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "quantifiers",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Mr Tyson has two sons, and ___ of them live in Kendal. ___ of them wants the mill, so he'll have to keep it. He has fifty sheep, and ___ sheep has a mark. ___ of them are on the fell today. ___ of them have got lost this year, which makes him happy. You can buy ___ a lamb or a sack of oats from him. He's ___ rich nor poor.",
+          "gaps": [
+            {
+              "accept": [
+                "both"
+              ]
+            },
+            {
+              "accept": [
+                "Neither"
+              ]
+            },
+            {
+              "accept": [
+                "every",
+                "each"
+              ]
+            },
+            {
+              "accept": [
+                "All",
+                "Most",
+                "Some",
+                "Many"
+              ]
+            },
+            {
+              "accept": [
+                "None"
+              ]
+            },
+            {
+              "accept": [
+                "either"
+              ]
+            },
+            {
+              "accept": [
+                "neither"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "nor"
+          ],
+          "translation": {
+            "sl": "Gospod Tyson ima dva sinova, oba živita v Kendalu. Nobeden od njiju noče mlina, zato ga bo moral obdržati. Ima petdeset ovc in vsaka ovca ima oznako. Vse so danes na hribu. Nobena se letos ni izgubila, zato je vesel. Pri njem lahko kupiš jagnje ali vrečo ovsa. Ni ne bogat ne reven.",
+            "de": "Mr Tyson hat zwei Söhne, und beide wohnen in Kendal. Keiner von beiden will die Mühle, darum wird er sie behalten müssen. Er hat fünfzig Schafe, und jedes Schaf hat ein Zeichen. Alle sind heute auf dem Fell. Keines hat sich heuer verirrt, was ihn freut. Du kannst bei ihm entweder ein Lamm oder einen Sack Hafer kaufen. Er ist weder reich noch arm.",
+            "it": "Mr Tyson ha due figli, che abitano tutti e due a Kendal. Nessuno dei due vuole il mulino, quindi dovrà tenerselo. Ha cinquanta pecore, e ogni pecora ha un segno. Oggi sono tutte sul fell. Quest'anno non se n'è persa nessuna, il che lo rende felice. Da lui puoi comprare un agnello o un sacco d'avena. Non è né ricco né povero.",
+            "en": "Mr Tyson has two sons, and both of them live in Kendal. Neither of them wants the mill, so he'll have to keep it. He has fifty sheep, and every sheep has a mark. All of them are on the fell today. None of them have got lost this year, which makes him happy. You can buy either a lamb or a sack of oats from him. He's neither rich nor poor."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "quantifiers",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "I saw Jack and Sam, and I spoke to them ___.",
+          "options": [
+            "both",
+            "all",
+            "neither"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Dva, oba da: both**\n- I spoke to them both.",
+            "de": "**Zwei, beide ja: both**\n- I spoke to them both.",
+            "it": "**Due, tutti e due sì: both**\n- I spoke to them both.",
+            "en": "**Two, yes to both: both**\n- I spoke to them both."
+          }
+        }
+      ]
+    },
+    {
+      "id": "both-neither-3",
+      "title": {
+        "sl": "Pari in glagol",
+        "de": "Paare und das Verb",
+        "it": "Le coppie e il verbo",
+        "en": "Pairs and the verb"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "quantifiers",
+          "instruction": {
+            "sl": "Make one sentence with both, neither, either or none · Naredi en stavek z both, neither, either ali none",
+            "de": "Make one sentence with both, neither, either or none · Mach einen Satz mit both, neither, either oder none",
+            "it": "Make one sentence with both, neither, either or none · Fanne una frase sola con both, neither, either o none",
+            "en": "Make one sentence with both, neither, either or none"
+          },
+          "items": [
+            {
+              "from": "Jack is coming. Sam is coming.",
+              "accept": [
+                "Both Jack and Sam are coming.",
+                "Jack and Sam are both coming."
+              ]
+            },
+            {
+              "from": "Jack isn't coming. Sam isn't coming.",
+              "accept": [
+                "Neither Jack nor Sam is coming."
+              ],
+              "spoken": [
+                "Neither Jack nor Sam are coming."
+              ]
+            },
+            {
+              "from": "You can walk, or you can take the bus.",
+              "accept": [
+                "You can either walk or take the bus.",
+                "You can either walk or you can take the bus.",
+                "Either you can walk or you can take the bus."
+              ]
+            },
+            {
+              "from": "Edna has got a radio. Maggie has got a radio.",
+              "accept": [
+                "Both Edna and Maggie have got a radio.",
+                "Edna and Maggie have both got a radio.",
+                "Edna and Maggie both have got a radio.",
+                "Both Edna and Maggie have a radio.",
+                "Edna and Maggie both have a radio."
+              ]
+            },
+            {
+              "from": "I don't like tea. I don't like coffee.",
+              "accept": [
+                "I like neither tea nor coffee.",
+                "I don't like either tea or coffee.",
+                "I don't like tea or coffee."
+              ],
+              "spoken": [
+                "I don't like neither tea nor coffee."
+              ]
+            },
+            {
+              "from": "Not one of the five sheep is lame.",
+              "accept": [
+                "None of the five sheep is lame.",
+                "None of the five sheep are lame.",
+                "None of the sheep is lame.",
+                "None of the sheep are lame."
+              ]
+            },
+            {
+              "from": "The two dogs aren't here.",
+              "accept": [
+                "Neither of the two dogs is here.",
+                "Neither of the dogs is here.",
+                "Neither dog is here."
+              ],
+              "spoken": [
+                "Neither of the two dogs are here.",
+                "Neither of the dogs are here."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**both … and: are; neither … nor: glagol pozitiven**\n- Neither Jack nor Sam is coming.",
+            "de": "**both … and: are; neither … nor: das Verb bejaht**\n- Neither Jack nor Sam is coming.",
+            "it": "**both … and: are; neither … nor: il verbo è positivo**\n- Neither Jack nor Sam is coming.",
+            "en": "**both … and: are; neither … nor: the verb says yes**\n- Neither Jack nor Sam is coming."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "quantifiers",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Every sheep ___ (have) a mark. Each of them ___ (have) a name too. Neither of the dogs ___ (be) here. None of the walkers ___ (be) lost. Both of them ___ (be) at the inn.",
+          "gaps": [
+            {
+              "accept": [
+                "has"
+              ]
+            },
+            {
+              "accept": [
+                "has"
+              ],
+              "spoken": [
+                "have"
+              ]
+            },
+            {
+              "accept": [
+                "is"
+              ],
+              "spoken": [
+                "are"
+              ]
+            },
+            {
+              "accept": [
+                "is",
+                "are"
+              ]
+            },
+            {
+              "accept": [
+                "are"
+              ]
+            }
+          ],
+          "translation": {
+            "sl": "Vsaka ovca ima oznako. Vsaka ima tudi ime. Nobenega od psov ni tukaj. Nobeden od pohodnikov se ni izgubil. Oba sta v gostilni.",
+            "de": "Jedes Schaf hat ein Zeichen. Jedes hat auch einen Namen. Keiner der beiden Hunde ist hier. Keiner der Wanderer hat sich verirrt. Beide sind im Gasthaus.",
+            "it": "Ogni pecora ha un segno. Ognuna ha anche un nome. Nessuno dei due cani è qui. Nessuno degli escursionisti si è perso. Tutti e due sono alla locanda.",
+            "en": "Every sheep has a mark. Each of them has a name too. Neither of the dogs is here. None of the walkers is lost. Both of them are at the inn."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "quantifiers",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Granny Maggie has two cats. ___ of them sleep all day, and ___ of them catches mice. She gives ___ cat its own dish. She had six hens, but ___ of them are left.",
+        "gaps": [
+          {
+            "accept": [
+              "Both"
+            ]
+          },
+          {
+            "accept": [
+              "neither"
+            ]
+          },
+          {
+            "accept": [
+              "each"
+            ]
+          },
+          {
+            "accept": [
+              "none"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Babica Maggie ima dve mački. Obe spita ves dan in nobena ne lovi miši. Vsaki mački da svojo skledico. Imela je šest kokoši, a nobena ni ostala.",
+          "de": "Oma Maggie hat zwei Katzen. Beide schlafen den ganzen Tag, und keine von beiden fängt Mäuse. Jeder Katze gibt sie ihr eigenes Schälchen. Sie hatte sechs Hühner, aber keines ist übrig.",
+          "it": "Nonna Maggie ha due gatte. Dormono tutte e due tutto il giorno, e nessuna delle due prende i topi. A ogni gatta dà la sua ciotola. Aveva sei galline, ma non ne è rimasta nessuna.",
+          "en": "Granny Maggie has two cats. Both of them sleep all day, and neither of them catches mice. She gives each cat its own dish. She had six hens, but none of them are left."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "quantifiers",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "You can have ___ tea or coffee.",
+        "options": [
+          "either",
+          "neither",
+          "both"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**either … or**\n- You can have either tea or coffee.",
+          "de": "**either … or**\n- You can have either tea or coffee.",
+          "it": "**either … or**\n- You can have either tea or coffee.",
+          "en": "**either … or**\n- You can have either tea or coffee."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "quantifiers",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ Sam nor Jack came to the dance.",
+        "options": [
+          "Neither",
+          "Either",
+          "Both"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**neither … nor**\n- Neither Sam nor Jack came to the dance.",
+          "de": "**neither … nor**\n- Neither Sam nor Jack came to the dance.",
+          "it": "**neither … nor**\n- Neither Sam nor Jack came to the dance.",
+          "en": "**neither … nor**\n- Neither Sam nor Jack came to the dance."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "quantifiers",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "We've got ten sheep. ___ of them are on the fell.",
+        "options": [
+          "All",
+          "Both",
+          "Either"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Več kot dva: all**\n- All of them are on the fell.",
+          "de": "**Mehr als zwei: all**\n- All of them are on the fell.",
+          "it": "**Più di due: all**\n- All of them are on the fell.",
+          "en": "**More than two: all**\n- All of them are on the fell."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "quantifiers",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ walker needs a good map.",
+        "options": [
+          "Every",
+          "All",
+          "Both"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Ednina: every**\n- Every walker needs a good map.",
+          "de": "**Einzahl: every**\n- Every walker needs a good map.",
+          "it": "**Singolare: every**\n- Every walker needs a good map.",
+          "en": "**The singular: every**\n- Every walker needs a good map."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "quantifiers",
+        "instruction": {
+          "sl": "Make one sentence with both, neither, either or none · Naredi en stavek z both, neither, either ali none",
+          "de": "Make one sentence with both, neither, either or none · Mach einen Satz mit both, neither, either oder none",
+          "it": "Make one sentence with both, neither, either or none · Fanne una frase sola con both, neither, either o none",
+          "en": "Make one sentence with both, neither, either or none"
+        },
+        "items": [
+          {
+            "from": "Mr Dixon works hard. Mr Tyson works hard.",
+            "accept": [
+              "Both Mr Dixon and Mr Tyson work hard.",
+              "Mr Dixon and Mr Tyson both work hard."
+            ]
+          },
+          {
+            "from": "Poppy can't swim. Harry can't swim.",
+            "accept": [
+              "Neither Poppy nor Harry can swim."
+            ]
+          },
+          {
+            "from": "You can pay now, or you can pay later.",
+            "accept": [
+              "You can either pay now or pay later.",
+              "You can pay either now or later.",
+              "You can either pay now or later.",
+              "You can either pay now or you can pay later.",
+              "Either you can pay now or you can pay later."
+            ]
+          },
+          {
+            "from": "Not one of the six walkers has a map.",
+            "accept": [
+              "None of the six walkers has a map.",
+              "None of the six walkers have a map.",
+              "None of the walkers has a map.",
+              "None of the walkers have a map."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**both … and; neither … nor; either … or; none of**\n- Neither Poppy nor Harry can swim.",
+          "de": "**both … and; neither … nor; either … or; none of**\n- Neither Poppy nor Harry can swim.",
+          "it": "**both … and; neither … nor; either … or; none of**\n- Neither Poppy nor Harry can swim.",
+          "en": "**both … and; neither … nor; either … or; none of**\n- Neither Poppy nor Harry can swim."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: the both of them, neither … or; each of them have; neither of them are; I haven't got none; none is or are"
+}
