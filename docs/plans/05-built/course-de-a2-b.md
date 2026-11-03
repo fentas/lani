@@ -20,8 +20,8 @@ Austrian German first:
   favourite and how it's glossed; the order "Heute freut sich Kathi" (both "Am Sonntag freut Kathi sich" and "… sich Kathi" are
   accepted); "Wir treffen uns um acht"; "Maxi, beeil dich!"; the Perfekt "Stefan hat sich verkühlt".
 - **warten-auf**: the choice of chunks (warten auf, aufpassen auf, denken an, schreiben an, sich freuen auf and über, sprechen mit
-  and über, Angst haben vor, erzählen von, träumen von, fragen nach; the page adds lachen über, bitten um, sich interessieren
-  für); "Lena schreibt an die Oma"; "Jakob hat Angst vor dem Krampus" (an adult course's joke, not the child's Italian course).
+  and über, Angst haben vor, erzählen von, träumen von; the page adds lachen über, bitten um, sich interessieren für, fragen
+  nach); "Lena schreibt an die Oma"; "Jakob hat Angst vor dem Krampus" (an adult course's joke, not the child's Italian course).
 - **am-ersten-mai**: Jänner, Feber (Duden: "österreichisch, besonders Amtssprache"), heuer; der erste Fünfte and der sechste Erste as
   a date read out; "Der Wievielte ist heute?"; im dritten Stock; siebte beside siebente. The holidays named are 1 May, 6 January
   and 26 October, from memory, not from a source.
@@ -29,7 +29,7 @@ Austrian German first:
 Each base, by the same reader:
 
 - **Slovene**: the aspects and the first person's gender in translations ("Včeraj nisem mogel priti", "Rad bi kavo", the unit's
-  speaker has no gender of its own); the grammar words (deležnik, povratni glagol, vrstilni števnik, kratki preteklik); "se" and
+  speaker has no gender of its own); the grammar words (deležnik, povratni glagol, vrstilni števnik, kratki preteklik); zveza for a chunk of verb and preposition; "se" and
   "si" for mich and mir; Podklošter for Arnoldstein, Videm for Udine.
 - **Italian**: "sich freuen auf: non vedere l'ora di"; "bastano giusti giusti" for Das geht sich aus; the passato breve; "non sei
   obbligato" for nicht müssen; "Mi lavo i denti" for Ich putze mir die Zähne.
@@ -47,7 +47,7 @@ aloud), three worksheets from the forms to sentences to making the form, a test 
 | 8 | `partizip-perfekt` 🧩 Aufgestanden, verstanden, gesessen | **partizip-zwei**, perfekt, trennbare-verben | 6 | 17 | table + sort (21) · gap text with a bank + multi + choice (10) · transform (12): 43 | 14 |
 | 9 | `war-hatte` 🕰️ Ich war, ich hatte, ich konnte | **praeteritum-kurz**, sein-haben, modalverben | 5 | 14 | table + sort (20) · gap text with a bank + 2 choices (10) · 2 transforms (10): 40 | 14 |
 | 10 | `reflexiv` 🪞 Ich wasche mir die Hände | **reflexive-verben** | 5 | 18 | table + sort (18) · gap text with a bank + 2 choices (9) · 3 transforms (10): 37 | 14 |
-| 11 | `warten-auf` 🚏 Ich warte auf den Bus | **verben-praepositionen**, akkusativ, dativ | 6 | 16 | table + sort (19) · gap text with a bank + 2 choices (9) · 2 transforms (12): 40 | 14 |
+| 11 | `warten-auf` 🚏 Ich warte auf den Bus | **verben-praepositionen**, akkusativ, dativ | 6 | 16 | table + sort (18) · gap text with a bank + 2 choices (9) · 2 transforms (12): 39 | 14 |
 | 12 | `am-ersten-mai` 📅 Am ersten Mai, vor zwei Tagen | **ordinalzahlen**, uhrzeit, zahlen | 6 | 19 | table + sort (19) · gap text with a bank + 2 choices (8) · 2 transforms (11): 38 | 14 |
 
 What each unit teaches:
@@ -64,8 +64,8 @@ What each unit teaches:
 - **war-hatte**: war, hatte, and the modals' -te with no umlaut, with hätte and könnte set against them; es gab, always singular;
   how people mix them with the Perfekt, and that ich bin gewesen is as right. The gap text is the Kirchtag in Arnoldstein; the test is
   Opa Sepp's old days.
-- **reflexiv**: mich, dich, sich, uns, euch, sich; the verbs that always have it, with the Austrian sich verkühlen (sich erkälten
-  named); its place (Heute freut sich Kathi); Perfekt with haben; mir and dir once a thing is named, as Slovene si and Italian mi;
+- **reflexiv**: mich, dich, sich, uns, euch, sich; the verbs that come with it, with the Austrian sich verkühlen (sich erkälten
+  named); its place (Heute freut sich Kathi); Perfekt with haben; mir and dir when the verb has another object, as Slovene si (Italian keeps mi);
   Setz dich!, Setzen Sie sich!; wir treffen uns; Das geht sich aus. The gap text is the morning at Kathi's; the test is Tante Mitzi's
   cold. The Slovene and Italian explanations say what each language shares with it.
 - **warten-auf**: each chunk with its case: warten auf and aufpassen auf; denken an, schreiben an; sich freuen auf (ahead) and über
@@ -128,7 +128,7 @@ Part a and b don't touch it. A section for the German course's A2 units 7–12:
 | `muessen-duerfen` 🚦 | müssen, dürfen, wollen, sollen, mögen; the infinitive last; nicht müssen against nicht dürfen; Magst du …? | modalverben, wortstellung |
 | `partizip-perfekt` 🧩 | ge-…-t, ge-…-en, mixed, separable, none; haben or sein; ist gesessen, gestanden, gelegen with hat accepted; hat gestellt, hat gelegt | partizip-zwei, perfekt, trennbare-verben |
 | `war-hatte` 🕰️ | war, hatte, the modals' -te with no umlaut, es gab; beside the Perfekt, ist gewesen as right | praeteritum-kurz, sein-haben, modalverben |
-| `reflexiv` 🪞 | mich … sich; always reflexive verbs, sich verkühlen; its place; Perfekt with haben; mir, dir once a thing is named; Setz dich! | reflexive-verben |
+| `reflexiv` 🪞 | mich … sich; verbs that come with it, sich verkühlen; its place; Perfekt with haben; mir, dir when the verb has another object; Setz dich! | reflexive-verben |
 | `warten-auf` 🚏 | each chunk with its case: warten auf, denken an, sich freuen auf and über, sprechen mit and über, Angst haben vor, von; pronouns for people | verben-praepositionen, akkusativ, dativ |
 | `am-ersten-mai` 📅 | -te, -ste; der erste Mai, am ersten Mai, vom … bis zum; vor zwei Tagen, in einer Woche; Jänner, Feber, heuer | ordinalzahlen, uhrzeit, zahlen |
 
@@ -157,5 +157,20 @@ ahead. These count the units only, as `voice-build`'s `course` source reads them
 
 ## Checks
 
-See the report below once the runs are in: tsc, the smoke, `tutor-export --check`, `GermanA2bContentTest`, `GermanCourseContentTest`, `SchoolBoardTest`, a unit and
-its print on the emulator.
+- **A second reader**: a helper agent read the six units and five pages for German, Slovene, Italian and English, without my conclusions, and found 23 points. Fixed: a rule
+  stated too widely (mir and dir), Italian non deve for muss nicht against the unit's own trap, a typed gap two prepositions fit, right answers not listed, two distractors that
+  fitted their sentence, gehangen asked before it was taught, Es gab viele Leute, some Slovene. It is one more machine's reading, not a native check.
+- **Android, through lani-slot** (not the whole suite, as the brief says): 137 tests, none failed: GermanA2bContentTest 8, GermanCourseContentTest 5, GradingLanguagesTest 48,
+  SchoolBoardTest 7, GrammarTest 16, CourseTest 8, PrintsTest 6, CheatSheetTest 19, SchoolRevealTest 10, IntroBoldTapTest 2, IntroSpeechParityTest 2, SentenceGrammarTest 6.
+- **tsc**: clean. **`tutor-export --check`**: 89 files match the bridge. **`bun test/prompt-clashes.ts`**: no new clash. **`lexicon-build --coverage --lang de`**: as before.
+- **Prints**: `school-prints --language de --level A2 --base en|sl|it`, the six units: `reflexiv` on one page, the others on two, every step's point on the rule line. On this branch they
+  read "Lektion 1" to "6"; they become 7 to 12 once part a lands.
+- **Emulator** (qa-slot, slot 2, `--steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=partizip-perfekt`): a synthetic learner of German from Slovene
+  plays the unit end to end and passes: Eva's six steps with each quick question, the summary, the first worksheet, the test, the print's preview and PDF. setup, course-unit and the crash check
+  are ok. Screenshots: the scratchpad's `ux-course-de-a2-b/`.
+
+## What's left
+
+- The native check above.
+- The lead's "once merged" pass: `pronomen-dativ` on `reflexiv`, in the unit and its outline line.
+- Part c's COURSE.md section, from "For part c" above, and the course's content test if it wants these units named.
