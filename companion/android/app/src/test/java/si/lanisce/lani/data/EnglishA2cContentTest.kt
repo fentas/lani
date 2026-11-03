@@ -1,7 +1,10 @@
 package si.lanisce.lani.data
 
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -87,7 +90,8 @@ class EnglishA2cContentTest {
             "I seen a raven yesterday." to "I saw a raven yesterday.", "I done the washing up." to "I did the washing up.",
             "I've saw a raven." to "I've seen a raven.", "He's went to Keswick." to "He's gone to Keswick.", "She's took the bus." to "She has taken the bus.",
             "Have you ate yet?" to "Have you eaten yet?", "I haven't never been to Carlisle." to "I've never been to Carlisle.",
-            "Mr Tyson hasn't never seen the sea." to "Mr Tyson has never seen the sea.", "He telled us a story." to "He told us a story.", "I sung at the dance." to "I sang at the dance.", "Jack catched the bus." to "Jack caught the bus.",
+            "Mr Tyson hasn't never seen the sea." to "Mr Tyson has never seen the sea.", "I sung at the dance." to "I sang at the dance.",
+            "Yes, I were." to "Yes, I was.", "They wasn't at home." to "They weren't at home.", "There was a lot of walkers." to "There were a lot of walkers.",
         )) {
             val r = en(typed, right)
             assertEquals(typed, Verdict.ALMOST to Hint.NONSTANDARD, r.verdict to r.hint)
@@ -97,6 +101,9 @@ class EnglishA2cContentTest {
         for ((typed, right) in listOf(
             "saw" to "seen", "went" to "gone", "I saw a raven." to "I've seen a raven.", "He come home." to "He came home.", "She give me a scone." to "She gave me a scone.",
             "We have was there." to "We have been there.", "I've seen a raven." to "I saw a raven.",
+            // a child's or a learner's regular past isn't what grown-ups say, as gooder and more bigger aren't
+            "He telled us a story." to "He told us a story.", "Jack catched the bus." to "Jack caught the bus.", "She knowed him." to "She knew him.", "He throwed it." to "He threw it.",
+            "I've knew him for years." to "I've known him for years.", "I've flew to Keswick." to "I've flown to Keswick.",
         )) assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
         val gap = SheetItem(accept = listOf("seen"), grammar = null, frame = "I've ${Sheets.BLANK} a raven.")
         val said = Sheets.check(gap, "saw", Lang.EN)
@@ -119,12 +126,12 @@ class EnglishA2cContentTest {
         assertEquals(Verdict.CORRECT to "are going to", Sheets.check(gonna, "are gonna", Lang.EN).let { it.verdict to it.standard })
     }
 
-    /** All 18 of A2: part b's EnglishA2bContentTest holds its six, this the level. */
-    private val a2 by lazy { course.levels.first { it.level == "A2" }.units.map { it.id } }
+    /** A1's and A2's 36 units: part b's EnglishA2bContentTest holds its six, this the rest. */
+    private val levels by lazy { course.levels.filter { it.level == "A1" || it.level == "A2" }.flatMap { l -> l.units.map { it.id } } }
 
-    @Test fun `no choice and no word bank of the whole level offers what people say as the wrong form`() {
-        assertEquals(18, a2.size)
-        for (id in a2) {
+    @Test fun `no choice and no word bank of A1 and A2 offers what people say as the wrong form`() {
+        assertEquals(36, levels.size)
+        for (id in levels) {
             val u = course.units.getValue(id)
             val all = u.worksheets.flatMap { it.exercises } + u.test.exercises
             val choices = all.filterIsInstance<Exercise.Choice>() + u.intro?.steps.orEmpty().mapNotNull { it.ask as? Exercise.Choice }
@@ -144,15 +151,26 @@ class EnglishA2cContentTest {
         }
     }
 
-    @Test fun `no text of the level says never of a form people say`() {
-        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:amn't|I've saw|I've went|haven't never|hasn't never|It were|he were|you was|we was|I seen|I done|telled)[^*]*\*""", RegexOption.IGNORE_CASE)
-        val texts = a2.flatMap { id ->
-            val unit = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject
-            unit["intro"]!!.jsonObject["steps"]!!.jsonArray.flatMap { s -> s.jsonObject["say"]!!.jsonObject.values.map { "$id: ${it.jsonPrimitive.content}" } }
-        } + File(companion, "grammar/en").listFiles()!!.map { json.parseToJsonElement(it.readText()).jsonObject }.filter { it["level"]!!.jsonPrimitive.content == "A2" }.flatMap { p ->
-            p["rule"]!!.jsonObject.values.map { "${p["id"]!!.jsonPrimitive.content}: ${it.jsonPrimitive.content}" }
+    @Test fun `no text of A1 and A2 says never of a form people say`() {
+        val forms = "amn't|I've saw|I've went|haven't never|hasn't never|It were|he were|you was|we was|I were|they wasn't|I seen|I done"
+        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*?[^*.;]*?(?:$forms)""", RegexOption.IGNORE_CASE)
+        fun strings(e: JsonElement): List<String> = when (e) {
+            is JsonObject -> e.values.flatMap { strings(it) }
+            is JsonArray -> e.flatMap { strings(it) }
+            is JsonPrimitive -> if (e.isString) listOf(e.content) else emptyList()
         }
-        assertEquals(emptyList<String>(), texts.filter { said.containsMatchIn(it) })
+        val units = levels.flatMap { id -> strings(json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject).map { "$id: $it" } }
+        val pages = File(companion, "grammar/en").listFiles()!!.map { json.parseToJsonElement(it.readText()).jsonObject }.filter { it["level"]!!.jsonPrimitive.content in listOf("A1", "A2") }
+            .flatMap { p -> strings(p).map { "${p["id"]!!.jsonPrimitive.content}: $it" } }
+        assertEquals(emptyList<String>(), (units + pages).filter { said.containsMatchIn(it) })
+    }
+
+    @Test fun `A1 names what people say, and writing's form beside it`() {
+        fun says(id: String) = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject["intro"]!!.jsonObject["steps"]!!.jsonArray
+            .flatMap { s -> s.jsonObject["say"]!!.jsonObject.values.map { it.jsonPrimitive.content } }
+        for ((id, form) in listOf("to-be" to "*I amn't*", "was-were" to "*you was*", "was-were" to "*Yes, I were*")) {
+            assertEquals("$id names $form in every base", 4, says(id).count { form in it })
+        }
     }
 
     @Test fun `the six units are written in the outline's order at A2, naming their pages`() {

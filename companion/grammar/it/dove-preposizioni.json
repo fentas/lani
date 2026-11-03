@@ -99,9 +99,21 @@
       "de": "Der Hund schläft zwischen den Schafen."
     }
   ],
-  "modules": [],
+  "modules": ["preposizioni-articolate"],
   "tags": ["dove", "prepositions_place", "place_prepositions", "prepositions", "location", "vicino_a"],
   "see": ["preposizioni-articolate", "articoli-genere", "domande"],
   "machine_written": true,
-  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "rule": {
+      "sl": "**a** + mesto (**a Gorizia**, **a casa**), **in** + država, pokrajina ali soba (**in Italia**, **in cucina**), **da** + oseba (**da Nonna Rosa**). Iste besede povedo kje in kam.",
+      "en": "**a** + a town (**a Gorizia**, **a casa**), **in** + a country, region or room (**in Italia**, **in cucina**), **da** + a person (**da Nonna Rosa**). The same words say where and where to.",
+      "de": "**a** + Stadt (**a Gorizia**, **a casa**), **in** + Land, Region oder Zimmer (**in Italia**, **in cucina**), **da** + Person (**da Nonna Rosa**). Dieselben Wörter sagen wo und wohin."
+    },
+    "tip": {
+      "sl": "💡 **Vicino a, accanto a, davanti a** obdržijo **a**, ki se spoji s členom: **vicino allo stagno**. **Sotto, sopra, dietro** vzamejo samo člen: **sotto il grande abete**.",
+      "en": "💡 **Vicino a, accanto a, davanti a** keep their **a**, and it fuses: **vicino allo stagno**. **Sotto, sopra, dietro** take the article alone: **sotto il grande abete**.",
+      "de": "💡 **Vicino a, accanto a, davanti a** behalten ihr **a**, und es verschmilzt: **vicino allo stagno**. **Sotto, sopra, dietro** nehmen nur den Artikel: **sotto il grande abete**."
+    }
+  }
 }

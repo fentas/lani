@@ -1,0 +1,975 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "warten-auf",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🚏",
+  "title": {
+    "de": "Ich warte auf den Bus",
+    "en": "Verbs with prepositions: warten auf, denken an",
+    "sl": "Glagoli s predlogi: warten auf, denken an",
+    "it": "Verbi con preposizione: warten auf, denken an"
+  },
+  "goal": {
+    "en": "You can use the commonest verbs with a fixed preposition, each with its case (warten auf den Bus, denken an dich, Angst haben vor dem Hund), and tell sich freuen auf from sich freuen über, and sprechen mit from sprechen über.",
+    "sl": "Rabiš najpogostejše glagole s stalnim predlogom, vsakega s svojim sklonom (warten auf den Bus, denken an dich, Angst haben vor dem Hund), ter ločiš sich freuen auf od sich freuen über in sprechen mit od sprechen über.",
+    "it": "Usi i verbi più comuni con una preposizione fissa, ciascuno con il suo caso (warten auf den Bus, denken an dich, Angst haben vor dem Hund), e sai distinguere sich freuen auf da sich freuen über e sprechen mit da sprechen über."
+  },
+  "grammar": [
+    "verben-praepositionen",
+    "akkusativ",
+    "dativ"
+  ],
+  "words": [
+    "warten auf",
+    "aufpassen auf",
+    "denken an",
+    "schreiben an",
+    "sich freuen auf",
+    "sich freuen über",
+    "sprechen mit",
+    "sprechen über",
+    "Angst haben vor",
+    "erzählen von",
+    "träumen von",
+    "der Bus",
+    "der Zug",
+    "der Bahnhof",
+    "der Brief",
+    "der Bauer",
+    "das Thema",
+    "das Gewitter",
+    "die Bienen",
+    "die Blumen",
+    "der Bürgermeister",
+    "der Bäcker",
+    "der Geburtstag",
+    "das Essen",
+    "das Fest",
+    "der Krampus",
+    "immer",
+    "oft",
+    "seit",
+    "nächste Woche"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Verb + Präposition",
+          "en": "verb + preposition",
+          "sl": "glagol + predlog",
+          "it": "verbo + preposizione"
+        },
+        {
+          "de": "Akkusativ · Dativ",
+          "en": "accusative · dative",
+          "sl": "tožilnik · dajalnik",
+          "it": "accusativo · dativo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Many verbs have a fixed preposition, so learn them as one chunk. **warten auf** (to wait for) takes the accusative: **Ich warte auf den Bus.** (I'm waiting for the bus.) There is no wo? here: never *auf dem Bus*. And not *für*, as English for might suggest. **aufpassen auf** (to look after) works the same way: **Pass auf das Kind auf!** (Look after the child!)",
+          "sl": "Mnogi glagoli imajo stalni predlog, zato se jih uči kot zvezo. **warten auf** (čakati na) ima tožilnik, kot v slovenščini: **Ich warte auf den Bus.** (Čakam na avtobus.) Tu ni vprašanja wo?, torej ne auf dem Bus. **aufpassen auf** (paziti na) gre enako: **Pass auf das Kind auf!** (Pazi na otroka!)",
+          "it": "Molti verbi hanno una preposizione fissa: si imparano come un blocco. **warten auf** (aspettare) vuole l'accusativo: **Ich warte auf den Bus.** (Aspetto l'autobus.) Qui non c'è wo?, quindi non auf dem Bus. E senza auf non si può dire: l'italiano aspettare non ha preposizione, il tedesco sì. **aufpassen auf** (badare a) funziona allo stesso modo: **Pass auf das Kind auf!** (Bada al bambino!)"
+        },
+        "examples": [
+          {
+            "de": "Ich warte auf den Bus.",
+            "en": "I'm waiting for the bus.",
+            "sl": "Čakam na avtobus.",
+            "it": "Aspetto l'autobus."
+          },
+          {
+            "de": "Pass auf das Kind auf!",
+            "en": "Look after the child!",
+            "sl": "Pazi na otroka!",
+            "it": "Bada al bambino!"
+          }
+        ],
+        "rows": [
+          [
+            "warten auf",
+            "den Bus"
+          ],
+          [
+            "aufpassen auf",
+            "das Kind"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verben-praepositionen",
+          "prompt": "Stefan wartet ___ Kathi.",
+          "options": [
+            "auf",
+            "für",
+            "an"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**warten auf + accusative**\n- Stefan wartet auf Kathi",
+            "sl": "**warten auf + tožilnik**\n- Stefan wartet auf Kathi",
+            "it": "**warten auf + accusativo**\n- Stefan wartet auf Kathi"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**denken an** (to think of) also takes the accusative: **Ich denke an dich.** (I'm thinking of you.) **Stefan denkt an den Most.** (Stefan is thinking of the cider.) So does **schreiben an** (to write to): **Lena schreibt an die Oma.** (Lena is writing to her grandma.) an here is no place by anything, it belongs to the verb.",
+          "sl": "**denken an** (misliti na) ima tudi tožilnik: **Ich denke an dich.** (Mislim nate.) **Stefan denkt an den Most.** (Stefan misli na mošt.) Prav tako **schreiben an** (pisati komu): **Lena schreibt an die Oma.** (Lena piše babici.) an tu ni kraj, spada h glagolu.",
+          "it": "Anche **denken an** (pensare a) vuole l'accusativo: **Ich denke an dich.** (Penso a te.) **Stefan denkt an den Most.** (Stefan pensa al sidro.) Così **schreiben an** (scrivere a): **Lena schreibt an die Oma.** (Lena scrive alla nonna.) an qui non è un luogo, fa parte del verbo."
+        },
+        "examples": [
+          {
+            "de": "Ich denke an dich.",
+            "en": "I'm thinking of you.",
+            "sl": "Mislim nate.",
+            "it": "Penso a te."
+          },
+          {
+            "de": "Stefan denkt an den Most.",
+            "en": "Stefan is thinking of the cider.",
+            "sl": "Stefan misli na mošt.",
+            "it": "Stefan pensa al sidro."
+          },
+          {
+            "de": "Lena schreibt an die Oma.",
+            "en": "Lena is writing to her grandma.",
+            "sl": "Lena piše babici.",
+            "it": "Lena scrive alla nonna."
+          }
+        ],
+        "rows": [
+          [
+            "denken an",
+            "den Most"
+          ],
+          [
+            "schreiben an",
+            "die Oma"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "verben-praepositionen",
+          "text": "Florian denkt immer an ___ Hund. (der)",
+          "accept": [
+            "den"
+          ],
+          "hint": {
+            "en": "an + accusative",
+            "sl": "an + tožilnik",
+            "it": "an + accusativo"
+          },
+          "explain": {
+            "en": "**denken an + accusative: der → den**\n- Florian denkt an den Hund",
+            "sl": "**denken an + tožilnik: der → den**\n- Florian denkt an den Hund",
+            "it": "**denken an + accusativo: der → den**\n- Florian denkt an den Hund"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sich freuen** has two chunks, both with the accusative. **sich freuen auf** (to look forward to) is for what is still to come: **Ich freue mich auf den Kirchtag.** (I'm looking forward to the Kirchtag.) **sich freuen über** (to be glad about) is for what is already here: **Kathi freut sich über den Brief.** (Kathi is glad about the letter.)",
+          "sl": "**sich freuen** ima dve zvezi, obe s tožilnikom. **sich freuen auf** (veseliti se tega, kar pride): **Ich freue mich auf den Kirchtag.** (Veselim se žegnanja.) **sich freuen über** (veseliti se tega, kar je že tu): **Kathi freut sich über den Brief.** (Kathi je vesela pisma.)",
+          "it": "**sich freuen** ha due blocchi, tutti e due con l'accusativo. **sich freuen auf** (non vedere l'ora di) è per ciò che deve ancora arrivare: **Ich freue mich auf den Kirchtag.** (Non vedo l'ora della sagra.) **sich freuen über** (essere contento di) è per ciò che c'è già: **Kathi freut sich über den Brief.** (Kathi è contenta della lettera.)"
+        },
+        "examples": [
+          {
+            "de": "Ich freue mich auf den Kirchtag.",
+            "en": "I'm looking forward to the Kirchtag.",
+            "sl": "Veselim se žegnanja.",
+            "it": "Non vedo l'ora della sagra."
+          },
+          {
+            "de": "Kathi freut sich über den Brief.",
+            "en": "Kathi is glad about the letter.",
+            "sl": "Kathi je vesela pisma.",
+            "it": "Kathi è contenta della lettera."
+          }
+        ],
+        "rows": [
+          [
+            "sich freuen auf",
+            "den Kirchtag"
+          ],
+          [
+            "sich freuen über",
+            "den Brief"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verben-praepositionen",
+          "prompt": "Nächste Woche ist Kirchtag. Toni freut sich ___ das Fest.",
+          "options": [
+            "auf",
+            "über",
+            "an"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sich freuen auf: still to come; sich freuen über: already here**\n- auf den Kirchtag · über den Brief",
+            "sl": "**sich freuen auf: še pride; sich freuen über: že tu**\n- auf den Kirchtag · über den Brief",
+            "it": "**sich freuen auf: deve arrivare; sich freuen über: c'è già**\n- auf den Kirchtag · über den Brief"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sprechen** takes two: **sprechen mit** (to talk to) names the person, in the dative, and **sprechen über** (to talk about) names the topic, in the accusative: **Kathi spricht mit Stefan über den Most.** (Kathi is talking to Stefan about the cider.) **Ich spreche mit dem Bauern.** (I'm talking to the farmer.) mit is always dative, über here always accusative.",
+          "sl": "**sprechen** ima dva: **sprechen mit** (govoriti s) imenuje osebo, v dajalniku, **sprechen über** (govoriti o) pa temo, v tožilniku: **Kathi spricht mit Stefan über den Most.** (Kathi se s Stefanom pogovarja o moštu.) **Ich spreche mit dem Bauern.** (Govorim s kmetom.) mit je vedno dajalnik, über tu vedno tožilnik.",
+          "it": "**sprechen** ne ha due: **sprechen mit** (parlare con) dice la persona, al dativo, e **sprechen über** (parlare di) dice l'argomento, all'accusativo: **Kathi spricht mit Stefan über den Most.** (Kathi parla con Stefan del sidro.) **Ich spreche mit dem Bauern.** (Parlo con il contadino.) mit è sempre dativo, über qui sempre accusativo."
+        },
+        "examples": [
+          {
+            "de": "Kathi spricht mit Stefan über den Most.",
+            "en": "Kathi is talking to Stefan about the cider.",
+            "sl": "Kathi se s Stefanom pogovarja o moštu.",
+            "it": "Kathi parla con Stefan del sidro."
+          },
+          {
+            "de": "Ich spreche mit dem Bauern.",
+            "en": "I'm talking to the farmer.",
+            "sl": "Govorim s kmetom.",
+            "it": "Parlo con il contadino."
+          }
+        ],
+        "rows": [
+          [
+            "sprechen mit",
+            "dem Bauern"
+          ],
+          [
+            "sprechen über",
+            "den Most"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "verben-praepositionen",
+          "text": "Oma Resi spricht mit ___ Schmied. (der)",
+          "accept": [
+            "dem"
+          ],
+          "hint": {
+            "en": "mit + dative",
+            "sl": "mit + dajalnik",
+            "it": "mit + dativo"
+          },
+          "explain": {
+            "en": "**sprechen mit + dative: der → dem**\n- Oma Resi spricht mit dem Schmied",
+            "sl": "**sprechen mit + dajalnik: der → dem**\n- Oma Resi spricht mit dem Schmied",
+            "it": "**sprechen mit + dativo: der → dem**\n- Oma Resi spricht mit dem Schmied"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Angst haben vor** (to be afraid of) takes the dative: **Jakob hat Angst vor dem Hund.** (never *vor den Hund*) **Stanko hat keine Angst vor den Bienen.** (Stanko isn't afraid of the bees.) So do **erzählen von** (to tell about) and **träumen von** (to dream of): **Opa Sepp erzählt vom Lindwurm.** (Grandpa Sepp tells of the Lindwurm.) **vom** is von dem. English says afraid of, German vor, not von.",
+          "sl": "**Angst haben vor** (bati se) ima dajalnik: **Jakob hat Angst vor dem Hund.** (Jakob se boji psa.) **Stanko hat keine Angst vor den Bienen.** (Stanko se ne boji čebel.) Prav tako **erzählen von** (pripovedovati o) in **träumen von** (sanjati o): **Opa Sepp erzählt vom Lindwurm.** (Dedek Sepp pripoveduje o Lindwurmu.) **vom** je von dem.",
+          "it": "**Angst haben vor** (avere paura di) vuole il dativo: **Jakob hat Angst vor dem Hund.** (Jakob ha paura del cane.) **Stanko hat keine Angst vor den Bienen.** (Stanko non ha paura delle api.) Così **erzählen von** (raccontare di) e **träumen von** (sognare): **Opa Sepp erzählt vom Lindwurm.** (Nonno Sepp racconta del Lindwurm.) **vom** è von dem."
+        },
+        "examples": [
+          {
+            "de": "Jakob hat Angst vor dem Hund.",
+            "en": "Jakob is afraid of the dog.",
+            "sl": "Jakob se boji psa.",
+            "it": "Jakob ha paura del cane."
+          },
+          {
+            "de": "Stanko hat keine Angst vor den Bienen.",
+            "en": "Stanko isn't afraid of the bees.",
+            "sl": "Stanko se ne boji čebel.",
+            "it": "Stanko non ha paura delle api."
+          },
+          {
+            "de": "Opa Sepp erzählt vom Lindwurm.",
+            "en": "Grandpa Sepp tells of the Lindwurm.",
+            "sl": "Dedek Sepp pripoveduje o Lindwurmu.",
+            "it": "Nonno Sepp racconta del Lindwurm."
+          }
+        ],
+        "rows": [
+          [
+            "Angst haben vor",
+            "dem Hund"
+          ],
+          [
+            "erzählen von",
+            "dem Lindwurm"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "verben-praepositionen",
+          "prompt": "Tante Mitzi hat Angst ___ dem Gewitter.",
+          "options": [
+            "vor",
+            "von",
+            "auf"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Angst haben vor + dative**\n- Tante Mitzi hat Angst vor dem Gewitter",
+            "sl": "**Angst haben vor + dajalnik**\n- Tante Mitzi hat Angst vor dem Gewitter",
+            "it": "**Angst haben vor + dativo**\n- Tante Mitzi hat Angst vor dem Gewitter"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "For a person, a pronoun follows, in the chunk's case: **Ich warte auf dich.** (I'm waiting for you.) **Denkst du an mich?** (Are you thinking of me?) **Ich spreche mit dir.** (I'm talking to you.) **Jakob hat Angst vor ihm.** (Jakob is afraid of him.) In the Perfekt the chunk stays together, the participle at the end: **Ich habe auf dich gewartet.** (I waited for you.)",
+          "sl": "Za osebo pride zaimek, v sklonu zveze: **Ich warte auf dich.** (Čakam nate.) **Denkst du an mich?** (Misliš name?) **Ich spreche mit dir.** (Govorim s tabo.) **Jakob hat Angst vor ihm.** (Jakob se ga boji.) V Perfektu zveza ostane skupaj, deležnik je na koncu: **Ich habe auf dich gewartet.** (Čakal sem nate.)",
+          "it": "Per una persona segue un pronome, nel caso del blocco: **Ich warte auf dich.** (Ti aspetto.) **Denkst du an mich?** (Pensi a me?) **Ich spreche mit dir.** (Parlo con te.) **Jakob hat Angst vor ihm.** (Jakob ha paura di lui.) Nel Perfekt il blocco resta insieme, il participio alla fine: **Ich habe auf dich gewartet.** (Ti ho aspettato.)"
+        },
+        "examples": [
+          {
+            "de": "Ich warte auf dich.",
+            "en": "I'm waiting for you.",
+            "sl": "Čakam nate.",
+            "it": "Ti aspetto."
+          },
+          {
+            "de": "Denkst du an mich?",
+            "en": "Are you thinking of me?",
+            "sl": "Misliš name?",
+            "it": "Pensi a me?"
+          },
+          {
+            "de": "Ich spreche mit dir. Jakob hat Angst vor ihm.",
+            "en": "I'm talking to you. Jakob is afraid of him.",
+            "sl": "Govorim s tabo. Jakob se ga boji.",
+            "it": "Parlo con te. Jakob ha paura di lui."
+          },
+          {
+            "de": "Ich habe auf dich gewartet.",
+            "en": "I waited for you.",
+            "sl": "Čakal sem nate.",
+            "it": "Ti ho aspettato."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "verben-praepositionen",
+          "text": "Kathi spricht mit ___. (er)",
+          "accept": [
+            "ihm"
+          ],
+          "hint": {
+            "en": "mit + dative",
+            "sl": "mit + dajalnik",
+            "it": "mit + dativo"
+          },
+          "explain": {
+            "en": "**mit + dative: er → ihm**\n- Kathi spricht mit ihm",
+            "sl": "**mit + dajalnik: er → ihm**\n- Kathi spricht mit ihm",
+            "it": "**mit + dativo: er → ihm**\n- Kathi spricht mit ihm"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "warten-auf-1",
+      "title": {
+        "de": "Ein Verb, seine Präposition",
+        "en": "A verb and its preposition",
+        "sl": "Glagol in njegov predlog",
+        "it": "Un verbo e la sua preposizione"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "verben-praepositionen",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Verben mit Präposition · which little word?",
+            "sl": "Verben mit Präposition · kateri predlog?",
+            "it": "Verben mit Präposition · quale preposizione?"
+          },
+          "columns": [
+            {
+              "en": "Präposition · preposition",
+              "sl": "Präposition · predlog",
+              "it": "Präposition · preposizione"
+            },
+            {
+              "en": "Fall · case",
+              "sl": "Fall · sklon",
+              "it": "Fall · caso"
+            }
+          ],
+          "rows": [
+            {
+              "label": "warten",
+              "cells": [
+                "auf",
+                "Akkusativ"
+              ]
+            },
+            {
+              "label": "denken",
+              "cells": [
+                {
+                  "accept": [
+                    "an"
+                  ]
+                },
+                "Akkusativ"
+              ]
+            },
+            {
+              "label": "aufpassen",
+              "cells": [
+                {
+                  "accept": [
+                    "auf"
+                  ]
+                },
+                "Akkusativ"
+              ]
+            },
+            {
+              "label": "sprechen · die Person",
+              "cells": [
+                {
+                  "accept": [
+                    "mit"
+                  ]
+                },
+                "Dativ"
+              ]
+            },
+            {
+              "label": "sprechen · das Thema",
+              "cells": [
+                {
+                  "accept": [
+                    "über"
+                  ]
+                },
+                "Akkusativ"
+              ]
+            },
+            {
+              "label": "Angst haben",
+              "cells": [
+                {
+                  "accept": [
+                    "vor"
+                  ]
+                },
+                "Dativ"
+              ]
+            },
+            {
+              "label": "erzählen",
+              "cells": [
+                {
+                  "accept": [
+                    "von"
+                  ]
+                },
+                "Dativ"
+              ]
+            },
+            {
+              "label": "träumen",
+              "cells": [
+                {
+                  "accept": [
+                    "von"
+                  ]
+                },
+                "Dativ"
+              ]
+            },
+            {
+              "label": "sich freuen · es kommt noch",
+              "cells": [
+                {
+                  "accept": [
+                    "auf"
+                  ]
+                },
+                "Akkusativ"
+              ]
+            },
+            {
+              "label": "sich freuen · es ist schon da",
+              "cells": [
+                {
+                  "accept": [
+                    "über"
+                  ]
+                },
+                "Akkusativ"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**One chunk: the verb, its preposition, its case**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "sl": "**Zveza: glagol, njegov predlog, njegov sklon**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "it": "**Un blocco: il verbo, la sua preposizione, il suo caso**\n- warten auf den Bus · Angst haben vor dem Hund"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "verben-praepositionen",
+          "instruction": {
+            "en": "Ordne zu · Accusative or dative?",
+            "sl": "Ordne zu · Tožilnik ali dajalnik?",
+            "it": "Ordne zu · Accusativo o dativo?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Akkusativ · accusative",
+                "sl": "Akkusativ · tožilnik",
+                "it": "Akkusativ · accusativo"
+              },
+              "words": [
+                "warten auf",
+                "denken an",
+                "sich freuen über",
+                "sprechen über",
+                "aufpassen auf"
+              ]
+            },
+            {
+              "label": {
+                "en": "Dativ · dative",
+                "sl": "Dativ · dajalnik",
+                "it": "Dativ · dativo"
+              },
+              "words": [
+                "sprechen mit",
+                "Angst haben vor",
+                "träumen von",
+                "erzählen von"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**One chunk: the verb, its preposition, its case**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "sl": "**Zveza: glagol, njegov predlog, njegov sklon**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "it": "**Un blocco: il verbo, la sua preposizione, il suo caso**\n- warten auf den Bus · Angst haben vor dem Hund"
+          }
+        }
+      ]
+    },
+    {
+      "id": "warten-auf-2",
+      "title": {
+        "de": "Am Bahnhof in Villach",
+        "en": "At Villach station",
+        "sl": "Na postaji v Beljaku",
+        "it": "Alla stazione di Villach"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "verben-praepositionen",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Am Bahnhof",
+          "text": "Stefan steht am Bahnhof in Villach und wartet ___ den Zug. Er denkt ___ Kathi und freut sich ___ den Abend. Neben ihm spricht Herr Rossi ___ einem Mann ___ den Most. Ein Kind hat Angst ___ dem Hund von Herrn Rossi. Am Abend erzählt Stefan Kathi ___ Herrn Rossi.",
+          "gaps": [
+            {
+              "accept": [
+                "auf"
+              ]
+            },
+            {
+              "accept": [
+                "an"
+              ]
+            },
+            {
+              "accept": [
+                "auf"
+              ]
+            },
+            {
+              "accept": [
+                "mit"
+              ]
+            },
+            {
+              "accept": [
+                "über"
+              ]
+            },
+            {
+              "accept": [
+                "vor"
+              ]
+            },
+            {
+              "accept": [
+                "von",
+                "über"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "für",
+            "nach",
+            "um"
+          ],
+          "translation": {
+            "en": "Stefan is standing at Villach station, waiting for the train. He is thinking of Kathi and looking forward to the evening. Next to him Mr Rossi is talking to a man about the cider. A child is afraid of Mr Rossi's dog. In the evening Stefan tells Kathi about Mr Rossi.",
+            "sl": "Stefan stoji na postaji v Beljaku in čaka na vlak. Misli na Kathi in se veseli večera. Poleg njega se gospod Rossi z nekim moškim pogovarja o moštu. Neki otrok se boji psa gospoda Rossija. Zvečer Stefan Kathi pripoveduje o gospodu Rossiju.",
+            "it": "Stefan è alla stazione di Villach e aspetta il treno. Pensa a Kathi e non vede l'ora che arrivi la sera. Accanto a lui il signor Rossi parla del sidro con un uomo. Un bambino ha paura del cane del signor Rossi. La sera Stefan racconta a Kathi del signor Rossi."
+          },
+          "explain": {
+            "en": "**One chunk: the verb, its preposition, its case**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "sl": "**Zveza: glagol, njegov predlog, njegov sklon**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "it": "**Un blocco: il verbo, la sua preposizione, il suo caso**\n- warten auf den Bus · Angst haben vor dem Hund"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "verben-praepositionen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stanko hat keine Angst ___ den Bienen.",
+          "options": [
+            "vor",
+            "von",
+            "für"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**One chunk: the verb, its preposition, its case**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "sl": "**Zveza: glagol, njegov predlog, njegov sklon**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "it": "**Un blocco: il verbo, la sua preposizione, il suo caso**\n- warten auf den Bus · Angst haben vor dem Hund"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "verben-praepositionen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Der Brief ist schon da. Kathi freut sich ___ den Brief.",
+          "options": [
+            "über",
+            "auf",
+            "an"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sich freuen auf: still to come; sich freuen über: already here**\n- auf den Kirchtag · über den Brief",
+            "sl": "**sich freuen auf: še pride; sich freuen über: že tu**\n- auf den Kirchtag · über den Brief",
+            "it": "**sich freuen auf: deve arrivare; sich freuen über: c'è già**\n- auf den Kirchtag · über den Brief"
+          }
+        }
+      ]
+    },
+    {
+      "id": "warten-auf-3",
+      "title": {
+        "de": "Was gehört zusammen?",
+        "en": "What goes with what?",
+        "sl": "Kaj gre s čim?",
+        "it": "Che cosa va con che cosa?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "verben-praepositionen",
+          "instruction": {
+            "en": "Mach einen Satz · Make a sentence with the chunk",
+            "sl": "Mach einen Satz · Sestavi stavek z zvezo",
+            "it": "Mach einen Satz · Fai una frase con il blocco"
+          },
+          "cue": "→",
+          "whole": true,
+          "items": [
+            {
+              "from": "Ich warte. (der Bus)",
+              "accept": [
+                "Ich warte auf den Bus."
+              ]
+            },
+            {
+              "from": "Wir denken oft. (die Alm)",
+              "accept": [
+                "Wir denken oft an die Alm."
+              ]
+            },
+            {
+              "from": "Kathi spricht. (der Bürgermeister · die Person)",
+              "accept": [
+                "Kathi spricht mit dem Bürgermeister."
+              ]
+            },
+            {
+              "from": "Kathi spricht. (das Fest · das Thema)",
+              "accept": [
+                "Kathi spricht über das Fest.",
+                "Kathi spricht vom Fest.",
+                "Kathi spricht von dem Fest."
+              ]
+            },
+            {
+              "from": "Jakob hat Angst. (der Hund)",
+              "accept": [
+                "Jakob hat Angst vor dem Hund."
+              ]
+            },
+            {
+              "from": "Stefan freut sich. (der Kirchtag · er kommt noch)",
+              "accept": [
+                "Stefan freut sich auf den Kirchtag."
+              ]
+            },
+            {
+              "from": "Oma Resi freut sich. (die Blumen · sie sind schon da)",
+              "accept": [
+                "Oma Resi freut sich über die Blumen."
+              ]
+            },
+            {
+              "from": "Opa Sepp erzählt. (der Lindwurm)",
+              "accept": [
+                "Opa Sepp erzählt vom Lindwurm.",
+                "Opa Sepp erzählt von dem Lindwurm.",
+                "Opa Sepp erzählt über den Lindwurm."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**One chunk: the verb, its preposition, its case**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "sl": "**Zveza: glagol, njegov predlog, njegov sklon**\n- warten auf den Bus · Angst haben vor dem Hund",
+            "it": "**Un blocco: il verbo, la sua preposizione, il suo caso**\n- warten auf den Bus · Angst haben vor dem Hund"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "verben-praepositionen",
+          "instruction": {
+            "en": "Sag es mit dem Pronomen · Say it with the pronoun",
+            "sl": "Sag es mit dem Pronomen · Povej z zaimkom",
+            "it": "Sag es mit dem Pronomen · Dillo con il pronome"
+          },
+          "cue": "→",
+          "whole": true,
+          "items": [
+            {
+              "from": "Ich warte auf Stefan. (er)",
+              "accept": [
+                "Ich warte auf ihn."
+              ]
+            },
+            {
+              "from": "Kathi denkt an Stefan und mich. (wir)",
+              "accept": [
+                "Kathi denkt an uns."
+              ]
+            },
+            {
+              "from": "Ich spreche mit Kathi. (sie)",
+              "accept": [
+                "Ich spreche mit ihr."
+              ]
+            },
+            {
+              "from": "Jakob hat Angst vor dem Krampus. (er)",
+              "accept": [
+                "Jakob hat Angst vor ihm."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The pronoun takes the chunk's case**\n- auf ihn · an uns · mit ihr · vor ihm",
+            "sl": "**Zaimek ima sklon zveze**\n- auf ihn · an uns · mit ihr · vor ihm",
+            "it": "**Il pronome prende il caso del blocco**\n- auf ihn · an uns · mit ihr · vor ihm"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "verben-praepositionen",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Lena hat am Samstag Geburtstag und freut sich ___ das Fest. Sie schreibt ___ die Oma: „Kommst du?“ Am Freitag spricht Oma Resi ___ Kathi ___ den Kuchen. Maxi wartet schon lange ___ das Essen.",
+        "gaps": [
+          {
+            "accept": [
+              "auf"
+            ]
+          },
+          {
+            "accept": [
+              "an"
+            ]
+          },
+          {
+            "accept": [
+              "mit"
+            ]
+          },
+          {
+            "accept": [
+              "über"
+            ]
+          },
+          {
+            "accept": [
+              "auf"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Lena's birthday is on Saturday and she is looking forward to the party. She writes to her grandma: \"Are you coming?\" On Friday Grandma Resi talks to Kathi about the cake. Maxi has been waiting for the food for a long time.",
+          "sl": "Lena ima v soboto rojstni dan in se veseli zabave. Piše babici: »Prideš?« V petek se babica Resi s Kathi pogovarja o kolaču. Maxi že dolgo čaka na hrano.",
+          "it": "Sabato è il compleanno di Lena e lei non vede l'ora della festa. Scrive alla nonna: «Vieni?» Venerdì nonna Resi parla con Kathi della torta. Maxi aspetta già da tanto da mangiare."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "verben-praepositionen",
+        "instruction": {
+          "en": "Mach einen Satz · Make a sentence with the chunk",
+          "sl": "Mach einen Satz · Sestavi stavek z zvezo",
+          "it": "Mach einen Satz · Fai una frase con il blocco"
+        },
+        "cue": "→",
+        "whole": true,
+        "items": [
+          {
+            "from": "Toni wartet. (der Bäcker)",
+            "accept": [
+              "Toni wartet auf den Bäcker."
+            ]
+          },
+          {
+            "from": "Florian träumt. (die Alm)",
+            "accept": [
+              "Florian träumt von der Alm."
+            ]
+          },
+          {
+            "from": "Tante Mitzi hat Angst. (das Gewitter)",
+            "accept": [
+              "Tante Mitzi hat Angst vor dem Gewitter."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "verben-praepositionen",
+        "instruction": {
+          "en": "Ordne zu · Accusative or dative?",
+          "sl": "Ordne zu · Tožilnik ali dajalnik?",
+          "it": "Ordne zu · Accusativo o dativo?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Akkusativ · accusative",
+              "sl": "Akkusativ · tožilnik",
+              "it": "Akkusativ · accusativo"
+            },
+            "words": [
+              "warten auf",
+              "denken an"
+            ]
+          },
+          {
+            "label": {
+              "en": "Dativ · dative",
+              "sl": "Dativ · dajalnik",
+              "it": "Dativ · dativo"
+            },
+            "words": [
+              "sprechen mit",
+              "Angst haben vor"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "verben-praepositionen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich warte seit zwei Stunden ___ dich!",
+        "options": [
+          "auf",
+          "für",
+          "an"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**One chunk: the verb, its preposition, its case**\n- warten auf den Bus · Angst haben vor dem Hund",
+          "sl": "**Zveza: glagol, njegov predlog, njegov sklon**\n- warten auf den Bus · Angst haben vor dem Hund",
+          "it": "**Un blocco: il verbo, la sua preposizione, il suo caso**\n- warten auf den Bus · Angst haben vor dem Hund"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "verben-praepositionen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Am Sonntag ist Kirchtag. Kathi freut sich schon ___ den Sonntag.",
+        "options": [
+          "auf",
+          "über",
+          "von"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**sich freuen auf: still to come; sich freuen über: already here**\n- auf den Kirchtag · über den Brief",
+          "sl": "**sich freuen auf: še pride; sich freuen über: že tu**\n- auf den Kirchtag · über den Brief",
+          "it": "**sich freuen auf: deve arrivare; sich freuen über: c'è già**\n- auf den Kirchtag · über den Brief"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Angst vor dem Krampus, Mitzi hat Angst vor dem Gewitter, schreibt an die Oma, the Slovene and Italian equivalents"
+}

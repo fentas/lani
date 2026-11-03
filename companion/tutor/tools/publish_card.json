@@ -1,6 +1,6 @@
 {
   "name": "publish_card",
-  "description": "Publish a card to the learner's cheat sheet (📋 Plonk listek): a basic you just explained, as a compact reference. markdown: the card itself as you write in chat (one bold rule line, a | table | or a - list, two or three examples, at most one 💡 tip; one phone screen), in the learner's base language with the Slovene in **bold**. grammar: the grammar pages it is about (list_grammar's ids): it comes first in their exercises. Publishing again under the same id replaces your card. Returns validation errors instead of publishing if invalid.",
+  "description": "Publish a card to the learner's cheat sheet (📋 Plonk listek): a basic you just explained, as a compact reference. markdown: the card itself as you write in chat (one bold rule line, a | table | or a - list, two or three examples, at most one 💡 tip; one phone screen), in the learner's base language with the target language's words in **bold**. grammar: the grammar pages it is about (list_grammar's ids): it comes first in their exercises. Publishing again under the same id replaces your card. Returns validation errors instead of publishing if invalid.",
   "input_schema": {
     "type": "object",
     "properties": {

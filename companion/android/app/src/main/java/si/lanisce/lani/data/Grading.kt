@@ -91,6 +91,7 @@ object Grading {
         if (fold(best, lang) == folded) return Result(Verdict.ALMOST, spelling.foldHint, best, marks)
         if (spelling.loose.isNotEmpty() && loose(best, lang) == loose(a, lang)) return Result(Verdict.ALMOST, spelling.looseHint, best, marks)
         nonstandardFor(folded, accept, before, lang, spelling)?.let { return Result(Verdict.ALMOST, Hint.NONSTANDARD, it, marks(answer, it, lang)) }
+        verbSecondFor(folded, accept, lang, spelling)?.let { return Result(Verdict.ALMOST, Hint.NONSTANDARD, it, marks(answer, it, lang)) }
 
         val expectedWords = fold(best, lang).split(' ')
         val answerWords = folded.split(' ')
@@ -124,6 +125,45 @@ object Grading {
             }?.let { return it }
         }
         return null
+    }
+
+    /**
+     * The accepted answer whose clause after a conjunction of [Spelling.verbSecond] [answer] ([fold]ed) says with its last word, the
+     * verb, moved up behind the subject, as people say it ("weil er hat keine Zeit" for weil er keine Zeit hat), every other word
+     * in its place. The clause ends at the accepted answer's comma: "Obwohl es regnet, wir gehen" stays wrong.
+     */
+    private fun verbSecondFor(answer: String, accept: List<String>, lang: Lang, spelling: Spelling): String? {
+        if (spelling.verbSecond.isEmpty()) return null
+        val typed = answer.split(' ')
+        return accept.firstOrNull { x ->
+            val right = fold(x, lang).split(' ')
+            var from = 0
+            x.split(',').map { fold(it, lang) }.filter { it.isNotEmpty() }.any { part ->
+                val end = from + part.split(' ').size
+                val found = (from until end).any { c ->
+                    val after = right.size - end
+                    right[c] in spelling.verbSecond && typed.size >= c + 1 + after && typed.subList(0, c + 1) == right.subList(0, c + 1) &&
+                        typed.takeLast(after) == right.takeLast(after) &&
+                        verbMovedUp(typed.subList(c + 1, typed.size - after), right.subList(c + 1, end))
+                }
+                from = end
+                found
+            }
+        }
+    }
+
+    /** [typed] is [right] with its last word moved up, a word or more staying before it; a separable verb in its two parts ("steht um fünf auf" for "um fünf aufsteht"). */
+    private fun verbMovedUp(typed: List<String>, right: List<String>): Boolean {
+        val start = typed.zip(right).takeWhile { (a, b) -> a == b }.size
+        if (start == 0) return false
+        val t = typed.drop(start)
+        val r = right.drop(start)
+        return when {
+            t.size < 2 || r.isEmpty() -> false
+            t.size == r.size -> t.first() == r.last() && t.drop(1) == r.dropLast(1)
+            t.size == r.size + 1 -> t.last() + t.first() == r.last() && t.subList(1, t.size - 1) == r.dropLast(1)
+            else -> false
+        }
     }
 
     /** True when every changed position of [expected] lies before its ending. */

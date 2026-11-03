@@ -1,0 +1,941 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "wenn-ich-haette",
+  "language": "de",
+  "level": "B1",
+  "emoji": "💭",
+  "title": {
+    "de": "Wenn ich Zeit hätte, käme ich",
+    "en": "Unreal conditions: wenn ich Zeit hätte",
+    "sl": "Pogojni stavki: wenn ich Zeit hätte",
+    "it": "Il periodo ipotetico: wenn ich Zeit hätte"
+  },
+  "goal": {
+    "en": "You can give advice (Du solltest schlafen), ask kindly (Könntest du mir helfen?) and say what would be if things were otherwise (Wenn ich Zeit hätte, käme ich).",
+    "sl": "Znaš dati nasvet (Du solltest schlafen), vljudno prositi (Könntest du mir helfen?) in povedati, kaj bi bilo, če bi bilo drugače (Wenn ich Zeit hätte, käme ich).",
+    "it": "Sai dare un consiglio (Du solltest schlafen), chiedere con garbo (Könntest du mir helfen?) e dire che cosa succederebbe se le cose fossero diverse (Wenn ich Zeit hätte, käme ich)."
+  },
+  "grammar": [
+    "konjunktiv-zwei",
+    "modalverben",
+    "nebensatz"
+  ],
+  "words": [
+    "könnte",
+    "müsste",
+    "dürfte",
+    "sollte",
+    "käme",
+    "gäbe",
+    "ginge",
+    "wüsste",
+    "wenn",
+    "träumen",
+    "telefonieren",
+    "kurz",
+    "früher",
+    "reich",
+    "fertig",
+    "reparieren",
+    "der Arzt",
+    "die Mühle",
+    "das Bein",
+    "der Husten",
+    "rauchen",
+    "der Weg",
+    "steigen",
+    "der Hunger",
+    "das Geld",
+    "weniger"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        "ich · er · sie · es",
+        "du",
+        "wir · sie · Sie"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**könnte** (could), **müsste** (would have to), **dürfte** (would be allowed to) are the modal verbs' past with the umlaut back: konnte → **könnte**, musste → **müsste**, durfte → **dürfte**. ich **könnte**, du **könntest**, wir **könnten**. **sollte** (should) has none. The other verb goes last: Ich **könnte** morgen **kommen**.",
+          "sl": "**könnte** (bi lahko), **müsste** (bi moral), **dürfte** (bi smel) so preteklik naklonskih glagolov z vrnjenim preglasom: konnte → **könnte**, musste → **müsste**, durfte → **dürfte**. ich **könnte**, du **könntest**, wir **könnten**. **sollte** (bi moral, naj bi) ga nima. Drugi glagol gre na konec: Ich **könnte** morgen **kommen**.",
+          "it": "**könnte** (potrei), **müsste** (dovrei), **dürfte** (avrei il permesso) sono il passato dei verbi modali con la dieresi di nuovo: konnte → **könnte**, musste → **müsste**, durfte → **dürfte**. ich **könnte**, du **könntest**, wir **könnten**. **sollte** (dovrei) non ce l'ha. L'altro verbo va alla fine: Ich **könnte** morgen **kommen**."
+        },
+        "examples": [
+          {
+            "de": "Ich könnte morgen kommen.",
+            "en": "I could come tomorrow.",
+            "sl": "Jutri bi lahko prišel.",
+            "it": "Domani potrei venire."
+          },
+          {
+            "de": "Wir müssten früher aufstehen.",
+            "en": "We'd have to get up earlier.",
+            "sl": "Morali bi vstati prej.",
+            "it": "Dovremmo alzarci prima."
+          }
+        ],
+        "rows": [
+          [
+            "können",
+            "könnte",
+            "könntest",
+            "könnten"
+          ],
+          [
+            "müssen",
+            "müsste",
+            "müsstest",
+            "müssten"
+          ],
+          [
+            "dürfen",
+            "dürfte",
+            "dürftest",
+            "dürften"
+          ],
+          [
+            "sollen",
+            "sollte",
+            "solltest",
+            "sollten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-zwei",
+          "text": "Ich ___ dir morgen helfen. (können)",
+          "accept": [
+            "könnte"
+          ],
+          "hint": {
+            "en": "could, with an umlaut",
+            "sl": "bi lahko, s preglasom",
+            "it": "potrei, con la dieresi"
+          },
+          "explain": {
+            "en": "**could: könnte, with the umlaut**\n- konnte = could (in the past), könnte = could (now, if …)",
+            "sl": "**bi lahko: könnte, s preglasom**\n- konnte = je lahko, könnte = bi lahko",
+            "it": "**potrei: könnte, con la dieresi**\n- konnte = poteva, könnte = potrebbe"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Du solltest** (you should) gives advice: **Du solltest** zum Arzt gehen. **Du könntest** (you could) suggests. **Könntest du** … asks kindly: **Könntest du** mir helfen? **Könnten Sie** mir sagen, wo der Bus abfährt? And **Dürfte ich** kurz telefonieren? (Might I …?) asks leave, very politely.",
+          "sl": "**Du solltest** (moral bi) da nasvet: **Du solltest** zum Arzt gehen. **Du könntest** (lahko bi) predlaga. **Könntest du** … vljudno prosi: **Könntest du** mir helfen? **Könnten Sie** mir sagen, wo der Bus abfährt? **Dürfte ich** kurz telefonieren? (Bi smel …?) pa zelo vljudno prosi za dovoljenje.",
+          "it": "**Du solltest** (dovresti) dà un consiglio: **Du solltest** zum Arzt gehen. **Du könntest** (potresti) propone. **Könntest du** … chiede con garbo: **Könntest du** mir helfen? **Könnten Sie** mir sagen, wo der Bus abfährt? E **Dürfte ich** kurz telefonieren? (Potrei …?) chiede il permesso, con molta cortesia."
+        },
+        "examples": [
+          {
+            "de": "Du solltest zum Arzt gehen.",
+            "en": "You should go to the doctor.",
+            "sl": "Moral bi k zdravniku.",
+            "it": "Dovresti andare dal medico."
+          },
+          {
+            "de": "Könntest du mir helfen?",
+            "en": "Could you help me?",
+            "sl": "Ali bi mi lahko pomagal?",
+            "it": "Potresti aiutarmi?"
+          },
+          {
+            "de": "Dürfte ich kurz telefonieren?",
+            "en": "Might I make a quick phone call?",
+            "sl": "Ali bi smel na kratko telefonirati?",
+            "it": "Potrei fare una telefonata veloce?"
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "prompt": "Du bist krank. Du ___ zum Arzt gehen.",
+          "options": [
+            "solltest",
+            "hättest",
+            "wärst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Advice: du solltest, er sollte, ihr solltet, the other verb last**\n- Du solltest schlafen.",
+            "sl": "**Nasvet: du solltest, er sollte, ihr solltet, drugi glagol na koncu**\n- Du solltest schlafen.",
+            "it": "**Un consiglio: du solltest, er sollte, ihr solltet, l'altro verbo alla fine**\n- Du solltest schlafen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**käme** (would come) is how a strong verb makes it: its past, an umlaut where it can, and an -e: kam → **käme**, gab → **gäbe**, ging → **ginge**, wusste → **wüsste**. Only a few live in everyday German: **es gäbe** (there would be), **ich wüsste** (I'd know), **das ginge** (that would work). For the rest people say würde: **käme** and **würde kommen** mean the same.",
+          "sl": "**käme** (bi prišel) je oblika krepkega glagola: njegov preteklik, preglas, kjer se da, in -e: kam → **käme**, gab → **gäbe**, ging → **ginge**, wusste → **wüsste**. V vsakdanji nemščini živi le nekaj takih: **es gäbe** (bi bilo), **ich wüsste** (bi vedel), **das ginge** (to bi šlo). Sicer ljudje rečejo würde: **käme** in **würde kommen** pomenita isto.",
+          "it": "**käme** (verrei) è la forma di un verbo forte: il suo passato, la dieresi dove si può e una -e: kam → **käme**, gab → **gäbe**, ging → **ginge**, wusste → **wüsste**. Nel tedesco di ogni giorno ne vivono pochi: **es gäbe** (ci sarebbe), **ich wüsste** (saprei), **das ginge** (si potrebbe). Per il resto si dice würde: **käme** e **würde kommen** vogliono dire lo stesso."
+        },
+        "examples": [
+          {
+            "de": "Das ginge morgen.",
+            "en": "That would work tomorrow.",
+            "sl": "Jutri bi to šlo.",
+            "it": "Domani si potrebbe."
+          },
+          {
+            "de": "Ich wüsste gern, wer das ist.",
+            "en": "I'd like to know who that is.",
+            "sl": "Rad bi vedel, kdo je to.",
+            "it": "Vorrei sapere chi è."
+          }
+        ],
+        "rows": [
+          [
+            "kommen",
+            "käme",
+            "kämst",
+            "kämen"
+          ],
+          [
+            "gehen",
+            "ginge",
+            "gingest",
+            "gingen"
+          ],
+          [
+            "wissen",
+            "wüsste",
+            "wüsstest",
+            "wüssten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-zwei",
+          "text": "Kathi ___ gern zum Kirchtag. (kommen)",
+          "accept": [
+            "käme"
+          ],
+          "hint": {
+            "en": "kam, with an umlaut and -e",
+            "sl": "kam, s preglasom in -e",
+            "it": "kam, con la dieresi e -e"
+          },
+          "explain": {
+            "en": "**kam → käme**\n- käme = würde kommen",
+            "sl": "**kam → käme**\n- käme = würde kommen",
+            "it": "**kam → käme**\n- käme = würde kommen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Wenn ich Zeit hätte, käme ich** (If I had time, I'd come): but I have none. This is what isn't so, and both parts take the Konjunktiv II: **hätte**, then **käme** or **würde kommen**. The verb goes last after wenn: **wenn ich Zeit hätte** (never *wenn ich hätte Zeit*). What can really happen keeps the present: Wenn ich Zeit **habe**, **komme** ich.",
+          "sl": "**Wenn ich Zeit hätte, käme ich** (če bi imel čas, bi prišel): a časa nimam. To je tisto, kar ni res, in oba dela imata konjunktiv II: **hätte**, nato **käme** ali **würde kommen**. Za wenn gre glagol na konec: **wenn ich Zeit hätte** (nikoli *wenn ich hätte Zeit*). Kar se lahko res zgodi, ostane v sedanjiku: Wenn ich Zeit **habe**, **komme** ich.",
+          "it": "**Wenn ich Zeit hätte, käme ich** (se avessi tempo, verrei): ma non ne ho. È ciò che non è vero, e tutte e due le parti prendono il Konjunktiv II: **hätte**, poi **käme** o **würde kommen**. Dopo wenn il verbo va alla fine: **wenn ich Zeit hätte** (mai *wenn ich hätte Zeit*). Ciò che può succedere davvero resta al presente: Wenn ich Zeit **habe**, **komme** ich."
+        },
+        "examples": [
+          {
+            "de": "Wenn ich Zeit hätte, käme ich.",
+            "en": "If I had time, I'd come.",
+            "sl": "Če bi imel čas, bi prišel.",
+            "it": "Se avessi tempo, verrei."
+          },
+          {
+            "de": "Wenn Stefan mehr Äpfel hätte, würde er mehr Most machen.",
+            "en": "If Stefan had more apples, he'd make more cider.",
+            "sl": "Če bi imel Stefan več jabolk, bi naredil več mošta.",
+            "it": "Se Stefan avesse più mele, farebbe più sidro."
+          },
+          {
+            "de": "Wenn ich Zeit habe, komme ich.",
+            "en": "If I have time, I'll come.",
+            "sl": "Če bom imel čas, pridem.",
+            "it": "Se ho tempo, vengo."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-zwei",
+          "text": "Wenn ich reich ___, würde ich ein Haus kaufen. (sein)",
+          "accept": [
+            "wäre"
+          ],
+          "hint": {
+            "en": "sein, with an umlaut",
+            "sl": "sein, s preglasom",
+            "it": "sein, con la dieresi"
+          },
+          "explain": {
+            "en": "**What isn't so: wenn + hätte or wäre, then käme or würde + the infinitive**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "sl": "**Kar ni res: wenn + hätte ali wäre, nato käme ali würde + nedoločnik**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "it": "**Ciò che non è vero: wenn + hätte o wäre, poi käme o würde + l'infinito**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Hätte ich Zeit, käme ich**: the same sentence with no wenn, the verb first. You'll meet it in books and stories, and reading it is enough: **Wäre** das Wetter schön, **würden** wir auf die Alm gehen. With other verbs **würde** fits after wenn too: **Wenn du kommen würdest**, wäre ich froh. With hätte and wäre, keep the short form.",
+          "sl": "**Hätte ich Zeit, käme ich**: isti stavek brez wenn, glagol prvi. Srečaš ga v knjigah in pripovedih, dovolj je, da ga razumeš: **Wäre** das Wetter schön, **würden** wir auf die Alm gehen. Pri drugih glagolih je tudi za wenn lahko **würde**: **Wenn du kommen würdest**, wäre ich froh. Pri hätte in wäre obdrži kratko obliko.",
+          "it": "**Hätte ich Zeit, käme ich**: la stessa frase senza wenn, con il verbo per primo. La incontri nei libri e nei racconti, e basta capirla: **Wäre** das Wetter schön, **würden** wir auf die Alm gehen. Con altri verbi anche dopo wenn va bene **würde**: **Wenn du kommen würdest**, wäre ich froh. Con hätte e wäre tieni la forma breve."
+        },
+        "examples": [
+          {
+            "de": "Hätte ich Zeit, würde ich kommen.",
+            "en": "If I had time, I'd come.",
+            "sl": "Če bi imel čas, bi prišel.",
+            "it": "Se avessi tempo, verrei."
+          },
+          {
+            "de": "Wäre das Wetter schön, würden wir auf die Alm gehen.",
+            "en": "If the weather were fine, we'd go up to the Alm.",
+            "sl": "Če bi bilo vreme lepo, bi šli na planino.",
+            "it": "Se il tempo fosse bello, andremmo all'alpeggio."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "prompt": "___ ich Geld, würde ich ein Auto kaufen.",
+          "options": [
+            "Hätte",
+            "Wenn",
+            "Hat"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**No wenn: the verb first**\n- Hätte ich Geld, … = Wenn ich Geld hätte, …",
+            "sl": "**Brez wenn: glagol prvi**\n- Hätte ich Geld, … = Wenn ich Geld hätte, …",
+            "it": "**Senza wenn: il verbo per primo**\n- Hätte ich Geld, … = Wenn ich Geld hätte, …"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "wenn-ich-haette-1",
+      "title": {
+        "de": "Könnte, müsste, sollte",
+        "en": "Könnte, müsste, sollte",
+        "sl": "Könnte, müsste, sollte",
+        "it": "Könnte, müsste, sollte"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the Konjunktiv II",
+            "sl": "konjunktiv II",
+            "it": "il Konjunktiv II"
+          },
+          "columns": [
+            "ich · er · sie · es",
+            "du",
+            "wir · sie · Sie"
+          ],
+          "rows": [
+            {
+              "label": "können",
+              "cells": [
+                "könnte",
+                {
+                  "accept": [
+                    "könntest"
+                  ]
+                },
+                {
+                  "accept": [
+                    "könnten"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "müssen",
+              "cells": [
+                {
+                  "accept": [
+                    "müsste"
+                  ]
+                },
+                {
+                  "accept": [
+                    "müsstest"
+                  ]
+                },
+                "müssten"
+              ]
+            },
+            {
+              "label": "sollen",
+              "cells": [
+                {
+                  "accept": [
+                    "sollte"
+                  ],
+                  "hint": {
+                    "en": "no umlaut",
+                    "sl": "brez preglasa",
+                    "it": "senza dieresi"
+                  }
+                },
+                {
+                  "accept": [
+                    "solltest"
+                  ]
+                },
+                "sollten"
+              ]
+            },
+            {
+              "label": "kommen",
+              "cells": [
+                {
+                  "accept": [
+                    "käme"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kämst",
+                    "kämest"
+                  ]
+                },
+                "kämen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The modal verb's past with its umlaut back; sollte has none**\n- konnte → könnte · musste → müsste · durfte → dürfte · sollte",
+            "sl": "**Preteklik naklonskega glagola z vrnjenim preglasom; sollte ga nima**\n- konnte → könnte · musste → müsste · durfte → dürfte · sollte",
+            "it": "**Il passato del verbo modale con la dieresi di nuovo; sollte non ce l'ha**\n- konnte → könnte · musste → müsste · durfte → dürfte · sollte"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Sortiere · Sort: can it happen, or is it not so?",
+            "sl": "Sortiere · Razvrsti: se lahko zgodi ali ni res?",
+            "it": "Sortiere · Ordina: può succedere o non è vero?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Das kann passieren · it can happen",
+                "sl": "Das kann passieren · to se lahko zgodi",
+                "it": "Das kann passieren · può succedere"
+              },
+              "words": [
+                "Wenn ich Zeit habe, komme ich.",
+                "Wenn es regnet, bleiben wir hier.",
+                "Wenn Stefan kommt, essen wir."
+              ]
+            },
+            {
+              "label": {
+                "en": "Das ist nicht so · it isn't so",
+                "sl": "Das ist nicht so · to ni res",
+                "it": "Das ist nicht so · non è vero"
+              },
+              "words": [
+                "Wenn ich Zeit hätte, käme ich.",
+                "Wenn es regnen würde, würden wir hier bleiben.",
+                "Wenn Stefan käme, würden wir essen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The present: it can happen. The Konjunktiv II: it isn't so**",
+            "sl": "**Sedanjik: lahko se zgodi. Konjunktiv II: ni res**",
+            "it": "**Il presente: può succedere. Il Konjunktiv II: non è vero**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wenn-ich-haette-2",
+      "title": {
+        "de": "Wenn Franz reich wäre",
+        "en": "If Franz were rich",
+        "sl": "Če bi bil Franz bogat",
+        "it": "Se Franz fosse ricco"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Ergänze im Konjunktiv II · Fill in with the Konjunktiv II",
+            "sl": "Ergänze im Konjunktiv II · Dopolni s konjunktivom II",
+            "it": "Ergänze im Konjunktiv II · Completa con il Konjunktiv II"
+          },
+          "title": "Wenn Franz reich wäre",
+          "text": "Franz, der Müller, sitzt in der Mühle und träumt. Wenn ich reich ___, würde ich nicht mehr arbeiten. Wenn ich ein Auto ___, ___ ich jeden Tag nach Villach fahren. Kathi lacht: Du ___ weniger träumen! Du ___ die Mühle reparieren. Wenn du mir helfen ___, wäre die Arbeit schneller fertig, sagt Franz. Das ___ ich gern tun, aber ich habe keine Zeit.",
+          "gaps": [
+            {
+              "accept": [
+                "wäre"
+              ]
+            },
+            {
+              "accept": [
+                "hätte"
+              ]
+            },
+            {
+              "accept": [
+                "würde",
+                "könnte"
+              ]
+            },
+            {
+              "accept": [
+                "solltest",
+                "könntest",
+                "müsstest"
+              ]
+            },
+            {
+              "accept": [
+                "müsstest",
+                "solltest",
+                "könntest"
+              ]
+            },
+            {
+              "accept": [
+                "würdest",
+                "könntest"
+              ]
+            },
+            {
+              "accept": [
+                "würde",
+                "möchte"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "hatte",
+            "war",
+            "wurde"
+          ],
+          "translation": {
+            "en": "Franz the miller is sitting in the mill, dreaming. If I were rich, I wouldn't work any more. If I had a car, I'd drive to Villach every day. Kathi laughs: you should dream less! You'd have to repair the mill. If you helped me, the work would be done sooner, says Franz. I'd gladly do that, but I have no time.",
+            "sl": "Mlinar Franz sedi v mlinu in sanja. Če bi bil bogat, ne bi več delal. Če bi imel avto, bi se vsak dan peljal v Beljak. Kathi se smeji: Manj bi moral sanjati! Moral bi popraviti mlin. Če bi mi pomagala, bi bilo delo hitreje končano, reče Franz. Z veseljem bi to naredila, a nimam časa.",
+            "it": "Il mugnaio Franz è seduto nel mulino e sogna. Se fossi ricco, non lavorerei più. Se avessi una macchina, andrei a Villach ogni giorno. Kathi ride: dovresti sognare di meno! Dovresti riparare il mulino. Se mi aiutassi, il lavoro sarebbe finito prima, dice Franz. Lo farei volentieri, ma non ho tempo."
+          },
+          "explain": {
+            "en": "**What isn't so: wenn + hätte or wäre, then käme or würde + the infinitive**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "sl": "**Kar ni res: wenn + hätte ali wäre, nato käme ali würde + nedoločnik**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "it": "**Ciò che non è vero: wenn + hätte o wäre, poi käme o würde + l'infinito**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wenn ich heute Zeit ___, käme ich.",
+          "options": [
+            "hätte",
+            "habe",
+            "hatte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**What isn't so: wenn + hätte or wäre, then käme or würde + the infinitive**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "sl": "**Kar ni res: wenn + hätte ali wäre, nato käme ali würde + nedoločnik**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "it": "**Ciò che non è vero: wenn + hätte o wäre, poi käme o würde + l'infinito**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wenn es morgen nicht regnet, ___ wir auf die Alm.",
+          "options": [
+            "gehen",
+            "hätten",
+            "wären"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**It can happen: the present, both parts**\n- Wenn es nicht regnet, gehen wir.",
+            "sl": "**Lahko se zgodi: sedanjik, oba dela**\n- Wenn es nicht regnet, gehen wir.",
+            "it": "**Può succedere: il presente, tutte e due le parti**\n- Wenn es nicht regnet, gehen wir."
+          }
+        }
+      ]
+    },
+    {
+      "id": "wenn-ich-haette-3",
+      "title": {
+        "de": "Was wäre, wenn …?",
+        "en": "What if …?",
+        "sl": "Kaj bi bilo, če …?",
+        "it": "Che cosa succederebbe se …?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Sag es mit wenn · It isn't so: say it with wenn",
+            "sl": "Sag es mit wenn · Ni res: povej z wenn",
+            "it": "Sag es mit wenn · Non è vero: dillo con wenn"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich habe keine Zeit. Ich komme nicht.",
+              "accept": [
+                "Wenn ich Zeit hätte, käme ich.",
+                "Wenn ich Zeit hätte, würde ich kommen.",
+                "Ich würde kommen, wenn ich Zeit hätte.",
+                "Ich käme, wenn ich Zeit hätte."
+              ],
+              "spoken": [
+                "Wenn ich Zeit haben würde, würde ich kommen.",
+                "Ich würde kommen, wenn ich Zeit haben würde."
+              ]
+            },
+            {
+              "from": "Stefan hat kein Auto. Er fährt nicht nach Villach.",
+              "accept": [
+                "Wenn Stefan ein Auto hätte, würde er nach Villach fahren.",
+                "Stefan würde nach Villach fahren, wenn er ein Auto hätte.",
+                "Wenn Stefan ein Auto hätte, führe er nach Villach.",
+                "Stefan führe nach Villach, wenn er ein Auto hätte."
+              ],
+              "spoken": [
+                "Wenn Stefan ein Auto haben würde, würde er nach Villach fahren.",
+                "Stefan würde nach Villach fahren, wenn er ein Auto haben würde."
+              ]
+            },
+            {
+              "from": "Kathi ist müde. Sie kocht nicht.",
+              "accept": [
+                "Wenn Kathi nicht müde wäre, würde sie kochen.",
+                "Kathi würde kochen, wenn sie nicht müde wäre."
+              ]
+            },
+            {
+              "from": "Es regnet. Wir tanzen nicht.",
+              "accept": [
+                "Wenn es nicht regnen würde, würden wir tanzen.",
+                "Wenn es nicht regnete, würden wir tanzen.",
+                "Wir würden tanzen, wenn es nicht regnen würde.",
+                "Wir würden tanzen, wenn es nicht regnete."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**What isn't so: wenn + hätte or wäre, then käme or würde + the infinitive**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "sl": "**Kar ni res: wenn + hätte ali wäre, nato käme ali würde + nedoločnik**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+            "it": "**Ciò che non è vero: wenn + hätte o wäre, poi käme o würde + l'infinito**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Gib einen Rat mit sollte · Give advice with sollte",
+            "sl": "Gib einen Rat mit sollte · Daj nasvet s sollte",
+            "it": "Gib einen Rat mit sollte · Dai un consiglio con sollte"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Du bist müde. (schlafen)",
+              "accept": [
+                "Du solltest schlafen."
+              ]
+            },
+            {
+              "from": "Stefan ist krank. (zum Arzt gehen)",
+              "accept": [
+                "Stefan sollte zum Arzt gehen.",
+                "Er sollte zum Arzt gehen."
+              ]
+            },
+            {
+              "from": "Ihr habt Hunger. (etwas essen)",
+              "accept": [
+                "Ihr solltet etwas essen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Advice: du solltest, er sollte, ihr solltet, the other verb last**\n- Du solltest schlafen.",
+            "sl": "**Nasvet: du solltest, er sollte, ihr solltet, drugi glagol na koncu**\n- Du solltest schlafen.",
+            "it": "**Un consiglio: du solltest, er sollte, ihr solltet, l'altro verbo alla fine**\n- Du solltest schlafen."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Frag höflich · Ask kindly",
+            "sl": "Frag höflich · Vprašaj vljudno",
+            "it": "Frag höflich · Chiedi con garbo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kannst du mir helfen?",
+              "accept": [
+                "Könntest du mir helfen?",
+                "Könntest du mir bitte helfen?"
+              ]
+            },
+            {
+              "from": "Darf ich kurz telefonieren?",
+              "accept": [
+                "Dürfte ich kurz telefonieren?",
+                "Dürfte ich bitte kurz telefonieren?"
+              ]
+            },
+            {
+              "from": "Können Sie mir sagen, wo Kathi ist?",
+              "accept": [
+                "Könnten Sie mir sagen, wo Kathi ist?",
+                "Könnten Sie mir bitte sagen, wo Kathi ist?"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Asking kindly: könntest, könnten, dürfte, the verb first**\n- Könntest du mir helfen? · Dürfte ich kurz telefonieren?",
+            "sl": "**Vljudna prošnja: könntest, könnten, dürfte, glagol prvi**\n- Könntest du mir helfen? · Dürfte ich kurz telefonieren?",
+            "it": "**Chiedere con garbo: könntest, könnten, dürfte, il verbo per primo**\n- Könntest du mir helfen? · Dürfte ich kurz telefonieren?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Ergänze im Konjunktiv II · Fill in with the Konjunktiv II",
+          "sl": "Ergänze im Konjunktiv II · Dopolni s konjunktivom II",
+          "it": "Ergänze im Konjunktiv II · Completa con il Konjunktiv II"
+        },
+        "title": "Wenn Opa Sepp jung wäre",
+        "text": "Wenn ich jung ___, würde ich auf den Dobratsch steigen, sagt Opa Sepp. Wenn ich gute Beine ___, ___ ich jeden Tag auf die Alm gehen. Lena fragt: ___ du mir den Weg zeigen? Das ___ ich gern tun, aber meine Beine sind alt. Du ___ mit Florian gehen.",
+        "gaps": [
+          {
+            "accept": [
+              "wäre"
+            ]
+          },
+          {
+            "accept": [
+              "hätte"
+            ]
+          },
+          {
+            "accept": [
+              "würde",
+              "könnte"
+            ]
+          },
+          {
+            "accept": [
+              "Könntest",
+              "Würdest"
+            ]
+          },
+          {
+            "accept": [
+              "würde",
+              "möchte"
+            ]
+          },
+          {
+            "accept": [
+              "solltest",
+              "könntest",
+              "müsstest"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "If I were young, I'd climb the Dobratsch, says Opa Sepp. If I had good legs, I'd go up to the Alm every day. Lena asks: could you show me the way? I'd gladly do that, but my legs are old. You should go with Florian.",
+          "sl": "Če bi bil mlad, bi se povzpel na Dobrač, reče dedek Sepp. Če bi imel dobre noge, bi šel vsak dan na planino. Lena vpraša: Bi mi lahko pokazal pot? Z veseljem bi to naredil, a moje noge so stare. Morala bi iti s Florianom.",
+          "it": "Se fossi giovane, salirei sul Dobratsch, dice nonno Sepp. Se avessi delle buone gambe, andrei ogni giorno all'alpeggio. Lena chiede: mi potresti mostrare la strada? Lo farei volentieri, ma le mie gambe sono vecchie. Dovresti andare con Florian."
+        },
+        "explain": {
+          "en": "**What isn't so: wenn + hätte or wäre, then käme or würde + the infinitive**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+          "sl": "**Kar ni res: wenn + hätte ali wäre, nato käme ali würde + nedoločnik**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+          "it": "**Ciò che non è vero: wenn + hätte o wäre, poi käme o würde + l'infinito**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Sag es mit wenn · It isn't so: say it with wenn",
+          "sl": "Sag es mit wenn · Ni res: povej z wenn",
+          "it": "Sag es mit wenn · Non è vero: dillo con wenn"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Toni hat kein Geld. Er kauft das Haus nicht.",
+            "accept": [
+              "Wenn Toni Geld hätte, würde er das Haus kaufen.",
+              "Toni würde das Haus kaufen, wenn er Geld hätte."
+            ],
+            "spoken": [
+              "Wenn Toni Geld haben würde, würde er das Haus kaufen.",
+              "Toni würde das Haus kaufen, wenn er Geld haben würde."
+            ]
+          },
+          {
+            "from": "Mitzi ist krank. Sie kommt nicht.",
+            "accept": [
+              "Wenn Mitzi nicht krank wäre, käme sie.",
+              "Wenn Mitzi nicht krank wäre, würde sie kommen.",
+              "Mitzi würde kommen, wenn sie nicht krank wäre.",
+              "Mitzi käme, wenn sie nicht krank wäre."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**What isn't so: wenn + hätte or wäre, then käme or würde + the infinitive**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+          "sl": "**Kar ni res: wenn + hätte ali wäre, nato käme ali würde + nedoločnik**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+          "it": "**Ciò che non è vero: wenn + hätte o wäre, poi käme o würde + l'infinito**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Frag höflich · Ask kindly",
+          "sl": "Frag höflich · Vprašaj vljudno",
+          "it": "Frag höflich · Chiedi con garbo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Kannst du das Fenster zumachen?",
+            "accept": [
+              "Könntest du das Fenster zumachen?",
+              "Könntest du bitte das Fenster zumachen?",
+              "Könntest du das Fenster bitte zumachen?"
+            ]
+          },
+          {
+            "from": "Darf ich hier rauchen?",
+            "accept": [
+              "Dürfte ich hier rauchen?",
+              "Dürfte ich hier bitte rauchen?"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Asking kindly: könntest, könnten, dürfte, the verb first**\n- Könntest du mir helfen? · Dürfte ich kurz telefonieren?",
+          "sl": "**Vljudna prošnja: könntest, könnten, dürfte, glagol prvi**\n- Könntest du mir helfen? · Dürfte ich kurz telefonieren?",
+          "it": "**Chiedere con garbo: könntest, könnten, dürfte, il verbo per primo**\n- Könntest du mir helfen? · Dürfte ich kurz telefonieren?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Du hast Husten. Du ___ nicht rauchen.",
+        "options": [
+          "solltest",
+          "wärst",
+          "hättest"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Advice: du solltest, er sollte, ihr solltet, the other verb last**\n- Du solltest schlafen.",
+          "sl": "**Nasvet: du solltest, er sollte, ihr solltet, drugi glagol na koncu**\n- Du solltest schlafen.",
+          "it": "**Un consiglio: du solltest, er sollte, ihr solltet, l'altro verbo alla fine**\n- Du solltest schlafen."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wenn ich du ___, würde ich bleiben.",
+        "options": [
+          "wäre",
+          "bin",
+          "war"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**What isn't so: wenn + hätte or wäre, then käme or würde + the infinitive**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+          "sl": "**Kar ni res: wenn + hätte ali wäre, nato käme ali würde + nedoločnik**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen.",
+          "it": "**Ciò che non è vero: wenn + hätte o wäre, poi käme o würde + l'infinito**\n- Wenn ich Zeit hätte, käme ich. · Wenn ich Zeit hätte, würde ich kommen."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Gestern ___ ich nicht kommen.",
+        "options": [
+          "konnte",
+          "könnte",
+          "käme"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Yesterday is the past: konnte, no umlaut**",
+          "sl": "**Včeraj je preteklost: konnte, brez preglasa**",
+          "it": "**Ieri è il passato: konnte, senza dieresi**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: käme, ginge; wenn ich Zeit haben würde as spoken; Dürfte ich; each base: pogojnik, periodo ipotetico"
+}

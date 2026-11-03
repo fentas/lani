@@ -1,0 +1,1026 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "relativsatz-praeposition",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🍞",
+  "title": {
+    "de": "Der Tisch, auf dem das Brot liegt",
+    "en": "With a preposition: auf dem, wo, was",
+    "sl": "S predlogom: auf dem, wo, was",
+    "it": "Con la preposizione: auf dem, wo, was"
+  },
+  "goal": {
+    "en": "You can put a preposition before a relative pronoun (der Tisch, auf dem das Brot liegt; der Bus, auf den ich warte), say wo for a place, and was after alles, nichts and etwas.",
+    "sl": "Pred oziralni zaimek postaviš predlog (der Tisch, auf dem das Brot liegt; der Bus, auf den ich warte), za kraj rečeš wo, za alles, nichts in etwas pa was.",
+    "it": "Sai mettere una preposizione davanti al pronome relativo (der Tisch, auf dem das Brot liegt; der Bus, auf den ich warte), dire wo per un luogo e was dopo alles, nichts ed etwas."
+  },
+  "grammar": [
+    "relativsatz",
+    "wechselpraepositionen",
+    "verben-praepositionen"
+  ],
+  "words": [
+    "der Tisch",
+    "die Bank",
+    "die Linde",
+    "das Brot",
+    "der Kasten",
+    "das Regal",
+    "der Hut",
+    "das Werkzeug",
+    "das Gewitter",
+    "das Fest",
+    "der Kirchtag",
+    "das Tal",
+    "der Markt",
+    "die Küche",
+    "der Keller",
+    "das Dorf",
+    "alles",
+    "nichts",
+    "etwas",
+    "wo",
+    "wohin",
+    "woher",
+    "was",
+    "warten",
+    "denken",
+    "die Angst",
+    "sprechen",
+    "erzählen",
+    "liegen",
+    "legen",
+    "stellen",
+    "wohnen",
+    "einkaufen",
+    "feiern",
+    "je"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Präposition",
+          "sl": "predlog",
+          "en": "preposition",
+          "it": "preposizione"
+        },
+        "der",
+        "die",
+        "das"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Der Mann, mit dem ich spreche** (the man I'm talking to): the preposition comes first, then the pronoun. The noun gives the gender, the preposition the case: mit takes the dative, so **mit dem**, **mit der**, **mit dem**, and in the plural **mit denen**. It never goes to the end as in English: **der Mann, mit dem ich spreche** (never *der Mann, dem ich spreche mit*).",
+          "sl": "**Der Mann, mit dem ich spreche** (moški, s katerim govorim): najprej predlog, nato zaimek. Spol da samostalnik, sklon predlog: mit zahteva dajalnik, torej **mit dem**, **mit der**, **mit dem**, v množini **mit denen** (s katerimi). Enako kot v slovenščini: predlog stoji pred zaimkom.",
+          "it": "**Der Mann, mit dem ich spreche** (l'uomo con cui parlo): prima la preposizione, poi il pronome. Il genere lo dà il nome, il caso la preposizione: mit vuole il dativo, quindi **mit dem**, **mit der**, **mit dem**, e al plurale **mit denen** (con cui). Come in italiano: la preposizione sta davanti al pronome."
+        },
+        "examples": [
+          {
+            "de": "Der Mann, mit dem Kathi spricht, ist Stanko.",
+            "en": "The man Kathi is talking to is Stanko.",
+            "sl": "Moški, s katerim govori Kathi, je Stanko.",
+            "it": "L'uomo con cui parla Kathi è Stanko."
+          },
+          {
+            "de": "Die Frau, von der Stefan erzählt, ist Oma Resi.",
+            "en": "The woman Stefan is talking about is Grandma Resi.",
+            "sl": "Ženska, o kateri pripoveduje Stefan, je babica Resi.",
+            "it": "La donna di cui racconta Stefan è nonna Resi."
+          },
+          {
+            "de": "Die Freunde, mit denen Stefan feiert, kommen aus Brda.",
+            "en": "The friends Stefan is celebrating with come from Brda.",
+            "sl": "Prijatelji, s katerimi Stefan praznuje, so iz Brd.",
+            "it": "Gli amici con cui Stefan festeggia vengono da Brda."
+          }
+        ],
+        "rows": [
+          [
+            "mit",
+            "mit dem",
+            "mit der",
+            "mit dem"
+          ],
+          [
+            {
+              "de": "mit (Plural)",
+              "sl": "mit (množina)",
+              "en": "mit (plural)",
+              "it": "mit (plurale)"
+            },
+            "mit denen",
+            "mit denen",
+            "mit denen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Die Frau, ___ Stefan spricht, ist Eva.",
+          "options": [
+            "mit der",
+            "mit die",
+            "mit dem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**mit takes the dative; die Frau: mit der**\n- die Frau, mit der Stefan spricht",
+            "sl": "**mit zahteva dajalnik; die Frau: mit der**\n- die Frau, mit der Stefan spricht",
+            "it": "**mit vuole il dativo; die Frau: mit der**\n- die Frau, mit der Stefan spricht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Der Freund, für den ich koche** (the friend I'm cooking for): für takes the accusative, so **für den**, **für die**, **für das**, and in the plural **für die**. The same goes for **durch, gegen, ohne, um**. Ask first which preposition it is: it decides the case, not the noun's job in the main sentence.",
+          "sl": "**Der Freund, für den ich koche** (prijatelj, za katerega kuham): für zahteva tožilnik, torej **für den**, **für die**, **für das**, v množini **für die**. Enako **durch, gegen, ohne, um**. Najprej se vprašaj, kateri predlog je: ta določi sklon, ne vloga samostalnika v glavnem stavku.",
+          "it": "**Der Freund, für den ich koche** (l'amico per cui cucino): für vuole l'accusativo, quindi **für den**, **für die**, **für das**, e al plurale **für die**. Lo stesso per **durch, gegen, ohne, um**. Chiediti prima quale preposizione c'è: è lei a decidere il caso, non il ruolo del nome nella frase principale."
+        },
+        "examples": [
+          {
+            "de": "Der Freund, für den Kathi kocht, ist Stefan.",
+            "en": "The friend Kathi is cooking for is Stefan.",
+            "sl": "Prijatelj, za katerega kuha Kathi, je Stefan.",
+            "it": "L'amico per cui cucina Kathi è Stefan."
+          },
+          {
+            "de": "Das ist die Arbeit, für die Toni Geld bekommt.",
+            "en": "That's the work Toni gets money for.",
+            "sl": "To je delo, za katero Toni dobi denar.",
+            "it": "È il lavoro per cui Toni riceve i soldi."
+          },
+          {
+            "de": "Das ist das Werkzeug, ohne das Toni nicht arbeiten kann.",
+            "en": "That's the tool Toni can't work without.",
+            "sl": "To je orodje, brez katerega Toni ne more delati.",
+            "it": "È l'attrezzo senza il quale Toni non può lavorare."
+          }
+        ],
+        "rows": [
+          [
+            "für",
+            "für den",
+            "für die",
+            "für das"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relativsatz",
+          "text": "Der Hut, ohne ___ Opa Sepp nicht aus dem Haus geht, ist alt.",
+          "accept": [
+            "den",
+            "welchen"
+          ],
+          "hint": {
+            "en": "ohne + accusative; der Hut",
+            "sl": "ohne + tožilnik; der Hut",
+            "it": "ohne + accusativo; der Hut"
+          },
+          "explain": {
+            "en": "**ohne takes the accusative; der Hut: ohne den**\n- der Hut, ohne den er nicht geht",
+            "sl": "**ohne zahteva tožilnik; der Hut: ohne den**\n- der Hut, ohne den er nicht geht",
+            "it": "**ohne vuole l'accusativo; der Hut: ohne den**\n- der Hut, ohne den er nicht geht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Der Tisch, auf dem das Brot liegt** (the table the bread is lying on), but **der Tisch, auf den ich das Brot lege** (the table I'm putting the bread on). With **an, auf, in, über, unter, vor, hinter, neben, zwischen** it is as ever: wo? takes the dative, wohin? the accusative. The verb in the clause decides: liegen is a state, legen a movement.",
+          "sl": "**Der Tisch, auf dem das Brot liegt** (miza, na kateri leži kruh), a **der Tisch, auf den ich das Brot lege** (miza, na katero polagam kruh). Pri **an, auf, in, über, unter, vor, hinter, neben, zwischen** je kot vedno: wo? zahteva dajalnik, wohin? tožilnik. Odloči glagol v stavku: liegen je stanje, legen premik. Enako kot na kateri in na katero.",
+          "it": "**Der Tisch, auf dem das Brot liegt** (il tavolo su cui c'è il pane), ma **der Tisch, auf den ich das Brot lege** (il tavolo su cui metto il pane). Con **an, auf, in, über, unter, vor, hinter, neben, zwischen** è come sempre: wo? vuole il dativo, wohin? l'accusativo. Decide il verbo nella frase: liegen è uno stato, legen un movimento."
+        },
+        "examples": [
+          {
+            "de": "Der Tisch, auf dem das Brot liegt, ist alt.",
+            "en": "The table the bread is lying on is old.",
+            "sl": "Miza, na kateri leži kruh, je stara.",
+            "it": "Il tavolo su cui c'è il pane è vecchio."
+          },
+          {
+            "de": "Der Tisch, auf den ich das Brot lege, ist neu.",
+            "en": "The table I'm putting the bread on is new.",
+            "sl": "Miza, na katero polagam kruh, je nova.",
+            "it": "Il tavolo su cui metto il pane è nuovo."
+          },
+          {
+            "de": "Die Bank, auf der Opa Sepp sitzt, steht unter der Linde.",
+            "en": "The bench Grandpa Sepp is sitting on stands under the linden tree.",
+            "sl": "Klop, na kateri sedi dedek Sepp, stoji pod lipo.",
+            "it": "La panchina su cui è seduto nonno Sepp è sotto il tiglio."
+          },
+          {
+            "de": "Das Haus, in dem Kathi wohnt, ist das Gasthaus.",
+            "en": "The house Kathi lives in is the inn.",
+            "sl": "Hiša, v kateri živi Kathi, je gostilna.",
+            "it": "La casa in cui abita Kathi è l'osteria."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "auf: wo?",
+              "sl": "auf: wo?",
+              "en": "auf: wo?",
+              "it": "auf: wo?"
+            },
+            "auf dem",
+            "auf der",
+            "auf dem"
+          ],
+          [
+            {
+              "de": "auf: wohin?",
+              "sl": "auf: wohin?",
+              "en": "auf: wohin?",
+              "it": "auf: wohin?"
+            },
+            "auf den",
+            "auf die",
+            "auf das"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Das ist das Regal, ___ ich die Gläser stelle.",
+          "options": [
+            "auf das",
+            "auf dem",
+            "auf der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**stellen is a movement, wohin?: the accusative**\n- das Regal, auf das ich die Gläser stelle",
+            "sl": "**stellen je premik, wohin?: tožilnik**\n- das Regal, auf das ich die Gläser stelle",
+            "it": "**stellen è un movimento, wohin?: l'accusativo**\n- das Regal, auf das ich die Gläser stelle"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Der Bus, auf den ich warte** (the bus I'm waiting for): a verb keeps its own preposition, warten auf, denken an, Angst haben vor. **Das Gewitter, vor dem Jakob Angst hat** (the storm Jakob is afraid of). A preposition and the pronoun never melt into one word: **das Haus, in dem ich wohne** (never *das Haus, im ich wohne*).",
+          "sl": "**Der Bus, auf den ich warte** (avtobus, na katerega čakam): glagol obdrži svoj predlog, warten auf, denken an, Angst haben vor. **Das Gewitter, vor dem Jakob Angst hat** (nevihta, ki se je Jakob boji). Predlog in zaimek se nikoli ne zlijeta v eno besedo: **das Haus, in dem ich wohne** (hiša, v kateri živim), brez im.",
+          "it": "**Der Bus, auf den ich warte** (l'autobus che aspetto): un verbo tiene la sua preposizione, warten auf, denken an, Angst haben vor. **Das Gewitter, vor dem Jakob Angst hat** (il temporale di cui Jakob ha paura). Preposizione e pronome non si fondono mai in una parola: **das Haus, in dem ich wohne** (la casa in cui abito), senza im."
+        },
+        "examples": [
+          {
+            "de": "Der Bus, auf den ich warte, kommt um acht.",
+            "en": "The bus I'm waiting for comes at eight.",
+            "sl": "Avtobus, na katerega čakam, pride ob osmih.",
+            "it": "L'autobus che aspetto arriva alle otto."
+          },
+          {
+            "de": "Das Gewitter, vor dem Jakob Angst hat, ist schon da.",
+            "en": "The storm Jakob is afraid of is already here.",
+            "sl": "Nevihta, ki se je Jakob boji, je že tu.",
+            "it": "Il temporale di cui Jakob ha paura è già qui."
+          },
+          {
+            "de": "Die Frau, an die Stefan denkt, wohnt in Villach.",
+            "en": "The woman Stefan is thinking of lives in Villach.",
+            "sl": "Ženska, na katero misli Stefan, živi v Beljaku.",
+            "it": "La donna a cui pensa Stefan abita a Villach."
+          },
+          {
+            "de": "Das Fest, auf das sich alle freuen, ist der Kirchtag.",
+            "en": "The party everyone is looking forward to is the Kirchtag.",
+            "sl": "Praznik, ki se ga vsi veselijo, je žegnanje.",
+            "it": "La festa che tutti aspettano con gioia è il Kirchtag."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Das ist der Freund, ___ Kathi wartet.",
+          "options": [
+            "auf den",
+            "auf dem",
+            "auf der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**warten auf takes the accusative; der Freund: auf den**\n- der Freund, auf den Kathi wartet",
+            "sl": "**warten auf zahteva tožilnik; der Freund: auf den**\n- der Freund, auf den Kathi wartet",
+            "it": "**warten auf vuole l'accusativo; der Freund: auf den**\n- der Freund, auf den Kathi wartet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Das Dorf, wo ich wohne** (the village where I live) means the same as **das Dorf, in dem ich wohne**: **wo** works for a place. After a town's name it is the usual way: **in Villach, wo Kathi einkauft** (in Villach, where Kathi shops). For a movement: **wohin** (where to), **woher** (where from). In speech **der Tag, wo** (the day when) is common too; write **an dem**.",
+          "sl": "**Das Dorf, wo ich wohne** (vas, kjer živim) pomeni isto kot **das Dorf, in dem ich wohne**: **wo** se rabi za kraj. Za imenom mesta je običajen: **in Villach, wo Kathi einkauft** (v Beljaku, kjer Kathi nakupuje). Za smer: **wohin** (kamor), **woher** (od koder). V govoru je pogost tudi **der Tag, wo** (dan, ko); piši **an dem**.",
+          "it": "**Das Dorf, wo ich wohne** (il paese dove abito) significa lo stesso di **das Dorf, in dem ich wohne**: **wo** serve per un luogo. Dopo il nome di una città è il modo solito: **in Villach, wo Kathi einkauft** (a Villach, dove Kathi fa la spesa). Per un movimento: **wohin** (dove, verso dove), **woher** (da dove). Parlando si dice spesso anche **der Tag, wo** (il giorno in cui); scrivi **an dem**."
+        },
+        "examples": [
+          {
+            "de": "Das ist das Dorf, wo Oma Resi wohnt.",
+            "en": "That's the village where Grandma Resi lives.",
+            "sl": "To je vas, kjer živi babica Resi.",
+            "it": "È il paese dove abita nonna Resi."
+          },
+          {
+            "de": "Die Küche, wo Oma Resi kocht, ist klein.",
+            "en": "The kitchen where Grandma Resi cooks is small.",
+            "sl": "Kuhinja, kjer kuha babica Resi, je majhna.",
+            "it": "La cucina dove cucina nonna Resi è piccola."
+          },
+          {
+            "de": "In Villach, wo Kathi einkauft, ist heute Markt.",
+            "en": "In Villach, where Kathi shops, there's a market today.",
+            "sl": "V Beljaku, kjer Kathi nakupuje, je danes tržni dan.",
+            "it": "A Villach, dove Kathi fa la spesa, oggi c'è il mercato."
+          },
+          {
+            "de": "Der Markt, wohin Stefan den Most bringt, ist in Villach.",
+            "en": "The market Stefan takes the cider to is in Villach.",
+            "sl": "Tržnica, kamor Stefan pelje mošt, je v Beljaku.",
+            "it": "Il mercato dove Stefan porta il sidro è a Villach."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "In Klagenfurt, ___ Stefan oft ist, gibt es einen großen Markt.",
+          "options": [
+            "wo",
+            "was",
+            "den"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After a town's name: wo**\n- in Villach, wo Kathi einkauft",
+            "sl": "**Za imenom mesta: wo**\n- in Villach, wo Kathi einkauft",
+            "it": "**Dopo il nome di una città: wo**\n- in Villach, wo Kathi einkauft"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Alles, was Oma kocht, schmeckt gut** (everything Grandma cooks tastes good): after **alles, nichts, etwas** no noun gives a gender, so the pronoun is **was** (that, what). After **etwas** you'll also read **das**. A superlative used as a noun takes **was** too: **das Beste, was ich je gegessen habe** (the best thing I've ever eaten). **Das, was du sagst** (what you're saying) is the same.",
+          "sl": "**Alles, was Oma kocht, schmeckt gut** (vse, kar kuha babica, je dobro): za **alles, nichts, etwas** ni samostalnika, ki bi dal spol, zato je zaimek **was** (kar). Za **etwas** boš bral tudi **das**. Tudi za presežnikom v vlogi samostalnika stoji **was**: **das Beste, was ich je gegessen habe** (najboljše, kar sem kdaj jedel). Enako **das, was du sagst** (to, kar praviš).",
+          "it": "**Alles, was Oma kocht, schmeckt gut** (tutto quello che cucina la nonna è buono): dopo **alles, nichts, etwas** nessun nome dà il genere, quindi il pronome è **was** (quello che, che). Dopo **etwas** leggerai anche **das**. Anche un superlativo usato come nome vuole **was**: **das Beste, was ich je gegessen habe** (la cosa migliore che abbia mai mangiato). Lo stesso **das, was du sagst** (quello che dici)."
+        },
+        "examples": [
+          {
+            "de": "Alles, was Oma Resi kocht, schmeckt gut.",
+            "en": "Everything Grandma Resi cooks tastes good.",
+            "sl": "Vse, kar kuha babica Resi, je dobro.",
+            "it": "Tutto quello che cucina nonna Resi è buono."
+          },
+          {
+            "de": "Es gibt nichts, was Tante Mitzi nicht weiß.",
+            "en": "There's nothing Aunt Mitzi doesn't know.",
+            "sl": "Ni stvari, ki je teta Mitzi ne bi vedela.",
+            "it": "Non c'è niente che zia Mitzi non sappia."
+          },
+          {
+            "de": "Stefan hat etwas, was dir schmeckt.",
+            "en": "Stefan has something you'll like.",
+            "sl": "Stefan ima nekaj, kar ti bo teknilo.",
+            "it": "Stefan ha qualcosa che ti piacerà."
+          },
+          {
+            "de": "Das ist das Beste, was ich je gegessen habe.",
+            "en": "That's the best thing I've ever eaten.",
+            "sl": "To je najboljše, kar sem kdaj jedel.",
+            "it": "È la cosa migliore che abbia mai mangiato."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Das ist alles, ___ ich weiß.",
+          "options": [
+            "was",
+            "der",
+            "wo"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After alles: was**\n- alles, was ich weiß · nichts, was du nicht weißt",
+            "sl": "**Za alles: was**\n- alles, was ich weiß · nichts, was du nicht weißt",
+            "it": "**Dopo alles: was**\n- alles, was ich weiß · nichts, was du nicht weißt"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "A preposition stands before the pronoun and decides its case; the noun gives the gender: **mit dem, mit der, mit denen; für den, für die**. wo? takes the dative, wohin? the accusative: **auf dem, auf den**. For a place also **wo**. After **alles, nichts, etwas**: **was**.",
+      "sl": "Predlog stoji pred zaimkom in določi sklon; spol da samostalnik: **mit dem, mit der, mit denen; für den, für die**. wo? zahteva dajalnik, wohin? tožilnik: **auf dem, auf den**. Za kraj tudi **wo**. Za **alles, nichts, etwas**: **was**.",
+      "it": "La preposizione sta davanti al pronome e ne decide il caso; il genere lo dà il nome: **mit dem, mit der, mit denen; für den, für die**. wo? vuole il dativo, wohin? l'accusativo: **auf dem, auf den**. Per un luogo anche **wo**. Dopo **alles, nichts, etwas**: **was**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "relativsatz-praeposition-1",
+      "title": {
+        "de": "Mit dem, für den",
+        "en": "Mit dem, für den",
+        "sl": "Mit dem, für den",
+        "it": "Mit dem, für den"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the preposition and the pronoun: the gender from the column, the case from the preposition",
+            "sl": "predlog in zaimek: spol iz stolpca, sklon iz predloga",
+            "it": "la preposizione e il pronome: il genere dalla colonna, il caso dalla preposizione"
+          },
+          "columns": [
+            "der",
+            "die",
+            "das",
+            {
+              "en": "Plural · plural",
+              "sl": "Plural · množina",
+              "it": "Plural · plurale"
+            }
+          ],
+          "rows": [
+            {
+              "label": "mit · Dativ",
+              "cells": [
+                "mit dem",
+                {
+                  "accept": [
+                    "mit der",
+                    "der"
+                  ]
+                },
+                {
+                  "accept": [
+                    "mit dem",
+                    "dem"
+                  ]
+                },
+                {
+                  "accept": [
+                    "mit denen",
+                    "denen"
+                  ],
+                  "hint": {
+                    "en": "not the article's form",
+                    "sl": "ni enako členu",
+                    "it": "non è la forma dell'articolo"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "für · Akkusativ",
+              "cells": [
+                {
+                  "accept": [
+                    "für den",
+                    "den"
+                  ]
+                },
+                "für die",
+                {
+                  "accept": [
+                    "für das",
+                    "das"
+                  ]
+                },
+                {
+                  "accept": [
+                    "für die",
+                    "die"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "auf · Dativ (sitzen auf)",
+              "cells": [
+                "auf dem",
+                {
+                  "accept": [
+                    "auf der",
+                    "der"
+                  ]
+                },
+                {
+                  "accept": [
+                    "auf dem",
+                    "dem"
+                  ]
+                },
+                {
+                  "accept": [
+                    "auf denen",
+                    "denen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "auf · Akkusativ (warten auf)",
+              "cells": [
+                "auf den",
+                {
+                  "accept": [
+                    "auf die",
+                    "die"
+                  ]
+                },
+                "auf das",
+                {
+                  "accept": [
+                    "auf die",
+                    "die"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The preposition first; it decides the case, the noun the gender**\n- mit dem · für den · auf dem, auf den · mit denen",
+            "sl": "**Najprej predlog; on določi sklon, samostalnik spol**\n- mit dem · für den · auf dem, auf den · mit denen",
+            "it": "**Prima la preposizione; lei decide il caso, il nome il genere**\n- mit dem · für den · auf dem, auf den · mit denen"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Sortiere · Sort: which word goes in?",
+            "sl": "Sortiere · Razvrsti: katera beseda manjka?",
+            "it": "Sortiere · Ordina: quale parola manca?"
+          },
+          "columns": [
+            {
+              "label": "wo",
+              "words": [
+                "Das Tal, … Stanko wohnt",
+                "In Villach, … Kathi einkauft"
+              ]
+            },
+            {
+              "label": "was",
+              "words": [
+                "Alles, … du brauchst",
+                "Nichts, … ich sage"
+              ]
+            },
+            {
+              "label": "dem",
+              "words": [
+                "Der Mann, mit … ich spreche",
+                "Das Kind, von … sie erzählt"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A place: wo. After alles, nichts, etwas: was**\n- das Dorf, wo ich wohne · alles, was du brauchst",
+            "sl": "**Kraj: wo. Za alles, nichts, etwas: was**\n- das Dorf, wo ich wohne · alles, was du brauchst",
+            "it": "**Un luogo: wo. Dopo alles, nichts, etwas: was**\n- das Dorf, wo ich wohne · alles, was du brauchst"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relativsatz-praeposition-2",
+      "title": {
+        "de": "Im Gasthaus",
+        "en": "At the inn",
+        "sl": "V gostilni",
+        "it": "All'osteria"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Kathi zeigt ihr Gasthaus",
+          "text": "Das ist der Tisch, an ___ Opa Sepp immer sitzt. Die Linde, unter ___ wir im Sommer essen, ist sehr alt. Der Kasten, in ___ die Gläser stehen, ist neu. Der Keller, in ___ ich jetzt den Most bringe, ist kalt. Die Gäste, mit ___ ich gerade gesprochen habe, kommen aus Udine. Das ist die Stadt, ___ sie wohnen. Alles, ___ wir hier kochen, kommt aus dem Tal. Und das ist Stefan, für ___ ich heute koche.",
+          "gaps": [
+            {
+              "accept": [
+                "dem",
+                "welchem"
+              ],
+              "hint": "an: wo?"
+            },
+            {
+              "accept": [
+                "der",
+                "welcher"
+              ],
+              "hint": "unter: wo?"
+            },
+            {
+              "accept": [
+                "dem",
+                "welchem"
+              ],
+              "hint": "in: wo?"
+            },
+            {
+              "accept": [
+                "den",
+                "welchen"
+              ],
+              "hint": "in: wohin?"
+            },
+            {
+              "accept": [
+                "denen",
+                "welchen"
+              ],
+              "hint": "mit, Plural"
+            },
+            {
+              "accept": [
+                "wo",
+                "in der",
+                "in welcher"
+              ],
+              "hint": "die Stadt, ein Ort"
+            },
+            {
+              "accept": [
+                "was"
+              ],
+              "hint": "alles"
+            },
+            {
+              "accept": [
+                "den",
+                "welchen"
+              ],
+              "hint": "für"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "die",
+            "dass"
+          ],
+          "translation": {
+            "en": "That's the table Grandpa Sepp always sits at. The linden tree we eat under in summer is very old. The cupboard the glasses are in is new. The cellar I'm taking the cider to now is cold. The guests I've just been talking to come from Udine. That's the town where they live. Everything we cook here comes from the valley. And that's Stefan, who I'm cooking for today.",
+            "sl": "To je miza, za katero vedno sedi dedek Sepp. Lipa, pod katero poleti jemo, je zelo stara. Omara, v kateri stojijo kozarci, je nova. Klet, v katero zdaj nesem mošt, je mrzla. Gostje, s katerimi sem pravkar govorila, so iz Vidma. To je mesto, kjer živijo. Vse, kar tu kuhamo, je iz doline. In to je Stefan, za katerega danes kuham.",
+            "it": "Questo è il tavolo a cui siede sempre nonno Sepp. Il tiglio sotto cui mangiamo d'estate è molto vecchio. L'armadio in cui stanno i bicchieri è nuovo. La cantina in cui porto ora il sidro è fredda. Gli ospiti con cui ho appena parlato vengono da Udine. Questa è la città dove abitano. Tutto quello che cuciniamo qui viene dalla valle. E questo è Stefan, per cui cucino oggi."
+          },
+          "explain": {
+            "en": "**The preposition first; it decides the case, the noun the gender**\n- mit dem · für den · auf dem, auf den · mit denen",
+            "sl": "**Najprej predlog; on določi sklon, samostalnik spol**\n- mit dem · für den · auf dem, auf den · mit denen",
+            "it": "**Prima la preposizione; lei decide il caso, il nome il genere**\n- mit dem · für den · auf dem, auf den · mit denen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das ist die Bank, ___ Opa Sepp sitzt.",
+          "options": [
+            "auf der",
+            "auf die",
+            "auf dem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sitzen, wo?: the dative; die Bank: auf der**\n- die Bank, auf der Opa Sepp sitzt",
+            "sl": "**sitzen, wo?: dajalnik; die Bank: auf der**\n- die Bank, auf der Opa Sepp sitzt",
+            "it": "**sitzen, wo?: il dativo; die Bank: auf der**\n- die Bank, auf der Opa Sepp sitzt"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das Haus, ___ ich wohne, ist alt.",
+          "options": [
+            "in dem",
+            "im",
+            "in das"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**No contraction before the pronoun**\n- das Haus, in dem ich wohne",
+            "sl": "**Pred zaimkom ni skrčene oblike**\n- das Haus, in dem ich wohne",
+            "it": "**Nessuna contrazione davanti al pronome**\n- das Haus, in dem ich wohne"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relativsatz-praeposition-3",
+      "title": {
+        "de": "Mit wem? Wo? Was?",
+        "en": "With whom? Where? What?",
+        "sl": "S kom? Kje? Kaj?",
+        "it": "Con chi? Dove? Che cosa?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Verbinde die Sätze · Join the sentences",
+            "sl": "Verbinde die Sätze · Poveži stavka",
+            "it": "Verbinde die Sätze · Unisci le frasi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das ist der Mann. Ich spreche mit dem Mann.",
+              "accept": [
+                "Das ist der Mann, mit dem ich spreche.",
+                "Das ist der Mann, mit welchem ich spreche."
+              ]
+            },
+            {
+              "from": "Das ist die Bank. Opa Sepp sitzt auf der Bank.",
+              "accept": [
+                "Das ist die Bank, auf der Opa Sepp sitzt.",
+                "Das ist die Bank, wo Opa Sepp sitzt.",
+                "Das ist die Bank, auf welcher Opa Sepp sitzt."
+              ]
+            },
+            {
+              "from": "Das ist der Bus. Ich warte auf den Bus.",
+              "accept": [
+                "Das ist der Bus, auf den ich warte.",
+                "Das ist der Bus, auf welchen ich warte."
+              ]
+            },
+            {
+              "from": "Das sind die Leute. Stefan arbeitet für die Leute.",
+              "accept": [
+                "Das sind die Leute, für die Stefan arbeitet.",
+                "Das sind die Leute, für welche Stefan arbeitet."
+              ]
+            },
+            {
+              "from": "Das sind die Kinder. Eva spricht mit den Kindern.",
+              "accept": [
+                "Das sind die Kinder, mit denen Eva spricht.",
+                "Das sind die Kinder, mit welchen Eva spricht."
+              ]
+            },
+            {
+              "from": "Das ist der Tag. An dem Tag feiern wir.",
+              "accept": [
+                "Das ist der Tag, an dem wir feiern.",
+                "Das ist der Tag, an welchem wir feiern."
+              ],
+              "spoken": [
+                "Das ist der Tag, wo wir feiern."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The preposition first; it decides the case, the noun the gender**\n- mit dem · für den · auf dem, auf den · mit denen",
+            "sl": "**Najprej predlog; on določi sklon, samostalnik spol**\n- mit dem · für den · auf dem, auf den · mit denen",
+            "it": "**Prima la preposizione; lei decide il caso, il nome il genere**\n- mit dem · für den · auf dem, auf den · mit denen"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Sag es mit wo oder was · Say it with wo or was",
+            "sl": "Sag es mit wo oder was · Povej z wo ali was",
+            "it": "Sag es mit wo oder was · Dillo con wo o was"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das ist Villach. Kathi kauft dort ein.",
+              "accept": [
+                "Das ist Villach, wo Kathi einkauft."
+              ]
+            },
+            {
+              "from": "Alles ist gut. Du kochst es.",
+              "accept": [
+                "Alles, was du kochst, ist gut.",
+                "Alles ist gut, was du kochst."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A place: wo. After alles, nichts, etwas: was**\n- das Dorf, wo ich wohne · alles, was du brauchst",
+            "sl": "**Kraj: wo. Za alles, nichts, etwas: was**\n- das Dorf, wo ich wohne · alles, was du brauchst",
+            "it": "**Un luogo: wo. Dopo alles, nichts, etwas: was**\n- das Dorf, wo ich wohne · alles, was du brauchst"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "In Stefans Keller",
+        "text": "Das ist der Keller, in ___ Stefan den Most macht. Die Fässer, in ___ der Most liegt, sind alt. Die Frau, von ___ er die Äpfel bekommt, ist Oma Resi. Der Freund, auf ___ er heute wartet, kommt aus Brda. Das ist das Tal, ___ er wohnt. Alles, ___ er verkauft, macht er selbst.",
+        "gaps": [
+          {
+            "accept": [
+              "dem",
+              "welchem"
+            ],
+            "hint": "in: wo?"
+          },
+          {
+            "accept": [
+              "denen",
+              "welchen"
+            ],
+            "hint": "in: wo? Plural"
+          },
+          {
+            "accept": [
+              "der",
+              "welcher"
+            ],
+            "hint": "von, die Frau"
+          },
+          {
+            "accept": [
+              "den",
+              "welchen"
+            ],
+            "hint": "warten auf"
+          },
+          {
+            "accept": [
+              "wo",
+              "in dem",
+              "in welchem"
+            ],
+            "hint": "das Tal, ein Ort"
+          },
+          {
+            "accept": [
+              "was"
+            ],
+            "hint": "alles"
+          }
+        ],
+        "translation": {
+          "en": "This is the cellar where Stefan makes the cider. The barrels the cider lies in are old. The woman he gets the apples from is Grandma Resi. The friend he's waiting for today comes from Brda. This is the valley where he lives. Everything he sells he makes himself.",
+          "sl": "To je klet, v kateri Stefan dela mošt. Sodi, v katerih je mošt, so stari. Ženska, od katere dobi jabolka, je babica Resi. Prijatelj, na katerega danes čaka, je iz Brd. To je dolina, kjer živi. Vse, kar prodaja, naredi sam.",
+          "it": "Questa è la cantina in cui Stefan fa il sidro. Le botti in cui sta il sidro sono vecchie. La donna da cui riceve le mele è nonna Resi. L'amico che aspetta oggi viene da Brda. Questa è la valle dove abita. Tutto quello che vende lo fa lui stesso."
+        },
+        "explain": {
+          "en": "**The preposition first; it decides the case, the noun the gender**\n- mit dem · für den · auf dem, auf den · mit denen",
+          "sl": "**Najprej predlog; on določi sklon, samostalnik spol**\n- mit dem · für den · auf dem, auf den · mit denen",
+          "it": "**Prima la preposizione; lei decide il caso, il nome il genere**\n- mit dem · für den · auf dem, auf den · mit denen"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Verbinde die Sätze · Join the sentences",
+          "sl": "Verbinde die Sätze · Poveži stavka",
+          "it": "Verbinde die Sätze · Unisci le frasi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Das ist die Frau. Kathi spricht mit der Frau.",
+            "accept": [
+              "Das ist die Frau, mit der Kathi spricht.",
+              "Das ist die Frau, mit welcher Kathi spricht."
+            ]
+          },
+          {
+            "from": "Das ist der Tisch. Ich lege das Brot auf den Tisch.",
+            "accept": [
+              "Das ist der Tisch, auf den ich das Brot lege.",
+              "Das ist der Tisch, wohin ich das Brot lege.",
+              "Das ist der Tisch, auf welchen ich das Brot lege."
+            ]
+          },
+          {
+            "from": "Das sind die Gäste. Kathi kocht für die Gäste.",
+            "accept": [
+              "Das sind die Gäste, für die Kathi kocht.",
+              "Das sind die Gäste, für welche Kathi kocht."
+            ]
+          },
+          {
+            "from": "Es gibt nichts. Mitzi weiß es nicht.",
+            "accept": [
+              "Es gibt nichts, was Mitzi nicht weiß."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**The preposition first; it decides the case, the noun the gender**\n- mit dem · für den · auf dem, auf den · mit denen",
+          "sl": "**Najprej predlog; on določi sklon, samostalnik spol**\n- mit dem · für den · auf dem, auf den · mit denen",
+          "it": "**Prima la preposizione; lei decide il caso, il nome il genere**\n- mit dem · für den · auf dem, auf den · mit denen"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Kinder, ___ Stefan spricht, sind laut.",
+        "options": [
+          "mit denen",
+          "mit den",
+          "mit dem"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The dative plural: denen**\n- die Kinder, mit denen Stefan spricht",
+          "sl": "**Dajalnik množine: denen**\n- die Kinder, mit denen Stefan spricht",
+          "it": "**Il dativo plurale: denen**\n- die Kinder, mit denen Stefan spricht"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das Regal, ___ die Gläser stehen, ist neu.",
+        "options": [
+          "auf dem",
+          "auf das",
+          "auf den"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**stehen, wo?: the dative**\n- das Regal, auf dem die Gläser stehen",
+          "sl": "**stehen, wo?: dajalnik**\n- das Regal, auf dem die Gläser stehen",
+          "it": "**stehen, wo?: il dativo**\n- das Regal, auf dem die Gläser stehen"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "In Villach, ___ Kathi einkauft, ist heute Markt.",
+        "options": [
+          "wo",
+          "was",
+          "die"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**After a town's name: wo**\n- in Villach, wo Kathi einkauft",
+          "sl": "**Za imenom mesta: wo**\n- in Villach, wo Kathi einkauft",
+          "it": "**Dopo il nome di una città: wo**\n- in Villach, wo Kathi einkauft"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: der Tag, wo as spoken; etwas, was or das; Slovene za mizo; Italian a cui, in cui"
+}

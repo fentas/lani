@@ -105,9 +105,21 @@
       "de": "Bienen machen Honig."
     }
   ],
-  "modules": [],
+  "modules": ["articoli"],
   "tags": ["plural", "plurale", "noun_plural", "plural_article", "irregular_plural", "articles"],
   "see": ["articoli-genere", "aggettivi-accordo", "numeri"],
   "machine_written": true,
-  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "rule": {
+      "sl": "Zadnji samoglasnik se spremeni: **-o → -i** (**i gabbiani**), **-a → -e** (**le pecore**), **-e → -i** (**i fiori, le chiavi**). Tudi člen: **il → i**, **lo** in moški **l' → gli**, **la** in ženski **l' → le**.",
+      "en": "The last vowel changes: **-o → -i** (**i gabbiani**), **-a → -e** (**le pecore**), **-e → -i** (**i fiori, le chiavi**). The article too: **il → i**, **lo** and masculine **l' → gli**, **la** and feminine **l' → le**.",
+      "de": "Der letzte Vokal ändert sich: **-o → -i** (**i gabbiani**), **-a → -e** (**le pecore**), **-e → -i** (**i fiori, le chiavi**). Auch der Artikel: **il → i**, **lo** und männliches **l' → gli**, **la** und weibliches **l' → le**."
+    },
+    "tip": {
+      "sl": "💡 Nekateri se ne spremenijo, samo člen: **il caffè → i caffè**, **la città → le città**. Nekaj je nepravilnih: **l'uovo → le uova**, **la mano → le mani**.",
+      "en": "💡 Some never change, only the article does: **il caffè → i caffè**, **la città → le città**. A few are irregular: **l'uovo → le uova**, **la mano → le mani**.",
+      "de": "💡 Manche ändern sich nie, nur der Artikel: **il caffè → i caffè**, **la città → le città**. Ein paar sind unregelmäßig: **l'uovo → le uova**, **la mano → le mani**."
+    }
+  }
 }

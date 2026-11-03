@@ -1,0 +1,276 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "adjektiv-ein",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🏠",
+  "title": {
+    "de": "Ein großer Hund: das Adjektiv nach ein, kein, mein",
+    "sl": "Ein großer Hund: pridevnik za ein, kein, mein",
+    "en": "Ein großer Hund: adjectives after ein, kein, mein",
+    "it": "Ein großer Hund: l'aggettivo dopo ein, kein, mein"
+  },
+  "rule": {
+    "en": "**der** shows that a noun is masculine, **ein** doesn't. So where the article has no ending of its own, the adjective takes it instead: **ein großer Hund** (der → -er), **ein kleines Haus** (das → -es).\n\nThat happens in three places only: a der noun in the nominative (**ein großer Hund**), and a das noun in the nominative and the accusative (**ein kleines Haus**). Everywhere else the article has its ending, and the adjective is as after der: **eine kleine Katze, einen großen Hund, einem großen Hund, einer kleinen Katze**.\n\n**kein** and the possessives **mein, dein, sein, ihr, unser, euer, Ihr** work the same: **kein großer Hund, mein kleines Haus, unser alter Traktor**. **ein** has no plural, but they do, and in the plural it is always **-en**: **keine großen Hunde, meine alten Schafe, mit seinen neuen Freunden**.\n\nSo der große Hund, but ein großer Hund: the same adjective, the ending in another word.",
+    "sl": "**der** pove, da je samostalnik moškega spola, **ein** tega ne pove. Kjer člen nima svoje končnice, jo zato dobi pridevnik: **ein großer Hund** (der → -er), **ein kleines Haus** (das → -es).\n\nTo se zgodi samo na treh mestih: samostalnik z der v imenovalniku (**ein großer Hund**) in samostalnik z das v imenovalniku in tožilniku (**ein kleines Haus**). Povsod drugod ima člen svojo končnico in pridevnik je tak kot za der: **eine kleine Katze, einen großen Hund, einem großen Hund, einer kleinen Katze**.\n\n**kein** in svojilni zaimki **mein, dein, sein, ihr, unser, euer, Ihr** delujejo enako: **kein großer Hund, mein kleines Haus, unser alter Traktor**. **ein** množine nima, oni pa jo imajo, in v množini je vedno **-en**: **keine großen Hunde, meine alten Schafe, mit seinen neuen Freunden**.\n\nPodobno ločuje slovenščina velik pes (ein großer Hund) in veliki pes (der große Hund), le da nemščina to pove s končnico.",
+    "it": "**der** mostra che un nome è maschile, **ein** no. Così, dove l'articolo non ha una desinenza sua, la prende l'aggettivo: **ein großer Hund** (der → -er), **ein kleines Haus** (das → -es).\n\nSuccede solo in tre posti: un nome con der al nominativo (**ein großer Hund**) e un nome con das al nominativo e all'accusativo (**ein kleines Haus**). Ovunque altrove l'articolo ha la sua desinenza, e l'aggettivo è come dopo der: **eine kleine Katze, einen großen Hund, einem großen Hund, einer kleinen Katze**.\n\n**kein** e i possessivi **mein, dein, sein, ihr, unser, euer, Ihr** funzionano allo stesso modo: **kein großer Hund, mein kleines Haus, unser alter Traktor**. **ein** non ha plurale, loro sì, e al plurale è sempre **-en**: **keine großen Hunde, meine alten Schafe, mit seinen neuen Freunden**.\n\nQuindi der große Hund, ma ein großer Hund: lo stesso aggettivo, la desinenza in un'altra parola."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Fall",
+        "sl": "sklon",
+        "en": "case",
+        "it": "caso"
+      },
+      "der",
+      "die",
+      "das"
+    ],
+    "rows": [
+      [
+        {
+          "de": "Nominativ",
+          "sl": "imenovalnik",
+          "en": "nominative",
+          "it": "nominativo"
+        },
+        "ein großer Hund",
+        "eine kleine Katze",
+        "ein kleines Haus"
+      ],
+      [
+        {
+          "de": "Akkusativ",
+          "sl": "tožilnik",
+          "en": "accusative",
+          "it": "accusativo"
+        },
+        "einen großen Hund",
+        "eine kleine Katze",
+        "ein kleines Haus"
+      ],
+      [
+        {
+          "de": "Dativ",
+          "sl": "dajalnik",
+          "en": "dative",
+          "it": "dativo"
+        },
+        "einem großen Hund",
+        "einer kleinen Katze",
+        "einem kleinen Haus"
+      ],
+      [
+        {
+          "de": "Plural",
+          "sl": "množina",
+          "en": "plural",
+          "it": "plurale"
+        },
+        "keine großen Hunde",
+        "keine kleinen Katzen",
+        "keine kleinen Häuser"
+      ],
+      [
+        {
+          "de": "Dativ Plural",
+          "sl": "dajalnik množine",
+          "en": "dative plural",
+          "it": "dativo plurale"
+        },
+        "keinen großen Hunden",
+        "keinen kleinen Katzen",
+        "keinen kleinen Häusern"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das ist ein großer Hund.",
+      "sl": "To je velik pes.",
+      "en": "That's a big dog.",
+      "it": "È un cane grande.",
+      "note": {
+        "en": "ein has no ending, so the adjective shows der: -er.",
+        "sl": "ein nima končnice, zato der pokaže pridevnik: -er.",
+        "it": "ein non ha desinenza, quindi der lo mostra l'aggettivo: -er."
+      }
+    },
+    {
+      "de": "Kathi hat ein kleines Gasthaus.",
+      "sl": "Kathi ima majhno gostilno.",
+      "en": "Kathi has a small inn.",
+      "it": "Kathi ha una piccola osteria.",
+      "note": {
+        "en": "das stays in the accusative: -es.",
+        "sl": "das v tožilniku ostane: -es.",
+        "it": "das all'accusativo resta: -es."
+      }
+    },
+    {
+      "de": "Stefan kauft einen neuen Traktor.",
+      "sl": "Stefan kupuje nov traktor.",
+      "en": "Stefan is buying a new tractor.",
+      "it": "Stefan compra un trattore nuovo.",
+      "note": {
+        "en": "einen has its ending: -en, as after den.",
+        "sl": "einen ima svojo končnico: -en, kot za den.",
+        "it": "einen ha la sua desinenza: -en, come dopo den."
+      }
+    },
+    {
+      "de": "Mitzi wohnt in einem alten Haus.",
+      "sl": "Mitzi stanuje v stari hiši.",
+      "en": "Mitzi lives in an old house.",
+      "it": "Mitzi abita in una casa vecchia.",
+      "note": {
+        "en": "Every dative: -en.",
+        "sl": "Vsak dajalnik: -en.",
+        "it": "Ogni dativo: -en."
+      }
+    },
+    {
+      "de": "Unser alter Traktor ist kaputt.",
+      "sl": "Naš stari traktor je pokvarjen.",
+      "en": "Our old tractor is broken.",
+      "it": "Il nostro vecchio trattore è rotto.",
+      "note": {
+        "en": "unser has no ending here: -er, as after ein.",
+        "sl": "unser tu nima končnice: -er, kot za ein.",
+        "it": "unser qui non ha desinenza: -er, come dopo ein."
+      }
+    },
+    {
+      "de": "Toni hat keine neuen Werkzeuge.",
+      "sl": "Toni nima novega orodja.",
+      "en": "Toni has no new tools.",
+      "it": "Toni non ha attrezzi nuovi.",
+      "note": {
+        "en": "A plural after kein: -en.",
+        "sl": "Množina za kein: -en. Tu slovensko rodilnik, nemško tožilnik.",
+        "it": "Un plurale dopo kein: -en."
+      }
+    },
+    {
+      "de": "Florian sucht seine weißen Schafe.",
+      "sl": "Florian išče svoje bele ovce.",
+      "en": "Florian is looking for his white sheep.",
+      "it": "Florian cerca le sue pecore bianche.",
+      "note": {
+        "en": "A plural after sein: -en.",
+        "sl": "Množina za sein: -en.",
+        "it": "Un plurale dopo sein: -en."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "adjective_endings",
+    "adjective_after_ein",
+    "adjektiv_ein",
+    "ein_grosser",
+    "ein_kleines"
+  ],
+  "see": [
+    "adjektiv-der",
+    "adjektiv-null",
+    "possessiv",
+    "kein-nicht",
+    "akkusativ",
+    "dativ"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: ein großer, ein kleines; kein, mein; unser alter Traktor; the Slovene velik pes, veliki pes note",
+  "card": {
+    "title": {
+      "de": "Adjektiv nach ein, kein, mein",
+      "sl": "Pridevnik za ein, kein, mein",
+      "en": "Adjectives after ein",
+      "it": "L'aggettivo dopo ein"
+    },
+    "rule": {
+      "en": "Where **ein, kein, mein** have no ending, the adjective takes it: **ein großer Hund** (der), **ein kleines Haus** (das, nominative and accusative). Everywhere else as after der: **eine kleine Katze, einen großen Hund, einem großen Hund, keine großen Hunde**.",
+      "sl": "Kjer **ein, kein, mein** nimajo končnice, jo dobi pridevnik: **ein großer Hund** (der), **ein kleines Haus** (das, imenovalnik in tožilnik). Povsod drugod kot za der: **eine kleine Katze, einen großen Hund, einem großen Hund, keine großen Hunde**.",
+      "it": "Dove **ein, kein, mein** non hanno desinenza, la prende l'aggettivo: **ein großer Hund** (der), **ein kleines Haus** (das, nominativo e accusativo). Ovunque altrove come dopo der: **eine kleine Katze, einen großen Hund, einem großen Hund, keine großen Hunde**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der",
+        "die",
+        "das"
+      ],
+      "rows": [
+        [
+          {
+            "de": "Nominativ",
+            "sl": "imenovalnik",
+            "en": "nominative",
+            "it": "nominativo"
+          },
+          "ein großer",
+          "eine kleine",
+          "ein kleines"
+        ],
+        [
+          {
+            "de": "Akkusativ",
+            "sl": "tožilnik",
+            "en": "accusative",
+            "it": "accusativo"
+          },
+          "einen großen",
+          "eine kleine",
+          "ein kleines"
+        ],
+        [
+          {
+            "de": "Dativ",
+            "sl": "dajalnik",
+            "en": "dative",
+            "it": "dativo"
+          },
+          "einem großen",
+          "einer kleinen",
+          "einem kleinen"
+        ],
+        [
+          {
+            "de": "Plural",
+            "sl": "množina",
+            "en": "plural",
+            "it": "plurale"
+          },
+          "keine großen",
+          "keine kleinen",
+          "keine kleinen"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Das ist ein großer Hund.",
+        "sl": "To je velik pes.",
+        "en": "That's a big dog.",
+        "it": "È un cane grande."
+      },
+      {
+        "de": "Kathi hat ein kleines Gasthaus.",
+        "sl": "Kathi ima majhno gostilno.",
+        "en": "Kathi has a small inn.",
+        "it": "Kathi ha una piccola osteria."
+      }
+    ],
+    "tip": {
+      "en": "💡 der → **-er**, das → **-es**: the adjective shows what ein doesn't. Plural after kein or mein: always **-en**.",
+      "sl": "💡 der → **-er**, das → **-es**: pridevnik pokaže, česar ein ne pove. Množina za kein ali mein: vedno **-en**.",
+      "it": "💡 der → **-er**, das → **-es**: l'aggettivo mostra ciò che ein non dice. Plurale dopo kein o mein: sempre **-en**."
+    }
+  }
+}

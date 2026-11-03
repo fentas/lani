@@ -1,0 +1,319 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "raccontare",
+  "language": "it",
+  "level": "B2",
+  "emoji": "📚",
+  "title": { "it": "Andò, è andato, va", "de": "Erzählen: andò, è andato, va", "sl": "Pripovedovanje: andò, è andato, va", "en": "Telling stories: andò, è andato, va" },
+  "goal": {
+    "de": "Du erzählst eine Geschichte oder ein Stück Geschichte im passato remoto, in jeder Person (Andai a Trieste. Vidi il mare.), weißt, welche Vergangenheit wohin passt und wo man was sagt, und erzählst lebendig im Präsens (Ieri ero in piazza, e arriva Tommaso.).",
+    "sl": "Poveš pravljico ali del zgodovine v passato remoto, v vsaki osebi (Andai a Trieste. Vidi il mare.), veš, kateri preteklik kam sodi in kje kaj rečejo, in živahno pripoveduješ v sedanjiku (Ieri ero in piazza, e arriva Tommaso.).",
+    "en": "You can tell a tale or a piece of history in the passato remoto, in every person (Andai a Trieste. Vidi il mare.), you know which past fits where and where people say what, and you can tell it lively in the present (Ieri ero in piazza, e arriva Tommaso.)."
+  },
+  "grammar": ["raccontare", "passato-remoto", "imperfetto-passato"],
+  "words": ["raccontare", "il fogolâr", "il fienile", "il passato prossimo", "il mercante", "l'ambra", "il mosaico", "il pavimento", "la moneta", "la minestra", "la parola", "la notizia", "l'imperfetto", "fondare", "costruire", "bussare", "nascere", "dormire", "credere", "dire", "fare", "vedere", "prendere", "venire", "volere", "sapere", "dare", "stare", "scrivere", "chiedere", "rispondere", "mettere", "volli", "misi", "scrissi", "risposi", "stetti", "detti", "credei", "il presente storico"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "verbo", "de": "Verb", "sl": "glagol", "en": "verb" },
+        { "it": "io, lui, lei, loro", "de": "io, lui, lei, loro", "sl": "io, lui, lei, loro", "en": "io, lui, lei, loro" },
+        { "it": "tu, noi, voi", "de": "tu, noi, voi", "sl": "tu, noi, voi", "en": "tu, noi, voi" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Jetzt brauchst du alle Personen. Bei -are: **andai** (ich ging), **andasti** (du gingst), **andò** (er, sie ging), **andammo** (wir gingen), **andaste** (ihr gingt), **andarono** (sie gingen). Bei -ire genauso mit i: **dormii** (ich schlief), **dormisti**, **dormì**, **dormimmo**, **dormiste**, **dormirono**. Bei -ere gibt es zwei Formen: **credetti** oder **credei** (ich glaubte).",
+          "sl": "Zdaj rabiš vse osebe. Pri -are: **andai** (šel sem), **andasti** (šel si), **andò** (šel je), **andammo** (šli smo), **andaste** (šli ste), **andarono** (šli so). Pri -ire enako z i: **dormii** (spal sem), **dormisti**, **dormì**, **dormimmo**, **dormiste**, **dormirono**. Pri -ere sta dve obliki: **credetti** ali **credei** (verjel sem).",
+          "en": "Now you need every person. In -are: **andai** (I went), **andasti** (you went), **andò** (he, she went), **andammo** (we went), **andaste** (you went, several), **andarono** (they went). In -ire the same with i: **dormii** (I slept), **dormisti**, **dormì**, **dormimmo**, **dormiste**, **dormirono**. In -ere there are two forms: **credetti** or **credei** (I believed)."
+        },
+        "examples": [
+          { "it": "Nonno Bepi: «Da giovane andai a Trieste con mio padre.»", "de": "Nonno Bepi: „Als junger Mann ging ich mit meinem Vater nach Triest.“", "sl": "Nonno Bepi: »Kot mladenič sem šel z očetom v Trst.«", "en": "Nonno Bepi: \"As a young man I went to Trieste with my father.\"" },
+          { "it": "Quella notte dormimmo tutti nel fienile di Franco.", "de": "In jener Nacht schliefen wir alle in Francos Scheune.", "sl": "Tisto noč smo vsi spali na Francovem seniku.", "en": "That night we all slept in Franco's hayloft." }
+        ],
+        "rows": [
+          ["andare", "andai, andò, andarono", "andasti, andammo, andaste"],
+          ["dormire", "dormii, dormì, dormirono", "dormisti, dormimmo, dormiste"],
+          ["credere", "credetti, credette, credettero", "credesti, credemmo, credeste"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "raccontare", "text": "Nonno Bepi: «Da giovane ___ in Francia con mio fratello.» (io, lavorare · passato remoto)", "accept": ["lavorai"],
+          "hint": { "de": "-are, ich", "sl": "-are, jaz", "en": "-are, I" },
+          "explain": {
+            "de": "**io**, -are → **lavorai** (ich arbeitete)\n- lavorò · er, sie\n- lavorasti · du",
+            "sl": "**io**, -are → **lavorai** (delal sem)\n- lavorò · on, ona\n- lavorasti · ti",
+            "en": "**io**, -are → **lavorai** (I worked)\n- lavorò · he, she\n- lavorasti · you"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Dire** zeigt das Muster der starken Verben: **dissi** (ich sagte), **disse** (er, sie sagte) und **dissero** (sie sagten) sind stark, die anderen drei sind regelmäßig: **dicesti** (du sagtest), **dicemmo** (wir sagten), **diceste** (ihr sagtet). Genauso **feci**, **facesti** bei **fare** (machen), **vidi**, **vedesti** bei **vedere** (sehen), **presi**, **prendesti** bei **prendere** (nehmen).",
+          "sl": "**Dire** pokaže vzorec močnih glagolov: **dissi** (rekel sem), **disse** (rekel je) in **dissero** (rekli so) so močne, druge tri so pravilne: **dicesti** (rekel si), **dicemmo** (rekli smo), **diceste** (rekli ste). Enako **feci**, **facesti** pri **fare** (delati), **vidi**, **vedesti** pri **vedere** (videti), **presi**, **prendesti** pri **prendere** (vzeti).",
+          "en": "**Dire** shows the strong verbs' pattern: **dissi** (I said), **disse** (he, she said) and **dissero** (they said) are strong, the other three are regular: **dicesti** (you said), **dicemmo** (we said), **diceste** (you said, several). The same with **feci**, **facesti** of **fare** (to make), **vidi**, **vedesti** of **vedere** (to see), **presi**, **prendesti** of **prendere** (to take)."
+        },
+        "examples": [
+          { "it": "Quel giorno dicesti di sì, e facemmo festa tutta la notte.", "de": "An jenem Tag sagtest du Ja, und wir feierten die ganze Nacht.", "sl": "Tisti dan si {m:rekel|f:rekla} da in vso noč smo praznovali.", "en": "That day you said yes, and we celebrated all night." },
+          { "it": "Il sindaco prese la parola e disse solo due cose.", "de": "Der Bürgermeister ergriff das Wort und sagte nur zwei Dinge.", "sl": "Župan je povzel besedo in rekel samo dve stvari.", "en": "The mayor took the floor and said just two things." }
+        ],
+        "rows": [
+          ["dire", "dissi, disse, dissero", "dicesti, dicemmo, diceste"],
+          ["fare", "feci, fece, fecero", "facesti, facemmo, faceste"],
+          ["vedere", "vidi, vide, videro", "vedesti, vedemmo, vedeste"],
+          ["prendere", "presi, prese, presero", "prendesti, prendemmo, prendeste"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "raccontare", "prompt": "Marisa, quella sera tu ___ la gubana più buona del mondo!", "options": ["facesti", "feci", "faceste"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**tu** → regelmäßig von **fare**: **facesti**\n- feci · ich\n- faceste · ihr",
+            "sl": "**tu** → pravilno iz **fare**: **facesti**\n- feci · jaz\n- faceste · vi",
+            "en": "**tu** → regular, from **fare**: **facesti**\n- feci · I\n- faceste · you, several"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach demselben Muster: **venni** (ich kam), **volli** (ich wollte), **seppi** (ich erfuhr), **scrissi** (ich schrieb), **chiesi** (ich fragte), **risposi** (ich antwortete), **misi** (ich legte), **nacqui** (ich wurde geboren), **stetti** (ich blieb). **Dare**: **diedi** oder **detti** (ich gab). Ganz eigen: **essere** mit **fui**, **fosti**, **fu**, **fummo**, **foste**, **furono** und **avere** mit **ebbi**, **avesti**, **ebbe**, **avemmo**, **aveste**, **ebbero**.",
+          "sl": "Po istem vzorcu: **venni** (prišel sem), **volli** (hotel sem), **seppi** (izvedel sem), **scrissi** (pisal sem), **chiesi** (vprašal sem), **risposi** (odgovoril sem), **misi** (položil sem), **nacqui** (rodil sem se), **stetti** (ostal sem). **Dare**: **diedi** ali **detti** (dal sem). Povsem svoja: **essere** s **fui**, **fosti**, **fu**, **fummo**, **foste**, **furono** in **avere** z **ebbi**, **avesti**, **ebbe**, **avemmo**, **aveste**, **ebbero**.",
+          "en": "On the same pattern: **venni** (I came), **volli** (I wanted), **seppi** (I found out), **scrissi** (I wrote), **chiesi** (I asked), **risposi** (I answered), **misi** (I put), **nacqui** (I was born), **stetti** (I stayed). **Dare**: **diedi** or **detti** (I gave). All their own: **essere** with **fui**, **fosti**, **fu**, **fummo**, **foste**, **furono**, and **avere** with **ebbi**, **avesti**, **ebbe**, **avemmo**, **aveste**, **ebbero**."
+        },
+        "examples": [
+          { "it": "Nonno Bepi: «Nacqui a Gorizia, e a vent'anni venni qui.»", "de": "Nonno Bepi: „Ich wurde in Gorizia geboren, und mit zwanzig kam ich hierher.“", "sl": "Nonno Bepi: »Rodil sem se v Gorici, pri dvajsetih pa sem prišel sem.«", "en": "Nonno Bepi: \"I was born in Gorizia, and at twenty I came here.\"" },
+          { "it": "Quando Giulia seppe la notizia, scrisse subito a Lorenzo.", "de": "Als Giulia die Neuigkeit erfuhr, schrieb sie sofort an Lorenzo.", "sl": "Ko je Giulia izvedela novico, je takoj pisala Lorenzu.", "en": "When Giulia heard the news, she wrote to Lorenzo at once." },
+          { "it": "Gli chiesi il nome, e lui rispose: «Mi chiamo Aldo.»", "de": "Ich fragte ihn nach seinem Namen, und er antwortete: „Ich heiße Aldo.“", "sl": "{m:Vprašal|f:Vprašala} sem ga za ime in odgovoril je: »Ime mi je Aldo.«", "en": "I asked him his name, and he answered: \"My name is Aldo.\"" }
+        ],
+        "rows": [
+          ["venire", "venni, venne, vennero", "venisti, venimmo, veniste"],
+          ["sapere", "seppi, seppe, seppero", "sapesti, sapemmo, sapeste"],
+          ["dare", "diedi, diede, diedero", "desti, demmo, deste"],
+          ["essere", "fui, fu, furono", "fosti, fummo, foste"],
+          ["avere", "ebbi, ebbe, ebbero", "avesti, avemmo, aveste"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "raccontare", "prompt": "Alla fine i bambini ___ molto contenti.", "options": ["furono", "fummo", "fu"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**i bambini** (loro) → **furono**\n- fummo · wir\n- fu · er, sie",
+            "sl": "**i bambini** (loro) → **furono**\n- fummo · mi\n- fu · on, ona",
+            "en": "**i bambini** (loro) → **furono**\n- fummo · we\n- fu · he, she"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wie beim **passato prossimo** malt das **imperfetto** das Bild, und das **passato remoto** erzählt, was passiert: **Era sera e nevicava. Un vecchio bussò alla porta.** (Es war Abend, es schneite, und ein alter Mann klopfte an die Tür.) Nach **mentre** (während) steht das Bild: **Mentre Nonno Bepi dormiva, Moro uscì dalla cucina.** Nach **all'improvviso** (plötzlich) und **un giorno** (eines Tages) kommt, was passiert.",
+          "sl": "Kot pri **passato prossimo**, **imperfetto** nariše sliko, **passato remoto** pa pove, kaj se zgodi: **Era sera e nevicava. Un vecchio bussò alla porta.** (Bil je večer, snežilo je in starec je potrkal na vrata.) Za **mentre** (medtem ko) je slika: **Mentre Nonno Bepi dormiva, Moro uscì dalla cucina.** Za **all'improvviso** (nenadoma) in **un giorno** (nekega dne) pride, kaj se zgodi.",
+          "en": "As with the **passato prossimo**, the **imperfetto** paints the picture and the **passato remoto** tells what happens: **Era sera e nevicava. Un vecchio bussò alla porta.** (It was evening, it was snowing, and an old man knocked at the door.) After **mentre** (while) comes the picture: **Mentre Nonno Bepi dormiva, Moro uscì dalla cucina.** After **all'improvviso** (suddenly) and **un giorno** (one day) comes what happens."
+        },
+        "examples": [
+          { "it": "Era sera e nevicava. Un vecchio bussò alla porta.", "de": "Es war Abend und es schneite. Ein alter Mann klopfte an die Tür.", "sl": "Bil je večer in snežilo je. Starec je potrkal na vrata.", "en": "It was evening and it was snowing. An old man knocked at the door." },
+          { "it": "Mentre Nonno Bepi dormiva, Moro uscì dalla cucina.", "de": "Während Nonno Bepi schlief, ging Moro aus der Küche.", "sl": "Medtem ko je dedek Bepi spal, je Moro odšel iz kuhinje.", "en": "While Nonno Bepi was asleep, Moro left the kitchen." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "raccontare", "prompt": "All'improvviso la porta ___ ed entrò il vento.", "options": ["si aprì", "si apriva", "si aprirà"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**all'improvviso**: es passiert → **si aprì**\n- si apriva · das Bild, was gerade lief\n- si aprirà · Zukunft",
+            "sl": "**all'improvviso**: se zgodi → **si aprì**\n- si apriva · slika, kar je tedaj trajalo\n- si aprirà · prihodnjik",
+            "en": "**all'improvviso**: it happens → **si aprì**\n- si apriva · the picture, what was going on\n- si aprirà · the future"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ist es lange her und hat nichts mehr mit heute zu tun, passt das **passato remoto**: **Nel 181 a.C. i Romani fondarono Aquileia.** Wirkt es noch nach, das **passato prossimo**, auch wenn es lange her ist: **Mio nonno ha costruito questo mulino.** In Friaul und im ganzen Norden sagt man beim Reden fast immer das prossimo; das remoto steht in Büchern und Märchen. In der Toskana hört man beides, nach dem Abstand, im Süden das remoto oft auch für Neueres. Falsch ist nichts davon.",
+          "sl": "Če je davno in nima več zveze z danes, sodi **passato remoto**: **Nel 181 a.C. i Romani fondarono Aquileia.** Če se še čuti, **passato prossimo**, tudi če je davno: **Mio nonno ha costruito questo mulino.** V Furlaniji in na vsem severu v govoru skoraj vedno rečejo prossimo; remoto je v knjigah in pravljicah. V Toskani slišiš oba, po oddaljenosti, na jugu remoto pogosto tudi za novejše. Nič od tega ni narobe.",
+          "en": "When it's long ago and has nothing more to do with today, the **passato remoto** fits: **Nel 181 a.C. i Romani fondarono Aquileia.** When it's still felt, the **passato prossimo**, even if it's long ago: **Mio nonno ha costruito questo mulino.** In Friuli and all over the North people nearly always say the prossimo; the remoto is for books and tales. In Tuscany you hear both, by distance, in the South often the remoto for recent things too. None of it is wrong."
+        },
+        "examples": [
+          { "it": "Nel 181 a.C. i Romani fondarono Aquileia.", "de": "181 v. Chr. gründeten die Römer Aquileia.", "sl": "Leta 181 pr. n. št. so Rimljani ustanovili Oglej.", "en": "In 181 BC the Romans founded Aquileia." },
+          { "it": "Franco: «Mio nonno ha costruito questo mulino, e funziona ancora.»", "de": "Franco: „Mein Großvater hat diese Mühle gebaut, und sie läuft noch.“", "sl": "Franco: »Moj ded je zgradil ta mlin in še vedno dela.«", "en": "Franco: \"My grandfather built this mill, and it still works.\"" }
+        ],
+        "ask": {"type": "choice", "grammar": "raccontare", "prompt": "Il libro di storia dice: «Marco Polo ___ da Venezia nel 1271.»", "options": ["partì", "partii", "partirono"], "answer": 0, "say_options": true, "explain": {"de": "**ein Ereignis**, lange her → **partì**\n- partii · ich\n- partirono · mehrere", "sl": "**dogodek**, davno → **partì**\n- partii · jaz\n- partirono · več", "en": "**an event**, long ago → **partì**\n- partii · I\n- partirono · several"}}
+      },
+      {
+        "say": {
+          "de": "Erzählen geht auch im Präsens. Im Geschichtsbuch heißt das **presente storico**: **Nel 1271 Marco Polo parte da Venezia.** (1271 bricht Marco Polo von Venedig auf.) Und unter Freunden macht es die Geschichte lebendig: **Ieri ero in piazza, e arriva Tommaso e mi dice: «Hai visto Moro?»** Das Bild bleibt im imperfetto, was dann passiert, steht im Präsens. Deutsch kann das auch: *Gestern steh ich da, und kommt der Tommaso …*",
+          "sl": "Pripovedovati se da tudi v sedanjiku. V zgodovinski knjigi se temu reče **presente storico**: **Nel 1271 Marco Polo parte da Venezia.** (Leta 1271 Marco Polo odpotuje iz Benetk.) Med prijatelji pa to zgodbo oživi: **Ieri ero in piazza, e arriva Tommaso e mi dice: «Hai visto Moro?»** Slika ostane v imperfetto, kar se potem zgodi, je v sedanjiku.",
+          "en": "You can tell a story in the present too. In a history book it's called the **presente storico**: **Nel 1271 Marco Polo parte da Venezia.** (In 1271 Marco Polo sets out from Venice.) Among friends it brings the story to life: **Ieri ero in piazza, e arriva Tommaso e mi dice: «Hai visto Moro?»** The picture stays in the imperfetto; what happens then is in the present. English does it too: *So I'm standing there, and along comes Tommaso …*"
+        },
+        "examples": [
+          { "it": "Nel 1271 Marco Polo parte da Venezia.", "de": "1271 bricht Marco Polo von Venedig auf.", "sl": "Leta 1271 Marco Polo odpotuje iz Benetk.", "en": "In 1271 Marco Polo sets out from Venice." },
+          { "it": "Ieri ero in piazza, e arriva Tommaso e mi dice: «Hai visto Moro?»", "de": "Gestern war ich auf dem Platz, und da kommt Tommaso und sagt zu mir: „Hast du Moro gesehen?“", "sl": "Včeraj sem {m:bil|f:bila} na trgu, pa pride Tommaso in mi reče: »Si {m:videl|f:videla} Mora?«", "en": "I was on the square yesterday, and along comes Tommaso and says to me: \"Have you seen Moro?\"" }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "raccontare", "text": "Ieri ero al mulino, e ___ Bruno e mi chiede un sacco di farina. (arrivare · presente)", "accept": ["arriva"],
+          "hint": { "de": "Bruno, er, Präsens", "sl": "Bruno, on, sedanjik", "en": "Bruno, he, present" },
+          "explain": {
+            "de": "**lebendig erzählt** → **Präsens**: **arriva**, wie danach **mi chiede**\n- ero · das Bild im imperfetto",
+            "sl": "**živahno pripovedovanje** → **sedanjik**: **arriva**, kot potem **mi chiede**\n- ero · slika v imperfetto",
+            "en": "**lively telling** → **the present**: **arriva**, like **mi chiede** after it\n- ero · the picture, in the imperfetto"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "raccontare-1",
+      "title": { "it": "Tutte le persone", "de": "Alle Personen", "sl": "Vse osebe", "en": "Every person" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "raccontare", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "passato remoto · sprechen, abreisen, sagen", "sl": "passato remoto · govoriti, oditi, reči", "en": "passato remoto · speak, leave, say" },
+          "columns": ["parlare", "partire", "dire"],
+          "rows": [
+            { "label": "io", "cells": ["parlai", { "accept": ["partii"], "hint": { "de": "zweimal i", "sl": "dvakrat i", "en": "i twice" } }, { "accept": ["dissi"] }] },
+            { "label": "tu", "cells": [{ "accept": ["parlasti"] }, { "accept": ["partisti"] }, "dicesti"] },
+            { "label": "lui, lei", "cells": [{ "accept": ["parlò"], "hint": { "de": "der Akzent zählt", "sl": "naglas šteje", "en": "the accent counts" } }, "partì", { "accept": ["disse"] }] },
+            { "label": "noi", "cells": [{ "accept": ["parlammo"], "hint": { "de": "zwei m", "sl": "dva m", "en": "two m" } }, "partimmo", { "accept": ["dicemmo"], "hint": { "de": "von dire: dic-", "sl": "iz dire: dic-", "en": "from dire: dic-" } }] },
+            { "label": "voi", "cells": ["parlaste", { "accept": ["partiste"] }, { "accept": ["diceste"] }] },
+            { "label": "loro", "cells": [{ "accept": ["parlarono"] }, { "accept": ["partirono"] }, "dissero"] }
+          ]
+        },
+        {
+          "type": "sort", "grammar": "raccontare", "instruction": { "de": "Forte o regolare? · Stark oder regelmäßig?", "sl": "Forte o regolare? · Močna ali pravilna oblika?", "en": "Forte o regolare? · Strong or regular?" },
+          "columns": [
+            { "label": { "de": "forte · stark (io, lui, lei, loro)", "sl": "forte · močna (io, lui, lei, loro)", "en": "forte · strong (io, lui, lei, loro)" }, "words": ["vide", "fecero", "presi"] },
+            { "label": { "de": "regolare · regelmäßig (tu, noi, voi)", "sl": "regolare · pravilna (tu, noi, voi)", "en": "regolare · regular (tu, noi, voi)" }, "words": ["vedemmo", "facesti", "prendeste"] }
+          ],
+          "explain": {
+            "de": "**io, lui, lei, loro**: stark · **tu, noi, voi**: regelmäßig\n- vidi, vide, videro · vedesti, vedemmo, vedeste\n- feci, fece, fecero · facesti, facemmo, faceste",
+            "sl": "**io, lui, lei, loro**: močna · **tu, noi, voi**: pravilna\n- vidi, vide, videro · vedesti, vedemmo, vedeste\n- feci, fece, fecero · facesti, facemmo, faceste",
+            "en": "**io, lui, lei, loro**: strong · **tu, noi, voi**: regular\n- vidi, vide, videro · vedesti, vedemmo, vedeste\n- feci, fece, fecero · facesti, facemmo, faceste"
+          }
+        },
+        {
+          "type": "choice", "grammar": "raccontare", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Quel giorno io ___ a Bruno: «Vieni con me!»", "options": ["dissi", "disse", "dicesti"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**io** → **dissi**\n- disse · er, sie\n- dicesti · du",
+            "sl": "**io** → **dissi**\n- disse · on, ona\n- dicesti · ti",
+            "en": "**io** → **dissi**\n- disse · he, she\n- dicesti · you"
+          }
+        }
+      ]
+    },
+    {
+      "id": "raccontare-2",
+      "title": { "it": "Una sera d'inverno", "de": "Ein Winterabend", "sl": "Zimski večer", "en": "A winter's evening" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "raccontare", "instruction": { "de": "Completa con il passato remoto · Ergänze mit dem passato remoto", "sl": "Completa con il passato remoto · Dopolni s passato remoto", "en": "Completa con il passato remoto · Fill in with the passato remoto" },
+          "title": "Una sera d'inverno",
+          "text": "Nonno Bepi racconta accanto al fogolâr. Una sera d'inverno ___ (io, sentire) bussare alla porta. Nevicava forte. ___ (io, aprire) e ___ (io, vedere) un vecchio col cappello pieno di neve. «Hai un po' di minestra?» mi ___ (lui, chiedere). Io gli ___ (dare) la minestra e un posto accanto al fuoco. La mattina dopo lui ___ (partire) presto. Sul tavolo ___ (io, trovare) una moneta d'oro!",
+          "gaps": [
+            { "accept": ["sentii"], "hint": { "de": "-ire, ich", "sl": "-ire, jaz", "en": "-ire, I" } },
+            { "accept": ["Aprii"] },
+            { "accept": ["vidi"], "hint": { "de": "stark, ich", "sl": "močna, jaz", "en": "strong, I" } },
+            { "accept": ["chiese"] },
+            { "accept": ["diedi", "detti"], "explain": { "de": "**dare**, io → **diedi** oder **detti**, beide richtig\n- diede, dette · er, sie", "sl": "**dare**, io → **diedi** ali **detti**, obe pravilni\n- diede, dette · on, ona", "en": "**dare**, io → **diedi** or **detti**, both right\n- diede, dette · he, she" } },
+            { "accept": ["partì"], "hint": { "de": "der Akzent zählt", "sl": "naglas šteje", "en": "the accent counts" } },
+            { "accept": ["trovai"] }
+          ],
+          "bank": true,
+          "distractors": ["sentì", "vide", "trovò"],
+          "translation": {
+            "de": "Nonno Bepi erzählt am Fogolâr. An einem Winterabend hörte ich es an der Tür klopfen. Es schneite stark. Ich machte auf und sah einen alten Mann mit einem Hut voller Schnee. „Hast du ein bisschen Suppe?“, fragte er mich. Ich gab ihm die Suppe und einen Platz am Feuer. Am nächsten Morgen brach er früh auf. Auf dem Tisch fand ich eine Goldmünze!",
+            "sl": "Dedek Bepi pripoveduje ob ognjišču. Nekega zimskega večera sem zaslišal trkanje na vrata. Močno je snežilo. Odprl sem in zagledal starca s klobukom, polnim snega. »Imaš kaj juhe?« me je vprašal. Dal sem mu juho in prostor pri ognju. Naslednje jutro je zgodaj odšel. Na mizi sem našel zlatnik!",
+            "en": "Nonno Bepi is telling a story by the fogolâr. One winter's evening I heard a knock at the door. It was snowing hard. I opened up and saw an old man with a hat full of snow. \"Have you got a little soup?\" he asked me. I gave him soup and a place by the fire. Next morning he left early. On the table I found a gold coin!"
+          }
+        },
+        {
+          "type": "choice", "grammar": "raccontare", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Mentre Marisa ___ i piatti, entrò un vecchio col cappello.", "options": ["lavava", "lavò", "laverà"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**mentre**: das Bild, was gerade lief → **lavava**\n- lavò · ein Ereignis, nicht das Bild\n- laverà · Zukunft",
+            "sl": "**mentre**: slika, kar je tedaj trajalo → **lavava**\n- lavò · dogodek, ne slika\n- laverà · prihodnjik",
+            "en": "**mentre**: the picture, what was going on → **lavava**\n- lavò · an event, not the picture\n- laverà · the future"
+          }
+        }
+      ]
+    },
+    {
+      "id": "raccontare-3",
+      "title": { "it": "Come in un libro", "de": "Wie in einem Buch", "sl": "Kot v knjigi", "en": "As in a book" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "raccontare", "instruction": { "de": "Scrivilo con il passato remoto · Schreib es im passato remoto", "sl": "Scrivilo con il passato remoto · Napiši v passato remoto", "en": "Scrivilo con il passato remoto · Write it in the passato remoto" },
+          "cue": "passato remoto",
+          "items": [
+            { "from": "Marco Polo è tornato a Venezia nel 1295.", "accept": ["Marco Polo tornò a Venezia nel 1295."] },
+            { "from": "Galileo ha visto le lune di Giove nel 1610.", "accept": ["Galileo vide le lune di Giove nel 1610."] },
+            { "from": "Dante è nato a Firenze nel 1265.", "accept": ["Dante nacque a Firenze nel 1265."] },
+            { "from": "I pastori hanno fatto una grande festa.", "accept": ["I pastori fecero una grande festa."], "hint": { "de": "fare, loro", "sl": "fare, loro", "en": "fare, loro" } },
+            { "from": "Abbiamo preso il treno per Udine.", "accept": ["Prendemmo il treno per Udine.", "Noi prendemmo il treno per Udine."], "hint": { "de": "noi: regelmäßig", "sl": "noi: pravilna", "en": "noi: regular" } },
+            { "from": "Ho chiesto il nome al vecchio.", "accept": ["Chiesi il nome al vecchio.", "Io chiesi il nome al vecchio."] }
+          ],
+          "explain": {
+            "de": "**passato prossimo → passato remoto**, die Person bleibt\n- è tornato → tornò\n- ha visto → vide\n- abbiamo preso → prendemmo",
+            "sl": "**passato prossimo → passato remoto**, oseba ostane\n- è tornato → tornò\n- ha visto → vide\n- abbiamo preso → prendemmo",
+            "en": "**passato prossimo → passato remoto**, the person stays\n- è tornato → tornò\n- ha visto → vide\n- abbiamo preso → prendemmo"
+          }
+        },
+        {
+          "type": "transform", "grammar": "raccontare", "instruction": { "de": "Raccontalo al presente · Erzähl es im Präsens", "sl": "Raccontalo al presente · Povej v sedanjiku", "en": "Raccontalo al presente · Tell it in the present" },
+          "cue": "presente",
+          "items": [
+            { "from": "Un vecchio bussò alla porta.", "accept": ["Un vecchio bussa alla porta."] },
+            { "from": "Nonno Bepi aprì e vide la neve.", "accept": ["Nonno Bepi apre e vede la neve."] },
+            { "from": "I Romani costruirono un grande porto.", "accept": ["I Romani costruiscono un grande porto."], "hint": { "de": "costruire: wie capire", "sl": "costruire: kot capire", "en": "costruire: like capire" } }
+          ],
+          "explain": {
+            "de": "**Das Präsens erzählt auch**, im Buch und unter Freunden\n- bussò → bussa\n- aprì, vide → apre, vede",
+            "sl": "**Tudi sedanjik pripoveduje**, v knjigi in med prijatelji\n- bussò → bussa\n- aprì, vide → apre, vede",
+            "en": "**The present tells too**, in a book and among friends\n- bussò → bussa\n- aprì, vide → apre, vede"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "raccontare", "instruction": { "de": "Completa con il passato remoto · Ergänze mit dem passato remoto", "sl": "Completa con il passato remoto · Dopolni s passato remoto", "en": "Completa con il passato remoto · Fill in with the passato remoto" },
+        "text": "Maestra Elena legge alla classe. Nel 181 a.C. i Romani ___ (fondare) Aquileia, vicino al mare. La città ___ (diventare) grande e ricca. Sotto l'imperatore Augusto ___ (essere) la capitale di tutta la regione. Molti mercanti ___ (venire) dal Nord con l'ambra. Più tardi i cristiani ___ (fare) una grande chiesa con un pavimento di mosaici. Ancora oggi si vedono i pesci del mosaico.",
+        "gaps": [
+          { "accept": ["fondarono"] },
+          { "accept": ["diventò", "divenne"] },
+          { "accept": ["fu"] },
+          { "accept": ["vennero"] },
+          { "accept": ["fecero"] }
+        ],
+        "translation": {
+          "de": "Maestra Elena liest der Klasse vor. 181 v. Chr. gründeten die Römer Aquileia, nahe am Meer. Die Stadt wurde groß und reich. Unter Kaiser Augustus war sie die Hauptstadt der ganzen Region. Viele Händler kamen mit Bernstein aus dem Norden. Später bauten die Christen eine große Kirche mit einem Boden aus Mosaiken. Noch heute sieht man die Fische des Mosaiks.",
+          "sl": "Učiteljica Elena bere razredu. Leta 181 pr. n. št. so Rimljani ustanovili Oglej, blizu morja. Mesto je postalo veliko in bogato. Pod cesarjem Avgustom je bilo prestolnica vse pokrajine. Veliko trgovcev je prišlo s severa z jantarjem. Pozneje so kristjani zgradili veliko cerkev s tlemi iz mozaikov. Še danes se vidijo ribe na mozaiku.",
+          "en": "Maestra Elena reads to the class. In 181 BC the Romans founded Aquileia, near the sea. The city grew big and rich. Under the emperor Augustus it was the capital of the whole region. Many merchants came from the North with amber. Later the Christians built a great church with a floor of mosaics. You can still see the mosaic's fish today."
+        }
+      },
+      {
+        "type": "transform", "grammar": "raccontare", "instruction": { "de": "Scrivilo con il passato remoto · Schreib es im passato remoto", "sl": "Scrivilo con il passato remoto · Napiši v passato remoto", "en": "Scrivilo con il passato remoto · Write it in the passato remoto" },
+        "items": [
+          { "from": "Giulia ha detto la verità.", "accept": ["Giulia disse la verità."] },
+          { "from": "Siamo venuti a piedi.", "accept": ["Venimmo a piedi.", "Noi venimmo a piedi."] },
+          { "from": "Ho dato il pane a Moro.", "accept": ["Diedi il pane a Moro.", "Detti il pane a Moro.", "Io diedi il pane a Moro.", "Io detti il pane a Moro."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "raccontare", "prompt": "Quella notte Nonno Bepi ___ una lettera a suo fratello.", "options": ["scrisse", "scrissi", "scrissero"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**Nonno Bepi** (lui) → **scrisse**\n- scrissi · ich\n- scrissero · sie, mehrere",
+          "sl": "**Nonno Bepi** (lui) → **scrisse**\n- scrissi · jaz\n- scrissero · oni",
+          "en": "**Nonno Bepi** (lui) → **scrisse**\n- scrissi · I\n- scrissero · they"
+        }
+      },
+      {
+        "type": "sort", "grammar": "raccontare", "instruction": { "de": "Dove lo trovi? · Wo findest du es?", "sl": "Dove lo trovi? · Kje to najdeš?", "en": "Dove lo trovi? · Where do you find it?" },
+        "columns": [
+          { "label": { "de": "libro di storia · Geschichtsbuch", "sl": "libro di storia · zgodovinska knjiga", "en": "libro di storia · history book" }, "words": ["Nel 181 a.C. i Romani fondarono Aquileia.", "Nel 1295 Marco Polo tornò a Venezia."] },
+          { "label": { "de": "fiaba · Märchen", "sl": "fiaba · pravljica", "en": "fiaba · fairy tale" }, "words": ["C'era una volta un re che aveva tre figli.", "E vissero tutti felici e contenti."] },
+          { "label": { "de": "tra amici · unter Freunden", "sl": "tra amici · med prijatelji", "en": "tra amici · among friends" }, "words": ["Ieri ero in piazza, e arriva Tommaso.", "Stamattina ho visto Bruno al mulino."] }
+        ],
+        "explain": {
+          "de": "**Der Satz selbst sagt es**: eine Jahreszahl, c'era una volta, ieri, stamattina\n- Im Buch: passato remoto\n- Unter Freunden, hier im Norden: passato prossimo oder Präsens",
+          "sl": "**Stavek sam pove**: letnica, c'era una volta, ieri, stamattina\n- V knjigi: passato remoto\n- Med prijatelji, tu na severu: passato prossimo ali sedanjik",
+          "en": "**The sentence itself says**: a year, c'era una volta, ieri, stamattina\n- In a book: passato remoto\n- Among friends, here in the North: passato prossimo or the present"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the regions (North, Tuscany, South), Sotto Augusto fu la capitale, the lively present, the old man's coin tale, the Slovene glosses"
+}

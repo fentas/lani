@@ -1,0 +1,1020 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "schnellere",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🚂",
+  "title": {
+    "de": "Der schnellere Zug, das beste Bier",
+    "en": "Comparatives with endings: der schnellere Zug",
+    "sl": "Primernik s končnicami: der schnellere Zug",
+    "it": "Il comparativo con le desinenze: der schnellere Zug"
+  },
+  "goal": {
+    "en": "You can put a comparative or a superlative before a noun with its ending (der schnellere Zug, ein größeres Haus, das beste Bier), and say more and more with immer and the more, the better with je … desto.",
+    "sl": "Primernik ali presežnik postaviš pred samostalnik s končnico (der schnellere Zug, ein größeres Haus, das beste Bier), z immer poveš vedno bolj, z je … desto pa čim več, tem bolje.",
+    "it": "Sai mettere un comparativo o un superlativo davanti a un nome con la desinenza (der schnellere Zug, ein größeres Haus, das beste Bier), dire sempre più con immer e più …, più … con je … desto."
+  },
+  "grammar": [
+    "adjektiv-tabelle",
+    "steigerung"
+  ],
+  "words": [
+    "schnell",
+    "langsam",
+    "teuer",
+    "hoch",
+    "kurz",
+    "lang",
+    "kalt",
+    "warm",
+    "alt",
+    "jung",
+    "groß",
+    "gut",
+    "viel",
+    "lustig",
+    "der Zug",
+    "die Uhr",
+    "das Haus",
+    "der Berg",
+    "das Bier",
+    "der Keller",
+    "der Tag",
+    "die Schwester",
+    "die Leute",
+    "immer",
+    "mehr",
+    "weniger",
+    "je",
+    "desto",
+    "umso",
+    "lieber",
+    "am liebsten",
+    "am besten",
+    "die meisten Leute",
+    "werden",
+    "das Holz"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Form",
+          "sl": "oblika",
+          "en": "form",
+          "it": "forma"
+        },
+        "der Zug",
+        "die Uhr",
+        "das Haus"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Before a noun a comparative takes the ending any adjective takes: **der schnelle Zug → der schnellere Zug** (the faster train). First **-er** for more, then the ending: **ein schnellerer Zug** (a faster train), **mit dem schnelleren Zug** (with the faster train), **ein größeres Haus** (a bigger house).",
+          "sl": "Pred samostalnikom dobi primernik končnico kot vsak pridevnik: **der schnelle Zug → der schnellere Zug** (hitrejši vlak). Najprej **-er** za več, nato končnica: **ein schnellerer Zug** (hitrejši vlak), **mit dem schnelleren Zug** (s hitrejšim vlakom), **ein größeres Haus** (večja hiša).",
+          "it": "Davanti a un nome il comparativo prende la desinenza di ogni aggettivo: **der schnelle Zug → der schnellere Zug** (il treno più veloce). Prima **-er** per il più, poi la desinenza: **ein schnellerer Zug** (un treno più veloce), **mit dem schnelleren Zug** (col treno più veloce), **ein größeres Haus** (una casa più grande)."
+        },
+        "examples": [
+          {
+            "de": "Wir nehmen den schnelleren Zug.",
+            "en": "We're taking the faster train.",
+            "sl": "Vzamemo hitrejši vlak.",
+            "it": "Prendiamo il treno più veloce."
+          },
+          {
+            "de": "Das ist ein schnellerer Traktor.",
+            "en": "That's a faster tractor.",
+            "sl": "To je hitrejši traktor.",
+            "it": "È un trattore più veloce."
+          },
+          {
+            "de": "Stefan braucht einen größeren Keller.",
+            "en": "Stefan needs a bigger cellar.",
+            "sl": "Stefan potrebuje večjo klet.",
+            "it": "Stefan ha bisogno di una cantina più grande."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "der, die, das",
+              "sl": "der, die, das",
+              "en": "der, die, das",
+              "it": "der, die, das"
+            },
+            "der schnellere",
+            "die teurere",
+            "das größere"
+          ],
+          [
+            {
+              "de": "ein, eine, ein",
+              "sl": "ein, eine, ein",
+              "en": "ein, eine, ein",
+              "it": "ein, eine, ein"
+            },
+            "ein schnellerer",
+            "eine teurere",
+            "ein größeres"
+          ],
+          [
+            {
+              "de": "dem, der, dem",
+              "sl": "dem, der, dem",
+              "en": "dem, der, dem",
+              "it": "dem, der, dem"
+            },
+            "dem schnelleren",
+            "der teureren",
+            "dem größeren"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "prompt": "Wir fahren mit dem ___ Zug. (schnell)",
+          "options": [
+            "schnelleren",
+            "schneller",
+            "schnellerem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**-er for more, then -en after dem**\n- mit dem schnellen Zug · mit dem schnelleren Zug",
+            "sl": "**-er za več, nato -en za dem**\n- mit dem schnellen Zug · mit dem schnelleren Zug",
+            "it": "**-er per il più, poi -en dopo dem**\n- mit dem schnellen Zug · mit dem schnelleren Zug"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The umlaut and the changed stems stay: **die jüngere Schwester** (the younger sister), **der höhere Berg** (the higher mountain), **die teurere Uhr** (the dearer watch). **gut** gives **das bessere Bier** (the better beer). **mehr** (more) and **weniger** (less) take no ending: **mehr Zeit, mehr Leute** (more time, more people).",
+          "sl": "Preglas in spremenjene osnove ostanejo: **die jüngere Schwester** (mlajša sestra), **der höhere Berg** (višja gora), **die teurere Uhr** (dražja ura). **gut** da **das bessere Bier** (boljše pivo). **mehr** (več) in **weniger** (manj) nimata končnice: **mehr Zeit, mehr Leute** (več časa, več ljudi).",
+          "it": "L'Umlaut e i temi che cambiano restano: **die jüngere Schwester** (la sorella minore), **der höhere Berg** (il monte più alto), **die teurere Uhr** (l'orologio più caro). **gut** dà **das bessere Bier** (la birra migliore). **mehr** (più) e **weniger** (meno) non hanno desinenza: **mehr Zeit, mehr Leute** (più tempo, più gente)."
+        },
+        "examples": [
+          {
+            "de": "Mitzi ist die jüngere Schwester von Resi.",
+            "en": "Mitzi is Resi's younger sister.",
+            "sl": "Mitzi je Resina mlajša sestra.",
+            "it": "Mitzi è la sorella minore di Resi."
+          },
+          {
+            "de": "Bei Kathi gibt es das bessere Bier.",
+            "en": "Kathi's has the better beer.",
+            "sl": "Pri Kathi imajo boljše pivo.",
+            "it": "Da Kathi c'è la birra migliore."
+          },
+          {
+            "de": "Heute haben wir mehr Zeit und weniger Arbeit.",
+            "en": "Today we have more time and less work.",
+            "sl": "Danes imamo več časa in manj dela.",
+            "it": "Oggi abbiamo più tempo e meno lavoro."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "gut: besser",
+              "sl": "gut: besser",
+              "en": "gut: besser",
+              "it": "gut: besser"
+            },
+            "der bessere",
+            "die bessere",
+            "das bessere"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adjektiv-tabelle",
+          "text": "Kathi hat das ___ Bier. (gut, besser)",
+          "accept": [
+            "bessere"
+          ],
+          "hint": {
+            "en": "das …: -e",
+            "sl": "das …: -e",
+            "it": "das …: -e"
+          },
+          "explain": {
+            "en": "**besser, then the ending**\n- der bessere Wein · das bessere Bier",
+            "sl": "**besser, nato končnica**\n- der bessere Wein · das bessere Bier",
+            "it": "**besser, poi la desinenza**\n- der bessere Wein · das bessere Bier"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The most: **-st-** and the ending, with an article or a possessive: **der schnellste Zug** (the fastest train), **die älteste Frau** (the oldest woman), **das beste Bier** (the best beer), **mein bester Freund** (my best friend). No am before a noun: **der schnellste Zug** (never *der am schnellsten Zug*). **viel** gives **die meisten Leute** (most people).",
+          "sl": "Največ: **-st-** in končnica, s členom ali svojilnim zaimkom: **der schnellste Zug** (najhitrejši vlak), **die älteste Frau** (najstarejša ženska), **das beste Bier** (najboljše pivo), **mein bester Freund** (moj najboljši prijatelj). Pred samostalnikom ni am: rečeš samo **der schnellste Zug**. **viel** da **die meisten Leute** (večina ljudi).",
+          "it": "Il massimo: **-st-** e la desinenza, con un articolo o un possessivo: **der schnellste Zug** (il treno più veloce), **die älteste Frau** (la donna più anziana), **das beste Bier** (la birra migliore), **mein bester Freund** (il mio migliore amico). Davanti a un nome niente am: si dice solo **der schnellste Zug**. **viel** dà **die meisten Leute** (la maggior parte della gente)."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp ist der älteste Mann im Dorf.",
+            "en": "Grandpa Sepp is the oldest man in the village.",
+            "sl": "Dedek Sepp je najstarejši moški v vasi.",
+            "it": "Nonno Sepp è l'uomo più anziano del paese."
+          },
+          {
+            "de": "Das beste Bier gibt es bei Kathi.",
+            "en": "The best beer is at Kathi's.",
+            "sl": "Najboljše pivo je pri Kathi.",
+            "it": "La birra migliore è da Kathi."
+          },
+          {
+            "de": "Die meisten Leute kommen am Sonntag.",
+            "en": "Most people come on Sunday.",
+            "sl": "Večina ljudi pride v nedeljo.",
+            "it": "La maggior parte della gente viene la domenica."
+          },
+          {
+            "de": "Stefan ist mein bester Freund.",
+            "en": "Stefan is my best friend.",
+            "sl": "Stefan je moj najboljši prijatelj.",
+            "it": "Stefan è il mio migliore amico."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "am meisten",
+              "sl": "največ",
+              "en": "the most",
+              "it": "il massimo"
+            },
+            "der schnellste",
+            "die teuerste",
+            "das größte"
+          ],
+          [
+            {
+              "de": "Dativ",
+              "sl": "dajalnik",
+              "en": "dative",
+              "it": "dativo"
+            },
+            "dem schnellsten",
+            "der teuersten",
+            "dem größten"
+          ],
+          [
+            {
+              "de": "gut: am besten",
+              "sl": "gut: am besten",
+              "en": "gut: am besten",
+              "it": "gut: am besten"
+            },
+            "der beste",
+            "die beste",
+            "das beste"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "prompt": "Das ist der ___ Tag des Jahres. (kurz)",
+          "options": [
+            "kürzeste",
+            "kürzesten",
+            "kürzester"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der: -st- and -e, with an e after -z**\n- der kürzeste Tag · der schnellste Zug",
+            "sl": "**der: -st- in -e, z e za -z**\n- der kürzeste Tag · der schnellste Zug",
+            "it": "**der: -st- e -e, con una e dopo -z**\n- der kürzeste Tag · der schnellste Zug"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Without a noun you know it already: **am besten, am liebsten, am schnellsten** (best, most of all, fastest). After sein both are right: **Dieser Zug ist am schnellsten** or **Dieser Zug ist der schnellste**. **lieber** (rather) and **am liebsten** (most of all) go with a verb: **Ich trinke lieber Most, am liebsten kalt** (I'd rather drink cider, best of all cold).",
+          "sl": "Brez samostalnika to že poznaš: **am besten, am liebsten, am schnellsten** (najbolje, najraje, najhitreje). Za sein je prav oboje: **Dieser Zug ist am schnellsten** ali **Dieser Zug ist der schnellste**. **lieber** (raje) in **am liebsten** (najraje) gresta z glagolom: **Ich trinke lieber Most, am liebsten kalt** (raje pijem mošt, najraje hladen).",
+          "it": "Senza un nome lo conosci già: **am besten, am liebsten, am schnellsten** (meglio di tutti, più di tutto, il più veloce). Dopo sein vanno bene tutti e due: **Dieser Zug ist am schnellsten** o **Dieser Zug ist der schnellste**. **lieber** (piuttosto) e **am liebsten** (più di tutto) vanno con un verbo: **Ich trinke lieber Most, am liebsten kalt** (preferisco il sidro, soprattutto freddo)."
+        },
+        "examples": [
+          {
+            "de": "Oma Resi kocht am besten.",
+            "en": "Grandma Resi cooks best.",
+            "sl": "Babica Resi kuha najbolje.",
+            "it": "Nonna Resi cucina meglio di tutti."
+          },
+          {
+            "de": "Dieser Zug ist der schnellste.",
+            "en": "This train is the fastest.",
+            "sl": "Ta vlak je najhitrejši.",
+            "it": "Questo treno è il più veloce."
+          },
+          {
+            "de": "Am liebsten trinke ich Most.",
+            "en": "Most of all I like drinking cider.",
+            "sl": "Najraje pijem mošt.",
+            "it": "Più di tutto mi piace bere il sidro."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "steigerung",
+          "prompt": "Wer kocht ___? Oma Resi.",
+          "options": [
+            "am besten",
+            "der beste",
+            "am guten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**With a verb and no noun: am besten**\n- Wer kocht am besten?",
+            "sl": "**Z glagolom in brez samostalnika: am besten**\n- Wer kocht am besten?",
+            "it": "**Con un verbo e senza nome: am besten**\n- Wer kocht am besten?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "More and more: **immer** and the comparative: **Es wird immer kälter** (it's getting colder and colder), **Die Tage werden immer kürzer** (the days are getting shorter and shorter). No mehr before an adjective: **immer schneller** (never *immer mehr schnell*). **immer mehr** (more and more) stands before a noun: **immer mehr Leute** (more and more people).",
+          "sl": "Vedno bolj: **immer** in primernik: **Es wird immer kälter** (vedno bolj je mraz), **Die Tage werden immer kürzer** (dnevi so vedno krajši). Pred pridevnikom ni mehr: rečeš **immer schneller** (vedno hitreje). **immer mehr** (vedno več) stoji pred samostalnikom: **immer mehr Leute** (vedno več ljudi).",
+          "it": "Sempre più: **immer** e il comparativo: **Es wird immer kälter** (fa sempre più freddo), **Die Tage werden immer kürzer** (le giornate sono sempre più corte). Davanti a un aggettivo niente mehr: si dice **immer schneller** (sempre più veloce). **immer mehr** (sempre più) sta davanti a un nome: **immer mehr Leute** (sempre più gente)."
+        },
+        "examples": [
+          {
+            "de": "Im Herbst wird es immer kälter.",
+            "en": "In autumn it gets colder and colder.",
+            "sl": "Jeseni je vedno bolj mraz.",
+            "it": "In autunno fa sempre più freddo."
+          },
+          {
+            "de": "Der Traktor fährt immer schneller.",
+            "en": "The tractor is going faster and faster.",
+            "sl": "Traktor pelje vedno hitreje.",
+            "it": "Il trattore va sempre più veloce."
+          },
+          {
+            "de": "Immer mehr Leute kommen zum Kirchtag.",
+            "en": "More and more people are coming to the Kirchtag.",
+            "sl": "Na žegnanje pride vedno več ljudi.",
+            "it": "Alla sagra viene sempre più gente."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "steigerung",
+          "text": "Es wird immer ___. (warm)",
+          "accept": [
+            "wärmer"
+          ],
+          "hint": {
+            "en": "immer + -er, with the umlaut",
+            "sl": "immer + -er, s preglasom",
+            "it": "immer + -er, con l'Umlaut"
+          },
+          "explain": {
+            "en": "**immer and the comparative**\n- immer wärmer · immer kälter · immer schneller",
+            "sl": "**immer in primernik**\n- immer wärmer · immer kälter · immer schneller",
+            "it": "**immer e il comparativo**\n- immer wärmer · immer kälter · immer schneller"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Je mehr Most Stefan trinkt, desto lustiger wird er** (the more cider Stefan drinks, the funnier he gets): **je** (the) sends the verb last, **desto** (the) and its comparative take first place, then the verb. **Je mehr, desto besser** (the more, the better) is a phrase to keep. **umso** works like **desto**.",
+          "sl": "**Je mehr Most Stefan trinkt, desto lustiger wird er** (več ko Stefan pije mošta, bolj je zabaven): **je** (čim) pošlje glagol na konec, **desto** (tem) s primernikom zasede prvo mesto, nato glagol. **Je mehr, desto besser** (čim več, tem bolje) si zapomni kot celoto. **umso** deluje kot **desto**.",
+          "it": "**Je mehr Most Stefan trinkt, desto lustiger wird er** (più sidro beve Stefan, più diventa allegro): **je** (più) manda il verbo alla fine, **desto** (più) col comparativo occupa il primo posto, poi il verbo. **Je mehr, desto besser** (più ce n'è, meglio è) è un'espressione da tenere a mente. **umso** funziona come **desto**."
+        },
+        "examples": [
+          {
+            "de": "Je früher wir fahren, desto besser ist es.",
+            "en": "The earlier we leave, the better.",
+            "sl": "Čim prej gremo, tem bolje je.",
+            "it": "Prima partiamo, meglio è."
+          },
+          {
+            "de": "Je länger Opa Sepp erzählt, desto schöner wird die Geschichte.",
+            "en": "The longer Grandpa Sepp talks, the better the story gets.",
+            "sl": "Dlje ko dedek Sepp pripoveduje, lepša je zgodba.",
+            "it": "Più a lungo racconta nonno Sepp, più bella diventa la storia."
+          },
+          {
+            "de": "Je mehr Holz Franz hat, umso wärmer ist sein Haus.",
+            "en": "The more wood Franz has, the warmer his house is.",
+            "sl": "Več ko ima Franz drv, toplejša je njegova hiša.",
+            "it": "Più legna ha Franz, più calda è la sua casa."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "steigerung",
+          "prompt": "Je mehr du lernst, ___.",
+          "options": [
+            "desto besser sprichst du",
+            "desto du sprichst besser",
+            "desto besser du sprichst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**je: the verb last; desto: the comparative, then the verb**\n- Je mehr du lernst, desto besser sprichst du.",
+            "sl": "**je: glagol na koncu; desto: primernik, nato glagol**\n- Je mehr du lernst, desto besser sprichst du.",
+            "it": "**je: il verbo alla fine; desto: il comparativo, poi il verbo**\n- Je mehr du lernst, desto besser sprichst du."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Before a noun: **-er** or **-st-**, then the ending: **der schnellere Zug, ein schnellerer Zug, der schnellste Zug, mein bester Freund**. **mehr** takes none. **immer** and the comparative: **immer kälter**. **je** with the verb last, **desto** and its comparative first, then the verb: **Je mehr du lernst, desto besser sprichst du**.",
+      "sl": "Pred samostalnikom: **-er** ali **-st-**, nato končnica: **der schnellere Zug, ein schnellerer Zug, der schnellste Zug, mein bester Freund**. **mehr** je nima. **immer** in primernik: **immer kälter**. **je** z glagolom na koncu, **desto** s primernikom na prvem mestu, nato glagol: **Je mehr du lernst, desto besser sprichst du**.",
+      "it": "Davanti a un nome: **-er** o **-st-**, poi la desinenza: **der schnellere Zug, ein schnellerer Zug, der schnellste Zug, mein bester Freund**. **mehr** non ne ha. **immer** e il comparativo: **immer kälter**. **je** col verbo alla fine, **desto** col comparativo al primo posto, poi il verbo: **Je mehr du lernst, desto besser sprichst du**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "schnellere-1",
+      "title": {
+        "de": "Schneller, am schnellsten",
+        "en": "Faster, the fastest",
+        "sl": "Hitrejši, najhitrejši",
+        "it": "Più veloce, il più veloce"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the adjective with -er or -st- and its ending",
+            "sl": "pridevnik z -er ali -st- in končnico",
+            "it": "l'aggettivo con -er o -st- e la desinenza"
+          },
+          "columns": [
+            "der Zug · schnell",
+            "die Uhr · teuer",
+            "das Haus · groß"
+          ],
+          "rows": [
+            {
+              "label": "der, die, das · mehr",
+              "cells": [
+                "schnellere",
+                {
+                  "accept": [
+                    "teurere"
+                  ]
+                },
+                {
+                  "accept": [
+                    "größere"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ein, eine, ein · mehr",
+              "cells": [
+                {
+                  "accept": [
+                    "schnellerer"
+                  ]
+                },
+                "teurere",
+                {
+                  "accept": [
+                    "größeres"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "dem, der, dem · mehr",
+              "cells": [
+                {
+                  "accept": [
+                    "schnelleren"
+                  ]
+                },
+                {
+                  "accept": [
+                    "teureren"
+                  ]
+                },
+                {
+                  "accept": [
+                    "größeren"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "der, die, das · am meisten",
+              "cells": [
+                {
+                  "accept": [
+                    "schnellste"
+                  ]
+                },
+                {
+                  "accept": [
+                    "teuerste"
+                  ]
+                },
+                "größte"
+              ]
+            },
+            {
+              "label": "dem, der, dem · am meisten",
+              "cells": [
+                {
+                  "accept": [
+                    "schnellsten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "teuersten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "größten"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**First -er or -st-, then the ending**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "sl": "**Najprej -er ali -st-, nato končnica**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "it": "**Prima -er o -st-, poi la desinenza**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Sortiere · Sort: more or the most?",
+            "sl": "Sortiere · Razvrsti: več ali največ?",
+            "it": "Sortiere · Ordina: di più o il massimo?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Komparativ · more",
+                "sl": "Komparativ · več",
+                "it": "Komparativ · di più"
+              },
+              "words": [
+                "der ältere",
+                "ein größeres",
+                "die bessere"
+              ]
+            },
+            {
+              "label": {
+                "en": "Superlativ · the most",
+                "sl": "Superlativ · največ",
+                "it": "Superlativ · il massimo"
+              },
+              "words": [
+                "das beste",
+                "die meisten",
+                "mein bester"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**First -er or -st-, then the ending**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "sl": "**Najprej -er ali -st-, nato končnica**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "it": "**Prima -er o -st-, poi la desinenza**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund"
+          }
+        }
+      ]
+    },
+    {
+      "id": "schnellere-2",
+      "title": {
+        "de": "Franz vergleicht",
+        "en": "Franz compares",
+        "sl": "Franz primerja",
+        "it": "Franz fa i confronti"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Franz vergleicht alles",
+          "text": "Der ___ (schnell) Zug von allen fährt um sieben. Mit einem ___ (langsam) Zug bist du erst um acht dort. Stefan braucht einen ___ (groß) Keller. Das ___ (gut) Bier im ganzen Tal gibt es bei Kathi. Die ___ (viel) Leute trinken dort aber Most. Opa Sepp ist der ___ (alt) Mann im Dorf. Es wird immer ___ (kalt). Je mehr Holz ich habe, desto ___ (warm) ist mein Haus.",
+          "gaps": [
+            {
+              "accept": [
+                "schnellste"
+              ],
+              "hint": "von allen: am meisten"
+            },
+            {
+              "accept": [
+                "langsameren"
+              ],
+              "hint": "einem: mehr"
+            },
+            {
+              "accept": [
+                "größeren"
+              ],
+              "hint": "einen: mehr"
+            },
+            {
+              "accept": [
+                "beste"
+              ],
+              "hint": "im ganzen Tal: am meisten"
+            },
+            {
+              "accept": [
+                "meisten"
+              ],
+              "hint": "viel: am meisten"
+            },
+            {
+              "accept": [
+                "älteste"
+              ],
+              "hint": "im Dorf: am meisten"
+            },
+            {
+              "accept": [
+                "kälter"
+              ],
+              "hint": "immer + -er"
+            },
+            {
+              "accept": [
+                "wärmer"
+              ],
+              "hint": "desto + -er"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "schneller",
+            "kalter",
+            "besseres"
+          ],
+          "translation": {
+            "en": "The fastest train of all leaves at seven. With a slower train you won't be there until eight. Stefan needs a bigger cellar. The best beer in the whole valley is at Kathi's. But most people drink cider there. Grandpa Sepp is the oldest man in the village. It's getting colder and colder. The more wood I have, the warmer my house is.",
+            "sl": "Najhitrejši vlak od vseh pelje ob sedmih. S počasnejšim vlakom si tam šele ob osmih. Stefan potrebuje večjo klet. Najboljše pivo v vsej dolini je pri Kathi. Večina ljudi pa tam pije mošt. Dedek Sepp je najstarejši moški v vasi. Vedno bolj je mraz. Več ko imam drv, toplejša je moja hiša.",
+            "it": "Il treno più veloce di tutti parte alle sette. Con un treno più lento arrivi solo alle otto. Stefan ha bisogno di una cantina più grande. La birra migliore di tutta la valle è da Kathi. Ma la maggior parte della gente lì beve il sidro. Nonno Sepp è l'uomo più anziano del paese. Fa sempre più freddo. Più legna ho, più calda è la mia casa."
+          },
+          "explain": {
+            "en": "**First -er or -st-, then the ending**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "sl": "**Najprej -er ali -st-, nato končnica**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "it": "**Prima -er o -st-, poi la desinenza**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das ist mein ___ Freund. (gut, am besten)",
+          "options": [
+            "bester",
+            "besten",
+            "beste"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**mein has no ending here: -er**\n- mein bester Freund · ein neuer Freund",
+            "sl": "**mein tu nima končnice: -er**\n- mein bester Freund · ein neuer Freund",
+            "it": "**mein qui non ha desinenza: -er**\n- mein bester Freund · ein neuer Freund"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Immer ___ Leute kommen zum Kirchtag.",
+          "options": [
+            "mehr",
+            "mehre",
+            "meisten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**mehr takes no ending**\n- mehr Leute · immer mehr Leute",
+            "sl": "**mehr nima končnice**\n- mehr Leute · immer mehr Leute",
+            "it": "**mehr non ha desinenza**\n- mehr Leute · immer mehr Leute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "schnellere-3",
+      "title": {
+        "de": "Mach einen Satz",
+        "en": "Make a sentence",
+        "sl": "Sestavi stavek",
+        "it": "Fai una frase"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Beginne mit Das ist · Start with Das ist",
+            "sl": "Beginne mit Das ist · Začni z Das ist",
+            "it": "Beginne mit Das ist · Comincia con Das ist"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Dieses Haus ist größer. (ein)",
+              "accept": [
+                "Das ist ein größeres Haus."
+              ]
+            },
+            {
+              "from": "Dieser Wein ist besser. (ein)",
+              "accept": [
+                "Das ist ein besserer Wein."
+              ]
+            },
+            {
+              "from": "Diese Uhr ist teurer. (die)",
+              "accept": [
+                "Das ist die teurere Uhr."
+              ]
+            },
+            {
+              "from": "Dieses Bier ist am besten. (das)",
+              "accept": [
+                "Das ist das beste Bier."
+              ]
+            },
+            {
+              "from": "Dieser Berg ist am höchsten. (der)",
+              "accept": [
+                "Das ist der höchste Berg."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**First -er or -st-, then the ending**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "sl": "**Najprej -er ali -st-, nato končnica**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+            "it": "**Prima -er o -st-, poi la desinenza**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "steigerung",
+          "instruction": {
+            "en": "Sag es mit je … desto · Say it with je … desto",
+            "sl": "Sag es mit je … desto · Povej z je … desto",
+            "it": "Sag es mit je … desto · Dillo con je … desto"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan arbeitet viel. Er ist müde.",
+              "accept": [
+                "Je mehr Stefan arbeitet, desto müder ist er.",
+                "Je mehr Stefan arbeitet, desto müder wird er.",
+                "Je mehr Stefan arbeitet, umso müder ist er.",
+                "Je mehr Stefan arbeitet, umso müder wird er.",
+                "Je mehr er arbeitet, desto müder ist er.",
+                "Je mehr er arbeitet, desto müder wird er.",
+                "Je mehr er arbeitet, umso müder ist er.",
+                "Je mehr er arbeitet, umso müder wird er."
+              ]
+            },
+            {
+              "from": "Wir fahren früh. Es ist gut.",
+              "accept": [
+                "Je früher wir fahren, desto besser ist es.",
+                "Je früher wir fahren, umso besser ist es.",
+                "Je früher wir fahren, desto besser.",
+                "Je früher wir fahren, umso besser."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**je: the verb last; desto: the comparative, then the verb**\n- Je mehr du lernst, desto besser sprichst du.",
+            "sl": "**je: glagol na koncu; desto: primernik, nato glagol**\n- Je mehr du lernst, desto besser sprichst du.",
+            "it": "**je: il verbo alla fine; desto: il comparativo, poi il verbo**\n- Je mehr du lernst, desto besser sprichst du."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adjektiv-tabelle",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der neue Keller",
+        "text": "Stefan hat einen ___ (groß) Keller als Franz. Es ist der ___ (groß) Keller im Dorf. Dort macht er den ___ (gut) Most im ganzen Tal. Die ___ (viel) Leute kaufen ihn bei ihm. Jedes Jahr kommen immer ___ (viel) Gäste. Je mehr Gäste kommen, desto ___ (lustig) ist es.",
+        "gaps": [
+          {
+            "accept": [
+              "größeren"
+            ],
+            "hint": "einen … als: mehr"
+          },
+          {
+            "accept": [
+              "größte"
+            ],
+            "hint": "im Dorf: am meisten"
+          },
+          {
+            "accept": [
+              "besten"
+            ],
+            "hint": "den: am meisten"
+          },
+          {
+            "accept": [
+              "meisten"
+            ],
+            "hint": "die: am meisten"
+          },
+          {
+            "accept": [
+              "mehr"
+            ],
+            "hint": "immer"
+          },
+          {
+            "accept": [
+              "lustiger"
+            ],
+            "hint": "desto + -er"
+          }
+        ],
+        "translation": {
+          "en": "Stefan has a bigger cellar than Franz. It's the biggest cellar in the village. There he makes the best cider in the whole valley. Most people buy it from him. Every year more and more guests come. The more guests come, the more fun it is.",
+          "sl": "Stefan ima večjo klet kot Franz. To je največja klet v vasi. Tam dela najboljši mošt v vsej dolini. Večina ljudi ga kupi pri njem. Vsako leto pride vedno več gostov. Več ko je gostov, bolj je veselo.",
+          "it": "Stefan ha una cantina più grande di Franz. È la cantina più grande del paese. Lì fa il sidro migliore di tutta la valle. La maggior parte della gente lo compra da lui. Ogni anno vengono sempre più ospiti. Più ospiti vengono, più è divertente."
+        },
+        "explain": {
+          "en": "**First -er or -st-, then the ending**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+          "sl": "**Najprej -er ali -st-, nato končnica**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+          "it": "**Prima -er o -st-, poi la desinenza**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adjektiv-tabelle",
+        "instruction": {
+          "en": "Beginne mit Das ist · Start with Das ist",
+          "sl": "Beginne mit Das ist · Začni z Das ist",
+          "it": "Beginne mit Das ist · Comincia con Das ist"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Dieses Auto ist schneller. (ein)",
+            "accept": [
+              "Das ist ein schnelleres Auto."
+            ]
+          },
+          {
+            "from": "Diese Frau ist am ältesten. (die)",
+            "accept": [
+              "Das ist die älteste Frau."
+            ]
+          },
+          {
+            "from": "Dieser Weg ist kürzer. (der)",
+            "accept": [
+              "Das ist der kürzere Weg."
+            ]
+          },
+          {
+            "from": "Kathi kocht viel. Ihre Gäste sind froh. (je … desto)",
+            "accept": [
+              "Je mehr Kathi kocht, desto froher sind ihre Gäste.",
+              "Je mehr Kathi kocht, desto froher werden ihre Gäste.",
+              "Je mehr Kathi kocht, desto fröher sind ihre Gäste.",
+              "Je mehr Kathi kocht, desto fröher werden ihre Gäste.",
+              "Je mehr Kathi kocht, umso froher sind ihre Gäste.",
+              "Je mehr Kathi kocht, umso froher werden ihre Gäste.",
+              "Je mehr Kathi kocht, umso fröher sind ihre Gäste.",
+              "Je mehr Kathi kocht, umso fröher werden ihre Gäste.",
+              "Je mehr sie kocht, desto froher sind ihre Gäste.",
+              "Je mehr sie kocht, desto froher werden ihre Gäste.",
+              "Je mehr sie kocht, desto fröher sind ihre Gäste.",
+              "Je mehr sie kocht, desto fröher werden ihre Gäste.",
+              "Je mehr sie kocht, umso froher sind ihre Gäste.",
+              "Je mehr sie kocht, umso froher werden ihre Gäste.",
+              "Je mehr sie kocht, umso fröher sind ihre Gäste.",
+              "Je mehr sie kocht, umso fröher werden ihre Gäste."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**First -er or -st-, then the ending**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+          "sl": "**Najprej -er ali -st-, nato končnica**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund",
+          "it": "**Prima -er o -st-, poi la desinenza**\n- der schnellere Zug · ein schnellerer Zug · der schnellste Zug · mein bester Freund"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-tabelle",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wir nehmen den ___ Bus. (früh, mehr)",
+        "options": [
+          "früheren",
+          "früherer",
+          "frühere"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**-er for more, then -en after den**\n- den früheren Bus · den schnelleren Zug",
+          "sl": "**-er za več, nato -en za den**\n- den früheren Bus · den schnelleren Zug",
+          "it": "**-er per il più, poi -en dopo den**\n- den früheren Bus · den schnelleren Zug"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "steigerung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Im Herbst werden die Tage immer ___.",
+        "options": [
+          "kürzer",
+          "kurz",
+          "mehr kurz"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**immer and the comparative, with no mehr**\n- immer kürzer · immer kälter",
+          "sl": "**immer in primernik, brez mehr**\n- immer kürzer · immer kälter",
+          "it": "**immer e il comparativo, senza mehr**\n- immer kürzer · immer kälter"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "steigerung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Je älter Opa Sepp wird, ___ erzählt er.",
+        "options": [
+          "desto langsamer",
+          "desto er langsamer",
+          "am langsamsten"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**je: the verb last; desto: the comparative, then the verb**\n- Je mehr du lernst, desto besser sprichst du.",
+          "sl": "**je: glagol na koncu; desto: primernik, nato glagol**\n- Je mehr du lernst, desto besser sprichst du.",
+          "it": "**je: il verbo alla fine; desto: il comparativo, poi il verbo**\n- Je mehr du lernst, desto besser sprichst du."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Dieser Zug ist am schnellsten or der schnellste; je … desto, umso; Slovene čim, tem; the facts of the cast"
+}

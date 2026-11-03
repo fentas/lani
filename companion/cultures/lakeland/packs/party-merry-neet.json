@@ -1,0 +1,35 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "party-merry-neet",
+  "language": "en",
+  "title": {
+    "en": "A merry neet",
+    "sl": "Vesel večer",
+    "it": "Una serata allegra",
+    "de": "Ein fröhlicher Abend"
+  },
+  "emoji": "🎶",
+  "level": "A1",
+  "description": {
+    "en": "The first camp's evening by the fire with Old Wilf: no alehouse yet, so the pies, the fiddle, the old songs and the tales come to the fire.",
+    "sl": "Prvi večer tabora ob ognju s starim Wilfom: gostilne še ni, zato pite, violina, stare pesmi in pripovedke pridejo k ognju.",
+    "it": "La prima sera dell'accampamento intorno al fuoco con il vecchio Wilf: l'osteria non c'è ancora, quindi le torte salate, il violino, le vecchie canzoni e i racconti vengono al fuoco.",
+    "de": "Der erste Abend des Lagers am Feuer mit dem alten Wilf: Noch gibt es kein Wirtshaus, also kommen Pasteten, Geige, alte Lieder und Erzählungen ans Feuer."
+  },
+  "giver": {
+    "name": "Old Wilf",
+    "emoji": "🧓"
+  },
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker; sources in docs/plans/05-built/parties-lakeland.md",
+  "words": [
+    {"id": "merry-neet", "en": "merry neet", "sl": "vesel večer", "it": "serata allegra", "de": "fröhlicher Abend", "emoji": "🎶", "plural": "merry neets", "example_en": "Tonight we have a merry neet by the fire.", "example_sl": "Nocoj imamo ob ognju vesel večer.", "example_it": "Stasera facciamo una serata allegra intorno al fuoco.", "example_de": "Heute Abend machen wir am Feuer einen fröhlichen Abend.", "note": "Neet is the old Cumbrian word for night. People say it for fun; the standard word is night.", "note_sl": "Neet je stara kumbrijska beseda za night (noč). Danes jo rečejo za šalo; standardna beseda je night.", "note_it": "Neet è la vecchia parola della Cumbria per night (notte). Oggi si dice per scherzo; la parola standard è night.", "note_de": "Neet ist das alte Wort in Cumbria für night (Nacht). Heute sagt man es zum Spaß; das Standardwort ist night."},
+    {"id": "pie", "en": "pie", "sl": "pita (z mesom)", "it": "pasticcio di carne", "de": "Pastete", "emoji": "🥧", "plural": "pies", "example_en": "There's a hot pie for everyone.", "example_sl": "Za vse je vroča pita.", "example_it": "C'è un pasticcio di carne caldo per tutti.", "example_de": "Es gibt eine heiße Pastete für alle."},
+    {"id": "fiddle", "en": "fiddle", "sl": "violina", "it": "violino", "de": "Geige", "emoji": "🎻", "plural": "fiddles", "example_en": "Somebody is tuning a fiddle by the fire.", "example_sl": "Nekdo ob ognju uglašuje violino.", "example_it": "Qualcuno accorda un violino vicino al fuoco.", "example_de": "Jemand stimmt am Feuer eine Geige.", "note": "A fiddle is a violin, played in a folk band.", "note_sl": "Fiddle je violina, kadar igra ljudsko glasbo.", "note_it": "Un fiddle è un violino suonato in un gruppo folk.", "note_de": "Eine Fiddle ist eine Geige, gespielt in einer Folkband."},
+    {"id": "song", "en": "song", "sl": "pesem", "it": "canzone", "de": "Lied", "emoji": "🎵", "plural": "songs", "example_en": "Everybody knows this old song.", "example_sl": "Vsi poznajo to staro pesem.", "example_it": "Tutti conoscono questa vecchia canzone.", "example_de": "Alle kennen dieses alte Lied."},
+    {"id": "sing", "en": "to sing", "sl": "peti", "it": "cantare", "de": "singen", "emoji": "🎤", "example_en": "We sing together by the fire.", "example_sl": "Skupaj pojemo ob ognju.", "example_it": "Cantiamo insieme intorno al fuoco.", "example_de": "Wir singen zusammen am Feuer.", "note": "Irregular: sing, sang, sung. We sang all night.", "note_sl": "Nepravilni glagol: sing, sang, sung. We sang all night: peli smo vso noč.", "note_it": "Irregolare: sing, sang, sung. We sang all night: abbiamo cantato tutta la notte.", "note_de": "Unregelmäßig: sing, sang, sung. We sang all night: Wir haben die ganze Nacht gesungen."},
+    {"id": "chorus", "en": "chorus", "sl": "refren", "it": "ritornello", "de": "Refrain", "emoji": "🎼", "plural": "choruses", "example_en": "One person sings the verse, and everyone sings the chorus.", "example_sl": "Kitico poje eden, refren pojejo vsi.", "example_it": "Una persona canta la strofa e tutti cantano il ritornello.", "example_de": "Eine Person singt die Strophe, und alle singen den Refrain.", "note": "You say it “kaw-rus”: the ch sounds like k.", "note_sl": "Izgovori se »kó-ras«: ch se bere kot k.", "note_it": "Si dice «kò-ras»: il ch si legge come k.", "note_de": "Man sagt „ko-ras“: Das ch klingt wie k."},
+    {"id": "tale", "en": "tale", "sl": "pripovedka", "it": "racconto", "de": "Erzählung", "emoji": "📖", "plural": "tales", "example_en": "There's always one more tale by the fire.", "example_sl": "Ob ognju je vedno še ena pripovedka.", "example_it": "Intorno al fuoco c'è sempre un altro racconto.", "example_de": "Am Feuer gibt es immer noch eine Erzählung.", "note": "A tale is an old word for a story. To tell a tale: you never say it.", "note_sl": "Tale je stara beseda za story. Pripovedko pripoveduješ (tell), nikoli ne rečeš say.", "note_it": "Tale è una vecchia parola per story. Un racconto si racconta (tell), non si dice mai say.", "note_de": "Tale ist ein altes Wort für story. Man erzählt sie (tell), man sagt nie say."},
+    {"id": "alehouse", "en": "alehouse", "sl": "krčma", "it": "osteria", "de": "Wirtshaus", "emoji": "🍺", "plural": "alehouses", "example_en": "Long ago the merry neet was at the alehouse.", "example_sl": "Nekoč je bil vesel večer v krčmi.", "example_it": "Una volta la serata allegra si faceva all'osteria.", "example_de": "Früher war der fröhliche Abend im Wirtshaus.", "note": "An old word: today you say a pub.", "note_sl": "Stara beseda: danes rečemo pub.", "note_it": "Una parola antica: oggi si dice pub.", "note_de": "Ein altes Wort: Heute sagt man pub."},
+    {"id": "together", "en": "together", "sl": "skupaj", "it": "insieme", "de": "zusammen", "emoji": "🤗", "example_en": "We eat together and we sing together.", "example_sl": "Skupaj jemo in skupaj pojemo.", "example_it": "Mangiamo insieme e cantiamo insieme.", "example_de": "Wir essen zusammen und singen zusammen."}
+  ]
+}

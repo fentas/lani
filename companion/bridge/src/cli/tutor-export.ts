@@ -12,13 +12,16 @@
 // - guide/<id>.md: the channel guide split into topics: one per feature paragraph, exactly as channel_guide gives them
 //   to the default learner (Jan), and the skills the app's tutor reads as topics (each with a short "> In the app:"
 //   line first); guide/index.json the topics in reading order.
+// - guide/<language>/<id>.md: a topic that reads otherwise in a village of another language (it, de, en), as that
+//   village's bridge says it, written for any base: {base} and {base_code} are the learner's, the app fills them in
+//   (android tutor/Prompt.kt Guide).
 //
 // The bridge is built (buildBridge: no server, timer or job started) in an environment of its own, never this
 // machine's: no lani.env, a throwaway data directory from data-examples/ (learner Jan, male), the repository's curated
 // content as the bridge reads it by default. companion/tutor/app-tools/ (the app's own tools) is hand-written.
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join, relative, resolve } from 'node:path'
+import { dirname, join, relative, resolve } from 'node:path'
 import { parseArgs } from 'node:util'
 import type { BuiltBridge } from '../bridge'
 
@@ -101,6 +104,15 @@ const SKILL_TOPICS: { id: string; title: string; summary: string; skills: string
   },
 ]
 
+/** The other villages' languages and their culture packs: each has its copies of the topics that read otherwise. */
+const OTHER_VILLAGES: { language: string; culture: string }[] = [
+  { language: 'it', culture: 'friuli' },
+  { language: 'de', culture: 'kaernten' },
+  { language: 'en', culture: 'lakeland' },
+]
+/** A base no paragraph names: where a language's copy says it, the app puts the learner's. */
+const ANY_BASE = { code: 'nl', name: 'Dutch' }
+
 /** The guide's reading order: the topics an event needs most first, the studio's last. */
 const ORDER = [
   'events', 'feedback', 'session-end', 'fix', 'progress', 'analysis', 'rhythm', 'village', 'grammar-book', 'cheat-sheet',
@@ -166,11 +178,42 @@ async function generate(): Promise<Map<string, string>> {
     } finally {
       console.error = error
     }
-    return render(b)
+    const out = render(b)
+    const jan = new Map(paragraphsOf(b).map(({ name, feature }) => [FEATURE_TOPICS[name]!.id, `${feature.instructions!}\n`]))
+    // The same bridge for the other villages' learners: only the paragraphs matter, as their villages say them.
+    const { initLearnerData } = await import('../learners')
+    for (const { language, culture } of OTHER_VILLAGES) {
+      const dir = join(tmp, language, 'data')
+      initLearnerData(repo, dir, { name: 'Jan', gender: 'male', target: language, base: ANY_BASE.code, culture, results: join(tmp, language, 'results') })
+      Object.assign(process.env, { LANI_DATA_DIR: dir, LANI_CULTURE: culture })
+      console.error = () => {}
+      let other: BuiltBridge
+      try {
+        other = buildBridge({ mode: 'stdio' })
+      } finally {
+        console.error = error
+      }
+      for (const { name, feature } of paragraphsOf(other)) {
+        const t = FEATURE_TOPICS[name] ?? fail(`the feature ${name} has a guide paragraph but no topic: add it to FEATURE_TOPICS`)
+        const text = `${anyBase(feature.instructions!)}\n`
+        if (text !== jan.get(t.id)) out.set(`guide/${language}/${t.id}.md`, text)
+      }
+    }
+    return out
   } finally {
     rmSync(tmp, { recursive: true, force: true })
   }
 }
+
+/** The features that have a guide paragraph. */
+const paragraphsOf = (b: BuiltBridge) => b.named.filter(f => f.feature.instructions)
+
+/** A paragraph written for [ANY_BASE], for any base. */
+const anyBase = (text: string) =>
+  text
+    .replaceAll(ANY_BASE.name, '{base}')
+    .replaceAll(`"${ANY_BASE.code}"`, '"{base_code}"')
+    .replaceAll(`_${ANY_BASE.code}`, '_{base_code}')
 
 function render(b: BuiltBridge): Map<string, string> {
   const out = new Map<string, string>()
@@ -184,7 +227,7 @@ function render(b: BuiltBridge): Map<string, string> {
 
   // --- the guide -----------------------------------------------------------------------------------------------------
   const guide = b.guide()
-  const paragraphs = b.named.filter(f => f.feature.instructions)
+  const paragraphs = paragraphsOf(b)
   // The topics are the guide, split: joined in the bridge's order they must be channel_guide's text exactly.
   const joined = paragraphs.map(f => f.feature.instructions!).join('\n\n')
   if (joined !== guide) fail("channel_guide's text isn't the features' paragraphs joined (a paragraph for this learner the topics don't have)")
@@ -225,7 +268,11 @@ function present(dir: string): Map<string, string> {
   for (const sub of ['tools', 'guide']) {
     const d = join(dir, sub)
     if (!existsSync(d)) continue
-    for (const f of readdirSync(d, { withFileTypes: true })) if (f.isFile()) out.set(`${sub}/${f.name}`, readFileSync(join(d, f.name), 'utf8'))
+    for (const f of readdirSync(d, { withFileTypes: true })) {
+      if (f.isFile()) out.set(`${sub}/${f.name}`, readFileSync(join(d, f.name), 'utf8'))
+      // a village's copies (guide/<language>/)
+      else if (f.isDirectory() && sub === 'guide') for (const g of readdirSync(join(d, f.name))) out.set(`${sub}/${f.name}/${g}`, readFileSync(join(d, f.name, g), 'utf8'))
+    }
   }
   return out
 }
@@ -251,7 +298,7 @@ if (values.check) {
     for (const d of differ) console.error(`  ${d}`)
     process.exit(1)
   }
-  console.log(`tutor-export --check: ${made.size} files match the bridge (${[...made.keys()].filter(p => p.startsWith('tools/') && p !== 'tools/index.json' && p !== 'tools/guide.json').length} tools, ${[...made.keys()].filter(p => p.endsWith('.md')).length} guide topics)`)
+  console.log(`tutor-export --check: ${made.size} files match the bridge (${[...made.keys()].filter(p => p.startsWith('tools/') && p !== 'tools/index.json' && p !== 'tools/guide.json').length} tools, ${[...made.keys()].filter(p => /^guide\/[^/]+\.md$/.test(p)).length} guide topics, ${[...made.keys()].filter(p => /^guide\/[^/]+\/.+\.md$/.test(p)).length} villages' copies)`)
 } else {
   for (const sub of ['tools', 'guide']) mkdirSync(join(dir, sub), { recursive: true })
   // What the bridge no longer makes goes (a tool removed, a topic renamed); only files of tools/ and guide/.
@@ -259,6 +306,7 @@ if (values.check) {
   let changed = 0
   for (const [p, text] of [...made].sort(([a], [b]) => a.localeCompare(b))) {
     if (there.get(p) === text) continue
+    mkdirSync(dirname(join(dir, p)), { recursive: true })
     writeFileSync(join(dir, p), text)
     changed++
   }

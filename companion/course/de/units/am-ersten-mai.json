@@ -1,0 +1,1045 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "am-ersten-mai",
+  "language": "de",
+  "level": "A2",
+  "emoji": "📅",
+  "title": {
+    "de": "Am ersten Mai, vor zwei Tagen",
+    "en": "Dates and ordinals: am ersten Mai",
+    "sl": "Datumi in vrstilni števniki: am ersten Mai",
+    "it": "Le date e gli ordinali: am ersten Mai"
+  },
+  "goal": {
+    "en": "You can count in a row (der erste, der dritte, der zwanzigste), say and write a date (Heute ist der erste Mai, am ersten Mai, vom ersten bis zum dritten), say how long ago and how soon (vor zwei Tagen, in einer Woche), and you know Jänner and heuer.",
+    "sl": "Šteješ po vrsti (der erste, der dritte, der zwanzigste), poveš in napišeš datum (Heute ist der erste Mai, am ersten Mai, vom ersten bis zum dritten), poveš, pred koliko časa in čez koliko časa (vor zwei Tagen, in einer Woche), ter poznaš Jänner in heuer.",
+    "it": "Sai contare in fila (der erste, der dritte, der zwanzigste), dire e scrivere una data (Heute ist der erste Mai, am ersten Mai, vom ersten bis zum dritten), dire quanto tempo fa e tra quanto (vor zwei Tagen, in einer Woche), e conosci Jänner e heuer."
+  },
+  "grammar": [
+    "ordinalzahlen",
+    "uhrzeit",
+    "zahlen"
+  ],
+  "words": [
+    "erste",
+    "zweite",
+    "dritte",
+    "vierte",
+    "siebte",
+    "achte",
+    "Jänner",
+    "Januar",
+    "Feber",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "Oktober",
+    "Dezember",
+    "heuer",
+    "dieses Jahr",
+    "der Monat",
+    "die Woche",
+    "der Tag",
+    "das Jahr",
+    "der Feiertag",
+    "der Nationalfeiertag",
+    "der Geburtstag",
+    "der Stock",
+    "das Mal",
+    "die Tür",
+    "der See",
+    "morgen",
+    "kalt",
+    "sehr",
+    "Fünfte",
+    "Wievielte",
+    "Erste"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "geschrieben",
+          "en": "written",
+          "sl": "napisano",
+          "it": "scritto"
+        },
+        {
+          "de": "gesagt",
+          "en": "said",
+          "sl": "rečeno",
+          "it": "detto"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The ordinal numbers say which one in a row. Most add **-te** to the number: **der zweite** (the second), **der vierte** (the fourth), **der fünfte** (the fifth), **der zehnte** (the tenth). Four are special: **der erste** (the first), **der dritte** (the third), **der siebte** (the seventh), **der achte** (never *der achtte*). With die or das it is the same: **die erste Tür** (the first door), **das zweite Glas** (the second glass).",
+          "sl": "Vrstilni števniki povedo, kateri po vrsti. Večina doda številu **-te**: **der zweite** (drugi), **der vierte** (četrti), **der fünfte** (peti), **der zehnte** (deseti). Štirje so posebni: **der erste** (prvi), **der dritte** (tretji), **der siebte** (sedmi), **der achte** (osmi, en sam t). Z die ali das je enako: **die erste Tür** (prva vrata), **das zweite Glas** (drugi kozarec).",
+          "it": "I numeri ordinali dicono quale in una fila. Quasi tutti aggiungono **-te** al numero: **der zweite** (il secondo), **der vierte** (il quarto), **der fünfte** (il quinto), **der zehnte** (il decimo). Quattro sono speciali: **der erste** (il primo), **der dritte** (il terzo), **der siebte** (il settimo), **der achte** (l'ottavo, una sola t). Con die o das è lo stesso: **die erste Tür** (la prima porta), **das zweite Glas** (il secondo bicchiere)."
+        },
+        "examples": [
+          {
+            "de": "Die erste Tür ist die Küche.",
+            "en": "The first door is the kitchen.",
+            "sl": "Prva vrata so kuhinja.",
+            "it": "La prima porta è la cucina."
+          },
+          {
+            "de": "Der Mai ist der fünfte Monat.",
+            "en": "May is the fifth month.",
+            "sl": "Maj je peti mesec.",
+            "it": "Maggio è il quinto mese."
+          },
+          {
+            "de": "Das ist schon das zweite Glas.",
+            "en": "That's already the second glass.",
+            "sl": "To je že drugi kozarec.",
+            "it": "È già il secondo bicchiere."
+          }
+        ],
+        "rows": [
+          [
+            "1.",
+            "der erste"
+          ],
+          [
+            "2.",
+            "der zweite"
+          ],
+          [
+            "3.",
+            "der dritte"
+          ],
+          [
+            "4.",
+            "der vierte"
+          ],
+          [
+            "7.",
+            "der siebte"
+          ],
+          [
+            "8.",
+            "der achte"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "ordinalzahlen",
+          "text": "Der Oktober ist der ___ Monat. (10.)",
+          "accept": [
+            "zehnte"
+          ],
+          "hint": {
+            "en": "10 + -te",
+            "sl": "10 + -te",
+            "it": "10 + -te"
+          },
+          "explain": {
+            "en": "**zehn + -te: der zehnte**\n- Der Oktober ist der zehnte Monat",
+            "sl": "**zehn + -te: der zehnte**\n- Der Oktober ist der zehnte Monat",
+            "it": "**zehn + -te: der zehnte**\n- Der Oktober ist der zehnte Monat"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Up to 19 it stays **-te**: **der neunzehnte** (the nineteenth, never *neunzehnste*). From 20 on it is **-ste**: **der zwanzigste** (the twentieth), **der einundzwanzigste** (the twenty-first), **der dreißigste** (the thirtieth). In figures it has a full stop: **1.** is **erste**, **20.** is **zwanzigste**. To ask the date: **Der Wievielte ist heute?** (What's the date today?)",
+          "sl": "Do 19 ostane **-te**: **der neunzehnte** (devetnajsti). Od 20 naprej je **-ste**: **der zwanzigste** (dvajseti), **der einundzwanzigste** (enaindvajseti), **der dreißigste** (trideseti). S številko ima piko, kot v slovenščini: **1.** je **erste**, **20.** je **zwanzigste**. Za datum vprašaš: **Der Wievielte ist heute?** (Katerega je danes?)",
+          "it": "Fino a 19 resta **-te**: **der neunzehnte** (il diciannovesimo). Da 20 in poi è **-ste**: **der zwanzigste** (il ventesimo), **der einundzwanzigste** (il ventunesimo), **der dreißigste** (il trentesimo). In cifre ha un punto: **1.** è **erste**, **20.** è **zwanzigste**. Per chiedere la data: **Der Wievielte ist heute?** (Quanti ne abbiamo oggi?)"
+        },
+        "examples": [
+          {
+            "de": "Der Wievielte ist heute?",
+            "en": "What's the date today?",
+            "sl": "Katerega je danes?",
+            "it": "Quanti ne abbiamo oggi?"
+          },
+          {
+            "de": "Heute ist der zwanzigste.",
+            "en": "Today is the twentieth.",
+            "sl": "Danes je dvajseti.",
+            "it": "Oggi è il venti."
+          }
+        ],
+        "rows": [
+          [
+            "19.",
+            "der neunzehnte"
+          ],
+          [
+            "20.",
+            "der zwanzigste"
+          ],
+          [
+            "21.",
+            "der einundzwanzigste"
+          ],
+          [
+            "30.",
+            "der dreißigste"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "ordinalzahlen",
+          "prompt": "Heute ist der ___ Juli. (20.)",
+          "options": [
+            "zwanzigste",
+            "zwanzigte",
+            "zwanzigsten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**From 20 on: -ste; after der: -e**\n- der zwanzigste Juli",
+            "sl": "**Od 20 naprej: -ste; za der: -e**\n- der zwanzigste Juli",
+            "it": "**Da 20 in poi: -ste; dopo der: -e**\n- der zwanzigste Juli"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The date is said with der, the ending -e, and the month: **Heute ist der erste Mai.** (Today is the first of May.) It is written **der 1. Mai**, or with figures **1.5.**, and read **der erste Fünfte**. **Morgen ist der dritte Juni.** (Tomorrow is the third of June.) So the months keep their names, and the number is an ordinal, never *der eins Mai*.",
+          "sl": "Datum se pove z der, končnico -e in mesecem: **Heute ist der erste Mai.** (Danes je prvi maj.) Napiše se **der 1. Mai** ali s številkami **1.5.**, prebere pa **der erste Fünfte**. **Morgen ist der dritte Juni.** (Jutri je tretji junij.) Meseci torej ostanejo, število pa je vrstilno.",
+          "it": "La data si dice con der, la desinenza -e e il mese: **Heute ist der erste Mai.** (Oggi è il primo maggio.) Si scrive **der 1. Mai** o in cifre **1.5.** e si legge **der erste Fünfte**. **Morgen ist der dritte Juni.** (Domani è il tre giugno.) Il tedesco usa l'ordinale per tutti i giorni, non solo per il primo: der dritte è il tre."
+        },
+        "examples": [
+          {
+            "de": "Heute ist der erste Mai.",
+            "en": "Today is the first of May.",
+            "sl": "Danes je prvi maj.",
+            "it": "Oggi è il primo maggio."
+          },
+          {
+            "de": "Morgen ist der dritte Juni.",
+            "en": "Tomorrow is the third of June.",
+            "sl": "Jutri je tretji junij.",
+            "it": "Domani è il tre giugno."
+          },
+          {
+            "de": "Der erste Fünfte ist ein Feiertag.",
+            "en": "The first of the fifth is a public holiday.",
+            "sl": "Prvi peti je praznik.",
+            "it": "Il primo maggio è festa."
+          }
+        ],
+        "rows": [
+          [
+            "1. Mai",
+            "der erste Mai"
+          ],
+          [
+            "1.5.",
+            "der erste Fünfte"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "ordinalzahlen",
+          "text": "Morgen ist der ___ Juni. (2.)",
+          "accept": [
+            "zweite"
+          ],
+          "hint": {
+            "en": "after der: -e",
+            "sl": "za der: -e",
+            "it": "dopo der: -e"
+          },
+          "explain": {
+            "en": "**der erste Mai, but am ersten Mai**\n- after der: -e · after am, im, vom, zum: -en",
+            "sl": "**der erste Mai, a am ersten Mai**\n- za der: -e · za am, im, vom, zum: -en",
+            "it": "**der erste Mai, ma am ersten Mai**\n- dopo der: -e · dopo am, im, vom, zum: -en"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "When? **am** and the ending **-en**: **Am ersten Mai ist Feiertag.** (never *am erste Mai*) **Am sechsundzwanzigsten Oktober ist Nationalfeiertag.** (National Day is on the 26th of October.) From when to when: **vom ersten bis zum dritten Mai** (from the first to the third of May). The same -en after **im** and **zum**: **im dritten Stock** (on the third floor), **zum ersten Mal** (for the first time).",
+          "sl": "Kdaj? **am** in končnica **-en**: **Am ersten Mai ist Feiertag.** (Prvega maja je praznik.) **Am sechsundzwanzigsten Oktober ist Nationalfeiertag.** (Šestindvajsetega oktobra je državni praznik.) Od kdaj do kdaj: **vom ersten bis zum dritten Mai** (od prvega do tretjega maja). Enako -en za **im** in **zum**: **im dritten Stock** (v tretjem nadstropju), **zum ersten Mal** (prvič).",
+          "it": "Quando? **am** e la desinenza **-en**: **Am ersten Mai ist Feiertag.** (Il primo maggio è festa.) **Am sechsundzwanzigsten Oktober ist Nationalfeiertag.** (Il ventisei ottobre è la festa nazionale.) Da quando a quando: **vom ersten bis zum dritten Mai** (dal primo al tre maggio). La stessa -en dopo **im** e **zum**: **im dritten Stock** (al terzo piano), **zum ersten Mal** (per la prima volta)."
+        },
+        "examples": [
+          {
+            "de": "Am ersten Mai ist Feiertag.",
+            "en": "The first of May is a public holiday.",
+            "sl": "Prvega maja je praznik.",
+            "it": "Il primo maggio è festa."
+          },
+          {
+            "de": "Am sechsundzwanzigsten Oktober ist Nationalfeiertag.",
+            "en": "National Day is on the 26th of October.",
+            "sl": "Šestindvajsetega oktobra je državni praznik.",
+            "it": "Il ventisei ottobre è la festa nazionale."
+          },
+          {
+            "de": "Das Gasthaus ist vom ersten bis zum dritten Mai zu.",
+            "en": "The inn is closed from the first to the third of May.",
+            "sl": "Gostilna je od prvega do tretjega maja zaprta.",
+            "it": "L'osteria è chiusa dal primo al tre maggio."
+          },
+          {
+            "de": "Herr Rossi ist zum ersten Mal im dritten Stock.",
+            "en": "Mr Rossi is on the third floor for the first time.",
+            "sl": "Gospod Rossi je prvič v tretjem nadstropju.",
+            "it": "Il signor Rossi è per la prima volta al terzo piano."
+          }
+        ],
+        "rows": [
+          [
+            "am 1. Mai",
+            "am ersten Mai"
+          ],
+          [
+            "vom 1. bis zum 3.",
+            "vom ersten bis zum dritten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "ordinalzahlen",
+          "text": "Stefan hat am ___ März Geburtstag. (3.)",
+          "accept": [
+            "dritten"
+          ],
+          "hint": {
+            "en": "after am: -en",
+            "sl": "za am: -en",
+            "it": "dopo am: -en"
+          },
+          "explain": {
+            "en": "**der erste Mai, but am ersten Mai**\n- after der: -e · after am, im, vom, zum: -en",
+            "sl": "**der erste Mai, a am ersten Mai**\n- za der: -e · za am, im, vom, zum: -en",
+            "it": "**der erste Mai, ma am ersten Mai**\n- dopo der: -e · dopo am, im, vom, zum: -en"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**vor** + a time says how long ago, and it comes first: **vor zwei Tagen** (two days ago, never *zwei Tage vor*), **vor einer Woche** (a week ago), **vor einem Jahr** (a year ago). **in** + a time says how long from now: **in einer Woche** (in a week), **in drei Tagen** (in three days). Both take the dative, with -n in the plural: **Tagen, Wochen**.",
+          "sl": "**vor** + čas pove, koliko časa nazaj, kot slovenski pred: **vor zwei Tagen** (pred dvema dnevoma), **vor einer Woche** (pred enim tednom), **vor einem Jahr** (pred enim letom). **in** + čas pove, čez koliko časa: **in einer Woche** (čez en teden), **in drei Tagen** (čez tri dni). Oba imata dajalnik, v množini z -n: **Tagen, Wochen**.",
+          "it": "**vor** + un tempo dice quanto tempo fa, e sta davanti, al contrario dell'italiano: **vor zwei Tagen** (due giorni fa), **vor einer Woche** (una settimana fa), **vor einem Jahr** (un anno fa). **in** + un tempo dice tra quanto tempo: **in einer Woche** (tra una settimana), **in drei Tagen** (tra tre giorni). Vogliono tutti e due il dativo, con -n al plurale: **Tagen, Wochen**."
+        },
+        "examples": [
+          {
+            "de": "Vor zwei Tagen war Stefan in Villach.",
+            "en": "Two days ago Stefan was in Villach.",
+            "sl": "Pred dvema dnevoma je bil Stefan v Beljaku.",
+            "it": "Due giorni fa Stefan era a Villach."
+          },
+          {
+            "de": "Vor einem Jahr war Kathi am See.",
+            "en": "A year ago Kathi was at the lake.",
+            "sl": "Pred enim letom je bila Kathi na jezeru.",
+            "it": "Un anno fa Kathi era al lago."
+          },
+          {
+            "de": "In einer Woche kommt Tante Mitzi.",
+            "en": "Aunt Mitzi is coming in a week.",
+            "sl": "Čez en teden pride teta Mitzi.",
+            "it": "Tra una settimana arriva zia Mitzi."
+          },
+          {
+            "de": "In drei Wochen ist Kirchtag.",
+            "en": "In three weeks it's Kirchtag.",
+            "sl": "Čez tri tedne je žegnanje.",
+            "it": "Tra tre settimane c'è la sagra."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "ordinalzahlen",
+          "prompt": "Kathi war ___ in Villach.",
+          "options": [
+            "vor zwei Tagen",
+            "zwei Tage vor",
+            "vor zwei Tage"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**vor + the dative, first: how long ago; in + the dative: how long from now**\n- vor zwei Tagen · in einer Woche",
+            "sl": "**vor + dajalnik, spredaj: pred; in + dajalnik: čez**\n- vor zwei Tagen · in einer Woche",
+            "it": "**vor + dativo, davanti: fa; in + dativo: tra**\n- vor zwei Tagen · in einer Woche"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Austria's calendar has its own words: **Jänner** (January; Germany **Januar**) and often **Feber** (February; Germany **Februar**). **heuer** is this year: **Heuer ist der Kirchtag im August.** (This year the Kirchtag is in August; Germany **dieses Jahr**.) A month alone takes **im**: **im Jänner** (in January). A date takes **am**: **am sechsten Jänner** (on the sixth of January). In your answers both are right.",
+          "sl": "Avstrijski koledar ima svoje besede: **Jänner** (januar; v Nemčiji **Januar**) in pogosto **Feber** (februar; v Nemčiji **Februar**). **heuer** je letos: **Heuer ist der Kirchtag im August.** (Letos je žegnanje avgusta; v Nemčiji **dieses Jahr**.) Mesec sam ima **im**: **im Jänner** (januarja). Datum ima **am**: **am sechsten Jänner** (šestega januarja). V odgovorih je oboje prav.",
+          "it": "Il calendario austriaco ha parole sue: **Jänner** (gennaio; in Germania **Januar**) e spesso **Feber** (febbraio; in Germania **Februar**). **heuer** è quest'anno: **Heuer ist der Kirchtag im August.** (Quest'anno la sagra è ad agosto; in Germania **dieses Jahr**.) Un mese da solo vuole **im**: **im Jänner** (a gennaio). Una data vuole **am**: **am sechsten Jänner** (il sei gennaio). Nelle risposte vanno bene tutti e due."
+        },
+        "examples": [
+          {
+            "de": "Heuer ist der Kirchtag im August.",
+            "en": "This year the Kirchtag is in August.",
+            "sl": "Letos je žegnanje avgusta.",
+            "it": "Quest'anno la sagra è ad agosto."
+          },
+          {
+            "de": "Im Jänner ist es kalt.",
+            "en": "It's cold in January.",
+            "sl": "Januarja je mraz.",
+            "it": "A gennaio fa freddo."
+          },
+          {
+            "de": "Am sechsten Jänner ist Feiertag.",
+            "en": "The sixth of January is a public holiday.",
+            "sl": "Šestega januarja je praznik.",
+            "it": "Il sei gennaio è festa."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "ordinalzahlen",
+          "prompt": "___ Jänner ist es auf der Alm sehr kalt.",
+          "options": [
+            "Im",
+            "Am",
+            "Um"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A month alone: im**\n- im Jänner · am sechsten Jänner",
+            "sl": "**Mesec sam: im**\n- im Jänner · am sechsten Jänner",
+            "it": "**Un mese da solo: im**\n- im Jänner · am sechsten Jänner"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "am-ersten-mai-1",
+      "title": {
+        "de": "Der erste, der zweite",
+        "en": "The first, the second",
+        "sl": "Prvi, drugi",
+        "it": "Il primo, il secondo"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "ordinalzahlen",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Ordnungszahlen · which one in a row?",
+            "sl": "Ordnungszahlen · kateri po vrsti?",
+            "it": "Ordnungszahlen · quale in una fila?"
+          },
+          "columns": [
+            {
+              "en": "der …",
+              "sl": "der …",
+              "it": "der …"
+            }
+          ],
+          "rows": [
+            {
+              "label": "1.",
+              "cells": [
+                "erste"
+              ]
+            },
+            {
+              "label": "2.",
+              "cells": [
+                {
+                  "accept": [
+                    "zweite"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "3.",
+              "cells": [
+                {
+                  "accept": [
+                    "dritte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "4.",
+              "cells": [
+                {
+                  "accept": [
+                    "vierte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "5.",
+              "cells": [
+                {
+                  "accept": [
+                    "fünfte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "6.",
+              "cells": [
+                {
+                  "accept": [
+                    "sechste"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "7.",
+              "cells": [
+                {
+                  "accept": [
+                    "siebte",
+                    "siebente"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "8.",
+              "cells": [
+                {
+                  "accept": [
+                    "achte"
+                  ],
+                  "hint": {
+                    "en": "one t",
+                    "sl": "en t",
+                    "it": "una t"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "12.",
+              "cells": [
+                {
+                  "accept": [
+                    "zwölfte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "19.",
+              "cells": [
+                {
+                  "accept": [
+                    "neunzehnte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "20.",
+              "cells": [
+                {
+                  "accept": [
+                    "zwanzigste"
+                  ],
+                  "hint": "-ste"
+                }
+              ]
+            },
+            {
+              "label": "31.",
+              "cells": [
+                {
+                  "accept": [
+                    "einunddreißigste"
+                  ],
+                  "hint": "-ste"
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**To 19 -te, from 20 -ste; erste, dritte, siebte, achte are special**",
+            "sl": "**Do 19 -te, od 20 -ste; erste, dritte, siebte, achte so posebni**",
+            "it": "**Fino a 19 -te, da 20 -ste; erste, dritte, siebte, achte sono speciali**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "ordinalzahlen",
+          "instruction": {
+            "en": "Ordne zu · -te or -ste?",
+            "sl": "Ordne zu · -te ali -ste?",
+            "it": "Ordne zu · -te o -ste?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "-te",
+                "sl": "-te",
+                "it": "-te"
+              },
+              "words": [
+                "2.",
+                "5.",
+                "12.",
+                "19."
+              ]
+            },
+            {
+              "label": {
+                "en": "-ste",
+                "sl": "-ste",
+                "it": "-ste"
+              },
+              "words": [
+                "20.",
+                "21.",
+                "30.",
+                "31."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**From 20 on: -ste**\n- der neunzehnte · der zwanzigste",
+            "sl": "**Od 20 naprej: -ste**\n- der neunzehnte · der zwanzigste",
+            "it": "**Da 20 in poi: -ste**\n- der neunzehnte · der zwanzigste"
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-ersten-mai-2",
+      "title": {
+        "de": "Kathis Kalender",
+        "en": "Kathi's calendar",
+        "sl": "Kathijin koledar",
+        "it": "Il calendario di Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "ordinalzahlen",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Kathis Kalender",
+          "text": "Heute ist der ___ (1.) Mai. Am ___ (3.) Mai hat Kathi Geburtstag. Vom ___ (10.) bis zum ___ (12.) Mai ist das Gasthaus zu. Vor zwei ___ (Tag) hat Stefan Most gebracht. In ___ (eine) Woche kommt Herr Rossi aus Udine.",
+          "gaps": [
+            {
+              "accept": [
+                "erste"
+              ],
+              "hint": {
+                "en": "after der: -e",
+                "sl": "za der: -e",
+                "it": "dopo der: -e"
+              }
+            },
+            {
+              "accept": [
+                "dritten"
+              ],
+              "hint": {
+                "en": "after am: -en",
+                "sl": "za am: -en",
+                "it": "dopo am: -en"
+              }
+            },
+            {
+              "accept": [
+                "zehnten"
+              ]
+            },
+            {
+              "accept": [
+                "zwölften"
+              ]
+            },
+            {
+              "accept": [
+                "Tagen"
+              ],
+              "hint": {
+                "en": "the dative plural: -n",
+                "sl": "dajalnik množine: -n",
+                "it": "il dativo plurale: -n"
+              }
+            },
+            {
+              "accept": [
+                "einer"
+              ],
+              "hint": {
+                "en": "in + the dative",
+                "sl": "in + dajalnik",
+                "it": "in + il dativo"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "ersten",
+            "dritte",
+            "Tage"
+          ],
+          "translation": {
+            "en": "Today is the first of May. Kathi's birthday is on the third of May. From the tenth to the twelfth of May the inn is closed. Two days ago Stefan brought cider. In a week Mr Rossi is coming from Udine.",
+            "sl": "Danes je prvi maj. Tretjega maja ima Kathi rojstni dan. Od desetega do dvanajstega maja je gostilna zaprta. Pred dvema dnevoma je Stefan prinesel mošt. Čez en teden pride gospod Rossi iz Vidma.",
+            "it": "Oggi è il primo maggio. Il tre maggio è il compleanno di Kathi. Dal dieci al dodici maggio l'osteria è chiusa. Due giorni fa Stefan ha portato il sidro. Tra una settimana arriva il signor Rossi da Udine."
+          },
+          "explain": {
+            "en": "**der erste Mai, but am ersten Mai**\n- after der: -e · after am, im, vom, zum: -en",
+            "sl": "**der erste Mai, a am ersten Mai**\n- za der: -e · za am, im, vom, zum: -en",
+            "it": "**der erste Mai, ma am ersten Mai**\n- dopo der: -e · dopo am, im, vom, zum: -en"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "ordinalzahlen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Am ___ Mai ist Feiertag.",
+          "options": [
+            "ersten",
+            "erste",
+            "erster"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der erste Mai, but am ersten Mai**\n- after der: -e · after am, im, vom, zum: -en",
+            "sl": "**der erste Mai, a am ersten Mai**\n- za der: -e · za am, im, vom, zum: -en",
+            "it": "**der erste Mai, ma am ersten Mai**\n- dopo der: -e · dopo am, im, vom, zum: -en"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "ordinalzahlen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": {
+            "en": "Der Wievielte ist heute? You say:",
+            "sl": "Der Wievielte ist heute? Rečeš:",
+            "it": "Der Wievielte ist heute? Dici:"
+          },
+          "options": [
+            "Heute ist der zweite Mai.",
+            "Heute ist am zweiten Mai.",
+            "Heute ist zwei Mai."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der erste Mai, but am ersten Mai**\n- after der: -e · after am, im, vom, zum: -en",
+            "sl": "**der erste Mai, a am ersten Mai**\n- za der: -e · za am, im, vom, zum: -en",
+            "it": "**der erste Mai, ma am ersten Mai**\n- dopo der: -e · dopo am, im, vom, zum: -en"
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-ersten-mai-3",
+      "title": {
+        "de": "In Worten",
+        "en": "In words",
+        "sl": "Z besedami",
+        "it": "In parole"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "ordinalzahlen",
+          "instruction": {
+            "en": "Schreib es in Worten · Write it in words",
+            "sl": "Schreib es in Worten · Napiši z besedami",
+            "it": "Schreib es in Worten · Scrivilo in parole"
+          },
+          "cue": "→",
+          "whole": true,
+          "items": [
+            {
+              "from": "der 1. Mai",
+              "accept": [
+                "der erste Mai"
+              ]
+            },
+            {
+              "from": "am 3. März",
+              "accept": [
+                "am dritten März"
+              ]
+            },
+            {
+              "from": "am 8. Dezember",
+              "accept": [
+                "am achten Dezember"
+              ]
+            },
+            {
+              "from": "vom 1. bis zum 7. Juli",
+              "accept": [
+                "vom ersten bis zum siebten Juli",
+                "vom ersten bis zum siebenten Juli"
+              ]
+            },
+            {
+              "from": "am 20. August",
+              "accept": [
+                "am zwanzigsten August"
+              ]
+            },
+            {
+              "from": "am 1. Jänner",
+              "accept": [
+                "am ersten Jänner",
+                "am ersten Januar"
+              ]
+            },
+            {
+              "from": "der 6.1.",
+              "accept": [
+                "der sechste Jänner",
+                "der sechste Januar",
+                "der sechste Erste"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**der erste Mai, but am ersten Mai**\n- after der: -e · after am, im, vom, zum: -en",
+            "sl": "**der erste Mai, a am ersten Mai**\n- za der: -e · za am, im, vom, zum: -en",
+            "it": "**der erste Mai, ma am ersten Mai**\n- dopo der: -e · dopo am, im, vom, zum: -en"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "ordinalzahlen",
+          "instruction": {
+            "en": "Sag es mit vor oder in · Say it with vor or in",
+            "sl": "Sag es mit vor oder in · Povej z vor ali in",
+            "it": "Sag es mit vor oder in · Dillo con vor o in"
+          },
+          "cue": "→",
+          "whole": true,
+          "items": [
+            {
+              "from": "Stefan war in Villach. (vor · 1 Tag)",
+              "accept": [
+                "Stefan war vor einem Tag in Villach.",
+                "Vor einem Tag war Stefan in Villach."
+              ]
+            },
+            {
+              "from": "Kathi kommt. (in · 1 Woche)",
+              "accept": [
+                "Kathi kommt in einer Woche.",
+                "In einer Woche kommt Kathi."
+              ]
+            },
+            {
+              "from": "Wir waren am See. (vor · 1 Jahr)",
+              "accept": [
+                "Wir waren vor einem Jahr am See.",
+                "Vor einem Jahr waren wir am See."
+              ]
+            },
+            {
+              "from": "Der Kirchtag ist. (in · 3 Tage)",
+              "accept": [
+                "Der Kirchtag ist in drei Tagen.",
+                "In drei Tagen ist der Kirchtag.",
+                "Der Kirchtag ist in 3 Tagen.",
+                "In 3 Tagen ist der Kirchtag."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**vor + the dative, first: how long ago; in + the dative: how long from now**\n- vor zwei Tagen · in einer Woche",
+            "sl": "**vor + dajalnik, spredaj: pred; in + dajalnik: čez**\n- vor zwei Tagen · in einer Woche",
+            "it": "**vor + dativo, davanti: fa; in + dativo: tra**\n- vor zwei Tagen · in einer Woche"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "ordinalzahlen",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Heute ist der ___ (1.) März. Stefan hat am ___ (3.) März Geburtstag, also in zwei ___ (Tag). Kathi wohnt im ___ (2.) Stock. Am ___ (20.) März kommt Tante Mitzi.",
+        "gaps": [
+          {
+            "accept": [
+              "erste"
+            ]
+          },
+          {
+            "accept": [
+              "dritten"
+            ]
+          },
+          {
+            "accept": [
+              "Tagen"
+            ]
+          },
+          {
+            "accept": [
+              "zweiten"
+            ]
+          },
+          {
+            "accept": [
+              "zwanzigsten"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Today is the first of March. Stefan's birthday is on the third of March, so in two days. Kathi lives on the second floor. On the twentieth of March Aunt Mitzi is coming.",
+          "sl": "Danes je prvi marec. Stefan ima tretjega marca rojstni dan, torej čez dva dni. Kathi živi v drugem nadstropju. Dvajsetega marca pride teta Mitzi.",
+          "it": "Oggi è il primo marzo. Il compleanno di Stefan è il tre marzo, quindi tra due giorni. Kathi abita al secondo piano. Il venti marzo arriva zia Mitzi."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "ordinalzahlen",
+        "instruction": {
+          "en": "Schreib es in Worten · Write it in words",
+          "sl": "Schreib es in Worten · Napiši z besedami",
+          "it": "Schreib es in Worten · Scrivilo in parole"
+        },
+        "cue": "→",
+        "whole": true,
+        "items": [
+          {
+            "from": "am 2. Juni",
+            "accept": [
+              "am zweiten Juni"
+            ]
+          },
+          {
+            "from": "der 3. Oktober",
+            "accept": [
+              "der dritte Oktober"
+            ]
+          },
+          {
+            "from": "am 21. Februar",
+            "accept": [
+              "am einundzwanzigsten Februar",
+              "am einundzwanzigsten Feber"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "ordinalzahlen",
+        "instruction": {
+          "en": "Ordne zu · -te or -ste?",
+          "sl": "Ordne zu · -te ali -ste?",
+          "it": "Ordne zu · -te o -ste?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "-te",
+              "sl": "-te",
+              "it": "-te"
+            },
+            "words": [
+              "4.",
+              "10."
+            ]
+          },
+          {
+            "label": {
+              "en": "-ste",
+              "sl": "-ste",
+              "it": "-ste"
+            },
+            "words": [
+              "22.",
+              "40."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "ordinalzahlen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Florian war ___ auf der Alm.",
+        "options": [
+          "vor einer Woche",
+          "eine Woche vor",
+          "vor eine Woche"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**vor + the dative, first: how long ago; in + the dative: how long from now**\n- vor zwei Tagen · in einer Woche",
+          "sl": "**vor + dajalnik, spredaj: pred; in + dajalnik: čez**\n- vor zwei Tagen · in einer Woche",
+          "it": "**vor + dativo, davanti: fa; in + dativo: tra**\n- vor zwei Tagen · in einer Woche"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "ordinalzahlen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das Gasthaus ist ___ zu.",
+        "options": [
+          "vom ersten bis zum dritten Mai",
+          "von erste bis zu dritte Mai",
+          "vom erste bis zum dritte Mai"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der erste Mai, but am ersten Mai**\n- after der: -e · after am, im, vom, zum: -en",
+          "sl": "**der erste Mai, a am ersten Mai**\n- za der: -e · za am, im, vom, zum: -en",
+          "it": "**der erste Mai, ma am ersten Mai**\n- dopo der: -e · dopo am, im, vom, zum: -en"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Jänner, Feber, heuer, der erste Fünfte, der sechste Erste, siebte beside siebente, the Slovene and Italian dates"
+}

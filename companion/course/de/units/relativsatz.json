@@ -1,0 +1,986 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "relativsatz",
+  "language": "de",
+  "level": "B1",
+  "emoji": "👉",
+  "title": {
+    "de": "Der Mann, der dort steht",
+    "en": "Relative clauses: der Mann, den ich sehe",
+    "sl": "Oziralni stavki: der Mann, den ich sehe",
+    "it": "Le relative: der Mann, den ich sehe"
+  },
+  "goal": {
+    "en": "You can say more about a noun with a relative clause: the gender from the noun, the case from its own clause, the verb last (der Mann, der dort steht; die Gäste, denen Kathi hilft).",
+    "sl": "O samostalniku poveš več z oziralnim stavkom: spol od samostalnika, sklon iz svojega stavka, glagol na koncu (der Mann, der dort steht; die Gäste, denen Kathi hilft).",
+    "it": "Sai dire di più su un nome con una frase relativa: il genere dal nome, il caso dalla sua frase, il verbo alla fine (der Mann, der dort steht; die Gäste, denen Kathi hilft)."
+  },
+  "grammar": [
+    "relativsatz",
+    "nebensatz",
+    "dativ",
+    "akkusativ"
+  ],
+  "words": [
+    "der Mann",
+    "die Frau",
+    "das Kind",
+    "die Leute",
+    "der Gast",
+    "die Gäste",
+    "der Bus",
+    "der Most",
+    "der Wein",
+    "die Suppe",
+    "das Buch",
+    "das Radio",
+    "das Fenster",
+    "der Traktor",
+    "das Schaf",
+    "der Käse",
+    "der Hund",
+    "kennen",
+    "helfen",
+    "danken",
+    "gehören",
+    "schmecken",
+    "bringen",
+    "suchen",
+    "sitzen",
+    "stehen",
+    "tanzen",
+    "spielen",
+    "reparieren",
+    "mitbringen",
+    "abfahren",
+    "aufstehen",
+    "draußen",
+    "beide"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der Mann",
+        "die Frau",
+        "das Kind"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Der Mann, der dort steht, ist Franz** (the man who is standing there is Franz): a relative clause says more about a noun. It begins with **der** (who, which), its verb goes last, as after weil, and commas mark it off on both sides.",
+          "sl": "**Der Mann, der dort steht, ist Franz** (moški, ki tam stoji, je Franz): oziralni stavek pove več o samostalniku. Začne se z **der** (ki, kateri), glagol gre na konec, kot za weil, z obeh strani pa ga ločita vejici.",
+          "it": "**Der Mann, der dort steht, ist Franz** (l'uomo che sta lì è Franz): una frase relativa dice di più su un nome. Comincia con **der** (che, il quale), il verbo va alla fine, come dopo weil, e le virgole la separano dai due lati."
+        },
+        "examples": [
+          {
+            "de": "Der Mann, der dort steht, ist Franz.",
+            "en": "The man who is standing there is Franz.",
+            "sl": "Moški, ki tam stoji, je Franz.",
+            "it": "L'uomo che sta lì è Franz."
+          },
+          {
+            "de": "Das ist der Bus, der nach Villach fährt.",
+            "en": "That's the bus that goes to Villach.",
+            "sl": "To je avtobus, ki pelje v Beljak.",
+            "it": "È l'autobus che va a Villach."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Das ist der Bus, ___.",
+          "options": [
+            "der nach Villach fährt",
+            "der fährt nach Villach",
+            "fährt der nach Villach"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The verb goes last**\n- der dort steht · der nach Villach fährt",
+            "sl": "**Glagol gre na konec**\n- der dort steht · der nach Villach fährt",
+            "it": "**Il verbo va alla fine**\n- der dort steht · der nach Villach fährt"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The pronoun takes its gender from its noun: **der Mann, der** …, **die Frau, die** …, **das Kind, das** … (who). In the plural: **die Leute, die** … (the people who). The relative **das** has one s: it isn't **dass** (that), which comes after a verb like glauben.",
+          "sl": "Zaimek dobi spol od svojega samostalnika: **der Mann, der** …, **die Frau, die** …, **das Kind, das** … (ki). V množini: **die Leute, die** … (ljudje, ki). Oziralni **das** ima en s: ni **dass** (da), ki pride za glagolom, kot je glauben.",
+          "it": "Il pronome prende il genere dal suo nome: **der Mann, der** …, **die Frau, die** …, **das Kind, das** … (che). Al plurale: **die Leute, die** … (le persone che). Il **das** relativo ha una s sola: non è **dass** (che), che viene dopo un verbo come glauben."
+        },
+        "examples": [
+          {
+            "de": "Die Frau, die dort sitzt, ist Tante Mitzi.",
+            "en": "The woman who is sitting there is Aunt Mitzi.",
+            "sl": "Ženska, ki tam sedi, je teta Mitzi.",
+            "it": "La donna seduta lì è zia Mitzi."
+          },
+          {
+            "de": "Das Kind, das dort spielt, ist Maxi.",
+            "en": "The child who is playing there is Maxi.",
+            "sl": "Otrok, ki se tam igra, je Maxi.",
+            "it": "Il bambino che gioca lì è Maxi."
+          },
+          {
+            "de": "Die Leute, die dort tanzen, sind aus Villach.",
+            "en": "The people who are dancing there are from Villach.",
+            "sl": "Ljudje, ki tam plešejo, so iz Beljaka.",
+            "it": "Le persone che ballano lì sono di Villach."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Nominativ",
+              "sl": "imenovalnik",
+              "en": "nominative",
+              "it": "nominativo"
+            },
+            "der",
+            "die",
+            "das"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relativsatz",
+          "text": "Das Haus, ___ dort steht, ist alt.",
+          "accept": [
+            "das",
+            "welches"
+          ],
+          "hint": {
+            "en": "das Haus",
+            "sl": "das Haus",
+            "it": "das Haus"
+          },
+          "explain": {
+            "en": "**das Haus: das, with one s**\n- das Haus, das dort steht",
+            "sl": "**das Haus: das, z enim s**\n- das Haus, das dort steht",
+            "it": "**das Haus: das, con una s**\n- das Haus, das dort steht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Der Mann, den ich kenne** (the man I know): the noun gives the gender, but the case comes from the pronoun's job in its own clause. Ich kenne ihn, so **den**. In the accusative only der changes: **die Frau, die ich kenne**, **das Kind, das ich kenne**. English may drop this word (the man I know); German never does.",
+          "sl": "**Der Mann, den ich kenne** (moški, ki ga poznam): spol da samostalnik, sklon pa vloga zaimka v njegovem stavku. Ich kenne ihn, torej **den**. V tožilniku se spremeni samo der: **die Frau, die ich kenne**, **das Kind, das ich kenne**. Slovensko rečeš ki ga ali katerega, nemško se spremeni zaimek sam.",
+          "it": "**Der Mann, den ich kenne** (l'uomo che conosco): il genere lo dà il nome, il caso lo dà il ruolo del pronome nella sua frase. Ich kenne ihn, quindi **den**. All'accusativo cambia solo der: **die Frau, die ich kenne**, **das Kind, das ich kenne**. Il che italiano resta uguale, il pronome tedesco cambia."
+        },
+        "examples": [
+          {
+            "de": "Der Most, den Stefan macht, ist gut.",
+            "en": "The cider Stefan makes is good.",
+            "sl": "Mošt, ki ga dela Stefan, je dober.",
+            "it": "Il sidro che fa Stefan è buono."
+          },
+          {
+            "de": "Die Suppe, die Kathi kocht, ist heiß.",
+            "en": "The soup Kathi is making is hot.",
+            "sl": "Juha, ki jo kuha Kathi, je vroča.",
+            "it": "La minestra che cucina Kathi è calda."
+          },
+          {
+            "de": "Das Buch, das Eva liest, ist neu.",
+            "en": "The book Eva is reading is new.",
+            "sl": "Knjiga, ki jo bere Eva, je nova.",
+            "it": "Il libro che legge Eva è nuovo."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Akkusativ",
+              "sl": "tožilnik",
+              "en": "accusative",
+              "it": "accusativo"
+            },
+            "den",
+            "die",
+            "das"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Der Traktor, ___ er repariert, ist alt.",
+          "options": [
+            "den",
+            "der",
+            "dem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Er repariert ihn: the object, den**\n- der Traktor, den er repariert",
+            "sl": "**Er repariert ihn: predmet, den**\n- der Traktor, den er repariert",
+            "it": "**Er repariert ihn: l'oggetto, den**\n- der Traktor, den er repariert"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Der Mann, dem ich helfe** (the man I'm helping): helfen takes the dative, so **dem**, as with danken, gefallen and a person who gets something. The feminine is **der**: **die Frau, der ich helfe**. The neuter is **dem**: **das Kind, dem ich helfe**. Ask what the verb wants: Ich helfe ihm, so dem.",
+          "sl": "**Der Mann, dem ich helfe** (moški, ki mu pomagam): helfen zahteva dajalnik, zato **dem**, tako kot danken, gefallen in kdor kaj dobi. Ženski spol je **der**: **die Frau, der ich helfe**. Srednji spol je **dem**: **das Kind, dem ich helfe**. Vprašaj se, kaj hoče glagol: Ich helfe ihm, torej dem.",
+          "it": "**Der Mann, dem ich helfe** (l'uomo che aiuto): helfen vuole il dativo, quindi **dem**, come danken, gefallen e chi riceve qualcosa. Il femminile è **der**: **die Frau, der ich helfe**. Il neutro è **dem**: **das Kind, dem ich helfe**. Chiediti che cosa vuole il verbo: Ich helfe ihm, quindi dem."
+        },
+        "examples": [
+          {
+            "de": "Das ist der Gast, dem Kathi die Suppe bringt.",
+            "en": "That's the guest Kathi is bringing the soup to.",
+            "sl": "To je gost, ki mu Kathi prinaša juho.",
+            "it": "È l'ospite a cui Kathi porta la minestra."
+          },
+          {
+            "de": "Die Frau, der Toni hilft, ist Oma Resi.",
+            "en": "The woman Toni is helping is Grandma Resi.",
+            "sl": "Ženska, ki ji pomaga Toni, je babica Resi.",
+            "it": "La donna che Toni aiuta è nonna Resi."
+          },
+          {
+            "de": "Das Kind, dem der Kuchen schmeckt, isst viel.",
+            "en": "The child who likes the cake is eating a lot.",
+            "sl": "Otrok, ki mu kolač tekne, veliko je.",
+            "it": "Il bambino a cui piace la torta mangia molto."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Dativ",
+              "sl": "dajalnik",
+              "en": "dative",
+              "it": "dativo"
+            },
+            "dem",
+            "der",
+            "dem"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Die Frau, ___ ich danke, ist Kathi.",
+          "options": [
+            "der",
+            "die",
+            "dem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**danken takes the dative; die Frau: der**\n- Ich danke ihr: die Frau, der ich danke",
+            "sl": "**danken zahteva dajalnik; die Frau: der**\n- Ich danke ihr: die Frau, der ich danke",
+            "it": "**danken vuole il dativo; die Frau: der**\n- Ich danke ihr: die Frau, der ich danke"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The plural is **die**, for every gender: **die Schafe, die Florian sucht** (the sheep Florian is looking for). Of these forms, only the dative plural isn't the article's: **die Gäste, denen Kathi hilft** (never *die Gäste, den Kathi hilft*). The article is den Gästen, the pronoun **denen** (whom, to whom).",
+          "sl": "Množina je **die**, za vse spole: **die Schafe, die Florian sucht** (ovce, ki jih išče Florian). Od teh oblik samo dajalnik množine ni enak členu: **die Gäste, denen Kathi hilft** (gostje, ki jim pomaga Kathi). Člen je den Gästen, zaimek pa **denen** (ki jim).",
+          "it": "Il plurale è **die**, per tutti i generi: **die Schafe, die Florian sucht** (le pecore che Florian cerca). Di queste forme, solo il dativo plurale è diverso dall'articolo: **die Gäste, denen Kathi hilft** (gli ospiti che Kathi aiuta). L'articolo è den Gästen, il pronome **denen** (a cui)."
+        },
+        "examples": [
+          {
+            "de": "Die Schafe, die Florian sucht, sind auf der Alm.",
+            "en": "The sheep Florian is looking for are on the mountain pasture.",
+            "sl": "Ovce, ki jih išče Florian, so na planini.",
+            "it": "Le pecore che Florian cerca sono sull'alpeggio."
+          },
+          {
+            "de": "Die Gäste, denen Kathi hilft, kommen aus Italien.",
+            "en": "The guests Kathi is helping come from Italy.",
+            "sl": "Gostje, ki jim pomaga Kathi, so iz Italije.",
+            "it": "Gli ospiti che Kathi aiuta vengono dall'Italia."
+          },
+          {
+            "de": "Das sind die Kinder, denen der Kuchen schmeckt.",
+            "en": "Those are the children who like the cake.",
+            "sl": "To so otroci, ki jim kolač tekne.",
+            "it": "Sono i bambini a cui piace la torta."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Plural",
+              "sl": "množina",
+              "en": "plural",
+              "it": "plurale"
+            },
+            "die",
+            "die",
+            "die"
+          ],
+          [
+            {
+              "de": "Dativ Plural",
+              "sl": "dajalnik množine",
+              "en": "dative plural",
+              "it": "dativo plurale"
+            },
+            "denen",
+            "denen",
+            "denen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relativsatz",
+          "text": "Die Leute, ___ Stefan den Most bringt, warten schon.",
+          "accept": [
+            "denen",
+            "welchen"
+          ],
+          "hint": {
+            "en": "Stefan bringt ihnen den Most",
+            "sl": "Stefan bringt ihnen den Most",
+            "it": "Stefan bringt ihnen den Most"
+          },
+          "explain": {
+            "en": "**The dative plural: denen**\n- Stefan bringt ihnen den Most: die Leute, denen er ihn bringt",
+            "sl": "**Dajalnik množine: denen**\n- Stefan bringt ihnen den Most: die Leute, denen er ihn bringt",
+            "it": "**Il dativo plurale: denen**\n- Stefan bringt ihnen den Most: die Leute, denen er ihn bringt"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The clause stands right after its noun, so it can split the sentence: **Der Wein, den wir getrunken haben, war gut** (the wine we drank was good). With two verbs the conjugated one is last: **der arbeiten muss** (who has to work). A separable verb stays whole: **der früh aufsteht** (who gets up early). After the second comma the main sentence goes on with its verb.",
+          "sl": "Stavek stoji takoj za svojim samostalnikom, zato lahko razdeli poved: **Der Wein, den wir getrunken haben, war gut** (vino, ki smo ga pili, je bilo dobro). Pri dveh glagolih je osebna oblika zadnja: **der arbeiten muss** (ki mora delati). Ločljivi glagol ostane cel: **der früh aufsteht** (ki zgodaj vstane). Za drugo vejico se glavni stavek nadaljuje z glagolom.",
+          "it": "La frase sta subito dopo il suo nome, quindi può spezzare il periodo: **Der Wein, den wir getrunken haben, war gut** (il vino che abbiamo bevuto era buono). Con due verbi quello coniugato è l'ultimo: **der arbeiten muss** (che deve lavorare). Un verbo separabile resta intero: **der früh aufsteht** (che si alza presto). Dopo la seconda virgola la frase principale continua col suo verbo."
+        },
+        "examples": [
+          {
+            "de": "Der Wein, den wir getrunken haben, war gut.",
+            "en": "The wine we drank was good.",
+            "sl": "Vino, ki smo ga pili, je bilo dobro.",
+            "it": "Il vino che abbiamo bevuto era buono."
+          },
+          {
+            "de": "Toni ist der Mann, der heute arbeiten muss.",
+            "en": "Toni is the man who has to work today.",
+            "sl": "Toni je moški, ki mora danes delati.",
+            "it": "Toni è l'uomo che oggi deve lavorare."
+          },
+          {
+            "de": "Die Frau, die früh aufsteht, ist Kathi.",
+            "en": "The woman who gets up early is Kathi.",
+            "sl": "Ženska, ki zgodaj vstane, je Kathi.",
+            "it": "La donna che si alza presto è Kathi."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "prompt": "Der Bus, der um acht ___, ist voll. (abfahren)",
+          "options": [
+            "abfährt",
+            "fährt ab",
+            "abfahren"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A separable verb stays whole at the end**\n- der um acht abfährt · der früh aufsteht",
+            "sl": "**Ločljivi glagol ostane cel na koncu**\n- der um acht abfährt · der früh aufsteht",
+            "it": "**Un verbo separabile resta intero alla fine**\n- der um acht abfährt · der früh aufsteht"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "A relative clause says more about a noun: a comma, the pronoun, the verb last. **The gender comes from the noun, the case from its own clause**: **der Mann, der kommt**; **der Mann, den ich kenne**; **der Mann, dem ich helfe**. The plural is **die**, the dative plural **denen**.",
+      "sl": "Oziralni stavek pove več o samostalniku: vejica, zaimek, glagol na koncu. **Spol da samostalnik, sklon pa njegov stavek**: **der Mann, der kommt**; **der Mann, den ich kenne**; **der Mann, dem ich helfe**. Množina je **die**, dajalnik množine **denen**.",
+      "it": "Una frase relativa dice di più su un nome: una virgola, il pronome, il verbo alla fine. **Il genere viene dal nome, il caso dalla sua frase**: **der Mann, der kommt**; **der Mann, den ich kenne**; **der Mann, dem ich helfe**. Il plurale è **die**, il dativo plurale **denen**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "relativsatz-1",
+      "title": {
+        "de": "Der, den, dem",
+        "en": "Der, den, dem",
+        "sl": "Der, den, dem",
+        "it": "Der, den, dem"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the relative pronoun: the gender from the noun, the case from its question",
+            "sl": "oziralni zaimek: spol od samostalnika, sklon iz vprašanja",
+            "it": "il pronome relativo: il genere dal nome, il caso dalla domanda"
+          },
+          "columns": [
+            "der Mann",
+            "die Frau",
+            "das Kind",
+            "die Leute"
+          ],
+          "rows": [
+            {
+              "label": "Nominativ · wer?",
+              "cells": [
+                "der",
+                {
+                  "accept": [
+                    "die"
+                  ]
+                },
+                {
+                  "accept": [
+                    "das"
+                  ]
+                },
+                {
+                  "accept": [
+                    "die"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Akkusativ · wen?",
+              "cells": [
+                {
+                  "accept": [
+                    "den"
+                  ]
+                },
+                {
+                  "accept": [
+                    "die"
+                  ]
+                },
+                "das",
+                {
+                  "accept": [
+                    "die"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Dativ · wem?",
+              "cells": [
+                {
+                  "accept": [
+                    "dem"
+                  ]
+                },
+                {
+                  "accept": [
+                    "der"
+                  ],
+                  "hint": {
+                    "en": "die Frau, dative",
+                    "sl": "die Frau, dajalnik",
+                    "it": "die Frau, dativo"
+                  }
+                },
+                {
+                  "accept": [
+                    "dem"
+                  ]
+                },
+                {
+                  "accept": [
+                    "denen"
+                  ],
+                  "hint": {
+                    "en": "not the article's form",
+                    "sl": "ni enako členu",
+                    "it": "non è la forma dell'articolo"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The gender from the noun, the case from its own clause**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "sl": "**Spol od samostalnika, sklon iz svojega stavka**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "it": "**Il genere dal nome, il caso dalla sua frase**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Sortiere · Sort: which pronoun?",
+            "sl": "Sortiere · Razvrsti: kateri zaimek?",
+            "it": "Sortiere · Ordina: quale pronome?"
+          },
+          "columns": [
+            {
+              "label": "der",
+              "words": [
+                "Der Mann, … dort steht",
+                "Der Hund, … bellt"
+              ]
+            },
+            {
+              "label": "den",
+              "words": [
+                "Der Mann, … ich sehe",
+                "Der Hund, … ich suche"
+              ]
+            },
+            {
+              "label": "dem",
+              "words": [
+                "Der Mann, … ich helfe",
+                "Der Hund, … ich Wasser gebe"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The gender from the noun, the case from its own clause**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "sl": "**Spol od samostalnika, sklon iz svojega stavka**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "it": "**Il genere dal nome, il caso dalla sua frase**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relativsatz-2",
+      "title": {
+        "de": "Wer ist wer?",
+        "en": "Who is who?",
+        "sl": "Kdo je kdo?",
+        "it": "Chi è chi?"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Wer ist wer?",
+          "text": "Der Mann, ___ dort am Fenster sitzt, ist Müller Franz. Die Frau, ___ neben ihm sitzt, ist Tante Mitzi. Das Radio, ___ sie immer mitbringt, ist sehr alt. Der Wein, ___ die beiden trinken, kommt aus Brda. Der Gast, ___ ich gerade die Suppe bringe, kommt aus Udine. Die Kinder, ___ du draußen hörst, sind Maxi und Lena. Die Leute, ___ ich gleich das Essen bringe, warten schon. Das Kind, ___ der Hund gehört, ist Jakob.",
+          "gaps": [
+            {
+              "accept": [
+                "der",
+                "welcher"
+              ],
+              "hint": "er sitzt"
+            },
+            {
+              "accept": [
+                "die",
+                "welche"
+              ],
+              "hint": "sie sitzt"
+            },
+            {
+              "accept": [
+                "das",
+                "welches"
+              ],
+              "hint": "sie bringt es mit"
+            },
+            {
+              "accept": [
+                "den",
+                "welchen"
+              ],
+              "hint": "sie trinken ihn"
+            },
+            {
+              "accept": [
+                "dem",
+                "welchem"
+              ],
+              "hint": "ich bringe ihm die Suppe"
+            },
+            {
+              "accept": [
+                "die",
+                "welche"
+              ],
+              "hint": "du hörst sie"
+            },
+            {
+              "accept": [
+                "denen",
+                "welchen"
+              ],
+              "hint": "ich bringe ihnen das Essen"
+            },
+            {
+              "accept": [
+                "dem",
+                "welchem"
+              ],
+              "hint": "der Hund gehört ihm"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "dass",
+            "denn"
+          ],
+          "translation": {
+            "en": "The man sitting there by the window is Franz the miller. The woman sitting next to him is Aunt Mitzi. The radio she always brings is very old. The wine the two of them are drinking comes from Brda. The guest I'm just bringing the soup to comes from Udine. The children you can hear outside are Maxi and Lena. The people I'm about to bring the food to are already waiting. The child the dog belongs to is Jakob.",
+            "sl": "Moški, ki tam pri oknu sedi, je mlinar Franz. Ženska, ki sedi poleg njega, je teta Mitzi. Radio, ki ga vedno prinese s seboj, je zelo star. Vino, ki ga pijeta, je iz Brd. Gost, ki mu ravno prinašam juho, je iz Vidma. Otroka, ki ju slišiš zunaj, sta Maxi in Lena. Ljudje, ki jim bom takoj prinesla hrano, že čakajo. Otrok, ki mu pripada pes, je Jakob.",
+            "it": "L'uomo seduto lì vicino alla finestra è il mugnaio Franz. La donna seduta accanto a lui è zia Mitzi. La radio che porta sempre con sé è vecchissima. Il vino che bevono i due viene da Brda. L'ospite a cui sto portando la minestra viene da Udine. I bambini che senti fuori sono Maxi e Lena. Le persone a cui porto subito da mangiare stanno già aspettando. Il bambino a cui appartiene il cane è Jakob."
+          },
+          "explain": {
+            "en": "**The gender from the noun, the case from its own clause**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "sl": "**Spol od samostalnika, sklon iz svojega stavka**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "it": "**Il genere dal nome, il caso dalla sua frase**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das ist die Frau, ___ er den Most verkauft.",
+          "options": [
+            "der",
+            "die",
+            "denen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Er verkauft ihr den Most: the dative, der**\n- die Frau, der er den Most verkauft",
+            "sl": "**Er verkauft ihr den Most: dajalnik, der**\n- die Frau, der er den Most verkauft",
+            "it": "**Er verkauft ihr den Most: il dativo, der**\n- die Frau, der er den Most verkauft"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das Kind, ___ dort spielt, ist Jakob.",
+          "options": [
+            "das",
+            "dass",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**das Kind: das, with one s**\n- Das Kind, das dort spielt. Ich glaube, dass es Jakob ist.",
+            "sl": "**das Kind: das, z enim s**\n- Das Kind, das dort spielt. Ich glaube, dass es Jakob ist.",
+            "it": "**das Kind: das, con una s**\n- Das Kind, das dort spielt. Ich glaube, dass es Jakob ist."
+          }
+        }
+      ]
+    },
+    {
+      "id": "relativsatz-3",
+      "title": {
+        "de": "Zwei Sätze, ein Satz",
+        "en": "Two sentences, one sentence",
+        "sl": "Dva stavka, en stavek",
+        "it": "Due frasi, una frase"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Verbinde die Sätze · Join the sentences",
+            "sl": "Verbinde die Sätze · Poveži stavka",
+            "it": "Verbinde die Sätze · Unisci le frasi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das ist der Mann. Er steht dort.",
+              "accept": [
+                "Das ist der Mann, der dort steht.",
+                "Das ist der Mann, welcher dort steht."
+              ]
+            },
+            {
+              "from": "Das ist der Traktor. Stefan hat ihn gekauft.",
+              "accept": [
+                "Das ist der Traktor, den Stefan gekauft hat.",
+                "Das ist der Traktor, welchen Stefan gekauft hat."
+              ]
+            },
+            {
+              "from": "Das ist die Frau. Ich helfe ihr.",
+              "accept": [
+                "Das ist die Frau, der ich helfe.",
+                "Das ist die Frau, welcher ich helfe."
+              ]
+            },
+            {
+              "from": "Das sind die Kinder. Kathi gibt ihnen Kuchen.",
+              "accept": [
+                "Das sind die Kinder, denen Kathi Kuchen gibt.",
+                "Das sind die Kinder, welchen Kathi Kuchen gibt."
+              ]
+            },
+            {
+              "from": "Das ist das Haus. Es gehört Franz.",
+              "accept": [
+                "Das ist das Haus, das Franz gehört.",
+                "Das ist das Haus, welches Franz gehört."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The gender from the noun, the case from its own clause**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "sl": "**Spol od samostalnika, sklon iz svojega stavka**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+            "it": "**Il genere dal nome, il caso dalla sua frase**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "relativsatz",
+          "instruction": {
+            "en": "Stelle den Relativsatz in die Mitte · Put the relative clause in the middle",
+            "sl": "Stelle den Relativsatz in die Mitte · Postavi oziralni stavek na sredino",
+            "it": "Stelle den Relativsatz in die Mitte · Metti la relativa in mezzo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Mann ist Toni. Er repariert den Traktor.",
+              "accept": [
+                "Der Mann, der den Traktor repariert, ist Toni.",
+                "Der Mann, welcher den Traktor repariert, ist Toni."
+              ]
+            },
+            {
+              "from": "Die Suppe ist heiß. Kathi hat sie gekocht.",
+              "accept": [
+                "Die Suppe, die Kathi gekocht hat, ist heiß.",
+                "Die Suppe, welche Kathi gekocht hat, ist heiß."
+              ]
+            },
+            {
+              "from": "Die Schafe sind auf der Alm. Florian sucht sie.",
+              "accept": [
+                "Die Schafe, die Florian sucht, sind auf der Alm.",
+                "Die Schafe, welche Florian sucht, sind auf der Alm."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The clause right after its noun, the main verb after the second comma**\n- Der Wein, den wir getrunken haben, war gut.",
+            "sl": "**Stavek takoj za samostalnikom, glavni glagol za drugo vejico**\n- Der Wein, den wir getrunken haben, war gut.",
+            "it": "**La frase subito dopo il nome, il verbo principale dopo la seconda virgola**\n- Der Wein, den wir getrunken haben, war gut."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Auf der Alm",
+        "text": "Das ist Florian, ___ auf der Alm arbeitet. Das Schaf, ___ er sucht, heißt Bella. Die Schafe, ___ er jeden Tag Wasser bringt, sind gesund. Der Käse, ___ er macht, schmeckt gut. Die Frau, ___ er ihn verkauft, ist Kathi. Das ist das Kind, ___ ihm am Sonntag hilft.",
+        "gaps": [
+          {
+            "accept": [
+              "der",
+              "welcher"
+            ],
+            "hint": "er arbeitet"
+          },
+          {
+            "accept": [
+              "das",
+              "welches"
+            ],
+            "hint": "er sucht es"
+          },
+          {
+            "accept": [
+              "denen",
+              "welchen"
+            ],
+            "hint": "er bringt ihnen Wasser"
+          },
+          {
+            "accept": [
+              "den",
+              "welchen"
+            ],
+            "hint": "er macht ihn"
+          },
+          {
+            "accept": [
+              "der",
+              "welcher"
+            ],
+            "hint": "er verkauft ihn ihr"
+          },
+          {
+            "accept": [
+              "das",
+              "welches"
+            ],
+            "hint": "es hilft ihm"
+          }
+        ],
+        "translation": {
+          "en": "This is Florian, who works on the mountain pasture. The sheep he's looking for is called Bella. The sheep he brings water to every day are healthy. The cheese he makes tastes good. The woman he sells it to is Kathi. This is the child who helps him on Sundays.",
+          "sl": "To je Florian, ki dela na planini. Ovca, ki jo išče, je Bella. Ovce, ki jim vsak dan prinese vodo, so zdrave. Sir, ki ga dela, je dober. Ženska, ki ji ga prodaja, je Kathi. To je otrok, ki mu v nedeljo pomaga.",
+          "it": "Questo è Florian, che lavora sull'alpeggio. La pecora che cerca si chiama Bella. Le pecore a cui porta l'acqua ogni giorno sono sane. Il formaggio che fa è buono. La donna a cui lo vende è Kathi. Questo è il bambino che lo aiuta la domenica."
+        },
+        "explain": {
+          "en": "**The gender from the noun, the case from its own clause**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+          "sl": "**Spol od samostalnika, sklon iz svojega stavka**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+          "it": "**Il genere dal nome, il caso dalla sua frase**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Verbinde die Sätze · Join the sentences",
+          "sl": "Verbinde die Sätze · Poveži stavka",
+          "it": "Verbinde die Sätze · Unisci le frasi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Das ist der Mann. Kathi hilft ihm.",
+            "accept": [
+              "Das ist der Mann, dem Kathi hilft.",
+              "Das ist der Mann, welchem Kathi hilft."
+            ]
+          },
+          {
+            "from": "Das ist die Frau. Ich kenne sie.",
+            "accept": [
+              "Das ist die Frau, die ich kenne.",
+              "Das ist die Frau, welche ich kenne."
+            ]
+          },
+          {
+            "from": "Das sind die Gäste. Stefan bringt ihnen den Most.",
+            "accept": [
+              "Das sind die Gäste, denen Stefan den Most bringt.",
+              "Das sind die Gäste, welchen Stefan den Most bringt."
+            ]
+          },
+          {
+            "from": "Der Zug ist voll. Er fährt um acht ab.",
+            "accept": [
+              "Der Zug, der um acht abfährt, ist voll.",
+              "Der Zug ist voll, der um acht abfährt.",
+              "Der Zug, welcher um acht abfährt, ist voll.",
+              "Der Zug ist voll, welcher um acht abfährt."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**The gender from the noun, the case from its own clause**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+          "sl": "**Spol od samostalnika, sklon iz svojega stavka**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe",
+          "it": "**Il genere dal nome, il caso dalla sua frase**\n- der Mann, der kommt · den ich kenne · dem ich helfe · die Gäste, denen ich helfe"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Hund, ___ ich suche, ist klein.",
+        "options": [
+          "den",
+          "der",
+          "dem"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Ich suche ihn: the object, den**\n- der Hund, den ich suche",
+          "sl": "**Ich suche ihn: predmet, den**\n- der Hund, den ich suche",
+          "it": "**Ich suche ihn: l'oggetto, den**\n- der Hund, den ich suche"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Frau, ___ ich danke, ist Eva.",
+        "options": [
+          "der",
+          "die",
+          "den"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**danken takes the dative; die Frau: der**\n- die Frau, der ich danke",
+          "sl": "**danken zahteva dajalnik; die Frau: der**\n- die Frau, der ich danke",
+          "it": "**danken vuole il dativo; die Frau: der**\n- die Frau, der ich danke"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativsatz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wer ist der Mann, ___?",
+        "options": [
+          "der dort sitzt",
+          "der sitzt dort",
+          "dort der sitzt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The verb goes last**\n- der dort steht · der nach Villach fährt",
+          "sl": "**Glagol gre na konec**\n- der dort steht · der nach Villach fährt",
+          "it": "**Il verbo va alla fine**\n- der dort steht · der nach Villach fährt"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: a relative clause splitting the sentence; Slovene ki ga, ki mu; Italian a cui; Müller Franz"
+}

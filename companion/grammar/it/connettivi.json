@@ -1,0 +1,146 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "connettivi",
+  "language": "it",
+  "level": "B2",
+  "emoji": "✉️",
+  "title": {
+    "it": "Tuttavia, anzi, in effetti: legare un testo",
+    "de": "Tuttavia, anzi, in effetti: einen Text verbinden",
+    "sl": "Tuttavia, anzi, in effetti: povezovanje besedila",
+    "en": "Tuttavia, anzi, in effetti: joining a text"
+  },
+  "rule": {
+    "de": "Diese Wörter verbinden Sätze zu einem Text. **Tuttavia** (jedoch): **Piove; tuttavia Davide va al pascolo.** **Invece** (dagegen): **Bruno lavora; Aldo invece riposa.** **Anzi** (im Gegenteil, sogar) korrigiert und geht weiter: **Marisa non è stanca, anzi, balla tutta la sera.** **In effetti** (tatsächlich) bestätigt: **In effetti hai ragione.** **Inoltre** (außerdem) fügt hinzu: **Il vino è buono; inoltre costa poco.**\n\n**A causa di** (wegen) und **grazie a** (dank) nehmen ein Nomen, **perché** einen Satz: **a causa della pioggia, grazie al sole**. **In base a** heißt *laut*: **in base alle regole**.\n\nWas schon bekannt ist, darf nach vorn, mit dem Pronomen dazu: **Il pane l'ho comprato io. Le mele le porta Giulia.** Wer es war, hebt **è … che** hervor: **È Rosa che ha fatto la gubana.** Oder **è stata … a**: **È stata Rosa a fare la gubana.**\n\nEin höflicher Brief geht mit Lei: **Gentile Sindaco,** **Le scrivo per …** (ich schreibe Ihnen wegen …), **La ringrazio** (ich danke Ihnen), **In attesa di una Sua risposta**, **Cordiali saluti**. Im Brief schreibt man **La, Le, Sua** oft groß.",
+    "sl": "Te besede povezujejo stavke v besedilo. **Tuttavia** (vendar): **Piove; tuttavia Davide va al pascolo.** **Invece** (pa): **Bruno lavora; Aldo invece riposa.** **Anzi** (nasprotno, celo) popravi in gre dlje: **Marisa non è stanca, anzi, balla tutta la sera.** **In effetti** (res) potrdi: **In effetti hai ragione.** **Inoltre** (poleg tega) doda: **Il vino è buono; inoltre costa poco.**\n\n**A causa di** (zaradi) in **grazie a** (zahvaljujoč) imata samostalnik, **perché** stavek: **a causa della pioggia, grazie al sole**. **In base a** pomeni *na podlagi*: **in base alle regole**.\n\nKar je že znano, gre lahko naprej, z zaimkom zraven: **Il pane l'ho comprato io. Le mele le porta Giulia.** Kdo je bil, poudari **è … che**: **È Rosa che ha fatto la gubana.** Ali **è stata … a**: **È stata Rosa a fare la gubana.**\n\nVljudno pismo gre z Lei: **Gentile Sindaco,** **Le scrivo per …** (pišem Vam zaradi …), **La ringrazio** (zahvaljujem se Vam), **In attesa di una Sua risposta**, **Cordiali saluti**. V pismu **La, Le, Sua** pogosto pišemo z veliko.",
+    "en": "These words join sentences into a text. **Tuttavia** (however): **Piove; tuttavia Davide va al pascolo.** **Invece** (on the other hand): **Bruno lavora; Aldo invece riposa.** **Anzi** (on the contrary, even) corrects and goes further: **Marisa non è stanca, anzi, balla tutta la sera.** **In effetti** (indeed) confirms: **In effetti hai ragione.** **Inoltre** (furthermore) adds: **Il vino è buono; inoltre costa poco.**\n\n**A causa di** (because of) and **grazie a** (thanks to) take a noun, **perché** a clause: **a causa della pioggia, grazie al sole**. **In base a** means *according to*: **in base alle regole**.\n\nWhat's already known can go first, with its pronoun: **Il pane l'ho comprato io. Le mele le porta Giulia.** To stress who it was, **è … che**: **È Rosa che ha fatto la gubana.** Or **è stata … a**: **È stata Rosa a fare la gubana.**\n\nA polite letter takes Lei: **Gentile Sindaco,** **Le scrivo per …** (I'm writing to you about …), **La ringrazio** (I thank you), **In attesa di una Sua risposta**, **Cordiali saluti**. In a letter **La, Le, Sua** are often capitalised."
+  },
+  "table": {
+    "head": [
+      {"it": "forma", "de": "Form", "sl": "oblika", "en": "form"},
+      {"it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example"},
+      {"it": "significa", "de": "heißt", "sl": "pomeni", "en": "means"}
+    ],
+    "rows": [
+      ["tuttavia", "Piove; tuttavia Davide va al pascolo.", {"it": "però", "de": "jedoch", "sl": "vendar", "en": "however"}],
+      ["invece", "Bruno lavora; Aldo invece riposa.", {"it": "al contrario", "de": "dagegen, stattdessen", "sl": "pa, namesto tega", "en": "on the other hand, instead"}],
+      ["anzi", "Marisa non è stanca, anzi, balla.", {"it": "al contrario, di più", "de": "im Gegenteil, sogar", "sl": "nasprotno, celo", "en": "on the contrary, even"}],
+      ["in effetti", "In effetti hai ragione.", {"it": "è proprio vero", "de": "tatsächlich", "sl": "res, dejansko", "en": "indeed, actually"}],
+      ["inoltre", "Inoltre costa poco.", {"it": "in più", "de": "außerdem", "sl": "poleg tega", "en": "furthermore"}],
+      [
+        "a causa di, grazie a",
+        "a causa della pioggia, grazie al sole",
+        {"it": "per, con un nome", "de": "wegen, dank", "sl": "zaradi, zahvaljujoč", "en": "because of, thanks to"}
+      ],
+      ["in base a", "in base alle regole", {"it": "secondo", "de": "laut, aufgrund", "sl": "na podlagi", "en": "according to, based on"}],
+      ["il pane l'ho …", "Il pane l'ho comprato io.", {"it": "prima la cosa già nota", "de": "das Bekannte vorn", "sl": "znano spredaj", "en": "what's known goes first"}],
+      ["è … che, è stata … a", "È Rosa che ha fatto la gubana.", {"it": "proprio lei", "de": "gerade sie", "sl": "prav ona", "en": "it's she who"}],
+      [
+        "Le scrivo, La ringrazio",
+        "Gentile Sindaco, Le scrivo per la fontana.",
+        {"it": "una lettera con Lei", "de": "ein Brief mit Lei", "sl": "pismo z Lei", "en": "a letter with Lei"}
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Piove; tuttavia Davide va al pascolo.",
+      "de": "Es regnet; jedoch geht Davide auf die Weide.",
+      "sl": "Dežuje, vendar gre Davide na pašnik.",
+      "en": "It's raining; however, Davide is going to the pasture."
+    },
+    {
+      "it": "Marisa non è stanca, anzi, balla tutta la sera.",
+      "de": "Marisa ist nicht müde, im Gegenteil, sie tanzt den ganzen Abend.",
+      "sl": "Marisa ni utrujena, nasprotno, pleše ves večer.",
+      "en": "Marisa isn't tired; on the contrary, she dances all evening."
+    },
+    {
+      "it": "In effetti hai ragione: la fontana non funziona.",
+      "de": "Tatsächlich, du hast recht: Der Brunnen läuft nicht.",
+      "sl": "Res imaš prav: vodnjak ne deluje.",
+      "en": "You're right indeed: the fountain isn't working."
+    },
+    {
+      "it": "Il vino di Matteo è buono; inoltre costa poco.",
+      "de": "Matteos Wein ist gut; außerdem kostet er wenig.",
+      "sl": "Matteovo vino je dobro; poleg tega stane malo.",
+      "en": "Matteo's wine is good; furthermore, it costs little."
+    },
+    {
+      "it": "A causa della pioggia la festa è rimandata.",
+      "de": "Wegen des Regens wird das Fest verschoben.",
+      "sl": "Zaradi dežja je praznik prestavljen.",
+      "en": "Because of the rain the festa has been put off.",
+      "note": {
+        "de": "a causa di + ein Nomen; perché + ein Satz: perché piove.",
+        "sl": "a causa di + samostalnik; perché + stavek: perché piove.",
+        "en": "a causa di + a noun; perché + a clause: perché piove."
+      }
+    },
+    {
+      "it": "Il pane l'ho comprato io.",
+      "de": "Das Brot habe ich gekauft.",
+      "sl": "Kruh sem {m:kupil|f:kupila} jaz.",
+      "en": "I bought the bread.",
+      "note": {"de": "Das Bekannte vorn, das Pronomen l' kommt dazu.", "sl": "Znano spredaj, zraven pride zaimek l'.", "en": "What's known first, with the pronoun l'."}
+    },
+    {
+      "it": "È stata Rosa a fare la gubana.",
+      "de": "Rosa war es, die die Gubana gemacht hat.",
+      "sl": "Rosa je bila tista, ki je spekla gubano.",
+      "en": "It was Rosa who made the gubana."
+    },
+    {
+      "it": "Gentile Sindaco, Le scrivo per la fontana in piazza.",
+      "de": "Sehr geehrter Herr Bürgermeister, ich schreibe Ihnen wegen des Brunnens auf dem Platz.",
+      "sl": "Spoštovani župan, pišem Vam zaradi vodnjaka na trgu.",
+      "en": "Dear Mayor, I'm writing to you about the fountain on the square.",
+      "note": {"de": "Nach dem Komma klein weiter; Le für Ihnen.", "sl": "Za vejico z malo naprej; Le za Vam.", "en": "A small letter after the comma; Le for to you."}
+    }
+  ],
+  "modules": [],
+  "tags": ["connettivi", "connectors", "tuttavia", "anzi", "invece", "inoltre", "dislocazione", "frase-scissa", "lettera", "letter"],
+  "see": ["congiunzioni", "tu-lei", "pronomi-diretti", "congiunzioni-congiuntivo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "it": "Tuttavia, anzi, in effetti",
+      "de": "Tuttavia, anzi, in effetti · Texte verbinden",
+      "sl": "Tuttavia, anzi, in effetti · povezovanje",
+      "en": "Tuttavia, anzi, in effetti · joining a text"
+    },
+    "rule": {
+      "de": "Jedoch: **tuttavia**. Dagegen: **invece**. Im Gegenteil: **anzi**. Tatsächlich: **in effetti**. Außerdem: **inoltre**. Wegen + Nomen: **a causa di**. Bekanntes vorn: **il pane l'ho comprato**. Hervorheben: **è Rosa che**. Brief: **Gentile …, Le scrivo, La ringrazio**.",
+      "sl": "Vendar: **tuttavia**. Pa: **invece**. Nasprotno: **anzi**. Res: **in effetti**. Poleg tega: **inoltre**. Zaradi + samostalnik: **a causa di**. Znano spredaj: **il pane l'ho comprato**. Poudarek: **è Rosa che**. Pismo: **Gentile …, Le scrivo, La ringrazio**.",
+      "en": "However: **tuttavia**. On the other hand: **invece**. On the contrary: **anzi**. Indeed: **in effetti**. Furthermore: **inoltre**. Because of + a noun: **a causa di**. Known first: **il pane l'ho comprato**. Stress: **è Rosa che**. Letter: **Gentile …, Le scrivo, La ringrazio**."
+    },
+    "table": {
+      "head": [{"it": "forma", "de": "Form", "sl": "oblika", "en": "form"}, {"it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example"}],
+      "rows": [
+        ["tuttavia, invece", "Piove; tuttavia Davide va al pascolo."],
+        ["anzi, in effetti", "In effetti hai ragione."],
+        ["inoltre", "Il vino è buono; inoltre costa poco."],
+        ["a causa di", "a causa della pioggia"],
+        ["il pane l'ho …", "Il pane l'ho comprato io."],
+        ["è … che", "È Rosa che ha fatto la gubana."],
+        ["Le scrivo, La ringrazio", "Gentile Sindaco, Le scrivo per la fontana."]
+      ]
+    },
+    "examples": [
+      {
+        "it": "In effetti hai ragione: la fontana non funziona.",
+        "de": "Tatsächlich, du hast recht: Der Brunnen läuft nicht.",
+        "sl": "Res imaš prav: vodnjak ne deluje.",
+        "en": "You're right indeed: the fountain isn't working."
+      },
+      {"it": "Le mele le porta Giulia.", "de": "Die Äpfel bringt Giulia.", "sl": "Jabolka prinese Giulia.", "en": "Giulia is bringing the apples."}
+    ],
+    "tip": {
+      "de": "💡 **La ringrazio**, aber **Le scrivo**: ringraziare nimmt ein direktes Objekt, scrivere nimmt a.",
+      "sl": "💡 **La ringrazio**, a **Le scrivo**: ringraziare ima neposredni predmet, scrivere pa a.",
+      "en": "💡 **La ringrazio** but **Le scrivo**: ringraziare takes a direct object, scrivere takes a."
+    }
+  }
+}

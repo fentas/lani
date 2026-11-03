@@ -50,7 +50,7 @@ data class Discussion(
 /**
  * A report the tutor wants to post (the `report_problem` tool's input): [kind] "fix" (a wrong curated item) or "wish"
  * (an idea for the app); [title] names the item ("Fix: pack praznik-trgatev, word škarje"); [item] the item's source as
- * the app sent it (about_exercise.source); [nativeCheck]: Slovene a machine wrote, for a native speaker to check.
+ * the app sent it (about_exercise.source); [nativeCheck]: the language's text a machine wrote, for a native speaker to check.
  * Nothing personal: the repository is public.
  */
 data class ReportDraft(
@@ -274,7 +274,7 @@ class Discussions(
 
         /** Each part of a report's body is cut to this many characters. */
         const val PART_MAX = 2_000
-        const val NATIVE_CHECK = "native check: a native speaker should check this Slovene (machine-written)"
+        const val NATIVE_CHECK = "native check: a native speaker should check this text (machine-written)"
         const val FOOTER = "Reported from the Lani app's tutor."
 
         /** A report's kind → its category's name and slug. */

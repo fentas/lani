@@ -82,9 +82,21 @@
       "de": "Auf dem Platz gibt es einen Brunnen."
     }
   ],
-  "modules": [],
+  "modules": ["aggettivi"],
   "tags": ["there_is", "there_are", "c_e", "ci_sono", "existential", "essere"],
   "see": ["essere-avere", "domande", "partitivo"],
   "machine_written": true,
-  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "rule": {
+      "sl": "**C'è** (je, obstaja) za eno stvar, **ci sono** (so) za več: **C'è un gatto. Ci sono tre gatti.** Vprašanje spremeni samo glas; zanikanje doda **non** spredaj: **Non c'è.**",
+      "en": "**C'è** (there is) with one thing, **ci sono** (there are) with more: **C'è un gatto. Ci sono tre gatti.** A question only changes the voice; the negative puts **non** in front: **Non c'è.**",
+      "de": "**C'è** (es gibt, da ist) bei einer Sache, **ci sono** (es gibt, da sind) bei mehreren: **C'è un gatto. Ci sono tre gatti.** Die Frage ändert nur die Stimme; verneint steht **non** davor: **Non c'è.**"
+    },
+    "tip": {
+      "sl": "💡 **C'è** pove, da nekaj je, **è** pa, kaj je: **C'è la luna.** (Luna je na nebu.) **È la luna.** (To je luna.)",
+      "en": "💡 **C'è** says that something is there, **è** what it is: **C'è la luna.** (The moon is out.) **È la luna.** (It's the moon.)",
+      "de": "💡 **C'è** sagt, dass etwas da ist, **è**, was es ist: **C'è la luna.** (Der Mond scheint.) **È la luna.** (Das ist der Mond.)"
+    }
+  }
 }

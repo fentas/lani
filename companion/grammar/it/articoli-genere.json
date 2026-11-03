@@ -98,9 +98,22 @@
       "de": "Nonna Rosa hat eine Katze und ein Huhn."
     }
   ],
-  "modules": [],
+  "modules": ["articoli"],
   "tags": ["articles", "article", "gender", "noun_gender", "definite_article", "indefinite_article", "articolo"],
   "see": ["plurale", "aggettivi-accordo", "preposizioni-articolate"],
   "machine_written": true,
-  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "rule": {
+      "sl": "Vsak samostalnik je moškega ali ženskega spola. Določni člen: **il**, pred s + soglasnik ali z **lo**, pred samoglasnikom **l'**; ženski **la**, **l'**. Nedoločni: **un**, **uno**; **una**, **un'**.",
+      "en": "Every noun is masculine or feminine. *The*: **il**, before s + consonant or z **lo**, before a vowel **l'**; feminine **la**, **l'**. *A*: **un**, **uno**; **una**, **un'**.",
+      "de": "Jedes Nomen ist männlich oder weiblich, ein Neutrum gibt es nicht. *Der, die, das*: **il**, vor s + Konsonant oder z **lo**, vor Vokal **l'**; weiblich **la**, **l'**. *Ein, eine*: **un**, **uno**; **una**, **un'**."
+    },
+    "tip": {
+      "sl": "💡 **-o** je večinoma moški, **-a** večinoma ženski, **-e** oboje: člen se uči skupaj s samostalnikom: **il fiume, la neve**.",
+      "en": "💡 **-o** is mostly masculine, **-a** mostly feminine, **-e** either: learn the article with the noun: **il fiume, la neve**.",
+      "de": "💡 **-o** ist meist männlich, **-a** meist weiblich, **-e** beides: Lerne den Artikel mit dem Nomen: **il fiume, la neve**. Achtung: **il sole** ist die Sonne, **la luna** der Mond."
+    },
+    "start": true
+  }
 }

@@ -1,0 +1,330 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "se-avessi-saputo",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🤦",
+  "title": { "it": "Se l'avessi saputo, sarei venuto", "de": "Wenn es anders gewesen wäre: se l'avessi saputo", "sl": "Če bi bilo drugače: se l'avessi saputo", "en": "If it had been: se l'avessi saputo" },
+  "goal": {
+    "de": "Du sagst, was gewesen wäre, wenn es anders gekommen wäre (Se l'avessi saputo, sarei venuto.), was davon heute noch gilt (Se avessi studiato, ora saprei.), und du erkennst, wie viele es beim Reden sagen: Se lo sapevo, venivo.",
+    "sl": "Poveš, kaj bi bilo, če bi šlo drugače (Se l'avessi saputo, sarei venuto.), kaj od tega velja še danes (Se avessi studiato, ora saprei.), in prepoznaš, kako mnogi to rečejo v govoru: Se lo sapevo, venivo.",
+    "en": "You can say what would have been if things had gone otherwise (Se l'avessi saputo, sarei venuto.) and what still holds today (Se avessi studiato, ora saprei.), and you recognise how many people say it in speech: Se lo sapevo, venivo."
+  },
+  "grammar": ["periodo-ipotetico-irrealta", "periodo-ipotetico", "condizionale-passato", "congiuntivo-trapassato"],
+  "words": ["sapere", "studiare", "telefonare", "ascoltare", "riparare", "controllare", "accendere", "chiedere", "perdere", "scappare", "lamentarsi", "arrabbiarsi", "alzarsi", "bagnarsi", "uscire", "ormai", "peccato", "adesso", "ora", "in tempo", "l'ombrello", "il treno", "la cantina", "il cancello", "il carro", "la gita", "il mulino", "la gubana", "il posto", "il fieno", "la notizia", "la radio", "il pallone", "i compiti", "la lettera", "i fuochi", "stanco", "bagnato", "attento", "la fetta"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "se …", "de": "se … (wenn)", "sl": "se … (če)", "en": "se … (if)" },
+        { "it": "poi …", "de": "dann …", "sl": "potem …", "en": "then …" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Se potessi, verrei** (wenn ich könnte, würde ich kommen) geht vielleicht noch. Ist die Sache schon vorbei, hat die **se**-Hälfte **avessi** und das Partizip, die andere **avrei** und das Partizip: **Se avessi saputo, avrei telefonato.** (Wenn ich es gewusst hätte, hätte ich angerufen.) Passiert ist es nicht, und ändern kannst du es nicht mehr.",
+          "sl": "**Se potessi, verrei** (če bi lahko, bi prišel) morda še gre. Če je stvar že mimo, ima polovica s **se** obliko **avessi** in deležnik, druga **avrei** in deležnik: **Se avessi saputo, avrei telefonato.** (Če bi vedel, bi poklical.) Zgodilo se ni in spremeniti se ne da več.",
+          "en": "**Se potessi, verrei** (if I could, I'd come) may still happen. When the thing is over, the **se** half has **avessi** and the participle, the other half **avrei** and the participle: **Se avessi saputo, avrei telefonato.** (If I'd known, I'd have phoned.) It didn't happen, and you can't change it now."
+        },
+        "examples": [
+          { "it": "Lorenzo: «Se avessi saputo della festa, avrei portato il pallone.»", "de": "Lorenzo: „Wenn ich von dem Fest gewusst hätte, hätte ich den Ball mitgebracht.“", "sl": "Lorenzo: »Če bi vedel za praznik, bi prinesel žogo.«", "en": "Lorenzo: \"If I'd known about the party, I'd have brought my ball.\"" },
+          { "it": "Se Fabbro Bruno avesse avuto tempo, avrebbe riparato il carro.", "de": "Wenn Schmied Bruno Zeit gehabt hätte, hätte er den Wagen repariert.", "sl": "Če bi kovač Bruno imel čas, bi popravil voz.", "en": "If Bruno the smith had had time, he'd have mended the cart." }
+        ],
+        "rows": [
+          ["se potessi", "verrei"],
+          ["se avessi saputo", "avrei telefonato"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico-irrealta", "prompt": "Se Marisa avesse avuto più farina, ieri ___ altri gnocchi.", "options": ["avrebbe fatto", "avesse fatto", "ha fatto"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ieri**, die andere Hälfte → **avrebbe fatto**\n- avesse fatto · nur in der se-Hälfte\n- ha fatto · sie hat gemacht; passiert ist es aber nicht",
+            "sl": "**ieri**, druga polovica → **avrebbe fatto**\n- avesse fatto · le v polovici s se\n- ha fatto · je naredila; a zgodilo se ni",
+            "en": "**ieri**, the other half → **avrebbe fatto**\n- avesse fatto · only in the se half\n- ha fatto · she made; but it didn't happen"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die **se**-Hälfte hat alle Personen: **se avessi** (ich, du), **se avesse** (er, sie), **se avessimo** (wir), **se aveste** (ihr), **se avessero** (sie). Die andere Hälfte kennst du schon: **avrei**, **avresti**, **avrebbe**, **avremmo**, **avreste**, **avrebbero**. Bei wir hat **avessimo** ein m, **avremmo** zwei.",
+          "sl": "Polovica s **se** ima vse osebe: **se avessi** (jaz, ti), **se avesse** (on, ona), **se avessimo** (mi), **se aveste** (vi), **se avessero** (oni). Drugo polovico že poznaš: **avrei**, **avresti**, **avrebbe**, **avremmo**, **avreste**, **avrebbero**. Pri mi ima **avessimo** en m, **avremmo** dva.",
+          "en": "The **se** half has every person: **se avessi** (I, you), **se avesse** (he, she), **se avessimo** (we), **se aveste** (you, several), **se avessero** (they). You know the other half already: **avrei**, **avresti**, **avrebbe**, **avremmo**, **avreste**, **avrebbero**. For we, **avessimo** has one m and **avremmo** two."
+        },
+        "examples": [
+          { "it": "Se Davide avesse chiuso il cancello, le pecore non sarebbero scappate.", "de": "Wenn Davide das Tor zugemacht hätte, wären die Schafe nicht weggelaufen.", "sl": "Če bi Davide zaprl vrata ograde, ovce ne bi pobegnile.", "en": "If Davide had shut the gate, the sheep wouldn't have run away." },
+          { "it": "Se avessimo avuto più tempo, avremmo finito il fieno.", "de": "Wenn wir mehr Zeit gehabt hätten, wären wir mit dem Heu fertig geworden.", "sl": "Če bi imeli več časa, bi končali s senom.", "en": "If we'd had more time, we'd have finished the hay." }
+        ],
+        "rows": [
+          ["se avessi, se avesse", "avrei, avresti, avrebbe"],
+          ["se avessimo, se aveste, se avessero", "avremmo, avreste, avrebbero"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico-irrealta", "prompt": "Se i bambini ___ la maestra, non avrebbero sbagliato.", "options": ["avessero ascoltato", "avesse ascoltato", "avrebbero ascoltato"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**i bambini** (loro), se-Hälfte → **avessero ascoltato**\n- avesse ascoltato · er, sie allein\n- avrebbero ascoltato: nach se nie",
+            "sl": "**i bambini** (loro), polovica s se → **avessero ascoltato**\n- avesse ascoltato · samo on, ona\n- avrebbero ascoltato: za se nikoli",
+            "en": "**i bambini** (loro), the se half → **avessero ascoltato**\n- avesse ascoltato · he, she alone\n- avrebbero ascoltato: never after se"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Verben mit essere nehmen **fossi**: **se fossi venuto** (wenn ich gekommen wäre), **se fosse venuta**, **se fossimo partiti**, **se foste partiti**, **se fossero partite**. Das Partizip passt sich in beiden Hälften an: **Se Giulia fosse partita prima, sarebbe arrivata in tempo.** Auch die Verben mit **si**: **se si fosse alzato**, **si sarebbe alzato**.",
+          "sl": "Glagoli z essere imajo **fossi**: **se fossi venuto** (če bi prišel), **se fosse venuta**, **se fossimo partiti**, **se foste partiti**, **se fossero partite**. Deležnik se ujema v obeh polovicah: **Se Giulia fosse partita prima, sarebbe arrivata in tempo.** Tudi glagoli s **si**: **se si fosse alzato**, **si sarebbe alzato**.",
+          "en": "Verbs with essere take **fossi**: **se fossi venuto** (if I had come), **se fosse venuta**, **se fossimo partiti**, **se foste partiti**, **se fossero partite**. The participle agrees in both halves: **Se Giulia fosse partita prima, sarebbe arrivata in tempo.** The verbs with **si** too: **se si fosse alzato**, **si sarebbe alzato**."
+        },
+        "examples": [
+          { "it": "Se Giulia fosse partita prima, sarebbe arrivata in tempo.", "de": "Wenn Giulia früher losgegangen wäre, wäre sie rechtzeitig angekommen.", "sl": "Če bi Giulia šla prej, bi prišla pravočasno.", "en": "If Giulia had set off earlier, she'd have arrived in time." },
+          { "it": "Se Matteo si fosse alzato prima, non avrebbe perso il treno.", "de": "Wenn Matteo früher aufgestanden wäre, hätte er den Zug nicht verpasst.", "sl": "Če bi Matteo vstal prej, ne bi zamudil vlaka.", "en": "If Matteo had got up earlier, he wouldn't have missed the train." }
+        ],
+        "rows": [
+          ["se fossi venuto, se fosse venuta", "sarei venuto, sarebbe venuta"],
+          ["se fossimo partiti, se fossero partite", "saremmo partiti, sarebbero partite"],
+          ["se foste partiti", "sareste partiti"],
+          ["se si fosse alzato", "si sarebbe alzato"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "periodo-ipotetico-irrealta", "text": "Se Zia Nives fosse ___ alla festa, avrebbe raccontato tutto. (venire)", "accept": ["venuta"],
+          "hint": { "de": "Zia Nives, sie", "sl": "Zia Nives, ona", "en": "Zia Nives, she" },
+          "explain": {
+            "de": "**fosse** + eine Frau → **venuta**\n- venuto · für einen Mann",
+            "sl": "**fosse** + ženska → **venuta**\n- venuto · za moškega",
+            "en": "**fosse** + a woman → **venuta**\n- venuto · for a man"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **se** kommt nie das condizionale: **se avessi saputo**, nie *se avrei saputo*. Deutsch sagt *hätte* in beiden Hälften, darum passiert das leicht; Italienisch trennt **avessi** und **avrei**. Die **se**-Hälfte darf auch hinten stehen: **Bruno ti avrebbe aiutato, se glielo avessi chiesto.** (Bruno hätte dir geholfen, wenn du ihn gefragt hättest.)",
+          "sl": "Za **se** nikoli ne pride condizionale: **se avessi saputo**, nikoli *se avrei saputo*. Slovenščina ima *bi* v obeh polovicah, zato se to rado zgodi; italijanščina loči **avessi** in **avrei**. Polovica s **se** je lahko tudi zadaj: **Bruno ti avrebbe aiutato, se glielo avessi chiesto.** (Bruno bi ti pomagal, če bi ga {m:prosil|f:prosila}.)",
+          "en": "**Se** never takes the condizionale: **se avessi saputo**, never *se avrei saputo*. Italian keeps **avessi** and **avrei** apart. The **se** half can also come last: **Bruno ti avrebbe aiutato, se glielo avessi chiesto.** (Bruno would have helped you if you'd asked him.)"
+        },
+        "examples": [
+          { "it": "Bruno ti avrebbe aiutato, se glielo avessi chiesto.", "de": "Bruno hätte dir geholfen, wenn du ihn gefragt hättest.", "sl": "Bruno bi ti pomagal, če bi ga {m:prosil|f:prosila}.", "en": "Bruno would have helped you if you'd asked him." },
+          { "it": "Non ci saremmo bagnati, se avessimo preso l'ombrello.", "de": "Wir wären nicht nass geworden, wenn wir den Schirm mitgenommen hätten.", "sl": "Ne bi se zmočili, če bi vzeli dežnik.", "en": "We wouldn't have got wet if we'd taken the umbrella." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico-irrealta", "prompt": "Se Tommaso ___ i compiti, la maestra non si sarebbe arrabbiata.", "options": ["avesse fatto", "avrebbe fatto", "fosse fatto"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**nach se** → **avesse fatto**; das condizionale steht in der anderen Hälfte\n- avrebbe fatto: nach se nie\n- fosse fatto: fare nimmt avere",
+            "sl": "**za se** → **avesse fatto**; condizionale je v drugi polovici\n- avrebbe fatto: za se nikoli\n- fosse fatto: fare ima avere",
+            "en": "**after se** → **avesse fatto**; the condizionale goes in the other half\n- avrebbe fatto: never after se\n- fosse fatto: fare takes avere"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Gilt die Folge heute noch, steht die zweite Hälfte im einfachen condizionale, oft mit **ora**, **adesso** oder **oggi**: **Se avessi studiato, ora saprei.** (Wenn ich gelernt hätte, wüsste ich es jetzt.) Umgekehrt geht es auch: **Se Tommaso fosse più attento, non avrebbe perso il pallone.** (Wenn Tommaso aufmerksamer wäre, hätte er den Ball nicht verloren.)",
+          "sl": "Če posledica velja še danes, je druga polovica v navadnem condizionale, pogosto z **ora**, **adesso** ali **oggi**: **Se avessi studiato, ora saprei.** (Če bi se {m:učil|f:učila}, bi zdaj {m:vedel|f:vedela}.) Gre tudi obratno: **Se Tommaso fosse più attento, non avrebbe perso il pallone.** (Če bi bil Tommaso bolj pazljiv, ne bi izgubil žoge.)",
+          "en": "When the result still holds today, the second half takes the plain condizionale, often with **ora**, **adesso** or **oggi**: **Se avessi studiato, ora saprei.** (If I'd studied, I'd know now.) It works the other way round too: **Se Tommaso fosse più attento, non avrebbe perso il pallone.** (If Tommaso were more careful, he wouldn't have lost the ball.)"
+        },
+        "examples": [
+          { "it": "Se avessimo preso l'ombrello, adesso non saremmo bagnati.", "de": "Wenn wir den Schirm mitgenommen hätten, wären wir jetzt nicht nass.", "sl": "Če bi vzeli dežnik, zdaj ne bi bili mokri.", "en": "If we'd taken the umbrella, we wouldn't be wet now." },
+          { "it": "Se Davide avesse dormito di più, oggi non sarebbe così stanco.", "de": "Wenn Davide mehr geschlafen hätte, wäre er heute nicht so müde.", "sl": "Če bi Davide več spal, danes ne bi bil tako utrujen.", "en": "If Davide had slept more, he wouldn't be so tired today." },
+          { "it": "Se Tommaso fosse più attento, non avrebbe perso il pallone.", "de": "Wenn Tommaso aufmerksamer wäre, hätte er den Ball nicht verloren.", "sl": "Če bi bil Tommaso bolj pazljiv, ne bi izgubil žoge.", "en": "If Tommaso were more careful, he wouldn't have lost the ball." }
+        ],
+        "rows": [
+          ["se avessi studiato", "ora saprei"],
+          ["se Tommaso fosse più attento", "non avrebbe perso il pallone"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "periodo-ipotetico-irrealta", "text": "Se Lorenzo avesse mangiato a pranzo, adesso non ___ fame. (avere)", "accept": ["avrebbe", "aveva"],
+          "hint": { "de": "adesso: gilt noch", "sl": "adesso: še velja", "en": "adesso: it still holds" },
+          "explain": {
+            "de": "**adesso**, die Folge gilt noch → einfaches condizionale: **avrebbe**\n- Se Lorenzo avesse mangiato … ist vorbei\n- aveva · beim Reden, auch richtig",
+            "sl": "**adesso**, posledica še velja → navadni condizionale: **avrebbe**\n- Se Lorenzo avesse mangiato … je mimo\n- aveva · v govoru, tudi prav",
+            "en": "**adesso**, the result still holds → the plain condizionale: **avrebbe**\n- Se Lorenzo avesse mangiato … is over\n- aveva · in speech, right too"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Beim Reden hörst du oft zweimal das imperfetto: **Se lo sapevo, venivo.** (Wenn ich es gewusst hätte, wäre ich gekommen.) Das ist kein Fehler, so reden viele Leute. In einem Brief oder in der Schule schreibst du **Se l'avessi saputo, sarei venuto.** Hier auf den Blättern ist das zweite die Antwort, das erste zählt auch als richtig.",
+          "sl": "V govoru pogosto slišiš dvakrat imperfetto: **Se lo sapevo, venivo.** (Če bi vedel, bi prišel.) To ni napaka, tako govori veliko ljudi. V pismu ali v šoli napišeš **Se l'avessi saputo, sarei venuto.** Na teh listih je odgovor drugo, a tudi prvo šteje za pravilno.",
+          "en": "In speech you often hear the imperfetto twice: **Se lo sapevo, venivo.** (If I'd known, I'd have come.) It isn't a mistake; many people talk that way. In a letter or at school you write **Se l'avessi saputo, sarei venuto.** On these sheets the second is the answer, and the first counts as right too."
+        },
+        "examples": [
+          { "it": "Zia Nives: «Se lo sapevo, venivo anch'io!»", "de": "Zia Nives: „Hätte ich das gewusst, wäre ich auch gekommen!“", "sl": "Teta Nives: »Če bi vedela, bi tudi jaz prišla!«", "en": "Zia Nives: \"If I'd known, I'd have come too!\"" },
+          { "it": "Zia Nives scrive: «Se l'avessi saputo, sarei venuta anch'io.»", "de": "Zia Nives schreibt: „Hätte ich das gewusst, wäre ich auch gekommen.“", "sl": "Teta Nives piše: »Če bi to vedela, bi tudi jaz prišla.«", "en": "Zia Nives writes: \"Had I known, I would have come too.\"" }
+        ],
+        "rows": [
+          [{ "it": "se lo sapevo (parlato)", "de": "se lo sapevo (gesprochen)", "sl": "se lo sapevo (govorjeno)", "en": "se lo sapevo (spoken)" }, { "it": "venivo (parlato)", "de": "venivo (gesprochen)", "sl": "venivo (govorjeno)", "en": "venivo (spoken)" }],
+          [{ "it": "se l'avessi saputo (scritto)", "de": "se l'avessi saputo (geschrieben)", "sl": "se l'avessi saputo (pisno)", "en": "se l'avessi saputo (written)" }, { "it": "sarei venuto (scritto)", "de": "sarei venuto (geschrieben)", "sl": "sarei venuto (pisno)", "en": "sarei venuto (written)" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico-irrealta", "prompt": { "de": "Zia Nives sagt: «Se lo sapevo, venivo.» Wie schreibt sie es in einem Brief an den Bürgermeister?", "sl": "Teta Nives reče: »Se lo sapevo, venivo.« Kako to napiše v pismu županu?", "en": "Zia Nives says: «Se lo sapevo, venivo.» How does she write it in a letter to the mayor?" }, "options": ["Se l'avessi saputo, sarei venuta.", "Se l'avrei saputo, sarei venuta.", "Se l'avessi saputo, sarei venire."], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Im Brief** → **Se l'avessi saputo, sarei venuta.**\n- se l'avrei: nach se nie\n- sarei venire: das Partizip fehlt",
+            "sl": "**V pismu** → **Se l'avessi saputo, sarei venuta.**\n- se l'avrei: za se nikoli\n- sarei venire: manjka deležnik",
+            "en": "**In a letter** → **Se l'avessi saputo, sarei venuta.**\n- se l'avrei: never after se\n- sarei venire: the participle is missing"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "se-avessi-saputo-1",
+      "title": { "it": "Ormai è tardi", "de": "Jetzt ist es zu spät", "sl": "Zdaj je prepozno", "en": "Too late now" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "se + avere oder essere · wenn ich gewusst hätte, gekommen wäre", "sl": "se + avere ali essere · če bi vedel, prišel", "en": "se + avere or essere · if I had known, had come" },
+          "columns": ["… saputo", "… venuto"],
+          "rows": [
+            { "label": "se io", "cells": ["avessi", { "accept": ["fossi"] }] },
+            { "label": "se tu", "cells": [{ "accept": ["avessi"], "hint": { "de": "wie io", "sl": "kot io", "en": "like io" } }, "fossi"] },
+            { "label": "se lui, lei", "cells": [{ "accept": ["avesse"] }, { "accept": ["fosse"] }] },
+            { "label": "se noi", "cells": [{ "accept": ["avessimo"] }, { "accept": ["fossimo"] }] },
+            { "label": "se voi", "cells": ["aveste", { "accept": ["foste"] }] },
+            { "label": "se loro", "cells": [{ "accept": ["avessero"] }, { "accept": ["fossero"] }] }
+          ]
+        },
+        {
+          "type": "sort", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Adesso o già passato? · Jetzt oder schon vorbei?", "sl": "Adesso o già passato? · Zdaj ali že mimo?", "en": "Adesso o già passato? · Now or already over?" },
+          "columns": [
+            { "label": { "de": "adesso · nur vorgestellt, jetzt", "sl": "adesso · samo predstava, zdaj", "en": "adesso · only imagined, now" }, "words": ["Se potessi, ti aiuterei.", "Se avessi un carro, porterei il fieno.", "Se fossi qui, giocherei con te."] },
+            { "label": { "de": "già passato · schon vorbei", "sl": "già passato · že mimo", "en": "già passato · already over" }, "words": ["Se avessi potuto, ti avrei aiutato.", "Se avessi avuto un carro, avrei portato il fieno.", "Se fossi stato qui, avrei giocato con te."] }
+          ],
+          "explain": {
+            "de": "**jetzt**: se fossi, se avessi + einfaches condizionale · **vorbei**: se avessi potuto, se fossi stato + avrei …\n- Se potessi, ti aiuterei.\n- Se avessi potuto, ti avrei aiutato.",
+            "sl": "**zdaj**: se fossi, se avessi + navadni condizionale · **mimo**: se avessi potuto, se fossi stato + avrei …\n- Se potessi, ti aiuterei.\n- Se avessi potuto, ti avrei aiutato.",
+            "en": "**now**: se fossi, se avessi + the plain condizionale · **over**: se avessi potuto, se fossi stato + avrei …\n- Se potessi, ti aiuterei.\n- Se avessi potuto, ti avrei aiutato."
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se Giulia ___ prima, avrebbe visto i fuochi.", "options": ["fosse arrivata", "avesse arrivato", "sarebbe arrivata"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**arrivare** nimmt essere, **Giulia**: -a → **fosse arrivata**\n- avesse arrivato: sono arrivata, also essere\n- sarebbe arrivata: nach se nie",
+            "sl": "**arrivare** ima essere, **Giulia**: -a → **fosse arrivata**\n- avesse arrivato: sono arrivata, torej essere\n- sarebbe arrivata: za se nikoli",
+            "en": "**arrivare** takes essere, **Giulia**: -a → **fosse arrivata**\n- avesse arrivato: sono arrivata, so essere\n- sarebbe arrivata: never after se"
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se avessimo saputo che Nonno Bepi raccontava una storia, ___ anche noi.", "options": ["saremmo venuti", "avremmo venuto", "saremo venuti"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**die andere Hälfte**, venire nimmt essere → **saremmo venuti**\n- avremmo venuto: sono venuto, also essere\n- saremo venuti · Zukunft: ein m",
+            "sl": "**druga polovica**, venire ima essere → **saremmo venuti**\n- avremmo venuto: sono venuto, torej essere\n- saremo venuti · prihodnjik: en m",
+            "en": "**the other half**, venire takes essere → **saremmo venuti**\n- avremmo venuto: sono venuto, so essere\n- saremo venuti · the future: one m"
+          }
+        }
+      ]
+    },
+    {
+      "id": "se-avessi-saputo-2",
+      "title": { "it": "La festa in cantina", "de": "Das Fest im Weinkeller", "sl": "Praznik v kleti", "en": "The party in the cellar" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "La festa in cantina",
+          "text": "Sabato Matteo ha fatto festa in cantina, ma Aldo non c'era. Oggi, da Marisa, si lamenta: «Se ___ (sapere) della festa, ___ (venire) anch'io!» Marisa ride: «Se ___ (ascoltare) la radio di Zia Nives, avresti saputo tutto.» Anche Bruno e Davide sono arrivati tardi. Giulia dice: «Se voi ___ (arrivare) prima, ___ (mangiare) la gubana. Ma è finita!» E Matteo: «Se Bruno mi ___ (telefonare), gli avrei tenuto una fetta.»",
+          "gaps": [
+            { "accept": ["avessi saputo"], "spoken": ["sapevo"], "hint": { "de": "Aldo, ich", "sl": "Aldo, jaz", "en": "Aldo, I" } },
+            { "accept": ["sarei venuto"], "spoken": ["venivo"], "hint": { "de": "ho oder sono?", "sl": "ho ali sono?", "en": "ho or sono?" } },
+            { "accept": ["avessi ascoltato"], "spoken": ["ascoltavi"], "hint": { "de": "Marisa zu Aldo: du", "sl": "Marisa Aldu: ti", "en": "Marisa to Aldo: you" } },
+            { "accept": ["foste arrivati"], "spoken": ["arrivavate"] },
+            { "accept": ["avreste mangiato"], "spoken": ["mangiavate"] },
+            { "accept": ["avesse telefonato"], "spoken": ["telefonava"], "explain": { "de": "**Bruno** (lui), se-Hälfte → **avesse telefonato**\n- avrebbe telefonato: nach se nie", "sl": "**Bruno** (lui), polovica s se → **avesse telefonato**\n- avrebbe telefonato: za se nikoli", "en": "**Bruno** (lui), the se half → **avesse telefonato**\n- avrebbe telefonato: never after se" } }
+          ],
+          "bank": true,
+          "distractors": ["avrei saputo", "avrebbe telefonato", "sarebbero arrivati"],
+          "translation": {
+            "de": "Am Samstag hat Matteo im Weinkeller gefeiert, aber Aldo war nicht da. Heute, bei Marisa, jammert er: „Wenn ich von dem Fest gewusst hätte, wäre ich auch gekommen!“ Marisa lacht: „Wenn du Zia Nives' Radio zugehört hättest, hättest du alles gewusst.“ Auch Bruno und Davide sind spät gekommen. Giulia sagt: „Wenn ihr früher gekommen wärt, hättet ihr Gubana gegessen. Aber sie ist aus!“ Und Matteo: „Wenn Bruno mich angerufen hätte, hätte ich ihm ein Stück aufgehoben.“",
+            "sl": "V soboto je Matteo praznoval v kleti, a Alda ni bilo. Danes se pri Marisi pritožuje: »Če bi vedel za praznik, bi tudi jaz prišel!« Marisa se smeje: »Če bi poslušal radio tete Nives, bi vse vedel.« Tudi Bruno in Davide sta prišla pozno. Giulia reče: »Če bi prišla prej, bi jedla gubano. A je je zmanjkalo!« In Matteo: »Če bi me Bruno poklical, bi mu prihranil kos.«",
+            "en": "On Saturday Matteo had a party in the cellar, but Aldo wasn't there. Today, at Marisa's, he complains: \"If I'd known about the party, I'd have come too!\" Marisa laughs: \"If you'd listened to Zia Nives's radio, you'd have known everything.\" Bruno and Davide arrived late too. Giulia says: \"If you'd come earlier, you'd have had some gubana. But it's all gone!\" And Matteo: \"If Bruno had phoned me, I'd have kept him a slice.\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Bruno non ti ha aiutato? Se glielo ___, ti avrebbe aiutato.", "options": ["avessi chiesto", "avrei chiesto", "avresti chiesto"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**tu**, nach se → **avessi chiesto**\n- avrei chiesto, avresti chiesto: nach se nie",
+            "sl": "**tu**, za se → **avessi chiesto**\n- avrei chiesto, avresti chiesto: za se nikoli",
+            "en": "**tu**, after se → **avessi chiesto**\n- avrei chiesto, avresti chiesto: never after se"
+          }
+        }
+      ]
+    },
+    {
+      "id": "se-avessi-saputo-3",
+      "title": { "it": "Com'è andata, e come poteva andare", "de": "Wie es war und wie es hätte sein können", "sl": "Kako je bilo in kako bi lahko bilo", "en": "How it went, and how it could have gone" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Scrivi con se · Schreib es mit se", "sl": "Scrivi con se · Napiši s se", "en": "Scrivi con se · Write it with se" },
+          "cue": "se …",
+          "items": [
+            { "from": "Lorenzo non l'ha saputo e non è venuto.", "accept": ["Se Lorenzo l'avesse saputo, sarebbe venuto.", "Se Lorenzo lo avesse saputo, sarebbe venuto.", "Se Lorenzo avesse saputo, sarebbe venuto.", "Se l'avesse saputo, Lorenzo sarebbe venuto.", "Se lo avesse saputo, Lorenzo sarebbe venuto.", "Se l'avesse saputo, sarebbe venuto.", "Se lo avesse saputo, sarebbe venuto.", "Lorenzo sarebbe venuto, se l'avesse saputo.", "Lorenzo sarebbe venuto, se lo avesse saputo."], "spoken": ["Se Lorenzo lo sapeva, veniva.", "Se Lorenzo lo sapeva, sarebbe venuto.", "Se Lorenzo l'avesse saputo, veniva.", "Se lo sapeva, Lorenzo veniva."], "hint": { "de": "ohne non", "sl": "brez non", "en": "without non" } },
+            { "from": "Giulia non è partita prima e non è arrivata in tempo.", "accept": ["Se Giulia fosse partita prima, sarebbe arrivata in tempo.", "Giulia sarebbe arrivata in tempo, se fosse partita prima.", "Se fosse partita prima, Giulia sarebbe arrivata in tempo.", "Se fosse partita prima, sarebbe arrivata in tempo."], "spoken": ["Se Giulia partiva prima, arrivava in tempo.", "Se Giulia partiva prima, sarebbe arrivata in tempo.", "Se Giulia fosse partita prima, arrivava in tempo."], "hint": "Giulia: -a" },
+            { "from": "Non abbiamo preso l'ombrello e ci siamo bagnati.", "accept": ["Se avessimo preso l'ombrello, non ci saremmo bagnati.", "Se noi avessimo preso l'ombrello, non ci saremmo bagnati.", "Non ci saremmo bagnati, se avessimo preso l'ombrello."], "spoken": ["Se prendevamo l'ombrello, non ci bagnavamo.", "Se prendevamo l'ombrello, non ci saremmo bagnati.", "Se avessimo preso l'ombrello, non ci bagnavamo."] },
+            { "from": "Matteo non si è alzato presto e ha perso il treno.", "accept": ["Se Matteo si fosse alzato presto, non avrebbe perso il treno.", "Matteo non avrebbe perso il treno, se si fosse alzato presto.", "Se si fosse alzato presto, Matteo non avrebbe perso il treno.", "Se si fosse alzato presto, non avrebbe perso il treno."], "spoken": ["Se Matteo si alzava presto, non perdeva il treno.", "Se Matteo si alzava presto, non avrebbe perso il treno.", "Se Matteo si fosse alzato presto, non perdeva il treno."], "hint": { "de": "si bleibt vorn", "sl": "si ostane spredaj", "en": "si stays in front" } },
+            { "from": "Tommaso non ha fatto i compiti e la maestra si è arrabbiata.", "accept": ["Se Tommaso avesse fatto i compiti, la maestra non si sarebbe arrabbiata.", "La maestra non si sarebbe arrabbiata, se Tommaso avesse fatto i compiti."], "spoken": ["Se Tommaso faceva i compiti, la maestra non si arrabbiava.", "Se Tommaso faceva i compiti, la maestra non si sarebbe arrabbiata.", "Se Tommaso avesse fatto i compiti, la maestra non si arrabbiava."] },
+            { "from": "Davide non ha dormito e ora è stanco.", "accept": ["Se Davide avesse dormito, ora non sarebbe stanco.", "Se Davide avesse dormito, non sarebbe stanco ora.", "Davide ora non sarebbe stanco, se avesse dormito.", "Ora Davide non sarebbe stanco, se avesse dormito.", "Se Davide avesse dormito, non sarebbe stanco.", "Se avesse dormito, ora Davide non sarebbe stanco.", "Se avesse dormito, ora non sarebbe stanco."], "spoken": ["Se Davide dormiva, ora non era stanco.", "Se Davide dormiva, ora non sarebbe stanco."], "hint": { "de": "ora: gilt noch", "sl": "ora: še velja", "en": "ora: it still holds" } },
+            { "from": "Aldo non ha mangiato a pranzo e adesso ha fame.", "accept": ["Se Aldo avesse mangiato a pranzo, adesso non avrebbe fame.", "Se Aldo avesse mangiato a pranzo, non avrebbe fame adesso.", "Aldo adesso non avrebbe fame, se avesse mangiato a pranzo.", "Adesso Aldo non avrebbe fame, se avesse mangiato a pranzo.", "Se Aldo avesse mangiato a pranzo, non avrebbe fame.", "Se avesse mangiato a pranzo, adesso Aldo non avrebbe fame.", "Se avesse mangiato a pranzo, adesso non avrebbe fame."], "spoken": ["Se Aldo mangiava a pranzo, adesso non aveva fame.", "Se Aldo mangiava a pranzo, adesso non avrebbe fame."] }
+          ],
+          "explain": {
+            "de": "**Was nicht war, umgedreht**: nicht gemacht → se avesse fatto; gemacht → non\n- non è venuto → sarebbe venuto\n- ha perso → non avrebbe perso\n- ora è stanco → ora non sarebbe stanco",
+            "sl": "**Kar ni bilo, obrnjeno**: ni naredil → se avesse fatto; je naredil → non\n- non è venuto → sarebbe venuto\n- ha perso → non avrebbe perso\n- ora è stanco → ora non sarebbe stanco",
+            "en": "**What wasn't, turned round**: didn't do it → se avesse fatto; did it → non\n- non è venuto → sarebbe venuto\n- ha perso → non avrebbe perso\n- ora è stanco → ora non sarebbe stanco"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "La gita al mare è andata male. Se Franco ___ (controllare) il carro, non si sarebbe rotto. Se noi ___ (partire) prima, avremmo trovato posto sul treno. Maestra Elena dice: «Se voi mi ___ (chiamare), vi avrei aspettato.» Giulia e Tommaso sono stanchi: se ___ (dormire) di più, adesso non ___ (essere) così stanchi.",
+        "gaps": [
+          { "accept": ["avesse controllato"], "spoken": ["controllava"] },
+          { "accept": ["fossimo partiti", "fossimo partite"], "spoken": ["partivamo"] },
+          { "accept": ["aveste chiamato", "aveste chiamata"], "spoken": ["chiamavate"] },
+          { "accept": ["avessero dormito"], "spoken": ["dormivano"] },
+          { "accept": ["sarebbero"], "spoken": ["erano"] }
+        ],
+        "translation": {
+          "de": "Der Ausflug ans Meer ist schiefgegangen. Wenn Franco den Wagen kontrolliert hätte, wäre er nicht kaputtgegangen. Wenn wir früher losgefahren wären, hätten wir im Zug einen Platz gefunden. Maestra Elena sagt: „Wenn ihr mich angerufen hättet, hätte ich auf euch gewartet.“ Giulia und Tommaso sind müde: Wenn sie mehr geschlafen hätten, wären sie jetzt nicht so müde.",
+          "sl": "Izlet na morje se je slabo končal. Če bi Franco pregledal voz, se ne bi pokvaril. Če bi šli prej, bi na vlaku našli prostor. Učiteljica Elena reče: »Če bi me poklicali, bi vas počakala.« Giulia in Tommaso sta utrujena: če bi več spala, zdaj ne bi bila tako utrujena.",
+          "en": "The trip to the seaside went badly. If Franco had checked the cart, it wouldn't have broken down. If we'd set off earlier, we'd have found a seat on the train. Maestra Elena says: \"If you'd called me, I'd have waited for you.\" Giulia and Tommaso are tired: if they'd slept more, they wouldn't be so tired now."
+        }
+      },
+      {
+        "type": "transform", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Scrivi con se · Schreib es mit se", "sl": "Scrivi con se · Napiši s se", "en": "Scrivi con se · Write it with se" },
+        "items": [
+          { "from": "Aldo non ha visto la lettera e non ha risposto.", "accept": ["Se Aldo avesse visto la lettera, avrebbe risposto.", "Aldo avrebbe risposto, se avesse visto la lettera.", "Se avesse visto la lettera, Aldo avrebbe risposto.", "Se avesse visto la lettera, avrebbe risposto."], "spoken": ["Se Aldo vedeva la lettera, rispondeva.", "Se Aldo vedeva la lettera, avrebbe risposto.", "Se Aldo avesse visto la lettera, rispondeva."] },
+          { "from": "Le bambine non sono uscite e non hanno visto i fuochi.", "accept": ["Se le bambine fossero uscite, avrebbero visto i fuochi.", "Le bambine avrebbero visto i fuochi, se fossero uscite.", "Se fossero uscite, le bambine avrebbero visto i fuochi.", "Se fossero uscite, avrebbero visto i fuochi."], "spoken": ["Se le bambine uscivano, vedevano i fuochi.", "Se le bambine uscivano, avrebbero visto i fuochi.", "Se le bambine fossero uscite, vedevano i fuochi."] },
+          { "from": "Marisa non ha comprato il vino e ora non ne ha.", "accept": ["Se Marisa avesse comprato il vino, ora ne avrebbe.", "Marisa ora ne avrebbe, se avesse comprato il vino.", "Ora Marisa ne avrebbe, se avesse comprato il vino.", "Se Marisa avesse comprato il vino, ne avrebbe.", "Se avesse comprato il vino, ora Marisa ne avrebbe.", "Se avesse comprato il vino, ora ne avrebbe."], "spoken": ["Se Marisa comprava il vino, ora ne aveva.", "Se Marisa comprava il vino, ora ne avrebbe."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "periodo-ipotetico-irrealta", "prompt": "Se ___ la radio, Zia Nives avrebbe sentito la notizia.", "options": ["avesse acceso", "avrebbe acceso", "fosse acceso"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**nach se**, accendere nimmt avere → **avesse acceso**\n- avrebbe acceso: nach se nie\n- fosse acceso: ho acceso, also avere",
+          "sl": "**za se**, accendere ima avere → **avesse acceso**\n- avrebbe acceso: za se nikoli\n- fosse acceso: ho acceso, torej avere",
+          "en": "**after se**, accendere takes avere → **avesse acceso**\n- avrebbe acceso: never after se\n- fosse acceso: ho acceso, so avere"
+        }
+      },
+      {
+        "type": "choice", "grammar": "periodo-ipotetico-irrealta", "prompt": "Se Franco avesse riparato il mulino, oggi ___ farina per tutti.", "options": ["avremmo", "avessimo", "avremo"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**oggi**, die Folge gilt noch, **noi** → **avremmo**, zwei m\n- avessimo · nur in der se-Hälfte\n- avremo · Zukunft",
+          "sl": "**oggi**, posledica še velja, **noi** → **avremmo**, dva m\n- avessimo · le v polovici s se\n- avremo · prihodnjik",
+          "en": "**oggi**, the result still holds, **noi** → **avremmo**, two m\n- avessimo · only in the se half\n- avremo · the future"
+        }
+      },
+      {
+        "type": "sort", "grammar": "periodo-ipotetico-irrealta", "instruction": { "de": "Adesso o già passato? · Jetzt oder schon vorbei?", "sl": "Adesso o già passato? · Zdaj ali že mimo?", "en": "Adesso o già passato? · Now or already over?" },
+        "columns": [
+          { "label": { "de": "adesso · nur vorgestellt, jetzt", "sl": "adesso · samo predstava, zdaj", "en": "adesso · only imagined, now" }, "words": ["Se Marisa fosse qui, parleremmo.", "Se avessi tempo, verrei."] },
+          { "label": { "de": "già passato · schon vorbei", "sl": "già passato · že mimo", "en": "già passato · already over" }, "words": ["Se Marisa fosse stata qui, avremmo parlato.", "Se avessi avuto tempo, sarei venuto."] }
+        ],
+        "explain": {
+          "de": "**jetzt**: se fosse, se avessi + einfaches condizionale · **vorbei**: se fosse stata, se avessi avuto + condizionale passato\n- Se avessi tempo, verrei.\n- Se avessi avuto tempo, sarei venuto.",
+          "sl": "**zdaj**: se fosse, se avessi + navadni condizionale · **mimo**: se fosse stata, se avessi avuto + condizionale passato\n- Se avessi tempo, verrei.\n- Se avessi avuto tempo, sarei venuto.",
+          "en": "**now**: se fosse, se avessi + the plain condizionale · **over**: se fosse stata, se avessi avuto + condizionale passato\n- Se avessi tempo, verrei.\n- Se avessi avuto tempo, sarei venuto."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: se lo sapevo, venivo as spoken and its mixes, the mixed if-sentences with ora, gli avrei tenuto una fetta"
+}

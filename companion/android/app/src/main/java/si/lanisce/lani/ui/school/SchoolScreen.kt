@@ -441,14 +441,24 @@ fun lessonIdea(vm: AppViewModel): si.lanisce.lani.ui.home.HomeAction.Lesson? {
 }
 
 /**
- * Home's "🏫 Šola · School" tile: the unit suggested next, else all done; before the class begins, that it begins with
- * the hamlet. Null without a course.
+ * Home's "🏫 Šola · School" tile: the unit suggested next; else what the next written level waits for, or that the teacher
+ * is preparing what isn't written yet, and all done only past a course written to its end; before the class begins, that
+ * it begins with the hamlet. Null without a course.
  */
 fun schoolTile(vm: AppViewModel): si.lanisce.lani.ui.home.TileStatus? {
     val course = vm.school.course ?: return null
     val s = vm.game.state ?: return si.lanisce.lani.ui.home.TileStatus(bi("school.about"))
     if (!School.open(s)) return si.lanisce.lani.ui.home.TileStatus("🔒 ${beginsIn()}")
-    val next = School.next(s, course)
-        ?: return si.lanisce.lani.ui.home.TileStatus(if (School.preparing(s, course)) "📝 ${bi("school.preparingShort")}" else "✅ ${bi("school.allDone")}")
+    val next = School.next(s, course) ?: return si.lanisce.lani.ui.home.TileStatus(endOfTheWritten(s, course))
     return si.lanisce.lani.ui.home.TileStatus("★ ${next.titleShown(L10n.pair)}", attention = School.progress(s, course.language, next.id) == null)
+}
+
+/** What the tile says with no unit to suggest: "🔒 A2: zgradi šolo · A2: build the school", "📝 Nove ure kmalu · New lessons coming soon", "✅ vse opravljeno · all done". */
+internal fun endOfTheWritten(s: GameState, course: Course): String {
+    val waits = School.waiting(s, course)
+    return when {
+        waits != null -> "🔒 ${bi("school.levelWaits", "level" to waits.level, "need" to if (School.Need.School in waits.needs) "school" else "upgrade")}"
+        School.preparing(s, course) -> "📝 ${bi("school.preparingShort")}"
+        else -> "✅ ${bi("school.allDone")}"
+    }
 }

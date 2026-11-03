@@ -1,0 +1,958 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "reflexiv",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🪞",
+  "title": {
+    "de": "Ich wasche mir die Hände",
+    "en": "Reflexive verbs: ich freue mich",
+    "sl": "Povratni glagoli: ich freue mich",
+    "it": "I verbi riflessivi: ich freue mich"
+  },
+  "goal": {
+    "en": "You can say what people do to themselves (ich wasche mich, Kathi freut sich), use mir and dir when the verb has another object (ich wasche mir die Hände), and put sich in its place, also in the Perfekt and in an order (Setz dich!).",
+    "sl": "Poveš, kaj ljudje delajo sami sebi (ich wasche mich, Kathi freut sich), rabiš mir in dir, ko ima glagol še drug predmet (ich wasche mir die Hände), in postaviš sich na pravo mesto, tudi v Perfektu in v ukazu (Setz dich!).",
+    "it": "Sai dire che cosa fanno le persone a se stesse (ich wasche mich, Kathi freut sich), usi mir e dir quando il verbo ha un altro oggetto (ich wasche mir die Hände) e metti sich al suo posto, anche nel Perfekt e in un ordine (Setz dich!)."
+  },
+  "grammar": [
+    "reflexive-verben",
+    "pronomen-dativ"
+  ],
+  "words": [
+    "sich",
+    "waschen",
+    "sich freuen",
+    "sich beeilen",
+    "sich ausruhen",
+    "sich fühlen",
+    "sich setzen",
+    "sich verkühlen",
+    "sich erkälten",
+    "sich legen",
+    "sich treffen",
+    "anziehen",
+    "putzen",
+    "kämmen",
+    "die Hand",
+    "der Zahn",
+    "das Haar",
+    "die Jacke",
+    "das Gesicht",
+    "die Schuhe",
+    "das Bett",
+    "der Tee",
+    "die Wiese",
+    "müde",
+    "schon",
+    "jetzt",
+    "heute",
+    "Das geht sich aus."
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "wer, was",
+          "en": "who, what",
+          "sl": "kdo, kaj",
+          "it": "chi, che cosa"
+        },
+        {
+          "de": "man sagt",
+          "en": "you say",
+          "sl": "rečeš",
+          "it": "si dice"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You wash the dog: **Ich wasche den Hund.** (I wash the dog.) You wash yourself: **Ich wasche mich.** (I wash.) The pronoun is the same person as the subject: **ich wasche mich, du wäschst dich, er wäscht sich, wir waschen uns, ihr wascht euch, sie waschen sich**. You know mich, dich, uns and euch; only **sich** (himself, herself, themselves) is new, for er, sie, es and for sie and Sie.",
+          "sl": "Umivaš psa: **Ich wasche den Hund.** (Umivam psa.) Umivaš sebe: **Ich wasche mich.** (Umivam se.) Zaimek je ista oseba kot osebek, ne vedno se kot v slovenščini: **ich wasche mich, du wäschst dich, er wäscht sich, wir waschen uns, ihr wascht euch, sie waschen sich**. mich, dich, uns in euch poznaš; nov je samo **sich** (se), za er, sie, es ter za sie in Sie.",
+          "it": "Lavi il cane: **Ich wasche den Hund.** (Lavo il cane.) Lavi te stesso: **Ich wasche mich.** (Mi lavo.) Il pronome è la stessa persona del soggetto: **ich wasche mich, du wäschst dich, er wäscht sich, wir waschen uns, ihr wascht euch, sie waschen sich**. mich, dich, uns ed euch li conosci; è nuovo solo **sich** (si), per er, sie, es e per sie e Sie."
+        },
+        "examples": [
+          {
+            "de": "Ich wasche den Hund.",
+            "en": "I wash the dog.",
+            "sl": "Umivam psa.",
+            "it": "Lavo il cane."
+          },
+          {
+            "de": "Ich wasche mich.",
+            "en": "I wash.",
+            "sl": "Umivam se.",
+            "it": "Mi lavo."
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "ich wasche mich"
+          ],
+          [
+            "du",
+            "du wäschst dich"
+          ],
+          [
+            "er · sie · es",
+            "er wäscht sich"
+          ],
+          [
+            "wir",
+            "wir waschen uns"
+          ],
+          [
+            "ihr",
+            "ihr wascht euch"
+          ],
+          [
+            "sie · Sie",
+            "sie waschen sich"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-verben",
+          "prompt": {
+            "en": "We wash ourselves. In German:",
+            "sl": "Umivamo se. V nemščini:",
+            "it": "Ci laviamo. In tedesco:"
+          },
+          "options": [
+            "Wir waschen uns.",
+            "Wir waschen sich.",
+            "Wir waschen euch."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**wir: uns**\n- Wir waschen uns",
+            "sl": "**wir: uns**\n- Wir waschen uns",
+            "it": "**wir: uns**\n- Wir waschen uns"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "These verbs come with the pronoun, where English often has none: **sich freuen** (to be glad), **sich beeilen** (to hurry), **sich ausruhen** (to rest), **sich fühlen** (to feel), **sich setzen** (to sit down), and the Austrian **sich verkühlen** (to catch a cold; Germany **sich erkälten**). **Ich freue mich.** (I'm glad.) **Kathi setzt sich.** (Kathi sits down.) A separable verb: **Ich ruhe mich aus.** (I'm having a rest.)",
+          "sl": "Ti glagoli pridejo z zaimkom: **sich freuen** (veseliti se), **sich beeilen** (pohiteti), **sich ausruhen** (spočiti se), **sich fühlen** (počutiti se), **sich setzen** (usesti se) in avstrijsko **sich verkühlen** (prehladiti se; v Nemčiji **sich erkälten**). **Ich freue mich.** (Veselim se.) **Kathi setzt sich.** (Kathi se usede.) Ločljivi glagol: **Ich ruhe mich aus.** (Spočijem se.)",
+          "it": "Questi verbi vengono con il pronome: **sich freuen** (essere contento), **sich beeilen** (sbrigarsi), **sich ausruhen** (riposarsi), **sich fühlen** (sentirsi), **sich setzen** (sedersi) e l'austriaco **sich verkühlen** (raffreddarsi; in Germania **sich erkälten**). **Ich freue mich.** (Sono contento.) **Kathi setzt sich.** (Kathi si siede.) Un verbo separabile: **Ich ruhe mich aus.** (Mi riposo.)"
+        },
+        "examples": [
+          {
+            "de": "Ich freue mich.",
+            "en": "I'm glad.",
+            "sl": "Veselim se.",
+            "it": "Sono contento."
+          },
+          {
+            "de": "Kathi setzt sich.",
+            "en": "Kathi sits down.",
+            "sl": "Kathi se usede.",
+            "it": "Kathi si siede."
+          },
+          {
+            "de": "Ich ruhe mich aus.",
+            "en": "I'm having a rest.",
+            "sl": "Spočijem se.",
+            "it": "Mi riposo."
+          },
+          {
+            "de": "Stefan beeilt sich. Er fühlt sich gut, er hat sich nicht verkühlt.",
+            "en": "Stefan is hurrying. He feels well, he hasn't caught a cold.",
+            "sl": "Stefan hiti. Dobro se počuti, ni se prehladil.",
+            "it": "Stefan si sbriga. Si sente bene, non si è raffreddato."
+          }
+        ],
+        "rows": [
+          [
+            "sich freuen",
+            "ich freue mich"
+          ],
+          [
+            "sich setzen",
+            "ich setze mich"
+          ],
+          [
+            "sich ausruhen",
+            "ich ruhe mich aus"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-verben",
+          "prompt": "Kathi und Stefan beeilen ___.",
+          "options": [
+            "sich",
+            "uns",
+            "euch"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sie (plural): sich**\n- Kathi und Stefan beeilen sich",
+            "sl": "**sie (množina): sich**\n- Kathi und Stefan beeilen sich",
+            "it": "**sie (plurale): sich**\n- Kathi und Stefan beeilen sich"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The pronoun comes right after the verb: **Kathi freut sich.** With something else first, it follows a pronoun: **Heute freue ich mich.** and usually comes before a noun: **Heute freut sich Kathi.** It stays near a modal or haben, and the other verb goes to the end: **Ich muss mich beeilen.** (I have to hurry.) The Perfekt always takes haben: **Kathi hat sich gesetzt.** (never *Kathi ist sich gesetzt*)",
+          "sl": "Zaimek stoji takoj za glagolom: **Kathi freut sich.** Če je kaj drugega spredaj, je za zaimkom: **Heute freue ich mich.** in navadno pred samostalnikom: **Heute freut sich Kathi.** Ostane ob modalnem glagolu ali haben, drugi glagol gre na konec: **Ich muss mich beeilen.** (Pohiteti moram.) Perfekt ima vedno haben, ne kot slovenski je: **Kathi hat sich gesetzt.** (Kathi se je usedla.)",
+          "it": "Il pronome sta subito dopo il verbo: **Kathi freut sich.** Con un'altra cosa davanti, segue il pronome: **Heute freue ich mich.** e di solito sta prima di un nome: **Heute freut sich Kathi.** Resta vicino al modale o a haben, l'altro verbo va alla fine: **Ich muss mich beeilen.** (Devo sbrigarmi.) Il Perfekt ha sempre haben, non come l'italiano si è: **Kathi hat sich gesetzt.** (Kathi si è seduta.)"
+        },
+        "examples": [
+          {
+            "de": "Heute freut sich Kathi.",
+            "en": "Today Kathi is glad.",
+            "sl": "Danes je Kathi vesela.",
+            "it": "Oggi Kathi è contenta."
+          },
+          {
+            "de": "Heute freue ich mich.",
+            "en": "Today I'm glad.",
+            "sl": "Danes sem vesel.",
+            "it": "Oggi sono contento."
+          },
+          {
+            "de": "Ich muss mich beeilen.",
+            "en": "I have to hurry.",
+            "sl": "Pohiteti moram.",
+            "it": "Devo sbrigarmi."
+          },
+          {
+            "de": "Kathi hat sich gesetzt.",
+            "en": "Kathi sat down.",
+            "sl": "Kathi se je usedla.",
+            "it": "Kathi si è seduta."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-verben",
+          "prompt": {
+            "en": "Which sentence is right?",
+            "sl": "Kateri stavek je pravilen?",
+            "it": "Quale frase è giusta?"
+          },
+          "options": [
+            "Heute beeilt sich Stefan.",
+            "Heute sich beeilt Stefan.",
+            "Heute Stefan beeilt sich."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The verb second, sich right after it**\n- Heute beeilt sich Stefan",
+            "sl": "**Glagol na drugem mestu, sich takoj za njim**\n- Heute beeilt sich Stefan",
+            "it": "**Il verbo al secondo posto, sich subito dopo**\n- Heute beeilt sich Stefan"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "When the verb has another object, **mich** becomes **mir** and **dich** becomes **dir**: **Ich wasche mir die Hände.** (I wash my hands.) **Du ziehst dir die Jacke an.** (You put on your jacket.) Only those two change: **Er wäscht sich die Hände.** (He washes his hands.) For a part of the body German says die, where English says my: **Ich putze mir die Zähne.** (I brush my teeth.)",
+          "sl": "Ko ima glagol še drug predmet, **mich** postane **mir** in **dich** postane **dir**, kot slovenski si: **Ich wasche mir die Hände.** (Umivam si roke.) **Du ziehst dir die Jacke an.** (Oblečeš si jakno.) Spremenita se samo ta dva: **Er wäscht sich die Hände.** (Umiva si roke.) Pri delih telesa reče nemščina die: **Ich putze mir die Zähne.** (Umivam si zobe.)",
+          "it": "Quando il verbo ha anche un altro oggetto, **mich** diventa **mir** e **dich** diventa **dir**, mentre l'italiano dice sempre mi e ti: **Ich wasche mir die Hände.** (Mi lavo le mani.) **Du ziehst dir die Jacke an.** (Ti metti la giacca.) Cambiano solo questi due: **Er wäscht sich die Hände.** (Si lava le mani.) Per le parti del corpo il tedesco dice die, come l'italiano le: **Ich putze mir die Zähne.** (Mi lavo i denti.)"
+        },
+        "examples": [
+          {
+            "de": "Ich wasche mir die Hände.",
+            "en": "I wash my hands.",
+            "sl": "Umivam si roke.",
+            "it": "Mi lavo le mani."
+          },
+          {
+            "de": "Du ziehst dir die Jacke an.",
+            "en": "You put on your jacket.",
+            "sl": "Oblečeš si jakno.",
+            "it": "Ti metti la giacca."
+          },
+          {
+            "de": "Er wäscht sich die Hände.",
+            "en": "He washes his hands.",
+            "sl": "Umiva si roke.",
+            "it": "Si lava le mani."
+          },
+          {
+            "de": "Ich putze mir die Zähne.",
+            "en": "I brush my teeth.",
+            "sl": "Umivam si zobe.",
+            "it": "Mi lavo i denti."
+          }
+        ],
+        "rows": [
+          [
+            "ich + die Hände",
+            "ich wasche mir die Hände"
+          ],
+          [
+            "du + die Hände",
+            "du wäschst dir die Hände"
+          ],
+          [
+            "er + die Hände",
+            "er wäscht sich die Hände"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "reflexive-verben",
+          "text": "Ich kämme ___ die Haare.",
+          "accept": [
+            "mir"
+          ],
+          "hint": {
+            "en": "another object: ich → ?",
+            "sl": "drug predmet: ich → ?",
+            "it": "un altro oggetto: ich → ?"
+          },
+          "explain": {
+            "en": "**Another object: mir and dir; the others stay**\n- Ich wasche mir die Hände · Er wäscht sich die Hände",
+            "sl": "**Drug predmet: mir in dir; drugi ostanejo**\n- Ich wasche mir die Hände · Er wäscht sich die Hände",
+            "it": "**Un altro oggetto: mir e dir; gli altri restano**\n- Ich wasche mir die Hände · Er wäscht sich die Hände"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "To one person: **Setz dich!** (Sit down!) **Beeil dich!** (Hurry up!) To several: **Setzt euch!** Polite: **Setzen Sie sich!** (never *Setzen Sie Sie*) **uns, euch, sich** can also mean each other: **Wir treffen uns um acht.** (We're meeting at eight.) And an Austrian favourite: **Das geht sich aus.** (That just works out: there's just enough time or room.)",
+          "sl": "Eni osebi: **Setz dich!** (Sedi!) **Beeil dich!** (Pohiti!) Več osebam: **Setzt euch!** Vljudno: **Setzen Sie sich!** **uns, euch, sich** lahko pomenijo tudi drug drugega: **Wir treffen uns um acht.** (Dobimo se ob osmih.) In priljubljena avstrijska fraza: **Das geht sich aus.** (To se izide: časa ali prostora je ravno dovolj.)",
+          "it": "A una persona: **Setz dich!** (Siediti!) **Beeil dich!** (Sbrigati!) A più persone: **Setzt euch!** Di cortesia: **Setzen Sie sich!** **uns, euch, sich** possono voler dire anche l'un l'altro: **Wir treffen uns um acht.** (Ci vediamo alle otto.) E una frase amata in Austria: **Das geht sich aus.** (Ci si sta: tempo o spazio bastano giusti giusti.)"
+        },
+        "examples": [
+          {
+            "de": "Setz dich!",
+            "en": "Sit down!",
+            "sl": "Sedi!",
+            "it": "Siediti!"
+          },
+          {
+            "de": "Setzt euch!",
+            "en": "Sit down, all of you!",
+            "sl": "Sedite!",
+            "it": "Sedetevi!"
+          },
+          {
+            "de": "Beeil dich!",
+            "en": "Hurry up!",
+            "sl": "Pohiti!",
+            "it": "Sbrigati!"
+          },
+          {
+            "de": "Wir treffen uns um acht. Das geht sich aus.",
+            "en": "We're meeting at eight. That just works out.",
+            "sl": "Dobimo se ob osmih. To se izide.",
+            "it": "Ci vediamo alle otto. Ce la facciamo."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "reflexive-verben",
+          "prompt": "Frau Gruber, bitte setzen Sie ___!",
+          "options": [
+            "sich",
+            "Sie",
+            "dich"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Polite: Sie, then sich, small**\n- Setzen Sie sich!",
+            "sl": "**Vljudno: Sie, nato sich, z malo**\n- Setzen Sie sich!",
+            "it": "**Di cortesia: Sie, poi sich, minuscolo**\n- Setzen Sie sich!"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "reflexiv-1",
+      "title": {
+        "de": "Mich oder mir?",
+        "en": "Mich or mir?",
+        "sl": "Mich ali mir?",
+        "it": "Mich o mir?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Reflexivpronomen · Ich wasche mich, ich wasche mir die Hände",
+            "sl": "Reflexivpronomen · Ich wasche mich, ich wasche mir die Hände",
+            "it": "Reflexivpronomen · Ich wasche mich, ich wasche mir die Hände"
+          },
+          "columns": [
+            {
+              "en": "ohne Objekt · no other object",
+              "sl": "ohne Objekt · brez drugega predmeta",
+              "it": "ohne Objekt · senza un altro oggetto"
+            },
+            {
+              "en": "mit Objekt · another object",
+              "sl": "mit Objekt · z drugim predmetom",
+              "it": "mit Objekt · con un altro oggetto"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "mich",
+                "mir"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "dich"
+                  ]
+                },
+                {
+                  "accept": [
+                    "dir"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                {
+                  "accept": [
+                    "sich"
+                  ]
+                },
+                {
+                  "accept": [
+                    "sich"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "uns"
+                  ]
+                },
+                {
+                  "accept": [
+                    "uns"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "euch"
+                  ]
+                },
+                {
+                  "accept": [
+                    "euch"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                {
+                  "accept": [
+                    "sich"
+                  ]
+                },
+                {
+                  "accept": [
+                    "sich"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Another object: mir and dir; the others stay**\n- Ich wasche mir die Hände · Er wäscht sich die Hände",
+            "sl": "**Drug predmet: mir in dir; drugi ostanejo**\n- Ich wasche mir die Hände · Er wäscht sich die Hände",
+            "it": "**Un altro oggetto: mir e dir; gli altri restano**\n- Ich wasche mir die Hände · Er wäscht sich die Hände"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Ordne zu · Ich … mich or ich … mir?",
+            "sl": "Ordne zu · Ich … mich ali ich … mir?",
+            "it": "Ordne zu · Ich … mich o ich … mir?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Ich … mich",
+                "sl": "Ich … mich",
+                "it": "Ich … mich"
+              },
+              "words": [
+                "waschen",
+                "beeilen",
+                "freuen",
+                "setzen"
+              ]
+            },
+            {
+              "label": {
+                "en": "Ich … mir",
+                "sl": "Ich … mir",
+                "it": "Ich … mir"
+              },
+              "words": [
+                "die Hände waschen",
+                "die Zähne putzen",
+                "die Jacke anziehen",
+                "die Haare kämmen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Another object: mir and dir; the others stay**\n- Ich wasche mir die Hände · Er wäscht sich die Hände",
+            "sl": "**Drug predmet: mir in dir; drugi ostanejo**\n- Ich wasche mir die Hände · Er wäscht sich die Hände",
+            "it": "**Un altro oggetto: mir e dir; gli altri restano**\n- Ich wasche mir die Hände · Er wäscht sich die Hände"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reflexiv-2",
+      "title": {
+        "de": "Der Morgen bei Kathi",
+        "en": "The morning at Kathi's",
+        "sl": "Jutro pri Kathi",
+        "it": "Il mattino da Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der Morgen bei Kathi",
+          "text": "Um sieben steht Kathi auf und wäscht ___. Dann ruft sie: „Maxi, beeil ___! Du musst ___ die Zähne putzen!“ Maxi sagt: „Ich putze ___ die Zähne, Mama, und ich ziehe ___ schon an.“ Am Abend sind alle müde. Kathi setzt ___ und sagt: „Jetzt ruhen wir ___ aus.“",
+          "gaps": [
+            {
+              "accept": [
+                "sich"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "dich"
+              ],
+              "hint": "du → ?"
+            },
+            {
+              "accept": [
+                "dir"
+              ],
+              "hint": {
+                "en": "another object: die Zähne",
+                "sl": "drug predmet: die Zähne",
+                "it": "un altro oggetto: die Zähne"
+              }
+            },
+            {
+              "accept": [
+                "mir"
+              ],
+              "hint": {
+                "en": "another object: die Zähne",
+                "sl": "drug predmet: die Zähne",
+                "it": "un altro oggetto: die Zähne"
+              }
+            },
+            {
+              "accept": [
+                "mich"
+              ],
+              "hint": "ich → ?"
+            },
+            {
+              "accept": [
+                "sich"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "uns"
+              ],
+              "hint": "wir → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "ich",
+            "du"
+          ],
+          "translation": {
+            "en": "At seven Kathi gets up and washes. Then she calls: \"Maxi, hurry up! You have to brush your teeth!\" Maxi says: \"I'm brushing my teeth, Mum, and I'm already getting dressed.\" In the evening everyone is tired. Kathi sits down and says: \"Now we're having a rest.\"",
+            "sl": "Ob sedmih Kathi vstane in se umije. Potem zakliče: »Maxi, pohiti! Umiti si moraš zobe!« Maxi reče: »Umivam si zobe, mama, in že se oblačim.« Zvečer so vsi utrujeni. Kathi se usede in reče: »Zdaj se spočijemo.«",
+            "it": "Alle sette Kathi si alza e si lava. Poi chiama: «Maxi, sbrigati! Devi lavarti i denti!» Maxi dice: «Mi lavo i denti, mamma, e mi sto già vestendo.» La sera sono tutti stanchi. Kathi si siede e dice: «Adesso ci riposiamo.»"
+          },
+          "explain": {
+            "en": "**The pronoun is the same person as the subject**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich",
+            "sl": "**Zaimek je ista oseba kot osebek**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich",
+            "it": "**Il pronome è la stessa persona del soggetto**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stefan ___ sich auf die Bank.",
+          "options": [
+            "setzt",
+            "sitzt",
+            "setzen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sich setzen: you sit down; sitzen: you are sitting, with no sich**\n- Stefan setzt sich auf die Bank · Stefan sitzt auf der Bank",
+            "sl": "**sich setzen: usedeš se; sitzen: sediš, brez sich**\n- Stefan setzt sich auf die Bank · Stefan sitzt auf der Bank",
+            "it": "**sich setzen: ti siedi; sitzen: sei seduto, senza sich**\n- Stefan setzt sich auf die Bank · Stefan sitzt auf der Bank"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir haben ___ gestern sehr gefreut.",
+          "options": [
+            "uns",
+            "euch",
+            "sich"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The pronoun is the same person as the subject**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich",
+            "sl": "**Zaimek je ista oseba kot osebek**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich",
+            "it": "**Il pronome è la stessa persona del soggetto**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reflexiv-3",
+      "title": {
+        "de": "Heute freut sich Kathi",
+        "en": "Today Kathi is glad",
+        "sl": "Danes je Kathi vesela",
+        "it": "Oggi Kathi è contenta"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Sag es für diese Person · Say it for this person",
+            "sl": "Sag es für diese Person · Povej za to osebo",
+            "it": "Sag es für diese Person · Dillo per questa persona"
+          },
+          "cue": "→",
+          "whole": true,
+          "items": [
+            {
+              "from": "Ich freue mich. (Kathi)",
+              "accept": [
+                "Kathi freut sich."
+              ]
+            },
+            {
+              "from": "Ich wasche mir die Hände. (du)",
+              "accept": [
+                "Du wäschst dir die Hände."
+              ]
+            },
+            {
+              "from": "Ich setze mich. (wir)",
+              "accept": [
+                "Wir setzen uns."
+              ]
+            },
+            {
+              "from": "Ich ruhe mich aus. (ihr)",
+              "accept": [
+                "Ihr ruht euch aus."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The pronoun is the same person as the subject**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich",
+            "sl": "**Zaimek je ista oseba kot osebek**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich",
+            "it": "**Il pronome è la stessa persona del soggetto**\n- ich mich · du dich · er sich · wir uns · ihr euch · sie sich"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Sag es im Perfekt · Say it in the past (Perfekt)",
+            "sl": "Sag es im Perfekt · Povej v pretekliku (Perfekt)",
+            "it": "Sag es im Perfekt · Dillo al passato (Perfekt)"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich freue mich.",
+              "accept": [
+                "Ich habe mich gefreut."
+              ]
+            },
+            {
+              "from": "Kathi setzt sich.",
+              "accept": [
+                "Kathi hat sich gesetzt."
+              ]
+            },
+            {
+              "from": "Stefan verkühlt sich.",
+              "accept": [
+                "Stefan hat sich verkühlt."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The Perfekt with haben, sich after it**\n- Ich habe mich gefreut · Kathi hat sich gesetzt",
+            "sl": "**Perfekt s haben, sich za njim**\n- Ich habe mich gefreut · Kathi hat sich gesetzt",
+            "it": "**Il Perfekt con haben, sich dopo**\n- Ich habe mich gefreut · Kathi hat sich gesetzt"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "reflexive-verben",
+          "instruction": {
+            "en": "Fang mit dem Wort an · Start with the word in brackets",
+            "sl": "Fang mit dem Wort an · Začni z besedo v oklepaju",
+            "it": "Fang mit dem Wort an · Comincia con la parola tra parentesi"
+          },
+          "cue": "→",
+          "whole": true,
+          "items": [
+            {
+              "from": "Ich beeile mich. (Heute)",
+              "accept": [
+                "Heute beeile ich mich."
+              ]
+            },
+            {
+              "from": "Kathi freut sich. (Am Sonntag)",
+              "accept": [
+                "Am Sonntag freut sich Kathi.",
+                "Am Sonntag freut Kathi sich."
+              ]
+            },
+            {
+              "from": "Wir treffen uns. (Um acht)",
+              "accept": [
+                "Um acht treffen wir uns."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The verb second; sich after a pronoun, usually before a noun**\n- Heute beeile ich mich · Heute freut sich Kathi",
+            "sl": "**Glagol na drugem mestu; sich za zaimkom, navadno pred samostalnikom**\n- Heute beeile ich mich · Heute freut sich Kathi",
+            "it": "**Il verbo al secondo posto; sich dopo un pronome, di solito prima di un nome**\n- Heute beeile ich mich · Heute freut sich Kathi"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "reflexive-verben",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Tante Mitzi hat ___ verkühlt. Sie fühlt ___ nicht gut und legt ___ ins Bett. Oma Resi sagt: „Ich mache dir einen Tee. Wasch ___ die Hände und ruh ___ aus!“",
+        "gaps": [
+          {
+            "accept": [
+              "sich"
+            ]
+          },
+          {
+            "accept": [
+              "sich"
+            ]
+          },
+          {
+            "accept": [
+              "sich"
+            ]
+          },
+          {
+            "accept": [
+              "dir"
+            ]
+          },
+          {
+            "accept": [
+              "dich"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Aunt Mitzi has caught a cold. She doesn't feel well and goes to bed. Grandma Resi says: \"I'll make you a tea. Wash your hands and have a rest!\"",
+          "sl": "Teta Mitzi se je prehladila. Ne počuti se dobro in se uleže v posteljo. Babica Resi reče: »Skuham ti čaj. Umij si roke in se spočij!«",
+          "it": "Zia Mitzi si è raffreddata. Non si sente bene e si mette a letto. Nonna Resi dice: «Ti faccio un tè. Lavati le mani e riposati!»"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "reflexive-verben",
+        "instruction": {
+          "en": "Sag es für diese Person · Say it for this person",
+          "sl": "Sag es für diese Person · Povej za to osebo",
+          "it": "Sag es für diese Person · Dillo per questa persona"
+        },
+        "cue": "→",
+        "whole": true,
+        "items": [
+          {
+            "from": "Ich beeile mich. (ihr)",
+            "accept": [
+              "Ihr beeilt euch."
+            ]
+          },
+          {
+            "from": "Ich ziehe mir die Jacke an. (du)",
+            "accept": [
+              "Du ziehst dir die Jacke an."
+            ]
+          },
+          {
+            "from": "Ich fühle mich gut. (Stefan)",
+            "accept": [
+              "Stefan fühlt sich gut."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "reflexive-verben",
+        "instruction": {
+          "en": "Ordne zu · Ich … mich or ich … mir?",
+          "sl": "Ordne zu · Ich … mich ali ich … mir?",
+          "it": "Ordne zu · Ich … mich o ich … mir?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Ich … mich",
+              "sl": "Ich … mich",
+              "it": "Ich … mich"
+            },
+            "words": [
+              "anziehen",
+              "ausruhen"
+            ]
+          },
+          {
+            "label": {
+              "en": "Ich … mir",
+              "sl": "Ich … mir",
+              "it": "Ich … mir"
+            },
+            "words": [
+              "die Schuhe anziehen",
+              "das Gesicht waschen"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "reflexive-verben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Herr Rossi, bitte setzen Sie ___!",
+        "options": [
+          "sich",
+          "Sie",
+          "dich"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Polite: Sie, then sich**\n- Setzen Sie sich!",
+          "sl": "**Vljudno: Sie, nato sich**\n- Setzen Sie sich!",
+          "it": "**Di cortesia: Sie, poi sich**\n- Setzen Sie sich!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "reflexive-verben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Florian ___ sich auf die Wiese.",
+        "options": [
+          "legt",
+          "liegt",
+          "legen"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**sich legen: you lie down; liegen: you are lying, with no sich**\n- Florian legt sich auf die Wiese · Florian liegt auf der Wiese",
+          "sl": "**sich legen: uležeš se; liegen: ležiš, brez sich**\n- Florian legt sich auf die Wiese · Florian liegt auf der Wiese",
+          "it": "**sich legen: ti sdrai; liegen: sei sdraiato, senza sich**\n- Florian legt sich auf die Wiese · Florian liegt auf der Wiese"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: sich verkühlen, Das geht sich aus (Austrian), Am Sonntag freut Kathi sich, the Slovene and Italian notes"
+}

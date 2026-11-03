@@ -1,0 +1,571 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "il-quale",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🔗",
+  "title": {
+    "it": "Il quale, chi, chiunque, qualunque",
+    "de": "Mehr Relativsätze: il quale, chi, chiunque",
+    "sl": "Več oziralnih: il quale, chi, chiunque",
+    "en": "More relatives: il quale, chi, chiunque"
+  },
+  "goal": {
+    "de": "Du schreibst und verstehst gewählte Relativsätze (la quale, nella quale, la cui farina) und sagst wer auch immer und was auch immer (chi ha finito, chiunque venga, qualunque cosa).",
+    "sl": "Pišeš in razumeš bolj izbrane oziralne stavke (la quale, nella quale, la cui farina) in poveš kdorkoli in karkoli (chi ha finito, chiunque venga, qualunque cosa).",
+    "en": "You can write and read formal relative clauses (la quale, nella quale, la cui farina) and say whoever and whatever (chi ha finito, chiunque venga, qualunque cosa)."
+  },
+  "grammar": ["relativi-il-quale", "relativi-cui", "indefiniti"],
+  "words": [
+    "il quale",
+    "il cui",
+    "chi",
+    "chiunque",
+    "qualunque",
+    "qualsiasi",
+    "la sorella",
+    "il vicino",
+    "il sindaco",
+    "l'amica",
+    "la farina",
+    "il mulino",
+    "l'osteria",
+    "la fontana",
+    "la cantina",
+    "il martello",
+    "il momento",
+    "ottimo",
+    "la sete",
+    "il figlio",
+    "il calcio",
+    "pigliare",
+    "il pesce",
+    "la borsa",
+    "lontano",
+    "sano"
+  ],
+  "intro": {
+    "table": {"head": [{"it": "forma", "de": "Form", "sl": "oblika", "en": "form"}, {"it": "significa", "de": "heißt", "sl": "pomeni", "en": "means"}]},
+    "steps": [
+      {
+        "say": {
+          "de": "**Il quale, la quale, i quali, le quali** (der, die) sagen dasselbe wie **che**, nur gewählter: Du findest sie meist beim Schreiben, oft nach einem Komma. Ihr Artikel zeigt auch, wer gemeint ist: **La sorella di Bruno, la quale abita a Udine, viene domani.** (Brunos Schwester, die in Udine wohnt, kommt morgen.) Mit **che** wäre nicht klar, ob Bruno oder die Schwester dort wohnt.",
+          "sl": "**Il quale, la quale, i quali, le quali** (ki) pomenijo isto kot **che**, le bolj izbrano: srečaš jih predvsem v pisanju, pogosto za vejico. Njihov člen tudi pokaže, na koga se nanašajo: **La sorella di Bruno, la quale abita a Udine, viene domani.** (Brunova sestra, ki živi v Vidmu, pride jutri.) S **che** ne bi bilo jasno, ali tam živi Bruno ali sestra.",
+          "en": "**Il quale, la quale, i quali, le quali** (who, which) say the same as **che**, more formally: you mostly meet them in writing, often after a comma. Their article also shows who is meant: **La sorella di Bruno, la quale abita a Udine, viene domani.** (Bruno's sister, who lives in Udine, is coming tomorrow.) With **che** you couldn't tell whether Bruno or his sister lives there."
+        },
+        "examples": [
+          {
+            "it": "La sorella di Bruno, la quale abita a Udine, viene domani.",
+            "de": "Brunos Schwester, die in Udine wohnt, kommt morgen.",
+            "sl": "Brunova sestra, ki živi v Vidmu, pride jutri.",
+            "en": "Bruno's sister, who lives in Udine, is coming tomorrow."
+          },
+          {
+            "it": "I vicini di Marisa, i quali hanno un cane, sono simpatici.",
+            "de": "Marisas Nachbarn, die einen Hund haben, sind nett.",
+            "sl": "Marisini sosedje, ki imajo psa, so prijetni.",
+            "en": "Marisa's neighbours, who have a dog, are nice."
+          }
+        ],
+        "rows": [
+          ["il quale, la quale", {"de": "der, die", "sl": "ki", "en": "who, which"}],
+          ["i quali, le quali", {"de": "die (mehrere)", "sl": "ki (več)", "en": "who, which (more than one)"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "prompt": "«Le sorelle di Bruno, ___ abitano a Udine, vengono domani.»",
+          "options": ["le quali", "i quali", "il quale"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**le sorelle** (weiblich, mehrere) → **le quali**\n- i quali · für männliche\n- il quale · für einen",
+            "sl": "**le sorelle** (ženski spol, več) → **le quali**\n- i quali · za moški spol\n- il quale · za enega",
+            "en": "**le sorelle** (feminine, more than one) → **le quali**\n- i quali · for masculine\n- il quale · for one"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit einer Präposition verschmilzt der Artikel wie immer: **dal quale, alla quale, nella quale, sul quale, con la quale**. Das ist dasselbe wie **cui**, nur gewählter: **La casa nella quale abito è vecchia.** (Das Haus, in dem ich wohne, ist alt.) **Il signore al quale Franco ha scritto è il sindaco.** (Der Herr, dem Franco geschrieben hat, ist der Bürgermeister.)",
+          "sl": "S predlogom se člen zlije kot vedno: **dal quale, alla quale, nella quale, sul quale, con la quale**. To je isto kot **cui**, le bolj izbrano: **La casa nella quale abito è vecchia.** (Hiša, v kateri živim, je stara.) **Il signore al quale Franco ha scritto è il sindaco.** (Gospod, ki mu je Franco pisal, je župan.)",
+          "en": "With a preposition the article melts as always: **dal quale, alla quale, nella quale, sul quale, con la quale**. It's the same as **cui**, more formally: **La casa nella quale abito è vecchia.** (The house I live in is old.) **Il signore al quale Franco ha scritto è il sindaco.** (The man Franco wrote to is the mayor.)"
+        },
+        "examples": [
+          {
+            "it": "La casa nella quale abito è vecchia.",
+            "de": "Das Haus, in dem ich wohne, ist alt.",
+            "sl": "Hiša, v kateri živim, je stara.",
+            "en": "The house I live in is old."
+          },
+          {
+            "it": "Il signore al quale Franco ha scritto è il sindaco.",
+            "de": "Der Herr, dem Franco geschrieben hat, ist der Bürgermeister.",
+            "sl": "Gospod, ki mu je Franco pisal, je župan.",
+            "en": "The man Franco wrote to is the mayor."
+          }
+        ],
+        "rows": [
+          ["nella quale, sul quale, dal quale", {"de": "in der, auf dem, von dem", "sl": "v kateri, na katerem, od katerega", "en": "in which, on which, from which"}],
+          ["alla quale, al quale, con la quale", {"de": "der, dem, mit der", "sl": "kateri, kateremu, s katero", "en": "to whom, with whom"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "prompt": "«L'amica con ___ Marisa parla è di Trieste.»",
+          "options": ["la quale", "il quale", "quale"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**l'amica** (weiblich) → con **la quale**\n- il quale · für einen Freund: l'amico con il quale\n- quale · ohne Artikel ist es die Frage: welche?",
+            "sl": "**l'amica** (ženski spol) → con **la quale**\n- il quale · za prijatelja: l'amico con il quale\n- quale · brez člena je vprašanje: katera?",
+            "en": "**l'amica** (feminine) → con **la quale**\n- il quale · for a male friend: l'amico con il quale\n- quale · without the article it's the question: which?"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Il cui, la cui, i cui, le cui** heißt *dessen, deren*: **Franco, la cui farina è ottima, lavora al mulino.** (Franco, dessen Mehl ausgezeichnet ist, arbeitet in der Mühle.) Der Artikel richtet sich nach dem, was folgt, nicht nach dem Besitzer: **la** wegen **farina**, nicht wegen Franco. **Marisa, il cui figlio gioca a calcio, apre alle otto.** (Marisa, deren Sohn Fußball spielt, macht um acht auf.)",
+          "sl": "**Il cui, la cui, i cui, le cui** pomeni *čigar, katerega*: **Franco, la cui farina è ottima, lavora al mulino.** (Franco, katerega moka je odlična, dela v mlinu.) Člen se ravna po tem, kar sledi, ne po lastniku: **la** zaradi **farina**, ne zaradi Franca. **Marisa, il cui figlio gioca a calcio, apre alle otto.** (Marisa, katere sin igra nogomet, odpre ob osmih.)",
+          "en": "**Il cui, la cui, i cui, le cui** means *whose*: **Franco, la cui farina è ottima, lavora al mulino.** (Franco, whose flour is excellent, works at the mill.) The article goes with what follows, not with the owner: **la** for **farina**, not for Franco. **Marisa, il cui figlio gioca a calcio, apre alle otto.** (Marisa, whose son plays football, opens at eight.)"
+        },
+        "examples": [
+          {
+            "it": "Franco, la cui farina è ottima, lavora al mulino.",
+            "de": "Franco, dessen Mehl ausgezeichnet ist, arbeitet in der Mühle.",
+            "sl": "Franco, katerega moka je odlična, dela v mlinu.",
+            "en": "Franco, whose flour is excellent, works at the mill."
+          },
+          {
+            "it": "Marisa, il cui figlio gioca a calcio, apre alle otto.",
+            "de": "Marisa, deren Sohn Fußball spielt, macht um acht auf.",
+            "sl": "Marisa, katere sin igra nogomet, odpre ob osmih.",
+            "en": "Marisa, whose son plays football, opens at eight."
+          }
+        ],
+        "rows": [
+          ["il cui, la cui", {"de": "dessen, deren", "sl": "čigar, katerega", "en": "whose"}],
+          ["i cui, le cui", {"de": "dessen, deren (+ Mehrzahl)", "sl": "čigar (+ množina)", "en": "whose (+ a plural)"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "prompt": "«Aldo, ___ api sono calme, parla piano.»",
+          "options": ["i cui", "le cui", "il cui"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**le api** (weiblich, mehrere) → **le cui** api\n- il cui · für eine männliche Sache: il cui miele\n- i cui · für mehrere männliche: i cui figli",
+            "sl": "**le api** (ženski spol, več) → **le cui** api\n- il cui · za moški spol: il cui miele\n- i cui · za več v moškem spolu: i cui figli",
+            "en": "**le api** (feminine, more than one) → **le cui** api\n- il cui · for a masculine word: il cui miele\n- i cui · for masculine plurals: i cui figli"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Chi** heißt auch *wer, derjenige, der*, ohne ein Wort davor: **Chi ha finito può uscire.** (Wer fertig ist, darf hinaus.) Das Verb steht immer in der Einzahl, auch wenn viele gemeint sind. Nonno Bepi sagt es in Sprichwörtern: **Chi va piano va sano e va lontano.** (Wer langsam geht, kommt sicher und weit.) **Che** braucht dagegen ein Wort davor: **il signore che viene**.",
+          "sl": "**Chi** pomeni tudi *kdor, tisti, ki*, brez besede pred njim: **Chi ha finito può uscire.** (Kdor je končal, lahko gre ven.) Glagol je vedno v ednini, tudi če jih je mišljenih več. Nonno Bepi to pove v pregovorih: **Chi va piano va sano e va lontano.** (Kdor gre počasi, gre varno in daleč.) **Che** pa potrebuje besedo pred sabo: **il signore che viene**.",
+          "en": "**Chi** also means *whoever, the one who*, with no word before it: **Chi ha finito può uscire.** (Whoever has finished can go out.) The verb is always singular, even when many are meant. Nonno Bepi says it in proverbs: **Chi va piano va sano e va lontano.** (Who goes slowly goes safely and far.) **Che**, though, needs a word before it: **il signore che viene**."
+        },
+        "examples": [
+          {"it": "Chi ha finito può uscire.", "de": "Wer fertig ist, darf hinaus.", "sl": "Kdor je končal, lahko gre ven.", "en": "Whoever has finished can go out."},
+          {
+            "it": "Chi va piano va sano e va lontano.",
+            "de": "Wer langsam geht, kommt sicher und weit.",
+            "sl": "Kdor gre počasi, gre varno in daleč.",
+            "en": "Who goes slowly goes safely and far."
+          }
+        ],
+        "rows": [
+          ["chi", {"de": "wer, derjenige, der", "sl": "kdor", "en": "whoever, the one who"}],
+          ["il signore che viene", {"de": "der Herr, der kommt", "sl": "gospod, ki pride", "en": "the man who is coming"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "prompt": "«___ ha sete può bere alla fontana.»",
+          "options": ["Cui", "Chi", "Che"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**kein Wort davor** → **Chi** ha sete\n- Che · braucht ein Wort davor: la gente che ha sete\n- Cui · nur nach einer Präposition oder einem Artikel",
+            "sl": "**brez besede pred njim** → **Chi** ha sete\n- Che · potrebuje besedo pred sabo: la gente che ha sete\n- Cui · samo za predlogom ali členom",
+            "en": "**no word before it** → **Chi** ha sete\n- Che · needs a word before it: la gente che ha sete\n- Cui · only after a preposition or an article"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Chiunque** (wer auch immer) ändert sich nie und nimmt den Konjunktiv: **Chiunque venga, è il benvenuto.** (Wer auch immer kommt, ist willkommen.) Alles in der Einzahl, wie bei **chi**. Beim Reden hörst du auch **chiunque viene**, das ist richtig. Allein heißt **chiunque** *jeder*, mit dem normalen Verb: **Chiunque può farlo.** (Das kann jeder.)",
+          "sl": "**Chiunque** (kdorkoli) se ne spreminja in ima konjunktiv: **Chiunque venga, è il benvenuto.** (Kdorkoli pride, je dobrodošel.) Vse v ednini, kot pri **chi**. V govoru slišiš tudi **chiunque viene**, kar je prav. Sam **chiunque** pomeni *vsakdo*, z navadnim glagolom: **Chiunque può farlo.** (To lahko naredi vsakdo.)",
+          "en": "**Chiunque** (whoever) never changes and takes the subjunctive: **Chiunque venga, è il benvenuto.** (Whoever comes is welcome.) All in the singular, as with **chi**. In speech you also hear **chiunque viene**, and that's right. Alone, **chiunque** is *anyone*, with the ordinary verb: **Chiunque può farlo.** (Anyone can do it.)"
+        },
+        "examples": [
+          {
+            "it": "Chiunque venga, è il benvenuto.",
+            "de": "Wer auch immer kommt, ist willkommen.",
+            "sl": "Kdorkoli pride, je dobrodošel.",
+            "en": "Whoever comes is welcome."
+          },
+          {"it": "Chiunque può farlo.", "de": "Das kann jeder.", "sl": "To lahko naredi vsakdo.", "en": "Anyone can do it."}
+        ],
+        "rows": [
+          [
+            "chiunque venga, chiunque viene",
+            {"de": "wer auch immer kommt (das zweite beim Reden)", "sl": "kdorkoli pride (drugo v govoru)", "en": "whoever comes (the second in speech)"}
+          ],
+          ["chiunque può", {"de": "jeder kann", "sl": "vsakdo lahko", "en": "anyone can"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "prompt": "«Chiunque ___, Marisa risponde sempre.»",
+          "options": ["chiamare", "chiami", "chiamato"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**chiunque** + Konjunktiv → **chiami** (beim Reden auch chiama)\n- chiamato · das Partizip\n- chiamare · der Infinitiv",
+            "sl": "**chiunque** + konjunktiv → **chiami** (v govoru tudi chiama)\n- chiamato · deležnik\n- chiamare · nedoločnik",
+            "en": "**chiunque** + the subjunctive → **chiami** (in speech also chiama)\n- chiamato · the participle\n- chiamare · the infinitive"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Qualunque** und **qualsiasi** (welcher auch immer, jeder beliebige) ändern sich nie und stehen meist vor einem Nomen in der Einzahl: **Qualunque cosa tu faccia, ti aiuto.** (Was du auch tust, ich helfe dir.) Folgt ein Satz, nimmt er den Konjunktiv. Ohne Satz geht es einfach weiter: **Puoi venire in qualsiasi momento.** (Du kannst jederzeit kommen.)",
+          "sl": "**Qualunque** in **qualsiasi** (kakršenkoli, katerikoli) se ne spreminjata in stojita običajno pred samostalnikom v ednini: **Qualunque cosa tu faccia, ti aiuto.** (Karkoli narediš, ti pomagam.) Če sledi stavek, ima konjunktiv. Brez stavka gre preprosto naprej: **Puoi venire in qualsiasi momento.** (Lahko prideš kadarkoli.)",
+          "en": "**Qualunque** and **qualsiasi** (whatever, any) never change and usually stand before a singular noun: **Qualunque cosa tu faccia, ti aiuto.** (Whatever you do, I'll help you.) If a clause follows, it takes the subjunctive. With no clause it simply goes on: **Puoi venire in qualsiasi momento.** (You can come at any time.)"
+        },
+        "examples": [
+          {
+            "it": "Qualunque cosa tu faccia, ti aiuto.",
+            "de": "Was du auch tust, ich helfe dir.",
+            "sl": "Karkoli narediš, ti pomagam.",
+            "en": "Whatever you do, I'll help you."
+          },
+          {"it": "Puoi venire in qualsiasi momento.", "de": "Du kannst jederzeit kommen.", "sl": "Lahko prideš kadarkoli.", "en": "You can come at any time."}
+        ],
+        "rows": [
+          ["qualunque cosa tu faccia", {"de": "was du auch tust", "sl": "karkoli narediš", "en": "whatever you do"}],
+          ["in qualsiasi momento", {"de": "jederzeit", "sl": "kadarkoli", "en": "at any time"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "prompt": "«Bruno ripara ___ cosa, anche una vecchia radio.»",
+          "options": ["chi", "qualunque", "chiunque"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**vor einem Nomen** → **qualunque** cosa (auch: qualsiasi)\n- chiunque · steht allein, für Menschen\n- chi · steht allein, für Menschen",
+            "sl": "**pred samostalnikom** → **qualunque** cosa (tudi: qualsiasi)\n- chiunque · stoji sam, za ljudi\n- chi · stoji sam, za ljudi",
+            "en": "**before a noun** → **qualunque** cosa (also: qualsiasi)\n- chiunque · stands alone, for people\n- chi · stands alone, for people"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "il-quale-1",
+      "title": {
+        "it": "Dal quale, nella quale, con i quali",
+        "de": "Dal quale, nella quale, con i quali",
+        "sl": "Dal quale, nella quale, con i quali",
+        "en": "Dal quale, nella quale, con i quali"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "relativi-il-quale",
+          "instruction": {"de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table"},
+          "prompt": "… quale · … quali",
+          "columns": ["il …", "la …", "i …", "le …"],
+          "rows": [
+            {"label": "da", "cells": ["dal", {"accept": ["dalla"], "hint": "da + la"}, {"accept": ["dai"]}, {"accept": ["dalle"]}]},
+            {"label": "in", "cells": [{"accept": ["nel"]}, "nella", {"accept": ["nei"]}, {"accept": ["nelle"]}]},
+            {"label": "con", "cells": [{"accept": ["con il", "col"]}, {"accept": ["con la"]}, "con i", {"accept": ["con le"]}]}
+          ],
+          "explain": {
+            "de": "**Präposition + Artikel + quale**\n- da + la quale → dalla quale\n- in + le quali → nelle quali\n- con bleibt getrennt: con la quale",
+            "sl": "**predlog + člen + quale**\n- da + la quale → dalla quale\n- in + le quali → nelle quali\n- con ostane ločen: con la quale",
+            "en": "**preposition + article + quale**\n- da + la quale → dalla quale\n- in + le quali → nelle quali\n- con stays apart: con la quale"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Il cane di Nonno Bepi, ___ dorme sotto il tiglio, si chiama Moro.»",
+          "options": ["i quali", "il quale", "la quale"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**il cane** (männlich, einer) → **il quale**\n- la quale · für eine weibliche Sache\n- i quali · für mehrere",
+            "sl": "**il cane** (moški spol, eden) → **il quale**\n- la quale · za ženski spol\n- i quali · za več",
+            "en": "**il cane** (masculine, one) → **il quale**\n- la quale · for a feminine word\n- i quali · for more than one"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Nonna Rosa, ___ frico è famoso, cucina tutto il giorno.»",
+          "options": ["il cui", "la cui", "i cui"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**il frico** (männlich) → **il cui** frico, auch wenn Nonna Rosa weiblich ist\n- la cui · für eine weibliche Sache: la cui gubana\n- i cui · für mehrere",
+            "sl": "**il frico** (moški spol) → **il cui** frico, čeprav je Nonna Rosa ženska\n- la cui · za ženski spol: la cui gubana\n- i cui · za več",
+            "en": "**il frico** (masculine) → **il cui** frico, though Nonna Rosa is a woman\n- la cui · for a feminine word: la cui gubana\n- i cui · for more than one"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Dov'è la borsa nella ___ ho messo le chiavi?»",
+          "options": ["cui", "che", "quale"],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "de": "**nella** hat schon den Artikel → nella **quale**\n- cui · ohne Artikel: in cui\n- che · nie nach einer Präposition",
+            "sl": "**nella** že ima člen → nella **quale**\n- cui · brez člena: in cui\n- che · nikoli za predlogom",
+            "en": "**nella** already has the article → nella **quale**\n- cui · without the article: in cui\n- che · never after a preposition"
+          }
+        }
+      ]
+    },
+    {
+      "id": "il-quale-2",
+      "title": {"it": "La festa del paese", "de": "Das Dorffest", "sl": "Vaški praznik", "en": "The village festa"},
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "relativi-il-quale",
+          "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
+          "title": "La festa del paese",
+          "text": "Sabato c'è la festa. Marisa, ___ osteria è in piazza, prepara il frico. Franco, ___ mulino è qui vicino, porta la farina. Nonna Rosa, ___ cucina da ieri, fa la gubana. Il tavolo sul ___ mettiamo i piatti è di Bruno. ___ arriva presto aiuta a portare le sedie. ___ venga, è il benvenuto. Chiunque ___ (arrivare) tardi trova un piatto caldo. ___ cosa porti, la mangiamo insieme. Puoi venire a ___ ora!",
+          "gaps": [
+            {"accept": ["la cui"], "hint": "l'osteria → ?"},
+            {"accept": ["il cui"], "hint": "il mulino → ?"},
+            {"accept": ["la quale", "che"], "hint": {"de": "die (sie kocht)", "sl": "ki (kuha ona)", "en": "who (she cooks)"}},
+            {"accept": ["quale"], "hint": "sul …"},
+            {"accept": ["Chi"], "spoken": ["Chiunque"], "hint": {"de": "wer, ohne Wort davor", "sl": "kdor, brez besede pred njim", "en": "whoever, no word before it"}},
+            {"accept": ["Chiunque"], "hint": {"de": "wer auch immer + Konjunktiv", "sl": "kdorkoli + konjunktiv", "en": "whoever + the subjunctive"}},
+            {"accept": ["arrivi"], "spoken": ["arriva"], "hint": {"de": "Konjunktiv", "sl": "konjunktiv", "en": "the subjunctive"}},
+            {"accept": ["Qualunque", "Qualsiasi"], "hint": "… cosa"},
+            {"accept": ["qualsiasi", "qualunque", "ogni"], "hint": "… ora"}
+          ],
+          "bank": true,
+          "distractors": ["i cui", "i quali"],
+          "translation": {
+            "de": "Am Samstag ist das Fest. Marisa, deren Osteria auf dem Platz liegt, macht den Frico. Franco, dessen Mühle ganz in der Nähe ist, bringt das Mehl. Nonna Rosa, die seit gestern kocht, macht die Gubana. Der Tisch, auf den wir die Teller stellen, gehört Bruno. Wer früh kommt, hilft die Stühle tragen. Wer auch immer kommt, ist willkommen. Wer auch immer spät kommt, findet ein warmes Essen. Was du auch mitbringst, wir essen es zusammen. Du kannst zu jeder Stunde kommen!",
+            "sl": "V soboto je praznik. Marisa, katere gostilna je na trgu, pripravlja frico. Franco, katerega mlin je čisto blizu, prinese moko. Nonna Rosa, ki kuha že od včeraj, peče gubano. Miza, na katero postavimo krožnike, je Brunova. Kdor pride zgodaj, pomaga nositi stole. Kdorkoli pride, je dobrodošel. Kdorkoli pride pozno, najde topel obrok. Karkoli prineseš, pojemo skupaj. Lahko prideš ob kateri koli uri!",
+            "en": "On Saturday it's the festa. Marisa, whose osteria is on the square, is making the frico. Franco, whose mill is close by, is bringing the flour. Nonna Rosa, who has been cooking since yesterday, is making the gubana. The table we put the plates on is Bruno's. Whoever comes early helps carry the chairs. Whoever comes is welcome. Whoever comes late finds a hot meal. Whatever you bring, we'll eat it together. You can come at any hour!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Il signore ___ parla con Marisa è il sindaco.»",
+          "options": ["chi", "a cui", "che"],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "de": "**ein Wort davor, ohne Präposition** → il signore **che** parla\n- chi · nur ohne Wort davor\n- a cui · nur, wenn das Verb a braucht",
+            "sl": "**beseda pred njim, brez predloga** → il signore **che** parla\n- chi · samo brez besede pred njim\n- a cui · samo, če glagol zahteva a",
+            "en": "**a word before it, no preposition** → il signore **che** parla\n- chi · only with no word before it\n- a cui · only when the verb asks for a"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-il-quale",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Qualunque cosa ___, non dirlo a Zia Nives!»",
+          "options": ["succedere", "succeda", "succedendo"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**qualunque cosa** + Konjunktiv → **succeda** (beim Reden auch succede)\n- succedendo · das Gerundium\n- succedere · der Infinitiv",
+            "sl": "**qualunque cosa** + konjunktiv → **succeda** (v govoru tudi succede)\n- succedendo · gerundij\n- succedere · nedoločnik",
+            "en": "**qualunque cosa** + the subjunctive → **succeda** (in speech also succede)\n- succedendo · the gerund\n- succedere · the infinitive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "il-quale-3",
+      "title": {"it": "Due frasi, una frase", "de": "Zwei Sätze, ein Satz", "sl": "Dva stavka, en stavek", "en": "Two sentences, one sentence"},
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "relativi-il-quale",
+          "instruction": {
+            "de": "Unisci con preposizione + il quale · Verbinde: Präposition + il quale",
+            "sl": "Unisci con preposizione + il quale · Poveži: predlog + il quale",
+            "en": "Unisci con preposizione + il quale · Join: preposition + il quale"
+          },
+          "items": [
+            {
+              "from": "Il mulino è vecchio. Franco lavora nel mulino.",
+              "accept": ["Il mulino nel quale Franco lavora è vecchio.", "Il mulino nel quale lavora Franco è vecchio."]
+            },
+            {
+              "from": "L'amica è di Trieste. Marisa parla con l'amica.",
+              "accept": ["L'amica con la quale Marisa parla è di Trieste.", "L'amica con la quale parla Marisa è di Trieste."]
+            },
+            {
+              "from": "I pastori sono simpatici. Davide lavora con i pastori.",
+              "accept": [
+                "I pastori con i quali Davide lavora sono simpatici.",
+                "I pastori con i quali lavora Davide sono simpatici.",
+                "I pastori coi quali Davide lavora sono simpatici.",
+                "I pastori coi quali lavora Davide sono simpatici."
+              ]
+            },
+            {
+              "from": "La lettera è lunga. Il sindaco risponde alla lettera.",
+              "accept": ["La lettera alla quale il sindaco risponde è lunga.", "La lettera alla quale risponde il sindaco è lunga."],
+              "hint": "a + la → alla"
+            }
+          ],
+          "explain": {
+            "de": "**Präposition + il quale, la quale** nach dem Nomen\n- nel mulino → il mulino nel quale\n- con l'amica → l'amica con la quale",
+            "sl": "**predlog + il quale, la quale** za samostalnikom\n- nel mulino → il mulino nel quale\n- con l'amica → l'amica con la quale",
+            "en": "**preposition + il quale, la quale** after the noun\n- nel mulino → il mulino nel quale\n- con l'amica → l'amica con la quale"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "relativi-il-quale",
+          "instruction": {
+            "de": "Riscrivi con il cui o chi · Schreib um mit il cui oder chi",
+            "sl": "Riscrivi con il cui o chi · Prepiši z il cui ali chi",
+            "en": "Riscrivi con il cui o chi · Rewrite with il cui or chi"
+          },
+          "items": [
+            {"from": "Davide è simpatico. Le sue pecore sono bianche.", "accept": ["Davide, le cui pecore sono bianche, è simpatico."]},
+            {"from": "Bruno lavora molto. Il suo martello è vecchio.", "accept": ["Bruno, il cui martello è vecchio, lavora molto."]},
+            {"from": "La persona che ha sete può bere alla fontana.", "accept": ["Chi ha sete può bere alla fontana."]},
+            {
+              "from": "Le persone che arrivano tardi aspettano fuori.",
+              "accept": ["Chi arriva tardi aspetta fuori."],
+              "hint": {"de": "chi + Einzahl", "sl": "chi + ednina", "en": "chi + a singular"}
+            }
+          ],
+          "explain": {
+            "de": "**suo, sua → il cui, la cui**, der Artikel nach dem, was folgt; **la persona che → chi**, das Verb in der Einzahl\n- Le persone che arrivano → Chi arriva",
+            "sl": "**suo, sua → il cui, la cui**, člen po tem, kar sledi; **la persona che → chi**, glagol v ednini\n- Le persone che arrivano → Chi arriva",
+            "en": "**suo, sua → il cui, la cui**, the article by what follows; **la persona che → chi**, the verb in the singular\n- Le persone che arrivano → Chi arriva"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "relativi-il-quale",
+        "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
+        "text": "Cari amici, domenica Matteo, ___ vino è il migliore del Collio, apre la cantina. La cantina nella ___ lo fa è piccola, ma ___ ha sete trova sempre un bicchiere. Zia Nives, ___ sa tutto di tutti, porta la radio. ___ vi dica di no, venite: ___ cosa vogliate, c'è. E qualunque cosa ___ (succedere), Matteo ride sempre.",
+        "gaps": [
+          {"accept": ["il cui"]},
+          {"accept": ["quale"]},
+          {"accept": ["chi"], "spoken": ["chiunque"]},
+          {"accept": ["la quale", "che"]},
+          {"accept": ["Chiunque"]},
+          {"accept": ["qualunque", "qualsiasi"]},
+          {"accept": ["succeda"], "spoken": ["succede"]}
+        ],
+        "translation": {
+          "de": "Liebe Freunde, am Sonntag öffnet Matteo, dessen Wein der beste des Collio ist, den Keller. Der Keller, in dem er ihn macht, ist klein, aber wer Durst hat, findet immer ein Glas. Zia Nives, die alles über alle weiß, bringt das Radio mit. Wer euch auch Nein sagt: Kommt! Was immer ihr wollt, es ist da. Und was auch passiert, Matteo lacht immer.",
+          "sl": "Dragi prijatelji, v nedeljo Matteo, katerega vino je najboljše v Colliu, odpre klet. Klet, v kateri ga dela, je majhna, a kdor je žejen, vedno najde kozarec. Zia Nives, ki ve vse o vseh, prinese radio. Kdorkoli vam reče ne, pridite: karkoli želite, je tu. In karkoli se zgodi, se Matteo vedno smeje.",
+          "en": "Dear friends, on Sunday Matteo, whose wine is the best in the Collio, is opening his cellar. The cellar he makes it in is small, but whoever is thirsty always finds a glass. Zia Nives, who knows everything about everyone, is bringing the radio. Whoever tells you no, come: whatever you want, it's here. And whatever happens, Matteo always laughs."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "relativi-il-quale",
+        "instruction": {
+          "de": "Unisci con preposizione + il quale, o con il cui · Verbinde: Präposition + il quale, oder il cui",
+          "sl": "Unisci con preposizione + il quale, o con il cui · Poveži: predlog + il quale ali il cui",
+          "en": "Unisci con preposizione + il quale, o con il cui · Join: preposition + il quale, or il cui"
+        },
+        "items": [
+          {
+            "from": "La casa è vecchia. Nonna Rosa abita nella casa.",
+            "accept": ["La casa nella quale Nonna Rosa abita è vecchia.", "La casa nella quale abita Nonna Rosa è vecchia."]
+          },
+          {
+            "from": "Il ragazzo è Tommaso. Lorenzo gioca con il ragazzo.",
+            "accept": [
+              "Il ragazzo con il quale Lorenzo gioca è Tommaso.",
+              "Il ragazzo con il quale gioca Lorenzo è Tommaso.",
+              "Il ragazzo col quale Lorenzo gioca è Tommaso.",
+              "Il ragazzo col quale gioca Lorenzo è Tommaso."
+            ]
+          },
+          {"from": "Elena è gentile. Il suo libro è nuovo.", "accept": ["Elena, il cui libro è nuovo, è gentile."]}
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "relativi-il-quale",
+        "prompt": "«Chiunque ___ a pranzo, Marisa trova un posto.»",
+        "options": ["arrivare", "arrivi", "arrivato"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**chiunque** + Konjunktiv → **arrivi** (beim Reden auch arriva)\n- arrivato · das Partizip\n- arrivare · der Infinitiv",
+          "sl": "**chiunque** + konjunktiv → **arrivi** (v govoru tudi arriva)\n- arrivato · deležnik\n- arrivare · nedoločnik",
+          "en": "**chiunque** + the subjunctive → **arrivi** (in speech also arriva)\n- arrivato · the participle\n- arrivare · the infinitive"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativi-il-quale",
+        "prompt": "«Le api, ___ miele è dolce, lavorano tutto il giorno.»",
+        "options": ["la cui", "il cui", "le cui"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**il miele** (männlich) → **il cui** miele, auch wenn le api weiblich sind\n- le cui · für le api: der Artikel geht nicht nach dem Besitzer\n- la cui · für eine weibliche Sache",
+          "sl": "**il miele** (moški spol) → **il cui** miele, čeprav so le api ženskega spola\n- le cui · za le api: člen se ne ravna po lastniku\n- la cui · za ženski spol",
+          "en": "**il miele** (masculine) → **il cui** miele, though le api is feminine\n- le cui · for le api: the article doesn't go by the owner\n- la cui · for a feminine word"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativi-il-quale",
+        "prompt": "«___ dorme non piglia pesci.»",
+        "options": ["Il quale", "Chi", "Che"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**kein Wort davor** → **Chi** dorme\n- Che, Il quale · brauchen ein Wort davor",
+          "sl": "**brez besede pred njim** → **Chi** dorme\n- Che, Il quale · potrebujeta besedo pred sabo",
+          "en": "**no word before it** → **Chi** dorme\n- Che, Il quale · need a word before them"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativi-il-quale",
+        "prompt": "«Puoi chiamarmi a ___ ora.»",
+        "options": ["chiunque", "chi", "qualsiasi"],
+        "answer": 2,
+        "say_options": true,
+        "explain": {
+          "de": "**vor einem Nomen** → **qualsiasi** ora (auch: qualunque)\n- chiunque, chi · stehen allein, für Menschen",
+          "sl": "**pred samostalnikom** → **qualsiasi** ora (tudi: qualunque)\n- chiunque, chi · stojita sama, za ljudi",
+          "en": "**before a noun** → **qualsiasi** ora (also: qualunque)\n- chiunque, chi · stand alone, for people"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: la quale in speech, chiunque viene as spoken, chi dorme non piglia pesci, col quale, the German for a child"
+}

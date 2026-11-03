@@ -898,6 +898,23 @@ export function markEndings(t: PTable) {
       }
     }
     if (!best.stem) return out
+    // the stem is the whole word of the cells that share it (großen, of ein großer, einen großen, einem großen …), so it
+    // leaves nothing to mark: the cell that differs names the stem that does (große-r, große-n)
+    const inColumn = cells.map(x => {
+      const ws = wordsOf(x.w)
+      return norm(ws[best.at === 0 ? 0 : ws.length - 1] ?? '')
+    })
+    if (inColumn.every(v => !v.startsWith(best.stem) || v === best.stem)) {
+      for (let k = best.stem.length - 1; k >= 3; k--) {
+        const p = best.stem.slice(0, k)
+        const sharing = inColumn.filter(v => v.startsWith(p))
+        if (sharing.length > best.share) {
+          // an ending, not another word of the stem (piace, of mi piace and mi piacciono: no stem marks both)
+          if (sharing.every(v => v.length - p.length <= 3)) best = { ...best, stem: p, share: sharing.length }
+          break
+        }
+      }
+    }
     for (const { i, w } of cells) {
       const ws = wordsOf(w)
       const word = ws[best.at === 0 ? 0 : ws.length - 1]
@@ -958,6 +975,25 @@ function gapItems(e: Json, o: Options): { q: string; a: string; hint?: string }[
   return out
 }
 
+/**
+ * A choice's options as a sheet prints them: not the file's order, where the writers nearly always put the right one first
+ * (the app shows them in the day's order: data/ChoiceOrder.kt, docs/plans/05-built/choices-order.md). [seed] says the unit
+ * and the question, no date and no learner: every print of a sheet has one order, and the bridge's cached page stays right.
+ */
+export function printedOrder<T>(options: T[], seed: string): T[] {
+  let h = 0x811c9dc5 // FNV-1a of the seed, then mulberry32 for a Fisher–Yates shuffle
+  for (let i = 0; i < seed.length; i++) h = Math.imul(h ^ seed.charCodeAt(i), 16777619)
+  const out = [...options]
+  for (let i = out.length - 1; i > 0; i--) {
+    h = (h + 0x6d2b79f5) | 0
+    let t = Math.imul(h ^ (h >>> 15), 1 | h)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    const j = Math.floor((((t ^ (t >>> 14)) >>> 0) / 4294967296) * (i + 1))
+    ;[out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
+
 function chooseCheck(unit: Json, base: string, o: Options, based = false): PCheck[] {
   type Cand = PCheck & { len: number }
   const lists: Cand[][] = []
@@ -977,9 +1013,10 @@ function chooseCheck(unit: Json, base: string, o: Options, based = false): PChec
           list.push({ task, q, a: fillLearner(it.accept[0], o), line: true, from: where, len: q.length + it.accept[0].length })
         }
       } else if (e.type === 'choice' && /_{3,}/.test(e.prompt ?? '')) {
-        const opts: string[] = e.options ?? []
+        const opts: string[] = ((e.options ?? []) as string[]).map(x => fillLearner(x, o))
         const q = fillLearner(e.prompt, o).replace(/_{3,}/, '___')
-        list.push({ task, q, hint: opts.join(' / '), a: opts[e.answer] ?? '', line: false, from: where, len: q.length })
+        // the options in the sheet's own order; the answers at the foot name the right one by its text
+        list.push({ task, q, hint: printedOrder(opts, `${unit.id}\n${e.prompt}`).join(' / '), a: opts[e.answer] ?? '', line: false, from: where, len: q.length })
       } else if (e.type === 'cloze' && e.text) {
         const q = fillLearner(e.text, o).replace(/_{3,}/, '___')
         list.push({ task, q, hint: hintOf(e.hint), a: fillLearner(e.accept?.[0] ?? '', o), line: false, from: where, len: q.length })

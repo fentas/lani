@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -26,8 +27,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.Localized
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.road.Kind
+import si.lanisce.lani.road.RoadLibrary
+import si.lanisce.lani.road.RoadMix
 import si.lanisce.lani.road.RoadProgress
 import si.lanisce.lani.road.RoadRemote
 import si.lanisce.lani.road.RoadService
@@ -97,7 +102,7 @@ fun RoadSheet(vm: AppViewModel, onDismiss: () -> Unit) {
                 enabled = !prep.running,
                 color = if (lib == null) TriglavRed else MaterialTheme.colorScheme.secondary,
             )
-            if (lib != null) Player(remote, due = lib.due(LocalDate.now().toString()).size)
+            if (lib != null) Player(remote, lib, due = lib.due(LocalDate.now().toString()).size)
             Text(bi("road.safety"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
@@ -105,17 +110,19 @@ fun RoadSheet(vm: AppViewModel, onDismiss: () -> Unit) {
 
 /**
  * The car's menu as Android Auto has it ([RoadMenu]): four big buttons (▶ Nadaljuj, ❓ Kviz, 🌙 Mirno, 📖 Zgodba), "Več ·
- * More" with each kind's session; then what plays and big buttons for it.
+ * More" with each kind's session; then what plays and big buttons for it. A session with nothing to play stays away
+ * ([RoadMix.available]: a language's drills not written or not voiced yet), and the list says which and why.
  */
 @Composable
-private fun Player(remote: RoadRemote, due: Int) {
+private fun Player(remote: RoadRemote, lib: RoadLibrary, due: Int) {
+    val on = remember(lib) { RoadMix.available(lib, LocalDate.now().toString()) }
     Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         val main = listOf(
             RoadService.MIX to "▶ ${bi("road.continue")}",
             RoadService.QUIZ to "❓ ${bi("road.quiz")}",
             RoadService.EASY to "🌙 ${bi("road.easy")}",
             RoadService.STORY to "📖 ${bi("road.story")}",
-        )
+        ).filter { (id, _) -> id in on }
         for (row in main.chunked(2)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             for ((id, label) in row) {
                 OutlinedButton(onClick = { remote.play(id) }, enabled = remote.connected, modifier = Modifier.weight(1f).heightIn(min = 72.dp)) {
@@ -139,11 +146,18 @@ private fun Player(remote: RoadRemote, due: Int) {
                 RoadService.BUILDS to "🧱 ${bi("road.build")}",
                 RoadService.RIDDLES to "🕵️ ${bi("road.riddles")}",
             )
-            for ((id, label) in sessions) {
+            for ((id, label) in sessions.filter { (id, _) -> id in on }) {
                 OutlinedButton(onClick = { remote.play(id) }, enabled = remote.connected, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
                     Text(label, style = MaterialTheme.typography.labelLarge)
                 }
             }
+            // what isn't there and why ("🔁 Reviews" with none due today isn't missing anything)
+            val missing = MISSING.filter { (id, _) -> id !in on }
+            if (missing.isNotEmpty()) Text(
+                "🔇 ${bi("road.notRecordedYet", "kinds" to Localized { l -> missing.joinToString(", ") { (_, key) -> L10n.text(l, key) } })}",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
         Text(
             remote.title?.let { t -> listOfNotNull(t, remote.subtitle).joinToString(" · ") } ?: bi("road.nothingPlaying"),
@@ -164,6 +178,12 @@ private fun Player(remote: RoadRemote, due: Int) {
         }
     }
 }
+
+/** The sessions the sheet names when they have nothing to play, with their names in the string tables. */
+private val MISSING = listOf(
+    RoadService.WORDS to "road.words", RoadService.DIALOGS to "road.dialogs", RoadService.STORIES to "road.stories", RoadService.SHADOW to "road.shadow",
+    RoadService.TRANSFORMS to "road.transform", RoadService.RAPID to "road.rapid", RoadService.BUILDS to "road.build", RoadService.RIDDLES to "road.riddles",
+)
 
 @Composable
 private fun Big(label: String, modifier: Modifier, enabled: Boolean, onClick: () -> Unit) {

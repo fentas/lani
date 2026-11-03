@@ -1,0 +1,1114 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "um-zu",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🍳",
+  "title": {
+    "de": "Ich habe Lust zu kochen",
+    "en": "The infinitive with zu: um zu, ohne zu",
+    "sl": "Nedoločnik z zu: um zu, ohne zu",
+    "it": "L'infinito con zu: um zu, ohne zu"
+  },
+  "goal": {
+    "en": "You can put zu and the verb last after a verb, a noun or an adjective (Ich habe Lust zu kochen), inside a separable verb (aufzustehen), say what for with um … zu or damit, and use ohne … zu and statt … zu.",
+    "sl": "Zu in glagol postaviš na konec za glagolom, samostalnikom ali pridevnikom (Ich habe Lust zu kochen), v sredino ločljivega glagola (aufzustehen), čemu poveš z um … zu ali damit, rabiš pa tudi ohne … zu in statt … zu.",
+    "it": "Sai mettere zu e il verbo alla fine dopo un verbo, un nome o un aggettivo (Ich habe Lust zu kochen), dentro un verbo separabile (aufzustehen), dire a che scopo con um … zu o damit, e usare ohne … zu e statt … zu."
+  },
+  "grammar": [
+    "infinitiv-zu",
+    "wortstellung",
+    "trennbare-verben"
+  ],
+  "words": [
+    "anfangen",
+    "aufhören",
+    "beginnen",
+    "hoffen",
+    "vergessen",
+    "versuchen",
+    "die Lust",
+    "die Zeit",
+    "die Angst",
+    "schön",
+    "wichtig",
+    "schwer",
+    "gesund",
+    "satt",
+    "aufstehen",
+    "mitkommen",
+    "anrufen",
+    "einkaufen",
+    "zumachen",
+    "besuchen",
+    "verstehen",
+    "reparieren",
+    "backen",
+    "kochen",
+    "holen",
+    "pressen",
+    "pflücken",
+    "frühstücken",
+    "losfahren",
+    "damit",
+    "ohne",
+    "statt",
+    "anstatt",
+    "wozu",
+    "der Garten",
+    "das Eisen",
+    "das Essen",
+    "die Äpfel"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Was es verlangt",
+          "sl": "kaj ga zahteva",
+          "en": "what asks for it",
+          "it": "che cosa lo chiede"
+        },
+        {
+          "de": "Anfang",
+          "sl": "začetek",
+          "en": "start",
+          "it": "inizio"
+        },
+        {
+          "de": "zu + Infinitiv",
+          "sl": "zu + nedoločnik",
+          "en": "zu + infinitive",
+          "it": "zu + infinito"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Kathi versucht, den Kuchen zu backen** (Kathi is trying to bake the cake). After verbs like **versuchen** (to try), **anfangen** (to start), **aufhören** (to stop), **vergessen** (to forget), **hoffen** (to hope) the second verb comes last, with **zu**. A modal takes no zu: **Kathi will backen** (never *Kathi will zu backen*).",
+          "sl": "**Kathi versucht, den Kuchen zu backen** (Kathi poskuša speči kolač). Za glagoli, kot so **versuchen** (poskušati), **anfangen** (začeti), **aufhören** (nehati), **vergessen** (pozabiti), **hoffen** (upati), pride drugi glagol na konec, z **zu**. Naklonski glagol ne vzame zu: **Kathi will backen** (Kathi hoče peči).",
+          "it": "**Kathi versucht, den Kuchen zu backen** (Kathi cerca di fare la torta). Dopo verbi come **versuchen** (cercare di), **anfangen** (cominciare a), **aufhören** (smettere di), **vergessen** (dimenticare di), **hoffen** (sperare di) il secondo verbo va alla fine, con **zu**. Un modale non vuole zu: **Kathi will backen** (Kathi vuole fare la torta)."
+        },
+        "examples": [
+          {
+            "de": "Kathi versucht, den Kuchen zu backen.",
+            "en": "Kathi is trying to bake the cake.",
+            "sl": "Kathi poskuša speči kolač.",
+            "it": "Kathi cerca di fare la torta."
+          },
+          {
+            "de": "Stefan fängt an, die Äpfel zu pressen.",
+            "en": "Stefan is starting to press the apples.",
+            "sl": "Stefan začenja stiskati jabolka.",
+            "it": "Stefan comincia a spremere le mele."
+          },
+          {
+            "de": "Es hat aufgehört zu regnen.",
+            "en": "It has stopped raining.",
+            "sl": "Nehalo je deževati.",
+            "it": "Ha smesso di piovere."
+          },
+          {
+            "de": "Toni hofft, heute fertig zu werden.",
+            "en": "Toni hopes to finish today.",
+            "sl": "Toni upa, da bo danes končal.",
+            "it": "Toni spera di finire oggi."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "ein Verb",
+              "sl": "glagol",
+              "en": "a verb",
+              "it": "un verbo"
+            },
+            "Kathi versucht, den Kuchen",
+            "zu backen."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinitiv-zu",
+          "prompt": "Stefan fängt an, ___.",
+          "options": [
+            "die Äpfel zu pressen",
+            "die Äpfel pressen",
+            "zu pressen die Äpfel"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**zu and the verb last; a separable verb takes zu inside**\n- zu kochen · aufzustehen · mitzukommen",
+            "sl": "**zu in glagol na koncu; ločljivi glagol ima zu v sredini**\n- zu kochen · aufzustehen · mitzukommen",
+            "it": "**zu e il verbo alla fine; un verbo separabile ha zu in mezzo**\n- zu kochen · aufzustehen · mitzukommen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Ich habe Lust zu kochen** (I feel like cooking): nouns with haben ask for it, **Lust, Zeit, Angst** (wish, time, fear). es ist with an adjective does too: **Es ist schön, im Garten zu sitzen** (it's nice to sit in the garden), **wichtig, schwer, gesund** (important, hard, healthy). **Ich habe viel zu tun** (I have a lot to do) is a phrase to keep.",
+          "sl": "**Ich habe Lust zu kochen** (rad bi kuhal): zahtevajo ga samostalniki s haben, **Lust, Zeit, Angst** (volja, čas, strah). Tudi es ist s pridevnikom: **Es ist schön, im Garten zu sitzen** (lepo je sedeti na vrtu), **wichtig, schwer, gesund** (pomembno, težko, zdravo). **Ich habe viel zu tun** (veliko imam dela) si zapomni kot celoto.",
+          "it": "**Ich habe Lust zu kochen** (ho voglia di cucinare): lo chiedono dei nomi con haben, **Lust, Zeit, Angst** (voglia, tempo, paura). Anche es ist con un aggettivo: **Es ist schön, im Garten zu sitzen** (è bello stare seduti in giardino), **wichtig, schwer, gesund** (importante, difficile, sano). **Ich habe viel zu tun** (ho molto da fare) è un'espressione da tenere a mente."
+        },
+        "examples": [
+          {
+            "de": "Hast du heute Zeit, mir zu helfen?",
+            "en": "Do you have time to help me today?",
+            "sl": "Imaš danes čas, da mi pomagaš?",
+            "it": "Hai tempo di aiutarmi oggi?"
+          },
+          {
+            "de": "Es ist gesund, viel zu gehen.",
+            "en": "It's healthy to walk a lot.",
+            "sl": "Zdravo je veliko hoditi.",
+            "it": "Fa bene camminare molto."
+          },
+          {
+            "de": "Toni hat keine Lust zu reden.",
+            "en": "Toni doesn't feel like talking.",
+            "sl": "Toni nima volje govoriti.",
+            "it": "Toni non ha voglia di parlare."
+          },
+          {
+            "de": "Kathi hat heute viel zu tun.",
+            "en": "Kathi has a lot to do today.",
+            "sl": "Kathi ima danes veliko dela.",
+            "it": "Kathi ha molto da fare oggi."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "ein Nomen",
+              "sl": "samostalnik",
+              "en": "a noun",
+              "it": "un nome"
+            },
+            "Hast du Zeit, mir",
+            "zu helfen?"
+          ],
+          [
+            {
+              "de": "es ist + Adjektiv",
+              "sl": "es ist + pridevnik",
+              "en": "es ist + adjective",
+              "it": "es ist + aggettivo"
+            },
+            "Es ist schön, im Garten",
+            "zu sitzen."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "infinitiv-zu",
+          "text": "Hast du Zeit, mir ___ helfen?",
+          "accept": [
+            "zu"
+          ],
+          "hint": {
+            "en": "Zeit haben asks for it",
+            "sl": "Zeit haben ga zahteva",
+            "it": "Zeit haben lo chiede"
+          },
+          "explain": {
+            "en": "**After a noun with haben: zu and the verb**\n- Zeit haben, mir zu helfen · Lust haben zu kochen",
+            "sl": "**Za samostalnikom s haben: zu in glagol**\n- Zeit haben, mir zu helfen · Lust haben zu kochen",
+            "it": "**Dopo un nome con haben: zu e il verbo**\n- Zeit haben, mir zu helfen · Lust haben zu kochen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A separable verb takes **zu** inside, as one word: **aufstehen → aufzustehen**, **mitkommen → mitzukommen**, **anrufen → anzurufen**. So **Es ist schwer, früh aufzustehen** (it's hard to get up early), with **früh aufzustehen** (never *früh zu aufstehen*). Others keep it apart: **zu besuchen, zu verstehen**. A reflexive's **sich** stays in front: **sich zu treffen** (to meet).",
+          "sl": "Ločljivi glagol vzame **zu** v sredino, kot eno besedo: **aufstehen → aufzustehen**, **mitkommen → mitzukommen**, **anrufen → anzurufen**. Torej: **Es ist schwer, früh aufzustehen** (težko je zgodaj vstati). Drugi ga imajo posebej: **zu besuchen, zu verstehen**. **sich** povratnega glagola ostane spredaj: **sich zu treffen** (srečati se).",
+          "it": "Un verbo separabile prende **zu** in mezzo, in una parola: **aufstehen → aufzustehen**, **mitkommen → mitzukommen**, **anrufen → anzurufen**. Quindi: **Es ist schwer, früh aufzustehen** (è difficile alzarsi presto). Gli altri lo tengono staccato: **zu besuchen, zu verstehen**. Il **sich** di un riflessivo resta davanti: **sich zu treffen** (incontrarsi)."
+        },
+        "examples": [
+          {
+            "de": "Es ist schwer, früh aufzustehen.",
+            "en": "It's hard to get up early.",
+            "sl": "Težko je zgodaj vstati.",
+            "it": "È difficile alzarsi presto."
+          },
+          {
+            "de": "Hast du Lust mitzukommen?",
+            "en": "Do you feel like coming along?",
+            "sl": "Bi šel zraven?",
+            "it": "Hai voglia di venire?"
+          },
+          {
+            "de": "Kathi vergisst nicht, Eva anzurufen.",
+            "en": "Kathi doesn't forget to call Eva.",
+            "sl": "Kathi ne pozabi poklicati Eve.",
+            "it": "Kathi non dimentica di chiamare Eva."
+          },
+          {
+            "de": "Es ist schön, sich am Abend zu treffen.",
+            "en": "It's nice to meet in the evening.",
+            "sl": "Lepo se je dobiti zvečer.",
+            "it": "È bello incontrarsi la sera."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "trennbar",
+              "sl": "ločljiv",
+              "en": "separable",
+              "it": "separabile"
+            },
+            "Es ist schwer, früh",
+            "aufzustehen."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "infinitiv-zu",
+          "text": "Hast du Lust, heute ___? (mitkommen)",
+          "accept": [
+            "mitzukommen"
+          ],
+          "hint": {
+            "en": "zu inside",
+            "sl": "zu v sredini",
+            "it": "zu in mezzo"
+          },
+          "explain": {
+            "en": "**A separable verb takes zu inside**\n- mitkommen: mitzukommen · aufstehen: aufzustehen",
+            "sl": "**Ločljivi glagol ima zu v sredini**\n- mitkommen: mitzukommen · aufstehen: aufzustehen",
+            "it": "**Un verbo separabile ha zu in mezzo**\n- mitkommen: mitzukommen · aufstehen: aufzustehen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**um … zu** says what for: **Ich gehe in den Keller, um Most zu holen** (I'm going to the cellar to fetch cider). It answers **Wozu?** (what for?). It has no subject: it means the person of the main sentence. A comma comes first, and it can open the sentence: **Um Most zu holen, gehe ich in den Keller**. It is um: **um Most zu holen** (never *für Most zu holen*).",
+          "sl": "**um … zu** pove, čemu: **Ich gehe in den Keller, um Most zu holen** (grem v klet po mošt). Odgovarja na **Wozu?** (čemu?). Nima osebka: velja oseba glavnega stavka. Pred njim je vejica, stoji pa lahko tudi na začetku: **Um Most zu holen, gehe ich in den Keller**. Slovensko rečeš tudi da: da prinesem mošt.",
+          "it": "**um … zu** dice a che scopo: **Ich gehe in den Keller, um Most zu holen** (vado in cantina a prendere il sidro). Risponde a **Wozu?** (a che scopo?). Non ha un soggetto: vale la persona della frase principale. Davanti c'è la virgola, e può aprire la frase: **Um Most zu holen, gehe ich in den Keller**. È come per + infinito, ma con zu alla fine."
+        },
+        "examples": [
+          {
+            "de": "Ich gehe in den Keller, um Most zu holen.",
+            "en": "I'm going to the cellar to fetch cider.",
+            "sl": "Grem v klet po mošt.",
+            "it": "Vado in cantina a prendere il sidro."
+          },
+          {
+            "de": "Um früh aufzustehen, geht Kathi früh ins Bett.",
+            "en": "To get up early, Kathi goes to bed early.",
+            "sl": "Da bi zgodaj vstala, gre Kathi zgodaj spat.",
+            "it": "Per alzarsi presto, Kathi va a letto presto."
+          },
+          {
+            "de": "Florian geht auf die Alm, um die Schafe zu suchen.",
+            "en": "Florian is going up to the mountain pasture to look for the sheep.",
+            "sl": "Florian gre na planino iskat ovce.",
+            "it": "Florian va sull'alpeggio a cercare le pecore."
+          }
+        ],
+        "rows": [
+          [
+            "um",
+            "Ich gehe in den Keller, um Most",
+            "zu holen."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinitiv-zu",
+          "prompt": "Toni fährt nach Villach, ___.",
+          "options": [
+            "um Eisen zu kaufen",
+            "für Eisen zu kaufen",
+            "um Eisen kaufen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**What for: um … zu**\n- um Eisen zu kaufen · um Most zu holen",
+            "sl": "**Čemu: um … zu**\n- um Eisen zu kaufen · um Most zu holen",
+            "it": "**A che scopo: um … zu**\n- um Eisen zu kaufen · um Most zu holen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**damit** (so that) has a subject of its own, and the verb goes last: **Kathi kocht, damit die Gäste satt werden** (Kathi cooks so that the guests get full). With two different people only **damit** works. With one person **um … zu** is usual, and **damit** is right too: **Ich lerne, damit ich es kann** (I'm learning so that I can do it).",
+          "sl": "**damit** (da, zato da) ima svoj osebek, glagol pa gre na konec: **Kathi kocht, damit die Gäste satt werden** (Kathi kuha, da se gostje najedo). Pri dveh različnih osebah je mogoč samo **damit**. Pri eni osebi je običajen **um … zu**, prav pa je tudi **damit**: **Ich lerne, damit ich es kann** (učim se, da bom znal).",
+          "it": "**damit** (affinché, perché) ha un soggetto suo, e il verbo va alla fine: **Kathi kocht, damit die Gäste satt werden** (Kathi cucina perché gli ospiti siano sazi). Con due persone diverse va solo **damit**. Con una persona sola si usa di solito **um … zu**, ma anche **damit** è giusto: **Ich lerne, damit ich es kann** (studio per saperlo fare)."
+        },
+        "examples": [
+          {
+            "de": "Kathi kocht, damit die Gäste satt werden.",
+            "en": "Kathi cooks so that the guests get full.",
+            "sl": "Kathi kuha, da se gostje najedo.",
+            "it": "Kathi cucina perché gli ospiti siano sazi."
+          },
+          {
+            "de": "Stefan repariert den Traktor, damit Franz ihn morgen nehmen kann.",
+            "en": "Stefan is repairing the tractor so that Franz can take it tomorrow.",
+            "sl": "Stefan popravlja traktor, da ga bo Franz jutri lahko vzel.",
+            "it": "Stefan ripara il trattore perché Franz possa prenderlo domani."
+          },
+          {
+            "de": "Eva spricht langsam, damit alle sie verstehen.",
+            "en": "Eva speaks slowly so that everyone understands her.",
+            "sl": "Eva govori počasi, da jo vsi razumejo.",
+            "it": "Eva parla piano perché tutti la capiscano."
+          }
+        ],
+        "rows": [
+          [
+            "damit",
+            "Kathi kocht, damit die Gäste",
+            "satt werden."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinitiv-zu",
+          "prompt": "Eva spricht langsam, ___ alle sie verstehen.",
+          "options": [
+            "damit",
+            "um",
+            "ohne"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**What for: um … zu, one person; another person: damit, the verb last**\n- um Most zu holen · damit die Gäste satt werden",
+            "sl": "**Čemu: um … zu, ena oseba; druga oseba: damit, glagol na koncu**\n- um Most zu holen · damit die Gäste satt werden",
+            "it": "**A che scopo: um … zu, una persona; un'altra persona: damit, il verbo alla fine**\n- um Most zu holen · damit die Gäste satt werden"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ohne … zu** (without …-ing) and **statt … zu** (instead of …-ing) are built like um … zu: **Stefan geht, ohne etwas zu sagen** (Stefan leaves without saying anything), **Toni sitzt im Gasthaus, statt zu arbeiten** (Toni is sitting in the inn instead of working). **anstatt** is the same as **statt**. English has -ing here; German has zu and the infinitive.",
+          "sl": "**ohne … zu** (ne da bi, brez) in **statt … zu** (namesto da bi) sta zgrajena kot um … zu: **Stefan geht, ohne etwas zu sagen** (Stefan gre, ne da bi kaj rekel), **Toni sitzt im Gasthaus, statt zu arbeiten** (Toni sedi v gostilni, namesto da bi delal). **anstatt** je isto kot **statt**. Slovensko je tu da bi, nemško zu z nedoločnikom.",
+          "it": "**ohne … zu** (senza + infinito) e **statt … zu** (invece di + infinito) si costruiscono come um … zu: **Stefan geht, ohne etwas zu sagen** (Stefan se ne va senza dire niente), **Toni sitzt im Gasthaus, statt zu arbeiten** (Toni sta all'osteria invece di lavorare). **anstatt** è lo stesso di **statt**. Anche qui l'infinito va alla fine, con zu."
+        },
+        "examples": [
+          {
+            "de": "Stefan geht, ohne etwas zu sagen.",
+            "en": "Stefan leaves without saying anything.",
+            "sl": "Stefan gre, ne da bi kaj rekel.",
+            "it": "Stefan se ne va senza dire niente."
+          },
+          {
+            "de": "Toni sitzt im Gasthaus, statt zu arbeiten.",
+            "en": "Toni is sitting in the inn instead of working.",
+            "sl": "Toni sedi v gostilni, namesto da bi delal.",
+            "it": "Toni sta all'osteria invece di lavorare."
+          },
+          {
+            "de": "Statt zu kochen, liest Kathi die Zeitung.",
+            "en": "Instead of cooking, Kathi is reading the paper.",
+            "sl": "Namesto da bi kuhala, Kathi bere časopis.",
+            "it": "Invece di cucinare, Kathi legge il giornale."
+          }
+        ],
+        "rows": [
+          [
+            "ohne",
+            "Stefan geht, ohne etwas",
+            "zu sagen."
+          ],
+          [
+            "statt",
+            "Toni sitzt im Gasthaus, statt",
+            "zu arbeiten."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinitiv-zu",
+          "prompt": "Toni sitzt im Gasthaus, ___ zu arbeiten.",
+          "options": [
+            "statt",
+            "damit",
+            "weil"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Instead of working: statt … zu**\n- statt zu arbeiten · ohne etwas zu sagen",
+            "sl": "**Namesto da bi delal: statt … zu**\n- statt zu arbeiten · ohne etwas zu sagen",
+            "it": "**Invece di lavorare: statt … zu**\n- statt zu arbeiten · ohne etwas zu sagen"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "um-zu-1",
+      "title": {
+        "de": "Mit zu oder ohne?",
+        "en": "With zu or without?",
+        "sl": "Z zu ali brez?",
+        "it": "Con zu o senza?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "infinitiv-zu",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the verb with zu",
+            "sl": "glagol z zu",
+            "it": "il verbo con zu"
+          },
+          "columns": [
+            {
+              "en": "mit zu · with zu",
+              "sl": "mit zu · z zu",
+              "it": "mit zu · con zu"
+            }
+          ],
+          "rows": [
+            {
+              "label": "kochen",
+              "cells": [
+                "zu kochen"
+              ]
+            },
+            {
+              "label": "aufstehen",
+              "cells": [
+                {
+                  "accept": [
+                    "aufzustehen"
+                  ],
+                  "hint": {
+                    "en": "zu inside",
+                    "sl": "zu v sredini",
+                    "it": "zu in mezzo"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "mitkommen",
+              "cells": [
+                {
+                  "accept": [
+                    "mitzukommen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "anrufen",
+              "cells": [
+                {
+                  "accept": [
+                    "anzurufen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "einkaufen",
+              "cells": [
+                {
+                  "accept": [
+                    "einzukaufen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "abholen",
+              "cells": [
+                {
+                  "accept": [
+                    "abzuholen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "arbeiten",
+              "cells": [
+                {
+                  "accept": [
+                    "zu arbeiten"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "besuchen",
+              "cells": [
+                {
+                  "accept": [
+                    "zu besuchen"
+                  ],
+                  "hint": {
+                    "en": "be- doesn't separate",
+                    "sl": "be- se ne loči",
+                    "it": "be- non si separa"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "verstehen",
+              "cells": [
+                {
+                  "accept": [
+                    "zu verstehen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "reparieren",
+              "cells": [
+                {
+                  "accept": [
+                    "zu reparieren"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "zumachen",
+              "cells": [
+                {
+                  "accept": [
+                    "zuzumachen"
+                  ],
+                  "hint": {
+                    "en": "zu- and zu",
+                    "sl": "zu- in zu",
+                    "it": "zu- e zu"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**zu and the verb last; a separable verb takes zu inside**\n- zu kochen · aufzustehen · mitzukommen",
+            "sl": "**zu in glagol na koncu; ločljivi glagol ima zu v sredini**\n- zu kochen · aufzustehen · mitzukommen",
+            "it": "**zu e il verbo alla fine; un verbo separabile ha zu in mezzo**\n- zu kochen · aufzustehen · mitzukommen"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "infinitiv-zu",
+          "instruction": {
+            "en": "Sortiere · Sort: with zu or without?",
+            "sl": "Sortiere · Razvrsti: z zu ali brez?",
+            "it": "Sortiere · Ordina: con zu o senza?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "mit zu · with zu",
+                "sl": "mit zu · z zu",
+                "it": "mit zu · con zu"
+              },
+              "words": [
+                "Ich versuche, …",
+                "Ich habe Lust, …",
+                "Es ist schön, …"
+              ]
+            },
+            {
+              "label": {
+                "en": "ohne zu · without zu",
+                "sl": "ohne zu · brez zu",
+                "it": "ohne zu · senza zu"
+              },
+              "words": [
+                "Ich will …",
+                "Ich muss …",
+                "Ich kann …"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A modal takes no zu**\n- Ich will kochen · Ich versuche zu kochen",
+            "sl": "**Naklonski glagol nima zu**\n- Ich will kochen · Ich versuche zu kochen",
+            "it": "**Un modale non vuole zu**\n- Ich will kochen · Ich versuche zu kochen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "um-zu-2",
+      "title": {
+        "de": "Stefans Morgen",
+        "en": "Stefan's morning",
+        "sl": "Stefanovo jutro",
+        "it": "Il mattino di Stefan"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "infinitiv-zu",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Stefans Morgen",
+          "text": "Stefan hat heute viel ___ tun. Es ist schwer, um fünf ___ (aufstehen). Er geht in den Keller, ___ Most zu holen. Er fährt früh los, ___ die Leute am Markt frischen Most bekommen. ___ zu frühstücken, trinkt er nur Kaffee. Er fährt weg, ___ etwas zu essen. Dann vergisst er, Kathi ___ (anrufen). Sie hat keine Zeit, ihm ___ helfen.",
+          "gaps": [
+            {
+              "accept": [
+                "zu"
+              ],
+              "hint": "viel … tun"
+            },
+            {
+              "accept": [
+                "aufzustehen"
+              ],
+              "hint": {
+                "en": "zu inside",
+                "sl": "zu v sredini",
+                "it": "zu in mezzo"
+              }
+            },
+            {
+              "accept": [
+                "um"
+              ],
+              "hint": {
+                "en": "what for?",
+                "sl": "čemu?",
+                "it": "a che scopo?"
+              }
+            },
+            {
+              "accept": [
+                "damit"
+              ],
+              "hint": {
+                "en": "another person",
+                "sl": "druga oseba",
+                "it": "un'altra persona"
+              }
+            },
+            {
+              "accept": [
+                "Statt",
+                "Anstatt",
+                "Ohne"
+              ],
+              "hint": {
+                "en": "instead of",
+                "sl": "namesto",
+                "it": "invece di"
+              }
+            },
+            {
+              "accept": [
+                "ohne",
+                "statt",
+                "anstatt",
+                "um"
+              ],
+              "hint": {
+                "en": "without",
+                "sl": "brez",
+                "it": "senza"
+              }
+            },
+            {
+              "accept": [
+                "anzurufen"
+              ],
+              "hint": {
+                "en": "zu inside",
+                "sl": "zu v sredini",
+                "it": "zu in mezzo"
+              }
+            },
+            {
+              "accept": [
+                "zu"
+              ],
+              "hint": "Zeit haben"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "aufstehen",
+            "anrufen"
+          ],
+          "translation": {
+            "en": "Stefan has a lot to do today. It's hard to get up at five. He goes to the cellar to fetch cider. He sets off early so that people at the market get fresh cider. Instead of having breakfast, he only drinks coffee. He drives off without eating anything. Then he forgets to call Kathi. She has no time to help him.",
+            "sl": "Stefan ima danes veliko dela. Težko je vstati ob petih. Gre v klet po mošt. Zgodaj se odpelje, da ljudje na tržnici dobijo svež mošt. Namesto da bi zajtrkoval, pije samo kavo. Odpelje se, ne da bi kaj pojedel. Potem pozabi poklicati Kathi. Ona nima časa, da bi mu pomagala.",
+            "it": "Stefan oggi ha molto da fare. È difficile alzarsi alle cinque. Va in cantina a prendere il sidro. Parte presto perché la gente al mercato abbia sidro fresco. Invece di fare colazione, beve solo un caffè. Parte senza mangiare niente. Poi dimentica di chiamare Kathi. Lei non ha tempo di aiutarlo."
+          },
+          "explain": {
+            "en": "**zu and the verb last; um, ohne, statt in front**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten",
+            "sl": "**zu in glagol na koncu; um, ohne, statt spredaj**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten",
+            "it": "**zu e il verbo alla fine; um, ohne, statt davanti**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "infinitiv-zu",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir gehen in den Garten, ___ Äpfel zu pflücken.",
+          "options": [
+            "um",
+            "für",
+            "damit"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**What for, one person: um … zu**\n- um Äpfel zu pflücken",
+            "sl": "**Čemu, ena oseba: um … zu**\n- um Äpfel zu pflücken",
+            "it": "**A che scopo, una persona: um … zu**\n- um Äpfel zu pflücken"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "infinitiv-zu",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stefan geht weg, ohne ___.",
+          "options": [
+            "etwas zu sagen",
+            "etwas sagen",
+            "zu sagen etwas"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ohne, then zu and the verb last**\n- ohne etwas zu sagen",
+            "sl": "**ohne, nato zu in glagol na koncu**\n- ohne etwas zu sagen",
+            "it": "**ohne, poi zu e il verbo alla fine**\n- ohne etwas zu sagen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "um-zu-3",
+      "title": {
+        "de": "Wozu?",
+        "en": "What for?",
+        "sl": "Čemu?",
+        "it": "A che scopo?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "infinitiv-zu",
+          "instruction": {
+            "en": "Sag es mit zu · Say it with zu",
+            "sl": "Sag es mit zu · Povej z zu",
+            "it": "Sag es mit zu · Dillo con zu"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kathi backt einen Kuchen. (Kathi versucht)",
+              "accept": [
+                "Kathi versucht, einen Kuchen zu backen."
+              ]
+            },
+            {
+              "from": "Ich stehe früh auf. (Es ist schwer)",
+              "accept": [
+                "Es ist schwer, früh aufzustehen."
+              ]
+            },
+            {
+              "from": "Ich komme mit. (Ich habe Lust)",
+              "accept": [
+                "Ich habe Lust mitzukommen."
+              ]
+            },
+            {
+              "from": "Ich rufe Eva an. (Ich vergesse)",
+              "accept": [
+                "Ich vergesse, Eva anzurufen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**zu and the verb last; a separable verb takes zu inside**\n- zu kochen · aufzustehen · mitzukommen",
+            "sl": "**zu in glagol na koncu; ločljivi glagol ima zu v sredini**\n- zu kochen · aufzustehen · mitzukommen",
+            "it": "**zu e il verbo alla fine; un verbo separabile ha zu in mezzo**\n- zu kochen · aufzustehen · mitzukommen"
+          },
+          "whole": true
+        },
+        {
+          "type": "transform",
+          "grammar": "infinitiv-zu",
+          "instruction": {
+            "en": "Verbinde mit dem Wort in Klammern · Join with the word in brackets",
+            "sl": "Verbinde mit dem Wort in Klammern · Poveži z besedo v oklepaju",
+            "it": "Verbinde mit dem Wort in Klammern · Unisci con la parola tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich gehe in den Keller. Ich hole Most. (um)",
+              "accept": [
+                "Ich gehe in den Keller, um Most zu holen.",
+                "Um Most zu holen, gehe ich in den Keller."
+              ]
+            },
+            {
+              "from": "Kathi kocht. Die Gäste werden satt. (damit)",
+              "accept": [
+                "Kathi kocht, damit die Gäste satt werden.",
+                "Damit die Gäste satt werden, kocht Kathi."
+              ]
+            },
+            {
+              "from": "Stefan geht weg. Er sagt nichts. (ohne)",
+              "accept": [
+                "Stefan geht weg, ohne etwas zu sagen.",
+                "Ohne etwas zu sagen, geht Stefan weg.",
+                "Stefan geht weg, ohne dass er etwas sagt."
+              ],
+              "spoken": [
+                "Stefan geht weg, ohne was zu sagen.",
+                "Ohne was zu sagen, geht Stefan weg."
+              ]
+            },
+            {
+              "from": "Toni arbeitet nicht. Er sitzt im Gasthaus. (statt)",
+              "accept": [
+                "Statt zu arbeiten, sitzt Toni im Gasthaus.",
+                "Toni sitzt im Gasthaus, statt zu arbeiten.",
+                "Anstatt zu arbeiten, sitzt Toni im Gasthaus.",
+                "Toni sitzt im Gasthaus, anstatt zu arbeiten."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**What for: um … zu, one person; another person: damit, the verb last**\n- um Most zu holen · damit die Gäste satt werden",
+            "sl": "**Čemu: um … zu, ena oseba; druga oseba: damit, glagol na koncu**\n- um Most zu holen · damit die Gäste satt werden",
+            "it": "**A che scopo: um … zu, una persona; un'altra persona: damit, il verbo alla fine**\n- um Most zu holen · damit die Gäste satt werden"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "infinitiv-zu",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Florian auf der Alm",
+        "text": "Florian hat Lust, heute auf die Alm ___ gehen. Er versucht, früh ___ (aufstehen). Er nimmt einen Stock mit, ___ den Weg leichter zu machen. Er ruft Toni an, ___ die Schafe unten nicht allein sind. ___ lange zu warten, geht er gleich los. Er geht, ___ etwas zu essen.",
+        "gaps": [
+          {
+            "accept": [
+              "zu"
+            ],
+            "hint": "Lust haben"
+          },
+          {
+            "accept": [
+              "aufzustehen"
+            ],
+            "hint": {
+              "en": "zu inside",
+              "sl": "zu v sredini",
+              "it": "zu in mezzo"
+            }
+          },
+          {
+            "accept": [
+              "um"
+            ],
+            "hint": {
+              "en": "what for?",
+              "sl": "čemu?",
+              "it": "a che scopo?"
+            }
+          },
+          {
+            "accept": [
+              "damit"
+            ],
+            "hint": {
+              "en": "another person",
+              "sl": "druga oseba",
+              "it": "un'altra persona"
+            }
+          },
+          {
+            "accept": [
+              "Statt",
+              "Anstatt",
+              "Ohne"
+            ],
+            "hint": {
+              "en": "instead of",
+              "sl": "namesto",
+              "it": "invece di"
+            }
+          },
+          {
+            "accept": [
+              "ohne",
+              "statt",
+              "anstatt",
+              "um"
+            ],
+            "hint": {
+              "en": "without",
+              "sl": "brez",
+              "it": "senza"
+            }
+          }
+        ],
+        "translation": {
+          "en": "Florian feels like going up to the mountain pasture today. He tries to get up early. He takes a stick along to make the way easier. He calls Toni so that the sheep down below aren't alone. Instead of waiting long, he sets off at once. He goes without eating anything.",
+          "sl": "Florian ima danes voljo iti na planino. Poskuša zgodaj vstati. S seboj vzame palico, da si olajša pot. Pokliče Tonija, da ovce spodaj ne bodo same. Namesto da bi dolgo čakal, gre takoj. Gre, ne da bi kaj pojedel.",
+          "it": "Florian oggi ha voglia di andare sull'alpeggio. Cerca di alzarsi presto. Prende un bastone per rendere il cammino più facile. Chiama Toni perché le pecore giù a valle non restino sole. Invece di aspettare a lungo, parte subito. Parte senza mangiare niente."
+        },
+        "explain": {
+          "en": "**zu and the verb last; um, ohne, statt in front**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten",
+          "sl": "**zu in glagol na koncu; um, ohne, statt spredaj**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten",
+          "it": "**zu e il verbo alla fine; um, ohne, statt davanti**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "infinitiv-zu",
+        "instruction": {
+          "en": "Verbinde mit dem Wort in Klammern · Join with the word in brackets",
+          "sl": "Verbinde mit dem Wort in Klammern · Poveži z besedo v oklepaju",
+          "it": "Verbinde mit dem Wort in Klammern · Unisci con la parola tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich fahre nach Villach. Ich kaufe Brot. (um)",
+            "accept": [
+              "Ich fahre nach Villach, um Brot zu kaufen.",
+              "Um Brot zu kaufen, fahre ich nach Villach."
+            ]
+          },
+          {
+            "from": "Stanko spricht leise. Die Bienen bleiben ruhig. (damit)",
+            "accept": [
+              "Stanko spricht leise, damit die Bienen ruhig bleiben.",
+              "Damit die Bienen ruhig bleiben, spricht Stanko leise."
+            ]
+          },
+          {
+            "from": "Maxi läuft weg. Er sagt nicht danke. (ohne)",
+            "accept": [
+              "Maxi läuft weg, ohne danke zu sagen.",
+              "Ohne danke zu sagen, läuft Maxi weg.",
+              "Maxi läuft weg, ohne dass er danke sagt."
+            ]
+          },
+          {
+            "from": "Ich rufe dich morgen an. (Ich versuche)",
+            "accept": [
+              "Ich versuche, dich morgen anzurufen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**zu and the verb last; um, ohne, statt in front**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten",
+          "sl": "**zu in glagol na koncu; um, ohne, statt spredaj**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten",
+          "it": "**zu e il verbo alla fine; um, ohne, statt davanti**\n- zu kochen · aufzustehen · um Most zu holen · ohne etwas zu sagen · statt zu arbeiten"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "infinitiv-zu",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi will heute ___.",
+        "options": [
+          "kochen",
+          "zu kochen",
+          "kocht"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A modal takes no zu**\n- Kathi will kochen · Kathi versucht zu kochen",
+          "sl": "**Naklonski glagol nima zu**\n- Kathi will kochen · Kathi versucht zu kochen",
+          "it": "**Un modale non vuole zu**\n- Kathi will kochen · Kathi versucht zu kochen"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "infinitiv-zu",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Es ist wichtig, ___.",
+        "options": [
+          "früh aufzustehen",
+          "früh zu aufstehen",
+          "früh aufstehen"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**zu and the verb last; a separable verb takes zu inside**\n- zu kochen · aufzustehen · mitzukommen",
+          "sl": "**zu in glagol na koncu; ločljivi glagol ima zu v sredini**\n- zu kochen · aufzustehen · mitzukommen",
+          "it": "**zu e il verbo alla fine; un verbo separabile ha zu in mezzo**\n- zu kochen · aufzustehen · mitzukommen"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "infinitiv-zu",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Eva erklärt es noch einmal, ___ Lena es versteht.",
+        "options": [
+          "damit",
+          "um",
+          "statt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**What for: um … zu, one person; another person: damit, the verb last**\n- um Most zu holen · damit die Gäste satt werden",
+          "sl": "**Čemu: um … zu, ena oseba; druga oseba: damit, glagol na koncu**\n- um Most zu holen · damit die Gäste satt werden",
+          "it": "**A che scopo: um … zu, una persona; un'altra persona: damit, il verbo alla fine**\n- um Most zu holen · damit die Gäste satt werden"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: die Äpfel pressen; Bi šel zraven?; ohne was zu sagen as spoken; the commas"
+}

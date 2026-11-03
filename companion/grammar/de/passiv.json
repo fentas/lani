@@ -1,0 +1,231 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "passiv",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🍞",
+  "title": {
+    "de": "Das Brot wird gebacken: das Passiv",
+    "en": "Das Brot wird gebacken: the passive",
+    "sl": "Das Brot wird gebacken: trpnik",
+    "it": "Das Brot wird gebacken: il passivo"
+  },
+  "rule": {
+    "en": "The passive (*Passiv*) says what happens and leaves out who does it: **Das Brot wird gebacken.** (The bread is being baked.) It is **werden + the participle**, the participle last.\n\nPresent: **wird, werden**; ich **werde**, du **wirst**, ihr **werdet**. Past: **wurde, wurden**; du **wurdest**, ihr **wurdet**. No umlaut: **würde** is would. People write the past with wurde; the Perfekt (ist gebacken worden) comes in B2.\n\nThe active sentence's accusative becomes the subject, so den becomes der: Stefan presst den Most → **Der Most wird gepresst.** (never *Den Most wird gepresst*)\n\nWho did it comes with **von + the dative**, if it's said at all: Die Suppe wird **von Kathi** gekocht. Der Zaun wurde **vom Schmied** repariert.\n\n**man** (one, people) is the everyday way round it: it takes the er form, and the object stays accusative: **Man presst den Most.** **Hier spricht man Deutsch** says the same as **Hier wird Deutsch gesprochen.**\n\nwerden has three jobs: **Es wird kalt** (becomes), **Ich werde kommen** (future), **Das Brot wird gebacken** (passive). What comes with it tells you: a word, an infinitive or a participle.",
+    "sl": "Trpnik (*Passiv*) pove, kaj se dogaja, in izpusti, kdo to dela: **Das Brot wird gebacken.** (Kruh se peče.) Je **werden + deležnik**, deležnik na koncu.\n\nSedanjik: **wird, werden**; ich **werde**, du **wirst**, ihr **werdet**. Preteklik: **wurde, wurden**; du **wurdest**, ihr **wurdet**. Brez preglasa: **würde** je pogojnik. Preteklost se piše z wurde; perfekt (ist gebacken worden) pride na B2.\n\nTožilnik tvornega stavka postane osebek, zato den postane der: Stefan presst den Most → **Der Most wird gepresst.** (nikoli *Den Most wird gepresst*)\n\nKdo je to storil, pove **von + dajalnik**, če se sploh pove: Die Suppe wird **von Kathi** gekocht. Der Zaun wurde **vom Schmied** repariert.\n\n**man** (človek, ljudje) je vsakdanji način, kako se mu izogneš: ima obliko za er, predmet ostane v tožilniku: **Man presst den Most.** **Hier spricht man Deutsch** pove isto kot **Hier wird Deutsch gesprochen.**\n\nwerden ima tri naloge: **Es wird kalt** (postaja), **Ich werde kommen** (prihodnjik), **Das Brot wird gebacken** (trpnik). Kaj pride zraven, pove: beseda, nedoločnik ali deležnik.",
+    "it": "Il passivo (*Passiv*) dice che cosa succede e tace chi lo fa: **Das Brot wird gebacken.** (Il pane viene cotto.) È **werden + il participio**, con il participio alla fine.\n\nPresente: **wird, werden**; ich **werde**, du **wirst**, ihr **werdet**. Passato: **wurde, wurden**; du **wurdest**, ihr **wurdet**. Senza dieresi: **würde** è il condizionale. Il passato si scrive con wurde; il Perfekt (ist gebacken worden) arriva al B2.\n\nL'accusativo della frase attiva diventa il soggetto, quindi den diventa der: Stefan presst den Most → **Der Most wird gepresst.** (mai *Den Most wird gepresst*)\n\nChi l'ha fatto si dice con **von + il dativo**, se si dice: Die Suppe wird **von Kathi** gekocht. Der Zaun wurde **vom Schmied** repariert.\n\n**man** (si, la gente) è il modo quotidiano di evitarlo: prende la forma di er, e l'oggetto resta all'accusativo: **Man presst den Most.** **Hier spricht man Deutsch** dice lo stesso di **Hier wird Deutsch gesprochen.**\n\nwerden fa tre lavori: **Es wird kalt** (diventa), **Ich werde kommen** (futuro), **Das Brot wird gebacken** (passivo). Lo dice ciò che viene con lui: una parola, un infinito o un participio."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "wer",
+        "en": "who",
+        "sl": "kdo",
+        "it": "chi"
+      },
+      "Präsens",
+      "Präteritum"
+    ],
+    "rows": [
+      [
+        "das Brot · es",
+        "wird gebacken",
+        "wurde gebacken"
+      ],
+      [
+        "die Äpfel · sie",
+        "werden gepflückt",
+        "wurden gepflückt"
+      ],
+      [
+        "ich",
+        "werde gefragt",
+        "wurde gefragt"
+      ],
+      [
+        "du",
+        "wirst gefragt",
+        "wurdest gefragt"
+      ],
+      [
+        "wir",
+        "werden gefragt",
+        "wurden gefragt"
+      ],
+      [
+        "ihr",
+        "werdet gefragt",
+        "wurdet gefragt"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das Brot wird gebacken.",
+      "en": "The bread is being baked.",
+      "sl": "Kruh se peče.",
+      "it": "Il pane viene cotto.",
+      "note": {
+        "en": "werden + the participle; who bakes it is left out.",
+        "sl": "werden + deležnik; kdo ga peče, ni rečeno.",
+        "it": "werden + il participio; chi lo cuoce non si dice."
+      }
+    },
+    {
+      "de": "Die Äpfel werden im Herbst gepflückt.",
+      "en": "The apples are picked in autumn.",
+      "sl": "Jabolka se obirajo jeseni.",
+      "it": "Le mele vengono raccolte in autunno.",
+      "note": {
+        "en": "More than one: werden.",
+        "sl": "Več kot eno: werden.",
+        "it": "Più di una: werden."
+      }
+    },
+    {
+      "de": "Der Most wird gepresst.",
+      "en": "The cider is being pressed.",
+      "sl": "Mošt se stiska.",
+      "it": "Il sidro viene spremuto.",
+      "note": {
+        "en": "Stefan presst den Most: den becomes der.",
+        "sl": "Stefan presst den Most: den postane der.",
+        "it": "Stefan presst den Most: den diventa der."
+      }
+    },
+    {
+      "de": "Die Mühle wurde 1890 gebaut.",
+      "en": "The mill was built in 1890.",
+      "sl": "Mlin je bil zgrajen leta 1890.",
+      "it": "Il mulino fu costruito nel 1890.",
+      "note": {
+        "en": "The past: wurde.",
+        "sl": "Preteklost: wurde.",
+        "it": "Il passato: wurde."
+      }
+    },
+    {
+      "de": "Die Suppe wird von Kathi gekocht.",
+      "en": "The soup is being made by Kathi.",
+      "sl": "Juho kuha Kathi.",
+      "it": "La zuppa viene fatta da Kathi.",
+      "note": {
+        "en": "Who does it: von + the dative.",
+        "sl": "Kdo: von + dajalnik.",
+        "it": "Chi la fa: von + il dativo."
+      }
+    },
+    {
+      "de": "Der Zaun wurde vom Schmied repariert.",
+      "en": "The fence was repaired by the smith.",
+      "sl": "Ograjo je popravil kovač.",
+      "it": "Il recinto fu riparato dal fabbro.",
+      "note": {
+        "en": "vom = von dem.",
+        "sl": "vom = von dem.",
+        "it": "vom = von dem."
+      }
+    },
+    {
+      "de": "Man spricht hier Deutsch.",
+      "en": "People speak German here.",
+      "sl": "Tukaj se govori nemško.",
+      "it": "Qui si parla tedesco.",
+      "note": {
+        "en": "man: the er form.",
+        "sl": "man: oblika za er.",
+        "it": "man: la forma di er."
+      }
+    },
+    {
+      "de": "Am Kirchtag wird getanzt.",
+      "en": "There is dancing at the Kirchtag.",
+      "sl": "Na žegnanju se pleše.",
+      "it": "Al Kirchtag si balla.",
+      "note": {
+        "en": "No thing at all, only what happens.",
+        "sl": "Nobene stvari, samo kaj se dogaja.",
+        "it": "Nessuna cosa, solo ciò che succede."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "passive",
+    "passiv",
+    "werden",
+    "wurde",
+    "von",
+    "man"
+  ],
+  "see": [
+    "werden-futur",
+    "partizip-zwei",
+    "perfekt",
+    "akkusativ",
+    "dativ"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: the claim that people write the past with wurde; Most gepresst; each base for passive",
+  "card": {
+    "title": {
+      "de": "Das Passiv · wird gebacken",
+      "en": "The passive · wird gebacken",
+      "sl": "Trpnik · wird gebacken",
+      "it": "Il passivo · wird gebacken"
+    },
+    "rule": {
+      "en": "**werden + the participle**, last: **Das Brot wird gebacken. Die Äpfel werden gepflückt.** Past: **wurde, wurden**. Who: **von + dative**. Den becomes der: **Der Most wird gepresst.** Everyday: **Man presst den Most.**",
+      "sl": "**werden + deležnik**, na koncu: **Das Brot wird gebacken. Die Äpfel werden gepflückt.** Preteklost: **wurde, wurden**. Kdo: **von + dajalnik**. Den postane der: **Der Most wird gepresst.** Po vsakdanje: **Man presst den Most.**",
+      "it": "**werden + il participio**, alla fine: **Das Brot wird gebacken. Die Äpfel werden gepflückt.** Passato: **wurde, wurden**. Chi: **von + dativo**. Den diventa der: **Der Most wird gepresst.** Di solito: **Man presst den Most.**"
+    },
+    "table": {
+      "head": [
+        {
+          "de": "wer",
+          "en": "who",
+          "sl": "kdo",
+          "it": "chi"
+        },
+        "Präsens",
+        "Präteritum"
+      ],
+      "rows": [
+        [
+          "das Brot · es",
+          "wird gebacken",
+          "wurde gebacken"
+        ],
+        [
+          "die Äpfel · sie",
+          "werden gepflückt",
+          "wurden gepflückt"
+        ],
+        [
+          "du",
+          "wirst gefragt",
+          "wurdest gefragt"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Das Brot wird von Kathi gebacken.",
+        "en": "The bread is being baked by Kathi.",
+        "sl": "Kruh peče Kathi.",
+        "it": "Il pane viene cotto da Kathi."
+      },
+      {
+        "de": "Man spricht hier Deutsch.",
+        "en": "People speak German here.",
+        "sl": "Tukaj se govori nemško.",
+        "it": "Qui si parla tedesco."
+      }
+    ],
+    "tip": {
+      "en": "💡 **werden** with a word: becomes. With an infinitive: will. With a participle: is being done.",
+      "sl": "💡 **werden** z besedo: postaja. Z nedoločnikom: bo. Z deležnikom: se dela.",
+      "it": "💡 **werden** con una parola: diventa. Con un infinito: farà. Con un participio: viene fatto."
+    }
+  }
+}
