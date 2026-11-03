@@ -5,7 +5,7 @@
   "title": { "en": "In the workshop", "sl": "V delavnici", "it": "In laboratorio", "de": "In der Werkstatt" },
   "emoji": "🔨",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "workshop",
   "from": ["house"],
   "household": ["tyson", "alfie"],
@@ -34,12 +34,12 @@
   "happenings": [
     {
       "id": "hammer", "title": { "en": "Mr Tyson is hammering nails", "sl": "Gospod Tyson zabija žeblje", "it": "Il signor Tyson pianta i chiodi", "de": "Herr Tyson schlägt Nägel ein" }, "who": "tyson",
-      "when": ["morning"], "chance": 0.5, "dialog": "hammer", "dialogs": ["hammer-nails", "hammer"], "reward": { "stone": 15 }, "marker": "🔨",
+      "when": ["morning"], "chance": 0.5, "dialog": "hammer", "dialogs": ["hammer-b2-neighbour", "hammer-b1-cows", "hammer-nails", "hammer"], "reward": { "stone": 15 }, "marker": "🔨",
       "memory": { "en": "the morning we mended the field gate", "sl": "jutro, ko sva popravila vrata na polje", "it": "la mattina in cui abbiamo aggiustato il cancello del campo", "de": "den Morgen, an dem wir das Feldgatter repariert haben" }
     },
     {
       "id": "saw", "title": { "en": "Mr Tyson is sawing boards", "sl": "Gospod Tyson žaga deske", "it": "Il signor Tyson sega le assi", "de": "Herr Tyson sägt Bretter" }, "who": "tyson",
-      "when": ["afternoon"], "chance": 0.45, "needs": { "level": 2 }, "dialog": "saw", "dialogs": ["saw-alfie", "saw"], "reward": { "wood": 15 }, "marker": "🪚",
+      "when": ["afternoon"], "chance": 0.45, "needs": { "level": 2 }, "dialog": "saw", "dialogs": ["saw-b2-tape", "saw-b1-fingers", "saw-alfie", "saw"], "reward": { "wood": 15 }, "marker": "🪚",
       "memory": { "en": "the afternoon we sawed the boards", "sl": "popoldne, ko sva žagala deske", "it": "il pomeriggio in cui abbiamo segato le assi", "de": "den Nachmittag, an dem wir die Bretter gesägt haben" }
     },
     {
@@ -274,6 +274,78 @@
           { "en": "You're very good on it, Alfie.", "sl": "Res si dober v tem, Alfie.", "it": "Sei bravissimo, Alfie.", "de": "Das kannst du sehr gut, Alfie.",
             "why": { "en": "We say good at something: good at sweeping, good at football.", "sl": "Rečemo good at something: good at sweeping, good at football.", "it": "Si dice good at something: good at sweeping, good at football.", "de": "Man sagt good at something: good at sweeping, good at football." }, "reply": { "face": "laugh", "en": "On it? On the broom? Like a witch? Hee hee!", "sl": "Na njej? Na metli? Kot čarovnica? Hi hi!", "it": "Sopra? Sulla scopa? Come una strega? Ih ih!", "de": "Drauf? Auf dem Besen? Wie eine Hexe? Hihi!" } }
         ] }
+      ]
+    },
+    {
+      "id": "hammer-b2-neighbour", "level": "B2",
+      "memory": {"en": "the gate my neighbour never touched", "sl": "vrata, ki se jih sosed nikoli ni dotaknil", "it": "il cancello che il mio vicino non ha mai toccato", "de": "das Tor, das mein Nachbar nie angefasst hat"},
+      "lines": [
+        {"who": "tyson", "face": "cross", "en": "Morning, {learner}. The field gate's broken again. Third time this year.", "sl": "Jutro, {learner}. Vrata na njivo so spet zlomljena. Letos že tretjič.", "it": "Buongiorno, {learner}. Il cancello del campo è di nuovo rotto. Terza volta quest'anno.", "de": "Morgen, {learner}. Das Feldtor ist wieder kaputt. Das dritte Mal dieses Jahr."},
+        {"who": "tyson", "en": "My neighbour says: \"It wasn't me. I never touched it.\"", "sl": "Moj sosed pravi: »Nisem bil jaz. Nikoli se ga nisem dotaknil.«", "it": "Il mio vicino dice: »Non sono stato io. Non l'ho mai toccato.«", "de": "Mein Nachbar sagt: »Ich war's nicht. Ich hab es nie angefasst.«"},
+        { "choices": [
+          {"en": "So he denied touching it.", "sl": "Torej je zanikal, da se ga je dotaknil.", "it": "Quindi ha negato di averlo toccato.", "de": "Er hat also bestritten, es angefasst zu haben.", "ok": true, "reply": {"face": "cross", "en": "Denied it flat. And his cows were in my oats.", "sl": "Gladko je zanikal. Njegove krave pa so bile v mojem ovsu.", "it": "L'ha negato e basta. E le sue mucche erano nella mia avena.", "de": "Glatt bestritten. Und seine Kühe standen in meinem Hafer."}},
+          {"en": "So he denied to touch it.", "sl": "Torej je zanikal, da se ga je dotaknil.", "it": "Quindi ha negato di averlo toccato.", "de": "Er hat also bestritten, es angefasst zu haben.", "grammar": "reporting-verbs", "why": {"en": "Deny takes -ing: denied touching it, or denied that he had touched it.", "sl": "Deny zahteva -ing: denied touching it ali denied that he had touched it.", "it": "Deny vuole -ing: denied touching it, oppure denied that he had touched it.", "de": "Deny nimmt -ing: denied touching it oder denied that he had touched it."}, "reply": {"face": "curious", "en": "Denied to touch? Count again, {learner}. Something's off.", "sl": "Denied to touch? Še enkrat preštej. Nekaj ni prav.", "it": "Denied to touch? Riconta, {learner}. Qualcosa non torna.", "de": "Denied to touch? Zähl noch mal, {learner}. Da stimmt was nicht."}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "I'm tired of mending it. Wood, nails, wood, nails.", "sl": "Naveličal sem se ga popravljati. Les, žeblji, les, žeblji.", "it": "Sono stanco di aggiustarlo. Legno, chiodi, legno, chiodi.", "de": "Ich hab das Flicken satt. Holz, Nägel, Holz, Nägel."},
+        { "choices": [
+          {"en": "Why not have a new one made at the smithy?", "sl": "Zakaj ne bi dali narediti novih v kovačnici?", "it": "Perché non ne fa fare uno nuovo alla fucina?", "de": "Warum lassen Sie nicht in der Schmiede ein neues machen?", "ok": true, "reply": {"en": "A new one. Iron. Now that's an idea.", "sl": "Nova. Železna. To pa je zamisel.", "it": "Uno nuovo. Di ferro. Questa sì che è un'idea.", "de": "Ein neues. Aus Eisen. Das ist eine Idee."}},
+          {"en": "Why not have made a new one at the smithy?", "sl": "Zakaj ne bi dali narediti novih v kovačnici?", "it": "Perché non ne fa fare uno nuovo alla fucina?", "de": "Warum lassen Sie nicht in der Schmiede ein neues machen?", "grammar": "have-it-done", "why": {"en": "Have + a new one + the participle: have a new one made. The thing in the middle; someone else makes it.", "sl": "Have + a new one + deležnik: have a new one made. Stvar v sredini; naredi jo nekdo drug.", "it": "Have + a new one + il participio: have a new one made. La cosa in mezzo; lo fa qualcun altro.", "de": "Have + a new one + Partizip: have a new one made. Die Sache in die Mitte; jemand anders macht es."}, "reply": {"face": "curious", "en": "Have made? I haven't made anything yet, {learner}.", "sl": "Have made? Saj še nisem ničesar naredil.", "it": "Have made? Non ho ancora fatto niente, {learner}.", "de": "Have made? Ich hab doch noch gar nichts gemacht, {learner}."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. A letter to the smithy, and a word with my neighbour. Two jobs.", "sl": "Prav. Pismo kovačnici in pogovor s sosedom. Dve opravili.", "it": "Bene. Una lettera alla fucina e due parole col vicino. Due lavori.", "de": "Gut. Ein Brief an die Schmiede und ein Wort mit dem Nachbarn. Zwei Aufgaben."}
+      ]
+    },
+    {
+      "id": "hammer-b1-cows", "level": "B1",
+      "memory": {"en": "the morning the cows pushed the gate open", "sl": "jutro, ko so krave odrinile vrata", "it": "la mattina in cui le mucche hanno spinto il cancello", "de": "den Morgen, an dem die Kühe das Tor aufgedrückt haben"},
+      "lines": [
+        {"who": "tyson", "en": "Morning, {learner}. The field gate is broken. Pass me the hammer, please.", "sl": "Jutro, {learner}. Vrata na njivo so zlomljena. Podaj mi kladivo, prosim.", "it": "Buongiorno, {learner}. Il cancello del campo è rotto. Passami il martello, per favore.", "de": "Morgen, {learner}. Das Feldtor ist kaputt. Gib mir bitte den Hammer."},
+        {"who": "tyson", "face": "curious", "en": "Alfie came in a minute ago. You heard what he wanted?", "sl": "Alfie je pravkar prišel noter. Si {m:slišal|f:slišala}, kaj je hotel?", "it": "Alfie è entrato un minuto fa. Hai sentito cosa voleva?", "de": "Alfie kam vor einer Minute rein. Hast du gehört, was er wollte?"},
+        { "choices": [
+          {"en": "He asked if he could hold the nails.", "sl": "Vprašal je, ali lahko drži žeblje.", "it": "Ha chiesto se poteva tenere i chiodi.", "de": "Er hat gefragt, ob er die Nägel halten darf.", "ok": true, "reply": {"face": "happy", "en": "Hold them, aye. And count them. Twelve.", "sl": "Naj jih drži, ja. In naj jih prešteje. Dvanajst.", "it": "Tenerli, sì. E contarli. Dodici.", "de": "Halten, ja. Und zählen. Zwölf."}},
+          {"en": "He asked he could hold the nails.", "sl": "Vprašal je, ali lahko drži žeblje.", "it": "Ha chiesto se poteva tenere i chiodi.", "de": "Er hat gefragt, ob er die Nägel halten darf.", "grammar": "reported-questions", "why": {"en": "A yes-or-no question gets if or whether: he asked if he could …", "sl": "Vprašanje z da ali ne dobi if ali whether: he asked if he could …", "it": "Una domanda sì o no prende if o whether: he asked if he could …", "de": "Eine Ja-Nein-Frage bekommt if oder whether: he asked if he could …"}, "reply": {"face": "curious", "en": "He asked he could? Count your words, {learner}. One's gone.", "sl": "He asked he could? Preštej besede. Ena manjka.", "it": "He asked he could? Conta le parole, {learner}. Ne manca una.", "de": "He asked he could? Zähl deine Wörter, {learner}. Eins fehlt."}}
+        ] },
+        {"who": "tyson", "face": "cross", "en": "When I got to the gate this morning, the cows had already pushed it open.", "sl": "Ko sem zjutraj prišel do vrat, so jih krave že odrinile.", "it": "Quando sono arrivato al cancello stamattina, le mucche l'avevano già spinto.", "de": "Als ich heute Morgen zum Tor kam, hatten die Kühe es schon aufgedrückt."},
+        { "choices": [
+          {"en": "So they had got out before you arrived.", "sl": "Torej so ušle, še preden ste prišli.", "it": "Quindi erano uscite prima che arrivasse Lei.", "de": "Sie waren also schon draußen, bevor Sie kamen.", "ok": true, "reply": {"en": "Every one of them. Six cows on the road. I counted.", "sl": "Vse do zadnje. Šest krav na cesti. Preštel sem.", "it": "Tutte quante. Sei mucche sulla strada. Le ho contate.", "de": "Jede einzelne. Sechs Kühe auf der Straße. Ich hab gezählt."}},
+          {"en": "So they got out only after you arrived.", "sl": "Torej so ušle šele, ko ste prišli.", "it": "Quindi sono uscite solo dopo che è arrivato Lei.", "de": "Sie sind also erst rausgekommen, als Sie da waren.", "grammar": "past-perfect", "why": {"en": "Had pushed it open: the cows did it first, then he got there.", "sl": "Had pushed it open: krave so to storile najprej, potem je prišel on.", "it": "Had pushed it open: le mucche l'hanno fatto prima, poi è arrivato lui.", "de": "Had pushed it open: Die Kühe waren zuerst, dann kam er."}, "reply": {"face": "cross", "en": "After? They were already on the road when I came!", "sl": "Potem? Ko sem prišel, so bile že na cesti!", "it": "Dopo? Erano già sulla strada quando sono arrivato!", "de": "Danach? Die waren schon auf der Straße, als ich kam!"}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Twelve nails, one gate. Next nail, please.", "sl": "Prav. Dvanajst žebljev, ena vrata. Naslednji žebelj, prosim.", "it": "Bene. Dodici chiodi, un cancello. Il prossimo chiodo, per favore.", "de": "Gut. Zwölf Nägel, ein Tor. Den nächsten Nagel, bitte."}
+      ]
+    },
+    {
+      "id": "saw-b2-tape", "level": "B2",
+      "memory": {"en": "the board I measured twice and cut wrong", "sl": "desko, ki sem jo dvakrat izmeril in narobe odrezal", "it": "l'asse che ho misurato due volte e tagliato male", "de": "das Brett, das ich zweimal gemessen und falsch geschnitten habe"},
+      "lines": [
+        {"who": "tyson", "face": "worried", "en": "Now then. This board's too short. I measured it twice and cut it once. Somehow it's wrong.", "sl": "No. Ta deska je prekratka. Dvakrat sem jo izmeril in enkrat odrezal. Pa je vseeno narobe.", "it": "Allora. Quest'asse è troppo corta. L'ho misurata due volte e tagliata una. Eppure è sbagliata.", "de": "Na. Das Brett ist zu kurz. Zweimal gemessen, einmal geschnitten. Und trotzdem falsch."},
+        {"who": "tyson", "face": "curious", "en": "How did that happen, do you think?", "sl": "Kako se je to zgodilo, kaj misliš?", "it": "Com'è successo, secondo te?", "de": "Wie ist das passiert, was meinst du?"},
+        { "choices": [
+          {"en": "You must have read the tape wrong.", "sl": "Gotovo ste narobe odčitali meter.", "it": "Deve aver letto male il metro.", "de": "Sie müssen das Maßband falsch abgelesen haben.", "ok": true, "reply": {"en": "Read it wrong. Aye. Sixty-eight, not eighty-six.", "sl": "Narobe odčital. Ja. Oseminšestdeset, ne šestinosemdeset.", "it": "Letto male. Sì. Sessantotto, non ottantasei.", "de": "Falsch abgelesen. Ja. Achtundsechzig, nicht sechsundachtzig."}},
+          {"en": "You must read the tape wrong.", "sl": "Gotovo ste narobe odčitali meter.", "it": "Deve aver letto male il metro.", "de": "Sie müssen das Maßband falsch abgelesen haben.", "grammar": "past-modals", "why": {"en": "Sure about the past: must have + the participle, must have read. You must read means you have to.", "sl": "Prepričan o preteklosti: must have + deležnik, must have read. You must read pomeni, da moraš.", "it": "Sicuro sul passato: must have + il participio, must have read. You must read vuol dire che devi.", "de": "Sicher über die Vergangenheit: must have + Partizip, must have read. You must read heißt, du musst."}, "reply": {"face": "cross", "en": "I must read it? I can read, thank you very much!", "sl": "I must read it? Brati znam, hvala lepa!", "it": "I must read it? So leggere, grazie tante!", "de": "I must read it? Lesen kann ich, vielen Dank!"}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "Fifty years I've been measuring. Never done that before.", "sl": "Petdeset let že merim. Kaj takega se mi še ni zgodilo.", "it": "Misuro da cinquant'anni. Non mi era mai successo.", "de": "Seit fünfzig Jahren messe ich. Das ist mir noch nie passiert."},
+        { "choices": [
+          {"en": "It was such an easy mistake that anyone could make it.", "sl": "To je bila tako lahka napaka, da bi jo lahko naredil vsak.", "it": "Era un errore così facile che chiunque poteva farlo.", "de": "Das war so ein leichter Fehler, dass ihn jeder machen könnte.", "ok": true, "reply": {"face": "happy", "en": "Kind of you. Still, I'll check three times from now on.", "sl": "Prijazno od tebe. Vseeno bom odslej preveril trikrat.", "it": "Gentile. Comunque d'ora in poi controllerò tre volte.", "de": "Nett von dir. Trotzdem prüf ich ab jetzt dreimal."}},
+          {"en": "It was so easy mistake that anyone could make it.", "sl": "To je bila tako lahka napaka, da bi jo lahko naredil vsak.", "it": "Era un errore così facile che chiunque poteva farlo.", "de": "Das war so ein leichter Fehler, dass ihn jeder machen könnte.", "grammar": "result-linkers", "why": {"en": "Before a noun with a: such an easy mistake. So goes before the adjective alone: so easy.", "sl": "Pred samostalnikom z a: such an easy mistake. So stoji pred samim pridevnikom: so easy.", "it": "Davanti a un nome con a: such an easy mistake. So va davanti all'aggettivo da solo: so easy.", "de": "Vor einem Nomen mit a: such an easy mistake. So steht vor dem Adjektiv allein: so easy."}, "reply": {"face": "laugh", "en": "So easy mistake? Now there are two of us, {learner}.", "sl": "So easy mistake? Zdaj sva pa dva.", "it": "So easy mistake? Adesso siamo in due, {learner}.", "de": "So easy mistake? Jetzt sind wir schon zu zweit, {learner}."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. New board. Measure twice, cut once. Properly this time.", "sl": "Prav. Nova deska. Dvakrat izmeri, enkrat odreži. Tokrat pravilno.", "it": "Bene. Asse nuova. Misura due volte, taglia una. Stavolta come si deve.", "de": "Gut. Neues Brett. Zweimal messen, einmal schneiden. Diesmal richtig."}
+      ]
+    },
+    {
+      "id": "saw-b1-fingers", "level": "B1",
+      "memory": {"en": "the board ten centimetres too long", "sl": "desko, ki je bila deset centimetrov predolga", "it": "l'asse lunga dieci centimetri di troppo", "de": "das Brett, zehn Zentimeter zu lang"},
+      "lines": [
+        {"who": "tyson", "en": "Now then. This board is too long for the shed door. I need the saw.", "sl": "No. Ta deska je predolga za vrata lope. Potrebujem žago.", "it": "Allora. Quest'asse è troppo lunga per la porta della baracca. Mi serve la sega.", "de": "Na. Das Brett ist zu lang für die Schuppentür. Ich brauch die Säge."},
+        {"who": "tyson", "face": "curious", "en": "Measure it for me. How much too long?", "sl": "Izmeri mi jo. Za koliko je predolga?", "it": "Misurala per me. Quanto è troppo lunga?", "de": "Miss es für mich. Um wie viel zu lang?"},
+        { "choices": [
+          {"en": "It's ten centimetres too long.", "sl": "Deset centimetrov je predolga.", "it": "È lunga dieci centimetri di troppo.", "de": "Es ist zehn Zentimeter zu lang.", "ok": true, "reply": {"face": "proud", "en": "Ten. Spot on. You measure like me.", "sl": "Deset. Točno. Meriš kot jaz.", "it": "Dieci. Esatto. Misuri come me.", "de": "Zehn. Genau. Du misst wie ich."}},
+          {"en": "It's too long ten centimetres.", "sl": "Deset centimetrov je predolga.", "it": "È lunga dieci centimetri di troppo.", "de": "Es ist zehn Zentimeter zu lang.", "grammar": "too-enough", "why": {"en": "How much comes before too: ten centimetres too long.", "sl": "Koliko stoji pred too: ten centimetres too long.", "it": "Il quanto va prima di too: ten centimetres too long.", "de": "Wie viel steht vor too: ten centimetres too long."}, "reply": {"face": "cross", "en": "Too long ten? Wrong order, {learner}. Measure again.", "sl": "Too long ten? Napačen vrstni red. Še enkrat izmeri.", "it": "Too long ten? Ordine sbagliato, {learner}. Misura di nuovo.", "de": "Too long ten? Falsche Reihenfolge, {learner}. Miss noch mal."}}
+        ] },
+        {"who": "tyson", "face": "worried", "en": "Mind your fingers on the blade. I cut myself last week.", "sl": "Pazi na prste ob rezilu. Prejšnji teden sem se urezal.", "it": "Attento alle dita con la lama. La settimana scorsa mi sono tagliato.", "de": "Pass auf deine Finger an der Klinge auf. Letzte Woche hab ich mich geschnitten."},
+        { "choices": [
+          {"en": "Oh no. Did you hurt yourself badly?", "sl": "Ojoj. Ste se hudo poškodovali?", "it": "Oh no. Si è fatto male?", "de": "Oje. Haben Sie sich schlimm verletzt?", "ok": true, "reply": {"en": "Not badly. Two plasters. I counted.", "sl": "Ne hudo. Dva obliža. Preštel sem.", "it": "Non tanto. Due cerotti. Li ho contati.", "de": "Nicht schlimm. Zwei Pflaster. Ich hab gezählt."}},
+          {"en": "Oh no. Did you hurt you badly?", "sl": "Ojoj. Ste se hudo poškodovali?", "it": "Oh no. Si è fatto male?", "de": "Oje. Haben Sie sich schlimm verletzt?", "grammar": "reflexive-pronouns", "why": {"en": "When you do it to yourself: yourself. Did you hurt yourself?", "sl": "Ko narediš nekaj sebi: yourself. Did you hurt yourself?", "it": "Quando lo fai a te stesso: yourself. Did you hurt yourself?", "de": "Wenn man es sich selbst antut: yourself. Did you hurt yourself?"}, "reply": {"face": "confused", "en": "Hurt you? No, it was me who got cut, {learner}.", "sl": "Hurt you? Ne, urezal sem se jaz.", "it": "Hurt you? No, mi sono tagliato io, {learner}.", "de": "Hurt you? Nein, ich hab mich geschnitten, {learner}."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "There. Cut. Ten centimetres. Now the door will shut.", "sl": "Tako. Odrezano. Deset centimetrov. Zdaj se bodo vrata zaprla.", "it": "Ecco. Tagliata. Dieci centimetri. Adesso la porta si chiude.", "de": "So. Geschnitten. Zehn Zentimeter. Jetzt geht die Tür zu."}
       ]
     }
   ]
