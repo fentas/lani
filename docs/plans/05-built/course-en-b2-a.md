@@ -66,7 +66,7 @@ Machine-written, not reviewed by a native speaker. British English first, then e
 - "Aveva fatto dolci tutta la mattina" for She had been baking; "terrà api"; "levataccia" for early start.
 - "Magari" for wish; "Vorrei che tu non gridassi"; "soffrire di vertigini".
 
-**The supplement** (lexicon/en.extra.json, 50 new): had been, lose your way, was sat, was stood, will have, put up, keep bees, as soon as, certain, latest, suppose, difference, becoming, necessary, modal, provided that, should have, must have, can't have, needn't have, didn't need to, may have, be used to, get used to, drive on the left, market day, skate, in the country, early start, shoe, don't mind, latch, by bus, wish (the verb), warmer, complain, feel better, quarrel, as long as, in case, get lost, bring back, hill, afraid of heights, kinder, lend, torch (the British sense), ring someone, regret.
+**The supplement** (lexicon/en.extra.json, 49 new): had been, lose your way, was sat, was stood, will have, put up, keep bees, as soon as, certain, latest, suppose, difference, becoming, necessary, modal, provided that, should have, must have, can't have, needn't have, didn't need to, may have, be used to, get used to, drive on the left, market day, skate, in the country, early start, shoe, don't mind, latch, by bus, wish (the verb), warmer, complain, feel better, quarrel, as long as, in case, get lost, bring back, hill, afraid of heights, kinder, lend, torch (the British sense), ring someone, regret.
 
 ## Sources for what people say
 
@@ -93,7 +93,7 @@ At the level's size: six intro steps with a quick question each, three worksheet
 | 1 | `narrative-tenses` 🥾 | had been + -ing up to a moment; 'd been, hadn't been, Had you been …?; why it was so; how long against how many; know, own, be with no -ing; the four past tenses; was walking against had been walking; was sat, was stood; a story told in the present | **narrative-tenses** (new), past-simple, past-perfect, past-continuous | 34 | 12 |
 | 2 | `future-perfect` 🏁 | will have + the participle; 'll have, won't have, Will you have …?, already; by against until; by the time + the present; will have been + -ing; will be + -ing; what you suppose about now; I'll've, I'll of | **future-perfect** (new), future, future-continuous | 33 | 12 |
 | 3 | `be-used-to` 🌧️ | would for what happened again and again; used to, not would, for how things were; be used to + -ing or a noun; get used to; the three side by side; the small word to, I'm use to | **would-used-to** (new), used-to | 34 | 12 |
-| 4 | `should-have` 🤦 | should have, shouldn't have, ought to have; could have, can have no form here; must have, can't have, couldn't have, won't have; might have, may have, could have; needn't have against didn't need to; should've, shoulda, should of, should have went | **past-modals** (new), might-must | 34 | 12 |
+| 4 | `should-have` 🤦 | should have, shouldn't have, ought to have; could have, not can have; must have, can't have, couldn't have, won't have; might have, may have, could have; needn't have against didn't need to; should've, shoulda, should of, should have went | **past-modals** (new), might-must | 34 | 12 |
 | 5 | `i-wish` 🌠 | wish + the past; was and were; could; wish + had + the participle; could have; wish + would, not for states; if only; hope; I wish I'd have known, I wish I would have known as a slip | **wish-if-only** (new), second-conditional, third-conditional | 34 | 12 |
 | 6 | `mixed-conditionals` 🔀 | if + had, would (then, so now); the two 'd; if + the past, would have (still so, so then); unless, one not; as long as, provided that, providing; in case against if; the present for the future; If I'd have listened | **mixed-conditionals** (new), second-conditional, third-conditional | 33 | 12 |
 
@@ -101,7 +101,7 @@ The base is integrated B1, so the outline's "once merged, also" pages exist and 
 
 ### The six new pages (companion/grammar/en)
 
-Each B2, in the format of B1's, each with a hand-written card (title, rule, two examples, tip per base). The tips differ by base where the trap does: *seit* and *že* and *da* with a past; *bis Freitag* and *do petka* for both by and until, *entro* and *fino a*; *gewohnt zu*, *navajen* + infinitive, *abituato a*; *hättest sagen sollen*, *{m:moral|f:morala} bi povedati*, *avresti dovuto*; *ko bi le vedel* for now and then. Every rule within the bridge's 1,200 characters.
+Each B2, in the format of B1's, each with a hand-written card (title, rule, two examples, tip per base). The tips differ by base where the trap does: *seit* and *že* and *da* with a past; *bis Freitag* and *do petka* for both by and until, *entro* and *fino a*; *gewohnt zu*, *navajen* + infinitive, *abituato a*; *hättest sagen sollen*, *moral bi povedati*, *avresti dovuto*; *ko bi le vedel* for now and then. Every rule within the bridge's 1,200 characters (at most 1,075).
 
 ### The grading (grading/en.json), `EnglishB2aContentTest` holds each
 
@@ -112,7 +112,7 @@ Each B2, in the format of B1's, each with a hand-written card (title, rule, two 
 
 ### Words
 
-Every sheet of the six lists every word it names with a meaning in sl, de and it, by the print's own `Dictionary`. Seven of the first lists printed the wrong sense (shoes as *beschlagen*, mind as *aufpassen auf*, torch as *bakla*, ring as *zvoniti*, wish as *Wunsch*), so the words got an entry or a gloss, or left the list.
+Every sheet of the six lists every word it names with a meaning in sl, de and it, by the print's own `Dictionary`. The first lists printed some in the wrong sense (shoes as *beschlagen*, mind as *aufpassen auf*, torch as *bakla*, ring as *zvoniti*, wish as *Wunsch*), so the words got an entry or a gloss, or left the list.
 
 ## How the units are written
 
@@ -132,4 +132,38 @@ The village's story is invented: Arthur's bees, the show, the fire at the mill i
 
 ## Read aloud
 
-Mrs Hartley reads the intros in the cast's teacher voice. A voice build of the six units would take about 6,900 ElevenLabs characters for her English lines (about 248 texts: examples, quick questions, answers, the English runs) and, on demand when an intro opens or with `voice-build --explanations`, about 14,200 (Slovene), 14,600 (German) and 14,200 (Italian) for the 42 explanations (36 steps, 6 summaries' worth). Measured with `courseTexts`, nothing voiced, no credits spent.
+Mrs Hartley reads the intros in the cast's teacher voice. A voice build of the six units would take about 6,900 ElevenLabs characters for her English lines (about 248 texts: examples, quick questions, answers, the English runs) and, on demand when an intro opens or with `voice-build --explanations`, about 14,200 (Slovene), 14,600 (German) and 14,200 (Italian) for the 42 explanations (the 36 steps and their summary cards). Measured with `courseTexts`, nothing voiced, no credits spent.
+
+## For part c's COURSE.md
+
+Part a and b don't touch COURSE.md, the README or the page counts. For its "The English course: B2" and its "What people say, over B2":
+
+| What's typed | How | Verdict |
+|---|---|---|
+| was sat, was stood; shoulda, coulda, musta, mighta; If Sam was a walker | the item's `spoken` | right, labelled with the standard form |
+| was and were after wish; mustn't have, must not have, won't have beside can't have; ought to have | the item's `accept`, or the table's `same` | right |
+| should of, may of, can't of, needn't of, I'll of; had of, If I'd of known; shoulda and the rest where an item doesn't list them; I been walking for had been; was sat where an item doesn't list it; I'm use to it; I wish I'd have known, If only I'd have known | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
+
+Left wrong, on the native list: I wish I would have known; You didn't ought to have told him; If I'd listened, I'd have been there now; I was walking for hours when I saw the inn.
+
+The page count: six more pages, English 55 with this part. `tutor/guide/en/grammar-book.md` is regenerated here so `tutor-export --check` holds on this branch: a merge of it takes `tutor-export`, not a hand's choice.
+
+## Checks
+
+As the brief asks of parts a and b. The whole Android suite is part c's and the gate's, and it was not run here. All on 085eee30's content; the commit after it is this doc.
+
+- `bunx tsc --noEmit -p .` clean. `tutor-export --check`: 140 files match.
+- The smoke with ports 10230– (LANI_SMOKE_DRAMA3_PORT 10248): 3,697 checks, all passed. They include each step's point on the rule line in every base, the validator on every unit and page, and the prompt clashes.
+- Android, through lani-slot.sh, `EnglishB2aContentTest` (11), `EnglishCourseContentTest`, `CourseContentTest`, `EnglishA2*`, `EnglishB1*`, `GradingNonstandardTest`, `GradingTest`, `SchoolBoardTest`, `SchoolRevealTest`: 165 tests, 0 failures. `EnglishCourseContentTest` plays every unit: every right answer graded right, no distractor right or almost, every text in each base.
+- `school-prints --language en --level B2 --base de|sl|it`: all six fit. `i-wish` takes one page, the others two; the booklet 13 pages in each base, with B2's other twelve still planned. No word of the six is left without a meaning. A1, A2 and B1 weren't printed again.
+- A script of the part's, with the bridge's validators and the print's `Dictionary` and `ruleLine`: every unit and page valid, every say within 600 characters, cells within the 18 letters of one column, sheets 33 or 34 items, tests 12.
+- `lexicon-build --coverage --lang en`, against the base: the supplement 78.1 % → 78.3 % of words, with packs and names 96.5 % → 96.6 %, each base 95.9 % → 96.0 %. Words none knows 156 → 155. `bun test/prompt-clashes.ts`: no new clash, 339 in the baseline.
+- **Emulator** (`course-unit` through qa-slot, slot 2, 1080 × 2400, Ana, a synthetic learner of English from German in the Lake District, on 773de3e1, so before three quick questions lost a full stop): `should-have` whole: the school, the unit, the six intro steps with their quick questions, the summary, the three sheets, the test passed, the print's preview and PDF, "★ Next unit: I wish I had a dog". ✅ setup, ✅ course-unit, ✅ crash check. Screenshots: the scratchpad's ux-course-en-b2-a/should-have/. Read by eye: step 5 and the first sheet checked, and the print's first page in German. The other 17 are saved, not read. A first run failed in my own command, with no `LANI_DEV_DATA`: the dev bridge then gives the sheets in Slovene.
+- **Two independent reads**, fresh agents on a plain dump: the English by one, sl, de and it by another. Most of what they found is fixed (c69fe4f1). **Not taken:** one asked for "In speech" and "In writing" for the course's "In talk" and "Writing wants", as that is the whole course's wording; one asked for `spoken` on a cloze, which has no such field; one asked for answers with other punctuation, which the grading ignores; some matters of taste in Slovene and Italian, now on the list above. Neither read checked against a dictionary.
+- **Not seen or not done:** the other five units on an emulator; `nonstandard`'s line or a `spoken` label on a screen (QA answers right; the verdicts are unit tests); a native reading of anything; fran.si or Sloleks for the Slovene. Tap counts: no journey changed.
+
+## What's left
+
+- The native check at the top. The lead's word on I wish I'd have known, with B1's If I'd have known.
+- For part c: the table above, the page counts, `_nonstandard_note`, and a merge check that this part's three rows in `same` stay before `'d (?=better)` and the catch-all.
+- **Found, for whoever owns the speech:** after a quick question, the sentence shown and read keeps a cue in the middle ("By the time the bus comes (come), I'll have finished."), in B1's nine too. `IntroSpeech.gapFilled` takes brackets off only at the very end, and a full stop after them hides them. These six avoid the second case by leaving out the stop. Not changed: code, and a parity fixture.
