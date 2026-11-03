@@ -384,6 +384,12 @@ export class Dictionary {
         }
       }
     }
+    // the B1 and higher packs after the A1 and A2 ones, each in its order: a word of two meanings (die Bank, the bench of
+    // the A1 kitchen and the bank of the B1 money pack, both marked homonym) is printed as the earlier level has it, as
+    // the course's sheets mean it; without such packs the order is the files' as it always was
+    const later = (p: Json) => (['B1', 'B2', 'C1', 'C2'].includes(p.level as string) ? 1 : 0)
+    own.sort((a, b) => later(a) - later(b))
+    other.sort((a, b) => later(a) - later(b))
     for (const p of [...own, ...other]) {
       const mine = own.includes(p)
       for (const raw of p.words ?? []) {
