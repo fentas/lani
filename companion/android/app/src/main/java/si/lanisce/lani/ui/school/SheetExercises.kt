@@ -57,6 +57,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.layout.onSizeChanged
@@ -65,6 +66,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import si.lanisce.lani.AppViewModel
@@ -156,35 +158,44 @@ private fun outcomeOf(marks: List<ItemMark>, explain: String?): Outcome {
     return Outcome(Sheets.verdict(v), Sheets.scoreText(v), null, explain, hints = marks.count { it.hinted }, sheet = marks)
 }
 
+/** How many lines a table's cell grows to, so that a long answer shows whole in a narrow cell (a phone, three columns: "dem Menschen"). */
+private const val WRAPPED_LINES = 4
+
+/** A wrapping cell's size: a point smaller, so that a word as long as "Menschen" stays whole in a phone's narrow column. */
+private val WRAPPED_SIZE = 15.sp
+
 /**
  * A typed item's field: small and inline (a gap, a cell), or the line's width; once checked, outlined in its verdict's
  * colour with its mark on its corner ([VerdictBadge]: ✓, ≈, ✗; it takes no room from what was typed), TalkBack saying the
- * verdict (the correction under it says the rest).
+ * verdict (the correction under it says the rest). [wraps]: on more lines rather than scrolled sideways, for a cell too narrow
+ * to show an answer in one, which otherwise shows only its end.
  */
 @Composable
 private fun SheetField(
     value: TextFieldValue, onChange: (TextFieldValue) -> Unit, label: String, mark: ItemMark?, locked: Boolean, active: Boolean,
-    onFocus: () -> Unit, modifier: Modifier = Modifier, minWidth: Int = 64,
+    onFocus: () -> Unit, modifier: Modifier = Modifier, minWidth: Int = 64, wraps: Boolean = false,
 ) {
     val color = mark?.let { verdictColor(it.verdict) } ?: if (active) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
     Box(modifier.width(IntrinsicSize.Min)) {
         NoSuggestions {
             BasicTextField(
                 value = value,
-                onValueChange = onChange,
+                // [wraps]: the Enter of a keyboard or a pasted line break is a space, as an answer has one line
+                onValueChange = if (wraps) { v -> onChange(v.copy(text = v.text.replace('\n', ' '))) } else onChange,
                 enabled = !locked,
-                singleLine = true,
-                keyboardOptions = AnswerKeyboard,
+                singleLine = !wraps,
+                maxLines = if (wraps) WRAPPED_LINES else 1,
+                keyboardOptions = if (wraps) AnswerKeyboard.copy(imeAction = ImeAction.Done) else AnswerKeyboard,
                 textStyle = TextStyle(
                     color = mark?.let { verdictColor(it.verdict) } ?: MaterialTheme.colorScheme.onSurface,
-                    fontWeight = FontWeight.SemiBold, fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold, fontSize = if (wraps) WRAPPED_SIZE else MaterialTheme.typography.titleMedium.fontSize,
                 ),
                 cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                 modifier = Modifier
                     .fillMaxWidth()
                     .widthIn(min = minWidth.dp)
                     .border(BorderStroke(if (active || mark != null) 2.dp else 1.dp, color), MaterialTheme.shapes.small)
-                    .padding(horizontal = 8.dp, vertical = 6.dp)
+                    .padding(horizontal = if (wraps) 4.dp else 8.dp, vertical = 6.dp)
                     .onFocusChanged { if (it.isFocused) onFocus() }
                     .semantics {
                         contentDescription = label
@@ -538,7 +549,7 @@ internal fun TableEx(vm: AppViewModel, ex: Exercise.Table, locked: Boolean, done
                             else Column(first.on(i, lead = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                 SheetField(
                                     values[i], { values[i] = it }, "${row.label}, ${ex.columns.getOrNull(c).orEmpty()}", marks?.getOrNull(i), locked || marks != null,
-                                    active == i && marks == null, onFocus = { active = i }, modifier = Modifier.fillMaxWidth(), minWidth = 48,
+                                    active == i && marks == null, onFocus = { active = i }, modifier = Modifier.fillMaxWidth(), minWidth = 48, wraps = true,
                                 )
                                 marks?.getOrNull(i)?.let { mk ->
                                     ItemCorrection(items.getOrNull(i), mk, withWhy = false, style = MaterialTheme.typography.bodyMedium)
