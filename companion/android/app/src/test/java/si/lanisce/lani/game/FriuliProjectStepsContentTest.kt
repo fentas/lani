@@ -213,18 +213,23 @@ class FriuliProjectStepsContentTest {
         }
     }
 
+    /**
+     * A first person that agrees with the speaker: "sem prinesel", "prinesel sem", "sama sem"; «sono arrivato», «mi sono bagnata». Not a word that agrees with
+     * something else in the line: «tla so bila polna», «voda ne skoči sama», «sam tja nihče ne pride» say nothing of who says them.
+     */
     @Test fun `a helper's lines say nothing of who says them`() {
-        val sl = Regex("""\bsem\s+\p{L}*(l|la|lo|en|na)\b|\b\p{L}{2,}(l|la)\s+sem\b|\b(sam|sama|bil|bila)\b""")
+        val sl = Regex("""\bsem\s+\p{L}*(l|la|lo|en|na)\b|\b\p{L}{2,}(l|la)\s+sem\b|\b(sam|sama)\s+sem\b|\bsem\s+(sam|sama)\b""")
         val it = Regex("""\b(sono|ero|sarò)\s+(\p{L}+(at|ut|it)[oa]|stanc[oa]|content[oa]|pront[oa]|sicur[oa])\b|\bmi sono \p{L}+[oa]\b""")
-        val friuli = friuli(LangPair(Lang.IT, Lang.SL))
-        for (p in friuli) for ((i, s) in p.steps.withIndex()) for (level in levels) {
+        val wrong = ArrayList<String>()
+        for (p in friuli(LangPair(Lang.IT, Lang.SL))) for ((i, s) in p.steps.withIndex()) for (level in levels) {
             if (s.play == null) continue
             val d = Projects.dialog(p, i, level, "it") ?: continue
             for (l in d.lines) if (l.who != null && l.who in p.helpers) {
-                assertFalse("${p.id} step ${i + 1} $level: ${l.who}'s «${l.sl}»", it.containsMatchIn(l.sl.orEmpty().lowercase()))
-                assertFalse("${p.id} step ${i + 1} $level: ${l.who}'s «${l.en}»", sl.containsMatchIn(l.en.orEmpty().lowercase()))
+                if (it.containsMatchIn(l.sl.orEmpty().lowercase())) wrong += "${p.id} step ${i + 1} $level: ${l.who}'s «${l.sl}»"
+                if (sl.containsMatchIn(l.en.orEmpty().lowercase())) wrong += "${p.id} step ${i + 1} $level: ${l.who}'s «${l.en}»"
             }
         }
+        assertTrue(wrong.joinToString("\n", prefix = "\n"), wrong.isEmpty())
     }
 
     /**
