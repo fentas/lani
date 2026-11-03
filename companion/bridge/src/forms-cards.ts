@@ -190,13 +190,15 @@ export function formsCardOf(e: LemmaForms, k: CardContext): FormsCardData | NoCa
 /**
  * Italian's, German's or English's card (paradigms.ts): the entry's slots as they are, a form the same as the word's own
  * given (shown, never a gap: English's cut, cut; German's dem Haus and a plural's case the same as its nominative, where
- * the article says the case), the word written as it is (Haus), its language and auxiliary kept.
+ * the article says the case; Italian's passato remoto, to recognise), the word written as it is (Haus), its language and auxiliary kept.
  */
 function otherCardOf(e: LemmaForms, norm: (s: string) => string): FormsCardData | NoCard {
   const own = norm(e.lemma)
   const nomPl = new Set((e.slots.find(s => s.key === 'nom.pl')?.forms ?? []).map(norm))
   const slots: CardSlot[] = e.slots.filter(s => s.forms.length).map(s => {
     const same = s.forms.every(f => norm(f) === own) || (e.language === 'de' && e.pos === 'noun' && s.key.endsWith('.pl') && s.key !== 'nom.pl' && s.forms.every(f => nomPl.has(norm(f))))
+      // Italian's passato remoto is to recognise (its page says so): read in the table, never a gap
+      || (e.language === 'it' && s.key.startsWith('rem.'))
     return { ...cardSlot(s), ...(same && !OWN_KEYS.has(s.key) ? { given: true as const } : {}) }
   })
   // the given cells count: they are the table's too (a German noun's four cases), only never a gap
