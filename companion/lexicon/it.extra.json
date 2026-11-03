@@ -1048,7 +1048,8 @@
     { "lemma": "incontrare", "pos": "verb", "gloss": ["to meet"],
       "forms": {
         "incontro": "first-person singular present", "incontra": "third-person singular present; second-person singular imperative", "incontrare": "infinitive",
-        "incontrato": "past participle", "incontravano": "third-person plural imperfect", "incontrerà": "third-person singular future"
+        "incontrato": "past participle", "incontri": "second-person singular present; first/second/third-person singular present subjunctive",
+        "incontravano": "third-person plural imperfect", "incontrerà": "third-person singular future"
       },
       "meanings": { "de": ["treffen"], "sl": ["srečati"] } },
     { "lemma": "lavarsi", "pos": "verb", "gloss": ["to wash (yourself)"],
@@ -2732,6 +2733,9 @@
     { "lemma": "durante", "pos": "prep", "gloss": ["during"],
       "forms": { "durante": null },
       "meanings": { "de": ["während – in der Zeit von"], "sl": ["med – v času"] } },
+    { "lemma": "pro", "pos": "prep", "gloss": ["for in Latin"],
+      "forms": { "pro": null },
+      "meanings": { "de": ["lateinisch für"], "sl": ["latinsko za"] } },
     { "lemma": "perciò", "pos": "conj", "gloss": ["therefore, for that reason"],
       "forms": { "perciò": null },
       "meanings": { "de": ["deshalb"], "sl": ["zato"] } },
@@ -3042,7 +3046,7 @@
       "forms": { "cagnolino": "singular", "cagnolina": "feminine singular" },
       "meanings": { "de": ["Hündchen"], "sl": ["kužek, psička"] } },
     { "lemma": "calendario", "pos": "noun", "gender": "m", "gloss": ["calendar"],
-      "forms": { "calendario": "singular" },
+      "forms": { "calendario": "singular", "calendari": "plural" },
       "meanings": { "de": ["Kalender"], "sl": ["koledar"] } },
     { "lemma": "calzino", "pos": "noun", "gender": "m", "gloss": ["sock"],
       "forms": { "calzino": "singular", "calzini": "plural" },
@@ -3423,7 +3427,7 @@
       "forms": { "fondamenta": null },
       "meanings": { "de": ["Fundament"], "sl": ["temelji"] } },
     { "lemma": "fondo", "pos": "noun", "gender": "m", "gloss": ["bottom, far end (in fondo: at the far end)"],
-      "forms": { "fondo": "singular" },
+      "forms": { "fondo": "singular", "fondi": "plural" },
       "meanings": { "de": ["Boden, hinteres Ende (in fondo: ganz hinten)"], "sl": ["dno, konec (in fondo: na koncu)"] } },
     { "lemma": "forca", "pos": "noun", "gender": "f", "gloss": ["wooden fork"],
       "forms": { "forca": "singular", "forche": "plural" },
@@ -4473,7 +4477,7 @@
       "forms": { "unione": "singular" },
       "meanings": { "de": ["Vereinigung, Union"], "sl": ["zveza"] } },
     { "lemma": "usanza", "pos": "noun", "gender": "f", "gloss": ["custom"],
-      "forms": { "usanza": "singular" },
+      "forms": { "usanza": "singular", "usanze": "plural" },
       "meanings": { "de": ["Brauch"], "sl": ["običaj"] } },
     { "lemma": "uva", "pos": "noun", "gender": "f", "gloss": ["grapes"],
       "forms": { "uva": "singular", "uve": "plural" },
@@ -4599,7 +4603,7 @@
       "forms": { "materiale": "singular" },
       "meanings": { "de": ["Material"], "sl": ["material, gradivo"] } },
     { "lemma": "riunione", "pos": "noun", "gender": "f", "gloss": ["meeting"],
-      "forms": { "riunione": "singular" },
+      "forms": { "riunione": "singular", "riunioni": "plural" },
       "meanings": { "de": ["Versammlung"], "sl": ["sestanek"] } },
     { "lemma": "verifica", "pos": "noun", "gender": "f", "gloss": ["check, test"],
       "forms": { "verifica": "singular", "verifiche": "plural" },
@@ -5351,6 +5355,21 @@
     { "lemma": "piantina", "pos": "noun", "gender": "f", "gloss": ["young plant, seedling"],
       "forms": { "piantina": "singular", "piantine": "plural" },
       "meanings": { "de": ["Pflänzchen, Setzling"], "sl": ["sadika"] } },
+    { "lemma": "loco", "pos": "noun", "gender": "m", "gloss": ["place in Latin"],
+      "forms": { "loco": "singular; plural" },
+      "meanings": { "de": ["lateinisch für Ort"], "sl": ["latinsko za kraj"] } },
+    { "lemma": "processione", "pos": "noun", "gender": "f", "gloss": ["religious procession"],
+      "forms": { "processione": "singular" },
+      "meanings": { "de": ["Prozession"], "sl": ["procesija"] } },
+    { "lemma": "elenco", "pos": "noun", "gender": "m", "gloss": ["directory, list"],
+      "forms": { "elenco": "singular", "elenchi": "plural" },
+      "meanings": { "de": ["Verzeichnis, Liste"], "sl": ["imenik, seznam"] } },
+    { "lemma": "iscrizione", "pos": "noun", "gender": "f", "gloss": ["enrolment", "inscription"],
+      "forms": { "iscrizione": "singular", "iscrizioni": "plural" },
+      "meanings": { "de": ["Anmeldung", "Inschrift"], "sl": ["vpis, prijava", "napis"] } },
+    { "lemma": "marcia", "pos": "noun", "gender": "f", "gloss": ["march", "gear (in a car)"],
+      "forms": { "marcia": "singular" },
+      "meanings": { "de": ["Marsch", "Gang"], "sl": ["pohod", "prestava"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -5865,7 +5884,7 @@
       },
       "meanings": { "de": ["arm"], "sl": ["reven, ubog"] } },
     { "lemma": "preciso", "pos": "adj", "gloss": ["exact, precise"],
-      "forms": { "preciso": "masculine singular", "precise": "feminine plural" },
+      "forms": { "preciso": "masculine singular", "precisa": "feminine singular", "precise": "feminine plural" },
       "meanings": { "de": ["genau, präzise"], "sl": ["natančen, precizen"] } },
     { "lemma": "preoccupato", "pos": "adj", "gloss": ["worried"],
       "forms": { "preoccupato": "masculine singular", "preoccupata": "feminine singular" },
@@ -6423,6 +6442,9 @@
     { "lemma": "premiato", "pos": "adj", "gloss": ["prize-winning"],
       "forms": { "premiato": "masculine singular" },
       "meanings": { "de": ["preisgekrönt"], "sl": ["nagrajen"] } },
+    { "lemma": "parrocchiale", "pos": "adj", "gloss": ["of the parish"],
+      "forms": { "parrocchiale": "singular" },
+      "meanings": { "de": ["Pfarr-"], "sl": ["župnijski"] } },
     { "lemma": "abbaiare", "pos": "verb", "gloss": ["to bark"],
       "forms": {
         "abbaio": "first-person singular present", "abbaia": "third-person singular present; second-person singular imperative",
@@ -7556,7 +7578,7 @@
         "dividi": "second-person singular present; second-person singular imperative", "divide": "third-person singular present",
         "dividiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "dividono": "third-person plural present", "divise": "third-person singular historic past; feminine plural past participle",
-        "divisa": "feminine singular past participle", "dividere": "infinitive"
+        "divisa": "feminine singular past participle", "dividersi": "infinitive, with si (oneself)", "dividere": "infinitive"
       },
       "meanings": { "de": ["teilen"], "sl": ["deliti"] } },
     { "lemma": "donare", "pos": "verb", "gloss": ["to give, to donate"],
@@ -7611,8 +7633,9 @@
       "meanings": { "de": ["befestigen", "anstarren"], "sl": ["pritrditi", "strmeti v"] } },
     { "lemma": "fondere", "pos": "verb", "gloss": ["to melt"],
       "forms": {
-        "fondo": "first-person singular present", "fusi": "first-person singular historic past; masculine plural past participle",
-        "fondano": "third-person plural present subjunctive", "fuso": "past participle", "fondere": "infinitive"
+        "fondo": "first-person singular present", "fondi": "second-person singular present; second-person singular imperative",
+        "fusi": "first-person singular historic past; masculine plural past participle", "fondano": "third-person plural present subjunctive",
+        "fuso": "past participle", "fondere": "infinitive"
       },
       "meanings": { "de": ["schmelzen"], "sl": ["topiti, stopiti"] } },
     { "lemma": "forgiare", "pos": "verb", "gloss": ["to forge, to hammer (iron)"],
@@ -7739,7 +7762,7 @@
       "forms": {
         "lego": "first-person singular present",
         "leghiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
-        "legate": "second-person plural present; second-person plural imperative; feminine plural past participle",
+        "legate": "second-person plural present; second-person plural imperative; feminine plural past participle", "legano": "third-person plural present",
         "legheremmo": "first-person plural conditional", "legare": "infinitive", "legata": "feminine singular past participle",
         "legati": "masculine plural past participle"
       },
@@ -8289,6 +8312,7 @@
     { "lemma": "segnare", "pos": "verb", "gloss": ["to mark", "to score (a goal)", "to show (a scale, a clock)"],
       "forms": {
         "segno": "first-person singular present", "segna": "third-person singular present; second-person singular imperative",
+        "segniamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "segnerei": "first-person singular conditional", "segneresti": "second-person singular conditional", "segnare": "infinitive",
         "segnato": "past participle"
       },
@@ -8570,7 +8594,10 @@
       },
       "meanings": { "de": ["fliegen"], "sl": ["leteti"] } },
     { "lemma": "organizzare", "pos": "verb", "gloss": ["to organise"],
-      "forms": { "organizza": "third-person singular present; second-person singular imperative", "organizzato": "past participle", "organizzare": "infinitive" },
+      "forms": {
+        "organizza": "third-person singular present; second-person singular imperative", "organizzare": "infinitive", "organizzato": "past participle",
+        "organizzarsi": "infinitive, with si (oneself)"
+      },
       "meanings": { "de": ["organisieren"], "sl": ["organizirati"] } },
     { "lemma": "marcire", "pos": "verb", "gloss": ["to rot"],
       "forms": { "marcisce": "third-person singular present", "marcirebbe": "third-person singular conditional", "marcire": "infinitive" },
@@ -8677,8 +8704,8 @@
       "meanings": { "de": ["sich beklagen"], "sl": ["pritoževati se"] } },
     { "lemma": "fondare", "pos": "verb", "gloss": ["to found (a town)"],
       "forms": {
-        "fondo": "first-person singular present", "fondano": "third-person plural present", "fondarono": "third-person plural historic past",
-        "fondare": "infinitive"
+        "fondo": "first-person singular present", "fondi": "second-person singular present; first/second/third-person singular present subjunctive",
+        "fondano": "third-person plural present", "fondarono": "third-person plural historic past", "fondare": "infinitive"
       },
       "meanings": { "de": ["gründen"], "sl": ["ustanoviti"] } },
     { "lemma": "divenire", "pos": "verb", "gloss": ["to become – in a story"],
@@ -8734,7 +8761,10 @@
       "forms": { "rilegge": "third-person singular present", "rileggere": "infinitive" },
       "meanings": { "de": ["noch einmal lesen"], "sl": ["znova prebrati"] } },
     { "lemma": "rimandare", "pos": "verb", "gloss": ["to put off"],
-      "forms": { "rimandare": "infinitive", "rimandata": "feminine singular past participle" },
+      "forms": {
+        "rimandiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "rimandare": "infinitive",
+        "rimandata": "feminine singular past participle"
+      },
       "meanings": { "de": ["verschieben"], "sl": ["prestaviti"] } },
     { "lemma": "reggere", "pos": "verb", "gloss": ["to hold up"],
       "forms": {
@@ -8856,7 +8886,7 @@
     { "lemma": "sbrigarsi", "pos": "verb", "gloss": ["to hurry up"],
       "forms": {
         "ci sbrighiamo": "first-person plural present; first-person plural present subjunctive", "sbrigarsi": "infinitive",
-        "sbrigati": "second-person singular imperative, with ti (yourself)",
+        "sbrigati": "second-person singular imperative, with ti (yourself)", "sbrighiamoci": "first-person plural imperative, with ci (ourselves)",
         "sbrighiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative"
       },
       "meanings": { "de": ["sich beeilen"], "sl": ["pohiteti"] } },
@@ -9183,6 +9213,27 @@
     { "lemma": "trebbiare", "pos": "verb", "gloss": ["to thresh"],
       "forms": { "trebbia": "third-person singular present; second-person singular imperative", "trebbiava": "third-person singular imperfect", "trebbiare": "infinitive" },
       "meanings": { "de": ["dreschen"], "sl": ["mlatiti"] } },
+    { "lemma": "contribuire", "pos": "verb", "gloss": ["to contribute"],
+      "forms": {
+        "contribuisco": "first-person singular present", "contribuisci": "second-person singular present; second-person singular imperative",
+        "contribuisce": "third-person singular present", "contribuire": "infinitive"
+      },
+      "meanings": { "de": ["beitragen"], "sl": ["prispevati"] } },
+    { "lemma": "partecipare", "pos": "verb", "gloss": ["to take part"],
+      "forms": { "partecipa": "third-person singular present; second-person singular imperative", "partecipare": "infinitive" },
+      "meanings": { "de": ["teilnehmen"], "sl": ["udeležiti se"] } },
+    { "lemma": "anticipare", "pos": "verb", "gloss": ["to bring forward"],
+      "forms": { "anticipiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "anticipare": "infinitive" },
+      "meanings": { "de": ["vorverlegen"], "sl": ["prestaviti na prej"] } },
+    { "lemma": "confermare", "pos": "verb", "gloss": ["to confirm"],
+      "forms": { "confermi": "second-person singular present; first/second/third-person singular present subjunctive", "confermare": "infinitive" },
+      "meanings": { "de": ["bestätigen"], "sl": ["potrditi"] } },
+    { "lemma": "prevedere", "pos": "verb", "gloss": ["to foresee, to expect"],
+      "forms": { "prevede": "third-person singular present", "prevedere": "infinitive", "previsto": "past participle" },
+      "meanings": { "de": ["vorhersehen"], "sl": ["predvideti"] } },
+    { "lemma": "ricapitolare", "pos": "verb", "gloss": ["to sum up, to go over"],
+      "forms": { "ricapitoliamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "ricapitolare": "infinitive" },
+      "meanings": { "de": ["zusammenfassen"], "sl": ["povzeti"] } },
     { "lemma": "Davide", "pos": "name", "gloss": ["Davide (the shepherd)"],
       "forms": { "davide": null },
       "meanings": { "de": ["Davide (der Hirte)"], "sl": ["Davide (pastir)"] } },
