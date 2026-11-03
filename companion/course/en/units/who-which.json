@@ -1,0 +1,1102 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "who-which",
+  "language": "en",
+  "level": "B1",
+  "emoji": "👉",
+  "title": {
+    "en": "The man who lives next door",
+    "de": "Relativsätze: who, which, that",
+    "sl": "Oziralni stavki: who, which, that",
+    "it": "Le relative: who, which, that"
+  },
+  "goal": {
+    "sl": "Poveš, katero osebo ali stvar misliš, v enem stavku (the man who lives next door, the cheese Arthur likes), s where, whose in predlogom na koncu.",
+    "de": "Du sagst in einem Satz, welche Person oder Sache du meinst (the man who lives next door, the cheese Arthur likes), mit where, whose und dem kleinen Wort am Ende.",
+    "it": "Dici in una frase quale persona o cosa intendi (the man who lives next door, the cheese Arthur likes), con where, whose e la parolina in fondo.",
+    "en": "You can say in one sentence which person or thing you mean (the man who lives next door, the cheese Arthur likes), with where, whose and the small word at the end."
+  },
+  "grammar": [
+    "relative-clauses"
+  ],
+  "words": [
+    "who",
+    "which",
+    "that",
+    "where",
+    "whose",
+    "whom",
+    "blacksmith",
+    "evening class",
+    "next door",
+    "mill",
+    "flour",
+    "hen",
+    "van",
+    "break down",
+    "lamb",
+    "path",
+    "tarn",
+    "prize",
+    "son",
+    "drive",
+    "cheese",
+    "strong",
+    "egg",
+    "bring",
+    "lunch",
+    "work for",
+    "walker",
+    "stay",
+    "story",
+    "chair",
+    "fire",
+    "ale",
+    "fiddle",
+    "sister",
+    "beck",
+    "bridge",
+    "shepherd"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "beseda",
+          "de": "Wort",
+          "it": "parola",
+          "en": "word"
+        },
+        {
+          "sl": "za koga, kaj",
+          "de": "für wen, was",
+          "it": "per chi, che cosa",
+          "en": "for"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**who** poveže dva stavka o osebi in pove, katero osebo misliš: **The man who lives next door is a blacksmith.** (Mož, ki živi zraven, je kovač.) **That's the woman who runs the inn.** (To je ženska, ki vodi gostilno.) **who** stoji takoj za osebo, brez vejice, čeprav jo slovenščina zahteva.",
+          "de": "**who** verbindet zwei Sätze über eine Person und sagt, welche du meinst: **The man who lives next door is a blacksmith.** (Der Mann, der nebenan wohnt, ist Schmied.) **That's the woman who runs the inn.** (Das ist die Frau, die das Gasthaus führt.) **who** steht gleich nach der Person, ohne Komma, und ändert sich nie.",
+          "it": "**who** unisce due frasi su una persona e dice quale intendi: **The man who lives next door is a blacksmith.** (L'uomo che abita qui accanto è un fabbro.) **That's the woman who runs the inn.** (È la donna che gestisce la locanda.) **who** viene subito dopo la persona, senza virgola.",
+          "en": "**who** joins two sentences about a person and says which person you mean: **The man who lives next door is a blacksmith.** **That's the woman who runs the inn.** **who** comes straight after the person, with no comma."
+        },
+        "examples": [
+          {
+            "en": "The man who lives next door is a blacksmith.",
+            "sl": "Mož, ki živi zraven, je kovač.",
+            "de": "Der Mann, der nebenan wohnt, ist Schmied.",
+            "it": "L'uomo che abita qui accanto è un fabbro."
+          },
+          {
+            "en": "That's the woman who runs the inn.",
+            "sl": "To je ženska, ki vodi gostilno.",
+            "de": "Das ist die Frau, die das Gasthaus führt.",
+            "it": "È la donna che gestisce la locanda."
+          },
+          {
+            "en": "The people who live at the mill keep hens.",
+            "sl": "Ljudje, ki živijo v mlinu, redijo kokoši.",
+            "de": "Die Leute, die in der Mühle wohnen, halten Hühner.",
+            "it": "Le persone che abitano al mulino tengono le galline."
+          }
+        ],
+        "rows": [
+          [
+            "who",
+            {
+              "sl": "ljudje",
+              "de": "Menschen",
+              "it": "persone",
+              "en": "people"
+            },
+            "the man who lives next door"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relative-clauses",
+          "prompt": "The teacher ___ takes the evening class is Mrs Hartley.",
+          "options": [
+            "who",
+            "which",
+            "whose"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Oseba: who**\n- The teacher who takes the evening class",
+            "de": "**Eine Person: who**\n- The teacher who takes the evening class",
+            "it": "**Una persona: who**\n- The teacher who takes the evening class",
+            "en": "**A person: who**\n- The teacher who takes the evening class"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**which** je za stvari: **the bus which goes to Keswick** (avtobus, ki pelje v Keswick). **that** je za ljudi in stvari, v govoru najpogostejši: **the man that lives next door**, **the van that broke down** (kombi, ki se je pokvaril). Žival vzame which ali that, znana žival tudi who: **Meg's the dog who found the lamb.**",
+          "de": "**which** ist für Dinge: **the bus which goes to Keswick** (der Bus, der nach Keswick fährt). **that** ist für Menschen und Dinge, gesprochen am häufigsten: **the man that lives next door**, **the van that broke down** (der Lieferwagen, der eine Panne hatte). Ein Tier nimmt which oder that, ein bekanntes auch who: **Meg's the dog who found the lamb.**",
+          "it": "**which** è per le cose: **the bus which goes to Keswick** (l'autobus che va a Keswick). **that** è per persone e cose, a voce il più comune: **the man that lives next door**, **the van that broke down** (il furgone che si è guastato). Un animale prende which o that, uno che conosci anche who: **Meg's the dog who found the lamb.**",
+          "en": "**which** is for things: **the bus which goes to Keswick**. **that** is for people and things, and in talk it is the most common: **the man that lives next door**, **the van that broke down**. An animal takes which or that, one you know also who: **Meg's the dog who found the lamb.**"
+        },
+        "examples": [
+          {
+            "en": "This is the bus which goes to Keswick.",
+            "sl": "To je avtobus, ki pelje v Keswick.",
+            "de": "Das ist der Bus, der nach Keswick fährt.",
+            "it": "Questo è l'autobus che va a Keswick."
+          },
+          {
+            "en": "Sam has got a van that broke down twice last week.",
+            "sl": "Sam ima kombi, ki se je prejšnji teden dvakrat pokvaril.",
+            "de": "Sam hat einen Lieferwagen, der letzte Woche zweimal eine Panne hatte.",
+            "it": "Sam ha un furgone che la settimana scorsa si è guastato due volte."
+          },
+          {
+            "en": "Meg's the dog who found the lamb.",
+            "sl": "Meg je psica, ki je našla jagnje.",
+            "de": "Meg ist die Hündin, die das Lamm gefunden hat.",
+            "it": "Meg è la cagna che ha trovato l'agnello."
+          }
+        ],
+        "rows": [
+          [
+            "which",
+            {
+              "sl": "stvari",
+              "de": "Dinge",
+              "it": "cose",
+              "en": "things"
+            },
+            "the bus which goes to Keswick"
+          ],
+          [
+            "that",
+            {
+              "sl": "oboje",
+              "de": "beides",
+              "it": "tutti e due",
+              "en": "both"
+            },
+            "the van that broke down"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relative-clauses",
+          "text": "Here's the path ___ goes up to the tarn.",
+          "accept": [
+            "which",
+            "that"
+          ],
+          "hint": {
+            "sl": "stvar",
+            "de": "eine Sache",
+            "it": "una cosa",
+            "en": "a thing"
+          },
+          "explain": {
+            "sl": "**Stvar: which ali that**\n- the path which goes up to the tarn",
+            "de": "**Eine Sache: which oder that**\n- the path which goes up to the tarn",
+            "it": "**Una cosa: which o that**\n- the path which goes up to the tarn",
+            "en": "**A thing: which or that**\n- the path which goes up to the tarn"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Če takoj za besedo pride nov osebek, je beseda predmet in lahko odpade: **the cheese that Arthur likes** = **the cheese Arthur likes** (sir, ki ga ima Arthur rad). **the man I met yesterday** (mož, ki sem ga včeraj srečal{m:|f:a}). Če pride glagol, je osebek in ostane: **the man who lives next door**. Slovenski *ga, jo* nima para: **the book I read** (knjiga, ki sem jo prebral{m:|f:a}).",
+          "de": "Kommt gleich danach ein neues Subjekt, ist das Wort Objekt und kann wegfallen: **the cheese that Arthur likes** = **the cheese Arthur likes** (der Käse, den Arthur mag). **the man I met yesterday** (der Mann, den ich gestern getroffen habe). Kommt ein Verb, ist es Subjekt und bleibt: **the man who lives next door**. Kein Pronomen kommt dazu: **the book I read**, nie *the book I read it*.",
+          "it": "Se subito dopo viene un nuovo soggetto, la parola è oggetto e può cadere: **the cheese that Arthur likes** = **the cheese Arthur likes** (il formaggio che piace ad Arthur). **the man I met yesterday** (l'uomo che ho incontrato ieri). Se viene un verbo, è soggetto e resta: **the man who lives next door**. Non si aggiunge un pronome: **the book I read**, mai *the book I read it*.",
+          "en": "When a new subject comes straight after it, the word is the object and can go: **the cheese that Arthur likes** = **the cheese Arthur likes**. **the man I met yesterday**. When a verb comes next, it is the subject and stays: **the man who lives next door**. No pronoun comes in: **the book I read**, never *the book I read it*."
+        },
+        "examples": [
+          {
+            "en": "That's the cheese Arthur likes.",
+            "sl": "To je sir, ki ga ima Arthur rad.",
+            "de": "Das ist der Käse, den Arthur mag.",
+            "it": "Questo è il formaggio che piace ad Arthur."
+          },
+          {
+            "en": "Who's the man I met yesterday?",
+            "sl": "Kdo je mož, ki sem ga včeraj srečal{m:|f:a}?",
+            "de": "Wer ist der Mann, den ich gestern getroffen habe?",
+            "it": "Chi è l'uomo che ho incontrato ieri?"
+          },
+          {
+            "en": "I've lost the book I read on the bus.",
+            "sl": "Izgubil{m:|f:a} sem knjigo, ki sem jo bral{m:|f:a} na avtobusu.",
+            "de": "Ich habe das Buch verloren, das ich im Bus gelesen habe.",
+            "it": "Ho perso il libro che ho letto sull'autobus."
+          }
+        ],
+        "rows": [
+          [
+            "–",
+            {
+              "sl": "predmet: lahko odpade",
+              "de": "Objekt: kann wegfallen",
+              "it": "oggetto: può cadere",
+              "en": "the object: can go"
+            },
+            "the cheese Arthur likes"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relative-clauses",
+          "prompt": {
+            "sl": "Without that: which is right? · brez that: kaj je prav?",
+            "de": "Without that: which is right? · ohne that: was stimmt?",
+            "it": "Without that: which is right? · senza that: che cosa è giusto?",
+            "en": "Without that: which is right?"
+          },
+          "options": [
+            "The eggs Poppy brought are fresh.",
+            "The man keeps bees is ill.",
+            "The eggs Poppy brought them are fresh."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Poppy je osebek, that lahko odpade**\n- The eggs Poppy brought are fresh.",
+            "de": "**Poppy ist das Subjekt, that kann wegfallen**\n- The eggs Poppy brought are fresh.",
+            "it": "**Poppy è il soggetto, that può cadere**\n- The eggs Poppy brought are fresh.",
+            "en": "**Poppy is the subject, so that can go**\n- The eggs Poppy brought are fresh."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**where** je za kraje: **the inn where we had lunch** (gostilna, kjer smo kosili), **the farm where Jack lives**. **whose** stoji za his, her, their: **Jack is the man whose dog won the prize.** (Jack je mož, čigar pes je dobil nagrado.) **That's the woman whose son drives the bus.** Zveni kot who's, a who's je who is.",
+          "de": "**where** ist für Orte: **the inn where we had lunch** (das Gasthaus, wo wir gegessen haben), **the farm where Jack lives**. **whose** steht für his, her, their: **Jack is the man whose dog won the prize.** (Jack ist der Mann, dessen Hund den Preis gewonnen hat.) **That's the woman whose son drives the bus.** Es klingt wie who's, aber who's ist who is.",
+          "it": "**where** è per i luoghi: **the inn where we had lunch** (la locanda dove abbiamo pranzato), **the farm where Jack lives**. **whose** sta per his, her, their: **Jack is the man whose dog won the prize.** (Jack è l'uomo il cui cane ha vinto il premio.) **That's the woman whose son drives the bus.** Suona come who's, ma who's è who is.",
+          "en": "**where** is for places: **the inn where we had lunch**, **the farm where Jack lives**. **whose** stands for his, her, their: **Jack is the man whose dog won the prize.** **That's the woman whose son drives the bus.** It sounds like who's, but who's is who is."
+        },
+        "examples": [
+          {
+            "en": "This is the farm where Jack lives.",
+            "sl": "To je kmetija, kjer živi Jack.",
+            "de": "Das ist der Hof, wo Jack wohnt.",
+            "it": "Questa è la fattoria dove abita Jack."
+          },
+          {
+            "en": "Jack is the man whose dog won the prize.",
+            "sl": "Jack je mož, čigar pes je dobil nagrado.",
+            "de": "Jack ist der Mann, dessen Hund den Preis gewonnen hat.",
+            "it": "Jack è l'uomo il cui cane ha vinto il premio."
+          },
+          {
+            "en": "That's the woman whose son drives the bus.",
+            "sl": "To je ženska, katere sin vozi avtobus.",
+            "de": "Das ist die Frau, deren Sohn den Bus fährt.",
+            "it": "È la donna il cui figlio guida l'autobus."
+          }
+        ],
+        "rows": [
+          [
+            "where",
+            {
+              "sl": "kraji",
+              "de": "Orte",
+              "it": "luoghi",
+              "en": "places"
+            },
+            "the inn where we had lunch"
+          ],
+          [
+            "whose",
+            {
+              "sl": "his, her, their",
+              "de": "his, her, their",
+              "it": "his, her, their",
+              "en": "his, her, their"
+            },
+            "the man whose dog won"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relative-clauses",
+          "text": "Sam is the man ___ van broke down.",
+          "accept": [
+            "whose"
+          ],
+          "hint": {
+            "sl": "his van",
+            "de": "his van",
+            "it": "his van",
+            "en": "his van"
+          },
+          "explain": {
+            "sl": "**whose stoji za his**\n- Sam is the man whose van broke down.",
+            "de": "**whose steht für his**\n- Sam is the man whose van broke down.",
+            "it": "**whose sta per his**\n- Sam is the man whose van broke down.",
+            "en": "**whose stands for his**\n- Sam is the man whose van broke down."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Mali predlog ostane na koncu, za glagolom: **the woman I spoke to** (ženska, s katero sem govoril{m:|f:a}), **the inn we had lunch at**, **the man I work for** (mož, pri katerem delam). Slovenščina ga da naprej, angleščina ne. Zelo uradno gre naprej z **whom**: **the man for whom I work**.",
+          "de": "Das kleine Wort bleibt am Ende, nach dem Verb: **the woman I spoke to** (die Frau, mit der ich gesprochen habe), **the inn we had lunch at**, **the man I work for** (der Mann, für den ich arbeite). Deutsch stellt es nach vorn, Englisch nicht. Nur sehr förmlich geht es nach vorn mit **whom**: **the man for whom I work**.",
+          "it": "La parolina resta in fondo, dopo il verbo: **the woman I spoke to** (la donna con cui ho parlato), **the inn we had lunch at**, **the man I work for** (l'uomo per cui lavoro). L'italiano la mette davanti, l'inglese no. Solo in modo molto formale va davanti con **whom**: **the man for whom I work**.",
+          "en": "A small word stays at the end, after its verb: **the woman I spoke to**, **the inn we had lunch at**, **the man I work for**. Only very formal English moves it to the front, with **whom**: **the man for whom I work**."
+        },
+        "examples": [
+          {
+            "en": "That's the woman I spoke to.",
+            "sl": "To je ženska, s katero sem govoril{m:|f:a}.",
+            "de": "Das ist die Frau, mit der ich gesprochen habe.",
+            "it": "È la donna con cui ho parlato."
+          },
+          {
+            "en": "Is that the inn we had lunch at?",
+            "sl": "Je to gostilna, kjer smo kosili?",
+            "de": "Ist das das Gasthaus, in dem wir gegessen haben?",
+            "it": "È quella la locanda dove abbiamo pranzato?"
+          },
+          {
+            "en": "Mr Tyson is the man I work for.",
+            "sl": "Gospod Tyson je mož, pri katerem delam.",
+            "de": "Mr Tyson ist der Mann, für den ich arbeite.",
+            "it": "Mr Tyson è l'uomo per cui lavoro."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "na koncu",
+              "de": "am Ende",
+              "it": "in fondo",
+              "en": "at the end"
+            },
+            {
+              "sl": "mali predlog",
+              "de": "das kleine Wort",
+              "it": "la parolina",
+              "en": "the small word"
+            },
+            "the woman I spoke to"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relative-clauses",
+          "prompt": {
+            "sl": "Which is right? · kaj je prav?",
+            "de": "Which is right? · was stimmt?",
+            "it": "Which is right? · che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "That's the van we came in.",
+            "That's the van in we came.",
+            "That's the van we came in it."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Predlog na koncu, brez it**\n- That's the van we came in.",
+            "de": "**Das kleine Wort am Ende, ohne it**\n- That's the van we came in.",
+            "it": "**La parolina in fondo, senza it**\n- That's the van we came in.",
+            "en": "**The small word at the end, with no it**\n- That's the van we came in."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V pisavi je **who** ali **that**: **the man who lives next door**, **There's a man who lives up at the mill.** Ljudje v mnogih krajih Britanije rečejo tudi *the man what lives next door*, tu na severu tudi *There's a man lives up at the mill*, brez besede. Oboje razumeš, napišeš pa prvo.",
+          "de": "Geschrieben steht **who** oder **that**: **the man who lives next door**, **There's a man who lives up at the mill.** Die Leute sagen in vielen Gegenden Großbritanniens auch *the man what lives next door*, hier im Norden auch *There's a man lives up at the mill*, ganz ohne Wort. Beides verstehst du, schreiben tust du das erste.",
+          "it": "Per iscritto si usa **who** o **that**: **the man who lives next door**, **There's a man who lives up at the mill.** In molte parti della Gran Bretagna si dice anche *the man what lives next door*, qui al nord anche *There's a man lives up at the mill*, senza parola. Capisci tutti e due, scrivi il primo.",
+          "en": "Writing wants **who** or **that**: **the man who lives next door**, **There's a man who lives up at the mill.** In many parts of Britain people also say *the man what lives next door*, and here in the North *There's a man lives up at the mill*, with no word at all."
+        },
+        "examples": [
+          {
+            "en": "There's a man who lives up at the mill.",
+            "sl": "Gor v mlinu živi neki mož.",
+            "de": "Oben in der Mühle wohnt ein Mann.",
+            "it": "C'è un uomo che abita su al mulino."
+          },
+          {
+            "en": "Those are the walkers that stayed at the inn.",
+            "sl": "To so pohodniki, ki so prespali v gostilni.",
+            "de": "Das sind die Wanderer, die im Gasthaus übernachtet haben.",
+            "it": "Quelli sono gli escursionisti che hanno dormito alla locanda."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relative-clauses",
+          "text": "In writing: Old Wilf knows the woman ___ keeps the shop.",
+          "accept": [
+            "who",
+            "that"
+          ],
+          "hint": {
+            "sl": "oseba, osebek",
+            "de": "eine Person, Subjekt",
+            "it": "una persona, soggetto",
+            "en": "a person, the subject"
+          },
+          "explain": {
+            "sl": "**Pisava: who ali that**\n- the woman who keeps the shop",
+            "de": "**Geschrieben: who oder that**\n- the woman who keeps the shop",
+            "it": "**Per iscritto: who o that**\n- the woman who keeps the shop",
+            "en": "**In writing: who or that**\n- the woman who keeps the shop"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "who-which-1",
+      "title": {
+        "sl": "Ljudje in stvari",
+        "de": "Menschen und Dinge",
+        "it": "Persone e cose",
+        "en": "People and things"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "who · ljudje",
+                "de": "who · Menschen",
+                "it": "who · persone",
+                "en": "who"
+              },
+              "words": [
+                "the blacksmith",
+                "the shepherd",
+                "Mrs Birkett"
+              ]
+            },
+            {
+              "label": {
+                "sl": "which · stvari",
+                "de": "which · Dinge",
+                "it": "which · cose",
+                "en": "which"
+              },
+              "words": [
+                "the bridge",
+                "the cheese",
+                "the fiddle"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**who za ljudi, which za stvari**\n- the shepherd who … · the bridge which …",
+            "de": "**who für Menschen, which für Dinge**\n- the shepherd who … · the bridge which …",
+            "it": "**who per le persone, which per le cose**\n- the shepherd who … · the bridge which …",
+            "en": "**who for people, which for things**\n- the shepherd who … · the bridge which …"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Welcome to our village! Mr Dixon is the man ___ mends the gates. The Packhorse is the inn ___ we meet on Fridays. This is the van ___ broke down last week. Sam is the man ___ van it is. And Mrs Hartley is the teacher ___ takes the evening class.",
+          "gaps": [
+            {
+              "accept": [
+                "who",
+                "that"
+              ],
+              "hint": {
+                "sl": "oseba",
+                "de": "eine Person",
+                "it": "una persona",
+                "en": "a person"
+              }
+            },
+            {
+              "accept": [
+                "where"
+              ],
+              "hint": {
+                "sl": "kraj",
+                "de": "ein Ort",
+                "it": "un luogo",
+                "en": "a place"
+              }
+            },
+            {
+              "accept": [
+                "which",
+                "that"
+              ],
+              "hint": {
+                "sl": "stvar",
+                "de": "eine Sache",
+                "it": "una cosa",
+                "en": "a thing"
+              }
+            },
+            {
+              "accept": [
+                "whose"
+              ],
+              "hint": {
+                "sl": "his van",
+                "de": "his van",
+                "it": "his van",
+                "en": "his van"
+              }
+            },
+            {
+              "accept": [
+                "that",
+                "who"
+              ],
+              "hint": {
+                "sl": "oseba",
+                "de": "eine Person",
+                "it": "una persona",
+                "en": "a person"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "when"
+          ],
+          "translation": {
+            "sl": "Dobrodošli v naši vasi! Gospod Dixon je mož, ki popravlja vrata. Packhorse je gostilna, kjer se dobivamo ob petkih. To je kombi, ki se je prejšnji teden pokvaril. Sam je mož, čigar kombi je to. In gospa Hartley je učiteljica, ki vodi večerni tečaj.",
+            "de": "Willkommen in unserem Dorf! Mr Dixon ist der Mann, der die Tore repariert. Das Packhorse ist das Gasthaus, wo wir uns freitags treffen. Das ist der Lieferwagen, der letzte Woche eine Panne hatte. Sam ist der Mann, dem er gehört. Und Mrs Hartley ist die Lehrerin, die den Abendkurs hält.",
+            "it": "Benvenuti nel nostro villaggio! Mr Dixon è l'uomo che ripara i cancelli. Il Packhorse è la locanda dove ci troviamo il venerdì. Questo è il furgone che la settimana scorsa si è guastato. Sam è l'uomo a cui appartiene. E Mrs Hartley è la maestra che tiene il corso serale.",
+            "en": "Welcome to our village! Mr Dixon is the man who mends the gates. The Packhorse is the inn where we meet on Fridays. This is the van which broke down last week. Sam is the man whose van it is. And Mrs Hartley is the teacher that takes the evening class."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "The bridge ___ crosses the beck is very old.",
+          "options": [
+            "which",
+            "who",
+            "whose"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Stvar: which ali that**\n- the bridge which crosses the beck",
+            "de": "**Eine Sache: which oder that**\n- the bridge which crosses the beck",
+            "it": "**Una cosa: which o that**\n- the bridge which crosses the beck",
+            "en": "**A thing: which or that**\n- the bridge which crosses the beck"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Alfie is the boy ___ sister plays the fiddle.",
+          "options": [
+            "whose",
+            "who",
+            "which"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**his sister: whose**\n- the boy whose sister plays the fiddle",
+            "de": "**his sister: whose**\n- the boy whose sister plays the fiddle",
+            "it": "**his sister: whose**\n- the boy whose sister plays the fiddle",
+            "en": "**his sister: whose**\n- the boy whose sister plays the fiddle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "who-which-2",
+      "title": {
+        "sl": "Sir, ki ga ima Arthur rad",
+        "de": "Der Käse, den Arthur mag",
+        "it": "Il formaggio che piace ad Arthur",
+        "en": "The cheese Arthur likes"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "that can go · that lahko odpade",
+                "de": "that can go · that kann wegfallen",
+                "it": "that can go · that può cadere",
+                "en": "that can go"
+              },
+              "words": [
+                "the cheese that Arthur likes",
+                "the man that I met",
+                "the letter that she wrote"
+              ]
+            },
+            {
+              "label": {
+                "sl": "that stays · that ostane",
+                "de": "that stays · that bleibt",
+                "it": "that stays · that resta",
+                "en": "that stays"
+              },
+              "words": [
+                "the man that lives next door",
+                "the van that broke down",
+                "the dog that found the lamb"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Nov osebek: that odpade. Glagol: that ostane**\n- the man (that) I met · the man that lives next door",
+            "de": "**Neues Subjekt: that fällt weg. Ein Verb: that bleibt**\n- the man (that) I met · the man that lives next door",
+            "it": "**Nuovo soggetto: that cade. Un verbo: that resta**\n- the man (that) I met · the man that lives next door",
+            "en": "**A new subject: that can go. A verb next: that stays**\n- the man (that) I met · the man that lives next door"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Put it in one sentence · En stavek",
+            "de": "Put it in one sentence · Mach einen Satz daraus",
+            "it": "Put it in one sentence · Fanne una frase",
+            "en": "Put it in one sentence"
+          },
+          "items": [
+            {
+              "from": "This is the cheese. Arthur likes it.",
+              "accept": [
+                "This is the cheese Arthur likes.",
+                "This is the cheese that Arthur likes.",
+                "This is the cheese which Arthur likes."
+              ],
+              "hint": {
+                "sl": "it odpade",
+                "de": "it fällt weg",
+                "it": "it cade",
+                "en": "it goes"
+              }
+            },
+            {
+              "from": "That's the man. I met him yesterday.",
+              "accept": [
+                "That's the man I met yesterday.",
+                "That's the man who I met yesterday.",
+                "That's the man that I met yesterday.",
+                "That's the man whom I met yesterday."
+              ],
+              "hint": {
+                "sl": "him odpade",
+                "de": "him fällt weg",
+                "it": "him cade",
+                "en": "him goes"
+              }
+            },
+            {
+              "from": "These are the eggs. Poppy brought them.",
+              "accept": [
+                "These are the eggs Poppy brought.",
+                "These are the eggs that Poppy brought.",
+                "These are the eggs which Poppy brought."
+              ]
+            },
+            {
+              "from": "She's the woman. We saw her at the dance.",
+              "accept": [
+                "She's the woman we saw at the dance.",
+                "She's the woman who we saw at the dance.",
+                "She's the woman that we saw at the dance.",
+                "She's the woman whom we saw at the dance."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Brez it, him, them: besedo zamenja who, which, that ali nič**\n- This is the cheese Arthur likes.",
+            "de": "**Kein it, him, them: an ihre Stelle tritt who, which, that oder nichts**\n- This is the cheese Arthur likes.",
+            "it": "**Niente it, him, them: al loro posto who, which, that o niente**\n- This is the cheese Arthur likes.",
+            "en": "**No it, him, them: who, which, that or nothing takes their place**\n- This is the cheese Arthur likes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "who-which-3",
+      "title": {
+        "sl": "Kjer, čigar, predlog na koncu",
+        "de": "Wo, dessen, das kleine Wort am Ende",
+        "it": "Dove, il cui, la parolina in fondo",
+        "en": "Where, whose and the word at the end"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Old Wilf is the man ___ tells the best stories. His chair is the one ___ stands by the fire. The Packhorse is the place ___ he drinks his ale. Mrs Birkett is the woman ___ ale he likes best. And Meg's the only dog ___ he talks to.",
+          "gaps": [
+            {
+              "accept": [
+                "who",
+                "that"
+              ]
+            },
+            {
+              "accept": [
+                "which",
+                "that"
+              ]
+            },
+            {
+              "accept": [
+                "where"
+              ]
+            },
+            {
+              "accept": [
+                "whose"
+              ],
+              "hint": {
+                "sl": "her ale",
+                "de": "her ale",
+                "it": "her ale",
+                "en": "her ale"
+              }
+            },
+            {
+              "accept": [
+                "that",
+                "which",
+                "who"
+              ],
+              "explain": {
+                "sl": "**Pes: that, which, znan pes tudi who**",
+                "de": "**Ein Hund: that, which, ein bekannter auch who**",
+                "it": "**Un cane: that, which, uno che conosci anche who**",
+                "en": "**A dog: that, which, one you know also who**"
+              }
+            }
+          ],
+          "translation": {
+            "sl": "Stari Wilf je mož, ki pripoveduje najboljše zgodbe. Njegov stol je tisti ob ognju. Packhorse je kraj, kjer pije svoje pivo. Gospa Birkett je ženska, katere pivo ima najraje. In Meg je edini pes, s katerim se pogovarja.",
+            "de": "Der alte Wilf ist der Mann, der die besten Geschichten erzählt. Sein Sessel ist der, der beim Feuer steht. Das Packhorse ist der Ort, wo er sein Bier trinkt. Mrs Birkett ist die Frau, deren Bier er am liebsten mag. Und Meg ist der einzige Hund, mit dem er redet.",
+            "it": "Il vecchio Wilf è l'uomo che racconta le storie più belle. La sua sedia è quella vicino al fuoco. Il Packhorse è il posto dove beve la sua birra. Mrs Birkett è la donna la cui birra gli piace di più. E Meg è l'unico cane con cui parla.",
+            "en": "Old Wilf is the man who tells the best stories. His chair is the one which stands by the fire. The Packhorse is the place where he drinks his ale. Mrs Birkett is the woman whose ale he likes best. And Meg's the only dog that he talks to."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "relative-clauses",
+          "instruction": {
+            "sl": "Put it in one sentence · En stavek",
+            "de": "Put it in one sentence · Mach einen Satz daraus",
+            "it": "Put it in one sentence · Fanne una frase",
+            "en": "Put it in one sentence"
+          },
+          "items": [
+            {
+              "from": "That's the man. His dog won the prize.",
+              "accept": [
+                "That's the man whose dog won the prize."
+              ],
+              "hint": {
+                "sl": "his dog → whose dog",
+                "de": "his dog → whose dog",
+                "it": "his dog → whose dog",
+                "en": "his dog → whose dog"
+              }
+            },
+            {
+              "from": "This is the farm. Jack lives there.",
+              "accept": [
+                "This is the farm where Jack lives.",
+                "This is the farm Jack lives on.",
+                "This is the farm that Jack lives on.",
+                "This is the farm which Jack lives on.",
+                "This is the farm Jack lives at.",
+                "This is the farm that Jack lives at.",
+                "This is the farm which Jack lives at.",
+                "This is the farm on which Jack lives."
+              ],
+              "hint": {
+                "sl": "there → where",
+                "de": "there → where",
+                "it": "there → where",
+                "en": "there → where"
+              }
+            },
+            {
+              "from": "That's the woman. Her son drives the bus.",
+              "accept": [
+                "That's the woman whose son drives the bus."
+              ]
+            },
+            {
+              "from": "That's the woman. I spoke to her.",
+              "accept": [
+                "That's the woman I spoke to.",
+                "That's the woman who I spoke to.",
+                "That's the woman that I spoke to.",
+                "That's the woman whom I spoke to.",
+                "That's the woman to whom I spoke."
+              ],
+              "hint": {
+                "sl": "to na konec",
+                "de": "to ans Ende",
+                "it": "to in fondo",
+                "en": "to at the end"
+              }
+            },
+            {
+              "from": "This is the van. We came in it.",
+              "accept": [
+                "This is the van we came in.",
+                "This is the van that we came in.",
+                "This is the van which we came in.",
+                "This is the van in which we came."
+              ],
+              "hint": {
+                "sl": "in na konec",
+                "de": "in ans Ende",
+                "it": "in in fondo",
+                "en": "in at the end"
+              }
+            }
+          ],
+          "explain": {
+            "sl": "**whose za his, her; where za there; mali predlog ostane na koncu**\n- That's the woman I spoke to.",
+            "de": "**whose für his, her; where für there; das kleine Wort bleibt am Ende**\n- That's the woman I spoke to.",
+            "it": "**whose per his, her; where per there; la parolina resta in fondo**\n- That's the woman I spoke to.",
+            "en": "**whose for his, her; where for there; the small word stays at the end**\n- That's the woman I spoke to."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "relative-clauses",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "The man ___ runs the mill is Mr Tyson. The flour ___ he makes goes to the inn. The kitchen ___ Mrs Birkett bakes is always warm. She's the woman ___ bread everybody likes. And the walkers ___ eat it want more!",
+        "gaps": [
+          {
+            "accept": [
+              "who",
+              "that"
+            ]
+          },
+          {
+            "accept": [
+              "that",
+              "which"
+            ]
+          },
+          {
+            "accept": [
+              "where"
+            ]
+          },
+          {
+            "accept": [
+              "whose"
+            ]
+          },
+          {
+            "accept": [
+              "who",
+              "that"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Mož, ki vodi mlin, je gospod Tyson. Moka, ki jo melje, gre v gostilno. Kuhinja, kjer peče gospa Birkett, je vedno topla. Ona je ženska, katere kruh imajo vsi radi. In pohodniki, ki ga jedo, hočejo še!",
+          "de": "Der Mann, der die Mühle führt, ist Mr Tyson. Das Mehl, das er mahlt, kommt ins Gasthaus. Die Küche, wo Mrs Birkett bäckt, ist immer warm. Sie ist die Frau, deren Brot alle mögen. Und die Wanderer, die es essen, wollen mehr!",
+          "it": "L'uomo che gestisce il mulino è Mr Tyson. La farina che fa va alla locanda. La cucina dove Mrs Birkett fa il pane è sempre calda. È la donna il cui pane piace a tutti. E gli escursionisti che lo mangiano ne vogliono ancora!",
+          "en": "The man who runs the mill is Mr Tyson. The flour that he makes goes to the inn. The kitchen where Mrs Birkett bakes is always warm. She's the woman whose bread everybody likes. And the walkers who eat it want more!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relative-clauses",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "The letter ___ came today is for Auntie Edna.",
+        "options": [
+          "that",
+          "who",
+          "whose"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Stvar: that ali which**\n- The letter that came today …",
+          "de": "**Eine Sache: that oder which**\n- The letter that came today …",
+          "it": "**Una cosa: that o which**\n- The letter that came today …",
+          "en": "**A thing: that or which**\n- The letter that came today …"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relative-clauses",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Keswick is the town ___ Poppy goes to school.",
+        "options": [
+          "where",
+          "which",
+          "who"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kraj: where**\n- the town where Poppy goes to school",
+          "de": "**Ein Ort: where**\n- the town where Poppy goes to school",
+          "it": "**Un luogo: where**\n- the town where Poppy goes to school",
+          "en": "**A place: where**\n- the town where Poppy goes to school"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relative-clauses",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Here's the shepherd ___ sheep got out.",
+        "options": [
+          "whose",
+          "who",
+          "that"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**his sheep: whose**\n- the shepherd whose sheep got out",
+          "de": "**his sheep: whose**\n- the shepherd whose sheep got out",
+          "it": "**his sheep: whose**\n- the shepherd whose sheep got out",
+          "en": "**his sheep: whose**\n- the shepherd whose sheep got out"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "relative-clauses",
+        "instruction": {
+          "sl": "Put it in one sentence · En stavek",
+          "de": "Put it in one sentence · Mach einen Satz daraus",
+          "it": "Put it in one sentence · Fanne una frase",
+          "en": "Put it in one sentence"
+        },
+        "items": [
+          {
+            "from": "This is the scone. Granny Maggie made it.",
+            "accept": [
+              "This is the scone Granny Maggie made.",
+              "This is the scone that Granny Maggie made.",
+              "This is the scone which Granny Maggie made."
+            ]
+          },
+          {
+            "from": "That's the man. His hens got out.",
+            "accept": [
+              "That's the man whose hens got out."
+            ]
+          },
+          {
+            "from": "Here's the inn. We had lunch there.",
+            "accept": [
+              "Here's the inn where we had lunch.",
+              "Here's the inn we had lunch at.",
+              "Here's the inn that we had lunch at.",
+              "Here's the inn which we had lunch at.",
+              "Here's the inn we had lunch in.",
+              "Here's the inn that we had lunch in.",
+              "Here's the inn which we had lunch in."
+            ]
+          },
+          {
+            "from": "That's the walker. I gave my map to him.",
+            "accept": [
+              "That's the walker I gave my map to.",
+              "That's the walker who I gave my map to.",
+              "That's the walker that I gave my map to.",
+              "That's the walker whom I gave my map to.",
+              "That's the walker to whom I gave my map."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Brez him, it: who, which, that ali nič; mali predlog na koncu**\n- That's the walker I gave my map to.",
+          "de": "**Kein him, it: who, which, that oder nichts; das kleine Wort am Ende**\n- That's the walker I gave my map to.",
+          "it": "**Niente him, it: who, which, that o niente; la parolina in fondo**\n- That's the walker I gave my map to.",
+          "en": "**No him, it: who, which, that or nothing; the small word at the end**\n- That's the walker I gave my map to."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: what for who; there's a man lives"
+}

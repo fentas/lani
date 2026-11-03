@@ -1,0 +1,1079 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passive",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🏗️",
+  "title": {
+    "en": "The bread is baked here",
+    "de": "Das Passiv: is baked, was built",
+    "sl": "Trpnik: is baked, was built",
+    "it": "Il passivo: is baked, was built"
+  },
+  "goal": {
+    "sl": "Poveš, kaj se dela ali je bilo narejeno, ko ni pomembno, kdo (The bread is baked here, The bridge was built in 1720), z by, če je pomembno, in s can be.",
+    "de": "Du sagst, was gemacht wird oder gemacht wurde, ohne zu sagen, wer es tut (The bread is baked here, The bridge was built in 1720), mit by, wer es war, und mit can be.",
+    "it": "Dici che cosa si fa o è stato fatto, senza dire chi (The bread is baked here, The bridge was built in 1720), con by per dire chi, e con can be.",
+    "en": "You can say what is done or was done, without saying who (The bread is baked here, The bridge was built in 1720), with by for who did it, and with can be."
+  },
+  "grammar": [
+    "passive",
+    "past-simple"
+  ],
+  "words": [
+    "passive",
+    "participle",
+    "bake",
+    "bread",
+    "sell",
+    "build",
+    "bridge",
+    "send",
+    "letter",
+    "mend",
+    "gate",
+    "honey",
+    "bee",
+    "steal",
+    "roof",
+    "paint",
+    "keep",
+    "dog's lead",
+    "notice",
+    "ticket",
+    "national park",
+    "fell",
+    "pencil",
+    "window",
+    "storm",
+    "teach",
+    "sheep",
+    "open",
+    "inside",
+    "inn",
+    "find",
+    "catch",
+    "farm",
+    "road",
+    "given",
+    "Sunday"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "kdaj, kaj",
+          "de": "wann, was",
+          "it": "quando, che cosa",
+          "en": "when, what"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Ko je pomembno, kaj se zgodi, ne kdo to naredi, rabiš **is, are** + deležnik: **The bread is baked here.** (Kruh pečejo tukaj.) **Eggs are sold at the farm.** (Jajca prodajajo na kmetiji.) Temu se reče trpnik. Kdo peče, tu ni pomembno. Slovenščina reče *pečejo* ali *se peče*.",
+          "de": "Ist wichtig, was geschieht, nicht wer es tut, nimmst du **is, are** + Partizip: **The bread is baked here.** (Das Brot wird hier gebacken.) **Eggs are sold at the farm.** (Eier werden auf dem Hof verkauft.) Das ist das Passiv. Vorsicht: *wird* heißt hier **is**, nicht *will*.",
+          "it": "Quando conta che cosa succede, non chi lo fa, usi **is, are** + participio: **The bread is baked here.** (Qui si fa il pane.) **Eggs are sold at the farm.** (Le uova si vendono alla fattoria.) È il passivo. L'italiano dice *si fa* o *viene fatto*.",
+          "en": "When what happens matters more than who does it, use **is, are** + the participle: **The bread is baked here.** **Eggs are sold at the farm.** This is the passive. Who bakes the bread doesn't matter here."
+        },
+        "examples": [
+          {
+            "en": "The bread is baked here.",
+            "sl": "Kruh pečejo tukaj.",
+            "de": "Das Brot wird hier gebacken.",
+            "it": "Qui si fa il pane."
+          },
+          {
+            "en": "Eggs are sold at the farm.",
+            "sl": "Jajca prodajajo na kmetiji.",
+            "de": "Eier werden auf dem Hof verkauft.",
+            "it": "Le uova si vendono alla fattoria."
+          },
+          {
+            "en": "Herdwick sheep are kept on the fells.",
+            "sl": "Ovce herdwick redijo na hribih.",
+            "de": "Herdwick-Schafe werden auf den Fells gehalten.",
+            "it": "Le pecore Herdwick si tengono sui fell."
+          }
+        ],
+        "rows": [
+          [
+            "is, are + baked",
+            {
+              "sl": "sedanjost, vedno",
+              "de": "jetzt, immer",
+              "it": "ora, sempre",
+              "en": "now, always"
+            },
+            "The bread is baked here."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive",
+          "prompt": "Cheese ___ here on Mondays.",
+          "options": [
+            "is made",
+            "is make",
+            "makes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**is + deležnik**\n- Cheese is made here.",
+            "de": "**is + Partizip**\n- Cheese is made here.",
+            "it": "**is + participio**\n- Cheese is made here.",
+            "en": "**is + the participle**\n- Cheese is made here."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za preteklost rabiš **was, were** + deležnik: **The bridge was built in 1720.** (Most so zgradili leta 1720.) **The letters were sent yesterday.** (Pisma so poslali včeraj.) **The Lake District was made a national park in 1951.** En: was, več: were.",
+          "de": "Für die Vergangenheit nimmst du **was, were** + Partizip: **The bridge was built in 1720.** (Die Brücke wurde 1720 gebaut.) **The letters were sent yesterday.** (Die Briefe wurden gestern abgeschickt.) **The Lake District was made a national park in 1951.** Eines: was, mehrere: were.",
+          "it": "Per il passato usi **was, were** + participio: **The bridge was built in 1720.** (Il ponte fu costruito nel 1720.) **The letters were sent yesterday.** (Le lettere sono state spedite ieri.) **The Lake District was made a national park in 1951.** Uno: was, più di uno: were.",
+          "en": "For the past use **was, were** + the participle: **The bridge was built in 1720.** **The letters were sent yesterday.** **The Lake District was made a national park in 1951.** One: was, more than one: were."
+        },
+        "examples": [
+          {
+            "en": "The bridge was built in 1720.",
+            "sl": "Most so zgradili leta 1720.",
+            "de": "Die Brücke wurde 1720 gebaut.",
+            "it": "Il ponte fu costruito nel 1720."
+          },
+          {
+            "en": "The letters were sent yesterday.",
+            "sl": "Pisma so poslali včeraj.",
+            "de": "Die Briefe wurden gestern abgeschickt.",
+            "it": "Le lettere sono state spedite ieri."
+          },
+          {
+            "en": "The Lake District was made a national park in 1951.",
+            "sl": "Lake District je leta 1951 postal narodni park.",
+            "de": "Der Lake District wurde 1951 zum Nationalpark erklärt.",
+            "it": "Il Lake District è diventato parco nazionale nel 1951."
+          }
+        ],
+        "rows": [
+          [
+            "was, were + built",
+            {
+              "sl": "preteklost",
+              "de": "Vergangenheit",
+              "it": "passato",
+              "en": "the past"
+            },
+            "The bridge was built in 1720."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passive",
+          "text": "The gates ___ painted last week.",
+          "accept": [
+            "were"
+          ],
+          "hint": {
+            "sl": "več vrat, preteklost",
+            "de": "mehrere, Vergangenheit",
+            "it": "più di uno, passato",
+            "en": "more than one, the past"
+          },
+          "explain": {
+            "sl": "**Več, preteklost: were**\n- The gates were painted last week.",
+            "de": "**Mehrere, Vergangenheit: were**\n- The gates were painted last week.",
+            "it": "**Più di uno, passato: were**\n- The gates were painted last week.",
+            "en": "**More than one, the past: were**\n- The gates were painted last week."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Deležnik je pri pravilnih glagolih **-ed** (baked, mended), drugi imajo svojega: **built, made, sold, sent, kept, written, taken, stolen, broken, given**. Ni preteklik: **was written**, ne wrote. Ljudje rečejo tudi *It was broke*, *It was took*; pisava hoče **broken**, **taken**. V govoru je pravilno tudi **got**: **My van got stolen.** (Ukradli so mi kombi.)",
+          "de": "Das Partizip ist bei regelmäßigen Verben **-ed** (baked, mended), die anderen haben ein eigenes: **built, made, sold, sent, kept, written, taken, stolen, broken, given**. Es ist nicht die Vergangenheit: **was written**, nicht wrote. Man sagt auch *It was broke*, *It was took*; geschrieben steht **broken**, **taken**. Gesprochen ist auch **got** richtig: **My van got stolen.** (Mein Lieferwagen wurde gestohlen.)",
+          "it": "Il participio è **-ed** per i verbi regolari (baked, mended), gli altri ne hanno uno loro: **built, made, sold, sent, kept, written, taken, stolen, broken, given**. Non è il passato: **was written**, non wrote. Si dice anche *It was broke*, *It was took*; per iscritto si usa **broken**, **taken**. A voce va bene anche **got**: **My van got stolen.** (Mi hanno rubato il furgone.)",
+          "en": "The participle is **-ed** for regular verbs (baked, mended); the others have their own: **built, made, sold, sent, kept, written, taken, stolen, broken, given**. It isn't the past: **was written**, not wrote. People also say *It was broke*, *It was took*; writing wants **broken**, **taken**. In talk **got** is right too: **My van got stolen.**"
+        },
+        "examples": [
+          {
+            "en": "Peter Rabbit was written by Beatrix Potter.",
+            "sl": "Zajčka Petra je napisala Beatrix Potter.",
+            "de": "Peter Hase wurde von Beatrix Potter geschrieben.",
+            "it": "Peter Coniglio è stato scritto da Beatrix Potter."
+          },
+          {
+            "en": "The window was broken in the storm.",
+            "sl": "Okno se je razbilo v nevihti.",
+            "de": "Das Fenster ist im Sturm kaputtgegangen.",
+            "it": "La finestra si è rotta nel temporale."
+          },
+          {
+            "en": "My van got stolen.",
+            "sl": "Ukradli so mi kombi.",
+            "de": "Mein Lieferwagen wurde gestohlen.",
+            "it": "Mi hanno rubato il furgone."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "deležnik",
+              "de": "Partizip",
+              "it": "participio",
+              "en": "participle"
+            },
+            {
+              "sl": "-ed ali svoj",
+              "de": "-ed oder ein eigenes",
+              "it": "-ed o uno suo",
+              "en": "-ed or its own"
+            },
+            "baked, built, written"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive",
+          "prompt": "The milk ___ to the inn every morning.",
+          "options": [
+            "is taken",
+            "is take",
+            "is takes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**take → taken**\n- The milk is taken to the inn.",
+            "de": "**take → taken**\n- The milk is taken to the inn.",
+            "it": "**take → taken**\n- The milk is taken to the inn.",
+            "en": "**take → taken**\n- The milk is taken to the inn."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kdo je to naredil, pove **by**: **The gate was mended by Mr Dixon.** (Vrata je popravil gospod Dixon.) **This honey is made by Arthur's bees.** Slovenščina tu pogosto samo obrne stavek. Če ni pomembno ali je jasno, kdo, **by** izpustiš: **The inn was built in 1750.** Najprej to, kar je znano, novo na koncu.",
+          "de": "Wer es getan hat, sagt **by**, wo Deutsch *von* sagt: **The gate was mended by Mr Dixon.** (Das Tor wurde von Mr Dixon repariert.) **This honey is made by Arthur's bees.** Nicht *from*. Ist es nicht wichtig oder klar, wer, fällt **by** weg: **The inn was built in 1750.**",
+          "it": "Chi l'ha fatto lo dice **by**, dove l'italiano dice *da*: **The gate was mended by Mr Dixon.** (Il cancello è stato riparato da Mr Dixon.) **This honey is made by Arthur's bees.** Se non conta o è chiaro chi, **by** resta fuori: **The inn was built in 1750.**",
+          "en": "**by** says who did it: **The gate was mended by Mr Dixon.** **This honey is made by Arthur's bees.** If it doesn't matter, or it's clear who, leave **by** out: **The inn was built in 1750.**"
+        },
+        "examples": [
+          {
+            "en": "The gate was mended by Mr Dixon.",
+            "sl": "Vrata je popravil gospod Dixon.",
+            "de": "Das Tor wurde von Mr Dixon repariert.",
+            "it": "Il cancello è stato riparato da Mr Dixon."
+          },
+          {
+            "en": "This honey is made by Arthur's bees.",
+            "sl": "Ta med delajo Arthurjeve čebele.",
+            "de": "Dieser Honig wird von Arthurs Bienen gemacht.",
+            "it": "Questo miele è fatto dalle api di Arthur."
+          },
+          {
+            "en": "The inn was built in 1750.",
+            "sl": "Gostilno so zgradili leta 1750.",
+            "de": "Das Gasthaus wurde 1750 gebaut.",
+            "it": "La locanda fu costruita nel 1750."
+          }
+        ],
+        "rows": [
+          [
+            "by",
+            {
+              "sl": "kdo je to naredil",
+              "de": "wer es getan hat",
+              "it": "chi l'ha fatto",
+              "en": "who did it"
+            },
+            "It was mended by Mr Dixon."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive",
+          "prompt": "These scones were made ___ Granny Maggie.",
+          "options": [
+            "by",
+            "of",
+            "at"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kdo: by**\n- made by Granny Maggie",
+            "de": "**Wer: by**\n- made by Granny Maggie",
+            "it": "**Chi: by**\n- made by Granny Maggie",
+            "en": "**Who: by**\n- made by Granny Maggie"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Vprašanje in zanikanje naredi be, brez do in did: **Was the letter sent?** (So pismo poslali?) **Is the bread baked here?** **When was the bridge built?** (Kdaj so zgradili most?) **The gate wasn't closed.** (Vrata niso bila zaprta.) **The eggs aren't sold on Sundays.**",
+          "de": "Frage und Verneinung macht be, ohne do und did: **Was the letter sent?** (Wurde der Brief abgeschickt?) **Is the bread baked here?** **When was the bridge built?** (Wann wurde die Brücke gebaut?) **The gate wasn't closed.** (Das Tor wurde nicht geschlossen.) **The eggs aren't sold on Sundays.**",
+          "it": "Domanda e negazione le fa be, senza do e did: **Was the letter sent?** (La lettera è stata spedita?) **Is the bread baked here?** **When was the bridge built?** (Quando fu costruito il ponte?) **The gate wasn't closed.** (Il cancello non è stato chiuso.) **The eggs aren't sold on Sundays.**",
+          "en": "be asks and says no, with no do or did: **Was the letter sent?** **Is the bread baked here?** **When was the bridge built?** **The gate wasn't closed.** **The eggs aren't sold on Sundays.**"
+        },
+        "examples": [
+          {
+            "en": "Was the letter sent?",
+            "sl": "So pismo poslali?",
+            "de": "Wurde der Brief abgeschickt?",
+            "it": "La lettera è stata spedita?"
+          },
+          {
+            "en": "When was the bridge built?",
+            "sl": "Kdaj so zgradili most?",
+            "de": "Wann wurde die Brücke gebaut?",
+            "it": "Quando fu costruito il ponte?"
+          },
+          {
+            "en": "The gate wasn't closed.",
+            "sl": "Vrata niso bila zaprta.",
+            "de": "Das Tor wurde nicht geschlossen.",
+            "it": "Il cancello non è stato chiuso."
+          }
+        ],
+        "rows": [
+          [
+            "was it …? wasn't",
+            {
+              "sl": "vprašanje, ne",
+              "de": "Frage, nein",
+              "it": "domanda, no",
+              "en": "asking, no"
+            },
+            "Was the letter sent?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passive",
+          "prompt": "Where ___ this cheese made?",
+          "options": [
+            "is",
+            "does",
+            "do"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vpraša be, ne do**\n- Where is this cheese made?",
+            "de": "**be fragt, nicht do**\n- Where is this cheese made?",
+            "it": "**Chiede be, non do**\n- Where is this cheese made?",
+            "en": "**be asks, not do**\n- Where is this cheese made?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Po **can** in **must** pride **be** + deležnik: **The gate can be opened from inside.** (Vrata se dajo odpreti od znotraj.) **Cheese can be kept for a month.** **Dogs must be kept on a lead.** (Pse je treba voditi na povodcu.) Tako pišejo na napisih. Zanikanje: **can't be**, **mustn't be**.",
+          "de": "Nach **can** und **must** kommt **be** + Partizip: **The gate can be opened from inside.** (Das Tor kann von innen geöffnet werden.) **Cheese can be kept for a month.** **Dogs must be kept on a lead.** (Hunde müssen an der Leine geführt werden.) So steht es auf Schildern. Verneint: **can't be**, **mustn't be**.",
+          "it": "Dopo **can** e **must** viene **be** + participio: **The gate can be opened from inside.** (Il cancello si può aprire da dentro.) **Cheese can be kept for a month.** **Dogs must be kept on a lead.** (I cani devono essere tenuti al guinzaglio.) Così si legge sui cartelli. Al negativo: **can't be**, **mustn't be**.",
+          "en": "After **can** and **must** comes **be** + the participle: **The gate can be opened from inside.** **Cheese can be kept for a month.** **Dogs must be kept on a lead.** That's how notices say it. With no: **can't be**, **mustn't be**."
+        },
+        "examples": [
+          {
+            "en": "The gate can be opened from inside.",
+            "sl": "Vrata se dajo odpreti od znotraj.",
+            "de": "Das Tor kann von innen geöffnet werden.",
+            "it": "Il cancello si può aprire da dentro."
+          },
+          {
+            "en": "Cheese can be kept for a month.",
+            "sl": "Sir se lahko hrani en mesec.",
+            "de": "Käse kann einen Monat aufbewahrt werden.",
+            "it": "Il formaggio si può conservare per un mese."
+          },
+          {
+            "en": "Dogs must be kept on a lead.",
+            "sl": "Pse je treba voditi na povodcu.",
+            "de": "Hunde müssen an der Leine geführt werden.",
+            "it": "I cani devono essere tenuti al guinzaglio."
+          }
+        ],
+        "rows": [
+          [
+            "can be, must be",
+            {
+              "sl": "je mogoče, je treba",
+              "de": "möglich, nötig",
+              "it": "possibile, necessario",
+              "en": "possible, needed"
+            },
+            "It can be opened."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passive",
+          "text": "Tickets can ___ bought on the bus.",
+          "accept": [
+            "be"
+          ],
+          "hint": {
+            "sl": "can + ? + bought",
+            "de": "can + ? + bought",
+            "it": "can + ? + bought",
+            "en": "can + ? + bought"
+          },
+          "explain": {
+            "sl": "**can + be + deležnik**\n- Tickets can be bought on the bus.",
+            "de": "**can + be + Partizip**\n- Tickets can be bought on the bus.",
+            "it": "**can + be + participio**\n- Tickets can be bought on the bus.",
+            "en": "**can + be + the participle**\n- Tickets can be bought on the bus."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passive-1",
+      "title": {
+        "sl": "Kaj se tu dela",
+        "de": "Was hier gemacht wird",
+        "it": "Che cosa si fa qui",
+        "en": "What is done here"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "deležnik · make → made",
+            "de": "Partizip · make → made",
+            "it": "participio · make → made",
+            "en": "the participle: make → made"
+          },
+          "columns": [
+            {
+              "sl": "deležnik · participle",
+              "de": "Partizip · participle",
+              "it": "participio · participle",
+              "en": "participle"
+            }
+          ],
+          "rows": [
+            {
+              "label": "build",
+              "cells": [
+                {
+                  "accept": [
+                    "built"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sell",
+              "cells": [
+                {
+                  "accept": [
+                    "sold"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "write",
+              "cells": [
+                {
+                  "accept": [
+                    "written"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "take",
+              "cells": [
+                {
+                  "accept": [
+                    "taken"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "steal",
+              "cells": [
+                {
+                  "accept": [
+                    "stolen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "keep",
+              "cells": [
+                {
+                  "accept": [
+                    "kept"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "send",
+              "cells": [
+                {
+                  "accept": [
+                    "sent"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "give",
+              "cells": [
+                {
+                  "accept": [
+                    "given"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Svoj deležnik, ne preteklik**\n- write → written",
+            "de": "**Ein eigenes Partizip, nicht die Vergangenheit**\n- write → written",
+            "it": "**Un participio suo, non il passato**\n- write → written",
+            "en": "**Its own participle, not the past**\n- write → written"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "The Packhorse is very old. It ___ built in 1750. Today its bread ___ baked in the kitchen, and the eggs ___ brought from Jack's farm. Last year the roof ___ mended, and all the windows ___ painted.",
+          "gaps": [
+            {
+              "accept": [
+                "was"
+              ]
+            },
+            {
+              "accept": [
+                "is"
+              ]
+            },
+            {
+              "accept": [
+                "are"
+              ]
+            },
+            {
+              "accept": [
+                "was"
+              ]
+            },
+            {
+              "accept": [
+                "were"
+              ]
+            }
+          ],
+          "bank": true,
+          "explain": {
+            "sl": "**Sedanjost: is, are. Preteklost: was, were**\n- It was built in 1750.",
+            "de": "**Jetzt: is, are. Vergangenheit: was, were**\n- It was built in 1750.",
+            "it": "**Ora: is, are. Passato: was, were**\n- It was built in 1750.",
+            "en": "**Now: is, are. The past: was, were**\n- It was built in 1750."
+          },
+          "translation": {
+            "sl": "Packhorse je zelo star. Zgradili so ga leta 1750. Danes pečejo kruh v kuhinji, jajca pa prinašajo z Jackove kmetije. Lani so popravili streho in prepleskali vsa okna.",
+            "de": "Das Packhorse ist sehr alt. Es wurde 1750 gebaut. Heute wird sein Brot in der Küche gebacken, und die Eier werden von Jacks Hof gebracht. Letztes Jahr wurde das Dach repariert, und alle Fenster wurden gestrichen.",
+            "it": "Il Packhorse è molto vecchio. Fu costruito nel 1750. Oggi il pane si fa in cucina e le uova si portano dalla fattoria di Jack. L'anno scorso è stato riparato il tetto e sono state dipinte tutte le finestre.",
+            "en": "The Packhorse is very old. It was built in 1750. Today its bread is baked in the kitchen, and the eggs are brought from Jack's farm. Last year the roof was mended, and all the windows were painted."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passive-2",
+      "title": {
+        "sl": "Popravil je gospod Dixon",
+        "de": "Von Mr Dixon repariert",
+        "it": "Riparato da Mr Dixon",
+        "en": "Mended by Mr Dixon"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Say it from the other side · obrni stavek",
+            "de": "Say it from the other side · Sag es von der anderen Seite",
+            "it": "Say it from the other side · dillo dall'altro lato",
+            "en": "Say it from the other side"
+          },
+          "items": [
+            {
+              "from": "People bake bread here.",
+              "accept": [
+                "Bread is baked here.",
+                "The bread is baked here.",
+                "Here bread is baked."
+              ],
+              "hint": {
+                "sl": "is + deležnik",
+                "de": "is + Partizip",
+                "it": "is + participio",
+                "en": "is + the participle"
+              }
+            },
+            {
+              "from": "They built the bridge in 1720.",
+              "accept": [
+                "The bridge was built in 1720.",
+                "In 1720 the bridge was built."
+              ],
+              "hint": {
+                "sl": "was + deležnik",
+                "de": "was + Partizip",
+                "it": "was + participio",
+                "en": "was + the participle"
+              }
+            },
+            {
+              "from": "Mr Dixon mended the gate.",
+              "accept": [
+                "The gate was mended by Mr Dixon."
+              ],
+              "hint": {
+                "sl": "… by Mr Dixon",
+                "de": "… by Mr Dixon",
+                "it": "… by Mr Dixon",
+                "en": "… by Mr Dixon"
+              }
+            },
+            {
+              "from": "Arthur's bees make this honey.",
+              "accept": [
+                "This honey is made by Arthur's bees."
+              ]
+            },
+            {
+              "from": "Someone stole my bike.",
+              "accept": [
+                "My bike was stolen."
+              ],
+              "spoken": [
+                "My bike got stolen."
+              ]
+            },
+            {
+              "from": "They sell eggs at the farm.",
+              "accept": [
+                "Eggs are sold at the farm.",
+                "At the farm eggs are sold.",
+                "The eggs are sold at the farm."
+              ]
+            },
+            {
+              "from": "Beatrix Potter wrote Peter Rabbit.",
+              "accept": [
+                "Peter Rabbit was written by Beatrix Potter."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**To, kar je bilo predmet, gre naprej; kdo gre za by**\n- Mr Dixon mended the gate. → The gate was mended by Mr Dixon.",
+            "de": "**Das Objekt kommt nach vorn, wer es tut, nach by**\n- Mr Dixon mended the gate. → The gate was mended by Mr Dixon.",
+            "it": "**L'oggetto va davanti, chi lo fa dopo by**\n- Mr Dixon mended the gate. → The gate was mended by Mr Dixon.",
+            "en": "**The object goes first, who did it after by**\n- Mr Dixon mended the gate. → The gate was mended by Mr Dixon."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "This cheese is made ___ Mrs Birkett.",
+          "options": [
+            "by",
+            "of",
+            "at"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kdo: by**\n- made by Mrs Birkett",
+            "de": "**Wer: by**\n- made by Mrs Birkett",
+            "it": "**Chi: by**\n- made by Mrs Birkett",
+            "en": "**Who: by**\n- made by Mrs Birkett"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Pencils ___ in Keswick for a long time.",
+          "options": [
+            "were made",
+            "made",
+            "were make"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**were + deležnik**\n- Pencils were made in Keswick.",
+            "de": "**were + Partizip**\n- Pencils were made in Keswick.",
+            "it": "**were + participio**\n- Pencils were made in Keswick.",
+            "en": "**were + the participle**\n- Pencils were made in Keswick."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passive-3",
+      "title": {
+        "sl": "Vprašanja in napisi",
+        "de": "Fragen und Schilder",
+        "it": "Domande e cartelli",
+        "en": "Questions and notices"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Ask · vprašaj",
+            "de": "Ask · Frag",
+            "it": "Ask · chiedi",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "The letter was sent.",
+              "accept": [
+                "Was the letter sent?"
+              ]
+            },
+            {
+              "from": "The bread is baked here.",
+              "accept": [
+                "Is the bread baked here?"
+              ]
+            },
+            {
+              "from": "The sheep were sold.",
+              "accept": [
+                "Were the sheep sold?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**be naprej, brez do in did**\n- The letter was sent. → Was the letter sent?",
+            "de": "**be nach vorn, ohne do und did**\n- The letter was sent. → Was the letter sent?",
+            "it": "**be davanti, senza do e did**\n- The letter was sent. → Was the letter sent?",
+            "en": "**be goes first, with no do or did**\n- The letter was sent. → Was the letter sent?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Say it with no · zanikaj",
+            "de": "Say it with no · Verneine",
+            "it": "Say it with no · di' di no",
+            "en": "Say it with no"
+          },
+          "cue": "not",
+          "items": [
+            {
+              "from": "The gate was closed.",
+              "accept": [
+                "The gate wasn't closed."
+              ]
+            },
+            {
+              "from": "Eggs are sold on Sundays.",
+              "accept": [
+                "Eggs aren't sold on Sundays."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**be + not**\n- The gate wasn't closed.",
+            "de": "**be + not**\n- The gate wasn't closed.",
+            "it": "**be + not**\n- The gate wasn't closed.",
+            "en": "**be + not**\n- The gate wasn't closed."
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "passive",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Notice at the farm: Dogs must ___ kept on a lead. The gate can ___ opened from inside, but it must ___ closed after you. Tickets can't ___ bought here. Last night Sam's van ___ stolen from the car park!",
+          "gaps": [
+            {
+              "accept": [
+                "be"
+              ]
+            },
+            {
+              "accept": [
+                "be"
+              ]
+            },
+            {
+              "accept": [
+                "be"
+              ]
+            },
+            {
+              "accept": [
+                "be"
+              ]
+            },
+            {
+              "accept": [
+                "was"
+              ],
+              "spoken": [
+                "got"
+              ],
+              "hint": {
+                "sl": "preteklost",
+                "de": "Vergangenheit",
+                "it": "passato",
+                "en": "the past"
+              }
+            }
+          ],
+          "explain": {
+            "sl": "**can, must, can't + be + deležnik**\n- Dogs must be kept on a lead.",
+            "de": "**can, must, can't + be + Partizip**\n- Dogs must be kept on a lead.",
+            "it": "**can, must, can't + be + participio**\n- Dogs must be kept on a lead.",
+            "en": "**can, must, can't + be + the participle**\n- Dogs must be kept on a lead."
+          },
+          "translation": {
+            "sl": "Napis na kmetiji: Pse je treba voditi na povodcu. Vrata se dajo odpreti od znotraj, a jih je treba za seboj zapreti. Vozovnic tukaj ni mogoče kupiti. Sinoči so Samu ukradli kombi s parkirišča!",
+            "de": "Schild auf dem Hof: Hunde müssen an der Leine geführt werden. Das Tor kann von innen geöffnet werden, muss aber hinter dir geschlossen werden. Karten können hier nicht gekauft werden. Gestern Abend wurde Sams Lieferwagen vom Parkplatz gestohlen!",
+            "it": "Cartello alla fattoria: i cani devono essere tenuti al guinzaglio. Il cancello si può aprire da dentro, ma va chiuso dopo il passaggio. Qui non si possono comprare biglietti. Ieri sera a Sam hanno rubato il furgone dal parcheggio!",
+            "en": "Notice at the farm: Dogs must be kept on a lead. The gate can be opened from inside, but it must be closed after you. Tickets can't be bought here. Last night Sam's van was stolen from the car park!"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "passive",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "The cheese ___ made on Jack's farm. It ___ taken to Keswick by van. Last week the van ___ stolen! The next day two men ___ seen near the bridge. The van ___ found the same night, and it wasn't even dirty.",
+        "gaps": [
+          {
+            "accept": [
+              "is"
+            ]
+          },
+          {
+            "accept": [
+              "is"
+            ]
+          },
+          {
+            "accept": [
+              "was"
+            ],
+            "spoken": [
+              "got"
+            ]
+          },
+          {
+            "accept": [
+              "were"
+            ]
+          },
+          {
+            "accept": [
+              "was"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Sir delajo na Jackovi kmetiji. V Keswick ga vozijo s kombijem. Prejšnji teden so kombi ukradli! Naslednji dan so pri mostu videli dva moža. Kombi so našli še isto noč in še umazan ni bil.",
+          "de": "Der Käse wird auf Jacks Hof gemacht. Er wird mit dem Lieferwagen nach Keswick gebracht. Letzte Woche wurde der Lieferwagen gestohlen! Am nächsten Tag wurden zwei Männer bei der Brücke gesehen. Der Lieferwagen wurde noch in derselben Nacht gefunden, und er war nicht einmal schmutzig.",
+          "it": "Il formaggio si fa alla fattoria di Jack. Viene portato a Keswick con il furgone. La settimana scorsa il furgone è stato rubato! Il giorno dopo sono stati visti due uomini vicino al ponte. Il furgone è stato ritrovato la notte stessa, e non era nemmeno sporco.",
+          "en": "The cheese is made on Jack's farm. It is taken to Keswick by van. Last week the van was stolen! The next day two men were seen near the bridge. The van was found the same night, and it wasn't even dirty."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passive",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Hill Top ___ by Beatrix Potter in 1905.",
+        "options": [
+          "was bought",
+          "bought",
+          "was buy"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**was + deležnik**\n- Hill Top was bought in 1905.",
+          "de": "**was + Partizip**\n- Hill Top was bought in 1905.",
+          "it": "**was + participio**\n- Hill Top was bought in 1905.",
+          "en": "**was + the participle**\n- Hill Top was bought in 1905."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passive",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "When ___ the inn built?",
+        "options": [
+          "was",
+          "did",
+          "does"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vpraša be, ne did**\n- When was the inn built?",
+          "de": "**be fragt, nicht did**\n- When was the inn built?",
+          "it": "**Chiede be, non did**\n- When was the inn built?",
+          "en": "**be asks, not did**\n- When was the inn built?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passive",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Walkers ___ by the rain last night.",
+        "options": [
+          "were caught",
+          "caught",
+          "were catch"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**were + deležnik**\n- Walkers were caught by the rain.",
+          "de": "**were + Partizip**\n- Walkers were caught by the rain.",
+          "it": "**were + participio**\n- Walkers were caught by the rain.",
+          "en": "**were + the participle**\n- Walkers were caught by the rain."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passive",
+        "instruction": {
+          "sl": "Say it from the other side · obrni stavek",
+          "de": "Say it from the other side · Sag es von der anderen Seite",
+          "it": "Say it from the other side · dillo dall'altro lato",
+          "en": "Say it from the other side"
+        },
+        "items": [
+          {
+            "from": "Mrs Hartley teaches the evening class.",
+            "accept": [
+              "The evening class is taught by Mrs Hartley."
+            ]
+          },
+          {
+            "from": "They closed the road last night.",
+            "accept": [
+              "The road was closed last night.",
+              "Last night the road was closed."
+            ]
+          },
+          {
+            "from": "Mr Tyson sold the mill.",
+            "accept": [
+              "The mill was sold by Mr Tyson."
+            ]
+          },
+          {
+            "from": "You can buy honey here.",
+            "accept": [
+              "Honey can be bought here.",
+              "Here honey can be bought."
+            ],
+            "hint": {
+              "sl": "can be + deležnik",
+              "de": "can be + Partizip",
+              "it": "can be + participio",
+              "en": "can be + the participle"
+            }
+          }
+        ],
+        "explain": {
+          "sl": "**be + deležnik; kdo gre za by**\n- Mr Tyson sold the mill. → The mill was sold by Mr Tyson.",
+          "de": "**be + Partizip; wer es tut, nach by**\n- Mr Tyson sold the mill. → The mill was sold by Mr Tyson.",
+          "it": "**be + participio; chi lo fa dopo by**\n- Mr Tyson sold the mill. → The mill was sold by Mr Tyson.",
+          "en": "**be + the participle; who did it after by**\n- Mr Tyson sold the mill. → The mill was sold by Mr Tyson."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: was broke, was took; got stolen; 1951, 1905 facts"
+}
