@@ -140,6 +140,18 @@ object CaseTrainer {
     val SHARES = mapOf(CaseKind.WHICH to 0.45, CaseKind.PLACE to 0.25, CaseKind.DECLINE to 0.30)
     /** The agreement's rule: a decline task with an adjective or a possessive counts on it too. */
     const val AGREEMENT = "pridevniki-ujemanje"
+    /** German's: the adjectives after der, die, das (adjektiv-der, A2), and the plural's page. */
+    const val AGREEMENT_DE = "adjektiv-der"
+    const val PLURAL_DE = "plural"
+    /** A German focus on wo or wohin: the two-way prepositions' page, every "Wo oder wohin?" and the wo and wohin rules. */
+    const val WO_WOHIN = "wechselpraepositionen"
+
+    /** The agreement's page in the bank's language [lang]. */
+    fun agreement(lang: String): String = if (lang == "de") AGREEMENT_DE else AGREEMENT
+    private fun agreement(pool: CasePool): String = agreement(pool.bank.language)
+    private fun german(pool: CasePool) = pool.bank.language == "de"
+    /** The language a bank's typed answers are graded in. */
+    private fun langOf(code: String): Lang = Lang.of(code) ?: Lang.SL
     /** The pages a plural and a dual need, and an oblique dual. */
     const val PLURAL = "mnozina"
     const val DUAL = "dvojina"
@@ -163,7 +175,7 @@ object CaseTrainer {
 
     /** The pages a number needs: the plural's, the dual's, an oblique dual's. */
     private fun numberOpen(pool: CasePool, case: Case, number: String): Boolean = when (number) {
-        "pl" -> open(pool, PLURAL)
+        "pl" -> open(pool, if (german(pool)) PLURAL_DE else PLURAL)
         "du" -> open(pool, DUAL) && (case == Case.NOM || case == Case.ACC || open(pool, DUAL_CASES))
         else -> true
     }
@@ -212,14 +224,18 @@ object CaseTrainer {
         if (own.size >= 6) return own
         val ownLemmas = own.map { it.lemma.lowercase() }.toSet()
         val bank = pool.bank.nouns.filter { rank(it.level) <= rank(pool.level) && it.lemma.lowercase() !in ownLemmas }.map { n ->
-            CaseNoun(n.lemma, n.gender, CaseTexts(n.en, n.de, n.it).inBase(pool.base), n.slots)
-        }
+            if (german(pool)) nounDe(n.lemma, n.gender, n.plural, n.meaning(pool.base)) ?: return@map null
+            else CaseNoun(n.lemma, n.gender, n.meaning(pool.base), n.slots)
+        }.filterNotNull()
         return own + bank
     }
 
     /** The adjectives and possessives the learner may decline: agreement open, of their level. */
-    fun adjectives(pool: CasePool): List<CaseAdjective> =
-        if (!open(pool, AGREEMENT)) emptyList() else pool.bank.adjectives.filter { fits(pool, it.level, AGREEMENT) && it.forms.isNotEmpty() }
+    fun adjectives(pool: CasePool): List<CaseAdjective> {
+        val ag = agreement(pool)
+        // German's adjectives have their forms from the table's endings, Slovene's each written out
+        return if (!open(pool, ag)) emptyList() else pool.bank.adjectives.filter { fits(pool, it.level, ag) && (german(pool) || it.forms.isNotEmpty()) }
+    }
 
     /** How many things the trainer can ask now (a bank item each, a frame with a noun each): open from [OPEN_AT]. */
     fun count(pool: CasePool, enough: Int = Int.MAX_VALUE): Int {
@@ -235,7 +251,7 @@ object CaseTrainer {
      * intro, a page met in the book; or the learner at A2 or above), and enough to ask.
      */
     fun isOpen(pool: CasePool): Boolean =
-        (rank(pool.level) >= rank("A2") || pool.introduced.any { it in CaseLook.PAGES }) && count(pool, OPEN_AT) >= OPEN_AT
+        (rank(pool.level) >= rank("A2") || pool.introduced.any { it in CaseLook.pagesOf(pool.bank.language) }) && count(pool, OPEN_AT) >= OPEN_AT
 
     private fun slotOf(case: Case, number: String) = "${case.slot}.$number"
 
@@ -248,7 +264,7 @@ object CaseTrainer {
         if (f.number != "sg" && n.lemma.lowercase() in pool.bank.uncountable) return false
         if (n.forms[slotOf(kase, f.number)].isNullOrEmpty()) return false
         // a word the frame's sentence has already
-        return n.lemma.lowercase() !in f.sl.lowercase().split(Regex("[^\\p{L}]+"))
+        return n.lemma.lowercase() !in f.text.lowercase().split(Regex("[^\\p{L}]+"))
     }
 
     // --- weakness and mastery ------------------------------------------------------------------------------------------
@@ -298,7 +314,7 @@ object CaseTrainer {
 
     /** The weakest case: the case to suggest on Home, with its weakness (mistakes counted as [priors] give); null when none is weak. */
     fun weakest(p: CaseProgress?, priors: (String) -> Double): Pair<Case, Double>? =
-        Case.entries.map { it to weakness(p, caseKey(it), priors(it.id)) }.maxByOrNull { it.second }?.takeIf { it.second >= 0.55 }
+        CaseSets.current.cases.map { it to weakness(p, caseKey(it), priors(it.id)) }.maxByOrNull { it.second }?.takeIf { it.second >= 0.55 }
 
     // --- the learner's mistakes: priors and pattern ids -----------------------------------------------------------------
 
@@ -307,10 +323,10 @@ object CaseTrainer {
 
     /** The words the facets know, each with the ones that mean the same. */
     private val SYNONYMS: Map<String, Set<String>> = mapOf(
-        "nominative" to setOf("nominative", "nom", "imenovalnik", "subject"),
-        "genitive" to setOf("genitive", "gen", "rodilnik"),
-        "dative" to setOf("dative", "dat", "dajalnik"),
-        "accusative" to setOf("accusative", "acc", "tozilnik", "object"),
+        "nominative" to setOf("nominative", "nom", "imenovalnik", "subject", "nominativ"),
+        "genitive" to setOf("genitive", "gen", "rodilnik", "genitiv"),
+        "dative" to setOf("dative", "dat", "dajalnik", "dativ"),
+        "accusative" to setOf("accusative", "acc", "tozilnik", "object", "akkusativ", "akk"),
         "locative" to setOf("locative", "loc", "mestnik"),
         "instrumental" to setOf("instrumental", "ins", "instr", "orodnik"),
         "singular" to setOf("singular", "sg"),
@@ -320,19 +336,21 @@ object CaseTrainer {
         "feminine" to setOf("feminine", "fem"),
         "neuter" to setOf("neuter", "neut"),
         "adjective" to setOf("adjective", "adjectives", "adj", "agreement", "agree", "gender", "pridevnik"),
-        "possessive" to setOf("possessive", "possessives", "svojilni", "moj", "moje", "tvoj", "nas"),
+        "possessive" to setOf("possessive", "possessives", "svojilni", "moj", "moje", "tvoj", "nas", "possessivartikel"),
         "pronoun" to setOf("pronoun", "pronouns", "zaimek"),
         "negation" to setOf("negation", "negative", "nikalnica", "neg", "nimam", "ni", "ne"),
         "quantity" to setOf("quantity", "kolicina", "amount"),
         "number" to setOf("numbers", "numeral", "five", "counting"),
         "possession" to setOf("possession", "whose", "cigav"),
-        "kam" to setOf("kam", "direction", "motion", "where_to"),
-        "kje" to setOf("kje", "location", "position"),
+        "kam" to setOf("kam", "direction", "motion", "where_to", "wohin"),
+        "kje" to setOf("kje", "location", "position", "wo"),
         "place" to setOf("place", "prepositions", "preposition", "prep"),
     )
     private val TO_FACET: Map<String, String> = SYNONYMS.flatMap { (f, ws) -> ws.map { it to f } }.toMap()
     /** Prepositions are facets of their own (iz, brez, k, pri, s …): one letter is one only if a preposition. */
-    private val PREPOSITIONS = setOf("v", "na", "iz", "z", "s", "od", "do", "brez", "blizu", "mimo", "zaradi", "k", "h", "proti", "kljub", "pri", "ob", "po", "pod", "nad", "pred", "za", "med", "cez", "skozi", "o")
+    private val PREPOSITIONS = setOf("v", "na", "iz", "z", "s", "od", "do", "brez", "blizu", "mimo", "zaradi", "k", "h", "proti", "kljub", "pri", "ob", "po", "pod", "nad", "pred", "za", "med", "cez", "skozi", "o") +
+        // German's (a mistake id in a German village: dative_after_mit)
+        setOf("mit", "von", "zu", "bei", "aus", "nach", "seit", "fuer", "ohne", "durch", "um", "gegen", "wegen", "trotz", "waehrend", "an", "auf", "ueber", "unter", "vor", "hinter", "neben", "zwischen")
 
     /** A word of a pattern id as a facet: a known one ("gen" → genitive), a preposition, else null (not judged). */
     private fun facet(w: String): String? = TO_FACET[w] ?: w.takeIf { it in PREPOSITIONS && (it.length > 1 || it in setOf("v", "k", "z", "s")) }
@@ -352,7 +370,7 @@ object CaseTrainer {
         }
         if (t.adjective != null) add("adjective")
         if (t.adjective != null && t.adjective in POSSESSIVES) add("possessive")
-        for (w in rule?.words.orEmpty()) facet(Grading.fold(w, Lang.SL))?.let(::add)
+        for (w in rule?.words.orEmpty()) facet(Grading.fold(w, Lang.SL).replace("ä", "ae").replace("ö", "oe").replace("ü", "ue"))?.let(::add)
         for (w in ruleKey.split('-')) facet(w)?.let(::add)
         when (ruleKey) {
             "nikalnica" -> add("negation")
@@ -362,7 +380,7 @@ object CaseTrainer {
             "subject" -> add("nominative")
             "object" -> add("accusative")
         }
-        if (ruleKey.endsWith("kam") || ruleKey.endsWith("kje") || ruleKey in setOf("pri", "k", "ob")) {
+        if (ruleKey.endsWith("kam") || ruleKey.endsWith("kje") || ruleKey in setOf("pri", "k", "ob", "wo", "wohin")) {
             addAll(listOf("kam", "kje", "place"))
         }
     }
@@ -443,7 +461,8 @@ object CaseTrainer {
     fun focused(t: CaseTask, focus: String?): Boolean = when (focus) {
         null -> true
         KJE_KAM -> t.kind == CaseKind.PLACE || t.rule == "kam-tozilnik" || t.rule == "kje-mestnik-orodnik"
-        AGREEMENT -> t.adjective != null
+        WO_WOHIN -> t.kind == CaseKind.PLACE || t.rule == WO_WOHIN
+        AGREEMENT, AGREEMENT_DE -> t.adjective != null
         PLURAL_CASES -> t.number == "pl"
         DUAL_CASES -> t.number == "du"
         TWO_CASES -> t.rule == TWO_CASES || t.why in TWO_CASE_RULES
@@ -452,11 +471,16 @@ object CaseTrainer {
 
     /** The trainer's focus of a grammar page ("🧩 Vadi sklone" on it): a case's, a rule's, a group's; null for a mixed session. */
     fun focusOfPage(page: String, rules: Collection<String>): String? = when {
+        page in GERMAN_AGREEMENT -> AGREEMENT_DE
+        page == "stehen-stellen" -> WO_WOHIN
         Case.ofId(page) != null -> page
         page in rules -> page
         page in setOf(KJE_KAM, AGREEMENT, PLURAL_CASES, DUAL_CASES, TWO_CASES) -> page
         else -> null
     }
+
+    /** German's pages of the adjectives' endings: a focus on agreement. */
+    private val GERMAN_AGREEMENT = setOf("adjektiv-der", "adjektiv-ein", "adjektiv-null", "adjektiv-tabelle")
 
     /** The trainer's focus of a school unit about the cases ([unit]: its id); null for one that isn't, or for every case at once (skloni). */
     fun focusOfUnit(unit: String): String? = when (unit) {
@@ -474,8 +498,33 @@ object CaseTrainer {
         else -> null
     }
 
+    /** The trainer's focus of a German unit about the cases ([unit]: its id, companion/course/de); null for a mixed session. */
+    fun focusOfUnitDe(unit: String): String? = when (unit) {
+        "akkusativ" -> "akkusativ"
+        "wem-dativ" -> "dativ"
+        "mir-dir" -> "pronomen-dativ"
+        "mit-nach-bei" -> "praepositionen-dativ"
+        "fuer-ohne" -> "praepositionen-akkusativ"
+        "wo-wohin", "stehen-stellen" -> WO_WOHIN
+        "reflexiv" -> "reflexive-verben"
+        "warten-auf" -> "verben-praepositionen"
+        "adjektiv-der", "adjektiv-ein", "adjektiv-null", "adjektiv-alle-faelle" -> AGREEMENT_DE
+        "genitiv" -> "genitiv"
+        "wegen-trotz" -> "praepositionen-genitiv"
+        "relativsatz", "relativsatz-praeposition" -> "relativsatz"
+        "stolz-auf" -> "adjektive-praepositionen"
+        else -> null
+    }
+
     /** The school's units about the cases: their pages show the trainer. */
     val CASE_UNITS = setOf("tozilnik", "mestnik", "nikalnica-rodilnik", "skloni", "rodilnik", "kje-kam-od-kod", "dajalnik", "orodnik", "pridevniki-skloni", "mnozina-skloni", "dvojina-skloni", "sklanjatev-posebnosti", "predlogi-dva-sklona")
+
+    /** German's units about the cases (companion/course/de): the trainer on them too. */
+    val CASE_UNITS_DE = setOf("akkusativ", "kein-nicht", "possessiv", "wem-dativ", "mir-dir", "mit-nach-bei", "fuer-ohne", "wo-wohin", "stehen-stellen", "reflexiv", "warten-auf", "adjektiv-der", "adjektiv-ein", "adjektiv-null", "genitiv", "wegen-trotz", "relativsatz", "relativsatz-praeposition", "adjektiv-alle-faelle", "herr-kollege", "stolz-auf")
+
+    /** The units of [language] the trainer shows on, and its focus of one. */
+    fun caseUnits(language: String): Set<String> = if (language == "de") CASE_UNITS_DE else if (language == LANGUAGE) CASE_UNITS else emptySet()
+    fun focusOfUnit(language: String, unit: String): String? = if (language == "de") focusOfUnitDe(unit) else focusOfUnit(unit)
 
     /**
      * A session's tasks, [size] at most: the items missed that are due first (at most [MAX_AGAIN], spread through it), then
@@ -534,7 +583,7 @@ object CaseTrainer {
 
         val acc = accuracy(p)
         val shares = SHARES.toMutableMap()
-        if (focus == "kam-tozilnik" || focus == "kje-mestnik-orodnik" || focus == KJE_KAM || focus == TWO_CASES) shares[CaseKind.PLACE] = 0.45
+        if (focus == "kam-tozilnik" || focus == "kje-mestnik-orodnik" || focus == KJE_KAM || focus == TWO_CASES || focus == WO_WOHIN) shares[CaseKind.PLACE] = 0.45
         when {
             acc != null && acc < 0.55 -> { shares[CaseKind.WHICH] = shares[CaseKind.WHICH]!! + 0.1; shares[CaseKind.DECLINE] = (shares[CaseKind.DECLINE]!! - 0.1).coerceAtLeast(0.1) }
             acc != null && acc > 0.80 -> { shares[CaseKind.DECLINE] = shares[CaseKind.DECLINE]!! + 0.1; shares[CaseKind.WHICH] = (shares[CaseKind.WHICH]!! - 0.1).coerceAtLeast(0.2) }
@@ -558,7 +607,7 @@ object CaseTrainer {
                 if (open.isEmpty()) return@repeat
                 val left = if (ownToAsk > 0) open.filter { it.rule == TWO_CASES }.ifEmpty { open } else open
                 val w = left.map { t ->
-                    val base = weight(t, p, priors, prior(t, facts(t), mistakes), acc, pool.level, t.key in recent, t.rule in seenLately)
+                    val base = weight(t, p, priors, prior(t, facts(t), mistakes), acc, pool.level, t.key in recent, t.rule in seenLately, agreement(pool))
                     // a word asked already in this session: much less; its sentence again (another word of it): hardly
                     base * (if (lemmaOf(pool, t) in lemmas) 0.15 else 1.0) * (if (sentenceOf(pool, t)?.let { it in sentences } == true) 0.05 else 1.0)
                 }
@@ -582,7 +631,7 @@ object CaseTrainer {
     }
 
     private fun sentenceOf(pool: CasePool, t: CaseTask): String? =
-        if (t.kind == CaseKind.DECLINE) null else pool.bank.items.firstOrNull { it.id == t.key }?.sl?.lowercase()
+        if (t.kind == CaseKind.DECLINE) null else pool.bank.items.firstOrNull { it.id == t.key }?.text?.lowercase()
 
     private fun lemmaOf(pool: CasePool, t: CaseTask): String? = when (t.kind) {
         CaseKind.DECLINE -> t.key.split(':').getOrNull(2)
@@ -595,9 +644,9 @@ object CaseTrainer {
      * when asked lately; by its level for the learner's accuracy (harder above 80 %, easier under 55 %, the learner's
      * level otherwise); a third more for a rule the lens showed lately.
      */
-    fun weight(t: CaseTask, p: CaseProgress?, priors: (String) -> Double, own: Double, acc: Double?, level: String, recent: Boolean, seen: Boolean): Double {
+    fun weight(t: CaseTask, p: CaseProgress?, priors: (String) -> Double, own: Double, acc: Double?, level: String, recent: Boolean, seen: Boolean, agreement: String = AGREEMENT): Double {
         var w = 0.35 + weakness(p, caseKey(t.case), priors(t.case.id)) + weakness(p, ruleKey(t.rule), priors(t.rule)) + 0.8 * own
-        if (t.adjective != null) w += 0.6 * weakness(p, ruleKey(AGREEMENT), priors(AGREEMENT))
+        if (t.adjective != null) w += 0.6 * weakness(p, ruleKey(agreement), priors(agreement))
         if (recent) w *= 0.25
         if (seen) w *= 1.3
         val diff = rank(t.level) - rank(level)
@@ -706,14 +755,14 @@ object CaseTrainer {
             val ok = left.filter { (it0, _) -> !(lastTwo.size == 2 && lastTwo.all { c -> c.id == it0.case }) }.ifEmpty { left }
             val w = ok.map { (it0, _) ->
                 val t = taskOf(pool, it0) ?: return@map 0.0
-                weight(t, p, priors, 0.0, acc, pool.level, t.key in recent, false)
+                weight(t, p, priors, 0.0, acc, pool.level, t.key in recent, false, agreement(pool))
             }
             val pick = drawWeighted(ok, w, random)
             left.remove(pick)
             val (it0, ph) = pick
             val t = taskOf(pool, it0) ?: continue
             val ex = item(pool, it0) ?: continue
-            out += CasePlanned(t, ex.copy(tokens = ph.first, word = ph.second, taps = emptyList(), role = null, askWhy = false, translation = null, note = null))
+            out += CasePlanned(t, ex.copy(tokens = ph.first, word = ph.second, taps = emptyList(), role = null, askWhy = false, translation = null, note = null, phrase = emptyList()))
         }
         return out
     }
@@ -751,7 +800,7 @@ object CaseTrainer {
             val f = pool.bank.frames.firstOrNull { it.id == parts.getOrNull(1) }
             val n = nouns(pool).firstOrNull { it.lemma == parts.getOrNull(2) }
             val adj = parts.getOrNull(3)?.let { a -> pool.bank.adjectives.firstOrNull { it.lemma == a } }
-            if (f == null || n == null) null else decline(pool, f, n, adj)
+            if (f == null || n == null) null else if (german(pool)) declineDe(pool, f, n, adj) else decline(pool, f, n, adj)
         }
         else -> pool.bank.items.firstOrNull { it.id == t.key }?.let { item(pool, it, seed) }
     }
@@ -764,8 +813,9 @@ object CaseTrainer {
         val note = it.note?.inBase(base)?.takeIf { s -> s.isNotBlank() }
         val spoken = it.spoken?.let { s -> "🗣️ ${s.form} = ${s.standard} · ${s.note.inBase(base)}" }
         val common = Exercise.CaseTask(
-            kind = it.kind, key = it.id, sentence = it.sl, tokens = toks, word = it.word, case = it.case, number = it.number,
-            rule = rule.page, why = it.why, line = rule.inBase(base), ruleSl = rule.sl,
+            kind = it.kind, key = it.id, sentence = it.text, tokens = toks, word = it.word, case = it.case, number = it.number,
+            rule = rule.page, why = it.why, line = rule.inBase(base), ruleSl = rule.inTarget(pool.bank.language),
+            phrase = it.phrase.takeIf { p -> p.size == 2 && p[0] <= it.word && it.word <= p[1] }.orEmpty(), lang = pool.bank.language,
             taps = listOfNotNull(it.trigger) + it.also, role = it.role, askWhy = it.kind == "which" || it.trigger != null,
             translation = it.meaning(base), note = listOfNotNull(note, spoken).joinToString("\n").ifBlank { null },
             ambiguous = it.ambiguous, lemma = it.lemma, level = it.level, gender = it.gender, grammar = rule.page,
@@ -843,6 +893,62 @@ object CaseTrainer {
         )
     }
 
+    /**
+     * A German noun the frames decline ([lemma] its nominative singular, [plural] its nominative plural: null keeps it to
+     * the singular): its forms by slot by German's rules (data/GermanForms.kt), the slots the rules are sure of; the
+     * n-Deklination's spoken forms (dem Bub) right too, the genitive's other ending (des Hunds) accepted as standard.
+     */
+    fun nounDe(lemma: String, gender: String, plural: String?, meaning: String, card: String? = null, forms: GermanForms? = GermanForms.bundled): CaseNoun? {
+        val f = forms ?: return null
+        if (gender !in setOf("m", "f", "n")) return null
+        val std = HashMap<String, List<String>>()
+        val spoken = HashMap<String, List<String>>()
+        val checked = HashSet<String>()
+        val weak = f.isWeak(lemma)
+        for (c in listOf("nom", "acc", "dat", "gen")) for (n in listOf("sg", "pl")) {
+            val s = f.noun(lemma, gender, plural, c, n)
+            if (s.forms.isEmpty()) continue
+            val slot = "$c.$n"
+            std[slot] = if (weak) s.forms else s.forms + s.also
+            if (weak && s.also.isNotEmpty()) spoken[slot] = s.also
+            if (s.sure) checked += slot
+        }
+        return CaseNoun(lemma, gender, meaning, std, spoken = spoken, card = card, checked = checked)
+    }
+
+    /**
+     * German frame [f] filled with noun [n] and its cue's determiner (the frame's [CaseFrame.det]), an adjective agreeing
+     * ([adj]): "Heute helfe ich ___. (mein Opa)" → meinem Opa; what is right (the genitive's two endings, a spoken
+     * n-Deklination form labelled), the answer shown, its sentence (capitalized where it starts it), the meaning.
+     */
+    fun declineDe(pool: CasePool, f: CaseFrame, n: CaseNoun, adj: CaseAdjective?, forms: GermanForms? = GermanForms.bundled): Exercise.CaseTask? {
+        val g = forms ?: return null
+        val kase = Case.ofId(f.case) ?: return null
+        val rule = pool.bank.rule(f.why) ?: return null
+        val c = kase.slot
+        val det = f.det?.takeIf { it != "none" }
+        val detForm = det?.let { g.determinerForm(it, c, n.gender, f.number) ?: return null }
+        val a = adj?.let { g.adjectiveForm(it.lemma, det, c, n.gender, f.number) }
+        if (det == null && a == null && f.number == "sg") return null
+        val slot = slotOf(kase, f.number)
+        val nouns = n.forms[slot].orEmpty().ifEmpty { return null }
+        fun phrase(form: String) = listOfNotNull(detForm, a, form).joinToString(" ")
+        val starts = f.text.trimStart().startsWith("{x}")
+        fun cap(s: String) = if (starts) s.replaceFirstChar { it.uppercase() } else s
+        val shown = cap(phrase(nouns.first()))
+        fun fill(gap: String) = f.text.replace("{x}", gap)
+        val nomNoun = n.forms["nom.${f.number}"]?.firstOrNull() ?: n.lemma
+        val cue = listOfNotNull(det?.let { g.determinerForm(it, "nom", n.gender, f.number) }, adj?.let { g.adjectiveForm(it.lemma, det, "nom", n.gender, f.number) }, nomNoun).joinToString(" ")
+        val words = listOfNotNull(adj?.let { "${it.lemma} = ${it.meaning(pool.base)}" }, "${n.lemma} = ${n.meaning}")
+        return Exercise.CaseTask(
+            kind = CaseKind.DECLINE.wire, key = declineKey(f, n, adj), sentence = fill(shown), tokens = CaseBanks.tokens(fill("___")),
+            case = f.case, number = f.number, rule = rule.page, why = f.why, line = rule.inBase(pool.base), ruleSl = rule.inTarget("de"),
+            askWhy = false, prompt = "${fill("___")} ($cue)", accept = nouns.map { cap(phrase(it)) }, spoken = n.spoken[slot].orEmpty().map { cap(phrase(it)) }, shown = shown,
+            hint = (listOf(f.meaning(pool.base)) + words).joinToString(" · "), lemma = n.lemma, level = f.level, gender = n.gender,
+            adj = adj?.lemma, grammar = rule.page, lang = "de",
+        )
+    }
+
     // --- grading -------------------------------------------------------------------------------------------------------
 
     /** The case picked: right when it is the item's. */
@@ -876,10 +982,11 @@ object CaseTrainer {
      * the whole sentence; graded by [Grading.check] against what is right, a spoken form right too (labelled).
      */
     fun gradeDecline(ex: Exercise.CaseTask, answer: String): Typed {
+        val lang = langOf(ex.lang)
         val a = phraseOf(ex, answer)
-        if (ex.spoken.any { Grading.canonical(it, Lang.SL) == Grading.canonical(a, Lang.SL) }) return Typed(Verdict.CORRECT, ex.shown, Grading.Hint.NONE, emptyList(), spoken = true)
-        if (ex.variants.any { Grading.canonical(it, Lang.SL) == Grading.canonical(a, Lang.SL) }) return Typed(Verdict.CORRECT, ex.shown, Grading.Hint.NONE, emptyList(), variant = true)
-        val r = Grading.check(a, ex.accept, Lang.SL)
+        if (ex.spoken.any { Grading.canonical(it, lang) == Grading.canonical(a, lang) }) return Typed(Verdict.CORRECT, ex.shown, Grading.Hint.NONE, emptyList(), spoken = true)
+        if (ex.variants.any { Grading.canonical(it, lang) == Grading.canonical(a, lang) }) return Typed(Verdict.CORRECT, ex.shown, Grading.Hint.NONE, emptyList(), variant = true)
+        val r = Grading.check(a, ex.accept, lang)
         return Typed(r.verdict, r.expected.ifBlank { ex.shown }, r.hint, r.marks)
     }
 
@@ -887,9 +994,10 @@ object CaseTrainer {
     fun phraseOf(ex: Exercise.CaseTask, answer: String): String {
         val gap = ex.tokens.indexOfFirst { "___" in it }
         if (gap < 0) return answer.trim()
-        val before = ex.tokens.take(gap).map { Grading.normalize(CaseBanks.bare(it), Lang.SL) }.filter { it.isNotEmpty() }
-        val after = ex.tokens.drop(gap + 1).map { Grading.normalize(CaseBanks.bare(it), Lang.SL) }.filter { it.isNotEmpty() }
-        var words = Grading.normalize(answer, Lang.SL).split(' ').filter { it.isNotEmpty() }
+        val lang = langOf(ex.lang)
+        val before = ex.tokens.take(gap).map { Grading.normalize(CaseBanks.bare(it), lang) }.filter { it.isNotEmpty() }
+        val after = ex.tokens.drop(gap + 1).map { Grading.normalize(CaseBanks.bare(it), lang) }.filter { it.isNotEmpty() }
+        var words = Grading.normalize(answer, lang).split(' ').filter { it.isNotEmpty() }
         // the whole sentence typed, or the preposition before the gap
         for (n in before.size downTo 1) if (words.size > n && words.take(n) == before.takeLast(n)) { words = words.drop(n); break }
         for (n in after.size downTo 1) if (words.size > n && words.takeLast(n) == after.take(n)) { words = words.dropLast(n); break }
@@ -905,7 +1013,7 @@ object CaseTrainer {
      * (1, 3, 7, 16 days, then gone) or back to the first when wrong; the items asked lately. [answers] may be fewer than
      * [tasks] (a session left early).
      */
-    fun record(p: CaseProgress?, tasks: List<CaseTask>, answers: List<CaseAnswer>, today: LocalDate): CasesRecorded {
+    fun record(p: CaseProgress?, tasks: List<CaseTask>, answers: List<CaseAnswer>, today: LocalDate, agreement: String = AGREEMENT): CasesRecorded {
         val start = p ?: CaseProgress()
         val keys = start.keys.toMutableMap()
         val why = start.why.toMutableMap()
@@ -921,7 +1029,7 @@ object CaseTrainer {
             push(keys, caseKey(t.case), right)
             push(keys, ruleKey(t.rule), right)
             push(keys, kindKey(t.kind), right)
-            if (t.adjective != null) push(keys, ruleKey(AGREEMENT), right)
+            if (t.adjective != null) push(keys, ruleKey(agreement), right)
             a.whyRight?.let { push(why, t.rule, it) }
             val i = again.indexOfFirst { it.item == t.key }
             val was = again.getOrNull(i)
@@ -1049,10 +1157,11 @@ object CaseTrainer {
         return when (ex.kind) {
             "decline" -> ex.shown
             "place" -> listOfNotNull(ex.options.getOrNull(ex.answer), decider).joinToString(" · ")
-            else -> listOfNotNull(kase?.let { "${it.n}. ${it.slName}" }, decider).joinToString(" · ")
+            else -> listOfNotNull(kase?.named, decider).joinToString(" · ")
         }
     }
 }
 
 /** The bare word at token [i] of the sentence (a place item's: of the whole sentence, not the prompt). */
 fun Exercise.CaseTask.wordAt(i: Int): String? = (if (kind == "place") CaseBanks.tokens(sentence) else tokens).getOrNull(i)?.let(CaseBanks::bare)?.takeIf { it.isNotEmpty() }
+

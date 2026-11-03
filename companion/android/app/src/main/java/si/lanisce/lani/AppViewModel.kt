@@ -2089,6 +2089,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun qaCases(what: String) {
         val today = java.time.LocalDate.now()
         when {
+            // German's case pages (docs/plans/05-built/case-de.md) in a German village
+            what == "ready" && caseTrainer.language == "de" -> grammar.meet(listOf("faelle", "akkusativ", "dativ", "genitiv", "plural", "praepositionen-akkusativ", "praepositionen-dativ", "praepositionen-genitiv", "wechselpraepositionen", "pronomen-dativ", "verben-praepositionen", "adjektiv-der", "relativsatz", "uhrzeit")).forEach(grammar::announced)
             what == "ready" -> grammar.meet(listOf("skloni", "imenovalnik", "tozilnik", "kam-tozilnik", "mestnik", "kje-mestnik-orodnik", "rodilnik-nikalnica", "rodilnik", "rodilnik-predlogi", "rodilnik-kolicina", "dajalnik", "orodnik", "mnozina", "dvojina", "pridevniki-ujemanje", "stevila-samostalniki")).forEach(grammar::announced) // met before: no news in the first feedback
             what == "start" -> return startCases()
             what == "storm" -> return startStorm()

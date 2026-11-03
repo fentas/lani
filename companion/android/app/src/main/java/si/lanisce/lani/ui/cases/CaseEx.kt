@@ -112,7 +112,7 @@ private fun WhichEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, do
         val answer = CaseTrainer.answerLine(ex, "${p0.n}. ${p0.slName}", tapped?.let { ex.wordAt(it) } ?: role)
         done(Outcome(CaseTrainer.verdict(caseRight, whyRight), answer, null, explain(ex, whyRight)))
     }
-    Ask("🧩 ${bi("cases.ask.which")}")
+    Ask("🧩 ${bi(ck("cases.ask.which"))}")
     Sentence(vm, ex, ex.tokens, ex.word, shownCase = if (p != null) right else null, marked = if (whyDone || locked) ex.taps.toSet() else emptySet(), wrongTap = tapped?.takeIf { it !in ex.taps && (whyDone || locked) })
     Meaning(ex.translation)
     Spacer(Modifier.height(16.dp))
@@ -146,6 +146,8 @@ private fun WhichEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, do
 private fun Sentence(vm: AppViewModel, ex: Exercise.CaseTask, tokens: List<String>, word: Int, shownCase: Case?, marked: Set<Int>, wrongTap: Int?) {
     val caseColor = shownCase?.color()
     val frame = MaterialTheme.colorScheme.primary
+    // a German item frames its noun phrase (the article, the adjectives, the noun), the sentence's own tokens only
+    val span = ex.phrase.takeIf { it.size == 2 && tokens.size == ex.tokens.size && tokens == ex.tokens }?.let { it[0]..it[1] }
     // what shows is what is read and said: a storm's phrase ("brez mleka"), else the sentence
     val shown = tokens.joinToString(" ")
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -156,7 +158,7 @@ private fun Sentence(vm: AppViewModel, ex: Exercise.CaseTask, tokens: List<Strin
             horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             tokens.forEachIndexed { i, t ->
-                val asked = i == word
+                val asked = span?.contains(i) ?: (i == word)
                 val deciding = i in marked
                 when {
                     asked -> Surface(
@@ -194,9 +196,11 @@ private fun Sentence(vm: AppViewModel, ex: Exercise.CaseTask, tokens: List<Strin
 @Composable
 private fun CaseGrid(picked: Case?, right: Case?, enabled: Boolean, onPick: (Case) -> Unit) {
     val wide = LocalConfiguration.current.screenWidthDp >= 600
-    val perRow = if (wide) 3 else 2
+    val cases = si.lanisce.lani.data.CaseSets.current.cases
+    // German's four: two a row everywhere; Slovene's six: three a row on a tablet
+    val perRow = if (wide && cases.size > 4) 3 else 2
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (row in Case.entries.chunked(perRow)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        for (row in cases.chunked(perRow)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             for (k in row) CaseChip(k, picked = picked == k, right = right == k, answered = right != null, enabled = enabled, modifier = Modifier.weight(1f)) { onPick(k) }
         }
     }
@@ -311,16 +315,21 @@ internal fun explain(ex: Exercise.CaseTask, whyRight: Boolean?): String {
         ex.role != null -> "**${roleLabel(ex.role)}**"
         else -> "**${ex.ruleSl}**"
     }
-    // a place's: the verb says kje or kam, which decides the case ("**gre** → kam? → 4. tožilnik")
+    // a place's: the verb says kje or kam, which decides the case ("**gre** → kam? → 4. tožilnik"; German: wo? wohin?)
     val where = when {
         ex.kind != "place" -> null
+        ex.lang == "de" -> when (ex.why) {
+            "wohin" -> "wohin?"
+            "wo" -> "wo?"
+            else -> null
+        }
         ex.why.endsWith("kam") || ex.why == "k" -> "kam?"
         ex.why.endsWith("kje") || ex.why == "pri" || ex.why == "ob" -> "kje?"
         ex.case == "rodilnik" -> "od kod?"
         else -> null
     }
-    val head = listOfNotNull(decider, where, "**${k.n}. ${k.slName}** (${k.ask}) · ${numberLabel(ex.number)}").joinToString(" → ")
-    val readings = ex.ambiguous.mapNotNull { s -> Case.ofSlot(s)?.let { kk -> "${kk.n}. ${kk.slName} ${shortNumber(s.substringAfter('.'))}" } }
+    val head = listOfNotNull(decider, where, "**${k.named}** (${k.ask}) · ${numberLabel(ex.number)}").joinToString(" → ")
+    val readings = ex.ambiguous.mapNotNull { s -> Case.ofSlot(s)?.let { kk -> "${kk.named} ${shortNumber(s.substringAfter('.'))}" } }
     val form = ex.wordAt(ex.word).orEmpty()
     return listOfNotNull(
         head,
@@ -396,7 +405,11 @@ private fun PlaceEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, do
 
 /** A place task's instruction by what it asks: kje or kam, v or na, pri or k, od kod. */
 private fun placeAsk(ex: Exercise.CaseTask): String {
-    val key = when {
+    val key = if (ex.lang == "de") when {
+        ex.options.size == 3 -> "cases.de.ask.woher"
+        ex.options.all { it.trim().lowercase().split(' ').firstOrNull() in setOf("zu", "zum", "zur", "bei", "beim", "nach", "in") && ex.case == "dativ" && ex.why != "wo" } -> "cases.de.ask.zubeinach"
+        else -> "cases.de.ask.wowohin"
+    } else when {
         ex.options.all { it.trim().lowercase() in setOf("v", "na") } -> "cases.ask.place.vna"
         ex.options.all { it.trim().lowercase() in setOf("k", "h", "pri") } -> "cases.ask.place.prik"
         ex.case == "rodilnik" -> "cases.ask.place.odkod"
@@ -409,7 +422,7 @@ private fun placeAsk(ex: Exercise.CaseTask): String {
 
 @Composable
 private fun DeclineEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, done: (Outcome) -> Unit) {
-    Ask("✍️ ${bi("cases.ask.decline")}")
+    Ask("✍️ ${bi(ck("cases.ask.decline"))}")
     Text(ex.prompt, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { contentDescription = ex.prompt.replace("___", bi("cases.gap")) })
     ex.hint?.let { Meaning(it) }
     if (locked) {

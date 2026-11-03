@@ -306,7 +306,7 @@ object HomeLogic {
 
     /** "Skloni": the tutor's assignment, else what comes back, else the weakest case. */
     fun cases(idea: HomeAction.Cases?): TileStatus = when {
-        idea == null -> TileStatus(bi("cases.tile"))
+        idea == null -> TileStatus(bi(si.lanisce.lani.ui.cases.ck("cases.tile")))
         idea.assigned -> TileStatus("🧑‍🏫 ${idea.label ?: idea.focus.orEmpty()}", attention = true)
         idea.due > 0 -> TileStatus("🔁 ${bi("cases.dueAgain", "n" to idea.due)}", attention = true)
         else -> TileStatus("🎯 ${idea.label ?: idea.focus.orEmpty()}")
