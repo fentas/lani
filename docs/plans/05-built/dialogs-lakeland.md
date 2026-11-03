@@ -40,8 +40,8 @@ Everything below is machine-written (Claude) and reviewed by nobody. The review 
 
 **Slovene, Italian, German** (the translations, the whys, the memories): the register follows the existing Lake District
 scenes, not the model: the learner says **Vi / Lei / Sie** to Mrs Birkett, Mrs Hartley, Mr Dixon and Mr Tyson (they say
-ti / tu / du back) and **ti / tu / du** with everyone else. (The model's `inn-b2-jam` has the learner say "Nisi mogla
-vedeti" and "Das konntest du nicht wissen" to Mrs Birkett: for the lead.) Slovene with a woman addressed as vi uses the
+ti / tu / du back) and **ti / tu / du** with everyone else. (The model's `inn-b2-jam` had the learner say "Nisi mogla
+vedeti" and "Das konntest du nicht wissen" to Mrs Birkett; after the merge of `dialog-levels` it says Vi, Lei and Sie too.) Slovene with a woman addressed as vi uses the
 plural ("boste spekli"). The learner's forms are gender pairs in Slovene and Italian ({m:…|f:…}); a Slovene speaker
 should read the duals ("bova uporabila/uporabili", "narediva sama/sami") and the Italian participles of the learner.
 Translations of a wrong English choice say what the learner meant.
@@ -234,8 +234,8 @@ On 9fad37d7 and 7560519f (the content and the supplement complete):
 ## What's left
 
 - The native check above; then the voice build (85,848 characters, Jan's credits).
-- The market's variants are `dialog-levels`' (the model); its `inn-b2-jam` has the learner say du / ti to Mrs Birkett where
-  every other Lake District scene has Sie / Vi.
+- The market's variants are `dialog-levels`' (the model); its `inn-b2-jam` now has the learner say Vi / Lei / Sie to Mrs
+  Birkett, as every other Lake District scene (the merge of `placement`).
 - QA ran the model's step on two of these scenes through a temporary, uncommitted copy of it (`bin/qa` is `dialog-levels`'
   to change); once `dialog-levels` is merged, `DIALOG_LEVELS_QA` can name `at-the-bees`/`evening` or
   `in-the-smithy`/`horseshoe` as a second Lake District check.
