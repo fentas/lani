@@ -28,6 +28,7 @@
     "can't",
     "couldn't",
     "mustn't",
+    "must not",
     "might not",
     "probably",
     "perhaps",
@@ -137,7 +138,7 @@
           "options": [
             "might",
             "is",
-            "does"
+            "has"
           ],
           "answer": 0,
           "say_options": true,
@@ -256,7 +257,7 @@
           "options": [
             "might",
             "can",
-            "does"
+            "has"
           ],
           "answer": 0,
           "say_options": true,
@@ -314,7 +315,7 @@
           "options": [
             "must",
             "can't",
-            "doesn't"
+            "isn't"
           ],
           "answer": 0,
           "say_options": true,
@@ -328,10 +329,10 @@
       },
       {
         "say": {
-          "sl": "Kar sklepaš in gotovo ni tako: **can't**, nasprotje od must. **That can't be Jack: he's in Keswick.** (To ne more biti Jack: v Keswicku je.) **He can't be hungry: he's just eaten.** (Ne more biti lačen: pravkar je jedel.) Na Škotskem, Irskem in severu Anglije rečejo tudi **mustn't**: *It mustn't be Jack*. Pisava želi **can't**.",
-          "de": "Was du schließt und sicher nicht ist: **can't**, das Gegenteil von must. **That can't be Jack: he's in Keswick.** (Das kann nicht Jack sein: Er ist in Keswick.) **He can't be hungry: he's just eaten.** (Er kann nicht hungrig sein: Er hat gerade gegessen.) In Schottland, Irland und Nordengland sagt man auch **mustn't**: *It mustn't be Jack*. Die Schrift will **can't**.",
-          "it": "Ciò che deduci e di sicuro non è: **can't**, il contrario di must. **That can't be Jack: he's in Keswick.** (Non può essere Jack: è a Keswick.) **He can't be hungry: he's just eaten.** (Non può avere fame: ha appena mangiato.) In Scozia, in Irlanda e nel nord dell'Inghilterra si dice anche **mustn't**: *It mustn't be Jack*. Lo scritto vuole **can't**.",
-          "en": "What you work out and are sure isn't so: **can't**, the opposite of must. **That can't be Jack: he's in Keswick.** **He can't be hungry: he's just eaten.** In Scotland, Ireland and the North people also say **mustn't**: *It mustn't be Jack*. Writing wants **can't**."
+          "sl": "Kar sklepaš in gotovo ni tako: **can't**, nasprotje od must. **That can't be Jack: he's in Keswick.** (To ne more biti Jack: v Keswicku je.) **He can't be hungry: he's just eaten.** (Ne more biti lačen: pravkar je jedel.) V Ameriki, na Škotskem, Irskem in severu Anglije rečejo tudi **must not**, **mustn't**: *It must not be Jack*. Britanska pisava želi **can't**.",
+          "de": "Was du schließt und sicher nicht ist: **can't**, das Gegenteil von must. **That can't be Jack: he's in Keswick.** (Das kann nicht Jack sein: Er ist in Keswick.) **He can't be hungry: he's just eaten.** (Er kann nicht hungrig sein: Er hat gerade gegessen.) In Amerika, Schottland, Irland und Nordengland sagt man auch **must not**, **mustn't**: *It must not be Jack*. Die britische Schrift will **can't**.",
+          "it": "Ciò che deduci e di sicuro non è: **can't**, il contrario di must. **That can't be Jack: he's in Keswick.** (Non può essere Jack: è a Keswick.) **He can't be hungry: he's just eaten.** (Non può avere fame: ha appena mangiato.) In America, in Scozia, in Irlanda e nel nord dell'Inghilterra si dice anche **must not**, **mustn't**: *It must not be Jack*. Lo scritto britannico vuole **can't**.",
+          "en": "What you work out and are sure isn't so: **can't**, the opposite of must. **That can't be Jack: he's in Keswick.** **He can't be hungry: he's just eaten.** In America, Scotland, Ireland and the North people also say **must not**, **mustn't**: *It must not be Jack*. British writing wants **can't**."
         },
         "examples": [
           {
@@ -369,7 +370,9 @@
             "couldn't",
             "could not",
             "mustn't",
-            "must not"
+            "must not",
+            "won't",
+            "will not"
           ],
           "hint": {
             "sl": "gotovo ne",
@@ -537,11 +540,11 @@
             "it": "Choose · Scegli",
             "en": "Choose"
           },
-          "prompt": "That's Jack's van outside. He ___ be at the inn.",
+          "prompt": "That's Sam's van outside. He ___ be at the inn.",
           "options": [
             "must",
             "can't",
-            "doesn't"
+            "isn't"
           ],
           "answer": 0,
           "say_options": true,
@@ -565,7 +568,7 @@
           "options": [
             "can't",
             "must",
-            "does"
+            "has"
           ],
           "answer": 0,
           "say_options": true,
@@ -588,7 +591,7 @@
           "prompt": "I'm not sure where Meg is. She ___ be in the barn.",
           "options": [
             "might",
-            "must",
+            "has",
             "did"
           ],
           "answer": 0,
@@ -612,7 +615,7 @@
           "prompt": "It's very cold today. It ___ snow tonight.",
           "options": [
             "might",
-            "does",
+            "has",
             "is"
           ],
           "answer": 0,
@@ -667,10 +670,11 @@
                 "can't",
                 "cannot",
                 "couldn't",
-                "could not"
-              ],
-              "spoken": [
-                "mustn't"
+                "could not",
+                "mustn't",
+                "must not",
+                "won't",
+                "will not"
               ],
               "hint": {
                 "sl": "gotovo ne",
@@ -699,7 +703,13 @@
               "accept": [
                 "must",
                 "will",
-                "'ll"
+                "'ll",
+                "might",
+                "may",
+                "could",
+                "has to",
+                "has got to",
+                "'s got to"
               ],
               "hint": {
                 "sl": "gotovo",
@@ -730,7 +740,10 @@
                 "might",
                 "may",
                 "could",
-                "must"
+                "must",
+                "will",
+                "'ll",
+                "won't"
               ],
               "hint": {
                 "sl": "morda ne",
@@ -742,7 +755,7 @@
           ],
           "bank": true,
           "distractors": [
-            "does",
+            "has",
             "is"
           ],
           "translation": {
@@ -765,7 +778,7 @@
           "options": [
             "must",
             "can't",
-            "doesn't"
+            "isn't"
           ],
           "answer": 0,
           "say_options": true,
@@ -788,7 +801,7 @@
           "prompt": "The phone is ringing and he isn't answering. He ___ be sleeping.",
           "options": [
             "must",
-            "does",
+            "is",
             "has"
           ],
           "answer": 0,
@@ -833,10 +846,9 @@
               "from": "I'm sure that isn't Jack.",
               "accept": [
                 "That can't be Jack.",
-                "That couldn't be Jack."
-              ],
-              "spoken": [
-                "That mustn't be Jack."
+                "That couldn't be Jack.",
+                "That mustn't be Jack.",
+                "That won't be Jack."
               ]
             },
             {
@@ -851,10 +863,9 @@
               "from": "I'm sure he isn't hungry.",
               "accept": [
                 "He can't be hungry.",
-                "He couldn't be hungry."
-              ],
-              "spoken": [
-                "He mustn't be hungry."
+                "He couldn't be hungry.",
+                "He mustn't be hungry.",
+                "He won't be hungry."
               ]
             }
           ],
@@ -975,10 +986,11 @@
               "can't",
               "cannot",
               "couldn't",
-              "could not"
-            ],
-            "spoken": [
-              "mustn't"
+              "could not",
+              "mustn't",
+              "must not",
+              "won't",
+              "will not"
             ]
           },
           {
@@ -986,7 +998,9 @@
               "might",
               "may",
               "could",
-              "must"
+              "must",
+              "will",
+              "'ll"
             ]
           },
           {
@@ -1001,7 +1015,9 @@
               "must",
               "has to",
               "has got to",
-              "'s got to"
+              "'s got to",
+              "will",
+              "'ll"
             ]
           }
         ],
@@ -1025,7 +1041,7 @@
         "options": [
           "must",
           "can't",
-          "doesn't"
+          "isn't"
         ],
         "answer": 0,
         "say_options": true,
@@ -1049,7 +1065,7 @@
         "options": [
           "might",
           "can",
-          "does"
+          "has"
         ],
         "answer": 0,
         "say_options": true,
@@ -1073,7 +1089,7 @@
         "options": [
           "can't",
           "must",
-          "doesn't"
+          "isn't"
         ],
         "answer": 0,
         "say_options": true,
@@ -1106,10 +1122,9 @@
             "from": "I'm sure she isn't tired.",
             "accept": [
               "She can't be tired.",
-              "She couldn't be tired."
-            ],
-            "spoken": [
-              "She mustn't be tired."
+              "She couldn't be tired.",
+              "She mustn't be tired.",
+              "She won't be tired."
             ]
           }
         ],

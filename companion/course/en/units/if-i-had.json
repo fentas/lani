@@ -89,7 +89,7 @@
           "sl": "Kar ni tako ali se skoraj gotovo ne bo zgodilo: **if** + preteklik, v drugem delu **would**. **If I had a boat, I'd row across.** (Če bi {m:imel|f:imela} čoln, bi {m:veslal|f:veslala} čez.) Čolna nimam. **If Jack lived nearer, he'd come more often.** (Če bi Jack živel bliže, bi prihajal pogosteje.) Preteklik tu ne pomeni *prej*, ampak *ni zares*. **'d** je **would**.",
           "de": "Was nicht so ist oder kaum sein wird: **if** + Vergangenheit, im anderen Teil **would**. **If I had a boat, I'd row across.** (Wenn ich ein Boot hätte, würde ich hinüberrudern.) Ich habe keines. **If Jack lived nearer, he'd come more often.** (Wenn Jack näher wohnte, käme er öfter.) Die Vergangenheit heißt hier nicht *früher*, sondern *nicht wirklich*. **'d** ist **would**.",
           "it": "Ciò che non è così o quasi certamente non sarà: **if** + il passato, **would** nell'altra parte. **If I had a boat, I'd row across.** (Se avessi una barca, remerei fino all'altra riva.) Non ce l'ho. **If Jack lived nearer, he'd come more often.** (Se Jack abitasse più vicino, verrebbe più spesso.) Il passato qui non vuol dire *prima*, ma *non davvero*. **'d** è **would**.",
-          "en": "What isn't so, or hardly will be: **if** + the past, **would** in the other half. **If I had a boat, I'd row across.** (I haven't got one.) **If Jack lived nearer, he'd come more often.** (He lives far away.) The past here doesn't mean earlier: it means *not really*. **'d** is **would**."
+          "en": "What isn't so, or probably won't be: **if** + the past, **would** in the other half. **If I had a boat, I'd row across.** (I haven't got one.) **If Jack lived nearer, he'd come more often.** (He lives far away.) The past here doesn't mean earlier: it means *not really*. **'d** is **would**."
         },
         "examples": [
           {
@@ -147,7 +147,7 @@
           "sl": "Drugi del ima lahko tudi **could** ali **might**, če je manj gotovo: **If it stopped raining, we could walk to the tarn.** (Če bi nehalo deževati, bi lahko šli do jezerca.) **If Sam sold the van, he might buy a horse.** (Če bi Sam prodal kombi, bi morda kupil konja.) Zanikanje kot običajno: **If I didn't have the sheep, I wouldn't get up at five.** (Če ne bi {m:imel|f:imela} ovc, ne bi {m:vstajal|f:vstajala} ob petih.)",
           "de": "Der andere Teil kann auch **could** oder **might** haben, wenn es weniger sicher ist: **If it stopped raining, we could walk to the tarn.** (Wenn es aufhörte zu regnen, könnten wir zum Bergsee gehen.) **If Sam sold the van, he might buy a horse.** (Wenn Sam den Lieferwagen verkaufte, würde er vielleicht ein Pferd kaufen.) Verneint wie immer: **If I didn't have the sheep, I wouldn't get up at five.** (Ohne die Schafe würde ich nicht um fünf aufstehen.)",
           "it": "L'altra parte può avere anche **could** o **might**, se è meno sicuro: **If it stopped raining, we could walk to the tarn.** (Se smettesse di piovere, potremmo andare al laghetto.) **If Sam sold the van, he might buy a horse.** (Se Sam vendesse il furgone, forse comprerebbe un cavallo.) Il negativo come sempre: **If I didn't have the sheep, I wouldn't get up at five.** (Se non avessi le pecore, non mi alzerei alle cinque.)",
-          "en": "The other half can also have **could** or **might**, if it's less sure: **If it stopped raining, we could walk to the tarn.** **If Sam sold the van, he might buy a horse.** Not works as usual: **If I didn't have the sheep, I wouldn't get up at five.**"
+          "en": "The other half can also have **could** or **might**, if it's less sure: **If it stopped raining, we could walk to the tarn.** **If Sam sold the van, he might buy a horse.** With not, as usual: **If I didn't have the sheep, I wouldn't get up at five.**"
         },
         "examples": [
           {
@@ -417,7 +417,7 @@
           "prompt": "I may see Jack today. If I ___ him, I'll tell him.",
           "options": [
             "see",
-            "seen",
+            "sees",
             "seeing"
           ],
           "answer": 0,
@@ -526,7 +526,10 @@
                 {
                   "accept": [
                     "wouldn't go",
-                    "would not go"
+                    "would not go",
+                    "might not go",
+                    "couldn't go",
+                    "could not go"
                   ],
                   "hint": "would + not"
                 }
@@ -712,7 +715,9 @@
             {
               "accept": [
                 "would give",
-                "'d give"
+                "'d give",
+                "could give",
+                "might give"
               ],
               "hint": {
                 "sl": "drugi del",
@@ -823,7 +828,9 @@
                 "If I had a boat, I could row across.",
                 "I could row across if I had a boat.",
                 "If I had a boat, I would row across.",
-                "I would row across if I had a boat."
+                "I would row across if I had a boat.",
+                "If I had a boat, I would be able to row across.",
+                "I would be able to row across if I had a boat."
               ]
             },
             {
@@ -833,24 +840,37 @@
                 "Jack would come more often if he lived nearer.",
                 "If Jack didn't live far away, he would come often.",
                 "If Jack didn't live far away, he would come more often.",
-                "Jack would come often if he didn't live far away."
+                "Jack would come often if he didn't live far away.",
+                "Jack would come more often if he didn't live far away.",
+                "If Jack lived closer, he would come more often.",
+                "Jack would come more often if he lived closer.",
+                "If Jack didn't live so far away, he would come more often.",
+                "Jack would come more often if he didn't live so far away."
               ]
             },
             {
               "from": "It's raining, so we can't go out.",
               "accept": [
-                "If it wasn't raining, we could go out.",
                 "If it weren't raining, we could go out.",
-                "We could go out if it wasn't raining.",
                 "We could go out if it weren't raining.",
                 "If it stopped raining, we could go out.",
-                "We could go out if it stopped raining."
+                "We could go out if it stopped raining.",
+                "If it weren't raining, we would go out.",
+                "We would go out if it weren't raining.",
+                "If it stopped raining, we would go out.",
+                "We would go out if it stopped raining."
+              ],
+              "spoken": [
+                "If it wasn't raining, we could go out.",
+                "We could go out if it wasn't raining.",
+                "If it wasn't raining, we would go out.",
+                "We would go out if it wasn't raining."
               ],
               "hint": {
-                "sl": "za if: it wasn't",
-                "de": "nach if: it wasn't",
-                "it": "dopo if: it wasn't",
-                "en": "after if: it wasn't"
+                "sl": "za if: it weren't",
+                "de": "nach if: it weren't",
+                "it": "dopo if: it weren't",
+                "en": "after if: it weren't"
               }
             },
             {
@@ -861,7 +881,17 @@
                 "If Sam had money, he would buy the van.",
                 "Sam would buy the van if he had some money.",
                 "Sam would buy the van if he had any money.",
-                "Sam would buy the van if he had money."
+                "Sam would buy the van if he had money.",
+                "If Sam had the money, he would buy the van.",
+                "Sam would buy the van if he had the money.",
+                "If Sam had enough money, he would buy the van.",
+                "Sam would buy the van if he had enough money.",
+                "If Sam had the money, he could buy the van.",
+                "Sam could buy the van if he had the money.",
+                "If Sam had some money, he could buy the van.",
+                "Sam could buy the van if he had some money.",
+                "If Sam had money, he could buy the van.",
+                "Sam could buy the van if he had money."
               ]
             }
           ],
@@ -1042,17 +1072,17 @@
         },
         "prompt": "It may rain today. If it rains, we ___ stay at the inn.",
         "options": [
-          "'ll",
+          "will",
           "did",
           "were"
         ],
         "answer": 0,
         "say_options": true,
         "explain": {
-          "sl": "**Se lahko zgodi: sedanjik, will; ni tako: preteklik, would**\n- If it rains, we'll stay at the inn.",
-          "de": "**Kann passieren: Präsens, will; ist nicht so: Vergangenheit, would**\n- If it rains, we'll stay at the inn.",
-          "it": "**Può succedere: il presente, will; non è così: il passato, would**\n- If it rains, we'll stay at the inn.",
-          "en": "**May happen: the present, will; isn't so: the past, would**\n- If it rains, we'll stay at the inn."
+          "sl": "**Se lahko zgodi: sedanjik, will; ni tako: preteklik, would**\n- If it rains, we will stay at the inn.",
+          "de": "**Kann passieren: Präsens, will; ist nicht so: Vergangenheit, would**\n- If it rains, we will stay at the inn.",
+          "it": "**Può succedere: il presente, will; non è così: il passato, would**\n- If it rains, we will stay at the inn.",
+          "en": "**May happen: the present, will; isn't so: the past, would**\n- If it rains, we will stay at the inn."
         }
       },
       {
@@ -1072,7 +1102,9 @@
               "If I knew the way, I could tell you.",
               "I could tell you if I knew the way.",
               "If I knew the way, I would tell you.",
-              "I would tell you if I knew the way."
+              "I would tell you if I knew the way.",
+              "If I knew the way, I would be able to tell you.",
+              "I would be able to tell you if I knew the way."
             ]
           },
           {
@@ -1081,13 +1113,23 @@
               "If Meg were younger, she would run faster.",
               "Meg would run faster if she were younger.",
               "If Meg weren't old, she would run fast.",
-              "If Meg weren't old, she would run faster."
+              "If Meg weren't old, she would run faster.",
+              "If Meg were young, she would run fast.",
+              "Meg would run fast if she were young.",
+              "Meg would run fast if she weren't old.",
+              "Meg would run faster if she weren't old.",
+              "If Meg weren't so old, she would run faster.",
+              "Meg would run faster if she weren't so old."
             ],
             "spoken": [
               "If Meg was younger, she would run faster.",
               "Meg would run faster if she was younger.",
               "If Meg wasn't old, she would run fast.",
-              "If Meg wasn't old, she would run faster."
+              "If Meg wasn't old, she would run faster.",
+              "If Meg was young, she would run fast.",
+              "Meg would run fast if she was young.",
+              "Meg would run fast if she wasn't old.",
+              "Meg would run faster if she wasn't old."
             ]
           },
           {
@@ -1096,7 +1138,9 @@
               "If we had a map, we could walk to the tarn.",
               "We could walk to the tarn if we had a map.",
               "If we had a map, we would walk to the tarn.",
-              "We would walk to the tarn if we had a map."
+              "We would walk to the tarn if we had a map.",
+              "If we had a map, we would be able to walk to the tarn.",
+              "We would be able to walk to the tarn if we had a map."
             ]
           }
         ],

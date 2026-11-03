@@ -139,8 +139,6 @@ class EnglishB1cContentTest {
         }
         said("if-i-had", "was", "were")
         said("if-i-had", "If I was you, I'd wait for the bus.", "If I were you, I'd wait for the bus.")
-        said("might-must", "mustn't", "can't")
-        said("might-must", "That mustn't be Jack.", "That can't be Jack.")
         said("if-i-had-known", "woulda come", "would have come")
         said("if-i-had-known", "If I had known, I woulda come.", "If I had known, I would have come.")
         said("although-however", "so", "so that")
@@ -152,11 +150,18 @@ class EnglishB1cContentTest {
         said("reported-questions", "He asked me where I work.", "Mr Dixon asked me where I worked.")
     }
 
+    @Test fun `mustn't and must not are right for can't, as America, Scotland and the North say it`() {
+        val cant = items("might-must").filter { it.accept.first() == "can't" }
+        assertTrue("the gaps with can't", cant.isNotEmpty())
+        for (i in cant) for (form in listOf("mustn't", "must not", "couldn't", "won't")) assertEquals(form, Verdict.CORRECT, Sheets.check(i, form, Lang.EN).verdict)
+        assertEquals(Verdict.CORRECT, Sheets.check(items("might-must").first { it.accept.first() == "That can't be Jack." }, "That mustn't be Jack.", Lang.EN).verdict)
+    }
+
     @Test fun `no choice and no bank of these units offers what people say as the wrong form`() {
         val said = mapOf(
-            "if-i-had" to Regex("""(?i)^was$|would"""), "might-must" to Regex("""(?i)mustn't|must not"""),
+            "if-i-had" to Regex("""(?i)^was$|would"""), "might-must" to Regex("""(?i)mustn't|must not|^does$|^doesn't$"""),
             "if-i-had-known" to Regex("""(?i)^knew$|would have known|would of|woulda|'d have known"""), "although-however" to Regex("""(?i)^so$|cos of"""),
-            "reported-speech" to Regex("""(?i)^(is|are|will|can|don't)$"""), "reported-questions" to Regex("""(?i)did i |does the|is the|^i live|^i want"""),
+            "reported-speech" to Regex("""(?i)^(is|are|will|can|don't)$"""), "reported-questions" to Regex("""(?i)did i |does the|is the|^i live$|^i want$"""),
         )
         for (id in units) {
             val u = course.units.getValue(id)
@@ -180,7 +185,7 @@ class EnglishB1cContentTest {
     }
 
     @Test fun `no text of these units says never of a form people say`() {
-        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:If I was|If I would|mustn't|would of|woulda|If I'd have|did I want|did I live|where is the inn)[^*]*\*""", RegexOption.IGNORE_CASE)
+        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:If I was|If I would|mustn't|would of|woulda|If I'd have|did I want|did I live|where's the inn)[^*]*\*""", RegexOption.IGNORE_CASE)
         val ours = listOf("second-conditional", "might-must", "third-conditional", "contrast-linkers", "reported-speech", "reported-questions")
         val texts = units.flatMap { id ->
             val unit = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject

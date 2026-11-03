@@ -52,7 +52,7 @@
     "sold",
     "wheel",
     "mend",
-    "cheap",
+    "expensive",
     "cold",
     "outside",
     "early",
@@ -146,10 +146,10 @@
       },
       {
         "say": {
-          "sl": "Ena veznica je dovolj: **Although it rained, we walked.** Slovenščina lahko reče *čeprav …, pa …*, pisana angleščina nima zraven but. Ali **although** ali **but**: **It rained, but we walked.** (Deževalo je, a smo šli.)",
-          "de": "Ein Bindewort genügt: **Although it rained, we walked.** Die Schrift hat kein but dazu. Entweder **although** oder **but**: **It rained, but we walked.** (Es regnete, aber wir gingen.)",
-          "it": "Basta una congiunzione: **Although it rained, we walked.** L'italiano può dire *anche se …, però …*, lo scritto inglese non aggiunge but. O **although** o **but**: **It rained, but we walked.** (Pioveva, ma siamo andati.)",
-          "en": "One joining word is enough: **Although it rained, we walked.** Writing adds no but. Either **although** or **but**: **It rained, but we walked.**"
+          "sl": "Ena veznica je dovolj: **Although it rained, we walked.** Slovenščina lahko reče *čeprav …, pa …*, angleščina nima zraven but. Ali **although** ali **but**: **It rained, but we walked.** (Deževalo je, a smo šli.)",
+          "de": "Ein Bindewort genügt: **Although it rained, we walked.** Englisch setzt kein but dazu. Entweder **although** oder **but**: **It rained, but we walked.** (Es regnete, aber wir gingen.)",
+          "it": "Basta una congiunzione: **Although it rained, we walked.** L'italiano può dire *anche se …, però …*, l'inglese non aggiunge but. O **although** o **but**: **It rained, but we walked.** (Pioveva, ma siamo andati.)",
+          "en": "One joining word is enough: **Although it rained, we walked.** English adds no but. Either **although** or **but**: **It rained, but we walked.**"
         },
         "examples": [
           {
@@ -544,7 +544,7 @@
             "it": "Choose · Scegli",
             "en": "Choose"
           },
-          "prompt": "The wool was cheap. ___, we sold it all.",
+          "prompt": "The wool was expensive. ___, we sold it all.",
           "options": [
             "However",
             "Although",
@@ -553,10 +553,10 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "sl": "**However: nov stavek, vejica**\n- The wool was cheap. However, we sold it all.",
-            "de": "**However: neuer Satz, Komma**\n- The wool was cheap. However, we sold it all.",
-            "it": "**However: frase nuova, virgola**\n- The wool was cheap. However, we sold it all.",
-            "en": "**However: a new sentence, a comma**\n- The wool was cheap. However, we sold it all."
+            "sl": "**However: nov stavek, vejica**\n- The wool was expensive. However, we sold it all.",
+            "de": "**However: neuer Satz, Komma**\n- The wool was expensive. However, we sold it all.",
+            "it": "**However: frase nuova, virgola**\n- The wool was expensive. However, we sold it all.",
+            "en": "**However: a new sentence, a comma**\n- The wool was expensive. However, we sold it all."
           }
         },
         {
@@ -651,7 +651,7 @@
             "it": "Fill in · Completa",
             "en": "Fill in"
           },
-          "text": "___ the storm was bad, Jack went up the fell ___ look for his sheep. ___ the wind, he found them all. ___, a lamb was missing. He stayed out till dark ___ he could find it. The road was closed ___ a fallen tree, so he walked home. ___, he was late for the dance.",
+          "text": "___ the storm was bad, Jack went up the fell ___ look for his sheep. ___ the wind, he found most of them. ___, a lamb was missing. He stayed out till dark ___ he could find it. The road was closed ___ a fallen tree, so he walked home. ___, he was late for the dance.",
           "gaps": [
             {
               "accept": [
@@ -696,7 +696,9 @@
                 "However",
                 "But",
                 "Yet",
-                "Still"
+                "Still",
+                "Even so",
+                "Nevertheless"
               ],
               "hint": {
                 "sl": "nov stavek",
@@ -723,7 +725,9 @@
               "accept": [
                 "because of",
                 "due to",
-                "owing to"
+                "owing to",
+                "on account of",
+                "by"
               ],
               "spoken": [
                 "cos of",
@@ -741,7 +745,10 @@
               "accept": [
                 "As a result",
                 "So",
-                "Because of that"
+                "Because of that",
+                "Because of this",
+                "Therefore",
+                "Consequently"
               ],
               "hint": {
                 "sl": "kar je sledilo",
@@ -756,10 +763,10 @@
             "despite of"
           ],
           "translation": {
-            "sl": "Čeprav je bila nevihta huda, je šel Jack na hrib iskat ovce. Kljub vetru jih je našel vse. Vendar je manjkalo jagnje. Ostal je zunaj do teme, da bi ga našel. Cesta je bila zaprta zaradi podrtega drevesa, zato je šel domov peš. Posledično je zamudil na ples.",
-            "de": "Obwohl der Sturm schlimm war, ging Jack auf den Berg, um seine Schafe zu suchen. Trotz des Windes fand er sie alle. Aber ein Lamm fehlte. Er blieb bis zur Dunkelheit draußen, damit er es finden konnte. Die Straße war wegen eines umgestürzten Baums gesperrt, also ging er zu Fuß heim. Darum kam er zu spät zum Tanz.",
-            "it": "Anche se il temporale era forte, Jack è salito sul monte a cercare le pecore. Nonostante il vento, le ha trovate tutte. Tuttavia mancava un agnello. È rimasto fuori fino a buio per trovarlo. La strada era chiusa per un albero caduto, così è tornato a piedi. Di conseguenza è arrivato tardi al ballo.",
-            "en": "Although the storm was bad, Jack went up the fell to look for his sheep. Despite the wind, he found them all. However, a lamb was missing. He stayed out till dark so that he could find it. The road was closed because of a fallen tree, so he walked home. As a result, he was late for the dance."
+            "sl": "Čeprav je bila nevihta huda, je šel Jack na hrib iskat ovce. Kljub vetru jih je našel večino. Vendar je manjkalo jagnje. Ostal je zunaj do teme, da bi ga našel. Cesta je bila zaprta zaradi podrtega drevesa, zato je šel domov peš. Posledično je zamudil na ples.",
+            "de": "Obwohl der Sturm schlimm war, ging Jack auf den Berg, um seine Schafe zu suchen. Trotz des Windes fand er die meisten. Aber ein Lamm fehlte. Er blieb bis zur Dunkelheit draußen, damit er es finden konnte. Die Straße war wegen eines umgestürzten Baums gesperrt, also ging er zu Fuß heim. Darum kam er zu spät zum Tanz.",
+            "it": "Anche se il temporale era forte, Jack è salito sul monte a cercare le pecore. Nonostante il vento, ha trovato quasi tutte. Tuttavia mancava un agnello. È rimasto fuori fino a buio per trovarlo. La strada era chiusa per un albero caduto, così è tornato a piedi. Di conseguenza è arrivato tardi al ballo.",
+            "en": "Although the storm was bad, Jack went up the fell to look for his sheep. Despite the wind, he found most of them. However, a lamb was missing. He stayed out till dark so that he could find it. The road was closed because of a fallen tree, so he walked home. As a result, he was late for the dance."
           }
         }
       ]
@@ -877,7 +884,9 @@
                 "Despite the wind, Mr Dixon mended the roof.",
                 "Mr Dixon mended the roof despite the wind.",
                 "Despite it being windy, Mr Dixon mended the roof.",
-                "Mr Dixon mended the roof despite it being windy."
+                "Mr Dixon mended the roof despite it being windy.",
+                "Despite the fact that it was windy, Mr Dixon mended the roof.",
+                "Mr Dixon mended the roof despite the fact that it was windy."
               ]
             }
           ],
@@ -929,7 +938,8 @@
             "accept": [
               "because of",
               "due to",
-              "owing to"
+              "owing to",
+              "on account of"
             ],
             "spoken": [
               "cos of",
@@ -1002,7 +1012,7 @@
           "it": "Choose · Scegli",
           "en": "Choose"
         },
-        "prompt": "The price of wool fell. ___, Jack sold fewer sheep.",
+        "prompt": "The price of wool fell. ___, Jack earned less.",
         "options": [
           "As a result",
           "Despite",
@@ -1011,10 +1021,10 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "sl": "**Kar je sledilo: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep.",
-          "de": "**Was folgte: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep.",
-          "it": "**Ciò che è seguito: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep.",
-          "en": "**What followed: As a result,**\n- The price of wool fell. As a result, Jack sold fewer sheep."
+          "sl": "**Kar je sledilo: As a result,**\n- The price of wool fell. As a result, Jack earned less.",
+          "de": "**Was folgte: As a result,**\n- The price of wool fell. As a result, Jack earned less.",
+          "it": "**Ciò che è seguito: As a result,**\n- The price of wool fell. As a result, Jack earned less.",
+          "en": "**What followed: As a result,**\n- The price of wool fell. As a result, Jack earned less."
         }
       },
       {
@@ -1054,7 +1064,8 @@
             "accept": [
               "I'm leaving now so that I can catch the bus.",
               "I'm leaving now so that I'll catch the bus.",
-              "I'm leaving now so that I will catch the bus."
+              "I'm leaving now so that I will catch the bus.",
+              "I'm leaving now so that I catch the bus."
             ],
             "spoken": [
               "I'm leaving now so I can catch the bus.",
@@ -1085,7 +1096,9 @@
               "Despite the cold, we walked.",
               "We walked despite the cold.",
               "Despite it being cold, we walked.",
-              "We walked despite it being cold."
+              "We walked despite it being cold.",
+              "Despite the fact that it was cold, we walked.",
+              "We walked despite the fact that it was cold."
             ]
           },
           {
