@@ -1,0 +1,2034 @@
+{
+  "schema": "lani.case-triggers/v0",
+  "language": "de",
+  "machine_written": true,
+  "review": "Machine-written (Claude, 2026-11-03), not reviewed by a native speaker yet: the lists, the senses and the examples want a native check (docs/plans/05-built/case-de.md, \"Native check\"). Austrian standard, as the course; a form people say is never wrong (wegen dem Regen, dem Bub, aufm): the lens reads it as what it is, the spoken ones marked so. The determiners' forms and the adjective endings follow the grammar book's pages artikel-genus, akkusativ, dativ, genitiv, possessiv, adjektiv-tabelle; the n-Deklination's nouns its page and Duden's lists.",
+  "about": "What decides a German word's case, for the case lens (bridge/src/case-lens-de.ts) and the case trainer's checks (docs/plans/05-built/case-de.md): the four cases (their question words, their colours: the same as Slovene's), the article and the other determiners with all sixteen forms, the adjective endings after each (weak, mixed, strong), the prepositions by case (the two-way ones by motion: Wohin? and rest: Wo?; the genitive's, with the dative people say), the preposition fused with the article (im, zum, ins), the verbs with a dative, with a dative and an accusative, with a genitive, the verbs of motion and of rest, the copulas, the personal pronouns, the relative pronoun's own forms, the nouns of the n-Deklination, times without a preposition (jeden Tag, eines Tages) and fixed phrases (zu Hause, Guten Morgen). Every entry names its rule: the grammar book's page that explains it. Made by case-triggers.py beside it: change that and run it, never this file.",
+  "cases": [
+    {"key": "nom", "id": "nominativ", "n": 1, "questions": ["wer?", "was?"], "colour": "#4A7FC1", "page": "faelle"},
+    {"key": "acc", "id": "akkusativ", "n": 4, "questions": ["wen?", "was?"], "colour": "#3E9B5F", "page": "akkusativ"},
+    {"key": "dat", "id": "dativ", "n": 3, "questions": ["wem?"], "colour": "#D69A2D", "page": "dativ"},
+    {"key": "gen", "id": "genitiv", "n": 2, "questions": ["wessen?"], "colour": "#C2503C", "page": "genitiv"}
+  ],
+  "determiners": [
+    {
+      "lemma": "der",
+      "kind": "definite",
+      "forms": {
+        "nom.m": "der",
+        "nom.f": "die",
+        "nom.n": "das",
+        "nom.pl": "die",
+        "acc.m": "den",
+        "acc.f": "die",
+        "acc.n": "das",
+        "acc.pl": "die",
+        "dat.m": "dem",
+        "dat.f": "der",
+        "dat.n": "dem",
+        "dat.pl": "den",
+        "gen.m": "des",
+        "gen.f": "der",
+        "gen.n": "des",
+        "gen.pl": "der"
+      }
+    },
+    {
+      "lemma": "dieser",
+      "kind": "der",
+      "forms": {
+        "nom.m": "dieser",
+        "nom.f": "diese",
+        "nom.n": "dieses",
+        "nom.pl": "diese",
+        "acc.m": "diesen",
+        "acc.f": "diese",
+        "acc.n": "dieses",
+        "acc.pl": "diese",
+        "dat.m": "diesem",
+        "dat.f": "dieser",
+        "dat.n": "diesem",
+        "dat.pl": "diesen",
+        "gen.m": "dieses",
+        "gen.f": "dieser",
+        "gen.n": "dieses",
+        "gen.pl": "dieser"
+      }
+    },
+    {
+      "lemma": "jener",
+      "kind": "der",
+      "forms": {
+        "nom.m": "jener",
+        "nom.f": "jene",
+        "nom.n": "jenes",
+        "nom.pl": "jene",
+        "acc.m": "jenen",
+        "acc.f": "jene",
+        "acc.n": "jenes",
+        "acc.pl": "jene",
+        "dat.m": "jenem",
+        "dat.f": "jener",
+        "dat.n": "jenem",
+        "dat.pl": "jenen",
+        "gen.m": "jenes",
+        "gen.f": "jener",
+        "gen.n": "jenes",
+        "gen.pl": "jener"
+      }
+    },
+    {
+      "lemma": "jeder",
+      "kind": "der",
+      "forms": {
+        "nom.m": "jeder",
+        "nom.f": "jede",
+        "nom.n": "jedes",
+        "acc.m": "jeden",
+        "acc.f": "jede",
+        "acc.n": "jedes",
+        "dat.m": "jedem",
+        "dat.f": "jeder",
+        "dat.n": "jedem",
+        "gen.m": "jedes",
+        "gen.f": "jeder",
+        "gen.n": "jedes"
+      }
+    },
+    {
+      "lemma": "welcher",
+      "kind": "der",
+      "forms": {
+        "nom.m": "welcher",
+        "nom.f": "welche",
+        "nom.n": "welches",
+        "nom.pl": "welche",
+        "acc.m": "welchen",
+        "acc.f": "welche",
+        "acc.n": "welches",
+        "acc.pl": "welche",
+        "dat.m": "welchem",
+        "dat.f": "welcher",
+        "dat.n": "welchem",
+        "dat.pl": "welchen",
+        "gen.m": "welches",
+        "gen.f": "welcher",
+        "gen.n": "welches",
+        "gen.pl": "welcher"
+      }
+    },
+    {
+      "lemma": "mancher",
+      "kind": "der",
+      "forms": {
+        "nom.m": "mancher",
+        "nom.f": "manche",
+        "nom.n": "manches",
+        "nom.pl": "manche",
+        "acc.m": "manchen",
+        "acc.f": "manche",
+        "acc.n": "manches",
+        "acc.pl": "manche",
+        "dat.m": "manchem",
+        "dat.f": "mancher",
+        "dat.n": "manchem",
+        "dat.pl": "manchen",
+        "gen.m": "manches",
+        "gen.f": "mancher",
+        "gen.n": "manches",
+        "gen.pl": "mancher"
+      }
+    },
+    {
+      "lemma": "solcher",
+      "kind": "der",
+      "forms": {
+        "nom.m": "solcher",
+        "nom.f": "solche",
+        "nom.n": "solches",
+        "nom.pl": "solche",
+        "acc.m": "solchen",
+        "acc.f": "solche",
+        "acc.n": "solches",
+        "acc.pl": "solche",
+        "dat.m": "solchem",
+        "dat.f": "solcher",
+        "dat.n": "solchem",
+        "dat.pl": "solchen",
+        "gen.m": "solches",
+        "gen.f": "solcher",
+        "gen.n": "solches",
+        "gen.pl": "solcher"
+      }
+    },
+    {
+      "lemma": "alle",
+      "kind": "der",
+      "forms": {"nom.pl": "alle", "acc.pl": "alle", "dat.pl": "allen", "gen.pl": "aller"}
+    },
+    {
+      "lemma": "beide",
+      "kind": "der",
+      "forms": {"nom.pl": "beide", "acc.pl": "beide", "dat.pl": "beiden", "gen.pl": "beider"}
+    },
+    {
+      "lemma": "ein",
+      "kind": "ein",
+      "forms": {
+        "nom.m": "ein",
+        "nom.f": "eine",
+        "nom.n": "ein",
+        "acc.m": "einen",
+        "acc.f": "eine",
+        "acc.n": "ein",
+        "dat.m": "einem",
+        "dat.f": "einer",
+        "dat.n": "einem",
+        "gen.m": "eines",
+        "gen.f": "einer",
+        "gen.n": "eines"
+      }
+    },
+    {
+      "lemma": "kein",
+      "kind": "ein",
+      "forms": {
+        "nom.m": "kein",
+        "nom.f": "keine",
+        "nom.n": "kein",
+        "nom.pl": "keine",
+        "acc.m": "keinen",
+        "acc.f": "keine",
+        "acc.n": "kein",
+        "acc.pl": "keine",
+        "dat.m": "keinem",
+        "dat.f": "keiner",
+        "dat.n": "keinem",
+        "dat.pl": "keinen",
+        "gen.m": "keines",
+        "gen.f": "keiner",
+        "gen.n": "keines",
+        "gen.pl": "keiner"
+      }
+    },
+    {
+      "lemma": "mein",
+      "kind": "possessive",
+      "forms": {
+        "nom.m": "mein",
+        "nom.f": "meine",
+        "nom.n": "mein",
+        "nom.pl": "meine",
+        "acc.m": "meinen",
+        "acc.f": "meine",
+        "acc.n": "mein",
+        "acc.pl": "meine",
+        "dat.m": "meinem",
+        "dat.f": "meiner",
+        "dat.n": "meinem",
+        "dat.pl": "meinen",
+        "gen.m": "meines",
+        "gen.f": "meiner",
+        "gen.n": "meines",
+        "gen.pl": "meiner"
+      }
+    },
+    {
+      "lemma": "dein",
+      "kind": "possessive",
+      "forms": {
+        "nom.m": "dein",
+        "nom.f": "deine",
+        "nom.n": "dein",
+        "nom.pl": "deine",
+        "acc.m": "deinen",
+        "acc.f": "deine",
+        "acc.n": "dein",
+        "acc.pl": "deine",
+        "dat.m": "deinem",
+        "dat.f": "deiner",
+        "dat.n": "deinem",
+        "dat.pl": "deinen",
+        "gen.m": "deines",
+        "gen.f": "deiner",
+        "gen.n": "deines",
+        "gen.pl": "deiner"
+      }
+    },
+    {
+      "lemma": "sein",
+      "kind": "possessive",
+      "forms": {
+        "nom.m": "sein",
+        "nom.f": "seine",
+        "nom.n": "sein",
+        "nom.pl": "seine",
+        "acc.m": "seinen",
+        "acc.f": "seine",
+        "acc.n": "sein",
+        "acc.pl": "seine",
+        "dat.m": "seinem",
+        "dat.f": "seiner",
+        "dat.n": "seinem",
+        "dat.pl": "seinen",
+        "gen.m": "seines",
+        "gen.f": "seiner",
+        "gen.n": "seines",
+        "gen.pl": "seiner"
+      }
+    },
+    {
+      "lemma": "ihr",
+      "kind": "possessive",
+      "forms": {
+        "nom.m": "ihr",
+        "nom.f": "ihre",
+        "nom.n": "ihr",
+        "nom.pl": "ihre",
+        "acc.m": "ihren",
+        "acc.f": "ihre",
+        "acc.n": "ihr",
+        "acc.pl": "ihre",
+        "dat.m": "ihrem",
+        "dat.f": "ihrer",
+        "dat.n": "ihrem",
+        "dat.pl": "ihren",
+        "gen.m": "ihres",
+        "gen.f": "ihrer",
+        "gen.n": "ihres",
+        "gen.pl": "ihrer"
+      }
+    },
+    {
+      "lemma": "unser",
+      "kind": "possessive",
+      "forms": {
+        "nom.m": "unser",
+        "nom.f": "unsere",
+        "nom.n": "unser",
+        "nom.pl": "unsere",
+        "acc.m": "unseren",
+        "acc.f": "unsere",
+        "acc.n": "unser",
+        "acc.pl": "unsere",
+        "dat.m": "unserem",
+        "dat.f": "unserer",
+        "dat.n": "unserem",
+        "dat.pl": "unseren",
+        "gen.m": "unseres",
+        "gen.f": "unserer",
+        "gen.n": "unseres",
+        "gen.pl": "unserer"
+      }
+    },
+    {
+      "lemma": "euer",
+      "kind": "possessive",
+      "forms": {
+        "nom.m": "euer",
+        "nom.f": "eure",
+        "nom.n": "euer",
+        "nom.pl": "eure",
+        "acc.m": "euren",
+        "acc.f": "eure",
+        "acc.n": "euer",
+        "acc.pl": "eure",
+        "dat.m": "eurem",
+        "dat.f": "eurer",
+        "dat.n": "eurem",
+        "dat.pl": "euren",
+        "gen.m": "eures",
+        "gen.f": "eurer",
+        "gen.n": "eures",
+        "gen.pl": "eurer"
+      }
+    }
+  ],
+  "adjective_endings": {
+    "weak": {
+      "nom.m": "e",
+      "nom.f": "e",
+      "nom.n": "e",
+      "nom.pl": "en",
+      "acc.m": "en",
+      "acc.f": "e",
+      "acc.n": "e",
+      "acc.pl": "en",
+      "dat.m": "en",
+      "dat.f": "en",
+      "dat.n": "en",
+      "dat.pl": "en",
+      "gen.m": "en",
+      "gen.f": "en",
+      "gen.n": "en",
+      "gen.pl": "en"
+    },
+    "mixed": {
+      "nom.m": "er",
+      "nom.f": "e",
+      "nom.n": "es",
+      "nom.pl": "en",
+      "acc.m": "en",
+      "acc.f": "e",
+      "acc.n": "es",
+      "acc.pl": "en",
+      "dat.m": "en",
+      "dat.f": "en",
+      "dat.n": "en",
+      "dat.pl": "en",
+      "gen.m": "en",
+      "gen.f": "en",
+      "gen.n": "en",
+      "gen.pl": "en"
+    },
+    "strong": {
+      "nom.m": "er",
+      "nom.f": "e",
+      "nom.n": "es",
+      "nom.pl": "e",
+      "acc.m": "en",
+      "acc.f": "e",
+      "acc.n": "es",
+      "acc.pl": "e",
+      "dat.m": "em",
+      "dat.f": "er",
+      "dat.n": "em",
+      "dat.pl": "en",
+      "gen.m": "en",
+      "gen.f": "er",
+      "gen.n": "en",
+      "gen.pl": "er"
+    }
+  },
+  "adjective_stems": {
+    "hoch": "hoh",
+    "dunkel": "dunkl",
+    "teuer": "teur",
+    "sauer": "saur",
+    "edel": "edl",
+    "eitel": "eitl",
+    "sensibel": "sensibl",
+    "flexibel": "flexibl",
+    "komfortabel": "komfortabl"
+  },
+  "adjective_fixed": ["rosa", "lila", "prima", "super", "klasse", "beige"],
+  "prepositions": [
+    {
+      "words": ["durch"],
+      "takes": [{"case": "acc", "sense": "other", "rule": "praepositionen-akkusativ"}],
+      "examples": [
+        {
+          "de": "Wir gehen durch den Wald.",
+          "en": "We walk through the forest.",
+          "word": "Wald",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "durch"
+        }
+      ]
+    },
+    {
+      "words": ["für"],
+      "takes": [{"case": "acc", "sense": "for", "rule": "praepositionen-akkusativ"}],
+      "examples": [
+        {
+          "de": "Das Geschenk ist für den Opa.",
+          "en": "The present is for Grandpa.",
+          "word": "Opa",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "für"
+        }
+      ]
+    },
+    {
+      "words": ["gegen"],
+      "takes": [{"case": "acc", "sense": "other", "rule": "praepositionen-akkusativ"}],
+      "examples": [
+        {
+          "de": "Wir laufen gegen den Wind.",
+          "en": "We run against the wind.",
+          "word": "Wind",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "gegen"
+        }
+      ]
+    },
+    {
+      "words": ["ohne"],
+      "takes": [{"case": "acc", "sense": "other", "rule": "praepositionen-akkusativ"}],
+      "examples": [
+        {
+          "de": "Kathi geht ohne ihren Hut.",
+          "en": "Kathi goes without her hat.",
+          "word": "Hut",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "ohne"
+        }
+      ]
+    },
+    {
+      "words": ["um"],
+      "takes": [{"case": "acc", "sense": "other", "rule": "praepositionen-akkusativ"}],
+      "examples": [
+        {
+          "de": "Wir gehen um den See.",
+          "en": "We walk round the lake.",
+          "word": "See",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "um"
+        }
+      ]
+    },
+    {
+      "words": ["bis"],
+      "takes": [{"case": "acc", "sense": "time", "rule": "praepositionen-akkusativ"}],
+      "examples": [
+        {
+          "de": "Das Fest dauert bis nächsten Sonntag.",
+          "en": "The fair lasts until next Sunday.",
+          "word": "Sonntag",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "bis"
+        }
+      ]
+    },
+    {
+      "words": ["aus"],
+      "takes": [{"case": "dat", "sense": "from", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Franz kommt aus dem Stall.",
+          "en": "Franz comes out of the barn.",
+          "word": "Stall",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "aus"
+        }
+      ]
+    },
+    {
+      "words": ["bei"],
+      "takes": [{"case": "dat", "sense": "rest", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Ich bin bei der Oma.",
+          "en": "I'm at Granny's.",
+          "word": "Oma",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "bei"
+        }
+      ]
+    },
+    {
+      "words": ["mit"],
+      "takes": [{"case": "dat", "sense": "with", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Stefan fährt mit dem Bus.",
+          "en": "Stefan goes by bus.",
+          "word": "Bus",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "mit"
+        },
+        {
+          "de": "Ich gehe mit meinen Freunden.",
+          "en": "I'm going with my friends.",
+          "word": "Freunden",
+          "case": "dat",
+          "number": "pl",
+          "trigger": "mit"
+        }
+      ]
+    },
+    {
+      "words": ["nach"],
+      "takes": [{"case": "dat", "sense": "motion", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Nach dem Essen gehen wir.",
+          "en": "After the meal we go.",
+          "word": "Essen",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "Nach"
+        }
+      ]
+    },
+    {
+      "words": ["seit"],
+      "takes": [{"case": "dat", "sense": "time", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Ich wohne seit einem Jahr hier.",
+          "en": "I've lived here for a year.",
+          "word": "Jahr",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "seit"
+        }
+      ]
+    },
+    {
+      "words": ["von"],
+      "takes": [{"case": "dat", "sense": "from", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Der Käse ist von der Alm.",
+          "en": "The cheese is from the mountain pasture.",
+          "word": "Alm",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "von"
+        }
+      ]
+    },
+    {
+      "words": ["zu"],
+      "takes": [{"case": "dat", "sense": "towards", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Ich gehe zu meiner Tante.",
+          "en": "I'm going to my aunt's.",
+          "word": "Tante",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "zu"
+        }
+      ]
+    },
+    {
+      "words": ["gegenüber"],
+      "takes": [{"case": "dat", "sense": "rest", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Die Bank steht gegenüber der Kirche.",
+          "en": "The bench stands opposite the church.",
+          "word": "Kirche",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "gegenüber"
+        }
+      ]
+    },
+    {
+      "words": ["außer"],
+      "takes": [{"case": "dat", "sense": "other", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Alle außer dem Hund schlafen.",
+          "en": "Everyone but the dog is asleep.",
+          "word": "Hund",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "außer"
+        }
+      ]
+    },
+    {
+      "words": ["ab"],
+      "takes": [{"case": "dat", "sense": "time", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Ab dem ersten Mai ist die Hütte offen.",
+          "en": "From the first of May the hut is open.",
+          "word": "Mai",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "Ab"
+        }
+      ]
+    },
+    {
+      "words": ["samt", "nebst"],
+      "takes": [{"case": "dat", "sense": "with", "rule": "praepositionen-dativ"}],
+      "examples": [
+        {
+          "de": "Er kam samt seinem Hund.",
+          "en": "He came along with his dog.",
+          "word": "Hund",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "samt"
+        }
+      ]
+    },
+    {
+      "words": ["in"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen", "time": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Wir gehen in die Hütte.",
+          "en": "We go into the hut.",
+          "word": "Hütte",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "in"
+        },
+        {
+          "de": "Wir sind in der Hütte.",
+          "en": "We're in the hut.",
+          "word": "Hütte",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "in"
+        }
+      ]
+    },
+    {
+      "words": ["an"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Wir fahren an den See.",
+          "en": "We're driving to the lake.",
+          "word": "See",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "an"
+        },
+        {
+          "de": "Das Bild hängt an der Wand.",
+          "en": "The picture hangs on the wall.",
+          "word": "Wand",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "an"
+        }
+      ]
+    },
+    {
+      "words": ["auf"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Die Kühe gehen auf die Alm.",
+          "en": "The cows go up to the pasture.",
+          "word": "Alm",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "auf"
+        },
+        {
+          "de": "Die Kühe sind auf der Alm.",
+          "en": "The cows are on the pasture.",
+          "word": "Alm",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "auf"
+        }
+      ]
+    },
+    {
+      "words": ["über"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Wir gehen über die Brücke.",
+          "en": "We walk over the bridge.",
+          "word": "Brücke",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "über"
+        },
+        {
+          "de": "Die Lampe hängt über dem Tisch.",
+          "en": "The lamp hangs above the table.",
+          "word": "Tisch",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "über"
+        }
+      ]
+    },
+    {
+      "words": ["unter"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Die Katze liegt unter dem Tisch.",
+          "en": "The cat lies under the table.",
+          "word": "Tisch",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "unter"
+        },
+        {
+          "de": "Die Katze kriecht unter den Tisch.",
+          "en": "The cat crawls under the table.",
+          "word": "Tisch",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "unter"
+        }
+      ]
+    },
+    {
+      "words": ["vor"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Das Auto steht vor dem Haus.",
+          "en": "The car is in front of the house.",
+          "word": "Haus",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "vor"
+        },
+        {
+          "de": "Stell das Auto vor das Haus!",
+          "en": "Put the car in front of the house!",
+          "word": "Haus",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "vor"
+        }
+      ]
+    },
+    {
+      "words": ["hinter"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Der Hund schläft hinter dem Ofen.",
+          "en": "The dog sleeps behind the stove.",
+          "word": "Ofen",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "hinter"
+        }
+      ]
+    },
+    {
+      "words": ["neben"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Das Zelt steht neben dem Teich.",
+          "en": "The tent stands next to the pond.",
+          "word": "Teich",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "neben"
+        },
+        {
+          "de": "Setz dich neben mich!",
+          "en": "Sit down next to me!",
+          "word": "mich",
+          "case": "acc",
+          "number": "sg",
+          "trigger": "neben"
+        }
+      ]
+    },
+    {
+      "words": ["zwischen"],
+      "takes": [
+        {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+      ],
+      "examples": [
+        {
+          "de": "Das Dorf liegt zwischen den Bergen.",
+          "en": "The village lies between the mountains.",
+          "word": "Bergen",
+          "case": "dat",
+          "number": "pl",
+          "trigger": "zwischen"
+        }
+      ]
+    },
+    {
+      "words": ["wegen"],
+      "takes": [
+        {"case": "gen", "sense": "other", "rule": "praepositionen-genitiv"},
+        {"case": "dat", "sense": "other", "rule": "praepositionen-genitiv", "spoken": true}
+      ],
+      "examples": [
+        {
+          "de": "Wegen des Regens bleiben wir zu Hause.",
+          "en": "Because of the rain we stay at home.",
+          "word": "Regens",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "Wegen"
+        },
+        {
+          "de": "Wegen dem Regen bleiben wir daheim.",
+          "en": "Because of the rain we stay at home.",
+          "word": "Regen",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "Wegen"
+        }
+      ]
+    },
+    {
+      "words": ["trotz"],
+      "takes": [
+        {"case": "gen", "sense": "other", "rule": "praepositionen-genitiv"},
+        {"case": "dat", "sense": "other", "rule": "praepositionen-genitiv", "spoken": true}
+      ],
+      "examples": [
+        {
+          "de": "Trotz der Kälte arbeitet Toni draußen.",
+          "en": "Despite the cold Toni works outside.",
+          "word": "Kälte",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "Trotz"
+        }
+      ]
+    },
+    {
+      "words": ["während"],
+      "takes": [
+        {"case": "gen", "sense": "time", "rule": "praepositionen-genitiv"},
+        {"case": "dat", "sense": "time", "rule": "praepositionen-genitiv", "spoken": true}
+      ],
+      "examples": [
+        {
+          "de": "Während des Essens redet niemand.",
+          "en": "Nobody talks during the meal.",
+          "word": "Essens",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "Während"
+        }
+      ]
+    },
+    {
+      "words": ["statt", "anstatt"],
+      "takes": [
+        {"case": "gen", "sense": "other", "rule": "praepositionen-genitiv"},
+        {"case": "dat", "sense": "other", "rule": "praepositionen-genitiv", "spoken": true}
+      ],
+      "examples": [
+        {
+          "de": "Statt eines Briefes schreibt sie eine Karte.",
+          "en": "Instead of a letter she writes a card.",
+          "word": "Briefes",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "Statt"
+        }
+      ]
+    },
+    {
+      "words": ["innerhalb", "außerhalb", "oberhalb", "unterhalb", "diesseits", "jenseits"],
+      "takes": [{"case": "gen", "sense": "rest", "rule": "praepositionen-genitiv"}],
+      "examples": [
+        {
+          "de": "Die Mühle steht außerhalb des Dorfes.",
+          "en": "The mill stands outside the village.",
+          "word": "Dorfes",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "außerhalb"
+        }
+      ]
+    },
+    {
+      "words": ["aufgrund", "angesichts", "infolge", "anhand", "mithilfe", "bezüglich"],
+      "takes": [{"case": "gen", "sense": "other", "rule": "praepositionen-genitiv"}],
+      "examples": [
+        {
+          "de": "Aufgrund des Sturms fällt der Markt aus.",
+          "en": "Because of the storm the market is called off.",
+          "word": "Sturms",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "Aufgrund"
+        }
+      ]
+    },
+    {
+      "words": ["laut", "dank"],
+      "takes": [
+        {"case": "dat", "sense": "other", "rule": "praepositionen-genitiv"},
+        {"case": "gen", "sense": "other", "rule": "praepositionen-genitiv"}
+      ],
+      "examples": [
+        {
+          "de": "Dank dem schönen Wetter ernten wir heute.",
+          "en": "Thanks to the fine weather we harvest today.",
+          "word": "Wetter",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "Dank"
+        }
+      ]
+    }
+  ],
+  "contractions": [
+    {"form": "im", "preposition": "in", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "am", "preposition": "an", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "beim", "preposition": "bei", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "vom", "preposition": "von", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "zum", "preposition": "zu", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "zur", "preposition": "zu", "article": "der", "case": "dat", "genders": ["f"]},
+    {"form": "ins", "preposition": "in", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "ans", "preposition": "an", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "aufs", "preposition": "auf", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "ums", "preposition": "um", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "durchs", "preposition": "durch", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "fürs", "preposition": "für", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "übers", "preposition": "über", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "unters", "preposition": "unter", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "vors", "preposition": "vor", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "hinters", "preposition": "hinter", "article": "das", "case": "acc", "genders": ["n"]},
+    {"form": "überm", "preposition": "über", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "unterm", "preposition": "unter", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "vorm", "preposition": "vor", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "hinterm", "preposition": "hinter", "article": "dem", "case": "dat", "genders": ["m", "n"]},
+    {"form": "aufm", "preposition": "auf", "article": "dem", "case": "dat", "genders": ["m", "n"], "spoken": true}
+  ],
+  "verbs": [
+    {
+      "lemma": "helfen",
+      "forms": ["helfen", "helfe", "hilfst", "hilft", "helft", "half", "halfst", "halfen", "halft", "geholfen", "hilf"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "danken",
+      "forms": ["danken", "danke", "dankst", "dankt", "dankte", "danktest", "dankten", "danktet", "gedankt", "dank"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "gehören",
+      "forms": ["gehören", "gehöre", "gehörst", "gehört", "gehörte", "gehörtest", "gehörten", "gehörtet", "gehör"],
+      "takes": ["dat"],
+      "rule": "pronomen-dativ"
+    },
+    {
+      "lemma": "gefallen",
+      "forms": ["gefallen", "gefalle", "gefällst", "gefällt", "gefallt", "gefiel", "gefielst", "gefielen", "gefielt", "gefall"],
+      "takes": ["dat"],
+      "rule": "pronomen-dativ"
+    },
+    {
+      "lemma": "schmecken",
+      "forms": [
+        "schmecken", "schmecke", "schmeckst", "schmeckt", "schmeckte", "schmecktest", "schmeckten", "schmecktet",
+        "geschmeckt", "schmeck"
+      ],
+      "takes": ["dat"],
+      "rule": "pronomen-dativ"
+    },
+    {
+      "lemma": "passen",
+      "forms": ["passen", "passe", "passt", "passte", "passtest", "passten", "passtet", "gepasst", "pass"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "antworten",
+      "forms": [
+        "antworten", "antworte", "antwortest", "antwortet", "antwortete", "antwortetest", "antworteten", "antwortetet",
+        "geantwortet", "antwort"
+      ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "folgen",
+      "forms": ["folgen", "folge", "folgst", "folgt", "folgte", "folgtest", "folgten", "folgtet", "gefolgt", "folg"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "gratulieren",
+      "forms": [
+        "gratulieren", "gratuliere", "gratulierst", "gratuliert", "gratulierte", "gratuliertest", "gratulierten",
+        "gratuliertet", "gratulier"
+      ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "vertrauen",
+      "forms": [
+        "vertrauen", "vertraue", "vertraust", "vertraut", "vertraute", "vertrautest", "vertrauten", "vertrautet",
+        "vertrau"
+      ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "fehlen",
+      "forms": ["fehlen", "fehle", "fehlst", "fehlt", "fehlte", "fehltest", "fehlten", "fehltet", "gefehlt", "fehl"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "begegnen",
+      "forms": [
+        "begegnen", "begegne", "begegnest", "begegnet", "begegnete", "begegnetest", "begegneten", "begegnetet",
+        "begegn"
+      ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "gelingen",
+      "forms": [
+        "gelingen", "gelinge", "gelingst", "gelingt", "gelang", "gelangst", "gelangen", "gelangt", "gelungen",
+        "geling"
+      ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "schaden",
+      "forms": [
+        "schaden", "schade", "schadest", "schadet", "schadete", "schadetest", "schadeten", "schadetet", "geschadet",
+        "schad"
+      ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "widersprechen",
+      "forms": [
+        "widersprechen", "widerspreche", "widersprichst", "widerspricht", "widersprecht", "widersprach",
+        "widersprachst", "widersprachen", "widerspracht", "widersprochen", "widersprich"
+      ],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "verzeihen",
+      "forms": ["verzeihen", "verzeihe", "verzeihst", "verzeiht", "verzieh", "verziehst", "verziehen", "verzieht", "verzeih"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "zuhören",
+      "particle": "zu",
+      "joined": [
+        "zugehört", "zuhör", "zuhöre", "zuhören", "zuhörst", "zuhört", "zuhörte", "zuhörten", "zuhörtest", "zuhörtet",
+        "zuzuhören"
+      ],
+      "forms": ["hören", "höre", "hörst", "hört", "hörte", "hörtest", "hörten", "hörtet", "gehört", "hör"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "zuschauen",
+      "particle": "zu",
+      "joined": [
+        "zugeschaut", "zuschau", "zuschaue", "zuschauen", "zuschaust", "zuschaut", "zuschaute", "zuschauten",
+        "zuschautest", "zuschautet", "zuzuschauen"
+      ],
+      "forms": ["schauen", "schaue", "schaust", "schaut", "schaute", "schautest", "schauten", "schautet", "geschaut", "schau"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "zusehen",
+      "particle": "zu",
+      "joined": [
+        "zugesehen", "zusah", "zusahen", "zusahst", "zusaht", "zusehe", "zusehen", "zuseht", "zusieh", "zusiehst",
+        "zusieht", "zuzusehen"
+      ],
+      "forms": ["sehen", "sehe", "siehst", "sieht", "seht", "sah", "sahst", "sahen", "saht", "gesehen", "sieh"],
+      "takes": ["dat"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "wehtun",
+      "particle": "weh",
+      "joined": [
+        "wehgetan", "wehtat", "wehtaten", "wehtatest", "wehtatet", "wehtu", "wehtue", "wehtun", "wehtust", "wehtut",
+        "wehzutun"
+      ],
+      "forms": ["tun", "tue", "tust", "tut", "tat", "tatest", "taten", "tatet", "getan", "tu"],
+      "takes": ["dat"],
+      "rule": "pronomen-dativ"
+    },
+    {
+      "lemma": "leidtun",
+      "particle": "leid",
+      "joined": [
+        "leidgetan", "leidtat", "leidtaten", "leidtatest", "leidtatet", "leidtu", "leidtue", "leidtun", "leidtust",
+        "leidtut", "leidzutun"
+      ],
+      "forms": ["tun", "tue", "tust", "tut", "tat", "tatest", "taten", "tatet", "getan", "tu"],
+      "takes": ["dat"],
+      "rule": "pronomen-dativ"
+    },
+    {
+      "lemma": "geben",
+      "forms": ["geben", "gebe", "gibst", "gibt", "gebt", "gab", "gabst", "gaben", "gabt", "gegeben", "gib"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "schenken",
+      "forms": [
+        "schenken", "schenke", "schenkst", "schenkt", "schenkte", "schenktest", "schenkten", "schenktet", "geschenkt",
+        "schenk"
+      ],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "zeigen",
+      "forms": ["zeigen", "zeige", "zeigst", "zeigt", "zeigte", "zeigtest", "zeigten", "zeigtet", "gezeigt", "zeig"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "bringen",
+      "forms": ["bringen", "bringe", "bringst", "bringt", "brachte", "brachtest", "brachten", "brachtet", "gebracht", "bring"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "mitbringen",
+      "particle": "mit",
+      "joined": [
+        "mitbrachte", "mitbrachten", "mitbrachtest", "mitbrachtet", "mitbring", "mitbringe", "mitbringen",
+        "mitbringst", "mitbringt", "mitgebracht", "mitzubringen"
+      ],
+      "forms": ["bringen", "bringe", "bringst", "bringt", "brachte", "brachtest", "brachten", "brachtet", "gebracht", "bring"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "schicken",
+      "forms": [
+        "schicken", "schicke", "schickst", "schickt", "schickte", "schicktest", "schickten", "schicktet", "geschickt",
+        "schick"
+      ],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "erklären",
+      "forms": ["erklären", "erkläre", "erklärst", "erklärt", "erklärte", "erklärtest", "erklärten", "erklärtet", "erklär"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "erzählen",
+      "forms": ["erzählen", "erzähle", "erzählst", "erzählt", "erzählte", "erzähltest", "erzählten", "erzähltet", "erzähl"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "sagen",
+      "forms": ["sagen", "sage", "sagst", "sagt", "sagte", "sagtest", "sagten", "sagtet", "gesagt", "sag"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "kaufen",
+      "forms": ["kaufen", "kaufe", "kaufst", "kauft", "kaufte", "kauftest", "kauften", "kauftet", "gekauft", "kauf"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "leihen",
+      "forms": ["leihen", "leihe", "leihst", "leiht", "lieh", "liehst", "liehen", "lieht", "geliehen", "leih"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "borgen",
+      "forms": ["borgen", "borge", "borgst", "borgt", "borgte", "borgtest", "borgten", "borgtet", "geborgt", "borg"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "schreiben",
+      "forms": [
+        "schreiben", "schreibe", "schreibst", "schreibt", "schrieb", "schriebst", "schrieben", "schriebt",
+        "geschrieben", "schreib"
+      ],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "empfehlen",
+      "forms": [
+        "empfehlen", "empfehle", "empfiehlst", "empfiehlt", "empfehlt", "empfahl", "empfahlst", "empfahlen",
+        "empfahlt", "empfohlen", "empfiehl"
+      ],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "wünschen",
+      "forms": [
+        "wünschen", "wünsche", "wünschst", "wünscht", "wünschte", "wünschtest", "wünschten", "wünschtet", "gewünscht",
+        "wünsch"
+      ],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "reichen",
+      "forms": ["reichen", "reiche", "reichst", "reicht", "reichte", "reichtest", "reichten", "reichtet", "gereicht", "reich"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "anbieten",
+      "particle": "an",
+      "joined": [
+        "anbiet", "anbiete", "anbieten", "anbietest", "anbietet", "anbot", "anboten", "anbotest", "anbotet",
+        "angeboten", "anzubieten"
+      ],
+      "forms": ["bieten", "biete", "bietest", "bietet", "bot", "botest", "boten", "botet", "geboten", "biet"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "verkaufen",
+      "forms": [
+        "verkaufen", "verkaufe", "verkaufst", "verkauft", "verkaufte", "verkauftest", "verkauften", "verkauftet",
+        "verkauf"
+      ],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "versprechen",
+      "forms": [
+        "versprechen", "verspreche", "versprichst", "verspricht", "versprecht", "versprach", "versprachst",
+        "versprachen", "verspracht", "versprochen", "versprich"
+      ],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "beibringen",
+      "particle": "bei",
+      "joined": [
+        "beibrachte", "beibrachten", "beibrachtest", "beibrachtet", "beibring", "beibringe", "beibringen",
+        "beibringst", "beibringt", "beigebracht", "beizubringen"
+      ],
+      "forms": ["bringen", "bringe", "bringst", "bringt", "brachte", "brachtest", "brachten", "brachtet", "gebracht", "bring"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "vorlesen",
+      "particle": "vor",
+      "joined": [
+        "vorgelesen", "vorlas", "vorlasen", "vorlasst", "vorlast", "vorlese", "vorlesen", "vorlest", "vorlies",
+        "vorliest", "vorzulesen"
+      ],
+      "forms": ["lesen", "lese", "liest", "lest", "las", "lasst", "lasen", "last", "gelesen", "lies"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "erlauben",
+      "forms": ["erlauben", "erlaube", "erlaubst", "erlaubt", "erlaubte", "erlaubtest", "erlaubten", "erlaubtet", "erlaub"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "verbieten",
+      "forms": ["verbieten", "verbiete", "verbietest", "verbietet", "verbot", "verbotest", "verboten", "verbotet", "verbiet"],
+      "takes": ["dat", "acc"],
+      "rule": "dativ"
+    },
+    {
+      "lemma": "gedenken",
+      "forms": [
+        "gedenken", "gedenke", "gedenkst", "gedenkt", "gedachte", "gedachtest", "gedachten", "gedachtet", "gedacht",
+        "gedenk"
+      ],
+      "takes": ["gen"],
+      "rule": "genitiv"
+    },
+    {
+      "lemma": "bedürfen",
+      "forms": [
+        "bedürfen", "bedürfe", "bedarfst", "bedarf", "bedürft", "bedurfte", "bedurftest", "bedurften", "bedurftet",
+        "bedurft", "bedürf"
+      ],
+      "takes": ["gen"],
+      "rule": "genitiv"
+    },
+    {
+      "lemma": "bedienen",
+      "forms": ["bedienen", "bediene", "bedienst", "bedient", "bediente", "bedientest", "bedienten", "bedientet", "bedien"],
+      "reflexive": true,
+      "takes": ["gen"],
+      "rule": "genitiv"
+    },
+    {
+      "lemma": "vergewissern",
+      "forms": [
+        "vergewissern", "vergewissere", "vergewisserst", "vergewissert", "vergewisserte", "vergewissertest",
+        "vergewisserten", "vergewissertet", "vergewisser"
+      ],
+      "reflexive": true,
+      "takes": ["gen"],
+      "rule": "genitiv"
+    }
+  ],
+  "predicates": [
+    {
+      "words": ["kalt", "warm", "heiß", "langweilig", "schlecht", "übel", "schwindlig", "recht", "egal", "wohl"],
+      "case": "dat",
+      "rule": "dativ",
+      "examples": [{"de": "Mir ist kalt.", "en": "I'm cold.", "word": "Mir", "case": "dat", "number": "sg", "trigger": "kalt"}]
+    }
+  ],
+  "motion": [
+    {
+      "lemma": "gehen",
+      "forms": ["gehen", "gehe", "gehst", "geht", "ging", "gingst", "gingen", "gingt", "gegangen", "geh"]
+    },
+    {
+      "lemma": "fahren",
+      "forms": ["fahren", "fahre", "fährst", "fährt", "fahrt", "fuhr", "fuhrst", "fuhren", "fuhrt", "gefahren", "fahr"]
+    },
+    {
+      "lemma": "laufen",
+      "forms": ["laufen", "laufe", "läufst", "läuft", "lauft", "lief", "liefst", "liefen", "lieft", "gelaufen", "lauf"]
+    },
+    {
+      "lemma": "kommen",
+      "forms": ["kommen", "komme", "kommst", "kommt", "kam", "kamst", "kamen", "kamt", "gekommen", "komm"]
+    },
+    {
+      "lemma": "fliegen",
+      "forms": ["fliegen", "fliege", "fliegst", "fliegt", "flog", "flogst", "flogen", "flogt", "geflogen", "flieg"]
+    },
+    {
+      "lemma": "rennen",
+      "forms": ["rennen", "renne", "rennst", "rennt", "rannte", "ranntest", "rannten", "ranntet", "gerannt", "renn"]
+    },
+    {
+      "lemma": "springen",
+      "forms": [
+        "springen", "springe", "springst", "springt", "sprang", "sprangst", "sprangen", "sprangt", "gesprungen",
+        "spring"
+      ]
+    },
+    {
+      "lemma": "steigen",
+      "forms": ["steigen", "steige", "steigst", "steigt", "stieg", "stiegst", "stiegen", "stiegt", "gestiegen", "steig"]
+    },
+    {
+      "lemma": "klettern",
+      "forms": [
+        "klettern", "klettere", "kletterst", "klettert", "kletterte", "klettertest", "kletterten", "klettertet",
+        "geklettert", "kletter"
+      ]
+    },
+    {
+      "lemma": "wandern",
+      "forms": [
+        "wandern", "wandere", "wanderst", "wandert", "wanderte", "wandertest", "wanderten", "wandertet", "gewandert",
+        "wander"
+      ]
+    },
+    {
+      "lemma": "reisen",
+      "forms": ["reisen", "reise", "reist", "reiste", "reistest", "reisten", "reistet", "gereist", "reis"]
+    },
+    {
+      "lemma": "ziehen",
+      "forms": ["ziehen", "ziehe", "ziehst", "zieht", "zog", "zogst", "zogen", "zogt", "gezogen", "zieh"]
+    },
+    {
+      "lemma": "legen",
+      "forms": ["legen", "lege", "legst", "legt", "legte", "legtest", "legten", "legtet", "gelegt", "leg"]
+    },
+    {
+      "lemma": "stellen",
+      "forms": ["stellen", "stelle", "stellst", "stellt", "stellte", "stelltest", "stellten", "stelltet", "gestellt", "stell"]
+    },
+    {
+      "lemma": "setzen",
+      "forms": ["setzen", "setze", "setzt", "setzte", "setztest", "setzten", "setztet", "gesetzt", "setz"]
+    },
+    {
+      "lemma": "tragen",
+      "forms": ["tragen", "trage", "trägst", "trägt", "tragt", "trug", "trugst", "trugen", "trugt", "getragen", "trag"]
+    },
+    {
+      "lemma": "werfen",
+      "forms": ["werfen", "werfe", "wirfst", "wirft", "werft", "warf", "warfst", "warfen", "warft", "geworfen", "wirf"]
+    },
+    {
+      "lemma": "schieben",
+      "forms": ["schieben", "schiebe", "schiebst", "schiebt", "schob", "schobst", "schoben", "schobt", "geschoben", "schieb"]
+    },
+    {
+      "lemma": "gießen",
+      "forms": ["gießen", "gieße", "gießt", "goss", "gossst", "gossen", "gosst", "gegossen", "gieß"]
+    },
+    {
+      "lemma": "fallen",
+      "forms": ["fallen", "falle", "fällst", "fällt", "fallt", "fiel", "fielst", "fielen", "fielt", "gefallen", "fall"]
+    },
+    {
+      "lemma": "schauen",
+      "forms": ["schauen", "schaue", "schaust", "schaut", "schaute", "schautest", "schauten", "schautet", "geschaut", "schau"]
+    },
+    {
+      "lemma": "schwimmen",
+      "forms": [
+        "schwimmen", "schwimme", "schwimmst", "schwimmt", "schwamm", "schwammst", "schwammen", "schwammt",
+        "geschwommen", "schwimm"
+      ]
+    },
+    {
+      "lemma": "bringen",
+      "forms": ["bringen", "bringe", "bringst", "bringt", "brachte", "brachtest", "brachten", "brachtet", "gebracht", "bring"]
+    },
+    {
+      "lemma": "schicken",
+      "forms": [
+        "schicken", "schicke", "schickst", "schickt", "schickte", "schicktest", "schickten", "schicktet", "geschickt",
+        "schick"
+      ]
+    },
+    {
+      "lemma": "hängen",
+      "forms": ["hängen", "hänge", "hängst", "hängt", "hängte", "hängtest", "hängten", "hängtet", "gehängt", "häng"]
+    },
+    {
+      "lemma": "packen",
+      "forms": ["packen", "packe", "packst", "packt", "packte", "packtest", "packten", "packtet", "gepackt", "pack"]
+    },
+    {
+      "lemma": "eilen",
+      "forms": ["eilen", "eile", "eilst", "eilt", "eilte", "eiltest", "eilten", "eiltet", "geeilt", "eil"]
+    },
+    {
+      "lemma": "kriechen",
+      "forms": ["kriechen", "krieche", "kriechst", "kriecht", "kroch", "krochst", "krochen", "krocht", "gekrochen", "kriech"]
+    },
+    {
+      "lemma": "rollen",
+      "forms": ["rollen", "rolle", "rollst", "rollt", "rollte", "rolltest", "rollten", "rolltet", "gerollt", "roll"]
+    },
+    {
+      "lemma": "treiben",
+      "forms": ["treiben", "treibe", "treibst", "treibt", "trieb", "triebst", "trieben", "triebt", "getrieben", "treib"]
+    }
+  ],
+  "rest": [
+    {
+      "lemma": "sein",
+      "forms": [
+        "sein", "bin", "bist", "ist", "sind", "seid", "war", "warst", "waren", "wart", "gewesen", "sei", "seien",
+        "wäre", "wären", "wärst"
+      ]
+    },
+    {
+      "lemma": "stehen",
+      "forms": ["stehen", "stehe", "stehst", "steht", "stand", "standest", "standen", "standet", "gestanden", "steh"]
+    },
+    {
+      "lemma": "liegen",
+      "forms": ["liegen", "liege", "liegst", "liegt", "lag", "lagst", "lagen", "lagt", "gelegen", "lieg"]
+    },
+    {"lemma": "sitzen", "forms": ["sitzen", "sitze", "sitzt", "saß", "saßst", "saßen", "saßt", "gesessen", "sitz"]},
+    {
+      "lemma": "hängen",
+      "forms": ["hängen", "hänge", "hängst", "hängt", "hing", "hingst", "hingen", "hingt", "gehangen", "häng"]
+    },
+    {
+      "lemma": "wohnen",
+      "forms": ["wohnen", "wohne", "wohnst", "wohnt", "wohnte", "wohntest", "wohnten", "wohntet", "gewohnt", "wohn"]
+    },
+    {
+      "lemma": "leben",
+      "forms": ["leben", "lebe", "lebst", "lebt", "lebte", "lebtest", "lebten", "lebtet", "gelebt", "leb"]
+    },
+    {
+      "lemma": "bleiben",
+      "forms": ["bleiben", "bleibe", "bleibst", "bleibt", "blieb", "bliebst", "blieben", "bliebt", "geblieben", "bleib"]
+    },
+    {
+      "lemma": "arbeiten",
+      "forms": [
+        "arbeiten", "arbeite", "arbeitest", "arbeitet", "arbeitete", "arbeitetest", "arbeiteten", "arbeitetet",
+        "gearbeitet", "arbeit"
+      ]
+    },
+    {
+      "lemma": "warten",
+      "forms": ["warten", "warte", "wartest", "wartet", "wartete", "wartetest", "warteten", "wartetet", "gewartet", "wart"]
+    },
+    {
+      "lemma": "schlafen",
+      "forms": [
+        "schlafen", "schlafe", "schläfst", "schläft", "schlaft", "schlief", "schliefst", "schliefen", "schlieft",
+        "geschlafen", "schlaf"
+      ]
+    },
+    {
+      "lemma": "spielen",
+      "forms": ["spielen", "spiele", "spielst", "spielt", "spielte", "spieltest", "spielten", "spieltet", "gespielt", "spiel"]
+    },
+    {"lemma": "essen", "forms": ["essen", "esse", "isst", "esst", "aß", "aßst", "aßen", "aßt", "gegessen", "iss"]},
+    {
+      "lemma": "wachsen",
+      "forms": ["wachsen", "wachse", "wächst", "wachst", "wuchs", "wuchsst", "wuchsen", "wuchst", "gewachsen", "wachs"]
+    },
+    {
+      "lemma": "parken",
+      "forms": ["parken", "parke", "parkst", "parkt", "parkte", "parktest", "parkten", "parktet", "geparkt", "park"]
+    },
+    {
+      "lemma": "halten",
+      "forms": ["halten", "halte", "hältst", "hält", "haltet", "hielt", "hieltest", "hielten", "hieltet", "gehalten", "halt"]
+    },
+    {
+      "lemma": "lernen",
+      "forms": ["lernen", "lerne", "lernst", "lernt", "lernte", "lerntest", "lernten", "lerntet", "gelernt", "lern"]
+    },
+    {
+      "lemma": "singen",
+      "forms": ["singen", "singe", "singst", "singt", "sang", "sangst", "sangen", "sangt", "gesungen", "sing"]
+    },
+    {
+      "lemma": "tanzen",
+      "forms": ["tanzen", "tanze", "tanzt", "tanzte", "tanztest", "tanzten", "tanztet", "getanzt", "tanz"]
+    },
+    {
+      "lemma": "feiern",
+      "forms": ["feiern", "feiere", "feierst", "feiert", "feierte", "feiertest", "feierten", "feiertet", "gefeiert", "feier"]
+    },
+    {
+      "lemma": "kochen",
+      "forms": ["kochen", "koche", "kochst", "kocht", "kochte", "kochtest", "kochten", "kochtet", "gekocht", "koch"]
+    },
+    {
+      "lemma": "baden",
+      "forms": ["baden", "bade", "badest", "badet", "badete", "badetest", "badeten", "badetet", "gebadet", "bad"]
+    },
+    {
+      "lemma": "treffen",
+      "forms": ["treffen", "treffe", "triffst", "trifft", "trefft", "traf", "trafst", "trafen", "traft", "getroffen", "triff"]
+    },
+    {
+      "lemma": "übernachten",
+      "forms": [
+        "übernachten", "übernachte", "übernachtest", "übernachtet", "übernachtete", "übernachtetest", "übernachteten",
+        "übernachtetet", "übernacht"
+      ]
+    },
+    {
+      "lemma": "frühstücken",
+      "forms": [
+        "frühstücken", "frühstücke", "frühstückst", "frühstückt", "frühstückte", "frühstücktest", "frühstückten",
+        "frühstücktet", "gefrühstückt", "frühstück"
+      ]
+    },
+    {
+      "lemma": "befinden",
+      "forms": [
+        "befinden", "befinde", "befindest", "befindet", "befand", "befandest", "befanden", "befandet", "befunden",
+        "befind"
+      ],
+      "reflexive": true
+    },
+    {
+      "lemma": "sterben",
+      "forms": [
+        "sterben", "sterbe", "stirbst", "stirbt", "sterbt", "starb", "starbst", "starben", "starbt", "gestorben",
+        "sterb"
+      ]
+    },
+    {
+      "lemma": "lesen",
+      "forms": ["lesen", "lese", "liest", "lest", "las", "lasst", "lasen", "last", "gelesen", "lies"]
+    },
+    {
+      "lemma": "helfen",
+      "forms": ["helfen", "helfe", "hilfst", "hilft", "helft", "half", "halfst", "halfen", "halft", "geholfen", "hilf"]
+    }
+  ],
+  "copulas": [
+    {
+      "lemma": "sein",
+      "forms": [
+        "sein", "bin", "bist", "ist", "sind", "seid", "war", "warst", "waren", "wart", "gewesen", "sei", "seien",
+        "wäre", "wären", "wärst"
+      ]
+    },
+    {
+      "lemma": "werden",
+      "forms": [
+        "werden", "werde", "wirst", "wird", "werdet", "wurde", "wurdest", "wurden", "wurdet", "geworden", "werd",
+        "würde", "würden"
+      ]
+    },
+    {
+      "lemma": "bleiben",
+      "forms": ["bleiben", "bleibe", "bleibst", "bleibt", "blieb", "bliebst", "blieben", "bliebt", "geblieben", "bleib"]
+    },
+    {
+      "lemma": "heißen",
+      "forms": ["heißen", "heiße", "heißt", "hieß", "hießst", "hießen", "hießt", "geheißen", "heiß"]
+    }
+  ],
+  "pronouns": [
+    {
+      "lemma": "ich",
+      "person": 1,
+      "number": "sg",
+      "genders": ["m", "f", "n"],
+      "forms": {"nom": ["ich"], "acc": ["mich"], "dat": ["mir"], "gen": ["meiner"]}
+    },
+    {
+      "lemma": "du",
+      "person": 2,
+      "number": "sg",
+      "genders": ["m", "f", "n"],
+      "forms": {"nom": ["du"], "acc": ["dich"], "dat": ["dir"], "gen": ["deiner"]}
+    },
+    {
+      "lemma": "er",
+      "person": 3,
+      "number": "sg",
+      "genders": ["m"],
+      "forms": {"nom": ["er"], "acc": ["ihn"], "dat": ["ihm"], "gen": ["seiner"]}
+    },
+    {
+      "lemma": "sie",
+      "person": 3,
+      "number": "sg",
+      "genders": ["f"],
+      "forms": {"nom": ["sie"], "acc": ["sie"], "dat": ["ihr"], "gen": ["ihrer"]}
+    },
+    {
+      "lemma": "es",
+      "person": 3,
+      "number": "sg",
+      "genders": ["n"],
+      "forms": {"nom": ["es"], "acc": ["es"], "dat": ["ihm"], "gen": ["seiner"]}
+    },
+    {
+      "lemma": "wir",
+      "person": 1,
+      "number": "pl",
+      "genders": ["m", "f", "n"],
+      "forms": {"nom": ["wir"], "acc": ["uns"], "dat": ["uns"], "gen": ["unser"]}
+    },
+    {
+      "lemma": "ihr",
+      "person": 2,
+      "number": "pl",
+      "genders": ["m", "f", "n"],
+      "forms": {"nom": ["ihr"], "acc": ["euch"], "dat": ["euch"], "gen": ["euer"]}
+    },
+    {
+      "lemma": "sie",
+      "person": 3,
+      "number": "pl",
+      "genders": ["m", "f", "n"],
+      "forms": {"nom": ["sie"], "acc": ["sie"], "dat": ["ihnen"], "gen": ["ihrer"]}
+    },
+    {
+      "lemma": "sich",
+      "person": 3,
+      "number": "sg",
+      "genders": ["m", "f", "n"],
+      "forms": {"acc": ["sich"], "dat": ["sich"]}
+    },
+    {
+      "lemma": "wer",
+      "person": null,
+      "number": "sg",
+      "genders": ["m"],
+      "forms": {"nom": ["wer"], "acc": ["wen"], "dat": ["wem"], "gen": ["wessen"]}
+    },
+    {
+      "lemma": "man",
+      "person": 3,
+      "number": "sg",
+      "genders": ["m"],
+      "forms": {"nom": ["man"], "acc": ["einen"], "dat": ["einem"]}
+    },
+    {
+      "lemma": "jemand",
+      "person": 3,
+      "number": "sg",
+      "genders": ["m"],
+      "forms": {"nom": ["jemand"], "acc": ["jemanden", "jemand"], "dat": ["jemandem", "jemand"], "gen": ["jemandes"]}
+    },
+    {
+      "lemma": "niemand",
+      "person": 3,
+      "number": "sg",
+      "genders": ["m"],
+      "forms": {"nom": ["niemand"], "acc": ["niemanden", "niemand"], "dat": ["niemandem", "niemand"], "gen": ["niemandes"]}
+    }
+  ],
+  "relative": {
+    "forms": {
+      "nom.m": "der",
+      "nom.f": "die",
+      "nom.n": "das",
+      "nom.pl": "die",
+      "acc.m": "den",
+      "acc.f": "die",
+      "acc.n": "das",
+      "acc.pl": "die",
+      "dat.m": "dem",
+      "dat.f": "der",
+      "dat.n": "dem",
+      "dat.pl": "denen",
+      "gen.m": "dessen",
+      "gen.f": "deren",
+      "gen.n": "dessen",
+      "gen.pl": "deren"
+    },
+    "rule": "relativsatz",
+    "examples": [
+      {
+        "de": "Das ist der Mann, dem ich helfe.",
+        "en": "That's the man I'm helping.",
+        "word": "dem",
+        "case": "dat",
+        "number": "sg",
+        "trigger": "helfe"
+      },
+      {
+        "de": "Das sind die Kinder, denen der Hof gehört.",
+        "en": "Those are the children the farm belongs to.",
+        "word": "denen",
+        "case": "dat",
+        "number": "pl",
+        "trigger": "gehört"
+      }
+    ]
+  },
+  "n_declension": [
+    {"lemma": "Herr", "oblique": "Herrn", "plural": "Herren"},
+    {"lemma": "Mensch", "oblique": "Menschen"},
+    {"lemma": "Nachbar", "oblique": "Nachbarn"},
+    {"lemma": "Bauer", "oblique": "Bauern"},
+    {"lemma": "Bär", "oblique": "Bären"},
+    {"lemma": "Bub", "oblique": "Buben"},
+    {"lemma": "Held", "oblique": "Helden"},
+    {"lemma": "Prinz", "oblique": "Prinzen"},
+    {"lemma": "Graf", "oblique": "Grafen"},
+    {"lemma": "Fürst", "oblique": "Fürsten"},
+    {"lemma": "Narr", "oblique": "Narren"},
+    {"lemma": "Christ", "oblique": "Christen"},
+    {"lemma": "Junge", "oblique": "Jungen"},
+    {"lemma": "Kollege", "oblique": "Kollegen"},
+    {"lemma": "Kunde", "oblique": "Kunden"},
+    {"lemma": "Neffe", "oblique": "Neffen"},
+    {"lemma": "Hirte", "oblique": "Hirten"},
+    {"lemma": "Slowene", "oblique": "Slowenen"},
+    {"lemma": "Hase", "oblique": "Hasen"},
+    {"lemma": "Löwe", "oblique": "Löwen"},
+    {"lemma": "Affe", "oblique": "Affen"},
+    {"lemma": "Rabe", "oblique": "Raben"},
+    {"lemma": "Bote", "oblique": "Boten"},
+    {"lemma": "Zeuge", "oblique": "Zeugen"},
+    {"lemma": "Experte", "oblique": "Experten"},
+    {"lemma": "Riese", "oblique": "Riesen"},
+    {"lemma": "Ochse", "oblique": "Ochsen"},
+    {"lemma": "Franzose", "oblique": "Franzosen"},
+    {"lemma": "Russe", "oblique": "Russen"},
+    {"lemma": "Pole", "oblique": "Polen"},
+    {"lemma": "Grieche", "oblique": "Griechen"},
+    {"lemma": "Kroate", "oblique": "Kroaten"},
+    {"lemma": "Däne", "oblique": "Dänen"},
+    {"lemma": "Schwede", "oblique": "Schweden"},
+    {"lemma": "Biologe", "oblique": "Biologen"},
+    {"lemma": "Psychologe", "oblique": "Psychologen"},
+    {"lemma": "Student", "oblique": "Studenten"},
+    {"lemma": "Präsident", "oblique": "Präsidenten"},
+    {"lemma": "Patient", "oblique": "Patienten"},
+    {"lemma": "Assistent", "oblique": "Assistenten"},
+    {"lemma": "Tourist", "oblique": "Touristen"},
+    {"lemma": "Polizist", "oblique": "Polizisten"},
+    {"lemma": "Journalist", "oblique": "Journalisten"},
+    {"lemma": "Komponist", "oblique": "Komponisten"},
+    {"lemma": "Soldat", "oblique": "Soldaten"},
+    {"lemma": "Kandidat", "oblique": "Kandidaten"},
+    {"lemma": "Pilot", "oblique": "Piloten"},
+    {"lemma": "Fotograf", "oblique": "Fotografen"},
+    {"lemma": "Architekt", "oblique": "Architekten"},
+    {"lemma": "Elefant", "oblique": "Elefanten"},
+    {"lemma": "Planet", "oblique": "Planeten"},
+    {"lemma": "Automat", "oblique": "Automaten"},
+    {"lemma": "Kamerad", "oblique": "Kameraden"},
+    {"lemma": "Name", "oblique": "Namen", "genitive": "Namens"},
+    {"lemma": "Gedanke", "oblique": "Gedanken", "genitive": "Gedankens"},
+    {"lemma": "Buchstabe", "oblique": "Buchstaben", "genitive": "Buchstabens"},
+    {"lemma": "Glaube", "oblique": "Glauben", "genitive": "Glaubens"},
+    {"lemma": "Friede", "oblique": "Frieden", "genitive": "Friedens"},
+    {"lemma": "Funke", "oblique": "Funken", "genitive": "Funkens"},
+    {"lemma": "Wille", "oblique": "Willen", "genitive": "Willens"},
+    {"lemma": "Herz", "gender": "n", "oblique": "Herzen", "accusative": "Herz", "genitive": "Herzens"}
+  ],
+  "time": {
+    "nouns": [
+      "Tag", "Woche", "Monat", "Jahr", "Abend", "Morgen", "Vormittag", "Nachmittag", "Nacht", "Mittag", "Stunde",
+      "Minute", "Mal", "Sommer", "Winter", "Frühling", "Herbst", "Wochenende", "Montag", "Dienstag", "Mittwoch",
+      "Donnerstag", "Freitag", "Samstag", "Sonntag", "Jänner", "Januar", "Feber", "Februar", "März", "April", "Mai",
+      "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"
+    ],
+    "rule": "akkusativ",
+    "examples": [
+      {
+        "de": "Jeden Tag melkt Franz die Kühe.",
+        "en": "Every day Franz milks the cows.",
+        "word": "Tag",
+        "case": "acc",
+        "number": "sg"
+      },
+      {
+        "de": "Nächste Woche fahren wir nach Villach.",
+        "en": "Next week we go to Villach.",
+        "word": "Woche",
+        "case": "acc",
+        "number": "sg"
+      }
+    ]
+  },
+  "time_genitive": {
+    "phrases": ["eines tages", "eines abends", "eines morgens", "eines nachts", "eines sonntags", "eines winters"],
+    "rule": "genitiv",
+    "examples": [
+      {
+        "de": "Eines Tages kam ein Fremder ins Dorf.",
+        "en": "One day a stranger came to the village.",
+        "word": "Tages",
+        "case": "gen",
+        "number": "sg"
+      }
+    ]
+  },
+  "phrases": [
+    {"words": "zu hause", "case": "dat", "number": "sg", "trigger": "zu", "rule": "praepositionen-dativ"},
+    {"words": "nach hause", "case": "dat", "number": "sg", "trigger": "nach", "rule": "praepositionen-dativ"},
+    {"words": "zu haus", "case": "dat", "number": "sg", "trigger": "zu", "rule": "praepositionen-dativ"},
+    {"words": "nach haus", "case": "dat", "number": "sg", "trigger": "nach", "rule": "praepositionen-dativ"},
+    {"words": "guten morgen", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "guten tag", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "guten abend", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "gute nacht", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "guten appetit", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "gute reise", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "vielen dank", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "herzlichen dank", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "herzlichen glückwunsch", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "schönen tag", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "schönes wochenende", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "frohe weihnachten", "case": "acc", "number": "pl", "rule": "akkusativ"},
+    {"words": "frohe ostern", "case": "acc", "number": "pl", "rule": "akkusativ"},
+    {"words": "viel glück", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "viel spaß", "case": "acc", "number": "sg", "rule": "akkusativ"},
+    {"words": "es gibt", "case": "acc", "number": "sg", "trigger": "gibt", "rule": "akkusativ"}
+  ],
+  "roles": {
+    "subject": {
+      "rule": "faelle",
+      "examples": [
+        {
+          "de": "Der Teich ist heute ganz still.",
+          "en": "The pond is completely calm today.",
+          "word": "Teich",
+          "case": "nom",
+          "number": "sg"
+        }
+      ]
+    },
+    "predicate": {
+      "rule": "faelle",
+      "examples": [
+        {
+          "de": "Franz ist ein guter Bauer.",
+          "en": "Franz is a good farmer.",
+          "word": "Bauer",
+          "case": "nom",
+          "number": "sg",
+          "trigger": "ist"
+        }
+      ]
+    },
+    "object": {
+      "rule": "akkusativ",
+      "examples": [{"de": "Jakob sieht den Teich.", "en": "Jakob sees the pond.", "word": "Teich", "case": "acc", "number": "sg"}]
+    },
+    "dative": {
+      "rule": "dativ",
+      "examples": [
+        {
+          "de": "Lena gibt dem Pferd einen Apfel.",
+          "en": "Lena gives the horse an apple.",
+          "word": "Pferd",
+          "case": "dat",
+          "number": "sg",
+          "trigger": "gibt"
+        }
+      ]
+    },
+    "attribute": {
+      "rule": "genitiv",
+      "examples": [
+        {
+          "de": "Das ist das Haus des Müllers.",
+          "en": "That's the miller's house.",
+          "word": "Müllers",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "Haus"
+        }
+      ]
+    },
+    "address": {
+      "rule": "faelle",
+      "examples": [
+        {
+          "de": "Lieber Franz, danke für den Brief!",
+          "en": "Dear Franz, thanks for the letter!",
+          "word": "Franz",
+          "case": "nom",
+          "number": "sg"
+        }
+      ]
+    }
+  }
+}
