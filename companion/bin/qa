@@ -2055,7 +2055,7 @@ def village():
     to_top()
     mine = label("homeHero.myVillage", half=True)
     assert tap(mine), f"open village ({mine})"
-    skip, go_on, hud = label("common.skip", half=True), label("common.continue"), village_hud()
+    skip, go_on, hud = label("common.skip", half=True), label("common.continue"), village_bar()
     # The first-time intro, and the news of who moved in while the app was closed, may come in any order.
     end, calm = time.time() + 25, 0
     while time.time() < end and calm < 3:  # the village three times in a row, with nothing over it
@@ -2118,7 +2118,7 @@ def plain_village():
     for _ in range(8):
         ns = list(nodes())
         labels = [t for t, _ in ns]
-        if any(t in village_hud() for t in labels) and not any(t in over_village() for t in labels):
+        if any(t in village_bar() for t in labels) and not any(t in over_village() for t in labels):
             if not any(t.startswith(hud_goal()) for t in labels) and (c := hud_ring(ns)) is not None:
                 long_press(c)  # the HUD's cards hidden: back, as the steps read them (a long press on the ring; they slide in)
                 hud_cards(True)
@@ -4955,8 +4955,14 @@ def trade():
 
 
 def hud_ring(ns=None):
-    """The HUD's ring (its centre), or None."""
-    return next((c for t, c in (list(nodes()) if ns is None else ns) if t.startswith(hud_ring_starts())), None)
+    """The HUD's ring (its centre), or None. On a feast day its label is the feast's ("Dan spomina na mrtve"), so then the rightmost
+    thing of the bar above the cards, never today's card, whose label starts as the ring's may ("Danes in kmalu")."""
+    ns = list(nodes()) if ns is None else ns
+    soon = hud_soon()
+    named = next((c for t, c in ns if t.startswith(hud_ring_starts()) and not t.startswith(soon)), None)
+    if named is not None:
+        return named
+    return max(((c for t, c in ns if t and c[0] > 860 and 100 < c[1] < 270 and not t.startswith(soon))), key=lambda c: c[0], default=None)
 
 
 def hud_cards(shown: bool, timeout=6.0) -> bool:
@@ -7921,35 +7927,44 @@ def box_starting(label: str):
     return next((b for t, b in boxes() if t.startswith(label)), None)
 
 
+def hud_resource(res: str, pair=None) -> str:
+    """How the HUD's chip of a resource starts in the pair the phone shows ("Hrana · Food: ", "Cibo · Nahrung: "): the names
+    the village's culture gives it (its world.json)."""
+    t, b = pair or pair_now()
+    culture = api("/culture").get("id") or "primorska"
+    name = json.loads((ROOT / f"companion/cultures/{culture}/world.json").read_text())["resources"][res]["name"]
+    return f"{name[t]} · {name[b]}: "
+
+
 def village_hud():
-    """The village's HUD (companion/GAME.md, "The village's HUD"): a slim bar over the map (back, the four resources, the
-    settlement's ring) and a row of cards under it (the goal, today and what's coming, the settlement); a tap on the ring
-    opens what the next age needs, its long press hides the cards (still hidden when the village is opened again) and
-    shows them; each card opens its section in the sheet
-    (the goal's steps with their buttons, the timeline, the settlement's labelled tiles), a tap on the map above it closes
-    it and opens nothing; the settlement's in German too (QA's hook "pair:sl-de"). Then QA's hook "build:field" opens the
-    plot chooser (the dev village's copy readied: its stores full, the next age's plots when its own are all taken): the
-    cards are hidden by themselves, the ★ lies below the bar and above the chooser's bar, and back from the chooser the
+    """The village's HUD (companion/GAME.md, "The village's HUD"), in the pair the phone shows: a slim bar over the map (back,
+    the resources, the settlement's ring) and a row of cards under it (the goal, today and what's coming, the settlement);
+    a tap on the ring opens what the next age needs, its long press hides the cards (still hidden when the village is opened
+    again) and shows them; each card opens its section in the sheet (the goal's steps with their buttons, the timeline, the
+    settlement's labelled tiles), a tap on the map above it closes it and opens nothing; the settlement's in another base
+    too, with German's long labels (QA's hook "pair:<target>-de"; another for a German course). Then QA's hook "build:field"
+    opens the plot chooser (the dev village's copy readied: its stores full, the next age's plots when its own are all taken):
+    the cards are hidden by themselves, the ★ lies below the bar and above the chooser's bar, and back from the chooser the
     cards are there again."""
     plain_village()
-    assert box_starting("Hrana · Food: ") and box_starting("Modrost · Wisdom: "), "the resources in the bar"
+    assert box_starting(hud_resource("food")) and box_starting(hud_resource("wisdom")), "the resources in the bar"
     ring = hud_ring()
     assert ring is not None, "the settlement's ring"
     goal = box_starting(hud_goal())
     assert goal is not None and box_starting(hud_soon()), "the goal's card and today's"
     assert goal[3] < 600, f"the cards' bottom at {goal[3]} px (the old HUD's panel reached about 1550)"
-    assert box_starting("Skrinja · The chest") is None, "no tile while no sheet is open"
+    assert box_starting(label("villageScreen.chest")) is None, "no tile while no sheet is open"
     shot("hud-cards")
 
     # a tap on the ring: what the next age needs, at once; back closes it, the cards as they were
     tap_at(ring)
-    if wait_for("Naslednja doba", 6):
+    if wait_for(app_texts(pair_now()[0])["villageSheets.nextAgeIs"].split("}")[-1].strip(), 6):  # "Naslednja doba", "La prossima età"
         shot("hud-ring-ages")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
     assert box_starting(hud_goal()) is not None, "the cards still shown after the ring's sheet"
     long_press(ring)
-    assert hud_cards(False) and box_starting("Hrana · Food: "), "the ring's long press hides the cards, the bar stays"
+    assert hud_cards(False) and box_starting(hud_resource("food")), "the ring's long press hides the cards, the bar stays"
     shot("hud-bar")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # to Home, and into the village again: still hidden
     assert wait_home(8), "home"
@@ -7958,76 +7973,83 @@ def village_hud():
     long_press(hud_ring())
     assert hud_cards(True), "the ring's long press shows the cards again"
 
+    close = label("common.close")
+
     def section(card: str, heading: str, name: str):
         b = hud_card(card)
         assert b is not None, f"the card {card}"
         tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
-        assert wait_for("Zapri · Close", 5), f"{card}'s sheet (its ✕)"
+        assert wait_for(close, 5), f"{card}'s sheet (its ✕)"
         assert find(heading) is not None, f"its section's heading {heading}"
         time.sleep(1)
         shot(name)
 
-    section(hud_goal(), "Naslednji cilj · Next goal", "hud-goal")
+    section(hud_goal(), label("villageHud.nextGoal"), "hud-goal")
     # a tap on the map above the sheet: it closes, nothing opens
     top = box_starting(hud_goal()) or box_starting(hud_soon())
-    close = box_starting("Zapri · Close")
-    y = (top[3] + close[1]) // 2
+    x_box = box_starting(close)
+    y = (top[3] + x_box[1]) // 2
     adb("shell", "input", "tap", "540", str(y))
     time.sleep(1.5)
     labels = [t for t, _ in nodes()]
-    assert "Zapri · Close" not in labels, "a tap on the map closes the sheet"
+    assert close not in labels, "a tap on the map closes the sheet"
     assert not any(t in over_village() for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in over_village()]})"
 
-    section(hud_soon(), "Danes in kmalu · Today and coming up", "hud-soon")
+    section(hud_soon(), label("villageHud.soon"), "hud-soon")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1)
-    section(hud_settlement(), "Naselje · Settlement", "hud-settlement")
-    assert box_starting("Skrinja · The chest: ") and box_starting("Napredek · Progress"), "the settlement's tiles"
-    assert tap("Zapri · Close", 3), "its ✕"
+    section(hud_settlement(), label("villageHud.settlement"), "hud-settlement")
+    assert box_starting(label("villageScreen.chest") + ": ") and box_starting(label("common.progress")), "the settlement's tiles"
+    assert tap(close, 3), "its ✕"
     time.sleep(1)
 
-    # German: the base language's labels are the long ones
+    # a second base, German's where it can be: its labels are the long ones
+    t, b0 = pair_now()
+    other = (t, "de" if "de" not in (t, b0) else ("sl" if "sl" not in (t, b0) else "en"))
     try:
-        qa_hook("pair:sl-de")
-        assert wait_for("Naslednji cilj · Nächstes Ziel: ", 10), "the cards in sl · de"
+        qa_hook(f"pair:{'-'.join(other)}")
+        goal_de, soon_de, set_de = label("villageHud.nextGoal", other) + ": ", label("villageHud.soon", other), label("villageHud.settlement", other) + ": "
+        assert wait_for(goal_de, 10), f"the cards in {' · '.join(other)}"
         b = None
         for _ in range(4):
-            b = box_starting("Naselje · Siedlung: ")
+            b = box_starting(set_de)
             if b is not None and b[2] <= 1080:
                 break
-            row = box_starting("Naslednji cilj · Nächstes Ziel: ") or box_starting("Danes in kmalu · Heute")
+            row = box_starting(goal_de) or box_starting(soon_de)
             y = (row[1] + row[3]) // 2
             adb("shell", "input", "swipe", "980", str(y), "160", str(y), "900")
             time.sleep(1.5)
-        assert b is not None, "the settlement's card in sl · de"
+        assert b is not None, f"the settlement's card in {' · '.join(other)}"
         tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
-        assert wait_for("Zapri · Schließen", 5), "the settlement's sheet in sl · de"
+        assert wait_for(label("common.close", other), 5), f"the settlement's sheet in {' · '.join(other)}"
         time.sleep(1)
-        shot("hud-settlement-de")
+        shot("hud-settlement-other-base")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
     finally:
-        qa_hook("pair:")
-        wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3)
+        qa_hook(f"pair:{os.environ.get('LANI_QA_PAIR', '')}")
+        wait_for(village_bar()[0], 10) or wait_for("Knjiga · Book", 3)
 
     qa_hook("build:field")
-    assert wait_for("Tukaj · Here", 10), "the plot chooser (QA's hook)"
+    assert wait_for(label("plotChooser.here"), 10), "the plot chooser (QA's hook)"
     time.sleep(2)  # the camera frames the plots to choose from
     assert hud_cards(False), "no cards while choosing"
-    bar = box_starting("Hrana · Food: ")
+    bar = box_starting(hud_resource("food"))
     assert bar is not None, "the bar while choosing"
-    star = next((b for t, b in boxes() if t.startswith("Parcela") and "★" in t), None)
+    plot_word = app_texts(pair_now()[0])["plotChooser.plot"].split("{")[0].strip()  # "Parcela"
+    star = next((b for t, b in boxes() if t.startswith(plot_word) and "★" in t), None)
     # the chooser's bar: its card ("Izberi parcelo · Choose a plot", "📍 Parcela 5 · Plot 5") and buttons
-    # (the lower half's: the HUD's "Nazaj · Back" is the bar's)
-    head = min((b for t, b in boxes() if (t.startswith("Izberi") or t.startswith("📍 ") or t == "Nazaj · Back") and b[1] > 1200), key=lambda b: b[1], default=None)
+    # (the lower half's: the HUD's back is the bar's)
+    choose_word, back = label("plotChooser.choose", half=True), label("components.back")
+    head = min((b for t, b in boxes() if (t.startswith(choose_word) or t.startswith("📍 ") or t == back) and b[1] > 1200), key=lambda b: b[1], default=None)
     assert head is not None, "the chooser's bar"
-    assert star is not None, "the ★ plot (TalkBack's \"Parcela n · Plot n, ★ Predlog · Suggested\")"
+    assert star is not None, f"the ★ plot (TalkBack's \"{plot_word} n, ★ …\")"
     cy = (star[1] + star[3]) // 2
     assert bar[3] < cy < head[1], f"the ★ at {cy} px, between the bar ({bar[3]}) and the chooser's bar ({head[1]})"
     shot("hud-plot-chooser")
-    back = max((b for t, b in boxes() if t == "Nazaj · Back"), key=lambda b: b[1], default=None)  # the chooser's, not the bar's
-    assert back is not None and back[1] > 1200, "the chooser's back"
-    tap_at(((back[0] + back[2]) // 2, (back[1] + back[3]) // 2))
+    back_b = max((b for t, b in boxes() if t == back), key=lambda b: b[1], default=None)  # the chooser's, not the bar's
+    assert back_b is not None and back_b[1] > 1200, "the chooser's back"
+    tap_at(((back_b[0] + back_b[2]) // 2, (back_b[1] + back_b[3]) // 2))
     assert hud_cards(True), "the cards again, the chooser left"
 
 
@@ -13064,7 +13086,7 @@ def leave_visit():
         if (c := find(f"⌂ {host('common.home')} · ")) is not None:
             tap_at(c)
             break
-        if any(t in village_hud() for t, _ in nodes()):
+        if any(t in village_bar() for t, _ in nodes()):
             break
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1.2)
@@ -14967,7 +14989,7 @@ def pair_now() -> tuple:
     return t, b or "en"
 
 
-def village_hud() -> tuple:
+def village_bar() -> tuple:
     """The village's bottom bar's first button in the pair the phone shows (its scroll, "Zvitek · Scroll"; "Rotolo ·
     Schriftrolle" for Teo), and Jan's sl · en labels (the book, "Knjiga · Book", of a build from before the scroll)."""
     return tuple(dict.fromkeys((label("villageScreen.scroll"), "Zvitek · Scroll", "Knjiga · Book")))
@@ -14987,7 +15009,7 @@ def is_home(labels) -> bool:
     today = label("common.today")
     if not any(t == today for t in ls):
         return False
-    hud, chat = village_hud(), chat_title()
+    hud, chat = village_bar(), chat_title()
     return not any(t in hud or t.startswith(chat) for t in ls)
 
 
