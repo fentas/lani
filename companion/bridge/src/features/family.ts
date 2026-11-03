@@ -3,7 +3,8 @@
 import { resolve } from 'node:path'
 import { exampleOf, meaningOf, titleFor, wordOf } from '../packs'
 import type { Ctx, FeatureFactory } from '../feature'
-import { familyInstructions } from '../family'
+import { familyInstructionsFor } from '../family'
+import { LANGUAGES, learnerLangs } from '../learners'
 import { json, type Route } from '../http'
 
 const STATIC: Record<string, [string, string]> = {
@@ -12,10 +13,12 @@ const STATIC: Record<string, [string, string]> = {
   '/family/app.js': ['app.js', 'text/javascript; charset=utf-8'],
   '/family/style.css': ['style.css', 'text/css; charset=utf-8'],
 }
+/** What the family page calls the review cards a word to record comes from. */
+const CARDS: Record<string, string> = { sl: 'Kartice', en: 'Cards', de: 'Karten', it: 'Carte' }
 const CSP = "default-src 'self'; media-src 'self' blob:; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'"
 
-export const family: FeatureFactory = ({ cfg, family }) => ({
-  instructions: familyInstructions,
+export const family: FeatureFactory = ({ cfg, family, culture }) => ({
+  instructions: (({ target, base }) => familyInstructionsFor(target, LANGUAGES[base] ?? base))(learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')),
   routes: [
     ...Object.entries(STATIC).map(
       ([path, [file, type]]): Route => ({
@@ -43,19 +46,20 @@ export const family: FeatureFactory = ({ cfg, family }) => ({
 })
 
 /** What there is to record: pack words and examples, and the vocabulary review cards. */
-export function familyWords({ packs, learner }: Ctx) {
+export function familyWords({ packs, learner, cfg, culture }: Ctx) {
+  const { target, base } = learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
   return [
-    // in each pack's language (Slovene for Jan's; a pack in another language says so), glossed in English (an English
-    // pack's words in another of its languages: their "en" is the word itself)
+    // in each pack's language (Slovene for Jan's; a pack in another language says so), glossed in the learner's base (`en`
+    // by its old name; where a word lacks that language, English, and an English pack's words another of its languages)
     ...packs.all().flatMap(p => [
-      ...p.words.map(w => ({ text: wordOf(p, w), en: meaningOf(p, w), source: `${p.emoji} ${titleFor(p, p.language, 'en')}` })),
+      ...p.words.map(w => ({ text: wordOf(p, w), en: meaningOf(p, w, base), source: `${p.emoji} ${titleFor(p, p.language, base)}` })),
       ...p.words.flatMap(w => {
         const ex = exampleOf(p, w)
-        return ex ? [{ text: ex, en: w.example_en, source: `${p.emoji} ${titleFor(p, p.language, 'en')}` }] : []
+        return ex ? [{ text: ex, en: w[`example_${base as 'sl' | 'en' | 'it' | 'de'}`] ?? w.example_en, source: `${p.emoji} ${titleFor(p, p.language, base)}` }] : []
       }),
     ]),
     ...Object.values(learner.srItems())
       .filter(i => i.type === 'vocabulary' && i.content)
-      .map(i => ({ text: i.content!, en: i.answer, source: '🔄 Kartice · Cards' })),
+      .map(i => ({ text: i.content!, en: i.answer, source: `🔄 ${CARDS[target] ?? CARDS.en}${base !== target ? ` · ${CARDS[base] ?? CARDS.en}` : ''}` })),
   ]
 }

@@ -36,11 +36,11 @@ A single answer may contain multiple errors of different severity — tag each.
 These feed `mistakes-db.json`:
 
 - `grammar` — word order, conjugation, clause structure
-- `formal_informal` — u/je, uw/jouw, register mismatch
+- `formal_informal` — ti/vi, tu/Lei, du/Sie, register mismatch
 - `vocabulary` — wrong word, English mixing, register-wrong synonym
 - `spelling` — minor
-- `prepositions` — om/op/in/bij/naar/etc.
-- `articles` — de/het, definite/indefinite
+- `prepositions` — the language's prepositions and the cases they take
+- `articles` — il/lo/la, der/die/das, a/the, definite/indefinite (Slovene has none)
 - `missing` — omitted greeting, closing, required word
 
 ## Tone rules

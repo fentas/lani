@@ -3,11 +3,12 @@
 // (companion/packs/de and the pack's own: its festivals', its places', its stories'), builds the villager talks in German
 // with Slovene translations, du and Sie and the pack's setting, records a pack's words as German with their Slovene
 // meaning, finds a pack word by its plural without its article, tells the tutor about the village, and speaks with the
-// pack's voice cast, in German (the phone's German TTS while the cast has no voices).
+// pack's voice cast, in German (the phone's German TTS while the cast has no voices). Its ages' parties are its own.
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { cultureCelebrationFiles, partyTellings } from '../../src/celebrations'
 import { initLearnerData } from '../../src/learners'
 import { validatePack } from '../../src/packs'
 import { allLines } from '../../src/villagers'
@@ -186,6 +187,17 @@ export default async function kaernten() {
   } finally {
     await client.close()
   }
+
+  // --- the ages' celebrations: each a Carinthian custom of its own, a party at A1 to B2 (validateCulture checks them with the
+  // cast and the packs); the Kirchtag and the Kufenstechen stay the calendar's festivals
+  const parties = cultureCelebrationFiles(culturesDir, 'kaernten')
+  const named = parties.map(f => `${f.age}: ${f.name.de}`)
+  check('kaernten: every age its own party: the first evening by the fire, the Firstfeier, the Dorffest, the Wiesenmarkt, the Stadtfest',
+    ['tabor', 'zaselek', 'vas', 'trg', 'mesto'].map(a => parties.find(f => f.age === a)?.name.de).join(', ') === 'Der erste Abend am Feuer, Die Firstfeier, Das Dorffest, Der Wiesenmarkt, Das Stadtfest', named)
+  check('kaernten: … each at A1, A2, B1 and B2, in German, its words in a pack of its own, hosted by someone of the cast',
+    parties.every(f => f.language === 'de' && ['A1', 'A2', 'B1', 'B2'].every(l => !!f.levels[l as 'A1']) && partyTellings(f).length === 4 && f.words.length >= 1 && f.pack?.startsWith('feier-') && !!f.host), parties.map(f => [f.age, f.pack, f.host, Object.keys(f.levels)]))
+  check("kaernten: … and none repeats a festival of the calendar as if new (no party is named Kirchtag or Kufenstechen)",
+    parties.every(f => !/Kirchtag|Kufenstechen|Lindentanz/.test(f.name.de ?? '')), named)
 
   // --- the repository's German packs validate ----------------------------------------------------------
   for (const dir of [join(repo, 'companion/packs/de'), join(culturesDir, 'kaernten/packs')]) {

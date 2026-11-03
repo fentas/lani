@@ -109,6 +109,13 @@ aren't sure of, before writing content that hinges on a usage, and when a report
 `https://www.fran.si/iskanje?View=1&Query=<word>` and quote what it says, with the link. A spoken or regional form the
 dictionary labels (*pog.*, *nar.*) is not a mistake: say it's spoken.
 
+## Checking another language
+
+fran.si is the only web lookup this project allows. For a learner of Italian, German or English you have the word packs,
+the grammar book and `companion/lexicon/<code>.extra.json`. What they don't settle you don't know: don't call it wrong and
+don't count it; say you aren't sure, give the form you are sure of, and leave it to a native speaker. Each language's own
+rules (register, spoken forms, what a mistake is, a child's case) are in `companion/tutor/languages/<code>.md`.
+
 ## Critical Rules
 
 ❗ **ALWAYS** present questions ONE AT A TIME (user explicitly requested this)

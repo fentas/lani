@@ -1,12 +1,13 @@
 // Scenes (lani.scene/v0): close-ups of the village the learner steps into. The app gets them
 // resolved (every object with its word); the tutor lists, reads, publishes and removes them.
+import { forVillage, without } from '../tutor-languages'
 import { join } from 'node:path'
 import { badNote, fail, noteIn, ok } from '../tool'
 import { cultureProjects } from '../cultures'
 import type { FeatureFactory } from '../feature'
 import type { GameDoc } from '../game'
 import { json } from '../http'
-import { labelShown } from '../langs'
+import { inVillageLanguage, labelShown } from '../langs'
 import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { knownIds, Names, residentsNamed, sceneMentions } from '../mentions'
@@ -96,6 +97,20 @@ export function sceneInfo(s: LoadedScene, month: number) {
     ...(seasonal.length ? { dialog_months: Object.fromEntries(seasonal.map(d => [d.id, season(d.months)])) } : {}),
   }
 }
+
+/** Calling the learner, as a Slovene village's text says it: a village in another language has its own idiom (module-spec.md, "The learner in the content"). */
+const SLOVENE_CALL = `Call the learner by name or not at all, never with a bare singular "fant" or "dekle" (English "lad" in
+Slovene words: "Lahko noč!", "Poslušaj, {learner}."); an old villager may say "sinko" to a young man now and then, when
+moved ("Hvala, {m:sinko|f:{learner}}."); praise stays.`
+
+/** The paragraph for a village speaking [language]; a Slovene village's as it always was. */
+const sceneInstructions = (language: string) =>
+  language === 'sl'
+    ? instructions
+    : forVillage(
+        without(without(instructions, SLOVENE_CALL, `Call the learner by name, by what this village's idiom has (Cumbrian "lad", Carinthian "Bub"), or not at all; a Slovene translation leaves such an address out. Praise stays.`), '(Stari Janez by the fire in the evening)', "(the storyteller by the fire in the evening)"),
+        language,
+      )
 
 export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, villagers, events, voice, cfg, culture, game, grammar, channel, learner, addressee, log, dictionary, profile }) => {
   const asks = new VariantAsks(join(cfg.appDir, 'variant-asks.json'))
@@ -212,7 +227,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
     return labelShown(s, target, base)
   }
   return {
-    instructions,
+    instructions: sceneInstructions(culture.manifest?.language ?? 'sl'),
     routes: [
       // the village's own app: without what is meant for guests (a visitor gets it: /town/scenes, features/towns.ts); a scene
       // where someone tells stories comes with their stories (the app picks tonight's)
@@ -271,7 +286,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           required: ['scene'],
         },
         handle: args => {
-          const v = validateScene(args.scene, refs())
+          const v = validateScene(inVillageLanguage(args.scene, culture.manifest?.language ?? 'sl'), refs())
           if (!v.ok) return fail(`scene invalid, nothing published:\n${v.errors}`)
           // a thing only another culture's look draws (Friuli's osteria, fontanella, altar candle) isn't in this village
           const elsewhere = lookOnlyErrors(v.scene, culture.id)

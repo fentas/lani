@@ -168,6 +168,10 @@ export default async function pairing() {
   check('… offers a new village its landscape (the hills), and the default bridge none', c2.landscape === 'hills' && c1.landscape === undefined, { c1: c1.landscape, c2: c2.landscape })
   const cast2 = (await (await fetch(`${base2}/villagers`, { headers: bearerOf(token2) })).json()) as any[]
   check('… and serves friuli\'s cast', cast2.length === 13 && cast2[0].id === 'rosa', cast2.map(v => v.id))
+  const family2 = await (await fetch(`${base2}/family/api/settings`, { headers: bearerOf(token2) })).json()
+  const words2 = (await (await fetch(`${base2}/family/api/words`, { headers: bearerOf(token2) })).json()) as { text: string; en?: string; source: string }[]
+  const word2 = words2.find(w => w.text === 'il pane')
+  check("… and its family page speaks the learner's languages: Italian from Slovene, the words to record glossed in Slovene", family2.language === 'it' && family2.base === 'sl' && word2?.en === 'kruh', { family2, word2 })
   check("a child's app gets no tool approvals", !(client2.getServerCapabilities() as any)?.experimental?.['claude/channel/permission'] && (await fetch(`${base2}/permission`, { method: 'POST', headers: { ...bearerOf(token2), 'content-type': 'application/json' }, body: JSON.stringify({ request_id: 'abcde', behavior: 'allow' }) })).status === 403)
 
   const made2 = cli(['bun', join(cliDir, 'pair.ts'), '--profile', 'luka', '--no-qr', '--url', base2], pEnv)

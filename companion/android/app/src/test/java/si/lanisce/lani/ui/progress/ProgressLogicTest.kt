@@ -56,6 +56,25 @@ class ProgressLogicTest {
         assertEquals(listOf("312 / 300", "5 / 19", "92 %", "12 / 10"), p.lines.map { it.value })
     }
 
+    @Test fun `a level the book has no pages of, the grammar sign says it doesn't count rather than passing by itself`() {
+        val none = notReady.copy(from = "B1", to = "B2", pages = emptyList(), secure = emptyList(), needSecure = 0)
+        val p = path(none)
+        val grammar = p.lines.first { it.sign == PathSign.GRAMMAR }
+        assertFalse(grammar.counts)
+        assertFalse(grammar.met)
+        assertEquals("—", grammar.value)
+        assertEquals(
+            "Knjiga še nima strani ravni B1: ta znak zaenkrat ne šteje · The book has no pages of B1 yet: this sign doesn't count for now",
+            grammar.caption,
+        )
+        assertEquals("Rules of B1 secure. The book has no pages of B1 yet: this sign doesn't count for now", grammar.description)
+        assertTrue(p.lines.filter { it.sign != PathSign.GRAMMAR }.all { it.counts })
+        assertTrue(p.toSecure.isEmpty())
+        // the other signs still decide the map: nothing holds it back, nothing brings it by itself
+        assertFalse(none.ready)
+        assertTrue(none.copy(reviews = 40, kept = 36).ready)
+    }
+
     @Test fun `the lines read in both languages, and in the base for TalkBack`() {
         val (words, grammar, reviews, practice) = path().lines
         assertEquals("Besede · Words", words.title)
@@ -186,6 +205,12 @@ class ProgressLogicTest {
         assertFalse(grammar(s = GameState(age = Age.OGENJ)).school!!.open)
         // a level the course has no units of yet
         assertNull(grammar(level = "B1").school)
+        // every written unit done, one still planned: the teacher is preparing it
+        assertFalse(sc.preparing)
+        val written = CourseFixture.course.levels.flatMap { it.units }.filter { !it.planned && it.id in CourseFixture.course.units }
+        val past = grammar(s = state.copy(course = state.course!!.copy(units = written.associate { "sl/${it.id}" to UnitProgress(started = "2026-10-13", done = "2026-10-15") }))).school!!
+        assertNull(past.next)
+        assertTrue(past.preparing)
     }
 
     @Test fun `the book's pages of the level, met and secure, the weakest first`() {
