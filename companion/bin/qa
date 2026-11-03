@@ -4967,7 +4967,7 @@ def hud_ring(ns=None):
     named = next((c for t, c in bar if t.startswith(hud_ring_starts())), None)
     if named is not None:
         return named
-    return max((c for t, c in bar if c[0] > 860 and c[1] > 100), key=lambda c: c[0], default=None)
+    return max((c for t, c in bar if c[0] > 860 and 100 < c[1] < 300), key=lambda c: c[0], default=None)
 
 
 def hud_cards(shown: bool, timeout=6.0) -> bool:
@@ -7989,24 +7989,32 @@ def village_hud():
         time.sleep(1)
         shot(name)
 
-    section(hud_goal(), label("villageHud.nextGoal"), "hud-goal")
-    # a tap on the map above the sheet: it closes, nothing opens
-    top = box_starting(hud_goal()) or box_starting(hud_soon())
-    x_box = box_starting(close)
-    y = (top[3] + x_box[1]) // 2
-    adb("shell", "input", "tap", "540", str(y))
-    time.sleep(1.5)
-    labels = [t for t, _ in nodes()]
-    assert close not in labels, "a tap on the map closes the sheet"
-    assert not any(t in over_village() for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in over_village()]})"
+    tapped_map = []
 
+    def leave():
+        """Out of the open sheet: by a tap on the map above it, the first time there is room for one (it closes, nothing opens; a
+        sheet may reach 86 % of the screen, a long goal's does), else by Back."""
+        top, x_box = box_starting(hud_goal()) or box_starting(hud_soon()), box_starting(close)
+        room = x_box[1] - 60 - top[3]
+        if tapped_map or room < 150:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+            return
+        adb("shell", "input", "tap", "540", str(top[3] + room // 2))
+        time.sleep(1.5)
+        labels = [t for t, _ in nodes()]
+        assert close not in labels, "a tap on the map closes the sheet"
+        assert not any(t in over_village() for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in over_village()]})"
+        tapped_map.append(True)
+
+    section(hud_goal(), label("villageHud.nextGoal"), "hud-goal")
+    leave()
     section(hud_soon(), label("villageHud.soon"), "hud-soon")
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")
-    time.sleep(1)
+    leave()
     section(hud_settlement(), label("villageHud.settlement"), "hud-settlement")
     assert box_starting(label("villageScreen.chest") + ": ") and box_starting(label("common.progress")), "the settlement's tiles"
-    assert tap(close, 3), "its ✕"
-    time.sleep(1)
+    leave()
+    print(f"    a tap on the map {'closed a sheet' if tapped_map else 'not tried: every sheet too tall to leave room'}", flush=True)
 
     # a second base, German's where it can be: its labels are the long ones
     t, b0 = pair_now()
@@ -8319,7 +8327,8 @@ def sheet_scroll(down: bool, times=1):
     w, h = screen_size()
     title = next((c for t, c in nodes() if t.startswith("📝 ") or t.startswith("🎓 ")), None)  # the run's title over the sheet
     top = (title or (w // 2, h // 4))[1] + 120
-    feedback = find("Ne čisto") or find("Skoraj") or find("Pravilno")
+    verdicts = app_texts(pair_now()[0])
+    feedback = next((c for t, c in nodes() if t.startswith((verdicts["playerScreen.notQuite"], verdicts["playerScreen.almost"].rstrip("!"), verdicts["playerScreen.correct"].rstrip("!")))), None)
     bottom = (feedback[1] - 160) if feedback else int(h * 0.7)
     if bottom - top < 200:
         bottom = top + 200
