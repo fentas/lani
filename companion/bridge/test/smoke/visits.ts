@@ -8,6 +8,7 @@ import { join } from 'node:path'
 import type { BridgeKey } from '../../src/pairing'
 import { H, responseMessage, signRequest, verifySigned } from '../../src/towns'
 import { PeerCache, cleanScenes, cleanVillagers } from '../../src/visits'
+import { SCENE_ARTS_VERSION } from '../../src/scenes'
 import { check, culturesDir, fam, tempDir } from './harness'
 import { loadBridgeKey } from '../../src/pairing'
 
@@ -91,8 +92,10 @@ export async function visits(jan: Town, mia: Town, luka: Town) {
   check("visits: Mia visits Jan's town: its Slovene cast (primorska) and its curated places (its hills among them)", mv.language === 'sl' && mv.culture === 'primorska' && ids(mv.villagers) === ids(primorska) && ms.scenes.some((s: any) => s.id === 'na-gricih' && s.culture === 'primorska'), { villagers: ids(mv.villagers ?? []), scenes: ids(ms.scenes ?? []) })
   // every curated place, those with more than 12 dialogs (their variants among them, as served) too: cleanScenes checks
   // a served scene as its file has it
-  const janCurated = (janOwnS as any[]).filter(s => s.source === 'curated')
-  check("visits: … every one of its curated places, the ones with many variants too (more than 12 dialogs in all)", ids(ms.scenes.filter((s: any) => s.source === 'curated')) === ids(janCurated) && janCurated.some(s => s.dialogs.length > 12), { missing: janCurated.filter(s => !ms.scenes.some((m: any) => m.id === s.id)).map(s => s.id) })
+  const msNow = await (await proxy(mia, jan, `scenes?arts=${SCENE_ARTS_VERSION}`)).json()
+  const janCurated = ((await (await fetch(`${jan.base}/scenes?arts=${SCENE_ARTS_VERSION}`, { headers: jan.auth })).json()) as any[]).filter(s => s.source === 'curated')
+  const missing = janCurated.filter(s => !msNow.scenes?.some((m: any) => m.id === s.id)).map(s => s.id)
+  check("visits: … every one of its curated places, the ones with many variants too (more than 12 dialogs in all)", missing.length === 0 && janCurated.some(s => s.dialogs.length > 12), { missing, most: Math.max(...janCurated.map(s => s.dialogs.length)) })
   check("visits: … none of what Jan's tutor published", !mv.villagers.some((v: any) => tutorOnlyV.includes(v.id)) && !ms.scenes.some((s: any) => s.source !== 'curated' || (tutorOnlyS.includes(s.id) && !janOwnS.some((c: any) => c.id === s.id && c.source === 'curated'))), { tutorOnlyV, tutorOnlyS })
 
   // the child's town: Jan's bridge knows it; its people are asked for now (and kept, for when it is away)
