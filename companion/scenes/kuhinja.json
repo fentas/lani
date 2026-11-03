@@ -4,7 +4,7 @@
   "title": { "sl": "V kuhinji", "en": "In the kitchen", "de": "In der Küche", "it": "In cucina" },
   "emoji": "🍳",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "kitchen",
   "from": ["hut", "house"],
   "pack": "v-kuhinji",
@@ -46,7 +46,7 @@
       "when": ["morning", "afternoon"], "weekdays": [6, 7], "chance": 0.6, "dialog": "potica", "dialogs": ["potica-orehi", "potica-midva", "potica"], "reward": { "food": 20 }, "marker": "🥮", "needs": { "level": 2 },
       "memory": { "sl": "potico, ki sva jo skupaj {m:spekla|f:spekli}", "en": "the potica we baked together", "de": "die Potica, die wir zusammen gebacken haben", "it": "la potica che abbiamo preparato insieme" } },
     { "id": "kava", "title": { "sl": "Babica kuha kavo", "en": "Grandma is making coffee", "de": "Oma kocht Kaffee", "it": "La nonna fa il caffè" }, "who": "babica",
-      "when": ["morning"], "chance": 0.5, "dialog": "kava", "dialogs": ["kava-sanje", "kava-mocna", "kava"], "reward": { "food": 15 }, "marker": "☕",
+      "when": ["morning"], "chance": 0.5, "dialog": "kava", "dialogs": ["kava-b2-jecmen", "kava-b1-burja", "kava-sanje", "kava-mocna", "kava"], "reward": { "food": 15 }, "marker": "☕",
       "memory": { "sl": "jutro, ko sva {m:pila|f:pili} kavo v kuhinji", "en": "the morning we drank coffee in the kitchen", "de": "den Morgen, an dem wir in der Küche Kaffee getrunken haben", "it": "la mattina in cui abbiamo bevuto il caffè in cucina" } },
     { "id": "nedeljsko-kosilo", "title": { "sl": "Nedeljsko kosilo", "en": "Sunday lunch", "de": "Sonntagsessen", "it": "Il pranzo della domenica" }, "who": "babica",
       "when": ["morning", "afternoon"], "weekdays": [7], "chance": 0.9, "dialog": "kosilo", "dialogs": ["kosilo-krozniki", "kosilo-pecenka", "kosilo"], "reward": { "wisdom": 25 }, "marker": "🍲", "needs": { "level": 2 },
@@ -55,7 +55,7 @@
       "when": ["evening"], "chance": 0.4, "dialog": "krompir", "dialogs": ["krompir-kile", "krompir-lonec", "krompir"], "reward": { "food": 15 }, "marker": "🥔",
       "memory": { "sl": "pet kil krompirja, ki sva ga {m:olupila|f:olupili}", "en": "the five kilos of potatoes we peeled", "de": "die fünf Kilo Kartoffeln, die wir geschält haben", "it": "i cinque chili di patate che abbiamo pelato" } },
     { "id": "radio", "title": { "sl": "Teta Ančka posluša radio", "en": "Aunt Ančka listens to the radio", "de": "Tante Ančka hört Radio", "it": "Zia Ančka ascolta la radio" }, "who": "ancka",
-      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "radio", "dialogs": ["radio-vreme", "radio"], "reward": { "wood": 15 }, "marker": "📻",
+      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "radio", "dialogs": ["radio-b2-nanos", "radio-b1-cesta", "radio-vreme", "radio"], "reward": { "wood": 15 }, "marker": "📻",
       "memory": { "sl": "poročila, ki si mi jih {m:povedal|f:povedala}, ko nisem slišala", "en": "the news you told me when I couldn't hear", "de": "die Nachrichten, die du mir erzählt hast, als ich nichts hören konnte", "it": "le notizie che mi hai raccontato quando non sentivo" } }
   ],
   "dialogs": [
@@ -510,6 +510,688 @@
             "reply": { "face": "surprised", "sl": "Osem! Brr. Jutri kurim peč ves dan.", "en": "Eight! Brr. Tomorrow I'll keep the stove going all day.", "de": "Acht! Brr. Morgen heize ich den ganzen Tag.", "it": "Otto! Brr. Domani tengo la stufa accesa tutto il giorno." } }
         ] },
         { "who": "ancka", "face": "proud", "sl": "Hvala, {learner}! Zdaj vem vse. To povem celi vasi!", "en": "Thank you, {learner}! Now I know everything. I'll tell the whole village!", "de": "Danke, {learner}! Jetzt weiß ich alles. Das erzähle ich dem ganzen Dorf!", "it": "Grazie, {learner}! Adesso so tutto. Lo racconto a tutto il paese!" }
+      ]
+    },
+    {
+      "id": "kava-b1-burja",
+      "level": "B1",
+      "lines": [
+        {
+          "who": "babica",
+          "face": "curious",
+          "sl": "Dobro jutro, {learner}! Kava je vroča. Kaj boš pa danes {m:počel|f:počela}?",
+          "en": "Good morning, {learner}! The coffee's hot. So what are you up to today?",
+          "de": "Guten Morgen, {learner}! Der Kaffee ist heiß. Und was machst du heute?",
+          "it": "Buongiorno, {learner}! Il caffè è caldo. E tu cosa fai oggi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ves dan bom {m:pomagal|f:pomagala} na njivi, ker je veliko dela.",
+              "en": "I'll be helping in the field all day, because there's a lot of work.",
+              "de": "Ich helfe den ganzen Tag auf dem Feld, weil es viel Arbeit gibt.",
+              "it": "Darò una mano nei campi tutto il giorno, perché c'è tanto lavoro.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Na njivi? Potem pojej še kos kruha. {m:Lačen|f:Lačna} ne boš nič {m:naredil|f:naredila}.",
+                "en": "In the field? Then eat a piece of bread too. You'll get nothing done hungry.",
+                "de": "Auf dem Feld? Dann iss noch ein Stück Brot. Hungrig schaffst du nichts.",
+                "it": "Nei campi? Allora mangia anche un pezzo di pane. A pancia vuota non combini niente."
+              }
+            },
+            {
+              "sl": "Ves dan bom {m:pomogel|f:pomogla} na njivi, ker je veliko dela.",
+              "en": "I'll help in the field (once, done) all day, because there's a lot of work.",
+              "de": "Ich werde den ganzen Tag auf dem Feld (einmal, fertig) helfen, weil es viel Arbeit gibt.",
+              "it": "Darò una mano (una volta, finita) nei campi tutto il giorno, perché c'è tanto lavoro.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Ves dan is going on for a while: the imperfective, bom {m:pomagal|f:pomagala}. Pomoči is one help, done.",
+                "de": "Ves dan (den ganzen Tag) dauert an: der unvollendete Aspekt, bom {m:pomagal|f:pomagala}. Pomoči ist eine einzelne, abgeschlossene Hilfe.",
+                "it": "Ves dan (tutto il giorno) dura nel tempo: l'aspetto imperfettivo, bom {m:pomagal|f:pomagala}. Pomoči è un aiuto solo, concluso."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ves dan, pa samo enkrat? Kako pa to gre?",
+                "en": "All day, but only once? How does that work?",
+                "de": "Den ganzen Tag, aber nur einmal? Wie geht denn das?",
+                "it": "Tutto il giorno, ma una volta sola? E come si fa?"
+              }
+            },
+            {
+              "sl": "Ves dan bom {m:pomagal|f:pomagala} na njivi, zato je veliko dela.",
+              "en": "I'll be helping in the field all day, so there's a lot of work.",
+              "de": "Ich helfe den ganzen Tag auf dem Feld, deshalb gibt es viel Arbeit.",
+              "it": "Darò una mano nei campi tutto il giorno, quindi c'è tanto lavoro.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "The work is the cause of your help: ker (because). Zato (so) makes the work come from your help.",
+                "de": "Die Arbeit ist der Grund für deine Hilfe: ker (weil). Zato (deshalb) macht die Arbeit zur Folge deiner Hilfe.",
+                "it": "Il lavoro è la causa del tuo aiuto: ker (perché). Zato (quindi) fa del lavoro la conseguenza del tuo aiuto."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti delaš, pa je dela še več? Ha!",
+                "en": "You work, and there's even more work? Ha!",
+                "de": "Du arbeitest, und dann gibt es noch mehr Arbeit? Ha!",
+                "it": "Tu lavori e il lavoro aumenta? Ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj boš {m:delal|f:delala}?",
+            "en": "Hm? What will you be doing?",
+            "de": "Hm? Was machst du?",
+            "it": "Mm? Che cosa farai?"
+          }
+        },
+        {
+          "who": "babica",
+          "face": "worried",
+          "sl": "Radio pravi, da bo popoldne pihala burja. Kolena me bolijo že od jutra, to je slab znak.",
+          "en": "The radio says the burja will blow this afternoon. My knees have been aching since morning, that's a bad sign.",
+          "de": "Das Radio sagt, am Nachmittag kommt die Bora. Mir tun schon seit dem Morgen die Knie weh, das ist ein schlechtes Zeichen.",
+          "it": "La radio dice che nel pomeriggio soffierà la bora. Mi fanno male le ginocchia da stamattina, è un brutto segno."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bo pihala burja, se bom {m:vrnil|f:vrnila} prej. Obljubim.",
+              "en": "If the burja blows, I'll come back earlier. I promise.",
+              "de": "Wenn die Bora weht, komme ich früher zurück. Versprochen.",
+              "it": "Se soffia la bora, torno prima. Te lo prometto.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Ob štirih bo na mizi juha, da se boš {m:pogrel|f:pogrela}.",
+                "en": "Good. At four there'll be soup on the table, so you can warm up.",
+                "de": "Gut. Um vier steht Suppe auf dem Tisch, damit du dich aufwärmst.",
+                "it": "Bene. Alle quattro c'è la minestra in tavola, così ti scaldi."
+              }
+            },
+            {
+              "sl": "Ne skrbite, babica. {m:Vzel|f:Vzela} bom toplo jopo.",
+              "en": "Don't worry, Grandma. I'll take a warm cardigan.",
+              "de": "Keine Sorge, Oma. Ich nehme eine warme Strickjacke mit.",
+              "it": "Non si preoccupi, nonna. Prendo un golf pesante.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "{m:Priden|f:Pridna}. Brez jope te burja odnese kot list.",
+                "en": "Good for you. Without a cardigan the burja would carry you off like a leaf.",
+                "de": "Brav. Ohne Jacke trägt dich die Bora fort wie ein Blatt.",
+                "it": "{m:Bravo|f:Brava}. Senza golf la bora ti porta via come una foglia."
+              }
+            },
+            {
+              "sl": "Če bi pihala burja, se bom {m:vrnil|f:vrnila} prej. Obljubim.",
+              "en": "If the burja were to blow, I'll come back earlier. I promise.",
+              "de": "Wenn die Bora wehen würde, komme ich früher zurück. Versprochen.",
+              "it": "Se soffiasse la bora, torno prima. Te lo prometto.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "The radio says it will blow: a likely condition takes the future, če bo pihala. Če bi … bi is for one only imagined.",
+                "de": "Das Radio sagt, sie wird wehen: eine wahrscheinliche Bedingung steht im Futur, če bo pihala. Če bi … bi ist für eine nur gedachte.",
+                "it": "La radio dice che soffierà: una condizione probabile vuole il futuro, če bo pihala. Če bi … bi è per una solo immaginata."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bi, ne bi … Ti si pa kot radio, ki nikoli ne ve zagotovo!",
+                "en": "Would, wouldn't … You're like the radio, never quite sure!",
+                "de": "Würde, würde nicht … Du bist wie das Radio, nie ganz sicher!",
+                "it": "Soffiasse, non soffiasse … Sei come la radio, mai sicuro di niente!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Tako je prav. Če bi bili vsi tako pametni kot ti, bi me manj skrbelo.",
+          "en": "That's the way. If everyone were as sensible as you, I'd worry less.",
+          "de": "So ist's recht. Wenn alle so vernünftig wären wie du, würde ich mir weniger Sorgen machen.",
+          "it": "Così va bene. Se tutti fossero giudiziosi come te, mi preoccuperei di meno."
+        }
+      ]
+    },
+    {
+      "id": "kava-b2-jecmen",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o ječmenovi kavi, ki sem ti jo povedala",
+        "en": "the story about barley coffee I told you",
+        "de": "die Geschichte vom Gerstenkaffee, die ich dir erzählt habe",
+        "it": "la storia del caffè d'orzo che ti ho raccontato"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "thinking",
+          "sl": "Veš, {learner}, ko sem bila tvojih let, prave kave sploh nismo imeli. Mama je kuhala ječmenovo, iz ječmena z naše njive.",
+          "en": "You know, {learner}, when I was your age, we had no real coffee at all. Mother brewed barley coffee, from the barley of our field.",
+          "de": "Weißt du, {learner}, als ich in deinem Alter war, hatten wir überhaupt keinen echten Kaffee. Mutter kochte Gerstenkaffee, aus der Gerste von unserem Feld.",
+          "it": "Sai, {learner}, quando avevo la tua età, il caffè vero non lo avevamo proprio. La mamma faceva il caffè d'orzo, con l'orzo del nostro campo."
+        },
+        {
+          "who": "babica",
+          "face": "laugh",
+          "sl": "Prvo pravo kavo mi je prinesla teta iz Trsta. Ko sem jo poskusila, sem mislila, da sem v nebesih!",
+          "en": "My first real coffee was brought to me by an aunt from Trieste. When I tasted it, I thought I was in heaven!",
+          "de": "Meinen ersten echten Kaffee brachte mir eine Tante aus Triest. Als ich ihn kostete, dachte ich, ich wäre im Himmel!",
+          "it": "Il primo caffè vero me lo portò una zia da Trieste. Quando lo assaggiai, mi sembrò di essere in paradiso!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz bi {m:bil|f:bila} od veselja kar {m:zaplesal|f:zaplesala}!",
+              "en": "I'd have danced for joy!",
+              "de": "Ich hätte vor Freude glatt getanzt!",
+              "it": "Io mi sarei {m:messo|f:messa} a ballare dalla gioia!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Jaz sem pa res zaplesala. Okrog mize, s skodelico v roki!",
+                "en": "Ha! Well, I really did dance. Round the table, cup in hand!",
+                "de": "Ha! Ich habe wirklich getanzt. Um den Tisch herum, die Tasse in der Hand!",
+                "it": "Ah! Io ho ballato davvero. Intorno al tavolo, con la tazzina in mano!"
+              }
+            },
+            {
+              "sl": "Jaz bom od veselja kar {m:zaplesal|f:zaplesala}!",
+              "en": "I will dance for joy!",
+              "de": "Ich werde vor Freude glatt tanzen!",
+              "it": "Io mi metterò a ballare dalla gioia!",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "It's what you would have done back then, and didn't: the past conditional, bi {m:bil|f:bila} {m:zaplesal|f:zaplesala} (or bi {m:zaplesal|f:zaplesala}). Bom is the future.",
+                "de": "Es geht darum, was du damals getan hättest: der Konditional der Vergangenheit, bi {m:bil|f:bila} {m:zaplesal|f:zaplesala} (oder bi {m:zaplesal|f:zaplesala}). Bom ist das Futur.",
+                "it": "È ciò che avresti fatto allora: il condizionale passato, bi {m:bil|f:bila} {m:zaplesal|f:zaplesala} (o bi {m:zaplesal|f:zaplesala}). Bom è il futuro."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Zdaj? Ob kavi? Saj sva v kuhinji, ne na veselici!",
+                "en": "Now? Over coffee? We're in the kitchen, not at a village dance!",
+                "de": "Jetzt? Beim Kaffee? Wir sind doch in der Küche, nicht auf dem Tanzfest!",
+                "it": "Adesso? Col caffè? Siamo in cucina, mica alla sagra!"
+              }
+            },
+            {
+              "sl": "Jaz sem od veselja kar {m:zaplesal|f:zaplesala}!",
+              "en": "I danced for joy!",
+              "de": "Ich habe vor Freude glatt getanzt!",
+              "it": "Io mi sono {m:messo|f:messa} a ballare dalla gioia!",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "You weren't there: what you would have done is the conditional, bi {m:bil|f:bila} {m:zaplesal|f:zaplesala}. Sem {m:zaplesal|f:zaplesala} says you did.",
+                "de": "Du warst nicht dabei: was du getan hättest, ist der Konditional, bi {m:bil|f:bila} {m:zaplesal|f:zaplesala}. Sem {m:zaplesal|f:zaplesala} sagt, dass du getanzt hast.",
+                "it": "Tu non c'eri: ciò che avresti fatto è il condizionale, bi {m:bil|f:bila} {m:zaplesal|f:zaplesala}. Sem {m:zaplesal|f:zaplesala} dice che hai ballato."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ti? V Trstu? Saj te takrat še na svetu ni bilo!",
+                "en": "You? In Trieste? You weren't even born then!",
+                "de": "Du? In Triest? Da warst du doch noch gar nicht auf der Welt!",
+                "it": "Tu? A Trieste? Ma allora non eri neanche al mondo!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj si {m:rekel|f:rekla}? Spet sem izgubila besedo.",
+            "en": "What did you say? I've lost the word again.",
+            "de": "Was hast du gesagt? Mir ist das Wort wieder entfallen.",
+            "it": "Cosa hai detto? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "sad",
+          "sl": "Samo eno mi je žal: da nisem shranila nekaj zrn za mamo. Tudi ona bi jo bila rada poskusila.",
+          "en": "I regret only one thing: that I didn't keep a few beans for Mother. She would have liked to taste it too.",
+          "de": "Nur eines tut mir leid: dass ich für Mutter keine paar Bohnen aufgehoben habe. Sie hätte ihn auch gern gekostet.",
+          "it": "Mi dispiace solo una cosa: di non aver tenuto qualche chicco per la mamma. Anche lei l'avrebbe assaggiato volentieri."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Saj ste bili še otrok. Takrat na to niste mogli misliti.",
+              "en": "But you were still a child. Back then you couldn't have thought of that.",
+              "de": "Sie waren doch noch ein Kind. Damals konnten Sie nicht daran denken.",
+              "it": "Ma Lei era ancora una bambina. Allora non poteva pensarci.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imaš. Zdaj jo pa pijem za naju obe: zanjo in zase.",
+                "en": "You're right. And now I drink it for the two of us: for her and for me.",
+                "de": "Du hast recht. Und jetzt trinke ich ihn für uns beide: für sie und für mich.",
+                "it": "Hai ragione. E adesso lo bevo per tutte e due: per lei e per me."
+              }
+            },
+            {
+              "sl": "Res je, to je bilo zelo sebično od vas.",
+              "en": "That's true, that was very selfish of you.",
+              "de": "Stimmt, das war sehr egoistisch von Ihnen.",
+              "it": "È vero, è stato molto egoista da parte Sua.",
+              "why": {
+                "en": "Micka is telling you a regret, from when she was a child: comfort her, don't blame her.",
+                "de": "Micka erzählt dir von etwas, das sie bereut, aus ihrer Kindheit: tröste sie, statt ihr Vorwürfe zu machen.",
+                "it": "Micka ti confida un rimpianto di quando era bambina: consolala, non rimproverarla."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Sebično? Joj, saj sem imela komaj deset let …",
+                "en": "Selfish? Oh dear, I was barely ten …",
+                "de": "Egoistisch? Ach je, ich war doch kaum zehn …",
+                "it": "Egoista? Oddio, avevo appena dieci anni …"
+              }
+            },
+            {
+              "sl": "Saj si bila še otrok. Takrat na to nisi mogla misliti.",
+              "en": "But you (ti) were still a child. Back then you couldn't have thought of that.",
+              "de": "Du warst doch noch ein Kind. Damals konntest du nicht daran denken.",
+              "it": "Ma eri ancora una bambina. Allora non potevi pensarci.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Micka is older and expects vi: saj ste bili, niste mogli (the plural l-form, for a woman too).",
+                "de": "Micka ist älter und erwartet vi: saj ste bili, niste mogli (die l-Form im Plural, auch für eine Frau).",
+                "it": "Micka è più anziana e si aspetta il vi: saj ste bili, niste mogli (la forma in -l al plurale, anche per una donna)."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Oho, zdaj sva pa na ti? No, saj ne zamerim.",
+                "en": "Oho, so now we're on ti terms? Well, I don't mind.",
+                "de": "Oho, jetzt sind wir also per du? Na, ich nehm's dir nicht übel.",
+                "it": "Oho, adesso ci diamo del tu? Va be', non me la prendo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Dovolj žalovanja. Pij, dokler je vroča. Kar je mimo, je mimo.",
+          "en": "Enough of being sad. Drink it while it's hot. What's past is past.",
+          "de": "Genug getrauert. Trink, solange er heiß ist. Was vorbei ist, ist vorbei.",
+          "it": "Basta tristezze. Bevi finché è caldo. Quel che è stato è stato."
+        }
+      ]
+    },
+    {
+      "id": "radio-b1-cesta",
+      "level": "B1",
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "worried",
+          "sl": "{learner}, ravno prav si {m:prišel|f:prišla}! Radio je nekaj povedal o cesti v Gorico, pa sem slišala samo pol.",
+          "en": "{learner}, you've come at just the right time! The radio said something about the road to Gorizia, but I only heard half.",
+          "de": "{learner}, du kommst gerade recht! Das Radio hat etwas über die Straße nach Gorizia gesagt, aber ich habe nur die Hälfte gehört.",
+          "it": "{learner}, arrivi proprio al momento giusto! La radio ha detto qualcosa sulla strada per Gorizia, ma ho sentito solo metà."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Rekli so, da je cesta zaprta, ker je burja podrla drevo.",
+              "en": "They said the road is closed, because the burja knocked down a tree.",
+              "de": "Sie haben gesagt, die Straße ist gesperrt, weil die Bora einen Baum umgeworfen hat.",
+              "it": "Hanno detto che la strada è chiusa, perché la bora ha abbattuto un albero.",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "sl": "Drevo? Joj! Upam, da ni nikogar zadelo.",
+                "en": "A tree? Oh dear! I hope it didn't hit anyone.",
+                "de": "Ein Baum? Ach je! Hoffentlich hat er niemanden getroffen.",
+                "it": "Un albero? Oddio! Spero che non abbia colpito nessuno."
+              }
+            },
+            {
+              "sl": "Rekli so, da je bila cesta zaprta, ker je burja podrla drevo.",
+              "en": "They said the road had been closed, because the burja knocked down a tree.",
+              "de": "Sie haben gesagt, die Straße war gesperrt gewesen, weil die Bora einen Baum umgeworfen hat.",
+              "it": "Hanno detto che la strada era stata chiusa, perché la bora ha abbattuto un albero.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "The tense stays as it was said: »Cesta je zaprta« → da je cesta zaprta. Da je bila zaprta means it was closed before and isn't now.",
+                "de": "Die Zeit bleibt, wie sie gesagt wurde: »Cesta je zaprta« → da je cesta zaprta. Da je bila zaprta heißt, sie war gesperrt und ist es nicht mehr.",
+                "it": "Il tempo resta quello detto: »Cesta je zaprta« → da je cesta zaprta. Da je bila zaprta vuol dire che era chiusa prima e ora non più."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Bila? Torej je spet odprta? Potem grem jutri v Gorico!",
+                "en": "Had been? So it's open again? Then I'll go to Gorizia tomorrow!",
+                "de": "War gesperrt? Dann ist sie wieder offen? Dann fahre ich morgen nach Gorizia!",
+                "it": "Era stata? Allora è di nuovo aperta? Domani vado a Gorizia!"
+              }
+            },
+            {
+              "sl": "Rekli so, da je cesta zaprta, zato je burja podrla drevo.",
+              "en": "They said the road is closed, so the burja knocked down a tree.",
+              "de": "Sie haben gesagt, die Straße ist gesperrt, deshalb hat die Bora einen Baum umgeworfen.",
+              "it": "Hanno detto che la strada è chiusa, quindi la bora ha abbattuto un albero.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "The tree fell first and closed the road: the cause takes ker (because). Zato (so) turns it round.",
+                "de": "Zuerst fiel der Baum, dann wurde die Straße gesperrt: der Grund steht mit ker (weil). Zato (deshalb) dreht es um.",
+                "it": "Prima è caduto l'albero, poi hanno chiuso la strada: la causa vuole ker (perché). Zato (quindi) la capovolge."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Zato? Cesto so zaprli, pa je burja šla podirat drevesa? Ha!",
+                "en": "So? They closed the road, and then the burja went off felling trees? Ha!",
+                "de": "Deshalb? Sie sperren die Straße, und dann wirft die Bora Bäume um? Ha!",
+                "it": "Quindi? Chiudono la strada e la bora va ad abbattere alberi? Ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, {learner}!",
+            "en": "What? Louder, {learner}!",
+            "de": "Was? Lauter, {learner}!",
+            "it": "Cosa? Più forte, {learner}!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "worried",
+          "sl": "Kaj? Glasneje! Jutri sem hotela iti na tržnico v Gorico. Kaj so še rekli?",
+          "en": "What? Louder! I wanted to go to the market in Gorizia tomorrow. What else did they say?",
+          "de": "Was? Lauter! Ich wollte morgen auf den Markt nach Gorizia. Was haben sie noch gesagt?",
+          "it": "Cosa? Più forte! Domani volevo andare al mercato a Gorizia. Cos'altro hanno detto?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Rekli so tudi, naj ljudje jutri ostanejo doma.",
+              "en": "They also said people should stay at home tomorrow.",
+              "de": "Sie haben auch gesagt, die Leute sollen morgen zu Hause bleiben.",
+              "it": "Hanno anche detto che domani la gente dovrebbe restare a casa.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Prav imajo. Raje bom jutri doma pekla piškote.",
+                "en": "They're right. I'd rather bake biscuits at home tomorrow.",
+                "de": "Da haben sie recht. Dann backe ich morgen lieber zu Hause Kekse.",
+                "it": "Hanno ragione. Domani preferisco fare i biscotti a casa."
+              }
+            },
+            {
+              "sl": "Rekli so tudi, da ljudje jutri ostanejo doma.",
+              "en": "They also said people are staying at home tomorrow.",
+              "de": "Sie haben auch gesagt, die Leute bleiben morgen zu Hause.",
+              "it": "Hanno anche detto che domani la gente resta a casa.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "The radio asked something of people (»Ostanite doma!«): a request is passed on with naj, naj ostanejo. Da only reports what is so.",
+                "de": "Das Radio hat die Leute um etwas gebeten (»Ostanite doma!«): eine Bitte gibt man mit naj weiter, naj ostanejo. Da berichtet nur, was ist.",
+                "it": "La radio ha chiesto qualcosa alla gente (»Ostanite doma!«): una richiesta si riferisce con naj, naj ostanejo. Da riferisce solo un fatto."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ostanejo? Vsi? Kdo bo pa potem prodajal na tržnici?",
+                "en": "They're staying? Everyone? Then who'll sell at the market?",
+                "de": "Sie bleiben? Alle? Wer verkauft dann auf dem Markt?",
+                "it": "Restano? Tutti? E allora chi vende al mercato?"
+              }
+            },
+            {
+              "sl": "Rekli so tudi, naj jutri ostanem doma.",
+              "en": "They also said I should stay at home tomorrow.",
+              "de": "Sie haben auch gesagt, ich soll morgen zu Hause bleiben.",
+              "it": "Hanno anche detto che domani dovrei restare a casa io.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "The radio spoke to everyone, so it's they: naj ljudje ostanejo. Naj ostanem would be about you alone.",
+                "de": "Das Radio sprach zu allen, also sie: naj ljudje ostanejo. Naj ostanem wäre nur über dich.",
+                "it": "La radio parlava a tutti, quindi loro: naj ljudje ostanejo. Naj ostanem riguarderebbe solo te."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti? Po radiu so govorili samo zate? Ha!",
+                "en": "You? The radio was talking just about you? Ha!",
+                "de": "Du? Das Radio hat nur über dich geredet? Ha!",
+                "it": "Tu? La radio parlava solo di te? Ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, {learner}!",
+            "en": "What? Louder, {learner}!",
+            "de": "Was? Lauter, {learner}!",
+            "it": "Cosa? Più forte, {learner}!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "happy",
+          "sl": "Hvala, {learner}. Če ne bi bilo tebe, bi jutri zjutraj čakala na avtobus sredi burje!",
+          "en": "Thank you, {learner}. If it weren't for you, I'd be waiting for the bus in the burja tomorrow morning!",
+          "de": "Danke, {learner}. Ohne dich würde ich morgen früh mitten in der Bora auf den Bus warten!",
+          "it": "Grazie, {learner}. Se non ci fossi tu, domattina aspetterei l'autobus in mezzo alla bora!"
+        }
+      ]
+    },
+    {
+      "id": "radio-b2-nanos",
+      "level": "B2",
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "worried",
+          "sl": "{learner}, pridi bliže! Po radiu so govorili o planincu na Nanosu, pa sem ujela samo besedo »megla«.",
+          "en": "{learner}, come closer! The radio talked about a hiker on Nanos, but I only caught the word 'fog'.",
+          "de": "{learner}, komm näher! Im Radio ging es um einen Wanderer auf dem Nanos, aber ich habe nur das Wort »Nebel« verstanden.",
+          "it": "{learner}, vieni più vicino! Alla radio parlavano di un escursionista sul Nanos, ma ho afferrato solo la parola »nebbia«."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ko se je spustila megla, je bil že zašel s poti. Našli so ga šele zjutraj.",
+              "en": "When the fog came down, he had already strayed from the path. They only found him in the morning.",
+              "de": "Als der Nebel kam, war er schon vom Weg abgekommen. Gefunden haben sie ihn erst am Morgen.",
+              "it": "Quando è scesa la nebbia, aveva già perso il sentiero. L'hanno trovato solo al mattino.",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "sl": "Šele zjutraj? Ubogi fant. Njegova mama gotovo vso noč ni zatisnila očesa.",
+                "en": "Only in the morning? Poor lad. His mother surely didn't sleep a wink all night.",
+                "de": "Erst am Morgen? Der arme Kerl. Seine Mutter hat sicher die ganze Nacht kein Auge zugetan.",
+                "it": "Solo al mattino? Povero ragazzo. Sua madre non avrà chiuso occhio tutta la notte."
+              }
+            },
+            {
+              "sl": "Ko se je spustila megla, bo že zašel s poti. Našli so ga šele zjutraj.",
+              "en": "When the fog came down, he will already stray from the path. They only found him in the morning.",
+              "de": "Als der Nebel kam, wird er schon vom Weg abkommen. Gefunden haben sie ihn erst am Morgen.",
+              "it": "Quando è scesa la nebbia, perderà già il sentiero. L'hanno trovato solo al mattino.",
+              "grammar": "predpreteklik",
+              "why": {
+                "en": "It happened before the fog, in the past: je bil že zašel (or je že zašel). Bo is the future.",
+                "de": "Es geschah vor dem Nebel, in der Vergangenheit: je bil že zašel (oder je že zašel). Bo ist das Futur.",
+                "it": "È successo prima della nebbia, nel passato: je bil že zašel (o je že zašel). Bo è il futuro."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bo? Saj so ga vendar že našli. Kdaj se bo pa izgubil?",
+                "en": "Will? But they've already found him. When is he going to get lost?",
+                "de": "Wird? Sie haben ihn doch schon gefunden. Wann verirrt er sich denn?",
+                "it": "Perderà? Ma l'hanno già trovato. E quando si perderebbe?"
+              }
+            },
+            {
+              "sl": "Ko se je spustila megla, je bil že doma. Našli so ga šele zjutraj.",
+              "en": "When the fog came down, he was already at home. They only found him in the morning.",
+              "de": "Als der Nebel kam, war er schon zu Hause. Gefunden haben sie ihn erst am Morgen.",
+              "it": "Quando è scesa la nebbia, era già a casa. L'hanno trovato solo al mattino.",
+              "why": {
+                "en": "If he was at home, nobody would have had to look for him all night: he was lost on the mountain.",
+                "de": "Wäre er zu Hause gewesen, hätte ihn niemand die ganze Nacht suchen müssen: er hatte sich am Berg verirrt.",
+                "it": "Se era a casa, nessuno avrebbe dovuto cercarlo tutta la notte: si era perso sulla montagna."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Doma? Potem so ga pa iskali v napačni hiši!",
+                "en": "At home? Then they were searching the wrong house!",
+                "de": "Zu Hause? Dann haben sie wohl im falschen Haus gesucht!",
+                "it": "A casa? Allora l'hanno cercato nella casa sbagliata!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "thinking",
+          "sl": "Veš, kaj mislim? Če bi bil ostal doma, bi zdaj sedel na toplem. Ampak mladi nikoli ne poslušajo.",
+          "en": "You know what I think? If he had stayed at home, he'd be sitting somewhere warm now. But the young never listen.",
+          "de": "Weißt du, was ich denke? Wäre er zu Hause geblieben, säße er jetzt im Warmen. Aber die Jungen hören ja nie zu.",
+          "it": "Sai cosa penso? Se fosse rimasto a casa, adesso starebbe al caldo. Ma i giovani non ascoltano mai."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak v gorah se lahko izgubi vsak. Megla na Nanosu pride v nekaj minutah.",
+              "en": "Of course, but anyone can get lost in the mountains. The fog on Nanos comes in a few minutes.",
+              "de": "Sicher, aber in den Bergen kann sich jeder verirren. Der Nebel auf dem Nanos kommt in ein paar Minuten.",
+              "it": "Certo, ma in montagna può perdersi chiunque. La nebbia sul Nanos arriva in pochi minuti.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. Gora ne vpraša, koliko si star. Dobro, da so ga našli.",
+                "en": "That's true. A mountain doesn't ask how old you are. It's good they found him.",
+                "de": "Das stimmt. Der Berg fragt nicht, wie alt du bist. Gut, dass sie ihn gefunden haben.",
+                "it": "È vero. La montagna non chiede quanti anni hai. Meno male che l'hanno trovato."
+              }
+            },
+            {
+              "sl": "Seveda, ampak v gorah se lahko izgubi nihče. Megla na Nanosu pride v nekaj minutah.",
+              "en": "Of course, but in the mountains nobody can get lost. The fog on Nanos comes in a few minutes.",
+              "de": "Sicher, aber in den Bergen kann sich niemand verirren. Der Nebel auf dem Nanos kommt in ein paar Minuten.",
+              "it": "Certo, ma in montagna non può perdersi nessuno. La nebbia sul Nanos arriva in pochi minuti.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Nihče means nobody and wants a no (nihče se ne izgubi); for anyone at all, vsak (or vsakdo).",
+                "de": "Nihče heißt niemand und braucht ein ne (nihče se ne izgubi); für jeder, irgendwer: vsak (oder vsakdo).",
+                "it": "Nihče vuol dire nessuno e vuole il ne (nihče se ne izgubi); per chiunque: vsak (o vsakdo)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nihče? Potem se pa tudi tisti planinec ni izgubil, ne?",
+                "en": "Nobody? Then that hiker didn't get lost either, did he?",
+                "de": "Niemand? Dann hat sich der Wanderer also auch nicht verirrt, oder?",
+                "it": "Nessuno? Allora neanche quell'escursionista si è perso, no?"
+              }
+            },
+            {
+              "sl": "Imate prav. Kdor gre v meglo na goro, je neumen.",
+              "en": "You're right. Whoever goes up a mountain in fog is stupid.",
+              "de": "Sie haben recht. Wer bei Nebel auf einen Berg geht, ist dumm.",
+              "it": "Ha ragione. Chi va in montagna con la nebbia è stupido.",
+              "why": {
+                "en": "Ančka is worried for the young man, not angry with him: grant her point (seveda) and add your but, without calling anyone stupid.",
+                "de": "Ančka sorgt sich um den jungen Mann, sie ist nicht wütend auf ihn: gib ihr recht (seveda) und sag dein Aber, ohne jemanden dumm zu nennen.",
+                "it": "Ančka è in pensiero per il ragazzo, non arrabbiata con lui: dalle ragione (seveda) e aggiungi il tuo ma, senza dare dello stupido a nessuno."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Neumen? No, no, tega pa nisem rekla, {learner}!",
+                "en": "Stupid? No, no, I didn't say that, {learner}!",
+                "de": "Dumm? Nein, nein, das habe ich nicht gesagt, {learner}!",
+                "it": "Stupido? No, no, questo non l'ho detto, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "curious",
+          "sl": "Ampak povej mi še to: kdo ga je našel? Tega pa res nisem slišala.",
+          "en": "But tell me this too: who found him? That I really didn't hear.",
+          "de": "Aber sag mir noch das: Wer hat ihn gefunden? Das habe ich wirklich nicht gehört.",
+          "it": "Ma dimmi anche questo: chi l'ha trovato? Questo proprio non l'ho sentito."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Našel ga je pes, ki so ga reševalci pripeljali iz Ajdovščine.",
+              "en": "A dog found him, one the rescuers had brought from Ajdovščina.",
+              "de": "Ein Hund hat ihn gefunden, den die Bergretter aus Ajdovščina mitgebracht hatten.",
+              "it": "L'ha trovato un cane che i soccorritori avevano portato da Ajdovščina.",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "sl": "Pes! Pametnejši od marsikaterega človeka, pravim jaz.",
+                "en": "A dog! Cleverer than many a person, I say.",
+                "de": "Ein Hund! Klüger als so mancher Mensch, sage ich.",
+                "it": "Un cane! Più intelligente di tanti uomini, dico io."
+              }
+            },
+            {
+              "sl": "Našel ga je pes, ki so reševalci pripeljali iz Ajdovščine.",
+              "en": "A dog found him, which the rescuers brought from Ajdovščina.",
+              "de": "Ein Hund hat ihn gefunden, der die Bergretter aus Ajdovščina gebracht haben.",
+              "it": "L'ha trovato un cane che i soccorritori hanno portato da Ajdovščina.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Ki doesn't change: the dog is what they brought, so a short word after ki shows it, ki so ga pripeljali.",
+                "de": "Ki ändert sich nicht: den Hund haben sie gebracht, also zeigt ein kurzes Wort nach ki den Fall, ki so ga pripeljali.",
+                "it": "Ki non cambia: il cane è ciò che hanno portato, quindi una parolina dopo ki ne mostra il caso, ki so ga pripeljali."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kdo je koga pripeljal? Zdaj se mi pa vse meša.",
+                "en": "Who brought whom? Now I'm getting it all mixed up.",
+                "de": "Wer hat wen gebracht? Jetzt bringe ich alles durcheinander.",
+                "it": "Chi ha portato chi? Adesso mi si confonde tutto."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "proud",
+          "sl": "Ti pa znaš lepo razložiti. Jutri bom vsej vasi povedala, kaj je rekel radio in kaj si {m:rekel|f:rekla} ti!",
+          "en": "You explain it well. Tomorrow I'll tell the whole village what the radio said, and what you said!",
+          "de": "Du kannst gut erklären. Morgen erzähle ich dem ganzen Dorf, was das Radio gesagt hat, und was du gesagt hast!",
+          "it": "Tu sì che sai spiegare bene. Domani racconto a tutto il paese cosa ha detto la radio, e cosa hai detto tu!"
+        }
       ]
     }
   ]
