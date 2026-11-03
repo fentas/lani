@@ -5,7 +5,7 @@
   "title": { "it": "Nella tenda", "sl": "V šotoru", "en": "In the tent", "de": "Im Zelt" },
   "emoji": "⛺",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "tent",
   "from": ["tent"],
   "pack": "nella-tenda",
@@ -31,12 +31,12 @@
   "happenings": [
     {
       "id": "lanterna", "title": { "it": "Davide porta una lanterna", "sl": "Davide prinese svetilko", "en": "Davide brings a lantern", "de": "Davide bringt eine Laterne" }, "who": "davide",
-      "when": ["evening"], "chance": 0.5, "dialog": "lanterna", "dialogs": ["lanterna-libro", "lanterna"], "reward": { "wood": 15 }, "marker": "🏮",
+      "when": ["evening"], "chance": 0.5, "dialog": "lanterna", "dialogs": ["lanterna-b2-libro", "lanterna-b1-carro", "lanterna-libro", "lanterna"], "reward": { "wood": 15 }, "marker": "🏮",
       "memory": { "it": "la lanterna che ti ho portato nella tenda", "sl": "svetilko, ki sem ti jo prinesel v šotor", "en": "the lantern I brought you in the tent", "de": "die Laterne, die ich dir ins Zelt gebracht habe" }
     },
     {
       "id": "pioggia", "title": { "it": "Davide si ripara dalla pioggia", "sl": "Davide se skrije pred dežjem", "en": "Davide shelters from the rain", "de": "Davide sucht Schutz vor dem Regen" }, "who": "davide",
-      "when": ["morning", "afternoon"], "chance": 0.3, "dialog": "pioggia", "dialogs": ["pioggia-tuono", "pioggia"], "reward": { "wood": 15 }, "marker": "🌧️",
+      "when": ["morning", "afternoon"], "chance": 0.3, "dialog": "pioggia", "dialogs": ["pioggia-b2-arcobaleno", "pioggia-b1-carte", "pioggia-tuono", "pioggia"], "reward": { "wood": 15 }, "marker": "🌧️",
       "memory": { "it": "la pioggia, quando abbiamo aspettato insieme nella tenda", "sl": "dež, ko sva skupaj čakala v šotoru", "en": "the rain, when we waited together in the tent", "de": "den Regen, als wir zusammen im Zelt gewartet haben" }
     },
     {
@@ -283,6 +283,105 @@
             "reply": { "face": "laugh", "it": "Il corda? Ma che dici? Ih ih!", "sl": "Il corda? Kaj pa govoriš? Hi hi!", "en": "Il corda? What are you saying? Hee hee!", "de": "Il corda? Was sagst du da? Hihi!" } }
         ] },
         { "who": "giulia", "it": "Allora domani si parte! Che avventura!", "sl": "Potem pa jutri greva! Kakšna dogodivščina!", "en": "So tomorrow we're off! What an adventure!", "de": "Dann geht's morgen los! Was für ein Abenteuer!" }
+      ]
+    },
+    {
+      "id": "lanterna-b1-carro",
+      "level": "B1",
+      "memory": { "it": "il Grande Carro sopra la tenda", "sl": "Veliki voz nad šotorom", "en": "the Plough over the tent", "de": "den Großen Wagen über dem Zelt" },
+      "lines": [
+        { "who": "davide", "it": "Ehi, {learner}! Ecco la lanterna, già accesa. Fuori è buio, ma il cielo è pieno di stelle.", "sl": "Ej, {learner}! Tu je svetilka, že prižgana. Zunaj je tema, nebo pa je polno zvezd.", "en": "Hey, {learner}! Here's the lantern, already lit. It's dark outside, but the sky's full of stars.", "de": "He, {learner}! Hier ist die Laterne, schon an. Draußen ist es dunkel, aber der Himmel ist voller Sterne." },
+        { "who": "davide", "it": "Io però adesso torno dalle pecore. Stanotte le guardo io.", "sl": "Jaz pa se zdaj vrnem k ovcam. Nocoj jih pazim jaz.", "en": "But now I'm going back to the sheep. Tonight I'm watching them.", "de": "Ich geh jetzt aber zurück zu den Schafen. Heute Nacht pass ich auf sie auf." },
+        { "choices": [
+          { "it": "Te ne vai già? Resta ancora un minuto!", "sl": "Že greš? Ostani še minuto!", "en": "You're off already? Stay another minute!", "de": "Gehst du schon? Bleib noch eine Minute!", "ok": true,
+            "reply": { "face": "happy", "it": "Un minuto sì. Guarda su: quelle sette stelle sono il Grande Carro.", "sl": "Minuto ja. Poglej gor: tistih sedem zvezd je Veliki voz.", "en": "A minute, yes. Look up: those seven stars are the Plough.", "de": "Eine Minute schon. Schau hinauf: Die sieben Sterne sind der Große Wagen." } },
+          { "it": "Ti ne vai già? Resta ancora un minuto!", "sl": "Že greš? Ostani še minuto!", "en": "You're off already? Stay another minute!", "de": "Gehst du schon? Bleib noch eine Minute!",
+            "grammar": "verbi-pronominali", "why": { "sl": "Pred ne postane ti te: te ne vai.", "en": "Before ne, ti becomes te: te ne vai.", "de": "Vor ne wird ti zu te: te ne vai." },
+            "reply": { "face": "laugh", "it": "Ti ne vai? Ehi, così parlano le mie pecore quando hanno sonno!", "sl": "Ti ne vai? Ej, tako govorijo moje ovce, ko so zaspane!", "en": "Ti ne vai? Hey, that's how my sheep talk when they're sleepy!", "de": "Ti ne vai? He, so reden meine Schafe, wenn sie müde sind!" } }
+        ] },
+        { "who": "davide", "face": "curious", "it": "Se tu potessi salire sul Grande Carro, dove ti piacerebbe andare?", "sl": "Če bi se lahko {m:povzpel|f:povzpela} na Veliki voz, kam bi {m:rad šel|f:rada šla}?", "en": "If you could climb onto the Plough, where would you like to go?", "de": "Wenn du auf den Großen Wagen steigen könntest, wohin würdest du gern fahren?" },
+        { "choices": [
+          { "it": "Andrei fino al Sabotino, a vedere la tua capanna dall'alto!", "sl": "{m:Šel|f:Šla} bi do Sabotina, pogledat tvojo kočo od zgoraj!", "en": "I'd go to the Sabotino, to see your hut from above!", "de": "Ich würde bis zum Sabotino fahren, um deine Hütte von oben zu sehen!", "ok": true,
+            "reply": { "face": "laugh", "it": "La mia capanna? Non c'è ancora! Ma dall'alto magari la vedi già, nel futuro.", "sl": "Mojo kočo? Še je ni! Ampak od zgoraj jo morda že vidiš, v prihodnosti.", "en": "My hut? It's not there yet! But from up there maybe you can already see it, in the future.", "de": "Meine Hütte? Die gibt's noch nicht! Aber von oben siehst du sie vielleicht schon, in der Zukunft." } },
+          { "it": "Anderei fino al Sabotino, a vedere la tua capanna dall'alto!", "sl": "{m:Šel|f:Šla} bi do Sabotina, pogledat tvojo kočo od zgoraj!", "en": "I'd go to the Sabotino, to see your hut from above!", "de": "Ich würde bis zum Sabotino fahren, um deine Hütte von oben zu sehen!",
+            "grammar": "condizionale", "why": { "sl": "Andare ima kratek pogojnik: andrei (kot andrò).", "en": "Andare has a short conditional: andrei (as in andrò).", "de": "Andare hat einen kurzen Konditional: andrei (wie andrò)." },
+            "reply": { "face": "curious", "it": "Anderei? Mmm, sul Grande Carro si parla come sulla terra: riprova!", "sl": "Anderei? Hm, na Velikem vozu se govori kot na zemlji: še enkrat!", "en": "Anderei? Hmm, on the Plough you talk the same as on earth: try again!", "de": "Anderei? Hm, auf dem Großen Wagen redet man wie auf der Erde: nochmal!" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Adesso leggi un po', ma non troppo. Buonanotte, {learner}!", "sl": "Zdaj pa malo beri, ampak ne preveč. Lahko noč, {learner}!", "en": "Now read a bit, but not too much. Good night, {learner}!", "de": "Jetzt lies ein bisschen, aber nicht zu viel. Gute Nacht, {learner}!" }
+      ]
+    },
+    {
+      "id": "lanterna-b2-libro",
+      "level": "B2",
+      "memory": { "it": "il libro della maestra Elena, un capitolo a testa", "sl": "knjigo učiteljice Elene, eno poglavje vsak", "en": "Maestra Elena's book, a chapter each", "de": "das Buch von Maestra Elena, ein Kapitel jeder" },
+      "lines": [
+        { "who": "davide", "it": "Ti ho portato anche un libro. Me l'ha prestato la maestra Elena: dice che lo leggeva da bambina, sotto le coperte, con la torcia.", "sl": "Prinesel sem ti tudi knjigo. Posodila mi jo je učiteljica Elena: pravi, da jo je kot otrok brala pod odejo, s svetilko.", "en": "I've brought you a book too. Maestra Elena lent it to me: she says she read it as a girl, under the covers, with a torch.", "de": "Ich hab dir auch ein Buch mitgebracht. Maestra Elena hat es mir geliehen: Sie sagt, sie hat es als Kind unter der Decke gelesen, mit der Taschenlampe." },
+        { "who": "davide", "face": "laugh", "it": "Io da bambino, invece, i libri li usavo per pareggiare il tavolo! Se qualcuno mi avesse fatto leggere storie così, forse oggi leggerei di più.", "sl": "Jaz pa sem kot otrok s knjigami podlagal mizo! Če bi mi kdo dal brati take zgodbe, bi danes morda več bral.", "en": "As a boy, though, I used books to level the table! If someone had had me read stories like this, maybe I'd read more today.", "de": "Ich hab als Kind die Bücher dagegen unter den wackligen Tisch gelegt! Hätte mich jemand solche Geschichten lesen lassen, würde ich heute vielleicht mehr lesen." },
+        { "choices": [
+          { "it": "Non è mai troppo tardi: se vuoi, lo leggiamo insieme, un capitolo a testa.", "sl": "Nikoli ni prepozno: če hočeš, jo bereva skupaj, vsak eno poglavje.", "en": "It's never too late: if you like, we'll read it together, a chapter each.", "de": "Es ist nie zu spät: Wenn du willst, lesen wir es zusammen, jeder ein Kapitel.", "ok": true,
+            "reply": { "face": "happy", "it": "Affare fatto! Ma se mi addormento a metà, svegliami tu.", "sl": "Dogovorjeno! Ampak če zaspim na pol, me zbudi ti.", "en": "Deal! But if I fall asleep halfway, you wake me.", "de": "Abgemacht! Aber wenn ich mittendrin einschlafe, weckst du mich." } },
+          { "it": "Allora i libri non ti sono mai piaciuti e non ti piaceranno mai.", "sl": "Potem ti knjige nikoli niso bile všeč in ti nikoli ne bodo.", "en": "So you've never liked books and you never will.", "de": "Dann haben dir Bücher nie gefallen und werden dir nie gefallen.",
+            "why": { "sl": "Davide pravi, da bi s takimi zgodbami morda več bral: ni rekel »nikoli«.", "en": "Davide says that with stories like these he might read more: he didn't say «never».", "de": "Davide sagt, mit solchen Geschichten würde er vielleicht mehr lesen: Er hat nicht «nie» gesagt." },
+            "reply": { "face": "surprised", "it": "Mai? Ehi, non esagerare! Ho detto «forse», sai?", "sl": "Nikoli? Ej, ne pretiravaj! Rekel sem »morda«, veš?", "en": "Never? Hey, don't exaggerate! I said «maybe», you know?", "de": "Nie? He, übertreib nicht! Ich hab «vielleicht» gesagt, weißt du?" } }
+        ] },
+        { "who": "davide", "face": "curious", "it": "Quando me l'ha dato, la maestra mi ha detto: «Ti piacerà di sicuro.» Tu come lo racconteresti a Giulia?", "sl": "Ko mi jo je dala, mi je učiteljica rekla: »Zagotovo ti bo všeč.« Kako bi to ti {m:povedal|f:povedala} Giulii?", "en": "When she gave it to me, the teacher said: «You'll like it for sure.» How would you tell Giulia that?", "de": "Als sie es mir gab, sagte die Lehrerin: «Es wird dir bestimmt gefallen.» Wie würdest du das Giulia erzählen?" },
+        { "choices": [
+          { "it": "La maestra gli ha detto che il libro gli sarebbe piaciuto di sicuro.", "sl": "Učiteljica mu je rekla, da mu bo knjiga zagotovo všeč.", "en": "The teacher told him he'd like the book for sure.", "de": "Die Lehrerin hat ihm gesagt, das Buch würde ihm bestimmt gefallen.", "ok": true,
+            "reply": { "face": "laugh", "it": "Perfetto. E adesso vediamo se la maestra ha ragione. Primo capitolo a te!", "sl": "Odlično. Zdaj pa poglejva, ali ima učiteljica prav. Prvo poglavje tebi!", "en": "Perfect. And now let's see if the teacher is right. First chapter to you!", "de": "Perfekt. Und jetzt schauen wir, ob die Lehrerin recht hat. Erstes Kapitel an dich!" } },
+          { "it": "La maestra gli ha detto che il libro gli piacerebbe di sicuro.", "sl": "Učiteljica mu je rekla, da mu bo knjiga zagotovo všeč.", "en": "The teacher told him he'd like the book for sure.", "de": "Die Lehrerin hat ihm gesagt, das Buch würde ihm bestimmt gefallen.",
+            "grammar": "discorso-indiretto-passato", "why": { "sl": "Prihodnost, povedana iz preteklosti, je pretekli pogojnik: gli sarebbe piaciuto.", "en": "A future told from the past takes the past conditional: gli sarebbe piaciuto.", "de": "Eine Zukunft aus der Vergangenheit steht im Konditional der Vergangenheit: gli sarebbe piaciuto." },
+            "reply": { "face": "curious", "it": "Piacerebbe? Se… che cosa? La maestra non ha messo nessun «se», sai!", "sl": "Piacerebbe? Če … kaj? Učiteljica ni postavila nobenega »če«, veš!", "en": "Piacerebbe? If… what? The teacher didn't put any «if», you know!", "de": "Piacerebbe? Wenn … was? Die Lehrerin hat kein «wenn» gesagt, weißt du!" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Primo capitolo a te, secondo a me. E la lanterna resta accesa per tutti e due.", "sl": "Prvo poglavje tebi, drugo meni. In svetilka ostane prižgana za oba.", "en": "First chapter to you, second to me. And the lantern stays lit for both of us.", "de": "Erstes Kapitel an dich, zweites an mich. Und die Laterne bleibt für uns beide an." }
+      ]
+    },
+    {
+      "id": "pioggia-b1-carte",
+      "level": "B1",
+      "memory": { "it": "la partita a carte sotto la pioggia", "sl": "igro s kartami med dežjem", "en": "the card game in the rain", "de": "das Kartenspiel im Regen" },
+      "lines": [
+        { "who": "davide", "face": "worried", "it": "{learner}! Piove forte! Posso stare un po' nella tenda con te?", "sl": "{learner}! Močno dežuje! Lahko malo ostanem v šotoru s tabo?", "en": "{learner}! It's pouring! Can I stay in the tent with you a while?", "de": "{learner}! Es regnet stark! Darf ich ein bisschen bei dir im Zelt bleiben?", "sky": { "rain": 0.8, "gloom": 0.8, "wind": 0.3 } },
+        { "choices": [
+          { "it": "Certo, entra! Aspettando che smetta, giochiamo a carte?", "sl": "Seveda, vstopi! Medtem ko čakava, da neha, bi igrala karte?", "en": "Of course, come in! While we wait for it to stop, shall we play cards?", "de": "Klar, komm rein! Während wir warten, bis es aufhört, spielen wir Karten?", "ok": true,
+            "reply": { "face": "laugh", "it": "Volentieri! Ma ti avviso: con le carte sono bravissimo.", "sl": "Z veseljem! Ampak opozarjam te: s kartami sem odličen.", "en": "Gladly! But I'm warning you: I'm brilliant at cards.", "de": "Gern! Aber ich warne dich: Beim Kartenspielen bin ich super." } },
+          { "it": "Certo, entra! Aspettato che smetta, giochiamo a carte?", "sl": "Seveda, vstopi! Medtem ko čakava, da neha, bi igrala karte?", "en": "Of course, come in! While we wait for it to stop, shall we play cards?", "de": "Klar, komm rein! Während wir warten, bis es aufhört, spielen wir Karten?",
+            "grammar": "gerundio", "why": { "sl": "Kar delaš medtem, je gerundij: aspettando. Aspettato je deležnik.", "en": "What you do meanwhile is the gerund: aspettando. Aspettato is the participle.", "de": "Was du währenddessen tust, ist das Gerundium: aspettando. Aspettato ist das Partizip." },
+            "reply": { "face": "curious", "it": "Aspettato? Ma abbiamo appena cominciato ad aspettare! Mmm, riprova.", "sl": "Aspettato? Saj sva šele začela čakati! Hm, še enkrat.", "en": "Aspettato? But we've only just started waiting! Hmm, try again.", "de": "Aspettato? Wir haben doch gerade erst angefangen zu warten! Hm, nochmal." } }
+        ] },
+        { "who": "davide", "it": "Senti la pioggia sul telo? Prima era fortissima. Adesso, ascolta bene…", "sl": "Slišiš dež na ponjavi? Prej je bil premočan. Zdaj pa dobro poslušaj …", "en": "Hear the rain on the canvas? Before it was really heavy. Now, listen carefully…", "de": "Hörst du den Regen auf der Plane? Vorher war er ganz stark. Jetzt hör mal genau hin …", "sky": { "rain": 1, "gloom": 0.9 } },
+        { "choices": [
+          { "it": "Ha cominciato a piovere più piano, senti?", "sl": "Začelo je rahleje deževati, slišiš?", "en": "It's started to rain more softly, hear that?", "de": "Es hat angefangen, leiser zu regnen, hörst du?", "ok": true,
+            "reply": { "face": "happy", "it": "Vero! Tra poco le pecore escono dal castagno.", "sl": "Res! Kmalu bodo ovce prišle izpod kostanja.", "en": "True! Soon the sheep will come out from under the chestnut.", "de": "Stimmt! Gleich kommen die Schafe unter der Kastanie hervor.", "sky": { "rain": 0.4, "gloom": 0.6, "wind": 0.1 } } },
+          { "it": "Ha cominciato di piovere più piano, senti?", "sl": "Začelo je rahleje deževati, slišiš?", "en": "It's started to rain more softly, hear that?", "de": "Es hat angefangen, leiser zu regnen, hörst du?",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Cominciare gre z a: ha cominciato a piovere.", "en": "Cominciare takes a: ha cominciato a piovere.", "de": "Cominciare steht mit a: ha cominciato a piovere." },
+            "reply": { "face": "curious", "it": "Di piovere? Mmm, la pioggia comincia… ma la frase si è bagnata! Riprova.", "sl": "Di piovere? Hm, dež začne … stavek pa se je zmočil! Še enkrat.", "en": "Di piovere? Hmm, the rain starts… but the sentence got wet! Try again.", "de": "Di piovere? Hm, der Regen fängt an … aber der Satz ist nass geworden! Nochmal." } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Guarda, non piove più! Ho perso a carte, ma le pecore sono asciutte. Ciao, {learner}!", "sl": "Poglej, ne dežuje več! Pri kartah sem izgubil, ovce pa so suhe. Adijo, {learner}!", "en": "Look, it's stopped raining! I lost at cards, but the sheep are dry. Bye, {learner}!", "de": "Schau, es regnet nicht mehr! Beim Kartenspielen hab ich verloren, aber die Schafe sind trocken. Tschüss, {learner}!", "sky": { "rain": 0, "gloom": 0, "wind": 0 }, "act": { "davide": { "to": "door" } } }
+      ]
+    },
+    {
+      "id": "pioggia-b2-arcobaleno",
+      "level": "B2",
+      "memory": { "it": "l'arcobaleno sopra il Sabotino", "sl": "mavrico nad Sabotinom", "en": "the rainbow over the Sabotino", "de": "den Regenbogen über dem Sabotino" },
+      "lines": [
+        { "who": "davide", "it": "Che acquazzone, {learner}! Grazie per avermi fatto entrare. Le pecore, almeno, avranno l'erba fresca.", "sl": "Kakšna ploha, {learner}! Hvala, da si me {m:spustil|f:spustila} noter. Ovce bodo vsaj imele svežo travo.", "en": "What a downpour, {learner}! Thanks for letting me in. At least the sheep will have fresh grass.", "de": "Was für ein Wolkenbruch, {learner}! Danke, dass du mich reingelassen hast. Die Schafe haben wenigstens frisches Gras.", "sky": { "rain": 0.9, "gloom": 0.8, "wind": 0.3 } },
+        { "who": "davide", "face": "thinking", "it": "Da piccolo avevo paura dei tuoni. Mio padre mi diceva che erano le nuvole che giocavano a bocce, lassù.", "sl": "Kot otrok sem se bal grmenja. Oče mi je govoril, da so to oblaki, ki tam gori balinajo.", "en": "As a boy I was scared of thunder. My father told me it was the clouds playing bocce up there.", "de": "Als Kind hatte ich Angst vor Donner. Mein Vater sagte mir, das seien die Wolken, die da oben Boccia spielen.", "sky": { "rain": 1, "gloom": 0.9 } },
+        { "choices": [
+          { "it": "Allora, pensando alle bocce, la paura ti passava?", "sl": "Je strah potem minil, ko si mislil na balinanje?", "en": "So, thinking of bocce, your fear went away?", "de": "Ging dann die Angst weg, wenn du an Boccia gedacht hast?", "ok": true,
+            "reply": { "face": "laugh", "it": "Subito! Anzi, contavo i punti: un tuono forte, un punto per la nuvola grande.", "sl": "Takoj! Še več, štel sem točke: močan grom, točka za velik oblak.", "en": "At once! In fact, I counted the points: a loud thunderclap, a point for the big cloud.", "de": "Sofort! Mehr noch, ich hab die Punkte gezählt: ein lauter Donner, ein Punkt für die große Wolke." } },
+          { "it": "Allora tuo padre aveva paura delle bocce?", "sl": "Potem se je tvoj oče bal balinanja?", "en": "So your father was scared of bocce?", "de": "Dann hatte dein Vater Angst vor Boccia?",
+            "why": { "sl": "Strah pred grmenjem je imel Davide kot otrok; oče ga je pomiril s šalo o balinanju.", "en": "Davide was scared of thunder as a boy; his father calmed him with a joke about bocce.", "de": "Davide hatte als Kind Angst vor Donner; der Vater beruhigte ihn mit einem Witz über Boccia." },
+            "reply": { "face": "laugh", "it": "Mio padre? Delle bocce? Ah, ah! Era il campione del paese!", "sl": "Moj oče? Balinanja? Ha, ha! Bil je vaški prvak!", "en": "My father? Of bocce? Ha, ha! He was the village champion!", "de": "Mein Vater? Vor Boccia? Ha, ha! Der war Dorfmeister!" } }
+        ] },
+        { "who": "davide", "it": "Pensa: dieci minuti fa ero sotto il castagno con le pecore, senza ombrello.", "sl": "Pomisli: pred desetimi minutami sem bil pod kostanjem z ovcami, brez dežnika.", "en": "Imagine: ten minutes ago I was under the chestnut with the sheep, without an umbrella.", "de": "Stell dir vor: Vor zehn Minuten war ich mit den Schafen unter der Kastanie, ohne Schirm." },
+        { "choices": [
+          { "it": "Meno male che sei entrato: fuori ti saresti bagnato come un pulcino!", "sl": "Še dobro, da si vstopil: zunaj bi se zmočil kot piščanec!", "en": "Good thing you came in: outside you'd have got soaked like a chick!", "de": "Gut, dass du reingekommen bist: Draußen wärst du nass geworden wie ein Küken!", "ok": true,
+            "reply": { "face": "laugh", "it": "Come un pulcino, sì! Un pulcino di vent'anni con le scarpe piene d'acqua.", "sl": "Kot piščanec, ja! Dvajsetletni piščanec s čevlji, polnimi vode.", "en": "Like a chick, yes! A twenty-year-old chick with shoes full of water.", "de": "Wie ein Küken, ja! Ein zwanzigjähriges Küken mit Schuhen voller Wasser." } },
+          { "it": "Meno male che sei entrato: fuori ti avresti bagnato come un pulcino!", "sl": "Še dobro, da si vstopil: zunaj bi se zmočil kot piščanec!", "en": "Good thing you came in: outside you'd have got soaked like a chick!", "de": "Gut, dass du reingekommen bist: Draußen wärst du nass geworden wie ein Küken!",
+            "grammar": "condizionale-passato", "why": { "sl": "Povratni glagoli imajo essere: ti sei bagnato, zato ti saresti bagnato.", "en": "Reflexive verbs take essere: ti sei bagnato, so ti saresti bagnato.", "de": "Reflexive Verben bilden mit essere: ti sei bagnato, also ti saresti bagnato." },
+            "reply": { "face": "curious", "it": "Ti avresti? Mmm, anche la frase si è bagnata un po'. Riprova.", "sl": "Ti avresti? Hm, tudi stavek se je malo zmočil. Še enkrat.", "en": "Ti avresti? Hmm, the sentence got a bit wet too. Try again.", "de": "Ti avresti? Hm, der Satz ist auch ein bisschen nass geworden. Nochmal." } }
+        ] },
+        { "who": "davide", "face": "surprised", "it": "Guarda fuori! Ha smesso, e c'è l'arcobaleno sopra il Sabotino! Vado dalle pecore. Grazie, {learner}!", "sl": "Poglej ven! Nehalo je, nad Sabotinom pa je mavrica! Grem k ovcam. Hvala, {learner}!", "en": "Look outside! It's stopped, and there's a rainbow over the Sabotino! I'm off to the sheep. Thanks, {learner}!", "de": "Schau raus! Es hat aufgehört, und über dem Sabotino ist ein Regenbogen! Ich geh zu den Schafen. Danke, {learner}!", "sky": { "rain": 0, "gloom": 0, "wind": 0 }, "act": { "davide": { "to": "door" } } }
       ]
     }
   ]

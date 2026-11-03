@@ -10,7 +10,7 @@
   },
   "emoji": "🗼",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "watchtower",
   "from": [
     "watchtower"
@@ -132,6 +132,8 @@
       "chance": 0.55,
       "dialog": "guardia",
       "dialogs": [
+        "guardia-b2-fuochi",
+        "guardia-b1-torcia",
         "guardia-vento",
         "guardia-nebbia",
         "guardia"
@@ -232,6 +234,8 @@
       "chance": 0.45,
       "dialog": "paese",
       "dialogs": [
+        "paese-b2-aquila",
+        "paese-b1-tetti",
         "paese-case",
         "paese-bandiera",
         "paese"
@@ -2012,6 +2016,464 @@
           "sl": "Ko ptice odletijo, mogoče kdo prihaja!",
           "en": "When the birds fly off, maybe someone's coming!",
           "de": "Wenn die Vögel wegfliegen, kommt vielleicht jemand!"
+        }
+      ]
+    },
+    {
+      "id": "guardia-b1-torcia",
+      "level": "B1",
+      "memory": {
+        "it": "la sera di guardia con la torcia",
+        "sl": "večer straže z baklo",
+        "en": "the evening on watch with the torch",
+        "de": "den Abend auf Wache mit der Fackel"
+      },
+      "lines": [
+        {
+          "who": "davide",
+          "it": "Ehi, {learner}! Stasera faccio la guardia sulla torre. Guarda il sole, laggiù sul Sabotino.",
+          "sl": "Ej, {learner}! Nocoj stražim na stolpu. Poglej sonce, tam na Sabotinu.",
+          "en": "Hey, {learner}! Tonight I'm on watch on the tower. Look at the sun, over there on the Sabotino.",
+          "de": "He, {learner}! Heute Abend halte ich Wache auf dem Turm. Schau die Sonne an, da drüben auf dem Sabotino."
+        },
+        {
+          "choices": [
+            {
+              "it": "Sta per tramontare: tra poco accendiamo la torcia!",
+              "sl": "Kmalu bo zašlo: čez malo prižgeva baklo!",
+              "en": "It's about to set: soon we'll light the torch!",
+              "de": "Sie geht gleich unter: Bald zünden wir die Fackel an!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Esatto. Quando il sole va giù, la torcia va su.",
+                "sl": "Tako je. Ko gre sonce dol, gre bakla gor.",
+                "en": "Exactly. When the sun goes down, the torch goes up.",
+                "de": "Genau. Wenn die Sonne runtergeht, geht die Fackel hoch."
+              }
+            },
+            {
+              "it": "Sta per tramontato: tra poco accendiamo la torcia!",
+              "sl": "Kmalu bo zašlo: čez malo prižgeva baklo!",
+              "en": "It's about to set: soon we'll light the torch!",
+              "de": "Sie geht gleich unter: Bald zünden wir die Fackel an!",
+              "grammar": "stare-per",
+              "why": {
+                "sl": "Za stare per pride nedoločnik: sta per tramontare.",
+                "en": "After stare per comes the infinitive: sta per tramontare.",
+                "de": "Nach stare per kommt die Grundform: sta per tramontare."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Tramontato? È già giù? Ma io lo vedo ancora, guarda!",
+                "sl": "Tramontato? Je že zašlo? Saj ga še vidim, poglej!",
+                "en": "Tramontato? Has it already gone? But I can still see it, look!",
+                "de": "Tramontato? Ist sie schon weg? Ich seh sie doch noch, schau!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "curious",
+          "it": "Mi fai compagnia fino alle nove? Poi però vai a dormire, eh!",
+          "sl": "Mi delaš družbo do devetih? Potem pa greš spat, ja!",
+          "en": "Will you keep me company till nine? Then you go to sleep, mind!",
+          "de": "Leistest du mir bis neun Gesellschaft? Dann gehst du aber schlafen, gell!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! Spero di riuscire a restare {m:sveglio|f:sveglia} fino alle nove.",
+              "sl": "Ja! Upam, da mi bo uspelo ostati {m:buden|f:budna} do devetih.",
+              "en": "Yes! I hope I manage to stay awake till nine.",
+              "de": "Ja! Ich hoffe, ich schaffe es, bis neun wach zu bleiben.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ti racconto delle mie pecore: è il modo migliore per restare svegli… o per addormentarsi!",
+                "sl": "Povem ti o svojih ovcah: to je najboljši način, da ostaneš buden … ali da zaspiš!",
+                "en": "I'll tell you about my sheep: it's the best way to stay awake… or to fall asleep!",
+                "de": "Ich erzähl dir von meinen Schafen: Das ist das beste Mittel, um wach zu bleiben … oder einzuschlafen!"
+              }
+            },
+            {
+              "it": "Sì! Spero di riuscire di restare {m:sveglio|f:sveglia} fino alle nove.",
+              "sl": "Ja! Upam, da mi bo uspelo ostati {m:buden|f:budna} do devetih.",
+              "en": "Yes! I hope I manage to stay awake till nine.",
+              "de": "Ja! Ich hoffe, ich schaffe es, bis neun wach zu bleiben.",
+              "grammar": "infinito-preposizioni",
+              "why": {
+                "sl": "Riuscire gre z a: riuscire a restare.",
+                "en": "Riuscire takes a: riuscire a restare.",
+                "de": "Riuscire steht mit a: riuscire a restare."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Riuscire di…? Mmm, due «di» in una frase: uno è di troppo!",
+                "sl": "Riuscire di …? Hm, dva »di« v enem stavku: eden je preveč!",
+                "en": "Riuscire di…? Hmm, two «di» in one sentence: one's too many!",
+                "de": "Riuscire di …? Hm, zwei «di» in einem Satz: Eins ist zu viel!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "Ecco, la torcia è accesa, e il paese dorme tranquillo. Buonanotte, {learner}!",
+          "sl": "Tako, bakla gori, vas pa mirno spi. Lahko noč, {learner}!",
+          "en": "There, the torch is lit, and the village sleeps peacefully. Good night, {learner}!",
+          "de": "So, die Fackel brennt, und das Dorf schläft ruhig. Gute Nacht, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "guardia-b2-fuochi",
+      "level": "B2",
+      "memory": {
+        "it": "i fuochi che parlavano da collina a collina",
+        "sl": "ognje, ki so govorili s hriba na hrib",
+        "en": "the fires that spoke from hill to hill",
+        "de": "die Feuer, die von Hügel zu Hügel sprachen"
+      },
+      "lines": [
+        {
+          "who": "davide",
+          "face": "thinking",
+          "it": "Sai che una volta, dalle torri, si parlava con il fuoco? Un fuoco su questa collina, un altro sul Sabotino, un altro ancora più in là.",
+          "sl": "Veš, da so nekoč s stolpov govorili z ognjem? Ogenj na tem hribu, drugi na Sabotinu, tretji še dlje.",
+          "en": "Did you know that once, from towers, people talked with fire? A fire on this hill, another on the Sabotino, another further still.",
+          "de": "Weißt du, dass man früher von den Türmen aus mit Feuer sprach? Ein Feuer auf diesem Hügel, eins auf dem Sabotino, noch eins weiter weg."
+        },
+        {
+          "who": "davide",
+          "it": "Mio nonno diceva che così una notizia arrivava da Gorizia a Udine in una notte, più veloce di un cavallo.",
+          "sl": "Moj dedek je rekel, da je tako novica v eni noči prišla iz Gorice v Videm, hitreje kot konj.",
+          "en": "My grandfather said that way news got from Gorizia to Udine in one night, faster than a horse.",
+          "de": "Mein Großvater sagte, so kam eine Nachricht in einer Nacht von Görz nach Udine, schneller als ein Pferd."
+        },
+        {
+          "choices": [
+            {
+              "it": "Quindi le notizie venivano passate di collina in collina, con il fuoco?",
+              "sl": "Torej so novice prenašali s hriba na hrib, z ognjem?",
+              "en": "So the news was passed from hill to hill, with fire?",
+              "de": "Die Nachrichten wurden also von Hügel zu Hügel weitergegeben, mit Feuer?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Proprio così. Altro che la radio di Zia Nives!",
+                "sl": "Prav tako. Kakšen radio tete Nives neki!",
+                "en": "Exactly. Never mind Zia Nives's radio!",
+                "de": "Genau. Von wegen Zia Nives' Radio!"
+              }
+            },
+            {
+              "it": "Quindi le notizie venivano passato di collina in collina, con il fuoco?",
+              "sl": "Torej so novice prenašali s hriba na hrib, z ognjem?",
+              "en": "So the news was passed from hill to hill, with fire?",
+              "de": "Die Nachrichten wurden also von Hügel zu Hügel weitergegeben, mit Feuer?",
+              "grammar": "passivo-venire-andare",
+              "why": {
+                "sl": "Pri venire se deležnik ujema: le notizie venivano passate.",
+                "en": "With venire the participle agrees: le notizie venivano passate.",
+                "de": "Bei venire richtet sich das Partizip: le notizie venivano passate."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Passato? Le notizie sono tante, e sono femmine, {learner}! Riprova.",
+                "sl": "Passato? Novic je veliko, in so ženskega spola, {learner}! Še enkrat.",
+                "en": "Passato? There are lots of news items, and they're feminine, {learner}! Try again.",
+                "de": "Passato? Die Nachrichten sind viele, und sie sind weiblich, {learner}! Nochmal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "curious",
+          "it": "Oggi abbiamo i telefoni, e nessuno accende più fuochi sulle colline. Secondo te, abbiamo perso qualcosa?",
+          "sl": "Danes imamo telefone, in nihče več ne prižiga ognjev na hribih. Kaj misliš, smo kaj izgubili?",
+          "en": "Today we have phones, and nobody lights fires on the hills any more. Do you think we've lost something?",
+          "de": "Heute haben wir Telefone, und niemand zündet mehr Feuer auf den Hügeln an. Haben wir etwas verloren, meinst du?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Un po' sì: un fuoco sulla collina è più bello di un messaggio, anche se è più lento.",
+              "sl": "Malo ja: ogenj na hribu je lepši od sporočila, čeprav je počasnejši.",
+              "en": "A bit, yes: a fire on the hill is nicer than a message, even if it's slower.",
+              "de": "Ein bisschen schon: Ein Feuer auf dem Hügel ist schöner als eine Nachricht, auch wenn es langsamer ist.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Lo penso anch'io. Un messaggio lo legge uno, un fuoco lo vede tutta la valle.",
+                "sl": "Tudi jaz tako mislim. Sporočilo prebere eden, ogenj vidi vsa dolina.",
+                "en": "I think so too. One person reads a message, the whole valley sees a fire.",
+                "de": "Das denk ich auch. Eine Nachricht liest einer, ein Feuer sieht das ganze Tal."
+              }
+            },
+            {
+              "it": "No, perché i fuochi sulle colline non hanno mai funzionato.",
+              "sl": "Ne, ker ognji na hribih nikoli niso delovali.",
+              "en": "No, because the fires on the hills never worked.",
+              "de": "Nein, weil die Feuer auf den Hügeln nie funktioniert haben.",
+              "why": {
+                "sl": "Davide pravi, da so novice z ognji prišle v eni noči do Vidma: delovali so.",
+                "en": "Davide says the fires carried news to Udine in one night: they worked.",
+                "de": "Davide sagt, die Feuer brachten Nachrichten in einer Nacht bis Udine: Sie haben funktioniert."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Mai funzionato? Ma se arrivavano a Udine in una notte! Te l'ho appena detto.",
+                "sl": "Nikoli delovali? Saj so prišle v Videm v eni noči! Pravkar sem ti povedal.",
+                "en": "Never worked? But they got to Udine in one night! I've just told you.",
+                "de": "Nie funktioniert? Die kamen doch in einer Nacht bis Udine! Hab ich dir gerade gesagt."
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "Allora stasera accendiamo la torcia e mandiamo un saluto al Sabotino. Buonanotte, {learner}!",
+          "sl": "Potem nocoj prižgeva baklo in pošljeva pozdrav Sabotinu. Lahko noč, {learner}!",
+          "en": "Then tonight we'll light the torch and send a hello to the Sabotino. Good night, {learner}!",
+          "de": "Dann zünden wir heute die Fackel an und schicken dem Sabotino einen Gruß. Gute Nacht, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "paese-b1-tetti",
+      "level": "B1",
+      "memory": {
+        "it": "i tetti del paese contati dalla torre",
+        "sl": "strehe vasi, preštete s stolpa",
+        "en": "the village roofs counted from the tower",
+        "de": "die Dächer des Dorfes, vom Turm gezählt"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "it": "Buongiorno, {learner}. Da quassù si vede tutto il paese. Io conto i tetti: uno, due, tre…",
+          "sl": "Dober dan, {learner}. Od tod se vidi vsa vas. Jaz štejem strehe: ena, dve, tri …",
+          "en": "Good morning, {learner}. From up here you can see the whole village. I'm counting the roofs: one, two, three…",
+          "de": "Guten Morgen, {learner}. Von hier oben sieht man das ganze Dorf. Ich zähle die Dächer: eins, zwei, drei …"
+        },
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "È quasi mezzogiorno. Vedi qualcuno in piazza?",
+          "sl": "Skoraj poldne je. Vidiš koga na trgu?",
+          "en": "It's nearly noon. Can you see anyone on the square?",
+          "de": "Es ist fast Mittag. Siehst du jemanden auf dem Platz?"
+        },
+        {
+          "choices": [
+            {
+              "it": "No, non c'è nessuno: sono tutti a pranzo!",
+              "sl": "Ne, nikogar ni: vsi so na kosilu!",
+              "en": "No, there's nobody: they're all at lunch!",
+              "de": "Nein, da ist niemand: Alle sind beim Mittagessen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto. A mezzogiorno il paese è a tavola. Anch'io, fra poco.",
+                "sl": "Prav. Opoldne je vas pri mizi. Tudi jaz bom kmalu.",
+                "en": "Right. At noon the village is at the table. Me too, soon.",
+                "de": "Richtig. Mittags sitzt das Dorf am Tisch. Ich auch, gleich."
+              }
+            },
+            {
+              "it": "No, non c'è qualcuno: sono tutti a pranzo!",
+              "sl": "Ne, nikogar ni: vsi so na kosilu!",
+              "en": "No, there's nobody: they're all at lunch!",
+              "de": "Nein, da ist niemand: Alle sind beim Mittagessen!",
+              "grammar": "indefiniti",
+              "why": {
+                "sl": "Zanikano qualcuno je nessuno: non c'è nessuno.",
+                "en": "The no of qualcuno is nessuno: non c'è nessuno.",
+                "de": "Das Nein zu qualcuno ist nessuno: non c'è nessuno."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Non c'è qualcuno? Allora qualcuno c'è o no? Conta bene, {learner}.",
+                "sl": "Ne kdo? Je potem kdo ali ni? Dobro preštej, {learner}.",
+                "en": "Not someone? So is someone there or not? Count carefully, {learner}.",
+                "de": "Nicht jemand? Ist jetzt jemand da oder nicht? Zähl gut, {learner}."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "thinking",
+          "it": "Ieri Lorenzo mi ha fatto una domanda: «Nonno, quante case ci sono in paese?» Ripeti tu: che cosa mi ha chiesto?",
+          "sl": "Včeraj mi je Lorenzo zastavil vprašanje: »Dedek, koliko hiš je v vasi?« Ponovi ti: kaj me je vprašal?",
+          "en": "Yesterday Lorenzo asked me a question: «Grandpa, how many houses are there in the village?» You repeat it: what did he ask me?",
+          "de": "Gestern hat mir Lorenzo eine Frage gestellt: «Opa, wie viele Häuser gibt es im Dorf?» Wiederhol du: Was hat er mich gefragt?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Le ha chiesto quante case ci sono in paese.",
+              "sl": "Vprašal vas je, koliko hiš je v vasi.",
+              "en": "He asked you how many houses there are in the village.",
+              "de": "Er hat Sie gefragt, wie viele Häuser es im Dorf gibt.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Esatto. E io gli ho detto: contale tu, dalla torre!",
+                "sl": "Tako je. In jaz sem mu rekel: preštej jih ti, s stolpa!",
+                "en": "Exactly. And I told him: count them yourself, from the tower!",
+                "de": "Genau. Und ich hab ihm gesagt: Zähl sie selbst, vom Turm aus!"
+              }
+            },
+            {
+              "it": "Le ha chiesto se quante case ci sono in paese.",
+              "sl": "Vprašal vas je, koliko hiš je v vasi.",
+              "en": "He asked you how many houses there are in the village.",
+              "de": "Er hat Sie gefragt, wie viele Häuser es im Dorf gibt.",
+              "grammar": "discorso-indiretto",
+              "why": {
+                "sl": "Vprašanje z vprašalnico jo obdrži: chiede quante. Se je samo za da ali ne.",
+                "en": "A question with a question word keeps it: chiede quante. Se is only for yes or no.",
+                "de": "Eine Frage mit Fragewort behält es: chiede quante. Se ist nur für Ja-Nein-Fragen."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Se quante? Mmm, o «se» o «quante», tutti e due no. Riprova.",
+                "sl": "Se quante? Hm, ali »se« ali »quante«, oboje ne. Še enkrat.",
+                "en": "Se quante? Hmm, either «se» or «quante», not both. Try again.",
+                "de": "Se quante? Hm, entweder «se» oder «quante», nicht beides. Nochmal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Allora contiamole insieme. Un tetto, due tetti… Un mugnaio conta sempre!",
+          "sl": "Potem jih preštejva skupaj. Ena streha, dve strehi … Mlinar vedno šteje!",
+          "en": "Then let's count them together. One roof, two roofs… A miller always counts!",
+          "de": "Dann zählen wir sie zusammen. Ein Dach, zwei Dächer … Ein Müller zählt immer!"
+        }
+      ]
+    },
+    {
+      "id": "paese-b2-aquila",
+      "level": "B2",
+      "memory": {
+        "it": "la bandiera con l'aquila d'oro",
+        "sl": "zastavo z zlatim orlom",
+        "en": "the flag with the golden eagle",
+        "de": "die Fahne mit dem goldenen Adler"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Guarda la bandiera sulla torre: l'aquila d'oro sul blu. È la bandiera del Friuli.",
+          "sl": "Poglej zastavo na stolpu: zlati orel na modrem. To je zastava Furlanije.",
+          "en": "Look at the flag on the tower: the golden eagle on blue. It's the flag of Friuli.",
+          "de": "Schau die Fahne auf dem Turm an: der goldene Adler auf Blau. Das ist die Fahne von Friaul."
+        },
+        {
+          "who": "franco",
+          "it": "Il tre aprile si fa festa per un giorno di quasi mille anni fa. Mio nonno diceva: chi dimentica la sua storia, la perde due volte.",
+          "sl": "Tretjega aprila praznujemo dan izpred skoraj tisoč let. Moj dedek je rekel: kdor pozabi svojo zgodovino, jo izgubi dvakrat.",
+          "en": "On the third of April we celebrate a day from nearly a thousand years ago. My grandfather said: whoever forgets their history loses it twice.",
+          "de": "Am dritten April feiert man einen Tag von vor fast tausend Jahren. Mein Großvater sagte: Wer seine Geschichte vergisst, verliert sie zweimal."
+        },
+        {
+          "choices": [
+            {
+              "it": "Quindi la festa ricorda una storia più vecchia di tutte le case del paese.",
+              "sl": "Torej praznik spominja na zgodbo, starejšo od vseh hiš v vasi.",
+              "en": "So the feast remembers a story older than all the houses in the village.",
+              "de": "Das Fest erinnert also an eine Geschichte, älter als alle Häuser im Dorf.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Proprio così. Più vecchia del mulino, della chiesa, di tutto.",
+                "sl": "Prav tako. Starejšo od mlina, cerkve, vsega.",
+                "en": "Exactly. Older than the mill, the church, everything.",
+                "de": "Genau. Älter als die Mühle, die Kirche, alles."
+              }
+            },
+            {
+              "it": "Quindi la festa è nata l'anno scorso.",
+              "sl": "Torej je praznik nastal lani.",
+              "en": "So the feast started last year.",
+              "de": "Das Fest ist also letztes Jahr entstanden.",
+              "why": {
+                "sl": "Franco pravi, da praznik spominja na dan izpred skoraj tisoč let.",
+                "en": "Franco says the feast remembers a day from nearly a thousand years ago.",
+                "de": "Franco sagt, das Fest erinnert an einen Tag von vor fast tausend Jahren."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "L'anno scorso? Quasi mille anni fa, {learner}! Più vecchia di Bepi, e di molto!",
+                "sl": "Lani? Pred skoraj tisoč leti, {learner}! Starejša od Bepija, in to precej!",
+                "en": "Last year? Nearly a thousand years ago, {learner}! Older than Bepi, by a long way!",
+                "de": "Letztes Jahr? Vor fast tausend Jahren, {learner}! Älter als Bepi, und zwar viel!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Adesso anche tu sei un po' {m:friulano|f:friulana}. Che cosa ti piacerebbe fare alla festa del tre aprile?",
+          "sl": "Zdaj si tudi ti malo {m:Furlan|f:Furlanka}. Kaj bi {m:rad naredil|f:rada naredila} na prazniku tretjega aprila?",
+          "en": "Now you're a bit Friulian too. What would you like to do at the third of April feast?",
+          "de": "Jetzt bist du auch ein bisschen {m:Friauler|f:Friaulerin}. Was würdest du gern beim Fest am dritten April machen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Porterei la gubana di Rosa, e la farei assaggiare a tutti!",
+              "sl": "{m:Prinesel|f:Prinesla} bi Rosino gubano in jo {m:dal|f:dala} poskusiti vsem!",
+              "en": "I'd bring Rosa's gubana, and have everyone taste it!",
+              "de": "Ich würde Rosas Gubana mitbringen und sie alle probieren lassen!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, la gubana di Rosa! Con quella, la festa dura tre giorni.",
+                "sl": "Ah, Rosina gubana! S tisto praznik traja tri dni.",
+                "en": "Ah, Rosa's gubana! With that, the feast lasts three days.",
+                "de": "Ah, Rosas Gubana! Damit dauert das Fest drei Tage."
+              }
+            },
+            {
+              "it": "Porterei la gubana di Rosa, e farei assaggiare tutti la gubana!",
+              "sl": "{m:Prinesel|f:Prinesla} bi Rosino gubano in jo {m:dal|f:dala} poskusiti vsem!",
+              "en": "I'd bring Rosa's gubana, and have everyone taste it!",
+              "de": "Ich würde Rosas Gubana mitbringen und sie alle probieren lassen!",
+              "grammar": "fare-lasciare",
+              "why": {
+                "sl": "Ko je stvar zraven, dobi tisti, ki dela, a: farei assaggiare la gubana a tutti.",
+                "en": "With a thing as well, the one who does it takes a: farei assaggiare la gubana a tutti.",
+                "de": "Mit einer Sache dabei bekommt der Handelnde a: farei assaggiare la gubana a tutti."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Assaggiare tutti? Mmm, sembra che tu voglia assaggiare i vicini! Ah, ah!",
+                "sl": "Assaggiare tutti? Hm, zveni, kot da bi {m:hotel|f:hotela} poskusiti sosede! Ha, ha!",
+                "en": "Assaggiare tutti? Hmm, sounds like you want to taste the neighbours! Ha, ha!",
+                "de": "Assaggiare tutti? Hm, klingt, als wolltest du die Nachbarn probieren! Ha, ha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Allora il tre aprile ci vediamo in piazza, con la bandiera e la gubana. Un mugnaio non dimentica mai una festa!",
+          "sl": "Potem se tretjega aprila vidimo na trgu, z zastavo in gubano. Mlinar nikoli ne pozabi praznika!",
+          "en": "Then on the third of April we'll meet on the square, with the flag and the gubana. A miller never forgets a feast!",
+          "de": "Dann sehen wir uns am dritten April auf dem Platz, mit Fahne und Gubana. Ein Müller vergisst nie ein Fest!"
         }
       ]
     }
