@@ -187,10 +187,23 @@ wrong options (*odšal*, *uidla*, *vzami*) stay unknown on purpose.
 
 ## Checks
 
-On this branch (base main f9339ab8): tsc; the smoke with ports 10510–10529; `check-practice.ts sl`; the smoke's `practice`
-section with Slovene in it (modules in each base, each level A1–B2 with its modules and their order, givers in the cast, the
-drills to B2 in every kind, Jan's six and the pace); the grammar smoke reading the modules per base; `tutor-export --check`;
-the Android suite through lani-slot.sh; Python. The numbers are in the final section's report to the lead.
+On this branch, base main f9339ab8 (main hasn't moved since):
+- Bridge (b808933e): tsc; the smoke with ports 10510–10529, all 3,729 checks passed, its `practice` section with Slovene
+  in it (each module valid in en, de and it; A1–B2 with six modules each in their order; givers in the cast; the drills
+  to B2 in every kind; Jan's six and the pace on the real files) and the grammar section reading the modules per base;
+  `check-practice.ts sl`; `tutor-export --check` (140 files); each edited TypeScript test file built (`bun build --no-bundle`).
+  The first full run found the case lens unsure of *na kozolec* after the supplement listed *kozolec* as nominative only:
+  fixed (5d9df431), the second run passed.
+- Android (b808933e plus the test commit): the full unit suite, 4,101 tests, 0 failures, with the new `SlovenePracticeTest`
+  (4) and `GrammarTest` reading the modules as served.
+- Python: `tests` and `companion/tests` OK.
+- Tap coverage: above, before and after.
+- QA through `qa-slot` (slot 2, the APK of this branch), `--steps practice-sl` on a synthetic learner of Slovene at B1
+  (make-learner.ts, its profile's level set to B1; screenshots psl-*.png): the bridge offered one module with its request,
+  `kje-kam-od-kod` (A2), nothing of B2; ✨ on Home, the sheet, the module's card (Babica Micka hosts it: in the fixture Pastir
+  Luka lives in the village but isn't met yet, as practice-it saw with Italian), its first choice answered and its why in
+  English with the three pages it opens. Not run: the car on a phone with clips (nothing new is voiced), a real Jan-like
+  village with the six played (the smoke covers the pace on the real files), Teo's tablet (Slovene isn't served there).
 
 ## What's left
 
