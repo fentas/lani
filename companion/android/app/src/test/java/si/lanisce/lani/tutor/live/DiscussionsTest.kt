@@ -122,7 +122,7 @@ class DiscussionsTest {
             "### Item\n\n`{\"kind\":\"pack\",\"pack_id\":\"praznik-trgatev\",\"word_id\":\"skarje\"}`\n\n" +
                 "### What is wrong\n\n\"škarje\" is glossed as knife; it means scissors.\n\n" +
                 "### Suggested fix\n\nscissors\n\n" +
-                "native check: a native speaker should check this Slovene (machine-written)\n\n" +
+                "native check: a native speaker should check this text (machine-written)\n\n" +
                 "Reported from the Lani app's tutor.",
             body,
         )

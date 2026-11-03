@@ -10,6 +10,13 @@ export const LANG = /^[a-z]{2,3}$/
 
 const str = z.string().trim().min(1)
 
+/**
+ * A published item ([item], as the tutor sent it) in [language] when it doesn't say which: "language" left out means
+ * the village's, in every village (the formats' own default is Slovene, for files older than the other languages).
+ */
+export const inVillageLanguage = (item: unknown, language: string): unknown =>
+  item && typeof item === 'object' && !Array.isArray(item) ? { language, ...(item as object) } : item
+
 /** {"it": "Nonna", "sl": "Babica", "en": "Grandmother"}: at least one language. */
 export const langText = (max = 400) =>
   z.record(z.string().regex(LANG, 'a language code (sl, en, it …)'), str.max(max)).refine(t => Object.keys(t).length > 0, 'a text in at least one language')

@@ -2,7 +2,7 @@
 import { z } from 'zod'
 import { topicsLookedUp } from '../cards'
 import { ok } from '../tool'
-import { cultureFestivals, cultureSpots } from '../cultures'
+import { cultureFestivals, cultureSpots, tutorOf } from '../cultures'
 import { cyclesNow } from '../spot-cycles'
 import { givesWood, kopaWood } from '../game'
 import type { FeatureFactory } from '../feature'
@@ -79,7 +79,8 @@ congratulate Jan, or ask about the party, in the chat; the app plays it, you don
 const gamePut = z.object({ rev: z.number().int().min(0), state: z.record(z.string(), z.unknown()) })
 
 export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar, events, learner, log }) => ({
-  instructions,
+  // the village game's name as this village has it
+  instructions: instructions.replace('"Moja vas"', `"${tutorOf(culture.manifest).village}"`),
   routes: [
     {
       method: 'GET',

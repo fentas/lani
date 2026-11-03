@@ -6,6 +6,7 @@ import { badNote, fail, noteIn, ok } from '../tool'
 import { ARRIVAL_SCHEMA, cultureArrivals, residentIds, validateArrival } from '../arrivals'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'
+import { inVillageLanguage } from '../langs'
 import { LANGUAGES } from '../learners'
 import { FACES_SAID } from '../scenes'
 
@@ -79,7 +80,7 @@ export const arrivals: FeatureFactory = ctx => {
         },
         handle: args => {
           const who = people()
-          const v = validateArrival(args.arrival, { language, people: who })
+          const v = validateArrival(inVillageLanguage(args.arrival, language), { language, people: who })
           if (!v.ok) return fail(`arrival invalid, nothing published:\n${v.errors}`)
           if (who && !who.includes(v.arrival.id)) return fail(`arrival invalid, nothing published:\n✖ id: "${v.arrival.id}" doesn't live in the village (nor is of the cast)`)
           const note = noteIn.safeParse(args.note)
