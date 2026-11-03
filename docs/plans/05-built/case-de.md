@@ -136,6 +136,8 @@ village get no case row, as before. GET /state says `cases` in a German village 
   the German book, its 54 examples through the lens, the bank's spread and what its checks catch, the lens against the
   bank's gold and on the held-out lines, the forms fixture, `stateFeatures`) and `caseDeLive` in the Kärnten village's bridge (GET /cases, GET
   /lookup with and without `lens=2`, POST /case-lens, the tools, POST /cases/done); `tutor-export --check`.
+- `bun test/case-lens-de-eval.ts [bank|heldout|content] [-v]`: the lens on the bank's gold, the held-out lines and over
+  every German content line.
 - Python: `test_case_triggers_de.py` (the JSON is the script's).
 - App: `CaseTrainerDeTest` (the set, the bank, the forms' parity, Dekliniere, the n-Deklination, the noun's sure slots,
   a which item, sessions and a child's, the storm, the lens's lines), the existing case tests.
