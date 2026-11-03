@@ -20,8 +20,8 @@ Austrian German first. **The first three are questions a dictionary didn't settl
    verb-second clause. Search extracts only ([a term paper on Duden and Eisenberg](https://www.hausarbeiten.de/document/174297):
    Duden mostly rejects it as not correct). Taught as "people say it, write the verb last".
 
-Then the Austrian words, from memory, **not looked up**: der Kasten (Germany: Schrank), das Häferl, die Semmel, die Erdäpfel, der Paradeiser,
-der Topfen, der Rahm, der Krapfen; aufsperren; Jänner.
+Then the Austrian words, from memory, **not looked up**: das Häferl, die Semmel, die Erdäpfel, der Paradeiser, der Topfen, der Rahm, der Krapfen;
+aufsperren; Jänner. (der Kasten for Germany's Schrank was read in part a's source: [de.wiktionary](https://de.wiktionary.org/wiki/Kasten).)
 
 Then the sentences, for naturalness:
 
@@ -111,8 +111,19 @@ A voice build of these six units in Eva's voice would take about **5,900 charact
 - `school-prints --language de --level A2` in sl, en and it: all six fit, `groesser-als` and `weil-denn` on one page, the others on two; no word left without a meaning (`--explain`).
 - Emulator QA (slot 1, `--steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=adjektiv-ein`): a synthetic learner of German from Slovene plays the five steps with each quick question, the summary, the first sheet and the test, passed, the next unit named, and prints the A4 sheet to a PDF. Setup, course-unit and the crash check ok. 18 screenshots (cu-*.png) in the scratchpad's `ux-course-de-a2-c/`. The print says "Lektion 2" because A2's units 1–12 aren't on this branch; it becomes 14 once they are merged.
 
+## The integration (part c's)
+
+Parts a (8217e114) and b (957a2000) merged in that order, with merges; main had not moved past the base.
+
+- **The supplement.** json3merge's union was 2,804 entries, 2,751 different words: it keeps a changed entry beside its base, and part b had 26 twice, part a `liegen` and `aufräumen`. Joined by lemma, part of speech and gender: **2,751 entries, 81 new against the base's 2,670**, every lemma and every form of the base and each part checked present (a script over `git show` of the four revisions). Ten words came out with two wordings of one meaning; each keeps one, `putzen` both its senses in a line.
+- **The grading.** 47 rules, each part's all there (20 of the base, 12 of a, 11 of b, 5 of c, one in common).
+- **The outline.** All 18 of A2 written. "Once merged, also": `pronomen-dativ` on `reflexiv`, in the unit and its outline line: the level's only one. B1's and B2's stay for their levels.
+- **COURSE.md** has A2's three sections and the German course's outline line, the README 35 German pages (15 A1, 20 A2) and their list; `GermanCourseContentTest` already reads every unit, and its comment says so.
+- **The prints' numbers** came right on their own: A2's lessons 1 to 18 in the outline's order.
+- **`partizip-perfekt`'s print didn't fit** (in any base, on part b's branch too: nothing in the smoke checks that a unit fits, only `school-prints` does). Its intro's table had 22 rows. Six are off (gehen, anrufen, bekommen, einschlafen, verkaufen, setzen; the step's words still name them): two pages in sl, en and it, with room.
+- **`markEndings`** (`prints/sheet.ts`). A column's stem was the longest prefix most cells share, and in `ein großer, einen großen, einem großen …` that is `großen`, a whole word: it left nothing to mark, and `großer` didn't start with it. Now a stem that is the whole word of every cell sharing it gives way to the shorter one that takes in the odd cell, if what that leaves is an ending (three letters at most). Checked against every table and example of every sheet of every course, level and base (522 sheets, before and after): only `adjektiv-der`, `adjektiv-ein` and `adjektiv-null` change, and they were the ones missing their marks. It marks what differs, große⟦r⟧ and große⟦n⟧, as kleine⟦n⟧ already did: a column can't tell the adjective's stem from its -e. The smoke's prints section has the case, and two that must stay unmarked.
+
 ## What's left
 
-- **The integration, part c's by the brief, when the lead says so:** parts a and b merged here; `resolve-outline.py`, `json3merge.py` and `qa-steps-union.py`; the supplement deduped by lemma and part of speech (above); COURSE.md's "The German course" (its outline still says A1, and a section for A2's units), the README, the docs' page counts, the course's content test; the full checks; a parse-check of every merged TypeScript test file.
-- **The print's marks.** `markEndings` marks the odd ending out in a column, so where most of a column is -en (ein großer, einen großen, einem großen …) it leaves -er unmarked. Not wrong, but the form this unit is about isn't highlighted. A change to `sheet.ts` is code: for the lead to decide.
-- **Voices**: nothing was spent.
+- The native check, first in this doc and in parts a's and b's.
+- **Voices**: nothing was spent. See each part's "Voice" for its characters.

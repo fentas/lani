@@ -1945,7 +1945,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 52 pages (15 A1, 19 A2, 18 B1), German 21 (15 A1, 6 A2) and English 22 (18 A1, 4 A2), each course adding
+Italian has 52 pages (15 A1, 19 A2, 18 B1), German 35 (15 A1, 20 A2) and English 22 (18 A1, 4 A2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):
@@ -1967,8 +1967,11 @@ Slovene, English and Italian; English in Slovene, Italian and German, and Englis
   the tent's page), `sein-haben`, `praesens`, `wortstellung` (the verb in second place), `nebensatz` (the verb at the
   end), `du-sie`, `trennbare-verben`, `perfekt`, `plural`, `kein-nicht`, `modalverben` and `fragen`; and `imperativ`
   (komm, kommt, kommen Sie), `possessiv` (mein Hund, deine Katze), `uhrzeit` (um sieben, am Montag), `vokalwechsel`
-  (ich fahre, du fährst) and `zahlen`. `dativ`, `wechselpraepositionen`, `nebensatz`, `trennbare-verben`, `perfekt` and
-  `modalverben` are A2, the rest A1.
+  (ich fahre, du fährst) and `zahlen`; and for A2's units, `pronomen-dativ` (mir, dir, ihm), `praepositionen-dativ`,
+  `praepositionen-akkusativ`, `stehen-stellen` (stehen and stellen, liegen and legen), `partizip-zwei`, `praeteritum-kurz`
+  (war, hatte), `reflexive-verben`, `verben-praepositionen` (warten auf), `ordinalzahlen`, `adjektiv-der`, `adjektiv-ein`,
+  `adjektiv-null` (the adjective's endings), `steigerung` (größer als, am größten) and `konnektoren` (und, denn, deshalb, weil).
+  Those and `dativ`, `wechselpraepositionen`, `nebensatz`, `trennbare-verben`, `perfekt` and `modalverben` are A2, the rest A1.
 - **English** (`grammar/en/`, lakeland): `articles`, `plurals` (one sheep, two sheep), `to-be` (I'm ten), `to-have`,
   `present-simple`, `present-continuous`, `questions-do`, `past-simple`, `present-perfect`, `future` (going to, will),
   `can`, `there-is-are`, `some-any`, `prepositions-place` (by the pond, next to the jetty: the tent's page),
