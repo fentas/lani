@@ -178,7 +178,7 @@ The variants, scene by scene (the turns' pages; "understanding": a B2 turn whose
 
 ## Words: the supplement
 
-`companion/lexicon/en.extra.json`: **155 new entries and 50 forms joined** to entries already there (pushed → push,
+`companion/lexicon/en.extra.json`: **155 new entries and 51 forms joined** to entries already there (pushed → push,
 father's → father, Skiddaw's → Skiddaw), every meaning in sl, de and it: the words a tap meets in the new lines,
 choices, reactions and whys (fuss, blame, wheelwright, clapper, heafed, citronella, scabious, sethera), the noun with is
 or has as its own form (the beck's, the lid's, the pump's: "the lid is, the lid has"), possessives. The learner's wrong
@@ -204,7 +204,32 @@ main (dialog-levels.md, "Older apps"): a bridge from before strips `level`.
 
 ## Checks
 
-(filled in below once the runs are through)
+On 9fad37d7 and 7560519f (the content and the supplement complete):
+- `bun test/check-culture.ts lakeland`: ok (the levels' rules and every turn's page at most one level above its dialog's),
+  after each scene; the converter that wrote the variants also checked the guide's shape (3–8 lines, the person first
+  and last, 2–3 choices a turn with a wrong one, a why and a reaction for each wrong one, reactions of at most 80
+  characters that don't say the right choice's words, no two choices sharing a reply, every text at most 200 characters
+  for a man and for a woman, pages of the en book).
+- The bridge smoke with ports 10650–10669 (LANI_SMOKE_DRAMA3_PORT 10668), through lani-slot.sh: **3,723 checks, all
+  passed** (dialog-levels, scenes, variants, the Lake District's pages, the supplement).
+- `bunx tsc --noEmit -p .`: 0. `bun src/cli/tutor-export.ts --check`: 140 files match. `bun test/prompt-clashes.ts`: no new
+  clash (339 in the baseline; no pack word added).
+- `validateExtra` on en.extra.json: 2,982 entries, no error.
+- The Android scene tests (DialogReactionsTest, WhoAnswersTest, DialogLevelsTest, VariantsContentTest, CultureScenesTest):
+  **38 tests, 0 failures** through lani-slot.sh (with ScenesContentTest), on 7560519f. The first run failed one test:
+  DialogReactionsTest found 14 reactions to a word-order or have-it-done mistake that quoted the learner's choice and
+  with it a word the right choice has elsewhere ("Pick up it?" says it, "Look her after?" says her, "Enough tight?"
+  says tight); they answer without quoting it now (7560519f). The whole Android suite comes with the gate.
+- Emulator QA through `qa-slot` (slot 1), a synthetic Lake District learner (make-learner.ts --target en --base sl,
+  LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-sl): the model's `dialog-levels` step, copied uncommitted and pointed at
+  two of these scenes, Arthur's evening at the bees and Mr Dixon's horseshoe at the smithy: the bridge serves each scene's
+  B1 and B2 variants with their levels and an older app's `?arts=6` none of them; at QA's `level:B2` `evening-b2-father`
+  and `horseshoe-b2-gates` open with their first lines, at `level:B1` `evening-b1-dark` and `horseshoe-b1-kick`; at
+  `level:B1` the B2 one asked for isn't there and at `level:A1` the B1 one isn't: the happening's own dialog plays ("Every
+  pony in the dale needs shoes"), nothing new. setup ok, dialog-levels ok, crash check ok. Screenshots:
+  scratchpad `ux-dialogs-lakeland/levels-*.png` (eight). A first run with the default setup pair (sl-en) failed in setup:
+  a learner of English sees "Friends · Prijatelji", English first, so QA needs `LANI_QA_SETUP_PAIR=en-sl`, and the step's
+  "Zapri · Close" is `say("common.close")` there.
 
 ## What's left
 
