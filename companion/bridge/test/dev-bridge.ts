@@ -114,6 +114,50 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
     practise: "*I'd like*, *how much is it?*",
   },
 }
+/**
+ * A B1 or B2 role-play's canned lines (its brief's level), over its language's A1 ones: a story asked for, a problem
+ * weighed, a deal settled, with the level's forms (the imperfetto beside the passato prossimo at B1, the congiuntivo and
+ * the unreal past at B2). Neither tu nor Lei, so they fit a child's talk with a friend and a grown-up's at the counter.
+ * Machine-written, for QA only.
+ */
+const ROLEPLAY_LEVELS: Record<string, Partial<Record<string, Partial<(typeof ROLEPLAY)[string]>>>> = {
+  it: {
+    // the B1 talks (companion/scenarios/it: the broken kite, the stickers, the swing, the ankle, Lorenzo, the cat)
+    B1: {
+      hint: { sl: 'Mentre giocavo, è successa una cosa strana.', en: 'While I was playing, something strange happened.', de: 'Während ich gespielt habe, ist etwas Komisches passiert.', sl_base: 'Med igro se je zgodilo nekaj čudnega.' },
+      puzzled: { sl: 'Scusa, non ho capito bene. Me lo ripeti?', en: "Sorry, I didn't quite get that. Will you say it again?", de: 'Entschuldige, das habe ich nicht ganz verstanden. Sagst du es noch mal?', sl_base: 'Oprosti, ne razumem čisto. Mi ponoviš?' },
+      turns: [
+        { sl: 'Ah, capisco. E poi che cosa è successo?', en: 'Ah, I see. And then what happened?', de: 'Ah, verstehe. Und was ist dann passiert?', sl_base: 'Aha, razumem. Pa kaj se je zgodilo potem?' },
+        { sl: 'Davvero? Hai fatto bene a dirmelo.', en: 'Really? You were right to tell me.', de: 'Wirklich? Gut, dass du es mir sagst.', sl_base: 'Res? Prav je, da mi to poveš.' },
+        { sl: 'Va bene, allora facciamo così.', en: "All right, let's do it like that, then.", de: 'Gut, dann machen wir es so.', sl_base: 'Prav, potem naredimo tako.' },
+        { sl: 'Grazie mille! Ci vediamo presto!', en: 'Thanks a lot! See you soon!', de: 'Vielen Dank! Bis bald!', sl_base: 'Najlepša hvala! Se kmalu vidimo!' },
+      ],
+      correction: {
+        en: 'Si dice: **Mentre giocavo, è arrivato il temporale.** · the imperfetto for what was going on, the passato prossimo for what happened.',
+        de: 'Man sagt: **Mentre giocavo, è arrivato il temporale.** · das Imperfetto für das, was gerade lief, das Passato prossimo für das, was passiert ist.',
+        sl: 'Rečemo: **Mentre giocavo, è arrivato il temporale.** · imperfetto za to, kar je potekalo, passato prossimo za to, kar se je zgodilo.',
+      },
+      practise: '*mentre + imperfetto*, *vorrei*',
+    },
+    // the B2 talks (the cancelled train, the landslide, the smith's gate, the interview, the family doctor, Davide)
+    B2: {
+      hint: { sl: "Capisco, però credo che ci sia un'altra soluzione.", en: "I understand, but I think there's another solution.", de: 'Ich verstehe, aber ich glaube, es gibt eine andere Lösung.', sl_base: 'Razumem, a mislim, da obstaja druga rešitev.' },
+      puzzled: { sl: 'Temo di non aver capito bene. Ancora una volta?', en: "I'm afraid I didn't quite understand. Once more?", de: 'Ich fürchte, ich habe das nicht ganz verstanden. Noch einmal?', sl_base: 'Bojim se, da tega ne razumem čisto. Še enkrat?' },
+      turns: [
+        { sl: 'Capisco perfettamente. Mi dispiace che sia andata così.', en: "I understand completely. I'm sorry it turned out like that.", de: 'Das verstehe ich gut. Es tut mir leid, dass es so gelaufen ist.', sl_base: 'Popolnoma razumem. Žal mi je, da se je tako izteklo.' },
+        { sl: "Se l'avessimo saputo prima, avremmo trovato una soluzione.", en: "If we'd known earlier, we'd have found a solution.", de: 'Hätten wir das früher gewusst, hätten wir eine Lösung gefunden.', sl_base: 'Če bi to vedeli prej, bi našli rešitev.' },
+        { sl: 'Benché non sia facile, vediamo che cosa si può fare.', en: "Although it isn't easy, let's see what can be done.", de: 'Auch wenn es nicht leicht ist: Schauen wir, was sich machen lässt.', sl_base: 'Čeprav ni lahko, poglejmo, kaj se da narediti.' },
+        { sl: "D'accordo, allora restiamo così. Grazie e buona giornata!", en: "Agreed, that's settled, then. Thank you and have a good day!", de: 'Einverstanden, dann bleibt es dabei. Danke und einen schönen Tag!', sl_base: 'Dogovorjeno, potem ostane tako. Hvala in lep dan!' },
+      ],
+      correction: {
+        en: "Si dice: **Se l'avessi saputo, avrei preso il treno prima.** · an unreal past: se + the congiuntivo trapassato, then the condizionale passato.",
+        de: "Man sagt: **Se l'avessi saputo, avrei preso il treno prima.** · Für eine Vergangenheit, die nicht so war: se + Congiuntivo trapassato, dann Condizionale passato.",
+        sl: "Rečemo: **Se l'avessi saputo, avrei preso il treno prima.** · za preteklost, ki ni bila taka: se + congiuntivo trapassato, nato condizionale passato.",
+      },
+      practise: '*se avessi …, avrei …*, *penso che + congiuntivo*',
+    },
+  },
+}
 const DEBRIEF: Said = {
   en: '✅ You greeted politely.\n\n📌 Practise',
   de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe',
@@ -155,13 +199,15 @@ async function courseLangs(): Promise<{ target: string; base: string }> {
 
 /**
  * A role-play's language: the scenario's own (its brief's language: an Italian role-play in Italian, whatever the course),
- * a visit's talk the visited town's (data.visit.language), any other the course's.
+ * a visit's talk the visited town's (data.visit.language), any other the course's. Its lines are the language's, a B1 or
+ * B2 one's at its level where the language has them (ROLEPLAY_LEVELS).
  */
-async function talkLangs(d: { scenario?: { language?: string }; visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
+async function talkLangs(d: { scenario?: { language?: string; level?: string }; visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
   const c = await courseLangs()
   const target = d.scenario?.language ?? d.visit?.language ?? c.target
   const base = c.base === target ? 'en' : c.base
-  return { lines: ROLEPLAY[target] ?? ROLEPLAY.sl, target, base }
+  const lines = ROLEPLAY[target] ?? ROLEPLAY.sl
+  return { lines: { ...lines, ...ROLEPLAY_LEVELS[target]?.[d.scenario?.level ?? ''] }, target, base }
 }
 
 /**

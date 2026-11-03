@@ -34,15 +34,20 @@ export default async function scenarios() {
       )
     }
   }
-  // Teo's Italian ones (companion/scenarios/it): for a child, every text per language with its English, machine-written
+  // Teo's Italian ones (companion/scenarios/it): A1 to B1 for a child; B2 for an older learner with nothing a child
+  // mayn't hear (no audience: a child's profile still adds the child brief); every text per language with its English
   const italian = join(curatedScenarios, 'it')
-  for (const f of readdirSync(italian).filter(f => f.endsWith('.json'))) {
+  const italianFiles = readdirSync(italian).filter(f => f.endsWith('.json'))
+  const italianLevels = italianFiles.map(f => JSON.parse(readFileSync(join(italian, f), 'utf8')).level)
+  check('21 Italian scenarios: 9 at A1 and A2, 6 at B1, 6 at B2', italianFiles.length === 21 && italianLevels.filter(l => l === 'B1').length === 6 && italianLevels.filter(l => l === 'B2').length === 6, italianLevels)
+  for (const f of italianFiles) {
     const raw = JSON.parse(readFileSync(join(italian, f), 'utf8'))
     const v = validateScenario(raw)
     const texts = [raw.title, raw.who, raw.setting, raw.opener_en, ...raw.goals, ...raw.vocabulary_hints.map((h: any) => h.en)]
+    const audience = raw.level === 'B2' ? raw.audience === undefined : raw.audience === 'child'
     check(
-      `Italian scenario validates, for a child, in it · de · sl · en: it/${f}`,
-      v.ok && `${v.scenario.id}.json` === f && raw.language === 'it' && raw.audience === 'child' && /machine-written/.test(raw.review) && texts.every(t => t && t.de && t.sl && t.en) && [raw.title, raw.who, ...raw.goals].every(t => t.it) && raw.packs?.length > 0 && /asks nothing personal|nothing personal/.test(raw.role),
+      `Italian scenario validates, ${raw.level === 'B2' ? 'for an older learner and fit for a child' : 'for a child'}, in it · de · sl · en: it/${f}`,
+      v.ok && `${v.scenario.id}.json` === f && raw.language === 'it' && audience && /machine-written/.test(raw.review) && texts.every(t => t && t.de && t.sl && t.en) && [raw.title, raw.who, ...raw.goals].every(t => t.it) && raw.packs?.length > 0 && /nothing personal/.test(raw.role),
       v.ok ? texts.filter(t => !(t?.de && t.sl && t.en)) : v.errors,
     )
   }

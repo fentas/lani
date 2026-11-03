@@ -9688,6 +9688,14 @@ VILLAGE_TALKS = {
         "language": "it", "pair": "it-de", "talk": "al-mercato", "tablet": True, "shot": "talk-it",
         "lines": ("Buongiorno signora", "Vorrei un chilo di ciliegie"), "replies": ("Che bello! E poi?", "Davvero? Ti piace?"),
         "foreign": ("Me veseli", "Prosim?"), "titles": ("Na tržnici", "V pekarni", "Nedeljsko kosilo"),
+        # a B1 or B2 talk ($LANI_QA_TALK, the learner at the level below or above): the dev tutor's lines at its level
+        # (test/dev-bridge.ts ROLEPLAY_LEVELS); typed lines in ASCII (adb's input text)
+        "levels": {
+            "B1": {"lines": ("Ieri ho comprato qui questo aquilone", "Mentre volava si e rotto un bastoncino"),
+                   "replies": ("Ah, capisco. E poi che cosa è successo?", "Davvero? Hai fatto bene a dirmelo.")},
+            "B2": {"lines": ("Avrei un appuntamento a Trieste alle dieci", "Capisco che non sia colpa sua"),
+                   "replies": ("Capisco perfettamente. Mi dispiace che sia andata così.", "Se l'avessimo saputo prima, avremmo trovato una soluzione.")},
+        },
     },
     "kaernten": {
         "language": "de", "pair": "de-sl", "talk": "beim-baecker", "tablet": False, "shot": "talk-de",
@@ -9712,7 +9720,8 @@ def village_talk(village: str):
     language (test/dev-bridge.ts), never another; a hint, the scenario's own phrase; a second line (the correction in the
     base); the goals in the pair under 🎯; the end and the debrief in the base; for Teo the end on the tablet, on its side
     and upright. The taps from Home to talking counted. Also as st-*.png in $LANI_QA_TALK_SHOTS. With LANI_SCENARIOS_DIR at
-    an empty directory (the "before": no role-play), only the empty list is shot."""
+    an empty directory (the "before": no role-play), only the empty list is shot. A B1 or B2 talk is offered from the level
+    below (the learner's learner.current_level: Teo at A2 for a B1 one), and its canned answers are at its level."""
     spec = VILLAGE_TALKS[village]
     try:
         culture = api("/culture").get("id")
@@ -9796,7 +9805,9 @@ def village_talk(village: str):
     assert not any(w in labels for w in spec["titles"]), "another village's title on the list"
     tablet("list")
     want = os.environ.get("LANI_QA_TALK", spec["talk"])
-    s = next(x for x in offered if x["id"] == want)
+    s = next((x for x in offered if x["id"] == want), None)
+    assert s is not None, f"{want} isn't offered to this learner (a talk at most a level above theirs)"
+    spec = {**spec, **spec.get("levels", {}).get(s.get("level"), {})}  # a B1 or B2 talk: the dev tutor's lines at its level
     c = scroll_to(s["title"], 8)
     assert c is not None, f"the role-play {s['title']} on the list"
     tap_at(c)
