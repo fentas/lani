@@ -131,7 +131,8 @@ export class CaseLensDe {
     for (const m of line.matchAll(/[\p{L}\p{M}]+|\d+/gu)) {
       const between = line.slice(last, m.index)
       if (out.length && /[,;:–—()]|[.!?…]\s/.test(between)) clause++
-      if (/[.!?…]/.test(between)) first = true
+      // a sentence starts after . ! ? and after a colon (Er hat gesagt: Schieb …), capitalized as any
+      if (/[.!?…:]/.test(between)) first = true
       const raw = m[0]
       out.push({ i: out.length, raw, low: lower(raw), start: m.index!, end: m.index! + raw.length, clause, cap: /^\p{Lu}/u.test(raw), first })
       first = false
