@@ -96,7 +96,8 @@ export function cleanScenes(b: any, id: string): (VisitHead & { scenes: PublicSc
     // served, a scene has its variants among its dialogs: checked as its file has them (the first FILE_DIALOGS, then the
     // variants), else a scene with more than 12 dialogs in all, its variants counted, was left out of every visit
     const all: unknown[] = Array.isArray(raw?.dialogs) ? raw.dialogs : []
-    const checked = validateScene({ ...raw, dialogs: all.slice(0, FILE_DIALOGS), variants: all.slice(FILE_DIALOGS) })
+    const own: unknown[] = Array.isArray(raw?.variants) ? raw.variants : []
+    const checked = validateScene({ ...raw, dialogs: all.slice(0, FILE_DIALOGS), variants: [...all.slice(FILE_DIALOGS), ...own] })
     if (!checked.ok || seen.has(checked.scene.id)) return []
     const v = { scene: { ...checked.scene, dialogs: [...checked.scene.dialogs, ...checked.scene.variants], variants: [] } }
     seen.add(v.scene.id)
