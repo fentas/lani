@@ -5,7 +5,7 @@
   "title": { "it": "Nel bosco", "sl": "V gozdu", "en": "In the wood", "de": "Im Wald" },
   "emoji": "🌲",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "forest",
   "from": ["forest"],
   "pack": "nel-bosco",
@@ -43,7 +43,7 @@
   "happenings": [
     {
       "id": "pecora", "title": { "it": "Davide cerca una pecora", "sl": "Davide išče ovco", "en": "Davide is looking for a sheep", "de": "Davide sucht ein Schaf" }, "who": "davide",
-      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "pecora", "dialogs": ["pecora-nebbia", "pecora"], "reward": { "wood": 20 }, "marker": "🐑",
+      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "pecora", "dialogs": ["pecora-b2-campanaccio", "pecora-b1-castagno", "pecora-nebbia", "pecora"], "reward": { "wood": 20 }, "marker": "🐑",
       "memory": { "it": "Bianca, che abbiamo trovato insieme nel bosco", "sl": "Bianco, ki sva jo skupaj našla v gozdu", "en": "Bianca, whom we found together in the wood", "de": "Bianca, die wir zusammen im Wald gefunden haben" }
     },
     {
@@ -53,7 +53,7 @@
     },
     {
       "id": "altana", "title": { "it": "Nonno Bepi sull'altana", "sl": "Dedek Bepi na preži", "en": "Nonno Bepi on the high seat", "de": "Nonno Bepi auf dem Hochsitz" }, "who": "bepi",
-      "when": ["dawn"], "chance": 0.6, "dialog": "altana", "dialogs": ["altana-gufo", "altana"], "reward": { "wisdom": 20 }, "marker": "🦌",
+      "when": ["dawn"], "chance": 0.6, "dialog": "altana", "dialogs": ["altana-b2-silenzio", "altana-b1-cervo", "altana-gufo", "altana"], "reward": { "wisdom": 20 }, "marker": "🦌",
       "memory": { "it": "l'alba che abbiamo guardato dall'altana", "sl": "zoro, ki sva jo gledala s preže", "en": "the dawn we watched from the high seat", "de": "den Sonnenaufgang, den wir vom Hochsitz aus angeschaut haben" }
     }
   ],
@@ -218,6 +218,107 @@
             "reply": { "face": "laugh", "it": "Dormo? Chi, tu? Eh eh, hai sonno anche tu?", "sl": "Spim? Kdo, ti? He he, si tudi ti {m:zaspan|f:zaspana}?", "en": "Dormo (I sleep)? Who, you? Heh heh, are you sleepy too?", "de": "Dormo (ich schlafe)? Wer, du? Hehe, bist du auch müde?" } }
         ] },
         { "who": "bepi", "it": "Anche il gufo ha la sua casa. Ognuno ha la sua, come noi.", "sl": "Tudi sova ima svoj dom. Vsak ima svojega, kot mi.", "en": "The owl has its home too. Everyone has their own, like us.", "de": "Auch die Eule hat ihr Zuhause. Jeder hat seins, wie wir." }
+      ]
+    },
+    {
+      "id": "pecora-b1-castagno",
+      "level": "B1",
+      "memory": { "it": "Bianca sotto il castagno", "sl": "Bianca pod kostanjem", "en": "Bianca under the chestnut tree", "de": "Bianca unter dem Kastanienbaum" },
+      "lines": [
+        { "who": "davide", "face": "worried", "it": "{learner}! Hai visto Bianca? Stamattina era con le altre, e adesso non c'è più!", "sl": "{learner}! Si {m:videl|f:videla} Bianco? Zjutraj je bila z drugimi, zdaj pa je ni več!", "en": "{learner}! Have you seen Bianca? This morning she was with the others, and now she's gone!", "de": "{learner}! Hast du Bianca gesehen? Heute früh war sie bei den anderen, und jetzt ist sie weg!" },
+        { "who": "davide", "face": "curious", "it": "Dove sarà andata, secondo te? Lei ha sempre fame e sempre sete.", "sl": "Kam je neki šla, kaj misliš? Ona je vedno lačna in vedno žejna.", "en": "Where can she have gone, do you think? She's always hungry and always thirsty.", "de": "Wo ist sie wohl hin, meinst du? Sie hat immer Hunger und immer Durst." },
+        { "choices": [
+          { "it": "Sarà andata sotto il castagno a mangiare le foglie.", "sl": "Najbrž je šla pod kostanj jest listje.", "en": "She'll have gone under the chestnut tree to eat the leaves.", "de": "Sie wird unter den Kastanienbaum gegangen sein, um Blätter zu fressen.", "ok": true,
+            "reply": { "face": "happy", "it": "Buona idea! Il castagno è il suo ristorante preferito. Andiamo!", "sl": "Dobra ideja! Kostanj je njena najljubša restavracija. Greva!", "en": "Good idea! The chestnut tree is her favourite restaurant. Let's go!", "de": "Gute Idee! Der Kastanienbaum ist ihr Lieblingsrestaurant. Los!" } },
+          { "it": "Avrà andata sotto il castagno a mangiare le foglie.", "sl": "Najbrž je šla pod kostanj jest listje.", "en": "She'll have gone under the chestnut tree to eat the leaves.", "de": "Sie wird unter den Kastanienbaum gegangen sein, um Blätter zu fressen.",
+            "grammar": "futuro-anteriore", "why": { "sl": "Andare ima essere: è andata, zato sarà andata.", "en": "Andare takes essere: è andata, so sarà andata.", "de": "Andare bildet mit essere: è andata, also sarà andata." },
+            "reply": { "face": "curious", "it": "Avrà andata? Mmm, le pecore vanno con le zampe e con essere, {learner}!", "sl": "Avrà andata? Hm, ovce hodijo z nogami in z essere, {learner}!", "en": "Avrà andata? Hmm, sheep go with their legs and with essere, {learner}!", "de": "Avrà andata? Hm, Schafe gehen mit den Beinen und mit essere, {learner}!" } }
+        ] },
+        { "who": "davide", "it": "Eccola! Sotto il castagno, proprio come dicevi tu. Ehi, Bianca, birbante! Speriamo che non abbia mangiato troppo.", "sl": "Tu je! Pod kostanjem, prav kot si {m:rekel|f:rekla}. Ej, Bianca, nepridiprav! Upajmo, da ni pojedla preveč.", "en": "There she is! Under the chestnut, just like you said. Hey, Bianca, you rascal! Let's hope she hasn't eaten too much.", "de": "Da ist sie! Unter dem Kastanienbaum, genau wie du gesagt hast. He, Bianca, du Schlingel! Hoffentlich hat sie nicht zu viel gefressen." },
+        { "choices": [
+          { "it": "Spero che domani resti con le altre pecore!", "sl": "Upam, da bo jutri ostala z drugimi ovcami!", "en": "I hope tomorrow she stays with the other sheep!", "de": "Ich hoffe, morgen bleibt sie bei den anderen Schafen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Lo spero anch'io. Ma conosco Bianca: domani la cerchiamo di nuovo!", "sl": "Upam tudi jaz. Ampak poznam Bianco: jutri jo spet iščeva!", "en": "So do I. But I know Bianca: tomorrow we'll be looking for her again!", "de": "Ich auch. Aber ich kenne Bianca: Morgen suchen wir sie wieder!" } },
+          { "it": "Spero che domani restare con le altre pecore!", "sl": "Upam, da bo jutri ostala z drugimi ovcami!", "en": "I hope tomorrow she stays with the other sheep!", "de": "Ich hoffe, morgen bleibt sie bei den anderen Schafen!",
+            "grammar": "congiuntivo", "why": { "sl": "Za spero che pride cel stavek z osebo: che resti. Brez che: spero di restare (za sebe).", "en": "After spero che comes a whole clause with its person: che resti. Without che: spero di restare (for yourself).", "de": "Nach spero che kommt ein ganzer Satz mit Person: che resti. Ohne che: spero di restare (für dich selbst)." },
+            "reply": { "face": "curious", "it": "Che restare? Chi resta, tu o Bianca? Mmm, la frase si è persa come lei!", "sl": "Che restare? Kdo ostane, ti ali Bianca? Hm, stavek se je izgubil kot ona!", "en": "Che restare? Who stays, you or Bianca? Hmm, the sentence got lost like her!", "de": "Che restare? Wer bleibt, du oder Bianca? Hm, der Satz hat sich verlaufen wie sie!" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Grazie, {learner}! Senza di te avrei cercato fino a sera. Torniamo al prato, tutte e due… cioè, tutti e tre!", "sl": "Hvala, {learner}! Brez tebe bi iskal do večera. Vrnimo se na travnik, vsi trije!", "en": "Thanks, {learner}! Without you I'd have searched till evening. Let's go back to the meadow, all three of us!", "de": "Danke, {learner}! Ohne dich hätte ich bis zum Abend gesucht. Zurück auf die Wiese, wir drei!" }
+      ]
+    },
+    {
+      "id": "pecora-b2-campanaccio",
+      "level": "B2",
+      "sky_stays": false,
+      "memory": { "it": "il campanaccio di Bianca nella nebbia", "sl": "Biankin zvonec v megli", "en": "Bianca's bell in the fog", "de": "Biancas Glocke im Nebel" },
+      "lines": [
+        { "who": "davide", "face": "worried", "it": "{learner}, che nebbia! Bianca è sparita di nuovo, e con questa nebbia non vedo neanche la punta del mio naso.", "sl": "{learner}, kakšna megla! Bianca je spet izginila, v tej megli pa ne vidim niti konca svojega nosu.", "en": "{learner}, what fog! Bianca's vanished again, and in this fog I can't even see the end of my nose.", "de": "{learner}, was für ein Nebel! Bianca ist wieder verschwunden, und bei dem Nebel seh ich nicht mal meine Nasenspitze.", "sky": { "fog": 0.8, "gloom": 0.4 } },
+        { "who": "davide", "face": "thinking", "it": "L'ultima volta l'ho trovata grazie al suo campanaccio. Se non l'avessi sentito, sarebbe rimasta nel bosco tutta la notte.", "sl": "Zadnjič sem jo našel po njenem zvoncu. Če ga ne bi bil slišal, bi ostala v gozdu vso noč.", "en": "Last time I found her thanks to her bell. If I hadn't heard it, she'd have stayed in the wood all night.", "de": "Letztes Mal hab ich sie dank ihrer Glocke gefunden. Hätte ich sie nicht gehört, wäre sie die ganze Nacht im Wald geblieben." },
+        { "choices": [
+          { "it": "Allora stiamo zitti e ascoltiamo: il campanaccio ci dirà dov'è.", "sl": "Potem bodiva tiho in poslušajva: zvonec nama bo povedal, kje je.", "en": "Then let's be quiet and listen: the bell will tell us where she is.", "de": "Dann sind wir still und hören zu: Die Glocke sagt uns, wo sie ist.", "ok": true,
+            "reply": { "face": "happy", "it": "{m:Bravo, parli come un pastore vero|f:Brava, parli come una pastora vera}. Nella nebbia, le orecchie valgono più degli occhi.", "sl": "{m:Bravo, govoriš kot pravi pastir|f:Brava, govoriš kot prava pastirica}. V megli so ušesa vredna več kot oči.", "en": "Well said, you talk like a real shepherd. In fog, ears are worth more than eyes.", "de": "Gut, du redest wie {m:ein echter Hirte|f:eine echte Hirtin}. Im Nebel sind Ohren mehr wert als Augen." } },
+          { "it": "Allora gridiamo forte, così il campanaccio si sente meglio.", "sl": "Potem pa glasno kričiva, da se bo zvonec bolje slišal.", "en": "Then let's shout loudly, so the bell can be heard better.", "de": "Dann rufen wir laut, damit man die Glocke besser hört.",
+            "why": { "sl": "Da slišiš zvonec, moraš biti tiho; kričanje ga preglasi.", "en": "To hear the bell you have to be quiet; shouting drowns it out.", "de": "Um die Glocke zu hören, musst du still sein; Rufen übertönt sie." },
+            "reply": { "face": "surprised", "it": "Gridare? Così non sento più niente, nemmeno il campanaccio!", "sl": "Kričati? Potem ne slišim ničesar več, niti zvonca!", "en": "Shout? Then I can't hear anything, not even the bell!", "de": "Rufen? Dann hör ich gar nichts mehr, nicht mal die Glocke!" } }
+        ] },
+        { "who": "davide", "face": "curious", "it": "Shh… Senti? Din, din… Viene dal sentiero dei castagni, quello che ti ho fatto vedere ieri.", "sl": "Pst … Slišiš? Cin, cin … Prihaja s poti med kostanji, tiste, ki sem ti jo včeraj pokazal.", "en": "Shh… Hear that? Ding, ding… It's coming from the chestnut path, the one I showed you yesterday.", "de": "Psst … Hörst du? Bim, bim … Das kommt vom Kastanienweg, den ich dir gestern gezeigt hab.", "fx": { "sheepbells": 1 } },
+        { "choices": [
+          { "it": "È il sentiero sul quale abbiamo raccolto le castagne?", "sl": "Je to pot, na kateri sva nabirala kostanj?", "en": "Is it the path we gathered chestnuts on?", "de": "Ist das der Weg, auf dem wir Kastanien gesammelt haben?", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio quello! Bianca ama le castagne quanto te.", "sl": "Prav ta! Bianca ima kostanj rada prav tako kot ti.", "en": "That's the one! Bianca loves chestnuts as much as you.", "de": "Genau der! Bianca liebt Kastanien genauso wie du." } },
+          { "it": "È il sentiero sulla quale abbiamo raccolto le castagne?", "sl": "Je to pot, na kateri sva nabirala kostanj?", "en": "Is it the path we gathered chestnuts on?", "de": "Ist das der Weg, auf dem wir Kastanien gesammelt haben?",
+            "grammar": "relativi-il-quale", "why": { "sl": "Il quale se ujema s samostalnikom: il sentiero, sul quale.", "en": "Il quale agrees with its noun: il sentiero, sul quale.", "de": "Il quale richtet sich nach dem Nomen: il sentiero, sul quale." },
+            "reply": { "face": "curious", "it": "Sulla quale? Il sentiero è maschio, {learner}, come il castagno!", "sl": "Sulla quale? Il sentiero je moškega spola, {learner}, kot kostanj!", "en": "Sulla quale? Il sentiero is masculine, {learner}, like the chestnut tree!", "de": "Sulla quale? Il sentiero ist männlich, {learner}, wie der Kastanienbaum!" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Eccola! E la nebbia va via. Bianca, birbante! La prossima volta ti lego un campanaccio grande come una pentola!", "sl": "Tu je! In megla se dviga. Bianca, nepridiprav! Naslednjič ti privežem zvonec, velik kot lonec!", "en": "There she is! And the fog's lifting. Bianca, you rascal! Next time I'll tie a bell on you as big as a pot!", "de": "Da ist sie! Und der Nebel geht weg. Bianca, du Schlingel! Nächstes Mal binde ich dir eine Glocke um, so groß wie ein Topf!", "sky": { "fog": 0.1, "gloom": 0 } }
+      ]
+    },
+    {
+      "id": "altana-b1-cervo",
+      "level": "B1",
+      "memory": { "it": "l'alba sull'altana con il cervo", "sl": "zoro na preži z jelenom", "en": "the dawn on the high seat with the stag", "de": "den Morgen auf dem Hochsitz mit dem Hirsch" },
+      "lines": [
+        { "who": "bepi", "it": "Shh, {learner}. Vieni piano, sull'altana. All'alba i cervi escono dal bosco per mangiare l'erba del prato.", "sl": "Pst, {learner}. Pridi počasi, na prežo. Ob zori jeleni pridejo iz gozda jest travo na travniku.", "en": "Shh, {learner}. Come up quietly, onto the high seat. At dawn the deer come out of the wood to eat the meadow grass.", "de": "Psst, {learner}. Komm leise auf den Hochsitz. In der Morgendämmerung kommen die Hirsche aus dem Wald, um das Wiesengras zu fressen." },
+        { "who": "bepi", "face": "cross", "it": "Moro! Basta abbaiare! Così scappano tutti.", "sl": "Moro! Dovolj lajanja! Tako bodo vsi pobegnili.", "en": "Moro! Stop barking! You'll scare them all off.", "de": "Moro! Hör auf zu bellen! So laufen alle weg." },
+        { "choices": [
+          { "it": "Ha smesso di abbaiare, nonno: guarda, si è sdraiato.", "sl": "Nehal je lajati, dedek: poglej, ulegel se je.", "en": "He's stopped barking, Grandpa: look, he's lain down.", "de": "Er hat aufgehört zu bellen, Opa: Schau, er hat sich hingelegt.", "ok": true,
+            "reply": { "face": "happy", "it": "Bravo Moro. Adesso aspettiamo, piano piano.", "sl": "Priden Moro. Zdaj pa počakajmo, počasi.", "en": "Good Moro. Now we wait, nice and quiet.", "de": "Braver Moro. Jetzt warten wir, ganz ruhig." } },
+          { "it": "Ha smesso a abbaiare, nonno: guarda, si è sdraiato.", "sl": "Nehal je lajati, dedek: poglej, ulegel se je.", "en": "He's stopped barking, Grandpa: look, he's lain down.", "de": "Er hat aufgehört zu bellen, Opa: Schau, er hat sich hingelegt.",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Smettere gre z di: ha smesso di abbaiare.", "en": "Smettere takes di: ha smesso di abbaiare.", "de": "Smettere steht mit di: ha smesso di abbaiare." },
+            "reply": { "face": "curious", "it": "Smesso a…? Mmm, Moro ha capito, ma la frase no! Riprova, piano.", "sl": "Smesso a …? Hm, Moro je razumel, stavek pa ne! Še enkrat, tiho.", "en": "Smesso a…? Hmm, Moro understood, but the sentence didn't! Try again, quietly.", "de": "Smesso a …? Hm, Moro hat's verstanden, aber der Satz nicht! Nochmal, leise." } }
+        ] },
+        { "who": "bepi", "face": "surprised", "it": "Eccolo! Un cervo, vicino al faggio. Tu, al posto del cervo, dove andresti a nasconderti?", "sl": "Tu je! Jelen, pri bukvi. Ti bi se na jelenovem mestu kam {m:skril|f:skrila}?", "en": "There he is! A stag, by the beech. If you were the stag, where would you go and hide?", "de": "Da ist er! Ein Hirsch, bei der Buche. Wo würdest du dich an Stelle des Hirschs verstecken?" },
+        { "choices": [
+          { "it": "Mi nasconderei dietro il faggio grande, dove l'erba è alta.", "sl": "{m:Skril|f:Skrila} bi se za veliko bukev, kjer je trava visoka.", "en": "I'd hide behind the big beech, where the grass is tall.", "de": "Ich würde mich hinter der großen Buche verstecken, wo das Gras hoch ist.", "ok": true,
+            "reply": { "face": "proud", "it": "Buona idea. I cervi furbi fanno proprio così.", "sl": "Dobra ideja. Zviti jeleni naredijo prav tako.", "en": "Good idea. Clever deer do exactly that.", "de": "Gute Idee. Schlaue Hirsche machen genau das." } },
+          { "it": "Mi nascondessi dietro il faggio grande, dove l'erba è alta.", "sl": "{m:Skril|f:Skrila} bi se za veliko bukev, kjer je trava visoka.", "en": "I'd hide behind the big beech, where the grass is tall.", "de": "Ich würde mich hinter der großen Buche verstecken, wo das Gras hoch ist.",
+            "grammar": "condizionale", "why": { "sl": "V glavnem delu stavka je pogojnik: mi nasconderei. Nascondessi gre za se.", "en": "In the main half, the conditional: mi nasconderei. Nascondessi goes after se.", "de": "Im Hauptteil steht der Konditional: mi nasconderei. Nascondessi kommt nach se." },
+            "reply": { "face": "curious", "it": "Mi nascondessi…? E poi? Sembra una frase con il «se», ma il «se» è scappato come il cervo!", "sl": "Mi nascondessi …? In potem? Zveni kot stavek s »se«, ampak »se« je pobegnil kot jelen!", "en": "Mi nascondessi…? And then? It sounds like a sentence with «se», but the «se» has run off like the stag!", "de": "Mi nascondessi …? Und dann? Klingt wie ein Satz mit «se», aber das «se» ist weggelaufen wie der Hirsch!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Guarda, torna nel bosco. Ciao, cervo. Chi va piano va sano e va lontano: anche all'alba.", "sl": "Poglej, vrača se v gozd. Adijo, jelen. Kdor počasi hodi, daleč pride: tudi ob zori.", "en": "Look, he's going back into the wood. Bye, stag. Slow and steady goes far: at dawn too.", "de": "Schau, er geht zurück in den Wald. Tschüss, Hirsch. Wer langsam geht, kommt weit: auch im Morgengrauen." }
+      ]
+    },
+    {
+      "id": "altana-b2-silenzio",
+      "level": "B2",
+      "memory": { "it": "il bosco che parla a chi sta zitto", "sl": "gozd, ki govori tistemu, ki molči", "en": "the wood that speaks to whoever keeps quiet", "de": "den Wald, der zu dem spricht, der schweigt" },
+      "lines": [
+        { "who": "bepi", "face": "thinking", "it": "Sai, {learner}, da giovane venivo qui all'alba, ma parlavo troppo. Non vedevo mai niente: solo code che scappavano.", "sl": "Veš, {learner}, ko sem bil mlad, sem prihajal sem ob zori, ampak sem preveč govoril. Nikoli nisem videl ničesar: samo repe, ki so bežali.", "en": "You know, {learner}, as a young man I came here at dawn, but I talked too much. I never saw a thing: only tails running off.", "de": "Weißt du, {learner}, als junger Mann kam ich im Morgengrauen her, aber ich redete zu viel. Ich sah nie etwas: nur Schwänze, die davonliefen." },
+        { "who": "bepi", "it": "Un vecchio boscaiolo un giorno mi disse: «Il bosco parla solo a chi sta zitto.» Da allora vengo qui e ascolto.", "sl": "Neki stari gozdar mi je nekoč rekel: »Gozd govori samo tistemu, ki molči.« Od takrat prihajam sem in poslušam.", "en": "An old woodcutter once told me: «The wood speaks only to whoever keeps quiet.» Since then I come here and listen.", "de": "Ein alter Holzfäller sagte mir einmal: «Der Wald spricht nur zu dem, der schweigt.» Seitdem komme ich her und höre zu." },
+        { "choices": [
+          { "it": "Quindi, se avessi taciuto prima, avresti visto più animali anche da giovane.", "sl": "Torej bi tudi kot mlad videl več živali, če bi bil prej molčal.", "en": "So if you'd kept quiet sooner, you'd have seen more animals even as a young man.", "de": "Hättest du also früher geschwiegen, hättest du auch als junger Mann mehr Tiere gesehen.", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio così. Ho perso tanti cervi per colpa della mia lingua!", "sl": "Prav tako. Veliko jelenov sem zamudil zaradi svojega jezika!", "en": "Exactly. I missed so many deer because of my tongue!", "de": "Genau. Ich hab so viele Hirsche wegen meiner Zunge verpasst!" } },
+          { "it": "Quindi, se avessi taciuto prima, saresti visto più animali anche da giovane.", "sl": "Torej bi tudi kot mlad videl več živali, če bi bil prej molčal.", "en": "So if you'd kept quiet sooner, you'd have seen more animals even as a young man.", "de": "Hättest du also früher geschwiegen, hättest du auch als junger Mann mehr Tiere gesehen.",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Vedere ima avere: ho visto, zato avresti visto.", "en": "Vedere takes avere: ho visto, so avresti visto.", "de": "Vedere bildet mit avere: ho visto, also avresti visto." },
+            "reply": { "face": "curious", "it": "Saresti visto? Da chi? Dai cervi? Mmm, forse loro hanno visto me!", "sl": "Saresti visto? Od koga? Od jelenov? Hm, morda so oni videli mene!", "en": "Saresti visto? Seen by whom? The deer? Hmm, maybe they saw me!", "de": "Saresti visto? Von wem gesehen? Von den Hirschen? Hm, vielleicht haben sie mich gesehen!" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Secondo te, perché il boscaiolo diceva che il bosco «parla»? Il bosco non ha la bocca.", "sl": "Kaj misliš, zakaj je gozdar rekel, da gozd »govori«? Gozd nima ust.", "en": "Why do you think the woodcutter said the wood «speaks»? The wood has no mouth.", "de": "Warum meinst du, sagte der Holzfäller, der Wald «spricht»? Der Wald hat keinen Mund." },
+        { "choices": [
+          { "it": "Perché, stando in silenzio, si sentono gli uccelli, il vento e gli animali: è la sua voce.", "sl": "Ker v tišini slišiš ptice, veter in živali: to je njegov glas.", "en": "Because, if you keep quiet, you hear the birds, the wind and the animals: that's its voice.", "de": "Weil man in der Stille die Vögel, den Wind und die Tiere hört: Das ist seine Stimme.", "ok": true,
+            "reply": { "face": "proud", "it": "Hai capito tutto. Adesso ascolta: senti il picchio, laggiù? Toc, toc, toc.", "sl": "Vse si {m:razumel|f:razumela}. Zdaj pa poslušaj: slišiš žolno, tam spodaj? Tok, tok, tok.", "en": "You've understood everything. Now listen: hear the woodpecker, down there? Tap, tap, tap.", "de": "Du hast alles verstanden. Jetzt hör: Hörst du den Specht da unten? Tock, tock, tock." } },
+          { "it": "Perché nel bosco c'è qualcuno nascosto che parla piano.", "sl": "Ker se v gozdu nekdo skriva in tiho govori.", "en": "Because someone's hiding in the wood and talking softly.", "de": "Weil sich im Wald jemand versteckt und leise redet.",
+            "why": { "sl": "Gozdar misli na zvoke gozda: ptice, veter, živali; nihče se ne skriva.", "en": "The woodcutter means the wood's sounds: birds, wind, animals; nobody's hiding.", "de": "Der Holzfäller meint die Geräusche des Waldes: Vögel, Wind, Tiere; niemand versteckt sich." },
+            "reply": { "face": "laugh", "it": "Qualcuno nascosto? No, no, {m:stai tranquillo|f:stai tranquilla}! Qui ci sono solo il vento, gli uccelli e Moro che russa.", "sl": "Nekdo skrit? Ne, ne, brez skrbi! Tu so samo veter, ptice in Moro, ki smrči.", "en": "Someone hiding? No, no, don't worry! There's only the wind, the birds and Moro snoring.", "de": "Jemand versteckt? Nein, nein, keine Sorge! Hier sind nur der Wind, die Vögel und Moro, der schnarcht." } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Adesso zitti zitti: guarda là, vicino al faggio. Il bosco ci sta parlando.", "sl": "Zdaj pa čisto tiho: poglej tja, k bukvi. Gozd nama govori.", "en": "Now very quiet: look there, by the beech. The wood is talking to us.", "de": "Jetzt ganz still: Schau da, bei der Buche. Der Wald spricht zu uns." }
       ]
     }
   ]
