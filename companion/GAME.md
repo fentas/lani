@@ -1482,6 +1482,18 @@ once (passed, it is done, `testedOut`; not passed, nothing is lost). Inside a un
 (resumable: its place kept; "⏭ Poznam to · I know this" skips it), the worksheets in order (the next one ★), the test,
 the tutor's homework; the main button is the next step.
 
+**The placement test.** Jan, 2026-11-03: a starter who knows some of the language begins at their level, not at A1
+testing out of one unit after another. "🧭 Uvrstitveni test · Placement test" (`game/LevelPlacement.kt`; COURSE.md, "The
+placement test"): short (10 to 15 minutes, a child's up to 10), adaptive (probes of the course's three parts a level, from
+just below the learner's level, climbing while it goes well, halving the gap once a part fails), from the units' own
+tests, with no cheat sheet and nothing counted on the rules. Offered, never run on its own: a card in the school for a
+learner who hasn't begun the course, a quiet row for everyone else, a choice at setup ("Najprej kratek test · A short test
+first") that opens it once the village is founded. Its result changes nothing until the learner takes it ("✓ Začnem tukaj
+· Start here"; a child's behind a parent's hold), and taking it only adds: the units of the parts known done (tested out,
+still open to do again), the levels up to where the learner starts opened (the school's building and its upgrades don't
+hold those back; the hamlet still begins the class, and the levels after it open as before), the level raised on the node
+(never lowered). Its answers pay as a test's; no unit's bonus.
+
 **A level a bit at a time.** Jan, 2026-10-27, as A2 (14 units) and B1 (16) were written: "no need to show it all
 directly". The school's screen (`School.reveal`) shows of each open level its units done and begun, the current one (the
 first not done: ★ in the level the course is at) and the next two after it, and folds the rest into one quiet line, "📝
@@ -2469,7 +2481,10 @@ wild goat and a Herdwick ram here), its words in `packs/on-the-fell.json`; its c
 Penrith, the hob and eleven more, companion/SCENES.md "Stories"; words in `packs/tales.json`, `packs/legends.json` and
 `packs/yarns.json`). The starter packs of English are in `companion/packs/en/`: `greetings`, `family`,
 `home-and-kitchen`, `food`, `numbers-and-time`, `in-the-village` (A1, 21–24 words each, without articles, with their
-plurals, examples in all four languages, and notes on false friends and British words). The thanks goods are the
+plurals, examples in all four languages, and notes on false friends and British words). The B1 and B2 packs are the
+culture's: 46 of 24 words each in `cultures/lakeland/packs/` (work, health, feelings, opinions, the news, the fells,
+travel, money, repairs, the village hall and the parish council, the climate, the law …, each with a giver of the cast),
+so that the curated packs hold 2,151 different words for the B2 aim's 2,000 by Mesto (docs/plans/05-built/packs-en.md). The thanks goods are the
 region's (sticky toffee pudding, porridge oats, heather honey, Herdwick wool, Lakeland ale, a knitted tea cosy, Kendal
 mint cake, tatie pot …); the packman sells Cumberland ham, Morecambe Bay shrimps, tea and spices from Whitehaven. Granny
 Maggie's recipes are tatie pot (A1) and sticky toffee pudding (A2), Old Wilf's old book a page about counting sheep the

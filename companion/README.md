@@ -47,6 +47,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-build-app` | Builds the app in Docker or Podman, without a JDK or an Android SDK: the debug or release APK, the unit tests, any Gradle task (see [Build in Docker](#build-in-docker)). |
 | `bin/lani-keystore` | Creates the app's release key outside the repository (`~/.config/lani`) and shows how to give it to the release workflow (see [docs/releasing.md](../docs/releasing.md)). |
 | `bin/qa` | End-to-end check on an emulator against a dev bridge on a copy of the data, and a second dev town to visit. |
+| `bin/content-count` | What each language and culture has (units, pages, modules, drills, packs, scenes, stories, readings, arrivals, project steps, parties, keepers' talks), counted from the content files and from no doc. `--json` for the numbers. |
 | `bin/qa-slot` | Runs `bin/qa` on the first free of two emulator slots, each with its own emulator, lock and ports (see [Test](#test), "QA on two emulators"). |
 | `bin/lani-watchdog` | Starts a learner's bridge service or tutor session that is down, every 3 minutes from a systemd user timer (see [The watchdog](#the-watchdog)). |
 | `bin/lani-backup` | Snapshots of the learner data, with restore (see [Backups](#backups)). |
@@ -314,7 +315,7 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   (`companion/cultures/friuli/packs/`, its festivals' words), not Jan's Slovene ones. A learned word becomes an
   Italian card with its meaning in the learner's base language.
 - Jan's curated Slovene modules, role-plays and scenes aren't served either: another language's go in
-  `companion/modules/it/`, `companion/scenarios/it/` and `companion/scenes/it/` (the tutor writes more for the learner
+  `companion/modules/it/` (English's in `companion/modules/en/`), `companion/scenarios/it/` and `companion/scenes/it/` (the tutor writes more for the learner
   with `publish_module`, `publish_scenario`, `publish_scene`). Teo's Italian role-plays are in `companion/scenarios/it/`
   (nine, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday lunch at Nonna
   Rosa's, the playground, a phone call to the nonna, Tommaso's party); a scenario in another language than the
@@ -1104,12 +1105,13 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `POST` | `/permission` | `{request_id, behavior: allow\|deny}` → answers a tool approval prompt |
 | `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?, counting?, forms_cards?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `counting`: how its counting cards went, step by step: each wrong step a mistake of its kind (see [Counting cards](#counting-cards)). `forms_cards`: how its forms cards went, gap by gap: each wrong gap a mistake of its kind (see [Forms cards](#forms-cards)). `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
 | `POST` | `/level` | `{from, to, stations: [{id, skill, right, total, minutes?}], duration_minutes?, language?, client_id}`: the treasure found (the level test at the end of `from` passed, [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map)) → the new level `to` (the one after `from`, else `400`) persisted via `update-db.py` (the report's `level` sets `current_level` and `level_since`; a session `/lani-app-treasure`, the stations' answers by skill), Claude gets a `level_up` summary with the new level's grammar pages; `{already: true, level}` and nothing written when the level is there already. An older bridge answers 404: the app sends it as a `session_end` with the report for the tutor to persist |
+| `POST` | `/placement` | `{from, level, applied, start?: {level, part, parts} \| null, units, probes: [{level, part, parts, right, almost, of, passed}], child?, duration_minutes?, language?, client_id}`: the placement test's result ([COURSE.md](COURSE.md#the-placement-test)), the learner having taken it (`applied`: `units` marked done in the school) or kept their place → persisted via `update-db.py` as a session `/lani-app-placement` (its items as grammar), the report's `level` only when taken above the learner's level (`current_level`, `level_since`; never lowered) with a milestone; Claude gets a `placement` summary (already persisted; where the school goes on). Once per `client_id`. An older bridge answers 404: the app sends it as a `session_end` with the report for the tutor to persist |
 | `GET` | `/readings`, `/readings/:id` | the reading corner's readings (see [GAME.md](GAME.md#the-reading-corner)): the village's culture pack's (`companion/cultures/<culture>/readings/`, read per request) with `source: curated` and `culture`, then the tutor's (`<data>/app/readings/`, `publish_reading`) with `source: tutor`, `machine_written` and `published_at` |
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
 | `GET` | `/state[?language=it]` | all 6 learner databases + computed fields (no LLM involved), the home language's or, with `language`, that language's; always with `language` (whose they are) and `languages: [{code, name, level, words, due, source: home\|visits}]`, the home one first (see [docs/DB_SCRIPTS.md](../docs/DB_SCRIPTS.md#languages)), and `features`: what this bridge takes that an older one doesn't (`"dialog-words"`: POST /reviews' `dialog`); an older bridge has none, and the app sends it only what it takes |
 | `GET` | `/changes` | `{version, day, areas}`: the version of everything the app reads (`bridge/src/changes.ts`), and of each area of it: `learner` (the databases and the bridge's other records of the learner, e.g. the answers' log), `village` (`app/game.json`), `towns` (`app/towns.json`, `app/town-*`), `family` (`app/family`, `app/audio`), `content` (the tutor's stores in `app/`, on a node the project's content under `companion/`, which a merge on main changes under a running bridge, and who the learner is: the profile's learner, preferences and home language by value) and `friends` (no files: what the towns' friendships take of the village and the learner, by value: the village's last feast and the learner's level in each linked town's language; [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)). Each a digest of this run of the bridge, the day and its files (the learner's data directory without its history, clips, releases, backups, chat photos and the bridge's own bookkeeping). Not the events (the app handles each as it comes) nor the voice store (each clip made says so: `voice_updated`). Each GET the app reads again on a Back says the versions of the areas it depends on as they were before its answer was made (`lani-areas: learner=…, content=…`). Home coming back reads nothing when the version didn't move; when it did, only the reads whose areas moved, while the day, the time of day, the pair, the learner and the culture are those of the last reading and the last whole one is under an hour old; else everything. What no version says (the towns' reads, which ask the linked towns; the voice store's clips and voices) is read again every ten minutes, moved or not ([docs/plans/05-built/nav-perf.md](../docs/plans/05-built/nav-perf.md), [changes-areas.md](../docs/plans/05-built/changes-areas.md), [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)); an older bridge answers `404` (or no areas), and the app reads everything as before |
 | `GET` | `/modules`, `/modules/:id[?version=N]` | published modules |
-| `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned`, `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`) |
+| `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned` (words the learner has, from this pack or another), `own` (those learned in this pack itself), `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`). `?packs=` is the packs version the app reads (`PackSession.VERSION`, 1: it orders the packs by the learner's level and folds those far above it): an app that doesn't say (an older one) gets only the curated packs up to a level above the learner's `current_level`, and every tutor's, festival's, project's and started pack (`packsForApp`; see [Nove besede](#nove-besede--new-words)) |
 | `GET` | `/packs/:id` | a pack with its words and the ids of words already learned |
 | `GET` | `/grammar` | the grammar book of the village's language: the curated pages (`companion/grammar/<language>/`, `LANI_GRAMMAR_DIR` for another root) with what the tutor added to them (`extended`), then the tutor's own pages (`<data>/app/grammar/`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's (see [Grammar book](#grammar-book)) |
 | `GET` | `/cards` | the cheat sheet's cards no grammar page fits: the curated ones (`companion/cards/<language>/`, `LANI_CARDS_DIR` for another root), then the tutor's (`<data>/app/cards/`, `publish_card`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's; `GET /cards/<id>` one (see [Cheat sheet](#cheat-sheet)) |
@@ -1995,7 +1997,7 @@ Slovene, English and Italian; English in Slovene, Italian and German, and Englis
   `mixed-conditionals`, `relative-clauses-more`, `participle-clauses`, `passive-more`, `have-it-done`, `reporting-verbs`, `quantifiers`,
   `emphasis`, `result-linkers`, `phrasal-verbs-more`, `word-building`, `collocations` and `formal-informal`.
 
-**What names a page:** an exercise's `"grammar": "<id>"` (any type; every exercise of the six curated modules has one),
+**What names a page:** an exercise's `"grammar": "<id>"` (any type; every exercise of the curated modules has one: Slovene's 24 from A1 to B2, docs/plans/05-built/practice-sl.md),
 a culture pack's challenge question (`quests.json` `tent_move.questions[].grammar`: Luka's tent challenge names
 `kje-mestnik-orodnik` for ob ribniku, `orodnik` for pod veliko smreko and pred šotorom, and `rodilnik-predlogi` for
 blizu pomola; and `surprises.json`: a letter's question, `letter.letters[].questions[].grammar`, and a way to show the
@@ -2307,6 +2309,18 @@ questions), `rodilnik`, `kje-kam-od-kod`, `dajalnik`, `orodnik`, `pridevniki-skl
 cases, pronouns, the comparative, aspect, the conditional (14 units); then B1's 16. A2 opens when the school stands and every A1 unit is done (GAME.md, "The school opens the next
 levels"); a unit's "⏩ Znam že: kar na test" tests out of it at once.
 
+**The placement test** ("🧭 Uvrstitveni test · Placement test", [COURSE.md](COURSE.md#the-placement-test),
+docs/plans/05-built/placement.md): a starter who knows some of the language begins at their level. Short (10 to 15
+minutes; a child's up to 10, by tap only), adaptive (the course's three parts a level, probed from just below the learner's
+level, climbing while it goes well and halving the gap once a part fails), from the units' own tests, no cheat sheet and
+nothing counted on the rules. Offered, never run on its own: a card at the top of the school for a learner who hasn't
+begun the course, a quiet row under the levels for everyone else, a choice at setup ("🧭 Nekaj že znaš?" on "Še o tebi"
+and on this device's questions) that opens it once the village is founded. Its result ("🧭 Tvoje mesto v šoli") says
+where the learner starts, the units before it that count as done and the level; "✓ Začnem tukaj · Start here" takes it
+(a child's behind a parent's hold): those units done and `placed` ("✅ Opravljeno z uvrstitvenim testom", still open to
+do again), the levels up to there opened, the level raised (`POST /placement`, never lowered); "Ostanem, kjer sem · Keep
+my place" changes nothing. QA: `companion/bin/qa --steps placement` (hooks `placement:fresh`, `placement:answer:<part>`).
+
 **The Italian school** (the Friuli village's: [COURSE.md](COURSE.md#the-italian-course), docs/plans/05-built/friuli-school.md).
 A village of the Friuli culture gets the Italian course (`companion/course/it`: 18 units at each level, A1 to B2, all written,
 as COURSE.md lists them) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
@@ -2392,6 +2406,29 @@ XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napr
 The treasure map, the school (and a unit opened from here), a grammar page's "🎯 Vadi" and "📚 Moje besede" lead back
 to the progress screen. QA's step `progress` goes through it, in the dark theme and with the base in German too
 ([Test](#test)).
+
+### Nove besede · New words
+
+"📚 Nove besede · New words" (`ui/PacksScreen.kt`; the order and the suggestion in `data/Packs.kt`, `PackSession`) lists
+the new tutor packs, the packs in progress, the untouched ones in the bridge's order and the finished ones; the
+festivals' and the village projects' packs have their own sections. The curated packs two levels or more above the
+learner's level and not started (B1 and B2 for a learner at A1, B2 at A2) wait at the end under a folded "▸ ⏳ Za
+pozneje · For later (24)", "Besede za B1–B2: pridejo na vrsto, ko se tvoja raven dvigne · Words for B1–B2: they come up
+as your level rises"; a tap opens it (TalkBack: expand, collapse), and a pack there still opens at once. A pack the
+learner started, a tutor's, a festival's and a project's never wait there. The suggested pack (Home's "Danes · Today",
+the New words card): a new tutor pack, the festival's while it's near, one in progress, the first at the learner's
+level, the first left at or below it, then one above, the nearest level first (an A1 learner who has every A1 and A2
+pack gets a B1 one, never a B2 one first). A pack above the learner's level counts as under way only through words learned
+in it (GET /packs `own`: its own `vocab_<pack>_…` cards), not through a word it shares with another pack or a looked-up card;
+at or below their level any word learned counts, as it always did. Home's tile ("še 45 besed · 45 to learn") counts the packs not left for
+later, unless only those are left. With only A1 and A2 packs, as every language had before its B1 and B2 packs came,
+nothing of this changes the list, the suggestion or the tile for any learner (`PackSessionTest`).
+
+An older app (before `PackSession.VERSION` 1) lists and suggests the packs in the bridge's order, so it asks GET /packs
+without `?packs=` and the bridge gives it the curated packs up to a level above its learner's, and every tutor's,
+festival's, project's and started pack (a word learned in it, `own`; `packsForApp`, bridge/src/packs.ts). On an older app a learner at A1 sees the A1
+and A2 packs, as before the B1 and B2 packs came; at A2 also the B1 ones. GET /packs/:id serves any pack to any app (a
+scene's, a story's or the sky's words open their pack by its id).
 
 ### Moje besede · My words
 
@@ -3938,8 +3975,8 @@ others; the rest wait for the next. `card.py show` tells how the app asks one.
 
 "🔢 Števila · Numbers" (Jan: "Do we learn numbers in school at some point? Would be nice: a separate test module."): a
 practice module of the numbers themselves, beside the counting cards (which count a noun). Its rules are
-`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene and Italian so far; what follows
-is Slovene's, Italian's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
+`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene, Italian, German and English; what follows
+is Slovene's, the others' differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
 screen, the run, the number pad: `NumeralEx.kt`), the rest `app/NumbersController.kt`.
 
 **Where it opens.** The intro of the A1 unit `stevila` opens it (finished, or skipped as known: as for counting cards),
@@ -4020,8 +4057,29 @@ ventitré, ventotto, centotré, duemilaventisei); the tens come first, so 72 typ
 quindici; il primo, l'otto, l'undici), so `numbers_ordinal_date` is a date's day there. A clock time is alle + the hour
 (alle cinque, all'una; "le cinque" and "cinque" are right too, at 12 a mezzogiorno and a mezzanotte); half past counts from the hour that is there, so 4:30 typed
 for "alle cinque e mezza" and "alle sei e mezza" written for 5:30 are `numbers_clock_time_half`, German's "halb" counted
-into Italian. A language without a `NumberTongue` (German and English so far) has no tile and no module. `NumbersItalianTest`
-holds its table; QA's step `practice-it`.
+into Italian. `NumbersItalianTest` holds its table; QA's step `practice-it`.
+
+**In German** (Austrian standard; docs/plans/05-built/practice-de.md) the unit `zahlen`'s intro opens it, `uhrzeit`'s brings the clock,
+`am-ersten-mai`'s (page `ordinalzahlen`) the dates. The words are one word, the ones first, as the page counts them
+(`SpokenNumbers.german`: einundzwanzig, hundertzwanzig, zweitausendsechsundzwanzig; einhundert, eintausend, hundertundeins, a year's
+neunzehnhundertneunundachtzig and zwo right too); the tens first, as English and Italian say them (zwanzigsieben, 72 typed for
+siebenundzwanzig), are `numbers_order`; eins, sechs and sieben kept whole (einsundzwanzig, sechszehn, siebenzig) are wrong, the
+learner's own words. A date's day is the ordinal after der ("Heute ist der ___ Mai. (15.)" → fünfzehnte; -te to 19, -ste from 20,
+erste, dritte, siebte, achte; einste, achtte, zwanzigte wrong), the month Jänner with Januar right too. A clock time is um + the
+hour (um eins, um ein Uhr, fünf Uhr dreißig, siebzehn Uhr dreißig); halb counts towards the next hour, so 6:30 typed for "um halb
+sechs" and "halb fünf" written for 5:30 are `numbers_clock_time_half`. `NumbersGermanTest` holds its table.
+
+**In English** (British; docs/plans/05-built/practice-en.md; `data/EnglishNumbers.kt`) the unit `numbers`'s intro opens it,
+`time`'s brings the dates and the clock (page `time-dates`). The tens come first with a hyphen (`SpokenNumbers.english`:
+twenty-seven, one hundred and five, two thousand and twenty-six), so 72 typed for twenty-seven and "seven twenty" are
+`numbers_order`, as German and Slovene say the ones first; a hyphen left out is right, the words joined almost; "a hundred",
+the American without "and" (one hundred five) and a year in pairs (twenty twenty-six, nineteen oh five) are right. Forty
+without its u is wrong, as the grading table has it ("fourty"). A date takes the ordinal ("Today is the ___ of May. (15th)" →
+fifteenth; the fifteenth of May, May the fifteenth right too), and a regular ordinal where English has its own ("fiveth",
+"nineth", "twelveth", "twentyth") is wrong, not a slip. A clock time is at + the hour (at five; five o'clock, at noon, at
+midday right too); half past counts from the hour that is there, so 4:30 typed for "at half past five" and "half six" or
+"half past six" written for 5:30 are `numbers_clock_time_half`, German's "halb" and Slovene's "pol" counted into English;
+"half five" (British speech) and "five thirty" are right. `NumbersEnglishTest` holds its table; QA's step `practice-en`.
 
 ### The case lens
 
@@ -4524,7 +4582,7 @@ prompts (about 60 MB).
 Every session id from before still plays (a car remembers the one it played last), and the first tab keeps its id.
 A session with nothing to play stays away (`RoadMix.available`): no menu item in the car, no button on the sheet, no switch
 to it while something plays. It used to be there and do nothing. That is every drill session in a language without drills
-(German and English so far) or without their clips (Italian until voice-build has voiced them). The sheet's "Več · More" names what
+or without their clips (Italian, German and English until voice-build has voiced them). The sheet's "Več · More" names what
 isn't there and why ("🔇 … posnetkov še ni"), and a getting-ready that found no clips at all says there are no recordings in
 this language.
 The sessions:
@@ -4707,17 +4765,25 @@ curated in `companion/drills/<language>/<id>.json`, one file a drill (Slovene: `
 validates and serves them (`GET /drills`); the app bundles its own copy (for a bridge from before, which answers 404);
 `voice-build` voices them (`drills A1`, `drills A2+`).
 
-Italian has its four too (`companion/drills/it/`: 251 transformations from A1 to the congiuntivo at B1, 80 sentences built, 58 riddles
-told by Nonno Bepi; 1,205 texts, 24,601 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md). What follows
+Italian has its four too (`companion/drills/it/`, each to B2: 384 transformations, from A1's plural to B2's congiuntivo tenses,
+if-sentences, reported speech, venire + the participle and avendo finito; rapid fire's numbers, clock and dates at A1, then verb forms,
+linking words, centuries and years to B2; 96 sentences built; 82 riddles told by Nonno Bepi, B1's and B2's in their grammar; 1,749
+texts, about 40,600 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md and practice-it-b2.md), and German
+its four (`companion/drills/de/`: 300 transformations from the plural at A1 to reported speech at B2, 81 sentences built, 55 riddles
+told by Opa Sepp, every text in de, en, sl and it; 1,425 texts, 40,884 characters to voice, none voiced yet:
+docs/plans/05-built/practice-de.md), and English its four (`companion/drills/en/`: 302 transformations from A1's plural to B2's
+should have and I wish, 80 sentences built, 53 riddles told by Old Wilf; every text's meaning in sl, de and it, since an English
+cue would be the answer itself; rapid fire to B2's numbers as the news says them; 1,430 texts, 37,896 characters, none voiced yet: docs/plans/05-built/practice-en.md).
+What follows
 describes Slovene's; a language's drills are data, its generated numbers `numberWord` (all four languages), and a session
 without clips stays away from the menu.
 
 | Drill | File | What is in it |
 |---|---|---|
-| 🔄 Preobrat · Transformations | `preobrat.json` | 11 sets, 215 items, one set a rule of the grammar book. At A1: into the past (`pretekli-cas`: "Micka kuha kosilo." → "Micka je kuhala kosilo."), into the future (`prihodnjik`), jaz → midva and make it two (`dvojina`: "Imam brata." → "Imam dva brata."), counting on (`stevila-samostalniki`: "Ena krava." → "Dve kravi." → "Tri krave." → "Pet krav."), say no (`rodilnik-nikalnica`: "Imam čas." → "Nimam časa."; "To je krava." → "To ni krava."), never, nothing, nobody (`zanikanje`), "Vidim …" (`tozilnik`: "To je Micka." → "Vidim Micko."), ti → vi (`ti-vi`). At A2, for when they are introduced: the comparative (`primernik`) and "with" (`orodnik`). |
-| ⚡ Hitri odziv · Rapid fire | `hitri-odziv.json` | The numbers 1 to 100 and 24 up to 999, generated as the app counts them (`SpokenNumbers`; the bridge's `numberWord` voices the same words); the clock ("Ura je pol štirih.", "ob petih", "ob pol šestih"), days ("v ponedeljek", "ob ponedeljkih"), months ("januarja"), time words ("pojutrišnjem", "čez eno uro") and dates ("prvega maja"): 130 listed. |
-| 🧱 Gradnja stavkov · Sentence building | `gradnja.json` | 73 sentences of three or four steps (67 at A1), of the village's people and places: "Grem." → "Grem v trgovino." → "Jutri grem v trgovino." → "Jutri grem v trgovino, ker potrebujem kruh." Each names the rules it asks for beyond the obvious (`rules`: `vezniki`, `prihodnjik` …; the A2 ones `orodnik`, `dajalnik` …). |
-| 🕵️ Uganke · Riddles | `uganke.json` | 54 riddles told by Stari Janez (`teller`): 44 of words of the A1 packs (`word`: "v-kuhinji/miza"), each clue in the first person ("Iz lesa sem. Imam štiri noge. …" "Kaj sem?" "Miza!"), and 10 of the village's people (`villager`: "Kdo je to?" "Kovač Tone!"). |
+| 🔄 Preobrat · Transformations | `preobrat.json` | 21 sets, 324 items, one set a rule of the grammar book. At A1: into the past (`pretekli-cas`: "Micka kuha kosilo." → "Micka je kuhala kosilo."), into the future (`prihodnjik`), jaz → midva and make it two (`dvojina`: "Imam brata." → "Imam dva brata."), counting on (`stevila-samostalniki`: "Ena krava." → "Dve kravi." → "Tri krave." → "Pet krav."), say no (`rodilnik-nikalnica`: "Imam čas." → "Nimam časa."; "To je krava." → "To ni krava."), never, nothing, nobody (`zanikanje`), "Vidim …" (`tozilnik`: "To je Micka." → "Vidim Micko."), ti → vi (`ti-vi`). At A2, for when they are introduced: the comparative (`primernik`), "with" (`orodnik`), a pronoun for the noun (`osebni-zaimki`: "Vidim Toneta." → "Vidim ga."), done (`glagolski-vid`: "Micka peče kruh." → "Micka je spekla kruh.") and would like (`pogojnik`). At B1: join with ki (`oziralni-ki`), pass it on (`odvisni-govor`: »Pridem zvečer.« → "Luka je rekel, da pride zvečer."), only imagined (`pogojnik-ce-bi`) and both as pronouns (`naslonke-red`: "Micka mu ga je dala."). At B2: where to (`predlogi-dva-sklona`: "pod stolom" → "pod stol"), let him (`ukazi`: "Naj Nejc prinese drva.") and no one in particular (`brezosebno`: "Treba je popraviti streho.", "Govori se, da …"). |
+| ⚡ Hitri odziv · Rapid fire | `hitri-odziv.json` | The numbers 1 to 100 and 24 up to 999, generated as the app counts them (`SpokenNumbers`; the bridge's `numberWord` voices the same words); the clock ("Ura je pol štirih.", "ob petih", "ob pol šestih"), days ("v ponedeljek", "ob ponedeljkih"), months ("januarja"), time words ("pojutrišnjem", "čez eno uro") and dates ("prvega maja"): 130 listed; then how much ("pet evrov", "kilogram jabolk": A2), when exactly ("to soboto", "pred tremi dnevi": B1) and how many times ("dvakrat", "troje hlač": B2): 179 listed. |
+| 🧱 Gradnja stavkov · Sentence building | `gradnja.json` | 95 sentences of three or four steps (67 at A1, 12 at A2, 8 at B1, 8 at B2), of the village's people and places: "Grem." → "Grem v trgovino." → "Jutri grem v trgovino." → "Jutri grem v trgovino, ker potrebujem kruh." Each names the rules it asks for beyond the obvious (`rules`: `vezniki`, `prihodnjik` …; the A2 ones `orodnik`, `dajalnik` …; at B1 and B2 "Luka je šel v gozd, da bi poiskal jagnje.", "Nejc je odšel, ne da bi se poslovil."). |
+| 🕵️ Uganke · Riddles | `uganke.json` | 74 riddles told by Stari Janez (`teller`): 62 of words of the packs (`word`: "v-kuhinji/miza"), each clue in the first person ("Iz lesa sem. Imam štiri noge. …" "Kaj sem?" "Miza!"), and 12 of the village's people (`villager`: "Kdo je to?" "Kovač Tone!"). 54 at A1; 20 above, in their level's grammar ("Z mano odpreš vrata." A2, "Ribič, ki sedi v meni, lovi postrvi." B1, "Kdor bi me hotel premagati, bi moral biti pogumen vitez." B2), for the car and the treasure hunt's riddle station. |
 
 **Only what the learner was introduced to.** A transformation set is of one rule (`rule`, a page of the grammar book),
 a build names its rules (`rules`): while one of them is not yet introduced to the learner (the page above their level
@@ -5151,6 +5217,8 @@ companion/bin/qa --apk <file>                    # an APK built before (a debug 
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
+
+**What QA types** (`type_letters`; docs/plans/05-built/course-polish.md). adb's `input text` is ASCII, so a course's ä, č or è goes in as a learner enters it: its letter chip under the field, and what the field holds is checked. `--steps course-unit` so plays a unit's own answers to the end (`LANI_QA_COURSE_UNIT=a,b,c` plays several in one run), and fails if any is graded wrong. `--steps typed-forms` types what QA otherwise never does, a form people say, in each of the course's bases: `nonstandard` (almost, the standard form shown) and an item's `spoken` (right, labelled), with what the screen said in `typed-forms.txt`. `--steps long-cell`: a long answer in a three-column table on a phone and a tablet.
 
 **QA on two emulators** (`companion/bin/qa-slot`; docs/plans/05-built/infra.md). One emulator was the queue: twelve QA
 runs waited at once on 2026-10-27, some holding it for 20 to 30 minutes, part of it their Gradle build. `qa-slot`
