@@ -275,22 +275,21 @@ export default async function prints() {
       hello.words.map(w => `${w.word} ${w.gender ?? ''} ${w.gloss}`))
   }
 
-  // a sheet reads the packs of its level and below (Dictionary.at): a B2 pack's open (odprt, the adjective) never takes the
-  // A1 to-be sheet's open, which the course means as the verb (odpreti, the supplement's); a B2 sheet would read it
+  // a sheet reads the packs of its level and below (Dictionary.at; A1 and A2 sheets the A1 and A2 packs): a B2 pack that
+  // shares a word with the A1 to-be sheet (open) leaves that sheet as it is, and its own words mean nothing at A1 or A2
   {
     const b2 = tempDir('lani-smoke-b2-pack-')
     const words = ['open', 'zzb-one', 'zzb-two', 'zzb-three', 'zzb-four', 'zzb-five', 'zzb-six', 'zzb-seven'].map((en, i) => ({ id: `w${i}`, en, sl: i ? `zzb-sl-${i}` : 'odprt', de: i ? `zzb-de-${i}` : 'geöffnet', it: i ? `zzb-it-${i}` : 'aperto', example_en: `The ${en} one.` }))
     writeFileSync(join(b2, 'open-b2.json'), JSON.stringify({ schema: 'lani.pack/v0', id: 'open-b2', language: 'en', title: 'Open', level: 'B2', words }))
-    const en = loadContent(repo, 'en', { morePacks: [b2] })
-    const sheet = sheetsOf(en, 'A1', { base: 'sl', learner: 'Jan', gender: 'both' }, ['to-be'])[0]
-    const open = sheet?.words.find(w => w.word === 'open')
+    const without = loadContent(repo, 'en', { morePacks: [] })
+    const withB2 = loadContent(repo, 'en', { morePacks: [b2] })
+    const toBe = (c: typeof without) => JSON.stringify(sheetsOf(c, 'A1', { base: 'sl', learner: 'Jan', gender: 'both' }, ['to-be'])[0]?.words)
     const ctx = { sl: new Set<string>(), en: new Set<string>(), glosses: new Map<string, string>(), lemmaOf: new Map<string, string>() }
-    const atB2 = en.dictionary.at('B2').meaning('open', 'sl', ctx)
-    const uncapped = en.dictionary.meaning('open', 'sl', ctx)
+    const at = (l: string) => withB2.dictionary.at(l).meaning('zzb-one', 'sl', ctx)?.gloss
     check(
-      "a sheet reads the packs of its level and below: the A1 to-be sheet's open is odpreti (the supplement's verb) with a B2 pack's open (odprt) beside it, which a B2 sheet would read",
-      !!open && /^odpreti/.test(open.gloss) && atB2?.gloss === 'odprt' && uncapped?.gloss === 'odprt',
-      [open?.gloss, atB2?.gloss, uncapped?.gloss],
+      'a sheet reads the packs of its level and below: a B2 pack that shares open with the A1 to-be sheet leaves the sheet as it was, and its own words mean nothing on an A1 or A2 sheet, on a B2 one they do',
+      toBe(without) === toBe(withB2) && toBe(withB2).includes('"open"') && at('A1') === undefined && at('A2') === undefined && at('B1') === undefined && at('B2') === 'zzb-sl-1',
+      [toBe(without) === toBe(withB2), at('A1'), at('A2'), at('B1'), at('B2')],
     )
   }
 
