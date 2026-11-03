@@ -3200,12 +3200,12 @@ def ispy():
 
 
 def dialogs_friuli():
-    """Friuli's B1 and B2 variants (docs/plans/05-built/dialogs-friuli.md): with LANI_CULTURE=friuli, a synthetic Teo. An
-    older app's request (?arts=6) gets none of al-fuoco's or in-cucina's levelled dialogs. At QA's "level:B1" and
-    "level:B2" a variant of each level opens with its first line in two scenes (Nonna Rosa's tea by the fire, Zia Nives's
-    radio in the kitchen), one B1 turn answered wrong first (the reaction and the why) and then right; at "level:A1" the
-    B1 variant asked for isn't in the scene and the happening's own dialog plays. Screenshots also in
-    $LANI_QA_DIALOGS_SHOTS."""
+    """Friuli's B1 and B2 variants (docs/plans/05-built/dialogs-friuli.md): with LANI_CULTURE=friuli, a synthetic Teo
+    (LANI_QA_SETUP_PAIR=it-de: the app's labels in Italian and German). An older app's request (?arts=6) gets none of
+    al-fuoco's or in-cucina's levelled dialogs. At QA's "level:B1" and "level:B2" a variant of each level opens with its
+    first line in two scenes (Nonna Rosa's tea by the fire, Zia Nives's radio in the kitchen), one B1 turn answered wrong
+    first (the reaction and the why) and then right; at "level:A1" the B1 variant asked for isn't in the scene and the
+    happening's own dialog plays. Screenshots also in $LANI_QA_DIALOGS_SHOTS."""
     if (api("/culture").get("id") or "primorska") != "friuli":
         return "skipped: the dev bridge's culture isn't friuli (LANI_CULTURE=friuli)"
     out = Path(os.environ["LANI_QA_DIALOGS_SHOTS"]) if os.environ.get("LANI_QA_DIALOGS_SHOTS") else None
@@ -3217,6 +3217,8 @@ def dialogs_friuli():
     for sid in ("al-fuoco", "in-cucina"):
         old = next((x for x in api("/scenes?arts=6") if isinstance(x, dict) and x.get("id") == sid), None)
         assert old is not None and not any(d.get("level") for d in old["dialogs"]), f"an older app gets none of {sid}'s"
+    # the app's labels in Teo's pair (it · de), not sl · en: l10n's common.close, common.next, sceneDialog.answer, …
+    close, nxt, why, turn_up = "Chiudi", "Avanti · Weiter", "Perché? · Warum?", ("La tua risposta", "Fammi scegliere")
 
     def keep(name: str):
         shot(f"friuli-{name}")
@@ -3224,32 +3226,52 @@ def dialogs_friuli():
             out.mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], out / f"friuli-{name}.png")
 
+    def at_turn() -> bool:
+        return any(any(u in t for u in turn_up) for t, _ in nodes())
+
+    def to_turn(tries=8) -> bool:
+        for _ in range(tries):
+            if at_turn():
+                return True
+            tap(nxt, 2)
+            time.sleep(1.5)
+        return at_turn()
+
+    def pick(text: str) -> bool:
+        if find("Fammi scegliere") is not None:
+            tap("Fammi scegliere", 2)
+        for t, (x0, y0, x1, y1) in boxes():
+            if t == text or t.startswith(text + " ") or t.startswith(text + ","):
+                tap_at((x0 + 40, y1 - 18))
+                return True
+        return False
+
     def play(level: str, sid: str, hid: str, variant: str, expect: str, name: str, absent: str | None = None, turn=None):
         qa_hook(f"level:{level}")
         qa_hook(f"happening:{sid}/{hid}/{variant}", f"scene:{sid}@{sid}/{hid}")
         try:
-            if wait_for("Zapri · Close", 15) is None:
-                raise AssertionError(f"{sid}/{hid} at {level}: its dialog didn't open")
-            got = wait_for(expect, 15)
+            got = wait_for(expect, 20)
             keep(name)
             assert got is not None, f"at {level}, {variant}: «{expect}»"
             assert absent is None or find(absent) is None, f"at {level}: «{absent}» is above the learner"
             if turn is not None:
-                said, wrong, reaction, right = turn
-                assert play_to(said, set()), f"{variant}: «{said}»"
+                wrong, reaction, right = turn
+                assert to_turn(), f"{variant}: its first turn"
                 time.sleep(1.5)
-                assert answer_choice({wrong}), f"{variant}: the wrong choice «{wrong}»"
+                keep(f"{name}-turn")
+                assert pick(wrong), f"{variant}: the wrong choice «{wrong}»"
                 assert wait_for(reaction, 12) is not None, f"{variant}: the reaction «{reaction}»"
                 keep(f"{name}-reaction")
-                if tap("Zakaj? · Why?", 3):
+                if tap(why, 3):
                     time.sleep(1)
                     keep(f"{name}-why")
                     adb("shell", "input", "keyevent", "KEYCODE_BACK")
                     time.sleep(1)
-                assert answer_choice({right}), f"{variant}: the right choice «{right}»"
-                time.sleep(2)
+                time.sleep(1.5)
+                assert pick(right), f"{variant}: the right choice «{right}»"
+                time.sleep(2.5)
                 keep(f"{name}-right")
-            tap("Zapri · Close", 3)
+            tap(close, 3)
         finally:
             qa_hook("happening:")
         plain_village()
@@ -3257,7 +3279,7 @@ def dialogs_friuli():
     try:
         play("B2", "al-fuoco", "tisana", "tisana-b2-bora", "soffia piano stasera", "fuoco-b2")
         play("B1", "al-fuoco", "tisana", "tisana-b1-miele", "fiori di tiglio", "fuoco-b1",
-             turn=("vasetto", "Sì, nonna! Gli lo chiedo subito.", "Gli lo…?", "Sì, nonna! Glielo chiedo subito."))
+             turn=("Sì, nonna! Gli lo chiedo subito.", "con il nonno parla chiaro", "Sì, nonna! Glielo chiedo subito."))
         play("B1", "in-cucina", "radio", "radio-b1-cane", "parla di un cane", "cucina-b1")
         play("B2", "in-cucina", "radio", "radio-b2-meteo", "Quel meteo!", "cucina-b2")
         play("A1", "al-fuoco", "tisana", "tisana-b1-miele", "Buonasera, tesoro!", "fuoco-a1", absent="fiori di tiglio")
