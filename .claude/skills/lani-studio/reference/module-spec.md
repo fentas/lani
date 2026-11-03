@@ -329,7 +329,7 @@ test/check-steps.ts primorska <project>`); there is no tool to publish one. What
 
 ## Role-play scenarios (`lani.scenario/v0`)
 
-A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice or typing). Validator: `companion/bridge/src/scenarios.ts`. Curated scenarios live in `companion/scenarios/<id>.json` (Slovene) and `companion/scenarios/<language>/<id>.json` (another language's: `companion/scenarios/it/` for an Italian village, Teo's; `companion/scenarios/de/` for the Carinthian village, `companion/scenarios/en/` for the Lake District); `publish_scenario` writes tutor ones to `<data>/app/scenarios/` (same id = replace; curated ids are refused). A village is offered only its own language's scenarios: a file in another language is skipped (a Slovene scenario never reaches an Italian village), and a child is never offered one with `audience: "adult"`.
+A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice or typing). Validator: `companion/bridge/src/scenarios.ts`. Curated scenarios live in `companion/scenarios/<id>.json` (Slovene) and `companion/scenarios/<language>/<id>.json` (another language's: `companion/scenarios/it/` for an Italian village, Teo's; `companion/scenarios/de/` for the Carinthian village, `companion/scenarios/en/` for the Lake District); `publish_scenario` writes tutor ones to `<data>/app/scenarios/` (same id = replace; curated ids are refused). A village is offered only its own language's scenarios: a file in another language is skipped (a Slovene scenario never reaches an Italian village), and a child is never offered one with `audience: "adult"`. A curated one is offered up to a level above the learner's (`talkFits`: an A1 learner meets A1 and A2, an A2 learner B1 as the next step, never two levels up); yours always (you wrote it for them).
 
 | Field | Type | Notes |
 |---|---|---|
@@ -339,7 +339,7 @@ A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice
 | `audience` | `child` \| `adult`? | `child`: written for a child (the brief tells you how to talk to one); `adult`: a grown-up's situation (wine at the inn, the in-laws), never offered to a child |
 | `title` | string or per language | "Na pošti · At the post office", or `{"it": "Al mercato", "de": "Auf dem Markt", "sl": "Na tržnici", "en": "At the market"}` (its own language and `en`; the learner sees "Al mercato · Auf dem Markt") |
 | `emoji` | string | scene icon (default 🗣️) |
-| `level` | `A1`…`C2` | how you speak in character |
+| `level` | `A1`…`C2` | how you speak in character, and who is offered it: a learner at this level or above, or one level below (the next step) |
 | `setting` | string or per base | 1-2 sentences, English, or `{"de": …, "sl": …, "en": …}` (English always): the learner reads it in their base. Write a text per base for each base the language has: Slovene en, de, it; Italian de, sl, en; German sl, en, it; English sl, de, it (and en) |
 | `role` | string | who you play, in English (for you). **Starts with the character's name, then a comma** (the app shows the part before the comma): "Uslužbenka Mojca, the clerk at the counter. Patient, says vi." Say ti or vi (tu or Lei). A name of the village's cast ("Nonna Rosa", "Giulia") plays them: their sprite and voice, and the talk grows the friendship once the learner has met them |
 | `who` | per language? | who the character is, as the learner reads it: `{"it": "La fruttivendola", "de": "Die Obstverkäuferin", "en": "The fruit seller"}` (else the app shows the role's words after the comma) |

@@ -135,6 +135,17 @@ export function scenarioBrief(s: Scenario, child = false) {
   }
 }
 
+const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+/**
+ * Whether a role-play at [talk] is offered to a learner at [learner] (A1 when unknown): at their level or below, or one
+ * level above (the next step: a talk is chosen from a list that shows its level, and the tutor keeps to the learner's
+ * level as it plays), never two (an A1 learner is never offered B1 or B2, an A2 learner B2).
+ */
+export function talkFits(talk: string, learner: string): boolean {
+  return LEVELS.indexOf(talk) <= Math.max(0, LEVELS.indexOf(learner)) + 1
+}
+
 /** The packs [s] names that the village doesn't have ([packs]: its packs' ids). */
 export function scenarioPackErrors(s: Pick<Scenario, 'id' | 'packs'>, packs: Iterable<string>): string[] {
   const have = new Set(packs)
@@ -189,9 +200,13 @@ export class ScenarioStore {
     return [...curated, ...this.read(this.tutorDir, 'tutor').filter(s => !ids.has(s.id))]
   }
 
-  /** The role-plays offered to the learner: a child ([child]) is never offered a grown-up's (audience adult). */
-  offered(child: boolean): LoadedScenario[] {
-    return this.all().filter(s => !(child && s.audience === 'adult'))
+  /**
+   * The role-plays offered to a learner at [level]: a child ([child]) is never offered a grown-up's (audience adult), and
+   * a curated one at most a level above theirs ([talkFits]: an A1 learner meets A1 and A2, never B1 or B2). The tutor's
+   * always: the tutor wrote it for this learner.
+   */
+  offered(child: boolean, level: string): LoadedScenario[] {
+    return this.all().filter(s => !(child && s.audience === 'adult') && (s.source === 'tutor' || talkFits(s.level, level)))
   }
 
   get(id: string): LoadedScenario | undefined {

@@ -1,7 +1,7 @@
 // Smoke checks: role-play scenarios and the roleplay protocol.
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { validateScenario } from '../../src/scenarios'
+import { talkFits, validateScenario } from '../../src/scenarios'
 import { talksOffered } from '../../src/scenes'
 import { postOffice, reference } from './fixtures'
 import { curatedTalksOf } from './village-talks'
@@ -46,6 +46,11 @@ export default async function scenarios() {
       v.ok ? texts.filter(t => !(t?.de && t.sl && t.en)) : v.errors,
     )
   }
+  // offered by level (ScenarioStore.offered): up to a level above the learner's, never two (an A1 learner never meets B1 or B2)
+  check(
+    "a curated role-play is offered at the learner's level or below, or one above: A1 meets A1 and A2, never B1 or B2",
+    talkFits('A1', 'A1') && talkFits('A2', 'A1') && !talkFits('B1', 'A1') && !talkFits('B2', 'A1') && talkFits('B1', 'A2') && !talkFits('B2', 'A2') && talkFits('B2', 'B1') && talkFits('A1', 'B2') && talkFits('A2', '?') && !talkFits('B1', '?'),
+  )
   const scenarioExample = [...reference.matchAll(/```json\n([\s\S]*?)\n```/g)].map(m => m[1]).find(s => s.includes('lani.scenario/v0'))
   check('module-spec.md scenario example validates', scenarioExample && validateScenario(JSON.parse(scenarioExample)).ok, scenarioExample)
   const scList = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
