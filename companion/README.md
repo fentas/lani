@@ -3962,8 +3962,8 @@ others; the rest wait for the next. `card.py show` tells how the app asks one.
 
 "🔢 Števila · Numbers" (Jan: "Do we learn numbers in school at some point? Would be nice: a separate test module."): a
 practice module of the numbers themselves, beside the counting cards (which count a noun). Its rules are
-`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene and Italian so far; what follows
-is Slovene's, Italian's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
+`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene, Italian and German so far; what follows
+is Slovene's, Italian's and German's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
 screen, the run, the number pad: `NumeralEx.kt`), the rest `app/NumbersController.kt`.
 
 **Where it opens.** The intro of the A1 unit `stevila` opens it (finished, or skipped as known: as for counting cards),
@@ -4044,8 +4044,18 @@ ventitré, ventotto, centotré, duemilaventisei); the tens come first, so 72 typ
 quindici; il primo, l'otto, l'undici), so `numbers_ordinal_date` is a date's day there. A clock time is alle + the hour
 (alle cinque, all'una; "le cinque" and "cinque" are right too, at 12 a mezzogiorno and a mezzanotte); half past counts from the hour that is there, so 4:30 typed
 for "alle cinque e mezza" and "alle sei e mezza" written for 5:30 are `numbers_clock_time_half`, German's "halb" counted
-into Italian. A language without a `NumberTongue` (German and English so far) has no tile and no module. `NumbersItalianTest`
-holds its table; QA's step `practice-it`.
+into Italian. `NumbersItalianTest` holds its table; QA's step `practice-it`.
+
+**In German** (Austrian standard; docs/plans/05-built/practice-de.md) the unit `zahlen`'s intro opens it, `uhrzeit`'s brings the clock,
+`am-ersten-mai`'s (page `ordinalzahlen`) the dates. The words are one word, the ones first, as the page counts them
+(`SpokenNumbers.german`: einundzwanzig, hundertzwanzig, zweitausendsechsundzwanzig; einhundert, eintausend, hundertundeins, a year's
+neunzehnhundertneunundachtzig and zwo right too); the tens first, as English and Italian say them (zwanzigsieben, 72 typed for
+siebenundzwanzig), are `numbers_order`; eins, sechs and sieben kept whole (einsundzwanzig, sechszehn, siebenzig) are wrong, the
+learner's own words. A date's day is the ordinal after der ("Heute ist der ___ Mai. (15.)" → fünfzehnte; -te to 19, -ste from 20,
+erste, dritte, siebte, achte; einste, achtte, zwanzigte wrong), the month Jänner with Januar right too. A clock time is um + the
+hour (um eins, um ein Uhr, fünf Uhr dreißig, siebzehn Uhr dreißig); halb counts towards the next hour, so 6:30 typed for "um halb
+sechs" and "halb fünf" written for 5:30 are `numbers_clock_time_half`. `NumbersGermanTest` holds its table. English has no
+`NumberTongue` yet: no tile and no module.
 
 ### The case lens
 
@@ -4734,7 +4744,10 @@ validates and serves them (`GET /drills`); the app bundles its own copy (for a b
 Italian has its four too (`companion/drills/it/`, each to B2: 384 transformations, from A1's plural to B2's congiuntivo tenses,
 if-sentences, reported speech, venire + the participle and avendo finito; rapid fire's numbers, clock and dates at A1, then verb forms,
 linking words, centuries and years to B2; 96 sentences built; 82 riddles told by Nonno Bepi, B1's and B2's in their grammar; 1,749
-texts, about 40,600 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md and practice-it-b2.md). What follows
+texts, about 40,600 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md and practice-it-b2.md), and German
+its four (`companion/drills/de/`: 300 transformations from the plural at A1 to reported speech at B2, 81 sentences built, 55 riddles
+told by Opa Sepp, every text in de, en, sl and it; 1,425 texts, 40,884 characters to voice, none voiced yet:
+docs/plans/05-built/practice-de.md). What follows
 describes Slovene's; a language's drills are data, its generated numbers `numberWord` (all four languages), and a session
 without clips stays away from the menu.
 

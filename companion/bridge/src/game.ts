@@ -134,7 +134,7 @@ function courseOf(c: any) {
 
 /** The numbers module's ladder (companion/README.md "Numbers"; the app's NumberRange): each range's id and label, in order. */
 /** The course units whose intro opens the numbers module, as the app's NumberTongue has them: the village's language has one. */
-const NUMBERS_UNITS = ['sl/stevila', 'it/numeri']
+const NUMBERS_UNITS = ['sl/stevila', 'it/numeri', 'de/zahlen']
 
 const NUMBER_RANGES: [string, string][] = [
   ['0-10', '0–10'], ['11-20', '11–20'], ['tens', '30–90'], ['21-99', '21–99'], ['100-999', '100–999'], ['1000-9999', '1000–9999'],
