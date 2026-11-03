@@ -72,7 +72,7 @@ Unchanged: goed, runned, heared, likeed were wrong already (an ending or the dis
 
 ## Voice
 
-Not built, no credits spent. Mrs Hartley's English lines for the six units are 347 distinct texts, about 7,500 characters, the same for every base (`voice-build --only teacher`). The explanations, one clip a step and summary, are about 9,900 characters in Slovene, 10,600 in German and 10,700 in Italian (`--explanations`), about 31,200 for all three.
+Not built, no credits spent. Mrs Hartley's English lines for the six units are 347 distinct texts, about 7,500 characters, the same for every base (`voice-build --only teacher`). The explanations, one clip a step and summary, are about 9,900 characters in Slovene, 10,700 in German and 10,700 in Italian (`--explanations`), about 31,300 for all three.
 
 ## Checks
 
@@ -81,7 +81,7 @@ On the branch's last content commit, `55b0379f`:
 - **Bridge:** `tsc` clean; the smoke on ports 9910– (LANI_SMOKE_DRAMA3_PORT 9928): 3,508 checks, all passed; `tutor-export --check`: 89 files match; `prompt-clashes`: none new (this part adds no pack).
 - **Android, the course's tests through `lani-slot.sh`:** 105 tests, 0 failures: `EnglishCourseContentTest` 6, `EnglishA2aContentTest` 8 (new), `GradingLanguagesTest` 48, `GrammarTest` 16, `SchoolBoardTest` 7, `SchoolRevealTest` 10, `SentenceGrammarTest` 6, `IntroSpeechParityTest` 2, `IntroBoldTapTest` 2. The whole suite is part c's and the gate's, as the brief says.
 - **Words:** `lexicon-build --coverage --lang en`: 98.4 % of tokens and 97.4 % of different words meant in each base, as before this part, with 15 more different words; 81 words none knows, as before.
-- **Sheets:** `school-prints --language en --level A2` in de, sl and it: all six fit (`imperatives` and `did-you` one page, the others two), the booklet 12 pages, no word left without a meaning. Each printed word was read against the unit's sense in de, sl and it for the words below; each step's rule line was read in de and scanned for broken brackets in all three.
+- **Sheets:** `school-prints --language en --level A2` in de, sl and it: all six fit (`imperatives` and `did-you` one page, the others two), the booklet 12 pages, no word left without a meaning. The printed words were read against the unit's sense in de and sl, and those fixed below in it too; each step's rule line was read in de and scanned for broken brackets in all three.
 - **Emulator:** `course-unit` through qa-slot (slot 2), a synthetic learner of English from German in the Lake District, unit `because-so`, end to end: the six intro steps and their quick questions, the summary, the first worksheet (the sort, the table), the test passed, the sheet printed in the app (preview and PDF). That run was on `56ee2126`; the one commit after it changes only the units' `words`, a few glosses in `say` and the supplement. Screenshots: the scratchpad's `ux-course-en-a2-a/`. The other five units were not played on an emulator.
 - **Not run:** the Python tests (no Python changed); a voice build.
 
