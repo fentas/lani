@@ -380,7 +380,7 @@
       "forms": { "disegno": "singular", "disegni": "plural" },
       "meanings": { "de": ["Zeichnung, Bild"], "sl": ["risba"] } },
     { "lemma": "forno", "pos": "noun", "gender": "m", "gloss": ["oven"],
-      "forms": { "forno": "singular" },
+      "forms": { "forno": "singular", "forni": "plural" },
       "meanings": { "de": ["Backofen"], "sl": ["pečica"] } },
     { "lemma": "freddo", "pos": "noun", "gender": "m", "gloss": ["the cold (avere freddo: to be cold)"],
       "forms": { "freddo": "singular", "fredde": "feminine plural" },
@@ -545,7 +545,7 @@
       "forms": { "moneta": "singular", "monete": "plural" },
       "meanings": { "de": ["Münze"], "sl": ["kovanec"] } },
     { "lemma": "padella", "pos": "noun", "gender": "f", "gloss": ["frying pan"],
-      "forms": { "padella": "singular" },
+      "forms": { "padella": "singular", "padelle": "plural" },
       "meanings": { "de": ["Pfanne"], "sl": ["ponev"] } },
     { "lemma": "partita", "pos": "noun", "gender": "f", "gloss": ["match, game"],
       "forms": { "partita": "singular", "partite": "plural" },
@@ -875,7 +875,7 @@
     { "lemma": "cuocere", "pos": "verb", "gloss": ["to cook, to bake"],
       "forms": {
         "cuoci": "second-person singular present; second-person singular imperative", "cuoce": "third-person singular present",
-        "cuociono": "third-person plural present", "cuocere": "infinitive"
+        "cuociono": "third-person plural present", "cuocere": "infinitive", "cotto": "past participle", "cotta": "feminine singular past participle"
       },
       "meanings": { "de": ["kochen, backen"], "sl": ["kuhati, peči"] } },
     { "lemma": "dare", "pos": "verb", "gloss": ["to give"],
@@ -1174,7 +1174,10 @@
       },
       "meanings": { "de": ["regnen"], "sl": ["deževati"] } },
     { "lemma": "pizzicare", "pos": "verb", "gloss": ["to pinch"],
-      "forms": { "pizzico": "first-person singular present", "pizzicano": "third-person plural present", "pizzicare": "infinitive" },
+      "forms": {
+        "pizzico": "first-person singular present", "pizzicano": "third-person plural present", "pizzicare": "infinitive",
+        "pizzichi": "second-person singular present; first/second/third-person singular present subjunctive"
+      },
       "meanings": { "de": ["zwicken"], "sl": ["ščipati"] } },
     { "lemma": "potere", "pos": "verb", "gloss": ["can, to be able to; may"],
       "forms": {
@@ -1221,7 +1224,9 @@
     { "lemma": "preparare", "pos": "verb", "gloss": ["to prepare, to make"],
       "forms": {
         "prepara": "third-person singular present; second-person singular imperative", "preparare": "infinitive", "preparando": "gerund",
-        "preparato": "past participle", "preparo": "first-person singular present", "prepararsi": "infinitive, with si (oneself)"
+        "preparato": "past participle", "preparo": "first-person singular present",
+        "prepariamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
+        "prepararsi": "infinitive, with si (oneself)"
       },
       "meanings": { "de": ["vorbereiten, zubereiten"], "sl": ["pripraviti"] } },
     { "lemma": "prestare", "pos": "verb", "gloss": ["to lend"],
@@ -1706,7 +1711,12 @@
         "diventare": "infinitive", "diventata": "feminine singular past participle"
       },
       "meanings": { "de": ["werden"], "sl": ["postati"] } },
-    { "lemma": "grattugiare", "pos": "verb", "gloss": ["to grate"], "forms": {"grattugiato": "past participle", "grattugiata": "past participle, feminine"},
+    { "lemma": "grattugiare", "pos": "verb", "gloss": ["to grate"],
+      "forms": {
+        "grattugiato": "past participle", "grattugiata": "past participle, feminine",
+        "grattugia": "third-person singular present; second-person singular imperative",
+        "grattugiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "grattugiare": "infinitive"
+      },
       "meanings": { "de": ["reiben (Käse)"], "sl": ["nastrgati"] } },
     { "lemma": "il", "pos": "det", "gender": "m", "gloss": ["the, definite article – masculine"],
       "forms": {
@@ -3200,7 +3210,7 @@
       "forms": { "corno": "singular", "corni": "plural", "corna": "plural (of an animal, antlers)" },
       "meanings": { "de": ["Horn"], "sl": ["rog"] } },
     { "lemma": "coro", "pos": "noun", "gender": "m", "gloss": ["choir"],
-      "forms": { "coro": "singular" },
+      "forms": { "coro": "singular", "cori": "plural" },
       "meanings": { "de": ["Chor"], "sl": ["zbor"] } },
     { "lemma": "corona", "pos": "noun", "gender": "f", "gloss": ["crown, wreath"],
       "forms": { "corona": "singular", "coroncina": "little crown, little wreath" },
@@ -3689,7 +3699,7 @@
       "forms": { "matematica": "singular" },
       "meanings": { "de": ["Mathematik, Mathe"], "sl": ["matematika"] } },
     { "lemma": "mattarello", "pos": "noun", "gender": "m", "gloss": ["rolling pin"],
-      "forms": { "mattarello": "singular", "matterello": "another spelling" },
+      "forms": { "mattarello": "singular", "mattarelli": "plural", "matterello": "another spelling" },
       "meanings": { "de": ["Nudelholz, Nudelwalker"], "sl": ["valjar za testo"] } },
     { "lemma": "mattino", "pos": "noun", "gender": "m", "gloss": ["morning, morning hours"],
       "forms": { "mattino": "singular" },
@@ -3776,7 +3786,7 @@
       "forms": { "muro": "singular", "muri": "plural", "mura": "plural (the town walls)" },
       "meanings": { "de": ["Mauer"], "sl": ["zid"] } },
     { "lemma": "musica", "pos": "noun", "gender": "f", "gloss": ["music"],
-      "forms": { "musica": "singular" },
+      "forms": { "musica": "singular", "musiche": "plural" },
       "meanings": { "de": ["Musik"], "sl": ["glasba"] } },
     { "lemma": "narratore", "pos": "noun", "gender": "m", "gloss": ["storyteller, narrator"],
       "forms": { "narratore": "singular" },
@@ -3851,7 +3861,7 @@
       "forms": { "pala": "singular", "pale": "plural" },
       "meanings": { "de": ["Schaufel"], "sl": ["lopata"] } },
     { "lemma": "palco", "pos": "noun", "gender": "m", "gloss": ["stage"],
-      "forms": { "palco": "singular" },
+      "forms": { "palco": "singular", "palchi": "plural" },
       "meanings": { "de": ["Bühne"], "sl": ["oder"] } },
     { "lemma": "pancino", "pos": "noun", "gender": "m", "gloss": ["little tummy"],
       "forms": { "pancino": "singular" },
@@ -4109,7 +4119,7 @@
       "forms": { "ricciolo": "singular", "riccioli": "plural" },
       "meanings": { "de": ["Locke"], "sl": ["koder"] } },
     { "lemma": "ricetta", "pos": "noun", "gender": "f", "gloss": ["recipe"],
-      "forms": { "ricetta": "singular" },
+      "forms": { "ricetta": "singular", "ricette": "plural" },
       "meanings": { "de": ["Rezept"], "sl": ["recept"] } },
     { "lemma": "richiamo", "pos": "noun", "gender": "m", "gloss": ["call, a shout to call someone"],
       "forms": { "richiamo": "singular", "richiami": "plural" },
@@ -4142,7 +4152,7 @@
       "forms": { "ritardo": "singular", "ritardi": "plural" },
       "meanings": { "de": ["Verspätung"], "sl": ["zamuda"] } },
     { "lemma": "ritmo", "pos": "noun", "gender": "m", "gloss": ["rhythm"],
-      "forms": { "ritmo": "singular" },
+      "forms": { "ritmo": "singular", "ritmi": "plural" },
       "meanings": { "de": ["Rhythmus"], "sl": ["ritem"] } },
     { "lemma": "robot", "pos": "noun", "gender": "m", "gloss": ["robot"],
       "forms": { "robot": "singular; plural" },
@@ -4667,7 +4677,7 @@
       "forms": { "diario": "singular" },
       "meanings": { "de": ["Tagebuch"], "sl": ["dnevnik"] } },
     { "lemma": "concerto", "pos": "noun", "gender": "m", "gloss": ["concert"],
-      "forms": { "concerto": "singular" },
+      "forms": { "concerto": "singular", "concerti": "plural" },
       "meanings": { "de": ["Konzert"], "sl": ["koncert"] } },
     { "lemma": "pastiglia", "pos": "noun", "gender": "f", "gloss": ["pill"],
       "forms": { "pastiglia": "singular", "pastiglie": "plural" },
@@ -5110,6 +5120,30 @@
     { "lemma": "identità", "pos": "noun", "gender": "f", "gloss": ["identity"],
       "forms": { "identità": "singular; plural" },
       "meanings": { "de": ["Identität"], "sl": ["identiteta"] } },
+    { "lemma": "figurina", "pos": "noun", "gender": "f", "gloss": ["collector's sticker"],
+      "forms": { "figurina": "singular", "figurine": "plural" },
+      "meanings": { "de": ["Sammelbild"], "sl": ["sličica (za album)"] } },
+    { "lemma": "ingresso", "pos": "noun", "gender": "m", "gloss": ["entrance", "admission"],
+      "forms": { "ingresso": "singular" },
+      "meanings": { "de": ["Eingang", "Eintritt"], "sl": ["vhod", "vstop"] } },
+    { "lemma": "museo", "pos": "noun", "gender": "m", "gloss": ["museum"],
+      "forms": { "museo": "singular" },
+      "meanings": { "de": ["Museum"], "sl": ["muzej"] } },
+    { "lemma": "parcheggio", "pos": "noun", "gender": "m", "gloss": ["car park"],
+      "forms": { "parcheggio": "singular" },
+      "meanings": { "de": ["Parkplatz"], "sl": ["parkirišče"] } },
+    { "lemma": "risparmio", "pos": "noun", "gender": "m", "gloss": ["savings", "saving"],
+      "forms": { "risparmio": "singular" },
+      "meanings": { "de": ["Ersparnis", "Sparen"], "sl": ["prihranek", "varčevanje"] } },
+    { "lemma": "bacchetta", "pos": "noun", "gender": "f", "gloss": ["baton", "little stick, wand"],
+      "forms": { "bacchetta": "singular" },
+      "meanings": { "de": ["Taktstock", "Stäbchen"], "sl": ["taktirka", "paličica"] } },
+    { "lemma": "direttore", "pos": "noun", "gender": "m", "gloss": ["director, head", "conductor (direttore d'orchestra)"],
+      "forms": { "direttore": "singular", "direttori": "plural" },
+      "meanings": { "de": ["Leiter, Direktor", "Dirigent"], "sl": ["direktor, vodja", "dirigent"] } },
+    { "lemma": "pubblico", "pos": "noun", "gender": "m", "gloss": ["audience, the public"],
+      "forms": { "pubblico": "singular" },
+      "meanings": { "de": ["Publikum"], "sl": ["občinstvo"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -5367,7 +5401,7 @@
       },
       "meanings": { "de": ["kühl, frisch"], "sl": ["hladen, svež"] } },
     { "lemma": "fritto", "pos": "adj", "gloss": ["fried"],
-      "forms": { "fritto": "masculine singular", "fritti": "masculine plural" },
+      "forms": { "fritto": "masculine singular", "fritti": "masculine plural", "fritte": "feminine plural" },
       "meanings": { "de": ["gebacken, frittiert"], "sl": ["ocvrt"] } },
     { "lemma": "friulano", "pos": "adj", "gloss": ["Friulian, from Friuli"],
       "forms": { "friulano": "masculine singular", "friulana": "feminine singular", "friulani": "masculine plural", "friulane": "feminine plural" },
@@ -5925,7 +5959,7 @@
       "forms": { "brillante": "singular" },
       "meanings": { "de": ["strahlend"], "sl": ["bleščeč, odličen"] } },
     { "lemma": "croccante", "pos": "adj", "gloss": ["crunchy, crisp"],
-      "forms": { "croccante": "singular" },
+      "forms": { "croccante": "singular", "croccanti": "plural" },
       "meanings": { "de": ["knusprig"], "sl": ["hrustljav"] } },
     { "lemma": "caldissimo", "pos": "adj", "gloss": ["very hot"],
       "forms": { "caldissimo": "masculine singular", "caldissima": "feminine singular" },
@@ -6041,6 +6075,12 @@
     { "lemma": "solare", "pos": "adj", "gloss": ["of the sun, solar"],
       "forms": { "solare": "singular", "solari": "plural" },
       "meanings": { "de": ["Sonnen-"], "sl": ["sončen – od sonca"] } },
+    { "lemma": "crudo", "pos": "adj", "gloss": ["raw"],
+      "forms": { "crudo": "masculine singular", "crude": "feminine plural" },
+      "meanings": { "de": ["roh"], "sl": ["surov"] } },
+    { "lemma": "economico", "pos": "adj", "gloss": ["cheap, inexpensive"],
+      "forms": { "economico": "masculine singular", "economica": "feminine singular" },
+      "meanings": { "de": ["billig, günstig"], "sl": ["poceni"] } },
     { "lemma": "abbaiare", "pos": "verb", "gloss": ["to bark"],
       "forms": {
         "abbaio": "first-person singular present", "abbaia": "third-person singular present; second-person singular imperative",
@@ -6158,7 +6198,7 @@
     { "lemma": "bruciare", "pos": "verb", "gloss": ["to burn"],
       "forms": {
         "brucia": "third-person singular present; second-person singular imperative", "bruciano": "third-person plural present",
-        "bruciava": "third-person singular imperfect", "bruciare": "infinitive"
+        "bruciava": "third-person singular imperfect", "bruciare": "infinitive", "bruciato": "past participle", "bruciata": "feminine singular past participle"
       },
       "meanings": { "de": ["brennen"], "sl": ["goreti, žgati"] } },
     { "lemma": "calare", "pos": "verb", "gloss": ["to wane, to go down"],
@@ -6807,7 +6847,7 @@
       "forms": { "adoro": "first-person singular present", "adorano": "third-person plural present", "adorare": "infinitive" },
       "meanings": { "de": ["total gern haben, sehr lieben"], "sl": ["oboževati"] } },
     { "lemma": "aggiungere", "pos": "verb", "gloss": ["to add"],
-      "forms": { "aggiungi": "second-person singular present; second-person singular imperative", "aggiungere": "infinitive" },
+      "forms": { "aggiungi": "second-person singular present; second-person singular imperative", "aggiungere": "infinitive", "aggiunto": "past participle" },
       "meanings": { "de": ["dazugeben, hinzufügen"], "sl": ["dodati"] } },
     { "lemma": "aggiustare", "pos": "verb", "gloss": ["to mend, to fix"],
       "forms": { "aggiusto": "first-person singular present", "aggiustare": "infinitive" },
@@ -6936,8 +6976,8 @@
       "meanings": { "de": ["glänzen, funkeln"], "sl": ["sijati, lesketati se"] } },
     { "lemma": "buttare", "pos": "verb", "gloss": ["to throw, to throw away"],
       "forms": {
-        "butto": "first-person singular present", "buttano": "third-person plural present", "buttava": "third-person singular imperfect",
-        "buttare": "infinitive"
+        "butto": "first-person singular present", "butta": "third-person singular present; second-person singular imperative",
+        "buttano": "third-person plural present", "buttava": "third-person singular imperfect", "buttare": "infinitive"
       },
       "meanings": { "de": ["werfen, wegwerfen"], "sl": ["vreči, odvreči"] } },
     { "lemma": "cacciare", "pos": "verb", "gloss": ["to hunt", "to chase away"],
@@ -7092,7 +7132,7 @@
     { "lemma": "costare", "pos": "verb", "gloss": ["to cost"],
       "forms": {
         "costa": "third-person singular present; second-person singular imperative", "costano": "third-person plural present",
-        "costerà": "third-person singular future", "costerebbe": "third-person singular conditional", "costare": "infinitive",
+        "costerà": "third-person singular future", "costerebbe": "third-person singular conditional", "costare": "infinitive", "costato": "past participle",
         "costata": "feminine singular past participle"
       },
       "meanings": { "de": ["kosten"], "sl": ["stati (koliko stane?)"] } },
@@ -7212,7 +7252,10 @@
       "forms": { "forma": "third-person singular present; second-person singular imperative", "formano": "third-person plural present", "formare": "infinitive" },
       "meanings": { "de": ["bilden, formen"], "sl": ["oblikovati, sestavljati"] } },
     { "lemma": "friggere", "pos": "verb", "gloss": ["to fry"],
-      "forms": { "frigge": "third-person singular present", "friggere": "infinitive", "fritti": "masculine plural past participle" },
+      "forms": {
+        "frigge": "third-person singular present", "friggere": "infinitive", "fritto": "past participle", "fritti": "masculine plural past participle",
+        "fritte": "feminine plural past participle"
+      },
       "meanings": { "de": ["herausbacken, frittieren"], "sl": ["cvreti"] } },
     { "lemma": "fumare", "pos": "verb", "gloss": ["to smoke, to give off smoke"],
       "forms": {
@@ -7247,7 +7290,10 @@
       },
       "meanings": { "de": ["führen", "lenken, fahren"], "sl": ["voditi", "voziti"] } },
     { "lemma": "impastare", "pos": "verb", "gloss": ["to knead"],
-      "forms": { "impasta": "third-person singular present; second-person singular imperative", "impastare": "infinitive" },
+      "forms": {
+        "impasto": "first-person singular present", "impasta": "third-person singular present; second-person singular imperative",
+        "impastiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "impastare": "infinitive"
+      },
       "meanings": { "de": ["kneten"], "sl": ["gnesti"] } },
     { "lemma": "impazzire", "pos": "verb", "gloss": ["to go mad, to go crazy"],
       "forms": { "impazzito": "past participle", "impazzire": "infinitive" },
@@ -7444,7 +7490,11 @@
       "forms": { "ottieni": "second-person singular present; second-person singular imperative", "otterremo": "first-person plural future", "ottenere": "infinitive" },
       "meanings": { "de": ["bekommen, erreichen"], "sl": ["dobiti, doseči"] } },
     { "lemma": "pagare", "pos": "verb", "gloss": ["to pay, to pay for"],
-      "forms": { "pago": "first-person singular present", "paga": "third-person singular present; second-person singular imperative", "pagare": "infinitive" },
+      "forms": {
+        "pago": "first-person singular present", "paghi": "second-person singular present; first/second/third-person singular present subjunctive",
+        "paga": "third-person singular present; second-person singular imperative",
+        "paghiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "pagare": "infinitive"
+      },
       "meanings": { "de": ["zahlen, bezahlen"], "sl": ["plačati"] } },
     { "lemma": "pascolare", "pos": "verb", "gloss": ["to graze"],
       "forms": {
@@ -7753,7 +7803,11 @@
       },
       "meanings": { "de": ["einen Fehler machen, sich irren"], "sl": ["zmotiti se, narediti napako"] } },
     { "lemma": "sbattere", "pos": "verb", "gloss": ["to beat (eggs), to bang"],
-      "forms": { "sbatte": "third-person singular present", "sbattono": "third-person plural present", "sbattere": "infinitive", "sbattuto": "past participle" },
+      "forms": {
+        "sbatte": "third-person singular present",
+        "sbattiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
+        "sbattono": "third-person plural present", "sbattere": "infinitive", "sbattuto": "past participle"
+      },
       "meanings": { "de": ["schlagen (Eier), anschlagen"], "sl": ["stepati, udariti"] } },
     { "lemma": "sbucciare", "pos": "verb", "gloss": ["to peel"],
       "forms": {
@@ -8178,7 +8232,7 @@
       },
       "meanings": { "de": ["abkühlen"], "sl": ["ohladiti"] } },
     { "lemma": "spendere", "pos": "verb", "gloss": ["to spend"],
-      "forms": { "spendere": "infinitive", "speso": "past participle", "spesa": "feminine singular past participle" },
+      "forms": { "spende": "third-person singular present", "spendere": "infinitive", "speso": "past participle", "spesa": "feminine singular past participle" },
       "meanings": { "de": ["ausgeben"], "sl": ["zapraviti, potrošiti"] } },
     { "lemma": "lamentare", "pos": "verb", "gloss": ["to lament (si lamentano: they complain)"],
       "forms": {
@@ -8467,6 +8521,12 @@
     { "lemma": "galleggiare", "pos": "verb", "gloss": ["to float"],
       "forms": { "galleggia": "third-person singular present; second-person singular imperative", "galleggiare": "infinitive" },
       "meanings": { "de": ["schwimmen – an der Oberfläche, treiben"], "sl": ["plavati na vodi"] } },
+    { "lemma": "affettare", "pos": "verb", "gloss": ["to slice"],
+      "forms": { "affetta": "third-person singular present; second-person singular imperative", "affettare": "infinitive" },
+      "meanings": { "de": ["in Scheiben schneiden"], "sl": ["narezati na rezine"] } },
+    { "lemma": "modellare", "pos": "verb", "gloss": ["to model, to shape"],
+      "forms": { "modella": "third-person singular present; second-person singular imperative", "modellare": "infinitive" },
+      "meanings": { "de": ["formen, modellieren"], "sl": ["oblikovati (iz gline)"] } },
     { "lemma": "Davide", "pos": "name", "gloss": ["Davide (the shepherd)"],
       "forms": { "davide": null },
       "meanings": { "de": ["Davide (der Hirte)"], "sl": ["Davide (pastir)"] } },
