@@ -47,6 +47,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-build-app` | Builds the app in Docker or Podman, without a JDK or an Android SDK: the debug or release APK, the unit tests, any Gradle task (see [Build in Docker](#build-in-docker)). |
 | `bin/lani-keystore` | Creates the app's release key outside the repository (`~/.config/lani`) and shows how to give it to the release workflow (see [docs/releasing.md](../docs/releasing.md)). |
 | `bin/qa` | End-to-end check on an emulator against a dev bridge on a copy of the data, and a second dev town to visit. |
+| `bin/content-count` | What each language and culture has (units, pages, modules, drills, packs, scenes, stories, readings, arrivals, project steps, parties, keepers' talks), counted from the content files and from no doc. `--json` for the numbers. |
 | `bin/qa-slot` | Runs `bin/qa` on the first free of two emulator slots, each with its own emulator, lock and ports (see [Test](#test), "QA on two emulators"). |
 | `bin/lani-watchdog` | Starts a learner's bridge service or tutor session that is down, every 3 minutes from a systemd user timer (see [The watchdog](#the-watchdog)). |
 | `bin/lani-backup` | Snapshots of the learner data, with restore (see [Backups](#backups)). |
@@ -5177,6 +5178,8 @@ companion/bin/qa --apk <file>                    # an APK built before (a debug 
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
+
+**What QA types** (`type_letters`; docs/plans/05-built/course-polish.md). adb's `input text` is ASCII, so a course's ä, č or è goes in as a learner enters it: its letter chip under the field, and what the field holds is checked. `--steps course-unit` so plays a unit's own answers to the end (`LANI_QA_COURSE_UNIT=a,b,c` plays several in one run), and fails if any is graded wrong. `--steps typed-forms` types what QA otherwise never does, a form people say, in each of the course's bases: `nonstandard` (almost, the standard form shown) and an item's `spoken` (right, labelled), with what the screen said in `typed-forms.txt`. `--steps long-cell`: a long answer in a three-column table on a phone and a tablet.
 
 **QA on two emulators** (`companion/bin/qa-slot`; docs/plans/05-built/infra.md). One emulator was the queue: twelve QA
 runs waited at once on 2026-10-27, some holding it for 20 to 30 minutes, part of it their Gradle build. `qa-slot`

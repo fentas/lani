@@ -1,0 +1,268 @@
+#!/usr/bin/env python3
+"""What each language and culture has, counted from the content files and from no doc: the school (units and pages by
+level, the outline's planned units), modules, the car's drills, packs and their words by level, scenes, stories,
+readings, arrivals by level, project steps, the ages' parties and the keepers' talks.
+
+Usage: companion/bin/content-count [--root DIR] [--json]
+  --root  the companion directory to count (default: this script's)
+  --json  the numbers as JSON, instead of the Markdown tables
+
+Where each thing is read from is where the bridge reads it (packs.ts packsDirs, scenes.ts scenesDirs): a language's packs
+and scenes are companion/packs and companion/scenes themselves for Slovene, companion/packs/<language> for another, then
+its culture's own, the first with an id winning. A unit counts as written when it has a file, whatever the outline says;
+planned is an outline line with no file. The numbers are files and what is in them: nothing here says the content is
+good, or that it passes its checks (the smoke does).
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from collections import Counter
+from pathlib import Path
+
+LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
+
+
+def read(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def files(d: Path) -> list[Path]:
+    return sorted(d.glob("*.json")) if d.is_dir() else []
+
+
+def by_level(levels) -> dict:
+    """How many of each level, in the levels' order; an unknown or missing one under "?", so that it shows."""
+    c = Counter(lv if lv in LEVELS else "?" for lv in levels)
+    return {lv: c[lv] for lv in [*LEVELS, "?"] if c[lv]}
+
+
+def own_dir(root: Path, kind: str, language: str) -> Path:
+    """A language's own packs or scenes: the root itself for Slovene, as the bridge reads them."""
+    return root / kind if language == "sl" else root / kind / language
+
+
+def first_with_id(*dirs: Path) -> dict:
+    """The files of [dirs] by their id, the first with an id winning (PackStore, SceneStore)."""
+    out: dict = {}
+    for d in dirs:
+        for f in files(d):
+            j = read(f)
+            out.setdefault(j.get("id", f.stem), j)
+    return out
+
+
+def course(root: Path, language: str) -> dict:
+    d = root / "course" / language
+    units = [read(f) for f in files(d / "units")]
+    have = {f.stem for f in files(d / "units")}
+    outline = read(d / "course.json") if (d / "course.json").exists() else {"levels": []}
+    planned = Counter()
+    for lv in outline.get("levels", []):
+        for u in lv.get("units", []):
+            if u["id"] not in have:
+                planned[lv["level"]] += 1
+    pages = [read(f) for f in files(root / "grammar" / language)]
+    return {
+        "units": by_level(u.get("level") for u in units),
+        "units_total": len(units),
+        "units_planned": dict(planned),
+        "pages": by_level(p.get("level") for p in pages),
+        "pages_total": len(pages),
+    }
+
+
+def modules(root: Path, language: str) -> dict:
+    ms = [read(f) for f in files(own_dir(root, "modules", language))]
+    return {"total": len(ms), "by_level": by_level(m.get("level") for m in ms), "exercises": sum(len(m.get("exercises", [])) for m in ms)}
+
+
+def drills(root: Path, language: str) -> dict:
+    """The car's drills: a file a kind; a kind's items are its builds, its sets' items or its riddles."""
+    kinds = {}
+    for f in files(root / "drills" / language):
+        d = read(f)
+        if "builds" in d:
+            items, levels = d["builds"], [b.get("level") for b in d["builds"]]
+        elif "riddles" in d:
+            items, levels = d["riddles"], [r.get("level") for r in d["riddles"]]
+        else:
+            items = [i for s in d.get("sets", []) for i in s.get("items", [])]
+            levels = [s.get("level") for s in d.get("sets", []) for _ in s.get("items", [])]
+        kinds[d.get("kind", f.stem)] = {"items": len(items), "by_level": by_level(levels)}
+    return kinds
+
+
+def talks(world: dict) -> dict:
+    """The keepers' talks: everything a keeper says that has its tellings by level, the meeting, his tales, each stage's talks
+    and the rest of his spot's cycle (rest, winter, lost, greet, breakout, waiting)."""
+    keepers = 0
+    tellings: list = []
+
+    def walk(o):
+        if isinstance(o, list):
+            for x in o:
+                walk(x)
+        elif isinstance(o, dict):
+            if isinstance(o.get("levels"), dict) and set(o["levels"]) & set(LEVELS):
+                tellings.append(list(o["levels"]))
+            for k, v in o.items():
+                if k != "levels":
+                    walk(v)
+
+    for spot in world.get("spots", {}).values():
+        if spot.get("keeper"):
+            keepers += 1
+            walk(spot["keeper"])
+            walk(spot.get("cycle"))
+    return {"keepers": keepers, "total": len(tellings), "by_level": by_level(lv for t in tellings for lv in t)}
+
+
+def told_at(story: dict) -> set:
+    """The levels a story is told at: its one telling's, or any of its chapters' (stories.ts chaptersOf)."""
+    return {lv for c in story.get("chapters", [story]) for lv in c.get("levels", {})}
+
+
+def steps(d: Path) -> dict:
+    """The village projects' steps: the projects with a file, the steps, how many steps at each level."""
+    projects = [read(f) for f in files(d)]
+    levels = [lv for p in projects for s in p.get("steps", []) for lv in s.get("levels", {})]
+    return {"projects": len(projects), "steps": sum(len(p.get("steps", [])) for p in projects), "by_level": by_level(levels)}
+
+
+def culture(root: Path, c: Path) -> dict:
+    info = read(c / "culture.json")
+    language = info["language"]
+    packs = first_with_id(own_dir(root, "packs", language), c / "packs")
+    scenes = first_with_id(own_dir(root, "scenes", language), c / "scenes")
+    stories = [read(f) for f in files(c / "stories")]
+    readings = [read(f) for f in files(c / "readings")]
+    parties = [read(f) for f in files(c / "celebrations")]
+    arrivals = read(c / "arrivals.json") if (c / "arrivals.json").exists() else {}
+    world = read(c / "world.json") if (c / "world.json").exists() else {}
+    return {
+        "language": language,
+        "status": info.get("status"),
+        "villagers": len(files(c / "villagers")),
+        "packs": {
+            "total": len(packs),
+            "by_level": by_level(p.get("level") for p in packs.values()),
+            "words": sum(len(p.get("words", [])) for p in packs.values()),
+            "words_by_level": {lv: sum(len(p.get("words", [])) for p in packs.values() if p.get("level") == lv) for lv in by_level(p.get("level") for p in packs.values())},
+        },
+        "scenes": {
+            "total": len(scenes),
+            "by_level": by_level(s.get("level") for s in scenes.values()),
+            "happenings": sum(len(s.get("happenings", [])) for s in scenes.values()),
+            "dialogs": sum(len(s.get("dialogs", [])) for s in scenes.values()),
+        },
+        "stories": {"total": len(stories), "in_chapters": sum(1 for s in stories if "chapters" in s), "tellings": by_level(lv for s in stories for lv in told_at(s))},
+        "readings": {"total": len(readings), "by_level": by_level(r.get("level") for r in readings)},
+        "arrivals": {
+            "cast": len(arrivals.get("cast", {})),
+            "by_level": by_level(lv for a in arrivals.get("cast", {}).values() for lv in a.get("levels", {})),
+            "templates": len(arrivals.get("templates", {})),
+        },
+        "project_steps": steps(c / "project-steps"),
+        "parties": {"total": len(parties), "tellings": by_level(lv for p in parties for lv in p.get("levels", {}))},
+        "talks": talks(world),
+    }
+
+
+def count(root: Path) -> dict:
+    languages = sorted(p.name for p in (root / "course").iterdir() if (p / "course.json").exists() or (p / "units").is_dir())
+    return {
+        "languages": {
+            lang: {"course": course(root, lang), "modules": modules(root, lang), "drills": drills(root, lang)} for lang in languages
+        },
+        "cultures": {c.name: culture(root, c) for c in sorted((root / "cultures").iterdir()) if (c / "culture.json").exists()},
+    }
+
+
+def levels_text(d: dict) -> str:
+    return " · ".join(f"{lv} {n}" for lv, n in d.items()) or "–"
+
+
+def table(head: list[str], rows: list[list[str]]) -> str:
+    out = ["| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
+    out += ["| " + " | ".join(str(x) for x in r) + " |" for r in rows]
+    return "\n".join(out)
+
+
+def markdown(n: dict) -> str:
+    langs, cults = n["languages"], n["cultures"]
+
+    def lang_row(name, fn):
+        return [name, *[fn(langs[x]) for x in langs]]
+
+    def planned(c):
+        return f"{sum(c['units_planned'].values())} ({levels_text(c['units_planned'])})" if c["units_planned"] else "0"
+
+    def drill(kind):
+        def fn(x):
+            d = x["drills"].get(kind)
+            return f"{d['items']} ({levels_text(d['by_level'])})" if d else "–"
+        return fn
+
+    def module_text(x):
+        m = x["modules"]
+        return f"{m['total']} ({levels_text(m['by_level'])}), {m['exercises']} exercises" if m["total"] else "–"
+
+    school = table(["", *langs], [
+        lang_row("units written", lambda x: x["course"]["units_total"]),
+        *[lang_row(f"units {lv}", lambda x, lv=lv: x["course"]["units"].get(lv, 0)) for lv in LEVELS[:4]],
+        lang_row("units planned", lambda x: planned(x["course"])),
+        lang_row("grammar pages", lambda x: x["course"]["pages_total"]),
+        *[lang_row(f"pages {lv}", lambda x, lv=lv: x["course"]["pages"].get(lv, 0)) for lv in LEVELS[:4]],
+        lang_row("modules", module_text),
+        lang_row("drills: builds", drill("build")),
+        lang_row("drills: transforms", drill("transform")),
+        lang_row("drills: rapid", drill("rapid")),
+        lang_row("drills: riddles", drill("riddle")),
+    ])
+
+    def cult_row(name, fn):
+        return [name, *[fn(cults[x]) for x in cults]]
+
+    villages = table(["", *[f"{x} ({cults[x]['language']})" for x in cults]], [
+        cult_row("packs", lambda x: x["packs"]["total"]),
+        cult_row("packs by level", lambda x: levels_text(x["packs"]["by_level"])),
+        cult_row("pack words", lambda x: x["packs"]["words"]),
+        cult_row("pack words by level", lambda x: levels_text(x["packs"]["words_by_level"])),
+        cult_row("scenes", lambda x: x["scenes"]["total"]),
+        cult_row("scenes' happenings", lambda x: x["scenes"]["happenings"]),
+        cult_row("scenes' dialogs", lambda x: x["scenes"]["dialogs"]),
+        cult_row("stories", lambda x: x["stories"]["total"]),
+        cult_row("stories in chapters", lambda x: x["stories"]["in_chapters"]),
+        cult_row("stories' tellings", lambda x: levels_text(x["stories"]["tellings"])),
+        cult_row("readings", lambda x: x["readings"]["total"]),
+        cult_row("readings by level", lambda x: levels_text(x["readings"]["by_level"])),
+        cult_row("arrivals: cast", lambda x: x["arrivals"]["cast"]),
+        cult_row("arrivals by level", lambda x: levels_text(x["arrivals"]["by_level"])),
+        cult_row("arrivals: templates", lambda x: x["arrivals"]["templates"]),
+        cult_row("projects with steps", lambda x: x["project_steps"]["projects"]),
+        cult_row("project steps", lambda x: x["project_steps"]["steps"]),
+        cult_row("steps by level", lambda x: levels_text(x["project_steps"]["by_level"])),
+        cult_row("parties", lambda x: x["parties"]["total"]),
+        cult_row("parties' tellings", lambda x: levels_text(x["parties"]["tellings"])),
+        cult_row("keepers", lambda x: x["talks"]["keepers"]),
+        cult_row("keepers' talks", lambda x: x["talks"]["total"]),
+        cult_row("talks' tellings", lambda x: levels_text(x["talks"]["by_level"])),
+        cult_row("villagers", lambda x: x["villagers"]),
+    ])
+    return f"### Each language\n\n{school}\n\n### Each culture\n\n{villages}\n"
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description="What each language and culture has, counted from the content files.")
+    ap.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    ap.add_argument("--json", action="store_true")
+    a = ap.parse_args(argv)
+    n = count(a.root)
+    print(json.dumps(n, ensure_ascii=False, indent=2) if a.json else markdown(n))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
