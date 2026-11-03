@@ -90,10 +90,10 @@ Paired rules and swaps only. A slip in a noun stays a slip.
 On the branch's tip before this doc:
 
 - `bunx tsc --noEmit -p .`: clean. `bun src/cli/tutor-export.ts --check`: 89 files match.
-- Smoke (`LANI_SMOKE_PORT=9970 LANI_SMOKE_FRIULI_PORT=9978 LANI_SMOKE_TOWN_PORT=9982 LANI_SMOKE_DRAMA3_PORT=9988`): see the report's numbers below; its course, course-speech and prints sections read the six units.
+- Smoke (`LANI_SMOKE_PORT=9970 LANI_SMOKE_FRIULI_PORT=9978 LANI_SMOKE_TOWN_PORT=9982 LANI_SMOKE_DRAMA3_PORT=9988`): all 3,514 checks passed. Its course, course-speech and prints sections read the six units.
 - A scratch check per unit: `validateUnit` in de, sl, en and it, `validateGrammar`, the print's rule line per step, and that every bold form of an explanation is read by Elena through `course-speech.ts`'s own `introStep`.
-- Android tests through `lani-slot.sh`, not the whole suite (part c and the gate run it): see below.
-- **Prints**: `school-prints --language it --level B2` as PDFs in de, sl and en: each sheet takes two pages, the booklet 14. One sheet read by eye (`concordanza-tempi`, de): its table has the Italian word over the gloss repeating it ("insieme / insieme (gleichzeitig)"), as B1's cells do.
+- Android tests through `lani-slot.sh`, not the whole suite (part c and the gate run it): `ItalianB2aContentTest` 8, `ItalianCourseContentTest` 6, `GradingLanguagesTest` 48, `GrammarTest` 16, `SchoolBoardTest` 7, `IntroSpeechParityTest` 2: 87, no failure. `ItalianCourseContentTest` grades every right answer and spoken form and finds no distractor right or almost.
+- **Prints**: `school-prints --language it --level B2` as PDFs in de, sl and en, and in sl for a learner of each gender and of both: each sheet takes two pages, the booklet 14. No word is left without a meaning. Two pages read by eye (`concordanza-tempi` page 1, `magari` page 2, de). `concordanza-tempi`: its table has the Italian word over the gloss repeating it ("insieme / insieme (gleichzeitig)"), as B1's cells do.
 - **A second read**: two helpers read the units fresh, three each, as a teacher and as the grading would. 54 findings, nearly all taken. Among them a contradiction (three days of rain, then "yesterday it was sunny"), stamattina not being over, a false why (sia venduto), the list of right answers in concordanza-tempi's gaps, and masculine Slovene where the learner speaks. Left as it was: the `spoken` after era strano, against B1's note (above).
 
 ## What I didn't do
