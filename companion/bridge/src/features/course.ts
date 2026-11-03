@@ -51,9 +51,12 @@ const obj = <T>(v: unknown): T | undefined => (v && typeof v === 'object' && !Ar
 
 /** The module types of a sheet's exercises (and its intro's questions), as a module for the voice: what the app plays. */
 function voiced(ws: Homework): { modules: ModuleSpec[]; grammar: Pick<GrammarPage, 'id' | 'language' | 'examples'>[] } {
-  const own = new Set(['gaptext', 'table', 'transform', 'sort'])
+  const own = new Set(['gaptext', 'table', 'transform', 'sort', 'speaking', 'writing'])
   const asks = (ws.intro?.steps ?? []).flatMap(s => (s.ask ? [s.ask] : []))
-  const exercises = [...asks, ...ws.exercises.filter(e => !own.has(e.type))] as ModuleSpec['exercises']
+  // speaking and writing: what the teacher asks and the models said, as a speak exercise's (the child's version's too)
+  const said = ws.exercises.flatMap(e => (e.type === 'speaking' ? [e.ask, e.say, e.child?.ask, e.child?.say] : e.type === 'writing' ? [e.ask, e.child?.ask] : []))
+  const speaks = [...new Set(said.filter((t): t is string => !!t))].map(say => ({ type: 'speak', say, prompt: say, show: true }))
+  const exercises = [...asks, ...ws.exercises.filter(e => !own.has(e.type)), ...speaks] as ModuleSpec['exercises']
   const id = `course-${ws.unit}-${ws.id}`
   const examples = (ws.intro?.steps ?? []).flatMap(s => s.examples) as GrammarExample[]
   return {
