@@ -7,7 +7,8 @@ import type { SrItem } from '../learner'
 import { inVillageLanguage } from '../langs'
 import { LANGUAGES, learnerLangs } from '../learners'
 import { renderDeep } from '../addressee'
-import { itemId, learnedWords, learnPayload, learnRun, meaningOf, titleEn, titleFor, unmarkedHomonyms, validatePack, wordOf, type LoadedPack } from '../packs'
+import { itemId, learnedWords, learnPayload, learnRun, meaningOf, packsForApp, packsVersionOf, titleEn, titleFor, unmarkedHomonyms, validatePack, wordOf, type LoadedPack } from '../packs'
+import { learnerLevel } from '../villagers'
 import { corpus } from '../voice'
 
 const instructions = `
@@ -84,9 +85,10 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
         path: '/packs',
         areas: ['learner', 'content'],
         addressed: true,
-        handle: () => {
+        // as far as the app orders them by level (?packs=, packsForApp): an older app gets no pack two levels above its learner's
+        handle: ({ url }) => {
           const items = learner.srItems()
-          return json(packs.all().map(p => packInfo(p, items)))
+          return json(packsForApp(packs.all().map(p => packInfo(p, items)), packsVersionOf(url), learnerLevel(cfg.dataDir)))
         },
       },
       {
