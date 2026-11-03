@@ -1,10 +1,12 @@
 # Built: the German school's last six B2 units, 13–18 (2026-11-03)
 
-Wave D, course writers (Jan, 2026-11-02: "yes complete"). Branch `course-de-b2-c`, from the integrated German B1 (f37eef38): German B2's units 13–18 in the outline's order, text and register, with their six new grammar pages. Parts a and b write units 1–12 beside it. All of it is machine-written (Claude) and waits for a native speaker's check.
+Wave D, course writers (Jan, 2026-11-02: "yes complete"). Branch `course-de-b2-c`, from the integrated German B1 (f37eef38): German B2's units 13–18 in the outline's order, text and register, with their six new grammar pages. Parts a and b wrote units 1–12 beside it; this part integrated them, as the section near the end says. All of it is machine-written (Claude) and waits for a native speaker's check.
 
 ## For the native check
 
-Austrian German first. **The first nine are questions a dictionary didn't settle.**
+This part's list; parts a's and b's are first in their docs, and stand. Austrian German first. **These nine are questions a dictionary didn't settle.**
+
+0. **Spoken Carinthian** (`oesterreichisch`), the lead's ruling: only what a source shows is read aloud or graded. The words: lei, eppes, letz and Pfiati ([kaernten.at](https://www.kaernten.at/content/beim-wort-genommen/mundart/)), ofn and losn ([AEIOU](https://austria-forum.org/af/AEIOU/Dialekte?skin=raw)), miad ([1000things](https://www.1000thingsmagazine.com/de/a/47741/typisch-kaernten-dinge-die-du-kennst-wenn-du-in-kaernten-aufgewachsen-bist/)). The phrases: *Nit letz* (kaernten.at) and *I bleib lei mehr kurz* (1000things, which gives no translation: *lei mehr* as nur noch and nur mehr is my reading). `nit` for nicht is my reading of *Nit letz* and *eppa dechta nit*. Sentences I'd made up (*Ich komme lei morgen*, *Die Tür ist ofn*) are gone. Are these forms the Gailtal's? The sources are for Carinthia as a whole, and each valley differs.
 
 1. **Auch wenn es regnet, wir gehen** (`zwar-aber`), `spoken` on the lines where a fronted auch wenn or selbst wenn is natural, and named in step 3 and on the page. From memory; no source looked at. The standard's verb-second main clause is the shown form. If nobody grown up says it in Carinthia, take the `spoken` off and the sentence with it.
 2. **dir's, ihm's, ihr's** (`satzbau`), es hanging on a dative pronoun: `spoken`, in step 2 and on the page. The search for a source found none. `dir es` written whole isn't said; a choice therefore never offers an es-order: the wrong orders offered are `ihm ihn`.
@@ -14,7 +16,6 @@ Austrian German first. **The first nine are questions a dictionary didn't settle
 6. **Frau Magister for a woman** (`formeller-brief`). The [Veritas school sheet](https://www.scook.at/cdn_proxy/a74311b6-8ae0-4ba7-8548-e9a428b40afe/0525900101_0531670101_AB_029_Anrede_und_Titel_AB.pdf) has Magistra and Mag.a; [karriere.at](https://www.karriere.at/c/a/titel-oesterreich) opens with "Grüß Gott Frau Magistra". The outline's title says Frau Magister; from memory, that's what's said. Every form is accepted: Frau Magister, Frau Magistra, Frau Mag., Frau Mag.a, each with the name or without, and the same for Dr.in; also the name with no title (see 8). A native eye on which the page should lead with.
 7. **in der Arbeit** (`oesterreichisch`): [Wikipedia](https://de.wikipedia.org/wiki/%C3%96sterreichisches_Deutsch) gives it, and says it is southern German too. zu Ostern was taken out: a second reader says it's normal in Germany too. Named in step 5 and on the page only.
 8. **The opening without a title** (`formeller-brief`): *Sehr geehrte Frau Huber* for Frau Mag. Anna Huber is accepted, as Germany writes it and as a younger Austrian might. Is it fair to grade right on a sheet whose point is the title? **losn** is also dialect for listening (a second reader's note, not looked up).
-9. **Carinthian sentences made up from sourced words** (`oesterreichisch`): *Ich komme lei morgen*, *Das ist nit letz*, *Das ist nit teuer*, *Hast du eppes gehört?*, *Die Tür ist ofn*, *Ich bin miad*, *Ich hab lei zwei Euro*. The words are sourced (see Sources); the sentences aren't: a real speaker would turn more than one word to dialect (*i hob lei zwa Euro*). On a sheet each is right and labelled; the unit says it only asks you to understand.
 
 Then the sentences, for naturalness:
 
@@ -66,9 +67,9 @@ So a cell asking "in Carinthia" takes Tomate too, silently: the page and the sor
 
 ## The spoken forms
 
-Never a choice's wrong option or a bank's distractor. All are `spoken`, right and labelled, beside the unit's point: *Auch wenn es regnet, wir gehen*; *Selbst wenn Toni keine Zeit hat, er kommt*; *dir's*, *ihm's*, *ihr's*; *der Stefan*, *die Kathi*; *wegen dem Regen*; lei, nit, eppes, ofn, miad and *was* for etwas in `oesterreichisch`'s lines.
+Never a choice's wrong option or a bank's distractor. All are `spoken`, right and labelled, beside the unit's point: *Auch wenn es regnet, wir gehen*; *Selbst wenn Toni keine Zeit hat, er kommt*; *dir's*, *ihm's*, *ihr's*; *der Stefan*, *die Kathi*; *wegen dem Regen*; *I bleib lei mehr kurz*, *Nit letz*, eppes, miad, ofn, losn and *was* for etwas in `oesterreichisch`'s lines.
 
-The two lists in `oesterreichisch`'s sheet 3 write Carinthian into the standard, as Slovene's `govorjeni-jezik` writes spoken Slovene; the spoken line is right and labelled, the correction the standard.
+The lines of `oesterreichisch` write Carinthian into the standard, as Slovene's `govorjeni-jezik` writes spoken Slovene; the spoken line is right and labelled, the correction the standard. Each is a word or a phrase a source shows, no sentence made up.
 
 ## The new pages
 
@@ -120,8 +121,26 @@ At the part's tip, before integrating anything (a and b aren't merged, so these 
 
 **Not done:** the whole Android suite and Python (part c's, once it has integrated); the other five units on an emulator; the other two bases on an emulator; `spoken` forms typed on an emulator.
 
+## The integration (part c's)
+
+The lead's order, with merges: part a (853442b2), part b (7a6d301f), then `course-it-b2-c` (42a9cbf9), the queue's tip with German B1's final state, English A2, Italian B2 and the choice-order fix. The conflicts were `grading/de.json` and `lexicon/de.extra.json` in both parts (`json3merge.py`) and the outline in b's (`resolve-outline.py`, one conflict); the queue's tip merged with none, so `bin/qa` needed no hand. No markers are left; `bin/qa` parses.
+
+**The supplement.** 3,214 entries after the merges, 3,158 different words by lemma, part of speech and gender: the base's 2,920 and 238 new (a 34, b 103, c 101). Joined, one entry each, forms united, and a script over `git show` found every lemma and form of the base and of each revision present. Four more joined that differed only by a missing gender (Schlagobers, and part b's Verwandte, Fremde, Erwachsene): 3,154. One added for the Carinthian phrase, `i` for ich: **3,155**, each with its meaning in Slovene and Italian. Words said two ways, settled: gießen (to pour; to water), lösen (to solve; sich lösen), sollen, ganz, fällen, frieren, sperren, einbringen and verkaufen put both parts' readings in one; treffen, üben, wichtig and geehrt take the later wording, which says more. The rest keep the base's.
+
+**The grading.** 127 rules in `wrong`, 94 in `nonstandard`, 11 in `same`, each part's all there. The notes are three keys: `_nonstandard_note`, `_note_konjunktiv`, `_b2c_note`.
+
+**The lead's rulings:**
+- `passiv-ersatz`'s English title is "Alternatives to the passive", in the unit and its outline line. The page's title said the same words, so it now reads "Das lässt sich machen: alternatives to the passive".
+- `Er sagt, er ist krank` stays almost, as part a has it: it is the unit's own drill. `den Mensch`, `dem Bub`, `mit Herr Moser` stay almost, on part b's native list.
+- The Carinthian lines, first on the list above.
+
+**"Once merged, also":** none left. A script read the outline's table for all 54 units of A2, B1 and B2: every page it names, both columns, is on its unit. As German B2 starts from the integrated B1, the parts named those pages as they wrote.
+
+**Docs:** COURSE.md has B2's three sections, the outline's line (all written), the "Spoken forms" list and the checked row. The README counts 68 German pages (15 A1, 20 A2, 15 B1, 18 B2) and lists B1's and B2's. `grammar-spec.md` said 52, 21 and 22, then 52 and 35, both stale: it now says 77, 70, 68, 31, counted against the files. The tutor's guide is regenerated.
+
+**Found, not done:** older pages' `see` don't point on to B2's (konjunktiv-zwei to konjunktiv-vergangenheit, passiv to passiv-zeiten): no outline asks for it.
+
 ## What's left
 
 - **The native check**, first in this doc.
-- **Part c's integration**, when the lead says so: COURSE.md, the README's page counts, the guide regenerated, a QA run again (the two fixes above).
 - **Voices**: nothing was spent. See "Voice".

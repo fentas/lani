@@ -477,22 +477,22 @@
       },
       {
         "say": {
-          "en": "**lei** (only), **nit** (not; **nit letz**, not bad), **eppes** (something): spoken Carinthian, which you'll hear at Kathi's and need only understand. Vowels stretch: **ofn** (offen), **losn** (lassen). There's no ü: **miad** (müde). Goodbye is **Pfiati**. Each valley has its own. None of this is wrong, and none of it goes in a letter: you hear **Ich hab lei zwei Euro** and write Ich habe nur zwei Euro.",
-          "sl": "**lei** (samo), **nit** (ne; **nit letz**, ni slabo), **eppes** (nekaj): govorjena koroška nemščina, ki jo slišiš pri Kathi in jo moraš le razumeti. Samoglasniki se raztegnejo: **ofn** (offen), **losn** (lassen). Ü-ja ni: **miad** (müde). Adijo je **Pfiati**. Vsaka dolina ima svoje. Nič od tega ni narobe in nič od tega ne gre v pismo: slišiš **Ich hab lei zwei Euro**, napišeš Ich habe nur zwei Euro.",
-          "it": "**lei** (solo), **nit** (non; **nit letz**, niente male), **eppes** (qualcosa): il carinziano parlato, che senti da Kathi e devi solo capire. Le vocali si allungano: **ofn** (offen), **losn** (lassen). Non c'è la ü: **miad** (müde). Per salutare si dice **Pfiati**. Ogni valle ha il suo. Niente di questo è sbagliato e niente va in una lettera: senti **Ich hab lei zwei Euro** e scrivi Ich habe nur zwei Euro."
+          "en": "**lei** (only), **nit** (not; **nit letz**, not bad), **eppes** (something): spoken Carinthian, which you'll hear at Kathi's and need only understand. Vowels stretch: **ofn** (offen), **losn** (lassen). There's no ü: **miad** (müde). Goodbye is **Pfiati**. Each valley has its own. None of this is wrong, and none of it goes in a letter: you hear **I bleib lei mehr kurz** and write Ich bleibe nur noch kurz.",
+          "sl": "**lei** (samo), **nit** (ne; **nit letz**, ni slabo), **eppes** (nekaj): govorjena koroška nemščina, ki jo slišiš pri Kathi in jo moraš le razumeti. Samoglasniki se raztegnejo: **ofn** (offen), **losn** (lassen). Ü-ja ni: **miad** (müde). Adijo je **Pfiati**. Vsaka dolina ima svoje. Nič od tega ni narobe in nič od tega ne gre v pismo: slišiš **I bleib lei mehr kurz**, napišeš Ich bleibe nur noch kurz.",
+          "it": "**lei** (solo), **nit** (non; **nit letz**, niente male), **eppes** (qualcosa): il carinziano parlato, che senti da Kathi e devi solo capire. Le vocali si allungano: **ofn** (offen), **losn** (lassen). Non c'è la ü: **miad** (müde). Per salutare si dice **Pfiati**. Ogni valle ha il suo. Niente di questo è sbagliato e niente va in una lettera: senti **I bleib lei mehr kurz** e scrivi Ich bleibe nur noch kurz."
         },
         "examples": [
           {
-            "de": "Ich hab lei zwei Euro.",
-            "en": "I've only got two euros.",
-            "sl": "Imam samo dva evra.",
-            "it": "Ho solo due euro."
+            "de": "I bleib lei mehr kurz.",
+            "en": "I'm only staying a little longer.",
+            "sl": "Ostanem samo še malo.",
+            "it": "Resto solo ancora un po'."
           },
           {
-            "de": "Pfiati, Kathi!",
-            "en": "Bye, Kathi!",
-            "sl": "Adijo, Kathi!",
-            "it": "Ciao, Kathi!"
+            "de": "Pfiati!",
+            "en": "Bye!",
+            "sl": "Adijo!",
+            "it": "Ciao!"
           }
         ],
         "rows": [
@@ -514,7 +514,7 @@
             "sl": "Wähle · Izberi",
             "it": "Wähle · Scegli"
           },
-          "prompt": "»Das ist nit letz.« Was sagt Kathi über den Most?",
+          "prompt": "»Nit letz!« Was sagt Kathi über den Most?",
           "options": [
             "Er ist gut.",
             "Er ist schlecht.",
@@ -1018,41 +1018,43 @@
           "cue": "→",
           "items": [
             {
-              "from": "Ich komme lei morgen.",
+              "from": "I bleib lei mehr kurz.",
               "accept": [
-                "Ich komme nur morgen.",
-                "Ich komme bloß morgen."
+                "Ich bleibe nur noch kurz.",
+                "Ich bleibe nur mehr kurz.",
+                "Ich bleibe bloß noch kurz."
               ],
               "spoken": [
-                "Ich komme lei morgen."
+                "I bleib lei mehr kurz."
               ]
             },
             {
-              "from": "Hast du eppes gehört?",
+              "from": "Nit letz!",
               "accept": [
-                "Hast du etwas gehört?"
+                "Nicht schlecht!",
+                "Nicht übel!"
               ],
               "spoken": [
-                "Hast du eppes gehört?",
-                "Hast du was gehört?"
+                "Nit letz!"
               ]
             },
             {
-              "from": "Die Tür ist ofn.",
+              "from": "eppes",
               "accept": [
-                "Die Tür ist offen."
+                "etwas"
               ],
               "spoken": [
-                "Die Tür ist ofn."
+                "eppes",
+                "was"
               ]
             },
             {
-              "from": "Ich bin miad.",
+              "from": "miad",
               "accept": [
-                "Ich bin müde."
+                "müde"
               ],
               "spoken": [
-                "Ich bin miad."
+                "miad"
               ]
             }
           ],
@@ -1165,22 +1167,21 @@
         "cue": "→",
         "items": [
           {
-            "from": "Das ist nit teuer.",
+            "from": "ofn",
             "accept": [
-              "Das ist nicht teuer."
+              "offen"
             ],
             "spoken": [
-              "Das ist nit teuer."
+              "ofn"
             ]
           },
           {
-            "from": "Ich habe lei einen Euro.",
+            "from": "losn",
             "accept": [
-              "Ich habe nur einen Euro.",
-              "Ich habe bloß einen Euro."
+              "lassen"
             ],
             "spoken": [
-              "Ich habe lei einen Euro."
+              "losn"
             ]
           }
         ],
@@ -1259,5 +1260,5 @@
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: the words; Das geht sich aus; auf etwas vergessen; lei, nit, eppes, ofn, miad, letz, Pfiati; Jause and južina; each base"
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: the words; Das geht sich aus; auf etwas vergessen; lei mehr, nit letz, eppes, ofn, miad, Pfiati; Jause and južina; each base"
 }

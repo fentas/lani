@@ -464,7 +464,7 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
 - A choice never offers such a form as a wrong option (nor a bank as a distractor: a form the sheet offers is wrong, `Sheets.check`): use
   a wrong form nobody says, or a typed gap or a line. Name both in the intro and on the page: people say it, writing wants the other,
   not "never".
-- **German** has `weil` for denn, `trotzdem` for obwohl, `wie` for als, `wann` for wenn, `täte` for würde, `Auf was` for worauf (and the rest), `auf ihn` for darauf for a thing, `wer`, `was`, `nix` for jemand, etwas, nichts. An item's `spoken` still wins where a unit lists one: `als-waehrend` keeps `wie` and `wann` right, as its point is als against wenn, not the word itself. **Which of the two:** a form that is the very thing the unit drills goes in the table, or every line of the drill passes as right; a form beside the point stays `spoken` (*drauf*, *nach Haus*, *am Tisch*).
+- **German** has `weil` for denn, `trotzdem` for obwohl, `wie` for als, `wann` for wenn, `täte` for würde, `Auf was` for worauf (and the rest), `auf ihn` for darauf for a thing, `wer`, `was`, `nix` for jemand, etwas, nichts; since B2, after a verb of saying the present or the Konjunktiv II for a reported Konjunktiv I (`Er sagt, er ist krank`), after als ob the present (`als ob er krank ist`), and a weak noun with no -e without its ending (`den Mensch`, `dem Bub`, `mit Herr Moser`: `after` keeps these to the words before a noun, as Menschen is the plural too). An item's `spoken` still wins where a unit lists one: `als-waehrend` keeps `wie` and `wann` right, as its point is als against wenn, not the word itself. **Which of the two:** a form that is the very thing the unit drills goes in the table, or every line of the drill passes as right; a form beside the point stays `spoken` (*drauf*, *nach Haus*, *am Tisch*).
 - `verb_second` (`["weil", "obwohl"]`): a word order, which no `word` and `for` can say. The clause after one of these with its last word, the verb, moved up behind the subject and every other word in its place is almost, the standard form shown: "weil er hat keine Zeit", "obwohl sie muss früh aufstehen", a separable verb in its two parts ("weil sie steht um fünf auf" for aufsteht). The clause ends at the accepted answer's comma, so "Obwohl es regnet, wir gehen" stays wrong; after dass, a question word or deshalb nothing changes.
 - The table is in the APK, no bridge route serves it and no bridge or script port grades an answer: the app's verdict is what is stored,
   so an older app grades with the table it has (`good` for `well` wrong there) and an older bridge stores the hint as any other
@@ -1132,8 +1132,8 @@ Unit 13–18: other forms, words, a text.
 
 ## The German course
 
-The German course is `companion/course/de/`: the outline (A1, A2 and B1 written, 18 units each, the grammar book's German
-pages to teach; B2 planned, docs/plans/05-built/outlines-2.md) and its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
+The German course is `companion/course/de/`: the outline (A1, A2, B1 and B2 all written, 18 units each, the grammar book's German
+pages to teach) and its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
 Gasthaus, Mostbauer Stefan's cider, Tante Mitzi, Müller Franz and his mill, Schmied Toni, Imker Stanko, Hirte Florian
 and his sheep, Opa Sepp's stories, Oma Resi's kitchen, the Kirchtag). It serves a learner of German from Slovene, English
 or Italian (a visitor, a neighbour across the border), and is the same school as the others: the bridge serves the course
@@ -1151,7 +1151,7 @@ school is the course's language's:
 | The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
 | Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
 | Not for German | forms cards, counting cards and the numbers module, case rows, the cases overview (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
-| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GermanB1aContentTest`, `GermanB1bContentTest` and `GermanB1cContentTest` (B1's, and that no choice or bank of the course offers what the table's `nonstandard` says people say), `GradingNonstandardTest`, `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
+| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GermanB1aContentTest`, `GermanB1bContentTest` and `GermanB1cContentTest` (B1's, and that no choice or bank of the course offers what the table's `nonstandard` says people say), `GermanB2aContentTest`, `GermanB2bContentTest` and `GermanB2cContentTest` (B2's), `GradingNonstandardTest`, `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
 
 Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
 the learner's own data (an age is Stefan's, not the learner's). The explanations in English, Slovene and Italian, every
@@ -1367,6 +1367,59 @@ B1's last six, mood, voice and small words (docs/plans/05-built/course-de-b1-c.m
 - **`spoken`, right and labelled**: drauf, dran, drüber; Wenn ich Zeit haben würde. **In the table, almost**, as each is the unit's own word: täte for würde, Auf was and the rest, auf ihn for a thing, wer, was, nix. A quick question can't take `spoken`, so none types a wo- or da- word.
 - **A form both standards have is two `accept`s**: jemand and jemanden, eins and eines, wärst and wärest, als auch and wie auch, der gleiche and derselbe, kommt and kommen after weder … noch.
 - **The grading's pairs**: würde, wurde and werde; kame, gabe for käme, gäbe, wusste and brauchte for wüsste and bräuchte, each way; söllte, wöllte; a participle without its ge on a long stem, gewaschen and gewachsen; the wo- and da- words for each other and with the r wrong (woauf, darmit; darum, warum, worum; davon, davor); demselben and denselben; wieder or jeder for weder, doch for noch. hätt, wär, würd are one answer with the whole word, as hab is. `GermanB1cContentTest`.
+
+### The German course: B2, units 1–6
+
+B2's first six, moods and voice in full (docs/plans/05-built/course-de-b2-a.md). German B2 has no published grammar list behind it (outlines-2.md): the level is a judgement, built on the Bozen syllabus and *Deutsche Grammatik 2.0*. They come after all of A1 to B1:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `haette-gewusst` 😔 | hätte or wäre + the participle, by the Perfekt's helper; wäre gesessen; regret with nur and doch; the unreal past condition, and an end that is now; hätte kommen können; hatte against hätte | konjunktiv-vergangenheit, konjunktiv-zwei, perfekt |
+| `als-ob` 🎭 | als ob, als wenn, wie wenn with the verb last; als with the verb next; wishes with doch and nur; ich wünschte; Als ob ich das nicht wüsste! | als-ob, konjunktiv-zwei |
+| `konjunktiv-eins` 📰 | sei and its forms; the stem + -e; the Konjunktiv II where the form is the present's; who changes (ich → er); sei or habe + the participle; werde; ob; solle; what talk says | indirekte-rede, konjunktiv-zwei |
+| `passiv-zeiten` 🏗️ | ist or sind + the participle + worden; worden against geworden; war + worden; a modal, the participle, werden; müsste and könnte; the helper last after weil | passiv-zeiten, passiv |
+| `passiv-ersatz` 🔧 | sich lassen; sein + zu, can or must; -bar and un-; man, the object still accusative; the action against the state; gesperrt and hat offen | passiv-ersatz, passiv |
+| `soll-duerfte` 🤔 | muss, kann nicht; dürfte, müsste, könnte; soll for what others say; the past form with its helper; will for what they claim; Futur II | modalverben-vermutung, modalverben, werden-futur |
+
+- **In the table, almost, as each is the unit's own point** (`nonstandard`, `grading/de.json`): after a verb of saying, ist or wäre for sei and so 17 verbs' forms, kommen for kämen and so 8 plurals, not after ich, whose forms these are; after als ob, als wenn, wie wenn, ist for wäre and so 14 forms. One rule a word, since `word` and `for` can't tie one verb's two forms together. So the choices of `konjunktiv-eins` and `als-ob` offer only forms nobody says, and typed gaps and lines test the rest.
+- **`spoken`, right and labelled**: weil du anrufen hättest sollen. **An `accept`, both standards have it**: wäre gesessen and hätte gesessen; wie wenn; the Konjunktiv I after als ob; wurde gebaut where a line asks only for the passive.
+- **A form nobody grown up says stays wrong**: ist gebaut geworden, hätte gekommen können, er fähre, als er krank wäre.
+- **The grading's pairs**: worden against wurden and werden; soll against will in all their forms; a long participle without its ge (two letters are a slip on a word of nine letters or more); geöffnet against eröffnet; seinen against seien. `GermanB2aContentTest`. The note is its own key, `_note_konjunktiv`.
+
+### The German course: B2, units 7–12
+
+B2's middle six, the noun phrase (docs/plans/05-built/course-de-b2-b.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `herr-kollege` 🎩 | -n in every case but the nominative on masculine nouns in -e for people and animals; -en on a few short ones and in -ent, -ist, -at; der Herr, der Bauer, der Nachbar; most others none; der Name, das Herz with -ns | n-deklination, faelle |
+| `der-bekannte` 👥 | der Bekannte, ein Bekannter and their cases; die Verwandten, viele Verwandte; der Beamte, die Beamtin; der Kärntner a noun of its own; etwas Neues, nichts Gutes, viel Schönes; das Beste | adjektiv-nomen, adjektiv-tabelle |
+| `partizip-adjektiv` 🥖 | Partizip I with its endings, what is going on; Partizip II, what was done; Partizip II of a verb of change; those that are plain adjectives by now (die kommende Woche, spannend) | partizip-adjektiv, adjektiv-tabelle, partizip-zwei |
+| `partizipialattribut` 📰 | to read above all: the article waits for its noun, what's between belongs to the participle; into a relative clause by the participle's kind, and back; its choices are reading questions | partizipialattribut, partizip-adjektiv, relativsatz |
+| `stolz-auf` 🏅 | stolz auf, zufrieden mit, nouns too (Angst vor); worauf, darauf, auf wen; darauf, dass …; froh, dass …; one word with two prepositions | adjektive-praepositionen, wo-da-woerter |
+| `nominalisierung` 🧾 | das Kochen, beim Kochen; -ung; a noun of its own (die Ankunft); -heit, -keit; weil, obwohl, als, bevor, nachdem turned into a phrase and back; ich into mein, an adverb into an adjective | nominalisierung, praepositionen-genitiv |
+
+- **In the table, almost**: a weak noun with no -e without its ending (den Mensch, dem Bub, dem Student, mit Herr Moser); Herr, Herren and Herrn for each other; des Bauers, des Nachbars, des Bubs, des Bärs. **`after` is the new shape:** Menschen is also the plural and nobody says *viele Mensch*, so the form counts only right after den, dem, einen, the possessives and the like, with at most one word between. One rule per noun. dem Kollege stays wrong: the -e nouns don't lose it.
+- **`spoken`, right and labelled**: was Neues, nix Gutes; drauf; wegen dem Regen, trotz dem Regen; vom Hirten and dem Hirten sein Hund. **Two `accept`s**: froh über and froh um, Interesse an and für, des Arztes and des Arzts.
+- **The grading's pairs**: -heit and -keit for each other; a Partizip I without its d and a Partizip II without its ge, each on the course's own words only: on any word they'd have turned *Häne* for *Hände* from a slip to wrong. `GermanB2bContentTest`.
+
+### The German course: B2, units 13–18
+
+B2's last six, text and register (docs/plans/05-built/course-de-b2-c.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `indem-sodass` 🛠️ | indem, dadurch, dass for how; sodass, so … dass for what came of it, against damit; zu …, um … zu; ohne dass, anstatt dass with another subject | indem-sodass, nebensatz |
+| `zwar-aber` 🤝 | zwar … aber; jedoch, allerdings, dennoch; auch wenn, selbst wenn against obwohl; während, wohingegen for whereas; einerseits … andererseits; three kinds of word order; und zwar apart | zwar-aber, konnektoren, obwohl-trotzdem |
+| `nomen-verb` 🧷 | a pair and its plain verb; stellen; zur Verfügung stehen against stellen; nehmen; Bescheid; the bracket; kein against nicht | nomen-verb, stehen-stellen |
+| `satzbau` 🪜 | pronouns first; two pronouns, the accusative first; two nouns, usually the dative first; time, cause, manner, place; first place; where nicht goes; nicht before one word | satzbau, wortstellung, kein-nicht, pronomen-dativ |
+| `formeller-brief` ✉️ | the opening; Austrian titles (Frau Magister, Mag.a, Dr.in); Betreff, Mit freundlichen Grüßen, Beilage; a request and a complaint in the Konjunktiv II; dabei, dafür, diese, daher | formeller-brief, du-sie, konjunktiv-zwei |
+| `oesterreichisch` 🏔️ | the year; the kitchen; the house and the day; ich bin gesessen; um with kaufen, auf Urlaub, auf etwas vergessen, das geht sich aus; spoken Carinthian to understand | oesterreichisch, perfekt |
+
+- **Austria's word and Germany's are two `accept`s**, the Austrian first, on every gap, cell and whole line, in every mix (Wir fahren heuer im Januar in den Urlaub). A choice about a word asks what it means, so Germany's word stands there as the right meaning.
+- **Spoken Carinthian is `spoken`, as Slovene's `govorjeni-jezik` is**: right and labelled, the standard shown. Only what a source shows is read aloud or graded: words (lei, nit, eppes, ofn, losn, miad, Pfiati) and whole phrases (I bleib lei mehr kurz, Nit letz). No sentence is made up in dialect.
+- **`spoken` beside the point**: Auch wenn es regnet, wir gehen; dir's, ihm's; der Stefan, die Kathi; wegen dem Regen. A whole sentence doesn't fit a table's narrow cell (only its last words show): `satzbau`'s table asks what comes after the verb, and clauses and letter openings are transform lines.
+- **One answer in `same`**: so dass, in Frage, anderseits, andrerseits, each from Duden. **The grading's pairs**: a word one letter off another, no slip (teuer and heuer, Fieber and Feber, Pause and Jause, Tropfen and Topfen, Kessel and Sessel, Kosten and Kasten, biete and bitte, versuche and ersuche, stehle for stelle, sehe for stehe, lasse for fasse, war for zwar). `GermanB2cContentTest`. The note is its own key, `_b2c_note`.
 
 ## The English course
 

@@ -95,7 +95,7 @@ class GermanB2cContentTest {
     @Test fun `what people say on these sheets is right, labelled with the standard form`() {
         val spoken = items.filter { it.spoken.isNotEmpty() }
         val said = spoken.flatMap { it.spoken }
-        for (form in listOf("Ich komme lei morgen.", "Die Tür ist ofn.", "Ich bin miad.", "Das ist nit teuer.", "Hast du eppes gehört?", "Auch wenn es regnet, wir gehen.", "Kathi zeigt ihm's.", "Den Most hat der Stefan gemacht.", "Wegen dem Regen fahren wir nicht auf die Alm.")) {
+        for (form in listOf("I bleib lei mehr kurz.", "Nit letz!", "ofn", "miad", "eppes", "losn", "Auch wenn es regnet, wir gehen.", "Kathi zeigt ihm's.", "Den Most hat der Stefan gemacht.", "Wegen dem Regen fahren wir nicht auf die Alm.")) {
             assertTrue("listed: $form", form in said)
         }
         for (item in spoken) for (s in item.spoken) {

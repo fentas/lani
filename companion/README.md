@@ -1949,7 +1949,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 50 (15 A1, 20 A2, 15 B1) and English 31 (18 A1, 13 A2), each course adding
+Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 68 (15 A1, 20 A2, 15 B1, 18 B2) and English 31 (18 A1, 13 A2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):
@@ -1976,6 +1976,11 @@ Slovene, English and Italian; English in Slovene, Italian and German, and Englis
   (war, hatte), `reflexive-verben`, `verben-praepositionen` (warten auf), `ordinalzahlen`, `adjektiv-der`, `adjektiv-ein`,
   `adjektiv-null` (the adjective's endings), `steigerung` (größer als, am größten) and `konnektoren` (und, denn, deshalb, weil).
   Those and `dativ`, `wechselpraepositionen`, `nebensatz`, `trennbare-verben`, `perfekt` and `modalverben` are A2, the rest A1.
+  For B1's units, `werden-futur`, `praeteritum`, `temporalsaetze`, `plusquamperfekt`, `genitiv`, `praepositionen-genitiv`, `relativsatz`,
+  `adjektiv-tabelle`, `infinitiv-zu`, `obwohl-trotzdem`, `konjunktiv-zwei`, `passiv`, `wo-da-woerter`, `indefinitpronomen` and `doppelkonnektoren`.
+  For B2's, `konjunktiv-vergangenheit`, `als-ob`, `indirekte-rede`, `passiv-zeiten`, `passiv-ersatz`, `modalverben-vermutung`, `n-deklination`,
+  `adjektiv-nomen`, `partizip-adjektiv`, `partizipialattribut`, `adjektive-praepositionen`, `nominalisierung`, `indem-sodass`, `zwar-aber`,
+  `nomen-verb`, `satzbau`, `formeller-brief` and `oesterreichisch` (Austria's standard against Germany's).
 - **English** (`grammar/en/`, lakeland): `articles`, `plurals` (one sheep, two sheep), `to-be` (I'm ten), `to-have`,
   `present-simple`, `present-continuous`, `questions-do`, `past-simple`, `present-perfect`, `future` (going to, will),
   `can`, `there-is-are`, `some-any`, `prepositions-place` (by the pond, next to the jetty: the tent's page),
