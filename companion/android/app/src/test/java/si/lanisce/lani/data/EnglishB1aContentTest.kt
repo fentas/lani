@@ -63,7 +63,7 @@ class EnglishB1aContentTest {
     }
 
     @Test fun `a negative question's long form is one answer with its contraction`() {
-        for ((typed, right) in listOf("Is it not?" to "Isn't it?", "Do you not?" to "Don't you?", "Can she not?" to "Can't she?", "Will it not?" to "Won't it?", "Amn't I?" to "Am I not?")) {
+        for ((typed, right) in listOf("Is it not?" to "Isn't it?", "Do you not?" to "Don't you?", "Can she not?" to "Can't she?", "Will it not?" to "Won't it?", "Amn't I?" to "Am I not?", "I usedn't to like tea." to "I used not to like tea.")) {
             assertEquals(typed, Verdict.CORRECT, en(typed, right).verdict)
         }
         assertEquals(Verdict.CORRECT, en("I don't live there anymore.", "I don't live there any more.").verdict)
