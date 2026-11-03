@@ -63,7 +63,7 @@ object Production {
     private const val RULE_TOKENS = 6
     private val WORD = Regex("[\\p{L}\\p{N}]+")
     private val SPACE = Regex("\\s+")
-    private val MARKS = Regex("[/|()\\[\\]{}<>]")
+    private val MARKS = Regex("[/|()\\[\\]\\{\\}<>]") // braces escaped: Android's ICU regex reads a bare { as a quantifier
 
     private sealed interface Tok
     private data object Gap : Tok
