@@ -25,9 +25,22 @@ should confirm each one, and that each is wrong only for the reason its why give
   paint", "a storm was broken", "was confining"; passive-more "it's thought to fall"; reporting verbs "suggested the
   grave to be Owain's"; reported speech "she told that"; reported questions "I'm not sure what are they"; used to
   "he was used to sweep"; wish "I wish I can see", "I wish someone will", "I wish I have one"; contrast linkers
-  "because of she felt", "despite of being", "despite I don't know", "in order nobody could"; result linkers "such
-  small"; quantifiers "every quarrels"; articles "a pay"; might-must "might to be"; past continuous "were wait",
-  "when he was seeing them"; first conditional "if it won't be too windy", "when we will need him".
+  "because of she felt", "despite of being", "despite I don't know", "in order nobody could", "so that keep the floor",
+  "for that they would stay", "except of that", "during I was visiting"; result linkers "such small"; too-enough "too
+  valuable that", "too much for giving it up"; quantifiers "every quarrels"; articles "a pay"; might-must "might to be";
+  past continuous "were wait", "when he was seeing them", "the worm growing"; first conditional "if it won't be too
+  windy", "when we will need him"; the newer eight: "I've noticed it when I drove over", "he has come", "couldn't to have
+  it", "if did he still remember", "didn't it?" (on was named), "they'd been hold", "he'd have weared it", "wishes it is",
+  "send to anyone", "his job was make", "he'd be send", "I'd have ask", "since I am born", "doesn't it?" (on it's), "he
+  can't be as funny", "instead of trust", "No, I didn't" (to have you heard), "told him cover", "I'd have break", "it's
+  meaning", "he can't know", "advised him having", "if it meant hurt", "is it a natural lake, isn't it?", "has been part
+  of a plot", "was taking down", "feel very sadly", "was drown", "he'd have losed", "they must be heartbroken", "having
+  live", "wishes it did", "famous of", "they were used to mark", "I'd have think", "made of it" (a second it), "having
+  find", "I wouldn't have risk it", "a storm who made Keswick famous", "for I came here", "more likelier", "her's", "I'd
+  took", "except of that", "are thought to bring", "keep to try", "wish more people know", "I've read … when I was a
+  child", "money her books have earned", "a farm which it was", "so serious", "she might never have the money", "she
+  had done most of the work by her shepherds", "there will be holiday homes", "are carrying … every year", "a harp from
+  rushes", "sounds as it has", "to carried", "who are they and where do they come from".
   Forms deliberately **not** offered as wrong, because adults here say them: "I seen", "we was", "it were", "them
   stones", double negatives, "I was sat", "if I'd have known", "would have went", "must have went", "was took",
   "for to", "the man what lived", "where was the well" inside a sentence.
@@ -51,7 +64,7 @@ should confirm each one, and that each is wrong only for the reason its why give
   horror" (»mrtvaško bled in nem od groze«, «livido e muto dall'orrore», „geisterbleich und stumm vor Entsetzen“); every
   gendered form for the learner is a {m:…|f:…} pair (Slovene past tense and conditional, Italian participles), the
   learner says ti/tu/du to Wilf as in the A1 and A2 tellings.
-- **The supplement** (lexicon/en.extra.json): 262 new entries, 24 with added forms; the dialect glosses (gin, mun, hae,
+- **The supplement** (lexicon/en.extra.json): 348 new entries, 45 with added forms; the dialect glosses (gin, mun, hae,
   nae, mair, nowght, nowther, hardin, hamp), the Norse words (fjall, dalr, fors, þveit).
 
 ## What
@@ -91,20 +104,29 @@ conditionals, and the learner's turns test those.
 | The Crier of Claife | Martineau's telling: about the Reformation, the Ferry House, the call from the Nab, "ghastly and dumb with horror", a fever and silence, the monk from Furness on Chapel Island at Christmas, the quarry, the foxhounds, the schoolmaster of Colthouse, "this particular story is not dead"; the ferryman's end still told gently | [Martineau 1855, p. 31](https://lakesguides.co.uk/html/mtineau/mnu1p031.htm), [p. 32](https://lakesguides.co.uk/html/mtineau/mnu1p032.htm) |
 | Long Meg and her Daughters | the oval above the Eden, over 100 m, sixty-odd stones (Camden's 77), Long Meg's red sandstone with cups, rings and a spiral, the midwinter sunset in line with her, five thousand years; Michael Scot, the counting, Colonel Samuel Lacy's storm, Wordsworth's "most notable relic" next to Stonehenge | [en.wikipedia: Long Meg and Her Daughters](https://en.wikipedia.org/wiki/Long_Meg_and_Her_Daughters) |
 | The Luck of Edenhall | Sir Philip Musgrave's will (1677), the legend in print (1791), the fairies' warning, the Duke of Wharton and the napkin, Uhland's ballad in Longfellow's English, the enamelled beaker from Syria or Egypt, its leather case marked IHS, Edenhall pulled down (1934), the V&A's loan (1926) and purchase (1958) | [en.wikipedia: Luck of Edenhall](https://en.wikipedia.org/wiki/Luck_of_Edenhall) |
+| King Dunmail's Crown | the British kingdom of Cumbria, the Anglo-Saxon Chronicle's 945 (Edmund harried all Cumberland and let it to Malcolm), the pass held for days, the cairn as the line between Cumberland and Westmorland, the Dyfnwal who died on pilgrimage in Rome in 975; Wordsworth's "last king of rocky Cumberland" | the A2 telling's sources; [en.wikipedia: Dunmail Raise](https://en.wikipedia.org/wiki/Dunmail_Raise) |
+| Tom Fool of Muncaster | the estate granted to Alan de Penitone in 1208, Henry VI after Hexham (1464) and the Luck of Muncaster ("As long as this bowl remains unriven …"), Tom Skelton around 1600 and his portrait holding his will, the chestnut tree and the quicksand, the jesting contest, "tomfoolery" as folk etymology; the darker tales left out | [en.wikipedia: Muncaster Castle](https://en.wikipedia.org/wiki/Muncaster_Castle) |
+| The Lambton Worm | the song of 1867 ("Whisht! lads, haad yor gobs"), John at the Wear when he should have been at church, the old man's warning, the worm outgrowing the well, the armour covered in spikes on the rock in the river, the curse as the sources give it (no lord of Lambton dying in his bed for nine generations); still without the children it ate and the hound | [en.wikipedia: Lambton Worm](https://en.wikipedia.org/wiki/Lambton_Worm) |
+| The Kings of Mardale | Hugh Holme's months in Hugh's Cave after the plot of 1208, the Kings of Mardale to Hugh Parker Holme (1885), the church for 75 and the Dun Bull, the lake raised by nearly 30 m, the last service of August 1935, the stones into the draw-off tower, 97 burials to Shap, the droughts of 1976, 1984, 1995, 2018 and 2021 | the A2 telling's sources (stories-lakeland.md); [en.wikipedia: Haweswater Reservoir](https://en.wikipedia.org/wiki/Haweswater_Reservoir) |
+| The Black Lead of Borrowdale | the gazetteer of 1751 ("discover'd by a tree blown up by the roots in a tempest"), the mine opened only weeks a year, its guardhouses and searches, the Act of 1752, the factory of 1832, MI9's map pencils of 1942 kept secret until the 1970s, the 7.91 m pencil of 2001 | the A2 telling's sources (stories-lakeland.md) |
+| The Herdwicks | the Armada tale unsupported, the Norse herdvyck, the fleece's colours and the carpets, the hefted flock sold with its farm, 2001, lug and smit marks, the Shepherds' Guides from 1817, the meets | the A2 telling's sources (stories-lakeland.md) |
+| Mrs Heelis of Hill Top | Canon Rawnsley met at Wray Castle in 1882 and his push to publish Peter Rabbit, Hill Top (1905), William Heelis (1913), Troutbeck Park (1923, "riddled with disease"), the breeders' election of March 1943 to serve from 1944, her death that December, fifteen farms and over 4,000 acres to the National Trust | the A2 telling's sources; [en.wikipedia: Hardwicke Rawnsley](https://en.wikipedia.org/wiki/Hardwicke_Rawnsley) |
+| The Rushbearing | the earth floors strewn with rushes, the feast that outlived the need once the floors were flagged, Grasmere, Ambleside and a handful of parishes, the bearings on poles, the six Rush Maidens' white sheet, the gingerbread after the service at St Oswald's, the date moved from the Saturday nearest 5 August to July, Wordsworth's "The innocent procession softly moves" | the A2 telling's sources (stories-lakeland.md) |
 
-So far: 8 stories, 16 tellings, 240 lines, 64 turns, 78 wrong choices (64 naming a page: verb patterns 9, past
-modals 8, third conditional 7, passive 4, contrast linkers 4 …), 264 faces, 16 notes. The eight others (King Dunmail's
-Crown, Tom Fool, the Lambton Worm, the Kings of Mardale, the Black Lead, the Herdwicks, Mrs Heelis, the Rushbearing)
-stay at A1 and A2: a B1 or B2 learner hears those at A2 (`Stories.levelFor`: the highest at or below theirs).
+In all: 16 stories, 32 tellings, 469 lines, 128 turns, 145 wrong choices (126 naming a page of the English book: verb
+patterns 15, third conditional 13, past modals 12, contrast linkers 8, passive 7, wishes 6, past perfect 5, present
+perfect 5 … 37 pages, most of them B1 and B2), 510 faces, 32 notes. Every one of Old Wilf's stories is now told at A1,
+A2, B1 and B2.
 
 ### Their words on a tap (`companion/lexicon/en.extra.json`)
 
-262 new entries and 24 entries' missing forms, each meant in sl, de and it: the names and places (the Nab, Brandelhow,
+348 new entries and 45 entries' missing forms, each meant in sl, de and it: the names and places (the Nab, Brandelhow,
 Strathclyde, Cumbric, Glencoyne …), the old words the texts explain (fjall, dalr, fors, þveit; gin, mun, hae, nae, mair,
 nowght, nowther, hardin, hamp; lowp, laik) and the texts' nouns, verbs and adjectives with their forms (fled, flung,
-bore, shook, swore, sunk, wizened, mischievous, scabbard, hilt, torrent …). `lexicon-build --coverage --lang en`: a tap
-means 96.6 % of the different words of the English content (96.7 % before the new texts, 90.6 % with them and without
-the entries); 99.7 % of the words met.
+bore, shook, swore, sunk, wizened, mischievous, scabbard, hilt, torrent, harried, unriven, hefted, strewn …).
+`lexicon-build --coverage --lang en`: a tap means 96.3 % of the different words of the English content (96.7 % before
+the new texts, which brought 520 different words; 90.6 % for the first round's texts without their entries) and 99.7 %
+of the words met.
 
 ## How
 
@@ -131,11 +153,17 @@ too (Readings.LEVELS), so 0.2.698 reads the new tellings and readings as they ar
 
 ## Voices
 
-Nothing was spent. A voice build would voice, for the eight stories' sixteen tellings, Wilf's lines, his replies and the
-right choices: about 35,800 characters of English; the five readings read aloud about 7,300, their questions and
-options about 3,400 more: some 46,500 characters in all. Ask Jan before a voice build.
+Nothing was spent. A voice build would voice, for the 32 tellings, Wilf's lines, his replies and the right choices:
+about 69,300 characters of English; the five readings read aloud about 7,300, their questions and options about 3,400
+more: some 80,000 characters in all, more than a month's credits. Ask Jan before a voice build.
 
 ## What's left
 
 - The native check (above).
-- B1 and B2 tellings for the other eight stories.
+- Voices (above).
+- The facts a native or a local should confirm besides the language: "nearly thirty metres" for Haweswater's rise, the
+  Act of 1752 on wad, the mine opened only weeks a year, Warcop left out of the rushbearing parishes on purpose (only
+  Grasmere and Ambleside are named), the Luck of Edenhall "some seven hundred years old" (the sources say 13th or mid-14th
+  century), Wordsworth's "most notable relic" of Long Meg, Dr Page and the 1590s.
+- An older A2 telling offers "Were it Excalibur?" as wrong (the Lady of the Lake, A2): "it were" is said by adults in
+  parts of the North; worth a native's look under followups-12's rule (not changed here: the clip would be lost).
