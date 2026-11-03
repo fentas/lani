@@ -173,6 +173,14 @@ Nothing of the course's content changed: the test asks the units' own test items
   - Found by QA and fixed: an early return inside `key { }` built for the JVM tests but couldn't be dexed (the APK
     failed); the first unit's title came in both halves of the pair.
 
+### The checks
+
+- On 8ee82ac5 (main e6209062 merged): the Android suite, 4,121 tests in 522 classes, none failing (2 skipped); the bridge's
+  `tsc` clean; the smoke 3,734 checks; `tutor-export --check` 140 files; the Python tests 253 (`tests`) and 164, 11 skipped
+  (`companion/tests`).
+- On 21c01996 (main 7b1e5134 merged, practice-it-b2): `tsc` clean, the smoke 3,737 checks, `tutor-export --check` 140
+  files, `bin/qa` parses; through Gradle the placement, L10n, school and Italian practice tests (all passing).
+
 ## Voice
 
 No clip is needed for the test to work: the teacher's lines are labels, read by the 🔊 on tap through the voice the
