@@ -956,6 +956,84 @@ def type_text(s: str):
     time.sleep(0.6)
 
 
+# The letters a keyboard may lack, per language, as chips under an answer's field (ui/Components.kt keyboardLetters): what adb can't
+# type (its `input text` is ASCII), and a learner taps.
+LETTER_CHIPS = {"sl": "čšžČŠŽ", "it": "àèéìòù", "de": "äöüßÄÖÜ"}
+
+
+def letter_chip(letter: str):
+    """The centre of the letter's chip, on screen and clear of the keyboard: the keyboard taken down if it hides the chips,
+    then scrolled to (the chips lie under the exercise's last field); None when it never shows."""
+    for _ in range(10):
+        top = ime_top()
+        cs = [xy for t, xy in nodes() if t == letter and 250 < xy[1] < (top if top is not None else 2300)]
+        if cs:
+            return cs[-1]
+        if top is not None:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(0.8)
+            continue
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(1)
+    return None
+
+
+def focused_field_text() -> str | None:
+    """What the focused text field holds; None when no field has the focus on screen."""
+    for n in re.findall(r"<node [^>]*?>", screen_xml()):
+        if 'focused="true"' in n and 'class="android.widget.EditText"' in n:
+            return node_attr(n, " text")
+    return None
+
+
+def type_letters(s: str, lang: str | None):
+    """Types [s] into the focused field as a learner would: adb types what it can, each letter it can't is its chip of the
+    language [lang] ([LETTER_CHIPS]), so ä and č are entered, not folded to almost. The field keeps its cursor and its focus
+    through a chip, and the keyboard is down after. A capital with only a small chip (Italian's È) is typed small, as a
+    capital doesn't count; a letter with no chip at all (Slovene's ć, đ) folded, as a keyboard without it would.
+    With the keyboard down adb's keys reach the field within a frame of each other, faster than any thumb, and came out of
+    order right after a chip ("Grüßne", "Büergrmeister"): then one at a time. What the field holds is checked, and typed again."""
+    chips = LETTER_CHIPS.get(lang or "", "")
+
+    def key(ch: str) -> str:
+        if ch.isascii() or ch in chips:
+            return ch
+        if ch.lower() in chips:
+            return ch.lower()
+        if ch == "’":
+            return "'"
+        return "".join(c for c in unicodedata.normalize("NFD", ch) if c.isascii())  # what a keyboard without it leaves
+
+    def keys(run: str):
+        adb("shell", "input", "text", run.replace(" ", "%s").replace("'", "\\'"))
+
+    want = "".join(key(c) for c in s)
+    got = None
+    for attempt in range(3):
+        for piece in re.findall(r"[\x00-\x7f]+|[^\x00-\x7f]", want):
+            if not piece.isascii():
+                c = letter_chip(piece)
+                assert c is not None, f"the letter chip «{piece}»"
+                adb("shell", "input", "tap", str(c[0]), str(c[1]))
+                time.sleep(0.5)
+            elif ime_top() is not None and not attempt:
+                keys(piece)
+                time.sleep(0.3)
+            else:
+                for ch in piece:
+                    keys(ch)
+                    time.sleep(0.15 * (attempt + 1) * slow())
+        got = focused_field_text()
+        if got is None or got == want:
+            break
+        adb("shell", "input", "keyevent", *["KEYCODE_DEL"] * (len(got) + 2), *["KEYCODE_FORWARD_DEL"] * 2)  # again, more slowly
+        time.sleep(0.5)
+    assert got is None or got == want, f"typed «{want}», the field holds «{got}»"
+    if ime_top() is not None:
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # hide the keyboard so bounds are stable
+    time.sleep(0.6)
+
+
 shots: list[Path] = []
 
 
@@ -7955,16 +8033,16 @@ def village_hud():
 
 # --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
 
-def fill(label: str, text: str) -> bool:
+def fill(label: str, text: str, typer=None) -> bool:
     """Types [text] into the field TalkBack calls [label] (a worksheet's gap, cell or line: "Vrzel 2 · Gap 2"); False when
     there is none on screen (scrolled to first). A field the screen can't scroll any higher (the fourth line of a test's
     transform, about 1880 px, on a screen with nothing left to scroll) may lie under scroll_to's limit: taken while it is
-    clear of the bottom bar, as option_at takes an option."""
+    clear of the bottom bar, as option_at takes an option. [typer]: how it is typed ([type_letters] enters a letter adb can't)."""
     c = scroll_to(label, 3) or scroll_to(label, 0, bottom=2150)
     if c is None:
         return False
     tap_at(c)
-    type_text(text)
+    (typer or type_text)(text)
     return True
 
 
@@ -9769,12 +9847,6 @@ def friuli_school_unit():
 
 
 COURSE_UNIT = os.environ.get("LANI_QA_COURSE_UNIT")  # the unit "course-unit" plays, of the village's language's course
-# what adb types of a course's language: its letters a keyboard may lack as the grading folds them (almost: half an item)
-TYPED_FOLD = {
-    "sl": ASCII,
-    "it": IT_ASCII,
-    "de": str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss", "Ä": "Ae", "Ö": "Oe", "Ü": "Ue"}),
-}
 
 
 def school_board():
@@ -9859,14 +9931,37 @@ def course_unit():
     German course in the Carinthian village (docs/plans/05-built/course-de-a1-a.md), the English one in the Lake
     District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS. $LANI_QA_COURSE_SAID ("teen,ty"): endings its
     steps name in bold, each read in the language learned's voice, not the base's (tag IntroVoice; on a dev bridge with no voice
-    engine the explanation goes in its runs), docs/plans/05-built/qa-repair.md."""
-    if not COURSE_UNIT:
+    engine the explanation goes in its runs), docs/plans/05-built/qa-repair.md. Several units, comma-separated, are played in
+    one run, each to its end whatever became of the one before, their cu-*.png under $LANI_QA_COURSE_SHOTS/<unit>; the step
+    fails naming each that failed."""
+    units = [u.strip() for u in (COURSE_UNIT or "").split(",") if u.strip()]
+    if not units:
         return "skipped: no unit named (LANI_QA_COURSE_UNIT)"
+    if len(units) == 1:
+        return course_unit_one(units[0], os.environ.get("LANI_QA_COURSE_SHOTS"))
+    failed, skipped = [], []
+    for unit in units:
+        shots_dir = os.environ.get("LANI_QA_COURSE_SHOTS")
+        try:
+            outcome = course_unit_one(unit, str(Path(shots_dir) / unit) if shots_dir else None)
+            print(f"    {unit}: {outcome or 'ok'}", flush=True)
+            if outcome:
+                skipped.append(f"{unit}: {outcome}")
+        except Exception as e:  # the next unit opens from Home, whatever this one left open
+            print(f"    {unit}: FAILED: {e}", flush=True)
+            shot(f"cu-failed-{unit}")
+            failed.append(f"{unit}: {e}")
+            go_home()
+    assert not failed, "; ".join(failed)
+    return "; ".join(skipped) or None
+
+
+def course_unit_one(unit: str, shots_dir: str | None):
+    """[course_unit] of one [unit], its cu-*.png also in [shots_dir]."""
     try:
         lang = (api("/culture").get("language") or "sl")
     except (OSError, RuntimeError, ValueError):
         lang = "sl"
-    unit = COURSE_UNIT
     path = ROOT / f"companion/course/{lang}/units/{unit}.json"
     if not path.exists():
         return f"skipped: no unit {unit} in the {lang} course ({path})"
@@ -9874,8 +9969,10 @@ def course_unit():
     if pair[0] != lang:
         return f"skipped: the pair {'-'.join(pair)} doesn't learn the village's language ({lang})"
     u = based(json.loads(path.read_text()), pair[1])
-    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
-    fold = TYPED_FOLD.get(lang)
+    out = Path(shots_dir) if shots_dir else None
+
+    def enter(text: str):
+        type_letters(text, lang)
 
     def msg(lg: str, key: str, **a) -> str:
         t = l10n(lg).get(key, key)
@@ -9918,10 +10015,8 @@ def course_unit():
         return None
 
     def typed(s: str) -> str:
-        """What adb types of an answer: the learner's name in, the punctuation at its end left out (graded without it),
-        the letters adb can't type folded as the grading folds them (almost right), an apostrophe escaped."""
-        t = re.sub(r"[!?.,]+$", "", unit_text(s))
-        return (t.translate(fold) if fold else t).replace("'", "\\'")
+        """What is typed of an answer: the learner's name in, the punctuation at its end left out (graded without it)."""
+        return re.sub(r"[!?.,]+$", "", unit_text(s))
 
     check, nxt = lab("playerScreen.check"), lab("common.next")
 
@@ -9939,7 +10034,7 @@ def course_unit():
             items = e["gaps"] if kind == "gaptext" else e["items"]
             for i, it in enumerate(items, 1):
                 label = lab("school.gapN" if kind == "gaptext" else "school.lineN", n=i)
-                assert fill(label, typed(it["accept"][0])), f"{where}: {label}"
+                assert fill(label, typed(it["accept"][0]), enter), f"{where}: {label}"
         elif kind == "choice":
             c = pick(unit_text(e["options"][e["answer"]]), after=prompt_piece(e.get("prompt")))
             assert c is not None, f"{where}: the option «{e['options'][e['answer']]}»"
@@ -9949,7 +10044,7 @@ def course_unit():
             c = text_field(3)
             assert c is not None, f"{where}: the gap"
             tap_at(c)
-            type_text(typed(e["accept"][0]))
+            enter(typed(e["accept"][0]))
         elif kind == "sort":
             for col in e["columns"]:
                 for w in col["words"]:
@@ -9960,7 +10055,7 @@ def course_unit():
                 for c, cell in enumerate(r["cells"]):
                     if isinstance(cell, dict):  # TalkBack's name of a cell: "<row>, <column>" (its column in the base)
                         label = f'{r["label"]}, {e["columns"][c]}'
-                        assert fill(label, typed(cell["accept"][0])), f"{where}: the cell {label}"
+                        assert fill(label, typed(cell["accept"][0]), enter), f"{where}: the cell {label}"
         elif kind == "reorder":
             # the first solution's words in its order, each the chip the app shows for it (game/ChipLabels: the
             # punctuation round it off, a capital lowered unless a name keeps it): the pool's, below the answer's row
@@ -10025,14 +10120,18 @@ def course_unit():
                 continue
             if a["type"] == "choice":
                 option = unit_text(a["options"][a["answer"]])
-                c = pick(option, after=prompt_piece(a.get("prompt")))
+                # below the question's own heading: the prompt's words may stand in the step's bubble too, over a table with the option's word
+                c = pick(option, after=half("school.quickQuestion"))
                 assert c is not None, f"step {i}'s option «{option}»"
                 tap_at(c)
             else:
                 c = text_field(3)
+                if c is None:  # no dump while the step is read and its pointer moves (a busy emulator): once it's quiet
+                    time.sleep(8 * slow())
+                    c = text_field(3)
                 assert c is not None, f"step {i}'s gap"
                 tap_at(c)
-                type_text(typed(a["accept"][0]))
+                enter(typed(a["accept"][0]))
                 assert tap_above(check, 2150), f"step {i}'s check"
             assert wait_for(half("playerScreen.correct"), 6) or wait_for(half("playerScreen.almost"), 2), f"step {i} answered right"
             snap(f"cu-intro-{i}")
@@ -10057,8 +10156,7 @@ def course_unit():
         for n, e in enumerate(tests, 1):
             time.sleep(1.5)
             exercise(e, f"test #{n}")
-            if n == 1:
-                snap("cu-test")
+            snap("cu-test" if n == 1 else f"cu-test-{n}")
             if n < len(tests):
                 assert tap(nxt, 6), f"test #{n}: on"
         assert wait_for(nxt, 6), "the test's last: on"
@@ -10066,9 +10164,16 @@ def course_unit():
         assert wait_for(half("school.unitDoneTitle"), 12), "the test passed: the unit done"
         time.sleep(2)
         snap("cu-test-passed")
+        # every answer given was the unit's own, its letters entered: none may be graded wrong
+        score = next((t for t, _ in nodes() if "❌" in t), "")
+        print(f"    {unit}'s test: {score}", flush=True)
+        assert not (m := re.search(r"❌\s*(\d+)", score)) or m.group(1) == "0", f"the unit's own answers graded wrong: {score}"
         if star := next_unit_once(lang, pair):
             print(f"    {star}")
-        assert tap(lab("common.continue"), 4), "back to the unit"
+        # the result's button may be below the fold: past 40 answers a day it says why the rewards are halved
+        c = find(lab("common.continue")) or scroll_to(lab("common.continue"), 3, bottom=2300)
+        assert c is not None, "back to the unit"
+        tap_at(c)
         assert wait_for(half("school.unitIsDone"), 8), "the unit done"
         end, done = time.time() + 20 * slow(), None
         while time.time() < end:  # the app pushes the village to the node
