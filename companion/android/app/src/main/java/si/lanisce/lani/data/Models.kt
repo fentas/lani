@@ -2,6 +2,7 @@ package si.lanisce.lani.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
@@ -127,6 +128,11 @@ sealed interface Exercise {
         @SerialName("say_options") val sayOptions: Boolean = false,
         override val grammar: String? = null,
         val almost: List<Int> = emptyList(),
+        /**
+         * Shown as [options] stand, not in the day's order ([ChoiceOrder]): "Drži / Ne drži" of the app's own questions.
+         * No file says it: no course's or module's option list has an order that means anything.
+         */
+        @Transient val fixedOrder: Boolean = false,
     ) : Exercise {
         /** The verdict of picking option [i] ([Grading.picked]). */
         fun verdict(i: Int): Grading.Verdict = Grading.picked(i, answer, almost)

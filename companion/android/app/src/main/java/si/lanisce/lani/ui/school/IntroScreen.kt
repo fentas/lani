@@ -630,7 +630,9 @@ private fun IntroAsk(
                 is Exercise.Choice -> {
                     ask.instruction?.let { Text(it, style = MaterialTheme.typography.labelMedium) }
                     Text(inlineMarkdown(ask.prompt), style = MaterialTheme.typography.titleLarge)
-                    ask.options.forEachIndexed { o, opt ->
+                    // the day's order, as in a worksheet; [o] is the file's index, what [Exercise.Choice.answer] and almost say
+                    for (o in si.lanisce.lani.ui.rememberChoiceOrder(ask.options.size, si.lanisce.lani.data.ChoiceOrder.question(ask.prompt, ask.options.getOrNull(ask.answer)))) {
+                        val opt = ask.options[o]
                         val color = when {
                             verdict == null -> CardDefaults.cardColors()
                             o == ask.answer -> CardDefaults.cardColors(containerColor = AlpineGreen.copy(alpha = 0.2f))
