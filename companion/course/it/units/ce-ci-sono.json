@@ -281,8 +281,7 @@
             { "from": "C'è Giulia.", "accept": ["Non c'è Giulia."]},
             { "from": "C'è pane.", "accept": ["Non c'è pane."]}
           ],
-          "explain": { "de": "**nein** → **non** davor\n- c'è → non c'è\n- ci sono → non ci sono", "sl": "**ne** → **non** spredaj\n- c'è → non c'è\n- ci sono → non ci sono", "en": "**no** → **non** in front\n- c'è → non c'è\n- ci sono → non ci sono" },
-          "cue": "→"
+          "explain": { "de": "**nein** → **non** davor\n- c'è → non c'è\n- ci sono → non ci sono", "sl": "**ne** → **non** spredaj\n- c'è → non c'è\n- ci sono → non ci sono", "en": "**no** → **non** in front\n- c'è → non c'è\n- ci sono → non ci sono" }
         },
         {
           "type": "transform",
@@ -299,8 +298,7 @@
             "de": "**mehrere** → **ci sono**, das Nomen im Plural\n- c'è una rana → ci sono tre rane\n- c'è una barca → ci sono quattro barche",
             "sl": "**več** → **ci sono**, samostalnik v množini\n- c'è una rana → ci sono tre rane\n- c'è una barca → ci sono quattro barche",
             "en": "**more** → **ci sono**, the noun in the plural\n- c'è una rana → ci sono tre rane\n- c'è una barca → ci sono quattro barche"
-          },
-          "cue": "→"
+          }
         }
       ]
     }
@@ -333,8 +331,7 @@
         "items": [
           { "from": "C'è la luna.", "accept": ["Non c'è la luna."]},
           { "from": "Ci sono le pecore.", "accept": ["Non ci sono le pecore.", "Non ci sono pecore."]}
-        ],
-        "cue": "→"
+        ]
       },
       {
         "type": "choice",

@@ -19,8 +19,8 @@ import kotlin.random.Random
 /**
  * Italian's practice as data, read as this app reads it. The modules as the bridge serves them (companion/modules/it, its
  * texts per base as plain strings, bridge/src/store.ts): each parses, none has an exercise the app doesn't know, and a run of
- * grammar or conversation at each level has its drills, so it no longer says "no grammar drills yet" (Content.pick). The car's
- * drills bundled (companion/drills/it): one of each kind, the numbers counted in Italian.
+ * grammar or conversation at each level to B2 has its drills, so it no longer says "no grammar drills yet" (Content.pick). The car's
+ * drills bundled (companion/drills/it): one of each kind, the numbers counted in Italian, each reaching B2.
  */
 class ItalianPracticeTest {
     private val dir = listOf(File("../../modules/it"), File("../modules/it"), File("companion/modules/it")).first { it.isDirectory }
@@ -62,7 +62,7 @@ class ItalianPracticeTest {
 
     @Test fun `a run of grammar or conversation has its drills at each level, no note that there are none`() {
         val all = modules("de")
-        for (level in listOf("A1", "A2", "B1")) {
+        for (level in listOf("A1", "A2", "B1", "B2")) {
             val pool = ContentPool(
                 cards = emptyList(),
                 moduleExercises = all.filter { it.level == level }.flatMap { m -> m.exercises.map { m.id to it } },
@@ -84,5 +84,23 @@ class ItalianPracticeTest {
         assertEquals("ventitré", numbers.first { i -> i.figure == "23" }.text.said("it"))
         assertEquals("dreiundzwanzig", numbers.first { i -> i.figure == "23" }.text.meaning("de"))
         assertEquals("Nonno Bepi tells them", "bepi", it.first { d -> d.kind == DrillKind.RIDDLE }.teller)
+    }
+
+    @Test fun `each drill reaches B2, and nothing above A2 reaches a child at A1`() {
+        val it = Drills.bundled("it")
+        val levels = mapOf(
+            DrillKind.TRANSFORM to it.first { d -> d.kind == DrillKind.TRANSFORM }.transforms.map { s -> s.level to listOf(s.rule) },
+            DrillKind.RAPID to it.first { d -> d.kind == DrillKind.RAPID }.rapid.map { s -> s.level to listOfNotNull(s.rule) },
+            DrillKind.BUILD to it.first { d -> d.kind == DrillKind.BUILD }.builds.map { b -> b.level to b.rules },
+            DrillKind.RIDDLE to it.first { d -> d.kind == DrillKind.RIDDLE }.riddles.map { r -> r.level to emptyList<String>() },
+        )
+        for ((kind, items) in levels) for (l in listOf("A1", "A2", "B1", "B2")) assertTrue("$kind $l", items.any { (lv, _) -> lv == l })
+        val upper = levels.values.flatten().filter { (lv, _) -> lv == "B1" || lv == "B2" }
+        // a child at A1 (Teo): the road offers at most one level up, so no B1 or B2 item, whatever was introduced
+        assertTrue(upper.none { (lv, rules) -> si.lanisce.lani.road.RoadDrills.offered(lv, rules, "A1") { false } })
+        // a learner at B1: a B2 set of a rule not met yet waits; once met it plays
+        val b2 = levels.getValue(DrillKind.TRANSFORM).filter { (lv, _) -> lv == "B2" }
+        assertTrue(b2.isNotEmpty() && b2.none { (lv, rules) -> si.lanisce.lani.road.RoadDrills.offered(lv, rules, "B1") { true } })
+        assertTrue(b2.all { (lv, rules) -> si.lanisce.lani.road.RoadDrills.offered(lv, rules, "B1") { false } })
     }
 }

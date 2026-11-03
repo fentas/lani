@@ -44,6 +44,52 @@ class ItalianB2aContentTest {
         }
     }
 
+    @Test fun `benché, sebbene, nonostante with the indicative typed are almost, the subjunctive shown, on the unit's own items`() {
+        val u = course.units.getValue("benche-purche")
+        val items = (u.worksheets.flatMap { it.exercises } + u.test.exercises).filter { it !is Exercise.Sort && it !is Exercise.Choice }.flatMap { Sheets.items(it, Lang.IT) }
+        fun said(frame: String, typed: String) {
+            val item = items.first { frame in it.frame || it.accept.any { a -> frame in a } }
+            val mark = Sheets.check(item, typed, Lang.IT)
+            assertEquals("$typed: its verdict", Verdict.ALMOST, mark.verdict)
+            assertEquals("$typed: its hint", Grading.Hint.NONSTANDARD, mark.hint)
+            assertTrue("$typed: a right answer shown, not ${mark.expected}", mark.expected in item.accept)
+        }
+        // whole lines, either way round
+        said("Benché piova, Davide esce.", "Benché piove, Davide esce")
+        said("Benché piova, Davide esce.", "Davide esce, benché piove")
+        said("Sebbene sia tardi, Marisa non chiude.", "Sebbene è tardi, Marisa non chiude")
+        said("Sebbene sia tardi, Marisa non chiude.", "Sebbene e' tardi, Marisa non chiude")
+        said("Nonostante faccia freddo, Aldo guarda le api.", "Nonostante fa freddo, Aldo guarda le api")
+        said("Sebbene sia stanco, ti aiuto.", "Sebbene sono stanco, ti aiuto")
+        // a gap: the word alone, the sentence before it saying which conjunction
+        said("Benché ___ (piovere)", "piove")
+        said("Sebbene ___ (essere) vecchio", "è")
+        said("Benché il ponte ___ (essere)", "è")
+    }
+
+    @Test fun `only those three, and only one verb's forms - another verb or another word stays what it was`() {
+        fun graded(typed: String, right: String, before: String = "") = Grading.check(typed, listOf(right), Lang.IT, before)
+        assertEquals("another verb", Verdict.WRONG, graded("Benché mangia, Davide esce", "Benché piova, Davide esce").verdict)
+        assertEquals("the indicative's other tense", Verdict.WRONG, graded("Sebbene era tardi, Marisa non chiude", "Sebbene sia tardi, Marisa non chiude").verdict)
+        assertEquals("the wrong way round", Verdict.WRONG, graded("Anche se piova, Davide esce", "Anche se piove, Davide esce").verdict)
+        // with no such word before it, what the table had: the subjunctive's other mistakes aren't forgiven
+        assertEquals("che + the indicative, typed", Verdict.WRONG, graded("è", "sia", "Penso che il ponte ").verdict)
+        assertEquals("too far from it", Verdict.WRONG, graded("è", "sia", "Benché tutti dicano che ieri il ponte nuovo ").verdict)
+        // dassi and stassi stay in the table's wrong, on the native list
+        for ((typed, right) in listOf("dassi" to "dessi", "stassi" to "stessi")) assertEquals(typed, Verdict.WRONG, graded(typed, right).verdict)
+    }
+
+    @Test fun `no choice or bank offers the indicative after them as wrong, and the unit and its page name both`() {
+        val u = course.units.getValue("benche-purche")
+        val indicative = setOf("piove", "è", "ha", "fa", "era", "sono", "pioveva")
+        val all = u.worksheets.flatMap { it.exercises } + u.test.exercises
+        for (e in all.filterIsInstance<Exercise.GapText>()) assertTrue("a bank's distractors: ${e.distractors}", e.distractors.none { it in indicative })
+        for (base in listOf("de", "sl", "en")) {
+            assertTrue("the intro in $base", "*benché piove*" in u.intro!!.steps.first().say.getValue(base))
+            assertTrue("the page in $base", "*benché piove*" in Grammar.bundled("it").first { it.id == "congiunzioni-congiuntivo" }.rule.getValue(base))
+        }
+    }
+
     @Test fun `another conjugation's vowel in the imperfect subjunctive is wrong, never a slip`() {
         for ((typed, right) in listOf(
             "dormesse" to "dormisse", "parlessi" to "parlassi", "leggasse" to "leggesse", "dormassero" to "dormissero",
