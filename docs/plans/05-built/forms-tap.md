@@ -171,8 +171,12 @@ plural noun (genitori, parents), braccio (Wiktionary gives its two plurals only 
   - Eva (kaernten, de · sl): "Häusern" opens das Haus's four cases with the article ("das Haus | die Häuser", 2. and 3.
     🔒 until Genitiv and Dativ), "fährt" fahren's Präsens ("du fährst"); a question "zwei ____ (Haus)" chosen among
     Häusern, Häuser, Hauses, Haus.
-  - Ana (lakeland, en · sl): "houses" house's plural; "went" go's forms a row each ("present · he, she goes", the past
-    and the participle 🔒 until their A2 pages, "-ing form · am going"); a form question.
+  - Ana (lakeland, en · sl): "houses" house's plural, a form question answered; "went" go's forms a row each
+    ("present · he, she goes", the past and the participle 🔒 until their A2 pages, "-ing form · am going",
+    `lakeland/16-went-table-a1.png`). The step's first run passed without the table (it found the tapped word); the
+    stricter step then failed only on its own expectation ("have gone" is locked at A1), which the last commit fixes;
+    its run after that waited an hour for a build slot and was stopped, so the English step as committed is not run
+    on the emulator yet, nor the last two UI fixes (German lock lines, English's title) on any.
 
 ## What's left
 
