@@ -846,6 +846,183 @@
           "whole": true
         }
       ]
+    },
+    {
+      "id": "formeller-brief-4",
+      "title": {
+        "de": "Sprich und schreib",
+        "en": "Speak and write",
+        "sl": "Povej in napiši",
+        "it": "Parla e scrivi"
+      },
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "formeller-brief",
+          "instruction": {
+            "en": "Sag es laut · Say it aloud",
+            "sl": "Sag es laut · Povej na glas",
+            "it": "Sag es laut · Dillo ad alta voce"
+          },
+          "prompt": {
+            "en": "On the phone to the Gemeindeamt: ask Frau Magister Huber politely whether she could send you the form.",
+            "sl": "Po telefonu z občino (Gemeindeamt): vljudno vprašaj gospo Huber (Frau Magister), ali bi ti lahko poslala obrazec.",
+            "it": "Al telefono con il comune (Gemeindeamt): chiedi con garbo alla signora Huber (Frau Magister) se potrebbe mandarti il modulo."
+          },
+          "say": "Frau Magister, könnten Sie mir bitte das Formular schicken?",
+          "accept": [
+            "Könnten Sie mir bitte das Formular schicken?",
+            "Könnten Sie mir das Formular schicken?",
+            "Könnten Sie mir das Formular bitte schicken?",
+            "Frau Magister, könnten Sie mir das Formular schicken?",
+            "Frau Magister Huber, könnten Sie mir bitte das Formular schicken?",
+            "Frau Magistra, könnten Sie mir bitte das Formular schicken?",
+            "Könnten Sie mir bitte das Formular zuschicken?",
+            "Frau Magister, könnten Sie mir bitte das Formular zuschicken?",
+            "Würden Sie mir bitte das Formular schicken?",
+            "Frau Magister, würden Sie mir bitte das Formular schicken?"
+          ],
+          "show": false,
+          "explain": {
+            "en": "**Könnten Sie …?** asks kindly, in the Konjunktiv II; Frau Magister with the title, as Austria says it\n- Könnten Sie mir bitte das Formular schicken?\n- Würden Sie mir bitte helfen?",
+            "sl": "**Könnten Sie …?** vpraša vljudno, s konjunktivom II; Frau Magister z nazivom, kot rečejo v Avstriji\n- Könnten Sie mir bitte das Formular schicken?\n- Würden Sie mir bitte helfen?",
+            "it": "**Könnten Sie …?** chiede con garbo, con il Konjunktiv II; Frau Magister con il titolo, come si dice in Austria\n- Könnten Sie mir bitte das Formular schicken?\n- Würden Sie mir bitte helfen?"
+          }
+        },
+        {
+          "type": "speaking",
+          "grammar": "formeller-brief",
+          "instruction": {
+            "en": "Antworte laut · Answer aloud",
+            "sl": "Antworte laut · Odgovori na glas",
+            "it": "Antworte laut · Rispondi ad alta voce"
+          },
+          "prompt": {
+            "en": "At the Gemeindeamt, Frau Magister Huber asks how she can help. Answer politely: ask for something with the Konjunktiv II or Ich bitte Sie um …",
+            "sl": "Na občini te gospa Huber vpraša, kako ti lahko pomaga. Odgovori vljudno: prosi za nekaj s konjunktivom II ali z Ich bitte Sie um …",
+            "it": "In comune la signora Huber ti chiede come può aiutarti. Rispondi con garbo: chiedi qualcosa con il Konjunktiv II o con Ich bitte Sie um …"
+          },
+          "ask": "Grüß Gott, wie kann ich Ihnen helfen?",
+          "say": "Könnten Sie mir bitte sagen, wann der Weg repariert wird?",
+          "accept": [
+            "Ich hätte gern ein Formular für den Antrag."
+          ],
+          "must": [
+            {
+              "label": {
+                "en": "a polite request (Könnten Sie …, Ich hätte gern …, Ich bitte Sie um …)",
+                "sl": "vljudna prošnja (Könnten Sie …, Ich hätte gern …, Ich bitte Sie um …)",
+                "it": "una richiesta cortese (Könnten Sie …, Ich hätte gern …, Ich bitte Sie um …)"
+              },
+              "any": [
+                "könnten sie",
+                "würden sie",
+                "hätte gern",
+                "hätten sie",
+                "wäre ihnen dankbar",
+                "wären sie so",
+                "ich bitte sie",
+                "ich ersuche sie",
+                "dürfte ich",
+                "ich möchte",
+                "möchte ich"
+              ]
+            }
+          ],
+          "min_words": 4,
+          "explain": {
+            "en": "**Könnten Sie …?, Ich hätte gern …, Ich bitte Sie um …**: a request in the Konjunktiv II is the polite one\n- Könnten Sie mir bitte sagen, wann …?\n- Ich bitte Sie um ein Formular.",
+            "sl": "**Könnten Sie …?, Ich hätte gern …, Ich bitte Sie um …**: prošnja s konjunktivom II je vljudna\n- Könnten Sie mir bitte sagen, wann …?\n- Ich bitte Sie um ein Formular.",
+            "it": "**Könnten Sie …?, Ich hätte gern …, Ich bitte Sie um …**: una richiesta con il Konjunktiv II è quella cortese\n- Könnten Sie mir bitte sagen, wann …?\n- Ich bitte Sie um ein Formular."
+          }
+        },
+        {
+          "type": "writing",
+          "grammar": "formeller-brief",
+          "instruction": {
+            "en": "Schreib · Write",
+            "sl": "Schreib · Napiši",
+            "it": "Schreib · Scrivi"
+          },
+          "prompt": {
+            "en": "The bus stop by the school has no bench and no roof. Write a formal letter to Herr Bürgermeister Pichler and ask for both. Tie it together with dabei, daher or dafür.",
+            "sl": "Avtobusna postaja pri šoli nima ne klopi ne strehe. Napiši uradno pismo županu (Herr Bürgermeister Pichler) in prosi za oboje. Besedilo poveži z dabei, daher ali dafür.",
+            "it": "La fermata del bus vicino alla scuola non ha né panchina né tettoia. Scrivi una lettera formale al sindaco (Herr Bürgermeister Pichler) e chiedi tutte e due. Lega il testo con dabei, daher o dafür."
+          },
+          "model": "Sehr geehrter Herr Bürgermeister Pichler, ich fahre jeden Morgen mit dem Bus nach Villach. Dabei muss ich oft lange im Regen warten, denn die Haltestelle vor der Schule hat keine Bank und kein Dach. Auch die Kinder und Opa Sepp stehen dort jeden Tag im Wind. Daher ersuche ich Sie, dort eine Bank und ein kleines Dach aufstellen zu lassen. Ich wäre Ihnen sehr dankbar, wenn Sie mir bald antworten könnten. Mit freundlichen Grüßen {learner}",
+          "must": [
+            {
+              "label": {
+                "en": "the opening and the close (Sehr geehrter Herr …, Mit freundlichen Grüßen)",
+                "sl": "nagovor in pozdrav (Sehr geehrter Herr …, Mit freundlichen Grüßen)",
+                "it": "apertura e chiusura (Sehr geehrter Herr …, Mit freundlichen Grüßen)"
+              },
+              "any": [
+                "sehr geehrter",
+                "sehr geehrte",
+                "mit freundlichen grüßen"
+              ],
+              "n": 2
+            },
+            {
+              "label": {
+                "en": "courtesy in the Konjunktiv II (Könnten Sie …, Ich wäre Ihnen dankbar, wenn …)",
+                "sl": "vljudnost s konjunktivom II (Könnten Sie …, Ich wäre Ihnen dankbar, wenn …)",
+                "it": "cortesia con il Konjunktiv II (Könnten Sie …, Ich wäre Ihnen dankbar, wenn …)"
+              },
+              "any": [
+                "könnten sie",
+                "würden sie",
+                "wäre ihnen",
+                "wären sie",
+                "hätten sie",
+                "würde mich freuen",
+                "dürfte ich"
+              ]
+            },
+            {
+              "label": {
+                "en": "a link: dabei, dafür, daher or diese",
+                "sl": "vez: dabei, dafür, daher ali diese",
+                "it": "un legame: dabei, dafür, daher o diese"
+              },
+              "any": [
+                "dabei",
+                "dafür",
+                "daher",
+                "deshalb",
+                "diese",
+                "dieser",
+                "dieses",
+                "diesen"
+              ]
+            }
+          ],
+          "avoid": [
+            {
+              "any": [
+                "freundlichen grüße",
+                "freundliche grüßen",
+                "mit freundliche grüße"
+              ],
+              "explain": {
+                "en": "**Mit freundlichen Grüßen**: -en on both words\n- not: Mit freundlichen Grüße, Mit freundliche Grüßen",
+                "sl": "**Mit freundlichen Grüßen**: -en na obeh besedah\n- ne: Mit freundlichen Grüße, Mit freundliche Grüßen",
+                "it": "**Mit freundlichen Grüßen**: -en su tutte e due le parole\n- non: Mit freundlichen Grüße, Mit freundliche Grüßen"
+              }
+            }
+          ],
+          "length": {
+            "min": 50,
+            "max": 110
+          },
+          "explain": {
+            "en": "**a formal letter**: Sehr geehrter …, the Konjunktiv II for courtesy, dabei, daher, Mit freundlichen Grüßen\n- Daher ersuche ich Sie, …\n- Ich wäre Ihnen dankbar, wenn …",
+            "sl": "**uradno pismo**: Sehr geehrter …, konjunktiv II za vljudnost, dabei, daher, Mit freundlichen Grüßen\n- Daher ersuche ich Sie, …\n- Ich wäre Ihnen dankbar, wenn …",
+            "it": "**una lettera formale**: Sehr geehrter …, il Konjunktiv II per la cortesia, dabei, daher, Mit freundlichen Grüßen\n- Daher ersuche ich Sie, …\n- Ich wäre Ihnen dankbar, wenn …"
+          }
+        }
+      ]
     }
   ],
   "test": {
@@ -1030,9 +1207,117 @@
           "sl": "**Mit freundlichen Grüßen: brez vejice in pike, nato tvoje ime**\n- Mit freundlichen Grüßen\n- Stefan Kofler",
           "it": "**Mit freundlichen Grüßen: senza virgola né punto, poi il tuo nome**\n- Mit freundlichen Grüßen\n- Stefan Kofler"
         }
+      },
+      {
+        "type": "speaking",
+        "grammar": "formeller-brief",
+        "instruction": {
+          "en": "Antworte laut · Answer aloud",
+          "sl": "Antworte laut · Odgovori na glas",
+          "it": "Antworte laut · Rispondi ad alta voce"
+        },
+        "prompt": {
+          "en": "Frau Magister Huber asks what you want to complain about. Answer politely: über + what.",
+          "sl": "Gospa Huber vpraša, nad čim se želiš pritožiti. Odgovori vljudno: über + kaj.",
+          "it": "La signora Huber ti chiede di che cosa vuoi lamentarti. Rispondi con garbo: über + che cosa."
+        },
+        "ask": "Worüber möchten Sie sich beschweren?",
+        "say": "Ich möchte mich über den Lärm beim Sägewerk beschweren.",
+        "accept": [
+          "Über den Lärm beim Sägewerk.",
+          "Ich möchte mich über den Lärm vom Sägewerk beschweren."
+        ],
+        "must": [
+          {
+            "label": {
+              "en": "über + what (über den Lärm, über die Rechnung)",
+              "sl": "über + kaj (über den Lärm, über die Rechnung)",
+              "it": "über + che cosa (über den Lärm, über die Rechnung)"
+            },
+            "any": [
+              "über den",
+              "über die",
+              "über das",
+              "über diese",
+              "über diesen",
+              "über einen",
+              "über eine",
+              "über ein",
+              "über meinen",
+              "über meine",
+              "über unseren",
+              "über unsere"
+            ]
+          }
+        ],
+        "min_words": 4
+      },
+      {
+        "type": "writing",
+        "grammar": "formeller-brief",
+        "instruction": {
+          "en": "Schreib · Write",
+          "sl": "Schreib · Napiši",
+          "it": "Schreib · Scrivi"
+        },
+        "prompt": {
+          "en": "Write a short formal e-mail to Frau Magister Huber: ask for an appointment (Termin) next week to hand in your form.",
+          "sl": "Napiši kratko uradno e-pismo gospe Huber (Frau Magister): prosi za termin prihodnji teden, da oddaš obrazec.",
+          "it": "Scrivi una breve e-mail formale alla signora Huber (Frau Magister): chiedi un appuntamento (Termin) la settimana prossima per consegnare il modulo."
+        },
+        "model": "Sehr geehrte Frau Magister Huber, ich habe das Formular für den Antrag ausgefüllt. Dabei sind noch zwei Fragen offen geblieben. Hätten Sie nächste Woche Zeit für einen kurzen Termin? Am liebsten käme ich am Dienstag oder am Mittwoch am Vormittag. Ich wäre Ihnen dankbar, wenn Sie mir einen Termin vorschlagen könnten. Mit freundlichen Grüßen {learner}",
+        "must": [
+          {
+            "label": {
+              "en": "the opening and the close (Sehr geehrte Frau …, Mit freundlichen Grüßen)",
+              "sl": "nagovor in pozdrav (Sehr geehrte Frau …, Mit freundlichen Grüßen)",
+              "it": "apertura e chiusura (Sehr geehrte Frau …, Mit freundlichen Grüßen)"
+            },
+            "any": [
+              "sehr geehrter",
+              "sehr geehrte",
+              "mit freundlichen grüßen"
+            ],
+            "n": 2
+          },
+          {
+            "label": {
+              "en": "courtesy in the Konjunktiv II (Könnten Sie …, Ich wäre Ihnen dankbar, wenn …)",
+              "sl": "vljudnost s konjunktivom II (Könnten Sie …, Ich wäre Ihnen dankbar, wenn …)",
+              "it": "cortesia con il Konjunktiv II (Könnten Sie …, Ich wäre Ihnen dankbar, wenn …)"
+            },
+            "any": [
+              "könnten sie",
+              "würden sie",
+              "wäre ihnen",
+              "wären sie",
+              "hätten sie",
+              "würde mich freuen",
+              "dürfte ich"
+            ]
+          }
+        ],
+        "avoid": [
+          {
+            "any": [
+              "freundlichen grüße",
+              "freundliche grüßen",
+              "mit freundliche grüße"
+            ],
+            "explain": {
+              "en": "**Mit freundlichen Grüßen**: -en on both words\n- not: Mit freundlichen Grüße, Mit freundliche Grüßen",
+              "sl": "**Mit freundlichen Grüßen**: -en na obeh besedah\n- ne: Mit freundlichen Grüße, Mit freundliche Grüßen",
+              "it": "**Mit freundlichen Grüßen**: -en su tutte e due le parole\n- non: Mit freundlichen Grüße, Mit freundliche Grüßen"
+            }
+          }
+        ],
+        "length": {
+          "min": 40,
+          "max": 80
+        }
       }
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Frau Magister, Dr.in, Mag.a; the ! after the opening; ersuchen; Beilage; each letter; each base: spoštovana, gentile"
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Frau Magister, Dr.in, Mag.a; the ! after the opening; ersuchen; Beilage; each letter; each base: spoštovana, gentile; speaking and writing (sheet 4, the test's last two): machine-written, for the native check"
 }

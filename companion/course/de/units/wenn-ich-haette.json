@@ -733,6 +733,189 @@
           }
         }
       ]
+    },
+    {
+      "id": "wenn-ich-haette-4",
+      "title": {
+        "de": "Sprich und schreib",
+        "en": "Speak and write",
+        "sl": "Povej in napiši",
+        "it": "Parla e scrivi"
+      },
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Sag es laut · Say it aloud",
+            "sl": "Sag es laut · Povej na glas",
+            "it": "Sag es laut · Dillo ad alta voce"
+          },
+          "prompt": {
+            "en": "Kathi asks if you're coming to the Kirchtag on Sunday. But you have no time. Say: if I had time, I'd come along.",
+            "sl": "Kathi te vpraša, ali prideš v nedeljo na Kirchtag (vaški praznik). Nimaš pa časa. Povej: Če bi {m:imel|f:imela} čas, bi {m:prišel|f:prišla} zraven.",
+            "it": "Kathi ti chiede se domenica vieni al Kirchtag (la festa del paese). Ma non hai tempo. Di': Se avessi tempo, verrei anch'io."
+          },
+          "say": "Wenn ich Zeit hätte, würde ich mitkommen.",
+          "accept": [
+            "Wenn ich Zeit hätte, käme ich mit.",
+            "Ich würde mitkommen, wenn ich Zeit hätte.",
+            "Ich käme mit, wenn ich Zeit hätte.",
+            "Hätte ich Zeit, würde ich mitkommen.",
+            "Wenn ich Zeit hätte, würde ich kommen.",
+            "Wenn ich Zeit hätte, käme ich."
+          ],
+          "spoken": [
+            "Wenn ich Zeit haben würde, würde ich mitkommen.",
+            "Ich würde mitkommen, wenn ich Zeit haben würde."
+          ],
+          "show": false,
+          "explain": {
+            "en": "**wenn … hätte, then würde + the infinitive** (or käme): you have no time, so it isn't so\n- Wenn ich Zeit hätte, würde ich mitkommen.\n- wenn ich Zeit haben würde · what people say too",
+            "sl": "**wenn … hätte, nato würde + nedoločnik** (ali käme): nimaš časa, zato ni res\n- Wenn ich Zeit hätte, würde ich mitkommen.\n- wenn ich Zeit haben würde · tako tudi govorijo",
+            "it": "**wenn … hätte, poi würde + infinito** (o käme): non hai tempo, quindi non è così\n- Wenn ich Zeit hätte, würde ich mitkommen.\n- wenn ich Zeit haben würde · si dice anche così"
+          }
+        },
+        {
+          "type": "speaking",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Antworte laut · Answer aloud",
+            "sl": "Antworte laut · Odgovori na glas",
+            "it": "Antworte laut · Rispondi ad alta voce"
+          },
+          "prompt": {
+            "en": "Eva asks what you would do if you didn't have to work today. Answer with the Konjunktiv II (würde, hätte, wäre …).",
+            "sl": "Eva vpraša, kaj bi {m:počel|f:počela}, če danes ne bi {m:moral|f:morala} delati. Odgovori s konjunktivom II (würde, hätte, wäre …).",
+            "it": "Eva ti chiede che cosa faresti se oggi non dovessi lavorare. Rispondi con il Konjunktiv II (würde, hätte, wäre …)."
+          },
+          "ask": "Was würdest du machen, wenn du heute nicht arbeiten müsstest?",
+          "say": "Ich würde auf den Dobratsch wandern.",
+          "accept": [
+            "Wenn ich heute nicht arbeiten müsste, würde ich auf den Dobratsch wandern."
+          ],
+          "must": [
+            {
+              "label": {
+                "en": "the Konjunktiv II (würde, hätte, wäre, könnte)",
+                "sl": "konjunktiv II (würde, hätte, wäre, könnte)",
+                "it": "il Konjunktiv II (würde, hätte, wäre, könnte)"
+              },
+              "any": [
+                "würd*",
+                "hätt*",
+                "wär*",
+                "könnt*",
+                "käm*",
+                "müsst*",
+                "möcht*",
+                "tät",
+                "tät*",
+                "gäb*",
+                "wüsst*",
+                "dürft*"
+              ]
+            }
+          ],
+          "min_words": 4,
+          "explain": {
+            "en": "**würde + the infinitive at the end**, or the short forms hätte, wäre, könnte\n- Ich würde auf den Dobratsch wandern.\n- Ich könnte lange schlafen.",
+            "sl": "**würde + nedoločnik na koncu** ali kratke oblike hätte, wäre, könnte\n- Ich würde auf den Dobratsch wandern.\n- Ich könnte lange schlafen.",
+            "it": "**würde + l'infinito alla fine**, o le forme brevi hätte, wäre, könnte\n- Ich würde auf den Dobratsch wandern.\n- Ich könnte lange schlafen."
+          }
+        },
+        {
+          "type": "writing",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Schreib · Write",
+            "sl": "Schreib · Napiši",
+            "it": "Schreib · Scrivi"
+          },
+          "prompt": {
+            "en": "Florian the shepherd is ill and can't come up to the Alm. Write him a short message: what would you do together if he were well? Give him some advice with solltest.",
+            "sl": "Pastir Florian je bolan in ne more na planino. Napiši mu kratko sporočilo: kaj bi skupaj počeli, če bi bil zdrav? Daj mu tudi nasvet s solltest.",
+            "it": "Il pastore Florian è malato e non può salire all'alpeggio. Scrivigli un breve messaggio: che cosa fareste insieme se stesse bene? Dagli anche un consiglio con solltest."
+          },
+          "model": "Lieber Florian, schade, dass du krank bist! Wenn du gesund wärst, würden wir morgen auf die Alm gehen. Auf der Hütte könnten wir Kaiserschmarrn essen. Du solltest jetzt viel schlafen und Tee trinken. Wenn ich Zeit hätte, käme ich heute zu dir. Gute Besserung! {m:Dein|f:Deine} {learner}",
+          "must": [
+            {
+              "label": {
+                "en": "wenn (if)",
+                "sl": "wenn (če)",
+                "it": "wenn (se)"
+              },
+              "any": [
+                "wenn"
+              ]
+            },
+            {
+              "label": {
+                "en": "the Konjunktiv II three times (wärst, würden, könnten)",
+                "sl": "trikrat konjunktiv II (wärst, würden, könnten)",
+                "it": "tre volte il Konjunktiv II (wärst, würden, könnten)"
+              },
+              "any": [
+                "würd*",
+                "hätt*",
+                "wär*",
+                "könnt*",
+                "käm*",
+                "müsst*",
+                "möcht*",
+                "tät",
+                "tät*",
+                "gäb*",
+                "wüsst*",
+                "dürft*"
+              ],
+              "n": 3
+            },
+            {
+              "label": {
+                "en": "advice: du solltest …",
+                "sl": "nasvet: du solltest …",
+                "it": "un consiglio: du solltest …"
+              },
+              "any": [
+                "solltest",
+                "solltet",
+                "könntest"
+              ]
+            }
+          ],
+          "avoid": [
+            {
+              "any": [
+                "wenn ich hätte",
+                "wenn ich wäre",
+                "wenn du hättest",
+                "wenn du wärst",
+                "wenn er hätte",
+                "wenn er wäre",
+                "wenn sie hätte",
+                "wenn sie wäre",
+                "wenn wir hätten",
+                "wenn wir wären"
+              ],
+              "explain": {
+                "en": "**After wenn the verb goes last**: wenn du gesund wärst, wenn ich Zeit hätte\n- not: wenn du wärst gesund",
+                "sl": "**Za wenn gre glagol na konec**: wenn du gesund wärst, wenn ich Zeit hätte\n- ne: wenn du wärst gesund",
+                "it": "**Dopo wenn il verbo va in fondo**: wenn du gesund wärst, wenn ich Zeit hätte\n- non: wenn du wärst gesund"
+              }
+            }
+          ],
+          "length": {
+            "min": 25,
+            "max": 60
+          },
+          "explain": {
+            "en": "**wenn + the Konjunktiv II, its verb last; würde, könnte in the other half**\n- Wenn du gesund wärst, würden wir auf die Alm gehen.\n- Du solltest viel schlafen.",
+            "sl": "**wenn + konjunktiv II, glagol na koncu; würde, könnte v drugem delu**\n- Wenn du gesund wärst, würden wir auf die Alm gehen.\n- Du solltest viel schlafen.",
+            "it": "**wenn + il Konjunktiv II, il verbo in fondo; würde, könnte nell'altra metà**\n- Wenn du gesund wärst, würden wir auf die Alm gehen.\n- Du solltest viel schlafen."
+          }
+        }
+      ]
     }
   ],
   "test": {
@@ -928,9 +1111,124 @@
           "sl": "**Včeraj je preteklost: konnte, brez preglasa**",
           "it": "**Ieri è il passato: konnte, senza dieresi**"
         }
+      },
+      {
+        "type": "speaking",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Antworte laut · Answer aloud",
+          "sl": "Antworte laut · Odgovori na glas",
+          "it": "Antworte laut · Rispondi ad alta voce"
+        },
+        "prompt": {
+          "en": "Eva asks what Lena should do, as she's always so tired. Give advice with sollte.",
+          "sl": "Eva vpraša, kaj naj naredi Lena, ki je vedno tako utrujena. Svetuj s sollte.",
+          "it": "Eva chiede che cosa dovrebbe fare Lena, che è sempre così stanca. Dai un consiglio con sollte."
+        },
+        "ask": "Was sollte Lena tun, wenn sie immer so müde ist?",
+        "say": "Sie sollte früher ins Bett gehen.",
+        "accept": [
+          "Lena sollte früher ins Bett gehen.",
+          "Sie sollte früher schlafen gehen."
+        ],
+        "must": [
+          {
+            "label": {
+              "en": "advice: sollte (or könnte) + the infinitive at the end",
+              "sl": "nasvet: sollte (ali könnte) + nedoločnik na koncu",
+              "it": "un consiglio: sollte (o könnte) + l'infinito alla fine"
+            },
+            "any": [
+              "sollte",
+              "solltest",
+              "sollten",
+              "sollt",
+              "könnte",
+              "könntest",
+              "könnten",
+              "würde",
+              "müsste"
+            ]
+          }
+        ],
+        "min_words": 4
+      },
+      {
+        "type": "writing",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Schreib · Write",
+          "sl": "Schreib · Napiši",
+          "it": "Schreib · Scrivi"
+        },
+        "prompt": {
+          "en": "There's a raffle (Tombola) at the Kirchtag. Write Kathi a few lines: what would you do if you won the first prize?",
+          "sl": "Na Kirchtagu je srečelov (Tombola). Napiši Kathi nekaj vrstic: kaj bi {m:naredil|f:naredila}, če bi {m:zadel|f:zadela} glavno nagrado?",
+          "it": "Al Kirchtag c'è la tombola. Scrivi a Kathi qualche riga: che cosa faresti se vincessi il primo premio?"
+        },
+        "model": "Liebe Kathi, wenn ich bei der Tombola den ersten Preis gewinnen würde, würde ich ein neues Fahrrad kaufen. Dann könnte ich jeden Tag nach Villach fahren. Und dich würde ich auf einen Kaffee einladen! Bis Sonntag, {learner}",
+        "must": [
+          {
+            "label": {
+              "en": "wenn (if)",
+              "sl": "wenn (če)",
+              "it": "wenn (se)"
+            },
+            "any": [
+              "wenn"
+            ]
+          },
+          {
+            "label": {
+              "en": "the Konjunktiv II twice (würde, könnte, wäre)",
+              "sl": "dvakrat konjunktiv II (würde, könnte, wäre)",
+              "it": "due volte il Konjunktiv II (würde, könnte, wäre)"
+            },
+            "any": [
+              "würd*",
+              "hätt*",
+              "wär*",
+              "könnt*",
+              "käm*",
+              "müsst*",
+              "möcht*",
+              "tät",
+              "tät*",
+              "gäb*",
+              "wüsst*",
+              "dürft*"
+            ],
+            "n": 2
+          }
+        ],
+        "avoid": [
+          {
+            "any": [
+              "wenn ich hätte",
+              "wenn ich wäre",
+              "wenn du hättest",
+              "wenn du wärst",
+              "wenn er hätte",
+              "wenn er wäre",
+              "wenn sie hätte",
+              "wenn sie wäre",
+              "wenn wir hätten",
+              "wenn wir wären"
+            ],
+            "explain": {
+              "en": "**After wenn the verb goes last**: wenn du gesund wärst, wenn ich Zeit hätte\n- not: wenn du wärst gesund",
+              "sl": "**Za wenn gre glagol na konec**: wenn du gesund wärst, wenn ich Zeit hätte\n- ne: wenn du wärst gesund",
+              "it": "**Dopo wenn il verbo va in fondo**: wenn du gesund wärst, wenn ich Zeit hätte\n- non: wenn du wärst gesund"
+            }
+          }
+        ],
+        "length": {
+          "min": 20,
+          "max": 50
+        }
       }
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: käme, ginge; wenn ich Zeit haben würde as spoken; Dürfte ich; each base: pogojnik, periodo ipotetico"
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: käme, ginge; wenn ich Zeit haben würde as spoken; Dürfte ich; each base: pogojnik, periodo ipotetico; speaking and writing (sheet 4, the test's last two): machine-written, for the native check"
 }

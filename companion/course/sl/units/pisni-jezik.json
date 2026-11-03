@@ -411,6 +411,80 @@
           "explain": "**the written style**: a noun for the verb\n- Prosim za popravilo mostu.\n- Pišem v zvezi s prijavo na tečaj."
         }
       ]
+    },
+    {
+      "id": "pisni-jezik-4",
+      "title": {"sl": "Povej in napiši", "en": "Speak and write", "de": "Sprich und schreib", "it": "Parla e scrivi"},
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "uradno-pismo",
+          "instruction": "Povej po slovensko · Say it in Slovene",
+          "prompt": "You ring the občina. Ask Mrs Novak politely, with Vi, whether she has received your application.",
+          "say": "Gospa Novak, ali ste prejeli mojo prijavo?",
+          "accept": [
+            "Ali ste prejeli mojo prijavo?",
+            "Ste prejeli mojo prijavo?",
+            "Gospa Novak, ste prejeli mojo prijavo?",
+            "Gospa Novak, ali ste že prejeli mojo prijavo?",
+            "Ali ste že prejeli mojo prijavo?",
+            "Ste že prejeli mojo prijavo?"
+          ],
+          "spoken": [
+            "Gospa Novak, ali ste prejela mojo prijavo?",
+            "Gospa Novak, ste prejela mojo prijavo?",
+            "Ali ste prejela mojo prijavo?",
+            "Ste prejela mojo prijavo?",
+            "Gospa Novak, a ste prejela mojo prijavo?",
+            "Gospa Novak, a ste prejeli mojo prijavo?",
+            "A ste prejela mojo prijavo?",
+            "A ste prejeli mojo prijavo?"
+          ],
+          "show": false,
+          "explain": "**Vi** to one person: the l-form masculine plural, ste **prejeli**, to a woman too\n- ste prejela, a ste · what people say, right when you talk"
+        },
+        {
+          "type": "speaking",
+          "grammar": "uradno-pismo",
+          "instruction": "Odgovori na glas · Answer aloud",
+          "prompt": "At the občina the clerk asks how she can help. Answer politely, with Vi: ask for something (a form, information, a repair).",
+          "ask": "Dober dan, kako Vam lahko pomagam?",
+          "say": "Prosim Vas za prijavnico za tečaj.",
+          "accept": ["Ali mi lahko date prijavnico za tečaj?"],
+          "must": [
+            {
+              "label": "a polite request with Vi (Prosim Vas za …, Mi lahko date …?)",
+              "any": ["prosim vas", "vas prosim", "prosil bi vas", "prosila bi vas", "bi vas prosil", "bi vas prosila", "lahko *te", "v zvezi z", "v zvezi s", "glede"]
+            }
+          ],
+          "min_words": 4,
+          "explain": "**Prosim Vas za** + the accusative, at the counter as in a letter\n- Prosim Vas za prijavnico.\n- Mi lahko date …? · Vi: the verb in -te"
+        },
+        {
+          "type": "writing",
+          "grammar": "uradno-pismo",
+          "instruction": "Napiši · Write",
+          "prompt": "Write a formal e-mail to Mrs Novak at the občina: you'd like to sign up for the cooking course at the village school. Ask for the application form and the timetable.",
+          "model": "Spoštovana gospa Novak, pišem Vam v zvezi s tečajem kuhanja v vaški šoli. {m:Rad|f:Rada} bi se {m:prijavil|f:prijavila} na tečaj, zato Vas prosim za prijavnico. Ali mi lahko pošljete tudi urnik tečaja? Zanima me še, ali je tečaj primeren tudi za začetnike in koliko stane. Za odgovor se Vam vnaprej zahvaljujem. S spoštovanjem, {learner}",
+          "must": [
+            {
+              "label": "a formal greeting: Spoštovana gospa …, Spoštovani",
+              "any": ["spoštovana", "spoštovani", "pozdravljeni"]
+            },
+            {
+              "label": "a formal close: S spoštovanjem or Lep pozdrav",
+              "any": ["s spoštovanjem", "lep pozdrav", "lepo pozdravljeni", "lepe pozdrave"]
+            },
+            {
+              "label": "two of the formulae (Pišem Vam v zvezi z …, Prosim Vas za …, Zahvaljujem se …)",
+              "any": ["v zvezi z", "v zvezi s", "prosim vas", "vas prosim", "zahvaljujem se", "se vam … zahvaljujem", "obveščam vas", "v prilogi", "sem vam na voljo", "glede"],
+              "n": 2
+            }
+          ],
+          "length": {"min": 50, "max": 110},
+          "explain": "**a formal letter**: the greeting, Vi with a capital, the formulae, the close\n- Pišem Vam v zvezi s tečajem …\n- Prosim Vas za prijavnico."
+        }
+      ]
     }
   ],
   "test": {
@@ -478,9 +552,48 @@
         "answers": [0, 1, 3, 5],
         "say_options": true,
         "explain": "**Zadeva, Spoštovani, Obveščam Vas, S spoštovanjem** for a formal letter\n- Lp, Se vidimo · for friends"
+      },
+      {
+        "type": "speaking",
+        "grammar": "uradno-pismo",
+        "instruction": "Odgovori na glas · Answer aloud",
+        "prompt": "Mrs Novak asks whether you'll come to the village meeting on Saturday. Answer politely: thank her, then say yes, or that you're sorry you can't.",
+        "ask": "Ali boste prišli na vaško srečanje v soboto?",
+        "say": "Hvala za vabilo, z veseljem pridem.",
+        "accept": ["Hvala za vabilo, žal ne morem priti."],
+        "must": [
+          {
+            "label": "an answer to an invitation (Hvala za vabilo …, Z veseljem …, Žal ne morem …)",
+            "any": ["hvala za vabilo", "hvala vam za vabilo", "zahvaljujem se", "z veseljem", "žal ne", "na žalost"]
+          }
+        ],
+        "min_words": 3
+      },
+      {
+        "type": "writing",
+        "grammar": "uradno-pismo",
+        "instruction": "Napiši · Write",
+        "prompt": "The street lamp in front of the school has been out for a week. Write a short formal e-mail to the občina: let them know, and ask for a repair.",
+        "model": "Spoštovani, obveščam Vas, da ulična svetilka pred vaško šolo že ves teden ne sveti. Zvečer je na poti zelo temno, zato otroci težko vidijo, kam stopijo. Prosim Vas za hitro popravilo svetilke. Za vprašanja sem Vam na voljo. Vnaprej se Vam zahvaljujem. Lep pozdrav, {learner}",
+        "must": [
+          {
+            "label": "a formal greeting: Spoštovana gospa …, Spoštovani",
+            "any": ["spoštovana", "spoštovani", "pozdravljeni"]
+          },
+          {
+            "label": "a formal close: S spoštovanjem or Lep pozdrav",
+            "any": ["s spoštovanjem", "lep pozdrav", "lepo pozdravljeni", "lepe pozdrave"]
+          },
+          {
+            "label": "two of the formulae (Obveščam Vas, da …, Prosim Vas za …)",
+            "any": ["v zvezi z", "v zvezi s", "prosim vas", "vas prosim", "zahvaljujem se", "se vam … zahvaljujem", "obveščam vas", "v prilogi", "sem vam na voljo", "glede"],
+            "n": 2
+          }
+        ],
+        "length": {"min": 40, "max": 80}
       }
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker. Native check: Pismo županu (vozovi ne morejo čezenj); the polite capital Vi; Pozdravljeni, gospa Novak; ste prejela accepted as spoken"
+  "review": "machine-written, not reviewed by a native speaker. Native check: Pismo županu (vozovi ne morejo čezenj); the polite capital Vi; Pozdravljeni, gospa Novak; ste prejela accepted as spoken; speaking and writing (sheet 4, the test's last two): machine-written, for the native check"
 }

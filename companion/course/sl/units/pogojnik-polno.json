@@ -196,6 +196,67 @@
           "explain": "**da bi** says what it is for; the short words come right after it\n- …, da bi poiskal jagnje.\n- …, da bi jo otroci razumeli."
         }
       ]
+    },
+    {
+      "id": "pogojnik-polno-4",
+      "title": { "sl": "Povej in napiši", "en": "Speak and write", "de": "Sprich und schreib", "it": "Parla e scrivi" },
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "pogojnik-ce-bi",
+          "instruction": "Povej po slovensko · Say it in Slovene",
+          "prompt": "It's raining. Tine asks if you're coming up the hills with him. Say that if it weren't raining, you'd go with him.",
+          "say": "Če ne bi deževalo, bi {m:šel|f:šla} s tabo.",
+          "accept": [
+            "Če ne bi deževalo, bi {m:šel|f:šla} s teboj.",
+            "{m:Šel|f:Šla} bi s tabo, če ne bi deževalo.",
+            "{m:Šel|f:Šla} bi s teboj, če ne bi deževalo.",
+            "Če ne bi deževalo, bi {m:šel|f:šla} zraven.",
+            "Če ne bi deževalo, bi {m:šel|f:šla} s tabo v hribe."
+          ],
+          "spoken": [
+            "Če ne bi deževalo, bi {m:šu|f:šla} s tabo.",
+            "{m:Šu|f:Šla} bi s tabo, če ne bi deževalo.",
+            "Če ne bi deževalo, bi {m:šu|f:šla} zraven."
+          ],
+          "show": false,
+          "explain": "**če ne bi …, bi** + the l-form: it is raining, so it's only imagined\n- Če ne bi deževalo, bi šel (šla) s tabo.\n- šu · what people say for šel, right too"
+        },
+        {
+          "type": "speaking",
+          "grammar": "pogojnik-ce-bi",
+          "instruction": "Odgovori na glas · Answer aloud",
+          "prompt": "Mojca asks what you would do if you found a treasure. Answer with bi + the l-form.",
+          "ask": "Kaj bi {m:naredil|f:naredila}, če bi {m:našel|f:našla} zaklad?",
+          "say": "Če bi {m:našel|f:našla} zaklad, bi {m:kupil|f:kupila} nov mlinski kamen za Franceta.",
+          "accept": ["{m:Kupil|f:Kupila} bi nov mlinski kamen za Franceta."],
+          "must": [
+            {
+              "label": "bi + the l-form (bi kupil, bi kupila)",
+              "any": ["bi *l", "bi *la", "bi *lo", "bi *li", "*l bi", "*la bi", "*li bi", "bi … *l", "bi … *la", "bi … *li", "bi *u", "*u bi"]
+            }
+          ],
+          "min_words": 4,
+          "explain": "**bi** + the l-form, agreeing with you: bi kupil, bi kupila\n- Če bi našel zaklad, bi kupil nov kamen."
+        },
+        {
+          "type": "writing",
+          "grammar": "pogojnik-ce-bi",
+          "instruction": "Napiši · Write",
+          "prompt": "It rained all week, so you couldn't help Vida with the hay. Write her a short note: what would you have done if it hadn't rained? Wish for sun with ko bi le.",
+          "model": "Draga Vida, ves teden je deževalo. Če ne bi deževalo, bi ti {m:pomagal|f:pomagala} pri senu. Skupaj bi kosili in sušili seno, zvečer pa bi pri tebi jedli potico. Ko bi le jutri posijalo sonce! Potem bi {m:prišel|f:prišla} že zjutraj. Lep pozdrav, {learner}",
+          "must": [
+            {
+              "label": "the conditional twice: bi + the l-form (bi pomagal, bi kosili)",
+              "any": ["bi *l", "bi *la", "bi *lo", "bi *li", "bi *le", "*l bi", "*la bi", "*lo bi", "*li bi", "bi … *l", "bi … *la", "bi … *li"],
+              "n": 2
+            },
+            { "label": "če bi … or ko bi le …", "any": ["če bi", "če ne bi", "ko bi"] }
+          ],
+          "length": { "min": 25, "max": 60 },
+          "explain": "**one conditional for now and for the past**: bi + the l-form, a time word tells which\n- Če ne bi deževalo, bi ti pomagal.\n- Ko bi le posijalo sonce!"
+        }
+      ]
     }
   ],
   "test": {
@@ -237,9 +298,42 @@
       {
         "type": "choice", "grammar": "pogojnik-ce-bi", "instruction": "Izberi · Choose", "prompt": "»___ le imeli več časa!«", "options": ["Ko bi", "Ko bomo", "Da smo"], "answer": 0, "say_options": true,
         "explain": "**ko bi le** … = if only: Ko bi le imeli več časa!"
+      },
+      {
+        "type": "speaking",
+        "grammar": "pogojnik-ce-bi",
+        "instruction": "Odgovori na glas · Answer aloud",
+        "prompt": "Mojca asks what you would do if it snowed tomorrow. Answer with bi + the l-form.",
+        "ask": "Kaj bi {m:počel|f:počela}, če bi jutri zapadel sneg?",
+        "say": "Če bi jutri zapadel sneg, bi {m:naredil|f:naredila} sneženega moža.",
+        "accept": ["{m:Naredil|f:Naredila} bi sneženega moža."],
+        "must": [
+          {
+            "label": "bi + the l-form (bi naredil, bi naredila)",
+            "any": ["bi *l", "bi *la", "bi *lo", "bi *li", "*l bi", "*la bi", "*li bi", "bi … *l", "bi … *la", "bi … *li", "bi *u", "*u bi"]
+          }
+        ],
+        "min_words": 4
+      },
+      {
+        "type": "writing",
+        "grammar": "pogojnik-ce-bi",
+        "instruction": "Napiši · Write",
+        "prompt": "Granny writes that she would like you to visit her more often. Answer her: what would you do together if you lived nearer?",
+        "ask": "Rada bi, da bi me večkrat {m:obiskal|f:obiskala}.",
+        "model": "Draga babica, če bi {m:živel|f:živela} bližje, bi te {m:obiskal|f:obiskala} vsako nedeljo. Skupaj bi pekli potico in hodili v gozd. Ko bi le {m:imel|f:imela} več časa! Lep pozdrav, {learner}",
+        "must": [
+          {
+            "label": "the conditional twice: bi + the l-form",
+            "any": ["bi *l", "bi *la", "bi *lo", "bi *li", "bi *le", "*l bi", "*la bi", "*lo bi", "*li bi", "bi … *l", "bi … *la", "bi … *li"],
+            "n": 2
+          },
+          { "label": "če bi … or ko bi le …", "any": ["če bi", "če ne bi", "ko bi"] }
+        ],
+        "length": { "min": 20, "max": 50 }
       }
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker. Native check: the past unreal as če bi + l-form; Če ne bi bilo vetra; da bi or da bodo (Babica peče potico); Francetove sanje"
+  "review": "machine-written, not reviewed by a native speaker. Native check: the past unreal as če bi + l-form; Če ne bi bilo vetra; da bi or da bodo (Babica peče potico); Francetove sanje; speaking and writing (sheet 4, the test's last two): machine-written, for the native check"
 }
