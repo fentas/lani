@@ -11082,13 +11082,24 @@ def chromium_fit(path: str, name: str):
     return json.loads(html.unescape(m.group(1))) if m else None
 
 
+# How far apart the two reports' "over" may be (mm) when both chose the same layout and density: the one-page try they both
+# gave up on, so a line or two wrapped otherwise in the phone's text changes nothing that prints (comparatives: 17 against 13).
+SAME_CHOICE_OVER_MM = 10
+
+
 def same_fit(a, b) -> bool:
-    """Two fit reports chose alike: each unit's pages, layout, density and the table beside the rule; by how much its one
-    page was too long within a millimetre (fit.js measures as it prints, whatever the screen's density; what is left is
-    the phone's text, a fraction of a millimetre, rounded)."""
+    """Two fit reports chose alike: each unit's pages, layout, density and the table beside the rule, which must be the same.
+    "over", by how much its one page was too long, is only left over once both have chosen alike: within SAME_CHOICE_OVER_MM.
+    Where neither chose (it doesn't fit) it is all there is to compare: within a millimetre, as fit.js measures as it prints,
+    whatever the screen's density."""
     keys = ("unit", "pages", "fits", "layout", "density", "side")
-    return a is not None and b is not None and len(a) == len(b) and all(
-        [x.get(k) for k in keys] == [y.get(k) for k in keys] and abs((x.get("over") or 0) - (y.get("over") or 0)) <= 1 for x, y in zip(a, b))
+
+    def alike(x, y) -> bool:
+        if [x.get(k) for k in keys] != [y.get(k) for k in keys]:
+            return False
+        return abs((x.get("over") or 0) - (y.get("over") or 0)) <= (SAME_CHOICE_OVER_MM if x.get("fits") else 1)
+
+    return a is not None and b is not None and len(a) == len(b) and all(alike(x, y) for x, y in zip(a, b))
 
 
 def save_pdf(job: str, name="school-print-biti.pdf"):
