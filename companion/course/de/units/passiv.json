@@ -1,0 +1,935 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passiv",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🍞",
+  "title": {
+    "de": "Das Brot wird gebacken",
+    "en": "The passive: das Brot wird gebacken",
+    "sl": "Trpnik: das Brot wird gebacken",
+    "it": "Il passivo: das Brot wird gebacken"
+  },
+  "goal": {
+    "en": "You can say what is done without saying who does it (Das Brot wird gebacken, Die Mühle wurde 1890 gebaut), say who with von, and say it the everyday way with man.",
+    "sl": "Znaš povedati, kaj se dela, ne da bi rekel kdo (Das Brot wird gebacken, Die Mühle wurde 1890 gebaut), povedati kdo z von in reči po vsakdanje z man.",
+    "it": "Sai dire che cosa viene fatto senza dire chi lo fa (Das Brot wird gebacken, Die Mühle wurde 1890 gebaut), dire chi con von, e dirlo come si dice ogni giorno con man."
+  },
+  "grammar": [
+    "passiv",
+    "partizip-zwei"
+  ],
+  "words": [
+    "backen",
+    "pressen",
+    "pflücken",
+    "waschen",
+    "melken",
+    "füllen",
+    "sammeln",
+    "bauen",
+    "reparieren",
+    "bestellen",
+    "vorbereiten",
+    "zählen",
+    "verkaufen",
+    "von",
+    "man",
+    "früher",
+    "zuerst",
+    "der Most",
+    "der Saft",
+    "das Fass",
+    "der Zaun",
+    "die Tür",
+    "die Bühne",
+    "der Krapfen",
+    "das Mehl",
+    "der Platz",
+    "die Hand",
+    "die Mühle",
+    "die Kuh",
+    "der Schmied"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "wer",
+          "en": "who",
+          "sl": "kdo",
+          "it": "chi"
+        },
+        "Präsens",
+        "Präteritum"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Das Brot wird gebacken** (the bread is being baked) says what happens and leaves out who does it. It is the passive: **werden + the participle**, the participle last. Hier **wird** der Most **gepresst**. Who presses it doesn't matter, or everyone knows.",
+          "sl": "**Das Brot wird gebacken** (kruh se peče) pove, kaj se dogaja, in izpusti, kdo to dela. To je trpnik: **werden + deležnik**, deležnik na koncu. Hier **wird** der Most **gepresst**. Kdo ga stiska, ni pomembno, ali pa to vsi vedo.",
+          "it": "**Das Brot wird gebacken** (il pane viene cotto) dice che cosa succede e tace chi lo fa. È il passivo: **werden + il participio**, con il participio alla fine. Hier **wird** der Most **gepresst**. Chi lo spreme non conta, o lo sanno tutti."
+        },
+        "examples": [
+          {
+            "de": "Das Brot wird gebacken.",
+            "en": "The bread is being baked.",
+            "sl": "Kruh se peče.",
+            "it": "Il pane viene cotto."
+          },
+          {
+            "de": "Hier wird der Most gepresst.",
+            "en": "The cider is pressed here.",
+            "sl": "Tukaj se stiska mošt.",
+            "it": "Qui viene spremuto il sidro."
+          }
+        ],
+        "rows": [
+          [
+            "das Brot · es",
+            "wird gebacken",
+            "wurde gebacken"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv",
+          "text": "Das Bier ___ kalt getrunken.",
+          "accept": [
+            "wird"
+          ],
+          "hint": {
+            "en": "one thing: werden in the er form",
+            "sl": "ena stvar: werden v obliki za er",
+            "it": "una cosa: werden nella forma di er"
+          },
+          "explain": {
+            "en": "**das Bier = es: wird + the participle**\n- Das Bier wird kalt getrunken.",
+            "sl": "**das Bier = es: wird + deležnik**\n- Das Bier wird kalt getrunken.",
+            "it": "**das Bier = es: wird + il participio**\n- Das Bier wird kalt getrunken."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Die Äpfel werden gepflückt** (the apples are picked): for more than one, **werden**. ich **werde** gefragt, du **wirst** gefragt, wir **werden** gefragt, ihr **werdet** gefragt: werden as you know it, and the participle stays. You know it from **Es wird kalt** (it's getting cold) and **Ich werde kommen** (I'll come). With a participle it is the passive.",
+          "sl": "**Die Äpfel werden gepflückt** (jabolka se obirajo): za več kot eno **werden**. ich **werde** gefragt, du **wirst** gefragt, wir **werden** gefragt, ihr **werdet** gefragt: werden, kot ga poznaš, deležnik pa ostane. Poznaš ga iz **Es wird kalt** (postaja hladno) in **Ich werde kommen** (prišel bom). Z deležnikom je trpnik.",
+          "it": "**Die Äpfel werden gepflückt** (le mele vengono raccolte): per più di una, **werden**. ich **werde** gefragt, du **wirst** gefragt, wir **werden** gefragt, ihr **werdet** gefragt: werden come lo conosci, e il participio resta. Lo conosci da **Es wird kalt** (fa sempre più freddo) e **Ich werde kommen** (verrò). Con un participio è il passivo."
+        },
+        "examples": [
+          {
+            "de": "Die Äpfel werden im Herbst gepflückt.",
+            "en": "The apples are picked in autumn.",
+            "sl": "Jabolka se obirajo jeseni.",
+            "it": "Le mele vengono raccolte in autunno."
+          },
+          {
+            "de": "Ich werde oft gefragt.",
+            "en": "I'm often asked.",
+            "sl": "Pogosto me sprašujejo.",
+            "it": "Mi chiedono spesso."
+          }
+        ],
+        "rows": [
+          [
+            "die Äpfel · sie",
+            "werden gepflückt",
+            "wurden gepflückt"
+          ],
+          [
+            "ich",
+            "werde gefragt",
+            "wurde gefragt"
+          ],
+          [
+            "du",
+            "wirst gefragt",
+            "wurdest gefragt"
+          ],
+          [
+            "wir",
+            "werden gefragt",
+            "wurden gefragt"
+          ],
+          [
+            "ihr",
+            "werdet gefragt",
+            "wurdet gefragt"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv",
+          "prompt": "Die Kühe ___ am Morgen gemolken.",
+          "options": [
+            "werden",
+            "wird",
+            "wirst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**die Kühe = sie: werden + the participle**",
+            "sl": "**die Kühe = sie: werden + deležnik**",
+            "it": "**die Kühe = sie: werden + il participio**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**den Most → der Most**: what is done to something becomes the sentence's subject, so the accusative becomes a nominative. Stefan presst **den Most** → **Der Most wird gepresst.** (never *Den Most wird gepresst*) Only a der word shows it: die Suppe and das Brot look the same both ways.",
+          "sl": "**den Most → der Most**: to, s čimer se nekaj dela, postane osebek stavka, zato tožilnik postane imenovalnik. Stefan presst **den Most** → **Der Most wird gepresst.** Pokaže le beseda s der: die Suppe in das Brot sta v obeh primerih enaka.",
+          "it": "**den Most → der Most**: ciò a cui si fa qualcosa diventa il soggetto della frase, quindi l'accusativo diventa nominativo. Stefan presst **den Most** → **Der Most wird gepresst.** Lo mostra solo una parola con der: die Suppe e das Brot restano uguali."
+        },
+        "examples": [
+          {
+            "de": "Stefan presst den Most.",
+            "en": "Stefan presses the cider.",
+            "sl": "Stefan stiska mošt.",
+            "it": "Stefan spreme il sidro."
+          },
+          {
+            "de": "Der Most wird gepresst.",
+            "en": "The cider is being pressed.",
+            "sl": "Mošt se stiska.",
+            "it": "Il sidro viene spremuto."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv",
+          "text": "Kathi kocht den Kaffee. → ___ Kaffee wird gekocht.",
+          "accept": [
+            "Der"
+          ],
+          "hint": {
+            "en": "the subject",
+            "sl": "osebek",
+            "it": "il soggetto"
+          },
+          "explain": {
+            "en": "**The subject is a nominative: der**\n- den Kaffee → Der Kaffee wird gekocht.",
+            "sl": "**Osebek je v imenovalniku: der**\n- den Kaffee → Der Kaffee wird gekocht.",
+            "it": "**Il soggetto è al nominativo: der**\n- den Kaffee → Der Kaffee wird gekocht."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**wurde gebacken** (was baked) is the past: **wurde**, **wurden**, and the same participle. Gestern **wurde** das Brot **gebacken**. Die Mühle **wurde** 1890 **gebaut**. No umlaut: **würde** is would. People write the past so, in the chronicle and the paper.",
+          "sl": "**wurde gebacken** (je bil pečen) je preteklost: **wurde**, **wurden** in isti deležnik. Gestern **wurde** das Brot **gebacken**. Die Mühle **wurde** 1890 **gebaut**. Brez preglasa: **würde** je pogojnik. Tako se preteklost piše, v kroniki in časopisu.",
+          "it": "**wurde gebacken** (fu cotto) è il passato: **wurde**, **wurden** e lo stesso participio. Gestern **wurde** das Brot **gebacken**. Die Mühle **wurde** 1890 **gebaut**. Senza dieresi: **würde** è il condizionale. Così si scrive il passato, nella cronaca e sul giornale."
+        },
+        "examples": [
+          {
+            "de": "Gestern wurde das Brot gebacken.",
+            "en": "Yesterday the bread was baked.",
+            "sl": "Včeraj se je pekel kruh.",
+            "it": "Ieri è stato cotto il pane."
+          },
+          {
+            "de": "Die Mühle wurde 1890 gebaut.",
+            "en": "The mill was built in 1890.",
+            "sl": "Mlin je bil zgrajen leta 1890.",
+            "it": "Il mulino fu costruito nel 1890."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv",
+          "prompt": "Gestern ___ das Brot gebacken.",
+          "options": [
+            "wurde",
+            "würde",
+            "wird"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Yesterday: wurde, no umlaut**\n- würde is would",
+            "sl": "**Včeraj: wurde, brez preglasa**\n- würde je pogojnik",
+            "it": "**Ieri: wurde, senza dieresi**\n- würde è il condizionale"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**von Kathi** (by Kathi) says who did it, if you want to say so: **von + the dative**. Die Suppe wird **von Kathi** gekocht. Der Zaun wurde **vom Schmied** repariert. Die Äpfel wurden **von den Kindern** gesammelt. Mostly it stays out: if who did it matters, the plain sentence is simpler.",
+          "sl": "**von Kathi** pove, kdo je to storil, če želiš to povedati: **von + dajalnik**. Die Suppe wird **von Kathi** gekocht. Der Zaun wurde **vom Schmied** repariert. Die Äpfel wurden **von den Kindern** gesammelt. Večinoma ostane zunaj: če je pomembno, kdo je to storil, je tvorni stavek preprostejši.",
+          "it": "**von Kathi** (da Kathi) dice chi l'ha fatto, se vuoi dirlo: **von + il dativo**. Die Suppe wird **von Kathi** gekocht. Der Zaun wurde **vom Schmied** repariert. Die Äpfel wurden **von den Kindern** gesammelt. Di solito resta fuori: se conta chi l'ha fatto, la frase attiva è più semplice."
+        },
+        "examples": [
+          {
+            "de": "Die Suppe wird von Kathi gekocht.",
+            "en": "The soup is being made by Kathi.",
+            "sl": "Juho kuha Kathi.",
+            "it": "La zuppa viene fatta da Kathi."
+          },
+          {
+            "de": "Der Zaun wurde vom Schmied repariert.",
+            "en": "The fence was repaired by the smith.",
+            "sl": "Ograjo je popravil kovač.",
+            "it": "Il recinto fu riparato dal fabbro."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passiv",
+          "text": "Die Krapfen werden ___ Oma Resi gebacken.",
+          "accept": [
+            "von"
+          ],
+          "hint": {
+            "en": "by",
+            "sl": "kdo",
+            "it": "da"
+          },
+          "explain": {
+            "en": "**Who: von + the dative**\n- von Oma Resi · vom Schmied",
+            "sl": "**Kdo: von + dajalnik**\n- von Oma Resi · vom Schmied",
+            "it": "**Chi: von + il dativo**\n- von Oma Resi · vom Schmied"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**man** (one, people) is the everyday way round it. **Man** spricht hier Deutsch says what **Hier wird Deutsch gesprochen** says. man takes the er form, and the object stays accusative: **Man presst den Most.** In talk people often prefer it. With no thing at all, only what happens: Am Kirchtag **wird getanzt**.",
+          "sl": "**man** (človek, ljudje) je vsakdanja pot okoli njega. **Man** spricht hier Deutsch pove isto kot **Hier wird Deutsch gesprochen**. man ima obliko za er, predmet ostane v tožilniku: **Man presst den Most.** V pogovoru ga ljudje pogosto raje rabijo. Brez stvari, samo kaj se dogaja: Am Kirchtag **wird getanzt**.",
+          "it": "**man** (si, la gente) è il modo quotidiano di evitarlo. **Man** spricht hier Deutsch dice ciò che dice **Hier wird Deutsch gesprochen**. man prende la forma di er, e l'oggetto resta all'accusativo: **Man presst den Most.** Parlando spesso lo si preferisce. Senza nessuna cosa, solo ciò che succede: Am Kirchtag **wird getanzt**."
+        },
+        "examples": [
+          {
+            "de": "Man spricht hier Deutsch.",
+            "en": "People speak German here.",
+            "sl": "Tukaj se govori nemško.",
+            "it": "Qui si parla tedesco."
+          },
+          {
+            "de": "Am Kirchtag wird getanzt.",
+            "en": "There is dancing at the Kirchtag.",
+            "sl": "Na žegnanju se pleše.",
+            "it": "Al Kirchtag si balla."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "passiv",
+          "prompt": "In Kärnten ___ man viel Most.",
+          "options": [
+            "trinkt",
+            "trinken",
+            "getrunken"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**man takes the er form, and the object stays accusative**\n- Der Most wird gemacht. → Man macht den Most.",
+            "sl": "**man ima obliko za er, predmet ostane v tožilniku**\n- Der Most wird gemacht. → Man macht den Most.",
+            "it": "**man prende la forma di er, e l'oggetto resta all'accusativo**\n- Der Most wird gemacht. → Man macht den Most."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passiv-1",
+      "title": {
+        "de": "Wird, werden, wurde",
+        "en": "Wird, werden, wurde",
+        "sl": "Wird, werden, wurde",
+        "it": "Wird, werden, wurde"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "werden + the participle",
+            "sl": "werden + deležnik",
+            "it": "werden + il participio"
+          },
+          "columns": [
+            "Präsens",
+            "Präteritum"
+          ],
+          "rows": [
+            {
+              "label": "das Brot",
+              "cells": [
+                "wird gebacken",
+                {
+                  "accept": [
+                    "wurde gebacken"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "die Äpfel",
+              "cells": [
+                {
+                  "accept": [
+                    "werden gepflückt"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wurden gepflückt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ich",
+              "cells": [
+                {
+                  "accept": [
+                    "werde gefragt"
+                  ]
+                },
+                "wurde gefragt"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "wirst gefragt"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wurdest gefragt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "werdet gefragt"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wurdet gefragt"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**werden + the participle; the past: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+            "sl": "**werden + deležnik; preteklost: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+            "it": "**werden + il participio; il passato: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Sortiere · Sort: which werden?",
+            "sl": "Sortiere · Razvrsti: kateri werden?",
+            "it": "Sortiere · Ordina: quale werden?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Es wird … · becomes",
+                "sl": "Es wird … · postaja",
+                "it": "Es wird … · diventa"
+              },
+              "words": [
+                "Es wird kalt.",
+                "Stefan wird Wirt."
+              ]
+            },
+            {
+              "label": {
+                "en": "Zukunft · the future",
+                "sl": "Zukunft · prihodnjik",
+                "it": "Zukunft · il futuro"
+              },
+              "words": [
+                "Ich werde morgen kommen.",
+                "Es wird regnen."
+              ]
+            },
+            {
+              "label": {
+                "en": "Passiv · the passive",
+                "sl": "Passiv · trpnik",
+                "it": "Passiv · il passivo"
+              },
+              "words": [
+                "Das Brot wird gebacken.",
+                "Die Tür wird repariert.",
+                "Die Äpfel werden gepflückt."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**werden with a word: becomes; with an infinitive: will; with a participle: the passive**",
+            "sl": "**werden z besedo: postaja; z nedoločnikom: bo; z deležnikom: trpnik**",
+            "it": "**werden con una parola: diventa; con un infinito: farà; con un participio: il passivo**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passiv-2",
+      "title": {
+        "de": "Wie der Most gemacht wird",
+        "en": "How the cider is made",
+        "sl": "Kako se dela mošt",
+        "it": "Come si fa il sidro"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Wie der Most gemacht wird",
+          "text": "Im Oktober ___ bei Stefan Most gemacht. Zuerst ___ die Äpfel gepflückt. Dann werden sie ___ (waschen) und ___ (pressen). Der Saft ___ in Fässer gefüllt. Früher ___ alles von Hand gemacht, sagt Opa Sepp. Die Äpfel ___ von den Kindern gesammelt.",
+          "gaps": [
+            {
+              "accept": [
+                "wird"
+              ]
+            },
+            {
+              "accept": [
+                "werden"
+              ],
+              "hint": {
+                "en": "die Äpfel = sie",
+                "sl": "die Äpfel = sie",
+                "it": "die Äpfel = sie"
+              }
+            },
+            {
+              "accept": [
+                "gewaschen"
+              ]
+            },
+            {
+              "accept": [
+                "gepresst"
+              ]
+            },
+            {
+              "accept": [
+                "wird"
+              ]
+            },
+            {
+              "accept": [
+                "wurde"
+              ],
+              "hint": {
+                "en": "früher: the past",
+                "sl": "früher: preteklost",
+                "it": "früher: il passato"
+              }
+            },
+            {
+              "accept": [
+                "wurden"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "würde",
+            "waschen",
+            "pressen"
+          ],
+          "translation": {
+            "en": "In October cider is made at Stefan's. First the apples are picked. Then they are washed and pressed. The juice is filled into barrels. It all used to be done by hand, says Opa Sepp. The apples were gathered by the children.",
+            "sl": "Oktobra se pri Stefanu dela mošt. Najprej se oberejo jabolka. Potem se operejo in stisnejo. Sok se natoči v sode. Včasih se je vse delalo ročno, pravi dedek Sepp. Jabolka so nabirali otroci.",
+            "it": "A ottobre da Stefan si fa il sidro. Prima vengono raccolte le mele. Poi vengono lavate e spremute. Il succo viene messo nelle botti. Una volta si faceva tutto a mano, dice nonno Sepp. Le mele venivano raccolte dai bambini."
+          },
+          "explain": {
+            "en": "**werden + the participle; the past: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+            "sl": "**werden + deležnik; preteklost: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+            "it": "**werden + il participio; il passato: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Die Suppe wird ___ Oma Resi gekocht.",
+          "options": [
+            "von",
+            "mit",
+            "bei"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Who does it: von + the dative. den becomes der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+            "sl": "**Kdo: von + dajalnik. den postane der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+            "it": "**Chi lo fa: von + il dativo. den diventa der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ Zaun wird repariert.",
+          "options": [
+            "Der",
+            "Den",
+            "Dem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Who does it: von + the dative. den becomes der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+            "sl": "**Kdo: von + dajalnik. den postane der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+            "it": "**Chi lo fa: von + il dativo. den diventa der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert."
+          }
+        }
+      ]
+    },
+    {
+      "id": "passiv-3",
+      "title": {
+        "de": "Von wem? Von Kathi!",
+        "en": "By whom? By Kathi!",
+        "sl": "Kdo? Kathi!",
+        "it": "Da chi? Da Kathi!"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Ins Passiv, mit von · Into the passive, with von",
+            "sl": "Ins Passiv, mit von · V trpnik, z von",
+            "it": "Ins Passiv, mit von · Al passivo, con von"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kathi kocht die Suppe.",
+              "accept": [
+                "Die Suppe wird von Kathi gekocht."
+              ]
+            },
+            {
+              "from": "Toni repariert den Zaun.",
+              "accept": [
+                "Der Zaun wird von Toni repariert."
+              ]
+            },
+            {
+              "from": "Stefan verkauft den Most.",
+              "accept": [
+                "Der Most wird von Stefan verkauft."
+              ]
+            },
+            {
+              "from": "Die Kinder waschen die Äpfel.",
+              "accept": [
+                "Die Äpfel werden von den Kindern gewaschen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Who does it: von + the dative. den becomes der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+            "sl": "**Kdo: von + dajalnik. den postane der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+            "it": "**Chi lo fa: von + il dativo. den diventa der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Ins Präteritum · Into the past",
+            "sl": "Ins Präteritum · V preteklost",
+            "it": "Ins Präteritum · Al passato"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das Brot wird gebacken.",
+              "accept": [
+                "Das Brot wurde gebacken."
+              ]
+            },
+            {
+              "from": "Die Kühe werden gemolken.",
+              "accept": [
+                "Die Kühe wurden gemolken."
+              ]
+            },
+            {
+              "from": "Die Tür wird von Toni repariert.",
+              "accept": [
+                "Die Tür wurde von Toni repariert."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**werden + the participle; the past: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+            "sl": "**werden + deležnik; preteklost: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+            "it": "**werden + il participio; il passato: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "passiv",
+          "instruction": {
+            "en": "Sag es mit man · Say it with man",
+            "sl": "Sag es mit man · Povej z man",
+            "it": "Sag es mit man · Dillo con man"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Hier wird Deutsch gesprochen.",
+              "accept": [
+                "Hier spricht man Deutsch.",
+                "Man spricht hier Deutsch."
+              ]
+            },
+            {
+              "from": "Der Most wird im Herbst gemacht.",
+              "accept": [
+                "Man macht den Most im Herbst.",
+                "Im Herbst macht man den Most."
+              ]
+            },
+            {
+              "from": "Die Äpfel werden gewaschen.",
+              "accept": [
+                "Man wäscht die Äpfel."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**man takes the er form, and the object stays accusative**\n- Der Most wird gemacht. → Man macht den Most.",
+            "sl": "**man ima obliko za er, predmet ostane v tožilniku**\n- Der Most wird gemacht. → Man macht den Most.",
+            "it": "**man prende la forma di er, e l'oggetto resta all'accusativo**\n- Der Most wird gemacht. → Man macht den Most."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "passiv",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Vor dem Kirchtag",
+        "text": "Am Samstag ist Kirchtag. Heute ___ alles vorbereitet. Die Tische ___ auf den Platz gestellt. Das Bier ___ von Kathi bestellt. Gestern ___ schon die Bühne gebaut. Die Krapfen werden ___ Oma Resi ___ (backen).",
+        "gaps": [
+          {
+            "accept": [
+              "wird"
+            ]
+          },
+          {
+            "accept": [
+              "werden"
+            ]
+          },
+          {
+            "accept": [
+              "wird"
+            ]
+          },
+          {
+            "accept": [
+              "wurde"
+            ]
+          },
+          {
+            "accept": [
+              "von"
+            ]
+          },
+          {
+            "accept": [
+              "gebacken"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "The Kirchtag is on Saturday. Today everything is being got ready. The tables are being put out on the square. The beer is being ordered by Kathi. The stage was built yesterday. The doughnuts are being baked by Oma Resi.",
+          "sl": "V soboto je žegnanje. Danes se vse pripravlja. Mize se postavljajo na trg. Pivo naroči Kathi. Včeraj so že postavili oder. Krofe peče babica Resi.",
+          "it": "Sabato c'è il Kirchtag. Oggi si prepara tutto. I tavoli vengono messi in piazza. La birra viene ordinata da Kathi. Ieri è già stato costruito il palco. I krapfen vengono cotti da nonna Resi."
+        },
+        "explain": {
+          "en": "**werden + the participle; the past: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+          "sl": "**werden + deležnik; preteklost: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken.",
+          "it": "**werden + il participio; il passato: wurde**\n- Das Brot wird gebacken. · Das Brot wurde gebacken."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passiv",
+        "instruction": {
+          "en": "Ins Passiv · Into the passive",
+          "sl": "Ins Passiv · V trpnik",
+          "it": "Ins Passiv · Al passivo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Toni repariert den Hammer.",
+            "accept": [
+              "Der Hammer wird von Toni repariert.",
+              "Der Hammer wird repariert."
+            ]
+          },
+          {
+            "from": "Franz verkauft das Mehl.",
+            "accept": [
+              "Das Mehl wird von Franz verkauft.",
+              "Das Mehl wird verkauft."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Who does it: von + the dative. den becomes der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+          "sl": "**Kdo: von + dajalnik. den postane der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert.",
+          "it": "**Chi lo fa: von + il dativo. den diventa der**\n- Toni repariert den Zaun. → Der Zaun wird von Toni repariert."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passiv",
+        "instruction": {
+          "en": "Sag es mit man · Say it with man",
+          "sl": "Sag es mit man · Povej z man",
+          "it": "Sag es mit man · Dillo con man"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Hier wird viel gearbeitet.",
+            "accept": [
+              "Hier arbeitet man viel.",
+              "Man arbeitet hier viel."
+            ]
+          },
+          {
+            "from": "Der Kaffee wird heiß getrunken.",
+            "accept": [
+              "Man trinkt den Kaffee heiß.",
+              "Den Kaffee trinkt man heiß."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**man takes the er form, and the object stays accusative**\n- Der Most wird gemacht. → Man macht den Most.",
+          "sl": "**man ima obliko za er, predmet ostane v tožilniku**\n- Der Most wird gemacht. → Man macht den Most.",
+          "it": "**man prende la forma di er, e l'oggetto resta all'accusativo**\n- Der Most wird gemacht. → Man macht den Most."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Gestern ___ die Schafe gezählt.",
+        "options": [
+          "wurden",
+          "würden",
+          "werden"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Yesterday, more than one: wurden**",
+          "sl": "**Včeraj, več kot eno: wurden**",
+          "it": "**Ieri, più di uno: wurden**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Traktor ___ von Stefan repariert.",
+        "options": [
+          "wird",
+          "wurden",
+          "hat"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der Traktor = er: wird + the participle**",
+          "sl": "**der Traktor = er: wird + deležnik**",
+          "it": "**der Traktor = er: wird + il participio**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passiv",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Hier ___ man gut essen.",
+        "options": [
+          "kann",
+          "können",
+          "kannst"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**man takes the er form**\n- man kann · man spricht",
+          "sl": "**man ima obliko za er**\n- man kann · man spricht",
+          "it": "**man prende la forma di er**\n- man kann · man spricht"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: den Most pressen; Bühne on the Kirchtag; the passive against man in Austria; each base: trpnik, passivo"
+}

@@ -1,0 +1,899 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "nicht-nur-sondern",
+  "language": "de",
+  "level": "B1",
+  "emoji": "⚖️",
+  "title": {
+    "de": "Nicht nur Brot, sondern auch Wein",
+    "en": "Pairs: nicht nur … sondern auch, entweder … oder",
+    "sl": "Dvojni vezniki: nicht nur … sondern auch, entweder … oder",
+    "it": "Le congiunzioni doppie: nicht nur … sondern auch, entweder … oder"
+  },
+  "goal": {
+    "en": "You can join two things in one sentence: nicht nur Most, sondern auch Schnaps; sowohl Kathi als auch Stefan; weder Zeit noch Geld; entweder heute oder morgen.",
+    "sl": "Znaš povezati dve stvari v enem stavku: nicht nur Most, sondern auch Schnaps; sowohl Kathi als auch Stefan; weder Zeit noch Geld; entweder heute oder morgen.",
+    "it": "Sai unire due cose in una frase: nicht nur Most, sondern auch Schnaps; sowohl Kathi als auch Stefan; weder Zeit noch Geld; entweder heute oder morgen."
+  },
+  "grammar": [
+    "doppelkonnektoren",
+    "konnektoren"
+  ],
+  "words": [
+    "nicht nur",
+    "sondern",
+    "auch",
+    "sowohl",
+    "als auch",
+    "weder",
+    "noch",
+    "entweder",
+    "oder",
+    "der Most",
+    "der Schnaps",
+    "der Wein",
+    "der Saft",
+    "die Kasnudeln",
+    "der Honig",
+    "die Kerze",
+    "die Lust",
+    "der Durst",
+    "der Salat",
+    "die Ziege",
+    "hell",
+    "dunkel",
+    "billig",
+    "singen",
+    "hungrig",
+    "allein",
+    "planen",
+    "brauchen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Paar",
+          "en": "pair",
+          "sl": "par",
+          "it": "coppia"
+        },
+        {
+          "de": "Bedeutung",
+          "en": "meaning",
+          "sl": "pomen",
+          "it": "significato"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**nicht nur … sondern auch** (not only … but also) adds to what you'd expect: Stefan macht **nicht nur** Most, **sondern auch** Schnaps. A comma before sondern, always. Each part stands right before what it speaks of: **Nicht nur** Stefan, **sondern auch** Kathi kommt.",
+          "sl": "**nicht nur … sondern auch** (ne le … temveč tudi) doda k temu, kar bi pričakoval: Stefan macht **nicht nur** Most, **sondern auch** Schnaps. Pred sondern je vedno vejica. Vsak del stoji tik pred tem, o čemer govori: **Nicht nur** Stefan, **sondern auch** Kathi kommt.",
+          "it": "**nicht nur … sondern auch** (non solo … ma anche) aggiunge a ciò che ti aspetti: Stefan macht **nicht nur** Most, **sondern auch** Schnaps. Prima di sondern c'è sempre la virgola. Ogni parte sta subito prima di ciò di cui parla: **Nicht nur** Stefan, **sondern auch** Kathi kommt."
+        },
+        "examples": [
+          {
+            "de": "Stefan macht nicht nur Most, sondern auch Schnaps.",
+            "en": "Stefan makes not only cider but also schnapps.",
+            "sl": "Stefan dela ne le mošt, temveč tudi žganje.",
+            "it": "Stefan fa non solo il sidro, ma anche la grappa."
+          },
+          {
+            "de": "Nicht nur Stefan, sondern auch Kathi kommt.",
+            "en": "Not only Stefan but also Kathi is coming.",
+            "sl": "Ne pride le Stefan, temveč tudi Kathi.",
+            "it": "Non viene solo Stefan, ma anche Kathi."
+          }
+        ],
+        "rows": [
+          [
+            "nicht nur … sondern auch",
+            {
+              "en": "this and that too",
+              "sl": "to in še ono",
+              "it": "questo e anche quello"
+            },
+            "nicht nur Most, sondern auch Schnaps"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "doppelkonnektoren",
+          "text": "Kathi kocht nicht nur Suppe, ___ auch Kasnudeln.",
+          "accept": [
+            "sondern"
+          ],
+          "hint": {
+            "en": "after nicht nur",
+            "sl": "za nicht nur",
+            "it": "dopo nicht nur"
+          },
+          "explain": {
+            "en": "**A comma before sondern; each part right before what it speaks of**\n- Stefan macht nicht nur Most, sondern auch Schnaps.",
+            "sl": "**Vejica pred sondern; vsak del tik pred tem, o čemer govori**\n- Stefan macht nicht nur Most, sondern auch Schnaps.",
+            "it": "**La virgola prima di sondern; ogni parte subito prima di ciò di cui parla**\n- Stefan macht nicht nur Most, sondern auch Schnaps."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sowohl … als auch** (both … and) says both, and takes no comma: **Sowohl** Kathi **als auch** Stefan kommen. Ich trinke **sowohl** Most **als auch** Wein. **sowohl … wie auch** is the same. With two people the verb is usually in the plural; the singular is right too.",
+          "sl": "**sowohl … als auch** (tako … kot tudi) pove oboje, brez vejice: **Sowohl** Kathi **als auch** Stefan kommen. Ich trinke **sowohl** Most **als auch** Wein. **sowohl … wie auch** je isto. Pri dveh osebah je glagol navadno v množini; tudi ednina je prav.",
+          "it": "**sowohl … als auch** (sia … sia) dice tutti e due, senza virgola: **Sowohl** Kathi **als auch** Stefan kommen. Ich trinke **sowohl** Most **als auch** Wein. **sowohl … wie auch** è lo stesso. Con due persone il verbo di solito è al plurale; anche il singolare va bene."
+        },
+        "examples": [
+          {
+            "de": "Sowohl Kathi als auch Stefan kommen.",
+            "en": "Both Kathi and Stefan are coming.",
+            "sl": "Prideta tako Kathi kot Stefan.",
+            "it": "Vengono sia Kathi sia Stefan."
+          },
+          {
+            "de": "Ich trinke sowohl Most als auch Wein.",
+            "en": "I drink both cider and wine.",
+            "sl": "Pijem tako mošt kot vino.",
+            "it": "Bevo sia il sidro sia il vino."
+          }
+        ],
+        "rows": [
+          [
+            "sowohl … als auch",
+            {
+              "en": "both",
+              "sl": "oboje",
+              "it": "tutti e due"
+            },
+            "sowohl Kathi als auch Stefan"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "doppelkonnektoren",
+          "prompt": "Sowohl Toni ___ auch Franz haben Zeit.",
+          "options": [
+            "als",
+            "oder",
+            "noch"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sowohl … als auch**\n- wie auch is the same",
+            "sl": "**sowohl … als auch**\n- wie auch je isto",
+            "it": "**sowohl … als auch**\n- wie auch è lo stesso"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**weder … noch** (neither … nor) says no to both, and needs no other no: Ich trinke **weder** Most **noch** Wein. (never *Ich trinke nicht weder Most noch Wein*) No comma between two words. With two people the verb can be either: **Weder** Toni **noch** Franz **hat** Zeit, or **haben** Zeit: both are right.",
+          "sl": "**weder … noch** (niti … niti) reče ne obojemu in ne potrebuje drugega ne: Ich trinke **weder** Most **noch** Wein. Slovensko rečemo ne pijem ne … ne …, nemško brez nicht. Med dvema besedama ni vejice. Pri dveh osebah je glagol lahko oboje: **Weder** Toni **noch** Franz **hat** Zeit ali **haben** Zeit: oboje je prav.",
+          "it": "**weder … noch** (né … né) dice no a tutti e due e non vuole un altro no: Ich trinke **weder** Most **noch** Wein. L'italiano dice non bevo né … né …, il tedesco senza nicht. Tra due parole niente virgola. Con due persone il verbo può essere l'uno o l'altro: **Weder** Toni **noch** Franz **hat** Zeit, o **haben** Zeit: vanno bene tutti e due."
+        },
+        "examples": [
+          {
+            "de": "Ich trinke weder Most noch Wein.",
+            "en": "I drink neither cider nor wine.",
+            "sl": "Ne pijem ne mošta ne vina.",
+            "it": "Non bevo né sidro né vino."
+          },
+          {
+            "de": "Weder Toni noch Franz hat Zeit.",
+            "en": "Neither Toni nor Franz has time.",
+            "sl": "Ne Toni ne Franz nimata časa.",
+            "it": "Né Toni né Franz hanno tempo."
+          }
+        ],
+        "rows": [
+          [
+            "weder … noch",
+            {
+              "en": "neither",
+              "sl": "nobeno",
+              "it": "nessuno dei due"
+            },
+            "weder Most noch Wein"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "doppelkonnektoren",
+          "text": "Mitzi hat weder Zeit ___ Geld.",
+          "accept": [
+            "noch"
+          ],
+          "hint": {
+            "en": "after weder",
+            "sl": "za weder",
+            "it": "dopo weder"
+          },
+          "explain": {
+            "en": "**weder already says no: no nicht, no kein**\n- Ich trinke weder Most noch Wein.",
+            "sl": "**weder že pove ne: brez nicht in kein**\n- Ich trinke weder Most noch Wein.",
+            "it": "**weder dice già no: niente nicht né kein**\n- Ich trinke weder Most noch Wein."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**entweder … oder** (either … or) means one of the two, not both: **Entweder** Most **oder** Wein. With two whole sentences a comma comes before oder, and oder takes no place: **Entweder** du kommst mit, **oder** du bleibst hier. entweder may also take first place, with the verb next: **Entweder kommst du** mit, oder du bleibst hier. Both are right.",
+          "sl": "**entweder … oder** (ali … ali) pomeni eno od dveh, ne obojega: **Entweder** Most **oder** Wein. Pri dveh celih stavkih je pred oder vejica, oder pa ne zasede mesta: **Entweder** du kommst mit, **oder** du bleibst hier. entweder lahko zasede tudi prvo mesto, glagol takoj za njim: **Entweder kommst du** mit, oder du bleibst hier. Oboje je prav.",
+          "it": "**entweder … oder** (o … o) vuol dire uno dei due, non tutti e due: **Entweder** Most **oder** Wein. Con due frasi intere prima di oder c'è la virgola, e oder non occupa un posto: **Entweder** du kommst mit, **oder** du bleibst hier. entweder può anche occupare il primo posto, con il verbo subito dopo: **Entweder kommst du** mit, oder du bleibst hier. Vanno bene tutti e due."
+        },
+        "examples": [
+          {
+            "de": "Entweder Most oder Wein.",
+            "en": "Either cider or wine.",
+            "sl": "Ali mošt ali vino.",
+            "it": "O il sidro o il vino."
+          },
+          {
+            "de": "Entweder du kommst mit, oder du bleibst hier.",
+            "en": "Either you come along, or you stay here.",
+            "sl": "Ali greš zraven ali ostaneš tukaj.",
+            "it": "O vieni anche tu, o resti qui."
+          }
+        ],
+        "rows": [
+          [
+            "entweder … oder",
+            {
+              "en": "one of the two",
+              "sl": "eno od dveh",
+              "it": "uno dei due"
+            },
+            "entweder Most oder Wein"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "doppelkonnektoren",
+          "prompt": "Entweder Toni ___ Franz kommt.",
+          "options": [
+            "oder",
+            "noch",
+            "auch"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**entweder … oder: one of the two**",
+            "sl": "**entweder … oder: eno od dveh**",
+            "it": "**entweder … oder: uno dei due**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sondern er verkauft**: with two whole sentences, the second part decides the verb's place. **sondern** and **oder** take no place: Stefan macht nicht nur Most, **sondern er verkauft** ihn auch. **noch** takes first place, as deshalb does, so the verb comes right after it: Er kommt weder, **noch ruft** er an. With nothing new but the verb, sondern can do without er: Kathi kocht nicht nur, sondern backt auch.",
+          "sl": "**sondern er verkauft**: pri dveh celih stavkih drugi del odloči o mestu glagola. **sondern** in **oder** ne zasedeta mesta: Stefan macht nicht nur Most, **sondern er verkauft** ihn auch. **noch** zasede prvo mesto, kot deshalb, zato pride glagol takoj za njim: Er kommt weder, **noch ruft** er an. Če je nov le glagol, je za sondern er lahko izpuščen: Kathi kocht nicht nur, sondern backt auch.",
+          "it": "**sondern er verkauft**: con due frasi intere la seconda parte decide il posto del verbo. **sondern** e **oder** non occupano un posto: Stefan macht nicht nur Most, **sondern er verkauft** ihn auch. **noch** occupa il primo posto, come deshalb, quindi il verbo viene subito dopo: Er kommt weder, **noch ruft** er an. Se di nuovo c'è solo il verbo, dopo sondern si può togliere er: Kathi kocht nicht nur, sondern backt auch."
+        },
+        "examples": [
+          {
+            "de": "Stefan macht nicht nur Most, sondern er verkauft ihn auch.",
+            "en": "Stefan not only makes cider, he sells it too.",
+            "sl": "Stefan mošta ne le dela, temveč ga tudi prodaja.",
+            "it": "Stefan non solo fa il sidro, ma lo vende anche."
+          },
+          {
+            "de": "Er kommt weder, noch ruft er an.",
+            "en": "He neither comes nor phones.",
+            "sl": "Niti ne pride niti ne pokliče.",
+            "it": "Non viene né telefona."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "doppelkonnektoren",
+          "prompt": "Toni kommt weder, noch ___.",
+          "options": [
+            "ruft er an",
+            "er ruft an",
+            "er anruft"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sondern and oder take no place; noch takes first place**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an.",
+            "sl": "**sondern in oder ne zasedeta mesta; noch zasede prvo mesto**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an.",
+            "it": "**sondern e oder non occupano un posto; noch occupa il primo posto**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "nicht-nur-sondern-1",
+      "title": {
+        "de": "Vier Paare",
+        "en": "Four pairs",
+        "sl": "Štirje pari",
+        "it": "Quattro coppie"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "both parts",
+            "sl": "oba dela",
+            "it": "tutte e due le parti"
+          },
+          "columns": [
+            {
+              "en": "erster Teil · first part",
+              "sl": "erster Teil · prvi del",
+              "it": "erster Teil · prima parte"
+            },
+            {
+              "en": "zweiter Teil · second part",
+              "sl": "zweiter Teil · drugi del",
+              "it": "zweiter Teil · seconda parte"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "en": "not only … but also",
+                "sl": "ne le … temveč tudi",
+                "it": "non solo … ma anche"
+              },
+              "cells": [
+                "nicht nur",
+                {
+                  "accept": [
+                    "sondern auch"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "both … and",
+                "sl": "tako … kot tudi",
+                "it": "sia … sia"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "sowohl"
+                  ]
+                },
+                {
+                  "accept": [
+                    "als auch",
+                    "wie auch"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "neither … nor",
+                "sl": "niti … niti",
+                "it": "né … né"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "weder"
+                  ]
+                },
+                {
+                  "accept": [
+                    "noch"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "en": "either … or",
+                "sl": "ali … ali",
+                "it": "o … o"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "entweder"
+                  ]
+                },
+                {
+                  "accept": [
+                    "oder"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Added: nicht nur … sondern auch. Both: sowohl … als auch. Neither: weder … noch. One of two: entweder … oder**",
+            "sl": "**Dodano: nicht nur … sondern auch. Oboje: sowohl … als auch. Nobeno: weder … noch. Eno od dveh: entweder … oder**",
+            "it": "**Aggiunta: nicht nur … sondern auch. Tutti e due: sowohl … als auch. Nessuno: weder … noch. Uno dei due: entweder … oder**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Sortiere · Sort: who is coming?",
+            "sl": "Sortiere · Razvrsti: kdo pride?",
+            "it": "Sortiere · Ordina: chi viene?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "beide · both",
+                "sl": "beide · oba",
+                "it": "beide · tutti e due"
+              },
+              "words": [
+                "Sowohl Toni als auch Franz kommen.",
+                "Nicht nur Toni, sondern auch Franz kommt."
+              ]
+            },
+            {
+              "label": {
+                "en": "keiner · neither",
+                "sl": "keiner · nobeden",
+                "it": "keiner · nessuno dei due"
+              },
+              "words": [
+                "Weder Toni noch Franz kommt.",
+                "Toni kommt nicht und Franz auch nicht."
+              ]
+            },
+            {
+              "label": {
+                "en": "einer · one of them",
+                "sl": "einer · eden od njiju",
+                "it": "einer · uno dei due"
+              },
+              "words": [
+                "Entweder Toni oder Franz kommt.",
+                "Toni oder Franz kommt."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Added: nicht nur … sondern auch. Both: sowohl … als auch. Neither: weder … noch. One of two: entweder … oder**",
+            "sl": "**Dodano: nicht nur … sondern auch. Oboje: sowohl … als auch. Nobeno: weder … noch. Eno od dveh: entweder … oder**",
+            "it": "**Aggiunta: nicht nur … sondern auch. Tutti e due: sowohl … als auch. Nessuno: weder … noch. Uno dei due: entweder … oder**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nicht-nur-sondern-2",
+      "title": {
+        "de": "Kathi plant den Kirchtag",
+        "en": "Kathi plans the Kirchtag",
+        "sl": "Kathi načrtuje žegnanje",
+        "it": "Kathi prepara il Kirchtag"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Kathi plant den Kirchtag",
+          "text": "Kathi plant den Kirchtag. Sie braucht nicht ___ Bier, sondern auch Most. Stefan bringt ___ Most als auch Saft. Toni hat weder Zeit ___ Lust: Er kommt nicht. ___ hilft Franz, oder Kathi macht alles allein. Franz sagt: Ich komme entweder heute ___ morgen. Am Ende kommen sowohl Franz ___ auch Florian. Kathi ist nicht nur froh, ___ auch müde.",
+          "gaps": [
+            {
+              "accept": [
+                "nur"
+              ]
+            },
+            {
+              "accept": [
+                "sowohl"
+              ]
+            },
+            {
+              "accept": [
+                "noch"
+              ]
+            },
+            {
+              "accept": [
+                "Entweder"
+              ]
+            },
+            {
+              "accept": [
+                "oder"
+              ]
+            },
+            {
+              "accept": [
+                "als",
+                "wie"
+              ]
+            },
+            {
+              "accept": [
+                "sondern"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "wieder",
+            "doch",
+            "aber"
+          ],
+          "translation": {
+            "en": "Kathi is planning the Kirchtag. She needs not only beer but also cider. Stefan is bringing both cider and juice. Toni has neither time nor the wish: he isn't coming. Either Franz helps, or Kathi does it all alone. Franz says: I'll come either today or tomorrow. In the end both Franz and Florian come. Kathi is not only glad but tired too.",
+            "sl": "Kathi načrtuje žegnanje. Ne potrebuje le piva, temveč tudi mošt. Stefan prinese tako mošt kot sok. Toni nima ne časa ne volje: ne pride. Ali pomaga Franz ali Kathi vse naredi sama. Franz reče: Pridem ali danes ali jutri. Na koncu prideta tako Franz kot Florian. Kathi ni le vesela, temveč tudi utrujena.",
+            "it": "Kathi prepara il Kirchtag. Le serve non solo la birra, ma anche il sidro. Stefan porta sia il sidro sia il succo. Toni non ha né tempo né voglia: non viene. O aiuta Franz, o Kathi fa tutto da sola. Franz dice: vengo o oggi o domani. Alla fine vengono sia Franz sia Florian. Kathi non è solo contenta, ma anche stanca."
+          },
+          "explain": {
+            "en": "**Added: nicht nur … sondern auch. Both: sowohl … als auch. Neither: weder … noch. One of two: entweder … oder**",
+            "sl": "**Dodano: nicht nur … sondern auch. Oboje: sowohl … als auch. Nobeno: weder … noch. Eno od dveh: entweder … oder**",
+            "it": "**Aggiunta: nicht nur … sondern auch. Tutti e due: sowohl … als auch. Nessuno: weder … noch. Uno dei due: entweder … oder**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ich trinke ___ Most noch Wein.",
+          "options": [
+            "weder",
+            "nicht",
+            "entweder"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**weder already says no: no nicht, no kein**\n- Ich trinke weder Most noch Wein.",
+            "sl": "**weder že pove ne: brez nicht in kein**\n- Ich trinke weder Most noch Wein.",
+            "it": "**weder dice già no: niente nicht né kein**\n- Ich trinke weder Most noch Wein."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stefan macht nicht nur Most, ___ auch Schnaps.",
+          "options": [
+            "sondern",
+            "oder",
+            "noch"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A comma before sondern; each part right before what it speaks of**\n- Stefan macht nicht nur Most, sondern auch Schnaps.",
+            "sl": "**Vejica pred sondern; vsak del tik pred tem, o čemer govori**\n- Stefan macht nicht nur Most, sondern auch Schnaps.",
+            "it": "**La virgola prima di sondern; ogni parte subito prima di ciò di cui parla**\n- Stefan macht nicht nur Most, sondern auch Schnaps."
+          }
+        }
+      ]
+    },
+    {
+      "id": "nicht-nur-sondern-3",
+      "title": {
+        "de": "Zwei in einem Satz",
+        "en": "Two in one sentence",
+        "sl": "Dvoje v enem stavku",
+        "it": "Due in una frase"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Verbinde · Join them with the pair in brackets",
+            "sl": "Verbinde · Poveži s parom v oklepaju",
+            "it": "Verbinde · Unisci con la coppia tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Toni ist müde. Er ist auch hungrig. (nicht nur … sondern auch)",
+              "accept": [
+                "Toni ist nicht nur müde, sondern auch hungrig."
+              ]
+            },
+            {
+              "from": "Kathi kommt. Stefan kommt auch. (sowohl … als auch)",
+              "accept": [
+                "Sowohl Kathi als auch Stefan kommen.",
+                "Sowohl Kathi als auch Stefan kommt.",
+                "Sowohl Kathi wie auch Stefan kommen.",
+                "Sowohl Kathi wie auch Stefan kommt."
+              ]
+            },
+            {
+              "from": "Mitzi hat keine Zeit. Sie hat kein Geld. (weder … noch)",
+              "accept": [
+                "Mitzi hat weder Zeit noch Geld."
+              ]
+            },
+            {
+              "from": "Wir trinken Most, oder wir trinken Wein. (entweder … oder)",
+              "accept": [
+                "Wir trinken entweder Most oder Wein.",
+                "Entweder trinken wir Most, oder wir trinken Wein.",
+                "Entweder wir trinken Most, oder wir trinken Wein.",
+                "Entweder trinken wir Most oder Wein."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Added: nicht nur … sondern auch. Both: sowohl … als auch. Neither: weder … noch. One of two: entweder … oder**",
+            "sl": "**Dodano: nicht nur … sondern auch. Oboje: sowohl … als auch. Nobeno: weder … noch. Eno od dveh: entweder … oder**",
+            "it": "**Aggiunta: nicht nur … sondern auch. Tutti e due: sowohl … als auch. Nessuno: weder … noch. Uno dei due: entweder … oder**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Zwei ganze Sätze · Two whole sentences: mind the verb",
+            "sl": "Zwei ganze Sätze · Dva cela stavka: pazi na glagol",
+            "it": "Zwei ganze Sätze · Due frasi intere: attento al verbo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan macht Most. Er verkauft ihn auch. (nicht nur … sondern auch)",
+              "accept": [
+                "Stefan macht nicht nur Most, sondern er verkauft ihn auch.",
+                "Stefan macht nicht nur Most, sondern verkauft ihn auch."
+              ]
+            },
+            {
+              "from": "Du kommst mit, oder du bleibst hier. (entweder … oder)",
+              "accept": [
+                "Entweder du kommst mit, oder du bleibst hier.",
+                "Entweder kommst du mit, oder du bleibst hier."
+              ]
+            },
+            {
+              "from": "Er kommt nicht. Er ruft nicht an. (weder … noch)",
+              "accept": [
+                "Er kommt weder, noch ruft er an."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**sondern and oder take no place; noch takes first place**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an.",
+            "sl": "**sondern in oder ne zasedeta mesta; noch zasede prvo mesto**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an.",
+            "it": "**sondern e oder non occupano un posto; noch occupa il primo posto**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "doppelkonnektoren",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Kathi has neither soup nor bread.",
+            "sl": "Kathi nima ne juhe ne kruha.",
+            "it": "Kathi non ha né zuppa né pane."
+          },
+          "tokens": [
+            "noch",
+            "Kathi",
+            "Brot.",
+            "hat",
+            "Suppe",
+            "weder"
+          ],
+          "solutions": [
+            [
+              "Kathi",
+              "hat",
+              "weder",
+              "Suppe",
+              "noch",
+              "Brot."
+            ]
+          ],
+          "explain": {
+            "en": "**weder already says no: no nicht, no kein**\n- Ich trinke weder Most noch Wein.",
+            "sl": "**weder že pove ne: brez nicht in kein**\n- Ich trinke weder Most noch Wein.",
+            "it": "**weder dice già no: niente nicht né kein**\n- Ich trinke weder Most noch Wein."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "doppelkonnektoren",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Beim Stanko",
+        "text": "Stanko verkauft nicht nur Honig, ___ auch Kerzen. Heute hat er ___ Honig als auch Kerzen da. Oma Resi kauft ___ den hellen Honig oder den dunklen. Sie kann nicht beide nehmen: Sie hat weder Platz ___ Geld dafür. Stanko sagt: Der helle ist nicht ___ billig, sondern auch gut. ___ kaufst du ihn, oder du wartest bis Samstag.",
+        "gaps": [
+          {
+            "accept": [
+              "sondern"
+            ]
+          },
+          {
+            "accept": [
+              "sowohl"
+            ]
+          },
+          {
+            "accept": [
+              "entweder"
+            ]
+          },
+          {
+            "accept": [
+              "noch"
+            ]
+          },
+          {
+            "accept": [
+              "nur"
+            ]
+          },
+          {
+            "accept": [
+              "Entweder"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stanko sells not only honey but also candles. Today he has both honey and candles. Oma Resi will buy either the light honey or the dark. She can't take both: she has neither the room nor the money for it. Stanko says: the light one is not only cheap but good too. Either you buy it, or you wait until Saturday.",
+          "sl": "Stanko ne prodaja le medu, temveč tudi sveče. Danes ima tako med kot sveče. Babica Resi bo kupila ali svetli med ali temnega. Ne more vzeti obeh: nima ne prostora ne denarja za to. Stanko reče: Svetli ni le poceni, temveč tudi dober. Ali ga kupiš ali počakaš do sobote.",
+          "it": "Stanko vende non solo miele, ma anche candele. Oggi ha sia il miele sia le candele. Nonna Resi comprerà o il miele chiaro o quello scuro. Non può prenderli tutti e due: non ha né spazio né soldi. Stanko dice: quello chiaro non è solo economico, ma anche buono. O lo compri, o aspetti fino a sabato."
+        },
+        "explain": {
+          "en": "**Added: nicht nur … sondern auch. Both: sowohl … als auch. Neither: weder … noch. One of two: entweder … oder**",
+          "sl": "**Dodano: nicht nur … sondern auch. Oboje: sowohl … als auch. Nobeno: weder … noch. Eno od dveh: entweder … oder**",
+          "it": "**Aggiunta: nicht nur … sondern auch. Tutti e due: sowohl … als auch. Nessuno: weder … noch. Uno dei due: entweder … oder**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "doppelkonnektoren",
+        "instruction": {
+          "en": "Verbinde · Join them with the pair in brackets",
+          "sl": "Verbinde · Poveži s parom v oklepaju",
+          "it": "Verbinde · Unisci con la coppia tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Florian hat keine Kühe. Er hat keine Ziegen. (weder … noch)",
+            "accept": [
+              "Florian hat weder Kühe noch Ziegen."
+            ]
+          },
+          {
+            "from": "Lena singt. Maxi singt auch. (sowohl … als auch)",
+            "accept": [
+              "Sowohl Lena als auch Maxi singen.",
+              "Sowohl Lena als auch Maxi singt.",
+              "Sowohl Lena wie auch Maxi singen.",
+              "Sowohl Lena wie auch Maxi singt."
+            ]
+          },
+          {
+            "from": "Toni arbeitet viel. Er arbeitet auch gut. (nicht nur … sondern auch)",
+            "accept": [
+              "Toni arbeitet nicht nur viel, sondern auch gut."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Added: nicht nur … sondern auch. Both: sowohl … als auch. Neither: weder … noch. One of two: entweder … oder**",
+          "sl": "**Dodano: nicht nur … sondern auch. Oboje: sowohl … als auch. Nobeno: weder … noch. Eno od dveh: entweder … oder**",
+          "it": "**Aggiunta: nicht nur … sondern auch. Tutti e due: sowohl … als auch. Nessuno: weder … noch. Uno dei due: entweder … oder**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "doppelkonnektoren",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Du kannst ___ Suppe oder Salat essen.",
+        "options": [
+          "entweder",
+          "weder",
+          "sowohl"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Added: nicht nur … sondern auch. Both: sowohl … als auch. Neither: weder … noch. One of two: entweder … oder**",
+          "sl": "**Dodano: nicht nur … sondern auch. Oboje: sowohl … als auch. Nobeno: weder … noch. Eno od dveh: entweder … oder**",
+          "it": "**Aggiunta: nicht nur … sondern auch. Tutti e due: sowohl … als auch. Nessuno: weder … noch. Uno dei due: entweder … oder**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "doppelkonnektoren",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich habe weder Hunger ___ Durst.",
+        "options": [
+          "noch",
+          "oder",
+          "auch"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**weder already says no: no nicht, no kein**\n- Ich trinke weder Most noch Wein.",
+          "sl": "**weder že pove ne: brez nicht in kein**\n- Ich trinke weder Most noch Wein.",
+          "it": "**weder dice già no: niente nicht né kein**\n- Ich trinke weder Most noch Wein."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "doppelkonnektoren",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Sie kommt weder, noch ___ sie.",
+        "options": [
+          "schreibt",
+          "schreiben",
+          "geschrieben"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**sondern and oder take no place; noch takes first place**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an.",
+          "sl": "**sondern in oder ne zasedeta mesta; noch zasede prvo mesto**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an.",
+          "it": "**sondern e oder non occupano un posto; noch occupa il primo posto**\n- …, sondern er verkauft ihn auch. · …, oder du bleibst hier. · …, noch ruft er an."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: sowohl … wie auch; weder … noch and the verb; noch + verb; entweder in first place; commas; each base"
+}

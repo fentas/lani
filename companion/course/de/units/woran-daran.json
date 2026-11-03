@@ -1,0 +1,990 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "woran-daran",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🔍",
+  "title": {
+    "de": "Worauf wartest du? Darauf!",
+    "en": "Wo- and da- words: worauf, darauf",
+    "sl": "Besede z wo- in da-: worauf, darauf",
+    "it": "Le parole con wo- e da-: worauf, darauf"
+  },
+  "goal": {
+    "en": "You can ask about a thing (Worauf wartest du?) and about a person (Auf wen wartest du?), and answer without the noun (Ich warte darauf, Ich warte auf ihn).",
+    "sl": "Znaš vprašati po stvari (Worauf wartest du?) in po osebi (Auf wen wartest du?) ter odgovoriti brez samostalnika (Ich warte darauf, Ich warte auf ihn).",
+    "it": "Sai chiedere di una cosa (Worauf wartest du?) e di una persona (Auf wen wartest du?), e rispondere senza il nome (Ich warte darauf, Ich warte auf ihn)."
+  },
+  "grammar": [
+    "wo-da-woerter",
+    "verben-praepositionen"
+  ],
+  "words": [
+    "worauf",
+    "darauf",
+    "woran",
+    "daran",
+    "worüber",
+    "darüber",
+    "wofür",
+    "dafür",
+    "womit",
+    "damit",
+    "wovon",
+    "davon",
+    "wovor",
+    "davor",
+    "wonach",
+    "danach",
+    "worum",
+    "darum",
+    "warten",
+    "denken",
+    "träumen",
+    "freuen",
+    "interessieren",
+    "aufhören",
+    "die Angst",
+    "der Urlaub",
+    "das Geschenk",
+    "der Frühling",
+    "die Biene",
+    "der Regen",
+    "das Gewitter"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Verb + Präposition",
+          "en": "verb + preposition",
+          "sl": "glagol + predlog",
+          "it": "verbo + preposizione"
+        },
+        {
+          "de": "Frage",
+          "en": "question",
+          "sl": "vprašanje",
+          "it": "domanda"
+        },
+        {
+          "de": "Antwort",
+          "en": "answer",
+          "sl": "odgovor",
+          "it": "risposta"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Worauf** wartest du? **Darauf!** For a thing, the chunk's preposition joins **wo** in the question and **da** in the answer, so the noun needn't come again. Wartest du auf den Bus? Ja, ich warte **darauf** (for it). In speech you'll hear **Auf was** wartest du?: people say it; write worauf.",
+          "sl": "**Worauf** wartest du? **Darauf!** Pri stvari se predlog iz zveze združi z **wo** v vprašanju in z **da** v odgovoru, zato samostalnika ni treba ponoviti. Wartest du auf den Bus? Ja, ich warte **darauf** (na to). V govoru slišiš **Auf was** wartest du?: ljudje to govorijo; piši worauf.",
+          "it": "**Worauf** wartest du? **Darauf!** Per una cosa, la preposizione del blocco si unisce a **wo** nella domanda e a **da** nella risposta, così non serve ripetere il nome. Wartest du auf den Bus? Ja, ich warte **darauf** (lo aspetto). A voce senti **Auf was** wartest du?: si dice; scrivi worauf."
+        },
+        "examples": [
+          {
+            "de": "Worauf wartest du?",
+            "en": "What are you waiting for?",
+            "sl": "Na kaj čakaš?",
+            "it": "Che cosa aspetti?"
+          },
+          {
+            "de": "Ich warte darauf.",
+            "en": "I'm waiting for it.",
+            "sl": "Čakam na to.",
+            "it": "Lo aspetto."
+          }
+        ],
+        "rows": [
+          [
+            "warten auf",
+            "worauf?",
+            "darauf"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wo-da-woerter",
+          "prompt": "___ wartest du? Auf den Bus.",
+          "options": [
+            "Worauf",
+            "Wofür",
+            "Woran"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**warten auf: worauf?**\n- Worauf wartest du?",
+            "sl": "**warten auf: worauf?**\n- Worauf wartest du?",
+            "it": "**warten auf: worauf?**\n- Worauf wartest du?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**wofür, dafür; womit, damit; wovon, davon**: a preposition that starts with a consonant joins straight on. für → **wofür**, **dafür**; mit → **womit**, **damit**; von → **wovon**, **davon**; vor → **wovor**, **davor**; nach → **wonach**, **danach**. Each chunk keeps its own preposition, so learn the chunk.",
+          "sl": "**wofür, dafür; womit, damit; wovon, davon**: predlog, ki se začne s soglasnikom, se pridruži kar tako. für → **wofür**, **dafür**; mit → **womit**, **damit**; von → **wovon**, **davon**; vor → **wovor**, **davor**; nach → **wonach**, **danach**. Vsaka zveza ima svoj predlog, zato se uči zvezo.",
+          "it": "**wofür, dafür; womit, damit; wovon, davon**: una preposizione che comincia con una consonante si unisce direttamente. für → **wofür**, **dafür**; mit → **womit**, **damit**; von → **wovon**, **davon**; vor → **wovor**, **davor**; nach → **wonach**, **danach**. Ogni blocco tiene la sua preposizione, quindi impara il blocco."
+        },
+        "examples": [
+          {
+            "de": "Wofür interessierst du dich?",
+            "en": "What are you interested in?",
+            "sl": "Za kaj se zanimaš?",
+            "it": "Per che cosa ti interessi?"
+          },
+          {
+            "de": "Stanko interessiert sich dafür.",
+            "en": "Stanko is interested in it.",
+            "sl": "Stanko se zanima za to.",
+            "it": "Stanko si interessa a questo."
+          },
+          {
+            "de": "Wovor hast du Angst?",
+            "en": "What are you afraid of?",
+            "sl": "Česa se bojiš?",
+            "it": "Di che cosa hai paura?"
+          }
+        ],
+        "rows": [
+          [
+            "sich interessieren für",
+            "wofür?",
+            "dafür"
+          ],
+          [
+            "sprechen mit",
+            "womit?",
+            "damit"
+          ],
+          [
+            "träumen von",
+            "wovon?",
+            "davon"
+          ],
+          [
+            "Angst haben vor",
+            "wovor?",
+            "davor"
+          ],
+          [
+            "fragen nach",
+            "wonach?",
+            "danach"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wo-da-woerter",
+          "prompt": "Träumst du von einem Haus? Ja, ich träume ___.",
+          "options": [
+            "davon",
+            "davor",
+            "darauf"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**träumen von: davon**\n- von, not vor: Angst haben vor is davor",
+            "sl": "**träumen von: davon**\n- von, ne vor: Angst haben vor je davor",
+            "it": "**träumen von: davon**\n- von, non vor: Angst haben vor è davor"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**woran, daran; worüber, darüber; worum, darum**: a preposition that starts with a vowel needs an r to join on: **worauf** (never *woauf*), **daran** (never *daan*). über → **worüber**, **darüber**; um → **worum**, **darum**. In speech the a often goes: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: right.",
+          "sl": "**woran, daran; worüber, darüber; worum, darum**: predlog, ki se začne s samoglasnikom, potrebuje r. an → **woran**, **daran**; über → **worüber**, **darüber**; um → **worum**, **darum**; auf → **worauf**, **darauf**. V govoru a pogosto odpade: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: prav.",
+          "it": "**woran, daran; worüber, darüber; worum, darum**: una preposizione che comincia con una vocale ha bisogno della r. an → **woran**, **daran**; über → **worüber**, **darüber**; um → **worum**, **darum**; auf → **worauf**, **darauf**. A voce la a spesso cade: Ich warte **drauf**, ich denke **dran**, wir reden **drüber**: va bene."
+        },
+        "examples": [
+          {
+            "de": "Woran denkst du?",
+            "en": "What are you thinking of?",
+            "sl": "Na kaj misliš?",
+            "it": "A che cosa pensi?"
+          },
+          {
+            "de": "Kathi freut sich darüber.",
+            "en": "Kathi is glad about it.",
+            "sl": "Kathi se tega veseli.",
+            "it": "Kathi ne è contenta."
+          }
+        ],
+        "rows": [
+          [
+            "denken an",
+            "woran?",
+            "daran"
+          ],
+          [
+            "sich freuen über",
+            "worüber?",
+            "darüber"
+          ],
+          [
+            "bitten um",
+            "worum?",
+            "darum"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wo-da-woerter",
+          "prompt": "Denkst du an den Kirchtag? Ja, ich denke ___.",
+          "options": [
+            "daran",
+            "daan",
+            "dafür"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**an starts with a vowel: da + r + an**\n- denken an: daran",
+            "sl": "**an se začne s samoglasnikom: da + r + an**\n- denken an: daran",
+            "it": "**an comincia con una vocale: da + r + an**\n- denken an: daran"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Auf wen** wartest du? For a person the preposition stays apart, and the pronoun shows the case the chunk asks for: **auf wen** (accusative), **mit wem** (dative). The answer too: Ich warte **auf ihn**, ich spreche **mit ihr**. Not **darauf** for a person: Wartest du auf Stefan? Ja, ich warte **auf ihn**. For a thing you may hear auf ihn too; write darauf.",
+          "sl": "**Auf wen** wartest du? Pri osebi predlog ostane zase, zaimek pa pokaže sklon, ki ga zahteva zveza: **auf wen** (tožilnik), **mit wem** (dajalnik). Tudi v odgovoru: Ich warte **auf ihn**, ich spreche **mit ihr**. Za osebo ne **darauf**: Wartest du auf Stefan? Ja, ich warte **auf ihn**. Za stvar slišiš tudi auf ihn; piši darauf.",
+          "it": "**Auf wen** wartest du? Per una persona la preposizione resta staccata, e il pronome mostra il caso che il blocco vuole: **auf wen** (accusativo), **mit wem** (dativo). Anche nella risposta: Ich warte **auf ihn**, ich spreche **mit ihr**. Non **darauf** per una persona: Wartest du auf Stefan? Ja, ich warte **auf ihn**. Per una cosa puoi sentire anche auf ihn; scrivi darauf."
+        },
+        "examples": [
+          {
+            "de": "Auf wen wartest du?",
+            "en": "Who are you waiting for?",
+            "sl": "Na koga čakaš?",
+            "it": "Chi aspetti?"
+          },
+          {
+            "de": "Mit wem sprichst du?",
+            "en": "Who are you talking to?",
+            "sl": "S kom govoriš?",
+            "it": "Con chi parli?"
+          },
+          {
+            "de": "Ich warte auf ihn.",
+            "en": "I'm waiting for him.",
+            "sl": "Čakam nanj.",
+            "it": "Aspetto lui."
+          }
+        ],
+        "rows": [
+          [
+            "warten auf + Stefan",
+            "auf wen?",
+            "auf ihn"
+          ],
+          [
+            "sprechen mit + Kathi",
+            "mit wem?",
+            "mit ihr"
+          ],
+          [
+            "denken an + Oma Resi",
+            "an wen?",
+            "an sie"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wo-da-woerter",
+          "prompt": "Wartest du auf Stefan? Ja, ich warte ___.",
+          "options": [
+            "auf ihn",
+            "darauf",
+            "worauf"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A person: auf wen, auf ihn. A thing: worauf, darauf**",
+            "sl": "**Oseba: auf wen, auf ihn. Stvar: worauf, darauf**",
+            "it": "**Una persona: auf wen, auf ihn. Una cosa: worauf, darauf**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**darauf, dass**: a da- word can point ahead to a whole clause, whose verb goes last: Ich freue mich **darauf, dass du kommst**. Stefan wartet **darauf, dass der Regen aufhört**. Two of them have other jobs you know: **darum** (that's why) and **damit** (so that). The sentence tells.",
+          "sl": "**darauf, dass**: beseda z da- lahko kaže naprej na cel odvisnik, njegov glagol gre na konec: Ich freue mich **darauf, dass du kommst**. Stefan wartet **darauf, dass der Regen aufhört**. Dve imata še druge naloge, ki jih poznaš: **darum** (zato) in **damit** (da). Pove stavek.",
+          "it": "**darauf, dass**: una parola con da- può indicare un'intera frase che segue, con il verbo alla fine: Ich freue mich **darauf, dass du kommst**. Stefan wartet **darauf, dass der Regen aufhört**. Due di loro hanno altri compiti che conosci: **darum** (perciò) e **damit** (affinché). Lo dice la frase."
+        },
+        "examples": [
+          {
+            "de": "Ich freue mich darauf, dass du kommst.",
+            "en": "I'm looking forward to your coming.",
+            "sl": "Veselim se, da prideš.",
+            "it": "Non vedo l'ora che tu venga."
+          },
+          {
+            "de": "Stefan wartet darauf, dass der Regen aufhört.",
+            "en": "Stefan is waiting for the rain to stop.",
+            "sl": "Stefan čaka, da neha deževati.",
+            "it": "Stefan aspetta che smetta di piovere."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "wo-da-woerter",
+          "prompt": "Ich freue mich ___, dass du kommst.",
+          "options": [
+            "darauf",
+            "worauf",
+            "auf wen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**darauf points ahead to the clause**\n- sich freuen auf: darauf, dass …",
+            "sl": "**darauf kaže naprej na odvisnik**\n- sich freuen auf: darauf, dass …",
+            "it": "**darauf indica la frase che segue**\n- sich freuen auf: darauf, dass …"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "woran-daran-1",
+      "title": {
+        "de": "Worauf? Darauf!",
+        "en": "Worauf? Darauf!",
+        "sl": "Worauf? Darauf!",
+        "it": "Worauf? Darauf!"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "wo-da-woerter",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "a thing, a person",
+            "sl": "stvar, oseba",
+            "it": "una cosa, una persona"
+          },
+          "columns": [
+            {
+              "en": "Frage · question",
+              "sl": "Frage · vprašanje",
+              "it": "Frage · domanda"
+            },
+            {
+              "en": "Antwort · answer",
+              "sl": "Antwort · odgovor",
+              "it": "Antwort · risposta"
+            }
+          ],
+          "rows": [
+            {
+              "label": "warten auf",
+              "cells": [
+                "worauf?",
+                "darauf"
+              ]
+            },
+            {
+              "label": "denken an",
+              "cells": [
+                {
+                  "accept": [
+                    "woran?"
+                  ],
+                  "spoken": [
+                    "an was?"
+                  ]
+                },
+                {
+                  "accept": [
+                    "daran"
+                  ],
+                  "spoken": [
+                    "dran"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sich freuen über",
+              "cells": [
+                {
+                  "accept": [
+                    "worüber?"
+                  ],
+                  "spoken": [
+                    "über was?"
+                  ]
+                },
+                {
+                  "accept": [
+                    "darüber"
+                  ],
+                  "spoken": [
+                    "drüber"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sprechen mit",
+              "cells": [
+                {
+                  "accept": [
+                    "womit?"
+                  ],
+                  "spoken": [
+                    "mit was?"
+                  ]
+                },
+                {
+                  "accept": [
+                    "damit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "warten auf + Stefan",
+              "cells": [
+                {
+                  "accept": [
+                    "auf wen?"
+                  ]
+                },
+                {
+                  "accept": [
+                    "auf ihn"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sprechen mit + Kathi",
+              "cells": [
+                {
+                  "accept": [
+                    "mit wem?"
+                  ]
+                },
+                {
+                  "accept": [
+                    "mit ihr"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A thing: wo- and da-, with an r before a vowel**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
+            "sl": "**Stvar: wo- in da-, pred samoglasnikom z r**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
+            "it": "**Una cosa: wo- e da-, con la r prima di una vocale**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "wo-da-woerter",
+          "instruction": {
+            "en": "Sortiere · Sort: Ich warte …",
+            "sl": "Sortiere · Razvrsti: Ich warte …",
+            "it": "Sortiere · Ordina: Ich warte …"
+          },
+          "columns": [
+            {
+              "label": "darauf",
+              "words": [
+                "auf den Bus",
+                "auf das Essen",
+                "auf den Frühling"
+              ]
+            },
+            {
+              "label": "auf ihn · auf sie",
+              "words": [
+                "auf Stefan",
+                "auf Oma Resi",
+                "auf den Arzt"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A person: auf wen, auf ihn. A thing: worauf, darauf**",
+            "sl": "**Oseba: auf wen, auf ihn. Stvar: worauf, darauf**",
+            "it": "**Una persona: auf wen, auf ihn. Una cosa: worauf, darauf**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "woran-daran-2",
+      "title": {
+        "de": "Bei Kathi",
+        "en": "At Kathi's",
+        "sl": "Pri Kathi",
+        "it": "Da Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "wo-da-woerter",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Bei Kathi",
+          "text": "Stefan sitzt bei Kathi. ___ wartest du?, fragt Kathi. Auf den Bus. Ich warte schon lange ___. Und ___ denkst du? An den Kirchtag. Ich freue mich schon ___. ___ wem sprichst du dort? Mit Franz. Ich spreche oft mit ___ über die Mühle. ___ sprecht ihr sonst? Über das Wetter. ___ interessiert er sich auch.",
+          "gaps": [
+            {
+              "accept": [
+                "Worauf"
+              ],
+              "spoken": [
+                "Auf was"
+              ],
+              "hint": {
+                "en": "warten auf",
+                "sl": "warten auf",
+                "it": "warten auf"
+              }
+            },
+            {
+              "accept": [
+                "darauf"
+              ],
+              "spoken": [
+                "drauf",
+                "auf ihn"
+              ]
+            },
+            {
+              "accept": [
+                "woran"
+              ],
+              "spoken": [
+                "an was"
+              ]
+            },
+            {
+              "accept": [
+                "darauf"
+              ],
+              "spoken": [
+                "drauf",
+                "auf ihn"
+              ]
+            },
+            {
+              "accept": [
+                "Mit"
+              ]
+            },
+            {
+              "accept": [
+                "ihm"
+              ],
+              "hint": {
+                "en": "Franz, a person",
+                "sl": "Franz, oseba",
+                "it": "Franz, una persona"
+              }
+            },
+            {
+              "accept": [
+                "Worüber"
+              ],
+              "spoken": [
+                "Über was"
+              ]
+            },
+            {
+              "accept": [
+                "Dafür"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "woauf",
+            "ihn",
+            "damit"
+          ],
+          "translation": {
+            "en": "Stefan is sitting at Kathi's. What are you waiting for?, Kathi asks. The bus. I've been waiting for it a long time. And what are you thinking of? The Kirchtag. I'm looking forward to it already. Who are you talking to over there? Franz. I often talk to him about the mill. What else do you talk about? The weather. He's interested in that too.",
+            "sl": "Stefan sedi pri Kathi. Na kaj čakaš?, vpraša Kathi. Na avtobus. Že dolgo čakam nanj. In na kaj misliš? Na žegnanje. Že se ga veselim. S kom govoriš tam? S Franzem. Z njim pogosto govorim o mlinu. O čem še govorita? O vremenu. Za to se tudi zanima.",
+            "it": "Stefan è seduto da Kathi. Che cosa aspetti?, chiede Kathi. L'autobus. Lo aspetto già da molto. E a che cosa pensi? Al Kirchtag. Non vedo già l'ora. Con chi parli laggiù? Con Franz. Parlo spesso con lui del mulino. Di che cos'altro parlate? Del tempo. Si interessa anche di quello."
+          },
+          "explain": {
+            "en": "**A thing: wo- and da-, with an r before a vowel**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
+            "sl": "**Stvar: wo- in da-, pred samoglasnikom z r**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
+            "it": "**Una cosa: wo- e da-, con la r prima di una vocale**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wo-da-woerter",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Sprichst du mit Toni? Ja, ich spreche ___.",
+          "options": [
+            "mit ihm",
+            "damit",
+            "womit"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A person: auf wen, auf ihn. A thing: worauf, darauf**",
+            "sl": "**Oseba: auf wen, auf ihn. Stvar: worauf, darauf**",
+            "it": "**Una persona: auf wen, auf ihn. Una cosa: worauf, darauf**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wo-da-woerter",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ träumst du? Von einem Haus.",
+          "options": [
+            "Wovon",
+            "Wovor",
+            "Von wem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A thing, träumen von: wovon?**",
+            "sl": "**Stvar, träumen von: wovon?**",
+            "it": "**Una cosa, träumen von: wovon?**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "woran-daran-3",
+      "title": {
+        "de": "Frag und antworte kurz",
+        "en": "Ask, and answer short",
+        "sl": "Vprašaj in odgovori na kratko",
+        "it": "Chiedi e rispondi in breve"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "wo-da-woerter",
+          "instruction": {
+            "en": "Frag danach · Ask about what comes after the preposition",
+            "sl": "Frag danach · Vprašaj po tem, kar je za predlogom",
+            "it": "Frag danach · Chiedi ciò che segue la preposizione"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich warte auf den Bus.",
+              "accept": [
+                "Worauf wartest du?"
+              ],
+              "spoken": [
+                "Auf was wartest du?"
+              ]
+            },
+            {
+              "from": "Ich warte auf Stefan.",
+              "accept": [
+                "Auf wen wartest du?"
+              ]
+            },
+            {
+              "from": "Ich denke an den Urlaub.",
+              "accept": [
+                "Woran denkst du?"
+              ],
+              "spoken": [
+                "An was denkst du?"
+              ]
+            },
+            {
+              "from": "Ich denke an Kathi.",
+              "accept": [
+                "An wen denkst du?"
+              ]
+            },
+            {
+              "from": "Ich spreche mit Toni.",
+              "accept": [
+                "Mit wem sprichst du?"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A person: auf wen, auf ihn. A thing: worauf, darauf**",
+            "sl": "**Oseba: auf wen, auf ihn. Stvar: worauf, darauf**",
+            "it": "**Una persona: auf wen, auf ihn. Una cosa: worauf, darauf**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "wo-da-woerter",
+          "instruction": {
+            "en": "Antworte kurz · Answer short, with no noun",
+            "sl": "Antworte kurz · Odgovori na kratko, brez samostalnika",
+            "it": "Antworte kurz · Rispondi in breve, senza il nome"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Wartest du auf den Bus?",
+              "accept": [
+                "Ja, ich warte darauf."
+              ],
+              "spoken": [
+                "Ja, ich warte drauf.",
+                "Ja, ich warte auf ihn."
+              ]
+            },
+            {
+              "from": "Wartest du auf Mitzi?",
+              "accept": [
+                "Ja, ich warte auf sie."
+              ]
+            },
+            {
+              "from": "Freust du dich über das Geschenk?",
+              "accept": [
+                "Ja, ich freue mich darüber."
+              ],
+              "spoken": [
+                "Ja, ich freue mich drüber."
+              ]
+            },
+            {
+              "from": "Sprichst du mit Stefan?",
+              "accept": [
+                "Ja, ich spreche mit ihm."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A person: auf wen, auf ihn. A thing: worauf, darauf**",
+            "sl": "**Oseba: auf wen, auf ihn. Stvar: worauf, darauf**",
+            "it": "**Una persona: auf wen, auf ihn. Una cosa: worauf, darauf**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "wo-da-woerter",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Tante Mitzi fragt",
+        "text": "Tante Mitzi fragt immer alles. ___ wartest du?, fragt sie Lena. Auf den Bus. Und ___ wen wartet Maxi? Auf seine Mutter. Er wartet schon lange auf ___. ___ hast du Angst, Jakob? Vor dem Gewitter. Ich habe auch ___ Angst, sagt Mitzi. Dann lachen alle ___.",
+        "gaps": [
+          {
+            "accept": [
+              "Worauf"
+            ],
+            "spoken": [
+              "Auf was"
+            ]
+          },
+          {
+            "accept": [
+              "auf"
+            ]
+          },
+          {
+            "accept": [
+              "sie"
+            ]
+          },
+          {
+            "accept": [
+              "Wovor"
+            ],
+            "spoken": [
+              "Vor was"
+            ]
+          },
+          {
+            "accept": [
+              "davor"
+            ]
+          },
+          {
+            "accept": [
+              "darüber"
+            ],
+            "spoken": [
+              "drüber"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Aunt Mitzi always asks about everything. What are you waiting for?, she asks Lena. The bus. And who is Maxi waiting for? His mother. He's been waiting for her a long time. What are you afraid of, Jakob? The thunderstorm. I'm afraid of it too, says Mitzi. Then they all laugh about it.",
+          "sl": "Teta Mitzi vedno vse sprašuje. Na kaj čakaš?, vpraša Leno. Na avtobus. In na koga čaka Maxi? Na mamo. Že dolgo čaka nanjo. Česa se bojiš, Jakob? Nevihte. Tudi jaz se ga bojim, reče Mitzi. Potem se vsi temu smejijo.",
+          "it": "Zia Mitzi chiede sempre tutto. Che cosa aspetti?, chiede a Lena. L'autobus. E chi aspetta Maxi? Sua madre. La aspetta già da molto. Di che cosa hai paura, Jakob? Del temporale. Anch'io ne ho paura, dice Mitzi. Poi tutti ci ridono sopra."
+        },
+        "explain": {
+          "en": "**A thing: wo- and da-, with an r before a vowel**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
+          "sl": "**Stvar: wo- in da-, pred samoglasnikom z r**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür.",
+          "it": "**Una cosa: wo- e da-, con la r prima di una vocale**\n- Worauf wartest du? · Ich warte darauf. · Wofür? · Dafür."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "wo-da-woerter",
+        "instruction": {
+          "en": "Frag danach · Ask about what comes after the preposition",
+          "sl": "Frag danach · Vprašaj po tem, kar je za predlogom",
+          "it": "Frag danach · Chiedi ciò che segue la preposizione"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich interessiere mich für Bienen.",
+            "accept": [
+              "Wofür interessierst du dich?"
+            ],
+            "spoken": [
+              "Für was interessierst du dich?"
+            ]
+          },
+          {
+            "from": "Ich träume von Kathi.",
+            "accept": [
+              "Von wem träumst du?"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**A person: auf wen, auf ihn. A thing: worauf, darauf**",
+          "sl": "**Oseba: auf wen, auf ihn. Stvar: worauf, darauf**",
+          "it": "**Una persona: auf wen, auf ihn. Una cosa: worauf, darauf**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "wo-da-woerter",
+        "instruction": {
+          "en": "Antworte kurz · Answer short, with no noun",
+          "sl": "Antworte kurz · Odgovori na kratko, brez samostalnika",
+          "it": "Antworte kurz · Rispondi in breve, senza il nome"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Denkst du an den Kirchtag?",
+            "accept": [
+              "Ja, ich denke daran."
+            ],
+            "spoken": [
+              "Ja, ich denke dran.",
+              "Ja, ich denke an ihn."
+            ]
+          },
+          {
+            "from": "Wartest du auf Toni?",
+            "accept": [
+              "Ja, ich warte auf ihn."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**A person: auf wen, auf ihn. A thing: worauf, darauf**",
+          "sl": "**Oseba: auf wen, auf ihn. Stvar: worauf, darauf**",
+          "it": "**Una persona: auf wen, auf ihn. Una cosa: worauf, darauf**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wo-da-woerter",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kommst du mit dem Auto? Ja, ich komme ___.",
+        "options": [
+          "damit",
+          "darauf",
+          "daran"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**mit: damit**",
+          "sl": "**mit: damit**",
+          "it": "**mit: damit**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wo-da-woerter",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ wem hast du gesprochen? Mit Stanko.",
+        "options": [
+          "Mit",
+          "Womit",
+          "Damit"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A person: the preposition + wen, wem; ihn, ihm, sie, ihr**\n- Auf wen wartest du? · Ich warte auf ihn. · Mit wem? · Mit ihr.",
+          "sl": "**Oseba: predlog + wen, wem; ihn, ihm, sie, ihr**\n- Auf wen wartest du? · Ich warte auf ihn. · Mit wem? · Mit ihr.",
+          "it": "**Una persona: la preposizione + wen, wem; ihn, ihm, sie, ihr**\n- Auf wen wartest du? · Ich warte auf ihn. · Mit wem? · Mit ihr."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wo-da-woerter",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stefan wartet ___, dass der Regen aufhört.",
+        "options": [
+          "darauf",
+          "worauf",
+          "auf ihn"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**darauf points ahead to the clause**",
+          "sl": "**darauf kaže naprej na odvisnik**",
+          "it": "**darauf indica la frase che segue**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Auf was, drauf, dran, auf ihn for a thing, as spoken; darauf, dass; each base"
+}

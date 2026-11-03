@@ -1,0 +1,891 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "haette-waere",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🙏",
+  "title": {
+    "de": "Ich hätte gern, ich wäre, ich würde",
+    "en": "Konjunktiv II: hätte, wäre, würde",
+    "sl": "Konjunktiv II: hätte, wäre, würde",
+    "it": "Il congiuntivo II: hätte, wäre, würde"
+  },
+  "goal": {
+    "en": "You can wish and ask kindly: Ich hätte gern einen Kaffee, Ich wäre gern auf der Alm, Ich würde gern tanzen, Würdest du mir helfen?",
+    "sl": "Znaš izraziti željo in vljudno prositi: Ich hätte gern einen Kaffee, Ich wäre gern auf der Alm, Ich würde gern tanzen, Würdest du mir helfen?",
+    "it": "Sai esprimere un desiderio e chiedere con garbo: Ich hätte gern einen Kaffee, Ich wäre gern auf der Alm, Ich würde gern tanzen, Würdest du mir helfen?"
+  },
+  "grammar": [
+    "konjunktiv-zwei"
+  ],
+  "words": [
+    "hätte",
+    "wäre",
+    "würde",
+    "gern",
+    "möglich",
+    "reich",
+    "tanzen",
+    "schlafen",
+    "mitkommen",
+    "zumachen",
+    "bringen",
+    "der Kaffee",
+    "die Melange",
+    "die Suppe",
+    "die Rechnung",
+    "das Zimmer",
+    "der Tisch",
+    "das Fenster",
+    "der Hut",
+    "die Kerze",
+    "der Honig",
+    "das Glas",
+    "die Lust",
+    "der Wirt",
+    "der Euro"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        "ich · er · sie · es",
+        "du",
+        "wir · sie · Sie"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**hätte** (would have) is haben's form for a wish. It is **hatte** (had) with an umlaut, with the same endings: ich **hätte**, du **hättest**, wir **hätten**, ihr **hättet**. At Kathi's you say **Ich hätte gern** eine Suppe (I'd like a soup): it asks for a thing, more softly than ich will.",
+          "sl": "**hätte** (bi imel) je oblika glagola haben za želje. To je **hatte** (je imel) s preglasom in z istimi končnicami: ich **hätte**, du **hättest**, wir **hätten**, ihr **hättet**. Pri Kathi rečeš **Ich hätte gern** eine Suppe (rad bi juho): tako prosiš za stvar, mehkeje kot z ich will.",
+          "it": "**hätte** (avrei) è la forma di haben per un desiderio. È **hatte** (avevo) con la dieresi e le stesse desinenze: ich **hätte**, du **hättest**, wir **hätten**, ihr **hättet**. Da Kathi dici **Ich hätte gern** eine Suppe (vorrei una zuppa): chiedi una cosa, con più garbo di ich will."
+        },
+        "examples": [
+          {
+            "de": "Ich hätte gern eine Suppe.",
+            "en": "I'd like a soup.",
+            "sl": "Rad bi juho.",
+            "it": "Vorrei una zuppa."
+          },
+          {
+            "de": "Hättest du morgen Zeit?",
+            "en": "Would you have time tomorrow?",
+            "sl": "Ali bi imel jutri čas?",
+            "it": "Avresti tempo domani?"
+          }
+        ],
+        "rows": [
+          [
+            "haben",
+            "hätte",
+            "hättest",
+            "hätten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-zwei",
+          "text": "Guten Tag, ich ___ gern einen Kaffee. (haben)",
+          "accept": [
+            "hätte"
+          ],
+          "hint": {
+            "en": "a wish, with an umlaut",
+            "sl": "želja, s preglasom",
+            "it": "un desiderio, con la dieresi"
+          },
+          "explain": {
+            "en": "**A wish for a thing: hätte gern**\n- Ich hätte gern einen Kaffee.",
+            "sl": "**Želja po stvari: hätte gern**\n- Ich hätte gern einen Kaffee.",
+            "it": "**Desiderare una cosa: hätte gern**\n- Ich hätte gern einen Kaffee."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**wäre** (would be) is sein's: **war** (was) with an umlaut and an -e. ich **wäre**, du **wärst**, wir **wären**, ihr **wärt**. **Das wäre schön!** (That would be nice!) **Ich wäre gern** auf der Alm (I'd like to be up on the Alm). You may read du **wärest**, ihr **wäret** too: the same.",
+          "sl": "**wäre** (bi bil) je od glagola sein: **war** (je bil) s preglasom in z -e. ich **wäre**, du **wärst**, wir **wären**, ihr **wärt**. **Das wäre schön!** (To bi bilo lepo!) **Ich wäre gern** auf der Alm (rad bi bil na planini). Prebereš lahko tudi du **wärest**, ihr **wäret**: isto je.",
+          "it": "**wäre** (sarei) è di sein: **war** (ero) con la dieresi e una -e. ich **wäre**, du **wärst**, wir **wären**, ihr **wärt**. **Das wäre schön!** (Sarebbe bello!) **Ich wäre gern** auf der Alm (vorrei essere all'alpeggio). Puoi leggere anche du **wärest**, ihr **wäret**: è lo stesso."
+        },
+        "examples": [
+          {
+            "de": "Das wäre schön!",
+            "en": "That would be nice!",
+            "sl": "To bi bilo lepo!",
+            "it": "Sarebbe bello!"
+          },
+          {
+            "de": "Stefan wäre gern Wirt.",
+            "en": "Stefan would like to be an innkeeper.",
+            "sl": "Stefan bi bil rad gostilničar.",
+            "it": "Stefan vorrebbe fare l'oste."
+          }
+        ],
+        "rows": [
+          [
+            "sein",
+            "wäre",
+            "wärst",
+            "wären"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "prompt": "Ich ___ jetzt gern auf der Alm.",
+          "options": [
+            "wäre",
+            "war",
+            "hätte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Where you'd like to be: wäre gern**\n- jetzt, so it is a wish: war is the past",
+            "sl": "**Kje bi rad bil: wäre gern**\n- jetzt, torej želja: war je preteklost",
+            "it": "**Dove vorresti essere: wäre gern**\n- jetzt, quindi un desiderio: war è il passato"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**würde** (would) + the infinitive works for nearly every other verb: **Ich würde gern tanzen** (I'd like to dance). **würde** comes second, the infinitive last, as with a modal verb: **Kathi würde morgen gern nach Villach fahren.** du **würdest**, wir **würden**, ihr **würdet**.",
+          "sl": "**würde** (bi) + nedoločnik velja za skoraj vsak drug glagol: **Ich würde gern tanzen** (rad bi plesal). **würde** je drugi, nedoločnik na koncu, kot pri naklonskem glagolu: **Kathi würde morgen gern nach Villach fahren.** du **würdest**, wir **würden**, ihr **würdet**.",
+          "it": "**würde** + l'infinito va bene per quasi ogni altro verbo: **Ich würde gern tanzen** (vorrei ballare). **würde** viene per secondo, l'infinito alla fine, come con un verbo modale: **Kathi würde morgen gern nach Villach fahren.** du **würdest**, wir **würden**, ihr **würdet**."
+        },
+        "examples": [
+          {
+            "de": "Ich würde gern tanzen.",
+            "en": "I'd like to dance.",
+            "sl": "Rad bi plesal.",
+            "it": "Vorrei ballare."
+          },
+          {
+            "de": "Kathi würde morgen gern nach Villach fahren.",
+            "en": "Kathi would like to go to Villach tomorrow.",
+            "sl": "Kathi bi šla jutri rada v Beljak.",
+            "it": "Kathi vorrebbe andare a Villach domani."
+          }
+        ],
+        "rows": [
+          [
+            "werden",
+            "würde",
+            "würdest",
+            "würden"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "konjunktiv-zwei",
+          "text": "Wir ___ gern mitkommen. (werden)",
+          "accept": [
+            "würden"
+          ],
+          "hint": {
+            "en": "with an umlaut",
+            "sl": "s preglasom",
+            "it": "con la dieresi"
+          },
+          "explain": {
+            "en": "**würde + the infinitive, the infinitive last**\n- Wir würden gern mitkommen.",
+            "sl": "**würde + nedoločnik, nedoločnik na koncu**\n- Wir würden gern mitkommen.",
+            "it": "**würde + l'infinito, l'infinito alla fine**\n- Wir würden gern mitkommen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ich hätte gern, ich wäre gern, ich würde gern**: three ways to wish, by what you wish for. A thing: **ich hätte gern** ein Bier. A place or a state: **ich wäre gern** zu Hause, reich. Doing something: **ich würde gern** schlafen. **gern** (gladly) comes right after the verb. **Ich möchte** (I'd like) says much the same.",
+          "sl": "**ich hätte gern, ich wäre gern, ich würde gern**: trije načini želje, odvisno od tega, kaj si želiš. Stvar: **ich hätte gern** ein Bier. Kraj ali stanje: **ich wäre gern** zu Hause, reich. Dejanje: **ich würde gern** schlafen. **gern** (rad) pride takoj za glagolom. **Ich möchte** (rad bi) pove skoraj isto.",
+          "it": "**ich hätte gern, ich wäre gern, ich würde gern**: tre modi di desiderare, secondo ciò che desideri. Una cosa: **ich hätte gern** ein Bier. Un luogo o uno stato: **ich wäre gern** zu Hause, reich. Fare qualcosa: **ich würde gern** schlafen. **gern** (volentieri) viene subito dopo il verbo. **Ich möchte** (vorrei) dice più o meno lo stesso."
+        },
+        "examples": [
+          {
+            "de": "Ich wäre gern zu Hause.",
+            "en": "I'd like to be at home.",
+            "sl": "Rad bi bil doma.",
+            "it": "Vorrei essere a casa."
+          },
+          {
+            "de": "Ich würde gern schlafen.",
+            "en": "I'd like to sleep.",
+            "sl": "Rad bi spal.",
+            "it": "Vorrei dormire."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "prompt": "Mitzi ___ gern einen neuen Hut.",
+          "options": [
+            "hätte",
+            "wäre",
+            "würde"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A thing: hätte gern; a place or a state: wäre gern; doing something: würde gern**",
+            "sl": "**Stvar: hätte gern; kraj ali stanje: wäre gern; dejanje: würde gern**",
+            "it": "**Una cosa: hätte gern; un luogo o uno stato: wäre gern; fare qualcosa: würde gern**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Würdest du mir helfen?** (Would you help me?) asks kindly. Compare Hilf mir! (a command) and Hilfst du mir? (a plain question). To a stranger: **Hätten Sie** einen Tisch für zwei? **Würden Sie** bitte das Fenster zumachen? And **Wäre das möglich?** (Would that be possible?). The verb comes first, as in any yes or no question.",
+          "sl": "**Würdest du mir helfen?** (Ali bi mi pomagal?) je vljudna prošnja. Primerjaj Hilf mir! (ukaz) in Hilfst du mir? (navadno vprašanje). Neznancu: **Hätten Sie** einen Tisch für zwei? **Würden Sie** bitte das Fenster zumachen? In **Wäre das möglich?** (Bi bilo to mogoče?). Glagol je prvi, kot v vsakem vprašanju z da ali ne.",
+          "it": "**Würdest du mir helfen?** (Mi aiuteresti?) chiede con garbo. Confronta Hilf mir! (un ordine) e Hilfst du mir? (una domanda semplice). A uno sconosciuto: **Hätten Sie** einen Tisch für zwei? **Würden Sie** bitte das Fenster zumachen? E **Wäre das möglich?** (Sarebbe possibile?). Il verbo viene per primo, come in ogni domanda con sì o no."
+        },
+        "examples": [
+          {
+            "de": "Würdest du mir helfen?",
+            "en": "Would you help me?",
+            "sl": "Ali bi mi pomagal?",
+            "it": "Mi aiuteresti?"
+          },
+          {
+            "de": "Hätten Sie einen Tisch für zwei?",
+            "en": "Would you have a table for two?",
+            "sl": "Ali bi imeli mizo za dva?",
+            "it": "Avrebbe un tavolo per due?"
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "prompt": "___ Sie bitte das Fenster zumachen?",
+          "options": [
+            "Würden",
+            "Wurden",
+            "Hätten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Asking kindly: the verb first, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+            "sl": "**Vljudna prošnja: glagol prvi, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+            "it": "**Chiedere con garbo: il verbo per primo, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Ich hatte gestern Zeit** (I had time yesterday) is what was; **Ich hätte heute Zeit** (I'd have time today) is only a thought. The umlaut is the whole difference: **war** and **wäre**, **wurde** and **würde** too. In speech the -e often goes: **ich hätt gern, das wär schön, ich würd gern**: right. In Austrian dialect you may hear **ich tät gern kommen**: people say it; write würde.",
+          "sl": "**Ich hatte gestern Zeit** (včeraj sem imel čas) je bilo; **Ich hätte heute Zeit** (danes bi imel čas) je samo misel. Vsa razlika je v preglasu: tudi **war** in **wäre**, **wurde** in **würde**. V govoru -e pogosto odpade: **ich hätt gern, das wär schön, ich würd gern**: prav. V avstrijskem narečju slišiš tudi **ich tät gern kommen**: ljudje to govorijo; piši würde.",
+          "it": "**Ich hatte gestern Zeit** (ieri avevo tempo) è ciò che era; **Ich hätte heute Zeit** (oggi avrei tempo) è solo un pensiero. Tutta la differenza è nella dieresi: anche **war** e **wäre**, **wurde** e **würde**. A voce la -e spesso cade: **ich hätt gern, das wär schön, ich würd gern**: va bene. Nel dialetto austriaco puoi sentire **ich tät gern kommen**: si dice; scrivi würde."
+        },
+        "examples": [
+          {
+            "de": "Ich hatte gestern Zeit.",
+            "en": "I had time yesterday.",
+            "sl": "Včeraj sem imel čas.",
+            "it": "Ieri avevo tempo."
+          },
+          {
+            "de": "Ich hätte heute Zeit.",
+            "en": "I'd have time today.",
+            "sl": "Danes bi imel čas.",
+            "it": "Oggi avrei tempo."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "prompt": "Gestern ___ ich keine Zeit.",
+          "options": [
+            "hatte",
+            "hätte",
+            "wäre"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Yesterday is the past: hatte, no umlaut**\n- Gestern hatte ich keine Zeit.",
+            "sl": "**Včeraj je preteklost: hatte, brez preglasa**\n- Gestern hatte ich keine Zeit.",
+            "it": "**Ieri è il passato: hatte, senza dieresi**\n- Gestern hatte ich keine Zeit."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Haben, sein and werden wish with an umlaut: **hätte, wäre, würde**.\n\nA thing: **Ich hätte gern eine Suppe.** A place or a state: **Ich wäre gern zu Hause.** Doing something: **Ich würde gern tanzen.**\n\nAsking kindly, the verb first: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** was, **hätte** would be.",
+      "sl": "Haben, sein in werden izrazijo željo s preglasom: **hätte, wäre, würde**.\n\nStvar: **Ich hätte gern eine Suppe.** Kraj ali stanje: **Ich wäre gern zu Hause.** Dejanje: **Ich würde gern tanzen.**\n\nVljudna prošnja, glagol prvi: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** je bilo, **hätte** bi bilo.",
+      "it": "Haben, sein e werden desiderano con la dieresi: **hätte, wäre, würde**.\n\nUna cosa: **Ich hätte gern eine Suppe.** Un luogo o uno stato: **Ich wäre gern zu Hause.** Fare qualcosa: **Ich würde gern tanzen.**\n\nChiedere con garbo, il verbo per primo: **Hätten Sie Zeit? Wäre das möglich? Würdest du mir helfen?**\n\n**hatte** era, **hätte** sarebbe."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "haette-waere-1",
+      "title": {
+        "de": "Hätte, wäre, würde",
+        "en": "Hätte, wäre, würde",
+        "sl": "Hätte, wäre, würde",
+        "it": "Hätte, wäre, würde"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "with the umlaut",
+            "sl": "s preglasom",
+            "it": "con la dieresi"
+          },
+          "columns": [
+            "haben",
+            "sein",
+            "werden + kommen"
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "hätte",
+                "wäre",
+                "würde kommen"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "hättest"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wärst",
+                    "wärest"
+                  ]
+                },
+                {
+                  "accept": [
+                    "würdest kommen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                "hätte",
+                "wäre",
+                "würde kommen"
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "hätten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wären"
+                  ]
+                },
+                {
+                  "accept": [
+                    "würden kommen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "hättet"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wärt",
+                    "wäret"
+                  ]
+                },
+                {
+                  "accept": [
+                    "würdet kommen"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A wish: hätte, wäre, würde, with the umlaut**\n- ich hätte · ich wäre · ich würde tanzen",
+            "sl": "**Želja: hätte, wäre, würde, s preglasom**\n- ich hätte · ich wäre · ich würde tanzen",
+            "it": "**Un desiderio: hätte, wäre, würde, con la dieresi**\n- ich hätte · ich wäre · ich würde tanzen"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Sortiere · Sort: what goes with it?",
+            "sl": "Sortiere · Razvrsti: kaj gre zraven?",
+            "it": "Sortiere · Ordina: che cosa ci va?"
+          },
+          "columns": [
+            {
+              "label": "ich hätte gern …",
+              "words": [
+                "einen Kaffee",
+                "ein Zimmer",
+                "die Rechnung"
+              ]
+            },
+            {
+              "label": "ich wäre gern …",
+              "words": [
+                "auf der Alm",
+                "zu Hause",
+                "reich"
+              ]
+            },
+            {
+              "label": "ich würde gern …",
+              "words": [
+                "tanzen",
+                "schlafen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A thing: hätte gern; a place or a state: wäre gern; doing something: würde gern**",
+            "sl": "**Stvar: hätte gern; kraj ali stanje: wäre gern; dejanje: würde gern**",
+            "it": "**Una cosa: hätte gern; un luogo o uno stato: wäre gern; fare qualcosa: würde gern**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "haette-waere-2",
+      "title": {
+        "de": "Bei Kathi im Gasthaus",
+        "en": "At Kathi's inn",
+        "sl": "Pri Kathi v gostilni",
+        "it": "All'osteria di Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Ergänze mit hätte, wäre oder würde · Fill in with hätte, wäre or würde",
+            "sl": "Ergänze mit hätte, wäre oder würde · Dopolni s hätte, wäre ali würde",
+            "it": "Ergänze mit hätte, wäre oder würde · Completa con hätte, wäre o würde"
+          },
+          "title": "Bei Kathi im Gasthaus",
+          "text": "Stefan kommt zu Kathi ins Gasthaus. Was ___ du gern?, fragt Kathi. Ich ___ gern eine Melange, sagt Stefan. Und ich ___ gern etwas essen. ___ du Lust auf eine Suppe? Das ___ schön! ___ du mir auch Brot bringen? Am Abend ___ Stefan gern noch bleiben, aber er hat keine Zeit.",
+          "gaps": [
+            {
+              "accept": [
+                "hättest"
+              ]
+            },
+            {
+              "accept": [
+                "hätte"
+              ],
+              "hint": {
+                "en": "a thing",
+                "sl": "stvar",
+                "it": "una cosa"
+              }
+            },
+            {
+              "accept": [
+                "würde"
+              ],
+              "spoken": [
+                "täte",
+                "tät"
+              ],
+              "hint": {
+                "en": "doing something",
+                "sl": "dejanje",
+                "it": "fare qualcosa"
+              }
+            },
+            {
+              "accept": [
+                "Hättest"
+              ]
+            },
+            {
+              "accept": [
+                "wäre"
+              ]
+            },
+            {
+              "accept": [
+                "Würdest"
+              ]
+            },
+            {
+              "accept": [
+                "würde"
+              ],
+              "spoken": [
+                "täte",
+                "tät"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "hatte",
+            "war",
+            "wurde"
+          ],
+          "translation": {
+            "en": "Stefan comes to Kathi's inn. What would you like?, Kathi asks. I'd like a melange, says Stefan. And I'd like something to eat. Would you like a soup? That would be nice! Would you bring me some bread too? In the evening Stefan would like to stay on, but he has no time.",
+            "sl": "Stefan pride h Kathi v gostilno. Kaj bi rad?, vpraša Kathi. Rad bi melange, reče Stefan. In rad bi nekaj pojedel. Bi imel rad juho? To bi bilo lepo! Bi mi prinesla tudi kruh? Zvečer bi Stefan rad še ostal, a nima časa.",
+            "it": "Stefan viene all'osteria di Kathi. Che cosa vorresti?, chiede Kathi. Vorrei una melange, dice Stefan. E vorrei mangiare qualcosa. Avresti voglia di una zuppa? Sarebbe bello! Mi porteresti anche del pane? La sera Stefan vorrebbe restare ancora, ma non ha tempo."
+          },
+          "explain": {
+            "en": "**A wish: hätte, wäre, würde, with the umlaut**\n- ich hätte · ich wäre · ich würde tanzen",
+            "sl": "**Želja: hätte, wäre, würde, s preglasom**\n- ich hätte · ich wäre · ich würde tanzen",
+            "it": "**Un desiderio: hätte, wäre, würde, con la dieresi**\n- ich hätte · ich wäre · ich würde tanzen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Guten Abend! ___ Sie einen Tisch für vier?",
+          "options": [
+            "Hätten",
+            "Hatten",
+            "Wären"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Asking kindly: the verb first, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+            "sl": "**Vljudna prošnja: glagol prvi, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+            "it": "**Chiedere con garbo: il verbo per primo, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Toni ___ gern ein neues Auto.",
+          "options": [
+            "hätte",
+            "wäre",
+            "würde"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A thing: hätte gern; a place or a state: wäre gern; doing something: würde gern**",
+            "sl": "**Stvar: hätte gern; kraj ali stanje: wäre gern; dejanje: würde gern**",
+            "it": "**Una cosa: hätte gern; un luogo o uno stato: wäre gern; fare qualcosa: würde gern**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "haette-waere-3",
+      "title": {
+        "de": "Bitte ganz höflich",
+        "en": "Politely, please",
+        "sl": "Prosim, zelo vljudno",
+        "it": "Con molto garbo, per favore"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Sag es als Wunsch · Say it as a wish: hätte gern, wäre gern, würde gern",
+            "sl": "Sag es als Wunsch · Povej kot željo: hätte gern, wäre gern, würde gern",
+            "it": "Sag es als Wunsch · Dillo come un desiderio: hätte gern, wäre gern, würde gern"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich will eine Suppe.",
+              "accept": [
+                "Ich hätte gern eine Suppe."
+              ]
+            },
+            {
+              "from": "Ich will auf der Alm sein.",
+              "accept": [
+                "Ich wäre gern auf der Alm."
+              ]
+            },
+            {
+              "from": "Ich will tanzen.",
+              "accept": [
+                "Ich würde gern tanzen."
+              ],
+              "spoken": [
+                "Ich täte gern tanzen."
+              ]
+            },
+            {
+              "from": "Stefan will nach Villach fahren.",
+              "accept": [
+                "Stefan würde gern nach Villach fahren."
+              ],
+              "spoken": [
+                "Stefan täte gern nach Villach fahren."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**A thing: hätte gern; a place or a state: wäre gern; doing something: würde gern**",
+            "sl": "**Stvar: hätte gern; kraj ali stanje: wäre gern; dejanje: würde gern**",
+            "it": "**Una cosa: hätte gern; un luogo o uno stato: wäre gern; fare qualcosa: würde gern**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "konjunktiv-zwei",
+          "instruction": {
+            "en": "Frag höflich · Ask kindly",
+            "sl": "Frag höflich · Vprašaj vljudno",
+            "it": "Frag höflich · Chiedi con garbo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Hilf mir!",
+              "accept": [
+                "Würdest du mir helfen?",
+                "Würdest du mir bitte helfen?"
+              ]
+            },
+            {
+              "from": "Mach das Fenster zu!",
+              "accept": [
+                "Würdest du das Fenster zumachen?",
+                "Würdest du bitte das Fenster zumachen?"
+              ]
+            },
+            {
+              "from": "Bring mir ein Bier!",
+              "accept": [
+                "Würdest du mir ein Bier bringen?",
+                "Würdest du mir bitte ein Bier bringen?"
+              ]
+            },
+            {
+              "from": "Kommen Sie bitte morgen!",
+              "accept": [
+                "Würden Sie bitte morgen kommen?",
+                "Würden Sie morgen bitte kommen?",
+                "Würden Sie morgen kommen?"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Asking kindly: the verb first, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+            "sl": "**Vljudna prošnja: glagol prvi, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+            "it": "**Chiedere con garbo: il verbo per primo, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Ergänze mit hätte, wäre oder würde · Fill in with hätte, wäre or würde",
+          "sl": "Ergänze mit hätte, wäre oder würde · Dopolni s hätte, wäre ali würde",
+          "it": "Ergänze mit hätte, wäre oder würde · Completa con hätte, wäre o würde"
+        },
+        "title": "Bei Stanko auf dem Markt",
+        "text": "Oma Resi geht zu Stanko auf den Markt. Guten Morgen, Stanko! Ich ___ gern ein Glas Honig. ___ du gern den dunklen Honig?, fragt Stanko. Ja, der ___ gut. Ich ___ auch gern zwei Kerzen kaufen. ___ du sie mir zeigen? Gern! Das ___ dann zwölf Euro.",
+        "gaps": [
+          {
+            "accept": [
+              "hätte"
+            ]
+          },
+          {
+            "accept": [
+              "Hättest"
+            ]
+          },
+          {
+            "accept": [
+              "wäre"
+            ]
+          },
+          {
+            "accept": [
+              "würde"
+            ],
+            "spoken": [
+              "täte",
+              "tät"
+            ]
+          },
+          {
+            "accept": [
+              "Würdest",
+              "Könntest"
+            ]
+          },
+          {
+            "accept": [
+              "wären",
+              "wäre"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Oma Resi goes to Stanko at the market. Good morning, Stanko! I'd like a jar of honey. Would you like the dark honey?, asks Stanko. Yes, that would be good. I'd also like to buy two candles. Would you show them to me? Gladly! That would be twelve euros, then.",
+          "sl": "Babica Resi gre k Stanku na tržnico. Dobro jutro, Stanko! Rada bi kozarec medu. Bi rada temni med?, vpraša Stanko. Ja, ta bi bil dober. Rada bi kupila tudi dve sveči. Bi mi ju pokazal? Z veseljem! To bi bilo potem dvanajst evrov.",
+          "it": "Nonna Resi va da Stanko al mercato. Buongiorno, Stanko! Vorrei un vasetto di miele. Vorresti il miele scuro?, chiede Stanko. Sì, sarebbe buono. Vorrei comprare anche due candele. Me le faresti vedere? Volentieri! Allora sarebbero dodici euro."
+        },
+        "explain": {
+          "en": "**A wish: hätte, wäre, würde, with the umlaut**\n- ich hätte · ich wäre · ich würde tanzen",
+          "sl": "**Želja: hätte, wäre, würde, s preglasom**\n- ich hätte · ich wäre · ich würde tanzen",
+          "it": "**Un desiderio: hätte, wäre, würde, con la dieresi**\n- ich hätte · ich wäre · ich würde tanzen"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Sag es höflich · Say it kindly",
+          "sl": "Sag es höflich · Povej vljudno",
+          "it": "Sag es höflich · Dillo con garbo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Hast du morgen Zeit?",
+            "accept": [
+              "Hättest du morgen Zeit?"
+            ]
+          },
+          {
+            "from": "Ist das möglich?",
+            "accept": [
+              "Wäre das möglich?"
+            ]
+          },
+          {
+            "from": "Hilfst du mir?",
+            "accept": [
+              "Würdest du mir helfen?"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Asking kindly: the verb first, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+          "sl": "**Vljudna prošnja: glagol prvi, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?",
+          "it": "**Chiedere con garbo: il verbo per primo, hätte, wäre, würde**\n- Hättest du Zeit? · Wäre das möglich? · Würdest du mir helfen?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Gestern ___ wir viel Arbeit.",
+        "options": [
+          "hatten",
+          "hätten",
+          "wären"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Yesterday is the past: hatten, no umlaut**",
+          "sl": "**Včeraj je preteklost: hatten, brez preglasa**",
+          "it": "**Ieri è il passato: hatten, senza dieresi**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich ___ morgen gern nach Villach fahren.",
+        "options": [
+          "würde",
+          "wurde",
+          "hätte"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Doing something: würde gern + the infinitive**",
+          "sl": "**Dejanje: würde gern + nedoločnik**",
+          "it": "**Fare qualcosa: würde gern + l'infinito**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "konjunktiv-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das ___ schön!",
+        "options": [
+          "wäre",
+          "hätte",
+          "würde"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A state: wäre**\n- Das wäre schön!",
+          "sl": "**Stanje: wäre**\n- Das wäre schön!",
+          "it": "**Uno stato: wäre**\n- Das wäre schön!"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: hätte gern; hätt, wär spoken; ich tät; das wären zwölf Euro; rad bi; vorrei"
+}

@@ -1,0 +1,955 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "jemand-irgendwer",
+  "language": "de",
+  "level": "B1",
+  "emoji": "👤",
+  "title": {
+    "de": "Jemand, niemand, irgendwer",
+    "en": "Someone, nobody: jemand, niemand, irgendwer",
+    "sl": "Nekdo, nihče: jemand, niemand, irgendwer",
+    "it": "Qualcuno, nessuno: jemand, niemand, irgendwer"
+  },
+  "goal": {
+    "en": "You can talk about people and things you don't name: jemand, niemand, irgendwer, etwas, nichts; say Ja, ich habe einen with no noun; and say the same with derselbe.",
+    "sl": "Znaš govoriti o ljudeh in stvareh, ki jih ne imenuješ: jemand, niemand, irgendwer, etwas, nichts; reči Ja, ich habe einen brez samostalnika; in povedati isto z derselbe.",
+    "it": "Sai parlare di persone e cose che non nomini: jemand, niemand, irgendwer, etwas, nichts; dire Ja, ich habe einen senza il nome; e dire lo stesso con derselbe."
+  },
+  "grammar": [
+    "indefinitpronomen"
+  ],
+  "words": [
+    "jemand",
+    "niemand",
+    "etwas",
+    "nichts",
+    "alles",
+    "man",
+    "alle",
+    "viele",
+    "manche",
+    "wenige",
+    "irgendwer",
+    "irgendwelche",
+    "irgendwo",
+    "irgendwann",
+    "irgendwas",
+    "welche",
+    "derselbe",
+    "der Hammer",
+    "die Semmel",
+    "das Ei",
+    "das Messer",
+    "der Stift",
+    "der Kuchen",
+    "das Stück",
+    "der Keller",
+    "die Leute",
+    "das Gasthaus",
+    "selbst",
+    "hinstellen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        "Nominativ",
+        "Akkusativ",
+        "Dativ"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**jemand** (someone) and **niemand** (no one) are for people. Ist **jemand** da? **Niemand** ist da. They take the case's ending: Ich sehe **niemanden**, ich spreche mit **jemandem**. With no ending it's right too. One no is enough: **Niemand kommt.** (never *Niemand kommt nicht*) In speech you'll hear **wer** for jemand: Ist **wer** da?",
+          "sl": "**jemand** (nekdo) in **niemand** (nihče) sta za ljudi. Ist **jemand** da? **Niemand** ist da. Dobita končnico sklona: Ich sehe **niemanden**, ich spreche mit **jemandem**. Tudi brez končnice je prav. Dovolj je en ne: **Niemand kommt.** (slovensko: nihče ne pride). V govoru slišiš **wer** za jemand: Ist **wer** da?",
+          "it": "**jemand** (qualcuno) e **niemand** (nessuno) sono per le persone. Ist **jemand** da? **Niemand** ist da. Prendono la desinenza del caso: Ich sehe **niemanden**, ich spreche mit **jemandem**. Anche senza desinenza va bene. Basta un no: **Niemand kommt.** (in italiano: non viene nessuno). A voce senti **wer** per jemand: Ist **wer** da?"
+        },
+        "examples": [
+          {
+            "de": "Ist jemand zu Hause?",
+            "en": "Is anyone at home?",
+            "sl": "Je kdo doma?",
+            "it": "C'è qualcuno in casa?"
+          },
+          {
+            "de": "Niemand kommt.",
+            "en": "No one is coming.",
+            "sl": "Nihče ne pride.",
+            "it": "Non viene nessuno."
+          }
+        ],
+        "rows": [
+          [
+            "jemand",
+            "jemanden",
+            "jemandem"
+          ],
+          [
+            "niemand",
+            "niemanden",
+            "niemandem"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "indefinitpronomen",
+          "text": "Ich kenne hier ___. (niemand)",
+          "accept": [
+            "niemanden",
+            "niemand"
+          ],
+          "hint": {
+            "en": "kennen takes the accusative",
+            "sl": "kennen zahteva tožilnik",
+            "it": "kennen vuole l'accusativo"
+          },
+          "explain": {
+            "en": "**The accusative: niemanden; with no ending it's right too**\n- Ich kenne hier niemanden.",
+            "sl": "**Tožilnik: niemanden; tudi brez končnice je prav**\n- Ich kenne hier niemanden.",
+            "it": "**L'accusativo: niemanden; anche senza desinenza va bene**\n- Ich kenne hier niemanden."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**etwas** (something), **nichts** (nothing) and **alles** (everything) are for things, and they never change. Möchtest du **etwas**? Ich habe **nichts** gekauft. **Alles** ist gut. In speech you'll hear **was** and **nix**: Hast du **was**? Ich hab **nix**: people say them; write etwas, nichts.",
+          "sl": "**etwas** (nekaj), **nichts** (nič) in **alles** (vse) so za stvari in se nikoli ne spreminjajo. Möchtest du **etwas**? Ich habe **nichts** gekauft. **Alles** ist gut. V govoru slišiš **was** in **nix**: Hast du **was**? Ich hab **nix**: ljudje to govorijo; piši etwas, nichts.",
+          "it": "**etwas** (qualcosa), **nichts** (niente) e **alles** (tutto) sono per le cose e non cambiano mai. Möchtest du **etwas**? Ich habe **nichts** gekauft. **Alles** ist gut. A voce senti **was** e **nix**: Hast du **was**? Ich hab **nix**: si dicono; scrivi etwas, nichts."
+        },
+        "examples": [
+          {
+            "de": "Ich habe nichts gekauft.",
+            "en": "I didn't buy anything.",
+            "sl": "Nič nisem kupil.",
+            "it": "Non ho comprato niente."
+          },
+          {
+            "de": "Alles ist gut.",
+            "en": "Everything is fine.",
+            "sl": "Vse je v redu.",
+            "it": "Va tutto bene."
+          }
+        ],
+        "rows": [],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinitpronomen",
+          "prompt": "Stefan hat Hunger, aber im Haus ist ___.",
+          "options": [
+            "nichts",
+            "niemanden",
+            "nicht"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A thing, and none: nichts**\n- nicht is not; nichts is nothing",
+            "sl": "**Stvar, in nobena: nichts**\n- nicht je ne; nichts je nič",
+            "it": "**Una cosa, e nessuna: nichts**\n- nicht è non; nichts è niente"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**man** (one, people) takes the er form: **Man** sagt hier Grüß Gott. In the other cases it is **einen** and **einem**: Das freut **einen**. Das hilft **einem**. **alle** (everyone), **viele** (many), **manche** (some) and **wenige** (few) take the plural: **Alle** sind da, **manche** kommen später, **wenige** wissen es.",
+          "sl": "**man** (človek, ljudje) ima obliko za er: **Man** sagt hier Grüß Gott. V drugih sklonih je **einen** in **einem**: Das freut **einen**. Das hilft **einem**. **alle** (vsi), **viele** (mnogi), **manche** (nekateri) in **wenige** (redki) imajo množino: **Alle** sind da, **manche** kommen später, **wenige** wissen es.",
+          "it": "**man** (si, la gente) prende la forma di er: **Man** sagt hier Grüß Gott. Negli altri casi è **einen** e **einem**: Das freut **einen**. Das hilft **einem**. **alle** (tutti), **viele** (molti), **manche** (alcuni) e **wenige** (pochi) vogliono il plurale: **Alle** sind da, **manche** kommen später, **wenige** wissen es."
+        },
+        "examples": [
+          {
+            "de": "Man sagt hier Grüß Gott.",
+            "en": "People say Grüß Gott here.",
+            "sl": "Tukaj se reče Grüß Gott.",
+            "it": "Qui si dice Grüß Gott."
+          },
+          {
+            "de": "Manche kommen später.",
+            "en": "Some are coming later.",
+            "sl": "Nekateri pridejo pozneje.",
+            "it": "Alcuni vengono più tardi."
+          }
+        ],
+        "rows": [
+          [
+            "man",
+            "einen",
+            "einem"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinitpronomen",
+          "prompt": "Alle ___ da.",
+          "options": [
+            "sind",
+            "ist",
+            "bin"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**alle takes the plural**\n- Alle sind da. · man ist da",
+            "sl": "**alle ima množino**\n- Alle sind da. · man ist da",
+            "it": "**alle vuole il plurale**\n- Alle sind da. · man ist da"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**irgendwer** (someone or other) says: someone, and I don't know who. **Irgendwer** hat angerufen. It changes as wer does: **irgendwen**, **irgendwem**. **irgendwelche** (some … or other) goes before a plural: **Irgendwelche** Leute waren da. **irgendwo** (somewhere), **irgendwann** (some time) and **irgendwas** (something) say the same of a place, a time and a thing.",
+          "sl": "**irgendwer** (nekdo pač) pove: nekdo, in ne vem, kdo. **Irgendwer** hat angerufen. Spreminja se kot wer: **irgendwen**, **irgendwem**. **irgendwelche** (nekakšni) pride pred množino: **Irgendwelche** Leute waren da. **irgendwo** (nekje), **irgendwann** (nekoč, kdaj) in **irgendwas** (nekaj) povedo isto o kraju, času in stvari.",
+          "it": "**irgendwer** (qualcuno, chissà chi) dice: qualcuno, e non so chi. **Irgendwer** hat angerufen. Cambia come wer: **irgendwen**, **irgendwem**. **irgendwelche** (dei … qualsiasi) va davanti a un plurale: **Irgendwelche** Leute waren da. **irgendwo** (da qualche parte), **irgendwann** (prima o poi) e **irgendwas** (qualcosa) dicono lo stesso di un luogo, di un tempo e di una cosa."
+        },
+        "examples": [
+          {
+            "de": "Irgendwer hat angerufen.",
+            "en": "Someone or other phoned.",
+            "sl": "Nekdo je poklical.",
+            "it": "Ha telefonato qualcuno."
+          },
+          {
+            "de": "Irgendwelche Leute waren da.",
+            "en": "Some people or other were here.",
+            "sl": "Nekakšni ljudje so bili tu.",
+            "it": "C'era della gente, chissà chi."
+          }
+        ],
+        "rows": [
+          [
+            "irgendwer",
+            "irgendwen",
+            "irgendwem"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinitpronomen",
+          "prompt": "Wer hat das gesagt? Ich weiß es nicht. ___ hat es gesagt.",
+          "options": [
+            "Irgendwer",
+            "Alles",
+            "Nichts"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Someone, and I don't know who: irgendwer**",
+            "sl": "**Nekdo, in ne vem, kdo: irgendwer**",
+            "it": "**Qualcuno, e non so chi: irgendwer**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**einer** (one), **keiner** (none) and **welche** (some) stand in for a noun and show its gender. Hast du einen Hammer? Ja, ich habe **einen**. Nein, **keinen**. Eine Semmel? **Eine**, **keine**. Ein Ei? **Eins**, **keins**; eines and keines are right too. A plural, or what can't be counted: **welche**: Hast du Eier? Ja, ich habe **welche**. **Keiner** alone is no one: **Keiner** weiß es.",
+          "sl": "**einer** (eden), **keiner** (nobeden) in **welche** (nekaj) stojijo namesto samostalnika in kažejo njegov spol. Hast du einen Hammer? Ja, ich habe **einen**. Nein, **keinen**. Eine Semmel? **Eine**, **keine**. Ein Ei? **Eins**, **keins**; tudi eines in keines je prav. Množina ali kar se ne šteje: **welche**: Hast du Eier? Ja, ich habe **welche**. **Keiner** sam je nihče: **Keiner** weiß es.",
+          "it": "**einer** (uno), **keiner** (nessuno) e **welche** (ne ho) stanno al posto di un nome e ne mostrano il genere. Hast du einen Hammer? Ja, ich habe **einen**. Nein, **keinen**. Eine Semmel? **Eine**, **keine**. Ein Ei? **Eins**, **keins**; anche eines e keines vanno bene. Un plurale, o ciò che non si conta: **welche**: Hast du Eier? Ja, ich habe **welche**. **Keiner** da solo è nessuno: **Keiner** weiß es."
+        },
+        "examples": [
+          {
+            "de": "Hast du einen Hammer? Ja, ich habe einen.",
+            "en": "Have you got a hammer? Yes, I have one.",
+            "sl": "Imaš kladivo? Ja, imam ga.",
+            "it": "Hai un martello? Sì, ce l'ho."
+          },
+          {
+            "de": "Hast du Eier? Ja, ich habe welche.",
+            "en": "Have you got eggs? Yes, I have some.",
+            "sl": "Imaš jajca? Ja, imam jih.",
+            "it": "Hai delle uova? Sì, ne ho."
+          }
+        ],
+        "rows": [
+          [
+            "einer",
+            "einen",
+            "einem"
+          ],
+          [
+            "eine",
+            "eine",
+            "einer"
+          ],
+          [
+            "eins",
+            "eins",
+            "einem"
+          ],
+          [
+            "keiner",
+            "keinen",
+            "keinem"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinitpronomen",
+          "prompt": "Hast du einen Hammer? Nein, ich habe ___.",
+          "options": [
+            "keinen",
+            "kein",
+            "keine"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**In place of a noun: einen, eine, eins; keinen, keine, keins; a plural: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+            "sl": "**Namesto samostalnika: einen, eine, eins; keinen, keine, keins; množina: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+            "it": "**Al posto di un nome: einen, eine, eins; keinen, keine, keins; un plurale: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**derselbe** (the same) is der + selbe in one word, and both parts change: **dieselbe**, **dasselbe**, **dieselben**; **denselben**, **demselben**. After a preposition: **im selben** Haus, **am selben** Tag. **der gleiche** (the same kind) is two words: careful writers keep it for two alike and derselbe for one, and in speech both are said for both.",
+          "sl": "**derselbe** (isti) je der + selbe v eni besedi, spreminjata se oba dela: **dieselbe**, **dasselbe**, **dieselben**; **denselben**, **demselben**. Za predlogom: **im selben** Haus, **am selben** Tag. **der gleiche** (enak) sta dve besedi: skrbni pisci ga rabijo za dve enaki stvari, derselbe pa za eno, v govoru pa se oboje reče za oboje.",
+          "it": "**derselbe** (lo stesso) è der + selbe in una parola, e cambiano tutte e due le parti: **dieselbe**, **dasselbe**, **dieselben**; **denselben**, **demselben**. Dopo una preposizione: **im selben** Haus, **am selben** Tag. **der gleiche** (uguale) sono due parole: chi scrive con cura lo usa per due cose uguali e derselbe per una, e a voce si dicono tutti e due per tutte e due."
+        },
+        "examples": [
+          {
+            "de": "Stefan und Franz gehen in dasselbe Gasthaus.",
+            "en": "Stefan and Franz go to the same inn.",
+            "sl": "Stefan in Franz hodita v isto gostilno.",
+            "it": "Stefan e Franz vanno nella stessa osteria."
+          },
+          {
+            "de": "Wir wohnen im selben Haus.",
+            "en": "We live in the same house.",
+            "sl": "Živimo v isti hiši.",
+            "it": "Abitiamo nella stessa casa."
+          }
+        ],
+        "rows": [
+          [
+            "derselbe",
+            "denselben",
+            "demselben"
+          ],
+          [
+            "dieselbe",
+            "dieselbe",
+            "derselben"
+          ],
+          [
+            "dasselbe",
+            "dasselbe",
+            "demselben"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "indefinitpronomen",
+          "text": "Toni hat ___ Hammer wie gestern. (derselbe)",
+          "accept": [
+            "denselben",
+            "den gleichen"
+          ],
+          "hint": {
+            "en": "the accusative",
+            "sl": "tožilnik",
+            "it": "l'accusativo"
+          },
+          "explain": {
+            "en": "**derselbe: both parts change**\n- derselbe · denselben · demselben · im selben Haus",
+            "sl": "**derselbe: oba dela se spreminjata**\n- derselbe · denselben · demselben · im selben Haus",
+            "it": "**derselbe: cambiano tutte e due le parti**\n- derselbe · denselben · demselben · im selben Haus"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "jemand-irgendwer-1",
+      "title": {
+        "de": "Jemand, niemand, irgendwer",
+        "en": "Someone, no one, someone or other",
+        "sl": "Nekdo, nihče, nekdo pač",
+        "it": "Qualcuno, nessuno, chissà chi"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the case in the ending",
+            "sl": "sklon v končnici",
+            "it": "il caso nella desinenza"
+          },
+          "columns": [
+            "Akkusativ",
+            "Dativ"
+          ],
+          "rows": [
+            {
+              "label": "jemand",
+              "cells": [
+                "jemanden",
+                "jemandem"
+              ]
+            },
+            {
+              "label": "niemand",
+              "cells": [
+                {
+                  "accept": [
+                    "niemanden",
+                    "niemand"
+                  ]
+                },
+                {
+                  "accept": [
+                    "niemandem",
+                    "niemand"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "irgendwer",
+              "cells": [
+                {
+                  "accept": [
+                    "irgendwen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "irgendwem"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "man",
+              "cells": [
+                {
+                  "accept": [
+                    "einen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "einem"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "keiner",
+              "cells": [
+                {
+                  "accept": [
+                    "keinen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "keinem"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The ending shows the case: -en the accusative, -em the dative**\n- jemanden · jemandem · irgendwen · irgendwem · einen · einem",
+            "sl": "**Končnica pokaže sklon: -en tožilnik, -em dajalnik**\n- jemanden · jemandem · irgendwen · irgendwem · einen · einem",
+            "it": "**La desinenza mostra il caso: -en accusativo, -em dativo**\n- jemanden · jemandem · irgendwen · irgendwem · einen · einem"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Sortiere · Sort: people or things?",
+            "sl": "Sortiere · Razvrsti: ljudje ali stvari?",
+            "it": "Sortiere · Ordina: persone o cose?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Leute · people",
+                "sl": "Leute · ljudje",
+                "it": "Leute · persone"
+              },
+              "words": [
+                "jemand",
+                "niemand",
+                "irgendwer"
+              ]
+            },
+            {
+              "label": {
+                "en": "Dinge · things",
+                "sl": "Dinge · stvari",
+                "it": "Dinge · cose"
+              },
+              "words": [
+                "etwas",
+                "nichts",
+                "irgendwas"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**People: jemand, niemand, irgendwer, alle. Things: etwas, nichts, alles, irgendwas**",
+            "sl": "**Ljudje: jemand, niemand, irgendwer, alle. Stvari: etwas, nichts, alles, irgendwas**",
+            "it": "**Persone: jemand, niemand, irgendwer, alle. Cose: etwas, nichts, alles, irgendwas**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "jemand-irgendwer-2",
+      "title": {
+        "de": "Wer war das?",
+        "en": "Who was that?",
+        "sl": "Kdo je bil to?",
+        "it": "Chi è stato?"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Wer war das?",
+          "text": "Der Kuchen ist weg! Tante Mitzi fragt: Hat ___ meinen Kuchen gegessen? ___ antwortet. Die Kinder sagen: Wir haben ___ gesehen. Ich habe ___ gegessen, sagt Stefan, nicht ein Stück. Aber ___ muss es gewesen sein! Am Ende findet Mitzi den Kuchen im Keller. Sie hat ihn selbst dort hingestellt. Da lachen ___.",
+          "gaps": [
+            {
+              "accept": [
+                "jemand",
+                "irgendwer",
+                "irgendjemand",
+                "einer"
+              ],
+              "spoken": [
+                "wer"
+              ]
+            },
+            {
+              "accept": [
+                "Niemand",
+                "Keiner"
+              ]
+            },
+            {
+              "accept": [
+                "niemanden",
+                "niemand",
+                "keinen",
+                "nichts"
+              ],
+              "spoken": [
+                "nix"
+              ]
+            },
+            {
+              "accept": [
+                "nichts"
+              ],
+              "spoken": [
+                "nix"
+              ]
+            },
+            {
+              "accept": [
+                "irgendwer",
+                "jemand",
+                "irgendjemand",
+                "einer"
+              ]
+            },
+            {
+              "accept": [
+                "alle"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "etwas",
+            "niemandem",
+            "alles"
+          ],
+          "translation": {
+            "en": "The cake is gone! Aunt Mitzi asks: has someone eaten my cake? No one answers. The children say: we didn't see anyone. I didn't eat anything, says Stefan, not one piece. But someone or other must have! In the end Mitzi finds the cake in the cellar. She put it there herself. Then everyone laughs.",
+            "sl": "Kolača ni več! Teta Mitzi vpraša: Je kdo pojedel moj kolač? Nihče ne odgovori. Otroci rečejo: Nikogar nismo videli. Nič nisem pojedel, reče Stefan, niti koščka. Ampak nekdo je moral biti! Na koncu Mitzi najde kolač v kleti. Sama ga je tja postavila. Tedaj se vsi smejijo.",
+            "it": "La torta è sparita! Zia Mitzi chiede: qualcuno ha mangiato la mia torta? Nessuno risponde. I bambini dicono: non abbiamo visto nessuno. Non ho mangiato niente, dice Stefan, neanche una fetta. Ma qualcuno dev'essere stato! Alla fine Mitzi trova la torta in cantina. Ce l'ha messa lei stessa. Allora ridono tutti."
+          },
+          "explain": {
+            "en": "**One no is enough: niemand, nichts, with no nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+            "sl": "**Dovolj je en ne: niemand, nichts, brez nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+            "it": "**Basta un no: niemand, nichts, senza nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Hast du Eier? Ja, ich habe ___.",
+          "options": [
+            "welche",
+            "einer",
+            "keiner"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**In place of a noun: einen, eine, eins; keinen, keine, keins; a plural: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+            "sl": "**Namesto samostalnika: einen, eine, eins; keinen, keine, keins; množina: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+            "it": "**Al posto di un nome: einen, eine, eins; keinen, keine, keins; un plurale: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Niemand ___.",
+          "options": [
+            "kommt",
+            "kommt nicht",
+            "nicht kommt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**One no is enough: niemand, nichts, with no nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+            "sl": "**Dovolj je en ne: niemand, nichts, brez nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+            "it": "**Basta un no: niemand, nichts, senza nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts."
+          }
+        }
+      ]
+    },
+    {
+      "id": "jemand-irgendwer-3",
+      "title": {
+        "de": "Ja, ich habe einen",
+        "en": "Yes, I have one",
+        "sl": "Ja, imam ga",
+        "it": "Sì, ce l'ho"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Sag das Gegenteil · Say the opposite",
+            "sl": "Sag das Gegenteil · Povej nasprotno",
+            "it": "Sag das Gegenteil · Di il contrario"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Jemand kommt.",
+              "accept": [
+                "Niemand kommt.",
+                "Keiner kommt."
+              ]
+            },
+            {
+              "from": "Ich sehe jemanden.",
+              "accept": [
+                "Ich sehe niemanden.",
+                "Ich sehe niemand.",
+                "Ich sehe keinen."
+              ]
+            },
+            {
+              "from": "Ich habe etwas gekauft.",
+              "accept": [
+                "Ich habe nichts gekauft."
+              ],
+              "spoken": [
+                "Ich habe nix gekauft."
+              ]
+            },
+            {
+              "from": "Stefan spricht mit jemandem.",
+              "accept": [
+                "Stefan spricht mit niemandem.",
+                "Stefan spricht mit niemand.",
+                "Stefan spricht mit keinem."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**One no is enough: niemand, nichts, with no nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+            "sl": "**Dovolj je en ne: niemand, nichts, brez nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+            "it": "**Basta un no: niemand, nichts, senza nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Antworte ohne das Nomen · Answer with no noun",
+            "sl": "Antworte ohne das Nomen · Odgovori brez samostalnika",
+            "it": "Antworte ohne das Nomen · Rispondi senza il nome"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Hast du einen Hammer? (ja)",
+              "accept": [
+                "Ja, ich habe einen."
+              ]
+            },
+            {
+              "from": "Hast du eine Semmel? (nein)",
+              "accept": [
+                "Nein, ich habe keine."
+              ]
+            },
+            {
+              "from": "Hast du ein Messer? (ja)",
+              "accept": [
+                "Ja, ich habe eins.",
+                "Ja, ich habe eines."
+              ]
+            },
+            {
+              "from": "Hast du Eier? (ja)",
+              "accept": [
+                "Ja, ich habe welche."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**In place of a noun: einen, eine, eins; keinen, keine, keins; a plural: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+            "sl": "**Namesto samostalnika: einen, eine, eins; keinen, keine, keins; množina: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+            "it": "**Al posto di un nome: einen, eine, eins; keinen, keine, keins; un plurale: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "indefinitpronomen",
+          "instruction": {
+            "en": "Sag es mit derselbe · Say it with derselbe",
+            "sl": "Sag es mit derselbe · Povej z derselbe",
+            "it": "Sag es mit derselbe · Dillo con derselbe"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich sehe den Mann. (derselbe)",
+              "accept": [
+                "Ich sehe denselben Mann.",
+                "Ich sehe den gleichen Mann."
+              ]
+            },
+            {
+              "from": "Wir gehen in das Gasthaus. (dasselbe)",
+              "accept": [
+                "Wir gehen in dasselbe Gasthaus.",
+                "Wir gehen ins selbe Gasthaus.",
+                "Wir gehen in das gleiche Gasthaus.",
+                "Wir gehen ins gleiche Gasthaus."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**derselbe: both parts change**\n- derselbe · denselben · demselben · im selben Haus",
+            "sl": "**derselbe: oba dela se spreminjata**\n- derselbe · denselben · demselben · im selben Haus",
+            "it": "**derselbe: cambiano tutte e due le parti**\n- derselbe · denselben · demselben · im selben Haus"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "indefinitpronomen",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Im Gasthaus",
+        "text": "Heute ist ___ im Gasthaus. Kathi sitzt allein. Sie hat ___ zu tun. Da kommt ___: Es ist Toni. Hast du ___ zu essen?, fragt er. Ja, ich habe noch Suppe. Möchtest du ___? ___ sagt, dass deine Suppe die beste ist, sagt Toni.",
+        "gaps": [
+          {
+            "accept": [
+              "niemand",
+              "keiner"
+            ]
+          },
+          {
+            "accept": [
+              "nichts"
+            ],
+            "spoken": [
+              "nix"
+            ]
+          },
+          {
+            "accept": [
+              "jemand",
+              "einer",
+              "irgendwer"
+            ],
+            "spoken": [
+              "wer"
+            ]
+          },
+          {
+            "accept": [
+              "etwas"
+            ],
+            "spoken": [
+              "was"
+            ]
+          },
+          {
+            "accept": [
+              "welche",
+              "etwas"
+            ],
+            "spoken": [
+              "was"
+            ]
+          },
+          {
+            "accept": [
+              "Man",
+              "Jeder"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "There's no one at the inn today. Kathi is sitting alone. She has nothing to do. Then someone comes in: it's Toni. Have you got something to eat?, he asks. Yes, I still have soup. Would you like some? People say your soup is the best, says Toni.",
+          "sl": "Danes ni nikogar v gostilni. Kathi sedi sama. Nima kaj početi. Tedaj nekdo pride: Toni je. Imaš kaj za jesti?, vpraša. Ja, še imam juho. Bi je rad? Pravijo, da je tvoja juha najboljša, reče Toni.",
+          "it": "Oggi non c'è nessuno all'osteria. Kathi è seduta da sola. Non ha niente da fare. Poi arriva qualcuno: è Toni. Hai qualcosa da mangiare?, chiede. Sì, ho ancora della zuppa. Ne vuoi? Si dice che la tua zuppa sia la migliore, dice Toni."
+        },
+        "explain": {
+          "en": "**One no is enough: niemand, nichts, with no nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+          "sl": "**Dovolj je en ne: niemand, nichts, brez nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts.",
+          "it": "**Basta un no: niemand, nichts, senza nicht**\n- Niemand kommt. · Ich sehe niemanden. · Ich habe nichts."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "indefinitpronomen",
+        "instruction": {
+          "en": "Antworte ohne das Nomen · Answer with no noun",
+          "sl": "Antworte ohne das Nomen · Odgovori brez samostalnika",
+          "it": "Antworte ohne das Nomen · Rispondi senza il nome"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Hast du einen Stift? (nein)",
+            "accept": [
+              "Nein, ich habe keinen."
+            ]
+          },
+          {
+            "from": "Hast du Milch? (ja)",
+            "accept": [
+              "Ja, ich habe welche."
+            ]
+          },
+          {
+            "from": "Hast du ein Auto? (nein)",
+            "accept": [
+              "Nein, ich habe keins.",
+              "Nein, ich habe keines."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**In place of a noun: einen, eine, eins; keinen, keine, keins; a plural: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+          "sl": "**Namesto samostalnika: einen, eine, eins; keinen, keine, keins; množina: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche",
+          "it": "**Al posto di un nome: einen, eine, eins; keinen, keine, keins; un plurale: welche**\n- der Hammer → einen · die Semmel → eine · das Ei → eins · die Eier → welche"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "indefinitpronomen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das Geschenk freut ___.",
+        "options": [
+          "einen",
+          "man",
+          "niemand"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**man has no accusative of its own: einen**",
+          "sl": "**man nima svojega tožilnika: einen**",
+          "it": "**man non ha un accusativo suo: einen**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "indefinitpronomen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Irgendwelche ___ waren da.",
+        "options": [
+          "Leute",
+          "Mann",
+          "Frau"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**irgendwelche goes before a plural**",
+          "sl": "**irgendwelche pride pred množino**",
+          "it": "**irgendwelche va davanti a un plurale**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "indefinitpronomen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wir wohnen in ___ Haus.",
+        "options": [
+          "demselben",
+          "dasselbe",
+          "derselbe"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**derselbe: both parts change**\n- derselbe · denselben · demselben · im selben Haus",
+          "sl": "**derselbe: oba dela se spreminjata**\n- derselbe · denselben · demselben · im selben Haus",
+          "it": "**derselbe: cambiano tutte e due le parti**\n- derselbe · denselben · demselben · im selben Haus"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: jemand with no ending (Duden); wer, was, nix spoken; derselbe, der gleiche; each base"
+}
