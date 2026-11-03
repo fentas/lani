@@ -15,8 +15,10 @@ import kotlin.math.roundToInt
 /**
  * The learner's way through the school's course (companion/COURSE.md, "The learner's progress"; GAME.md "The school"):
  * the day the class began ([classroom]: the village a hamlet, the teacher coming over), the course levels opened ([opened], by
- * "<language>/<level>": a level once open stays open), and each unit's progress ([units], by "<language>/<unit id>").
- * [v]: the format's version. An older save has none; an older bridge keeps it as it is.
+ * "<language>/<level>": a level once open stays open), each unit's progress ([units], by "<language>/<unit id>"), and the
+ * placement test's result the learner took ([placements], by language: [LevelPlacement]). [v]: the format's version. An
+ * older save has none; an older bridge keeps it as it is (an older app drops [placements]: what it marked stays in
+ * [units] and [opened], in their old format).
  */
 @Serializable
 data class CourseProgress(
@@ -24,12 +26,14 @@ data class CourseProgress(
     val classroom: String? = null,
     val opened: Map<String, String> = emptyMap(),
     val units: Map<String, UnitProgress> = emptyMap(),
+    val placements: Map<String, Placed> = emptyMap(),
 )
 
 /**
  * A unit's progress: the day it began ([started]), the intro's steps done ([intro]) and whether it was finished or
  * skipped ([introDone]), each worksheet's best try by its id ([sheets], homework too), the test's best try ([test]), the
- * day the test was passed ([done]), and whether that was straight away, without the worksheets ([testedOut]).
+ * day the test was passed ([done]), and whether that was straight away, without the worksheets ([testedOut]); [placed]:
+ * done by the placement test the learner took ([LevelPlacement.apply]), its intro counted as skipped.
  */
 @Serializable
 data class UnitProgress(
@@ -40,6 +44,32 @@ data class UnitProgress(
     val test: SheetBest? = null,
     val done: String? = null,
     val testedOut: Boolean = false,
+    val placed: Boolean = false,
+)
+
+/**
+ * The placement test's result the learner took ("✓ Začnem tukaj · Start here": [LevelPlacement.apply]), in one language:
+ * its [day], the learner's level [from] before it and the [level] it suggested; where the learner starts in the school
+ * ([start]: the level, and its [part] of [parts]; null past the course's last part); the units it marked done ([units]),
+ * its items ([right], [almost] of [of]), its [minutes], a [child]'s version or not; [report]: the outbox entry that tells
+ * the node; [confirmed]: the node has the level (or it didn't rise): until then the app goes by [level] ([LevelPlacement.level]).
+ */
+@Serializable
+data class Placed(
+    val day: String,
+    val from: String,
+    val level: String,
+    val start: String? = null,
+    val part: Int = 0,
+    val parts: Int = 0,
+    val units: Int = 0,
+    val right: Int = 0,
+    val almost: Int = 0,
+    val of: Int = 0,
+    val minutes: Int = 0,
+    val child: Boolean = false,
+    val report: String? = null,
+    val confirmed: Boolean = false,
 )
 
 /** A sheet's best try: [right] and [almost] of [of] items, its [day], and how often it was done ([tries]). */

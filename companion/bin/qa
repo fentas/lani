@@ -36,7 +36,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "scene-building" a building's scene (the hut's kitchen, a house's room …) with the building in
                        its top bar, its card opened from there, its words' run and back to the card in the scene;
                        "fire-peek" hide-and-seek by the fire: the children hidden behind the stump, peeking out at a
-                       wrong guess, found (QA's hook "happening:ob-ognju/lovljenje/lovljenje-skrivalnice"); "field-cues"
+                       wrong guess, found (QA's hook "happening:ob-ognju/lovljenje/lovljenje-skrivalnice"); "kaernten-levels"
+                       (only when named, LANI_CULTURE=kaernten and a learner of German) Franz's and Kathi's B2 and B1
+                       variants at "level:B2" and "level:B1", Kathi's own dialog at "level:A1"; "field-cues"
                        the cues of the field, the tower, the market and the pond: the hare startled out of the grass,
                        the pedlar on the road, the hen on the cart (a tap turn), Muri barking by the jetty, each dialog
                        opened through the hook and played to its cue; "dialog-levels" the market's innkeeper at
@@ -359,6 +361,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        A1 done, A2 begun): A1 one line of its done units (a tap shows them), A2's done, begun, current
                        and next two units, the rest folded ("📝 Še … enot v A2", a tap lists them read-only, the
                        planned "Kmalu"), B1 closed with what opens it, B2 not shown; the swipes in school-reveal.txt;
+                       "placement" (only when named) the placement test (QA's hooks "placement:fresh", "placement:
+                       answer:5"): the school's card with nothing of the course done, the test's page, its first probe
+                       (no cheat sheet), its result for a learner who knows A2 (B1), "Začnem tukaj", the school after
+                       (A1 and A2 done, B1 open, ★); the taps in placement.txt;
                        "school-a2" an A2 unit end to end (QA's hook "school:reveal"): cigav from the school's levels,
                        its intro step by step (the summary card: the page cigav), its possessives' table and choice,
                        the gap text "Nered pri Micki" with one gap wrong (its correction), then its test straight away,
@@ -2479,6 +2485,57 @@ def play_to(said: str, ok_texts: set, tries=10) -> bool:
         if not answer_choice(ok_texts):
             tap("Naprej · Next", 2)
     return find(said) is not None
+
+
+# Kärnten's B1/B2 variants (docs/plans/05-built/dialogs-kaernten.md): two scenes of the dev village (the field, Franz's
+# Noriker; the square, Kathi outside the Gasthaus) at B2 and B1, and the square at A1, where the B1 variant asked for
+# isn't there and the happening's own dialog plays: (level, scene, happening, variant, a line it opens with, a line that
+# mustn't show, the screenshot's name)
+KAERNTEN_LEVELS_QA = [
+    ("B2", "auf-dem-feld", "pferd", "pferd-b2-kufenstechen", "Der Moritz springt herum", None, "feld-b2"),
+    ("B1", "auf-dem-feld", "pferd", "pferd-b1-aepfel", "dass du Moritz gefunden hast", None, "feld-b1"),
+    ("B2", "auf-dem-dorfplatz", "gasthaus", "gasthaus-b2-bewertung", "im Internet geschrieben", None, "platz-b2"),
+    ("B1", "auf-dem-dorfplatz", "gasthaus", "gasthaus-b1-speisekarte", "eine neue Speisekarte", None, "platz-b1"),
+    ("A1", "auf-dem-dorfplatz", "gasthaus", "gasthaus-b1-speisekarte", "Setz dich, ich komme gleich", "eine neue Speisekarte", "platz-a1"),
+]
+
+
+def kaernten_levels():
+    """Kärnten's village at the learner's level (companion/SCENES.md, "Dialogs by level"), on a synthetic learner of
+    German (LANI_DEV_DATA from make-learner.ts --target de, LANI_CULTURE=kaernten): an older app's request (?arts=6) gets
+    none of the field's and the square's levelled variants; at QA's "level:B2" Franz's and Kathi's B2 variants open with
+    their first lines, at "level:B1" their B1 ones; at "level:A1" the square's B1 variant isn't in the scene and Kathi's
+    own dialog plays (QaHooks.withForced finds no such dialog). Screenshots of each, also in $LANI_QA_LEVELS_SHOTS."""
+    if (api("/culture").get("id") or "") != "kaernten":
+        return "skipped: the dev bridge's village isn't Kärnten's (LANI_CULTURE=kaernten)"
+    served = {x.get("id"): x for x in api("/scenes?arts=99") if isinstance(x, dict)}
+    old = {x.get("id"): x for x in api("/scenes?arts=6") if isinstance(x, dict)}
+    for _, sid, _, variant, _, _, _ in KAERNTEN_LEVELS_QA:
+        assert sid in served, f"the dev bridge has no {sid}"
+        assert variant in {d["id"] for d in served[sid]["dialogs"]}, f"the bridge serves {sid}/{variant}"
+        assert sid in old and not any(d.get("level") for d in old[sid]["dialogs"]), f"an older app gets none of {sid}'s levelled dialogs"
+    out = Path(os.environ["LANI_QA_LEVELS_SHOTS"]) if os.environ.get("LANI_QA_LEVELS_SHOTS") else None
+    try:
+        for level, sid, hid, variant, expect, absent, name in KAERNTEN_LEVELS_QA:
+            qa_hook(f"level:{level}")
+            qa_hook(f"happening:{sid}/{hid}/{variant}", f"scene:{sid}@{sid}/{hid}")
+            try:
+                if wait_for("Zapri · Close", 15) is None:
+                    raise AssertionError(f"{sid}/{hid} at {level}: its dialog didn't open")
+                got = wait_for(expect, 15)
+                shot(f"levels-kaernten-{name}")
+                if out is not None:
+                    out.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(shots[-1], out / f"levels-kaernten-{name}.png")
+                assert got is not None, f"at {level}, {variant} asked for: «{expect}»"
+                assert absent is None or find(absent) is None, f"at {level}: «{absent}» is above the learner"
+                tap("Zapri · Close", 3)
+            finally:
+                qa_hook("happening:")
+            plain_village()
+    finally:
+        qa_hook("level:")
+    return None
 
 
 # dialogs by level (docs/plans/05-built/dialog-levels.md): each culture's market, its innkeeper's happening: the B2
@@ -12361,6 +12418,77 @@ def school_reveal():
     assert not find("Biti: sem, si, je"), "A1's done units folded again"
 
 
+def placement():
+    """The placement test (COURSE.md "The placement test"; QA's hooks "placement:fresh" and "placement:answer:<part>"):
+    the dev village's class readied with nothing of the course done; the school's card offering the test ("🧭 Nekaj že
+    znaš?"), its page (what it is, "▶️ Začniva"), the first probe's first exercise on the stage with no 📋 or 💬 in its top
+    bar, the test answered as a learner who knows the course to the end of A2 (part 5), its result (B1, the first unit, the
+    units before it done, the level), "✓ Začnem tukaj", and the school after it: A1 and A2 done, each one line, B1 open
+    with its first unit ★. The taps from the school to the result and the school after go to placement.txt. A build from
+    before the test (--apk) shows the school a starter sees there instead (placement-before-school)."""
+    if not (ROOT / "companion/course/sl/course.json").exists():
+        return "no course here (companion/course/sl/course.json)"
+    wait_home(30)  # an app connected before still loading its village
+    go_home()
+    for _ in range(3):  # the hook again while the village isn't there yet (no Back: on Home it would leave the app)
+        qa_hook("placement:fresh")
+        if wait_for("Nekaj že znaš?", 10):
+            break
+    if not find("Nekaj že znaš?"):
+        # a build from before the placement test (--apk): the school a starter sees there, its first unit A1's
+        for _ in range(3):
+            qa_hook("school")
+            if wait_for("Raven A1", 10):
+                break
+        if not find("Raven A1"):  # from Home's tile
+            go_home()
+            tile = scroll_to("Šola", 8, exact=True)
+            if tile:
+                tap_at(tile)
+        if not wait_for("Raven A1", 15):
+            return "skipped: neither the placement card nor the school showed (no QA hook in this build?)"
+        time.sleep(1.5)
+        shot("placement-before-school")
+        return "before: no placement test in this build; a starter's school begins at A1 (placement-before-school)"
+    time.sleep(1)
+    shot("placement-card")
+    taps = ["the school (QA's hook): the card on top"]
+    assert tap("Na test"), "the card's 🧭 Na test"
+    taps.append("🧭 Na test")
+    assert wait_for("Začniva", 10), "the test's page: what it is, then Začniva"
+    time.sleep(1)
+    shot("placement-page")
+    assert find("10 do 15 minut") and find("Nič se ne spremeni"), "how long, and that nothing changes until the learner says yes"
+    assert tap("Začniva"), "▶️ Začniva"
+    taps.append("▶️ Začniva")
+    assert wait_for("1. del", 15), "the first probe, its part said"
+    time.sleep(2)
+    shot("placement-probe")
+    assert not find("Plonk listek"), "no cheat sheet in the placement test's top bar"
+    qa_hook("placement:answer:5")  # A2's end known, B1 not
+    assert wait_for("Tvoje mesto v šoli", 20), "the result"
+    time.sleep(1.5)
+    shot("placement-result")
+    assert find("Začneš na ravni B1"), "the teacher says where the learner starts: B1"
+    assert find("A1 → B1") or find("ostane"), "the level, raised or as it stays"
+    assert find("za opravljene"), "the units before it counted as done"
+    assert tap("Začnem tukaj"), "✓ Začnem tukaj"
+    taps.append("✓ Začnem tukaj")
+    assert wait_for("Raven A1", 15), "back in the school"
+    time.sleep(1.5)
+    shot("placement-school")
+    assert find("Naslednja · Next · B1"), "the unit it starts with, B1's first, suggested next (★)"
+    done_lines = [t for t, _ in nodes() if "opravljenih enot" in t or "opravljene enote" in t]
+    assert done_lines, "A1 (and A2) done: one line each"
+    assert swipes_to(lambda t: t.startswith("Raven B1"), most=6) is not None, "B1 open, further down"
+    time.sleep(1)
+    shot("placement-school-b1")
+    (OUT / "placement.txt").write_text(
+        f"taps from the school's card to the first probe: {len(taps) - 2} ({', '.join(taps[1:-1])}), the probes, then one to take its result ({taps[-1]})\n"
+        f"the school after: {', '.join(done_lines)}\n"
+    )
+
+
 def school_a2():
     """An A2 unit end to end (companion/COURSE.md; docs/plans/05-built/course-a2.md): QA's hook "school:reveal" (the
     school standing, A1 done, A2 begun) and the unit cigav ("Čigav je? Moj, tvoj, njen", one of the next two after the
@@ -19537,6 +19665,8 @@ def plan():
         ("read-aloud", read_aloud, go_home, False, ""),
         # only when named: an answer's feedback card on the tablet on its side, upright, on the phone
         ("feedback-tablet", feedback_tablet, go_home, False, ""),
+        # only when named: Kärnten's B1/B2 variants on the field and the square (LANI_CULTURE=kaernten, a learner of German)
+        ("kaernten-levels", kaernten_levels, v, False, ""),
         ("field-cues", field_cues, v, False, ""),
         # the market's dialogs by level: B2, B1, and what a learner below meets instead (an older app: none)
         ("dialog-levels", dialog_levels, v, False, ""),
@@ -19584,6 +19714,8 @@ def plan():
         ("choices-order", choices_order, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-reveal", school_reveal, go_home, False, ""),
+        # only when named: the placement test from the school's card to the school after its result (QA's hooks placement:…)
+        ("placement", placement, go_home, False, ""),
         ("school-a2", school_a2, go_home, False, ""),
         ("school-cases", school_cases, go_home, False, ""),
         ("school-print-overview", school_print_overview, go_home, False, ""),
@@ -20191,7 +20323,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "practice-de", "practice-sl") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "practice-de", "practice-sl", "placement", "kaernten-levels") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

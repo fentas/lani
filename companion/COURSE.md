@@ -516,7 +516,12 @@ saves it (a field left out is its default: null, 0, false, empty):
       "test": { "right": 9, "almost": 0, "of": 10, "day": "2026-10-14", "tries": 2 },
       "done": "2026-10-14",
       "testedOut": false
-    }
+    },
+    "sl/rodilnik": { "started": "2026-11-03", "introDone": true, "done": "2026-11-03", "testedOut": true, "placed": true }
+  },
+  "placements": {
+    "sl": { "day": "2026-11-03", "from": "A1", "level": "B1", "start": "B1", "part": 1, "parts": 3, "units": 32,
+            "right": 31, "almost": 2, "of": 41, "minutes": 12, "report": "9f2c…", "confirmed": true }
   }
 }
 ```
@@ -527,7 +532,68 @@ saves it (a field left out is its default: null, 0, false, empty):
 - `units`, by `"<language>/<unit id>"`: `intro` the intro's steps done, `introDone` finished or skipped; `sheets` each
   worksheet's (and homework's) best try, by its id (`right`, `almost`, `of` items, its `day`, `tries`); `test` the best
   try of the test and its `tries`; `done` the day the test was passed; `testedOut` passed straight away, without the
-  worksheets.
+  worksheets; `placed` marked done by the placement test (below), its intro counted as skipped.
+- `placements`, by language: the placement test's result the learner took (below): its day, the level before (`from`)
+  and the one it set (`level`), where the school went on (`start`, its `part` of `parts`), the units it marked, its items
+  and minutes, `child` for a child's version, the outbox entry that told the node (`report`), and `confirmed` once the
+  node has the level (until then the app goes by `level`). An older app drops it; what it marked stays in `units` and
+  `opened`.
+
+### The placement test
+
+Jan, 2026-11-03 ("I want to have app finished to release"): a starter who knows some of the language begins at their
+level. Before, the school's levels ignored the learner's level (`School.isOpen`): a B1 starter began at A1 and tested out
+of one unit after another. "🧭 Uvrstitveni test · Placement test" (`game/LevelPlacement.kt`, pure;
+`app/PlacementController.kt`, `ui/school/PlacementScreen.kt`; docs/plans/05-built/placement.md) is short, adaptive and
+made of the course's own test items. **Optional**: offered at setup and in the school, never run on its own; **nothing
+changes until the learner takes its result**, and taking it only adds.
+
+- **Parts.** Each level's written units, in the course's order, in three parts (a level of fewer units: a part a unit):
+  A1 1/3 … B2 3/3, twelve for a course of four levels.
+- **A probe** of a part: exercises of its units' own tests, each from another unit, the ones that ask the most in the
+  least time first, another kind before the same (a table cut to its first rows of at most 6 cells, a list to its first 4
+  lines, a sort to 6 words, a gap text of at most 6 gaps; nothing heard, said or graded by the tutor), until it has 8 items
+  in 2 exercises at least, or 3 exercises. It passes at 75 % of its items, an almost counting half, as a unit's test
+  counts.
+- **Adaptive.** The first probe is just below the learner's level: A1's middle for an A1 learner, the end of the level
+  below for anyone above (A2's last part for a B1 learner), and after the parts whose units are all done already (Jan's
+  A1, say). Passed, it climbs two parts, then four, then eight; once a part fails it halves the gap between the highest
+  part passed and the lowest failed until they meet. It ends there, after 6 probes, when the next probe wouldn't fit in 15
+  minutes at the pace so far, or when the learner stops ("✕" before a probe's first answer, or "Končaj · Done" in it: a
+  probe left half done decides nothing). Every part up to the highest passed counts as known (when the time ends the search
+  early, the result is the part passed, at most one below where it would have met). A beginner is done in two probes
+  (about 4 minutes); the longest way takes about 14 minutes, the average about 10 (`LevelPlacementTest`, the four
+  courses, each estimated by its exercises).
+- **No help, nothing counted.** The run has no 📋 cheat sheet and no 💬 tutor in its top bar (the feedback after each
+  answer stays, with its why), its answers count on no rule of the grammar book (it unlocks no page, makes nothing secure,
+  asks no choice typed) and a 💡 hint makes an item almost, as everywhere. Its answers pay as a test's (the fresh-mind
+  rule applies); no unit's bonus.
+- **The result** ("🧭 Tvoje mesto v šoli · Your place in the school"): the teacher says where the learner starts ("Začneš
+  na ravni B1!"; "Začneva na začetku" with nothing known), the first unit, how many units before it count as done, the
+  level ("🎓 A1 → B1", or that it stays), and what the answers paid. "✓ Začnem tukaj · Start here" takes it: every unit of
+  the parts known that isn't done yet is done today, tested out and `placed` (its intro counted as skipped, as "⏭ Poznam
+  to" does, so what a unit turns on is on: counting cards, the numbers, forms cards' rows); a unit begun keeps its sheets,
+  a unit done is as it was; the levels up to the one the learner starts in open (`opened`; the hamlet still begins the
+  class); the level rises on the node (`POST /placement`, never lowered: a level the node has above it stays) and in the
+  app at once until the node has it (`LevelPlacement.level`); a line in the chronicle ("🧭 Uvrstitveni test: začetek pri
+  B1 1/3 (32 enot opravljenih)"); then the school, the unit it starts with ★. "Ostanem, kjer sem · Keep my place" takes
+  nothing (the tutor hears of the test all the same). With nothing to take, one "✓ V redu · OK".
+- **The school's units marked** show "✅ Opravljeno z uvrstitvenim testom · Done by the placement test" and open as any
+  done unit, to do again.
+- **A child's version** (the app set up for a child: Teo, 7): "Igrajva se: pokaži mi, kaj že znaš!", tap exercises only
+  (a choice, a multi, a sort of 6 words at most, word chips of 6, a gap text of 3 gaps with its word bank), A1 to the end
+  of B1, probes of 4 items in 3 or 4 exercises, at most 4 probes and 10 minutes (about 8 on average); "✓ Začnem tukaj"
+  behind a parent's two-second hold (`ParentGated`: a parent decides where the child starts).
+- **Where it is offered.** In the school: a card at the top for a learner who hasn't done or begun a unit of the course
+  and hasn't taken it ("🧭 Nekaj že znaš? · Know some already?", "🧭 Na test"); a quiet row under the levels for everyone
+  else ("🧭 Uvrstitveni test: kje začnem?"), Jan's and Teo's school among them. At setup: "🧭 Nekaj že znaš?" on "Še o
+  tebi" and on this device's questions, "Od začetka · From the start" (the default) or "Najprej kratek test · A short test
+  first", which opens the test's page once the village is founded. Its page says what it is first ("▶️ Začniva",
+  "Pozneje").
+- **The tutor** hears it through `POST /placement` (the bridge persists it as a session `/lani-app-placement`, the level
+  when it rises, and tells the tutor: `placement`); a node from before it gets a `session_end` with the report instead.
+  `get_course` shows the units `placed` and the test's `placement`.
+- **Prints:** none; the test is the app's only (its exercises are the units' own tests, which print with their units).
 
 ### What the school shows
 
@@ -558,7 +624,7 @@ shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
 
 The rules that open a level are unchanged (`School.isOpen`: A1 with the hamlet; A2 with the school standing and A1's
 written units done, i.e. every A1 test passed; B1 and B2 with the school's levels 2 and 3 and the level before done; a
-level once open stays open). The order stays free: a folded unit is one tap away once it comes into view, and testing out
+level once open stays open, also one the placement test opened: [The placement test](#the-placement-test)). The order stays free: a folded unit is one tap away once it comes into view, and testing out
 of a unit ("⏩ Znam že") brings the next one in. Each level's booklet (🖨️ Vsi listi) stays under it. QA:
 `companion/bin/qa --steps school-reveal` (its hook `school:reveal`: the school standing, A1 done, A2 begun).
 
