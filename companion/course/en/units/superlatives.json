@@ -460,10 +460,10 @@
             "en": "Fill in the table"
           },
           "prompt": {
-            "sl": "Tri ali več: naredi obliko",
-            "de": "Drei oder mehr: bilde die Form",
-            "it": "Tre o più: fai la forma",
-            "en": "Three or more: make the form"
+            "sl": "Tri ali več: the + oblika + samostalnik",
+            "de": "Drei oder mehr: the + Form + Nomen",
+            "it": "Tre o più: the + forma + nome",
+            "en": "Three or more: the + the form + the noun"
           },
           "columns": [
             {
@@ -475,131 +475,103 @@
           ],
           "rows": [
             {
-              "label": "old",
+              "label": "old, man",
               "cells": [
                 {
                   "accept": [
-                    "the oldest"
-                  ],
-                  "spoken": [
-                    "oldest"
+                    "the oldest man"
                   ]
                 }
               ]
             },
             {
-              "label": "nice",
+              "label": "nice, scone",
               "cells": [
                 {
                   "accept": [
-                    "the nicest"
-                  ],
-                  "spoken": [
-                    "nicest"
+                    "the nicest scone"
                   ]
                 }
               ]
             },
             {
-              "label": "big",
+              "label": "big, lake",
               "cells": [
                 {
                   "accept": [
-                    "the biggest"
-                  ],
-                  "spoken": [
-                    "biggest"
+                    "the biggest lake"
                   ]
                 }
               ]
             },
             {
-              "label": "happy",
+              "label": "happy, dog",
               "cells": [
                 {
                   "accept": [
-                    "the happiest"
-                  ],
-                  "spoken": [
-                    "happiest"
+                    "the happiest dog"
                   ],
                   "hint": "y → i"
                 }
               ]
             },
             {
-              "label": "easy",
+              "label": "easy, walk",
               "cells": [
                 {
                   "accept": [
-                    "the easiest"
-                  ],
-                  "spoken": [
-                    "easiest"
+                    "the easiest walk"
                   ]
                 }
               ]
             },
             {
-              "label": "useful",
+              "label": "useful, dog",
               "cells": [
                 {
                   "accept": [
-                    "the most useful"
-                  ],
-                  "spoken": [
-                    "most useful"
+                    "the most useful dog"
                   ]
                 }
               ]
             },
             {
-              "label": "good",
+              "label": "good, inn",
               "cells": [
                 {
                   "accept": [
-                    "the best"
-                  ],
-                  "spoken": [
-                    "best"
+                    "the best inn"
                   ]
                 }
               ]
             },
             {
-              "label": "bad",
+              "label": "bad, road",
               "cells": [
                 {
                   "accept": [
-                    "the worst"
-                  ],
-                  "spoken": [
-                    "worst"
+                    "the worst road"
                   ]
                 }
               ]
             },
             {
-              "label": "far",
+              "label": "far, farm",
               "cells": [
                 {
                   "accept": [
-                    "the furthest",
-                    "the farthest"
-                  ],
-                  "spoken": [
-                    "furthest",
-                    "farthest"
+                    "the furthest farm",
+                    "the farthest farm"
                   ]
                 }
               ]
             }
           ],
           "explain": {
-            "sl": "**the + -est; dolga beseda: the most; posebne: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst",
-            "de": "**the + -est; ein langes Wort: the most; eigen: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst",
-            "it": "**the + -est; parola lunga: the most; a parte: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst",
-            "en": "**the + -est; a long word: the most; on their own: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst"
+            "sl": "**the + -est + samostalnik; dolga beseda: the most; posebne: the best, the worst, the furthest**\n- the oldest man · the biggest lake · the happiest dog\n- the most useful dog · the best inn · the worst road",
+            "de": "**the + -est + Nomen; ein langes Wort: the most; eigen: the best, the worst, the furthest**\n- the oldest man · the biggest lake · the happiest dog\n- the most useful dog · the best inn · the worst road",
+            "it": "**the + -est + nome; parola lunga: the most; a parte: the best, the worst, the furthest**\n- the oldest man · the biggest lake · the happiest dog\n- the most useful dog · the best inn · the worst road",
+            "en": "**the + -est + a noun; a long word: the most; on their own: the best, the worst, the furthest**\n- the oldest man · the biggest lake · the happiest dog\n- the most useful dog · the best inn · the worst road"
           }
         },
         {
@@ -665,9 +637,7 @@
             },
             {
               "accept": [
-                "the youngest"
-              ],
-              "spoken": [
+                "the youngest",
                 "youngest"
               ]
             },
@@ -679,9 +649,7 @@
             },
             {
               "accept": [
-                "the best"
-              ],
-              "spoken": [
+                "the best",
                 "best"
               ]
             },
@@ -703,9 +671,7 @@
             },
             {
               "accept": [
-                "the happiest"
-              ],
-              "spoken": [
+                "the happiest",
                 "happiest"
               ]
             },
@@ -861,9 +827,7 @@
               "accept": [
                 "Alfie is the youngest.",
                 "Alfie is the youngest of the three.",
-                "Alfie is the youngest of the children."
-              ],
-              "spoken": [
+                "Alfie is the youngest of the children.",
                 "Alfie is youngest.",
                 "Alfie is youngest of the three."
               ]
@@ -874,9 +838,7 @@
                 "The green boat is the most expensive.",
                 "The green boat is the most expensive of the three.",
                 "The green one is the most expensive.",
-                "The green one is the most expensive of the three."
-              ],
-              "spoken": [
+                "The green one is the most expensive of the three.",
                 "The green boat is most expensive.",
                 "The green one is most expensive."
               ]
@@ -967,9 +929,7 @@
             "accept": [
               "Harry is the oldest.",
               "Harry is the oldest of the three.",
-              "Harry is the oldest of the children."
-            ],
-            "spoken": [
+              "Harry is the oldest of the children.",
               "Harry is oldest.",
               "Harry is oldest of the three."
             ]
@@ -1007,37 +967,31 @@
         ],
         "rows": [
           {
-            "label": "useful",
+            "label": "useful, dog",
             "cells": [
               {
                 "accept": [
-                  "the most useful"
-                ],
-                "spoken": [
-                  "most useful"
+                  "the most useful dog"
                 ]
               }
             ]
           },
           {
-            "label": "easy",
+            "label": "easy, walk",
             "cells": [
               {
                 "accept": [
-                  "the easiest"
-                ],
-                "spoken": [
-                  "easiest"
+                  "the easiest walk"
                 ]
               }
             ]
           }
         ],
         "explain": {
-          "sl": "**Dolga beseda: the most; y → i**\n- the most useful · the easiest",
-          "de": "**Ein langes Wort: the most; y → i**\n- the most useful · the easiest",
-          "it": "**Parola lunga: the most; y → i**\n- the most useful · the easiest",
-          "en": "**A long word: the most; y → i**\n- the most useful · the easiest"
+          "sl": "**Dolga beseda: the most; y → i**\n- the most useful dog · the easiest walk",
+          "de": "**Ein langes Wort: the most; y → i**\n- the most useful dog · the easiest walk",
+          "it": "**Parola lunga: the most; y → i**\n- the most useful dog · the easiest walk",
+          "en": "**A long word: the most; y → i**\n- the most useful dog · the easiest walk"
         }
       },
       {

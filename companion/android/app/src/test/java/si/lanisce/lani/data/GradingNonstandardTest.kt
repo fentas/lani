@@ -40,6 +40,23 @@ class GradingNonstandardTest {
         wrong("The soup smells well.", "The soup smells good.")
     }
 
+    @Test fun `a flat adverb is almost for its adverb, one way only, each for its own`() {
+        for ((flat, adverb) in listOf(
+            "quick" to "quickly", "slow" to "slowly", "loud" to "loudly", "quiet" to "quietly", "clear" to "clearly",
+            "careful" to "carefully", "bad" to "badly", "beautiful" to "beautifully", "terrible" to "terribly",
+        )) {
+            almost(flat, adverb)
+            wrong(adverb, flat)
+        }
+        almost("Sam walks slow.", "Sam walks slowly.")
+        almost("Mr Tyson drives careful", "Mr Tyson drives carefully.")
+        almost("I play bad", "I play badly.")
+        wrong("A carefully man", "A careful man")
+        wrong("slow", "quickly")
+        wrong("bad", "well")
+        wrong("happy", "happily")
+    }
+
     @Test fun `a double negative is almost after a negative in the answer's own words`() {
         almost("I didn't see nothing.", "I didn't see anything.")
         almost("I did not see nothing", "I didn't see anything.")
@@ -108,7 +125,7 @@ class GradingNonstandardTest {
             assertTrue(lang.code, Spelling.of(lang).nonstandard.isEmpty())
             assertFalse(lang.code, File(tables, "${lang.code}.json").readText().contains("\"nonstandard\""))
         }
-        assertEquals(5, Spelling.of(Lang.EN).nonstandard.size)
+        assertEquals(14, Spelling.of(Lang.EN).nonstandard.size)
         // those languages' words for the same thing are simply wrong, or their slips, as before
         assertEquals(Verdict.WRONG, Grading.check("dobro", listOf("lepo"), Lang.SL).verdict)
         assertEquals(Verdict.WRONG, Grading.check("gut", listOf("gern"), Lang.DE).verdict)

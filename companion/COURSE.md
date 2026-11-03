@@ -448,6 +448,7 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
 ```json
 "nonstandard": [
   { "word": "good", "for": "well" },
+  { "word": "slow", "for": "slowly" },
   { "word": "nothing", "for": "anything", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" }
 ]
 ```

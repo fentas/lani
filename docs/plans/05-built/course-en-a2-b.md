@@ -18,11 +18,10 @@ British English first:
   more bigger, more hotter, gooder, badder (children's and dialect forms, the outline's "never more bigger"), and as for than (a German
   learner's mistake, rare dialect).
 - **superlatives:** in the Lakes for the Lake District; the hottest day of the year and in the year both right; Alfie is youngest and a
-  bare best, oldest without the as spoken; Poppy the youngest in the family; Auntie Edna the worst singer, as gentle fun; Carlisle "the
+  bare best without the right where no noun follows, oldest man without it wrong; Poppy the youngest in the family; Auntie Edna the worst singer, as gentle fun; Carlisle "the
   biggest place in Cumbria"; the sort that puts the village, England, Cumbria under in and the three, all, the five boats under of.
-- **adverbs:** sings good, plays good are **almost** (`nonstandard`), with well shown; the flat adverbs right and labelled "spoken": walks
-  slow, talk quick, speak clear, stand quiet, sings loud, drives careful, sings beautiful, I play bad. Are they as said as you'd want
-  them labelled? tastes well is offered as wrong. In speech you also hear slower and louder.
+- **adverbs:** sings good, plays good and the flat adverbs are **almost** (`nonstandard`), the standard form shown: walks slow, talk quick,
+  speak clear, stand quiet, sings loud, drives careful, sings beautiful, I play bad, plays terrible. tastes well is offered as wrong. In speech you also hear slower and louder.
 - **someone-anything:** a double negative is **almost** (`nonstandard`), I didn't see anything shown; someone and something in a question
   as spoken; I saw nothing, We went nowhere as a little bookish but what the sheet teaches; no-one with its hyphen listed beside no one
   and nobody; noone wrong; the American someplace, anyplace, everyplace accepted in the table.
@@ -98,25 +97,28 @@ In these six units that comes in three ways:
 
 | What's typed | How | Verdict |
 |---|---|---|
-| good for well; a double negative after a negative (nothing, no one, nowhere, no) | the table's `nonstandard` (3f399ff2; COURSE.md "Spoken forms"), for every answer of the language | almost, the standard form and "People say it like this; in writing it's the form shown" |
-| some in a plain question; a flat adverb; the superlative's the left out where no noun follows; There's no walkers, There's not many boats; loads of | the item's `spoken` | right, labelled with the standard form |
+| good for well; a flat adverb (quick, slow, loud, quiet, clear, careful, bad, beautiful, terrible); a double negative after a negative (nothing, no one, nowhere, no) | the table's `nonstandard` (3f399ff2; COURSE.md "Spoken forms"), for every answer of the language | almost, the standard form and "People say it like this; in writing it's the form shown" |
+| some in a plain question; There's no walkers, There's not many boats; loads of, a load | the item's `spoken` | right, labelled with the standard form |
 | some of these in a choice or a bank | not offered: a wrong form nobody says, or the item typed | |
 
 The intro and the page name them ("People also say *sings good*; writing wants **well**"), never with "never", so the sheet's "Watch out"
 doesn't print them as mistakes. `EnglishA2bContentTest` holds it: good is almost wherever well is asked, a double negative almost wherever
-a negative stands before what's asked (20 places), a flat adverb right wherever the adverb is asked, no choice or bank offers what the table
-calls nonstandard, and no text says never of them.
+a negative stands before what's asked, a flat adverb almost wherever the adverb is asked and listed as right nowhere, no choice or bank
+offers what the table calls nonstandard, and no text says never of them.
+
+A superlative without the where no noun follows (Alfie is youngest, best in Cumbria) is standard English, so it isn't in any of these: it is in
+`accept`, right with no label. The first table has nouns (old, man: the oldest man), so that it still asks for the; oldest man is wrong.
 
 **What it took from the sheets**, as the lead asked to be told:
 - `someone-anything`'s "Say it with no-" was a transform whose line (I didn't see anything.) could be answered with the double negative,
   which doesn't do what it asks: now typed gaps (= I saw ___.), on the sheet and in the test. The test's choice We didn't see ___ went (no one
   was its wrong option): a line of "Say it with not" instead.
 - `adverbs`' Harry plays football ___ was a choice offering good: now two typed gaps. Step 3 of `someone-anything`'s quick question is typed too.
-- **`adverbs`' teeth:** with the flat adverbs right, copying the word in brackets is full marks in five of the gap text's eight gaps (quick,
-  slow, clear, quiet, careful), three cells of the first table (quick, quiet, careful) and in the test (slow, bad, terrible). The label
-  still shows the standard form. Moving them into `nonstandard` (almost, as good for well) would keep the sheet teaching; that's the lead's and
-  Jan's to decide, it's one line each in `grading/en.json` and their `spoken` taken off.
-- `superlatives`' first table takes oldest, best without the, as right and labelled, for the same reason.
+- **The flat adverbs** were `spoken` first (right and labelled); copying the word in brackets was then full marks in five of `adverbs`' eight
+  gaps. The lead's and Jan's decision (2026-11-03): `nonstandard`, one line each, so the sheet and the test go on teaching and I play bad
+  matches plays good.
+
+Left wrong for now, on the native list above: more bigger, gooder, badder, as for than, How much eggs?, We've got much time, tastes well.
 
 **Mistakes**, paired rules appended at the end of `wrong` in `grading/en.json`, and a sentence inside its `_note` (not at the end, so that
 it can't meet parts a's and c's additions):
@@ -182,13 +184,13 @@ No screen changed; the units add content.
 
 ## Tests
 
-On the final content (cb90c296; nothing but this doc came after it):
+On the final content, the commit that moved the flat adverbs:
 
 - **Bridge:** `bunx tsc --noEmit -p .` clean; the smoke (LANI_SMOKE_PORT=9930, FRIULI 9932, TOWN 9934, DRAMA3 9948): all 3,508 checks
   passed, among them course/en, the rule line of every step in every base, course-speech's English checks and the prompt clashes.
 - **`tutor-export --check`:** 89 files match the bridge.
-- **Android** (lani-slot.sh; not the whole suite, part c and the gate run it): 255 tests in 29 classes, 0 failures: the course's classes
-  in all four languages, `EnglishA2bContentTest` (13), `GradingNonstandardTest` (9), `NonstandardHintTest`, `GradingLanguagesTest` (48),
+- **Android** (lani-slot.sh; not the whole suite, part c and the gate run it): 257 tests in 29 classes, 0 failures: the course's classes
+  in all four languages, `EnglishA2bContentTest` (14), `GradingNonstandardTest` (10), `NonstandardHintTest`, `GradingLanguagesTest` (48),
   sheets, dialogs and l10n.
 - **Python:** `test_qa_fit.py` (7, new) and the other `test_qa*` tests, 27 in all.
 - **The sheets:** `school-prints` in sl, de and it, to PDF: all fit, `some-and-any`, `how-much`, `someone-anything` on one page,

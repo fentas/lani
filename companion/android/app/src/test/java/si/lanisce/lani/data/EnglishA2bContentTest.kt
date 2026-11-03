@@ -84,10 +84,10 @@ class EnglishA2bContentTest {
         slip("hapier", "happier")
     }
 
-    @Test fun `an adverb's spelling and its adjective are wrong, usualy and a slip in the stem forgiven`() {
+    @Test fun `an adverb's spelling is wrong, usualy and a slip in the stem forgiven`() {
         for ((typed, right) in listOf(
             "carefuly" to "carefully", "beautifuly" to "beautifully", "happyly" to "happily", "easyly" to "easily", "angryly" to "angrily",
-            "careful" to "carefully", "happy" to "happily", "quietly" to "quiet",
+            "happy" to "happily", "quietly" to "quiet",
             "fastly" to "fast", "hardly" to "hard", "goodly" to "well",
         )) wrong(typed, right)
         slip("usualy", "usually")
@@ -105,22 +105,13 @@ class EnglishA2bContentTest {
         assertEquals(Verdict.CORRECT, Grading.check("no-one", table.accept, Lang.EN).verdict)
     }
 
-    @Test fun `what a native speaker says too is right, labelled with the standard form - walks slow, some in a question`() {
+    @Test fun `what a native speaker says too is right, labelled with the standard form - some in a question, loads of`() {
         for ((unit, standard, said) in listOf(
-            Triple("adverbs", "quickly", "quick"),
-            Triple("adverbs", "slowly", "slow"),
-            Triple("adverbs", "clearly", "clear"),
-            Triple("adverbs", "Sam walks slowly.", "Sam walks slow."),
-            Triple("adverbs", "badly", "bad"),
             Triple("some-and-any", "Is there any hay in the barn?", "Is there some hay in the barn?"),
             Triple("someone-anything", "anything", "something"),
             Triple("how-much", "There aren't many boats on the lake.", "There's not many boats on the lake."),
             Triple("how-much", "a lot of", "loads of"),
             Triple("some-and-any", "There aren't any walkers at the inn.", "There's no walkers at the inn."),
-            Triple("superlatives", "Alfie is the youngest.", "Alfie is youngest."),
-            Triple("superlatives", "the best", "best"),
-            Triple("adverbs", "Mr Tyson drives carefully.", "Mr Tyson drives careful."),
-            Triple("adverbs", "Poppy sings beautifully.", "Poppy sings beautiful."),
         )) {
             val item = sheetItems(unit).first { it.accept.first() == standard && said in it.spoken }
             val m = Sheets.check(item, said, Lang.EN)
@@ -164,7 +155,7 @@ class EnglishA2bContentTest {
         assertTrue("$seen double negatives", seen >= 15)
     }
 
-    @Test fun `an adverb said flat is never wrong where the unit asks the adverb, typed in any item`() {
+    @Test fun `an adverb said flat is almost wherever the unit asks the adverb, with the adverb shown, and no item lists it as right`() {
         val flat = mapOf(
             "quickly" to "quick", "slowly" to "slow", "loudly" to "loud", "quietly" to "quiet", "clearly" to "clear",
             "carefully" to "careful", "badly" to "bad", "beautifully" to "beautiful", "terribly" to "terrible",
@@ -175,10 +166,25 @@ class EnglishA2bContentTest {
             if (!first.contains(Regex("""\b$adverb\b"""))) continue
             val typed = first.replace(Regex("""\b$adverb\b"""), said)
             val m = Sheets.check(item, typed, Lang.EN)
-            assertEquals("$typed for $first", Verdict.CORRECT to first, m.verdict to m.standard)
+            assertEquals("$typed for $first", Triple(Verdict.ALMOST, Hint.NONSTANDARD, first), Triple(m.verdict, m.hint, m.expected))
+            assertTrue("$typed: listed as right", item.spoken.isEmpty())
             seen++
         }
         assertTrue("$seen flat adverbs", seen >= 8)
+    }
+
+    @Test fun `a superlative without the is plain right where no noun follows, and wrong where one does`() {
+        val items = sheetItems("superlatives")
+        for ((standard, bare) in listOf("Alfie is the youngest." to "Alfie is youngest.", "Harry is the oldest." to "Harry is oldest.", "the best" to "best")) {
+            val item = items.first { it.accept.first() == standard }
+            val m = Sheets.check(item, bare, Lang.EN)
+            assertEquals(bare, Verdict.CORRECT to null, m.verdict to m.standard)
+        }
+        assertTrue("no item of the unit calls it spoken", items.all { it.spoken.isEmpty() })
+        for ((standard, bare) in listOf("the oldest man" to "oldest man", "the best inn" to "best inn", "the most useful dog" to "most useful dog")) {
+            val item = items.first { it.accept.first() == standard }
+            assertEquals(bare, Verdict.WRONG, Sheets.check(item, bare, Lang.EN).verdict)
+        }
     }
 
     @Test fun `no choice and no word bank offers what people say as the wrong form`() {
