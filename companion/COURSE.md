@@ -435,6 +435,34 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
 - An older bridge refuses the key (the sheets are strict objects): a unit with `spoken` goes out after the bridge.
   `CourseContentTest` grades every spoken form right with the standard one as its label.
 
+**What people say that writing doesn't want (`nonstandard`, in `grading/<language>.json`).** A second thing, on purpose not called
+`spoken`, because its verdict is another:
+
+| | an item's `spoken` (the unit) | the language's `nonstandard` (the grading table) |
+|---|---|---|
+| Is | what a native says too, a form the course accepts | a form that is said, and that the unit teaches writing without |
+| Verdict | right, pays as right | almost, pays half, never wrong and never a slip |
+| Where | one gap, cell or line, listed by the unit | every answer of the language, also in reviews, modules and a dialog's typed turn |
+| Shows | "🗣️ Spoken, and right too; the standard form: …" | the correction with the standard form and "People say it like this; in writing it's the form shown" (`Hint.NONSTANDARD`, the tutor sees `hint: nonstandard`) |
+
+```json
+"nonstandard": [
+  { "word": "good", "for": "well" },
+  { "word": "nothing", "for": "anything", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" }
+]
+```
+
+- `word` (a regular expression, matched whole in the answer as `Grading.fold` writes it) stands where the right answer has what `for`
+  matches, the rest being the same: "He sings good" for He sings well; one way only, so "a well blacksmith" stays wrong.
+- `after` (optional): the text before it must have this: the answer's own words and, for a gap, the sentence before it
+  (`Grading.check`'s `before`). "I didn't see ___": nothing is almost; "Is there ___ to eat?": nothing stays wrong.
+- A choice never offers such a form as a wrong option (nor a bank as a distractor: a form the sheet offers is wrong, `Sheets.check`): use
+  a wrong form nobody says, or a typed gap or a line. Name both in the intro and on the page: people say it, writing wants the other,
+  not "never".
+- The table is in the APK, no bridge route serves it and no bridge or script port grades an answer: the app's verdict is what is stored,
+  so an older app grades with the table it has (`good` for `well` wrong there) and an older bridge stores the hint as any other
+  (a free string, `answers.ts`). A table without the key behaves as before.
+
 ## Homework (lani.worksheet/v0)
 
 The tutor adds worksheets to a unit (`publish_worksheet`): homework after a unit, an extra sheet on what the learner
