@@ -92,13 +92,26 @@ On the branch's tip before this doc:
 - `bunx tsc --noEmit -p .`: clean. `bun src/cli/tutor-export.ts --check`: 89 files match.
 - Smoke (`LANI_SMOKE_PORT=9970 LANI_SMOKE_FRIULI_PORT=9978 LANI_SMOKE_TOWN_PORT=9982 LANI_SMOKE_DRAMA3_PORT=9988`): all 3,514 checks passed. Its course, course-speech and prints sections read the six units.
 - A scratch check per unit: `validateUnit` in de, sl, en and it, `validateGrammar`, the print's rule line per step, and that every bold form of an explanation is read by Elena through `course-speech.ts`'s own `introStep`.
-- Android tests through `lani-slot.sh`, not the whole suite (part c and the gate run it): `ItalianB2aContentTest` 8, `ItalianCourseContentTest` 6, `GradingLanguagesTest` 48, `GrammarTest` 16, `SchoolBoardTest` 7, `IntroSpeechParityTest` 2: 87, no failure. `ItalianCourseContentTest` grades every right answer and spoken form and finds no distractor right or almost.
+- Android tests through `lani-slot.sh`, not the whole suite (part c and the gate run it), on the tip before 0e42cd6c, which only merges table rows of the intro and which QA then played: `ItalianB2aContentTest` 8, `ItalianCourseContentTest` 6, `GradingLanguagesTest` 48, `GrammarTest` 16, `SchoolBoardTest` 7, `IntroSpeechParityTest` 2: 87, no failure. `ItalianCourseContentTest` grades every right answer and spoken form and finds no distractor right or almost.
 - **Prints**: `school-prints --language it --level B2` as PDFs in de, sl and en, and in sl for a learner of each gender and of both: each sheet takes two pages, the booklet 14. No word is left without a meaning. Two pages read by eye (`concordanza-tempi` page 1, `magari` page 2, de). `concordanza-tempi`: its table has the Italian word over the gloss repeating it ("insieme / insieme (gleichzeitig)"), as B1's cells do.
 - **A second read**: two helpers read the units fresh, three each, as a teacher and as the grading would. 54 findings, nearly all taken. Among them a contradiction (three days of rain, then "yesterday it was sunny"), stamattina not being over, a false why (sia venduto), the list of right answers in concordanza-tempi's gaps, and masculine Slovene where the learner speaks. Left as it was: the `spoken` after era strano, against B1's note (above).
 
+## Emulator QA
+
+`companion/bin/qa-slot --no-town --steps course-unit`, slot 2, with a synthetic Teo (`make-learner.ts --name Teo --target it --base de`, `LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo LANI_QA_COURSE_UNIT=congiuntivo-imperfetto`): setup, course-unit and the crash check ok. Shots and the printed PDF: scratchpad `ux-course-it-b2-a/qa3/`.
+
+- The school with A1 to B1 done and B2 open, the unit as next, Elena's six steps with their quick questions, the summary card (the page's rule), the first sheet's two tables and its choice, the test straight away, passed 11 of 11, the next unit named, the unit kept done by the dev bridge.
+- Its print: "Stampa la scheda", fit.js in the WebView, the dialog's preview, the PDF saved.
+
+**The first run found a real thing:** the step couldn't reach the fourth step's field, because the table had thirteen rows of three lines by then. The learner had to scroll several screens to the question, so the table now has eleven rows (0e42cd6c), and the run above is on that.
+
+**Found on the way, for whoever owns bin/qa:** `--steps friuli-school-unit` fails on a B2 unit with "the level B2". Before it opens the unit, its "school:reveal" stage looks for the unit's level, and that state shows only up to B1 (the school is right, the step's assertion is too narrow). `course-unit` does the same job, with the print, and needs no change, so bin/qa isn't touched here. Parts b and c should use `course-unit`.
+
+Tap counts: no screen changed. Before, these units were a read-only line in B2's folded list. After, the current one is a row of B2 once the level opens, one tap from the school.
+
 ## What I didn't do
 
-- The whole Android suite, a merge of main, or the other two bases on an emulator, as the brief says for a part.
+- The whole Android suite, a merge of main, as the brief says for a part. Five of the six units, and the Slovene and English bases, on an emulator. The second and third sheets on an emulator: they have the Android tests behind them, not a playthrough.
 - COURSE.md, the README, the page counts and the course's content test: part c's.
 - The sheets beyond one read by eye: the other five were checked by page count and the rule-line check only.
 
