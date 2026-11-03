@@ -118,8 +118,6 @@
     { "word": "drunk", "for": "drank" },
     { "word": "swum", "for": "swam" },
     { "word": "begun", "for": "began" },
-    { "word": "(?:am|is|are)(?= \\p{L}+ing(?!\\p{L}))", "for": "(?:have|has) been" },
-    { "word": "(?:am|is|are)(?=(?: \\p{L}+)* (?:for|since)(?!\\p{L}))", "for": "(?:have|has) been" },
     { "word": "been", "for": "(?:have|has) been" },
     { "word": "used", "for": "use", "after": "(?<!\\p{L})did(?!\\p{L})" },
     { "word": "use(?= to(?!\\p{L}))", "for": "used" },

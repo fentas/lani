@@ -71,8 +71,6 @@ class EnglishB1aContentTest {
 
     @Test fun `what people say is almost with the standard form shown, one way only`() {
         for ((typed, right) in listOf(
-            "I'm waiting for an hour." to "I've been waiting for an hour.", "Jack is walking since six." to "Jack has been walking since six.",
-            "I'm here since Monday." to "I've been here since Monday.", "We are in the village for two weeks." to "We've been in the village for two weeks.",
             "I been waiting for an hour." to "I've been waiting for an hour.",
             "I didn't used to like tea." to "I didn't use to like tea.", "Did you used to live here?" to "Did you use to live here?", "I use to live in Leeds." to "I used to live in Leeds.",
             "It's cold, ain't it?" to "It's cold, isn't it?", "I ain't seen Jack." to "I haven't seen Jack.",
@@ -83,8 +81,11 @@ class EnglishB1aContentTest {
             assertEquals(typed, Verdict.ALMOST to Hint.NONSTANDARD, r.verdict to r.hint)
             assertEquals(typed, right, r.expected)
         }
-        // one way only; no for or since is no such form; the cue copied stays wrong: the unit's point, and on the native list
+        // one way only; the cue copied stays wrong: the unit's point, and on the native list. Ireland's present for the perfect is outside
+        // the Lake District's British English the course teaches, and the commonest mistake here, so it is recorded (the lead, 2026-11-03)
         for ((typed, right) in listOf(
+            "I'm waiting for an hour." to "I've been waiting for an hour.", "Jack is walking since six." to "Jack has been walking since six.",
+            "I'm here since Monday." to "I've been here since Monday.", "We are in the village for two weeks." to "We've been in the village for two weeks.",
             "I've been waiting." to "I'm waiting.", "I am here." to "I have been here.", "I am to Keswick." to "I have been to Keswick.",
             "I used to live in Leeds." to "I use to live in Leeds.", "I know Mrs Hartley since Easter." to "I've known Mrs Hartley since Easter.",
             "I live here for ten years." to "I've lived here for ten years.", "I've lived here since ten years." to "I've lived here for ten years.",
@@ -135,7 +136,7 @@ class EnglishB1aContentTest {
     }
 
     @Test fun `no text of the six says never of a form people say`() {
-        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:didn't used to|I use to|I'm here since|I'm waiting for|I been waiting|I'd went|innit|isn't it|amn't)[^*]*\*""", RegexOption.IGNORE_CASE)
+        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:didn't used to|I use to|I been waiting|I'd went|innit|isn't it|amn't)[^*]*\*""", RegexOption.IGNORE_CASE)
         val texts = units.keys.flatMap { id ->
             val unit = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject
             unit["intro"]!!.jsonObject["steps"]!!.jsonArray.flatMap { s -> s.jsonObject["say"]!!.jsonObject.values.map { "$id: ${it.jsonPrimitive.content}" } }
