@@ -111,9 +111,9 @@ village get no case row, as before. GET /state says `cases` in a German village 
   n-Deklination's list, the genitive's -es or -s, the dative plural's -n); a full forms book (Slovene's) isn't needed. Two
   ports (bridge and app) are held together by the fixture, which the smoke and `CaseTrainerDeTest` both read.
 - **The lens never guesses silently.** On the bank's 387 "Welcher Fall?" items (gold written apart from the lens) it reads
-  all 387 right, none wrong as sure. On 73 held-out words of the content's lines (two draws, labelled by hand before the
-  lens ran: `bridge/test/fixtures/case-lens-de-heldout.json`) 72 right, none wrong as sure, one open (an exclamation
-  without a verb); the first draw's one miss (zwei Kilo, a plural) fixed before the second. Its likely picks are shown with the other readings. Over the 4,875 German content
+  all 387 right, none wrong as sure. On 107 held-out words of the content's lines (three draws, labelled by hand before the
+  lens ran: `bridge/test/fixtures/case-lens-de-heldout.json`) 106 right, none wrong as sure, one open (an exclamation
+  without a verb); the first draw's one miss (zwei Kilo, a plural) fixed before the second, none in the second or third. Its likely picks are shown with the other readings. Over the 4,875 German content
   lines (Kärnten's scenes, stories, readings, the German book's examples, the packs' examples) it gives 17,503 words a
   case: 76 % decided, 17 % likely, 7 % left open (an exclamation with no verb, Ein Karpfen!, stays open); 0.2 ms a line.
   Samples of those lines read by hand found the misses fixed since (an imperative's object, morgen first in a sentence,
