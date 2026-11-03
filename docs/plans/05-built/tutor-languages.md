@@ -98,6 +98,10 @@ Machine-written, by language. Each line is a claim the tutor will now act on.
 
 No voiced text changed: **0 characters** to build. The language parts and the paragraphs are instructions, never spoken.
 
+## How it was checked
+
+The smoke's `tutor-languages` section; `tutor-export --check`; `CorePromptTest` (each language's prefix, a child's, the studio's, a village's copy of a topic); QA's `tutor-language` step (only when named: `LANI_DEV_DATA` from `make-learner.ts --target it --base de`, `LANI_CULTURE=friuli`, `LANI_QA_SETUP_PAIR=it-de`), where the app answers a chat through the mock and the prefix the mock got ends with `## Correct Italian`, with no Slovene rule in it. No screen changed, so there are no tap counts. No real model was called: what a tutor makes of these texts has not been seen yet.
+
 ## How to compare again
 
 `cd companion/bridge && bun test/tutor-text.ts <jan|teo|kaernten|lakeland|friuli-default> <dir>` writes the rules, the guide and the tools for that synthetic learner; `diff -r` two runs.
