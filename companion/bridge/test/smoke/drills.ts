@@ -46,7 +46,7 @@ export default async function drills() {
   const r = validateDrill(rapid)
   check('a rapid-fire drill validates: listed answers asked in the bases, numbers generated', r.ok && r.drill.kind === 'rapid' && JSON.stringify(r.drill.sets[1].numbers.flatMap(numbersOf)) === '[1,2,3,21,245]', r)
   refuse('a number twice in a set', { ...rapid, sets: [rapid.sets[0], { ...rapid.sets[1], numbers: [{ from: 1, to: 3 }, { list: [2] }] }] }, /same number twice/)
-  refuse('numbers generated in a language other than Slovene', { ...rapid, language: 'it', title: { it: 'Veloce', en: 'Rapid' }, sets: [{ ...rapid.sets[1], title: { it: 'Numeri', en: 'Numbers' } }] }, /Slovene only/)
+  check('numbers are generated in another language too', validateDrill({ ...rapid, language: 'it', title: { it: 'Veloce', en: 'Rapid' }, sets: [{ ...rapid.sets[1], title: { it: 'Numeri', en: 'Numbers' } }] }).ok)
   refuse('a set with neither items nor numbers', { ...rapid, sets: [{ id: 'x', level: 'A1', title: { sl: 'X', en: 'X' } }] }, /items or numbers/)
   const build = { schema: 'lani.drill/v0', id: 'smoke-gradnja', kind: 'build', emoji: '🧱', title: { sl: 'Gradnja', en: 'Building' }, builds: [
     { id: 'grem', level: 'A1', rules: ['vezniki'], steps: [s('Grem.', "I'm going."), { add: { en: 'to the shop', de: 'in den Laden' }, ...s('Grem v trgovino.', "I'm going to the shop.") }] },
@@ -75,7 +75,9 @@ export default async function drills() {
 
   // --- the numbers: as the app counts them (data/SpokenNumbers.kt, its counting form) ---------------------------------
   const counted: Record<number, string> = { 0: 'nič', 1: 'ena', 2: 'dva', 4: 'štiri', 11: 'enajst', 20: 'dvajset', 21: 'enaindvajset', 38: 'osemintrideset', 99: 'devetindevetdeset', 100: 'sto', 101: 'sto ena', 200: 'dvesto', 245: 'dvesto petinštirideset', 999: 'devetsto devetindevetdeset' }
-  check('numbers are said as the app counts them (SpokenNumbers): enaindvajset, dvesto petinštirideset …; none out of range or in another language', Object.entries(counted).every(([n, w]) => numberWord(Number(n), 'sl') === w) && numberWord(1000, 'sl') === undefined && numberWord(5, 'it') === undefined, Object.keys(counted).map(n => [n, numberWord(Number(n), 'sl')]))
+  check('numbers are said as the app counts them (SpokenNumbers): enaindvajset, dvesto petinštirideset …; none out of range or in a language it does not count in', Object.entries(counted).every(([n, w]) => numberWord(Number(n), 'sl') === w) && numberWord(1000, 'sl') === undefined && numberWord(5, 'fr') === undefined, Object.keys(counted).map(n => [n, numberWord(Number(n), 'sl')]))
+  const countedElsewhere: [number, string, string][] = [[21, 'it', 'ventuno'], [23, 'it', 'ventitré'], [28, 'it', 'ventotto'], [103, 'it', 'centotré'], [108, 'it', 'centotto'], [180, 'it', 'centottanta'], [245, 'it', 'duecentoquarantacinque'], [21, 'de', 'einundzwanzig'], [101, 'de', 'einhunderteins'], [245, 'de', 'zweihundertfünfundvierzig'], [21, 'en', 'twenty-one'], [245, 'en', 'two hundred and forty-five']]
+  check('… in Italian, German and English as the app counts them', countedElsewhere.every(([n, l, w]) => numberWord(n, l) === w), countedElsewhere.map(([n, l]) => [n, l, numberWord(n, l)]))
 
   // --- the curated drills ------------------------------------------------------------------------------------------
   const dir = join(repo, 'drills/sl')

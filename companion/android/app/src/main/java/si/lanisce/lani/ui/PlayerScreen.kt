@@ -67,6 +67,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -104,6 +105,7 @@ import kotlinx.serialization.json.put
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.ChatContext
 import si.lanisce.lani.app.ExerciseSource
+import si.lanisce.lani.data.ChoiceOrder
 import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grading
@@ -188,8 +190,8 @@ data class Outcome(
 }
 
 /** Grades a typed answer: forgives diacritics and stem typos, never endings (see [Grading]). */
-private fun typed(answer: String, accept: List<String>, explain: String?): Outcome {
-    val r = Grading.check(answer, accept)
+private fun typed(answer: String, accept: List<String>, explain: String?, before: String = ""): Outcome {
+    val r = Grading.check(answer, accept, before = before)
     return Outcome(r.verdict, answer, r.expected, explain, marks = r.marks, hint = r.hint)
 }
 
@@ -732,8 +734,8 @@ private fun ExerciseView(
             if (ex.audio != null) {
                 Prompt("", ex.instruction ?: bi("content.hearGap"))
                 AudioPrompt(ex.audio)
-                TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain) }
-            } else TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, ex.instruction, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain) }
+                TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain, ex.text.substringBefore("___", "")) }
+            } else TypedEx(ex.text.replace("___", "______"), ex.hint, locked, done, ex.instruction, accept = ex.accept) { a -> typed(a, ex.accept, ex.explain, ex.text.substringBefore("___", "")) }
         }
         is Exercise.Dictation -> {
             Prompt("", ex.instruction ?: bi("common.writeWhatHear"))
@@ -881,10 +883,10 @@ private fun AdaptiveChoiceEx(vm: AppViewModel, a: AdaptedChoice, locked: Boolean
             if (ex.audio != null) {
                 Prompt("", ex.instruction)
                 AudioPrompt(ex.audio)
-                ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, sayOptions = ex.sayOptions, almost = ex.almost)
-            } else ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, ex.instruction, ex.say, ex.sayOptions, ex.almost)
+                ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, sayOptions = ex.sayOptions, almost = ex.almost, fixedOrder = ex.fixedOrder)
+            } else ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, ex.instruction, ex.say, ex.sayOptions, ex.almost, ex.fixedOrder)
         a.mode == TurnMode.TYPE -> {
-            TypedEx(g.shown, null, locked, done, "✍️ ${bi("adaptive.typeMissingWord")}", accept = g.accept) { t -> typed(t, g.accept, ex.explain) }
+            TypedEx(g.shown, null, locked, done, "✍️ ${bi("adaptive.typeMissingWord")}", accept = g.accept) { t -> typed(t, g.accept, ex.explain, g.before) }
             if (!locked) LetMeChooseButton { chosen = true }
         }
         else -> {
@@ -904,19 +906,32 @@ private fun LetMeChooseButton(onClick: () -> Unit) {
 }
 
 /**
- * Pick one of [options]: [answer] is right, one of the near misses [almost] almost (a real answer that doesn't fit here,
- * [Grading.picked]: paid as almost, with the [explain]), the rest wrong.
+ * Where each option shown is in the file ([ChoiceOrder]), on the day the question came up: past midnight too it holds until
+ * the question is gone. [fixed]: as the file has them.
  */
 @Composable
-private fun ChoiceEx(
+internal fun rememberChoiceOrder(n: Int, question: String, fixed: Boolean = false): List<Int> {
+    val day = rememberSaveable { LocalDate.now().toEpochDay() }
+    return remember(n, question, day, fixed) { if (fixed) (0 until n).toList() else ChoiceOrder.of(n, question, day) }
+}
+
+/**
+ * Pick one of [options], shown in the day's order ([rememberChoiceOrder]): [answer] is right, one of the near misses [almost]
+ * almost (a real answer that doesn't fit here, [Grading.picked]: paid as almost, with the [explain]), the rest wrong, all
+ * of them the file's indices.
+ */
+@Composable
+internal fun ChoiceEx(
     prompt: String, options: List<String>, answer: Int, explain: String?, locked: Boolean, done: (Outcome) -> Unit,
-    instruction: String? = null, say: String? = null, sayOptions: Boolean = false, almost: List<Int> = emptyList(),
+    instruction: String? = null, say: String? = null, sayOptions: Boolean = false, almost: List<Int> = emptyList(), fixedOrder: Boolean = false,
 ) {
     var picked by remember { mutableStateOf<Int?>(null) }
     val speakable = speakableOptions(options, sayOptions)
     val look = LocalLook.current
+    val order = rememberChoiceOrder(options.size, ChoiceOrder.question(prompt, options.getOrNull(answer)), fixedOrder)
     Prompt(prompt, instruction, say)
-    options.forEachIndexed { i, opt ->
+    for (i in order) {
+        val opt = options[i]
         val color = when {
             picked == null -> CardDefaults.cardColors()
             i == answer -> CardDefaults.cardColors(containerColor = AlpineGreen.copy(alpha = 0.18f))
@@ -1005,14 +1020,17 @@ private fun OptionText(look: ExerciseLook?, i: Int, text: String, modifier: Modi
     )
 }
 
+/** Pick all that apply, shown in the day's order ([rememberChoiceOrder]); [Exercise.Multi.answers] and what's ticked are the file's indices. */
 @Composable
-private fun MultiEx(ex: Exercise.Multi, locked: Boolean, done: (Outcome) -> Unit) {
+internal fun MultiEx(ex: Exercise.Multi, locked: Boolean, done: (Outcome) -> Unit) {
     val selected = remember { mutableStateListOf<Int>() }
     var checked by remember { mutableStateOf(false) }
     val speakable = speakableOptions(ex.options, ex.sayOptions)
     val look = LocalLook.current
+    val order = rememberChoiceOrder(ex.options.size, ChoiceOrder.question(ex.prompt, ex.options.joinToString("\n")))
     Prompt(ex.prompt, ex.instruction ?: bi("playerScreen.selectAllApply"))
-    ex.options.forEachIndexed { i, opt ->
+    for (i in order) {
+        val opt = ex.options[i]
         val right = i in ex.answers
         val color = when {
             !checked -> if (i in selected) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
@@ -1587,6 +1605,7 @@ internal fun hintText(h: Grading.Hint): String? = when (h) {
     // the examples are the target language's own (its grading table's): l'acqua, un'amica for Italian, can't, I'm for English
     Grading.Hint.APOSTROPHE -> bi("playerScreen.mindApostrophe") + Spelling.of(L10n.pair.target).looseExamples?.let { ": $it" }.orEmpty()
     Grading.Hint.TYPO -> bi("playerScreen.looksLikeTypoSo")
+    Grading.Hint.NONSTANDARD -> bi("playerScreen.nonstandard")
     Grading.Hint.ENDING -> bi("playerScreen.checkEndingSloveneCarries")
 }
 

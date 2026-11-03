@@ -143,6 +143,13 @@ class QaHooksTest {
         assertEquals(most.steps.size, done.projects["most"])
         assertEquals(day.toString(), done.projectsFinished["most"])
         assertTrue(si.lanisce.lani.game.Projects.finished(done, most))
+        // a village with named residents: the step's leader lives here and is met, so it waits for nobody; the others stay as they were
+        val named = s.copy(residents = listOf(si.lanisce.lani.game.villagers.Resident("tone", "2026-08-01")))
+        val led = QaHooks.readyStep(named, "mlaj", 2, day)
+        assertTrue(si.lanisce.lani.game.Projects.leaderHere(led, spec, day))
+        assertEquals(setOf("tone", spec.leader), led.residents.map { it.id }.toSet())
+        // without named residents everyone counts as here, and it stays so
+        assertTrue(QaHooks.readyStep(s, "mlaj", 2, day).residents.isEmpty())
     }
 
     @Test fun `a request of the cards QA names, in place of the one before, its challenge started`() {

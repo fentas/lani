@@ -1,0 +1,1143 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "someone-anything",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🔎",
+  "title": {
+    "en": "Someone, anything, nothing",
+    "de": "Jemand, etwas: someone, anything, nothing",
+    "sl": "Nekdo, nekaj: someone, anything, nothing",
+    "it": "Qualcuno, qualcosa: someone, anything, nothing"
+  },
+  "goal": {
+    "sl": "Rečeš someone, anything, nothing, everywhere s prvim delom po pravilu some in any, uporabiš samo eno nikalnico (I saw nothing, I didn't see anything) in dodaš something nice ali anything else.",
+    "de": "Du sagst someone, anything, nothing, everywhere, mit dem ersten Teil nach der Regel von some und any, nimmst nur eine Verneinung (I saw nothing, I didn't see anything) und sagst something nice oder anything else.",
+    "it": "Dici someone, anything, nothing, everywhere, con la prima parte secondo la regola di some e any, usi una sola negazione (I saw nothing, I didn't see anything) e aggiungi something nice o anything else.",
+    "en": "You can say someone, anything, nothing, everywhere, the first part by the rule of some and any, use one negative only (I saw nothing, I didn't see anything), and add something nice or anything else."
+  },
+  "grammar": [
+    "indefinite-pronouns",
+    "some-any"
+  ],
+  "words": [
+    "some-",
+    "any-",
+    "no-",
+    "every-",
+    "someone",
+    "somebody",
+    "something",
+    "somewhere",
+    "anyone",
+    "anybody",
+    "anything",
+    "anywhere",
+    "no one",
+    "nobody",
+    "nothing",
+    "nowhere",
+    "everyone",
+    "everybody",
+    "everything",
+    "everywhere",
+    "else",
+    "anything else",
+    "someone else",
+    "something nice",
+    "nothing new",
+    "something to eat",
+    "nowhere to sleep",
+    "door",
+    "hammer",
+    "asleep",
+    "nothing left",
+    "ready",
+    "hear",
+    "dance",
+    "key",
+    "sit",
+    "to drink"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oseba",
+          "de": "Person",
+          "it": "persona",
+          "en": "person"
+        },
+        {
+          "sl": "stvar",
+          "de": "Sache",
+          "it": "cosa",
+          "en": "thing"
+        },
+        {
+          "sl": "kraj",
+          "de": "Ort",
+          "it": "luogo",
+          "en": "place"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**some-** je za trdilne stavke: **someone** (nekdo; **somebody** je isto), **something** (nekaj), **somewhere** (nekje). **Someone is at the door.** (Nekdo je pri vratih.) **I've got something for you.** (Nekaj imam zate.) **Meg is somewhere on the fell.** (Meg je nekje na hribu.)",
+          "de": "**some-** steht im bejahten Satz: **someone** (jemand; **somebody** ist dasselbe), **something** (etwas), **somewhere** (irgendwo). **Someone is at the door.** (Jemand ist an der Tür.) **I've got something for you.** (Ich habe etwas für dich.) **Meg is somewhere on the fell.** (Meg ist irgendwo am Berg.)",
+          "it": "**some-** è per le frasi affermative: **someone** (qualcuno; **somebody** è lo stesso), **something** (qualcosa), **somewhere** (da qualche parte). **Someone is at the door.** (C'è qualcuno alla porta.) **I've got something for you.** (Ho qualcosa per te.) **Meg is somewhere on the fell.** (Meg è da qualche parte sul monte.)",
+          "en": "**some-** is for a yes sentence: **someone** (**somebody** is the same), **something**, **somewhere**. **Someone is at the door.** **I've got something for you.** **Meg is somewhere on the fell.**"
+        },
+        "examples": [
+          {
+            "en": "Someone is at the door.",
+            "sl": "Nekdo je pri vratih.",
+            "de": "Jemand ist an der Tür.",
+            "it": "C'è qualcuno alla porta."
+          },
+          {
+            "en": "I've got something for you.",
+            "sl": "Nekaj imam zate.",
+            "de": "Ich habe etwas für dich.",
+            "it": "Ho qualcosa per te."
+          },
+          {
+            "en": "Meg is somewhere on the fell.",
+            "sl": "Meg je nekje na hribu.",
+            "de": "Meg ist irgendwo am Berg.",
+            "it": "Meg è da qualche parte sul monte."
+          }
+        ],
+        "rows": [
+          [
+            "someone, somebody",
+            "something",
+            "somewhere"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinite-pronouns",
+          "prompt": "I can hear ___ in the kitchen. It's Mrs Birkett!",
+          "options": [
+            "someone",
+            "something",
+            "somewhere"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Oseba: someone**\n- someone · something · somewhere",
+            "de": "**Eine Person: someone**\n- someone · something · somewhere",
+            "it": "**Una persona: someone**\n- someone · something · somewhere",
+            "en": "**A person: someone**\n- someone · something · somewhere"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**any-** je za zanikane stavke in večino vprašanj: **anyone** (kdo, nihče; tudi **anybody**), **anything** (kaj, nič), **anywhere** (kje, nikjer). **I can't see anyone.** (Nikogar ne vidim.) **Did you buy anything?** (Si kaj kupil{m:|f:a}?) **Is there anywhere to eat?** (Je kje kaj za jesti?) Ponudba ostane pri **some-**: **Would you like something to drink?** (Bi kaj popil{m:|f:a}?)",
+          "de": "**any-** steht im verneinten Satz und in den meisten Fragen: **anyone** (jemand, niemand; auch **anybody**), **anything** (etwas, nichts), **anywhere** (irgendwo, nirgends). **I can't see anyone.** (Ich sehe niemanden.) **Did you buy anything?** (Hast du etwas gekauft?) **Is there anywhere to eat?** (Kann man hier irgendwo essen?) Das Angebot bleibt bei **some-**: **Would you like something to drink?** (Möchtest du etwas trinken?)",
+          "it": "**any-** è per le frasi negative e per la maggior parte delle domande: **anyone** (qualcuno, nessuno; anche **anybody**), **anything** (qualcosa, niente), **anywhere** (da qualche parte). **I can't see anyone.** (Non vedo nessuno.) **Did you buy anything?** (Hai comprato qualcosa?) **Is there anywhere to eat?** (C'è un posto per mangiare?) L'offerta resta con **some-**: **Would you like something to drink?** (Vuoi qualcosa da bere?)",
+          "en": "**any-** is for a no sentence and most questions: **anyone** (**anybody**), **anything**, **anywhere**. **I can't see anyone.** **Did you buy anything?** **Is there anywhere to eat?** An offer keeps **some-**: **Would you like something to drink?**"
+        },
+        "examples": [
+          {
+            "en": "I can't see anyone.",
+            "sl": "Nikogar ne vidim.",
+            "de": "Ich sehe niemanden.",
+            "it": "Non vedo nessuno."
+          },
+          {
+            "en": "Did you buy anything at the market?",
+            "sl": "Si kaj kupil{m:|f:a} na tržnici?",
+            "de": "Hast du auf dem Markt etwas gekauft?",
+            "it": "Hai comprato qualcosa al mercato?"
+          },
+          {
+            "en": "Would you like something to drink?",
+            "sl": "Bi kaj popil{m:|f:a}?",
+            "de": "Möchtest du etwas trinken?",
+            "it": "Vuoi qualcosa da bere?"
+          }
+        ],
+        "rows": [
+          [
+            "anyone, anybody",
+            "anything",
+            "anywhere"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "indefinite-pronouns",
+          "text": "I can't see ___ on the fell. (a person)",
+          "accept": [
+            "anyone",
+            "anybody"
+          ],
+          "explain": {
+            "sl": "**Zanikano, oseba: anyone**\n- I can't see anyone. · I didn't buy anything.",
+            "de": "**Verneint, eine Person: anyone**\n- I can't see anyone. · I didn't buy anything.",
+            "it": "**Negativa, una persona: anyone**\n- I can't see anyone. · I didn't buy anything.",
+            "en": "**A no sentence, a person: anyone**\n- I can't see anyone. · I didn't buy anything."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**no-** ima ne že v sebi, zato je glagol trdilen: **no one** (nihče; tudi **nobody**), **nothing** (nič), **nowhere** (nikjer). **I saw nothing.** je isto kot **I didn't see anything.** (Nič nisem videl{m:|f:a}.) Ljudje rečejo tudi *I didn't see nothing*, pisno pa velja ena sama nikalnica, ne kot v slovenščini.",
+          "de": "**no-** hat das Nein schon in sich, das Verb bleibt bejaht: **no one** (niemand; auch **nobody**), **nothing** (nichts), **nowhere** (nirgends). **I saw nothing.** ist dasselbe wie **I didn't see anything.** (Ich habe nichts gesehen.) Viele sagen auch *I didn't see nothing*, geschrieben gilt nur eine Verneinung.",
+          "it": "**no-** ha già il no dentro, quindi il verbo resta affermativo: **no one** (nessuno; anche **nobody**), **nothing** (niente), **nowhere** (da nessuna parte). **I saw nothing.** è come **I didn't see anything.** (Non ho visto niente.) Molti dicono anche *I didn't see nothing*, ma per iscritto vale una sola negazione, non come in italiano.",
+          "en": "**no-** has the no in it, so the verb stays yes: **no one** (**nobody**), **nothing**, **nowhere**. **I saw nothing.** is the same as **I didn't see anything.** People also say *I didn't see nothing*; writing wants one negative only."
+        },
+        "examples": [
+          {
+            "en": "I saw nothing.",
+            "sl": "Nič nisem videl{m:|f:a}.",
+            "de": "Ich habe nichts gesehen.",
+            "it": "Non ho visto niente."
+          },
+          {
+            "en": "I didn't see anything on the fell.",
+            "sl": "Na hribu nisem nič videl{m:|f:a}.",
+            "de": "Ich habe am Berg nichts gesehen.",
+            "it": "Sul monte non ho visto niente."
+          },
+          {
+            "en": "There's no one at the smithy.",
+            "sl": "V kovačnici ni nikogar.",
+            "de": "In der Schmiede ist niemand.",
+            "it": "Alla fucina non c'è nessuno."
+          }
+        ],
+        "rows": [
+          [
+            "no one, nobody",
+            "nothing",
+            "nowhere"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "indefinite-pronouns",
+          "text": "We didn't find ___ in the barn. (a thing)",
+          "accept": [
+            "anything"
+          ],
+          "explain": {
+            "sl": "**didn't + any-: pisno ena sama nikalnica**\n- We didn't find anything. · We found nothing.",
+            "de": "**didn't + any-: geschrieben nur eine Verneinung**\n- We didn't find anything. · We found nothing.",
+            "it": "**didn't + any-: per iscritto una sola negazione**\n- We didn't find anything. · We found nothing.",
+            "en": "**didn't + any-: in writing, one negative only**\n- We didn't find anything. · We found nothing."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**every-** je za vse: **everyone** (vsi; tudi **everybody**), **everything** (vse), **everywhere** (povsod). Glagol je v ednini: **Everyone is at the inn.** (Vsi so v gostilni.), nikoli *Everyone are.* **Everything is ready.** (Vse je pripravljeno.) **There's snow everywhere.** (Povsod je sneg.)",
+          "de": "**every-** steht für alle: **everyone** (alle; auch **everybody**), **everything** (alles), **everywhere** (überall). Das Verb steht im Singular: **Everyone is at the inn.** (Alle sind im Gasthaus.), nie *Everyone are.* **Everything is ready.** (Alles ist bereit.) **There's snow everywhere.** (Überall liegt Schnee.)",
+          "it": "**every-** è per tutti: **everyone** (tutti; anche **everybody**), **everything** (tutto), **everywhere** (dappertutto). Il verbo è al singolare: **Everyone is at the inn.** (Sono tutti alla locanda.), mai *Everyone are.* **Everything is ready.** (È tutto pronto.) **There's snow everywhere.** (C'è neve dappertutto.)",
+          "en": "**every-** is for all: **everyone** (**everybody**), **everything**, **everywhere**. The verb is singular: **Everyone is at the inn.** (never *Everyone are at the inn.*) **Everything is ready.** **There's snow everywhere.**"
+        },
+        "examples": [
+          {
+            "en": "Everyone is at the inn tonight.",
+            "sl": "Nocoj so vsi v gostilni.",
+            "de": "Heute Abend sind alle im Gasthaus.",
+            "it": "Stasera sono tutti alla locanda."
+          },
+          {
+            "en": "Everything is ready, Mrs Birkett.",
+            "sl": "Vse je pripravljeno, gospa Birkett.",
+            "de": "Alles ist bereit, Frau Birkett.",
+            "it": "È tutto pronto, signora Birkett."
+          },
+          {
+            "en": "There's snow everywhere.",
+            "sl": "Povsod je sneg.",
+            "de": "Überall liegt Schnee.",
+            "it": "C'è neve dappertutto."
+          }
+        ],
+        "rows": [
+          [
+            "everyone, everybody",
+            "everything",
+            "everywhere"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinite-pronouns",
+          "prompt": "Everyone ___ at the inn tonight.",
+          "options": [
+            "is",
+            "are",
+            "am"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**everyone: glagol v ednini**\n- Everyone is here. · Everything is ready.",
+            "de": "**everyone: das Verb im Singular**\n- Everyone is here. · Everything is ready.",
+            "it": "**everyone: il verbo al singolare**\n- Everyone is here. · Everything is ready.",
+            "en": "**everyone: a singular verb**\n- Everyone is here. · Everything is ready."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**No one** in **nothing** lahko stojita sama ali na začetku stavka: **Who's there? — No one.** (Kdo je tam? — Nihče.) **What did you buy? — Nothing.** (Kaj si kupil{m:|f:a}? — Nič.) **Where did you go? — Nowhere.** (Kam si {m:šel|f:šla}? — Nikamor.) **No one came.** (Nihče ni prišel.), nikoli *Anyone didn't come.*",
+          "de": "**No one** und **nothing** können allein oder am Satzanfang stehen: **Who's there? — No one.** (Wer ist da? — Niemand.) **What did you buy? — Nothing.** (Was hast du gekauft? — Nichts.) **Where did you go? — Nowhere.** (Wohin bist du gegangen? — Nirgendwohin.) **No one came.** (Niemand ist gekommen.), nie *Anyone didn't come.*",
+          "it": "**No one** e **nothing** possono stare da soli o all'inizio della frase: **Who's there? — No one.** (Chi c'è? — Nessuno.) **What did you buy? — Nothing.** (Che cosa hai comprato? — Niente.) **Where did you go? — Nowhere.** (Dove sei andat{m:o|f:a}? — Da nessuna parte.) **No one came.** (Non è venuto nessuno.), mai *Anyone didn't come.*",
+          "en": "**No one** and **nothing** can stand alone or open a sentence: **Who's there? — No one.** **What did you buy? — Nothing.** **Where did you go? — Nowhere.** **No one came.** (never *Anyone didn't come.*)"
+        },
+        "examples": [
+          {
+            "en": "Who's there? — No one.",
+            "sl": "Kdo je tam? — Nihče.",
+            "de": "Wer ist da? — Niemand.",
+            "it": "Chi c'è? — Nessuno."
+          },
+          {
+            "en": "What did you buy? — Nothing.",
+            "sl": "Kaj si kupil{m:|f:a}? — Nič.",
+            "de": "Was hast du gekauft? — Nichts.",
+            "it": "Che cosa hai comprato? — Niente."
+          },
+          {
+            "en": "Where did you go? — Nowhere.",
+            "sl": "Kam si {m:šel|f:šla}? — Nikamor.",
+            "de": "Wohin bist du gegangen? — Nirgendwohin.",
+            "it": "Dove sei andat{m:o|f:a}? — Da nessuna parte."
+          },
+          {
+            "en": "Nobody came to the smithy today.",
+            "sl": "Danes ni nihče prišel v kovačnico.",
+            "de": "Heute ist niemand in die Schmiede gekommen.",
+            "it": "Oggi non è venuto nessuno alla fucina."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinite-pronouns",
+          "prompt": "___ came to the smithy today.",
+          "options": [
+            "No one",
+            "Anyone",
+            "Not anyone"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Na začetku stavka: no one, nobody**\n- No one came. · Nobody knows.",
+            "de": "**Am Satzanfang: no one, nobody**\n- No one came. · Nobody knows.",
+            "it": "**All'inizio della frase: no one, nobody**\n- No one came. · Nobody knows.",
+            "en": "**Opening a sentence: no one, nobody**\n- No one came. · Nobody knows."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pridevnik ali **to** + glagol pride za njimi: **something nice** (nekaj lepega), **nothing new** (nič novega), **something to eat** (nekaj za pojesti), **nowhere to sleep** (nikjer prostora za spanje). **else** pomeni drug: **anything else?** (še kaj?), **someone else** (nekdo drug).",
+          "de": "Ein Adjektiv oder **to** + Verb kommt danach: **something nice** (etwas Schönes), **nothing new** (nichts Neues), **something to eat** (etwas zu essen), **nowhere to sleep** (kein Platz zum Schlafen). **else** heißt sonst: **anything else?** (sonst noch etwas?), **someone else** (jemand anders).",
+          "it": "Un aggettivo o **to** + verbo viene dopo: **something nice** (qualcosa di bello), **nothing new** (niente di nuovo), **something to eat** (qualcosa da mangiare), **nowhere to sleep** (nessun posto per dormire). **else** vuol dire altro: **anything else?** (altro?), **someone else** (qualcun altro).",
+          "en": "An adjective or **to** + a verb comes after them: **something nice** (never *something of nice*), **nothing new**, **something to eat**, **nowhere to sleep**. **else** means other: **anything else?**, **someone else**."
+        },
+        "examples": [
+          {
+            "en": "Mrs Birkett made something nice for the walkers.",
+            "sl": "Gospa Birkett je pripravila nekaj lepega za pohodnike.",
+            "de": "Frau Birkett hat etwas Schönes für die Wanderer gemacht.",
+            "it": "La signora Birkett ha preparato qualcosa di buono per gli escursionisti."
+          },
+          {
+            "en": "Is there anything to eat?",
+            "sl": "Je kaj za pojesti?",
+            "de": "Gibt es etwas zu essen?",
+            "it": "C'è qualcosa da mangiare?"
+          },
+          {
+            "en": "Anything else?",
+            "sl": "Še kaj?",
+            "de": "Sonst noch etwas?",
+            "it": "Altro?"
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefinite-pronouns",
+          "prompt": {
+            "sl": "Kaj je prav?",
+            "de": "Was ist richtig?",
+            "it": "Che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "There's something new at the inn.",
+            "There's new something at the inn.",
+            "There's something of new at the inn."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pridevnik za something**\n- something new · nothing nice",
+            "de": "**Das Adjektiv nach something**\n- something new · nothing nice",
+            "it": "**L'aggettivo dopo something**\n- something new · nothing nice",
+            "en": "**The adjective after something**\n- something new · nothing nice"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**someone** · **something** · **somewhere** (trdilno, ponudba)\n\n**anyone** · **anything** · **anywhere** (zanikano, vprašanje)\n\n**no one** · **nothing** · **nowhere**: **I saw nothing.** = **I didn't see anything.**\n\n**everyone** · **everything** · **everywhere**: **Everyone is at the inn.**\n\n**something nice** · **anything else?**",
+      "de": "**someone** · **something** · **somewhere** (bejaht, Angebot)\n\n**anyone** · **anything** · **anywhere** (verneint, Frage)\n\n**no one** · **nothing** · **nowhere**: **I saw nothing.** = **I didn't see anything.**\n\n**everyone** · **everything** · **everywhere**: **Everyone is at the inn.**\n\n**something nice** · **anything else?**",
+      "it": "**someone** · **something** · **somewhere** (affermativa, offerta)\n\n**anyone** · **anything** · **anywhere** (negativa, domanda)\n\n**no one** · **nothing** · **nowhere**: **I saw nothing.** = **I didn't see anything.**\n\n**everyone** · **everything** · **everywhere**: **Everyone is at the inn.**\n\n**something nice** · **anything else?**",
+      "en": "**someone** · **something** · **somewhere** (yes, offers)\n\n**anyone** · **anything** · **anywhere** (no, questions)\n\n**no one** · **nothing** · **nowhere**: **I saw nothing.** = **I didn't see anything.**\n\n**everyone** · **everything** · **everywhere**: **Everyone is at the inn.**\n\n**something nice** · **anything else?**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "someone-anything-1",
+      "title": {
+        "sl": "Kdo, kaj, kje",
+        "de": "Wer, was, wo",
+        "it": "Chi, che cosa, dove",
+        "en": "Who, what, where"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Dopolni tabelo: oseba, stvar",
+            "de": "Ergänze: Person, Sache",
+            "it": "Completa: persona, cosa",
+            "en": "Fill in: person, thing"
+          },
+          "columns": [
+            {
+              "sl": "person · oseba",
+              "de": "person · Person",
+              "it": "person · persona",
+              "en": "person"
+            },
+            {
+              "sl": "thing · stvar",
+              "de": "thing · Sache",
+              "it": "thing · cosa",
+              "en": "thing"
+            }
+          ],
+          "rows": [
+            {
+              "label": "some-",
+              "cells": [
+                "someone",
+                {
+                  "accept": [
+                    "something"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "any-",
+              "cells": [
+                {
+                  "accept": [
+                    "anyone",
+                    "anybody"
+                  ]
+                },
+                "anything"
+              ]
+            },
+            {
+              "label": "no-",
+              "cells": [
+                {
+                  "accept": [
+                    "no one",
+                    "nobody",
+                    "no-one"
+                  ]
+                },
+                {
+                  "accept": [
+                    "nothing"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "every-",
+              "cells": [
+                {
+                  "accept": [
+                    "everyone",
+                    "everybody"
+                  ]
+                },
+                {
+                  "accept": [
+                    "everything"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-one, -body za osebo; -thing za stvar**\n- someone · something\n- no one · nothing",
+            "de": "**-one, -body für eine Person; -thing für eine Sache**\n- someone · something\n- no one · nothing",
+            "it": "**-one, -body per una persona; -thing per una cosa**\n- someone · something\n- no one · nothing",
+            "en": "**-one, -body for a person; -thing for a thing**\n- someone · something\n- no one · nothing"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Dopolni tabelo: kraj",
+            "de": "Ergänze: Ort",
+            "it": "Completa: luogo",
+            "en": "Fill in: place"
+          },
+          "columns": [
+            {
+              "sl": "place · kraj",
+              "de": "place · Ort",
+              "it": "place · luogo",
+              "en": "place"
+            }
+          ],
+          "rows": [
+            {
+              "label": "some-",
+              "cells": [
+                {
+                  "accept": [
+                    "somewhere",
+                    "someplace"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "any-",
+              "cells": [
+                {
+                  "accept": [
+                    "anywhere",
+                    "anyplace"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "no-",
+              "cells": [
+                "nowhere"
+              ]
+            },
+            {
+              "label": "every-",
+              "cells": [
+                {
+                  "accept": [
+                    "everywhere",
+                    "everyplace"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-where za kraj**\n- somewhere · anywhere · nowhere · everywhere",
+            "de": "**-where für einen Ort**\n- somewhere · anywhere · nowhere · everywhere",
+            "it": "**-where per un luogo**\n- somewhere · anywhere · nowhere · everywhere",
+            "en": "**-where for a place**\n- somewhere · anywhere · nowhere · everywhere"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Sort · Oseba, stvar ali kraj?",
+            "de": "Sort · Person, Sache oder Ort?",
+            "it": "Sort · Persona, cosa o luogo?",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "person · oseba",
+                "de": "person · Person",
+                "it": "person · persona",
+                "en": "person"
+              },
+              "words": [
+                "nobody",
+                "someone"
+              ]
+            },
+            {
+              "label": {
+                "sl": "thing · stvar",
+                "de": "thing · Sache",
+                "it": "thing · cosa",
+                "en": "thing"
+              },
+              "words": [
+                "everything",
+                "nothing"
+              ]
+            },
+            {
+              "label": {
+                "sl": "place · kraj",
+                "de": "place · Ort",
+                "it": "place · luogo",
+                "en": "place"
+              },
+              "words": [
+                "anywhere",
+                "everywhere"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-body, -one: oseba; -thing: stvar; -where: kraj**\n- nobody · nothing · nowhere",
+            "de": "**-body, -one: Person; -thing: Sache; -where: Ort**\n- nobody · nothing · nowhere",
+            "it": "**-body, -one: persona; -thing: cosa; -where: luogo**\n- nobody · nothing · nowhere",
+            "en": "**-body, -one: a person; -thing: a thing; -where: a place**\n- nobody · nothing · nowhere"
+          }
+        }
+      ]
+    },
+    {
+      "id": "someone-anything-2",
+      "title": {
+        "sl": "Kdo je bil?",
+        "de": "Wer war es?",
+        "it": "Chi è stato?",
+        "en": "Who was it?"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Last night ___ took Mr Dixon's hammer. — Did you see ___, Mr Dixon? — No, I saw ___. I heard ___ at the door, but there was ___ there. — Did ___ at the inn hear ___? — No. ___ was asleep.",
+          "gaps": [
+            {
+              "accept": [
+                "someone",
+                "somebody"
+              ],
+              "hint": {
+                "sl": "trdilno, oseba",
+                "de": "bejaht, eine Person",
+                "it": "affermativa, una persona",
+                "en": "yes, a person"
+              }
+            },
+            {
+              "accept": [
+                "anyone",
+                "anybody"
+              ],
+              "spoken": [
+                "someone",
+                "somebody"
+              ],
+              "hint": {
+                "sl": "vprašanje, oseba",
+                "de": "Frage, eine Person",
+                "it": "domanda, una persona",
+                "en": "a question, a person"
+              }
+            },
+            {
+              "accept": [
+                "nothing",
+                "no one",
+                "nobody",
+                "no-one"
+              ],
+              "hint": {
+                "sl": "glagol je trdilen",
+                "de": "das Verb ist bejaht",
+                "it": "il verbo è affermativo",
+                "en": "the verb is yes"
+              }
+            },
+            {
+              "accept": [
+                "something",
+                "someone",
+                "somebody"
+              ],
+              "hint": {
+                "sl": "trdilno",
+                "de": "bejaht",
+                "it": "affermativa",
+                "en": "yes"
+              }
+            },
+            {
+              "accept": [
+                "no one",
+                "nobody",
+                "no-one"
+              ],
+              "hint": {
+                "sl": "there was + …: ni nikogar",
+                "de": "there was + …: niemand",
+                "it": "there was + …: nessuno",
+                "en": "there was + …: not a person"
+              }
+            },
+            {
+              "accept": [
+                "anyone",
+                "anybody"
+              ],
+              "spoken": [
+                "someone",
+                "somebody"
+              ],
+              "hint": {
+                "sl": "vprašanje, oseba",
+                "de": "Frage, eine Person",
+                "it": "domanda, una persona",
+                "en": "a question, a person"
+              }
+            },
+            {
+              "accept": [
+                "anything"
+              ],
+              "spoken": [
+                "something"
+              ],
+              "hint": {
+                "sl": "vprašanje, stvar",
+                "de": "Frage, eine Sache",
+                "it": "domanda, una cosa",
+                "en": "a question, a thing"
+              }
+            },
+            {
+              "accept": [
+                "Everyone",
+                "Everybody"
+              ],
+              "hint": {
+                "sl": "vsi",
+                "de": "alle",
+                "it": "tutti",
+                "en": "all of them"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "anywhere",
+            "somewhere"
+          ],
+          "translation": {
+            "sl": "Sinoči je nekdo vzel kladivo gospoda Dixona. — Ste koga videli, gospod Dixon? — Ne, nič nisem videl. Pri vratih sem nekaj slišal, a tam ni bilo nikogar. — Je kdo v gostilni kaj slišal? — Ne. Vsi so spali.",
+            "de": "Gestern Nacht hat jemand Herrn Dixons Hammer genommen. — Haben Sie jemanden gesehen, Herr Dixon? — Nein, ich habe nichts gesehen. Ich habe etwas an der Tür gehört, aber da war niemand. — Hat jemand im Gasthaus etwas gehört? — Nein. Alle haben geschlafen.",
+            "it": "Ieri notte qualcuno ha preso il martello del signor Dixon. — Ha visto qualcuno, signor Dixon? — No, non ho visto niente. Ho sentito qualcosa alla porta, ma non c'era nessuno. — Qualcuno alla locanda ha sentito qualcosa? — No. Dormivano tutti.",
+            "en": "Last night someone took Mr Dixon's hammer. — Did you see anyone, Mr Dixon? — No, I saw nothing. I heard something at the door, but there was no one there. — Did anyone at the inn hear anything? — No. Everyone was asleep."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Would you like ___ to eat, Mr Dixon?",
+          "options": [
+            "something",
+            "nothing",
+            "nowhere"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ponudba: some-**\n- Would you like something to eat? · Do you want anything?",
+            "de": "**Ein Angebot: some-**\n- Would you like something to eat? · Do you want anything?",
+            "it": "**Un'offerta: some-**\n- Would you like something to eat? · Do you want anything?",
+            "en": "**An offer: some-**\n- Would you like something to eat? · Do you want anything?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": {
+            "sl": "Kaj je prav?",
+            "de": "Was ist richtig?",
+            "it": "Che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "Nobody knows.",
+            "Nobody not knows.",
+            "Anybody not knows."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**nobody z trdilnim glagolom**\n- Nobody knows. · No one came.",
+            "de": "**nobody mit bejahtem Verb**\n- Nobody knows. · No one came.",
+            "it": "**nobody con il verbo affermativo**\n- Nobody knows. · No one came.",
+            "en": "**nobody with a yes verb**\n- Nobody knows. · No one came."
+          }
+        }
+      ]
+    },
+    {
+      "id": "someone-anything-3",
+      "title": {
+        "sl": "Ena nikalnica",
+        "de": "Nur eine Verneinung",
+        "it": "Una sola negazione",
+        "en": "One negative only"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Say it with no- · Povej z no-",
+            "de": "Say it with no- · Sag es mit no-",
+            "it": "Say it with no- · Dillo con no-",
+            "en": "Say it with no-"
+          },
+          "text": "I didn't see anything. = I saw ___. We didn't meet anyone. = We met ___. There isn't anyone at the smithy. = There's ___ at the smithy. We didn't go anywhere. = We went ___.",
+          "gaps": [
+            {
+              "accept": [
+                "nothing"
+              ],
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
+            },
+            {
+              "accept": [
+                "no one",
+                "nobody",
+                "no-one"
+              ],
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
+            },
+            {
+              "accept": [
+                "no one",
+                "nobody",
+                "no-one"
+              ],
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
+            },
+            {
+              "accept": [
+                "nowhere"
+              ],
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
+            }
+          ],
+          "translation": {
+            "sl": "Nič nisem videl{m:|f:a}. Nikogar nismo srečali. V kovačnici ni nikogar. Nikamor nismo šli.",
+            "de": "Ich habe nichts gesehen. Wir haben niemanden getroffen. In der Schmiede ist niemand. Wir sind nirgendwohin gegangen.",
+            "it": "Non ho visto niente. Non abbiamo incontrato nessuno. Alla fucina non c'è nessuno. Non siamo andati da nessuna parte.",
+            "en": "I didn't see anything. = I saw nothing. We didn't meet anyone. = We met no one. There isn't anyone at the smithy. = There's no one at the smithy. We didn't go anywhere. = We went nowhere."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Say it with not · Povej z not",
+            "de": "Say it with not · Sag es mit not",
+            "it": "Say it with not · Dillo con not",
+            "en": "Say it with not"
+          },
+          "cue": "not",
+          "items": [
+            {
+              "from": "I saw no one.",
+              "accept": [
+                "I didn't see anyone.",
+                "I didn't see anybody."
+              ]
+            },
+            {
+              "from": "Sam knows nothing about bees.",
+              "accept": [
+                "Sam doesn't know anything about bees."
+              ],
+              "hint": "doesn't"
+            },
+            {
+              "from": "There's nothing in the barn.",
+              "accept": [
+                "There isn't anything in the barn."
+              ]
+            },
+            {
+              "from": "Meg went nowhere.",
+              "accept": [
+                "Meg didn't go anywhere."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Trdilni glagol + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything.",
+            "de": "**Bejahtes Verb + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything.",
+            "it": "**Verbo affermativo + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything.",
+            "en": "**A yes verb + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "indefinite-pronouns",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "There's a dance at the inn tonight, and ___ is there. Mr Tyson can't find ___ to sit. — Is there ___ to eat, Mrs Birkett? — Sorry, there's ___ left. — Can I have ___ to drink, then?",
+        "gaps": [
+          {
+            "accept": [
+              "everyone",
+              "everybody"
+            ]
+          },
+          {
+            "accept": [
+              "anywhere"
+            ]
+          },
+          {
+            "accept": [
+              "anything"
+            ],
+            "spoken": [
+              "something"
+            ]
+          },
+          {
+            "accept": [
+              "nothing"
+            ]
+          },
+          {
+            "accept": [
+              "something"
+            ],
+            "spoken": [
+              "anything"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Nocoj je v gostilni ples in vsi so tam. Gospod Tyson ne najde nikjer prostora. — Je kaj za pojesti, gospa Birkett? — Oprostite, nič ni ostalo. — Lahko potem dobim kaj za piti?",
+          "de": "Heute Abend ist Tanz im Gasthaus, und alle sind da. Herr Tyson findet nirgends einen Platz. — Gibt es etwas zu essen, Frau Birkett? — Tut mir leid, es ist nichts mehr da. — Kann ich dann etwas zu trinken haben?",
+          "it": "Stasera c'è un ballo alla locanda, e ci sono tutti. Il signor Tyson non trova un posto per sedersi. — C'è qualcosa da mangiare, signora Birkett? — Mi dispiace, non è rimasto niente. — Allora posso avere qualcosa da bere?",
+          "en": "There's a dance at the inn tonight, and everyone is there. Mr Tyson can't find anywhere to sit. — Is there anything to eat, Mrs Birkett? — Sorry, there's nothing left. — Can I have something to drink, then?"
+        }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "indefinite-pronouns",
+        "instruction": {
+          "sl": "Say it with no- · Povej z no-",
+          "de": "Say it with no- · Sag es mit no-",
+          "it": "Say it with no- · Dillo con no-",
+          "en": "Say it with no-"
+        },
+        "text": "I didn't buy anything. = I bought ___. We didn't see anyone. = We saw ___.",
+        "gaps": [
+          {
+            "accept": [
+              "nothing"
+            ],
+            "explain": {
+              "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+            }
+          },
+          {
+            "accept": [
+              "no one",
+              "nobody",
+              "no-one"
+            ],
+            "explain": {
+              "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+            }
+          }
+        ],
+        "translation": {
+          "sl": "Nič nisem kupil{m:|f:a}. Nikogar nismo videli.",
+          "de": "Ich habe nichts gekauft. Wir haben niemanden gesehen.",
+          "it": "Non ho comprato niente. Non abbiamo visto nessuno.",
+          "en": "I didn't buy anything. = I bought nothing. We didn't see anyone. = We saw no one."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "indefinite-pronouns",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "Harry knows nothing.",
+            "accept": [
+              "Harry doesn't know anything."
+            ]
+          },
+          {
+            "from": "There's no one in the barn.",
+            "accept": [
+              "There isn't anyone in the barn.",
+              "There isn't anybody in the barn."
+            ]
+          },
+          {
+            "from": "We saw no one on the fell.",
+            "accept": [
+              "We didn't see anyone on the fell.",
+              "We didn't see anybody on the fell."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Trdilni glagol + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything.",
+          "de": "**Bejahtes Verb + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything.",
+          "it": "**Verbo affermativo + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything.",
+          "en": "**A yes verb + no- → not + any-**\n- I saw no one. → I didn't see anyone.\n- There's nothing. → There isn't anything."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "indefinite-pronouns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Everything ___ ready.",
+        "options": [
+          "is",
+          "are",
+          "be"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**everything: glagol v ednini**\n- Everything is ready. · Everyone is here.",
+          "de": "**everything: das Verb im Singular**\n- Everything is ready. · Everyone is here.",
+          "it": "**everything: il verbo al singolare**\n- Everything is ready. · Everyone is here.",
+          "en": "**everything: a singular verb**\n- Everything is ready. · Everyone is here."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "indefinite-pronouns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I've got ___ for you.",
+        "options": [
+          "something",
+          "anything",
+          "nowhere"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Trdilno: some-**\n- I've got something. · I haven't got anything.",
+          "de": "**Bejaht: some-**\n- I've got something. · I haven't got anything.",
+          "it": "**Affermativa: some-**\n- I've got something. · I haven't got anything.",
+          "en": "**A yes sentence: some-**\n- I've got something. · I haven't got anything."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: a double negative almost, one negative taught for writing; someone in a question as spoken; I saw nothing formal; no-one"
+}

@@ -35,6 +35,35 @@ class RoadMenuTest {
         assertNull(RoadMenu.children(RoadService.MIX, ready = true))
     }
 
+    @Test fun `a session with nothing to play stays away, in the tab and in the buttons`() {
+        // German and English have no drills yet; drills without clips are the same: nothing would play and nothing would say so
+        val none = setOf(RoadService.TRANSFORMS, RoadService.RAPID, RoadService.BUILDS, RoadService.RIDDLES, RoadService.QUIZ)
+        val has = { id: String -> id !in none }
+        assertEquals(
+            listOf(RoadService.REVIEWS, RoadService.WORDS, RoadService.DIALOGS, RoadService.STORIES, RoadService.SHADOW),
+            RoadMenu.children(RoadMenu.MORE, ready = true, has = has)!!.map { it.id },
+        )
+        assertEquals(listOf(RoadService.MIX, RoadService.EASY, RoadService.STORY), RoadMenu.children(RoadMenu.TAB, ready = true, has = has)!!.map { it.id })
+        // nothing at all in a tab: where to get ready first
+        assertEquals(listOf(RoadMenu.NONE), RoadMenu.children(RoadMenu.MORE, ready = true, has = { false })!!.map { it.id })
+        // the buttons while playing: no switch to what plays nothing, the way back from where it plays
+        assertEquals(listOf(RoadService.EASY), RoadMenu.actions(RoadService.MIX, has))
+        assertEquals(listOf(RoadService.EASY, RoadService.QUIZ), RoadMenu.actions(RoadService.QUIZ, has))
+    }
+
+    @Test fun `what has something to play, from the library`() {
+        val item = { id: String, kind: Kind -> RoadItem(id, kind, "t", "s", emptyList()) }
+        val rapid = RoadLibrary(items = listOf(item("rapid:a/1", Kind.RAPID), item("riddle:x", Kind.RIDDLE)))
+        assertTrue(RoadMix.has(RoadService.RAPID, rapid, "2026-11-02"))
+        assertTrue(RoadMix.has(RoadService.RIDDLES, rapid, "2026-11-02"))
+        assertFalse(RoadMix.has(RoadService.TRANSFORMS, rapid, "2026-11-02"))
+        assertFalse(RoadMix.has(RoadService.BUILDS, rapid, "2026-11-02"))
+        assertFalse(RoadMix.has(RoadService.WORDS, rapid, "2026-11-02"))
+        // a quiz needs its fixed phrases on the phone
+        assertFalse(RoadService.QUIZ in RoadMix.available(rapid, "2026-11-02"))
+        assertEquals(emptySet<String>(), RoadMix.available(RoadLibrary(), "2026-11-02"))
+    }
+
     @Test fun `every session id from before still plays from its id, and the old tab still browses`() {
         val before = listOf(
             "road:mix", "road:easy", "road:shadow", "road:reviews", "road:words", "road:dialogs", "road:stories",

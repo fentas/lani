@@ -56,6 +56,16 @@ object RoadMix {
         else -> emptyList()
     }
 
+    /** Whether session [id] has anything to play: its items, for the quiz its fixed phrases too. */
+    fun has(id: String, lib: RoadLibrary, today: String): Boolean =
+        (id != RoadService.QUIZ || lib.kit != null) && session(id, lib, emptyMap(), today).isNotEmpty()
+
+    /**
+     * The sessions of the browse tree that have something to play: a button or a car's menu item without any stays away
+     * ([RoadMenu.children], the sheet says why). A language without drills, or drills without clips, has none of theirs.
+     */
+    fun available(lib: RoadLibrary, today: String): Set<String> = SESSIONS.filterTo(LinkedHashSet()) { has(it, lib, today) }
+
     /** The flash items' and dialogs' turn in a block: two cards, two words, a dialog. */
     private val SLOTS = listOf(Kind.CARD, Kind.WORD, Kind.CARD, Kind.WORD, Kind.DIALOG)
 

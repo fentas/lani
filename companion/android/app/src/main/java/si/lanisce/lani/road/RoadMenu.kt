@@ -39,15 +39,20 @@ object RoadMenu {
     val TABS = listOf(Node(TAB, browsable = true, grid = true), Node(MORE, browsable = true))
 
     /**
-     * The items under [parent]: the tabs under the root; a tab's sessions, or where to get ready first when the phone has
-     * nothing ([ready] false); null for an id that has no items (a session, an unknown id).
+     * The items under [parent]: the tabs under the root; a tab's sessions that have something to play ([has]:
+     * [RoadMix.available]; a session with nothing stays away, it would play nothing and say nothing), or where to get ready
+     * first when the phone has nothing for it ([ready] false, or none has); null for an id that has no items (a session, an
+     * unknown id).
      */
-    fun children(parent: String, ready: Boolean): List<Node>? = when (parent) {
+    fun children(parent: String, ready: Boolean, has: (String) -> Boolean = { true }): List<Node>? = when (parent) {
         ROOT -> TABS
-        TAB -> if (ready) MAIN.map { Node(it, browsable = false) } else listOf(Node(NONE, browsable = false))
-        MORE -> if (ready) MORE_SESSIONS.map { Node(it, browsable = false) } else listOf(Node(NONE, browsable = false))
+        TAB -> sessions(MAIN, ready, has)
+        MORE -> sessions(MORE_SESSIONS, ready, has)
         else -> null
     }
+
+    private fun sessions(ids: List<String>, ready: Boolean, has: (String) -> Boolean): List<Node> =
+        (if (ready) ids.filter(has) else emptyList()).ifEmpty { listOf(NONE) }.map { Node(it, browsable = false) }
 
     /** The node of [id] (a tab, a session), or null for none of them. */
     fun node(id: String): Node? = when (id) {
@@ -62,7 +67,8 @@ object RoadMenu {
 
     /**
      * The two custom actions while [playing] (beside ✓ and ✗ on a card): "🌙 Mirno" and "❓ Kviz"; in one of them its
-     * button goes back to "🚗 Za pot". The ids of the sessions they switch to, in their order.
+     * button goes back to "🚗 Za pot". The ids of the sessions they switch to, in their order; one with nothing to play
+     * ([has]) stays away, unless it is the one playing.
      */
-    fun actions(playing: String?): List<String> = listOf(RoadService.EASY, RoadService.QUIZ)
+    fun actions(playing: String?, has: (String) -> Boolean = { true }): List<String> = listOf(RoadService.EASY, RoadService.QUIZ).filter { it == playing || has(it) }
 }

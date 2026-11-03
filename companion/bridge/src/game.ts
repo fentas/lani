@@ -133,6 +133,9 @@ function courseOf(c: any) {
 }
 
 /** The numbers module's ladder (companion/README.md "Numbers"; the app's NumberRange): each range's id and label, in order. */
+/** The course units whose intro opens the numbers module, as the app's NumberTongue has them: the village's language has one. */
+const NUMBERS_UNITS = ['sl/stevila', 'it/numeri']
+
 const NUMBER_RANGES: [string, string][] = [
   ['0-10', '0–10'], ['11-20', '11–20'], ['tens', '30–90'], ['21-99', '21–99'], ['100-999', '100–999'], ['1000-9999', '1000–9999'],
 ]
@@ -319,7 +322,7 @@ export class GameStore {
         // the school's course (companion/COURSE.md): the day the class began, the units done and started
         course: courseOf(s.course),
         // the numbers module (companion/README.md "Numbers"), open with the unit stevila's intro: its ranges, the numbers missed
-        numbers: numbersOf(s.numbers, s.course?.units?.['sl/stevila']?.introDone === true),
+        numbers: numbersOf(s.numbers, NUMBERS_UNITS.some(u => s.course?.units?.[u]?.introDone === true)),
         // the case trainer (companion/README.md "Case trainer"): each case's and rule's last answers, what comes back
         cases: casesOf(s.cases),
         // the landscape's spots with a cycle today (the charcoal pile: its stage, the day of it, a breakout tonight, the

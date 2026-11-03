@@ -44,3 +44,24 @@ class ApostropheHintTest {
         assertEquals("can't, I'm", Spelling.of(Lang.EN).looseExamples)
     }
 }
+
+/** What people say that writing doesn't want: its line in each language, in the pair. */
+class NonstandardHintTest {
+    private var was = L10n.pair
+
+    @Before fun pair() {
+        was = L10n.pair
+    }
+
+    @After fun back() {
+        L10n.pair = was
+    }
+
+    @Test fun `the nonstandard hint has its line in every base`() {
+        for ((base, words) in listOf(Lang.SL to "pisno", Lang.DE to "geschrieben", Lang.IT to "per iscritto")) {
+            L10n.pair = LangPair(Lang.EN, base)
+            val line = hintText(Grading.Hint.NONSTANDARD).orEmpty()
+            assertEquals(line, true, line.contains("in writing") && line.contains(words))
+        }
+    }
+}

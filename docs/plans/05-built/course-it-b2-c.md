@@ -69,7 +69,7 @@ This branch wrote units 13–15 and gave 16–18 to a helper with the same brief
 
 - **Right answers marked wrong:** Dopo che ha mangiato (the instruction now says dopo aver or dopo essere); "si è lasciata" and "ha fatto" where a gap had no cue (now "(fare)"); the verb first (Vanno lavati i bicchieri); the subject first (Marisa, arrivata a casa, si siede); the joins with il quale at the end (the instruction now says preposition + il quale); a bare tavolino where only "un tavolino" was listed, which the grading rejects by word count; portalettere, per colpa, oltretutto, Tanti saluti; La faccio vedere a Giulia, one pronoun where the list wants two (the instruction now says person and thing).
 - **False or overstated explanations:** "same person" for grazie per aver aiutato (the one thanked helped); "with a thing, a" when the unit itself says da Bruno; "fare loses its -e" (often); "drei Bedeutungen" for viene fatto and si fa; "a small letter after the comma" right before capital Le; cui "only after a preposition" after a step on il cui; andare + the participle "simple tenses only" (in the sense of must); -le, -re losing their e (a vowel before them).
-- **The right answer was always first:** all 75 choices had `answer: 0`, and the app shows options in the file's order. Each is rotated now, the answers at 19, 31 and 25 in the three places. Every course has the same, B1's 164 of 165 choices among them; the lead has given that to a separate branch, which makes the app and the prints order a choice's options themselves, so nothing else was rotated.
+- **The right answer was always first:** all 75 choices had `answer: 0`, and the app shows options in the file's order. Each is rotated now, the answers at 19, 31 and 25 in the three places. Every course had the same, B1's 164 of 165 choices among them: `choices-order` (merged here) makes the app and the prints order a choice's options themselves, so nothing else was rotated, and these rotations now change nothing a learner sees.
 - **Smaller:** a hint that spelt the distractor (-le + mente), a hint that named the answer (avere → ?), "warmen Teller" for un piatto caldo, Slovene "poljubiš" (kiss) for the dear forms, Mi piace il vino in a child's first person, bold sentences with no meaning after them (added).
 
 ## Integration
@@ -82,6 +82,12 @@ This branch took parts a and b and main by merges, in that order.
 - **Once merged:** `congiuntivo-imperfetto` on `se-potessi`, `congiuntivo-trapassato` on `se-avessi-saputo`, in the unit and the outline; `see` between the parts' pages.
 - **A table's cell short:** viene-aperto's and il-quale's asked for whole forms that don't fit a phone's field; they ask for the helper and for the preposition now.
 - **Docs:** COURSE.md "The Italian course: B2", the README's counts and known mistakes, module-spec, GAME.md. Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2) and 18 units at each level, none planned.
+
+## The queue's tip
+
+`choices-order` merged last (Friuli's projects, Italian practice, English A2, the order of a choice's options). `friuli-projects-b` had moved the supplement to tables only, so its tool and tables were taken, with all three parts' tables beside them: 2,196 entries, deduped; run twice, the same file; against both sides of the merge no form lost, no entry but `qualunque` the adjective, now one entry with its determiner.
+
+Eleven lemmas were in two tables, each now one line: sebbene and almeno part a's (sebbene's "although" clashed with benché), necessario both wordings (nötig, notwendig; potreben, nujen), descrivere and padre the same anyway, colpa, facilmente, rifare and risata this part's, grosso and motore the projects' ("big, thick"; "engine, motor"). lamentare says "to lament" apart from lamentarsi's "to complain". licôf and villotta have the projects' lines, which keep their plurals, and fiaccola its "flaming torch". `--prompts` lists six clashes, none of these parts': fiero and the pack's orgoglioso in three bases, avvicinare's približati, ribolla's rebula, improvvisamente's plötzlich.
 
 ## Tests
 

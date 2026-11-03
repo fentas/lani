@@ -1,0 +1,808 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "going-to",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🗺️",
+  "title": {
+    "en": "I'm going to walk; I'm meeting Jack",
+    "de": "Pläne: I'm going to, I'm meeting",
+    "sl": "Načrti: I'm going to, I'm meeting",
+    "it": "I progetti: I'm going to, I'm meeting"
+  },
+  "goal": {
+    "sl": "Poveš, kaj nameravaš in kaj vidiš, da prihaja (I'm going to walk, It's going to rain), vprašaš po načrtih in poveš, kaj je dogovorjeno (I'm meeting Jack at ten).",
+    "de": "Du sagst, was du vorhast und was du kommen siehst (I'm going to walk, It's going to rain), fragst nach Plänen und sagst, was ausgemacht ist (I'm meeting Jack at ten).",
+    "it": "Dici che cosa vuoi fare e che cosa vedi arrivare (I'm going to walk, It's going to rain), chiedi dei progetti e dici che cosa è già fissato (I'm meeting Jack at ten).",
+    "en": "You can say what you plan to do and what you can see coming (I'm going to walk, It's going to rain), ask about plans, and say what is arranged (I'm meeting Jack at ten)."
+  },
+  "grammar": ["future", "present-continuous"],
+  "words": [
+    "going to",
+    "gonna",
+    "plan",
+    "tomorrow",
+    "tonight",
+    "next week",
+    "soon",
+    "diary",
+    "meet",
+    "to visit",
+    "to paint",
+    "to clean",
+    "to sell",
+    "bring",
+    "stay",
+    "miss",
+    "to bake",
+    "to wash",
+    "careful",
+    "cloud",
+    "sky",
+    "glass",
+    "ladder",
+    "branch",
+    "to fall",
+    "doctor",
+    "dinner",
+    "dance",
+    "soup",
+    "chair",
+    "barn",
+    "lamb",
+    "van",
+    "friend",
+    "tarn",
+    "to snow",
+    "to rain",
+    "drive"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Načrt, ki ga že imaš: **am**, **is** ali **are** + **going to** + osnovna oblika. **I'm going to walk to the tarn tomorrow.** (Jutri bom {m:šel|f:šla} peš do jezerca.) **Jack is going to clean the barn.** (Jack bo pospravil skedenj.) **We're going to paint the gate.** (Prebarvali bomo vrata.) Za **to** se glagol nikoli ne spremeni: **She's going to bake**, nikoli *She's going to bakes*.",
+          "de": "Ein Plan, den du schon gemacht hast: **am**, **is** oder **are** + **going to** + Grundform. **I'm going to walk to the tarn tomorrow.** (Morgen gehe ich zum Bergsee.) **Jack is going to clean the barn.** (Jack räumt die Scheune auf.) **We're going to paint the gate.** (Wir streichen das Tor.) Nach **to** ändert sich das Verb nie: **She's going to bake**, nie *She's going to bakes*.",
+          "it": "Un progetto già deciso: **am**, **is** o **are** + **going to** + la forma base. **I'm going to walk to the tarn tomorrow.** (Domani vado a piedi al laghetto.) **Jack is going to clean the barn.** (Jack pulirà il fienile.) **We're going to paint the gate.** (Dipingeremo il cancello.) Dopo **to** il verbo non cambia mai: **She's going to bake**, mai *She's going to bakes*.",
+          "en": "A plan you have already made: **am**, **is** or **are** + **going to** + the base form. **I'm going to walk to the tarn tomorrow.** **Jack is going to clean the barn.** **We're going to paint the gate.** After **to** the verb never changes: **She's going to bake** (never *She's going to bakes*)."
+        },
+        "examples": [
+          {
+            "en": "I'm going to walk to the tarn tomorrow.",
+            "sl": "Jutri bom {m:šel|f:šla} peš do jezerca.",
+            "de": "Morgen gehe ich zum Bergsee.",
+            "it": "Domani vado a piedi al laghetto."
+          },
+          {
+            "en": "Jack is going to clean the barn on Saturday.",
+            "sl": "Jack bo v soboto pospravil skedenj.",
+            "de": "Jack räumt am Samstag die Scheune auf.",
+            "it": "Sabato Jack pulirà il fienile."
+          },
+          {
+            "en": "We're going to paint the gate.",
+            "sl": "Prebarvali bomo vrata.",
+            "de": "Wir streichen das Tor.",
+            "it": "Dipingeremo il cancello."
+          },
+          {
+            "en": "Granny Maggie is going to bake for the dance.",
+            "sl": "Babica Maggie bo pekla za ples.",
+            "de": "Oma Maggie bäckt für den Tanz.",
+            "it": "Nonna Maggie preparerà i dolci per il ballo."
+          }
+        ],
+        "rows": [
+          [
+            "am, is, are + going to",
+            { "sl": "načrt", "de": "ein Plan", "it": "un progetto", "en": "a plan" },
+            "I'm going to walk."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "Jack ___ going to clean the barn on Saturday.",
+          "options": ["is", "are", "does"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack je he: is going to**\n- I'm going to · she's going to · they're going to",
+            "de": "**Jack ist he: is going to**\n- I'm going to · she's going to · they're going to",
+            "it": "**Jack è he: is going to**\n- I'm going to · she's going to · they're going to",
+            "en": "**Jack is he: is going to**\n- I'm going to · she's going to · they're going to"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za zanikanje gre **not** za be: **I'm not going to stay.** (Ne bom {m:ostal|f:ostala}.) **Sam isn't going to sell the van.** (Sam ne bo prodal kombija.) Pri vprašanju gre be naprej: **Are you going to walk?** (Boš {m:šel|f:šla} peš?) **What are you going to do?** (Kaj boš {m:naredil|f:naredila}?) Kratki odgovor je brez going to: **Yes, I am.** (Ja.) **No, she isn't.** (Ne.)",
+          "de": "Zum Verneinen kommt **not** nach be: **I'm not going to stay.** (Ich bleibe nicht.) **Sam isn't going to sell the van.** (Sam verkauft den Lieferwagen nicht.) Bei der Frage kommt be nach vorn: **Are you going to walk?** (Gehst du zu Fuß?) **What are you going to do?** (Was machst du?) Die Kurzantwort ist ohne going to: **Yes, I am.** (Ja.) **No, she isn't.** (Nein.)",
+          "it": "Per dire di no, **not** va dopo be: **I'm not going to stay.** (Non mi fermo.) **Sam isn't going to sell the van.** (Sam non venderà il furgone.) Per chiedere, be va all'inizio: **Are you going to walk?** (Vai a piedi?) **What are you going to do?** (Che cosa farai?) La risposta breve è senza going to: **Yes, I am.** (Sì.) **No, she isn't.** (No.)",
+          "en": "For no, **not** goes after be: **I'm not going to stay.** **Sam isn't going to sell the van.** To ask, be goes first: **Are you going to walk?** **What are you going to do?** The short answer has no going to: **Yes, I am.** **No, she isn't.**"
+        },
+        "examples": [
+          {
+            "en": "I'm not going to stay at the inn.",
+            "sl": "Ne bom {m:ostal|f:ostala} v gostilni.",
+            "de": "Ich bleibe nicht im Gasthaus.",
+            "it": "Non mi fermo alla locanda."
+          },
+          {
+            "en": "Sam isn't going to sell the van.",
+            "sl": "Sam ne bo prodal kombija.",
+            "de": "Sam verkauft den Lieferwagen nicht.",
+            "it": "Sam non venderà il furgone."
+          },
+          {
+            "en": "What are you going to do on Sunday?",
+            "sl": "Kaj boš {m:počel|f:počela} v nedeljo?",
+            "de": "Was machst du am Sonntag?",
+            "it": "Che cosa farai domenica?"
+          },
+          {
+            "en": "Are you going to walk? — Yes, I am.",
+            "sl": "Boš {m:šel|f:šla} peš? — Ja.",
+            "de": "Gehst du zu Fuß? — Ja.",
+            "it": "Vai a piedi? — Sì."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "ne", "de": "nein", "it": "no", "en": "no" },
+            "isn't, aren't, I'm not + going to",
+            "Sam isn't going to sell it."
+          ],
+          [
+            { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+            "Are you going to …?",
+            "Yes, I am. No, she isn't."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future",
+          "text": "What ___ you going to do on Saturday?",
+          "accept": ["are"],
+          "hint": "you → ?",
+          "explain": {
+            "sl": "**Z you: are, in gre naprej**\n- What are you going to do?",
+            "de": "**Mit you: are, und es kommt nach vorn**\n- What are you going to do?",
+            "it": "**Con you: are, e va all'inizio**\n- What are you going to do?",
+            "en": "**With you: are, and it goes first**\n- What are you going to do?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**going to** pove tudi, kar vidiš, da prihaja, tu in zdaj: **Look at those clouds! It's going to rain.** (Poglej tiste oblake, deževalo bo.) **Careful! That glass is going to fall.** (Pazi, tisti kozarec bo padel.) **Meg's very tired. She's going to sleep.** (Meg je zelo utrujena, zaspala bo.) Nihče tega ni načrtoval: vidiš.",
+          "de": "**going to** sagt auch, was du kommen siehst, hier und jetzt: **Look at those clouds! It's going to rain.** (Schau dir die Wolken an, gleich regnet es.) **Careful! That glass is going to fall.** (Vorsicht, das Glas fällt gleich.) **Meg's very tired. She's going to sleep.** (Meg ist sehr müde, sie schläft gleich ein.) Niemand hat das geplant: Du siehst es.",
+          "it": "**going to** dice anche ciò che vedi arrivare, qui e ora: **Look at those clouds! It's going to rain.** (Guarda quelle nuvole, sta per piovere.) **Careful! That glass is going to fall.** (Attento, quel bicchiere sta per cadere.) **Meg's very tired. She's going to sleep.** (Meg è molto stanca, sta per addormentarsi.) Nessuno l'ha deciso: lo vedi.",
+          "en": "**going to** also says what you can see coming, here and now: **Look at those clouds! It's going to rain.** **Careful! That glass is going to fall.** **Meg's very tired. She's going to sleep.** Nobody planned it: you can see it."
+        },
+        "examples": [
+          {
+            "en": "Look at those clouds! It's going to rain.",
+            "sl": "Poglej tiste oblake! Deževalo bo.",
+            "de": "Schau dir die Wolken an! Gleich regnet es.",
+            "it": "Guarda quelle nuvole! Sta per piovere."
+          },
+          {
+            "en": "Careful! That glass is going to fall.",
+            "sl": "Pazi! Tisti kozarec bo padel.",
+            "de": "Vorsicht! Das Glas fällt gleich.",
+            "it": "Attento! Quel bicchiere sta per cadere."
+          },
+          {
+            "en": "The bus is coming and Sam is still in bed. He's going to miss it.",
+            "sl": "Avtobus prihaja, Sam pa je še v postelji. Zamudil ga bo.",
+            "de": "Der Bus kommt, und Sam liegt noch im Bett. Er verpasst ihn.",
+            "it": "L'autobus arriva e Sam è ancora a letto. Lo perderà."
+          }
+        ],
+        "rows": [
+          [
+            "going to",
+            {
+              "sl": "vidiš, da prihaja",
+              "de": "du siehst es kommen",
+              "it": "lo vedi arrivare",
+              "en": "you can see it coming"
+            },
+            "It's going to rain."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "Look at that black sky! ___",
+          "options": ["It's going to rain.", "It rains.", "It rained."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vidiš, da prihaja: going to**\n- It's going to rain.",
+            "de": "**Du siehst es kommen: going to**\n- It's going to rain.",
+            "it": "**Lo vedi arrivare: going to**\n- It's going to rain.",
+            "en": "**You can see it coming: going to**\n- It's going to rain."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar je dogovorjeno, z uro in pogosto z drugimi: **am**, **is**, **are** + **-ing**. **I'm meeting Jack at ten.** (Ob desetih se dobim z Jackom.) **We're having dinner at the inn tonight.** (Nocoj večerjamo v gostilni.) **Mr Dixon is seeing the doctor on Friday.** (Gospod Dixon gre v petek k zdravniku.) Je že v koledarju. Povej, kdaj, sicer pomeni zdaj.",
+          "de": "Was fix ausgemacht ist, mit Uhrzeit und oft mit anderen: **am**, **is**, **are** + **-ing**. **I'm meeting Jack at ten.** (Um zehn treffe ich Jack.) **We're having dinner at the inn tonight.** (Heute Abend essen wir im Gasthaus.) **Mr Dixon is seeing the doctor on Friday.** (Mr Dixon geht am Freitag zum Arzt.) Es steht schon im Kalender. Sag dazu, wann, sonst heißt es: jetzt.",
+          "it": "Ciò che è già fissato, con un'ora e spesso con altri: **am**, **is**, **are** + **-ing**. **I'm meeting Jack at ten.** (Alle dieci vedo Jack.) **We're having dinner at the inn tonight.** (Stasera ceniamo alla locanda.) **Mr Dixon is seeing the doctor on Friday.** (Venerdì Mr Dixon va dal medico.) È già in agenda. Di' quando, se no vuol dire adesso.",
+          "en": "What is arranged, with a time and often with someone else: **am**, **is**, **are** + **-ing**. **I'm meeting Jack at ten.** **We're having dinner at the inn tonight.** **Mr Dixon is seeing the doctor on Friday.** It is already in the diary. Say when, or it means now."
+        },
+        "examples": [
+          {
+            "en": "I'm meeting Jack at ten.",
+            "sl": "Ob desetih se dobim z Jackom.",
+            "de": "Um zehn treffe ich Jack.",
+            "it": "Alle dieci vedo Jack."
+          },
+          {
+            "en": "We're having dinner at the inn tonight.",
+            "sl": "Nocoj večerjamo v gostilni.",
+            "de": "Heute Abend essen wir im Gasthaus.",
+            "it": "Stasera ceniamo alla locanda."
+          },
+          {
+            "en": "Mr Dixon is seeing the doctor on Friday.",
+            "sl": "Gospod Dixon gre v petek k zdravniku.",
+            "de": "Mr Dixon geht am Freitag zum Arzt.",
+            "it": "Venerdì Mr Dixon va dal medico."
+          }
+        ],
+        "rows": [
+          [
+            "am, is, are + -ing",
+            {
+              "sl": "dogovorjeno, z uro",
+              "de": "fix ausgemacht, mit Uhrzeit",
+              "it": "già fissato, con un'ora",
+              "en": "arranged, with a time"
+            },
+            "I'm meeting Jack at ten."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "prompt": "We ___ dinner at the inn tonight. We've got a table for eight.",
+          "options": ["are having", "have", "had"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Dogovorjeno, z uro: am, is, are + -ing**\n- We're having dinner at the inn tonight.",
+            "de": "**Fix ausgemacht, mit Zeit: am, is, are + -ing**\n- We're having dinner at the inn tonight.",
+            "it": "**Già fissato, con un'ora: am, is, are + -ing**\n- We're having dinner at the inn tonight.",
+            "en": "**Arranged, with a time: am, is, are + -ing**\n- We're having dinner at the inn tonight."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Slovenščina za načrt pogosto reče sedanjik (*Jutri grem k babici*), angleščina nikoli: **I'm going to visit Granny tomorrow.** ali **I'm visiting Granny tomorrow.** (Jutri grem k babici.) Za to, kar je v koledarju, je prav oboje. Vreme, ki ga nihče ne dogovori, vzame **going to**: **It's going to snow.** (Snežilo bo.)",
+          "de": "Deutsch sagt für einen Plan oft das Präsens (*Morgen besuche ich Oma*), Englisch nicht: **I'm going to visit Granny tomorrow.** oder **I'm visiting Granny tomorrow.** (Morgen besuche ich Oma.) Für das, was im Kalender steht, passt beides. Das Wetter, das niemand ausmacht, nimmt **going to**: **It's going to snow.** (Es wird schneien.)",
+          "it": "L'italiano per un progetto dice spesso il presente (*Domani vado dalla nonna*), l'inglese no: **I'm going to visit Granny tomorrow.** o **I'm visiting Granny tomorrow.** (Domani vado dalla nonna.) Per ciò che è in agenda vanno bene tutti e due. Il tempo, che nessuno fissa, vuole **going to**: **It's going to snow.** (Nevicherà.)",
+          "en": "Your language may say the present for a plan, but English doesn't: **I'm going to visit Granny tomorrow.** or **I'm visiting Granny tomorrow.** (never *I visit Granny tomorrow.*) For what is in the diary either is right. The weather, which nobody arranges, takes **going to**: **It's going to snow.**"
+        },
+        "examples": [
+          {
+            "en": "I'm going to visit Granny tomorrow.",
+            "sl": "Jutri grem k babici.",
+            "de": "Morgen besuche ich Oma.",
+            "it": "Domani vado dalla nonna."
+          },
+          {
+            "en": "I'm visiting Granny tomorrow.",
+            "sl": "Jutri grem k babici.",
+            "de": "Morgen besuche ich Oma.",
+            "it": "Domani vado dalla nonna."
+          },
+          {
+            "en": "It's going to snow tonight.",
+            "sl": "Nocoj bo snežilo.",
+            "de": "Heute Nacht wird es schneien.",
+            "it": "Stanotte nevicherà."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "nikoli sedanjik", "de": "nie das Präsens", "it": "mai il presente", "en": "never the present" },
+            "I'm visiting, I'm going to visit",
+            "I'm visiting Granny tomorrow."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "Tomorrow ___ Granny Maggie for tea.",
+          "options": ["I'm visiting", "I visit", "I visited"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Načrt: nikoli navadni sedanjik**\n- I'm visiting Granny · I'm going to visit Granny",
+            "de": "**Ein Plan: nie das einfache Präsens**\n- I'm visiting Granny · I'm going to visit Granny",
+            "it": "**Un progetto: mai il presente semplice**\n- I'm visiting Granny · I'm going to visit Granny",
+            "en": "**A plan: never the plain present**\n- I'm visiting Granny · I'm going to visit Granny"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V govoru **going to** pogosto zveni kot **gonna**: **I'm gonna be late.** (Zamudil{m:|f:a} bom.) V govoru je to prav, v pismo napiši **going to**. Z načrti gredo **tomorrow** (jutri), **tonight** (nocoj), **next week** (naslednji teden), **on Saturday** (v soboto), **soon** (kmalu): **We're going to sell the lambs next week.** (Naslednji teden bomo prodali jagnjeta.)",
+          "de": "Beim Sprechen klingt **going to** oft wie **gonna**: **I'm gonna be late.** (Ich komme zu spät.) Gesprochen ist das richtig, im Brief schreibst du **going to**. Zu Plänen passen **tomorrow** (morgen), **tonight** (heute Abend), **next week** (nächste Woche), **on Saturday** (am Samstag), **soon** (bald): **We're going to sell the lambs next week.** (Nächste Woche verkaufen wir die Lämmer.)",
+          "it": "Parlando **going to** suona spesso come **gonna**: **I'm gonna be late.** (Farò tardi.) A voce va bene, in una lettera scrivi **going to**. Con i progetti vanno **tomorrow** (domani), **tonight** (stasera), **next week** (la settimana prossima), **on Saturday** (sabato), **soon** (presto): **We're going to sell the lambs next week.** (La settimana prossima venderemo gli agnelli.)",
+          "en": "In talk **going to** often sounds like **gonna**: **I'm gonna be late.** It's right when you speak; in a letter write **going to**. With plans go **tomorrow**, **tonight**, **next week**, **on Saturday**, **soon**: **We're going to sell the lambs next week.**"
+        },
+        "examples": [
+          { "en": "I'm gonna be late.", "sl": "Zamudil{m:|f:a} bom.", "de": "Ich komme zu spät.", "it": "Farò tardi." },
+          {
+            "en": "We're going to sell the lambs next week.",
+            "sl": "Naslednji teden bomo prodali jagnjeta.",
+            "de": "Nächste Woche verkaufen wir die Lämmer.",
+            "it": "La settimana prossima venderemo gli agnelli."
+          },
+          {
+            "en": "We're going to open the new bridge soon.",
+            "sl": "Kmalu bomo odprli novi most.",
+            "de": "Bald eröffnen wir die neue Brücke.",
+            "it": "Presto apriremo il nuovo ponte."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "v govoru", "de": "gesprochen", "it": "a voce", "en": "spoken" },
+            "gonna = going to",
+            "I'm gonna be late."
+          ],
+          [
+            { "sl": "kdaj", "de": "wann", "it": "quando", "en": "when" },
+            "tomorrow, tonight, next week, soon",
+            "We're going to sell them next week."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future",
+          "prompt": "We're going to sell the lambs ___.",
+          "options": ["next week", "last week", "yesterday"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Načrt gleda naprej**\n- tomorrow · tonight · next week · soon",
+            "de": "**Ein Plan schaut nach vorn**\n- tomorrow · tonight · next week · soon",
+            "it": "**Un progetto guarda avanti**\n- tomorrow · tonight · next week · soon",
+            "en": "**A plan looks ahead**\n- tomorrow · tonight · next week · soon"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "Načrt: **am**, **is**, **are** + **going to** + osnovna oblika: **I'm going to walk.** **Is she going to sell it?** Kar vidiš, da prihaja: **It's going to rain.** Kar je dogovorjeno, z uro: **I'm meeting Jack at ten.** Za načrt nikoli navadni sedanjik. V govoru **gonna**, v pisanju **going to**.",
+      "de": "Ein Plan: **am**, **is**, **are** + **going to** + Grundform: **I'm going to walk.** **Is she going to sell it?** Was du kommen siehst: **It's going to rain.** Was ausgemacht ist, mit Uhrzeit: **I'm meeting Jack at ten.** Für einen Plan nie das einfache Präsens. Gesprochen **gonna**, geschrieben **going to**.",
+      "it": "Un progetto: **am**, **is**, **are** + **going to** + la forma base: **I'm going to walk.** **Is she going to sell it?** Ciò che vedi arrivare: **It's going to rain.** Ciò che è già fissato, con un'ora: **I'm meeting Jack at ten.** Per un progetto mai il presente semplice. A voce **gonna**, per iscritto **going to**.",
+      "en": "A plan: **am**, **is**, **are** + **going to** + the base form: **I'm going to walk.** **Is she going to sell it?** What you can see coming: **It's going to rain.** What is arranged, with a time: **I'm meeting Jack at ten.** Never the plain present for a plan. In talk **gonna**; in writing **going to**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "going-to-1",
+      "title": { "sl": "Načrti", "de": "Pläne", "it": "Progetti", "en": "Plans" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "going to + walk · da in ne",
+            "de": "going to + walk · ja und nein",
+            "it": "going to + walk · sì e no",
+            "en": "going to + walk: yes and no"
+          },
+          "columns": [{"sl": "+ walk", "de": "+ walk", "it": "+ walk", "en": "+ walk"}],
+          "rows": [
+            { "label": {"sl": "I · da", "de": "I · ja", "it": "I · sì", "en": "I · yes"}, "cells": ["am going to"] },
+            {
+              "label": { "sl": "I · ne", "de": "I · nein", "it": "I · no", "en": "I · no" },
+              "cells": ["am not going to"]
+            },
+            {
+              "label": { "sl": "you · da", "de": "you · ja", "it": "you · sì", "en": "you · yes" },
+              "cells": [{"accept": ["are going to"], "spoken": ["are gonna"]}]
+            },
+            {
+              "label": { "sl": "you · ne", "de": "you · nein", "it": "you · no", "en": "you · no" },
+              "cells": [{"accept": ["aren't going to"], "spoken": ["aren't gonna"]}]
+            },
+            {
+              "label": { "sl": "she · da", "de": "she · ja", "it": "she · sì", "en": "she · yes" },
+              "cells": [{"accept": ["is going to", "'s going to"], "spoken": ["is gonna", "'s gonna"]}]
+            },
+            {
+              "label": { "sl": "she · ne", "de": "she · nein", "it": "she · no", "en": "she · no" },
+              "cells": [{"accept": ["isn't going to", "'s not going to"], "spoken": ["isn't gonna", "'s not gonna"]}]
+            },
+            {
+              "label": { "sl": "we · da", "de": "we · ja", "it": "we · sì", "en": "we · yes" },
+              "cells": [{"accept": ["are going to"], "spoken": ["are gonna"]}]
+            },
+            {
+              "label": { "sl": "we · ne", "de": "we · nein", "it": "we · no", "en": "we · no" },
+              "cells": [{"accept": ["aren't going to"], "spoken": ["aren't gonna"]}]
+            }
+          ],
+          "explain": {
+            "sl": "**am, is, are + going to + osnovna oblika**\n- she's going to walk · she isn't going to walk",
+            "de": "**am, is, are + going to + Grundform**\n- she's going to walk · she isn't going to walk",
+            "it": "**am, is, are + going to + la forma base**\n- she's going to walk · she isn't going to walk",
+            "en": "**am, is, are + going to + the base form**\n- she's going to walk · she isn't going to walk"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: a plan, or you can see it coming"
+          },
+          "columns": [
+            {
+              "label": { "sl": "a plan · načrt", "de": "a plan · ein Plan", "it": "a plan · un progetto", "en": "a plan" },
+              "words": ["I'm going to buy a dog.", "We're going to paint the gate.", "She's going to sell her van."]
+            },
+            {
+              "label": {
+                "sl": "you can see it coming · vidiš, da prihaja",
+                "de": "you can see it coming · du siehst es kommen",
+                "it": "you can see it coming · lo vedi arrivare",
+                "en": "you can see it coming"
+              },
+              "words": ["It's going to rain.", "That branch is going to fall.", "Those sheep are going to get out!"]
+            }
+          ],
+          "explain": {
+            "sl": "**Načrt si {m:naredil|f:naredila} sam{m:|f:a}; drugo vidiš**\n- We're going to paint the gate. · Look! It's going to rain.",
+            "de": "**Einen Plan machst du; das andere siehst du**\n- We're going to paint the gate. · Look! It's going to rain.",
+            "it": "**Un progetto lo fai tu; il resto lo vedi**\n- We're going to paint the gate. · Look! It's going to rain.",
+            "en": "**A plan is made; the rest you can see**\n- We're going to paint the gate. · Look! It's going to rain."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Are you going to walk to Keswick?",
+          "options": ["No, I'm not.", "No, I don't.", "No, I not."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor z be: No, I'm not.**\n- Yes, I am. · No, I'm not.",
+            "de": "**Die Kurzantwort mit be: No, I'm not.**\n- Yes, I am. · No, I'm not.",
+            "it": "**La risposta breve con be: No, I'm not.**\n- Yes, I am. · No, I'm not.",
+            "en": "**The short answer with be: No, I'm not.**\n- Yes, I am. · No, I'm not."
+          }
+        }
+      ]
+    },
+    {
+      "id": "going-to-2",
+      "title": {
+        "sl": "Sobota v gostilni",
+        "de": "Samstag im Gasthaus",
+        "it": "Sabato alla locanda",
+        "en": "Saturday at the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "future",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "On Saturday there's a dance at the Packhorse Inn. Mrs Birkett ___ going to make soup for everyone. — What ___ you going to do, Jack? — I'm going to ___ (bring) the chairs from the barn. — Is Sam going to help? — No, he ___. He's ___ (meet) a friend in Keswick at two. — Look at the sky! It's going to ___ (rain). — Then we ___ going to dance inside.",
+          "gaps": [
+            { "accept": ["is", "'s"], "hint": "she → ?" },
+            { "accept": ["are"], "hint": "you → ?" },
+            {
+              "accept": ["bring"],
+              "hint": { "sl": "osnovna oblika", "de": "die Grundform", "it": "la forma base", "en": "the base form" }
+            },
+            { "accept": ["isn't", "'s not"], "hint": "is + not" },
+            {
+              "accept": ["meeting"],
+              "hint": {
+                "sl": "dogovorjeno, z uro",
+                "de": "fix ausgemacht, mit Uhrzeit",
+                "it": "già fissato, con un'ora",
+                "en": "arranged, with a time"
+              },
+              "explain": {
+                "sl": "**Dogovorjeno, ob dveh: -ing**\n- He's meeting a friend at two.",
+                "de": "**Fix ausgemacht, um zwei: -ing**\n- He's meeting a friend at two.",
+                "it": "**Già fissato, alle due: -ing**\n- He's meeting a friend at two.",
+                "en": "**Arranged, at two: -ing**\n- He's meeting a friend at two."
+              }
+            },
+            {
+              "accept": ["rain"],
+              "hint": { "sl": "osnovna oblika", "de": "die Grundform", "it": "la forma base", "en": "the base form" }
+            },
+            { "accept": ["are"], "hint": "we → ?" }
+          ],
+          "bank": true,
+          "distractors": ["am", "brings"],
+          "translation": {
+            "sl": "V soboto je ples v gostilni Packhorse. Gospa Birkett bo skuhala juho za vse. — Kaj boš {m:počel|f:počela} ti, Jack? — Prinesel bom stole iz skednja. — Bo Sam pomagal? — Ne. Ob dveh se dobi s prijateljem v Keswicku. — Poglej nebo! Deževalo bo. — Potem bomo plesali notri.",
+            "de": "Am Samstag ist Tanz im Gasthaus Packhorse. Mrs Birkett macht Suppe für alle. — Was machst du, Jack? — Ich bringe die Stühle aus der Scheune. — Hilft Sam? — Nein. Er trifft um zwei einen Freund in Keswick. — Schau dir den Himmel an! Gleich regnet es. — Dann tanzen wir drinnen.",
+            "it": "Sabato c'è un ballo alla locanda Packhorse. Mrs Birkett farà la zuppa per tutti. — Tu che cosa fai, Jack? — Porto le sedie dal fienile. — Sam aiuta? — No. Alle due vede un amico a Keswick. — Guarda il cielo! Sta per piovere. — Allora balliamo dentro.",
+            "en": "On Saturday there's a dance at the Packhorse Inn. Mrs Birkett is going to make soup for everyone. — What are you going to do, Jack? — I'm going to bring the chairs from the barn. — Is Sam going to help? — No, he isn't. He's meeting a friend in Keswick at two. — Look at the sky! It's going to rain. — Then we are going to dance inside."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "What are you doing on Friday?",
+          "options": ["I'm seeing the doctor at nine.", "I see the doctor at nine.", "I saw the doctor at nine."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Dogovorjeno, z uro: -ing**\n- What are you doing on Friday? — I'm seeing the doctor at nine.",
+            "de": "**Fix ausgemacht, mit Uhrzeit: -ing**\n- What are you doing on Friday? — I'm seeing the doctor at nine.",
+            "it": "**Già fissato, con un'ora: -ing**\n- What are you doing on Friday? — I'm seeing the doctor at nine.",
+            "en": "**Arranged, with a time: -ing**\n- What are you doing on Friday? — I'm seeing the doctor at nine."
+          }
+        }
+      ]
+    },
+    {
+      "id": "going-to-3",
+      "title": { "sl": "Kakšen je načrt?", "de": "Was ist der Plan?", "it": "Qual è il progetto?", "en": "What's the plan?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "future",
+          "instruction": {
+            "sl": "Say the plan with going to · Povej načrt z going to",
+            "de": "Say the plan with going to · Sag den Plan mit going to",
+            "it": "Say the plan with going to · Di' il progetto con going to",
+            "en": "Say the plan with going to"
+          },
+          "cue": "going to",
+          "items": [
+            {
+              "from": "I wash the van. (tomorrow)",
+              "accept": ["I'm going to wash the van tomorrow.", "Tomorrow I'm going to wash the van."],
+              "spoken": ["I'm gonna wash the van tomorrow.", "Tomorrow I'm gonna wash the van."]
+            },
+            {
+              "from": "Jack sells two lambs. (next week)",
+              "accept": ["Jack is going to sell two lambs next week.", "Next week Jack is going to sell two lambs."],
+              "spoken": ["Jack's gonna sell two lambs next week.", "Next week Jack's gonna sell two lambs."],
+              "hint": {
+                "sl": "Jack: is going to + osnovna oblika",
+                "de": "Jack: is going to + Grundform",
+                "it": "Jack: is going to + la forma base",
+                "en": "Jack: is going to + the base form"
+              }
+            },
+            {
+              "from": "We paint the gate. (on Saturday)",
+              "accept": ["We're going to paint the gate on Saturday.", "On Saturday we're going to paint the gate."],
+              "spoken": ["We're gonna paint the gate on Saturday.", "On Saturday we're gonna paint the gate."]
+            }
+          ],
+          "explain": {
+            "sl": "**am, is, are + going to + osnovna oblika**\n- I wash the van. → I'm going to wash the van.",
+            "de": "**am, is, are + going to + Grundform**\n- I wash the van. → I'm going to wash the van.",
+            "it": "**am, is, are + going to + la forma base**\n- I wash the van. → I'm going to wash the van.",
+            "en": "**am, is, are + going to + the base form**\n- I wash the van. → I'm going to wash the van."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future",
+          "instruction": { "sl": "Ask · Vprašaj", "de": "Ask · Frag", "it": "Ask · Chiedi", "en": "Ask" },
+          "cue": "?",
+          "items": [
+            {
+              "from": "You are going to walk.",
+              "accept": ["Are you going to walk?"],
+              "spoken": ["Are you gonna walk?"]
+            },
+            {
+              "from": "Sam is going to drive.",
+              "accept": ["Is Sam going to drive?"],
+              "spoken": ["Is Sam gonna drive?"]
+            }
+          ],
+          "explain": {
+            "sl": "**be gre naprej**\n- You are going to walk. → Are you going to walk?",
+            "de": "**be kommt nach vorn**\n- You are going to walk. → Are you going to walk?",
+            "it": "**be va all'inizio**\n- You are going to walk. → Are you going to walk?",
+            "en": "**be goes first**\n- You are going to walk. → Are you going to walk?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "It's arranged: say it with -ing · Dogovorjeno je: povej z -ing",
+            "de": "It's arranged: say it with -ing · Es ist ausgemacht: sag es mit -ing",
+            "it": "It's arranged: say it with -ing · È già fissato: dillo con -ing",
+            "en": "It's arranged: say it with -ing"
+          },
+          "items": [
+            {
+              "from": "I / meet / Jack / at ten",
+              "accept": ["I'm meeting Jack at ten.", "At ten I'm meeting Jack.", "I'm going to meet Jack at ten."],
+              "hint": { "sl": "I + am + -ing", "de": "I + am + -ing", "it": "I + am + -ing", "en": "I + am + -ing" }
+            },
+            {
+              "from": "We / have / dinner / at the inn / tonight",
+              "accept": [
+                "We're having dinner at the inn tonight.",
+                "Tonight we're having dinner at the inn.",
+                "We're going to have dinner at the inn tonight."
+              ]
+            },
+            {
+              "from": "Mrs Hartley / see / the doctor / on Monday",
+              "accept": [
+                "Mrs Hartley is seeing the doctor on Monday.",
+                "Mrs Hartley's seeing the doctor on Monday.",
+                "On Monday Mrs Hartley is seeing the doctor.",
+                "Mrs Hartley is going to see the doctor on Monday."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Dogovorjeno: am, is, are + -ing in kdaj**\n- I'm meeting Jack at ten.",
+            "de": "**Ausgemacht: am, is, are + -ing und wann**\n- I'm meeting Jack at ten.",
+            "it": "**Già fissato: am, is, are + -ing e quando**\n- I'm meeting Jack at ten.",
+            "en": "**Arranged: am, is, are + -ing, and when**\n- I'm meeting Jack at ten."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "future",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "— What ___ you going to do on Sunday, Arthur? — I'm going to ___ (look) at my bees. — Is Granny Maggie going to bake? — Yes, she ___. And at four we're ___ (have) tea with Old Wilf. It's all arranged. — Look at those clouds! It ___ going to snow.",
+        "gaps": [
+          { "accept": ["are"] },
+          { "accept": ["look"] },
+          { "accept": ["is"] },
+          { "accept": ["having"] },
+          { "accept": ["is", "'s"] }
+        ],
+        "translation": {
+          "sl": "— Kaj boš počel v nedeljo, Arthur? — Pogledal bom svoje čebele. — Bo babica Maggie pekla? — Ja. In ob štirih pijemo čaj s starim Wilfom. Vse je dogovorjeno. — Poglej tiste oblake! Snežilo bo.",
+          "de": "— Was machst du am Sonntag, Arthur? — Ich schaue nach meinen Bienen. — Bäckt Oma Maggie? — Ja. Und um vier trinken wir Tee mit dem alten Wilf. Es ist alles ausgemacht. — Schau dir die Wolken an! Es wird schneien.",
+          "it": "— Che cosa fai domenica, Arthur? — Vado a vedere le mie api. — Nonna Maggie prepara i dolci? — Sì. E alle quattro prendiamo il tè con il vecchio Wilf. È tutto fissato. — Guarda quelle nuvole! Sta per nevicare.",
+          "en": "— What are you going to do on Sunday, Arthur? — I'm going to look at my bees. — Is Granny Maggie going to bake? — Yes, she is. And at four we're having tea with Old Wilf. It's all arranged. — Look at those clouds! It is going to snow."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Careful! That ladder ___ fall!",
+        "options": ["is going to", "goes to", "went to"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vidiš, da prihaja: going to**\n- That ladder is going to fall!",
+          "de": "**Du siehst es kommen: going to**\n- That ladder is going to fall!",
+          "it": "**Lo vedi arrivare: going to**\n- That ladder is going to fall!",
+          "en": "**You can see it coming: going to**\n- That ladder is going to fall!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-continuous",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "What are you doing tonight?",
+        "options": ["I'm having dinner with Sam.", "I have dinner with Sam.", "I had dinner with Sam."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Dogovorjeno: -ing, nikoli navadni sedanjik**\n- I'm having dinner with Sam.",
+          "de": "**Ausgemacht: -ing, nie das einfache Präsens**\n- I'm having dinner with Sam.",
+          "it": "**Già fissato: -ing, mai il presente semplice**\n- I'm having dinner with Sam.",
+          "en": "**Arranged: -ing, never the plain present**\n- I'm having dinner with Sam."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Is Jack going to help?",
+        "options": ["Yes, he is.", "Yes, he does.", "Yes, he's."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kratki odgovor: Yes, he is.**\n- Yes, he is. · No, he isn't.",
+          "de": "**Die Kurzantwort: Yes, he is.**\n- Yes, he is. · No, he isn't.",
+          "it": "**La risposta breve: Yes, he is.**\n- Yes, he is. · No, he isn't.",
+          "en": "**The short answer: Yes, he is.**\n- Yes, he is. · No, he isn't."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "future",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "Mrs Birkett is going to sing.",
+            "accept": ["Mrs Birkett isn't going to sing.", "Mrs Birkett's not going to sing."],
+            "spoken": ["Mrs Birkett isn't gonna sing.", "Mrs Birkett's not gonna sing."]
+          },
+          {
+            "from": "I'm going to buy a van.",
+            "accept": ["I'm not going to buy a van."],
+            "spoken": ["I'm not gonna buy a van."]
+          }
+        ],
+        "explain": {
+          "sl": "**not za be**\n- I'm not going to buy a van.",
+          "de": "**not nach be**\n- I'm not going to buy a van.",
+          "it": "**not dopo be**\n- I'm not going to buy a van.",
+          "en": "**not after be**\n- I'm not going to buy a van."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "future",
+        "instruction": { "sl": "Ask · Vprašaj", "de": "Ask · Frag", "it": "Ask · Chiedi", "en": "Ask" },
+        "cue": "?",
+        "items": [
+          {
+            "from": "Arthur is going to sell his honey.",
+            "accept": ["Is Arthur going to sell his honey?"],
+            "spoken": ["Is Arthur gonna sell his honey?"]
+          },
+          {
+            "from": "They are going to stay at the inn.",
+            "accept": ["Are they going to stay at the inn?"],
+            "spoken": ["Are they gonna stay at the inn?"]
+          }
+        ],
+        "explain": {
+          "sl": "**be gre naprej**\n- They are going to stay. → Are they going to stay?",
+          "de": "**be kommt nach vorn**\n- They are going to stay. → Are they going to stay?",
+          "it": "**be va all'inizio**\n- They are going to stay. → Are they going to stay?",
+          "en": "**be goes first**\n- They are going to stay. → Are they going to stay?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

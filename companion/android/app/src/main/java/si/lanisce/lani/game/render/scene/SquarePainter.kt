@@ -1444,7 +1444,7 @@ internal class SquarePainter : VistaPainter() {
      *
      * In Friuli it is the greasy pole (l'albero della cuccagna): greased, it shines, and under its wreath hangs the wooden
      * wheel of prizes the children made, a salami, a cheese and bags of sweets on its rim ([prizeWheel]), lying ready on the
-     * cobbles beside it before the pole goes up. A lad climbing it ("climb": [climber]) shins up from its foot (0) to the
+     * cobbles beside it before the pole goes up; soaped as it lies on its trestles, its bucket of soap by its foot ([soapedLying]). A lad climbing it ("climb": [climber]) shins up from its foot (0) to the
      * prizes (1), and slides back down when a cue lowers it.
      */
     private fun maypole() {
@@ -1669,6 +1669,27 @@ internal class SquarePainter : VistaPainter() {
     }
 
     /**
+     * The soap on Friuli's greasy pole as it lies on its trestles ([cuccagna], from the step that greases it; the trunk from
+     * [x0] to [crownFrom], at row [ly], [lp] px a metre): a wet sheen along its lit side with a glint sliding along it, as
+     * when it stands ([greased]), and by its foot the wooden bucket of soap, white with foam, its brush in it.
+     */
+    private fun soapedLying(x0: Float, crownFrom: Float, x1: Float, ly: Float, lp: Float) {
+        val sheen = Col.mix(stripped, Col.hex(0xFFFFFF), 0.55f)
+        val glint = x0 + (crownFrom - x0) * ((t * 0.35) % 1.0).toFloat()
+        for (x in max(x0.toInt(), c.left)..min(crownFrom.toInt(), c.right - 1)) {
+            val hw = max(1f, 0.2f * lp * (1f - 0.55f * (x - x0) / (x1 - x0)))
+            c.set(x, (ly - hw).toInt() + (if (hw >= 2f) 1 else 0), if (abs(x - glint) < 1.5f * detail) Col.hex(0xFFFFFF) else sheen)
+        }
+        val d = poleD - 3.1f; val bp = pm(d)
+        val bx = gx(-5.3f, d); val by = gy(d)
+        val w = max(3f, 0.32f * bp); val h = max(3f, 0.5f * bp)
+        c.fillRect((bx - w).toInt(), (by - h).toInt(), max(2, (2 * w).toInt()), max(2, h.toInt()), Pal.WOOD_M)
+        c.fillRect((bx - w).toInt(), (by - h * 0.55f).toInt(), max(2, (2 * w).toInt()), max(1, detail), Pal.WOOD_D)
+        c.fillEllipse(bx, by - h, w + detail, max(1f, 0.32f * w), Col.hex(0xFFFFFF))
+        c.line((bx + w * 0.2f).toInt(), (by - h).toInt(), (bx + w * 1.1f).toInt(), (by - h * 1.8f).toInt(), Pal.WOOD_D)
+    }
+
+    /**
      * The cuccagna's wheel of prizes ([cuccagna]), at row [wy] round the pole at [bx] ([p] px a metre): a wooden wheel seen
      * from below, its rim lit, and hanging from it a salami, a round cheese, a bag of sweets on either side tied with a ribbon;
      * [standing] on the pole (else lying ready on the cobbles, the prizes heaped by it: [mlajLying]).
@@ -1833,6 +1854,8 @@ internal class SquarePainter : VistaPainter() {
             val hw = max(1f, 0.2f * lp * (1f - 0.55f * u))
             for (y in (ly - hw).toInt()..(ly + hw).toInt()) c.set(x, y, if (y < ly - hw * 0.2f) bark else barkD)
         }
+        // Friuli's greasy pole: soaped from the step that peels it ("ha unto il palo con il sapone")
+        if (cuccagna && peeled) soapedLying(x0, crownFrom, x1, ly, lp)
         // in its bark it still has its branches along the trunk; peeled, only the top is green
         if (!peeled) for (j in 0 until 7) {
             val ax = x0 + (crownFrom - x0) * (0.25f + j * 0.1f)

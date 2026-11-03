@@ -1,0 +1,789 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "would-like",
+  "language": "en",
+  "level": "A2",
+  "emoji": "☕",
+  "title": {
+    "en": "I'd like to go, I enjoy walking",
+    "de": "Wünsche und Vorlieben: I'd like to, I enjoy walking",
+    "sl": "Želje in všečnost: I'd like to, I enjoy walking",
+    "it": "Desideri e gusti: I'd like to, I enjoy walking"
+  },
+  "goal": {
+    "sl": "Poveš, kaj hočeš, naravnost in vljudno (I want to go, I'd like to go), nekaj ponudiš (Would you like …?), vljudno prosiš (Could you …?) in poveš, kaj ti je všeč (I enjoy walking).",
+    "de": "Du sagst direkt und höflich, was du willst (I want to go, I'd like to go), bietest etwas an (Would you like …?), bittest höflich (Could you …?) und sagst, was du gern machst (I enjoy walking).",
+    "it": "Dici che cosa vuoi, in modo diretto e con garbo (I want to go, I'd like to go), offri qualcosa (Would you like …?), chiedi con garbo (Could you …?) e dici che cosa ti piace fare (I enjoy walking).",
+    "en": "You can say what you want plainly and politely (I want to go, I'd like to go), offer something (Would you like …?), ask politely (Could you …?), and say what you like doing (I enjoy walking)."
+  },
+  "grammar": ["would-like"],
+  "words": [
+    "want",
+    "wanna",
+    "would like",
+    "I'd like",
+    "I'd love to",
+    "could",
+    "please",
+    "thank you",
+    "of course",
+    "sure",
+    "like",
+    "to love",
+    "enjoy",
+    "hate",
+    "tea",
+    "cup",
+    "scone",
+    "bill",
+    "salt",
+    "to pass",
+    "blanket",
+    "window",
+    "room",
+    "sit",
+    "get up",
+    "early",
+    "to walk",
+    "to cook",
+    "to bake",
+    "to swim",
+    "brew",
+    "try",
+    "listen",
+    "radio",
+    "ale",
+    "soup",
+    "basket",
+    "egg",
+    "plate",
+    "walker"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kar hočeš, povedano naravnost: **want to** + osnovna oblika. **I want to go home.** (Hočem domov.) **Jack wants to buy a dog.** (Jack hoče kupiti psa.) **Do you want to come?** (Hočeš priti?) Pri he in she je **wants**, **to** pa nikoli ne manjka: **I want to go**, nikoli *I want go*. V govoru slišiš **wanna**: **I wanna go home.**",
+          "de": "Was du willst, geradeheraus: **want to** + Grundform. **I want to go home.** (Ich will nach Hause.) **Jack wants to buy a dog.** (Jack will einen Hund kaufen.) **Do you want to come?** (Willst du mitkommen?) Bei he und she heißt es **wants**, und **to** fehlt nie: **I want to go**, nie *I want go*. Gesprochen hörst du **wanna**: **I wanna go home.**",
+          "it": "Ciò che vuoi, detto in modo diretto: **want to** + la forma base. **I want to go home.** (Voglio andare a casa.) **Jack wants to buy a dog.** (Jack vuole comprare un cane.) **Do you want to come?** (Vuoi venire?) Con he e she è **wants**, e **to** non manca mai: **I want to go**, mai *I want go*. A voce senti **wanna**: **I wanna go home.**",
+          "en": "What you want, said plainly: **want to** + the base form. **I want to go home.** **Jack wants to buy a dog.** **Do you want to come?** With he and she it is **wants**, and **to** is never missing: **I want to go** (never *I want go*). In talk you hear **wanna**: **I wanna go home.**"
+        },
+        "examples": [
+          {
+            "en": "I want to go home.",
+            "sl": "Hočem domov.",
+            "de": "Ich will nach Hause.",
+            "it": "Voglio andare a casa."
+          },
+          {
+            "en": "Jack wants to buy a dog.",
+            "sl": "Jack hoče kupiti psa.",
+            "de": "Jack will einen Hund kaufen.",
+            "it": "Jack vuole comprare un cane."
+          },
+          {
+            "en": "Do you want to come to the market?",
+            "sl": "Hočeš priti na tržnico?",
+            "de": "Willst du auf den Markt mitkommen?",
+            "it": "Vuoi venire al mercato?"
+          },
+          {
+            "en": "I wanna go home.",
+            "sl": "Hočem domov.",
+            "de": "Ich will nach Hause.",
+            "it": "Voglio andare a casa."
+          }
+        ],
+        "rows": [
+          [
+            "want to, wants to",
+            {
+              "sl": "kar hočeš, naravnost",
+              "de": "was du willst, direkt",
+              "it": "ciò che vuoi, in modo diretto",
+              "en": "what you want, plainly"
+            },
+            "I want to go home."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "would-like",
+          "prompt": "Jack ___ to buy a dog.",
+          "options": ["wants", "want", "would"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack je he: wants to**\n- I want to · he wants to · they want to",
+            "de": "**Jack ist he: wants to**\n- I want to · he wants to · they want to",
+            "it": "**Jack è he: wants to**\n- I want to · he wants to · they want to",
+            "en": "**Jack is he: wants to**\n- I want to · he wants to · they want to"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Bolj vljudno, zlasti z ljudmi, ki jih ne poznaš: **would like**, kratko **'d like**, za vse enako. S stvarjo: **I'd like a cup of tea.** ({m:Rad|f:Rada} bi skodelico čaja.) Z glagolom **to** + osnovna oblika: **I'd like to stay.** ({m:Rad|f:Rada} bi {m:ostal|f:ostala}.) Nikoli *I'd like stay*. **She'd like to see the tarn.** (Rada bi videla jezerce.) **We'd like two rooms.** (Radi bi dve sobi.)",
+          "de": "Höflicher, vor allem mit Leuten, die du nicht kennst: **would like**, kurz **'d like**, für alle gleich. Mit einer Sache: **I'd like a cup of tea.** (Ich hätte gern eine Tasse Tee.) Mit einem Verb **to** + Grundform: **I'd like to stay.** (Ich möchte bleiben.) Nie *I'd like stay*. **She'd like to see the tarn.** (Sie möchte den Bergsee sehen.) **We'd like two rooms.** (Wir hätten gern zwei Zimmer.)",
+          "it": "Più gentile, soprattutto con chi non conosci: **would like**, breve **'d like**, uguale per tutti. Con una cosa: **I'd like a cup of tea.** (Vorrei una tazza di tè.) Con un verbo, **to** + la forma base: **I'd like to stay.** (Vorrei restare.) Mai *I'd like stay*. **She'd like to see the tarn.** (Vorrebbe vedere il laghetto.) **We'd like two rooms.** (Vorremmo due camere.)",
+          "en": "More polite, above all with people you don't know: **would like**, short **'d like**, the same for everyone. With a thing: **I'd like a cup of tea.** With a verb, **to** + the base form: **I'd like to stay** (never *I'd like stay*). **She'd like to see the tarn.** **We'd like two rooms.**"
+        },
+        "examples": [
+          {
+            "en": "I'd like a cup of tea.",
+            "sl": "{m:Rad|f:Rada} bi skodelico čaja.",
+            "de": "Ich hätte gern eine Tasse Tee.",
+            "it": "Vorrei una tazza di tè."
+          },
+          {
+            "en": "I'd like to stay at the inn tonight.",
+            "sl": "Nocoj bi {m:rad|f:rada} {m:ostal|f:ostala} v gostilni.",
+            "de": "Ich möchte heute Nacht im Gasthaus bleiben.",
+            "it": "Stanotte vorrei restare alla locanda."
+          },
+          {
+            "en": "She'd like to see the tarn.",
+            "sl": "Rada bi videla jezerce.",
+            "de": "Sie möchte den Bergsee sehen.",
+            "it": "Vorrebbe vedere il laghetto."
+          },
+          {
+            "en": "We'd like two rooms, please.",
+            "sl": "Radi bi dve sobi, prosim.",
+            "de": "Wir hätten gern zwei Zimmer, bitte.",
+            "it": "Vorremmo due camere, per favore."
+          }
+        ],
+        "rows": [
+          [
+            "would like, 'd like",
+            {
+              "sl": "kar želiš, vljudno",
+              "de": "was du möchtest, höflich",
+              "it": "ciò che vorresti, con garbo",
+              "en": "what you want, politely"
+            },
+            "I'd like a cup of tea."
+          ],
+          [
+            "'d like to + base",
+            { "sl": "z glagolom", "de": "mit einem Verb", "it": "con un verbo", "en": "with a verb" },
+            "I'd like to stay."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "would-like",
+          "prompt": "I'd like ___ at the inn tonight.",
+          "options": ["to stay", "stay", "staying"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**would like + to + osnovna oblika**\n- I'd like to stay. · She'd like to see the tarn.",
+            "de": "**would like + to + Grundform**\n- I'd like to stay. · She'd like to see the tarn.",
+            "it": "**would like + to + la forma base**\n- I'd like to stay. · She'd like to see the tarn.",
+            "en": "**would like + to + the base form**\n- I'd like to stay. · She'd like to see the tarn."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ko nekaj ponudiš, vprašaš **Would you like …?** **Would you like a cup of tea?** (Bi skodelico čaja?) **Would you like to sit down?** (Bi se {m:usedel|f:usedla}?) Odgovor: **Yes, please.** (Ja, prosim.) **No, thank you.** (Ne, hvala.) Nikoli *Yes, I like*. Če ti je povabilo všeč: **I'd love to.** (Z veseljem.)",
+          "de": "Wenn du etwas anbietest, fragst du **Would you like …?** **Would you like a cup of tea?** (Möchtest du eine Tasse Tee?) **Would you like to sit down?** (Möchtest du dich setzen?) Die Antwort: **Yes, please.** (Ja, bitte.) **No, thank you.** (Nein, danke.) Nie *Yes, I like*. Wenn es dich freut: **I'd love to.** (Sehr gern.)",
+          "it": "Per offrire qualcosa chiedi **Would you like …?** **Would you like a cup of tea?** (Vuoi una tazza di tè?) **Would you like to sit down?** (Vuoi sederti?) La risposta: **Yes, please.** (Sì, grazie.) **No, thank you.** (No, grazie.) Mai *Yes, I like*. Se ti fa piacere: **I'd love to.** (Volentieri.)",
+          "en": "To offer something, ask **Would you like …?** **Would you like a cup of tea?** **Would you like to sit down?** The answer: **Yes, please** (never *Yes, I like*). **No, thank you.** To something you'd enjoy: **I'd love to.**"
+        },
+        "examples": [
+          {
+            "en": "Would you like a cup of tea? — Yes, please.",
+            "sl": "Bi skodelico čaja? — Ja, prosim.",
+            "de": "Möchtest du eine Tasse Tee? — Ja, bitte.",
+            "it": "Vuoi una tazza di tè? — Sì, grazie."
+          },
+          {
+            "en": "Would you like to sit down? — No, thank you.",
+            "sl": "Bi se {m:usedel|f:usedla}? — Ne, hvala.",
+            "de": "Möchtest du dich setzen? — Nein, danke.",
+            "it": "Vuoi sederti? — No, grazie."
+          },
+          {
+            "en": "Would you like to come to the dance? — I'd love to.",
+            "sl": "Bi {m:prišel|f:prišla} na ples? — Z veseljem.",
+            "de": "Möchtest du zum Tanz kommen? — Sehr gern.",
+            "it": "Vuoi venire al ballo? — Volentieri."
+          }
+        ],
+        "rows": [
+          [
+            "Would you like …?",
+            { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" },
+            "Would you like a scone?"
+          ],
+          [
+            { "sl": "odgovor", "de": "die Antwort", "it": "la risposta", "en": "the answer" },
+            "Yes, please. No, thank you. I'd love to.",
+            "Yes, please."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "would-like",
+          "text": "___ you like a cup of tea? — Yes, please.",
+          "accept": ["Would"],
+          "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" },
+          "explain": {
+            "sl": "**Ponudba: Would you like …?**\n- Would you like a cup of tea?",
+            "de": "**Ein Angebot: Would you like …?**\n- Would you like a cup of tea?",
+            "it": "**Un'offerta: Would you like …?**\n- Would you like a cup of tea?",
+            "en": "**An offer: Would you like …?**\n- Would you like a cup of tea?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Vljudna prošnja: **could**, kot že poznaš od can: **Could you pass the salt, please?** (Mi lahko podaš sol, prosim?) **Could I have the bill, please?** (Lahko prosim račun?) **Can I …?** je prav med prijatelji, **could** je mehkejši. Odgovor: **Of course.** (Seveda.) **Sure.** (Ja, seveda.)",
+          "de": "Höflich bitten: **could**, wie du es von can kennst: **Could you pass the salt, please?** (Könntest du mir bitte das Salz geben?) **Could I have the bill, please?** (Könnte ich bitte die Rechnung haben?) **Can I …?** passt unter Freunden, **could** klingt weicher. Die Antwort: **Of course.** (Natürlich.) **Sure.** (Klar.)",
+          "it": "Per chiedere con garbo: **could**, come sai da can: **Could you pass the salt, please?** (Mi passeresti il sale, per favore?) **Could I have the bill, please?** (Potrei avere il conto, per favore?) **Can I …?** va bene tra amici, **could** è più gentile. La risposta: **Of course.** (Certo.) **Sure.** (Ma certo.)",
+          "en": "To ask someone politely, **could**, as you know from can: **Could you pass the salt, please?** **Could I have the bill, please?** **Can I …?** is right among friends; **could** is softer. The answer: **Of course.** **Sure.**"
+        },
+        "examples": [
+          {
+            "en": "Could you pass the salt, please? — Sure.",
+            "sl": "Mi lahko podaš sol, prosim? — Ja, seveda.",
+            "de": "Könntest du mir bitte das Salz geben? — Klar.",
+            "it": "Mi passeresti il sale, per favore? — Ma certo."
+          },
+          {
+            "en": "Could I have the bill, please? — Of course.",
+            "sl": "Lahko prosim račun? — Seveda.",
+            "de": "Könnte ich bitte die Rechnung haben? — Natürlich.",
+            "it": "Potrei avere il conto, per favore? — Certo."
+          },
+          {
+            "en": "Could you close the window, Mr Tyson?",
+            "sl": "Bi lahko zaprli okno, gospod Tyson?",
+            "de": "Könnten Sie das Fenster schließen, Mr Tyson?",
+            "it": "Potrebbe chiudere la finestra, Mr Tyson?"
+          }
+        ],
+        "rows": [
+          [
+            "Could you …? Could I …?",
+            { "sl": "vljudna prošnja", "de": "höflich bitten", "it": "chiedere con garbo", "en": "asking politely" },
+            "Could I have the bill, please?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "would-like",
+          "prompt": "___ I have the bill, please?",
+          "options": ["Could", "Would", "Do"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Prošnja: Could I …?**\n- Could I have the bill, please?",
+            "de": "**Um etwas bitten: Could I …?**\n- Could I have the bill, please?",
+            "it": "**Chiedere qualcosa: Could I …?**\n- Could I have the bill, please?",
+            "en": "**Asking for something: Could I …?**\n- Could I have the bill, please?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar ti je všeč na splošno: za **like**, **love**, **enjoy** in **hate** pride oblika na **-ing**: **I like walking.** ({m:Rad|f:Rada} hodim.) **Jack loves working with Meg.** (Jack zelo rad dela z Meg.) **Mrs Birkett enjoys cooking.** (Gospa Birkett uživa v kuhanju.) **I hate getting up early.** (Ne prenesem zgodnjega vstajanja.) Za like, love in hate je prav tudi **to**: **I like to walk.** Za enjoy samo -ing, nikoli *I enjoy to walk*.",
+          "de": "Was dir ganz allgemein gefällt: Nach **like**, **love**, **enjoy** und **hate** kommt die Form auf **-ing**: **I like walking.** (Ich gehe gern zu Fuß.) **Jack loves working with Meg.** (Jack arbeitet sehr gern mit Meg.) **Mrs Birkett enjoys cooking.** (Mrs Birkett kocht gern.) **I hate getting up early.** (Ich hasse es, früh aufzustehen.) Nach like, love und hate passt auch **to**: **I like to walk.** Nach enjoy nur -ing, nie *I enjoy to walk*.",
+          "it": "Ciò che ti piace in generale: dopo **like**, **love**, **enjoy** e **hate** viene la forma in **-ing**: **I like walking.** (Mi piace camminare.) **Jack loves working with Meg.** (A Jack piace molto lavorare con Meg.) **Mrs Birkett enjoys cooking.** (A Mrs Birkett piace cucinare.) **I hate getting up early.** (Odio alzarmi presto.) Dopo like, love e hate va bene anche **to**: **I like to walk.** Dopo enjoy solo -ing, mai *I enjoy to walk*.",
+          "en": "What you like in general takes the **-ing** form after **like**, **love**, **enjoy** and **hate**: **I like walking.** **Jack loves working with Meg.** **Mrs Birkett enjoys cooking.** **I hate getting up early.** After like, love and hate **to** is right too: **I like to walk.** After enjoy only -ing: **I enjoy walking** (never *I enjoy to walk*)."
+        },
+        "examples": [
+          {
+            "en": "I like walking on the fells.",
+            "sl": "{m:Rad|f:Rada} hodim v hribe.",
+            "de": "Ich gehe gern in die Berge.",
+            "it": "Mi piace camminare sui monti."
+          },
+          {
+            "en": "Jack loves working with Meg.",
+            "sl": "Jack zelo rad dela z Meg.",
+            "de": "Jack arbeitet sehr gern mit Meg.",
+            "it": "A Jack piace molto lavorare con Meg."
+          },
+          {
+            "en": "Mrs Birkett enjoys cooking for the walkers.",
+            "sl": "Gospa Birkett uživa v kuhanju za pohodnike.",
+            "de": "Mrs Birkett kocht gern für die Wanderer.",
+            "it": "A Mrs Birkett piace cucinare per gli escursionisti."
+          },
+          {
+            "en": "I hate getting up early.",
+            "sl": "Ne prenesem zgodnjega vstajanja.",
+            "de": "Ich hasse es, früh aufzustehen.",
+            "it": "Odio alzarmi presto."
+          }
+        ],
+        "rows": [
+          [
+            "like, love, enjoy, hate + -ing",
+            {
+              "sl": "kar ti je všeč na splošno",
+              "de": "was dir allgemein gefällt",
+              "it": "ciò che ti piace in generale",
+              "en": "what you like in general"
+            },
+            "I enjoy walking."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "would-like",
+          "text": "Mrs Birkett enjoys ___ (cook) for the walkers.",
+          "accept": ["cooking"],
+          "hint": { "sl": "za enjoy", "de": "nach enjoy", "it": "dopo enjoy", "en": "after enjoy" },
+          "explain": {
+            "sl": "**enjoy + -ing, nikoli to**\n- She enjoys baking. · We enjoy walking.",
+            "de": "**enjoy + -ing, nie to**\n- She enjoys baking. · We enjoy walking.",
+            "it": "**enjoy + -ing, mai to**\n- She enjoys baking. · We enjoy walking.",
+            "en": "**enjoy + -ing, never to**\n- She enjoys baking. · We enjoy walking."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**like** je to, kar ti je vedno všeč, **'d like** to, kar bi {m:rad|f:rada} zdaj: **I like tea.** ({m:Rad|f:Rada} imam čaj.) **I'd like a tea.** ({m:Rad|f:Rada} bi čaj.) **Do you like scones?** (So ti sconesi všeč?) sprašuje na splošno, **Would you like a scone?** (Bi scone?) ti ponudi krožnik. **I want** je prav med prijatelji, v gostilni zveni **I'd like** bolje.",
+          "de": "**like** ist, was dir immer gefällt, **'d like**, was du jetzt möchtest: **I like tea.** (Ich mag Tee.) **I'd like a tea.** (Ich hätte gern einen Tee.) **Do you like scones?** (Magst du Scones?) fragt allgemein, **Would you like a scone?** (Möchtest du einen Scone?) hält dir den Teller hin. **I want** passt unter Freunden, im Gasthaus klingt **I'd like** besser.",
+          "it": "**like** è ciò che ti piace sempre, **'d like** ciò che vorresti adesso: **I like tea.** (Mi piace il tè.) **I'd like a tea.** (Vorrei un tè.) **Do you like scones?** (Ti piacciono gli scone?) chiede in generale, **Would you like a scone?** (Vuoi uno scone?) ti offre il piatto. **I want** va bene tra amici, alla locanda **I'd like** suona meglio.",
+          "en": "**like** is what you always like, **'d like** what you would like now: **I like tea.** **I'd like a tea.** **Do you like scones?** asks in general. **Would you like a scone?** holds out the plate. **I want** is right among friends; at the inn **I'd like** sounds better."
+        },
+        "examples": [
+          {
+            "en": "I like tea, but I'd like a beer now.",
+            "sl": "{m:Rad|f:Rada} imam čaj, zdaj pa bi {m:rad|f:rada} pivo.",
+            "de": "Ich mag Tee, aber jetzt hätte ich gern ein Bier.",
+            "it": "Mi piace il tè, ma adesso vorrei una birra."
+          },
+          {
+            "en": "Do you like scones?",
+            "sl": "So ti sconesi všeč?",
+            "de": "Magst du Scones?",
+            "it": "Ti piacciono gli scone?"
+          },
+          {
+            "en": "Would you like a scone?",
+            "sl": "Bi scone?",
+            "de": "Möchtest du einen Scone?",
+            "it": "Vuoi uno scone?"
+          }
+        ],
+        "rows": [
+          [
+            "like, 'd like",
+            { "sl": "vedno; zdaj", "de": "immer; jetzt", "it": "sempre; adesso", "en": "always; now" },
+            "I like tea. I'd like a tea."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "would-like",
+          "prompt": "Granny Maggie holds out a plate: ___",
+          "options": ["Would you like a scone?", "Do you like a scone?", "Are you like a scone?"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ponudba, zdaj: Would you like …?**\n- Would you like a scone? · Do you like scones?",
+            "de": "**Ein Angebot, jetzt: Would you like …?**\n- Would you like a scone? · Do you like scones?",
+            "it": "**Un'offerta, adesso: Would you like …?**\n- Would you like a scone? · Do you like scones?",
+            "en": "**An offer, now: Would you like …?**\n- Would you like a scone? · Do you like scones?"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "would-like-1",
+      "title": { "sl": "Želje", "de": "Wünsche", "it": "Desideri", "en": "Wishes" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "would-like",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "to go · naravnost, vljudno",
+            "de": "to go · direkt, höflich",
+            "it": "to go · in modo diretto, con garbo",
+            "en": "to go: plainly, politely"
+          },
+          "columns": [{"sl": "+ go", "de": "+ go", "it": "+ go", "en": "+ go"}],
+          "rows": [
+            {
+              "label": { "sl": "I, naravnost", "de": "I, direkt", "it": "I, in modo diretto", "en": "I, plainly" },
+              "cells": ["want to go"]
+            },
+            {
+              "label": { "sl": "I, vljudno", "de": "I, höflich", "it": "I, con garbo", "en": "I, politely" },
+              "cells": ["would like to go"]
+            },
+            {
+              "label": { "sl": "you, naravnost", "de": "you, direkt", "it": "you, in modo diretto", "en": "you, plainly" },
+              "cells": [{"accept": ["want to go"], "spoken": ["wanna go"]}]
+            },
+            {
+              "label": { "sl": "you, vljudno", "de": "you, höflich", "it": "you, con garbo", "en": "you, politely" },
+              "cells": [{"accept": ["would like to go", "'d like to go"]}]
+            },
+            {
+              "label": { "sl": "she, naravnost", "de": "she, direkt", "it": "she, in modo diretto", "en": "she, plainly" },
+              "cells": [
+                {
+                  "accept": ["wants to go"],
+                  "hint": { "sl": "he, she: -s", "de": "he, she: -s", "it": "he, she: -s", "en": "he, she: -s" }
+                }
+              ]
+            },
+            {
+              "label": { "sl": "she, vljudno", "de": "she, höflich", "it": "she, con garbo", "en": "she, politely" },
+              "cells": [{"accept": ["would like to go", "'d like to go"]}]
+            },
+            {
+              "label": { "sl": "we, naravnost", "de": "we, direkt", "it": "we, in modo diretto", "en": "we, plainly" },
+              "cells": [{"accept": ["want to go"], "spoken": ["wanna go"]}]
+            },
+            {
+              "label": { "sl": "we, vljudno", "de": "we, höflich", "it": "we, con garbo", "en": "we, politely" },
+              "cells": [{"accept": ["would like to go", "'d like to go"]}]
+            }
+          ],
+          "explain": {
+            "sl": "**want to se spreminja, would like nikoli**\n- she wants to go · she'd like to go",
+            "de": "**want to ändert sich, would like nie**\n- she wants to go · she'd like to go",
+            "it": "**want to cambia, would like mai**\n- she wants to go · she'd like to go",
+            "en": "**want to changes; would like never does**\n- she wants to go · she'd like to go"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "would-like",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort: now, or in general" },
+          "columns": [
+            {
+              "label": { "sl": "now · zdaj", "de": "now · jetzt", "it": "now · adesso", "en": "now" },
+              "words": ["I'd like a cup of tea.", "I'd like to sit down.", "Would you like a scone?"]
+            },
+            {
+              "label": {
+                "sl": "in general · na splošno",
+                "de": "in general · allgemein",
+                "it": "in general · in generale",
+                "en": "in general"
+              },
+              "words": ["I like tea.", "She enjoys baking.", "Do you like scones?"]
+            }
+          ],
+          "explain": {
+            "sl": "**'d like je za zdaj, like in enjoy za vedno**\n- I'd like a cup of tea. · I like tea.",
+            "de": "**'d like ist für jetzt, like und enjoy für immer**\n- I'd like a cup of tea. · I like tea.",
+            "it": "**'d like è per adesso, like e enjoy per sempre**\n- I'd like a cup of tea. · I like tea.",
+            "en": "**'d like is for now; like and enjoy for always**\n- I'd like a cup of tea. · I like tea."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "would-like",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Mrs Birkett, ___ I have the bill, please?",
+          "options": ["could", "would", "do"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Prošnja: Could I …?**\n- Could I have the bill, please?",
+            "de": "**Um etwas bitten: Could I …?**\n- Could I have the bill, please?",
+            "it": "**Chiedere qualcosa: Could I …?**\n- Could I have the bill, please?",
+            "en": "**Asking for something: Could I …?**\n- Could I have the bill, please?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "would-like-2",
+      "title": {
+        "sl": "V gostilni Packhorse",
+        "de": "Im Gasthaus Packhorse",
+        "it": "Alla locanda Packhorse",
+        "en": "At the Packhorse Inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "would-like",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— Good evening! ___ you like a table by the fire? — Yes, please. I'd ___ some soup, and my friend would like ___ (try) your ale. — Of course. Do you enjoy ___ (walk)? — Oh yes, we love ___ (be) on the fells. — Mrs Birkett ___ (love) cooking for walkers. Would you like a scone? — No, thank you. ___ we have the bill, please?",
+          "gaps": [
+            {
+              "accept": ["Would"],
+              "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" }
+            },
+            {
+              "accept": ["like", "love"],
+              "hint": { "sl": "vljudno: 'd …", "de": "höflich: 'd …", "it": "con garbo: 'd …", "en": "politely: 'd …" }
+            },
+            {
+              "accept": ["to try"],
+              "hint": { "sl": "would like + ?", "de": "would like + ?", "it": "would like + ?", "en": "would like + ?" }
+            },
+            {
+              "accept": ["walking"],
+              "hint": { "sl": "za enjoy", "de": "nach enjoy", "it": "dopo enjoy", "en": "after enjoy" }
+            },
+            {
+              "accept": ["being", "to be"],
+              "hint": { "sl": "za love", "de": "nach love", "it": "dopo love", "en": "after love" }
+            },
+            { "accept": ["loves"], "hint": "she → ?" },
+            {
+              "accept": ["Could", "Can", "May"],
+              "hint": { "sl": "vljudna prošnja", "de": "höflich bitten", "it": "chiedere con garbo", "en": "asking politely" }
+            }
+          ],
+          "bank": true,
+          "distractors": ["try", "walk", "likes"],
+          "translation": {
+            "sl": "— Dober večer! Bi mizo ob ognju? — Ja, prosim. {m:Rad|f:Rada} bi juho, moj prijatelj pa bi rad poskusil vaše pivo. — Seveda. Radi hodite? — O ja, zelo radi smo v hribih. — Gospa Birkett zelo rada kuha za pohodnike. Bi scone? — Ne, hvala. Lahko prosim račun?",
+            "de": "— Guten Abend! Möchten Sie einen Tisch beim Feuer? — Ja, bitte. Ich hätte gern eine Suppe, und mein Freund möchte Ihr Bier probieren. — Natürlich. Wandern Sie gern? — Oh ja, wir sind sehr gern in den Bergen. — Mrs Birkett kocht sehr gern für Wanderer. Möchten Sie einen Scone? — Nein, danke. Könnten wir bitte die Rechnung haben?",
+            "it": "— Buonasera! Vorreste un tavolo vicino al fuoco? — Sì, grazie. Io vorrei una zuppa, e il mio amico vorrebbe assaggiare la vostra birra. — Certo. Vi piace camminare? — Oh sì, ci piace molto stare sui monti. — A Mrs Birkett piace molto cucinare per gli escursionisti. Vorreste uno scone? — No, grazie. Potremmo avere il conto, per favore?",
+            "en": "— Good evening! Would you like a table by the fire? — Yes, please. I'd like some soup, and my friend would like to try your ale. — Of course. Do you enjoy walking? — Oh yes, we love being on the fells. — Mrs Birkett loves cooking for walkers. Would you like a scone? — No, thank you. Could we have the bill, please?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "would-like",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Jack is at your door with a basket of eggs. He says: ___",
+          "options": ["Would you like some eggs?", "Do you like some eggs?", "Are you like some eggs?"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ponudba: Would you like …?**\n- Would you like some eggs?",
+            "de": "**Ein Angebot: Would you like …?**\n- Would you like some eggs?",
+            "it": "**Un'offerta: Would you like …?**\n- Would you like some eggs?",
+            "en": "**An offer: Would you like …?**\n- Would you like some eggs?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "would-like-3",
+      "title": {
+        "sl": "Vljudno, in kaj ti je všeč",
+        "de": "Höflich, und was du gern machst",
+        "it": "Con garbo, e ciò che ti piace",
+        "en": "Politely, and what you enjoy"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "would-like",
+          "instruction": {
+            "sl": "Say it politely · Povej vljudno",
+            "de": "Say it politely · Sag es höflich",
+            "it": "Say it politely · Dillo con garbo",
+            "en": "Say it politely"
+          },
+          "cue": "would like",
+          "items": [
+            {
+              "from": "I want a cup of tea.",
+              "accept": ["I'd like a cup of tea."],
+              "hint": { "sl": "want → 'd like", "de": "want → 'd like", "it": "want → 'd like", "en": "want → 'd like" }
+            },
+            { "from": "I want to sit by the fire.", "accept": ["I'd like to sit by the fire."] },
+            { "from": "Jack wants to buy a dog.", "accept": ["Jack would like to buy a dog."] },
+            { "from": "We want to stay at the inn.", "accept": ["We'd like to stay at the inn."] }
+          ],
+          "explain": {
+            "sl": "**want → would like, za vse enako**\n- Jack wants to buy a dog. → Jack would like to buy a dog.",
+            "de": "**want → would like, für alle gleich**\n- Jack wants to buy a dog. → Jack would like to buy a dog.",
+            "it": "**want → would like, uguale per tutti**\n- Jack wants to buy a dog. → Jack would like to buy a dog.",
+            "en": "**want → would like, the same for everyone**\n- Jack wants to buy a dog. → Jack would like to buy a dog."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "would-like",
+          "instruction": {
+            "sl": "Say what they like, with -ing · Povej, kaj imajo radi, z -ing",
+            "de": "Say what they like, with -ing · Sag, was sie gern machen, mit -ing",
+            "it": "Say what they like, with -ing · Di' che cosa piace loro, con -ing",
+            "en": "Say what they like, with -ing"
+          },
+          "items": [
+            { "from": "I walk on the fells. (enjoy)", "accept": ["I enjoy walking on the fells."] },
+            {
+              "from": "Sam brews ale. (love)",
+              "accept": ["Sam loves brewing ale.", "Sam loves to brew ale."],
+              "hint": { "sl": "Sam: loves + ?", "de": "Sam: loves + ?", "it": "Sam: loves + ?", "en": "Sam: loves + ?" }
+            },
+            { "from": "We get up early. (hate)", "accept": ["We hate getting up early.", "We hate to get up early."] },
+            {
+              "from": "Auntie Edna listens to the radio. (like)",
+              "accept": ["Auntie Edna likes listening to the radio.", "Auntie Edna likes to listen to the radio."]
+            }
+          ],
+          "explain": {
+            "sl": "**like, love, enjoy, hate + -ing**\n- I walk. → I enjoy walking.",
+            "de": "**like, love, enjoy, hate + -ing**\n- I walk. → I enjoy walking.",
+            "it": "**like, love, enjoy, hate + -ing**\n- I walk. → I enjoy walking.",
+            "en": "**like, love, enjoy, hate + -ing**\n- I walk. → I enjoy walking."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "would-like",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "— ___ you like some more tea, Old Wilf? — Yes, please. I'd love ___ (have) another cup. — Do you enjoy ___ (sit) here by the fire? — I do. I hate ___ (be) out in the cold. — ___ you pass me that blanket, please?",
+        "gaps": [
+          { "accept": ["Would"] },
+          { "accept": ["to have"] },
+          { "accept": ["sitting"] },
+          { "accept": ["being", "to be"] },
+          { "accept": ["Could", "Can", "Would", "Will"] }
+        ],
+        "translation": {
+          "sl": "— Bi še malo čaja, stari Wilf? — Ja, prosim. Z veseljem spijem še eno skodelico. — Rad sediš tukaj ob ognju? — Rad. Ne prenesem biti zunaj na mrazu. — Mi lahko podaš tisto odejo, prosim?",
+          "de": "— Möchtest du noch etwas Tee, alter Wilf? — Ja, bitte. Ich hätte sehr gern noch eine Tasse. — Sitzt du gern hier am Feuer? — Ja. Ich hasse es, draußen in der Kälte zu sein. — Könntest du mir bitte die Decke da geben?",
+          "it": "— Vuoi ancora un po' di tè, vecchio Wilf? — Sì, grazie. Ne prendo volentieri un'altra tazza. — Ti piace stare qui vicino al fuoco? — Sì. Odio stare fuori al freddo. — Mi passeresti quella coperta, per favore?",
+          "en": "— Would you like some more tea, Old Wilf? — Yes, please. I'd love to have another cup. — Do you enjoy sitting here by the fire? — I do. I hate being out in the cold. — Could you pass me that blanket, please?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "would-like",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I'd like ___ to Keswick tomorrow.",
+        "options": ["to go", "go", "going"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**would like + to + osnovna oblika**\n- I'd like to go to Keswick.",
+          "de": "**would like + to + Grundform**\n- I'd like to go to Keswick.",
+          "it": "**would like + to + la forma base**\n- I'd like to go to Keswick.",
+          "en": "**would like + to + the base form**\n- I'd like to go to Keswick."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "would-like",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Mrs Birkett enjoys ___ for the walkers.",
+        "options": ["cooking", "to cook", "cook"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**enjoy + -ing, nikoli to**\n- She enjoys cooking.",
+          "de": "**enjoy + -ing, nie to**\n- She enjoys cooking.",
+          "it": "**enjoy + -ing, mai to**\n- She enjoys cooking.",
+          "en": "**enjoy + -ing, never to**\n- She enjoys cooking."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "would-like",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Would you like a cup of tea?",
+        "options": ["Yes, please.", "Yes, I like.", "Yes, I want."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Odgovor na ponudbo: Yes, please.**\n- Yes, please. · No, thank you.",
+          "de": "**Die Antwort auf ein Angebot: Yes, please.**\n- Yes, please. · No, thank you.",
+          "it": "**La risposta a un'offerta: Yes, please.**\n- Yes, please. · No, thank you.",
+          "en": "**The answer to an offer: Yes, please.**\n- Yes, please. · No, thank you."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "would-like",
+        "instruction": {
+          "sl": "Ask politely · Vprašaj vljudno",
+          "de": "Ask politely · Bitte höflich",
+          "it": "Ask politely · Chiedi con garbo",
+          "en": "Ask politely"
+        },
+        "cue": "Could you …, please?",
+        "items": [
+          {
+            "from": "Open the window.",
+            "accept": [
+              "Could you open the window, please?",
+              "Could you please open the window?",
+              "Can you open the window, please?",
+              "Can you please open the window?",
+              "Would you open the window, please?",
+              "Would you please open the window?"
+            ]
+          },
+          {
+            "from": "Pass me the salt.",
+            "accept": [
+              "Could you pass me the salt, please?",
+              "Could you please pass me the salt?",
+              "Can you pass me the salt, please?",
+              "Can you please pass me the salt?",
+              "Would you pass me the salt, please?",
+              "Would you please pass me the salt?",
+              "Could you pass the salt to me, please?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Vljudno: Could you …, please?**\n- Open the window. → Could you open the window, please?",
+          "de": "**Höflich: Could you …, please?**\n- Open the window. → Could you open the window, please?",
+          "it": "**Con garbo: Could you …, please?**\n- Open the window. → Could you open the window, please?",
+          "en": "**Politely: Could you …, please?**\n- Open the window. → Could you open the window, please?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "would-like",
+        "instruction": {
+          "sl": "Say what they like, with -ing · Povej, kaj imajo radi, z -ing",
+          "de": "Say what they like, with -ing · Sag, was sie gern machen, mit -ing",
+          "it": "Say what they like, with -ing · Di' che cosa piace loro, con -ing",
+          "en": "Say what they like, with -ing"
+        },
+        "items": [
+          { "from": "I swim in the tarn. (enjoy)", "accept": ["I enjoy swimming in the tarn."] },
+          {
+            "from": "Mr Dixon works at night. (hate)",
+            "accept": ["Mr Dixon hates working at night.", "Mr Dixon hates to work at night."]
+          }
+        ],
+        "explain": {
+          "sl": "**enjoy, hate + -ing**\n- I swim. → I enjoy swimming.",
+          "de": "**enjoy, hate + -ing**\n- I swim. → I enjoy swimming.",
+          "it": "**enjoy, hate + -ing**\n- I swim. → I enjoy swimming.",
+          "en": "**enjoy, hate + -ing**\n- I swim. → I enjoy swimming."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

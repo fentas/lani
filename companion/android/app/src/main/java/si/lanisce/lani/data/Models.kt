@@ -2,6 +2,7 @@ package si.lanisce.lani.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
@@ -127,6 +128,11 @@ sealed interface Exercise {
         @SerialName("say_options") val sayOptions: Boolean = false,
         override val grammar: String? = null,
         val almost: List<Int> = emptyList(),
+        /**
+         * Shown as [options] stand, not in the day's order ([ChoiceOrder]): "Drži / Ne drži" of the app's own questions.
+         * No file says it: no course's or module's option list has an order that means anything.
+         */
+        @Transient val fixedOrder: Boolean = false,
     ) : Exercise {
         /** The verdict of picking option [i] ([Grading.picked]). */
         fun verdict(i: Int): Grading.Verdict = Grading.picked(i, answer, almost)
@@ -334,8 +340,9 @@ sealed interface Exercise {
      * A task of the numbers module ("🔢 Števila · Numbers", data/NumbersPractice.kt): number [n] asked by [mode]
      * ([NumberMode.wire]): heard ([audio]) or read ([prompt]: its word) and typed on the number pad (its figures; a clock
      * time with [colon]), or its figures, a date's sentence or a clock time shown ([prompt]) and the word or the form
-     * written. [accept]: what is right ([NumbersPractice.grade]); [shown]: the right answer the feedback shows; [word]: the
-     * Slovene the feedback says aloud; a date's [month]. Only the module makes one; a module of the tutor's never has it.
+     * written. [accept]: what is right ([NumbersPractice.grade]); [shown]: the right answer the feedback shows; [word]: what
+     * the feedback says aloud; a date's [month]; [language]: whose numbers they are ([NumberTongue]). Only the module makes
+     * one; a module of the tutor's never has it.
      */
     @Serializable @SerialName("numeral")
     data class Numeral(
@@ -350,6 +357,7 @@ sealed interface Exercise {
         val month: Int? = null,
         val instruction: String? = null,
         override val grammar: String? = null,
+        val language: String = "sl",
     ) : Exercise {
         /** Answered on the number pad. */
         val pad: Boolean get() = NumberMode.of(mode)?.pad == true

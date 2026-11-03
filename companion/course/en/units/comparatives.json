@@ -1,0 +1,1017 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "comparatives",
+  "language": "en",
+  "level": "A2",
+  "emoji": "📏",
+  "title": {
+    "en": "Bigger, better, more useful",
+    "de": "Der Komparativ: bigger than, more useful",
+    "sl": "Primernik: bigger than, more useful",
+    "it": "Il comparativo: bigger than, more useful"
+  },
+  "goal": {
+    "sl": "Primerjaš dve stvari s -er in more + than, pišeš bigger, nicer in happier, rečeš better, worse in further ter koliko: much, a lot, a bit.",
+    "de": "Du vergleichst zwei Dinge mit -er und more + than, schreibst bigger, nicer und happier, sagst better, worse und further und wie viel: much, a lot, a bit.",
+    "it": "Confronti due cose con -er e more + than, scrivi bigger, nicer e happier, dici better, worse e further e di quanto: much, a lot, a bit.",
+    "en": "You can compare two things with -er and more + than, spell bigger, nicer and happier, say better, worse and further, and how much: much, a lot, a bit."
+  },
+  "grammar": [
+    "comparatives"
+  ],
+  "words": [
+    "than",
+    "old",
+    "young",
+    "tall",
+    "cold",
+    "late",
+    "later",
+    "wet",
+    "wetter",
+    "hot",
+    "busy",
+    "easy",
+    "easier",
+    "happy",
+    "nice",
+    "big",
+    "good",
+    "bad",
+    "far",
+    "farther",
+    "quieter",
+    "more quiet",
+    "than I am",
+    "him",
+    "us",
+    "much",
+    "a lot",
+    "a bit",
+    "useful",
+    "famous",
+    "expensive",
+    "tractor",
+    "high",
+    "long",
+    "sheepdog",
+    "road",
+    "heavy",
+    "thin",
+    "beautiful",
+    "small"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "kakšna beseda",
+          "de": "was für ein Wort",
+          "it": "che parola",
+          "en": "kind of word"
+        },
+        {
+          "sl": "beseda",
+          "de": "Wort",
+          "it": "parola",
+          "en": "word"
+        },
+        {
+          "sl": "dve stvari",
+          "de": "zwei",
+          "it": "due cose",
+          "en": "two things"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kratke besede dobijo **-er** in **than** (kot, od), ko primerjaš dve stvari: **old, older** (star, starejši); **tall, taller** (visok, višji). **Old Wilf is older than Jack.** (Stari Wilf je starejši od Jacka.) **Jack is taller than Harry.** (Jack je višji od Harryja.) Slovenski od je tu **than**, nikoli *from*.",
+          "de": "Kurze Wörter bekommen **-er** und **than** (als), wenn du zwei vergleichst: **old, older** (alt, älter); **tall, taller** (groß, größer). **Old Wilf is older than Jack.** (Der alte Wilf ist älter als Jack.) **Jack is taller than Harry.** (Jack ist größer als Harry.) **than** heißt als, nie *as*.",
+          "it": "Le parole brevi prendono **-er** e **than** (di, che) per confrontare due cose: **old, older** (vecchio, più vecchio); **tall, taller** (alto, più alto). **Old Wilf is older than Jack.** (Il vecchio Wilf è più vecchio di Jack.) **Jack is taller than Harry.** (Jack è più alto di Harry.) Di qui è **than**, mai *of*.",
+          "en": "Short words take **-er** and **than** to compare two things: **old, older**; **tall, taller**. **Old Wilf is older than Jack.** **Jack is taller than Harry.** (never *Jack is taller as Harry.*)"
+        },
+        "examples": [
+          {
+            "en": "Old Wilf is older than Jack.",
+            "sl": "Stari Wilf je starejši od Jacka.",
+            "de": "Der alte Wilf ist älter als Jack.",
+            "it": "Il vecchio Wilf è più vecchio di Jack."
+          },
+          {
+            "en": "Jack is taller than Harry.",
+            "sl": "Jack je višji od Harryja.",
+            "de": "Jack ist größer als Harry.",
+            "it": "Jack è più alto di Harry."
+          },
+          {
+            "en": "It's colder on the fell than in the village.",
+            "sl": "Na hribu je bolj mrzlo kot v vasi.",
+            "de": "Am Berg ist es kälter als im Dorf.",
+            "it": "Sul monte fa più freddo che in paese."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "kratka",
+              "de": "kurz",
+              "it": "breve",
+              "en": "short"
+            },
+            "old",
+            "older than"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "comparatives",
+          "text": "Auntie Edna is ___ than Poppy. (old)",
+          "accept": [
+            "older"
+          ],
+          "explain": {
+            "sl": "**Kratka beseda: -er**\n- old → older · tall → taller",
+            "de": "**Ein kurzes Wort: -er**\n- old → older · tall → taller",
+            "it": "**Una parola breve: -er**\n- old → older · tall → taller",
+            "en": "**A short word: -er**\n- old → older · tall → taller"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pravopis: končni **-e** dobi samo **-r**: **nice, nicer** (prijeten, prijetnejši); **late, later** (pozen, poznejši). En samoglasnik + en soglasnik se podvoji: **big, bigger** (velik, večji); **hot, hotter** (vroč, bolj vroč); **wet, wetter** (moker, bolj moker). Soglasnik + **-y** postane **-ier**: **happy, happier** (srečen, srečnejši); **busy, busier**; **easy, easier** (lahek, lažji).",
+          "de": "Die Schreibung: Ein **-e** am Ende bekommt nur **-r**: **nice, nicer** (nett, netter); **late, later** (spät, später). Ein Vokal + ein Konsonant wird verdoppelt: **big, bigger** (groß, größer); **hot, hotter** (heiß, heißer); **wet, wetter** (nass, nasser). Konsonant + **-y** wird zu **-ier**: **happy, happier** (froh, froher); **busy, busier**; **easy, easier** (leicht, leichter).",
+          "it": "L'ortografia: una **-e** finale prende solo **-r**: **nice, nicer** (gentile, più gentile); **late, later** (tardi, più tardi). Una vocale + una consonante raddoppia: **big, bigger** (grande, più grande); **hot, hotter** (caldo, più caldo); **wet, wetter** (bagnato, più bagnato). Consonante + **-y** diventa **-ier**: **happy, happier** (felice, più felice); **busy, busier**; **easy, easier** (facile, più facile).",
+          "en": "The spelling: a final **-e** takes only **-r**: **nice, nicer**; **late, later**. One vowel + one consonant doubles: **big, bigger** (never *biger*); **hot, hotter**; **wet, wetter**. A consonant + **-y** becomes **-ier**: **happy, happier** (never *happyer*); **busy, busier**; **easy, easier**."
+        },
+        "examples": [
+          {
+            "en": "July is hotter than May.",
+            "sl": "Julij je bolj vroč od maja.",
+            "de": "Der Juli ist heißer als der Mai.",
+            "it": "Luglio è più caldo di maggio."
+          },
+          {
+            "en": "Mrs Birkett is busier than Sam.",
+            "sl": "Gospa Birkett ima več dela kot Sam.",
+            "de": "Frau Birkett hat mehr zu tun als Sam.",
+            "it": "La signora Birkett è più occupata di Sam."
+          },
+          {
+            "en": "Granny Maggie's scones are nicer than the shop's.",
+            "sl": "Sconi babice Maggie so boljši od trgovinskih.",
+            "de": "Oma Maggies Scones sind besser als die aus dem Laden.",
+            "it": "Gli scones di nonna Maggie sono più buoni di quelli del negozio."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "na -e",
+              "de": "auf -e",
+              "it": "in -e",
+              "en": "ends in -e"
+            },
+            "nice",
+            "nicer than"
+          ],
+          [
+            {
+              "sl": "podvoji",
+              "de": "verdoppelt",
+              "it": "raddoppia",
+              "en": "doubles"
+            },
+            "big",
+            "bigger than"
+          ],
+          [
+            {
+              "sl": "soglasnik + y",
+              "de": "Konsonant + y",
+              "it": "consonante + y",
+              "en": "consonant + y"
+            },
+            "happy",
+            "happier than"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "comparatives",
+          "prompt": "July is ___ than May. (hot)",
+          "options": [
+            "hotter",
+            "hoter",
+            "hot"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**En samoglasnik + en soglasnik: podvoji**\n- hot → hotter · big → bigger · wet → wetter",
+            "de": "**Ein Vokal + ein Konsonant: verdoppelt**\n- hot → hotter · big → bigger · wet → wetter",
+            "it": "**Una vocale + una consonante: raddoppia**\n- hot → hotter · big → bigger · wet → wetter",
+            "en": "**One vowel + one consonant: it doubles**\n- hot → hotter · big → bigger · wet → wetter"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Dolge besede dobijo **more** (bolj): **useful, more useful** (koristen, bolj koristen); **famous, more famous** (slaven, bolj slaven); **expensive, more expensive** (drag, dražji). Nikoli obojega: **bigger**, nikoli *more bigger*. Dvozložne na **-y** ostanejo pri **-ier**: **happier**. Nekatere gredo na oba načina: **quieter** ali **more quiet** (bolj tih).",
+          "de": "Lange Wörter bekommen **more** (mehr): **useful, more useful** (nützlich, nützlicher); **famous, more famous** (berühmt, berühmter); **expensive, more expensive** (teuer, teurer). Nie beides: **bigger**, nie *more bigger*. Zweisilbige auf **-y** bleiben bei **-ier**: **happier**. Manche gehen beides: **quieter** oder **more quiet** (ruhiger).",
+          "it": "Le parole lunghe prendono **more** (più): **useful, more useful** (utile, più utile); **famous, more famous** (famoso, più famoso); **expensive, more expensive** (caro, più caro). Mai tutti e due: **bigger**, mai *more bigger*. Quelle di due sillabe in **-y** restano con **-ier**: **happier**. Alcune vanno in tutti e due i modi: **quieter** o **more quiet** (più tranquillo).",
+          "en": "Long words take **more**: **useful, more useful**; **famous, more famous**; **expensive, more expensive**. Never both: **bigger** (never *more bigger*). Words of two syllables in **-y** keep **-ier**: **happier**. A few go either way: **quieter** or **more quiet**."
+        },
+        "examples": [
+          {
+            "en": "A tractor is more expensive than a horse.",
+            "sl": "Traktor je dražji od konja.",
+            "de": "Ein Traktor ist teurer als ein Pferd.",
+            "it": "Un trattore è più caro di un cavallo."
+          },
+          {
+            "en": "A sheepdog is more useful than a cat.",
+            "sl": "Ovčarski pes je bolj koristen od mačke.",
+            "de": "Ein Hütehund ist nützlicher als eine Katze.",
+            "it": "Un cane da pastore è più utile di un gatto."
+          },
+          {
+            "en": "Keswick is more famous than our village.",
+            "sl": "Keswick je bolj slaven od naše vasi.",
+            "de": "Keswick ist berühmter als unser Dorf.",
+            "it": "Keswick è più famosa del nostro paese."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "dolga",
+              "de": "lang",
+              "it": "lunga",
+              "en": "long"
+            },
+            "useful",
+            "more useful than"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "comparatives",
+          "prompt": "A tractor is ___ than a horse. (expensive)",
+          "options": [
+            "more expensive",
+            "expensiver",
+            "more expensiver"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Dolga beseda: more**\n- more expensive · more useful · more famous",
+            "de": "**Ein langes Wort: more**\n- more expensive · more useful · more famous",
+            "it": "**Una parola lunga: more**\n- more expensive · more useful · more famous",
+            "en": "**A long word: more**\n- more expensive · more useful · more famous"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Tri so posebne: **good, better** (dober, boljši); **bad, worse** (slab, slabši); **far, further** (daleč, dlje). **Arthur's honey is better than the shop's.** (Arthurjev med je boljši od trgovinskega.) **The weather is worse today.** (Danes je vreme slabše.) **farther** je tudi prav. Nikoli *gooder*, *badder*.",
+          "de": "Drei sind eigen: **good, better** (gut, besser); **bad, worse** (schlecht, schlechter); **far, further** (weit, weiter). **Arthur's honey is better than the shop's.** (Arthurs Honig ist besser als der aus dem Laden.) **The weather is worse today.** (Heute ist das Wetter schlechter.) **farther** ist auch richtig. Nie *gooder*, *badder*.",
+          "it": "Tre sono a parte: **good, better** (buono, migliore); **bad, worse** (cattivo, peggiore); **far, further** (lontano, più lontano). **Arthur's honey is better than the shop's.** (Il miele di Arthur è migliore di quello del negozio.) **The weather is worse today.** (Oggi il tempo è peggiore.) Anche **farther** è giusto. Mai *gooder*, *badder*.",
+          "en": "Three stand alone: **good, better** (never *gooder*); **bad, worse** (never *badder*); **far, further**. **Arthur's honey is better than the shop's.** **The weather is worse today.** **farther** is right too."
+        },
+        "examples": [
+          {
+            "en": "Arthur's honey is better than the shop's.",
+            "sl": "Arthurjev med je boljši od trgovinskega.",
+            "de": "Arthurs Honig ist besser als der aus dem Laden.",
+            "it": "Il miele di Arthur è migliore di quello del negozio."
+          },
+          {
+            "en": "The weather is worse today.",
+            "sl": "Danes je vreme slabše.",
+            "de": "Heute ist das Wetter schlechter.",
+            "it": "Oggi il tempo è peggiore."
+          },
+          {
+            "en": "Keswick is further away than the mill.",
+            "sl": "Keswick je dlje kot mlin.",
+            "de": "Keswick ist weiter weg als die Mühle.",
+            "it": "Keswick è più lontana del mulino."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "posebna",
+              "de": "eigen",
+              "it": "a parte",
+              "en": "its own"
+            },
+            "good",
+            "better than"
+          ],
+          [
+            {
+              "sl": "posebna",
+              "de": "eigen",
+              "it": "a parte",
+              "en": "its own"
+            },
+            "bad",
+            "worse than"
+          ],
+          [
+            {
+              "sl": "posebna",
+              "de": "eigen",
+              "it": "a parte",
+              "en": "its own"
+            },
+            "far",
+            "further than"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "comparatives",
+          "text": "Mr Dixon's new gate is ___ than the old one. (good)",
+          "accept": [
+            "better"
+          ],
+          "explain": {
+            "sl": "**good → better**\n- good, better · bad, worse · far, further",
+            "de": "**good → better**\n- good, better · bad, worse · far, further",
+            "it": "**good → better**\n- good, better · bad, worse · far, further",
+            "en": "**good → better**\n- good, better · bad, worse · far, further"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za **than** pride samostalnik ali **me**, **him**, **us**: **Sam is taller than me.** (Sam je višji od mene.) Prav je tudi **than I am**. Koliko: **much bigger** (veliko večji), **a lot colder** (veliko bolj mrzlo), **a bit older** (malo starejši), nikoli *very bigger*. Vprašanje: **Which is older, the inn or the school?** (Kaj je starejše, gostilna ali šola?)",
+          "de": "Nach **than** kommt ein Nomen oder **me**, **him**, **us**: **Sam is taller than me.** (Sam ist größer als ich.) **than I am** ist auch richtig. Wie viel: **much bigger** (viel größer), **a lot colder** (viel kälter), **a bit older** (ein bisschen älter), nie *very bigger*. Die Frage: **Which is older, the inn or the school?** (Was ist älter, das Gasthaus oder die Schule?)",
+          "it": "Dopo **than** viene un nome o **me**, **him**, **us**: **Sam is taller than me.** (Sam è più alto di me.) Anche **than I am** è giusto. Di quanto: **much bigger** (molto più grande), **a lot colder** (molto più freddo), **a bit older** (un po' più vecchio), mai *very bigger*. La domanda: **Which is older, the inn or the school?** (Qual è più vecchia, la locanda o la scuola?)",
+          "en": "After **than** comes a noun or **me**, **him**, **us**: **Sam is taller than me.** **than I am** is right too. To say how much: **much bigger** (never *very bigger*), **a lot colder**, **a bit older**. To ask: **Which is older, the inn or the school?**"
+        },
+        "examples": [
+          {
+            "en": "Sam is taller than me.",
+            "sl": "Sam je višji od mene.",
+            "de": "Sam ist größer als ich.",
+            "it": "Sam è più alto di me."
+          },
+          {
+            "en": "Keswick is much bigger than our village.",
+            "sl": "Keswick je veliko večji od naše vasi.",
+            "de": "Keswick ist viel größer als unser Dorf.",
+            "it": "Keswick è molto più grande del nostro paese."
+          },
+          {
+            "en": "Which is older, the inn or the school?",
+            "sl": "Kaj je starejše, gostilna ali šola?",
+            "de": "Was ist älter, das Gasthaus oder die Schule?",
+            "it": "Qual è più vecchia, la locanda o la scuola?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "koliko",
+              "de": "wie viel",
+              "it": "di quanto",
+              "en": "how much"
+            },
+            "much, a lot, a bit",
+            "much bigger than"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "comparatives",
+          "prompt": "Keswick is ___ bigger than our village.",
+          "options": [
+            "much",
+            "very",
+            "more"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pred primernikom much, a lot, a bit; nikoli very**\n- much bigger · a lot colder · a bit older",
+            "de": "**Vor dem Komparativ much, a lot, a bit; nie very**\n- much bigger · a lot colder · a bit older",
+            "it": "**Prima del comparativo much, a lot, a bit; mai very**\n- much bigger · a lot colder · a bit older",
+            "en": "**Before a comparative: much, a lot, a bit; never very**\n- much bigger · a lot colder · a bit older"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**older than** · **nicer than** · **bigger than** · **happier than** (kratke besede)\n\n**more useful than** · **more expensive than** (dolge besede; nikoli *more bigger*)\n\n**better** · **worse** · **further** (posebne)\n\n**Sam is taller than me.** · **much bigger** · **a bit older**",
+      "de": "**older than** · **nicer than** · **bigger than** · **happier than** (kurze Wörter)\n\n**more useful than** · **more expensive than** (lange Wörter; nie *more bigger*)\n\n**better** · **worse** · **further** (eigen)\n\n**Sam is taller than me.** · **much bigger** · **a bit older**",
+      "it": "**older than** · **nicer than** · **bigger than** · **happier than** (parole brevi)\n\n**more useful than** · **more expensive than** (parole lunghe; mai *more bigger*)\n\n**better** · **worse** · **further** (a parte)\n\n**Sam is taller than me.** · **much bigger** · **a bit older**",
+      "en": "**older than** · **nicer than** · **bigger than** · **happier than** (short words)\n\n**more useful than** · **more expensive than** (long words; never *more bigger*)\n\n**better** · **worse** · **further** (on their own)\n\n**Sam is taller than me.** · **much bigger** · **a bit older**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "comparatives-1",
+      "title": {
+        "sl": "Starejši, večji",
+        "de": "Älter, größer",
+        "it": "Più vecchio, più grande",
+        "en": "Older, bigger"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "comparatives",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Naredi primernik: -er ali more",
+            "de": "Bilde den Komparativ: -er oder more",
+            "it": "Fai il comparativo: -er o more",
+            "en": "Make the comparative: -er or more"
+          },
+          "columns": [
+            {
+              "sl": "two things · dve stvari",
+              "de": "two things · zwei",
+              "it": "two things · due cose",
+              "en": "two things"
+            }
+          ],
+          "rows": [
+            {
+              "label": "old",
+              "cells": [
+                {
+                  "accept": [
+                    "older"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "nice",
+              "cells": [
+                {
+                  "accept": [
+                    "nicer"
+                  ],
+                  "hint": {
+                    "sl": "končni -e",
+                    "de": "das -e am Ende",
+                    "it": "la -e finale",
+                    "en": "the final -e"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "big",
+              "cells": [
+                {
+                  "accept": [
+                    "bigger"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "happy",
+              "cells": [
+                {
+                  "accept": [
+                    "happier"
+                  ],
+                  "hint": "y → i"
+                }
+              ]
+            },
+            {
+              "label": "easy",
+              "cells": [
+                {
+                  "accept": [
+                    "easier"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "useful",
+              "cells": [
+                {
+                  "accept": [
+                    "more useful"
+                  ],
+                  "hint": "more"
+                }
+              ]
+            },
+            {
+              "label": "good",
+              "cells": [
+                {
+                  "accept": [
+                    "better"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bad",
+              "cells": [
+                {
+                  "accept": [
+                    "worse"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-er, -r, podvojeni soglasnik, -ier, more; good in bad sta posebni**\n- older · nicer · bigger · happier\n- more useful · better · worse",
+            "de": "**-er, -r, verdoppelter Konsonant, -ier, more; good und bad sind eigen**\n- older · nicer · bigger · happier\n- more useful · better · worse",
+            "it": "**-er, -r, consonante doppia, -ier, more; good e bad sono a parte**\n- older · nicer · bigger · happier\n- more useful · better · worse",
+            "en": "**-er, -r, a doubled consonant, -ier, more; good and bad stand alone**\n- older · nicer · bigger · happier\n- more useful · better · worse"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "comparatives",
+          "instruction": {
+            "sl": "Sort · -er ali more?",
+            "de": "Sort · -er oder more?",
+            "it": "Sort · -er o more?",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": "-er",
+              "words": [
+                "cold",
+                "tall",
+                "small"
+              ]
+            },
+            {
+              "label": "more",
+              "words": [
+                "expensive",
+                "famous",
+                "beautiful"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Kratka beseda: -er; dolga: more**\n- colder · taller · smaller\n- more expensive · more famous · more beautiful",
+            "de": "**Ein kurzes Wort: -er; ein langes: more**\n- colder · taller · smaller\n- more expensive · more famous · more beautiful",
+            "it": "**Parola breve: -er; lunga: more**\n- colder · taller · smaller\n- more expensive · more famous · more beautiful",
+            "en": "**A short word: -er; a long one: more**\n- colder · taller · smaller\n- more expensive · more famous · more beautiful"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comparatives-2",
+      "title": {
+        "sl": "V vasi",
+        "de": "Im Dorf",
+        "it": "In paese",
+        "en": "In the village"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "comparatives",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Jack is ___ (young) ___ Sam, but he is ___ (tall). His farm is ___ (high) up on the fell, and it's ___ (cold) there than in the village. — Is the village ___ (nice)? — It's ___ (busy), and the ale at the inn is much ___ (good)!",
+          "gaps": [
+            {
+              "accept": [
+                "younger"
+              ]
+            },
+            {
+              "accept": [
+                "than"
+              ],
+              "hint": {
+                "sl": "kot, od",
+                "de": "als",
+                "it": "di",
+                "en": "to compare"
+              }
+            },
+            {
+              "accept": [
+                "taller"
+              ]
+            },
+            {
+              "accept": [
+                "higher"
+              ]
+            },
+            {
+              "accept": [
+                "colder"
+              ]
+            },
+            {
+              "accept": [
+                "nicer"
+              ],
+              "hint": {
+                "sl": "končni -e",
+                "de": "das -e am Ende",
+                "it": "la -e finale",
+                "en": "the final -e"
+              }
+            },
+            {
+              "accept": [
+                "busier"
+              ],
+              "hint": "y → i"
+            },
+            {
+              "accept": [
+                "better"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "then",
+            "busyer"
+          ],
+          "translation": {
+            "sl": "Jack je mlajši od Sama, a višji. Njegova kmetija je višje na hribu in tam je bolj mrzlo kot v vasi. — Je vas lepša? — Bolj živahna je, pivo v gostilni pa je veliko boljše!",
+            "de": "Jack ist jünger als Sam, aber größer. Sein Hof liegt höher am Berg, und dort ist es kälter als im Dorf. — Ist das Dorf schöner? — Es ist belebter, und das Bier im Gasthaus ist viel besser!",
+            "it": "Jack è più giovane di Sam, ma più alto. La sua fattoria è più in alto sul monte, e lassù fa più freddo che in paese. — Il paese è più bello? — È più vivace, e la birra della locanda è molto migliore!",
+            "en": "Jack is younger than Sam, but he is taller. His farm is higher up on the fell, and it's colder there than in the village. — Is the village nicer? — It's busier, and the ale at the inn is much better!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "comparatives",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Auntie Edna is younger ___ Granny Maggie.",
+          "options": [
+            "than",
+            "then",
+            "as"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Primerjava: than; then pomeni potem**\n- younger than · better than",
+            "de": "**Der Vergleich: than; then heißt dann**\n- younger than · better than",
+            "it": "**Il confronto: than; then vuol dire poi**\n- younger than · better than",
+            "en": "**To compare: than; then means after that**\n- younger than · better than"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "comparatives",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": {
+            "sl": "Kaj je prav?",
+            "de": "Was ist richtig?",
+            "it": "Che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "This road is worse.",
+            "This road is badder.",
+            "This road is more bad."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**bad → worse**\n- good, better · bad, worse",
+            "de": "**bad → worse**\n- good, better · bad, worse",
+            "it": "**bad → worse**\n- good, better · bad, worse",
+            "en": "**bad → worse**\n- good, better · bad, worse"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comparatives-3",
+      "title": {
+        "sl": "Primerjaj",
+        "de": "Vergleiche",
+        "it": "Confronta",
+        "en": "Compare"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "comparatives",
+          "instruction": {
+            "sl": "Compare · Primerjaj",
+            "de": "Compare · Vergleiche",
+            "it": "Compare · Confronta",
+            "en": "Compare"
+          },
+          "items": [
+            {
+              "from": "Old Wilf is 84. Jack is 22. (old)",
+              "accept": [
+                "Old Wilf is older than Jack.",
+                "Wilf is older than Jack."
+              ]
+            },
+            {
+              "from": "The smithy is small. The school is big. (big)",
+              "accept": [
+                "The school is bigger than the smithy."
+              ],
+              "hint": {
+                "sl": "podvoji",
+                "de": "verdoppelt",
+                "it": "raddoppia",
+                "en": "it doubles"
+              }
+            },
+            {
+              "from": "A tractor: £30,000. A horse: £3,000. (expensive)",
+              "accept": [
+                "A tractor is more expensive than a horse."
+              ]
+            },
+            {
+              "from": "Arthur's honey is very good. The shop's honey is OK. (good)",
+              "accept": [
+                "Arthur's honey is better than the shop's honey.",
+                "Arthur's honey is better than the shop's."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-er ali more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's.",
+            "de": "**-er oder more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's.",
+            "it": "**-er o more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's.",
+            "en": "**-er or more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "comparatives",
+          "instruction": {
+            "sl": "The other way · Povej obratno",
+            "de": "The other way · Sag es umgekehrt",
+            "it": "The other way · Dillo al contrario",
+            "en": "Say it the other way"
+          },
+          "items": [
+            {
+              "from": "Jack is younger than Sam. (old)",
+              "accept": [
+                "Sam is older than Jack."
+              ]
+            },
+            {
+              "from": "Penrith is bigger than Keswick. (small)",
+              "accept": [
+                "Keswick is smaller than Penrith."
+              ]
+            },
+            {
+              "from": "This road is worse than that road. (good)",
+              "accept": [
+                "That road is better than this road.",
+                "That road is better than this one."
+              ]
+            },
+            {
+              "from": "July is hotter than May. (cold)",
+              "accept": [
+                "May is colder than July."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Besedo zamenjaš, stvari tudi**\n- Jack is younger than Sam. → Sam is older than Jack.",
+            "de": "**Das Wort wechselt, die Sachen auch**\n- Jack is younger than Sam. → Sam is older than Jack.",
+            "it": "**Cambia la parola, e cambiano le cose**\n- Jack is younger than Sam. → Sam is older than Jack.",
+            "en": "**The word changes and so do the things**\n- Jack is younger than Sam. → Sam is older than Jack."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "comparatives",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Mrs Birkett goes to Keswick on Fridays. It's ___ (big) than our village, and the shops are ___ (good). The bus is ___ (expensive) ___ last year, but the walk is much ___ (long)!",
+        "gaps": [
+          {
+            "accept": [
+              "bigger"
+            ]
+          },
+          {
+            "accept": [
+              "better"
+            ]
+          },
+          {
+            "accept": [
+              "more expensive"
+            ]
+          },
+          {
+            "accept": [
+              "than"
+            ]
+          },
+          {
+            "accept": [
+              "longer"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Gospa Birkett ob petkih hodi v Keswick. Večji je od naše vasi in trgovine so boljše. Avtobus je dražji kot lani, a peš je veliko dlje!",
+          "de": "Frau Birkett fährt freitags nach Keswick. Es ist größer als unser Dorf, und die Läden sind besser. Der Bus ist teurer als letztes Jahr, aber zu Fuß ist es viel länger!",
+          "it": "La signora Birkett va a Keswick il venerdì. È più grande del nostro paese, e i negozi sono migliori. L'autobus è più caro dell'anno scorso, ma a piedi è molto più lunga!",
+          "en": "Mrs Birkett goes to Keswick on Fridays. It's bigger than our village, and the shops are better. The bus is more expensive than last year, but the walk is much longer!"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "comparatives",
+        "instruction": {
+          "sl": "Compare · Primerjaj",
+          "de": "Compare · Vergleiche",
+          "it": "Compare · Confronta",
+          "en": "Compare"
+        },
+        "items": [
+          {
+            "from": "Poppy is 8. Harry is 9. (young)",
+            "accept": [
+              "Poppy is younger than Harry."
+            ]
+          },
+          {
+            "from": "The beck is cold. The tarn is very cold. (cold)",
+            "accept": [
+              "The tarn is colder than the beck."
+            ]
+          },
+          {
+            "from": "Skiddaw: 931 metres. Cat Bells: 451 metres. (high)",
+            "accept": [
+              "Skiddaw is higher than Cat Bells."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**-er ali more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's.",
+          "de": "**-er oder more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's.",
+          "it": "**-er o more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's.",
+          "en": "**-er or more + than**\n- Old Wilf is older than Jack.\n- A tractor is more expensive than a horse.\n- Arthur's honey is better than the shop's."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "comparatives",
+        "instruction": {
+          "sl": "Fill in the table · Dopolni tabelo",
+          "de": "Fill in the table · Ergänze die Tabelle",
+          "it": "Fill in the table · Completa la tabella",
+          "en": "Fill in the table"
+        },
+        "prompt": {
+          "sl": "Naredi primernik",
+          "de": "Bilde den Komparativ",
+          "it": "Fai il comparativo",
+          "en": "Make the comparative"
+        },
+        "columns": [
+          {
+            "sl": "two things · dve stvari",
+            "de": "two things · zwei",
+            "it": "two things · due cose",
+            "en": "two things"
+          }
+        ],
+        "rows": [
+          {
+            "label": "heavy",
+            "cells": [
+              {
+                "accept": [
+                  "heavier"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "thin",
+            "cells": [
+              {
+                "accept": [
+                  "thinner"
+                ]
+              }
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**y → i; podvojeni soglasnik**\n- heavier · thinner",
+          "de": "**y → i; verdoppelter Konsonant**\n- heavier · thinner",
+          "it": "**y → i; consonante doppia**\n- heavier · thinner",
+          "en": "**y → i; a doubled consonant**\n- heavier · thinner"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "comparatives",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "This book is ___ than that one. (useful)",
+        "options": [
+          "more useful",
+          "usefuller",
+          "more usefuller"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Dolga beseda: more**\n- more useful · more careful",
+          "de": "**Ein langes Wort: more**\n- more useful · more careful",
+          "it": "**Una parola lunga: more**\n- more useful · more careful",
+          "en": "**A long word: more**\n- more useful · more careful"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "comparatives",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "It's ___ today than yesterday.",
+        "options": [
+          "much hotter",
+          "more hotter",
+          "very hotter"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**much pred primernikom; nikoli more ali very z -er**\n- much hotter · a bit colder",
+          "de": "**much vor dem Komparativ; nie more oder very mit -er**\n- much hotter · a bit colder",
+          "it": "**much prima del comparativo; mai more o very con -er**\n- much hotter · a bit colder",
+          "en": "**much before a comparative; never more or very with -er**\n- much hotter · a bit colder"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: further and farther; quieter or more quiet; than me, than I am; Skiddaw, Cat Bells; Keswick more famous than our village"
+}

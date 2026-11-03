@@ -36,6 +36,10 @@ import java.util.concurrent.ConcurrentHashMap
  * the two differ a letter before the plain ending of one or two letters (Italian's subjunctive and indicative: "dormono"
  * for dormano, "parlate" for parliate; the conditional and the future: "sarete" for sareste): wrong with the ending
  * hint, never a slip in the stem, while a slip elsewhere in such a word (bambeno, bambimo for bambino) stays one.
+ * [nonstandard]: what people say that writing doesn't want, each for the standard word it stands for (English: "good" for
+ * well, "I didn't see nothing"): almost, [Grading.Hint.NONSTANDARD], the standard form shown, one way only and never a slip
+ * or a mistake. Not a worksheet item's `spoken` (COURSE.md "Spoken forms"): that is right, on one item, where a course lists
+ * it; this is the language's, for all its answers. A table without the key behaves as it did.
  * A language without a table compares letters as they are.
  */
 class Spelling(
@@ -50,6 +54,7 @@ class Spelling(
     val wrong: List<Mistake> = emptyList(),
     val endingSwaps: List<Pair<String, String>> = emptyList(),
     val endingLetters: Int = 2,
+    val nonstandard: List<Nonstandard> = emptyList(),
 ) {
     class Rule(val pattern: Regex, val replacement: String) {
         fun apply(s: String): String = pattern.replace(s, replacement)
@@ -58,6 +63,17 @@ class Spelling(
     /** A known mistake: [word] typed for the right word, or only for one that matches [forWord] where it's given. */
     class Mistake(val word: Regex, val forWord: Regex? = null) {
         fun matches(typed: String, right: String): Boolean = word.matches(typed) && (forWord?.matches(right) ?: true)
+    }
+
+    /**
+     * What people say for a standard word: [word] (matched whole in the answer, [Grading.fold] written) where the right answer
+     * has one matching [forWord] in its place and the rest is the same; with [after], only where the text before it (the
+     * sentence before a gap's answer, and the answer's own words) has that (a negative, for a double negative).
+     */
+    class Nonstandard(word: String, forWord: String, after: String? = null) {
+        val word = Regex("(?<!\\p{L})(?:$word)(?!\\p{L})")
+        val forWord = Regex(forWord)
+        val after = after?.let(::Regex)
     }
 
     /** Lowercasing follows the language (Turkish-safe, and whatever else a locale knows). */
@@ -91,6 +107,10 @@ class Spelling(
                     right to typed
                 },
                 endingLetters = o["ending_letters"]?.jsonPrimitive?.intOrNull?.coerceIn(1, 3) ?: 2,
+                nonstandard = (o["nonstandard"] as? JsonArray).orEmpty().map { n ->
+                    val p = n.jsonObject
+                    Nonstandard(p.getValue("word").jsonPrimitive.content, p.getValue("for").jsonPrimitive.content, p["after"]?.jsonPrimitive?.contentOrNull)
+                },
             )
         }
 
