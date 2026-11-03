@@ -167,8 +167,8 @@ the conditional), picked by the brief's level; an A1 talk keeps its soup.
 - Jan: Home's "🗣️ Pogovor · Talk"; the list shows the B1 and B2 talks once Jan's level is A2 (the B1 ones) or B1 (all);
   a talk, Start.
 - The tutor: `publish_scenario` as before; a talk the tutor writes is offered at any level.
-- QA: `LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts <dir> --target sl --base en --name Ana)`,
-  then `learner.current_level` "B1" in `<dir>/learner-profile.json`; `LANI_CULTURE=primorska LANI_QA_SETUP_PAIR=sl-en
+- QA: `LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts <dir> --target sl --base en --name Ana
+  --level B1)`; `LANI_CULTURE=primorska LANI_QA_SETUP_PAIR=sl-en
   LANI_QA_LEARNER=Ana LANI_QA_TALK_SHOTS=<dir> companion/bin/qa-slot --steps primorska-talk` (another talk:
   `LANI_QA_TALK=<id>`). At A1 the step is skipped: the talk isn't offered.
 

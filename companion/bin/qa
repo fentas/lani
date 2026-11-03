@@ -9881,7 +9881,7 @@ def kaernten_talk():
 
 def primorska_talk():
     """A B1 talk in Jan's village (docs/plans/05-built/talks-sl.md): a synthetic Ana at B1 (make-learner.ts --target sl
-    --base en, then learner.current_level B1 in its learner-profile.json; LANI_QA_SETUP_PAIR=sl-en), the app in sl · en:
+    --base en --level B1; LANI_QA_SETUP_PAIR=sl-en), the app in sl · en:
     village_talk's checks on "Po noči burje" (another with $LANI_QA_TALK), the dev tutor's lines above A2. The list holds the
     B1 and B2 talks with Jan's six; at A1 it holds none of them, and the step is skipped."""
     return village_talk("primorska")
