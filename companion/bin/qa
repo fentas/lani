@@ -10115,23 +10115,33 @@ def friuli_projects_b():
         time.sleep(2 * slow())
         snap(f"fb-{tag}-opens")
         assert any(t.startswith(s[:24]) or s[:24] in t for t, _ in nodes() for s in said), f"{name}: its first line at {level}"
+        def choice(wanted) -> bool:
+            """Taps the row of a choice in [wanted], low on its left: a word's middle, held on a slow emulator, opens the word's card."""
+            for t, (x0, y0, x1, y1) in boxes():
+                if t in wanted or any(t.startswith(o + ",") or t.startswith(o + " ") for o in wanted):
+                    tap_at((x0 + 40, y1 - 18))
+                    return True
+            return False
+
         made_mistake = False
-        for k in range(24):
-            labels = list(nodes())
-            texts = [t for t, _ in labels]
+        for k in range(30):
+            texts = [t for t, _ in nodes()]
             if any(t.strip().endswith(f"{name} {n}/{len(spec['steps'])}") and t.strip() != progress and ":" not in t for t in texts):
                 break  # the end card
-            if not made_mistake and any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts for w in wrong):
-                w, reaction = next((w, r) for w, r in wrong.items() if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts))
-                c = next(c for t, c in labels if t == w or t.startswith(w + ",") or t.startswith(w + " "))
+            if any(l10n("it", "words.addToMyWords") in t or "Chiedi all'insegnante" in t for t in texts):  # a tap the slow emulator took for a long press
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+                continue
+            shown = [w for w in wrong if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts)]
+            if not made_mistake and shown:
                 snap(f"fb-{tag}-turn")
-                tap_at(c)
+                assert choice({shown[0]}), f"the wrong choice «{shown[0]}»"
                 time.sleep(2 * slow())
                 snap(f"fb-{tag}-wrong")
-                assert any(reaction[:20] in t for t, _ in nodes()), f"the reaction to «{w}»: {reaction}"
+                assert any(wrong[shown[0]][:20] in t for t, _ in nodes()), f"the reaction to «{shown[0]}»: {wrong[shown[0]]}"
                 made_mistake = True
                 continue
-            if answer_right(right):
+            if choice(right):
                 time.sleep(2 * slow())
                 continue
             if not tap(lab("common.next"), 3):
