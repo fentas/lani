@@ -98,10 +98,10 @@
             "it": "Kathi cerca di fare la torta."
           },
           {
-            "de": "Stefan fängt an, den Most zu pressen.",
-            "en": "Stefan is starting to press the cider.",
-            "sl": "Stefan začenja stiskati mošt.",
-            "it": "Stefan comincia a spremere il sidro."
+            "de": "Stefan fängt an, die Äpfel zu pressen.",
+            "en": "Stefan is starting to press the apples.",
+            "sl": "Stefan začenja stiskati jabolka.",
+            "it": "Stefan comincia a spremere le mele."
           },
           {
             "de": "Es hat aufgehört zu regnen.",
@@ -133,9 +133,9 @@
           "grammar": "infinitiv-zu",
           "prompt": "Stefan fängt an, ___.",
           "options": [
-            "den Most zu pressen",
-            "den Most pressen",
-            "zu pressen den Most"
+            "die Äpfel zu pressen",
+            "die Äpfel pressen",
+            "zu pressen die Äpfel"
           ],
           "answer": 0,
           "say_options": true,
@@ -221,7 +221,7 @@
       },
       {
         "say": {
-          "en": "A separable verb takes **zu** inside, as one word: **aufstehen → aufzustehen**, **mitkommen → mitzukommen**, **anrufen → anzurufen**. So: **Es ist schwer, früh aufzustehen** (it's hard to get up early), and never *zu aufstehen*. Others keep it apart: **zu besuchen, zu verstehen**. A reflexive's **sich** stays in front: **sich zu treffen** (to meet).",
+          "en": "A separable verb takes **zu** inside, as one word: **aufstehen → aufzustehen**, **mitkommen → mitzukommen**, **anrufen → anzurufen**. So **Es ist schwer, früh aufzustehen** (it's hard to get up early), with **früh aufzustehen** (never *früh zu aufstehen*). Others keep it apart: **zu besuchen, zu verstehen**. A reflexive's **sich** stays in front: **sich zu treffen** (to meet).",
           "sl": "Ločljivi glagol vzame **zu** v sredino, kot eno besedo: **aufstehen → aufzustehen**, **mitkommen → mitzukommen**, **anrufen → anzurufen**. Torej: **Es ist schwer, früh aufzustehen** (težko je zgodaj vstati). Drugi ga imajo posebej: **zu besuchen, zu verstehen**. **sich** povratnega glagola ostane spredaj: **sich zu treffen** (srečati se).",
           "it": "Un verbo separabile prende **zu** in mezzo, in una parola: **aufstehen → aufzustehen**, **mitkommen → mitzukommen**, **anrufen → anzurufen**. Quindi: **Es ist schwer, früh aufzustehen** (è difficile alzarsi presto). Gli altri lo tengono staccato: **zu besuchen, zu verstehen**. Il **sich** di un riflessivo resta davanti: **sich zu treffen** (incontrarsi)."
         },
@@ -702,7 +702,8 @@
             {
               "accept": [
                 "Statt",
-                "Anstatt"
+                "Anstatt",
+                "Ohne"
               ],
               "hint": {
                 "en": "instead of",
@@ -712,7 +713,10 @@
             },
             {
               "accept": [
-                "ohne"
+                "ohne",
+                "statt",
+                "anstatt",
+                "um"
               ],
               "hint": {
                 "en": "without",
@@ -879,8 +883,11 @@
               "accept": [
                 "Stefan geht weg, ohne etwas zu sagen.",
                 "Ohne etwas zu sagen, geht Stefan weg.",
-                "Stefan geht weg, ohne dass er etwas sagt.",
-                "Stefan geht weg, ohne was zu sagen."
+                "Stefan geht weg, ohne dass er etwas sagt."
+              ],
+              "spoken": [
+                "Stefan geht weg, ohne was zu sagen.",
+                "Ohne was zu sagen, geht Stefan weg."
               ]
             },
             {
@@ -955,7 +962,8 @@
           {
             "accept": [
               "Statt",
-              "Anstatt"
+              "Anstatt",
+              "Ohne"
             ],
             "hint": {
               "en": "instead of",
@@ -965,7 +973,10 @@
           },
           {
             "accept": [
-              "ohne"
+              "ohne",
+              "statt",
+              "anstatt",
+              "um"
             ],
             "hint": {
               "en": "without",
@@ -1099,5 +1110,5 @@
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: pressen for cider; Bi šel zraven?; ohne was zu sagen as accepted; the commas"
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: die Äpfel pressen; Bi šel zraven?; ohne was zu sagen as spoken; the commas"
 }
