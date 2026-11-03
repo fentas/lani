@@ -5,7 +5,7 @@
   "language": "en",
   "emoji": "⚡",
   "title": {"en": "Rapid fire", "sl": "Hitri odziv", "de": "Schnelle Antworten", "it": "Risposta veloce"},
-  "about": {"en": "A number, a time, a day or a date in your language, and about two seconds to say it in English before you hear it. The numbers are generated (1 to 100 first, then some up to 999), the rest is listed.", "sl": "Število, ura, dan ali datum v slovenščini in približno dve sekundi, da ga poveš v angleščini, preden ga slišiš. Števila so ustvarjena (najprej od 1 do 100, nato nekaj do 999), ostalo je na seznamu.", "de": "Eine Zahl, eine Uhrzeit, ein Tag oder ein Datum auf Deutsch und etwa zwei Sekunden, um es auf Englisch zu sagen, bevor du es hörst. Die Zahlen werden erzeugt (zuerst 1 bis 100, dann einige bis 999), der Rest steht in der Liste.", "it": "Un numero, un'ora, un giorno o una data in italiano e circa due secondi per dirlo in inglese prima di sentirlo. I numeri sono generati (prima da 1 a 100, poi alcuni fino a 999), il resto è in un elenco."},
+  "about": {"en": "A number, a time, a day or a date in your language, and about two seconds to say it in English before you hear it. The numbers are generated (1 to 100 first, then some up to 999), the rest is listed. At B1 years and centuries, at B2 numbers as the news says them (per cent, fractions, millions).", "sl": "Število, ura, dan ali datum v slovenščini in približno dve sekundi, da ga poveš v angleščini, preden ga slišiš. Števila so ustvarjena (najprej od 1 do 100, nato nekaj do 999), ostalo je na seznamu. Na B1 letnice in stoletja, na B2 števila, kot jih rečejo poročila (odstotki, ulomki, milijoni).", "de": "Eine Zahl, eine Uhrzeit, ein Tag oder ein Datum auf Deutsch und etwa zwei Sekunden, um es auf Englisch zu sagen, bevor du es hörst. Die Zahlen werden erzeugt (zuerst 1 bis 100, dann einige bis 999), der Rest steht in der Liste. Auf B1 Jahreszahlen und Jahrhunderte, auf B2 Zahlen, wie sie die Nachrichten sagen (Prozent, Brüche, Millionen).", "it": "Un numero, un'ora, un giorno o una data in italiano e circa due secondi per dirlo in inglese prima di sentirlo. I numeri sono generati (prima da 1 a 100, poi alcuni fino a 999), il resto è in un elenco. Al B1 anni e secoli, al B2 i numeri come li dice il telegiornale (percentuali, frazioni, milioni)."},
   "sets": [
     {
       "id": "numbers",
@@ -227,6 +227,51 @@
         {"en": "At ten past nine.", "sl": "Ob devetih in deset minut.", "de": "Um zehn nach neun.", "it": "Alle nove e dieci."},
         {"en": "At twenty to four.", "sl": "Dvajset minut pred štirimi.", "de": "Um zwanzig vor vier.", "it": "Alle quattro meno venti."},
         {"en": "At five to eight.", "sl": "Pet minut pred osmimi.", "de": "Um fünf vor acht.", "it": "Alle otto meno cinque."}
+      ]
+    },
+    {
+      "id": "years",
+      "level": "B1",
+      "title": {"en": "Years and centuries", "sl": "Letnice in stoletja", "de": "Jahreszahlen und Jahrhunderte", "it": "Anni e secoli"},
+      "items": [
+        {"en": "Nineteen eighty-nine.", "sl": "Tisoč devetsto devetinosemdeset.", "de": "Neunzehnhundertneunundachtzig.", "it": "Millenovecentottantanove."},
+        {"en": "Twenty twenty-six.", "sl": "Dva tisoč šestindvajset.", "de": "Zweitausendsechsundzwanzig.", "it": "Duemilaventisei."},
+        {"en": "Two thousand and six.", "sl": "Dva tisoč šest.", "de": "Zweitausendsechs.", "it": "Duemilasei."},
+        {"en": "Two thousand and one.", "sl": "Dva tisoč ena.", "de": "Zweitausendeins.", "it": "Duemilauno."},
+        {"en": "Twenty ten.", "sl": "Dva tisoč deset.", "de": "Zweitausendzehn.", "it": "Duemiladieci."},
+        {"en": "Nineteen oh five.", "sl": "Tisoč devetsto pet.", "de": "Neunzehnhundertfünf.", "it": "Millenovecentocinque."},
+        {"en": "Nineteen hundred.", "sl": "Tisoč devetsto.", "de": "Neunzehnhundert.", "it": "Millenovecento."},
+        {"en": "Eighteen fifty.", "sl": "Tisoč osemsto petdeset.", "de": "Achtzehnhundertfünfzig.", "it": "Milleottocentocinquanta."},
+        {"en": "Seventeen ninety-nine.", "sl": "Tisoč sedemsto devetindevetdeset.", "de": "Siebzehnhundertneunundneunzig.", "it": "Millesettecentonovantanove."},
+        {"en": "Ten sixty-six.", "sl": "Tisoč šestinšestdeset.", "de": "Tausendsechsundsechzig.", "it": "Millesessantasei."},
+        {"en": "The year two thousand.", "sl": "Leto dva tisoč.", "de": "Das Jahr zweitausend.", "it": "L'anno duemila."},
+        {"en": "In nineteen forty-five.", "sl": "Leta tisoč devetsto petinštirideset.", "de": "Im Jahr neunzehnhundertfünfundvierzig.", "it": "Nel millenovecentoquarantacinque."},
+        {"en": "In the nineteen sixties.", "sl": "V šestdesetih letih prejšnjega stoletja.", "de": "In den Sechzigerjahren.", "it": "Negli anni sessanta."},
+        {"en": "In the eighteenth century.", "sl": "V osemnajstem stoletju.", "de": "Im achtzehnten Jahrhundert.", "it": "Nel diciottesimo secolo."},
+        {"en": "In the twenty-first century.", "sl": "V enaindvajsetem stoletju.", "de": "Im einundzwanzigsten Jahrhundert.", "it": "Nel ventunesimo secolo."}
+      ]
+    },
+    {
+      "id": "news",
+      "level": "B2",
+      "title": {"en": "As the news says it", "sl": "Kot pravijo poročila", "de": "Wie es die Nachrichten sagen", "it": "Come lo dice il telegiornale"},
+      "items": [
+        {"en": "Three point five per cent.", "sl": "Tri cele pet odstotka.", "de": "Drei Komma fünf Prozent.", "it": "Tre virgola cinque per cento."},
+        {"en": "Nought point five.", "sl": "Nič cela pet.", "de": "Null Komma fünf.", "it": "Zero virgola cinque."},
+        {"en": "Up by ten per cent.", "sl": "Deset odstotkov več.", "de": "Um zehn Prozent mehr.", "it": "Il dieci per cento in più."},
+        {"en": "A quarter.", "sl": "Četrtina.", "de": "Ein Viertel.", "it": "Un quarto."},
+        {"en": "Three quarters.", "sl": "Tri četrtine.", "de": "Drei Viertel.", "it": "Tre quarti."},
+        {"en": "Two thirds.", "sl": "Dve tretjini.", "de": "Zwei Drittel.", "it": "Due terzi."},
+        {"en": "Half a million.", "sl": "Pol milijona.", "de": "Eine halbe Million.", "it": "Mezzo milione."},
+        {"en": "One and a half million.", "sl": "Milijon in pol.", "de": "Anderthalb Millionen.", "it": "Un milione e mezzo."},
+        {"en": "Two billion.", "sl": "Dve milijardi.", "de": "Zwei Milliarden.", "it": "Due miliardi."},
+        {"en": "Ten thousand people.", "sl": "Deset tisoč ljudi.", "de": "Zehntausend Menschen.", "it": "Diecimila persone."},
+        {"en": "A hundred and fifty thousand.", "sl": "Sto petdeset tisoč.", "de": "Hundertfünfzigtausend.", "it": "Centocinquantamila."},
+        {"en": "Minus five degrees.", "sl": "Minus pet stopinj.", "de": "Minus fünf Grad.", "it": "Meno cinque gradi."},
+        {"en": "Twenty-three degrees.", "sl": "Triindvajset stopinj.", "de": "Dreiundzwanzig Grad.", "it": "Ventitré gradi."},
+        {"en": "Twice as many.", "sl": "Dvakrat toliko.", "de": "Doppelt so viele.", "it": "Il doppio."},
+        {"en": "Five pounds ninety-nine.", "sl": "Pet funtov devetindevetdeset.", "de": "Fünf Pfund neunundneunzig.", "it": "Cinque sterline e novantanove."},
+        {"en": "Three hundred and sixty-five days.", "sl": "Tristo petinšestdeset dni.", "de": "Dreihundertfünfundsechzig Tage.", "it": "Trecentosessantacinque giorni."}
       ]
     }
   ],
