@@ -11,6 +11,7 @@ import { json, readJson } from '../http'
 import { languageParam } from '../learner'
 import { aimOf, LANGUAGES } from '../learners'
 import { pendingOf, setTargetIn, TARGET_LEVELS, type TargetLevel } from '../aim'
+import { placementIn, placementNotice, placementPayload, raises } from '../placement'
 import { localDate } from '../rhythm'
 import { fail, ok } from '../tool'
 
@@ -175,10 +176,36 @@ export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, gram
     return json({ session_id: payload.session_id, level: d.to, output: u.output, ...(other ? { language: other } : {}) })
   }
 
+  /**
+   * POST /placement: the placement test's result (src/placement.ts; companion/COURSE.md "The placement test"), the
+   * learner having taken it or kept their place: persisted via update-db.py as a session `/lani-app-placement`, its
+   * `level` the one suggested when the learner took a result above their level (current_level and level_since; never
+   * lowered), and the tutor told (`placement`). Once per client_id (the outbox).
+   */
+  async function handlePlacement(req: Request): Promise<Response> {
+    const r = placementIn.safeParse(await readJson(req))
+    if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+    const d = r.data
+    const other = learner.other(d.language)
+    const code = other ?? learner.home()
+    const name = LANGUAGES[code] ?? code
+    const state = learner.state(other)
+    const current = levelOf(state.databases?.learner_profile?.learner?.current_level) ?? 'A1'
+    const raise = raises(d, current)
+    const payload = placementPayload(d, { session_id: state.computed.next_session_id, date: state.computed.today, language: other, name, raise })
+    const u = learner.update(payload)
+    if (!u.ok) return json({ error: u.output }, 500)
+    const where = other ? `${name} (language "${other}")` : name
+    await channel.notify(placementNotice(d, { session_id: payload.session_id, where, current, raise }), { kind: 'placement', conversation_id: 'main', msg_id: payload.session_id })
+    return json({ session_id: payload.session_id, level: raise ? d.level : current, raised: raise, output: u.output, ...(other ? { language: other } : {}) })
+  }
+
   return {
     instructions: (culture.manifest?.language ?? 'sl') === 'sl' ? instructions : without(instructions, `Stari Janez gives it; Napredek's "🗺️ Zemljevid zaklada ›" (the path to the next level: the signs and what's missing, then "Sem pripravljen") starts it too.`, `A villager gives it; the progress screen's treasure map (the path to the next level: the signs and what's missing, then "I'm ready") starts it too.`),
     routes: [
       { method: 'POST', path: '/level', handle: ({ req, url }) => outbox.once(req, url.pathname, handleLevel) },
+      // the placement test's result (the school's "🧭 Uvrstitveni test"): a session, the level raised when taken above it
+      { method: 'POST', path: '/placement', handle: ({ req, url }) => outbox.once(req, url.pathname, handlePlacement) },
       // the aim ("🎯 Cilj · Aim"): the learner's level and target_level; the app's setup sets it
       { method: 'GET', path: '/learner/target', handle: () => json(aimNow()) },
       { method: 'POST', path: '/learner/target', handle: async ({ req }) => handleTarget(await readJson(req)) },

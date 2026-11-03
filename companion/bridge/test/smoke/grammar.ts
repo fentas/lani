@@ -7,6 +7,7 @@ import { extend, GrammarStore, tagMatches, validateGrammar, type GrammarPage } f
 import { channelRules, INSTRUCTIONS_LIMIT } from '../../src/learners'
 import { dialogGrammar, validateScene } from '../../src/scenes'
 import { validateModule } from '../../src/spec'
+import { validateCuratedModule } from '../../src/store'
 import { auth, base, channelEvents, check, client, dataDir, guideOf } from './harness'
 
 const repo = resolve(import.meta.dir, '../../..')
@@ -32,9 +33,10 @@ export default async function grammar() {
   check('no page keeps a key the format lacks (strict)', read.every(({ raw }) => validateGrammar({ ...raw, colour: 'red' }).ok === false))
 
   // what names them: every exercise of the curated modules, the tent challenge's questions
-  const modules = moduleIds.map(id => validateModule(JSON.parse(readFileSync(join(repo, 'modules', `${id}.json`), 'utf8'))))
+  // read as the learner of English reads them: Jan's six have plain strings, the later ones texts per base (practice-sl.md)
+  const modules = moduleIds.map(id => validateCuratedModule(JSON.parse(readFileSync(join(repo, 'modules', `${id}.json`), 'utf8')), 'en'))
   const named = modules.flatMap(m => (m.ok ? m.spec.exercises.map(e => e.grammar) : []))
-  check('every exercise of the curated modules names a grammar page there is', modules.every(m => m.ok) && named.length === 72 && named.every(g => !!g && ids.has(g)), named.filter(g => !g || !ids.has(g)))
+  check('every exercise of the curated modules names a grammar page there is', modules.every(m => m.ok) && named.length >= 72 && named.every(g => !!g && ids.has(g)), named.filter(g => !g || !ids.has(g)))
   const tent = JSON.parse(readFileSync(join(repo, 'cultures/primorska/quests.json'), 'utf8')).tent_move.questions as { grammar?: string }[]
   check("the tent challenge's questions name the pages of their rules", JSON.stringify(tent.map(q => q.grammar)) === JSON.stringify(['kje-mestnik-orodnik', 'orodnik', 'rodilnik-predlogi', 'orodnik']), tent.map(q => q.grammar))
   const reached = new Set([...named, ...tent.map(q => q.grammar)])

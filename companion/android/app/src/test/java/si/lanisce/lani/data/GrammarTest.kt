@@ -157,11 +157,11 @@ class GrammarTest {
 
     @Test fun `every exercise of the curated modules names a bundled page, and keeps it when parsed`() {
         val ids = pages.map { it.id }.toSet()
-        val files = File("../../modules").listFiles { f -> f.name.endsWith(".json") }!!.sortedBy { it.name }
-        assertEquals(6, files.size)
+        val files = SlovenePracticeTest.files()
+        assertTrue(files.size >= 24)
         for (f in files) {
-            // served as the bridge serves a curated module: as version 1
-            val m = parseModule(f.readText().replaceFirst("{", "{\"version\": 1, "))
+            // served as the bridge serves a curated module: as version 1, its texts per base in the learner's (practice-sl.md)
+            val m = SlovenePracticeTest.served(f, "en")
             assertTrue("${f.name}: ${m.exercises.map { it.grammar }}", m.exercises.all { it.grammar in ids })
         }
     }
