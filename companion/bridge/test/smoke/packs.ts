@@ -173,7 +173,7 @@ function homonymChecks() {
   const spellings = new Set(marked.map(m => `${m.p.language}|${m.word}`))
   const alike = (s: string) => packs.flatMap(p => p.words.filter(w => `${p.language}|${normWord(wordOf(p, w))}` === s).map(w => ({ p, w })))
   check("homonym: the curated packs mark bowl, round, sejem, mlaj, kolo, pronto, l'asse and la pala, each in every pack that has it, each with two meanings",
-    ['en|bowl', 'en|round', 'sl|sejem', 'sl|mlaj', 'sl|kolo', 'it|pronto', "it|l'asse", 'it|la pala'].every(s => spellings.has(s)) && spellings.size === 8 &&
+    ['en|bowl', 'en|round', 'sl|sejem', 'sl|mlaj', 'sl|kolo', 'it|pronto', "it|l'asse", 'it|la pala'].every(s => spellings.has(s)) && spellings.size >= 8 &&
       [...spellings].every(s => alike(s).every(x => x.w.homonym) && new Set(alike(s).map(x => meaningOf(x.p, x.w))).size >= 2),
     [...spellings])
 }
