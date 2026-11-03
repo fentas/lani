@@ -128,7 +128,7 @@
           "options": [
             "We've got bread.",
             "We've got a bread.",
-            "We've got breads."
+            "We've got a breads."
           ],
           "answer": 0,
           "say_options": true,
@@ -363,6 +363,9 @@
             "a"
           ],
           "answer": 0,
+          "almost": [
+            1
+          ],
           "say_options": true,
           "explain": {
             "sl": "**Prošnja: some**\n- Can I have some milk, please? · Would you like some tea?",
@@ -813,6 +816,9 @@
               "accept": [
                 "There aren't any walkers at the inn.",
                 "There are no walkers at the inn."
+              ],
+              "spoken": [
+                "There's no walkers at the inn."
               ]
             }
           ],

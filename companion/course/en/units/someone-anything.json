@@ -188,10 +188,10 @@
       },
       {
         "say": {
-          "sl": "**no-** ima ne že v sebi, zato je glagol trdilen: **no one** (nihče; tudi **nobody**), **nothing** (nič), **nowhere** (nikjer). **I saw nothing.** je isto kot **I didn't see anything.** (Nič nisem videl{m:|f:a}.) Samo ena nikalnica, ne kot v slovenščini: nikoli *I didn't see nothing.*",
-          "de": "**no-** hat das Nein schon in sich, das Verb bleibt bejaht: **no one** (niemand; auch **nobody**), **nothing** (nichts), **nowhere** (nirgends). **I saw nothing.** ist dasselbe wie **I didn't see anything.** (Ich habe nichts gesehen.) Nur eine Verneinung: nie *I didn't see nothing.*",
-          "it": "**no-** ha già il no dentro, quindi il verbo resta affermativo: **no one** (nessuno; anche **nobody**), **nothing** (niente), **nowhere** (da nessuna parte). **I saw nothing.** è come **I didn't see anything.** (Non ho visto niente.) Una sola negazione, non come in italiano: mai *I didn't see nothing.*",
-          "en": "**no-** has the no in it, so the verb stays yes: **no one** (**nobody**), **nothing**, **nowhere**. **I saw nothing.** is the same as **I didn't see anything.** One negative only: **I didn't see anything.** (never *I didn't see nothing.*)"
+          "sl": "**no-** ima ne že v sebi, zato je glagol trdilen: **no one** (nihče; tudi **nobody**), **nothing** (nič), **nowhere** (nikjer). **I saw nothing.** je isto kot **I didn't see anything.** (Nič nisem videl{m:|f:a}.) Ljudje rečejo tudi *I didn't see nothing*, pisno pa velja ena sama nikalnica, ne kot v slovenščini.",
+          "de": "**no-** hat das Nein schon in sich, das Verb bleibt bejaht: **no one** (niemand; auch **nobody**), **nothing** (nichts), **nowhere** (nirgends). **I saw nothing.** ist dasselbe wie **I didn't see anything.** (Ich habe nichts gesehen.) Viele sagen auch *I didn't see nothing*, geschrieben gilt nur eine Verneinung.",
+          "it": "**no-** ha già il no dentro, quindi il verbo resta affermativo: **no one** (nessuno; anche **nobody**), **nothing** (niente), **nowhere** (da nessuna parte). **I saw nothing.** è come **I didn't see anything.** (Non ho visto niente.) Molti dicono anche *I didn't see nothing*, ma per iscritto vale una sola negazione, non come in italiano.",
+          "en": "**no-** has the no in it, so the verb stays yes: **no one** (**nobody**), **nothing**, **nowhere**. **I saw nothing.** is the same as **I didn't see anything.** People also say *I didn't see nothing*; writing wants one negative only."
         },
         "examples": [
           {
@@ -221,21 +221,17 @@
           ]
         ],
         "ask": {
-          "type": "choice",
+          "type": "cloze",
           "grammar": "indefinite-pronouns",
-          "prompt": "We didn't find ___ in the barn.",
-          "options": [
-            "anything",
-            "nothing",
-            "something"
+          "text": "We didn't find ___ in the barn. (a thing)",
+          "accept": [
+            "anything"
           ],
-          "answer": 0,
-          "say_options": true,
           "explain": {
-            "sl": "**didn't + any-: samo ena nikalnica**\n- We didn't find anything. · We found nothing.",
-            "de": "**didn't + any-: nur eine Verneinung**\n- We didn't find anything. · We found nothing.",
-            "it": "**didn't + any-: una sola negazione**\n- We didn't find anything. · We found nothing.",
-            "en": "**didn't + any-: one negative only**\n- We didn't find anything. · We found nothing."
+            "sl": "**didn't + any-: pisno ena sama nikalnica**\n- We didn't find anything. · We found nothing.",
+            "de": "**didn't + any-: geschrieben nur eine Verneinung**\n- We didn't find anything. · We found nothing.",
+            "it": "**didn't + any-: per iscritto una sola negazione**\n- We didn't find anything. · We found nothing.",
+            "en": "**didn't + any-: in writing, one negative only**\n- We didn't find anything. · We found nothing."
           }
         }
       },
@@ -818,8 +814,8 @@
           },
           "options": [
             "Nobody knows.",
-            "Nobody doesn't know.",
-            "Anybody doesn't know."
+            "Nobody not knows.",
+            "Anybody not knows."
           ],
           "answer": 0,
           "say_options": true,
@@ -842,7 +838,7 @@
       },
       "exercises": [
         {
-          "type": "transform",
+          "type": "gaptext",
           "grammar": "indefinite-pronouns",
           "instruction": {
             "sl": "Say it with no- · Povej z no-",
@@ -850,43 +846,62 @@
             "it": "Say it with no- · Dillo con no-",
             "en": "Say it with no-"
           },
-          "cue": "no-",
-          "items": [
+          "text": "I didn't see anything. = I saw ___. We didn't meet anyone. = We met ___. There isn't anyone at the smithy. = There's ___ at the smithy. We didn't go anywhere. = We went ___.",
+          "gaps": [
             {
-              "from": "I didn't see anything.",
               "accept": [
-                "I saw nothing."
+                "nothing"
               ],
-              "hint": "see → saw"
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
             },
             {
-              "from": "We didn't meet anyone.",
               "accept": [
-                "We met no one.",
-                "We met nobody.",
-                "We met no-one."
-              ]
+                "no one",
+                "nobody",
+                "no-one"
+              ],
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
             },
             {
-              "from": "There isn't anyone at the smithy.",
               "accept": [
-                "There's no one at the smithy.",
-                "There's nobody at the smithy.",
-                "There's no-one at the smithy."
-              ]
+                "no one",
+                "nobody",
+                "no-one"
+              ],
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
             },
             {
-              "from": "We didn't go anywhere.",
               "accept": [
-                "We went nowhere."
-              ]
+                "nowhere"
+              ],
+              "explain": {
+                "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+                "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+              }
             }
           ],
-          "explain": {
-            "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
-            "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
-            "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
-            "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+          "translation": {
+            "sl": "Nič nisem videl{m:|f:a}. Nikogar nismo srečali. V kovačnici ni nikogar. Nikamor nismo šli.",
+            "de": "Ich habe nichts gesehen. Wir haben niemanden getroffen. In der Schmiede ist niemand. Wir sind nirgendwohin gegangen.",
+            "it": "Non ho visto niente. Non abbiamo incontrato nessuno. Alla fucina non c'è nessuno. Non siamo andati da nessuna parte.",
+            "en": "I didn't see anything. = I saw nothing. We didn't meet anyone. = We met no one. There isn't anyone at the smithy. = There's no one at the smithy. We didn't go anywhere. = We went nowhere."
           }
         },
         {
@@ -992,7 +1007,7 @@
         }
       },
       {
-        "type": "transform",
+        "type": "gaptext",
         "grammar": "indefinite-pronouns",
         "instruction": {
           "sl": "Say it with no- · Povej z no-",
@@ -1000,28 +1015,38 @@
           "it": "Say it with no- · Dillo con no-",
           "en": "Say it with no-"
         },
-        "cue": "no-",
-        "items": [
+        "text": "I didn't buy anything. = I bought ___. We didn't see anyone. = We saw ___.",
+        "gaps": [
           {
-            "from": "I didn't buy anything.",
             "accept": [
-              "I bought nothing."
-            ]
+              "nothing"
+            ],
+            "explain": {
+              "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+            }
           },
           {
-            "from": "We didn't see anyone.",
             "accept": [
-              "We saw no one.",
-              "We saw nobody.",
-              "We saw no-one."
-            ]
+              "no one",
+              "nobody",
+              "no-one"
+            ],
+            "explain": {
+              "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
+              "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+            }
           }
         ],
-        "explain": {
-          "sl": "**not + any- → trdilni glagol + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
-          "de": "**not + any- → bejahtes Verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
-          "it": "**not + any- → verbo affermativo + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one.",
-          "en": "**not + any- → a yes verb + no-**\n- I didn't see anything. → I saw nothing.\n- There isn't anyone. → There's no one."
+        "translation": {
+          "sl": "Nič nisem kupil{m:|f:a}. Nikogar nismo videli.",
+          "de": "Ich habe nichts gekauft. Wir haben niemanden gesehen.",
+          "it": "Non ho comprato niente. Non abbiamo visto nessuno.",
+          "en": "I didn't buy anything. = I bought nothing. We didn't see anyone. = We saw no one."
         }
       },
       {
@@ -1046,6 +1071,13 @@
             "accept": [
               "There isn't anyone in the barn.",
               "There isn't anybody in the barn."
+            ]
+          },
+          {
+            "from": "We saw no one on the fell.",
+            "accept": [
+              "We didn't see anyone on the fell.",
+              "We didn't see anybody on the fell."
             ]
           }
         ],
@@ -1103,33 +1135,9 @@
           "it": "**Affermativa: some-**\n- I've got something. · I haven't got anything.",
           "en": "**A yes sentence: some-**\n- I've got something. · I haven't got anything."
         }
-      },
-      {
-        "type": "choice",
-        "grammar": "indefinite-pronouns",
-        "instruction": {
-          "sl": "Choose · Izberi",
-          "de": "Choose · Wähle",
-          "it": "Choose · Scegli",
-          "en": "Choose"
-        },
-        "prompt": "We didn't see ___ on the fell.",
-        "options": [
-          "anyone",
-          "no one",
-          "someone"
-        ],
-        "answer": 0,
-        "say_options": true,
-        "explain": {
-          "sl": "**didn't + any-**\n- We didn't see anyone. · We saw no one.",
-          "de": "**didn't + any-**\n- We didn't see anyone. · We saw no one.",
-          "it": "**didn't + any-**\n- We didn't see anyone. · We saw no one.",
-          "en": "**didn't + any-**\n- We didn't see anyone. · We saw no one."
-        }
       }
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: double negative as wrong though heard in dialect; someone in a question as spoken; I saw nothing, a little formal; no-one"
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: a double negative almost, one negative taught for writing; someone in a question as spoken; I saw nothing formal; no-one"
 }

@@ -8,23 +8,24 @@ Nothing was voiced, no ElevenLabs credit was spent.*
 British English first:
 
 - **some-and-any:** `some` in a plain question as spoken, right and labelled (Have we got some eggs?, Is there some hay in the
-  barn?); Would you like any …? as almost, Can I have any …? as wrong; The news is good; a piece of advice; Have some tea
-  first, Mum!
-- **how-much:** We've got much time as wrong in the intro's "never"; a bit of as the everyday word for a little; Not much, only
-  two jars; a jar of honey at four pounds.
+  barn?); There's no walkers as spoken; Would you like any …? and Can I have any …? as almost; a double negative (We haven't got no
+  eggs) almost; The news is good; a piece of advice; Have some tea first, Mum!
+- **how-much:** We've got much time as wrong in the intro's "never"; a bit of as the everyday word for a little; loads of and a load
+  as spoken; There's not many boats as spoken; How much eggs? offered as wrong (is it said?); Not much, only two jars; a jar of honey
+  at four pounds.
 - **comparatives:** further and farther both right, further first; quieter or more quiet; than me and than I am; It's busier (the
-  village, lively); Keswick is further away than the mill; Keswick more famous than our village.
-- **superlatives:** in the Lakes for the Lake District; the hottest day of the year and in the year both right; Poppy the
-  youngest in the family; Auntie Edna the worst singer, as gentle fun; Carlisle "the biggest place in Cumbria" (a city, the only
-  one); the sort that puts the village, England, Cumbria under in and the three, all, the five boats under of.
-- **adverbs:** the flat adverbs a native says, right and labelled "spoken": walks slow, talk quick, speak clear, stand quiet,
-  sings loud, I play bad. She sings good and He plays good are graded wrong though they are heard: the rule the unit teaches,
-  against the household rule that a spoken form is never wrong. **Please decide this one.** The same for tastes well as wrong.
-  In speech you also hear slower and louder (named in the intro, never asked).
-- **someone-anything:** I didn't see nothing is graded wrong though dialects say it (the same question as She sings good);
-  someone and something in a question as spoken; I saw nothing, We went nowhere, Meg went nowhere as a little bookish but what
-  the transform teaches; no-one with its hyphen listed beside no one and nobody; noone wrong; the American someplace, anyplace,
-  everyplace accepted in the table.
+  village, lively); Keswick is further away than the mill; Keswick more famous than our village. **Left as wrong, for you to say:**
+  more bigger, more hotter, gooder, badder (children's and dialect forms, the outline's "never more bigger"), and as for than (a German
+  learner's mistake, rare dialect).
+- **superlatives:** in the Lakes for the Lake District; the hottest day of the year and in the year both right; Alfie is youngest and a
+  bare best, oldest without the as spoken; Poppy the youngest in the family; Auntie Edna the worst singer, as gentle fun; Carlisle "the
+  biggest place in Cumbria"; the sort that puts the village, England, Cumbria under in and the three, all, the five boats under of.
+- **adverbs:** sings good, plays good are **almost** (`nonstandard`), with well shown; the flat adverbs right and labelled "spoken": walks
+  slow, talk quick, speak clear, stand quiet, sings loud, drives careful, sings beautiful, I play bad. Are they as said as you'd want
+  them labelled? tastes well is offered as wrong. In speech you also hear slower and louder.
+- **someone-anything:** a double negative is **almost** (`nonstandard`), I didn't see anything shown; someone and something in a question
+  as spoken; I saw nothing, We went nowhere as a little bookish but what the sheet teaches; no-one with its hyphen listed beside no one
+  and nobody; noone wrong; the American someplace, anyplace, everyplace accepted in the table.
 
 Then each base (register and naturalness are for a native speaker; none of this was checked against a dictionary):
 
@@ -50,8 +51,8 @@ past simple and continuous, linking words), whether written yet or not, and noth
 | 8 | `how-much` 🧮 How much? How many? A few, a little | 5, 15, a summary | sort + table (15) · gap text with a bank + 2 choices (9) · 2 transforms (8): 32 | 12 | some-any, plurals |
 | 9 | `comparatives` 📏 Bigger, better, more useful | 5, 15, a summary | table + sort (14) · gap text with a bank + 2 choices (10) · 2 transforms (8): 32 | 12 | comparatives (new) |
 | 10 | `superlatives` 🏆 The biggest, the best | 6, 18, a summary | table + sort (15) · gap text with a bank + 2 choices (10) · 2 transforms (7): 32 | 12 | comparatives (new), articles |
-| 11 | `adverbs` 🐢 Quickly, carefully, well | 6, 19, a summary | table + sort (15) · gap text with a bank + 2 choices (10) · 2 transforms (8): 33 | 12 | adverbs (new), word-order |
-| 12 | `someone-anything` 🔎 Someone, anything, nothing | 6, 19, a summary | 2 tables + sort (15) · gap text with a bank + 2 choices (10) · 2 transforms (8): 33 | 12 | indefinite-pronouns (new), some-any |
+| 11 | `adverbs` 🐢 Quickly, carefully, well | 6, 19, a summary | table + sort (14) · gap text with a bank + gap text + choice (11) · 2 transforms (8): 33 | 12 | adverbs (new), word-order |
+| 12 | `someone-anything` 🔎 Someone, anything, nothing | 6, 19, a summary | 2 tables + sort (15) · gap text with a bank + 2 choices (10) · gap text + transform (8): 33 | 12 | indefinite-pronouns (new), some-any |
 
 The size is the level's: Italian's A2 has 5–6 steps, 26–32 items and 11–13 test items, Slovene's 5–6, 26–30 and 12.
 Each unit has a summary of its own, because each first page goes further than its unit (some-any on to how much; comparatives on
@@ -92,7 +93,32 @@ here (existing pages stay).
 
 ## Grading
 
-Paired rules only, appended at the end of `wrong` in `grading/en.json`, and a sentence inside its `_note` (not at the end, so that
+**What people say.** Jan's rule (2026-11-03, through the lead): a spoken form is never a mistake, and the standard form goes beside it.
+In these six units that comes in three ways:
+
+| What's typed | How | Verdict |
+|---|---|---|
+| good for well; a double negative after a negative (nothing, no one, nowhere, no) | the table's `nonstandard` (3f399ff2; COURSE.md "Spoken forms"), for every answer of the language | almost, the standard form and "People say it like this; in writing it's the form shown" |
+| some in a plain question; a flat adverb; the superlative's the left out where no noun follows; There's no walkers, There's not many boats; loads of | the item's `spoken` | right, labelled with the standard form |
+| some of these in a choice or a bank | not offered: a wrong form nobody says, or the item typed | |
+
+The intro and the page name them ("People also say *sings good*; writing wants **well**"), never with "never", so the sheet's "Watch out"
+doesn't print them as mistakes. `EnglishA2bContentTest` holds it: good is almost wherever well is asked, a double negative almost wherever
+a negative stands before what's asked (20 places), a flat adverb right wherever the adverb is asked, no choice or bank offers what the table
+calls nonstandard, and no text says never of them.
+
+**What it took from the sheets**, as the lead asked to be told:
+- `someone-anything`'s "Say it with no-" was a transform whose line (I didn't see anything.) could be answered with the double negative,
+  which doesn't do what it asks: now typed gaps (= I saw ___.), on the sheet and in the test. The test's choice We didn't see ___ went (no one
+  was its wrong option): a line of "Say it with not" instead.
+- `adverbs`' Harry plays football ___ was a choice offering good: now two typed gaps. Step 3 of `someone-anything`'s quick question is typed too.
+- **`adverbs`' teeth:** with the flat adverbs right, copying the word in brackets is full marks in five of the gap text's eight gaps (quick,
+  slow, clear, quiet, careful), three cells of the first table (quick, quiet, careful) and in the test (slow, bad, terrible). The label
+  still shows the standard form. Moving them into `nonstandard` (almost, as good for well) would keep the sheet teaching; that's the lead's and
+  Jan's to decide, it's one line each in `grading/en.json` and their `spoken` taken off.
+- `superlatives`' first table takes oldest, best without the, as right and labelled, for the same reason.
+
+**Mistakes**, paired rules appended at the end of `wrong` in `grading/en.json`, and a sentence inside its `_note` (not at the end, so that
 it can't meet parts a's and c's additions):
 
 - then for than and than for then (one letter apart, else a slip);
@@ -103,11 +129,7 @@ it can't meet parts a's and c's additions):
 - -fuly for -fully (carefuly). usualy stays a slip, as GradingLanguagesTest pins.
 
 Wrong already, by the ending or the distance, and pinned by the new test: worse and worst for each other, bigger for biggest, more
-for most, carefully for careful and the reverse, fastly, hardly for hard, goodly, good for well, something for anything, no one
-for anyone, noone.
-
-**What a native says too** is `spoken`, right and labelled with the standard form, never a distractor: some for any in a plain
-question, someone and something in a question, the flat adverbs (above).
+for most, fastly, hardly for hard, goodly, something for anything, noone.
 
 A trap kept for whoever writes more: `.*[^aeiou]y(er|est)` makes shyer wrong for shier and dryly wrong for drily, so a unit that
 asks those lists both spellings.

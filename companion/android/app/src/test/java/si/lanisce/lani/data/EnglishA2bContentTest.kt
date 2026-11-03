@@ -114,11 +114,110 @@ class EnglishA2bContentTest {
             Triple("adverbs", "badly", "bad"),
             Triple("some-and-any", "Is there any hay in the barn?", "Is there some hay in the barn?"),
             Triple("someone-anything", "anything", "something"),
+            Triple("how-much", "There aren't many boats on the lake.", "There's not many boats on the lake."),
+            Triple("how-much", "a lot of", "loads of"),
+            Triple("some-and-any", "There aren't any walkers at the inn.", "There's no walkers at the inn."),
+            Triple("superlatives", "Alfie is the youngest.", "Alfie is youngest."),
+            Triple("superlatives", "the best", "best"),
+            Triple("adverbs", "Mr Tyson drives carefully.", "Mr Tyson drives careful."),
+            Triple("adverbs", "Poppy sings beautifully.", "Poppy sings beautiful."),
         )) {
             val item = sheetItems(unit).first { it.accept.first() == standard && said in it.spoken }
             val m = Sheets.check(item, said, Lang.EN)
             assertEquals("$unit: $said", Verdict.CORRECT, m.verdict)
             assertEquals("$unit: $said", standard, m.standard)
+        }
+    }
+
+    /** Every quick question and choice of [unit]. */
+    private fun choices(unit: String): List<Exercise.Choice> {
+        val u = course.units.getValue(unit)
+        return u.intro?.steps.orEmpty().mapNotNull { it.ask as? Exercise.Choice } + (u.worksheets.flatMap { it.exercises } + u.test.exercises).filterIsInstance<Exercise.Choice>()
+    }
+
+    /** What the sheet asks in [item] with its gap's sentence: its first answer, and the text before it. */
+    private fun SheetItem.before() = frame.substringBefore(Sheets.BLANK, "")
+
+    @Test fun `good for well is almost wherever the six units ask well, never wrong`() {
+        val items = ids.flatMap { sheetItems(it) }.filter { it.accept.first().contains(Regex("""\bwell\b""")) }
+        assertTrue("the units ask well typed", items.size >= 4)
+        for (item in items) {
+            val typed = item.accept.first().replace(Regex("""\bwell\b"""), "good")
+            val m = Sheets.check(item, typed, Lang.EN)
+            assertEquals("$typed in ${item.frame}", Triple(Verdict.ALMOST, Hint.NONSTANDARD, item.accept.first()), Triple(m.verdict, m.hint, m.expected))
+        }
+    }
+
+    @Test fun `a double negative is almost wherever a negative stands before what the six units ask, never wrong`() {
+        val no = mapOf("anything" to "nothing", "anyone" to "no one", "anybody" to "nobody", "anywhere" to "nowhere", "any" to "no")
+        val negative = Regex("""\b(not|cannot|never)\b""")
+        var seen = 0
+        for (id in ids) for (item in sheetItems(id)) for ((word, said) in no) {
+            val first = item.accept.first()
+            val at = Regex("""\b$word\b""").find(first) ?: continue
+            if (!negative.containsMatchIn(Grading.canonical(item.before() + " " + first.substring(0, at.range.first), Lang.EN))) continue
+            val typed = first.replaceRange(at.range, said)
+            val m = Sheets.check(item, typed, Lang.EN)
+            assertEquals("$id: $typed for $first", Verdict.ALMOST to Hint.NONSTANDARD, m.verdict to m.hint)
+            seen++
+        }
+        assertTrue("$seen double negatives", seen >= 15)
+    }
+
+    @Test fun `an adverb said flat is never wrong where the unit asks the adverb, typed in any item`() {
+        val flat = mapOf(
+            "quickly" to "quick", "slowly" to "slow", "loudly" to "loud", "quietly" to "quiet", "clearly" to "clear",
+            "carefully" to "careful", "badly" to "bad", "beautifully" to "beautiful", "terribly" to "terrible",
+        )
+        var seen = 0
+        for (item in sheetItems("adverbs")) for ((adverb, said) in flat) {
+            val first = item.accept.first()
+            if (!first.contains(Regex("""\b$adverb\b"""))) continue
+            val typed = first.replace(Regex("""\b$adverb\b"""), said)
+            val m = Sheets.check(item, typed, Lang.EN)
+            assertEquals("$typed for $first", Verdict.CORRECT to first, m.verdict to m.standard)
+            seen++
+        }
+        assertTrue("$seen flat adverbs", seen >= 8)
+    }
+
+    @Test fun `no choice and no word bank offers what people say as the wrong form`() {
+        for (id in ids) {
+            for (c in choices(id)) {
+                val right = c.options[c.answer]
+                c.options.forEachIndexed { i, o ->
+                    if (i != c.answer && i !in c.almost) {
+                        val (typed, whole) = if (Sheets.GAP.containsMatchIn(c.prompt)) c.prompt.replace(Sheets.GAP, o) to c.prompt.replace(Sheets.GAP, right) else o to right
+                        assertTrue("$id: «$typed» offered as wrong beside «$whole»", Grading.check(typed, listOf(whole), Lang.EN).hint != Hint.NONSTANDARD)
+                    }
+                }
+            }
+            val u = course.units.getValue(id)
+            for (e in (u.worksheets.flatMap { it.exercises } + u.test.exercises).filterIsInstance<Exercise.GapText>()) {
+                for (d in e.distractors) for (item in Sheets.items(e, Lang.EN)) {
+                    assertTrue("$id: the distractor «$d» in ${item.frame}", Grading.check(d, item.accept, Lang.EN, item.before()).hint != Hint.NONSTANDARD)
+                    assertFalse("$id: the distractor «$d» is said in ${item.frame}", d in item.spoken)
+                }
+            }
+        }
+    }
+
+    @Test fun `the intro and the page say people say it and writing wants the other, never that it is never said`() {
+        val said = Regex("""\*[^*]*\b(good|nothing|careful|slow)\b[^*]*\*""")
+        val never = Regex("""(?i)\b(never|nikoli|nie|mai)\s+\*[^*]*\b(good|nothing|careful|slow)\b""")
+        val texts = ids.flatMap { id -> course.units.getValue(id).intro?.steps.orEmpty().flatMap { it.say.values } } +
+            Grammar.bundled("en").filter { it.id in listOf("adverbs", "indefinite-pronouns") }.flatMap { p -> p.rule.values + p.card?.rule?.values.orEmpty() + p.card?.tip?.values.orEmpty() }
+        for (t in texts) assertFalse(t, never.containsMatchIn(t))
+        val adverbs = course.units.getValue("adverbs").intro?.steps.orEmpty().flatMap { it.say.values }
+        val negatives = course.units.getValue("someone-anything").intro?.steps.orEmpty().flatMap { it.say.values }
+        for ((lines, what, standard) in listOf(Triple(adverbs, "sings good", "**well**"), Triple(negatives, "I didn't see nothing", "**I didn't see anything.**"))) {
+            val telling = lines.filter { said.containsMatchIn(it) && it.contains("*$what") }
+            assertEquals("$what named in each base", bases.size, telling.size)
+            assertTrue("$what beside its standard form", telling.all { it.contains(standard) })
+        }
+        for ((id, what) in listOf("adverbs" to "*sings good*", "indefinite-pronouns" to "*I didn't see nothing*")) {
+            val page = Grammar.bundled("en").first { it.id == id }
+            assertEquals("$id: named on the page in each base", bases.size, page.rule.values.count { it.contains(what) })
         }
     }
 
