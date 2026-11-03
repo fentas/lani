@@ -120,8 +120,8 @@ class GradingNonstandardTest {
         assertEquals(Triple(Verdict.CORRECT, "slowly", Hint.NONE), Triple(said.verdict, said.standard, said.hint))
     }
 
-    @Test fun `a table without the key is unchanged - only English has one, the others parse as before`() {
-        for (lang in listOf(Lang.SL, Lang.DE, Lang.IT)) {
+    @Test fun `a table without the key is unchanged - only English and German have one, the others parse as before`() {
+        for (lang in listOf(Lang.SL, Lang.IT)) {
             assertTrue(lang.code, Spelling.of(lang).nonstandard.isEmpty())
             assertFalse(lang.code, File(tables, "${lang.code}.json").readText().contains("\"nonstandard\""))
         }

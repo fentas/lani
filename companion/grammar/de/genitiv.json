@@ -1,0 +1,235 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "genitiv",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🏡",
+  "title": {
+    "de": "Das Haus meines Vaters: der Genitiv",
+    "en": "Das Haus meines Vaters: the genitive",
+    "sl": "Das Haus meines Vaters: rodilnik",
+    "it": "Das Haus meines Vaters: il genitivo"
+  },
+  "rule": {
+    "en": "The *Genitiv* says whose, and answers **Wessen?** (whose?). It comes after the noun it belongs to: **das Haus des Müllers** (the miller's house).\n\n**der and das nouns:** **des** and **-s** on the noun: des Vaters, des Kirchtags. A short noun takes -es or -s, both right: des Hundes, des Hunds. After -s, -ß, -z it must be **-es**: des Hauses, des Platzes.\n\n**die nouns and the plural:** **der**, and the noun stays as it is: der Mutter, der Kinder.\n\n**ein, kein, mein** go the same way: **eines** Mannes, **einer** Frau, **meines** Vaters, **meiner** Eltern.\n\n**A name** takes -s with no apostrophe and comes first, with no article: **Stefans Hund**. A name in -s or -z takes only the apostrophe: **Franz' Mühle**.\n\n**In talk** it's rare. People say **von** + the dative: **das Haus von meinem Vater**, **der Hund vom Stefan**, and in the south also **dem Stefan sein Hund**. All right in talk. Write the genitive in a letter. With no article, von is the only way: **der Duft von Äpfeln**.",
+    "sl": "*Genitiv* pove, čigavo je, in odgovarja na **Wessen?** (čigav?). Stoji za samostalnikom, ki mu pripada: **das Haus des Müllers** (mlinarjeva hiša).\n\n**Samostalniki der in das:** **des** in **-s** na samostalniku: des Vaters, des Kirchtags. Kratek samostalnik dobi -es ali -s, oboje je prav: des Hundes, des Hunds. Za -s, -ß, -z mora biti **-es**: des Hauses, des Platzes.\n\n**Samostalniki die in množina:** **der**, samostalnik ostane, kakršen je: der Mutter, der Kinder.\n\n**ein, kein, mein** gredo enako: **eines** Mannes, **einer** Frau, **meines** Vaters, **meiner** Eltern.\n\n**Ime** dobi -s brez opuščaja in stoji prvo, brez člena: **Stefans Hund**. Ime na -s ali -z dobi le opuščaj: **Franz' Mühle**.\n\n**V govoru** je redek. Rečejo **von** + dajalnik: **das Haus von meinem Vater**, **der Hund vom Stefan**, na jugu tudi **dem Stefan sein Hund**. V govoru je vse prav. V pismu piši rodilnik. Brez člena gre samo z von: **der Duft von Äpfeln**.",
+    "it": "Il *Genitiv* dice di chi è e risponde a **Wessen?** (di chi?). Sta dopo il nome a cui appartiene: **das Haus des Müllers** (la casa del mugnaio).\n\n**Nomi der e das:** **des** e **-s** sul nome: des Vaters, des Kirchtags. Un nome corto prende -es o -s, vanno bene tutti e due: des Hundes, des Hunds. Dopo -s, -ß, -z deve essere **-es**: des Hauses, des Platzes.\n\n**Nomi die e plurale:** **der**, e il nome resta com'è: der Mutter, der Kinder.\n\n**ein, kein, mein** fanno lo stesso: **eines** Mannes, **einer** Frau, **meines** Vaters, **meiner** Eltern.\n\n**Un nome proprio** prende -s senza apostrofo e sta prima, senza articolo: **Stefans Hund**. Un nome in -s o -z prende solo l'apostrofo: **Franz' Mühle**.\n\n**Parlando** è raro. Si dice **von** + il dativo: **das Haus von meinem Vater**, **der Hund vom Stefan**, e al sud anche **dem Stefan sein Hund**. Parlando va tutto bene. In una lettera scrivi il genitivo. Senza articolo si può solo con von: **der Duft von Äpfeln**."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Fall",
+        "en": "case",
+        "sl": "sklon",
+        "it": "caso"
+      },
+      "der · das",
+      "die",
+      "Plural"
+    ],
+    "rows": [
+      [
+        "Nominativ",
+        "der Vater · das Kind",
+        "die Mutter",
+        "die Kinder"
+      ],
+      [
+        "Akkusativ",
+        "den Vater · das Kind",
+        "die Mutter",
+        "die Kinder"
+      ],
+      [
+        "Dativ",
+        "dem Vater · dem Kind",
+        "der Mutter",
+        "den Kindern"
+      ],
+      [
+        "Genitiv",
+        "des Vaters · des Kindes",
+        "der Mutter",
+        "der Kinder"
+      ],
+      [
+        "Genitiv: ein, mein",
+        "eines Vaters · meines Kindes",
+        "einer Mutter",
+        "meiner Kinder"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das ist das Haus des Müllers.",
+      "en": "That's the miller's house.",
+      "sl": "To je mlinarjeva hiša.",
+      "it": "Questa è la casa del mugnaio.",
+      "note": {
+        "en": "der Müller → des Müllers.",
+        "sl": "der Müller → des Müllers.",
+        "it": "der Müller → des Müllers."
+      }
+    },
+    {
+      "de": "Das Dach des Hauses ist neu.",
+      "en": "The roof of the house is new.",
+      "sl": "Streha hiše je nova.",
+      "it": "Il tetto della casa è nuovo.",
+      "note": {
+        "en": "After -s: -es.",
+        "sl": "Za -s: -es.",
+        "it": "Dopo -s: -es."
+      }
+    },
+    {
+      "de": "Das ist die Küche der Wirtin.",
+      "en": "That's the innkeeper's kitchen.",
+      "sl": "To je gostilničarkina kuhinja.",
+      "it": "Questa è la cucina della locandiera.",
+      "note": {
+        "en": "die Wirtin → der Wirtin: no -s.",
+        "sl": "die Wirtin → der Wirtin: brez -s.",
+        "it": "die Wirtin → der Wirtin: senza -s."
+      }
+    },
+    {
+      "de": "Das Spiel der Kinder ist laut.",
+      "en": "The children's game is loud.",
+      "sl": "Igra otrok je glasna.",
+      "it": "Il gioco dei bambini è rumoroso.",
+      "note": {
+        "en": "The plural: der, no -n.",
+        "sl": "Množina: der, brez -n.",
+        "it": "Il plurale: der, senza -n."
+      }
+    },
+    {
+      "de": "Das ist das Haus meines Vaters.",
+      "en": "That's my father's house.",
+      "sl": "To je hiša mojega očeta.",
+      "it": "Questa è la casa di mio padre.",
+      "note": {
+        "en": "mein → meines, as des.",
+        "sl": "mein → meines, kot des.",
+        "it": "mein → meines, come des."
+      }
+    },
+    {
+      "de": "Stefans Hund schläft.",
+      "en": "Stefan's dog is asleep.",
+      "sl": "Stefanov pes spi.",
+      "it": "Il cane di Stefan dorme.",
+      "note": {
+        "en": "A name: -s, first, no apostrophe.",
+        "sl": "Ime: -s, prvo, brez opuščaja.",
+        "it": "Un nome proprio: -s, prima, senza apostrofo."
+      }
+    },
+    {
+      "de": "Das ist der Hund vom Stefan.",
+      "en": "That's Stefan's dog.",
+      "sl": "To je Stefanov pes.",
+      "it": "Questo è il cane di Stefan.",
+      "note": {
+        "en": "In talk: von + the dative, in Austria with the article.",
+        "sl": "V govoru: von + dajalnik, v Avstriji s členom.",
+        "it": "Parlando: von + il dativo, in Austria con l'articolo."
+      }
+    },
+    {
+      "de": "Eines Tages kam ein Mann ins Dorf.",
+      "en": "One day a man came to the village.",
+      "sl": "Nekega dne je v vas prišel moški.",
+      "it": "Un giorno arrivò un uomo in paese.",
+      "note": {
+        "en": "Eines Tages: how tales go on.",
+        "sl": "Eines Tages: tako se pravljice nadaljujejo.",
+        "it": "Eines Tages: così continuano le fiabe."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "genitiv",
+    "genitive",
+    "wessen",
+    "whose",
+    "des",
+    "von"
+  ],
+  "see": [
+    "faelle",
+    "artikel-genus",
+    "dativ",
+    "possessiv"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: der Hund vom Stefan; dem Stefan sein Hund as spoken; Franz' Mühle; Slovene mlinarjeva, gostilničarkina",
+  "card": {
+    "title": {
+      "de": "Der Genitiv: des Vaters, der Mutter",
+      "en": "Genitive · des Vaters, der Mutter",
+      "sl": "Rodilnik · des Vaters, der Mutter",
+      "it": "Genitivo · des Vaters, der Mutter"
+    },
+    "rule": {
+      "en": "Whose: **des** + -s, **der**: **das Haus des Müllers**, **die Küche der Wirtin**, **das Spiel der Kinder**. **meines** Vaters, **meiner** Mutter. A name: **Stefans Hund**. After -s, -ß, -z: **-es**. In talk: **von** + the dative: **das Haus von meinem Vater**.",
+      "sl": "Čigav: **des** + -s, **der**: **das Haus des Müllers**, **die Küche der Wirtin**, **das Spiel der Kinder**. **meines** Vaters, **meiner** Mutter. Ime: **Stefans Hund**. Za -s, -ß, -z: **-es**. V govoru: **von** + dajalnik: **das Haus von meinem Vater**.",
+      "it": "Di chi: **des** + -s, **der**: **das Haus des Müllers**, **die Küche der Wirtin**, **das Spiel der Kinder**. **meines** Vaters, **meiner** Mutter. Un nome proprio: **Stefans Hund**. Dopo -s, -ß, -z: **-es**. Parlando: **von** + il dativo: **das Haus von meinem Vater**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "en": "case",
+          "sl": "sklon",
+          "it": "caso"
+        },
+        "der · das",
+        "die",
+        "Plural"
+      ],
+      "rows": [
+        [
+          "Dativ",
+          "dem Vater · dem Kind",
+          "der Mutter",
+          "den Kindern"
+        ],
+        [
+          "Genitiv",
+          "des Vaters · des Kindes",
+          "der Mutter",
+          "der Kinder"
+        ],
+        [
+          "Genitiv: ein, mein",
+          "eines Vaters · meines Kindes",
+          "einer Mutter",
+          "meiner Kinder"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Das ist das Haus meines Vaters.",
+        "en": "That's my father's house.",
+        "sl": "To je hiša mojega očeta.",
+        "it": "Questa è la casa di mio padre."
+      },
+      {
+        "de": "Das ist die Küche der Wirtin.",
+        "en": "That's the innkeeper's kitchen.",
+        "sl": "To je gostilničarkina kuhinja.",
+        "it": "Questa è la cucina della locandiera."
+      }
+    ],
+    "tip": {
+      "en": "💡 In the singular **des** goes with -s, **der** with none: **der Vaters** and **des Mutter** can't be.",
+      "sl": "💡 V ednini gre **des** s -s, **der** brez: **der Vaters** in **des Mutter** ne gre.",
+      "it": "💡 Al singolare **des** va con -s, **der** senza: **der Vaters** e **des Mutter** non si può."
+    }
+  }
+}

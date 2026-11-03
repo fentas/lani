@@ -10,8 +10,8 @@ import si.lanisce.lani.l10n.Lang
 /**
  * German A2's last six units (adjektiv-der to dass-wenn-ob: docs/plans/05-built/course-de-a2-c.md) as the app grades them:
  * an adjective's ending is never a slip; the comparative's umlaut, hoch's hohe and höher, and denn, dann, wenn, wann for
- * each other are known mistakes, each only for a word of its group; the spoken wie for als, weil with the verb second and
- * wann for wenn are right, labelled with the standard form.
+ * each other are known mistakes, each only for a word of its group; wie for als, weil with the verb second and wann for
+ * wenn, what people say, are almost with the standard form shown (the table's nonstandard, verb_second: COURSE.md "Spoken forms").
  */
 class GermanA2cContentTest {
     private fun de(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.DE)
@@ -66,22 +66,28 @@ class GermanA2cContentTest {
         assertEquals(Verdict.WRONG, de("dann", "denn").verdict)
         assertEquals(Verdict.WRONG, de("denn", "dann").verdict)
         assertEquals(Verdict.WRONG, de("wenn", "denn").verdict)
-        assertEquals(Verdict.WRONG, de("wann", "wenn").verdict)
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, de("wann", "wenn"))
         assertEquals(Verdict.WRONG, de("wenn", "wann").verdict)
         assertEquals(Verdict.WRONG, de("das", "dass").verdict)
         assertEquals(Verdict.WRONG, de("dass", "das").verdict)
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("dehalb", "deshalb"))
     }
 
-    @Test fun `a spoken form of these units is right, labelled with the standard one, and only where it is spoken`() {
-        val als = sheet("wie", listOf("als"), listOf("wie"))
-        assertEquals(Verdict.CORRECT to "als", als.verdict to als.standard)
-        assertEquals(Verdict.WRONG, sheet("als", listOf("wie")).verdict)
-        val wenn = sheet("Wann", listOf("Wenn"), listOf("Wann"))
-        assertEquals(Verdict.CORRECT to "Wenn", wenn.verdict to wenn.standard)
-        val weil = sheet("Toni kommt nicht, weil er muss arbeiten.", listOf("Toni kommt nicht, weil er arbeiten muss."), listOf("Toni kommt nicht, weil er muss arbeiten."))
-        assertEquals(Verdict.CORRECT to "Toni kommt nicht, weil er arbeiten muss.", weil.verdict to weil.standard)
-        // the mistake after deshalb has no such standing: the verb comes right after it
+    @Test fun `what people say that these units teach writing without is almost, the standard form shown, and only where it stands for it`() {
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, de("wie", "als"))
+        assertEquals("als", de("wie", "als").expected)
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, de("Stefan ist jünger wie Franz.", "Stefan ist jünger als Franz."))
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, de("Wann es regnet, bleiben wir hier.", "Wenn es regnet, bleiben wir hier."))
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, de("Toni kommt nicht, weil er muss arbeiten.", "Toni kommt nicht, weil er arbeiten muss."))
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, de("Kathi ist müde, weil sie steht um fünf auf.", "Kathi ist müde, weil sie um fünf aufsteht."))
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, de("weil", "denn"))
+        // one way only: the standard word for the other stays wrong, and so does a sentence in any other order
+        assertEquals(Verdict.WRONG, de("als", "wie").verdict)
+        assertEquals(Verdict.WRONG, de("wenn", "wann").verdict)
+        assertEquals(Verdict.WRONG, de("denn", "weil").verdict)
+        assertEquals(Verdict.WRONG, de("Toni kommt nicht, weil muss er arbeiten.", "Toni kommt nicht, weil er arbeiten muss.").verdict)
+        assertEquals(Verdict.WRONG, de("Toni kommt nicht, weil er muss nicht arbeiten.", "Toni kommt nicht, weil er arbeiten muss.").verdict)
+        // deshalb is no such form: the verb comes right after it
         assertEquals(Verdict.WRONG, sheet("Es regnet, deshalb Stefan bleibt zu Hause.", listOf("Es regnet, deshalb bleibt Stefan zu Hause.")).verdict)
     }
 

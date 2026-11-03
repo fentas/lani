@@ -1,0 +1,1050 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "adjektiv-alle-faelle",
+  "language": "de",
+  "level": "B1",
+  "emoji": "🧮",
+  "title": {
+    "de": "Mit einem guten Freund",
+    "en": "Adjective endings in every case",
+    "sl": "Končnice pridevnika v vseh sklonih",
+    "it": "Le desinenze dell'aggettivo in tutti i casi"
+  },
+  "goal": {
+    "en": "You can give an adjective its ending in every case, the genitive and the plural too, after der, after ein and with no article, by one rule: the ending shows the case once (der gute Wein, ein guter Wein, guter Wein; des guten Weines).",
+    "sl": "Pridevniku daš končnico v vsakem sklonu, tudi v rodilniku in množini, za der, za ein in brez člena, po enem pravilu: končnica pokaže sklon enkrat (der gute Wein, ein guter Wein, guter Wein; des guten Weines).",
+    "it": "Sai dare all'aggettivo la desinenza in ogni caso, anche al genitivo e al plurale, dopo der, dopo ein e senza articolo, con una regola sola: la desinenza mostra il caso una volta (der gute Wein, ein guter Wein, guter Wein; des guten Weines)."
+  },
+  "grammar": [
+    "adjektiv-tabelle",
+    "adjektiv-der",
+    "adjektiv-ein",
+    "adjektiv-null"
+  ],
+  "words": [
+    "gut",
+    "neu",
+    "alt",
+    "frisch",
+    "warm",
+    "heiß",
+    "jung",
+    "schön",
+    "schlecht",
+    "rot",
+    "klein",
+    "der Wein",
+    "die Milch",
+    "das Brot",
+    "der Apfel",
+    "der Freund",
+    "die Farbe",
+    "die Nachricht",
+    "das Wetter",
+    "die Laune",
+    "die Kälte",
+    "der Regen",
+    "der Hut",
+    "der Käse",
+    "der Speck",
+    "der Kaffee",
+    "das Fest",
+    "die Musik",
+    "alle",
+    "viele",
+    "trotz",
+    "wegen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        {
+          "de": "nach der",
+          "sl": "za der",
+          "en": "after der",
+          "it": "dopo der"
+        },
+        {
+          "de": "nach ein",
+          "sl": "za ein",
+          "en": "after ein",
+          "it": "dopo ein"
+        },
+        {
+          "de": "ohne Artikel",
+          "sl": "brez člena",
+          "en": "no article",
+          "it": "senza articolo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know three tables: after **der**, after **ein**, and with no article. One rule is behind them: **the ending shows the case once**. **Der gute Wein** (the good wine): der shows it, so the adjective is quiet. **Ein guter Wein** (a good wine): ein shows nothing, so the adjective does. **Guter Wein** (good wine): nothing in front, so the adjective does.",
+          "sl": "Poznaš tri tabele: za **der**, za **ein** in brez člena. Za njimi je eno pravilo: **končnica pokaže sklon enkrat**. **Der gute Wein** (dobro vino): der ga pokaže, zato je pridevnik tih. **Ein guter Wein** (dobro vino): ein ne pokaže ničesar, zato ga pokaže pridevnik. **Guter Wein** (dobro vino): spredaj ni ničesar, zato ga pokaže pridevnik.",
+          "it": "Conosci tre tabelle: dopo **der**, dopo **ein** e senza articolo. Dietro c'è una regola sola: **la desinenza mostra il caso una volta**. **Der gute Wein** (il vino buono): der lo mostra, quindi l'aggettivo tace. **Ein guter Wein** (un vino buono): ein non mostra nulla, quindi lo mostra l'aggettivo. **Guter Wein** (vino buono): davanti non c'è nulla, quindi lo mostra l'aggettivo."
+        },
+        "examples": [
+          {
+            "de": "Der gute Wein kommt aus Brda.",
+            "en": "The good wine comes from Brda.",
+            "sl": "Dobro vino je iz Brd.",
+            "it": "Il vino buono viene da Brda."
+          },
+          {
+            "de": "Das ist ein guter Wein.",
+            "en": "That's a good wine.",
+            "sl": "To je dobro vino.",
+            "it": "È un buon vino."
+          },
+          {
+            "de": "Guter Wein ist teuer.",
+            "en": "Good wine is expensive.",
+            "sl": "Dobro vino je drago.",
+            "it": "Il buon vino è caro."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "der Wein · Nominativ",
+              "sl": "der Wein · imenovalnik",
+              "en": "der Wein · nominative",
+              "it": "der Wein · nominativo"
+            },
+            "der gute",
+            "ein guter",
+            "guter"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "prompt": "Das ist ein ___ Käse. (frisch)",
+          "options": [
+            "frischer",
+            "frische",
+            "frischen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ein shows nothing, so the adjective does: -er**\n- der frische Käse · ein frischer Käse",
+            "sl": "**ein ne pokaže ničesar, zato ga pokaže pridevnik: -er**\n- der frische Käse · ein frischer Käse",
+            "it": "**ein non mostra nulla, quindi lo mostra l'aggettivo: -er**\n- der frische Käse · ein frischer Käse"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Through the cases the same thing happens. In the accusative **den** and **einen** show it: **den guten Wein, einen guten Wein**; with nothing in front the adjective does: **guten Wein**. In the dative **dem guten Wein, einem guten Wein**, and with nothing in front the adjective takes dem's ending: **mit gutem Wein** (with good wine).",
+          "sl": "Skozi sklone se dogaja isto. V tožilniku ga pokažeta **den** in **einen**: **den guten Wein, einen guten Wein**; kadar spredaj ni ničesar, ga pokaže pridevnik: **guten Wein**. V dajalniku **dem guten Wein, einem guten Wein**, brez člena pa dobi pridevnik končnico od dem: **mit gutem Wein** (z dobrim vinom).",
+          "it": "Attraverso i casi succede lo stesso. All'accusativo lo mostrano **den** e **einen**: **den guten Wein, einen guten Wein**; senza nulla davanti lo mostra l'aggettivo: **guten Wein**. Al dativo **dem guten Wein, einem guten Wein**, e senza nulla davanti l'aggettivo prende la desinenza di dem: **mit gutem Wein** (con del buon vino)."
+        },
+        "examples": [
+          {
+            "de": "Stefan trinkt den guten Wein.",
+            "en": "Stefan is drinking the good wine.",
+            "sl": "Stefan pije dobro vino.",
+            "it": "Stefan beve il vino buono."
+          },
+          {
+            "de": "Kathi kauft einen guten Wein.",
+            "en": "Kathi is buying a good wine.",
+            "sl": "Kathi kupuje dobro vino.",
+            "it": "Kathi compra un buon vino."
+          },
+          {
+            "de": "Mit einem guten Freund ist alles leichter.",
+            "en": "With a good friend everything is easier.",
+            "sl": "Z dobrim prijateljem je vse lažje.",
+            "it": "Con un buon amico è tutto più facile."
+          },
+          {
+            "de": "Das Fleisch schmeckt mit gutem Wein besser.",
+            "en": "The meat tastes better with good wine.",
+            "sl": "Meso je z dobrim vinom boljše.",
+            "it": "La carne è più buona con del buon vino."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "der Wein · Akkusativ",
+              "sl": "der Wein · tožilnik",
+              "en": "der Wein · accusative",
+              "it": "der Wein · accusativo"
+            },
+            "den guten",
+            "einen guten",
+            "guten"
+          ],
+          [
+            {
+              "de": "der Wein · Dativ",
+              "sl": "der Wein · dajalnik",
+              "en": "der Wein · dative",
+              "it": "der Wein · dativo"
+            },
+            "dem guten",
+            "einem guten",
+            "gutem"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adjektiv-tabelle",
+          "text": "Kathi kocht mit ___ Wein. (gut)",
+          "accept": [
+            "gutem"
+          ],
+          "hint": {
+            "en": "no article: dem",
+            "sl": "brez člena: dem",
+            "it": "senza articolo: dem"
+          },
+          "explain": {
+            "en": "**Nothing in front: the adjective takes dem's ending**\n- dem Wein: mit gutem Wein",
+            "sl": "**Spredaj ni ničesar: pridevnik dobi končnico od dem**\n- dem Wein: mit gutem Wein",
+            "it": "**Davanti non c'è nulla: l'aggettivo prende la desinenza di dem**\n- dem Wein: mit gutem Wein"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A **die** noun: **die gute Milch, eine gute Milch, gute Milch**; in the dative **der guten Milch, einer guten Milch, mit guter Milch** (der's -r on the adjective). A **das** noun: **das gute Brot, ein gutes Brot, gutes Brot** (das's -s), and in the dative **dem guten Brot, einem guten Brot, mit gutem Brot**.",
+          "sl": "Samostalnik z **die**: **die gute Milch, eine gute Milch, gute Milch**; v dajalniku **der guten Milch, einer guten Milch, mit guter Milch** (-r od der na pridevniku). Samostalnik z **das**: **das gute Brot, ein gutes Brot, gutes Brot** (-s od das), v dajalniku pa **dem guten Brot, einem guten Brot, mit gutem Brot**.",
+          "it": "Un nome con **die**: **die gute Milch, eine gute Milch, gute Milch**; al dativo **der guten Milch, einer guten Milch, mit guter Milch** (la -r di der sull'aggettivo). Un nome con **das**: **das gute Brot, ein gutes Brot, gutes Brot** (la -s di das), e al dativo **dem guten Brot, einem guten Brot, mit gutem Brot**."
+        },
+        "examples": [
+          {
+            "de": "Kathi braucht frische Milch.",
+            "en": "Kathi needs fresh milk.",
+            "sl": "Kathi potrebuje sveže mleko.",
+            "it": "Kathi ha bisogno di latte fresco."
+          },
+          {
+            "de": "Oma Resi kommt mit einer guten Nachricht.",
+            "en": "Grandma Resi is coming with good news.",
+            "sl": "Babica Resi pride z dobro novico.",
+            "it": "Nonna Resi arriva con una buona notizia."
+          },
+          {
+            "de": "Das ist ein gutes Brot.",
+            "en": "That's a good loaf.",
+            "sl": "To je dober kruh.",
+            "it": "È un buon pane."
+          },
+          {
+            "de": "Stefan isst Speck mit frischem Brot.",
+            "en": "Stefan is eating bacon with fresh bread.",
+            "sl": "Stefan je slanino s svežim kruhom.",
+            "it": "Stefan mangia lo speck col pane fresco."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "die Milch · Nom., Akk.",
+              "sl": "die Milch · im., tož.",
+              "en": "die Milch · nom., acc.",
+              "it": "die Milch · nom., acc."
+            },
+            "die gute",
+            "eine gute",
+            "gute"
+          ],
+          [
+            {
+              "de": "die Milch · Dat., Gen.",
+              "sl": "die Milch · daj., rod.",
+              "en": "die Milch · dat., gen.",
+              "it": "die Milch · dat., gen."
+            },
+            "der guten",
+            "einer guten",
+            "guter"
+          ],
+          [
+            {
+              "de": "das Brot · Nom., Akk.",
+              "sl": "das Brot · im., tož.",
+              "en": "das Brot · nom., acc.",
+              "it": "das Brot · nom., acc."
+            },
+            "das gute",
+            "ein gutes",
+            "gutes"
+          ],
+          [
+            {
+              "de": "das Brot · Dativ",
+              "sl": "das Brot · dajalnik",
+              "en": "das Brot · dative",
+              "it": "das Brot · dativo"
+            },
+            "dem guten",
+            "einem guten",
+            "gutem"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "prompt": "Kathi trinkt Kaffee mit ___ Milch. (warm)",
+          "options": [
+            "warmer",
+            "warme",
+            "warmem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**No article, the dative of die: der's -r**\n- der Milch: mit warmer Milch",
+            "sl": "**Brez člena, dajalnik od die: -r od der**\n- der Milch: mit warmer Milch",
+            "it": "**Senza articolo, dativo di die: la -r di der**\n- der Milch: mit warmer Milch"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The genitive is easy after an article: always **-en**. **Die Farbe des neuen Traktors** (the colour of the new tractor), **das Haus der alten Frau** (the old woman's house), **eines guten Weines** (of a good wine). With no article a die noun and a plural take **-er**: **trotz guter Laune** (despite a good mood); a der or das noun takes **-en**, as its own -s shows the case: **wegen schlechten Wetters** (because of bad weather).",
+          "sl": "Rodilnik je za členom lahek: vedno **-en**. **Die Farbe des neuen Traktors** (barva novega traktorja), **das Haus der alten Frau** (hiša stare ženske), **eines guten Weines** (dobrega vina). Brez člena imata samostalnik z die in množina **-er**: **trotz guter Laune** (kljub dobri volji); samostalnik z der ali das ima **-en**, ker sklon pokaže njegov -s: **wegen schlechten Wetters** (zaradi slabega vremena).",
+          "it": "Il genitivo dopo un articolo è facile: sempre **-en**. **Die Farbe des neuen Traktors** (il colore del trattore nuovo), **das Haus der alten Frau** (la casa della donna anziana), **eines guten Weines** (di un buon vino). Senza articolo, un nome con die e il plurale hanno **-er**: **trotz guter Laune** (nonostante il buon umore); un nome con der o das ha **-en**, perché il caso lo mostra la sua -s: **wegen schlechten Wetters** (a causa del brutto tempo)."
+        },
+        "examples": [
+          {
+            "de": "Die Farbe des neuen Traktors ist rot.",
+            "en": "The colour of the new tractor is red.",
+            "sl": "Barva novega traktorja je rdeča.",
+            "it": "Il colore del trattore nuovo è rosso."
+          },
+          {
+            "de": "Das Haus der alten Frau ist klein.",
+            "en": "The old woman's house is small.",
+            "sl": "Hiša stare ženske je majhna.",
+            "it": "La casa della donna anziana è piccola."
+          },
+          {
+            "de": "Das ist der Hut eines alten Freundes.",
+            "en": "That's an old friend's hat.",
+            "sl": "To je klobuk starega prijatelja.",
+            "it": "È il cappello di un vecchio amico."
+          },
+          {
+            "de": "Wegen schlechten Wetters bleibt Florian im Tal.",
+            "en": "Because of bad weather Florian is staying in the valley.",
+            "sl": "Zaradi slabega vremena Florian ostane v dolini.",
+            "it": "A causa del brutto tempo Florian resta a valle."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "der Wein · Genitiv",
+              "sl": "der Wein · rodilnik",
+              "en": "der Wein · genitive",
+              "it": "der Wein · genitivo"
+            },
+            "des guten",
+            "eines guten",
+            "guten"
+          ],
+          [
+            {
+              "de": "das Brot · Genitiv",
+              "sl": "das Brot · rodilnik",
+              "en": "das Brot · genitive",
+              "it": "das Brot · genitivo"
+            },
+            "des guten",
+            "eines guten",
+            "guten"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "prompt": "Das ist das Auto des ___ Lehrers. (jung)",
+          "options": [
+            "jungen",
+            "junges",
+            "jungem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The genitive after an article: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines",
+            "sl": "**Rodilnik za členom: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines",
+            "it": "**Il genitivo dopo un articolo: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The plural after an article is always **-en**: **die guten Äpfel, keine guten Äpfel, den guten Äpfeln, der guten Äpfel**. With nothing in front it shows the case itself: **gute Äpfel, mit guten Äpfeln, guter Äpfel**. **alle** counts as an article (**alle guten Freunde**, all the good friends); **viele** and a number don't (**viele gute Freunde**, many good friends; **zwei gute Freunde**).",
+          "sl": "Množina je za členom vedno **-en**: **die guten Äpfel, keine guten Äpfel, den guten Äpfeln, der guten Äpfel**. Kadar spredaj ni ničesar, sklon pokaže sama: **gute Äpfel, mit guten Äpfeln, guter Äpfel**. **alle** šteje kot člen (**alle guten Freunde**, vsi dobri prijatelji); **viele** in število ne (**viele gute Freunde**, veliko dobrih prijateljev; **zwei gute Freunde**).",
+          "it": "Il plurale dopo un articolo è sempre **-en**: **die guten Äpfel, keine guten Äpfel, den guten Äpfeln, der guten Äpfel**. Senza nulla davanti mostra il caso da solo: **gute Äpfel, mit guten Äpfeln, guter Äpfel**. **alle** conta come un articolo (**alle guten Freunde**, tutti i buoni amici); **viele** e un numero no (**viele gute Freunde**, molti buoni amici; **zwei gute Freunde**)."
+        },
+        "examples": [
+          {
+            "de": "Alle guten Freunde kommen.",
+            "en": "All the good friends are coming.",
+            "sl": "Pridejo vsi dobri prijatelji.",
+            "it": "Vengono tutti i buoni amici."
+          },
+          {
+            "de": "Viele gute Freunde kommen.",
+            "en": "Many good friends are coming.",
+            "sl": "Pride veliko dobrih prijateljev.",
+            "it": "Vengono molti buoni amici."
+          },
+          {
+            "de": "Mit zwei guten Freunden geht alles.",
+            "en": "With two good friends anything is possible.",
+            "sl": "Z dvema dobrima prijateljema gre vse.",
+            "it": "Con due buoni amici si può tutto."
+          },
+          {
+            "de": "Der Preis guter Äpfel ist hoch.",
+            "en": "The price of good apples is high.",
+            "sl": "Cena dobrih jabolk je visoka.",
+            "it": "Il prezzo delle mele buone è alto."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Plural · Nom., Akk.",
+              "sl": "množina · im., tož.",
+              "en": "plural · nom., acc.",
+              "it": "plurale · nom., acc."
+            },
+            "die guten",
+            "keine guten",
+            "gute"
+          ],
+          [
+            {
+              "de": "Plural · Dativ",
+              "sl": "množina · dajalnik",
+              "en": "plural · dative",
+              "it": "plurale · dativo"
+            },
+            "den guten",
+            "keinen guten",
+            "guten"
+          ],
+          [
+            {
+              "de": "Plural · Genitiv",
+              "sl": "množina · rodilnik",
+              "en": "plural · genitive",
+              "it": "plurale · genitivo"
+            },
+            "der guten",
+            "keiner guten",
+            "guter"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "prompt": "Stefan hat viele ___ Freunde. (gut)",
+          "options": [
+            "gute",
+            "guten",
+            "guter"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**viele is no article: the adjective shows the case**\n- viele gute Freunde · alle guten Freunde",
+            "sl": "**viele ni člen: sklon pokaže pridevnik**\n- viele gute Freunde · alle guten Freunde",
+            "it": "**viele non è un articolo: il caso lo mostra l'aggettivo**\n- viele gute Freunde · alle guten Freunde"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "So look left first. **der, die, das, den, dem, des, einen, einem, einer** show the case, so the adjective takes **-e** or **-en**. **ein, kein, mein** with no ending show nothing, and with nothing in front nothing shows it either, so the adjective does: **-er, -es, -e, -em**. Two adjectives take the same ending: **ein guter alter Freund** (a good old friend), **mit gutem altem Wein** (with good old wine).",
+          "sl": "Zato najprej poglej levo. **der, die, das, den, dem, des, einen, einem, einer** pokažejo sklon, zato ima pridevnik **-e** ali **-en**. **ein, kein, mein** brez končnice ne pokažejo ničesar, prav tako ne, če ni ničesar, zato sklon pokaže pridevnik: **-er, -es, -e, -em**. Dva pridevnika imata isto končnico: **ein guter alter Freund** (dober star prijatelj), **mit gutem altem Wein** (z dobrim starim vinom).",
+          "it": "Quindi guarda prima a sinistra. **der, die, das, den, dem, des, einen, einem, einer** mostrano il caso, quindi l'aggettivo ha **-e** o **-en**. **ein, kein, mein** senza desinenza non mostrano nulla, lo stesso se davanti non c'è niente, quindi lo mostra l'aggettivo: **-er, -es, -e, -em**. Due aggettivi hanno la stessa desinenza: **ein guter alter Freund** (un buon vecchio amico), **mit gutem altem Wein** (con del buon vino vecchio)."
+        },
+        "examples": [
+          {
+            "de": "Das ist mein guter alter Freund.",
+            "en": "This is my good old friend.",
+            "sl": "To je moj dobri stari prijatelj.",
+            "it": "È il mio buon vecchio amico."
+          },
+          {
+            "de": "Mein Freund kommt mit einem guten alten Wein.",
+            "en": "My friend is coming with a good old wine.",
+            "sl": "Moj prijatelj pride z dobrim starim vinom.",
+            "it": "Il mio amico arriva con un buon vino vecchio."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "prompt": "Toni trinkt Tee mit ___ Honig. (süß)",
+          "options": [
+            "süßem",
+            "süßen",
+            "süßer"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Nothing in front, dem Honig: -em**\n- mit süßem Honig · mit gutem Wein",
+            "sl": "**Spredaj ni ničesar, dem Honig: -em**\n- mit süßem Honig · mit gutem Wein",
+            "it": "**Davanti non c'è nulla, dem Honig: -em**\n- mit süßem Honig · mit gutem Wein"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "adjektiv-alle-faelle-1",
+      "title": {
+        "de": "Eine Tabelle für alle",
+        "en": "One table for all",
+        "sl": "Ena tabela za vse",
+        "it": "Una tabella per tutti"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "gut: the adjective with its ending",
+            "sl": "gut: pridevnik s končnico",
+            "it": "gut: l'aggettivo con la desinenza"
+          },
+          "columns": [
+            {
+              "en": "Nominativ · nominative",
+              "sl": "Nominativ · imenovalnik",
+              "it": "Nominativ · nominativo"
+            },
+            {
+              "en": "Akkusativ · accusative",
+              "sl": "Akkusativ · tožilnik",
+              "it": "Akkusativ · accusativo"
+            },
+            {
+              "en": "Dativ · dative",
+              "sl": "Dativ · dajalnik",
+              "it": "Dativ · dativo"
+            },
+            {
+              "en": "Genitiv · genitive",
+              "sl": "Genitiv · rodilnik",
+              "it": "Genitiv · genitivo"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ein Wein · einen, einem, eines",
+              "cells": [
+                "guter",
+                {
+                  "accept": [
+                    "guten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "guten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "guten"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ein Brot · ein, einem, eines",
+              "cells": [
+                {
+                  "accept": [
+                    "gutes"
+                  ]
+                },
+                "gutes",
+                {
+                  "accept": [
+                    "guten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "guten"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Milch, ohne Artikel",
+              "cells": [
+                {
+                  "accept": [
+                    "gute"
+                  ]
+                },
+                "gute",
+                {
+                  "accept": [
+                    "guter"
+                  ]
+                },
+                {
+                  "accept": [
+                    "guter"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Äpfel, ohne Artikel",
+              "cells": [
+                {
+                  "accept": [
+                    "gute"
+                  ]
+                },
+                "gute",
+                {
+                  "accept": [
+                    "guten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "guter"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The ending shows the case once**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "sl": "**Končnica pokaže sklon enkrat**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "it": "**La desinenza mostra il caso una volta**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Sortiere · Sort: which ending?",
+            "sl": "Sortiere · Razvrsti: katera končnica?",
+            "it": "Sortiere · Ordina: quale desinenza?"
+          },
+          "columns": [
+            {
+              "label": "-er",
+              "words": [
+                "ein … Mann",
+                "mit … Milch"
+              ]
+            },
+            {
+              "label": "-es",
+              "words": [
+                "mein … Auto",
+                "… Bier"
+              ]
+            },
+            {
+              "label": "-em",
+              "words": [
+                "mit … Wein",
+                "bei … Wetter"
+              ]
+            },
+            {
+              "label": "-en",
+              "words": [
+                "wegen des … Wetters",
+                "trotz der … Kälte"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The ending shows the case once**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "sl": "**Končnica pokaže sklon enkrat**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "it": "**La desinenza mostra il caso una volta**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-alle-faelle-2",
+      "title": {
+        "de": "Ein Brief an Marko",
+        "en": "A letter to Marko",
+        "sl": "Pismo Marku",
+        "it": "Una lettera a Marko"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Lieber Marko!",
+          "text": "Vielen Dank für den ___ (gut) Wein! Mit einem ___ (alt) Freund trinke ich ihn gern. Am Samstag feiern wir hier mit ___ (frisch) Most und ___ (warm) Brot. Komm mit deiner ___ (klein) Tochter! Die Farbe des ___ (neu) Traktors gefällt dir sicher. Alle ___ (jung) Leute aus dem Dorf kommen, und viele ___ (lustig) Musikanten auch.",
+          "gaps": [
+            {
+              "accept": [
+                "guten"
+              ],
+              "hint": "den Wein"
+            },
+            {
+              "accept": [
+                "alten"
+              ],
+              "hint": "einem Freund"
+            },
+            {
+              "accept": [
+                "frischem"
+              ],
+              "hint": "Most, der: dem"
+            },
+            {
+              "accept": [
+                "warmem"
+              ],
+              "hint": "Brot, das: dem"
+            },
+            {
+              "accept": [
+                "kleinen"
+              ],
+              "hint": "deiner Tochter"
+            },
+            {
+              "accept": [
+                "neuen"
+              ],
+              "hint": "des Traktors"
+            },
+            {
+              "accept": [
+                "jungen"
+              ],
+              "hint": "alle"
+            },
+            {
+              "accept": [
+                "lustige"
+              ],
+              "hint": "viele"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "guter",
+            "frischen",
+            "warmes"
+          ],
+          "translation": {
+            "en": "Thank you very much for the good wine! I like drinking it with an old friend. On Saturday we're celebrating here with fresh cider and warm bread. Come with your little daughter! You'll surely like the colour of the new tractor. All the young people from the village are coming, and many cheerful musicians too.",
+            "sl": "Lepa hvala za dobro vino! Rad ga pijem s starim prijateljem. V soboto tu praznujemo s svežim moštom in toplim kruhom. Pridi s svojo majhno hčerko! Barva novega traktorja ti bo gotovo všeč. Pridejo vsi mladi iz vasi in tudi veliko veselih godcev.",
+            "it": "Grazie mille per il buon vino! Lo bevo volentieri con un vecchio amico. Sabato festeggiamo qui con sidro fresco e pane caldo. Vieni con la tua figlia piccola! Il colore del trattore nuovo ti piacerà di sicuro. Vengono tutti i giovani del paese, e anche molti musicanti allegri."
+          },
+          "explain": {
+            "en": "**The ending shows the case once**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "sl": "**Končnica pokaže sklon enkrat**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "it": "**La desinenza mostra il caso una volta**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das ist der Hut eines ___ Mannes. (alt)",
+          "options": [
+            "alten",
+            "alter",
+            "altes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The genitive after an article: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines",
+            "sl": "**Rodilnik za členom: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines",
+            "it": "**Il genitivo dopo un articolo: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Viele ___ Leute kommen. (jung)",
+          "options": [
+            "junge",
+            "jungen",
+            "junger"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**viele is no article: -e**\n- viele junge Leute · alle jungen Leute",
+            "sl": "**viele ni člen: -e**\n- viele junge Leute · alle jungen Leute",
+            "it": "**viele non è un articolo: -e**\n- viele junge Leute · alle jungen Leute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-alle-faelle-3",
+      "title": {
+        "de": "Mit Adjektiv",
+        "en": "With an adjective",
+        "sl": "S pridevnikom",
+        "it": "Con l'aggettivo"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adjektiv-tabelle",
+          "instruction": {
+            "en": "Setze das Adjektiv ein · Put the adjective in",
+            "sl": "Setze das Adjektiv ein · Vstavi pridevnik",
+            "it": "Setze das Adjektiv ein · Inserisci l'aggettivo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das ist das Haus des Müllers. (alt)",
+              "accept": [
+                "Das ist das Haus des alten Müllers.",
+                "Das ist das alte Haus des Müllers."
+              ]
+            },
+            {
+              "from": "Kathi kommt mit einer Nachricht. (gut)",
+              "accept": [
+                "Kathi kommt mit einer guten Nachricht."
+              ]
+            },
+            {
+              "from": "Wir trinken Kaffee mit Milch. (warm)",
+              "accept": [
+                "Wir trinken Kaffee mit warmer Milch.",
+                "Wir trinken warmen Kaffee mit Milch."
+              ]
+            },
+            {
+              "from": "Viele Leute sind da. (jung)",
+              "accept": [
+                "Viele junge Leute sind da."
+              ]
+            },
+            {
+              "from": "Alle Freunde kommen. (gut)",
+              "accept": [
+                "Alle guten Freunde kommen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The ending shows the case once**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "sl": "**Končnica pokaže sklon enkrat**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+            "it": "**La desinenza mostra il caso una volta**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adjektiv-tabelle",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der Kirchtag",
+        "text": "Der ___ (schön) Kirchtag beginnt am Sonntag. Kathi hat einen ___ (groß) Tisch unter der Linde. Es gibt ___ (kalt) Bier und ___ (frisch) Kuchen. Trotz des ___ (schlecht) Wetters kommen alle ___ (alt) Freunde. Viele ___ (jung) Leute tanzen. Toni spielt mit einem ___ (gut) Freund Harmonika.",
+        "gaps": [
+          {
+            "accept": [
+              "schöne"
+            ],
+            "hint": "der"
+          },
+          {
+            "accept": [
+              "großen"
+            ],
+            "hint": "einen"
+          },
+          {
+            "accept": [
+              "kaltes"
+            ],
+            "hint": "Bier, das"
+          },
+          {
+            "accept": [
+              "frischen"
+            ],
+            "hint": "Kuchen, der: den"
+          },
+          {
+            "accept": [
+              "schlechten"
+            ],
+            "hint": "des Wetters"
+          },
+          {
+            "accept": [
+              "alten"
+            ],
+            "hint": "alle"
+          },
+          {
+            "accept": [
+              "junge"
+            ],
+            "hint": "viele"
+          },
+          {
+            "accept": [
+              "guten"
+            ],
+            "hint": "einem"
+          }
+        ],
+        "translation": {
+          "en": "The lovely Kirchtag begins on Sunday. Kathi has a big table under the linden tree. There's cold beer and fresh cake. Despite the bad weather all the old friends are coming. Many young people are dancing. Toni is playing the accordion with a good friend.",
+          "sl": "Lepo žegnanje se začne v nedeljo. Kathi ima pod lipo veliko mizo. Na voljo sta hladno pivo in svež kolač. Kljub slabemu vremenu pridejo vsi stari prijatelji. Veliko mladih pleše. Toni z dobrim prijateljem igra na harmoniko.",
+          "it": "La bella sagra comincia domenica. Kathi ha un grande tavolo sotto il tiglio. C'è birra fredda e torta fresca. Nonostante il brutto tempo vengono tutti i vecchi amici. Molti giovani ballano. Toni suona la fisarmonica con un buon amico."
+        },
+        "explain": {
+          "en": "**The ending shows the case once**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+          "sl": "**Končnica pokaže sklon enkrat**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+          "it": "**La desinenza mostra il caso una volta**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adjektiv-tabelle",
+        "instruction": {
+          "en": "Setze das Adjektiv ein · Put the adjective in",
+          "sl": "Setze das Adjektiv ein · Vstavi pridevnik",
+          "it": "Setze das Adjektiv ein · Inserisci l'aggettivo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Die Farbe des Hauses ist weiß. (neu)",
+            "accept": [
+              "Die Farbe des neuen Hauses ist weiß.",
+              "Die neue Farbe des Hauses ist weiß."
+            ]
+          },
+          {
+            "from": "Stefan isst Brot mit Käse. (frisch)",
+            "accept": [
+              "Stefan isst Brot mit frischem Käse.",
+              "Stefan isst frisches Brot mit Käse."
+            ]
+          },
+          {
+            "from": "Das ist ein Freund. (alt)",
+            "accept": [
+              "Das ist ein alter Freund."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**The ending shows the case once**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+          "sl": "**Končnica pokaže sklon enkrat**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines",
+          "it": "**La desinenza mostra il caso una volta**\n- der gute Wein · ein guter Wein · guter Wein · mit gutem Wein · des guten Weines"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-tabelle",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Oma Resi kocht mit ___ Butter. (frisch)",
+        "options": [
+          "frischer",
+          "frische",
+          "frischem"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Nothing in front, der Butter: -er**\n- mit frischer Butter · mit warmer Milch",
+          "sl": "**Spredaj ni ničesar, der Butter: -er**\n- mit frischer Butter · mit warmer Milch",
+          "it": "**Davanti non c'è nulla, der Butter: -er**\n- mit frischer Butter · mit warmer Milch"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-tabelle",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das ist das Auto einer ___ Frau. (jung)",
+        "options": [
+          "jungen",
+          "junge",
+          "junger"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The genitive after an article: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines",
+          "sl": "**Rodilnik za členom: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines",
+          "it": "**Il genitivo dopo un articolo: -en**\n- des neuen Traktors · der alten Frau · eines guten Weines"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: wegen schlechten Wetters; mit gutem altem Wein; a letter's Lieber Marko; Slovene dobri stari prijatelj, godci"
+}
