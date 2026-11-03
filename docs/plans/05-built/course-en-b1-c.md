@@ -93,6 +93,8 @@ As COURSE.md "Writing a unit" and "The English course", plus what these six foun
 - **Two columns hold 12 letters, one holds 18**: would have come and hadn't rained took tables of one column; wouldn't have stayed (20) became wouldn't have gone.
 - **A bracketed translation is one sentence**, again: (Es regnete. Trotzdem gingen wir.) printed cut.
 - **A first sentence with a form**, or the print loses the point: reported-questions' step on what people say opens with what writing wants.
+- **Direct speech in “…”**: a straight double quote can't be read by QA (Checks).
+- **Rows of the intro's table count on a phone**: three columns of sentences take three lines a row; past about eight, two columns.
 - **An independent read paid**: a fresh agent reading only the English found gaps lacking could and might, wrong options that were right (She must be in the barn, the bus was), Irish He does be sleeping, Jack's van that was Sam's, and a next week said on the same day.
 
 ## Read aloud
@@ -101,7 +103,16 @@ Mrs Hartley reads the intros in the cast's teacher voice. A voice build of the s
 
 ## Checks
 
-CHECKS
+On the units as written, before integrating (main not merged, parts a and b not in):
+
+- `bunx tsc --noEmit -p .` clean. `tutor-export --check`: 89 files match. The smoke with ports 10150– (LANI_SMOKE_DRAMA3_PORT 10168): 3,521 checks, all passed.
+- Android, through lani-slot.sh, the course's and the grading's classes only: 167 tests, 0 failures (`EnglishB1cContentTest` 12, `EnglishCourseContentTest`, `CourseContentTest`, `EnglishA2a`, `b`, `c`, `GermanCourseContentTest`, `ItalianCourseContentTest`, `GradingLanguagesTest`, `GradingNonstandardTest`, `GradingTest`, `SpeechGradingTest`, `SchoolBoardTest`, `IntroBoldTapTest`, `IntroSpeechParityTest`). **Not the whole suite:** that comes with the integration.
+- `school-prints --language en --level B1 --base de|sl|it --units` the six: all fit in every base, the booklet 13 pages each. `reported-speech` on one page, the others on two. Read: `reported-speech`'s sheet from German, the "Watch out" pairs and rule lines of all six from German.
+- Each unit's meanings, bold forms, cell lengths and two-sentence brackets by a script of the part's, with the bridge's `validateUnit`, `validateGrammar` and the print's `Dictionary`: every sheet word has its meaning in sl, de and it, every word of the exercises an entry but the cast's names.
+- **Emulator** (`course-unit` through qa-slot, a 1080 × 2400 phone, Ana, a synthetic learner of English from German in the Lake District): `reported-speech` whole: the school, the unit, the six steps and their quick questions, the summary, the sheets, the test passed 12/12, the print's preview and PDF, ✅ setup, ✅ course-unit, ✅ crash check. Screenshots: the scratchpad's ux-course-en-b1-c/reported-speech/. **Not seen on a screen:** the other five units, Slovene and Italian, a `spoken` label or a nonstandard line (QA answers right; the verdicts are unit tests).
+- Two runs failed first, and each told something: **bin/qa can't read a text with a straight double quote**, because uiautomator's serializer writes such an attribute in single quotes and `nodes()` reads double ones, so `course-unit` never found the question; the units now use “…”. And twelve rows of three-line cells put the quick question more than three swipes under the bubble: `reported-speech`'s intro table went to two columns.
+- An independent read of the English by one fresh agent: acted on as the commit 10183e42 says. **Not taken:** the kept tense stays `spoken` on the sheets (a label that points at the step back, though it isn't only spoken; a cloze, which has no `spoken`, takes it in `accept`).
+- Tap counts: no journey changed.
 
 ## What's left
 
