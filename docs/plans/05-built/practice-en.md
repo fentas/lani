@@ -161,7 +161,7 @@ in the Lake District's world (the fells, the beck, the tarn, the Packhorse, the 
 | Drill | File | What is in it |
 |---|---|---|
 | 🔄 Transformations | `preobrat.json` | 302 items in 21 sets, the easiest first, one set a rule of the grammar book. A1 (95): plural (My tooth hurts. → My teeth hurt.), he or she (-s), say no, ask, now (-ing), yesterday (was, were). A2 (73): into the past, ask about the past (did), going to, make it more (than), ever and never. B1 (68): the passive, report it, if it were so, used to, how long (for, since). B2 (64): should have, I wish, have it done, It was … who, it is said. A set of a rule the learner hasn't met isn't played. |
-| ⚡ Rapid fire | `hitri-odziv.json` | The numbers 1 to 100 and 26 from 101 to 999, generated as the bridge and the app count them (twenty-one, one hundred and five); the clock (It's half past five.), at what time, days, when (On Monday. At the weekend. In the morning.), months, dates (The first of May.), and an A2 set of minutes (It's twenty to four.): 148 listed, the clock's, days' and dates' sets on `time-dates`. |
+| ⚡ Rapid fire | `hitri-odziv.json` | The numbers 1 to 100 and 26 from 101 to 999, generated as the bridge and the app count them (twenty-one, one hundred and five); the clock (It's half past five.), at what time, days, when (On Monday. At the weekend. In the morning.), months, dates (The first of May.), an A2 set of minutes (It's twenty to four.), B1's years and centuries (Nineteen oh five., In the eighteenth century.) and B2's numbers as the news says them (Three point five per cent., Two thirds., Half a million.): 179 listed, the clock's, days' and dates' sets on `time-dates`. Each of the four reaches B2, as the smoke now holds every language's. |
 | 🧱 Sentence building | `gradnja.json` | 80 sentences grown in 3 or 4 steps ("Old Wilf tells a story." → "… the children a story." → "… under the oak." → "Every evening …"): 40 A1, 16 A2, 12 B1, 12 B2, each B1/B2 one naming its page (relative clauses, the passive, the conditionals, past modals, participle clauses …). |
 | 🕵️ Riddles | `uganke.json` | 53 riddles told by Old Wilf (`teller: wilf`): 32 A1, 10 A2, 7 B1, 4 B2; 44 are words of the Lake District's and the English packs (every id checked), 9 are villagers (one is Wilf himself). |
 
@@ -216,11 +216,11 @@ drills by `drillTexts`, the modules' options read aloud and their `say`):
 |---|---|---|---|
 | Drills A1 | – | 16,039 | the narrator (`female`, Alice) |
 | Drills A2 | – | 7,942 | the narrator |
-| Drills B1 | – | 7,177 | the narrator |
-| Drills B2 | – | 6,128 | the narrator |
-| **All the drills** | 1,399 | 37,286 (the narrator 30,668; the riddles 6,618 in Old Wilf's speaker, `grandpa`, George) | |
+| Drills B1 | – | 7,477 | the narrator |
+| Drills B2 | – | 6,438 | the narrator |
+| **All the drills** | 1,430 | 37,896 (the narrator 31,278; the riddles 6,618 in Old Wilf's speaker, `grandpa`, George) | |
 | The modules (`say`, options read aloud) | 350 | 5,328 | the narrator |
-| **Together** | 1,749 | 42,614, about 21,300 credits on `eleven_v4_turbo` (`MODEL_CREDITS` 0.5) | |
+| **Together** | 1,780 | 43,224, about 21,600 credits on `eleven_v4_turbo` (`MODEL_CREDITS` 0.5) | |
 
 An upper bound: a text the store already has isn't made again. The numbers module's own words aren't in the corpus: they are
 made when heard, on demand (`POST /voice/say`), as Italian's. The speakers a build needs: the Lake District's `female` (the
@@ -230,7 +230,16 @@ Until then the road leaves the four drills out and "Več · More" names them as 
 
 ## Checks
 
-On this branch (main f9339ab8 has not moved since it started, so the merge with main is the same tree):
+**On the merge with `practice-de`** (a80353ef, which holds main 7b1e5134 with Italian's practice to B2 and German's practice;
+kept both everywhere, bin/qa as practice-de's with `practice_en` inserted whole, every practice function identical to its
+branch's): `tsc`; `check-practice.ts` for it, de and en (all good); the smoke's practice section on its own (all its checks);
+`tutor-export --check`; Python `tests` and `companion/tests` OK; the smoke (all 3,762 checks passed); the practice Android tests, 130, all pass (EnglishPracticeTest, GermanPracticeTest, ItalianPracticeTest, NumbersEnglishTest,
+NumbersGermanTest, NumbersItalianTest, NumbersPracticeTest, L10nTablesTest, DrillsTest, RoadDrillsTest, RoadMenuTest,
+CuratedPaceTest, QaHooksTest).
+The merge's smoke holds every language's four drills to B2 with a rapid set at every level, so English's rapid fire got B1's
+years and B2's news numbers (4639647). The full Android suite was run before this merge (below), not after it.
+
+Before it, on this branch from main f9339ab8 (before the merges with main e6209062 and practice-de):
 
 - Bridge: `tsc`; `bun build --no-bundle` of the two changed test files; the smoke (ports 10570–10589: all 3,728 checks passed); its practice section on its own
   (all its checks: 12 of English's modules, 13 of its drills, Italian's unchanged); `bun test/check-practice.ts en` (all good);
