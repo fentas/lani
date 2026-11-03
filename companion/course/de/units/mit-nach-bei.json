@@ -1,0 +1,1054 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "mit-nach-bei",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🚌",
+  "title": {
+    "de": "Mit dem Bus nach Villach",
+    "en": "Prepositions with the dative: mit, nach, bei",
+    "sl": "Predlogi z dajalnikom: mit, nach, bei",
+    "it": "Preposizioni col dativo: mit, nach, bei"
+  },
+  "goal": {
+    "en": "You can say how you travel, where you go, where from and since when (Mit dem Bus nach Villach. Stefan ist beim Arzt. Seit zwei Jahren.): aus, bei, mit, nach, seit, von, zu with the dative.",
+    "sl": "Poveš, kako potuješ, kam greš, od kod prihajaš in od kdaj (Mit dem Bus nach Villach. Stefan ist beim Arzt. Seit zwei Jahren.): aus, bei, mit, nach, seit, von, zu z dajalnikom.",
+    "it": "Sai dire come viaggi, dove vai, da dove vieni e da quando (Mit dem Bus nach Villach. Stefan ist beim Arzt. Seit zwei Jahren.): aus, bei, mit, nach, seit, von, zu col dativo."
+  },
+  "grammar": [
+    "praepositionen-dativ",
+    "dativ"
+  ],
+  "words": [
+    "aus",
+    "bei",
+    "mit",
+    "nach",
+    "seit",
+    "von",
+    "zu",
+    "zum",
+    "zur",
+    "beim",
+    "vom",
+    "der Bus",
+    "die Bahn",
+    "der Traktor",
+    "der Arzt",
+    "die Ärztin",
+    "die Post",
+    "der Bäcker",
+    "die Arbeit",
+    "das Essen",
+    "das Jahr",
+    "die Woche",
+    "das Rad",
+    "der Brief",
+    "daheim",
+    "zuhause",
+    "nach Hause",
+    "zu Hause",
+    "wohnen",
+    "die Früh",
+    "das Sackerl",
+    "die Schule",
+    "der Sommer",
+    "der Ball",
+    "zuerst",
+    "die Küche"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Präposition",
+          "en": "preposition",
+          "sl": "predlog",
+          "it": "preposizione"
+        },
+        {
+          "de": "der, das → dem",
+          "en": "der, das → dem",
+          "sl": "der, das → dem",
+          "it": "der, das → dem"
+        },
+        {
+          "de": "die → der",
+          "en": "die → der",
+          "sl": "die → der",
+          "it": "die → der"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**mit** (with, by) always takes the dative: **mit dem Bus** (by bus), **mit der Bahn** (by train), **mit Stefan**, **mit mir** (with me). **Ich fahre mit dem Bus nach Villach.** (I'm going to Villach by bus.)",
+          "sl": "**mit** (z, s) ima vedno dajalnik: **mit dem Bus** (z avtobusom), **mit der Bahn** (z vlakom), **mit Stefan**, **mit mir** (z mano). **Ich fahre mit dem Bus nach Villach.** (Z avtobusom grem v Beljak.)",
+          "it": "**mit** (con, in) vuole sempre il dativo: **mit dem Bus** (in autobus), **mit der Bahn** (in treno), **mit Stefan**, **mit mir** (con me). **Ich fahre mit dem Bus nach Villach.** (Vado a Villach in autobus.)"
+        },
+        "examples": [
+          {
+            "de": "Stefan fährt mit dem Traktor.",
+            "en": "Stefan is driving the tractor.",
+            "sl": "Stefan se vozi s traktorjem.",
+            "it": "Stefan va col trattore."
+          },
+          {
+            "de": "Die Kinder spielen mit dem Ball.",
+            "en": "The children are playing with the ball.",
+            "sl": "Otroci se igrajo z žogo.",
+            "it": "I bambini giocano con il pallone."
+          },
+          {
+            "de": "Kommst du mit mir, {learner}?",
+            "en": "Are you coming with me, {learner}?",
+            "sl": "Greš z mano, {learner}?",
+            "it": "Vieni con me, {learner}?"
+          }
+        ],
+        "rows": [
+          [
+            "mit",
+            "mit dem Bus",
+            "mit der Bahn"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-dativ",
+          "prompt": "Stefan fährt mit ___ Traktor.",
+          "options": [
+            "dem",
+            "den",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**mit + dative: dem**\n- Stefan fährt mit dem Traktor.",
+            "sl": "**mit + dajalnik: dem**\n- Stefan fährt mit dem Traktor.",
+            "it": "**mit + dativo: dem**\n- Stefan fährt mit dem Traktor."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**aus** (out of, from) says where from; **nach** (to) goes to a town or a country: **Ich komme aus Villach. Wir fahren nach Italien.** **nach** also means after: **nach dem Essen** (after the meal). **aus dem Haus** is out of the house.",
+          "sl": "**aus** (iz) pove, od kod; **nach** (v) gre v mesto ali državo: **Ich komme aus Villach. Wir fahren nach Italien.** (Sem iz Beljaka. Gremo v Italijo.) **nach** pomeni tudi po: **nach dem Essen** (po jedi). **aus dem Haus** je iz hiše.",
+          "it": "**aus** (da, fuori da) dice da dove; **nach** (a, in) va in una città o in un paese: **Ich komme aus Villach. Wir fahren nach Italien.** (Vengo da Villach. Andiamo in Italia.) **nach** significa anche dopo: **nach dem Essen** (dopo mangiato). **aus dem Haus** è fuori di casa."
+        },
+        "examples": [
+          {
+            "de": "Herr Rossi kommt aus Udine.",
+            "en": "Herr Rossi comes from Udine.",
+            "sl": "Gospod Rossi je iz Vidma.",
+            "it": "Il signor Rossi viene da Udine."
+          },
+          {
+            "de": "Stanko fährt nach Slowenien.",
+            "en": "Stanko is going to Slovenia.",
+            "sl": "Stanko gre v Slovenijo.",
+            "it": "Stanko va in Slovenia."
+          },
+          {
+            "de": "Nach dem Essen trinkt Kathi einen Kaffee.",
+            "en": "After the meal Kathi has a coffee.",
+            "sl": "Po jedi Kathi spije kavo.",
+            "it": "Dopo mangiato Kathi beve un caffè."
+          }
+        ],
+        "rows": [
+          [
+            "aus",
+            "aus dem Haus",
+            "aus der Küche"
+          ],
+          [
+            "nach",
+            "nach dem Essen",
+            "nach der Arbeit"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praepositionen-dativ",
+          "text": "Herr Rossi kommt ___ Italien.",
+          "accept": [
+            "aus"
+          ],
+          "hint": "Woher?",
+          "explain": {
+            "en": "**Where from? aus**\n- Herr Rossi kommt aus Italien.",
+            "sl": "**Od kod? aus**\n- Herr Rossi kommt aus Italien.",
+            "it": "**Da dove? aus**\n- Herr Rossi kommt aus Italien."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**zu** (to) goes to a person or a building, **von** (from, of) comes from one: **zu Kathi**, **zum Arzt** (to the doctor's), **zur Post** (to the post office), **von Kathi**, **vom Bäcker** (from the baker's). **zum** is zu dem, **zur** zu der, **vom** von dem.",
+          "sl": "**zu** (k, na) gre k osebi ali stavbi, **von** (od) pride od nje: **zu Kathi**, **zum Arzt** (k zdravniku), **zur Post** (na pošto), **von Kathi**, **vom Bäcker** (od peka). **zum** je zu dem, **zur** zu der, **vom** von dem.",
+          "it": "**zu** (da, a) va da una persona o a un edificio, **von** (da, di) viene da lì: **zu Kathi**, **zum Arzt** (dal medico), **zur Post** (alla posta), **von Kathi**, **vom Bäcker** (dal fornaio). **zum** è zu dem, **zur** zu der, **vom** von dem."
+        },
+        "examples": [
+          {
+            "de": "Stefan geht zum Arzt.",
+            "en": "Stefan is going to the doctor's.",
+            "sl": "Stefan gre k zdravniku.",
+            "it": "Stefan va dal medico."
+          },
+          {
+            "de": "Lena läuft zur Schule.",
+            "en": "Lena is running to school.",
+            "sl": "Lena teče v šolo.",
+            "it": "Lena corre a scuola."
+          },
+          {
+            "de": "Der Honig ist von Stanko.",
+            "en": "The honey is from Stanko.",
+            "sl": "Med je od Stanka.",
+            "it": "Il miele è di Stanko."
+          },
+          {
+            "de": "Die Schafe kommen von der Alm.",
+            "en": "The sheep are coming from the alpine pasture.",
+            "sl": "Ovce prihajajo s planine.",
+            "it": "Le pecore tornano dall'alpeggio."
+          }
+        ],
+        "rows": [
+          [
+            "zu",
+            "zum Arzt",
+            "zur Post"
+          ],
+          [
+            "von",
+            "vom Bäcker",
+            "von der Alm"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-dativ",
+          "prompt": "Kathi geht ___ Bäcker.",
+          "options": [
+            "zum",
+            "zur",
+            "nach"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Bäcker, to a person: zum**\n- Kathi geht zum Bäcker.",
+            "sl": "**der Bäcker, k osebi: zum**\n- Kathi geht zum Bäcker.",
+            "it": "**der Bäcker, da una persona: zum**\n- Kathi geht zum Bäcker."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**bei** (at, at someone's) says where: **bei Oma Resi** (at Grandma Resi's), **beim Arzt** (at the doctor's), **bei der Arbeit** (at work). One place, three questions: Wo? **bei Kathi** · Wohin? **zu Kathi** · Woher? **von Kathi**.",
+          "sl": "**bei** (pri) pove, kje: **bei Oma Resi** (pri babici Resi), **beim Arzt** (pri zdravniku), **bei der Arbeit** (pri delu). En kraj, tri vprašanja, kot pri, k, od: Wo? **bei Kathi** · Wohin? **zu Kathi** · Woher? **von Kathi**.",
+          "it": "**bei** (da, presso) dice dove: **bei Oma Resi** (da nonna Resi), **beim Arzt** (dal medico), **bei der Arbeit** (al lavoro). Un luogo, tre domande, dove l'italiano dice sempre da: Wo? **bei Kathi** · Wohin? **zu Kathi** · Woher? **von Kathi**."
+        },
+        "examples": [
+          {
+            "de": "Jakob ist heute bei Opa Franz.",
+            "en": "Jakob is at Grandpa Franz's today.",
+            "sl": "Jakob je danes pri dedku Franzu.",
+            "it": "Oggi Jakob è da nonno Franz."
+          },
+          {
+            "de": "Stefan ist beim Arzt.",
+            "en": "Stefan is at the doctor's.",
+            "sl": "Stefan je pri zdravniku.",
+            "it": "Stefan è dal medico."
+          }
+        ],
+        "rows": [
+          [
+            "bei",
+            "beim Arzt",
+            "bei der Arbeit"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-dativ",
+          "prompt": "Wo ist Lena? – ___ Oma Resi.",
+          "options": [
+            "Bei",
+            "Zu",
+            "Nach"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wo? bei**\n- Lena ist bei Oma Resi.",
+            "sl": "**Kje? bei**\n- Lena ist bei Oma Resi.",
+            "it": "**Dove? bei**\n- Lena ist bei Oma Resi."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**seit** (since, for) with the present says what began and still goes on: **Ich wohne seit zwei Jahren hier.** (I've lived here for two years.) The plural dative again: **seit zwei Jahren**, **seit drei Tagen**; and **seit einer Woche** (for a week), **seit Montag**.",
+          "sl": "**seit** (že, od) s sedanjikom pove, kaj se je začelo in še traja: **Ich wohne seit zwei Jahren hier.** (Tu živim že dve leti.) Spet dajalnik množine: **seit zwei Jahren**, **seit drei Tagen**; in **seit einer Woche** (že en teden), **seit Montag** (od ponedeljka).",
+          "it": "**seit** (da) col presente dice ciò che è cominciato e continua, come in italiano: **Ich wohne seit zwei Jahren hier.** (Abito qui da due anni.) Di nuovo il dativo plurale: **seit zwei Jahren**, **seit drei Tagen**; e **seit einer Woche** (da una settimana), **seit Montag** (da lunedì)."
+        },
+        "examples": [
+          {
+            "de": "Kathi hat das Gasthaus seit zehn Jahren.",
+            "en": "Kathi has had the inn for ten years.",
+            "sl": "Kathi ima gostilno že deset let.",
+            "it": "Kathi ha l'osteria da dieci anni."
+          },
+          {
+            "de": "Florian ist seit Montag auf der Alm.",
+            "en": "Florian has been on the alpine pasture since Monday.",
+            "sl": "Florian je od ponedeljka na planini.",
+            "it": "Florian è all'alpeggio da lunedì."
+          }
+        ],
+        "rows": [
+          [
+            "seit",
+            "seit dem Sommer",
+            "seit der Früh"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praepositionen-dativ",
+          "text": "Florian ist seit zwei ___ auf der Alm. (Woche)",
+          "accept": [
+            "Wochen"
+          ],
+          "hint": {
+            "en": "the plural dative",
+            "sl": "dajalnik množine",
+            "it": "il dativo plurale"
+          },
+          "explain": {
+            "en": "**seit + the plural: zwei Wochen**\n- Florian ist seit zwei Wochen auf der Alm.",
+            "sl": "**seit + množina: zwei Wochen**\n- Florian ist seit zwei Wochen auf der Alm.",
+            "it": "**seit + plurale: zwei Wochen**\n- Florian ist seit zwei Wochen auf der Alm."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**nach Hause** (home) answers wohin?, **zu Hause** (at home) answers wo?: **Ich gehe nach Hause. Ich bin zu Hause.** Austria also says **daheim** (at home), and it's also written **zuhause**. You'll hear **nach Haus** and **zu Haus** too: they're right.",
+          "sl": "**nach Hause** (domov) odgovarja na wohin?, **zu Hause** (doma) na wo?: **Ich gehe nach Hause. Ich bin zu Hause.** Avstrija reče tudi **daheim** (doma), piše pa se tudi **zuhause**. Slišiš tudi **nach Haus** in **zu Haus**: prav je.",
+          "it": "**nach Hause** (a casa, moto) risponde a wohin?, **zu Hause** (a casa, stato) a wo?: **Ich gehe nach Hause. Ich bin zu Hause.** L'Austria dice anche **daheim** (a casa), e si scrive anche **zuhause**. Si sentono anche **nach Haus** e **zu Haus**: vanno bene."
+        },
+        "examples": [
+          {
+            "de": "Am Abend geht Toni nach Hause.",
+            "en": "In the evening Toni goes home.",
+            "sl": "Zvečer gre Toni domov.",
+            "it": "La sera Toni va a casa."
+          },
+          {
+            "de": "Bist du zu Hause? – Ja, ich bin daheim.",
+            "en": "Are you at home? – Yes, I'm at home.",
+            "sl": "Si doma? – Da, doma sem.",
+            "it": "Sei a casa? – Sì, sono a casa."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-dativ",
+          "prompt": "Am Abend geht Toni ___.",
+          "options": [
+            "nach Hause",
+            "zu Hause",
+            "bei Hause"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wohin? nach Hause**\n- Am Abend geht Toni nach Hause.",
+            "sl": "**Kam? nach Hause**\n- Am Abend geht Toni nach Hause.",
+            "it": "**Verso dove? nach Hause**\n- Am Abend geht Toni nach Hause."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Always the dative: **aus, bei, mit, nach, seit, von, zu**. **mit dem Bus, von der Alm, seit zwei Jahren.**\n\n**zum** (zu dem), **zur** (zu der), **beim** (bei dem), **vom** (von dem).\n\nWo? **bei Kathi** · Wohin? **zu Kathi** · Woher? **von Kathi**. A town: **nach Villach**, **aus Villach**.\n\n**nach Hause** (Wohin?), **zu Hause** (Wo?), **daheim**.",
+      "sl": "Vedno dajalnik: **aus, bei, mit, nach, seit, von, zu**. **mit dem Bus, von der Alm, seit zwei Jahren.**\n\n**zum** (zu dem), **zur** (zu der), **beim** (bei dem), **vom** (von dem).\n\nWo? **bei Kathi** · Wohin? **zu Kathi** · Woher? **von Kathi**. Mesto: **nach Villach**, **aus Villach**.\n\n**nach Hause** (kam?), **zu Hause** (kje?), **daheim**.",
+      "it": "Sempre il dativo: **aus, bei, mit, nach, seit, von, zu**. **mit dem Bus, von der Alm, seit zwei Jahren.**\n\n**zum** (zu dem), **zur** (zu der), **beim** (bei dem), **vom** (von dem).\n\nWo? **bei Kathi** · Wohin? **zu Kathi** · Woher? **von Kathi**. Una città: **nach Villach**, **aus Villach**.\n\n**nach Hause** (moto), **zu Hause** (stato), **daheim**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "mit-nach-bei-1",
+      "title": {
+        "de": "Mit dem Bus, zum Arzt",
+        "en": "By bus, to the doctor's",
+        "sl": "Z avtobusom, k zdravniku",
+        "it": "In autobus, dal medico"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "praepositionen-dativ",
+          "instruction": {
+            "en": "Ergänze den Dativ · Fill in the dative",
+            "sl": "Ergänze den Dativ · Dopolni dajalnik",
+            "it": "Ergänze den Dativ · Completa con il dativo"
+          },
+          "prompt": {
+            "en": "preposition + noun",
+            "sl": "predlog + samostalnik",
+            "it": "preposizione + nome"
+          },
+          "columns": [
+            {
+              "en": "mit dem Dativ · with the dative",
+              "sl": "mit dem Dativ · z dajalnikom",
+              "it": "mit dem Dativ · con il dativo"
+            }
+          ],
+          "rows": [
+            {
+              "label": "mit + der Bus",
+              "cells": [
+                {
+                  "accept": [
+                    "mit dem Bus"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "von + die Alm",
+              "cells": [
+                {
+                  "accept": [
+                    "von der Alm"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "zu + der Arzt",
+              "cells": [
+                {
+                  "accept": [
+                    "zum Arzt",
+                    "zu dem Arzt"
+                  ],
+                  "hint": {
+                    "en": "a short form",
+                    "sl": "kratka oblika",
+                    "it": "una forma breve"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "zu + die Post",
+              "cells": [
+                {
+                  "accept": [
+                    "zur Post",
+                    "zu der Post"
+                  ],
+                  "hint": {
+                    "en": "a short form",
+                    "sl": "kratka oblika",
+                    "it": "una forma breve"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "bei + der Bäcker",
+              "cells": [
+                {
+                  "accept": [
+                    "beim Bäcker",
+                    "bei dem Bäcker"
+                  ],
+                  "hint": {
+                    "en": "a short form",
+                    "sl": "kratka oblika",
+                    "it": "una forma breve"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "von + der Bäcker",
+              "cells": [
+                {
+                  "accept": [
+                    "vom Bäcker",
+                    "von dem Bäcker"
+                  ],
+                  "hint": {
+                    "en": "a short form",
+                    "sl": "kratka oblika",
+                    "it": "una forma breve"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "seit + zwei Jahre",
+              "cells": [
+                {
+                  "accept": [
+                    "seit zwei Jahren"
+                  ],
+                  "hint": {
+                    "en": "the plural: den + -n",
+                    "sl": "množina: den + -n",
+                    "it": "il plurale: den + -n"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "mit + die Kinder",
+              "cells": [
+                {
+                  "accept": [
+                    "mit den Kindern"
+                  ],
+                  "hint": {
+                    "en": "the plural: den + -n",
+                    "sl": "množina: den + -n",
+                    "it": "il plurale: den + -n"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Always the dative: dem, der, den + -n**",
+            "sl": "**Vedno dajalnik: dem, der, den + -n**",
+            "it": "**Sempre il dativo: dem, der, den + -n**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "praepositionen-dativ",
+          "instruction": {
+            "en": "Ordne zu: Wo? Wohin? Woher? · Sort: where? where to? where from?",
+            "sl": "Ordne zu: Wo? Wohin? Woher? · Razvrsti: kje? kam? od kod?",
+            "it": "Ordne zu: Wo? Wohin? Woher? · Metti in ordine: dove? verso dove? da dove?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Wo? · where?",
+                "sl": "Wo? · kje?",
+                "it": "Wo? · dove?"
+              },
+              "words": [
+                "bei Kathi",
+                "beim Arzt"
+              ]
+            },
+            {
+              "label": {
+                "en": "Wohin? · where to?",
+                "sl": "Wohin? · kam?",
+                "it": "Wohin? · verso dove?"
+              },
+              "words": [
+                "zu Kathi",
+                "nach Villach"
+              ]
+            },
+            {
+              "label": {
+                "en": "Woher? · where from?",
+                "sl": "Woher? · od kod?",
+                "it": "Woher? · da dove?"
+              },
+              "words": [
+                "von Kathi",
+                "aus Villach"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**bei: wo? · zu, nach: wohin? · von, aus: woher?**",
+            "sl": "**bei: kje? · zu, nach: kam? · von, aus: od kod?**",
+            "it": "**bei: dove? · zu, nach: verso dove? · von, aus: da dove?**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mit-nach-bei-2",
+      "title": {
+        "de": "Stefan fährt nach Villach",
+        "en": "Stefan goes to Villach",
+        "sl": "Stefan gre v Beljak",
+        "it": "Stefan va a Villach"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "praepositionen-dativ",
+          "instruction": {
+            "en": "Ergänze die Präposition · Fill in the preposition",
+            "sl": "Ergänze die Präposition · Dopolni predlog",
+            "it": "Ergänze die Präposition · Completa con la preposizione"
+          },
+          "title": "Stefan fährt nach Villach",
+          "text": "Am Montag fährt Stefan ___ dem Traktor ___ Villach. Zuerst geht er ___ Arzt, dann ___ Post. Den Arzt kennt er ___ zehn Jahren. Dann, ___ dem Essen, kauft er Brot ___ Bäcker. Am Abend fährt er ___ Hause. Seine Mutter ist ___ Hause. Sie nimmt das Brot ___ dem Sackerl.",
+          "gaps": [
+            {
+              "accept": [
+                "mit"
+              ],
+              "hint": {
+                "en": "How? By what?",
+                "sl": "S čim?",
+                "it": "Con che cosa?"
+              }
+            },
+            {
+              "accept": [
+                "nach"
+              ],
+              "hint": {
+                "en": "a town",
+                "sl": "mesto",
+                "it": "una città"
+              }
+            },
+            {
+              "accept": [
+                "zum",
+                "zu dem"
+              ],
+              "hint": "der Arzt"
+            },
+            {
+              "accept": [
+                "zur",
+                "zu der"
+              ],
+              "hint": "die Post"
+            },
+            {
+              "accept": [
+                "seit"
+              ],
+              "hint": {
+                "en": "how long?",
+                "sl": "koliko časa?",
+                "it": "da quanto tempo?"
+              }
+            },
+            {
+              "accept": [
+                "nach"
+              ],
+              "hint": {
+                "en": "after",
+                "sl": "po",
+                "it": "dopo"
+              }
+            },
+            {
+              "accept": [
+                "beim",
+                "bei dem"
+              ],
+              "hint": "Wo? der Bäcker"
+            },
+            {
+              "accept": [
+                "nach"
+              ],
+              "hint": "Wohin?"
+            },
+            {
+              "accept": [
+                "zu"
+              ],
+              "hint": "Wo?"
+            },
+            {
+              "accept": [
+                "aus"
+              ],
+              "hint": {
+                "en": "out of",
+                "sl": "iz",
+                "it": "fuori da"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "von",
+            "bei"
+          ],
+          "translation": {
+            "en": "On Monday Stefan goes to Villach by tractor. First he goes to the doctor's, then to the post office. He has known the doctor for ten years. Then, after the meal, he buys bread at the baker's. In the evening he goes home. His mother is at home. She takes the bread out of the bag.",
+            "sl": "V ponedeljek se Stefan s traktorjem odpelje v Beljak. Najprej gre k zdravniku, nato na pošto. Zdravnika pozna že deset let. Nato, po jedi, kupi kruh pri peku. Zvečer se odpelje domov. Njegova mama je doma. Vzame kruh iz vrečke.",
+            "it": "Lunedì Stefan va a Villach col trattore. Prima va dal medico, poi alla posta. Il medico lo conosce da dieci anni. Poi, dopo mangiato, compra il pane dal fornaio. La sera torna a casa. Sua madre è a casa. Prende il pane dal sacchetto."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praepositionen-dativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ich wohne ___ meiner Schwester.",
+          "options": [
+            "bei",
+            "zu",
+            "nach"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Wo? At someone's: bei**\n- Ich wohne bei meiner Schwester.",
+            "sl": "**Kje? Pri kom: bei**\n- Ich wohne bei meiner Schwester.",
+            "it": "**Dove? Da qualcuno: bei**\n- Ich wohne bei meiner Schwester."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praepositionen-dativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir fahren ___ Italien.",
+          "options": [
+            "nach",
+            "zu",
+            "bei"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A country without an article: nach**\n- Wir fahren nach Italien.",
+            "sl": "**Država brez člena: nach**\n- Wir fahren nach Italien.",
+            "it": "**Un paese senza articolo: nach**\n- Wir fahren nach Italien."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mit-nach-bei-3",
+      "title": {
+        "de": "Wo? Wohin?",
+        "en": "Where? Where to?",
+        "sl": "Kje? Kam?",
+        "it": "Dove? Verso dove?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "praepositionen-dativ",
+          "instruction": {
+            "en": "Von Wo? zu Wohin? · From where it is to where it goes",
+            "sl": "Von Wo? zu Wohin? · Iz kje v kam",
+            "it": "Von Wo? zu Wohin? · Da dove si trova a dove va"
+          },
+          "cue": "(gehen)",
+          "items": [
+            {
+              "from": "Toni ist beim Arzt.",
+              "accept": [
+                "Toni geht zum Arzt.",
+                "Toni geht zu dem Arzt."
+              ],
+              "hint": {
+                "en": "Wo? bei · Wohin? zu",
+                "sl": "Kje? bei · Kam? zu",
+                "it": "Dove? bei · Verso dove? zu"
+              }
+            },
+            {
+              "from": "Lena ist bei Oma Resi.",
+              "accept": [
+                "Lena geht zu Oma Resi."
+              ],
+              "hint": {
+                "en": "Wo? bei · Wohin? zu",
+                "sl": "Kje? bei · Kam? zu",
+                "it": "Dove? bei · Verso dove? zu"
+              }
+            },
+            {
+              "from": "Stefan ist bei der Ärztin.",
+              "accept": [
+                "Stefan geht zur Ärztin.",
+                "Stefan geht zu der Ärztin."
+              ],
+              "hint": "die Ärztin"
+            },
+            {
+              "from": "Kathi ist zu Hause.",
+              "accept": [
+                "Kathi geht nach Hause."
+              ],
+              "spoken": [
+                "Kathi geht nach Haus."
+              ],
+              "hint": {
+                "en": "Wohin?",
+                "sl": "Kam?",
+                "it": "Verso dove?"
+              }
+            }
+          ]
+        },
+        {
+          "type": "transform",
+          "grammar": "praepositionen-dativ",
+          "instruction": {
+            "en": "Sag es mit den Wörtern in Klammern · Say it with the words in brackets",
+            "sl": "Sag es mit den Wörtern in Klammern · Povej z besedami v oklepaju",
+            "it": "Sag es mit den Wörtern in Klammern · Dillo con le parole tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Ich wohne hier. (seit, drei Jahre)",
+              "accept": [
+                "Ich wohne seit drei Jahren hier.",
+                "Ich wohne hier seit drei Jahren.",
+                "Seit drei Jahren wohne ich hier."
+              ],
+              "hint": {
+                "en": "the plural: den + -n",
+                "sl": "množina: den + -n",
+                "it": "il plurale: den + -n"
+              }
+            },
+            {
+              "from": "Stefan fährt nach Villach. (mit, der Traktor)",
+              "accept": [
+                "Stefan fährt mit dem Traktor nach Villach.",
+                "Stefan fährt nach Villach mit dem Traktor.",
+                "Mit dem Traktor fährt Stefan nach Villach."
+              ]
+            },
+            {
+              "from": "Florian kommt. (von, die Alm)",
+              "accept": [
+                "Florian kommt von der Alm.",
+                "Von der Alm kommt Florian."
+              ]
+            },
+            {
+              "from": "Kathi trinkt einen Kaffee. (nach, die Arbeit)",
+              "accept": [
+                "Kathi trinkt nach der Arbeit einen Kaffee.",
+                "Nach der Arbeit trinkt Kathi einen Kaffee.",
+                "Kathi trinkt einen Kaffee nach der Arbeit."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "praepositionen-dativ",
+        "instruction": {
+          "en": "Ergänze die Präposition · Fill in the preposition",
+          "sl": "Ergänze die Präposition · Dopolni predlog",
+          "it": "Ergänze die Präposition · Completa con la preposizione"
+        },
+        "title": "Lehrerin Eva",
+        "text": "Eva wohnt ___ fünf Jahren im Dorf. Sie kommt ___ Klagenfurt. Jeden Morgen geht sie ___ Schule. Dann fährt sie ___ dem Rad zum See. Am Sonntag ist sie ___ ihrer Tante.",
+        "gaps": [
+          {
+            "accept": [
+              "seit"
+            ]
+          },
+          {
+            "accept": [
+              "aus"
+            ]
+          },
+          {
+            "accept": [
+              "zur",
+              "zu der"
+            ]
+          },
+          {
+            "accept": [
+              "mit"
+            ]
+          },
+          {
+            "accept": [
+              "bei"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Eva has lived in the village for five years. She comes from Klagenfurt. Every morning she goes to school. Then she cycles to the lake. On Sunday she is at her aunt's.",
+          "sl": "Eva živi v vasi že pet let. Je iz Celovca. Vsako jutro gre v šolo. Nato se s kolesom odpelje k jezeru. V nedeljo je pri teti.",
+          "it": "Eva abita nel villaggio da cinque anni. Viene da Klagenfurt. Ogni mattina va a scuola. Poi va al lago in bicicletta. La domenica è da sua zia."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "praepositionen-dativ",
+        "instruction": {
+          "en": "Ergänze den Dativ · Fill in the dative",
+          "sl": "Ergänze den Dativ · Dopolni dajalnik",
+          "it": "Ergänze den Dativ · Completa con il dativo"
+        },
+        "prompt": {
+          "en": "preposition + noun",
+          "sl": "predlog + samostalnik",
+          "it": "preposizione + nome"
+        },
+        "columns": [
+          {
+            "en": "mit dem Dativ · with the dative",
+            "sl": "mit dem Dativ · z dajalnikom",
+            "it": "mit dem Dativ · con il dativo"
+          }
+        ],
+        "rows": [
+          {
+            "label": "zu + der Bäcker",
+            "cells": [
+              {
+                "accept": [
+                  "zum Bäcker",
+                  "zu dem Bäcker"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "bei + die Oma",
+            "cells": [
+              {
+                "accept": [
+                  "bei der Oma"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "mit + die Freunde",
+            "cells": [
+              {
+                "accept": [
+                  "mit den Freunden"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "praepositionen-dativ",
+        "instruction": {
+          "en": "Von Wo? zu Wohin? · From where it is to where it goes",
+          "sl": "Von Wo? zu Wohin? · Iz kje v kam",
+          "it": "Von Wo? zu Wohin? · Da dove si trova a dove va"
+        },
+        "cue": "(gehen)",
+        "items": [
+          {
+            "from": "Stanko ist bei Toni.",
+            "accept": [
+              "Stanko geht zu Toni."
+            ]
+          },
+          {
+            "from": "Mitzi ist beim Bäcker.",
+            "accept": [
+              "Mitzi geht zum Bäcker.",
+              "Mitzi geht zu dem Bäcker."
+            ]
+          },
+          {
+            "from": "Franz ist zu Hause.",
+            "accept": [
+              "Franz geht nach Hause."
+            ],
+            "spoken": [
+              "Franz geht nach Haus."
+            ],
+            "hint": {
+              "en": "Wohin?",
+              "sl": "Kam?",
+              "it": "Verso dove?"
+            }
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "praepositionen-dativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Brief ist ___ Stefan.",
+        "options": [
+          "von",
+          "aus",
+          "seit"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**From a person: von**",
+          "sl": "**Od osebe: von**",
+          "it": "**Da una persona: von**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "praepositionen-dativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich bin seit ___ Woche hier.",
+        "options": [
+          "einer",
+          "einem",
+          "eine"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**die Woche, seit + dative: einer**",
+          "sl": "**die Woche, seit + dajalnik: einer**",
+          "it": "**die Woche, seit + dativo: einer**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: seit der Früh, daheim, zuhause, nach Haus as spoken; Slovene v Beljak, Italian da for bei and zu"
+}

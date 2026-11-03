@@ -1,0 +1,297 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "pronomen-dativ",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🙋",
+  "title": {
+    "de": "Mir, mich, ich: die Pronomen",
+    "sl": "Mir, mich, ich: osebni zaimki",
+    "en": "Mir, mich, ich: the personal pronouns",
+    "it": "Mir, mich, ich: i pronomi personali"
+  },
+  "rule": {
+    "en": "German personal pronouns have three forms: who does it (**ich**), the accusative (**mich**) and the dative (**mir**). **uns** and **euch** are one form for both objects; the others differ: **mich, mir · dich, dir · ihn, ihm · sie, ihr · sie, ihnen · Sie, Ihnen**.\n\nThe verb decides. Most verbs take the accusative: Ich sehe **dich**. A verb of giving names the person in the dative: Ich gebe **dir** das Buch. **helfen, danken, gefallen, schmecken, gehören** take only a dative: Ich helfe **dir**. Der Hund gehört **ihr**.\n\nWith **gefallen** and **schmecken** what you like is the subject, so the verb goes with it: Das Haus gefällt **mir**. Die Schafe gefallen **mir**.\n\nHow someone is goes with the dative too: Wie geht es **dir**? Es geht **mir** gut. **Mir** ist kalt. Das tut **mir** leid.\n\nThe order: a pronoun before a noun (Ich gebe **ihm** das Buch), and of two pronouns the accusative first (Ich gebe **es ihm**).",
+    "sl": "Nemški osebni zaimki imajo tri oblike: kdo dela (**ich**), tožilnik (**mich**) in dajalnik (**mir**). **uns** in **euch** sta ena oblika za oba predmeta; druge se razlikujejo: **mich, mir · dich, dir · ihn, ihm · sie, ihr · sie, ihnen · Sie, Ihnen**.\n\nOdloči glagol. Večina glagolov ima tožilnik: Ich sehe **dich** (vidim te). Glagol dajanja osebo pove v dajalniku: Ich gebe **dir** das Buch (dam ti knjigo). **helfen, danken, gefallen, schmecken, gehören** imajo samo dajalnik, kot pomagati komu: Ich helfe **dir**. Der Hund gehört **ihr**.\n\nPri **gefallen** (biti všeč) in **schmecken** (tekniti) je osebek to, kar ti je všeč, in glagol gre z njim, kot v slovenščini: Das Haus gefällt **mir**. Die Schafe gefallen **mir**.\n\nTudi kako je komu, se pove z dajalnikom: Wie geht es **dir**? Es geht **mir** gut. **Mir** ist kalt. Das tut **mir** leid.\n\nVrstni red: zaimek pred samostalnikom (Ich gebe **ihm** das Buch), od dveh zaimkov najprej tožilnik (Ich gebe **es ihm**).",
+    "it": "I pronomi personali tedeschi hanno tre forme: chi fa l'azione (**ich**), l'accusativo (**mich**) e il dativo (**mir**). **uns** ed **euch** sono una sola forma per i due complementi; gli altri sono diversi: **mich, mir · dich, dir · ihn, ihm · sie, ihr · sie, ihnen · Sie, Ihnen**.\n\nDecide il verbo. La maggior parte dei verbi vuole l'accusativo: Ich sehe **dich** (ti vedo). Un verbo del dare nomina la persona al dativo: Ich gebe **dir** das Buch (ti do il libro). **helfen, danken, gefallen, schmecken, gehören** vogliono solo il dativo, anche dove l'italiano ha un oggetto diretto (aiutare qualcuno, ringraziare qualcuno): Ich helfe **dir**. Der Hund gehört **ihr**.\n\nCon **gefallen** (piacere) e **schmecken** ciò che piace è il soggetto, e il verbo va con esso, come in italiano: Das Haus gefällt **mir**. Die Schafe gefallen **mir**.\n\nAnche come sta qualcuno si dice col dativo: Wie geht es **dir**? Es geht **mir** gut. **Mir** ist kalt. Das tut **mir** leid.\n\nL'ordine: un pronome prima di un nome (Ich gebe **ihm** das Buch), e di due pronomi prima l'accusativo (Ich gebe **es ihm**)."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Nominativ",
+        "sl": "imenovalnik",
+        "en": "nominative",
+        "it": "nominativo"
+      },
+      {
+        "de": "Akkusativ",
+        "sl": "tožilnik",
+        "en": "accusative",
+        "it": "accusativo"
+      },
+      {
+        "de": "Dativ",
+        "sl": "dajalnik",
+        "en": "dative",
+        "it": "dativo"
+      },
+      {
+        "de": "Beispiel",
+        "sl": "primer",
+        "en": "example",
+        "it": "esempio"
+      }
+    ],
+    "rows": [
+      [
+        "ich",
+        "mich",
+        "mir",
+        "Das gefällt mir."
+      ],
+      [
+        "du",
+        "dich",
+        "dir",
+        "Ich helfe dir."
+      ],
+      [
+        "er",
+        "ihn",
+        "ihm",
+        "Florian gibt ihm Wasser."
+      ],
+      [
+        "sie",
+        "sie",
+        "ihr",
+        "Stefan dankt ihr."
+      ],
+      [
+        "es",
+        "es",
+        "ihm",
+        "Das Kind? Ich zeige ihm den Hund."
+      ],
+      [
+        "wir",
+        "uns",
+        "uns",
+        "Der Hund gehört uns."
+      ],
+      [
+        "ihr",
+        "euch",
+        "euch",
+        "Wie geht es euch?"
+      ],
+      [
+        "sie",
+        "sie",
+        "ihnen",
+        "Toni hilft ihnen."
+      ],
+      [
+        "Sie",
+        "Sie",
+        "Ihnen",
+        "Wie geht es Ihnen?"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Kannst du mir helfen? – Ja, ich helfe dir.",
+      "sl": "Mi lahko pomagaš? – Da, pomagam ti.",
+      "en": "Can you help me? – Yes, I'll help you.",
+      "it": "Mi puoi aiutare? – Sì, ti aiuto.",
+      "note": {
+        "en": "helfen takes the dative: mir, dir.",
+        "sl": "helfen ima dajalnik, kot pomagati komu.",
+        "it": "helfen vuole il dativo: mir, dir, mentre aiutare ha l'oggetto diretto."
+      }
+    },
+    {
+      "de": "Das Gasthaus gefällt mir.",
+      "sl": "Gostilna mi je všeč.",
+      "en": "I like the inn.",
+      "it": "L'osteria mi piace.",
+      "note": {
+        "en": "The inn is the subject; mir is who likes it.",
+        "sl": "Gostilna je osebek, kot pri biti všeč.",
+        "it": "L'osteria è il soggetto, come con piacere."
+      }
+    },
+    {
+      "de": "Die Kasnudeln schmecken ihm.",
+      "sl": "Kasnudeln mu teknejo.",
+      "en": "He likes the Kasnudeln.",
+      "it": "I Kasnudeln gli piacciono.",
+      "note": {
+        "en": "Plural subject: schmecken.",
+        "sl": "Osebek v množini: schmecken.",
+        "it": "Soggetto plurale: schmecken."
+      }
+    },
+    {
+      "de": "Der Hund gehört ihr.",
+      "sl": "Pes je njen.",
+      "en": "The dog belongs to her.",
+      "it": "Il cane è suo."
+    },
+    {
+      "de": "Wie geht es Ihnen, Frau Rossi?",
+      "sl": "Kako ste, gospa Rossi?",
+      "en": "How are you, Frau Rossi?",
+      "it": "Come sta, signora Rossi?",
+      "note": {
+        "en": "Polite: Ihnen, with a capital.",
+        "sl": "Vljudno: Ihnen, z veliko začetnico.",
+        "it": "Di cortesia: Ihnen, con la maiuscola."
+      }
+    },
+    {
+      "de": "Ich sehe dich, und ich helfe dir.",
+      "sl": "Vidim te in pomagam ti.",
+      "en": "I can see you, and I'll help you.",
+      "it": "Ti vedo e ti aiuto.",
+      "note": {
+        "en": "sehen: accusative. helfen: dative.",
+        "sl": "sehen: tožilnik. helfen: dajalnik.",
+        "it": "sehen: accusativo. helfen: dativo."
+      }
+    },
+    {
+      "de": "Das Buch? Ich gebe es dir morgen.",
+      "sl": "Knjiga? Dam ti jo jutri.",
+      "en": "The book? I'll give it to you tomorrow.",
+      "it": "Il libro? Te lo do domani.",
+      "note": {
+        "en": "Two pronouns: the accusative first.",
+        "sl": "Dva zaimka: najprej tožilnik.",
+        "it": "Due pronomi: prima l'accusativo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "personal_pronouns",
+    "dative_pronouns",
+    "pronomen",
+    "mir_dir",
+    "helfen",
+    "gefallen",
+    "schmecken",
+    "gehoeren",
+    "es_geht_mir_gut"
+  ],
+  "see": [
+    "dativ",
+    "akkusativ",
+    "faelle",
+    "du-sie"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: the Slovene tekniti for schmecken; Das tut mir leid",
+  "card": {
+    "title": {
+      "de": "Mir, dir, ihm, ihr",
+      "sl": "Zaimki v dajalniku · mir, dir",
+      "en": "Me, you, him · mir, dir",
+      "it": "I pronomi al dativo · mir, dir"
+    },
+    "rule": {
+      "en": "Dative: **mir, dir, ihm, ihr, ihm, uns, euch, ihnen, Ihnen**. **helfen, danken, gefallen, schmecken, gehören** take only it: Ich helfe **dir**. Das gefällt **mir**. Es geht **mir** gut. Sehen, kennen, suchen take **mich, dich, ihn**.",
+      "sl": "Dajalnik: **mir, dir, ihm, ihr, ihm, uns, euch, ihnen, Ihnen**. **helfen, danken, gefallen, schmecken, gehören** imajo samo njega: Ich helfe **dir**. Das gefällt **mir**. Es geht **mir** gut. Sehen, kennen, suchen imajo **mich, dich, ihn**.",
+      "it": "Dativo: **mir, dir, ihm, ihr, ihm, uns, euch, ihnen, Ihnen**. **helfen, danken, gefallen, schmecken, gehören** vogliono solo questo: Ich helfe **dir**. Das gefällt **mir**. Es geht **mir** gut. Sehen, kennen, suchen vogliono **mich, dich, ihn**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Nominativ",
+          "sl": "imenovalnik",
+          "en": "nominative",
+          "it": "nominativo"
+        },
+        {
+          "de": "Akkusativ",
+          "sl": "tožilnik",
+          "en": "accusative",
+          "it": "accusativo"
+        },
+        {
+          "de": "Dativ",
+          "sl": "dajalnik",
+          "en": "dative",
+          "it": "dativo"
+        }
+      ],
+      "rows": [
+        [
+          "ich",
+          "mich",
+          "mir"
+        ],
+        [
+          "du",
+          "dich",
+          "dir"
+        ],
+        [
+          "er",
+          "ihn",
+          "ihm"
+        ],
+        [
+          "sie",
+          "sie",
+          "ihr"
+        ],
+        [
+          "es",
+          "es",
+          "ihm"
+        ],
+        [
+          "wir",
+          "uns",
+          "uns"
+        ],
+        [
+          "ihr",
+          "euch",
+          "euch"
+        ],
+        [
+          "sie",
+          "sie",
+          "ihnen"
+        ],
+        [
+          "Sie",
+          "Sie",
+          "Ihnen"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Ich helfe dir.",
+        "sl": "Pomagam ti.",
+        "en": "I'll help you.",
+        "it": "Ti aiuto."
+      },
+      {
+        "de": "Der Most schmeckt mir.",
+        "sl": "Mošt mi tekne.",
+        "en": "I like the cider.",
+        "it": "Il sidro mi piace."
+      }
+    ],
+    "tip": {
+      "en": "💡 **ihr** is two words here: to her (Ich helfe **ihr**) and you all (**Ihr** kommt). **ihm** is to him, **ihn** is him: Ich helfe **ihm**, ich sehe **ihn**.",
+      "sl": "💡 **ihr** sta tu dve besedi: ji (Ich helfe **ihr**) in vi (**Ihr** kommt). **ihm** je mu, **ihn** je ga: Ich helfe **ihm**, ich sehe **ihn**.",
+      "it": "💡 **ihr** qui sono due parole: le, a lei (Ich helfe **ihr**) e voi (**Ihr** kommt). **ihm** è gli, a lui, **ihn** è lo: Ich helfe **ihm**, ich sehe **ihn**."
+    }
+  }
+}
