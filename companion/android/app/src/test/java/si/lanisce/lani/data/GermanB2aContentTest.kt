@@ -13,7 +13,7 @@ import si.lanisce.lani.l10n.Lang
  * worden, wurden and werden are three words, as soll and will are, and a long participle without its ge is no slip. What
  * people say is never a wrong option: the present and the Konjunktiv II for a reported Konjunktiv I (Er sagt, er ist krank; er wäre
  * krank) and the present after als ob are almost, with the form writing wants shown, for those verbs only and only after a
- * verb of saying or als ob; wie wenn and wenn ich kommen hätte können are right, labelled.
+ * verb of saying or als ob; wie wenn is one answer with als wenn (DWDS has no label on it), and wenn ich kommen hätte können is right, labelled.
  */
 class GermanB2aContentTest {
     private fun de(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.DE)
@@ -38,7 +38,7 @@ class GermanB2aContentTest {
         assertEquals(Verdict.WRONG, de("Das Haus ist gebaut geworden.", "Das Haus ist gebaut worden.").verdict)
         assertEquals(Verdict.WRONG, de("Das Haus ist gebaut wurden.", "Das Haus ist gebaut worden.").verdict)
         assertEquals(Verdict.WRONG, de("Das Dach muss repariert worden.", "Das Dach muss repariert werden.").verdict)
-        assertEquals(Hint.TYPO, de("Das Haus ist gebaut wordn.", "Das Haus ist gebaut worden.").hint)
+        assertEquals(Hint.TYPO, de("Das Haus ist gebaut wrden.", "Das Haus ist gebaut worden.").hint)
     }
 
     @Test fun `soll and will are words of their own in every form, a slip stays one`() {
@@ -55,7 +55,7 @@ class GermanB2aContentTest {
         for ((typed, right) in listOf("schlafen" to "geschlafen", "arbeitet" to "gearbeitet", "blieben" to "geblieben", "öffnet" to "geöffnet", "schlossen" to "geschlossen", "strichen" to "gestrichen", "ankommen" to "angekommen", "eröffnet" to "geöffnet", "geöffnet" to "eröffnet")) {
             assertEquals("$typed for $right", Verdict.WRONG, de(typed, right).verdict)
         }
-        assertEquals(Hint.TYPO, de("gestrichn", "gestrichen").hint)
+        assertEquals(Hint.TYPO, de("gestichen", "gestrichen").hint)
         assertEquals(Hint.UMLAUT, de("geoeffnet", "geöffnet").hint)
     }
 
@@ -118,11 +118,11 @@ class GermanB2aContentTest {
         assertEquals(Verdict.WRONG, de("Wenn er krank ist", "Wenn er krank wäre").verdict)
     }
 
-    @Test fun `what the sheets list as said is right, labelled with the written form`() {
-        val listed = course.units.getValue("als-ob").worksheets.flatMap { it.exercises }.filter { it !is Exercise.Sort }.flatMap { Sheets.items(it, Lang.DE) }
-        val line = checkNotNull(listed.firstOrNull { "Er tut, wie wenn er krank wäre." in it.spoken })
-        val m = Sheets.check(line, "Er tut, wie wenn er krank wäre.", Lang.DE)
-        assertEquals(Verdict.CORRECT to line.accept.first(), m.verdict to m.standard)
+    @Test fun `wie wenn is right with no label, and the Austrian order of two infinitives is right, labelled`() {
+        val lines = course.units.getValue("als-ob").worksheets.flatMap { it.exercises }.filter { it !is Exercise.Sort }.flatMap { Sheets.items(it, Lang.DE) }
+        val line = checkNotNull(lines.firstOrNull { "Er tut, wie wenn er krank wäre." in it.accept })
+        val w = Sheets.check(line, "Er tut, wie wenn er krank wäre.", Lang.DE)
+        assertEquals(Verdict.CORRECT to null, w.verdict to w.standard)
         val order = course.units.getValue("haette-gewusst").worksheets.flatMap { it.exercises }.filter { it !is Exercise.Sort }.flatMap { Sheets.items(it, Lang.DE) }
             .firstOrNull { "Ich bin böse, weil du anrufen hättest sollen." in it.spoken }
         assertNotNull("wenn ich kommen hätte können's order is listed on a sheet", order)
