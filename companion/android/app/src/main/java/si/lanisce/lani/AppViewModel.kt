@@ -245,9 +245,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         t.where = ::whereNow
         t.language = { grammar.language }
         t.base = { si.lanisce.lani.l10n.L10n.ownPair.base.code }
-        // unknown at a start before the towns came: the phone's last word on it (TutorRuntime)
-        val lastSaid = t.child
-        t.child = { if (childKnown) child else lastSaid() }
+        // unknown at a start before the towns came: the phone's last word on it
+        t.child = { if (childKnown) child else si.lanisce.lani.tutor.live.TutorRuntime.lastChild(app) }
         t.photo = { id -> chat.photos?.file(id)?.takeIf { it.isFile } }
         // the reply as it's written, in the chat's typing bubble; the final message (the bridge's reply event) replaces it
         t.onStreaming = { conversation, text -> if (conversation == "main") chat.streaming = text }
