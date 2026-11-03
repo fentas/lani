@@ -140,6 +140,8 @@ The lead's order, with merges: part a (853442b2), part b (7a6d301f), then `cours
 
 **`"cue": "→"` taken off German's transform lists.** The app draws a line's arrow itself and a cue in brackets after it (`SheetExercises.kt`: `"→ ($c)"`), so every such list showed "→ (→)", as the first QA shots here did. 203 lists in 60 of the course's units, a part's copy of an early unit's habit. Not voiced, so no clip is lost. **Italian has 28 such lists and English 10**, left alone, as English's parts are still writing.
 
+**An intro's table of twenty rows.** QA of `oesterreichisch` ran out of swipes before step 5's question: the table had grown to 19 rows above it. It and `nomen-verb` now keep to twelve, the page's own, as B1's `adjektiv-alle-faelle` learned; what they drop stays in the step's explanation and on the sheets.
+
 **A test ADB can't pass:** the QA types no ä, ö, ü, ß, so such an answer counts half. `formeller-brief`'s test stopped at 9 of 12 with none wrong. Two gaps and a line now ask for another word (Mit ___ Grüßen, Kommen Sie am Freitag?), and it is reachable. `moechten`, `haette-waere`, `wenn-ich-haette` and `haette-gewusst` stay out of reach for the same reason: a QA limit, as a learner has the letter chips.
 
 **Found, not done:** older pages' `see` don't point on to B2's (konjunktiv-zwei to konjunktiv-vergangenheit, passiv to passiv-zeiten): no outline asks for it.
