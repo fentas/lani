@@ -151,8 +151,8 @@
           "type": "choice",
           "grammar": "relativi-il-quale",
           "prompt": "«Aldo, ___ api sono calme, parla piano.»",
-          "options": ["le cui", "il cui", "i cui"],
-          "answer": 0,
+          "options": ["i cui", "le cui", "il cui"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**le api** (weiblich, mehrere) → **le cui** api\n- il cui · für eine männliche Sache: il cui miele\n- i cui · für mehrere männliche: i cui figli",
@@ -184,13 +184,13 @@
           "type": "choice",
           "grammar": "relativi-il-quale",
           "prompt": "«___ ha sete può bere alla fontana.»",
-          "options": ["Chi", "Che", "Cui"],
-          "answer": 0,
+          "options": ["Cui", "Chi", "Che"],
+          "answer": 1,
           "say_options": true,
           "explain": {
-            "de": "**kein Wort davor** → **Chi** ha sete\n- Che · braucht ein Wort davor: la gente che ha sete\n- Cui · nur nach einer Präposition",
-            "sl": "**brez besede pred njim** → **Chi** ha sete\n- Che · potrebuje besedo pred sabo: la gente che ha sete\n- Cui · samo za predlogom",
-            "en": "**no word before it** → **Chi** ha sete\n- Che · needs a word before it: la gente che ha sete\n- Cui · only after a preposition"
+            "de": "**kein Wort davor** → **Chi** ha sete\n- Che · braucht ein Wort davor: la gente che ha sete\n- Cui · nur nach einer Präposition oder einem Artikel",
+            "sl": "**brez besede pred njim** → **Chi** ha sete\n- Che · potrebuje besedo pred sabo: la gente che ha sete\n- Cui · samo za predlogom ali členom",
+            "en": "**no word before it** → **Chi** ha sete\n- Che · needs a word before it: la gente che ha sete\n- Cui · only after a preposition or an article"
           }
         }
       },
@@ -220,8 +220,8 @@
           "type": "choice",
           "grammar": "relativi-il-quale",
           "prompt": "«Chiunque ___, Marisa risponde sempre.»",
-          "options": ["chiami", "chiamato", "chiamare"],
-          "answer": 0,
+          "options": ["chiamare", "chiami", "chiamato"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**chiunque** + Konjunktiv → **chiami** (beim Reden auch chiama)\n- chiamato · das Partizip\n- chiamare · der Infinitiv",
@@ -232,9 +232,9 @@
       },
       {
         "say": {
-          "de": "**Qualunque** und **qualsiasi** (welcher auch immer, jeder beliebige) ändern sich nie und stehen vor einem Nomen in der Einzahl: **Qualunque cosa tu faccia, ti aiuto.** (Was du auch tust, ich helfe dir.) Folgt ein Satz, nimmt er den Konjunktiv. Ohne Satz geht es einfach weiter: **Puoi venire in qualsiasi momento.** (Du kannst jederzeit kommen.)",
-          "sl": "**Qualunque** in **qualsiasi** (kakršenkoli, katerikoli) se ne spreminjata in stojita pred samostalnikom v ednini: **Qualunque cosa tu faccia, ti aiuto.** (Karkoli narediš, ti pomagam.) Če sledi stavek, ima konjunktiv. Brez stavka gre preprosto naprej: **Puoi venire in qualsiasi momento.** (Lahko prideš kadarkoli.)",
-          "en": "**Qualunque** and **qualsiasi** (whatever, any) never change and stand before a singular noun: **Qualunque cosa tu faccia, ti aiuto.** (Whatever you do, I'll help you.) If a clause follows, it takes the subjunctive. With no clause it simply goes on: **Puoi venire in qualsiasi momento.** (You can come at any time.)"
+          "de": "**Qualunque** und **qualsiasi** (welcher auch immer, jeder beliebige) ändern sich nie und stehen meist vor einem Nomen in der Einzahl: **Qualunque cosa tu faccia, ti aiuto.** (Was du auch tust, ich helfe dir.) Folgt ein Satz, nimmt er den Konjunktiv. Ohne Satz geht es einfach weiter: **Puoi venire in qualsiasi momento.** (Du kannst jederzeit kommen.)",
+          "sl": "**Qualunque** in **qualsiasi** (kakršenkoli, katerikoli) se ne spreminjata in stojita običajno pred samostalnikom v ednini: **Qualunque cosa tu faccia, ti aiuto.** (Karkoli narediš, ti pomagam.) Če sledi stavek, ima konjunktiv. Brez stavka gre preprosto naprej: **Puoi venire in qualsiasi momento.** (Lahko prideš kadarkoli.)",
+          "en": "**Qualunque** and **qualsiasi** (whatever, any) never change and usually stand before a singular noun: **Qualunque cosa tu faccia, ti aiuto.** (Whatever you do, I'll help you.) If a clause follows, it takes the subjunctive. With no clause it simply goes on: **Puoi venire in qualsiasi momento.** (You can come at any time.)"
         },
         "examples": [
           {
@@ -253,8 +253,8 @@
           "type": "choice",
           "grammar": "relativi-il-quale",
           "prompt": "«Bruno ripara ___ cosa, anche una vecchia radio.»",
-          "options": ["qualunque", "chiunque", "chi"],
-          "answer": 0,
+          "options": ["chi", "qualunque", "chiunque"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**vor einem Nomen** → **qualunque** cosa (auch: qualsiasi)\n- chiunque · steht allein, für Menschen\n- chi · steht allein, für Menschen",
@@ -297,8 +297,8 @@
           "grammar": "relativi-il-quale",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Il cane di Nonno Bepi, ___ dorme sotto il tiglio, si chiama Moro.»",
-          "options": ["il quale", "la quale", "i quali"],
-          "answer": 0,
+          "options": ["i quali", "il quale", "la quale"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**il cane** (männlich, einer) → **il quale**\n- la quale · für eine weibliche Sache\n- i quali · für mehrere",
@@ -325,8 +325,8 @@
           "grammar": "relativi-il-quale",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Dov'è la borsa nella ___ ho messo le chiavi?»",
-          "options": ["quale", "cui", "che"],
-          "answer": 0,
+          "options": ["cui", "che", "quale"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**nella** hat schon den Artikel → nella **quale**\n- cui · ohne Artikel: in cui\n- che · nie nach einer Präposition",
@@ -355,14 +355,14 @@
             {"accept": ["Chiunque"], "hint": {"de": "wer auch immer + Konjunktiv", "sl": "kdorkoli + konjunktiv", "en": "whoever + the subjunctive"}},
             {"accept": ["arrivi"], "spoken": ["arriva"], "hint": {"de": "Konjunktiv", "sl": "konjunktiv", "en": "the subjunctive"}},
             {"accept": ["Qualunque", "Qualsiasi"], "hint": "… cosa"},
-            {"accept": ["qualsiasi", "qualunque"], "hint": "… ora"}
+            {"accept": ["qualsiasi", "qualunque", "ogni"], "hint": "… ora"}
           ],
           "bank": true,
           "distractors": ["i cui", "i quali"],
           "translation": {
-            "de": "Am Samstag ist das Fest. Marisa, deren Osteria auf dem Platz liegt, macht den Frico. Franco, dessen Mühle ganz in der Nähe ist, bringt das Mehl. Nonna Rosa, die seit gestern kocht, macht die Gubana. Der Tisch, auf den wir die Teller stellen, gehört Bruno. Wer früh kommt, hilft die Stühle tragen. Wer auch immer kommt, ist willkommen. Wer auch immer spät kommt, findet einen warmen Teller. Was du auch mitbringst, wir essen es zusammen. Du kannst zu jeder Stunde kommen!",
-            "sl": "V soboto je praznik. Marisa, katere gostilna je na trgu, pripravlja frico. Franco, katerega mlin je čisto blizu, prinese moko. Nonna Rosa, ki kuha že od včeraj, peče gubano. Miza, na katero postavimo krožnike, je Brunova. Kdor pride zgodaj, pomaga nositi stole. Kdorkoli pride, je dobrodošel. Kdorkoli pride pozno, najde topel krožnik. Karkoli prineseš, pojemo skupaj. Lahko prideš ob kateri koli uri!",
-            "en": "On Saturday it's the festa. Marisa, whose osteria is on the square, is making the frico. Franco, whose mill is close by, is bringing the flour. Nonna Rosa, who has been cooking since yesterday, is making the gubana. The table we put the plates on is Bruno's. Whoever comes early helps carry the chairs. Whoever comes is welcome. Whoever comes late finds a hot plate. Whatever you bring, we'll eat it together. You can come at any hour!"
+            "de": "Am Samstag ist das Fest. Marisa, deren Osteria auf dem Platz liegt, macht den Frico. Franco, dessen Mühle ganz in der Nähe ist, bringt das Mehl. Nonna Rosa, die seit gestern kocht, macht die Gubana. Der Tisch, auf den wir die Teller stellen, gehört Bruno. Wer früh kommt, hilft die Stühle tragen. Wer auch immer kommt, ist willkommen. Wer auch immer spät kommt, findet ein warmes Essen. Was du auch mitbringst, wir essen es zusammen. Du kannst zu jeder Stunde kommen!",
+            "sl": "V soboto je praznik. Marisa, katere gostilna je na trgu, pripravlja frico. Franco, katerega mlin je čisto blizu, prinese moko. Nonna Rosa, ki kuha že od včeraj, peče gubano. Miza, na katero postavimo krožnike, je Brunova. Kdor pride zgodaj, pomaga nositi stole. Kdorkoli pride, je dobrodošel. Kdorkoli pride pozno, najde topel obrok. Karkoli prineseš, pojemo skupaj. Lahko prideš ob kateri koli uri!",
+            "en": "On Saturday it's the festa. Marisa, whose osteria is on the square, is making the frico. Franco, whose mill is close by, is bringing the flour. Nonna Rosa, who has been cooking since yesterday, is making the gubana. The table we put the plates on is Bruno's. Whoever comes early helps carry the chairs. Whoever comes is welcome. Whoever comes late finds a hot meal. Whatever you bring, we'll eat it together. You can come at any hour!"
           }
         },
         {
@@ -370,8 +370,8 @@
           "grammar": "relativi-il-quale",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Il signore ___ parla con Marisa è il sindaco.»",
-          "options": ["che", "chi", "a cui"],
-          "answer": 0,
+          "options": ["chi", "a cui", "che"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**ein Wort davor, ohne Präposition** → il signore **che** parla\n- chi · nur ohne Wort davor\n- a cui · nur, wenn das Verb a braucht",
@@ -384,8 +384,8 @@
           "grammar": "relativi-il-quale",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Qualunque cosa ___, non dirlo a Zia Nives!»",
-          "options": ["succeda", "succedendo", "succedere"],
-          "answer": 0,
+          "options": ["succedere", "succeda", "succedendo"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**qualunque cosa** + Konjunktiv → **succeda** (beim Reden auch succede)\n- succedendo · das Gerundium\n- succedere · der Infinitiv",
@@ -402,7 +402,11 @@
         {
           "type": "transform",
           "grammar": "relativi-il-quale",
-          "instruction": {"de": "Unisci con il quale · Verbinde mit il quale", "sl": "Unisci con il quale · Poveži z il quale", "en": "Unisci con il quale · Join with il quale"},
+          "instruction": {
+            "de": "Unisci con preposizione + il quale · Verbinde: Präposition + il quale",
+            "sl": "Unisci con preposizione + il quale · Poveži: predlog + il quale",
+            "en": "Unisci con preposizione + il quale · Join: preposition + il quale"
+          },
           "items": [
             {
               "from": "Il mulino è vecchio. Franco lavora nel mulino.",
@@ -471,7 +475,7 @@
         "gaps": [
           {"accept": ["il cui"]},
           {"accept": ["quale"]},
-          {"accept": ["chi"]},
+          {"accept": ["chi"], "spoken": ["chiunque"]},
           {"accept": ["la quale", "che"]},
           {"accept": ["Chiunque"]},
           {"accept": ["qualunque", "qualsiasi"]},
@@ -487,9 +491,9 @@
         "type": "transform",
         "grammar": "relativi-il-quale",
         "instruction": {
-          "de": "Unisci con il quale o il cui · Verbinde mit il quale oder il cui",
-          "sl": "Unisci con il quale o il cui · Poveži z il quale ali il cui",
-          "en": "Unisci con il quale o il cui · Join with il quale or il cui"
+          "de": "Unisci con preposizione + il quale, o con il cui · Verbinde: Präposition + il quale, oder il cui",
+          "sl": "Unisci con preposizione + il quale, o con il cui · Poveži: predlog + il quale ali il cui",
+          "en": "Unisci con preposizione + il quale, o con il cui · Join: preposition + il quale, or il cui"
         },
         "items": [
           {
@@ -512,8 +516,8 @@
         "type": "choice",
         "grammar": "relativi-il-quale",
         "prompt": "«Chiunque ___ a pranzo, Marisa trova un posto.»",
-        "options": ["arrivi", "arrivato", "arrivare"],
-        "answer": 0,
+        "options": ["arrivare", "arrivi", "arrivato"],
+        "answer": 1,
         "say_options": true,
         "explain": {
           "de": "**chiunque** + Konjunktiv → **arrivi** (beim Reden auch arriva)\n- arrivato · das Partizip\n- arrivare · der Infinitiv",
@@ -525,8 +529,8 @@
         "type": "choice",
         "grammar": "relativi-il-quale",
         "prompt": "«Le api, ___ miele è dolce, lavorano tutto il giorno.»",
-        "options": ["il cui", "le cui", "la cui"],
-        "answer": 0,
+        "options": ["la cui", "il cui", "le cui"],
+        "answer": 1,
         "say_options": true,
         "explain": {
           "de": "**il miele** (männlich) → **il cui** miele, auch wenn le api weiblich sind\n- le cui · für le api: der Artikel geht nicht nach dem Besitzer\n- la cui · für eine weibliche Sache",
@@ -538,8 +542,8 @@
         "type": "choice",
         "grammar": "relativi-il-quale",
         "prompt": "«___ dorme non piglia pesci.»",
-        "options": ["Chi", "Che", "Il quale"],
-        "answer": 0,
+        "options": ["Il quale", "Chi", "Che"],
+        "answer": 1,
         "say_options": true,
         "explain": {
           "de": "**kein Wort davor** → **Chi** dorme\n- Che, Il quale · brauchen ein Wort davor",
@@ -551,8 +555,8 @@
         "type": "choice",
         "grammar": "relativi-il-quale",
         "prompt": "«Puoi chiamarmi a ___ ora.»",
-        "options": ["qualsiasi", "chiunque", "chi"],
-        "answer": 0,
+        "options": ["chiunque", "chi", "qualsiasi"],
+        "answer": 2,
         "say_options": true,
         "explain": {
           "de": "**vor einem Nomen** → **qualsiasi** ora (auch: qualunque)\n- chiunque, chi · stehen allein, für Menschen",

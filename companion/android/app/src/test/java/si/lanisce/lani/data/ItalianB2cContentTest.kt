@@ -74,7 +74,7 @@ class ItalianB2cContentTest {
             "inregolare" to "irregolare", "inlegale" to "illegale", "barcetta" to "barchetta",
         )) assertEquals("$typed for $right", Verdict.WRONG, it(typed, right).verdict)
         // a slip stays one: another slip in such a word, and the same letters where the rule doesn't apply
-        for ((typed, right) in listOf("facilmnte" to "facilmente", "lentamnte" to "lentamente", "impossibie" to "impossibile", "veremente" to "veramente", "portne" to "portone"))
+        for ((typed, right) in listOf("facilmnte" to "facilmente", "lentamnte" to "lentamente", "imposibile" to "impossibile", "veremente" to "veramente", "portne" to "portone"))
             assertEquals("$typed for $right", Verdict.ALMOST, it(typed, right).verdict)
         assertEquals(Verdict.WRONG, it("portona", "portone").verdict)
     }

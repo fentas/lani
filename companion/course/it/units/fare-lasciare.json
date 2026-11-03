@@ -70,8 +70,8 @@
           "type": "choice",
           "grammar": "fare-lasciare",
           "prompt": "«Nonno Bepi ___ ridere tutti.»",
-          "options": ["fa", "fa di", "fa a"],
-          "answer": 0,
+          "options": ["fa a", "fa", "fa di"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**fare + Infinitiv**, nichts dazwischen → **fa ridere**\n- fa di, fa a · keine Präposition",
@@ -82,9 +82,9 @@
       },
       {
         "say": {
-          "de": "Die Pronomen stehen vor **fare**, nicht am Infinitiv: **Te lo faccio vedere.** (Ich zeige es dir.) **Me lo fai vedere?** (Zeigst du es mir?) Nur am Imperativ hängen sie an: **Fammi vedere!** (Lass mich sehen!) **Fammelo vedere!** (Zeig es mir!) Das **mm** kennst du von **dammelo**.",
-          "sl": "Zaimki stojijo pred **fare**, ne na nedoločniku: **Te lo faccio vedere.** (Pokažem ti ga.) **Me lo fai vedere?** (Mi ga pokažeš?) Samo na velelniku se pripnejo: **Fammi vedere!** (Pokaži mi!) **Fammelo vedere!** (Pokaži mi ga!) **mm** poznaš iz **dammelo**.",
-          "en": "The pronouns come before **fare**, not on the infinitive: **Te lo faccio vedere.** (I'll show it to you.) **Me lo fai vedere?** (Will you show it to me?) Only on an imperative they join on: **Fammi vedere!** (Let me see!) **Fammelo vedere!** (Show it to me!) You know the **mm** from **dammelo**."
+          "de": "Die Pronomen stehen vor **fare**, nicht am Infinitiv: **Te lo faccio vedere.** (Ich zeige es dir.) **Me lo fai vedere?** (Zeigst du es mir?) Am Imperativ hängen sie an: **Fammi vedere!** (Lass mich sehen!) **Fammelo vedere!** (Zeig es mir!) Das mm kennst du von **dammelo**.",
+          "sl": "Zaimki stojijo pred **fare**, ne na nedoločniku: **Te lo faccio vedere.** (Pokažem ti ga.) **Me lo fai vedere?** (Mi ga pokažeš?) Na velelniku se pripnejo: **Fammi vedere!** (Pokaži mi!) **Fammelo vedere!** (Pokaži mi ga!) mm poznaš iz **dammelo**.",
+          "en": "The pronouns come before **fare**, not on the infinitive: **Te lo faccio vedere.** (I'll show it to you.) **Me lo fai vedere?** (Will you show it to me?) On an imperative they join on: **Fammi vedere!** (Let me see!) **Fammelo vedere!** (Show it to me!) You know the mm from **dammelo**."
         },
         "examples": [
           {"it": "Te lo faccio vedere.", "de": "Ich zeige es dir.", "sl": "Pokažem ti ga.", "en": "I'll show it to you."},
@@ -99,8 +99,8 @@
           "type": "choice",
           "grammar": "fare-lasciare",
           "prompt": "«La foto? ___ faccio vedere subito!»",
-          "options": ["Te la", "Ti la", "Te lo"],
-          "answer": 0,
+          "options": ["Ti la", "Te lo", "Te la"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**la foto** → la; vor la wird ti zu te → **Te la**\n- Ti la · vor la heißt es te\n- Te lo · für il libro",
@@ -111,9 +111,9 @@
       },
       {
         "say": {
-          "de": "Mit einer Sache bekommt, wer es tut, ein **a**: **Faccio leggere la lettera a Lorenzo.** (Ich lasse Lorenzo den Brief lesen.) Ohne Sache nicht: **Faccio leggere Lorenzo.** Als Pronomen wird daraus **gli** und **gliela**: **Gli faccio leggere la lettera.** **Gliela faccio leggere.** (Ich lasse ihn ihn lesen.)",
-          "sl": "Če je zraven stvar, dobi tisti, ki dela, **a**: **Faccio leggere la lettera a Lorenzo.** (Lorenzu dam brati pismo.) Brez stvari ne: **Faccio leggere Lorenzo.** Kot zaimek postane **gli** in **gliela**: **Gli faccio leggere la lettera.** **Gliela faccio leggere.** (Dam mu ga brati.)",
-          "en": "With a thing, the one who does it takes **a**: **Faccio leggere la lettera a Lorenzo.** (I have Lorenzo read the letter.) With no thing, none: **Faccio leggere Lorenzo.** As pronouns that makes **gli** and **gliela**: **Gli faccio leggere la lettera.** **Gliela faccio leggere.** (I have him read it.)"
+          "de": "Mit einer Sache bekommt, wer es tut, ein **a** oder **da**: **Faccio leggere la lettera a Lorenzo.** (Ich lasse Lorenzo den Brief lesen.) Ohne Sache nicht: **Faccio leggere Lorenzo.** (Ich lasse Lorenzo lesen.) Als Pronomen wird daraus **gli** und **gliela**: **Gli faccio leggere la lettera.** (Ich lasse ihn den Brief lesen.) **Gliela faccio leggere.** (Den lasse ich ihn lesen.)",
+          "sl": "Če je zraven stvar, dobi tisti, ki dela, **a** ali **da**: **Faccio leggere la lettera a Lorenzo.** (Lorenzu dam brati pismo.) Brez stvari ne: **Faccio leggere Lorenzo.** (Lorenzu dam brati.) Kot zaimek postane **gli** in **gliela**: **Gli faccio leggere la lettera.** (Dam mu brati pismo.) **Gliela faccio leggere.** (Dam mu ga brati.)",
+          "en": "With a thing, the one who does it takes **a** or **da**: **Faccio leggere la lettera a Lorenzo.** (I have Lorenzo read the letter.) With no thing, none: **Faccio leggere Lorenzo.** (I have Lorenzo read.) As pronouns that makes **gli** and **gliela**: **Gli faccio leggere la lettera.** (I have him read the letter.) **Gliela faccio leggere.** (I have him read it.)"
         },
         "examples": [
           {
@@ -124,11 +124,11 @@
           },
           {"it": "Faccio leggere Lorenzo.", "de": "Ich lasse Lorenzo lesen.", "sl": "Lorenzu dam brati.", "en": "I have Lorenzo read."},
           {"it": "Gli faccio leggere la lettera.", "de": "Ich lasse ihn den Brief lesen.", "sl": "Dam mu brati pismo.", "en": "I have him read the letter."},
-          {"it": "Gliela faccio leggere.", "de": "Ich lasse ihn ihn lesen.", "sl": "Dam mu ga brati.", "en": "I have him read it."}
+          {"it": "Gliela faccio leggere.", "de": "Den lasse ich ihn lesen.", "sl": "Dam mu ga brati.", "en": "I have him read it."}
         ],
         "rows": [
           ["faccio leggere la lettera a Lorenzo", {"de": "ich lasse Lorenzo den Brief lesen", "sl": "Lorenzu dam brati pismo", "en": "I have Lorenzo read the letter"}],
-          ["gliela faccio leggere", {"de": "ich lasse ihn ihn lesen", "sl": "dam mu ga brati", "en": "I have him read it"}]
+          ["gliela faccio leggere", {"de": "den lasse ich ihn lesen", "sl": "dam mu ga brati", "en": "I have him read it"}]
         ],
         "ask": {
           "type": "choice",
@@ -169,8 +169,8 @@
           "type": "choice",
           "grammar": "fare-lasciare",
           "prompt": "«Moro dorme, non svegliarlo: ___ dormire!»",
-          "options": ["lascialo", "lasciagli", "lasciarlo"],
-          "answer": 0,
+          "options": ["lasciarlo", "lascialo", "lasciagli"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**Imperativ + lo** (Moro) → **lascialo**\n- lasciagli · gli heißt ihm, hier geht es um ihn\n- lasciarlo · das ist der Infinitiv",
@@ -181,9 +181,9 @@
       },
       {
         "say": {
-          "de": "In der Vergangenheit passt sich das Partizip an lo, la, li, le an: **La bici? L'ho fatta riparare.** (Ich habe es reparieren lassen.) Ohne Pronomen bleibt es: **Ho fatto riparare la bici.** Mit einem Modalverb verliert **fare** sein -e, und die Pronomen stehen vorn oder hängen an: **Te lo posso far vedere.** **Posso fartelo vedere.** (Ich kann es dir zeigen.)",
-          "sl": "V preteklosti se deležnik ujema z lo, la, li, le: **La bici? L'ho fatta riparare.** (Dal sem ga popraviti.) Brez zaimka ostane: **Ho fatto riparare la bici.** Z modalnim glagolom **fare** izgubi -e, zaimki pa stojijo spredaj ali se pripnejo: **Te lo posso far vedere.** **Posso fartelo vedere.** (Lahko ti ga pokažem.)",
-          "en": "In the past the participle agrees with lo, la, li, le: **La bici? L'ho fatta riparare.** (I've had it repaired.) With no pronoun it stays: **Ho fatto riparare la bici.** With a modal **fare** loses its -e, and the pronouns stand first or join on: **Te lo posso far vedere.** **Posso fartelo vedere.** (I can show it to you.)"
+          "de": "In der Vergangenheit passt sich das Partizip an lo, la, li, le an: **La bici? L'ho fatta riparare.** (Ich habe es reparieren lassen.) Ohne Pronomen bleibt es: **Ho fatto riparare la bici.** (Ich habe das Fahrrad reparieren lassen.) Mit einem Modalverb verliert **fare** oft sein -e, und die Pronomen stehen vorn oder hängen an: **Te lo posso far vedere.** **Posso fartelo vedere.** (Ich kann es dir zeigen.)",
+          "sl": "V preteklosti se deležnik ujema z lo, la, li, le: **La bici? L'ho fatta riparare.** (Dal sem ga popraviti.) Brez zaimka ostane: **Ho fatto riparare la bici.** (Dal sem popraviti kolo.) Z modalnim glagolom **fare** pogosto izgubi -e, zaimki pa stojijo spredaj ali se pripnejo: **Te lo posso far vedere.** **Posso fartelo vedere.** (Lahko ti ga pokažem.)",
+          "en": "In the past the participle agrees with lo, la, li, le: **La bici? L'ho fatta riparare.** (I've had it repaired.) With no pronoun it stays: **Ho fatto riparare la bici.** (I've had the bike repaired.) With a modal **fare** often loses its -e, and the pronouns stand first or join on: **Te lo posso far vedere.** **Posso fartelo vedere.** (I can show it to you.)"
         },
         "examples": [
           {
@@ -204,8 +204,8 @@
           "type": "choice",
           "grammar": "fare-lasciare",
           "prompt": "«La bici? L'ho ___ riparare ieri.»",
-          "options": ["fatta", "fatto", "fatte"],
-          "answer": 0,
+          "options": ["fatto", "fatte", "fatta"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**la bici** → la → **fatta**\n- fatto · für il trattore\n- fatte · für le bici",
@@ -216,9 +216,9 @@
       },
       {
         "say": {
-          "de": "**Farsi** + Infinitiv: Das lässt du dir tun, in der Vergangenheit mit essere: **Mi sono fatto tagliare i capelli.** (Ich habe mir die Haare schneiden lassen; eine Frau sagt **fatta**.) **Giulia si è fatta tagliare i capelli.** Wer es tut, kommt nach **da**: **Bruno si fa aiutare da Lorenzo.** (Bruno lässt sich von Lorenzo helfen.) Auch: **farsi capire** (sich verständlich machen).",
-          "sl": "**Farsi** + nedoločnik: daš si kaj narediti, v preteklosti z essere: **Mi sono fatto tagliare i capelli.** (Dal sem se ostriči; ženska reče **fatta**.) **Giulia si è fatta tagliare i capelli.** Kdo to dela, pride za **da**: **Bruno si fa aiutare da Lorenzo.** (Brunu pomaga Lorenzo.) Tudi: **farsi capire** (doseči, da te razumejo).",
-          "en": "**Farsi** + an infinitive: you have it done to you, in the past with essere: **Mi sono fatto tagliare i capelli.** (I had my hair cut; a woman says **fatta**.) **Giulia si è fatta tagliare i capelli.** Who does it comes after **da**: **Bruno si fa aiutare da Lorenzo.** (Bruno gets Lorenzo to help him.) Also: **farsi capire** (to make yourself understood)."
+          "de": "**Farsi** + Infinitiv: Das lässt du dir tun, in der Vergangenheit mit essere: **Mi sono fatto tagliare i capelli.** (Ich habe mir die Haare schneiden lassen; eine Frau sagt **fatta**.) **Giulia si è fatta tagliare i capelli.** (Giulia hat sich die Haare schneiden lassen.) Wer es tut, kommt nach **da**: **Bruno si fa aiutare da Lorenzo.** (Bruno lässt sich von Lorenzo helfen.) Auch: **farsi capire** (sich verständlich machen).",
+          "sl": "**Farsi** + nedoločnik: daš si kaj narediti, v preteklosti z essere: **Mi sono fatto tagliare i capelli.** (Dal sem se ostriči; ženska reče **fatta**.) **Giulia si è fatta tagliare i capelli.** (Giulia se je dala ostriči.) Kdo to dela, pride za **da**: **Bruno si fa aiutare da Lorenzo.** (Brunu pomaga Lorenzo.) Tudi: **farsi capire** (doseči, da te razumejo).",
+          "en": "**Farsi** + an infinitive: you have it done to you, in the past with essere: **Mi sono fatto tagliare i capelli.** (I had my hair cut; a woman says **fatta**.) **Giulia si è fatta tagliare i capelli.** (Giulia had her hair cut.) Who does it comes after **da**: **Bruno si fa aiutare da Lorenzo.** (Bruno gets Lorenzo to help him.) Also: **farsi capire** (to make yourself understood)."
         },
         "examples": [
           {
@@ -236,7 +236,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "fare-lasciare",
-          "text": "Nonna Rosa si è ___ aiutare da Giulia.",
+          "text": "Nonna Rosa si è ___ (fare) aiutare da Giulia.",
           "accept": ["fatta"],
           "hint": {"de": "Nonna Rosa → ?", "sl": "Nonna Rosa → ?", "en": "Nonna Rosa → ?"},
           "explain": {
@@ -275,8 +275,8 @@
           "grammar": "fare-lasciare",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Franco fa riparare il trattore.» Chi lo ripara?",
-          "options": ["un altro", "Franco", "nessuno"],
-          "answer": 0,
+          "options": ["Franco", "nessuno", "un altro"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**fare + Infinitiv**: Es tut ein anderer → **un altro**\n- Franco · er sagt es nur, er repariert nicht selbst\n- nessuno · doch, jemand repariert ihn",
@@ -303,8 +303,8 @@
           "grammar": "fare-lasciare",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Giulia vuole vedere la foto.» «Bruno, ___ vedere!»",
-          "options": ["fagliela", "falla le", "gliela fare"],
-          "answer": 0,
+          "options": ["gliela fare", "fagliela", "falla le"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**Imperativ: alles hängt an** → **fagliela** (fa' + gliela)\n- falla le · gliela ist ein Wort\n- gliela fare · für du ist der Imperativ fa'",
@@ -337,13 +337,13 @@
           "grammar": "fare-lasciare",
           "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
           "title": "Il trattore di Franco",
-          "text": "Il vecchio trattore di Franco non parte. «Lo ___ riparare da Bruno», dice. Bruno arriva: «Fammi ___ (vedere) il motore!» Poi chiama Lorenzo: «Vieni, ___ faccio vedere come si fa.» Lorenzo vuole provare: «Nonno, ___ provare anche me!» Franco ride: «Lascia ___, ti sporchi le mani!» La sera il trattore parte. «L'ho ___ riparare e va come nuovo!» dice Franco. Anche Marisa si è ___ riparare la bici da Bruno.",
+          "text": "Il vecchio trattore di Franco non parte. «Lo ___ (fare) riparare da Bruno», dice. Bruno arriva: «Fammi ___ il motore!» Poi chiama Lorenzo: «Vieni, ___ faccio vedere come si fa.» Lorenzo vuole provare: «Nonno, ___ provare anche me!» Franco ride: «Lascia ___, ti sporchi le mani!» La sera il trattore parte. «L'ho ___ (fare) riparare e va come nuovo!» dice Franco. Anche Marisa si è ___ (fare) riparare la bici da Bruno.",
           "gaps": [
             {"accept": ["faccio", "farò"], "hint": {"de": "fare, ich", "sl": "fare, jaz", "en": "fare, I"}},
-            {"accept": ["vedere"], "hint": {"de": "ohne a", "sl": "brez a", "en": "with no a"}},
-            {"accept": ["ti"], "hint": {"de": "dir", "sl": "tebi", "en": "to you"}},
+            {"accept": ["vedere", "guardare", "controllare", "sentire"], "hint": {"de": "ohne a", "sl": "brez a", "en": "with no a"}},
+            {"accept": ["ti"], "hint": {"de": "dir", "sl": "tebi", "en": "to you"}, "spoken": ["te lo"]},
             {"accept": ["lascia", "fai", "fa'"], "hint": {"de": "lass!", "sl": "pusti!", "en": "let!"}},
-            {"accept": ["stare", "perdere"], "hint": {"de": "lass das!", "sl": "pusti!", "en": "leave it!"}},
+            {"accept": ["stare", "perdere", "lì"], "hint": {"de": "lass das!", "sl": "pusti!", "en": "leave it!"}},
             {"accept": ["fatto"], "hint": {"de": "il trattore → ?", "sl": "il trattore → ?", "en": "il trattore → ?"}},
             {"accept": ["fatta"], "hint": {"de": "Marisa → ?", "sl": "Marisa → ?", "en": "Marisa → ?"}}
           ],
@@ -378,7 +378,11 @@
         {
           "type": "transform",
           "grammar": "fare-lasciare",
-          "instruction": {"de": "Usa i pronomi · Nimm die Pronomen", "sl": "Usa i pronomi · Uporabi zaimke", "en": "Usa i pronomi · Use the pronouns"},
+          "instruction": {
+            "de": "Usa i pronomi per la persona e la cosa · Nimm Pronomen für Person und Sache",
+            "sl": "Usa i pronomi per la persona e la cosa · Uporabi zaimka za osebo in stvar",
+            "en": "Usa i pronomi per la persona e la cosa · Use pronouns for the person and the thing"
+          },
           "items": [
             {
               "from": "Faccio vedere la foto a Giulia.",
@@ -432,8 +436,14 @@
         "type": "gaptext",
         "grammar": "fare-lasciare",
         "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
-        "text": "Domani è il compleanno di Nonno Bepi. Nonna Rosa ___ fare una torta a Marisa. Giulia ha una foto di Moro: «___ faccio vedere al nonno!» Lorenzo tocca il regalo. «Lascia ___!» dice Nonna Rosa. Bruno si è ___ tagliare i capelli per la festa. La torta è buonissima. «L'ho ___ fare da Marisa», dice Nonna Rosa.",
-        "gaps": [{"accept": ["fa", "farà"]}, {"accept": ["La"]}, {"accept": ["stare", "perdere"]}, {"accept": ["fatto"]}, {"accept": ["fatta"]}],
+        "text": "Domani è il compleanno di Nonno Bepi. Nonna Rosa ___ (fare) fare una torta a Marisa. Giulia ha una foto di Moro: «___ faccio vedere al nonno!» Lorenzo tocca il regalo. «Lascia ___!» dice Nonna Rosa. Bruno si è ___ (fare) tagliare i capelli per la festa. La torta è buonissima. «L'ho ___ (fare) fare da Marisa», dice Nonna Rosa.",
+        "gaps": [
+          {"accept": ["fa", "farà", "ha fatto"]},
+          {"accept": ["La"], "spoken": ["Gliela"]},
+          {"accept": ["stare", "perdere", "lì"]},
+          {"accept": ["fatto"]},
+          {"accept": ["fatta"]}
+        ],
         "translation": {
           "de": "Morgen hat Nonno Bepi Geburtstag. Nonna Rosa lässt Marisa eine Torte machen. Giulia hat ein Foto von Moro: „Ich zeige es dem Opa!“ Lorenzo fasst das Geschenk an. „Lass das!“, sagt Nonna Rosa. Bruno hat sich für das Fest die Haare schneiden lassen. Die Torte ist sehr gut. „Ich habe sie von Marisa machen lassen“, sagt Nonna Rosa.",
           "sl": "Jutri ima Nonno Bepi rojstni dan. Babica Rosa da Marisi narediti torto. Giulia ima Morovo fotografijo: »Pokazala jo bom dedku!« Lorenzo se dotakne darila. »Pusti!« reče babica Rosa. Bruno se je za praznik dal ostriči. Torta je zelo dobra. »Dala sem jo narediti Marisi,« reče babica Rosa.",
@@ -443,7 +453,11 @@
       {
         "type": "transform",
         "grammar": "fare-lasciare",
-        "instruction": {"de": "Usa i pronomi · Nimm die Pronomen", "sl": "Usa i pronomi · Uporabi zaimke", "en": "Usa i pronomi · Use the pronouns"},
+        "instruction": {
+          "de": "Usa i pronomi per la persona e la cosa · Nimm Pronomen für Person und Sache",
+          "sl": "Usa i pronomi per la persona e la cosa · Uporabi zaimka za osebo in stvar",
+          "en": "Usa i pronomi per la persona e la cosa · Use pronouns for the person and the thing"
+        },
         "items": [
           {"from": "Faccio vedere il regalo a te.", "accept": ["Te lo faccio vedere."]},
           {"from": "Faccio leggere la storia a Lorenzo.", "accept": ["Gliela faccio leggere."]},
@@ -466,8 +480,8 @@
         "type": "choice",
         "grammar": "fare-lasciare",
         "prompt": "«Il libro? Posso ___ vedere domani.»",
-        "options": ["fartelo", "farti lo", "far te lo"],
-        "answer": 0,
+        "options": ["farti lo", "far te lo", "fartelo"],
+        "answer": 2,
         "say_options": true,
         "explain": {
           "de": "**nach einem Modalverb hängt alles an** → **fartelo**\n- farti lo, far te lo · in einem Wort, mit te",
@@ -492,8 +506,8 @@
         "type": "choice",
         "grammar": "fare-lasciare",
         "prompt": "Maestra Elena chiede: «Mi sono ___ capire?»",
-        "options": ["fatta", "fatte", "fatti"],
-        "answer": 0,
+        "options": ["fatte", "fatti", "fatta"],
+        "answer": 2,
         "say_options": true,
         "explain": {
           "de": "**farsi mit essere**, passend zur Person: Elena → **fatta**\n- fatte · für mehrere Frauen\n- fatti · für mehrere Männer",

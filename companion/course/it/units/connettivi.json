@@ -79,8 +79,8 @@
           "type": "choice",
           "grammar": "connettivi",
           "prompt": "«Marisa è stanca; ___ apre l'osteria.»",
-          "options": ["tuttavia", "quindi", "a causa"],
-          "answer": 0,
+          "options": ["a causa", "tuttavia", "quindi"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**ein Gegensatz**: müde, und sie öffnet doch → **tuttavia**\n- quindi · also: Müdigkeit ist kein Grund zum Öffnen\n- a causa · braucht di + ein Nomen",
@@ -129,9 +129,9 @@
       },
       {
         "say": {
-          "de": "**Inoltre** (außerdem) fügt etwas hinzu: **Il vino di Matteo è buono; inoltre costa poco.** (Matteos Wein ist gut; außerdem kostet er wenig.) **A causa di** (wegen) und **grazie a** (dank) nehmen ein Nomen, **perché** einen Satz: **A causa della pioggia la festa è rimandata.** (Wegen des Regens wird das Fest verschoben.) **In base a** heißt *laut*: **In base alle regole il mercato chiude alle due.**",
-          "sl": "**Inoltre** (poleg tega) nekaj doda: **Il vino di Matteo è buono; inoltre costa poco.** (Matteovo vino je dobro; poleg tega stane malo.) **A causa di** (zaradi) in **grazie a** (zahvaljujoč) imata samostalnik, **perché** stavek: **A causa della pioggia la festa è rimandata.** (Zaradi dežja je praznik prestavljen.) **In base a** pomeni *na podlagi*: **In base alle regole il mercato chiude alle due.**",
-          "en": "**Inoltre** (furthermore) adds something: **Il vino di Matteo è buono; inoltre costa poco.** (Matteo's wine is good; furthermore, it costs little.) **A causa di** (because of) and **grazie a** (thanks to) take a noun, **perché** a clause: **A causa della pioggia la festa è rimandata.** (Because of the rain the festa has been put off.) **In base a** means *according to*: **In base alle regole il mercato chiude alle due.**"
+          "de": "**Inoltre** (außerdem) fügt etwas hinzu: **Il vino di Matteo è buono; inoltre costa poco.** (Matteos Wein ist gut; außerdem kostet er wenig.) **A causa di** (wegen) und **grazie a** (dank) nehmen ein Nomen, **perché** einen Satz: **A causa della pioggia la festa è rimandata.** (Wegen des Regens wird das Fest verschoben.) **In base a** heißt *laut*: **In base alle regole il mercato chiude alle due.** (Nach den Regeln schließt der Markt um zwei.)",
+          "sl": "**Inoltre** (poleg tega) nekaj doda: **Il vino di Matteo è buono; inoltre costa poco.** (Matteovo vino je dobro; poleg tega stane malo.) **A causa di** (zaradi) in **grazie a** (zahvaljujoč) imata samostalnik, **perché** stavek: **A causa della pioggia la festa è rimandata.** (Zaradi dežja je praznik prestavljen.) **In base a** pomeni *na podlagi*: **In base alle regole il mercato chiude alle due.** (Po pravilih se tržnica zapre ob dveh.)",
+          "en": "**Inoltre** (furthermore) adds something: **Il vino di Matteo è buono; inoltre costa poco.** (Matteo's wine is good; furthermore, it costs little.) **A causa di** (because of) and **grazie a** (thanks to) take a noun, **perché** a clause: **A causa della pioggia la festa è rimandata.** (Because of the rain the festa has been put off.) **In base a** means *according to*: **In base alle regole il mercato chiude alle due.** (Under the rules the market closes at two.)"
         },
         "examples": [
           {
@@ -174,9 +174,9 @@
       },
       {
         "say": {
-          "de": "**Il pane l'ho comprato io.** (Das Brot habe ich gekauft.) Was schon bekannt ist, darf nach vorn, und das Pronomen **lo, la, li, le** kommt dazu: **Le mele le porta Giulia.** (Die Äpfel bringt Giulia.) So redet man in Italien jeden Tag, und das Neue steht am Ende. Das Partizip passt sich an wie immer: **La gubana l'ha fatta Nonna Rosa.**",
-          "sl": "**Il pane l'ho comprato io.** (Kruh sem {m:kupil|f:kupila} jaz.) Kar je že znano, gre lahko naprej, zraven pride zaimek **lo, la, li, le**: **Le mele le porta Giulia.** (Jabolka prinese Giulia.) Tako v Italiji govorijo vsak dan, novo pa je na koncu. Deležnik se ujema kot vedno: **La gubana l'ha fatta Nonna Rosa.**",
-          "en": "**Il pane l'ho comprato io.** (I bought the bread.) What's already known can go first, and the pronoun **lo, la, li, le** comes with it: **Le mele le porta Giulia.** (Giulia is bringing the apples.) That's how people talk in Italy every day, with the news at the end. The participle agrees as always: **La gubana l'ha fatta Nonna Rosa.**"
+          "de": "**Il pane l'ho comprato io.** (Das Brot habe ich gekauft.) Was schon bekannt ist, darf nach vorn, und das Pronomen **lo, la, li, le** kommt dazu: **Le mele le porta Giulia.** (Die Äpfel bringt Giulia.) So redet man in Italien jeden Tag, und das Neue steht am Ende. Das Partizip passt sich an wie immer: **La gubana l'ha fatta Nonna Rosa.** (Die Gubana hat Nonna Rosa gemacht.)",
+          "sl": "**Il pane l'ho comprato io.** (Kruh sem {m:kupil|f:kupila} jaz.) Kar je že znano, gre lahko naprej, zraven pride zaimek **lo, la, li, le**: **Le mele le porta Giulia.** (Jabolka prinese Giulia.) Tako v Italiji govorijo vsak dan, novo pa je na koncu. Deležnik se ujema kot vedno: **La gubana l'ha fatta Nonna Rosa.** (Gubano je naredila babica Rosa.)",
+          "en": "**Il pane l'ho comprato io.** (I bought the bread.) What's already known can go first, and the pronoun **lo, la, li, le** comes with it: **Le mele le porta Giulia.** (Giulia is bringing the apples.) That's how people talk in Italy every day, with the news at the end. The participle agrees as always: **La gubana l'ha fatta Nonna Rosa.** (Nonna Rosa made the gubana.)"
         },
         "examples": [
           {"it": "Il pane l'ho comprato io.", "de": "Das Brot habe ich gekauft.", "sl": "Kruh sem {m:kupil|f:kupila} jaz.", "en": "I bought the bread."},
@@ -197,8 +197,8 @@
           "type": "choice",
           "grammar": "connettivi",
           "prompt": "«Il pane ___ comprato io.»",
-          "options": ["l'ho", "ho", "lo"],
-          "answer": 0,
+          "options": ["lo", "l'ho", "ho"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**das Bekannte vorn, mit Pronomen** → **l'ho** comprato\n- ho · das Pronomen fehlt\n- lo · lo + ho wird l'ho, und ho fehlt",
@@ -236,8 +236,8 @@
           "type": "choice",
           "grammar": "connettivi",
           "prompt": "«È stato Moro ___ mangiare la torta!»",
-          "options": ["a", "che", "di"],
-          "answer": 0,
+          "options": ["di", "a", "che"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**è stato … a** + Infinitiv → **a** mangiare\n- che · geht mit dem Verb: che ha mangiato\n- di · passt hier nicht",
@@ -248,9 +248,9 @@
       },
       {
         "say": {
-          "de": "**Gentile Sindaco,** so beginnt ein Brief an den Bürgermeister, mit Lei, und nach dem Komma klein weiter: **Le scrivo per la fontana in piazza.** **La ringrazio** statt **ti ringrazio**, **Le scrivo** statt **ti scrivo**, **la Sua risposta** statt **la tua**. Zum Schluss: **In attesa di una Sua risposta, La ringrazio. Cordiali saluti.** Im Brief schreibt man **La, Le, Sua** oft groß.",
-          "sl": "**Gentile Sindaco,** tako se začne pismo županu, z Lei, za vejico pa z malo naprej: **Le scrivo per la fontana in piazza.** **La ringrazio** namesto **ti ringrazio**, **Le scrivo** namesto **ti scrivo**, **la Sua risposta** namesto **la tua**. Na koncu: **In attesa di una Sua risposta, La ringrazio. Cordiali saluti.** V pismu **La, Le, Sua** pogosto pišemo z veliko.",
-          "en": "**Gentile Sindaco,** that's how a letter to the mayor begins, with Lei, and a small letter after the comma: **Le scrivo per la fontana in piazza.** **La ringrazio** for **ti ringrazio**, **Le scrivo** for **ti scrivo**, **la Sua risposta** for **la tua**. At the end: **In attesa di una Sua risposta, La ringrazio. Cordiali saluti.** In a letter **La, Le, Sua** are often capitalised."
+          "de": "**Gentile Sindaco,** so beginnt ein Brief an den Bürgermeister, mit Lei: **Le scrivo per la fontana in piazza.** (Ich schreibe Ihnen wegen des Brunnens auf dem Platz.) **La ringrazio** statt **ti ringrazio**, **Le scrivo** statt **ti scrivo**, **la Sua risposta** statt **la tua**. Zum Schluss: **In attesa di una Sua risposta, La ringrazio. Cordiali saluti.** (In Erwartung Ihrer Antwort danke ich Ihnen. Mit freundlichen Grüßen.) Im Brief schreibt man **La, Le, Sua** oft groß.",
+          "sl": "**Gentile Sindaco,** tako se začne pismo županu, z Lei: **Le scrivo per la fontana in piazza.** (Pišem Vam zaradi vodnjaka na trgu.) **La ringrazio** namesto **ti ringrazio**, **Le scrivo** namesto **ti scrivo**, **la Sua risposta** namesto **la tua**. Na koncu: **In attesa di una Sua risposta, La ringrazio. Cordiali saluti.** (V pričakovanju Vašega odgovora se Vam zahvaljujem. Lep pozdrav.) V pismu **La, Le, Sua** pogosto pišemo z veliko.",
+          "en": "**Gentile Sindaco,** that's how a letter to the mayor begins, with Lei: **Le scrivo per la fontana in piazza.** (I'm writing to you about the fountain in the square.) **La ringrazio** for **ti ringrazio**, **Le scrivo** for **ti scrivo**, **la Sua risposta** for **la tua**. At the end: **In attesa di una Sua risposta, La ringrazio. Cordiali saluti.** (Awaiting your reply, I thank you. Kind regards.) In a letter **La, Le, Sua** are often capitalised."
         },
         "examples": [
           {
@@ -275,10 +275,10 @@
           "type": "choice",
           "grammar": "connettivi",
           "prompt": "«Gentile Sindaco, ___ ringrazio per la Sua risposta.»",
-          "options": ["La", "Ti", "Le"],
-          "answer": 0,
+          "options": ["Ti", "Le", "La"],
+          "answer": 2,
           "say_options": true,
-          "almost": [1],
+          "almost": [0],
           "explain": {
             "de": "**ringraziare** + direktes Objekt, mit Lei → **La** ringrazio\n- Ti · richtig, aber das sagst du Freunden\n- Le · für scrivere: Le scrivo",
             "sl": "**ringraziare** + neposredni predmet, z Lei → **La** ringrazio\n- Ti · prav, a to rečeš prijateljem\n- Le · za scrivere: Le scrivo",
@@ -313,8 +313,8 @@
           "grammar": "connettivi",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Non mi dispiace, ___, mi fa piacere.»",
-          "options": ["anzi", "a causa di", "in base a"],
-          "answer": 0,
+          "options": ["a causa di", "in base a", "anzi"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**korrigiert und geht weiter** → **anzi**\n- a causa di, in base a · nehmen ein Nomen",
@@ -341,8 +341,8 @@
           "grammar": "connettivi",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«L'osteria è chiusa ___ festa di San Martino.»",
-          "options": ["a causa della", "a causa", "perché la"],
-          "answer": 0,
+          "options": ["a causa", "perché la", "a causa della"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**ein Nomen** → a causa di + la festa = **a causa della**\n- a causa · ohne di geht es nicht\n- perché la · perché nimmt einen Satz",
@@ -364,14 +364,17 @@
           "text": "Gentile Sindaco, ___ scrivo a nome del paese. La fontana in piazza non funziona ___ del gelo di gennaio. Bruno ha provato a ripararla; ___, il lavoro è troppo grande per lui. ___, il tubo nuovo costa molto. Il tubo non ___ possiamo comprare noi. È Lei ___ può aiutarci. In ___ di una Sua risposta, ___ ringrazio. ___ saluti, Franco",
           "gaps": [
             {"accept": ["Le"], "hint": {"de": "scrivere a, mit Lei", "sl": "scrivere a, z Lei", "en": "scrivere a, with Lei"}},
-            {"accept": ["a causa", "per via"], "hint": {"de": "wegen", "sl": "zaradi", "en": "because of"}},
+            {"accept": ["a causa", "per via", "per colpa", "a seguito"], "hint": {"de": "wegen", "sl": "zaradi", "en": "because of"}},
             {"accept": ["tuttavia", "però", "ma", "purtroppo"], "hint": {"de": "ein Gegensatz", "sl": "nasprotje", "en": "a contrast"}},
-            {"accept": ["Inoltre", "In più", "Poi", "E poi"], "hint": {"de": "noch etwas dazu", "sl": "še nekaj zraven", "en": "one more thing"}},
+            {
+              "accept": ["Inoltre", "In più", "Poi", "E poi", "Oltretutto", "Per di più", "Purtroppo"],
+              "hint": {"de": "noch etwas dazu", "sl": "še nekaj zraven", "en": "one more thing"}
+            },
             {"accept": ["lo"], "hint": "il tubo → ?"},
             {"accept": ["che"], "hint": "è … ?"},
             {"accept": ["attesa"]},
             {"accept": ["La"], "hint": {"de": "ringraziare, mit Lei", "sl": "ringraziare, z Lei", "en": "ringraziare, with Lei"}},
-            {"accept": ["Cordiali", "Distinti"]}
+            {"accept": ["Cordiali", "Distinti", "Rispettosi", "Tanti"]}
           ],
           "bank": true,
           "translation": {
@@ -400,8 +403,8 @@
           "grammar": "connettivi",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Questo lavoro, ___ fa Bruno.»",
-          "options": ["lo", "la", "gli"],
-          "answer": 0,
+          "options": ["gli", "lo", "la"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**il lavoro** (männlich), direktes Objekt → **lo** fa\n- la · für eine weibliche Sache\n- gli · ihm, für a + eine Person",
@@ -471,10 +474,10 @@
         "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
         "text": "___ della pioggia la festa è rimandata. Marisa, ___, non chiude: ___, apre anche la sala grande. ___, c'è il frico per tutti. Il vino lo porta Matteo; il pane ___ porta Bruno.",
         "gaps": [
-          {"accept": ["A causa", "Per via"]},
-          {"accept": ["invece", "però", "tuttavia", "comunque"]},
-          {"accept": ["anzi", "al contrario", "invece"]},
-          {"accept": ["Inoltre", "In più", "Poi", "E poi"]},
+          {"accept": ["A causa", "Per via", "Per colpa", "A seguito"]},
+          {"accept": ["invece", "però", "tuttavia", "comunque", "quindi", "naturalmente"], "hint": {"de": "trotzdem", "sl": "kljub temu", "en": "even so"}},
+          {"accept": ["anzi", "al contrario", "invece", "infatti", "inoltre"]},
+          {"accept": ["Inoltre", "In più", "Poi", "E poi", "Oltretutto", "Per di più"]},
           {"accept": ["lo"]}
         ],
         "translation": {
@@ -507,9 +510,15 @@
         "items": [
           {
             "from": "Nonna Rosa ha fatto il frico.",
-            "accept": ["È Nonna Rosa che ha fatto il frico.", "È stata Nonna Rosa a fare il frico.", "È stata Nonna Rosa che ha fatto il frico."]
+            "accept": [
+              "È Nonna Rosa che ha fatto il frico.",
+              "È stata Nonna Rosa a fare il frico.",
+              "È stata Nonna Rosa che ha fatto il frico.",
+              "È Nonna Rosa ad aver fatto il frico.",
+              "Il frico l'ha fatto Nonna Rosa."
+            ]
           },
-          {"from": "Aldo porta il miele.", "accept": ["È Aldo che porta il miele.", "È Aldo a portare il miele."]}
+          {"from": "Aldo porta il miele.", "accept": ["È Aldo che porta il miele.", "È Aldo a portare il miele.", "Il miele lo porta Aldo."]}
         ]
       },
       {
@@ -538,8 +547,8 @@
         "type": "choice",
         "grammar": "connettivi",
         "prompt": "«Bruno non è antipatico, ___, è molto gentile.»",
-        "options": ["anzi", "a causa", "in base a"],
-        "answer": 0,
+        "options": ["in base a", "anzi", "a causa"],
+        "answer": 1,
         "say_options": true,
         "explain": {
           "de": "**korrigiert und geht weiter** → **anzi**\n- a causa, in base a · gehören zu einem Nomen",

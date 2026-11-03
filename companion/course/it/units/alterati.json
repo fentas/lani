@@ -12,7 +12,7 @@
   },
   "goal": {
     "de": "Du machst Wörter klein, lieb, groß oder schlecht (casetta, calduccio, nasone, tempaccio), bildest Adverbien und Gegenteile (facilmente, impossibile) und erkennst Wörter, die nur so aussehen (mulino, burrone).",
-    "sl": "Besede pomanjšaš, poljubiš, povečaš ali poslabšaš (casetta, calduccio, nasone, tempaccio), tvoriš prislove in nasprotja (facilmente, impossibile) in prepoznaš besede, ki so le videti tako (mulino, burrone).",
+    "sl": "Besede pomanjšaš, narediš ljubke, povečaš ali poslabšaš (casetta, calduccio, nasone, tempaccio), tvoriš prislove in nasprotja (facilmente, impossibile) in prepoznaš besede, ki so le videti tako (mulino, burrone).",
     "en": "You can make words small, dear, big or bad (casetta, calduccio, nasone, tempaccio), form adverbs and opposites (facilmente, impossibile) and spot words that only look like it (mulino, burrone)."
   },
   "grammar": ["alterati"],
@@ -160,8 +160,8 @@
           "type": "choice",
           "grammar": "alterati",
           "prompt": "«Che cos'è un lampone?»",
-          "options": ["un frutto", "un grande lampo", "un piccolo lampo"],
-          "answer": 0,
+          "options": ["un grande lampo", "un piccolo lampo", "un frutto"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**il lampone** ist die Himbeere → **un frutto**\n- un grande lampo, un piccolo lampo · lampo (Blitz) hat nichts damit zu tun",
@@ -172,9 +172,9 @@
       },
       {
         "say": {
-          "de": "**-mente** macht aus einem Adjektiv ein Adverb, an der weiblichen Form: **lenta → lentamente** (langsam), **felice → felicemente** (glücklich). Nach **-le** und **-re** fällt das letzte **-e** weg: **facile → facilmente** (leicht), **gentile → gentilmente** (freundlich), **regolare → regolarmente** (regelmäßig).",
-          "sl": "**-mente** iz pridevnika naredi prislov, iz ženske oblike: **lenta → lentamente** (počasi), **felice → felicemente** (srečno). Za **-le** in **-re** zadnji **-e** odpade: **facile → facilmente** (lahko), **gentile → gentilmente** (prijazno), **regolare → regolarmente** (redno).",
-          "en": "**-mente** turns an adjective into an adverb, on the feminine form: **lenta → lentamente** (slowly), **felice → felicemente** (happily). After **-le** and **-re** the last **-e** goes: **facile → facilmente** (easily), **gentile → gentilmente** (kindly), **regolare → regolarmente** (regularly)."
+          "de": "**-mente** macht aus einem Adjektiv ein Adverb, an der weiblichen Form: **lenta → lentamente** (langsam), **felice → felicemente** (glücklich). Mit einem Vokal vor **-le** oder **-re** fällt das letzte **-e** weg: **facile → facilmente** (leicht), **gentile → gentilmente** (freundlich), **regolare → regolarmente** (regelmäßig).",
+          "sl": "**-mente** iz pridevnika naredi prislov, iz ženske oblike: **lenta → lentamente** (počasi), **felice → felicemente** (srečno). Če je pred **-le** ali **-re** samoglasnik, zadnji **-e** odpade: **facile → facilmente** (lahko), **gentile → gentilmente** (prijazno), **regolare → regolarmente** (redno).",
+          "en": "**-mente** turns an adjective into an adverb, on the feminine form: **lenta → lentamente** (slowly), **felice → felicemente** (happily). With a vowel before **-le** or **-re** the last **-e** goes: **facile → facilmente** (easily), **gentile → gentilmente** (kindly), **regolare → regolarmente** (regularly)."
         },
         "examples": [
           {
@@ -201,7 +201,7 @@
           "grammar": "alterati",
           "text": "Marisa risponde sempre ___ (gentile).",
           "accept": ["gentilmente"],
-          "hint": "-le + mente",
+          "hint": "-le → -l + mente",
           "explain": {
             "de": "**gentile** endet auf -le: Das -e fällt weg → **gentilmente**",
             "sl": "**gentile** se konča na -le: -e odpade → **gentilmente**",
@@ -242,8 +242,8 @@
           "type": "choice",
           "grammar": "alterati",
           "prompt": "«Questo verbo non è regolare: è ___.»",
-          "options": ["irregolare", "inregolare", "sregolare"],
-          "answer": 0,
+          "options": ["sregolare", "irregolare", "inregolare"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**vor r wird in- zu ir-** → **irregolare**\n- inregolare · das n passt sich an: ir-\n- sregolare · passt hier nicht",
@@ -284,8 +284,8 @@
           "type": "choice",
           "grammar": "alterati",
           "prompt": "«Per comprare un libro vado in ___.»",
-          "options": ["libreria", "biblioteca", "panetteria"],
-          "answer": 0,
+          "options": ["biblioteca", "panetteria", "libreria"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**kaufen** → in **libreria** (Buchhandlung)\n- biblioteca · dort leihst du es aus\n- panetteria · dort gibt es Brot",
@@ -321,8 +321,8 @@
           "grammar": "alterati",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Che cos'è un tacchino?»",
-          "options": ["un animale", "un piccolo tacco", "una scarpa"],
-          "answer": 0,
+          "options": ["un piccolo tacco", "una scarpa", "un animale"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**il tacchino** ist der Truthahn → **un animale**\n- un piccolo tacco · tacco (Absatz) hat nichts damit zu tun\n- una scarpa · ein Schuh ist das nicht",
@@ -335,8 +335,8 @@
           "grammar": "alterati",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«In classe non si dicono: sono ___.»",
-          "options": ["parolacce", "parolette", "paroline"],
-          "answer": 0,
+          "options": ["paroline", "parolacce", "parolette"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**schlechte Wörter** → **parolacce** (-accia, Mehrzahl -acce)\n- parolette, paroline · kleine Wörter, die darf man sagen",
@@ -349,8 +349,8 @@
           "grammar": "alterati",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«La grande porta di una chiesa è ___.»",
-          "options": ["il portone", "la portona", "la portina"],
-          "answer": 0,
+          "options": ["la portina", "il portone", "la portona"],
+          "answer": 1,
           "say_options": true,
           "explain": {
             "de": "**groß** → **il portone**: Das Wort wird männlich\n- la portona · -one bleibt hier männlich\n- la portina · die ist klein",
@@ -372,9 +372,9 @@
           "text": "Il nostro ___ (piccolo paese) è bello. Ogni mattina il ___ (chi porta la posta) passa ___ (lento) in piazza e saluta ___ (gentile). Oggi, però, c'è un ___ (brutto tempo) e Marisa chiude il ___ (grande porta) dell'osteria. Nella sua ___ (piccola casa) Zia Nives ascolta la radio con il suo ___ (piccolo gatto). Davide dice una ___ (brutta parola): ha perso il cappello. Che ___ (non fortuna)!",
           "gaps": [
             {"accept": ["paesello", "paesino", "paesetto"]},
-            {"accept": ["postino"]},
+            {"accept": ["postino", "portalettere"]},
             {"accept": ["lentamente"], "hint": "lenta + …"},
-            {"accept": ["gentilmente"], "hint": "-le + mente"},
+            {"accept": ["gentilmente"], "hint": "-le → -l + mente"},
             {"accept": ["tempaccio"]},
             {"accept": ["portone"], "hint": {"de": "wird männlich", "sl": "postane moškega spola", "en": "turns masculine"}},
             {"accept": ["casetta", "casina", "casuccia", "casettina"]},
@@ -395,8 +395,8 @@
           "grammar": "alterati",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Giulia ha sbagliato tutto: deve ___ la lettera.»",
-          "options": ["riscrivere", "iscrivere", "descrivere"],
-          "answer": 0,
+          "options": ["iscrivere", "descrivere", "riscrivere"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**noch einmal** → **ri-**: **riscrivere**\n- iscrivere · jemanden anmelden\n- descrivere · beschreiben",
@@ -409,8 +409,8 @@
           "grammar": "alterati",
           "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
           "prompt": "«Entrare senza biglietto è ___.»",
-          "options": ["illegale", "inlegale", "slegale"],
-          "answer": 0,
+          "options": ["inlegale", "slegale", "illegale"],
+          "answer": 2,
           "say_options": true,
           "explain": {
             "de": "**vor l wird in- zu il-** → **illegale**\n- inlegale · das n passt sich an: il-\n- slegale · passt hier nicht",
@@ -429,10 +429,10 @@
           "grammar": "alterati",
           "instruction": {"de": "Di' in una parola · Sag es in einem Wort", "sl": "Di' in una parola · Povej z eno besedo", "en": "Di' in una parola · Say it in one word"},
           "items": [
-            {"from": "un piccolo tavolo", "accept": ["un tavolino", "un tavolinetto"]},
-            {"from": "un grande libro", "accept": ["un librone"]},
-            {"from": "un ragazzo cattivo", "accept": ["un ragazzaccio"]},
-            {"from": "una piccola barca", "accept": ["una barchetta", "una barchina"], "hint": "c + e, i → ch"}
+            {"from": "un piccolo tavolo", "accept": ["un tavolino", "un tavolinetto", "tavolino", "tavolinetto"]},
+            {"from": "un grande libro", "accept": ["un librone", "librone"]},
+            {"from": "un ragazzo cattivo", "accept": ["un ragazzaccio", "ragazzaccio"]},
+            {"from": "una piccola barca", "accept": ["una barchetta", "una barchina", "barchetta", "barchina"], "hint": "c + e, i → ch"}
           ],
           "explain": {
             "de": "**die Endung statt des Adjektivs**, der Artikel bleibt\n- un piccolo tavolo → un tavolino\n- barca → barchetta: das h hält das c hart",
@@ -446,7 +446,7 @@
           "instruction": {"de": "Di' in una parola · Sag es in einem Wort", "sl": "Di' in una parola · Povej z eno besedo", "en": "Di' in una parola · Say it in one word"},
           "items": [
             {"from": "in modo felice", "accept": ["felicemente"]},
-            {"from": "in modo facile", "accept": ["facilmente"], "hint": "-le + mente"},
+            {"from": "in modo facile", "accept": ["facilmente"], "hint": "-le → -l + mente"},
             {"from": "non possibile", "accept": ["impossibile"], "hint": "in + p → im-"},
             {"from": "leggere di nuovo", "accept": ["rileggere"]}
           ],
@@ -485,8 +485,8 @@
         "type": "choice",
         "grammar": "alterati",
         "prompt": "«Che cos'è il torrone?»",
-        "options": ["un dolce", "una grande torre", "una piccola torre"],
-        "answer": 0,
+        "options": ["una grande torre", "una piccola torre", "un dolce"],
+        "answer": 2,
         "say_options": true,
         "explain": {
           "de": "**il torrone** ist Mandelnougat → **un dolce**\n- una grande torre, una piccola torre · torre (Turm) hat nichts damit zu tun",
@@ -511,8 +511,8 @@
         "type": "choice",
         "grammar": "alterati",
         "prompt": "«Quel libro è grosso e pesante: è un ___.»",
-        "options": ["librone", "libretto", "libraio"],
-        "answer": 0,
+        "options": ["libraio", "librone", "libretto"],
+        "answer": 1,
         "say_options": true,
         "explain": {
           "de": "**groß** → **-one**: **librone**\n- libretto · ein kleines Buch\n- libraio · wer Bücher verkauft",
@@ -524,8 +524,8 @@
         "type": "choice",
         "grammar": "alterati",
         "prompt": "«Bruno non è contento del lavoro: è ___.»",
-        "options": ["scontento", "incontento", "ricontento"],
-        "answer": 0,
+        "options": ["ricontento", "scontento", "incontento"],
+        "answer": 1,
         "say_options": true,
         "explain": {
           "de": "**das Gegenteil von contento** → **scontento**\n- incontento · sagt man nicht\n- ricontento · ri- heißt wieder",
@@ -539,7 +539,7 @@
         "instruction": {"de": "Di' in una parola · Sag es in einem Wort", "sl": "Di' in una parola · Povej z eno besedo", "en": "Di' in una parola · Say it in one word"},
         "items": [
           {"from": "in modo lento", "accept": ["lentamente"]},
-          {"from": "in modo regolare", "accept": ["regolarmente"], "hint": "-re + mente"},
+          {"from": "in modo regolare", "accept": ["regolarmente"], "hint": "-re → -r + mente"},
           {"from": "non felice", "accept": ["infelice"]},
           {"from": "fare di nuovo", "accept": ["rifare"]}
         ]
