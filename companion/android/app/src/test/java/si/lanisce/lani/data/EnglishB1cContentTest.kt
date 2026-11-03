@@ -76,15 +76,11 @@ class EnglishB1cContentTest {
 
     @Test fun `what people say in these units is almost with the standard form shown`() {
         for ((typed, right) in listOf(
-            "If I would have known, I would have come." to "If I had known, I would have come.",
             "If I'd have known, I'd have come." to "If I had known, I would have come.",
-            "I would have come if I would have known." to "I would have come if I had known.",
-            "If I wouldn't have known, I'd have stayed." to "If I hadn't known, I'd have stayed.",
+            "If I had have known, I would have come." to "If I had known, I would have come.",
+            "I would have come if I'd have known." to "I would have come if I had known.",
             "I would of come." to "I would have come.",
             "We could of helped." to "We could have helped.",
-            "If I would have a boat, I'd row across." to "If I had a boat, I'd row across.",
-            "If it would rain, we'd stay." to "If it rained, we'd stay.",
-            "If I wouldn't have the sheep, I'd sleep." to "If I didn't have the sheep, I'd sleep.",
             "He asked where did I live." to "He asked where I lived.",
             "He asked me where did I live." to "He asked me where I lived.",
             "He asked did I want tea." to "He asked if I wanted tea.",
@@ -99,14 +95,21 @@ class EnglishB1cContentTest {
         }
         val gap = SheetItem(accept = listOf("the inn is"), grammar = null, frame = "Do you know where ${Sheets.BLANK}?")
         assertEquals(Verdict.ALMOST to Hint.NONSTANDARD, Sheets.check(gap, "is the inn", Lang.EN).let { it.verdict to it.hint })
-        val had = SheetItem(accept = listOf("had known"), grammar = null, frame = "If I ${Sheets.BLANK}, I'd have come.")
-        assertEquals(Verdict.ALMOST to Hint.NONSTANDARD, Sheets.check(had, "would have known", Lang.EN).let { it.verdict to it.hint })
     }
 
     @Test fun `what isn't said stays wrong and the rows don't reach further`() {
         for ((typed, right) in listOf(
-            // only after if, and only for the if half
-            "I would have a boat." to "I had a boat.",
+            // would after if: German's and Slovene's mistake, not what this English says (the lead's ruling, 2026-11-03)
+            "If I would have a boat, I'd row across." to "If I had a boat, I'd row across.",
+            "If it would rain, we'd stay." to "If it rained, we'd stay.",
+            "If I wouldn't have the sheep, I'd sleep." to "If I didn't have the sheep, I'd sleep.",
+            "If I would know the way, I'd tell you." to "If I knew the way, I'd tell you.",
+            "If I would have known, I would have come." to "If I had known, I would have come.",
+            "I would have come if I would have known." to "I would have come if I had known.",
+            "If I wouldn't have known, I'd have stayed." to "If I hadn't known, I'd have stayed.",
+            "If I'd have a boat, I'd row across." to "If I had a boat, I'd row across.",
+            // a tense mixed, typed where the unit asks for the past
+            "If I know the way, I'd tell you." to "If I knew the way, I'd tell you.",
             "If I had a boat, I would rowing." to "If I had a boat, I would row.",
             // a learner's mistakes nobody grown up says
             "She said me she was tired." to "She told me she was tired.",
@@ -122,6 +125,8 @@ class EnglishB1cContentTest {
         )) assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
         val direct = SheetItem(accept = listOf("do you live"), grammar = null, frame = "Where ${Sheets.BLANK}?")
         assertEquals(Verdict.WRONG, Sheets.check(direct, "did you live", Lang.EN).verdict)
+        val had = SheetItem(accept = listOf("had known"), grammar = null, frame = "If I ${Sheets.BLANK}, I'd have come.")
+        assertEquals(Verdict.WRONG, Sheets.check(had, "would have known", Lang.EN).verdict)
     }
 
     @Test fun `the paired mistakes are wrong while a slip on another word stays one`() {
@@ -159,8 +164,8 @@ class EnglishB1cContentTest {
 
     @Test fun `no choice and no bank of these units offers what people say as the wrong form`() {
         val said = mapOf(
-            "if-i-had" to Regex("""(?i)^was$|would"""), "might-must" to Regex("""(?i)mustn't|must not|^does$|^doesn't$"""),
-            "if-i-had-known" to Regex("""(?i)^knew$|would have known|would of|woulda|'d have known"""), "although-however" to Regex("""(?i)^so$|cos of"""),
+            "if-i-had" to Regex("""(?i)^was$"""), "might-must" to Regex("""(?i)mustn't|must not|^does$|^doesn't$"""),
+            "if-i-had-known" to Regex("""(?i)^knew$|would of|woulda|'d have known"""), "although-however" to Regex("""(?i)^so$|cos of"""),
             "reported-speech" to Regex("""(?i)^(is|are|will|can|don't)$"""), "reported-questions" to Regex("""(?i)did i |does the|is the|^i live$|^i want$"""),
         )
         for (id in units) {
@@ -185,7 +190,7 @@ class EnglishB1cContentTest {
     }
 
     @Test fun `no text of these units says never of a form people say`() {
-        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:If I was|If I would|mustn't|would of|woulda|If I'd have|did I want|did I live|where's the inn)[^*]*\*""", RegexOption.IGNORE_CASE)
+        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:If I was|mustn't|would of|woulda|If I'd have|did I want|did I live|where's the inn)[^*]*\*""", RegexOption.IGNORE_CASE)
         val ours = listOf("second-conditional", "might-must", "third-conditional", "contrast-linkers", "reported-speech", "reported-questions")
         val texts = units.flatMap { id ->
             val unit = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject
@@ -197,6 +202,54 @@ class EnglishB1cContentTest {
         assertEquals(emptyList<String>(), texts.filter { said.containsMatchIn(it) })
     }
 
+    /** All 18 of B1: parts a and b hold their own six, this the level, as EnglishA2cContentTest does A2. */
+    private val b1 by lazy { course.levels.first { it.level == "B1" }.units.map { it.id } }
+
+    @Test fun `no choice and no word bank of the whole level offers what people say as the wrong form`() {
+        assertEquals(18, b1.size)
+        for (id in b1) {
+            val u = course.units.getValue(id)
+            val all = u.worksheets.flatMap { it.exercises } + u.test.exercises
+            val choices = all.filterIsInstance<Exercise.Choice>() + u.intro?.steps.orEmpty().mapNotNull { it.ask as? Exercise.Choice }
+            for (c in choices) {
+                val right = c.options[c.answer]
+                c.options.forEachIndexed { i, o ->
+                    if (i != c.answer && i !in c.almost) {
+                        val (typed, whole) = if (Sheets.GAP.containsMatchIn(c.prompt)) c.prompt.replace(Sheets.GAP, o) to c.prompt.replace(Sheets.GAP, right) else o to right
+                        assertTrue("$id: «$typed» offered as wrong beside «$whole»", Grading.check(typed, listOf(whole), Lang.EN).hint != Hint.NONSTANDARD)
+                    }
+                }
+            }
+            for (e in all.filterIsInstance<Exercise.GapText>()) for (d in e.distractors) for (item in Sheets.items(e, Lang.EN)) {
+                assertTrue("$id: the distractor «$d» in ${item.frame}", Grading.check(d, item.accept, Lang.EN, item.frame.substringBefore(Sheets.BLANK, "")).hint != Hint.NONSTANDARD)
+                assertTrue("$id: the distractor «$d» is said in ${item.frame}", d !in item.spoken)
+            }
+        }
+    }
+
+    @Test fun `no text of the whole level says never of a form people say`() {
+        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:If I was|mustn't|would of|woulda|If I'd have|did I want|did I live|where's the inn|I been|didn't used|I use to|ain't|innit|was took|hisself|meself|theirselves|the \p{L}+ what|amn't|I've saw|haven't never|It were|I seen|I done)[^*]*\*""", RegexOption.IGNORE_CASE)
+        val pages = b1.flatMap { course.units.getValue(it).grammar }.distinct().filter { p -> json.parseToJsonElement(File(companion, "grammar/en/$p.json").readText()).jsonObject["level"]!!.jsonPrimitive.content == "B1" }
+        val texts = b1.flatMap { id ->
+            val unit = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject
+            unit["intro"]!!.jsonObject["steps"]!!.jsonArray.flatMap { s -> s.jsonObject["say"]!!.jsonObject.values.map { "$id: ${it.jsonPrimitive.content}" } }
+        } + pages.flatMap { id ->
+            val p = json.parseToJsonElement(File(companion, "grammar/en/$id.json").readText()).jsonObject
+            (p["rule"]!!.jsonObject.values + p["card"]!!.jsonObject["tip"]!!.jsonObject.values).map { "$id: ${it.jsonPrimitive.content}" }
+        }
+        assertEquals(18, pages.size)
+        assertEquals(emptyList<String>(), texts.filter { said.containsMatchIn(it) })
+    }
+
+    @Test fun `the whole level is written, its sheets within 35 items`() {
+        fun items(e: Exercise) = if (e is Exercise.Sort) e.columns.sumOf { it.words.size } else if (e is Exercise.Choice) 1 else Sheets.items(e, Lang.EN).size
+        for (id in b1) {
+            val n = course.units.getValue(id).worksheets.flatMap { it.exercises }.sumOf { items(it) }
+            assertTrue("$id: $n items on its sheets", n in 15..35)
+            assertTrue("$id is written", id in course.playable("B1").map { it.id })
+        }
+    }
+
     @Test fun `the six units are written in the outline's order at B1, naming their pages`() {
         val b1 = json.parseToJsonElement(File(companion, "course/en/course.json").readText()).jsonObject["levels"]!!.jsonArray
             .map { it.jsonObject }.first { it["level"]!!.jsonPrimitive.content == "B1" }["units"]!!.jsonArray.map { it.jsonObject }
@@ -204,7 +257,7 @@ class EnglishB1cContentTest {
         val pages = Grammar.bundled("en").associateBy { it.id }
         val want = mapOf(
             "if-i-had" to listOf("second-conditional", "first-conditional"), "might-must" to listOf("might-must", "must-have-to"),
-            "if-i-had-known" to listOf("third-conditional", "second-conditional"), "although-however" to listOf("contrast-linkers", "linking-words"),
+            "if-i-had-known" to listOf("third-conditional", "second-conditional", "past-perfect"), "although-however" to listOf("contrast-linkers", "linking-words"),
             "reported-speech" to listOf("reported-speech", "past-simple"), "reported-questions" to listOf("reported-questions", "reported-speech", "questions-do"),
         )
         for (line in b1.takeLast(6)) {

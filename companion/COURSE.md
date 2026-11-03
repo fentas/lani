@@ -1371,8 +1371,8 @@ B1's last six, mood, voice and small words (docs/plans/05-built/course-de-b1-c.m
 ## The English course
 
 For grown-ups learning English in the Lake District village (the culture `lakeland`), from Slovene, German or Italian:
-visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1 and
-A2 written, 18 units each, each naming the English grammar pages it teaches; B1 and B2 planned, docs/plans/05-built/outlines-2.md) and its units, written in the village's adult life: Mrs
+visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1, A2 and
+B1 written, 18 units each, each naming the English grammar pages it teaches; B2 planned, docs/plans/05-built/outlines-2.md) and its units, written in the village's adult life: Mrs
 Hartley the teacher, Mrs Birkett at the Packhorse Inn, Shepherd Jack and his sheepdog Meg, Mr Dixon the blacksmith,
 Granny Maggie and Auntie Edna, Mr Tyson and his mill, Brewer Sam, Old Wilf, Arthur and his bees; the fells, the becks,
 the tarn, Keswick eight miles off. The school is the same school, and every part of it is the course's language's:
@@ -1388,7 +1388,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
 | Not for English | forms cards, counting cards, the numbers module and the case rows (Slovene's: `numbers` turns nothing on); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
-| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
+| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `EnglishB1aContentTest`, `EnglishB1bContentTest`, `EnglishB1cContentTest` (B1's parts and, the last, what people say over the 18), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
 
 Writing an English unit: as [Writing a unit](#writing-a-unit), with the explanations in each base (du, ti and tu, as the
 app speaks to the learner), every English form in **bold** with its meaning in brackets where the base needs one; the
@@ -1567,6 +1567,73 @@ As [Spoken forms](#spoken-forms): no form grown-ups really say is a wrong choice
 **`nonstandard` is for what grown-ups really say.** A child's or a learner's regular past (telled, catched, knowed, throwed, growed) isn't, any more than gooder and more bigger: those are wrong, and a sheet may offer them (`past-irregular`'s telled).
 
 Left wrong, on the native list: more bigger, gooder, as for than, How much eggs?, tastes well; he have to (East Anglia's), still a wrong choice in `have-to`; come, give, run for came, gave, ran (the cue copied, and what the unit teaches); haven't to; I've knew, I've flew.
+
+### The English course: B1, units 1–6
+
+B1's first six: time. Each names its new page, and A2's or A1's where it goes on from them:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `for-since` 🏡 | have, has + the participle for what still goes on; for and since (German's seit, Italian's da for both); How long?; no with for and since; since + a clause in the past simple; the past simple for what is over, ago | for-since (new), present-perfect |
+| `been-waiting` ⏱️ | have been + -ing; questions and no; what you can still see; the activity against the result (how long, how many); know, own, belong, understand, believe, be, have stay simple; live, work, stay, wait either way | present-perfect-continuous (new), present-perfect |
+| `past-perfect` 🚌 | had + the participle for what came first; 'd, hadn't, Had you …?; by the time, already, just, never … before; when + past simple or had; what is told in order stays simple; after and before take either; because + had | past-perfect (new), past-simple |
+| `used-to` 🕰️ | used to + the base form, state and habit; there used to be; didn't use to, never used to, used not to; Did you use to …?; the past simple for when, how long, how many times; no present; any more, still | used-to (new), past-simple |
+| `future-forms` 🚏 | will for what you think, going to for what you can see; the present for a timetable; arranged, planned, decided now; will be + -ing at a time, won't be; Will you be …? as polite, and what happens anyway | future-continuous (new), future |
+| `question-tags` 🏷️ | tags with be, do, does, did, have, will, can, was; aren't I, isn't there, shall we, will you, did they; falling and rising; So do I, Neither do I; short answers, Have you? | question-tags (new), to-be |
+
+- **A wrong option doesn't repeat the verb**: "It ___ rain" with "rains" prints "It rains rain". A choice's options are full forms, not contractions: "It 's going to rain" prints with the space.
+- **The point of used-to is on typed lines**: a choice would have to offer what people say (I use to, didn't used to). Its wrong options are forms nobody says (used to living, used live).
+- **Same-way tags are real** (So you're coming, are you?), and so is isn't it for any person in Britain's talk: question-tags' wrong options take the wrong helping verb instead (doesn't he, hasn't he).
+- **The `words` list picks the print's sense**: run a list through `school-prints --explain` and read the meanings (ages as Alter, run as laufen, gate as portone were wrong until they were phrases).
+
+### The English course: B1, units 7–12
+
+B1's middle six: clauses, voice, verb patterns. Who is who at the Packhorse, the bread and the stolen van, Poppy and the fiddle, Sam's bad day, Mrs Birkett's soup, Old Wilf alone by the fire:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `who-which` 👉 | who, which, that with no comma; the object left out (the cheese Arthur likes), no pronoun coming in (the book I read); where, whose against who's; the small word at the end (the woman I spoke to), whom only very formal; what people say | relative-clauses (new) |
+| `passive` 🏗️ | is, are + the participle; was, were; the participle against the past, It was broke said, got stolen right in talk; by, German's von and Italian's da; be asks and says no, with no did; can be, must be on notices | passive (new), past-simple |
+| `verb-patterns` 🚶 | verbs with to; verbs with -ing; those with both, and would like with to only; stop and remember, whose meaning changes; -ing after a small word, even look forward to; someone + to against dass, da, che; let and make with no to; try and come | verb-patterns (new), would-like |
+| `phrasal-verbs` 🧩 | what one is, only the verb changes; no object; stays together, the pronoun at the end; can part, the noun in both places; the pronoun in between (Turn it off); find out, look up, put off, get on with, wash up, fill in with American fill out | phrasal-verbs (new), object-pronouns |
+| `too-enough` 🌡️ | too against very; enough after an adjective, before a noun; too cold to swim, enough to, for me, for swimming; too much, too many; a bit, quite, very, really, quite a, spoken pretty, right, dead; as … as, not as … as beside the comparative | too-enough (new), comparatives |
+| `myself` 🪞 | one form per person; with no help; verbs with no -self where the bases have se, sich, si, and enjoy, which needs it; on my own, by myself; each other against themselves; one, ones | reflexive-pronouns (new), object-pronouns |
+
+- **The Watch out box reads English**: `**R** (never *W*)` pairs them whole. "**Turn it off.**, never *Turn off it*" printed ✓ turn off, because the box looked for a near bold form; the bracket fixed it.
+- **A gap that teaches too still takes what's right**: "The soup is ___ hot: I can't eat it" takes too, so, very, really; "We haven't got ___ chairs!" takes enough, many, any. The choice in the intro, with wrong options nobody says, is where too alone gets tested.
+- **A choice never offers was against were**: a typed gap asks it, and `was` is almost. Its wrong options are is make, was buy, were catch.
+- **'s before a participle in a passive**: "It's made here" is it is, "It's seen" is it has by A2's rule. No line asks the second, and none asks a noun's 's (The bread's baked here), which the table doesn't read as is.
+
+### The English course: B1, units 13–18
+
+B1's last six: if, might, what was said. Old Wilf by the fire and what he would buy, a wet night at the inn and who is at the door, the dance Sam's van missed, Jack in the storm, Edna's news of Sam, a stranger at the inn:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `if-i-had` 🚣 | if + the past, would; could, might; the halves either way; What would you do if …?; If I were you, was spoken; would kept to the other half, If I would have a boat as a common slip; against the first conditional | second-conditional (new), first-conditional |
+| `might-must` 🤔 | may, might, could; might not; can for what sometimes happens; must and can't for what you work out, must not and mustn't American and northern; be + -ing; probably, perhaps, maybe | might-must (new), must-have-to |
+| `if-i-had-known` 🕰️ | if + had, would have; the two 'd; hadn't, wouldn't have; could have, might have; would've, woulda, would of, If I'd have known; now against then; have, never be | third-conditional (new), second-conditional, past-perfect |
+| `although-however` ⚖️ | although, though, even though; one joining word; despite, in spite of; however, though at the end; to, in order to, so that, so spoken; because of; as a result | contrast-linkers (new), linking-words |
+| `reported-speech` 💬 | said and told; one step back; the tense kept if it's still so; person, place, day; told me to, told me not to, asked me to | reported-speech (new), past-simple |
+| `reported-questions` ❓ | asked where + a statement's order; asked if, whether; the step back; in the present, Do you know where …?, I don't know if …; what's said in Ireland, Scotland and the North; who as the subject; asked me | reported-questions (new), reported-speech, questions-do |
+
+- **The two 'd in the table** (`grading/en.json`, `same`): 'd is had before a participle (a list of irregular ones, any -ed but need, feed and the like) and before better, would before anything else; a verb whose participle is its base form (come, run, put) is had only after if + a subject. **Order matters:** every rule for had stands before the catch-all `'d (?=\p{L})` → would, and `'d like`, `'d love` before them all. If I'd have known is had have, the row before those.
+- **That and whether are rules**: that after said and told, whether for if after asked, know, wonder, so a reported line lists its subject and its tense only (`spoken` holds at most 8).
+- **Mixing tenses is the one to watch**: If I have time, I'd help is natural, so have is no wrong option for If I had a boat. would have is: the classic mistake, and wrong.
+- **Direct speech in “…”**: the sheets and the prints show it as written, and the grading strips the quotes.
+- **Rows of the intro's table count on a phone**: three columns of sentences take three lines a row; past about eight, two columns (`reported-speech`). Two columns of a sheet's table hold 12 letters, one holds 18: wouldn't have stayed (20) became wouldn't have gone.
+
+### What people say, over B1
+
+As over A1 and A2, and only in the variety the course teaches: British, as the Lake District hears it. `EnglishB1aContentTest` and `EnglishB1bContentTest` hold their six units, `EnglishB1cContentTest` the 18. At this level the point of a unit is often such a form, so a choice can't test it: its wrong options are what nobody grown up says (lived I, despite of, told to me, would be come, used to living), and typed gaps and lines do the rest.
+
+| What's typed | How | Verdict |
+|---|---|---|
+| If I was you, If it wasn't raining; woulda come, coulda helped; so for so that, cos of; the tense kept (She said she is tired, He asked where I live); innit where the tag is isn't it; Me too, Nor me; got stolen; right cold, dead cold; I made me a cup of tea; try and come | the item's `spoken` | right, labelled with the standard form |
+| It must not be Jack, It mustn't be Jack, It won't be Jack beside can't; amn't I, used not to, never used to, Nor do I; anymore | the item's `accept`, or the table's `same` | right |
+| would of, could of, should of, might of, must of; If I'd have known, If I had have known; He asked where did I live, He asked did I want tea, Do you know where's the inn?; I been waiting; I didn't used to, I use to live; ain't; innit, isn't it for any person; the man what lives there; It was broke, She was took; hisself, meself, theirselves | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
+
+Left wrong, on the native list. **would after if** (If I would have a boat, If it would rain, If I would have known): the classic mistake from German and Slovene, not what this variety says; the page names it as a common slip and a choice may offer it (the lead's ruling, 2026-11-03). Ireland's present for the perfect (I'm here since Monday). If I know the way, I'd tell you, typed in a gap: a tense mixed. said me, told to me, asked to me, despite of, Although it rained, but we walked, would be come.
 
 ## Printed sheets
 
