@@ -460,18 +460,12 @@
             "en": "Fill in the table"
           },
           "prompt": {
-            "sl": "Naredi obe obliki",
-            "de": "Bilde beide Formen",
-            "it": "Fai le due forme",
-            "en": "Make both forms"
+            "sl": "Tri ali več: naredi obliko",
+            "de": "Drei oder mehr: bilde die Form",
+            "it": "Tre o più: fai la forma",
+            "en": "Three or more: make the form"
           },
           "columns": [
-            {
-              "sl": "two things · dve stvari",
-              "de": "two things · zwei",
-              "it": "two things · due cose",
-              "en": "two things"
-            },
             {
               "sl": "three or more · tri ali več",
               "de": "three or more · drei oder mehr",
@@ -483,7 +477,6 @@
             {
               "label": "old",
               "cells": [
-                "older than",
                 {
                   "accept": [
                     "the oldest"
@@ -494,7 +487,6 @@
             {
               "label": "nice",
               "cells": [
-                "nicer than",
                 {
                   "accept": [
                     "the nicest"
@@ -507,12 +499,6 @@
               "cells": [
                 {
                   "accept": [
-                    "bigger than",
-                    "bigger"
-                  ]
-                },
-                {
-                  "accept": [
                     "the biggest"
                   ]
                 }
@@ -523,14 +509,18 @@
               "cells": [
                 {
                   "accept": [
-                    "happier than",
-                    "happier"
+                    "the happiest"
                   ],
                   "hint": "y → i"
-                },
+                }
+              ]
+            },
+            {
+              "label": "easy",
+              "cells": [
                 {
                   "accept": [
-                    "the happiest"
+                    "the easiest"
                   ]
                 }
               ]
@@ -538,7 +528,6 @@
             {
               "label": "useful",
               "cells": [
-                "more useful than",
                 {
                   "accept": [
                     "the most useful"
@@ -551,12 +540,6 @@
               "cells": [
                 {
                   "accept": [
-                    "better than",
-                    "better"
-                  ]
-                },
-                {
-                  "accept": [
                     "the best"
                   ]
                 }
@@ -565,20 +548,30 @@
             {
               "label": "bad",
               "cells": [
-                "worse than",
                 {
                   "accept": [
                     "the worst"
                   ]
                 }
               ]
+            },
+            {
+              "label": "far",
+              "cells": [
+                {
+                  "accept": [
+                    "the furthest",
+                    "the farthest"
+                  ]
+                }
+              ]
             }
           ],
           "explain": {
-            "sl": "**-er, than; the -est; more, the most; better, the best; worse, the worst**\n- older than · the oldest\n- bigger than · the biggest\n- better than · the best",
-            "de": "**-er, than; the -est; more, the most; better, the best; worse, the worst**\n- older than · the oldest\n- bigger than · the biggest\n- better than · the best",
-            "it": "**-er, than; the -est; more, the most; better, the best; worse, the worst**\n- older than · the oldest\n- bigger than · the biggest\n- better than · the best",
-            "en": "**-er, than; the -est; more, the most; better, the best; worse, the worst**\n- older than · the oldest\n- bigger than · the biggest\n- better than · the best"
+            "sl": "**the + -est; dolga beseda: the most; posebne: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst",
+            "de": "**the + -est; ein langes Wort: the most; eigen: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst",
+            "it": "**the + -est; parola lunga: the most; a parte: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst",
+            "en": "**the + -est; a long word: the most; on their own: the best, the worst, the furthest**\n- the oldest · the biggest · the happiest\n- the most useful · the best · the worst"
           }
         },
         {

@@ -423,10 +423,10 @@
             "en": "Fill in the table"
           },
           "prompt": {
-            "sl": "Dopolni tabelo: oseba, stvar, kraj",
-            "de": "Ergänze: Person, Sache, Ort",
-            "it": "Completa: persona, cosa, luogo",
-            "en": "Fill in: person, thing, place"
+            "sl": "Dopolni tabelo: oseba, stvar",
+            "de": "Ergänze: Person, Sache",
+            "it": "Completa: persona, cosa",
+            "en": "Fill in: person, thing"
           },
           "columns": [
             {
@@ -440,12 +440,6 @@
               "de": "thing · Sache",
               "it": "thing · cosa",
               "en": "thing"
-            },
-            {
-              "sl": "place · kraj",
-              "de": "place · Ort",
-              "it": "place · luogo",
-              "en": "place"
             }
           ],
           "rows": [
@@ -456,12 +450,6 @@
                 {
                   "accept": [
                     "something"
-                  ]
-                },
-                {
-                  "accept": [
-                    "somewhere",
-                    "someplace"
                   ]
                 }
               ]
@@ -475,13 +463,7 @@
                     "anybody"
                   ]
                 },
-                "anything",
-                {
-                  "accept": [
-                    "anywhere",
-                    "anyplace"
-                  ]
-                }
+                "anything"
               ]
             },
             {
@@ -498,8 +480,7 @@
                   "accept": [
                     "nothing"
                   ]
-                },
-                "nowhere"
+                }
               ]
             },
             {
@@ -515,7 +496,72 @@
                   "accept": [
                     "everything"
                   ]
-                },
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-one, -body za osebo; -thing za stvar**\n- someone · something\n- no one · nothing",
+            "de": "**-one, -body für eine Person; -thing für eine Sache**\n- someone · something\n- no one · nothing",
+            "it": "**-one, -body per una persona; -thing per una cosa**\n- someone · something\n- no one · nothing",
+            "en": "**-one, -body for a person; -thing for a thing**\n- someone · something\n- no one · nothing"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "indefinite-pronouns",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "Dopolni tabelo: kraj",
+            "de": "Ergänze: Ort",
+            "it": "Completa: luogo",
+            "en": "Fill in: place"
+          },
+          "columns": [
+            {
+              "sl": "place · kraj",
+              "de": "place · Ort",
+              "it": "place · luogo",
+              "en": "place"
+            }
+          ],
+          "rows": [
+            {
+              "label": "some-",
+              "cells": [
+                {
+                  "accept": [
+                    "somewhere",
+                    "someplace"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "any-",
+              "cells": [
+                {
+                  "accept": [
+                    "anywhere",
+                    "anyplace"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "no-",
+              "cells": [
+                "nowhere"
+              ]
+            },
+            {
+              "label": "every-",
+              "cells": [
                 {
                   "accept": [
                     "everywhere",
@@ -526,10 +572,10 @@
             }
           ],
           "explain": {
-            "sl": "**-one, -body za osebo; -thing za stvar; -where za kraj**\n- someone · something · somewhere\n- no one · nothing · nowhere",
-            "de": "**-one, -body für eine Person; -thing für eine Sache; -where für einen Ort**\n- someone · something · somewhere\n- no one · nothing · nowhere",
-            "it": "**-one, -body per una persona; -thing per una cosa; -where per un luogo**\n- someone · something · somewhere\n- no one · nothing · nowhere",
-            "en": "**-one, -body for a person; -thing for a thing; -where for a place**\n- someone · something · somewhere\n- no one · nothing · nowhere"
+            "sl": "**-where za kraj**\n- somewhere · anywhere · nowhere · everywhere",
+            "de": "**-where für einen Ort**\n- somewhere · anywhere · nowhere · everywhere",
+            "it": "**-where per un luogo**\n- somewhere · anywhere · nowhere · everywhere",
+            "en": "**-where for a place**\n- somewhere · anywhere · nowhere · everywhere"
           }
         },
         {

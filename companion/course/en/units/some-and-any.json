@@ -511,10 +511,10 @@
             "en": "Fill in the table"
           },
           "prompt": {
-            "sl": "eggs, milk · jajca, mleko: da, ne, vprašanje",
-            "de": "eggs, milk · Eier, Milch: ja, nein, Frage",
-            "it": "eggs, milk · uova, latte: sì, no, domanda",
-            "en": "eggs, milk: yes, no, a question"
+            "sl": "eggs, milk · jajca, mleko: some ali any?",
+            "de": "eggs, milk · Eier, Milch: some oder any?",
+            "it": "eggs, milk · uova, latte: some o any?",
+            "en": "eggs, milk: some or any?"
           },
           "columns": [
             {
@@ -533,16 +533,16 @@
           "rows": [
             {
               "label": {
-                "sl": "da",
-                "de": "ja",
-                "it": "sì",
-                "en": "yes"
+                "sl": "We've got …",
+                "de": "We've got …",
+                "it": "We've got …",
+                "en": "We've got …"
               },
               "cells": [
-                "We've got some eggs.",
+                "some eggs",
                 {
                   "accept": [
-                    "We've got some milk."
+                    "some milk"
                   ],
                   "hint": "some"
                 }
@@ -550,47 +550,47 @@
             },
             {
               "label": {
-                "sl": "not",
-                "de": "not",
-                "it": "not",
-                "en": "not"
+                "sl": "We haven't got …",
+                "de": "We haven't got …",
+                "it": "We haven't got …",
+                "en": "We haven't got …"
               },
               "cells": [
                 {
                   "accept": [
-                    "We haven't got any eggs.",
-                    "We've got no eggs.",
-                    "We don't have any eggs."
+                    "any eggs"
                   ],
                   "hint": "any"
                 },
                 {
                   "accept": [
-                    "We haven't got any milk.",
-                    "We've got no milk.",
-                    "We don't have any milk."
+                    "any milk"
                   ]
                 }
               ]
             },
             {
               "label": {
-                "sl": "?",
-                "de": "?",
-                "it": "?",
-                "en": "?"
+                "sl": "Have we got …?",
+                "de": "Have we got …?",
+                "it": "Have we got …?",
+                "en": "Have we got …?"
               },
               "cells": [
                 {
                   "accept": [
-                    "Have we got any eggs?",
-                    "Do we have any eggs?"
+                    "any eggs"
+                  ],
+                  "spoken": [
+                    "some eggs"
                   ]
                 },
                 {
                   "accept": [
-                    "Have we got any milk?",
-                    "Do we have any milk?"
+                    "any milk"
+                  ],
+                  "spoken": [
+                    "some milk"
                   ]
                 }
               ]
