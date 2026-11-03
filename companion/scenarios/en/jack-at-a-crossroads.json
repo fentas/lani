@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "jack-at-a-crossroads",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "Jack at a crossroads", "sl": "Jack na razpotju", "de": "Jack am Scheideweg", "it": "Jack a un bivio" },
+  "emoji": "🧭",
+  "level": "B2",
+  "setting": {
+    "sl": "Pastir Jack je dobil ponudbo za leto dela na veliki ovčji farmi na Novi Zelandiji, z začetkom marca. To je priložnost življenja, a aprila se začne jagnjitev, njegov oče pa zaradi slabega kolena komaj hodi. Nekega večera ob ognju te vpraša, kaj naj naredi.",
+    "de": "Shepherd Jack hat ein Angebot für ein Jahr Arbeit auf einer großen Schaffarm in Neuseeland bekommen, ab März. Es ist die Chance seines Lebens, aber im April beginnt die Lammzeit, und sein Vater kann mit seinem kaputten Knie kaum gehen. Eines Abends am Feuer fragt er dich, was er tun soll.",
+    "it": "Il pastore Jack ha ricevuto un'offerta per un anno di lavoro in un grande allevamento di pecore in Nuova Zelanda, da marzo. È l'occasione della vita, ma ad aprile cominciano i parti degli agnelli e suo padre, con il ginocchio malandato, cammina a fatica. Una sera, vicino al fuoco, ti chiede che cosa dovrebbe fare.",
+    "en": "Shepherd Jack has been offered a year's work on a big sheep farm in New Zealand, starting in March. It's the chance of a lifetime, but lambing begins in April and his dad can hardly walk with his bad knee. One evening by the fire he asks what you think he should do."
+  },
+  "role": "Shepherd Jack, twenty-two, one evening by the fire after the sheep are in. Offered a year on a sheep farm in New Zealand; lambing is in April and his dad's knee is bad. Torn and a bit lost: thinks aloud, asks 'What would you do?', pushes back on easy answers. 'Aye', 'Now then'.",
+  "who": { "en": "The shepherd", "sl": "Pastir", "de": "Der Schäfer", "it": "Il pastore" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "fire",
+  "goals": [
+    { "en": "Ask him what's on his mind", "sl": "Vprašaj ga, kaj ga teži", "de": "Frag ihn, was ihn beschäftigt", "it": "Chiedigli che cosa gli passa per la testa" },
+    { "en": "Weigh up the pros and cons with him", "sl": "Z njim pretehtaj prednosti in slabosti", "de": "Wäg mit ihm das Für und Wider ab", "it": "Valuta con lui i pro e i contro" },
+    { "en": "Suggest a way round the lambing", "sl": "Predlagaj rešitev za čas jagnjitve", "de": "Schlag eine Lösung für die Lammzeit vor", "it": "Proponi una soluzione per il periodo dei parti" },
+    { "en": "Say what you would do in his place", "sl": "Povej, kaj bi ti {m:naredil|f:naredila} na njegovem mestu", "de": "Sag, was du an seiner Stelle tun würdest", "it": "Di' che cosa faresti al suo posto" },
+    { "en": "Encourage him", "sl": "Opogumi ga", "de": "Mach ihm Mut", "it": "Incoraggialo" }
+  ],
+  "opener_sl": "Now then. Sit down, there's room by the fire. Can I ask you summat? I've had an offer, and I can't make my mind up.",
+  "opener_en": {
+    "sl": "Zdravo. Sedi, ob ognju je še prostor. Te lahko nekaj vprašam? Dobil sem ponudbo, pa se ne morem odločiti.",
+    "de": "Na, grüß dich. Setz dich, am Feuer ist noch Platz. Darf ich dich was fragen? Ich hab ein Angebot bekommen und kann mich nicht entscheiden.",
+    "it": "Ciao. Siediti, c'è posto vicino al fuoco. Posso chiederti una cosa? Ho ricevuto un'offerta e non riesco a decidermi.",
+    "en": "Hello. Sit down, there's room by the fire. Can I ask you something? I've had an offer, and I can't decide."
+  },
+  "vocabulary_hints": [
+    { "sl": "What's on your mind, Jack?", "en": { "sl": "Kaj te teži, Jack?", "de": "Was beschäftigt dich, Jack?", "it": "Che cosa ti preoccupa, Jack?", "en": "What are you thinking about, Jack?" } },
+    { "sl": "That sounds like the chance of a lifetime!", "en": { "sl": "To se sliši kot priložnost življenja!", "de": "Das klingt nach der Chance deines Lebens!", "it": "Sembra l'occasione della vita!", "en": "That sounds like a once-in-a-lifetime chance!" } },
+    { "sl": "On the one hand you'd learn a lot; on the other, your dad needs you.", "en": { "sl": "Po eni strani bi se veliko naučil, po drugi pa te oče potrebuje.", "de": "Einerseits würdest du viel lernen, andererseits braucht dich dein Vater.", "it": "Da un lato impareresti molto, dall'altro tuo padre ha bisogno di te.", "en": "On one side you'd learn a lot, on the other your dad needs you." } },
+    { "sl": "Couldn't someone else help with the lambing this year?", "en": { "sl": "Ali ne bi letos pri jagnjitvi lahko pomagal kdo drug?", "de": "Könnte nicht dieses Jahr jemand anders beim Lammen helfen?", "it": "Quest'anno non potrebbe aiutare qualcun altro con i parti?", "en": "Couldn't another person help when the lambs come this year?" } },
+    { "sl": "What if you went after the lambing, in May?", "en": { "sl": "Kaj pa, če bi šel po jagnjitvi, maja?", "de": "Und wenn du erst nach der Lammzeit fährst, im Mai?", "it": "E se partissi dopo i parti, a maggio?", "en": "And if you left after the lambs are born, in May?" } },
+    { "sl": "If I were you, I'd ask them whether you could start later.", "en": { "sl": "Na tvojem mestu bi jih {m:vprašal|f:vprašala}, ali lahko začneš pozneje.", "de": "An deiner Stelle würde ich fragen, ob du später anfangen kannst.", "it": "Se fossi in te, chiederei se puoi cominciare più tardi.", "en": "In your place, I'd ask if you can begin later." } },
+    { "sl": "Have you talked to your dad about it?", "en": { "sl": "Si se o tem pogovoril z očetom?", "de": "Hast du mit deinem Vater darüber geredet?", "it": "Ne hai parlato con tuo padre?", "en": "Have you spoken to your father about it?" } },
+    { "sl": "You might regret it if you don't go.", "en": { "sl": "Morda boš obžaloval, če ne greš.", "de": "Vielleicht bereust du es, wenn du nicht fährst.", "it": "Forse te ne pentirai, se non ci vai.", "en": "You may be sorry later if you don't go." } },
+    { "sl": "The fells will still be here when you come back.", "en": { "sl": "Hribi bodo še vedno tu, ko se vrneš.", "de": "Die Berge sind noch da, wenn du zurückkommst.", "it": "Le montagne saranno ancora qui quando torni.", "en": "The hills will still be here when you're back." } },
+    { "sl": "Whatever you decide, I'm sure it'll be right.", "en": { "sl": "Karkoli se boš odločil, {m:prepričan|f:prepričana} sem, da bo prav.", "de": "Wie auch immer du dich entscheidest, es wird richtig sein.", "it": "Qualunque cosa decida, sono {m:sicuro|f:sicura} che andrà bene.", "en": "Whatever you choose, I'm sure it'll be the right thing." } }
+  ],
+  "packs": ["on-the-fell", "at-the-gate", "family", "by-the-fire", "numbers-and-time"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

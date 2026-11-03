@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "maggie-goes-to-london",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "Maggie goes to London", "sl": "Maggie gre v London", "de": "Maggie fährt nach London", "it": "Maggie va a Londra" },
+  "emoji": "🚆",
+  "level": "B1",
+  "setting": {
+    "sl": "Najstarejša prijateljica babice Maggie, Joan, bo prihodnji mesec v Londonu praznovala osemdeseti rojstni dan. Maggie še nikoli ni sama potovala tako daleč in jo skrbi vse po vrsti. Ob skodelici čaja v kuhinji te vpraša, kaj naj naredi.",
+    "de": "Granny Maggies älteste Freundin Joan feiert nächsten Monat in London ihren achtzigsten Geburtstag. Maggie ist noch nie allein so weit gereist und macht sich um alles Sorgen. Bei einer Tasse Tee in ihrer Küche fragt sie dich, was sie tun soll.",
+    "it": "La più vecchia amica di nonna Maggie, Joan, il mese prossimo festeggia a Londra gli ottant'anni. Maggie non ha mai viaggiato così lontano da sola e si preoccupa di tutto. Davanti a una tazza di tè nella sua cucina, ti chiede che cosa dovrebbe fare.",
+    "en": "Granny Maggie's oldest friend, Joan, is having her eightieth birthday party in London next month. Maggie has never travelled so far on her own, and she's worried about everything. Over a cup of tea in her kitchen, she asks you what she should do."
+  },
+  "role": "Granny Maggie, in her seventies, in her kitchen with tea and scones. Never been further than Carlisle on her own; worried about the tickets, the cost, the Underground and who'll feed Poppy and Tibbs. Asks for advice, doubts it once, then takes it: 'Aye, you might be right, love.'",
+  "who": { "en": "The grandmother", "sl": "Babica", "de": "Die Oma", "it": "La nonna" },
+  "voice": "female",
+  "speaker": "grandma",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Ask what's worrying her", "sl": "Vprašaj jo, kaj jo skrbi", "de": "Frag sie, was ihr Sorgen macht", "it": "Chiedile che cosa la preoccupa" },
+    { "en": "Advise her how to get there", "sl": "Svetuj ji, kako naj pride tja", "de": "Rate ihr, wie sie hinkommt", "it": "Consigliale come arrivarci" },
+    { "en": "Give her a tip to save money", "sl": "Svetuj ji, kako naj prihrani", "de": "Gib ihr einen Spartipp", "it": "Dalle un consiglio per risparmiare" },
+    { "en": "Calm her when she has doubts", "sl": "Pomiri jo, ko dvomi", "de": "Beruhige sie, wenn sie zweifelt", "it": "Rassicurala quando ha dei dubbi" },
+    { "en": "Offer to help her", "sl": "Ponudi ji pomoč", "de": "Biete ihr deine Hilfe an", "it": "Offrile il tuo aiuto" }
+  ],
+  "opener_sl": "Sit yourself down, love, the kettle's on. I need your advice. Joan's eighty next month, in London, and I've never been further than Carlisle on my own!",
+  "opener_en": {
+    "sl": "Kar sedi, voda za čaj že vre. Potrebujem tvoj nasvet. Joan bo prihodnji mesec v Londonu stara osemdeset let, jaz pa še nikoli nisem šla sama dlje kot do Carlisla!",
+    "de": "Setz dich, das Teewasser ist schon auf. Ich brauche deinen Rat. Joan wird nächsten Monat in London achtzig, und ich war allein noch nie weiter weg als in Carlisle!",
+    "it": "Siediti, l'acqua per il tè è sul fuoco. Ho bisogno di un tuo consiglio. Joan compie ottant'anni il mese prossimo, a Londra, e io da sola non sono mai andata più in là di Carlisle!",
+    "en": "Sit down, dear, the kettle's on. I need your advice. Joan turns eighty next month, in London, and I've never travelled further than Carlisle alone!"
+  },
+  "vocabulary_hints": [
+    { "sl": "What are you worried about?", "en": { "sl": "Kaj te skrbi?", "de": "Was macht dir Sorgen?", "it": "Che cosa ti preoccupa?", "en": "What's worrying you?" } },
+    { "sl": "If I were you, I'd take the train from Penrith.", "en": { "sl": "Na tvojem mestu bi {m:šel|f:šla} z vlakom iz Penritha.", "de": "An deiner Stelle würde ich ab Penrith den Zug nehmen.", "it": "Se fossi in te, prenderei il treno da Penrith.", "en": "In your place I'd go by train from Penrith." } },
+    { "sl": "There's a bus from Keswick to the station.", "en": { "sl": "Do postaje te pelje avtobus iz Keswicka.", "de": "Von Keswick fährt ein Bus zum Bahnhof.", "it": "Da Keswick c'è un autobus fino alla stazione.", "en": "A bus goes from Keswick to the station." } },
+    { "sl": "You should book your tickets early: they're cheaper.", "en": { "sl": "Vozovnice kupi zgodaj, ker so cenejše.", "de": "Du solltest die Fahrkarten früh buchen, dann sind sie billiger.", "it": "Dovresti prenotare i biglietti presto: costano meno.", "en": "Book your tickets early: they cost less." } },
+    { "sl": "Why don't you get a Senior Railcard?", "en": { "sl": "Zakaj si ne bi omislila kartice Senior Railcard?", "de": "Warum holst du dir nicht eine Senior Railcard?", "it": "Perché non ti fai la Senior Railcard?", "en": "How about getting a Senior Railcard?" } },
+    { "sl": "It takes a third off every ticket.", "en": { "sl": "Z njo je vsaka vozovnica za tretjino cenejša.", "de": "Damit ist jede Fahrkarte ein Drittel billiger.", "it": "Con quella ogni biglietto costa un terzo in meno.", "en": "With it each ticket is a third cheaper." } },
+    { "sl": "Ask Joan to meet you at Euston.", "en": { "sl": "Prosi Joan, naj te počaka na postaji Euston.", "de": "Bitte Joan, dich in Euston abzuholen.", "it": "Chiedi a Joan di venirti a prendere a Euston.", "en": "Ask Joan to pick you up at Euston." } },
+    { "sl": "Don't worry, Edna can look after Poppy and Tibbs.", "en": { "sl": "Ne skrbi, Edna lahko pazi na Poppy in Tibbsa.", "de": "Keine Sorge, Edna kann auf Poppy und Tibbs aufpassen.", "it": "Non preoccuparti, Edna può badare a Poppy e a Tibbs.", "en": "Don't worry, Edna can take care of Poppy and Tibbs." } },
+    { "sl": "I can help you book the tickets online.", "en": { "sl": "Lahko ti pomagam kupiti vozovnice po spletu.", "de": "Ich kann dir helfen, die Fahrkarten online zu buchen.", "it": "Posso aiutarti a prenotare i biglietti online.", "en": "I can help you buy the tickets on the internet." } },
+    { "sl": "You'll have a lovely time!", "en": { "sl": "Lepo se boš imela!", "de": "Du wirst eine schöne Zeit haben!", "it": "Ti divertirai tantissimo!", "en": "You'll have a great time!" } }
+  ],
+  "packs": ["getting-about", "numbers-and-time", "family", "in-the-kitchen", "food"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

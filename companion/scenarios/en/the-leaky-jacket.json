@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "the-leaky-jacket",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "The leaky jacket", "sl": "Jakna, ki prepušča vodo", "de": "Die undichte Jacke", "it": "La giacca che non tiene l'acqua" },
+  "emoji": "🧥",
+  "level": "B1",
+  "setting": {
+    "sl": "Pred dvema tednoma si v trgovini z opremo za pohodnike v Keswicku {m:kupil|f:kupila} nepremočljivo jakno. V soboto te je na poti na Catbells dež premočil do kože: voda je prišla skozi šive. Jakno in račun neseš nazaj v trgovino.",
+    "de": "Vor zwei Wochen hast du in einem Outdoorladen in Keswick eine wasserdichte Jacke gekauft. Am Samstag bist du am Catbells bis auf die Haut nass geworden: Das Wasser kam durch die Nähte. Du bringst die Jacke mit dem Kassenbon zurück.",
+    "it": "Due settimane fa hai comprato una giacca impermeabile in un negozio di articoli da montagna a Keswick. Sabato, salendo sul Catbells, la pioggia ti ha {m:bagnato|f:bagnata} fino alle ossa: l'acqua passava dalle cuciture. Riporti la giacca con lo scontrino.",
+    "en": "Two weeks ago you bought a waterproof jacket at an outdoor shop in Keswick. On Saturday, walking up Catbells, the rain came straight through the seams and you got soaked. You take the jacket back with the receipt."
+  },
+  "role": "Ryan, a young shop assistant at an outdoor shop on Keswick's Main Street. Friendly but goes by the rules: asks for the receipt, first offers to send the jacket back to the maker for repair, then a voucher; gives a refund once the learner politely insists. Clear British English.",
+  "who": { "en": "The shop assistant", "sl": "Prodajalec", "de": "Der Verkäufer", "it": "Il commesso" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "square",
+  "goals": [
+    { "en": "Say what is wrong with the jacket", "sl": "Povej, kaj je narobe z jakno", "de": "Sag, was mit der Jacke nicht stimmt", "it": "Di' che cosa non va nella giacca" },
+    { "en": "Say when and where you bought it", "sl": "Povej, kdaj in kje si jo {m:kupil|f:kupila}", "de": "Sag, wann und wo du sie gekauft hast", "it": "Di' quando e dove l'hai comprata" },
+    { "en": "Tell him what happened on the walk", "sl": "Povej mu, kaj se je zgodilo na pohodu", "de": "Erzähl ihm, was auf der Wanderung passiert ist", "it": "Raccontagli che cosa è successo durante l'escursione" },
+    { "en": "Politely insist when he offers a repair", "sl": "Vljudno vztrajaj, ko ponudi popravilo", "de": "Bleib höflich dabei, wenn er eine Reparatur anbietet", "it": "Insisti con gentilezza quando ti offre la riparazione" },
+    { "en": "Agree on a refund or a new jacket", "sl": "Dogovori se za vračilo denarja ali novo jakno", "de": "Einigt euch auf das Geld zurück oder eine neue Jacke", "it": "Mettetevi d'accordo su un rimborso o una giacca nuova" }
+  ],
+  "opener_sl": "Morning! Oh, is that one of our jackets? Is something wrong with it?",
+  "opener_en": {
+    "sl": "Dobro jutro! O, je to ena od naših jakn? Je kaj narobe z njo?",
+    "de": "Guten Morgen! Oh, ist das eine von unseren Jacken? Stimmt etwas nicht mit ihr?",
+    "it": "Buongiorno! Oh, è una delle nostre giacche? C'è qualche problema?",
+    "en": "Good morning! Oh, is that one of our jackets? Is there a problem with it?"
+  },
+  "vocabulary_hints": [
+    { "sl": "I'd like to return this jacket, please.", "en": { "sl": "{m:Rad|f:Rada} bi {m:vrnil|f:vrnila} to jakno, prosim.", "de": "Ich möchte diese Jacke bitte zurückgeben.", "it": "Vorrei restituire questa giacca, per favore.", "en": "I want to give this jacket back, please." } },
+    { "sl": "I bought it here two weeks ago.", "en": { "sl": "{m:Kupil|f:Kupila} sem jo tukaj pred dvema tednoma.", "de": "Ich habe sie vor zwei Wochen hier gekauft.", "it": "L'ho comprata qui due settimane fa.", "en": "I got it here two weeks ago." } },
+    { "sl": "Here's the receipt.", "en": { "sl": "Tukaj je račun.", "de": "Hier ist der Kassenbon.", "it": "Ecco lo scontrino.", "en": "This is the receipt." } },
+    { "sl": "It's supposed to be waterproof, but it lets the rain in.", "en": { "sl": "Naj bi bila nepremočljiva, pa prepušča dež.", "de": "Sie soll wasserdicht sein, aber der Regen kommt durch.", "it": "Dovrebbe essere impermeabile, ma fa passare la pioggia.", "en": "It should be waterproof, but the rain gets in." } },
+    { "sl": "On Saturday I got soaked on Catbells.", "en": { "sl": "V soboto me je na Catbellsu dež premočil do kože.", "de": "Am Samstag bin ich am Catbells völlig nass geworden.", "it": "Sabato sul Catbells mi sono {m:bagnato|f:bagnata} fino alle ossa.", "en": "On Saturday on Catbells I got completely wet." } },
+    { "sl": "The water came in through the seams.", "en": { "sl": "Voda je prišla skozi šive.", "de": "Das Wasser kam durch die Nähte.", "it": "L'acqua passava dalle cuciture.", "en": "The water got in at the seams." } },
+    { "sl": "I'd rather have my money back.", "en": { "sl": "Raje bi {m:dobil|f:dobila} denar nazaj.", "de": "Ich hätte lieber mein Geld zurück.", "it": "Preferirei riavere i miei soldi.", "en": "I'd prefer to get my money back." } },
+    { "sl": "I don't want a voucher, thank you.", "en": { "sl": "Bona ne želim, hvala.", "de": "Einen Gutschein möchte ich nicht, danke.", "it": "Non voglio un buono, grazie.", "en": "I'd rather not have a voucher, thanks." } },
+    { "sl": "It's not a month old, so I think I can have a refund.", "en": { "sl": "Stara je manj kot mesec dni, zato mislim, da mi vrnete denar.", "de": "Sie ist keinen Monat alt, also steht mir das Geld zu, oder?", "it": "Ha meno di un mese, quindi credo di avere diritto al rimborso.", "en": "It's less than a month old, so I believe I get my money back." } },
+    { "sl": "Could I speak to the manager, please?", "en": { "sl": "Bi lahko {m:govoril|f:govorila} z vodjo trgovine?", "de": "Könnte ich bitte mit der Geschäftsleitung sprechen?", "it": "Potrei parlare con il responsabile, per favore?", "en": "May I talk to the manager, please?" } }
+  ],
+  "packs": ["weather-and-garden", "on-the-fell", "in-the-village", "numbers-and-time", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

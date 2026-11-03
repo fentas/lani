@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "a-cottage-to-let",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "A cottage to let", "sl": "Hiša za najem", "de": "Ein Cottage zu vermieten", "it": "Un cottage in affitto" },
+  "emoji": "🏡",
+  "level": "B2",
+  "setting": {
+    "sl": "Hiša iz skrilavca na koncu ceste se oddaja v najem. Je čudovita, a zadnja spalnica je vlažna, okna ne tesnijo, dimnika pa že dolgo ni nihče očistil. Lastnik ti razkaže hišo, potem pa se pogovorita o najemnini, varščini in popravilih.",
+    "de": "Das Schieferhaus am Ende des Weges ist zu vermieten. Es ist wunderschön, aber das hintere Schlafzimmer ist feucht, die Fenster sind undicht, und der Kamin ist lange nicht gekehrt worden. Der Besitzer zeigt dir das Haus, dann sprecht ihr über die Miete, die Kaution und die Reparaturen.",
+    "it": "Il cottage di ardesia in fondo alla stradina è in affitto. È bellissimo, ma la camera sul retro è umida, le finestre non chiudono bene e il camino non viene pulito da anni. Il proprietario ti mostra la casa, poi parlate dell'affitto, del deposito e delle riparazioni.",
+    "en": "The slate cottage at the end of the lane is to let. It's lovely, but the back bedroom is damp, the windows are draughty and the chimney hasn't been swept for years. The owner shows you round, and then you talk about the rent, the deposit and the repairs."
+  },
+  "role": "Mr Postlethwaite, who owns the slate cottage at the end of the lane and could let it to walkers for more. Polite, careful with money, proud of the house: asks £950 a month and six weeks' deposit; plays down the damp and the windows; gives ground step by step for a tenant who'll stay.",
+  "who": { "en": "The owner", "sl": "Lastnik", "de": "Der Vermieter", "it": "Il proprietario" },
+  "voice": "male",
+  "speaker": "grandpa",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Say what you like about the cottage", "sl": "Povej, kaj ti je pri hiši všeč", "de": "Sag, was dir am Haus gefällt", "it": "Di' che cosa ti piace della casa" },
+    { "en": "Point out the problems tactfully", "sl": "Taktno opozori na pomanjkljivosti", "de": "Sprich die Mängel taktvoll an", "it": "Fai notare con tatto i difetti" },
+    { "en": "Negotiate the rent and the deposit", "sl": "Pogajaj se o najemnini in varščini", "de": "Verhandle über die Miete und die Kaution", "it": "Tratta sull'affitto e sul deposito" },
+    { "en": "Ask for the repairs to be done", "sl": "Zahtevaj, da se popravila opravijo", "de": "Verlange, dass die Reparaturen gemacht werden", "it": "Chiedi che vengano fatte le riparazioni" },
+    { "en": "Sum up what you've agreed", "sl": "Povzemi, za kaj sta se dogovorila", "de": "Fass zusammen, was ihr vereinbart habt", "it": "Riassumi che cosa avete concordato" }
+  ],
+  "opener_sl": "Mind your head on the beam! Well, here it is. Built in 1850, slate from the quarry up the dale. They don't build them like this any more.",
+  "opener_en": {
+    "sl": "Pazite na glavo, tram je nizek! No, tukaj je. Zgrajena leta 1850 iz skrilavca iz kamnoloma više v dolini. Takih hiš ne gradijo več.",
+    "de": "Vorsicht, der Balken! So, da wäre es. Gebaut 1850, aus Schiefer aus dem Steinbruch oben im Tal. So baut man heute nicht mehr.",
+    "it": "{m:Attento|f:Attenta} alla testa, c'è la trave! Ecco, è questa. Costruita nel 1850 con l'ardesia della cava su nella valle. Non le fanno più così.",
+    "en": "Careful, don't hit your head on the beam! So, here it is. Built in 1850 with slate from the quarry in the valley. Houses like this aren't built any more."
+  },
+  "vocabulary_hints": [
+    { "sl": "It's a beautiful house, and the view is wonderful.", "en": { "sl": "Hiša je čudovita, razgled pa krasen.", "de": "Das Haus ist wunderschön, und die Aussicht ist herrlich.", "it": "La casa è bellissima e la vista è stupenda.", "en": "The house is lovely and the view is fantastic." } },
+    { "sl": "I noticed the back bedroom is quite damp.", "en": { "sl": "{m:Opazil|f:Opazila} sem, da je zadnja spalnica precej vlažna.", "de": "Mir ist aufgefallen, dass das hintere Schlafzimmer ziemlich feucht ist.", "it": "Ho notato che la camera sul retro è piuttosto umida.", "en": "I saw that the back bedroom is rather damp." } },
+    { "sl": "And the windows let the wind in.", "en": { "sl": "Pa še okna ne tesnijo.", "de": "Und die Fenster sind undicht, es zieht.", "it": "E dalle finestre entra il vento.", "en": "And the wind comes in through the windows." } },
+    { "sl": "Nine hundred and fifty a month is a lot for a house in this state.", "en": { "sl": "Devetsto petdeset na mesec je veliko za hišo v takem stanju.", "de": "Neunhundertfünfzig im Monat ist viel für ein Haus in diesem Zustand.", "it": "Novecentocinquanta al mese sono tanti per una casa in queste condizioni.", "en": "Nine hundred and fifty a month is a lot for a house like this." } },
+    { "sl": "If you fix the windows, I'd happily stay for years.", "en": { "sl": "Če popravite okna, bi tu z veseljem {m:ostal|f:ostala} več let.", "de": "Wenn Sie die Fenster reparieren, bleibe ich gern jahrelang.", "it": "Se sistema le finestre, resterei volentieri per anni.", "en": "If the windows are fixed, I'd gladly stay for years." } },
+    { "sl": "Could you meet me halfway on the rent?", "en": { "sl": "Bi mi lahko prišli naproti pri najemnini?", "de": "Können Sie mir bei der Miete entgegenkommen?", "it": "Può venirmi incontro sull'affitto?", "en": "Could we find a middle ground on the rent?" } },
+    { "sl": "As far as I know, the deposit can't be more than five weeks' rent.", "en": { "sl": "Kolikor vem, varščina ne sme presegati najemnine za pet tednov.", "de": "Soviel ich weiß, darf die Kaution höchstens fünf Wochenmieten betragen.", "it": "Che io sappia, il deposito non può superare cinque settimane d'affitto.", "en": "I believe the deposit can be five weeks' rent at most." } },
+    { "sl": "Would you have the chimney swept before I move in?", "en": { "sl": "Bi dali očistiti dimnik, preden se vselim?", "de": "Würden Sie den Kamin kehren lassen, bevor ich einziehe?", "it": "Farebbe pulire il camino prima che mi trasferisca?", "en": "Could you get the chimney cleaned before I move in?" } },
+    { "sl": "So: nine hundred a month, and the windows done by October?", "en": { "sl": "Torej: devetsto na mesec, okna pa popravite do oktobra?", "de": "Also: neunhundert im Monat, und die Fenster bis Oktober?", "it": "Allora: novecento al mese, e le finestre sistemate entro ottobre?", "en": "So: nine hundred a month, and the windows fixed by October?" } },
+    { "sl": "I'd like to have that in writing, please.", "en": { "sl": "To bi {m:rad imel|f:rada imela} pisno, prosim.", "de": "Das hätte ich gern schriftlich, bitte.", "it": "Lo vorrei per iscritto, per favore.", "en": "I'd like it written down, please." } }
+  ],
+  "packs": ["home-and-kitchen", "in-the-living-room", "weather-and-garden", "numbers-and-time", "in-the-village"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

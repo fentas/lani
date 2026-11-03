@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "a-gate-from-the-smithy",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "A gate from the smithy", "sl": "Vrtna vrata iz kovačnice", "de": "Ein Gartentor aus der Schmiede", "it": "Un cancello dalla fucina" },
+  "emoji": "⚒️",
+  "level": "B1",
+  "setting": {
+    "sl": "Za svoj vrt bi {m:rad|f:rada} železna vrata: približno meter široka, s preprostim vzorcem, gotova pred zimo. Greš v kovačnico gospoda Dixona ob potoku, da vprašaš, koliko bi stala in kdaj bi bila gotova, in se dogovoriš za pošteno ceno.",
+    "de": "Du möchtest ein eisernes Gartentor: etwa einen Meter breit, mit einem einfachen Muster, fertig vor dem Winter. Du gehst in Mr Dixons Schmiede am Bach, fragst, was es kostet und wann es fertig wäre, und handelst einen fairen Preis aus.",
+    "it": "Vorresti un cancello di ferro per il giardino: largo circa un metro, con un disegno semplice, pronto prima dell'inverno. Vai alla fucina del signor Dixon vicino al ruscello per chiedere quanto costerebbe e quando sarebbe pronto, e per trattare un prezzo giusto.",
+    "en": "You want an iron gate for your garden: about a metre wide, with a simple pattern, before the winter. You go to Mr Dixon's smithy by the beck to ask what it would cost and when it could be ready, and to get a fair price."
+  },
+  "role": "Mr Dixon, the village blacksmith, at his forge. Gruff, few words, plain prices ('Two hundred and eighty. Iron's dear.'). Haggles a little, never much; gives way for a good reason (collecting it, paying half now, a simpler pattern). Says 'Aye'. The learner says Mr Dixon.",
+  "who": { "en": "The blacksmith", "sl": "Kovač", "de": "Der Schmied", "it": "Il fabbro" },
+  "voice": "male",
+  "speaker": "gruff",
+  "place": "smithy",
+  "goals": [
+    { "en": "Describe the gate you want", "sl": "Opiši vrata, ki jih želiš", "de": "Beschreib das Tor, das du willst", "it": "Descrivi il cancello che vuoi" },
+    { "en": "Ask what it costs and when it will be ready", "sl": "Vprašaj, koliko stanejo in kdaj bodo gotova", "de": "Frag, was es kostet und wann es fertig ist", "it": "Chiedi quanto costa e quando sarà pronto" },
+    { "en": "Say the price is too high, and why", "sl": "Povej, da je cena previsoka, in zakaj", "de": "Sag, dass der Preis zu hoch ist, und warum", "it": "Di' che il prezzo è troppo alto, e perché" },
+    { "en": "Make him an offer", "sl": "Daj mu ponudbo", "de": "Mach ihm ein Angebot", "it": "Fagli un'offerta" },
+    { "en": "Agree on the price and the day", "sl": "Dogovorita se za ceno in dan", "de": "Einigt euch auf den Preis und den Tag", "it": "Mettetevi d'accordo su prezzo e giorno" }
+  ],
+  "opener_sl": "Now then, {m:lad|f:lass}. Wanting summat made, are you? What is it?",
+  "opener_en": {
+    "sl": "Zdravo. Nekaj boš {m:naročil|f:naročila}, kajne? Kaj pa bo?",
+    "de": "Na, grüß dich. Du willst dir was machen lassen, oder? Was denn?",
+    "it": "Allora. Vuoi farti fare qualcosa, eh? Che cosa?",
+    "en": "Hello there. You want something made, do you? What is it?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Good morning, Mr Dixon. I'd like a gate for my garden.", "en": { "sl": "Dobro jutro, gospod Dixon. {m:Potreboval|f:Potrebovala} bi vrtna vrata.", "de": "Guten Morgen, Mr Dixon. Ich hätte gern ein Gartentor.", "it": "Buongiorno, signor Dixon. Vorrei un cancello per il giardino.", "en": "Good morning, Mr Dixon. I want a garden gate." } },
+    { "sl": "About a metre wide, with a simple pattern.", "en": { "sl": "Približno meter široka, s preprostim vzorcem.", "de": "Etwa einen Meter breit, mit einem einfachen Muster.", "it": "Largo circa un metro, con un disegno semplice.", "en": "Around one metre wide, with a plain pattern." } },
+    { "sl": "How much would that cost?", "en": { "sl": "Koliko bi to stalo?", "de": "Was würde das kosten?", "it": "Quanto costerebbe?", "en": "What would that cost?" } },
+    { "sl": "When could it be ready?", "en": { "sl": "Kdaj bi bila lahko gotova?", "de": "Wann könnte es fertig sein?", "it": "Quando potrebbe essere pronto?", "en": "When could you finish it?" } },
+    { "sl": "That's a bit more than I wanted to spend.", "en": { "sl": "To je malo več, kot sem {m:hotel|f:hotela} dati.", "de": "Das ist etwas mehr, als ich ausgeben wollte.", "it": "È un po' più di quanto volevo spendere.", "en": "That's more than I hoped to spend." } },
+    { "sl": "Would you do it for two hundred and fifty?", "en": { "sl": "Bi jih naredili za dvesto petdeset?", "de": "Würden Sie es für zweihundertfünfzig machen?", "it": "Lo farebbe per duecentocinquanta?", "en": "Could you make it for two hundred and fifty?" } },
+    { "sl": "I can collect it myself, so you needn't deliver it.", "en": { "sl": "Lahko jih {m:sam|f:sama} prevzamem, ni jih treba pripeljati.", "de": "Ich kann es selbst abholen, Sie müssen es nicht liefern.", "it": "Posso ritirarlo io, non serve consegnarlo.", "en": "I can pick it up, so there's no delivery." } },
+    { "sl": "And I can pay half now.", "en": { "sl": "Polovico lahko plačam že zdaj.", "de": "Und die Hälfte kann ich gleich zahlen.", "it": "E posso pagare metà subito.", "en": "And I can pay half today." } },
+    { "sl": "All right, it's a deal.", "en": { "sl": "Prav, dogovorjeno.", "de": "Gut, abgemacht.", "it": "D'accordo, affare fatto.", "en": "Fine, agreed." } },
+    { "sl": "So it'll be ready by the end of the month?", "en": { "sl": "Torej bodo gotova do konca meseca?", "de": "Dann ist es also bis Monatsende fertig?", "it": "Quindi sarà pronto per la fine del mese?", "en": "So you'll finish it before the month ends?" } }
+  ],
+  "packs": ["in-the-smithy", "at-the-gate", "numbers-and-time", "home-and-kitchen", "weather-and-garden"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

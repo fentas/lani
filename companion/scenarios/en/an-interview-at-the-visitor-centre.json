@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "an-interview-at-the-visitor-centre",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "An interview at the visitor centre", "sl": "Razgovor v centru za obiskovalce", "de": "Vorstellungsgespräch im Besucherzentrum", "it": "Colloquio al centro visitatori" },
+  "emoji": "💼",
+  "level": "B2",
+  "setting": {
+    "sl": "Center za obiskovalce ob enem od jezer išče sezonskega vodnika od aprila do oktobra: za kratke vodene sprehode, odgovore na vprašanja obiskovalcev in pomoč v trgovini. {m:Povabljen|f:Povabljena} si na razgovor z vodjo.",
+    "de": "Ein Besucherzentrum an einem der Seen sucht von April bis Oktober einen Saison-Guide: für kurze Führungen, die Fragen der Besucher und die Mithilfe im Laden. Du bist zum Vorstellungsgespräch beim Leiter eingeladen.",
+    "it": "Un centro visitatori su uno dei laghi cerca una guida stagionale da aprile a ottobre: per brevi passeggiate guidate, per rispondere alle domande dei visitatori e per aiutare nel negozio. Sei {m:invitato|f:invitata} a un colloquio con il responsabile.",
+    "en": "A visitor centre by one of the lakes is looking for a seasonal guide from April to October: leading short walks, answering visitors' questions, helping in the shop. You've been invited for an interview with the manager."
+  },
+  "role": "Mr Armstrong, the visitor services manager at a visitor centre by a lake, interviewing for a seasonal guide (walks, the shop, visitors' questions in several languages). Formal and fair: asks for examples ('Tell me about a time when…'), probes one weak point, then invites the learner's questions.",
+  "who": { "en": "The manager", "sl": "Vodja", "de": "Der Leiter", "it": "Il responsabile" },
+  "voice": "male",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Tell him about yourself and why you want the job", "sl": "Predstavi se in povej, zakaj si želiš to službo", "de": "Erzähl von dir und warum du die Stelle willst", "it": "Parla di te e di perché vuoi questo lavoro" },
+    { "en": "Give an example of a difficult situation you handled", "sl": "Navedi primer težke situacije, ki si jo {m:rešil|f:rešila}", "de": "Nenn ein Beispiel für eine schwierige Lage, die du gemeistert hast", "it": "Fai l'esempio di una situazione difficile che hai gestito" },
+    { "en": "Talk honestly about a weakness", "sl": "Iskreno povej o svoji slabosti", "de": "Sprich ehrlich über eine Schwäche", "it": "Parla con sincerità di un tuo punto debole" },
+    { "en": "Ask about the contract and the training", "sl": "Vprašaj o pogodbi in usposabljanju", "de": "Frag nach dem Vertrag und der Einarbeitung", "it": "Chiedi del contratto e della formazione" },
+    { "en": "End the interview politely", "sl": "Vljudno zaključi razgovor", "de": "Beende das Gespräch höflich", "it": "Concludi il colloquio con cortesia" }
+  ],
+  "opener_sl": "Good morning, thanks for coming in. I've read your application. Perhaps you could start by telling me a bit about yourself?",
+  "opener_en": {
+    "sl": "Dobro jutro, hvala, da ste prišli. Vašo prijavo sem že prebral. Bi za začetek povedali kaj o sebi?",
+    "de": "Guten Morgen, danke, dass Sie gekommen sind. Ich habe Ihre Bewerbung gelesen. Vielleicht erzählen Sie mir zuerst etwas über sich?",
+    "it": "Buongiorno, grazie di essere {m:venuto|f:venuta}. Ho letto la sua candidatura. Magari può cominciare raccontandomi qualcosa di sé?",
+    "en": "Good morning, thank you for coming. I've read your application. Could you start by telling me a little about yourself?"
+  },
+  "vocabulary_hints": [
+    { "sl": "I've lived in the dale for a year and I walk the fells every weekend.", "en": { "sl": "V dolini živim eno leto in vsak konec tedna hodim v hribe.", "de": "Ich wohne seit einem Jahr im Tal und gehe jedes Wochenende in die Berge.", "it": "Vivo nella valle da un anno e ogni fine settimana vado in montagna.", "en": "I've lived in the valley a year and go hill walking every weekend." } },
+    { "sl": "I enjoy explaining things to people from all over the world.", "en": { "sl": "{m:Rad|f:Rada} kaj razložim ljudem z vsega sveta.", "de": "Ich erkläre gern Menschen aus aller Welt etwas.", "it": "Mi piace spiegare le cose a gente di tutto il mondo.", "en": "I like explaining things to people from everywhere." } },
+    { "sl": "In my last job I dealt with complaints every day.", "en": { "sl": "V prejšnji službi sem vsak dan {m:reševal|f:reševala} pritožbe.", "de": "In meiner letzten Stelle hatte ich täglich mit Beschwerden zu tun.", "it": "Nel mio ultimo lavoro gestivo reclami ogni giorno.", "en": "In my last job I handled complaints every day." } },
+    { "sl": "Once a walker got lost, and I kept calm and rang for help.", "en": { "sl": "Ko se je izgubil pohodnik, sem brez panike {m:poklical|f:poklicala} pomoč.", "de": "Einmal hat sich ein Wanderer verirrt; ich blieb ruhig und rief Hilfe.", "it": "Una volta si è perso un escursionista: senza panico ho chiamato aiuto.", "en": "Once a walker got lost; I kept calm and phoned for help." } },
+    { "sl": "I sometimes take on too much, but I'm learning to say no.", "en": { "sl": "Včasih prevzamem preveč, a se učim reči ne.", "de": "Manchmal übernehme ich zu viel, aber ich lerne, Nein zu sagen.", "it": "A volte mi prendo troppi impegni, ma sto imparando a dire di no.", "en": "I sometimes do too much, but I'm learning to say no." } },
+    { "sl": "Is the contract for the whole season?", "en": { "sl": "Je pogodba za vso sezono?", "de": "Gilt der Vertrag für die ganze Saison?", "it": "Il contratto è per tutta la stagione?", "en": "Does the contract cover the whole season?" } },
+    { "sl": "Would there be any training before we start?", "en": { "sl": "Bi bilo pred začetkom kakšno usposabljanje?", "de": "Gibt es vor dem Start eine Einarbeitung?", "it": "Ci sarebbe una formazione prima di cominciare?", "en": "Is there training before the start?" } },
+    { "sl": "What would a typical day look like?", "en": { "sl": "Kako bi bil videti običajen dan?", "de": "Wie sähe ein typischer Tag aus?", "it": "Come sarebbe una giornata tipo?", "en": "What would an ordinary day be like?" } },
+    { "sl": "Thank you for your time. When might I hear from you?", "en": { "sl": "Hvala za vaš čas. Kdaj lahko pričakujem odgovor?", "de": "Danke für Ihre Zeit. Wann darf ich mit einer Antwort rechnen?", "it": "Grazie per il suo tempo. Quando potrei avere una risposta?", "en": "Thanks for your time. When will I hear back?" } }
+  ],
+  "packs": ["on-the-fell", "asking-the-way", "at-the-viewing-station", "weather-and-garden", "numbers-and-time"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}
