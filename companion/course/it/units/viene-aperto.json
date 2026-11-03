@@ -280,18 +280,15 @@
             {"de": "deve · muss", "sl": "deve · mora", "en": "deve · must"}
           ],
           "rows": [
-            {"label": "la porta (aprire)", "cells": ["viene aperta", {"accept": ["verrà aperta"]}, {"accept": ["va aperta"]}]},
-            {"label": "i tavoli (portare)", "cells": [{"accept": ["vengono portati"]}, "verranno portati", {"accept": ["vanno portati"]}]},
-            {
-              "label": "il vino (bere)",
-              "cells": [{"accept": ["viene bevuto"], "hint": {"de": "bere → bevuto", "sl": "bere → bevuto", "en": "bere → bevuto"}}, {"accept": ["verrà bevuto"]}, "va bevuto"]
-            },
-            {"label": "le uova (comprare)", "cells": [{"accept": ["vengono comprate"]}, {"accept": ["verranno comprate"]}, {"accept": ["vanno comprate"]}]}
+            {"label": "la porta … aperta", "cells": ["viene", {"accept": ["verrà"]}, {"accept": ["va"]}]},
+            {"label": "i tavoli … portati", "cells": [{"accept": ["vengono"]}, "verranno", {"accept": ["vanno"]}]},
+            {"label": "il vino … bevuto", "cells": [{"accept": ["viene"]}, {"accept": ["verrà"]}, "va"]},
+            {"label": "le uova … comprate", "cells": [{"accept": ["vengono"]}, {"accept": ["verranno"]}, {"accept": ["vanno"]}]}
           ],
           "explain": {
-            "de": "**viene, verrà, va** für eins, **vengono, verranno, vanno** für mehrere, das Partizip passend zur Sache\n- le uova ist weiblich: comprate",
-            "sl": "**viene, verrà, va** za eno, **vengono, verranno, vanno** za več, deležnik se ujema s stvarjo\n- le uova je ženskega spola: comprate",
-            "en": "**viene, verrà, va** for one, **vengono, verranno, vanno** for more, the participle agreeing with the thing\n- le uova is feminine: comprate"
+            "de": "**viene, verrà, va** für eins, **vengono, verranno, vanno** für mehrere\n- adesso: Es geschieht. domani: Es wird geschehen. deve: Es muss sein.",
+            "sl": "**viene, verrà, va** za eno, **vengono, verranno, vanno** za več\n- adesso: se dogaja. domani: se bo zgodilo. deve: treba je.",
+            "en": "**viene, verrà, va** for one, **vengono, verranno, vanno** for more\n- adesso: it happens. domani: it will happen. deve: it must be."
           }
         },
         {
