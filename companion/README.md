@@ -1948,7 +1948,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 52 pages (15 A1, 19 A2, 18 B1), German 35 (15 A1, 20 A2) and English 22 (18 A1, 4 A2), each course adding
+Italian has 52 pages (15 A1, 19 A2, 18 B1), German 50 (15 A1, 20 A2, 15 B1) and English 22 (18 A1, 4 A2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):

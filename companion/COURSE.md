@@ -459,6 +459,8 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
 - A choice never offers such a form as a wrong option (nor a bank as a distractor: a form the sheet offers is wrong, `Sheets.check`): use
   a wrong form nobody says, or a typed gap or a line. Name both in the intro and on the page: people say it, writing wants the other,
   not "never".
+- **German** has `weil` for denn, `trotzdem` for obwohl, `wie` for als, `wann` for wenn, `täte` for würde, `Auf was` for worauf (and the rest), `auf ihn` for darauf for a thing, `wer`, `was`, `nix` for jemand, etwas, nichts. An item's `spoken` still wins where a unit lists one: `als-waehrend` keeps `wie` and `wann` right, as its point is als against wenn, not the word itself. **Which of the two:** a form that is the very thing the unit drills goes in the table, or every line of the drill passes as right; a form beside the point stays `spoken` (*drauf*, *nach Haus*, *am Tisch*).
+- `verb_second` (`["weil", "obwohl"]`): a word order, which no `word` and `for` can say. The clause after one of these with its last word, the verb, moved up behind the subject and every other word in its place is almost, the standard form shown: "weil er hat keine Zeit", "obwohl sie muss früh aufstehen", a separable verb in its two parts ("weil sie steht um fünf auf" for aufsteht). The clause ends at the accepted answer's comma, so "Obwohl es regnet, wir gehen" stays wrong; after dass, a question word or deshalb nothing changes.
 - The table is in the APK, no bridge route serves it and no bridge or script port grades an answer: the app's verdict is what is stored,
   so an older app grades with the table it has (`good` for `well` wrong there) and an older bridge stores the hint as any other
   (a free string, `answers.ts`). A table without the key behaves as before.
@@ -1075,8 +1077,8 @@ order, B1's earlier ones only lightly:
 
 ## The German course
 
-The German course is `companion/course/de/`: the outline (A1 and A2 written, 18 units each, the grammar book's German
-pages to teach; B1 and B2 planned, docs/plans/05-built/outlines-2.md) and its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
+The German course is `companion/course/de/`: the outline (A1, A2 and B1 written, 18 units each, the grammar book's German
+pages to teach; B2 planned, docs/plans/05-built/outlines-2.md) and its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
 Gasthaus, Mostbauer Stefan's cider, Tante Mitzi, Müller Franz and his mill, Schmied Toni, Imker Stanko, Hirte Florian
 and his sheep, Opa Sepp's stories, Oma Resi's kitchen, the Kirchtag). It serves a learner of German from Slovene, English
 or Italian (a visitor, a neighbour across the border), and is the same school as the others: the bridge serves the course
@@ -1089,12 +1091,12 @@ school is the course's language's:
 | Read aloud | the intro's German in her voice: `Spoken.looks` for German (ä, ö, ü, ß, its frequent words) and the words the intro itself shows; the explanation in the learner's base as one clip (`en\|…`, `sl\|…`, `it\|…`); voice-build's `course` source makes her lines ahead (`course-speech.ts`, the smoke's Carinthian checks) |
 | The teacher's lines | "Willkommen in der Schule! Setzt euch, fangen wir an." and "Das kannst du schon": Eva says du, as the village does |
 | Texts in the base | the exercises' instructions, hints, whys, labels and columns per base `{en, sl, it}` ([above](#texts-in-the-learners-language)); the intro's `say`, the titles, the goals and the examples in every base too |
-| Grading | the German table (`grading/de.json`): ae, oe, ue, ss for ä, ö, ü, ß almost (hint umlaut), an umlaut left out a slip in the stem; capitals don't count (a noun typed small is right, as is sie for Sie: du or Sie is asked by a tap, never typed); geht's, gehts and geht es one answer, tschüs and tschüss, the spoken hab for habe; known mistakes, each only for a word of its group: the plural's umlaut (Apfel for Äpfel, Vater for Väter), the present's vowel change (fahrst for fährst, lest for liest), er's form for du's on a short stem (sagt for sagst, hat for hast, ist for bist), ein for kein, ich, mich, dich for each other, a number word for another (einundzwanzig for neunundzwanzig); the subject is never left out (`drop_subject` false) |
+| Grading | the German table (`grading/de.json`): ae, oe, ue, ss for ä, ö, ü, ß almost (hint umlaut), an umlaut left out a slip in the stem; capitals don't count (a noun typed small is right, as is sie for Sie: du or Sie is asked by a tap, never typed); geht's, gehts and geht es one answer, tschüs and tschüss, the spoken hab for habe; known mistakes, each only for a word of its group: the plural's umlaut (Apfel for Äpfel, Vater for Väter), the present's vowel change (fahrst for fährst, lest for liest), er's form for du's on a short stem (sagt for sagst, hat for hast, ist for bist), ein for kein, ich, mich, dich for each other, a number word for another (einundzwanzig for neunundzwanzig); the subject is never left out (`drop_subject` false); what people say that a unit teaches writing without, almost with the standard form shown (`nonstandard`, `verb_second`: [Spoken forms](#spoken-forms)) |
 | Austrian standard | the village's German: Grüß Gott, Servus, Baba, Jänner, heuer, Paradeiser, Erdapfel, Topfen, Sackerl; where Germany says otherwise (Januar, Tomate, Kartoffel, Tschüss), that form is accepted too and named in the explanation |
 | The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
 | Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
 | Not for German | forms cards, counting cards and the numbers module, case rows, the cases overview (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
-| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
+| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GermanB1aContentTest`, `GermanB1bContentTest` and `GermanB1cContentTest` (B1's, and that no choice or bank of the course offers what the table's `nonstandard` says people say), `GradingNonstandardTest`, `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
 
 Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
 the learner's own data (an age is Stefan's, not the learner's). The explanations in English, Slovene and Italian, every
@@ -1251,10 +1253,65 @@ A2's last six units, adjective endings, comparing and clauses (docs/plans/05-bui
 | `weil-denn` 🔗 | und, aber, oder, denn, sondern take no place; deshalb (deswegen, darum) takes first place; weil sends the verb last; a weil clause first; Warum? Weil … | konnektoren, nebensatz, wortstellung |
 | `dass-wenn-ob` ❓ | dass after glauben, wissen, hoffen, denken, sagen; wenn set apart from wann; ob against wenn; a question word kept, the verb last; a separable verb whole at the end | nebensatz, fragen, wortstellung |
 
-- **A spoken form is never a wrong option**, so these three are `spoken` on every gap and line they fit, and offered wrong nowhere: wie for als, weil with the verb second, wann for wenn. A quick question can't take `spoken`, so none has als or wenn for its answer. A choice on the word order offers denn's and deshalb's own mistakes (Denn er krank ist, deshalb sie geht), never weil er hat; a gap before a clause with the verb second takes `denn` with `weil` as spoken.
+- **What people say is never a wrong option**: wie for als, weil with the verb second, wann for wenn are in the table's `nonstandard` and `verb_second`, almost with the standard form shown, as each is the very thing its unit drills ([Spoken forms](#spoken-forms)); they were `spoken` on each line until B1's integration. A choice on the word order offers denn's and deshalb's own mistakes (Denn er krank ist, deshalb sie geht), never weil er hat; a gap before a clause with the verb second takes `denn`, with `weil` almost.
 - **An adjective's table has article and adjective in a cell (der große, den großen), the noun in the head**: the print marks an ending in a cell of two words at most. The pages' tables have the whole phrase.
 - **The print marks what differs**: große⟦r⟧ and große⟦n⟧, as kleine⟦s⟧: a column can't tell the adjective's stem from its -e.
 - **The grading's pairs**: the comparative's and superlative's umlaut left out or put where none goes (alter for älter, kalter for kälter, grosser for größer, altesten for ältesten, größer for großer), hoher and hocher for höher, hoche for hohe, größesten for größten, denn, dann, wenn and wann for each other. An adjective's ending needs no rule. `GermanA2cContentTest`.
+
+### The German course: B1, units 1–6
+
+B1's first six units, telling the past and the last of the four cases (docs/plans/05-built/course-de-b1-a.md). They come after all of A1 and A2:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `werden-futur` 🔮 | werde, wirst, wird; to become, with an adjective, a job, an age; ist geworden; Futur I for a promise, with wohl or sicher a guess; the present with a time word as the usual way | werden-futur |
+| `praeteritum` 📜 | regular -te, -ete; strong with a new vowel; mixed; a separable verb split; saß, stand, lag; set against the Perfekt, which Austria talks in | praeteritum, perfekt, praeteritum-kurz |
+| `als-waehrend` ⏳ | als once, wenn every time and now, wann the question; während, bevor, bis, seit; the verb last, the main verb at the comma | temporalsaetze, nebensatz |
+| `plusquamperfekt` ⏪ | hatte or war by the Perfekt's helper; nachdem steps back one tense; what came first told second; war gesessen | plusquamperfekt, perfekt, temporalsaetze |
+| `genitiv` 🏡 | des + -s, -es, der; eines, meines; a name's -s, Franz'; the table of the four cases; von + the dative | genitiv, faelle |
+| `wegen-trotz` ☔ | wegen, trotz, während, statt, innerhalb, außerhalb; a noun alone bare; innerhalb von; wegen mir | praepositionen-genitiv, genitiv |
+
+- **Only what came before around a gap**: no Präteritum beyond war, hatte and the modals in unit 1, no genitive before unit 5, no relative clause, no zu-infinitive, no obwohl, no Konjunktiv. No weak noun takes the genitive (`herr-kollege` is B2's).
+- **`spoken` on every line a form fits**: wie for als and wann for wenn in `als-waehrend` (its point is als against wenn), Nachdem ich gegessen habe and gegessen gehabt, von + the dative and dem Stefan sein, wegen dem Regen and the like, the outline's "labelled, never wrong". Trotz dem, common in Austria, the same. None is a wrong option; a choice before a genitive noun is safe (`Wegen ___ Regens` can't take dem).
+- **A distractor is wrong in every gap it could go to**: `wurde`, `dächte`, `hätte`, `wäre` and `weil` were taken out for making right German in some gap.
+- **The grading's pairs**: werden's vowel; wurde against werde and würde; a strong past with the present's vowel, each way; the past against would, one umlaut apart (dachte, kamen, gaben); -ete after -t and -d; wegen and statt against their neighbours. The genitive's -s is an ending, so no rule. `GermanB1aContentTest`.
+
+### The German course: B1, units 7–12
+
+B1's middle six, relative clauses, adjectives in full and zu (docs/plans/05-built/course-de-b1-b.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `relativsatz` 👉 | der, die, das, den, dem, denen: the gender from the noun, the case from its own clause; the verb last; a clause in the middle | relativsatz, nebensatz, dativ, akkusativ |
+| `relativsatz-praeposition` 🍞 | the preposition first; auf dem, auf den; a verb's own preposition; no contraction; wo; was after alles, nichts, etwas | relativsatz, wechselpraepositionen, verben-praepositionen |
+| `adjektiv-alle-faelle` 🧮 | one table for der, ein and none, the genitive and the plural added: the ending shows the case once; alle against viele | adjektiv-tabelle, adjektiv-der, adjektiv-ein, adjektiv-null |
+| `schnellere` 🚂 | -er or -st- with the ending before a noun; mehr with none; am besten, lieber; immer kälter; je … desto, umso | adjektiv-tabelle, steigerung |
+| `um-zu` 🍳 | zu last after a verb, a noun, es ist; none after a modal; aufzustehen; um … zu against damit; ohne … zu, statt … zu | infinitiv-zu, wortstellung, trennbare-verben |
+| `obwohl-trotzdem` ☔ | obwohl with the verb last, trotzdem with the verb next; against weil and deshalb; aber, trotz | obwohl-trotzdem, nebensatz, konnektoren |
+
+- **A relative's `welcher` is an `accept`**, on every typed pronoun; the page calls it heavy, the sheets never show it.
+- **An intro's table keeps to twelve rows** where a page's has twelve: `chooseTables` takes a page's table over the intro's when it has fewer rows and the same forms, and a page's cells of three words aren't all marked (`adjektiv-alle-faelle`).
+- **obwohl with the verb second and trotzdem as a conjunction are in the table** (`verb_second`, `nonstandard`): almost, as they are the very thing the unit drills, and never a wrong option. `der Tag, wo` and `ohne was zu sagen` stay `spoken`. `der Mann, wo dort steht` isn't in the course, and waits for the native check.
+- **The grading's pairs**: denn or deren for denen; the umlaut left out of a comparative or superlative with its ending (altere, großeren, jungste); a separable verb's zu-infinitive without its zu or with one where none goes; Stadt for statt. `GermanB1bContentTest`.
+
+### The German course: B1, units 13–18
+
+B1's last six, mood, voice and small words (docs/plans/05-built/course-de-b1-c.md):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `haette-waere` 🙏 | hätte, wäre, würde + the infinitive; a thing, a place or state, doing something; asking kindly, the verb first; hatte against hätte | konjunktiv-zwei |
+| `wenn-ich-haette` 💭 | könnte, müsste, dürfte, sollte; du solltest, könntest du, dürfte ich; käme, ginge, gäbe, wüsste; wenn + the Konjunktiv II against wenn + the present; Hätte ich Zeit, … to read | konjunktiv-zwei, modalverben, nebensatz |
+| `passiv` 🍞 | wird, werden, wurde, wurden + the participle; den becomes der; von + the dative; man; werden's three jobs | passiv, partizip-zwei, werden-futur |
+| `woran-daran` 🔍 | wo- and da- with a verb's preposition, the r before a vowel; auf wen, mit wem, auf ihn, mit ihr for people; darauf, dass …; darum and damit's other jobs | wo-da-woerter, verben-praepositionen |
+| `jemand-irgendwer` 👤 | jemand, niemand and their cases; etwas, nichts, alles; man, einen, einem; alle, manche, wenige; irgendwer, irgendwelche; einer, keiner, welche standing alone; derselbe | indefinitpronomen |
+| `nicht-nur-sondern` ⚖️ | nicht nur … sondern auch, sowohl … als auch, weder … noch, entweder … oder; the commas; the verb after sondern, oder, noch | doppelkonnektoren, konnektoren |
+
+- **Nothing above the level**: no Perfekt of the passive and no modal with it (`passiv-zeiten`), no past Konjunktiv II (`haette-gewusst`), no zwar … aber (`zwar-aber`), no modal + perfect infinitive.
+- **A quick question asks a new sentence**, not one its own explanation has just said with the answer in it.
+- **`spoken`, right and labelled**: drauf, dran, drüber; Wenn ich Zeit haben würde. **In the table, almost**, as each is the unit's own word: täte for würde, Auf was and the rest, auf ihn for a thing, wer, was, nix. A quick question can't take `spoken`, so none types a wo- or da- word.
+- **A form both standards have is two `accept`s**: jemand and jemanden, eins and eines, wärst and wärest, als auch and wie auch, der gleiche and derselbe, kommt and kommen after weder … noch.
+- **The grading's pairs**: würde, wurde and werde; kame, gabe for käme, gäbe, wusste and brauchte for wüsste and bräuchte, each way; söllte, wöllte; a participle without its ge on a long stem, gewaschen and gewachsen; the wo- and da- words for each other and with the r wrong (woauf, darmit; darum, warum, worum; davon, davor); demselben and denselben; wieder or jeder for weder, doch for noch. hätt, wär, würd are one answer with the whole word, as hab is. `GermanB1cContentTest`.
 
 ## The English course
 
