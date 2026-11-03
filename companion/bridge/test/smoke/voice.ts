@@ -2152,6 +2152,8 @@ export default async function voice() {
     check('profiles: Voice Design is asked for who they are, a native Slovene speaker from Primorska', desc.includes('grandmother') && desc.includes('seventies') && desc.includes('native Slovene speaker') && desc.includes('Primorska') && desc.includes('Warm grandmother'), desc)
     const sample = sampleOf(castList[0].lines)
     check('profiles: the sample is their own Slovene, no placeholders, long enough for Voice Design', sample.length >= 110 && sample.startsWith('Dober dan. Si lačen?') && !sample.includes('{'), sample)
+    const plainIn = (language: string) => sampleOf(undefined, language)
+    check("profiles: someone with no lines of their own is sampled in the village's language, each language its own, long enough for Voice Design", plainIn('de').startsWith('Grüß Gott') && plainIn('en').startsWith('Hello there') && plainIn('it').startsWith('Buongiorno') && plainIn('sl').startsWith('Dober dan') && ['sl', 'it', 'de', 'en'].every(l => plainIn(l).length >= 110 && plainIn(l).length <= 400), ['de', 'en'].map(plainIn))
     check('word match: the same words 1, a garbled half less', wordMatch('Dober dan, Jan!', 'dober dan jan') === 1 && wordMatch('O, pridi, pridi. Sedi.', 'o pridi sedi') === 0.75)
 
     check('profiles: no one designed before they live in the village', (await prof.designNext()) === 'no one waiting for a voice' && fe.st.designs.length === 0, fe.st.designs)

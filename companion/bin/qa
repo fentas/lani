@@ -198,6 +198,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        Teo's tablet on its side (2560 × 1600): at rest, closer, closest and panned, the ground kept and
                        drawn whole (QA's hook "render:full"): the map's render time (tag TownScene) and the frames'
                        (dumpsys gfxinfo), a table, also frames.tsv in $LANI_QA_COAST_SHOTS;
+                       "party" (only when named) one age's party played to its end in the dev bridge's culture (LANI_CULTURE,
+                       its celebrations/<LANI_QA_PARTY_AGE>.json: tabor, zaselek, vas, trg, mesto; vas; at LANI_QA_PARTY_LEVEL:
+                       A1, A2, B1, B2; A1; in the pair the phone shows), its moment, its card, then the village past that
+                       age and the chronicle's "Watch again" offering it; also as party-*.png in $LANI_QA_PARTY_SHOTS;
                        "kaernten-projects-b" (only when named) the Carinthian village's projects and spots (LANI_CULTURE=kaernten,
                        a learner of German, the phone in sl · en): the fire station and the lookout tower from the map, the
                        stream bank from the map and Oma Resi's washing day there, the pond in the evening ($LANI_QA_KAERNTEN_SHOTS);
@@ -205,6 +209,11 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        dev bridge's Slovene learner: the culture and the course apart): the map, the bocce court's card and
                        inside (NOI | VOI, the osteria), the osteria, the fontanella and the altar candle tapped (their word
                        cards), the cramâr under his crassigne at the gate; also as cs-*.png in $LANI_QA_CULTURE_SHOTS;
+                       "parity-small" (only when named) small things that read wrong, on what the dev bridge's learner is
+                       (docs/plans/05-built/parity-small.md): a learner of German at B1 past A1 (make-learner.ts --target de
+                       --base en, LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): new lessons coming on the school's tile, the
+                       grammar sign that doesn't count; LANI_QA_START_CARD a start card opened; LANI_QA_MEET=<id> their B1
+                       introduction (QA's hooks "level:B1", "meet:<id>"); LANI_QA_PARITY_SHOTS=<dir> the shots;
                        "friuli-looks" (only when named) Friuli's outdoor scenes in its look on a synthetic Italian learner
                        (LANI_DEV_DATA from make-learner.ts --target it, LANI_CULTURE=friuli, LANI_QA_PAIR=sl-en): the
                        village as a Vas, then Nel campo, Nel bosco, Al ruscello, Allo stagno and Il mare by day and closer,
@@ -1256,7 +1265,7 @@ def double_tap_zoom(x: int, y: int, tries=2) -> str:
         time.sleep(2.5)  # the flight settles, the closer look renders and fades in
         if wait_for("Na sredino · Recenter", 3):
             return "double tap"
-        if find("Na sredino · Recenter") is None and any(t in OVER_VILLAGE for t, _ in nodes()):
+        if find(label("common.recenter")) is None and any(t in over_village() for t, _ in nodes()):
             adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the first tap alone opened something: close it
             time.sleep(1)
     qa_hook("zoom")
@@ -1972,24 +1981,51 @@ def village():
 
 # the HUD's ring (TalkBack reads the age's words, or a festival's "Danes"), its cards (their labels start so), the
 # settlement's card (third: swiped to), its sheet's ✕ (back closes it)
-HUD_RING = ("Doba · ", "Danes")
-HUD_GOAL, HUD_SOON, HUD_SETTLEMENT = "Naslednji cilj · Next goal: ", "Danes in kmalu · Today and coming up", "Naselje · Settlement: "
-OVER_VILLAGE = ("Zapri · Close", "Close sheet")  # a card's ✕, the scroll's or the HUD's sheet's, a bottom sheet's scrim
-MOVE_ON = ("Naprej · Continue", "V vas · To the village")  # news over the village, a run's result
+def hud_ring_starts() -> tuple:
+    """How the HUD's ring's label starts in the pair the phone shows ("Doba · ", "Danes"; "Age · ", "Today"). The cards' own
+    "Danes" comes after the ring in the screen's order: a word of the base alone would be a card's (hud_ring)."""
+    return (label("villageScreen.age", half=True) + " · ", label("common.today", half=True))
+
+
+def hud_goal() -> str:
+    """How the HUD's goal card's label starts in the pair the phone shows ("Naslednji cilj · Next goal: ")."""
+    return label("villageHud.nextGoal") + ": "
+
+
+def hud_soon() -> str:
+    """How the HUD's card of today and what's coming starts in the pair the phone shows ("Danes in kmalu · Today and coming up")."""
+    return label("villageHud.soon")
+
+
+def hud_settlement() -> str:
+    """How the HUD's settlement card's label starts in the pair the phone shows ("Naselje · Settlement: ")."""
+    return label("villageHud.settlement") + ": "
+
+
+def over_village() -> tuple:
+    """What says something lies over the village, in the pair the phone shows: a card's ✕, the scroll's or the HUD's sheet's
+    ("Zapri · Close"), a bottom sheet's scrim."""
+    return (label("common.close"), "Close sheet")
+
+
+def move_on() -> tuple:
+    """What goes on from news over the village or a run's result, in the pair the phone shows ("Naprej · Continue", "V vas · To the village")."""
+    return (label("common.continue"), label("challengeScreen.village"))
 
 
 def plain_village():
     """Back to the plain village, camera at home, whatever a step left open: a card, a sheet, the scroll, a screen
     in front of it; into the village again when Back went on to Home."""
+    labels = []
     for _ in range(8):
         ns = list(nodes())
         labels = [t for t, _ in ns]
-        if any(t in village_hud() for t in labels) and not any(t in OVER_VILLAGE for t in labels):
-            if not any(t.startswith(HUD_GOAL) for t in labels) and (c := hud_ring(ns)) is not None:
+        if any(t in village_hud() for t in labels) and not any(t in over_village() for t in labels):
+            if not any(t.startswith(hud_goal()) for t in labels) and (c := hud_ring(ns)) is not None:
                 long_press(c)  # the HUD's cards hidden: back, as the steps read them (a long press on the ring; they slide in)
                 hud_cards(True)
                 continue
-            if (c := next((c for t, c in ns if t == "Na sredino · Recenter"), None)) is not None:
+            if (c := next((c for t, c in ns if t == label("common.recenter")), None)) is not None:
                 tap_at(c)
                 time.sleep(1.5)
             return
@@ -2000,13 +2036,13 @@ def plain_village():
             adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
             time.sleep(3)
             continue
-        c = next((c for t, c in ns if t in MOVE_ON or t.startswith("Preskoči")), None)
+        c = next((c for t, c in ns if t in move_on() or t.startswith(label("common.skip", half=True))), None)
         if c is not None:
             tap_at(c)
         else:
             adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1.5)
-    raise AssertionError("could not get back to the plain village")
+    raise AssertionError(f"could not get back to the plain village (on screen: {[x[:40] for x in labels if x][:10]})")
 
 
 SCROLL = "Zvitek · Scroll"  # the bottom bar's button, the sheet's title
@@ -4823,14 +4859,14 @@ def trade():
 
 def hud_ring(ns=None):
     """The HUD's ring (its centre), or None."""
-    return next((c for t, c in (list(nodes()) if ns is None else ns) if t.startswith(HUD_RING)), None)
+    return next((c for t, c in (list(nodes()) if ns is None else ns) if t.startswith(hud_ring_starts())), None)
 
 
 def hud_cards(shown: bool, timeout=6.0) -> bool:
     """Waits until the HUD's cards are [shown] (or gone): they slide in and out, and a busy emulator's dump lags."""
     end = time.time() + timeout * slow()
     while time.time() < end:
-        if (box_starting(HUD_GOAL) is not None or box_starting(HUD_SOON) is not None) == shown:
+        if (box_starting(hud_goal()) is not None or box_starting(hud_soon()) is not None) == shown:
             return True
         time.sleep(0.7)
     return False
@@ -4839,18 +4875,18 @@ def hud_cards(shown: bool, timeout=6.0) -> bool:
 def hud_card(label: str):
     """The HUD's card whose label starts with [label], swiped to while it's off the screen (the settlement's is third);
     its bounds, or None. The ring shows the cards first when they're hidden."""
-    if box_starting(HUD_GOAL) is None and box_starting(HUD_SOON) is None and box_starting(HUD_SETTLEMENT) is None and (c := hud_ring()) is not None:
+    if box_starting(hud_goal()) is None and box_starting(hud_soon()) is None and box_starting(hud_settlement()) is None and (c := hud_ring()) is not None:
         long_press(c)  # the ring's tap opens the ages' sheet; its long press shows the cards
         hud_cards(True)
     for _ in range(4):
         b = box_starting(label)
         if b is not None and b[0] >= 0 and b[2] <= 1080:
             return b
-        row = b or box_starting(HUD_GOAL) or box_starting(HUD_SOON) or box_starting(HUD_SETTLEMENT)
+        row = b or box_starting(hud_goal()) or box_starting(hud_soon()) or box_starting(hud_settlement())
         if row is None:
             return None
         y = (row[1] + row[3]) // 2
-        x0, x1 = ("980", "160") if label == HUD_SETTLEMENT else ("160", "980")  # the settlement's is the last
+        x0, x1 = ("980", "160") if label == hud_settlement() else ("160", "980")  # the settlement's is the last
         adb("shell", "input", "swipe", x0, str(y), x1, str(y), "900")
         time.sleep(1.5)
     return None
@@ -4861,7 +4897,7 @@ def hud_find(label: str, timeout=5.0):
     sheet opened first from its card; its centre, or None. Not the ring, whose label tells the chest's news too ("…; novo
     · new: …, Skrinja · The chest")."""
     if next((c for t, c in nodes() if t.startswith(label)), None) is None:
-        card = hud_card(HUD_SETTLEMENT)
+        card = hud_card(hud_settlement())
         if card is None:
             return None
         tap_at(((card[0] + card[2]) // 2, (card[1] + card[3]) // 2))
@@ -6774,7 +6810,7 @@ def hearths():
         snap("sheet")
         assert find("na oglje") is not None or find("mrzla: ni oglja") is not None, "the forge's row (its charcoal)"
         plain_village()
-        b = box_starting(HUD_SETTLEMENT)
+        b = box_starting(hud_settlement())
         if b is not None:
             snap("hud")
 
@@ -7491,6 +7527,129 @@ def age_up():
         qa_hook("hour:")
     return None
 
+def party():
+    """One age's party in the dev bridge's culture, played to its end, whatever the culture (only when named; companion/GAME.md
+    "Ages and their celebrations"): the dev bridge's LANI_CULTURE, its celebrations/<LANI_QA_PARTY_AGE>.json (tabor, zaselek,
+    vas, trg or mesto; vas), at LANI_QA_PARTY_LEVEL (A1, A2, B1, B2; A1), read in the pair the phone shows (LANI_QA_PAIR or
+    LANI_QA_SETUP_PAIR). QA's hooks grow the dev village's copy to that age ("ageup:<age>") at seven in the evening ("hour:19")
+    at that level ("level:<lv>"): the moment held at its opening, its decorations and its sign, the card with the celebration's
+    name and the party's button; the party, each line on and the right choice at each turn, to its end with the chronicle's
+    line (a first time); then the village past that age ("ageup:<the next>"; Mesto stays) and the chronicle's row of the age,
+    its moment again and its card offering the party. Also as party-*.png in $LANI_QA_PARTY_SHOTS."""
+    culture = api("/culture").get("id")
+    age = (os.environ.get("LANI_QA_PARTY_AGE") or "vas").lower()
+    level = (os.environ.get("LANI_QA_PARTY_LEVEL") or "A1").upper()
+    f = ROOT / f"companion/cultures/{culture}/celebrations/{age}.json"
+    if not f.exists():
+        return f"skipped: {culture} has no celebrations/{age}.json"
+    c = json.loads(f.read_text())
+    if level not in c.get("levels", {}):
+        return f"skipped: {culture}'s {age} has no party at {level}"
+    t = pair_now()[0]
+    text = lambda o: o.get(t) or o[c["language"]]
+    name, end_line = text(c["name"]), text(c["line"])
+    out = Path(os.environ["LANI_QA_PARTY_SHOTS"]) if os.environ.get("LANI_QA_PARTY_SHOTS") else None
+    # the right choices as a man and as a woman reads them, the learner's name whatever it is; a row reads "the choice, its meaning"
+    def rows_of(said: str) -> list:
+        forms = {re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", said), re.sub(r"\{m:[^|}]*\|f:([^}]*)\}", r"\1", said)}
+        return [re.compile(re.escape(x).replace(re.escape("{learner}"), ".+") + r"(,.*)?", re.S) for x in forms]
+    right = [rx for l in c["levels"][level]["lines"] for ch in l.get("choices", []) if ch.get("ok") for rx in rows_of(text(ch))]
+
+    def snap(what: str):
+        shot(f"party-{age}-{level.lower()}-{what}")
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"party-{age}-{level.lower()}-{what}.png")
+
+    to_party, whats_new = label("ageUp.toParty", half=True), label("ageUp.whatsNew", half=True)
+    try:
+        qa_hook("hour:19")
+        qa_hook(f"level:{level}")
+        village()
+        plain_village()
+        qa_hook("ageup:at:0")
+        qa_hook(f"ageup:{age}")
+        assert wait_for(label("villageSheets.newAge", half=True), 12), "the moment opens"
+        time.sleep(2)
+        for beat, s in moment_times(age):
+            if beat in ("open", "decorate", "sign"):
+                qa_hook(f"ageup:at:{s:.2f}")
+                time.sleep(2.4)
+                snap(f"moment-{beat}")
+        qa_hook("ageup:at:99")
+        assert wait_for(whats_new, 10), "the moment's card"
+        time.sleep(1)
+        snap("card")
+        assert find(name) is not None, f"the card names {name}"
+        assert tap(to_party, 5), "the party's button on the card"
+        assert wait_for(name, 10), "the party over the village"
+        time.sleep(2.5)
+        snap("start")
+        turns = 0
+        for _ in range(50):
+            ns = list(nodes())
+            labels = [x for x, _ in ns]
+            if any(end_line in x for x in labels):
+                break
+            if tap(label("common.next"), 1):
+                continue
+            if any(label("adaptive.letMeChoose", half=True) in x for x in labels):
+                tap(label("adaptive.letMeChoose", half=True), 2)
+                time.sleep(1)
+                continue
+            # a turn has no Next; its right choice is the lowest row that reads it (a reply may begin with the same toast)
+            rows = sorted((co for x, co in ns if any(rx.fullmatch(x) for rx in right)), key=lambda co: -co[1])
+            if rows:
+                tap_at(rows[0])
+                turns += 1
+                time.sleep(1.5)
+                if turns == 1:
+                    snap("turn")
+                continue
+            time.sleep(1)
+        if wait_for(end_line, 8) is None:
+            snap("stuck")
+            raise AssertionError(f"the party's end: its line for the chronicle ({end_line})")
+        snap("end")
+        print(f"    {culture} {age} at {level}: {turns} turn(s) answered")
+        back = end_button(label("arrivals.backVillage"))
+        assert back is not None, "back to the village from the party's end"
+        tap_at(back)
+        time.sleep(1.5)
+        # a village past that age: the chronicle's row of the age, its moment again with this celebration, the party offered
+        ages = ["tabor", "zaselek", "vas", "trg", "mesto"]
+        if age != "mesto":
+            qa_hook("ageup:at:99")
+            qa_hook(f"ageup:{ages[ages.index(age) + 1]}")
+            assert wait_for(whats_new, 12), "the next age's card"
+            tap(label("common.continue"), 5)
+            time.sleep(1.5)
+        qa_hook("ageup:at:")
+        plain_village()
+        assert tap(label("villageScreen.scroll"), 5), "the scroll's button"
+        time.sleep(1)
+        chronicle = label("townScroll.chronicle", half=True)
+        card = next((co for x, co in nodes() if x.startswith(chronicle)), None) or scroll_to(chronicle, 3)
+        assert card is not None, "the chronicle on the scroll"
+        tap_at(card)
+        assert wait_for(label("ageUp.ages", half=True), 6), "the chronicle's ages"
+        row = find(name) or scroll_to(name, 3)
+        assert row is not None, f"{name} among the chronicle's ages"
+        snap("chronicle")
+        tap_at(row)
+        assert wait_for(label("villageSheets.newAge", half=True), 10), "the moment again"
+        qa_hook("ageup:at:99")
+        assert wait_for(to_party, 10), "played again: its party now"
+        assert find(name) is not None, f"played again: the card names {name}"
+        snap("replay-card")
+        plain_village()
+    finally:
+        qa_hook("ageup:at:")
+        qa_hook("level:")
+        qa_hook("hour:")
+    return None
+
+
 def build_sheet():
     # The bottom bar's Build opens the sheet; the next-goal card may have its own Build that builds
     # straight away (when affordable), so take the lowest match on screen.
@@ -7679,8 +7838,8 @@ def village_hud():
     assert box_starting("Hrana · Food: ") and box_starting("Modrost · Wisdom: "), "the resources in the bar"
     ring = hud_ring()
     assert ring is not None, "the settlement's ring"
-    goal = box_starting(HUD_GOAL)
-    assert goal is not None and box_starting(HUD_SOON), "the goal's card and today's"
+    goal = box_starting(hud_goal())
+    assert goal is not None and box_starting(hud_soon()), "the goal's card and today's"
     assert goal[3] < 600, f"the cards' bottom at {goal[3]} px (the old HUD's panel reached about 1550)"
     assert box_starting("Skrinja · The chest") is None, "no tile while no sheet is open"
     shot("hud-cards")
@@ -7691,14 +7850,14 @@ def village_hud():
         shot("hud-ring-ages")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
-    assert box_starting(HUD_GOAL) is not None, "the cards still shown after the ring's sheet"
+    assert box_starting(hud_goal()) is not None, "the cards still shown after the ring's sheet"
     long_press(ring)
     assert hud_cards(False) and box_starting("Hrana · Food: "), "the ring's long press hides the cards, the bar stays"
     shot("hud-bar")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # to Home, and into the village again: still hidden
     assert wait_home(8), "home"
     village()
-    assert box_starting(HUD_GOAL) is None and box_starting(HUD_SOON) is None, "hidden still, the village opened again"
+    assert box_starting(hud_goal()) is None and box_starting(hud_soon()) is None, "hidden still, the village opened again"
     long_press(hud_ring())
     assert hud_cards(True), "the ring's long press shows the cards again"
 
@@ -7711,21 +7870,21 @@ def village_hud():
         time.sleep(1)
         shot(name)
 
-    section(HUD_GOAL, "Naslednji cilj · Next goal", "hud-goal")
+    section(hud_goal(), "Naslednji cilj · Next goal", "hud-goal")
     # a tap on the map above the sheet: it closes, nothing opens
-    top = box_starting(HUD_GOAL) or box_starting(HUD_SOON)
+    top = box_starting(hud_goal()) or box_starting(hud_soon())
     close = box_starting("Zapri · Close")
     y = (top[3] + close[1]) // 2
     adb("shell", "input", "tap", "540", str(y))
     time.sleep(1.5)
     labels = [t for t, _ in nodes()]
     assert "Zapri · Close" not in labels, "a tap on the map closes the sheet"
-    assert not any(t in OVER_VILLAGE for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in OVER_VILLAGE]})"
+    assert not any(t in over_village() for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in over_village()]})"
 
-    section(HUD_SOON, "Danes in kmalu · Today and coming up", "hud-soon")
+    section(hud_soon(), "Danes in kmalu · Today and coming up", "hud-soon")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1)
-    section(HUD_SETTLEMENT, "Naselje · Settlement", "hud-settlement")
+    section(hud_settlement(), "Naselje · Settlement", "hud-settlement")
     assert box_starting("Skrinja · The chest: ") and box_starting("Napredek · Progress"), "the settlement's tiles"
     assert tap("Zapri · Close", 3), "its ✕"
     time.sleep(1)
@@ -10336,7 +10495,6 @@ def content_fixes_2():
     beams, Mr Dixon's iron gate and its key), the bee meadow's fourth (the hives painted white), and Old Wilf's "Where's
     Bess?" on the green in the afternoon (QA's hooks "hour:14", "happening:on-the-green/bess/bess") to its daytime goodbye.
     Skipped in another culture. Also as cf2-*.png in $LANI_QA_CF2_SHOTS."""
-    global HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING
     try:
         culture = api("/culture").get("id")
     except (OSError, RuntimeError, ValueError):
@@ -10454,10 +10612,6 @@ def content_fixes_2():
             tap(back, 4)
         time.sleep(1.5)
 
-    saved = (HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING)
-    # the HUD's cards and ring as this pair labels them (QA's constants are Jan's sl · en)
-    HUD_GOAL, HUD_SOON, HUD_SETTLEMENT = lab("villageHud.nextGoal") + ": ", lab("villageHud.soon"), lab("villageHud.settlement") + ": "
-    HUD_RING = (half("villageScreen.age") + " · ", half("common.today"))
     qa_hook(f"pair:{'-'.join(pair)}")
     try:
         # the cast counts as met on the dev bridge's copy, which the app adopts (a project's leader must be met, Franz for the
@@ -10498,7 +10652,6 @@ def content_fixes_2():
             if find(back) is not None:
                 tap(back, 4)
     finally:
-        HUD_GOAL, HUD_SOON, HUD_SETTLEMENT, HUD_RING = saved
         qa_hook("happening:")
         qa_hook("step:")
         qa_hook("hour:")
@@ -15383,6 +15536,93 @@ def road_quiz():
 PROGRESS = "📊 Napredek · Progress"
 
 
+def parity_small():
+    """Small things that read wrong (docs/plans/05-built/parity-small.md), named only, each on what the dev bridge's learner is;
+    the app in the learner's own pair (LANI_QA_SETUP_PAIR). A learner of German at B1 (LANI_DEV_DATA from make-learner.ts
+    --target de --base en, its learner.current_level B1; LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): past German's A1
+    (QA's hook "school:reveal") the teacher says she is preparing the next lessons, the school's tile on Home says they're
+    coming, not all done; "🧭 Bis B2" has the grammar sign ➖ with no pages at B1, the treasure map's sign "–". Any learner: the
+    cheat sheet (QA's hook "cheat") with $LANI_QA_START_CARD, a start card, opened; with $LANI_QA_MEET (a villager's id) their
+    introduction at B1 (QA's hooks "level:B1", "meet:<id>"), on to its first turn, the wrong choice's reaction. Shots in
+    $LANI_QA_PARITY_SHOTS as ps-*.png."""
+    out = Path(os.environ["LANI_QA_PARITY_SHOTS"]) if os.environ.get("LANI_QA_PARITY_SHOTS") else None
+    notes = []
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    culture = api("/culture").get("id")
+    if culture == "kaernten":
+        qa_hook("school:reveal")
+        time.sleep(2 * slow())
+        said = label("school.preparing", half=True)
+        assert wait_for(said, 10), f"the teacher: {said}, past A1 with A2 not written"
+        snap("ps-school-preparing")
+        go_home()
+        tile = scroll_to(label("school.preparingShort"), 8)
+        assert tile, "Home's school tile says new lessons are coming"
+        assert find(label("school.allDone")) is None, "not all done"
+        snap("ps-home-tile")
+        line = scroll_to(label("common.progress"), 6)
+        assert line, "Home's progress line"
+        tap_at(line)
+        time.sleep(3 * slow())
+        assert scroll_to("The book has no pages of B1 yet", 8), "the grammar sign says the book has no pages of B1"
+        snap("ps-progress-sign")
+        hit = on_screen(label("treasure.title"))
+        assert hit is not None, "the way to the treasure map"
+        tap_at(hit[1])
+        time.sleep(2 * slow())
+        assert scroll_to("The book has no rules of B1 yet", 4), "the map's sign says it doesn't count"
+        snap("ps-treasure-sign")
+        notes.append("German at B1: preparing, the sign doesn't count")
+        go_home()
+    card = os.environ.get("LANI_QA_START_CARD")
+    if card:
+        qa_hook("cheat")
+        assert wait_for(label("cheatSheet.title"), 6), "the cheat sheet"
+        time.sleep(1)
+        snap("ps-cheat")
+        assert tap(card, 4), f"the start card {card}"
+        time.sleep(1)
+        snap("ps-cheat-card")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        go_home()
+        notes.append(f"the start card {card}")
+    meet = os.environ.get("LANI_QA_MEET")
+    if meet:
+        qa_hook("level:B1")
+        qa_hook(f"meet:{meet}")
+        time.sleep(3 * slow())
+        snap(f"ps-meet-{meet}")
+        language = api("/culture").get("language", "sl")
+        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"]["B1"]
+        first = next(x for x in spec["lines"] if "choices" in x)
+        wrong = next(c for c in first["choices"] if not c.get("ok"))[language]
+        wrong = re.split(r"[{]", wrong)[0].strip()
+        for _ in range(8):
+            if find(wrong) is not None:
+                break
+            tap(label("common.next"), 2)
+            time.sleep(1.5 * slow())
+        assert find(wrong) is not None, f"{meet}'s first turn: {wrong}"
+        snap(f"ps-meet-{meet}-turn")
+        assert tap(wrong, 3), f"the wrong choice: {wrong}"
+        time.sleep(2 * slow())
+        snap(f"ps-meet-{meet}-reaction")
+        notes.append(f"{meet}'s introduction at B1, to its first turn's reaction")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        qa_hook("level:")
+    if not notes:
+        return "skipped: nothing asked of this learner"
+    print("   " + "; ".join(notes))
+    return None
+
+
 def open_progress():
     """Home's "📊 Napredek · Progress" line to the progress screen, the node's stats on it."""
     go_home()
@@ -17886,6 +18126,8 @@ def plan():
         ("project-step", project_step, v, False, ""),
         ("scene-coherence", scene_coherence, v, False, ""),
         ("age-up", age_up, v, False, ""),
+        # only with --steps party: one age's party in the dev bridge's culture, to its end (LANI_QA_PARTY_AGE, LANI_QA_PARTY_LEVEL)
+        ("party", party, v, False, ""),
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         # only when named: a raised target from the next age (a synthetic child of Italian: LANI_DEV_DATA, LANI_CULTURE=friuli)
@@ -17942,6 +18184,8 @@ def plan():
         ("fire-ages", fire_ages, v, False, ""),
         ("storm", storm, v, False, ""),
         ("coast", coast, v, False, ""),
+        # only with --steps parity-small: small things that read wrong, on what the dev bridge's learner is
+        ("parity-small", parity_small, go_home, False, ""),
         # only with --steps friuli-looks: Friuli's outdoor scenes in its look (a synthetic Friuli learner)
         ("friuli-looks", friuli_looks, v, False, ""),
         # only with --steps map-looks: the village map in its culture's look (a synthetic learner of another culture)
@@ -18489,7 +18733,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "tutor-language", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "tutor-language", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "parity-small", "party") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
