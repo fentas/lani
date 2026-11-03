@@ -198,8 +198,8 @@ object TurnHints {
      * The hint of learner's turn [line] in [language], the book's pages by [page]; null when its rule has no page in the
      * book (a word's meaning, a greeting's hour: no hint). [cast]: the names of the people of the scene and the village
      * ("Babica Micka", "Mrs Hartley"), so a name is taken for who does it wherever it stands, at a sentence's start too
-     * ("Micka kuha.", "Giulia è stanca.", "Wilf is the winner!"). An Italian turn takes Italian's table ([ItalianHints]); a
-     * turn of another language than Slovene and Italian gets its pages alone.
+     * ("Micka kuha.", "Giulia è stanca.", "Wilf is the winner!"). An Italian turn takes Italian's table ([ItalianHints]),
+     * an English turn English's ([EnglishHints]); a turn of another language than these and Slovene gets its pages alone.
      */
     fun of(line: DialogLine, language: String, cast: Collection<String>, page: (String) -> GrammarPage?): TurnHint? {
         val c = line.choices
@@ -224,6 +224,8 @@ object TurnHints {
         val names = names(cast)
         // Italian's own table (game/ItalianHints.kt): its rules in words, a trigger where the sentence shows one
         if (language == "it") return ItalianHints.of(base, sentence, slot, names)?.let { (id, made) -> finish(made, made.models, id, page, base) } ?: base
+        // English's (game/EnglishHints.kt): the same, from English's own word lists
+        if (language == "en") return EnglishHints.of(base, sentence, slot, names)?.let { (id, made) -> finish(made, made.models, id, page, base) } ?: base
         if (language != "sl") return base
         val id = pages.firstOrNull { it in RULES } ?: return base
         val rule = RULES.getValue(id)
