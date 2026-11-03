@@ -106,8 +106,8 @@ hears for someone with no lines of their own. A language without one still falls
 ```bash
 d=$(mktemp -d); (cd companion/bridge && bun test/fixtures/make-learner.ts "$d" --target de --base en)
 # then learner.current_level = "B1" in "$d/learner-profile.json"
-LANI_DEV_DATA=$d LANI_CULTURE=kaernten LANI_QA_PAIR=sl-en LANI_QA_PARITY_SHOTS=<dir> \
-  LANI_QA_START_CARD="Ich bin, ich habe" companion/bin/qa-slot --no-town --steps parity-small
+LANI_DEV_DATA=$d LANI_CULTURE=kaernten LANI_QA_SETUP_PAIR=de-en LANI_QA_LEARNER=Lena LANI_QA_PARITY_SHOTS=<dir> \
+  LANI_QA_START_CARD="Ich bin, ich habe" LANI_QA_MEET=toni companion/bin/qa-slot --no-town --steps parity-small
 ```
 
 ## For a native check

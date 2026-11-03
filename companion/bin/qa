@@ -207,7 +207,7 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        cards), the cramâr under his crassigne at the gate; also as cs-*.png in $LANI_QA_CULTURE_SHOTS;
                        "parity-small" (only when named) small things that read wrong, on what the dev bridge's learner is
                        (docs/plans/05-built/parity-small.md): a learner of German at B1 past A1 (make-learner.ts --target de
-                       --base en, LANI_CULTURE=kaernten, LANI_QA_PAIR=sl-en): new lessons coming on the school's tile, the
+                       --base en, LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): new lessons coming on the school's tile, the
                        grammar sign that doesn't count; LANI_QA_START_CARD a start card opened; LANI_QA_MEET=<id> their B1
                        introduction (QA's hooks "level:B1", "meet:<id>"); LANI_QA_PARITY_SHOTS=<dir> the shots;
                        "friuli-looks" (only when named) Friuli's outdoor scenes in its look on a synthetic Italian learner
@@ -15377,13 +15377,14 @@ PROGRESS = "📊 Napredek · Progress"
 
 
 def parity_small():
-    """Small things that read wrong (docs/plans/05-built/parity-small.md), named only, each on what the dev bridge's learner is.
-    A learner of German at B1 (LANI_DEV_DATA from make-learner.ts --target de --base en, its learner.current_level B1;
-    LANI_CULTURE=kaernten, LANI_QA_PAIR=sl-en): past German's A1 (QA's hook "school:reveal") the school's tile on Home says
-    new lessons are coming, not all done, and the teacher says so in the school; "🧭 Do B2" has the grammar sign ➖ with no pages at B1,
-    the treasure map's sign "–". Any learner: the cheat sheet's start cards (QA's hook "cheat"; $LANI_QA_START_CARD opened); and
-    with $LANI_QA_MEET (a villager's id) their introduction at B1 (QA's hooks "level:B1", "meet:<id>"), a wrong turn's
-    reaction shown, then the right one. Shots in $LANI_QA_PARITY_SHOTS as ps-*.png."""
+    """Small things that read wrong (docs/plans/05-built/parity-small.md), named only, each on what the dev bridge's learner is;
+    the app in the learner's own pair (LANI_QA_SETUP_PAIR). A learner of German at B1 (LANI_DEV_DATA from make-learner.ts
+    --target de --base en, its learner.current_level B1; LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): past German's A1
+    (QA's hook "school:reveal") the teacher says she is preparing the next lessons, the school's tile on Home says they're
+    coming, not all done; "🧭 Bis B2" has the grammar sign ➖ with no pages at B1, the treasure map's sign "–". Any learner: the
+    cheat sheet (QA's hook "cheat") with $LANI_QA_START_CARD, a start card, opened; with $LANI_QA_MEET (a villager's id) their
+    introduction at B1 (QA's hooks "level:B1", "meet:<id>"), on to its first turn, the wrong choice's reaction. Shots in
+    $LANI_QA_PARITY_SHOTS as ps-*.png."""
     out = Path(os.environ["LANI_QA_PARITY_SHOTS"]) if os.environ.get("LANI_QA_PARITY_SHOTS") else None
     notes = []
 
@@ -15397,31 +15398,32 @@ def parity_small():
     if culture == "kaernten":
         qa_hook("school:reveal")
         time.sleep(2 * slow())
-        assert wait_for("Pripravljam naslednje ure", 10), "the teacher preparing the next lessons, past A1 with A2 not written"
+        said = label("school.preparing", half=True)
+        assert wait_for(said, 10), f"the teacher: {said}, past A1 with A2 not written"
         snap("ps-school-preparing")
         go_home()
-        tile = scroll_to("Nove ure kmalu", 8)
+        tile = scroll_to(label("school.preparingShort"), 8)
         assert tile, "Home's school tile says new lessons are coming"
-        assert find("vse opravljeno") is None, "not all done"
+        assert find(label("school.allDone")) is None, "not all done"
         snap("ps-home-tile")
-        open_progress()
-        to_top()
-        assert card_at_top("🧭 Do B2 · To B2"), "the way to B2"
-        assert on_screen("The book has no pages of B1 yet"), "the grammar sign says the book has no pages of B1"
-        card_at_top("🧭 Do B2 · To B2")
+        line = scroll_to(label("common.progress"), 6)
+        assert line, "Home's progress line"
+        tap_at(line)
+        time.sleep(3 * slow())
+        assert scroll_to("The book has no pages of B1 yet", 8), "the grammar sign says the book has no pages of B1"
         snap("ps-progress-sign")
-        hit = on_screen("Zemljevid zaklada te čaka", "Zemljevid zaklada · The treasure map ›", "Zemljevid zaklada: postaje")
+        hit = on_screen(label("treasure.title"))
         assert hit is not None, "the way to the treasure map"
         tap_at(hit[1])
-        assert on_treasure_map(), "the treasure map"
+        time.sleep(2 * slow())
         assert scroll_to("The book has no rules of B1 yet", 4), "the map's sign says it doesn't count"
         snap("ps-treasure-sign")
-        notes.append("German at B1: preparing, the sign ➖")
+        notes.append("German at B1: preparing, the sign doesn't count")
         go_home()
     card = os.environ.get("LANI_QA_START_CARD")
     if card:
         qa_hook("cheat")
-        assert wait_for(CHEAT, 6), "the cheat sheet"
+        assert wait_for(label("cheatSheet.title"), 6), "the cheat sheet"
         time.sleep(1)
         snap("ps-cheat")
         assert tap(card, 4), f"the start card {card}"
@@ -15436,8 +15438,24 @@ def parity_small():
         qa_hook("level:B1")
         qa_hook(f"meet:{meet}")
         time.sleep(3 * slow())
-        snap(f"ps-meet-{meet}-opens")
-        notes.append(f"{meet}'s introduction at B1")
+        snap(f"ps-meet-{meet}")
+        language = api("/culture").get("language", "sl")
+        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"]["B1"]
+        first = next(x for x in spec["lines"] if "choices" in x)
+        wrong = next(c for c in first["choices"] if not c.get("ok"))[language]
+        wrong = re.split(r"[{]", wrong)[0].strip()
+        for _ in range(8):
+            if find(wrong) is not None:
+                break
+            tap(label("common.next"), 2)
+            time.sleep(1.5 * slow())
+        assert find(wrong) is not None, f"{meet}'s first turn: {wrong}"
+        snap(f"ps-meet-{meet}-turn")
+        assert tap(wrong, 3), f"the wrong choice: {wrong}"
+        time.sleep(2 * slow())
+        snap(f"ps-meet-{meet}-reaction")
+        notes.append(f"{meet}'s introduction at B1, to its first turn's reaction")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
         qa_hook("level:")
     return "; ".join(notes) or "skipped: nothing asked of this learner"
 
