@@ -3648,9 +3648,14 @@ has the Italian course's words that no pack means (271 entries since 2026-11-01:
 volta), written for a child (German first, Slovene, English), each with the forms the Italian content uses and their
 grammar (1,136): a reflexive verb's with their pronoun (si lava, mi sono lavata: the plain verb's gira is not
 girarsi), an expression with an apostrophe also as a line's words are joined (un po, ce l ho fatta), so a phone
-without Wiktionary finds them too: there the supplement, the packs and the names know 51.7 % of the Italian content's
-words met (28.8 % before). The course's printed sheets list every word they name
-([it-print-meanings.md](../docs/plans/05-built/it-print-meanings.md)).
+without Wiktionary finds them too. The course's printed sheets list every word they name
+([it-print-meanings.md](../docs/plans/05-built/it-print-meanings.md)). Since supplement-it (2026-11-02) it means every
+other word of the content too, 1,873 entries: the function words (il, la, un, che, non, per, si), the contractions as
+their preposition (nella: in + la), the clitics, the verbs and the forms the content uses, the nouns' plurals, the
+adjectives' endings, the sounds with a meaning (hm, bzz), the places and stars, Friulian and Slovene words said to be so
+in every base. On a phone without Wiktionary a tap means 99.9 % of the words met and 99.3 % of the different words
+(55.0 % and 43.6 % before); what stays out is the wrong forms the lessons offer on purpose, and letters spelt out
+([supplement-it.md](../docs/plans/05-built/supplement-it.md)).
 
 **German's supplement**, `lexicon/de.extra.json` (machine-written, `"reviewed": false`), stands in for the German
 dictionary a learner of German usually lacks (it is a download, `LANI_LEXICON_URL`; the phone has none): the German
