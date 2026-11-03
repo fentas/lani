@@ -264,6 +264,198 @@
               "it": "Bene. Ancora sette. Giusto."
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Lärchenholz wird mit den Jahren grau wie Silber, aber es fault nicht. Darum bauen wir die Doppelharpfe aus Lärche.",
+              "sl": "Macesnov les z leti postane siv kot srebro, ampak ne gnije. Zato toplar gradimo iz macesna.",
+              "en": "Larch wood goes grey as silver over the years, but it doesn't rot. That's why we're building the double hayrack of larch.",
+              "it": "Il legno di larice col tempo diventa grigio come l'argento, ma non marcisce. Per questo facciamo la rastrelliera doppia di larice."
+            },
+            {
+              "who": "stefan",
+              "face": "curious",
+              "de": "Und wann würde man eine Lärche am besten fällen, damit das Holz lange hält?",
+              "sl": "Kdaj pa bi bilo najbolje posekati macesen, da les dolgo zdrži?",
+              "en": "And when would it be best to fell a larch, so the wood lasts?",
+              "it": "E quando sarebbe meglio abbattere un larice, perché il legno duri a lungo?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Man würde die Lärche im Winter fällen, wenn kein Saft mehr im Holz ist.",
+                  "sl": "Macesen bi posekali pozimi, ko v lesu ni več soka.",
+                  "en": "You'd fell the larch in winter, when there's no more sap in the wood.",
+                  "it": "Il larice lo si abbatterebbe d'inverno, quando nel legno non c'è più linfa.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Im Winter, beim abnehmenden Mond, sagen die Alten. Dann hält es noch länger.",
+                    "sl": "Pozimi, ob pojemajoči luni, pravijo stari. Potem zdrži še dlje.",
+                    "en": "In winter, at the waning moon, the old folk say. Then it lasts even longer.",
+                    "it": "D'inverno, con la luna calante, dicono i vecchi. Allora dura ancora di più."
+                  }
+                },
+                {
+                  "de": "Man würde die Rose im Winter fällen, wenn kein Saft mehr im Holz ist.",
+                  "sl": "Vrtnico bi posekali pozimi, ko v lesu ni več soka.",
+                  "en": "You'd fell the rose in winter, when there's no more sap in the wood.",
+                  "it": "La rosa la si abbatterebbe d'inverno, quando nel legno non c'è più linfa.",
+                  "why": {
+                    "sl": "Za toplar se seka macesen: die Lärche. Vrtnica je za vazo.",
+                    "en": "For the hayrack you fell larch: die Lärche. A rose is for a vase.",
+                    "it": "Per la rastrelliera si abbatte il larice: die Lärche. La rosa è per il vaso."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Eine Rose? Die schneidet man für die Vase, nicht für die Harpfe!",
+                    "sl": "Vrtnico? To se odreže za vazo, ne za kozolec!",
+                    "en": "A rose? You cut that for a vase, not for a hayrack!",
+                    "it": "Una rosa? Quella si taglia per il vaso, non per la rastrelliera!"
+                  }
+                },
+                {
+                  "de": "Man würde die Lärche im Winter waschen, wenn kein Saft mehr im Holz ist.",
+                  "sl": "Macesen bi pozimi umili, ko v lesu ni več soka.",
+                  "en": "You'd wash the larch in winter, when there's no more sap in the wood.",
+                  "it": "Il larice lo si laverebbe d'inverno, quando nel legno non c'è più linfa.",
+                  "why": {
+                    "sl": "Drevo se poseka: fällen. Umivati ga ni treba.",
+                    "en": "A tree is felled: fällen. Nobody washes it.",
+                    "it": "Un albero si abbatte: fällen. Non c'è bisogno di lavarlo."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Waschen? Im Winter? Dann friert sie ja ein!",
+                    "sl": "Umiti? Pozimi? Potem bo zmrznil!",
+                    "en": "Wash it? In winter? It'd freeze solid!",
+                    "it": "Lavarlo? D'inverno? Allora gela!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franz",
+              "face": "thinking",
+              "de": "Acht Stämme brauchen wir, für acht Pfosten. Keiner mehr, keiner weniger.",
+              "sl": "Osem debel potrebujemo, za osem stebrov. Niti enega več, niti manj.",
+              "en": "We need eight trunks, for eight posts. Not one more, not one less.",
+              "it": "Ci servono otto tronchi, per otto pali. Né uno di più, né uno di meno."
+            },
+            {
+              "who": "florian",
+              "face": "laugh",
+              "de": "Achtung, sie fällt! … Bumm! Der erste liegt, und die Vögel sind auch schon weg. Juhuu!",
+              "sl": "Pozor, pada! … Bum! Prvi leži, pa še ptiči so že odleteli. Juhu!",
+              "en": "Look out, it's falling! … Boom! The first one's down, and the birds are gone too. Yoo-hoo!",
+              "it": "Attenzione, cade! … Bum! Il primo è giù, e anche gli uccelli sono volati via. Iuhuu!",
+              "fx": {
+                "birds": 1
+              }
+            },
+            {
+              "who": "franz",
+              "de": "Gut. Noch sieben, dann ist der Wald für heuer genug geplagt. Stimmt.",
+              "sl": "Dobro. Še sedem, potem je gozd za letos dovolj namučen. Drži.",
+              "en": "Good. Seven more, then the wood's been troubled enough for this year. Right.",
+              "it": "Bene. Ancora sette, poi il bosco per quest'anno è stato tormentato abbastanza. Giusto."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Eine Doppelharpfe aus Lärche hält länger als ein Menschenleben. Die meines Großvaters steht heute noch, nur ein bisschen schief.",
+              "sl": "Toplar iz macesna zdrži dlje kot človeško življenje. Toplar mojega deda stoji še danes, samo malo postrani.",
+              "en": "A double hayrack of larch lasts longer than a human life. My grandfather's still stands today, just a little crooked.",
+              "it": "Una rastrelliera doppia di larice dura più di una vita umana. Quella di mio nonno è ancora in piedi, solo un po' storta."
+            },
+            {
+              "who": "stefan",
+              "face": "curious",
+              "de": "Und warum hat man die Lärchen früher nur im Winter gefällt?",
+              "sl": "Zakaj pa so nekoč macesne sekali samo pozimi?",
+              "en": "And why did people only fell larches in winter in the old days?",
+              "it": "E perché una volta i larici si abbattevano solo d'inverno?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Weil Lärchen, die man im Winter fällt, weniger Saft haben und deshalb kaum reißen.",
+                  "sl": "Ker imajo macesni, ki jih posekaš pozimi, manj soka in zato skoraj ne pokajo.",
+                  "en": "Because larches you fell in winter have less sap and so hardly crack.",
+                  "it": "Perché i larici che si abbattono d'inverno hanno meno linfa e quindi si spaccano poco.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Und beim abnehmenden Mond, haben die Alten gesagt. Ob's stimmt, weiß keiner, aber geschadet hat's nie.",
+                    "sl": "In ob pojemajoči luni, so rekli stari. Ali drži, nihče ne ve, ampak škodilo ni nikoli.",
+                    "en": "And at the waning moon, the old folk said. Whether it's true, nobody knows, but it never did any harm.",
+                    "it": "E con la luna calante, dicevano i vecchi. Se sia vero non lo sa nessuno, ma male non ha mai fatto."
+                  }
+                },
+                {
+                  "de": "Weil Rosen, die man im Winter fällt, weniger Saft haben und deshalb kaum reißen.",
+                  "sl": "Ker imajo vrtnice, ki jih posekaš pozimi, manj soka in zato skoraj ne pokajo.",
+                  "en": "Because roses you fell in winter have less sap and so hardly crack.",
+                  "it": "Perché le rose che si abbattono d'inverno hanno meno linfa e quindi si spaccano poco.",
+                  "why": {
+                    "sl": "Stefan sprašuje o macesnih: die Lärche, die Lärchen.",
+                    "en": "Stefan's asking about larches: die Lärche, die Lärchen.",
+                    "it": "Stefan chiede dei larici: die Lärche, die Lärchen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Rosen fällen? Mit der Axt? Da hätte die Oma aber geschimpft!",
+                    "sl": "Sekati vrtnice? S sekiro? Babica bi se pa jezila!",
+                    "en": "Fell roses? With an axe? Granny would have told us off!",
+                    "it": "Abbattere le rose? Con l'ascia? La nonna si sarebbe arrabbiata!"
+                  }
+                },
+                {
+                  "de": "Weil Lärchen, die man im Winter wäscht, weniger Saft haben und deshalb kaum reißen.",
+                  "sl": "Ker imajo macesni, ki jih umiješ pozimi, manj soka in zato skoraj ne pokajo.",
+                  "en": "Because larches you wash in winter have less sap and so hardly crack.",
+                  "it": "Perché i larici che si lavano d'inverno hanno meno linfa e quindi si spaccano poco.",
+                  "why": {
+                    "sl": "Macesni se posekajo: fällen. Umivanje ne vpliva na sok.",
+                    "en": "Larches are felled: fällen. Washing does nothing to the sap.",
+                    "it": "I larici si abbattono: fällen. Lavarli non cambia la linfa."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Lärchen waschen? Bei uns wäscht man höchstens die Stiefel danach.",
+                    "sl": "Umivati macesne? Pri nas umijemo kvečjemu škornje potem.",
+                    "en": "Wash larches? Here we only wash our boots afterwards.",
+                    "it": "Lavare i larici? Da noi al massimo si lavano gli stivali dopo."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "florian",
+              "face": "laugh",
+              "de": "Achtung, sie fällt! … Bumm! Hättest du die Vögel gesehen, wie die aufgeflogen sind!",
+              "sl": "Pozor, pada! … Bum! Ko bi videl ptiče, kako so zleteli!",
+              "en": "Look out, it's falling! … Boom! You should have seen the birds fly up!",
+              "it": "Attenzione, cade! … Bum! Avessi visto gli uccelli come sono volati via!",
+              "fx": {
+                "birds": 1
+              }
+            },
+            {
+              "who": "franz",
+              "de": "Eine liegt. Sieben noch, und dann lassen wir den Wald für heuer in Ruh. Stimmt.",
+              "sl": "Eden leži. Še sedem, potem pa gozd za letos pustimo pri miru. Drži.",
+              "en": "One down. Seven more, and then we leave the wood in peace for this year. Right.",
+              "it": "Uno è giù. Ancora sette, e poi per quest'anno lasciamo in pace il bosco. Giusto."
+            }
+          ]
         }
       }
     },
@@ -508,6 +700,170 @@
               "done": true
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "franz",
+              "face": "thinking",
+              "de": "Holz, das in der nassen Erde steht, fault in ein paar Jahren. Darum brauchen die Pfosten etwas darunter.",
+              "sl": "Les, ki stoji v mokri zemlji, v nekaj letih zgnije. Zato stebri potrebujejo nekaj pod seboj.",
+              "en": "Wood standing in wet earth rots in a few years. That's why the posts need something underneath.",
+              "it": "Il legno che sta nella terra bagnata marcisce in pochi anni. Per questo i pali hanno bisogno di qualcosa sotto."
+            },
+            {
+              "who": "toni",
+              "de": "Aus dem Bach haben wir schöne flache Steine geholt, wie Sie sie wollten.",
+              "sl": "Iz potoka smo prinesli lepe ploščate kamne, kot ste jih hoteli.",
+              "en": "We've fetched nice flat stones from the stream, the way you wanted them.",
+              "it": "Dal ruscello abbiamo preso belle pietre piatte, come le voleva lei."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dann legen wir unter jeden Pfosten einen Sockel, der aus einem flachen Stein ist.",
+                  "sl": "Potem pod vsak steber položimo podstavek, ki je iz ploščatega kamna.",
+                  "en": "Then we'll put a footing under every post, made of a flat stone.",
+                  "it": "Allora sotto ogni palo mettiamo un basamento fatto di una pietra piatta.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau. Und alle schön gerade, sonst steht die Harpfe schief.",
+                    "sl": "Natanko. In vsi lepo ravni, sicer bo kozolec stal postrani.",
+                    "en": "Exactly. And all nice and level, or the hayrack stands crooked.",
+                    "it": "Esatto. E tutti ben dritti, se no la rastrelliera sta storta."
+                  }
+                },
+                {
+                  "de": "Dann legen wir unter jeden Pfosten einen Knödel, der aus einem flachen Stein ist.",
+                  "sl": "Potem pod vsak steber položimo cmok, ki je iz ploščatega kamna.",
+                  "en": "Then we'll put a dumpling under every post, made of a flat stone.",
+                  "it": "Allora sotto ogni palo mettiamo un canederlo fatto di una pietra piatta.",
+                  "why": {
+                    "sl": "Pod steber pride podstavek: der Sockel. Cmoki so za kosilo.",
+                    "en": "Under a post goes a footing: der Sockel. Dumplings are for lunch.",
+                    "it": "Sotto il palo va un basamento: der Sockel. I canederli sono per pranzo."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Knödel? Die gibt es erst zu Mittag!",
+                    "sl": "Cmoki? Ti bodo šele za kosilo!",
+                    "en": "Dumplings? Those come at lunch!",
+                    "it": "Canederli? Quelli ci sono solo a pranzo!"
+                  }
+                },
+                {
+                  "de": "Dann legen wir unter jeden Pfosten einen Sockel, der aus einem flachen Holz ist.",
+                  "sl": "Potem pod vsak steber položimo podstavek, ki je iz ploščatega lesa.",
+                  "en": "Then we'll put a footing under every post, made of a flat piece of wood.",
+                  "it": "Allora sotto ogni palo mettiamo un basamento fatto di un legno piatto.",
+                  "why": {
+                    "sl": "Les v zemlji zgnije. Podstavek je iz kamna: der Stein.",
+                    "en": "Wood rots in the ground. A footing is made of stone: der Stein.",
+                    "it": "Il legno nella terra marcisce. Il basamento è di pietra: der Stein."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Aus Holz? Dann haben wir das Problem nur nach unten geschoben.",
+                    "sl": "Iz lesa? Potem smo problem samo potisnili navzdol.",
+                    "en": "Wood? Then we've only pushed the problem further down.",
+                    "it": "Di legno? Allora abbiamo solo spostato il problema più in basso."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Acht Sockel, alle gerade, alle aus Stein. Stimmt.",
+              "sl": "Osem podstavkov, vsi ravni, vsi iz kamna. Drži.",
+              "en": "Eight footings, all level, all stone. Right.",
+              "it": "Otto basamenti, tutti dritti, tutti di pietra. Giusto.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franz",
+              "face": "thinking",
+              "de": "Die Harpfe meines Großvaters ist nach dreißig Jahren eingesunken, weil man die Pfosten direkt in die Erde gesteckt hatte.",
+              "sl": "Kozolec mojega deda se je po tridesetih letih pogreznil, ker so stebre zabili kar v zemljo.",
+              "en": "My grandfather's hayrack sank after thirty years, because they'd stuck the posts straight into the earth.",
+              "it": "La rastrelliera di mio nonno è sprofondata dopo trent'anni, perché i pali erano stati piantati direttamente nella terra."
+            },
+            {
+              "who": "toni",
+              "de": "Hätte man Steine daruntergelegt, stünde sie heute noch gerade.",
+              "sl": "Ko bi spodaj položili kamne, bi danes še stal ravno.",
+              "en": "If they'd laid stones underneath, it'd still be standing straight today.",
+              "it": "Se ci avessero messo sotto delle pietre, oggi starebbe ancora dritta."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Darum bekommt jeder Pfosten einen Sockel aus Stein, auch wenn das mehr Arbeit macht.",
+                  "sl": "Zato vsak steber dobi podstavek iz kamna, četudi je to več dela.",
+                  "en": "That's why every post gets a stone footing, even if it means more work.",
+                  "it": "Per questo ogni palo avrà un basamento di pietra, anche se è più lavoro.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "So ist es. Lieber heute schwitzen als in dreißig Jahren schief schauen.",
+                    "sl": "Tako je. Raje se danes potiti kot čez trideset let gledati postrani.",
+                    "en": "That's it. Better to sweat today than to look crooked in thirty years.",
+                    "it": "Proprio così. Meglio sudare oggi che guardare storto fra trent'anni."
+                  }
+                },
+                {
+                  "de": "Darum bekommt jeder Pfosten einen Knödel aus Stein, auch wenn das mehr Arbeit macht.",
+                  "sl": "Zato vsak steber dobi cmok iz kamna, četudi je to več dela.",
+                  "en": "That's why every post gets a stone dumpling, even if it means more work.",
+                  "it": "Per questo ogni palo avrà un canederlo di pietra, anche se è più lavoro.",
+                  "why": {
+                    "sl": "Pod steber pride podstavek: der Sockel.",
+                    "en": "Under a post goes a footing: der Sockel.",
+                    "it": "Sotto il palo va un basamento: der Sockel."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Ein Knödel aus Stein? Den beißt nicht einmal der hungrigste Hirte!",
+                    "sl": "Cmok iz kamna? Tega ne ugrizne niti najbolj lačen pastir!",
+                    "en": "A stone dumpling? Not even the hungriest shepherd could bite that!",
+                    "it": "Un canederlo di pietra? Non lo morde nemmeno il pastore più affamato!"
+                  }
+                },
+                {
+                  "de": "Darum bekommt jeder Pfosten einen Sockel aus Holz, auch wenn das mehr Arbeit macht.",
+                  "sl": "Zato vsak steber dobi podstavek iz lesa, četudi je to več dela.",
+                  "en": "That's why every post gets a wooden footing, even if it means more work.",
+                  "it": "Per questo ogni palo avrà un basamento di legno, anche se è più lavoro.",
+                  "why": {
+                    "sl": "Les bi v zemlji zgnil kot pri dedu. Podstavek je iz kamna: der Stein.",
+                    "en": "Wood would rot in the earth, as with grandad's. A footing's made of stone: der Stein.",
+                    "it": "Il legno marcirebbe nella terra come quello del nonno. Il basamento è di pietra: der Stein."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Aus Holz? Dann wären wir in dreißig Jahren wieder genau so weit.",
+                    "sl": "Iz lesa? Potem bi bili čez trideset let spet tam, kjer smo.",
+                    "en": "Wood? Then in thirty years we'd be right back where we are.",
+                    "it": "Di legno? Allora fra trent'anni saremmo di nuovo al punto di partenza."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Acht Sockel aus Stein, jeder mit der Wasserwaage geprüft. Diesmal sinkt nichts ein. Stimmt.",
+              "sl": "Osem kamnitih podstavkov, vsak preverjen z libelo. Tokrat se nič ne pogrezne. Drži.",
+              "en": "Eight stone footings, each checked with the spirit level. This time nothing sinks. Right.",
+              "it": "Otto basamenti di pietra, ognuno controllato con la livella. Stavolta non sprofonda niente. Giusto.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -731,6 +1087,168 @@
               "sl": "Hó-ruk! … Prvi steber stoji. Še sedem!",
               "en": "Heave-ho! … The first post's up. Seven more!",
               "it": "Oh-issa! … Il primo palo è in piedi. Ancora sette!"
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "franz",
+              "de": "Acht Lärchenstämme, acht Pfosten. Jeder kommt auf den Sockel, den wir gestern gelegt haben.",
+              "sl": "Osem macesnovih debel, osem stebrov. Vsak pride na podstavek, ki smo ga včeraj položili.",
+              "en": "Eight larch trunks, eight posts. Each goes on the footing we laid yesterday.",
+              "it": "Otto tronchi di larice, otto pali. Ognuno va sul basamento che abbiamo messo ieri."
+            },
+            {
+              "who": "stefan",
+              "face": "curious",
+              "de": "Wie viele Leute bräuchten wir, damit wir sie alle heute aufstellen?",
+              "sl": "Koliko ljudi bi potrebovali, da bi jih vse postavili danes?",
+              "en": "How many people would we need to put them all up today?",
+              "it": "Quante persone ci servirebbero per alzarli tutti oggi?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Für acht Pfosten bräuchten wir das halbe Dorf, für jeden Pfosten vier Leute.",
+                  "sl": "Za osem stebrov bi potrebovali pol vasi, za vsak steber štiri ljudi.",
+                  "en": "For eight posts we'd need half the village, four people per post.",
+                  "it": "Per otto pali ci servirebbe mezzo paese, quattro persone per palo.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Haha! Dann ruf ich alle zusammen, die stark genug sind.",
+                    "sl": "Haha! Potem skličem vse, ki so dovolj močni.",
+                    "en": "Haha! Then I'll call everyone who's strong enough.",
+                    "it": "Ahah! Allora chiamo tutti quelli abbastanza forti."
+                  }
+                },
+                {
+                  "de": "Für sechs Pfosten bräuchten wir das halbe Dorf, für jeden Pfosten vier Leute.",
+                  "sl": "Za šest stebrov bi potrebovali pol vasi, za vsak steber štiri ljudi.",
+                  "en": "For six posts we'd need half the village, four people per post.",
+                  "it": "Per sei pali ci servirebbe mezzo paese, quattro persone per palo.",
+                  "why": {
+                    "sl": "Franz je naštel osem stebrov: acht. Šest jih je premalo.",
+                    "en": "Franz counted eight posts: acht. Six is too few.",
+                    "it": "Franz ha contato otto pali: acht. Sei sono troppo pochi."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Sechs? Und die anderen zwei? Zähl noch einmal.",
+                    "sl": "Šest? Pa druga dva? Preštej še enkrat.",
+                    "en": "Six? And the other two? Count again.",
+                    "it": "Sei? E gli altri due? Conta di nuovo."
+                  }
+                },
+                {
+                  "de": "Für acht Kerzen bräuchten wir das halbe Dorf, für jeden Pfosten vier Leute.",
+                  "sl": "Za osem sveč bi potrebovali pol vasi, za vsak steber štiri ljudi.",
+                  "en": "For eight candles we'd need half the village, four people per post.",
+                  "it": "Per otto candele ci servirebbe mezzo paese, quattro persone per palo.",
+                  "why": {
+                    "sl": "Postavljamo stebre: der Pfosten. Sveče ne potrebujejo štirih ljudi.",
+                    "en": "We're raising posts: der Pfosten. Candles don't need four people.",
+                    "it": "Alziamo i pali: der Pfosten. Le candele non hanno bisogno di quattro persone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Kerzen? Haha, für die Kerzen reicht ein Bub!",
+                    "sl": "Sveče? Haha, za sveče zadošča en fantič!",
+                    "en": "Candles? Haha, one lad is enough for candles!",
+                    "it": "Candele? Ahah, per le candele basta un ragazzino!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Hau ruck! … Der erste Pfosten steht, gerade wie ein Lot. Noch sieben!",
+              "sl": "Hoj-rup! … Prvi steber stoji, raven kot svinčnica. Še sedem!",
+              "en": "Heave-ho! … The first post's up, straight as a plumb line. Seven more!",
+              "it": "Oh issa! … Il primo palo è su, dritto come un filo a piombo. Ancora sette!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franz",
+              "de": "Die Pfosten sind länger als die meines Großvaters, weil die Doppelharpfe zwei Stockwerke bekommt.",
+              "sl": "Stebri so daljši od dedovih, ker bo toplar dobil dve nadstropji.",
+              "en": "The posts are longer than my grandfather's, because the double hayrack gets two storeys.",
+              "it": "I pali sono più lunghi di quelli di mio nonno, perché la rastrelliera doppia avrà due piani."
+            },
+            {
+              "who": "stefan",
+              "face": "curious",
+              "de": "Früher hätte man dafür ein Pferd und zehn Männer gebraucht. Und heute?",
+              "sl": "Nekoč bi za to potrebovali konja in deset mož. Pa danes?",
+              "en": "In the old days you'd have needed a horse and ten men for that. And today?",
+              "it": "Una volta ci sarebbero voluti un cavallo e dieci uomini. E oggi?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Heute reichen acht Leute, wenn jeder Pfosten mit Seilen hochgezogen wird.",
+                  "sl": "Danes zadošča osem ljudi, če se vsak steber dvigne z vrvmi.",
+                  "en": "Today eight people are enough, if each post is pulled up with ropes.",
+                  "it": "Oggi bastano otto persone, se ogni palo viene tirato su con le corde.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Acht Leute für acht Pfosten. Das gefällt dem Franz, das geht sich auf.",
+                    "sl": "Osem ljudi za osem stebrov. To bo Franzu všeč, se izide.",
+                    "en": "Eight people for eight posts. Franz will like that, it adds up.",
+                    "it": "Otto persone per otto pali. A Franz piacerà, i conti tornano."
+                  }
+                },
+                {
+                  "de": "Heute reichen acht Leute, wenn jede Kerze mit Seilen hochgezogen wird.",
+                  "sl": "Danes zadošča osem ljudi, če se vsaka sveča dvigne z vrvmi.",
+                  "en": "Today eight people are enough, if each candle is pulled up with ropes.",
+                  "it": "Oggi bastano otto persone, se ogni candela viene tirata su con le corde.",
+                  "why": {
+                    "sl": "Z vrvmi se dvigajo stebri: der Pfosten.",
+                    "en": "Ropes pull up the posts: der Pfosten.",
+                    "it": "Con le corde si tirano su i pali: der Pfosten."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Kerzen mit Seilen hochziehen? Für die Kirche vielleicht!",
+                    "sl": "Sveče z vrvmi dvigati? Za cerkev mogoče!",
+                    "en": "Pull candles up with ropes? For the church maybe!",
+                    "it": "Tirare su le candele con le corde? Per la chiesa forse!"
+                  }
+                },
+                {
+                  "de": "Heute reichen sechs Leute, wenn jeder Pfosten mit Seilen hochgezogen wird.",
+                  "sl": "Danes zadošča šest ljudi, če se vsak steber dvigne z vrvmi.",
+                  "en": "Today six people are enough, if each post is pulled up with ropes.",
+                  "it": "Oggi bastano sei persone, se ogni palo viene tirato su con le corde.",
+                  "why": {
+                    "sl": "Stebrov je osem in za vsakega en človek: acht.",
+                    "en": "There are eight posts and one person for each: acht.",
+                    "it": "I pali sono otto e una persona per ciascuno: acht."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Sechs? Und wer hält die anderen zwei? Zähl noch einmal.",
+                    "sl": "Šest? Kdo pa drži druga dva? Preštej še enkrat.",
+                    "en": "Six? And who holds the other two? Count again.",
+                    "it": "Sei? E chi tiene gli altri due? Conta di nuovo."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Hau ruck! … Der erste steht. Hätte mein Großvater das gesehen, er hätte seinen Hut gezogen. Noch sieben!",
+              "sl": "Hoj-rup! … Prvi stoji. Ko bi to videl moj ded, bi snel klobuk. Še sedem!",
+              "en": "Heave-ho! … The first one's up. If my grandfather had seen that, he'd have taken off his hat. Seven more!",
+              "it": "Oh issa! … Il primo è su. Se l'avesse visto mio nonno, si sarebbe tolto il cappello. Ancora sette!"
             }
           ]
         }
@@ -1004,6 +1522,258 @@
               "done": true
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "franz",
+              "de": "Neun Latten kommen auf jede Seite, so eng, dass das Heu nicht durchfällt.",
+              "sl": "Na vsako stran pride devet lat, tako gosto, da seno ne pade skozi.",
+              "en": "Nine rails go on each side, so close the hay doesn't fall through.",
+              "it": "Su ogni lato vanno nove traverse, così fitte che il fieno non passi."
+            },
+            {
+              "who": "florian",
+              "face": "curious",
+              "de": "Wie die Saiten von einer Harfe! Heißt sie deswegen Harpfe?",
+              "sl": "Kot strune na harfi! Se zato imenuje Harpfe?",
+              "en": "Like the strings of a harp! Is that why it's called a Harpfe?",
+              "it": "Come le corde di un'arpa! Si chiama Harpfe per questo?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Ja, und die Latten, die wir festmachen, sind ihre Saiten!",
+                  "sl": "Ja, in late, ki jih pritrjujemo, so njene strune!",
+                  "en": "Yes, and the rails we're fixing are its strings!",
+                  "it": "Sì, e le traverse che fissiamo sono le sue corde!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Juhuu! Dann spiel ich darauf ein Lied für die Schafe!",
+                    "sl": "Juhu! Potem bom na njej zaigral pesem za ovce!",
+                    "en": "Yoo-hoo! Then I'll play a song on it for the sheep!",
+                    "it": "Iuhuu! Allora ci suono una canzone per le pecore!"
+                  }
+                },
+                {
+                  "de": "Ja, und die Socken, die wir festmachen, sind ihre Saiten!",
+                  "sl": "Ja, in nogavice, ki jih pritrjujemo, so njene strune!",
+                  "en": "Yes, and the socks we're fixing are its strings!",
+                  "it": "Sì, e i calzini che fissiamo sono le sue corde!",
+                  "why": {
+                    "sl": "Na kozolec se pritrjujejo late: die Latte, die Latten. Nogavice so za noge.",
+                    "en": "Rails get fixed on a hayrack: die Latte, die Latten. Socks are for feet.",
+                    "it": "Sulla rastrelliera si fissano le traverse: die Latte, die Latten. I calzini sono per i piedi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Socken? Haha, darauf spielt keiner ein Lied!",
+                    "sl": "Nogavice? Haha, na te nihče ne zaigra pesmi!",
+                    "en": "Socks? Haha, nobody plays a song on those!",
+                    "it": "Calzini? Ahah, su quelli non suona nessuno!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "toni",
+              "de": "Ohne Eisen würden die Latten im ersten Sturm herunterfallen.",
+              "sl": "Brez železa bi late v prvem viharju padle dol.",
+              "en": "Without iron the rails would fall down in the first storm.",
+              "it": "Senza ferro le traverse cadrebbero alla prima tempesta."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Darum machen wir jede Latte mit einer Klammer fest, die Sie geschmiedet haben.",
+                  "sl": "Zato vsako lato pritrdimo s sponko, ki ste jo skovali vi.",
+                  "en": "That's why we fix every rail with a clamp you forged.",
+                  "it": "Per questo fissiamo ogni traversa con una graffa che ha forgiato lei.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau. Eine Klammer an jedem Pfosten, und nichts wackelt.",
+                    "sl": "Natanko. Ena sponka na vsakem stebru, in nič se ne maje.",
+                    "en": "Exactly. A clamp at every post, and nothing wobbles.",
+                    "it": "Esatto. Una graffa per ogni palo, e non traballa niente."
+                  }
+                },
+                {
+                  "de": "Darum machen wir jede Latte mit einer Schleife fest, die Sie geschmiedet haben.",
+                  "sl": "Zato vsako lato pritrdimo s pentljo, ki ste jo skovali vi.",
+                  "en": "That's why we fix every rail with a bow you forged.",
+                  "it": "Per questo fissiamo ogni traversa con un fiocco che ha forgiato lei.",
+                  "why": {
+                    "sl": "Late drži železna sponka: die Klammer. Pentlja je za darila.",
+                    "en": "Iron clamps hold the rails: die Klammer. A bow is for presents.",
+                    "it": "Le traverse le tiene una graffa di ferro: die Klammer. Il fiocco è per i regali."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Eine Schleife? Hm. Dann schaut sie hübsch aus und fällt trotzdem herunter.",
+                    "sl": "Pentlja? Hm. Potem bo lepa videti in bo vseeno padla dol.",
+                    "en": "A bow? Hm. Then it'll look pretty and fall down anyway.",
+                    "it": "Un fiocco? Mah. Allora sarà carina e cadrà lo stesso."
+                  }
+                },
+                {
+                  "de": "Darum machen wir jede Latte mit einer Klammer fest, der Sie geschmiedet haben.",
+                  "sl": "Zato vsako lato pritrdimo s sponko, ki ste jo skovali vi. (der)",
+                  "en": "That's why we fix every rail with a clamp you forged. (der)",
+                  "it": "Per questo fissiamo ogni traversa con una graffa che ha forgiato lei. (der)",
+                  "grammar": "relativsatz",
+                  "why": {
+                    "sl": "Sponko je skoval on (tožilnik, ženski spol): die Sie geschmiedet haben.",
+                    "en": "He forged the clamp (accusative, feminine): die Sie geschmiedet haben.",
+                    "it": "La graffa l'ha forgiata lui (accusativo, femminile): die Sie geschmiedet haben."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Der? Hm. Die Klammer ist eine Sie. Der, die, das: das ist nicht egal.",
+                    "sl": "Der? Hm. Sponka je ženskega spola. Der, die, das: to ni vseeno.",
+                    "en": "Der? Hm. The clamp is a she. Der, die, das: that's not all the same.",
+                    "it": "Der? Mah. La graffa è femminile. Der, die, das: non è indifferente."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Alles fest. Neun Latten auf jeder Seite, jede mit ihrer Klammer. Stimmt.",
+              "sl": "Vse je trdno. Devet lat na vsaki strani, vsaka s svojo sponko. Drži.",
+              "en": "All fixed. Nine rails on each side, each with its clamp. Right.",
+              "it": "Tutto fisso. Nove traverse per lato, ognuna con la sua graffa. Giusto.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franz",
+              "de": "Auf jede Seite kommen neun Latten. Die mittleren werden zuerst befestigt, sonst verzieht sich der ganze Rahmen.",
+              "sl": "Na vsako stran pride devet lat. Srednje se pritrdijo najprej, sicer se ves okvir skrivi.",
+              "en": "Nine rails go on each side. The middle ones are fixed first, otherwise the whole frame warps.",
+              "it": "Su ogni lato vanno nove traverse. Quelle di mezzo si fissano per prime, se no tutto il telaio si deforma."
+            },
+            {
+              "who": "florian",
+              "face": "curious",
+              "de": "Mein Opa hat gesagt, eine Harpfe sei eine Harfe, auf der nur der Wind spielen dürfe.",
+              "sl": "Dedek je rekel, da je kozolec harfa, na katero sme igrati samo veter.",
+              "en": "My grandad said a Harpfe is a harp only the wind's allowed to play.",
+              "it": "Mio nonno diceva che la Harpfe è un'arpa che solo il vento può suonare."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dann sind die Latten ihre Saiten, und im Herbst singt sie, wenn der Wind durchs Heu geht.",
+                  "sl": "Potem so late njene strune in jeseni poje, ko veter gre skozi seno.",
+                  "en": "Then the rails are its strings, and in autumn it sings when the wind goes through the hay.",
+                  "it": "Allora le traverse sono le sue corde, e in autunno canta quando il vento passa tra il fieno.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Schön gesagt! Das hätte meinem Opa gefallen.",
+                    "sl": "Lepo povedano! To bi bilo dedku všeč.",
+                    "en": "Nicely put! My grandad would have liked that.",
+                    "it": "Detto bene! A mio nonno sarebbe piaciuto."
+                  }
+                },
+                {
+                  "de": "Dann sind die Socken ihre Saiten, und im Herbst singt sie, wenn der Wind durchs Heu geht.",
+                  "sl": "Potem so nogavice njene strune in jeseni poje, ko veter gre skozi seno.",
+                  "en": "Then the socks are its strings, and in autumn it sings when the wind goes through the hay.",
+                  "it": "Allora i calzini sono le sue corde, e in autunno canta quando il vento passa tra il fieno.",
+                  "why": {
+                    "sl": "Strune kozolca so late: die Latte, die Latten.",
+                    "en": "The hayrack's strings are its rails: die Latte, die Latten.",
+                    "it": "Le corde della rastrelliera sono le traverse: die Latte, die Latten."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Socken als Saiten? Da singt höchstens einer, der sie gerade gewaschen hat!",
+                    "sl": "Nogavice kot strune? Tako poje kvečjemu tisti, ki jih je ravnokar opral!",
+                    "en": "Socks for strings? The only one singing would be whoever just washed them!",
+                    "it": "Calzini come corde? Al massimo canta chi li ha appena lavati!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "toni",
+              "de": "Ohne Eisen hält keine Latte einen Kärntner Herbststurm aus. Was nehmen wir?",
+              "sl": "Brez železa nobena lata ne zdrži koroškega jesenskega viharja. Kaj vzamemo?",
+              "en": "Without iron no rail survives a Carinthian autumn storm. What do we use?",
+              "it": "Senza ferro nessuna traversa regge una tempesta d'autunno carinziana. Che cosa usiamo?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Klammern aus Ihrer Schmiede, mit denen jede Latte so festsitzt, als wäre sie angewachsen.",
+                  "sl": "Sponke iz vaše kovačnice, s katerimi vsaka lata sedi tako trdno, kot da bi bila prirasla.",
+                  "en": "Clamps from your smithy, which make every rail sit as tight as if it had grown there.",
+                  "it": "Graffe della sua fucina, con cui ogni traversa sta salda come se ci fosse cresciuta.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Hm. Ja. Meine Klammern lassen nichts los.",
+                    "sl": "Hm. Ja. Moje sponke ničesar ne izpustijo.",
+                    "en": "Hm. Yes. My clamps don't let go of anything.",
+                    "it": "Mah. Sì. Le mie graffe non mollano niente."
+                  }
+                },
+                {
+                  "de": "Knöpfe aus Ihrer Schmiede, mit denen jede Latte so festsitzt, als wäre sie angewachsen.",
+                  "sl": "Gumbi iz vaše kovačnice, s katerimi vsaka lata sedi tako trdno, kot da bi bila prirasla.",
+                  "en": "Buttons from your smithy, which make every rail sit as tight as if it had grown there.",
+                  "it": "Bottoni della sua fucina, con cui ogni traversa sta salda come se ci fosse cresciuta.",
+                  "why": {
+                    "sl": "V kovačnici se kujejo sponke: die Klammer, die Klammern. Gumbov kovač ne dela.",
+                    "en": "The smithy forges clamps: die Klammer, die Klammern. A smith doesn't make buttons.",
+                    "it": "In fucina si forgiano le graffe: die Klammer, die Klammern. I bottoni il fabbro non li fa."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "de": "Knöpfe? Ich bin Schmied, kein Schneider.",
+                    "sl": "Gumbi? Kovač sem, ne krojač.",
+                    "en": "Buttons? I'm a smith, not a tailor.",
+                    "it": "Bottoni? Sono un fabbro, non un sarto."
+                  }
+                },
+                {
+                  "de": "Klammern aus Ihrer Schmiede, mit denen jede Latte so festsitzt, als sie wäre angewachsen.",
+                  "sl": "Sponke iz vaše kovačnice, s katerimi vsaka lata sedi tako trdno, kot da bi bila prirasla. (besedni red)",
+                  "en": "Clamps from your smithy, which make every rail sit as tight as if it had grown there. (word order)",
+                  "it": "Graffe della sua fucina, con cui ogni traversa sta salda come se ci fosse cresciuta. (ordine delle parole)",
+                  "grammar": "als-ob",
+                  "why": {
+                    "sl": "Samo als (brez ob) postavi glagol takoj za seboj: als wäre sie angewachsen.",
+                    "en": "Als on its own (without ob) puts the verb straight after it: als wäre sie angewachsen.",
+                    "it": "Als da solo (senza ob) mette il verbo subito dopo: als wäre sie angewachsen."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Hm. Die Klammern sitzen fest. Der Satz noch nicht ganz.",
+                    "sl": "Hm. Sponke sedijo trdno. Stavek še ne čisto.",
+                    "en": "Hm. The clamps sit tight. The sentence not quite yet.",
+                    "it": "Mah. Le graffe tengono. La frase non ancora del tutto."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Alles fest. Achtzehn Latten, achtzehn Klammern. Ich hab zweimal gezählt. Stimmt.",
+              "sl": "Vse je trdno. Osemnajst lat, osemnajst sponk. Dvakrat sem preštel. Drži.",
+              "en": "All fixed. Eighteen rails, eighteen clamps. I counted twice. Right.",
+              "it": "Tutto fisso. Diciotto traverse, diciotto graffe. Ho contato due volte. Giusto.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -1227,6 +1997,182 @@
               "sl": "Gotovo. Zdaj ima toplar klobuk.",
               "en": "Done. Now the double hayrack has a hat.",
               "it": "Fatto. Adesso la doppia Harpfe ha un cappello.",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "franz",
+              "de": "Das Dach muss steil sein, damit der Schnee im Winter von selbst herunterrutscht.",
+              "sl": "Streha mora biti strma, da sneg pozimi sam zdrsne dol.",
+              "en": "The roof has to be steep, so the snow slides off by itself in winter.",
+              "it": "Il tetto dev'essere ripido, perché d'inverno la neve scivoli giù da sola."
+            },
+            {
+              "who": "toni",
+              "de": "Und keine Bretter. Bretter würden sich im Regen krümmen.",
+              "sl": "In nobenih desk. Deske bi se v dežju skrivile.",
+              "en": "And no boards. Boards would warp in the rain.",
+              "it": "E niente assi. Le assi si incurverebbero sotto la pioggia."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dann würde ich Schindeln für das Dach nehmen, weil sie das Wasser ablaufen lassen.",
+                  "sl": "Potem bi za streho vzel skodle, ker pustijo vodo odteči.",
+                  "en": "Then I'd use shingles for the roof, because they let the water run off.",
+                  "it": "Allora per il tetto prenderei le scandole, perché lasciano scorrere via l'acqua.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau. Aus Lärche, die halten am längsten.",
+                    "sl": "Natanko. Iz macesna, te zdržijo najdlje.",
+                    "en": "Exactly. Larch ones, they last longest.",
+                    "it": "Esatto. Di larice, durano di più."
+                  }
+                },
+                {
+                  "de": "Dann würde ich Teller für das Dach nehmen, weil sie das Wasser ablaufen lassen.",
+                  "sl": "Potem bi za streho vzel krožnike, ker pustijo vodo odteči.",
+                  "en": "Then I'd use plates for the roof, because they let the water run off.",
+                  "it": "Allora per il tetto prenderei i piatti, perché lasciano scorrere via l'acqua.",
+                  "why": {
+                    "sl": "Streha se krije s skodlami: die Schindel, die Schindeln. Krožniki so za mizo.",
+                    "en": "A roof is covered with shingles: die Schindel, die Schindeln. Plates are for the table.",
+                    "it": "Il tetto si copre con le scandole: die Schindel, die Schindeln. I piatti sono per la tavola."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Teller? Die brechen beim ersten Hagel.",
+                    "sl": "Krožniki? Ti se razbijejo ob prvi toči.",
+                    "en": "Plates? They'd break at the first hailstorm.",
+                    "it": "Piatti? Si rompono alla prima grandinata."
+                  }
+                },
+                {
+                  "de": "Dann würde ich Schindeln für das Bett nehmen, weil sie das Wasser ablaufen lassen.",
+                  "sl": "Potem bi za posteljo vzel skodle, ker pustijo vodo odteči.",
+                  "en": "Then I'd use shingles for the bed, because they let the water run off.",
+                  "it": "Allora per il letto prenderei le scandole, perché lasciano scorrere via l'acqua.",
+                  "why": {
+                    "sl": "Skodle gredo na streho: das Dach. Postelja je v hiši.",
+                    "en": "Shingles go on the roof: das Dach. A bed is in the house.",
+                    "it": "Le scandole vanno sul tetto: das Dach. Il letto è in casa."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Für das Bett? Darauf schläft keiner gut!",
+                    "sl": "Za posteljo? Na tem nihče ne bo dobro spal!",
+                    "en": "For the bed? Nobody'd sleep well on that!",
+                    "it": "Per il letto? Lì sopra non dorme bene nessuno!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "stefan",
+              "de": "Eine Schindel neben die andere, Reihe für Reihe, bis oben.",
+              "sl": "Skodla ob skodlo, vrsta za vrsto, do vrha.",
+              "en": "One shingle next to the other, row by row, to the top.",
+              "it": "Una scandola accanto all'altra, fila dopo fila, fino in cima."
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Fertig. Jetzt hat die Doppelharpfe einen Hut, und der Schnee kann kommen.",
+              "sl": "Gotovo. Zdaj ima toplar klobuk in sneg lahko pride.",
+              "en": "Done. Now the double hayrack has a hat, and the snow can come.",
+              "it": "Fatto. Adesso la rastrelliera doppia ha un cappello, e la neve può arrivare.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franz",
+              "de": "Das Dach einer Doppelharpfe ist ihr wichtigster Teil. Ist es zu flach, bricht es im ersten schneereichen Winter ein.",
+              "sl": "Streha toplarja je njegov najpomembnejši del. Če je preveč položna, se udre v prvi snežni zimi.",
+              "en": "A double hayrack's roof is its most important part. If it's too flat, it caves in in the first snowy winter.",
+              "it": "Il tetto di una rastrelliera doppia è la sua parte più importante. Se è troppo piatto, crolla al primo inverno nevoso."
+            },
+            {
+              "who": "toni",
+              "de": "Im Jänner liegt hier manchmal ein Meter Schnee. Den muss das Dach tragen können, oder er muss herunterrutschen.",
+              "sl": "Januarja tu včasih leži meter snega. Tega mora streha zdržati ali pa mora zdrsniti dol.",
+              "en": "In January there's sometimes a metre of snow here. The roof has to bear it, or it has to slide off.",
+              "it": "A gennaio qui a volte c'è un metro di neve. Il tetto deve reggerla, o deve farla scivolare."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Bei einem steilen Dach aus Schindeln rutscht der Schnee ab, bevor er zu schwer wird.",
+                  "sl": "Pri strmi strehi iz skodel sneg zdrsne, preden postane pretežak.",
+                  "en": "With a steep shingle roof the snow slides off before it gets too heavy.",
+                  "it": "Con un tetto ripido di scandole la neve scivola via prima di diventare troppo pesante.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "So ist es. Darum ist es steil, wie bei meinem Großvater.",
+                    "sl": "Tako je. Zato je strma, kot pri mojem dedu.",
+                    "en": "That's it. That's why it's steep, like my grandfather's.",
+                    "it": "Proprio così. Per questo è ripido, come quello di mio nonno."
+                  }
+                },
+                {
+                  "de": "Bei einem steilen Dach aus Tellern rutscht der Schnee ab, bevor er zu schwer wird.",
+                  "sl": "Pri strmi strehi iz krožnikov sneg zdrsne, preden postane pretežak.",
+                  "en": "With a steep roof of plates the snow slides off before it gets too heavy.",
+                  "it": "Con un tetto ripido di piatti la neve scivola via prima di diventare troppo pesante.",
+                  "why": {
+                    "sl": "Streha je iz skodel: die Schindeln.",
+                    "en": "The roof is made of shingles: die Schindeln.",
+                    "it": "Il tetto è di scandole: die Schindeln."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Aus Tellern? Hm. Die hätte der Schnee schon im November zerbrochen.",
+                    "sl": "Iz krožnikov? Hm. Te bi sneg razbil že novembra.",
+                    "en": "Of plates? Hm. The snow would have broken those in November.",
+                    "it": "Di piatti? Mah. Quelli la neve li avrebbe rotti già a novembre."
+                  }
+                },
+                {
+                  "de": "Bei einem steilen Bett aus Schindeln rutscht der Schnee ab, bevor er zu schwer wird.",
+                  "sl": "Pri strmi postelji iz skodel sneg zdrsne, preden postane pretežak.",
+                  "en": "With a steep shingle bed the snow slides off before it gets too heavy.",
+                  "it": "Con un letto ripido di scandole la neve scivola via prima di diventare troppo pesante.",
+                  "why": {
+                    "sl": "Sneg zdrsne s strehe: das Dach.",
+                    "en": "The snow slides off the roof: das Dach.",
+                    "it": "La neve scivola dal tetto: das Dach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Ein steiles Bett? Da rutscht im Winter nicht nur der Schnee herunter!",
+                    "sl": "Strma postelja? Pozimi ne bi zdrsnil samo sneg!",
+                    "en": "A steep bed? In winter it wouldn't just be the snow sliding off!",
+                    "it": "Un letto ripido? D'inverno non scivolerebbe giù solo la neve!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "stefan",
+              "de": "Eine Schindel neben der anderen, und jede deckt die Nägel der unteren. So hält's ewig.",
+              "sl": "Skodla ob skodli in vsaka pokrije žeblje spodnje. Tako zdrži večno.",
+              "en": "One shingle next to the next, and each covers the nails of the one below. That way it lasts forever.",
+              "it": "Una scandola accanto all'altra, e ognuna copre i chiodi di quella sotto. Così dura per sempre."
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Fertig. Die Doppelharpfe hat ihren Hut, steil genug für jeden Kärntner Winter.",
+              "sl": "Gotovo. Toplar ima svoj klobuk, dovolj strm za vsako koroško zimo.",
+              "en": "Done. The double hayrack has its hat, steep enough for any Carinthian winter.",
+              "it": "Fatto. La rastrelliera doppia ha il suo cappello, ripido abbastanza per ogni inverno carinziano.",
               "done": true
             }
           ]
@@ -1538,6 +2484,296 @@
               "sl": "Zdaj pa malica za vse!",
               "en": "And now a Jause, a snack, for everyone!",
               "it": "E adesso una merenda per tutti!"
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "franz",
+              "face": "happy",
+              "de": "Das Heu ist trocken. Heute füllen wir die Doppelharpfe zum ersten Mal, bevor das Wetter umschlägt.",
+              "sl": "Seno je suho. Danes prvič napolnimo toplar, preden se vreme obrne.",
+              "en": "The hay's dry. Today we fill the double hayrack for the first time, before the weather turns.",
+              "it": "Il fieno è secco. Oggi riempiamo la rastrelliera doppia per la prima volta, prima che il tempo cambi."
+            },
+            {
+              "who": "stefan",
+              "face": "curious",
+              "de": "Gabeln haben wir genug. Aber welche brauchen wir für die hohen Latten?",
+              "sl": "Vil imamo dovolj. Ampak katere potrebujemo za visoke late?",
+              "en": "We've got forks enough. But which ones do we need for the high rails?",
+              "it": "Di forche ne abbiamo abbastanza. Ma quali ci servono per le traverse alte?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Wir nehmen die Heugabeln, deren Stiel am längsten ist.",
+                  "sl": "Vzamemo vile za seno, ki imajo najdaljši ročaj.",
+                  "en": "We'll take the hayforks with the longest handles.",
+                  "it": "Prendiamo i forconi con il manico più lungo.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Gut. Die langen, für die obersten Latten.",
+                    "sl": "Dobro. Dolge, za najvišje late.",
+                    "en": "Good. The long ones, for the topmost rails.",
+                    "it": "Bene. Quelli lunghi, per le traverse più alte."
+                  }
+                },
+                {
+                  "de": "Wir nehmen die Gabeln, deren Stiel am längsten ist.",
+                  "sl": "Vzamemo vilice, ki imajo najdaljši ročaj.",
+                  "en": "We'll take the forks with the longest handles.",
+                  "it": "Prendiamo le forchette con il manico più lungo.",
+                  "why": {
+                    "sl": "Seno se naklada z vilami za seno: die Heugabel. Navadne vilice so za mizo.",
+                    "en": "Hay is loaded with hayforks: die Heugabel. Plain forks are for the table.",
+                    "it": "Il fieno si carica coi forconi: die Heugabel. Le forchette sono per la tavola."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Die Gabeln vom Tisch? Dann sind wir im Winter noch nicht fertig!",
+                    "sl": "Vilice z mize? Potem pozimi še ne bomo gotovi!",
+                    "en": "The forks from the table? Then we won't be done by winter!",
+                    "it": "Le forchette della tavola? Allora d'inverno non abbiamo ancora finito!"
+                  }
+                },
+                {
+                  "de": "Wir nehmen die Heugabeln, dessen Stiel am längsten ist.",
+                  "sl": "Vzamemo vile za seno, ki imajo najdaljši ročaj. (dessen)",
+                  "en": "We'll take the hayforks with the longest handles. (dessen)",
+                  "it": "Prendiamo i forconi con il manico più lungo. (dessen)",
+                  "grammar": "relativsatz",
+                  "why": {
+                    "sl": "Heugabeln so množina, zato rodilnik oziralnega zaimka deren: deren Stiel.",
+                    "en": "Heugabeln is plural, so the relative genitive is deren: deren Stiel.",
+                    "it": "Heugabeln è plurale, quindi il genitivo relativo è deren: deren Stiel."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Dessen? Hm, das wäre für eine einzige Gabel, und männlich noch dazu.",
+                    "sl": "Dessen? Hm, to bi bilo za ene same vile, pa še moškega spola.",
+                    "en": "Dessen? Hm, that'd be for a single fork, and a masculine one at that.",
+                    "it": "Dessen? Mah, sarebbe per un forcone solo, e maschile per giunta."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "toni",
+              "de": "Heu auf die Latten, Latte für Latte, bis keine Lücke mehr bleibt.",
+              "sl": "Seno na late, lato za lato, dokler ne ostane nobena vrzel.",
+              "en": "Hay on the rails, rail after rail, till there's no gap left.",
+              "it": "Fieno sulle traverse, traversa dopo traversa, finché non resta nessun buco."
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Geschafft. Schaut euch die Doppelharpfe an, so voll war sie noch nie!",
+              "sl": "Uspelo je. Poglejte toplar, tako poln še ni bil nikoli!",
+              "en": "Done it. Look at the double hayrack, it's never been so full!",
+              "it": "Fatto. Guardate la rastrelliera doppia, non è mai stata così piena!",
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "de": "Die Doppelharpfe ist so voll Heu, dass es für den ganzen Winter reicht!",
+                  "sl": "Toplar je tako poln sena, da ga bo dovolj za vso zimo!",
+                  "en": "The double hayrack's so full of hay there's enough for the whole winter!",
+                  "it": "La rastrelliera doppia è così piena di fieno che basta per tutto l'inverno!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Für den ganzen Winter, und noch für den Februar. Stimmt.",
+                    "sl": "Za vso zimo, pa še za februar. Drži.",
+                    "en": "For the whole winter, and February too. Right.",
+                    "it": "Per tutto l'inverno, e anche per febbraio. Giusto."
+                  }
+                },
+                {
+                  "de": "Die Doppelharpfe ist so leer, dass es für den ganzen Winter reicht!",
+                  "sl": "Toplar je tako prazen, da ga bo dovolj za vso zimo!",
+                  "en": "The double hayrack's so empty there's enough for the whole winter!",
+                  "it": "La rastrelliera doppia è così vuota che basta per tutto l'inverno!",
+                  "why": {
+                    "sl": "Franz pravi, da je tako poln kot še nikoli: voll. Prazen kozolec ne zadošča za zimo.",
+                    "en": "Franz says it's fuller than ever: voll. An empty hayrack won't last the winter.",
+                    "it": "Franz dice che è più pieno che mai: voll. Una rastrelliera vuota non basta per l'inverno."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Leer? Hm. Dann haben wir umsonst geschwitzt.",
+                    "sl": "Prazen? Hm. Potem smo se potili zastonj.",
+                    "en": "Empty? Hm. Then we sweated for nothing.",
+                    "it": "Vuota? Mah. Allora abbiamo sudato per niente."
+                  }
+                },
+                {
+                  "de": "Die Doppelharpfe ist so voll Tee, dass es für den ganzen Winter reicht!",
+                  "sl": "Toplar je tako poln čaja, da ga bo dovolj za vso zimo!",
+                  "en": "The double hayrack's so full of tea there's enough for the whole winter!",
+                  "it": "La rastrelliera doppia è così piena di tè che basta per tutto l'inverno!",
+                  "why": {
+                    "sl": "Na kozolcu se suši seno: das Heu. Čaj se pije.",
+                    "en": "Hay dries on a hayrack: das Heu. Tea is for drinking.",
+                    "it": "Sulla rastrelliera si secca il fieno: das Heu. Il tè si beve."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Tee? Haha, so viel Tee trinkt nicht einmal das ganze Dorf!",
+                    "sl": "Čaja? Haha, toliko čaja ne spije niti vsa vas!",
+                    "en": "Tea? Haha, not even the whole village drinks that much tea!",
+                    "it": "Tè? Ahah, tanto tè non lo beve neanche tutto il paese!"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franz",
+              "face": "happy",
+              "de": "Das Heu ist dürr und duftet. Heute wird die Doppelharpfe zum ersten Mal gefüllt, und zwar bevor das Gewitter kommt.",
+              "sl": "Seno je suho in diši. Danes bo toplar prvič napolnjen, in to preden pride nevihta.",
+              "en": "The hay's dry and fragrant. Today the double hayrack gets filled for the first time, before the storm comes.",
+              "it": "Il fieno è secco e profuma. Oggi la rastrelliera doppia viene riempita per la prima volta, prima che arrivi il temporale."
+            },
+            {
+              "who": "stefan",
+              "face": "curious",
+              "de": "Mit den kurzen Gabeln kommen wir an die oberen Latten nicht hin. Was meinst du?",
+              "sl": "S kratkimi vilami ne sežemo do zgornjih lat. Kaj praviš?",
+              "en": "We can't reach the top rails with the short forks. What do you think?",
+              "it": "Con le forche corte non arriviamo alle traverse alte. Che ne dici?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Mit langen Heugabeln würden wir sogar die obersten Latten erreichen, ohne auf die Leiter zu steigen.",
+                  "sl": "Z dolgimi vilami za seno bi dosegli celo najvišje late, ne da bi stopili na lestev.",
+                  "en": "With long hayforks we'd reach even the top rails without climbing the ladder.",
+                  "it": "Con forconi lunghi arriveremmo perfino alle traverse più alte senza salire sulla scala.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Gescheit. Die Leiter brauchen wir dann nur für den Franz, wenn er nachzählt.",
+                    "sl": "Pametno. Lestev bomo potem potrebovali samo za Franza, ko bo preštel.",
+                    "en": "Clever. Then we only need the ladder for Franz, when he counts.",
+                    "it": "Furbo. Allora la scala ci serve solo per Franz, quando conta."
+                  }
+                },
+                {
+                  "de": "Mit langen Gabeln würden wir sogar die obersten Latten erreichen, ohne auf die Leiter zu steigen.",
+                  "sl": "Z dolgimi vilicami bi dosegli celo najvišje late, ne da bi stopili na lestev.",
+                  "en": "With long forks we'd reach even the top rails without climbing the ladder.",
+                  "it": "Con forchette lunghe arriveremmo perfino alle traverse più alte senza salire sulla scala.",
+                  "why": {
+                    "sl": "Za seno so vile za seno: die Heugabel. Vilice so za jedilno mizo.",
+                    "en": "For hay you need hayforks: die Heugabel. Plain forks are for the dinner table.",
+                    "it": "Per il fieno ci vogliono i forconi: die Heugabel. Le forchette sono per la tavola."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Lange Gabeln vom Tisch? So lange hat nicht einmal das Gasthaus!",
+                    "sl": "Dolge vilice z mize? Tako dolgih nima niti gostilna!",
+                    "en": "Long forks from the table? Not even the Gasthaus has ones that long!",
+                    "it": "Forchette lunghe della tavola? Così lunghe non le ha neanche la trattoria!"
+                  }
+                },
+                {
+                  "de": "Mit langen Heugabeln würden wir sogar die obersten Latten erreichen, ohne auf die Leiter steigen.",
+                  "sl": "Z dolgimi vilami za seno bi dosegli celo najvišje late, ne da bi stopili na lestev. (zu)",
+                  "en": "With long hayforks we'd reach even the top rails without climbing the ladder. (zu)",
+                  "it": "Con forconi lunghi arriveremmo perfino alle traverse più alte senza salire sulla scala. (zu)",
+                  "grammar": "infinitiv-zu",
+                  "why": {
+                    "sl": "Za ohne pride zu z nedoločnikom: ohne auf die Leiter zu steigen.",
+                    "en": "After ohne comes zu with the infinitive: ohne auf die Leiter zu steigen.",
+                    "it": "Dopo ohne viene zu con l'infinito: ohne auf die Leiter zu steigen."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Ohne … steigen? Hm, da fehlt mir ein kleines Wort.",
+                    "sl": "Ohne … steigen? Hm, tu mi manjka majhna beseda.",
+                    "en": "Ohne … steigen? Hm, I'm missing a little word.",
+                    "it": "Ohne … steigen? Mah, mi manca una parolina."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "toni",
+              "de": "Heu auf die Latten, Latte für Latte. Wer zu dick auflädt, hat im Winter schimmliges Heu.",
+              "sl": "Seno na late, lato za lato. Kdor naloži predebelo, ima pozimi plesnivo seno.",
+              "en": "Hay on the rails, rail after rail. Whoever loads it too thick has mouldy hay in winter.",
+              "it": "Fieno sulle traverse, traversa dopo traversa. Chi carica troppo spesso, d'inverno ha fieno ammuffito."
+            },
+            {
+              "who": "franz",
+              "face": "proud",
+              "de": "Geschafft. Schaut sie euch an! Mein Großvater hätte gesagt, so eine volle Harpfe sehe man nur einmal im Leben.",
+              "sl": "Uspelo je. Poglejte ga! Moj ded bi rekel, da tako poln kozolec vidiš samo enkrat v življenju.",
+              "en": "Done it. Look at it! My grandfather would have said you only see a hayrack this full once in your life.",
+              "it": "Fatto. Guardatela! Mio nonno avrebbe detto che una rastrelliera così piena la si vede una volta nella vita.",
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "de": "Sie ist so voll Heu, dass die Kühe den ganzen Winter keinen Hunger leiden müssen.",
+                  "sl": "Tako poln je sena, da kravam vso zimo ne bo treba stradati.",
+                  "en": "It's so full of hay the cows won't have to go hungry all winter.",
+                  "it": "È così piena di fieno che le mucche non dovranno patire la fame per tutto l'inverno.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Den ganzen Winter. Ich hab's ausgerechnet. Stimmt.",
+                    "sl": "Vso zimo. Izračunal sem. Drži.",
+                    "en": "The whole winter. I've worked it out. Right.",
+                    "it": "Tutto l'inverno. L'ho calcolato. Giusto."
+                  }
+                },
+                {
+                  "de": "Sie ist so voll Tee, dass die Kühe den ganzen Winter keinen Hunger leiden müssen.",
+                  "sl": "Tako poln je čaja, da kravam vso zimo ne bo treba stradati.",
+                  "en": "It's so full of tea the cows won't have to go hungry all winter.",
+                  "it": "È così piena di tè che le mucche non dovranno patire la fame per tutto l'inverno.",
+                  "why": {
+                    "sl": "Krave jedo seno: das Heu. Čaj jih ne nasiti.",
+                    "en": "Cows eat hay: das Heu. Tea won't fill them.",
+                    "it": "Le mucche mangiano il fieno: das Heu. Il tè non le sazia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Tee für die Kühe? Die würden sich aber wundern!",
+                    "sl": "Čaj za krave? Te bi se pa čudile!",
+                    "en": "Tea for the cows? They'd be surprised!",
+                    "it": "Tè per le mucche? Si stupirebbero!"
+                  }
+                },
+                {
+                  "de": "Sie ist so leer, dass die Kühe den ganzen Winter keinen Hunger leiden müssen.",
+                  "sl": "Tako prazen je, da kravam vso zimo ne bo treba stradati.",
+                  "en": "It's so empty the cows won't have to go hungry all winter.",
+                  "it": "È così vuota che le mucche non dovranno patire la fame per tutto l'inverno.",
+                  "why": {
+                    "sl": "Poln kozolec nahrani krave: voll. Prazen jih ne.",
+                    "en": "A full hayrack feeds the cows: voll. An empty one doesn't.",
+                    "it": "Una rastrelliera piena sfama le mucche: voll. Una vuota no."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Leer? Hm. Dann müssten die Kühe im Winter aber fasten.",
+                    "sl": "Prazen? Hm. Potem bi se morale krave pozimi postiti.",
+                    "en": "Empty? Hm. Then the cows would have to fast in winter.",
+                    "it": "Vuota? Mah. Allora le mucche d'inverno dovrebbero digiunare."
+                  }
+                }
+              ]
             }
           ]
         }
