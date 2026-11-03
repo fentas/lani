@@ -273,7 +273,7 @@ Before it, on this branch from main f9339ab8 (before the merges with main e62090
   works everywhere; the distractors here can't build a right version of the prompt.
 - **The grammar pages** don't teach explain something to someone, made of / made from, given among the participles, whilst
   (the native check's list): for the English course's owner; the modules' whys say it themselves.
-- **German** has no modules, drills or numbers yet (practice-de, beside this branch). Its numbers will be one more `NumberTongue`
-  beside `EnglishNumbers`; the smoke's `LANGUAGES` takes it as one more line.
+- **The full Android suite after the merge with practice-de** wasn't run here (4,115 passed before it; the merge's practice
+  tests, 130, pass): the gate's.
 - `about_exercise.source` of a numbers task doesn't say its language (as Italian's); the tutor knows the learner's.
 - The base `en` of English's texts is the format's fallback only: nobody learns English from English.
