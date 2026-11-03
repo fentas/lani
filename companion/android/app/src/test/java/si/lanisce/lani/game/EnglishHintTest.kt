@@ -288,7 +288,10 @@ class EnglishHintTest {
             if (base == Lang.SL) File("build/reports/hints").apply { mkdirs() }.resolve("en.txt").writeText(report.sorted().joinToString("\n") + "\n")
             println("English (${base.code}): $turns turns, $hints with a hint, $said with a rule or a trigger; $triggered of $formTurns form turns name what decides: $byLine")
             assertTrue("turns with a hint: $hints", hints > 700)
-            assertTrue("$said of $hints hints say more than the link", said * 100 >= hints * 95)
+            // (Lakeland has many turns of two right choices or of another length, "I'm fine, thank you." and "Very well,
+            // thank you."; the whole of their sentences is the answer, so a card that names I'm, can or don't is left out
+            // there, and the chip shows its link alone)
+            assertTrue("$said of $hints hints say more than the link", said * 100 >= hints * 90)
             assertTrue("$triggered of $formTurns form turns name what decides their form", triggered * 100 >= formTurns * 60)
         }
     }
