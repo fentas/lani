@@ -219,6 +219,10 @@ private fun typed(answer: String, accept: List<String>, explain: String?, before
  *   words are looked up in it, and marked new against its deck
  * @param pages the grammar pages the run is about besides its exercises' (a school unit's): its cheat sheet (📋 in the top
  *   bar) has their cards right after the exercise's own
+ * @param practice its answers count on their rules (the grammar book: an answer unlocks a page, a run of right ones makes
+ *   a rule secure) and a choice on a rule secure is asked typed (adaptive); false for the placement test
+ *   (game/LevelPlacement), which only finds where the learner is
+ * @param help the top bar's 📋 (the cheat sheet) and 💬 (the tutor with the exercise); false for the placement test
  *
  * The words of an exercise can be looked up (companion/README.md, "Exercises"): a tap in the prompt and the sentence with
  * the gap, a long press in the answers; never what the exercise tests while it's open ([ExerciseTaps]), everything once
@@ -243,6 +247,8 @@ fun ExerciseRun(
     onLook: () -> Unit = {},
     language: String? = null,
     pages: List<String> = emptyList(),
+    practice: Boolean = true,
+    help: Boolean = true,
     onComplete: (List<Outcome>) -> Unit,
 ) {
     var index by remember { mutableIntStateOf(0) }
@@ -290,7 +296,7 @@ fun ExerciseRun(
     // a choice on a rule the learner has secure is typed, one they have mastered said, with their own trap among its
     // options (companion/GAME.md, "Mastery and adaptive turns"); not against the clock
     val adapted = remember(index, exercises) {
-        (exercises.getOrNull(index) as? Exercise.Choice)?.takeIf { !fast && timeLimitSeconds == null }
+        (exercises.getOrNull(index) as? Exercise.Choice)?.takeIf { practice && !fast && timeLimitSeconds == null }
             ?.let { vm.grammar.adapt(it, ruleAt(index), vm.canListen()) }
     }
     /**
@@ -303,7 +309,9 @@ fun ExerciseRun(
         val o = given.copy(lookedUp = watch?.let(vm.cheat::answered))
         watch = null
         val ex = exercises[index]
-        if (ex is Exercise.Counting) {
+        if (!practice) {
+            // the placement test: nothing counts on the rules (it only finds where the learner is)
+        } else if (ex is Exercise.Counting) {
             // a counting card's steps: the counting rule, the gender, the dual, the plural (data/Counting.kt)
             for (r in si.lanisce.lani.data.Counting.ruleAnswers(ex, o.sheet)) vm.grammar.answered(r.rule, r.verdict, r.said, r.answer, r.correct)
         } else if (ex is Exercise.FormsTable) {
@@ -406,7 +414,7 @@ fun ExerciseRun(
             )
             // the cheat sheet, this exercise's cards first (then the pages the run is about: a school unit's): help, not a
             // hint (a right answer after it pays in full, its review quality at most 4: [watch])
-            CheatButton(vm) {
+            if (help) CheatButton(vm) {
                 val own = when (val e = exercises.getOrNull(index)) {
                     is Exercise.Counting -> e.pages
                     is Exercise.FormsTable -> e.pages
@@ -415,7 +423,7 @@ fun ExerciseRun(
                 (listOfNotNull(ruleAt(index)) + own + pages + cheatContext(vm, ruleAt(index), exercises, rules, moduleId)).distinct()
             }
             // the exercise on screen goes with it (its answer too, once answered); none yet while a timed run counts down
-            ChatButton(vm) {
+            if (help) ChatButton(vm) {
                 exercises.getOrNull(index)?.takeIf { clock == Clock.RUNNING && !stopped }?.let { chatContext(it, outcome, moduleId, source(index), steps) }
             }
         }

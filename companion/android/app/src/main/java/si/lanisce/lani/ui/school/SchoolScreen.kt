@@ -138,6 +138,8 @@ fun SchoolScreen(vm: AppViewModel) {
         }
         item {
             Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                // the placement test, to a learner who hasn't begun the course: a card (game/LevelPlacement.offer)
+                if (vm.placement.offer() == si.lanisce.lani.game.LevelPlacement.Offer.CARD) PlacementCard(vm)
                 if (!School.open(s)) BeginsCard(vm, s)
                 else {
                     TeacherSays(
@@ -158,6 +160,10 @@ fun SchoolScreen(vm: AppViewModel) {
         // a level a bit at a time: the open levels and the first closed one, each with its units in view and the rest folded
         for (view in School.reveal(s, course)) {
             item("level-${view.state.level}") { LevelSection(vm, s, course, view) }
+        }
+        // the placement test, to everyone else: a quiet row (offered, never pressed)
+        if (vm.placement.offer() == si.lanisce.lani.game.LevelPlacement.Offer.ROW) item {
+            Column(Modifier.padding(horizontal = 8.dp)) { QuietLine("🧭 ${bi("placement.row")}", "›", action = bi("placement.offerGo")) { vm.openPlacement() } }
         }
         item { ReadSetting(vm, Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) }
         if (course.machineWritten) item {
@@ -202,6 +208,22 @@ internal fun BeginsCard(vm: AppViewModel, s: GameState) {
             Text(bi("school.beginsAbout", "teacher" to (vm.school.teacher()?.name ?: inTarget("school.teacher"))), style = MaterialTheme.typography.bodyMedium)
             // never a wall: the way to the hamlet, one tap away
             NextAgeRow(check) { vm.openVillageAges() }
+        }
+    }
+}
+
+/**
+ * "🧭 Nekaj že znaš? · Know some already?": the placement test offered to a learner who hasn't begun the course (game/
+ * LevelPlacement.offer), a child's as a little game; one tap to its page, which says what it is before it begins.
+ */
+@Composable
+private fun PlacementCard(vm: AppViewModel) {
+    val child = vm.placement.version == si.lanisce.lani.game.LevelPlacement.Version.CHILD
+    Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer), modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("🧭 ${bi("placement.offerTitle")}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            Text(bi(if (child) "placement.offerTextChild" else "placement.offerText"), style = MaterialTheme.typography.bodyMedium)
+            BigButton("🧭 ${bi("placement.offerGo")}", onClick = vm::openPlacement)
         }
     }
 }
@@ -380,7 +402,11 @@ private fun UnitRow(vm: AppViewModel, s: GameState, course: Course, ref: UnitRef
     val unit = course.units[ref.id]
     val p = School.progress(s, course.language, ref.id)
     val (mark, line) = when (status) {
-        School.Status.DONE -> "✅" to (if (p?.testedOut == true) bi("school.testedOut") else bi("school.done"))
+        School.Status.DONE -> "✅" to when {
+            p?.placed == true -> bi("school.placed")
+            p?.testedOut == true -> bi("school.testedOut")
+            else -> bi("school.done")
+        }
         School.Status.NEXT -> "★" to bi("school.next")
         School.Status.OPEN -> (if (p != null) "▶️" else "○") to (if (p != null) bi("school.started") else bi("school.open"))
         School.Status.LOCKED -> "🔒" to bi("school.locked")
