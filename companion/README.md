@@ -2032,8 +2032,8 @@ controller `app/CheatSheetController.kt`, the sheet `ui/CheatSheetSheet.kt`; the
   such cards (machine-written, not reviewed by a native speaker): biti, imeti and iti, the present's endings, the past,
   the future, the six cases at a glance, noun gender by ending, the plural, adjective agreement, the question words and
   ti or vi. In Italian, German and English every A1 page has its own card, since a page's first sentence is often only
-  a lead-in ("Italian says *like* the other way round:"): the rule in one line, the trap as its tip, a long table cut to
-  its first rows. Pages above A1 there make their cards from the page.
+  a lead-in ("Italian says *like* the other way round:"): the rule in one line, the trap as its tip, the page's table
+  and examples. Pages above A1 there make their cards from the page.
 - **Curated cards no page fits** (`companion/cards/<language>/<id>.json`, `lani.card/v0`, `bridge/src/cards.ts`): the
   same face, a title per language, and the pages they belong to (`grammar`): the pronouns 1 · 2 · 3+ (jaz, midva, mi;
   me, ve, one; vi polite), kje or kam (v, na + locative or accusative), the numbers 1–20 and the tens, the possessives

@@ -70,7 +70,10 @@ what a learner misses:
 - The first sentence is often only a lead-in: "Italian says *like* the other way round:", "1 to 10:", "Five prepositions fuse with
   the definite article after them:". The rule itself is paragraphs below.
 - No trap: *sono freddo*, *mi piace miele*, *does she lives*, *I have ten years*, `wer` and `wo`.
-- Tables of 11 or 12 rows don't fit "one phone screen".
+
+Tables of 11 or 12 rows stay as the page has them, a little over "one phone screen". A card's own shorter table would also change
+the printed sheets: `chooseTables` prefers it, and the row left out (*non* in `domande`) then needs a word on the sheet. That
+failed the smoke, so no card here has a table of its own.
 
 | Language | Cards before | Cards now | Start cards |
 |---|---|---|---|
@@ -78,8 +81,7 @@ what a learner misses:
 | de | 5 | 15, all of A1 | sein-haben, fragen, zahlen, artikel-genus |
 | en | 6 | 18, all of A1 | to-be, questions-do, numbers, pronouns |
 
-Each new card has a rule line and a tip in every base. Long tables keep the page's first rows (no new table text); examples are
-the page's first two. The smoke now fails on an A1 page of these three without a card. Slovene's 17 A1 pages without a card and
+Each new card has a rule line and a tip in every base; its table and first two examples are the page's. The smoke now fails on an A1 page of these three without a card. Slovene's 17 A1 pages without a card and
 all pages above A1 keep their auto-cards.
 
 ### Tutor limits
