@@ -326,8 +326,9 @@ export class Dictionary {
   /**
    * Per level (its index in [LEVELS]): the packs' words of that level and below, by their word, and their nouns by their
    * plural ("i cavalli", cavalli → il cavallo: a unit may list a noun in the plural). A sheet reads its own level's
-   * ([at]): an A1 sheet never takes a B2 pack's meaning (open: odpreti, not the B1 pack's odprt), and a word only a higher
-   * pack has falls back to the supplement and the course, as before that pack came.
+   * ([at]; A1 and A2 sheets both read the A1 and A2 packs): an A1 or A2 sheet never takes a B1 or B2 pack's meaning
+   * (open: odpreti, not the B1 pack's odprt), and a word only a higher pack has falls back to the supplement and the
+   * course, as before that pack came.
    */
   private byLevel: { packs: Map<string, Json>; plurals: Map<string, Json> }[] = []
   /** The level whose packs this dictionary reads ([at]); without one, every pack's (the highest). */
@@ -386,13 +387,14 @@ export class Dictionary {
   }
 
   /**
-   * This dictionary as a sheet of [level] reads it: only the packs at or below that level (the content's other parts are
-   * the same). Shares everything loaded with this one.
+   * This dictionary as a sheet of [level] reads it: only the packs at or below that level, and an A1 sheet the A2 packs
+   * too (A1 and A2 were every pack before the B1 and B2 ones came, and A1 sheets mean words from A2 packs: preposizioni's
+   * il Friuli from Friuli's A2 feast). The content's other parts are the same. Shares everything loaded with this one.
    */
   at(level: string | undefined): Dictionary {
     this.load()
     const d = Object.create(this) as Dictionary
-    d.cap = level && LEVELS.includes(level) ? LEVELS.indexOf(level) : this.cap
+    d.cap = level && LEVELS.includes(level) ? Math.max(LEVELS.indexOf(level), LEVELS.indexOf('A2')) : this.cap
     return d
   }
 
@@ -726,7 +728,7 @@ export function buildSheet(c: Content, raw: Json, n: number, of: number, o: Opti
     // the table shows it already (jaz, kdo?, ne morem, imenovati se)
     if (cellItems.has(norm(w))) continue
     const single = !/\s/.test(w)
-    // the packs of the unit's level and below (an A1 sheet never prints a B2 pack's meaning)
+    // the packs of the unit's level and below (an A1 or A2 sheet never prints a B1 or B2 pack's meaning)
     const m = dictionary.meaning(w, base, ctx)
     if (!m) {
       notes.push(`no meaning for the word "${w}"`)
