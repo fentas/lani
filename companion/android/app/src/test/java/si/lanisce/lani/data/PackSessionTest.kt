@@ -12,8 +12,8 @@ import si.lanisce.lani.ui.home.HomeLogic
  * ones in their files' order, as the bridge lists them.
  */
 class PackSessionTest {
-    private fun pack(id: String, level: String, learned: Int = 0, source: String = "curated", festival: String? = null, project: String? = null) =
-        PackInfo(id, id, level = level, total = 20, learned = learned, source = source, festival = festival, project = project)
+    private fun pack(id: String, level: String, learned: Int = 0, source: String = "curated", festival: String? = null, project: String? = null, own: Int? = null) =
+        PackInfo(id, id, level = level, total = 20, learned = learned, source = source, festival = festival, project = project, own = own)
 
     // the files' order (alphabetical), the levels mixed as the B1 and B2 packs come among the older ones
     private val atWork = pack("at-work", "B1")
@@ -107,5 +107,28 @@ class PackSessionTest {
         assertEquals(HomeLogic.words(listOf(family, pub, weather), emptySet()), HomeLogic.words(all, emptySet(), "A1"))
         val rest = all.map { if (it.level in setOf("A1", "A2")) it.copy(learned = it.total) else it }
         assertEquals(HomeLogic.words(rest, emptySet()), HomeLogic.words(rest, emptySet(), "A1"))
+    }
+
+    @Test fun `a pack above the learner's level with only a word they have from elsewhere isn't started`() {
+        // the B2 idioms share one word with an A1 pack (learned 1, none in the pack itself): an A1 learner's suggestion and
+        // list go on as if it were untouched, and it waits for later
+        val shared = idioms.copy(learned = 1, own = 0)
+        val list = listOf(atWork, family, shared, pub, news, weather)
+        assertFalse(shared.started)
+        assertFalse(PackSession.underWay(shared, "A1"))
+        assertEquals("family", PackSession.suggest(list, "A1")?.id)
+        assertEquals(listOf("at-work", "the-local-news", "idioms-of-the-dale"), PackSession.later(list, "A1").map { it.id })
+        assertEquals(listOf("family", "in-the-pub", "weather-and-garden"), PackSession.order(list, "A1").map { it.id })
+        // a level up (B1 for an A2 learner): the same; a word learned in it starts it
+        val sharedB1 = news.copy(learned = 2, own = 0)
+        assertEquals("weather-and-garden", PackSession.suggest(listOf(sharedB1, weather), "A2")?.id)
+        assertEquals("the-local-news", PackSession.suggest(listOf(sharedB1.copy(own = 1), weather), "A2")?.id)
+        // at or below the learner's level any word learned counts, as before
+        val sharedA1 = family.copy(learned = 1, own = 0)
+        assertEquals("family", PackSession.suggest(listOf(pub, sharedA1), "A1")?.id)
+        assertEquals(listOf("family", "in-the-pub"), PackSession.order(listOf(pub, sharedA1), "A1").map { it.id })
+        // a bridge before `own`: learned stands for it
+        assertTrue(idioms.copy(learned = 1).started)
+        assertEquals("idioms-of-the-dale", PackSession.suggest(list - shared + idioms.copy(learned = 1), "A1")?.id)
     }
 }
