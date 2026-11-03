@@ -16,8 +16,10 @@ const repo = resolve(import.meta.dir, '../../..')
  * bases every drill text is in ([drillBases]), the levels its modules reach, and a number its rapid fire says as the corpus
  * has it ([counted]).
  */
+/** The levels a language's practice reaches: the default aim, B2 (docs/plans/05-built/practice-it-b2.md). */
+const TO_B2 = ['A1', 'A2', 'B1', 'B2']
 const LANGUAGES = [
-  { language: 'it', culture: 'friuli', bases: ['de', 'sl', 'en'], drillBases: ['en', 'de'], levels: ['A1', 'A2', 'B1'], counted: 'ventitré' },
+  { language: 'it', culture: 'friuli', bases: ['de', 'sl', 'en'], drillBases: ['en', 'de'], levels: TO_B2, counted: 'ventitré' },
   { language: 'de', culture: 'kaernten', bases: ['sl', 'en', 'it'], drillBases: ['en', 'sl', 'it'], levels: ['A1', 'A2', 'B1', 'B2'], counted: 'dreiundzwanzig' },
 ]
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
@@ -94,6 +96,11 @@ export default async function practice() {
     check(`drills/${language}: sentence building the size of Slovene's (${grow.builds.length}), of 3 or 4 steps`, grow.builds.length >= 60 && grow.builds.every(b => b.steps.length >= 3 && b.steps.length <= 4), grow.builds.filter(b => b.steps.length < 3 || b.steps.length > 4).map(b => b.id))
     const [guess] = of('riddle')
     check(`drills/${language}: riddles (${guess.riddles.length}), told by someone of the cast, each a pack word or a villager`, guess.riddles.length >= 40 && cast.some(v => v.id === guess.teller) && guess.riddles.every(x => !!x.word || !!x.villager))
+    const levelsOf = (d: Drill): string[] =>
+      d.kind === 'transform' || d.kind === 'rapid' ? d.sets.map(s => s.level) : d.kind === 'build' ? d.builds.map(b => b.level) : d.riddles.map(r => r.level)
+    check(`drills/${language}: each of the four reaches B2, a rapid set and a riddle at every level`, drills.every(d => TO_B2.every(l => levelsOf(d).includes(l))), drills.map(d => [d.id, TO_B2.filter(l => !levelsOf(d).includes(l))]))
+    const gated = [...turn.sets.map(s => [s.level, s.rule]), ...grow.builds.map(b => [b.level, b.rules[0]])].filter(([l]) => l !== 'A1')
+    check(`drills/${language}: above A1 every transformation and build names a rule (the road leaves it out until it is introduced)`, gated.every(([, r]) => !!r), gated.filter(([, r]) => !r))
     const said = drillTexts(drills, language)
     check(`drills/${language}: in the voice corpus, the numbers in their words`, said.length > 500 && said.some(t => t.text === counted) && said.every(t => t.source.startsWith('drill:')), said.length)
   }
