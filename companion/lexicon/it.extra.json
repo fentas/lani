@@ -1354,7 +1354,8 @@
         "telefona": "third-person singular present; second-person singular imperative", "telefonare": "infinitive",
         "telefonata": "feminine singular past participle", "telefonavi": "second-person singular imperfect", "telefonava": "third-person singular imperfect",
         "telefonerò": "first-person singular future", "telefonerei": "first-person singular conditional",
-        "telefonassi": "first/second-person singular imperfect subjunctive", "telefonato": "past participle"
+        "telefonino": "third-person plural present subjunctive", "telefonassi": "first/second-person singular imperfect subjunctive",
+        "telefonato": "past participle"
       },
       "meanings": { "de": ["anrufen, telefonieren"], "sl": ["poklicati, telefonirati"] } },
     { "lemma": "tenere", "pos": "verb", "gloss": ["to hold; to keep"],
@@ -4004,10 +4005,10 @@
       "forms": { "portiere": "singular" },
       "meanings": { "de": ["Tormann"], "sl": ["vratar"] } },
     { "lemma": "posta", "pos": "noun", "gender": "f", "gloss": ["post, mail"],
-      "forms": { "posta": "singular" },
+      "forms": { "posta": "singular", "poste": "plural" },
       "meanings": { "de": ["Post"], "sl": ["pošta"] } },
     { "lemma": "postino", "pos": "noun", "gender": "m", "gloss": ["postman"],
-      "forms": { "postino": "singular" },
+      "forms": { "postino": "singular", "postini": "plural" },
       "meanings": { "de": ["Briefträger, Postler"], "sl": ["poštar"] } },
     { "lemma": "posto", "pos": "noun", "gender": "m", "gloss": ["place, seat"],
       "forms": { "posto": "singular", "posti": "plural" },
@@ -5179,6 +5180,9 @@
     { "lemma": "pista", "pos": "noun", "gender": "f", "gloss": ["track, run (a ski run, a cycle lane)"],
       "forms": { "pista": "singular", "piste": "plural" },
       "meanings": { "de": ["Piste, Bahn"], "sl": ["proga, steza"] } },
+    { "lemma": "codice", "pos": "noun", "gender": "m", "gloss": ["code"],
+      "forms": { "codice": "singular", "codici": "plural" },
+      "meanings": { "de": ["Code, Nummer"], "sl": ["koda, številka"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -6161,6 +6165,9 @@
     { "lemma": "pedonale", "pos": "adj", "gloss": ["for pedestrians (strisce pedonali: zebra crossing)"],
       "forms": { "pedonale": "singular", "pedonali": "plural" },
       "meanings": { "de": ["Fußgänger-"], "sl": ["za pešce"] } },
+    { "lemma": "postale", "pos": "adj", "gloss": ["postal, of the post"],
+      "forms": { "postale": "singular", "postali": "plural" },
+      "meanings": { "de": ["Post-"], "sl": ["poštni"] } },
     { "lemma": "abbaiare", "pos": "verb", "gloss": ["to bark"],
       "forms": {
         "abbaio": "first-person singular present", "abbaia": "third-person singular present; second-person singular imperative",
@@ -7093,7 +7100,7 @@
         "cambio": "first-person singular present", "cambia": "third-person singular present; second-person singular imperative",
         "cambiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "cambiano": "third-person plural present", "cambiavano": "third-person plural imperfect", "cambierei": "first-person singular conditional",
-        "cambiato": "past participle", "cambiare": "infinitive"
+        "cambiare": "infinitive", "cambiato": "past participle"
       },
       "meanings": { "de": ["ändern, wechseln"], "sl": ["spremeniti, zamenjati"] } },
     { "lemma": "camminare", "pos": "verb", "gloss": ["to walk, to go on foot"],
@@ -7759,7 +7766,7 @@
     { "lemma": "ricevere", "pos": "verb", "gloss": ["to receive, to get"],
       "forms": {
         "ricevo": "first-person singular present", "riceve": "third-person singular present", "riceveva": "third-person singular imperfect",
-        "ricevere": "infinitive"
+        "ricevere": "infinitive", "ricevuto": "past participle"
       },
       "meanings": { "de": ["bekommen, erhalten"], "sl": ["prejeti, dobiti"] } },
     { "lemma": "ricominciare", "pos": "verb", "gloss": ["to start again"],
@@ -7840,8 +7847,8 @@
     { "lemma": "riuscire", "pos": "verb", "gloss": ["to manage, to succeed"],
       "forms": {
         "riesco": "first-person singular present", "riesci": "second-person singular present; second-person singular imperative",
-        "riesce": "third-person singular present", "riuscissero": "third-person plural imperfect subjunctive", "riuscito": "past participle",
-        "riuscita": "feminine singular past participle", "riuscire": "infinitive"
+        "riesce": "third-person singular present", "riuscissero": "third-person plural imperfect subjunctive", "riuscire": "infinitive",
+        "riuscito": "past participle", "riuscita": "feminine singular past participle"
       },
       "meanings": { "de": ["schaffen, gelingen"], "sl": ["uspeti"] } },
     { "lemma": "rompere", "pos": "verb", "gloss": ["to break, to smash"],
@@ -7927,7 +7934,7 @@
       "meanings": { "de": ["graben, buddeln"], "sl": ["kopati"] } },
     { "lemma": "scegliere", "pos": "verb", "gloss": ["to choose"],
       "forms": {
-        "scegli": "second-person singular present", "sceglie": "third-person singular present",
+        "scelgo": "first-person singular present", "scegli": "second-person singular present", "sceglie": "third-person singular present",
         "scegliamo": "first-person plural present; first-person plural present subjunctive", "sceglierei": "first-person singular conditional",
         "scegliere": "infinitive", "scelto": "past participle", "scelta": "feminine singular past participle", "sceglierlo": "infinitive, with lo (it, him)"
       },
@@ -8153,9 +8160,9 @@
       "meanings": { "de": ["lernen, studieren"], "sl": ["učiti se, študirati"] } },
     { "lemma": "succedere", "pos": "verb", "gloss": ["to happen"],
       "forms": {
-        "succede": "third-person singular present", "succederà": "third-person singular future", "succederebbe": "third-person singular conditional",
-        "succeda": "first/second/third-person singular present subjunctive", "succedere": "infinitive", "succedendo": "gerund", "successo": "past participle",
-        "successa": "feminine singular past participle"
+        "succede": "third-person singular present", "succedono": "third-person plural present", "succederà": "third-person singular future",
+        "succederebbe": "third-person singular conditional", "succeda": "first/second/third-person singular present subjunctive", "succedere": "infinitive",
+        "succedendo": "gerund", "successo": "past participle", "successa": "feminine singular past participle"
       },
       "meanings": { "de": ["passieren"], "sl": ["zgoditi se"] } },
     { "lemma": "sussurrare", "pos": "verb", "gloss": ["to whisper"],
@@ -8403,7 +8410,11 @@
       },
       "meanings": { "de": ["sich … lassen (farsi tagliare i capelli: sich die Haare schneiden lassen)"], "sl": ["dati si narediti (farsi tagliare i capelli: dati se ostriči)"] } },
     { "lemma": "spedire", "pos": "verb", "gloss": ["to post, to send off"],
-      "forms": { "spedita": "feminine singular past participle", "spedire": "infinitive" },
+      "forms": {
+        "spedisco": "first-person singular present", "spedisci": "second-person singular present; second-person singular imperative",
+        "spediamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "spedire": "infinitive",
+        "spedita": "feminine singular past participle"
+      },
       "meanings": { "de": ["abschicken, aufgeben"], "sl": ["poslati, odposlati"] } },
     { "lemma": "sporcarsi", "pos": "verb", "gloss": ["to get dirty"],
       "forms": {
@@ -8442,7 +8453,7 @@
       "forms": { "gracchia": "third-person singular present; second-person singular imperative", "gracchiare": "infinitive" },
       "meanings": { "de": ["knistern, krächzen"], "sl": ["hreščati"] } },
     { "lemma": "accorgersi", "pos": "verb", "gloss": ["to notice"],
-      "forms": { "accorgersi": null, "accorta": "feminine singular past participle (se n'è accorta)" },
+      "forms": { "accorgersi": null, "accorta": "feminine singular past participle (se n'è accorta)", "accorto": "past participle (mi sono accorto)" },
       "meanings": { "de": ["bemerken"], "sl": ["opaziti"] } },
     { "lemma": "accostare", "pos": "verb", "gloss": ["to get close (in bocce)"],
       "forms": {
@@ -8455,8 +8466,8 @@
       "meanings": { "de": ["aufhäufen"], "sl": ["nakopičiti"] } },
     { "lemma": "capitare", "pos": "verb", "gloss": ["to turn out, to come up"],
       "forms": {
-        "capito": "first-person singular present", "capita": "third-person singular present; second-person singular imperative",
-        "capitale": "second-person singular imperative, with le (them; to her)", "capitare": "infinitive"
+        "capito": "first-person singular present", "capita": "third-person singular present; second-person singular imperative", "capitare": "infinitive",
+        "capitale": "second-person singular imperative, with le (them; to her)"
       },
       "meanings": { "de": ["vorkommen"], "sl": ["pripetiti se"] } },
     { "lemma": "chinarsi", "pos": "verb", "gloss": ["to bend down"],
@@ -8662,6 +8673,9 @@
     { "lemma": "rallentare", "pos": "verb", "gloss": ["to slow down"],
       "forms": { "rallentano": "third-person plural present", "rallentare": "infinitive" },
       "meanings": { "de": ["langsamer werden"], "sl": ["upočasniti"] } },
+    { "lemma": "squillare", "pos": "verb", "gloss": ["to ring – a phone"],
+      "forms": { "squilla": "third-person singular present; second-person singular imperative", "squillare": "infinitive" },
+      "meanings": { "de": ["klingeln – das Telefon"], "sl": ["zvoniti – telefon"] } },
     { "lemma": "Davide", "pos": "name", "gloss": ["Davide (the shepherd)"],
       "forms": { "davide": null },
       "meanings": { "de": ["Davide (der Hirte)"], "sl": ["Davide (pastir)"] } },
