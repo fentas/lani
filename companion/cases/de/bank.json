@@ -8992,19 +8992,19 @@
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Die Kinder laufen in den Wald.",
+   "de": "Die Kinder laufen in den Wald hinein.",
    "sl": "Otroci stečejo v gozd.",
    "en": "The children run into the forest.",
-   "it": "I bambini corrono nel bosco.",
+   "it": "I bambini corrono dentro il bosco.",
    "gap": [
     3,
     5
    ],
    "options": [
-    "in den Wald",
-    "im Wald"
+    "im Wald",
+    "in den Wald"
    ],
-   "answer": 0,
+   "answer": 1,
    "cue": "der Wald",
    "scene": "im-wald",
    "word": 5,
@@ -9212,29 +9212,29 @@
    "trigger": 1
   },
   {
-   "id": "maxi-springt-in-den-see",
+   "id": "maxi-springt-vom-steg-in-den",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Maxi springt in den See.",
-   "sl": "Maxi skoči v jezero.",
-   "en": "Maxi jumps into the lake.",
-   "it": "Maxi salta nel lago.",
+   "de": "Maxi springt vom Steg in den See.",
+   "sl": "Maxi skoči z brvi v jezero.",
+   "en": "Maxi jumps off the jetty into the lake.",
+   "it": "Maxi salta dal pontile nel lago.",
    "gap": [
-    2,
-    4
+    4,
+    6
    ],
    "options": [
-    "im See",
-    "in den See"
+    "in den See",
+    "im See"
    ],
-   "answer": 1,
+   "answer": 0,
    "cue": "der See",
    "scene": "am-see",
-   "word": 4,
+   "word": 6,
    "phrase": [
-    3,
-    4
+    5,
+    6
    ],
    "lemma": "See",
    "gender": "m",
@@ -9276,17 +9276,17 @@
    "trigger": 2
   },
   {
-   "id": "wir-gehen-an-den-teich",
+   "id": "wir-setzen-uns-an-den-teich",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Wir gehen an den Teich.",
-   "sl": "Gremo k ribniku.",
-   "en": "We go to the pond.",
-   "it": "Andiamo allo stagno.",
+   "de": "Wir setzen uns an den Teich.",
+   "sl": "Usedemo se k ribniku.",
+   "en": "We sit down by the pond.",
+   "it": "Ci sediamo vicino allo stagno.",
    "gap": [
-    2,
-    4
+    3,
+    5
    ],
    "options": [
     "an den Teich",
@@ -9295,10 +9295,10 @@
    "answer": 0,
    "cue": "der Teich",
    "scene": "am-teich",
-   "word": 4,
+   "word": 5,
    "phrase": [
-    3,
-    4
+    4,
+    5
    ],
    "lemma": "Teich",
    "gender": "m",
@@ -9564,36 +9564,36 @@
    "trigger": 2
   },
   {
-   "id": "wir-gehen-auf-den-markt",
+   "id": "am-samstag-fahren-wir-auf-den",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Wir gehen auf den Markt.",
-   "sl": "Gremo na tržnico.",
-   "en": "We go to the market.",
-   "it": "Andiamo al mercato.",
+   "de": "Am Samstag fahren wir auf den Markt.",
+   "sl": "V soboto se peljemo na tržnico.",
+   "en": "On Saturday we drive to the market.",
+   "it": "Il sabato andiamo al mercato.",
    "gap": [
-    2,
-    4
+    4,
+    6
    ],
    "options": [
-    "auf dem Markt",
-    "auf den Markt"
+    "auf den Markt",
+    "auf dem Markt"
    ],
-   "answer": 1,
+   "answer": 0,
    "cue": "der Markt",
    "scene": "auf-dem-markt",
-   "word": 4,
+   "word": 6,
    "phrase": [
-    3,
-    4
+    5,
+    6
    ],
    "lemma": "Markt",
    "gender": "m",
    "case": "akkusativ",
    "number": "sg",
    "why": "wohin",
-   "trigger": 1
+   "trigger": 2
   },
   {
    "id": "kathi-kauft-eier-auf-dem-markt",
@@ -9628,29 +9628,29 @@
    "trigger": 1
   },
   {
-   "id": "der-bauer-faehrt-auf-das-feld",
+   "id": "der-bauer-faehrt-aufs-feld-hinaus",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Der Bauer fährt auf das Feld.",
-   "sl": "Kmet se pelje na njivo.",
+   "de": "Der Bauer fährt aufs Feld hinaus.",
+   "sl": "Kmet se odpelje na njivo.",
    "en": "The farmer drives out to the field.",
-   "it": "Il contadino va al campo.",
+   "it": "Il contadino esce al campo.",
    "gap": [
     3,
-    5
+    4
    ],
    "options": [
-    "auf dem Feld",
-    "auf das Feld"
+    "aufs Feld",
+    "auf dem Feld"
    ],
-   "answer": 1,
+   "answer": 0,
    "cue": "das Feld",
    "scene": "auf-dem-feld",
-   "word": 5,
+   "word": 4,
    "phrase": [
-    4,
-    5
+    3,
+    4
    ],
    "lemma": "Feld",
    "gender": "n",
@@ -9755,28 +9755,28 @@
    "trigger": 2
   },
   {
-   "id": "die-katze-springt-auf-das-dach",
+   "id": "die-katze-springt-vom-baum-auf",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Die Katze springt auf das Dach.",
-   "sl": "Mačka skoči na streho.",
-   "en": "The cat jumps onto the roof.",
-   "it": "Il gatto salta sul tetto.",
+   "de": "Die Katze springt vom Baum auf das Dach.",
+   "sl": "Mačka skoči z drevesa na streho.",
+   "en": "The cat jumps from the tree onto the roof.",
+   "it": "Il gatto salta dall'albero sul tetto.",
    "gap": [
-    3,
-    5
+    5,
+    7
    ],
    "options": [
-    "auf das Dach",
-    "auf dem Dach"
+    "auf dem Dach",
+    "auf das Dach"
    ],
-   "answer": 0,
+   "answer": 1,
    "cue": "das Dach",
-   "word": 5,
+   "word": 7,
    "phrase": [
-    4,
-    5
+    6,
+    7
    ],
    "lemma": "Dach",
    "gender": "n",
@@ -9974,17 +9974,17 @@
    "trigger": 1
   },
   {
-   "id": "die-bienen-fliegen-auf-die-wiese",
+   "id": "die-bienen-fliegen-vom-stock-auf",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Die Bienen fliegen auf die Wiese.",
-   "sl": "Čebele letijo na travnik.",
-   "en": "The bees fly to the meadow.",
-   "it": "Le api volano sul prato.",
+   "de": "Die Bienen fliegen vom Stock auf die Wiese.",
+   "sl": "Čebele letijo iz panja na travnik.",
+   "en": "The bees fly from the hive to the meadow.",
+   "it": "Le api volano dall'arnia al prato.",
    "gap": [
-    3,
-    5
+    5,
+    7
    ],
    "options": [
     "auf die Wiese",
@@ -9993,10 +9993,10 @@
    "answer": 0,
    "cue": "die Wiese",
    "scene": "auf-der-bienenwiese",
-   "word": 5,
+   "word": 7,
    "phrase": [
-    4,
-    5
+    6,
+    7
    ],
    "lemma": "Wiese",
    "gender": "f",
@@ -10038,14 +10038,14 @@
    "trigger": 2
   },
   {
-   "id": "wir-gehen-in-den-obstgarten",
+   "id": "wir-gehen-in-den-obstgarten-hinaus",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Wir gehen in den Obstgarten.",
-   "sl": "Gremo v sadovnjak.",
-   "en": "We go into the orchard.",
-   "it": "Andiamo nel frutteto.",
+   "de": "Wir gehen in den Obstgarten hinaus.",
+   "sl": "Gremo ven v sadovnjak.",
+   "en": "We go out into the orchard.",
+   "it": "Usciamo nel frutteto.",
    "gap": [
     2,
     4
@@ -10134,11 +10134,11 @@
    "trigger": 1
   },
   {
-   "id": "die-kinder-kriechen-ins-zelt",
+   "id": "die-kinder-kriechen-ins-zelt-hinein",
    "kind": "place",
    "level": "A2",
    "question": "wo-wohin",
-   "de": "Die Kinder kriechen ins Zelt.",
+   "de": "Die Kinder kriechen ins Zelt hinein.",
    "sl": "Otroci zlezejo v šotor.",
    "en": "The children crawl into the tent.",
    "it": "I bambini entrano a carponi nella tenda.",
@@ -10147,10 +10147,10 @@
     4
    ],
    "options": [
-    "im Zelt",
-    "ins Zelt"
+    "ins Zelt",
+    "im Zelt"
    ],
-   "answer": 1,
+   "answer": 0,
    "cue": "das Zelt",
    "scene": "im-zelt",
    "word": 4,
