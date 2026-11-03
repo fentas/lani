@@ -52,8 +52,8 @@ Nothing of the course's content changed: the test asks the units' own test items
 - **A child's version** (Teo, 7: the app set up for a child): "Igrajva se: pokaži mi, kaj že znaš!", tap exercises only (a
   choice, a multi, a sort of at most 6 words, word chips of at most 6, a gap text of at most 3 gaps with its word bank), A1
   to the end of B1, probes of 4 items in 3 or 4 exercises, at most 4 probes and 10 minutes; its "✓ Začnem tukaj" behind a
-  parent's two-second hold (a parent decides where the child starts). Every probe's exercise is read by its 🔊 as any
-  exercise's; the teacher's lines on the page and the result have their 🔊.
+  parent's two-second hold (a parent decides where the child starts). A choice reads aloud where the course gives it a
+  `say` or `say_options`, as in the unit's test; the teacher's lines on the page and the result have their 🔊.
 
 ### Decisions, and why
 
@@ -179,3 +179,16 @@ with `startAt`'s four levels). Characters for the teacher's voice: Učiteljica M
 - **A second probe of a part that passes narrowly** (between 60 and 80 %) would place more surely at the cost of a minute;
   not done: the learner sees the result before taking it, and any unit can be done again.
 - **The setup's speech** doesn't read the new "🧭 Nekaj že znaš?" choice aloud (its chips are TalkBack's).
+- **The Build sheet's note** under the school's card ("… šola ga preseli pod streho in odpre A2") still says the school
+  opens A2 for a placed learner whose A2 the test opened already; the note's wording is native-checked, so left as it is.
+
+## Also on this branch: the curated modules from the learner's level (55ade858)
+
+Found by practice-it-b2, asked by the lead: `ModuleStore.offered` paced the curated modules from A1 up, so a starter at
+B2 (or one the placement test puts there) was asked A1's first module first. Now the next is the learner's own level's
+first, then the levels below, the nearest first, each by its `order`, and the list comes in that order (Home's ideas take
+its first). The pace is the same (one open, one new a day); a module asked (open, done, or led to by a `helps` request)
+stays listed whatever its level. Reasoned from the code and the content, not from their data: Slovene's six curated
+modules are all A1, so a learner with all six asked (Jan) gets nothing new before or after; an Italian learner at A1 (Teo)
+gets the same next module as before (A1 by its `order`), only the asked ones list by `order` instead of by file name; at
+A2 or above the learner's level's first comes before the lower ones left. Smoke: modules.ts, 6 checks.
