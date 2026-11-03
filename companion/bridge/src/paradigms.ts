@@ -354,6 +354,19 @@ export function pageOfIn(lang: ParadigmLanguage, lemma: string, pos: FormPos, ke
   return null
 }
 
+/** A card's word without its article or its "to" (la casa → casa, l'acqua → acqua, der Wald → Wald, to run → run). */
+export function bareWord(front: string, language: string): string {
+  const w = front.trim()
+  if (language === 'it') {
+    const m = /^(?:l|un)['’](\p{L}+)$/u.exec(w)
+    if (m) return m[1]
+  }
+  const parts = w.split(' ')
+  if (parts.length !== 2) return w
+  const articles: Record<string, string[]> = { it: ['il', 'lo', 'la', 'i', 'gli', 'le', 'un', 'uno', 'una'], de: ['der', 'die', 'das', 'ein', 'eine'], en: ['to'] }
+  return articles[language]?.includes(parts[0].toLowerCase()) ? parts[1] : w
+}
+
 // --- the paradigms file ----------------------------------------------------------------------------------------------
 
 /** One form as written: letters, and up to two more words after a space, an apostrophe or a hyphen ("fahre ab", "am schönsten"). */

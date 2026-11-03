@@ -100,6 +100,26 @@ export default async function kaernten() {
         atDe(fahren2, 'pres.3sg')?.page === 'vokalwechsel' && atDe(fahren2, 'pp')?.forms[0] === 'gefahren' && atDe(fahren2, 'pp').page === 'partizip-zwei' && fahren2.aux?.includes('sein'),
       { old, de2 },
     )
+    // German's forms cards (forms-cards.ts otherCardOf), for an app that reads them (v=2; GET /state says forms-cards-v2)
+    const cardsNoV = await fetch(`${base}/forms-cards?w=Haus`, { headers: auth })
+    const tablesDe = (await (await fetch(`${base}/forms-cards?w=Haus&v=2`, { headers: auth })).json()) as any
+    const hausCard = tablesDe.words?.[0]?.tables?.[0]
+    const madeDe = (await (await fetch(`${base}/forms-cards`, { method: 'POST', headers: auth, body: JSON.stringify({ words: [{ word: 'fahren' }], introduced: ['praesens', 'vokalwechsel', 'partizip-zwei'], asked: true, v: 2, client_id: 'smoke-kaernten-forms' }) })).json()) as any
+    const featuresDe = (await (await fetch(`${base}/state`, { headers: auth })).json()).features
+    check(
+      "kaernten: forms cards: an older app's ask 400; with v=2 Haus's table (German, its word as written, dem Haus given, not a gap; Häusern asked), fahren's card made on demand with its present and participle tested; GET /state says forms-cards-v2, not Slovene's forms-cards",
+      cardsNoV.status === 400 && hausCard?.language === 'de' && hausCard.lemma === 'Haus' && hausCard.slots.find((x: any) => x.key === 'dat.sg')?.given === true && !hausCard.slots.find((x: any) => x.key === 'dat.pl')?.given &&
+        madeDe.added?.[0]?.lemma === 'fahren' && madeDe.added[0].tested >= 7 && featuresDe.includes('forms-cards-v2') && !featuresDe.includes('forms-cards'),
+      { status: cardsNoV.status, hausCard, madeDe, featuresDe },
+    )
+    const cardId = madeDe.added?.[0]?.item_id
+    const itemsOld = (await (await fetch(`${base}/state`, { headers: auth })).json()).spaced_repetition?.items ?? {}
+    const itemsNew = (await (await fetch(`${base}/state?forms=2`, { headers: auth })).json()).spaced_repetition?.items ?? {}
+    check(
+      "kaernten: a German forms card is held back from an older app's GET /state (it would lay it out as Slovene's), there for one asking forms=2 with its table's language",
+      !!cardId && !itemsOld[cardId] && itemsNew[cardId]?.type === 'forms' && itemsNew[cardId].forms?.language === 'de',
+      { cardId, old: Object.keys(itemsOld).filter(k => k.startsWith('forms_')), now: itemsNew[cardId] },
+    )
     const haeuser = await lookup(`w=${encodeURIComponent('Häuser')}&line=${encodeURIComponent('Die Häuser haben Balkone.')}`)
     check('kaernten: a lookup finds a German pack word by its plural, without its article, meant in Slovene', haeuser.entries[0]?.lemma === 'das Haus' && haeuser.entries[0].gloss[0]?.startsWith('hiša') && haeuser.entries[0].gloss_lang === 'sl' && haeuser.entries[0].grammar === 'plural' && haeuser.entries[0].source === 'pack', haeuser)
     const graben = await lookup(`w=graben&line=${encodeURIComponent('Wir graben ein tiefes Loch.')}`)
