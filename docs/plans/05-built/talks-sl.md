@@ -158,7 +158,7 @@ never gets them (an Italian village is served only Italian talks), and a child i
 opener, `level`, `language: sl`, `packs`): the role says how the character speaks and what they push back on, the level
 how they speak.
 
-**The dev bridge** answers a B1 or B2 talk in lines that fit any of the twelve (`ROLEPLAY_ABOVE_A2.sl`: "Razumem. Kaj pa
+**The dev bridge** answers a B1 or B2 talk in lines that fit any of the twelve (`ROLEPLAY_LEVELS.sl`, one set for B1 and B2: "Razumem. Kaj pa
 potem?", "Zanimivo. Zakaj pa?", "Prav, to se mi zdi smiselno.", "Dobro, hvala. Tako bomo naredili.", a correction with
 the conditional), picked by the brief's level; an A1 talk keeps its soup.
 
@@ -197,8 +197,8 @@ the conditional), picked by the brief's level; an A1 talk keeps its soup.
 ## What's left
 
 - **The native check** above.
-- **The B1/B2 packs.** `packs-sl` (not on main yet) adds Slovene B1 and B2 packs that fit these talks better than the A1
-  and A2 ones they name now. Once it is merged, add to each talk's `packs` (at most six):
+- **The B1/B2 packs** (done on talks-de after the merge of the queue's tip, which holds packs-sl): each talk's `packs`
+  has two of packs-sl's B1 or B2 packs beside its A1/A2 ones (at most six):
   `reklamacija` oblacila, denar-in-banka; `vino-za-praznovanje` druzinski-dogodki, denar-in-banka;
   `klic-v-ambulanto` pri-zdravniku, bolezni-in-zdravila; `po-noci-burje` vreme-in-letni-casi, popravila-v-hisi;
   `nasvet-za-sosedo` telefon-in-splet, mnenja; `delo-na-turisticni-kmetiji` poklici, na-kmetiji;

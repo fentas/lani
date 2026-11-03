@@ -143,7 +143,8 @@ app gets the talks of its learner's level and reads them as it read the A2 ones.
 - Voice: the twelve openers and 93 hints (105 lines, about 4,450 characters for one gender, about 4,600 with both forms
   of the gendered lines) join the Italian voice corpus; Teo's node voices them ahead with its engine, which may spend
   ElevenLabs credits: ask Jan before a voice build. Nothing was spent.
-- The other languages' talks (talks-sl, talks-de, talks-en) share `talkFits` (2e75338dc), the dev bridge's
+- On its merge into talks-de (73306bae1) `talkFits` gave way to talks-sl's `talkLevelOffered` (the same rule), and the
+  dev bridge's levels became one table for every language. The other languages' talks (talks-sl, talks-de, talks-en) share the dev bridge's
   `ROLEPLAY_LEVELS` (their language's key beside `it`) and content-count's row (97fa05fd7).
 
 ## Commits

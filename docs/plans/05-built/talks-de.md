@@ -155,7 +155,8 @@ as a woman) or by their name and voice (Kommandant Ogris, Bürgermeister Wutti, 
 **Offered by level:** talks-sl's `talkLevelOffered` and `ScenarioStore.offered(child, level)`, unchanged: an A1 learner
 of German is offered the five A1 and three A2 talks, an A2 learner the B1 ones too, a B1 learner all twenty. The filter
 is the bridge's (`GET /scenarios`, `GET /scenarios/:id` 404s above, a scene's "keep talking"), so an app of any version
-gets it at once. talks-it built the same as `talkFits`; the lead merges both onto talks-sl's.
+gets it at once. talks-it built the same as `talkFits`; on its merge into talks-de (73306bae1) `talkFits` went and its
+callers and checks point at `talkLevelOffered`.
 
 **Older apps.** No format change: the twelve are `lani.scenario/v0` as the eight German ones are, served as strings in
 the pair. Teo's tablet (0.2.698) is in an Italian village, which is served only Italian talks; a child is never offered
@@ -168,7 +169,7 @@ added to entries it had (anfangen: *angefangen*; zusperren: *zusperrt*, with its
 (the script in the scratchpad that checks it: the coverage tokenizer over `opener_sl` and the phrases, which
 `lexicon-build --coverage` doesn't count, as their key is `sl`).
 
-**The dev bridge** answers a German B1 or B2 talk in lines that fit any of the twelve (`ROLEPLAY_ABOVE_A2.de`:
+**The dev bridge** answers a German B1 or B2 talk in lines that fit any of the twelve (`ROLEPLAY_LEVELS.de`, one set for B1 and B2:
 "Verstehe. Und wie ist es dann weitergegangen?", "Interessant. Und warum eigentlich?", "Gut, das klingt vernünftig.",
 "Passt, danke. So machen wir es.", a correction with the Konjunktiv II "Könnten Sie das bitte wiederholen?"), picked by
 the brief's level; an A1 or A2 talk keeps its Semmeln.
@@ -228,16 +229,17 @@ the brief's level; an A1 or A2 talk keeps its Semmeln.
 ## What's left
 
 - **The native check** above.
-- **The B1/B2 packs.** `packs-de` (not on main yet) adds German B1 and B2 packs that fit these talks better than the A1
-  and A2 ones they name now. Once it is merged, add to each talk's `packs` (at most six; the smoke checks each is the
-  village's): `die-reklamation` kleidung, einkaufen; `most-fuer-das-fest` geld-und-bank, das-leben;
-  `termin-in-der-ordination` der-koerper, arbeit-und-beruf; `nach-dem-unwetter` wetterbericht, reparaturen;
-  `tante-mitzi-und-das-hoergeraet` gefuehle, alter-und-pflege; `aushilfe-im-gasthaus` arbeit-und-beruf,
-  kochen-und-backen; `beim-buergermeister` gemeinde-und-wahl, vereine-im-dorf; `das-vorstellungsgespraech`
-  vertrag-und-lohn, im-betrieb; `bei-der-neuen-hausaerztin` gesundheit-und-vorsorge, der-koerper; `ein-gebrauchtwagen`
-  mit-dem-auto, geld-und-bank; `ein-unfall-auf-der-piste` notfaelle, versicherungen; `florian-muss-sich-entscheiden`
-  landwirtschaft, in-den-bergen. Their words then come from the packs, and the supplement's entries for them stay as
-  the tap's second reading (or go, if the lead prefers one source).
+- **The B1/B2 packs** (done after the merge of the queue's tip, which holds packs-de): each talk names two of
+  packs-de's B1 or B2 packs beside its A1/A2 ones (at most six): `die-reklamation` kleidung, einkaufen;
+  `most-fuer-das-fest` geld-und-bank, das-leben; `termin-in-der-ordination` der-koerper, arbeit-und-beruf;
+  `nach-dem-unwetter` wetterbericht, reparaturen; `tante-mitzi-und-das-hoergeraet` gefuehle, alter-und-pflege (Hörgerät,
+  schwerhörig); `aushilfe-im-gasthaus` arbeit-und-beruf, kochen-und-backen; `beim-buergermeister` gemeinde-und-wahl,
+  vereine-im-dorf; `das-vorstellungsgespraech` arbeit-und-beruf, vertrag-und-lohn; `bei-der-neuen-hausaerztin`
+  gesundheit-und-vorsorge, der-koerper; `ein-gebrauchtwagen` mit-dem-auto (Pickerl, Winterreifen), geld-und-bank;
+  `ein-unfall-auf-der-piste` notfaelle, versicherungen; `florian-muss-sich-entscheiden` landwirtschaft, in-den-bergen.
+  The supplement's entries for words a pack now has stay as the tap's second reading. Jan's twelve got packs-sl's the
+  same way (talks-sl.md's list). Teo's twelve keep theirs: packs-it isn't in the queue's tip, so Italian has no B1 or B2
+  pack here yet; talks-it.md says which would fit.
 - No scene leads into the new talks yet ("keep talking" after a dialog): Stefan's Most on the market could lead into
   `most-fuer-das-fest`, Kathi's Gasthaus dialogs into `aushilfe-im-gasthaus` (at B1: talksOffered drops it below).
 - A doctor's practice, an office, a hotel and a ski slope have no stage place of their own: the shop, the mayor's
