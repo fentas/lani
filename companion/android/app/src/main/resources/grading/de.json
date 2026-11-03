@@ -68,7 +68,7 @@
   "loose": [],
   "loose_hint": "none",
   "drop_subject": false,
-  "_nonstandard_note": "nonstandard: what people say that writing doesn't want, where a unit's point is the word itself: almost, the standard form shown, one way only, no mistake recorded. weil for denn and trotzdem for obwohl; wie for als and wann for wenn (an item that lists them as spoken, als-waehrend's, has them right); täte for würde; Auf was for worauf, auf ihn for darauf for a thing; wer, was, nix for jemand, etwas, nichts. verb_second: the verb moved up behind the subject after weil and obwohl (weil er hat keine Zeit), every other word in its place. Not a worksheet item's spoken, which is right: COURSE.md, Spoken forms.",
+  "_nonstandard_note": "nonstandard: what people say that writing doesn't want, where a unit's point is the word itself: almost, the standard form shown, one way only, no mistake recorded. weil for denn and trotzdem for obwohl; wie for als and wann for wenn (an item that lists them as spoken, als-waehrend's, has them right); täte for würde; Auf was for worauf, auf ihn for darauf for a thing; wer, was, nix for jemand, etwas, nichts. verb_second: the verb moved up behind the subject after weil and obwohl (weil er hat keine Zeit), every other word in its place. Not a worksheet item's spoken, which is right: COURSE.md, Spoken forms. German B2: a weak noun with no -e and without its ending after den, dem and the like (den Mensch, dem Bub, dem Student, mit Herr Moser; Thieroff in Linguistik online 16 quoting Wahrig: colloquial, only on nouns ending in a consonant, so dem Kollegen stays wrong without its -n); dem Bauer, des Nachbars; Herren for Herrn and the other way (Duden: rarer).",
   "nonstandard": [
     {
       "word": "weil",
@@ -165,6 +165,149 @@
     {
       "word": "nix",
       "for": "nichts"
+    },
+    {
+      "word": "mensch",
+      "for": "menschen",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "baer",
+      "for": "baeren",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "bub",
+      "for": "buben",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "bursch",
+      "for": "burschen",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "held",
+      "for": "helden",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "fuerst",
+      "for": "fuersten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "graf",
+      "for": "grafen",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "prinz",
+      "for": "prinzen",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "hirt",
+      "for": "hirten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "ochs",
+      "for": "ochsen",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "student",
+      "for": "studenten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "praesident",
+      "for": "praesidenten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "tourist",
+      "for": "touristen",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "polizist",
+      "for": "polizisten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "journalist",
+      "for": "journalisten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "soldat",
+      "for": "soldaten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "fotograf",
+      "for": "fotografen",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "architekt",
+      "for": "architekten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "automat",
+      "for": "automaten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "patient",
+      "for": "patienten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "pilot",
+      "for": "piloten",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "bauer",
+      "for": "bauern",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "nachbar",
+      "for": "nachbarn",
+      "after": "(?<!\\p{L})(?:den|dem|einen|einem|meinen|meinem|deinen|deinem|seinen|seinem|ihren|ihrem|unseren|unserem|euren|eurem|keinen|keinem|diesen|diesem|jeden|jedem|beim|zum|vom|am|im)(?:\\s+\\p{L}+)?\\s*$"
+    },
+    {
+      "word": "herr",
+      "for": "herrn"
+    },
+    {
+      "word": "herren",
+      "for": "herrn"
+    },
+    {
+      "word": "herrn",
+      "for": "herren"
+    },
+    {
+      "word": "bauers",
+      "for": "bauern"
+    },
+    {
+      "word": "nachbars",
+      "for": "nachbarn"
+    },
+    {
+      "word": "bubs",
+      "for": "buben"
+    },
+    {
+      "word": "baers",
+      "for": "baeren"
     },
     {
       "word": "ist|waere",
@@ -743,6 +886,22 @@
     {
       "word": "(?:der|den|dem|des|die|das)selbe[nrs]?",
       "for": "(?:der|den|dem|des|die|das)selbe[nrs]?"
+    },
+    {
+      "word": "\\p{L}+keit",
+      "for": "\\p{L}+heit"
+    },
+    {
+      "word": "\\p{L}+heit",
+      "for": "\\p{L}+keit"
+    },
+    {
+      "word": "(?:spiel|wein|bell|lach|sing|koch|summ|schlaf|blueh|glueh|steig|komm|folg|spann|dring|sitz|steh|wart|wohn|arbeit|mahl|back|schliess|reparier|fall)ene[nmrs]?",
+      "for": "(?:spiel|wein|bell|lach|sing|koch|summ|schlaf|blueh|glueh|steig|komm|folg|spann|dring|sitz|steh|wart|wohn|arbeit|mahl|back|schliess|reparier|fall)ende[nmrs]?"
+    },
+    {
+      "word": "(?:backene|mahlene|schlossene|fallene|presste|fuellte|sammelte|kochte|plante|kaufte|suchte)[nmrs]?",
+      "for": "ge(?:backene|mahlene|schlossene|fallene|presste|fuellte|sammelte|kochte|plante|kaufte|suchte)[nmrs]?"
     },
     {
       "word": "w(?:u|e)rden",

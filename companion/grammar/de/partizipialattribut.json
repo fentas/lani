@@ -1,0 +1,235 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "partizipialattribut",
+  "language": "de",
+  "level": "B2",
+  "emoji": "📰",
+  "title": {
+    "de": "Das von Oma gebackene Brot: das Partizipialattribut",
+    "en": "Das von Oma gebackene Brot: long attributes",
+    "sl": "Das von Oma gebackene Brot: daljši prilastki",
+    "it": "Das von Oma gebackene Brot: gli attributi lunghi"
+  },
+  "rule": {
+    "en": "Written German can put a whole clause between the article and its noun: **das von Oma gebackene Brot** = das Brot, das Oma gebacken hat. You'll read it in notices, in the paper, in letters; in speech people use the relative clause.\n\n**To read it:** the article waits for its noun: **die** … **Äpfel**. The word right before the noun is the participle: **gesammelten**. Everything between belongs to it: die **gestern** gesammelten Äpfel.\n\n**What goes in the relative clause:**\n- **Partizip I**: the same time, mostly the present. der am Bach stehende Mann = der Mann, **der am Bach steht**.\n- **Partizip II** of a verb with haben: wurde, or hat with who did it; ist for a state. der von Toni reparierte Traktor = der Traktor, **der von Toni repariert wurde**, **den Toni repariert hat**. von names who did it.\n- **Partizip II** of a verb with sein: ist. der gestern angekommene Gast = der Gast, **der gestern angekommen ist**.\n\n**The way back:** take away the comma and the pronoun, put the participle right before the noun with the ending the article asks for, and the rest between them: **die für Samstag geplante Feier**.",
+    "sl": "Pisna nemščina lahko postavi cel stavek med člen in samostalnik: **das von Oma gebackene Brot** = das Brot, das Oma gebacken hat. Bereš ga v obvestilih, v časopisu, v pismih; v govoru ljudje uporabljajo oziralni stavek.\n\n**Kako ga prebrati:** člen čaka na svoj samostalnik: **die** … **Äpfel**. Beseda tik pred samostalnikom je deležnik: **gesammelten**. Vse vmes spada k njemu: die **gestern** gesammelten Äpfel.\n\n**Kaj gre v oziralni stavek:**\n- **Partizip I**: isti čas, navadno sedanjik. der am Bach stehende Mann = der Mann, **der am Bach steht**.\n- **Partizip II** glagola s haben: wurde ali hat s tem, kdo je to naredil; ist za stanje. der von Toni reparierte Traktor = der Traktor, **der von Toni repariert wurde**, **den Toni repariert hat**. von pove, kdo je to naredil.\n- **Partizip II** glagola s sein: ist. der gestern angekommene Gast = der Gast, **der gestern angekommen ist**.\n\n**Pot nazaj:** odstrani vejico in zaimek, deležnik postavi tik pred samostalnik s končnico, ki jo zahteva člen, drugo pa vmes: **die für Samstag geplante Feier**.",
+    "it": "Il tedesco scritto può mettere un'intera frase tra l'articolo e il suo nome: **das von Oma gebackene Brot** = das Brot, das Oma gebacken hat. Lo leggi negli avvisi, sul giornale, nelle lettere; a voce si usa la frase relativa.\n\n**Per leggerlo:** l'articolo aspetta il suo nome: **die** … **Äpfel**. La parola subito prima del nome è il participio: **gesammelten**. Tutto ciò che sta in mezzo gli appartiene: die **gestern** gesammelten Äpfel.\n\n**Che cosa va nella frase relativa:**\n- **Partizip I**: lo stesso tempo, di solito il presente. der am Bach stehende Mann = der Mann, **der am Bach steht**.\n- **Partizip II** di un verbo con haben: wurde, oppure hat con chi l'ha fatto; ist per uno stato. der von Toni reparierte Traktor = der Traktor, **der von Toni repariert wurde**, **den Toni repariert hat**. von dice chi l'ha fatto.\n- **Partizip II** di un verbo con sein: ist. der gestern angekommene Gast = der Gast, **der gestern angekommen ist**.\n\n**La strada inversa:** togli la virgola e il pronome, metti il participio subito prima del nome con la desinenza voluta dall'articolo, e il resto in mezzo: **die für Samstag geplante Feier**."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "das Attribut",
+        "en": "the attribute",
+        "sl": "prilastek",
+        "it": "l'attributo"
+      },
+      {
+        "de": "der Relativsatz",
+        "en": "the relative clause",
+        "sl": "oziralni stavek",
+        "it": "la frase relativa"
+      }
+    ],
+    "rows": [
+      [
+        "das von Oma gebackene Brot",
+        "das Brot, das Oma gebacken hat"
+      ],
+      [
+        "die gestern gesammelten Äpfel",
+        "die Äpfel, die gestern gesammelt wurden"
+      ],
+      [
+        "der am Bach stehende Mann",
+        "der Mann, der am Bach steht"
+      ],
+      [
+        "die im Hof spielenden Kinder",
+        "die Kinder, die im Hof spielen"
+      ],
+      [
+        "der von Toni reparierte Traktor",
+        "der Traktor, der von Toni repariert wurde"
+      ],
+      [
+        "der gestern angekommene Gast",
+        "der Gast, der gestern angekommen ist"
+      ],
+      [
+        "die für Samstag geplante Feier",
+        "die Feier, die für Samstag geplant ist"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das von Oma gebackene Brot schmeckt gut.",
+      "en": "The bread Granny baked tastes good.",
+      "sl": "Kruh, ki ga je spekla babica, je dober.",
+      "it": "Il pane fatto dalla nonna è buono.",
+      "note": {
+        "en": "von names who did it.",
+        "sl": "von pove, kdo je to naredil.",
+        "it": "von dice chi l'ha fatto."
+      }
+    },
+    {
+      "de": "Die gestern gesammelten Äpfel liegen im Keller.",
+      "en": "The apples gathered yesterday are in the cellar.",
+      "sl": "Jabolka, ki so jih nabrali včeraj, so v kleti.",
+      "it": "Le mele raccolte ieri sono in cantina.",
+      "note": {
+        "en": "die … Äpfel: the article waits.",
+        "sl": "die … Äpfel: člen čaka.",
+        "it": "die … Äpfel: l'articolo aspetta."
+      }
+    },
+    {
+      "de": "Der am Bach stehende Mann ist Florian.",
+      "en": "The man standing by the stream is Florian.",
+      "sl": "Moški, ki stoji ob potoku, je Florian.",
+      "it": "L'uomo in piedi vicino al ruscello è Florian.",
+      "note": {
+        "en": "Partizip I: he is standing now.",
+        "sl": "Partizip I: zdaj stoji.",
+        "it": "Partizip I: sta in piedi ora."
+      }
+    },
+    {
+      "de": "Die im Hof spielenden Kinder sind laut.",
+      "en": "The children playing in the yard are noisy.",
+      "sl": "Otroci, ki se igrajo na dvorišču, so glasni.",
+      "it": "I bambini che giocano in cortile sono rumorosi.",
+      "note": {
+        "en": "The plural after die: -en.",
+        "sl": "Množina za die: -en.",
+        "it": "Il plurale dopo die: -en."
+      }
+    },
+    {
+      "de": "Der von Toni reparierte Traktor fährt wieder.",
+      "en": "The tractor Toni repaired is running again.",
+      "sl": "Traktor, ki ga je popravil Toni, spet vozi.",
+      "it": "Il trattore riparato da Toni funziona di nuovo.",
+      "note": {
+        "en": "Partizip II with haben: it was done.",
+        "sl": "Partizip II s haben: to so naredili.",
+        "it": "Partizip II con haben: è stato fatto."
+      }
+    },
+    {
+      "de": "Der gestern angekommene Gast schläft noch.",
+      "en": "The guest who arrived yesterday is still asleep.",
+      "sl": "Gost, ki je prišel včeraj, še spi.",
+      "it": "L'ospite arrivato ieri dorme ancora.",
+      "note": {
+        "en": "Partizip II with sein: it happened.",
+        "sl": "Partizip II s sein: zgodilo se je.",
+        "it": "Partizip II con sein: è successo."
+      }
+    },
+    {
+      "de": "Die für Samstag geplante Feier beginnt um zehn.",
+      "en": "The party planned for Saturday starts at ten.",
+      "sl": "Slavje, načrtovano za soboto, se začne ob desetih.",
+      "it": "La festa prevista per sabato comincia alle dieci.",
+      "note": {
+        "en": "As a notice says it.",
+        "sl": "Kot pove obvestilo.",
+        "it": "Come dice un avviso."
+      }
+    },
+    {
+      "de": "Die Kundmachung richtet sich an alle im Dorf wohnenden Familien.",
+      "en": "The notice is for all the families living in the village.",
+      "sl": "Obvestilo je namenjeno vsem družinam, ki živijo v vasi.",
+      "it": "L'avviso è per tutte le famiglie che abitano nel paese.",
+      "note": {
+        "en": "die Kundmachung: Austria's word.",
+        "sl": "die Kundmachung: avstrijska beseda.",
+        "it": "die Kundmachung: la parola austriaca."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "participial-attribute",
+    "long-attribute",
+    "reading"
+  ],
+  "see": [
+    "partizip-adjektiv",
+    "relativsatz",
+    "partizip-zwei",
+    "passiv",
+    "adjektiv-tabelle"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: Kundmachung; each base",
+  "card": {
+    "title": {
+      "de": "Das von Oma gebackene Brot",
+      "en": "Das von Oma gebackene Brot",
+      "sl": "Das von Oma gebackene Brot",
+      "it": "Das von Oma gebackene Brot"
+    },
+    "rule": {
+      "en": "The article waits for its noun; right before it, the participle; between them, what belongs to it. **Partizip I**: mostly the present (**der Mann, der am Bach steht**). **Partizip II**: wurde or hat (**der Traktor, der repariert wurde**); with a sein verb, ist.",
+      "sl": "Člen čaka na svoj samostalnik; tik pred njim je deležnik; vmes, kar spada k njemu. **Partizip I**: navadno sedanjik (**der Mann, der am Bach steht**). **Partizip II**: wurde ali hat (**der Traktor, der repariert wurde**); pri glagolu s sein ist.",
+      "it": "L'articolo aspetta il suo nome; subito prima c'è il participio; in mezzo, ciò che gli appartiene. **Partizip I**: di solito il presente (**der Mann, der am Bach steht**). **Partizip II**: wurde o hat (**der Traktor, der repariert wurde**); con un verbo con sein, ist."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "das Attribut",
+          "en": "the attribute",
+          "sl": "prilastek",
+          "it": "l'attributo"
+        },
+        {
+          "de": "der Relativsatz",
+          "en": "the relative clause",
+          "sl": "oziralni stavek",
+          "it": "la frase relativa"
+        }
+      ],
+      "rows": [
+        [
+          "das von Oma gebackene Brot",
+          "das Brot, das Oma gebacken hat"
+        ],
+        [
+          "der am Bach stehende Mann",
+          "der Mann, der am Bach steht"
+        ],
+        [
+          "der von Toni reparierte Traktor",
+          "der Traktor, der von Toni repariert wurde"
+        ],
+        [
+          "der gestern angekommene Gast",
+          "der Gast, der gestern angekommen ist"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Der am Bach stehende Mann ist Florian.",
+        "en": "The man standing by the stream is Florian.",
+        "sl": "Moški, ki stoji ob potoku, je Florian.",
+        "it": "L'uomo in piedi vicino al ruscello è Florian."
+      },
+      {
+        "de": "Der von Toni reparierte Traktor fährt wieder.",
+        "en": "The tractor Toni repaired is running again.",
+        "sl": "Traktor, ki ga je popravil Toni, spet vozi.",
+        "it": "Il trattore riparato da Toni funziona di nuovo."
+      }
+    ],
+    "tip": {
+      "en": "💡 Reading is enough: in speech, use the relative clause.",
+      "sl": "💡 Dovolj je, da ga prebereš: v govoru uporabi oziralni stavek.",
+      "it": "💡 Basta saperlo leggere: a voce, usa la frase relativa."
+    }
+  }
+}
