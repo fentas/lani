@@ -1508,7 +1508,10 @@ cheat sheet (`CheatSheetController.met`); a sheet of the unit opened first meets
 stage. The school's four types (COURSE.md): a **gap text** (the text with a field in each gap, a word bank to tap in, all
 checked at once, each gap marked right / almost / wrong with its correction and why under the text, the translation
 after), a **table** (cells to fill by person and number, or by case), a **transform list** (each line written whole),
-a **sort** (a word, then its column). Help is always there: **📋** in the run's top bar opens the cheat sheet ("The
+a **sort** (a word, then its column); from B1 also **speaking** (said aloud or an answer to the teacher, through the
+recognizer) and **writing** (a short text checked at once by what it must use, then read by the tutor: COURSE.md
+"Speaking and writing"; a child says it first, and in a test a speaking item rated without a microphone doesn't count).
+Help is always there: **📋** in the run's top bar opens the cheat sheet ("The
 cheat sheet") over the sheet, without leaving it, the exercise's own card first, then the unit's (its pages are met by
 the intro, or when a sheet of it opens; the items answered after it opened are right with help: full pay, the tutor
 told), and a table's "📖 Tabela v knjigi" opens its page in the book; the sheet's

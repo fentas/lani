@@ -1114,7 +1114,7 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `GET` | `/grammar` | the grammar book of the village's language: the curated pages (`companion/grammar/<language>/`, `LANI_GRAMMAR_DIR` for another root) with what the tutor added to them (`extended`), then the tutor's own pages (`<data>/app/grammar/`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's (see [Grammar book](#grammar-book)) |
 | `GET` | `/cards` | the cheat sheet's cards no grammar page fits: the curated ones (`companion/cards/<language>/`, `LANI_CARDS_DIR` for another root), then the tutor's (`<data>/app/cards/`, `publish_card`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's; `GET /cards/<id>` one (see [Cheat sheet](#cheat-sheet)) |
 | `GET` | `/grammar/:id` | one page |
-| `GET` | `/course` | the school's course of the village's language (see [The school's course](#the-schools-course)): `{schema: "lani.course/v0", language, levels: [{level, units: [{id, title, planned, grammar}]}], units: [<lani.unit/v0> + homework: [<lani.worksheet/v0> + source: "tutor", published_at]], machine_written, review?}`; `404` `{error: "no course"}` when the language has none |
+| `GET` | `/course` | the school's course of the village's language (see [The school's course](#the-schools-course)): `{schema: "lani.course/v0", language, levels: [{level, units: [{id, title, planned, grammar}]}], units: [<lani.unit/v0> + homework: [<lani.worksheet/v0> + source: "tutor", published_at]], machine_written, review?}`; `404` `{error: "no course"}` when the language has none. `?types=2`: speaking and writing too; without it (an older app) the units without them, a sheet of only them left out |
 | `GET` | `/course/sheet/:unit` | a unit's printed sheet, a page to print ([COURSE.md](COURSE.md#in-the-app)): `text/html`, the generator's own (`companion/prints/build.ts`) with its CSS, fonts and `fit.js` inlined, for the learner's base language, name and gender (`?base=en\|de\|it`, `?learner=`, `?gender=m\|f\|both` say otherwise; `400` for another); headers `x-lani-print-name` (`01-biti`) and `x-lani-print-units`; `404` for a planned or unknown unit. Kept until the course, the grammar book, the packs, the dictionary or the print's own files change |
 | `GET` | `/course/booklet/:level` | the level's booklet the same way: the cover, the contents with page numbers, every unit (`lani-sl-A1-en`); `404` for a level without units |
 | `GET` | `/drills` | the car's audio drills of the village's language (`companion/drills/<language>/`, `LANI_DRILLS_DIR` for another root), each with `source: "curated"` (see [The drills](#the-drills)); an older bridge answers 404 and the app plays its own copy |
@@ -2275,8 +2275,22 @@ QA: `companion/bin/qa --steps cases` (on a synthetic learner: LANI_DEV_DATA). Te
 
 The school teaches the language level by level (A1, A2, B1, B2): each level an ordered list of units, each unit a guided
 introduction with a quick question after each step, two to four worksheets and a test. The format, the school's own
-exercise types (`gaptext`, `table`, `transform`, `sort`) and how to write a unit are in [COURSE.md](COURSE.md); how it
-fits the game (the class from the hamlet on, the school, the gates) in [GAME.md](GAME.md#the-school).
+exercise types (`gaptext`, `table`, `transform`, `sort`, and `speaking` and `writing`) and how to write a unit are in
+[COURSE.md](COURSE.md); how it fits the game (the class from the hamlet on, the school, the gates) in
+[GAME.md](GAME.md#the-school).
+
+**Speaking and writing in a unit** ([COURSE.md](COURSE.md#speaking-and-writing), docs/plans/05-built/lesson-production.md).
+A speaking item (`ui/school/ProductionExercises.kt` `SpeakingEx`) plays as a module's speak exercise with the teacher's
+question in her bubble and voice; its takes are graded by the item (`data/Production.kt`: a form people say right aloud,
+the grading table's nonstandard too, a recognizer's *u vasi* the standard, an open answer by what it must use). A writing
+item (`WritingEx`) shows what the text must use (ticked as it is met on a worksheet, a list in the test), checks it at
+once by its rules on "Preveri · Check", then the checks, a model text and the tutor's feedback, which comes as the reply
+to an `answer` (conversation `exw…`), under the text and into the chat, offline from the outbox: nothing waits for it.
+A child says a writing item first. In a test a speaking item rated by the learner (no microphone) doesn't count. The app
+asks `GET /course?types=2`; an older app gets the units without them (`heldBack`). The printed sheet has "Povej in
+napiši · Speak and write". Tests: `ProductionTest`, `SheetCountTest`; the smoke's `production` (the rules' fixture
+`bridge/test/fixtures/production-rules.json`, the refusals, what an older app gets, the print, the voice, every item of
+the course).
 
 **Served** (`bridge/src/course.ts`, `GET /course`): the outline `companion/course/<language>/course.json` and its units
 `companion/course/<language>/units/<id>.json` (`LANI_COURSE_DIR` for another root), read per request like the grammar
