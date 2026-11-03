@@ -11,6 +11,7 @@ import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.GrammarPage
 import si.lanisce.lani.data.json
 import si.lanisce.lani.game.scene.Counts
+import si.lanisce.lani.game.scene.DialogLevels
 import si.lanisce.lani.game.scene.DialogLine
 import si.lanisce.lani.game.scene.parseScene
 import java.io.File
@@ -25,12 +26,15 @@ class IntroductionContentTest {
     private val pages = Grammar.bundled("sl")
     private val byId = pages.associateBy { it.id }
 
-    /** Every learner's turn of the Slovene scenes (a counting dialog once, at twelve), by where it is. */
-    private fun curatedTurns(): List<Pair<String, DialogLine>> {
+    /**
+     * Every learner's turn of the Slovene scenes (a counting dialog once, at twelve), by where it is; with [level], those a
+     * learner at it meets (companion/SCENES.md, "Dialogs by level": no B2 dialog for a B1 learner).
+     */
+    private fun curatedTurns(level: String? = null): List<Pair<String, DialogLine>> {
         val root = listOf(File("../.."), File(".."), File("companion")).first { File(it, "scenes").isDirectory }
         val files = File(root, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList() +
             File(root, "cultures").listFiles().orEmpty().flatMap { File(it, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList() }
-        return files.map { parseScene(it.readText()) }.filter { it.language == "sl" }.flatMap { s ->
+        return files.map { parseScene(it.readText()) }.filter { it.language == "sl" }.map { s -> level?.let { DialogLevels.forLearner(s, it) } ?: s }.flatMap { s ->
             s.dialogs.flatMap { d ->
                 val played = if (d.count != null) Counts.render(d, 12, "sl") else d
                 played.lines.filter { it.choices.size >= 2 }.map { "${s.id}/${d.id}" to it }
@@ -79,9 +83,10 @@ class IntroductionContentTest {
 
     @Test fun `a fresh A1 learner meets the rules above A1 without being asked for them, and a B1 learner is asked for all`() {
         val turns = curatedTurns()
-        val a1 = tally(turns, fresh("A1"))
-        val a2 = tally(turns, fresh("A2"))
-        val b1 = tally(turns, fresh("B1"))
+        // what each meets: a learner never meets a dialog above their level (DialogLevels)
+        val a1 = tally(curatedTurns("A1"), fresh("A1"))
+        val a2 = tally(curatedTurns("A2"), fresh("A2"))
+        val b1 = tally(curatedTurns("B1"), fresh("B1"))
         println("fresh A1: $a1")
         println("fresh A2: $a2")
         println("fresh B1: $b1")
@@ -89,7 +94,7 @@ class IntroductionContentTest {
         // the A2 rules the A1 scenes use (the dative, the instrumental …) are not asked for at A1
         assertTrue("A1 gated: ${a1.gated}", a1.gated > 50)
         assertTrue(a1.byRule.keys.all { byId[it]?.level != "A1" })
-        // fewer at A2, none at B1 (the book's pages go up to B1)
+        // fewer at A2, none at B1 (the dialogs a B1 learner meets name pages up to B1; a B2 dialog's B2 pages are a B2 learner's)
         assertTrue(a2.gated < a1.gated)
         assertEquals(0, b1.gated)
         // an echo keeps nothing wrong to choose, a trimmed turn something about meaning: never a wall
