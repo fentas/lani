@@ -3938,8 +3938,8 @@ others; the rest wait for the next. `card.py show` tells how the app asks one.
 
 "🔢 Števila · Numbers" (Jan: "Do we learn numbers in school at some point? Would be nice: a separate test module."): a
 practice module of the numbers themselves, beside the counting cards (which count a noun). Its rules are
-`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene and Italian so far; what follows
-is Slovene's, Italian's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
+`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene, Italian and English so far; what follows
+is Slovene's, Italian's and English's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
 screen, the run, the number pad: `NumeralEx.kt`), the rest `app/NumbersController.kt`.
 
 **Where it opens.** The intro of the A1 unit `stevila` opens it (finished, or skipped as known: as for counting cards),
@@ -4020,8 +4020,20 @@ ventitré, ventotto, centotré, duemilaventisei); the tens come first, so 72 typ
 quindici; il primo, l'otto, l'undici), so `numbers_ordinal_date` is a date's day there. A clock time is alle + the hour
 (alle cinque, all'una; "le cinque" and "cinque" are right too, at 12 a mezzogiorno and a mezzanotte); half past counts from the hour that is there, so 4:30 typed
 for "alle cinque e mezza" and "alle sei e mezza" written for 5:30 are `numbers_clock_time_half`, German's "halb" counted
-into Italian. A language without a `NumberTongue` (German and English so far) has no tile and no module. `NumbersItalianTest`
-holds its table; QA's step `practice-it`.
+into Italian. `NumbersItalianTest` holds its table; QA's step `practice-it`.
+
+**In English** (British; docs/plans/05-built/practice-en.md; `data/EnglishNumbers.kt`) the unit `numbers`'s intro opens it,
+`time`'s brings the dates and the clock (page `time-dates`). The tens come first with a hyphen (`SpokenNumbers.english`:
+twenty-seven, one hundred and five, two thousand and twenty-six), so 72 typed for twenty-seven and "seven twenty" are
+`numbers_order`, as German and Slovene say the ones first; a hyphen left out is right, the words joined almost; "a hundred",
+the American without "and" (one hundred five) and a year in pairs (twenty twenty-six, nineteen oh five) are right. Forty
+without its u is wrong, as the grading table has it ("fourty"). A date takes the ordinal ("Today is the ___ of May. (15th)" →
+fifteenth; the fifteenth of May, May the fifteenth right too), and a regular ordinal where English has its own ("fiveth",
+"nineth", "twelveth", "twentyth") is wrong, not a slip. A clock time is at + the hour (at five; five o'clock, at noon, at
+midday right too); half past counts from the hour that is there, so 4:30 typed for "at half past five" and "half six" or
+"half past six" written for 5:30 are `numbers_clock_time_half`, German's "halb" and Slovene's "pol" counted into English;
+"half five" (British speech) and "five thirty" are right. A language without a `NumberTongue` (German so far) has no tile
+and no module. `NumbersEnglishTest` holds its table; QA's step `practice-en`.
 
 ### The case lens
 

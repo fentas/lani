@@ -213,4 +213,68 @@ object SpokenNumbers {
             if (n % 100 == 0) head else "$head and ${en(n % 100)}"
         }
     }
+
+    /** The largest number [english] writes out. */
+    const val EN_MAX = 999_999
+
+    /**
+     * [n] (0 … [EN_MAX]) in British English words as it is counted: the tens first with a hyphen (twenty-seven), "and" after
+     * the hundreds and before what is left under a hundred (one hundred and five, two thousand and twenty-six, one thousand
+     * two hundred and thirty-four). The numbers module's words ([NumberTongue.EN]); speech keeps to 0 … 999 ([forms]).
+     */
+    fun english(n: Int): String {
+        require(n in 0..EN_MAX) { "$n is outside 0 … $EN_MAX" }
+        if (n < 1000) return en(n)
+        val head = en(n / 1000) + " thousand"
+        val low = n % 1000
+        return when {
+            low == 0 -> head
+            low < 100 -> "$head and ${en(low)}"
+            else -> "$head ${en(low)}"
+        }
+    }
+
+    /**
+     * The other English words a bare [n] is right as, never another number's: "a hundred", "a thousand" for the one at the
+     * front; the American without "and" (one hundred five, two thousand twenty-six); a year said in pairs, 1000 … 9999
+     * (nineteen fifty, twenty twenty-six, nineteen oh five, nineteen hundred). A hyphen left out is the same answer
+     * already (grading/en.json's "same").
+     */
+    fun englishAlso(n: Int): List<String> {
+        if (n < 100) return emptyList()
+        val word = english(n)
+        return buildList {
+            if (n in 100..199) add("a" + word.removePrefix("one"))
+            if (n in 1000..1999) add("a" + word.removePrefix("one"))
+            if (" and " in word) {
+                val american = word.replace(" and ", " ")
+                add(american)
+                if (n in 100..199 || n in 1000..1999) add("a" + american.removePrefix("one"))
+            }
+            if (n in 1000..9999) {
+                val hi = n / 100
+                val lo = n % 100
+                when {
+                    lo == 0 -> if (hi % 10 != 0) add("${en(hi)} hundred")
+                    lo < 10 -> add("${en(hi)} oh ${en(lo)}")
+                    else -> add("${en(hi)} ${en(lo)}")
+                }
+            }
+        }.distinct().filter { it != word }
+    }
+
+    private val EN_ORDINALS = mapOf(1 to "first", 2 to "second", 3 to "third", 5 to "fifth", 8 to "eighth", 9 to "ninth", 12 to "twelfth")
+
+    /**
+     * [n] (1 … 99) as an English ordinal, as a date says it ("the fifteenth of May"): first, second, third, fifth, eighth,
+     * ninth, twelfth are their own; the tens' -ty turns -tieth (twentieth); the rest the number and -th; in a compound only
+     * the last part turns (twenty-first, thirty-eighth).
+     */
+    fun englishOrdinal(n: Int): String {
+        require(n in 1..99) { "$n is outside 1 … 99" }
+        EN_ORDINALS[n]?.let { return it }
+        if (n < 20) return en(n) + "th"
+        val ones = n % 10
+        return if (ones == 0) en(n).dropLast(1) + "ieth" else "${EN_TENS[n / 10]}-${englishOrdinal(ones)}"
+    }
 }
