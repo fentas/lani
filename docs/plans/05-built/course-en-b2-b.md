@@ -114,7 +114,6 @@ Parts a and b run these; the whole Android suite is part c's and the gate's, so 
 - Finishing the hay, we went to the inn stays accepted: the reader wanted it wrong because -ing says "at the same time", but right English shouldn't be marked wrong (Finishing his coffee, he stood up).
 - has gotten keeps no label: COURSE.md lists American forms in `accept`.
 - so is Sam, neither is Harry aren't listed: the instruction now names both, neither, either or none.
-- "Oma Maggie" in German is new here: **the rest of the course's German, as far as I read it, has Granny Maggie.** Say which should stay.
 - "Mož" and "pisava" stay in B1's pages and units, because this part doesn't touch them.
 
 ## QA
