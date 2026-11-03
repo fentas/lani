@@ -554,7 +554,7 @@
       "forms": { "pasticceria": "singular" },
       "meanings": { "de": ["Konditorei"], "sl": ["slaščičarna"] } },
     { "lemma": "paura", "pos": "noun", "gender": "f", "gloss": ["fear (avere paura: to be afraid)"],
-      "forms": { "paura": "singular" },
+      "forms": { "paura": "singular", "paure": "plural" },
       "meanings": { "de": ["Angst (avere paura: Angst haben)"], "sl": ["strah (avere paura: bati se)"] } },
     { "lemma": "pazienza", "pos": "noun", "gender": "f", "gloss": ["patience"],
       "forms": { "pazienza": "singular" },
@@ -629,7 +629,7 @@
       "forms": { "palloncino": "singular", "palloncini": "plural" },
       "meanings": { "de": ["Luftballon"], "sl": ["balon"] } },
     { "lemma": "attento", "pos": "adj", "gloss": ["careful (stai attento!: be careful!)"],
-      "forms": { "attento": "masculine singular", "attenta": "feminine singular", "attenti": "masculine plural" },
+      "forms": { "attento": "masculine singular", "attenta": "feminine singular", "attenti": "masculine plural", "attente": "feminine plural" },
       "meanings": { "de": ["vorsichtig (stai attento!: pass auf!)"], "sl": ["pazljiv (stai attento!: pazi!)"] } },
     { "lemma": "azzurro", "pos": "adj", "gloss": ["light blue, sky blue"],
       "forms": { "azzurro": "masculine singular", "azzurra": "feminine singular", "azzurre": "feminine plural" },
@@ -903,7 +903,8 @@
       "forms": {
         "dimentico": "first-person singular present", "dimentica": "third-person singular present; second-person singular imperative",
         "dimenticare": "infinitive", "dimenticato": "past participle",
-        "dimentichi": "second-person singular present; first/second/third-person singular present subjunctive", "dimenticherò": "first-person singular future"
+        "dimentichi": "second-person singular present; first/second/third-person singular present subjunctive", "dimenticherò": "first-person singular future",
+        "dimenticarsi": "infinitive, with si (oneself)"
       },
       "meanings": { "de": ["vergessen"], "sl": ["pozabiti"] } },
     { "lemma": "dire", "pos": "verb", "gloss": ["to say, to tell"],
@@ -924,7 +925,8 @@
         "dica": "first/second/third-person singular present subjunctive", "diciate": "second-person plural present subjunctive",
         "dicessi": "first/second-person singular imperfect subjunctive", "dicesse": "third-person singular imperfect subjunctive",
         "dicessimo": "first-person plural imperfect subjunctive", "dicessero": "third-person plural imperfect subjunctive",
-        "detti": "masculine plural past participle", "dirli": "infinitive, with li (them)", "dirmelo": "infinitive, with me lo (it to me)"
+        "detta": "feminine singular past participle", "detti": "masculine plural past participle", "dirli": "infinitive, with li (them)",
+        "dirmelo": "infinitive, with me lo (it to me)", "dirtelo": "infinitive, with te lo (it to you)"
       },
       "meanings": { "de": ["sagen", "sagen (dimmi: sag mir)"], "sl": ["reči, povedati", "reči, povedati (dimmi: povej mi)"] } },
     { "lemma": "divertirsi", "pos": "verb", "gloss": ["to have fun"],
@@ -1612,9 +1614,9 @@
         "aiutava": "third-person singular imperfect", "aiutavano": "third-person plural imperfect", "aiuterei": "first-person singular conditional",
         "aiuterebbe": "third-person singular conditional", "aiutare": "infinitive", "aiutato": "past participle", "aiutarmi": "infinitive, with mi (me)",
         "aiutarti": "infinitive, with ti (you)", "aiutarla": "infinitive, with la (it, her)", "aiutarci": "infinitive, with ci (us; there)",
-        "aiutami": "second-person singular imperative, with mi (me)", "aiutalo": "second-person singular imperative, with lo (it, him)",
-        "aiutala": "second-person singular imperative, with la (it, her)", "aiutiamolo": "first-person plural imperative, with lo (it, him)",
-        "aiutatemi": "second-person plural imperative, with mi (me)"
+        "aiutarsi": "infinitive, with si (oneself)", "aiutami": "second-person singular imperative, with mi (me)",
+        "aiutalo": "second-person singular imperative, with lo (it, him)", "aiutala": "second-person singular imperative, with la (it, her)",
+        "aiutiamolo": "first-person plural imperative, with lo (it, him)", "aiutatemi": "second-person plural imperative, with mi (me)"
       },
       "meanings": { "de": ["helfen"], "sl": ["pomagati"] } },
     { "lemma": "vedere", "pos": "verb", "gloss": ["to see"],
@@ -3031,7 +3033,7 @@
       "forms": { "campanaccio": "singular", "campanacci": "plural" },
       "meanings": { "de": ["Kuhglocke"], "sl": ["kravji zvonec"] } },
     { "lemma": "campione", "pos": "noun", "gender": "m", "gloss": ["champion"],
-      "forms": { "campione": "singular", "campionessa": "feminine singular" },
+      "forms": { "campione": "singular", "campioni": "plural", "campionessa": "feminine singular" },
       "meanings": { "de": ["Sieger, Siegerin, Meister"], "sl": ["prvak, prvakinja"] } },
     { "lemma": "candito", "pos": "noun", "gender": "m", "gloss": ["candied fruit (i canditi)"],
       "forms": { "candito": "singular", "canditi": "plural" },
@@ -3133,7 +3135,7 @@
       "forms": { "commercialista": "singular" },
       "meanings": { "de": ["Steuerberater"], "sl": ["računovodja"] } },
     { "lemma": "compagno", "pos": "noun", "gender": "m", "gloss": ["classmate, companion"],
-      "forms": { "compagno": "singular", "compagna": "feminine singular" },
+      "forms": { "compagno": "singular", "compagni": "plural", "compagna": "feminine singular" },
       "meanings": { "de": ["Schulfreund, Kamerad"], "sl": ["sošolec, sošolka, tovariš"] } },
     { "lemma": "compagnia", "pos": "noun", "gender": "f", "gloss": ["company (grazie della compagnia)"],
       "forms": { "compagnia": "singular" },
@@ -3382,7 +3384,7 @@
       "forms": { "firma": "singular" },
       "meanings": { "de": ["Unterschrift"], "sl": ["podpis"] } },
     { "lemma": "fischietto", "pos": "noun", "gender": "m", "gloss": ["whistle – you blow it"],
-      "forms": { "fischietto": "singular" },
+      "forms": { "fischietto": "singular", "fischietti": "plural" },
       "meanings": { "de": ["Pfeife, Trillerpfeife"], "sl": ["piščalka"] } },
     { "lemma": "fischio", "pos": "noun", "gender": "m", "gloss": ["whistle – the sound"],
       "forms": { "fischio": "singular", "fischi": "plural" },
@@ -3490,7 +3492,7 @@
       "forms": { "gioco": "singular", "giochi": "plural" },
       "meanings": { "de": ["Spiel"], "sl": ["igra"] } },
     { "lemma": "gioia", "pos": "noun", "gender": "f", "gloss": ["joy"],
-      "forms": { "gioia": "singular" },
+      "forms": { "gioia": "singular", "gioie": "plural" },
       "meanings": { "de": ["Freude"], "sl": ["veselje"] } },
     { "lemma": "giovedì", "pos": "noun", "gender": "m", "gloss": ["Thursday"],
       "forms": { "giovedì": "singular; plural" },
@@ -4573,7 +4575,7 @@
       "forms": { "riunione": "singular" },
       "meanings": { "de": ["Versammlung"], "sl": ["sestanek"] } },
     { "lemma": "verifica", "pos": "noun", "gender": "f", "gloss": ["check, test"],
-      "forms": { "verifica": "singular" },
+      "forms": { "verifica": "singular", "verifiche": "plural" },
       "meanings": { "de": ["Überprüfung"], "sl": ["preverjanje"] } },
     { "lemma": "autostrada", "pos": "noun", "gender": "f", "gloss": ["motorway"],
       "forms": { "autostrada": "singular" },
@@ -5046,6 +5048,15 @@
     { "lemma": "fiaccola", "pos": "noun", "gender": "f", "gloss": ["flaming torch"],
       "forms": { "fiaccola": "singular", "fiaccole": "plural" },
       "meanings": { "de": ["brennende Fackel"], "sl": ["goreča bakla"] } },
+    { "lemma": "poesia", "pos": "noun", "gender": "f", "gloss": ["poem"],
+      "forms": { "poesia": "singular" },
+      "meanings": { "de": ["Gedicht"], "sl": ["pesmica", "pesnitev"] } },
+    { "lemma": "tabellina", "pos": "noun", "gender": "f", "gloss": ["times table"],
+      "forms": { "tabellina": "singular", "tabelline": "plural" },
+      "meanings": { "de": ["Einmaleins-Reihe"], "sl": ["poštevanka"] } },
+    { "lemma": "cartellino", "pos": "noun", "gender": "m", "gloss": ["card (the referee's)", "small label"],
+      "forms": { "cartellino": "singular" },
+      "meanings": { "de": ["Karte des Schiedsrichters", "Kärtchen"], "sl": ["sodniški karton", "listek"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -5560,7 +5571,7 @@
       "forms": { "preciso": "masculine singular", "precise": "feminine plural" },
       "meanings": { "de": ["genau, präzise"], "sl": ["natančen, precizen"] } },
     { "lemma": "preoccupato", "pos": "adj", "gloss": ["worried"],
-      "forms": { "preoccupato": "masculine singular" },
+      "forms": { "preoccupato": "masculine singular", "preoccupata": "feminine singular" },
       "meanings": { "de": ["besorgt"], "sl": ["zaskrbljen"] } },
     { "lemma": "prezioso", "pos": "adj", "gloss": ["precious"],
       "forms": { "prezioso": "masculine singular" },
@@ -5953,6 +5964,9 @@
     { "lemma": "negativo", "pos": "adj", "gloss": ["negative (a sentence with non)"],
       "forms": { "negativo": "masculine singular", "negativa": "feminine singular" },
       "meanings": { "de": ["verneint (ein Satz mit non)"], "sl": ["nikalen (poved z non)"] } },
+    { "lemma": "avversario", "pos": "adj", "gloss": ["opposing, of the other side"],
+      "forms": { "avversario": "masculine singular", "avversaria": "feminine singular", "avversarie": "feminine plural" },
+      "meanings": { "de": ["gegnerisch"], "sl": ["nasproten"] } },
     { "lemma": "abbaiare", "pos": "verb", "gloss": ["to bark"],
       "forms": {
         "abbaio": "first-person singular present", "abbaia": "third-person singular present; second-person singular imperative",
@@ -6505,7 +6519,7 @@
         "sentii": "first-person singular historic past", "sentì": "third-person singular historic past",
         "senta": "first/second/third-person singular present subjunctive", "sentisse": "third-person singular imperfect subjunctive", "sentire": "infinitive",
         "sentendo": "gerund", "sentito": "past participle", "sentita": "feminine singular past participle", "sentirlo": "infinitive, with lo (it, him)",
-        "sentirla": "infinitive, with la (it, her)", "sentirtelo": "infinitive, with te lo (it to you)"
+        "sentirla": "infinitive, with la (it, her)", "sentirsi": "infinitive, with si (oneself)", "sentirtelo": "infinitive, with te lo (it to you)"
       },
       "meanings": { "de": ["hören"], "sl": ["slišati"] } },
     { "lemma": "soffiare", "pos": "verb", "gloss": ["to blow"],
@@ -6766,7 +6780,8 @@
         "si arrabbia": "third-person singular present", "si arrabbiano": "third-person plural present", "si arrabbiava": "third-person singular imperfect",
         "si è arrabbiato": "third-person singular present perfect", "si è arrabbiata": "third-person singular present perfect (feminine)",
         "arrabbiarsi": "infinitive", "arrabbia": "third-person singular present; second-person singular imperative", "arrabbiano": "third-person plural present",
-        "arrabbiava": "third-person singular imperfect", "arrabbiato": "past participle", "arrabbiata": "feminine singular past participle"
+        "arrabbiava": "third-person singular imperfect", "arrabbiare": "infinitive", "arrabbiato": "past participle",
+        "arrabbiata": "feminine singular past participle"
       },
       "meanings": { "de": ["wütend werden, sich ärgern"], "sl": ["razjeziti se"] } },
     { "lemma": "arrampicarsi", "pos": "verb", "gloss": ["to climb"],
@@ -7192,7 +7207,7 @@
       "forms": { "intrecciata": "feminine singular past participle", "intrecciare": "infinitive" },
       "meanings": { "de": ["flechten"], "sl": ["plesti, preplesti"] } },
     { "lemma": "invitare", "pos": "verb", "gloss": ["to invite"],
-      "forms": { "invita": "third-person singular present; second-person singular imperative", "invitato": "past participle", "invitare": "infinitive" },
+      "forms": { "invita": "third-person singular present; second-person singular imperative", "invitare": "infinitive", "invitato": "past participle" },
       "meanings": { "de": ["einladen"], "sl": ["povabiti"] } },
     { "lemma": "lanciare", "pos": "verb", "gloss": ["to throw, to toss"],
       "forms": {
@@ -7230,7 +7245,11 @@
       "forms": { "lievito": "first-person singular present", "lievitare": "infinitive" },
       "meanings": { "de": ["gehen, aufgehen (der Teig)"], "sl": ["vzhajati (testo)"] } },
     { "lemma": "litigare", "pos": "verb", "gloss": ["to quarrel, to argue"],
-      "forms": { "litiga": "third-person singular present; second-person singular imperative", "litigano": "third-person plural present", "litigare": "infinitive" },
+      "forms": {
+        "litiga": "third-person singular present; second-person singular imperative",
+        "litighiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
+        "litigano": "third-person plural present", "litigare": "infinitive"
+      },
       "meanings": { "de": ["streiten"], "sl": ["prepirati se, kregati se"] } },
     { "lemma": "mancare", "pos": "verb", "gloss": ["to be missing (mi manchi: I miss you)"],
       "forms": {
@@ -7319,8 +7338,8 @@
       "meanings": { "de": ["beleidigt sein"], "sl": ["užaliti se"] } },
     { "lemma": "offendere", "pos": "verb", "gloss": ["to offend, to hurt"],
       "forms": {
-        "offende": "third-person singular present", "offendono": "third-person plural present", "offenderti": "infinitive, with ti (you)",
-        "offendere": "infinitive"
+        "offende": "third-person singular present", "offendono": "third-person plural present", "offeso": "past participle",
+        "offenderti": "infinitive, with ti (you)", "offendere": "infinitive"
       },
       "meanings": { "de": ["beleidigen, kränken"], "sl": ["užaliti"] } },
     { "lemma": "offrire", "pos": "verb", "gloss": ["to offer, to treat (someone)"],
@@ -7430,7 +7449,10 @@
       },
       "meanings": { "de": ["zu Mittag essen"], "sl": ["kositi"] } },
     { "lemma": "preoccupare", "pos": "verb", "gloss": ["to worry (non ti preoccupare: don't worry)"],
-      "forms": { "preoccupa": "third-person singular present; second-person singular imperative", "preoccupare": "infinitive", "preoccupato": "past participle" },
+      "forms": {
+        "preoccupa": "third-person singular present; second-person singular imperative", "preoccupare": "infinitive", "preoccupato": "past participle",
+        "preoccupata": "feminine singular past participle"
+      },
       "meanings": { "de": ["Sorgen machen (non ti preoccupare: mach dir keine Sorgen)", "beunruhigen"], "sl": ["skrbeti (non ti preoccupare: ne skrbi)", "delati skrbi"] } },
     { "lemma": "prepararsi", "pos": "verb", "gloss": ["to get ready"],
       "forms": { "si prepara": "third-person singular present", "prepararsi": "infinitive" },
@@ -7458,7 +7480,7 @@
       "forms": { "prolunghi": "second-person singular present; first/second/third-person singular present subjunctive", "prolungare": "infinitive" },
       "meanings": { "de": ["verlängern"], "sl": ["podaljšati"] } },
     { "lemma": "promettere", "pos": "verb", "gloss": ["to promise"],
-      "forms": { "promette": "third-person singular present", "promettere": "infinitive", "promesso": "past participle" },
+      "forms": { "prometto": "first-person singular present", "promette": "third-person singular present", "promettere": "infinitive", "promesso": "past participle" },
       "meanings": { "de": ["versprechen"], "sl": ["obljubiti"] } },
     { "lemma": "proporre", "pos": "verb", "gloss": ["to suggest, to propose"],
       "forms": {
@@ -7739,8 +7761,8 @@
     { "lemma": "segnare", "pos": "verb", "gloss": ["to mark", "to score (a goal)", "to show (a scale, a clock)"],
       "forms": {
         "segno": "first-person singular present", "segna": "third-person singular present; second-person singular imperative",
-        "segnerei": "first-person singular conditional", "segneresti": "second-person singular conditional", "segnato": "past participle",
-        "segnare": "infinitive"
+        "segnerei": "first-person singular conditional", "segneresti": "second-person singular conditional", "segnare": "infinitive",
+        "segnato": "past participle"
       },
       "meanings": { "de": ["anzeichnen, aufschreiben", "ein Tor schießen", "anzeigen"], "sl": ["označiti, zapisati", "dati gol", "kazati"] } },
     { "lemma": "seguire", "pos": "verb", "gloss": ["to follow"],
@@ -7813,7 +7835,10 @@
       },
       "meanings": { "de": ["streuen, verstreuen"], "sl": ["raztresti, posuti"] } },
     { "lemma": "spaventare", "pos": "verb", "gloss": ["to frighten, to scare"],
-      "forms": { "spaventa": "third-person singular present; second-person singular imperative", "spaventare": "infinitive" },
+      "forms": {
+        "spaventa": "third-person singular present; second-person singular imperative", "spaventare": "infinitive", "spaventato": "past participle",
+        "spaventarti": "infinitive, with ti (you)", "spaventarsi": "infinitive, with si (oneself)"
+      },
       "meanings": { "de": ["erschrecken"], "sl": ["prestrašiti"] } },
     { "lemma": "spazzolare", "pos": "verb", "gloss": ["to brush, to groom"],
       "forms": {
@@ -7838,8 +7863,10 @@
       "meanings": { "de": ["eben machen, glätten"], "sl": ["zravnati, izravnati"] } },
     { "lemma": "spiegare", "pos": "verb", "gloss": ["to explain"],
       "forms": {
-        "spiego": "first-person singular present", "spiega": "third-person singular present; second-person singular imperative",
-        "spiegheresti": "second-person singular conditional", "spiegalo": "second-person singular imperative, with lo (it, him)", "spiegare": "infinitive"
+        "spiego": "first-person singular present", "spieghi": "second-person singular present; first/second/third-person singular present subjunctive",
+        "spiega": "third-person singular present; second-person singular imperative",
+        "spieghiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
+        "spiegheresti": "second-person singular conditional", "spiegare": "infinitive", "spiegalo": "second-person singular imperative, with lo (it, him)"
       },
       "meanings": { "de": ["erklären"], "sl": ["razložiti"] } },
     { "lemma": "splendere", "pos": "verb", "gloss": ["to shine"],
@@ -7904,7 +7931,10 @@
       "forms": { "svuotato": "past participle", "svuotare": "infinitive" },
       "meanings": { "de": ["ausleeren"], "sl": ["izprazniti"] } },
     { "lemma": "temere", "pos": "verb", "gloss": ["to fear, to be afraid of"],
-      "forms": { "tema": "first/second/third-person singular present subjunctive", "temere": "infinitive" },
+      "forms": {
+        "temi": "second-person singular present; second-person singular imperative", "tema": "first/second/third-person singular present subjunctive",
+        "temere": "infinitive"
+      },
       "meanings": { "de": ["fürchten, Angst haben"], "sl": ["bati se"] } },
     { "lemma": "tostare", "pos": "verb", "gloss": ["to toast, to brown"],
       "forms": { "tostare": "infinitive" },
@@ -8228,6 +8258,45 @@
     { "lemma": "allontanarsi", "pos": "verb", "gloss": ["to move away"],
       "forms": { "mi allontano": "first-person singular present", "allontano": "first-person singular present", "allontanarsi": "infinitive" },
       "meanings": { "de": ["sich entfernen"], "sl": ["oddaljiti se"] } },
+    { "lemma": "interrogare", "pos": "verb", "gloss": ["to test orally"],
+      "forms": { "interroga": "third-person singular present; second-person singular imperative", "interrogare": "infinitive" },
+      "meanings": { "de": ["abfragen, prüfen"], "sl": ["spraševati (pri pouku)"] } },
+    { "lemma": "ripassare", "pos": "verb", "gloss": ["to revise, to go over"],
+      "forms": { "ripasso": "first-person singular present", "ripassare": "infinitive" },
+      "meanings": { "de": ["wiederholen (den Stoff)"], "sl": ["ponoviti (snov)"] } },
+    { "lemma": "consolare", "pos": "verb", "gloss": ["to comfort, to console"],
+      "forms": { "consola": "third-person singular present; second-person singular imperative", "consolare": "infinitive" },
+      "meanings": { "de": ["trösten"], "sl": ["potolažiti"] } },
+    { "lemma": "condividere", "pos": "verb", "gloss": ["to share"],
+      "forms": {
+        "condividiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "condividere": "infinitive",
+        "condiviso": "past participle"
+      },
+      "meanings": { "de": ["mit anderen teilen"], "sl": ["deliti z drugimi"] } },
+    { "lemma": "perdonare", "pos": "verb", "gloss": ["to forgive"],
+      "forms": { "perdoni": "second-person singular present; first/second/third-person singular present subjunctive", "perdonare": "infinitive" },
+      "meanings": { "de": ["verzeihen"], "sl": ["odpustiti"] } },
+    { "lemma": "scherzare", "pos": "verb", "gloss": ["to be joking"],
+      "forms": {
+        "scherzo": "first-person singular present", "scherzi": "second-person singular present; first/second/third-person singular present subjunctive",
+        "scherzare": "infinitive", "scherzando": "gerund"
+      },
+      "meanings": { "de": ["scherzen"], "sl": ["šaliti se"] } },
+    { "lemma": "allenarsi", "pos": "verb", "gloss": ["to train, to practise"],
+      "forms": {
+        "ci alleniamo": "first-person plural present; first-person plural present subjunctive", "allenarsi": "infinitive",
+        "alleniamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative"
+      },
+      "meanings": { "de": ["trainieren"], "sl": ["trenirati"] } },
+    { "lemma": "gareggiare", "pos": "verb", "gloss": ["to compete"],
+      "forms": { "gareggiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "gareggiare": "infinitive" },
+      "meanings": { "de": ["an einem Wettkampf teilnehmen"], "sl": ["tekmovati"] } },
+    { "lemma": "pareggiare", "pos": "verb", "gloss": ["to end in a draw"],
+      "forms": { "pareggio": "first-person singular present", "pareggiare": "infinitive", "pareggiato": "past participle" },
+      "meanings": { "de": ["unentschieden spielen"], "sl": ["igrati neodločeno"] } },
+    { "lemma": "tuffarsi", "pos": "verb", "gloss": ["to dive in"],
+      "forms": { "si tuffa": "third-person singular present", "tuffarsi": "infinitive", "tuffa": "third-person singular present; second-person singular imperative" },
+      "meanings": { "de": ["ins Wasser springen"], "sl": ["skočiti v vodo"] } },
     { "lemma": "Davide", "pos": "name", "gloss": ["Davide (the shepherd)"],
       "forms": { "davide": null },
       "meanings": { "de": ["Davide (der Hirte)"], "sl": ["Davide (pastir)"] } },
