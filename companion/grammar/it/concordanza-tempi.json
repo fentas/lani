@@ -1,0 +1,247 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "concordanza-tempi",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🕰️",
+  "title": {
+    "it": "La concordanza dei tempi: penso che venga, pensavo che venisse",
+    "sl": "Sosledje časov: penso che venga, pensavo che venisse",
+    "en": "Which tense after which: penso che venga, pensavo che venisse",
+    "de": "Die Zeitenfolge: penso che venga, pensavo che venisse"
+  },
+  "rule": {
+    "de": "Welcher congiuntivo? Frag zweimal: Steht das **erste Verb** in der Gegenwart oder in der Vergangenheit? Und passiert das andere **davor, gleichzeitig oder danach**?\n\nErstes Verb in der Gegenwart: gleichzeitig **Penso che venga.** davor **Penso che sia venuto.** danach **Penso che venga domani.** oder das Futur: **Penso che verrà.**\n\nErstes Verb in der Vergangenheit: gleichzeitig **Pensavo che venisse.** davor **Pensavo che fosse venuto.** danach **Pensavo che venisse il giorno dopo.** Du wirst auch **Pensavo che sarebbe venuto.** hören: Diese Form kommt später.\n\nAuch **ho pensato** und **vorrei** zählen wie eine Vergangenheit: **Ho pensato che venisse.** **Vorrei che venisse.** **Vorrei che fosse venuto.**\n\nWas früher lange so war, darf auch nach der Gegenwart im imperfetto stehen: **Penso che da giovane Bepi fosse molto forte.** (Ich glaube, als junger Mann war Bepi sehr stark.)",
+    "sl": "Kateri konjunktiv? Vprašaj se dvakrat: Je **prvi glagol** v sedanjosti ali v preteklosti? In se drugo zgodi **prej, hkrati ali pozneje**?\n\nPrvi glagol v sedanjosti: hkrati **Penso che venga.** prej **Penso che sia venuto.** pozneje **Penso che venga domani.** ali prihodnjik: **Penso che verrà.**\n\nPrvi glagol v preteklosti: hkrati **Pensavo che venisse.** prej **Pensavo che fosse venuto.** pozneje **Pensavo che venisse il giorno dopo.** Slišal boš tudi **Pensavo che sarebbe venuto.**: ta oblika pride pozneje.\n\nTudi **ho pensato** in **vorrei** štejeta kot preteklost: **Ho pensato che venisse.** **Vorrei che venisse.** **Vorrei che fosse venuto.**\n\nKar je bilo nekoč dolgo tako, je lahko tudi za sedanjikom v imperfektu: **Penso che da giovane Bepi fosse molto forte.** (Mislim, da je bil Bepi kot mladenič zelo močan.)",
+    "en": "Which subjunctive? Ask twice: is the **first verb** in the present or in the past? And does the other thing happen **before, at the same time or after**?\n\nFirst verb in the present: same time **Penso che venga.** before **Penso che sia venuto.** after **Penso che venga domani.** or the future: **Penso che verrà.**\n\nFirst verb in the past: same time **Pensavo che venisse.** before **Pensavo che fosse venuto.** after **Pensavo che venisse il giorno dopo.** You'll also hear **Pensavo che sarebbe venuto.**: that form comes later.\n\n**Ho pensato** and **vorrei** count as a past too: **Ho pensato che venisse.** **Vorrei che venisse.** **Vorrei che fosse venuto.**\n\nWhat went on for a long time back then may take the imperfect even after the present: **Penso che da giovane Bepi fosse molto forte.** (I think Bepi was very strong as a young man.)"
+  },
+  "table": {
+    "head": [
+      {
+        "it": "primo verbo",
+        "de": "erstes Verb",
+        "sl": "prvi glagol",
+        "en": "first verb"
+      },
+      {
+        "it": "prima",
+        "de": "prima (davor)",
+        "sl": "prima (prej)",
+        "en": "prima (before)"
+      },
+      {
+        "it": "insieme",
+        "de": "insieme (gleichzeitig)",
+        "sl": "insieme (hkrati)",
+        "en": "insieme (at the same time)"
+      },
+      {
+        "it": "dopo",
+        "de": "dopo (danach)",
+        "sl": "dopo (pozneje)",
+        "en": "dopo (after)"
+      }
+    ],
+    "rows": [
+      [
+        "Penso che",
+        "sia venuto",
+        "venga",
+        "venga domani, verrà"
+      ],
+      [
+        "Credo che",
+        "abbia mangiato",
+        "mangi",
+        "mangi dopo, mangerà"
+      ],
+      [
+        "Pensavo che",
+        "fosse venuto",
+        "venisse",
+        "venisse il giorno dopo"
+      ],
+      [
+        "Credevo che",
+        "avesse mangiato",
+        "mangiasse",
+        "mangiasse dopo"
+      ],
+      [
+        "Vorrei che",
+        "fosse venuto",
+        "venisse",
+        "venisse domani"
+      ],
+      [
+        "Ho pensato che",
+        "fosse venuto",
+        "venisse",
+        "venisse il giorno dopo"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Penso che Davide venga stasera.",
+      "de": "Ich glaube, Davide kommt heute Abend.",
+      "sl": "Mislim, da Davide pride nocoj.",
+      "en": "I think Davide is coming tonight."
+    },
+    {
+      "it": "Penso che Davide sia venuto ieri.",
+      "de": "Ich glaube, Davide ist gestern gekommen.",
+      "sl": "Mislim, da je Davide prišel včeraj.",
+      "en": "I think Davide came yesterday.",
+      "note": {
+        "sl": "Najprej on, zdaj moja misel: prej.",
+        "en": "First him, now my thought: before.",
+        "de": "Erst er, jetzt mein Gedanke: davor."
+      }
+    },
+    {
+      "it": "Pensavo che Davide venisse con noi.",
+      "de": "Ich dachte, Davide kommt mit uns.",
+      "sl": "{m:Mislil|f:Mislila} sem, da Davide pride z nami.",
+      "en": "I thought Davide was coming with us."
+    },
+    {
+      "it": "Pensavo che Davide fosse venuto il giorno prima.",
+      "de": "Ich dachte, Davide wäre am Tag davor gekommen.",
+      "sl": "{m:Mislil|f:Mislila} sem, da je Davide prišel dan prej.",
+      "en": "I thought Davide had come the day before."
+    },
+    {
+      "it": "Spero che Franco abbia finito.",
+      "de": "Ich hoffe, Franco ist fertig geworden.",
+      "sl": "Upam, da je Franco končal.",
+      "en": "I hope Franco has finished."
+    },
+    {
+      "it": "Speravo che Franco avesse finito.",
+      "de": "Ich hoffte, Franco wäre fertig geworden.",
+      "sl": "{m:Upal|f:Upala} sem, da je Franco končal.",
+      "en": "I was hoping Franco had finished."
+    },
+    {
+      "it": "Vorrei che Marisa fosse venuta ieri.",
+      "de": "Ich wünschte, Marisa wäre gestern gekommen.",
+      "sl": "Želim si, da bi Marisa prišla že včeraj.",
+      "en": "I wish Marisa had come yesterday."
+    },
+    {
+      "it": "Penso che da giovane Bepi fosse molto forte.",
+      "de": "Ich glaube, als junger Mann war Bepi sehr stark.",
+      "sl": "Mislim, da je bil Bepi kot mladenič zelo močan.",
+      "en": "I think Bepi was very strong as a young man.",
+      "note": {
+        "sl": "Dolgo tako nekoč: imperfetto, tudi za penso.",
+        "en": "Long ago and for long: the imperfect, even after penso.",
+        "de": "Lange so damals: das imperfetto, auch nach penso."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "subjunctive",
+    "congiuntivo",
+    "concordanza-tempi",
+    "concordanza",
+    "sequence-of-tenses"
+  ],
+  "see": [
+    "congiuntivo",
+    "congiuntivo-passato",
+    "congiuntivo-imperfetto",
+    "congiuntivo-trapassato",
+    "congiunzioni-congiuntivo"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "it": "La concordanza · penso che venga, pensavo che venisse",
+      "sl": "Sosledje časov · penso che venga, pensavo che venisse",
+      "en": "Which tense · penso che venga, pensavo che venisse",
+      "de": "Zeitenfolge · penso che venga, pensavo che venisse"
+    },
+    "rule": {
+      "de": "Erstes Verb jetzt: **venga** (gleichzeitig, danach), **sia venuto** (davor). Erstes Verb in der Vergangenheit oder **vorrei**: **venisse** (gleichzeitig, danach), **fosse venuto** (davor).",
+      "sl": "Prvi glagol zdaj: **venga** (hkrati, pozneje), **sia venuto** (prej). Prvi glagol v preteklosti ali **vorrei**: **venisse** (hkrati, pozneje), **fosse venuto** (prej).",
+      "en": "First verb now: **venga** (same time, after), **sia venuto** (before). First verb in the past, or **vorrei**: **venisse** (same time, after), **fosse venuto** (before)."
+    },
+    "table": {
+      "head": [
+        {
+          "it": "primo verbo",
+          "de": "erstes Verb",
+          "sl": "prvi glagol",
+          "en": "first verb"
+        },
+        {
+          "it": "prima",
+          "de": "prima (davor)",
+          "sl": "prima (prej)",
+          "en": "prima (before)"
+        },
+        {
+          "it": "insieme",
+          "de": "insieme (gleichzeitig)",
+          "sl": "insieme (hkrati)",
+          "en": "insieme (at the same time)"
+        },
+        {
+          "it": "dopo",
+          "de": "dopo (danach)",
+          "sl": "dopo (pozneje)",
+          "en": "dopo (after)"
+        }
+      ],
+      "rows": [
+        [
+          "Penso che",
+          "sia venuto",
+          "venga",
+          "venga domani, verrà"
+        ],
+        [
+          "Credo che",
+          "abbia mangiato",
+          "mangi",
+          "mangi dopo, mangerà"
+        ],
+        [
+          "Pensavo che",
+          "fosse venuto",
+          "venisse",
+          "venisse il giorno dopo"
+        ],
+        [
+          "Credevo che",
+          "avesse mangiato",
+          "mangiasse",
+          "mangiasse dopo"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "it": "Penso che Davide sia venuto ieri.",
+        "de": "Ich glaube, Davide ist gestern gekommen.",
+        "sl": "Mislim, da je Davide prišel včeraj.",
+        "en": "I think Davide came yesterday."
+      },
+      {
+        "it": "Pensavo che Davide venisse con noi.",
+        "de": "Ich dachte, Davide kommt mit uns.",
+        "sl": "{m:Mislil|f:Mislila} sem, da Davide pride z nami.",
+        "en": "I thought Davide was coming with us."
+      }
+    ],
+    "tip": {
+      "de": "💡 Danach, nach einer Vergangenheit, hörst du auch **Pensavo che sarebbe venuto.** Diese Form kommt später.",
+      "sl": "💡 Pozneje, za preteklostjo, slišiš tudi **Pensavo che sarebbe venuto.** Ta oblika pride pozneje.",
+      "en": "💡 For after, following a past, you'll also hear **Pensavo che sarebbe venuto.** That form comes later."
+    }
+  }
+}
