@@ -348,6 +348,11 @@ export class CaseLensDe {
       if (left.length) slots = left
     }
     if (!slots.length) slots = all
+    // a number from two counts a plural, also a measure said as one (zwei Kilo, drei Liter)
+    if (adjs.some(a => isNum(a) && !/^(1|eins?)$/.test(a.low))) {
+      const pl = slots.filter(x => x.number === 'pl')
+      slots = pl.length ? pl : dedupe(slots.map(x => ({ ...x, number: 'pl' as const })))
+    }
     // one spelling, two nouns (Essen: das Essen, the plural of die Esse): the lemma the phrase's forms leave
     if (pos === 'noun') lemma = slots.find(x => x.lemma)?.lemma ?? lemma
     return { ...base, ...(detSlots && !fused ? { det: t, detLemma } : {}), adjs, head, pos, lemma, slots, all: detSlots ? all.filter(s => detSlots!.some(d => d.case === s.case && d.number === s.number)) : all }

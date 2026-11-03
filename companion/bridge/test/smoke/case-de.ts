@@ -131,6 +131,17 @@ export default async function caseDe() {
   check(`German's lens never says a wrong case as sure on the bank's ${e.items} items (right ${e.right}, open ${e.open}, likely but wrong ${e.wrongLikely.length})`, e.wrongDecided.length === 0, e.wrongDecided)
   check(`… and reads most of them right (${e.right}/${e.items})`, e.right >= e.items * 0.85, e.wrongLikely.slice(0, 20))
 
+  // the lens on lines of the content it wasn't built on (every 79th line, a word labelled by hand before the lens ran)
+  const held = JSON.parse(readFileSync(join(repo, 'bridge/test/fixtures/case-lens-de-heldout.json'), 'utf8')).items as { de: string; word: string; case: string; number: string }[]
+  const heldOut = held.map(it => {
+    const c = lens.at(it.de, it.word, 0, KAERNTEN_NAMES)
+    const p = c && 'pick' in c ? c.pick : null
+    return { it, p, sure: c && 'sure' in c ? c.sure : null }
+  })
+  const heldWrong = heldOut.filter(x => x.p && x.sure === 'decided' && (x.p.case !== x.it.case || x.p.number !== x.it.number)).map(x => `${x.it.word} in «${x.it.de}»: ${x.p!.case}.${x.p!.number}`)
+  const heldRight = heldOut.filter(x => x.p && x.sure !== 'ambiguous' && x.p.case === x.it.case && x.p.number === x.it.number).length
+  check(`German's lens on ${held.length} held-out content lines: none wrong as sure, most right (${heldRight})`, heldWrong.length === 0 && heldRight >= held.length * 0.85, heldWrong)
+
   // --- older apps -----------------------------------------------------------------------------------------------------------
   check('GET /state says "cases" in a Slovene and a German village, "counting" and "forms-cards" in Slovene\'s only', stateFeatures('de').includes('cases') && !stateFeatures('de').includes('counting') && !stateFeatures('de').includes('forms-cards') && stateFeatures('sl').includes('counting') && !stateFeatures('it').includes('cases'))
 }
