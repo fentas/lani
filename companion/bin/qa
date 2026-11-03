@@ -12310,15 +12310,21 @@ def placement():
         return "no course here (companion/course/sl/course.json)"
     wait_home(30)  # an app connected before still loading its village
     go_home()
-    for _ in range(3):  # the hook again while the village isn't there yet
+    for _ in range(3):  # the hook again while the village isn't there yet (no Back: on Home it would leave the app)
         qa_hook("placement:fresh")
         if wait_for("Nekaj že znaš?", 10):
             break
-        adb("shell", "input", "keyevent", "KEYCODE_BACK")
-        time.sleep(3)
     if not find("Nekaj že znaš?"):
         # a build from before the placement test (--apk): the school a starter sees there, its first unit A1's
-        qa_hook("school")
+        for _ in range(3):
+            qa_hook("school")
+            if wait_for("Raven A1", 10):
+                break
+        if not find("Raven A1"):  # from Home's tile
+            go_home()
+            tile = scroll_to("Šola", 8, exact=True)
+            if tile:
+                tap_at(tile)
         if not wait_for("Raven A1", 15):
             return "skipped: neither the placement card nor the school showed (no QA hook in this build?)"
         time.sleep(1.5)

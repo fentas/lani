@@ -109,8 +109,9 @@ private fun PlacementProbe(vm: AppViewModel) {
     val teacher = remember { vm.school.teacher() }
     val stage = rememberStage(vm, remember { Run.Lesson(teacher?.name, teacher?.emoji, indoors = vm.game.state?.let(School::indoors) == true) })
     val n = p.asked
+    // the probe on screen (taken before key: an early return out of key's inline block can't be dexed)
+    val probe = p.probe ?: return
     key(n) {
-        val probe = p.probe ?: return@key
         val exercises = remember { probe.items.map { it.exercise } }
         val started = remember { ScreenClock.app.now() }
         val before = p.test?.probes?.lastOrNull()
