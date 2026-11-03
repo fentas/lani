@@ -70,6 +70,12 @@ object Grading {
     /** [canonical], without what a keyboard may lack ("čaša" → "casa", "perché" → "perche", "Mädchen" → "maedchen"). */
     fun fold(s: String, lang: Lang = target()): String = rewrite(canonical(s, lang), Spelling.of(lang).fold)
 
+    /**
+     * [normalize]d and folded, without [canonical]'s rewrites of whole words: a part of a word, as a speaking or writing
+     * rule's stem "würd*" ([Production]), which German's "würd" → "würde" would complete.
+     */
+    fun foldStem(s: String, lang: Lang = target()): String = rewrite(normalize(s, lang), Spelling.of(lang).fold)
+
     /** [fold]ed, and what is almost right besides written one way (Italian: "un'amica" and "un amica" → "un amica"). */
     fun loose(s: String, lang: Lang = target()): String = rewrite(fold(s, lang), Spelling.of(lang).loose)
 

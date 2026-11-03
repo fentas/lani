@@ -95,7 +95,9 @@ object Production {
             val tail = p.endsWith("*") && p.length > 1
             val core = p.substring(if (head) 1 else 0, if (tail) p.length - 1 else p.length)
             if ('*' in core) return null
-            val words = wordsOf(core, lang)
+            // a stem or an ending as written: the table's rewrites of a whole word would complete it ("würd*" as "würde*",
+            // missing würde itself; "hab*" as "habe*")
+            val words = if (head || tail) WORD.findAll(Grading.foldStem(core, lang)).map { it.value }.toList() else wordsOf(core, lang)
             if (words.isEmpty() || (words.size > 1 && (head || tail))) return null
             words.forEach { toks += Word(it, head, tail) }
         }

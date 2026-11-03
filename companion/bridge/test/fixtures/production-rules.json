@@ -168,6 +168,36 @@
       "n": 2
     },
     {
+      "lang": "de",
+      "rules": [
+        "würd*",
+        "hätt*",
+        "wär*",
+        "könnt*"
+      ],
+      "text": "Wenn ich Zeit hätte, würde ich kommen; wäre es schön, könnten wir gehen.",
+      "matches": [
+        "hatte",
+        "wurde",
+        "ware",
+        "konnten"
+      ],
+      "n": 4
+    },
+    {
+      "lang": "de",
+      "rules": [
+        "hab*"
+      ],
+      "text": "Ich habe, wir haben, ihr habt.",
+      "matches": [
+        "habe",
+        "haben",
+        "habt"
+      ],
+      "n": 3
+    },
+    {
       "lang": "it",
       "rules": [
         "se *assi",

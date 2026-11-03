@@ -119,7 +119,8 @@ const rule = z.string().trim().min(1).max(80).superRefine((r, ctx) => {
   const p = parseRule(r)
   if (typeof p === 'string') ctx.addIssue({ code: 'custom', message: p })
 })
-const rules = z.array(rule).min(1).max(12)
+// a stem list needs room: Italian's irregular passato remoto (fu, disse, vide, misero …), each a rule
+const rules = z.array(rule).min(1).max(32)
 
 /** What the answer must use: [label] says it to the learner, [any] matches it [n] times or more. */
 const must = z.strictObject({ label: text.max(120), any: rules, n: z.number().int().min(1).max(6).default(1), grammar })
