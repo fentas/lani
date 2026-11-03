@@ -184,11 +184,11 @@
             "sl": "Wähle · Izberi",
             "it": "Wähle · Scegli"
           },
-          "prompt": "Sie hat studiert und ist Magistra. Im Amt sagst du: Grüß Gott, ___!",
+          "prompt": "Georg Egger ist Arzt: Dr. Georg Egger. Im Brief steht: Sehr geehrter Herr ___ Egger,",
           "options": [
-            "Frau Magister",
-            "Frau Doktor",
-            "Frau Hofrat"
+            "Doktor",
+            "Magister",
+            "Hofrat"
           ],
           "answer": 0,
           "say_options": true,
@@ -256,11 +256,11 @@
             "sl": "Wähle · Izberi",
             "it": "Wähle · Scegli"
           },
-          "prompt": "Am Ende des Briefes steht: Mit freundlichen ___",
+          "prompt": "Was steht unter Mit freundlichen Grüßen?",
           "options": [
-            "Grüßen",
-            "Grüße",
-            "Gruß"
+            "dein Name",
+            "ein Komma",
+            "die Anrede"
           ],
           "answer": 0,
           "say_options": true,
@@ -273,7 +273,7 @@
       },
       {
         "say": {
-          "en": "**Ich bitte Sie um** (I ask you for, + the accusative) is the plain request; **Ich ersuche Sie, … zu …** (I request you to) the stiffer one you'll see from an office. Kinder still is the Konjunktiv II you know: **Könnten Sie** mir bitte das Formular schicken? **Würden Sie** mir helfen? **Ich wäre Ihnen dankbar, wenn** Sie bald antworten würden. Bitte, with no more, can sound like an order.",
+          "en": "**Ich bitte Sie um** (I ask you for, + the accusative) is the plain request; **Ich ersuche Sie, … zu …** (I request you to) the stiffer one you'll see from an office. More polite still is the Konjunktiv II you know: **Könnten Sie** mir bitte das Formular schicken? **Würden Sie** mir helfen? **Ich wäre Ihnen dankbar, wenn** Sie bald antworten würden. Bitte, with no more, can sound like an order.",
           "sl": "**Ich bitte Sie um** (prosim vas za, + tožilnik) je preprosta prošnja; **Ich ersuche Sie, … zu …** (prosim vas, da) bolj toga, kot jo dobiš od urada. Še bolj prijazen je konjunktiv II, ki ga poznaš: **Könnten Sie** mir bitte das Formular schicken? **Würden Sie** mir helfen? **Ich wäre Ihnen dankbar, wenn** Sie bald antworten würden. Sam bitte lahko zveni kot ukaz.",
           "it": "**Ich bitte Sie um** (Le chiedo, + accusativo) è la richiesta semplice; **Ich ersuche Sie, … zu …** (La prego di) quella più rigida che ti arriva da un ufficio. Ancora più gentile è il congiuntivo II che conosci: **Könnten Sie** mir bitte das Formular schicken? **Würden Sie** mir helfen? **Ich wäre Ihnen dankbar, wenn** Sie bald antworten würden. Bitte da solo può suonare come un ordine."
         },
@@ -326,7 +326,9 @@
           "text": "___ Sie mir bitte sagen, wann das Amt offen ist?",
           "accept": [
             "Könnten",
-            "Würden"
+            "Würden",
+            "Können",
+            "Möchten"
           ],
           "hint": {
             "en": "kindly: the Konjunktiv II",
@@ -379,7 +381,7 @@
             "sl": "Wähle · Izberi",
             "it": "Wähle · Scegli"
           },
-          "prompt": "Ich möchte mich ___ den Lärm beschweren.",
+          "prompt": "Kathi hat sich ___ den Lärm beschwert.",
           "options": [
             "über",
             "um",
@@ -396,9 +398,9 @@
       },
       {
         "say": {
-          "en": "**dabei** (while doing it), **dafür** (for it), **diese** (these, the ones just named), **daher** (so) tie sentences together, so nothing is said twice: Ich habe zwanzig Flaschen bestellt. **Diese** sind nicht angekommen. **Dafür** habe ich schon bezahlt. **Dabei** habe ich um eine rasche Lieferung gebeten. **Daher** ersuche ich Sie um eine Antwort. Each takes first place, the verb next.",
-          "sl": "**dabei** (pri tem), **dafür** (za to), **diese** (te, pravkar omenjene), **daher** (zato) povezujejo stavke, da ni treba česa ponavljati: Ich habe zwanzig Flaschen bestellt. **Diese** sind nicht angekommen. **Dafür** habe ich schon bezahlt. **Dabei** habe ich um eine rasche Lieferung gebeten. **Daher** ersuche ich Sie um eine Antwort. Vsak zasede prvo mesto, glagol takoj za njim.",
-          "it": "**dabei** (nel farlo), **dafür** (per questo), **diese** (queste, appena nominate), **daher** (perciò) legano le frasi, così non si ripete niente: Ich habe zwanzig Flaschen bestellt. **Diese** sind nicht angekommen. **Dafür** habe ich schon bezahlt. **Dabei** habe ich um eine rasche Lieferung gebeten. **Daher** ersuche ich Sie um eine Antwort. Ognuna occupa il primo posto, col verbo subito dopo."
+          "en": "**dabei** (while doing it), **dafür** (for it), **diese** (these, the ones just named), **daher** (so) tie sentences together, so nothing is said twice: Ich habe zwanzig Flaschen bestellt und **dafür** schon bezahlt. **Dabei** habe ich um eine rasche Lieferung gebeten. **Diese** Flaschen sind nicht angekommen. **Daher** ersuche ich Sie um eine Antwort. Each can take first place, the verb next.",
+          "sl": "**dabei** (pri tem), **dafür** (za to), **diese** (te, pravkar omenjene), **daher** (zato) povezujejo stavke, da ni treba česa ponavljati: Ich habe zwanzig Flaschen bestellt und **dafür** schon bezahlt. **Dabei** habe ich um eine rasche Lieferung gebeten. **Diese** Flaschen sind nicht angekommen. **Daher** ersuche ich Sie um eine Antwort. Vsak lahko zasede prvo mesto, glagol takoj za njim.",
+          "it": "**dabei** (nel farlo), **dafür** (per questo), **diese** (queste, appena nominate), **daher** (perciò) legano le frasi, così non si ripete niente: Ich habe zwanzig Flaschen bestellt und **dafür** schon bezahlt. **Dabei** habe ich um eine rasche Lieferung gebeten. **Diese** Flaschen sind nicht angekommen. **Daher** ersuche ich Sie um eine Antwort. Ognuna può occupare il primo posto, col verbo subito dopo."
         },
         "examples": [
           {
@@ -533,7 +535,9 @@
                     "Sehr geehrte Frau Magistra Huber",
                     "Sehr geehrte Frau Mag.a Huber",
                     "Sehr geehrte Frau Magister",
-                    "Sehr geehrte Frau Magistra"
+                    "Sehr geehrte Frau Magistra",
+                    "Sehr geehrte Frau Huber",
+                    "Sehr geehrte Frau Mag. Anna Huber"
                   ]
                 }
               ]
@@ -545,7 +549,9 @@
                   "accept": [
                     "Sehr geehrter Herr Doktor Egger",
                     "Sehr geehrter Herr Dr. Egger",
-                    "Sehr geehrter Herr Doktor"
+                    "Sehr geehrter Herr Doktor",
+                    "Sehr geehrter Herr Egger",
+                    "Sehr geehrter Herr Dr. Georg Egger"
                   ]
                 }
               ]
@@ -560,7 +566,9 @@
                     "Sehr geehrte Frau Doktorin Gasser",
                     "Sehr geehrte Frau Dr. Gasser",
                     "Sehr geehrte Frau Doktor",
-                    "Sehr geehrte Frau Doktorin"
+                    "Sehr geehrte Frau Doktorin",
+                    "Sehr geehrte Frau Gasser",
+                    "Sehr geehrte Frau Dr.in Maria Gasser"
                   ]
                 }
               ]
@@ -575,7 +583,9 @@
                     "Sehr geehrter Herr Dipl.-Ing. Wieser",
                     "Sehr geehrter Herr Diplom-Ingenieur Wieser",
                     "Sehr geehrter Herr Diplomingenieur",
-                    "Sehr geehrter Herr Diplom-Ingenieur"
+                    "Sehr geehrter Herr Diplom-Ingenieur",
+                    "Sehr geehrter Herr Wieser",
+                    "Sehr geehrter Herr DI Hans Wieser"
                   ]
                 }
               ]
@@ -635,7 +645,7 @@
             "it": "Ergänze · Completa"
           },
           "title": "Stefan schreibt an die Gemeinde",
-          "text": "Sehr ___ Frau Magister Huber, der Weg zu meinem Obstgarten ist seit dem Winter kaputt. ___ muss ich mit dem Traktor drei Kilometer weiter fahren. Ich ___ Sie um eine Reparatur. ___ Sie mir bitte mitteilen, wann das möglich ist? Ich wäre ___ dankbar, wenn die Arbeit vor der Ernte fertig wäre. ___ stelle ich gern meinen Traktor zur Verfügung. Mit freundlichen ___ Stefan Kofler. ___: Foto vom Weg",
+          "text": "Sehr ___ Frau Magister Huber, der Weg zu meinem Obstgarten ist seit dem Winter beschädigt. ___ muss ich mit dem Traktor drei Kilometer weiter fahren. Ich ___ Sie um eine Reparatur. ___ Sie mir bitte mitteilen, wann das möglich ist? Ich wäre ___ dankbar, wenn die Arbeit vor der Ernte fertig wäre. ___ stelle ich gern meinen Traktor zur Verfügung. Mit freundlichen ___ Stefan Kofler. ___: Foto vom Weg",
           "gaps": [
             {
               "accept": [
@@ -647,7 +657,10 @@
                 "Deshalb",
                 "Daher",
                 "Deswegen",
-                "Darum"
+                "Darum",
+                "Dadurch",
+                "Also",
+                "Somit"
               ]
             },
             {
@@ -670,7 +683,12 @@
             },
             {
               "accept": [
-                "Dafür"
+                "Dafür",
+                "Dazu",
+                "Deshalb",
+                "Daher",
+                "Deswegen",
+                "Darum"
               ]
             },
             {
@@ -693,9 +711,9 @@
             "dir"
           ],
           "translation": {
-            "en": "Dear Ms Huber, the road to my orchard has been broken since the winter. So I have to drive three kilometres further by tractor. I ask you to have it repaired. Could you please let me know when that is possible? I would be grateful to you if the work were finished before the harvest. For that I will gladly make my tractor available. Yours sincerely, Stefan Kofler. Enclosed: photo of the road",
-            "sl": "Spoštovana gospa Huber, pot do mojega sadovnjaka je od zime pokvarjena. Zato moram s traktorjem voziti tri kilometre dlje. Prosim vas za popravilo. Bi mi lahko sporočili, kdaj je to mogoče? Hvaležen bi vam bil, če bi bilo delo končano pred obiranjem. Za to rad dam na voljo svoj traktor. S spoštovanjem, Stefan Kofler. Priloga: fotografija poti",
-            "it": "Gentile signora Huber, la strada per il mio frutteto è rovinata dallo scorso inverno. Perciò devo fare col trattore tre chilometri in più. Le chiedo una riparazione. Potrebbe comunicarmi quando è possibile? Le sarei grato se il lavoro fosse finito prima del raccolto. Per questo metto volentieri a disposizione il mio trattore. Cordiali saluti, Stefan Kofler. Allegato: foto della strada"
+            "en": "Dear Ms Huber, the road to my orchard has been damaged since the winter. So I have to drive three kilometres further by tractor. I ask you to have it repaired. Could you please let me know when that is possible? I would be grateful to you if the work were finished before the harvest. For that I will gladly make my tractor available. Yours sincerely, Stefan Kofler. Enclosed: photo of the road",
+            "sl": "Spoštovana gospa Huber, pot do mojega sadovnjaka je od zime poškodovana. Zato moram s traktorjem voziti tri kilometre dlje. Prosim vas za popravilo. Bi mi lahko sporočili, kdaj je to mogoče? Hvaležen bi vam bil, če bi bilo delo končano pred obiranjem. Za to rad dam na voljo svoj traktor. S spoštovanjem, Stefan Kofler. Priloga: fotografija poti",
+            "it": "Gentile signora Huber, la strada per il mio frutteto è danneggiata dallo scorso inverno. Perciò devo fare col trattore tre chilometri in più. Le chiedo una riparazione. Potrebbe comunicarmi quando è possibile? Le sarei grato se il lavoro fosse finito prima del raccolto. Per questo metto volentieri a disposizione il mio trattore. Cordiali saluti, Stefan Kofler. Allegato: foto della strada"
           },
           "explain": {
             "en": "**Sehr geehrte …, the request in Sie and the Konjunktiv II, Mit freundlichen Grüßen**",
@@ -784,7 +802,8 @@
                 "Ich wäre Ihnen dankbar, wenn Sie mir bald antworten würden.",
                 "Ich wäre Ihnen dankbar, wenn Sie mir bald antworten.",
                 "Ich wäre Ihnen dankbar, wenn Sie bald antworten könnten.",
-                "Ich wäre Ihnen dankbar, wenn Sie mir bald antworten könnten."
+                "Ich wäre Ihnen dankbar, wenn Sie mir bald antworten könnten.",
+                "Ich wäre Ihnen dankbar, wenn Sie bald antworteten."
               ]
             },
             {
@@ -829,7 +848,8 @@
               "from": "Ich habe zwanzig Flaschen bestellt. Die zwanzig Flaschen sind nicht angekommen. (diese)",
               "accept": [
                 "Ich habe zwanzig Flaschen bestellt. Diese sind nicht angekommen.",
-                "Ich habe zwanzig Flaschen bestellt. Diese Flaschen sind nicht angekommen."
+                "Ich habe zwanzig Flaschen bestellt. Diese Flaschen sind nicht angekommen.",
+                "Ich habe zwanzig Flaschen bestellt. Diese zwanzig Flaschen sind nicht angekommen."
               ]
             },
             {
@@ -847,10 +867,13 @@
               ]
             },
             {
-              "from": "Ich bin böse wegen der Rechnung. (sich beschweren über)",
+              "from": "Ich ärgere mich wegen der Rechnung. (sich beschweren über)",
               "accept": [
                 "Ich möchte mich über die Rechnung beschweren.",
-                "Ich beschwere mich über die Rechnung."
+                "Ich beschwere mich über die Rechnung.",
+                "Ich muss mich über die Rechnung beschweren.",
+                "Ich will mich über die Rechnung beschweren.",
+                "Ich würde mich gern über die Rechnung beschweren."
               ],
               "explain": {
                 "en": "**sich beschweren über + the accusative; polite, and precise**\n- Ich möchte mich über die Rechnung beschweren.",
@@ -890,7 +913,9 @@
           },
           {
             "accept": [
-              "Dafür"
+              "Dafür",
+              "Diese",
+              "Alle"
             ]
           },
           {
@@ -903,7 +928,10 @@
               "Daher",
               "Deshalb",
               "Deswegen",
-              "Darum"
+              "Darum",
+              "Also",
+              "Somit",
+              "Hiermit"
             ]
           },
           {
@@ -954,7 +982,9 @@
                   "Sehr geehrte Frau Mag.a Zankl",
                   "Sehr geehrte Frau Mag. Zankl",
                   "Sehr geehrte Frau Magister",
-                  "Sehr geehrte Frau Magistra"
+                  "Sehr geehrte Frau Magistra",
+                  "Sehr geehrte Frau Zankl",
+                  "Sehr geehrte Frau Mag.a Julia Zankl"
                 ]
               }
             ]
@@ -966,7 +996,9 @@
                 "accept": [
                   "Sehr geehrter Herr Doktor Schnabl",
                   "Sehr geehrter Herr Dr. Schnabl",
-                  "Sehr geehrter Herr Doktor"
+                  "Sehr geehrter Herr Doktor",
+                  "Sehr geehrter Herr Schnabl",
+                  "Sehr geehrter Herr Dr. Peter Schnabl"
                 ]
               }
             ]
@@ -998,7 +1030,8 @@
           {
             "from": "Kommst du am Freitag? (Würden Sie)",
             "accept": [
-              "Würden Sie am Freitag kommen?"
+              "Würden Sie am Freitag kommen?",
+              "Würden Sie bitte am Freitag kommen?"
             ]
           },
           {
@@ -1006,7 +1039,8 @@
             "accept": [
               "Ich wäre Ihnen dankbar, wenn Sie die Rechnung mitbringen würden.",
               "Ich wäre Ihnen dankbar, wenn Sie die Rechnung mitbringen.",
-              "Ich wäre Ihnen dankbar, wenn Sie die Rechnung mitbrächten."
+              "Ich wäre Ihnen dankbar, wenn Sie die Rechnung mitbrächten.",
+              "Ich wäre Ihnen dankbar, wenn Sie die Rechnung mitbringen könnten."
             ]
           }
         ],

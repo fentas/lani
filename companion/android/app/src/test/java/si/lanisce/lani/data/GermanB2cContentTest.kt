@@ -56,7 +56,7 @@ class GermanB2cContentTest {
         )) assertEquals("$typed for $right", Verdict.WRONG, de(typed, right).verdict)
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("Tofen", "Topfen"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("Stige", "Stiege"))
-        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Rücksich", "Rücksicht"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Rücksiht", "Rücksicht"))
         assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("Jaenner", "Jänner"))
         assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("waehrend", "während"))
     }

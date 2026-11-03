@@ -133,9 +133,9 @@
       },
       {
         "say": {
-          "en": "**jedoch** (however) and **allerdings** (though) say what aber says, more in writing, but they take a place: first, with the verb next, or further in. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. After a comma, jedoch may also take no place, as aber does. **dennoch** (all the same) sits where trotzdem sits: Der Weg war weit, **dennoch kam** Kathi pünktlich.",
-          "sl": "**jedoch** (vendar) in **allerdings** (je pa) povesta isto kot aber, bolj v pisanju, vendar zasedeta mesto: prvo, glagol takoj za njim, ali dlje v stavku. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. Za vejico lahko jedoch tudi ne zasede mesta, kot aber. **dennoch** (kljub temu) stoji tam, kjer trotzdem: Der Weg war weit, **dennoch kam** Kathi pünktlich.",
-          "it": "**jedoch** (tuttavia) e **allerdings** (però) dicono quello che dice aber, più nello scritto, ma occupano un posto: il primo, col verbo subito dopo, o più avanti. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. Dopo la virgola jedoch può anche non occupare un posto, come aber. **dennoch** (ciononostante) sta dove sta trotzdem: Der Weg war weit, **dennoch kam** Kathi pünktlich."
+          "en": "**jedoch** (however), more in writing, and **allerdings** (though), in talk too, say what aber says, but they take a place: first, with the verb next, or further in. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. After a comma, jedoch may also take no place, as aber does. **dennoch** (all the same) sits where trotzdem sits: Der Weg war weit, **dennoch kam** Kathi pünktlich.",
+          "sl": "**jedoch** (vendar), bolj v pisanju, in **allerdings** (je pa), tudi v govoru, povesta isto kot aber, vendar zasedeta mesto: prvo, glagol takoj za njim, ali dlje v stavku. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. Za vejico lahko jedoch tudi ne zasede mesta, kot aber. **dennoch** (kljub temu) stoji tam, kjer trotzdem: Der Weg war weit, **dennoch kam** Kathi pünktlich.",
+          "it": "**jedoch** (tuttavia), più nello scritto, e **allerdings** (però), anche parlando, dicono quello che dice aber, ma occupano un posto: il primo, col verbo subito dopo, o più avanti. **Allerdings ist** der Weg weit. Der Weg ist **jedoch** weit. Dopo la virgola jedoch può anche non occupare un posto, come aber. **dennoch** (ciononostante) sta dove sta trotzdem: Der Weg war weit, **dennoch kam** Kathi pünktlich."
         },
         "examples": [
           {
@@ -230,7 +230,9 @@
           "grammar": "zwar-aber",
           "text": "Auch wenn es morgen ___ (schneien), fährt der Bus.",
           "accept": [
-            "schneit"
+            "schneit",
+            "schneien sollte",
+            "schneien wird"
           ],
           "hint": {
             "en": "the verb last",
@@ -477,7 +479,9 @@
                 {
                   "accept": [
                     "auch wenn",
-                    "selbst wenn"
+                    "selbst wenn",
+                    "sogar wenn",
+                    "wenn auch"
                   ]
                 },
                 "—"
@@ -493,7 +497,8 @@
                 {
                   "accept": [
                     "während",
-                    "wohingegen"
+                    "wohingegen",
+                    "wogegen"
                   ]
                 },
                 "—"
@@ -508,7 +513,9 @@
               "cells": [
                 {
                   "accept": [
-                    "obwohl"
+                    "obwohl",
+                    "obgleich",
+                    "obschon"
                   ]
                 },
                 "—"
@@ -624,7 +631,8 @@
             },
             {
               "accept": [
-                "wenn"
+                "wenn",
+                "während"
               ]
             },
             {
@@ -636,7 +644,9 @@
             {
               "accept": [
                 "dennoch",
-                "trotzdem"
+                "trotzdem",
+                "allerdings",
+                "jedoch"
               ]
             },
             {
@@ -648,19 +658,22 @@
             {
               "accept": [
                 "Selbst",
-                "Auch"
+                "Auch",
+                "Sogar"
               ]
             },
             {
               "accept": [
                 "Allerdings",
-                "Jedoch"
+                "Jedoch",
+                "Dennoch",
+                "Trotzdem"
               ]
             }
           ],
           "bank": true,
           "distractors": [
-            "aber",
+            "trotz",
             "sondern",
             "weder"
           ],
@@ -748,7 +761,10 @@
                 "Zwar ist der Most teuer, aber er ist gut.",
                 "Zwar ist der Most teuer, aber gut.",
                 "Der Most ist zwar teuer, er ist aber gut.",
-                "Zwar ist der Most teuer, er ist aber gut."
+                "Zwar ist der Most teuer, er ist aber gut.",
+                "Der Most ist zwar teuer, ist aber gut.",
+                "Teuer ist der Most zwar, aber er ist gut.",
+                "Teuer ist der Most zwar, aber gut."
               ]
             },
             {
@@ -758,7 +774,12 @@
                 "Die Mühle ist einerseits schön, andererseits kostet sie viel.",
                 "Die Mühle ist einerseits schön, kostet andererseits aber viel.",
                 "Die Mühle ist einerseits schön, kostet aber andererseits viel.",
-                "Die Mühle ist einerseits schön, kostet andererseits viel."
+                "Die Mühle ist einerseits schön, kostet andererseits viel.",
+                "Einerseits ist die Mühle schön, andererseits kostet sie aber viel.",
+                "Einerseits ist die Mühle schön, andererseits aber kostet sie viel.",
+                "Die Mühle ist einerseits schön, andererseits kostet sie aber viel.",
+                "Die Mühle ist einerseits schön, sie kostet andererseits viel.",
+                "Einerseits ist die Mühle schön, kostet andererseits aber viel."
               ]
             },
             {
@@ -767,7 +788,11 @@
                 "Auch wenn es regnet, gehen wir.",
                 "Wir gehen, auch wenn es regnet.",
                 "Auch wenn es vielleicht regnet, gehen wir.",
-                "Wir gehen, auch wenn es vielleicht regnet."
+                "Wir gehen, auch wenn es vielleicht regnet.",
+                "Auch wenn es regnen sollte, gehen wir.",
+                "Wir gehen, auch wenn es regnen sollte.",
+                "Auch wenn es regnet, gehen wir trotzdem.",
+                "Wir gehen trotzdem, auch wenn es regnet."
               ],
               "spoken": [
                 "Auch wenn es regnet, wir gehen.",
@@ -809,14 +834,20 @@
                 "Kathi ist zwar müde, aber tanzt.",
                 "Kathi ist zwar müde, sie tanzt aber.",
                 "Zwar ist Kathi müde, sie tanzt aber.",
-                "Zwar ist Kathi müde, tanzt aber."
+                "Zwar ist Kathi müde, tanzt aber.",
+                "Kathi ist zwar müde, aber sie tanzt trotzdem.",
+                "Kathi ist zwar müde, tanzt aber trotzdem.",
+                "Müde ist Kathi zwar, aber sie tanzt."
               ]
             },
             {
               "from": "Es regnete, aber wir gingen. (dennoch)",
               "accept": [
                 "Es regnete, dennoch gingen wir.",
-                "Es regnete, wir gingen dennoch."
+                "Es regnete, wir gingen dennoch.",
+                "Es regnete, aber wir gingen dennoch.",
+                "Es regnete, aber dennoch gingen wir.",
+                "Es regnete, wir gingen aber dennoch."
               ]
             },
             {
@@ -825,7 +856,9 @@
                 "Der Weg ist schön, allerdings ist er weit.",
                 "Der Weg ist schön, allerdings weit.",
                 "Der Weg ist schön, er ist allerdings weit.",
-                "Der Weg ist schön, ist allerdings weit."
+                "Der Weg ist schön, ist allerdings weit.",
+                "Der Weg ist schön, allerdings auch weit.",
+                "Der Weg ist schön, allerdings ist er auch weit."
               ]
             },
             {
@@ -833,7 +866,9 @@
               "accept": [
                 "In Kärnten sagt man Jänner, wohingegen man in Deutschland Januar sagt.",
                 "In Deutschland sagt man Januar, wohingegen man in Kärnten Jänner sagt.",
-                "In Kärnten sagt man Jänner, wohingegen in Deutschland Januar gesagt wird."
+                "In Kärnten sagt man Jänner, wohingegen in Deutschland Januar gesagt wird.",
+                "In Kärnten sagt man Jänner, wohingegen es in Deutschland Januar heißt.",
+                "In Kärnten sagt man Jänner, wohingegen sie in Deutschland Januar sagen."
               ]
             }
           ],
@@ -875,7 +910,9 @@
               "allerdings",
               "jedoch",
               "dennoch",
-              "trotzdem"
+              "trotzdem",
+              "nur",
+              "dafür"
             ]
           },
           {
@@ -892,7 +929,10 @@
           {
             "accept": [
               "dennoch",
-              "trotzdem"
+              "trotzdem",
+              "doch",
+              "wohl",
+              "sicher"
             ]
           }
         ],
@@ -925,7 +965,10 @@
               "Zwar ist die Alm weit, aber sie ist schön.",
               "Zwar ist die Alm weit, aber schön.",
               "Die Alm ist zwar weit, sie ist aber schön.",
-              "Zwar ist die Alm weit, sie ist aber schön."
+              "Zwar ist die Alm weit, sie ist aber schön.",
+              "Die Alm ist zwar weit, ist aber schön.",
+              "Weit ist die Alm zwar, aber sie ist schön.",
+              "Weit ist die Alm zwar, aber schön."
             ]
           },
           {
@@ -933,7 +976,12 @@
             "accept": [
               "Selbst wenn Toni keine Zeit hat, kommt er.",
               "Toni kommt, selbst wenn er keine Zeit hat.",
-              "Selbst wenn er keine Zeit hat, kommt Toni."
+              "Selbst wenn er keine Zeit hat, kommt Toni.",
+              "Selbst wenn Toni vielleicht keine Zeit hat, kommt er.",
+              "Toni kommt, selbst wenn er vielleicht keine Zeit hat.",
+              "Selbst wenn Toni keine Zeit haben sollte, kommt er.",
+              "Selbst wenn Toni keine Zeit hat, kommt er trotzdem.",
+              "Selbst wenn Toni keine Zeit hätte, käme er."
             ],
             "spoken": [
               "Selbst wenn Toni keine Zeit hat, er kommt."
@@ -950,7 +998,11 @@
             "from": "Der Hund ist alt, aber er läuft schnell. (dennoch)",
             "accept": [
               "Der Hund ist alt, dennoch läuft er schnell.",
-              "Der Hund ist alt, er läuft dennoch schnell."
+              "Der Hund ist alt, er läuft dennoch schnell.",
+              "Der Hund ist alt, aber er läuft dennoch schnell.",
+              "Der Hund ist alt, aber dennoch läuft er schnell.",
+              "Der Hund ist alt, läuft aber dennoch schnell.",
+              "Der Hund ist alt, läuft dennoch schnell."
             ]
           }
         ],

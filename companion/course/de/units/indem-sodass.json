@@ -111,7 +111,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "indem-sodass",
-          "text": "Toni hilft Franz, ___ er das Mühlrad repariert.",
+          "text": "Toni hilft Franz, ___ (wie?) er das Mühlrad repariert.",
           "accept": [
             "indem",
             "dadurch, dass"
@@ -130,9 +130,9 @@
       },
       {
         "say": {
-          "en": "**dadurch, dass** (by, through the fact that) says how too, and it's the longer one: it can open the sentence, and its clause can have a subject of its own: **Dadurch, dass** es geregnet hat, ist das Gras gewachsen. It can also split, with dadurch in the main clause: Er spart Geld **dadurch, dass** er selbst verkauft. **indem** usually keeps one subject in both parts.",
-          "sl": "**dadurch, dass** (s tem, da) tudi pove, kako, in je daljša oblika: lahko začne stavek, njen stavek ima lahko svoj osebek: **Dadurch, dass** es geregnet hat, ist das Gras gewachsen. Lahko se tudi razdeli, dadurch ostane v glavnem stavku: Er spart Geld **dadurch, dass** er selbst verkauft. **indem** ima navadno v obeh delih isti osebek.",
-          "it": "**dadurch, dass** (per il fatto che) dice anch'esso come, ed è la forma più lunga: può aprire la frase e la sua secondaria può avere un soggetto proprio: **Dadurch, dass** es geregnet hat, ist das Gras gewachsen. Si può anche dividere, con dadurch nella principale: Er spart Geld **dadurch, dass** er selbst verkauft. **indem** di solito ha lo stesso soggetto nelle due parti."
+          "en": "**dadurch, dass** (by, through the fact that) says how too, and it's the longer one: it opens a sentence more easily, and its clause can have a subject of its own: **Dadurch, dass** es geregnet hat, ist das Gras gewachsen. It can also split, with dadurch in the main clause: Er spart Geld **dadurch, dass** er selbst verkauft. **indem** usually keeps one subject in both parts.",
+          "sl": "**dadurch, dass** (s tem, da) tudi pove, kako, in je daljša oblika: laže začne stavek, njen stavek ima lahko svoj osebek: **Dadurch, dass** es geregnet hat, ist das Gras gewachsen. Lahko se tudi razdeli, dadurch ostane v glavnem stavku: Er spart Geld **dadurch, dass** er selbst verkauft. **indem** ima navadno v obeh delih isti osebek.",
+          "it": "**dadurch, dass** (per il fatto che) dice anch'esso come, ed è la forma più lunga: apre più facilmente la frase e la sua secondaria può avere un soggetto proprio: **Dadurch, dass** es geregnet hat, ist das Gras gewachsen. Si può anche dividere, con dadurch nella principale: Er spart Geld **dadurch, dass** er selbst verkauft. **indem** di solito ha lo stesso soggetto nelle due parti."
         },
         "examples": [
           {
@@ -218,7 +218,10 @@
           "grammar": "indem-sodass",
           "text": "Der Schnee war hoch, ___ der Bus nicht fahren konnte.",
           "accept": [
-            "sodass"
+            "sodass",
+            "weshalb",
+            "weswegen",
+            "wodurch"
           ],
           "hint": {
             "en": "what came of it?",
@@ -256,7 +259,7 @@
           [
             "so … dass",
             {
-              "en": "so much that",
+              "en": "so … that",
               "sl": "tako … da",
               "it": "così … che"
             },
@@ -288,9 +291,9 @@
       },
       {
         "say": {
-          "en": "**zu …, um … zu** (too … to) says there's too much for something to happen: Toni ist **zu** müde, **um** zu arbeiten. There is no nicht in it, and it still says he doesn't work. It takes one subject, and the zu-infinitive you know from B1 comes last. With two subjects, or to say it plainly, use so … dass: Toni ist so müde, dass er nicht arbeiten kann.",
-          "sl": "**zu …, um … zu** (preveč …, da bi) pove, da je česa preveč, da bi se kaj zgodilo: Toni ist **zu** müde, **um** zu arbeiten. V njem ni nicht, pa vseeno pove, da ne dela. Velja za en osebek, nedoločnik z zu iz B1 je na koncu. Pri dveh osebkih ali preprosteje: Toni ist so müde, dass er nicht arbeiten kann.",
-          "it": "**zu …, um … zu** (troppo … per) dice che qualcosa è troppo perché una cosa succeda: Toni ist **zu** müde, **um** zu arbeiten. Non c'è nessun nicht, eppure dice che non lavora. Vale per un solo soggetto, e l'infinito con zu del B1 va in fondo. Con due soggetti, o più semplice: Toni ist so müde, dass er nicht arbeiten kann."
+          "en": "**zu …, um … zu** (too … to) says there's too much for something to happen: Toni ist **zu** müde, **um** zu arbeiten. There is no nicht in it, and it still says he doesn't work. The doer is the subject or people in general, and the zu-infinitive you know from B1 comes last. With someone else doing it, or to say it plainly, use so … dass: Toni ist so müde, dass er nicht arbeiten kann.",
+          "sl": "**zu …, um … zu** (preveč …, da bi) pove, da je česa preveč, da bi se kaj zgodilo: Toni ist **zu** müde, **um** zu arbeiten. V njem ni nicht, pa vseeno pove, da ne dela. Dela osebek ali ljudje nasploh, nedoločnik z zu iz B1 je na koncu. Če dela kdo drug, ali preprosteje: Toni ist so müde, dass er nicht arbeiten kann.",
+          "it": "**zu …, um … zu** (troppo … per) dice che qualcosa è troppo perché una cosa succeda: Toni ist **zu** müde, **um** zu arbeiten. Non c'è nessun nicht, eppure dice che non lavora. Chi agisce è il soggetto o la gente in generale, e l'infinito con zu del B1 va in fondo. Se agisce un altro, o più semplice: Toni ist so müde, dass er nicht arbeiten kann."
         },
         "examples": [
           {
@@ -660,7 +663,7 @@
             "it": "Ergänze · Completa"
           },
           "title": "Das Wasser bei der Mühle",
-          "text": "Im Mai regnete es so stark, ___ die Wiese hinter der Mühle unter Wasser stand. Franz rettete sein Mehl, ___ er die Säcke nach oben trug. Toni half ihm, ___ man ihn bitten musste. Der Weg war bald ___ nass, um mit dem Traktor zu fahren. Stefan kam trotzdem, ___ zu Hause zu bleiben. ___, dass alle mithalfen, war die Arbeit am Abend fertig. Das Wasser ging zurück, ___ Franz wieder mahlen konnte. Und ___ Franz Geld zahlte, gab es für alle eine Jause.",
+          "text": "Im Mai regnete es so stark, ___ die Wiese hinter der Mühle unter Wasser stand. Franz rettete sein Mehl, ___ er die Säcke nach oben trug. Toni half ihm, ___ man ihn bitten musste. Der Weg war bald ___ nass, um mit dem Traktor zu fahren. Stefan kam trotzdem, ___ zu Hause zu bleiben. ___, dass alle mithalfen, war die Arbeit am Abend fertig. Das Wasser ging zurück, ___ Franz wieder mahlen konnte. Und ___ (statt) Franz Geld zahlte, gab es für alle eine Jause.",
           "gaps": [
             {
               "accept": [
@@ -703,6 +706,7 @@
               "accept": [
                 "sodass",
                 "weshalb",
+                "weswegen",
                 "wodurch"
               ]
             },
@@ -760,7 +764,7 @@
             "sl": "Wähle · Izberi",
             "it": "Wähle · Scegli"
           },
-          "prompt": "Toni wurde reich, ___ er Hufeisen in ganz Kärnten verkaufte.",
+          "prompt": "Toni wurde reich, ___ (wie?) er Hufeisen in ganz Kärnten verkaufte.",
           "options": [
             "indem",
             "sodass",
@@ -798,13 +802,15 @@
             {
               "from": "Kathi spart Geld. Sie kocht selbst. (indem)",
               "accept": [
-                "Kathi spart Geld, indem sie selbst kocht."
+                "Kathi spart Geld, indem sie selbst kocht.",
+                "Indem sie selbst kocht, spart Kathi Geld."
               ]
             },
             {
               "from": "Franz repariert das Rad. Er ersetzt die Bretter. (indem)",
               "accept": [
-                "Franz repariert das Rad, indem er die Bretter ersetzt."
+                "Franz repariert das Rad, indem er die Bretter ersetzt.",
+                "Indem er die Bretter ersetzt, repariert Franz das Rad."
               ]
             },
             {
@@ -816,7 +822,8 @@
             {
               "from": "Der Most war billig. Alle haben zwei Flaschen gekauft. (so … dass)",
               "accept": [
-                "Der Most war so billig, dass alle zwei Flaschen gekauft haben."
+                "Der Most war so billig, dass alle zwei Flaschen gekauft haben.",
+                "So billig war der Most, dass alle zwei Flaschen gekauft haben."
               ]
             }
           ],
@@ -839,7 +846,8 @@
             {
               "from": "Toni ist sehr müde. Er kann nicht arbeiten. (zu … um zu)",
               "accept": [
-                "Toni ist zu müde, um zu arbeiten."
+                "Toni ist zu müde, um zu arbeiten.",
+                "Toni ist zu müde, um arbeiten zu können."
               ]
             },
             {
@@ -850,7 +858,11 @@
                 "Stefan geht, ohne dass es einer sieht.",
                 "Stefan geht, ohne dass es wer sieht.",
                 "Ohne dass es jemand sieht, geht Stefan.",
-                "Stefan geht, ohne dass es irgendwer sieht."
+                "Stefan geht, ohne dass es irgendwer sieht.",
+                "Stefan geht, ohne dass ihn jemand sieht.",
+                "Stefan geht, ohne dass es irgendjemand sieht.",
+                "Ohne dass es einer sieht, geht Stefan.",
+                "Ohne dass jemand es sieht, geht Stefan."
               ]
             },
             {
@@ -912,6 +924,7 @@
             "accept": [
               "sodass",
               "weshalb",
+              "weswegen",
               "wodurch"
             ]
           },
@@ -955,13 +968,15 @@
           {
             "from": "Stanko verdient Geld. Er verkauft Honig. (indem)",
             "accept": [
-              "Stanko verdient Geld, indem er Honig verkauft."
+              "Stanko verdient Geld, indem er Honig verkauft.",
+              "Indem er Honig verkauft, verdient Stanko Geld."
             ]
           },
           {
             "from": "Es war kalt. Der Most ist im Fass gefroren. (so … dass)",
             "accept": [
-              "Es war so kalt, dass der Most im Fass gefroren ist."
+              "Es war so kalt, dass der Most im Fass gefroren ist.",
+              "So kalt war es, dass der Most im Fass gefroren ist."
             ]
           },
           {
@@ -969,7 +984,10 @@
             "accept": [
               "Die Kiste ist zu schwer, um sie zu tragen.",
               "Die Kiste ist für Lena zu schwer, um sie zu tragen.",
-              "Die Kiste ist zu schwer, um von Lena getragen zu werden."
+              "Die Kiste ist zu schwer, um von Lena getragen zu werden.",
+              "Die Kiste ist zu schwer, um sie tragen zu können.",
+              "Die Kiste ist für Lena zu schwer, um sie tragen zu können.",
+              "Die Kiste ist zu schwer für Lena, um sie zu tragen."
             ]
           },
           {
@@ -980,7 +998,10 @@
               "Oma Resi kocht, ohne dass ihr einer hilft.",
               "Oma Resi kocht, ohne dass ihr wer hilft.",
               "Ohne dass ihr jemand hilft, kocht Oma Resi.",
-              "Oma Resi kocht, ohne dass ihr irgendwer hilft."
+              "Oma Resi kocht, ohne dass ihr irgendwer hilft.",
+              "Oma Resi kocht, ohne dass ihr irgendjemand hilft.",
+              "Ohne dass jemand ihr hilft, kocht Oma Resi.",
+              "Ohne dass ihr einer hilft, kocht Oma Resi."
             ]
           }
         ],
@@ -1020,7 +1041,7 @@
           "sl": "Wähle · Izberi",
           "it": "Wähle · Scegli"
         },
-        "prompt": "___ Maxi lernt, spielt er draußen. (Er lernt nicht.)",
+        "prompt": "___ Maxi hilft, muss Lena alles allein machen.",
         "options": [
           "Anstatt dass",
           "Indem",
