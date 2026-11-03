@@ -56,7 +56,8 @@ import si.lanisce.lani.ui.LocalLook
 import si.lanisce.lani.ui.Markdown
 import si.lanisce.lani.ui.NoSuggestions
 import si.lanisce.lani.ui.Outcome
-import si.lanisce.lani.ui.Prompt
+import si.lanisce.lani.ui.WordTip
+import si.lanisce.lani.ui.emphasized
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.SpeakEx
 import si.lanisce.lani.ui.SpeechGrader
@@ -190,7 +191,15 @@ internal fun WritingEx(vm: AppViewModel, ex: Exercise.Writing, index: Int, locke
     var conv by rememberSaveable { mutableStateOf<String?>(null) }
     var result by remember { mutableStateOf<Production.Checked?>(null) }
     val checked = remember(value.text) { Production.check(value.text, ex.must, ex.avoid, ex.length, lang) }
-    Prompt(ex.prompt, ex.instruction)
+    // the task, a few lines: smaller than a question's prompt, its words looked up as a prompt's
+    ex.instruction?.let {
+        Text(it, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Spacer(Modifier.height(8.dp))
+    }
+    val look = LocalLook.current
+    val shown = remember(ex.prompt) { inlineMarkdown(ex.prompt) }
+    ExText(shown, remember(shown, look) { look?.taps?.prompt(shown.text, shown.emphasized()).orEmpty() }, style = MaterialTheme.typography.titleLarge, tag = "prompt")
+    look?.let { WordTip(it) }
     ex.ask?.let {
         Spacer(Modifier.height(12.dp))
         AskedLine(vm, it)
