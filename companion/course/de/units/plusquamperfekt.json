@@ -271,7 +271,7 @@
           "options": [
             "hatte",
             "war",
-            "wäre"
+            "wird"
           ],
           "answer": 0,
           "say_options": true,
@@ -511,9 +511,9 @@
           "type": "gaptext",
           "grammar": "plusquamperfekt",
           "instruction": {
-            "en": "Ergänze · Fill in",
-            "sl": "Ergänze · Dopolni",
-            "it": "Ergänze · Completa"
+            "en": "Ergänze im Plusquamperfekt · Fill in the past before the past",
+            "sl": "Ergänze im Plusquamperfekt · Dopolni v predpretekliku",
+            "it": "Ergänze im Plusquamperfekt · Completa al trapassato"
           },
           "title": "Der Kirchtag",
           "text": "Am Kirchtag kam Kathi um sechs in die Küche, aber alles war schon fertig. Oma Resi ___ die Suppe gekocht. Stefan ___ den Most gebracht. Toni und Franz ___ die Tische aufgestellt. Auch Mitzi ___ schon gekommen, und die Kinder ___ in den Garten gelaufen. Nachdem Kathi einen Kaffee ___ hatte, ging sie hinaus. Stanko ___ schon lange auf der Bank gesessen. Erst nachdem alle ___ waren, setzte sich Kathi hin.",
@@ -556,14 +556,15 @@
             },
             {
               "accept": [
-                "gegangen"
+                "gegangen",
+                "gekommen"
               ]
             }
           ],
           "bank": true,
           "distractors": [
-            "hätte",
-            "wäre",
+            "hattest",
+            "warst",
             "getrinken"
           ],
           "translation": {
@@ -589,7 +590,7 @@
           "options": [
             "hatte",
             "war",
-            "wäre"
+            "wird"
           ],
           "answer": 0,
           "say_options": true,
@@ -647,7 +648,8 @@
               "accept": [
                 "Nachdem ich gegessen hatte, ging ich spazieren.",
                 "Ich ging spazieren, nachdem ich gegessen hatte.",
-                "Nachdem ich gegessen hatte, bin ich spazieren gegangen."
+                "Nachdem ich gegessen hatte, bin ich spazieren gegangen.",
+                "Ich bin spazieren gegangen, nachdem ich gegessen hatte."
               ],
               "spoken": [
                 "Nachdem ich gegessen habe, bin ich spazieren gegangen.",
@@ -660,7 +662,9 @@
               "accept": [
                 "Nachdem Stefan gearbeitet hatte, trank er Most.",
                 "Stefan trank Most, nachdem er gearbeitet hatte.",
-                "Nachdem Stefan gearbeitet hatte, hat er Most getrunken."
+                "Nachdem Stefan gearbeitet hatte, hat er Most getrunken.",
+                "Stefan hat Most getrunken, nachdem er gearbeitet hatte.",
+                "Nachdem er gearbeitet hatte, trank Stefan Most."
               ],
               "spoken": [
                 "Nachdem Stefan gearbeitet hat, hat er Most getrunken.",
@@ -672,7 +676,8 @@
               "accept": [
                 "Nachdem der Zug abgefahren war, kam Franz.",
                 "Franz kam, nachdem der Zug abgefahren war.",
-                "Nachdem der Zug abgefahren war, ist Franz gekommen."
+                "Nachdem der Zug abgefahren war, ist Franz gekommen.",
+                "Franz ist gekommen, nachdem der Zug abgefahren war."
               ],
               "spoken": [
                 "Nachdem der Zug abgefahren ist, ist Franz gekommen.",
@@ -684,7 +689,9 @@
               "accept": [
                 "Nachdem die Kinder nach Hause gekommen waren, aßen sie.",
                 "Die Kinder aßen, nachdem sie nach Hause gekommen waren.",
-                "Nachdem die Kinder nach Hause gekommen waren, haben sie gegessen."
+                "Nachdem die Kinder nach Hause gekommen waren, haben sie gegessen.",
+                "Die Kinder haben gegessen, nachdem sie nach Hause gekommen waren.",
+                "Nachdem sie nach Hause gekommen waren, aßen die Kinder."
               ],
               "spoken": [
                 "Nachdem die Kinder nach Hause gekommen sind, haben sie gegessen.",
@@ -719,7 +726,8 @@
               "from": "Kathi kocht. Dann macht sie eine Pause.",
               "accept": [
                 "Nachdem Kathi gekocht hat, macht sie eine Pause.",
-                "Kathi macht eine Pause, nachdem sie gekocht hat."
+                "Kathi macht eine Pause, nachdem sie gekocht hat.",
+                "Nachdem sie gekocht hat, macht Kathi eine Pause."
               ]
             }
           ],
@@ -783,9 +791,9 @@
         "type": "gaptext",
         "grammar": "plusquamperfekt",
         "instruction": {
-          "en": "Ergänze · Fill in",
-          "sl": "Ergänze · Dopolni",
-          "it": "Ergänze · Completa"
+          "en": "Ergänze im Plusquamperfekt · Fill in the past before the past",
+          "sl": "Ergänze im Plusquamperfekt · Dopolni v predpretekliku",
+          "it": "Ergänze im Plusquamperfekt · Completa al trapassato"
         },
         "text": "Als Maxi nach Hause kam, ___ Kathi schon gegessen. Lena ___ schon zu Oma Resi gegangen. Maxi hatte Hunger, denn er ___ den ganzen Tag gespielt. Nachdem er die Suppe ___ hatte, ging er ins Bett. Er schlief gleich ein, denn er ___ sehr müde geworden.",
         "gaps": [
@@ -806,7 +814,8 @@
           },
           {
             "accept": [
-              "gegessen"
+              "gegessen",
+              "aufgegessen"
             ]
           },
           {
@@ -841,7 +850,9 @@
             "accept": [
               "Nachdem Toni gearbeitet hatte, ging er nach Hause.",
               "Toni ging nach Hause, nachdem er gearbeitet hatte.",
-              "Nachdem Toni gearbeitet hatte, ist er nach Hause gegangen."
+              "Nachdem Toni gearbeitet hatte, ist er nach Hause gegangen.",
+              "Toni ist nach Hause gegangen, nachdem er gearbeitet hatte.",
+              "Nachdem er gearbeitet hatte, ging Toni nach Hause."
             ],
             "spoken": [
               "Nachdem Toni gearbeitet hat, ist er nach Hause gegangen.",
@@ -852,7 +863,8 @@
             "from": "Kathi kocht. Dann ruht sie sich aus.",
             "accept": [
               "Nachdem Kathi gekocht hat, ruht sie sich aus.",
-              "Kathi ruht sich aus, nachdem sie gekocht hat."
+              "Kathi ruht sich aus, nachdem sie gekocht hat.",
+              "Nachdem sie gekocht hat, ruht sich Kathi aus."
             ]
           }
         ],
@@ -952,9 +964,9 @@
         "answer": 0,
         "say_options": true,
         "explain": {
-          "en": "**nachdem steps back: hatte + the past, habe + the present**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
-          "sl": "**nachdem stopi korak nazaj: hatte + preteklik, habe + sedanjik**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
-          "it": "**nachdem fa un passo indietro: hatte + passato, habe + presente**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich"
+          "en": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+          "sl": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+          "it": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen"
         }
       }
     ]

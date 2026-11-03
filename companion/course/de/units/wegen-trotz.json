@@ -239,9 +239,9 @@
       },
       {
         "say": {
-          "en": "**statt** (instead of) takes the genitive too: **Statt des Weins trinkt Stefan Most.** (Instead of wine, Stefan drinks cider.) **A noun alone** stays bare, with any of them: **statt Wein**, **trotz Regen**, and on a door: **Wegen Krankheit geschlossen.** (Closed because of illness.)",
-          "sl": "**statt** (namesto) prav tako zahteva rodilnik: **Statt des Weins trinkt Stefan Most.** (Namesto vina Stefan pije mošt.) **Samostalnik sam** ostane brez končnice, pri vseh: **statt Wein**, **trotz Regen**, na vratih pa: **Wegen Krankheit geschlossen.** (Zaprto zaradi bolezni.)",
-          "it": "**statt** (invece di) vuole anche lui il genitivo: **Statt des Weins trinkt Stefan Most.** (Invece del vino, Stefan beve sidro.) **Un nome da solo** resta senza desinenza, con tutte: **statt Wein**, **trotz Regen**, e su una porta: **Wegen Krankheit geschlossen.** (Chiuso per malattia.)"
+          "en": "**statt** (instead of) takes the genitive too: **Statt des Weins trinkt Stefan Most.** (Instead of wine, Stefan drinks cider.) **A noun alone** stays bare, with wegen, trotz and statt: **statt Wein**, **trotz Regen**, and on a door: **Wegen Krankheit geschlossen.** (Closed because of illness.)",
+          "sl": "**statt** (namesto) prav tako zahteva rodilnik: **Statt des Weins trinkt Stefan Most.** (Namesto vina Stefan pije mošt.) **Samostalnik sam** ostane brez končnice, pri wegen, trotz in statt: **statt Wein**, **trotz Regen**, na vratih pa: **Wegen Krankheit geschlossen.** (Zaprto zaradi bolezni.)",
+          "it": "**statt** (invece di) vuole anche lui il genitivo: **Statt des Weins trinkt Stefan Most.** (Invece del vino, Stefan beve sidro.) **Un nome da solo** resta senza desinenza, con wegen, trotz e statt: **statt Wein**, **trotz Regen**, e su una porta: **Wegen Krankheit geschlossen.** (Chiuso per malattia.)"
         },
         "examples": [
           {
@@ -618,9 +618,9 @@
           "type": "gaptext",
           "grammar": "praepositionen-genitiv",
           "instruction": {
-            "en": "Ergänze · Fill in",
-            "sl": "Ergänze · Dopolni",
-            "it": "Ergänze · Completa"
+            "en": "Ergänze: wegen, trotz, während, statt, innerhalb, außerhalb · Fill in",
+            "sl": "Ergänze: wegen, trotz, während, statt, innerhalb, außerhalb · Dopolni",
+            "it": "Ergänze: wegen, trotz, während, statt, innerhalb, außerhalb · Completa"
           },
           "title": "Ein nasser Kirchtag",
           "text": "Am Kirchtag regnete es. ___ des Regens blieben viele Leute zu Hause. ___ des Wetters kam Stefan mit dem Most. ___ des Essens erzählte Opa Sepp eine Geschichte, und ___ des Tanzes auf dem Platz spielten alle Karten im Saal. ___ einer Stunde war das Gasthaus voll. Nur Franz kam nicht: ___ der Arbeit blieb er in seiner Mühle, ___ des Dorfes. Am Montag hing an der Tür ein Zettel: „___ Krankheit geschlossen.“",
@@ -642,12 +642,14 @@
             },
             {
               "accept": [
-                "statt"
+                "statt",
+                "anstatt"
               ]
             },
             {
               "accept": [
-                "Innerhalb"
+                "Innerhalb",
+                "Innerhalb von"
               ]
             },
             {
@@ -669,12 +671,12 @@
           "bank": true,
           "distractors": [
             "Stadt",
-            "trotzdem",
+            "mit",
             "weil"
           ],
           "translation": {
             "en": "It rained at the Kirchtag. Because of the rain many people stayed at home. In spite of the weather Stefan came with the cider. During the meal Grandpa Sepp told a story, and instead of the dance on the square everyone played cards in the hall. Within an hour the inn was full. Only Franz didn't come: because of work he stayed in his mill, outside the village. On Monday a note hung on the door: \"Closed because of illness.\"",
-            "sl": "Na žegnanje je deževalo. Zaradi dežja je veliko ljudi ostalo doma. Kljub vremenu je Stefan prišel z moštom. Med jedjo je dedek Sepp povedal zgodbo, namesto plesa na trgu pa so vsi v dvorani igrali karte. V eni uri je bila gostilna polna. Le Franz ni prišel: zaradi dela je ostal v svojem mlinu, zunaj vasi. V ponedeljek je na vratih visel listek: »Zaprto zaradi bolezni.«",
+            "sl": "Na dan žegnanja je deževalo. Zaradi dežja je veliko ljudi ostalo doma. Kljub vremenu je Stefan prišel z moštom. Med jedjo je dedek Sepp povedal zgodbo, namesto plesa na trgu pa so vsi v dvorani igrali karte. V eni uri je bila gostilna polna. Le Franz ni prišel: zaradi dela je ostal v svojem mlinu, zunaj vasi. V ponedeljek je na vratih visel listek: »Zaprto zaradi bolezni.«",
             "it": "Alla sagra pioveva. A causa della pioggia molta gente è rimasta a casa. Nonostante il tempo, Stefan è arrivato col sidro. Durante il pasto Nonno Sepp ha raccontato una storia, e invece del ballo in piazza tutti hanno giocato a carte nella sala. Entro un'ora la locanda era piena. Solo Franz non è venuto: a causa del lavoro è rimasto nel suo mulino, fuori dal paese. Lunedì sulla porta c'era un biglietto: «Chiuso per malattia.»"
           },
           "explain": {
@@ -754,11 +756,15 @@
                 "Wegen des Regens bleiben wir zu Hause.",
                 "Wir bleiben wegen des Regens zu Hause.",
                 "Wegen Regen bleiben wir zu Hause.",
-                "Wir bleiben wegen Regen zu Hause."
+                "Wir bleiben wegen Regen zu Hause.",
+                "Wir bleiben zu Hause wegen des Regens.",
+                "Wegen Regens bleiben wir zu Hause.",
+                "Wir bleiben wegen Regens zu Hause."
               ],
               "spoken": [
                 "Wegen dem Regen bleiben wir zu Hause.",
-                "Wir bleiben wegen dem Regen zu Hause."
+                "Wir bleiben wegen dem Regen zu Hause.",
+                "Wir bleiben zu Hause wegen dem Regen."
               ]
             },
             {
@@ -767,22 +773,26 @@
                 "Trotz des Schnees gehen wir spazieren.",
                 "Wir gehen trotz des Schnees spazieren.",
                 "Trotz Schnee gehen wir spazieren.",
-                "Wir gehen trotz Schnee spazieren."
+                "Wir gehen trotz Schnee spazieren.",
+                "Wir gehen spazieren trotz des Schnees."
               ],
               "spoken": [
                 "Trotz dem Schnee gehen wir spazieren.",
-                "Wir gehen trotz dem Schnee spazieren."
+                "Wir gehen trotz dem Schnee spazieren.",
+                "Wir gehen spazieren trotz dem Schnee."
               ]
             },
             {
               "from": "Franz spricht nicht. (während · das Essen)",
               "accept": [
                 "Während des Essens spricht Franz nicht.",
-                "Franz spricht während des Essens nicht."
+                "Franz spricht während des Essens nicht.",
+                "Franz spricht nicht während des Essens."
               ],
               "spoken": [
                 "Während dem Essen spricht Franz nicht.",
-                "Franz spricht während dem Essen nicht."
+                "Franz spricht während dem Essen nicht.",
+                "Franz spricht nicht während dem Essen."
               ]
             },
             {
@@ -816,7 +826,8 @@
               ],
               "spoken": [
                 "Die Mühle liegt außerhalb vom Dorf am Bach.",
-                "Die Mühle liegt am Bach außerhalb vom Dorf."
+                "Die Mühle liegt am Bach außerhalb vom Dorf.",
+                "Außerhalb vom Dorf liegt die Mühle am Bach."
               ]
             },
             {
@@ -880,9 +891,9 @@
         "type": "gaptext",
         "grammar": "praepositionen-genitiv",
         "instruction": {
-          "en": "Ergänze · Fill in",
-          "sl": "Ergänze · Dopolni",
-          "it": "Ergänze · Completa"
+          "en": "Ergänze: wegen, trotz, während, statt, innerhalb, außerhalb · Fill in",
+          "sl": "Ergänze: wegen, trotz, während, statt, innerhalb, außerhalb · Dopolni",
+          "it": "Ergänze: wegen, trotz, während, statt, innerhalb, außerhalb · Completa"
         },
         "text": "___ des Schnees fuhr kein Zug. ___ der Kälte ging Florian auf die Alm. ___ der Arbeit hörte Toni Radio. ___ des Busses nahm Stefan das Rad. Er war ___ einer Stunde in Villach.",
         "gaps": [
@@ -904,12 +915,14 @@
           },
           {
             "accept": [
-              "Statt"
+              "Statt",
+              "Anstatt"
             ]
           },
           {
             "accept": [
-              "innerhalb"
+              "innerhalb",
+              "innerhalb von"
             ]
           }
         ],
@@ -949,7 +962,8 @@
               "Lena spielt trotz des Regens draußen.",
               "Lena spielt draußen trotz des Regens.",
               "Trotz Regen spielt Lena draußen.",
-              "Lena spielt trotz Regen draußen."
+              "Lena spielt trotz Regen draußen.",
+              "Lena spielt draußen trotz Regen."
             ],
             "spoken": [
               "Trotz dem Regen spielt Lena draußen.",

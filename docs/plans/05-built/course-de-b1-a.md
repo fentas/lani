@@ -11,7 +11,7 @@ Austrian German first. **The first six are questions no source settled for Carin
 2. **wann for wenn** (`als-waehrend`), spoken on the wenn of a gap and a line, as `dass-wenn-ob` does (course-de-a2-c.md, question 1, open there too). A choice never offers wann or wie as wrong.
 3. **Nachdem ich gegessen habe, bin ich gegangen** (`plusquamperfekt`), labelled as spoken. No source says this. It follows from the loss of the Präteritum in speech (below), and the page says "that's how they speak". Does a native hear it as fine, or as a slip? The sheets accept it only as `spoken`, never offer it wrong, and write hatte + Präteritum as the standard.
 4. **ich habe gegessen gehabt, der Bus ist abgefahren gewesen** (`plusquamperfekt`), spoken. [de.wikipedia, Doppeltes Perfekt](https://de.wikipedia.org/wiki/Doppelperfekt): "nicht standardsprachlich", "überwiegend süddeutschen Sprachräumen", replacing the Plusquamperfekt where the Präteritum is lost. Austria isn't named there.
-5. **der Hund vom Stefan, dem Stefan sein Hund** (`genitiv`). The possessive dative: spoken and dialect, by a search extract of [an IDS publication](https://ids-pub.bsz-bw.de/frontdoor/index/index/year/2016/docId/4858) and [a Göttingen poster](https://alumni.uni-goettingen.de/de/document/download/fa35dcb83e805bdd7e9bdce3856fe26a.pdf/Poster%20Possessivdativ.pdf), **neither opened**; nothing on Austria. "vom Stefan", the article before a name, is from memory. Both are named in the text; only von + the dative is a `spoken` answer.
+5. **der Hund vom Stefan, dem Stefan sein Hund** (`genitiv`). The possessive dative: spoken and dialect, by a search extract of [an IDS publication](https://ids-pub.bsz-bw.de/frontdoor/index/index/year/2016/docId/4858) and [a Göttingen poster](https://alumni.uni-goettingen.de/de/document/download/fa35dcb83e805bdd7e9bdce3856fe26a.pdf/Poster%20Possessivdativ.pdf), **neither opened**; nothing on Austria. "vom Stefan", the article before a name, is from memory. Both are named in the text and both are `spoken` answers where they fit (dem Stefan sein Traktor, meinem Vater sein Haus).
 6. **Franz Mühle as spoken** (`genitiv`, the list of names): the apostrophe of Franz' Mühle can't be heard, so a line typed without it is right and labelled. Is that kind, or does it teach a mistake? If the second, take the `spoken` off: it is then wrong.
 
 Then the claims from sources, read on 2026-11-03 unless marked:
@@ -43,13 +43,13 @@ Then each base, by the same reader:
 
 - **Slovene**: the aspects and the masculine of a first person (Pomagal ti bom, Sem že pojedel, Ko sem bil majhen); ko against kadar for als and wenn; dokler ne for bis; odkar for seit; Verjetno še spi for the guess; "bil sem pojedel" as the name of a past perfect Slovene hardly has; je že skuhala; Kljub mrazu, Med jedjo; the possessive adjectives where German has a genitive (mlinarjeva hiša, gostilničarkina kuhinja, Stefanov traktor, Franzov mlin); Vrbsko jezero; h Kathi; Mokro žegnanje; sankat se.
 - **Italian**: the guess in Starà ancora dormendo, Kathi sarà in cucina; passato remoto in the tales (Arrivò un omino, Disse, si mise a ridere) against the passato prossimo of the other translations; finché non, prima che; dopo aver mangiato; farà la maestra, compirà dieci anni, l'oste; la locandiera; a causa di against per (Per me non devi aspettare); slittare; andare a passeggio.
-- **English**: British first (lay the table, sledging, cross-checks of a bad translation of Mitzi's forecast); "the past before the past"; "in talk" as the label for spoken forms.
+- **English**: British first (lay the table, sledging); "the past before the past"; "in talk" as the label for spoken forms.
 
 Every file says so in its `review`.
 
 ## What
 
-The school of a Carinthian village has B1's first six units as soon as the level opens: telling the past, and the fourth case. Eva's intro read aloud, three worksheets, a test at pass 80, a print for each. No screen changed, so tap counts are the same: 1 tap from the school to a unit, 1 each to its intro, sheets and test.
+The school of a Carinthian village has B1's first six units as soon as the level opens: telling the past, and the last of the four cases. Eva's intro read aloud, three worksheets, a test at pass 80, a print for each. No screen changed, so tap counts are the same: 1 tap from the school to a unit, 1 each to its intro, sheets and test.
 
 | # | unit | its pages | intro | examples | worksheets (items) | test |
 |---|---|---|---|---|---|---|
@@ -69,22 +69,23 @@ Bold is a page written here. At most 35 items a unit, as the brief asks; `German
 - **genitiv**: des + -s, -es where it must be, der and no -s; eines, meines, meiner; a name's -s and first place, Franz'; the table of the four cases; von + the dative. No adjective between (part b's `adjektiv-alle-faelle`). No weak noun: Herr, Bub, Bauer, Hirte, Nachbar are left out, since `herr-kollege` is B2's. The gap text: Kathi on her inn; the test: Franz's month.
 - **wegen-trotz**: the six; während with a noun and a clause; a noun alone bare (Wegen Krankheit geschlossen, statt Wein, trotz Regen, right answers); innerhalb von; the dative as spoken; wegen mir. The gap text: a wet Kirchtag; the test: a snowy day.
 
-**What the sentences assume**: all of A1 and A2, and in this part what comes before. No Präteritum beyond war, hatte and the modals in unit 1 (ist geworden, not wurde). No genitive before unit 5. No relative clause (a tale's "dort, wo" became two sentences), no adjective with a genitive, no comparative before a noun, no zu-infinitive, no obwohl or trotzdem, no Konjunktiv beyond a choice's wrong option, all around a gap. Parts b and c may name these pages: none of mine names theirs.
+**What the sentences assume**: all of A1 and A2, and in this part what comes before. No Präteritum beyond war, hatte and the modals in unit 1 (ist geworden, not wurde). No genitive before unit 5. No relative clause (a tale's "dort, wo" became two sentences), no adjective with a genitive, no comparative before a noun, no zu-infinitive, no obwohl or trotzdem, no Konjunktiv, all around a gap. Parts b and c may name these pages: none of mine names theirs.
 
 ## A spoken form is never wrong
 
 `spoken` on every gap and line a form fits, labelled with the standard. None is a wrong option or a distractor, and a quick question's cloze never has an answer with a spoken rival:
 
-- A choice about als and wenn offers `ob` as the third option, never wie or wann. A choice about nachdem's tense offers `war`, `wird`, `wäre`, never `hat`, which people say.
+- A choice about als and wenn offers `ob` as the third option, never wie or wann. A choice about nachdem's tense offers `war` and `wird`, never `hat`, which people say.
+- A distractor is wrong in every gap it could go to: `werdest`, `wirdst`, `dachtete`, `hattest`, `warst`. `wurde`, `dächte`, `hätte`, `wäre` and `weil` were taken out, as each makes right German in some gap.
 - A choice before a genitive noun is safe: `Wegen ___ Regens` can't take dem, as Regens has the -s of the genitive. So `dem` is offered wrong only there, and `Wegen ___ Arbeit` offers `den`, not a dative that fits.
 - A gap about the genitive takes von + the dative as spoken: `das Haus ___ (mein Vater)`, von meinem Vater. A table's column headed Genitiv doesn't: it asks for the form.
 - A form both standards have is two `accept`s: war gesessen and hatte gesessen; des Hundes and des Hunds; statt des Weins and statt Wein.
 
-The gaps that could take another conjunction list it: `während` or `als` where the sentence takes both, `bevor` or `ehe`, `seit` or `seitdem`.
+The gaps that could take another word list it: `während`, `als` or `wenn` where the sentence takes them, `bevor`, `ehe` or `bis`, `seit` or `seitdem`, `statt` or `anstatt`, `innerhalb` or `innerhalb von`. A gap text with no bank and no cue names its words or its tense in the instruction ("Ergänze mit werden", "Ergänze im Plusquamperfekt"), since another word would be right German too.
 
 ## The new pages
 
-`werden-futur`, `praeteritum`, `temporalsaetze`, `plusquamperfekt`, `genitiv`, `praepositionen-genitiv`, all B1, in the format of the book's German pages: the rule within the bridge's 1,200 characters (880 to 1,020 in each base), a table, eight examples with notes, a hand-written card with a tip. Their `see` names only A2's pages and this part's. `faelle`, `perfekt` and `nebensatz` are named as they are.
+`werden-futur`, `praeteritum`, `temporalsaetze`, `plusquamperfekt`, `genitiv`, `praepositionen-genitiv`, all B1, in the format of the book's German pages: the rule within the bridge's 1,200 characters, a table, eight examples with notes, a hand-written card with a tip. Their `see` names only A2's pages and this part's. `faelle`, `perfekt` and `nebensatz` are named as they are.
 
 ## Grading (grading/de.json)
 
@@ -102,7 +103,9 @@ The genitive's -s needs no rule: `des Vater`, `meines Vater` and `der Mutters` a
 
 ## Words (lexicon/de.extra.json)
 
-71 entries appended, none changed: the file's old entries are as they were, so `json3merge.py` keeps no double. Each has its meaning in Slovene and Italian. New words: Wochenende, Schultag, Ski, Krankheit, Film, rodeln, ehe, nachdem, innerhalb, außerhalb, vorgestern, wessen, zufrieden, spazieren gehen, anstelle, Wörthersee, Futur, Plusquamperfekt, Vergangenheit; conjunctions' readings of während, seit, bis; während as a preposition; `werden` with its own reading as the future (pos `aux`, gloss "will"). New forms of words that have an entry or a pack: the past (fuhr, las, traf, aß, schneite …) and the genitive (Vaters, Hauses, Regens, Schnees, Weins …). The wrong forms offered in a choice (fahrte, bringte, liegte, wartenten, Stefanes …) have no entry, on purpose.
+72 entries appended, none changed: the file's old entries are as they were, so `json3merge.py` keeps no double. Each has its meaning in Slovene and Italian. New words: Wochenende, Schultag, Ski, Krankheit, Film, rodeln, ehe, nachdem, innerhalb, außerhalb, vorgestern, wessen, zufrieden, spazieren gehen, anstelle, anstatt, wegen, Futur, Plusquamperfekt, Vergangenheit; conjunctions' readings of während, seit, bis; während as a preposition; `werden` with its own reading as the future (pos `aux`, gloss "will"). New forms of words that have an entry or a pack: the past (fuhr, las, traf, aß, schneite …) and the genitive (Vaters, Hauses, Regens, Schnees, Weins …). The wrong forms offered in a choice (fahrte, bringte, liegte, wartenten, Stefanes …) have no entry, on purpose.
+
+**`wegen`** had no entry of its own: a tap read it as Weg's dative plural. It has one now.
 
 **For the integration:** a new form of an existing word is a second entry of the same lemma and part of speech, as part a of A2 did, which the lookup reads as one. A dedupe by lemma, part of speech and gender joins them: `gleich` here keeps "same" beside the file's "equal, alike", so that join has a choice to make. Part b or c may add the same past forms: harmless.
 
