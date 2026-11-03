@@ -321,10 +321,12 @@ export function arrive(art: string, from: { spot: string; pose: string }, cue: {
  * the wayside chapel, the palisade's gate, the lookout tower), 5 the finished projects as things of their pictures (the
  * square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's bee meadow), the square's
  * standing spots by them, and a count of the hour, 6 the places' things Friuli's look makes words (the bocce court's
- * osteria, the playground's fontanella, the chapel's altar candle: LOOK_ONLY). The app says it when it asks for its scenes (GET
- * /scenes?arts=6); one that doesn't is an older one, which gets what the first arts drew ([forApp]).
+ * osteria, the playground's fontanella, the chapel's altar candle: LOOK_ONLY), 7 the dialogs and happenings by level (a
+ * dialog's or a happening's `level`: DialogLevels.kt; an older app plays every dialog it gets to every learner, so it gets
+ * none with a level). The app says it when it asks for its scenes (GET /scenes?arts=7); one that doesn't is an older one,
+ * which gets what the first arts drew ([forApp]).
  */
-export const SCENE_ARTS_VERSION = 6
+export const SCENE_ARTS_VERSION = 7
 /**
  * The slots of an art only some cultures' looks draw as things of their own (SceneFixtures.A_LOOK_ONLY in SceneWorld.kt,
  * each such culture's look `fixes` it): art → slot → the cultures. A scene of another culture doesn't name them (the app
@@ -367,10 +369,11 @@ export function lookOnlyErrors(s: { art: string; objects?: { slot: string }[]; d
 }
 /**
  * What each version after the first added: its new arts, new slots of an art the version before had, new person spots of
- * one (for an older app each stands at the spot it had for them instead), and new sources of a count (an older app plays no
- * variant that counts from one: it can't take the number).
+ * one (for an older app each stands at the spot it had for them instead), new sources of a count (an older app plays no
+ * variant that counts from one: it can't take the number), and the levels (an older app gets no dialog or happening with
+ * a level: it would play a B2 one to a child at A1).
  */
-const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]>; spots?: Record<string, Record<string, string>>; counts?: string[] }> = {
+const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]>; spots?: Record<string, Record<string, string>>; counts?: string[]; levels?: true }> = {
   2: { arts: ['livingroom', 'workshop', 'cellar', 'attic'], slots: { kitchen: ['hearth', 'bench', 'bed', 'shelf', 'curtains', 'corner'] } },
   3: { arts: ['mill'], slots: {} },
   4: { arts: ['firestation', 'bocce', 'playground', 'chapel', 'palisade', 'lookout'], slots: {} },
@@ -382,6 +385,7 @@ const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]>; s
     counts: ['hour'],
   },
   6: { arts: [], slots: { bocce: ['inn'], playground: ['fontanella'], chapel: ['altarcandle'] } },
+  7: { arts: [], slots: {}, levels: true },
 }
 
 /** The arts version an app asked with (`?arts=`): 1, the first, when it doesn't say (an older app). */
@@ -394,8 +398,9 @@ export function artsOf(url: URL): number {
  * [scenes] as an app that draws arts version [version] can paint them: without the places of a later art, nor the things
  * in a later slot of an art it has (an older app's kitchen has no hearth); its people at a later spot at the one the app
  * had for it (the square's grown-ups by the maypole at its play spots), and none of its variants that count from a later
- * source (the hour), a happening's list of them without them. A later need (a level) it reads past, as everything it doesn't
- * know: it shows the thing, as before.
+ * source (the hour), a happening's list of them without them; before the levels (7), none of its dialogs or happenings with
+ * a level ([withoutLevels]). A later need (a building's level) it reads past, as everything it doesn't know: it shows the
+ * thing, as before.
  */
 export function forApp<T extends { art: string; objects: { slot: string }[] }>(scenes: T[], version: number): T[] {
   const later = Object.entries(ADDED).filter(([v]) => Number(v) > version).map(([, a]) => a)
@@ -404,8 +409,9 @@ export function forApp<T extends { art: string; objects: { slot: string }[] }>(s
   const slots = (art: string) => new Set(later.flatMap(a => a.slots[art] ?? []))
   const spots = (art: string) => Object.assign({}, ...later.map(a => a.spots?.[art] ?? {})) as Record<string, string>
   const counts = new Set(later.flatMap(a => a.counts ?? []))
+  const levels = later.some(a => a.levels)
   return scenes.filter(s => !arts.has(s.art)).map(s => {
-    let out: T = s
+    let out: T = levels ? withoutLevels(s) : s
     const drop = slots(s.art)
     if (drop.size) out = { ...out, objects: out.objects.filter(o => !drop.has(o.slot)) }
     const moved = spots(s.art)
@@ -424,6 +430,48 @@ export function forApp<T extends { art: string; objects: { slot: string }[] }>(s
     return out
   })
 }
+/** The levels a dialog or a happening can be written for (companion/SCENES.md, "Dialogs by level"), easiest first. */
+export const DIALOG_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+export type DialogLevel = (typeof DIALOG_LEVELS)[number]
+/** A level's place, A1 0 … C2 5; none (for everyone) -1. */
+export const levelRank = (level: string | undefined): number => (level ? DIALOG_LEVELS.indexOf(level as DialogLevel) : -1)
+/** The level a dialog [d] is written for: its own, else that of the happening [h] that plays it (none: everyone's). */
+export const dialogLevel = (d: { level?: string } | undefined, h?: { level?: string }): DialogLevel | undefined =>
+  (d?.level ?? h?.level) as DialogLevel | undefined
+
+type Levelled = { id: string; level?: string }
+type LevelledHappening = { level?: string; dialog?: string; dialogs?: string[]; stories?: boolean }
+/**
+ * [s] without its dialogs and happenings that have a level (and the dialogs only those happenings play), each happening's
+ * variants without them: what an app before the levels (arts 7) gets, which would play a B2 dialog to every learner. A
+ * happening whose `dialog` went plays the first variant left (crossCheck keeps a level off a happening's dialog), and one
+ * left with nothing to play goes. The same scene when nothing in it has a level.
+ */
+export function withoutLevels<T>(s: T): T {
+  const x = s as unknown as { dialogs?: Levelled[]; variants?: Levelled[]; happenings?: LevelledHappening[] }
+  const ds = [...(x.dialogs ?? []), ...(x.variants ?? [])]
+  const hs = x.happenings ?? []
+  if (!ds.some(d => d.level) && !hs.some(h => h.level)) return s
+  const playedBy = new Map<string, LevelledHappening[]>()
+  for (const h of hs) for (const id of variantsOf(h)) playedBy.set(id, [...(playedBy.get(id) ?? []), h])
+  const gone = new Set(ds.filter(d => d.level || (playedBy.get(d.id)?.every(h => h.level) ?? false)).map(d => d.id))
+  const happenings = hs.flatMap(h => {
+    if (h.level) return []
+    if (!variantsOf(h).some(id => gone.has(id))) return [h]
+    const left = h.dialogs?.filter(id => !gone.has(id))
+    const one = h.dialog && !gone.has(h.dialog) ? h.dialog : left?.[0]
+    if (!one && !h.stories) return []
+    const { dialogs: _all, ...rest } = h
+    return [{ ...rest, ...(one ? { dialog: one } : {}), ...(left?.length ? { dialogs: left } : {}) }]
+  })
+  return {
+    ...s,
+    ...(x.dialogs ? { dialogs: x.dialogs.filter(d => !gone.has(d.id)) } : {}),
+    ...(x.variants ? { variants: x.variants.filter(d => !gone.has(d.id)) } : {}),
+    ...(x.happenings ? { happenings } : {}),
+  }
+}
+
 /**
  * The landscape's named spots (TownSpots in TownMarkers.kt; the full table is in villagers.ts). "horizon" is the land at
  * the village's horizon, what its culture pack says is there (world.json `backdrop`): Primorska's hills, Friuli's sea.
@@ -655,6 +703,12 @@ export const dialog = z.object({
    * bridge strips it.
    */
   words: z.array(z.string().trim().min(1).max(80)).min(1).max(6).optional(),
+  /**
+   * The learner's level it is written for (companion/SCENES.md, "Dialogs by level"): a learner below never meets it, one at
+   * it meets it before the dialogs below; absent, for everyone (every dialog before levels). A happening's level is its
+   * dialogs' unless they say their own. An app before the levels (arts 7) gets none ([withoutLevels]).
+   */
+  level: z.enum(DIALOG_LEVELS).optional(),
 })
 export type Dialog = z.infer<typeof dialog>
 /** The top level a building can be upgraded to (Catalog.MAX_LEVEL in Catalog.kt). */
@@ -737,6 +791,11 @@ const happening = z.object({
    * on only while they're in the village and met; an older bridge strips it (only its person is there).
    */
   with: z.array(id).min(1).max(6).optional(),
+  /**
+   * The learner's level from which it is on (a B1 talk at the inn): a learner below never meets it, and its dialogs are of
+   * that level unless they say their own (companion/SCENES.md, "Dialogs by level"). An app before the levels gets none.
+   */
+  level: z.enum(DIALOG_LEVELS).optional(),
 })
 
 export const sceneSpec = z.object({
@@ -891,6 +950,7 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
     dupes(h.dialogs ?? [], `variant of ${at}`)
     // an older app plays `dialog` as it is: {n} would show
     if (h.dialog && dialogs.get(h.dialog)?.count) errs.push(`${at}: dialog "${h.dialog}" counts, and an older app plays a happening's dialog as it is ({n}): a counting dialog is one of its dialogs (variants), not its dialog`)
+    errs.push(...levelErrors(h, dialogs, at))
     if (h.stories && (h.dialog || h.dialogs)) errs.push(`${at}: a happening tells tonight's story (stories) or plays a dialog, not both`)
     if (h.stories && people.has(h.who) && !s.people.find(p => p.id === h.who)?.villager) errs.push(`${at}: the storyteller "${h.who}" needs a villager (the stories' teller)`)
     dupes(h.weekdays.map(String), `weekday in ${at}`)
@@ -957,6 +1017,54 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
     errs.push(...countErrors(d, lang, at, SCENE_LANGUAGES))
   })
   errs.push(...checkNeeds(s, refs?.projects))
+  return errs
+}
+
+/**
+ * What is wrong with the levels of happening [h] (at [at]) and its dialogs (companion/SCENES.md, "Dialogs by level"): a
+ * happening for everyone keeps one dialog for everyone at least (an A1 learner meets it, and an older app plays it) and
+ * its `dialog` (what an older app plays) has no level; a dialog of a levelled happening is at least of its level; a
+ * storyteller's level is in the stories.
+ */
+export function levelErrors(h: Pick<Scene['happenings'][number], 'level' | 'dialog' | 'dialogs' | 'stories'>, dialogs: Map<string, { level?: string }>, at: string): string[] {
+  const errs: string[] = []
+  if (h.stories && h.level) errs.push(`${at}: a storyteller's happening has no level: the stories have theirs (lani.story/v0 levels)`)
+  const ids = variantsOf(h).filter(id => dialogs.has(id))
+  if (!h.level) {
+    const d = h.dialog ? dialogs.get(h.dialog) : undefined
+    if (d?.level) errs.push(`${at}: dialog "${h.dialog}" is a ${d.level} dialog, and the happening's dialog is what an older app plays to every learner: name one without a level there, the ${d.level} one among its dialogs`)
+    if (ids.length && ids.every(id => dialogs.get(id)?.level)) {
+      const lowest = ids.map(id => dialogs.get(id)!.level!).sort((a, b) => levelRank(a) - levelRank(b))[0]
+      errs.push(`${at}: every dialog has a level (from ${lowest}): a learner below never meets it, so say it on the happening ("level": "${lowest}"), or give it a dialog for everyone`)
+    }
+  } else {
+    for (const id of ids) {
+      const l = dialogs.get(id)?.level
+      if (l && levelRank(l) < levelRank(h.level)) errs.push(`${at}: dialog "${id}" is ${l} and the happening is on from ${h.level}: it plays only from ${h.level}, say that or nothing`)
+    }
+  }
+  return errs
+}
+
+/**
+ * The grammar pages [s]'s levelled dialogs name that are more than one level above the dialog's (its own level, else its
+ * happening's: companion/SCENES.md "Dialogs by level"), by [pageLevel] (a page id → its level; a page it doesn't know is
+ * the culture check's): a B1 dialog may name A1 … B2 pages, the B2 one as the next level's (the learner meets it, and it
+ * ripens), not a C1 one. A dialog without a level isn't checked here.
+ */
+export function levelPageErrors(s: Pick<Scene, 'happenings' | 'dialogs'> & { variants?: Scene['variants'] }, pageLevel: (page: string) => string | undefined): string[] {
+  const ds = [...s.dialogs, ...(s.variants ?? [])]
+  const errs: string[] = []
+  ds.forEach(d => {
+    const level = dialogLevel(d, s.happenings.find(h => variantsOf(h).includes(d.id)))
+    if (!level) return
+    // (a spec as written too: a spoken line without choices)
+    for (const [at, g] of dialogGrammar([{ ...d, lines: d.lines.map(l => ({ ...l, choices: l.choices ?? [] })) }])) {
+      const p = pageLevel(g)
+      if (p && levelRank(p) > levelRank(level) + 1)
+        errs.push(`dialog "${d.id}" (${level}): ${at.replace(/^dialogs\[0\] \([^)]*\)\./, '')}: the page "${g}" is ${p}, more than a level above the dialog's: name a page of ${DIALOG_LEVELS[levelRank(level) + 1]} or below`)
+    }
+  })
   return errs
 }
 
@@ -1182,14 +1290,15 @@ export type ResolvedScene = Omit<LoadedScene, 'objects' | 'variants'> & { object
 
 /**
  * A scene's happenings and dialogs as the app gets them: the variants among the dialogs, and every happening with a
- * `dialog` for an older app (which plays one per happening), the first of its variants without a count when the file
- * gives only `dialogs`.
+ * `dialog` for an older app (which plays one per happening), the first of its variants without a count or a level when
+ * the file gives only `dialogs`.
  */
 export function servedDialogs(s: Pick<Scene, 'happenings' | 'dialogs' | 'variants'>): Pick<Scene, 'happenings' | 'dialogs'> {
   const dialogs = [...s.dialogs, ...s.variants]
-  const counts = new Set(dialogs.filter(d => d.count).map(d => d.id))
+  // (a counting dialog, or one with a level, an older app can't play as it is)
+  const counts = new Set(dialogs.filter(d => d.count || d.level).map(d => d.id))
   const happenings = s.happenings.map(h => {
-    if (h.dialog || !h.dialogs) return h
+    if (h.dialog || !h.dialogs || h.level) return h
     const plain = h.dialogs.find(id => !counts.has(id))
     return plain ? { ...h, dialog: plain } : h
   })
