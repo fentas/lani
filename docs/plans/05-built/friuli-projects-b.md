@@ -63,10 +63,10 @@ says of every culture's.
 **The levels.** A1 is the present; A2 the passato prossimo, the imperfect, the future, pronouns and modals; **B1 is new among the cultures' steps** and asks what B1
 has: the conditional, the subjunctive, si impersonale, the passive, the pluperfect, the gerund, the period with «se», combined pronouns, «cui», reported speech. Every
 level has at least one form turn at its own level's grammar and a turn of meaning. A learner meets the highest telling up to their level (`Arrivals.levelFor`), so A1 and A2
-learners play exactly what they would in another culture, and Teo meets B1's when they reach it. The rules not yet introduced gate as anywhere: `FriuliProjectStepsTest` checks that a
+learners play exactly what they would in another culture, and Teo meets B1's when they reach it. The rules not yet introduced gate as anywhere: `FriuliProjectStepsContentTest` checks that a
 fresh learner at each level still has something to answer.
 
-**A village in the middle.** Nothing is migrated: a project's count of steps stands, and the next step is simply a dialog now. `FriuliProjectStepsTest` builds a synthetic
+**A village in the middle.** Nothing is migrated: a project's count of steps stands, and the next step is simply a dialog now. `FriuliProjectStepsContentTest` builds a synthetic
 village past each step of each project (never Teo's data): its count and its landmark's stage stand, the next step opens as a dialog, played to its end it counts one more and tells its
 chronicle line; a finished project offers nothing. An older app has its culture pack bundled, so it plays its practices until it is updated; it can already read the packs the
 bridge serves.
@@ -87,9 +87,9 @@ On the branch with main 1e0cdf04 merged (part a isn't merged here; the lead name
 - **The content**: `bun test/check-culture.ts friuli` ok; `bun test/check-steps.ts friuli`: 6 files, 37 steps, 111 dialogs, 721 lines, ok; `bun test/prompt-clashes.ts`: no new clash (the
   coined prompts: below). A scratch lint with the rules the app's tests hold (a reaction of at most 80 characters, never saying the right word; only the leader named; a helper's line without the speaker's
   gender; pages at the level) found nothing left but one reviewed look (the tower's first step, A2: «Guarda le montagne, il mare e le vigne», all things the art draws).
-- **The Android unit suite** (lani-slot.sh): 487 classes, 3,796 tests, 2 skipped, 0 failures. New: `FriuliProjectStepsTest` (8 tests: the steps at their levels with their words; short, said by the project's people, in a scene; reactions, played with
+- **The Android unit suite** (lani-slot.sh): the union's numbers are under "The union" below. New: `FriuliProjectStepsContentTest` (8 tests; `FriuliProjectStepsTest` until part a's test of that name came: the steps at their levels with their words; short, said by the project's people, in a scene; reactions, played with
   every wrong choice first; placeholders for a boy and a girl; a fresh learner has something to answer and each word is tested at each level, gated too; a helper's lines; a village partway through; the level and the fallback over the village),
-  `FriuliProjectStagesTest` (2), `StepScenesRenderTest`'s Friuli test. Changed: `SceneCoherenceTest`'s count of done lines (+24). `MentionsContentTest` holds the steps' names to the leader. `DialogCastTest` and `WhoAnswersTest` pass unchanged, but they read the scenes, not the steps: who says a step's lines is held by `check-steps` and `FriuliProjectStepsTest`.
+  `FriuliProjectStagesTest` (2), `StepScenesRenderTest`'s Friuli test. Changed: `SceneCoherenceTest`'s count of done lines (+24). `MentionsContentTest` holds the steps' names to the leader. `DialogCastTest` and `WhoAnswersTest` pass unchanged, but they read the scenes, not the steps: who says a step's lines is held by `check-steps` and `FriuliProjectStepsContentTest`.
 - **The bridge**: `tsc` clean; the smoke on ports 9670–9688: 3,520 checks, all passed; `tutor-export --check`: 89 files match.
 - **Python**: 253 tests, and 145 with 11 skipped, all passing.
 - **The emulator** (`qa-slot`, a synthetic child, `LANI_CULTURE=friuli`, `LANI_CHILD=1`, it · de, a phone 1080×2400): QA's step `friuli-projects-b` green on its seventh run, and again on an APK rebuilt after main's merge. Its cast is met on the dev bridge's copy first, since a village the
@@ -99,6 +99,17 @@ On the branch with main 1e0cdf04 merged (part a isn't merged here; the lead name
   long enough on the loaded machine to open a word's card, the right answer tapped again in the talk above, a landmark's target looked for before the village was adopted. Screenshots: the round's scratch folder `ux-friuli-projects-b/qa/` (fb-*.png).
   Seen there, and only QA's doing: QA plays two steps in one day, which a village never does, so the pump's cart stayed on the square (`fx_stays`) into the fountain's step.
   **Not played on the emulator**: the other four projects, an A2 telling, the two steps over the village, a tap turn, a tablet. Those are held by the unit tests only.
+
+## The union (friuli-projects-a f61a0d0c and the queue tip tutor-languages 33a06fb3, merged here)
+
+All thirteen of Friuli's projects: 13 files, 78 steps, 234 dialogs, 1,408 lines (`check-steps friuli`). Kept from both: SCENES.md's paragraphs, QA's named-only list, the done count (45 + 24).
+
+- **The tests.** Both parts had a `FriuliProjectStepsTest`. Part a's keeps the name and now lists all thirteen, counting (41 + 37) × 3. Part b's is `FriuliProjectStepsContentTest`; it asks other things (the words tested at each level, gated too; the placeholders; a helper's Slovene and Italian), and over part a's steps too.
+  It flagged one line of part a's, a regex's false positive: «in sam tja nihče ne pride», whose «sam» goes with nihče, not the speaker. The Slovene translation now says «brez pomoči», not voiced, and the test stays as strict. `StepScenesRenderTest` keeps part a's helper under one test, at least 15 + 8 steps.
+- **The words.** la pala is a shovel and a wheel's paddle: one spelling, so `homonym` on both, and the smoke's list has it. il piano and piano are two spellings (`normWord` keeps the article), so the homonym rule doesn't fit and its smoke check would fail: the storey's id is now `piano-edificio`. alzare, il progetto, scavare and il muro take part a's meanings in every pack, each pack keeping its own example and note; none was voiced or reviewed. la vanga's Slovene is «vrtna lopata», apart from la pala's «lopata».
+- **The supplement.** Rebuilt with `it_cov_build.py` from the file before supplement-it (`git show 45924165:companion/lexicon/it.extra.json`) and all seven tables, then by hand what no table has: `farsene` under fare, and the queue's licôf, villotta and fiaccola. **A plain `--write` loses those four.** 2,049 entries, the exact union: main's and the queue's 1,876 with no entry or form lost and no meaning changed; part a's 73 and part b's 119, less the 19 both had or that the queue's entry replaces. Where the tables overlapped, one version: lasagne and tagliatelle are part a's plurals (b's singulars gone), papera says goose and duckling, risata's German is Gelächter, apart from ridere. `--prompts` lists five clashes, all main's own.
+- **Coverage** (`lexicon-build --coverage --lang it --all`, no Wiktionary): 99.8 % of tokens, 97.9 % of words over 244 files. Of the thirteen projects' words, none real is left unknown: only wrong forms quoted on purpose. The 110 unknown words overall are those and the queue's newer content (pista, quartiere, drappo, tradizione …), for the next count.
+- **A fix from the queue tip.** `bridge/src/features/family.ts` imported `learnerLangs` twice (from 63798862's merge of parity-small), so `tsc` failed on `tutor-languages` itself; Bun runs it anyway. One line removed here (972ae903).
 
 ## How to use
 
@@ -150,10 +161,8 @@ Sources (each fact a line states):
 ## What is left
 
 - **The native check** above, and **the voices**: about 54,700 characters, Jan's to spend.
-- **Part a**: the lead names its branch for the merge. Words in both parts' packs must keep one id and one prompt (`check-steps`, the prompt clashes and the smoke's one-word-per-id check will say); the tests here cover
-  whichever projects have steps, and their counts (37 steps of six, 24 done lines) need part a's added.
 - **The tower's steps played on a stand-in**: its board and first guests are played Sulla torre, on the watchtower's picture, as Primorska's are, since its own place opens only once it's finished.
-- **`ProjectStepsContentTest`** still checks Primorska's steps only; Friuli's have `FriuliProjectStepsTest`, the other two cultures' `check-steps`.
+- **`ProjectStepsContentTest`** still checks Primorska's steps only; Friuli's have `FriuliProjectStepsTest` and `FriuliProjectStepsContentTest`, the other two cultures' `check-steps`.
 - **No turn has two right answers** in these steps (a greeting, a yes): they could get a few when a native reads them; nothing requires it.
 - **The step's header on a phone**: «La pietra dalla cava · Stein» runs right up to the "Traduzione" chip while it wraps. It doesn't overlap; it's the shared header, not these steps.
 - **Noticed, not this branch's**: `l-orologio`'s pack says «Ogni domenica Bruno carica l'orologio», while the steps say «abbiamo caricato»; nothing contradicts.
