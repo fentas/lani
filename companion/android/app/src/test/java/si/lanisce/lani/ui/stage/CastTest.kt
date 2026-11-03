@@ -180,6 +180,25 @@ class CastTest {
         assertEquals(Clips.MALE, Cast.standIn("Andrea", null).voice) // an Italian man's name in -a
     }
 
+    @Test fun `Teo's B1 and B2 talks are played by the Friuli villagers they name, the others stand in by their title`() {
+        val friuli = File("../../cultures/friuli/villagers").listFiles { f -> f.name.endsWith(".json") }!!.map { parseVillagers("[" + it.readText() + "]").single() }
+        val talks = File("../../scenarios/it").listFiles { f -> f.extension == "json" }!!
+            .map { si.lanisce.lani.data.parseScenario(it.readText()) }.filter { it.level == "B1" || it.level == "B2" }
+        assertEquals(12, talks.size)
+        val on = talks.associate { it.id to Cast.talker(it, friuli, null) }
+        // the five who name a villager are played by them; nobody else borrows a villager's look by a name's last word
+        assertEquals(
+            mapOf("scambio-di-figurine" to "tommaso", "un-consiglio-per-lorenzo" to "lorenzo", "il-gatto-sull-albero" to "nives", "il-cancello-dell-orto" to "bruno", "se-fossi-in-te" to "davide"),
+            on.filterValues { it.id != null }.mapValues { it.value.id },
+        )
+        assertTrue(talks.filter { on.getValue(it.id).id == null }.all { Cast.find(it.character, friuli) == null })
+        assertEquals("🩺", on.getValue("ahi-la-caviglia").emoji)
+        assertEquals("woman", on.getValue("ahi-la-caviglia").art)
+        assertEquals("man", on.getValue("dal-medico-di-base").art)
+        assertEquals(Clips.MALE, on.getValue("dal-medico-di-base").voice)
+        assertEquals("woman", on.getValue("la-frana-sulla-strada").art)
+    }
+
     @Test fun `a German or English scenario's people stand in by their titles, a doctor as their voice says`() {
         assertEquals("woman", Cast.standIn("Frau Moser", null).art)
         assertEquals(Clips.FEMALE, Cast.standIn("Frau Pirker", null).voice)

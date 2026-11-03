@@ -317,9 +317,14 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
 - Jan's curated Slovene modules, role-plays and scenes aren't served either: another language's go in
   `companion/modules/it/`, `companion/scenarios/it/` and `companion/scenes/it/` (the tutor writes more for the learner
   with `publish_module`, `publish_scenario`, `publish_scene`). Teo's Italian role-plays are in `companion/scenarios/it/`
-  (nine, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday lunch at Nonna
-  Rosa's, the playground, a phone call to the nonna, Tommaso's party); a scenario in another language than the
-  village's is never served (docs/plans/05-built/scenarios-it.md). The Carinthian village has eight for a grown-up in
+  (nine at A1 and A2, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday
+  lunch at Nonna Rosa's, the playground, a phone call to the nonna, Tommaso's party; six at B1, for a child: the
+  broken kite at the toy shop, swapping stickers with Tommaso, the broken swing told to the mayor, a twisted ankle at
+  the paediatrician's, advice for Lorenzo, what happened with the cat up the linden; six at B2, for an older learner
+  and nothing a child mayn't hear: the cancelled train at Udine, the landslide argued with the mayor, Fabbro Bruno's
+  gate negotiated, a job interview in Cividale, the family doctor, advice for Pastore Davide); a scenario in another
+  language than the village's is never served (docs/plans/05-built/scenarios-it.md, talks-it.md). A curated talk is
+  offered at most a level above the learner's (an A1 learner meets A1 and A2, never B1 or B2). The Carinthian village has eight for a grown-up in
   German (`companion/scenarios/de/`: the baker, the farmers' market, the doctor, the Gasthaus, Villach station, the
   Kirchtag, the neighbour at the fence, a call to the council), the Lake District eight in English
   (`companion/scenarios/en/`: the farm shop, the pub, the GP, the bus stop in Keswick, the B&B, asking the way on the

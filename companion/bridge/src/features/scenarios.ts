@@ -7,8 +7,8 @@ import { LANGUAGES } from '../learners'
 import { scenarioPackErrors, servedScenario, validateScenario } from '../scenarios'
 import { FACES } from '../scenes'
 import { corpus } from '../voice'
-import { talkPlace } from './villagers'
 import { learnerLevel } from '../villagers'
+import { talkPlace } from './villagers'
 
 /** What a character says to a line they didn't understand, in each language: a friendly "What?". */
 const WHAT: Record<string, string> = { sl: 'Prosim?', it: 'Come?', de: 'Wie bitte?', en: 'Sorry?' }
