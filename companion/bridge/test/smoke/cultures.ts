@@ -613,7 +613,7 @@ export default async function cultures() {
     'tools[3].first.read counting-sheep', 'tools[3].better.read sayings', 'tools[4].first.read tatie-pot', 'tools[4].better.read sticky-toffee-pudding', 'tools[7].better.read plurals',
   ]), readable('lakeland'))
   const lr = cultureReadings(culturesDir, 'lakeland', 'en')
-  check("lakeland's nine readings (the chest's five, the corner's four) are in English with Slovene, Italian and German on every line", lr.errors.length === 0 && lr.readings.size === 9 && [...lr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.en && t.sl && t.it && t.de)), lr.errors)
+  check("lakeland's fourteen readings (the chest's five, the corner's nine: three at B1, three at B2) are in English with Slovene, Italian and German on every line", lr.errors.length === 0 && lr.readings.size === 14 && ['B1', 'B2'].every(lv => [...lr.readings.values()].filter(r => r.level === lv).length === 3) && [...lr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.en && t.sl && t.it && t.de)), lr.errors)
   const fr = cultureReadings(culturesDir, 'friuli', 'it')
   check("friuli's readings are in Italian with Slovene and English on every line", fr.errors.length === 0 && [...fr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.it && t.sl && t.en)), fr.errors)
 

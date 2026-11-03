@@ -133,16 +133,20 @@ class ReadingsTest {
         assertEquals(listOf("burja"), lib.filter { it.level == "A2" && it.id !in Cultures.load("primorska").readings }.map { it.id })
     }
 
-    @Test fun `the Lake District's corner has four newer readings, every question type and new words in each, its first B1`() {
+    @Test fun `the Lake District's corner has nine newer readings, every question type and new words in each, three at B1 and three at B2`() {
         val lib = Cultures.library("lakeland")
-        val newer = listOf("a-letter-from-keswick", "mrs-heelis-farms", "rushbearing-day", "the-shepherds-meet")
-        // the chest's five, and the corner's own (stories-lakeland)
+        val newer = listOf(
+            "a-letter-from-keswick", "mrs-heelis-farms", "names-on-the-map", "rushbearing-day", "sarah-nelsons-gingerbread", "ten-thousand-daffodils",
+            "the-night-the-bridge-went", "the-shepherds-meet", "the-vicar-who-saved-the-fells",
+        )
+        // the chest's five, and the corner's own (stories-lakeland; readings-lakeland: two at B1, three at B2)
         assertEquals(newer, lib.filter { it.id !in Cultures.load("lakeland").readings }.map { it.id }.sorted())
         for (r in lib.filter { it.id in newer }) {
             assertEquals(r.id, Readings.QUESTION_TYPES.toSet(), r.questions.mapNotNull { it.type }.toSet())
             assertTrue(r.id, r.words.size in 4..Readings.MAX_WORDS && r.machineWritten == true)
         }
-        assertEquals(listOf("mrs-heelis-farms"), lib.filter { it.level == "B1" }.map { it.id })
+        assertEquals(listOf("mrs-heelis-farms", "sarah-nelsons-gingerbread", "ten-thousand-daffodils"), lib.filter { it.level == "B1" }.map { it.id }.sorted())
+        assertEquals(listOf("names-on-the-map", "the-night-the-bridge-went", "the-vicar-who-saved-the-fells"), lib.filter { it.level == "B2" }.map { it.id }.sorted())
     }
 
     @Test fun `a reading's length is its words to read, and about how long they take at its level`() {
