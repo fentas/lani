@@ -264,6 +264,10 @@ bold stays English), give a form's meaning in brackets right after it, and keep 
   a module (`flashcard`, `choice`, `cloze`, `reorder`, `translate`, `free`, `multi`, `scenario`, `dictation`, `speak`:
   `.claude/skills/lani-studio/reference/module-spec.md`) and the school's own four (below). An optional `intro` (as the
   unit's) comes before its exercises.
+- **A choice's options show in the day's order**, a multi's and an intro's quick question's too: the same through a day,
+  another the next (`data/ChoiceOrder.kt`; docs/plans/05-built/choices-order.md). `answer`, `almost` and `answers` stay the
+  file's indices and the file's order is never shown, so write the options in any order, and nothing may lean on it (no
+  "both of the above").
 - The test: `pass` (50–100, default 80): the share of its items to get right; `exercises` (2–12), the same types. An item
   is one gap, one cell, one line of a transform list, one word sorted, or one other exercise; an almost-right item (a
   missing č, š, ž) counts half.
@@ -448,6 +452,7 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
 ```json
 "nonstandard": [
   { "word": "good", "for": "well" },
+  { "word": "slow", "for": "slowly" },
   { "word": "nothing", "for": "anything", "after": "(?<!\\p{L})(?:not|cannot|never)(?!\\p{L})" }
 ]
 ```
@@ -540,7 +545,7 @@ shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
 
 - **Nothing written left to do, more to come** (every written unit done, or none written yet: the Italian course's first
   days; no written unit behind a closed level; and a unit still planned, or a level the outline lists with no units, in a
-  level open or not: German and English past A1, Italian past B1): the teacher says she is preparing the next lessons,
+  level open or not: German and English past their written levels): the teacher says she is preparing the next lessons,
   kindly, under her welcome (`School.preparing`; "Pripravljam naslednje ure. Kmalu se spet vidiva!", Maestra Elena's "Sto
   preparando le prossime lezioni. Torna presto!"), and Home's tile says "📝 Nove ure kmalu" instead of "✅ vse opravljeno".
 - **Written units behind a closed level** (the open levels done, the next one waiting for the school: `School.waiting`):
@@ -788,7 +793,7 @@ turns on"). Writing one:
 ## The Italian course
 
 Teo, a child learning Italian from German in the Friuli village, built the school (2026-10-28). The Italian course is
-`companion/course/it/`: the outline (A1, 18 units, the grammar book's Italian pages to teach) and its units, written in
+`companion/course/it/`: the outline (A1 to B2, 18 units each, the grammar book's Italian pages to teach) and its units, written in
 the Friuli village's life (Maestra Elena, Nonna Rosa, Lorenzo, Giulia, Tommaso, Pastore Davide and his sheep, the sea,
 the camp, the field, the wood, the mill, the festa). The school is the same school: the bridge serves the course of the
 village's language (`GET /course` of a Friuli village is Italian), the app bundles it, and every part of the school is the
@@ -800,10 +805,11 @@ course's language's, not Slovene's:
 | Read aloud | the intro's Italian in her voice: `Spoken.looks` for Italian (à, è …, its frequent words) and the words the intro itself shows; the explanation in the learner's German as one clip (`de\|…`); voice-build's `course` source makes her lines ahead (`course-speech.ts`, the smoke's Friuli checks) |
 | The teacher's lines | "Benvenuti a scuola! Sedetevi …" and "Questo lo sai già" (tu: Elena says tu to the children); "only the Italian is read" when the phone lacks a German voice |
 | Texts in German | the exercises' instructions, hints, whys, labels and columns per base ([above](#texts-in-the-learners-language)) |
-| Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too |
+| Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too; B2's another conjugation's vowel in the imperfect subjunctive on a verb's stem (`dormessi`, `dassi`), the remote past for the imperfetto (`mangiavano` for `mangiarono`), a word made without its rule (`facilemente`, `inpossibile`), each paired so that a slip in a noun stays a slip |
 | The blackboard | "Benvenuti!" and the day as Italy writes it (28/10/2026) before the first unit; the unit's title and forms in chalk (à, è, ' written) |
 | Prints | headed in Italian and the base ("Regola · Die Regel", "Unità"), the words from the Italian and the culture's packs with their article; Slovene as a base for an Italian course |
-| Not for Italian | forms cards, counting cards and the numbers module (Slovene's: `numeri` turns nothing on), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
+| The numbers module | `numeri`'s intro opens "🔢 Numeri · Zahlen" (README.md "Numbers"), `ore-giorni`'s brings its dates and clock times |
+| Not for Italian | forms cards and counting cards (Slovene's), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
 | Checked | `ItalianCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the Italian grading, no decoy right, every text per base in de, sl and en), `SchoolBoardTest` (the blackboard writes every letter of the Italian course), the smoke's course, course-speech and Friuli sections |
 
 While units are still planned (`"planned": true`), the school is no dead end: a level's planned units are folded
@@ -877,7 +883,7 @@ the possessives (units 7–12), and use only those around their gaps:
   forms only ("tu → ?", "noi: -iamo") stays a string. An instruction is the Italian label, then the base:
   "Completa la tabella · Füll die Tabelle aus".
 - **Not used, being Slovene-only**: a table cell's or a line's `lemma` and `form` (the forms book is Slovene's:
-  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards, counting cards or numbers module), the smoke's
+  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards or counting cards; the numbers module is opened by `numeri`, as above), the smoke's
   check of a gap's answer against the word in brackets (the dictionary's forms, Slovene only).
 
 ### The Italian course: A2, units 1–6
@@ -1074,6 +1080,55 @@ order, B1's earlier ones only lightly:
 - **No trick**: congiunzioni's gap text has no distractors (almost every conjunction fits some gap), as vorrei's has
   none; a wrong option is wrong Italian or wrong by its own sentence (la mia where Davide is told about, sono where
   Giulia said it).
+
+### The Italian course: B2
+
+B2 is outlined in `course.json` (18 units, 2026-11-02) and written in three parts side by side (docs/plans/05-built/course-it-b2-a.md, -b.md, -c.md). The audience stays the course's: German first with du, nothing frightening, the children around. It is still real B2, so the lines are the village's grown-up life, and a polite letter is a letter to the mayor. Each page new here has its own hand-written `card`, the first of the Italian book. Around a gap each unit uses A1, A2, B1 and the B2 units before it. The sources and where the outline departs from them: docs/plans/05-built/outlines-2.md.
+
+Unit 1–6: the congiuntivo's other tenses.
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 1 | `congiuntivo-passato` 🧳 | abbia or sia + the participle, its agreement; after an opinion, a doubt or a feeling, not after so che; venga against sia venuto; the small words in front | congiuntivo-passato, congiuntivo, passato-prossimo |
+| 2 | `congiuntivo-imperfetto` 🔍 | -assi, -essi, -issi in every person, voi's -ste too; fossi, dessi, stessi, facessi, dicessi, bevessi; after a past, vorrei che, mi piacerebbe che; prima che, senza che; the same person with di | congiuntivo-imperfetto, congiuntivo, periodo-ipotetico |
+| 3 | `congiuntivo-trapassato` ⏮️ | avessi or fossi + the participle, what came before a past; to recognise first, as the Profilo asks for it only in part | congiuntivo-trapassato, congiuntivo-imperfetto, trapassato |
+| 4 | `concordanza-tempi` 🕰️ | the table of before, at the same time and after, for a first verb now and in the past; sarebbe venuto named and accepted, never asked; a present with the imperfect for what went on long | concordanza-tempi, congiuntivo-passato, congiuntivo-imperfetto, congiuntivo-trapassato |
+| 5 | `benche-purche` ☂️ | benché, sebbene, nonostante, anche se beside them; purché, a condizione che, a patto che; affinché; a meno che with its non; come se | congiunzioni-congiuntivo, congiuntivo-espressioni, congiunzioni |
+| 6 | `magari` 🌠 | Magari!; magari, almeno, se solo + the imperfect or pluperfect; Non l'avessi mai detto!; che + the present or past for a doubt or a wish; magari + the indicative as maybe | congiuntivo-indipendente, congiuntivo-imperfetto |
+
+Unit 7–12: if, regret, telling.
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 7 | `condizionale-passato` 🤷 | avrei or sarei + the participle; what would have been; avrei dovuto, potuto, voluto; the news's conditional to recognise | condizionale-passato, condizionale, passato-prossimo |
+| 8 | `se-potessi` 🌠 | every person of the se-half; the condizionale in the other half, either first; se vinco against se vincessi; se fossi in te; its own summary card (`intro.summary`) | periodo-ipotetico, condizionale, congiuntivo-imperfetto |
+| 9 | `se-avessi-saputo` 🤦 | what can't be any more; the mixed one by its time word; the spoken double imperfetto named and right on every gap and line | periodo-ipotetico-irrealta, periodo-ipotetico, condizionale-passato, congiuntivo-trapassato |
+| 10 | `disse-che` 📻 | the tenses that shift after a past, the future in the past, oggi to quel giorno, orders with di, mi chiese dove fosse | discorso-indiretto-passato, discorso-indiretto, condizionale-passato |
+| 11 | `raccontare` 📚 | the remote past used: the strong verbs' 1-3-6, which past by distance and region, the picture beside the events, the presente storico | raccontare, passato-remoto, imperfetto-passato |
+| 12 | `gerundio-passato` 🏁 | avendo or essendo + the participle, what was done first and often why; one subject; pronouns on the end; essendo in due; pur + the gerund | gerundio-passato, gerundio |
+
+Unit 13–18: other forms, words, a text.
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 13 | `infinito-passato` 🍽️ | dopo aver, dopo essere (dopo essersi alzata); dopo averla letta; penso di aver capito, grazie per aver aiutato; the infinitive as a noun (il dovere, camminare fa bene); finita la cena, arrivata a casa; the participle as an adjective | infinito-passato, participio-assoluto, infinito-preposizioni |
+| 14 | `fare-lasciare` 🔧 | fare + an infinitive with nothing between; te lo faccio vedere, fammelo vedere, posso fartelo vedere; a or da for the one who does it; lascialo dormire, lascia stare; l'ho fatta riparare; si è fatta tagliare i capelli | fare-lasciare, pronomi-combinati |
+| 15 | `viene-aperto` 🏷️ | venire + the participle against è aperta, simple tenses only; andare + the participle for must; si + a verb that follows the thing, si sono venduti; vendesi to recognise | passivo-venire-andare, passivo, si-impersonale |
+| 16 | `il-quale` 🔗 | il quale and its forms, dal quale, nella quale; il cui; chi for the one who; chiunque, qualunque, qualsiasi + the subjunctive | relativi-il-quale, relativi-cui, indefiniti |
+| 17 | `alterati` 🔎 | -ino, -etto, -ello, -uccio, -one, -accio; words of their own (mulino, burrone); -mente; in-, s-, ri-; families of words, libreria against biblioteca | alterati |
+| 18 | `connettivi` ✉️ | tuttavia, anzi, in effetti, inoltre, invece; a causa di, in base a; il pane l'ho comprato, è Rosa che; the letter to the mayor (Gentile Sindaco, Le scrivo, La ringrazio) | connettivi, congiunzioni, tu-lei |
+
+- **The grading B2 needs** (`grading/it.json`, every rule paired, so that a slip in a noun stays a slip; `ItalianB2aContentTest`, `-b`, `-c`):
+  - Another conjugation's vowel in the imperfect subjunctive is wrong (dormessi for dormissi, dicassi for dicessi, dassi for dessi, parleste for parlaste), in `wrong` on a stem of three letters or more or av, st, d, with -issimo as the right word left out. So a child's sassi, feste, classe, triste and bellissimo keep a slip as a slip. Plain `ending_swaps` did this first in two parts and were taken out for that reason.
+  - foste and fosse, deste and desse, desti and dessi for one another; dissi for dessi; avando for avendo; vede and vide for one another; mese for mise.
+  - On the same stem (`ending_swaps`): the remote past against the imperfetto and the future (mangiavano for mangiarono, dormiranno for dormirono).
+  - A word's making: facilemente, regolaremente, lentomente, felicamente; inpossibile, inregolare, inlegale, inbevibile; barcetta. Veremente for veramente stays a slip.
+- **A form people say is never an option.** The native lists name them; each is in `spoken` or left out, and no choice or word bank offers one as wrong (benché è, sebbene ha, come se era; a dangling gerund, which is why gerundio-passato asks who did it; a remoto for today). The typed subjunctive stays the answer where the indicative isn't listed; benché + the indicative and dassi, stassi wait for a native's word, and for `nonstandard` if the answer is that people say them.
+- **Se + the conditional stays offered as wrong** (se potrei, se avrei saputo), as B1's `periodo-ipotetico` does and the outline says, and so does the simple conditional for the future in the past (disse che porterebbe). Both are on the native list.
+- **No gap where another tense is Italian too, unless every right form is listed:** every shift gap of disse-che has a past anchor, raccontare's gaps name their tense; a cue in brackets where another verb would fit (si è ___ (fare) aiutare, as si è lasciata would).
+- **A cloze can't list a spoken form** (`cloze` has no such key), so a quick question with a gap avoids the verbs that have one.
+- **A table's cell short:** a phone's field holds about nine letters in three columns, twelve in two, eighteen in one.
+- **A quick question is Italian only:** the sentence of its answer is read in Elena's voice, so a prompt in the base would be read in it too.
 
 ## The German course
 
@@ -1316,8 +1371,8 @@ B1's last six, mood, voice and small words (docs/plans/05-built/course-de-b1-c.m
 ## The English course
 
 For grown-ups learning English in the Lake District village (the culture `lakeland`), from Slovene, German or Italian:
-visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1,
-18 units, each naming the English grammar pages it teaches) and its units, written in the village's adult life: Mrs
+visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1 and
+A2 written, 18 units each, each naming the English grammar pages it teaches; B1 and B2 planned, docs/plans/05-built/outlines-2.md) and its units, written in the village's adult life: Mrs
 Hartley the teacher, Mrs Birkett at the Packhorse Inn, Shepherd Jack and his sheepdog Meg, Mr Dixon the blacksmith,
 Granny Maggie and Auntie Edna, Mr Tyson and his mill, Brewer Sam, Old Wilf, Arthur and his bees; the fells, the becks,
 the tarn, Keswick eight miles off. The school is the same school, and every part of it is the course's language's:
@@ -1333,7 +1388,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
 | Not for English | forms cards, counting cards, the numbers module and the case rows (Slovene's: `numbers` turns nothing on); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
-| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
+| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
 
 Writing an English unit: as [Writing a unit](#writing-a-unit), with the explanations in each base (du, ti and tu, as the
 app speaks to the learner), every English form in **bold** with its meaning in brackets where the base needs one; the
@@ -1357,7 +1412,7 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
 | Unit | Teaches | Its pages |
 |---|---|---|
 | `hello` 👋 | hello, hi, good morning, afternoon, evening, good night only when you leave; I'm, My name's, What's your name?, And you?; you for everyone, Mr, Mrs, Ms, Miss with the surname; This is Jack. He's a shepherd. Nice to meet you (too); How are you? Fine, thanks; goodbye, bye, see you | pronouns (its own summary card: the greetings) |
-| `to-be` 🟰 | I am, you are, he/she/it is, we/you/they are (two with and are they); I'm … they're, Jack's on the fell; not after the verb (isn't, aren't, I'm not, never amn't); Are you …? Is she …? Yes, I am (never Yes, I'm); I'm hungry, I'm cold with be | to-be, pronouns |
+| `to-be` 🟰 | I am, you are, he/she/it is, we/you/they are (two with and are they); I'm … they're, Jack's on the fell; not after the verb (isn't, aren't, I'm not; in Scotland and Ireland also I amn't, named, right when typed); Are you …? Is she …? Yes, I am (never Yes, I'm); I'm hungry, I'm cold with be | to-be, pronouns |
 | `articles` 🏷️ | a for one thing named the first time, the same before every noun; an by the sound (an hour, a uniform); the for what both know, the village's one; a with a job (Jack is a shepherd); no article in general (Dogs are friendly) and in at home, at school, in bed, by bus | articles |
 | `plurals` 🐑 | + -s; -es after s, x, ch, sh, potatoes; -y → -ies, -ay, -ey + -s; -f, -fe → -ves (but roofs); men, women, children, feet, teeth, mice, people; sheep, fish, deer the same, the verb showing how many; the plural from two on | plurals, articles |
 | `have-got` 🐕 | I've got, she's got ('s is has here); haven't got, hasn't got; Have you got …? Yes, I have; have alone and American Do you have …? (both right); have breakfast, have a cup of tea, never have got | to-have |
@@ -1377,7 +1432,7 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
   Zähl".
 - **A wrong form in a step's English as "**right** (never *wrong*)"**: the sheet's "Watch out" pairs a "never *X*"
   with the most alike bold form of its paragraph, so "Never *I amn't*: only **I'm not**" printed I amn't against we
-  aren't; "**I'm not** (never *I amn't*)" pairs them.
+  aren't; "**I'm not** (never *I amn't*)" paired them. (I amn't is said, so `to-be` no longer says never of it: [What people say](#what-people-say-over-a1-and-a2).)
 
 
 ### The English course: units 7–12
@@ -1428,7 +1483,7 @@ Old Wilf by the fire, the bus to Keswick, the market):
 | `present-continuous` 🏃 | am, is, are + -ing for now (I'm walking: the others' present, gerade, stare); isn't, aren't; Are you …? Yes, I am; What are you doing?; making, sitting, swimming, lying; every day and usually with the present simple, now, Look!, Listen! with -ing; know, like, want, need, understand never with -ing | present-continuous, present-simple |
 | `time` 🕖 | What time is it? It's seven o'clock; past up to half past, to the next hour after it (five past seven, a quarter to eight); British half seven for 7:30 (halb acht, pol osmih: never halb sieben), the digital seven thirty and the American ten after eight accepted; at a clock time and at night; on a day and a date (on Monday, on the first of May), at the weekend (on the weekend accepted), every Sunday with none; in a month, a season, a year, a part of the day; the capitals; the ordinals (first, second, third, fifth, ninth, twelfth, twentieth, twenty-first): written 1 May, said the first of May | time-dates (new), numbers |
 | `object-pronouns` 👉 | me, you, him, her, it, us, them after a verb and after a preposition; the subject before the verb, the object after it (She likes him. He likes her.); her the object and the possessive, him never his; a pet with a name him or her, a thing it; It's me. Me too.; one pronoun only (never I know him Jack.); Give me the key, Give it to me | object-pronouns (new), pronouns |
-| `was-were` ⏮️ | was for I, he, she, it; were for you, we, they, and you were for one person (never you was); wasn't, weren't; Was it …? Were you …? Yes, I was (never Yes, I were); yesterday, last night, two days ago; there was, there were; where and were; born with was (Auntie Edna was born in 1952, never is born) | was-were (new), to-be |
+| `was-were` ⏮️ | was for I, he, she, it; were for you, we, they, and you were for one person (people also say you was, named; writing wants you were); wasn't, weren't; Was it …? Were you …? Yes, I was (in the North also Yes, I were, named; never Yes, I wasn't); yesterday, last night, two days ago; there was, there were; where and were; born with was (Auntie Edna was born in 1952, never is born) | was-were (new), to-be |
 
 - **Pages written for them**: `time-dates`, `object-pronouns` and `was-were`, each A1 with its cheat-sheet card (the
   book had the place prepositions, can and the present continuous; past-simple is A2, so was and were have a page of
@@ -1444,6 +1499,74 @@ Old Wilf by the fire, the bus to Keswick, the market):
 - **A contraction without its apostrophe** (cant, isnt, Im, theyre, wasnt) is almost, with the apostrophe hint and
   English's examples (`loose`, `loose_examples`: "can't, I'm"), never right; its, were, well, lets stay words of their
   own, so were for we're is wrong.
+
+### The English course: A2, units 1–6
+
+A2's first six units, commands and the past, after all of A1 (A1 left the imperative out, so A2 opens with it):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `imperatives` 📢 | the base form for everyone; Don't + the base form; be; always, never; Let's, Let's not; please, Could you …?; directions, recipes, signs | imperatives (new; its card is the summary) |
+| `past-regular` 🚶 | -ed for every person, no helping verb; yesterday, last week, ago; -e + -d, the doubled consonant, -y → -ied against stayed; the three sounds; British learnt, burnt, dreamt with learned accepted | past-simple (a summary of its own) |
+| `past-irregular` 🧳 | about thirty irregular pasts, by families; put, cut, shut the same; read said like red; told and said; told in a story with -ed verbs | past-simple (a summary of its own) |
+| `did-you` 🔍 | didn't and Did + the base form; short answers; Where did you go?; who as the subject takes no did; be takes no did | past-simple, questions-do (a summary of its own) |
+| `past-continuous` ⏳ | was, were + -ing; wasn't, weren't, Were you …?; the long action with when; while; -ing's spelling; state verbs without -ing; how a story opens | past-continuous (new), past-simple, present-continuous |
+| `because-so` 🔗 | and, but, or; because against so, one in a sentence; Why? Because …; when, before, after and their comma; then; all of it in a story | linking-words (new), past-simple |
+
+- **A summary of its own** where a page goes on further than the unit that heads it: `past-simple` has the past's questions, which `did-you` brings.
+- **cos, 'cause and cause** are right on every gap whose answer is because, labelled with because; `Don't let's wait` beside Let's not wait.
+- **Paired mistakes** (`wrong`), each only for a word of its rule: stoped, planed for stopped, planned; openned, visitted; carryed, staied; come for came, make for made and the other way (did you came?); fell and feel, want and went, wore and were, sold and told, bought, brought, caught, taught, thought, fought; then for than or when; rainning, waitting. goed, runned, heared were wrong already; walkd, becouse, hapy stay slips.
+
+### The English course: A2, units 7–12
+
+A2's middle six: how much, comparing, how, after the past (units 1–6). The Lakeland's own: a jar of Arthur's honey, Keswick further away than the mill, Alfie the youngest in the family:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `some-and-any` 🥛 | countable and uncountable; some in statements and offers, any in questions and negatives; no article before what can't be counted; some in a plain question spoken | some-any, articles |
+| `how-much` 🧮 | much and many, a lot of, a few and a little, how much and how many; loads of, There's not many boats spoken | some-any, plurals |
+| `comparatives` 📏 | -er and more, the spelling (bigger, happier), good and bad, than; further and farther; more bigger left wrong | comparatives (new) |
+| `superlatives` 🏆 | the -est and the most; best, worst; in the village, of the three; without the where no noun follows, plain right (Alfie is youngest) | comparatives, articles |
+| `adverbs` 🐢 | -ly and its spelling; well, fast, hard; an adjective for a thing, an adverb for what is done; where each goes; good for well and a flat adverb `nonstandard` | adverbs (new), word-order |
+| `someone-anything` 🔎 | some-, any-, no-, every- with -one, -thing, -where; one negative in writing, a double negative `nonstandard`; someone and something in a question spoken; no one with nobody and no-one | indefinite-pronouns (new), some-any |
+
+- **A bold form is read in her voice only if the intro shows that very word**: wetter, easier and money had to go into `words`.
+- **A page's `rule` is at most 1,200 characters per base**, a `review` at most 200.
+- **Paired mistakes**: then and than; biger, hoter only for big, hot, thin, fat, wet, sad, red, fit; happyer, easyest for a word in -ier, -iest; happyly for -ily; carefuly. usualy stays a slip. A trap for whoever writes more: `.*[^aeiou]y(er|est)` makes shyer wrong for shier, so a unit that asks those lists both.
+
+### The English course: A2, units 13–18
+
+A2's last six: the future, must, the perfect, if. Saturday's dance at the Packhorse Inn, Mrs Birkett's rules for the help, a wet morning with Sam's van, Jack and Meg on the fell, Old Wilf by the fire, a walker who has never been to the Lakes:
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `going-to` 🗺️ | going to for a plan and for what you can see coming; am, is, are + -ing for what is arranged; never the plain present (Morgen besuche ich, jutri grem, domani vado); gonna spoken | future, present-continuous (a summary of its own) |
+| `will` 🤝 | decided now and offers (never I carry it), promises and won't, what you think; Will you …? Yes, I will (never Yes, I'll); Shall I …? with Should I …? and Scotland's and Ireland's Will I …?; will against going to; I will isn't ich will | future (a summary of its own) |
+| `have-to` ☝️ | have to, has to, Do you have to …?, had to, have got to with gotta; must with no to; mustn't against don't have to (muss nicht), can't, needn't; should | must-have-to (new), can |
+| `would-like` ☕ | want to, wanna; 'd like with a thing and with to; Would you like …? Yes, please; Could you …?, Could I …?; like, love, enjoy, hate + -ing (never enjoy to); like against 'd like | would-like (new) |
+| `have-you-ever` 🐦 | have, has + the participle for your life so far; its forms; gone and been; ever, never with one no in writing; just; already, yet; the past simple as soon as you say when; American I just saw Jack, Did you feed the dogs yet? accepted | present-perfect (a summary of its own, no since or for: B1), past-simple |
+| `if-it-rains` ☔ | if + the present in both halves, always so; if + the present, will; the halves either way, the comma; if against when (German's wenn for both), the present after both (never if it will rain, Slovene's če bo); the other half with can, should, a command | first-conditional (new), future |
+
+- **A bracketed translation is one sentence** ("(Die Tasche ist schwer, ich trage sie.)"): the sheet's rule line splits at a sentence end even inside brackets, and "(Die Tasche ist schwer. Ich trage sie.)" printed cut.
+- **A gap takes all that is right**, not only what the unit teaches: "___ I close the window?" takes Shall, Should, Can, Could, May, with Will spoken; "You look tired. You ___ rest." takes should, must, have to, need to, ought to; "I think it ___ snow" takes will and is going to; "Have you ___ been to the Lakes?" takes ever and never.
+- **The plain present isn't always wrong**: a timetable's "The bus leaves at nine" is right, so it isn't offered as a mistake, nor is the colloquial "It's raining tomorrow".
+- **A choice's `almost`** for what is right but off the point: "I'm going to" where the phone is ringing, "I'll" for what was decided before.
+- **'s before a participle is has in the grading**, listed once: she's seen = she has seen, Jack's never been; before one that could be an adjective or a passive (done, made, lost, closed, written …) only with just, already, never, ever or an object after it, so it's written stays it is. `same`'s order matters: these rules stand before he's → he is. A name's 's before -ing still lists its long form beside it; before going to it doesn't need to.
+- **Typed without the apostrophe, almost**: hes seen, id like, and ill help, well go only before another word, so the words themselves stay words.
+
+### What people say, over A1 and A2
+
+As [Spoken forms](#spoken-forms): no form grown-ups really say is a wrong choice or a bank's distractor, no text says never of it (the intro and the page say people say it and writing wants the other), and typed it is one of two things. `EnglishA2bContentTest` holds it for its six units, `EnglishA2cContentTest` for the 36 of both levels.
+
+| What's typed | How | Verdict |
+|---|---|---|
+| gonna, wanna, gotta; cos, 'cause; some in a plain question; There's no walkers; loads of; Will I …? beside Shall I …? | the item's `spoken` | right, labelled with the standard form |
+| good for well, a flat adverb; a double negative after a negative (nothing, no one, not never); It were raining, We was late, Yes, I were, There was a lot of walkers; I seen it, I done it, I sung; a past for a participle after have (I've saw, He's went, She's took) | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
+| amn't | a contraction like any: am not | right |
+
+**`nonstandard` is for what grown-ups really say.** A child's or a learner's regular past (telled, catched, knowed, throwed, growed) isn't, any more than gooder and more bigger: those are wrong, and a sheet may offer them (`past-irregular`'s telled).
+
+Left wrong, on the native list: more bigger, gooder, as for than, How much eggs?, tastes well; he have to (East Anglia's), still a wrong choice in `have-to`; come, give, run for came, gave, ran (the cue copied, and what the unit teaches); haven't to; I've knew, I've flew.
 
 ## Printed sheets
 
@@ -1483,7 +1606,7 @@ What a sheet has, and where it comes from (`companion/prints/sheet.ts`):
 | **Primeri · Examples** | the intro's examples, the first of each step first, at most six; the table's forms in them bold |
 | **Pazi · Watch out** | three wrong ✗ / right ✓ pairs: what a text says is wrong ("**Kje je Luka?** (never *Kje Luka je?*)", "Never *ne sem*", "*Vidim nič* is wrong"), a quick question's or a worksheet choice's wrong option in its sentence (never one marked `almost`: a spoken or near form), a gap whose word in brackets left unchanged is the mistake ("To je ___ (moj) hiša.") |
 | **Besede · Words** | the unit's `words`, with gender and meaning in the sheet's base, in this order: the unit's own gloss ("**quando** (wenn)" in its intro, unless its English bracket is a note: "**rad** (a man)"), the dictionary's supplement's entry of the word with its own meaning in the base (an Italian noun by the word without its article, il treno), a pack's word (an Italian noun in the plural with its article, i cavalli, by the pack's plural, its singular beside it), then the supplement's and Wiktionary's other readings (the meaning the unit's own text points to: peti is "fifth" in the numbers); not the ones the table shows, nor names. A word nothing knows is left out (the run lists them); the Italian course's A1, A2 and B1 leave none out (the supplement has the rest, it-print-meanings) |
-| **Preveri se · Check yourself** | five items of the worksheets (the test stays the app's): gaps in their sentence, transforms, choices, grouped by instruction; ten on a sheet of two pages. The answers upside down at the page's foot |
+| **Preveri se · Check yourself** | five items of the worksheets (the test stays the app's): gaps in their sentence, transforms, choices (their options in the sheet's own order, `printedOrder`: the same on every print of it, never the file's, the answers naming the right one by its text), grouped by instruction; ten on a sheet of two pages. The answers upside down at the page's foot |
 | The footer | "Strojno napisano, preveri z naravnim govorcem · machine-written, to be checked by a native speaker" while the unit's `review` says it's unreviewed; the Wiktionary attribution when a meaning comes from it |
 
 The layout (`companion/prints/html.ts`, `sheet.css`): A4 with 12 mm margins, Nunito with the Lani mark in Pixelify Sans

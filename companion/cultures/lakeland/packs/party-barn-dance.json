@@ -1,0 +1,35 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "party-barn-dance",
+  "language": "en",
+  "title": {
+    "en": "The barn dance",
+    "sl": "Vaški ples",
+    "it": "La festa da ballo",
+    "de": "Der Scheunentanz"
+  },
+  "emoji": "🎻",
+  "level": "A2",
+  "description": {
+    "en": "The hamlet becomes a village: boards on the green with Mrs Birkett, a caller shouting out every step, four couples in a square, a polka and sore feet at midnight.",
+    "sl": "Zaselek postane vas: deske na zelenici z gospo Birkett, voditelj plesa, ki napoveduje vsak korak, štirje pari v kvadratu, polka in boleče noge ob polnoči.",
+    "it": "La frazione diventa un paese: assi sul prato con la signora Birkett, un maestro di ballo che annuncia ogni passo, quattro coppie in quadrato, una polca e i piedi indolenziti a mezzanotte.",
+    "de": "Aus dem Weiler wird ein Dorf: Bretter auf dem Dorfanger mit Mrs Birkett, ein Tanzansager, der jeden Schritt ausruft, vier Paare im Viereck, eine Polka und wunde Füße um Mitternacht."
+  },
+  "giver": {
+    "name": "Mrs Birkett",
+    "emoji": "🍺"
+  },
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker; sources in docs/plans/05-built/parties-lakeland.md",
+  "words": [
+    {"id": "barn-dance", "en": "barn dance", "sl": "vaški ples", "it": "festa da ballo", "de": "Scheunentanz", "emoji": "🎻", "plural": "barn dances", "example_en": "The whole village comes to the barn dance.", "example_sl": "Na vaški ples pride vsa vas.", "example_it": "Tutto il paese viene alla festa da ballo.", "example_de": "Das ganze Dorf kommt zum Scheunentanz.", "note": "Easy country dances that anybody can join in. Today it's seldom in a real barn.", "note_sl": "Preprosti ljudski plesi, ki se jim lahko pridruži vsak. Danes le redko v pravem skednju.", "note_it": "Facili balli popolari a cui tutti possono unirsi. Oggi di rado in un vero fienile.", "note_de": "Einfache Volkstänze, bei denen jeder mitmachen kann. Heute selten in einer echten Scheune."},
+    {"id": "caller", "en": "caller", "sl": "voditelj plesa", "it": "maestro di ballo", "de": "Tanzansager", "emoji": "📣", "plural": "callers", "example_en": "The caller says every step before you do it.", "example_sl": "Voditelj plesa napove vsak korak, preden ga narediš.", "example_it": "Il maestro di ballo annuncia ogni passo prima che tu lo faccia.", "example_de": "Der Tanzansager sagt jeden Schritt an, bevor du ihn machst.", "note": "From to call, to shout out. A man or a woman, the word is the same.", "note_sl": "Iz to call, zaklicati. Moški ali ženska, beseda je ista.", "note_it": "Da to call, chiamare ad alta voce. Uomo o donna, la parola è la stessa.", "note_de": "Von to call, ausrufen. Ob Mann oder Frau, das Wort bleibt gleich."},
+    {"id": "partner", "en": "partner", "sl": "plesni partner; plesna partnerica", "it": "compagno di ballo; compagna di ballo", "de": "Tanzpartner; Tanzpartnerin", "emoji": "💃", "plural": "partners", "example_en": "Take your partner by the hand.", "example_sl": "Primi svojega plesnega partnerja za roko.", "example_it": "Prendi per mano il tuo compagno di ballo.", "example_de": "Nimm deinen Tanzpartner an der Hand.", "note": "“Take your partners!” is what the caller shouts when a dance begins.", "note_sl": "»Take your partners!« zakliče voditelj plesa, ko se ples začne.", "note_it": "«Take your partners!» grida il maestro di ballo quando comincia un ballo.", "note_de": "„Take your partners!“ ruft der Tanzansager, wenn ein Tanz beginnt."},
+    {"id": "couple", "en": "couple", "sl": "par", "it": "coppia", "de": "Paar", "emoji": "👫", "plural": "couples", "example_en": "Four couples stand in a square.", "example_sl": "Štirje pari stojijo v kvadratu.", "example_it": "Quattro coppie stanno in quadrato.", "example_de": "Vier Paare stehen im Viereck."},
+    {"id": "circle", "en": "circle", "sl": "krog", "it": "cerchio", "de": "Kreis", "emoji": "⭕", "plural": "circles", "example_en": "Hold hands and make a circle.", "example_sl": "Primite se za roke in naredite krog.", "example_it": "Tenetevi per mano e fate un cerchio.", "example_de": "Fasst euch an den Händen und macht einen Kreis."},
+    {"id": "dance-step", "en": "dance step", "sl": "plesni korak", "it": "passo di danza", "de": "Tanzschritt", "emoji": "👣", "plural": "dance steps", "example_en": "I don't know the dance steps yet.", "example_sl": "Plesnih korakov še ne znam.", "example_it": "Non conosco ancora i passi di danza.", "example_de": "Ich kann die Tanzschritte noch nicht."},
+    {"id": "polka", "en": "polka", "sl": "polka", "it": "polca", "de": "Polka", "emoji": "🎵", "plural": "polkas", "example_en": "The band plays one more polka.", "example_sl": "Godba zaigra še eno polko.", "example_it": "La banda suona un'altra polca.", "example_de": "Die Band spielt noch eine Polka."},
+    {"id": "swing-round", "en": "to swing", "sl": "zavrteti", "it": "far girare", "de": "herumwirbeln", "emoji": "🌀", "example_en": "Now swing your partner round!", "example_sl": "Zdaj zavrti svojega partnerja!", "example_it": "Ora fai girare il tuo compagno!", "example_de": "Jetzt wirble deinen Partner herum!", "note": "Irregular: swing, swung, swung. At a dance you hold your partner and turn together.", "note_sl": "Nepravilni glagol: swing, swung, swung. Pri plesu držiš partnerja in se skupaj vrtita.", "note_it": "Irregolare: swing, swung, swung. Nel ballo tieni il compagno e girate insieme.", "note_de": "Unregelmäßig: swing, swung, swung. Beim Tanz hältst du den Partner fest, und ihr dreht euch zusammen."},
+    {"id": "sore", "en": "sore", "sl": "boleč", "it": "indolenzito", "de": "wund", "emoji": "🦶", "example_en": "After the dance my feet are sore.", "example_sl": "Po plesu me bolijo noge.", "example_it": "Dopo il ballo ho i piedi indolenziti.", "example_de": "Nach dem Tanz sind meine Füße wund.", "note": "Sore feet, a sore throat: it hurts, but it isn't serious.", "note_sl": "Sore feet, a sore throat: boli, a ni hudo.", "note_it": "Sore feet, a sore throat: fa male, ma non è grave.", "note_de": "Sore feet, a sore throat: Es tut weh, ist aber nicht schlimm."}
+  ]
+}

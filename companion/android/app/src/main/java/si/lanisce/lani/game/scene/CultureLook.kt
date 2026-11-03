@@ -261,7 +261,8 @@ object CultureLooks {
      * the nearest Marisa's osteria with its sign and its frasca; the well-head of white stone under a wrought-iron arch with a
      * copper bucket; a panchina of green slats on iron; vine rows on the hills. The linden (il tiglio) stays. The maypole is
      * the greasy pole (l'albero della cuccagna, `maypole`): its soaped trunk shining, the wheel of prizes under its wreath (a
-     * salami, a cheese, bags of sweets), lying ready by it before it goes up; the fountain's pillar crowned with a pine cone of
+     * salami, a cheese, bags of sweets), lying ready by it before it goes up, and soaped from the step that greases it as it
+     * lies on its trestles, its bucket of soap by its foot; the fountain's pillar crowned with a pine cone of
      * stone, as the Venetian fountains of the plain have it, and a moulded rim on its trough (`fountain`).
      */
     internal val FRIULI_SQUARE = Table.of(

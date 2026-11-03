@@ -1,0 +1,152 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "passivo-venire-andare",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🏷️",
+  "title": {
+    "it": "Viene aperta, va fatta: venire, andare e il si passivante",
+    "de": "Wird geöffnet, muss gemacht werden: venire, andare und si",
+    "sl": "Odprejo, treba je narediti: venire, andare in si",
+    "en": "Being opened, must be done: venire, andare and si"
+  },
+  "rule": {
+    "en": "**venire** + the participle is a passive for what happens: **L'osteria viene aperta alle otto.** (The inn is opened at eight.) **L'osteria è aperta** only says it is open. The participle agrees: **il pane viene fatto, la porta viene chiusa, i tavoli vengono portati, le pecore vengono contate**. Who does it comes after **da**.\n\nIt goes in the simple tenses only: **viene, veniva, verrà, verrebbe, venne**. The compound ones keep essere: **è stato riparato** (never *è venuto riparato*).\n\n**andare** + the participle says it must be done: **Questo va fatto subito.** (This must be done at once.) **I bicchieri vanno lavati.** **La lettera andava spedita ieri.** In this sense simple tenses only, and mostly no **da**. **Andrebbe fatto**: it should be done.\n\nThe **si** passive: si + a verb that follows the thing: **Si vende il vino. Si vendono i biscotti.** In compound tenses with essere, agreeing with the thing: **Si è venduta la casa. Si sono venduti i biscotti.** With a modal: **Si possono comprare le uova.** No **da** after it. On signs it joins up, to recognise: **Vendesi casa. Affittasi camera.**",
+    "sl": "**venire** + deležnik je trpnik za to, kar se dogaja: **L'osteria viene aperta alle otto.** (Gostilno odprejo ob osmih.) **L'osteria è aperta** pove samo, da je odprta. Deležnik se ujema: **il pane viene fatto, la porta viene chiusa, i tavoli vengono portati, le pecore vengono contate**. Kdo to dela, pride za **da**.\n\nGre samo v enostavnih časih: **viene, veniva, verrà, verrebbe, venne**. Sestavljeni ohranijo essere: **è stato riparato** (nikoli *è venuto riparato*).\n\n**andare** + deležnik pove, da je to treba narediti: **Questo va fatto subito.** (To je treba takoj narediti.) **I bicchieri vanno lavati.** **La lettera andava spedita ieri.** V tem pomenu samo enostavni časi in večinoma brez **da**. **Andrebbe fatto**: to bi bilo treba narediti.\n\nTrpnik s **si**: si + glagol, ki se ravna po stvari: **Si vende il vino. Si vendono i biscotti.** V sestavljenih časih z essere, ujemanje s stvarjo: **Si è venduta la casa. Si sono venduti i biscotti.** Z modalnim glagolom: **Si possono comprare le uova.** Brez **da**. Na napisih je skupaj, za prepoznavanje: **Vendesi casa. Affittasi camera.**",
+    "de": "**venire** + Partizip ist ein Passiv für das, was geschieht: **L'osteria viene aperta alle otto.** (Die Osteria wird um acht geöffnet.) **L'osteria è aperta** sagt nur, dass sie offen ist. Das Partizip passt sich an: **il pane viene fatto, la porta viene chiusa, i tavoli vengono portati, le pecore vengono contate**. Wer es tut, kommt nach **da**.\n\nEs geht nur in den einfachen Zeiten: **viene, veniva, verrà, verrebbe, venne**. Die zusammengesetzten behalten essere: **è stato riparato** (nie *è venuto riparato*).\n\n**andare** + Partizip sagt, dass es getan werden muss: **Questo va fatto subito.** (Das muss sofort gemacht werden.) **I bicchieri vanno lavati.** **La lettera andava spedita ieri.** In diesem Sinn nur einfache Zeiten und meist ohne **da**. **Andrebbe fatto**: Es sollte gemacht werden.\n\nDas Passiv mit **si**: si + ein Verb, das sich nach der Sache richtet: **Si vende il vino. Si vendono i biscotti.** In zusammengesetzten Zeiten mit essere, passend zur Sache: **Si è venduta la casa. Si sono venduti i biscotti.** Mit Modalverb: **Si possono comprare le uova.** Ohne **da**. Auf Schildern steht es zusammen, zum Erkennen: **Vendesi casa. Affittasi camera.**"
+  },
+  "table": {
+    "head": [
+      {"it": "forma", "de": "Form", "sl": "oblika", "en": "form"},
+      {"it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example"},
+      {"it": "significa", "de": "heißt", "sl": "pomeni", "en": "means"}
+    ],
+    "rows": [
+      ["viene aperta", "L'osteria viene aperta alle otto.", {"it": "qualcuno la apre", "de": "wird geöffnet", "sl": "odprejo jo", "en": "is opened"}],
+      ["è aperta", "L'osteria è aperta.", {"it": "non è chiusa", "de": "ist offen", "sl": "je odprta", "en": "is open"}],
+      ["vengono portati", "I tavoli vengono portati in piazza.", {"it": "qualcuno li porta", "de": "werden gebracht", "sl": "prinesejo jih", "en": "are brought"}],
+      ["verrà chiusa", "La piazza verrà chiusa per la festa.", {"it": "domani", "de": "wird gesperrt werden", "sl": "zaprli ga bodo", "en": "will be closed"}],
+      ["è stato riparato", "Il mulino è stato riparato ieri.", {"it": "mai con venire", "de": "wurde repariert", "sl": "so popravili", "en": "was repaired"}],
+      ["va fatto", "Questo va fatto subito.", {"it": "si deve fare", "de": "muss gemacht werden", "sl": "treba je narediti", "en": "must be done"}],
+      ["vanno lavati", "I bicchieri vanno lavati.", {"it": "si devono lavare", "de": "müssen gespült werden", "sl": "treba je pomiti", "en": "must be washed"}],
+      ["andrebbe fatto", "Andrebbe fatto oggi.", {"it": "si dovrebbe fare", "de": "sollte gemacht werden", "sl": "bi bilo treba narediti", "en": "should be done"}],
+      [
+        "si vende, si vendono",
+        "Qui si vendono i biscotti.",
+        {"it": "il verbo segue la cosa", "de": "wird, werden verkauft", "sl": "se prodaja, se prodajajo", "en": "is, are sold"}
+      ],
+      ["si sono venduti", "Si sono venduti tutti i biscotti.", {"it": "con essere", "de": "wurden verkauft", "sl": "so se prodali", "en": "were sold"}]
+    ]
+  },
+  "examples": [
+    {
+      "it": "L'osteria viene aperta alle otto.",
+      "de": "Die Osteria wird um acht geöffnet.",
+      "sl": "Gostilno odprejo ob osmih.",
+      "en": "The inn is opened at eight.",
+      "note": {
+        "de": "viene aperta: Es geschieht. È aperta: Sie ist offen.",
+        "sl": "viene aperta: to se dogaja. È aperta: je odprta.",
+        "en": "viene aperta: it happens. È aperta: it is open."
+      }
+    },
+    {
+      "it": "I tavoli vengono portati in piazza da Bruno.",
+      "de": "Die Tische werden von Bruno auf den Platz gebracht.",
+      "sl": "Mize na trg prinese Bruno.",
+      "en": "The tables are brought to the square by Bruno."
+    },
+    {
+      "it": "La piazza verrà chiusa per la festa.",
+      "de": "Der Platz wird für das Fest gesperrt.",
+      "sl": "Trg bodo zaprli za praznik.",
+      "en": "The square will be closed for the festa."
+    },
+    {
+      "it": "Il mulino è stato riparato ieri.",
+      "de": "Die Mühle wurde gestern repariert.",
+      "sl": "Mlin so včeraj popravili.",
+      "en": "The mill was repaired yesterday.",
+      "note": {"de": "Zusammengesetzte Zeit: essere, nie venire.", "sl": "Sestavljeni čas: essere, nikoli venire.", "en": "A compound tense: essere, never venire."}
+    },
+    {"it": "Questo va fatto subito.", "de": "Das muss sofort gemacht werden.", "sl": "To je treba takoj narediti.", "en": "This must be done at once."},
+    {
+      "it": "I bicchieri vanno lavati.",
+      "de": "Die Gläser müssen gespült werden.",
+      "sl": "Kozarce je treba pomiti.",
+      "en": "The glasses must be washed.",
+      "note": {
+        "de": "vanno, weil es mehrere sind; lavati, weil i bicchieri männlich sind.",
+        "sl": "vanno, ker jih je več; lavati, ker je i bicchieri moškega spola.",
+        "en": "vanno, as there are several; lavati, as i bicchieri is masculine."
+      }
+    },
+    {
+      "it": "Se piovesse, la festa verrebbe spostata.",
+      "de": "Wenn es regnete, würde das Fest verlegt.",
+      "sl": "Če bi deževalo, bi praznik prestavili.",
+      "en": "If it rained, the festa would be moved."
+    },
+    {
+      "it": "La lettera andava spedita ieri.",
+      "de": "Der Brief musste gestern abgeschickt werden.",
+      "sl": "Pismo je bilo treba poslati včeraj.",
+      "en": "The letter had to be posted yesterday."
+    },
+    {"it": "Qui si vende il vino.", "de": "Hier wird Wein verkauft.", "sl": "Tu se prodaja vino.", "en": "Wine is sold here."},
+    {
+      "it": "Si vendono i biscotti di Nonna Rosa.",
+      "de": "Die Kekse von Nonna Rosa werden verkauft.",
+      "sl": "Prodajajo se piškoti babice Rose.",
+      "en": "Nonna Rosa's biscuits are on sale.",
+      "note": {"de": "Mehrere Dinge: vendono.", "sl": "Več stvari: vendono.", "en": "Several things: vendono."}
+    },
+    {"it": "Si sono venduti tutti i biscotti.", "de": "Alle Kekse wurden verkauft.", "sl": "Vsi piškoti so se prodali.", "en": "All the biscuits were sold."},
+    {
+      "it": "Vendesi casa.",
+      "de": "Haus zu verkaufen.",
+      "sl": "Hiša naprodaj.",
+      "en": "House for sale.",
+      "note": {"de": "Auf Schildern: si hängt am Verb.", "sl": "Na napisih: si je na glagolu.", "en": "On signs: si joins the verb."}
+    }
+  ],
+  "modules": [],
+  "tags": ["passivo", "venire", "andare", "si-passivante", "passive", "si"],
+  "see": ["passivo", "si-impersonale", "participi-irregolari", "modali"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "it": "Viene aperta, va fatta",
+      "de": "Viene aperta, va fatta · mehr Passiv",
+      "sl": "Viene aperta, va fatta · več trpnika",
+      "en": "Viene aperta, va fatta · more passive"
+    },
+    "rule": {
+      "de": "Es geschieht: **viene aperta**, **verrà chiusa**, nur einfache Zeiten (sonst **è stato**). Es muss sein: **va fatto**, **vanno lavati**. Ohne wer: **si vende il vino**, **si vendono i biscotti**, **si sono venduti**. Das Partizip passt zur Sache.",
+      "sl": "Dogaja se: **viene aperta**, **verrà chiusa**, samo enostavni časi (sicer **è stato**). Treba je: **va fatto**, **vanno lavati**. Brez kdo: **si vende il vino**, **si vendono i biscotti**, **si sono venduti**. Deležnik se ujema s stvarjo.",
+      "en": "It happens: **viene aperta**, **verrà chiusa**, simple tenses only (else **è stato**). It must be: **va fatto**, **vanno lavati**. With no who: **si vende il vino**, **si vendono i biscotti**, **si sono venduti**. The participle agrees with the thing."
+    },
+    "table": {
+      "head": [{"it": "forma", "de": "Form", "sl": "oblika", "en": "form"}, {"it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example"}],
+      "rows": [
+        ["viene aperta", "L'osteria viene aperta alle otto."],
+        ["vengono portati", "I tavoli vengono portati in piazza."],
+        ["è stato riparato", "Il mulino è stato riparato ieri."],
+        ["va fatto", "Questo va fatto subito."],
+        ["vanno lavati", "I bicchieri vanno lavati."],
+        ["si vendono", "Qui si vendono i biscotti."],
+        ["si sono venduti", "Si sono venduti tutti i biscotti."]
+      ]
+    },
+    "examples": [
+      {"it": "L'osteria viene aperta alle otto.", "de": "Die Osteria wird um acht geöffnet.", "sl": "Gostilno odprejo ob osmih.", "en": "The inn is opened at eight."},
+      {"it": "Questo va fatto subito.", "de": "Das muss sofort gemacht werden.", "sl": "To je treba takoj narediti.", "en": "This must be done at once."}
+    ],
+    "tip": {
+      "de": "💡 **è aperta**: Sie ist offen. **viene aperta**: Jemand öffnet sie. **va aperta**: Sie muss geöffnet werden.",
+      "sl": "💡 **è aperta**: je odprta. **viene aperta**: nekdo jo odpre. **va aperta**: treba jo je odpreti.",
+      "en": "💡 **è aperta**: it is open. **viene aperta**: someone opens it. **va aperta**: it must be opened."
+    }
+  }
+}

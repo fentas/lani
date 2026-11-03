@@ -8,7 +8,7 @@ import si.lanisce.lani.l10n.Lang
  * run stuck to letters is joined to them as a word ("mi2" → "midva"); a free one becomes its word(s) ("2 jabolki" →
  * "dve jabolki"). Where a number has several forms (Slovene dva/dve, ena/en/eno; German eins/ein/eine; Italian uno/una),
  * the one the [expected] text uses is taken, else the counting form. 0 … 999; longer runs stay as they are. Slovene's
- * words beyond (years, thousands: [slovene]) and its ordinals ([ordinal]) are the numbers module's.
+ * words beyond (years, thousands: [slovene]) and its ordinals ([ordinal]) are the numbers module's, as Italian's are ([italian]).
  */
 object SpokenNumbers {
     private val run = Regex("\\p{L}*\\d+\\p{L}*")
@@ -134,12 +134,49 @@ object SpokenNumbers {
             val u = n % 10
             when (u) { 0 -> t; 1, 8 -> t.dropLast(1) + IT_ONES[u]; 3 -> t + "tré"; else -> t + IT_ONES[u] } // ventuno, ventotto, ventitré
         }
-        else -> {
+        n < 1000 -> {
             val h = n / 100
             val head = if (h == 1) "cento" else IT_ONES[h] + "cento"
-            val rest = it(n % 100)
-            // centotto, centottanta: cento's o goes before another
-            if (n % 100 == 0) head else if (rest.startsWith("o")) head.dropLast(1) + rest else head + rest
+            val low = n % 100
+            val rest = it(low)
+            // centotré; centotto, centottanta: cento's o goes before another
+            if (low == 0) head else if (low == 3) head + "tré" else if (rest.startsWith("o")) head.dropLast(1) + rest else head + rest
+        }
+        else -> {
+            // mille, duemila, ventitremila (tre keeps no accent inside a word), then the rest: milletré, duemilaventisei
+            val t = n / 1000
+            val head = if (t == 1) "mille" else it(t).replace("tré", "tre") + "mila"
+            val low = n % 1000
+            if (low == 0) head else head + if (low == 3) "tré" else it(low)
+        }
+    }
+
+    /** The largest number [italian] writes out. */
+    const val IT_MAX = 999_999
+
+    /**
+     * [n] (0 … [IT_MAX]) in Italian words as it is counted, all one word: 21 ventuno, 23 ventitré, 28 ventotto, 103 centotré,
+     * 180 centottanta, 1000 mille, 2026 duemilaventisei. The numbers module's words ([NumberTongue.IT]).
+     */
+    fun italian(n: Int): String {
+        require(n in 0..IT_MAX) { "$n is outside 0 … $IT_MAX" }
+        return it(n)
+    }
+
+    /**
+     * The other Italian words a bare [n] is right as: a gender's form of 1 (una, un), cento's o kept (centootto, centoottanta),
+     * centuno, a thousand and what is under a hundred apart ("duemila e ventisei"). Never another number's.
+     */
+    fun italianAlso(n: Int): List<String> {
+        val low = n % 100
+        return buildList {
+            if (n == 1) {
+                add("una")
+                add("un")
+            }
+            if (n in 100..999 && (low == 8 || low in 80..89)) add(it(n - low) + it(low))
+            if (n in 100..999 && low == 1) add(it(n - 1).dropLast(1) + "uno")
+            if (n in 1001..9999 && n % 1000 in 1..99) add("${it(n - n % 1000)} e ${it(n % 1000)}")
         }
     }
 

@@ -1,0 +1,1052 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "congiuntivo-imperfetto",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🔍",
+  "title": {
+    "it": "Pensavo che fosse qui",
+    "de": "Der Konjunktiv Imperfekt: pensavo che fosse",
+    "sl": "Konjunktiv imperfekta: pensavo che fosse",
+    "en": "The imperfect subjunctive: pensavo che fosse"
+  },
+  "goal": {
+    "de": "Du erzählst, was du damals dachtest, hofftest und wolltest, und sagst, was du dir wünschst: Pensavo che fosse qui. Nonna voleva che Giulia mangiasse. Vorrei che tu venissi.",
+    "sl": "Poveš, kaj si takrat {m:mislil|f:mislila}, {m:upal|f:upala} in {m:hotel|f:hotela}, in kaj si želiš: Pensavo che fosse qui. Nonna voleva che Giulia mangiasse. Vorrei che tu venissi.",
+    "en": "You can tell what you thought, hoped and wanted back then, and say what you wish: Pensavo che fosse qui. Nonna voleva che Giulia mangiasse. Vorrei che tu venissi."
+  },
+  "grammar": [
+    "congiuntivo-imperfetto",
+    "congiuntivo",
+    "periodo-ipotetico"
+  ],
+  "words": [
+    "pensare",
+    "credere",
+    "sperare",
+    "volere",
+    "vorrei",
+    "dare",
+    "stare",
+    "fare",
+    "dire",
+    "bere",
+    "apparecchiare",
+    "dormire",
+    "piovere",
+    "splendere",
+    "nascondere",
+    "portare",
+    "bastare",
+    "la luna",
+    "il formaggio",
+    "la stella",
+    "il sole",
+    "il mare",
+    "il pesce",
+    "la montagna",
+    "il mondo",
+    "il mercato",
+    "la tavola",
+    "il ponte",
+    "il treno",
+    "la nonna",
+    "il vino",
+    "se",
+    "piano",
+    "fossi",
+    "fosse",
+    "dessi",
+    "stessi",
+    "facessi"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "it": "verbo",
+          "de": "Verb",
+          "sl": "glagol",
+          "en": "verb"
+        },
+        {
+          "it": "congiuntivo imperfetto",
+          "de": "congiuntivo imperfetto: ich, du · er, sie",
+          "sl": "congiuntivo imperfetto: jaz, ti · on, ona",
+          "en": "congiuntivo imperfetto: I, you · he, she"
+        },
+        {
+          "it": "esempio",
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Steht das erste Verb in der Vergangenheit, wird aus **sia** ein **fosse**: **Penso che sia qui.** (Ich glaube, er ist hier.) **Pensavo che fosse qui.** (Ich dachte, er wäre hier.) Das ist der **congiuntivo imperfetto**. Du kennst ihn schon von **se fossi** (wenn ich wäre).",
+          "sl": "Ko je prvi glagol v preteklosti, **sia** postane **fosse**: **Penso che sia qui.** (Mislim, da je tu.) **Pensavo che fosse qui.** ({m:Mislil|f:Mislila} sem, da je tu.) To je **congiuntivo imperfetto**. Poznaš ga že iz **se fossi** (če bi bil).",
+          "en": "When the first verb is in the past, **sia** becomes **fosse**: **Penso che sia qui.** (I think he's here.) **Pensavo che fosse qui.** (I thought he was here.) This is the **congiuntivo imperfetto**. You know it from **se fossi** (if I were)."
+        },
+        "examples": [
+          {
+            "it": "Pensavo che Moro fosse in giardino.",
+            "de": "Ich dachte, Moro wäre im Garten.",
+            "sl": "{m:Mislil|f:Mislila} sem, da je Moro na vrtu.",
+            "en": "I thought Moro was in the garden."
+          },
+          {
+            "it": "Credevo che Maestra Elena fosse a scuola.",
+            "de": "Ich dachte, Maestra Elena wäre in der Schule.",
+            "sl": "{m:Mislil|f:Mislila} sem, da je učiteljica Elena v šoli.",
+            "en": "I thought Maestra Elena was at school."
+          },
+          {
+            "it": "Penso che sia qui.",
+            "de": "Ich glaube, er ist hier.",
+            "sl": "Mislim, da je tu.",
+            "en": "I think he's here."
+          }
+        ],
+        "rows": [
+          [
+            "essere",
+            "fossi · fosse",
+            "Pensavo che fosse qui."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-imperfetto",
+          "prompt": "Dov'era Tommaso? Marisa credeva che ___ a scuola.",
+          "options": [
+            "fosse",
+            "sia",
+            "era"
+          ],
+          "answer": 0,
+          "almost": [
+            2
+          ],
+          "say_options": true,
+          "explain": {
+            "de": "**credeva**: Vergangenheit → **fosse**\n- sia · nach einer Gegenwart: crede che sia\n- era: beim Reden, in der Schule **fosse**",
+            "sl": "**credeva**: preteklost → **fosse**\n- sia · za sedanjikom: crede che sia\n- era: v govoru, v šoli **fosse**",
+            "en": "**credeva**: a past → **fosse**\n- sia · after a present: crede che sia\n- era: in talk, at school **fosse**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die anderen Verben: **-are → -asse**, **-ere → -esse**, **-ire → -isse**: **Nonna voleva che Giulia mangiasse.** (Oma wollte, dass Giulia isst.) **Speravo che Davide leggesse la lettera.** (Ich hoffte, Davide würde den Brief lesen.) **Credevo che Moro dormisse.** (Ich dachte, Moro schläft.)",
+          "sl": "Drugi glagoli: **-are → -asse**, **-ere → -esse**, **-ire → -isse**: **Nonna voleva che Giulia mangiasse.** (Babica je hotela, da Giulia je.) **Speravo che Davide leggesse la lettera.** ({m:Upal|f:Upala} sem, da bo Davide prebral pismo.) **Credevo che Moro dormisse.** ({m:Mislil|f:Mislila} sem, da Moro spi.)",
+          "en": "The other verbs: **-are → -asse**, **-ere → -esse**, **-ire → -isse**: **Nonna voleva che Giulia mangiasse.** (Grandma wanted Giulia to eat.) **Speravo che Davide leggesse la lettera.** (I hoped Davide would read the letter.) **Credevo che Moro dormisse.** (I thought Moro was asleep.)"
+        },
+        "examples": [
+          {
+            "it": "Nonna voleva che Giulia mangiasse.",
+            "de": "Oma wollte, dass Giulia isst.",
+            "sl": "Babica je hotela, da Giulia je.",
+            "en": "Grandma wanted Giulia to eat."
+          },
+          {
+            "it": "Credevo che Moro dormisse.",
+            "de": "Ich dachte, Moro schläft.",
+            "sl": "{m:Mislil|f:Mislila} sem, da Moro spi.",
+            "en": "I thought Moro was asleep."
+          }
+        ],
+        "rows": [
+          [
+            "mangiare",
+            "mangiassi · mangiasse",
+            "Voleva che Giulia mangiasse."
+          ],
+          [
+            "leggere",
+            "leggessi · leggesse",
+            "Speravo che leggesse."
+          ],
+          [
+            "dormire",
+            "dormissi · dormisse",
+            "Credevo che dormisse."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiuntivo-imperfetto",
+          "text": "Il nonno voleva che Lorenzo ___ la porta. (aprire)",
+          "accept": [
+            "aprisse"
+          ],
+          "hint": {
+            "de": "-ire → ?",
+            "sl": "-ire → ?",
+            "en": "-ire → ?"
+          },
+          "explain": {
+            "de": "**voleva che** + -ire, Lorenzo → **aprisse**",
+            "sl": "**voleva che** + -ire, Lorenzo → **aprisse**",
+            "en": "**voleva che** + -ire, Lorenzo → **aprisse**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Alle Personen haben ein Doppel-s, nur voi nicht: **-ssi, -ssi, -sse, -ssimo, -ste, -ssero**. Ganz: **parlassi, parlassi, parlasse, parlassimo, parlaste, parlassero**. io und tu sind gleich, darum sag, wer: **che io parlassi, che tu parlassi**. **La maestra voleva che parlassimo piano.** (Die Lehrerin wollte, dass wir leise sprechen.)",
+          "sl": "Vse osebe imajo dvojni s, le voi ne: **-ssi, -ssi, -sse, -ssimo, -ste, -ssero**. V celoti: **parlassi, parlassi, parlasse, parlassimo, parlaste, parlassero**. io in tu sta enaka, zato povej, kdo: **che io parlassi, che tu parlassi**. **La maestra voleva che parlassimo piano.** (Učiteljica je hotela, da govorimo tiho.)",
+          "en": "Every person has a double s, except voi: **-ssi, -ssi, -sse, -ssimo, -ste, -ssero**. In full: **parlassi, parlassi, parlasse, parlassimo, parlaste, parlassero**. io and tu are the same, so say who: **che io parlassi, che tu parlassi**. **La maestra voleva che parlassimo piano.** (The teacher wanted us to speak softly.)"
+        },
+        "examples": [
+          {
+            "it": "La maestra voleva che parlassimo piano.",
+            "de": "Die Lehrerin wollte, dass wir leise sprechen.",
+            "sl": "Učiteljica je hotela, da govorimo tiho.",
+            "en": "The teacher wanted us to speak softly."
+          },
+          {
+            "it": "Davide sperava che le pecore tornassero da sole.",
+            "de": "Davide hoffte, die Schafe würden von allein zurückkommen.",
+            "sl": "Davide je upal, da se bodo ovce vrnile same.",
+            "en": "Davide hoped the sheep would come back by themselves."
+          }
+        ],
+        "rows": [
+          [
+            "parlare",
+            "parlassi · parlasse",
+            "Voleva che io parlassi."
+          ],
+          [
+            {
+              "it": "noi · voi · loro",
+              "de": "noi · voi · loro (wir · ihr · sie)",
+              "sl": "noi · voi · loro (mi · vi · oni)",
+              "en": "noi · voi · loro (we · you · they)"
+            },
+            "parlassimo · parlaste · parlassero",
+            "Voleva che parlassimo piano."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-imperfetto",
+          "prompt": "Maestra Elena voleva che i bambini ___ il libro.",
+          "options": [
+            "leggessero",
+            "leggessimo",
+            "leggesse"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**i bambini** = sie → **leggessero**\n- leggessimo · wir\n- leggesse · er, sie (eine Person)",
+            "sl": "**i bambini** = oni → **leggessero**\n- leggessimo · mi\n- leggesse · on, ona (ena oseba)",
+            "en": "**i bambini** = they → **leggessero**\n- leggessimo · we\n- leggesse · he, she (one person)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Einige haben eigene Formen: **essere → fossi**, **dare → dessi**, **stare → stessi**. **fare, dire, bere** nehmen den Stamm des imperfetto: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Pensavo che facesse freddo.** (Ich dachte, es wäre kalt.) **avere** ist regelmäßig: **avessi**.",
+          "sl": "Nekateri imajo svoje oblike: **essere → fossi**, **dare → dessi**, **stare → stessi**. **fare, dire, bere** vzamejo osnovo iz imperfekta: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Pensavo che facesse freddo.** ({m:Mislil|f:Mislila} sem, da je mraz.) **avere** je pravilen: **avessi**.",
+          "en": "Some have forms of their own: **essere → fossi**, **dare → dessi**, **stare → stessi**. **fare, dire, bere** take the imperfetto's stem: **facevo → facessi**, **dicevo → dicessi**, **bevevo → bevessi**. **Pensavo che facesse freddo.** (I thought it was cold.) **avere** is regular: **avessi**."
+        },
+        "examples": [
+          {
+            "it": "Pensavo che facesse freddo.",
+            "de": "Ich dachte, es wäre kalt.",
+            "sl": "{m:Mislil|f:Mislila} sem, da je mraz.",
+            "en": "I thought it was cold."
+          },
+          {
+            "it": "Non credevo che Marisa stesse così bene.",
+            "de": "Ich hätte nicht gedacht, dass es Marisa so gut geht.",
+            "sl": "Nisem {m:mislil|f:mislila}, da je Marisi tako dobro.",
+            "en": "I didn't think Marisa was so well."
+          }
+        ],
+        "rows": [
+          [
+            "avere · stare · dare",
+            "avessi · stessi · dessi",
+            "Credevo che stesse bene."
+          ],
+          [
+            "fare · facevo",
+            "facessi · facesse",
+            "Pensavo che facesse freddo."
+          ],
+          [
+            "dire · dicevo",
+            "dicessi · dicesse",
+            "Voleva che dicesse la verità."
+          ],
+          [
+            "bere · bevevo",
+            "bevessi · bevesse",
+            "Voleva che bevesse il latte."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiuntivo-imperfetto",
+          "text": "Giulia voleva che il nonno non ___ niente alla nonna. (dire)",
+          "accept": [
+            "dicesse"
+          ],
+          "hint": {
+            "de": "diceva → ?",
+            "sl": "diceva → ?",
+            "en": "diceva → ?"
+          },
+          "explain": {
+            "de": "**dire** wie im imperfetto: diceva → **dicesse**",
+            "sl": "**dire** kot v imperfektu: diceva → **dicesse**",
+            "en": "**dire** as in the imperfetto: diceva → **dicesse**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch **vorrei che** (ich möchte, dass) will diese Form, obwohl es jetzt ist: **Vorrei che tu venissi.** (Ich möchte, dass du kommst.) Ebenso **mi piacerebbe che** (es würde mir gefallen, wenn) und **sarebbe meglio che** (es wäre besser, wenn). Beim Reden hört man auch **vorrei che venga**; in der Schule und geschrieben: **venissi**.",
+          "sl": "Tudi **vorrei che** ({m:rad|f:rada} bi, da) zahteva to obliko, čeprav gre za zdaj: **Vorrei che tu venissi.** ({m:Rad|f:Rada} bi, da prideš.) Prav tako **mi piacerebbe che** (všeč bi mi bilo, da) in **sarebbe meglio che** (bolje bi bilo, da). V govoru slišiš tudi **vorrei che venga**; v šoli in pisno: **venissi**.",
+          "en": "**Vorrei che** (I'd like) wants this form too, though it's about now: **Vorrei che tu venissi.** (I'd like you to come.) So do **mi piacerebbe che** (I'd love it if) and **sarebbe meglio che** (it would be better if). In talk you also hear **vorrei che venga**; at school and in writing: **venissi**."
+        },
+        "examples": [
+          {
+            "it": "Vorrei che Davide venisse con noi alla festa.",
+            "de": "Ich möchte, dass Davide mit uns zum Fest kommt.",
+            "sl": "{m:Rad|f:Rada} bi, da bi Davide šel z nami na praznik.",
+            "en": "I'd like Davide to come to the festa with us."
+          },
+          {
+            "it": "Sarebbe meglio che Moro restasse a casa.",
+            "de": "Es wäre besser, wenn Moro zu Hause bliebe.",
+            "sl": "Bolje bi bilo, da bi Moro ostal doma.",
+            "en": "It would be better if Moro stayed at home."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "vorrei che",
+              "de": "vorrei che (ich möchte, dass)",
+              "sl": "vorrei che (rad bi, da)",
+              "en": "vorrei che (I'd like)"
+            },
+            "venissi · venisse",
+            "Vorrei che tu venissi."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-imperfetto",
+          "prompt": "Mi piacerebbe che Matteo ___ un po' di vino alla festa.",
+          "options": [
+            "portasse",
+            "porterebbe",
+            "portare"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**mi piacerebbe che** wie **vorrei che** → **portasse**\n- porterebbe: nach che hier nie der Konditional\n- portare · Grundform",
+            "sl": "**mi piacerebbe che** kot **vorrei che** → **portasse**\n- porterebbe: za che tu nikoli pogojnik\n- portare · nedoločnik",
+            "en": "**mi piacerebbe che** like **vorrei che** → **portasse**\n- porterebbe: never the conditional after che here\n- portare · the infinitive"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch die Bindewörter von früher gehen mit: **prima che**, **senza che**, **perché** (damit): **Il nonno parlava piano perché Lorenzo capisse.** (Der Opa sprach langsam, damit Lorenzo versteht.) Beim Indikativ bleiben **sapevo che** (ich wusste, dass), **quando** und **dopo che**: **Sapevo che era qui.** Dieselbe Person: **Pensavo di essere in ritardo.** (Ich dachte, ich wäre spät dran.)",
+          "sl": "Tudi prejšnji vezniki gredo zraven: **prima che**, **senza che**, **perché** (da bi): **Il nonno parlava piano perché Lorenzo capisse.** (Dedek je govoril počasi, da bi Lorenzo razumel.) Pri indikativu ostanejo **sapevo che** ({m:vedel|f:vedela} sem, da), **quando** in **dopo che**: **Sapevo che era qui.** Ista oseba: **Pensavo di essere in ritardo.** ({m:Mislil|f:Mislila} sem, da zamujam.)",
+          "en": "The linking words you know go along too: **prima che**, **senza che**, **perché** (so that): **Il nonno parlava piano perché Lorenzo capisse.** (Grandpa spoke slowly so that Lorenzo would understand.) Staying with the indicative: **sapevo che** (I knew that), **quando** and **dopo che**: **Sapevo che era qui.** The same person: **Pensavo di essere in ritardo.** (I thought I was late.)"
+        },
+        "examples": [
+          {
+            "it": "Il nonno parlava piano perché Lorenzo capisse.",
+            "de": "Der Opa sprach langsam, damit Lorenzo versteht.",
+            "sl": "Dedek je govoril počasi, da bi Lorenzo razumel.",
+            "en": "Grandpa spoke slowly so that Lorenzo would understand."
+          },
+          {
+            "it": "Davide è tornato prima che piovesse.",
+            "de": "Davide ist zurückgekommen, bevor es regnete.",
+            "sl": "Davide se je vrnil, preden je začelo deževati.",
+            "en": "Davide came back before it rained."
+          },
+          {
+            "it": "Sapevo che era qui.",
+            "de": "Ich wusste, dass er hier war.",
+            "sl": "{m:Vedel|f:Vedela} sem, da je tu.",
+            "en": "I knew he was here."
+          },
+          {
+            "it": "Pensavo di essere in ritardo.",
+            "de": "Ich dachte, ich wäre spät dran.",
+            "sl": "{m:Mislil|f:Mislila} sem, da zamujam.",
+            "en": "I thought I was late."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiuntivo-imperfetto",
+          "prompt": "Sapevo che Franco ___ al mulino.",
+          "options": [
+            "era",
+            "fosse",
+            "sia"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "de": "**sapevo che**: du weißt es sicher → Indikativ: **era**\n- fosse: beim Reden manchmal, in der Schule **era**\n- sia · nach einer Gegenwart",
+            "sl": "**sapevo che**: to zagotovo veš → indikativ: **era**\n- fosse: včasih v govoru, v šoli **era**\n- sia · za sedanjikom",
+            "en": "**sapevo che**: you know it for sure → the indicative: **era**\n- fosse: sometimes in talk, at school **era**\n- sia · after a present"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "congiuntivo-imperfetto-1",
+      "title": {
+        "it": "Tutte le forme",
+        "de": "Alle Formen",
+        "sl": "Vse oblike",
+        "en": "All the forms"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "congiuntivo-imperfetto",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": {
+            "de": "il congiuntivo imperfetto · der Konjunktiv Imperfekt",
+            "sl": "il congiuntivo imperfetto · konjunktiv imperfekta",
+            "en": "il congiuntivo imperfetto · the imperfect subjunctive"
+          },
+          "columns": [
+            {
+              "de": "portare · bringen",
+              "sl": "portare · prinesti",
+              "en": "portare · bring"
+            },
+            {
+              "de": "prendere · nehmen",
+              "sl": "prendere · vzeti",
+              "en": "prendere · take"
+            },
+            {
+              "de": "partire · losgehen",
+              "sl": "partire · oditi",
+              "en": "partire · leave"
+            }
+          ],
+          "rows": [
+            {
+              "label": "che io",
+              "cells": [
+                "portassi",
+                {
+                  "accept": [
+                    "prendessi"
+                  ]
+                },
+                {
+                  "accept": [
+                    "partissi"
+                  ],
+                  "hint": "-ire → -issi"
+                }
+              ]
+            },
+            {
+              "label": "che tu",
+              "cells": [
+                {
+                  "accept": [
+                    "portassi"
+                  ]
+                },
+                "prendessi",
+                {
+                  "accept": [
+                    "partissi"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "che lui, lei",
+              "cells": [
+                {
+                  "accept": [
+                    "portasse"
+                  ]
+                },
+                {
+                  "accept": [
+                    "prendesse"
+                  ]
+                },
+                "partisse"
+              ]
+            },
+            {
+              "label": "che noi",
+              "cells": [
+                "portassimo",
+                {
+                  "accept": [
+                    "prendessimo"
+                  ]
+                },
+                {
+                  "accept": [
+                    "partissimo"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "che voi",
+              "cells": [
+                {
+                  "accept": [
+                    "portaste"
+                  ],
+                  "hint": {
+                    "de": "voi: ohne -ss-",
+                    "sl": "voi: brez -ss-",
+                    "en": "voi: no -ss-"
+                  }
+                },
+                "prendeste",
+                "partiste"
+              ]
+            },
+            {
+              "label": "che loro",
+              "cells": [
+                {
+                  "accept": [
+                    "portassero"
+                  ]
+                },
+                {
+                  "accept": [
+                    "prendessero"
+                  ]
+                },
+                "partissero"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "grammar": "congiuntivo-imperfetto",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": {
+            "de": "i verbi con forme proprie · Verben mit eigenen Formen",
+            "sl": "i verbi con forme proprie · glagoli s svojimi oblikami",
+            "en": "i verbi con forme proprie · verbs with their own forms"
+          },
+          "columns": [
+            {
+              "de": "lui, lei · er, sie",
+              "sl": "lui, lei · on, ona",
+              "en": "lui, lei · he, she"
+            },
+            {
+              "de": "loro · sie",
+              "sl": "loro · oni",
+              "en": "loro · they"
+            }
+          ],
+          "rows": [
+            {
+              "label": "essere",
+              "cells": [
+                "fosse",
+                {
+                  "accept": [
+                    "fossero"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "dare",
+              "cells": [
+                {
+                  "accept": [
+                    "desse"
+                  ]
+                },
+                "dessero"
+              ]
+            },
+            {
+              "label": "stare",
+              "cells": [
+                {
+                  "accept": [
+                    "stesse"
+                  ]
+                },
+                {
+                  "accept": [
+                    "stessero"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "fare",
+              "cells": [
+                {
+                  "accept": [
+                    "facesse"
+                  ],
+                  "hint": {
+                    "de": "faceva → ?",
+                    "sl": "faceva → ?",
+                    "en": "faceva → ?"
+                  }
+                },
+                "facessero"
+              ]
+            },
+            {
+              "label": "dire",
+              "cells": [
+                {
+                  "accept": [
+                    "dicesse"
+                  ]
+                },
+                {
+                  "accept": [
+                    "dicessero"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bere",
+              "cells": [
+                {
+                  "accept": [
+                    "bevesse"
+                  ],
+                  "hint": {
+                    "de": "beveva → ?",
+                    "sl": "beveva → ?",
+                    "en": "beveva → ?"
+                  }
+                },
+                "bevessero"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-imperfetto",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Credevo che i bambini ___ già a letto.",
+          "options": [
+            "fossero",
+            "fossimo",
+            "foste"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**i bambini** = sie → **fossero**\n- fossimo · wir\n- foste · ihr",
+            "sl": "**i bambini** = oni → **fossero**\n- fossimo · mi\n- foste · vi",
+            "en": "**i bambini** = they → **fossero**\n- fossimo · we\n- foste · you (several)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-imperfetto-2",
+      "title": {
+        "it": "Da bambino credevo…",
+        "de": "Als Kind dachte ich …",
+        "sl": "Kot otrok sem mislil …",
+        "en": "As a child I thought…"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "congiuntivo-imperfetto",
+          "instruction": {
+            "de": "Completa con il congiuntivo imperfetto · Ergänze mit dem Konjunktiv Imperfekt",
+            "sl": "Completa con il congiuntivo imperfetto · Dopolni s konjunktivom imperfekta",
+            "en": "Completa con il congiuntivo imperfetto · Fill in with the imperfect subjunctive"
+          },
+          "title": "Da bambino credevo…",
+          "text": "Sotto il tiglio Nonno Bepi racconta: «Da bambino credevo che la luna ___ (essere) di formaggio. Pensavo che il sole ___ (dormire) nel mare e che i pesci lo ___ (svegliare) ogni mattina. Mia madre voleva che io ___ (stare) a casa la sera, ma io speravo che lei non mi ___ (vedere) uscire. Volevo che mio fratello ___ (venire) con me a guardare le stelle. E voi? Vorrei che mi ___ (dire) che cosa pensavate voi da piccoli!»",
+          "gaps": [
+            {
+              "accept": [
+                "fosse"
+              ],
+              "spoken": [
+                "era"
+              ],
+              "hint": {
+                "de": "la luna, essere",
+                "sl": "la luna, essere",
+                "en": "la luna, essere"
+              }
+            },
+            {
+              "accept": [
+                "dormisse"
+              ],
+              "spoken": [
+                "dormiva"
+              ]
+            },
+            {
+              "accept": [
+                "svegliassero"
+              ],
+              "spoken": [
+                "svegliavano"
+              ],
+              "hint": {
+                "de": "i pesci = sie",
+                "sl": "i pesci = oni",
+                "en": "i pesci = they"
+              }
+            },
+            {
+              "accept": [
+                "stessi"
+              ]
+            },
+            {
+              "accept": [
+                "vedesse"
+              ],
+              "spoken": [
+                "vedeva"
+              ]
+            },
+            {
+              "accept": [
+                "venisse"
+              ]
+            },
+            {
+              "accept": [
+                "diceste"
+              ],
+              "spoken": [
+                "diciate"
+              ],
+              "hint": {
+                "de": "voi: ohne -ss-",
+                "sl": "voi: brez -ss-",
+                "en": "voi: no -ss-"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "fosti",
+            "dormesse",
+            "stassi"
+          ],
+          "translation": {
+            "de": "Unter der Linde erzählt Nonno Bepi: „Als Kind dachte ich, der Mond wäre aus Käse. Ich dachte, die Sonne schläft im Meer und die Fische wecken sie jeden Morgen. Meine Mutter wollte, dass ich abends zu Hause bleibe, aber ich hoffte, sie würde mich nicht hinausgehen sehen. Ich wollte, dass mein Bruder mit mir die Sterne anschauen kommt. Und ihr? Ich möchte, dass ihr mir sagt, was ihr als Kinder gedacht habt!“",
+            "sl": "Pod lipo dedek Bepi pripoveduje: »Kot otrok sem mislil, da je luna iz sira. Mislil sem, da sonce spi v morju in da ga ribe vsako jutro zbudijo. Mama je hotela, da zvečer ostanem doma, jaz pa sem upal, da me ne bo videla, ko grem ven. Hotel sem, da gre brat z mano gledat zvezde. Pa vi? Rad bi, da mi poveste, kaj ste mislili, ko ste bili majhni!«",
+            "en": "Under the linden Nonno Bepi tells a story: \"As a child I thought the moon was made of cheese. I thought the sun slept in the sea and the fish woke it every morning. My mother wanted me to stay at home in the evening, but I hoped she wouldn't see me go out. I wanted my brother to come with me to look at the stars. And you? I'd like you to tell me what you thought when you were small!\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiuntivo-imperfetto",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Vorrei che tu ___ con me al mercato di Gorizia.",
+          "options": [
+            "venissi",
+            "verresti",
+            "venisti"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vorrei che**, tu → **venissi**\n- verresti: nach che hier nie der Konditional\n- venisti · passato remoto: du kamst",
+            "sl": "**vorrei che**, tu → **venissi**\n- verresti: za che tu nikoli pogojnik\n- venisti · passato remoto: prišel si",
+            "en": "**vorrei che**, tu → **venissi**\n- verresti: never the conditional after che here\n- venisti · passato remoto: you came"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-imperfetto-3",
+      "title": {
+        "it": "Allora pensavo…",
+        "de": "Damals dachte ich …",
+        "sl": "Takrat se mi je zdelo …",
+        "en": "Back then I thought…"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "congiuntivo-imperfetto",
+          "instruction": {
+            "de": "Metti il primo verbo al passato · Setz das erste Verb in die Vergangenheit",
+            "sl": "Metti il primo verbo al passato · Postavi prvi glagol v preteklost",
+            "en": "Metti il primo verbo al passato · Put the first verb in the past"
+          },
+          "whole": true,
+          "items": [
+            {
+              "from": "Penso che Moro sia in cortile. (pensavo)",
+              "accept": [
+                "Pensavo che Moro fosse in cortile."
+              ],
+              "spoken": [
+                "Pensavo che Moro era in cortile."
+              ]
+            },
+            {
+              "from": "Credo che Bruno abbia fame. (credevo)",
+              "accept": [
+                "Credevo che Bruno avesse fame."
+              ],
+              "spoken": [
+                "Credevo che Bruno aveva fame."
+              ]
+            },
+            {
+              "from": "Nonna vuole che Giulia apparecchi. (voleva)",
+              "accept": [
+                "Nonna voleva che Giulia apparecchiasse."
+              ]
+            },
+            {
+              "from": "Spero che le api facciano molto miele. (speravo)",
+              "accept": [
+                "Speravo che le api facessero molto miele."
+              ],
+              "spoken": [
+                "Speravo che le api facevano molto miele."
+              ]
+            },
+            {
+              "from": "Penso che tu dica la verità. (pensavo)",
+              "accept": [
+                "Pensavo che tu dicessi la verità.",
+                "Pensavo che dicessi la verità."
+              ],
+              "spoken": [
+                "Pensavo che tu dicevi la verità.",
+                "Pensavo che dicevi la verità."
+              ]
+            },
+            {
+              "from": "Elena vuole che noi stiamo in silenzio. (voleva)",
+              "accept": [
+                "Elena voleva che noi stessimo in silenzio.",
+                "Elena voleva che stessimo in silenzio."
+              ]
+            },
+            {
+              "from": "Spero che Matteo mi dia una mano. (speravo)",
+              "accept": [
+                "Speravo che Matteo mi desse una mano."
+              ],
+              "spoken": [
+                "Speravo che Matteo mi dava una mano."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**Vergangenheit vorn, imperfetto hinten**\n- sia → fosse · abbia → avesse\n- faccia → facesse · dica → dicesse · stia → stesse · dia → desse",
+            "sl": "**Preteklost spredaj, imperfetto zadaj**\n- sia → fosse · abbia → avesse\n- faccia → facesse · dica → dicesse · stia → stesse · dia → desse",
+            "en": "**The past in front, the imperfect after**\n- sia → fosse · abbia → avesse\n- faccia → facesse · dica → dicesse · stia → stesse · dia → desse"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "congiuntivo-imperfetto",
+        "instruction": {
+          "de": "Completa con il congiuntivo imperfetto · Ergänze mit dem Konjunktiv Imperfekt",
+          "sl": "Completa con il congiuntivo imperfetto · Dopolni s konjunktivom imperfekta",
+          "en": "Completa con il congiuntivo imperfetto · Fill in with the imperfect subjunctive"
+        },
+        "text": "Marisa voleva che tutti ___ (venire) all'osteria per la festa di Matteo. Tommaso credeva che la festa ___ (cominciare) alle otto, ma Zia Nives pensava che ___ (essere) alle sette. «Vorrei che voi ___ (ascoltare) quando parlo!», ha detto Marisa. Bruno sperava che ci ___ (essere) il frico, e Matteo voleva che il nonno ___ (bere) un bicchiere con lui.",
+        "gaps": [
+          {
+            "accept": [
+              "venissero"
+            ]
+          },
+          {
+            "accept": [
+              "cominciasse"
+            ],
+            "spoken": [
+              "cominciava"
+            ]
+          },
+          {
+            "accept": [
+              "fosse"
+            ],
+            "spoken": [
+              "era"
+            ]
+          },
+          {
+            "accept": [
+              "ascoltaste"
+            ],
+            "spoken": [
+              "ascoltiate"
+            ],
+            "hint": {
+              "de": "voi: ohne -ss-",
+              "sl": "voi: brez -ss-",
+              "en": "voi: no -ss-"
+            }
+          },
+          {
+            "accept": [
+              "fosse"
+            ],
+            "spoken": [
+              "era"
+            ]
+          },
+          {
+            "accept": [
+              "bevesse"
+            ]
+          }
+        ],
+        "translation": {
+          "de": "Marisa wollte, dass alle zu Matteos Fest ins Wirtshaus kommen. Tommaso dachte, das Fest fängt um acht an, aber Zia Nives glaubte, es wäre um sieben. „Ich möchte, dass ihr zuhört, wenn ich rede!“, sagte Marisa. Bruno hoffte, dass es Frico gibt, und Matteo wollte, dass der Opa ein Glas mit ihm trinkt.",
+          "sl": "Marisa je hotela, da vsi pridejo v gostilno na Matteovo praznovanje. Tommaso je mislil, da se praznovanje začne ob osmih, teta Nives pa je mislila, da je ob sedmih. »Rada bi, da poslušate, ko govorim!« je rekla Marisa. Bruno je upal, da bo frico, Matteo pa je hotel, da dedek z njim popije kozarec.",
+          "en": "Marisa wanted everyone to come to the inn for Matteo's party. Tommaso thought the party started at eight, but Zia Nives thought it was at seven. \"I'd like you to listen when I speak!\" said Marisa. Bruno hoped there would be frico, and Matteo wanted Grandpa to drink a glass with him."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "congiuntivo-imperfetto",
+        "instruction": {
+          "de": "Metti il primo verbo al passato · Setz das erste Verb in die Vergangenheit",
+          "sl": "Metti il primo verbo al passato · Postavi prvi glagol v preteklost",
+          "en": "Metti il primo verbo al passato · Put the first verb in the past"
+        },
+        "whole": true,
+        "items": [
+          {
+            "from": "Penso che piova. (pensavo)",
+            "accept": [
+              "Pensavo che piovesse."
+            ],
+            "spoken": [
+              "Pensavo che pioveva."
+            ]
+          },
+          {
+            "from": "Voglio che Lorenzo beva il latte. (volevo)",
+            "accept": [
+              "Volevo che Lorenzo bevesse il latte."
+            ]
+          },
+          {
+            "from": "Credo che facciate bene. (credevo)",
+            "accept": [
+              "Credevo che faceste bene."
+            ],
+            "spoken": [
+              "Credevo che facevate bene."
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**Vergangenheit vorn, imperfetto hinten**\n- piova → piovesse · beva → bevesse · facciate → faceste",
+          "sl": "**Preteklost spredaj, imperfetto zadaj**\n- piova → piovesse · beva → bevesse · facciate → faceste",
+          "en": "**The past in front, the imperfect after**\n- piova → piovesse · beva → bevesse · facciate → faceste"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-imperfetto",
+        "prompt": "Sarebbe meglio che le pecore ___ nella stalla stanotte.",
+        "options": [
+          "restassero",
+          "restassimo",
+          "resterebbero"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**sarebbe meglio che**, le pecore = sie → **restassero**\n- restassimo · wir\n- resterebbero: nach che hier nie der Konditional",
+          "sl": "**sarebbe meglio che**, le pecore = one → **restassero**\n- restassimo · mi\n- resterebbero: za che tu nikoli pogojnik",
+          "en": "**sarebbe meglio che**, le pecore = they → **restassero**\n- restassimo · we\n- resterebbero: never the conditional after che here"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiuntivo-imperfetto",
+        "prompt": "Sono uscito senza che il nonno mi ___.",
+        "options": [
+          "vedesse",
+          "vedessi",
+          "vedevo"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**senza che**, nach einer Vergangenheit, il nonno = er → **vedesse**\n- vedessi · io, tu\n- vedevo · Indikativ, ich",
+          "sl": "**senza che**, za preteklostjo, il nonno = on → **vedesse**\n- vedessi · io, tu\n- vedevo · indikativ, jaz",
+          "en": "**senza che**, after a past, il nonno = he → **vedesse**\n- vedessi · io, tu\n- vedevo · the indicative, I"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: pensavo che era, speravo che veniva, vorrei che venga as spoken; bevessi, dessi; la luna di formaggio"
+}

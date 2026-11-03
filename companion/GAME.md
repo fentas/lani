@@ -12,6 +12,7 @@
 | 📜 Modrost · Wisdom | conversation, writing | scenario, free, translate (`grade: claude`) |
 
 - Each answer pays: correct = 6, almost = 3, wrong = 1. Almost is a slip in a typed answer (a typo in a stem, a missing č/š/ž), one miss or one extra in a multi-select, or a picked option the exercise lists in `almost` (a real answer that doesn't fit there: "Živjo!" for a first "Dober dan"). A right answer after a hint pays like an almost. The learner always gets something for the effort.
+- **A choice's options** show in the day's order, a multi's too: the same through a day, another the next, never the file's, where the right one is nearly always first (`data/ChoiceOrder.kt`, docs/plans/05-built/choices-order.md).
 - **Cards in a challenge.** A run built from the learner's cards (a gathering run, a request, a project step, an event, a trade) asks each card as the reviews do (`ReviewPlanner.quizzes`): a word is picked, heard, typed or built; a grammar card or a list of forms (a front or a meaning of parts between ` · `: `midva sva · vidva sta`) is never typed or built but a flashcard. By ear a grammar card is heard and its meaning picked, as before, a list never (a flashcard only where the run would be short without it). A rule or a placeholder (`Nemčija → iz Nemčije`) stays out of a written run, as before. Typed, ` · ` counts like a comma.
 - **Fresh mind.** The first 40 answers of a game day pay in full. Later answers pay half. The count starts again at the first tick of a new day (`answersToday`). Forty answers are about one review session and one word pack. The rule makes daily practice build the village faster than one long session. It also keeps a 60-minute day from buying a whole age at once.
 - The pay is multiplied by the production of the resource: 1.0, plus building bonuses, plus tools (see "The chest"), plus morale ((morale − 50) / 500, so ±10 %), plus 2 % per villager after the first (at most +30 %).
@@ -754,6 +755,19 @@ srca are rather Gorenjska's, so Primorska's fair sells mandolat as Gorizia's And
 a sprevod (povorka is labelled regional and fading), "Naj živi naše mesto!" after SSKJ's "naj živi". The toasts: "Na
 zdravje!" anywhere, "Živijo!" as one too (accepted beside it), "Bog živi!" a best wish.
 
+The Lake District's five come from Cumbrian customs, settled in docs/plans/05-built/parties-lakeland.md with their sources:
+
+| Age | Its celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| ⛺ Tabor | 🎶 A merry neet: in old Cumberland a night of pies, a fiddle and songs at the alehouse; the camp has no alehouse yet, so it's by the fire | torches round the fire | the waltz | by the fire (Old Wilf) |
+| 🛖 Zaselek | 🤝 The boon day: a day's work the neighbours give for free, at a ploughing, a clipping or a new clay house; whoever had the help feeds them all | little flags, torches | the waltz | by the fire (Mr Tyson) |
+| 🏘️ Vas | 🎻 The barn dance: easy country dances, a caller and the Cumberland Square Eight, on boards on the green, as no barn would hold everyone | little flags, the boards | the polka | on the square (Mrs Birkett) |
+| 🏛️ Trg | 🍎 The crab fair, after Egremont's: apples thrown from a cart, a greasy pole, gurning through a horse collar | stalls, little flags | the market's bell, the polka | on the square (Brewer Sam) |
+| 🏰 Mesto | 📜 Charter Day, after Broughton's and Carlisle's proclamations: a procession to the market place, the words read out to the crowd, pennies for the children, fair cake and ale | banners, little flags | the band and the church bell | on the square (Mrs Hartley) |
+
+Its dialogs are written at A1, A2, B1 and B2. The rushbearing and the shepherds' meet stay what they are, festivals of the calendar
+with their own days, packs, readings and stories; a party doesn't sell them as new. The music is the app's own (the accordion's waltz
+and polka, the brass band); a fiddle isn't among the sounds, though the lines and the card name one.
 **Kärnten's five** (docs/plans/05-built/parties-kaernten.md has the sources, each with its URL), at A1, A2, B1 and B2:
 
 | Age | Kärnten's celebration | What goes up | Music | The party (host) |
@@ -1590,7 +1604,7 @@ rises by itself. The treasure map is how it rises: an opt-in test at the end of 
 | 🔁 The reviews | Of the reviews of the last 14 days, of the cards of the level and below (the card's `difficulty`; a card above the level is a stretch, a card without one counts): 80 % right, and 30 reviews at least. |
 | 📅 The time | 10 days of practice at the level (days with a session in the log), over 14 days or more since the level began (the profile's `learner.level_since`, which update-db.py sets when a report changes the level; else the day the profile was made). |
 
-A level the book has no pages of yet (German and English above A2 today, Italian above B1, any language above B2) has no
+A level the book has no pages of yet (German and English above A2 today, any language above B2) has no
 rules to secure: the grammar sign can't tell, and it says so instead of passing with 0 / 0. The map's sign reads "– Knjiga
 še nima pravil ravni B1: ta znak zaenkrat ne šteje · The book has no rules of B1 yet: this sign doesn't count for now", the
 progress screen's line ➖ "—" with the same caption (`Readiness.noPages`). It holds nothing back (never a wall): the reviews and the
@@ -2268,7 +2282,9 @@ Places: Gorizia and Nova Gorica, Cormòns, San Floriano del Collio, the Isonzo, 
 Cividale, Castelmonte (the pilgrim's sanctuary), Grado, San Daniele, the Carnia (the cramaro, the pedlar, comes from
 there). The cast has Primorska's roles (VILLAGERS.md, "The friuli cast"); the ids of resources, buildings and projects
 are the game's, named in Italian (the kozolec is "Il fienile", the lipa "Il tiglio", the maypole "L'albero della
-cuccagna", the town clock "L'orologio del campanile").
+cuccagna", the town clock "L'orologio del campanile"). Its projects play their steps as short scenes (`project-steps/`, their words
+in `packs/progetto-<Italian name>.json`), at A1, A2 and B1 (docs/plans/05-built/friuli-projects-a.md and -b.md); a step without its
+file is the practice it was.
 
 | Festival | Day | Leads (the first here) | Good |
 |---|---|---|---|

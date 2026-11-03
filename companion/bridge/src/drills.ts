@@ -147,7 +147,7 @@ export const drillSpec = z
         needs(s.title, ['sets', i, 'title'])
         s.items.forEach((it, j) => needs(it, ['sets', i, 'items', j]))
         dupes(s.items.map(it => norm(it[lang] ?? '')), ['sets', i, 'items'], 'answer')
-        if (s.numbers.length && !numberWord(1, lang)) ctx.addIssue({ code: 'custom', path: ['sets', i, 'numbers'], message: `numbers are generated in Slovene only, the drill is "${lang}"` })
+        if (s.numbers.length && !numberWord(1, lang)) ctx.addIssue({ code: 'custom', path: ['sets', i, 'numbers'], message: `numbers are generated in ${Object.keys(COUNTED).join(', ')}, the drill is "${lang}"` })
         dupes(s.numbers.flatMap(numbersOf).map(String), ['sets', i, 'numbers'], 'number')
       })
     } else if (d.kind === 'build') {
@@ -197,21 +197,69 @@ const SL_ONES = ['nič', 'ena', 'dva', 'tri', 'štiri', 'pet', 'šest', 'sedem',
 const SL_TEENS = ['deset', 'enajst', 'dvanajst', 'trinajst', 'štirinajst', 'petnajst', 'šestnajst', 'sedemnajst', 'osemnajst', 'devetnajst']
 const SL_TENS = ['', '', 'dvajset', 'trideset', 'štirideset', 'petdeset', 'šestdeset', 'sedemdeset', 'osemdeset', 'devetdeset']
 
-/**
- * [n] (0 … 999) as it is counted in [language]: Slovene only ("enaindvajset", "dvesto petinštirideset"), undefined in
- * another language or out of range. The same as the app's SpokenNumbers (its counting form), which the car asks for.
- */
-export function numberWord(n: number, language: string): string | undefined {
-  if (language !== 'sl' || !Number.isInteger(n) || n < 0 || n > 999) return undefined
-  const word = (x: number): string => {
+const IT_ONES = ['zero', 'uno', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove']
+const IT_TEENS = ['dieci', 'undici', 'dodici', 'tredici', 'quattordici', 'quindici', 'sedici', 'diciassette', 'diciotto', 'diciannove']
+const IT_TENS = ['', '', 'venti', 'trenta', 'quaranta', 'cinquanta', 'sessanta', 'settanta', 'ottanta', 'novanta']
+
+const DE_ONES = ['null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun']
+const DE_TEENS = ['zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn', 'fünfzehn', 'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn']
+const DE_TENS = ['', '', 'zwanzig', 'dreißig', 'vierzig', 'fünfzig', 'sechzig', 'siebzig', 'achtzig', 'neunzig']
+
+const EN_ONES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+const EN_TEENS = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+const EN_TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+
+const COUNTED: Record<string, (x: number) => string> = {
+  sl: function word(x: number): string {
     if (x < 10) return SL_ONES[x]
     if (x < 20) return SL_TEENS[x - 10]
     if (x < 100) return x % 10 === 0 ? SL_TENS[x / 10] : SL_ONES[x % 10] + 'in' + SL_TENS[Math.floor(x / 10)]
     const h = Math.floor(x / 100)
     const head = h === 1 ? 'sto' : h === 2 ? 'dvesto' : SL_ONES[h] + 'sto'
     return x % 100 === 0 ? head : `${head} ${word(x % 100)}`
-  }
-  return word(n)
+  },
+  // ventuno, ventotto, ventitré; centotré, centotto, centottanta: cento's o goes before another
+  it: function word(x: number): string {
+    if (x < 10) return IT_ONES[x]
+    if (x < 20) return IT_TEENS[x - 10]
+    if (x < 100) {
+      const t = IT_TENS[Math.floor(x / 10)]
+      const u = x % 10
+      return u === 0 ? t : u === 1 || u === 8 ? t.slice(0, -1) + IT_ONES[u] : u === 3 ? `${t}tré` : t + IT_ONES[u]
+    }
+    const h = Math.floor(x / 100)
+    const head = h === 1 ? 'cento' : `${IT_ONES[h]}cento`
+    const low = x % 100
+    if (low === 0) return head
+    if (low === 3) return `${head}tré`
+    const rest = word(low)
+    return rest.startsWith('o') ? head.slice(0, -1) + rest : head + rest
+  },
+  de: function word(x: number): string {
+    if (x < 10) return DE_ONES[x]
+    if (x < 20) return DE_TEENS[x - 10]
+    if (x < 100) return x % 10 === 0 ? DE_TENS[x / 10] : (x % 10 === 1 ? 'ein' : DE_ONES[x % 10]) + 'und' + DE_TENS[Math.floor(x / 10)]
+    const h = Math.floor(x / 100)
+    const head = `${h === 1 ? 'ein' : DE_ONES[h]}hundert`
+    return x % 100 === 0 ? head : head + word(x % 100)
+  },
+  en: function word(x: number): string {
+    if (x < 10) return EN_ONES[x]
+    if (x < 20) return EN_TEENS[x - 10]
+    if (x < 100) return x % 10 === 0 ? EN_TENS[x / 10] : `${EN_TENS[Math.floor(x / 10)]}-${EN_ONES[x % 10]}`
+    const head = `${EN_ONES[Math.floor(x / 100)]} hundred`
+    return x % 100 === 0 ? head : `${head} and ${word(x % 100)}`
+  },
+}
+
+/**
+ * [n] (0 … 999) as it is counted in [language] ("enaindvajset", "dvesto petinštirideset"; "ventitré"; "einundzwanzig";
+ * "twenty-one"), undefined in a language it doesn't count in or out of range. The same as the app's SpokenNumbers (its
+ * counting form), which the car asks for.
+ */
+export function numberWord(n: number, language: string): string | undefined {
+  if (!Number.isInteger(n) || n < 0 || n > 999) return undefined
+  return COUNTED[language]?.(n)
 }
 
 /** The numbers a rapid set's range or list names, in its order. */

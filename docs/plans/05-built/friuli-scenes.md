@@ -98,5 +98,5 @@ scene (`dialog_variants_heard`, `publish_dialog_variant`).
   (`companion/scenarios/it/`).
 - **The course.** There is no Italian course (`companion/course/it/`), so the Friuli school has no units.
 - **Project steps and the ages' parties.** The Friuli pack has neither `project-steps/` nor `celebrations/`: its projects
-  are practices and its ages' parties have no dialog.
+  are practices and its ages' parties have no dialog. (Project steps since friuli-projects-a and -b.)
 - **A native speaker's check** of the Italian, the German and the Slovene (the `review` notes say so).

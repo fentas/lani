@@ -1,0 +1,760 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "if-it-rains",
+  "language": "en",
+  "level": "A2",
+  "emoji": "☔",
+  "title": {
+    "en": "If it rains, I'll stay",
+    "de": "Bedingungen: if it rains, I'll stay",
+    "sl": "Pogoji: if it rains, I'll stay",
+    "it": "Le condizioni: if it rains, I'll stay"
+  },
+  "goal": {
+    "sl": "Poveš, kar velja vedno (If you heat butter, it melts), kaj bo, če se nekaj zgodi (If it rains, I'll stay), in kaj narediš, ko nekaj pride, s sedanjikom za if in when.",
+    "de": "Du sagst, was immer gilt (If you heat butter, it melts), was geschieht, wenn etwas passiert (If it rains, I'll stay), und was du machst, wenn etwas kommt, mit dem Präsens nach if und when.",
+    "it": "Dici ciò che vale sempre (If you heat butter, it melts), che cosa succede se capita qualcosa (If it rains, I'll stay) e che cosa farai quando arriva qualcosa, con il presente dopo if e when.",
+    "en": "You can say what is always so (If you heat butter, it melts), what will happen if something happens (If it rains, I'll stay), and what you'll do when something comes, with the present after if and when."
+  },
+  "grammar": ["first-conditional", "future"],
+  "words": [
+    "if",
+    "when",
+    "will",
+    "won't",
+    "to rain",
+    "to snow",
+    "to heat",
+    "melt",
+    "butter",
+    "beck",
+    "rise",
+    "hungry",
+    "hurry",
+    "miss",
+    "catch",
+    "bus",
+    "tell",
+    "tired",
+    "stop",
+    "should",
+    "map",
+    "call",
+    "without",
+    "weather",
+    "tomorrow",
+    "start",
+    "later",
+    "to light",
+    "fire",
+    "dark",
+    "send",
+    "scone",
+    "ice",
+    "noise",
+    "broken",
+    "gate",
+    "hen",
+    "tea"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Kar velja vedno: **if** (če) + sedanjik v obeh delih. **If you heat butter, it melts.** (Če maslo segreješ, se stopi.) **If it rains, the beck rises.** (Če dežuje, potok naraste.) **If the sheep are hungry, they come down.** (Če so ovce lačne, pridejo dol.) Vsakič je enako. **when** (ko) gre tu enako: **When it rains, the beck rises.** (Ko dežuje, potok naraste.)",
+          "de": "Was immer gilt: **if** (wenn) + Präsens in beiden Teilen. **If you heat butter, it melts.** (Wenn man Butter erhitzt, schmilzt sie.) **If it rains, the beck rises.** (Wenn es regnet, steigt der Bach.) **If the sheep are hungry, they come down.** (Wenn die Schafe hungrig sind, kommen sie herunter.) Es ist jedes Mal so. **when** geht hier genauso: **When it rains, the beck rises.** (Wenn es regnet, steigt der Bach.)",
+          "it": "Ciò che vale sempre: **if** (se) + il presente in tutte e due le parti. **If you heat butter, it melts.** (Se scaldi il burro, si scioglie.) **If it rains, the beck rises.** (Se piove, il ruscello sale.) **If the sheep are hungry, they come down.** (Se le pecore hanno fame, scendono.) È così ogni volta. **when** (quando) qui va allo stesso modo: **When it rains, the beck rises.** (Quando piove, il ruscello sale.)",
+          "en": "What is always so: **if** + the present in both halves. **If you heat butter, it melts.** **If it rains, the beck rises.** **If the sheep are hungry, they come down.** It's the same every time. **when** works the same here: **When it rains, the beck rises.**"
+        },
+        "examples": [
+          {
+            "en": "If you heat butter, it melts.",
+            "sl": "Če maslo segreješ, se stopi.",
+            "de": "Wenn man Butter erhitzt, schmilzt sie.",
+            "it": "Se scaldi il burro, si scioglie."
+          },
+          {
+            "en": "If it rains, the beck rises.",
+            "sl": "Če dežuje, potok naraste.",
+            "de": "Wenn es regnet, steigt der Bach.",
+            "it": "Se piove, il ruscello sale."
+          },
+          {
+            "en": "If the sheep are hungry, they come down.",
+            "sl": "Če so ovce lačne, pridejo dol.",
+            "de": "Wenn die Schafe hungrig sind, kommen sie herunter.",
+            "it": "Se le pecore hanno fame, scendono."
+          },
+          {
+            "en": "When it snows, the bus doesn't come.",
+            "sl": "Ko sneži, avtobus ne pride.",
+            "de": "Wenn es schneit, kommt der Bus nicht.",
+            "it": "Quando nevica, l'autobus non viene."
+          }
+        ],
+        "rows": [
+          [
+            "if + present, present",
+            { "sl": "kar velja vedno", "de": "was immer gilt", "it": "ciò che vale sempre", "en": "what is always so" },
+            "If you heat butter, it melts."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "first-conditional",
+          "prompt": "If you heat butter, it ___.",
+          "options": ["melts", "melted", "melting"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Velja vedno: sedanjik v obeh delih**\n- If you heat butter, it melts.",
+            "de": "**Gilt immer: Präsens in beiden Teilen**\n- If you heat butter, it melts.",
+            "it": "**Vale sempre: il presente in tutte e due le parti**\n- If you heat butter, it melts.",
+            "en": "**Always so: the present in both halves**\n- If you heat butter, it melts."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar se lahko zgodi: **if** + sedanjik, **will** v drugem delu. **If it rains, I'll stay at home.** (Če bo deževalo, bom {m:ostal|f:ostala} doma.) **If Jack comes, we'll have tea.** (Če bo Jack prišel, bomo pili čaj.) **If you're late, you'll miss the bus.** (Če zamudiš, ti bo avtobus ušel.) Za if nikoli will, čeprav slovenščina reče *če bo*: **If it rains**, nikoli *If it will rain*.",
+          "de": "Was passieren kann: **if** + Präsens, **will** im anderen Teil. **If it rains, I'll stay at home.** (Wenn es regnet, bleibe ich zu Hause.) **If Jack comes, we'll have tea.** (Wenn Jack kommt, trinken wir Tee.) **If you're late, you'll miss the bus.** (Wenn du zu spät kommst, verpasst du den Bus.) Nach if nie will: **If it rains**, nie *If it will rain*.",
+          "it": "Ciò che può succedere: **if** + il presente, **will** nell'altra parte. **If it rains, I'll stay at home.** (Se piove, resto a casa.) **If Jack comes, we'll have tea.** (Se viene Jack, prendiamo il tè.) **If you're late, you'll miss the bus.** (Se fai tardi, perdi l'autobus.) Dopo if mai will, anche se l'italiano può dire *se pioverà*: **If it rains**, mai *If it will rain*.",
+          "en": "What may happen: **if** + the present, **will** in the other half. **If it rains, I'll stay at home.** **If Jack comes, we'll have tea.** **If you're late, you'll miss the bus.** After if, no will: **If it rains** (never *If it will rain*)."
+        },
+        "examples": [
+          {
+            "en": "If it rains, I'll stay at home.",
+            "sl": "Če bo deževalo, bom {m:ostal|f:ostala} doma.",
+            "de": "Wenn es regnet, bleibe ich zu Hause.",
+            "it": "Se piove, resto a casa."
+          },
+          {
+            "en": "If Jack comes, we'll have tea.",
+            "sl": "Če bo Jack prišel, bomo pili čaj.",
+            "de": "Wenn Jack kommt, trinken wir Tee.",
+            "it": "Se viene Jack, prendiamo il tè."
+          },
+          {
+            "en": "If you're late, you'll miss the bus.",
+            "sl": "Če zamudiš, ti bo avtobus ušel.",
+            "de": "Wenn du zu spät kommst, verpasst du den Bus.",
+            "it": "Se fai tardi, perdi l'autobus."
+          }
+        ],
+        "rows": [
+          [
+            "if + present, will",
+            {
+              "sl": "kar se lahko zgodi",
+              "de": "was passieren kann",
+              "it": "ciò che può succedere",
+              "en": "what may happen"
+            },
+            "If it rains, I'll stay at home."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "first-conditional",
+          "text": "If it ___ (rain) tomorrow, I'll stay at home.",
+          "accept": ["rains"],
+          "hint": { "sl": "za if", "de": "nach if", "it": "dopo if", "en": "after if" },
+          "explain": {
+            "sl": "**Za if: sedanjik, ne will**\n- If it rains, I'll stay at home.",
+            "de": "**Nach if: Präsens, nicht will**\n- If it rains, I'll stay at home.",
+            "it": "**Dopo if: il presente, non will**\n- If it rains, I'll stay at home.",
+            "en": "**After if: the present, not will**\n- If it rains, I'll stay at home."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Dela lahko zamenjata mesti: **I'll stay at home if it rains.** (Doma bom {m:ostal|f:ostala}, če bo deževalo.) Če je **if** prvi, je vejica, če je drugi, je ni. Zanikanje je kot običajno: **If Jack doesn't come, we'll go without him.** (Če Jack ne bo prišel, gremo brez njega.) **We won't go if it snows.** (Ne gremo, če bo snežilo.) Pri vprašanju gre will pred osebek: **What will you do if it snows?** (Kaj boš {m:naredil|f:naredila}, če bo snežilo?)",
+          "de": "Die Teile können tauschen: **I'll stay at home if it rains.** (Ich bleibe zu Hause, wenn es regnet.) Steht **if** vorn, kommt ein Komma, steht es hinten, keines. Verneint wie immer: **If Jack doesn't come, we'll go without him.** (Wenn Jack nicht kommt, gehen wir ohne ihn.) **We won't go if it snows.** (Wir gehen nicht, wenn es schneit.) Bei der Frage kommt will vor das Subjekt: **What will you do if it snows?** (Was machst du, wenn es schneit?)",
+          "it": "Le due parti possono scambiarsi: **I'll stay at home if it rains.** (Resto a casa se piove.) Con **if** all'inizio c'è la virgola, con **if** dopo no. Il negativo è quello di sempre: **If Jack doesn't come, we'll go without him.** (Se Jack non viene, andiamo senza di lui.) **We won't go if it snows.** (Non andiamo se nevica.) Per chiedere, will va prima del soggetto: **What will you do if it snows?** (Che cosa farai se nevica?)",
+          "en": "The halves can change places: **I'll stay at home if it rains.** With **if** first there is a comma; with **if** second, none. Not works as usual: **If Jack doesn't come, we'll go without him.** **We won't go if it snows.** To ask, will goes before the subject: **What will you do if it snows?**"
+        },
+        "examples": [
+          {
+            "en": "I'll stay at home if it rains.",
+            "sl": "Doma bom {m:ostal|f:ostala}, če bo deževalo.",
+            "de": "Ich bleibe zu Hause, wenn es regnet.",
+            "it": "Resto a casa se piove."
+          },
+          {
+            "en": "If Jack doesn't come, we'll go without him.",
+            "sl": "Če Jack ne bo prišel, gremo brez njega.",
+            "de": "Wenn Jack nicht kommt, gehen wir ohne ihn.",
+            "it": "Se Jack non viene, andiamo senza di lui."
+          },
+          {
+            "en": "We won't go if it snows.",
+            "sl": "Ne gremo, če bo snežilo.",
+            "de": "Wir gehen nicht, wenn es schneit.",
+            "it": "Non andiamo se nevica."
+          },
+          {
+            "en": "What will you do if it snows?",
+            "sl": "Kaj boš {m:naredil|f:naredila}, če bo snežilo?",
+            "de": "Was machst du, wenn es schneit?",
+            "it": "Che cosa farai se nevica?"
+          }
+        ],
+        "rows": [
+          [
+            "will … if + present",
+            {
+              "sl": "if drugi: brez vejice",
+              "de": "if hinten: kein Komma",
+              "it": "if dopo: senza virgola",
+              "en": "if second: no comma"
+            },
+            "I'll stay at home if it rains."
+          ],
+          [
+            "won't, doesn't",
+            { "sl": "ne, kot običajno", "de": "nein, wie immer", "it": "no, come sempre", "en": "no, as usual" },
+            "We won't go if it snows."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "first-conditional",
+          "prompt": "What ___ you do if it snows tomorrow?",
+          "options": ["will", "are", "did"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Drugi del ima will**\n- What will you do if it snows?",
+            "de": "**Der andere Teil hat will**\n- What will you do if it snows?",
+            "it": "**L'altra parte ha will**\n- What will you do if it snows?",
+            "en": "**The other half has will**\n- What will you do if it snows?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**if** (če) je za to, kar se morda zgodi, **when** (ko) za to, kar se bo zgodilo: **If I see Jack, I'll tell him.** (Če bom {m:videl|f:videla} Jacka, mu povem.) **When I get home, I'll call you.** (Ko pridem domov, te pokličem.) Tudi za **when** pride sedanjik: **When it stops raining, we'll go out.** (Ko bo nehalo deževati, gremo ven.) Nikoli *When it will stop raining*.",
+          "de": "**if** steht für das, was vielleicht geschieht, **when** für das, was sicher kommt; Deutsch sagt für beides *wenn*: **If I see Jack, I'll tell him.** (Falls ich Jack sehe, sage ich es ihm.) **When I get home, I'll call you.** (Wenn ich heimkomme, rufe ich dich an.) Auch nach **when** steht das Präsens: **When it stops raining, we'll go out.** (Wenn es aufhört zu regnen, gehen wir hinaus.) Nie *When it will stop raining*.",
+          "it": "**if** (se) è per ciò che forse succede, **when** (quando) per ciò che succederà: **If I see Jack, I'll tell him.** (Se vedo Jack, glielo dico.) **When I get home, I'll call you.** (Quando arrivo a casa, ti chiamo.) Anche dopo **when** ci vuole il presente, dove l'italiano può dire *quando smetterà*: **When it stops raining, we'll go out.** (Quando smette di piovere, usciamo.) Mai *When it will stop raining*.",
+          "en": "**if** is for what may happen, **when** for what will happen: **If I see Jack, I'll tell him.** (perhaps I will) **When I get home, I'll call you.** (I will get home) After **when**, the present too: **When it stops raining, we'll go out** (never *When it will stop raining*)."
+        },
+        "examples": [
+          {
+            "en": "If I see Jack, I'll tell him.",
+            "sl": "Če bom {m:videl|f:videla} Jacka, mu povem.",
+            "de": "Falls ich Jack sehe, sage ich es ihm.",
+            "it": "Se vedo Jack, glielo dico."
+          },
+          {
+            "en": "When I get home, I'll call you.",
+            "sl": "Ko pridem domov, te pokličem.",
+            "de": "Wenn ich heimkomme, rufe ich dich an.",
+            "it": "Quando arrivo a casa, ti chiamo."
+          },
+          {
+            "en": "When it stops raining, we'll go out.",
+            "sl": "Ko bo nehalo deževati, gremo ven.",
+            "de": "Wenn es aufhört zu regnen, gehen wir hinaus.",
+            "it": "Quando smette di piovere, usciamo."
+          }
+        ],
+        "rows": [
+          [
+            "when + present, will",
+            {
+              "sl": "kar se bo zagotovo zgodilo",
+              "de": "was sicher kommt",
+              "it": "ciò che succederà di sicuro",
+              "en": "what will surely happen"
+            },
+            "When I get home, I'll call you."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "first-conditional",
+          "prompt": "When it ___ raining, we'll go out.",
+          "options": ["stops", "will stop", "stopped"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za when: sedanjik, ne will**\n- When it stops raining, we'll go out.",
+            "de": "**Nach when: Präsens, nicht will**\n- When it stops raining, we'll go out.",
+            "it": "**Dopo when: il presente, non will**\n- When it stops raining, we'll go out.",
+            "en": "**After when: the present, not will**\n- When it stops raining, we'll go out."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Drugi del ni nujno z **will**. Lahko naroči ali ponudi: **If you see Jack, tell him.** (Če vidiš Jacka, mu povej.) **If you're tired, we can stop.** (Če si {m:utrujen|f:utrujena}, se lahko ustavimo.) **If you want to walk, you should take a map.** (Če hočeš peš, vzemi zemljevid.) Del z **if** ostane v sedanjiku.",
+          "de": "Der andere Teil braucht nicht immer **will**. Er kann auch auffordern oder anbieten: **If you see Jack, tell him.** (Wenn du Jack siehst, sag es ihm.) **If you're tired, we can stop.** (Wenn du müde bist, können wir stehen bleiben.) **If you want to walk, you should take a map.** (Wenn du zu Fuß gehen willst, solltest du eine Karte mitnehmen.) Der Teil mit **if** bleibt im Präsens.",
+          "it": "L'altra parte non ha sempre **will**. Può anche dire di fare o offrire: **If you see Jack, tell him.** (Se vedi Jack, diglielo.) **If you're tired, we can stop.** (Se sei stanc{m:o|f:a}, possiamo fermarci.) **If you want to walk, you should take a map.** (Se vuoi andare a piedi, dovresti prendere una cartina.) La parte con **if** resta al presente.",
+          "en": "The other half needn't have **will**. It can tell or offer: **If you see Jack, tell him.** **If you're tired, we can stop.** **If you want to walk, you should take a map.** The **if** half stays in the present."
+        },
+        "examples": [
+          {
+            "en": "If you see Jack, tell him.",
+            "sl": "Če vidiš Jacka, mu povej.",
+            "de": "Wenn du Jack siehst, sag es ihm.",
+            "it": "Se vedi Jack, diglielo."
+          },
+          {
+            "en": "If you're tired, we can stop.",
+            "sl": "Če si {m:utrujen|f:utrujena}, se lahko ustavimo.",
+            "de": "Wenn du müde bist, können wir stehen bleiben.",
+            "it": "Se sei stanc{m:o|f:a}, possiamo fermarci."
+          },
+          {
+            "en": "If you want to walk, you should take a map.",
+            "sl": "Če hočeš peš, vzemi zemljevid.",
+            "de": "Wenn du zu Fuß gehen willst, solltest du eine Karte mitnehmen.",
+            "it": "Se vuoi andare a piedi, dovresti prendere una cartina."
+          }
+        ],
+        "rows": [
+          [
+            "if + present, can, should, tell",
+            {
+              "sl": "drugi del brez will",
+              "de": "der andere Teil ohne will",
+              "it": "l'altra parte senza will",
+              "en": "the other half without will"
+            },
+            "If you're tired, we can stop."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "first-conditional",
+          "text": "If you ___ (see) Mr Dixon, tell him the gate is broken.",
+          "accept": ["see"],
+          "hint": { "sl": "za if", "de": "nach if", "it": "dopo if", "en": "after if" },
+          "explain": {
+            "sl": "**Del z if ostane v sedanjiku**\n- If you see Jack, tell him.",
+            "de": "**Der Teil mit if bleibt im Präsens**\n- If you see Jack, tell him.",
+            "it": "**La parte con if resta al presente**\n- If you see Jack, tell him.",
+            "en": "**The if half stays in the present**\n- If you see Jack, tell him."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "if-it-rains-1",
+      "title": { "sl": "Če in ko", "de": "Falls und wenn", "it": "Se e quando", "en": "If and when" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "first-conditional",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "if + sedanjik, potem will",
+            "de": "if + Präsens, dann will",
+            "it": "if + il presente, poi will",
+            "en": "if + the present, then will"
+          },
+          "columns": [
+            { "sl": "za if", "de": "nach if", "it": "dopo if", "en": "after if" },
+            { "sl": "drugi del", "de": "der andere Teil", "it": "l'altra parte", "en": "the other half" }
+          ],
+          "rows": [
+            { "label": "If it … (rain), I … (stay).", "cells": ["rains", "will stay"] },
+            {
+              "label": "If Jack … (come), we … (have) tea.",
+              "cells": [{"accept": ["comes"]}, {"accept": ["will have"]}]
+            },
+            {
+              "label": "If you … (be) late, you … (miss) the bus.",
+              "cells": [{"accept": ["are"]}, {"accept": ["will miss"]}]
+            },
+            { "label": "If it … (snow), they … (not go).", "cells": [{"accept": ["snows"]}, {"accept": ["won't go"]}] },
+            {
+              "label": "If she … (not call), I … (go) there.",
+              "cells": [
+                {
+                  "accept": ["doesn't call"],
+                  "hint": {
+                    "sl": "she + does + not",
+                    "de": "she + does + not",
+                    "it": "she + does + not",
+                    "en": "she + does + not"
+                  }
+                },
+                { "accept": ["will go"] }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**if + sedanjik; will v drugem delu**\n- If it snows, they won't go.",
+            "de": "**if + Präsens; will im anderen Teil**\n- If it snows, they won't go.",
+            "it": "**if + il presente; will nell'altra parte**\n- If it snows, they won't go.",
+            "en": "**if + the present; will in the other half**\n- If it snows, they won't go."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "first-conditional",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: always, or this time"
+          },
+          "columns": [
+            {
+              "label": { "sl": "always · vedno", "de": "always · immer", "it": "always · sempre", "en": "always" },
+              "words": [
+                "If you heat butter, it melts.",
+                "If it rains, the beck rises.",
+                "If hens are hungry, they make a noise."
+              ]
+            },
+            {
+              "label": {
+                "sl": "this time · tokrat",
+                "de": "this time · diesmal",
+                "it": "this time · questa volta",
+                "en": "this time"
+              },
+              "words": [
+                "If it rains tomorrow, I'll stay in.",
+                "If Jack comes, we'll have tea.",
+                "If you run, you'll catch the bus."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vedno: dvakrat sedanjik; tokrat: will**\n- If you heat butter, it melts. · If it rains tomorrow, I'll stay in.",
+            "de": "**Immer: zweimal Präsens; diesmal: will**\n- If you heat butter, it melts. · If it rains tomorrow, I'll stay in.",
+            "it": "**Sempre: due volte il presente; questa volta: will**\n- If you heat butter, it melts. · If it rains tomorrow, I'll stay in.",
+            "en": "**Always: the present twice; this time: will**\n- If you heat butter, it melts. · If it rains tomorrow, I'll stay in."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "first-conditional",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "If it ___ tomorrow, we'll stay at the inn.",
+          "options": ["rains", "will rain", "rained"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za if: sedanjik, ne will**\n- If it rains tomorrow, we'll stay.",
+            "de": "**Nach if: Präsens, nicht will**\n- If it rains tomorrow, we'll stay.",
+            "it": "**Dopo if: il presente, non will**\n- If it rains tomorrow, we'll stay.",
+            "en": "**After if: the present, not will**\n- If it rains tomorrow, we'll stay."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "first-conditional",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "I don't know if Jack is coming. ___ he comes, we'll have tea.",
+          "options": ["If", "When", "Because"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Morda bo prišel: if**\n- If he comes, we'll have tea. · When I get home, I'll call you.",
+            "de": "**Vielleicht kommt er: if**\n- If he comes, we'll have tea. · When I get home, I'll call you.",
+            "it": "**Forse viene: if**\n- If he comes, we'll have tea. · When I get home, I'll call you.",
+            "en": "**Perhaps he will: if**\n- If he comes, we'll have tea. · When I get home, I'll call you."
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-it-rains-2",
+      "title": {
+        "sl": "Izlet do jezerca",
+        "de": "Die Wanderung zum Bergsee",
+        "it": "La camminata al laghetto",
+        "en": "The walk to the tarn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "first-conditional",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— If the weather ___ (be) good tomorrow, we'll walk to the tarn. — And if it ___ (rain)? — If it rains, we ___ (stay) at the inn. When we ___ (get) back, Mrs Birkett will make soup. — I ___ (not) come if you start at six! — If you ___ (not want) to get up early, you can come later. And if you ___ (see) Jack, tell him.",
+          "gaps": [
+            { "accept": ["is"], "hint": {"sl": "za if", "de": "nach if", "it": "dopo if", "en": "after if"} },
+            { "accept": ["rains"], "hint": "it → ?" },
+            {
+              "accept": ["will stay", "are going to stay", "'re going to stay"],
+              "hint": { "sl": "drugi del", "de": "der andere Teil", "it": "l'altra parte", "en": "the other half" }
+            },
+            { "accept": ["get"], "hint": {"sl": "za when", "de": "nach when", "it": "dopo when", "en": "after when"} },
+            { "accept": ["won't", "'m not going to", "am not going to"], "hint": "will + not" },
+            { "accept": ["don't want"], "hint": "do + not" },
+            { "accept": ["see"], "hint": {"sl": "za if", "de": "nach if", "it": "dopo if", "en": "after if"} }
+          ],
+          "bank": true,
+          "distractors": ["will rain", "gets"],
+          "translation": {
+            "sl": "— Če bo jutri lepo vreme, gremo peš do jezerca. — Kaj pa, če bo deževalo? — Če bo deževalo, ostanemo v gostilni. Ko se vrnemo, bo gospa Birkett skuhala juho. — Jaz ne pridem, če začnete ob šestih! — Če nočeš zgodaj vstati, lahko prideš pozneje. In če vidiš Jacka, mu povej.",
+            "de": "— Wenn morgen schönes Wetter ist, gehen wir zum Bergsee. — Und wenn es regnet? — Wenn es regnet, bleiben wir im Gasthaus. Wenn wir zurückkommen, macht Mrs Birkett Suppe. — Ich komme nicht, wenn ihr um sechs losgeht! — Wenn du nicht früh aufstehen willst, kannst du später kommen. Und wenn du Jack siehst, sag es ihm.",
+            "it": "— Se domani è bel tempo, andiamo a piedi al laghetto. — E se piove? — Se piove, restiamo alla locanda. Quando torniamo, Mrs Birkett farà la zuppa. — Io non vengo se partite alle sei! — Se non vuoi alzarti presto, puoi venire più tardi. E se vedi Jack, diglielo.",
+            "en": "— If the weather is good tomorrow, we'll walk to the tarn. — And if it rains? — If it rains, we will stay at the inn. When we get back, Mrs Birkett will make soup. — I won't come if you start at six! — If you don't want to get up early, you can come later. And if you see Jack, tell him."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "first-conditional",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "The sun goes down at eight. ___ it's dark, we'll light the fire.",
+          "options": ["When", "If", "Because"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Tema bo zagotovo: when**\n- When it's dark, we'll light the fire.",
+            "de": "**Dunkel wird es sicher: when**\n- When it's dark, we'll light the fire.",
+            "it": "**Di sicuro verrà buio: when**\n- When it's dark, we'll light the fire.",
+            "en": "**It will surely get dark: when**\n- When it's dark, we'll light the fire."
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-it-rains-3",
+      "title": {
+        "sl": "Združi in popravi",
+        "de": "Verbinde und verbessere",
+        "it": "Unisci e correggi",
+        "en": "Join them, put them right"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "first-conditional",
+          "instruction": {
+            "sl": "Join the two with if · Združi z if",
+            "de": "Join the two with if · Verbinde die beiden mit if",
+            "it": "Join the two with if · Unisci le due con if",
+            "en": "Join the two with if"
+          },
+          "cue": "if",
+          "items": [
+            {
+              "from": "It rains. I stay at home.",
+              "accept": [
+                "If it rains, I'll stay at home.",
+                "I'll stay at home if it rains.",
+                "If it rains, I stay at home.",
+                "I stay at home if it rains."
+              ]
+            },
+            {
+              "from": "Jack comes. We have tea.",
+              "accept": [
+                "If Jack comes, we'll have tea.",
+                "We'll have tea if Jack comes.",
+                "If Jack comes, we have tea.",
+                "We have tea if Jack comes."
+              ]
+            },
+            {
+              "from": "You don't hurry. You miss the bus.",
+              "accept": [
+                "If you don't hurry, you'll miss the bus.",
+                "You'll miss the bus if you don't hurry.",
+                "If you don't hurry, you miss the bus.",
+                "You miss the bus if you don't hurry."
+              ]
+            },
+            {
+              "from": "It snows. The bus doesn't come.",
+              "accept": [
+                "If it snows, the bus won't come.",
+                "The bus won't come if it snows.",
+                "If it snows, the bus doesn't come.",
+                "The bus doesn't come if it snows."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**if + sedanjik; will v drugem delu**\n- It rains. I stay at home. → If it rains, I'll stay at home.",
+            "de": "**if + Präsens; will im anderen Teil**\n- It rains. I stay at home. → If it rains, I'll stay at home.",
+            "it": "**if + il presente; will nell'altra parte**\n- It rains. I stay at home. → If it rains, I'll stay at home.",
+            "en": "**if + the present; will in the other half**\n- It rains. I stay at home. → If it rains, I'll stay at home."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "first-conditional",
+          "instruction": {
+            "sl": "Put it right · Popravi",
+            "de": "Put it right · Verbessere",
+            "it": "Put it right · Correggi",
+            "en": "Put it right"
+          },
+          "items": [
+            { "from": "If it will rain, I'll stay.", "accept": ["If it rains, I'll stay.", "I'll stay if it rains."] },
+            {
+              "from": "When I will get home, I'll call you.",
+              "accept": ["When I get home, I'll call you.", "I'll call you when I get home."]
+            },
+            {
+              "from": "If you will see Jack, tell him.",
+              "accept": ["If you see Jack, tell him.", "Tell him if you see Jack."]
+            }
+          ],
+          "explain": {
+            "sl": "**Za if in when: brez will**\n- When I get home, I'll call you.",
+            "de": "**Nach if und when: kein will**\n- When I get home, I'll call you.",
+            "it": "**Dopo if e when: niente will**\n- When I get home, I'll call you.",
+            "en": "**After if and when: no will**\n- When I get home, I'll call you."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "first-conditional",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "If Granny Maggie ___ (bake) tomorrow, I'll come for tea. — When you ___ (come), bring Meg. — If it ___ (snow), I ___ (not, come). — If you don't come, I ___ (send) you some scones.",
+        "gaps": [
+          { "accept": ["bakes"] },
+          { "accept": ["come"] },
+          { "accept": ["snows"] },
+          { "accept": ["won't come", "'m not going to come", "am not going to come"] },
+          { "accept": ["will send", "'ll send", "am going to send", "'m going to send"] }
+        ],
+        "translation": {
+          "sl": "Če bo babica Maggie jutri pekla, pridem na čaj. — Ko prideš, pripelji Meg. — Če bo snežilo, ne pridem. — Če ne prideš, ti pošljem nekaj sconesov.",
+          "de": "Wenn Oma Maggie morgen bäckt, komme ich zum Tee. — Wenn du kommst, bring Meg mit. — Wenn es schneit, komme ich nicht. — Wenn du nicht kommst, schicke ich dir ein paar Scones.",
+          "it": "Se domani nonna Maggie prepara i dolci, vengo per il tè. — Quando vieni, porta Meg. — Se nevica, non vengo. — Se non vieni, ti mando qualche scone.",
+          "en": "If Granny Maggie bakes tomorrow, I'll come for tea. — When you come, bring Meg. — If it snows, I won't come. — If you don't come, I will send you some scones."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "first-conditional",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "If you heat ice, it ___.",
+        "options": ["melts", "melted", "melting"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Velja vedno: sedanjik v obeh delih**\n- If you heat ice, it melts.",
+          "de": "**Gilt immer: Präsens in beiden Teilen**\n- If you heat ice, it melts.",
+          "it": "**Vale sempre: il presente in tutte e due le parti**\n- If you heat ice, it melts.",
+          "en": "**Always so: the present in both halves**\n- If you heat ice, it melts."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "first-conditional",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I'll call you when I ___ home.",
+        "options": ["get", "will get", "got"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Za when: sedanjik, ne will**\n- I'll call you when I get home.",
+          "de": "**Nach when: Präsens, nicht will**\n- I'll call you when I get home.",
+          "it": "**Dopo when: il presente, non will**\n- I'll call you when I get home.",
+          "en": "**After when: the present, not will**\n- I'll call you when I get home."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "first-conditional",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "If you're tired, we ___ stop.",
+        "options": ["can", "are", "do"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Drugi del ima lahko can**\n- If you're tired, we can stop.",
+          "de": "**Der andere Teil kann can haben**\n- If you're tired, we can stop.",
+          "it": "**L'altra parte può avere can**\n- If you're tired, we can stop.",
+          "en": "**The other half can have can**\n- If you're tired, we can stop."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "first-conditional",
+        "instruction": {
+          "sl": "Join the two with if · Združi z if",
+          "de": "Join the two with if · Verbinde die beiden mit if",
+          "it": "Join the two with if · Unisci le due con if",
+          "en": "Join the two with if"
+        },
+        "cue": "if",
+        "items": [
+          {
+            "from": "It's cold. We light the fire.",
+            "accept": [
+              "If it's cold, we'll light the fire.",
+              "We'll light the fire if it's cold.",
+              "If it's cold, we light the fire.",
+              "We light the fire if it's cold."
+            ]
+          },
+          {
+            "from": "Sam doesn't come. I drink his ale.",
+            "accept": [
+              "If Sam doesn't come, I'll drink his ale.",
+              "I'll drink his ale if Sam doesn't come.",
+              "If Sam doesn't come, I drink his ale.",
+              "I drink his ale if Sam doesn't come."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**if + sedanjik; will v drugem delu**\n- If it's cold, we'll light the fire.",
+          "de": "**if + Präsens; will im anderen Teil**\n- If it's cold, we'll light the fire.",
+          "it": "**if + il presente; will nell'altra parte**\n- If it's cold, we'll light the fire.",
+          "en": "**if + the present; will in the other half**\n- If it's cold, we'll light the fire."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "first-conditional",
+        "instruction": {
+          "sl": "Put it right · Popravi",
+          "de": "Put it right · Verbessere",
+          "it": "Put it right · Correggi",
+          "en": "Put it right"
+        },
+        "items": [
+          {
+            "from": "If it will snow, we won't go.",
+            "accept": ["If it snows, we won't go.", "We won't go if it snows."]
+          },
+          {
+            "from": "When Jack will come, we'll eat.",
+            "accept": ["When Jack comes, we'll eat.", "We'll eat when Jack comes."]
+          }
+        ],
+        "explain": {
+          "sl": "**Za if in when: brez will**\n- If it snows, we won't go.",
+          "de": "**Nach if und when: kein will**\n- If it snows, we won't go.",
+          "it": "**Dopo if e when: niente will**\n- If it snows, we won't go.",
+          "en": "**After if and when: no will**\n- If it snows, we won't go."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

@@ -1,0 +1,1024 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "past-regular",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🚶",
+  "title": {
+    "en": "I walked, she stayed",
+    "de": "Die Vergangenheit, regelmäßig: I walked",
+    "sl": "Preteklik, pravilni glagoli: I walked",
+    "it": "Il passato, verbi regolari: I walked"
+  },
+  "goal": {
+    "sl": "Poveš, kaj se je zgodilo (I walked, she stayed), glagol pravilno napišeš (liked, stopped, carried), ga pravilno izgovoriš in rečeš, kdaj: yesterday, last week, two days ago.",
+    "de": "Du sagst, was passiert ist (I walked, she stayed), schreibst das Verb richtig (liked, stopped, carried), sprichst es richtig aus und sagst, wann: yesterday, last week, two days ago.",
+    "it": "Dici che cosa è successo (I walked, she stayed), scrivi bene il verbo (liked, stopped, carried), lo pronunci bene e dici quando: yesterday, last week, two days ago.",
+    "en": "You can say what happened (I walked, she stayed), spell the verb (liked, stopped, carried), say it right, and say when: yesterday, last week, two days ago."
+  },
+  "grammar": [
+    "past-simple"
+  ],
+  "words": [
+    "walk",
+    "stay",
+    "work",
+    "cook",
+    "cleaned",
+    "wash",
+    "help",
+    "rain",
+    "open",
+    "close",
+    "like",
+    "danced",
+    "live",
+    "stop",
+    "planned",
+    "clap",
+    "carry",
+    "try",
+    "study",
+    "hurry",
+    "mend",
+    "start",
+    "want",
+    "visited",
+    "learn",
+    "burn",
+    "dreamt",
+    "yesterday",
+    "last night",
+    "last week",
+    "ago",
+    "fiddle",
+    "toast",
+    "enjoy"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "glagol",
+          "de": "Verb",
+          "it": "verbo",
+          "en": "verb"
+        },
+        {
+          "sl": "preteklik",
+          "de": "Vergangenheit",
+          "it": "passato",
+          "en": "past"
+        },
+        {
+          "sl": "kako",
+          "de": "wie",
+          "it": "come",
+          "en": "how"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za kar se je končalo v času, ki je mimo, dodaš glagolu **-ed**, za vse osebe enako: **I walked**, **she walked**, **they walked** (hodil{m:|f:a} sem, hodila je, hodili so). Je ena sama beseda, brez pomožnika: **I worked** (delal{m:|f:a} sem). Nikoli *I am walked*.",
+          "de": "Für etwas Abgeschlossenes in einer Zeit, die vorbei ist, bekommt das Verb **-ed**, für alle Personen gleich: **I walked**, **she walked**, **they walked** (ich ging, sie ging, sie gingen). Es ist ein Wort, ohne Hilfsverb, auch wo das Deutsche das Perfekt nimmt: **I worked** (ich habe gearbeitet). Nie *I am walked*.",
+          "it": "Per una cosa finita, in un tempo passato, il verbo prende **-ed**, uguale per tutte le persone: **I walked**, **she walked**, **they walked** (ho camminato, ha camminato, hanno camminato). È una parola sola, senza ausiliare, anche dove l'italiano dice *ho lavorato*: **I worked**. Mai *I am walked*.",
+          "en": "For something finished, at a time that is over, add **-ed** to the verb, the same for every person: **I walked**, **she walked**, **they walked**. It is one word, with no helping verb: **I worked**. Never *I am walked*."
+        },
+        "examples": [
+          {
+            "en": "Yesterday I walked to the tarn.",
+            "sl": "Včeraj {m:sem šel|f:sem šla} peš do jezera.",
+            "de": "Gestern bin ich zum See gegangen.",
+            "it": "Ieri sono andat{m:o|f:a} a piedi fino al laghetto."
+          },
+          {
+            "en": "Mrs Birkett cooked for twenty guests.",
+            "sl": "Gospa Birkett je kuhala za dvajset gostov.",
+            "de": "Mrs Birkett hat für zwanzig Gäste gekocht.",
+            "it": "La signora Birkett ha cucinato per venti ospiti."
+          },
+          {
+            "en": "Jack and Meg worked on the fell all day.",
+            "sl": "Jack in Meg sta ves dan delala na hribu.",
+            "de": "Jack und Meg haben den ganzen Tag am Berg gearbeitet.",
+            "it": "Jack e Meg hanno lavorato sul monte tutto il giorno."
+          }
+        ],
+        "rows": [
+          [
+            "walk",
+            "walked",
+            "+ -ed"
+          ],
+          [
+            "work",
+            "worked",
+            "+ -ed"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "Last night Mrs Birkett ___ soup for the guests.",
+          "options": [
+            "cooked",
+            "cook",
+            "is cooked"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**-ed, brez pomožnika**\n- she cooked · they cooked",
+            "de": "**-ed, ohne Hilfsverb**\n- she cooked · they cooked",
+            "it": "**-ed, senza ausiliare**\n- she cooked · they cooked",
+            "en": "**-ed, no helping verb**\n- she cooked · they cooked"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Z njim gredo besede za čas, ki je mimo: **yesterday** (včeraj), **last night** (sinoči), **last week** (prejšnji teden), **two days ago** (pred dvema dnevoma), **in 1952** (leta 1952). **ago** stoji za časom: **two days ago**, nikoli *ago two days*.",
+          "de": "Dazu passen Wörter für eine Zeit, die vorbei ist: **yesterday** (gestern), **last night** (gestern Abend), **last week** (letzte Woche), **two days ago** (vor zwei Tagen), **in 1952** (1952). **ago** steht hinter der Zeit: **two days ago**, nie *ago two days*.",
+          "it": "Con questo tempo vanno le parole di un tempo finito: **yesterday** (ieri), **last night** (ieri sera), **last week** (la settimana scorsa), **two days ago** (due giorni fa), **in 1952** (nel 1952). **ago** va dopo il tempo, come *fa*: **two days ago**, mai *ago two days*.",
+          "en": "It goes with words for a time that is over: **yesterday**, **last night**, **last week**, **two days ago**, **in 1952**. **ago** comes after the time: **two days ago**, never *ago two days*."
+        },
+        "examples": [
+          {
+            "en": "I cleaned the barn yesterday.",
+            "sl": "Včeraj {m:sem počistil|f:sem počistila} skedenj.",
+            "de": "Gestern habe ich die Scheune sauber gemacht.",
+            "it": "Ieri ho pulito il fienile."
+          },
+          {
+            "en": "Last week it rained every day.",
+            "sl": "Prejšnji teden je deževalo vsak dan.",
+            "de": "Letzte Woche hat es jeden Tag geregnet.",
+            "it": "La settimana scorsa è piovuto tutti i giorni."
+          },
+          {
+            "en": "Mr Tyson opened the mill two hours ago.",
+            "sl": "Gospod Tyson je mlin odprl pred dvema urama.",
+            "de": "Mr Tyson hat die Mühle vor zwei Stunden aufgemacht.",
+            "it": "Il signor Tyson ha aperto il mulino due ore fa."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "Sam visited the inn two days ___.",
+          "accept": [
+            "ago"
+          ],
+          "hint": {
+            "sl": "pred dvema dnevoma",
+            "de": "vor zwei Tagen",
+            "it": "due giorni fa",
+            "en": "a time that is over"
+          },
+          "explain": {
+            "sl": "**ago stoji za časom**\n- two days ago · a week ago",
+            "de": "**ago steht hinter der Zeit**\n- two days ago · a week ago",
+            "it": "**ago va dopo il tempo**\n- two days ago · a week ago",
+            "en": "**ago comes after the time**\n- two days ago · a week ago"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pravopis: glagol na **-e** dobi samo **-d**: like → **liked**. Kratek glagol z enim samoglasnikom in enim soglasnikom ga podvoji: stop → **stopped**, plan → **planned** (načrtoval); ne w, x, y: snow → **snowed**. Britansko je **travelled**, ameriško traveled.",
+          "de": "Zur Schreibung: Ein Verb auf **-e** bekommt nur **-d**: like → **liked**. Ein kurzes Verb mit einem Vokal und einem Konsonanten verdoppelt ihn: stop → **stopped**, plan → **planned** (plante); nicht w, x, y: snow → **snowed**. Britisch **travelled**, amerikanisch traveled.",
+          "it": "L'ortografia: un verbo in **-e** prende solo **-d**: like → **liked**. Un verbo breve con una vocale e una consonante la raddoppia: stop → **stopped**, plan → **planned** (ha organizzato); non w, x, y: snow → **snowed**. In britannico **travelled**, in americano traveled.",
+          "en": "Spelling: a verb in **-e** takes only **-d**: like → **liked**. A short verb with one vowel and one consonant doubles it: stop → **stopped**, plan → **planned**; not w, x, y: snow → **snowed**. British **travelled**, American traveled."
+        },
+        "examples": [
+          {
+            "en": "Everyone danced at the inn last night.",
+            "sl": "Sinoči so v gostilni vsi plesali.",
+            "de": "Gestern Abend haben alle im Gasthaus getanzt.",
+            "it": "Ieri sera tutti hanno ballato alla locanda."
+          },
+          {
+            "en": "The bus stopped by the church.",
+            "sl": "Avtobus se je ustavil pri cerkvi.",
+            "de": "Der Bus hat bei der Kirche gehalten.",
+            "it": "L'autobus si è fermato davanti alla chiesa."
+          },
+          {
+            "en": "We planned the walk on Monday.",
+            "sl": "V ponedeljek smo načrtovali pohod.",
+            "de": "Am Montag haben wir die Wanderung geplant.",
+            "it": "Lunedì abbiamo organizzato la camminata."
+          },
+          {
+            "en": "Mrs Hartley closed the school at five.",
+            "sl": "Gospa Hartley je zaprla šolo ob petih.",
+            "de": "Mrs Hartley hat die Schule um fünf zugesperrt.",
+            "it": "La signora Hartley ha chiuso la scuola alle cinque."
+          }
+        ],
+        "rows": [
+          [
+            "like",
+            "liked",
+            {
+              "sl": "-e + -d",
+              "de": "-e + -d",
+              "it": "-e + -d",
+              "en": "-e + -d"
+            }
+          ],
+          [
+            "stop",
+            "stopped",
+            {
+              "sl": "en samoglasnik + en soglasnik: podvojiš",
+              "de": "ein Vokal + ein Konsonant: verdoppeln",
+              "it": "una vocale + una consonante: raddoppia",
+              "en": "one vowel + one consonant: double"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "The bus ___ by the church. (stop)",
+          "accept": [
+            "stopped"
+          ],
+          "hint": {
+            "sl": "en samoglasnik + en soglasnik",
+            "de": "ein Vokal + ein Konsonant",
+            "it": "una vocale + una consonante",
+            "en": "one vowel + one consonant"
+          },
+          "explain": {
+            "sl": "**Kratek glagol: soglasnik podvojiš**\n- stop → stopped · plan → planned",
+            "de": "**Kurzes Verb: den Konsonanten verdoppeln**\n- stop → stopped · plan → planned",
+            "it": "**Verbo breve: raddoppia la consonante**\n- stop → stopped · plan → planned",
+            "en": "**A short verb: double the consonant**\n- stop → stopped · plan → planned"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Soglasnik + **-y** postane **-ied**: carry → **carried**, try → **tried**, study → **studied**. Samoglasnik + **-y** ostane in dobi **-ed**: stay → **stayed**, play → **played**, enjoy → **enjoyed**.",
+          "de": "Konsonant + **-y** wird **-ied**: carry → **carried**, try → **tried**, study → **studied**. Vokal + **-y** bleibt und bekommt **-ed**: stay → **stayed**, play → **played**, enjoy → **enjoyed**.",
+          "it": "Consonante + **-y** diventa **-ied**: carry → **carried**, try → **tried**, study → **studied**. Vocale + **-y** resta e prende **-ed**: stay → **stayed**, play → **played**, enjoy → **enjoyed**.",
+          "en": "Consonant + **-y** becomes **-ied**: carry → **carried**, try → **tried**, study → **studied**. Vowel + **-y** stays and takes **-ed**: stay → **stayed**, play → **played**, enjoy → **enjoyed**."
+        },
+        "examples": [
+          {
+            "en": "Jack carried the lamb down the fell.",
+            "sl": "Jack je nesel jagnje s hriba.",
+            "de": "Jack hat das Lamm vom Berg heruntergetragen.",
+            "it": "Jack ha portato l'agnello giù dal monte."
+          },
+          {
+            "en": "We stayed at the Packhorse Inn.",
+            "sl": "Ostali smo v gostilni Packhorse.",
+            "de": "Wir haben im Gasthaus Packhorse übernachtet.",
+            "it": "Siamo rimasti alla locanda Packhorse."
+          },
+          {
+            "en": "Auntie Edna tried the new cake.",
+            "sl": "Teta Edna je poskusila novo torto.",
+            "de": "Tante Edna hat den neuen Kuchen probiert.",
+            "it": "Zia Edna ha assaggiato la torta nuova."
+          }
+        ],
+        "rows": [
+          [
+            "carry",
+            "carried",
+            "-y → -ied"
+          ],
+          [
+            "stay",
+            "stayed",
+            {
+              "sl": "samoglasnik + -y: + -ed",
+              "de": "Vokal + -y: + -ed",
+              "it": "vocale + -y: + -ed",
+              "en": "vowel + -y: + -ed"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "Old Wilf ___ at the inn all evening.",
+          "options": [
+            "stayed",
+            "staied",
+            "staying"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Samoglasnik + -y: y ostane**\n- stay → stayed · play → played\n- carry → carried",
+            "de": "**Vokal + -y: y bleibt**\n- stay → stayed · play → played\n- carry → carried",
+            "it": "**Vocale + -y: la y resta**\n- stay → stayed · play → played\n- carry → carried",
+            "en": "**Vowel + -y: the y stays**\n- stay → stayed · play → played\n- carry → carried"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**-ed** ima tri glasove. Za p, k, s, ch, sh, f zveni kot t: **walked**, **helped**, **washed**. Za večino drugih kot d: **played**, **opened**, **lived**. Le za t in d je svoj zlog, id: **wanted**, **started**, **mended**. **walked** ima torej en sam zlog.",
+          "de": "**-ed** klingt auf drei Arten. Nach p, k, s, ch, sh, f wie t: **walked**, **helped**, **washed**. Nach den meisten anderen wie d: **played**, **opened**, **lived**. Nur nach t und d ist es eine eigene Silbe, id: **wanted**, **started**, **mended**. **walked** hat also nur eine Silbe.",
+          "it": "**-ed** ha tre suoni. Dopo p, k, s, ch, sh, f suona t: **walked**, **helped**, **washed**. Dopo la maggior parte degli altri suona d: **played**, **opened**, **lived**. Solo dopo t e d è una sillaba a sé, id: **wanted**, **started**, **mended**. **walked** ha quindi una sola sillaba.",
+          "en": "**-ed** has three sounds. After p, k, s, ch, sh, f it sounds like t: **walked**, **helped**, **washed**. After most others, like d: **played**, **opened**, **lived**. Only after t and d is it a syllable of its own, id: **wanted**, **started**, **mended**. So **walked** has one syllable."
+        },
+        "examples": [
+          {
+            "en": "Arthur washed his hands.",
+            "sl": "Arthur si je umil roke.",
+            "de": "Arthur hat sich die Hände gewaschen.",
+            "it": "Arthur si è lavato le mani."
+          },
+          {
+            "en": "Granny Maggie lived on a farm.",
+            "sl": "Babica Maggie je živela na kmetiji.",
+            "de": "Oma Maggie hat auf einem Hof gelebt.",
+            "it": "Nonna Maggie viveva in una fattoria."
+          },
+          {
+            "en": "Mr Dixon mended the gate.",
+            "sl": "Gospod Dixon je popravil vrata.",
+            "de": "Mr Dixon hat das Gatter repariert.",
+            "it": "Il signor Dixon ha riparato il cancello."
+          }
+        ],
+        "rows": [
+          [
+            "help",
+            "helped",
+            {
+              "sl": "zveni kot t",
+              "de": "klingt wie t",
+              "it": "suona t",
+              "en": "sounds like t"
+            }
+          ],
+          [
+            "play",
+            "played",
+            {
+              "sl": "zveni kot d",
+              "de": "klingt wie d",
+              "it": "suona d",
+              "en": "sounds like d"
+            }
+          ],
+          [
+            "want",
+            "wanted",
+            {
+              "sl": "svoj zlog: id",
+              "de": "eigene Silbe: id",
+              "it": "una sillaba a sé: id",
+              "en": "a syllable of its own: id"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": {
+            "sl": "Kateri ima dodaten zlog (id)?",
+            "de": "Welches hat eine Silbe mehr (id)?",
+            "it": "Quale ha una sillaba in più (id)?",
+            "en": "Which one has an extra syllable (id)?"
+          },
+          "options": [
+            "started",
+            "walked",
+            "played"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Le za t in d: id**\n- started · wanted · mended",
+            "de": "**Nur nach t und d: id**\n- started · wanted · mended",
+            "it": "**Solo dopo t e d: id**\n- started · wanted · mended",
+            "en": "**Only after t and d: id**\n- started · wanted · mended"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nekaj glagolov ima v britanski angleščini tudi **-t**: **learnt** ali **learned**, **burnt** ali **burned**, **dreamt** (sanjal) ali **dreamed**. Oboje je prav. Američani pišejo z **-ed**.",
+          "de": "Ein paar Verben haben im Britischen auch **-t**: **learnt** oder **learned**, **burnt** oder **burned**, **dreamt** (träumte) oder **dreamed**. Beides ist richtig. Amerikanisch steht **-ed**.",
+          "it": "Alcuni verbi in britannico hanno anche **-t**: **learnt** o **learned**, **burnt** o **burned**, **dreamt** (ha sognato) o **dreamed**. Sono giusti tutti e due. In americano si scrive **-ed**.",
+          "en": "A few verbs also have **-t** in British English: **learnt** or **learned**, **burnt** or **burned**, **dreamt** or **dreamed**. Both are right. American English has **-ed**."
+        },
+        "examples": [
+          {
+            "en": "I learnt this song last year.",
+            "sl": "To pesem {m:sem se naučil|f:sem se naučila} lani.",
+            "de": "Dieses Lied habe ich letztes Jahr gelernt.",
+            "it": "Ho imparato questa canzone l'anno scorso."
+          },
+          {
+            "en": "Granny Maggie burnt the toast.",
+            "sl": "Babica Maggie je zažgala toast.",
+            "de": "Oma Maggie hat den Toast verbrannt.",
+            "it": "Nonna Maggie ha bruciato il pane tostato."
+          },
+          {
+            "en": "Last night I dreamt about the sea.",
+            "sl": "Sinoči {m:sem sanjal|f:sem sanjala} o morju.",
+            "de": "Letzte Nacht habe ich vom Meer geträumt.",
+            "it": "Stanotte ho sognato il mare."
+          }
+        ],
+        "rows": [
+          [
+            "learn",
+            "learnt, learned",
+            {
+              "sl": "oboje prav",
+              "de": "beides richtig",
+              "it": "giusti tutti e due",
+              "en": "both right"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "Granny Maggie ___ the toast. (burn)",
+          "accept": [
+            "burnt",
+            "burned"
+          ],
+          "hint": {
+            "sl": "dve možnosti",
+            "de": "zwei Möglichkeiten",
+            "it": "due possibilità",
+            "en": "two ways"
+          },
+          "explain": {
+            "sl": "**burnt ali burned, oboje prav**\n- learnt, learned · dreamt, dreamed",
+            "de": "**burnt oder burned, beides richtig**\n- learnt, learned · dreamt, dreamed",
+            "it": "**burnt o burned, giusti tutti e due**\n- learnt, learned · dreamt, dreamed",
+            "en": "**burnt or burned, both right**\n- learnt, learned · dreamt, dreamed"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**Pravilni preteklik: glagol + -ed**, za vse osebe enako, brez pomožnika: **I walked**, **she stayed**. Pravopis: **liked**, **stopped**, **carried**, a **stayed**. S časom, ki je mimo: **yesterday**, **last week**, **two days ago**.",
+      "de": "**Regelmäßige Vergangenheit: Verb + -ed**, für alle Personen gleich, ohne Hilfsverb: **I walked**, **she stayed**. Schreibung: **liked**, **stopped**, **carried**, aber **stayed**. Mit einer Zeit, die vorbei ist: **yesterday**, **last week**, **two days ago**.",
+      "it": "**Passato regolare: verbo + -ed**, uguale per tutte le persone, senza ausiliare: **I walked**, **she stayed**. Ortografia: **liked**, **stopped**, **carried**, ma **stayed**. Con un tempo finito: **yesterday**, **last week**, **two days ago**.",
+      "en": "**The regular past: verb + -ed**, the same for every person, no helping verb: **I walked**, **she stayed**. Spelling: **liked**, **stopped**, **carried**, but **stayed**. With a time that is over: **yesterday**, **last week**, **two days ago**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "past-regular-1",
+      "title": {
+        "sl": "Glagoli in glasovi",
+        "de": "Verben und Laute",
+        "it": "Verbi e suoni",
+        "en": "Verbs and sounds"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "verb → past · glagol → preteklik",
+            "de": "verb → past · Verb → Vergangenheit",
+            "it": "verb → past · verbo → passato",
+            "en": "verb → past"
+          },
+          "columns": [
+            {
+              "sl": "past · preteklik",
+              "de": "past · Vergangenheit",
+              "it": "past · passato",
+              "en": "past"
+            }
+          ],
+          "rows": [
+            {
+              "label": "walk",
+              "cells": [
+                "walked"
+              ]
+            },
+            {
+              "label": "cook",
+              "cells": [
+                {
+                  "accept": [
+                    "cooked"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "like",
+              "cells": [
+                {
+                  "accept": [
+                    "liked"
+                  ],
+                  "hint": "-e + -d"
+                }
+              ]
+            },
+            {
+              "label": "stop",
+              "cells": [
+                {
+                  "accept": [
+                    "stopped"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "plan",
+              "cells": [
+                {
+                  "accept": [
+                    "planned"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "carry",
+              "cells": [
+                {
+                  "accept": [
+                    "carried"
+                  ],
+                  "hint": "-y → ?"
+                }
+              ]
+            },
+            {
+              "label": "try",
+              "cells": [
+                {
+                  "accept": [
+                    "tried"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "stay",
+              "cells": [
+                {
+                  "accept": [
+                    "stayed"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "rain",
+              "cells": [
+                {
+                  "accept": [
+                    "rained"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**+ -ed, -e + -d, podvojen soglasnik, -y → -ied**\n- cooked · liked · stopped · carried · stayed",
+            "de": "**+ -ed, -e + -d, Konsonant verdoppelt, -y → -ied**\n- cooked · liked · stopped · carried · stayed",
+            "it": "**+ -ed, -e + -d, consonante raddoppiata, -y → -ied**\n- cooked · liked · stopped · carried · stayed",
+            "en": "**+ -ed, -e + -d, a doubled consonant, -y → -ied**\n- cooked · liked · stopped · carried · stayed"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "How does -ed sound? · Kako zveni -ed?",
+            "de": "How does -ed sound? · Wie klingt -ed?",
+            "it": "How does -ed sound? · Come suona -ed?",
+            "en": "How does -ed sound?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "sounds like t · zveni kot t",
+                "de": "sounds like t · klingt wie t",
+                "it": "sounds like t · suona t",
+                "en": "sounds like t"
+              },
+              "words": [
+                "cooked",
+                "washed"
+              ]
+            },
+            {
+              "label": {
+                "sl": "sounds like d · zveni kot d",
+                "de": "sounds like d · klingt wie d",
+                "it": "sounds like d · suona d",
+                "en": "sounds like d"
+              },
+              "words": [
+                "rained",
+                "lived"
+              ]
+            },
+            {
+              "label": {
+                "sl": "id · svoj zlog",
+                "de": "id · eigene Silbe",
+                "it": "id · una sillaba a sé",
+                "en": "id, a syllable of its own"
+              },
+              "words": [
+                "started",
+                "mended"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Za t in d je id; za p, k, s, ch, sh, f je t; sicer d**\n- started · cooked · rained",
+            "de": "**Nach t und d: id; nach p, k, s, ch, sh, f: t; sonst d**\n- started · cooked · rained",
+            "it": "**Dopo t e d: id; dopo p, k, s, ch, sh, f: t; altrimenti d**\n- started · cooked · rained",
+            "en": "**After t and d, id; after p, k, s, ch, sh, f, t; else d**\n- started · cooked · rained"
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-regular-2",
+      "title": {
+        "sl": "Ponedeljek v gostilni",
+        "de": "Ein Montag im Gasthaus",
+        "it": "Un lunedì alla locanda",
+        "en": "A Monday at the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Last Monday was a busy day at the Packhorse Inn. Mrs Birkett ___ (cook) for twenty guests. Harry ___ (carry) the plates, and Poppy ___ (clean) the tables. In the evening Sam ___ (play) the fiddle and everyone ___ (dance). It ___ (rain) all night, and the guests ___ (stay) until Tuesday. At ten the bus ___ (stop) by the inn.",
+          "gaps": [
+            {
+              "accept": [
+                "cooked"
+              ]
+            },
+            {
+              "accept": [
+                "carried"
+              ],
+              "hint": "-y → ?"
+            },
+            {
+              "accept": [
+                "cleaned"
+              ]
+            },
+            {
+              "accept": [
+                "played"
+              ],
+              "hint": {
+                "sl": "samoglasnik + -y",
+                "de": "Vokal + -y",
+                "it": "vocale + -y",
+                "en": "vowel + -y"
+              }
+            },
+            {
+              "accept": [
+                "danced"
+              ],
+              "hint": "-e + -d"
+            },
+            {
+              "accept": [
+                "rained"
+              ]
+            },
+            {
+              "accept": [
+                "stayed"
+              ]
+            },
+            {
+              "accept": [
+                "stopped"
+              ],
+              "explain": {
+                "sl": "**Kratek glagol: soglasnik podvojiš**\n- stop → stopped",
+                "de": "**Kurzes Verb: den Konsonanten verdoppeln**\n- stop → stopped",
+                "it": "**Verbo breve: raddoppia la consonante**\n- stop → stopped",
+                "en": "**A short verb: double the consonant**\n- stop → stopped"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "carryed",
+            "stoped",
+            "staied"
+          ],
+          "translation": {
+            "sl": "Prejšnji ponedeljek je bil v gostilni Packhorse naporen dan. Gospa Birkett je kuhala za dvajset gostov. Harry je nosil krožnike, Poppy pa je pospravljala mize. Zvečer je Sam igral na violino in vsi so plesali. Vso noč je deževalo in gostje so ostali do torka. Ob desetih se je pri gostilni ustavil avtobus.",
+            "de": "Letzten Montag war im Gasthaus Packhorse viel los. Mrs Birkett hat für zwanzig Gäste gekocht. Harry hat die Teller getragen, und Poppy hat die Tische sauber gemacht. Am Abend hat Sam Geige gespielt, und alle haben getanzt. Es hat die ganze Nacht geregnet, und die Gäste sind bis Dienstag geblieben. Um zehn hat der Bus beim Gasthaus gehalten.",
+            "it": "Lunedì scorso alla locanda Packhorse c'era molto da fare. La signora Birkett ha cucinato per venti ospiti. Harry ha portato i piatti e Poppy ha pulito i tavoli. La sera Sam ha suonato il violino e tutti hanno ballato. Ha piovuto tutta la notte e gli ospiti sono rimasti fino a martedì. Alle dieci l'autobus si è fermato davanti alla locanda.",
+            "en": "Last Monday was a busy day at the Packhorse Inn. Mrs Birkett cooked for twenty guests. Harry carried the plates, and Poppy cleaned the tables. In the evening Sam played the fiddle and everyone danced. It rained all night, and the guests stayed until Tuesday. At ten the bus stopped by the inn."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We ___ the walk last Monday.",
+          "options": [
+            "planned",
+            "planed",
+            "plan"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratek glagol: soglasnik podvojiš**\n- plan → planned · clap → clapped",
+            "de": "**Kurzes Verb: den Konsonanten verdoppeln**\n- plan → planned · clap → clapped",
+            "it": "**Verbo breve: raddoppia la consonante**\n- plan → planned · clap → clapped",
+            "en": "**A short verb: double the consonant**\n- plan → planned · clap → clapped"
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-regular-3",
+      "title": {
+        "sl": "V preteklik",
+        "de": "In die Vergangenheit",
+        "it": "Al passato",
+        "en": "Into the past"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Put it in the past · Postavi v preteklik",
+            "de": "Put it in the past · Setz es in die Vergangenheit",
+            "it": "Put it in the past · Mettilo al passato",
+            "en": "Put it in the past"
+          },
+          "cue": "past",
+          "items": [
+            {
+              "from": "I walk to the inn.",
+              "accept": [
+                "I walked to the inn."
+              ]
+            },
+            {
+              "from": "Jack helps Mr Tyson.",
+              "accept": [
+                "Jack helped Mr Tyson."
+              ],
+              "hint": {
+                "sl": "brez -s",
+                "de": "ohne -s",
+                "it": "senza -s",
+                "en": "no -s"
+              }
+            },
+            {
+              "from": "Mrs Hartley closes the school.",
+              "accept": [
+                "Mrs Hartley closed the school."
+              ]
+            },
+            {
+              "from": "The children play by the beck.",
+              "accept": [
+                "The children played by the beck."
+              ]
+            },
+            {
+              "from": "Arthur studies his bees.",
+              "accept": [
+                "Arthur studied his bees."
+              ],
+              "hint": "-y → ?"
+            },
+            {
+              "from": "The bus stops at the church.",
+              "accept": [
+                "The bus stopped at the church."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-s izgine, pride -ed, za vse osebe**\n- Jack helps. → Jack helped.\n- Arthur studies. → Arthur studied.",
+            "de": "**Das -s fällt weg, -ed kommt, für alle Personen**\n- Jack helps. → Jack helped.\n- Arthur studies. → Arthur studied.",
+            "it": "**La -s cade, arriva -ed, per tutte le persone**\n- Jack helps. → Jack helped.\n- Arthur studies. → Arthur studied.",
+            "en": "**The -s goes, -ed comes, for every person**\n- Jack helps. → Jack helped.\n- Arthur studies. → Arthur studied."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Two days ___ Mr Dixon ___ (mend) the gate at the farm. He ___ (stop) at the inn, and Mrs Birkett ___ (carry) a cup of tea out to him. They ___ (talk) about the weather.",
+        "gaps": [
+          {
+            "accept": [
+              "ago"
+            ]
+          },
+          {
+            "accept": [
+              "mended"
+            ]
+          },
+          {
+            "accept": [
+              "stopped"
+            ]
+          },
+          {
+            "accept": [
+              "carried"
+            ]
+          },
+          {
+            "accept": [
+              "talked"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Pred dvema dnevoma je gospod Dixon popravil vrata na kmetiji. Ustavil se je v gostilni in gospa Birkett mu je prinesla skodelico čaja. Pogovarjala sta se o vremenu.",
+          "de": "Vor zwei Tagen hat Mr Dixon das Gatter auf dem Hof repariert. Er hat beim Gasthaus angehalten, und Mrs Birkett hat ihm eine Tasse Tee hinausgetragen. Sie haben über das Wetter geredet.",
+          "it": "Due giorni fa il signor Dixon ha riparato il cancello alla fattoria. Si è fermato alla locanda e la signora Birkett gli ha portato fuori una tazza di tè. Hanno parlato del tempo.",
+          "en": "Two days ago Mr Dixon mended the gate at the farm. He stopped at the inn, and Mrs Birkett carried a cup of tea out to him. They talked about the weather."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Yesterday it ___ all day.",
+        "options": [
+          "rained",
+          "rain",
+          "is rained"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**yesterday: -ed, brez pomožnika**\n- It rained yesterday.",
+          "de": "**yesterday: -ed, ohne Hilfsverb**\n- It rained yesterday.",
+          "it": "**yesterday: -ed, senza ausiliare**\n- It rained yesterday.",
+          "en": "**yesterday: -ed, no helping verb**\n- It rained yesterday."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I ___ at the Packhorse Inn last week.",
+        "options": [
+          "stayed",
+          "staied",
+          "am stayed"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Samoglasnik + -y: y ostane**\n- stay → stayed",
+          "de": "**Vokal + -y: y bleibt**\n- stay → stayed",
+          "it": "**Vocale + -y: la y resta**\n- stay → stayed",
+          "en": "**Vowel + -y: the y stays**\n- stay → stayed"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": {
+          "sl": "Kateri ima dodaten zlog (id)?",
+          "de": "Welches hat eine Silbe mehr (id)?",
+          "it": "Quale ha una sillaba in più (id)?",
+          "en": "Which one has an extra syllable (id)?"
+        },
+        "options": [
+          "wanted",
+          "cooked",
+          "opened"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Le za t in d: id**\n- wanted · started",
+          "de": "**Nur nach t und d: id**\n- wanted · started",
+          "it": "**Solo dopo t e d: id**\n- wanted · started",
+          "en": "**Only after t and d: id**\n- wanted · started"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Put it in the past · Postavi v preteklik",
+          "de": "Put it in the past · Setz es in die Vergangenheit",
+          "it": "Put it in the past · Mettilo al passato",
+          "en": "Put it in the past"
+        },
+        "cue": "past",
+        "items": [
+          {
+            "from": "Jack climbs the fell.",
+            "accept": [
+              "Jack climbed the fell."
+            ]
+          },
+          {
+            "from": "We try the new soup.",
+            "accept": [
+              "We tried the new soup."
+            ]
+          },
+          {
+            "from": "Granny Maggie bakes a cake.",
+            "accept": [
+              "Granny Maggie baked a cake."
+            ]
+          },
+          {
+            "from": "The children clap.",
+            "accept": [
+              "The children clapped."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**-ed za vse osebe: pazi na pravopis**\n- climbed · tried · baked · clapped",
+          "de": "**-ed für alle Personen: achte auf die Schreibung**\n- climbed · tried · baked · clapped",
+          "it": "**-ed per tutte le persone: attenzione all'ortografia**\n- climbed · tried · baked · clapped",
+          "en": "**-ed for every person: mind the spelling**\n- climbed · tried · baked · clapped"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: the fiddle at the inn, the two -t forms, the sounds"
+}

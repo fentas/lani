@@ -1,0 +1,329 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "condizionale-passato",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🤷",
+  "title": { "it": "Sarei venuto, avrei mangiato", "de": "Der Konditional der Vergangenheit: sarei venuto", "sl": "Pretekli pogojnik: sarei venuto", "en": "The past conditional: sarei venuto" },
+  "goal": {
+    "de": "Du sagst, was gewesen wäre, aber nicht war (Sarei venuto volentieri, ma pioveva.), was jemand hätte tun sollen oder können (Avresti dovuto chiudere il cancello.) und erkennst, wenn das Radio nur weitersagt, was man hört (Il sindaco avrebbe comprato un trattore.).",
+    "sl": "Poveš, kaj bi bilo, pa ni bilo (Sarei venuto volentieri, ma pioveva.), kaj bi kdo moral ali mogel narediti (Avresti dovuto chiudere il cancello.), in prepoznaš, kdaj radio samo povzema, kar se sliši (Il sindaco avrebbe comprato un trattore.).",
+    "en": "You can say what would have been but wasn't (Sarei venuto volentieri, ma pioveva.) and what someone should or could have done (Avresti dovuto chiudere il cancello.), and you recognise when the radio only passes on what it has heard (Il sindaco avrebbe comprato un trattore.)."
+  },
+  "grammar": ["condizionale-passato", "condizionale", "passato-prossimo"],
+  "words": ["volentieri", "il sindaco", "secondo", "la sagra", "la gubana", "il cancello", "la farina", "il temporale", "la fisarmonica", "il trattore", "la febbre", "il ritardo", "la fetta", "il pozzo", "la vendemmia", "le pecore", "il miele", "dovere", "potere", "volere", "piacere", "venire", "partire", "rimanere", "fermarsi", "alzarsi", "svegliarsi", "avvisare", "dimenticare", "aiutare", "preparare", "comprare", "costruire", "chiudere", "finire", "aprire", "scappare", "rompersi", "costare", "avrete"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "chi", "de": "wer", "sl": "kdo", "en": "who" },
+        { "it": "condizionale passato", "de": "Konditional der Vergangenheit", "sl": "pretekli pogojnik", "en": "past conditional" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Das **condizionale** sagt, was jetzt wäre: **mangerei** (ich würde essen). War die Gelegenheit schon vorbei, nimmst du **avrei** und das Partizip: **avrei mangiato** (ich hätte gegessen). Genauso **avresti mangiato** (du hättest gegessen) und **avrebbe mangiato** (er, sie hätte gegessen). Passiert ist es nicht, und oft sagt ein **ma** (aber) warum.",
+          "sl": "**Condizionale** pove, kaj bi bilo zdaj: **mangerei** (jedel bi). Če je priložnost že mimo, vzameš **avrei** in deležnik: **avrei mangiato** (pojedel bi). Enako **avresti mangiato** (pojedel bi, ti) in **avrebbe mangiato** (pojedel bi, on, ona). Slovenščina ima obakrat *bi*, italijanščina loči. Zgodilo se ni, in pogosto **ma** (a) pove, zakaj.",
+          "en": "The **condizionale** says what would be now: **mangerei** (I'd eat). When the chance has gone, take **avrei** and the participle: **avrei mangiato** (I would have eaten). The same with **avresti mangiato** (you would have eaten) and **avrebbe mangiato** (he, she would have eaten). It didn't happen, and a **ma** (but) often says why."
+        },
+        "examples": [
+          { "it": "Fabbro Bruno avrebbe aiutato Franco, ma aveva troppo lavoro.", "de": "Schmied Bruno hätte Franco geholfen, aber er hatte zu viel Arbeit.", "sl": "Kovač Bruno bi pomagal Francu, a je imel preveč dela.", "en": "Bruno the smith would have helped Franco, but he had too much work." },
+          { "it": "Avrei mangiato volentieri un'altra fetta di gubana, ma era finita.", "de": "Ich hätte gern noch ein Stück Gubana gegessen, aber sie war aus.", "sl": "Z veseljem bi {m:pojedel|f:pojedla} še en kos gubane, a je je zmanjkalo.", "en": "I'd gladly have eaten another slice of gubana, but it was all gone." },
+          { "it": "Oggi mangerei volentieri un po' di gubana.", "de": "Heute würde ich gern ein bisschen Gubana essen.", "sl": "Danes bi z veseljem {m:jedel|f:jedla} malo gubane.", "en": "Today I'd gladly eat a little gubana." }
+        ],
+        "rows": [
+          ["io", "avrei mangiato"],
+          ["tu", "avresti mangiato"],
+          ["lui, lei", "avrebbe mangiato"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "condizionale-passato", "prompt": "Ostessa Marisa ___ altri gnocchi, ma la farina era finita.", "options": ["avrebbe fatto", "farebbe", "avrei fatto"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**vorbei** (era finita), **lei** → **avrebbe fatto**\n- farebbe · würde machen, jetzt\n- avrei fatto · ich",
+            "sl": "**mimo** (era finita), **lei** → **avrebbe fatto**\n- farebbe · bi delala, zdaj\n- avrei fatto · jaz",
+            "en": "**over** (era finita), **lei** → **avrebbe fatto**\n- farebbe · would make, now\n- avrei fatto · I"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **avremmo mangiato** (wir hätten gegessen), **avreste mangiato** (ihr hättet gegessen), **avrebbero mangiato** (sie hätten gegessen). Achte auf **avremmo** mit zwei m: **avremo** mit einem m ist die Zukunft (wir werden haben). Auch **avreste** ist nicht **avrete** (ihr werdet haben).",
+          "sl": "Za več oseb: **avremmo mangiato** (pojedli bi), **avreste mangiato** (pojedli bi, vi), **avrebbero mangiato** (pojedli bi, oni). Pazi na **avremmo** z dvema m: **avremo** z enim m je prihodnjik (bomo imeli). Tudi **avreste** ni **avrete** (boste imeli).",
+          "en": "For several people: **avremmo mangiato** (we would have eaten), **avreste mangiato** (you would have eaten), **avrebbero mangiato** (they would have eaten). Mind **avremmo** with two m: **avremo** with one m is the future (we will have). And **avreste** isn't **avrete** (you will have)."
+        },
+        "examples": [
+          { "it": "Avremmo finito il fieno prima, ma poi ha piovuto.", "de": "Wir wären mit dem Heu früher fertig geworden, aber dann hat es geregnet.", "sl": "S senom bi bili prej gotovi, a je potem deževalo.", "en": "We would have finished the hay sooner, but then it rained." },
+          { "it": "I bambini avrebbero giocato fuori tutto il giorno, ma faceva freddo.", "de": "Die Kinder hätten den ganzen Tag draußen gespielt, aber es war kalt.", "sl": "Otroci bi se ves dan igrali zunaj, a je bilo mrzlo.", "en": "The children would have played outside all day, but it was cold." }
+        ],
+        "rows": [
+          ["noi", "avremmo mangiato"],
+          ["voi", "avreste mangiato"],
+          ["loro", "avrebbero mangiato"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "condizionale-passato", "prompt": "Noi ___ comprato il pane, ma il forno era chiuso.", "options": ["avremmo", "avremo", "avrebbero"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**noi**, und es ist nicht passiert (ma) → **avremmo**, zwei m\n- avremo · Zukunft\n- avrebbero · sie, mehrere",
+            "sl": "**noi**, in se ni zgodilo (ma) → **avremmo**, dva m\n- avremo · prihodnjik\n- avrebbero · oni",
+            "en": "**noi**, and it didn't happen (ma) → **avremmo**, two m\n- avremo · the future\n- avrebbero · they"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein Verb nimmt dieselbe Hilfe wie im passato prossimo: **sono venuto** wird **sarei venuto** (ich wäre gekommen). Das Partizip passt sich dann an wie immer bei essere: **Giulia sarebbe venuta**, **i bambini sarebbero venuti**, **le pecore sarebbero venute**. Deutsch geht es fast gleich: *wäre gekommen*.",
+          "sl": "Glagol ima istega pomožnika kot v passato prossimo: **sono venuto** postane **sarei venuto** (prišel bi). Deležnik se potem ujema kot vedno pri essere: **Giulia sarebbe venuta**, **i bambini sarebbero venuti**, **le pecore sarebbero venute**.",
+          "en": "A verb takes the same helper as in the passato prossimo: **sono venuto** becomes **sarei venuto** (I would have come). The participle then agrees as always with essere: **Giulia sarebbe venuta**, **i bambini sarebbero venuti**, **le pecore sarebbero venute**."
+        },
+        "examples": [
+          { "it": "Giulia sarebbe venuta alla sagra, ma aveva la febbre.", "de": "Giulia wäre zur Sagra gekommen, aber sie hatte Fieber.", "sl": "Giulia bi prišla na šagro, a je imela vročino.", "en": "Giulia would have come to the sagra, but she had a temperature." },
+          { "it": "Saremmo partiti alle otto, ma il treno era in ritardo.", "de": "Wir wären um acht abgefahren, aber der Zug hatte Verspätung.", "sl": "Odpotovali bi ob osmih, a je vlak zamujal.", "en": "We would have left at eight, but the train was late." }
+        ],
+        "rows": [
+          ["io, tu", "sarei venuto, saresti venuta"],
+          ["lui, lei", "sarebbe venuto, sarebbe venuta"],
+          ["noi, voi", "saremmo venuti, sareste venute"],
+          ["loro", "sarebbero venuti, sarebbero venute"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "condizionale-passato", "text": "Zia Nives sarebbe ___ volentieri al mare, ma pioveva. (andare)", "accept": ["andata"],
+          "hint": { "de": "Zia Nives, sie", "sl": "Zia Nives, ona", "en": "Zia Nives, she" },
+          "explain": {
+            "de": "**sarebbe** + eine Frau → **andata**\n- andato · für einen Mann",
+            "sl": "**sarebbe** + ženska → **andata**\n- andato · za moškega",
+            "en": "**sarebbe** + a woman → **andata**\n- andato · for a man"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch **piacere** und die Verben mit **si** nehmen essere: **Mi sarebbe piaciuto** (es hätte mir gefallen), also: ich hätte gern. **Si sarebbe fermato** (er wäre stehen geblieben). Das kleine Wort bleibt vorn: **Mi sarei fermata** (ich wäre stehen geblieben, eine Frau spricht).",
+          "sl": "Tudi **piacere** in glagoli s **si** imajo essere: **Mi sarebbe piaciuto** (všeč bi mi bilo), torej: rad bi. **Si sarebbe fermato** (ustavil bi se). Mala beseda ostane spredaj: **Mi sarei fermata** (ustavila bi se, govori ženska).",
+          "en": "**Piacere** and the verbs with **si** take essere too: **Mi sarebbe piaciuto** (it would have pleased me), so: I'd have liked to. **Si sarebbe fermato** (he would have stopped). The little word stays in front: **Mi sarei fermata** (I would have stopped, a woman speaking)."
+        },
+        "examples": [
+          { "it": "A Nonno Bepi sarebbe piaciuto vedere i fuochi, ma si è addormentato.", "de": "Nonno Bepi hätte gern das Feuerwerk gesehen, aber er ist eingeschlafen.", "sl": "Dedek Bepi bi rad videl ognjemet, a je zaspal.", "en": "Nonno Bepi would have liked to see the fireworks, but he fell asleep." },
+          { "it": "Marisa: «Mi sarei fermata ancora un po', ma l'osteria mi aspettava.»", "de": "Marisa: „Ich wäre noch ein bisschen geblieben, aber die Osteria hat auf mich gewartet.“", "sl": "Marisa: »Še malo bi ostala, a me je čakala gostilna.«", "en": "Marisa: \"I'd have stayed a little longer, but the osteria was waiting for me.\"" }
+        ],
+        "rows": [
+          ["piacere", "mi sarebbe piaciuto"],
+          ["fermarsi", "mi sarei fermato, si sarebbe fermata"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "condizionale-passato", "prompt": "Matteo ___ svegliato prima, ma non ha sentito la sveglia.", "options": ["si sarebbe", "si avrebbe", "sarebbe"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**svegliarsi** → **si** und **essere**: **si sarebbe svegliato**\n- si avrebbe: mit si nie avere\n- sarebbe: das si fehlt",
+            "sl": "**svegliarsi** → **si** in **essere**: **si sarebbe svegliato**\n- si avrebbe: s si nikoli avere\n- sarebbe: manjka si",
+            "en": "**svegliarsi** → **si** and **essere**: **si sarebbe svegliato**\n- si avrebbe: never avere with si\n- sarebbe: the si is missing"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für Bedauern und Vorwurf: **avrei dovuto** (ich hätte sollen), **avrei potuto** (ich hätte können), **avrei voluto** (ich hätte gern). Dann kommt das Verb in der Grundform: **Avrei dovuto ascoltare.** (Ich hätte zuhören sollen.) Nimmt es essere, sind beide richtig: **avrei dovuto venire** und **sarei dovuto venire**.",
+          "sl": "Za obžalovanje in očitek: **avrei dovuto** (moral bi), **avrei potuto** (lahko bi), **avrei voluto** (rad bi). Nato pride nedoločnik: **Avrei dovuto ascoltare.** (Moral bi poslušati.) Če ima glagol essere, sta prava oba: **avrei dovuto venire** in **sarei dovuto venire**.",
+          "en": "For regret and blame: **avrei dovuto** (I should have), **avrei potuto** (I could have), **avrei voluto** (I'd have liked to). The verb follows as an infinitive: **Avrei dovuto ascoltare.** (I should have listened.) When it takes essere, both are right: **avrei dovuto venire** and **sarei dovuto venire**."
+        },
+        "examples": [
+          { "it": "Lorenzo, avresti dovuto chiudere il cancello!", "de": "Lorenzo, du hättest das Tor zumachen sollen!", "sl": "Lorenzo, moral bi zapreti vrata ograde!", "en": "Lorenzo, you should have shut the gate!" },
+          { "it": "Avresti potuto dirmelo!", "de": "Das hättest du mir sagen können!", "sl": "Lahko bi mi {m:povedal|f:povedala}!", "en": "You could have told me!" }
+        ],
+        "rows": [
+          ["dovere", "avrei dovuto ascoltare"],
+          ["potere", "avresti potuto dirmelo"],
+          ["volere", "avrebbe voluto restare"],
+          [{ "it": "con essere", "de": "mit essere", "sl": "z essere", "en": "with essere" }, "avrei dovuto venire, sarei dovuto venire"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "condizionale-passato", "prompt": "Hai mal di pancia, Tommaso? ___ mangiare meno gelato!", "options": ["Avresti dovuto", "Saresti dovuto", "Avresti dovere"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**mangiare** nimmt avere → **avresti dovuto** (du hättest sollen)\n- saresti dovuto: nur bei Verben mit essere\n- dovere bleibt nicht Grundform: dovuto",
+            "sl": "**mangiare** ima avere → **avresti dovuto** (moral bi)\n- saresti dovuto: le pri glagolih z essere\n- dovere tu ni nedoločnik: dovuto",
+            "en": "**mangiare** takes avere → **avresti dovuto** (you should have)\n- saresti dovuto: only with verbs that take essere\n- dovere isn't the infinitive here: dovuto"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zia Nives' Radio und die Zeitung brauchen es auch: **Il sindaco avrebbe comprato un trattore.** Das heißt: Der Bürgermeister *soll* einen Traktor gekauft haben. Das sagt man, sicher ist es nicht. Selbst musst du das nicht sagen; du erkennst es an **secondo** (laut) und daran, dass kein **ma** folgt.",
+          "sl": "Radio tete Nives in časopis ga tudi rabita: **Il sindaco avrebbe comprato un trattore.** To pomeni: župan *naj bi* kupil traktor. Tako pravijo, gotovo ni. Sam ti tega ni treba reči; prepoznaš ga po **secondo** (po, kot pravi) in po tem, da ne sledi **ma**.",
+          "en": "Zia Nives's radio and the newspaper use it too: **Il sindaco avrebbe comprato un trattore.** It means the mayor *is said to have* bought a tractor. People say so; it isn't certain. You needn't say it yourself; you'll know it by **secondo** (according to) and because no **ma** follows."
+        },
+        "examples": [
+          { "it": "Secondo la radio, il sindaco avrebbe comprato un trattore nuovo.", "de": "Laut Radio soll der Bürgermeister einen neuen Traktor gekauft haben.", "sl": "Po poročanju radia naj bi župan kupil nov traktor.", "en": "According to the radio, the mayor has apparently bought a new tractor." },
+          { "it": "Secondo il giornale, la sagra sarebbe costata mille euro.", "de": "Laut Zeitung soll die Sagra tausend Euro gekostet haben.", "sl": "Po pisanju časopisa naj bi šagra stala tisoč evrov.", "en": "According to the paper, the sagra is said to have cost a thousand euros." }
+        ],
+        "rows": [
+          [{ "it": "alla radio", "de": "im Radio", "sl": "na radiu", "en": "on the radio" }, "avrebbe comprato, sarebbe costata"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "condizionale-passato", "prompt": { "de": "Die Zeitung schreibt: «Il mugnaio avrebbe trovato un tesoro.» Was heißt das?", "sl": "Časopis piše: »Il mugnaio avrebbe trovato un tesoro.« Kaj to pomeni?", "en": "The paper says: «Il mugnaio avrebbe trovato un tesoro.» What does it mean?" }, "options": ["Si dice così, ma non è sicuro.", "Di sicuro l'ha trovato.", "Lo troverà domani."], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**In der Zeitung, ohne ma** → **so sagt man**, sicher ist es nicht\n- Sicher wäre: l'ha trovato.\n- Morgen wäre: lo troverà.",
+            "sl": "**V časopisu, brez ma** → **tako pravijo**, gotovo ni\n- Gotovo bi bilo: l'ha trovato.\n- Jutri bi bilo: lo troverà.",
+            "en": "**In the paper, no ma** → **so they say**, it isn't certain\n- Certain would be: l'ha trovato.\n- Tomorrow would be: lo troverà."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "condizionale-passato-1",
+      "title": { "it": "Ma non è andata così", "de": "Aber so kam es nicht", "sl": "A ni šlo tako", "en": "But it didn't go that way" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "condizionale-passato", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "condizionale von avere und essere · hätte, wäre", "sl": "condizionale od avere in essere · bi imel, bi bil", "en": "the conditional of avere and essere · would have, would be" },
+          "columns": ["… mangiato", "… venuto"],
+          "rows": [
+            { "label": "io", "cells": ["avrei", { "accept": ["sarei"] }] },
+            { "label": "tu", "cells": [{ "accept": ["avresti"] }, "saresti"] },
+            { "label": "lui, lei", "cells": [{ "accept": ["avrebbe"] }, { "accept": ["sarebbe"] }] },
+            { "label": "noi", "cells": [{ "accept": ["avremmo"], "hint": { "de": "zwei m", "sl": "dva m", "en": "two m" } }, { "accept": ["saremmo"], "hint": { "de": "zwei m", "sl": "dva m", "en": "two m" } }] },
+            { "label": "voi", "cells": ["avreste", { "accept": ["sareste"] }] },
+            { "label": "loro", "cells": [{ "accept": ["avrebbero"] }, { "accept": ["sarebbero"] }] }
+          ]
+        },
+        {
+          "type": "sort", "grammar": "condizionale-passato", "instruction": { "de": "Avrei o sarei? · Hätte oder wäre?", "sl": "Avrei o sarei? · Avrei ali sarei?", "en": "Avrei o sarei? · Which helper?" },
+          "columns": [
+            { "label": { "de": "avrei … · ich hätte …", "sl": "avrei … · z avere", "en": "avrei … · with avere" }, "words": ["mangiato", "dormito", "comprato", "letto"] },
+            { "label": { "de": "sarei … · ich wäre …", "sl": "sarei … · z essere", "en": "sarei … · with essere" }, "words": ["andato", "partito", "rimasto", "arrivato"] }
+          ],
+          "explain": {
+            "de": "**Dieselbe Hilfe wie im passato prossimo**\n- ho mangiato → avrei mangiato\n- sono andato → sarei andato",
+            "sl": "**Isti pomožnik kot v passato prossimo**\n- ho mangiato → avrei mangiato\n- sono andato → sarei andato",
+            "en": "**The same helper as in the passato prossimo**\n- ho mangiato → avrei mangiato\n- sono andato → sarei andato"
+          }
+        },
+        {
+          "type": "choice", "grammar": "condizionale-passato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Giulia e Lorenzo ___ a giocare, ma è arrivato il temporale.", "options": ["sarebbero usciti", "avrebbero uscito", "sarebbe uscito"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**uscire** nimmt essere, **loro**, ein Junge dabei → **sarebbero usciti**\n- avrebbero uscito: sono uscito, also essere\n- sarebbe uscito · er allein",
+            "sl": "**uscire** ima essere, **loro**, zraven deček → **sarebbero usciti**\n- avrebbero uscito: sono uscito, torej essere\n- sarebbe uscito · samo on",
+            "en": "**uscire** takes essere, **loro**, a boy among them → **sarebbero usciti**\n- avrebbero uscito: sono uscito, so essere\n- sarebbe uscito · he alone"
+          }
+        },
+        {
+          "type": "choice", "grammar": "condizionale-passato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Ieri Lorenzo ___ volentieri alla festa, ma era stanco.", "options": ["sarebbe andato", "andrebbe", "andrà"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ieri**, vorbei → **sarebbe andato** (er wäre gegangen)\n- andrebbe · er würde gehen, jetzt\n- andrà · er wird gehen",
+            "sl": "**ieri**, mimo → **sarebbe andato** (šel bi)\n- andrebbe · šel bi, zdaj\n- andrà · šel bo",
+            "en": "**ieri**, it's over → **sarebbe andato** (he'd have gone)\n- andrebbe · he'd go, now\n- andrà · he'll go"
+          }
+        }
+      ]
+    },
+    {
+      "id": "condizionale-passato-2",
+      "title": { "it": "Una sagra sfortunata", "de": "Eine Sagra mit Pech", "sl": "Nesrečna šagra", "en": "An unlucky sagra" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "condizionale-passato", "instruction": { "de": "Completa con il condizionale passato · Ergänze mit dem Konditional der Vergangenheit", "sl": "Completa con il condizionale passato · Dopolni s preteklim pogojnikom", "en": "Completa con il condizionale passato · Fill in with the past conditional" },
+          "title": "Una sagra sfortunata",
+          "text": "Alla sagra non è andato niente come doveva. Marisa ___ (fare) gli gnocchi, ma la farina era finita. Franco ___ (portare) altra farina, ma il suo carro si è rotto. Giulia e Tommaso ___ (venire) ad aiutare, ma erano al mare. «Noi ___ (mettere) i tavoli in piazza», dice Bruno, «ma poi è arrivato il temporale.» Zia Nives ___ (rimanere) a casa, ma la radio si è rotta. E la musica? ___ (dovere) suonare Matteo, ma ha dimenticato la fisarmonica!",
+          "gaps": [
+            { "accept": ["avrebbe fatto"], "hint": { "de": "Marisa, sie", "sl": "Marisa, ona", "en": "Marisa, she" } },
+            { "accept": ["avrebbe portato"] },
+            { "accept": ["sarebbero venuti"], "hint": { "de": "ho oder sono?", "sl": "ho ali sono?", "en": "ho or sono?" } },
+            { "accept": ["avremmo messo"], "hint": { "de": "wir, zwei m", "sl": "mi, dva m", "en": "we, two m" } },
+            { "accept": ["sarebbe rimasta"], "explain": { "de": "**rimanere**: sono rimasta → **sarebbe rimasta**\n- Zia Nives: -a", "sl": "**rimanere**: sono rimasta → **sarebbe rimasta**\n- Zia Nives: -a", "en": "**rimanere**: sono rimasta → **sarebbe rimasta**\n- Zia Nives: -a" } },
+            { "accept": ["Avrebbe dovuto"] }
+          ],
+          "bank": true,
+          "distractors": ["avremo messo", "sarebbe rimasto", "avrebbero venuto"],
+          "translation": {
+            "de": "Auf der Sagra ging nichts so, wie es sollte. Marisa hätte Gnocchi gemacht, aber das Mehl war aus. Franco hätte noch Mehl gebracht, aber sein Wagen ist kaputtgegangen. Giulia und Tommaso wären zum Helfen gekommen, aber sie waren am Meer. „Wir hätten die Tische auf den Platz gestellt“, sagt Bruno, „aber dann kam das Gewitter.“ Zia Nives wäre zu Hause geblieben, aber ihr Radio ist kaputtgegangen. Und die Musik? Matteo hätte spielen sollen, aber er hat die Ziehharmonika vergessen!",
+            "sl": "Na šagri ni šlo nič tako, kot bi moralo. Marisa bi naredila njoke, a je zmanjkalo moke. Franco bi prinesel še moke, a se mu je voz pokvaril. Giulia in Tommaso bi prišla pomagat, a sta bila na morju. »Mize bi postavili na trg,« pravi Bruno, »a potem je prišla nevihta.« Teta Nives bi ostala doma, a se ji je pokvaril radio. In glasba? Igrati bi moral Matteo, a je pozabil harmoniko!",
+            "en": "Nothing at the sagra went as it should. Marisa would have made gnocchi, but the flour had run out. Franco would have brought more flour, but his cart broke down. Giulia and Tommaso would have come to help, but they were at the seaside. \"We'd have put the tables out on the square,\" says Bruno, \"but then the storm came.\" Zia Nives would have stayed at home, but her radio broke. And the music? Matteo should have played, but he forgot his accordion!"
+          }
+        },
+        {
+          "type": "choice", "grammar": "condizionale-passato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Davide ha perso la pecora nera. Nonna Rosa gli dice: «___ guardare meglio!»", "options": ["Avresti dovuto", "Avrai dovuto", "Avevi dovuto"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ein Vorwurf** → **avresti dovuto** (du hättest sollen)\n- avrai dovuto · du wirst wohl gemusst haben\n- avevi dovuto · du hattest gemusst",
+            "sl": "**očitek** → **avresti dovuto** (moral bi)\n- avrai dovuto · najbrž si moral\n- avevi dovuto · si bil moral",
+            "en": "**blame** → **avresti dovuto** (you should have)\n- avrai dovuto · you'll have had to\n- avevi dovuto · you had had to"
+          }
+        }
+      ]
+    },
+    {
+      "id": "condizionale-passato-3",
+      "title": { "it": "Peccato!", "de": "Schade!", "sl": "Škoda!", "en": "What a pity!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "condizionale-passato", "instruction": { "de": "Ormai è tardi: condizionale passato · Jetzt ist es zu spät: Konditional der Vergangenheit", "sl": "Ormai è tardi: condizionale passato · Zdaj je prepozno: pretekli pogojnik", "en": "Ormai è tardi: condizionale passato · Too late now: the past conditional" },
+          "cue": "condizionale passato",
+          "items": [
+            { "from": "Lorenzo giocherebbe a calcio.", "accept": ["Lorenzo avrebbe giocato a calcio."], "hint": "gioco → ho giocato" },
+            { "from": "Giulia verrebbe con noi.", "accept": ["Giulia sarebbe venuta con noi."], "hint": "Giulia: -a" },
+            { "from": "Noi prenderemmo il treno.", "accept": ["Noi avremmo preso il treno.", "Avremmo preso il treno."], "hint": "prendere → preso" },
+            { "from": "I bambini aprirebbero la porta.", "accept": ["I bambini avrebbero aperto la porta."], "hint": "aprire → aperto" },
+            { "from": "Davide e Matteo partirebbero all'alba.", "accept": ["Davide e Matteo sarebbero partiti all'alba."] },
+            { "from": "Zia Nives si alzerebbe presto.", "accept": ["Zia Nives si sarebbe alzata presto."], "hint": { "de": "si bleibt vorn", "sl": "si ostane spredaj", "en": "si stays in front" } },
+            { "from": "Dovresti chiamare Nonna Rosa.", "accept": ["Avresti dovuto chiamare Nonna Rosa."] },
+            { "from": "Potremmo aiutare Franco.", "accept": ["Avremmo potuto aiutare Franco."] }
+          ],
+          "explain": {
+            "de": "**Condizionale von avere oder essere + Partizip**\n- giocherebbe → avrebbe giocato\n- verrebbe → sarebbe venuta\n- dovresti → avresti dovuto",
+            "sl": "**Condizionale od avere ali essere + deležnik**\n- giocherebbe → avrebbe giocato\n- verrebbe → sarebbe venuta\n- dovresti → avresti dovuto",
+            "en": "**The conditional of avere or essere + the participle**\n- giocherebbe → avrebbe giocato\n- verrebbe → sarebbe venuta\n- dovresti → avresti dovuto"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "condizionale-passato", "instruction": { "de": "Completa con il condizionale passato · Ergänze mit dem Konditional der Vergangenheit", "sl": "Completa con il condizionale passato · Dopolni s preteklim pogojnikom", "en": "Completa con il condizionale passato · Fill in with the past conditional" },
+        "text": "La vendemmia di Matteo doveva finire sabato. Matteo ___ (finire) in tempo, ma ha piovuto per tre giorni. Davide ___ (venire) ad aiutare, ma aveva le pecore. Le ragazze del paese ___ (arrivare) la domenica, ma nessuno le ha avvisate. «___ (dovere) avvisarle io», dice Matteo. E Marisa: «Sì, e io ___ (preparare) il pranzo per tutti!»",
+        "gaps": [
+          { "accept": ["avrebbe finito"] },
+          { "accept": ["sarebbe venuto"] },
+          { "accept": ["sarebbero arrivate"] },
+          { "accept": ["Avrei dovuto"] },
+          { "accept": ["avrei preparato"] }
+        ],
+        "translation": {
+          "de": "Matteos Weinlese sollte am Samstag fertig sein. Matteo wäre rechtzeitig fertig geworden, aber es hat drei Tage geregnet. Davide wäre zum Helfen gekommen, aber er hatte die Schafe. Die Mädchen aus dem Dorf wären am Sonntag gekommen, aber niemand hat ihnen Bescheid gesagt. „Ich hätte ihnen Bescheid sagen sollen“, sagt Matteo. Und Marisa: „Ja, und ich hätte für alle das Mittagessen gemacht!“",
+          "sl": "Matteova trgatev naj bi se končala v soboto. Matteo bi končal pravočasno, a je tri dni deževalo. Davide bi prišel pomagat, a je imel ovce. Dekleta iz vasi bi prišla v nedeljo, a jih nihče ni obvestil. »Moral bi jih obvestiti,« pravi Matteo. In Marisa: »Ja, in jaz bi pripravila kosilo za vse!«",
+          "en": "Matteo's grape harvest was meant to end on Saturday. Matteo would have finished in time, but it rained for three days. Davide would have come to help, but he had the sheep. The village girls would have arrived on Sunday, but nobody told them. \"I should have told them,\" says Matteo. And Marisa: \"Yes, and I'd have made lunch for everyone!\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "condizionale-passato", "instruction": { "de": "Ormai è tardi: condizionale passato · Jetzt ist es zu spät: Konditional der Vergangenheit", "sl": "Ormai è tardi: condizionale passato · Zdaj je prepozno: pretekli pogojnik", "en": "Ormai è tardi: condizionale passato · Too late now: the past conditional" },
+        "items": [
+          { "from": "Apicoltore Aldo venderebbe il miele.", "accept": ["Apicoltore Aldo avrebbe venduto il miele.", "Aldo avrebbe venduto il miele."] },
+          { "from": "Le pecore scapperebbero.", "accept": ["Le pecore sarebbero scappate."] },
+          { "from": "Potresti aiutarmi.", "accept": ["Avresti potuto aiutarmi.", "Mi avresti potuto aiutare."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "condizionale-passato", "prompt": "Noi ___ il pozzo nuovo, ma non c'erano soldi.", "options": ["avremmo costruito", "avremo costruito", "saremmo costruiti"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**noi**, nicht passiert (ma) → **avremmo costruito**, zwei m\n- avremo costruito · Zukunft\n- saremmo costruiti: costruire nimmt avere",
+          "sl": "**noi**, se ni zgodilo (ma) → **avremmo costruito**, dva m\n- avremo costruito · prihodnjik\n- saremmo costruiti: costruire ima avere",
+          "en": "**noi**, it didn't happen (ma) → **avremmo costruito**, two m\n- avremo costruito · the future\n- saremmo costruiti: costruire takes avere"
+        }
+      },
+      {
+        "type": "sort", "grammar": "condizionale-passato", "instruction": { "de": "Com'è andata davvero? · Wie war es wirklich?", "sl": "Com'è andata davvero? · Kako je bilo zares?", "en": "Com'è andata davvero? · What really happened?" },
+        "columns": [
+          { "label": { "de": "è successo · ist passiert", "sl": "è successo · se je zgodilo", "en": "è successo · it happened" }, "words": ["Giulia è venuta.", "Abbiamo mangiato.", "Tommaso ha giocato."] },
+          { "label": { "de": "non è successo · ist nicht passiert", "sl": "non è successo · se ni zgodilo", "en": "non è successo · it didn't happen" }, "words": ["Giulia sarebbe venuta.", "Avremmo mangiato.", "Tommaso avrebbe giocato."] }
+        ],
+        "explain": {
+          "de": "**passato prossimo**: ist passiert · **condizionale passato**: wäre passiert, ist es aber nicht\n- è venuta · sie ist gekommen\n- sarebbe venuta · sie wäre gekommen",
+          "sl": "**passato prossimo**: se je zgodilo · **condizionale passato**: bi se zgodilo, pa se ni\n- è venuta · prišla je\n- sarebbe venuta · prišla bi",
+          "en": "**passato prossimo**: it happened · **condizionale passato**: it would have, but didn't\n- è venuta · she came\n- sarebbe venuta · she would have come"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Mi sarei fermata, avrebbe costruito, the news conditional, the German würde and hätte for a child"
+}

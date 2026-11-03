@@ -204,6 +204,9 @@ class TreasureTest {
         val tf = c.exercises.last() as Exercise.Choice
         assertEquals(listOf("Drži", "Ne drži"), tf.options)
         assertEquals(1, tf.answer)
+        // shown as it stands; the letter's other questions in the day's order (ChoiceOrder)
+        assertTrue(tf.fixedOrder)
+        assertTrue(c.exercises.dropLast(1).filterIsInstance<Exercise.Choice>().none { it.fixedOrder })
     }
 
     @Test fun `the listening station, heard and two written`() {

@@ -1,0 +1,841 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "have-you-ever",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🐦",
+  "title": {
+    "en": "Have you ever seen a raven?",
+    "de": "Das Present Perfect: have you ever, I've just",
+    "sl": "Sedanji perfekt: have you ever, I've just",
+    "it": "Il present perfect: have you ever, I've just"
+  },
+  "goal": {
+    "sl": "Govoriš o življenju doslej (I've seen a raven, Have you ever been to Keswick?, I've never been), poveš, kaj se je pravkar zgodilo in kaj še ne, in rabiš past simple, takoj ko poveš, kdaj.",
+    "de": "Du sprichst über dein Leben bis jetzt (I've seen a raven, Have you ever been to Keswick?, I've never been), sagst, was gerade passiert ist und was noch nicht, und nimmst das past simple, sobald du sagst, wann.",
+    "it": "Parli della tua vita finora (I've seen a raven, Have you ever been to Keswick?, I've never been), dici che cosa è appena successo e che cosa non ancora, e usi il past simple appena dici quando.",
+    "en": "You can talk about your life so far (I've seen a raven, Have you ever been to Keswick?, I've never been), say what has just happened and what hasn't yet, and use the past simple as soon as you say when."
+  },
+  "grammar": ["present-perfect", "past-simple"],
+  "words": [
+    "ever",
+    "never",
+    "just",
+    "already",
+    "yet",
+    "been",
+    "seen",
+    "gone",
+    "done",
+    "eaten",
+    "taken",
+    "written",
+    "made",
+    "met",
+    "heard",
+    "found",
+    "fed",
+    "climbed",
+    "raven",
+    "Helvellyn",
+    "finish",
+    "mend",
+    "clock",
+    "round",
+    "breakfast",
+    "a moment ago",
+    "yesterday",
+    "last week",
+    "two days ago",
+    "soup",
+    "letter",
+    "tarn",
+    "walker",
+    "sea"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za življenje doslej, brez časa: **have** ali **has** + deležnik (past participle). **I've seen a raven.** (Videl{m:|f:a} sem krokarja.) **She's climbed Helvellyn.** (Povzpela se je na Helvellyn.) **We've walked round the tarn.** (Obhodili smo jezerce.) Tu je **'s** has. Vedno have, nikoli be: **I've been**, nikoli *I am been*. Zanikano: **haven't**, **hasn't**. Deležnik pravilnega glagola je kot preteklik: **climbed**, **walked**.",
+          "de": "Für dein Leben bis jetzt, ohne Zeitangabe: **have** oder **has** + Partizip (past participle). **I've seen a raven.** (Ich habe einen Raben gesehen.) **She's climbed Helvellyn.** (Sie ist auf den Helvellyn gestiegen.) **We've walked round the tarn.** (Wir sind um den Bergsee gegangen.) Hier ist **'s** has. Immer have, nie be: **I've been**, nie *I am been*. Verneint: **haven't**, **hasn't**. Bei regelmäßigen Verben ist das Partizip wie die Vergangenheit: **climbed**, **walked**.",
+          "it": "Per la tua vita finora, senza dire quando: **have** o **has** + il participio (past participle). **I've seen a raven.** (Ho visto un corvo imperiale.) **She's climbed Helvellyn.** (È salita sull'Helvellyn.) **We've walked round the tarn.** (Abbiamo fatto il giro del laghetto.) Qui **'s** è has. Sempre have, mai be: **I've been**, mai *I am been*. Negativo: **haven't**, **hasn't**. Nei verbi regolari il participio è come il passato: **climbed**, **walked**.",
+          "en": "For your life so far, with no time said: **have** or **has** + the past participle. **I've seen a raven.** **She's climbed Helvellyn.** **We've walked round the tarn.** Always have, never be: **I've been** (never *I am been*). Here **'s** is has. No: **haven't**, **hasn't**. A regular verb's participle looks like its past: **climbed**, **walked**."
+        },
+        "examples": [
+          {
+            "en": "I've seen a raven.",
+            "sl": "Videl{m:|f:a} sem krokarja.",
+            "de": "Ich habe einen Raben gesehen.",
+            "it": "Ho visto un corvo imperiale."
+          },
+          {
+            "en": "She's climbed Helvellyn.",
+            "sl": "Povzpela se je na Helvellyn.",
+            "de": "Sie ist auf den Helvellyn gestiegen.",
+            "it": "È salita sull'Helvellyn."
+          },
+          {
+            "en": "We've walked round the tarn.",
+            "sl": "Obhodili smo jezerce.",
+            "de": "Wir sind um den Bergsee gegangen.",
+            "it": "Abbiamo fatto il giro del laghetto."
+          },
+          {
+            "en": "Arthur hasn't climbed Helvellyn.",
+            "sl": "Arthur se ni povzpel na Helvellyn.",
+            "de": "Arthur war noch nicht auf dem Helvellyn.",
+            "it": "Arthur non è salito sull'Helvellyn."
+          }
+        ],
+        "rows": [
+          [
+            "have, has + participle",
+            {
+              "sl": "življenje doslej, brez časa",
+              "de": "dein Leben bis jetzt, ohne Zeit",
+              "it": "la tua vita finora, senza quando",
+              "en": "your life so far, no time said"
+            },
+            "I've seen a raven."
+          ],
+          [{"sl": "ne", "de": "nein", "it": "no", "en": "no"}, "haven't, hasn't", "Arthur hasn't climbed it."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-perfect",
+          "prompt": "Mrs Birkett ___ climbed Helvellyn.",
+          "options": ["has", "have", "is"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mrs Birkett je she: has**\n- I've climbed · she's climbed · they've climbed",
+            "de": "**Mrs Birkett ist she: has**\n- I've climbed · she's climbed · they've climbed",
+            "it": "**Mrs Birkett è she: has**\n- I've climbed · she's climbed · they've climbed",
+            "en": "**Mrs Birkett is she: has**\n- I've climbed · she's climbed · they've climbed"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Mnogi deležniki so kot preteklik: **made**, **met**, **had**, **heard**, **found**. Drugi imajo svojo obliko, ki se je naučiš: see → **seen**, be → **been**, do → **done**, eat → **eaten**, take → **taken**, write → **written**. V pisanju je deležnik, **I've seen**, čeprav nekateri rečejo *I've saw*. Pri go sta dve obliki: **He's gone to Keswick.** (Šel je v Keswick in je še tam.) **He's been to Keswick.** (Bil je v Keswicku in se je vrnil.)",
+          "de": "Viele Partizipien sehen aus wie die Vergangenheit: **made**, **met**, **had**, **heard**, **found**. Andere haben eine eigene Form, die du einzeln lernst: see → **seen**, be → **been**, do → **done**, eat → **eaten**, take → **taken**, write → **written**. Geschrieben steht das Partizip, **I've seen**, auch wenn manche *I've saw* sagen. Bei go gibt es zwei: **He's gone to Keswick.** (Er ist nach Keswick gefahren und noch dort.) **He's been to Keswick.** (Er war in Keswick und ist wieder da.)",
+          "it": "Molti participi sono come il passato: **made**, **met**, **had**, **heard**, **found**. Altri hanno una forma loro, da imparare una per una: see → **seen**, be → **been**, do → **done**, eat → **eaten**, take → **taken**, write → **written**. Per iscritto si usa il participio, **I've seen**, anche se qualcuno dice *I've saw*. Con go ce ne sono due: **He's gone to Keswick.** (È andato a Keswick ed è ancora lì.) **He's been to Keswick.** (È stato a Keswick ed è tornato.)",
+          "en": "Many participles look like the past: **made**, **met**, **had**, **heard**, **found**. Others have their own form, learned one by one: see → **seen**, be → **been**, do → **done**, eat → **eaten**, take → **taken**, write → **written**. Writing wants the participle, **I've seen**, though some people say *I've saw*. And go has two: **He's gone to Keswick.** (he's still there) **He's been to Keswick.** (and he's back)"
+        },
+        "examples": [
+          {
+            "en": "I've met Mrs Hartley.",
+            "sl": "Spoznal{m:|f:a} sem gospo Hartley.",
+            "de": "Ich habe Mrs Hartley kennengelernt.",
+            "it": "Ho conosciuto Mrs Hartley."
+          },
+          {
+            "en": "Sam has written a letter.",
+            "sl": "Sam je napisal pismo.",
+            "de": "Sam hat einen Brief geschrieben.",
+            "it": "Sam ha scritto una lettera."
+          },
+          {
+            "en": "Where's Jack? — He's gone to Keswick.",
+            "sl": "Kje je Jack? — Šel je v Keswick.",
+            "de": "Wo ist Jack? — Er ist nach Keswick gefahren.",
+            "it": "Dov'è Jack? — È andato a Keswick."
+          },
+          {
+            "en": "He's been to Keswick. He's back now.",
+            "sl": "Bil je v Keswicku. Zdaj je spet tu.",
+            "de": "Er war in Keswick. Jetzt ist er wieder da.",
+            "it": "È stato a Keswick. Adesso è tornato."
+          }
+        ],
+        "rows": [
+          [
+            "made, met, had, heard, found",
+            { "sl": "kot preteklik", "de": "wie die Vergangenheit", "it": "come il passato", "en": "like the past" },
+            "I've met Mrs Hartley."
+          ],
+          [
+            "seen, been, done, eaten, taken, written",
+            { "sl": "svoja oblika", "de": "eine eigene Form", "it": "una forma propria", "en": "a form of their own" },
+            "Sam has written a letter."
+          ],
+          [
+            "gone, been",
+            {
+              "sl": "še tam; tja in nazaj",
+              "de": "noch dort; hin und zurück",
+              "it": "ancora lì; andata e ritorno",
+              "en": "still there; there and back"
+            },
+            "He's gone. He's been."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-perfect",
+          "text": "Jack has ___ (see) a raven.",
+          "accept": ["seen"],
+          "hint": "see → ?",
+          "explain": {
+            "sl": "**see ima svoj deležnik**\n- see · saw · seen",
+            "de": "**see hat ein eigenes Partizip**\n- see · saw · seen",
+            "it": "**see ha un participio proprio**\n- see · saw · seen",
+            "en": "**see has its own participle**\n- see · saw · seen"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Ko sprašuješ za vse življenje: **Have you ever seen a raven?** (Si že kdaj videl{m:|f:a} krokarja?) **Has Jack ever been to London?** (Je bil Jack že kdaj v Londonu?) Odgovor: **Yes, I have.** (Ja.) **No, I haven't.** (Ne.) **never** je že sam ne, slovenski *nikoli nisem* pa ima dva: **I've never been to Carlisle.** (Nikoli nisem bil{m:|f:a} v Carlislu.) Ljudje rečejo tudi *I haven't never been*; v pisanju je samo en ne. **ever** in **never** stojita pred deležnikom.",
+          "de": "Wenn du nach dem ganzen Leben fragst: **Have you ever seen a raven?** (Hast du schon einmal einen Raben gesehen?) **Has Jack ever been to London?** (War Jack schon einmal in London?) Die Antwort: **Yes, I have.** (Ja.) **No, I haven't.** (Nein.) **never** ist schon das Nein, ohne zweites not: **I've never been to Carlisle.** (Ich war noch nie in Carlisle.) Manche sagen auch *I haven't never been*; geschrieben steht nur ein Nein. **ever** und **never** stehen vor dem Partizip.",
+          "it": "Per chiedere di tutta una vita: **Have you ever seen a raven?** (Hai mai visto un corvo imperiale?) **Has Jack ever been to London?** (Jack è mai stato a Londra?) La risposta: **Yes, I have.** (Sì.) **No, I haven't.** (No.) **never** è già il no, senza un altro not, dove l'italiano dice *non … mai*: **I've never been to Carlisle.** (Non sono mai stat{m:o|f:a} a Carlisle.) C'è chi dice anche *I haven't never been*; per iscritto un solo no. **ever** e **never** stanno prima del participio.",
+          "en": "To ask about a whole life: **Have you ever seen a raven?** **Has Jack ever been to London?** The answer: **Yes, I have.** **No, I haven't.** **never** is the no: **I've never been to Carlisle.** People also say *I haven't never been*; writing wants one no. **ever** and **never** stand before the participle."
+        },
+        "examples": [
+          {
+            "en": "Have you ever seen a raven? — Yes, I have.",
+            "sl": "Si že kdaj videl{m:|f:a} krokarja? — Ja.",
+            "de": "Hast du schon einmal einen Raben gesehen? — Ja.",
+            "it": "Hai mai visto un corvo imperiale? — Sì."
+          },
+          {
+            "en": "Has Jack ever been to London? — No, he hasn't.",
+            "sl": "Je bil Jack že kdaj v Londonu? — Ne.",
+            "de": "War Jack schon einmal in London? — Nein.",
+            "it": "Jack è mai stato a Londra? — No."
+          },
+          {
+            "en": "I've never been to Carlisle.",
+            "sl": "Nikoli nisem bil{m:|f:a} v Carlislu.",
+            "de": "Ich war noch nie in Carlisle.",
+            "it": "Non sono mai stat{m:o|f:a} a Carlisle."
+          }
+        ],
+        "rows": [
+          [
+            "Have you ever …?",
+            { "sl": "v vsem življenju", "de": "im ganzen Leben", "it": "in tutta la vita", "en": "in your whole life" },
+            "Have you ever seen a raven?"
+          ],
+          [
+            "never",
+            { "sl": "samo en ne", "de": "nur ein Nein", "it": "un solo no", "en": "one no only" },
+            "I've never been to Carlisle."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-perfect",
+          "prompt": "Mr Tyson ___ seen the sea.",
+          "options": ["has never", "is never", "never is"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Samo en ne: has never**\n- I've never seen · he has never seen",
+            "de": "**Nur ein Nein: has never**\n- I've never seen · he has never seen",
+            "it": "**Un solo no: has never**\n- I've never seen · he has never seen",
+            "en": "**One no only: has never**\n- I've never seen · he has never seen"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**just** pomeni pravkar in stoji pred deležnikom: **I've just seen Jack.** (Pravkar sem videl{m:|f:a} Jacka.) **The bus has just left.** (Avtobus je pravkar odpeljal.) **Mrs Birkett has just made some tea.** (Gospa Birkett je pravkar skuhala čaj.) Američani rečejo tudi **I just saw Jack**, in tudi to je prav.",
+          "de": "**just** heißt gerade eben und steht vor dem Partizip: **I've just seen Jack.** (Ich habe gerade Jack gesehen.) **The bus has just left.** (Der Bus ist gerade abgefahren.) **Mrs Birkett has just made some tea.** (Mrs Birkett hat gerade Tee gemacht.) Amerikanisch sagt man auch **I just saw Jack**, und auch das ist richtig.",
+          "it": "**just** vuol dire appena e sta prima del participio: **I've just seen Jack.** (Ho appena visto Jack.) **The bus has just left.** (L'autobus è appena partito.) **Mrs Birkett has just made some tea.** (Mrs Birkett ha appena fatto il tè.) In americano si dice anche **I just saw Jack**, e va bene anche così.",
+          "en": "**just** means a moment ago, and stands before the participle: **I've just seen Jack.** **The bus has just left.** **Mrs Birkett has just made some tea.** American English also says **I just saw Jack**, and that's right too."
+        },
+        "examples": [
+          {
+            "en": "I've just seen Jack.",
+            "sl": "Pravkar sem videl{m:|f:a} Jacka.",
+            "de": "Ich habe gerade Jack gesehen.",
+            "it": "Ho appena visto Jack."
+          },
+          {
+            "en": "The bus has just left.",
+            "sl": "Avtobus je pravkar odpeljal.",
+            "de": "Der Bus ist gerade abgefahren.",
+            "it": "L'autobus è appena partito."
+          },
+          {
+            "en": "Mrs Birkett has just made some tea.",
+            "sl": "Gospa Birkett je pravkar skuhala čaj.",
+            "de": "Mrs Birkett hat gerade Tee gemacht.",
+            "it": "Mrs Birkett ha appena fatto il tè."
+          }
+        ],
+        "rows": [["just", {"sl": "pravkar", "de": "gerade eben", "it": "appena", "en": "a moment ago"}, "I've just seen Jack."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-perfect",
+          "prompt": "The bus ___ left. We're too late!",
+          "options": ["has just", "just has", "is just"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**just med has in deležnikom**\n- The bus has just left.",
+            "de": "**just zwischen has und Partizip**\n- The bus has just left.",
+            "it": "**just tra has e il participio**\n- The bus has just left.",
+            "en": "**just between has and the participle**\n- The bus has just left."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**already** (že) stoji pred deležnikom: **I've already eaten.** (Sem že {m:jedel|f:jedla}.) **yet** stoji na koncu, v vprašanju (že) in z not (še): **Have you fed the dogs yet, Jack?** (Si že nahranil pse, Jack?) **I haven't finished yet.** (Še nisem {m:končal|f:končala}.) Američani rečejo tudi **Did you feed the dogs yet?**",
+          "de": "**already** (schon) steht vor dem Partizip: **I've already eaten.** (Ich habe schon gegessen.) **yet** steht am Ende, in der Frage (schon) und mit not (noch nicht): **Have you fed the dogs yet, Jack?** (Hast du die Hunde schon gefüttert, Jack?) **I haven't finished yet.** (Ich bin noch nicht fertig.) Amerikanisch auch **Did you feed the dogs yet?**",
+          "it": "**already** (già) sta prima del participio: **I've already eaten.** (Ho già mangiato.) **yet** va alla fine, nella domanda (già) e con not (non ancora): **Have you fed the dogs yet, Jack?** (Hai già dato da mangiare ai cani, Jack?) **I haven't finished yet.** (Non ho ancora finito.) In americano anche **Did you feed the dogs yet?**",
+          "en": "**already** stands before the participle: **I've already eaten.** **yet** goes at the end, in a question and with not: **Have you fed the dogs yet, Jack?** **I haven't finished yet** (never *I've finished yet*). American English also says **Did you feed the dogs yet?**"
+        },
+        "examples": [
+          {
+            "en": "I've already eaten, thank you.",
+            "sl": "Sem že {m:jedel|f:jedla}, hvala.",
+            "de": "Ich habe schon gegessen, danke.",
+            "it": "Ho già mangiato, grazie."
+          },
+          {
+            "en": "Have you fed the dogs yet, Jack?",
+            "sl": "Si že nahranil pse, Jack?",
+            "de": "Hast du die Hunde schon gefüttert, Jack?",
+            "it": "Hai già dato da mangiare ai cani, Jack?"
+          },
+          {
+            "en": "I haven't finished yet.",
+            "sl": "Še nisem {m:končal|f:končala}.",
+            "de": "Ich bin noch nicht fertig.",
+            "it": "Non ho ancora finito."
+          }
+        ],
+        "rows": [
+          [
+            "already",
+            {
+              "sl": "pred deležnikom",
+              "de": "vor dem Partizip",
+              "it": "prima del participio",
+              "en": "before the participle"
+            },
+            "I've already eaten."
+          ],
+          [
+            "yet",
+            {
+              "sl": "vprašanje, not: na koncu",
+              "de": "Frage, not: am Ende",
+              "it": "domanda, not: alla fine",
+              "en": "question, not: at the end"
+            },
+            "Have you fed the dogs yet?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-perfect",
+          "text": "Have you had breakfast ___?",
+          "accept": ["yet", "already"],
+          "hint": {
+            "sl": "na koncu vprašanja",
+            "de": "am Ende einer Frage",
+            "it": "alla fine di una domanda",
+            "en": "at the end of a question"
+          },
+          "explain": {
+            "sl": "**Vprašanje: yet na koncu**\n- Have you had breakfast yet? · I haven't finished yet.",
+            "de": "**Eine Frage: yet am Ende**\n- Have you had breakfast yet? · I haven't finished yet.",
+            "it": "**Una domanda: yet alla fine**\n- Have you had breakfast yet? · I haven't finished yet.",
+            "en": "**A question: yet at the end**\n- Have you had breakfast yet? · I haven't finished yet."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Takoj ko poveš, kdaj, pride **past simple** (slovenščina ima za oboje en čas): **I saw a raven yesterday.** (Včeraj sem videl{m:|f:a} krokarja.) Nikoli *I've seen a raven yesterday*. Besede za kdaj: **yesterday**, **last week**, **two days ago**, **in 2019**. Pogovor se pogosto začne s perfektom in gre naprej v pretekliku: **Have you ever been to Keswick? — Yes, I went there last week.** (Ja, tja sem {m:šel|f:šla} prejšnji teden.)",
+          "de": "Sobald du sagst, wann, kommt das **past simple**, auch wo Deutsch das Perfekt nimmt: **I saw a raven yesterday.** (Ich habe gestern einen Raben gesehen.) Nie *I've seen a raven yesterday*. Wörter für wann: **yesterday**, **last week**, **two days ago**, **in 2019**. Ein Gespräch beginnt oft im present perfect und geht in der Vergangenheit weiter: **Have you ever been to Keswick? — Yes, I went there last week.** (Ja, ich war letzte Woche dort.)",
+          "it": "Appena dici quando, viene il **past simple**, anche dove l'italiano dice sempre *ho visto*: **I saw a raven yesterday.** (Ieri ho visto un corvo imperiale.) Mai *I've seen a raven yesterday*. Le parole del quando: **yesterday**, **last week**, **two days ago**, **in 2019**. Una conversazione comincia spesso col present perfect e continua al passato: **Have you ever been to Keswick? — Yes, I went there last week.** (Sì, ci sono stat{m:o|f:a} la settimana scorsa.)",
+          "en": "As soon as you say when, the past simple comes: **I saw a raven yesterday** (never *I've seen a raven yesterday*). The when-words: **yesterday**, **last week**, **two days ago**, **in 2019**. So talk often begins with the present perfect and goes on in the past: **Have you ever been to Keswick? — Yes, I went there last week.** British English keeps the two apart."
+        },
+        "examples": [
+          {
+            "en": "I saw a raven yesterday.",
+            "sl": "Včeraj sem videl{m:|f:a} krokarja.",
+            "de": "Ich habe gestern einen Raben gesehen.",
+            "it": "Ieri ho visto un corvo imperiale."
+          },
+          {
+            "en": "Have you ever been to Keswick? — Yes, I went there last week.",
+            "sl": "Si že kdaj bil{m:|f:a} v Keswicku? — Ja, tja sem {m:šel|f:šla} prejšnji teden.",
+            "de": "Warst du schon einmal in Keswick? — Ja, ich war letzte Woche dort.",
+            "it": "Sei mai stat{m:o|f:a} a Keswick? — Sì, ci sono stat{m:o|f:a} la settimana scorsa."
+          },
+          {
+            "en": "Mr Dixon mended the gate two days ago.",
+            "sl": "Gospod Dixon je pred dvema dnevoma popravil vrata.",
+            "de": "Mr Dixon hat vor zwei Tagen das Tor repariert.",
+            "it": "Mr Dixon ha riparato il cancello due giorni fa."
+          }
+        ],
+        "rows": [
+          [
+            "past simple",
+            { "sl": "poveš, kdaj", "de": "du sagst, wann", "it": "dici quando", "en": "you say when" },
+            "I saw a raven yesterday."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "I ___ a raven yesterday.",
+          "options": ["saw", "have seen", "has seen"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**yesterday pove, kdaj: past simple**\n- I saw a raven yesterday. · I've seen a raven.",
+            "de": "**yesterday sagt, wann: past simple**\n- I saw a raven yesterday. · I've seen a raven.",
+            "it": "**yesterday dice quando: past simple**\n- I saw a raven yesterday. · I've seen a raven.",
+            "en": "**yesterday says when: past simple**\n- I saw a raven yesterday. · I've seen a raven."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**have**, **has** + deležnik za življenje doslej, brez časa: **I've seen a raven.** **Have you ever been to Keswick?** **I've never been** (en sam ne). **just** in **already** pred deležnikom, **yet** na koncu: **I've just eaten.** **Have you finished yet?** Ko poveš, kdaj, pride past simple: **I saw it yesterday.**",
+      "de": "**have**, **has** + Partizip für dein Leben bis jetzt, ohne Zeitangabe: **I've seen a raven.** **Have you ever been to Keswick?** **I've never been** (nur ein Nein). **just** und **already** vor dem Partizip, **yet** am Ende: **I've just eaten.** **Have you finished yet?** Sagst du, wann, kommt das past simple: **I saw it yesterday.**",
+      "it": "**have**, **has** + il participio per la tua vita finora, senza dire quando: **I've seen a raven.** **Have you ever been to Keswick?** **I've never been** (un solo no). **just** e **already** prima del participio, **yet** alla fine: **I've just eaten.** **Have you finished yet?** Se dici quando, viene il past simple: **I saw it yesterday.**",
+      "en": "**have**, **has** + the participle for your life so far, no time said: **I've seen a raven.** **Have you ever been to Keswick?** **I've never been** (one no). **just** and **already** before the participle, **yet** at the end: **I've just eaten.** **Have you finished yet?** When you say when, the past simple: **I saw it yesterday.**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "have-you-ever-1",
+      "title": { "sl": "Si že kdaj?", "de": "Schon einmal?", "it": "Hai mai?", "en": "Have you ever?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "present-perfect",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "glagoli · preteklik in deležnik",
+            "de": "Verben · Vergangenheit und Partizip",
+            "it": "verbi · passato e participio",
+            "en": "verbs: the past and the participle"
+          },
+          "columns": [
+            {
+              "sl": "past simple · preteklik",
+              "de": "past simple · Vergangenheit",
+              "it": "past simple · passato",
+              "en": "past simple"
+            },
+            {
+              "sl": "participle · deležnik",
+              "de": "participle · Partizip",
+              "it": "participle · participio",
+              "en": "participle"
+            }
+          ],
+          "rows": [
+            { "label": "see", "cells": ["saw", "seen"] },
+            { "label": "be", "cells": ["was, were", {"accept": ["been"]}] },
+            { "label": "go", "cells": ["went", {"accept": ["gone"]}] },
+            { "label": "do", "cells": ["did", {"accept": ["done"]}] },
+            { "label": "eat", "cells": ["ate", {"accept": ["eaten"]}] },
+            { "label": "take", "cells": ["took", {"accept": ["taken"]}] },
+            {
+              "label": "write",
+              "cells": ["wrote", {"accept": ["written"], "hint": {"sl": "dva t", "de": "zwei t", "it": "due t", "en": "two t"}}]
+            }
+          ],
+          "explain": {
+            "sl": "**Ti imajo svoj deležnik**\n- see · saw · seen\n- go · went · gone",
+            "de": "**Diese haben ein eigenes Partizip**\n- see · saw · seen\n- go · went · gone",
+            "it": "**Questi hanno un participio proprio**\n- see · saw · seen\n- go · went · gone",
+            "en": "**These have a participle of their own**\n- see · saw · seen\n- go · went · gone"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "present-perfect",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: which goes with which"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "I've seen · brez časa",
+                "de": "I've seen · ohne Zeit",
+                "it": "I've seen · senza quando",
+                "en": "I've seen"
+              },
+              "words": ["ever", "never", "just"]
+            },
+            {
+              "label": {
+                "sl": "I saw · poveš, kdaj",
+                "de": "I saw · du sagst, wann",
+                "it": "I saw · dici quando",
+                "en": "I saw"
+              },
+              "words": ["yesterday", "last week", "two days ago"]
+            }
+          ],
+          "explain": {
+            "sl": "**Čas, ki je mimo: past simple**\n- I've never seen a raven. · I saw one yesterday.",
+            "de": "**Eine Zeit, die vorbei ist: past simple**\n- I've never seen a raven. · I saw one yesterday.",
+            "it": "**Un tempo finito: past simple**\n- I've never seen a raven. · I saw one yesterday.",
+            "en": "**A time that is over: the past simple**\n- I've never seen a raven. · I saw one yesterday."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-perfect",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Have you ever been to London?",
+          "options": ["No, I haven't.", "No, I didn't.", "No, I'm not."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor s have: No, I haven't.**\n- Yes, I have. · No, I haven't.",
+            "de": "**Die Kurzantwort mit have: No, I haven't.**\n- Yes, I have. · No, I haven't.",
+            "it": "**La risposta breve con have: No, I haven't.**\n- Yes, I have. · No, I haven't.",
+            "en": "**The short answer with have: No, I haven't.**\n- Yes, I have. · No, I haven't."
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-you-ever-2",
+      "title": {
+        "sl": "Pohodnik v gostilni",
+        "de": "Ein Wanderer im Gasthaus",
+        "it": "Un escursionista alla locanda",
+        "en": "A walker at the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "present-perfect",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— Have you ___ been to the Lakes? — No, I ___. This is my first time. — Have you ___ (climb) Helvellyn? — Not ___! But I've already ___ (walk) round the tarn, and I've just ___ (see) a raven. — A raven! I ___ (see) one last week, on the fell. I've ___ (make) some soup. Would you like some?",
+          "gaps": [
+            {
+              "accept": ["ever", "never"],
+              "hint": {
+                "sl": "v vsem življenju",
+                "de": "im ganzen Leben",
+                "it": "in tutta la vita",
+                "en": "in your whole life"
+              }
+            },
+            { "accept": ["haven't"], "hint": "have + not" },
+            {
+              "accept": ["climbed"],
+              "hint": { "sl": "deležnik", "de": "das Partizip", "it": "il participio", "en": "the participle" }
+            },
+            {
+              "accept": ["yet"],
+              "hint": {
+                "sl": "še ne, morda pozneje",
+                "de": "noch nicht, vielleicht später",
+                "it": "non ancora, forse più tardi",
+                "en": "not now, perhaps later"
+              }
+            },
+            {
+              "accept": ["walked"],
+              "hint": { "sl": "deležnik", "de": "das Partizip", "it": "il participio", "en": "the participle" }
+            },
+            { "accept": ["seen"], "hint": "see → ?" },
+            {
+              "accept": ["saw"],
+              "hint": {
+                "sl": "last week pove, kdaj",
+                "de": "last week sagt, wann",
+                "it": "last week dice quando",
+                "en": "last week says when"
+              },
+              "explain": {
+                "sl": "**Čas je povedan: past simple**\n- I saw one last week.",
+                "de": "**Die Zeit ist gesagt: past simple**\n- I saw one last week.",
+                "it": "**Il tempo è detto: past simple**\n- I saw one last week.",
+                "en": "**A time is said: past simple**\n- I saw one last week."
+              }
+            },
+            { "accept": ["made"], "hint": "make → ?" }
+          ],
+          "bank": true,
+          "distractors": ["see", "did"],
+          "translation": {
+            "sl": "— Ste že kdaj bili v Lake Districtu? — Ne, nisem. Prvič sem tukaj. — Ste se že povzpeli na Helvellyn? — Še ne! Sem pa že {m:obhodil|f:obhodila} jezerce in pravkar {m:videl|f:videla} krokarja. — Krokarja! Jaz sem enega videla prejšnji teden na hribu. Skuhala sem juho. Bi je malo?",
+            "de": "— Waren Sie schon einmal im Lake District? — Nein. Ich bin zum ersten Mal hier. — Waren Sie schon auf dem Helvellyn? — Noch nicht! Aber ich bin schon um den Bergsee gegangen und habe gerade einen Raben gesehen. — Einen Raben! Ich habe letzte Woche einen am Berg gesehen. Ich habe Suppe gemacht. Möchten Sie welche?",
+            "it": "— È mai stat{m:o|f:a} nel Lake District? — No. È la prima volta. — È già salit{m:o|f:a} sull'Helvellyn? — Non ancora! Ma ho già fatto il giro del laghetto e ho appena visto un corvo imperiale. — Un corvo imperiale! Io ne ho visto uno la settimana scorsa, sul monte. Ho fatto la zuppa. Ne vuole un po'?",
+            "en": "— Have you ever been to the Lakes? — No, I haven't. This is my first time. — Have you climbed Helvellyn? — Not yet! But I've already walked round the tarn, and I've just seen a raven. — A raven! I saw one last week, on the fell. I've made some soup. Would you like some?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-perfect",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Where's Jack? — He's ___ to Keswick. He's back on Friday.",
+          "options": ["gone", "been", "go"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Še tam: gone**\n- He's gone to Keswick. · He's been to Keswick.",
+            "de": "**Noch dort: gone**\n- He's gone to Keswick. · He's been to Keswick.",
+            "it": "**Ancora lì: gone**\n- He's gone to Keswick. · He's been to Keswick.",
+            "en": "**Still there: gone**\n- He's gone to Keswick. · He's been to Keswick."
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-you-ever-3",
+      "title": {
+        "sl": "Kdaj, nikoli, pravkar, že",
+        "de": "Jemals, nie, gerade, schon",
+        "it": "Mai, appena, già",
+        "en": "Ever, never, just, yet"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "present-perfect",
+          "instruction": {
+            "sl": "Ask with ever · Vprašaj z ever",
+            "de": "Ask with ever · Frag mit ever",
+            "it": "Ask with ever · Chiedi con ever",
+            "en": "Ask with ever"
+          },
+          "cue": "ever",
+          "items": [
+            { "from": "You have seen a raven.", "accept": ["Have you ever seen a raven?", "Did you ever see a raven?"] },
+            {
+              "from": "Sam has been to London.",
+              "accept": ["Has Sam ever been to London?", "Did Sam ever go to London?"]
+            }
+          ],
+          "explain": {
+            "sl": "**have, has naprej, ever pred deležnikom**\n- You have seen a raven. → Have you ever seen a raven?",
+            "de": "**have, has nach vorn, ever vor dem Partizip**\n- You have seen a raven. → Have you ever seen a raven?",
+            "it": "**have, has all'inizio, ever prima del participio**\n- You have seen a raven. → Have you ever seen a raven?",
+            "en": "**have, has first, ever before the participle**\n- You have seen a raven. → Have you ever seen a raven?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-perfect",
+          "instruction": {
+            "sl": "Say it with never · Povej z never",
+            "de": "Say it with never · Sag es mit never",
+            "it": "Say it with never · Dillo con never",
+            "en": "Say it with never"
+          },
+          "cue": "never",
+          "items": [
+            { "from": "I've seen a raven.", "accept": ["I've never seen a raven.", "I never saw a raven."] },
+            {
+              "from": "Mrs Hartley has been to Carlisle.",
+              "accept": ["Mrs Hartley has never been to Carlisle.", "Mrs Hartley never went to Carlisle."]
+            }
+          ],
+          "explain": {
+            "sl": "**never pred deležnikom, brez drugega not**\n- I've never seen a raven.",
+            "de": "**never vor dem Partizip, kein zweites not**\n- I've never seen a raven.",
+            "it": "**never prima del participio, nessun altro not**\n- I've never seen a raven.",
+            "en": "**never before the participle, no other not**\n- I've never seen a raven."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-perfect",
+          "instruction": {
+            "sl": "It was a moment ago: say it with just · Bilo je pravkar: povej z just",
+            "de": "It was a moment ago: say it with just · Es war gerade eben: sag es mit just",
+            "it": "It was a moment ago: say it with just · È stato un attimo fa: dillo con just",
+            "en": "It was a moment ago: say it with just"
+          },
+          "cue": "just",
+          "items": [
+            { "from": "I saw Jack a moment ago.", "accept": ["I've just seen Jack.", "I just saw Jack."] },
+            { "from": "The bus left a moment ago.", "accept": ["The bus has just left.", "The bus just left."] }
+          ],
+          "explain": {
+            "sl": "**have, has + just + deležnik**\n- I saw Jack a moment ago. → I've just seen Jack.",
+            "de": "**have, has + just + Partizip**\n- I saw Jack a moment ago. → I've just seen Jack.",
+            "it": "**have, has + just + il participio**\n- I saw Jack a moment ago. → I've just seen Jack.",
+            "en": "**have, has + just + the participle**\n- I saw Jack a moment ago. → I've just seen Jack."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-perfect",
+          "instruction": {
+            "sl": "Ask with yet · Vprašaj z yet",
+            "de": "Ask with yet · Frag mit yet",
+            "it": "Ask with yet · Chiedi con yet",
+            "en": "Ask with yet"
+          },
+          "cue": "yet",
+          "items": [
+            { "from": "You have fed the dogs.", "accept": ["Have you fed the dogs yet?", "Did you feed the dogs yet?"] },
+            { "from": "Jack has finished.", "accept": ["Has Jack finished yet?", "Did Jack finish yet?"] }
+          ],
+          "explain": {
+            "sl": "**have, has naprej, yet na koncu**\n- You have fed the dogs. → Have you fed the dogs yet?",
+            "de": "**have, has nach vorn, yet am Ende**\n- You have fed the dogs. → Have you fed the dogs yet?",
+            "it": "**have, has all'inizio, yet alla fine**\n- You have fed the dogs. → Have you fed the dogs yet?",
+            "en": "**have, has first, yet at the end**\n- You have fed the dogs. → Have you fed the dogs yet?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "present-perfect",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "— Has Old Wilf ever ___ (be) to London? — Yes, he ___. He ___ (go) there in 1960, and he didn't like it. — Have you ___ (eat) yet, Wilf? — No, I ___.",
+        "gaps": [
+          { "accept": ["been"] },
+          { "accept": ["has"] },
+          {
+            "accept": ["went"],
+            "explain": {
+              "sl": "**in 1960 pove, kdaj: past simple**\n- He went there in 1960.",
+              "de": "**in 1960 sagt, wann: past simple**\n- He went there in 1960.",
+              "it": "**in 1960 dice quando: past simple**\n- He went there in 1960.",
+              "en": "**in 1960 says when: past simple**\n- He went there in 1960."
+            }
+          },
+          { "accept": ["eaten"] },
+          { "accept": ["haven't"] }
+        ],
+        "translation": {
+          "sl": "— Je bil stari Wilf že kdaj v Londonu? — Ja. Šel je tja leta 1960 in mu ni bilo všeč. — Si že jedel, Wilf? — Ne, nisem.",
+          "de": "— War der alte Wilf schon einmal in London? — Ja. Er war 1960 dort, und es hat ihm nicht gefallen. — Hast du schon gegessen, Wilf? — Nein.",
+          "it": "— Il vecchio Wilf è mai stato a Londra? — Sì. C'è andato nel 1960 e non gli è piaciuta. — Hai già mangiato, Wilf? — No.",
+          "en": "— Has Old Wilf ever been to London? — Yes, he has. He went there in 1960, and he didn't like it. — Have you eaten yet, Wilf? — No, I haven't."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-simple",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "We ___ to Keswick last week.",
+        "options": ["went", "have gone", "have been"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**last week pove, kdaj: past simple**\n- We went to Keswick last week.",
+          "de": "**last week sagt, wann: past simple**\n- We went to Keswick last week.",
+          "it": "**last week dice quando: past simple**\n- We went to Keswick last week.",
+          "en": "**last week says when: past simple**\n- We went to Keswick last week."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-perfect",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I ___ been to Carlisle.",
+        "options": ["have never", "am never", "never am"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Samo en ne, in vedno have**\n- I've never been to Carlisle.",
+          "de": "**Nur ein Nein, und immer have**\n- I've never been to Carlisle.",
+          "it": "**Un solo no, e sempre have**\n- I've never been to Carlisle.",
+          "en": "**One no only, and always have**\n- I've never been to Carlisle."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-perfect",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Have you finished the soup ___?",
+        "options": ["yet", "ago", "yesterday"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vprašanje s have: yet na koncu**\n- Have you finished yet?",
+          "de": "**Eine Frage mit have: yet am Ende**\n- Have you finished yet?",
+          "it": "**Una domanda con have: yet alla fine**\n- Have you finished yet?",
+          "en": "**A question with have: yet at the end**\n- Have you finished yet?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "present-perfect",
+        "instruction": {
+          "sl": "Ask with ever · Vprašaj z ever",
+          "de": "Ask with ever · Frag mit ever",
+          "it": "Ask with ever · Chiedi con ever",
+          "en": "Ask with ever"
+        },
+        "cue": "ever",
+        "items": [
+          {
+            "from": "You have been to Keswick.",
+            "accept": ["Have you ever been to Keswick?", "Did you ever go to Keswick?"]
+          },
+          {
+            "from": "Mr Dixon has mended a clock.",
+            "accept": ["Has Mr Dixon ever mended a clock?", "Did Mr Dixon ever mend a clock?"]
+          }
+        ],
+        "explain": {
+          "sl": "**have, has naprej, ever pred deležnikom**\n- Have you ever been to Keswick?",
+          "de": "**have, has nach vorn, ever vor dem Partizip**\n- Have you ever been to Keswick?",
+          "it": "**have, has all'inizio, ever prima del participio**\n- Have you ever been to Keswick?",
+          "en": "**have, has first, ever before the participle**\n- Have you ever been to Keswick?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "present-perfect",
+        "instruction": {
+          "sl": "It was a moment ago: say it with just · Bilo je pravkar: povej z just",
+          "de": "It was a moment ago: say it with just · Es war gerade eben: sag es mit just",
+          "it": "It was a moment ago: say it with just · È stato un attimo fa: dillo con just",
+          "en": "It was a moment ago: say it with just"
+        },
+        "cue": "just",
+        "items": [
+          {
+            "from": "Jack fed the dogs a moment ago.",
+            "accept": ["Jack has just fed the dogs.", "Jack just fed the dogs."]
+          },
+          { "from": "We finished a moment ago.", "accept": ["We've just finished.", "We just finished."] }
+        ],
+        "explain": {
+          "sl": "**have, has + just + deležnik**\n- Jack has just fed the dogs.",
+          "de": "**have, has + just + Partizip**\n- Jack has just fed the dogs.",
+          "it": "**have, has + just + il participio**\n- Jack has just fed the dogs.",
+          "en": "**have, has + just + the participle**\n- Jack has just fed the dogs."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}

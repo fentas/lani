@@ -10,10 +10,12 @@
 #   (paradigm.py), +bare after either on a reflexive verb that has no plain verb (its finite forms bare too: si
 #   arrabbia and arrabbia), n (a noun, its plural by the ending), n:<plural>[/<plural2>], n= (no other form), a (adj in
 #   -o), ac (magico, magici), a2 (adj in -e), a2:<before a noun>, a:bello, p:<verb>:<rest> (a phrase of a verb's forms
-#   and the rest), - (only the word itself). After any: ;<form>@<grammar> more forms, kept when the content has them.
+#   and the rest), - (only the word itself). After any: ;<form>@<grammar> more forms, kept when the content has them
+#   (;<form>!@<grammar>: kept whether it does or not). A later table's "~" line may name an entry an earlier table makes: its forms are added.
 #
 # Usage: python3 -I companion/lexicon/tools/it_cov_build.py <repo> <base it.extra.json> [--write] [--prompts] [--report <dir>]
-#   <base>: the file before this round (git show main:companion/lexicon/it.extra.json), so a run starts over
+#   <base>: the file before supplement-it (git show 45924165:companion/lexicon/it.extra.json), so a run makes the whole file from it and
+#   every table. Since friuli-projects-b no entry lives only in the file: add a word to a table and run this, and nothing is lost.
 import glob, json, os, re, sys, unicodedata
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from paradigm import IRREGULAR, adj_forms, irregular, noun_forms, regular, verb_forms
@@ -55,7 +57,7 @@ def texts(x, k=''):
 
 def files():
     c = os.path.join(root, 'companion')
-    dirs = [('course/it', True), ('grammar/it', False), ('cultures/friuli', True), ('packs/it', False), ('scenes/it', False), ('scenarios/it', True), ('modules/it', False)]
+    dirs = [('course/it', True), ('grammar/it', False), ('cultures/friuli', True), ('packs/it', False), ('scenes/it', False), ('scenarios/it', True), ('modules/it', False), ('drills/it', False)]
     for d, deep in dirs:
         p = os.path.join(c, d)
         if not os.path.isdir(p):
@@ -113,12 +115,17 @@ for f in sorted(glob.glob(os.path.join(root, 'companion/packs/it/*.json'))) + so
 
 # --- the tables -------------------------------------------------------------------------------------------------------
 def forms_of(lemma: str, pos: str, spec: str) -> dict:
-    spec, *more = spec.split(';')
+    spec, *more = re.split(r';(?! )', spec)  # a grammar may have "; " in it
     spec = spec.strip()
     extra = {}
+    forced = set()
     for m in more:
         f, _, g = m.strip().partition('@')
-        extra[f.strip()] = g.strip() or None
+        f = f.strip()
+        if f.endswith('!'):
+            f = f[:-1]
+            forced.add(f)
+        extra[f] = g.strip() or None
     forms: dict = {}
     if pos == 'verb' and spec.startswith('v'):
         bare = spec.endswith('+bare')
@@ -158,7 +165,7 @@ def forms_of(lemma: str, pos: str, spec: str) -> dict:
     else:
         forms = {lemma: None}
     for f, g in extra.items():
-        if met(f) or f == lemma:
+        if met(f) or f == lemma or f in forced:
             forms[f] = g
     # a form of words with an apostrophe as a line's words are joined ("un po'" → un po): the lookup finds it there too
     for f, g in list(forms.items()):
@@ -175,6 +182,7 @@ ORDER = ['phrase', 'intj', 'adv', 'prep', 'conj', 'num', 'pron', 'det', 'noun', 
 tables = sorted(glob.glob(os.path.join(TOOLS, 'it_cov_*.txt')))
 new_entries = []       # the new entries, in the order they go into the file
 extend = {}            # (lemma, pos) of an entry in the file → the forms to add
+later = {}             # (lemma, pos) of an entry a table has already made or extended → the forms a later table's "~" adds
 problems = []
 no_form = []
 seen = set()
@@ -195,6 +203,12 @@ for path in tables:
             continue
         lemma, pos, gender, spec, en, de, sl = cols
         if (lemma, pos) in seen:
+            if en == '~':  # forms for an entry an earlier table makes
+                try:
+                    later.setdefault((lemma, pos), {}).update(forms_of(lemma, pos, spec))
+                except Exception as e:
+                    problems.append(f'{where}: {lemma}: {e!r}')
+                continue
             problems.append(f'{where}: {lemma} ({pos}) twice')
             continue
         seen.add((lemma, pos))
@@ -240,6 +254,12 @@ for path in tables:
 ordered_block = [e for o, b in new_entries if o for e in b]
 rest = sorted([e for o, b in new_entries if not o for e in b], key=lambda e: ORDER.index(e['pos']) if e['pos'] in ORDER else 99)
 new_entries = ordered_block + rest
+for e in new_entries:
+    for f, g in later.get((e['lemma'], e['pos']), {}).items():
+        e['forms'].setdefault(f, g)
+for k, forms in later.items():
+    if k in extend:
+        extend[k] = {**forms, **extend[k]}
 
 
 # --- the file: its entries' text kept, the extended ones written anew, the new ones after them --------------------------
@@ -351,6 +371,11 @@ ABOUT = (
     "stars, the Friulian words said to be Friulian and the Slovene words said to be Slovene in every base; the packs' words again where the "
     "pack lacks a form, with the pack's meanings; the meanings written, not copied, the forms from paradigms written by hand "
     "(docs/plans/05-built/supplement-it.md)."
+    " Since friuli-projects-a (2026-11-03): the words and forms of the first seven of Friuli's project steps (the table it_cov_40_friuli_projects.txt: "
+    "abbastanza, il coniglio, reggere, la paratoia, Pinocchio …), written for a child, German first."
+    " Since friuli-projects-b (2026-11-03): the words of its six project steps (the table it_cov_30_progetti.txt), each new meaning's prompt its own;"
+    " the words of Italian's modules and drills and of the Friuli parties (it_cov_50_practice_feste.txt). The file is made whole by it_cov_build.py from the file"
+    " before supplement-it and every table: no entry lives only here."
 )
 old_about = old['meta']['about']
 assert d(old_about) in body

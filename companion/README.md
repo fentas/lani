@@ -351,9 +351,10 @@ pair switches:
   for ä/ö/ü/ß) is almost right, with its hint; English contractions are the same answer. Answers are lowercased in the
   target's locale; a word's stem forgives one slip from 4 letters, two from 9, but not a known mistake the table lists
   (`wrong`: Italian's anderò for andrò, venito for venuto, glilo for glielo, leggando for leggendo, sarai for sarei, sta
-  for stia; `ending_swaps`: one ending for another on the same stem, dormono for dormano, sarete for sareste; Slovene's prefixed
+  for stia, dormessi for dormissi, facilemente for facilmente; `ending_swaps`: one ending for another on the same stem, dormono for dormano, sarete for sareste; Slovene's prefixed
   verbs one letter off another prefix, prenesel for prinesel, prešel for prišel, zapisal for napisal, obšel for odšel:
-  another verb, B2's `predpone`).
+  another verb, B2's `predpone`). What people say that writing doesn't want is almost, the standard form shown, one way only (`nonstandard`:
+  English's good for well, It were raining, I seen it, I've saw, a double negative; COURSE.md "Spoken forms"), never a slip and never wrong.
 - **Speech**: the phone's recognizer and text-to-speech take the target's locale (sl-SI, it-IT, de-DE, en-GB); the
   node's Whisper has Slovene's model and serves Italian, German and English with the general one
   ([stt-local](stt-local/README.md#languages)). ElevenLabs gets the village's `language_code`, and a narrator says a
@@ -1948,7 +1949,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 52 pages (15 A1, 19 A2, 18 B1), German 50 (15 A1, 20 A2, 15 B1) and English 22 (18 A1, 4 A2), each course adding
+Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 50 (15 A1, 20 A2, 15 B1) and English 31 (18 A1, 13 A2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):
@@ -1979,8 +1980,10 @@ Slovene, English and Italian; English in Slovene, Italian and German, and Englis
   `present-simple`, `present-continuous`, `questions-do`, `past-simple`, `present-perfect`, `future` (going to, will),
   `can`, `there-is-are`, `some-any`, `prepositions-place` (by the pond, next to the jetty: the tent's page),
   `possessive-s` and `word-order`; and `pronouns` (I, you, he, she, it), `object-pronouns` (me, him, her, them),
-  `this-that`, `numbers`, `time-dates` (at seven, on Monday, in May) and `was-were`. `past-simple`, `present-perfect`,
-  `future` and `some-any` are A2, the rest A1.
+  `this-that`, `numbers`, `time-dates` (at seven, on Monday, in May) and `was-were`; and for A2's units `imperatives`,
+  `past-continuous`, `linking-words` (because, so, when), `comparatives` (and the superlative), `adverbs`, `indefinite-pronouns`
+  (someone, anything), `must-have-to`, `would-like` and `first-conditional`. Those and `past-simple`, `present-perfect`, `future` and
+  `some-any` are A2, the rest A1.
 
 **What names a page:** an exercise's `"grammar": "<id>"` (any type; every exercise of the six curated modules has one),
 a culture pack's challenge question (`quests.json` `tent_move.questions[].grammar`: Luka's tent challenge names
@@ -2295,17 +2298,17 @@ cases, pronouns, the comparative, aspect, the conditional (14 units); then B1's 
 levels"); a unit's "⏩ Znam že: kar na test" tests out of it at once.
 
 **The Italian school** (the Friuli village's: [COURSE.md](COURSE.md#the-italian-course), docs/plans/05-built/friuli-school.md).
-A village of the Friuli culture gets the Italian course (`companion/course/it`: A1's 18 units and the A2 units written
-so far, as COURSE.md lists them; the rest planned) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
+A village of the Friuli culture gets the Italian course (`companion/course/it`: 18 units at each level, A1 to B2, all written,
+as COURSE.md lists them) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
 hints and whys come in the learner's own language (German for Teo; [COURSE.md](COURSE.md#texts-in-the-learners-language)),
-its sheets print headed in Italian and the base. While the next units are planned, Elena says she is preparing them
+its sheets print headed in Italian and the base. While units are planned (none now), Elena says she is preparing them
 ("Sto preparando le prossime lezioni. Torna presto!") and Home's tile "📝 Nuove lezioni in arrivo". The school building's
 card goes into "A scuola · In der Schule", the Friuli classroom ([SCENES.md](SCENES.md#culture-looks)). QA:
 `companion/bin/qa --steps friuli-school` with a synthetic Teo (its usage).
 
 **The English school** (the Lake District village's: [COURSE.md](COURSE.md#the-english-course),
 docs/plans/05-built/course-en-a1-a.md). A village of the Lakeland culture gets the English course (`companion/course/en`:
-A1's units as COURSE.md lists them, the rest planned) and Mrs Hartley teaches it, in the cast's teacher voice, to the
+A1's and A2's units as COURSE.md lists them, the rest planned) and Mrs Hartley teaches it, in the cast's teacher voice, to the
 grown-ups who learn English: its explanations, instructions, hints and whys in the learner's Slovene, German or Italian,
 British English with the American form accepted (grading/en.json), its sheets headed in English and the base with
 every word meant (lexicon/en.extra.json). While units are planned she is preparing the next lessons ("I'm preparing
@@ -3312,10 +3315,13 @@ almost right with its hint (lo, la, glielo or gliela before avere only where the
 vista, the pronoun's gender wrong, is wrong), and its known mistakes, never a slip in the stem (`wrong`: the regular
 stem where a form has its own, anderò for andrò, ferò for farò, mangierò for mangerò, venito for venuto; B1's glilo for glielo, dammilo for dammelo, leggando for leggendo; an articulated
 preposition for another, delle or alle for dalle; another tense or mood one letter off, sarai for sarei, sta for stia,
-fosti for fossi, andò for andrò), and one ending typed for another on the same stem (`ending_swaps`: the subjunctive's
+fosti for fossi, andò for andrò; B2's other conjugation's vowel in the imperfect subjunctive, dormessi for dormissi, dassi for dessi, on a verb's stem only, so that sessi for sassi stays a
+slip; facilemente for facilmente, inpossibile for impossibile), and one ending typed for another on the same stem (`ending_swaps`: the subjunctive's
 and the indicative's, dormono for dormano, parlate for parliate; the conditional's and the future's, sarete for
-sareste), a slip elsewhere in such a word (bambeno for bambino) still one; German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
-contractions (don't = do not). Choosing a dialog's answer by voice folds the same letters. Speech
+sareste; the remote past's and the imperfetto's, mangiavano for mangiarono), a slip elsewhere in such a word (bambeno for bambino) still one; German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
+contractions (don't = do not, she's seen = she has seen), and what people say that writing doesn't want (`nonstandard`: good for well, It
+were raining, I've saw; almost, with the standard form and "People say it like this; in writing it's the form shown", the tutor sees `hint:
+nonstandard`). Choosing a dialog's answer by voice folds the same letters. Speech
 labels name the target language (`{targetLang, select, …}` in the string tables).
 
 ## Word lookup
@@ -3922,7 +3928,8 @@ others; the rest wait for the next. `card.py show` tells how the app asks one.
 
 "🔢 Števila · Numbers" (Jan: "Do we learn numbers in school at some point? Would be nice: a separate test module."): a
 practice module of the numbers themselves, beside the counting cards (which count a noun). Its rules are
-`app/.../data/NumbersPractice.kt` (pure), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
+`app/.../data/NumbersPractice.kt` (pure), a language's own `data/NumberTongue.kt` (Slovene and Italian so far; what follows
+is Slovene's, Italian's differences at the end), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
 screen, the run, the number pad: `NumeralEx.kt`), the rest `app/NumbersController.kt`.
 
 **Where it opens.** The intro of the A1 unit `stevila` opens it (finished, or skipped as known: as for counting cards),
@@ -3995,6 +4002,16 @@ text's figures), so a year said is right as its figures too. Machine-written, no
 module's screen says so ("🤖"), the tutor's data has `machine_written`, and a word that looks wrong is fixed in the app's
 code. `NumbersPracticeTest` holds a hand-checked table of the tricky ones (1 and 2's forms, 11–19, 21, 22, 99, 100, 101,
 200, 1000, 2000, 2026) and reads every number 0 … 9999 back. QA's step `numbers` goes through it ([Test](#test)).
+
+**In Italian** (Teo's; docs/plans/05-built/practice-it.md) the same ladder, runs, schedule and screens. The unit `numeri`'s
+intro opens it, `ore-giorni`'s brings the dates and the clock. The words are one word (`SpokenNumbers.italian`: ventisette,
+ventitré, ventotto, centotré, duemilaventisei); the tens come first, so 72 typed for ventisette and "sette venti" are
+`numbers_order`, as German says the ones first. A date takes the plain number with il ("Oggi è il ___ maggio. (15)" →
+quindici; il primo, l'otto, l'undici), so `numbers_ordinal_date` is a date's day there. A clock time is alle + the hour
+(alle cinque, all'una; "le cinque" and "cinque" are right too, at 12 a mezzogiorno and a mezzanotte); half past counts from the hour that is there, so 4:30 typed
+for "alle cinque e mezza" and "alle sei e mezza" written for 5:30 are `numbers_clock_time_half`, German's "halb" counted
+into Italian. A language without a `NumberTongue` (German and English so far) has no tile and no module. `NumbersItalianTest`
+holds its table; QA's step `practice-it`.
 
 ### The case lens
 
@@ -4495,6 +4512,11 @@ prompts (about 60 MB).
 | Več · More | Each kind on its own, a list: 🔁 Ponavljanje, 🆕 Besede, 💬 Pogovori, 📖 Zgodbe, 🗣️ Odmev, 🔄 Preobrat, ⚡ Hitri odziv, 🧱 Gradnja stavkov, 🕵️ Uganke |
 
 Every session id from before still plays (a car remembers the one it played last), and the first tab keeps its id.
+A session with nothing to play stays away (`RoadMix.available`): no menu item in the car, no button on the sheet, no switch
+to it while something plays. It used to be there and do nothing. That is every drill session in a language without drills
+(German and English so far) or without their clips (Italian until voice-build has voiced them). The sheet's "Več · More" names what
+isn't there and why ("🔇 … posnetkov še ni"), and a getting-ready that found no clips at all says there are no recordings in
+this language.
 The sessions:
 
 | Session | What plays |
@@ -4674,6 +4696,11 @@ curated in `companion/drills/<language>/<id>.json`, one file a drill (Slovene: `
 (Claude) in Slovene, English and German and not reviewed by a native speaker (each file's `review`). The bridge
 validates and serves them (`GET /drills`); the app bundles its own copy (for a bridge from before, which answers 404);
 `voice-build` voices them (`drills A1`, `drills A2+`).
+
+Italian has its four too (`companion/drills/it/`: 251 transformations from A1 to the congiuntivo at B1, 80 sentences built, 58 riddles
+told by Nonno Bepi; 1,205 texts, 24,601 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md). What follows
+describes Slovene's; a language's drills are data, its generated numbers `numberWord` (all four languages), and a session
+without clips stays away from the menu.
 
 | Drill | File | What is in it |
 |---|---|---|
@@ -5103,6 +5130,7 @@ companion/bin/qa --no-town --steps friuli-school  # the Friuli village's school 
 companion/bin/qa --no-town --steps friuli-school-unit  # the same learner, a run of its own: an Italian unit end to end ($LANI_QA_IT_UNIT, ciao by default; an A2 one after the school with A1 done: intro, summary, a worksheet, the test passed), kept done, its sheet printed
 companion/bin/qa --no-town --steps friuli-watchtower  # the same learner: the village a Trg (QA's hook hearths:trg), the watchtower at level 2, its card's "🚪 Entra" into Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening (docs/plans/05-built/places-it-buildings.md)
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
+LANI_DEV_DATA=<a synthetic learner> companion/bin/qa-slot --steps choices-order   # a choice's options in the day's order (a unit by the options' texts, a right answer not on top is right), the unit's print against its key
 companion/bin/qa --no-town --steps school-reveal  # a level a bit at a time (QA's hook school:reveal; a synthetic learner: LANI_DEV_DATA): A1 done one line, A2's current and next two, the rest folded and listed, B1 closed
 companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export, the effort per task and within the thread
 companion/bin/qa --steps shadow-matrix           # the shadow's matrix on QA's mock: the Matrix tab on (nine lanes), a chat answered by every lane at its model and effort, the event's lane runs, today's spend per lane

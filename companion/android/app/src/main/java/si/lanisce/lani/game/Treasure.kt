@@ -623,7 +623,7 @@ object Treasure {
             val (options, answer) = if (q.type == "true_false") listOf(yes, no) to (if (q.answer == true) yes else no)
             else q.options.shuffled(r) to q.options.first()
             Item(
-                Exercise.Choice("✉️ ${q.ask.bi()}", options, options.indexOf(answer), explain = q.explain.bi(), instruction = bi("treasure.aboutTheLetter"), sayOptions = q.type != "true_false"),
+                Exercise.Choice("✉️ ${q.ask.bi()}", options, options.indexOf(answer), explain = q.explain.bi(), instruction = bi("treasure.aboutTheLetter"), sayOptions = q.type != "true_false", fixedOrder = q.type == "true_false"),
                 Res.WISDOM, null,
             )
         }

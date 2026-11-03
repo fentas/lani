@@ -1,0 +1,1095 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "some-and-any",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🥛",
+  "title": {
+    "en": "Some bread, any milk",
+    "de": "Some und any: some bread, any milk",
+    "sl": "Some in any: some bread, any milk",
+    "it": "Some e any: some bread, any milk"
+  },
+  "goal": {
+    "sl": "Ločiš, kaj se šteje in kaj ne, rečeš some v trdilnem stavku, ponudbi in prošnji, any v zanikanem stavku in vprašanju ter izpustiš a pri bread, milk ali news.",
+    "de": "Du unterscheidest, was man zählt und was nicht, sagst some im bejahten Satz, im Angebot und in der Bitte, any im verneinten Satz und in der Frage, und lässt a bei bread, milk oder news weg.",
+    "it": "Distingui ciò che si conta da ciò che non si conta, dici some nelle frasi affermative, nelle offerte e nelle richieste, any nelle frasi negative e nelle domande, e non metti a con bread, milk o news.",
+    "en": "You can tell what can and can't be counted, say some in yes sentences, offers and requests, any in no sentences and questions, and leave out a with bread, milk or news."
+  },
+  "grammar": [
+    "some-any",
+    "articles"
+  ],
+  "words": [
+    "some",
+    "any",
+    "egg",
+    "scone",
+    "bread",
+    "milk",
+    "tea",
+    "honey",
+    "water",
+    "butter",
+    "flour",
+    "sugar",
+    "cheese",
+    "hay",
+    "oats",
+    "money",
+    "news",
+    "advice",
+    "weather",
+    "a loaf of",
+    "a cup of",
+    "a jar of",
+    "a piece of",
+    "jug",
+    "barn",
+    "tarn",
+    "walker",
+    "fish",
+    "cake",
+    "Would you like …?",
+    "Can I have …?"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "stavek",
+          "de": "Satz",
+          "it": "frase",
+          "en": "sentence"
+        },
+        {
+          "sl": "šteješ",
+          "de": "zählbar",
+          "it": "si conta",
+          "en": "you can count"
+        },
+        {
+          "sl": "ne šteješ",
+          "de": "unzählbar",
+          "it": "non si conta",
+          "en": "you can't count"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Nekatere stvari lahko šteješ: **an egg** (eno jajce), **two eggs** (dve jajci), **a sheep**, **fifty sheep** (petdeset ovc). Drugih ne: **bread** (kruh), **milk** (mleko), **tea** (čaj), **honey** (med). Te nimajo množine in ne dobijo **a**: nikoli *a bread*, *breads*.",
+          "de": "Manches kann man zählen: **an egg** (ein Ei), **two eggs** (zwei Eier), **a sheep**, **fifty sheep** (fünfzig Schafe). Anderes nicht: **bread** (Brot), **milk** (Milch), **tea** (Tee), **honey** (Honig). Das hat keinen Plural und kein **a**: nie *a bread*, *breads*.",
+          "it": "Alcune cose si contano: **an egg** (un uovo), **two eggs** (due uova), **a sheep**, **fifty sheep** (cinquanta pecore). Altre no: **bread** (pane), **milk** (latte), **tea** (tè), **honey** (miele). Queste non hanno plurale e non prendono **a**: mai *a bread*, *breads*.",
+          "en": "Some things you can count: **an egg**, **two eggs**, **a sheep**, **fifty sheep**. Others you can't: **tea**, **milk**, **honey**. These have no plural and take no **a**: **bread** (never *a bread*)."
+        },
+        "examples": [
+          {
+            "en": "Jack has got fifty sheep.",
+            "sl": "Jack ima petdeset ovc.",
+            "de": "Jack hat fünfzig Schafe.",
+            "it": "Jack ha cinquanta pecore."
+          },
+          {
+            "en": "There are two eggs on the table.",
+            "sl": "Na mizi sta dve jajci.",
+            "de": "Auf dem Tisch liegen zwei Eier.",
+            "it": "Sul tavolo ci sono due uova."
+          },
+          {
+            "en": "We've got bread and honey.",
+            "sl": "Imamo kruh in med.",
+            "de": "Wir haben Brot und Honig.",
+            "it": "Abbiamo pane e miele."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "eno, dve …",
+              "de": "eins, zwei …",
+              "it": "uno, due …",
+              "en": "one, two …"
+            },
+            "an egg, two eggs",
+            "bread, milk"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "some-any",
+          "prompt": {
+            "sl": "Kaj je prav?",
+            "de": "Was ist richtig?",
+            "it": "Che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "We've got bread.",
+            "We've got a bread.",
+            "We've got a breads."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kruha ne šteješ: brez a, brez -s**\n- We've got bread. · We've got milk.",
+            "de": "**Brot zählt man nicht: kein a, kein -s**\n- We've got bread. · We've got milk.",
+            "it": "**Il pane non si conta: niente a, niente -s**\n- We've got bread. · We've got milk.",
+            "en": "**You can't count bread: no a, no -s**\n- We've got bread. · We've got milk."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**some** (nekaj) je za količino, ki je ne poveš natančno, v trdilnem stavku: **We've got some eggs.** (Imamo nekaj jajc.) **There's some bread on the table.** (Na mizi je nekaj kruha.) Stoji z množino in s tem, česar ne šteješ.",
+          "de": "**some** (etwas, ein paar) steht für eine Menge, die du nicht genau angibst, im bejahten Satz: **We've got some eggs.** (Wir haben ein paar Eier.) **There's some bread on the table.** (Auf dem Tisch ist etwas Brot.) Es steht beim Plural und bei Unzählbarem.",
+          "it": "**some** (del, dei, un po' di) indica una quantità non precisa, nelle frasi affermative: **We've got some eggs.** (Abbiamo delle uova.) **There's some bread on the table.** (Sul tavolo c'è del pane.) Va con il plurale e con ciò che non si conta.",
+          "en": "**some** is for an amount you don't give exactly, in a yes sentence: **We've got some eggs.** **There's some bread on the table.** It goes with a plural and with what you can't count."
+        },
+        "examples": [
+          {
+            "en": "We've got some eggs.",
+            "sl": "Imamo nekaj jajc.",
+            "de": "Wir haben ein paar Eier.",
+            "it": "Abbiamo delle uova."
+          },
+          {
+            "en": "There's some bread on the table.",
+            "sl": "Na mizi je nekaj kruha.",
+            "de": "Auf dem Tisch ist etwas Brot.",
+            "it": "Sul tavolo c'è del pane."
+          },
+          {
+            "en": "Mr Tyson has got some oats in the barn.",
+            "sl": "Gospod Tyson ima v skednju nekaj ovsa.",
+            "de": "Herr Tyson hat etwas Hafer in der Scheune.",
+            "it": "Il signor Tyson ha un po' d'avena nel fienile."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "da",
+              "de": "ja",
+              "it": "sì",
+              "en": "yes"
+            },
+            "We've got some eggs.",
+            "We've got some milk."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "some-any",
+          "prompt": "There's ___ milk in the jug.",
+          "options": [
+            "some",
+            "a",
+            "any"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Trdilni stavek, mleka ne šteješ: some**\n- some milk · some eggs",
+            "de": "**Bejahter Satz, Milch zählt man nicht: some**\n- some milk · some eggs",
+            "it": "**Frase affermativa, il latte non si conta: some**\n- some milk · some eggs",
+            "en": "**A yes sentence, you can't count milk: some**\n- some milk · some eggs"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V zanikanem stavku je **any**: **We haven't got any eggs.** (Nimamo jajc.) **There isn't any milk.** (Mleka ni.), nikoli *There isn't some milk.* Tako pri tem, kar šteješ, kot pri tem, česar ne. Slovenščina tu nima posebne besede.",
+          "de": "Im verneinten Satz steht **any**: **We haven't got any eggs.** (Wir haben keine Eier.) **There isn't any milk.** (Es ist keine Milch da.), nie *There isn't some milk.* Das Deutsche sagt kein, das Englische **not** + **any**.",
+          "it": "Nelle frasi negative si usa **any**: **We haven't got any eggs.** (Non abbiamo uova.) **There isn't any milk.** (Non c'è latte.), mai *There isn't some milk.* Vale per ciò che si conta e per ciò che non si conta.",
+          "en": "In a no sentence it's **any**: **We haven't got any eggs.** **There isn't any milk.** (never *There isn't some milk.*) It's the same for what you can count and what you can't."
+        },
+        "examples": [
+          {
+            "en": "We haven't got any eggs.",
+            "sl": "Nimamo jajc.",
+            "de": "Wir haben keine Eier.",
+            "it": "Non abbiamo uova."
+          },
+          {
+            "en": "There isn't any milk.",
+            "sl": "Mleka ni.",
+            "de": "Es ist keine Milch da.",
+            "it": "Non c'è latte."
+          },
+          {
+            "en": "Mrs Birkett hasn't got any scones today.",
+            "sl": "Gospa Birkett danes nima sconov.",
+            "de": "Frau Birkett hat heute keine Scones.",
+            "it": "La signora Birkett oggi non ha scones."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "ne",
+              "de": "nein",
+              "it": "no",
+              "en": "no"
+            },
+            "We haven't got any eggs.",
+            "There isn't any milk."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "some-any",
+          "text": "We haven't got ___ bread.",
+          "accept": [
+            "any"
+          ],
+          "hint": "not + ?",
+          "explain": {
+            "sl": "**Zanikano: any**\n- We haven't got any bread. · There aren't any eggs.",
+            "de": "**Verneint: any**\n- We haven't got any bread. · There aren't any eggs.",
+            "it": "**Negativa: any**\n- We haven't got any bread. · There aren't any eggs.",
+            "en": "**A no sentence: any**\n- We haven't got any bread. · There aren't any eggs."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Tudi večina vprašanj ima **any**: **Have you got any honey?** (Imaš kaj medu?) **Are there any fish in the tarn?** (So v gorskem jezeru kakšne ribe?) V odgovoru stojita **some** in **any** tudi sama: **Yes, I've got some.** (Ja, nekaj ga imam.) **No, I haven't got any.** (Ne, nimam ga.)",
+          "de": "Auch die meisten Fragen haben **any**: **Have you got any honey?** (Hast du Honig?) **Are there any fish in the tarn?** (Gibt es Fische im Bergsee?) In der Antwort stehen **some** und **any** auch allein: **Yes, I've got some.** (Ja, ich habe welchen.) **No, I haven't got any.** (Nein, ich habe keinen.)",
+          "it": "Anche la maggior parte delle domande ha **any**: **Have you got any honey?** (Hai del miele?) **Are there any fish in the tarn?** (Ci sono pesci nel laghetto?) Nella risposta **some** e **any** stanno anche da soli: **Yes, I've got some.** (Sì, ne ho.) **No, I haven't got any.** (No, non ne ho.)",
+          "en": "Most questions take **any** too: **Have you got any honey?** **Are there any fish in the tarn?** In the answer **some** and **any** can stand alone: **Yes, I've got some.** **No, I haven't got any.**"
+        },
+        "examples": [
+          {
+            "en": "Have you got any honey, Arthur? — Yes, I've got some.",
+            "sl": "Imaš kaj medu, Arthur? — Ja, nekaj ga imam.",
+            "de": "Hast du Honig, Arthur? — Ja, ich habe welchen.",
+            "it": "Hai del miele, Arthur? — Sì, ne ho."
+          },
+          {
+            "en": "Are there any fish in the tarn?",
+            "sl": "So v gorskem jezeru kakšne ribe?",
+            "de": "Gibt es Fische im Bergsee?",
+            "it": "Ci sono pesci nel laghetto?"
+          },
+          {
+            "en": "Are there any eggs? — No, there aren't any.",
+            "sl": "Je kaj jajc? — Ne, ni jih.",
+            "de": "Gibt es Eier? — Nein, es gibt keine.",
+            "it": "Ci sono uova? — No, non ce ne sono."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vprašanje",
+              "de": "Frage",
+              "it": "domanda",
+              "en": "question"
+            },
+            "Are there any eggs?",
+            "Is there any milk?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "some-any",
+          "prompt": "Are there ___ walkers at the inn tonight?",
+          "options": [
+            "any",
+            "some",
+            "a"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "sl": "**Vprašanje: any; some le, ko pričakuješ da**\n- Are there any walkers? · Is there any milk?",
+            "de": "**Frage: any; some nur, wenn du ein Ja erwartest**\n- Are there any walkers? · Is there any milk?",
+            "it": "**Domanda: any; some solo se ti aspetti un sì**\n- Are there any walkers? · Is there any milk?",
+            "en": "**A question: any; some only when you expect yes**\n- Are there any walkers? · Is there any milk?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V ponudbi ali prošnji je **some**, saj pričakuješ da: **Would you like some tea?** (Bi čaj?) **Can I have some water, please?** (Lahko dobim vodo, prosim?) **Have some cake!** (Vzemi malo torte!)",
+          "de": "Im Angebot und in der Bitte steht **some**, denn du erwartest ein Ja: **Would you like some tea?** (Möchtest du Tee?) **Can I have some water, please?** (Kann ich bitte Wasser haben?) **Have some cake!** (Nimm dir Kuchen!)",
+          "it": "Per offrire o chiedere si usa **some**, perché ci si aspetta un sì: **Would you like some tea?** (Vuoi del tè?) **Can I have some water, please?** (Posso avere dell'acqua, per favore?) **Have some cake!** (Prendi un po' di torta!)",
+          "en": "An offer or a request takes **some**, as you expect yes: **Would you like some tea?** **Can I have some water, please?** **Have some cake!**"
+        },
+        "examples": [
+          {
+            "en": "Would you like some tea, Mr Dixon?",
+            "sl": "Želite čaj, gospod Dixon?",
+            "de": "Möchten Sie Tee, Herr Dixon?",
+            "it": "Vuole del tè, signor Dixon?"
+          },
+          {
+            "en": "Can I have some water, please?",
+            "sl": "Lahko dobim vodo, prosim?",
+            "de": "Kann ich bitte Wasser haben?",
+            "it": "Posso avere dell'acqua, per favore?"
+          },
+          {
+            "en": "Have some cake, Sam!",
+            "sl": "Vzemi malo torte, Sam!",
+            "de": "Nimm dir Kuchen, Sam!",
+            "it": "Prendi un po' di torta, Sam!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "ponudba, prošnja",
+              "de": "Angebot, Bitte",
+              "it": "offerta, richiesta",
+              "en": "offer, request"
+            },
+            "Would you like some eggs?",
+            "Can I have some tea?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "some-any",
+          "prompt": "Can I have ___ milk, please?",
+          "options": [
+            "some",
+            "any",
+            "a"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "sl": "**Prošnja: some**\n- Can I have some milk, please? · Would you like some tea?",
+            "de": "**Eine Bitte: some**\n- Can I have some milk, please? · Would you like some tea?",
+            "it": "**Una richiesta: some**\n- Can I have some milk, please? · Would you like some tea?",
+            "en": "**A request: some**\n- Can I have some milk, please? · Would you like some tea?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kar ne šteješ, na splošno ne dobi člena: **Honey is sweet.** (Med je sladek.) **I like tea.** (Rad{m:|f:a} imam čaj.) Tudi **news** (novice), **advice** (nasvet) in **money** (denar) v angleščini ne štejemo: **The news is good.** (Novice so dobre.) Ko vseeno šteješ: **a loaf of bread** (hlebec kruha), **a piece of advice** (en nasvet), **a cup of tea** (skodelica čaja), nikoli *a bread*.",
+          "de": "Was man nicht zählt, bekommt allgemein keinen Artikel: **Honey is sweet.** (Honig ist süß.) **I like tea.** (Ich mag Tee.) Auch **news** (Nachrichten), **advice** (Rat) und **money** (Geld) zählt das Englische nicht: **The news is good.** (Die Nachrichten sind gut.) Zum Zählen: **a loaf of bread** (ein Laib Brot), **a piece of advice** (ein Rat), **a cup of tea** (eine Tasse Tee), nie *a bread*.",
+          "it": "Ciò che non si conta, in generale, non ha articolo: **Honey is sweet.** (Il miele è dolce.) **I like tea.** (Mi piace il tè.) Anche **news** (notizie), **advice** (consiglio) e **money** (denaro) in inglese non si contano: **The news is good.** (Le notizie sono buone.) Per contarli: **a loaf of bread** (una pagnotta), **a piece of advice** (un consiglio), **a cup of tea** (una tazza di tè), mai *a bread*.",
+          "en": "What you can't count takes no article when you mean it in general: **Honey is sweet.** **I like tea.** English can't count **news**, **advice** or **money** either: **The news is good.** To count them: **a loaf of bread** (never *a bread*), **a piece of advice**, **a cup of tea**."
+        },
+        "examples": [
+          {
+            "en": "Honey is sweet.",
+            "sl": "Med je sladek.",
+            "de": "Honig ist süß.",
+            "it": "Il miele è dolce."
+          },
+          {
+            "en": "The news is good today.",
+            "sl": "Danes so novice dobre.",
+            "de": "Heute sind die Nachrichten gut.",
+            "it": "Oggi le notizie sono buone."
+          },
+          {
+            "en": "Mrs Birkett bought a loaf of bread and a jar of honey.",
+            "sl": "Gospa Birkett je kupila hlebec kruha in kozarec medu.",
+            "de": "Frau Birkett hat einen Laib Brot und ein Glas Honig gekauft.",
+            "it": "La signora Birkett ha comprato una pagnotta e un vasetto di miele."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "šteti",
+              "de": "zählen",
+              "it": "contare",
+              "en": "to count"
+            },
+            "—",
+            "a loaf of bread, a cup of tea"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "articles",
+          "prompt": {
+            "sl": "Kaj je prav?",
+            "de": "Was ist richtig?",
+            "it": "Che cosa è giusto?",
+            "en": "Which is right?"
+          },
+          "options": [
+            "Honey is sweet.",
+            "A honey is sweet.",
+            "Honeys are sweet."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Na splošno, česar ne šteješ: brez člena**\n- Honey is sweet. · Milk is good for you.",
+            "de": "**Allgemein, was man nicht zählt: kein Artikel**\n- Honey is sweet. · Milk is good for you.",
+            "it": "**In generale, ciò che non si conta: senza articolo**\n- Honey is sweet. · Milk is good for you.",
+            "en": "**In general, what you can't count: no article**\n- Honey is sweet. · Milk is good for you."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**We've got some eggs.** · **There's some bread.** (trdilno)\n\n**We haven't got any eggs.** · **There isn't any milk.** (zanikano)\n\n**Have you got any honey?** · **Are there any fish?** (večina vprašanj)\n\n**Would you like some tea?** · **Can I have some water, please?** (ponudba, prošnja)\n\n**Honey is sweet.** · **a loaf of bread** (brez a pri tem, česar ne šteješ)",
+      "de": "**We've got some eggs.** · **There's some bread.** (bejaht)\n\n**We haven't got any eggs.** · **There isn't any milk.** (verneint)\n\n**Have you got any honey?** · **Are there any fish?** (die meisten Fragen)\n\n**Would you like some tea?** · **Can I have some water, please?** (Angebot, Bitte)\n\n**Honey is sweet.** · **a loaf of bread** (kein a bei Unzählbarem)",
+      "it": "**We've got some eggs.** · **There's some bread.** (affermativa)\n\n**We haven't got any eggs.** · **There isn't any milk.** (negativa)\n\n**Have you got any honey?** · **Are there any fish?** (quasi tutte le domande)\n\n**Would you like some tea?** · **Can I have some water, please?** (offerta, richiesta)\n\n**Honey is sweet.** · **a loaf of bread** (niente a con ciò che non si conta)",
+      "en": "**We've got some eggs.** · **There's some bread.** (yes)\n\n**We haven't got any eggs.** · **There isn't any milk.** (no)\n\n**Have you got any honey?** · **Are there any fish?** (most questions)\n\n**Would you like some tea?** · **Can I have some water, please?** (offers, requests)\n\n**Honey is sweet.** · **a loaf of bread** (no a with what you can't count)"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "some-and-any-1",
+      "title": {
+        "sl": "Šteješ ali ne?",
+        "de": "Zählen oder nicht?",
+        "it": "Si conta o no?",
+        "en": "Count or not"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "a, an, two … · šteješ",
+                "de": "a, an, two … · zählbar",
+                "it": "a, an, two … · si conta",
+                "en": "a, an, two … · you can count"
+              },
+              "words": [
+                "egg",
+                "scone",
+                "sheep",
+                "key",
+                "apple"
+              ]
+            },
+            {
+              "label": {
+                "sl": "some … · ne šteješ",
+                "de": "some … · unzählbar",
+                "it": "some … · non si conta",
+                "en": "some … · you can't count"
+              },
+              "words": [
+                "bread",
+                "honey",
+                "hay",
+                "money",
+                "news"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Jajce šteješ; kruha, sena, denarja in novic v angleščini ne**\n- an egg, two eggs · some bread · some news",
+            "de": "**Ein Ei zählt man; Brot, Heu, Geld und Nachrichten im Englischen nicht**\n- an egg, two eggs · some bread · some news",
+            "it": "**Un uovo si conta; pane, fieno, denaro e notizie in inglese no**\n- an egg, two eggs · some bread · some news",
+            "en": "**You can count an egg; English can't count bread, hay, money or news**\n- an egg, two eggs · some bread · some news"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "eggs, milk · jajca, mleko: some ali any?",
+            "de": "eggs, milk · Eier, Milch: some oder any?",
+            "it": "eggs, milk · uova, latte: some o any?",
+            "en": "eggs, milk: some or any?"
+          },
+          "columns": [
+            {
+              "sl": "eggs · jajca",
+              "de": "eggs · Eier",
+              "it": "eggs · uova",
+              "en": "eggs"
+            },
+            {
+              "sl": "milk · mleko",
+              "de": "milk · Milch",
+              "it": "milk · latte",
+              "en": "milk"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "sl": "We've got …",
+                "de": "We've got …",
+                "it": "We've got …",
+                "en": "We've got …"
+              },
+              "cells": [
+                "some eggs",
+                {
+                  "accept": [
+                    "some milk"
+                  ],
+                  "hint": "some"
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "We haven't got …",
+                "de": "We haven't got …",
+                "it": "We haven't got …",
+                "en": "We haven't got …"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "any eggs"
+                  ],
+                  "hint": "any"
+                },
+                {
+                  "accept": [
+                    "any milk"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "Have we got …?",
+                "de": "Have we got …?",
+                "it": "Have we got …?",
+                "en": "Have we got …?"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "any eggs"
+                  ],
+                  "spoken": [
+                    "some eggs"
+                  ]
+                },
+                {
+                  "accept": [
+                    "any milk"
+                  ],
+                  "spoken": [
+                    "some milk"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**some v trdilnem stavku, any v zanikanem in v vprašanju**\n- We've got some milk.\n- We haven't got any eggs. · Have we got any milk?",
+            "de": "**some im bejahten Satz, any im verneinten und in der Frage**\n- We've got some milk.\n- We haven't got any eggs. · Have we got any milk?",
+            "it": "**some nelle frasi affermative, any in quelle negative e nelle domande**\n- We've got some milk.\n- We haven't got any eggs. · Have we got any milk?",
+            "en": "**some in a yes sentence, any in a no sentence and a question**\n- We've got some milk.\n- We haven't got any eggs. · Have we got any milk?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "some-and-any-2",
+      "title": {
+        "sl": "V gostilni",
+        "de": "Im Gasthaus",
+        "it": "Alla locanda",
+        "en": "At the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Mrs Birkett is in the kitchen. There's ___ bread on the table, but there isn't ___ butter. — Have we got ___ eggs, Harry? — Yes, we've got ___ in the barn. — Good. Are there ___ walkers at the inn tonight? — Yes, two. — Then we haven't got ___ time! — Have ___ tea first, Mum!",
+          "gaps": [
+            {
+              "accept": [
+                "some"
+              ],
+              "hint": {
+                "sl": "trdilno",
+                "de": "bejaht",
+                "it": "affermativa",
+                "en": "yes"
+              }
+            },
+            {
+              "accept": [
+                "any"
+              ],
+              "hint": "not + ?"
+            },
+            {
+              "accept": [
+                "any"
+              ],
+              "spoken": [
+                "some"
+              ],
+              "hint": {
+                "sl": "vprašanje",
+                "de": "Frage",
+                "it": "domanda",
+                "en": "a question"
+              }
+            },
+            {
+              "accept": [
+                "some"
+              ],
+              "hint": {
+                "sl": "Yes, we've got …",
+                "de": "Yes, we've got …",
+                "it": "Yes, we've got …",
+                "en": "Yes, we've got …"
+              }
+            },
+            {
+              "accept": [
+                "any"
+              ],
+              "spoken": [
+                "some"
+              ],
+              "hint": {
+                "sl": "vprašanje",
+                "de": "Frage",
+                "it": "domanda",
+                "en": "a question"
+              }
+            },
+            {
+              "accept": [
+                "any"
+              ],
+              "hint": "not + ?"
+            },
+            {
+              "accept": [
+                "some"
+              ],
+              "hint": {
+                "sl": "ponudba",
+                "de": "Angebot",
+                "it": "offerta",
+                "en": "an offer"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "a",
+            "an"
+          ],
+          "translation": {
+            "sl": "Gospa Birkett je v kuhinji. Na mizi je nekaj kruha, masla pa ni. — Imamo kaj jajc, Harry? — Ja, nekaj jih imamo v skednju. — Dobro. So nocoj v gostilni kakšni pohodniki? — Ja, dva. — Potem nimamo nič časa! — Najprej popij malo čaja, mama!",
+            "de": "Frau Birkett ist in der Küche. Auf dem Tisch ist etwas Brot, aber keine Butter. — Haben wir Eier, Harry? — Ja, wir haben welche in der Scheune. — Gut. Sind heute Abend Wanderer im Gasthaus? — Ja, zwei. — Dann haben wir keine Zeit! — Trink zuerst etwas Tee, Mama!",
+            "it": "La signora Birkett è in cucina. Sul tavolo c'è del pane, ma non c'è burro. — Abbiamo delle uova, Harry? — Sì, ne abbiamo nel fienile. — Bene. Ci sono escursionisti alla locanda stasera? — Sì, due. — Allora non abbiamo tempo! — Prima prendi un po' di tè, mamma!",
+            "en": "Mrs Birkett is in the kitchen. There's some bread on the table, but there isn't any butter. — Have we got any eggs, Harry? — Yes, we've got some in the barn. — Good. Are there any walkers at the inn tonight? — Yes, two. — Then we haven't got any time! — Have some tea first, Mum!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Would you like ___ scones with your tea, Sam?",
+          "options": [
+            "some",
+            "any",
+            "a"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "sl": "**Ponudba: some**\n- Would you like some scones? · Have some cake!",
+            "de": "**Ein Angebot: some**\n- Would you like some scones? · Have some cake!",
+            "it": "**Un'offerta: some**\n- Would you like some scones? · Have some cake!",
+            "en": "**An offer: some**\n- Would you like some scones? · Have some cake!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "The news ___ good today.",
+          "options": [
+            "is",
+            "are",
+            "have"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**news je ena stvar: is**\n- The news is good. · Is there any news?",
+            "de": "**news zählt als eins: is**\n- The news is good. · Is there any news?",
+            "it": "**news è singolare: is**\n- The news is good. · Is there any news?",
+            "en": "**news is singular: is**\n- The news is good. · Is there any news?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "some-and-any-3",
+      "title": {
+        "sl": "Zanikaj in vprašaj",
+        "de": "Verneine und frage",
+        "it": "Nega e chiedi",
+        "en": "No and questions"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Say no · Zanikaj",
+            "de": "Say no · Verneine",
+            "it": "Say no · Fai la negazione",
+            "en": "Say no"
+          },
+          "cue": "not",
+          "items": [
+            {
+              "from": "We've got some eggs.",
+              "accept": [
+                "We haven't got any eggs.",
+                "We've got no eggs.",
+                "We don't have any eggs."
+              ],
+              "hint": "not + any"
+            },
+            {
+              "from": "There's some milk in the jug.",
+              "accept": [
+                "There isn't any milk in the jug.",
+                "There's no milk in the jug."
+              ]
+            },
+            {
+              "from": "Jack has got some sheep on the fell.",
+              "accept": [
+                "Jack hasn't got any sheep on the fell.",
+                "Jack has got no sheep on the fell.",
+                "Jack doesn't have any sheep on the fell."
+              ]
+            },
+            {
+              "from": "There are some walkers at the inn.",
+              "accept": [
+                "There aren't any walkers at the inn.",
+                "There are no walkers at the inn."
+              ],
+              "spoken": [
+                "There's no walkers at the inn."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk.",
+            "de": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk.",
+            "it": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk.",
+            "en": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "some-any",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "Mrs Birkett has got some scones.",
+              "accept": [
+                "Has Mrs Birkett got any scones?",
+                "Does Mrs Birkett have any scones?"
+              ],
+              "spoken": [
+                "Has Mrs Birkett got some scones?"
+              ]
+            },
+            {
+              "from": "There's some hay in the barn.",
+              "accept": [
+                "Is there any hay in the barn?"
+              ],
+              "spoken": [
+                "Is there some hay in the barn?"
+              ]
+            },
+            {
+              "from": "There are some fish in the tarn.",
+              "accept": [
+                "Are there any fish in the tarn?"
+              ],
+              "spoken": [
+                "Are there some fish in the tarn?"
+              ]
+            },
+            {
+              "from": "You've got some money.",
+              "accept": [
+                "Have you got any money?",
+                "Do you have any money?"
+              ],
+              "spoken": [
+                "Have you got some money?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vprašanje: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?",
+            "de": "**Frage: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?",
+            "it": "**Domanda: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?",
+            "en": "**A question: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Poppy is making a cake. There's ___ flour in the cupboard, but there isn't ___ sugar. — Have we got ___ eggs, Granny? — No, we haven't got ___. Can you buy ___ at the shop, love?",
+        "gaps": [
+          {
+            "accept": [
+              "some"
+            ]
+          },
+          {
+            "accept": [
+              "any"
+            ]
+          },
+          {
+            "accept": [
+              "any"
+            ],
+            "spoken": [
+              "some"
+            ]
+          },
+          {
+            "accept": [
+              "any"
+            ]
+          },
+          {
+            "accept": [
+              "some"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Poppy peče torto. V omari je nekaj moke, sladkorja pa ni. — Imamo kaj jajc, babica? — Ne, nimamo jih. Jih lahko kupiš v trgovini, ljubica?",
+          "de": "Poppy macht einen Kuchen. Im Schrank ist etwas Mehl, aber kein Zucker. — Haben wir Eier, Oma? — Nein, wir haben keine. Kannst du welche im Laden kaufen, Liebes?",
+          "it": "Poppy sta facendo una torta. Nella credenza c'è della farina, ma non c'è zucchero. — Abbiamo delle uova, nonna? — No, non ne abbiamo. Puoi comprarne al negozio, cara?",
+          "en": "Poppy is making a cake. There's some flour in the cupboard, but there isn't any sugar. — Have we got any eggs, Granny? — No, we haven't got any. Can you buy some at the shop, love?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Say no · Zanikaj",
+          "de": "Say no · Verneine",
+          "it": "Say no · Fai la negazione",
+          "en": "Say no"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "There's some cheese in the kitchen.",
+            "accept": [
+              "There isn't any cheese in the kitchen.",
+              "There's no cheese in the kitchen."
+            ]
+          },
+          {
+            "from": "We've got some apples.",
+            "accept": [
+              "We haven't got any apples.",
+              "We've got no apples.",
+              "We don't have any apples."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk.",
+          "de": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk.",
+          "it": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk.",
+          "en": "**not + any**\n- We've got some eggs. → We haven't got any eggs.\n- There's some milk. → There isn't any milk.\n- right too: We've got no eggs. There's no milk."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "?",
+        "items": [
+          {
+            "from": "There are some boats on the lake.",
+            "accept": [
+              "Are there any boats on the lake?"
+            ],
+            "spoken": [
+              "Are there some boats on the lake?"
+            ]
+          },
+          {
+            "from": "Mr Tyson has got some oats.",
+            "accept": [
+              "Has Mr Tyson got any oats?",
+              "Does Mr Tyson have any oats?"
+            ],
+            "spoken": [
+              "Has Mr Tyson got some oats?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Vprašanje: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?",
+          "de": "**Frage: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?",
+          "it": "**Domanda: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?",
+          "en": "**A question: any**\n- There's some hay. → Is there any hay?\n- You've got some money. → Have you got any money?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Have ___ honey on your bread, Mr Dixon!",
+        "options": [
+          "some",
+          "any",
+          "a"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Ponudba: some**\n- Have some honey! · Would you like some tea?",
+          "de": "**Ein Angebot: some**\n- Have some honey! · Would you like some tea?",
+          "it": "**Un'offerta: some**\n- Have some honey! · Would you like some tea?",
+          "en": "**An offer: some**\n- Have some honey! · Would you like some tea?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "some-any",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": {
+          "sl": "Kaj je prav?",
+          "de": "Was ist richtig?",
+          "it": "Che cosa è giusto?",
+          "en": "Which is right?"
+        },
+        "options": [
+          "Mr Dixon gave me some advice.",
+          "Mr Dixon gave me an advice.",
+          "Mr Dixon gave me some advices."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**advice ne šteješ: brez an, brez -s**\n- some advice · a piece of advice",
+          "de": "**advice zählt man nicht: kein an, kein -s**\n- some advice · a piece of advice",
+          "it": "**advice non si conta: niente an, niente -s**\n- some advice · a piece of advice",
+          "en": "**You can't count advice: no an, no -s**\n- some advice · a piece of advice"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "articles",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Can I have a ___ of bread, please?",
+        "options": [
+          "loaf",
+          "cup",
+          "jar"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kruh štejemo v hlebcih**\n- a loaf of bread · a cup of tea · a jar of honey",
+          "de": "**Brot zählt man in Laiben**\n- a loaf of bread · a cup of tea · a jar of honey",
+          "it": "**Il pane si conta a pagnotte**\n- a loaf of bread · a cup of tea · a jar of honey",
+          "en": "**You count bread in loaves**\n- a loaf of bread · a cup of tea · a jar of honey"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: some in a question as spoken (Have we got some eggs?); Would you like any …? almost; hlebec, Laib, pagnotta for a loaf"
+}

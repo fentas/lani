@@ -1,0 +1,36 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "party-charter-day",
+  "language": "en",
+  "title": {
+    "en": "Charter Day",
+    "sl": "Dan mestne listine",
+    "it": "Il giorno della carta",
+    "de": "Der Tag der Stadturkunde"
+  },
+  "emoji": "📜",
+  "level": "A2",
+  "description": {
+    "en": "The market town becomes a town: with Mrs Hartley under the banners, the procession behind the band, the charter read out to the crowd, and pennies scattered for the children.",
+    "sl": "Trg postane mesto: z gospo Hartley pod prapori, sprevod za godbo, mestna listina, prebrana na glas množici, in peniji, razsuti za otroke.",
+    "it": "Il borgo diventa una città: con la signora Hartley sotto gli stendardi, la processione dietro la banda, la carta cittadina letta ad alta voce alla folla e i penny sparsi per i bambini.",
+    "de": "Aus dem Marktflecken wird eine Stadt: mit Mrs Hartley unter den Bannern, der Prozession hinter der Blaskapelle, der Stadturkunde, die der Menge vorgelesen wird, und Pennys, die für die Kinder verstreut werden."
+  },
+  "giver": {
+    "name": "Mrs Hartley",
+    "emoji": "📚"
+  },
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker; sources in docs/plans/05-built/parties-lakeland.md",
+  "words": [
+    {"id": "charter", "en": "charter", "sl": "mestna listina", "it": "carta cittadina", "de": "Stadturkunde", "emoji": "📜", "plural": "charters", "example_en": "The charter says we can hold a market.", "example_sl": "Mestna listina pravi, da smemo imeti tržnico.", "example_it": "La carta cittadina dice che possiamo tenere un mercato.", "example_de": "Die Stadturkunde sagt, dass wir einen Markt abhalten dürfen.", "note": "An old paper that gives a town its rights. Kendal's first came from Queen Elizabeth I.", "note_sl": "Stara listina, ki mestu da pravice. Prvo v Kendalu je dala kraljica Elizabeta I.", "note_it": "Un vecchio documento che dà i diritti a una città. La prima di Kendal venne dalla regina Elisabetta I.", "note_de": "Ein altes Papier, das einer Stadt ihre Rechte gibt. Die erste von Kendal kam von Königin Elisabeth I."},
+    {"id": "mayor", "en": "mayor", "sl": "župan; županja", "it": "sindaco; sindaca", "de": "Bürgermeister; Bürgermeisterin", "emoji": "🏛️", "plural": "mayors", "example_en": "The mayor walks in front.", "example_sl": "Župan hodi spredaj.", "example_it": "Il sindaco cammina davanti.", "example_de": "Der Bürgermeister geht vorne.", "note": "A man or a woman, the word is the same. It sounds like “mare”.", "note_sl": "Moški ali ženska, beseda je ista. Izgovori se »mer«.", "note_it": "Uomo o donna, la parola è la stessa. Si dice «mèr».", "note_de": "Ob Mann oder Frau, das Wort bleibt gleich. Es klingt wie „mähr“."},
+    {"id": "crowd", "en": "crowd", "sl": "množica", "it": "folla", "de": "Menschenmenge", "emoji": "👥", "plural": "crowds", "example_en": "The crowd is waiting in the market place.", "example_sl": "Množica čaka na trgu.", "example_it": "La folla aspetta sulla piazza del mercato.", "example_de": "Die Menschenmenge wartet auf dem Marktplatz."},
+    {"id": "banner", "en": "banner", "sl": "prapor", "it": "stendardo", "de": "Banner", "emoji": "🚩", "plural": "banners", "example_en": "Two people carry the banner.", "example_sl": "Prapor neseta dva.", "example_it": "Lo stendardo lo portano in due.", "example_de": "Das Banner tragen zwei Leute."},
+    {"id": "read-out", "en": "to read out", "sl": "prebrati na glas", "it": "leggere ad alta voce", "de": "vorlesen", "emoji": "📣", "example_en": "Who's going to read it out?", "example_sl": "Kdo bo to prebral na glas?", "example_it": "Chi lo legge ad alta voce?", "example_de": "Wer liest es vor?", "note": "Read, read, read: the same spelling, but the past sounds like red.", "note_sl": "Read, read, read: zapis je isti, preteklik pa se izgovori kot red.", "note_it": "Read, read, read: si scrive uguale, ma il passato si dice come red.", "note_de": "Read, read, read: gleich geschrieben, aber die Vergangenheit klingt wie red."},
+    {"id": "penny", "en": "penny", "sl": "peni", "it": "penny", "de": "Penny", "emoji": "🪙", "plural": "pennies", "example_en": "They scatter pennies for the children.", "example_sl": "Za otroke razsujejo penije.", "example_it": "Spargono penny per i bambini.", "example_de": "Sie verstreuen Pennys für die Kinder.", "note": "Coins you can count are pennies; a price is in pence.", "note_sl": "Kovance, ki jih šteješ, imenujemo pennies; cena je v pence.", "note_it": "Le monete che conti sono pennies; un prezzo è in pence.", "note_de": "Münzen, die man zählt, sind pennies; ein Preis ist in pence."},
+    {"id": "bailiff", "en": "bailiff", "sl": "graščinski oskrbnik", "it": "balivo", "de": "Vogt", "emoji": "🗝️", "plural": "bailiffs", "example_en": "The bailiff leads the procession.", "example_sl": "Sprevod vodi graščinski oskrbnik.", "example_it": "Il balivo guida la processione.", "example_de": "Der Vogt führt die Prozession an.", "note": "Long ago the lord's officer. Today a bailiff is usually someone who collects debts.", "note_sl": "Nekoč gospodov uradnik. Danes je bailiff navadno izterjevalec dolgov.", "note_it": "Una volta il funzionario del signore. Oggi un bailiff di solito riscuote i debiti.", "note_de": "Früher der Beamte des Herrn. Heute treibt ein bailiff meist Schulden ein."},
+    {"id": "halberd", "en": "halberd", "sl": "helebarda", "it": "alabarda", "de": "Hellebarde", "emoji": "🪓", "plural": "halberds", "example_en": "At Broughton the bailiff carries a halberd.", "example_sl": "V Broughtonu nosi oskrbnik helebardo.", "example_it": "A Broughton il balivo porta un'alabarda.", "example_de": "In Broughton trägt der Vogt eine Hellebarde."},
+    {"id": "band", "en": "band", "sl": "godba", "it": "banda", "de": "Blaskapelle", "emoji": "🎺", "plural": "bands", "example_en": "The band marches in front of the banners.", "example_sl": "Godba koraka pred prapori.", "example_it": "La banda marcia davanti agli stendardi.", "example_de": "Die Blaskapelle marschiert vor den Bannern."},
+    {"id": "procession", "en": "procession", "sl": "procesija", "it": "processione", "de": "Prozession", "emoji": "🚶", "plural": "processions", "example_en": "The whole town walks in the procession.", "example_sl": "Vse mesto gre v procesiji.", "example_it": "Tutta la città cammina nella processione.", "example_de": "Die ganze Stadt geht in der Prozession mit."}
+  ]
+}

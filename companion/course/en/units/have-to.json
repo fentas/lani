@@ -1,0 +1,812 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "have-to",
+  "language": "en",
+  "level": "A2",
+  "emoji": "☝️",
+  "title": {
+    "en": "I have to, you must, you should",
+    "de": "Pflicht und Rat: have to, must, should",
+    "sl": "Obveznost in nasvet: have to, must, should",
+    "it": "Dovere e consigli: have to, must, should"
+  },
+  "goal": {
+    "sl": "Poveš, kaj moraš in česa ne smeš (have to, must, mustn't), da nečesa ni treba (don't have to), in daš nasvet (You should take a coat).",
+    "de": "Du sagst, was du tun musst und was verboten ist (have to, must, mustn't), dass etwas nicht nötig ist (don't have to), und gibst einen Rat (You should take a coat).",
+    "it": "Dici che cosa devi fare e che cosa non è permesso (have to, must, mustn't), che qualcosa non è necessario (don't have to), e dai un consiglio (You should take a coat).",
+    "en": "You can say what you have to do and what is not allowed (have to, must, mustn't), that there is no need (don't have to), and give advice (You should take a coat)."
+  },
+  "grammar": ["must-have-to", "can"],
+  "words": [
+    "have to",
+    "has to",
+    "had to",
+    "have got to",
+    "must",
+    "mustn't",
+    "don't have to",
+    "needn't",
+    "should",
+    "shouldn't",
+    "rule",
+    "allowed",
+    "advice",
+    "feed",
+    "get up",
+    "call",
+    "to smoke",
+    "park",
+    "pay",
+    "to rest",
+    "wait",
+    "wash up",
+    "teach",
+    "free",
+    "alone",
+    "early",
+    "path",
+    "horse",
+    "coat",
+    "floor",
+    "kitchen",
+    "mother",
+    "map",
+    "tired",
+    "ill",
+    "storm"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "kaj pove", "de": "was es sagt", "it": "che cosa dice", "en": "what it says" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**have to** + osnovna oblika: kar moraš, pogosto zaradi dela ali pravila: **I have to feed the lambs.** (Moram nahraniti jagnjeta.) **We have to be there at nine.** (Ob devetih moramo biti tam.) Pri he, she, it: **has to**: **Jack has to get up at five.** (Jack mora vstati ob petih.) Nikoli *Jack have to*.",
+          "de": "**have to** + Grundform: was du tun musst, oft wegen der Arbeit oder einer Regel: **I have to feed the lambs.** (Ich muss die Lämmer füttern.) **We have to be there at nine.** (Wir müssen um neun dort sein.) Bei he, she, it: **has to**: **Jack has to get up at five.** (Jack muss um fünf aufstehen.) Nie *Jack have to*.",
+          "it": "**have to** + la forma base: ciò che devi fare, spesso per il lavoro o per una regola: **I have to feed the lambs.** (Devo dare da mangiare agli agnelli.) **We have to be there at nine.** (Dobbiamo essere lì alle nove.) Con he, she, it: **has to**: **Jack has to get up at five.** (Jack deve alzarsi alle cinque.) Mai *Jack have to*.",
+          "en": "**have to** + the base form: what you need to do, often because of a job or a rule: **I have to feed the lambs.** **We have to be there at nine.** With he, she, it: **has to**: **Jack has to get up at five.** (never *Jack have to get up at five.*)"
+        },
+        "examples": [
+          {
+            "en": "I have to feed the lambs.",
+            "sl": "Moram nahraniti jagnjeta.",
+            "de": "Ich muss die Lämmer füttern.",
+            "it": "Devo dare da mangiare agli agnelli."
+          },
+          {
+            "en": "We have to be at the mill at nine.",
+            "sl": "Ob devetih moramo biti v mlinu.",
+            "de": "Wir müssen um neun in der Mühle sein.",
+            "it": "Dobbiamo essere al mulino alle nove."
+          },
+          {
+            "en": "Jack has to get up at five.",
+            "sl": "Jack mora vstati ob petih.",
+            "de": "Jack muss um fünf aufstehen.",
+            "it": "Jack deve alzarsi alle cinque."
+          }
+        ],
+        "rows": [
+          [
+            "have to, has to",
+            { "sl": "moraš", "de": "du musst", "it": "devi", "en": "you need to" },
+            "Jack has to get up at five."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "prompt": "Mrs Birkett ___ cook for forty people tonight.",
+          "options": ["has to", "have to", "must to"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mrs Birkett je she: has to**\n- I have to · she has to · they have to",
+            "de": "**Mrs Birkett ist she: has to**\n- I have to · she has to · they have to",
+            "it": "**Mrs Birkett è she: has to**\n- I have to · she has to · they have to",
+            "en": "**Mrs Birkett is she: has to**\n- I have to · she has to · they have to"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri vprašanju rabiš **do** ali **does**: **Do you have to work on Saturday?** (Moraš v soboto delati?) **Yes, I do.** (Ja.) **Does she have to go?** (Mora iti?) **No, she doesn't.** (Ne.) Preteklik je **had to**: **Yesterday I had to walk home.** (Včeraj sem moral{m:|f:a} domov peš.) V govoru Britanci rečejo tudi **have got to**: **I've got to go.** (Moram iti.)",
+          "de": "Bei der Frage brauchst du **do** oder **does**: **Do you have to work on Saturday?** (Musst du am Samstag arbeiten?) **Yes, I do.** (Ja.) **Does she have to go?** (Muss sie gehen?) **No, she doesn't.** (Nein.) Die Vergangenheit ist **had to**: **Yesterday I had to walk home.** (Gestern musste ich zu Fuß heim.) Gesprochen sagt man in Großbritannien auch **have got to**: **I've got to go.** (Ich muss los.)",
+          "it": "Per chiedere usi **do** o **does**: **Do you have to work on Saturday?** (Devi lavorare sabato?) **Yes, I do.** (Sì.) **Does she have to go?** (Deve andare?) **No, she doesn't.** (No.) Il passato è **had to**: **Yesterday I had to walk home.** (Ieri sono dovut{m:o|f:a} tornare a casa a piedi.) A voce i britannici dicono anche **have got to**: **I've got to go.** (Devo andare.)",
+          "en": "To ask, use **do** or **does**: **Do you have to work on Saturday?** **Yes, I do.** **Does she have to go?** **No, she doesn't.** The past is **had to**: **Yesterday I had to walk home.** In talk British people also say **have got to**: **I've got to go.**"
+        },
+        "examples": [
+          {
+            "en": "Do you have to work on Saturday? — Yes, I do.",
+            "sl": "Moraš v soboto delati? — Ja.",
+            "de": "Musst du am Samstag arbeiten? — Ja.",
+            "it": "Devi lavorare sabato? — Sì."
+          },
+          {
+            "en": "Yesterday the bus didn't come, so I had to walk home.",
+            "sl": "Včeraj avtobusa ni bilo, zato sem moral{m:|f:a} domov peš.",
+            "de": "Gestern ist der Bus nicht gekommen, also musste ich zu Fuß heim.",
+            "it": "Ieri l'autobus non è arrivato, così sono dovut{m:o|f:a} tornare a casa a piedi."
+          },
+          {
+            "en": "It's late. I've got to go.",
+            "sl": "Pozno je. Moram iti.",
+            "de": "Es ist spät. Ich muss los.",
+            "it": "È tardi. Devo andare."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+            "Do you have to …?",
+            "Yes, I do. No, she doesn't."
+          ],
+          [{"sl": "preteklik", "de": "Vergangenheit", "it": "passato", "en": "past"}, "had to", "I had to walk home."],
+          [{"sl": "v govoru", "de": "gesprochen", "it": "a voce", "en": "spoken"}, "have got to", "I've got to go."]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "must-have-to",
+          "text": "___ you have to work on Saturday?",
+          "accept": ["Do"],
+          "hint": { "sl": "you → ?", "de": "you → ?", "it": "you → ?", "en": "you → ?" },
+          "explain": {
+            "sl": "**have to vpraša z do**\n- Do you have to …? · Does she have to …?",
+            "de": "**have to fragt mit do**\n- Do you have to …? · Does she have to …?",
+            "it": "**have to chiede con do**\n- Do you have to …? · Does she have to …?",
+            "en": "**have to asks with do**\n- Do you have to …? · Does she have to …?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**must** + osnovna oblika, za vse enako, brez to: **You must close the gate.** (Moraš zapreti vrata.) **Walkers must stay on the path.** (Pohodniki morajo ostati na poti.) **I must call my mother.** (Moram poklicati mamo.) Nikoli *must to*. Je za pravilo na napisu ali za to, kar se tebi zdi nujno. Preteklika nima: **had to**.",
+          "de": "**must** + Grundform, für alle gleich, ohne to: **You must close the gate.** (Du musst das Tor schließen.) **Walkers must stay on the path.** (Wanderer müssen auf dem Weg bleiben.) **I must call my mother.** (Ich muss meine Mutter anrufen.) Nie *must to*. Es steht für eine Regel auf einem Schild oder für das, was dir selbst nötig scheint. Eine Vergangenheit hat es nicht: **had to**.",
+          "it": "**must** + la forma base, uguale per tutti, senza to: **You must close the gate.** (Devi chiudere il cancello.) **Walkers must stay on the path.** (Gli escursionisti devono restare sul sentiero.) **I must call my mother.** (Devo chiamare mia madre.) Mai *must to*. È per una regola su un cartello o per ciò che a te sembra necessario. Non ha il passato: **had to**.",
+          "en": "**must** + the base form, the same for everyone, with no to: **You must close the gate.** **Walkers must stay on the path.** **I must call** (never *I must to call*). It is for a rule on a notice, or for what you yourself feel is needed. It has no past: **had to**."
+        },
+        "examples": [
+          {
+            "en": "You must close the gate.",
+            "sl": "Moraš zapreti vrata.",
+            "de": "Du musst das Tor schließen.",
+            "it": "Devi chiudere il cancello."
+          },
+          {
+            "en": "Walkers must stay on the path.",
+            "sl": "Pohodniki morajo ostati na poti.",
+            "de": "Wanderer müssen auf dem Weg bleiben.",
+            "it": "Gli escursionisti devono restare sul sentiero."
+          },
+          {
+            "en": "I must call my mother tonight.",
+            "sl": "Nocoj moram poklicati mamo.",
+            "de": "Heute Abend muss ich meine Mutter anrufen.",
+            "it": "Stasera devo chiamare mia madre."
+          }
+        ],
+        "rows": [
+          [
+            "must",
+            {
+              "sl": "pravilo, kar se ti zdi",
+              "de": "eine Regel, dein Gefühl",
+              "it": "una regola, ciò che senti",
+              "en": "a rule, what you feel"
+            },
+            "You must close the gate."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "prompt": "Walkers ___ stay on the path.",
+          "options": ["must", "musts", "must to"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**must: brez -s in brez to**\n- I must · she must · walkers must",
+            "de": "**must: kein -s und kein to**\n- I must · she must · walkers must",
+            "it": "**must: senza -s e senza to**\n- I must · she must · walkers must",
+            "en": "**must: no -s and no to**\n- I must · she must · walkers must"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**mustn't** (must not) pomeni, da ni dovoljeno, ne smeš: **You mustn't feed the horses.** (Konj ne smeš hraniti.) **You mustn't smoke in the barn.** (V skednju ne smeš kaditi.) **We mustn't be late.** (Ne smemo zamuditi.) **can't** pogosto pove isto: **You can't park here.** (Tu ne smeš parkirati.)",
+          "de": "**mustn't** (must not) sagt: Es ist nicht erlaubt, du darfst nicht. Vorsicht, das ist nicht *du musst nicht*: **You mustn't feed the horses.** (Du darfst die Pferde nicht füttern.) **You mustn't smoke in the barn.** (In der Scheune darfst du nicht rauchen.) **can't** sagt oft dasselbe: **You can't park here.** (Hier darfst du nicht parken.)",
+          "it": "**mustn't** (must not) dice che non è permesso: **You mustn't feed the horses.** (Non devi dare da mangiare ai cavalli.) **You mustn't smoke in the barn.** (Nel fienile non si fuma.) **We mustn't be late.** (Non dobbiamo fare tardi.) **can't** spesso dice lo stesso: **You can't park here.** (Qui non puoi parcheggiare.)",
+          "en": "**mustn't** (must not) says it is not allowed: **You mustn't feed the horses.** **You mustn't smoke in the barn.** **We mustn't be late.** **can't** often says the same: **You can't park here.**"
+        },
+        "examples": [
+          {
+            "en": "You mustn't feed the horses.",
+            "sl": "Konj ne smeš hraniti.",
+            "de": "Du darfst die Pferde nicht füttern.",
+            "it": "Non devi dare da mangiare ai cavalli."
+          },
+          {
+            "en": "You mustn't smoke in the barn.",
+            "sl": "V skednju ne smeš kaditi.",
+            "de": "In der Scheune darfst du nicht rauchen.",
+            "it": "Nel fienile non si fuma."
+          },
+          {
+            "en": "You can't park here.",
+            "sl": "Tu ne smeš parkirati.",
+            "de": "Hier darfst du nicht parken.",
+            "it": "Qui non puoi parcheggiare."
+          }
+        ],
+        "rows": [
+          [
+            "mustn't, can't",
+            { "sl": "ni dovoljeno", "de": "nicht erlaubt", "it": "non permesso", "en": "not allowed" },
+            "You mustn't feed the horses."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "prompt": "That's not allowed: you ___ smoke in the barn.",
+          "options": ["mustn't", "don't have to", "aren't"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ni dovoljeno: mustn't**\n- You mustn't smoke in the barn.",
+            "de": "**Nicht erlaubt: mustn't**\n- You mustn't smoke in the barn.",
+            "it": "**Non permesso: mustn't**\n- You mustn't smoke in the barn.",
+            "en": "**Not allowed: mustn't**\n- You mustn't smoke in the barn."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**don't have to** pomeni, da ni treba; lahko, če hočeš: **You don't have to pay.** (Ni ti treba plačati.) **She doesn't have to get up early on Sunday.** (V nedeljo ji ni treba zgodaj vstati.) Torej **You mustn't go.** (Ne smeš iti.), **You don't have to go.** (Ni ti treba iti.) Britansko je tudi **You needn't pay.**",
+          "de": "**don't have to** sagt: Es ist nicht nötig, du musst nicht: **You don't have to pay.** (Du musst nicht zahlen.) **She doesn't have to get up early on Sunday.** (Am Sonntag muss sie nicht früh aufstehen.) Also **You mustn't go.** (Du darfst nicht gehen.), aber **You don't have to go.** (Du musst nicht gehen.) Britisch auch: **You needn't pay.**",
+          "it": "**don't have to** dice che non è necessario, ma puoi se vuoi: **You don't have to pay.** (Non è necessario pagare.) **She doesn't have to get up early on Sunday.** (La domenica non è costretta ad alzarsi presto.) Quindi **You mustn't go.** (Non devi andare, è vietato.), ma **You don't have to go.** (Non sei obbligat{m:o|f:a} ad andare.) Britannico anche **You needn't pay.**",
+          "en": "**don't have to** says there is no need; you may if you want: **You don't have to pay.** **She doesn't have to get up early on Sunday.** So **You mustn't go.** means don't go, but **You don't have to go.** means go if you like. **You needn't pay.** is British too."
+        },
+        "examples": [
+          {
+            "en": "You don't have to pay. It's free.",
+            "sl": "Ni ti treba plačati. Je zastonj.",
+            "de": "Du musst nicht zahlen. Es ist gratis.",
+            "it": "Non è necessario pagare. È gratis."
+          },
+          {
+            "en": "She doesn't have to get up early on Sunday.",
+            "sl": "V nedeljo ji ni treba zgodaj vstati.",
+            "de": "Am Sonntag muss sie nicht früh aufstehen.",
+            "it": "La domenica non è costretta ad alzarsi presto."
+          },
+          {
+            "en": "You don't have to go, but you mustn't tell anyone.",
+            "sl": "Ni ti treba iti, ampak nikomur ne smeš povedati.",
+            "de": "Du musst nicht gehen, aber du darfst es niemandem sagen.",
+            "it": "Non sei obbligat{m:o|f:a} ad andare, ma non devi dirlo a nessuno."
+          }
+        ],
+        "rows": [
+          [
+            "don't have to, needn't",
+            { "sl": "ni treba", "de": "nicht nötig", "it": "non è necessario", "en": "no need" },
+            "You don't have to pay."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "prompt": "It's free. You ___ pay.",
+          "options": ["don't have to", "mustn't", "don't must"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ni treba: don't have to**\n- You don't have to pay. · You mustn't go: not allowed.",
+            "de": "**Nicht nötig: don't have to**\n- You don't have to pay. · You mustn't go: not allowed.",
+            "it": "**Non è necessario: don't have to**\n- You don't have to pay. · You mustn't go: not allowed.",
+            "en": "**No need: don't have to**\n- You don't have to pay. · You mustn't go: not allowed."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**should** + osnovna oblika, brez to in brez -s, je nasvet, mehkejši od must: **You should take a coat.** (Bolje, da vzameš plašč.) **You shouldn't walk alone on the fell.** (Ni pametno, da greš sam{m:|f:a} na hrib.) **Should I call the doctor?** (Naj pokličem zdravnika?) **What should I do?** (Kaj naj naredim?)",
+          "de": "**should** + Grundform, ohne to und ohne -s, gibt einen Rat, weicher als must: **You should take a coat.** (Du solltest einen Mantel mitnehmen.) **You shouldn't walk alone on the fell.** (Du solltest nicht allein auf den Berg gehen.) **Should I call the doctor?** (Soll ich den Arzt rufen?) **What should I do?** (Was soll ich tun?)",
+          "it": "**should** + la forma base, senza to e senza -s, dà un consiglio, più morbido di must: **You should take a coat.** (Dovresti prendere un cappotto.) **You shouldn't walk alone on the fell.** (Non dovresti andare da sol{m:o|f:a} sul monte.) **Should I call the doctor?** (Chiamo il medico?) **What should I do?** (Che cosa devo fare?)",
+          "en": "**should** + the base form, with no to and no -s, gives advice, softer than must: **You should take a coat.** **You shouldn't walk alone on the fell.** **Should I call the doctor?** **What should I do?**"
+        },
+        "examples": [
+          {
+            "en": "It's cold on the fell. You should take a coat.",
+            "sl": "Na hribu je mraz. Bolje, da vzameš plašč.",
+            "de": "Am Berg ist es kalt. Du solltest einen Mantel mitnehmen.",
+            "it": "Sul monte fa freddo. Dovresti prendere un cappotto."
+          },
+          {
+            "en": "You shouldn't walk alone on the fell.",
+            "sl": "Ni pametno, da greš sam{m:|f:a} na hrib.",
+            "de": "Du solltest nicht allein auf den Berg gehen.",
+            "it": "Non dovresti andare da sol{m:o|f:a} sul monte."
+          },
+          {
+            "en": "Should I call the doctor?",
+            "sl": "Naj pokličem zdravnika?",
+            "de": "Soll ich den Arzt rufen?",
+            "it": "Chiamo il medico?"
+          }
+        ],
+        "rows": [
+          [
+            "should, shouldn't",
+            { "sl": "nasvet", "de": "ein Rat", "it": "un consiglio", "en": "advice" },
+            "You should take a coat."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "prompt": "You look very tired. You ___ go to bed.",
+          "options": ["should", "should to", "shoulds"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Nasvet: should + osnovna oblika**\n- You should go to bed.",
+            "de": "**Ein Rat: should + Grundform**\n- You should go to bed.",
+            "it": "**Un consiglio: should + la forma base**\n- You should go to bed.",
+            "en": "**Advice: should + the base form**\n- You should go to bed."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "have-to-1",
+      "title": { "sl": "Moram, ni mi treba", "de": "Muss, muss nicht", "it": "Devo, non devo", "en": "Have to, has to" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "must-have-to",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "have to + go · da in ne",
+            "de": "have to + go · ja und nein",
+            "it": "have to + go · sì e no",
+            "en": "have to + go: yes and no"
+          },
+          "columns": [{"sl": "+ go", "de": "+ go", "it": "+ go", "en": "+ go"}],
+          "rows": [
+            { "label": {"sl": "I · da", "de": "I · ja", "it": "I · sì", "en": "I · yes"}, "cells": ["have to go"] },
+            {
+              "label": { "sl": "I · ne", "de": "I · nein", "it": "I · no", "en": "I · no" },
+              "cells": ["don't have to go"]
+            },
+            {
+              "label": { "sl": "she · da", "de": "she · ja", "it": "she · sì", "en": "she · yes" },
+              "cells": [
+                {
+                  "accept": ["has to go"],
+                  "hint": { "sl": "she: has", "de": "she: has", "it": "she: has", "en": "she: has" }
+                }
+              ]
+            },
+            {
+              "label": { "sl": "she · ne", "de": "she · nein", "it": "she · no", "en": "she · no" },
+              "cells": [{"accept": ["doesn't have to go"], "hint": "does + not"}]
+            },
+            {
+              "label": { "sl": "we · da", "de": "we · ja", "it": "we · sì", "en": "we · yes" },
+              "cells": [{"accept": ["have to go"]}]
+            },
+            {
+              "label": { "sl": "we · ne", "de": "we · nein", "it": "we · no", "en": "we · no" },
+              "cells": [{"accept": ["don't have to go"]}]
+            },
+            {
+              "label": { "sl": "Jack · da", "de": "Jack · ja", "it": "Jack · sì", "en": "Jack · yes" },
+              "cells": [{"accept": ["has to go"]}]
+            },
+            {
+              "label": { "sl": "Jack · ne", "de": "Jack · nein", "it": "Jack · no", "en": "Jack · no" },
+              "cells": [{"accept": ["doesn't have to go"]}]
+            }
+          ],
+          "explain": {
+            "sl": "**have to, has to; don't have to, doesn't have to**\n- she has to go · she doesn't have to go",
+            "de": "**have to, has to; don't have to, doesn't have to**\n- she has to go · she doesn't have to go",
+            "it": "**have to, has to; don't have to, doesn't have to**\n- she has to go · she doesn't have to go",
+            "en": "**have to, has to; don't have to, doesn't have to**\n- she has to go · she doesn't have to go"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "must-have-to",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Ordne zu",
+            "it": "Sort · Ordina",
+            "en": "Sort: not allowed, or no need"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "not allowed · ni dovoljeno",
+                "de": "not allowed · nicht erlaubt",
+                "it": "not allowed · non permesso",
+                "en": "not allowed"
+              },
+              "words": ["You mustn't feed the horses.", "You mustn't go near the bees.", "You mustn't park here."]
+            },
+            {
+              "label": {
+                "sl": "no need · ni treba",
+                "de": "no need · nicht nötig",
+                "it": "no need · non è necessario",
+                "en": "no need"
+              },
+              "words": ["You don't have to pay.", "You don't have to wait for me.", "You don't have to wash up."]
+            }
+          ],
+          "explain": {
+            "sl": "**mustn't: ni dovoljeno; don't have to: ni treba**\n- You mustn't park here. · You don't have to pay.",
+            "de": "**mustn't: nicht erlaubt; don't have to: nicht nötig**\n- You mustn't park here. · You don't have to pay.",
+            "it": "**mustn't: non permesso; don't have to: non è necessario**\n- You mustn't park here. · You don't have to pay.",
+            "en": "**mustn't: not allowed; don't have to: no need**\n- You mustn't park here. · You don't have to pay."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Jack ___ get up at five every day.",
+          "options": ["has to", "have to", "must to"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack je he: has to**\n- Jack has to get up at five.",
+            "de": "**Jack ist he: has to**\n- Jack has to get up at five.",
+            "it": "**Jack è he: has to**\n- Jack has to get up at five.",
+            "en": "**Jack is he: has to**\n- Jack has to get up at five."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "The bus is at nine. We ___ be late!",
+          "options": ["mustn't", "don't have to", "aren't"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ne sme se zgoditi: mustn't**\n- We mustn't be late!",
+            "de": "**Es darf nicht sein: mustn't**\n- We mustn't be late!",
+            "it": "**Non deve succedere: mustn't**\n- We mustn't be late!",
+            "en": "**Not allowed, a bad idea: mustn't**\n- We mustn't be late!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-to-2",
+      "title": {
+        "sl": "Pravila gospe Birkett",
+        "de": "Mrs Birketts Regeln",
+        "it": "Le regole di Mrs Birkett",
+        "en": "Mrs Birkett's rules"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "must-have-to",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "Welcome to the inn! These are the rules. You ___ be here at eight. Sam ___ come at seven, because he brings the ale. You ___ smoke in the kitchen: that's not allowed. You ___ wash the floors: there's no need, Granny Maggie does that. ___ you have to work on Sundays? No, you ___. And you ___ take a coat on Monday. My advice: it's going to be cold!",
+          "gaps": [
+            {
+              "accept": ["have to", "must", "'ve got to", "have got to"],
+              "hint": { "sl": "moraš", "de": "du musst", "it": "devi", "en": "you need to" }
+            },
+            {
+              "accept": ["has to", "must", "'s got to", "has got to"],
+              "hint": { "sl": "he → ?", "de": "he → ?", "it": "he → ?", "en": "he → ?" }
+            },
+            {
+              "accept": ["mustn't", "can't", "may not"],
+              "hint": { "sl": "ni dovoljeno", "de": "nicht erlaubt", "it": "non permesso", "en": "not allowed" },
+              "explain": {
+                "sl": "**Ni dovoljeno: mustn't**\n- You mustn't smoke in the kitchen.",
+                "de": "**Nicht erlaubt: mustn't**\n- You mustn't smoke in the kitchen.",
+                "it": "**Non permesso: mustn't**\n- You mustn't smoke in the kitchen.",
+                "en": "**Not allowed: mustn't**\n- You mustn't smoke in the kitchen."
+              }
+            },
+            {
+              "accept": ["don't have to", "needn't", "don't need to"],
+              "hint": { "sl": "ni treba", "de": "nicht nötig", "it": "non è necessario", "en": "no need" },
+              "explain": {
+                "sl": "**Ni treba: don't have to**\n- You don't have to wash the floors.",
+                "de": "**Nicht nötig: don't have to**\n- You don't have to wash the floors.",
+                "it": "**Non è necessario: don't have to**\n- You don't have to wash the floors.",
+                "en": "**No need: don't have to**\n- You don't have to wash the floors."
+              }
+            },
+            {
+              "accept": ["Do"],
+              "hint": { "sl": "vprašanje", "de": "eine Frage", "it": "una domanda", "en": "a question" }
+            },
+            {
+              "accept": ["don't"],
+              "hint": { "sl": "kratki odgovor", "de": "die Kurzantwort", "it": "la risposta breve", "en": "the short answer" }
+            },
+            {
+              "accept": ["should", "ought to"],
+              "hint": { "sl": "nasvet", "de": "ein Rat", "it": "un consiglio", "en": "advice" }
+            }
+          ],
+          "bank": true,
+          "distractors": ["must to", "doesn't must"],
+          "translation": {
+            "sl": "Dobrodošli v gostilni! To so pravila. Tukaj moraš biti ob osmih. Sam mora priti ob sedmih, ker pripelje pivo. V kuhinji ne smeš kaditi: to ni dovoljeno. Tal ti ni treba pomivati: ni treba, to naredi babica Maggie. Moraš delati ob nedeljah? Ne. In v ponedeljek vzemi plašč. Moj nasvet: mrzlo bo!",
+            "de": "Willkommen im Gasthaus! Das sind die Regeln. Du musst um acht hier sein. Sam muss um sieben kommen, weil er das Bier bringt. In der Küche darfst du nicht rauchen: Das ist nicht erlaubt. Die Böden musst du nicht wischen: Das ist nicht nötig, das macht Oma Maggie. Musst du sonntags arbeiten? Nein. Und am Montag solltest du einen Mantel mitnehmen. Mein Rat: Es wird kalt!",
+            "it": "Benvenut{m:o|f:a} alla locanda! Queste sono le regole. Devi essere qui alle otto. Sam deve venire alle sette, perché porta la birra. In cucina non devi fumare: non è permesso. Non è necessario lavare i pavimenti: lo fa nonna Maggie. Devi lavorare la domenica? No. E lunedì dovresti prendere un cappotto. Il mio consiglio: farà freddo!",
+            "en": "Welcome to the inn! These are the rules. You have to be here at eight. Sam has to come at seven, because he brings the ale. You mustn't smoke in the kitchen: that's not allowed. You don't have to wash the floors: there's no need, Granny Maggie does that. Do you have to work on Sundays? No, you don't. And you should take a coat on Monday. My advice: it's going to be cold!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "must-have-to",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Yesterday I ___ wait an hour for the bus.",
+          "options": ["had to", "must", "have to"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Preteklik od must in have to: had to**\n- Yesterday I had to wait.",
+            "de": "**Die Vergangenheit von must und have to: had to**\n- Yesterday I had to wait.",
+            "it": "**Il passato di must e have to: had to**\n- Yesterday I had to wait.",
+            "en": "**The past of must and have to: had to**\n- Yesterday I had to wait."
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-to-3",
+      "title": { "sl": "Pravila in nasveti", "de": "Regeln und Ratschläge", "it": "Regole e consigli", "en": "Rules and advice" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "must-have-to",
+          "instruction": {
+            "sl": "Say it with have to · Povej s have to",
+            "de": "Say it with have to · Sag es mit have to",
+            "it": "Say it with have to · Dillo con have to",
+            "en": "Say it with have to"
+          },
+          "cue": "have to",
+          "items": [
+            {
+              "from": "Jack gets up at five.",
+              "accept": ["Jack has to get up at five.", "Jack's got to get up at five.", "Jack has got to get up at five."],
+              "spoken": ["Jack's gotta get up at five."],
+              "hint": {
+                "sl": "he: has to + osnovna oblika",
+                "de": "he: has to + Grundform",
+                "it": "he: has to + la forma base",
+                "en": "he: has to + the base form"
+              }
+            },
+            {
+              "from": "We close the gate.",
+              "accept": ["We have to close the gate.", "We've got to close the gate."],
+              "spoken": ["We gotta close the gate."]
+            }
+          ],
+          "explain": {
+            "sl": "**have to, has to + osnovna oblika**\n- We close the gate. → We have to close the gate.",
+            "de": "**have to, has to + Grundform**\n- We close the gate. → We have to close the gate.",
+            "it": "**have to, has to + la forma base**\n- We close the gate. → We have to close the gate.",
+            "en": "**have to, has to + the base form**\n- We close the gate. → We have to close the gate."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "must-have-to",
+          "instruction": { "sl": "Ask · Vprašaj", "de": "Ask · Frag", "it": "Ask · Chiedi", "en": "Ask" },
+          "cue": "?",
+          "items": [
+            { "from": "You have to work on Saturday.", "accept": ["Do you have to work on Saturday?"] },
+            {
+              "from": "Mrs Hartley has to teach tonight.",
+              "accept": ["Does Mrs Hartley have to teach tonight?"],
+              "hint": { "sl": "does + have to", "de": "does + have to", "it": "does + have to", "en": "does + have to" }
+            }
+          ],
+          "explain": {
+            "sl": "**do, does + have to**\n- She has to teach. → Does she have to teach?",
+            "de": "**do, does + have to**\n- She has to teach. → Does she have to teach?",
+            "it": "**do, does + have to**\n- She has to teach. → Does she have to teach?",
+            "en": "**do, does + have to**\n- She has to teach. → Does she have to teach?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "must-have-to",
+          "instruction": {
+            "sl": "Give advice · Daj nasvet",
+            "de": "Give advice · Gib einen Rat",
+            "it": "Give advice · Da' un consiglio",
+            "en": "Give advice"
+          },
+          "cue": "You should …",
+          "items": [
+            { "from": "take a coat", "accept": ["You should take a coat."] },
+            { "from": "not walk alone on the fell", "accept": ["You shouldn't walk alone on the fell."] },
+            { "from": "see the doctor", "accept": ["You should see the doctor."] }
+          ],
+          "explain": {
+            "sl": "**should, shouldn't + osnovna oblika**\n- You should take a coat.",
+            "de": "**should, shouldn't + Grundform**\n- You should take a coat.",
+            "it": "**should, shouldn't + la forma base**\n- You should take a coat.",
+            "en": "**should, shouldn't + the base form**\n- You should take a coat."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "must-have-to",
+          "instruction": {
+            "sl": "Put it in the past · Postavi v preteklik",
+            "de": "Put it in the past · Setz es in die Vergangenheit",
+            "it": "Put it in the past · Metti al passato",
+            "en": "Put it in the past"
+          },
+          "cue": "had to",
+          "items": [
+            { "from": "I have to walk home.", "accept": ["I had to walk home."] },
+            { "from": "We must wait.", "accept": ["We had to wait."] }
+          ],
+          "explain": {
+            "sl": "**must in have to: had to**\n- We must wait. → We had to wait.",
+            "de": "**must und have to: had to**\n- We must wait. → We had to wait.",
+            "it": "**must e have to: had to**\n- We must wait. → We had to wait.",
+            "en": "**must and have to: had to**\n- We must wait. → We had to wait."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "must-have-to",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "— ___ you have to feed the sheep today, Jack? — Yes, I ___. And Meg ___ to stay with me. — You look tired. You ___ rest. — I can't. But I ___ get up early tomorrow: it's Sunday!",
+        "gaps": [
+          { "accept": ["Do"] },
+          { "accept": ["do"] },
+          { "accept": ["has"] },
+          { "accept": ["should", "must", "have to", "need to", "'ve got to", "ought to"] },
+          { "accept": ["don't have to", "needn't", "don't need to"] }
+        ],
+        "translation": {
+          "sl": "Moraš danes nahraniti ovce, Jack? — Ja. In Meg mora ostati z mano. — Utrujen si videti. Spočij se. — Ne morem. Ampak jutri mi ni treba zgodaj vstati: nedelja je!",
+          "de": "Musst du heute die Schafe füttern, Jack? — Ja. Und Meg muss bei mir bleiben. — Du schaust müde aus. Du solltest dich ausruhen. — Geht nicht. Aber morgen muss ich nicht früh aufstehen: Es ist Sonntag!",
+          "it": "Devi dare da mangiare alle pecore oggi, Jack? — Sì. E Meg deve restare con me. — Sembri stanco. Dovresti riposare. — Non posso. Ma domani non è necessario che mi alzi presto: è domenica!",
+          "en": "Do you have to feed the sheep today, Jack? — Yes, I do. And Meg has to stay with me. — You look tired. You should rest. — I can't. But I don't have to get up early tomorrow: it's Sunday!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "must-have-to",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "You ___ feed the horses. They get ill.",
+        "options": ["mustn't", "don't have to", "doesn't have to"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Ni dovoljeno: mustn't**\n- You mustn't feed the horses.",
+          "de": "**Nicht erlaubt: mustn't**\n- You mustn't feed the horses.",
+          "it": "**Non permesso: mustn't**\n- You mustn't feed the horses.",
+          "en": "**Not allowed: mustn't**\n- You mustn't feed the horses."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "must-have-to",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Walkers ___ close the gate.",
+        "options": ["must", "must to", "musts"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**must: brez -s in brez to**\n- Walkers must close the gate.",
+          "de": "**must: kein -s und kein to**\n- Walkers must close the gate.",
+          "it": "**must: senza -s e senza to**\n- Walkers must close the gate.",
+          "en": "**must: no -s and no to**\n- Walkers must close the gate."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "must-have-to",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Yesterday the bus didn't come, so we ___ walk.",
+        "options": ["had to", "must", "have to"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Preteklik: had to**\n- We had to walk.",
+          "de": "**Die Vergangenheit: had to**\n- We had to walk.",
+          "it": "**Il passato: had to**\n- We had to walk.",
+          "en": "**The past: had to**\n- We had to walk."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "must-have-to",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "You have to pay.",
+            "accept": ["You don't have to pay.", "You needn't pay.", "You don't need to pay."]
+          },
+          {
+            "from": "She has to work on Sunday.",
+            "accept": [
+              "She doesn't have to work on Sunday.",
+              "She needn't work on Sunday.",
+              "She doesn't need to work on Sunday."
+            ]
+          },
+          { "from": "You must feed the horses.", "accept": ["You mustn't feed the horses."] }
+        ],
+        "explain": {
+          "sl": "**don't have to: ni treba; mustn't: ni dovoljeno**\n- You don't have to pay. · You mustn't feed the horses.",
+          "de": "**don't have to: nicht nötig; mustn't: nicht erlaubt**\n- You don't have to pay. · You mustn't feed the horses.",
+          "it": "**don't have to: non è necessario; mustn't: non permesso**\n- You don't have to pay. · You mustn't feed the horses.",
+          "en": "**don't have to: no need; mustn't: not allowed**\n- You don't have to pay. · You mustn't feed the horses."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "must-have-to",
+        "instruction": {
+          "sl": "Give advice · Daj nasvet",
+          "de": "Give advice · Gib einen Rat",
+          "it": "Give advice · Da' un consiglio",
+          "en": "Give advice"
+        },
+        "cue": "You should …",
+        "items": [
+          { "from": "take a map", "accept": ["You should take a map."] },
+          { "from": "not go out in this storm", "accept": ["You shouldn't go out in this storm."] }
+        ],
+        "explain": {
+          "sl": "**should, shouldn't + osnovna oblika**\n- You should take a map.",
+          "de": "**should, shouldn't + Grundform**\n- You should take a map.",
+          "it": "**should, shouldn't + la forma base**\n- You should take a map.",
+          "en": "**should, shouldn't + the base form**\n- You should take a map."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+}
