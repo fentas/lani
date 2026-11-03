@@ -133,7 +133,7 @@
           "options": [
             "Both",
             "Every",
-            "None"
+            "Either"
           ],
           "answer": 0,
           "say_options": true,
@@ -193,7 +193,7 @@
         "ask": {
           "type": "choice",
           "grammar": "quantifiers",
-          "prompt": "There are two paths to the tarn. Take ___ of them: they're both good.",
+          "prompt": "There are two paths to the tarn. Take ___ of them: it doesn't matter which.",
           "options": [
             "either",
             "both",
