@@ -50,7 +50,7 @@ export default async function prints() {
     const offEnd = asked.filter(x => !x.hint!.split(' / ').includes(x.a))
     const first = asked.filter(x => x.hint!.split(' / ')[0] === x.a).length
     check(
-      `${language}: a choice printed names its options in the sheet's order, the key's answer among them, first in about one of three (${first} of ${asked.length}; the files have nearly all first)`,
+      `${language}: a choice printed names its options in the sheet's order, the key's answer among them, first in about one of three (${first} of ${asked.length}; the files have most first)`,
       asked.length >= 20 && offEnd.length === 0 && first / asked.length < 0.65,
       [asked.length, first, offEnd.slice(0, 3)],
     )

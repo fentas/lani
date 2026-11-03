@@ -85,7 +85,8 @@ the foot name the right one by its text, so they can't disagree. Also: the optio
   print from the dev bridge against its key. QA's other steps already tap by text; `answer_any`, the forms' first option and the
   culture run's fallback tap whichever is first and don't need it right.
 - Run 2026-11-03 on `pogojnik-polno` (B1, a synthetic learner): 8 choices, 6 with the right answer not on top, each tapped there and
-  right, the unit passed and kept done by the dev bridge. `biti`'s PDF by eye: "Vidva ___ prijatelja. (ste / sva / sta)", key "4 sta".
+  right, the unit passed and kept done by the dev bridge. Run again after merging main, 30 minutes later on a reinstalled app: the same
+  rows. `biti`'s PDF by eye: "Vidva ___ prijatelja. (ste / sva / sta)", key "4 sta"; "Mi ___ pri lipi. (smo / so / sva)", key "5 smo".
 
 ## What's left
 
