@@ -1,0 +1,957 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "benche-purche",
+  "language": "it",
+  "level": "B2",
+  "emoji": "☂️",
+  "title": {
+    "it": "Benché piova, purché tu venga",
+    "de": "Der Konjunktiv nach benché, purché, affinché",
+    "sl": "Konjunktiv za benché, purché, affinché",
+    "en": "The subjunctive after benché, purché, affinché"
+  },
+  "goal": {
+    "de": "Du sagst, was trotzdem geschieht, unter welcher Bedingung, wozu, außer wann und als ob: Benché piova, Davide esce. Vengo, purché tu mi aspetti. Vengo, a meno che non piova. Parla come se fosse il re.",
+    "sl": "Poveš, kaj se zgodi kljub temu, pod katerim pogojem, zakaj, razen kdaj in kot da: Benché piova, Davide esce. Vengo, purché tu mi aspetti. Vengo, a meno che non piova. Parla come se fosse il re.",
+    "en": "You can say what happens anyway, on what condition, what for, except when and as if: Benché piova, Davide esce. Vengo, purché tu mi aspetti. Vengo, a meno che non piova. Parla come se fosse il re."
+  },
+  "grammar": [
+    "congiunzioni-congiuntivo",
+    "congiuntivo-espressioni",
+    "congiunzioni"
+  ],
+  "words": [
+    "benché",
+    "sebbene",
+    "nonostante",
+    "purché",
+    "a condizione che",
+    "a patto che",
+    "affinché",
+    "a meno che",
+    "come se",
+    "anche se",
+    "piovere",
+    "prestare",
+    "restituire",
+    "riportare",
+    "ripetere",
+    "curare",
+    "aspettare",
+    "il re",
+    "il trattore",
+    "l'osteria",
+    "il sacco",
+    "la lavagna",
+    "la vendemmia",
+    "l'uva",
+    "la vigna",
+    "il cesto",
+    "la pioggia",
+    "il cappotto",
+    "il sindaco",
+    "l'ape",
+    "il ponte",
+    "la bici",
+    "il temporale",
+    "il pulcino",
+    "stanco",
+    "tardi",
+    "tutti"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "it": "parola",
+          "de": "Wort",
+          "sl": "beseda",
+          "en": "word"
+        },
+        {
+          "it": "significa",
+          "de": "heißt",
+          "sl": "pomeni",
+          "en": "means"
+        },
+        {
+          "it": "esempio",
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Benché** und **sebbene** (obwohl) wollen den congiuntivo: **Benché piova, Davide esce.** (Obwohl es regnet, geht Davide hinaus.) **Sebbene sia tardi, Marisa non chiude.** (Obwohl es spät ist, schließt Marisa nicht.) Mit dem Indikativ sagst du **anche se** (auch wenn): **Anche se piove, Davide esce.** Beide sind richtig.",
+          "sl": "**Benché** in **sebbene** (čeprav) zahtevata konjunktiv: **Benché piova, Davide esce.** (Čeprav dežuje, gre Davide ven.) **Sebbene sia tardi, Marisa non chiude.** (Čeprav je pozno, Marisa ne zapre.) Z indikativom rečeš **anche se** (tudi če): **Anche se piove, Davide esce.** Oboje je prav.",
+          "en": "**Benché** and **sebbene** (although) want the subjunctive: **Benché piova, Davide esce.** (Although it's raining, Davide goes out.) **Sebbene sia tardi, Marisa non chiude.** (Although it's late, Marisa doesn't close.) With the indicative, say **anche se** (even if): **Anche se piove, Davide esce.** Both are right."
+        },
+        "examples": [
+          {
+            "it": "Benché piova, Davide porta fuori le pecore.",
+            "de": "Obwohl es regnet, bringt Davide die Schafe hinaus.",
+            "sl": "Čeprav dežuje, Davide žene ovce ven.",
+            "en": "Although it's raining, Davide takes the sheep out."
+          },
+          {
+            "it": "Sebbene sia tardi, Marisa non chiude.",
+            "de": "Obwohl es spät ist, schließt Marisa nicht.",
+            "sl": "Čeprav je pozno, Marisa ne zapre.",
+            "en": "Although it's late, Marisa doesn't close."
+          },
+          {
+            "it": "Anche se piove, Davide esce.",
+            "de": "Auch wenn es regnet, geht Davide hinaus.",
+            "sl": "Tudi če dežuje, gre Davide ven.",
+            "en": "Even if it's raining, Davide goes out."
+          }
+        ],
+        "rows": [
+          [
+            "benché, sebbene",
+            {
+              "de": "obwohl",
+              "sl": "čeprav",
+              "en": "although"
+            },
+            "Benché piova, Davide esce."
+          ],
+          [
+            "anche se",
+            {
+              "de": "auch wenn: Indikativ",
+              "sl": "tudi če: indikativ",
+              "en": "even if: indicative"
+            },
+            "Anche se piove, Davide esce."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "prompt": "Benché ___ stanco, Bruno finisce il cancello.",
+          "options": [
+            "sia",
+            "è",
+            "sarebbe"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**benché** + congiuntivo → **sia**\n- è · nach **anche se**: anche se è stanco\n- sarebbe · Konditional, nicht nach benché",
+            "sl": "**benché** + konjunktiv → **sia**\n- è · za **anche se**: anche se è stanco\n- sarebbe · pogojnik, ne za benché",
+            "en": "**benché** + the subjunctive → **sia**\n- è · after **anche se**: anche se è stanco\n- sarebbe · the conditional, not after benché"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch **nonostante** (obwohl) will den congiuntivo: **Nonostante faccia freddo, Aldo guarda le sue api.** (Obwohl es kalt ist, sieht Aldo nach seinen Bienen.) Nach einer Vergangenheit geht die Zeit mit: **Benché piovesse, Davide è uscito.** (Obwohl es regnete, ging Davide hinaus.) Mit einem Nomen ohne Verb: **nonostante la pioggia** (trotz des Regens).",
+          "sl": "Tudi **nonostante** (čeprav) zahteva konjunktiv: **Nonostante faccia freddo, Aldo guarda le sue api.** (Čeprav je mraz, Aldo pogleda svoje čebele.) Za preteklostjo gre čas zraven: **Benché piovesse, Davide è uscito.** (Čeprav je deževalo, je Davide šel ven.) S samostalnikom brez glagola: **nonostante la pioggia** (kljub dežju).",
+          "en": "**Nonostante** (although) wants the subjunctive too: **Nonostante faccia freddo, Aldo guarda le sue api.** (Although it's cold, Aldo checks on his bees.) After a past the tense goes along: **Benché piovesse, Davide è uscito.** (Although it was raining, Davide went out.) With a noun and no verb: **nonostante la pioggia** (despite the rain)."
+        },
+        "examples": [
+          {
+            "it": "Nonostante faccia freddo, Aldo guarda le sue api.",
+            "de": "Obwohl es kalt ist, sieht Aldo nach seinen Bienen.",
+            "sl": "Čeprav je mraz, Aldo pogleda svoje čebele.",
+            "en": "Although it's cold, Aldo checks on his bees."
+          },
+          {
+            "it": "Benché piovesse, Davide è uscito.",
+            "de": "Obwohl es regnete, ging Davide hinaus.",
+            "sl": "Čeprav je deževalo, je Davide šel ven.",
+            "en": "Although it was raining, Davide went out."
+          },
+          {
+            "it": "Nonostante la pioggia, la festa è stata bella.",
+            "de": "Trotz des Regens war das Fest schön.",
+            "sl": "Kljub dežju je bil praznik lep.",
+            "en": "Despite the rain, the festa was lovely."
+          }
+        ],
+        "rows": [
+          [
+            "nonostante",
+            {
+              "de": "obwohl, trotz",
+              "sl": "čeprav, kljub",
+              "en": "although, despite"
+            },
+            "Nonostante piova, Davide esce."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "prompt": "Sebbene ___ tardi, ieri sera Matteo è rimasto ancora in vigna.",
+          "options": [
+            "fosse",
+            "sia",
+            "era"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ieri sera**, **è rimasto**: Vergangenheit, und **sebbene** will den congiuntivo → **fosse**\n- sia · nach einer Gegenwart\n- era · nach **anche se**",
+            "sl": "**ieri sera**, **è rimasto**: preteklost, **sebbene** pa zahteva konjunktiv → **fosse**\n- sia · za sedanjikom\n- era · za **anche se**",
+            "en": "**ieri sera**, **è rimasto**: a past, and **sebbene** wants the subjunctive → **fosse**\n- sia · after a present\n- era · after **anche se**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Unter einer Bedingung: **purché**, **a condizione che**, **a patto che** (vorausgesetzt, dass): **Puoi prendere il trattore, purché tu lo riporti stasera.** (Du kannst den Traktor nehmen, solange du ihn heute Abend zurückbringst.) **Franco presta il sacco, a condizione che Bruno lo restituisca.** (Franco leiht den Sack her, unter der Bedingung, dass Bruno ihn zurückgibt.)",
+          "sl": "Pod pogojem: **purché**, **a condizione che**, **a patto che** (pod pogojem, da): **Puoi prendere il trattore, purché tu lo riporti stasera.** (Lahko vzameš traktor, če ga le nocoj vrneš.) **Franco presta il sacco, a condizione che Bruno lo restituisca.** (Franco posodi vrečo pod pogojem, da jo Bruno vrne.)",
+          "en": "On a condition: **purché**, **a condizione che**, **a patto che** (as long as): **Puoi prendere il trattore, purché tu lo riporti stasera.** (You can take the tractor as long as you bring it back tonight.) **Franco presta il sacco, a condizione che Bruno lo restituisca.** (Franco lends the sack on condition that Bruno gives it back.)"
+        },
+        "examples": [
+          {
+            "it": "Puoi prendere il trattore, purché tu lo riporti stasera.",
+            "de": "Du kannst den Traktor nehmen, solange du ihn heute Abend zurückbringst.",
+            "sl": "Lahko vzameš traktor, če ga le nocoj vrneš.",
+            "en": "You can take the tractor as long as you bring it back tonight."
+          },
+          {
+            "it": "Franco presta il sacco, a condizione che Bruno lo restituisca.",
+            "de": "Franco leiht den Sack her, unter der Bedingung, dass Bruno ihn zurückgibt.",
+            "sl": "Franco posodi vrečo pod pogojem, da jo Bruno vrne.",
+            "en": "Franco lends the sack on condition that Bruno gives it back."
+          }
+        ],
+        "rows": [
+          [
+            "purché",
+            {
+              "de": "vorausgesetzt, dass",
+              "sl": "pod pogojem, da",
+              "en": "as long as"
+            },
+            "Puoi venire, purché tu torni."
+          ],
+          [
+            "a condizione che",
+            {
+              "de": "unter der Bedingung, dass",
+              "sl": "pod pogojem, da",
+              "en": "on condition that"
+            },
+            "Lo presto, a condizione che lo restituisca."
+          ],
+          [
+            "a patto che",
+            {
+              "de": "unter der Bedingung, dass",
+              "sl": "pod pogojem, da",
+              "en": "provided that"
+            },
+            "Ti aiuto, a patto che tu mi ascolti."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiunzioni-congiuntivo",
+          "text": "Ti lascio Moro per un giorno, a patto che tu lo ___ bene. (curare)",
+          "accept": [
+            "curi"
+          ],
+          "hint": {
+            "de": "-are → ?",
+            "sl": "-are → ?",
+            "en": "-are → ?"
+          },
+          "explain": {
+            "de": "**a patto che**, tu, -are → **curi**",
+            "sl": "**a patto che**, tu, -are → **curi**",
+            "en": "**a patto che**, tu, -are → **curi**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Affinché** heißt damit, **a meno che non** heißt es sei denn: **Elena scrive alla lavagna affinché tutti vedano.** (Elena schreibt an die Tafel, damit alle es sehen.) **Andiamo al mare, a meno che non piova.** (Wir fahren ans Meer, es sei denn, es regnet.) Das **non** verneint hier nichts. Statt **affinché** sagt man beim Reden meist **perché**.",
+          "sl": "**Affinché** pomeni da bi, **a meno che non** pomeni razen če: **Elena scrive alla lavagna affinché tutti vedano.** (Elena piše na tablo, da bi vsi videli.) **Andiamo al mare, a meno che non piova.** (Gremo na morje, razen če bo deževalo.) Tisti **non** tu ničesar ne zanika. Namesto **affinché** v govoru večinoma rečejo **perché**.",
+          "en": "**Affinché** means so that, **a meno che non** means unless: **Elena scrive alla lavagna affinché tutti vedano.** (Elena writes on the board so that everyone can see.) **Andiamo al mare, a meno che non piova.** (We'll go to the sea unless it rains.) That **non** negates nothing. For **affinché** people mostly say **perché** in talk."
+        },
+        "examples": [
+          {
+            "it": "Elena scrive alla lavagna affinché tutti vedano.",
+            "de": "Elena schreibt an die Tafel, damit alle es sehen.",
+            "sl": "Elena piše na tablo, da bi vsi videli.",
+            "en": "Elena writes on the board so that everyone can see."
+          },
+          {
+            "it": "Andiamo al mare, a meno che non piova.",
+            "de": "Wir fahren ans Meer, es sei denn, es regnet.",
+            "sl": "Gremo na morje, razen če bo deževalo.",
+            "en": "We'll go to the sea unless it rains."
+          }
+        ],
+        "rows": [
+          [
+            "affinché",
+            {
+              "de": "damit",
+              "sl": "da bi",
+              "en": "so that"
+            },
+            "Lo ripeto affinché tutti capiscano."
+          ],
+          [
+            "a meno che non",
+            {
+              "de": "es sei denn",
+              "sl": "razen če",
+              "en": "unless"
+            },
+            "Vengo, a meno che non piova."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "prompt": "Vado al mercato, a meno che non ___ troppo vento.",
+          "options": [
+            "ci sia",
+            "c'è",
+            "ci sarà"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**a meno che non** + congiuntivo → **ci sia**\n- c'è · Indikativ\n- ci sarà · Futur",
+            "sl": "**a meno che non** + konjunktiv → **ci sia**\n- c'è · indikativ\n- ci sarà · prihodnjik",
+            "en": "**a meno che non** + the subjunctive → **ci sia**\n- c'è · the indicative\n- ci sarà · the future"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Come se** (als ob) nimmt nur das imperfetto oder das trapassato, auch wenn vorne die Gegenwart steht: **Moro corre come se fosse giovane.** (Moro rennt, als ob er jung wäre.) **Mi guarda come se non mi avesse visto.** (Er schaut mich an, als ob er mich nicht gesehen hätte.)",
+          "sl": "**Come se** (kot da) ima samo imperfetto ali trapassato, tudi če je spredaj sedanjik: **Moro corre come se fosse giovane.** (Moro teče, kot da je mlad.) **Mi guarda come se non mi avesse visto.** (Gleda me, kot da me ni videl.)",
+          "en": "**Come se** (as if) takes only the imperfect or the pluperfect, even with a present in front: **Moro corre come se fosse giovane.** (Moro runs as if he were young.) **Mi guarda come se non mi avesse visto.** (He looks at me as if he hadn't seen me.)"
+        },
+        "examples": [
+          {
+            "it": "Moro corre come se fosse giovane.",
+            "de": "Moro rennt, als ob er jung wäre.",
+            "sl": "Moro teče, kot da je mlad.",
+            "en": "Moro runs as if he were young."
+          },
+          {
+            "it": "Mi guarda come se non mi avesse visto.",
+            "de": "Er schaut mich an, als ob er mich nicht gesehen hätte.",
+            "sl": "Gleda me, kot da me ni videl.",
+            "en": "He looks at me as if he hadn't seen me."
+          },
+          {
+            "it": "Tommaso parla come se fosse il re.",
+            "de": "Tommaso redet, als ob er der König wäre.",
+            "sl": "Tommaso govori, kot da je kralj.",
+            "en": "Tommaso talks as if he were the king."
+          }
+        ],
+        "rows": [
+          [
+            "come se",
+            {
+              "de": "als ob",
+              "sl": "kot da",
+              "en": "as if"
+            },
+            "Parla come se fosse il re."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "congiunzioni-congiuntivo",
+          "text": "Marisa cammina come se non ___ stanca. (essere)",
+          "accept": [
+            "fosse"
+          ],
+          "hint": {
+            "de": "come se → imperfetto",
+            "sl": "come se → imperfetto",
+            "en": "come se → imperfetto"
+          },
+          "explain": {
+            "de": "**come se** + imperfetto → **fosse**, auch nach **cammina**",
+            "sl": "**come se** + imperfetto → **fosse**, tudi za **cammina**",
+            "en": "**come se** + the imperfect → **fosse**, even after **cammina**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Dieselbe Person braucht oft kein **che**: **Vengo, a patto di tornare presto.** (Ich komme, unter der Bedingung, dass ich bald zurück bin.) **a condizione di** ebenso. Für **affinché** sagst du **per**: **Lo ripeto per capire.** (Ich wiederhole es, um es zu verstehen.)",
+          "sl": "Ista oseba pogosto ne potrebuje **che**: **Vengo, a patto di tornare presto.** (Pridem, pod pogojem, da se kmalu vrnem.) Prav tako **a condizione di**. Namesto **affinché** rečeš **per**: **Lo ripeto per capire.** (Ponovim, da bi razumel.)",
+          "en": "The same person often needs no **che**: **Vengo, a patto di tornare presto.** (I'll come on condition that I'm back soon.) **a condizione di** too. For **affinché** say **per**: **Lo ripeto per capire.** (I repeat it to understand.)"
+        },
+        "examples": [
+          {
+            "it": "Vengo, a patto di tornare presto.",
+            "de": "Ich komme, unter der Bedingung, dass ich bald zurück bin.",
+            "sl": "Pridem, pod pogojem, da se kmalu vrnem.",
+            "en": "I'll come on condition that I'm back soon."
+          },
+          {
+            "it": "Lo ripeto per capire.",
+            "de": "Ich wiederhole es, um es zu verstehen.",
+            "sl": "Ponovim, da bi razumel.",
+            "en": "I repeat it to understand."
+          },
+          {
+            "it": "Bruno ti aiuta, a condizione di finire presto.",
+            "de": "Bruno hilft dir, unter der Bedingung, dass er bald fertig ist.",
+            "sl": "Bruno ti pomaga pod pogojem, da hitro konča.",
+            "en": "Bruno will help you on condition that he finishes soon."
+          }
+        ],
+        "rows": [
+          [
+            "a patto di",
+            {
+              "de": "dieselbe Person",
+              "sl": "ista oseba",
+              "en": "the same person"
+            },
+            "Vengo, a patto di tornare presto."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "prompt": "Lorenzo studia ___ imparare a leggere bene.",
+          "options": [
+            "per",
+            "affinché",
+            "purché"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Dieselbe Person: Lorenzo lernt, Lorenzo liest → **per** + Grundform\n- affinché · für eine andere Person, mit congiuntivo\n- purché · heißt: vorausgesetzt, dass",
+            "sl": "Ista oseba: Lorenzo se uči, Lorenzo bere → **per** + nedoločnik\n- affinché · za drugo osebo, s konjunktivom\n- purché · pomeni: pod pogojem, da",
+            "en": "The same person: Lorenzo studies, Lorenzo reads → **per** + the infinitive\n- affinché · for another person, with the subjunctive\n- purché · means: as long as"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "benche-purche-1",
+      "title": {
+        "it": "Che cosa vuol dire?",
+        "de": "Was heißt das?",
+        "sl": "Kaj to pomeni?",
+        "en": "What does it mean?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Che cosa vuol dire? · Was heißt das?",
+            "sl": "Che cosa vuol dire? · Kaj to pomeni?",
+            "en": "Che cosa vuol dire? · What does it mean?"
+          },
+          "columns": [
+            {
+              "label": {
+                "de": "obwohl",
+                "sl": "čeprav",
+                "en": "although"
+              },
+              "words": [
+                "benché",
+                "sebbene",
+                "nonostante"
+              ]
+            },
+            {
+              "label": {
+                "de": "vorausgesetzt, dass",
+                "sl": "pod pogojem, da",
+                "en": "as long as"
+              },
+              "words": [
+                "purché",
+                "a condizione che",
+                "a patto che"
+              ]
+            },
+            {
+              "label": {
+                "de": "damit",
+                "sl": "da bi",
+                "en": "so that"
+              },
+              "words": [
+                "affinché"
+              ]
+            },
+            {
+              "label": {
+                "de": "es sei denn",
+                "sl": "razen če",
+                "en": "unless"
+              },
+              "words": [
+                "a meno che non"
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**benché, sebbene, nonostante**: obwohl\n- purché, a condizione che, a patto che: vorausgesetzt, dass\n- affinché: damit · a meno che non: es sei denn",
+            "sl": "**benché, sebbene, nonostante**: čeprav\n- purché, a condizione che, a patto che: pod pogojem, da\n- affinché: da bi · a meno che non: razen če",
+            "en": "**benché, sebbene, nonostante**: although\n- purché, a condizione che, a patto che: as long as\n- affinché: so that · a meno che non: unless"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Sebbene ___ il mal di schiena, Nonna Rosa cucina per tutti.",
+          "options": [
+            "abbia",
+            "ha",
+            "avrebbe"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**sebbene** + congiuntivo → **abbia**\n- ha · nach **anche se**\n- avrebbe · Konditional, nicht nach sebbene",
+            "sl": "**sebbene** + konjunktiv → **abbia**\n- ha · za **anche se**\n- avrebbe · pogojnik, ne za sebbene",
+            "en": "**sebbene** + the subjunctive → **abbia**\n- ha · after **anche se**\n- avrebbe · the conditional, not after sebbene"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Anche se ___ tanto, usciamo con il cappotto.",
+          "options": [
+            "piove",
+            "piova",
+            "piovesse"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**anche se** + Indikativ → **piove**\n- piova · nach **benché**: benché piova\n- piovesse · nach **benché** in der Vergangenheit, oder nur ausgedacht: anche se piovesse",
+            "sl": "**anche se** + indikativ → **piove**\n- piova · za **benché**: benché piova\n- piovesse · za **benché** v preteklosti ali samo predstava: anche se piovesse",
+            "en": "**anche se** + the indicative → **piove**\n- piova · after **benché**: benché piova\n- piovesse · after **benché** in the past, or only imagined: anche se piovesse"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Tommaso gioca come se non ___ mai visto un pallone.",
+          "options": [
+            "avesse",
+            "abbia",
+            "avrebbe"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**come se** + trapassato für das, was davor war → **avesse** visto\n- abbia: nach come se nie\n- avrebbe: nach come se nie",
+            "sl": "**come se** + trapassato za to, kar je bilo prej → **avesse** visto\n- abbia: za come se nikoli\n- avrebbe: za come se nikoli",
+            "en": "**come se** + the pluperfect for what came before → **avesse** visto\n- abbia: never after come se\n- avrebbe: never after come se"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Puoi tenere il pulcino, ___ tu gli dia da mangiare.",
+          "options": [
+            "purché",
+            "anche se",
+            "a meno che non"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Eine Bedingung → **purché**\n- anche se · auch wenn: mit Indikativ\n- a meno che non · es sei denn: das Gegenteil",
+            "sl": "Pogoj → **purché**\n- anche se · tudi če: z indikativom\n- a meno che non · razen če: nasprotno",
+            "en": "A condition → **purché**\n- anche se · even if: with the indicative\n- a meno che non · unless: the opposite"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benche-purche-2",
+      "title": {
+        "it": "La vendemmia",
+        "de": "Die Weinlese",
+        "sl": "Trgatev",
+        "en": "The grape harvest"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Completa con il congiuntivo · Ergänze mit dem Konjunktiv",
+            "sl": "Completa con il congiuntivo · Dopolni s konjunktivom",
+            "en": "Completa con il congiuntivo · Fill in with the subjunctive"
+          },
+          "title": "La vendemmia",
+          "text": "È il giorno della vendemmia. Benché ___ (piovere) un po', tutti vanno nella vigna di Matteo. «Vi aiuto, purché mi ___ (dare) un bicchiere di ribolla», ride Bruno. Sebbene ___ (essere) vecchio, Nonno Bepi porta un cesto. Matteo cammina piano affinché lui non ___ (restare) indietro. Tommaso può venire, a condizione che ___ (lasciare) a casa il pallone. Giulia mangia l'uva come se non ___ (avere) mai mangiato niente. Finiamo stasera, a meno che non ___ (arrivare) il temporale.",
+          "gaps": [
+            {
+              "accept": [
+                "piova"
+              ],
+              "hint": {
+                "de": "benché → ?",
+                "sl": "benché → ?",
+                "en": "benché → ?"
+              }
+            },
+            {
+              "accept": [
+                "diate"
+              ],
+              "hint": {
+                "de": "voi: Präsens -iate",
+                "sl": "voi: sedanjik -iate",
+                "en": "voi: present -iate"
+              }
+            },
+            {
+              "accept": [
+                "sia"
+              ]
+            },
+            {
+              "accept": [
+                "resti"
+              ]
+            },
+            {
+              "accept": [
+                "lasci"
+              ]
+            },
+            {
+              "accept": [
+                "avesse"
+              ],
+              "hint": {
+                "de": "come se …",
+                "sl": "come se …",
+                "en": "come se …"
+              }
+            },
+            {
+              "accept": [
+                "arrivi"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "piove",
+            "avrebbe",
+            "darete"
+          ],
+          "translation": {
+            "de": "Es ist der Tag der Weinlese. Obwohl es ein wenig regnet, gehen alle in Matteos Weinberg. „Ich helfe euch, solange ihr mir ein Glas Ribolla gebt“, lacht Bruno. Obwohl er alt ist, trägt Nonno Bepi einen Korb. Matteo geht langsam, damit er nicht zurückbleibt. Tommaso darf mitkommen, unter der Bedingung, dass er den Ball zu Hause lässt. Giulia isst die Trauben, als ob sie noch nie etwas gegessen hätte. Wir werden heute Abend fertig, es sei denn, das Gewitter kommt.",
+            "sl": "Danes je trgatev. Čeprav malo dežuje, gredo vsi v Matteov vinograd. »Pomagam vam, če mi le daste kozarec ribolle,« se smeje Bruno. Čeprav je star, dedek Bepi nosi košaro. Matteo hodi počasi, da ne bi zaostal. Tommaso lahko pride pod pogojem, da pusti žogo doma. Giulia je grozdje, kot da še nikoli ni nič jedla. Končamo nocoj, razen če pride nevihta.",
+            "en": "It's the day of the grape harvest. Although it's raining a little, everyone goes to Matteo's vineyard. \"I'll help you as long as you give me a glass of ribolla,\" Bruno laughs. Although he is old, Nonno Bepi carries a basket. Matteo walks slowly so that he doesn't fall behind. Tommaso can come on condition that he leaves his ball at home. Giulia eats the grapes as if she had never eaten anything. We'll finish tonight unless the storm comes."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Ieri, benché ___ un bel sole, Zia Nives è rimasta in casa.",
+          "options": [
+            "ci fosse",
+            "ci sia",
+            "ci sarà"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ieri**: Vergangenheit, und **benché** will den congiuntivo → **ci fosse**\n- ci sia · nach einer Gegenwart\n- ci sarà · Futur",
+            "sl": "**ieri**: preteklost, **benché** pa zahteva konjunktiv → **ci fosse**\n- ci sia · za sedanjikom\n- ci sarà · prihodnjik",
+            "en": "**ieri**: a past, and **benché** wants the subjunctive → **ci fosse**\n- ci sia · after a present\n- ci sarà · the future"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benche-purche-3",
+      "title": {
+        "it": "Unisci le frasi",
+        "de": "Verbinde die Sätze",
+        "sl": "Združi stavke",
+        "en": "Join the sentences"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "congiunzioni-congiuntivo",
+          "instruction": {
+            "de": "Unisci con la parola tra parentesi · Verbinde mit dem Wort in Klammern",
+            "sl": "Unisci con la parola tra parentesi · Združi z besedo v oklepaju",
+            "en": "Unisci con la parola tra parentesi · Join with the word in brackets"
+          },
+          "whole": true,
+          "items": [
+            {
+              "from": "Piove. Davide esce. (benché)",
+              "accept": [
+                "Benché piova, Davide esce.",
+                "Davide esce, benché piova."
+              ]
+            },
+            {
+              "from": "È tardi. Marisa non chiude. (sebbene)",
+              "accept": [
+                "Sebbene sia tardi, Marisa non chiude.",
+                "Marisa non chiude, sebbene sia tardi."
+              ]
+            },
+            {
+              "from": "Fa freddo. Aldo guarda le api. (nonostante)",
+              "accept": [
+                "Nonostante faccia freddo, Aldo guarda le api.",
+                "Aldo guarda le api, nonostante faccia freddo."
+              ]
+            },
+            {
+              "from": "Puoi giocare. Hai finito i compiti. (purché)",
+              "accept": [
+                "Puoi giocare, purché tu abbia finito i compiti.",
+                "Purché tu abbia finito i compiti, puoi giocare.",
+                "Puoi giocare, purché abbia finito i compiti.",
+                "Purché abbia finito i compiti, puoi giocare."
+              ]
+            },
+            {
+              "from": "Vengo. Non piove. (a meno che non)",
+              "accept": [
+                "Vengo, a meno che non piova.",
+                "A meno che non piova, vengo.",
+                "Vengo, a meno che piova."
+              ],
+              "hint": {
+                "de": "Es sei denn, es regnet: das non bleibt",
+                "sl": "Razen če dežuje: non ostane",
+                "en": "Unless it rains: the non stays"
+              },
+              "explain": {
+                "de": "**Vengo, a meno che non piova**: ich komme, außer es regnet",
+                "sl": "**Vengo, a meno che non piova**: pridem, razen če dežuje",
+                "en": "**Vengo, a meno che non piova**: I'll come, unless it rains"
+              }
+            },
+            {
+              "from": "Elena parla piano. I bambini capiscono. (affinché)",
+              "accept": [
+                "Elena parla piano affinché i bambini capiscano.",
+                "Affinché i bambini capiscano, Elena parla piano."
+              ]
+            },
+            {
+              "from": "Moro corre. Non è giovane, ma così sembra. (come se)",
+              "accept": [
+                "Moro corre come se fosse giovane."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**benché, sebbene, nonostante, purché, affinché, a meno che non** + congiuntivo\n- piove → piova · è → sia · fa → faccia · capiscono → capiscano\n- **come se**: imperfetto: è → fosse",
+            "sl": "**benché, sebbene, nonostante, purché, affinché, a meno che non** + konjunktiv\n- piove → piova · è → sia · fa → faccia · capiscono → capiscano\n- **come se**: imperfetto: è → fosse",
+            "en": "**benché, sebbene, nonostante, purché, affinché, a meno che non** + the subjunctive\n- piove → piova · è → sia · fa → faccia · capiscono → capiscano\n- **come se**: the imperfect: è → fosse"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "congiunzioni-congiuntivo",
+        "instruction": {
+          "de": "Completa con il congiuntivo · Ergänze mit dem Konjunktiv",
+          "sl": "Completa con il congiuntivo · Dopolni s konjunktivom",
+          "en": "Completa con il congiuntivo · Fill in with the subjunctive"
+        },
+        "text": "Il sindaco scrive agli abitanti: «Benché il ponte ___ (essere) vecchio, resta aperto. Potete passare in bicicletta, purché ___ (andare) piano. Lo ripeto affinché tutti ___ (sapere) che cosa fare. La festa è sabato, a meno che non ___ (fare) brutto tempo.»",
+        "gaps": [
+          {
+            "accept": [
+              "sia"
+            ]
+          },
+          {
+            "accept": [
+              "andiate"
+            ],
+            "hint": {
+              "de": "voi: Präsens -iate",
+              "sl": "voi: sedanjik -iate",
+              "en": "voi: present -iate"
+            }
+          },
+          {
+            "accept": [
+              "sappiano"
+            ]
+          },
+          {
+            "accept": [
+              "faccia"
+            ]
+          }
+        ],
+        "translation": {
+          "de": "Der Bürgermeister schreibt den Einwohnern: „Obwohl die Brücke alt ist, bleibt sie offen. Ihr dürft mit dem Fahrrad darüberfahren, solange ihr langsam fahrt. Ich wiederhole es, damit alle wissen, was zu tun ist. Das Fest ist am Samstag, es sei denn, das Wetter ist schlecht.“",
+          "sl": "Župan piše prebivalcem: »Čeprav je most star, ostane odprt. Čez njega lahko greste s kolesom, če le vozite počasi. Ponavljam, da bi vsi vedeli, kaj storiti. Praznik je v soboto, razen če bo slabo vreme.«",
+          "en": "The mayor writes to the villagers: \"Although the bridge is old, it stays open. You may cross it by bike as long as you go slowly. I repeat it so that everyone knows what to do. The festa is on Saturday unless the weather is bad.\""
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "congiunzioni-congiuntivo",
+        "instruction": {
+          "de": "Unisci con la parola tra parentesi · Verbinde mit dem Wort in Klammern",
+          "sl": "Unisci con la parola tra parentesi · Združi z besedo v oklepaju",
+          "en": "Unisci con la parola tra parentesi · Join with the word in brackets"
+        },
+        "whole": true,
+        "items": [
+          {
+            "from": "Sono stanco. Ti aiuto. (sebbene)",
+            "accept": [
+              "Sebbene sia stanco, ti aiuto.",
+              "Ti aiuto, sebbene sia stanco."
+            ]
+          },
+          {
+            "from": "Ti presto la bici. La riporti. (a patto che)",
+            "accept": [
+              "Ti presto la bici, a patto che tu la riporti.",
+              "Ti presto la bici, a patto che la riporti.",
+              "A patto che tu la riporti, ti presto la bici.",
+              "A patto che la riporti, ti presto la bici."
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**sebbene, a patto che** + congiuntivo\n- sono → sia · (tu) riporti: -are → -i",
+          "sl": "**sebbene, a patto che** + konjunktiv\n- sono → sia · (tu) riporti: -are → -i",
+          "en": "**sebbene, a patto che** + the subjunctive\n- sono → sia · (tu) riporti: -are → -i"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiunzioni-congiuntivo",
+        "prompt": "Franco parla come se ___ tutti i sacchi del mondo.",
+        "options": [
+          "avesse",
+          "abbia",
+          "avrebbe"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**come se** + imperfetto → **avesse**\n- abbia: nach come se nie\n- avrebbe: nach come se nie",
+          "sl": "**come se** + imperfetto → **avesse**\n- abbia: za come se nikoli\n- avrebbe: za come se nikoli",
+          "en": "**come se** + the imperfect → **avesse**\n- abbia: never after come se\n- avrebbe: never after come se"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "congiunzioni-congiuntivo",
+        "prompt": "Nonostante ___ tardi, ieri Aldo ha aperto la sua bottega.",
+        "options": [
+          "fosse",
+          "sia",
+          "sarebbe"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**ieri**: Vergangenheit, und **nonostante** will den congiuntivo → **fosse**\n- sia · nach einer Gegenwart\n- sarebbe · Konditional, nicht nach nonostante",
+          "sl": "**ieri**: preteklost, **nonostante** pa zahteva konjunktiv → **fosse**\n- sia · za sedanjikom\n- sarebbe · pogojnik, ne za nonostante",
+          "en": "**ieri**: a past, and **nonostante** wants the subjunctive → **fosse**\n- sia · after a present\n- sarebbe · the conditional, not after nonostante"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "congiunzioni-congiuntivo",
+        "instruction": {
+          "de": "Quale modo? · Welcher Modus?",
+          "sl": "Quale modo? · Kateri naklon?",
+          "en": "Quale modo? · Which mood?"
+        },
+        "columns": [
+          {
+            "label": {
+              "de": "… piova · congiuntivo",
+              "sl": "… piova · konjunktiv",
+              "en": "… piova · subjunctive"
+            },
+            "words": [
+              "benché",
+              "purché",
+              "a meno che non"
+            ]
+          },
+          {
+            "label": {
+              "de": "… piove · Indikativ",
+              "sl": "… piove · indikativ",
+              "en": "… piove · indicative"
+            },
+            "words": [
+              "anche se",
+              "perché",
+              "quando"
+            ]
+          }
+        ],
+        "explain": {
+          "de": "**benché, purché, a meno che non** + piova\n- anche se, perché (weil), quando + piove",
+          "sl": "**benché, purché, a meno che non** + piova\n- anche se, perché (ker), quando + piove",
+          "en": "**benché, purché, a meno che non** + piova\n- anche se, perché (because), quando + piove"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: benché with no spoken indicative; come se fosse; a meno che non; a condizione di; the vendemmia's lines; nonostante + a noun"
+}
