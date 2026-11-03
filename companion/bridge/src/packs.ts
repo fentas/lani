@@ -117,6 +117,44 @@ export function validatePack(input: unknown): { ok: true; pack: Pack } | { ok: f
   return learner.length ? { ok: false, errors: learner.map(e => `✖ ${e}`).join('\n') } : { ok: true, pack: r.data }
 }
 
+const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+/**
+ * What an app does with the packs' levels, as it says on GET /packs (`?packs=`, the app's PackSession.VERSION): 0 when it
+ * doesn't say (an older app, 0.2.698 on Teo's tablet), which lists and suggests the packs in their files' order and so
+ * would offer a B2 pack to a learner at A1 once their own are done; 1, it orders them by the learner's level itself and
+ * folds those two levels or more above it ("Za pozneje · For later"). A number, so a later change can raise it.
+ */
+export const PACKS_VERSION = 1
+
+/** The packs version an app asked with (`?packs=`): 0, an older app's, when it doesn't say. */
+export function packsVersionOf(url: URL): number {
+  const n = Number(url.searchParams.get('packs'))
+  return Number.isInteger(n) && n >= 0 ? n : 0
+}
+
+/**
+ * [packs] (GET /packs's, each with how many of its words the learner has learned through the pack itself, [ownWords]) as
+ * an app that reads packs [version] lists them: all of them from version 1; for an older app only the curated packs up to
+ * one level above the learner's [level] (an A1 learner's A1 and A2 ones, as before the B1 and B2 packs came), and always
+ * every pack it must not lose: a tutor's, a festival's, a project's, one the learner started (a word learned in it: a word
+ * it shares with another pack or a looked-up card doesn't start it). GET /packs/:id serves any pack to any app.
+ */
+export function packsForApp<P extends Pick<LoadedPack, 'source' | 'level' | 'festival' | 'project'> & { own: number }>(packs: P[], version: number, level: string): P[] {
+  if (version >= 1) return packs
+  const cap = Math.max(0, LEVELS.indexOf(level)) + 1
+  return packs.filter(p => p.source !== 'curated' || !!p.festival || !!p.project || p.own > 0 || LEVELS.indexOf(p.level) <= cap)
+}
+
+/**
+ * The words of [pack] the learner learned in the pack itself: each with its own card (`vocab_<pack>_<word>`, what a pack
+ * session, a festival's run or a project's step records). A word they have from another pack or a looked-up card counts
+ * in [learnedWords] (so it isn't taught twice) but not here: it doesn't start the pack.
+ */
+export function ownWords(pack: Pick<Pack, 'id' | 'words'>, items: Record<string, SrItem>): string[] {
+  return pack.words.filter(w => !!items[itemId(pack.id, w.id)]).map(w => w.id)
+}
+
 /** The spaced-repetition item a pack word becomes. */
 export const itemId = (packId: string, wordId: string) => `vocab_${packId}_${wordId}`
 

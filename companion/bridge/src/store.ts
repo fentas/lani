@@ -155,8 +155,12 @@ export class ModuleStore {
    * the app turns every module listed into a request at once, so a list of eight is eight requests, and the tutor's rank
    * above a villager's own: they would fill the map for weeks (docs/plans/05-built/practice-it.md "The pace"). So the list
    * holds those asked already (dropped from it, the app would forget them as played) and, when none is open and none was
-   * asked today, the next by its level and `order` whose giver lives here. Nobody here for any of them yet: the first without
-   * its request, for the runs. The tutor's own list has them all.
+   * asked today, the next whose giver lives here: of the learner's own level first, then of the levels below, the nearest
+   * first (a B1 learner: B1's, then A2's, then A1's not asked yet; a starter the placement test put at B2 begins with B2's,
+   * not A1's), each level by its `order`. Nobody here for any of them yet: the first without its request, for the runs.
+   * The list comes in that order too (the tutor's first, as published), so Home's ideas take the learner's level's first.
+   * A module asked (its request open or done, or a tutor's request that leads to it) stays listed whatever its level. The
+   * tutor's own list has them all.
    */
   offered(level: string, at: VillageNow = { quests: [], here: () => true, today: '' }): ModuleInfo[] {
     const rank = LEVEL_ORDER.indexOf(level)
@@ -165,18 +169,25 @@ export class ModuleStore {
     const ownQuests = at.quests.filter(q => typeof q.moduleId === 'string' && this.raw.has(q.moduleId))
     // a request of the tutor's that leads to a module (`helps`) holds it listed too: dropped, that request has nothing to lead to
     const asked = new Set([...ownQuests.map(q => q.moduleId as string), ...at.quests.flatMap(q => (typeof q.helps === 'string' && this.raw.has(q.helps) ? [q.helps] : []))])
-    const place = (m: ModuleInfo) => [LEVEL_ORDER.indexOf(m.level), this.orderOf(m.id)] as const
+    // the learner's level first (0), then the levels below, the nearest first; above it last (only an asked one is listed)
+    const near = (m: ModuleInfo) => {
+      const i = LEVEL_ORDER.indexOf(m.level)
+      return i <= rank ? rank - i : LEVEL_ORDER.length + i
+    }
+    const byPlace = (a: ModuleInfo, b: ModuleInfo) => near(a) - near(b) || this.orderOf(a.id) - this.orderOf(b.id)
     const paced = all
       .filter(m => curated(m) && !!m.quest && LEVEL_ORDER.indexOf(m.level) <= rank && !asked.has(m.id))
-      .sort((a, b) => place(a)[0] - place(b)[0] || place(a)[1] - place(b)[1])
+      .sort(byPlace)
     const open = ownQuests.some(q => !q.done && (typeof q.giver !== 'string' || at.here(q.giver)))
     const askedToday = ownQuests.some(q => typeof q.since === 'string' && q.since >= at.today)
     const next = open || askedToday ? undefined : paced.find(m => at.here(m.quest!.giver))
-    const out = all.filter(m => {
+    const kept = all.filter(m => {
       if (!curated(m) || asked.has(m.id)) return true
       if (LEVEL_ORDER.indexOf(m.level) > rank) return false
       return !m.quest || m.id === next?.id
     })
+    // the tutor's as published, then the curated by their place for this learner
+    const out = [...kept.filter(m => !curated(m)), ...kept.filter(curated).sort(byPlace)]
     if (out.some(curated) || !paced.length) return out
     return [...out, { ...paced[0], quest: undefined }]
   }

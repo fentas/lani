@@ -472,6 +472,16 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         game.treasureRequired = t::required
     }
 
+    /**
+     * "🧭 Uvrstitveni test · Placement test" (app/PlacementController, game/LevelPlacement): offered at setup and in the
+     * school, never run on its own; the level it raised counts before the node has it.
+     */
+    val placement = si.lanisce.lani.app.PlacementController(
+        game, school, sync, level = { levelIn(it) }, child = { child }, node = { content.dashboard?.levelIn(it) },
+    ).also {
+        content.placed = { game.state?.course?.placements?.get(L10n.ownPair.target.code) }
+    }
+
     /** The towns linked with this learner's, and the invitations ("Prijatelji · Friends"). */
     val towns = TownsController(viewModelScope, node, notices).also { t ->
         // what the friendships bring (a shared feast, someone who moved) comes into the village as the list comes
@@ -663,6 +673,30 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * only built anew (a language chosen rebuilds every screen in the new pair; the chip said its name meanwhile).
      */
     var setupRead: String? = null
+
+    /**
+     * The setup's "🧭 Nekaj že znaš? · Know some already?" chose the placement test (ui/setup/SetupScreen's
+     * PlacementChoice; off by default): its page opens once the village is founded ([found]), else later from the school.
+     */
+    var placementAsked by mutableStateOf(false)
+        private set
+
+    fun askPlacement(on: Boolean) {
+        placementAsked = on
+        viewModelScope.launch { runCatching { prefs.savePlacementAsked(on) } }
+    }
+
+    /** Founds the village where the learner chose; the placement test the setup chose opens then (once). */
+    fun found(f: si.lanisce.lani.game.Founding) {
+        game.found(f).invokeOnCompletion { viewModelScope.launch { afterFounding() } }
+    }
+
+    private suspend fun afterFounding() {
+        if (!placementAsked && runCatching { prefs.placementAsked() }.getOrDefault(false) != true) return
+        placementAsked = false
+        runCatching { prefs.savePlacementAsked(false) }
+        if (game.state != null && school.course != null) openPlacement()
+    }
 
     /** The first launch's way on from "Še o tebi · A little about you" (SetupFlow.Step.ABOUT): Home, the choices kept. */
     fun setupFinished() {
@@ -932,6 +966,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             // nothing the node serves moved: only what the phone decides by itself (the class begun with the hamlet, the map offered)
             school.touch()
             treasure.check()
+            placement.check()
             return
         }
         // the areas' versions now, when only what moved is read: each read whose answer said its areas at them is left out
@@ -987,6 +1022,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         if (people || due) clips.syncProfiles(villagers.voicePeople(game.state))
         // the node has the new level now, or the learner is ready for the next: the storyteller offers the map
         treasure.check()
+        placement.check()
         // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi (when anything was
         // read: a Back after a move in the village alone read nothing, and the plan read the packs it names again)
         if (read || decks) offlineAudio.plan(::dayGather)
@@ -1153,6 +1189,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         is Screen.Visit, is Screen.VisitScene, is Screen.VisitRequest -> "a visit to another town"
         is Screen.TownProgress -> "a linked town's progress"
         is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> "the school"
+        Screen.Placement -> "the school's placement test (🧭 Uvrstitveni test)"
         is Screen.Numbers, is Screen.NumbersRun -> "the numbers module (🔢 Števila)"
         is Screen.Cases, is Screen.CasesRun -> "the case trainer (🧩 Skloni)"
         is Screen.Progress -> "the progress screen (📊 Napredek)"
@@ -1584,6 +1621,23 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         openSchool()
     }
 
+    /**
+     * QA's "placement…" (a debug build, app/QaHooks.kt): "" the placement test's page; "fresh" the dev village's class
+     * readied with nothing of the course done ([si.lanisce.lani.app.QaHooks.readyPlacement]) and the school opened, its
+     * card offering the test; "answer:<part>" the test on screen answered to its end as a learner who knows up to that part.
+     */
+    fun qaPlacement(arg: String) {
+        when {
+            arg.isEmpty() -> openPlacement()
+            arg == "fresh" -> {
+                game.apply { si.lanisce.lani.app.QaHooks.readyPlacement(it, school.language, System.currentTimeMillis()) }
+                school.touch()
+                openSchool()
+            }
+            arg.startsWith("answer:") -> arg.removePrefix("answer:").trim().toIntOrNull()?.let(placement::qaAnswer)
+        }
+    }
+
     /** QA's "meet:<id>" (a debug build, app/QaHooks.kt): the dev village's [id] moved in and not met yet, their introduction opened. */
     fun qaMeet(id: String) {
         val today = java.time.LocalDate.now().toString()
@@ -1958,6 +2012,29 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** "🏫 Šola · School": the course's levels and units; the levels opened since are kept first. */
     fun openSchool() {
         game.did("school") // the tips about the school are known (game/Guidance)
+        nav.go(Screen.School)
+    }
+
+    /**
+     * "🧭 Uvrstitveni test · Placement test" (app/PlacementController): its page first (what it is), then the test; a test
+     * left before is forgotten.
+     */
+    fun openPlacement() {
+        if (school.course == null || busyRun()) return
+        game.did("school")
+        placement.close()
+        nav.go(Screen.Placement)
+    }
+
+    /** Leaves the placement test: a result shown and not taken is kept (the tutor hears of it), back where it was opened. */
+    fun leavePlacement() {
+        placement.close()
+        back()
+    }
+
+    /** The placement test's result taken: the school, at the unit it starts with. */
+    fun placementTaken() {
+        placement.close()
         nav.go(Screen.School)
     }
 

@@ -5,7 +5,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, utimesSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { sheetLookups } from '../../src/cards'
-import { CourseStore, grammarNamed, sheetExercise, validateCourse, validateUnit, type Course } from '../../src/course'
+import { CourseStore, grammarNamed, sheetExercise, validateCourse, validateUnit, validateWorksheet, type Course } from '../../src/course'
 import { validateGrammar } from '../../src/grammar'
 import { localDate } from '../../src/rhythm'
 import { auth, base, check, client, dataDir, guideOf, tempDir } from './harness'
@@ -125,6 +125,10 @@ export default async function course() {
     check('texts per base: one without the English is refused, saying where', !noEn.ok && errors(noEn).includes('worksheets.1.exercises.0.cue') && errors(noEn).includes('"en"'), errors(noEn))
     const unknown = validateUnit(withSheet({ ...transform, cue: { de: 'nein', en: 'no', deutsch: 'nein' } }))
     check('texts per base: an object that is not one (a key not a language code) is checked as the format checks it', !unknown.ok, errors(unknown))
+    const arrowCue = (cue: unknown) => validateUnit(withSheet({ ...transform, cue }))
+    check('a transform\'s cue opening with an arrow is refused, in any base (the app draws the arrow: "→ (→)"), saying where',
+      [arrowCue('→'), arrowCue('→ več · more'), arrowCue({ en: 'no', sl: '→ ne' })].every(v => !v.ok && errors(v).includes('worksheets.1.exercises.0.cue') && errors(v).includes('draws the arrow')), errors(arrowCue('→')))
+    check('an arrow inside a cue is meaning and stays', arrowCue('hoče → gre').ok, errors(arrowCue('hoče → gre')))
     const tmp = tempDir('lani-smoke-course-based-')
     mkdirSync(join(tmp, 'sl/units'), { recursive: true })
     writeFileSync(join(tmp, 'sl/course.json'), JSON.stringify(outline))
@@ -211,6 +215,9 @@ export default async function course() {
   utimesSync(later, new Date(), new Date(Date.now() + 5_000))
   const both = (await (await fetch(`${base}/course`, { headers: auth })).json()).units[0].homework.map((h: any) => h.id)
   check("a unit's homework is served the newest first", !second.isError && both.join() === 'biti-domaca-2,biti-domaca-1', both)
+  const arrowHomework = { ...homework, language: 'sl', id: 'biti-domaca-3', exercises: [{ ...transform, cue: '→' }] }
+  check("a homework with an arrow for a cue isn't published, and one kept from before that rule is still read",
+    !validateWorksheet(arrowHomework).ok && errors(validateWorksheet(arrowHomework)).includes('draws the arrow') && validateWorksheet(arrowHomework, 'en', true).ok, errors(validateWorksheet(arrowHomework, 'en', true)))
 
   const refusals: [string, object, string][] = [
     ['a unit the course lacks', { ...homework, unit: 'no-such-unit' }, 'no unit "no-such-unit"'],
@@ -271,6 +278,22 @@ export default async function course() {
   const doneSummary = JSON.parse(text(await call('get_village'))).course
   check('get_village: the unit done', JSON.stringify(doneSummary) === '{"classroom":"2026-10-01","done":["biti"],"in_progress":[]}', doneSummary)
   check('get_course and get_village without lookups: no looked_up', !('looked_up' in after) && !('looked_up' in JSON.parse(text(await call('get_village')))))
+
+  // a unit the placement test marked, and the test the learner took (companion/COURSE.md "The placement test"): this language's
+  const placedState = {
+    ...doneState,
+    units: { 'sl/biti': { started: '2026-11-03', introDone: true, done: '2026-11-03', testedOut: true, placed: true } },
+    placements: { sl: { day: '2026-11-03', from: 'A1', level: 'A2', start: 'A2', part: 1, parts: 3, units: 1, right: 7, almost: 1, of: 9, minutes: 5 }, it: { day: '2026-11-01', from: 'A1', level: 'A1' } },
+  }
+  await put({ age: 'VAS', buildings: [school], course: placedState })
+  const placed = JSON.parse(text(await call('get_course')))
+  check(
+    "get_course: a unit the placement test marked (placed), and the test the learner took in this language",
+    placed.levels[0].units[0].placed === true && placed.levels[0].units[0].tested_out === true && placed.levels[0].units[0].done === '2026-11-03' &&
+      JSON.stringify(placed.placement) === '{"day":"2026-11-03","from":"A1","level":"A2","start":"A2 1/3","units_marked":1}' && !('placed' in after.levels[0].units[0]) && !('placement' in after),
+    placed.placement,
+  )
+  await put({ age: 'VAS', buildings: [school], course: doneState })
 
   // what Jan looked up on the cheat sheet during exercises (the village state's sheet.lookups: per page, each day's answers
   // given with one of its cards open; the last 14 days count): get_course names the units that teach each page

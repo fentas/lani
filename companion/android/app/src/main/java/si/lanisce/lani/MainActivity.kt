@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
             data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
             request = vm::qaRequest, word = vm::qaWord, sentence = vm::qaSentence, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) }, cases = vm::qaCases, tips = vm::qaTips, news = { vm.game.qaNews() },
-            setupPhone = { code -> vm.setupFlow = si.lanisce.lani.app.SetupFlow.start(code) }, readOlder = vm::qaReadOlder,
+            setupPhone = { code -> vm.setupFlow = si.lanisce.lani.app.SetupFlow.start(code) }, readOlder = vm::qaReadOlder, placement = vm::qaPlacement,
             notify = { kind ->
                 if (kind == "message") si.lanisce.lani.data.Notifier.post(this, si.lanisce.lani.data.Notice(si.lanisce.lani.data.NotifyChannel.MESSAGES,
                     si.lanisce.lani.data.NotifyChannels.CHAT, "💬 ${si.lanisce.lani.l10n.inTarget("common.yourTutor")}", "QA", si.lanisce.lani.data.DeepLink.Chat))
@@ -291,6 +291,7 @@ private fun androidx.compose.foundation.layout.BoxScope.ScreenOf(vm: AppViewMode
         is Screen.TownQuestion -> TownQuestionScreen(vm, screen.key, screen.asked)
         Screen.Treasure -> si.lanisce.lani.ui.game.TreasureScreen(vm)
         Screen.School -> si.lanisce.lani.ui.school.SchoolScreen(vm)
+        Screen.Placement -> si.lanisce.lani.ui.school.PlacementScreen(vm)
         is Screen.CourseUnit -> si.lanisce.lani.ui.school.UnitScreen(vm, screen.id)
         is Screen.UnitIntro -> si.lanisce.lani.ui.school.IntroScreen(vm, screen.id)
         is Screen.Sheet -> si.lanisce.lani.ui.school.SheetScreen(vm, screen.unit, screen.kind, screen.sheet)
