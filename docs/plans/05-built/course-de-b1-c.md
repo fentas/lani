@@ -12,7 +12,7 @@ Austrian German first. **The first five are questions a dictionary didn't settle
 4. **hätt, wär, würd** (`grading/de.json`, `same`): one answer with hätte, wäre, würde, as hab is habe. No source looked for.
 5. **der gleiche and derselbe.** Taught as "careful writers keep it for two alike and derselbe for one, and in speech both are said for both", from a [paper by Umbach citing Duden](https://eclass-b.uoa.gr/modules/document/file.php/GS391/Artikel%20%26%20Materialien/Umbach%202018%20dasselbe_gleiche.pdf) (search extract): the difference is at most a tendency and hardly matters in daily use. [Duden's derselbe](https://www.duden.de/rechtschreibung/derselbe) wasn't read for it. So `der gleiche` is accepted wherever derselbe is asked, and never a wrong option.
 
-Settled by Duden, opened: [jemand](https://www.duden.de/rechtschreibung/jemand) and [niemand](https://www.duden.de/rechtschreibung/niemand) in the accusative and dative with no ending ("jemanden, auch jemand"), so both are `accept`s; [weder … noch](https://www.duden.de/rechtschreibung/weder) with either number ("weder er noch sie wusste/(auch:) wussten Rat"), and its comma only before a whole clause. sowohl … wie auch and the verb after sowohl (singular or plural, both accepted) were **not** opened in Duden, only read in search extracts of secondary pages.
+Settled by Duden, opened: [jemand](https://www.duden.de/rechtschreibung/jemand) and [niemand](https://www.duden.de/rechtschreibung/niemand) in the accusative and dative with no ending ("jemanden, auch jemand"), so both are `accept`s; [weder … noch](https://www.duden.de/rechtschreibung/weder) with either number ("weder er noch sie wusste/(auch:) wussten Rat"), and its comma only before a whole clause. sowohl … wie auch and the verb after sowohl (singular or plural, both accepted) were **not** opened in Duden, only read in search extracts of secondary pages. The comma before oder and noch between two main clauses is taught as optional, from handouts citing the official rules' §73 ([Lernhelfer](https://www.lernhelfer.de/schuelerlexikon/deutsch/artikel/komma-bei-teilsaetzen), [a handout](https://www.borders-in-motion.de/site-rewi/de/lehrstuhl/br/handelsrecht/Lehre/Hinweise-Seminar--und-Examenshausarbeit/Kommafehler-140121.pdf)), not from the official text.
 
 Then the sentences, for naturalness:
 
@@ -26,7 +26,7 @@ Then the sentences, for naturalness:
 
 Then each base:
 
-- **Slovene**: rad bi and its masculine default in the unit's first person (no gender of its own: "Rad bi juho", "Rad bi šel v Beljak"), rada where Resi speaks; "Ali bi imeli mizo za dva?"; pogojnik beside konjunktiv II; "Jabolka se obirajo jeseni" and "Juho kuha Kathi" for the passive (Slovene turns it round); "Mlin je bil zgrajen leta 1890"; "Na kaj čakaš?", "Čakam na to", "Čakam nanj"; "Nekdo je poklical"; "nekakšni" for irgendwelche; "ne le … temveč tudi", "tako … kot tudi", "niti … niti", "ali … ali"; žegnanje for the Kirchtag.
+- **Slovene**: rad bi and its masculine default in the unit's first person (no gender of its own: "Rad bi juho", "Rad bi šel v Beljak"), rada where Resi speaks; "Ali bi imeli mizo za dva?"; pogojnik beside konjunktiv II; "Jabolka se obirajo jeseni" and "Juho kuha Kathi" for the passive (Slovene turns it round); "Mlin je bil zgrajen leta 1890"; "Na kaj čakaš?", "Čakam na to", "Čakam nanj"; "Nekdo je poklical"; "nekakšni" for irgendwelche; "ne le … temveč tudi", "tako … kot tudi", "niti … niti", "ali … ali"; žegnanje for the Kirchtag; "melange" as the word for it (fran.si has melánž only for cloth); "nekdo, ne vem kdo" for irgendwer; "Potrebuje ne le pivo, temveč tudi mošt"; the aspect in "Tedaj se vsi zasmejijo".
 - **Italian**: "Se avessi tempo, verrei"; "Il pane viene cotto" for the passive; "Il mulino fu costruito"; "Al Kirchtag si balla"; "Lo aspetto" for Ich warte darauf; "Non vedo l'ora che tu venga"; "Ha telefonato qualcuno"; "dei … qualsiasi" for irgendwelche; "sia … sia", "né … né", "o … o"; il melange.
 - **English**: British usage (cider, doughnuts, "Might I make a quick phone call?", "get ready").
 
@@ -102,3 +102,24 @@ The wrong forms offered in a choice or a bank (woauf, daan) have no entry, on pu
 ## Voice (no credits spent)
 
 A voice build of these six units in Eva's voice would take about **6,700 characters** of German (356 different lines, 504 in all). The explanations in the learner's language add about 15,000 in English, 14,400 in Slovene and 15,300 in Italian (39 clips each): the app asks for those on demand, or `voice-build --explanations` makes them ahead. Counted with the bridge's own `courseTexts`.
+
+## Checks
+
+At the part's tip, before integrating anything (a and b aren't merged, so these say nothing of the whole level yet):
+
+- `bunx tsc --noEmit -p .`: clean. The smoke (ports 10070, 10073, 10076; Drama 3 on 10088): 3,515 checks pass, none fail. `tutor-export --check`: 89 files match. `bun test/prompt-clashes.ts`: no new clash.
+- Android through lani-slot, not the whole suite (that's after the integration): 125 tests in `GermanB1cContentTest` (10), `GermanCourseContentTest`, `GradingLanguagesTest`, `GrammarTest`, `SchoolBoardTest`, `SentenceGrammarTest`, `CourseTest`, `PrintsTest`, `CheatSheetTest`, none failed. A run before the last content commit took in the three A2 content tests and the intro's two too: 150, none failed.
+- `school-prints --language de --level B1` in sl, en and it: all six fit, one page or two (`passiv` and `woran-daran` two in English, `woran-daran` one in sl and it after two rows left its table), no word without a meaning (`--explain`). Read through for one unit in English; the Watch outs read for all six.
+- `lexicon-build --coverage --lang de`: 99.0 % of words known, 98.6 % meant in each base, 51 unknown, as at the base. A script of this round found every German word of the six units and five pages in the supplement, the packs or the cast, but woauf and daan, wrong on purpose.
+- Emulator, `--no-town --steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=woran-daran`, with `LANI_DEV_DATA` from `make-learner.ts --target de --base sl`: setup, course-unit and the crash check ok: the five steps, the summary, the first sheet, the test passed, the next unit named, the A4 print. Shots in the scratchpad's `ux-course-de-b1-c/` (cu-*).
+- **QA found one thing in the content**: `woran-daran`'s step 4 asked the very sentence its explanation had just said, with the answer in it. A scan of all six found that in `passiv` and `jemand-irgendwer` too: each now asks a new sentence.
+- **Without `LANI_DEV_DATA` the bridge's learner has English as base** while the app's pair is de-sl: a table's per-base columns then read in English and QA can't find the cell. That was this run's setup, not the app.
+- **A second reader** (a helper agent, no conclusions given) read the units and pages for German, Slovene, Italian and English and made 40 points. Fixed: two right answers in a choice or bank, rules stated too widely (gern's place, alles never changing, a comma before oder), glosses that read wrong (hatte was, hätte would be), sprechen mit as a thing's womit, calques, a modal + perfect infinitive above the level, answers not listed (könnte after wenn, Könntest du, short answers, word orders), spoken demonstratives (auf den, für das). It is one more machine's reading, not a native check.
+
+**Not done:** the other five units on an emulator; the other two bases on an emulator; the whole Android suite; COURSE.md, the README and the page counts (part c's, after the integration).
+
+## What's left
+
+- **The integration, when the lead says so**: parts a and b merged, the "once merged" column (`werden-futur` on `passiv`), COURSE.md's section, the README's page counts, `GermanCourseContentTest`'s comment, the prints' lesson numbers (they read 1 to 6 here, 13 to 18 once merged), the supplement's entries deduped by lemma, the full checks.
+- The native check, first in this doc.
+- **Voices**: nothing was spent. See "Voice".
