@@ -136,7 +136,7 @@ class GermanB2aContentTest {
         val table = course.units.getValue("haette-gewusst").worksheets.first().exercises.first()
         val cell = Sheets.items(table, Lang.DE).first { "wäre gesessen" in it.accept }
         assertEquals("the Austrian form first", "wäre gesessen", cell.accept.first())
-        assertTrue("hätte gesessen, Germany's", "hätte gesessen" in cell.accept)
+        assertTrue("hätte gesessen, northern Germany's", "hätte gesessen" in cell.accept)
         assertEquals(Verdict.CORRECT, Sheets.check(cell, "hätte gesessen", Lang.DE).verdict)
         assertEquals(Verdict.CORRECT, sheet("sei", listOf("wäre", "sei"), "Er spricht, als ___ er der Bürgermeister.").verdict)
     }
