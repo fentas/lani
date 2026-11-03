@@ -65,7 +65,9 @@ the app, and its `explain` gets "📖 V knjigo · To the book". Tag every exerci
 ```json
 { "type": "choice", "prompt": "Your neighbour at 8:00 — you say…", "options": ["Dober jutro", "Dobro jutro", "Dobra jutro"], "answer": 1, "explain": "jutro is neuter → dobro" }
 ```
-2-6 options. `answer` is the 0-based index. Make distractors plausible near-misses.
+2-6 options. `answer` is the 0-based index in the file. Make distractors plausible near-misses. The app and the printed
+sheets show the options in an order of their own (the same through a day, another the next: `data/ChoiceOrder.kt`), so
+their order here doesn't matter, and nothing may lean on it: no "the second one", no "both of the above".
 Optional `almost`: the indices of options that are almost right, a real answer that doesn't fit here (the wrong register,
 a near form). Picking one is **almost**, as a typo in a typed answer is (paid as almost), and the `explain` says why the
 answer fits better: write one that covers it. Not the answer itself, and at least one option stays wrong.
@@ -105,7 +107,7 @@ Always graded by Claude via a `kind="answer"` channel event.
 ```json
 { "type": "multi", "prompt": "Which greetings are polite (vi)?", "options": ["Dober dan", "Živjo", "Dobro jutro", "Oj"], "answers": [0, 2], "explain": "živjo and oj are for friends." }
 ```
-3-8 options, `answers` lists every correct index. All right and none wrong = correct. One miss or one extra = almost.
+3-8 options, `answers` lists every correct index (shown in an order of the app's, as a `choice`'s). All right and none wrong = correct. One miss or one extra = almost.
 The app shows a checkbox on each option and the number picked on its Check button ("Preveri · Check (2)").
 
 ### `scenario` — a situation to respond to

@@ -264,6 +264,10 @@ bold stays English), give a form's meaning in brackets right after it, and keep 
   a module (`flashcard`, `choice`, `cloze`, `reorder`, `translate`, `free`, `multi`, `scenario`, `dictation`, `speak`:
   `.claude/skills/lani-studio/reference/module-spec.md`) and the school's own four (below). An optional `intro` (as the
   unit's) comes before its exercises.
+- **A choice's options show in the day's order**, a multi's and an intro's quick question's too: the same through a day,
+  another the next (`data/ChoiceOrder.kt`; docs/plans/05-built/choices-order.md). `answer`, `almost` and `answers` stay the
+  file's indices and the file's order is never shown, so write the options in any order, and nothing may lean on it (no
+  "both of the above").
 - The test: `pass` (50–100, default 80): the share of its items to get right; `exercises` (2–12), the same types. An item
   is one gap, one cell, one line of a transform list, one word sorted, or one other exercise; an almost-right item (a
   missing č, š, ž) counts half.
@@ -1339,7 +1343,7 @@ What a sheet has, and where it comes from (`companion/prints/sheet.ts`):
 | **Primeri · Examples** | the intro's examples, the first of each step first, at most six; the table's forms in them bold |
 | **Pazi · Watch out** | three wrong ✗ / right ✓ pairs: what a text says is wrong ("**Kje je Luka?** (never *Kje Luka je?*)", "Never *ne sem*", "*Vidim nič* is wrong"), a quick question's or a worksheet choice's wrong option in its sentence (never one marked `almost`: a spoken or near form), a gap whose word in brackets left unchanged is the mistake ("To je ___ (moj) hiša.") |
 | **Besede · Words** | the unit's `words`, with gender and meaning in the sheet's base, in this order: the unit's own gloss ("**quando** (wenn)" in its intro, unless its English bracket is a note: "**rad** (a man)"), the dictionary's supplement's entry of the word with its own meaning in the base (an Italian noun by the word without its article, il treno), a pack's word (an Italian noun in the plural with its article, i cavalli, by the pack's plural, its singular beside it), then the supplement's and Wiktionary's other readings (the meaning the unit's own text points to: peti is "fifth" in the numbers); not the ones the table shows, nor names. A word nothing knows is left out (the run lists them); the Italian course's A1, A2 and B1 leave none out (the supplement has the rest, it-print-meanings) |
-| **Preveri se · Check yourself** | five items of the worksheets (the test stays the app's): gaps in their sentence, transforms, choices, grouped by instruction; ten on a sheet of two pages. The answers upside down at the page's foot |
+| **Preveri se · Check yourself** | five items of the worksheets (the test stays the app's): gaps in their sentence, transforms, choices (their options in the sheet's own order, `printedOrder`: the same on every print of it, never the file's, the answers naming the right one by its text), grouped by instruction; ten on a sheet of two pages. The answers upside down at the page's foot |
 | The footer | "Strojno napisano, preveri z naravnim govorcem · machine-written, to be checked by a native speaker" while the unit's `review` says it's unreviewed; the Wiktionary attribution when a meaning comes from it |
 
 The layout (`companion/prints/html.ts`, `sheet.css`): A4 with 12 mm margins, Nunito with the Lani mark in Pixelify Sans
