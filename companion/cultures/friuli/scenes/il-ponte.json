@@ -1226,7 +1226,7 @@
       "level": "B1",
       "memory": { "it": "il carro di tavole per i banchi della scuola", "sl": "voz desk za šolske klopi", "en": "the cart of planks for the school's benches", "de": "den Wagen voller Bretter für die Schulbänke" },
       "lines": [
-        { "who": "franco", "it": "Buongiorno, {learner}! Guarda: arriva un carro pieno di tavole. Sono per i banchi nuovi della scuola.", "sl": "Dober dan, {learner}! Poglej: prihaja voz poln desk. Za nove šolske klopi so.", "en": "Good morning, {learner}! Look: a cart full of planks is coming. They're for the school's new benches.", "de": "Guten Morgen, {learner}! Schau: Da kommt ein Wagen voller Bretter. Die sind für die neuen Schulbänke." },
+        { "who": "franco", "it": "Buongiorno, {learner}! Guarda: arriva un carro pieno di tavole. Sono per i banchi nuovi della scuola.", "sl": "Dober dan, {learner}! Poglej: prihaja voz poln desk. Za nove šolske klopi so.", "en": "Good morning, {learner}! Look: a cart full of planks is coming. They're for the school's new benches.", "de": "Guten Morgen, {learner}! Schau: Da kommt ein Wagen voller Bretter. Die sind für die neuen Schulbänke.", "fx": { "cart": 0 } },
         { "who": "franco", "face": "curious", "it": "Sai da dove vengono?", "sl": "Veš, od kod so?", "en": "Do you know where they come from?", "de": "Weißt du, woher sie kommen?" },
         { "choices": [
           { "it": "Sono state tagliate nel bosco, vero?", "sl": "Narezali so jih v gozdu, ne?", "en": "They were cut in the wood, weren't they?", "de": "Die wurden im Wald geschnitten, oder?", "ok": true,
@@ -1235,7 +1235,7 @@
             "grammar": "passivo", "why": { "sl": "Le tavole so ženskega spola in množina: sono state tagliate.", "en": "Le tavole are feminine and plural: sono state tagliate.", "de": "Le tavole sind weiblich und Mehrzahl: sono state tagliate." },
             "reply": { "face": "curious", "it": "Tagliati? Mmm, qui ci sono tavole, non tronchi, {learner}!", "sl": "Tagliati? Hm, tu so deske, ne debla, {learner}!", "en": "Tagliati? Hmm, these are planks, not logs, {learner}!", "de": "Tagliati? Hm, das sind Bretter, keine Stämme, {learner}!" } }
         ] },
-        { "who": "franco", "face": "thinking", "it": "Il carrettiere dice che il cavallo è nervoso: sulle tavole del ponte, gli zoccoli fanno rumore.", "sl": "Voznik pravi, da je konj nemiren: na deskah mostu kopita ropotajo.", "en": "The carter says the horse is nervous: on the bridge's boards, his hooves make a noise.", "de": "Der Fuhrmann sagt, das Pferd ist nervös: Auf den Brettern der Brücke klappern die Hufe." },
+        { "who": "franco", "face": "thinking", "it": "Il carrettiere dice che il cavallo è nervoso: sulle tavole del ponte, gli zoccoli fanno rumore.", "sl": "Voznik pravi, da je konj nemiren: na deskah mostu kopita ropotajo.", "en": "The carter says the horse is nervous: on the bridge's boards, his hooves make a noise.", "de": "Der Fuhrmann sagt, das Pferd ist nervös: Auf den Brettern der Brücke klappern die Hufe.", "fx": { "cart": 0.5 } },
         { "choices": [
           { "it": "Lo aiuto io a tenere il cavallo, così passa tranquillo.", "sl": "Jaz mu pomagam držati konja, da gre mirno čez.", "en": "I'll help him hold the horse, so it crosses calmly.", "de": "Ich helf ihm, das Pferd zu halten, dann geht es ruhig hinüber.", "ok": true,
             "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}. Una mano sul collo, e parlagli piano. I cavalli capiscono.", "sl": "{m:Priden|f:Pridna}. Roko na vrat, in govori mu tiho. Konji razumejo.", "en": "Good. A hand on his neck, and talk to him softly. Horses understand.", "de": "Gut. Eine Hand an den Hals, und red leise mit ihm. Pferde verstehen das." } },
@@ -1243,7 +1243,7 @@
             "grammar": "infinito-preposizioni", "why": { "sl": "Aiutare gre z a: aiutare a tenere.", "en": "Aiutare takes a: aiutare a tenere.", "de": "Aiutare steht mit a: aiutare a tenere." },
             "reply": { "face": "curious", "it": "Aiuto di…? Mmm, il cavallo ti capirà, ma il carrettiere forse no!", "sl": "Aiuto di …? Hm, konj te bo razumel, voznik pa morda ne!", "en": "Aiuto di…? Hmm, the horse will understand you, but maybe not the carter!", "de": "Aiuto di …? Hm, das Pferd versteht dich, aber der Fuhrmann vielleicht nicht!" } }
         ] },
-        { "who": "franco", "face": "happy", "it": "Piano, piano… ed eccolo dall'altra parte! Un ponte fatto bene regge tutto, anche i banchi di scuola.", "sl": "Počasi, počasi … in že je na drugi strani! Dobro narejen most zdrži vse, tudi šolske klopi.", "en": "Slowly, slowly… and there he is on the other side! A well-made bridge holds anything, even school benches.", "de": "Langsam, langsam … und da ist er drüben! Eine gut gebaute Brücke hält alles, sogar Schulbänke." }
+        { "who": "franco", "face": "happy", "it": "Piano, piano… ed eccolo dall'altra parte! Un ponte fatto bene regge tutto, anche i banchi di scuola.", "sl": "Počasi, počasi … in že je na drugi strani! Dobro narejen most zdrži vse, tudi šolske klopi.", "en": "Slowly, slowly… and there he is on the other side! A well-made bridge holds anything, even school benches.", "de": "Langsam, langsam … und da ist er drüben! Eine gut gebaute Brücke hält alles, sogar Schulbänke.", "fx": { "cart": 1 } }
       ]
     },
     {
@@ -1268,7 +1268,7 @@
             "why": { "sl": "Stari so imeli radi pogovore ob brodu, ne izgubljenega sena; most jih ne prepoveduje.", "en": "The old folk liked the talks at the ford, not the lost hay; the bridge doesn't stop them.", "de": "Die Alten mochten das Reden an der Furt, nicht das verlorene Heu; die Brücke verbietet es ja nicht." },
             "reply": { "face": "confused", "it": "Il fieno nel ruscello? No, no! Quello non l'ha mai voluto nessuno.", "sl": "Seno v potoku? Ne, ne! Tega ni nikoli nihče hotel.", "en": "The hay in the stream? No, no! Nobody ever wanted that.", "de": "Das Heu im Bach? Nein, nein! Das wollte nie jemand." } }
         ] },
-        { "who": "franco", "it": "Ecco un carro che arriva. Uno. Lo scrivo. E tu, intanto, raccontami qualcosa.", "sl": "Glej, prihaja voz. Eden. Zapišem ga. Ti pa mi medtem kaj povej.", "en": "Here comes a cart. One. I'll write it down. And meanwhile, you tell me something.", "de": "Da kommt ein Wagen. Einer. Ich schreib ihn auf. Und du erzählst mir derweil etwas." }
+        { "who": "franco", "it": "Ecco un carro che arriva. Uno. Lo scrivo. E tu, intanto, raccontami qualcosa.", "sl": "Glej, prihaja voz. Eden. Zapišem ga. Ti pa mi medtem kaj povej.", "en": "Here comes a cart. One. I'll write it down. And meanwhile, you tell me something.", "de": "Da kommt ein Wagen. Einer. Ich schreib ihn auf. Und du erzählst mir derweil etwas.", "fx": { "cart": 0 } }
       ]
     },
     {

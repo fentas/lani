@@ -1274,7 +1274,7 @@
       "level": "B1",
       "memory": { "it": "il pane per il pellegrino di Castelmonte", "sl": "kruh za romarja na Stari gori", "en": "the bread for the Castelmonte pilgrim", "de": "das Brot für den Pilger nach Castelmonte" },
       "lines": [
-        { "who": "rosa", "it": "{learner}, guarda la strada: arriva un pellegrino, con il bastone e lo zaino. Va a Castelmonte, a piedi.", "sl": "{learner}, poglej cesto: prihaja romar, s palico in nahrbtnikom. Peš gre na Staro goro.", "en": "{learner}, look at the road: a pilgrim's coming, with a stick and a rucksack. He's walking to Castelmonte.", "de": "{learner}, schau auf die Straße: Da kommt ein Pilger, mit Stock und Rucksack. Er geht zu Fuß nach Castelmonte." },
+        { "who": "rosa", "it": "{learner}, guarda la strada: arriva un pellegrino, con il bastone e lo zaino. Va a Castelmonte, a piedi.", "sl": "{learner}, poglej cesto: prihaja romar, s palico in nahrbtnikom. Peš gre na Staro goro.", "en": "{learner}, look at the road: a pilgrim's coming, with a stick and a rucksack. He's walking to Castelmonte.", "de": "{learner}, schau auf die Straße: Da kommt ein Pilger, mit Stock und Rucksack. Er geht zu Fuß nach Castelmonte.", "fx": { "traveller": 0.3 } },
         { "who": "rosa", "face": "worried", "it": "È stanco e ha fame, poverino. Ho qui un pezzo di pane. Vuoi portarlo tu al signore?", "sl": "Utrujen in lačen je, revček. Tu imam kos kruha. Mu ga hočeš nesti ti?", "en": "He's tired and hungry, poor thing. I've got a piece of bread here. Will you take it to the gentleman?", "de": "Er ist müde und hungrig, der Arme. Ich hab hier ein Stück Brot. Willst du es dem Herrn bringen?" },
         { "choices": [
           { "it": "Sì, nonna, glielo porto subito!", "sl": "Ja, babica, takoj mu ga nesem!", "en": "Yes, Nonna, I'll take it to him right away!", "de": "Ja, Oma, ich bring es ihm sofort!", "ok": true,
@@ -1291,7 +1291,7 @@
             "grammar": "relativi-cui", "why": { "sl": "Od kod se vidi, pove da: da cui (s katere). In cui je »v kateri«.", "en": "From where you see, it's da: da cui. In cui is «in which».", "de": "Von wo aus man sieht, sagt da: da cui. In cui heißt «in dem»." },
             "reply": { "face": "curious", "it": "In cui? Dentro la chiesa? No, no, tesoro: dentro si vedono solo le candele!", "sl": "In cui? V cerkvi? Ne, ne, srček: notri se vidijo samo sveče!", "en": "In cui? Inside the church? No, no, sweetheart: inside you only see the candles!", "de": "In cui? In der Kirche? Nein, nein, Schatz: Drinnen sieht man nur die Kerzen!" } }
         ] },
-        { "who": "rosa", "face": "happy", "it": "Guarda, il pellegrino ci saluta. Buon cammino! E tu, tesoro, vieni: c'è la merenda anche per te.", "sl": "Poglej, romar nama maha. Srečno pot! Ti pa, srček, pridi: malica je tudi zate.", "en": "Look, the pilgrim's waving to us. Safe journey! And you, sweetheart, come: there's a snack for you too.", "de": "Schau, der Pilger winkt uns. Gute Reise! Und du, Schatz, komm: Es gibt auch für dich eine Jause." }
+        { "who": "rosa", "face": "happy", "it": "Il pellegrino ci saluta da lontano. Buon cammino! E tu, tesoro, vieni: c'è la merenda anche per te.", "sl": "Romar nama maha od daleč. Srečno pot! Ti pa, srček, pridi: malica je tudi zate.", "en": "The pilgrim's waving to us from afar. Safe journey! And you, sweetheart, come: there's a snack for you too.", "de": "Der Pilger winkt uns von weitem. Gute Reise! Und du, Schatz, komm: Es gibt auch für dich eine Jause.", "fx": { "traveller": 0.6 } }
       ]
     },
     {
