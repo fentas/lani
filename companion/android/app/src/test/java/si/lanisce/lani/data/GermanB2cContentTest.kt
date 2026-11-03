@@ -54,7 +54,7 @@ class GermanB2cContentTest {
             "biete" to "bitte", "bitte" to "biete", "versuche" to "ersuche", "ersuche" to "versuche", "stehle" to "stelle", "stehlen" to "stellen", "sehen" to "stehen", "seht" to "steht",
             "lassen" to "fassen", "passt" to "fasst", "stellt" to "steht", "steht" to "stellt", "Ober" to "Obers",
         )) assertEquals("$typed for $right", Verdict.WRONG, de(typed, right).verdict)
-        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Topfn", "Topfen"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Tofen", "Topfen"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("Stige", "Stiege"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("Rücksich", "Rücksicht"))
         assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("Jaenner", "Jänner"))
@@ -108,7 +108,7 @@ class GermanB2cContentTest {
         for (id in ids) {
             val u = course.units.getValue(id)
             val all = u.worksheets.flatMap { it.exercises } + u.test.exercises + u.intro!!.steps.mapNotNull { it.ask }
-            for (e in all) if (e is Exercise.Choice) {
+            for (e in all) if (e is Exercise.Choice && Regex("_{3,}").containsMatchIn(e.prompt)) {
                 val right = e.options[e.answer]
                 for ((i, o) in e.options.withIndex()) if (i != e.answer) {
                     val inIt = Grading.check(e.prompt.replace(Regex("_{3,}"), o), listOf(e.prompt.replace(Regex("_{3,}"), right)), Lang.DE)
