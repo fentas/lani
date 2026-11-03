@@ -1,0 +1,1057 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "als-waehrend",
+  "language": "de",
+  "level": "B1",
+  "emoji": "⏳",
+  "title": {
+    "de": "Als ich klein war, bevor er kam",
+    "en": "When, while, before: als, während, bevor",
+    "sl": "Ko, medtem ko, preden: als, während, bevor",
+    "it": "Quando, mentre, prima che: als, während, bevor"
+  },
+  "goal": {
+    "en": "You can say when something happened: als for one time in the past against wenn for every time, während, bevor, bis and seit, with the verb at the end and the main verb at the comma.",
+    "sl": "Poveš, kdaj se je kaj zgodilo: als za enkrat v preteklosti proti wenn za vsakič, während, bevor, bis in seit, z glagolom na koncu in glavnim glagolom za vejico.",
+    "it": "Sai dire quando è successo qualcosa: als per una volta nel passato contro wenn per ogni volta, während, bevor, bis e seit, col verbo in fondo e il verbo principale dopo la virgola."
+  },
+  "grammar": [
+    "temporalsaetze",
+    "nebensatz"
+  ],
+  "words": [
+    "als",
+    "wenn",
+    "wann",
+    "während",
+    "bevor",
+    "bis",
+    "seit",
+    "seitdem",
+    "immer",
+    "damals",
+    "früher",
+    "gestern",
+    "vorgestern",
+    "morgen",
+    "klein",
+    "wohnen",
+    "rodeln",
+    "decken",
+    "läuten",
+    "das Telefon",
+    "waschen",
+    "die Hand",
+    "schicken",
+    "füttern",
+    "der Stall",
+    "die Skier",
+    "das Rad",
+    "die Kuh",
+    "die Biene",
+    "der Regen",
+    "die Zeitung",
+    "der Schultag",
+    "dunkel",
+    "zwölf",
+    "die Schwester",
+    "die Mutter",
+    "das Bett",
+    "der Zug",
+    "der Markt",
+    "der Sommer"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Wort",
+          "en": "word",
+          "sl": "beseda",
+          "it": "parola"
+        },
+        {
+          "de": "wofür",
+          "en": "for what",
+          "sl": "za kaj",
+          "it": "a che serve"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**als** is for one time in the past, or one stretch of it: **Als ich klein war, wohnte ich in Villach.** (When I was little, I lived in Villach.) It sends the verb to the end, like weil. When the clause comes first, the main verb follows at the comma: **war, wohnte**.",
+          "sl": "**als** je za enkrat v preteklosti ali eno obdobje: **Als ich klein war, wohnte ich in Villach.** (Ko sem bil majhen, sem živel v Beljaku.) Glagol pošlje na konec, kot weil. Če je odvisnik prvi, sledi glavni glagol takoj za vejico: **war, wohnte**.",
+          "it": "**als** è per una volta nel passato, o un periodo: **Als ich klein war, wohnte ich in Villach.** (Quando ero piccolo, abitavo a Villach.) Manda il verbo in fondo, come weil. Se la secondaria viene prima, il verbo principale segue subito la virgola: **war, wohnte**."
+        },
+        "examples": [
+          {
+            "de": "Als ich klein war, wohnte ich in Villach.",
+            "en": "When I was little, I lived in Villach.",
+            "sl": "Ko sem bil majhen, sem živel v Beljaku.",
+            "it": "Quando ero piccolo, abitavo a Villach."
+          },
+          {
+            "de": "Als Stefan kam, regnete es.",
+            "en": "When Stefan came, it was raining.",
+            "sl": "Ko je prišel Stefan, je deževalo.",
+            "it": "Quando è arrivato Stefan, pioveva."
+          },
+          {
+            "de": "Es regnete, als Stefan kam.",
+            "en": "It was raining when Stefan came.",
+            "sl": "Deževalo je, ko je prišel Stefan.",
+            "it": "Pioveva quando è arrivato Stefan."
+          }
+        ],
+        "rows": [
+          [
+            "als",
+            {
+              "de": "einmal, in der Vergangenheit",
+              "en": "one time in the past",
+              "sl": "enkrat v preteklosti",
+              "it": "una volta nel passato"
+            },
+            "Als ich klein war, …"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "prompt": "___ ich klein war, wohnte ich in Villach.",
+          "options": [
+            "Als",
+            "Wenn",
+            "Ob"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**One time in the past: als. Every time, now or later: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "sl": "**Enkrat v preteklosti: als. Vsakič, zdaj ali pozneje: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "it": "**Una volta nel passato: als. Ogni volta, ora o dopo: wenn**\n- Als ich klein war · Immer wenn es regnet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**wenn** is for every time, in the past too: **Immer wenn es schneite, gingen die Kinder rodeln.** (Whenever it snowed, the children went sledging.) It's also for now and later: **Wenn du kommst, koche ich.** (When you come, I'll cook.) **wann** stays the question: **Wann kommst du?** (When are you coming?)",
+          "sl": "**wenn** je za vsakič, tudi v preteklosti: **Immer wenn es schneite, gingen die Kinder rodeln.** (Kadar je snežilo, so se otroci šli sankat.) Tudi za zdaj in pozneje: **Wenn du kommst, koche ich.** (Ko prideš, bom kuhal.) **wann** ostane vprašanje: **Wann kommst du?** (Kdaj prideš?)",
+          "it": "**wenn** è per ogni volta, anche nel passato: **Immer wenn es schneite, gingen die Kinder rodeln.** (Ogni volta che nevicava, i bambini andavano a slittare.) Anche per ora e dopo: **Wenn du kommst, koche ich.** (Quando vieni, cucino io.) **wann** resta la domanda: **Wann kommst du?** (Quando vieni?)"
+        },
+        "examples": [
+          {
+            "de": "Immer wenn es schneite, gingen die Kinder rodeln.",
+            "en": "Whenever it snowed, the children went sledging.",
+            "sl": "Kadar je snežilo, so se otroci šli sankat.",
+            "it": "Ogni volta che nevicava, i bambini andavano a slittare."
+          },
+          {
+            "de": "Wenn du kommst, koche ich.",
+            "en": "When you come, I'll cook.",
+            "sl": "Ko prideš, bom kuhal.",
+            "it": "Quando vieni, cucino io."
+          },
+          {
+            "de": "Wann kommst du?",
+            "en": "When are you coming?",
+            "sl": "Kdaj prideš?",
+            "it": "Quando vieni?"
+          }
+        ],
+        "rows": [
+          [
+            "wenn",
+            {
+              "de": "jedes Mal; jetzt, später",
+              "en": "every time; now, later",
+              "sl": "vsakič; zdaj, pozneje",
+              "it": "ogni volta; ora, dopo"
+            },
+            "Immer wenn es regnet, …"
+          ],
+          [
+            "wann",
+            {
+              "de": "nur die Frage",
+              "en": "only the question",
+              "sl": "samo vprašanje",
+              "it": "solo la domanda"
+            },
+            "Wann kommst du?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "prompt": "Immer ___ es schneite, gingen die Kinder rodeln.",
+          "options": [
+            "wenn",
+            "als",
+            "ob"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**One time in the past: als. Every time, now or later: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "sl": "**Enkrat v preteklosti: als. Vsakič, zdaj ali pozneje: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "it": "**Una volta nel passato: als. Ogni volta, ora o dopo: wenn**\n- Als ich klein war · Immer wenn es regnet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**während** (while) puts two things at the same time: **Während Kathi kochte, deckte Maxi den Tisch.** (While Kathi was cooking, Maxi laid the table.) One of them may be short: **Während wir aßen, läutete das Telefon.** (While we were eating, the phone rang.)",
+          "sl": "**während** (medtem ko) postavi dve stvari v isti čas: **Während Kathi kochte, deckte Maxi den Tisch.** (Medtem ko je Kathi kuhala, je Maxi pogrnil mizo.) Ena je lahko kratka: **Während wir aßen, läutete das Telefon.** (Medtem ko smo jedli, je zazvonil telefon.)",
+          "it": "**während** (mentre) mette due cose nello stesso momento: **Während Kathi kochte, deckte Maxi den Tisch.** (Mentre Kathi cucinava, Maxi apparecchiava la tavola.) Una può essere breve: **Während wir aßen, läutete das Telefon.** (Mentre mangiavamo, è suonato il telefono.)"
+        },
+        "examples": [
+          {
+            "de": "Während Kathi kochte, deckte Maxi den Tisch.",
+            "en": "While Kathi was cooking, Maxi laid the table.",
+            "sl": "Medtem ko je Kathi kuhala, je Maxi pogrnil mizo.",
+            "it": "Mentre Kathi cucinava, Maxi apparecchiava la tavola."
+          },
+          {
+            "de": "Während wir aßen, läutete das Telefon.",
+            "en": "While we were eating, the phone rang.",
+            "sl": "Medtem ko smo jedli, je zazvonil telefon.",
+            "it": "Mentre mangiavamo, è suonato il telefono."
+          }
+        ],
+        "rows": [
+          [
+            "während",
+            {
+              "de": "zur gleichen Zeit",
+              "en": "at the same time",
+              "sl": "ob istem času",
+              "it": "nello stesso momento"
+            },
+            "Während Kathi kocht, …"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "prompt": {
+            "en": "Two things at the same time, Kathi cooking and Maxi laying the table:",
+            "sl": "Dve stvari ob istem času, Kathi kuha in Maxi pogrinja mizo:",
+            "it": "Due cose nello stesso momento, Kathi cucina e Maxi apparecchia:"
+          },
+          "options": [
+            "Während Kathi kocht, deckt Maxi den Tisch.",
+            "Bevor Kathi kocht, deckt Maxi den Tisch.",
+            "Bis Kathi kocht, deckt Maxi den Tisch."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**als once, wenn every time, während at the same time, bevor before, bis until, seit since**",
+            "sl": "**als enkrat, wenn vsakič, während ob istem času, bevor preden, bis dokler ne, seit odkar**",
+            "it": "**als una volta, wenn ogni volta, während nello stesso momento, bevor prima che, bis finché non, seit da quando**"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**bevor** (before) and **bis** (until) look ahead: **Bevor wir essen, waschen wir die Hände.** (Before we eat, we wash our hands.) **Warte, bis ich komme!** (Wait until I come!) Before a noun it's **vor**: **vor dem Essen** (before the meal). **vor wir essen** doesn't exist.",
+          "sl": "**bevor** (preden) in **bis** (dokler ne) gledata naprej: **Bevor wir essen, waschen wir die Hände.** (Preden jemo, si umijemo roke.) **Warte, bis ich komme!** (Počakaj, dokler ne pridem!) Pred samostalnikom je **vor**: **vor dem Essen** (pred jedjo). **vor wir essen** ne obstaja.",
+          "it": "**bevor** (prima che) e **bis** (finché non) guardano avanti: **Bevor wir essen, waschen wir die Hände.** (Prima di mangiare ci laviamo le mani.) **Warte, bis ich komme!** (Aspetta finché non arrivo!) Davanti a un nome è **vor**: **vor dem Essen** (prima del pasto). **vor wir essen** non esiste."
+        },
+        "examples": [
+          {
+            "de": "Bevor wir essen, waschen wir die Hände.",
+            "en": "Before we eat, we wash our hands.",
+            "sl": "Preden jemo, si umijemo roke.",
+            "it": "Prima di mangiare ci laviamo le mani."
+          },
+          {
+            "de": "Vor dem Essen waschen wir die Hände.",
+            "en": "Before the meal, we wash our hands.",
+            "sl": "Pred jedjo si umijemo roke.",
+            "it": "Prima del pasto ci laviamo le mani."
+          },
+          {
+            "de": "Warte, bis ich komme!",
+            "en": "Wait until I come!",
+            "sl": "Počakaj, dokler ne pridem!",
+            "it": "Aspetta finché non arrivo!"
+          }
+        ],
+        "rows": [
+          [
+            "bevor",
+            {
+              "de": "zuerst der Hauptsatz",
+              "en": "the main sentence comes first",
+              "sl": "najprej glavni stavek",
+              "it": "prima la frase principale"
+            },
+            "Bevor wir essen, …"
+          ],
+          [
+            "bis",
+            {
+              "de": "bis zu diesem Punkt",
+              "en": "up to that point",
+              "sl": "do tega trenutka",
+              "it": "fino a quel punto"
+            },
+            "Warte, bis ich komme."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "prompt": "___ dem Essen wäscht Maxi die Hände.",
+          "options": [
+            "Vor",
+            "Bevor",
+            "Als"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**vor + a noun, bevor + a clause**\n- vor dem Essen · bevor wir essen",
+            "sl": "**vor + samostalnik, bevor + odvisnik**\n- vor dem Essen · bevor wir essen",
+            "it": "**vor + un nome, bevor + una secondaria**\n- vor dem Essen · bevor wir essen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**seit** (since) runs from then until now, so it takes the present where English has the perfect: **Seit Lena in die Schule geht, liest sie viel.** (Since Lena started school, she has been reading a lot.) **seitdem** is the same word. Before a noun you know it already: **seit dem Sommer** (since the summer).",
+          "sl": "**seit** (odkar) teče od takrat do zdaj, zato je s sedanjikom: **Seit Lena in die Schule geht, liest sie viel.** (Odkar Lena hodi v šolo, veliko bere.) **seitdem** je ista beseda. Pred samostalnikom jo že poznaš: **seit dem Sommer** (od poletja).",
+          "it": "**seit** (da quando) va da allora a ora, quindi vuole il presente: **Seit Lena in die Schule geht, liest sie viel.** (Da quando Lena va a scuola, legge molto.) **seitdem** è la stessa parola. Davanti a un nome la conosci già: **seit dem Sommer** (dall'estate)."
+        },
+        "examples": [
+          {
+            "de": "Seit Lena in die Schule geht, liest sie viel.",
+            "en": "Since Lena started school, she has been reading a lot.",
+            "sl": "Odkar Lena hodi v šolo, veliko bere.",
+            "it": "Da quando Lena va a scuola, legge molto."
+          },
+          {
+            "de": "Stanko hat Bienen, seit er im Dorf wohnt.",
+            "en": "Stanko has kept bees since he has lived in the village.",
+            "sl": "Stanko ima čebele, odkar živi v vasi.",
+            "it": "Stanko ha le api da quando abita nel villaggio."
+          }
+        ],
+        "rows": [
+          [
+            "seit",
+            {
+              "de": "von damals bis jetzt",
+              "en": "from then until now",
+              "sl": "od takrat do zdaj",
+              "it": "da allora a ora"
+            },
+            "Seit Lena in die Schule geht, …"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "prompt": "Seit Stanko im Dorf ___, hat er Bienen.",
+          "options": [
+            "wohnt",
+            "wohnte",
+            "wohnen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**seit: it is still so, so the present**\n- Seit Stanko im Dorf wohnt, hat er Bienen",
+            "sl": "**seit: še vedno je tako, zato sedanjik**\n- Seit Stanko im Dorf wohnt, hat er Bienen",
+            "it": "**seit: è ancora così, quindi il presente**\n- Seit Stanko im Dorf wohnt, hat er Bienen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**The main verb at the comma**, and the tenses. In writing als takes the Präteritum: **Als der Regen kam, gingen wir ins Gasthaus.** In talk, the Perfekt: **Als der Regen gekommen ist, sind wir ins Gasthaus gegangen.** You'll also hear **wie** for als: **Wie ich klein war, …** That's how people talk. Write als.",
+          "sl": "**Glavni glagol za vejico** in časi. V pisavi je als s Präteritumom: **Als der Regen kam, gingen wir ins Gasthaus.** V govoru s Perfektom: **Als der Regen gekommen ist, sind wir ins Gasthaus gegangen.** Slišal boš tudi **wie** za als: **Wie ich klein war, …** Tako se govori. Piši als.",
+          "it": "**Il verbo principale dopo la virgola**, e i tempi. Per iscritto als vuole il Präteritum: **Als der Regen kam, gingen wir ins Gasthaus.** Parlando, il Perfekt: **Als der Regen gekommen ist, sind wir ins Gasthaus gegangen.** Sentirai anche **wie** per als: **Wie ich klein war, …** Si parla così. Scrivi als."
+        },
+        "examples": [
+          {
+            "de": "Als der Regen kam, gingen wir ins Gasthaus.",
+            "en": "When the rain came, we went to the inn.",
+            "sl": "Ko je prišel dež, smo šli v gostilno.",
+            "it": "Quando è arrivata la pioggia, siamo andati alla locanda."
+          },
+          {
+            "de": "Als der Regen gekommen ist, sind wir ins Gasthaus gegangen.",
+            "en": "When the rain came, we went to the inn.",
+            "sl": "Ko je prišel dež, smo šli v gostilno.",
+            "it": "Quando è arrivata la pioggia, siamo andati alla locanda."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "prompt": "Als der Regen kam, ___",
+          "options": [
+            "gingen wir ins Gasthaus.",
+            "wir gingen ins Gasthaus.",
+            "wir ins Gasthaus gingen."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Clause first: the main verb right after the comma**\n- Als der Regen kam, gingen wir ins Gasthaus",
+            "sl": "**Odvisnik prvi: glavni glagol takoj za vejico**\n- Als der Regen kam, gingen wir ins Gasthaus",
+            "it": "**Secondaria prima: il verbo principale subito dopo la virgola**\n- Als der Regen kam, gingen wir ins Gasthaus"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**Verb last**, and with the clause first the main verb at the comma: **Als ich klein war, wohnte ich …**\n\n**als**: one time in the past. **wenn**: every time, now, later. **während**: at the same time. **bevor**: before (a noun: vor). **bis**: until. **seit**: since, with the present.\n\n**wann** is only the question. In talk you'll hear **wie** for als. Write als.",
+      "sl": "**Glagol na koncu**, pri odvisniku na prvem mestu pa glavni glagol za vejico: **Als ich klein war, wohnte ich …**\n\n**als**: enkrat v preteklosti. **wenn**: vsakič, zdaj, pozneje. **während**: ob istem času. **bevor**: preden (s samostalnikom vor). **bis**: dokler ne. **seit**: odkar, s sedanjikom.\n\n**wann** je samo vprašanje. V govoru boš slišal **wie** za als. Piši als.",
+      "it": "**Verbo in fondo**, e con la secondaria prima il verbo principale dopo la virgola: **Als ich klein war, wohnte ich …**\n\n**als**: una volta nel passato. **wenn**: ogni volta, ora, dopo. **während**: nello stesso momento. **bevor**: prima che (con un nome: vor). **bis**: finché non. **seit**: da quando, col presente.\n\n**wann** è solo la domanda. Parlando sentirai **wie** per als. Scrivi als."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "als-waehrend-1",
+      "title": {
+        "de": "Das Verb am Ende",
+        "en": "The verb at the end",
+        "sl": "Glagol na koncu",
+        "it": "Il verbo in fondo"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "temporalsaetze",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Satz → Nebensatz · a sentence → a clause",
+            "sl": "Satz → Nebensatz · stavek → odvisnik",
+            "it": "Satz → Nebensatz · frase → secondaria"
+          },
+          "columns": [
+            {
+              "en": "Satz · sentence",
+              "sl": "Satz · stavek",
+              "it": "Satz · frase"
+            },
+            {
+              "en": "Nebensatz · clause",
+              "sl": "Nebensatz · odvisnik",
+              "it": "Nebensatz · secondaria"
+            }
+          ],
+          "rows": [
+            {
+              "label": "als",
+              "cells": [
+                "Ich war klein.",
+                {
+                  "accept": [
+                    "als ich klein war"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wenn",
+              "cells": [
+                "Es regnet.",
+                {
+                  "accept": [
+                    "wenn es regnet"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "während",
+              "cells": [
+                "Kathi kochte.",
+                {
+                  "accept": [
+                    "während Kathi kochte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bevor",
+              "cells": [
+                "Wir essen.",
+                {
+                  "accept": [
+                    "bevor wir essen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bis",
+              "cells": [
+                "Ich komme zurück.",
+                {
+                  "accept": [
+                    "bis ich zurückkomme"
+                  ],
+                  "hint": {
+                    "en": "one word at the end",
+                    "sl": "ena beseda na koncu",
+                    "it": "una parola in fondo"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "seit",
+              "cells": [
+                "Lena geht in die Schule.",
+                {
+                  "accept": [
+                    "seit Lena in die Schule geht",
+                    "seitdem Lena in die Schule geht"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**These words send the verb to the end**\n- als ich klein war · bis ich zurückkomme",
+            "sl": "**Te besede pošljejo glagol na konec**\n- als ich klein war · bis ich zurückkomme",
+            "it": "**Queste parole mandano il verbo in fondo**\n- als ich klein war · bis ich zurückkomme"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "temporalsaetze",
+          "instruction": {
+            "en": "Ordne zu: als oder wenn? · One time, or every time?",
+            "sl": "Ordne zu: als oder wenn? · Enkrat ali vsakič?",
+            "it": "Ordne zu: als oder wenn? · Una volta o ogni volta?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "als · one time in the past",
+                "sl": "als · enkrat v preteklosti",
+                "it": "als · una volta nel passato"
+              },
+              "words": [
+                "gestern Abend",
+                "damals",
+                "im Sommer 2010",
+                "am ersten Schultag"
+              ]
+            },
+            {
+              "label": {
+                "en": "wenn · every time, now, later",
+                "sl": "wenn · vsakič, zdaj, pozneje",
+                "it": "wenn · ogni volta, ora, dopo"
+              },
+              "words": [
+                "jedes Jahr",
+                "immer",
+                "morgen",
+                "jeden Sonntag"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**One time in the past: als. Every time, now or later: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "sl": "**Enkrat v preteklosti: als. Vsakič, zdaj ali pozneje: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "it": "**Una volta nel passato: als. Ogni volta, ora o dopo: wenn**\n- Als ich klein war · Immer wenn es regnet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "als-waehrend-2",
+      "title": {
+        "de": "Als Opa Sepp ein Bub war",
+        "en": "When Grandpa Sepp was a boy",
+        "sl": "Ko je bil dedek Sepp deček",
+        "it": "Quando Nonno Sepp era un bambino"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "temporalsaetze",
+          "instruction": {
+            "en": "Ergänze: als, wenn, während, bevor, bis, seit · Fill in",
+            "sl": "Ergänze: als, wenn, während, bevor, bis, seit · Dopolni",
+            "it": "Ergänze: als, wenn, während, bevor, bis, seit · Completa"
+          },
+          "title": "Als Opa Sepp ein Bub war",
+          "text": "Damals, ___ Opa Sepp ein Bub war, gab es im Dorf kein Auto. Jeden Morgen half er im Stall, ___ er in die Schule ging. Immer ___ es schneite, nahm er die Skier. Seine Schwester schlief noch, ___ er schon die Kühe fütterte. Am Abend saß er lange beim Ofen, ___ die Mutter ihn ins Bett schickte. ___ er zwölf wurde, bekam er sein erstes Rad. Heute sagt er: „___ ich alt bin, erzähle ich gern von früher. Und immer ___ Lena fragt, erzähle ich es noch einmal.“",
+          "gaps": [
+            {
+              "accept": [
+                "als"
+              ],
+              "spoken": [
+                "wie"
+              ],
+              "hint": {
+                "en": "one time in the past",
+                "sl": "enkrat v preteklosti",
+                "it": "una volta nel passato"
+              }
+            },
+            {
+              "accept": [
+                "bevor",
+                "ehe"
+              ]
+            },
+            {
+              "accept": [
+                "wenn"
+              ],
+              "spoken": [
+                "wann"
+              ],
+              "hint": {
+                "en": "every time",
+                "sl": "vsakič",
+                "it": "ogni volta"
+              }
+            },
+            {
+              "accept": [
+                "während",
+                "als"
+              ]
+            },
+            {
+              "accept": [
+                "bis"
+              ]
+            },
+            {
+              "accept": [
+                "Als"
+              ],
+              "spoken": [
+                "Wie"
+              ],
+              "hint": {
+                "en": "one time in the past",
+                "sl": "enkrat v preteklosti",
+                "it": "una volta nel passato"
+              }
+            },
+            {
+              "accept": [
+                "Seit",
+                "Seitdem"
+              ]
+            },
+            {
+              "accept": [
+                "wenn"
+              ],
+              "spoken": [
+                "wann"
+              ],
+              "hint": {
+                "en": "every time",
+                "sl": "vsakič",
+                "it": "ogni volta"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "dass",
+            "weil"
+          ],
+          "translation": {
+            "en": "Back then, when Grandpa Sepp was a boy, there were no cars in the village. Every morning he helped in the barn before he went to school. Whenever it snowed, he took his skis. His sister was still asleep while he was already feeding the cows. In the evening he sat by the stove for a long time, until his mother sent him to bed. When he turned twelve, he got his first bicycle. Today he says: \"Since I've been old, I like telling about the old days. And whenever Lena asks, I tell it once more.\"",
+            "sl": "Takrat, ko je bil dedek Sepp deček, v vasi ni bilo avtov. Vsako jutro je pomagal v hlevu, preden je šel v šolo. Kadar je snežilo, je vzel smuči. Njegova sestra je še spala, medtem ko je on že krmil krave. Zvečer je dolgo sedel pri peči, dokler ga ni mati poslala v posteljo. Ko je dopolnil dvanajst let, je dobil svoje prvo kolo. Danes pravi: »Odkar sem star, rad pripovedujem o starih časih. In kadar Lena vpraša, povem še enkrat.«",
+            "it": "Allora, quando Nonno Sepp era un bambino, in paese non c'erano automobili. Ogni mattina aiutava nella stalla prima di andare a scuola. Ogni volta che nevicava, prendeva gli sci. Sua sorella dormiva ancora, mentre lui dava già da mangiare alle mucche. La sera restava a lungo vicino alla stufa, finché la madre non lo mandava a letto. Quando ha compiuto dodici anni, ha ricevuto la sua prima bicicletta. Oggi dice: «Da quando sono vecchio, racconto volentieri di una volta. E ogni volta che Lena chiede, lo racconto ancora.»"
+          },
+          "explain": {
+            "en": "**als once, wenn every time, während at the same time, bevor before, bis until, seit since**",
+            "sl": "**als enkrat, wenn vsakič, während ob istem času, bevor preden, bis dokler ne, seit odkar**",
+            "it": "**als una volta, wenn ogni volta, während nello stesso momento, bevor prima che, bis finché non, seit da quando**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir warten hier, ___ der Bus kommt.",
+          "options": [
+            "bis",
+            "seit",
+            "als"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**als once, wenn every time, während at the same time, bevor before, bis until, seit since**",
+            "sl": "**als enkrat, wenn vsakič, während ob istem času, bevor preden, bis dokler ne, seit odkar**",
+            "it": "**als una volta, wenn ogni volta, während nello stesso momento, bevor prima che, bis finché non, seit da quando**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "temporalsaetze",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Maxi spielt, ___ Kathi im Gasthaus arbeitet.",
+          "options": [
+            "während",
+            "dass",
+            "ob"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**als once, wenn every time, während at the same time, bevor before, bis until, seit since**",
+            "sl": "**als enkrat, wenn vsakič, während ob istem času, bevor preden, bis dokler ne, seit odkar**",
+            "it": "**als una volta, wenn ogni volta, während nello stesso momento, bevor prima che, bis finché non, seit da quando**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "als-waehrend-3",
+      "title": {
+        "de": "Zwei Sätze, ein Satz",
+        "en": "Two sentences, one sentence",
+        "sl": "Dva stavka, en stavek",
+        "it": "Due frasi, una frase"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "temporalsaetze",
+          "instruction": {
+            "en": "Mach einen Satz daraus · Make one sentence",
+            "sl": "Mach einen Satz daraus · Naredi en stavek",
+            "it": "Mach einen Satz daraus · Fanne una frase sola"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan kam. Es regnete. (als)",
+              "accept": [
+                "Als Stefan kam, regnete es.",
+                "Es regnete, als Stefan kam."
+              ],
+              "spoken": [
+                "Wie Stefan kam, regnete es.",
+                "Es regnete, wie Stefan kam."
+              ]
+            },
+            {
+              "from": "Es regnet. Lena bleibt im Haus. (immer wenn)",
+              "accept": [
+                "Immer wenn es regnet, bleibt Lena im Haus.",
+                "Lena bleibt immer im Haus, wenn es regnet.",
+                "Lena bleibt im Haus, immer wenn es regnet."
+              ],
+              "spoken": [
+                "Immer wann es regnet, bleibt Lena im Haus.",
+                "Lena bleibt immer im Haus, wann es regnet."
+              ]
+            },
+            {
+              "from": "Kathi kocht. Maxi deckt den Tisch. (während)",
+              "accept": [
+                "Während Kathi kocht, deckt Maxi den Tisch.",
+                "Maxi deckt den Tisch, während Kathi kocht."
+              ]
+            },
+            {
+              "from": "Wir essen. Wir waschen die Hände. (bevor)",
+              "accept": [
+                "Bevor wir essen, waschen wir die Hände.",
+                "Wir waschen die Hände, bevor wir essen.",
+                "Wir waschen uns die Hände, bevor wir essen.",
+                "Bevor wir essen, waschen wir uns die Hände."
+              ]
+            },
+            {
+              "from": "Warte hier. Ich komme zurück. (bis)",
+              "accept": [
+                "Warte hier, bis ich zurückkomme."
+              ]
+            },
+            {
+              "from": "Lena geht in die Schule. Sie liest viel. (seit)",
+              "accept": [
+                "Seit Lena in die Schule geht, liest sie viel.",
+                "Lena liest viel, seit sie in die Schule geht.",
+                "Seitdem Lena in die Schule geht, liest sie viel.",
+                "Lena liest viel, seitdem sie in die Schule geht."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Clause first: the main verb right after the comma**\n- Als der Regen kam, gingen wir ins Gasthaus",
+            "sl": "**Odvisnik prvi: glavni glagol takoj za vejico**\n- Als der Regen kam, gingen wir ins Gasthaus",
+            "it": "**Secondaria prima: il verbo principale subito dopo la virgola**\n- Als der Regen kam, gingen wir ins Gasthaus"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "temporalsaetze",
+          "instruction": {
+            "en": "Als oder wenn? Mach einen Satz · Als or wenn? Make one sentence",
+            "sl": "Als oder wenn? Mach einen Satz · Als ali wenn? Naredi en stavek",
+            "it": "Als oder wenn? Mach einen Satz · Als o wenn? Fanne una frase sola"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich war gestern in Villach. Ich traf Toni.",
+              "accept": [
+                "Als ich gestern in Villach war, traf ich Toni.",
+                "Ich traf Toni, als ich gestern in Villach war."
+              ],
+              "spoken": [
+                "Wie ich gestern in Villach war, traf ich Toni.",
+                "Ich traf Toni, wie ich gestern in Villach war.",
+                "Als ich gestern in Villach war, habe ich Toni getroffen.",
+                "Wie ich gestern in Villach war, habe ich Toni getroffen.",
+                "Ich habe Toni getroffen, als ich gestern in Villach war.",
+                "Ich habe Toni getroffen, wie ich gestern in Villach war."
+              ]
+            },
+            {
+              "from": "Ich fahre jeden Montag nach Villach. Ich treffe Toni.",
+              "accept": [
+                "Wenn ich jeden Montag nach Villach fahre, treffe ich Toni.",
+                "Ich treffe Toni, wenn ich jeden Montag nach Villach fahre.",
+                "Immer wenn ich nach Villach fahre, treffe ich Toni."
+              ],
+              "spoken": [
+                "Wann ich jeden Montag nach Villach fahre, treffe ich Toni.",
+                "Ich treffe Toni, wann ich jeden Montag nach Villach fahre."
+              ]
+            },
+            {
+              "from": "Der Schnee kam. Wir blieben zu Hause.",
+              "accept": [
+                "Als der Schnee kam, blieben wir zu Hause.",
+                "Wir blieben zu Hause, als der Schnee kam."
+              ],
+              "spoken": [
+                "Wie der Schnee kam, blieben wir zu Hause.",
+                "Wir blieben zu Hause, wie der Schnee kam.",
+                "Als der Schnee gekommen ist, sind wir zu Hause geblieben.",
+                "Wie der Schnee gekommen ist, sind wir zu Hause geblieben."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**One time in the past: als. Every time, now or later: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "sl": "**Enkrat v preteklosti: als. Vsakič, zdaj ali pozneje: wenn**\n- Als ich klein war · Immer wenn es regnet",
+            "it": "**Una volta nel passato: als. Ogni volta, ora o dopo: wenn**\n- Als ich klein war · Immer wenn es regnet"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "temporalsaetze",
+        "instruction": {
+          "en": "Ergänze: als, wenn, während, bevor, bis, seit · Fill in",
+          "sl": "Ergänze: als, wenn, während, bevor, bis, seit · Dopolni",
+          "it": "Ergänze: als, wenn, während, bevor, bis, seit · Completa"
+        },
+        "text": "Gestern, ___ Stefan nach Villach fuhr, regnete es. Immer ___ es regnet, fährt er langsam. Er musste lange warten, ___ der Zug kam. ___ er wartete, las er die Zeitung. Er trank noch einen Kaffee, ___ er zum Markt ging.",
+        "gaps": [
+          {
+            "accept": [
+              "als"
+            ],
+            "spoken": [
+              "wie"
+            ],
+            "hint": {
+              "en": "one time in the past",
+              "sl": "enkrat v preteklosti",
+              "it": "una volta nel passato"
+            }
+          },
+          {
+            "accept": [
+              "wenn"
+            ],
+            "spoken": [
+              "wann"
+            ],
+            "hint": {
+              "en": "every time",
+              "sl": "vsakič",
+              "it": "ogni volta"
+            }
+          },
+          {
+            "accept": [
+              "bis"
+            ]
+          },
+          {
+            "accept": [
+              "Während",
+              "Als"
+            ]
+          },
+          {
+            "accept": [
+              "bevor",
+              "ehe"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Yesterday, when Stefan drove to Villach, it was raining. Whenever it rains, he drives slowly. He had to wait a long time until the train came. While he waited, he read the paper. He had another coffee before he went to the market.",
+          "sl": "Včeraj, ko se je Stefan peljal v Beljak, je deževalo. Kadar dežuje, vozi počasi. Dolgo je moral čakati, dokler ni prišel vlak. Medtem ko je čakal, je bral časopis. Spil je še kavo, preden je šel na tržnico.",
+          "it": "Ieri, quando Stefan è andato a Villach, pioveva. Ogni volta che piove, guida piano. Ha dovuto aspettare a lungo finché non è arrivato il treno. Mentre aspettava, ha letto il giornale. Ha bevuto ancora un caffè prima di andare al mercato."
+        },
+        "explain": {
+          "en": "**als once, wenn every time, während at the same time, bevor before, bis until, seit since**",
+          "sl": "**als enkrat, wenn vsakič, während ob istem času, bevor preden, bis dokler ne, seit odkar**",
+          "it": "**als una volta, wenn ogni volta, während nello stesso momento, bevor prima che, bis finché non, seit da quando**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "temporalsaetze",
+        "instruction": {
+          "en": "Mach einen Satz daraus · Make one sentence",
+          "sl": "Mach einen Satz daraus · Naredi en stavek",
+          "it": "Mach einen Satz daraus · Fanne una frase sola"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich war in Villach. Ich kaufte Äpfel. (als)",
+            "accept": [
+              "Als ich in Villach war, kaufte ich Äpfel.",
+              "Ich kaufte Äpfel, als ich in Villach war."
+            ],
+            "spoken": [
+              "Wie ich in Villach war, kaufte ich Äpfel.",
+              "Ich kaufte Äpfel, wie ich in Villach war.",
+              "Als ich in Villach war, habe ich Äpfel gekauft."
+            ]
+          },
+          {
+            "from": "Maxi schläft. Kathi arbeitet. (während)",
+            "accept": [
+              "Während Maxi schläft, arbeitet Kathi.",
+              "Kathi arbeitet, während Maxi schläft."
+            ]
+          },
+          {
+            "from": "Es wird dunkel. Wir gehen nach Hause. (bevor)",
+            "accept": [
+              "Bevor es dunkel wird, gehen wir nach Hause.",
+              "Wir gehen nach Hause, bevor es dunkel wird."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**Clause first: the main verb right after the comma**\n- Als der Regen kam, gingen wir ins Gasthaus",
+          "sl": "**Odvisnik prvi: glavni glagol takoj za vejico**\n- Als der Regen kam, gingen wir ins Gasthaus",
+          "it": "**Secondaria prima: il verbo principale subito dopo la virgola**\n- Als der Regen kam, gingen wir ins Gasthaus"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "temporalsaetze",
+        "instruction": {
+          "en": "Ordne zu: als oder wenn? · One time, or every time?",
+          "sl": "Ordne zu: als oder wenn? · Enkrat ali vsakič?",
+          "it": "Ordne zu: als oder wenn? · Una volta o ogni volta?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "als · one time in the past",
+              "sl": "als · enkrat v preteklosti",
+              "it": "als · una volta nel passato"
+            },
+            "words": [
+              "vorgestern",
+              "im Jahr 2015"
+            ]
+          },
+          {
+            "label": {
+              "en": "wenn · every time, now, later",
+              "sl": "wenn · vsakič, zdaj, pozneje",
+              "it": "wenn · ogni volta, ora, dopo"
+            },
+            "words": [
+              "jeden Tag",
+              "am Sonntag immer"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**One time in the past: als. Every time, now or later: wenn**\n- Als ich klein war · Immer wenn es regnet",
+          "sl": "**Enkrat v preteklosti: als. Vsakič, zdaj ali pozneje: wenn**\n- Als ich klein war · Immer wenn es regnet",
+          "it": "**Una volta nel passato: als. Ogni volta, ora o dopo: wenn**\n- Als ich klein war · Immer wenn es regnet"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "temporalsaetze",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Warte hier, ___ ich zurückkomme.",
+        "options": [
+          "bis",
+          "seit",
+          "als"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**als once, wenn every time, während at the same time, bevor before, bis until, seit since**",
+          "sl": "**als enkrat, wenn vsakič, während ob istem času, bevor preden, bis dokler ne, seit odkar**",
+          "it": "**als una volta, wenn ogni volta, während nello stesso momento, bevor prima che, bis finché non, seit da quando**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: wie for als as spoken, labelled (DWDS has it as umgangssprachlich; is it said in Carinthia?), wann for wenn as in A2; Opa Sepp's childhood (die Skier, das erste Rad); als accepted beside während where the sentence takes both; the Slovene ko against kadar, dokler ne; Italian slittare, finché non"
+}

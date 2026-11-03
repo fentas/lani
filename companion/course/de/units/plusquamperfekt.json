@@ -1,0 +1,957 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "plusquamperfekt",
+  "language": "de",
+  "level": "B1",
+  "emoji": "⏪",
+  "title": {
+    "de": "Nachdem ich gegessen hatte",
+    "en": "Before the past: ich hatte gegessen",
+    "sl": "Predpreteklik: ich hatte gegessen",
+    "it": "Il trapassato: ich hatte gegessen"
+  },
+  "goal": {
+    "en": "You can tell what had happened before something else in the past (Als Stefan kam, hatte Kathi schon gekocht), and use nachdem with the tense it asks for.",
+    "sl": "Poveš, kaj se je zgodilo pred nečim drugim v preteklosti (Als Stefan kam, hatte Kathi schon gekocht), in rabiš nachdem s časom, ki ga zahteva.",
+    "it": "Sai raccontare che cosa era successo prima di qualcos'altro nel passato (Als Stefan kam, hatte Kathi schon gekocht), e usi nachdem col tempo che chiede."
+  },
+  "grammar": [
+    "plusquamperfekt",
+    "perfekt",
+    "temporalsaetze"
+  ],
+  "words": [
+    "nachdem",
+    "schon",
+    "erst",
+    "essen",
+    "kochen",
+    "trinken",
+    "putzen",
+    "abfahren",
+    "aufstellen",
+    "aufstehen",
+    "hinsetzen",
+    "einschlafen",
+    "erzählen",
+    "spazieren gehen",
+    "die Geschichte",
+    "die Pause",
+    "der Gast",
+    "die Bank",
+    "der Bus",
+    "der Garten",
+    "die Suppe",
+    "der Kaffee",
+    "das Glas",
+    "die Küche",
+    "der Tisch",
+    "fertig",
+    "müde",
+    "der Hunger",
+    "alle",
+    "hinaus",
+    "der Kirchtag"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        "Perfekt",
+        "Plusquamperfekt"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**ich hatte gegessen** (I had eaten) is the past before the past. Two things happened, and the one that came first takes **hatte** + the participle: **Als Stefan kam, hatte Kathi schon gekocht.** (When Stefan came, Kathi had already cooked.) **schon** (already) often goes with it.",
+          "sl": "**ich hatte gegessen** (bil sem pojedel) je preteklost pred preteklostjo. Zgodili sta se dve stvari, in tista, ki je bila prva, dobi **hatte** + deležnik: **Als Stefan kam, hatte Kathi schon gekocht.** (Ko je prišel Stefan, je Kathi že skuhala.) Pogosto je zraven **schon** (že).",
+          "it": "**ich hatte gegessen** (avevo mangiato) è il passato prima del passato. Sono successe due cose, e quella venuta prima prende **hatte** + il participio: **Als Stefan kam, hatte Kathi schon gekocht.** (Quando è arrivato Stefan, Kathi aveva già cucinato.) Spesso c'è anche **schon** (già)."
+        },
+        "examples": [
+          {
+            "de": "Als Stefan kam, hatte Kathi schon gekocht.",
+            "en": "When Stefan came, Kathi had already cooked.",
+            "sl": "Ko je prišel Stefan, je Kathi že skuhala.",
+            "it": "Quando è arrivato Stefan, Kathi aveva già cucinato."
+          },
+          {
+            "de": "Ich hatte schon gegessen.",
+            "en": "I had already eaten.",
+            "sl": "Sem že pojedel.",
+            "it": "Avevo già mangiato."
+          },
+          {
+            "de": "Hattest du den Brief gelesen?",
+            "en": "Had you read the letter?",
+            "sl": "Si pismo že prebral?",
+            "it": "Avevi letto la lettera?"
+          }
+        ],
+        "rows": [
+          [
+            "ich habe gegessen",
+            "ich hatte gegessen"
+          ],
+          [
+            "du hast gelesen",
+            "du hattest gelesen"
+          ],
+          [
+            "sie hat gekocht",
+            "sie hatte gekocht"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "plusquamperfekt",
+          "text": "Kathi ___ schon gekocht, als Stefan kam.",
+          "accept": [
+            "hatte"
+          ],
+          "hint": {
+            "en": "kochen takes haben",
+            "sl": "kochen je s haben",
+            "it": "kochen vuole haben"
+          },
+          "explain": {
+            "en": "**What came first: hatte or war + the participle**\n- Als Stefan kam, hatte Kathi schon gekocht",
+            "sl": "**Kar je bilo prvo: hatte ali war + deležnik**\n- Als Stefan kam, hatte Kathi schon gekocht",
+            "it": "**Ciò che è venuto prima: hatte o war + il participio**\n- Als Stefan kam, hatte Kathi schon gekocht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**war** + the participle goes with the verbs that take sein in the Perfekt: **Der Bus war schon abgefahren.** (The bus had already left.) **Florian war nach Hause gegangen.** (Florian had gone home.) So look at the Perfekt: **ist gegangen** becomes **war gegangen**, and **hat gegessen** becomes **hatte gegessen**.",
+          "sl": "**war** + deležnik gre z glagoli, ki imajo v Perfektu sein: **Der Bus war schon abgefahren.** (Avtobus je že odpeljal.) **Florian war nach Hause gegangen.** (Florian je šel domov.) Poglej torej Perfekt: **ist gegangen** postane **war gegangen**, **hat gegessen** pa **hatte gegessen**.",
+          "it": "**war** + il participio va coi verbi che al Perfekt vogliono sein: **Der Bus war schon abgefahren.** (L'autobus era già partito.) **Florian war nach Hause gegangen.** (Florian era andato a casa.) Guarda quindi il Perfekt: **ist gegangen** diventa **war gegangen**, **hat gegessen** diventa **hatte gegessen**."
+        },
+        "examples": [
+          {
+            "de": "Der Bus war schon abgefahren.",
+            "en": "The bus had already left.",
+            "sl": "Avtobus je že odpeljal.",
+            "it": "L'autobus era già partito."
+          },
+          {
+            "de": "Florian war nach Hause gegangen.",
+            "en": "Florian had gone home.",
+            "sl": "Florian je šel domov.",
+            "it": "Florian era andato a casa."
+          }
+        ],
+        "rows": [
+          [
+            "er ist gegangen",
+            "er war gegangen"
+          ],
+          [
+            "wir sind gekommen",
+            "wir waren gekommen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plusquamperfekt",
+          "prompt": "Als wir kamen, ___ der Bus schon abgefahren.",
+          "options": [
+            "war",
+            "hatte",
+            "wird"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "sl": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "it": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**nachdem** (after) asks for a step back in the tenses. The main sentence is in the past, so the clause goes one further: **Nachdem ich gegessen hatte, ging ich spazieren.** (After I had eaten, I went for a walk.) The verb goes to the end, and the main verb follows at the comma.",
+          "sl": "**nachdem** (potem ko) zahteva korak nazaj. Glavni stavek je v preteklosti, zato gre odvisnik še korak dlje: **Nachdem ich gegessen hatte, ging ich spazieren.** (Potem ko sem pojedel, sem šel na sprehod.) Glagol gre na konec, glavni glagol sledi takoj za vejico.",
+          "it": "**nachdem** (dopo che) chiede un passo indietro. La principale è al passato, quindi la secondaria va ancora più indietro: **Nachdem ich gegessen hatte, ging ich spazieren.** (Dopo aver mangiato, sono andato a passeggio.) Il verbo va in fondo e il verbo principale segue subito la virgola."
+        },
+        "examples": [
+          {
+            "de": "Nachdem ich gegessen hatte, ging ich spazieren.",
+            "en": "After I had eaten, I went for a walk.",
+            "sl": "Potem ko sem pojedel, sem šel na sprehod.",
+            "it": "Dopo aver mangiato, sono andato a passeggio."
+          },
+          {
+            "de": "Nachdem der Zug abgefahren war, kam Franz.",
+            "en": "After the train had left, Franz came.",
+            "sl": "Potem ko je vlak odpeljal, je prišel Franz.",
+            "it": "Dopo che il treno era partito, è arrivato Franz."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plusquamperfekt",
+          "prompt": "Nachdem Kathi die Küche geputzt ___, ging sie schlafen.",
+          "options": [
+            "hatte",
+            "war",
+            "wird"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nachdem steps back: hatte + the past, habe + the present**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "sl": "**nachdem stopi korak nazaj: hatte + preteklik, habe + sedanjik**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "it": "**nachdem fa un passo indietro: hatte + passato, habe + presente**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**In the present** the same step back gives the Perfekt: **Nachdem ich gegessen habe, gehe ich spazieren.** (After I've eaten, I go for a walk.) **Nachdem der Zug abgefahren ist, kommt Franz.** (After the train has left, Franz comes.) One step back each time: present, then Perfekt; past, then hatte or war.",
+          "sl": "**V sedanjosti** isti korak nazaj da Perfekt: **Nachdem ich gegessen habe, gehe ich spazieren.** (Potem ko pojem, grem na sprehod.) **Nachdem der Zug abgefahren ist, kommt Franz.** (Potem ko vlak odpelje, pride Franz.) Vsakič korak nazaj: sedanjik, nato Perfekt; preteklik, nato hatte ali war.",
+          "it": "**Al presente** lo stesso passo indietro dà il Perfekt: **Nachdem ich gegessen habe, gehe ich spazieren.** (Dopo aver mangiato, vado a passeggio.) **Nachdem der Zug abgefahren ist, kommt Franz.** (Dopo che il treno è partito, arriva Franz.) Ogni volta un passo indietro: presente, poi Perfekt; passato, poi hatte o war."
+        },
+        "examples": [
+          {
+            "de": "Nachdem ich gegessen habe, gehe ich spazieren.",
+            "en": "After I've eaten, I go for a walk.",
+            "sl": "Potem ko pojem, grem na sprehod.",
+            "it": "Dopo aver mangiato, vado a passeggio."
+          },
+          {
+            "de": "Nachdem der Zug abgefahren ist, kommt Franz.",
+            "en": "After the train has left, Franz comes.",
+            "sl": "Potem ko vlak odpelje, pride Franz.",
+            "it": "Dopo che il treno è partito, arriva Franz."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plusquamperfekt",
+          "prompt": "Nachdem Stefan den Most gebracht ___, trinkt er ein Glas.",
+          "options": [
+            "hat",
+            "hatte",
+            "ist"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nachdem steps back: hatte + the past, habe + the present**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "sl": "**nachdem stopi korak nazaj: hatte + preteklik, habe + sedanjik**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "it": "**nachdem fa un passo indietro: hatte + passato, habe + presente**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**What came first can be told second**, after denn or weil: **Stefan war müde, denn er hatte viel gearbeitet.** (Stefan was tired, because he had worked a lot.) **Lena kannte die Geschichte, weil Opa Sepp sie schon erzählt hatte.** (Lena knew the story, because Grandpa Sepp had already told it.)",
+          "sl": "**Kar je bilo prvo, lahko povemo drugo**, za denn ali weil: **Stefan war müde, denn er hatte viel gearbeitet.** (Stefan je bil utrujen, ker je veliko delal.) **Lena kannte die Geschichte, weil Opa Sepp sie schon erzählt hatte.** (Lena je poznala zgodbo, ker jo je dedek Sepp že povedal.)",
+          "it": "**Ciò che è venuto prima si può dire dopo**, dopo denn o weil: **Stefan war müde, denn er hatte viel gearbeitet.** (Stefan era stanco, perché aveva lavorato molto.) **Lena kannte die Geschichte, weil Opa Sepp sie schon erzählt hatte.** (Lena conosceva la storia, perché Nonno Sepp l'aveva già raccontata.)"
+        },
+        "examples": [
+          {
+            "de": "Stefan war müde, denn er hatte viel gearbeitet.",
+            "en": "Stefan was tired, because he had worked a lot.",
+            "sl": "Stefan je bil utrujen, ker je veliko delal.",
+            "it": "Stefan era stanco, perché aveva lavorato molto."
+          },
+          {
+            "de": "Lena kannte die Geschichte, weil Opa Sepp sie schon erzählt hatte.",
+            "en": "Lena knew the story, because Grandpa Sepp had already told it.",
+            "sl": "Lena je poznala zgodbo, ker jo je dedek Sepp že povedal.",
+            "it": "Lena conosceva la storia, perché Nonno Sepp l'aveva già raccontata."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plusquamperfekt",
+          "prompt": "Stefan war müde, denn er ___ viel gearbeitet.",
+          "options": [
+            "hatte",
+            "war",
+            "wäre"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Told second, happened first: hatte or war**\n- Stefan war müde, denn er hatte viel gearbeitet",
+            "sl": "**Povedano drugo, zgodilo se je prvo: hatte ali war**\n- Stefan war müde, denn er hatte viel gearbeitet",
+            "it": "**Detto dopo, successo prima: hatte o war**\n- Stefan war müde, denn er hatte viel gearbeitet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**In talk** Austria says it another way. With no Präteritum to step back from, people say **Nachdem ich gegessen habe, bin ich gegangen.** In the south you also hear **ich habe gegessen gehabt**. That's how they speak, and you can too: write **hatte gegessen**. Austria's **ist gesessen** gives **war gesessen**, with **hatte gesessen** right as well.",
+          "sl": "**V govoru** Avstrija reče drugače. Ker ni Präterituma, rečejo **Nachdem ich gegessen habe, bin ich gegangen.** Na jugu slišiš tudi **ich habe gegessen gehabt**. Tako se govori in tudi ti lahko tako rečeš: piši **hatte gegessen**. Avstrijski **ist gesessen** da **war gesessen**, prav pa je tudi **hatte gesessen**.",
+          "it": "**Parlando** in Austria si dice diversamente. Senza Präteritum, si dice **Nachdem ich gegessen habe, bin ich gegangen.** Al sud senti anche **ich habe gegessen gehabt**. Si parla così, e puoi farlo anche tu: scrivi **hatte gegessen**. L'austriaco **ist gesessen** dà **war gesessen**, ed è giusto anche **hatte gesessen**."
+        },
+        "examples": [
+          {
+            "de": "Nachdem ich gegessen habe, bin ich gegangen.",
+            "en": "After I had eaten, I left.",
+            "sl": "Potem ko sem pojedel, sem šel.",
+            "it": "Dopo aver mangiato, me ne sono andato."
+          },
+          {
+            "de": "Stanko war lange auf der Bank gesessen.",
+            "en": "Stanko had been sitting on the bench for a long time.",
+            "sl": "Stanko je dolgo sedel na klopi.",
+            "it": "Stanko era rimasto a lungo seduto sulla panchina."
+          }
+        ],
+        "rows": [
+          [
+            "er ist gesessen",
+            "er war gesessen · er hatte gesessen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "plusquamperfekt",
+          "text": "Stanko ___ lange auf der Bank gesessen, bevor er aufstand.",
+          "accept": [
+            "war",
+            "hatte"
+          ],
+          "explain": {
+            "en": "**Austria: war gesessen. Also right: hatte gesessen**\n- Stanko war lange auf der Bank gesessen",
+            "sl": "**Avstrija: war gesessen. Prav je tudi: hatte gesessen**\n- Stanko war lange auf der Bank gesessen",
+            "it": "**Austria: war gesessen. Giusto anche: hatte gesessen**\n- Stanko war lange auf der Bank gesessen"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**What came first**: **hatte** or **war** + the participle: Als Stefan kam, hatte Kathi schon gekocht. haben → hatte, sein → war.\n\n**nachdem** steps back: Nachdem ich gegessen **hatte**, ging ich. Nachdem ich gegessen **habe**, gehe ich.\n\n**Told second**: Stefan war müde, denn er hatte viel gearbeitet.\n\n**In talk**: Nachdem ich gegessen habe, bin ich gegangen. Write hatte gegessen.",
+      "sl": "**Kar je bilo prvo**: **hatte** ali **war** + deležnik: Als Stefan kam, hatte Kathi schon gekocht. haben → hatte, sein → war.\n\n**nachdem** stopi korak nazaj: Nachdem ich gegessen **hatte**, ging ich. Nachdem ich gegessen **habe**, gehe ich.\n\n**Povedano drugo**: Stefan war müde, denn er hatte viel gearbeitet.\n\n**V govoru**: Nachdem ich gegessen habe, bin ich gegangen. Piši hatte gegessen.",
+      "it": "**Ciò che è venuto prima**: **hatte** o **war** + il participio: Als Stefan kam, hatte Kathi schon gekocht. haben → hatte, sein → war.\n\n**nachdem** fa un passo indietro: Nachdem ich gegessen **hatte**, ging ich. Nachdem ich gegessen **habe**, gehe ich.\n\n**Detto dopo**: Stefan war müde, denn er hatte viel gearbeitet.\n\n**Parlando**: Nachdem ich gegessen habe, bin ich gegangen. Scrivi hatte gegessen."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "plusquamperfekt-1",
+      "title": {
+        "de": "Hatte oder war",
+        "en": "Hatte or war",
+        "sl": "Hatte ali war",
+        "it": "Hatte o war"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Perfekt → Plusquamperfekt",
+            "sl": "Perfekt → Plusquamperfekt",
+            "it": "Perfekt → Plusquamperfekt"
+          },
+          "columns": [
+            "Perfekt",
+            "Plusquamperfekt"
+          ],
+          "rows": [
+            {
+              "label": "essen",
+              "cells": [
+                "ich habe gegessen",
+                {
+                  "accept": [
+                    "ich hatte gegessen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "arbeiten",
+              "cells": [
+                "du hast gearbeitet",
+                {
+                  "accept": [
+                    "du hattest gearbeitet"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "gehen",
+              "cells": [
+                "er ist gegangen",
+                {
+                  "accept": [
+                    "er war gegangen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "kommen",
+              "cells": [
+                "wir sind gekommen",
+                {
+                  "accept": [
+                    "wir waren gekommen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sehen",
+              "cells": [
+                "ihr habt gesehen",
+                {
+                  "accept": [
+                    "ihr hattet gesehen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bleiben",
+              "cells": [
+                "du bist geblieben",
+                {
+                  "accept": [
+                    "du warst geblieben"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bringen",
+              "cells": [
+                "sie haben gebracht",
+                {
+                  "accept": [
+                    "sie hatten gebracht"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sitzen",
+              "cells": [
+                "ihr seid gesessen",
+                {
+                  "accept": [
+                    "ihr wart gesessen",
+                    "ihr hattet gesessen"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "sl": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "it": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Ordne zu: hatte oder war? · Hatte, or war?",
+            "sl": "Ordne zu: hatte oder war? · Hatte ali war?",
+            "it": "Ordne zu: hatte oder war? · Hatte o war?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "hatte",
+                "sl": "hatte",
+                "it": "hatte"
+              },
+              "words": [
+                "gegessen",
+                "gekocht",
+                "gesehen",
+                "gearbeitet"
+              ]
+            },
+            {
+              "label": {
+                "en": "war",
+                "sl": "war",
+                "it": "war"
+              },
+              "words": [
+                "gegangen",
+                "gekommen",
+                "geblieben",
+                "aufgestanden"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "sl": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "it": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plusquamperfekt-2",
+      "title": {
+        "de": "Am Kirchtag in der Früh",
+        "en": "The morning of the Kirchtag",
+        "sl": "Jutro žegnanja",
+        "it": "Il mattino della sagra"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der Kirchtag",
+          "text": "Am Kirchtag kam Kathi um sechs in die Küche, aber alles war schon fertig. Oma Resi ___ die Suppe gekocht. Stefan ___ den Most gebracht. Toni und Franz ___ die Tische aufgestellt. Auch Mitzi ___ schon gekommen, und die Kinder ___ in den Garten gelaufen. Nachdem Kathi einen Kaffee ___ hatte, ging sie hinaus. Stanko ___ schon lange auf der Bank gesessen. Erst nachdem alle ___ waren, setzte sich Kathi hin.",
+          "gaps": [
+            {
+              "accept": [
+                "hatte"
+              ]
+            },
+            {
+              "accept": [
+                "hatte"
+              ]
+            },
+            {
+              "accept": [
+                "hatten"
+              ]
+            },
+            {
+              "accept": [
+                "war"
+              ]
+            },
+            {
+              "accept": [
+                "waren"
+              ]
+            },
+            {
+              "accept": [
+                "getrunken"
+              ]
+            },
+            {
+              "accept": [
+                "war",
+                "hatte"
+              ]
+            },
+            {
+              "accept": [
+                "gegangen"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "hätte",
+            "wäre",
+            "getrinken"
+          ],
+          "translation": {
+            "en": "On the day of the Kirchtag Kathi came into the kitchen at six, but everything was already done. Grandma Resi had made the soup. Stefan had brought the cider. Toni and Franz had set up the tables. Mitzi had come too, and the children had run out into the garden. After Kathi had drunk a coffee, she went outside. Stanko had been sitting on the bench for a long time. Only after everyone had gone did Kathi sit down.",
+            "sl": "Na dan žegnanja je Kathi ob šestih prišla v kuhinjo, a vse je bilo že pripravljeno. Babica Resi je skuhala juho. Stefan je prinesel mošt. Toni in Franz sta postavila mize. Tudi Mitzi je že prišla, otroci pa so stekli na vrt. Potem ko je Kathi spila kavo, je šla ven. Stanko je že dolgo sedel na klopi. Šele potem ko so vsi odšli, je Kathi sedla.",
+            "it": "Il giorno della sagra Kathi è arrivata in cucina alle sei, ma era già tutto pronto. Nonna Resi aveva fatto la minestra. Stefan aveva portato il sidro. Toni e Franz avevano montato i tavoli. Anche Mitzi era già arrivata, e i bambini erano corsi in giardino. Dopo aver bevuto un caffè, Kathi è uscita. Stanko era seduto da tempo sulla panchina. Solo dopo che se ne erano andati tutti, Kathi si è seduta."
+          },
+          "explain": {
+            "en": "**What came first: hatte or war + the participle**\n- Als Stefan kam, hatte Kathi schon gekocht",
+            "sl": "**Kar je bilo prvo: hatte ali war + deležnik**\n- Als Stefan kam, hatte Kathi schon gekocht",
+            "it": "**Ciò che è venuto prima: hatte o war + il participio**\n- Als Stefan kam, hatte Kathi schon gekocht"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Lena kannte die Geschichte, denn Opa Sepp ___ sie schon erzählt.",
+          "options": [
+            "hatte",
+            "war",
+            "wäre"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Told second, happened first: hatte or war**\n- Stefan war müde, denn er hatte viel gearbeitet",
+            "sl": "**Povedano drugo, zgodilo se je prvo: hatte ali war**\n- Stefan war müde, denn er hatte viel gearbeitet",
+            "it": "**Detto dopo, successo prima: hatte o war**\n- Stefan war müde, denn er hatte viel gearbeitet"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Maxi hatte Hunger, weil er noch nichts ___ hatte.",
+          "options": [
+            "gegessen",
+            "essen",
+            "isst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**What came first: hatte or war + the participle**\n- Als Stefan kam, hatte Kathi schon gekocht",
+            "sl": "**Kar je bilo prvo: hatte ali war + deležnik**\n- Als Stefan kam, hatte Kathi schon gekocht",
+            "it": "**Ciò che è venuto prima: hatte o war + il participio**\n- Als Stefan kam, hatte Kathi schon gekocht"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plusquamperfekt-3",
+      "title": {
+        "de": "Zuerst, dann",
+        "en": "First, then",
+        "sl": "Najprej, nato",
+        "it": "Prima, poi"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Mach einen Satz mit nachdem · Make one sentence with nachdem",
+            "sl": "Mach einen Satz mit nachdem · Naredi en stavek z nachdem",
+            "it": "Mach einen Satz mit nachdem · Fanne una frase sola con nachdem"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich aß. Dann ging ich spazieren.",
+              "accept": [
+                "Nachdem ich gegessen hatte, ging ich spazieren.",
+                "Ich ging spazieren, nachdem ich gegessen hatte.",
+                "Nachdem ich gegessen hatte, bin ich spazieren gegangen."
+              ],
+              "spoken": [
+                "Nachdem ich gegessen habe, bin ich spazieren gegangen.",
+                "Ich bin spazieren gegangen, nachdem ich gegessen habe.",
+                "Nachdem ich gegessen gehabt habe, bin ich spazieren gegangen."
+              ]
+            },
+            {
+              "from": "Stefan arbeitete. Dann trank er Most.",
+              "accept": [
+                "Nachdem Stefan gearbeitet hatte, trank er Most.",
+                "Stefan trank Most, nachdem er gearbeitet hatte.",
+                "Nachdem Stefan gearbeitet hatte, hat er Most getrunken."
+              ],
+              "spoken": [
+                "Nachdem Stefan gearbeitet hat, hat er Most getrunken.",
+                "Stefan hat Most getrunken, nachdem er gearbeitet hat."
+              ]
+            },
+            {
+              "from": "Der Zug fuhr ab. Dann kam Franz.",
+              "accept": [
+                "Nachdem der Zug abgefahren war, kam Franz.",
+                "Franz kam, nachdem der Zug abgefahren war.",
+                "Nachdem der Zug abgefahren war, ist Franz gekommen."
+              ],
+              "spoken": [
+                "Nachdem der Zug abgefahren ist, ist Franz gekommen.",
+                "Franz ist gekommen, nachdem der Zug abgefahren ist."
+              ]
+            },
+            {
+              "from": "Die Kinder kamen nach Hause. Dann aßen sie.",
+              "accept": [
+                "Nachdem die Kinder nach Hause gekommen waren, aßen sie.",
+                "Die Kinder aßen, nachdem sie nach Hause gekommen waren.",
+                "Nachdem die Kinder nach Hause gekommen waren, haben sie gegessen."
+              ],
+              "spoken": [
+                "Nachdem die Kinder nach Hause gekommen sind, haben sie gegessen.",
+                "Die Kinder haben gegessen, nachdem sie nach Hause gekommen sind."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**nachdem steps back: hatte + the past, habe + the present**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "sl": "**nachdem stopi korak nazaj: hatte + preteklik, habe + sedanjik**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "it": "**nachdem fa un passo indietro: hatte + passato, habe + presente**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Mit nachdem, in der Gegenwart · With nachdem, in the present",
+            "sl": "Mit nachdem, in der Gegenwart · Z nachdem, v sedanjosti",
+            "it": "Mit nachdem, in der Gegenwart · Con nachdem, al presente"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich esse. Dann gehe ich spazieren.",
+              "accept": [
+                "Nachdem ich gegessen habe, gehe ich spazieren.",
+                "Ich gehe spazieren, nachdem ich gegessen habe."
+              ]
+            },
+            {
+              "from": "Kathi kocht. Dann macht sie eine Pause.",
+              "accept": [
+                "Nachdem Kathi gekocht hat, macht sie eine Pause.",
+                "Kathi macht eine Pause, nachdem sie gekocht hat."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**nachdem steps back: hatte + the past, habe + the present**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "sl": "**nachdem stopi korak nazaj: hatte + preteklik, habe + sedanjik**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+            "it": "**nachdem fa un passo indietro: hatte + passato, habe + presente**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "plusquamperfekt",
+          "instruction": {
+            "en": "Vom Perfekt ins Plusquamperfekt · From the Perfekt to the past before the past",
+            "sl": "Vom Perfekt ins Plusquamperfekt · Iz Perfekta v predpreteklik",
+            "it": "Vom Perfekt ins Plusquamperfekt · Dal Perfekt al trapassato"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan hat viel gearbeitet.",
+              "accept": [
+                "Stefan hatte viel gearbeitet."
+              ],
+              "spoken": [
+                "Stefan hat viel gearbeitet gehabt."
+              ]
+            },
+            {
+              "from": "Der Bus ist abgefahren.",
+              "accept": [
+                "Der Bus war abgefahren."
+              ],
+              "spoken": [
+                "Der Bus ist abgefahren gewesen."
+              ]
+            },
+            {
+              "from": "Wir haben schon gegessen.",
+              "accept": [
+                "Wir hatten schon gegessen."
+              ],
+              "spoken": [
+                "Wir haben schon gegessen gehabt."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "sl": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+            "it": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "plusquamperfekt",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Als Maxi nach Hause kam, ___ Kathi schon gegessen. Lena ___ schon zu Oma Resi gegangen. Maxi hatte Hunger, denn er ___ den ganzen Tag gespielt. Nachdem er die Suppe ___ hatte, ging er ins Bett. Er schlief gleich ein, denn er ___ sehr müde geworden.",
+        "gaps": [
+          {
+            "accept": [
+              "hatte"
+            ]
+          },
+          {
+            "accept": [
+              "war"
+            ]
+          },
+          {
+            "accept": [
+              "hatte"
+            ]
+          },
+          {
+            "accept": [
+              "gegessen"
+            ]
+          },
+          {
+            "accept": [
+              "war"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "When Maxi got home, Kathi had already eaten. Lena had already gone to Grandma Resi's. Maxi was hungry, because he had been playing all day. After he had eaten the soup, he went to bed. He fell asleep at once, because he had got very tired.",
+          "sl": "Ko je Maxi prišel domov, je Kathi že pojedla. Lena je že šla k babici Resi. Maxi je bil lačen, ker se je ves dan igral. Potem ko je pojedel juho, je šel v posteljo. Takoj je zaspal, ker je postal zelo utrujen.",
+          "it": "Quando Maxi è tornato a casa, Kathi aveva già mangiato. Lena era già andata da Nonna Resi. Maxi aveva fame, perché aveva giocato tutto il giorno. Dopo aver mangiato la minestra, è andato a letto. Si è addormentato subito, perché si era stancato molto."
+        },
+        "explain": {
+          "en": "**What came first: hatte or war + the participle**\n- Als Stefan kam, hatte Kathi schon gekocht",
+          "sl": "**Kar je bilo prvo: hatte ali war + deležnik**\n- Als Stefan kam, hatte Kathi schon gekocht",
+          "it": "**Ciò che è venuto prima: hatte o war + il participio**\n- Als Stefan kam, hatte Kathi schon gekocht"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "plusquamperfekt",
+        "instruction": {
+          "en": "Mach einen Satz mit nachdem · Make one sentence with nachdem",
+          "sl": "Mach einen Satz mit nachdem · Naredi en stavek z nachdem",
+          "it": "Mach einen Satz mit nachdem · Fanne una frase sola con nachdem"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Toni arbeitete. Dann ging er nach Hause.",
+            "accept": [
+              "Nachdem Toni gearbeitet hatte, ging er nach Hause.",
+              "Toni ging nach Hause, nachdem er gearbeitet hatte.",
+              "Nachdem Toni gearbeitet hatte, ist er nach Hause gegangen."
+            ],
+            "spoken": [
+              "Nachdem Toni gearbeitet hat, ist er nach Hause gegangen.",
+              "Toni ist nach Hause gegangen, nachdem er gearbeitet hat."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**nachdem steps back: hatte + the past, habe + the present**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+          "sl": "**nachdem stopi korak nazaj: hatte + preteklik, habe + sedanjik**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+          "it": "**nachdem fa un passo indietro: hatte + passato, habe + presente**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "plusquamperfekt",
+        "instruction": {
+          "en": "Vom Perfekt ins Plusquamperfekt · From the Perfekt to the past before the past",
+          "sl": "Vom Perfekt ins Plusquamperfekt · Iz Perfekta v predpreteklik",
+          "it": "Vom Perfekt ins Plusquamperfekt · Dal Perfekt al trapassato"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Wir haben alles gesehen.",
+            "accept": [
+              "Wir hatten alles gesehen."
+            ],
+            "spoken": [
+              "Wir haben alles gesehen gehabt."
+            ]
+          },
+          {
+            "from": "Die Gäste sind gegangen.",
+            "accept": [
+              "Die Gäste waren gegangen."
+            ],
+            "spoken": [
+              "Die Gäste sind gegangen gewesen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+          "sl": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+          "it": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "plusquamperfekt",
+        "instruction": {
+          "en": "Ordne zu: hatte oder war? · Hatte, or war?",
+          "sl": "Ordne zu: hatte oder war? · Hatte ali war?",
+          "it": "Ordne zu: hatte oder war? · Hatte o war?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "hatte",
+              "sl": "hatte",
+              "it": "hatte"
+            },
+            "words": [
+              "getrunken",
+              "gemacht"
+            ]
+          },
+          {
+            "label": {
+              "en": "war",
+              "sl": "war",
+              "it": "war"
+            },
+            "words": [
+              "abgefahren",
+              "gelaufen"
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+          "sl": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen",
+          "it": "**haben → hatte, sein → war**\n- hat gegessen → hatte gegessen · ist gegangen → war gegangen"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "plusquamperfekt",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Nachdem die Gäste gegangen ___, räumte Kathi auf.",
+        "options": [
+          "waren",
+          "hatten",
+          "wurden"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**nachdem steps back: hatte + the past, habe + the present**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+          "sl": "**nachdem stopi korak nazaj: hatte + preteklik, habe + sedanjik**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich",
+          "it": "**nachdem fa un passo indietro: hatte + passato, habe + presente**\n- Nachdem ich gegessen hatte, ging ich · Nachdem ich gegessen habe, gehe ich"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Nachdem ich gegessen habe, bin ich gegangen as spoken, ich habe gegessen gehabt and der Bus ist abgefahren gewesen as spoken; war gesessen beside hatte gesessen; setzte sich Kathi hin; the Slovene for a past perfect (je že skuhala), bil sem pojedel; Italian's dopo aver mangiato"
+}
