@@ -117,7 +117,7 @@ const transform = z.strictObject({
   grammar,
   /** The one instruction for the whole list: "Zanikaj · Say it with no". */
   instruction: text,
-  /** Shown between each line and its answer: "(preteklik)". */
+  /** Shown in brackets after the arrow the app draws between each line and its answer: "(preteklik)"; no arrow of its own (arrowCues). */
   cue: opt,
   /**
    * Every word of `accept` asked for. Without it, the person in brackets after a line ("Pečem kruh. (babica)") may be
@@ -406,6 +406,36 @@ export function basedErrors(v: unknown, keys: ReadonlySet<string> = BASED_KEYS):
   return out
 }
 
+/** What the app draws itself before a transform's cue: a cue opening with one would read "→ (→)" or "→ (→ več)". */
+const ARROW_FIRST = /^\s*(→|->|=>|⇒|➔|➜)/
+
+/**
+ * A transform's cue, in any of its bases, that opens with an arrow, by where it is. An arrow inside one is meaning
+ * ("hoče → gre") and stays. A refusal for what is written or published, not in the schema: a homework the tutor
+ * published before this rule stays readable (validateWorksheet's [stored]).
+ */
+export function arrowCues(v: unknown): string[] {
+  const out: string[] = []
+  const walk = (x: unknown, path: string) => {
+    if (Array.isArray(x)) return x.forEach((y, i) => walk(y, `${path}.${i}`))
+    if (!x || typeof x !== 'object') return
+    const o = x as Record<string, unknown>
+    if (o.type === 'transform') {
+      const cues = typeof o.cue === 'string' ? [o.cue] : isBased(o.cue) ? Object.values(o.cue) : []
+      if (cues.some(c => ARROW_FIRST.test(c))) out.push(`✖ ${path}.cue: the app draws the arrow itself, so this would read "→ (→)": leave the arrow out, or the cue if nothing is left`)
+    }
+    for (const [k, y] of Object.entries(o)) walk(y, path ? `${path}.${k}` : k)
+  }
+  walk(v, '')
+  return out
+}
+
+/** [input]'s refusal for [arrowCues], if it has any. */
+function noArrowCues(input: unknown): { ok: false; errors: string } | undefined {
+  const arrows = arrowCues(input)
+  return arrows.length ? { ok: false, errors: arrows.join('\n') } : undefined
+}
+
 /** [schema]'s check of [input] as the learner reads it in [base] ([inBase]), its texts per base each with the English. */
 function validateIn<K extends string, S extends z.ZodType>(schema: S, key: K, input: unknown, base: string): Result<K, z.infer<S>> {
   const missing = basedErrors(input)
@@ -415,10 +445,11 @@ function validateIn<K extends string, S extends z.ZodType>(schema: S, key: K, in
 
 export const validateCourse = (input: unknown) => validate(courseSpec, 'course', input)
 /** A unit, as the learner of [base] gets it (English by default): its texts per base in that base. */
-export const validateUnit = (input: unknown, base = 'en') => validateIn(unitSpec, 'unit', input, base)
-export function validateWorksheet(input: unknown, base = 'en') {
+export const validateUnit = (input: unknown, base = 'en') => noArrowCues(input) ?? validateIn(unitSpec, 'unit', input, base)
+/** A homework, as the learner of [base] gets it; [stored]: one read back from the tutor's files, not one being published. */
+export function validateWorksheet(input: unknown, base = 'en', stored = false) {
   const raw = input && typeof input === 'object' && !Array.isArray(input) ? Object.fromEntries(Object.entries(input).filter(([k]) => !(SERVED as readonly string[]).includes(k))) : input
-  return validateIn(homeworkSpec, 'worksheet', raw, base)
+  return (stored ? undefined : noArrowCues(raw)) ?? validateIn(homeworkSpec, 'worksheet', raw, base)
 }
 
 /**
@@ -552,7 +583,7 @@ export class CourseStore {
       .flatMap(f => {
         const path = join(dir, f)
         try {
-          const v = validateWorksheet(JSON.parse(readFileSync(path, 'utf8')), this.base())
+          const v = validateWorksheet(JSON.parse(readFileSync(path, 'utf8')), this.base(), true)
           if (!v.ok) throw new Error(v.errors)
           if (v.worksheet.unit !== unit || `${v.worksheet.id}.json` !== f) throw new Error(`homework "${v.worksheet.unit}/${v.worksheet.id}" belongs in ${v.worksheet.unit}/${v.worksheet.id}.json`)
           if (v.worksheet.language !== this.language) throw new Error(`homework of "${v.worksheet.language}", this course is "${this.language}"`)

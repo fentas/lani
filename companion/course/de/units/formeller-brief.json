@@ -1037,7 +1037,7 @@
           "it": "Ergänze · Completa"
         },
         "title": "Kathi beschwert sich",
-        "text": "Sehr ___ Damen und Herren, am 3. Mai habe ich bei Ihnen zwanzig Kisten Bier bestellt. Leider sind nur zehn angekommen. ___ habe ich aber schon bezahlt. Ich möchte mich ___ diese Lieferung beschweren. ___ ersuche ich Sie, die anderen Kisten bis Freitag zu liefern. Mit ___ Grüßen Kathi Pirker.",
+        "text": "Sehr ___ Damen und Herren, am 3. Mai habe ich bei Ihnen zwanzig Kisten Bier bestellt. Leider sind nur zehn angekommen. ___ habe ich aber schon bezahlt. Ich möchte mich ___ diese Lieferung beschweren. ___ ersuche ich Sie, die anderen Kisten bis Freitag zu liefern. Mit freundlichen ___ Kathi Pirker.",
         "gaps": [
           {
             "accept": [
@@ -1069,9 +1069,7 @@
           },
           {
             "accept": [
-              "freundlichen",
-              "besten",
-              "herzlichen"
+              "Grüßen"
             ]
           }
         ],
@@ -1142,9 +1140,10 @@
             ]
           },
           {
-            "from": "Kommst du am Freitag? (Kommen Sie)",
+            "from": "Kommst du am Freitag? (Würden Sie)",
             "accept": [
-              "Kommen Sie am Freitag?"
+              "Würden Sie am Freitag kommen?",
+              "Würden Sie bitte am Freitag kommen?"
             ]
           },
           {

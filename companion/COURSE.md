@@ -366,6 +366,7 @@ them once every phone has an app that plays them.
 - `lemma` and a cell's `form` (the forms book's key: `pres.1sg`, `neg.3pl`, `past.f.sg`, `loc.sg` …): the form practised
   is the learner's word's too, and a wrong one comes back first in its review (GAME.md, "A word's forms").
 - Graded cell by cell; the grammar page's table is one tap away (📖).
+- A long answer wraps in its cell, over up to four lines, so all of it shows in a phone's narrow column (`dem Menschen` in three columns).
 
 ### transform: a list to change
 
@@ -383,7 +384,8 @@ them once every phone has an app that plays them.
 ```
 
 - `instruction`: the one instruction for the whole list ("Postavi v preteklik · Put it in the past", "V množino · Into the
-  plural"); `cue` (optional): shown between each line and its answer ("(preteklik)").
+  plural"); `cue` (optional): shown between each line and its answer ("→ (preteklik)"). The app draws the arrow, so
+  a cue that opens with one is refused (it would read "→ (→)"); one inside it is meaning (`hoče → gre`). Nothing to name, no cue.
 - `items`: 2–12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `spoken`, `hint`,
   `explain`, `grammar`, and `lemma`/`form` as in a table.
 - Each line typed whole, graded on its own.
@@ -466,6 +468,7 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
   a wrong form nobody says, or a typed gap or a line. Name both in the intro and on the page: people say it, writing wants the other,
   not "never".
 - **German** has `weil` for denn, `trotzdem` for obwohl, `wie` for als, `wann` for wenn, `täte` for würde, `Auf was` for worauf (and the rest), `auf ihn` for darauf for a thing, `wer`, `was`, `nix` for jemand, etwas, nichts; since B2, after a verb of saying the present or the Konjunktiv II for a reported Konjunktiv I (`Er sagt, er ist krank`), after als ob the present (`als ob er krank ist`), and a weak noun with no -e without its ending (`den Mensch`, `dem Bub`, `mit Herr Moser`: `after` keeps these to the words before a noun, as Menschen is the plural too). An item's `spoken` still wins where a unit lists one: `als-waehrend` keeps `wie` and `wann` right, as its point is als against wenn, not the word itself. **Which of the two:** a form that is the very thing the unit drills goes in the table, or every line of the drill passes as right; a form beside the point stays `spoken` (*drauf*, *nach Haus*, *am Tisch*).
+- **Italian** has benché, sebbene and nonostante with the indicative (`Benché piove`, `Sebbene è tardi`, `Nonostante fa freddo`), one verb's forms to a pair, within four words of the conjunction (`after`), so `Benché mangia` for piova stays wrong. [Treccani's dictionary](https://www.treccani.it/vocabolario/benche/) has benché with the indicative as old but common as a plain "but", and its [Errata corrige](https://www.treccani.it/magazine/lingua_italiana/articoli/scritto_e_parlato/Errata_Corrige6.html) quotes the press with all three as a breach of the norm: said and printed, and not what writing wants. `ItalianB2aContentTest` holds it. Slovene has no table of these.
 - `verb_second` (`["weil", "obwohl"]`): a word order, which no `word` and `for` can say. The clause after one of these with its last word, the verb, moved up behind the subject and every other word in its place is almost, the standard form shown: "weil er hat keine Zeit", "obwohl sie muss früh aufstehen", a separable verb in its two parts ("weil sie steht um fünf auf" for aufsteht). The clause ends at the accepted answer's comma, so "Obwohl es regnet, wir gehen" stays wrong; after dass, a question word or deshalb nothing changes.
 - The table is in the APK, no bridge route serves it and no bridge or script port grades an answer: the app's verdict is what is stored,
   so an older app grades with the table it has (`good` for `well` wrong there) and an older bridge stores the hint as any other
@@ -1299,7 +1302,7 @@ Unit 13–18: other forms, words, a text.
   - foste and fosse, deste and desse, desti and dessi for one another; dissi for dessi; avando for avendo; vede and vide for one another; mese for mise.
   - On the same stem (`ending_swaps`): the remote past against the imperfetto and the future (mangiavano for mangiarono, dormiranno for dormirono).
   - A word's making: facilemente, regolaremente, lentomente, felicamente; inpossibile, inregolare, inlegale, inbevibile; barcetta. Veremente for veramente stays a slip.
-- **A form people say is never an option.** The native lists name them; each is in `spoken` or left out, and no choice or word bank offers one as wrong (benché è, sebbene ha, come se era; a dangling gerund, which is why gerundio-passato asks who did it; a remoto for today). The typed subjunctive stays the answer where the indicative isn't listed; benché + the indicative and dassi, stassi wait for a native's word, and for `nonstandard` if the answer is that people say them.
+- **A form people say is never an option.** The native lists name them; each is in `spoken` or left out, and no choice or word bank offers one as wrong (benché è, sebbene ha, come se era; a dangling gerund, which is why gerundio-passato asks who did it; a remoto for today). The typed subjunctive stays the answer where the indicative isn't listed. Benché, sebbene and nonostante with the indicative typed are in the table's `nonstandard` (almost, the subjunctive shown), and the intro and the page say both; dassi and stassi stay wrong, on the native list.
 - **Se + the conditional stays offered as wrong** (se potrei, se avrei saputo), as B1's `periodo-ipotetico` does and the outline says, and so does the simple conditional for the future in the past (disse che porterebbe). Both are on the native list.
 - **No gap where another tense is Italian too, unless every right form is listed:** every shift gap of disse-che has a past anchor, raccontare's gaps name their tense; a cue in brackets where another verb would fit (si è ___ (fare) aiutare, as si è lasciata would).
 - **A cloze can't list a spoken form** (`cloze` has no such key), so a quick question with a gap avoids the verbs that have one.
@@ -1594,7 +1597,7 @@ B2's last six, text and register (docs/plans/05-built/course-de-b2-c.md):
 
 - **Austria's word and Germany's are two `accept`s**, the Austrian first, on every gap, cell and whole line, in every mix (Wir fahren heuer im Januar in den Urlaub). A choice about a word asks what it means, so Germany's word stands there as the right meaning.
 - **Spoken Carinthian is `spoken`, as Slovene's `govorjeni-jezik` is**: right and labelled, the standard shown. Only what a source shows is read aloud or graded: words (lei, nit, eppes, ofn, losn, miad, Pfiati) and whole phrases (I bleib lei mehr kurz, Nit letz). No sentence is made up in dialect.
-- **`spoken` beside the point**: Auch wenn es regnet, wir gehen; dir's, ihm's; der Stefan, die Kathi; wegen dem Regen. A sentence or a clause doesn't fit a table's narrow cell (only its last words show), so these are transform lines: `satzbau`'s pronouns, `indem-sodass`'s clauses, `formeller-brief`'s openings.
+- **`spoken` beside the point**: Auch wenn es regnet, wir gehen; dir's, ihm's; der Stefan, die Kathi; wegen dem Regen. A sentence or a clause doesn't read well in a table's narrow cell (it wraps over up to four lines: `SheetField`'s `wraps`), so these are transform lines: `satzbau`'s pronouns, `indem-sodass`'s clauses, `formeller-brief`'s openings.
 - **One answer in `same`**: so dass, in Frage, anderseits, andrerseits, each from Duden. **The grading's pairs**: a word one letter off another, no slip (teuer and heuer, Fieber and Feber, Pause and Jause, Tropfen and Topfen, Kessel and Sessel, Kosten and Kasten, biete and bitte, versuche and ersuche, stehle for stelle, sehe for stehe, lasse for fasse, war for zwar). `GermanB2cContentTest`. The note is its own key, `_b2c_note`.
 
 ## The English course

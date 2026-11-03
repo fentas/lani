@@ -7,6 +7,7 @@ No emulator: a screen is a list of (label, centre) as QA reads it from uiautomat
 """
 from __future__ import annotations
 
+import ast
 import importlib.machinery
 import importlib.util
 import os
@@ -49,6 +50,25 @@ class HudLabels(unittest.TestCase):
             self.assertEqual(qa.hud_settlement(), "Insediamento · Siedlung: ")
 
 
+    def test_a_resource_is_named_as_the_villages_culture_names_it(self):
+        with on_pair("it-de"), mock.patch.object(qa, "api", return_value={"id": "friuli"}):
+            self.assertEqual(qa.hud_resource("food"), "Cibo · Nahrung: ")
+        with on_pair("sl-en"), mock.patch.object(qa, "api", return_value={"id": "primorska"}):
+            self.assertEqual(qa.hud_resource("wisdom"), "Modrost · Wisdom: ")
+
+
+class Steps(unittest.TestCase):
+    def test_no_function_of_qa_is_defined_twice(self):
+        """A later `def village_hud() -> tuple` replaced the step of that name (60908e38): it reported ok for days, checking nothing."""
+        tree = ast.parse(_path.read_text(encoding="utf-8"))
+        names = [n.name for n in tree.body if isinstance(n, ast.FunctionDef)]
+        self.assertEqual([], sorted({n for n in names if names.count(n) > 1}))
+
+    def test_the_hud_step_is_the_step(self):
+        self.assertIn("The village's HUD", qa.village_hud.__doc__)
+        self.assertTrue(callable(qa.village_bar))
+
+
 # The village on en-sl as the emulator showed it (2026-11-02): the ring in the bar, then the cards, each its own node.
 EN_SL = [
     ("Food · Hrana: 140 / 1200", (100, 100)),
@@ -72,6 +92,17 @@ class PlainVillage(unittest.TestCase):
     def test_on_en_sl_the_plain_village_is_left_as_it_is(self):
         with on_pair("en-sl"):
             self.assertEqual(self.plain(EN_SL).call_count, 0)
+
+    def test_on_a_feast_day_the_ring_says_the_feast_and_is_still_not_todays_card(self):
+        feast = [
+            ("Hrana · Food: 140 / 1200", (100, 200)),
+            ("🕯️ Dan spomina na mrtve · Remembrance Day", (985, 205)),
+            ("Naslednji cilj · Next goal: Trg", (400, 340)),
+            ("Danes in kmalu · Today and coming up: Dan spomina", (990, 340)),
+            ("Danes", (1000, 380)),  # the card's word, as the emulator showed it on 2026-11-03
+        ]
+        with on_pair("sl-en"):
+            self.assertEqual(qa.hud_ring(feast), (985, 205))
 
     def test_the_ring_is_never_a_cards_word_of_the_base(self):
         with on_pair("en-sl"):
