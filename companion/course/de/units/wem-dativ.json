@@ -1,0 +1,1023 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "wem-dativ",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🎁",
+  "title": {
+    "de": "Ich gebe dem Hund Wasser",
+    "en": "The dative: dem Hund, der Frau",
+    "sl": "Dajalnik: dem Hund, der Frau",
+    "it": "Il dativo: dem Hund, der Frau"
+  },
+  "goal": {
+    "en": "You can say who gets something (Ich gebe dem Hund Wasser. Kathi bringt der Frau die Suppe.): dem, der and den + -n, einem, einer, meinem, keinem, the person before the thing.",
+    "sl": "Poveš, kdo kaj dobi (Ich gebe dem Hund Wasser. Kathi bringt der Frau die Suppe.): dem, der in den + -n, einem, einer, meinem, keinem, oseba pred stvarjo.",
+    "it": "Sai dire chi riceve qualcosa (Ich gebe dem Hund Wasser. Kathi bringt der Frau die Suppe.): dem, der e den + -n, einem, einer, meinem, keinem, la persona prima della cosa."
+  },
+  "grammar": [
+    "dativ",
+    "faelle"
+  ],
+  "words": [
+    "dem",
+    "den",
+    "der",
+    "einem",
+    "einer",
+    "meinem",
+    "meiner",
+    "meinen",
+    "keinem",
+    "wem",
+    "geben",
+    "bringen",
+    "zeigen",
+    "schenken",
+    "erzählen",
+    "der Gast",
+    "die Gäste",
+    "das Kind",
+    "die Kinder",
+    "die Frau",
+    "das Schaf",
+    "die Biene",
+    "die Mutter",
+    "die Lehrerin",
+    "die Freundin",
+    "der Sohn",
+    "die Schwester",
+    "die Zeitung",
+    "der Zucker",
+    "der Hafer",
+    "die Kuh",
+    "die Tante",
+    "das Pferd",
+    "der Imker",
+    "die Wirtin",
+    "das Bienenhaus",
+    "der Most",
+    "das Glas"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Nominativ",
+          "en": "nominative (who?)",
+          "sl": "imenovalnik (kdo?)",
+          "it": "nominativo (chi?)"
+        },
+        {
+          "de": "Dativ",
+          "en": "dative (to whom?)",
+          "sl": "dajalnik (komu?)",
+          "it": "dativo (a chi?)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Dem Hund** (to the dog): whoever gets something takes the dative (*Dativ*), and **der** becomes **dem**. Ask **wem?** (to whom?): **Ich gebe dem Hund Wasser.** (I give the dog water.) Wem gebe ich Wasser? Dem Hund.",
+          "sl": "**Dem Hund** (psu): kdor kaj dobi, je v dajalniku (*Dativ*), in **der** postane **dem**. Vprašaš **wem?** (komu?), kot v slovenščini: **Ich gebe dem Hund Wasser.** (Psu dam vodo.) Wem gebe ich Wasser? Dem Hund.",
+          "it": "**Dem Hund** (al cane): chi riceve qualcosa va al dativo (*Dativ*), e **der** diventa **dem**. Chiedi **wem?** (a chi?): **Ich gebe dem Hund Wasser.** (Do l'acqua al cane.) Il tedesco non usa una preposizione: basta il caso. Wem gebe ich Wasser? Dem Hund."
+        },
+        "examples": [
+          {
+            "de": "Florian gibt dem Hund Wasser.",
+            "en": "Florian gives the dog water.",
+            "sl": "Florian da psu vodo.",
+            "it": "Florian dà l'acqua al cane."
+          },
+          {
+            "de": "Kathi bringt dem Gast die Suppe.",
+            "en": "Kathi brings the guest the soup.",
+            "sl": "Kathi prinese gostu juho.",
+            "it": "Kathi porta la minestra all'ospite."
+          },
+          {
+            "de": "Stanko schenkt dem Opa ein Glas Honig.",
+            "en": "Stanko gives Grandpa a jar of honey.",
+            "sl": "Stanko podari dedku kozarec medu.",
+            "it": "Stanko regala al nonno un vasetto di miele."
+          }
+        ],
+        "rows": [
+          [
+            "der Hund",
+            "dem Hund"
+          ],
+          [
+            "der Gast",
+            "dem Gast"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "dativ",
+          "prompt": "Florian gibt ___ Hund Wasser.",
+          "options": [
+            "dem",
+            "den",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Who gets it, a der noun: dem**\n- Florian gibt dem Hund Wasser.",
+            "sl": "**Kdor dobi, samostalnik z der: dem**\n- Florian gibt dem Hund Wasser.",
+            "it": "**Chi riceve, un nome con der: dem**\n- Florian gibt dem Hund Wasser."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**das** becomes **dem** too, and **die** becomes **der**: **das Kind → dem Kind** (to the child), **die Frau → der Frau** (to the woman). Frau stays a die noun: this **der** only says that she gets something.",
+          "sl": "Tudi **das** postane **dem**, **die** pa **der**: **das Kind → dem Kind** (otroku), **die Frau → der Frau** (ženi, gospe). Frau ostane samostalnik z die: ta **der** pove samo, da ona nekaj dobi.",
+          "it": "Anche **das** diventa **dem**, e **die** diventa **der**: **das Kind → dem Kind** (al bambino), **die Frau → der Frau** (alla donna). Frau resta un nome con die: questo **der** dice solo che lei riceve qualcosa."
+        },
+        "examples": [
+          {
+            "de": "Oma Resi gibt dem Kind einen Apfel.",
+            "en": "Grandma Resi gives the child an apple.",
+            "sl": "Babica Resi da otroku jabolko.",
+            "it": "Nonna Resi dà una mela al bambino."
+          },
+          {
+            "de": "Toni zeigt der Frau den Hammer.",
+            "en": "Toni shows the woman the hammer.",
+            "sl": "Toni pokaže gospe kladivo.",
+            "it": "Toni mostra il martello alla signora."
+          },
+          {
+            "de": "Lena gibt der Katze Milch.",
+            "en": "Lena gives the cat milk.",
+            "sl": "Lena da mački mleko.",
+            "it": "Lena dà il latte al gatto."
+          }
+        ],
+        "rows": [
+          [
+            "das Kind",
+            "dem Kind"
+          ],
+          [
+            "die Frau",
+            "der Frau"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "dativ",
+          "text": "Kathi bringt ___ Frau den Kaffee.",
+          "accept": [
+            "der"
+          ],
+          "hint": "die → ?",
+          "explain": {
+            "en": "**Who gets it, a die noun: der**\n- Kathi bringt der Frau den Kaffee.",
+            "sl": "**Kdor dobi, samostalnik z die: der**\n- Kathi bringt der Frau den Kaffee.",
+            "it": "**Chi riceve, un nome con die: der**\n- Kathi bringt der Frau den Kaffee."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the plural **die** becomes **den**, and the noun adds **-n**: **die Kinder → den Kindern** (to the children), **die Schafe → den Schafen** (to the sheep). A plural already in -n or in -s adds nothing: **den Bienen** (to the bees), **den Autos** (to the cars).",
+          "sl": "V množini **die** postane **den**, samostalnik pa dobi **-n**: **die Kinder → den Kindern** (otrokom), **die Schafe → den Schafen** (ovcam). Množina, ki se že konča na -n ali -s, ne dobi ničesar: **den Bienen** (čebelam), **den Autos** (avtom).",
+          "it": "Al plurale **die** diventa **den**, e il nome aggiunge **-n**: **die Kinder → den Kindern** (ai bambini), **die Schafe → den Schafen** (alle pecore). Un plurale già in -n o in -s non aggiunge nulla: **den Bienen** (alle api), **den Autos** (alle macchine)."
+        },
+        "examples": [
+          {
+            "de": "Florian gibt den Schafen Wasser.",
+            "en": "Florian gives the sheep water.",
+            "sl": "Florian da ovcam vodo.",
+            "it": "Florian dà l'acqua alle pecore."
+          },
+          {
+            "de": "Eva zeigt den Kindern das Buch.",
+            "en": "Eva shows the children the book.",
+            "sl": "Eva pokaže otrokom knjigo.",
+            "it": "Eva mostra il libro ai bambini."
+          },
+          {
+            "de": "Stanko gibt den Bienen Zucker.",
+            "en": "Stanko gives the bees sugar.",
+            "sl": "Stanko da čebelam sladkor.",
+            "it": "Stanko dà lo zucchero alle api."
+          }
+        ],
+        "rows": [
+          [
+            "die Kinder",
+            "den Kindern"
+          ],
+          [
+            "die Schafe",
+            "den Schafen"
+          ],
+          [
+            "die Bienen",
+            "den Bienen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "dativ",
+          "prompt": "Eva zeigt den ___ das Buch. (Kinder)",
+          "options": [
+            "Kindern",
+            "Kinder",
+            "Kind"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The dative plural: den + -n**\n- Eva zeigt den Kindern das Buch.",
+            "sl": "**Dajalnik množine: den + -n**\n- Eva zeigt den Kindern das Buch.",
+            "it": "**Il dativo plurale: den + -n**\n- Eva zeigt den Kindern das Buch."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ein** ends as **dem** does, **eine** as **der**: **ein Gast → einem Gast** (to a guest), **eine Frau → einer Frau** (to a woman). **mein** and **kein** take the same endings: **meinem Hund** (to my dog), **meiner Mutter** (to my mother), **meinen Kindern** (to my children), **keinem Kind** (to no child).",
+          "sl": "**ein** se konča kot **dem**, **eine** kot **der**: **ein Gast → einem Gast** (nekemu gostu), **eine Frau → einer Frau** (neki gospe). **mein** in **kein** imata enake končnice: **meinem Hund** (mojemu psu), **meiner Mutter** (moji mami), **meinen Kindern** (mojim otrokom), **keinem Kind** (nobenemu otroku).",
+          "it": "**ein** finisce come **dem**, **eine** come **der**: **ein Gast → einem Gast** (a un ospite), **eine Frau → einer Frau** (a una donna). **mein** e **kein** hanno le stesse desinenze: **meinem Hund** (al mio cane), **meiner Mutter** (a mia madre), **meinen Kindern** (ai miei figli), **keinem Kind** (a nessun bambino)."
+        },
+        "examples": [
+          {
+            "de": "Stefan gibt einem Gast ein Glas Most.",
+            "en": "Stefan gives a guest a glass of cider.",
+            "sl": "Stefan da nekemu gostu kozarec mošta.",
+            "it": "Stefan dà a un ospite un bicchiere di sidro."
+          },
+          {
+            "de": "Ich gebe meinem Hund Wasser.",
+            "en": "I give my dog water.",
+            "sl": "Svojemu psu dam vodo.",
+            "it": "Do l'acqua al mio cane."
+          },
+          {
+            "de": "Mitzi zeigt ihrer Schwester die Zeitung.",
+            "en": "Mitzi shows her sister the newspaper.",
+            "sl": "Mitzi pokaže sestri časopis.",
+            "it": "Mitzi mostra il giornale a sua sorella."
+          },
+          {
+            "de": "Kathi gibt keinem Kind Kaffee.",
+            "en": "Kathi gives no child coffee.",
+            "sl": "Kathi ne da kave nobenemu otroku.",
+            "it": "Kathi non dà il caffè a nessun bambino."
+          }
+        ],
+        "rows": [
+          [
+            "ein Gast",
+            "einem Gast"
+          ],
+          [
+            "eine Frau",
+            "einer Frau"
+          ],
+          [
+            "mein Hund",
+            "meinem Hund"
+          ],
+          [
+            "meine Mutter",
+            "meiner Mutter"
+          ],
+          [
+            "meine Kinder",
+            "meinen Kindern"
+          ],
+          [
+            "kein Kind",
+            "keinem Kind"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "dativ",
+          "text": "Ich gebe ___ Hund Wasser. (mein)",
+          "accept": [
+            "meinem"
+          ],
+          "hint": "dem → mein…",
+          "explain": {
+            "en": "**mein ends as dem does: meinem**\n- Ich gebe meinem Hund Wasser.",
+            "sl": "**mein se konča kot dem: meinem**\n- Ich gebe meinem Hund Wasser.",
+            "it": "**mein finisce come dem: meinem**\n- Ich gebe meinem Hund Wasser."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Wem? Was?** Verbs of giving have two objects: **geben**, **bringen**, **zeigen**, **schenken** (to give as a present). The person takes the dative, the thing the accusative, and the person usually comes first: **Kathi bringt dem Gast die Suppe.** (Kathi brings the guest the soup.)",
+          "sl": "**Wem? Was?** Glagoli dajanja imajo dva predmeta: **geben** (dati), **bringen** (prinesti), **zeigen** (pokazati), **schenken** (podariti). Oseba je v dajalniku, stvar v tožilniku, in oseba je navadno prva: **Kathi bringt dem Gast die Suppe.** (Kathi prinese gostu juho.)",
+          "it": "**Wem? Was?** I verbi del dare hanno due complementi: **geben** (dare), **bringen** (portare), **zeigen** (mostrare), **schenken** (regalare). La persona va al dativo, la cosa all'accusativo, e di solito la persona viene prima: **Kathi bringt dem Gast die Suppe.** (Kathi porta la minestra all'ospite.)"
+        },
+        "examples": [
+          {
+            "de": "Toni zeigt dem Kind den Hammer.",
+            "en": "Toni shows the child the hammer.",
+            "sl": "Toni pokaže otroku kladivo.",
+            "it": "Toni mostra il martello al bambino."
+          },
+          {
+            "de": "Stefan schenkt der Lehrerin einen Apfel.",
+            "en": "Stefan gives the teacher an apple.",
+            "sl": "Stefan podari učiteljici jabolko.",
+            "it": "Stefan regala una mela alla maestra."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "dativ",
+          "prompt": "Kathi bringt ___ die Suppe.",
+          "options": [
+            "dem Gast",
+            "den Gast",
+            "der Gast"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**To whom? The dative: dem Gast**\n- Kathi bringt dem Gast die Suppe.",
+            "sl": "**Komu? Dajalnik: dem Gast**\n- Kathi bringt dem Gast die Suppe.",
+            "it": "**A chi? Il dativo: dem Gast**\n- Kathi bringt dem Gast die Suppe."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Wem** asks for the dative, **wen** for the accusative: **Wem gibst du den Honig?** (Who are you giving the honey to?) **Wen siehst du?** (Who do you see?) The verb stays second, also after a dative: **Dem Hund gebe ich Wasser, der Katze Milch.** (The dog gets water from me, the cat milk.)",
+          "sl": "**Wem** sprašuje po dajalniku, **wen** po tožilniku: **Wem gibst du den Honig?** (Komu daš med?) **Wen siehst du?** (Koga vidiš?) Glagol ostane drugi, tudi za dajalnikom: **Dem Hund gebe ich Wasser, der Katze Milch.** (Psu dam vodo, mački mleko.)",
+          "it": "**Wem** chiede il dativo, **wen** l'accusativo: **Wem gibst du den Honig?** (A chi dai il miele?) **Wen siehst du?** (Chi vedi?) Il verbo resta secondo, anche dopo un dativo: **Dem Hund gebe ich Wasser, der Katze Milch.** (Al cane do l'acqua, al gatto il latte.)"
+        },
+        "examples": [
+          {
+            "de": "Wem gibst du den Honig? – Dem Opa.",
+            "en": "Who are you giving the honey to? – To Grandpa.",
+            "sl": "Komu daš med? – Dedku.",
+            "it": "A chi dai il miele? – Al nonno."
+          },
+          {
+            "de": "Dem Hund gebe ich Wasser, der Katze Milch.",
+            "en": "The dog gets water from me, the cat milk.",
+            "sl": "Psu dam vodo, mački mleko.",
+            "it": "Al cane do l'acqua, al gatto il latte."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "dativ",
+          "prompt": "___ gibst du den Honig? – Dem Opa.",
+          "options": [
+            "Wem",
+            "Wen",
+            "Wer"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**To whom? Wem**\n- Wem gibst du den Honig?",
+            "sl": "**Komu? Wem**\n- Wem gibst du den Honig?",
+            "it": "**A chi? Wem**\n- Wem gibst du den Honig?"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Who gets it takes the dative. Ask **wem?**\n\n**der, das → dem** · **die → der** · plural **den + -n**: **dem Hund, dem Kind, der Frau, den Kindern**.\n\n**einem, einer, meinem, meiner, meinen, keinem**: as dem and der.\n\nThe person first, then the thing: **Kathi bringt dem Gast die Suppe.**",
+      "sl": "Kdor dobi, je v dajalniku. Vprašaš **wem?**\n\n**der, das → dem** · **die → der** · množina **den + -n**: **dem Hund, dem Kind, der Frau, den Kindern**.\n\n**einem, einer, meinem, meiner, meinen, keinem**: kot dem in der.\n\nNajprej oseba, nato stvar: **Kathi bringt dem Gast die Suppe.**",
+      "it": "Chi riceve va al dativo. Chiedi **wem?**\n\n**der, das → dem** · **die → der** · plurale **den + -n**: **dem Hund, dem Kind, der Frau, den Kindern**.\n\n**einem, einer, meinem, meiner, meinen, keinem**: come dem e der.\n\nPrima la persona, poi la cosa: **Kathi bringt dem Gast die Suppe.**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "wem-dativ-1",
+      "title": {
+        "de": "Dem, der, den",
+        "en": "Dem, der, den",
+        "sl": "Dem, der, den",
+        "it": "Dem, der, den"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "dativ",
+          "instruction": {
+            "en": "Ergänze den Dativ · Fill in the dative",
+            "sl": "Ergänze den Dativ · Dopolni dajalnik",
+            "it": "Ergänze den Dativ · Completa con il dativo"
+          },
+          "prompt": {
+            "en": "Wem? · who gets it",
+            "sl": "Wem? · kdo dobi",
+            "it": "Wem? · chi riceve"
+          },
+          "columns": [
+            {
+              "en": "Dativ · to whom?",
+              "sl": "Dativ · komu?",
+              "it": "Dativ · a chi?"
+            }
+          ],
+          "rows": [
+            {
+              "label": "der Hund",
+              "cells": [
+                {
+                  "accept": [
+                    "dem Hund"
+                  ],
+                  "hint": "der → ?"
+                }
+              ]
+            },
+            {
+              "label": "das Kind",
+              "cells": [
+                {
+                  "accept": [
+                    "dem Kind"
+                  ],
+                  "hint": "das → ?"
+                }
+              ]
+            },
+            {
+              "label": "die Frau",
+              "cells": [
+                {
+                  "accept": [
+                    "der Frau"
+                  ],
+                  "hint": "die → ?"
+                }
+              ]
+            },
+            {
+              "label": "die Schafe",
+              "cells": [
+                {
+                  "accept": [
+                    "den Schafen"
+                  ],
+                  "hint": {
+                    "en": "plural: den + -n",
+                    "sl": "množina: den + -n",
+                    "it": "plurale: den + -n"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "ein Gast",
+              "cells": [
+                {
+                  "accept": [
+                    "einem Gast"
+                  ],
+                  "hint": "dem → ein…"
+                }
+              ]
+            },
+            {
+              "label": "eine Lehrerin",
+              "cells": [
+                {
+                  "accept": [
+                    "einer Lehrerin"
+                  ],
+                  "hint": "der → ein…"
+                }
+              ]
+            },
+            {
+              "label": "mein Hund",
+              "cells": [
+                {
+                  "accept": [
+                    "meinem Hund"
+                  ],
+                  "hint": "dem → mein…"
+                }
+              ]
+            },
+            {
+              "label": "meine Kinder",
+              "cells": [
+                {
+                  "accept": [
+                    "meinen Kindern"
+                  ],
+                  "hint": {
+                    "en": "plural: den + -n",
+                    "sl": "množina: den + -n",
+                    "it": "plurale: den + -n"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**der, das → dem · die → der · plural den + -n**",
+            "sl": "**der, das → dem · die → der · množina den + -n**",
+            "it": "**der, das → dem · die → der · plurale den + -n**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "dativ",
+          "instruction": {
+            "en": "Ordne zu: Wem gebe ich Wasser? · Sort: which article goes with it?",
+            "sl": "Ordne zu: Wem gebe ich Wasser? · Razvrsti: kateri člen spada zraven?",
+            "it": "Ordne zu: Wem gebe ich Wasser? · Metti in ordine: quale articolo ci va?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "dem · der and das",
+                "sl": "dem · der in das",
+                "it": "dem · der e das"
+              },
+              "words": [
+                "Hund",
+                "Kind",
+                "Pferd"
+              ]
+            },
+            {
+              "label": {
+                "en": "der · die",
+                "sl": "der · die",
+                "it": "der · die"
+              },
+              "words": [
+                "Katze",
+                "Wirtin",
+                "Tante"
+              ]
+            },
+            {
+              "label": {
+                "en": "den · the plural",
+                "sl": "den · množina",
+                "it": "den · il plurale"
+              },
+              "words": [
+                "Schafen",
+                "Kindern",
+                "Gästen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**dem Hund, der Katze, den Schafen**",
+            "sl": "**dem Hund, der Katze, den Schafen**",
+            "it": "**dem Hund, der Katze, den Schafen**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wem-dativ-2",
+      "title": {
+        "de": "Im Gasthaus",
+        "en": "At the inn",
+        "sl": "V gostilni",
+        "it": "All'osteria"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "dativ",
+          "instruction": {
+            "en": "Ergänze den Dativ · Fill in the dative",
+            "sl": "Ergänze den Dativ · Dopolni dajalnik",
+            "it": "Ergänze den Dativ · Completa con il dativo"
+          },
+          "title": "Im Gasthaus",
+          "text": "Am Sonntag ist das Gasthaus voll. Kathi bringt ___ (der) Gast die Suppe und ___ (die) Frau einen Kaffee. Maxi zeigt ___ (die Kinder) die Katze. Stefan schenkt ___ (eine) Freundin ein Glas Most. Opa Sepp erzählt ___ (das) Kind eine Geschichte. Und Kathi? Sie gibt ___ (ihr) Sohn ein Stück Reindling, aber ___ (kein) Kind Kaffee.",
+          "gaps": [
+            {
+              "accept": [
+                "dem"
+              ],
+              "hint": "der → ?"
+            },
+            {
+              "accept": [
+                "der"
+              ],
+              "hint": "die → ?"
+            },
+            {
+              "accept": [
+                "den Kindern"
+              ],
+              "hint": {
+                "en": "plural: den + -n",
+                "sl": "množina: den + -n",
+                "it": "plurale: den + -n"
+              }
+            },
+            {
+              "accept": [
+                "einer"
+              ],
+              "hint": "der → ein…"
+            },
+            {
+              "accept": [
+                "dem"
+              ],
+              "hint": "das → ?"
+            },
+            {
+              "accept": [
+                "ihrem"
+              ],
+              "hint": "dem → ihr…"
+            },
+            {
+              "accept": [
+                "keinem"
+              ],
+              "hint": "dem → kein…"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "den",
+            "einen",
+            "die",
+            "keinen"
+          ],
+          "translation": {
+            "en": "On Sunday the inn is full. Kathi brings the guest the soup and the woman a coffee. Maxi shows the children the cat. Stefan gives a friend a glass of cider. Grandpa Sepp tells the child a story. And Kathi? She gives her son a piece of Reindling, but no child coffee.",
+            "sl": "V nedeljo je gostilna polna. Kathi prinese gostu juho in gospe kavo. Maxi pokaže otrokom mačko. Stefan podari prijateljici kozarec mošta. Dedek Sepp pripoveduje otroku zgodbo. In Kathi? Sinu da kos Reindlinga, nobenemu otroku pa kave.",
+            "it": "La domenica l'osteria è piena. Kathi porta la minestra all'ospite e un caffè alla signora. Maxi mostra il gatto ai bambini. Stefan regala a un'amica un bicchiere di sidro. Nonno Sepp racconta una storia al bambino. E Kathi? Dà a suo figlio una fetta di Reindling, ma a nessun bambino il caffè."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "dativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ siehst du? – Den Hund.",
+          "options": [
+            "Wen",
+            "Wem",
+            "Wer"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Ich sehe + accusative: wen?**\n- Wen siehst du?",
+            "sl": "**Ich sehe + tožilnik: wen?**\n- Wen siehst du?",
+            "it": "**Ich sehe + accusativo: wen?**\n- Wen siehst du?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "dativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stefan zeigt ___ den Keller.",
+          "options": [
+            "der Lehrerin",
+            "die Lehrerin",
+            "den Lehrerin"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**To whom? die → der**\n- Stefan zeigt der Lehrerin den Keller.",
+            "sl": "**Komu? die → der**\n- Stefan zeigt der Lehrerin den Keller.",
+            "it": "**A chi? die → der**\n- Stefan zeigt der Lehrerin den Keller."
+          }
+        }
+      ]
+    },
+    {
+      "id": "wem-dativ-3",
+      "title": {
+        "de": "Wer bekommt es?",
+        "en": "Who gets it?",
+        "sl": "Kdo dobi?",
+        "it": "Chi lo riceve?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "dativ",
+          "instruction": {
+            "en": "Sag, wer es bekommt · Say who gets it: put the word in brackets in the dative",
+            "sl": "Sag, wer es bekommt · Povej, kdo dobi: besedo v oklepaju daj v dajalnik",
+            "it": "Sag, wer es bekommt · Di' chi lo riceve: metti al dativo la parola tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Kathi bringt die Suppe. (der Gast)",
+              "accept": [
+                "Kathi bringt dem Gast die Suppe.",
+                "Kathi bringt die Suppe dem Gast."
+              ],
+              "hint": "der → ?"
+            },
+            {
+              "from": "Toni zeigt den Hammer. (die Lehrerin)",
+              "accept": [
+                "Toni zeigt der Lehrerin den Hammer.",
+                "Toni zeigt den Hammer der Lehrerin."
+              ],
+              "hint": "die → ?"
+            },
+            {
+              "from": "Eva gibt das Buch. (das Kind)",
+              "accept": [
+                "Eva gibt dem Kind das Buch.",
+                "Eva gibt das Buch dem Kind."
+              ],
+              "hint": "das → ?"
+            },
+            {
+              "from": "Florian gibt Wasser. (die Schafe)",
+              "accept": [
+                "Florian gibt den Schafen Wasser.",
+                "Florian gibt Wasser den Schafen."
+              ],
+              "hint": {
+                "en": "plural: den + -n",
+                "sl": "množina: den + -n",
+                "it": "plurale: den + -n"
+              }
+            },
+            {
+              "from": "Stefan schenkt einen Apfel. (eine Freundin)",
+              "accept": [
+                "Stefan schenkt einer Freundin einen Apfel.",
+                "Stefan schenkt einen Apfel einer Freundin."
+              ],
+              "hint": "der → ein…"
+            },
+            {
+              "from": "Ich gebe den Honig. (mein Opa)",
+              "accept": [
+                "Ich gebe meinem Opa den Honig.",
+                "Ich gebe den Honig meinem Opa."
+              ],
+              "hint": "dem → mein…"
+            }
+          ],
+          "explain": {
+            "en": "**The person first, in the dative; the thing after it**",
+            "sl": "**Najprej oseba v dajalniku, za njo stvar**",
+            "it": "**Prima la persona al dativo, poi la cosa**"
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "dativ",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Grandma Resi gives the child an apple.",
+            "sl": "Babica Resi da otroku jabolko.",
+            "it": "Nonna Resi dà una mela al bambino."
+          },
+          "tokens": [
+            "gibt",
+            "einen Apfel.",
+            "Oma Resi",
+            "dem Kind"
+          ],
+          "solutions": [
+            [
+              "Oma Resi",
+              "gibt",
+              "dem Kind",
+              "einen Apfel."
+            ],
+            [
+              "Dem Kind",
+              "gibt",
+              "Oma Resi",
+              "einen Apfel."
+            ],
+            [
+              "Oma Resi",
+              "gibt",
+              "einen Apfel.",
+              "dem Kind"
+            ],
+            [
+              "einen Apfel.",
+              "gibt",
+              "Oma Resi",
+              "dem Kind"
+            ]
+          ],
+          "explain": {
+            "en": "**The verb second, the person before the thing**",
+            "sl": "**Glagol drugi, oseba pred stvarjo**",
+            "it": "**Il verbo secondo, la persona prima della cosa**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "dativ",
+        "instruction": {
+          "en": "Ergänze den Dativ · Fill in the dative",
+          "sl": "Ergänze den Dativ · Dopolni dajalnik",
+          "it": "Ergänze den Dativ · Completa con il dativo"
+        },
+        "title": "Imker Stanko",
+        "text": "Imker Stanko schenkt ___ (die) Oma ein Glas Honig. ___ (das) Kind zeigt er das Bienenhaus. ___ (die Bienen) gibt er Zucker. ___ (sein) Hund gibt er Wasser. Am Samstag verkauft er ___ (ein) Gast zwei Gläser.",
+        "gaps": [
+          {
+            "accept": [
+              "der"
+            ]
+          },
+          {
+            "accept": [
+              "Dem"
+            ]
+          },
+          {
+            "accept": [
+              "Den Bienen"
+            ]
+          },
+          {
+            "accept": [
+              "Seinem"
+            ]
+          },
+          {
+            "accept": [
+              "einem"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stanko the beekeeper gives Grandma a jar of honey. He shows the child the bee house. He gives the bees sugar. He gives his dog water. On Saturday he sells a guest two jars.",
+          "sl": "Čebelar Stanko podari babici kozarec medu. Otroku pokaže čebelnjak. Čebelam da sladkor. Svojemu psu da vodo. V soboto proda nekemu gostu dva kozarca.",
+          "it": "L'apicoltore Stanko regala alla nonna un vasetto di miele. Al bambino mostra l'apiario. Alle api dà lo zucchero. Al suo cane dà l'acqua. Il sabato vende due vasetti a un ospite."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "dativ",
+        "instruction": {
+          "en": "Ergänze den Dativ · Fill in the dative",
+          "sl": "Ergänze den Dativ · Dopolni dajalnik",
+          "it": "Ergänze den Dativ · Completa con il dativo"
+        },
+        "prompt": {
+          "en": "Wem? · who gets it",
+          "sl": "Wem? · kdo dobi",
+          "it": "Wem? · chi riceve"
+        },
+        "columns": [
+          {
+            "en": "Dativ · to whom?",
+            "sl": "Dativ · komu?",
+            "it": "Dativ · a chi?"
+          }
+        ],
+        "rows": [
+          {
+            "label": "der Müller",
+            "cells": [
+              {
+                "accept": [
+                  "dem Müller"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "die Tante",
+            "cells": [
+              {
+                "accept": [
+                  "der Tante"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "die Kühe",
+            "cells": [
+              {
+                "accept": [
+                  "den Kühen"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "dativ",
+        "instruction": {
+          "en": "Sag, wer es bekommt · Say who gets it: put the word in brackets in the dative",
+          "sl": "Sag, wer es bekommt · Povej, kdo dobi: besedo v oklepaju daj v dajalnik",
+          "it": "Sag, wer es bekommt · Di' chi lo riceve: metti al dativo la parola tra parentesi"
+        },
+        "items": [
+          {
+            "from": "Lena zeigt das Buch. (ihr Opa)",
+            "accept": [
+              "Lena zeigt ihrem Opa das Buch.",
+              "Lena zeigt das Buch ihrem Opa."
+            ]
+          },
+          {
+            "from": "Franz gibt Hafer. (die Pferde)",
+            "accept": [
+              "Franz gibt den Pferden Hafer.",
+              "Franz gibt Hafer den Pferden."
+            ]
+          },
+          {
+            "from": "Kathi bringt das Bier. (eine Frau)",
+            "accept": [
+              "Kathi bringt einer Frau das Bier.",
+              "Kathi bringt das Bier einer Frau."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "dativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Toni gibt ___ Hund Wasser. (ein)",
+        "options": [
+          "einem",
+          "einen",
+          "eine"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**To whom? ein → einem**",
+          "sl": "**Komu? ein → einem**",
+          "it": "**A chi? ein → einem**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "dativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ bringst du die Suppe? – Dem Gast.",
+        "options": [
+          "Wem",
+          "Wen",
+          "Was"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**To whom? Wem**",
+          "sl": "**Komu? Wem**",
+          "it": "**A chi? Wem**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Stanko gibt den Bienen Zucker, Reindling; Slovene gospa for Frau; the person-last orders in the lists"
+}

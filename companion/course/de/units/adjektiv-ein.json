@@ -1,0 +1,829 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "adjektiv-ein",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🏠",
+  "title": {
+    "de": "Ein großer Hund, ein kleines Haus",
+    "en": "Adjective endings after ein: ein großer Hund",
+    "sl": "Končnice pridevnika za ein: ein großer Hund",
+    "it": "Le desinenze dell'aggettivo dopo ein: ein großer Hund"
+  },
+  "goal": {
+    "en": "You can put an adjective after ein, kein and mein: -er and -es where the article shows no ending (ein großer Hund, ein kleines Haus), else as after der (einen großen Hund, meine alten Schafe).",
+    "sl": "Pridevnik postaviš za ein, kein in mein: -er in -es, kjer člen ne pokaže končnice (ein großer Hund, ein kleines Haus), drugod kot za der (einen großen Hund, meine alten Schafe).",
+    "it": "Sai mettere un aggettivo dopo ein, kein e mein: -er e -es dove l'articolo non mostra desinenza (ein großer Hund, ein kleines Haus), altrove come dopo der (einen großen Hund, meine alten Schafe)."
+  },
+  "grammar": [
+    "adjektiv-ein",
+    "adjektiv-der",
+    "possessiv",
+    "kein-nicht"
+  ],
+  "words": [
+    "groß",
+    "klein",
+    "alt",
+    "neu",
+    "jung",
+    "schön",
+    "gut",
+    "kaputt",
+    "gelb",
+    "weiß",
+    "schwarz",
+    "stark",
+    "lustig",
+    "blau",
+    "der Traktor",
+    "der Stand",
+    "der Korb",
+    "der Honig",
+    "das Glas",
+    "das Häferl",
+    "das Geschenk",
+    "die Jacke",
+    "die Tasche",
+    "die Bluse",
+    "der Freund",
+    "der Motor",
+    "die Garage",
+    "das Problem",
+    "kaufen",
+    "verkaufen",
+    "suchen",
+    "brauchen",
+    "tragen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "sl": "sklon",
+          "en": "case",
+          "it": "caso"
+        },
+        "der Hund",
+        "die Katze",
+        "das Haus"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**der** shows the noun is masculine; **ein** doesn't. So the adjective shows it instead, with der's **-r**: **ein großer Hund** (a big dog). Set them side by side: **der große Hund**, **ein großer Hund**. The same adjective, the ending in another word.",
+          "sl": "**der** pove, da je samostalnik moškega spola; **ein** tega ne pove. Zato to pokaže pridevnik, z **-r** od der: **ein großer Hund** (velik pes). Primerjaj: **der große Hund** (veliki pes), **ein großer Hund** (velik pes). Isti pridevnik, končnica pa v drugi besedi.",
+          "it": "**der** mostra che il nome è maschile; **ein** no. Così lo mostra l'aggettivo, con la **-r** di der: **ein großer Hund** (un cane grande). Mettili a confronto: **der große Hund**, **ein großer Hund**. Lo stesso aggettivo, la desinenza in un'altra parola."
+        },
+        "examples": [
+          {
+            "de": "Das ist ein großer Hund.",
+            "en": "That's a big dog.",
+            "sl": "To je velik pes.",
+            "it": "È un cane grande."
+          },
+          {
+            "de": "Ein neuer Gast sitzt in der Stube.",
+            "en": "A new guest is sitting in the parlour.",
+            "sl": "V sobi sedi nov gost.",
+            "it": "Un ospite nuovo è seduto nella stube."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-ein",
+          "prompt": "Das ist ein ___ Traktor. (alt)",
+          "options": [
+            "alter",
+            "alte",
+            "alten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Traktor after ein: -er**\n- der alte Traktor · ein alter Traktor",
+            "sl": "**der Traktor za ein: -er**\n- der alte Traktor · ein alter Traktor",
+            "it": "**der Traktor dopo ein: -er**\n- der alte Traktor · ein alter Traktor"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A **das** noun does the same, with das's **-s**: **ein kleines Haus** (a small house), and it stays so in the accusative: Kathi hat **ein kleines Gasthaus** (a small inn). A **die** noun has its ending on the article, **eine**, so the adjective is as after die: **eine kleine Katze** (a small cat).",
+          "sl": "Samostalnik z **das** naredi enako, z **-s** od das: **ein kleines Haus** (majhna hiša), in tako ostane tudi v tožilniku: Kathi hat **ein kleines Gasthaus** (majhno gostilno). Samostalnik z **die** ima končnico na členu, **eine**, zato je pridevnik tak kot za die: **eine kleine Katze** (majhna mačka).",
+          "it": "Un nome con **das** fa lo stesso, con la **-s** di das: **ein kleines Haus** (una casa piccola), e resta così all'accusativo: Kathi hat **ein kleines Gasthaus** (una piccola osteria). Un nome con **die** ha la desinenza sull'articolo, **eine**, quindi l'aggettivo è come dopo die: **eine kleine Katze** (una gatta piccola)."
+        },
+        "examples": [
+          {
+            "de": "Kathi hat ein kleines Gasthaus.",
+            "en": "Kathi has a small inn.",
+            "sl": "Kathi ima majhno gostilno.",
+            "it": "Kathi ha una piccola osteria."
+          },
+          {
+            "de": "Mitzi trägt eine gelbe Bluse.",
+            "en": "Mitzi is wearing a yellow blouse.",
+            "sl": "Mitzi nosi rumeno bluzo.",
+            "it": "Mitzi porta una camicetta gialla."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Nominativ",
+              "sl": "imenovalnik",
+              "en": "nominative",
+              "it": "nominativo"
+            },
+            "ein großer",
+            "eine kleine",
+            "ein kleines"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adjektiv-ein",
+          "text": "Stefan hat ein ___ Auto. (neu)",
+          "accept": [
+            "neues"
+          ],
+          "hint": {
+            "en": "das Auto",
+            "sl": "das Auto",
+            "it": "das Auto"
+          },
+          "explain": {
+            "en": "**das after ein: -es**\n- das neue Auto · ein neues Auto",
+            "sl": "**das za ein: -es**\n- das neue Auto · ein neues Auto",
+            "it": "**das dopo ein: -es**\n- das neue Auto · ein neues Auto"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the accusative **einen** has its ending, so the adjective is as after den: **einen großen Hund** (a big dog). Every dative is **-en** too: **einem großen Hund, einer kleinen Katze, einem kleinen Haus**. So -er and -es have only three places in the table.",
+          "sl": "V tožilniku ima **einen** svojo končnico, zato je pridevnik tak kot za den: **einen großen Hund** (velikega psa). Tudi vsak dajalnik ima **-en**: **einem großen Hund, einer kleinen Katze, einem kleinen Haus**. -er in -es imata torej v tabeli samo tri mesta.",
+          "it": "All'accusativo **einen** ha la sua desinenza, quindi l'aggettivo è come dopo den: **einen großen Hund** (un cane grande). Anche ogni dativo ha **-en**: **einem großen Hund, einer kleinen Katze, einem kleinen Haus**. Così -er e -es hanno solo tre posti nella tabella."
+        },
+        "examples": [
+          {
+            "de": "Stefan kauft einen neuen Traktor.",
+            "en": "Stefan is buying a new tractor.",
+            "sl": "Stefan kupuje nov traktor.",
+            "it": "Stefan compra un trattore nuovo."
+          },
+          {
+            "de": "Mitzi wohnt in einem alten Haus.",
+            "en": "Mitzi lives in an old house.",
+            "sl": "Mitzi stanuje v stari hiši.",
+            "it": "Mitzi abita in una casa vecchia."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Akkusativ",
+              "sl": "tožilnik",
+              "en": "accusative",
+              "it": "accusativo"
+            },
+            "einen großen",
+            "eine kleine",
+            "ein kleines"
+          ],
+          [
+            {
+              "de": "Dativ",
+              "sl": "dajalnik",
+              "en": "dative",
+              "it": "dativo"
+            },
+            "einem großen",
+            "einer kleinen",
+            "einem kleinen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-ein",
+          "prompt": "Florian spricht mit einem ___ Mann. (jung)",
+          "options": [
+            "jungen",
+            "junger",
+            "junge"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**einem has its ending: -en**\n- einen jungen Mann · einem jungen Mann",
+            "sl": "**einem ima svojo končnico: -en**\n- einen jungen Mann · einem jungen Mann",
+            "it": "**einem ha la sua desinenza: -en**\n- einen jungen Mann · einem jungen Mann"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**kein** and **mein, dein, sein, ihr, unser, euer, Ihr** work as ein does: **kein großer Hund** (no big dog), **mein kleines Haus** (my small house), **unser alter Traktor** (our old tractor). **ein** has no plural, but they do, and there it is always **-en**: **keine großen Hunde** (no big dogs), **meine alten Schafe** (my old sheep), **mit seinen neuen Freunden** (with his new friends).",
+          "sl": "**kein** in **mein, dein, sein, ihr, unser, euer, Ihr** delujejo kot ein: **kein großer Hund** (noben velik pes), **mein kleines Haus** (moja majhna hiša), **unser alter Traktor** (naš stari traktor). **ein** množine nima, oni pa jo imajo, in tam je vedno **-en**: **keine großen Hunde** (nobeni veliki psi), **meine alten Schafe** (moje stare ovce), **mit seinen neuen Freunden** (z njegovimi novimi prijatelji).",
+          "it": "**kein** e **mein, dein, sein, ihr, unser, euer, Ihr** funzionano come ein: **kein großer Hund** (nessun cane grande), **mein kleines Haus** (la mia piccola casa), **unser alter Traktor** (il nostro vecchio trattore). **ein** non ha plurale, loro sì, e lì è sempre **-en**: **keine großen Hunde** (nessun cane grande), **meine alten Schafe** (le mie vecchie pecore), **mit seinen neuen Freunden** (con i suoi nuovi amici)."
+        },
+        "examples": [
+          {
+            "de": "Unser alter Traktor ist kaputt.",
+            "en": "Our old tractor is broken.",
+            "sl": "Naš stari traktor je pokvarjen.",
+            "it": "Il nostro vecchio trattore è rotto."
+          },
+          {
+            "de": "Florian sucht seine weißen Schafe.",
+            "en": "Florian is looking for his white sheep.",
+            "sl": "Florian išče svoje bele ovce.",
+            "it": "Florian cerca le sue pecore bianche."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Plural",
+              "sl": "množina",
+              "en": "plural",
+              "it": "plurale"
+            },
+            "keine großen",
+            "keine kleinen",
+            "keine kleinen"
+          ],
+          [
+            {
+              "de": "Dativ Plural",
+              "sl": "dajalnik množine",
+              "en": "dative plural",
+              "it": "dativo plurale"
+            },
+            "keinen großen",
+            "keinen kleinen",
+            "keinen kleinen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-ein",
+          "prompt": "Toni hat keine ___ Hämmer. (neu)",
+          "options": [
+            "neuen",
+            "neue",
+            "neues"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A plural after kein: -en**\n- keine neuen Hämmer · meine alten Schafe",
+            "sl": "**Množina za kein: -en**\n- keine neuen Hämmer · meine alten Schafe",
+            "it": "**Un plurale dopo kein: -en**\n- keine neuen Hämmer · meine alten Schafe"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Now decide by the word in front: **der neue Hut** (the new hat), but **ein neuer Hut** (a new hat); **das alte Glas** (the old glass), but **mein altes Glas** (my old glass). The ending **-er** or **-es** comes only when the word in front has no ending of its own.",
+          "sl": "Zdaj odloči po besedi spredaj: **der neue Hut** (novi klobuk), a **ein neuer Hut** (nov klobuk); **das alte Glas** (stari kozarec), a **mein altes Glas** (moj stari kozarec). Končnica **-er** ali **-es** pride samo, ko beseda spredaj nima svoje končnice.",
+          "it": "Ora decidi in base alla parola davanti: **der neue Hut** (il cappello nuovo), ma **ein neuer Hut** (un cappello nuovo); **das alte Glas** (il vecchio bicchiere), ma **mein altes Glas** (il mio vecchio bicchiere). La desinenza **-er** o **-es** arriva solo quando la parola davanti non ha una desinenza sua."
+        },
+        "examples": [
+          {
+            "de": "Der neue Hut ist von Mitzi. Das ist ein schöner Hut!",
+            "en": "The new hat is from Mitzi. That's a lovely hat!",
+            "sl": "Novi klobuk je od Mitzi. To je lep klobuk!",
+            "it": "Il cappello nuovo è di Mitzi. È un bel cappello!"
+          },
+          {
+            "de": "Ihr kleines Gasthaus ist immer voll.",
+            "en": "Her small inn is always full.",
+            "sl": "Njena majhna gostilna je vedno polna.",
+            "it": "La sua piccola osteria è sempre piena."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-ein",
+          "prompt": "Das ist mein ___ Freund Stefan. (gut)",
+          "options": [
+            "guter",
+            "gute",
+            "gutes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**mein has no ending, der Freund: -er**\n- der gute Freund · mein guter Freund",
+            "sl": "**mein nima končnice, der Freund: -er**\n- der gute Freund · mein guter Freund",
+            "it": "**mein non ha desinenza, der Freund: -er**\n- der gute Freund · mein guter Freund"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "adjektiv-ein-1",
+      "title": {
+        "de": "Ein großer, ein kleines",
+        "en": "Ein großer, ein kleines",
+        "sl": "Ein großer, ein kleines",
+        "it": "Ein großer, ein kleines"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adjektiv-ein",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "groß · klein · alt: the adjective with its ending",
+            "sl": "groß · klein · alt: pridevnik s končnico",
+            "it": "groß · klein · alt: l'aggettivo con la desinenza"
+          },
+          "columns": [
+            "der Hund · groß",
+            "die Katze · klein",
+            "das Haus · alt"
+          ],
+          "rows": [
+            {
+              "label": "ein · eine · ein",
+              "cells": [
+                "großer",
+                {
+                  "accept": [
+                    "kleine"
+                  ]
+                },
+                {
+                  "accept": [
+                    "altes"
+                  ],
+                  "hint": {
+                    "en": "das: -es",
+                    "sl": "das: -es",
+                    "it": "das: -es"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "einen · eine · ein",
+              "cells": [
+                {
+                  "accept": [
+                    "großen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kleine"
+                  ]
+                },
+                {
+                  "accept": [
+                    "altes"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "einem · einer · einem",
+              "cells": [
+                {
+                  "accept": [
+                    "großen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kleinen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "alten"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ein großer, ein kleines; everywhere else as after der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "sl": "**ein großer, ein kleines; drugod kot za der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "it": "**ein großer, ein kleines; altrove come dopo der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "adjektiv-ein",
+          "instruction": {
+            "en": "Sortiere · Sort: which ending?",
+            "sl": "Sortiere · Razvrsti: katera končnica?",
+            "it": "Sortiere · Ordina: quale desinenza?"
+          },
+          "columns": [
+            {
+              "label": "-er",
+              "words": [
+                "ein … Mann",
+                "unser … Traktor"
+              ]
+            },
+            {
+              "label": "-es",
+              "words": [
+                "ein … Haus",
+                "mein … Glas"
+              ]
+            },
+            {
+              "label": "-en",
+              "words": [
+                "einen … Mann",
+                "keine … Hunde"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ein großer, ein kleines; everywhere else as after der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "sl": "**ein großer, ein kleines; drugod kot za der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "it": "**ein großer, ein kleines; altrove come dopo der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-ein-2",
+      "title": {
+        "de": "Auf dem Markt",
+        "en": "At the market",
+        "sl": "Na tržnici",
+        "it": "Al mercato"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adjektiv-ein",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Auf dem Markt in Villach",
+          "text": "Stanko hat einen ___ (klein) Stand auf dem Markt. Dort verkauft er seinen ___ (gut) Honig. Ein ___ (alt) Mann kauft ein ___ (groß) Glas. Eine ___ (jung) Frau sucht ein ___ (schön) Geschenk. Mein ___ (neu) Korb ist schon voll, und ich habe keine ___ (groß) Tasche.",
+          "gaps": [
+            {
+              "accept": [
+                "kleinen"
+              ],
+              "hint": "einen Stand"
+            },
+            {
+              "accept": [
+                "guten"
+              ],
+              "hint": "seinen Honig"
+            },
+            {
+              "accept": [
+                "alter"
+              ],
+              "hint": "ein Mann: der"
+            },
+            {
+              "accept": [
+                "großes"
+              ],
+              "hint": "ein Glas: das"
+            },
+            {
+              "accept": [
+                "junge"
+              ],
+              "hint": "eine Frau"
+            },
+            {
+              "accept": [
+                "schönes"
+              ],
+              "hint": "ein Geschenk: das"
+            },
+            {
+              "accept": [
+                "neuer"
+              ],
+              "hint": "mein Korb: der"
+            },
+            {
+              "accept": [
+                "große"
+              ],
+              "hint": "keine Tasche: die"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "kleines",
+            "guter",
+            "alten"
+          ],
+          "translation": {
+            "en": "Stanko has a small stall at the market. There he sells his good honey. An old man buys a big jar. A young woman is looking for a nice present. My new basket is already full, and I have no big bag.",
+            "sl": "Stanko ima na tržnici majhno stojnico. Tam prodaja svoj dobri med. Star moški kupi velik kozarec. Mlada ženska išče lepo darilo. Moja nova košara je že polna, velike torbe pa nimam.",
+            "it": "Stanko ha una piccola bancarella al mercato. Lì vende il suo miele buono. Un uomo anziano compra un vasetto grande. Una giovane donna cerca un bel regalo. Il mio cestino nuovo è già pieno, e non ho una borsa grande."
+          },
+          "explain": {
+            "en": "**ein großer, ein kleines; everywhere else as after der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "sl": "**ein großer, ein kleines; drugod kot za der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "it": "**ein großer, ein kleines; altrove come dopo der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-ein",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi hat ein ___ Häferl. (blau)",
+          "options": [
+            "blaues",
+            "blauer",
+            "blaue"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**das Häferl after ein: -es**\n- ein blaues Häferl. Das Häferl is Austria's mug.",
+            "sl": "**das Häferl za ein: -es**\n- ein blaues Häferl. Häferl je avstrijska skodelica.",
+            "it": "**das Häferl dopo ein: -es**\n- ein blaues Häferl. Das Häferl è la tazza austriaca."
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjektiv-ein-3",
+      "title": {
+        "de": "Was hat Stefan?",
+        "en": "What does Stefan have?",
+        "sl": "Kaj ima Stefan?",
+        "it": "Che cosa ha Stefan?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adjektiv-ein",
+          "instruction": {
+            "en": "Setze das Adjektiv ein · Put the adjective in",
+            "sl": "Setze das Adjektiv ein · Vstavi pridevnik",
+            "it": "Setze das Adjektiv ein · Inserisci l'aggettivo"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das ist ein Hund. (schwarz)",
+              "accept": [
+                "Das ist ein schwarzer Hund."
+              ]
+            },
+            {
+              "from": "Stefan hat ein Auto. (rot)",
+              "accept": [
+                "Stefan hat ein rotes Auto."
+              ]
+            },
+            {
+              "from": "Kathi spricht mit einer Frau. (alt)",
+              "accept": [
+                "Kathi spricht mit einer alten Frau."
+              ]
+            },
+            {
+              "from": "Wir haben keine Äpfel. (rot)",
+              "accept": [
+                "Wir haben keine roten Äpfel."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ein großer, ein kleines; everywhere else as after der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "sl": "**ein großer, ein kleines; drugod kot za der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+            "it": "**ein großer, ein kleines; altrove come dopo der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "adjektiv-ein",
+          "instruction": {
+            "en": "Von der zu ein · From der to ein",
+            "sl": "Von der zu ein · Od der k ein",
+            "it": "Von der zu ein · Da der a ein"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "der alte Traktor",
+              "accept": [
+                "ein alter Traktor"
+              ]
+            },
+            {
+              "from": "das kleine Haus",
+              "accept": [
+                "ein kleines Haus"
+              ]
+            },
+            {
+              "from": "die neue Jacke",
+              "accept": [
+                "eine neue Jacke"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**der → ein …-er; das → ein …-es; die and den as before**\n- ein alter Traktor · ein kleines Haus · eine neue Jacke",
+            "sl": "**der → ein …-er; das → ein …-es; die in den kot prej**\n- ein alter Traktor · ein kleines Haus · eine neue Jacke",
+            "it": "**der → ein …-er; das → ein …-es; die e den come prima**\n- ein alter Traktor · ein kleines Haus · eine neue Jacke"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adjektiv-ein",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Stefans neuer Traktor",
+        "text": "Stefan hat einen ___ (neu) Traktor. Es ist ein ___ (groß) Traktor mit einem ___ (stark) Motor. Sein ___ (alt) Traktor ist kaputt. Jetzt hat er ein ___ (klein) Problem: Er hat keine ___ (gut) Garage.",
+        "gaps": [
+          {
+            "accept": [
+              "neuen"
+            ],
+            "hint": "einen Traktor"
+          },
+          {
+            "accept": [
+              "großer"
+            ],
+            "hint": "ein Traktor: der"
+          },
+          {
+            "accept": [
+              "starken"
+            ],
+            "hint": "einem Motor"
+          },
+          {
+            "accept": [
+              "alter"
+            ],
+            "hint": "sein Traktor: der"
+          },
+          {
+            "accept": [
+              "kleines"
+            ],
+            "hint": "ein Problem: das"
+          },
+          {
+            "accept": [
+              "gute"
+            ],
+            "hint": "keine Garage: die"
+          }
+        ],
+        "translation": {
+          "en": "Stefan has a new tractor. It's a big tractor with a strong engine. His old tractor is broken. Now he has a small problem: he has no good garage.",
+          "sl": "Stefan ima nov traktor. To je velik traktor z močnim motorjem. Njegov stari traktor je pokvarjen. Zdaj ima majhno težavo: nima dobre garaže.",
+          "it": "Stefan ha un trattore nuovo. È un trattore grande con un motore potente. Il suo vecchio trattore è rotto. Ora ha un piccolo problema: non ha un buon garage."
+        },
+        "explain": {
+          "en": "**ein großer, ein kleines; everywhere else as after der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+          "sl": "**ein großer, ein kleines; drugod kot za der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+          "it": "**ein großer, ein kleines; altrove come dopo der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adjektiv-ein",
+        "instruction": {
+          "en": "Setze das Adjektiv ein · Put the adjective in",
+          "sl": "Setze das Adjektiv ein · Vstavi pridevnik",
+          "it": "Setze das Adjektiv ein · Inserisci l'aggettivo"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Das ist mein Freund. (gut)",
+            "accept": [
+              "Das ist mein guter Freund."
+            ]
+          },
+          {
+            "from": "Franz hat ein Pferd. (stark)",
+            "accept": [
+              "Franz hat ein starkes Pferd."
+            ]
+          },
+          {
+            "from": "Kathi kommt mit ihrem Sohn. (lustig)",
+            "accept": [
+              "Kathi kommt mit ihrem lustigen Sohn."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**ein großer, ein kleines; everywhere else as after der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+          "sl": "**ein großer, ein kleines; drugod kot za der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde",
+          "it": "**ein großer, ein kleines; altrove come dopo der**\n- ein großer Hund · einen großen Hund · einer kleinen Katze · keine großen Hunde"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-ein",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Toni braucht einen ___ Hammer. (schwer)",
+        "options": [
+          "schweren",
+          "schwerer",
+          "schweres"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**einen has its ending: -en**\n- einen schweren Hammer",
+          "sl": "**einen ima svojo končnico: -en**\n- einen schweren Hammer",
+          "it": "**einen ha la sua desinenza: -en**\n- einen schweren Hammer"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-ein",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das ist ein ___ Gasthaus. (schön)",
+        "options": [
+          "schönes",
+          "schöner",
+          "schöne"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**das after ein: -es**\n- ein schönes Gasthaus",
+          "sl": "**das za ein: -es**\n- ein schönes Gasthaus",
+          "it": "**das dopo ein: -es**\n- ein schönes Gasthaus"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-ein",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Florian spricht mit seinen ___ Schafen. (weiß)",
+        "options": [
+          "weißen",
+          "weiße",
+          "weißer"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A plural after sein: -en**\n- seine weißen Schafe · seinen weißen Schafen",
+          "sl": "**Množina za sein: -en**\n- seine weißen Schafe · seinen weißen Schafen",
+          "it": "**Un plurale dopo sein: -en**\n- seine weißen Schafe · seinen weißen Schafen"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: ein großer, ein kleines; kein, mein; das Häferl; the Slovene velik pes against veliki pes"
+}

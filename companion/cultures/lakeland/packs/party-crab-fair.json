@@ -1,0 +1,36 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "party-crab-fair",
+  "language": "en",
+  "title": {
+    "en": "The crab fair",
+    "sl": "Sejem lesnik",
+    "it": "La fiera delle mele selvatiche",
+    "de": "Der Holzapfelmarkt"
+  },
+  "emoji": "🍎",
+  "level": "A2",
+  "description": {
+    "en": "The village becomes a market town: a fair like Egremont's with Brewer Sam, apples thrown from the cart, a greasy pole to climb, and the ugliest face through a horse collar wins.",
+    "sl": "Vas postane trg: sejem, kot je tisti v Egremontu, s pivovarjem Samom, jabolka, ki letijo z voza, namazan drog za plezanje, zmaga pa najgrša grimasa skozi komat.",
+    "it": "Il paese diventa un borgo con mercato: una fiera come quella di Egremont con il birraio Sam, mele lanciate dal carro, un albero della cuccagna e vince la faccia più brutta dentro un collare da cavallo.",
+    "de": "Aus dem Dorf wird ein Marktflecken: ein Jahrmarkt wie der in Egremont mit Brauer Sam, Äpfel, die vom Wagen fliegen, ein Kletterbaum, und das hässlichste Gesicht durch ein Kummet gewinnt."
+  },
+  "giver": {
+    "name": "Brewer Sam",
+    "emoji": "🍺"
+  },
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker; sources in docs/plans/05-built/parties-lakeland.md",
+  "words": [
+    {"id": "fair", "en": "fair", "sl": "sejem", "it": "fiera", "de": "Jahrmarkt", "emoji": "🎪", "plural": "fairs", "example_en": "A market town can hold a fair.", "example_sl": "Trg lahko priredi sejem.", "example_it": "Un borgo con mercato può tenere una fiera.", "example_de": "Ein Marktflecken darf einen Jahrmarkt abhalten.", "note": "Two different words: a fair (a market with fun) and fair (just, or light-haired).", "note_sl": "Dve različni besedi: a fair (sejem) in fair (pošten ali svetlolas).", "note_it": "Due parole diverse: a fair (una fiera) e fair (giusto, o biondo).", "note_de": "Zwei verschiedene Wörter: a fair (ein Jahrmarkt) und fair (gerecht, oder blond)."},
+    {"id": "crab-apple", "en": "crab apple", "sl": "lesnika", "it": "mela selvatica", "de": "Holzapfel", "emoji": "🍏", "plural": "crab apples", "example_en": "A crab apple is small and very sour.", "example_sl": "Lesnika je majhna in zelo kisla.", "example_it": "La mela selvatica è piccola e molto aspra.", "example_de": "Ein Holzapfel ist klein und sehr sauer.", "note": "Nothing to do with the sea: the crab fair is named after these apples.", "note_sl": "Z morjem nima nič: sejem je dobil ime po teh jabolkih.", "note_it": "Niente a che fare con il mare (crab è anche il granchio): la fiera prende il nome da queste mele.", "note_de": "Nichts mit dem Meer zu tun (crab heißt auch Krabbe): Der Markt ist nach diesen Äpfeln benannt."},
+    {"id": "apple", "en": "apple", "sl": "jabolko", "it": "mela", "de": "Apfel", "emoji": "🍎", "plural": "apples", "example_en": "Catch an apple from the cart!", "example_sl": "Ujemi jabolko z voza!", "example_it": "Prendi una mela dal carro!", "example_de": "Fang einen Apfel vom Wagen!"},
+    {"id": "cart", "en": "cart", "sl": "voz", "it": "carro", "de": "Wagen", "emoji": "🛞", "plural": "carts", "example_en": "The cart goes along the main street.", "example_sl": "Voz pelje po glavni ulici.", "example_it": "Il carro passa per la strada principale.", "example_de": "Der Wagen fährt die Hauptstraße entlang."},
+    {"id": "throw", "en": "to throw", "sl": "vreči, metati", "it": "lanciare, gettare", "de": "werfen", "emoji": "🥏", "example_en": "They throw apples to the crowd.", "example_sl": "Množici mečejo jabolka.", "example_it": "Lanciano mele alla folla.", "example_de": "Sie werfen der Menge Äpfel zu.", "note": "Irregular: throw, threw, thrown.", "note_sl": "Nepravilni glagol: throw, threw, thrown.", "note_it": "Irregolare: throw, threw, thrown.", "note_de": "Unregelmäßig: throw, threw, thrown."},
+    {"id": "catch", "en": "to catch", "sl": "ujeti", "it": "prendere", "de": "fangen", "emoji": "🧤", "example_en": "Did you catch one?", "example_sl": "Si {m:ujel|f:ujela} kakšno?", "example_it": "Ne hai presa una?", "example_de": "Hast du einen gefangen?", "note": "Irregular: catch, caught, caught.", "note_sl": "Nepravilni glagol: catch, caught, caught.", "note_it": "Irregolare: catch, caught, caught.", "note_de": "Unregelmäßig: catch, caught, caught."},
+    {"id": "face", "en": "face", "sl": "obraz", "it": "viso", "de": "Gesicht", "emoji": "😝", "plural": "faces", "example_en": "Make a funny face!", "example_sl": "Naredi smešen obraz!", "example_it": "Fai una faccia buffa!", "example_de": "Mach ein lustiges Gesicht!", "note": "To pull a face: to make a funny or ugly face on purpose.", "note_sl": "To pull a face: nalašč narediti smešen ali grd obraz.", "note_it": "To pull a face: fare apposta una faccia buffa o brutta.", "note_de": "To pull a face: absichtlich ein lustiges oder hässliches Gesicht machen."},
+    {"id": "gurn", "en": "to gurn", "sl": "spakovati se", "it": "fare le boccacce", "de": "Grimassen schneiden", "emoji": "🤪", "example_en": "At the fair you can gurn through a horse collar.", "example_sl": "Na sejmu se lahko spakuješ skozi komat.", "example_it": "Alla fiera puoi fare le boccacce dentro un collare da cavallo.", "example_de": "Auf dem Jahrmarkt kannst du durch ein Kummet Grimassen schneiden.", "note": "A northern word: gurning is pulling the ugliest face you can.", "note_sl": "Severnjaška beseda: gurning pomeni narediti najgršo možno grimaso.", "note_it": "Una parola del nord: gurning è fare la faccia più brutta possibile.", "note_de": "Ein Wort aus dem Norden: Gurning heißt, das hässlichste Gesicht zu machen, das man kann."},
+    {"id": "horse-collar", "en": "horse collar", "sl": "komat", "it": "collare da cavallo", "de": "Kummet", "emoji": "🐴", "plural": "horse collars", "example_en": "Put your head through the horse collar.", "example_sl": "Pomoli glavo skozi komat.", "example_it": "Infila la testa nel collare da cavallo.", "example_de": "Steck den Kopf durch das Kummet.", "note": "At Egremont they call it a braffin.", "note_sl": "V Egremontu mu rečejo braffin.", "note_it": "A Egremont lo chiamano braffin.", "note_de": "In Egremont nennt man es braffin."},
+    {"id": "greasy-pole", "en": "greasy pole", "sl": "namazan drog", "it": "albero della cuccagna", "de": "Kletterbaum", "emoji": "🧗", "plural": "greasy poles", "example_en": "Nobody gets to the top of the greasy pole.", "example_sl": "Na vrh namazanega droga ne pride nihče.", "example_it": "Nessuno arriva in cima all'albero della cuccagna.", "example_de": "Niemand kommt bis oben auf den Kletterbaum."}
+  ]
+}

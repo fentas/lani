@@ -1,0 +1,925 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "war-hatte",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🕰️",
+  "title": {
+    "de": "Ich war, ich hatte, ich konnte",
+    "en": "The short past: war, hatte, konnte",
+    "sl": "Kratki preteklik: war, hatte, konnte",
+    "it": "Il passato breve: war, hatte, konnte"
+  },
+  "goal": {
+    "en": "You can say where you were and what you had, could, had to and wanted to do (ich war, ich hatte, ich konnte, ich musste, ich wollte) and what there was (es gab), as people say it even when the rest is in the Perfekt.",
+    "sl": "Poveš, kje si bil in kaj si imel, mogel, moral in hotel (ich war, ich hatte, ich konnte, ich musste, ich wollte) ter kaj je bilo (es gab), kot se govori, tudi ko je drugo v Perfektu.",
+    "it": "Sai dire dov'eri e che cosa avevi, potevi, dovevi e volevi fare (ich war, ich hatte, ich konnte, ich musste, ich wollte) e che cosa c'era (es gab), come si dice anche quando il resto è al Perfekt."
+  },
+  "grammar": [
+    "praeteritum-kurz",
+    "sein-haben",
+    "modalverben"
+  ],
+  "words": [
+    "sein",
+    "haben",
+    "können",
+    "müssen",
+    "dürfen",
+    "wollen",
+    "sollen",
+    "mögen",
+    "es gibt",
+    "gestern",
+    "früher",
+    "das Auto",
+    "die Schuhe",
+    "ein Paar",
+    "zu Fuß",
+    "die Schule",
+    "der Winter",
+    "das Fest",
+    "der Kirchtag",
+    "die Kasnudeln",
+    "der Reindling",
+    "tanzen",
+    "singen",
+    "das Lied",
+    "der Kuchen",
+    "der Hunger",
+    "die Arbeit",
+    "die Zeit",
+    "gewesen",
+    "könnte",
+    "bis",
+    "dort",
+    "die Mitternacht",
+    "anders",
+    "alles"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        "ich · er · sie · es",
+        "du",
+        "wir · sie · Sie"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**sein** has a short past (*Präteritum*) that everyone uses: **ich war** (I was), **du warst** (you were), **er war** (he was), **wir waren** (we were), **ihr wart** (you all were), **sie waren** (they were). ich and er are the same. **Gestern war Stefan in Villach.** (Yesterday Stefan was in Villach.) The Perfekt you know is just as right, and common in Austria: **Stefan ist in Villach gewesen.**",
+          "sl": "**sein** ima kratki preteklik (*Präteritum*), ki ga rabijo vsi: **ich war** (bil sem), **du warst** (bil si), **er war** (bil je), **wir waren** (bili smo), **ihr wart** (bili ste), **sie waren** (bili so). ich in er sta enaka. **Gestern war Stefan in Villach.** (Včeraj je bil Stefan v Beljaku.) Perfekt, ki ga poznaš, je enako prav in v Avstriji pogost: **Stefan ist in Villach gewesen.**",
+          "it": "**sein** ha un passato breve (*Präteritum*) che usano tutti: **ich war** (ero), **du warst** (eri), **er war** (era), **wir waren** (eravamo), **ihr wart** (eravate), **sie waren** (erano). ich ed er sono uguali. **Gestern war Stefan in Villach.** (Ieri Stefan era a Villach.) Il Perfekt che conosci va bene lo stesso ed è comune in Austria: **Stefan ist in Villach gewesen.**"
+        },
+        "examples": [
+          {
+            "de": "Gestern war Stefan in Villach.",
+            "en": "Yesterday Stefan was in Villach.",
+            "sl": "Včeraj je bil Stefan v Beljaku.",
+            "it": "Ieri Stefan era a Villach."
+          },
+          {
+            "de": "Stefan ist in Villach gewesen.",
+            "en": "Stefan was in Villach.",
+            "sl": "Stefan je bil v Beljaku.",
+            "it": "Stefan è stato a Villach."
+          },
+          {
+            "de": "Wo wart ihr am Sonntag?",
+            "en": "Where were you all on Sunday?",
+            "sl": "Kje ste bili v nedeljo?",
+            "it": "Dove eravate domenica?"
+          }
+        ],
+        "rows": [
+          [
+            "sein",
+            "war",
+            "warst",
+            "waren"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praeteritum-kurz",
+          "text": "Wir ___ gestern auf der Alm. (sein)",
+          "accept": [
+            "waren"
+          ],
+          "hint": "wir → ?",
+          "explain": {
+            "en": "**wir waren**\n- Wir waren gestern auf der Alm",
+            "sl": "**wir waren**\n- Wir waren gestern auf der Alm",
+            "it": "**wir waren**\n- Wir waren gestern auf der Alm"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**haben**: **ich hatte** (I had), **du hattest** (you had), **er hatte** (he had), **wir hatten** (we had), **ihr hattet** (you all had), **sie hatten** (they had). Two t's in every form. **Kathi hatte am Montag keine Zeit.** (Kathi had no time on Monday.) With the umlaut, **ich hätte** (I would have) is another word, known from **Ich hätte gern einen Kaffee.** (I'd like a coffee.)",
+          "sl": "**haben**: **ich hatte** (imel sem), **du hattest** (imel si), **er hatte** (imel je), **wir hatten** (imeli smo), **ihr hattet** (imeli ste), **sie hatten** (imeli so). V vsaki obliki dva t. **Kathi hatte am Montag keine Zeit.** (Kathi v ponedeljek ni imela časa.) S preglasom je **ich hätte** (imel bi) druga beseda, znana iz **Ich hätte gern einen Kaffee.** (Rad bi kavo.)",
+          "it": "**haben**: **ich hatte** (avevo), **du hattest** (avevi), **er hatte** (aveva), **wir hatten** (avevamo), **ihr hattet** (avevate), **sie hatten** (avevano). Due t in ogni forma. **Kathi hatte am Montag keine Zeit.** (Lunedì Kathi non aveva tempo.) Con l'umlaut, **ich hätte** (avrei) è un'altra parola, già vista in **Ich hätte gern einen Kaffee.** (Vorrei un caffè.)"
+        },
+        "examples": [
+          {
+            "de": "Kathi hatte am Montag keine Zeit.",
+            "en": "Kathi had no time on Monday.",
+            "sl": "Kathi v ponedeljek ni imela časa.",
+            "it": "Lunedì Kathi non aveva tempo."
+          },
+          {
+            "de": "Hattet ihr Hunger?",
+            "en": "Were you all hungry?",
+            "sl": "Ste bili lačni?",
+            "it": "Avevate fame?"
+          },
+          {
+            "de": "Ich hätte gern einen Kaffee.",
+            "en": "I'd like a coffee.",
+            "sl": "Rad bi kavo.",
+            "it": "Vorrei un caffè."
+          }
+        ],
+        "rows": [
+          [
+            "haben",
+            "hatte",
+            "hattest",
+            "hatten"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praeteritum-kurz",
+          "prompt": "Toni ___ gestern viel Arbeit.",
+          "options": [
+            "hatte",
+            "hattet",
+            "hatten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**er hatte: like ich hatte**\n- Toni hatte viel Arbeit",
+            "sl": "**er hatte: kot ich hatte**\n- Toni hatte viel Arbeit",
+            "it": "**er hatte: come ich hatte**\n- Toni hatte viel Arbeit"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The modal verbs take **-te** and lose their umlaut: **können → konnte** (could), **müssen → musste** (had to), **dürfen → durfte** (was allowed to), **wollen → wollte** (wanted), **sollen → sollte** (was supposed to), **mögen → mochte** (liked). Their endings are those of hatte: **ich konnte, du konntest, er konnte, wir konnten, ihr konntet, sie konnten**.",
+          "sl": "Modalni glagoli dobijo **-te** in izgubijo preglas: **können → konnte** (mogel), **müssen → musste** (moral), **dürfen → durfte** (smel), **wollen → wollte** (hotel), **sollen → sollte** (naj bi), **mögen → mochte** (imel rad). Končnice imajo kot hatte: **ich konnte, du konntest, er konnte, wir konnten, ihr konntet, sie konnten**.",
+          "it": "I verbi modali prendono **-te** e perdono l'umlaut: **können → konnte** (potevo), **müssen → musste** (dovevo), **dürfen → durfte** (avevo il permesso), **wollen → wollte** (volevo), **sollen → sollte** (dovevo, me l'avevano chiesto), **mögen → mochte** (mi piaceva). Le desinenze sono quelle di hatte: **ich konnte, du konntest, er konnte, wir konnten, ihr konntet, sie konnten**."
+        },
+        "examples": [
+          {
+            "de": "Stefan konnte gestern nicht kommen.",
+            "en": "Stefan couldn't come yesterday.",
+            "sl": "Stefan včeraj ni mogel priti.",
+            "it": "Ieri Stefan non è potuto venire."
+          },
+          {
+            "de": "Toni wollte nach Klagenfurt fahren.",
+            "en": "Toni wanted to go to Klagenfurt.",
+            "sl": "Toni je hotel v Celovec.",
+            "it": "Toni voleva andare a Klagenfurt."
+          },
+          {
+            "de": "Konntet ihr das Lied singen?",
+            "en": "Were you all able to sing the song?",
+            "sl": "Ste znali zapeti pesem?",
+            "it": "Sapevate cantare la canzone?"
+          }
+        ],
+        "rows": [
+          [
+            "können",
+            "konnte",
+            "konntest",
+            "konnten"
+          ],
+          [
+            "müssen",
+            "musste",
+            "musstest",
+            "mussten"
+          ],
+          [
+            "dürfen",
+            "durfte",
+            "durftest",
+            "durften"
+          ],
+          [
+            "wollen",
+            "wollte",
+            "wolltest",
+            "wollten"
+          ],
+          [
+            "sollen",
+            "sollte",
+            "solltest",
+            "sollten"
+          ],
+          [
+            "mögen",
+            "mochte",
+            "mochtest",
+            "mochten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praeteritum-kurz",
+          "text": "Oma Resi ___ am Sonntag nicht kochen. (dürfen)",
+          "accept": [
+            "durfte"
+          ],
+          "hint": {
+            "en": "dürfen, in the past",
+            "sl": "dürfen, v pretekliku",
+            "it": "dürfen, al passato"
+          },
+          "explain": {
+            "en": "**The past of a modal has no umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte is would",
+            "sl": "**Preteklik modalnega glagola nima preglasa**\n- konnte, musste, durfte · könnte, müsste, dürfte pomeni bi",
+            "it": "**Il passato di un modale non ha l'umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte è il condizionale"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The other verb still goes to the very end: **Ich musste gestern lange arbeiten.** (I had to work late yesterday.) With the umlaut it is another word: **konnte** (was able to), **könnte** (could, might be able to). So **Ich konnte gestern nicht kommen.** (never *Ich könnte gestern nicht kommen*)",
+          "sl": "Drugi glagol gre še vedno čisto na konec: **Ich musste gestern lange arbeiten.** (Včeraj sem moral dolgo delati.) S preglasom je to druga beseda: **konnte** (je mogel), **könnte** (bi lahko). Torej **Ich konnte gestern nicht kommen.** (Včeraj nisem mogel priti.)",
+          "it": "L'altro verbo va sempre proprio alla fine: **Ich musste gestern lange arbeiten.** (Ieri ho dovuto lavorare fino a tardi.) Con l'umlaut è un'altra parola: **konnte** (ha potuto), **könnte** (potrebbe). Quindi **Ich konnte gestern nicht kommen.** (Ieri non sono potuto venire.)"
+        },
+        "examples": [
+          {
+            "de": "Ich musste gestern lange arbeiten.",
+            "en": "I had to work late yesterday.",
+            "sl": "Včeraj sem moral dolgo delati.",
+            "it": "Ieri ho dovuto lavorare fino a tardi."
+          },
+          {
+            "de": "Ich konnte gestern nicht kommen.",
+            "en": "I couldn't come yesterday.",
+            "sl": "Včeraj nisem mogel priti.",
+            "it": "Ieri non sono potuto venire."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praeteritum-kurz",
+          "prompt": "Florian ___ gestern auf der Alm bleiben.",
+          "options": [
+            "musste",
+            "müsste",
+            "musst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The past of a modal has no umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte is would",
+            "sl": "**Preteklik modalnega glagola nima preglasa**\n- konnte, musste, durfte · könnte, müsste, dürfte pomeni bi",
+            "it": "**Il passato di un modale non ha l'umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte è il condizionale"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**es gibt** (there is) becomes **es gab** (there was, there were), with the accusative and always in the singular: **Es gab einen Kuchen.** (There was a cake.) **Beim Kirchtag gab es Kasnudeln und Reindling.** (never *Beim Kirchtag gaben es Kasnudeln und Reindling.*) So people talk: **war, hatte, konnte, es gab**, and the Perfekt for the rest: **Gestern war Kirchtag. Wir haben getanzt.** (Yesterday was Kirchtag. We danced.)",
+          "sl": "**es gibt** (je, so) postane **es gab** (bil je, bili so), s tožilnikom in vedno v ednini: **Es gab einen Kuchen.** (Bil je kolač.) **Beim Kirchtag gab es Kasnudeln und Reindling.** (Na žegnanju so bili Kasnudeln in reindling.) Tako se govori: **war, hatte, konnte, es gab**, za drugo pa Perfekt: **Gestern war Kirchtag. Wir haben getanzt.** (Včeraj je bilo žegnanje. Plesali smo.)",
+          "it": "**es gibt** (c'è, ci sono) diventa **es gab** (c'era, c'erano), con l'accusativo e sempre al singolare: **Es gab einen Kuchen.** (C'era una torta.) **Beim Kirchtag gab es Kasnudeln und Reindling.** (Alla sagra c'erano i Kasnudeln e il Reindling.) Così si parla: **war, hatte, konnte, es gab**, e per il resto il Perfekt: **Gestern war Kirchtag. Wir haben getanzt.** (Ieri c'era la sagra. Abbiamo ballato.)"
+        },
+        "examples": [
+          {
+            "de": "Es gab einen Kuchen.",
+            "en": "There was a cake.",
+            "sl": "Bil je kolač.",
+            "it": "C'era una torta."
+          },
+          {
+            "de": "Beim Kirchtag gab es Kasnudeln und Reindling.",
+            "en": "At the Kirchtag there were Kasnudeln and Reindling.",
+            "sl": "Na žegnanju so bili Kasnudeln in reindling.",
+            "it": "Alla sagra c'erano i Kasnudeln e il Reindling."
+          },
+          {
+            "de": "Gestern war Kirchtag. Wir haben getanzt.",
+            "en": "Yesterday was Kirchtag. We danced.",
+            "sl": "Včeraj je bilo žegnanje. Plesali smo.",
+            "it": "Ieri c'era la sagra. Abbiamo ballato."
+          }
+        ],
+        "rows": [
+          [
+            "es gibt",
+            "es gab",
+            "–",
+            "–"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praeteritum-kurz",
+          "prompt": "Beim Fest ___ viele Kuchen.",
+          "options": [
+            "gab es",
+            "gaben es",
+            "gab sie"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**es gab: always the singular**\n- Es gab viele Kuchen · Beim Fest gab es viele Kuchen",
+            "sl": "**es gab: vedno ednina**\n- Es gab viele Kuchen · Beim Fest gab es viele Kuchen",
+            "it": "**es gab: sempre singolare**\n- Es gab viele Kuchen · Beim Fest gab es viele Kuchen"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "war-hatte-1",
+      "title": {
+        "de": "War, hatte, konnte",
+        "en": "The forms: war, hatte, konnte",
+        "sl": "Oblike: war, hatte, konnte",
+        "it": "Le forme: war, hatte, konnte"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "praeteritum-kurz",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Präteritum · the short past",
+            "sl": "Präteritum · kratki preteklik",
+            "it": "Präteritum · il passato breve"
+          },
+          "columns": [
+            "sein",
+            "haben",
+            "können"
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "war",
+                "hatte",
+                "konnte"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "warst"
+                  ]
+                },
+                {
+                  "accept": [
+                    "hattest"
+                  ]
+                },
+                {
+                  "accept": [
+                    "konntest"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                {
+                  "accept": [
+                    "war"
+                  ]
+                },
+                "hatte",
+                {
+                  "accept": [
+                    "konnte"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "waren"
+                  ]
+                },
+                {
+                  "accept": [
+                    "hatten"
+                  ]
+                },
+                "konnten"
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "wart"
+                  ],
+                  "hint": {
+                    "en": "no e",
+                    "sl": "brez e",
+                    "it": "senza e"
+                  }
+                },
+                {
+                  "accept": [
+                    "hattet"
+                  ]
+                },
+                {
+                  "accept": [
+                    "konntet"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                "waren",
+                {
+                  "accept": [
+                    "hatten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "konnten"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ich and er are the same; du -st, wir and sie -en, ihr -t**\n- ich hatte, er hatte · du hattest · ihr hattet",
+            "sl": "**ich in er sta enaka; du -st, wir in sie -en, ihr -t**\n- ich hatte, er hatte · du hattest · ihr hattet",
+            "it": "**ich ed er sono uguali; du -st, wir e sie -en, ihr -t**\n- ich hatte, er hatte · du hattest · ihr hattet"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "praeteritum-kurz",
+          "instruction": {
+            "en": "Ordne zu · Now, or in the past?",
+            "sl": "Ordne zu · Zdaj ali v preteklosti?",
+            "it": "Ordne zu · Ora o nel passato?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Präsens · now",
+                "sl": "Präsens · zdaj",
+                "it": "Präsens · ora"
+              },
+              "words": [
+                "muss",
+                "darf",
+                "will",
+                "gibt"
+              ]
+            },
+            {
+              "label": {
+                "en": "Präteritum · in the past",
+                "sl": "Präteritum · v preteklosti",
+                "it": "Präteritum · nel passato"
+              },
+              "words": [
+                "musste",
+                "durfte",
+                "wollte",
+                "gab"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-te for the modals, and es gibt → es gab**\n- muss → musste · darf → durfte",
+            "sl": "**-te pri modalnih glagolih in es gibt → es gab**\n- muss → musste · darf → durfte",
+            "it": "**-te per i modali, e es gibt → es gab**\n- muss → musste · darf → durfte"
+          }
+        }
+      ]
+    },
+    {
+      "id": "war-hatte-2",
+      "title": {
+        "de": "Der Kirchtag in Arnoldstein",
+        "en": "The Kirchtag in Arnoldstein",
+        "sl": "Žegnanje v Podkloštru",
+        "it": "La sagra di Arnoldstein"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "praeteritum-kurz",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der Kirchtag",
+          "text": "Am Sonntag ___ (sein) in Arnoldstein Kirchtag. Es ___ (geben) Kasnudeln und Reindling. Stefan ___ (haben) keine Zeit, er ___ (müssen) Most bringen. Kathi ___ (wollen) tanzen, aber sie ___ (können) nicht, sie hatte Rückenschmerzen. Maxi ___ (dürfen) bis zehn bleiben. Wir ___ (sein) bis Mitternacht dort.",
+          "gaps": [
+            {
+              "accept": [
+                "war"
+              ]
+            },
+            {
+              "accept": [
+                "gab"
+              ]
+            },
+            {
+              "accept": [
+                "hatte"
+              ]
+            },
+            {
+              "accept": [
+                "musste"
+              ]
+            },
+            {
+              "accept": [
+                "wollte"
+              ]
+            },
+            {
+              "accept": [
+                "konnte"
+              ]
+            },
+            {
+              "accept": [
+                "durfte"
+              ]
+            },
+            {
+              "accept": [
+                "waren"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "müsste",
+            "könnte",
+            "gaben"
+          ],
+          "translation": {
+            "en": "On Sunday it was Kirchtag in Arnoldstein. There were Kasnudeln and Reindling. Stefan had no time, he had to bring cider. Kathi wanted to dance, but she couldn't, she had a bad back. Maxi was allowed to stay until ten. We were there until midnight.",
+            "sl": "V nedeljo je bilo v Podkloštru žegnanje. Bili so Kasnudeln in reindling. Stefan ni imel časa, moral je prinesti mošt. Kathi je hotela plesati, pa ni mogla, bolel jo je hrbet. Maxi je smel ostati do desetih. Tam smo bili do polnoči.",
+            "it": "Domenica ad Arnoldstein c'era la sagra. C'erano i Kasnudeln e il Reindling. Stefan non aveva tempo, doveva portare il sidro. Kathi voleva ballare, ma non poteva, aveva mal di schiena. Maxi ha potuto restare fino alle dieci. Siamo rimasti lì fino a mezzanotte."
+          },
+          "explain": {
+            "en": "**war, hatte and the modals' past, the other verb at the end**\n- Stefan war in Villach · Kathi konnte nicht kommen",
+            "sl": "**war, hatte in preteklik modalnih glagolov, drugi glagol na koncu**\n- Stefan war in Villach · Kathi konnte nicht kommen",
+            "it": "**war, hatte e il passato dei modali, l'altro verbo alla fine**\n- Stefan war in Villach · Kathi konnte nicht kommen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praeteritum-kurz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wo ___ du gestern?",
+          "options": [
+            "warst",
+            "wart",
+            "war"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**du warst**\n- Wo warst du gestern? · Wo wart ihr?",
+            "sl": "**du warst**\n- Wo warst du gestern? · Wo wart ihr?",
+            "it": "**du warst**\n- Wo warst du gestern? · Wo wart ihr?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praeteritum-kurz",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Ich ___ gestern nicht kommen, ich hatte keine Zeit.",
+          "options": [
+            "konnte",
+            "könnte",
+            "kannte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The past of a modal has no umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte is would",
+            "sl": "**Preteklik modalnega glagola nima preglasa**\n- konnte, musste, durfte · könnte, müsste, dürfte pomeni bi",
+            "it": "**Il passato di un modale non ha l'umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte è il condizionale"
+          }
+        }
+      ]
+    },
+    {
+      "id": "war-hatte-3",
+      "title": {
+        "de": "Gestern",
+        "en": "Yesterday",
+        "sl": "Včeraj",
+        "it": "Ieri"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "praeteritum-kurz",
+          "instruction": {
+            "en": "Sag es im Präteritum · Say it in the short past",
+            "sl": "Sag es im Präteritum · Povej v kratkem pretekliku",
+            "it": "Sag es im Präteritum · Dillo al passato breve"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Stefan ist in Villach.",
+              "accept": [
+                "Stefan war in Villach.",
+                "In Villach war Stefan."
+              ]
+            },
+            {
+              "from": "Ich habe keine Zeit.",
+              "accept": [
+                "Ich hatte keine Zeit."
+              ]
+            },
+            {
+              "from": "Wir müssen lange warten.",
+              "accept": [
+                "Wir mussten lange warten."
+              ]
+            },
+            {
+              "from": "Du kannst nicht kommen.",
+              "accept": [
+                "Du konntest nicht kommen."
+              ]
+            },
+            {
+              "from": "Darfst du mitkommen?",
+              "accept": [
+                "Durftest du mitkommen?"
+              ]
+            },
+            {
+              "from": "Es gibt keinen Kaffee.",
+              "accept": [
+                "Es gab keinen Kaffee."
+              ],
+              "hint": {
+                "en": "always the singular",
+                "sl": "vedno ednina",
+                "it": "sempre singolare"
+              }
+            },
+            {
+              "from": "Ihr seid auf der Alm.",
+              "accept": [
+                "Ihr wart auf der Alm."
+              ]
+            },
+            {
+              "from": "Toni will nach Klagenfurt fahren.",
+              "accept": [
+                "Toni wollte nach Klagenfurt fahren.",
+                "Nach Klagenfurt wollte Toni fahren."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**war, hatte and the modals' past, the other verb at the end**\n- Stefan war in Villach · Kathi konnte nicht kommen",
+            "sl": "**war, hatte in preteklik modalnih glagolov, drugi glagol na koncu**\n- Stefan war in Villach · Kathi konnte nicht kommen",
+            "it": "**war, hatte e il passato dei modali, l'altro verbo alla fine**\n- Stefan war in Villach · Kathi konnte nicht kommen"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "praeteritum-kurz",
+          "instruction": {
+            "en": "Vom Perfekt ins Präteritum · From the Perfekt to the short past",
+            "sl": "Vom Perfekt ins Präteritum · Iz Perfekta v kratki preteklik",
+            "it": "Vom Perfekt ins Präteritum · Dal Perfekt al passato breve"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich bin in Villach gewesen.",
+              "accept": [
+                "Ich war in Villach."
+              ]
+            },
+            {
+              "from": "Wir haben keine Zeit gehabt.",
+              "accept": [
+                "Wir hatten keine Zeit."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ich bin gewesen · ich war: both right; here the short one is asked for**",
+            "sl": "**ich bin gewesen · ich war: oboje prav; tu je vprašano po kratkem**",
+            "it": "**ich bin gewesen · ich war: tutti e due giusti; qui si chiede quello breve**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "praeteritum-kurz",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Früher ___ (sein) im Dorf alles anders. Es ___ (geben) keine Autos. Die Kinder ___ (müssen) zu Fuß in die Schule gehen. Opa Sepp ___ (haben) nur ein Paar Schuhe. Im Winter ___ (können) er nicht auf die Alm gehen.",
+        "gaps": [
+          {
+            "accept": [
+              "war"
+            ]
+          },
+          {
+            "accept": [
+              "gab"
+            ]
+          },
+          {
+            "accept": [
+              "mussten"
+            ]
+          },
+          {
+            "accept": [
+              "hatte"
+            ]
+          },
+          {
+            "accept": [
+              "konnte"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "In the old days everything was different in the village. There were no cars. The children had to walk to school. Grandpa Sepp had only one pair of shoes. In winter he couldn't go up to the alpine pasture.",
+          "sl": "Včasih je bilo v vasi vse drugače. Avtov ni bilo. Otroci so morali v šolo peš. Dedek Sepp je imel samo en par čevljev. Pozimi ni mogel na planino.",
+          "it": "Una volta in paese era tutto diverso. Non c'erano auto. I bambini dovevano andare a scuola a piedi. Nonno Sepp aveva solo un paio di scarpe. D'inverno non poteva salire all'alpeggio."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "praeteritum-kurz",
+        "instruction": {
+          "en": "Sag es im Präteritum · Say it in the short past",
+          "sl": "Sag es im Präteritum · Povej v kratkem pretekliku",
+          "it": "Sag es im Präteritum · Dillo al passato breve"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Kathi hat viel Arbeit.",
+            "accept": [
+              "Kathi hatte viel Arbeit."
+            ]
+          },
+          {
+            "from": "Wollt ihr tanzen?",
+            "accept": [
+              "Wolltet ihr tanzen?"
+            ]
+          },
+          {
+            "from": "Stanko soll Honig bringen.",
+            "accept": [
+              "Stanko sollte Honig bringen."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "praeteritum-kurz",
+        "instruction": {
+          "en": "Ordne zu · Now, or in the past?",
+          "sl": "Ordne zu · Zdaj ali v preteklosti?",
+          "it": "Ordne zu · Ora o nel passato?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Präsens · now",
+              "sl": "Präsens · zdaj",
+              "it": "Präsens · ora"
+            },
+            "words": [
+              "soll",
+              "kann"
+            ]
+          },
+          {
+            "label": {
+              "en": "Präteritum · in the past",
+              "sl": "Präteritum · v preteklosti",
+              "it": "Präteritum · nel passato"
+            },
+            "words": [
+              "sollte",
+              "konnte"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "praeteritum-kurz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Wir ___ am Sonntag in Villach.",
+        "options": [
+          "waren",
+          "wart",
+          "war"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**wir waren**\n- Wir waren in Villach",
+          "sl": "**wir waren**\n- Wir waren in Villach",
+          "it": "**wir waren**\n- Wir waren in Villach"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "praeteritum-kurz",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi ___ gestern nicht arbeiten, es war Ruhetag.",
+        "options": [
+          "musste",
+          "müsste",
+          "muss"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The past of a modal has no umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte is would",
+          "sl": "**Preteklik modalnega glagola nima preglasa**\n- konnte, musste, durfte · könnte, müsste, dürfte pomeni bi",
+          "it": "**Il passato di un modale non ha l'umlaut**\n- konnte, musste, durfte · könnte, müsste, dürfte è il condizionale"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: ich bin gewesen beside ich war (Austrian speech), Kirchtag in Arnoldstein, the Slovene aspect and gender"
+}
