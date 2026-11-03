@@ -118,9 +118,16 @@ data class PackInfo(
     val festival: String? = null,
     /** The village project whose words these are (game/Projects.kt's id), for a project's pack ("🏗️ projekt · project"). */
     val project: String? = null,
+    /**
+     * Of [learned], the words learned in this pack itself (their own cards; a word the learner has from another pack or a
+     * looked-up card counts in [learned] only). Null from a bridge before it said (then [learned] stands for it).
+     */
+    val own: Int? = null,
 ) {
     val left: Int get() = (total - learned).coerceAtLeast(0)
     val done: Boolean get() = total > 0 && learned >= total
+    /** Whether the learner started this pack: a word learned in it, not only one it shares with another ([own]). */
+    val started: Boolean get() = (own ?: learned) > 0
 }
 
 /** GET /packs/:id: the words, plus the ids Jan already has. */
@@ -288,11 +295,20 @@ object PackSession {
      * every tutor pack, stays where it was.
      */
     fun isLater(p: PackInfo, level: String): Boolean =
-        p.source != "tutor" && p.learned == 0 && p.festival == null && p.project == null && above(p.level, level) >= 2
+        p.source != "tutor" && !p.started && p.festival == null && p.project == null && above(p.level, level) >= 2
+
+    /**
+     * Whether [p] is under way for a learner at [level] (the suggestion's and the list's "in progress"): words learned, and
+     * for a pack above their level words learned in it ([PackInfo.started]): a B2 pack that shares a word with an A1 one
+     * (or holds a word looked up in a dialog) isn't under way for a learner at A1 or A2. At or below their level, any word
+     * learned counts, as it always did. Without a level, any word learned.
+     */
+    fun underWay(p: PackInfo, level: String?): Boolean =
+        p.learned > 0 && (level == null || above(p.level, level) == 0 || p.started)
 
     /**
      * The pack to suggest next: a tutor pack Jan hasn't opened, then the pack of the festival that's on or coming
-     * ([festival], a calendar id: learn its words early), then one in progress, then the first untouched one at the
+     * ([festival], a calendar id: learn its words early), then one in progress ([underWay]), then the first untouched one at the
      * learner's level, then the first unfinished one at or below it, then one above, the nearest level first (an A1
      * learner who has every A1 and A2 pack gets a B1 one, never a B2 one first). The other festivals' packs wait on the
      * packs screen.
@@ -302,7 +318,7 @@ object PackSession {
         val plain = open.filter { it.festival == null }
         return open.firstOrNull { it.source == "tutor" && isNew(it) }
             ?: festival?.let { f -> open.firstOrNull { it.festival == f } }
-            ?: plain.firstOrNull { it.learned > 0 }
+            ?: plain.firstOrNull { underWay(it, level) }
             ?: plain.firstOrNull { it.level == level }
             ?: plain.firstOrNull { above(it.level, level) == 0 }
             ?: plain.minByOrNull { above(it.level, level) }
@@ -318,7 +334,7 @@ object PackSession {
             when {
                 p.done -> 3
                 p.source == "tutor" && isNew(p) -> 0
-                p.learned > 0 -> 1
+                underWay(p, level) -> 1
                 else -> 2
             }
         }
