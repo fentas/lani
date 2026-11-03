@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "termin-in-der-ordination",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Ein Termin in der Ordination", "sl": "Termin v ordinaciji", "en": "An appointment at the surgery", "it": "Un appuntamento dal medico" },
+  "emoji": "📞",
+  "level": "B1",
+  "setting": {
+    "sl": "Že en teden kašljaš in imaš vročino. Pokličeš ordinacijo družinskega zdravnika dr. Wieserja (v Avstriji: die Ordination), da dobiš termin. Za službo potrebuješ tudi potrdilo o bolniški (der Krankenstand).",
+    "en": "You've had a cough and a temperature for a week. You phone Dr Wieser's practice (in Austria, the Ordination) for an appointment. You also need a sick note for work (for your Krankenstand).",
+    "it": "Da una settimana hai la tosse e la febbre. Telefoni all'ambulatorio del dottor Wieser, il medico di famiglia (in Austria la Ordination), per prendere un appuntamento. Ti serve anche il certificato di malattia per il lavoro (il Krankenstand)."
+  },
+  "role": "Frau Sadjak, the assistant at Dr. Wieser's practice (Ordinationsassistentin), on the phone. Busy but kind. The doctor is on holiday this week: she offers his stand-in, Dr. Pichler in the next village, first at a time {learner} can't make, then another. Asks for the symptoms and the e-card. Says Sie.",
+  "who": { "de": "Die Ordinationsassistentin", "sl": "Asistentka v ordinaciji", "en": "The doctor's receptionist", "it": "L'assistente dello studio medico" },
+  "voice": "female",
+  "speaker": "young-woman",
+  "place": "kitchen",
+  "goals": [
+    { "de": "Sag, was dir fehlt, und bitte um einen Termin", "sl": "Povej, kaj ti je, in prosi za termin", "en": "Say what's wrong and ask for an appointment", "it": "Di' che cos'hai e chiedi un appuntamento" },
+    { "de": "Erklär, warum der erste Termin nicht geht", "sl": "Pojasni, zakaj prvi termin ne gre", "en": "Explain why the first time doesn't work", "it": "Spiega perché il primo orario non va bene" },
+    { "de": "Schlag selbst einen anderen Termin vor", "sl": "{m:Sam|f:Sama} predlagaj drug termin", "en": "Suggest another time yourself", "it": "Proponi tu un altro orario" },
+    { "de": "Frag nach der Bestätigung für die Arbeit", "sl": "Vprašaj za potrdilo za službo", "en": "Ask about the sick note for work", "it": "Chiedi del certificato per il lavoro" },
+    { "de": "Wiederhol den Termin und verabschiede dich", "sl": "Ponovi termin in se poslovi", "en": "Repeat the appointment and say goodbye", "it": "Ripeti l'appuntamento e saluta" }
+  ],
+  "opener_sl": "Ordination Dr. Wieser, Sadjak, grüß Gott! Was kann ich für Sie tun?",
+  "opener_en": {
+    "sl": "Ordinacija dr. Wieserja, Sadjak, dober dan! Kako vam lahko pomagam?",
+    "en": "Dr Wieser's surgery, Sadjak speaking, good morning! What can I do for you?",
+    "it": "Studio del dottor Wieser, sono Sadjak, buongiorno! Che cosa posso fare per lei?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ich hätte gern einen Termin bei Dr. Wieser.", "en": { "sl": "{m:Rad|f:Rada} bi termin pri dr. Wieserju.", "en": "I'd like an appointment with Dr Wieser.", "it": "Vorrei un appuntamento con il dottor Wieser." } },
+    { "sl": "Ich huste seit einer Woche und habe Fieber.", "en": { "sl": "Že en teden kašljam in imam vročino.", "en": "I've been coughing for a week and I've got a temperature.", "it": "Tossisco da una settimana e ho la febbre." } },
+    { "sl": "Da kann ich leider nicht, da bin ich in der Arbeit.", "en": { "sl": "Takrat žal ne morem, ker sem v službi.", "en": "I'm afraid I can't then, I'm at work.", "it": "Purtroppo a quell'ora non posso, sono al lavoro." } },
+    { "sl": "Hätten Sie vielleicht früher etwas frei?", "en": { "sl": "Bi imeli morda kaj prej?", "en": "Would you have anything earlier?", "it": "Avrebbe qualcosa prima, magari?" } },
+    { "sl": "Ginge es vielleicht am Donnerstag am Nachmittag?", "en": { "sl": "Bi šlo morda v četrtek popoldne?", "en": "Would Thursday afternoon work, perhaps?", "it": "Andrebbe bene giovedì pomeriggio, magari?" } },
+    { "sl": "Ich brauche auch eine Bestätigung für den Krankenstand.", "en": { "sl": "Potrebujem tudi potrdilo o bolniški.", "en": "I also need a sick note (Krankenstand) for work.", "it": "Mi serve anche il certificato di malattia." } },
+    { "sl": "Muss ich die e-card mitbringen?", "en": { "sl": "Moram prinesti kartico e-card?", "en": "Do I need to bring my e-card?", "it": "Devo portare la e-card?" } },
+    { "sl": "Danke, dann bis Donnerstag. Auf Wiederhören!", "en": { "sl": "Hvala, potem pa do četrtka. Na slišanje!", "en": "Thanks, till Thursday then. Goodbye! (on the phone)", "it": "Grazie, allora a giovedì. Arrivederci! (al telefono)" } }
+  ],
+  "packs": ["beim-arzt", "zahlen-und-uhrzeit", "gruesse"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

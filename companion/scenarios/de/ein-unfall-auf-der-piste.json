@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "ein-unfall-auf-der-piste",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Ein Unfall auf der Piste", "sl": "Nesreča na smučišču", "en": "An accident on the slopes", "it": "Un incidente sulle piste" },
+  "emoji": "⛷️",
+  "level": "B2",
+  "setting": {
+    "sl": "Na smučišču na Osojščici (Gerlitzen) nad Beljakom se je vate od zadaj zaletel deskar in odpeljal naprej. {m:Padel|f:Padla} si in si {m:zvil|f:zvila} koleno. Reševalci na smučišču so te pripeljali v dolino, zdaj pa ti alpski policist postavlja vprašanja za zapisnik.",
+    "en": "On the Gerlitzen slopes above Villach a snowboarder crashed into you from behind and rode on. You fell and twisted your knee. The ski patrol brought you down to the valley, and now an officer of the Alpine police asks you questions for his report.",
+    "it": "Sulle piste della Gerlitzen, sopra Villaco, uno snowboarder ti è venuto addosso da dietro e se n'è andato. Sei {m:caduto|f:caduta} e hai preso una storta al ginocchio. Il soccorso piste ti ha {m:portato|f:portata} a valle e ora un agente della polizia alpina ti fa delle domande per il verbale."
+  },
+  "role": "Inspektor Zankl, Alpine police (Alpinpolizei), at the Gerlitzen's valley station, taking down a ski accident. Calm and precise: asks the time, the piste, the visibility, who came from where, how fast, what the other looked like and said, witnesses, injuries; reads back what he noted. Says Sie.",
+  "who": { "de": "Der Alpinpolizist", "sl": "Alpski policist", "en": "The Alpine police officer", "it": "L'agente della polizia alpina" },
+  "voice": "male",
+  "place": "forest",
+  "goals": [
+    { "de": "Sag, wann und wo der Unfall passiert ist", "sl": "Povej, kdaj in kje se je zgodila nesreča", "en": "Say when and where the accident happened", "it": "Di' quando e dove è successo l'incidente" },
+    { "de": "Erzähl genau und der Reihe nach, wie es passiert ist", "sl": "Natančno in po vrsti povej, kako se je zgodilo", "en": "Tell precisely and in order how it happened", "it": "Racconta con precisione e in ordine com'è successo" },
+    { "de": "Beschreib den anderen und was er gesagt hat", "sl": "Opiši drugega in povej, kaj je rekel", "en": "Describe the other person and what he said", "it": "Descrivi l'altro e che cosa ha detto" },
+    { "de": "Sag, wie es dir geht und was kaputt ist", "sl": "Povej, kako se počutiš in kaj je uničeno", "en": "Say how you are and what is damaged", "it": "Di' come stai e che cosa si è rotto" },
+    { "de": "Frag nach einer Bestätigung für die Versicherung", "sl": "Vprašaj za potrdilo za zavarovalnico", "en": "Ask for a report for the insurance", "it": "Chiedi una dichiarazione per l'assicurazione" }
+  ],
+  "opener_sl": "Grüß Gott, Zankl, Alpinpolizei. Die Pistenrettung hat mich verständigt. Wie geht's dem Knie? Erzählen Sie mir bitte von Anfang an, was passiert ist.",
+  "opener_en": {
+    "sl": "Dober dan, Zankl, alpska policija. Obvestili so me reševalci na smučišču. Kako je s kolenom? Povejte mi, prosim, od začetka, kaj se je zgodilo.",
+    "en": "Good morning, Zankl, Alpine police. The ski patrol called me. How's the knee? Please tell me from the beginning what happened.",
+    "it": "Buongiorno, Zankl, polizia alpina. Mi ha avvisato il soccorso piste. Come va il ginocchio? Mi racconti per favore dall'inizio che cosa è successo."
+  },
+  "vocabulary_hints": [
+    { "sl": "Es ist gegen halb elf auf der roten Piste passiert.", "en": { "sl": "Zgodilo se je okoli pol enajstih na rdeči progi.", "en": "It happened around half past ten on the red run.", "it": "È successo verso le dieci e mezza sulla pista rossa." } },
+    { "sl": "Ich bin langsam am rechten Rand gefahren.", "en": { "sl": "Počasi sem {m:smučal|f:smučala} ob desnem robu.", "en": "I was skiing slowly along the right-hand edge.", "it": "Scendevo piano sul bordo destro." } },
+    { "sl": "Der Snowboarder ist von oben gekommen, viel zu schnell.", "en": { "sl": "Deskar je prišel od zgoraj, veliko prehitro.", "en": "The snowboarder came from above, much too fast.", "it": "Lo snowboarder è arrivato da sopra, troppo veloce." } },
+    { "sl": "Er ist mir von hinten hineingefahren.", "en": { "sl": "Od zadaj se je zaletel vame.", "en": "He crashed into me from behind.", "it": "Mi è venuto addosso da dietro." } },
+    { "sl": "Gesehen habe ich ihn erst, als es schon zu spät war.", "en": { "sl": "{m:Videl|f:Videla} sem ga šele, ko je bilo že prepozno.", "en": "I only saw him when it was already too late.", "it": "L'ho visto solo quando era già troppo tardi." } },
+    { "sl": "Ich bin gestürzt und habe mir das Knie verdreht.", "en": { "sl": "{m:Padel|f:Padla} sem in si {m:zvil|f:zvila} koleno.", "en": "I fell and twisted my knee.", "it": "Sono {m:caduto|f:caduta} e ho preso una storta al ginocchio." } },
+    { "sl": "Er hat gesagt, er habe mich nicht gesehen.", "en": { "sl": "Rekel je, da me ni videl.", "en": "He said he hadn't seen me.", "it": "Ha detto che non mi aveva visto." } },
+    { "sl": "Dann ist er einfach weitergefahren.", "en": { "sl": "Potem je kar odpeljal naprej.", "en": "Then he simply rode on.", "it": "Poi se n'è semplicemente andato." } },
+    { "sl": "Er hatte eine rote Jacke und einen schwarzen Helm.", "en": { "sl": "Imel je rdečo jakno in črno čelado.", "en": "He had a red jacket and a black helmet.", "it": "Aveva una giacca rossa e un casco nero." } },
+    { "sl": "Ein Skilehrer hat alles gesehen.", "en": { "sl": "Učitelj smučanja je vse videl.", "en": "A ski instructor saw everything.", "it": "Un maestro di sci ha visto tutto." } },
+    { "sl": "Bekomme ich eine Bestätigung für die Versicherung?", "en": { "sl": "Dobim potrdilo za zavarovalnico?", "en": "Will I get a report for my insurance?", "it": "Ricevo una dichiarazione per l'assicurazione?" } }
+  ],
+  "packs": ["beim-arzt", "am-see", "wetter-und-garten", "zahlen-und-uhrzeit"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

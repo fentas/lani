@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "florian-muss-sich-entscheiden",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Florian muss sich entscheiden", "sl": "Florian se mora odločiti", "en": "Florian has to decide", "it": "Florian deve decidere" },
+  "emoji": "🧭",
+  "level": "B2",
+  "setting": {
+    "sl": "Pastir Florian (22 let) je dobil ponudbo za stalno, dobro plačano službo v podjetju v Beljaku: varno, vse leto, a v zaprtem prostoru in brez poletij na planini. Hkrati na Dobraču oddajajo v zakup planinsko kočo, njegove sanje, a zanjo bi potreboval kredit. Do petka se mora odločiti in te prosi za nasvet.",
+    "en": "Florian the shepherd (22) has been offered a permanent, well-paid job at a firm in Villach: safe, all year round, but indoors and no more summers on the Alm. At the same time a mountain hut (an Almhütte) on the Dobratsch is up for lease, his dream, but he would need a loan. He has to decide by Friday and asks for your advice.",
+    "it": "Il pastore Florian (22 anni) ha ricevuto l'offerta di un posto fisso e ben pagato in una ditta di Villaco: sicuro, tutto l'anno, ma al chiuso e senza più estati all'alpeggio. Nello stesso tempo sul Dobratsch si affitta una baita (una Almhütte), il suo sogno, ma gli servirebbe un prestito. Deve decidere entro venerdì e ti chiede un consiglio."
+  },
+  "role": "Hirte Florian, the young shepherd (22) from the farm below the Dobratsch. Cheerful but torn: a safe, well-paid job in Villach or an Almhütte of his own on the Dobratsch, with a loan. Argues each side in turn, asks what {learner} would do; warms to a middle way. Says du.",
+  "who": { "de": "Der Hirte", "sl": "Pastir", "en": "The shepherd", "it": "Il pastore" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "field",
+  "goals": [
+    { "de": "Frag, was ihn beschäftigt, und hör zu", "sl": "Vprašaj, kaj ga teži, in poslušaj", "en": "Ask what's on his mind and listen", "it": "Chiedigli che cosa lo preoccupa e ascolta" },
+    { "de": "Wägt gemeinsam Vor- und Nachteile ab", "sl": "Skupaj pretehtajta prednosti in slabosti", "en": "Weigh up the pros and cons together", "it": "Valutate insieme i pro e i contro" },
+    { "de": "Schlag einen Mittelweg vor", "sl": "Predlagaj srednjo pot", "en": "Suggest a middle way", "it": "Proponi una via di mezzo" },
+    { "de": "Gib ihm einen Rat und begründe ihn", "sl": "Daj mu nasvet in ga utemelji", "en": "Give him advice and say why", "it": "Dagli un consiglio e motivalo" },
+    { "de": "Mach ihm Mut", "sl": "Opogumi ga", "en": "Encourage him", "it": "Incoraggialo" }
+  ],
+  "opener_sl": "He, servus! Hast du kurz Zeit? Ich muss mich bis Freitag entscheiden, und ich weiß einfach nicht, was ich tun soll.",
+  "opener_en": {
+    "sl": "Hej, živjo! Imaš minutko? Do petka se moram odločiti, pa res ne vem, kaj naj naredim.",
+    "en": "Hey, hi! Got a minute? I have to decide by Friday, and I just don't know what to do.",
+    "it": "Ehi, ciao! Hai un minuto? Devo decidere entro venerdì e proprio non so che cosa fare."
+  },
+  "vocabulary_hints": [
+    { "sl": "Was spricht für die Stelle, und was spricht dagegen?", "en": { "sl": "Kaj govori za to službo in kaj proti?", "en": "What's in favour of the job, and what's against it?", "it": "Che cosa c'è a favore del posto, e che cosa contro?" } },
+    { "sl": "Einerseits ist die Stelle sicher, andererseits fehlt dir die Alm.", "en": { "sl": "Po eni strani je služba varna, po drugi ti bo manjkala planina.", "en": "On the one hand the job is safe, on the other you'd miss the Alm.", "it": "Da una parte il posto è sicuro, dall'altra ti mancherebbe l'alpeggio." } },
+    { "sl": "Ich an deiner Stelle würde nichts überstürzen.", "en": { "sl": "Na tvojem mestu se ne bi {m:prenaglil|f:prenaglila}.", "en": "If I were you, I wouldn't rush into anything.", "it": "Al posto tuo non farei niente di affrettato." } },
+    { "sl": "Hast du schon mit der Bank geredet?", "en": { "sl": "Si se že pogovoril z banko?", "en": "Have you talked to the bank yet?", "it": "Hai già parlato con la banca?" } },
+    { "sl": "Was wäre, wenn du im Winter in Villach arbeiten würdest?", "en": { "sl": "Kaj pa, če bi pozimi delal v Beljaku?", "en": "What if you worked in Villach in the winter?", "it": "E se d'inverno lavorassi a Villaco?" } },
+    { "sl": "Du könntest mit einer kleinen Jause für Wanderer anfangen.", "en": { "sl": "Lahko bi začel z malico za pohodnike.", "en": "You could start with simple snacks for walkers (a Jause).", "it": "Potresti cominciare con una merenda per gli escursionisti." } },
+    { "sl": "Es kommt darauf an, was dir wichtiger ist.", "en": { "sl": "Odvisno je, kaj ti je bolj pomembno.", "en": "It depends on what matters more to you.", "it": "Dipende da che cosa è più importante per te." } },
+    { "sl": "Geld ist nicht alles, aber ohne Geld geht's auch nicht.", "en": { "sl": "Denar ni vse, a brez njega tudi ne gre.", "en": "Money isn't everything, but you can't do without it either.", "it": "I soldi non sono tutto, ma senza non si va avanti." } },
+    { "sl": "Egal, wie du dich entscheidest, ich halte zu dir.", "en": { "sl": "Kakor koli se boš odločil, sem na tvoji strani.", "en": "Whatever you decide, I'm on your side.", "it": "Qualunque cosa decidi, sono dalla tua parte." } }
+  ],
+  "packs": ["am-see", "auf-dem-feld", "familie", "im-dorf"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

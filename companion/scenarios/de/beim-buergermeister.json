@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "beim-buergermeister",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Beim Bürgermeister", "sl": "Pri županu", "en": "At the mayor's office", "it": "Dal sindaco" },
+  "emoji": "🏛️",
+  "level": "B2",
+  "setting": {
+    "sl": "Vaška trgovina (v Avstriji: der Greißler) bo ob koncu leta zaprla vrata. Najbližja trgovina je dvanajst kilometrov stran, mnogi starejši pa nimajo avta. S sosedi ste zbrali podpise in imate idejo. Greš na uradne ure k županu, da mu razložiš težavo in predlagaš rešitev.",
+    "en": "The village shop (in Austria, the Greißler) closes at the end of the year. The nearest supermarket is twelve kilometres away, and many older people have no car. With your neighbours you've collected signatures, and you have an idea. You go to the mayor's office hours to explain the problem and propose a solution.",
+    "it": "La bottega di alimentari del paese (in Austria il Greißler) chiuderà a fine anno. Il supermercato più vicino è a dodici chilometri e molti anziani non hanno la macchina. Con i vicini avete raccolto delle firme e avete un'idea. Vai al ricevimento del sindaco per spiegargli il problema e proporre una soluzione."
+  },
+  "role": "Bürgermeister Wutti, the mayor, at his office hours. Friendly, busy, a careful politician: asks for numbers (who shops there, who would run it), raises the budget, the supermarkets in Villach and that the council decides; promises only to put a written plan on the council's agenda. Says Sie.",
+  "who": { "de": "Der Bürgermeister", "sl": "Župan", "en": "The mayor", "it": "Il sindaco" },
+  "voice": "male",
+  "place": "square",
+  "goals": [
+    { "de": "Stell dich vor und sag kurz, worum es geht", "sl": "Predstavi se in na kratko povej, za kaj gre", "en": "Introduce yourself and say briefly what it's about", "it": "Presentati e di' in breve di che cosa si tratta" },
+    { "de": "Erklär das Problem und seine Folgen für das Dorf", "sl": "Pojasni težavo in njene posledice za vas", "en": "Explain the problem and what it means for the village", "it": "Spiega il problema e le conseguenze per il paese" },
+    { "de": "Schlag eine Lösung vor und begründe sie", "sl": "Predlagaj rešitev in jo utemelji", "en": "Propose a solution and argue for it", "it": "Proponi una soluzione e motivala" },
+    { "de": "Geh auf seine Einwände ein", "sl": "Odgovori na njegove pomisleke", "en": "Answer his objections", "it": "Rispondi alle sue obiezioni" },
+    { "de": "Vereinbart den nächsten Schritt", "sl": "Dogovorita se za naslednji korak", "en": "Agree on the next step", "it": "Concordate il prossimo passo" }
+  ],
+  "opener_sl": "Grüß Gott, kommen Sie herein, nehmen Sie Platz. Ich hab eine Viertelstunde, dann ist Gemeindevorstand. Also, wo drückt der Schuh?",
+  "opener_en": {
+    "sl": "Dober dan, vstopite, sedite. Imam četrt ure, potem imam sejo. No, kje vas čevelj žuli?",
+    "en": "Good afternoon, come in, take a seat. I've got a quarter of an hour, then the council board meets. So, what's the trouble?",
+    "it": "Buongiorno, entri, si accomodi. Ho un quarto d'ora, poi c'è la giunta. Allora, qual è il problema?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ich komme wegen dem Greißler, der zu Silvester zusperrt.", "en": { "sl": "Prihajam zaradi trgovine, ki bo za silvestrovo zaprla.", "en": "I've come about the village shop, which closes at New Year.", "it": "Vengo per la bottega che chiude a fine anno." } },
+    { "sl": "Viele ältere Leute haben kein Auto.", "en": { "sl": "Veliko starejših nima avta.", "en": "Many older people have no car.", "it": "Molti anziani non hanno la macchina." } },
+    { "sl": "Der nächste Supermarkt ist zwölf Kilometer entfernt.", "en": { "sl": "Najbližja trgovina je dvanajst kilometrov stran.", "en": "The nearest supermarket is twelve kilometres away.", "it": "Il supermercato più vicino è a dodici chilometri." } },
+    { "sl": "Wir haben schon über hundert Unterschriften gesammelt.", "en": { "sl": "Zbrali smo že več kot sto podpisov.", "en": "We've already collected over a hundred signatures.", "it": "Abbiamo già raccolto più di cento firme." } },
+    { "sl": "Wir schlagen einen Dorfladen vor, den ein Verein führt.", "en": { "sl": "Predlagamo vaško trgovino, ki bi jo vodilo društvo.", "en": "We propose a village shop run by an association.", "it": "Proponiamo un negozio del paese gestito da un'associazione." } },
+    { "sl": "Die Gemeinde könnte uns die Räume der alten Schule überlassen.", "en": { "sl": "Občina bi nam lahko prepustila prostore stare šole.", "en": "The council could let us have the rooms of the old school.", "it": "Il comune potrebbe lasciarci i locali della vecchia scuola." } },
+    { "sl": "Ich verstehe, dass das Budget knapp ist, aber …", "en": { "sl": "Razumem, da je proračun skromen, a …", "en": "I understand the budget is tight, but …", "it": "Capisco che il bilancio è limitato, ma…" } },
+    { "sl": "Soviel ich weiß, fördert das Land solche Projekte.", "en": { "sl": "Kolikor vem, dežela podpira takšne projekte.", "en": "As far as I know, the state of Carinthia funds projects like this.", "it": "Per quanto ne so, il Land finanzia progetti del genere." } },
+    { "sl": "Wir würden Ihnen ein schriftliches Konzept vorlegen.", "en": { "sl": "Predložili bi vam pisni načrt.", "en": "We'd present you with a written plan.", "it": "Le presenteremmo un progetto scritto." } },
+    { "sl": "Bis wann sollten wir es einreichen?", "en": { "sl": "Do kdaj bi ga morali oddati?", "en": "By when should we hand it in?", "it": "Entro quando dovremmo presentarlo?" } }
+  ],
+  "packs": ["auf-der-gemeinde", "im-dorf", "essen", "zahlen-und-uhrzeit"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

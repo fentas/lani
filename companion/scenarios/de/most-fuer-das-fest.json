@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "most-fuer-das-fest",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Most für das Fest", "sl": "Mošt za praznovanje", "en": "Most for the party", "it": "Il Most per la festa" },
+  "emoji": "🍏",
+  "level": "B1",
+  "setting": {
+    "sl": "V soboto praznuješ okrogel rojstni dan (v Avstriji: einen runden Geburtstag), z zabavo na vrtu in približno šestdesetimi gosti. Pri sadjarju Stefanu bi {m:rad|f:rada} {m:kupil|f:kupila} mošt in jabolčni sok, a po pošteni ceni.",
+    "en": "On Saturday you're celebrating a big birthday (in Austria, a runder Geburtstag) with a garden party and about sixty guests. You want to buy Most (Carinthian cider) and apple juice from Stefan the cider maker, at a fair price.",
+    "it": "Sabato festeggi un compleanno a cifra tonda (in Austria un runder Geburtstag) con una festa in giardino e una sessantina di ospiti. Vuoi comprare Most (il sidro della Carinzia) e succo di mela da Stefan, il produttore di sidro, a un prezzo onesto."
+  },
+  "role": "Mostbauer Stefan, the village's cider maker, at his farm. Easygoing and proud of his Most from the old meadow orchard; a good haggler: starts at 3.80 euros a litre and says why, gives a little for a big order and for cash, offers to bring it on Friday and take back the empty bottles. Says du.",
+  "who": { "de": "Der Mostbauer", "sl": "Kmet, ki dela mošt", "en": "The cider maker", "it": "Il produttore di sidro" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "field",
+  "goals": [
+    { "de": "Erzähl, was du feierst und wie viele Gäste kommen", "sl": "Povej, kaj praznuješ in koliko gostov pride", "en": "Say what you're celebrating and how many guests are coming", "it": "Racconta che cosa festeggi e quanti ospiti vengono" },
+    { "de": "Sag, wie viel Most und Saft du brauchst", "sl": "Povej, koliko mošta in soka potrebuješ", "en": "Say how much Most and juice you need", "it": "Di' quanto Most e quanto succo ti servono" },
+    { "de": "Handle einen besseren Preis aus", "sl": "Izpogajaj boljšo ceno", "en": "Haggle for a better price", "it": "Contratta un prezzo migliore" },
+    { "de": "Vereinbare, wann er liefert", "sl": "Dogovori se, kdaj ga pripelje", "en": "Agree when he delivers", "it": "Accordati su quando lo porta" },
+    { "de": "Fass den Handel zusammen und schlag ein", "sl": "Povzemi dogovor in mu sezi v roko", "en": "Sum up the deal and shake on it", "it": "Riassumi l'accordo e stringigli la mano" }
+  ],
+  "opener_sl": "Servus! Ich hab gehört, du feierst am Samstag. Brauchst du was zum Trinken?",
+  "opener_en": {
+    "sl": "Živjo! Slišal sem, da v soboto praznuješ. Potrebuješ kaj za pijačo?",
+    "en": "Hi! I heard you're having a party on Saturday. Do you need something to drink?",
+    "it": "Ciao! Ho sentito che sabato fai festa. Ti serve qualcosa da bere?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ich feiere am Samstag meinen runden Geburtstag.", "en": { "sl": "V soboto praznujem okrogel rojstni dan.", "en": "I'm celebrating a big birthday on Saturday.", "it": "Sabato festeggio un compleanno a cifra tonda." } },
+    { "sl": "Es kommen ungefähr sechzig Leute.", "en": { "sl": "Prišlo bo približno šestdeset ljudi.", "en": "About sixty people are coming.", "it": "Vengono circa sessanta persone." } },
+    { "sl": "Wir brauchen ungefähr fünfzig Liter Most.", "en": { "sl": "Potrebujemo približno petdeset litrov mošta.", "en": "We need about fifty litres of Most.", "it": "Ci servono circa cinquanta litri di Most." } },
+    { "sl": "Und dazu noch Apfelsaft für die Kinder.", "en": { "sl": "Pa še jabolčni sok za otroke.", "en": "And apple juice for the children as well.", "it": "E anche succo di mela per i bambini." } },
+    { "sl": "Was kostet der Liter?", "en": { "sl": "Koliko stane liter?", "en": "How much is a litre?", "it": "Quanto costa al litro?" } },
+    { "sl": "Das ist mir ein bisschen zu teuer.", "en": { "sl": "To je zame malo predrago.", "en": "That's a bit too expensive for me.", "it": "Per me è un po' troppo caro." } },
+    { "sl": "Gibst du mir einen Rabatt, wenn ich so viel nehme?", "en": { "sl": "Mi daš popust, če vzamem toliko?", "en": "Will you give me a discount if I take that much?", "it": "Mi fai uno sconto se ne prendo così tanto?" } },
+    { "sl": "Was sagst du zu drei Euro pro Liter?", "en": { "sl": "Kaj praviš na tri evre na liter?", "en": "What do you say to three euros a litre?", "it": "Che ne dici di tre euro al litro?" } },
+    { "sl": "Kannst du den Most am Freitag vorbeibringen?", "en": { "sl": "Lahko mošt pripelješ v petek?", "en": "Can you bring the Most over on Friday?", "it": "Puoi portare il Most venerdì?" } },
+    { "sl": "Ich zahle bar, wenn du lieferst. Abgemacht?", "en": { "sl": "Plačam z gotovino, ko ga pripelješ. Dogovorjeno?", "en": "I'll pay cash when you deliver. Deal?", "it": "Pago in contanti quando lo porti. Affare fatto?" } }
+  ],
+  "packs": ["im-keller", "auf-dem-markt", "zahlen-und-uhrzeit", "familie"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

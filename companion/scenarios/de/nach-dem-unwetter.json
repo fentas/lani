@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "nach-dem-unwetter",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Nach dem Unwetter", "sl": "Po neurju", "en": "After the storm", "it": "Dopo il temporale" },
+  "emoji": "⛈️",
+  "level": "B1",
+  "setting": {
+    "sl": "Ponoči je vas zajelo hudo neurje s točo. Potok je prestopil bregove, voda je vdrla v tvojo klet in elektrike ni bilo. Zjutraj gre poveljnik prostovoljnih gasilcev od hiše do hiše in sprašuje, kaj se je zgodilo.",
+    "en": "In the night a heavy storm with hail hit the village. The stream burst its banks, water got into your cellar and the power went off. In the morning the commander of the volunteer fire brigade goes from house to house asking what happened.",
+    "it": "Nella notte sul paese si è abbattuto un forte temporale con la grandine. Il torrente è uscito dagli argini, l'acqua è entrata nella tua cantina ed è saltata la corrente. Al mattino il comandante dei vigili del fuoco volontari passa di casa in casa e chiede che cosa è successo."
+  },
+  "role": "Kommandant Ogris, commander of the village's volunteer fire brigade (Freiwillige Feuerwehr), the morning after the hailstorm. Calm and practical: asks when it began, how much water, what is damaged, if anyone is hurt; promises the pump for the afternoon; the Gemeinde takes damage reports. Says Sie.",
+  "who": { "de": "Der Feuerwehrkommandant", "sl": "Poveljnik gasilcev", "en": "The fire brigade's commander", "it": "Il comandante dei pompieri" },
+  "voice": "male",
+  "place": "square",
+  "goals": [
+    { "de": "Erzähl, wann das Unwetter angefangen hat", "sl": "Povej, kdaj se je začelo neurje", "en": "Say when the storm began", "it": "Racconta quando è cominciato il temporale" },
+    { "de": "Beschreib der Reihe nach, was passiert ist", "sl": "Po vrsti opiši, kaj se je zgodilo", "en": "Describe what happened, in order", "it": "Descrivi in ordine che cosa è successo" },
+    { "de": "Sag, was jetzt kaputt oder unter Wasser ist", "sl": "Povej, kaj je zdaj uničeno ali pod vodo", "en": "Say what is broken or under water now", "it": "Di' che cosa adesso è rotto o sott'acqua" },
+    { "de": "Bitte um Hilfe", "sl": "Prosi za pomoč", "en": "Ask for help", "it": "Chiedi aiuto" },
+    { "de": "Frag, wo du den Schaden meldest", "sl": "Vprašaj, kje prijaviš škodo", "en": "Ask where to report the damage", "it": "Chiedi dove denunciare il danno" }
+  ],
+  "opener_sl": "Grüß Gott, Ogris von der Feuerwehr. Na, das war eine Nacht, was? Wie schaut's bei Ihnen aus?",
+  "opener_en": {
+    "sl": "Dober dan, Ogris, gasilci. No, to je bila noč, kaj? Kako je pri vas?",
+    "en": "Good morning, Ogris from the fire brigade. Well, that was some night, eh? How are things with you?",
+    "it": "Buongiorno, Ogris dei pompieri. Che nottata, eh? Com'è la situazione da lei?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Gegen elf in der Nacht hat es zu hageln angefangen.", "en": { "sl": "Okoli enajstih ponoči je začela padati toča.", "en": "Around eleven at night it started to hail.", "it": "Verso le undici di notte ha cominciato a grandinare." } },
+    { "sl": "Die Hagelkörner waren so groß wie Nüsse.", "en": { "sl": "Zrna toče so bila velika kot orehi.", "en": "The hailstones were as big as walnuts.", "it": "I chicchi di grandine erano grossi come noci." } },
+    { "sl": "Dann ist der Bach über die Ufer getreten.", "en": { "sl": "Potem je potok prestopil bregove.", "en": "Then the stream burst its banks.", "it": "Poi il torrente è uscito dagli argini." } },
+    { "sl": "Das Wasser ist in den Keller geronnen.", "en": { "sl": "Voda je tekla v klet.", "en": "The water ran into the cellar.", "it": "L'acqua è entrata in cantina." } },
+    { "sl": "Dann ist der Strom ausgefallen.", "en": { "sl": "Potem je zmanjkalo elektrike.", "en": "Then the power went off.", "it": "Poi è saltata la corrente." } },
+    { "sl": "Wir haben bis drei in der Früh Wasser geschöpft.", "en": { "sl": "Do treh zjutraj smo zajemali vodo.", "en": "We were bailing out water until three in the morning.", "it": "Abbiamo tolto l'acqua fino alle tre del mattino." } },
+    { "sl": "Im Keller steht noch immer ein halber Meter Wasser.", "en": { "sl": "V kleti je še vedno pol metra vode.", "en": "There's still half a metre of water in the cellar.", "it": "In cantina c'è ancora mezzo metro d'acqua." } },
+    { "sl": "Verletzt ist zum Glück niemand.", "en": { "sl": "Na srečo ni nihče poškodovan.", "en": "Luckily nobody is hurt.", "it": "Per fortuna nessuno si è fatto male." } },
+    { "sl": "Können Sie den Keller auspumpen?", "en": { "sl": "Lahko izčrpate vodo iz kleti?", "en": "Can you pump out the cellar?", "it": "Potete pompare via l'acqua dalla cantina?" } },
+    { "sl": "Wo melde ich den Schaden?", "en": { "sl": "Kje prijavim škodo?", "en": "Where do I report the damage?", "it": "Dove denuncio il danno?" } }
+  ],
+  "packs": ["wetter-und-garten", "haus-und-kueche", "beim-feuerwehrhaus", "am-bach"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

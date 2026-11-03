@@ -1,0 +1,47 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "das-vorstellungsgespraech",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Das Vorstellungsgespräch", "sl": "Razgovor za službo", "en": "The job interview", "it": "Il colloquio di lavoro" },
+  "emoji": "💼",
+  "level": "B2",
+  "setting": {
+    "sl": "Družinski hotel ob Baškem jezeru (Faaker See) za sezono od maja do oktobra išče sodelavca ali sodelavko na recepciji. Veliko gostov prihaja iz Slovenije in Italije. {m:Prijavil|f:Prijavila} si se in direktorica hotela te je povabila na razgovor.",
+    "en": "A family hotel on the Faaker See is looking for someone at reception for the season, May to October. Many of its guests come from Slovenia and Italy. You applied, and the hotel's manager has invited you to an interview.",
+    "it": "Un albergo a conduzione familiare sul lago di Faak cerca una persona per la reception per la stagione, da maggio a ottobre. Molti ospiti arrivano dalla Slovenia e dall'Italia. Ti sei {m:candidato|f:candidata} e la direttrice dell'albergo ti ha {m:invitato|f:invitata} a un colloquio."
+  },
+  "role": "Frau Kowatsch, the manager of a family hotel on the Faaker See, hiring for reception. Friendly and direct: asks why this hotel, about experience, how {learner} would handle a guest's complaint, strengths and weaknesses; answers on shifts, pay by the collective agreement, a staff room. Says Sie.",
+  "who": { "de": "Die Hoteldirektorin", "sl": "Direktorica hotela", "en": "The hotel manager", "it": "La direttrice dell'albergo" },
+  "voice": "female",
+  "speaker": "teacher",
+  "place": "kitchen",
+  "goals": [
+    { "de": "Stell dich vor und sag, warum du dich bewirbst", "sl": "Predstavi se in povej, zakaj se prijavljaš", "en": "Introduce yourself and say why you're applying", "it": "Presentati e di' perché ti candidi" },
+    { "de": "Erzähl von deiner Erfahrung und deinen Stärken", "sl": "Povej o svojih izkušnjah in močnih straneh", "en": "Talk about your experience and your strengths", "it": "Racconta la tua esperienza e i tuoi punti di forza" },
+    { "de": "Sag, wie du mit einem schwierigen Gast umgehen würdest", "sl": "Povej, kako bi {m:ravnal|f:ravnala} s težavnim gostom", "en": "Say how you would deal with a difficult guest", "it": "Di' come ti comporteresti con un ospite difficile" },
+    { "de": "Frag nach Arbeitszeit, Gehalt und Art der Stelle", "sl": "Vprašaj za delovni čas, plačo in vrsto zaposlitve", "en": "Ask about the hours, the pay and the kind of job", "it": "Chiedi dell'orario, dello stipendio e del tipo di contratto" },
+    { "de": "Bedank dich und frag, wie es weitergeht", "sl": "Zahvali se in vprašaj, kaj sledi", "en": "Thank her and ask what happens next", "it": "Ringrazia e chiedi come si procede" }
+  ],
+  "opener_sl": "Grüß Gott, schön, dass Sie da sind. Bitte, nehmen Sie Platz. Ihre Bewerbung habe ich schon gelesen. Erzählen Sie mir zuerst: Warum gerade wir?",
+  "opener_en": {
+    "sl": "Dober dan, lepo, da ste prišli. Prosim, sedite. Vašo prijavo sem že prebrala. Najprej mi povejte: zakaj ravno mi?",
+    "en": "Good morning, I'm glad you could come. Please, have a seat. I've already read your application. Tell me first: why us?",
+    "it": "Buongiorno, mi fa piacere che sia {m:venuto|f:venuta}. Prego, si accomodi. Ho già letto la sua candidatura. Mi dica prima di tutto: perché proprio noi?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ich bewerbe mich für die Stelle an der Rezeption.", "en": { "sl": "Prijavljam se za delo na recepciji.", "en": "I'm applying for the job at reception.", "it": "Mi candido per il posto alla reception." } },
+    { "sl": "Ihr Hotel hat einen sehr guten Ruf.", "en": { "sl": "Vaš hotel ima zelo dober sloves.", "en": "Your hotel has a very good reputation.", "it": "Il suo albergo ha un'ottima reputazione." } },
+    { "sl": "In meiner letzten Stelle war ich für die Buchungen zuständig.", "en": { "sl": "V prejšnji službi sem {m:skrbel|f:skrbela} za rezervacije.", "en": "In my last job I was in charge of the bookings.", "it": "Nel mio ultimo lavoro mi occupavo delle prenotazioni." } },
+    { "sl": "Meine Stärke ist, dass ich auch unter Stress ruhig bleibe.", "en": { "sl": "Moja močna stran je, da tudi pod stresom ostanem {m:miren|f:mirna}.", "en": "My strength is that I stay calm even under stress.", "it": "Il mio punto di forza è che resto {m:calmo|f:calma} anche sotto stress." } },
+    { "sl": "Manchmal bin ich zu genau, aber das weiß ich.", "en": { "sl": "Včasih sem {m:preveč natančen|f:preveč natančna}, a se tega zavedam.", "en": "Sometimes I'm too precise, but I'm aware of it.", "it": "A volte sono troppo {m:pignolo|f:pignola}, ma lo so." } },
+    { "sl": "Einen unzufriedenen Gast würde ich zuerst in Ruhe anhören.", "en": { "sl": "Nezadovoljnega gosta bi najprej mirno {m:poslušal|f:poslušala}.", "en": "I'd first listen calmly to an unhappy guest.", "it": "Un ospite scontento prima lo ascolterei con calma." } },
+    { "sl": "Wochenenddienste sind für mich kein Problem.", "en": { "sl": "Delo ob koncih tedna zame ni težava.", "en": "Working weekends is no problem for me.", "it": "Lavorare nel fine settimana per me non è un problema." } },
+    { "sl": "Ist das eine Saisonstelle oder eine Ganzjahresstelle?", "en": { "sl": "Je to sezonska služba ali služba za vse leto?", "en": "Is it a seasonal job or a year-round one?", "it": "È un posto stagionale o per tutto l'anno?" } },
+    { "sl": "Wie hoch ist das Gehalt laut Kollektivvertrag?", "en": { "sl": "Kolikšna je plača po kolektivni pogodbi?", "en": "What is the pay under the collective agreement?", "it": "Quant'è lo stipendio secondo il contratto collettivo?" } },
+    { "sl": "Gibt es ein Personalzimmer?", "en": { "sl": "Imate sobo za zaposlene?", "en": "Is there staff accommodation?", "it": "C'è un alloggio per il personale?" } },
+    { "sl": "Ab wann könnte ich anfangen?", "en": { "sl": "Od kdaj bi lahko {m:začel|f:začela}?", "en": "When could I start?", "it": "Da quando potrei cominciare?" } }
+  ],
+  "packs": ["am-see", "im-gasthaus", "zahlen-und-uhrzeit", "gruesse"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

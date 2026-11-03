@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "bei-der-neuen-hausaerztin",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Bei der neuen Hausärztin", "sl": "Pri novi družinski zdravnici", "en": "At the new family doctor's", "it": "Dalla nuova medica di famiglia" },
+  "emoji": "📋",
+  "level": "B2",
+  "setting": {
+    "sl": "{m:Preselil|f:Preselila} si se v vas in si {m:izbral|f:izbrala} novo družinsko zdravnico (v Avstriji: die Hausärztin), dr. Egger. Na prvem pregledu bi rada izvedela vse o tvojem zdravju: bolezni, operacije, alergije, zdravila, družino in navade.",
+    "en": "You've moved to the village and chosen a new family doctor (in Austria, your Hausärztin), Dr Egger. At the first appointment she wants to know all about your health: illnesses, operations, allergies, medicines, your family and your habits.",
+    "it": "Ti sei {m:trasferito|f:trasferita} in paese e hai scelto una nuova medica di famiglia (in Austria la Hausärztin), la dottoressa Egger. Alla prima visita vuole sapere tutto della tua salute: malattie, operazioni, allergie, farmaci, famiglia e abitudini."
+  },
+  "role": "Dr. Egger, the village's new family doctor (Hausärztin), at a first appointment. Calm, thorough, warm: asks in turn about past illnesses, operations, allergies, regular medicines, illnesses in the family, smoking, alcohol, sport and vaccinations (the tick jab); ends with a blood test. Says Sie.",
+  "who": { "de": "Die Hausärztin", "sl": "Družinska zdravnica", "en": "The family doctor", "it": "La medica di famiglia" },
+  "voice": "female",
+  "speaker": "young-woman",
+  "goals": [
+    { "de": "Erzähl von früheren Krankheiten und Operationen", "sl": "Povej o prejšnjih boleznih in operacijah", "en": "Tell her about past illnesses and operations", "it": "Racconta le malattie e le operazioni che hai avuto" },
+    { "de": "Nenn deine Allergien und Medikamente", "sl": "Naštej svoje alergije in zdravila", "en": "Name your allergies and medicines", "it": "Elenca le tue allergie e i farmaci che prendi" },
+    { "de": "Erzähl, welche Krankheiten es in deiner Familie gibt", "sl": "Povej, katere bolezni so v tvoji družini", "en": "Say which illnesses run in your family", "it": "Di' quali malattie ci sono in famiglia" },
+    { "de": "Beschreib deine Gewohnheiten: Sport, Essen, Rauchen", "sl": "Opiši svoje navade: šport, hrana, kajenje", "en": "Describe your habits: sport, food, smoking", "it": "Descrivi le tue abitudini: sport, alimentazione, fumo" },
+    { "de": "Frag, wie es weitergeht", "sl": "Vprašaj, kako naprej", "en": "Ask what happens next", "it": "Chiedi come si procede" }
+  ],
+  "opener_sl": "Grüß Gott, nehmen Sie Platz. Weil Sie das erste Mal bei mir sind, möchte ich zuerst ein bisschen über Ihre Gesundheit erfahren. Darf ich?",
+  "opener_en": {
+    "sl": "Dober dan, sedite. Ker ste prvič pri meni, bi najprej rada izvedela nekaj o vašem zdravju. Smem?",
+    "en": "Good morning, have a seat. As this is your first time with me, I'd like to learn a little about your health first. May I?",
+    "it": "Buongiorno, si accomodi. Visto che è la prima volta da me, vorrei prima sapere qualcosa sulla sua salute. Posso?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Als Kind hatte ich oft Bronchitis.", "en": { "sl": "Kot otrok sem pogosto {m:imel|f:imela} bronhitis.", "en": "As a child I often had bronchitis.", "it": "Da {m:bambino|f:bambina} avevo spesso la bronchite." } },
+    { "sl": "Vor fünf Jahren bin ich am Blinddarm operiert worden.", "en": { "sl": "Pred petimi leti sem {m:bil operiran|f:bila operirana} na slepiču.", "en": "Five years ago I had my appendix out.", "it": "Cinque anni fa sono {m:stato operato|f:stata operata} di appendicite." } },
+    { "sl": "Ich bin allergisch gegen Penicillin.", "en": { "sl": "{m:Alergičen|f:Alergična} sem na penicilin.", "en": "I'm allergic to penicillin.", "it": "Sono {m:allergico|f:allergica} alla penicillina." } },
+    { "sl": "Im Frühling habe ich Heuschnupfen.", "en": { "sl": "Spomladi imam seneni nahod.", "en": "I get hay fever in spring.", "it": "In primavera ho il raffreddore da fieno." } },
+    { "sl": "Ich nehme täglich eine Tablette gegen hohen Blutdruck.", "en": { "sl": "Vsak dan vzamem tableto za visok krvni tlak.", "en": "I take a pill for high blood pressure every day.", "it": "Prendo ogni giorno una pastiglia per la pressione alta." } },
+    { "sl": "Mein Vater hat Zucker.", "en": { "sl": "Oče ima sladkorno bolezen.", "en": "My father has diabetes ('Zucker', people say).", "it": "Mio padre ha il diabete («Zucker», si dice)." } },
+    { "sl": "Ich rauche nicht, aber ein Achterl Wein trinke ich schon.", "en": { "sl": "Ne kadim, kakšen kozarček vina pa že spijem.", "en": "I don't smoke, but I do have the odd glass of wine.", "it": "Non fumo, ma un bicchiere di vino lo bevo." } },
+    { "sl": "Zweimal in der Woche gehe ich laufen.", "en": { "sl": "Dvakrat na teden grem tečt.", "en": "I go running twice a week.", "it": "Vado a correre due volte alla settimana." } },
+    { "sl": "Die Zeckenimpfung sollte ich wieder auffrischen.", "en": { "sl": "Cepljenje proti klopom bi {m:moral|f:morala} obnoviti.", "en": "My tick vaccination needs a booster.", "it": "Dovrei fare il richiamo del vaccino contro le zecche." } },
+    { "sl": "Muss ich nüchtern zur Blutabnahme kommen?", "en": { "sl": "Moram na odvzem krvi priti tešč?", "en": "Do I have to come to the blood test without eating?", "it": "Devo venire a digiuno per il prelievo?" } }
+  ],
+  "packs": ["beim-arzt", "familie", "zahlen-und-uhrzeit", "essen"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}
