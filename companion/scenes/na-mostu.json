@@ -4,7 +4,7 @@
   "title": { "sl": "Na mostu", "en": "On the bridge", "de": "Auf der Brücke", "it": "Sul ponte" },
   "emoji": "🌉",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), unreviewed; to check: narasel, upade, zdržal, šumi, Nisva skupaj krav pasla; place-life too; scene-replier.md: to check",
+  "review": "sl lines, reactions, variants, B1/B2 ones, de, it: machine-written, unreviewed; to check: narasel, upade, zdržal, šumi, Nisva skupaj krav pasla; place-life too; scene-replier.md: to check",
   "art": "stream",
   "from": ["project:most"],
   "pack": "na-mostu",
@@ -66,7 +66,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "ovce",
-      "dialogs": ["ovce-stejem", "ovce-bela", "ovce"],
+      "dialogs": ["ovce-b2-studij", "ovce-b1-planota", "ovce-stejem", "ovce-bela", "ovce"],
       "reward": { "food": 15 },
       "marker": "🐑",
       "memory": {
@@ -88,7 +88,7 @@
       "when": ["morning"],
       "chance": 0.4,
       "dialog": "voda",
-      "dialogs": ["voda-tone", "voda"],
+      "dialogs": ["voda-b2-povodenj", "voda-b1-stebra", "voda-tone", "voda"],
       "reward": { "stone": 15 },
       "marker": "🌊",
       "memory": {
@@ -2208,6 +2208,705 @@
           "de": "Hören Sie die Glocke? Zeit, nach Hause zu gehen. Gute Nacht.",
           "it": "Sente la campana? È ora di tornare a casa. Buonanotte.",
           "fx": { "bell": 1 }
+        }
+      ]
+    },
+    {
+      "id": "voda-b1-stebra",
+      "level": "B1",
+      "memory": {
+        "sl": "kamne, ki sva jih nosila za stebra",
+        "en": "the stones we carried for the pillars",
+        "de": "die Steine, die wir für die Pfeiler getragen haben",
+        "it": "le pietre che abbiamo portato per i piloni"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}. Ponoči je tako deževalo, da je voda skoraj dosegla most.",
+          "en": "Good morning, {learner}. It rained so hard last night that the water nearly reached the bridge.",
+          "de": "Guten Morgen, {learner}. Heute Nacht hat es so geregnet, dass das Wasser fast die Brücke erreicht hat.",
+          "it": "Buongiorno, {learner}. Stanotte ha piovuto così tanto che l'acqua è quasi arrivata al ponte."
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Tone pravi, da bi bilo treba oba stebra okrepiti s kamni, preden pridejo jesenski nalivi.",
+          "en": "Tone says both pillars ought to be strengthened with stones before the autumn downpours come.",
+          "de": "Tone sagt, man müsste beide Pfeiler mit Steinen verstärken, bevor die Herbstregen kommen.",
+          "it": "Tone dice che bisognerebbe rinforzare tutti e due i piloni con le pietre, prima che arrivino gli acquazzoni d'autunno."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Lahko pomagam pri obeh stebrih. Kamne bom {m:nosil|f:nosila} jaz.",
+              "en": "I can help with both pillars. I'll carry the stones.",
+              "de": "Ich kann bei beiden Pfeilern helfen. Die Steine trage ich.",
+              "it": "Posso aiutare con tutti e due i piloni. Le pietre le porto io.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "{m:Dober|f:Dobra} si. Ena, dve, tri … Za vsak steber jih bomo potrebovali trideset.",
+                "en": "You're a good one. One, two, three … For each pillar we'll need thirty.",
+                "de": "Du bist ein Guter. Eins, zwei, drei … Für jeden Pfeiler brauchen wir dreißig.",
+                "it": "Sei in gamba. Uno, due, tre … Per ogni pilone ce ne vorranno trenta."
+              }
+            },
+            {
+              "sl": "Lahko pomagam pri obeh stebrah. Kamne bom {m:nosil|f:nosila} jaz.",
+              "en": "I can help with both pillars (stebrah). I'll carry the stones.",
+              "de": "Ich kann bei beiden Pfeilern (stebrah) helfen. Die Steine trage ich.",
+              "it": "Posso aiutare con tutti e due i piloni (stebrah). Le pietre le porto io.",
+              "grammar": "dvojina-skloni",
+              "why": {
+                "en": "Steber is masculine: its locative dual is stebrih (pri obeh stebrih), as pri dveh konjih.",
+                "de": "Steber ist männlich: sein Lokativ Dual ist stebrih (pri obeh stebrih), wie pri dveh konjih.",
+                "it": "Steber è maschile: il suo locativo duale è stebrih (pri obeh stebrih), come pri dveh konjih."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Stebrah? Ha, moja stebra nista dami!",
+                "en": "Stebrah? Ha, my pillars aren't ladies!",
+                "de": "Stebrah? Ha, meine Pfeiler sind doch keine Damen!",
+                "it": "Stebrah? Ah, i miei piloni non sono signore!"
+              }
+            },
+            {
+              "sl": "Lahko pomagam pri obeh stebrih. Kamne bom {m:metal|f:metala} v vodo.",
+              "en": "I can help with both pillars. I'll throw the stones into the water.",
+              "de": "Ich kann bei beiden Pfeilern helfen. Die Steine werfe ich ins Wasser.",
+              "it": "Posso aiutare con tutti e due i piloni. Le pietre le butto nell'acqua.",
+              "why": {
+                "en": "The stones are for the pillars, not for throwing into the stream.",
+                "de": "Die Steine sind für die Pfeiler, nicht zum Hineinwerfen in den Bach.",
+                "it": "Le pietre servono per i piloni, non per buttarle nel ruscello."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "V vodo? Potem bo potok trden, most pa ne!",
+                "en": "Into the water? Then the stream will be solid, but not the bridge!",
+                "de": "Ins Wasser? Dann ist der Bach fest, aber nicht die Brücke!",
+                "it": "Nell'acqua? Allora sarà solido il ruscello, mica il ponte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Moj oče je vedno rekel, naj ne gradimo blizu vode. Mi pa smo vseeno postavili mlin ob potoku.",
+          "en": "My father always said we shouldn't build close to the water. But we put the mill by the stream all the same.",
+          "de": "Mein Vater hat immer gesagt, wir sollen nicht nah am Wasser bauen. Wir haben die Mühle trotzdem an den Bach gestellt.",
+          "it": "Mio padre diceva sempre di non costruire vicino all'acqua. Noi però il mulino l'abbiamo messo lo stesso sul ruscello."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mlin pa mora biti ob vodi, čeprav je včasih nevarno.",
+              "en": "But a mill has to be by the water, even if it's dangerous at times.",
+              "de": "Eine Mühle muss aber am Wasser stehen, auch wenn es manchmal gefährlich ist.",
+              "it": "Ma un mulino deve stare vicino all'acqua, anche se a volte è pericoloso.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je. Voda melje, voda jemlje. Tako je ob potoku.",
+                "en": "That's it. Water grinds, water takes. That's life by the stream.",
+                "de": "So ist es. Wasser mahlt, Wasser nimmt. So ist das am Bach.",
+                "it": "Proprio così. L'acqua macina, l'acqua prende. Così è sul ruscello."
+              }
+            },
+            {
+              "sl": "Mlin pa mora biti ob vodi, ker je včasih nevarno.",
+              "en": "But a mill has to be by the water, because it's dangerous at times.",
+              "de": "Eine Mühle muss aber am Wasser stehen, weil es manchmal gefährlich ist.",
+              "it": "Ma un mulino deve stare vicino all'acqua, perché a volte è pericoloso.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Čeprav means although: the danger speaks against building there, it isn't the reason for it (ker).",
+                "de": "Čeprav heißt obwohl: die Gefahr spricht gegen das Bauen dort, sie ist nicht der Grund dafür (ker).",
+                "it": "Čeprav vuol dire anche se: il pericolo è contro il costruire lì, non il motivo (ker)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ker je nevarno? Potem bi ga postavil kar v potok!",
+                "en": "Because it's dangerous? Then I'd have put it right in the stream!",
+                "de": "Weil es gefährlich ist? Dann hätte ich sie gleich in den Bach gestellt!",
+                "it": "Perché è pericoloso? Allora l'avrei messo direttamente nel ruscello!"
+              }
+            },
+            {
+              "sl": "Mlin pa mora biti ob vodo, čeprav je včasih nevarno.",
+              "en": "But a mill has to be by the water (accusative), even if it's dangerous at times.",
+              "de": "Eine Mühle muss aber an das Wasser (Akkusativ), auch wenn es manchmal gefährlich ist.",
+              "it": "Ma un mulino deve stare vicino all'acqua (accusativo), anche se a volte è pericoloso.",
+              "grammar": "kje-mestnik-orodnik",
+              "why": {
+                "en": "Ob for where something is takes the locative: ob vodi.",
+                "de": "Ob für den Ort, wo etwas ist, steht mit dem Lokativ: ob vodi.",
+                "it": "Ob per dove si trova qualcosa vuole il locativo: ob vodi."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ob vodo? Ga bova nesla do potoka?",
+                "en": "Ob vodo? Are we going to carry it to the stream?",
+                "de": "Ob vodo? Tragen wir sie zum Bach?",
+                "it": "Ob vodo? Lo portiamo noi fino al ruscello?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Prav. Jutri začneva s kamni. Sosedje smo, saj veš.",
+          "en": "Right. Tomorrow we start with the stones. We're neighbours, you know.",
+          "de": "Gut. Morgen fangen wir mit den Steinen an. Wir sind Nachbarn, weißt du.",
+          "it": "Bene. Domani cominciamo con le pietre. Siamo vicini, sai."
+        }
+      ]
+    },
+    {
+      "id": "voda-b2-povodenj",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o povodnji, ki je odnesla stari most",
+        "en": "the story of the flood that carried off the old bridge",
+        "de": "die Geschichte vom Hochwasser, das die alte Brücke mitgerissen hat",
+        "it": "la storia della piena che portò via il vecchio ponte"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Veš, {learner}, ko sem bil fant, je velika povodenj odnesla stari leseni most. Čez noč.",
+          "en": "You know, {learner}, when I was a boy, a great flood carried off the old wooden bridge. Overnight.",
+          "de": "Weißt du, {learner}, als ich ein Bub war, hat ein großes Hochwasser die alte Holzbrücke mitgerissen. Über Nacht.",
+          "it": "Sai, {learner}, quando ero ragazzo, una grande piena portò via il vecchio ponte di legno. In una notte."
+        },
+        {
+          "who": "france",
+          "face": "sad",
+          "sl": "Ded je teden prej rekel, da bi ga bilo treba popraviti. Pa ga nihče ni poslušal.",
+          "en": "A week before, Grandfather had said it ought to be repaired. But nobody listened to him.",
+          "de": "Eine Woche vorher hatte der Großvater gesagt, man müsste sie reparieren. Aber niemand hat auf ihn gehört.",
+          "it": "Una settimana prima il nonno aveva detto che bisognava ripararlo. Ma nessuno gli diede retta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "In ko so ga končno hoteli popraviti, ga je bila voda že odnesla?",
+              "en": "And when they finally wanted to repair it, the water had already carried it off?",
+              "de": "Und als sie sie endlich reparieren wollten, hatte das Wasser sie schon mitgerissen?",
+              "it": "E quando finalmente volevano ripararlo, l'acqua l'aveva già portato via?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Točno tako. Ostala sta samo dva kamnita stebra. Tista, ki ju vidiš zdaj.",
+                "en": "Exactly. Only two stone pillars were left. The ones you see now.",
+                "de": "Genau. Übrig blieben nur zwei steinerne Pfeiler. Die, die du jetzt siehst.",
+                "it": "Proprio così. Rimasero solo due piloni di pietra. Quelli che vedi adesso."
+              }
+            },
+            {
+              "sl": "In ko so ga končno hoteli popraviti, ga je bila voda že odnašala?",
+              "en": "And when they finally wanted to repair it, the water had already been carrying it off?",
+              "de": "Und als sie sie endlich reparieren wollten, war das Wasser schon dabei gewesen, sie mitzureißen?",
+              "it": "E quando finalmente volevano ripararlo, l'acqua lo stava già portando via?",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "It was over and done by then: the perfective, odnesla. Odnašala (imperfective) is still going on.",
+                "de": "Es war da schon vorbei: der vollendete Aspekt, odnesla. Odnašala (unvollendet) dauert noch an.",
+                "it": "A quel punto era già finita: il perfettivo, odnesla. Odnašala (imperfettivo) è ancora in corso."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Počasi? Kje pa! V eni noči ga ni bilo več, kot bi mignil.",
+                "en": "Slowly? Not at all! In one night it was gone, in the blink of an eye.",
+                "de": "Langsam? Von wegen! In einer Nacht war sie weg, im Handumdrehen.",
+                "it": "Piano piano? Macché! In una notte non c'era più, in un batter d'occhio."
+              }
+            },
+            {
+              "sl": "In ko so ga končno hoteli popraviti, je bil še čisto trden?",
+              "en": "And when they finally wanted to repair it, it was still quite sound?",
+              "de": "Und als sie sie endlich reparieren wollten, war sie noch ganz fest?",
+              "it": "E quando finalmente volevano ripararlo, era ancora bello solido?",
+              "why": {
+                "en": "France says the flood carried it off: by then there was no bridge left to mend.",
+                "de": "France sagt, das Hochwasser hat sie mitgerissen: da war keine Brücke mehr zum Reparieren.",
+                "it": "France dice che la piena l'ha portato via: non c'era più un ponte da riparare."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Trden? Kje pa! Še desk nismo našli.",
+                "en": "Sound? Not at all! We didn't even find the planks.",
+                "de": "Fest? Von wegen! Nicht einmal die Bretter haben wir gefunden.",
+                "it": "Solido? Macché! Non abbiamo trovato neanche le assi."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Novi most so zgradili šele čez dve leti. Do takrat smo vozili žito v mlin kar po brodu.",
+          "en": "They only built the new bridge two years later. Until then we drove the grain to the mill through the ford.",
+          "de": "Die neue Brücke haben sie erst zwei Jahre später gebaut. Bis dahin fuhren wir das Korn durch die Furt zur Mühle.",
+          "it": "Il ponte nuovo lo costruirono solo due anni dopo. Fino ad allora portavamo il grano al mulino passando per il guado."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Škoda, da dedu niso verjeli. Če bi ga bili poslušali, bi si bili prihranili veliko dela.",
+              "en": "A pity they didn't believe your grandfather. If they had listened to him, they'd have saved themselves a lot of work.",
+              "de": "Schade, dass sie dem Großvater nicht geglaubt haben. Hätten sie auf ihn gehört, hätten sie sich viel Arbeit erspart.",
+              "it": "Peccato che non abbiano creduto al nonno. Se gli avessero dato retta, si sarebbero risparmiati tanto lavoro.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. Od takrat poslušam stare ljudi. Še posebej, kadar govorijo o vodi.",
+                "en": "That's true. Since then I listen to old people. Especially when they talk about water.",
+                "de": "Das stimmt. Seitdem höre ich auf die Alten. Besonders, wenn sie vom Wasser reden.",
+                "it": "È vero. Da allora do retta ai vecchi. Soprattutto quando parlano dell'acqua."
+              }
+            },
+            {
+              "sl": "Škoda, da dedu niso verjeli. Če bi ga bili poslušali, bi bili si prihranili veliko dela.",
+              "en": "A pity they didn't believe your grandfather. If they had listened to him, they'd have (si) saved themselves a lot of work.",
+              "de": "Schade, dass sie dem Großvater nicht geglaubt haben. Hätten sie auf ihn gehört, hätten sie (si) sich viel Arbeit erspart.",
+              "it": "Peccato che non abbiano creduto al nonno. Se gli avessero dato retta, si (si) sarebbero risparmiati tanto lavoro.",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words stay together, in their order: bi si, then bili and the l-form, bi si bili prihranili.",
+                "de": "Die kurzen Wörter bleiben zusammen, in ihrer Reihenfolge: bi si, dann bili und die l-Form, bi si bili prihranili.",
+                "it": "Le paroline restano insieme, nel loro ordine: bi si, poi bili e la forma in -l, bi si bili prihranili."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kako? Zdaj se mi pa vse zapleta.",
+                "en": "What? Now it's all getting tangled for me.",
+                "de": "Wie? Jetzt verheddert sich bei mir alles.",
+                "it": "Come? Adesso mi si ingarbuglia tutto."
+              }
+            },
+            {
+              "sl": "Prav jim je bilo. Kdor ne posluša, mora pač po brodu.",
+              "en": "Served them right. Whoever won't listen has to use the ford.",
+              "de": "Geschah ihnen recht. Wer nicht hört, muss eben durch die Furt.",
+              "it": "Gli sta bene. Chi non ascolta, passi pure per il guado.",
+              "why": {
+                "en": "France is sorry about it, he was there too: share his regret instead of gloating.",
+                "de": "France tut es leid, er war selbst dabei: teil sein Bedauern, statt dich zu freuen.",
+                "it": "A France dispiace, c'era anche lui: condividi il suo rammarico invece di goderne."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Prav jim je bilo? Tudi jaz sem bil zraven, {learner}!",
+                "en": "Served them right? I was there too, {learner}!",
+                "de": "Geschah ihnen recht? Ich war auch dabei, {learner}!",
+                "it": "Gli sta bene? C'ero anch'io, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Zato zdaj vsako jutro po dežju preštejem kamne v stebrih. Ena, dve, tri … vsi so na mestu.",
+          "en": "That's why every morning after rain I count the stones in the pillars. One, two, three … all in their place.",
+          "de": "Darum zähle ich jetzt jeden Morgen nach dem Regen die Steine in den Pfeilern. Eins, zwei, drei … alle an ihrem Platz.",
+          "it": "Per questo ora ogni mattina dopo la pioggia conto le pietre dei piloni. Uno, due, tre … tutte al loro posto."
+        }
+      ]
+    },
+    {
+      "id": "ovce-b1-planota",
+      "level": "B1",
+      "memory": {
+        "sl": "večer, ko sem ti povedal o Črni v megli",
+        "en": "the evening I told you about Črna in the fog",
+        "de": "den Abend, an dem ich dir von Črna im Nebel erzählt habe",
+        "it": "la sera in cui ti ho raccontato di Črna nella nebbia"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Ej, {learner}! Oče je rekel, da gremo naslednji teden z ovcami gor na planoto.",
+          "en": "Hey, {learner}! Dad said we're taking the sheep up to the plateau next week.",
+          "de": "He, {learner}! Papa hat gesagt, dass wir nächste Woche mit den Schafen hinauf auf die Hochebene gehen.",
+          "it": "Ehi, {learner}! Papà ha detto che la settimana prossima saliamo con le pecore sull'altopiano."
+        },
+        {
+          "who": "luka",
+          "face": "curious",
+          "sl": "Bi {m:šel|f:šla} z nami? Pot traja cel dan, ampak razgled je super.",
+          "en": "Would you come with us? The walk takes all day, but the view is great.",
+          "de": "Würdest du mitkommen? Der Weg dauert den ganzen Tag, aber die Aussicht ist super.",
+          "it": "Verresti con noi? Il cammino dura tutto il giorno, ma il panorama è fantastico."
+        },
+        {
+          "choices": [
+            {
+              "sl": "{m:Rad|f:Rada} bi {m:šel|f:šla}, ampak samo, če gremo zgodaj, ko še ni vroče.",
+              "en": "I'd love to come, but only if we leave early, while it isn't hot yet.",
+              "de": "Ich käme gern mit, aber nur, wenn wir früh aufbrechen, solange es noch nicht heiß ist.",
+              "it": "Verrei volentieri, ma solo se partiamo presto, quando non fa ancora caldo.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Seveda zgodaj! Ob štirih zjutraj. Ovce ne marajo vročine, jaz tudi ne.",
+                "en": "Early, of course! At four in the morning. The sheep don't like the heat, and nor do I.",
+                "de": "Natürlich früh! Um vier Uhr morgens. Die Schafe mögen keine Hitze, und ich auch nicht.",
+                "it": "Presto, certo! Alle quattro del mattino. Le pecore non amano il caldo, e nemmeno io."
+              }
+            },
+            {
+              "sl": "{m:Rad|f:Rada} {m:šel|f:šla} bi, ampak samo, če gremo zgodaj, ko še ni vroče.",
+              "en": "I'd love to come (word order?), but only if we leave early, while it isn't hot yet.",
+              "de": "Ich käme gern mit (Wortstellung?), aber nur, wenn wir früh aufbrechen, solange es noch nicht heiß ist.",
+              "it": "Verrei volentieri (ordine?), ma solo se partiamo presto, quando non fa ancora caldo.",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "Bi is a short word: it stands second, right after the first word, {m:rad|f:rada} bi {m:šel|f:šla}.",
+                "de": "Bi ist ein kurzes Wort: es steht an zweiter Stelle, gleich nach dem ersten Wort, {m:rad|f:rada} bi {m:šel|f:šla}.",
+                "it": "Bi è una parolina: va al secondo posto, subito dopo la prima parola, {m:rad|f:rada} bi {m:šel|f:šla}."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Kako? Ha, govoriš kot moja ovca Pikica!",
+                "en": "What? Ha, you talk like my sheep Pikica!",
+                "de": "Wie? Ha, du redest wie mein Schaf Pikica!",
+                "it": "Come? Ah, parli come la mia pecora Pikica!"
+              }
+            },
+            {
+              "sl": "{m:Rad|f:Rada} bi {m:šel|f:šla}, ampak samo, če gremo zgodaj, ko je že vroče.",
+              "en": "I'd love to come, but only if we leave early, when it's already hot.",
+              "de": "Ich käme gern mit, aber nur, wenn wir früh aufbrechen, wenn es schon heiß ist.",
+              "it": "Verrei volentieri, ma solo se partiamo presto, quando fa già caldo.",
+              "why": {
+                "en": "Early is while it's still cool: ko še ni vroče. Ko je že vroče is the opposite.",
+                "de": "Früh heißt, solange es noch kühl ist: ko še ni vroče. Ko je že vroče ist das Gegenteil.",
+                "it": "Presto vuol dire quando è ancora fresco: ko še ni vroče. Ko je že vroče è il contrario."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ko je že vroče? Potem obstanemo pod prvim drevesom!",
+                "en": "When it's already hot? Then we'll stop under the first tree!",
+                "de": "Wenn es schon heiß ist? Dann bleiben wir unter dem ersten Baum stehen!",
+                "it": "Quando fa già caldo? Allora ci fermiamo sotto il primo albero!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "sad",
+          "sl": "Lani se je Črna izgubila v megli, ker nisem pazil. Iskal sem jo dva dni.",
+          "en": "Last year Črna got lost in the fog, because I wasn't paying attention. I searched for her for two days.",
+          "de": "Letztes Jahr hat sich Črna im Nebel verirrt, weil ich nicht aufgepasst habe. Ich habe sie zwei Tage lang gesucht.",
+          "it": "L'anno scorso Črna si è persa nella nebbia, perché non stavo attento. L'ho cercata per due giorni."
+        },
+        {
+          "choices": [
+            {
+              "sl": "In kje si jo končno našel?",
+              "en": "And where did you finally find her?",
+              "de": "Und wo hast du sie schließlich gefunden?",
+              "it": "E dove l'hai trovata alla fine?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Na Čavnu, pri stari koči. Pasla se je, kot da se ni nič zgodilo!",
+                "en": "On Čaven, by the old hut. She was grazing as if nothing had happened!",
+                "de": "Auf dem Čaven, bei der alten Hütte. Sie hat gegrast, als wäre nichts gewesen!",
+                "it": "Sul Čaven, vicino alla vecchia baita. Pascolava come se niente fosse!"
+              }
+            },
+            {
+              "sl": "In kje si jo končno iskal?",
+              "en": "And where did you finally search for her?",
+              "de": "Und wo hast du sie schließlich gesucht?",
+              "it": "E dove l'hai cercata alla fine?",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Končno (finally) asks for the result: the perfective, našel (found). Iskal (imperfective) is the search going on.",
+                "de": "Končno (schließlich) fragt nach dem Ergebnis: der vollendete Aspekt, našel (gefunden). Iskal (unvollendet) ist das Suchen.",
+                "it": "Končno (alla fine) chiede il risultato: il perfettivo, našel (trovata). Iskal (imperfettivo) è la ricerca in corso."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Iskal? Dva dni, saj sem ti povedal! Povsod!",
+                "en": "Searched? For two days, I told you! Everywhere!",
+                "de": "Gesucht? Zwei Tage lang, hab ich doch gesagt! Überall!",
+                "it": "Cercata? Per due giorni, te l'ho detto! Dappertutto!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "laugh",
+          "sl": "Ovce so pametnejše, kot misliš. Jaz sem bil takrat bolj neumen od njih. Ha!",
+          "en": "Sheep are cleverer than you think. Back then I was dafter than they were. Ha!",
+          "de": "Schafe sind klüger, als du denkst. Ich war damals dümmer als sie. Ha!",
+          "it": "Le pecore sono più furbe di quanto pensi. Allora ero io più sciocco di loro. Ah!"
+        }
+      ]
+    },
+    {
+      "id": "ovce-b2-studij",
+      "level": "B2",
+      "memory": {
+        "sl": "večer, ko sva govorila o mojem študiju",
+        "en": "the evening we talked about my studies",
+        "de": "den Abend, an dem wir über mein Studium gesprochen haben",
+        "it": "la sera in cui abbiamo parlato dei miei studi"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Veš, {learner}, lani bi lahko šel študirat agronomijo v Ljubljano. Pa nisem šel, zaradi ovac.",
+          "en": "You know, {learner}, last year I could have gone to study agronomy in Ljubljana. But I didn't, because of the sheep.",
+          "de": "Weißt du, {learner}, letztes Jahr hätte ich in Ljubljana Agronomie studieren können. Ich bin aber nicht gegangen, wegen der Schafe.",
+          "it": "Sai, {learner}, l'anno scorso avrei potuto andare a studiare agraria a Lubiana. Ma non ci sono andato, per via delle pecore."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi bil šel, bi bil zdaj že v drugem letniku, kajne?",
+              "en": "If you had gone, you'd be in your second year by now, wouldn't you?",
+              "de": "Wärst du gegangen, wärst du jetzt schon im zweiten Jahr, oder?",
+              "it": "Se ci fossi andato, adesso saresti già al secondo anno, vero?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Ja. Ampak kdo bi pa pasel Belo, Črno in Pikico? Ne bi mogel spati.",
+                "en": "Yes. But who'd have grazed Bela, Črna and Pikica? I couldn't have slept.",
+                "de": "Ja. Aber wer hätte dann Bela, Črna und Pikica gehütet? Ich hätte nicht schlafen können.",
+                "it": "Sì. Ma chi avrebbe pascolato Bela, Črna e Pikica? Non avrei dormito."
+              }
+            },
+            {
+              "sl": "Če si šel, bi bil zdaj že v drugem letniku, kajne?",
+              "en": "If you went, you'd be in your second year by now, wouldn't you?",
+              "de": "Wenn du gegangen bist, wärst du jetzt schon im zweiten Jahr, oder?",
+              "it": "Se ci sei andato, adesso saresti già al secondo anno, vero?",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "He didn't go: what didn't happen takes the conditional, če bi bil šel (or če bi šel). Če si šel says he did.",
+                "de": "Er ist nicht gegangen: was nicht geschah, steht im Konditional, če bi bil šel (oder če bi šel). Če si šel sagt, dass er ging.",
+                "it": "Non ci è andato: ciò che non è successo vuole il condizionale, če bi bil šel (o če bi šel). Če si šel dice che ci è andato."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Sem šel? Ne, saj ti pravim, da sem ostal doma!",
+                "en": "Did I go? No, I'm telling you I stayed at home!",
+                "de": "Bin ich gegangen? Nein, ich sag dir doch, ich bin daheim geblieben!",
+                "it": "Ci sono andato? No, ti dico che sono rimasto a casa!"
+              }
+            },
+            {
+              "sl": "Če bi bil šel, bi bile ovce zdaj v Ljubljani, kajne?",
+              "en": "If you had gone, the sheep would be in Ljubljana now, wouldn't they?",
+              "de": "Wärst du gegangen, wären die Schafe jetzt in Ljubljana, oder?",
+              "it": "Se ci fossi andato, adesso le pecore sarebbero a Lubiana, vero?",
+              "why": {
+                "en": "Luka would have gone to study, the sheep would have stayed on the plateau.",
+                "de": "Luka wäre zum Studieren gegangen, die Schafe wären auf der Hochebene geblieben.",
+                "it": "Luka sarebbe andato a studiare, le pecore sarebbero rimaste sull'altopiano."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ovce v Ljubljani? Ha! Na Prešernovem trgu bi se pasle!",
+                "en": "Sheep in Ljubljana? Ha! They'd be grazing on Prešeren Square!",
+                "de": "Schafe in Ljubljana? Ha! Auf dem Prešeren-Platz würden sie grasen!",
+                "it": "Pecore a Lubiana? Ah! Pascolerebbero in piazza Prešeren!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "curious",
+          "sl": "Oče pravi, naj grem letos, ovce pa bo pasel bratranec. Kaj bi ti {m:naredil|f:naredila} na mojem mestu?",
+          "en": "Dad says I should go this year, and my cousin will graze the sheep. What would you do in my place?",
+          "de": "Papa sagt, ich soll dieses Jahr gehen, und mein Cousin hütet die Schafe. Was würdest du an meiner Stelle tun?",
+          "it": "Papà dice che quest'anno dovrei andare, e le pecore le pascolerà mio cugino. Tu cosa faresti al mio posto?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda boš pogrešal ovce, ampak bratranec bo pazil nanje, dokler se ne vrneš.",
+              "en": "Of course you'll miss the sheep, but your cousin will look after them until you come back.",
+              "de": "Natürlich wirst du die Schafe vermissen, aber dein Cousin passt auf sie auf, bis du zurückkommst.",
+              "it": "Certo che ti mancheranno le pecore, ma tuo cugino le terrà d'occhio finché non torni.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Mogoče imaš prav. Bela me bo pozabila, Pikica pa nikoli.",
+                "en": "Maybe you're right. Bela will forget me, but Pikica never will.",
+                "de": "Vielleicht hast du recht. Bela wird mich vergessen, Pikica aber nie.",
+                "it": "Forse hai ragione. Bela mi dimenticherà, Pikica mai."
+              }
+            },
+            {
+              "sl": "Seveda boš pogrešal ovce, ampak bratranec bo pazil nanje, dokler se vrneš.",
+              "en": "Of course you'll miss the sheep, but your cousin will look after them while you come back.",
+              "de": "Natürlich wirst du die Schafe vermissen, aber dein Cousin passt auf sie auf, solange du zurückkommst.",
+              "it": "Certo che ti mancheranno le pecore, ma tuo cugino le terrà d'occhio mentre torni.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Until is dokler ne with the perfective: dokler se ne vrneš. Dokler alone means while, for as long as.",
+                "de": "Bis heißt dokler ne mit dem vollendeten Aspekt: dokler se ne vrneš. Dokler allein heißt solange.",
+                "it": "Finché non è dokler ne con il perfettivo: dokler se ne vrneš. Dokler da solo vuol dire mentre, per tutto il tempo che."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Dokler se vrnem? Torej bo pazil samo tisti dan?",
+                "en": "While I come back? So he'll only look after them that one day?",
+                "de": "Solange ich zurückkomme? Dann passt er also nur an dem einen Tag auf?",
+                "it": "Mentre torno? Allora le guarda solo quel giorno?"
+              }
+            },
+            {
+              "sl": "Ostani doma. Študij je za ljudi, ki ne marajo dela.",
+              "en": "Stay at home. Studying is for people who don't like work.",
+              "de": "Bleib daheim. Studieren ist für Leute, die nicht gern arbeiten.",
+              "it": "Resta a casa. Lo studio è per chi non ha voglia di lavorare.",
+              "why": {
+                "en": "Luka wants to study and loves his sheep: weigh both (seveda …, ampak …) rather than running down studying.",
+                "de": "Luka will studieren und liebt seine Schafe: wäg beides ab (seveda …, ampak …), statt das Studium schlechtzumachen.",
+                "it": "Luka vuole studiare e ama le sue pecore: soppesa le due cose (seveda …, ampak …) invece di sminuire lo studio."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Za lenuhe? Potem bi bil jaz pa res prvi v razredu, ha!",
+                "en": "For lazybones? Then I'd really be top of the class, ha!",
+                "de": "Für Faulpelze? Dann wäre ich ja wirklich Klassenbester, ha!",
+                "it": "Per i fannulloni? Allora sarei davvero il primo della classe, ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "worried",
+          "sl": "Ampak v Ljubljani je pozimi samo megla. Brez burje se bom dolgočasil kot ovca v hlevu.",
+          "en": "But in Ljubljana there's nothing but fog in winter. Without the burja I'll be bored like a sheep in the barn.",
+          "de": "Aber in Ljubljana gibt es im Winter nur Nebel. Ohne die Bora langweile ich mich wie ein Schaf im Stall.",
+          "it": "Ma a Lubiana d'inverno c'è solo nebbia. Senza la bora mi annoierò come una pecora nella stalla."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne obupaj. Prvo leto bo šlo kot po maslu, boš videl.",
+              "en": "Don't give up. The first year will go like clockwork, you'll see.",
+              "de": "Gib nicht auf. Das erste Jahr läuft wie geschmiert, du wirst sehen.",
+              "it": "Non mollare. Il primo anno andrà liscio come l'olio, vedrai.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Kot po maslu … Dobro, verjamem ti. Malo.",
+                "en": "Like clockwork … All right, I believe you. A little.",
+                "de": "Wie geschmiert … Gut, ich glaube dir. Ein bisschen.",
+                "it": "Liscio come l'olio … Va bene, ti credo. Un po'."
+              }
+            },
+            {
+              "sl": "Ne obupaj. Prvo leto bo šlo kot po medu, boš videl.",
+              "en": "Don't give up. The first year will go like (on honey), you'll see.",
+              "de": "Gib nicht auf. Das erste Jahr läuft wie (auf Honig), du wirst sehen.",
+              "it": "Non mollare. Il primo anno andrà (sul miele), vedrai.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is iti kot po maslu (as if on butter); an idiom keeps its words.",
+                "de": "Die Wendung heißt iti kot po maslu (wie auf Butter); eine Redewendung behält ihre Wörter.",
+                "it": "Il modo di dire è iti kot po maslu (come sul burro); un modo di dire tiene le sue parole."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Po medu? To bi bilo pa lepljivo, ha!",
+                "en": "On honey? That would be sticky, ha!",
+                "de": "Auf Honig? Das wäre aber klebrig, ha!",
+                "it": "Sul miele? Sarebbe appiccicoso, ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Spet me mešaš.",
+            "en": "Eh, what? You're mixing me up again.",
+            "de": "He, was? Du bringst mich schon wieder durcheinander.",
+            "it": "Ehi, cosa? Mi confondi di nuovo."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Prav. Če grem, mi moraš pisati, kako je z ovcami. Vsak teden, prav?",
+          "en": "Right. If I go, you have to write and tell me how the sheep are. Every week, all right?",
+          "de": "Gut. Wenn ich gehe, musst du mir schreiben, wie es den Schafen geht. Jede Woche, abgemacht?",
+          "it": "Va bene. Se vado, mi devi scrivere come stanno le pecore. Ogni settimana, d'accordo?"
         }
       ]
     }
