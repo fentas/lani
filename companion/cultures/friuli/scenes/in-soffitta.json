@@ -10,7 +10,7 @@
   },
   "emoji": "🛏️",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; scene-replier.md: to check",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; scene-replier.md: to check; B1, B2 variants: machine-written, unreviewed",
   "art": "attic",
   "from": [
     "house"
@@ -174,6 +174,10 @@
       "chance": 0.45,
       "dialog": "culla",
       "dialogs": [
+        "culla-b2-osteria",
+        "culla-b2-ospiti",
+        "culla-b1-giocattoli",
+        "culla-b1-ninna",
         "culla-ninna",
         "culla"
       ],
@@ -1485,6 +1489,466 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "culla-b1-giocattoli",
+      "level": "B1",
+      "memory": {
+        "it": "i giocattoli di Tommaso che abbiamo trovato in soffitta",
+        "sl": "Tommasove igrače, ki sva jih {m:našla|f:našli} na podstrešju",
+        "en": "Tommaso's toys we found in the attic",
+        "de": "Tommasos Spielsachen, die wir auf dem Dachboden gefunden haben"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "{learner}, sotto la culla c'è una scatola. Tommaso me ne aveva parlato, ma non l'avevo mai aperta. Mi aiuti?",
+          "sl": "{learner}, pod zibelko je škatla. Tommaso mi je pravil o njej, a je nisem še nikoli odprla. Mi pomagaš?",
+          "en": "{learner}, there's a box under the cradle. Tommaso had told me about it, but I'd never opened it. Will you help me?",
+          "de": "{learner}, unter der Wiege ist eine Schachtel. Tommaso hatte mir davon erzählt, aber ich hatte sie nie aufgemacht. Hilfst du mir?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Certo, signora Marisa! Gliela apro io.",
+              "sl": "Seveda, gospa Marisa! Jaz jo odprem za vas.",
+              "en": "Of course, Signora Marisa! I'll open it for you.",
+              "de": "Klar, Frau Marisa! Ich mach sie Ihnen auf.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie! Piano, piano, che è vecchia.",
+                "sl": "Hvala! Počasi, počasi, stara je.",
+                "en": "Thank you! Gently, gently, it's old.",
+                "de": "Danke! Langsam, langsam, die ist alt."
+              }
+            },
+            {
+              "it": "Certo, signora Marisa! Le la apro io.",
+              "sl": "Seveda, gospa Marisa! Jaz jo odprem za vas.",
+              "en": "Of course, Signora Marisa! I'll open it for you.",
+              "de": "Klar, Frau Marisa! Ich mach sie Ihnen auf.",
+              "grammar": "pronomi-combinati",
+              "why": {
+                "sl": "Le (vam) in la (jo) se združita v gliela.",
+                "en": "Le (to you) and la (it) join into gliela.",
+                "de": "Le (Ihnen) und la (sie) werden zu gliela."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Le la…? Ah, i bambini di oggi parlano una lingua tutta loro!",
+                "sl": "Le la …? Ah, današnji otroci imajo svoj jezik!",
+                "en": "Le la…? Ah, children today speak a language all their own!",
+                "de": "Le la …? Ach, die Kinder heute haben ihre eigene Sprache!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "surprised",
+          "it": "Guarda: il suo primo pallone! L'avevo nascosto qui, perché lui voleva buttarlo via.",
+          "sl": "Poglej: njegova prva žoga! Skrila sem jo sem, ker jo je hotel vreči stran.",
+          "en": "Look: his first football! I'd hidden it here, because he wanted to throw it away.",
+          "de": "Schau: sein erster Fußball! Ich hatte ihn hier versteckt, weil er ihn wegwerfen wollte."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora Tommaso sta per avere una bella sorpresa!",
+              "sl": "Potem bo Tommaso kmalu dobil lepo presenečenje!",
+              "en": "Then Tommaso's about to get a nice surprise!",
+              "de": "Dann kriegt Tommaso gleich eine schöne Überraschung!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Proprio così! Glielo porti tu, stasera?",
+                "sl": "Prav tako! Mu jo neseš ti, nocoj?",
+                "en": "Exactly! Will you take it to him tonight?",
+                "de": "Genau! Bringst du ihn ihm heute Abend?"
+              }
+            },
+            {
+              "it": "Allora Tommaso sta per avendo una bella sorpresa!",
+              "sl": "Potem bo Tommaso kmalu dobil lepo presenečenje!",
+              "en": "Then Tommaso's about to get a nice surprise!",
+              "de": "Dann kriegt Tommaso gleich eine schöne Überraschung!",
+              "grammar": "stare-per",
+              "why": {
+                "sl": "Za stare per pride nedoločnik: sta per avere.",
+                "en": "After stare per comes the infinitive: sta per avere.",
+                "de": "Nach stare per kommt die Grundform: sta per avere."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Sta per avendo? Ah, adesso parli come la radio di Zia Nives, quando gracchia!",
+                "sl": "Sta per avendo? Aha, zdaj govoriš kot radio tete Nives, ko hrešči!",
+                "en": "Sta per avendo? Ah, now you sound like Zia Nives's radio when it crackles!",
+                "de": "Sta per avendo? Ah, jetzt klingst du wie Zia Nives' Radio, wenn es krächzt!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Che bello trovare le cose di quando era piccolo. Grazie, {learner}: senza di te non avrei mai aperto quella scatola.",
+          "sl": "Kako lepo je najti stvari iz časa, ko je bil majhen. Hvala, {learner}: brez tebe te škatle ne bi nikoli odprla.",
+          "en": "How lovely to find things from when he was little. Thank you, {learner}: without you I'd never have opened that box.",
+          "de": "Wie schön, die Sachen von früher zu finden. Danke, {learner}: Ohne dich hätte ich die Schachtel nie aufgemacht."
+        }
+      ]
+    },
+    {
+      "id": "culla-b1-ninna",
+      "level": "B1",
+      "memory": {
+        "it": "la ninna nanna friulana della mia nonna",
+        "sl": "furlansko uspavanko moje babice",
+        "en": "my grandmother's Friulian lullaby",
+        "de": "das friaulische Schlaflied meiner Oma"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "it": "Questa culla l'aveva fatta il nonno di Tommaso, con il legno del noce che c'era dietro l'osteria.",
+          "sl": "To zibelko je naredil Tommasov dedek, iz lesa oreha, ki je stal za gostilno.",
+          "en": "Tommaso's grandfather made this cradle, from the wood of the walnut tree that stood behind the osteria.",
+          "de": "Diese Wiege hat Tommasos Opa gemacht, aus dem Holz des Nussbaums, der hinter der Osteria stand."
+        },
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Mentre la dondolavo, cantavo sempre la stessa ninna nanna. Vuoi sapere perché?",
+          "sl": "Ko sem jo zibala, sem vedno pela isto uspavanko. Hočeš vedeti, zakaj?",
+          "en": "While I rocked it, I always sang the same lullaby. Do you want to know why?",
+          "de": "Während ich sie geschaukelt habe, hab ich immer dasselbe Schlaflied gesungen. Willst du wissen, warum?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! Perché la cantava Sua nonna?",
+              "sl": "Ja! Ker jo je pela vaša babica?",
+              "en": "Yes! Because your grandmother used to sing it?",
+              "de": "Ja! Weil Ihre Oma es gesungen hat?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}, hai indovinato! E io l'ho imparata da lei, sulle sue ginocchia.",
+                "sl": "Bravo, {m:uganil|f:uganila} si! Jaz sem se je naučila od nje, na njenih kolenih.",
+                "en": "Clever, you guessed! And I learnt it from her, on her knee.",
+                "de": "Gut geraten! Und ich hab es von ihr gelernt, auf ihrem Schoß."
+              }
+            },
+            {
+              "it": "Sì! Perché Tommaso piangeva poco?",
+              "sl": "Ja! Ker je Tommaso malo jokal?",
+              "en": "Yes! Because Tommaso hardly cried?",
+              "de": "Ja! Weil Tommaso kaum geweint hat?",
+              "why": {
+                "sl": "Marisa sprašuje, zakaj je vedno pela isto pesem: odgovor je o pesmi, ne o Tommasovem joku.",
+                "en": "Marisa asks why she always sang the same song: the answer is about the song, not about Tommaso's crying.",
+                "de": "Marisa fragt, warum sie immer dasselbe Lied gesungen hat: Die Antwort geht ums Lied, nicht um Tommasos Weinen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Poco? Tommaso? Piangeva così forte che lo sentivano fino in piazza!",
+                "sl": "Malo? Tommaso? Jokal je tako glasno, da so ga slišali vse do trga!",
+                "en": "Hardly? Tommaso? He cried so loud they heard him on the square!",
+                "de": "Kaum? Tommaso? Der hat so laut geweint, dass man ihn bis zum Platz gehört hat!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "thinking",
+          "it": "Siccome lei la cantava in friulano, io all'inizio non capivo tutte le parole. Le ho capite solo da grande.",
+          "sl": "Ker jo je pela po furlansko, sprva nisem razumela vseh besed. Razumela sem jih šele, ko sem odrasla.",
+          "en": "Since she sang it in Friulian, at first I didn't understand all the words. I only understood them once I'd grown up.",
+          "de": "Weil sie es auf Friaulisch sang, verstand ich anfangs nicht alle Wörter. Erst als Erwachsene hab ich sie verstanden."
+        },
+        {
+          "choices": [
+            {
+              "it": "Anch'io, quando sento una canzone nuova, prima imparo la musica e poi le parole.",
+              "sl": "Tudi jaz, ko slišim novo pesem, se najprej naučim melodijo, potem pa besede.",
+              "en": "Me too: when I hear a new song, I learn the tune first and then the words.",
+              "de": "Ich auch: Wenn ich ein neues Lied höre, lerne ich zuerst die Melodie und dann die Wörter.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Proprio come me! Allora la ninna nanna te la canto piano, e tu impari la musica.",
+                "sl": "Prav kot jaz! Potem ti uspavanko zapojem počasi, ti pa se naučiš melodijo.",
+                "en": "Just like me! Then I'll sing you the lullaby slowly, and you learn the tune.",
+                "de": "Genau wie ich! Dann sing ich dir das Schlaflied langsam, und du lernst die Melodie."
+              }
+            },
+            {
+              "it": "Anch'io, siccome sento una canzone nuova, prima imparo la musica e poi le parole.",
+              "sl": "Tudi jaz, ko slišim novo pesem, se najprej naučim melodijo, potem pa besede.",
+              "en": "Me too: when I hear a new song, I learn the tune first and then the words.",
+              "de": "Ich auch: Wenn ich ein neues Lied höre, lerne ich zuerst die Melodie und dann die Wörter.",
+              "grammar": "congiunzioni",
+              "why": {
+                "sl": "Siccome pove razlog (ker); za čas rečeš quando (ko).",
+                "en": "Siccome gives a reason (since); for a time, say quando (when).",
+                "de": "Siccome nennt einen Grund (weil); für eine Zeit sagst du quando (wenn)."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Siccome? Cioè, perché la senti, impari la musica? Non ti seguo, {learner}.",
+                "sl": "Ker? Se pravi, ker jo slišiš, se naučiš melodijo? Ne sledim ti, {learner}.",
+                "en": "Since? You mean because you hear it, you learn the tune? I can't follow you, {learner}.",
+                "de": "Weil? Also, weil du es hörst, lernst du die Melodie? Ich komm nicht mit, {learner}."
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Ninna nanna, ninna oh… Ecco, adesso anche la culla è contenta.",
+          "sl": "Nina nana, nina o … Tako, zdaj je tudi zibelka vesela.",
+          "en": "Ninna nanna, ninna oh… There, now even the cradle is happy.",
+          "de": "Ninna nanna, ninna oh … So, jetzt ist sogar die Wiege froh."
+        }
+      ]
+    },
+    {
+      "id": "culla-b2-osteria",
+      "level": "B2",
+      "memory": {
+        "it": "la culla tra i tavoli dell'osteria",
+        "sl": "zibelko med mizami gostilne",
+        "en": "the cradle among the osteria's tables",
+        "de": "die Wiege zwischen den Tischen der Osteria"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "thinking",
+          "it": "Quando Tommaso era piccolo, tenevo la culla in osteria, dietro il banco. Siccome avevo sempre tre piatti in mano, la dondolavo con il piede.",
+          "sl": "Ko je bil Tommaso majhen, sem imela zibelko v gostilni, za pultom. Ker sem imela vedno tri krožnike v rokah, sem jo zibala z nogo.",
+          "en": "When Tommaso was little, I kept the cradle in the osteria, behind the counter. Since I always had three plates in my hands, I rocked it with my foot.",
+          "de": "Als Tommaso klein war, stand die Wiege in der Osteria, hinter der Theke. Weil ich immer drei Teller in der Hand hatte, hab ich sie mit dem Fuß geschaukelt."
+        },
+        {
+          "who": "marisa",
+          "face": "laugh",
+          "it": "I clienti dicevano che, se non avessi avuto quella culla, Tommaso non sarebbe mai diventato così chiacchierone.",
+          "sl": "Gostje so govorili, da Tommaso ne bi nikoli postal tak klepetulja, če ne bi bilo tiste zibelke.",
+          "en": "The customers said that if I hadn't had that cradle, Tommaso would never have become such a chatterbox.",
+          "de": "Die Gäste sagten, ohne diese Wiege wäre Tommaso nie so ein Plappermaul geworden."
+        },
+        {
+          "choices": [
+            {
+              "it": "Certo! Avendo ascoltato i clienti fin da piccolo, ha imparato a parlare con tutti.",
+              "sl": "Seveda! Ker je že od malega poslušal goste, se je naučil govoriti z vsemi.",
+              "en": "Of course! Having listened to the customers since he was tiny, he learnt to talk to everyone.",
+              "de": "Klar! Weil er schon als Baby den Gästen zugehört hat, hat er gelernt, mit allen zu reden.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Esatto! E adesso conosce le macchine di tutti i clienti, una per una.",
+                "sl": "Tako je! In zdaj pozna avtomobile vseh gostov, enega za drugim.",
+                "en": "Exactly! And now he knows every customer's car, one by one.",
+                "de": "Genau! Und jetzt kennt er die Autos aller Gäste, eines nach dem anderen."
+              }
+            },
+            {
+              "it": "Certo! Essendo ascoltato i clienti fin da piccolo, ha imparato a parlare con tutti.",
+              "sl": "Seveda! Ker je že od malega poslušal goste, se je naučil govoriti z vsemi.",
+              "en": "Of course! Having listened to the customers since he was tiny, he learnt to talk to everyone.",
+              "de": "Klar! Weil er schon als Baby den Gästen zugehört hat, hat er gelernt, mit allen zu reden.",
+              "grammar": "gerundio-passato",
+              "why": {
+                "sl": "Ascoltare ima avere (ho ascoltato), zato avendo ascoltato.",
+                "en": "Ascoltare takes avere (ho ascoltato), so avendo ascoltato.",
+                "de": "Ascoltare bildet mit avere (ho ascoltato), also avendo ascoltato."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Essendo ascoltato? Come se i clienti avessero ascoltato lui? Be', anche quello è vero!",
+                "sl": "Essendo ascoltato? Kot da bi gostje poslušali njega? No, tudi to drži!",
+                "en": "Essendo ascoltato? As if the customers had listened to him? Well, that's true too!",
+                "de": "Essendo ascoltato? Als ob die Gäste ihm zugehört hätten? Na ja, das stimmt auch!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Tu come la vedi? Un bambino deve crescere nella calma, oppure va bene in mezzo alla gente, come il mio?",
+          "sl": "Kako pa ti misliš? Naj otrok raste v miru, ali je prav tudi med ljudmi, kot moj?",
+          "en": "How do you see it? Should a child grow up in peace and quiet, or is it fine among people, like mine?",
+          "de": "Wie siehst du das? Soll ein Kind in Ruhe aufwachsen, oder ist es auch unter Leuten gut, wie meiner?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Tutti e due, purché la sera ci sia un po' di silenzio per dormire.",
+              "sl": "Oboje, samo da je zvečer malo tišine za spanje.",
+              "en": "Both, as long as there's a bit of quiet in the evening to sleep.",
+              "de": "Beides, solange abends ein bisschen Ruhe zum Schlafen ist.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Saggio! La sera, infatti, chiudevo l'osteria e cantavo la ninna nanna.",
+                "sl": "Pametno! Zvečer sem res zaprla gostilno in pela uspavanko.",
+                "en": "Wise! In the evening, in fact, I closed the osteria and sang the lullaby.",
+                "de": "Klug! Abends hab ich tatsächlich die Osteria zugemacht und das Schlaflied gesungen."
+              }
+            },
+            {
+              "it": "Tutti e due, perché la sera ci sia un po' di silenzio per dormire.",
+              "sl": "Oboje, samo da je zvečer malo tišine za spanje.",
+              "en": "Both, as long as there's a bit of quiet in the evening to sleep.",
+              "de": "Beides, solange abends ein bisschen Ruhe zum Schlafen ist.",
+              "grammar": "congiunzioni-congiuntivo",
+              "why": {
+                "sl": "Perché s konjunktivom pove namen (da bi); za pogoj (samo da) rečeš purché.",
+                "en": "Perché with the subjunctive says a purpose (so that); for a condition (as long as), say purché.",
+                "de": "Perché mit dem Konjunktiv nennt einen Zweck (damit); für eine Bedingung (solange) sagst du purché."
+              },
+              "reply": {
+                "face": "thinking",
+                "it": "Tutti e due, perché ci sia silenzio? Mmm, la gente in osteria il silenzio non lo porta di sicuro!",
+                "sl": "Oboje, da bi bila tišina? Hm, ljudje v gostilni tišine zagotovo ne prinesejo!",
+                "en": "Both, so that there's quiet? Hmm, people in an osteria certainly don't bring quiet!",
+                "de": "Beides, damit es ruhig ist? Hm, die Leute in der Osteria bringen sicher keine Ruhe!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Hai ragione. E adesso questa culla la puliamo bene: chissà, magari un giorno servirà di nuovo.",
+          "sl": "Prav imaš. Zdaj pa to zibelko lepo očistiva: kdo ve, morda bo nekoč spet prišla prav.",
+          "en": "You're right. And now let's clean this cradle properly: who knows, maybe one day it'll be needed again.",
+          "de": "Du hast recht. Und jetzt putzen wir die Wiege gründlich: Wer weiß, vielleicht braucht man sie eines Tages wieder."
+        }
+      ]
+    },
+    {
+      "id": "culla-b2-ospiti",
+      "level": "B2",
+      "memory": {
+        "it": "le lingue degli ospiti dell'osteria",
+        "sl": "jezike gostov v gostilni",
+        "en": "the languages of the osteria's guests",
+        "de": "die Sprachen der Gäste der Osteria"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "it": "In questa soffitta ho trovato il mio vecchio quaderno. Ci scrivevo le parole che imparavo dagli ospiti tedeschi e sloveni.",
+          "sl": "Na tem podstrešju sem našla svoj stari zvezek. Vanj sem pisala besede, ki sem se jih učila od nemških in slovenskih gostov.",
+          "en": "In this attic I found my old notebook. I used to write in it the words I learnt from German and Slovene guests.",
+          "de": "Auf diesem Dachboden hab ich mein altes Heft gefunden. Da hab ich die Wörter hineingeschrieben, die ich von deutschen und slowenischen Gästen gelernt hab."
+        },
+        {
+          "who": "marisa",
+          "face": "laugh",
+          "it": "Il primo anno un signore di Vienna mi chiese un «Kaffee», e io gli portai una caraffa d'acqua! Avevo capito «caraffa».",
+          "sl": "Prvo leto me je neki gospod z Dunaja prosil za »Kaffee«, jaz pa sem mu prinesla vrč vode! Razumela sem »caraffa«.",
+          "en": "The first year a gentleman from Vienna asked me for a «Kaffee», and I brought him a jug of water! I'd understood «caraffa».",
+          "de": "Im ersten Jahr bat mich ein Herr aus Wien um einen «Kaffee», und ich brachte ihm eine Karaffe Wasser! Ich hatte «caraffa» verstanden."
+        },
+        {
+          "choices": [
+            {
+              "it": "Ah, ah! E lui che cosa disse, vedendo l'acqua?",
+              "sl": "Ha, ha! Pa kaj je rekel, ko je videl vodo?",
+              "en": "Ha, ha! And what did he say, seeing the water?",
+              "de": "Ha, ha! Und was sagte er, als er das Wasser sah?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Rise tanto, e poi la bevve tutta! Disse che era l'acqua più buona del Friuli.",
+                "sl": "Na ves glas se je smejal, potem pa jo je vso popil! Rekel je, da je to najboljša voda v Furlaniji.",
+                "en": "He laughed and laughed, and then drank it all! He said it was the best water in Friuli.",
+                "de": "Er lachte und lachte, und dann trank er sie ganz aus! Er sagte, das sei das beste Wasser in Friaul."
+              }
+            },
+            {
+              "it": "Ah, ah! E lui che cosa disse, visto l'acqua?",
+              "sl": "Ha, ha! Pa kaj je rekel, ko je videl vodo?",
+              "en": "Ha, ha! And what did he say, seeing the water?",
+              "de": "Ha, ha! Und was sagte er, als er das Wasser sah?",
+              "grammar": "gerundio",
+              "why": {
+                "sl": "Za medtem ko je videl je gerundij: vedendo l'acqua. Deležnik bi moral biti vista l'acqua.",
+                "en": "For while seeing it's the gerund: vedendo l'acqua. A participle would have to be vista l'acqua.",
+                "de": "Für während er sah steht das Gerundium: vedendo l'acqua. Ein Partizip müsste vista l'acqua heißen."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Visto l'acqua? Mmm, l'acqua è femmina, {learner}, almeno qui in Friuli!",
+                "sl": "Visto l'acqua? Hm, voda je ženskega spola, {learner}, vsaj tukaj v Furlaniji!",
+                "en": "Visto l'acqua? Hmm, water is feminine, {learner}, here in Friuli at least!",
+                "de": "Visto l'acqua? Hm, Wasser ist hier weiblich, {learner}, zumindest in Friaul!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Da allora ho imparato tante parole. Secondo te, vale la pena imparare le lingue degli altri, anche se si sbaglia?",
+          "sl": "Od takrat sem se naučila veliko besed. Kaj misliš, se splača učiti tuje jezike, čeprav delaš napake?",
+          "en": "Since then I've learnt lots of words. Do you think it's worth learning other people's languages, even if you make mistakes?",
+          "de": "Seitdem hab ich viele Wörter gelernt. Lohnt es sich, die Sprachen der anderen zu lernen, auch wenn man Fehler macht?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, anzi, sbagliando si ride insieme, e così ci si fa amici.",
+              "sl": "Ja, še več: ko se zmotiš, se skupaj nasmejiš, in tako postanemo prijatelji.",
+              "en": "Yes, even better: making mistakes, you laugh together, and that's how you become friends.",
+              "de": "Ja, sogar noch besser: Wenn man sich irrt, lacht man zusammen, und so wird man Freunde.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Proprio così! Quel signore di Vienna torna ogni estate, e la prima cosa che chiede è la caraffa.",
+                "sl": "Prav tako! Tisti gospod z Dunaja pride vsako poletje, in najprej vpraša za vrč.",
+                "en": "Exactly! That gentleman from Vienna comes back every summer, and the first thing he asks for is the jug.",
+                "de": "Genau! Der Herr aus Wien kommt jeden Sommer wieder, und als Erstes verlangt er die Karaffe."
+              }
+            },
+            {
+              "it": "Sì, però solo se non si sbaglia mai, se no la gente ride.",
+              "sl": "Ja, ampak samo če se nikoli ne zmotiš, drugače se ljudje smejijo.",
+              "en": "Yes, but only if you never make mistakes, or else people laugh.",
+              "de": "Ja, aber nur, wenn man nie Fehler macht, sonst lachen die Leute.",
+              "why": {
+                "sl": "Marisa je pravkar pokazala, da je smeh ob napaki lep: z gospodom sta postala prijatelja.",
+                "en": "Marisa has just shown that laughing at a mistake is nice: she and the gentleman became friends.",
+                "de": "Marisa hat gerade gezeigt, dass das Lachen über einen Fehler schön ist: Sie und der Herr wurden Freunde."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Mai? Allora io non avrei mai parlato con nessuno! Ridere va benissimo, {learner}.",
+                "sl": "Nikoli? Potem jaz ne bi nikoli z nikomer govorila! Smejati se je čisto v redu, {learner}.",
+                "en": "Never? Then I'd never have talked to anyone! Laughing is just fine, {learner}.",
+                "de": "Nie? Dann hätte ich nie mit jemandem geredet! Lachen ist völlig in Ordnung, {learner}."
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Allora il quaderno lo teniamo. Scrivici anche tu una parola nuova, così la impariamo in due.",
+          "sl": "Potem zvezek obdrživa. Vpiši vanj tudi ti eno novo besedo, da se je naučiva skupaj.",
+          "en": "Then we'll keep the notebook. Write a new word in it too, so we learn it together.",
+          "de": "Dann behalten wir das Heft. Schreib du auch ein neues Wort hinein, dann lernen wir es zu zweit."
         }
       ]
     }

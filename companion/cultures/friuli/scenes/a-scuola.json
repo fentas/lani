@@ -10,7 +10,7 @@
   },
   "emoji": "🏫",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "school",
   "from": [
     "school"
@@ -163,6 +163,8 @@
       "chance": 0.5,
       "dialog": "appello",
       "dialogs": [
+        "appello-b2-assente",
+        "appello-b1-gita",
         "appello-stai",
         "appello"
       ],
@@ -211,6 +213,8 @@
       "chance": 0.45,
       "dialog": "lavagna",
       "dialogs": [
+        "lavagna-b2-sloveno",
+        "lavagna-b1-errori",
         "lavagna-articoli",
         "lavagna-plurale",
         "lavagna"
@@ -2410,6 +2414,466 @@
           "sl": "Daj, tečeva! Ena, dve, tri … zdaj!",
           "en": "Come on, let's run! One, two, three… go!",
           "de": "Los, rennen wir! Eins, zwei, drei … los!"
+        }
+      ]
+    },
+    {
+      "id": "appello-b1-gita",
+      "level": "B1",
+      "memory": {
+        "it": "la gita che la maestra ci ha promesso",
+        "sl": "izlet, ki nam ga je obljubila učiteljica",
+        "en": "the trip the teacher promised us",
+        "de": "den Ausflug, den uns die Lehrerin versprochen hat"
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "face": "happy",
+          "it": "Buongiorno, {learner}! Ho una notizia: se domani fa bel tempo, andiamo in gita fino all'Isonzo.",
+          "sl": "Dober dan, {learner}! Imam novico: če bo jutri lepo vreme, gremo na izlet do Soče.",
+          "en": "Good morning, {learner}! I've got news: if the weather's nice tomorrow, we're going on a trip to the Isonzo.",
+          "de": "Guten Morgen, {learner}! Ich hab eine Neuigkeit: Wenn morgen schönes Wetter ist, machen wir einen Ausflug zum Isonzo."
+        },
+        {
+          "who": "elena",
+          "face": "curious",
+          "it": "Ricordati di portare il pranzo e le scarpe comode. Tu che cosa pensi di portare da mangiare?",
+          "sl": "Ne pozabi prinesti kosila in udobnih čevljev. Kaj misliš prinesti za jest?",
+          "en": "Remember to bring lunch and comfortable shoes. What are you thinking of bringing to eat?",
+          "de": "Denk daran, Mittagessen und bequeme Schuhe mitzubringen. Was willst du zum Essen mitbringen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Porterò un panino con il formaggio e una mela, maestra.",
+              "sl": "{m:Prinesel|f:Prinesla} bom sendvič s sirom in jabolko, učiteljica.",
+              "en": "I'll bring a cheese sandwich and an apple, Miss.",
+              "de": "Ich bring ein Käsebrot und einen Apfel mit, Frau Lehrerin.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Ottimo. Il formaggio e la mela vanno sempre d'accordo.",
+                "sl": "Odlično. Sir in jabolko se vedno dobro razumeta.",
+                "en": "Excellent. Cheese and apples always get on well.",
+                "de": "Sehr gut. Käse und Apfel passen immer zusammen."
+              }
+            },
+            {
+              "it": "Porterei un panino con il formaggio e una mela, maestra.",
+              "sl": "{m:Prinesel|f:Prinesla} bom sendvič s sirom in jabolko, učiteljica.",
+              "en": "I'll bring a cheese sandwich and an apple, Miss.",
+              "de": "Ich bring ein Käsebrot und einen Apfel mit, Frau Lehrerin.",
+              "grammar": "futuro",
+              "why": {
+                "sl": "Maestra vpraša, kaj boš {m:prinesel|f:prinesla}: prihodnjik, porterò. Porterei je pogojnik.",
+                "en": "The teacher asks what you will bring: the future, porterò. Porterei is the conditional.",
+                "de": "Die Lehrerin fragt, was du mitbringen wirst: die Zukunft, porterò. Porterei ist der Konditional."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Porteresti? Allora forse non lo porti? Domani niente pranzo?",
+                "sl": "Bi {m:prinesel|f:prinesla}? Potem ga morda ne boš? Jutri brez kosila?",
+                "en": "You would bring? So maybe you won't? No lunch tomorrow?",
+                "de": "Du würdest mitbringen? Also vielleicht doch nicht? Morgen kein Mittagessen?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "face": "thinking",
+          "it": "E con la pioggia? Lorenzo vuole sapere che cosa facciamo in quel caso. Tu che cosa gli rispondi?",
+          "sl": "Pa dež? Lorenzo hoče vedeti, kaj bomo naredili v tem primeru. Kaj mu ti odgovoriš?",
+          "en": "And with rain? Lorenzo wants to know what we'll do then. What do you tell him?",
+          "de": "Und bei Regen? Lorenzo will wissen, was wir dann machen. Was antwortest du ihm?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Se piove, restiamo in classe e la maestra ci legge una storia!",
+              "sl": "Če bo deževalo, ostanemo v razredu in učiteljica nam bere zgodbo!",
+              "en": "If it rains, we stay in the classroom and the teacher reads us a story!",
+              "de": "Wenn es regnet, bleiben wir in der Klasse, und die Lehrerin liest uns eine Geschichte vor!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, così adesso devo trovare una storia! Va bene, affare fatto.",
+                "sl": "Aha, zdaj moram pa najti zgodbo! Prav, dogovorjeno.",
+                "en": "Ah, so now I have to find a story! All right, it's a deal.",
+                "de": "Ah, jetzt muss ich also eine Geschichte finden! Na gut, abgemacht."
+              }
+            },
+            {
+              "it": "Se pioverebbe, restiamo in classe e la maestra ci legge una storia!",
+              "sl": "Če bo deževalo, ostanemo v razredu in učiteljica nam bere zgodbo!",
+              "en": "If it rains, we stay in the classroom and the teacher reads us a story!",
+              "de": "Wenn es regnet, bleiben wir in der Klasse, und die Lehrerin liest uns eine Geschichte vor!",
+              "grammar": "periodo-ipotetico",
+              "why": {
+                "sl": "Kar se res lahko zgodi, gre v sedanjik: se piove (če dežuje). Za se nikoli pogojnik.",
+                "en": "What can really happen takes the present: se piove. After se, never the conditional.",
+                "de": "Was wirklich passieren kann, steht im Präsens: se piove. Nach se nie der Konditional."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Se pioverebbe? Mmm, il cielo non sa ancora se piove, ma la grammatica sì!",
+                "sl": "Se pioverebbe? Hm, nebo še ne ve, ali bo deževalo, slovnica pa ve!",
+                "en": "Se pioverebbe? Hmm, the sky doesn't know yet whether it'll rain, but grammar does!",
+                "de": "Se pioverebbe? Hm, der Himmel weiß noch nicht, ob es regnet, aber die Grammatik schon!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "face": "happy",
+          "it": "Allora siamo pronti per sole e pioggia. Adesso, tutti al posto: cominciamo la lezione!",
+          "sl": "Potem smo pripravljeni na sonce in dež. Zdaj pa vsi na svoja mesta: začnimo z uro!",
+          "en": "Then we're ready for sun and rain. Now, everyone to your seats: let's start the lesson!",
+          "de": "Dann sind wir für Sonne und Regen bereit. Jetzt alle auf die Plätze: Fangen wir mit dem Unterricht an!"
+        }
+      ]
+    },
+    {
+      "id": "appello-b2-assente",
+      "level": "B2",
+      "memory": {
+        "it": "la mattina in cui Lorenzo non c'era all'appello",
+        "sl": "jutro, ko Lorenza ni bilo pri preverjanju prisotnosti",
+        "en": "the morning Lorenzo was missing at the register",
+        "de": "der Morgen, an dem Lorenzo beim Aufrufen fehlte"
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "face": "thinking",
+          "it": "Lorenzo… Lorenzo? Strano, non è mai mancato. Sarà rimasto a casa con la febbre, oppure avrà perso l'autobus?",
+          "sl": "Lorenzo … Lorenzo? Čudno, še nikoli ni manjkal. Je morda ostal doma z vročino ali pa je zamudil avtobus?",
+          "en": "Lorenzo… Lorenzo? Odd, he's never missed school. Has he stayed at home with a temperature, or has he missed the bus?",
+          "de": "Lorenzo … Lorenzo? Seltsam, er hat noch nie gefehlt. Ob er mit Fieber zu Hause geblieben ist, oder hat er den Bus verpasst?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sarà rimasto al mulino ad aiutare suo nonno: ieri sera portavano i sacchi.",
+              "sl": "Najbrž je ostal v mlinu in pomaga dedku: sinoči sta nosila vreče.",
+              "en": "He'll have stayed at the mill to help his grandfather: last night they were carrying sacks.",
+              "de": "Er wird in der Mühle geblieben sein, um seinem Opa zu helfen: Gestern Abend haben sie Säcke getragen.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "it": "Ah, allora sarà stanco morto. Il signor Franco lavora fino a tardi, nel periodo del raccolto.",
+                "sl": "Aha, potem je gotovo do smrti utrujen. Gospod Franco v času žetve dela dolgo v noč.",
+                "en": "Ah, then he must be dead tired. Signor Franco works late at harvest time.",
+                "de": "Ah, dann ist er bestimmt todmüde. Herr Franco arbeitet in der Erntezeit bis spät."
+              }
+            },
+            {
+              "it": "Avrà rimasto al mulino ad aiutare suo nonno: ieri sera portavano i sacchi.",
+              "sl": "Najbrž je ostal v mlinu in pomaga dedku: sinoči sta nosila vreče.",
+              "en": "He'll have stayed at the mill to help his grandfather: last night they were carrying sacks.",
+              "de": "Er wird in der Mühle geblieben sein, um seinem Opa zu helfen: Gestern Abend haben sie Säcke getragen.",
+              "grammar": "futuro-anteriore",
+              "why": {
+                "sl": "Rimanere ima essere: è rimasto, zato sarà rimasto.",
+                "en": "Rimanere takes essere: è rimasto, so sarà rimasto.",
+                "de": "Rimanere bildet mit essere: è rimasto, also sarà rimasto."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Avrà rimasto? Mmm, alla lavagna questa frase la correggerei con il gesso rosso!",
+                "sl": "Avrà rimasto? Hm, ta stavek bi na tabli popravila z rdečo kredo!",
+                "en": "Avrà rimasto? Hmm, on the board I'd correct that one in red chalk!",
+                "de": "Avrà rimasto? Hm, an der Tafel würde ich den Satz mit roter Kreide verbessern!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Comunque, il nonno avrebbe dovuto avvisarmi. Se l'avessi saputo, gli avrei mandato i compiti a casa.",
+          "sl": "Kakorkoli, dedek bi me moral obvestiti. Če bi to vedela, bi mu domov poslala domačo nalogo.",
+          "en": "Anyway, his grandfather should have let me know. If I'd known, I'd have sent him his homework at home.",
+          "de": "Jedenfalls hätte der Opa mir Bescheid sagen sollen. Hätte ich es gewusst, hätte ich ihm die Hausaufgaben nach Hause geschickt."
+        },
+        {
+          "who": "elena",
+          "face": "curious",
+          "it": "Tu abiti vicino al mulino. Potresti portare tu i compiti a Lorenzo, dopo la scuola?",
+          "sl": "Ti stanuješ blizu mlina. Bi ti lahko po pouku {m:nesel|f:nesla} Lorenzu domačo nalogo?",
+          "en": "You live near the mill. Could you take Lorenzo his homework after school?",
+          "de": "Du wohnst bei der Mühle. Könntest du Lorenzo nach der Schule die Hausaufgaben bringen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Certo, maestra. Glieli porto appena finisce la lezione.",
+              "sl": "Seveda, učiteljica. Nesem mu jo takoj, ko se konča pouk.",
+              "en": "Of course, Miss. I'll take it to him as soon as the lesson ends.",
+              "de": "Klar, Frau Lehrerin. Ich bring sie ihm, sobald der Unterricht aus ist.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie. Sei {m:un buon compagno|f:una buona compagna}, {learner}.",
+                "sl": "Hvala. {m:Dober sošolec|f:Dobra sošolka} si, {learner}.",
+                "en": "Thank you. You're a good classmate, {learner}.",
+                "de": "Danke. Du bist {m:ein guter Mitschüler|f:eine gute Mitschülerin}, {learner}."
+              }
+            },
+            {
+              "it": "Certo, maestra. Gli li porto appena finisce la lezione.",
+              "sl": "Seveda, učiteljica. Nesem mu jo takoj, ko se konča pouk.",
+              "en": "Of course, Miss. I'll take it to him as soon as the lesson ends.",
+              "de": "Klar, Frau Lehrerin. Ich bring sie ihm, sobald der Unterricht aus ist.",
+              "grammar": "pronomi-combinati",
+              "why": {
+                "sl": "Gli in li se združita v eno besedo: glieli.",
+                "en": "Gli and li join into one word: glieli.",
+                "de": "Gli und li werden ein Wort: glieli."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Gli li? Alla lavagna lo scriveresti così? Pensaci un attimo.",
+                "sl": "Gli li? Bi to tako {m:napisal|f:napisala} na tablo? Malo premisli.",
+                "en": "Gli li? Would you write it like that on the board? Think for a moment.",
+                "de": "Gli li? Würdest du das so an die Tafel schreiben? Denk kurz nach."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "face": "happy",
+          "it": "Bene. E domani, se Lorenzo torna, gli diamo un applauso per l'aiuto al mulino.",
+          "sl": "Dobro. In jutri, če se Lorenzo vrne, mu zaploskamo za pomoč v mlinu.",
+          "en": "Good. And tomorrow, if Lorenzo comes back, we'll give him a round of applause for helping at the mill.",
+          "de": "Gut. Und morgen, wenn Lorenzo wiederkommt, klatschen wir für seine Hilfe in der Mühle."
+        }
+      ]
+    },
+    {
+      "id": "lavagna-b1-errori",
+      "level": "B1",
+      "memory": {
+        "it": "gli errori difficili che abbiamo corretto alla lavagna",
+        "sl": "težke napake, ki smo jih popravili na tabli",
+        "en": "the hard mistakes we corrected on the board",
+        "de": "die schweren Fehler, die wir an der Tafel verbessert haben"
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buon pomeriggio, {learner}. Oggi gli errori alla lavagna sono più difficili. Prima frase: «Mi lo presti?»",
+          "sl": "Dober dan, {learner}. Danes so napake na tabli težje. Prvi stavek: »Mi lo presti?«",
+          "en": "Good afternoon, {learner}. Today the mistakes on the board are harder. First sentence: «Mi lo presti?»",
+          "de": "Guten Tag, {learner}. Heute sind die Fehler an der Tafel schwerer. Erster Satz: «Mi lo presti?»"
+        },
+        {
+          "choices": [
+            {
+              "it": "Me lo presti?",
+              "sl": "Mi ga posodiš?",
+              "en": "Will you lend it to me?",
+              "de": "Leihst du es mir?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto. Mi diventa me prima di lo. Lo ricorderai?",
+                "sl": "Prav. Mi postane me pred lo. Si boš {m:zapomnil|f:zapomnila}?",
+                "en": "Right. Mi becomes me before lo. Will you remember?",
+                "de": "Richtig. Mi wird vor lo zu me. Merkst du dir das?"
+              }
+            },
+            {
+              "it": "Lo mi presti?",
+              "sl": "Mi ga posodiš?",
+              "en": "Will you lend it to me?",
+              "de": "Leihst du es mir?",
+              "grammar": "pronomi-combinati",
+              "why": {
+                "sl": "Najprej oseba, potem lo, in mi postane me: me lo.",
+                "en": "The person comes first, then lo, and mi becomes me: me lo.",
+                "de": "Zuerst die Person, dann lo, und mi wird zu me: me lo."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Lo mi…? Le parole hanno fatto la capriola! Riproviamo.",
+                "sl": "Lo mi …? Besede so se prekucnile! Poskusiva znova.",
+                "en": "Lo mi…? The words have done a somersault! Let's try again.",
+                "de": "Lo mi …? Die Wörter haben einen Purzelbaum gemacht! Versuchen wir's nochmal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "face": "curious",
+          "it": "Seconda frase: «Se avrei tempo, verrei.» Che cosa c'è che non va?",
+          "sl": "Drugi stavek: »Se avrei tempo, verrei.« Kaj je narobe?",
+          "en": "Second sentence: «Se avrei tempo, verrei.» What's wrong with it?",
+          "de": "Zweiter Satz: «Se avrei tempo, verrei.» Was stimmt da nicht?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Si dice: se avessi tempo, verrei.",
+              "sl": "Reče se: če bi {m:imel|f:imela} čas, bi {m:prišel|f:prišla}.",
+              "en": "You say: se avessi tempo, verrei.",
+              "de": "Man sagt: Wenn ich Zeit hätte, würde ich kommen.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Perfetto! Dopo il se, mai il condizionale. Lo scrivo grande grande.",
+                "sl": "Odlično! Za se nikoli pogojnik. To napišem čisto na veliko.",
+                "en": "Perfect! After se, never the conditional. I'll write that really big.",
+                "de": "Perfekt! Nach se nie der Konditional. Das schreib ich ganz groß."
+              }
+            },
+            {
+              "it": "Si dice: se avrei tempo, venissi.",
+              "sl": "Reče se: če bi {m:imel|f:imela} čas, bi {m:prišel|f:prišla}.",
+              "en": "You say: se avrei tempo, venissi.",
+              "de": "Man sagt: Wenn ich Zeit hätte, würde ich kommen.",
+              "grammar": "periodo-ipotetico",
+              "why": {
+                "sl": "Obrnil si ju: za se pride konjunktiv (avessi), v drugo polovico pogojnik (verrei).",
+                "en": "You've swapped them: se takes the congiuntivo (avessi), the other half the conditional (verrei).",
+                "de": "Du hast sie vertauscht: Nach se kommt der Konjunktiv (avessi), in die andere Hälfte der Konditional (verrei)."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Hai girato tutta la frase al contrario! Come un calzino.",
+                "sl": "Ves stavek si {m:obrnil|f:obrnila} narobe! Kot nogavico.",
+                "en": "You've turned the whole sentence inside out! Like a sock.",
+                "de": "Du hast den ganzen Satz umgedreht! Wie eine Socke."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "face": "happy",
+          "it": "Due su due! Domani scrivi tu una frase sbagliata, e la correggono gli altri.",
+          "sl": "Dva od dveh! Jutri ti napišeš napačen stavek, drugi pa ga popravijo.",
+          "en": "Two out of two! Tomorrow you write a wrong sentence, and the others correct it.",
+          "de": "Zwei von zwei! Morgen schreibst du einen falschen Satz, und die anderen verbessern ihn."
+        }
+      ]
+    },
+    {
+      "id": "lavagna-b2-sloveno",
+      "level": "B2",
+      "memory": {
+        "it": "l'italiano e lo sloveno sulla stessa lavagna",
+        "sl": "italijanščino in slovenščino na isti tabli",
+        "en": "Italian and Slovene on the same board",
+        "de": "Italienisch und Slowenisch an derselben Tafel"
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Oggi alla lavagna c'è una frase in due lingue. Mia nonna di Nova Gorica diceva: «Če bi vedela, bi prišla.»",
+          "sl": "Danes je na tabli stavek v dveh jezikih. Moja babica iz Nove Gorice je rekla: »Če bi vedela, bi prišla.«",
+          "en": "Today there's a sentence in two languages on the board. My grandmother from Nova Gorica used to say: «Če bi vedela, bi prišla.»",
+          "de": "Heute steht ein Satz in zwei Sprachen an der Tafel. Meine Oma aus Nova Gorica sagte: «Če bi vedela, bi prišla.»"
+        },
+        {
+          "who": "elena",
+          "face": "curious",
+          "it": "In sloveno c'è «bi» due volte. Tu come lo diresti in italiano, se lei parlava di ieri?",
+          "sl": "V slovenščini je »bi« dvakrat. Kako bi to ti {m:rekel|f:rekla} po italijansko, če je govorila o včerajšnjem dnevu?",
+          "en": "In Slovene there's «bi» twice. How would you say it in Italian, if she was talking about yesterday?",
+          "de": "Im Slowenischen steht zweimal «bi». Wie würdest du es auf Italienisch sagen, wenn sie von gestern sprach?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Se l'avessi saputo, sarei venuta. Due tempi diversi, non due «bi».",
+              "sl": "Se l'avessi saputo, sarei venuta. Dva različna časa, ne dva »bi«.",
+              "en": "Se l'avessi saputo, sarei venuta. Two different tenses, not two «bi».",
+              "de": "Se l'avessi saputo, sarei venuta. Zwei verschiedene Zeiten, nicht zwei «bi».",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Esatto! L'italiano non ripete: nella prima metà il congiuntivo, nella seconda il condizionale.",
+                "sl": "Tako je! Italijanščina ne ponavlja: v prvi polovici konjunktiv, v drugi pogojnik.",
+                "en": "Exactly! Italian doesn't repeat: the congiuntivo in the first half, the conditional in the second.",
+                "de": "Genau! Italienisch wiederholt nicht: in der ersten Hälfte der Konjunktiv, in der zweiten der Konditional."
+              }
+            },
+            {
+              "it": "Se l'avrei saputo, sarei venuta. Due «bi», come in sloveno.",
+              "sl": "Se l'avrei saputo, sarei venuta. Dva »bi«, kot v slovenščini.",
+              "en": "Se l'avrei saputo, sarei venuta. Two «bi», as in Slovene.",
+              "de": "Se l'avrei saputo, sarei venuta. Zwei «bi», wie im Slowenischen.",
+              "grammar": "periodo-ipotetico-irrealta",
+              "why": {
+                "sl": "Slovenščina ima bi dvakrat, italijanščina ne: za se pride avessi, nikoli avrei.",
+                "en": "Slovene has bi twice, Italian doesn't: se takes avessi, never avrei.",
+                "de": "Slowenisch hat zweimal bi, Italienisch nicht: Nach se kommt avessi, nie avrei."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Ecco la trappola in cui cadono tutti i miei cugini sloveni! Riprova.",
+                "sl": "To je past, v katero padejo vsi moji slovenski bratranci! Poskusi znova.",
+                "en": "That's the trap all my Slovene cousins fall into! Try again.",
+                "de": "Das ist die Falle, in die alle meine slowenischen Cousins tappen! Versuch es nochmal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "face": "thinking",
+          "it": "Mia nonna parlava italiano benissimo, eppure sbagliava sempre proprio lì. Diceva che, se avesse imparato l'italiano da bambina, non le sarebbe successo.",
+          "sl": "Moja babica je zelo dobro govorila italijansko, pa se je vseeno vedno zmotila prav tam. Rekla je, da se ji to ne bi dogajalo, če bi se bila italijanščine naučila kot otrok.",
+          "en": "My grandmother spoke Italian beautifully, and yet she always got it wrong right there. She said that if she'd learnt Italian as a child, it wouldn't have happened to her.",
+          "de": "Meine Oma sprach wunderbar Italienisch, und trotzdem irrte sie sich immer genau da. Sie sagte, hätte sie als Kind Italienisch gelernt, wäre ihr das nicht passiert."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora ha ragione chi dice che le lingue si imparano meglio da piccoli.",
+              "sl": "Potem imajo prav tisti, ki pravijo, da se jezikov najbolje naučiš kot otrok.",
+              "en": "Then the people who say languages are best learnt young are right.",
+              "de": "Dann haben die recht, die sagen, dass man Sprachen als Kind am besten lernt.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "In parte sì. Ma anche da grandi si impara, purché non si abbia paura di sbagliare.",
+                "sl": "Deloma ja. Ampak učiš se lahko tudi kot odrasel, samo da se ne bojiš zmotiti.",
+                "en": "Partly, yes. But you can learn as a grown-up too, as long as you're not afraid of mistakes.",
+                "de": "Zum Teil, ja. Aber auch als Erwachsener lernt man, solange man keine Angst vor Fehlern hat."
+              }
+            },
+            {
+              "it": "Allora Sua nonna non ha mai imparato l'italiano.",
+              "sl": "Potem se vaša babica ni nikoli naučila italijanščine.",
+              "en": "So your grandmother never learnt Italian.",
+              "de": "Dann hat Ihre Oma nie Italienisch gelernt.",
+              "why": {
+                "sl": "Maestra pravi, da je babica govorila zelo dobro italijansko; zmotila se je samo pri enem pravilu.",
+                "en": "The teacher says her grandmother spoke Italian beautifully; she only slipped on one rule.",
+                "de": "Die Lehrerin sagt, ihre Oma sprach wunderbar Italienisch; sie irrte sich nur bei einer Regel."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Mai imparato? Ma no! Lo parlava meglio di molti italiani, solo che quel «se» la tradiva.",
+                "sl": "Se ni nikoli naučila? Kje pa! Govorila ga je bolje od marsikaterega Italijana, samo tisti »se« jo je izdal.",
+                "en": "Never learnt it? Oh no! She spoke it better than many Italians, only that «se» gave her away.",
+                "de": "Nie gelernt? Ach was! Sie sprach es besser als viele Italiener, nur dieses «se» verriet sie."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "face": "happy",
+          "it": "Per domani scrivete una frase con il «se» in tutte e due le lingue. Chi sbaglia, impara: lo diceva anche lei.",
+          "sl": "Za jutri napišite stavek s »se« v obeh jezikih. Kdor se zmoti, se uči: to je rekla tudi ona.",
+          "en": "For tomorrow, write a sentence with «se» in both languages. Whoever makes a mistake learns: she used to say that too.",
+          "de": "Für morgen schreibt ihr einen Satz mit «se» in beiden Sprachen. Wer sich irrt, lernt: Das sagte sie auch."
         }
       ]
     }

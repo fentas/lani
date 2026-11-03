@@ -5,7 +5,7 @@
   "title": { "it": "Al campo da bocce", "sl": "Na balinišču", "en": "At the bocce court", "de": "Auf der Bocciabahn" },
   "emoji": "🎳",
   "level": "A1",
-  "review": "it, sl, en, de (lines, reactions, variants, whys): machine-written, not reviewed by a native speaker; to check: bocciare, pallino, sponda, pergolato, the proverbs, bulin",
+  "review": "it, sl, en, de (lines, reactions, variants, whys): machine-written, not reviewed by a native speaker; to check: bocciare, pallino, sponda, pergolato, the proverbs, bulin; B1, B2 variants too",
   "art": "bocce",
   "from": ["project:balinisce"],
   "pack": "al-campo-da-bocce",
@@ -55,7 +55,7 @@
       "months": [3, 4, 5, 6, 7, 8, 9, 10, 11],
       "chance": 0.55,
       "dialog": "partita",
-      "dialogs": ["partita-bocciata", "partita-vicino", "partita"],
+      "dialogs": ["partita-b2-torneo", "partita-b1-regole", "partita-bocciata", "partita-vicino", "partita"],
       "reward": { "food": 20},
       "marker": "🎳",
       "memory": { "it": "la nostra partita sotto il tiglio", "sl": "najino igro pod lipo", "en": "our game under the linden", "de": "unser Spiel unter der Linde" }
@@ -80,7 +80,7 @@
       "when": ["afternoon"],
       "chance": 0.5,
       "dialog": "osteria",
-      "dialogs": ["osteria-succo", "osteria-inverno", "osteria"],
+      "dialogs": ["osteria-b2-pergola", "osteria-b1-tavoli", "osteria-succo", "osteria-inverno", "osteria"],
       "reward": { "food": 15},
       "marker": "🧃",
       "memory": { "it": "il pomeriggio sotto il pergolato", "sl": "popoldne pod brajdo", "en": "the afternoon under the pergola", "de": "den Nachmittag unter der Pergola" }
@@ -1017,6 +1017,106 @@
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
         { "who": "matteo", "face": "laugh", "it": "Grande, {learner}! Domani sera giochiamo ancora.", "sl": "Super, {learner}! Jutri zvečer spet igrava.", "en": "Great, {learner}! Tomorrow evening we'll play again.", "de": "Super, {learner}! Morgen Abend spielen wir wieder." }
+      ]
+    },
+    {
+      "id": "partita-b1-regole",
+      "level": "B1",
+      "memory": { "it": "le regole delle bocce che ti ho spiegato", "sl": "pravila balinanja, ki sem ti jih razložil", "en": "the rules of bocce I explained to you", "de": "die Boccia-Regeln, die ich dir erklärt habe" },
+      "lines": [
+        { "who": "bepi", "it": "Ciao, {m:piccolo|f:piccola}. Prima di giocare, ti spiego le regole. Si tira prima il pallino, quello piccolo.", "sl": "Živjo, {m:mali|f:mala}. Preden začneva, ti razložim pravila. Najprej se vrže balinček, tisti majhni.", "en": "Hi, little one. Before we play, I'll explain the rules. First you throw the jack, the little one.", "de": "Hallo, {m:Kleiner|f:Kleine}. Bevor wir spielen, erklär ich dir die Regeln. Zuerst wirft man die Zielkugel, die kleine." },
+        { "who": "bepi", "face": "curious", "it": "Poi ognuno tira le sue bocce. Chi va più vicino al pallino, vince un punto. Hai capito?", "sl": "Potem vsak vrže svoje krogle. Kdor pride najbližje balinčku, dobi točko. Si {m:razumel|f:razumela}?", "en": "Then everyone throws their bocce balls. Whoever gets closest to the jack wins a point. Got it?", "de": "Dann wirft jeder seine Kugeln. Wer am nächsten an die Zielkugel kommt, bekommt einen Punkt. Verstanden?" },
+        { "choices": [
+          { "it": "Sì! Ogni giocatore ha quattro bocce, vero?", "sl": "Ja! Vsak igralec ima štiri krogle, ne?", "en": "Yes! Every player has four balls, right?", "de": "Ja! Jeder Spieler hat vier Kugeln, oder?", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così, quattro. E oggi le mie sono rosse, le tue verdi.", "sl": "Prav tako, štiri. Danes so moje rdeče, tvoje zelene.", "en": "Exactly, four. And today mine are red, yours green.", "de": "Genau, vier. Und heute sind meine rot, deine grün." } },
+          { "it": "Sì! Ogni giocatori ha quattro bocce, vero?", "sl": "Ja! Vsak igralec ima štiri krogle, ne?", "en": "Yes! Every player has four balls, right?", "de": "Ja! Jeder Spieler hat vier Kugeln, oder?",
+            "grammar": "indefiniti", "why": { "sl": "Ogni se ne spreminja in gre z ednino: ogni giocatore.", "en": "Ogni never changes and takes the singular: ogni giocatore.", "de": "Ogni ändert sich nie und steht mit der Einzahl: ogni giocatore." },
+            "reply": { "face": "laugh", "it": "Ogni giocatori? Quanti giocatori sono in uno, {m:piccolo|f:piccola}?", "sl": "Ogni giocatori? Koliko igralcev je pa v enem, {m:mali|f:mala}?", "en": "Ogni giocatori? How many players are there in one, little one?", "de": "Ogni giocatori? Wie viele Spieler stecken denn in einem, {m:Kleiner|f:Kleine}?" } }
+        ] },
+        { "who": "bepi", "face": "thinking", "it": "Guarda, la mia boccia è vicina al pallino. E con un colpo forte della tua, che cosa succede?", "sl": "Poglej, moja krogla je blizu balinčka. Kaj pa se zgodi ob močnem udarcu tvoje?", "en": "Look, my ball is close to the jack. And with a hard hit from yours, what happens?", "de": "Schau, meine Kugel liegt nah an der Zielkugel. Und bei einem kräftigen Stoß von deiner, was passiert dann?" },
+        { "choices": [
+          { "it": "Se la tocco forte, la tua boccia scappa via e vinco io!", "sl": "Če se je močno dotaknem, tvoja krogla odleti stran in zmagam jaz!", "en": "If I hit it hard, your ball runs off and I win!", "de": "Wenn ich sie fest treffe, rollt deine Kugel weg, und ich gewinne!", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, furbetto! Allora devo stare attento con te.", "sl": "Ah, zvitorepec! Potem moram s tabo paziti.", "en": "Ah, you little rascal! Then I'll have to watch out with you.", "de": "Ah, du Schlitzohr! Dann muss ich bei dir aufpassen." } },
+          { "it": "Se la toccherei forte, la tua boccia scappa via e vinco io!", "sl": "Če se je močno dotaknem, tvoja krogla odleti stran in zmagam jaz!", "en": "If I hit it hard, your ball runs off and I win!", "de": "Wenn ich sie fest treffe, rollt deine Kugel weg, und ich gewinne!",
+            "grammar": "periodo-ipotetico", "why": { "sl": "Kar se res lahko zgodi: se in sedanjik, se la tocco. Za se nikoli pogojnik.", "en": "What can really happen: se and the present, se la tocco. After se, never the conditional.", "de": "Was wirklich passieren kann: se und Präsens, se la tocco. Nach se nie der Konditional." },
+            "reply": { "face": "curious", "it": "Se la toccheresti? Mmm, la boccia non aspetta i «se», {m:piccolo|f:piccola}: tira!", "sl": "Se la toccheresti? Hm, krogla ne čaka na »če«, {m:mali|f:mala}: vrzi!", "en": "Se la toccheresti? Hmm, the ball doesn't wait for «ifs», little one: throw!", "de": "Se la toccheresti? Hm, die Kugel wartet nicht auf «wenns», {m:Kleiner|f:Kleine}: wirf!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Allora giochiamo. Piano piano, mira bene… Chi va piano va sano e va lontano!", "sl": "Potem pa igrajva. Počasi, dobro meri … Kdor počasi hodi, daleč pride!", "en": "Then let's play. Slowly, aim well… Slow and steady goes far!", "de": "Dann spielen wir. Langsam, gut zielen … Wer langsam geht, kommt weit!" }
+      ]
+    },
+    {
+      "id": "partita-b2-torneo",
+      "level": "B2",
+      "memory": { "it": "il torneo che perdemmo per un centimetro", "sl": "turnir, ki smo ga izgubili za centimeter", "en": "the tournament we lost by a centimetre", "de": "das Turnier, das wir um einen Zentimeter verloren" },
+      "lines": [
+        { "who": "bepi", "face": "thinking", "it": "Vedi quella coppa sullo scaffale dell'osteria? Nel 1968 la vinse la squadra di Cormòns, per un centimetro.", "sl": "Vidiš tisti pokal na polici v gostilni? Leta 1968 ga je osvojila ekipa iz Krmina, za en centimeter.", "en": "See that cup on the shelf in the osteria? In 1968 the Cormòns team won it, by one centimetre.", "de": "Siehst du den Pokal auf dem Regal in der Osteria? 1968 gewann ihn die Mannschaft aus Cormòns, um einen Zentimeter." },
+        { "who": "bepi", "it": "Io tirai l'ultima boccia. Se avessi tirato un po' più piano, avremmo vinto noi. Ci penso ancora, sai?", "sl": "Zadnjo kroglo sem vrgel jaz. Če bi bil vrgel malo bolj nežno, bi zmagali mi. Še vedno mislim na to, veš?", "en": "I threw the last ball. If I'd thrown a bit more gently, we'd have won. I still think about it, you know?", "de": "Ich warf die letzte Kugel. Hätte ich etwas sanfter geworfen, hätten wir gewonnen. Ich denk heute noch daran, weißt du?" },
+        { "choices": [
+          { "it": "Però, nonno, se tu non avessi tirato, non sareste nemmeno arrivati in finale!", "sl": "Ampak, dedek, če ne bi bil ti metal, sploh ne bi prišli v finale!", "en": "But, Grandpa, if you hadn't been throwing, you wouldn't even have got to the final!", "de": "Aber, Opa, wenn du nicht geworfen hättest, wärt ihr gar nicht erst ins Finale gekommen!", "ok": true,
+            "reply": { "face": "proud", "it": "Eh, questo è vero. Tre partite le vincemmo con le mie bocce.", "sl": "Eh, to pa drži. Tri tekme smo dobili z mojimi kroglami.", "en": "Eh, that's true. We won three games with my balls.", "de": "Tja, das stimmt. Drei Spiele haben wir mit meinen Kugeln gewonnen." } },
+          { "it": "Però, nonno, se tu non avessi tirato, non avreste nemmeno arrivati in finale!", "sl": "Ampak, dedek, če ne bi bil ti metal, sploh ne bi prišli v finale!", "en": "But, Grandpa, if you hadn't been throwing, you wouldn't even have got to the final!", "de": "Aber, Opa, wenn du nicht geworfen hättest, wärt ihr gar nicht erst ins Finale gekommen!",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Arrivare tvori čase z essere: siamo arrivati, zato sareste arrivati.", "en": "Arrivare takes essere: siamo arrivati, so sareste arrivati.", "de": "Arrivare bildet mit essere: siamo arrivati, also sareste arrivati." },
+            "reply": { "face": "curious", "it": "Avreste arrivati? Mmm, in finale ci si arriva con il verbo giusto, {m:piccolo|f:piccola}!", "sl": "Avreste arrivati? Hm, v finale se pride s pravim glagolom, {m:mali|f:mala}!", "en": "Avreste arrivati? Hmm, you get to the final with the right verb, little one!", "de": "Avreste arrivati? Hm, ins Finale kommt man mit dem richtigen Verb, {m:Kleiner|f:Kleine}!" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Il capitano di Cormòns disse che avrebbe rimesso in gioco la coppa l'anno dopo. Secondo te lo fece?", "sl": "Kapetan iz Krmina je rekel, da bo naslednje leto spet dal pokal v igro. Kaj misliš, je to tudi naredil?", "en": "The Cormòns captain said he would put the cup up again the next year. Do you think he did?", "de": "Der Kapitän aus Cormòns sagte, er würde den Pokal im Jahr darauf wieder ausspielen. Hat er es getan, meinst du?" },
+        { "choices": [
+          { "it": "Se la coppa è ancora sullo scaffale dell'osteria, forse alla fine l'avete vinta voi!", "sl": "Če je pokal še vedno na polici v gostilni, ste ga na koncu morda osvojili vi!", "en": "If the cup is still on the osteria's shelf, maybe you won it in the end!", "de": "Wenn der Pokal noch im Regal der Osteria steht, habt ihr ihn am Ende vielleicht doch gewonnen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Furbo! Sì, l'anno dopo la vincemmo noi, e da allora non è più tornata a Cormòns.", "sl": "Pametno! Ja, naslednje leto smo ga osvojili mi, in od takrat se ni več vrnil v Krmin.", "en": "Clever! Yes, the next year we won it, and it's never gone back to Cormòns since.", "de": "Schlau! Ja, im Jahr darauf gewannen wir ihn, und seitdem ist er nie mehr nach Cormòns zurück." } },
+          { "it": "Sì, e allora la coppa adesso è a Cormòns.", "sl": "Ja, in zato je pokal zdaj v Krminu.", "en": "Yes, and that's why the cup is in Cormòns now.", "de": "Ja, und deshalb steht der Pokal jetzt in Cormòns.",
+            "why": { "sl": "Pokal je na polici v gostilni tukaj, v vasi: kar je nonno rekel na začetku.", "en": "The cup is on the shelf of the osteria here, in the village: what Nonno said at the start.", "de": "Der Pokal steht im Regal der Osteria hier im Dorf: Das hat der Opa am Anfang gesagt." },
+            "reply": { "face": "confused", "it": "A Cormòns? Ma se te l'ho appena fatta vedere qui, nell'osteria di Marisa!", "sl": "V Krminu? Saj sem ti ga pravkar pokazal tukaj, v Marisini gostilni!", "en": "In Cormòns? But I've just shown it to you here, in Marisa's osteria!", "de": "In Cormòns? Ich hab ihn dir doch gerade hier gezeigt, in Marisas Osteria!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Allora facciamo una partita anche noi. Chissà, magari fra cinquant'anni la racconterai tu.", "sl": "Potem odigrajva še midva eno. Kdo ve, morda jo boš čez petdeset let pripovedoval ti.", "en": "Then let's have a game too. Who knows, maybe in fifty years you'll be the one telling it.", "de": "Dann spielen wir auch eine Partie. Wer weiß, vielleicht erzählst du sie in fünfzig Jahren." }
+      ]
+    },
+    {
+      "id": "osteria-b1-tavoli",
+      "level": "B1",
+      "memory": { "it": "i tavoli che abbiamo preparato per i giocatori", "sl": "mize, ki sva jih {m:pripravila|f:pripravili} za igralce", "en": "the tables we laid for the players", "de": "die Tische, die wir für die Spieler gedeckt haben" },
+      "lines": [
+        { "who": "marisa", "it": "Ciao, {learner}! Stasera c'è la gara di bocce e arrivano dodici giocatori. Ho appena lavato i bicchieri.", "sl": "Živjo, {learner}! Nocoj je tekmovanje v balinanju in pride dvanajst igralcev. Pravkar sem pomila kozarce.", "en": "Hi, {learner}! There's a bocce match tonight and twelve players are coming. I've just washed the glasses.", "de": "Hallo, {learner}! Heute Abend ist ein Boccia-Turnier, und zwölf Spieler kommen. Ich hab gerade die Gläser gespült." },
+        { "who": "marisa", "face": "curious", "it": "Mi porti i tovaglioli? Sono lì, nel cesto. Poi li mettiamo sui tavoli insieme.", "sl": "Mi prineseš prtičke? Tam so, v košari. Potem jih skupaj položiva na mize.", "en": "Will you bring me the napkins? They're over there, in the basket. Then we'll put them on the tables together.", "de": "Bringst du mir die Servietten? Die sind da drüben, im Korb. Dann legen wir sie zusammen auf die Tische." },
+        { "choices": [
+          { "it": "Certo, signora Marisa! Glieli porto subito.", "sl": "Seveda, gospa Marisa! Takoj vam jih prinesem.", "en": "Of course, Signora Marisa! I'll bring them to you right away.", "de": "Klar, Frau Marisa! Ich bring sie Ihnen gleich.", "ok": true,
+            "reply": { "face": "happy", "it": "Che {m:bravo|f:brava}! Uno per ogni giocatore, mi raccomando.", "sl": "{m:Priden|f:Pridna}! Enega za vsakega igralca, prosim.", "en": "Good for you! One for every player, mind.", "de": "Wie lieb! Eine für jeden Spieler, denk dran." } },
+          { "it": "Certo, signora Marisa! Le li porto subito.", "sl": "Seveda, gospa Marisa! Takoj vam jih prinesem.", "en": "Of course, Signora Marisa! I'll bring them to you right away.", "de": "Klar, Frau Marisa! Ich bring sie Ihnen gleich.",
+            "grammar": "pronomi-combinati", "why": { "sl": "Le (vam) in li (jih) se združita v glieli.", "en": "Le (to you) and li (them) join into glieli.", "de": "Le (Ihnen) und li (sie) werden zu glieli." },
+            "reply": { "face": "confused", "it": "Le li? Arrivo, arrivo… ma che cosa mi porti, di preciso?", "sl": "Le li? Že grem, že grem … ampak kaj mi pravzaprav prineseš?", "en": "Le li? Coming, coming… but what exactly are you bringing me?", "de": "Le li? Ich komm ja … aber was bringst du mir genau?" } }
+        ] },
+        { "who": "marisa", "face": "thinking", "it": "Dodici giocatori, dodici tovaglioli. Ma se arrivasse anche Matteo con i suoi amici, ne basterebbero?", "sl": "Dvanajst igralcev, dvanajst prtičkov. Ampak če bi prišel še Matteo s prijatelji, bi jih bilo dovolj?", "en": "Twelve players, twelve napkins. But if Matteo came too with his friends, would there be enough?", "de": "Zwölf Spieler, zwölf Servietten. Aber wenn auch Matteo mit seinen Freunden käme, würden sie reichen?" },
+        { "choices": [
+          { "it": "No, ne servirebbero di più. Ne prendo altri cinque, per sicurezza.", "sl": "Ne, potrebovali bi jih več. Vzamem jih še pet, za vsak primer.", "en": "No, we'd need more. I'll take five more, just in case.", "de": "Nein, wir bräuchten mehr. Ich nehme noch fünf, sicherheitshalber.", "ok": true,
+            "reply": { "face": "laugh", "it": "{m:Bravo|f:Brava}, pensi a tutto! Con Matteo, cinque in più non bastano mai.", "sl": "{m:Priden|f:Pridna}, na vse misliš! Z Matteom pet več nikoli ni dovolj.", "en": "Clever you, you think of everything! With Matteo, five extra are never enough.", "de": "Toll, du denkst an alles! Bei Matteo reichen fünf mehr nie." } },
+          { "it": "No, ne serverebbero di più. Ne prendo altri cinque, per sicurezza.", "sl": "Ne, potrebovali bi jih več. Vzamem jih še pet, za vsak primer.", "en": "No, we'd need more. I'll take five more, just in case.", "de": "Nein, wir bräuchten mehr. Ich nehme noch fünf, sicherheitshalber.",
+            "grammar": "condizionale", "why": { "sl": "Servire je na -ire, zato i ostane: servirebbero. Samo -are dobi e (parlerei).", "en": "Servire ends in -ire, so the i stays: servirebbero. Only -are takes e (parlerei).", "de": "Servire endet auf -ire, also bleibt das i: servirebbero. Nur -are bekommt e (parlerei)." },
+            "reply": { "face": "laugh", "it": "Serverebbero? Che parola nuova! La scrivo nel quaderno degli ospiti.", "sl": "Serverebbero? Kakšna nova beseda! Zapišem jo v zvezek za goste.", "en": "Serverebbero? What a new word! I'll write it in the guests' notebook.", "de": "Serverebbero? Was für ein neues Wort! Das schreib ich ins Gästeheft." } }
+        ] },
+        { "who": "marisa", "face": "happy", "it": "Ecco fatto! Tavoli pronti, bicchieri lucidi. Stasera tu sei {m:il mio aiutante|f:la mia aiutante} numero uno!", "sl": "Tako! Mize so pripravljene, kozarci se svetijo. Nocoj si ti {m:moj pomočnik|f:moja pomočnica} številka ena!", "en": "All done! Tables ready, glasses shining. Tonight you're my number one helper!", "de": "Fertig! Tische bereit, Gläser blank. Heute Abend bist du {m:mein Helfer|f:meine Helferin} Nummer eins!" }
+      ]
+    },
+    {
+      "id": "osteria-b2-pergola",
+      "level": "B2",
+      "memory": { "it": "la vite del pergolato, piantata da mio padre", "sl": "trto na latniku, ki jo je posadil moj oče", "en": "the vine on the pergola, planted by my father", "de": "die Rebe an der Pergola, gepflanzt von meinem Vater" },
+      "lines": [
+        { "who": "marisa", "it": "Lo sai che questa vite è stata piantata da mio padre il giorno in cui è nato Tommaso? Allora era un bastoncino.", "sl": "Veš, da je to trto posadil moj oče na dan, ko se je rodil Tommaso? Takrat je bila palčka.", "en": "Did you know this vine was planted by my father the day Tommaso was born? Back then it was a little stick.", "de": "Weißt du, dass diese Rebe von meinem Vater gepflanzt wurde, an dem Tag, als Tommaso geboren ist? Damals war sie ein Stöckchen." },
+        { "who": "marisa", "face": "thinking", "it": "Tutti dicevano che non avrebbe mai fatto ombra. E invece adesso ci gioca a bocce mezzo paese, all'ombra.", "sl": "Vsi so rekli, da ne bo nikoli dala sence. Zdaj pa pod njo v senci balina pol vasi.", "en": "Everyone said it would never give any shade. And now half the village plays bocce in its shade.", "de": "Alle sagten, sie würde nie Schatten geben. Und jetzt spielt das halbe Dorf in ihrem Schatten Boccia." },
+        { "choices": [
+          { "it": "Quindi avevano torto. Se Suo padre si fosse arreso, adesso qui ci sarebbe solo sole.", "sl": "Torej niso imeli prav. Če bi vaš oče obupal, bi bilo tukaj zdaj samo sonce.", "en": "So they were wrong. If your father had given up, there'd be nothing but sun here now.", "de": "Dann hatten sie unrecht. Hätte Ihr Vater aufgegeben, wäre hier jetzt nur Sonne.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così! Lui diceva: «La pazienza fa crescere anche i bastoncini.»", "sl": "Prav tako! On je rekel: »Potrpežljivost da zrasti tudi palčkam.«", "en": "Exactly! He used to say: «Patience makes even sticks grow.»", "de": "Genau! Er sagte immer: «Geduld lässt sogar Stöckchen wachsen.»" } },
+          { "it": "Quindi avevano torto. Se Suo padre si sarebbe arreso, adesso qui ci sarebbe solo sole.", "sl": "Torej niso imeli prav. Če bi vaš oče obupal, bi bilo tukaj zdaj samo sonce.", "en": "So they were wrong. If your father had given up, there'd be nothing but sun here now.", "de": "Dann hatten sie unrecht. Hätte Ihr Vater aufgegeben, wäre hier jetzt nur Sonne.",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Za se nikoli pogojnik: se si fosse arreso, potem ci sarebbe.", "en": "After se, never the conditional: se si fosse arreso, then ci sarebbe.", "de": "Nach se nie der Konditional: se si fosse arreso, dann ci sarebbe." },
+            "reply": { "face": "curious", "it": "Si sarebbe… sarebbe? Due «sarebbe» in una frase! Mi gira la testa, {learner}.", "sl": "Si sarebbe … sarebbe? Dva »sarebbe« v enem stavku! Vrti se mi, {learner}.", "en": "Si sarebbe… sarebbe? Two «sarebbe» in one sentence! My head's spinning, {learner}.", "de": "Si sarebbe … sarebbe? Zweimal «sarebbe» in einem Satz! Mir dreht sich der Kopf, {learner}." } }
+        ] },
+        { "who": "marisa", "face": "curious", "it": "Adesso però la vite è vecchia e l'uva è poca. Matteo dice che bisognerebbe potarla di più. Tu come la vedi?", "sl": "Zdaj pa je trta stara in grozdja je malo. Matteo pravi, da bi jo bilo treba bolj obrezati. Kaj pa ti misliš?", "en": "But now the vine is old and there are few grapes. Matteo says it ought to be pruned more. What do you think?", "de": "Aber jetzt ist die Rebe alt und hat wenig Trauben. Matteo sagt, man müsste sie stärker schneiden. Was meinst du?" },
+        { "choices": [
+          { "it": "Va potata, sì, ma piano, perché l'ombra serve ai giocatori.", "sl": "Treba jo je obrezati, ja, ampak previdno, ker igralci potrebujejo senco.", "en": "It needs pruning, yes, but gently, because the players need the shade.", "de": "Man muss sie schneiden, ja, aber vorsichtig, weil die Spieler den Schatten brauchen.", "ok": true,
+            "reply": { "face": "happy", "it": "Saggio! Lo dico a Matteo: niente tagli grandi, l'ombra prima di tutto.", "sl": "Pametno! Povem Matteu: nobenih velikih rezov, senca je na prvem mestu.", "en": "Wise! I'll tell Matteo: no big cuts, shade comes first.", "de": "Klug! Ich sag's Matteo: keine großen Schnitte, der Schatten geht vor." } },
+          { "it": "Viene potata, sì, ma piano, perché l'ombra serve ai giocatori.", "sl": "Treba jo je obrezati, ja, ampak previdno, ker igralci potrebujejo senco.", "en": "It needs pruning, yes, but gently, because the players need the shade.", "de": "Man muss sie schneiden, ja, aber vorsichtig, weil die Spieler den Schatten brauchen.",
+            "grammar": "passivo-venire-andare", "why": { "sl": "Andare z deležnikom pove, kaj je treba narediti: va potata. Viene potata pove, kaj se dogaja.", "en": "Andare with the participle says what must be done: va potata. Viene potata says what is happening.", "de": "Andare mit dem Partizip sagt, was getan werden muss: va potata. Viene potata sagt, was gerade passiert." },
+            "reply": { "face": "surprised", "it": "Viene potata? Adesso? Ma chi la sta tagliando? Io non vedo nessuno con le forbici!", "sl": "Viene potata? Zdaj? Kdo pa jo obrezuje? Ne vidim nikogar s škarjami!", "en": "Viene potata? Now? Who's cutting it? I can't see anyone with shears!", "de": "Viene potata? Jetzt? Wer schneidet sie denn? Ich seh niemanden mit einer Schere!" } }
+        ] },
+        { "who": "marisa", "face": "happy", "it": "Allora tra cinquant'anni qui ci sarà ancora ombra. E forse sarai tu a raccontarlo a qualcuno.", "sl": "Potem bo tukaj čez petdeset let še vedno senca. In morda boš to nekomu pripovedoval ti.", "en": "Then in fifty years there'll still be shade here. And maybe you'll be the one telling someone.", "de": "Dann gibt es hier in fünfzig Jahren noch Schatten. Und vielleicht erzählst du es dann jemandem." }
       ]
     }
   ]

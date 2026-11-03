@@ -5,7 +5,7 @@
   "title": { "it": "Il mare", "sl": "Morje", "en": "The sea", "de": "Das Meer" },
   "emoji": "🌊",
   "level": "A1",
-  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker",
+  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "sea",
   "from": ["spot:horizon"],
   "pack": "il-mare",
@@ -43,7 +43,7 @@
     },
     {
       "id": "vela", "title": { "it": "Nonno Bepi alza la vela", "sl": "Dedek Bepi dviga jadro", "en": "Nonno Bepi is raising the sail", "de": "Nonno Bepi setzt das Segel" }, "who": "bepi",
-      "when": ["morning"], "chance": 0.5, "dialog": "vela", "dialogs": ["vela-anni", "vela"], "reward": { "food": 20 }, "marker": "⛵",
+      "when": ["morning"], "chance": 0.5, "dialog": "vela", "dialogs": ["vela-b2-nebbia", "vela-b2-nodo", "vela-b1-timone", "vela-b1-casoni", "vela-anni", "vela"], "reward": { "food": 20 }, "marker": "⛵",
       "memory": { "it": "la vela che abbiamo alzato insieme", "sl": "jadro, ki sva ga skupaj dvignila", "en": "the sail we raised together", "de": "das Segel, das wir zusammen gesetzt haben" }
     }
   ],
@@ -194,6 +194,104 @@
             "reply": { "face": "happy", "it": "Sì, tira! Piano, piano… Ecco, la vela è su!", "sl": "Ja, vleci! Počasi, počasi … Glej, jadro je gor!", "en": "Yes, pull! Slowly, slowly… There, the sail is up!", "de": "Ja, zieh! Langsam, langsam … So, das Segel ist oben!", "fx": { "sail": 1 } } }
         ] },
         { "who": "bepi", "face": "thinking", "it": "Chi va piano va sano e va lontano. Andiamo!", "sl": "Počasi se daleč pride. Greva!", "en": "Slow and steady goes far. Let's go!", "de": "Wer langsam geht, kommt weit. Fahren wir!" }
+      ]
+    },
+    {
+      "id": "vela-b1-timone",
+      "level": "B1",
+      "memory": { "it": "il timone della barca di mio padre", "sl": "krmilo čolna mojega očeta", "en": "the tiller of my father's boat", "de": "das Ruder vom Boot meines Vaters" },
+      "lines": [
+        { "who": "bepi", "face": "proud", "it": "Buongiorno, {m:piccolo|f:piccola}. Lo sai? Mio padre costruì questa barca con le sue mani, quando io avevo la tua età.", "sl": "Dober dan, {m:mali|f:mala}. Veš? Moj oče je ta čoln zgradil s svojimi rokami, ko sem bil tvojih let.", "en": "Good morning, little one. Do you know? My father built this boat with his own hands, when I was your age.", "de": "Guten Morgen, {m:Kleiner|f:Kleine}. Weißt du was? Mein Vater baute dieses Boot mit seinen eigenen Händen, als ich so alt war wie du." },
+        { "choices": [
+          { "it": "L'ha costruita lui? Con le sue mani? Che bravo!", "sl": "Ga je zgradil sam? S svojimi rokami? Kako spreten!", "en": "He built it himself? With his own hands? How clever!", "de": "Er hat es selbst gebaut? Mit seinen eigenen Händen? Wie geschickt!", "ok": true,
+            "reply": { "face": "proud", "it": "Tutta lui, chiodo per chiodo. E la vela l'ha cucita mia mamma.", "sl": "Vse sam, žebelj za žebljem. Jadro pa je sešila moja mama.", "en": "All by himself, nail by nail. And my mum sewed the sail.", "de": "Ganz allein, Nagel für Nagel. Und das Segel hat meine Mama genäht." } },
+          { "it": "La costruisce lui? Con le sue mani? Che bravo!", "sl": "Ga je zgradil sam? S svojimi rokami? Kako spreten!", "en": "He built it himself? With his own hands? How clever!", "de": "Er hat es selbst gebaut? Mit seinen eigenen Händen? Wie geschickt!",
+            "grammar": "passato-remoto", "why": { "sl": "Costruì je passato remoto: je zgradil (l'ha costruita), pred davnimi leti, ne zdaj.", "en": "Costruì is the passato remoto: he built it (l'ha costruita), long ago, not now.", "de": "Costruì ist das passato remoto: er hat es gebaut (l'ha costruita), vor langer Zeit, nicht jetzt." },
+            "reply": { "face": "laugh", "it": "La costruisce adesso? Ma no! La costruì tanti anni fa: guarda com'è vecchia!", "sl": "Ga gradi zdaj? Kje pa! Zgradil ga je pred mnogimi leti: poglej, kako star je!", "en": "He's building it now? Oh no! He built it many years ago: look how old it is!", "de": "Er baut es jetzt? Aber nein! Er hat es vor vielen Jahren gebaut: Schau, wie alt es ist!" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Oggi il vento è buono. Tu che cosa vorresti fare: tenere la corda della vela o il timone?", "sl": "Danes je veter dober. Kaj bi ti {m:hotel|f:hotela} početi: držati vrv jadra ali krmilo?", "en": "The wind's good today. What would you like to do: hold the sail's rope or the tiller?", "de": "Heute ist der Wind gut. Was möchtest du machen: das Segelseil halten oder das Ruder?" },
+        { "choices": [
+          { "it": "Mi piacerebbe tenere il timone, se posso.", "sl": "{m:Rad bi držal|f:Rada bi držala} krmilo, če smem.", "en": "I'd like to hold the tiller, if I may.", "de": "Ich würde gern das Ruder halten, wenn ich darf.", "ok": true,
+            "reply": { "face": "happy", "it": "Certo che puoi. Tienilo così, dritto verso i casoni.", "sl": "Seveda smeš. Drži ga tako, naravnost proti kočam.", "en": "Of course you may. Hold it like this, straight towards the casoni.", "de": "Natürlich darfst du. Halt es so, geradeaus zu den Casoni." } },
+          { "it": "Mi piacerà tenere il timone, se posso.", "sl": "{m:Rad bi držal|f:Rada bi držala} krmilo, če smem.", "en": "I'd like to hold the tiller, if I may.", "de": "Ich würde gern das Ruder halten, wenn ich darf.",
+            "grammar": "condizionale", "why": { "sl": "Želja, povedana vljudno, je pogojnik: mi piacerebbe. Mi piacerà je prihodnjik.", "en": "A wish said politely is the conditional: mi piacerebbe. Mi piacerà is the future.", "de": "Ein höflicher Wunsch steht im Konditional: mi piacerebbe. Mi piacerà ist die Zukunft." },
+            "reply": { "face": "curious", "it": "Ti piacerà? Allora prima provi, e dopo mi dici se ti è piaciuto!", "sl": "Ti bo všeč? Potem najprej poskusi, potem mi pa poveš, ali ti je bilo všeč!", "en": "You will like it? Then try first, and afterwards tell me whether you liked it!", "de": "Es wird dir gefallen? Dann probier zuerst, und danach sagst du mir, ob es dir gefallen hat!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Ecco, il vento gonfia la vela. Tieni forte il timone: oggi {m:il capitano|f:la capitana} sei tu!", "sl": "Tako, veter napihne jadro. Drži krmilo močno: danes si ti {m:kapitan|f:kapitanka}!", "en": "There, the wind fills the sail. Hold the tiller tight: today you're the captain!", "de": "So, der Wind bläht das Segel. Halt das Ruder fest: Heute bist du {m:der Kapitän|f:die Kapitänin}!" }
+      ]
+    },
+    {
+      "id": "vela-b1-casoni",
+      "level": "B1",
+      "memory": { "it": "i casoni della laguna", "sl": "koče v laguni", "en": "the casoni of the lagoon", "de": "die Casoni in der Lagune" },
+      "lines": [
+        { "who": "bepi", "it": "Guarda laggiù, nella laguna: vedi quelle casette basse? Sono i casoni. Sai che cos'è un casone?", "sl": "Poglej tja dol, v laguno: vidiš tiste nizke hišice? To so casoni. Veš, kaj je casone?", "en": "Look down there, in the lagoon: see those low little houses? Those are the casoni. Do you know what a casone is?", "de": "Schau da unten in der Lagune: Siehst du die niedrigen Häuschen? Das sind die Casoni. Weißt du, was ein Casone ist?" },
+        { "choices": [
+          { "it": "È una casa di canne in cui vivevano i pescatori?", "sl": "Je to hiša iz trsja, v kateri so živeli ribiči?", "en": "Is it a reed house the fishermen lived in?", "de": "Ist das ein Schilfhaus, in dem die Fischer wohnten?", "ok": true,
+            "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}! Di canne e di legno, sull'acqua. D'estate ci dormivano per pescare all'alba.", "sl": "{m:Priden|f:Pridna}! Iz trsja in lesa, na vodi. Poleti so tam spali, da so ob zori lovili ribe.", "en": "Well done! Of reeds and wood, on the water. In summer they slept there to fish at dawn.", "de": "Gut gemacht! Aus Schilf und Holz, auf dem Wasser. Im Sommer schliefen sie da, um im Morgengrauen zu fischen." } },
+          { "it": "È una casa di canne in che vivevano i pescatori?", "sl": "Je to hiša iz trsja, v kateri so živeli ribiči?", "en": "Is it a reed house the fishermen lived in?", "de": "Ist das ein Schilfhaus, in dem die Fischer wohnten?",
+            "grammar": "relativi-cui", "why": { "sl": "Za predlogom ni che, ampak cui: in cui (v kateri).", "en": "After a preposition it isn't che but cui: in cui.", "de": "Nach einer Präposition steht nicht che, sondern cui: in cui." },
+            "reply": { "face": "curious", "it": "In che…? In che cosa? Mmm, nella barca, nella casa o nel mare?", "sl": "In che …? V čem? Hm, v čolnu, v hiši ali v morju?", "en": "In che…? In what? Hmm, in the boat, the house or the sea?", "de": "In che …? Worin? Hm, im Boot, im Haus oder im Meer?" } }
+        ] },
+        { "who": "bepi", "face": "thinking", "it": "Arrivarci a vela è lungo, sai: due ore, con questo vento. Le tue braccia ce la fanno a tenere la corda?", "sl": "Do tja je z jadrom daleč, veš: dve uri, s tem vetrom. Bodo tvoje roke zmogle držati vrv?", "en": "Getting there under sail is a long way, you know: two hours, with this wind. Can your arms manage to hold the rope?", "de": "Unter Segel ist es weit bis dahin, weißt du: zwei Stunden, bei diesem Wind. Schaffen es deine Arme, das Seil zu halten?" },
+        { "choices": [
+          { "it": "Ce la faccio, nonno! Le mie braccia sono forti.", "sl": "Zmorem, dedek! Moje roke so močne.", "en": "I can do it, Grandpa! My arms are strong.", "de": "Ich schaff das, Opa! Meine Arme sind stark.", "ok": true,
+            "reply": { "face": "laugh", "it": "Allora tira forte! Ma se sei {m:stanco|f:stanca}, dimmelo.", "sl": "Potem pa vleci močno! Ampak če si {m:utrujen|f:utrujena}, mi povej.", "en": "Then pull hard! But if you're tired, tell me.", "de": "Dann zieh fest! Aber wenn du müde bist, sag es mir." } },
+          { "it": "Ce lo faccio, nonno! Le mie braccia sono forti.", "sl": "Zmorem, dedek! Moje roke so močne.", "en": "I can do it, Grandpa! My arms are strong.", "de": "Ich schaff das, Opa! Meine Arme sind stark.",
+            "grammar": "verbi-pronominali", "why": { "sl": "Pri farcela ostane la: ce la faccio, ce la fai.", "en": "Farcela keeps its la: ce la faccio, ce la fai.", "de": "Bei farcela bleibt das la: ce la faccio, ce la fai." },
+            "reply": { "face": "laugh", "it": "Ce lo fai? E che cosa fai, una torta? Ah, ah! Riprova.", "sl": "Ce lo fai? Kaj pa delaš, torto? Ha, ha! Še enkrat.", "en": "Ce lo fai? What are you making, a cake? Ha, ha! Try again.", "de": "Ce lo fai? Was machst du denn, einen Kuchen? Ha, ha! Nochmal." } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Allora andiamo verso i casoni. Chi va piano va sano e va lontano, anche sull'acqua!", "sl": "Potem greva proti kočam. Kdor počasi hodi, daleč pride, tudi po vodi!", "en": "Then let's head for the casoni. Slow and steady goes far, even on the water!", "de": "Dann fahren wir zu den Casoni. Wer langsam geht, kommt weit, auch auf dem Wasser!" }
+      ]
+    },
+    {
+      "id": "vela-b2-nebbia",
+      "level": "B2",
+      "memory": { "it": "la nebbia in laguna e le campane di Grado", "sl": "megla v laguni in zvonovi iz Gradeža", "en": "the fog in the lagoon and the bells of Grado", "de": "der Nebel in der Lagune und die Glocken von Grado" },
+      "lines": [
+        { "who": "bepi", "face": "thinking", "it": "Una volta, da giovane, la nebbia ci prese in mezzo alla laguna. Non si vedeva neanche la punta della barca.", "sl": "Nekoč, ko sem bil mlad, naju je sredi lagune ujela megla. Še konca čolna se ni videlo.", "en": "Once, when I was young, the fog caught us in the middle of the lagoon. You couldn't even see the tip of the boat.", "de": "Einmal, als ich jung war, erwischte uns der Nebel mitten in der Lagune. Man sah nicht mal die Spitze des Bootes." },
+        { "who": "bepi", "it": "Mio fratello voleva remare a caso. Io invece gli dissi di stare zitto e di ascoltare.", "sl": "Moj brat je hotel veslati kar tja v en dan. Jaz pa sem mu rekel, naj bo tiho in posluša.", "en": "My brother wanted to row any old way. I told him instead to be quiet and listen.", "de": "Mein Bruder wollte einfach drauflos rudern. Ich sagte ihm stattdessen, er solle still sein und zuhören." },
+        { "choices": [
+          { "it": "E che cosa sentiste? Le campane di Grado?", "sl": "In kaj sta slišala? Zvonove iz Gradeža?", "en": "And what did you hear? The bells of Grado?", "de": "Und was habt ihr gehört? Die Glocken von Grado?", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio le campane! Andando verso il suono, arrivammo al porto.", "sl": "Prav zvonove! Šla sva za zvokom in prišla v pristanišče.", "en": "The bells exactly! Heading towards the sound, we reached the harbour.", "de": "Genau die Glocken! Wir fuhren dem Klang nach und kamen im Hafen an." } },
+          { "it": "E che cosa sentirono? Le campane di Grado?", "sl": "In kaj sta slišala? Zvonove iz Gradeža?", "en": "And what did you hear? The bells of Grado?", "de": "Und was habt ihr gehört? Die Glocken von Grado?",
+            "grammar": "raccontare", "why": { "sl": "Govoriš z njim in njegovim bratom (voi): sentiste. Sentirono je oni.", "en": "You're talking to him and his brother (voi): sentiste. Sentirono is they.", "de": "Du sprichst mit ihm und seinem Bruder (voi): sentiste. Sentirono heißt sie." },
+            "reply": { "face": "curious", "it": "Sentirono? Chi? Sulla barca c'eravamo solo noi due, io e mio fratello!", "sl": "Sentirono? Kdo? V čolnu sva bila samo midva, jaz in moj brat!", "en": "Sentirono? Who? There was only the two of us in the boat, me and my brother!", "de": "Sentirono? Wer? Im Boot waren nur wir zwei, ich und mein Bruder!" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Se avessimo remato a caso, saremmo finiti chissà dove. Secondo te ho fatto bene a non dare retta a mio fratello?", "sl": "Če bi bila veslala kar tako, bi pristala kdo ve kje. Kaj misliš, sem prav naredil, da nisem poslušal brata?", "en": "If we'd rowed any old way, we'd have ended up who knows where. Do you think I was right not to listen to my brother?", "de": "Wären wir einfach drauflos gerudert, wären wir wer weiß wo gelandet. Hab ich recht getan, nicht auf meinen Bruder zu hören, meinst du?" },
+        { "choices": [
+          { "it": "Hai fatto bene. Tuttavia anche tuo fratello voleva solo arrivare a casa.", "sl": "Prav si naredil. Vendar je tudi tvoj brat hotel le priti domov.", "en": "You were right. Still, your brother only wanted to get home too.", "de": "Du hast richtig gehandelt. Trotzdem wollte dein Bruder auch nur nach Hause.", "ok": true,
+            "reply": { "face": "happy", "it": "Giusto, sei {m:saggio|f:saggia}. Infatti a casa ci abbracciammo, tutti e due bagnati di nebbia.", "sl": "Prav, {m:moder|f:modra} si. Doma sva se res objela, oba mokra od megle.", "en": "Right, you're wise. Indeed at home we hugged, both of us wet with fog.", "de": "Richtig, du bist klug. Zu Hause haben wir uns tatsächlich umarmt, beide nass vom Nebel." } },
+          { "it": "Hai fatto bene. Anzi anche tuo fratello voleva solo arrivare a casa.", "sl": "Prav si naredil. Vendar je tudi tvoj brat hotel le priti domov.", "en": "You were right. Still, your brother only wanted to get home too.", "de": "Du hast richtig gehandelt. Trotzdem wollte dein Bruder auch nur nach Hause.",
+            "grammar": "connettivi", "why": { "sl": "Anzi gre še dlje v isto smer; da nekaj postaviš nasproti, rečeš tuttavia.", "en": "Anzi goes further the same way; to set something against, say tuttavia.", "de": "Anzi geht weiter in dieselbe Richtung; um etwas dagegenzustellen, sagst du tuttavia." },
+            "reply": { "face": "thinking", "it": "Anzi? Cioè mio fratello aveva ancora più ragione di me? Mmm, non credo proprio!", "sl": "Anzi? Se pravi, da je imel brat še bolj prav kot jaz? Hm, ne verjamem!", "en": "Anzi? So my brother was even more right than me? Hmm, I really don't think so!", "de": "Anzi? Also hatte mein Bruder noch mehr recht als ich? Hm, das glaub ich nicht!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Oggi però niente nebbia, per fortuna. Alziamo la vela e andiamo a sentire le campane di Grado da vicino!", "sl": "Danes pa na srečo ni megle. Dvigniva jadro in pojdiva od blizu poslušat zvonove iz Gradeža!", "en": "But no fog today, luckily. Let's raise the sail and go and hear the bells of Grado up close!", "de": "Heute aber kein Nebel, zum Glück. Setzen wir das Segel und hören wir uns die Glocken von Grado aus der Nähe an!" }
+      ]
+    },
+    {
+      "id": "vela-b2-nodo",
+      "level": "B2",
+      "memory": { "it": "il nodo del marinaio che ti ho insegnato", "sl": "mornarski vozel, ki sem te ga naučil", "en": "the sailor's knot I taught you", "de": "den Seemannsknoten, den ich dir beigebracht habe" },
+      "lines": [
+        { "who": "bepi", "it": "Quando ero piccolo, prima di questa barca, avevo una barca piccola piccola, di legno, per giocare nel ruscello. Come la chiameresti?", "sl": "Ko sem bil majhen, še pred tem čolnom, sem imel čisto majhen lesen čoln za igro v potoku. Kako bi mu rekel?", "en": "When I was little, before this boat, I had a tiny wooden boat to play with in the stream. What would you call it?", "de": "Als ich klein war, noch vor diesem Boot, hatte ich ein winzig kleines Holzboot zum Spielen im Bach. Wie würdest du es nennen?" },
+        { "choices": [
+          { "it": "Una barchetta!", "sl": "Čolniček!", "en": "A little boat!", "de": "Ein Bötchen!", "ok": true,
+            "reply": { "face": "happy", "it": "Una barchetta, sì. Ci stava giusto una foglia come passeggero.", "sl": "Čolniček, ja. Vanj je šel ravno en list kot potnik.", "en": "A little boat, yes. Just one leaf fitted in as a passenger.", "de": "Ein Bötchen, ja. Da passte gerade ein Blatt als Fahrgast hinein." } },
+          { "it": "Un barcone!", "sl": "Čolniček!", "en": "A little boat!", "de": "Ein Bötchen!",
+            "grammar": "alterati", "why": { "sl": "-one poveča; za nekaj majhnega je -etta: barchetta.", "en": "-one makes big; for something small, -etta: barchetta.", "de": "-one macht groß; für etwas Kleines steht -etta: barchetta." },
+            "reply": { "face": "laugh", "it": "Un barcone? Nel ruscello? Ci stava appena una foglia, altro che barcone!", "sl": "Barcone? V potoku? Komaj en list je šel vanj, kakšna velika barka neki!", "en": "Un barcone? In the stream? Barely one leaf fitted in, barge my foot!", "de": "Un barcone? Im Bach? Da passte kaum ein Blatt hinein, von wegen Kahn!" } }
+        ] },
+        { "who": "bepi", "face": "thinking", "it": "Quella barchetta la persi in una piena, e piansi per tre giorni. Se l'avessi legata bene al palo, ce l'avrei ancora.", "sl": "Tisti čolniček sem izgubil ob povodnji in tri dni jokal. Če bi ga bil dobro privezal na kol, bi ga še imel.", "en": "I lost that little boat in a flood, and cried for three days. If I'd tied it properly to the post, I'd still have it.", "de": "Das Bötchen hab ich bei einem Hochwasser verloren und drei Tage geweint. Hätte ich es gut am Pfahl festgebunden, hätte ich es noch." },
+        { "who": "bepi", "face": "curious", "it": "Adesso ti insegno una cosa da marinaio vero: il nodo che tiene la barca al palo. Lo sai fare?", "sl": "Zdaj te naučim nekaj pravega mornarskega: vozel, ki drži čoln na kolu. Ga znaš narediti?", "en": "Now I'll teach you something for a real sailor: the knot that holds the boat to the post. Can you do it?", "de": "Jetzt bring ich dir etwas für echte Matrosen bei: den Knoten, der das Boot am Pfahl hält. Kannst du den?" },
+        { "choices": [
+          { "it": "No, nonno. Me lo fai vedere piano piano?", "sl": "Ne, dedek. Mi ga pokažeš počasi?", "en": "No, Grandpa. Will you show me slowly?", "de": "Nein, Opa. Zeigst du ihn mir ganz langsam?", "ok": true,
+            "reply": { "face": "proud", "it": "Certo. Guarda: un giro, poi sotto, poi dentro… Me l'ha insegnato mio padre, al quale l'aveva insegnato un pescatore di Marano.", "sl": "Seveda. Glej: en ovoj, potem spodaj, potem notri … Naučil me ga je oče, njega pa ribič iz Marana.", "en": "Of course. Watch: one turn, then under, then through… My father taught me, and a fisherman from Marano had taught him.", "de": "Klar. Schau: eine Runde, dann drunter, dann durch … Mein Vater hat ihn mir beigebracht, und ihm ein Fischer aus Marano." } },
+          { "it": "No, nonno. Mi fai vederlo piano piano?", "sl": "Ne, dedek. Mi ga pokažeš počasi?", "en": "No, Grandpa. Will you show me slowly?", "de": "Nein, Opa. Zeigst du ihn mir ganz langsam?",
+            "grammar": "fare-lasciare", "why": { "sl": "Pri fare gredo zaimki pred fare, nikoli na nedoločnik: me lo fai vedere.", "en": "With fare the pronouns go before fare, never on the infinitive: me lo fai vedere.", "de": "Bei fare stehen die Pronomen vor fare, nie am Infinitiv: me lo fai vedere." },
+            "reply": { "face": "thinking", "it": "Mi fai vederlo? Mmm, il nodo è più facile della tua frase! Riprova.", "sl": "Mi fai vederlo? Hm, vozel je lažji od tvojega stavka! Še enkrat.", "en": "Mi fai vederlo? Hmm, the knot is easier than your sentence! Try again.", "de": "Mi fai vederlo? Hm, der Knoten ist leichter als dein Satz! Nochmal." } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Adesso tocca a te. Sbagliando s'impara, e il mare ha pazienza, come i nonni.", "sl": "Zdaj si na vrsti ti. Na napakah se učimo, morje pa je potrpežljivo, kot dedki.", "en": "Now it's your turn. You learn from mistakes, and the sea is patient, like grandpas.", "de": "Jetzt bist du dran. Aus Fehlern lernt man, und das Meer hat Geduld, wie die Opas." }
       ]
     }
   ]

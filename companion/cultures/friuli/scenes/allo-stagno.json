@@ -5,7 +5,7 @@
   "title": { "it": "Allo stagno", "sl": "Pri ribniku", "en": "At the pond", "de": "Am Teich" },
   "emoji": "🐸",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "pond",
   "from": ["spot:pond"],
   "pack": "allo-stagno",
@@ -33,7 +33,7 @@
   "happenings": [
     {
       "id": "airone", "title": { "it": "Aldo guarda l'airone", "sl": "Aldo opazuje čapljo", "en": "Aldo is watching the heron", "de": "Aldo beobachtet den Reiher" }, "who": "aldo",
-      "when": ["morning"], "chance": 0.45, "dialog": "airone", "dialogs": ["airone-anatre", "airone"], "reward": { "wisdom": 15 }, "marker": "🌫️",
+      "when": ["morning"], "chance": 0.45, "dialog": "airone", "dialogs": ["airone-b2-quaderno", "airone-b1-pesci", "airone-anatre", "airone"], "reward": { "wisdom": 15 }, "marker": "🌫️",
       "memory": { "it": "la mattina di nebbia allo stagno", "sl": "megleno jutro ob ribniku", "en": "the misty morning at the pond", "de": "den nebligen Morgen am Teich" }
     },
     {
@@ -43,7 +43,7 @@
     },
     {
       "id": "pesca", "title": { "it": "Nonno Bepi pesca con Moro", "sl": "Dedek Bepi lovi ribe z Morom", "en": "Nonno Bepi is fishing with Moro", "de": "Nonno Bepi angelt mit Moro" }, "who": "bepi",
-      "when": ["afternoon"], "chance": 0.45, "dialog": "pesca", "dialogs": ["pesca-vermi", "pesca"], "reward": { "wisdom": 20 }, "marker": "🎣",
+      "when": ["afternoon"], "chance": 0.45, "dialog": "pesca", "dialogs": ["pesca-b2-luccio", "pesca-b1-moro", "pesca-vermi", "pesca"], "reward": { "wisdom": 20 }, "marker": "🎣",
       "memory": { "it": "il pomeriggio che abbiamo pescato sul pontile", "sl": "popoldne, ko sva lovila ribe na pomolu", "en": "the afternoon we fished on the jetty", "de": "den Nachmittag, an dem wir am Steg geangelt haben" }
     }
   ],
@@ -196,6 +196,104 @@
         ] },
         { "who": "bepi", "face": "thinking", "it": "I pesci tornano. Per pescare, la pazienza è la prima cosa.", "sl": "Ribe se vračajo. Pri ribolovu je potrpljenje na prvem mestu.", "en": "The fish are coming back. When you fish, patience comes first.", "de": "Die Fische kommen zurück. Beim Angeln ist Geduld das Wichtigste.",
           "fx": { "fish": 1, "bite": 0.4 } }
+      ]
+    },
+    {
+      "id": "airone-b1-pesci",
+      "level": "B1",
+      "memory": { "it": "l'airone di cui ti avevo parlato", "sl": "čapljo, o kateri sem ti pripovedoval", "en": "the heron I'd told you about", "de": "der Reiher, von dem ich dir erzählt hatte" },
+      "lines": [
+        { "who": "aldo", "it": "Buongiorno, {learner}. Piano, piano. Ieri ti ho parlato di un uccello grigio con le gambe lunghe. Guarda là, tra le canne.", "sl": "Dober dan, {learner}. Počasi, počasi. Včeraj sem ti pripovedoval o sivem ptiču z dolgimi nogami. Poglej tja, med trsje.", "en": "Good morning, {learner}. Slowly, slowly. Yesterday I told you about a grey bird with long legs. Look over there, among the reeds.", "de": "Guten Morgen, {learner}. Langsam, langsam. Gestern hab ich dir von einem grauen Vogel mit langen Beinen erzählt. Schau da drüben, im Schilf." },
+        { "choices": [
+          { "it": "È l'airone di cui mi hai parlato?", "sl": "Je to čaplja, o kateri si mi pripovedoval?", "en": "Is that the heron you told me about?", "de": "Ist das der Reiher, von dem du mir erzählt hast?", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio lui. Ogni mattina viene qui, puntuale come la campana di mezzogiorno.", "sl": "Prav ona. Vsako jutro pride sem, točna kot opoldanski zvon.", "en": "That's the one. Every morning he comes here, as punctual as the noon bell.", "de": "Genau der. Jeden Morgen kommt er hierher, pünktlich wie die Mittagsglocke." } },
+          { "it": "È l'airone da cui mi hai parlato?", "sl": "Je to čaplja, o kateri si mi pripovedoval?", "en": "Is that the heron you told me about?", "de": "Ist das der Reiher, von dem du mir erzählt hast?",
+            "grammar": "relativi-cui", "why": { "sl": "Parlare gre z di (parlare di qualcosa), zato di cui.", "en": "Parlare takes di (to talk about), so di cui.", "de": "Parlare steht mit di (sprechen über), also di cui." },
+            "reply": { "face": "laugh", "it": "Da cui? L'airone non mi ha detto niente, {learner}: sono io che ho parlato di lui!", "sl": "Da cui? Čaplja mi ni povedala ničesar, {learner}: jaz sem govoril o njej!", "en": "Da cui? The heron didn't tell me anything, {learner}: I'm the one who talked about him!", "de": "Da cui? Der Reiher hat mir nichts erzählt, {learner}: Ich hab von ihm gesprochen!" } }
+        ] },
+        { "who": "aldo", "face": "curious", "it": "Adesso sta fermo fermo. Aspetta i pesci. Tu vedi pesci nell'acqua?", "sl": "Zdaj stoji čisto pri miru. Čaka ribe. Ti vidiš ribe v vodi?", "en": "Now he's standing very still. He's waiting for fish. Can you see fish in the water?", "de": "Jetzt steht er ganz still. Er wartet auf Fische. Siehst du Fische im Wasser?" },
+        { "choices": [
+          { "it": "Sì, qualche pesce lo vedo, là vicino alle canne.", "sl": "Ja, nekaj rib vidim, tam pri trsju.", "en": "Yes, I can see a few fish, over there by the reeds.", "de": "Ja, ein paar Fische seh ich, da drüben beim Schilf.", "ok": true,
+            "reply": { "face": "curious", "it": "Che occhi! Shh… l'airone li ha visti anche lui. Guarda il collo…", "sl": "Dobre oči imaš. Pst … čaplja jih je tudi videla. Poglej vrat …", "en": "Good eyes. Shh… the heron has seen them too. Watch his neck…", "de": "Gute Augen. Psst … der Reiher hat sie auch gesehen. Schau auf seinen Hals …" } },
+          { "it": "Sì, qualche pesci li vedo, là vicino alle canne.", "sl": "Ja, nekaj rib vidim, tam pri trsju.", "en": "Yes, I can see a few fish, over there by the reeds.", "de": "Ja, ein paar Fische seh ich, da drüben beim Schilf.",
+            "grammar": "indefiniti", "why": { "sl": "Qualche se ne spreminja in gre z ednino: qualche pesce.", "en": "Qualche never changes and takes the singular: qualche pesce.", "de": "Qualche ändert sich nie und steht mit der Einzahl: qualche pesce." },
+            "reply": { "face": "curious", "it": "Qualche pesci? Mmm, l'airone li conta meglio di te, {learner}!", "sl": "Qualche pesci? Hm, čaplja jih šteje bolje kot ti, {learner}!", "en": "Qualche pesci? Hmm, the heron counts them better than you, {learner}!", "de": "Qualche pesci? Hm, der Reiher zählt sie besser als du, {learner}!" } }
+        ] },
+        { "who": "aldo", "face": "happy", "it": "Zac! Preso. Vedi? Piano, piano, e il pesce arriva. Come il miele.", "sl": "Cap! Ujela ga je. Vidiš? Počasi, počasi, in riba pride. Kot med.", "en": "Snap! Got it. See? Slowly, slowly, and the fish comes. Like honey.", "de": "Schnapp! Erwischt. Siehst du? Langsam, langsam, und der Fisch kommt. Wie der Honig." }
+      ]
+    },
+    {
+      "id": "airone-b2-quaderno",
+      "level": "B2",
+      "memory": { "it": "il quaderno degli aironi e delle api", "sl": "zvezek čapelj in čebel", "en": "the notebook of herons and bees", "de": "das Heft der Reiher und Bienen" },
+      "lines": [
+        { "who": "aldo", "it": "D'inverno questo airone se ne va verso il sud, dove l'acqua non gela. A marzo, puntuale, torna qui.", "sl": "Pozimi gre ta čaplja na jug, kjer voda ne zamrzne. Marca se točno vrne sem.", "en": "In winter this heron goes off south, where the water doesn't freeze. In March, right on time, he comes back here.", "de": "Im Winter zieht dieser Reiher nach Süden, wo das Wasser nicht gefriert. Im März kommt er pünktlich zurück." },
+        { "who": "aldo", "face": "thinking", "it": "Mio nonno diceva che, quando tornavano gli aironi, uscivano anche le api. Non ci ho mai creduto, finché non l'ho visto con i miei occhi.", "sl": "Moj dedek je rekel, da so čebele prišle ven, ko so se vrnile čaplje. Nisem verjel, dokler nisem videl na lastne oči.", "en": "My grandfather said that when the herons came back, the bees came out too. I never believed it, until I saw it with my own eyes.", "de": "Mein Großvater sagte, wenn die Reiher zurückkamen, kamen auch die Bienen heraus. Ich hab es nie geglaubt, bis ich es mit eigenen Augen sah." },
+        { "choices": [
+          { "it": "Allora tuo nonno aveva ragione, anche se all'inizio non gli credevi.", "sl": "Potem je imel tvoj dedek prav, čeprav mu sprva nisi verjel.", "en": "So your grandfather was right, even though at first you didn't believe him.", "de": "Dann hatte dein Opa recht, auch wenn du ihm zuerst nicht geglaubt hast.", "ok": true,
+            "reply": { "face": "happy", "it": "Aveva ragione. I vecchi, a volte, sanno ascoltare la natura meglio dei libri.", "sl": "Imel je prav. Stari včasih znajo poslušati naravo bolje kot knjige.", "en": "He was right. Old people sometimes know how to listen to nature better than books.", "de": "Er hatte recht. Die Alten können manchmal besser auf die Natur hören als Bücher." } },
+          { "it": "Allora tuo nonno si sbagliava: le api non escono mai a marzo.", "sl": "Potem se je tvoj dedek motil: čebele marca nikoli ne pridejo ven.", "en": "So your grandfather was wrong: bees never come out in March.", "de": "Dann hat sich dein Opa geirrt: Die Bienen kommen im März nie raus.",
+            "why": { "sl": "Aldo pravi, da je to na koncu videl na lastne oči: dedek je imel prav.", "en": "Aldo says he finally saw it with his own eyes: his grandfather was right.", "de": "Aldo sagt, er hat es am Ende mit eigenen Augen gesehen: Der Opa hatte recht." },
+            "reply": { "face": "curious", "it": "Mai? Ma se l'ho visto io stesso, l'anno scorso, sui fiori del prato!", "sl": "Nikoli? Saj sem to sam videl, lani, na cvetlicah na travniku!", "en": "Never? But I saw it myself, last year, on the meadow flowers!", "de": "Nie? Ich hab es doch selbst gesehen, letztes Jahr, auf den Wiesenblumen!" } }
+        ] },
+        { "who": "aldo", "it": "Adesso scrivo in un quaderno il giorno in cui torna l'airone e quello in cui escono le api. Vorrei che qualcuno continuasse, quando sarò troppo vecchio.", "sl": "Zdaj v zvezek zapisujem dan, ko se vrne čaplja, in dan, ko pridejo ven čebele. Rad bi, da bi kdo nadaljeval, ko bom prestar.", "en": "Now I write in a notebook the day the heron comes back and the day the bees come out. I'd like someone to carry on when I'm too old.", "de": "Jetzt schreibe ich in ein Heft den Tag, an dem der Reiher zurückkommt, und den, an dem die Bienen rausfliegen. Ich wünschte, jemand würde weitermachen, wenn ich zu alt bin." },
+        { "choices": [
+          { "it": "Se mi insegnassi, lo farei volentieri.", "sl": "Če bi me naučil, bi to z veseljem {m:delal|f:delala}.", "en": "If you taught me, I'd gladly do it.", "de": "Wenn du es mir beibringen würdest, würde ich es gern machen.", "ok": true,
+            "reply": { "face": "proud", "it": "Davvero? Allora il quaderno ha trovato {m:il suo nuovo padrone|f:la sua nuova padrona}.", "sl": "Res? Potem je zvezek {m:našel novega lastnika|f:našel novo lastnico}.", "en": "Really? Then the notebook has found its new owner.", "de": "Wirklich? Dann hat das Heft {m:seinen neuen Besitzer|f:seine neue Besitzerin} gefunden." } },
+          { "it": "Se mi insegneresti, lo farei volentieri.", "sl": "Če bi me naučil, bi to z veseljem {m:delal|f:delala}.", "en": "If you taught me, I'd gladly do it.", "de": "Wenn du es mir beibringen würdest, würde ich es gern machen.",
+            "grammar": "congiuntivo-imperfetto", "why": { "sl": "Za se ne pride pogojnik: se mi insegnassi, potem lo farei.", "en": "After se, no conditional: se mi insegnassi, then lo farei.", "de": "Nach se kein Konditional: se mi insegnassi, dann lo farei." },
+            "reply": { "face": "thinking", "it": "Se mi insegneresti…? Mmm, prima forse ti insegno l'italiano, e poi le api!", "sl": "Se mi insegneresti …? Hm, morda te najprej naučim italijanščino, potem pa čebele!", "en": "Se mi insegneresti…? Hmm, maybe I'll teach you Italian first, and then the bees!", "de": "Se mi insegneresti …? Hm, vielleicht bring ich dir zuerst Italienisch bei, und dann die Bienen!" } }
+        ] },
+        { "who": "aldo", "face": "happy", "it": "Allora domani ti mostro il quaderno. Piano, piano, come le api: una pagina al giorno.", "sl": "Potem ti jutri pokažem zvezek. Počasi, počasi, kot čebele: eno stran na dan.", "en": "Then tomorrow I'll show you the notebook. Slowly, slowly, like the bees: one page a day.", "de": "Dann zeig ich dir morgen das Heft. Langsam, langsam, wie die Bienen: eine Seite am Tag." }
+      ]
+    },
+    {
+      "id": "pesca-b1-moro",
+      "level": "B1",
+      "memory": { "it": "il pomeriggio in cui Moro spaventava i pesci", "sl": "popoldne, ko je Moro plašil ribe", "en": "the afternoon Moro kept scaring the fish", "de": "der Nachmittag, an dem Moro die Fische verscheuchte" },
+      "lines": [
+        { "who": "bepi", "face": "cross", "it": "Moro, zitto! {m:Piccolo|f:Piccola}, ogni volta che Moro abbaia, i pesci scappano. Che cosa facciamo?", "sl": "Moro, tiho! {m:Mali|f:Mala}, vsakič ko Moro zalaja, ribe pobegnejo. Kaj naj narediva?", "en": "Moro, quiet! Little one, every time Moro barks, the fish run off. What shall we do?", "de": "Moro, still! {m:Kleiner|f:Kleine}, jedes Mal, wenn Moro bellt, schwimmen die Fische weg. Was machen wir?" },
+        { "choices": [
+          { "it": "Me ne vado un po' con Moro sul prato, così tu peschi in pace.", "sl": "Malo grem z Morom na travnik, da ti mirno loviš.", "en": "I'll go off to the meadow with Moro for a bit, so you can fish in peace.", "de": "Ich geh ein bisschen mit Moro auf die Wiese, dann kannst du in Ruhe angeln.", "ok": true,
+            "reply": { "face": "happy", "it": "Grazie! Moro, vai con {learner}. E niente conigli, eh!", "sl": "Hvala! Moro, pojdi z {learner}. In nič zajcev, ja!", "en": "Thank you! Moro, go with {learner}. And no rabbits, mind!", "de": "Danke! Moro, geh mit {learner}. Und keine Hasen, gell!" } },
+          { "it": "Mi ne vado un po' con Moro sul prato, così tu peschi in pace.", "sl": "Malo grem z Morom na travnik, da ti mirno loviš.", "en": "I'll go off to the meadow with Moro for a bit, so you can fish in peace.", "de": "Ich geh ein bisschen mit Moro auf die Wiese, dann kannst du in Ruhe angeln.",
+            "grammar": "verbi-pronominali", "why": { "sl": "Pred ne postane mi me: me ne vado.", "en": "Before ne, mi becomes me: me ne vado.", "de": "Vor ne wird mi zu me: me ne vado." },
+            "reply": { "face": "curious", "it": "Mi ne vado? Anche Moro ha alzato un orecchio: non ha capito!", "sl": "Mi ne vado? Še Moro je dvignil uho: ni razumel!", "en": "Mi ne vado? Even Moro's pricked up an ear: he didn't understand!", "de": "Mi ne vado? Sogar Moro spitzt ein Ohr: Er hat es nicht verstanden!" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "E quando tornate? I pesci, sai, hanno bisogno di silenzio, come i vecchi.", "sl": "Pa kdaj se vrneta? Ribe, veš, potrebujejo tišino, kot stari ljudje.", "en": "And when will you come back? Fish, you know, need quiet, like old folks.", "de": "Und wann kommt ihr zurück? Fische brauchen Ruhe, weißt du, wie alte Leute." },
+        { "choices": [
+          { "it": "Torniamo quando avrai preso il primo pesce!", "sl": "Vrneva se, ko boš ujel prvo ribo!", "en": "We'll come back when you've caught the first fish!", "de": "Wir kommen zurück, wenn du den ersten Fisch gefangen hast!", "ok": true,
+            "reply": { "face": "laugh", "it": "Allora forse tornate stasera, con la luna! Va bene, andate.", "sl": "Potem se morda vrneta zvečer, z luno! Prav, kar pojdita.", "en": "Then maybe you'll come back tonight, with the moon! All right, off you go.", "de": "Dann kommt ihr vielleicht heute Abend wieder, mit dem Mond! Na gut, geht schon." } },
+          { "it": "Torniamo quando sarai preso il primo pesce!", "sl": "Vrneva se, ko boš ujel prvo ribo!", "en": "We'll come back when you've caught the first fish!", "de": "Wir kommen zurück, wenn du den ersten Fisch gefangen hast!",
+            "grammar": "futuro-anteriore", "why": { "sl": "Prendere ima avere: ho preso, zato avrai preso.", "en": "Prendere takes avere: ho preso, so avrai preso.", "de": "Prendere bildet mit avere: ho preso, also avrai preso." },
+            "reply": { "face": "laugh", "it": "Quando sarò preso? Da chi, dai pesci? Ah, ah! Il nonno nella rete!", "sl": "Ko bom ujet? Kdo me bo, ribe? Ha, ha! Dedek v mreži!", "en": "When I've been caught? By whom, the fish? Ha, ha! Grandpa in the net!", "de": "Wenn ich gefangen bin? Von wem, von den Fischen? Ha, ha! Der Opa im Netz!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Ecco, adesso è tutto tranquillo. Il galleggiante si muove… Chi va piano va sano e va lontano!", "sl": "Tako, zdaj je vse mirno. Plovec se premika … Kdor počasi hodi, daleč pride!", "en": "There, now all is quiet. The float is moving… Slow and steady goes far!", "de": "So, jetzt ist alles ruhig. Der Schwimmer bewegt sich … Wer langsam geht, kommt weit!" }
+      ]
+    },
+    {
+      "id": "pesca-b2-luccio",
+      "level": "B2",
+      "memory": { "it": "il luccio che ogni anno diventa più lungo", "sl": "ščuko, ki je vsako leto daljša", "en": "the pike that gets longer every year", "de": "der Hecht, der jedes Jahr länger wird" },
+      "lines": [
+        { "who": "bepi", "face": "thinking", "it": "Vedi quel punto, dove l'acqua è scura? Lì, cinquant'anni fa, abboccò il pesce più grande della mia vita. Un pesce così, come lo chiameresti?", "sl": "Vidiš tisto mesto, kjer je voda temna? Tam je pred petdesetimi leti prijela največja riba mojega življenja. Kako bi rekel taki ribi?", "en": "See that spot, where the water's dark? There, fifty years ago, the biggest fish of my life took the bait. A fish like that, what would you call it?", "de": "Siehst du die Stelle, wo das Wasser dunkel ist? Da hat vor fünfzig Jahren der größte Fisch meines Lebens angebissen. Wie würdest du so einen Fisch nennen?" },
+        { "choices": [
+          { "it": "Un pescione!", "sl": "Ribetina!", "en": "A whopper!", "de": "Ein Riesenfisch!", "ok": true,
+            "reply": { "face": "proud", "it": "Un pescione, sì! Un luccio lungo come Moro, coda compresa.", "sl": "Ribetina, ja! Ščuka, dolga kot Moro, z repom vred.", "en": "A whopper, yes! A pike as long as Moro, tail and all.", "de": "Ein Riesenfisch, ja! Ein Hecht, so lang wie Moro, mit Schwanz." } },
+          { "it": "Un pescetto!", "sl": "Ribica!", "en": "A tiddler!", "de": "Ein Fischlein!",
+            "grammar": "alterati", "why": { "sl": "-etto pomanjša; za nekaj ogromnega je -one: pescione.", "en": "-etto makes small; for something huge, -one: pescione.", "de": "-etto macht klein; für etwas Riesiges steht -one: pescione." },
+            "reply": { "face": "laugh", "it": "Un pescetto? Ma se era lungo come Moro! Altro che pescetto.", "sl": "Ribica? Saj je bila dolga kot Moro! Kakšna ribica neki.", "en": "A tiddler? But it was as long as Moro! Tiddler, my foot.", "de": "Ein Fischlein? Der war so lang wie Moro! Von wegen Fischlein." } }
+        ] },
+        { "who": "bepi", "it": "Tirai per mezz'ora. Poi la lenza si spezzò e lui scappò. Se avessi avuto una lenza più forte, adesso sarebbe appeso sopra il fogolâr.", "sl": "Vlekel sem pol ure. Potem se je vrvica pretrgala in je ušla. Če bi bil imel močnejšo vrvico, bi zdaj visela nad ognjiščem.", "en": "I pulled for half an hour. Then the line snapped and off he went. If I'd had a stronger line, he'd be hanging over the fogolâr now.", "de": "Ich zog eine halbe Stunde lang. Dann riss die Schnur, und er war weg. Hätte ich eine stärkere Schnur gehabt, hinge er jetzt über dem Fogolâr." },
+        { "who": "bepi", "face": "laugh", "it": "Però, sai, ogni anno, quando lo racconto, il luccio diventa un po' più lungo. Secondo te perché?", "sl": "Ampak, veš, vsako leto, ko to pripovedujem, je ščuka malo daljša. Kaj misliš, zakaj?", "en": "But, you know, every year when I tell it, the pike gets a bit longer. Why do you think that is?", "de": "Aber weißt du, jedes Jahr, wenn ich es erzähle, wird der Hecht ein bisschen länger. Warum wohl, meinst du?" },
+        { "choices": [
+          { "it": "Perché le storie, a forza di raccontarle, crescono come i pesci!", "sl": "Ker zgodbe, ko jih vedno znova pripoveduješ, rastejo kot ribe!", "en": "Because stories, the more you tell them, grow like fish!", "de": "Weil Geschichten, je öfter man sie erzählt, wachsen wie Fische!", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, ah! Mi hai scoperto. Il prossimo anno sarà lungo come una barca!", "sl": "Ha, ha! Razkrinkal si me. Drugo leto bo dolga kot čoln!", "en": "Ha, ha! You've found me out. Next year he'll be as long as a boat!", "de": "Ha, ha! Du hast mich durchschaut. Nächstes Jahr ist er so lang wie ein Boot!" } },
+          { "it": "Perché il luccio, nello stagno, è cresciuto ancora.", "sl": "Ker je ščuka v ribniku še zrasla.", "en": "Because the pike has grown even more in the pond.", "de": "Weil der Hecht im Teich noch gewachsen ist.",
+            "why": { "sl": "Nonno misli, da zgodba raste, ko jo pripoveduje, ne riba: ta je ušla pred petdesetimi leti.", "en": "Nonno means the story grows as he tells it, not the fish: it got away fifty years ago.", "de": "Der Opa meint, die Geschichte wächst beim Erzählen, nicht der Fisch: Der ist vor fünfzig Jahren entwischt." },
+            "reply": { "face": "surprised", "it": "Cresciuto? È scappato cinquant'anni fa, {m:piccolo|f:piccola}! Adesso sarà un nonno anche lui.", "sl": "Zrasla? Ušla je pred petdesetimi leti, {m:mali|f:mala}! Zdaj je najbrž tudi ona stara mama.", "en": "Grown? He got away fifty years ago, little one! By now he'll be a grandpa too.", "de": "Gewachsen? Der ist vor fünfzig Jahren entwischt, {m:Kleiner|f:Kleine}! Jetzt ist er bestimmt auch ein Opa." } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Hai capito tutto. Ma il luccio era grande davvero, eh! Almeno… così me lo ricordo.", "sl": "Vse si {m:razumel|f:razumela}. Ampak ščuka je bila res velika, ja! Vsaj … tako se je spomnim.", "en": "You've understood everything. But the pike really was big, eh! At least… that's how I remember it.", "de": "Du hast alles verstanden. Aber der Hecht war wirklich groß, gell! Zumindest … so erinnere ich mich." }
       ]
     }
   ]
