@@ -95,3 +95,23 @@ An adjective's ending needs no rule: the app already takes it as the ending, nev
 22 new entries (abfahren, aufsperren, baden, billig, Bluse, deswegen, einige, wenige, Garage, Motor, Musikant, Torte, Wettlauf, Wette, Stand, Hund, Hammer, and the endings -er, -es, -em, -r, -sten) and 22 extended with their new forms (frischem, kälter, kürzer, teure, teurer, anruft, aufsteht, mitkommt, hofft …), each with its meaning in Slovene and Italian. `Hund` and `Hammer` are pack words; the entries give them their dative plural, which no pack holds. The wrong forms offered in a choice (gerner, hocher, hoche, vielsten) have no entry, on purpose.
 
 **For the integration:** some of these extend an existing entry in place, and `json3merge.py` keeps a list's base entry beside a changed one. Dedupe by lemma and part of speech after merging the parts.
+
+## Voice (no credits spent)
+
+A voice build of these six units in Eva's voice would take about **5,900 characters** of German (264 different lines, 298 in all). The explanations in the learner's language add about 9,600 in English, 9,000 in Slovene and 9,800 in Italian (36 clips each): the app asks for those on demand, or `voice-build --explanations` makes them ahead. Counted with the bridge's own `courseTexts`.
+
+## Checks
+
+- `bunx tsc --noEmit -p .`: clean.
+- The smoke (ports 9890, 9893, 9896; Drama 3 on 9908): 3,508 checks pass, none fail, at de40d6f9. Among them: every unit and page validates, each step's point on the print's rule line in every base, Eva's reading never in a base's words.
+- `tutor-export --check`: 89 files match the bridge. `bun test/prompt-clashes.ts`: no new clash (no pack changed).
+- `lexicon-build --coverage --lang de`: 99.0 % of words known, 98.6 % meant in each base, 52 unknown, as before this part. It first fell by 0.1–0.2 % through the table labels (a, d, erster) and four page words; both are fixed.
+- From the scratchpad, a TypeScript port of `Grading`, `Spelling` and the sheet's check with the German table: 198 right answers right, every distractor wrong for every gap (175 wrong forms probed), and the new pairs. A bank's other word that is right for a gap is only ever a listed spoken form (wie for als, weil for denn, wann for Wenn).
+- `school-prints --language de --level A2` in sl, en and it: all six fit, `groesser-als` and `weil-denn` on one page, the others on two; no word left without a meaning (`--explain`).
+- Emulator QA (slot 1, `--steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=adjektiv-ein`): a synthetic learner of German from Slovene plays the five steps with each quick question, the summary, the first sheet and the test, passed, the next unit named, and prints the A4 sheet to a PDF. Setup, course-unit and the crash check ok. 18 screenshots (cu-*.png) in the scratchpad's `ux-course-de-a2-c/`. The print says "Lektion 2" because A2's units 1–12 aren't on this branch; it becomes 14 once they are merged.
+
+## What's left
+
+- **The integration, part c's by the brief, when the lead says so:** parts a and b merged here; `resolve-outline.py`, `json3merge.py` and `qa-steps-union.py`; the supplement deduped by lemma and part of speech (above); COURSE.md's "The German course" (its outline still says A1, and a section for A2's units), the README, the docs' page counts, the course's content test; the full checks; a parse-check of every merged TypeScript test file.
+- **The print's marks.** `markEndings` marks the odd ending out in a column, so where most of a column is -en (ein großer, einen großen, einem großen …) it leaves -er unmarked. Not wrong, but the form this unit is about isn't highlighted. A change to `sheet.ts` is code: for the lead to decide.
+- **Voices**: nothing was spent.
