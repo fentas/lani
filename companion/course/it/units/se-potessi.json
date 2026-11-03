@@ -116,9 +116,9 @@
       },
       {
         "say": {
-          "de": "Oft entscheidest du selbst, was du meinst. **Se vinco, ti compro un gelato.** (Wenn ich gewinne, kaufe ich dir ein Eis.) Das kann wirklich passieren. **Se vincessi, comprerei una barca.** (Wenn ich gewinnen würde, würde ich ein Boot kaufen.) Daran glaubst du selbst kaum. Beides ist richtig; die Form sagt, wie du es siehst.",
-          "sl": "Pogosto sam odločiš, kaj misliš. **Se vinco, ti compro un gelato.** (Če zmagam, ti kupim sladoled.) To se res lahko zgodi. **Se vincessi, comprerei una barca.** (Če bi zmagal, bi kupil čoln.) V to sam komaj verjameš. Oboje je prav; oblika pove, kako to vidiš.",
-          "en": "Often it's up to you what you mean. **Se vinco, ti compro un gelato.** (If I win, I'll buy you an ice cream.) That can really happen. **Se vincessi, comprerei una barca.** (If I won, I'd buy a boat.) You hardly believe that yourself. Both are right; the form says how you see it."
+          "de": "**Se vinco, ti compro un gelato.** (Wenn ich gewinne, kaufe ich dir ein Eis.) Das kann wirklich passieren. **Se vincessi, comprerei una barca.** (Wenn ich gewinnen würde, würde ich ein Boot kaufen.) Daran glaubst du selbst kaum. Beides ist richtig: Oft entscheidest du selbst, und die Form sagt, wie du es siehst.",
+          "sl": "**Se vinco, ti compro un gelato.** (Če zmagam, ti kupim sladoled.) To se res lahko zgodi. **Se vincessi, comprerei una barca.** (Če bi zmagal, bi kupil čoln.) V to sam komaj verjameš. Oboje je prav: pogosto sam odločiš, oblika pa pove, kako to vidiš.",
+          "en": "**Se vinco, ti compro un gelato.** (If I win, I'll buy you an ice cream.) That can really happen. **Se vincessi, comprerei una barca.** (If I won, I'd buy a boat.) You hardly believe that yourself. Both are right: it's often up to you, and the form says how you see it."
         },
         "examples": [
           { "it": "Se domani piove, resto a casa.", "de": "Wenn es morgen regnet, bleibe ich zu Hause.", "sl": "Če bo jutri deževalo, bom {m:ostal|f:ostala} doma.", "en": "If it rains tomorrow, I'll stay at home." },
@@ -199,8 +199,8 @@
         {
           "type": "sort", "grammar": "periodo-ipotetico", "instruction": { "de": "Dopo se o nell'altra metà? · Nach se oder in der anderen Hälfte?", "sl": "Dopo se o nell'altra metà? · Za se ali v drugi polovici?", "en": "Dopo se o nell'altra metà? · After se or in the other half?" },
           "columns": [
-            { "label": { "de": "se … · nach se", "sl": "se … · za se", "en": "se … · after se" }, "words": ["potessi", "fossimo", "avessero", "dicesse"] },
-            { "label": { "de": "… · in der anderen Hälfte", "sl": "… · v drugi polovici", "en": "… · in the other half" }, "words": ["verrei", "saremmo", "avrebbero", "direbbe"] }
+            { "label": { "de": "se … · nach se", "sl": "se … · za se", "en": "se … · after se" }, "words": ["potessi", "fossimo", "dicesse"] },
+            { "label": { "de": "… · in der anderen Hälfte", "sl": "… · v drugi polovici", "en": "… · in the other half" }, "words": ["verrei", "saremmo", "direbbe"] }
           ],
           "explain": {
             "de": "**Nach se: -ssi, -sse, -ssimo, -ste, -ssero** · in der anderen Hälfte das **condizionale**\n- Se potessi, verrei.\n- Se fossimo qui, saremmo contenti.",
@@ -274,13 +274,12 @@
             { "from": "Se i bambini sono stanchi, dormono.", "accept": ["Se i bambini fossero stanchi, dormirebbero.", "I bambini dormirebbero, se fossero stanchi.", "Dormirebbero, se i bambini fossero stanchi."] },
             { "from": "Se sapete la strada, arrivate prima.", "accept": ["Se sapeste la strada, arrivereste prima.", "Arrivereste prima, se sapeste la strada."], "hint": { "de": "voi, ein s", "sl": "voi, en s", "en": "voi, one s" } },
             { "from": "Bruno ti aiuta, se glielo dici.", "accept": ["Bruno ti aiuterebbe, se glielo dicessi.", "Se glielo dicessi, Bruno ti aiuterebbe."] },
-            { "from": "Se mi dai il libro, lo leggo.", "accept": ["Se mi dessi il libro, lo leggerei.", "Lo leggerei, se mi dessi il libro."] },
-            { "from": "Se stiamo zitti, Moro dorme.", "accept": ["Se stessimo zitti, Moro dormirebbe.", "Moro dormirebbe, se stessimo zitti."] }
+            { "from": "Se mi dai il libro, lo leggo.", "accept": ["Se mi dessi il libro, lo leggerei.", "Lo leggerei, se mi dessi il libro."] }
           ],
           "explain": {
-            "de": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, in der anderen Hälfte das condizionale**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se stiamo → se stessimo",
-            "sl": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, v drugi polovici condizionale**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se stiamo → se stessimo",
-            "en": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, the condizionale in the other half**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se stiamo → se stessimo"
+            "de": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, in der anderen Hälfte das condizionale**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se mi dai → se mi dessi",
+            "sl": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, v drugi polovici condizionale**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se mi dai → se mi dessi",
+            "en": "**Se + -ssi, -sse, -ssimo, -ste, -ssero, the condizionale in the other half**\n- se posso, vengo → se potessi, verrei\n- se fa → se facesse\n- se mi dai → se mi dessi"
           }
         }
       ]
@@ -333,8 +332,8 @@
       {
         "type": "sort", "grammar": "periodo-ipotetico", "instruction": { "de": "Dopo se o nell'altra metà? · Nach se oder in der anderen Hälfte?", "sl": "Dopo se o nell'altra metà? · Za se ali v drugi polovici?", "en": "Dopo se o nell'altra metà? · After se or in the other half?" },
         "columns": [
-          { "label": { "de": "se … · nach se", "sl": "se … · za se", "en": "se … · after se" }, "words": ["sapessimo", "stessero", "bevessi"] },
-          { "label": { "de": "… · in der anderen Hälfte", "sl": "… · v drugi polovici", "en": "… · in the other half" }, "words": ["sapremmo", "starebbero", "berrei"] }
+          { "label": { "de": "se … · nach se", "sl": "se … · za se", "en": "se … · after se" }, "words": ["sapessimo", "bevessi"] },
+          { "label": { "de": "… · in der anderen Hälfte", "sl": "… · v drugi polovici", "en": "… · in the other half" }, "words": ["sapremmo", "berrei"] }
         ],
         "explain": {
           "de": "**Nach se: -ssi, -sse, -ssimo, -ste, -ssero** · in der anderen Hälfte das **condizionale**\n- Se sapessimo, verremmo.\n- Se tu chiedessi, sapremmo.",
