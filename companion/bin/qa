@@ -14574,8 +14574,9 @@ def case_chip(case: str):
     return next((c for t, c in nodes() if t.startswith(q) or (q in t and "sklon" not in t.lower() and c[1] > 500)), None)
 
 
-def word_chip(word: str, ask: str = CASES_ASK_WHY):
-    """A word's chip of "Zakaj?" (its text alone) below the question [ask]: the sentence above has the same word."""
+def word_chip(word: str, ask: str = CASES_ASK_WHY, bottom: int = 2150):
+    """A word's chip of "Zakaj?" (its text alone) below the question [ask]: the sentence above has the same word. [bottom]:
+    the lowest y taken (a page that just fits the screen doesn't scroll: its last chips stay low)."""
     seen = False
     for _ in range(4):
         ns = list(nodes())
@@ -14584,7 +14585,7 @@ def word_chip(word: str, ask: str = CASES_ASK_WHY):
         if top is None and seen:
             top = 300  # the question scrolled up out of sight: the sentence above it with it, every chip below
         c = None if top is None else next((c for t, c in ns if t == word and c[1] > top), None)
-        if c is not None and c[1] < 2150:
+        if c is not None and c[1] < bottom:
             return c
         # a long sentence or a place's picture: the chips under the screen's edge, the run's question scrolled up
         adb("shell", "input", "swipe", "540", "1500", "540", "1000", "400")
@@ -14637,7 +14638,7 @@ def cases_de_step():
         tap_at(c)
         assert wait_for(CASES_DE_ASK_WHY, 6), "Warum?"
         if it.get("trigger") is not None:
-            assert (w := word_chip(bare(it["de"].split()[it["trigger"]]), CASES_DE_ASK_WHY)), "the deciding word's chip"
+            assert (w := word_chip(bare(it["de"].split()[it["trigger"]]), CASES_DE_ASK_WHY, bottom=2330)), "the deciding word's chip"
             tap_at(w)
         else:
             assert tap("Subjekt" if it.get("role") == "subject" else "Objekt", 4), "nothing decides it: the role"
@@ -14660,7 +14661,7 @@ def cases_de_step():
         assert tap(pl["options"][pl["answer"]], 4), "the right option"
         if pl.get("trigger") is not None:
             assert wait_for(CASES_DE_ASK_WHY_PLACE, 6), "Warum? for wo or wohin"
-            assert (w := word_chip(bare(pl["de"].split()[pl["trigger"]]), CASES_DE_ASK_WHY_PLACE)), "the verb's chip"
+            assert (w := word_chip(bare(pl["de"].split()[pl["trigger"]]), CASES_DE_ASK_WHY_PLACE, bottom=2330)), "the verb's chip"
             tap_at(w)
         assert wait_for("✅", 6), f"right: {pl['id']}"
         shot("cases-de-place-right")
