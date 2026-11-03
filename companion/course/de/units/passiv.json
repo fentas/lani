@@ -240,7 +240,7 @@
         "ask": {
           "type": "choice",
           "grammar": "passiv",
-          "prompt": "Gestern ___ das Brot gebacken.",
+          "prompt": "Letzte Woche ___ der Zaun repariert.",
           "options": [
             "wurde",
             "würde",
@@ -249,9 +249,9 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "en": "**Yesterday: wurde, no umlaut**\n- würde is would",
-            "sl": "**Včeraj: wurde, brez preglasa**\n- würde je pogojnik",
-            "it": "**Ieri: wurde, senza dieresi**\n- würde è il condizionale"
+            "en": "**Last week: wurde, no umlaut**\n- würde is would",
+            "sl": "**Prejšnji teden: wurde, brez preglasa**\n- würde je pogojnik",
+            "it": "**La settimana scorsa: wurde, senza dieresi**\n- würde è il condizionale"
           }
         }
       },

@@ -167,11 +167,6 @@
             "Angst haben vor",
             "wovor?",
             "davor"
-          ],
-          [
-            "fragen nach",
-            "wonach?",
-            "danach"
           ]
         ],
         "ask": {
@@ -222,11 +217,6 @@
             "sich freuen über",
             "worüber?",
             "darüber"
-          ],
-          [
-            "bitten um",
-            "worum?",
-            "darum"
           ]
         ],
         "ask": {
@@ -293,11 +283,11 @@
         "ask": {
           "type": "choice",
           "grammar": "wo-da-woerter",
-          "prompt": "Wartest du auf Stefan? Ja, ich warte ___.",
+          "prompt": "Denkst du an Kathi? Ja, ich denke ___.",
           "options": [
-            "auf ihn",
-            "darauf",
-            "worauf"
+            "an sie",
+            "daran",
+            "woran"
           ],
           "answer": 0,
           "say_options": true,
@@ -332,7 +322,7 @@
         "ask": {
           "type": "choice",
           "grammar": "wo-da-woerter",
-          "prompt": "Ich freue mich ___, dass du kommst.",
+          "prompt": "Kathi wartet ___, dass Stefan anruft.",
           "options": [
             "darauf",
             "worauf",
