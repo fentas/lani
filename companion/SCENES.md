@@ -496,7 +496,24 @@ of the Slovene book has one since 2026-11-02: A1 to B2); a page the table lacks 
 two cases' page (predlogi-dva-sklona) a preposition gives both its cases with their questions and the rule beside them
 (po kruh: Koga? Kaj? the accusative; po vasi: the locative); a year or a told day gives the genitive of time ("with
 «1890»", "with «Nekega»": Kdaj? the genitive), pol before an hour the genitive after it (ob pol dveh: Kdaj?). A turn of no page has no hint. A dialog in another language than the book's
-gets its pages' links alone. A rule not introduced to the learner yet gets no hint of its own, only "🌱 Na vrsto pride
+gets its pages' links alone.
+
+**An Italian turn** (Friuli; `game/ItalianHints.kt`, since 2026-11-03) has the same card from Italian's own table: every
+page of the Italian book (70, A1 to B2) has its rule in words in the learner's base, its 🔊 sentence, models in other
+words and, where the page asks one, its question ("Tu o Lei?", "Dove?", "Che ore sono? A che ora?"). Italian has no
+cases, so what decides the form is what the sentence shows of it, found by word lists at the turn, offline, and only
+where the sentence shows it plainly: the noun an article, a fused preposition or an adjective goes with ("Manca ____
+tetto": "with «tetto»: its gender, its number and its first sound"; "Il cesto è ____": "with «Il cesto»: its gender and
+number"), who does it ("who: «le api»", «io», «noi»), the one spoken to ("talking to «maestra»": tu or Lei; ", pecore!":
+voi), the participle that picks essere or avere ("with «scelto»: its verb decides"), a feeling or an age (ho fame: "with
+«fame»: Italian says it with avere"), a number or a word of the plural before a noun ("after «tre»: more than one"; ogni:
+the singular), the word that asks for the congiuntivo ("after «Bisogna che»"), se in either half, the preposition before
+cui, the verb before an infinitive or its a and di, stare before a gerund, what is liked (piace, piacciono: "with «la
+cioccolata»: one or more decides the verb"), the hour after alle, the place after a, in, da, più before di, a word of
+time (ieri, domani, mentre, all'improvviso). Where nothing shows (a verb's ending without a subject, *Tiro forte!*), the
+rule alone. On the curated Italian turns (2026-11-03) 1,034 have a hint, 997 of them a rule or a trigger, and 596 of the
+879 form turns name what decides; `ItalianHintTest` checks that nothing shown or said gives the answer away, and writes
+every form turn's first line to build/reports/hints/it.txt for a reader. A rule not introduced to the learner yet gets no hint of its own, only "🌱 Na vrsto pride
 kasneje · You'll learn this later: …" ([Rules not yet](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar)).
 
 **Never the answer** (`TurnHints.fair`): no model shows any form of the turn (the right one, a wrong one, or a word of their
