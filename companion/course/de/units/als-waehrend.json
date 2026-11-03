@@ -263,19 +263,19 @@
       },
       {
         "say": {
-          "en": "**bevor** (before) and **bis** (until) look ahead: **Bevor wir essen, waschen wir die Hände.** (Before we eat, we wash our hands.) **Warte, bis ich komme!** (Wait until I come!) Before a noun it's **vor**: **vor dem Essen** (before the meal). **vor wir essen** doesn't exist.",
-          "sl": "**bevor** (preden) in **bis** (dokler ne) gledata naprej: **Bevor wir essen, waschen wir die Hände.** (Preden jemo, si umijemo roke.) **Warte, bis ich komme!** (Počakaj, dokler ne pridem!) Pred samostalnikom je **vor**: **vor dem Essen** (pred jedjo). **vor wir essen** ne obstaja.",
-          "it": "**bevor** (prima che) e **bis** (finché non) guardano avanti: **Bevor wir essen, waschen wir die Hände.** (Prima di mangiare ci laviamo le mani.) **Warte, bis ich komme!** (Aspetta finché non arrivo!) Davanti a un nome è **vor**: **vor dem Essen** (prima del pasto). **vor wir essen** non esiste."
+          "en": "**bevor** (before) and **bis** (until) look ahead: **Bevor wir essen, waschen wir uns die Hände.** (Before we eat, we wash our hands.) **Warte, bis ich komme!** (Wait until I come!) Before a noun it's **vor**: **vor dem Essen** (before the meal). **vor wir essen** doesn't exist.",
+          "sl": "**bevor** (preden) in **bis** (dokler ne) gledata naprej: **Bevor wir essen, waschen wir uns die Hände.** (Preden jemo, si umijemo roke.) **Warte, bis ich komme!** (Počakaj, dokler ne pridem!) Pred samostalnikom je **vor**: **vor dem Essen** (pred jedjo). **vor wir essen** ne obstaja.",
+          "it": "**bevor** (prima che) e **bis** (finché non) guardano avanti: **Bevor wir essen, waschen wir uns die Hände.** (Prima di mangiare ci laviamo le mani.) **Warte, bis ich komme!** (Aspetta finché non arrivo!) Davanti a un nome è **vor**: **vor dem Essen** (prima del pasto). **vor wir essen** non esiste."
         },
         "examples": [
           {
-            "de": "Bevor wir essen, waschen wir die Hände.",
+            "de": "Bevor wir essen, waschen wir uns die Hände.",
             "en": "Before we eat, we wash our hands.",
             "sl": "Preden jemo, si umijemo roke.",
             "it": "Prima di mangiare ci laviamo le mani."
           },
           {
-            "de": "Vor dem Essen waschen wir die Hände.",
+            "de": "Vor dem Essen waschen wir uns die Hände.",
             "en": "Before the meal, we wash our hands.",
             "sl": "Pred jedjo si umijemo roke.",
             "it": "Prima del pasto ci laviamo le mani."
@@ -312,7 +312,7 @@
         "ask": {
           "type": "choice",
           "grammar": "temporalsaetze",
-          "prompt": "___ dem Essen wäscht Maxi die Hände.",
+          "prompt": "___ dem Essen wäscht sich Maxi die Hände.",
           "options": [
             "Vor",
             "Bevor",
@@ -789,12 +789,10 @@
               ]
             },
             {
-              "from": "Wir essen. Wir waschen die Hände. (bevor)",
+              "from": "Wir essen. Wir waschen uns die Hände. (bevor)",
               "accept": [
-                "Bevor wir essen, waschen wir die Hände.",
-                "Wir waschen die Hände, bevor wir essen.",
-                "Wir waschen uns die Hände, bevor wir essen.",
-                "Bevor wir essen, waschen wir uns die Hände."
+                "Bevor wir essen, waschen wir uns die Hände.",
+                "Wir waschen uns die Hände, bevor wir essen."
               ]
             },
             {
@@ -845,15 +843,16 @@
               ]
             },
             {
-              "from": "Ich fahre jeden Montag nach Villach. Ich treffe Toni.",
+              "from": "Ich fahre nach Villach. Ich treffe immer Toni.",
               "accept": [
-                "Wenn ich jeden Montag nach Villach fahre, treffe ich Toni.",
-                "Ich treffe Toni, wenn ich jeden Montag nach Villach fahre.",
-                "Immer wenn ich nach Villach fahre, treffe ich Toni."
+                "Wenn ich nach Villach fahre, treffe ich immer Toni.",
+                "Immer wenn ich nach Villach fahre, treffe ich Toni.",
+                "Ich treffe immer Toni, wenn ich nach Villach fahre."
               ],
               "spoken": [
-                "Wann ich jeden Montag nach Villach fahre, treffe ich Toni.",
-                "Ich treffe Toni, wann ich jeden Montag nach Villach fahre."
+                "Wann ich nach Villach fahre, treffe ich immer Toni.",
+                "Immer wann ich nach Villach fahre, treffe ich Toni.",
+                "Ich treffe immer Toni, wann ich nach Villach fahre."
               ]
             },
             {
