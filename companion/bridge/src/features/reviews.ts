@@ -71,8 +71,8 @@ export const stateFeatures = (language: string): string[] => STATE_FEATURES.filt
 export const OTHER_FORMS_FEATURE = 'forms-cards-v2'
 
 /** [state] (read-db.py's) without the review items that are another language's forms cards (forms.language: it, de, en). */
-export function withoutOtherFormsCards(state: { spaced_repetition?: { items?: Record<string, { type?: string; forms?: { language?: string } }> } }) {
-  const items = state.spaced_repetition?.items
+export function withoutOtherFormsCards(state: { databases?: { spaced_repetition?: { items?: Record<string, { type?: string; forms?: { language?: string } }> } } }) {
+  const items = state.databases?.spaced_repetition?.items
   if (!items) return
   for (const [id, it] of Object.entries(items)) if (it?.type === 'forms' && it.forms?.language && it.forms.language !== 'sl') delete items[id]
 }

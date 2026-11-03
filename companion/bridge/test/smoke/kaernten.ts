@@ -107,14 +107,14 @@ export default async function kaernten() {
     const madeDe = (await (await fetch(`${base}/forms-cards`, { method: 'POST', headers: auth, body: JSON.stringify({ words: [{ word: 'fahren' }], introduced: ['praesens', 'vokalwechsel', 'partizip-zwei'], asked: true, v: 2, client_id: 'smoke-kaernten-forms' }) })).json()) as any
     const featuresDe = (await (await fetch(`${base}/state`, { headers: auth })).json()).features
     check(
-      "kaernten: forms cards: an older app's ask 400; with v=2 Haus's table (German, its word as written, dem Haus given, not a gap; Häusern asked), fahren's card made on demand with its present and participle tested; GET /state says forms-cards-v2, not Slovene's forms-cards",
+      "kaernten: forms cards: an older app's ask 400; with v=2 Haus's table (German, its word as written, dem Haus given, not a gap; Häusern asked), fahren's card made on demand with its present (ich, du, er, ihr: wir and sie are the word itself, given) and participle tested; GET /state says forms-cards-v2, not Slovene's forms-cards",
       cardsNoV.status === 400 && hausCard?.language === 'de' && hausCard.lemma === 'Haus' && hausCard.slots.find((x: any) => x.key === 'dat.sg')?.given === true && !hausCard.slots.find((x: any) => x.key === 'dat.pl')?.given &&
-        madeDe.added?.[0]?.lemma === 'fahren' && madeDe.added[0].tested >= 7 && featuresDe.includes('forms-cards-v2') && !featuresDe.includes('forms-cards'),
+        madeDe.added?.[0]?.lemma === 'fahren' && madeDe.added[0].tested >= 5 && featuresDe.includes('forms-cards-v2') && !featuresDe.includes('forms-cards'),
       { status: cardsNoV.status, hausCard, madeDe, featuresDe },
     )
     const cardId = madeDe.added?.[0]?.item_id
-    const itemsOld = (await (await fetch(`${base}/state`, { headers: auth })).json()).spaced_repetition?.items ?? {}
-    const itemsNew = (await (await fetch(`${base}/state?forms=2`, { headers: auth })).json()).spaced_repetition?.items ?? {}
+    const itemsOld = (await (await fetch(`${base}/state`, { headers: auth })).json()).databases?.spaced_repetition?.items ?? {}
+    const itemsNew = (await (await fetch(`${base}/state?forms=2`, { headers: auth })).json()).databases?.spaced_repetition?.items ?? {}
     check(
       "kaernten: a German forms card is held back from an older app's GET /state (it would lay it out as Slovene's), there for one asking forms=2 with its table's language",
       !!cardId && !itemsOld[cardId] && itemsNew[cardId]?.type === 'forms' && itemsNew[cardId].forms?.language === 'de',
