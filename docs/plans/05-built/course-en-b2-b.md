@@ -84,6 +84,9 @@ As COURSE.md "Writing a unit" and "The English course", plus what these six foun
 - **A wrong option can be right but silly**, and the box prints it as a mistake (Take both of them: they're both good). The prompt has to rule it out: it doesn't matter which.
 - **A blacksmith doesn't mend boots**, and Mr Tyson's mill is running in the cast, so it can't be closed or for sale. Read a line against the villager's file.
 - **A word in a unit about it can't do other jobs**: "both want the singular" in `both-neither` reads as a rule.
+- **The rule line keeps a sentence only with a bold form and a colon** (`condense`, score 1.5), and a sentence ends at a bracket or a plain full stop, not at `.**`. So "**A.** (One son.) With none: **B.** (More than one.)" prints both halves, and "**A.** (One son.) **B.** (More than one.)" prints one. Read every line with `ruleLine`, because the smoke only asks that one bold form survives.
+- **A long last step can leave its question out of QA's reach:** six rows of three-line cells and four examples put the field past `text_field(3)`. The table's cells can just name the form, as the examples say the whole sentence.
+- **QA needs the learner's data for a base:** without `LANI_DEV_DATA` from make-learner.ts `--base de`, the dev bridge serves every text per base in Slovene, though the `say` shows German.
 
 ## Facts in the lines
 
@@ -93,4 +96,40 @@ As COURSE.md "Writing a unit" and "The English course", plus what these six foun
 
 ## Read aloud
 
-Mrs Hartley reads the intros in the cast's teacher voice. A voice build of these six would take about 8,760 ElevenLabs characters for her English lines (304 texts: examples, quick questions, answers, the English runs) and, on demand when an intro opens or with `voice-build --explanations`, about 16,450 (Slovene), 17,420 (German) and 17,000 (Italian) for the 42 explanations (36 steps, 6 summaries). Measured with `courseTexts`, nothing voiced, no credits spent.
+Mrs Hartley reads the intros in the cast's teacher voice. A voice build of these six would take about 8,730 ElevenLabs characters for her English lines (303 texts: examples, quick questions, answers, the English runs) and, on demand when an intro opens or with `voice-build --explanations`, about 16,430 (Slovene), 17,400 (German) and 16,980 (Italian) for the 42 explanations (36 steps, 6 summaries). Measured with `courseTexts`, nothing voiced, no credits spent.
+
+## Checks, on 8c370b06 (the content's last commit)
+
+Parts a and b run these; the whole Android suite is part c's and the gate's, so it wasn't run here.
+
+- `bunx tsc --noEmit -p .` clean. `tutor-export --check`: 140 files match, with the guide's count regenerated (49 → 55 pages).
+- The smoke with ports 10250– (LANI_SMOKE_DRAMA3_PORT 10268): 3,697 checks, all passed. An earlier run failed two: the guide's count, and Italian in her English voice (see "How the units are written").
+- Android through lani-slot.sh, the course's classes only: 169 tests, 0 failures. `EnglishB2bContentTest` 12, `EnglishCourseContentTest` 6, `EnglishA2aContentTest` 8, `EnglishA2bContentTest` 14, `EnglishA2cContentTest` 12, `EnglishB1aContentTest` 9, `EnglishB1bContentTest` 10, `EnglishB1cContentTest` 15, `GradingTest` 18, `SpeechGradingTest` 13, `CheatSheetTest` 19, `SchoolBoardTest` 7, `SchoolRevealTest` 16, `SentenceGrammarTest` 6, `IntroBoldTapTest` 2, `IntroSpeechParityTest` 2. B1's tests still hold with the new rows.
+- `lexicon-build --coverage --lang en`, against the base: the supplement 78.1 % → 78.7 % of words, with packs and names 96.5 % → 96.6 %, each base 95.9 % → 96.0 % of words; each base's tokens 98.4 %, unchanged. `bun test/prompt-clashes.ts`: no new clash, 339 in the baseline.
+- `school-prints --language en --level B2 --units <the six> --base sl|de|it`: all fit: reporting-verbs 1 page, the rest 2, in each base. `--explain` read for the Watch out boxes; the rule lines read with `ruleLine` in Slovene, the two reworked ones in German and Italian. **The PDFs read:** only `non-defining`, in German. The other five by their page counts and `--explain`.
+- A script of this part, with the bridge's validators, the print's `Dictionary` and a port of the grading (not committed): every unit and page valid, every sheet word has its meaning in each base, every accepted answer right. It reports three comma-only wrong options as right by the grading, as they must be: those choices have no gap, so they stay a tap, which `EnglishB2bContentTest` holds.
+- **Two independent reads by fresh agents**, one of the English, one of the Slovene, German and Italian. They are not native speakers and opened no dictionary. Acted on as 6e3deacb and 8aeb22fb say.
+
+**Not taken from the reads, and why:**
+- Finishing the hay, we went to the inn stays accepted: the reader wanted it wrong because -ing says "at the same time", but right English shouldn't be marked wrong (Finishing his coffee, he stood up).
+- has gotten keeps no label: COURSE.md lists American forms in `accept`.
+- so is Sam, neither is Harry aren't listed: the instruction now names both, neither, either or none.
+- "Oma Maggie" in German is new here: **the rest of the course's German, as far as I read it, has Granny Maggie.** Say which should stay.
+- "Mož" and "pisava" stay in B1's pages and units, because this part doesn't touch them.
+
+## QA
+
+Through `companion/bin/qa-slot --no-town --steps course-unit`, a 1080 × 2400 phone, Ana, a synthetic learner of English from German in the Lake District (`LANI_DEV_DATA` from make-learner.ts). Screenshots in the scratchpad under ux-course-en-b2-b/non-defining/.
+
+- **`non-defining` from German, on 43a177df: passed whole:** the school, the unit, the intro's six steps with their quick questions, the summary, the three worksheets, the test passed, the print's preview and PDF; ✅ setup, ✅ course-unit, ✅ crash check. The last commit after it (8c370b06) only rewords two explanations, and isn't run on the emulator.
+- **Two runs failed first, each telling something:** one with no learner's data (the prompts in Slovene, my own setup), one stopped at the last step's field, which went on as "How the units are written" says.
+- **Read on a screen:** step 2's question with its instruction, the last step's field, the print's first page on the device.
+- **Not seen on a screen:** a comma-only choice answered wrong; `nonstandard`'s line and a spoken label for these units (QA answers right; the verdicts are unit tests); the other five units, which ran in tests and prints only.
+- Tap counts: no journey changed.
+
+## What's left
+
+- The native check at the top. First **that after a comma**, offered as a wrong choice with no source either way, then the unsourced rows.
+- Part c, at integration: the outline's lines by `resolve-outline.py`; `grading/en.json` and `lexicon/en.extra.json` by `json3merge.py`; the 12 lemmas to join; `same`'s order is safe, as these rows touch only that; regenerate the guide's count; COURSE.md's "The English course: B2, units 7–12" and "What people say" from this doc; the README's and grammar-spec's page counts (six new pages here).
+- Once the level is merged, `see` and `grammar` could name part a's `past-modals` on `passive-more`.
+- Voice: nothing voiced, the figures above.
