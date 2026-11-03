@@ -9818,7 +9818,7 @@ def village_talk(village: str):
         go_home()
         return f"skipped: {want} isn't offered to this learner (a talk is offered up to a level above theirs: learner.current_level)"
     spec = {**spec, **spec.get("levels", {}).get(s.get("level"), {})}  # a B1 or B2 talk: the dev tutor's lines at its level
-    c = scroll_to(s["title"], 8)
+    c = scroll_to(s["title"], 16)  # twenty talks in a village: the fifteenth is 9 swipes down
     assert c is not None, f"the role-play {s['title']} on the list"
     tap_at(c)
     taps += 1

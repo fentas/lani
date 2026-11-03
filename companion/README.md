@@ -332,7 +332,12 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   (`companion/scenarios/`: a complaint at the shop, wine for a party with Vinar Marko, a call to the surgery that goes
   wrong, the night of the bora, advice for the neighbour, a job at a tourist farm; the mayor's office hours, a job
   interview, a new doctor's history, a stone house to rent, reporting a car accident, Marko at a crossroads;
-  docs/plans/05-built/talks-sl.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
+  docs/plans/05-built/talks-sl.md). The Carinthian village has twelve more at B1 and B2 (`companion/scenarios/de/`: a
+  rain jacket taken back to the shop, Most for a big birthday with Mostbauer Stefan, a call to the doctor's practice
+  that goes wrong, the hailstorm night told to the fire brigade, advice for Tante Mitzi and her hearing aid, summer help
+  at Kathi's Gasthaus; the mayor and the village shop that closes, a job interview at a hotel on the Faaker See, a new
+  family doctor's history, a second-hand car, a ski accident told to the Alpine police, Florian between a job and an
+  Almhütte; docs/plans/05-built/talks-de.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
   A1 and A2 talks, never B1 or B2.
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
