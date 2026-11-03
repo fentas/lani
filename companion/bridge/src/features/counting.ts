@@ -61,6 +61,19 @@ const countingIn = z.object({
 
 type Item = Record<string, unknown> & { type?: string; content?: string; answer?: string; created_date?: string; counting?: { lemma?: string } }
 
+/**
+ * A village in another language: counting cards are Slovene's (its dual, the genitive after numbers), and the numbers
+ * module's words and ranges are its language's, where the app has it.
+ */
+const otherLanguage = `
+Counting cards are Slovene's (its dual, its genitive after numbers): this village's language has none, so no review names
+one and no mistake is counting_*. The numbers module ("🔢"), where this village has it, practises the numbers themselves:
+runs of 10, a number heard, read, written or said. It schedules its own repeats (a number missed comes back in its next
+runs): make no review cards of them. A run reaches you as a session_end whose data.numbers has the ranges open, each task
+(mode, shown, answer, expected, verdict, kind) and errors: update-db.py's errors as they stand, to persist as the report's
+errors with the run's results (lani-db-updater; skills: listening for hear, vocabulary for read and write, speaking for say).
+`.trim()
+
 export const counting: FeatureFactory = ({ learner, dictionary, grammar, packs, scenes, stories, readings, addressee, events, culture, outbox, log }) => {
   const language = culture.manifest?.language ?? 'sl'
   const { dict, book } = dictionary
@@ -158,7 +171,7 @@ export const counting: FeatureFactory = ({ learner, dictionary, grammar, packs, 
   }
 
   return {
-    instructions,
+    instructions: language === 'sl' ? instructions : otherLanguage,
     routes: [{ method: 'POST', path: '/counting', handle: ({ req, url }) => outbox.once(req, url.pathname, handleCounting) }],
   }
 }

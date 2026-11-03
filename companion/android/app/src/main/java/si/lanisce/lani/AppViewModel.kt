@@ -244,6 +244,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         t.learner = { content.dashboard?.name }
         t.where = ::whereNow
         t.language = { grammar.language }
+        t.base = { si.lanisce.lani.l10n.L10n.ownPair.base.code }
+        // unknown at a start before the towns came: the phone's last word on it
+        t.child = { if (childKnown) child else si.lanisce.lani.tutor.live.TutorRuntime.lastChild(app) }
         t.photo = { id -> chat.photos?.file(id)?.takeIf { it.isFile } }
         // the reply as it's written, in the chat's typing bubble; the final message (the bridge's reply event) replaces it
         t.onStreaming = { conversation, text -> if (conversation == "main") chat.streaming = text }
@@ -1578,6 +1581,16 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         val course = school.course ?: return
         game.apply { si.lanisce.lani.app.QaHooks.readyReveal(it, course, java.time.LocalDate.now(), System.currentTimeMillis()) }
         openSchool()
+    }
+
+    /** QA's "meet:<id>" (a debug build, app/QaHooks.kt): the dev village's [id] moved in and not met yet, their introduction opened. */
+    fun qaMeet(id: String) {
+        val today = java.time.LocalDate.now().toString()
+        game.apply { s ->
+            val here = if (s.residents.any { it.id == id }) s.residents else s.residents + si.lanisce.lani.game.villagers.Resident(id, today)
+            s.copy(residents = here, bonds = s.bonds + (id to (s.bonds[id] ?: si.lanisce.lani.game.villagers.Bond()).copy(met = null)))
+        }
+        villagers.meet(id)
     }
 
     /**

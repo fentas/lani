@@ -52,17 +52,18 @@ A single answer may contain multiple errors of different severity — tag each.
 These feed `mistakes-db.json`:
 
 - `grammar` — word order, conjugation, clause structure
-- `formal_informal` — u/je, uw/jouw, register mismatch
+- `formal_informal` — ti/vi, tu/Lei, du/Sie, register mismatch
 - `vocabulary` — wrong word, English mixing, register-wrong synonym
 - `spelling` — minor
-- `prepositions` — om/op/in/bij/naar/etc.
-- `articles` — de/het, definite/indefinite
+- `prepositions` — the language's prepositions and the cases they take
+- `articles` — il/lo/la, der/die/das, a/the, definite/indefinite (Slovene has none)
 - `missing` — omitted greeting, closing, required word
 
 ### 4. Tone rules
 
 - **Encourage before correcting.** Open with a ✅ or a warm ❌ (`"Close! Let's tune one word."`), not a bare `Wrong.`.
 - **Explain why, not just what.** `"Ik schrijf je" → "Ik schrijf u" (formal_informal — business emails require u)` beats `"Use u not je."`.
+- **Spoken isn't wrong.** A spoken or regional form natives use is named as such, the standard beside it, with no ❌ and no error logged; what you can't check you don't mark wrong (`companion/tutor/languages/`: what holds in every language, and each one's own).
 - **Name the pattern.** Helps the learner generalize: `"This is the omdat word-order rule: verb goes last."`.
 - **Celebrate progress.** `"You didn't miss this last time — well done."` when `mistakes-db` shows improvement.
 - **Emojis on.** The learner's profile has `use_emojis: true` by default. Keep them.

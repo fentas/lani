@@ -355,7 +355,7 @@ cast without their own takes `newcomer` with their name and role).
 | Field | Rules |
 |---|---|
 | `language` | the pack's; every text (a line, `late`, a choice, a reply, `memory`) in the app's four languages, the pack's first (Primorska `sl` with `en`, `de`, `it`; Friuli `it` with `sl`, `en`, `de`; Kärnten `de` with `sl`, `en`, `it`; Lakeland `en` with `sl`, `it`, `de`); what is said is the village's language, the rest translates it (a wrong choice's translation marks the slip it can't show: "(as to a boy)", "(vi)") |
-| `cast` | by villager id: one for each of the pack's cast (an extra may have one: Lovec Jože), `by` optionally someone of the cast with a smaller `order` who introduces them, `memory` in their words, first person, fitting their remember lines ("Še vedno mislim na {memory}", "Ricordo ancora {memory}", "Ich denke noch oft an {memory}"), `levels`: A1 and A2 at least, B1 for some |
+| `cast` | by villager id: one for each of the pack's cast (an extra may have one: Lovec Jože), `by` optionally someone of the cast with a smaller `order` who introduces them, `memory` in their words, first person, fitting their remember lines ("Še vedno mislim na {memory}", "Ricordo ancora {memory}", "Ich denke noch oft an {memory}"), `levels`: A1 and A2 at least, B1 too in each of the four packs |
 | `levels.<level>` | `lines`: 3–12, a scene dialog's (SCENES.md "Format": someone's line `{who, <texts>}`, or the learner's turn `{choices}`), the first someone's; `late`: the line said instead of the first when Jan meets them late. Every line has its `who`: the newcomer or their introducer (a template's: `self`; a birth's `parent`, `parent2`). No `sky`, no `fx`: an arrival has no scene around it. A1: 3–5 short lines (name, age or trade, where from, what they do); A2: why they came and with whom; B1: a small story |
 | turns | 1–2 (B1 up to 3), 2–3 choices each, at least one right and one wrong, where the grammar is natural: the greeting's register (Živjo / Dober dan by ti/vi), the welcome agreeing with who it is (Dobrodošel, Dobrodošla, and Dobrodošli to someone Jan says vi to), "Čestitam!" for a baby, "Me veseli."; every wrong choice has a `why` (per language: every language but the pack's own, the learner reads it in their base) and a `reply`, the person's reaction to what was said, never the right form (SCENES.md, "Reactions and more than one right answer"); a reply is said by whoever spoke last before the turn, and a turn that answers someone else names them, `to` (Micka has the last word, "In jaz imam spet koga razvajati!", and Jan welcomes Zala: `{"to": "zala", "choices": […]}`, her "Hvala!" in her voice, and the panel faces her from the turn on) |
 | `templates` | `newcomer` and `birth` (A1 and A2), `moved` optional; ICU placeholders as the pack's other texts: a newcomer's `{name}`, `{first}`, `{family}`, `{role}` (their trade, lower case mid-sentence; a German noun keeps its capital), `{g}` (f or m: `{g, select, f {Dobrodošla} other {Dobrodošel}}`), a mover's `{from}` too (their town, as it is: "v kraju {from}"); a baby's `{first}`, `{family}`, `{g}`, `{parent}`, `{parent2}` (the parents' first names), `{pg}`, `{p2g}` (their genders). Names are never declined ("Ime ji je {first}."). The learner is `{learner}` and agrees `{m:…|f:…}` as in any text; where both the learner's gender and theirs decide a form, a pair holds the select: the two of you are women only when both are, `Nisva se še {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}` |
@@ -367,10 +367,10 @@ pack and reads a dialog in the learner's pair when it's played (`Arrivals.meetin
 
 | Pack | Introduced by someone | B1 too | Templates |
 |---|---|---|---|
-| `primorska` (13 and Lovec Jože) | Micka her granddaughter Zala and her sister Ančka, France his grandson Tine, Vida her son Nejc, Janez his old friend Jože | Micka, Luka, Zala, Janez, Anton, Mojca; the newcomer | newcomer, birth, moved |
-| `friuli` | Rosa her granddaughter Giulia and her sister Nives, Franco his grandson Lorenzo, Marisa her son Tommaso | all 13 | newcomer, birth, moved |
-| `kaernten` | Resi her granddaughter Lena and her sister Mitzi, Franz his grandson Jakob, Kathi her son Maxi | all 13 | newcomer, birth, moved |
-| `lakeland` | Maggie her granddaughter Poppy and her sister Edna, Mr Tyson his grandson Alfie, Mrs Birkett her son Harry | all but Alfie and Harry | newcomer, birth, moved |
+| `primorska` (13 and Lovec Jože) | Micka her granddaughter Zala and her sister Ančka, France his grandson Tine, Vida her son Nejc, Janez his old friend Jože | all 14; the newcomer | newcomer, birth, moved |
+| `friuli` | Rosa her granddaughter Giulia and her sister Nives, Franco his grandson Lorenzo, Marisa her son Tommaso | all 13; the newcomer | newcomer, birth, moved |
+| `kaernten` | Resi her granddaughter Lena and her sister Mitzi, Franz his grandson Jakob, Kathi her son Maxi | all 13; the newcomer | newcomer, birth, moved |
+| `lakeland` | Maggie her granddaughter Poppy and her sister Edna, Mr Tyson his grandson Alfie, Mrs Birkett her son Harry | all 13; the newcomer | newcomer, birth, moved |
 
 Everyone else introduces themself; the host (Micka, Rosa, Resi, Maggie), the first to come, welcomes the learner. The
 turns are the greeting's register (Živjo or Dober dan; tu or Lei; du or Sie; a first name or Mr and Mrs), the welcome
@@ -541,7 +541,9 @@ celebrations"):
   `celebrations/<age>.json`). One who isn't in the village tonight has their lines said by another guest, else by someone
   of the village of their age, else by the host (a host who isn't here, by the first guest who is); the guests' lines say
   nothing of who says them, and no line names anyone of the cast ("Who a text may name"). Everyone who lives here
-  grows closer the first time (+2 ♥) and remembers it ("Še vedno mislim na našo veselico").
+  grows closer the first time (+2 ♥) and remembers it ("Še vedno mislim na našo veselico"). In Kärnten: Opa Sepp the first
+  evening by the fire, Müller Franz the Firstfeier, Wirtin Kathi the Dorffest, Mostbauer Stefan the Wiesenmarkt, Lehrerin Eva
+  the Stadtfest.
 - **The day's surprise.** Luka looks for his lamb, a child asks a riddle, the postman brings a letter for Marko,
   Micka, Tone or Vida (their names in the right case: "pismo za Micko", "Preberi ji ga!"), only while they live here.
   The pedlar and the pilgrim are strangers from the road (below).

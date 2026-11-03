@@ -49,12 +49,27 @@ export default async function family() {
   const page = await fetch(`${base}/family?t=x`)
   check('GET /family serves the page with a CSP', page.ok && (await page.text()).includes('/family/app.js') && !!page.headers.get('content-security-policy'))
   check('GET /family/app.js is served', (await fetch(`${base}/family/app.js`)).ok)
+  // the page in the learner's languages: every label in all four, nothing written for one learner or one language
+  const pageJs = await (await fetch(`${base}/family/app.js`)).text()
+  const pageHtml = await (await fetch(`${base}/family`)).text()
+  const table = (name: string) => new Function(`return ${new RegExp(`const ${name} = (\\{[\\s\\S]*?\\n\\})\\n`).exec(pageJs)?.[1] ?? '{}'}`)() as Record<string, Record<string, string>>
+  const strings = table('STRINGS')
+  const samples = table('SAMPLES')
+  const fourLanguages = ['sl', 'en', 'de', 'it']
+  const lacking = Object.entries({ ...strings, ...samples }).filter(([, by]) => fourLanguages.some(l => !by[l]?.trim())).map(([k]) => k)
+  check('the family page says everything in all four languages', Object.keys(strings).length > 50 && Object.keys(samples).length >= 5 && lacking.length === 0, lacking)
+  const asked = [...pageHtml.matchAll(/data-t(?:-target|-base|-aria|-placeholder)?="(\w+)"/g), ...pageJs.matchAll(/\b(?:t|inLang\(target, )\('?(\w+)'/g)].map(m => m[1]).filter(k => k !== 'from')
+  const unknown = [...new Set(asked)].filter(k => /^[a-z]/i.test(k) && !strings[k])
+  check('the family page asks for no label it lacks', pageHtml.includes('data-t="newMessage"') && unknown.length === 0, unknown)
+  const uses = pageHtml + pageJs.slice(pageJs.indexOf('function lock()'))
+  check("the family page's labels are the table's: no Slovene written into it, no learner's name", !/Pomagaj|slovenščini|Vprašanje|Posnemi|\bJan\b|\bTeo\b/.test(uses), /Pomagaj|slovenščini|Vprašanje|Posnemi|\bJan\b|\bTeo\b/.exec(uses)?.[0])
 
   // --- family: partner challenges ------------------------------------------------------------------------
   const famJson = { ...fam, 'content-type': 'application/json' }
   const set = await fetch(`${base}/family/api/settings`, { method: 'PUT', headers: famJson, body: JSON.stringify({ partner_name: 'Maja', partner_emoji: '💃' }) })
   const setBody = await set.json()
   check('family settings saved, "from" form derived', set.ok && setBody.partner_name === 'Maja' && setBody.from_label === 'Maje' && typeof setBody.learner_name === 'string', setBody)
+  check("the family page is told the learner's two languages: Jan's Slovene from English", setBody.language === 'sl' && setBody.base === 'en', setBody)
   const wordsList = await (await fetch(`${base}/family/api/words`, { headers: fam })).json()
   check('GET /family/api/words lists pack words and examples', wordsList.some((w: any) => w.text === 'kruh') && wordsList.some((w: any) => w.text === 'Kruh je še topel.'), wordsList.slice(0, 5))
   const newC = await fetch(`${base}/family/api/challenges`, { method: 'POST', headers: famJson, body: JSON.stringify({ type: 'question', text: 'Kaj si danes jedel?', hint: 'What did you eat today?' }) })
