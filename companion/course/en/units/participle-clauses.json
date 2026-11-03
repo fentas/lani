@@ -433,12 +433,13 @@
         "ask": {
           "type": "choice",
           "grammar": "participle-clauses",
-          "prompt": {
-            "sl": "Walking up the fell, a raven flew over Jack. Kdo po tem stavku hodi?",
-            "de": "Walking up the fell, a raven flew over Jack. Wer geht laut diesem Satz?",
-            "it": "Walking up the fell, a raven flew over Jack. Chi cammina, a stare alla frase?",
-            "en": "Walking up the fell, a raven flew over Jack. Who is walking, by this sentence?"
+          "instruction": {
+            "sl": "Who is walking, by this sentence? · Kdo po tem stavku hodi?",
+            "de": "Who is walking, by this sentence? · Wer geht laut diesem Satz?",
+            "it": "Who is walking, by this sentence? · Chi cammina, a stare alla frase?",
+            "en": "Who is walking, by this sentence?"
           },
+          "prompt": "Walking up the fell, a raven flew over Jack.",
           "options": [
             "the raven",
             "Jack",
@@ -878,17 +879,12 @@
         "type": "choice",
         "grammar": "participle-clauses",
         "instruction": {
-          "sl": "Say who · Povej, kdo",
-          "de": "Say who · Sag, wer",
-          "it": "Say who · Di' chi",
-          "en": "Say who"
+          "sl": "Who is carrying the lamb? · Kdo nese jagnje?",
+          "de": "Who is carrying the lamb? · Wer trägt das Lamm?",
+          "it": "Who is carrying the lamb? · Chi porta l'agnello?",
+          "en": "Who is carrying the lamb?"
         },
-        "prompt": {
-          "sl": "Carrying the lamb home, Jack saw Meg. Kdo nese jagnje?",
-          "de": "Carrying the lamb home, Jack saw Meg. Wer trägt das Lamm?",
-          "it": "Carrying the lamb home, Jack saw Meg. Chi porta l'agnello?",
-          "en": "Carrying the lamb home, Jack saw Meg. Who is carrying the lamb?"
-        },
+        "prompt": "Carrying the lamb home, Jack saw Meg.",
         "options": [
           "Jack",
           "Meg",

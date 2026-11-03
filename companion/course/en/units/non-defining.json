@@ -184,12 +184,13 @@
         "ask": {
           "type": "choice",
           "grammar": "relative-clauses-more",
-          "prompt": {
-            "sl": "Maggie's sister, who lives in the village, has an old radio. Koliko sester ima Maggie?",
-            "de": "Maggie's sister, who lives in the village, has an old radio. Wie viele Schwestern hat Maggie?",
-            "it": "Maggie's sister, who lives in the village, has an old radio. Quante sorelle ha Maggie?",
-            "en": "Maggie's sister, who lives in the village, has an old radio. How many sisters has Maggie got?"
+          "instruction": {
+            "sl": "How many sisters has Maggie got? · Koliko sester ima Maggie?",
+            "de": "How many sisters has Maggie got? · Wie viele Schwestern hat Maggie?",
+            "it": "How many sisters has Maggie got? · Quante sorelle ha Maggie?",
+            "en": "How many sisters has Maggie got?"
           },
+          "prompt": "Maggie's sister, who lives in the village, has an old radio.",
           "options": [
             "one",
             "more than one",
@@ -384,7 +385,7 @@
       {
         "say": {
           "sl": "**which** lahko stoji za cel stavek, kot slovenski *kar*: **The van broke down, which was a pity.** **Jack came late, which isn't like him.** (Jack je prišel pozno, kar mu ni podobno.) Ljudje rečejo tudi *what was a pity*; pisava hoče **which**. Za številom: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live here**.",
-          "de": "**which** kann für einen ganzen Satz stehen, wie das deutsche *was*: **The van broke down, which was a pity.** **Jack came late, which isn't like him.** (Jack kam spät, was gar nicht zu ihm passt.) Man sagt auch *what was a pity*; geschrieben steht **which**. Nach einer Zahl: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live here**.",
+          "de": "**which** kann für einen ganzen Satz stehen, wie das deutsche was: **The van broke down, which was a pity.** **Jack came late, which isn't like him.** (Jack kam spät, was gar nicht zu ihm passt.) Man sagt auch *what was a pity*; geschrieben steht **which**. Nach einer Zahl: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live here**.",
           "it": "**which** può stare per una frase intera, come *il che*: **The van broke down, which was a pity.** **Jack came late, which isn't like him.** (Jack è arrivato tardi, il che non è da lui.) Si dice anche *what was a pity*; per iscritto si usa **which**. Dopo un numero: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live here**.",
           "en": "**which** can stand for a whole sentence: **The van broke down, which was a pity.** **Jack came late, which isn't like him.** People also say *what was a pity*; writing wants **which**. After a number: **forty sheep, most of which are Herdwicks**, **two sons, both of whom live here**."
         },
@@ -527,17 +528,12 @@
           "type": "choice",
           "grammar": "relative-clauses-more",
           "instruction": {
-            "sl": "Say how many · Povej, koliko",
-            "de": "Say how many · Sag, wie viele",
-            "it": "Say how many · Di' quante",
-            "en": "Say how many"
+            "sl": "How many sisters has Jack got? · Koliko sester ima Jack?",
+            "de": "How many sisters has Jack got? · Wie viele Schwestern hat Jack?",
+            "it": "How many sisters has Jack got? · Quante sorelle ha Jack?",
+            "en": "How many sisters has Jack got?"
           },
-          "prompt": {
-            "sl": "Jack's sister who works in Kendal is coming on Friday. Koliko sester ima Jack?",
-            "de": "Jack's sister who works in Kendal is coming on Friday. Wie viele Schwestern hat Jack?",
-            "it": "Jack's sister who works in Kendal is coming on Friday. Quante sorelle ha Jack?",
-            "en": "Jack's sister who works in Kendal is coming on Friday. How many sisters has Jack got?"
-          },
+          "prompt": "Jack's sister who works in Kendal is coming on Friday.",
           "options": [
             "more than one",
             "one",
@@ -935,17 +931,12 @@
         "type": "choice",
         "grammar": "relative-clauses-more",
         "instruction": {
-          "sl": "Say how many · Povej, koliko",
-          "de": "Say how many · Sag, wie viele",
-          "it": "Say how many · Di' quante",
-          "en": "Say how many"
+          "sl": "How many brothers has Sam got? · Koliko bratov ima Sam?",
+          "de": "How many brothers has Sam got? · Wie viele Brüder hat Sam?",
+          "it": "How many brothers has Sam got? · Quanti fratelli ha Sam?",
+          "en": "How many brothers has Sam got?"
         },
-        "prompt": {
-          "sl": "Sam's brother, who plays the fiddle, is here. Koliko bratov ima Sam?",
-          "de": "Sam's brother, who plays the fiddle, is here. Wie viele Brüder hat Sam?",
-          "it": "Sam's brother, who plays the fiddle, is here. Quanti fratelli ha Sam?",
-          "en": "Sam's brother, who plays the fiddle, is here. How many brothers has Sam got?"
-        },
+        "prompt": "Sam's brother, who plays the fiddle, is here.",
         "options": [
           "one",
           "more than one",
