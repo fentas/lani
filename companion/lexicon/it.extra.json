@@ -1198,9 +1198,9 @@
         "potrebbero": "third-person plural conditional", "possa": "first/second/third-person singular present subjunctive",
         "possano": "third-person plural present subjunctive", "potessi": "first/second-person singular imperfect subjunctive",
         "potesse": "third-person singular imperfect subjunctive", "potere": "infinitive", "potevi": "second-person singular imperfect",
-        "potrò": "first-person singular future", "potremo": "first-person plural future", "potranno": "third-person plural future",
-        "poteste": "second-person plural historic past; second-person plural imperfect subjunctive", "potessimo": "first-person plural imperfect subjunctive",
-        "potessero": "third-person plural imperfect subjunctive", "potuto": "past participle"
+        "potrò": "first-person singular future", "potrà": "third-person singular future", "potremo": "first-person plural future",
+        "potranno": "third-person plural future", "poteste": "second-person plural historic past; second-person plural imperfect subjunctive",
+        "potessimo": "first-person plural imperfect subjunctive", "potessero": "third-person plural imperfect subjunctive", "potuto": "past participle"
       },
       "meanings": { "de": ["können; dürfen"], "sl": ["moči; smeti"] } },
     { "lemma": "preferire", "pos": "verb", "gloss": ["to prefer"],
@@ -5221,6 +5221,12 @@
     { "lemma": "piombo", "pos": "noun", "gender": "m", "gloss": ["lead (the metal; filo a piombo: plumb line)"],
       "forms": { "piombo": "singular" },
       "meanings": { "de": ["Blei (filo a piombo: Lot)"], "sl": ["svinec (filo a piombo: svinčnica)"] } },
+    { "lemma": "contatto", "pos": "noun", "gender": "m", "gloss": ["contact (a contatto con: touching)"],
+      "forms": { "contatto": "singular" },
+      "meanings": { "de": ["Berührung (a contatto con: in Berührung mit)"], "sl": ["stik (a contatto con: v stiku z)"] } },
+    { "lemma": "forcata", "pos": "noun", "gender": "f", "gloss": ["forkful"],
+      "forms": { "forcata": "singular" },
+      "meanings": { "de": ["Gabel voll"], "sl": ["polne vile"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -6492,7 +6498,7 @@
       "forms": {
         "lucidi": "second-person singular present; first/second/third-person singular present subjunctive",
         "lucidiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "lucidare": "infinitive",
-        "lucidato": "past participle"
+        "lucidato": "past participle", "lucidata": "feminine singular past participle"
       },
       "meanings": { "de": ["polieren"], "sl": ["zloščiti"] } },
     { "lemma": "macinare", "pos": "verb", "gloss": ["to grind"],
@@ -6822,10 +6828,11 @@
         "tira": "third-person singular present; second-person singular imperative",
         "tiriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "tirate": "second-person plural present; second-person plural imperative; feminine plural past participle", "tirano": "third-person plural present",
-        "tirerò": "first-person singular future", "tirerà": "third-person singular future", "tireremo": "first-person plural future",
-        "tireresti": "second-person singular conditional", "tirassi": "first/second-person singular imperfect subjunctive",
-        "tirasse": "third-person singular imperfect subjunctive", "tirare": "infinitive", "tirando": "gerund", "tirato": "past participle",
-        "tirami": "second-person singular imperative, with mi (me)", "tirala": "second-person singular imperative, with la (it, her)"
+        "tiravamo": "first-person plural imperfect", "tirerò": "first-person singular future", "tirerà": "third-person singular future",
+        "tireremo": "first-person plural future", "tireresti": "second-person singular conditional",
+        "tirassi": "first/second-person singular imperfect subjunctive", "tirasse": "third-person singular imperfect subjunctive", "tirare": "infinitive",
+        "tirando": "gerund", "tirato": "past participle", "tirami": "second-person singular imperative, with mi (me)",
+        "tirala": "second-person singular imperative, with la (it, her)"
       },
       "meanings": { "de": ["werfen"], "sl": ["vreči"] } },
     { "lemma": "tramontare", "pos": "verb", "gloss": ["to set (sun, moon, stars)"],
@@ -7188,6 +7195,7 @@
     { "lemma": "controllare", "pos": "verb", "gloss": ["to check, to inspect"],
       "forms": {
         "controllo": "first-person singular present", "controlla": "third-person singular present; second-person singular imperative",
+        "controllate": "second-person plural present; second-person plural imperative; feminine plural past participle",
         "controllava": "third-person singular imperfect", "controllare": "infinitive", "controllato": "past participle",
         "controllata": "feminine singular past participle"
       },
@@ -7317,9 +7325,10 @@
       "forms": {
         "mi fermo": "first-person singular present", "si ferma": "third-person singular present",
         "ci fermiamo": "first-person plural present; first-person plural present subjunctive", "si fermava": "third-person singular imperfect",
-        "si fermerebbe": "third-person singular conditional", "mi fermassi": "first-person singular imperfect subjunctive",
-        "mi sono fermato": "first-person singular present perfect", "si è fermata": "third-person singular present perfect (feminine)",
-        "fermarmi": "infinitive, with mi (myself)", "fermarsi": "infinitive", "fermati": "second-person singular imperative, with ti (yourself)"
+        "si fermerà": "third-person singular future", "si fermerebbe": "third-person singular conditional",
+        "mi fermassi": "first-person singular imperfect subjunctive", "mi sono fermato": "first-person singular present perfect",
+        "si è fermata": "third-person singular present perfect (feminine)", "fermarmi": "infinitive, with mi (myself)", "fermarsi": "infinitive",
+        "fermati": "second-person singular imperative, with ti (yourself)"
       },
       "meanings": { "de": ["stehen bleiben"], "sl": ["ustaviti se"] } },
     { "lemma": "fermare", "pos": "verb", "gloss": ["to stop, to halt"],
@@ -7327,7 +7336,7 @@
         "fermo": "first-person singular present", "fermi": "second-person singular present; first/second/third-person singular present subjunctive",
         "ferma": "third-person singular present; second-person singular imperative",
         "fermiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
-        "fermava": "third-person singular imperfect", "fermerebbe": "third-person singular conditional",
+        "fermava": "third-person singular imperfect", "fermerà": "third-person singular future", "fermerebbe": "third-person singular conditional",
         "fermassi": "first/second-person singular imperfect subjunctive", "fermato": "past participle", "fermata": "feminine singular past participle",
         "fermati": "masculine plural past participle", "fermarmi": "infinitive, with mi (me)", "fermarsi": "infinitive, with si (oneself)",
         "fermare": "infinitive"
@@ -7930,7 +7939,8 @@
       "forms": {
         "scegli": "second-person singular present", "sceglie": "third-person singular present",
         "scegliamo": "first-person plural present; first-person plural present subjunctive", "sceglierei": "first-person singular conditional",
-        "scegliere": "infinitive", "scelto": "past participle", "scelta": "feminine singular past participle", "sceglierlo": "infinitive, with lo (it, him)"
+        "scegliere": "infinitive", "scelto": "past participle", "scelta": "feminine singular past participle", "scelti": "masculine plural past participle",
+        "sceglierlo": "infinitive, with lo (it, him)"
       },
       "meanings": { "de": ["wählen, aussuchen"], "sl": ["izbrati"] } },
     { "lemma": "sciogliere", "pos": "verb", "gloss": ["to melt, to dissolve"],
@@ -8279,7 +8289,7 @@
     { "lemma": "marcire", "pos": "verb", "gloss": ["to rot"],
       "forms": {
         "marcisce": "third-person singular present", "marciscono": "third-person plural present", "marcirebbe": "third-person singular conditional",
-        "marcire": "infinitive"
+        "marcito": "past participle", "marcire": "infinitive"
       },
       "meanings": { "de": ["verfaulen"], "sl": ["gniti"] } },
     { "lemma": "cancellare", "pos": "verb", "gloss": ["to rub out, to erase"],
@@ -8597,6 +8607,9 @@
     { "lemma": "rivedere", "pos": "verb", "gloss": ["to see again"],
       "forms": { "rivedremmo": "first-person plural conditional", "rivedere": "infinitive" },
       "meanings": { "de": ["wiedersehen"], "sl": ["spet videti"] } },
+    { "lemma": "spaccare", "pos": "verb", "gloss": ["to split (spaccarsi: to crack)"],
+      "forms": { "spacca": "third-person singular present; second-person singular imperative", "spaccare": "infinitive" },
+      "meanings": { "de": ["spalten (spaccarsi: springen, reißen)"], "sl": ["razklati (spaccarsi: počiti)"] } },
     { "lemma": "Davide", "pos": "name", "gloss": ["Davide (the shepherd)"],
       "forms": { "davide": null },
       "meanings": { "de": ["Davide (der Hirte)"], "sl": ["Davide (pastir)"] } },
