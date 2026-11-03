@@ -16,6 +16,9 @@ class SpeakCoverageTest {
         // not what the brackets at the end add: a translation, a word form question's lemma
         assertEquals("Nimam časa.", sloveneOf(Exercise.Cloze("Nimam ___. (I don't have time.)", listOf("časa")), sl))
         assertEquals("Jaz sedem na klop.", sloveneOf(Exercise.Cloze("Jaz ___ na klop. (sesti)", listOf("sedem")), sl))
+        // nor a cue right after the gap, or before the full stop at its end
+        assertEquals("By the time the bus comes, I'll have finished.", sloveneOf(Exercise.Cloze("By the time the bus ___ (come), I'll have finished.", listOf("comes")), sl))
+        assertEquals("Marisa risponde sempre gentilmente.", sloveneOf(Exercise.Cloze("Marisa risponde sempre ___ (gentile).", listOf("gentilmente")), sl))
         assertEquals("Imenujem se Jan.", sloveneOf(Exercise.Reorder("My name is Jan.", listOf("se", "Imenujem", "Jan."), listOf(listOf("Imenujem", "se", "Jan."))), sl))
         assertEquals("Sem iz Berlina.", sloveneOf(Exercise.Translate("I'm from Berlin.", listOf("Sem iz Berlina.")), sl))
     }

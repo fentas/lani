@@ -134,7 +134,7 @@ object IntroSpeech {
             is Exercise.Cloze -> ask.text
             else -> return null
         }
-        return said(text.replace(Sheets.GAP, "…").replace(TRAILING_BRACKETS, "").trim())
+        return said(withoutEndBrackets(text.replace(Sheets.GAP, "…")))
     }
 
     /**
@@ -278,11 +278,23 @@ object IntroSpeech {
         else -> null
     }
 
-    /** A sentence with its gap filled with [answer], without a translation in brackets at its end; null when there's no gap. */
+    /**
+     * A sentence with its gap filled with [answer], without what brackets add: a cue right after the gap, wherever it stands ("By the
+     * time the bus ___ (come), I'll have finished."), and a translation or a cue at its end, with a full stop after it or not; null
+     * when there's no gap.
+     */
     fun gapFilled(text: String, answer: String?): String? {
         if (answer == null || !Sheets.GAP.containsMatchIn(text)) return null
-        return text.replace(Sheets.GAP, answer).replace(TRAILING_BRACKETS, "").trim()
+        return filled(text, Sheets.GAP, answer)
     }
+
+    /** [text] with each [gap] filled with [answer], without what brackets add ([gapFilled]): the exercise player's sentence too. */
+    fun filled(text: String, gap: Regex, answer: String): String =
+        withoutEndBrackets(text.replace(CUE, "").replace(gap, answer))
+
+    /** [text] without a translation or a cue in brackets at its end, a full stop after it or not. */
+    private fun withoutEndBrackets(text: String): String =
+        text.replace(TRAILING_BRACKETS, "").replace(BRACKETS_BEFORE_STOP, "$1").trim()
 
     /**
      * A quick question as read before it's answered: its instruction ([instructionLines]), then its prompt with the gap a
@@ -341,6 +353,10 @@ object IntroSpeech {
     private val NUMBERED = Regex("""^(\d+)[.)]\s+(.*)""")
     private val SPACE = Regex("""\s+""")
     private val TRAILING_BRACKETS = Regex("""\s*\([^()]*\)\s*$""")
+    private val BRACKETS_BEFORE_STOP = Regex("""\s*\([^()]*\)([.!?…»”"]+)\s*$""")
+
+    /** A cue in brackets right after a gap: underscores, however many. */
+    private val CUE = Regex("""(?<=_)\s*\([^()]*\)""")
 
     /** A label: the language learned, then the base ("Izberi · Pick"). */
     private val LABEL = Regex("""([^·]+) · ([^·]+)""")

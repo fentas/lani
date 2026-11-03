@@ -183,8 +183,8 @@ goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
    The phone without a voice for the base language: only the Slovene is read, and a small note says why, once.
 2. **The examples**, one after the other in Mojca's voice (their translations not read), each card marked.
 3. **The quick question**, as far as it gives nothing away: a gap read as a pause ("Luka … na pašniku."), a choice's
-   options never, a translation in brackets at its end left out. Once answered, the sentence with the answer is read
-   (as an exercise's feedback), and Mojca reacts (a smile, a shrug). In Mojca's voice: a sentence with a gap to fill
+   options never, a translation or a cue in brackets at its end left out, a full stop after it or not. Once answered, the sentence with the answer is shown and read
+   (as an exercise's feedback), without a cue right after the gap either ("By the time the bus ___ (come), I'll have finished." → "By the time the bus comes, I'll have finished."), and Mojca reacts (a smile, a shrug). In Mojca's voice: a sentence with a gap to fill
    (a cloze's, a choice's without Markdown: "Micka in France … na njivi."), a word named in »quotes« ("»smreka«"), and
    the first half of an instruction written as a label ("Kakšnega spola? · Which gender?": the language learned, then
    the base, no Markdown; the second half in the base). Anything else as the explanation is read: what the app's check
