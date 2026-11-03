@@ -14676,9 +14676,11 @@ def cases_de_step():
         prompt = next((t for t, _ in nodes() if "___" in t), "")
         m = re.search(r"\(([^)]*)\)\s*$", prompt)
         assert m, f"the cue in brackets ({prompt!r})"
-        field = wait_for("Schreib", 6)
+        field = wait_for("Schreib deine Antwort", 6)  # (playerScreen.typeAnswer)
         assert field, "the answer field"
         tap_at(field)
+        # the keyboard up first: type_text takes it down with Back, which would close the task without it
+        assert keyboard_settled() is not None, "the keyboard for the answer"
         # adb types no umlaut: the German way without them (die Kuehe), wrong either way, the cue in its nominative
         type_text(ascii_of(m.group(1)).replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("Ä", "Ae").replace("Ö", "Oe").replace("Ü", "Ue").replace("ß", "ss"))
         shot("cases-de-decline")
