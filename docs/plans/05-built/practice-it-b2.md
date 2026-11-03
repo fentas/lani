@@ -207,7 +207,16 @@ priority, so a short budget voices the easiest first. Jan's decision.
 
 ## Checks
 
-See the report's numbers at the end of this file.
+On this branch (main f9339ab8 is its base and hadn't moved), at 32b02d2d (the ninth module) unless said:
+- Bridge: `bunx tsc --noEmit -p .` clean; `bun build --no-bundle` on `test/smoke/practice.ts` and `test/fixtures/make-learner.ts`; the
+  smoke with this branch's ports (`LANI_SMOKE_PORT=10530 LANI_SMOKE_FRIULI_PORT=10533 LANI_SMOKE_TOWN_PORT=10536
+  LANI_SMOKE_DRAMA3_PORT=10548`): 3,704 checks, all passed, among them practice.ts's new ones (B2 modules in their order, each drill
+  to B2, every set and build above A1 naming its rule); `tutor-export --check`: 140 files match; `bun test/check-practice.ts it`: all
+  good; `bun test/prompt-clashes.ts`: the baseline.
+- Android: the full unit suite through lani-slot.sh, 520 classes, 4,098 tests, 0 failures, 2 skipped. `ItalianPracticeTest` 5 (one
+  new), `CuratedPaceTest` 4, `RoadDrillsTest` 11, `TreasureTest` 15.
+- Python (`bin/qa` changed): `tests` 253, `companion/tests` 164 (11 skipped), all passing, at 50895018.
+- QA: above.
 
 ## What's left
 
