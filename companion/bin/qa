@@ -213,7 +213,7 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        (docs/plans/05-built/parity-small.md): a learner of German at B1 past A1 (make-learner.ts --target de
                        --base en, LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): new lessons coming on the school's tile, the
                        grammar sign that doesn't count; LANI_QA_START_CARD a start card opened; LANI_QA_MEET=<id> their B1
-                       introduction (QA's hooks "level:B1", "meet:<id>"); LANI_QA_PARITY_SHOTS=<dir> the shots;
+                       introduction (QA's hooks "level:B1", "meet:<id>"; LANI_QA_MEET_LEVEL another level); LANI_QA_PARITY_SHOTS=<dir> the shots;
                        "friuli-looks" (only when named) Friuli's outdoor scenes in its look on a synthetic Italian learner
                        (LANI_DEV_DATA from make-learner.ts --target it, LANI_CULTURE=friuli, LANI_QA_PAIR=sl-en): the
                        village as a Vas, then Nel campo, Nel bosco, Al ruscello, Allo stagno and Il mare by day and closer,
@@ -424,7 +424,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        Wilf's game, the wood and the round's other places by their links (lp-*.png too);
                        "friuli-projects-b" (only when named; a learner of Italian from German, LANI_CULTURE=friuli) the
                        fire station's fourth step at A1 and the fountain's second at B1, each from its landmark on the map
-                       through the projects sheet, a wrong choice, to its end card (fb-*.png);
+                       through the projects sheet, a wrong choice, to its end card (fb-*.png); LANI_QA_FB_PLAYS
+                       ("<project>:<n>:<level>:<tag>,…") plays those instead;
                        "friuli-projects" (only when named; a synthetic Teo, LANI_CULTURE=friuli, LANI_CHILD=1,
                        LANI_QA_SETUP_PAIR=it-de) Friuli's projects as scenes: the bridge and the greasy pole in the middle, each
                        from its landmark and played through a step, the fir tapped in the wood, the chapel's bell (fp-*.png);
@@ -10829,9 +10830,10 @@ def friuli_projects_b():
         time.sleep(5 * slow())
         qa_hook("hour:11")
         qa_hook("bubbles:0")
-        play("gasilski_dom", 4, "A1", "pump")
-        play("vodnjak_na_trgu", 2, "B1", "stone")
-        play("most", 5, "A2", "planks")  # one of friuli-projects-a's, on the union
+        # LANI_QA_FB_PLAYS="<project>:<n>:<level>:<tag>,…" plays those instead (village-b2-friuli: a step at B2)
+        plays = [p.split(":") for p in os.environ.get("LANI_QA_FB_PLAYS", "").split(",") if p]
+        for project, n, level, tag in plays or [("gasilski_dom", "4", "A1", "pump"), ("vodnjak_na_trgu", "2", "B1", "stone"), ("most", "5", "A2", "planks")]:
+            play(project, int(n), level, tag)  # the bridge's fifth is one of friuli-projects-a's, on the union
     finally:
         qa_hook("level:")
         qa_hook("step:")
@@ -16768,12 +16770,14 @@ def parity_small():
         notes.append(f"the start card {card}")
     meet = os.environ.get("LANI_QA_MEET")
     if meet:
-        qa_hook("level:B1")
+        # LANI_QA_MEET_LEVEL: the introduction's level (B1 by default; village-b2-friuli's QA: B2)
+        mlv = os.environ.get("LANI_QA_MEET_LEVEL", "B1")
+        qa_hook(f"level:{mlv}")
         qa_hook(f"meet:{meet}")
         time.sleep(3 * slow())
         snap(f"ps-meet-{meet}")
         language = api("/culture").get("language", "sl")
-        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"]["B1"]
+        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"][mlv]
         first = next(x for x in spec["lines"] if "choices" in x)
         wrong = next(c for c in first["choices"] if not c.get("ok"))[language]
         wrong = re.split(r"[{]", wrong)[0].strip()
@@ -16787,7 +16791,7 @@ def parity_small():
         assert tap(wrong, 3), f"the wrong choice: {wrong}"
         time.sleep(2 * slow())
         snap(f"ps-meet-{meet}-reaction")
-        notes.append(f"{meet}'s introduction at B1, to its first turn's reaction")
+        notes.append(f"{meet}'s introduction at {mlv}, to its first turn's reaction")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         qa_hook("level:")
     if not notes:
