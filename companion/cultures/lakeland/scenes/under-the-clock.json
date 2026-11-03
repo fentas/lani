@@ -10,7 +10,7 @@
  },
  "emoji": "🕰️",
  "level": "A1",
- "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not reviewed by a native speaker",
+ "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not native-checked; B1, B2 variants too",
  "art": "square",
  "from": [
   "project:mestna_ura"
@@ -177,6 +177,8 @@
    },
    "dialog": "time",
    "dialogs": [
+    "time-b2-twenty",
+    "time-b1-strokes",
     "time-numbers",
     "time-quarter",
     "time"
@@ -250,6 +252,8 @@
    },
    "dialog": "gears",
    "dialogs": [
+    "gears-b2-springs",
+    "gears-b1-oil",
     "gears-wind",
     "gears"
    ],
@@ -2266,6 +2270,77 @@
      "de": "Was für ein Abend! Die Uhr, die Kapelle und du. Danke, Schätzchen."
     }
    ]
-  }
+  },
+    {
+      "id": "time-b2-twenty", "level": "B2",
+      "memory": {"en": "twenty years of strokes and the vicar's invitation", "sl": "dvajset let udarcev ure in povabilo za župnika", "it": "vent'anni di rintocchi e l'invito al parroco", "de": "zwanzig Jahre Glockenschläge und die Einladung an den Pfarrer"},
+      "lines": [
+        {"who": "hartley", "en": "Good afternoon, {learner}. The clock's twenty years old next month. The village is planning a party.", "sl": "Dober dan, {learner}. Ura bo prihodnji mesec stara dvajset let. Vas pripravlja zabavo.", "it": "Buon pomeriggio, {learner}. Il mese prossimo l'orologio compie vent'anni. Il villaggio prepara una festa.", "de": "Guten Tag, {learner}. Die Uhr wird nächsten Monat zwanzig. Das Dorf plant ein Fest."},
+        {"who": "hartley", "face": "curious", "en": "By next month, how long will it have struck the hours?", "sl": "Kako dolgo bo do prihodnjega meseca odbijala ure?", "it": "Entro il mese prossimo, da quanto tempo avrà battuto le ore?", "de": "Wie lange wird sie bis nächsten Monat die Stunden geschlagen haben?"},
+        { "choices": [
+          {"en": "By next month it'll have struck the hours for twenty years.", "sl": "Do prihodnjega meseca bo odbijala ure že dvajset let.", "it": "Il mese prossimo avrà battuto le ore per vent'anni.", "de": "Bis nächsten Monat wird sie zwanzig Jahre lang die Stunden geschlagen haben.", "ok": true, "reply": {"face": "happy", "en": "Twenty years, every hour. That's a lot of strokes.", "sl": "Dvajset let, vsako uro. To je veliko udarcev.", "it": "Vent'anni, ogni ora. Sono tanti rintocchi.", "de": "Zwanzig Jahre, jede Stunde. Das sind viele Schläge."}},
+          {"en": "By next month it'll have striked the hours for twenty years.", "sl": "Do prihodnjega meseca bo odbijala ure že dvajset let.", "it": "Il mese prossimo avrà battuto le ore per vent'anni.", "de": "Bis nächsten Monat wird sie zwanzig Jahre lang die Stunden geschlagen haben.", "grammar": "future-perfect", "why": {"en": "Will have + the participle. Strike is irregular, with no -ed.", "sl": "Will have + deležnik. Strike je nepravilen, brez -ed.", "it": "Will have + il participio. Strike è irregolare, senza -ed.", "de": "Will have + Partizip. Strike ist unregelmäßig, ohne -ed."}, "reply": {"face": "curious", "en": "Striked? Hm. That one isn't in my book, {learner}.", "sl": "Striked? Hm. Tega v moji knjigi ni.", "it": "Striked? Mh. Questa nel mio libro non c'è, {learner}.", "de": "Striked? Hm. Das steht nicht in meinem Buch, {learner}."}}
+        ] },
+        {"who": "hartley", "face": "thinking", "en": "I'm writing the invitation for the vicar. How should I put it?", "sl": "Pišem povabilo za župnika. Kako naj to zapišem?", "it": "Sto scrivendo l'invito per il parroco. Come lo formulo?", "de": "Ich schreibe die Einladung an den Pfarrer. Wie soll ich das formulieren?"},
+        { "choices": [
+          {"en": "We would be delighted if you could join us.", "sl": "Zelo bi nas veselilo, če bi se nam pridružili.", "it": "Saremmo lieti se potesse unirsi a noi.", "de": "Wir würden uns sehr freuen, wenn Sie kommen könnten.", "ok": true, "reply": {"face": "happy", "en": "Delighted and could. He'll come, I'm sure.", "sl": "Delighted in could. Prišel bo, sem prepričana.", "it": "Delighted e could. Verrà, ne sono sicura.", "de": "Delighted und could. Er kommt bestimmt."}},
+          {"en": "Fancy coming along, then?", "sl": "Bi prišel zraven, a?", "it": "Ti va di venire, eh?", "de": "Lust, mitzukommen?", "grammar": "formal-informal", "why": {"en": "An invitation to the vicar is formal: we would be delighted if you could … Fancy coming? is for friends.", "sl": "Povabilo župniku je uradno: we would be delighted if you could … Fancy coming? je za prijatelje.", "it": "Un invito al parroco è formale: we would be delighted if you could … Fancy coming? è per gli amici.", "de": "Eine Einladung an den Pfarrer ist förmlich: we would be delighted if you could … Fancy coming? ist für Freunde."}, "reply": {"face": "laugh", "en": "Fancy coming? To the vicar? He'd choke on his tea!", "sl": "Fancy coming? Župniku? Zaletel bi se mu čaj!", "it": "Fancy coming? Al parroco? Gli andrebbe di traverso il tè!", "de": "Fancy coming? Dem Pfarrer? Der würde sich am Tee verschlucken!"}}
+        ] },
+        {"who": "hartley", "face": "happy", "en": "Right. Invitations tomorrow. Twenty years of strokes deserve a cake.", "sl": "Prav. Povabila jutri. Dvajset let udarcev si zasluži torto.", "it": "Bene. Inviti domani. Vent'anni di rintocchi meritano una torta.", "de": "Gut. Einladungen morgen. Zwanzig Jahre Glockenschläge verdienen einen Kuchen."}
+      ]
+    },
+    {
+      "id": "time-b1-strokes", "level": "B1",
+      "memory": {"en": "the four strokes and the Saturday run", "sl": "štiri udarce in sobotni tek", "it": "i quattro rintocchi e la corsa del sabato", "de": "die vier Schläge und den Lauf am Samstag"},
+      "lines": [
+        {"who": "hartley", "face": "happy", "en": "Good afternoon, {learner}! Our church clock is my best teacher. It's ten to four.", "sl": "Dober dan, {learner}! Cerkvena ura je moja najboljša učiteljica. Deset do štirih je.", "it": "Buon pomeriggio, {learner}! L'orologio della chiesa è il mio miglior maestro. Sono le quattro meno dieci.", "de": "Guten Tag, {learner}! Unsere Kirchturmuhr ist meine beste Lehrerin. Es ist zehn vor vier."},
+        {"who": "hartley", "face": "curious", "en": "How long have you been waiting for me?", "sl": "Kako dolgo me že čakaš?", "it": "Da quanto mi aspetti?", "de": "Wie lange wartest du schon auf mich?"},
+        { "choices": [
+          {"en": "I've been waiting since half past three.", "sl": "Čakam od pol štirih.", "it": "Aspetto dalle tre e mezza.", "de": "Ich warte seit halb vier.", "ok": true, "reply": {"face": "worried", "en": "Twenty minutes! I'm sorry. The infants wouldn't let me go.", "sl": "Dvajset minut! Oprosti. Najmlajši me niso pustili.", "it": "Venti minuti! Scusa. I piccoli non mi lasciavano andare.", "de": "Zwanzig Minuten! Tut mir leid. Die Kleinen haben mich nicht gehen lassen."}},
+          {"en": "I've been waited since half past three.", "sl": "Čakam od pol štirih.", "it": "Aspetto dalle tre e mezza.", "de": "Ich warte seit halb vier.", "grammar": "present-perfect-continuous", "why": {"en": "Have been + -ing: I've been waiting. Not the participle waited.", "sl": "Have been + -ing: I've been waiting. Ne deležnik waited.", "it": "Have been + -ing: I've been waiting. Non il participio waited.", "de": "Have been + -ing: I've been waiting. Nicht das Partizip waited."}, "reply": {"face": "curious", "en": "Been waited? Listen to the ending, {learner}.", "sl": "Been waited? Prisluhni končnici.", "it": "Been waited? Ascolta la desinenza, {learner}.", "de": "Been waited? Hör auf die Endung, {learner}."}}
+        ] },
+        {"who": "hartley", "en": "On Saturday there's no school, thank goodness.", "sl": "V soboto ni pouka, hvala bogu.", "it": "Sabato niente scuola, per fortuna.", "de": "Am Samstag ist keine Schule, zum Glück."},
+        { "choices": [
+          {"en": "Will you be running by Derwentwater again?", "sl": "Boste spet tekli ob Derwentwatru?", "it": "Correrà di nuovo lungo il Derwentwater?", "de": "Laufen Sie wieder am Derwentwater?", "ok": true, "reply": {"face": "laugh", "en": "At seven, before the walkers. Every Saturday.", "sl": "Ob sedmih, pred pohodniki. Vsako soboto.", "it": "Alle sette, prima degli escursionisti. Ogni sabato.", "de": "Um sieben, vor den Wanderern. Jeden Samstag."}},
+          {"en": "Will you running by Derwentwater again?", "sl": "Boste spet tekli ob Derwentwatru?", "it": "Correrà di nuovo lungo il Derwentwater?", "de": "Laufen Sie wieder am Derwentwater?", "grammar": "future-continuous", "why": {"en": "To ask about plans: will you be + -ing, will you be running? The be can't go.", "sl": "Za vprašanje o načrtih: will you be + -ing, will you be running? Be ne sme izpasti.", "it": "Per chiedere dei programmi: will you be + -ing, will you be running? Il be non può mancare.", "de": "Nach Plänen fragen: will you be + -ing, will you be running? Das be darf nicht fehlen."}, "reply": {"face": "curious", "en": "Will I running? A word's run off, {learner}.", "sl": "Will I running? Ena beseda je stekla stran.", "it": "Will I running? Una parola è scappata via, {learner}.", "de": "Will I running? Ein Wort ist weggelaufen, {learner}."}}
+        ] },
+        {"who": "hartley", "face": "happy", "en": "There. Four o'clock. Hear the strokes? One, two, three, four.", "sl": "Glej. Štiri. Slišiš udarce? Ena, dva, tri, štiri.", "it": "Ecco. Le quattro. Senti i rintocchi? Uno, due, tre, quattro.", "de": "Da. Vier Uhr. Hörst du die Schläge? Eins, zwei, drei, vier."}
+      ]
+    },
+    {
+      "id": "gears-b2-springs", "level": "B2",
+      "memory": {"en": "the two springs I made for the clock", "sl": "dve vzmeti, ki sem ju naredil za uro", "it": "le due molle che ho fatto per l'orologio", "de": "die zwei Federn, die ich für die Uhr gemacht habe"},
+      "lines": [
+        {"who": "dixon", "en": "Morning, {learner}. The clock lost a minute last week, which never happens.", "sl": "Jutro, {learner}. Ura je prejšnji teden izgubila minuto, kar se nikoli ne zgodi.", "it": "Buongiorno, {learner}. La settimana scorsa l'orologio ha perso un minuto, cosa che non succede mai.", "de": "Morgen, {learner}. Die Uhr hat letzte Woche eine Minute verloren, was nie passiert."},
+        { "choices": [
+          {"en": "So losing a minute is unusual for it.", "sl": "Torej je izguba minute zanjo nekaj nenavadnega.", "it": "Quindi perdere un minuto è insolito per lui.", "de": "Eine Minute zu verlieren ist für sie also ungewöhnlich.", "ok": true, "reply": {"en": "Never. Not in twenty years.", "sl": "Nikoli. V dvajsetih letih ne.", "it": "Mai. Non in vent'anni.", "de": "Nie. Nicht in zwanzig Jahren."}},
+          {"en": "So the clock loses a minute every week.", "sl": "Torej ura vsak teden izgubi minuto.", "it": "Quindi l'orologio perde un minuto ogni settimana.", "de": "Die Uhr verliert also jede Woche eine Minute.", "grammar": "relative-clauses-more", "why": {"en": "Which stands for the whole first part: losing a minute never happens, so it's unusual.", "sl": "Which stoji za cel prvi del: izguba minute se nikoli ne zgodi, torej je nenavadna.", "it": "Which sta per tutta la prima parte: perdere un minuto non succede mai, quindi è insolito.", "de": "Which steht für den ganzen ersten Teil: Eine Minute zu verlieren passiert nie, also ist es ungewöhnlich."}, "reply": {"face": "cross", "en": "Every week? It's my clock, {learner}. It's right, or it isn't.", "sl": "Vsak teden? To je moja ura. Ali je prav ali pa ni.", "it": "Ogni settimana? È il mio orologio, {learner}. O è giusto o non lo è.", "de": "Jede Woche? Das ist meine Uhr, {learner}. Entweder sie stimmt, oder nicht."}}
+        ] },
+        {"who": "dixon", "face": "thinking", "en": "Two springs inside. Both worn. Neither worth saving.", "sl": "Notri sta dve vzmeti. Obe obrabljeni. Nobena ni vredna popravila.", "it": "Dentro due molle. Tutte e due consumate. Nessuna vale la pena salvarla.", "de": "Zwei Federn drin. Beide abgenutzt. Keine lohnt sich zu retten."},
+        { "choices": [
+          {"en": "Then you'll need two new ones.", "sl": "Potem boste potrebovali dve novi.", "it": "Allora Le serviranno due nuove.", "de": "Dann brauchen Sie zwei neue.", "ok": true, "reply": {"en": "Two. Made by hand. By Saturday.", "sl": "Dve. Narejeni na roko. Do sobote.", "it": "Due. Fatte a mano. Entro sabato.", "de": "Zwei. Von Hand gemacht. Bis Samstag."}},
+          {"en": "Then you'll only need one new one.", "sl": "Potem boste potrebovali samo eno novo.", "it": "Allora Le servirà solo una nuova.", "de": "Dann brauchen Sie nur eine neue.", "grammar": "quantifiers", "why": {"en": "Both are worn and neither is worth saving: not one and not the other, so both need replacing.", "sl": "Obe sta obrabljeni in nobena ni vredna: ne ena ne druga, torej je treba zamenjati obe.", "it": "Tutte e due consumate e nessuna da salvare: né l'una né l'altra, quindi vanno cambiate entrambe.", "de": "Beide abgenutzt und keine zu retten: weder die eine noch die andere, also müssen beide ersetzt werden."}, "reply": {"face": "cross", "en": "One? Both are worn, {learner}. Listen.", "sl": "Eno? Obe sta obrabljeni. Poslušaj.", "it": "Una? Sono consumate tutte e due, {learner}. Ascolta.", "de": "Eine? Beide sind abgenutzt, {learner}. Hör zu."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Right. Up the steps. Then the clock's good for another twenty years.", "sl": "Prav. Gor po stopnicah. Potem bo ura dobra še dvajset let.", "it": "Bene. Su per le scale. Poi l'orologio va bene per altri vent'anni.", "de": "Gut. Die Stufen hoch. Dann hält die Uhr noch mal zwanzig Jahre."}
+      ]
+    },
+    {
+      "id": "gears-b1-oil", "level": "B1",
+      "memory": {"en": "the clock I oiled in the frost", "sl": "uro, ki sem jo namazal v zmrzali", "it": "l'orologio che ho oliato col gelo", "de": "die Uhr, die ich im Frost geölt habe"},
+      "lines": [
+        {"who": "dixon", "en": "Morning, {learner}. Going up the tower to oil the gears. Two hundred steps.", "sl": "Jutro, {learner}. Grem gor v stolp namazat zobnike. Dvesto stopnic.", "it": "Buongiorno, {learner}. Salgo sulla torre a oliare gli ingranaggi. Duecento gradini.", "de": "Morgen, {learner}. Ich geh rauf in den Turm, die Zahnräder ölen. Zweihundert Stufen."},
+        {"who": "dixon", "face": "curious", "en": "Who'll look after this clock when I'm too old for the steps?", "sl": "Kdo bo skrbel za to uro, ko bom prestar za stopnice?", "it": "Chi si occuperà di questo orologio quando sarò troppo vecchio per le scale?", "de": "Wer kümmert sich um die Uhr, wenn ich zu alt für die Stufen bin?"},
+        { "choices": [
+          {"en": "I'll look after it, if you teach me.", "sl": "Jaz bom {m:skrbel|f:skrbela} zanjo, če me naučite.", "it": "Me ne occuperò io, se mi insegna.", "de": "Ich kümmere mich darum, wenn Sie es mir beibringen.", "ok": true, "reply": {"en": "Teach you. Aye. Starting today.", "sl": "Te naučim. Ja. Od danes naprej.", "it": "Insegnarti. Sì. A partire da oggi.", "de": "Dir beibringen. Ja. Ab heute."}},
+          {"en": "I'll look it after, if you teach me.", "sl": "Jaz bom {m:skrbel|f:skrbela} zanjo, če me naučite.", "it": "Me ne occuperò io, se mi insegna.", "de": "Ich kümmere mich darum, wenn Sie es mir beibringen.", "grammar": "phrasal-verbs", "why": {"en": "Look after stays together: look after it. Only some phrasal verbs split, like turn it off.", "sl": "Look after ostane skupaj: look after it. Razdelijo se le nekateri, kot turn it off.", "it": "Look after resta unito: look after it. Solo alcuni si separano, come turn it off.", "de": "Look after bleibt zusammen: look after it. Nur manche trennen sich, wie turn it off."}, "reply": {"face": "cross", "en": "Wrong order, {learner}. Again.", "sl": "Napačen vrstni red. Še enkrat.", "it": "Ordine sbagliato, {learner}. Di nuovo.", "de": "Falsche Reihenfolge, {learner}. Noch mal."}}
+        ] },
+        {"who": "dixon", "face": "thinking", "en": "Last winter I oiled it in the frost. Glad I did.", "sl": "Lansko zimo sem jo namazal v zmrzali. Vesel sem, da sem jo.", "it": "L'inverno scorso l'ho oliato col gelo. Meno male.", "de": "Letzten Winter hab ich sie im Frost geölt. Gut, dass ich's getan hab."},
+        { "choices": [
+          {"en": "If you hadn't oiled it, it would have stopped.", "sl": "Če je ne bi namazali, bi se ustavila.", "it": "Se non l'avesse oliato, si sarebbe fermato.", "de": "Hätten Sie sie nicht geölt, wäre sie stehen geblieben.", "ok": true, "reply": {"en": "Stopped dead. A village without time. Never again.", "sl": "Čisto bi se ustavila. Vas brez časa. Nikoli več.", "it": "Fermo del tutto. Un villaggio senza tempo. Mai più.", "de": "Stehen geblieben. Ein Dorf ohne Zeit. Nie wieder."}},
+          {"en": "If you hadn't oiled it, it will have stopped.", "sl": "Če je ne bi namazali, bi se ustavila.", "it": "Se non l'avesse oliato, si sarebbe fermato.", "de": "Hätten Sie sie nicht geölt, wäre sie stehen geblieben.", "grammar": "third-conditional", "why": {"en": "What didn't happen: would have + the participle, it would have stopped. Will have is for the future.", "sl": "Za tisto, kar se ni zgodilo: would have + deležnik, it would have stopped. Will have je za prihodnost.", "it": "Per ciò che non è successo: would have + il participio, it would have stopped. Will have è per il futuro.", "de": "Für das, was nicht passiert ist: would have + Partizip, it would have stopped. Will have ist für die Zukunft."}, "reply": {"face": "cross", "en": "Will have? Last winter's gone, {learner}.", "sl": "Will have? Lanska zima je mimo.", "it": "Will have? L'inverno scorso è passato, {learner}.", "de": "Will have? Der letzte Winter ist vorbei, {learner}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Right. Two hundred steps. You first.", "sl": "Prav. Dvesto stopnic. Ti {m:prvi|f:prva}.", "it": "Bene. Duecento gradini. Prima tu.", "de": "Gut. Zweihundert Stufen. Du zuerst."}
+      ]
+    }
  ]
 }

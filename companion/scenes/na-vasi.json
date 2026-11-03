@@ -4,7 +4,7 @@
   "title": { "sl": "Na vasi", "en": "On the village square", "de": "Auf dem Dorfplatz", "it": "Sulla piazza del paese" },
   "emoji": "🌳",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed; mlada-lipa, mlada-lipa-voda (sl too): machine-written, to check: listi so ji povešeni, jo zalijeva",
+  "review": "de, it, reactions, second right answers, variants, B1/B2 ones: machine-written, not reviewed; mlada-lipa, mlada-lipa-voda (sl too): machine-written, to check: listi so ji povešeni, jo zalijeva",
   "art": "square",
   "from": ["lipa", "well"],
   "pack": "na-vasi",
@@ -41,10 +41,10 @@
       "when": ["morning", "afternoon"], "chance": 0.6, "dialog": "mlada-lipa", "dialogs": ["mlada-lipa-voda", "mlada-lipa"], "reward": { "wisdom": 25 }, "marker": "🌱", "needs": { "building": "LIPA", "level": 5, "before": true },
       "memory": { "sl": "vedro vode za mlado lipo", "en": "the bucket of water for the young linden", "de": "den Eimer Wasser für die junge Linde", "it": "il secchio d'acqua per il giovane tiglio" } },
     { "id": "muri", "title": { "sl": "Janezov pes Muri", "en": "Janez's dog Muri", "de": "Janez' Hund Muri", "it": "Muri, il cane di Janez" }, "who": "janez",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "muri", "dialogs": ["muri-kruh", "muri"], "reward": { "wisdom": 15 }, "marker": "🐕",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "muri", "dialogs": ["muri-b2-bister", "muri-b1-kurnik", "muri-kruh", "muri"], "reward": { "wisdom": 15 }, "marker": "🐕",
       "memory": { "sl": "dan, ko si {m:poklical|f:poklicala} Murija", "en": "the day you called Muri", "de": "den Tag, an dem du Muri gerufen hast", "it": "il giorno in cui hai chiamato Muri" } },
     { "id": "dvojina", "title": { "sl": "Mojca pri vodnjaku: dvojina!", "en": "Mojca at the well: the dual!", "de": "Mojca am Brunnen: der Dual!", "it": "Mojca al pozzo: il duale!" }, "who": "mojca",
-      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "dvojina", "dialogs": ["dvojina-vedra", "dvojina-ju", "dvojina"], "reward": { "stone": 20 }, "marker": "📚", "needs": { "age": "vas", "building": "WELL" },
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "dvojina", "dialogs": ["dvojina-b2-dvojcka", "dvojina-b1-vedri", "dvojina-vedra", "dvojina-ju", "dvojina"], "reward": { "stone": 20 }, "marker": "📚", "needs": { "age": "vas", "building": "WELL" },
       "memory": { "sl": "dva otroka in dve vedri pri vodnjaku", "en": "the two children and the two buckets by the well", "de": "die zwei Kinder und die zwei Eimer am Brunnen", "it": "i due bambini e i due secchi al pozzo" } },
     { "id": "macka", "title": { "sl": "Mačka na lipi", "en": "The cat up the linden", "de": "Die Katze auf der Linde", "it": "La gatta sul tiglio" }, "who": "otroci",
       "when": ["morning", "evening"], "chance": 0.3, "dialog": "macka", "dialogs": ["macka-sir", "macka"], "reward": { "food": 15 }, "marker": "🐈",
@@ -549,6 +549,684 @@
         ] },
         { "who": "otroci", "face": "laugh", "sl": "Glej, gre dol! Mačke imajo rade tudi sir! Hvala, {learner}!", "en": "Look, she's coming down! Cats like cheese too! Thanks, {learner}!", "de": "Schau, sie kommt runter! Katzen mögen auch Käse! Danke, {learner}!", "it": "Guarda, scende! Ai gatti piace anche il formaggio! Grazie, {learner}!",
           "fx": { "cat": 1 } }
+      ]
+    },
+    {
+      "id": "muri-b1-kurnik",
+      "level": "B1",
+      "memory": {
+        "sl": "dan, ko je Muri ušel v sosedov kurnik",
+        "en": "the day Muri got into the neighbour's henhouse",
+        "de": "den Tag, an dem Muri in den Hühnerstall des Nachbarn ausgebüxt ist",
+        "it": "il giorno in cui Muri è scappato nel pollaio del vicino"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "worried",
+          "sl": "Dober dan, {learner}. Veš, kaj je včeraj naredil Muri? Ušel je sosedu v kurnik.",
+          "en": "Good afternoon, {learner}. You know what Muri did yesterday? He got into the neighbour's henhouse.",
+          "de": "Guten Tag, {learner}. Weißt du, was Muri gestern gemacht hat? Er ist dem Nachbarn in den Hühnerstall ausgebüxt.",
+          "it": "Buongiorno, {learner}. Sai cos'ha fatto ieri Muri? È scappato nel pollaio del vicino."
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Sosed pravi, da ga bom moral privezati, če se to še enkrat zgodi.",
+          "en": "The neighbour says I'll have to tie him up if it happens once more.",
+          "de": "Der Nachbar sagt, ich muss ihn anbinden, wenn das noch einmal passiert.",
+          "it": "Il vicino dice che dovrò legarlo, se succede un'altra volta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi {m:bil|f:bila} jaz Muri, bi tudi jaz {m:šel|f:šla} h kokošim.",
+              "en": "If I were Muri, I'd go to the hens too.",
+              "de": "Wenn ich Muri wäre, würde ich auch zu den Hühnern gehen.",
+              "it": "Se fossi Muri, anch'io andrei dalle galline.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Tudi ti? Potem bom moral privezati vaju oba.",
+                "en": "Ha! You too? Then I'll have to tie you both up.",
+                "de": "Ha! Du auch? Dann muss ich euch beide anbinden.",
+                "it": "Ah! Anche tu? Allora dovrò legarvi tutti e due."
+              }
+            },
+            {
+              "sl": "Škoda bi bilo. Muri ni hudoben, samo radoveden je.",
+              "en": "That would be a pity. Muri isn't wicked, he's just curious.",
+              "de": "Das wäre schade. Muri ist nicht böse, nur neugierig.",
+              "it": "Sarebbe un peccato. Muri non è cattivo, è solo curioso.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. Radoveden kot otrok. In lačen kot volk.",
+                "en": "That's true. Curious as a child. And hungry as a wolf.",
+                "de": "Das stimmt. Neugierig wie ein Kind. Und hungrig wie ein Wolf.",
+                "it": "È vero. Curioso come un bambino. E affamato come un lupo."
+              }
+            },
+            {
+              "sl": "Če sem jaz Muri, bi tudi jaz {m:šel|f:šla} h kokošim.",
+              "en": "If I am Muri, I'd go to the hens too.",
+              "de": "Wenn ich Muri bin, würde ich auch zu den Hühnern gehen.",
+              "it": "Se sono Muri, anch'io andrei dalle galline.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "Being Muri is only imagined: the conditional in both halves, če bi {m:bil|f:bila} jaz Muri.",
+                "de": "Muri zu sein ist nur gedacht: der Konditional in beiden Hälften, če bi {m:bil|f:bila} jaz Muri.",
+                "it": "Essere Muri è solo immaginato: il condizionale in tutte e due le parti, če bi {m:bil|f:bila} jaz Muri."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti si Muri? Potem pa pojdi ti v kurnik prosit odpuščanja!",
+                "en": "You're Muri? Then you go to the henhouse and say sorry!",
+                "de": "Du bist Muri? Dann geh du in den Hühnerstall und entschuldige dich!",
+                "it": "Sei tu Muri? Allora vai tu nel pollaio a chiedere scusa!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Sosedu bom nesel nova jajca namesto tistih, ki jih je Muri razbil.",
+          "en": "I'll take the neighbour new eggs in place of the ones Muri broke.",
+          "de": "Ich bringe dem Nachbarn neue Eier statt der, die Muri zerbrochen hat.",
+          "it": "Porterò al vicino delle uova nuove al posto di quelle che Muri ha rotto."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vzemite jajca, ki jih imam jaz doma. Imam jih preveč.",
+              "en": "Take the eggs I have at home. I've got too many.",
+              "de": "Nehmen Sie die Eier, die ich zu Hause habe. Ich habe zu viele.",
+              "it": "Prenda le uova che ho io a casa. Ne ho troppe.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hvala, {learner}. Ti imaš srce na pravem mestu.",
+                "en": "Thank you, {learner}. Your heart is in the right place.",
+                "de": "Danke, {learner}. Du hast das Herz am rechten Fleck.",
+                "it": "Grazie, {learner}. Tu hai il cuore al posto giusto."
+              }
+            },
+            {
+              "sl": "Vzemite jajca, ki ga imam jaz doma. Imam jih preveč.",
+              "en": "Take the eggs (ga: one) I have at home. I've got too many.",
+              "de": "Nehmen Sie die Eier, das (eins) ich zu Hause habe. Ich habe zu viele.",
+              "it": "Prenda le uova che (lo: uno) ho io a casa. Ne ho troppe.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Jajca are plural: ki jih imam. Ki never changes; the short word after it does.",
+                "de": "Jajca ist Plural: ki jih imam. Ki ändert sich nie, das kurze Wort danach schon.",
+                "it": "Jajca è plurale: ki jih imam. Ki non cambia mai, la parolina dopo sì."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ki ga? Eno samo jajce? Tistega pa kar obdržite.",
+                "en": "Ki ga? One single egg? Then keep that one.",
+                "de": "Ki ga? Ein einziges Ei? Das behalten Sie ruhig.",
+                "it": "Ki ga? Un uovo solo? Quello se lo tenga pure."
+              }
+            },
+            {
+              "sl": "Vzemi jajca, ki jih imam jaz doma. Imam jih preveč.",
+              "en": "Take (ti) the eggs I have at home. I've got too many.",
+              "de": "Nimm die Eier, die ich zu Hause habe. Ich habe zu viele.",
+              "it": "Prendi le uova che ho io a casa. Ne ho troppe.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older and expects vi: vzemite.",
+                "de": "Janez ist älter und erwartet vi: vzemite.",
+                "it": "Janez è più anziano e si aspetta il vi: vzemite."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Vzemi? Tikaš me, jajca pa vseeno vzamem. He he.",
+                "en": "Vzemi? You're saying ti to me, but I'll take the eggs anyway. Heh heh.",
+                "de": "Vzemi? Du duzt mich, aber die Eier nehme ich trotzdem. He he.",
+                "it": "Vzemi? Mi dai del tu, ma le uova le prendo lo stesso. Eh eh."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Muri, si slišal? Brez {learner:gen} bi bil zdaj na verigi.",
+          "en": "Muri, did you hear? Without {learner} you'd be on a chain now.",
+          "de": "Muri, hast du gehört? Ohne {learner} wärst du jetzt an der Kette.",
+          "it": "Muri, hai sentito? Senza {learner} adesso saresti alla catena."
+        }
+      ]
+    },
+    {
+      "id": "muri-b2-bister",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o Bistru, mojem psu pred Murijem",
+        "en": "the story of Bister, my dog before Muri",
+        "de": "die Geschichte von Bister, meinem Hund vor Muri",
+        "it": "la storia di Bister, il mio cane prima di Muri"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Veš, {learner}, pred Murijem sem imel psa Bistra. Bil je najpametnejši pes v dolini.",
+          "en": "You know, {learner}, before Muri I had a dog called Bister. He was the cleverest dog in the valley.",
+          "de": "Weißt du, {learner}, vor Muri hatte ich einen Hund, Bister. Er war der klügste Hund im Tal.",
+          "it": "Sai, {learner}, prima di Muri avevo un cane, Bister. Era il cane più intelligente della valle."
+        },
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "Nekega zimskega jutra je odšel v gozd in se ni vrnil. Še danes ne vem, kaj se mu je zgodilo.",
+          "en": "One winter morning he went off into the forest and didn't come back. To this day I don't know what happened to him.",
+          "de": "Eines Wintermorgens ist er in den Wald gelaufen und nicht zurückgekommen. Bis heute weiß ich nicht, was mit ihm geschehen ist.",
+          "it": "Una mattina d'inverno è andato nel bosco e non è più tornato. Ancora oggi non so cosa gli sia successo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "To je težko. Ampak Muri vas ima zdaj rad za dva.",
+              "en": "That's hard. But now Muri loves you enough for two.",
+              "de": "Das ist schwer. Aber jetzt hat Muri Sie für zwei lieb.",
+              "it": "È dura. Ma adesso Muri Le vuole bene per due.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Za dva … Ja. Ta mali lump zna potolažiti, ko je človeku hudo.",
+                "en": "For two … Yes. That little rascal knows how to comfort you when you're down.",
+                "de": "Für zwei … Ja. Der kleine Lump weiß zu trösten, wenn einem schwer ums Herz ist.",
+                "it": "Per due … Sì. Quella piccola canaglia sa consolarti quando stai male."
+              }
+            },
+            {
+              "sl": "Gotovo ga je pojedel volk.",
+              "en": "A wolf must have eaten him.",
+              "de": "Bestimmt hat ihn ein Wolf gefressen.",
+              "it": "Di sicuro se l'è mangiato un lupo.",
+              "why": {
+                "en": "Janez still grieves for his dog: comfort him, don't guess the worst aloud.",
+                "de": "Janez trauert noch um seinen Hund: tröste ihn, statt laut das Schlimmste zu vermuten.",
+                "it": "Janez piange ancora il suo cane: consolalo, non dire ad alta voce il peggio."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Volk? … Joj, tega pa nisem hotel slišati.",
+                "en": "A wolf? … Oh dear, that I didn't want to hear.",
+                "de": "Ein Wolf? … Ach je, das wollte ich nicht hören.",
+                "it": "Un lupo? … Oddio, questo non volevo sentirlo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "Mogoče bi ga bil našel, če bi ga bil takoj šel iskat. Pa sem čakal do večera.",
+          "en": "Maybe I'd have found him if I'd gone looking for him straight away. But I waited until the evening.",
+          "de": "Vielleicht hätte ich ihn gefunden, wenn ich ihn sofort suchen gegangen wäre. Aber ich habe bis zum Abend gewartet.",
+          "it": "Forse l'avrei trovato, se fossi andato subito a cercarlo. Ma ho aspettato fino a sera."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Saj niste mogli vedeti. Kdo bi si mislil, da ga ne bo nazaj?",
+              "en": "But you couldn't have known. Who'd have thought he wouldn't come back?",
+              "de": "Das konnten Sie doch nicht wissen. Wer hätte gedacht, dass er nicht zurückkommt?",
+              "it": "Ma non poteva saperlo. Chi avrebbe mai pensato che non sarebbe tornato?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. Ampak srce si vseeno misli svoje.",
+                "en": "That's true. But the heart thinks its own thoughts all the same.",
+                "de": "Das stimmt. Aber das Herz denkt sich trotzdem seinen Teil.",
+                "it": "È vero. Ma il cuore la pensa a modo suo lo stesso."
+              }
+            },
+            {
+              "sl": "Saj niste mogli vedeti. Kdo si bi mislil, da ga ne bo nazaj?",
+              "en": "But you couldn't have known. Who'd (word order?) have thought he wouldn't come back?",
+              "de": "Das konnten Sie doch nicht wissen. Wer hätte (Wortstellung?) gedacht, dass er nicht zurückkommt?",
+              "it": "Ma non poteva saperlo. Chi (ordine?) avrebbe pensato che non sarebbe tornato?",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words keep their fixed order: bi first, then si, kdo bi si mislil.",
+                "de": "Die kurzen Wörter haben ihre feste Reihenfolge: zuerst bi, dann si, kdo bi si mislil.",
+                "it": "Le paroline hanno il loro ordine fisso: prima bi, poi si, kdo bi si mislil."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kako? Hm, nekaj se ti je zapletlo, {learner}.",
+                "en": "What? Hm, something got tangled there, {learner}.",
+                "de": "Wie? Hm, da hat sich etwas verheddert, {learner}.",
+                "it": "Come? Mm, qui qualcosa si è ingarbugliato, {learner}."
+              }
+            },
+            {
+              "sl": "Saj bi ga lahko poiskali že zjutraj.",
+              "en": "Well, you could have gone looking for him in the morning.",
+              "de": "Sie hätten ihn ja schon am Morgen suchen können.",
+              "it": "Be', avrebbe potuto cercarlo già al mattino.",
+              "why": {
+                "en": "Janez already regrets the wait: don't blame him for it, ease it.",
+                "de": "Janez bereut das Warten schon: wirf es ihm nicht vor, sondern lindere es.",
+                "it": "Janez si rimprovera già l'attesa: non fargliene una colpa, alleviala."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Vem, vem … Tega mi ni treba praviti dvakrat.",
+                "en": "I know, I know … You needn't tell me twice.",
+                "de": "Ich weiß, ich weiß … Das brauchst du mir nicht zweimal zu sagen.",
+                "it": "Lo so, lo so … Non c'è bisogno di dirmelo due volte."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "No, dovolj žalosti. Muri! Pridi sem, ti mali lump. Danes dobiš kost.",
+          "en": "Well, enough sadness. Muri! Come here, you little rascal. Today you get a bone.",
+          "de": "Na, genug Traurigkeit. Muri! Komm her, du kleiner Lump. Heute kriegst du einen Knochen.",
+          "it": "Be', basta tristezza. Muri! Vieni qui, piccola canaglia. Oggi ti becchi un osso."
+        }
+      ]
+    },
+    {
+      "id": "dvojina-b1-vedri",
+      "level": "B1",
+      "memory": {
+        "sl": "jutro, ko sva pri vodnjaku {m:razsodila|f:razsodili} o dveh vedrih",
+        "en": "the morning we settled the matter of the two buckets at the well",
+        "de": "den Morgen, an dem wir am Brunnen den Streit um die zwei Eimer geschlichtet haben",
+        "it": "la mattina in cui al pozzo abbiamo risolto la questione dei due secchi"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Dobro jutro, {learner}. Dva učenca sta se zjutraj kregala, kdo bo nosil vedro.",
+          "en": "Good morning, {learner}. Two pupils were quarrelling this morning about who would carry the bucket.",
+          "de": "Guten Morgen, {learner}. Zwei Schüler haben heute früh gestritten, wer den Eimer tragen darf.",
+          "it": "Buongiorno, {learner}. Stamattina due alunni litigavano su chi dovesse portare il secchio."
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Kaj bi naredili vi na mojem mestu?",
+          "en": "What would you do in my place?",
+          "de": "Was würden Sie an meiner Stelle tun?",
+          "it": "Lei cosa farebbe al mio posto?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Dajte obema po eno vedro. Z dvema vedroma bosta hitrejša.",
+              "en": "Give each of them a bucket. With two buckets they'll be quicker.",
+              "de": "Geben Sie beiden je einen Eimer. Mit zwei Eimern sind sie schneller.",
+              "it": "Dia un secchio a ciascuno dei due. Con due secchi saranno più veloci.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Odlično! In dvojina v vsakem sklonu. Tako se govori.",
+                "en": "Excellent! And the dual in every case. That's how it's done.",
+                "de": "Ausgezeichnet! Und der Dual in jedem Fall. So spricht man.",
+                "it": "Ottimo! E il duale in ogni caso. Così si parla."
+              }
+            },
+            {
+              "sl": "Dajte obema po eno vedro. Z dvema vedri bosta hitrejša.",
+              "en": "Give each of them a bucket. With two buckets (plural) they'll be quicker.",
+              "de": "Geben Sie beiden je einen Eimer. Mit zwei Eimern (Plural) sind sie schneller.",
+              "it": "Dia un secchio a ciascuno dei due. Con due secchi (plurale) saranno più veloci.",
+              "grammar": "dvojina-skloni",
+              "why": {
+                "en": "Two takes the dual in every case: z dvema vedroma (the instrumental dual ends in -oma, -ama).",
+                "de": "Zwei verlangt den Dual in jedem Fall: z dvema vedroma (der Instrumental Dual endet auf -oma, -ama).",
+                "it": "Due vuole il duale in ogni caso: z dvema vedroma (lo strumentale duale esce in -oma, -ama)."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Z vedri? Koliko pa jih imamo? Pri vodnjaku sta samo dve.",
+                "en": "Z vedri? How many have we got, then? There are only two at the well.",
+                "de": "Z vedri? Wie viele haben wir denn? Am Brunnen sind nur zwei.",
+                "it": "Z vedri? E quanti ne abbiamo? Al pozzo ce ne sono solo due."
+              }
+            },
+            {
+              "sl": "Dajte obe po eno vedro. Z dvema vedroma bosta hitrejša.",
+              "en": "Give both (feminine, nominative) a bucket. With two buckets they'll be quicker.",
+              "de": "Geben Sie beide (weiblich, Nominativ) je einen Eimer. Mit zwei Eimern sind sie schneller.",
+              "it": "Dia entrambe (femminile, nominativo) un secchio. Con due secchi saranno più veloci.",
+              "grammar": "dvojina-skloni",
+              "why": {
+                "en": "Giving is to someone, the dative: obema (both, in the dual). Obe is the feminine nominative.",
+                "de": "Geben heißt jemandem, der Dativ: obema (beiden, im Dual). Obe ist der weibliche Nominativ.",
+                "it": "Dare è a qualcuno, il dativo: obema (a tutti e due, al duale). Obe è il nominativo femminile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Obe? Saj sta fanta, {learner}!",
+                "en": "Obe (the two girls)? But they're boys, {learner}!",
+                "de": "Obe, die zwei Mädchen? Das sind doch Buben, {learner}!",
+                "it": "Obe, le due bambine? Ma sono maschi, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Potem bosta pa za domačo nalogo pisala pismo. Komu naj ga napišeta?",
+          "en": "Then for homework they'll write a letter. Who should they write it to?",
+          "de": "Dann schreiben die beiden als Hausaufgabe einen Brief. An wen sollen sie ihn schreiben?",
+          "it": "Allora per compito scriveranno una lettera. A chi devono scriverla?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Naj ga napišeta dvema prijateljema iz druge vasi.",
+              "en": "They should write it to two friends from another village.",
+              "de": "Sie sollen ihn an zwei Freunde aus einem anderen Dorf schreiben.",
+              "it": "La scrivano a due amici di un altro paese.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Dvema prijateljema … Lepo! Tako bodo vadili vsi štirje.",
+                "en": "To two friends … Lovely! That way all four will practise.",
+                "de": "An zwei Freunde … Schön! So üben alle vier.",
+                "it": "A due amici … Bello! Così si esercitano tutti e quattro."
+              }
+            },
+            {
+              "sl": "Naj ga napišeta dvema prijateljem iz druge vasi.",
+              "en": "They should write it to two friends (plural) from another village.",
+              "de": "Sie sollen ihn an zwei Freunde (Plural) aus einem anderen Dorf schreiben.",
+              "it": "La scrivano a due amici (plurale) di un altro paese.",
+              "grammar": "dvojina-skloni",
+              "why": {
+                "en": "Two in the dative is the dual: dvema prijateljema (-oma, after j -ema). Prijateljem is the plural.",
+                "de": "Zwei im Dativ ist der Dual: dvema prijateljema (-oma, nach j -ema). Prijateljem ist der Plural.",
+                "it": "Due al dativo è il duale: dvema prijateljema (-oma, dopo j -ema). Prijateljem è il plurale."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Prijateljem? Vsem v vasi? To bo pa dolgo pismo!",
+                "en": "Prijateljem? To everyone in the village? That'll be a long letter!",
+                "de": "Prijateljem? An alle im Dorf? Das wird ein langer Brief!",
+                "it": "Prijateljem? A tutti in paese? Sarà una lettera lunga!"
+              }
+            },
+            {
+              "sl": "Naj ga napišejo dvema prijateljema iz druge vasi.",
+              "en": "They (plural) should write it to two friends from another village.",
+              "de": "Sie (Plural) sollen ihn an zwei Freunde aus einem anderen Dorf schreiben.",
+              "it": "La scrivano (plurale) a due amici di un altro paese.",
+              "grammar": "dvojina",
+              "why": {
+                "en": "The two pupils write it: the dual, naj ga napišeta.",
+                "de": "Die zwei Schüler schreiben ihn: der Dual, naj ga napišeta.",
+                "it": "La scrivono i due alunni: il duale, naj ga napišeta."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Napišejo? Kdo še? Saj sta samo dva.",
+                "en": "Napišejo? Who else? There are only two of them.",
+                "de": "Napišejo? Wer noch? Es sind doch nur zwei.",
+                "it": "Napišejo? Chi altro? Sono solo due."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Vidite, {learner}? Dvojina sploh ni težka. Samo dva morata biti!",
+          "en": "You see, {learner}? The dual isn't hard at all. There just have to be two!",
+          "de": "Sehen Sie, {learner}? Der Dual ist gar nicht schwer. Es müssen nur zwei sein!",
+          "it": "Vede, {learner}? Il duale non è affatto difficile. Basta che siano due!"
+        }
+      ]
+    },
+    {
+      "id": "dvojina-b2-dvojcka",
+      "level": "B2",
+      "memory": {
+        "sl": "jutro, ko sem vam pripovedovala o dvojčkih",
+        "en": "the morning I told you about the twins",
+        "de": "den Morgen, an dem ich Ihnen von den Zwillingen erzählt habe",
+        "it": "la mattina in cui Le ho raccontato dei gemelli"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Dobro jutro, {learner}. Veste, da sem v Novi Gorici nekoč učila dvojčka? Podobna sta si bila kot jajce jajcu.",
+          "en": "Good morning, {learner}. Did you know I once taught twins in Nova Gorica? They were as alike as two peas in a pod.",
+          "de": "Guten Morgen, {learner}. Wissen Sie, dass ich in Nova Gorica einmal Zwillinge unterrichtet habe? Sie glichen sich wie ein Ei dem anderen.",
+          "it": "Buongiorno, {learner}. Lo sa che a Nova Gorica una volta ho avuto due gemelli in classe? Si somigliavano come due gocce d'acqua."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kako ste ju pa ločili? Sta imela vsaj različni torbi?",
+              "en": "So how did you tell them apart? Did they at least have different school bags?",
+              "de": "Und wie haben Sie die beiden unterschieden? Hatten sie wenigstens verschiedene Taschen?",
+              "it": "E come li distingueva? Avevano almeno due cartelle diverse?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Po copatah! Eden je imel rdeče, drugi modre. Ko sta jih zamenjala, sem bila izgubljena.",
+                "en": "By their slippers! One had red ones, the other blue. When they swapped them, I was lost.",
+                "de": "An den Hausschuhen! Einer hatte rote, der andere blaue. Als sie getauscht haben, war ich verloren.",
+                "it": "Dalle pantofole! Uno le aveva rosse, l'altro blu. Quando se le scambiavano, ero perduta."
+              }
+            },
+            {
+              "sl": "Kako ste jih pa ločili? Sta imela vsaj različni torbi?",
+              "en": "So how did you tell them (three or more) apart? Did they at least have different school bags?",
+              "de": "Und wie haben Sie sie (drei oder mehr) unterschieden? Hatten sie wenigstens verschiedene Taschen?",
+              "it": "E come li (tre o più) distingueva? Avevano almeno due cartelle diverse?",
+              "grammar": "dvojina",
+              "why": {
+                "en": "Twins are two: the dual pronoun, ju (the two of them). Jih is for three or more.",
+                "de": "Zwillinge sind zwei: das Dual-Pronomen, ju (die beiden). Jih gilt für drei oder mehr.",
+                "it": "I gemelli sono due: il pronome duale, ju (loro due). Jih è per tre o più."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Jih? Koliko pa mislite, da jih je bilo? Samo dva sta bila!",
+                "en": "Jih? How many do you think there were? There were only two!",
+                "de": "Jih? Wie viele, glauben Sie, waren es denn? Nur zwei!",
+                "it": "Jih? Quanti pensa che fossero? Erano solo due!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "laugh",
+          "sl": "Nekoč sta jih res zamenjala. Pol ure sem Petru rekla Pavel in Pavlu Peter.",
+          "en": "Once they really did swap them. For half an hour I called Peter Pavel and Pavel Peter.",
+          "de": "Einmal haben sie tatsächlich getauscht. Eine halbe Stunde lang habe ich Peter Pavel genannt und Pavel Peter.",
+          "it": "Una volta se le sono davvero scambiate. Per mezz'ora ho chiamato Peter Pavel e Pavel Peter."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej sta vas vlekla za nos. Pametna fanta!",
+              "en": "So they were pulling your leg. Clever lads!",
+              "de": "Die beiden haben Sie also an der Nase herumgeführt. Schlaue Burschen!",
+              "it": "Allora L'hanno presa in giro. Furbi, quei due!",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "sl": "Ja. In priznam, da sem se smejala skupaj z njima.",
+                "en": "Yes. And I admit I laughed along with the two of them.",
+                "de": "Ja. Und ich gebe zu, dass ich mit den beiden mitgelacht habe.",
+                "it": "Sì. E confesso che ho riso insieme a loro due."
+              }
+            },
+            {
+              "sl": "Torej sta vam vlekla za nos. Pametna fanta!",
+              "en": "So they were pulling your (dative) leg. Clever lads!",
+              "de": "Die beiden haben Ihnen (Dativ) also an der Nase gezogen. Schlaue Burschen!",
+              "it": "Allora Le (dativo) hanno tirato il naso. Furbi, quei due!",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom takes the person in the accusative: vleči koga za nos, so sta vas vlekla.",
+                "de": "Die Wendung verlangt die Person im Akkusativ: vleči koga za nos, also sta vas vlekla.",
+                "it": "Il modo di dire vuole la persona all'accusativo: vleči koga za nos, quindi sta vas vlekla."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vam? Komu še? Samo mene sta, {learner}!",
+                "en": "Vam? Who else? Only me, {learner}!",
+                "de": "Vam? Wem noch? Nur mich, {learner}!",
+                "it": "Vam? A chi altro? Solo me, {learner}!"
+              }
+            },
+            {
+              "sl": "Torej ste ju kaznovali, kot se spodobi.",
+              "en": "So you punished them, as is proper.",
+              "de": "Sie haben die beiden also bestraft, wie es sich gehört.",
+              "it": "Allora li ha puniti, come si deve.",
+              "why": {
+                "en": "Mojca laughs about it: it was a harmless prank, so share the joke instead of the punishment.",
+                "de": "Mojca lacht darüber: es war ein harmloser Streich, also teil den Spaß statt der Strafe.",
+                "it": "Mojca ci ride sopra: era uno scherzo innocente, quindi condividi la risata, non il castigo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Kaznovala? Zaradi copat? Ne, ne, smejala sem se.",
+                "en": "Punished? Over slippers? No, no, I laughed.",
+                "de": "Bestraft? Wegen Hausschuhen? Nein, nein, ich habe gelacht.",
+                "it": "Punirli? Per delle pantofole? No, no, ho riso."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Za kazen sta morala napisati sestavek o dvojini. Skupaj, seveda.",
+          "en": "As a punishment, they had to write an essay on the dual. Together, of course.",
+          "de": "Zur Strafe mussten die beiden einen Aufsatz über den Dual schreiben. Zusammen, natürlich.",
+          "it": "Per castigo hanno dovuto scrivere un tema sul duale. Insieme, naturalmente."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pravično. Upam, da je vsak napisal polovico sestavka.",
+              "en": "Fair. I hope each wrote half of the essay.",
+              "de": "Gerecht. Ich hoffe, jeder hat die Hälfte des Aufsatzes geschrieben.",
+              "it": "Giusto. Spero che ognuno abbia scritto metà del tema.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Polovico … Ja. Tako sem vsaj vedela, kdo je kdo!",
+                "en": "Half each … Yes. That way at least I knew who was who!",
+                "de": "Die Hälfte … Ja. So wusste ich wenigstens, wer wer ist!",
+                "it": "Metà … Sì. Così almeno sapevo chi era chi!"
+              }
+            },
+            {
+              "sl": "Pravično. Upam, da je vsak napisal polovico sestavek.",
+              "en": "Fair. I hope each wrote half the essay (nominative).",
+              "de": "Gerecht. Ich hoffe, jeder hat die Hälfte der Aufsatz (Nominativ) geschrieben.",
+              "it": "Giusto. Spero che ognuno abbia scritto metà il tema (nominativo).",
+              "grammar": "stevniki",
+              "why": {
+                "en": "Half of the essay: the genitive after polovica, polovico sestavka.",
+                "de": "Die Hälfte des Aufsatzes: nach polovica der Genitiv, polovico sestavka.",
+                "it": "La metà del tema: dopo polovica il genitivo, polovico sestavka."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Polovico sestavek? Polovico česa, prosim?",
+                "en": "Polovico sestavek? Half of what, please?",
+                "de": "Polovico sestavek? Die Hälfte wovon, bitte?",
+                "it": "Polovico sestavek? Metà di che cosa, scusi?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Hvala, {learner}. Z vami je vsako jutro pri vodnjaku zabavno.",
+          "en": "Thank you, {learner}. Every morning at the well is fun with you.",
+          "de": "Danke, {learner}. Mit Ihnen ist jeder Morgen am Brunnen ein Vergnügen.",
+          "it": "Grazie, {learner}. Con Lei ogni mattina al pozzo è un divertimento."
+        }
       ]
     }
   ]

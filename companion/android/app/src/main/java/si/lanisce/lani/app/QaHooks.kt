@@ -92,6 +92,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   open ([readyUnit]: a B1 unit without A2 done and the school upgraded), for QA to play it from the school's levels.
  *   "school:reveal" readies the village for the school's reveal ([readyReveal]: the school standing, every unit of A1 done,
  *   A2 begun) and the school opens: a level a bit at a time (companion/COURSE.md, "What the school shows").
+ * - "placement": the placement test's page opens (app/PlacementController, game/LevelPlacement); "placement:fresh" readies
+ *   the class (as "school") with no unit of the course done or begun and no test taken ([readyPlacement]) and opens the
+ *   school, its card offering the test; "placement:answer:<part>" answers the test on screen to its end as a learner who
+ *   knows the course up to that part (its index: 5 is A2's last, -1 none): its result shows.
  * - "meet:<id>": that villager moved in and not met yet (the dev bridge's copy), their introduction opened at the learner's
  *   level, or "level:<lv>"'s (companion/VILLAGERS.md "Arrivals": Tone's B1, "meet:tone" after "level:B1").
  * - "sheet:<unit>/<sheet>": the class readied (as "school") and that sheet of the unit played at once ("sheet:sedanjik/
@@ -153,7 +157,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   [tookAgeUp]; companion/GAME.md "Ages and their celebrations"); "ageup:at:<s>" holds a moment at that second for a
  *   screenshot (the card from its end on: [ageUpAt]), "ageup:at:" lets it play on.
  * - "level:<A1|A2|…>": the dialogs opened from now on (a scene's, a party's, a step's) are at that level, whatever the
- *   learner's ([level]: an age's party at A1); "level:" lets the learner's own decide again.
+ *   learner's ([level]: an age's party at A1), and so is the village: the scenes' dialogs and happenings above it go, its
+ *   own level's variants play first (SceneController.all, [si.lanisce.lani.game.scene.DialogLevels]; with
+ *   "happening:<scene>/<happening>/<dialog>", a B2 variant opens at "level:B2" and not at "level:A1"); "level:" lets the
+ *   learner's own decide again.
  * - "event:<kind>" ("event:wolves", "event:bear/3", "event:storm", "event:merchant", "event:festival"): the village (the
  *   dev bridge's copy) has that event on from now ([eventState]: of strength 1, or the one after the slash), as the day's
  *   tick brings one, and the village shows, its people reacting (companion/GAME.md "People react"); "event:won" and
@@ -394,7 +401,7 @@ object QaHooks {
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, sentence: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
         cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {}, icon: (String) -> Unit = {}, notify: (String) -> Unit = {},
-        setupPhone: (String) -> Unit = {}, readOlder: (Long) -> Unit = {},
+        setupPhone: (String) -> Unit = {}, readOlder: (Long) -> Unit = {}, placement: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -493,6 +500,7 @@ object QaHooks {
             command == "school" -> school()
             command.startsWith("sheet:") -> sheetOf(command.removePrefix("sheet:"))?.let { (unit, id) -> sheet(unit, id) }
             command == "school:reveal" -> schoolReveal()
+            command == "placement" || command.startsWith("placement:") -> placement(command.removePrefix("placement").removePrefix(":").trim())
             command.startsWith("meet:") -> command.removePrefix("meet:").trim().takeIf { it.isNotEmpty() }?.let(meet)
             command.startsWith("school:") -> command.removePrefix("school:").trim().takeIf { it.isNotEmpty() }?.let(schoolUnit)
             command.startsWith("build:") -> {
@@ -628,6 +636,18 @@ object QaHooks {
         val opened = (below + level).map { si.lanisce.lani.game.School.key(language, it) }
             .associateWith { k -> c.opened[k] ?: (if (k.endsWith("/$level")) today else today.minusDays(1)).toString() }
         return r.copy(course = c.copy(units = c.units - si.lanisce.lani.game.School.key(language, unit) + done, opened = c.opened + opened))
+    }
+
+    /**
+     * [s] ready for the placement test's card ("placement:fresh"): as "school" ([readySchool]), no unit of [language]'s
+     * course done or begun and no placement test taken in it, no level of it opened but A1 (the copy's learner as a
+     * starter). A debug build's, on the dev bridge's copy.
+     */
+    fun readyPlacement(s: si.lanisce.lani.game.GameState, language: String, now: Long): si.lanisce.lani.game.GameState {
+        val r = readySchool(s, now)
+        val c = r.course ?: si.lanisce.lani.game.CourseProgress()
+        val mine = { k: String -> k.startsWith("$language/") }
+        return r.copy(course = c.copy(units = c.units.filterKeys { !mine(it) }, opened = c.opened.filterKeys { !mine(it) || it == "$language/A1" }, placements = c.placements - language))
     }
 
     /**

@@ -5,7 +5,7 @@
   "title": { "en": "On the village green", "sl": "Na vaški zelenici", "it": "Sul prato del paese", "de": "Auf der Dorfwiese" },
   "emoji": "🌳",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "square",
   "from": ["lipa", "well"],
   "pack": "on-the-green",
@@ -35,7 +35,7 @@
     {
       "id": "bench", "title": { "en": "Old Wilf on his bench", "sl": "Stari Wilf na svoji klopi", "it": "Il vecchio Wilf sulla sua panchina", "de": "Der alte Wilf auf seiner Bank" }, "who": "wilf",
       "when": ["morning", "afternoon"], "chance": 0.6,
-      "dialog": "bench", "dialogs": ["bench-snow", "bench"], "reward": { "wisdom": 20 }, "marker": "🌳",
+      "dialog": "bench", "dialogs": ["bench-b2-brothers", "bench-b1-oak", "bench-snow", "bench"], "reward": { "wisdom": 20 }, "marker": "🌳",
       "memory": { "en": "the tea under the oak", "sl": "čaj pod hrastom", "it": "il tè sotto la quercia", "de": "den Tee unter der Eiche" }
     },
     {
@@ -59,7 +59,7 @@
     {
       "id": "pump", "title": { "en": "Mrs Hartley at the pump", "sl": "Gospa Hartley pri črpalki", "it": "La signora Hartley alla pompa", "de": "Mrs Hartley an der Pumpe" }, "who": "hartley",
       "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "needs": { "building": "WELL" },
-      "dialog": "pump", "dialogs": ["pump-buckets", "pump-cold", "pump"], "reward": { "stone": 20 }, "marker": "🪣",
+      "dialog": "pump", "dialogs": ["pump-b2-frost", "pump-b1-bucket", "pump-buckets", "pump-cold", "pump"], "reward": { "stone": 20 }, "marker": "🪣",
       "memory": { "en": "the morning you helped me at the pump", "sl": "jutro, ko si mi {m:pomagal|f:pomagala} pri črpalki", "it": "la mattina in cui mi hai aiutato alla pompa", "de": "den Morgen, an dem du mir an der Pumpe geholfen hast" }
     },
     {
@@ -438,6 +438,79 @@
             "reply": { "face": "curious", "en": "You would like… what? Tea? A dance? Me?", "sl": "Bi … kaj? Čaj? Ples? Mene?", "it": "Vorresti… cosa? Il tè? Un ballo? Me?", "de": "Du möchtest … was? Tee? Einen Tanz? Mich?" } }
         ] },
         { "who": "wilf", "face": "laugh", "en": "A fête's not a fête without cake and a dance. Wordsworth would agree!", "sl": "Praznik ni praznik brez peciva in plesa. Wordsworth bi se strinjal!", "it": "Una festa non è una festa senza torta e senza ballo. Wordsworth sarebbe d'accordo!", "de": "Ein Fest ist kein Fest ohne Kuchen und Tanz. Wordsworth würde zustimmen!" }
+      ]
+    },
+    {
+      "id": "bench-b2-brothers", "level": "B2",
+      "memory": {"en": "the summer evenings round the oak, and my two brothers", "sl": "poletne večere pod hrastom in moja dva brata", "it": "le sere d'estate attorno alla quercia, e i miei due fratelli", "de": "die Sommerabende um die Eiche und meine zwei Brüder"},
+      "lines": [
+        {"who": "wilf", "en": "Hello, {m:son|f:lass}. Sit down. On summer evenings the whole village would gather here, round this oak.", "sl": "Živijo. Sedi. Ob poletnih večerih se je tu, okoli tega hrasta, zbrala vsa vas.", "it": "Ciao, {m:figliolo|f:ragazza}. Siediti. Le sere d'estate tutto il villaggio si riuniva qui, attorno a questa quercia.", "de": "Hallo, {m:Junge|f:Mädchen}. Setz dich. An Sommerabenden kam das ganze Dorf hier zusammen, um diese Eiche."},
+        {"who": "wilf", "face": "thinking", "en": "My two brothers were always here too. Neither of them ever left the dale.", "sl": "Tudi moja brata sta bila vedno tu. Nobeden od njiju ni nikoli zapustil doline.", "it": "C'erano sempre anche i miei due fratelli. Nessuno dei due ha mai lasciato la valle.", "de": "Meine zwei Brüder waren auch immer hier. Keiner von beiden hat je das Tal verlassen."},
+        { "choices": [
+          {"en": "Two brothers, both of whom stayed in the dale all their lives?", "sl": "Dva brata, ki sta oba vse življenje ostala v dolini?", "it": "Due fratelli, che sono rimasti entrambi nella valle tutta la vita?", "de": "Zwei Brüder, die beide ihr Leben lang im Tal geblieben sind?", "ok": true, "reply": {"face": "proud", "en": "Both. Tom on the farm, Ned at the mill.", "sl": "Oba. Tom na kmetiji, Ned v mlinu.", "it": "Tutti e due. Tom alla fattoria, Ned al mulino.", "de": "Beide. Tom auf dem Hof, Ned in der Mühle."}},
+          {"en": "Two brothers, both of which stayed in the dale all their lives?", "sl": "Dva brata, ki sta oba vse življenje ostala v dolini?", "it": "Due fratelli, che sono rimasti entrambi nella valle tutta la vita?", "de": "Zwei Brüder, die beide ihr Leben lang im Tal geblieben sind?", "grammar": "relative-clauses-more", "why": {"en": "For people after both of or most of: whom. Which is for things: two houses, both of which …", "sl": "Za ljudi za both of ali most of: whom. Which je za stvari: two houses, both of which …", "it": "Per le persone dopo both of o most of: whom. Which è per le cose: two houses, both of which …", "de": "Für Menschen nach both of oder most of: whom. Which ist für Dinge: two houses, both of which …"}, "reply": {"face": "laugh", "en": "Both of which? They were brothers, {m:son|f:lass}, not sheep!", "sl": "Both of which? Bila sta brata, ne ovci!", "it": "Both of which? Erano fratelli, {m:figliolo|f:ragazza}, non pecore!", "de": "Both of which? Das waren Brüder, {m:Junge|f:Mädchen}, keine Schafe!"}}
+        ] },
+        {"who": "wilf", "face": "curious", "en": "And on Sundays? What do you think we did?", "sl": "Pa ob nedeljah? Kaj misliš, kaj smo počeli?", "it": "E la domenica? Che cosa pensi che facessimo?", "de": "Und sonntags? Was meinst du, was wir gemacht haben?"},
+        { "choices": [
+          {"en": "On Sundays you'd play bowls, I suppose.", "sl": "Ob nedeljah ste najbrž balinali.", "it": "La domenica giocavate a bocce, immagino.", "de": "Sonntags habt ihr wohl Bowls gespielt.", "ok": true, "reply": {"face": "happy", "en": "Bowls, and tea from my mother's big brown pot.", "sl": "Balinanje in čaj iz mamine velike rjave čajnice.", "it": "Bocce, e tè dalla grande teiera marrone di mia madre.", "de": "Bowls, und Tee aus der großen braunen Kanne meiner Mutter."}},
+          {"en": "On Sundays you would played bowls, I suppose.", "sl": "Ob nedeljah ste najbrž balinali.", "it": "La domenica giocavate a bocce, immagino.", "de": "Sonntags habt ihr wohl Bowls gespielt.", "grammar": "would-used-to", "why": {"en": "Would + the base form for what happened again and again: you'd play. No -ed after would.", "sl": "Would + osnovna oblika za tisto, kar se je ponavljalo: you'd play. Za would ni -ed.", "it": "Would + la forma base per ciò che succedeva spesso: you'd play. Niente -ed dopo would.", "de": "Would + Grundform für das, was immer wieder passierte: you'd play. Kein -ed nach would."}, "reply": {"face": "curious", "en": "Would played? Gently, {m:son|f:lass}. Try again.", "sl": "Would played? Nežno. Poskusi še enkrat.", "it": "Would played? Piano, {m:figliolo|f:ragazza}. Riprova.", "de": "Would played? Sachte, {m:Junge|f:Mädchen}. Versuch's noch mal."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "Now it's just me and Bess and the bench. But it's a good bench.", "sl": "Zdaj smo samo jaz, Bess in klop. Ampak dobra klop je.", "it": "Adesso ci siamo solo io, Bess e la panchina. Ma è una buona panchina.", "de": "Jetzt sind's nur noch ich, Bess und die Bank. Aber es ist eine gute Bank."}
+      ]
+    },
+    {
+      "id": "bench-b1-oak", "level": "B1",
+      "memory": {"en": "the oak Harry keeps climbing", "sl": "hrast, na katerega Harry kar naprej pleza", "it": "la quercia su cui Harry continua ad arrampicarsi", "de": "die Eiche, auf die Harry immer wieder klettert"},
+      "lines": [
+        {"who": "wilf", "en": "Hello, {m:son|f:lass}. Come and sit by me. This old bench and I are good friends.", "sl": "Živijo. Pridi sedet k meni. S to staro klopjo sva dobra prijatelja.", "it": "Ciao, {m:figliolo|f:ragazza}. Vieni a sederti vicino a me. Io e questa vecchia panchina siamo buoni amici.", "de": "Hallo, {m:Junge|f:Mädchen}. Komm, setz dich zu mir. Die alte Bank und ich sind gute Freunde."},
+        {"who": "wilf", "face": "curious", "en": "And that tree, do you know it?", "sl": "Pa tisto drevo, ga poznaš?", "it": "E quell'albero, lo conosci?", "de": "Und den Baum da, kennst du den?"},
+        { "choices": [
+          {"en": "Is that the oak which Harry climbs every day?", "sl": "Je to hrast, na katerega Harry pleza vsak dan?", "it": "È la quercia su cui Harry si arrampica ogni giorno?", "de": "Ist das die Eiche, auf die Harry jeden Tag klettert?", "ok": true, "reply": {"en": "That's the one. Every day, and every day I shout.", "sl": "Ta je. Vsak dan, in vsak dan vpijem.", "it": "Proprio lei. Ogni giorno, e ogni giorno io grido.", "de": "Genau die. Jeden Tag, und jeden Tag schimpfe ich."}},
+          {"en": "Is that the oak who Harry climbs every day?", "sl": "Je to hrast, na katerega Harry pleza vsak dan?", "it": "È la quercia su cui Harry si arrampica ogni giorno?", "de": "Ist das die Eiche, auf die Harry jeden Tag klettert?", "grammar": "relative-clauses", "why": {"en": "For things: which or that, the oak which Harry climbs. Who is for people.", "sl": "Za stvari: which ali that, the oak which Harry climbs. Who je za ljudi.", "it": "Per le cose: which o that, the oak which Harry climbs. Who è per le persone.", "de": "Für Dinge: which oder that, the oak which Harry climbs. Who ist für Menschen."}, "reply": {"face": "laugh", "en": "The oak who? It's a tree, {m:son|f:lass}, not a person.", "sl": "The oak who? To je drevo, ne človek.", "it": "The oak who? È un albero, {m:figliolo|f:ragazza}, non una persona.", "de": "The oak who? Das ist ein Baum, {m:Junge|f:Mädchen}, kein Mensch."}}
+        ] },
+        {"who": "wilf", "face": "thinking", "en": "I've told him to stop a hundred times.", "sl": "Stokrat sem mu rekel, naj neha.", "it": "Gliel'ho detto cento volte di smettere.", "de": "Ich hab ihm hundertmal gesagt, er soll aufhören."},
+        { "choices": [
+          {"en": "He keeps climbing it anyway.", "sl": "Pa vseeno kar naprej pleza.", "it": "Lui però continua ad arrampicarsi.", "de": "Er klettert trotzdem immer wieder hinauf.", "ok": true, "reply": {"face": "happy", "en": "Anyway. Like I did, eighty years ago.", "sl": "Vseeno. Kot jaz pred osemdesetimi leti.", "it": "Lo stesso. Come facevo io ottant'anni fa.", "de": "Trotzdem. So wie ich vor achtzig Jahren."}},
+          {"en": "He keeps to climb it anyway.", "sl": "Pa vseeno kar naprej pleza.", "it": "Lui però continua ad arrampicarsi.", "de": "Er klettert trotzdem immer wieder hinauf.", "grammar": "verb-patterns", "why": {"en": "Keep takes -ing: keeps climbing. To + the base form goes after want, decide, hope.", "sl": "Keep zahteva -ing: keeps climbing. To z osnovno obliko gre za want, decide, hope.", "it": "Keep vuole -ing: keeps climbing. To + la forma base va dopo want, decide, hope.", "de": "Keep nimmt -ing: keeps climbing. To + Grundform steht nach want, decide, hope."}, "reply": {"face": "curious", "en": "Keeps to climb? Slow and steady, {m:son|f:lass}.", "sl": "Keeps to climb? Počasi in vztrajno.", "it": "Keeps to climb? Piano e con calma, {m:figliolo|f:ragazza}.", "de": "Keeps to climb? Langsam und stetig, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "One step at a time. He'll learn. I did.", "sl": "Korak za korakom. Se bo že naučil. Jaz sem se.", "it": "Un passo alla volta. Imparerà. Io ho imparato.", "de": "Eins nach dem anderen. Er lernt es schon. Ich hab's auch gelernt."}
+      ]
+    },
+    {
+      "id": "pump-b2-frost", "level": "B2",
+      "memory": {"en": "the squeaking pump the children call the donkey", "sl": "škripajočo črpalko, ki ji otroci pravijo osel", "it": "la pompa cigolante che i bambini chiamano l'asino", "de": "die quietschende Pumpe, die die Kinder den Esel nennen"},
+      "lines": [
+        {"who": "hartley", "face": "laugh", "en": "Good morning, {learner}! The pump's squeaking again. The children call it the donkey.", "sl": "Dobro jutro, {learner}! Črpalka spet škripa. Otroci ji pravijo osel.", "it": "Buongiorno, {learner}! La pompa cigola di nuovo. I bambini la chiamano l'asino.", "de": "Guten Morgen, {learner}! Die Pumpe quietscht wieder. Die Kinder nennen sie den Esel."},
+        {"who": "hartley", "face": "curious", "en": "The parish council talked about it last night. You were there. What did they suggest?", "sl": "Občinski svet je sinoči govoril o njej. {m:Bil|f:Bila} si tam. Kaj so predlagali?", "it": "Ieri sera il consiglio parrocchiale ne ha parlato. C'eri anche tu. Che cosa hanno suggerito?", "de": "Der Gemeinderat hat gestern Abend darüber gesprochen. Du warst dabei. Was haben sie vorgeschlagen?"},
+        { "choices": [
+          {"en": "They suggested oiling it every week.", "sl": "Predlagali so, da jo vsak teden namažemo.", "it": "Hanno suggerito di oliarla ogni settimana.", "de": "Sie haben vorgeschlagen, sie jede Woche zu ölen.", "ok": true, "reply": {"face": "laugh", "en": "Every week. And guess who's got the oil can? Me.", "sl": "Vsak teden. In ugani, kdo ima oljnico? Jaz.", "it": "Ogni settimana. E indovina chi ha l'oliatore? Io.", "de": "Jede Woche. Und rate mal, wer die Ölkanne hat? Ich."}},
+          {"en": "They suggested us to oil it every week.", "sl": "Predlagali so, da jo vsak teden namažemo.", "it": "Hanno suggerito di oliarla ogni settimana.", "de": "Sie haben vorgeschlagen, sie jede Woche zu ölen.", "grammar": "reporting-verbs", "why": {"en": "Suggest takes -ing or that: suggested oiling it, or suggested that we oil it. Never suggested us to.", "sl": "Suggest zahteva -ing ali that: suggested oiling it ali suggested that we oil it. Nikoli suggested us to.", "it": "Suggest vuole -ing o that: suggested oiling it, oppure suggested that we oil it. Mai suggested us to.", "de": "Suggest nimmt -ing oder that: suggested oiling it oder suggested that we oil it. Nie suggested us to."}, "reply": {"face": "curious", "en": "Suggested us to? Oh dear. Let's try that once more.", "sl": "Suggested us to? Ojej. Poskusiva še enkrat.", "it": "Suggested us to? Oh, cielo. Riproviamo.", "de": "Suggested us to? Oje. Versuchen wir's noch mal."}}
+        ] },
+        {"who": "hartley", "face": "thinking", "en": "And it wasn't the children who broke the pipe last winter. It was the frost.", "sl": "In cevi lansko zimo niso razbili otroci. Bila je zmrzal.", "it": "E non sono stati i bambini a rompere il tubo l'inverno scorso. È stato il gelo.", "de": "Und es waren nicht die Kinder, die letzten Winter das Rohr kaputt gemacht haben. Es war der Frost."},
+        { "choices": [
+          {"en": "So it was the frost that cracked the pipe.", "sl": "Torej je cev počila zaradi zmrzali.", "it": "Quindi è stato il gelo a rompere il tubo.", "de": "Es war also der Frost, der das Rohr gesprengt hat.", "ok": true, "reply": {"face": "happy", "en": "The frost. Children get the blame for everything.", "sl": "Zmrzal. Otroci so krivi za vse.", "it": "Il gelo. I bambini hanno sempre la colpa di tutto.", "de": "Der Frost. Die Kinder kriegen an allem die Schuld."}},
+          {"en": "So the children cracked the pipe.", "sl": "Torej so cev razbili otroci.", "it": "Quindi i bambini hanno rotto il tubo.", "de": "Die Kinder haben also das Rohr gesprengt.", "grammar": "emphasis", "why": {"en": "It wasn't the children who …, it was the frost: the frost did it, not the children.", "sl": "It wasn't the children who …, it was the frost: storila je zmrzal, ne otroci.", "it": "It wasn't the children who …, it was the frost: è stato il gelo, non i bambini.", "de": "It wasn't the children who …, it was the frost: Der Frost war's, nicht die Kinder."}, "reply": {"face": "surprised", "en": "The children? I said it wasn't them, {learner}!", "sl": "Otroci? Saj sem rekla, da niso bili oni!", "it": "I bambini? Ho detto che non erano loro, {learner}!", "de": "Die Kinder? Ich hab doch gesagt, die waren's nicht, {learner}!"}}
+        ] },
+        {"who": "hartley", "face": "happy", "en": "Right. Oil today, and a new pipe in the spring. Thank you, {learner}.", "sl": "Prav. Danes olje, spomladi nova cev. Hvala, {learner}.", "it": "Bene. Olio oggi, e un tubo nuovo in primavera. Grazie, {learner}.", "de": "Gut. Heute Öl, und im Frühling ein neues Rohr. Danke, {learner}."}
+      ]
+    },
+    {
+      "id": "pump-b1-bucket", "level": "B1",
+      "memory": {"en": "the heavy bucket and the twenty little hands", "sl": "težko vedro in dvajset majhnih rok", "it": "il secchio pesante e le venti manine", "de": "den schweren Eimer und die zwanzig kleinen Hände"},
+      "lines": [
+        {"who": "hartley", "en": "Good morning, {learner}! I'm getting water for the school's flowers. This pump's hard work.", "sl": "Dobro jutro, {learner}! Nosim vodo za šolske rože. Ta črpalka je težko delo.", "it": "Buongiorno, {learner}! Prendo l'acqua per i fiori della scuola. Questa pompa è faticosa.", "de": "Guten Morgen, {learner}! Ich hole Wasser für die Schulblumen. Diese Pumpe ist harte Arbeit."},
+        {"who": "hartley", "face": "curious", "en": "Feel this bucket. Could one of the children carry it, do you think?", "sl": "Potipaj to vedro. Bi ga lahko nesel kateri od otrok, kaj misliš?", "it": "Senti questo secchio. Potrebbe portarlo uno dei bambini, secondo te?", "de": "Fühl mal den Eimer. Könnte eins der Kinder ihn tragen, was meinst du?"},
+        { "choices": [
+          {"en": "It's very heavy, but Harry could carry it.", "sl": "Zelo težko je, ampak Harry bi ga lahko nesel.", "it": "È molto pesante, ma Harry potrebbe portarlo.", "de": "Er ist sehr schwer, aber Harry könnte ihn tragen.", "ok": true, "reply": {"face": "happy", "en": "Harry, then. He'll love showing off.", "sl": "Potem Harry. Rad se bo postavljal.", "it": "Harry, allora. Gli piacerà mettersi in mostra.", "de": "Dann Harry. Der wird gern angeben."}},
+          {"en": "It's too heavy, but Harry could carry it.", "sl": "Zelo težko je, ampak Harry bi ga lahko nesel.", "it": "È molto pesante, ma Harry potrebbe portarlo.", "de": "Er ist sehr schwer, aber Harry könnte ihn tragen.", "grammar": "too-enough", "why": {"en": "Too says it's more than he can manage. Very only says a lot: very heavy, but he can.", "sl": "Too pove, da je več, kot zmore. Very pove samo, da je veliko: very heavy, a zmore.", "it": "Too dice che è più di quanto possa reggere. Very dice solo che è tanto: very heavy, ma ce la fa.", "de": "Too heißt, es ist mehr, als er schafft. Very heißt nur viel: very heavy, aber er schafft es."}, "reply": {"face": "curious", "en": "Too heavy, but he can? Then it isn't, is it?", "sl": "Pretežko, pa ga lahko? Potem pa ni pretežko, kajne?", "it": "Troppo pesante, ma può? Allora non lo è, no?", "de": "Zu schwer, aber er kann? Dann ist er's ja nicht, oder?"}}
+        ] },
+        {"who": "hartley", "en": "This afternoon I'll be teaching the infants.", "sl": "Popoldne bom učila najmlajše.", "it": "Oggi pomeriggio farò lezione ai più piccoli.", "de": "Heute Nachmittag unterrichte ich die Kleinsten."},
+        {"who": "hartley", "face": "curious", "en": "Will you be passing the school?", "sl": "Boš {m:šel|f:šla} mimo šole?", "it": "Passerai davanti alla scuola?", "de": "Kommst du an der Schule vorbei?"},
+        { "choices": [
+          {"en": "Yes, I'll be walking past at three.", "sl": "Ja, ob treh bom {m:šel|f:šla} mimo.", "it": "Sì, passerò davanti alle tre.", "de": "Ja, um drei geh ich vorbei.", "ok": true, "reply": {"face": "happy", "en": "Then wave at the window. Twenty little hands will wave back.", "sl": "Potem pomahaj proti oknu. Dvajset majhnih rok ti bo pomahalo nazaj.", "it": "Allora saluta alla finestra. Venti manine ti risponderanno.", "de": "Dann wink ans Fenster. Zwanzig kleine Hände winken zurück."}},
+          {"en": "Yes, I'll walking past at three.", "sl": "Ja, ob treh bom {m:šel|f:šla} mimo.", "it": "Sì, passerò davanti alle tre.", "de": "Ja, um drei geh ich vorbei.", "grammar": "future-continuous", "why": {"en": "Will be + -ing: I'll be walking. The be can't go.", "sl": "Will be + -ing: I'll be walking. Be ne sme izpasti.", "it": "Will be + -ing: I'll be walking. Il be non può mancare.", "de": "Will be + -ing: I'll be walking. Das be darf nicht fehlen."}, "reply": {"face": "curious", "en": "I'll walking? Listen again, {learner}. Something's missing.", "sl": "I'll walking? Še enkrat prisluhni. Nekaj manjka.", "it": "I'll walking? Ascolta di nuovo, {learner}. Manca qualcosa.", "de": "I'll walking? Hör noch mal hin, {learner}. Da fehlt was."}}
+        ] },
+        {"who": "hartley", "face": "happy", "en": "Lovely. Three o'clock, then. And thank you for the pumping!", "sl": "Lepo. Torej ob treh. In hvala za črpanje!", "it": "Che bello. Alle tre, allora. E grazie per aver pompato!", "de": "Schön. Also um drei. Und danke fürs Pumpen!"}
       ]
     }
   ]
