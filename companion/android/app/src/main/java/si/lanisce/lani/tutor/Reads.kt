@@ -103,7 +103,7 @@ class BridgeReads(
         val r = when (name) {
             "learner_state" -> get("/state", input.s("language")?.let { mapOf("language" to it) }.orEmpty()) { Summaries.learnerState(it) }
             "get_village" -> get("/game") { Summaries.village(it) }
-            "list_packs" -> get("/packs") { Summaries.packs(it) }
+            "list_packs" -> get("/packs", mapOf("packs" to si.lanisce.lani.data.PackSession.VERSION.toString())) { Summaries.packs(it) } // every pack, as this app reads them
             "list_grammar" -> get("/grammar") { Summaries.grammar(it) }
             "get_grammar" -> {
                 val id = input.s("id")?.takeIf { Regex("[a-z0-9-]{1,64}").matches(it) } ?: return ReadResult("id: a grammar page's id (list_grammar lists them)", true)
