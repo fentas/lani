@@ -167,4 +167,8 @@ export async function caseDeLive(base: string, auth: Record<string, string>, cli
   })
   const body = (await done.json()) as any
   check('kaernten: POST /cases/done persists a German session (its cases, the dative weak)', done.ok && typeof body.session_id === 'string' && body.errors === 1, body)
+  // German's cases overview, from its page faelle (prints/overview.ts)
+  const ov = await fetch(`${base}/course/overview/faelle?base=sl`, { headers: auth })
+  const ovText = await ov.text()
+  check("kaernten: GET /course/overview/faelle prints German's cases overview: its four cases, German first, the base's headings", ov.ok && ov.headers.get('x-lani-print-name') === 'ueberblick-faelle' && ovText.includes('Die vier Fälle') && ovText.includes('Štirje skloni') && ovText.includes('Wessen?') && !ovText.includes('Šest sklonov'), [ov.status, ov.headers.get('x-lani-print-name')])
 }
