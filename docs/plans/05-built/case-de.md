@@ -22,7 +22,7 @@ For a native speaker of German (Austrian standard), and the bases' translations 
   (während + dative in talk), `wir-fahren-auf-urlaub` and `mama-ist-in-der-arbeit` (Austrian, with the note that
   Germany's form is right too), `die-kinder-kommen-aus-der-schule-heim` (heim as the particle that rules out wohin),
   `das-brot-baeckt-im-ofen`, `kathi-kauft-eier-auf-dem-markt` (a "Wo oder wohin?" whose verb is no verb of rest),
-  `ich-habe-lust-auf-einen-kaffee` (Lust auf as a B2 chunk), the frames with "{x}" at the start ("{x} ist schön.") and
+  `ich-habe-lust-auf-einen-kaffee` (Lust auf as a B2 chunk), the frames with "{x}" at the start ("{x} ist heute hier.", capitalized there) and
   `unter-dat` ("Die Katze schläft unter {x}." with any noun), the Slovene `mika me kava`.
 - **The lens's lines** (`caseLens.de.*`) and the trainer's German labels (`cases.de.*`) in de, sl, en, it.
 - **The overview's headings** (`prints/overview.ts` HEAD_DE) in de, sl, en, it.
