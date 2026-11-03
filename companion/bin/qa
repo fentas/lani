@@ -293,6 +293,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        card's steps, one wrong, the four lines said together, the cheat sheet, 💬 attaching it, the
                        mistake kept by the dev bridge; then typed ("counting:type"), the keyboard up, "✋ Izberi raje";
                        "counting-dialogs" the happenings with a counting dialog (Luka's cows) opened, no placeholder left;
+                       "dialogs-friuli" (named only, LANI_CULTURE=friuli) Friuli's B1 and B2 variants at "level:B1" and
+                       "level:B2" by the fire and in the kitchen, a B1 turn answered wrong then right, none at "level:A1";
                        "numbers" the numbers module ("🔢 Števila · Numbers"): closed (QA's hook "numbers:locked") with
                        "📖 Odpri uvod" to the unit's intro, skipped there (its note); a number heard typed on the number
                        pad; figures → the word with the tens first (the order's why); a clock time heard ("numbers:time")
@@ -3194,6 +3196,73 @@ def ispy():
         assert tap("‹ Vas · Village", 3), "back from the scene"
     finally:
         qa_hook("ispy:")
+    return None
+
+
+def dialogs_friuli():
+    """Friuli's B1 and B2 variants (docs/plans/05-built/dialogs-friuli.md): with LANI_CULTURE=friuli, a synthetic Teo. An
+    older app's request (?arts=6) gets none of al-fuoco's or in-cucina's levelled dialogs. At QA's "level:B1" and
+    "level:B2" a variant of each level opens with its first line in two scenes (Nonna Rosa's tea by the fire, Zia Nives's
+    radio in the kitchen), one B1 turn answered wrong first (the reaction and the why) and then right; at "level:A1" the
+    B1 variant asked for isn't in the scene and the happening's own dialog plays. Screenshots also in
+    $LANI_QA_DIALOGS_SHOTS."""
+    if (api("/culture").get("id") or "primorska") != "friuli":
+        return "skipped: the dev bridge's culture isn't friuli (LANI_CULTURE=friuli)"
+    out = Path(os.environ["LANI_QA_DIALOGS_SHOTS"]) if os.environ.get("LANI_QA_DIALOGS_SHOTS") else None
+    served = {x["id"]: x for x in api("/scenes?arts=99") if isinstance(x, dict)}
+    for sid, did, lv in (("al-fuoco", "tisana-b2-bora", "B2"), ("al-fuoco", "tisana-b1-miele", "B1"),
+                         ("in-cucina", "radio-b1-cane", "B1"), ("in-cucina", "radio-b2-meteo", "B2")):
+        levels = {d["id"]: d.get("level") for d in served.get(sid, {}).get("dialogs", [])}
+        assert levels.get(did) == lv, f"the bridge serves {sid}/{did} at {lv}: {levels.get(did)}"
+    for sid in ("al-fuoco", "in-cucina"):
+        old = next((x for x in api("/scenes?arts=6") if isinstance(x, dict) and x.get("id") == sid), None)
+        assert old is not None and not any(d.get("level") for d in old["dialogs"]), f"an older app gets none of {sid}'s"
+
+    def keep(name: str):
+        shot(f"friuli-{name}")
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"friuli-{name}.png")
+
+    def play(level: str, sid: str, hid: str, variant: str, expect: str, name: str, absent: str | None = None, turn=None):
+        qa_hook(f"level:{level}")
+        qa_hook(f"happening:{sid}/{hid}/{variant}", f"scene:{sid}@{sid}/{hid}")
+        try:
+            if wait_for("Zapri · Close", 15) is None:
+                raise AssertionError(f"{sid}/{hid} at {level}: its dialog didn't open")
+            got = wait_for(expect, 15)
+            keep(name)
+            assert got is not None, f"at {level}, {variant}: «{expect}»"
+            assert absent is None or find(absent) is None, f"at {level}: «{absent}» is above the learner"
+            if turn is not None:
+                said, wrong, reaction, right = turn
+                assert play_to(said, set()), f"{variant}: «{said}»"
+                time.sleep(1.5)
+                assert answer_choice({wrong}), f"{variant}: the wrong choice «{wrong}»"
+                assert wait_for(reaction, 12) is not None, f"{variant}: the reaction «{reaction}»"
+                keep(f"{name}-reaction")
+                if tap("Zakaj? · Why?", 3):
+                    time.sleep(1)
+                    keep(f"{name}-why")
+                    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                    time.sleep(1)
+                assert answer_choice({right}), f"{variant}: the right choice «{right}»"
+                time.sleep(2)
+                keep(f"{name}-right")
+            tap("Zapri · Close", 3)
+        finally:
+            qa_hook("happening:")
+        plain_village()
+
+    try:
+        play("B2", "al-fuoco", "tisana", "tisana-b2-bora", "soffia piano stasera", "fuoco-b2")
+        play("B1", "al-fuoco", "tisana", "tisana-b1-miele", "fiori di tiglio", "fuoco-b1",
+             turn=("vasetto", "Sì, nonna! Gli lo chiedo subito.", "Gli lo…?", "Sì, nonna! Glielo chiedo subito."))
+        play("B1", "in-cucina", "radio", "radio-b1-cane", "parla di un cane", "cucina-b1")
+        play("B2", "in-cucina", "radio", "radio-b2-meteo", "Quel meteo!", "cucina-b2")
+        play("A1", "al-fuoco", "tisana", "tisana-b1-miele", "Buonasera, tesoro!", "fuoco-a1", absent="fiori di tiglio")
+    finally:
+        qa_hook("level:")
     return None
 
 
@@ -18887,6 +18956,8 @@ def plan():
         ("feedback-tablet", feedback_tablet, go_home, False, ""),
         ("field-cues", field_cues, v, False, ""),
         ("counting-dialogs", counting_dialogs, v, False, ""),
+        # only when named: Friuli's B1 and B2 variants by the fire and in the kitchen, and none at A1 (LANI_CULTURE=friuli)
+        ("dialogs-friuli", dialogs_friuli, v, False, ""),
         ("forest", forest, v, False, ""),
         ("zoom", zoom, v, False, ""),
         ("spot-card", spot_card, v, False, ""),
@@ -19530,7 +19601,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "dialogs-friuli") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
