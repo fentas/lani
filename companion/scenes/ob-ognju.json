@@ -4,7 +4,7 @@
   "title": { "sl": "Ob ognju", "en": "At the campfire", "de": "Am Lagerfeuer", "it": "Al falò" },
   "emoji": "🔥",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "campfire",
   "from": ["fire"],
   "pack": "ob-ognju",
@@ -31,7 +31,7 @@
   ],
   "happenings": [
     { "id": "juha", "title": { "sl": "Babica prinese juho", "en": "Grandma brings soup", "de": "Oma bringt Suppe", "it": "La nonna porta la zuppa" }, "who": "babica",
-      "when": ["evening"], "chance": 0.6, "dialog": "juha", "dialogs": ["juha-zlica", "juha-sol", "juha"], "reward": { "food": 20 }, "marker": "🍲",
+      "when": ["evening"], "chance": 0.6, "dialog": "juha", "dialogs": ["juha-b2-tasca", "juha-b1-mama", "juha-zlica", "juha-sol", "juha"], "reward": { "food": 20 }, "marker": "🍲",
       "memory": { "sl": "juho, ki sva jo {m:jedla|f:jedli} ob ognju", "en": "the soup we ate by the fire", "de": "die Suppe, die wir am Feuer gegessen haben", "it": "la zuppa che abbiamo mangiato accanto al fuoco" } },
     { "id": "lovljenje", "title": { "sl": "Otroci se lovijo", "en": "The children play tag", "de": "Die Kinder spielen Fangen", "it": "I bambini giocano ad acchiapparella" }, "who": "otroci",
       "when": ["afternoon"], "chance": 0.5, "dialog": "lovljenje", "dialogs": ["lovljenje-skrivalnice", "lovljenje-trava", "lovljenje"], "reward": { "food": 15 }, "marker": "🏃",
@@ -43,7 +43,7 @@
       "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5], "chance": 0.6, "dialog": "roke", "dialogs": ["roke-ovce", "roke-burja", "roke"], "reward": { "wood": 15 }, "marker": "🔥",
       "memory": { "sl": "jutro, ko sva si grela roke ob ognju", "en": "the morning we two warmed our hands by the fire", "de": "den Morgen, an dem wir zwei uns am Feuer die Hände gewärmt haben", "it": "la mattina in cui noi due ci siamo scaldati le mani accanto al fuoco" } },
     { "id": "drva", "title": { "sl": "France prinese drva", "en": "France brings firewood", "de": "France bringt Brennholz", "it": "France porta la legna" }, "who": "france",
-      "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "drva", "dialogs": ["drva-polena", "drva-sekira", "drva"], "reward": { "wood": 20 }, "marker": "🪵",
+      "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "drva", "dialogs": ["drva-b2-hrast", "drva-b1-zima", "drva-polena", "drva-sekira", "drva"], "reward": { "wood": 20 }, "marker": "🪵",
       "memory": { "sl": "dan, ko sem ti prinesel suha drva", "en": "the day I brought you dry firewood", "de": "den Tag, an dem ich dir trockenes Brennholz gebracht habe", "it": "il giorno in cui ti ho portato la legna secca" } }
   ],
   "dialogs": [
@@ -435,6 +435,627 @@
             "reply": { "face": "happy", "sl": "Prav imaš. Najprej največje, potem manjša.", "en": "You're right. The biggest first, then the smaller ones.", "de": "Du hast recht. Zuerst das größte, dann die kleineren.", "it": "Hai ragione. Prima il più grosso, poi i più piccoli." } }
         ] },
         { "who": "france", "sl": "Hvala, {learner}. Sosedje smo. Na svidenje!", "en": "Thanks, {learner}. We're neighbours. Goodbye!", "de": "Danke, {learner}. Wir sind Nachbarn. Auf Wiedersehen!", "it": "Grazie, {learner}. Siamo vicini. Arrivederci!" }
+      ]
+    },
+    {
+      "id": "juha-b1-mama",
+      "level": "B1",
+      "memory": {
+        "sl": "večer, ko sva govorila o juhi in kruhu",
+        "en": "the evening we talked about soup and bread",
+        "de": "den Abend, an dem wir über Suppe und Brot gesprochen haben",
+        "it": "la sera in cui abbiamo parlato di minestra e di pane"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "curious",
+          "sl": "Dober večer, {learner}! Juha bo kmalu kuhana. Si danes sploh kaj {m:jedel|f:jedla}?",
+          "en": "Good evening, {learner}! The soup will soon be ready. Have you eaten anything at all today?",
+          "de": "Guten Abend, {learner}! Die Suppe ist gleich fertig. Hast du heute überhaupt etwas gegessen?",
+          "it": "Buonasera, {learner}! La minestra è quasi pronta. Hai mangiato qualcosa oggi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne, ves dan sem {m:delal|f:delala} na njivi. Zelo sem {m:lačen|f:lačna}.",
+              "en": "No, I worked in the field all day. I'm very hungry.",
+              "de": "Nein, ich habe den ganzen Tag auf dem Feld gearbeitet. Ich habe großen Hunger.",
+              "it": "No, ho lavorato nei campi tutto il giorno. Ho una gran fame.",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "sl": "Ojoj! Potem dobiš dva krožnika. Brez ugovarjanja!",
+                "en": "Oh dear! Then you're getting two bowls. No arguing!",
+                "de": "Ojemine! Dann kriegst du zwei Teller. Keine Widerrede!",
+                "it": "Povero! Allora ti prendi due piatti. Senza discutere!"
+              }
+            },
+            {
+              "sl": "Ne, ves dan sem {m:naredil|f:naredila} na njivi. Zelo sem {m:lačen|f:lačna}.",
+              "en": "No, all day I made (something, done) in the field. I'm very hungry.",
+              "de": "Nein, den ganzen Tag habe ich auf dem Feld (etwas, fertig) gemacht. Ich habe großen Hunger.",
+              "it": "No, tutto il giorno ho fatto (qualcosa, finito) nei campi. Ho una gran fame.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Ves dan (all day) is going on: the imperfective, sem {m:delal|f:delala}. Naredil is something done and finished.",
+                "de": "Ves dan (den ganzen Tag) dauert an: der unvollendete Aspekt, sem {m:delal|f:delala}. Naredil ist etwas Fertiges.",
+                "it": "Ves dan (tutto il giorno) dura nel tempo: l'imperfettivo, sem {m:delal|f:delala}. Naredil è qualcosa di fatto e finito."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kaj pa? Hišo? Ves dan? Ha!",
+                "en": "Made what? A house? All day? Ha!",
+                "de": "Was denn? Ein Haus? Den ganzen Tag? Ha!",
+                "it": "Fatto cosa? Una casa? Tutto il giorno? Ah!"
+              }
+            },
+            {
+              "sl": "Ne, ves dan sem {m:delal|f:delala} na njivi. Zelo me je lačno.",
+              "en": "No, I worked in the field all day. It's very hungry to me (?).",
+              "de": "Nein, ich habe den ganzen Tag auf dem Feld gearbeitet. Es ist mich sehr hungrig (?).",
+              "it": "No, ho lavorato nei campi tutto il giorno. Mi è molto affamato (?).",
+              "grammar": "custva",
+              "why": {
+                "en": "Hungry is an adjective that agrees with you: sem {m:lačen|f:lačna}. Only some feelings go without a subject (mrzlo mi je, strah me je).",
+                "de": "Hungrig ist ein Adjektiv, das sich nach dir richtet: sem {m:lačen|f:lačna}. Nur manche Gefühle stehen ohne Subjekt (mrzlo mi je, strah me je).",
+                "it": "Affamato è un aggettivo che si accorda con te: sem {m:lačen|f:lačna}. Solo alcuni sentimenti stanno senza soggetto (mrzlo mi je, strah me je)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Lačno? Kdo, moj lonec? Ha ha.",
+                "en": "Hungry (neuter)? Who, my pot? Ha ha.",
+                "de": "Hungrig, sächlich? Wer, mein Topf? Ha ha.",
+                "it": "Affamato chi, la mia pentola? Ah ah."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "thinking",
+          "sl": "Moja mama je vedno rekla, da je juha zdravilo, kruh pa prijatelj. Nikoli nisem vedela, kaj je mislila.",
+          "en": "My mother always said that soup is medicine and bread a friend. I never knew what she meant.",
+          "de": "Meine Mutter hat immer gesagt, Suppe sei Medizin und Brot ein Freund. Ich habe nie gewusst, was sie meinte.",
+          "it": "Mia madre diceva sempre che la minestra è una medicina e il pane un amico. Non ho mai capito cosa intendesse."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mogoče je mislila, da juha pomaga, ko si bolan, kruh pa, ko si sam.",
+              "en": "Maybe she meant that soup helps when you're ill, and bread when you're alone.",
+              "de": "Vielleicht meinte sie, dass Suppe hilft, wenn man krank ist, und Brot, wenn man allein ist.",
+              "it": "Forse intendeva che la minestra aiuta quando sei malato, e il pane quando sei solo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lepo si {m:povedal|f:povedala}. Zdaj pa jej, da ne boš ne {m:bolan|f:bolna} ne {m:sam|f:sama}.",
+                "en": "You put that nicely. Now eat, so you'll be neither ill nor alone.",
+                "de": "Schön hast du das gesagt. Jetzt iss, damit du weder krank noch allein bist.",
+                "it": "L'hai detto bene. Adesso mangia, così non sarai né {m:malato|f:malata} né {m:solo|f:sola}."
+              }
+            },
+            {
+              "sl": "Mogoče je mislila, da je juha pomagala, ko si bolan, kruh pa, ko si sam.",
+              "en": "Maybe she meant that soup had helped when you're ill, and bread when you're alone.",
+              "de": "Vielleicht meinte sie, dass Suppe geholfen hat, wenn man krank ist, und Brot, wenn man allein ist.",
+              "it": "Forse intendeva che la minestra aveva aiutato quando sei malato, e il pane quando sei solo.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the tense stays: what she meant holds always, da juha pomaga. Da je pomagala would be only back then.",
+                "de": "In der indirekten Rede bleibt die Zeit: was sie meinte, gilt immer, da juha pomaga. Da je pomagala gälte nur damals.",
+                "it": "Nel discorso indiretto il tempo resta: ciò che intendeva vale sempre, da juha pomaga. Da je pomagala varrebbe solo per allora."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Je pomagala? Zdaj pa ne več? Jej, jej, pa bomo videli!",
+                "en": "It helped? But not any more? Eat, eat, and we'll see!",
+                "de": "Hat geholfen? Jetzt nicht mehr? Iss, iss, dann sehen wir schon!",
+                "it": "Aiutava? E adesso non più? Mangia, mangia, poi vedremo!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Tako. Izvoli, vroča je. Jutri te pa naučim kuhati ričet.",
+          "en": "There. Here you are, it's hot. And tomorrow I'll teach you to cook barley stew.",
+          "de": "So. Bitte, sie ist heiß. Und morgen bringe ich dir bei, Ritschert zu kochen.",
+          "it": "Ecco. Tieni, è calda. E domani ti insegno a cucinare l'orzotto."
+        }
+      ]
+    },
+    {
+      "id": "juha-b2-tasca",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o prismojeni juhi in moji tašči",
+        "en": "the story of the burnt soup and my mother-in-law",
+        "de": "die Geschichte von der angebrannten Suppe und meiner Schwiegermutter",
+        "it": "la storia della minestra bruciata e di mia suocera"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "laugh",
+          "sl": "Veš, {learner}, ko sem se omožila, sem prvič kuhala juho za taščo. In sem jo prismodila!",
+          "en": "You know, {learner}, when I got married, I cooked soup for my mother-in-law for the first time. And I burnt it!",
+          "de": "Weißt du, {learner}, als ich geheiratet habe, habe ich zum ersten Mal für die Schwiegermutter Suppe gekocht. Und sie anbrennen lassen!",
+          "it": "Sai, {learner}, quando mi sono sposata, ho cucinato per la prima volta la minestra per mia suocera. E l'ho bruciata!"
+        },
+        {
+          "who": "babica",
+          "sl": "Ko je tašča prišla v kuhinjo, se je bila juha že prismodila do dna.",
+          "en": "When my mother-in-law came into the kitchen, the soup had already burnt to the bottom.",
+          "de": "Als die Schwiegermutter in die Küche kam, war die Suppe schon bis zum Boden angebrannt.",
+          "it": "Quando mia suocera entrò in cucina, la minestra si era già bruciata fino al fondo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi bili mešali, se ne bi bila prismodila, kajne?",
+              "en": "If you'd stirred it, it wouldn't have burnt, would it?",
+              "de": "Hätten Sie umgerührt, wäre sie nicht angebrannt, oder?",
+              "it": "Se avesse mescolato, non si sarebbe bruciata, vero?",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "sl": "Seveda. Ampak takrat sem stala pri oknu in čakala, kdaj pride mož s polja.",
+                "en": "Of course. But I was standing at the window, waiting for my husband to come back from the field.",
+                "de": "Natürlich. Aber da stand ich am Fenster und wartete, wann mein Mann vom Feld kommt.",
+                "it": "Certo. Ma allora stavo alla finestra ad aspettare che mio marito tornasse dai campi."
+              }
+            },
+            {
+              "sl": "Če ste mešali, se ne bi bila prismodila, kajne?",
+              "en": "If you stirred it, it wouldn't have burnt, would it?",
+              "de": "Wenn Sie umgerührt haben, wäre sie nicht angebrannt, oder?",
+              "it": "Se ha mescolato, non si sarebbe bruciata, vero?",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "She didn't stir: what didn't happen takes the conditional, če bi bili mešali (or če bi mešali). Če ste mešali says she did.",
+                "de": "Sie hat nicht umgerührt: was nicht geschah, steht im Konditional, če bi bili mešali (oder če bi mešali). Če ste mešali sagt, sie hat es getan.",
+                "it": "Non ha mescolato: ciò che non è successo vuole il condizionale, če bi bili mešali (o če bi mešali). Če ste mešali dice che l'ha fatto."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Mešala? Saj sem! Samo na ogenj sem pozabila.",
+                "en": "Stirred? I did! I just forgot about the fire.",
+                "de": "Umgerührt? Hab ich doch! Ich habe nur das Feuer vergessen.",
+                "it": "Mescolato? Certo! Ho solo dimenticato il fuoco."
+              }
+            },
+            {
+              "sl": "To je bilo pa sramotno. Tašča vas je gotovo poslala domov.",
+              "en": "That was shameful. Your mother-in-law surely sent you home.",
+              "de": "Das war ja peinlich. Die Schwiegermutter hat Sie sicher heimgeschickt.",
+              "it": "Che vergogna. Sua suocera L'avrà rimandata a casa di sicuro.",
+              "why": {
+                "en": "Micka laughs about it now: laugh with her instead of making it worse.",
+                "de": "Micka lacht heute darüber: lach mit ihr, statt es schlimmer zu machen.",
+                "it": "Micka oggi ci ride sopra: ridi con lei invece di peggiorare le cose."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Domov? He he, ne, ne. Ostala sem petdeset let!",
+                "en": "Home? Heh heh, no, no. I stayed fifty years!",
+                "de": "Heim? He he, nein, nein. Fünfzig Jahre bin ich geblieben!",
+                "it": "A casa? Eh eh, no, no. Sono rimasta cinquant'anni!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "proud",
+          "sl": "Tašča je rekla samo: Kar si skuhala, boš tudi pojedla. In sem jo pojedla. Vso.",
+          "en": "My mother-in-law only said: What you've cooked, you'll eat too. And I did. All of it.",
+          "de": "Die Schwiegermutter sagte nur: Was du gekocht hast, isst du auch. Und das habe ich. Alles.",
+          "it": "Mia suocera disse solo: Quello che hai cucinato, lo mangerai anche. E l'ho fatto. Tutta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej ste morali pojesti, kar ste si skuhali. Dobesedno!",
+              "en": "So you had to lie in the bed you'd made. Literally!",
+              "de": "Sie mussten also auslöffeln, was Sie sich eingebrockt hatten. Wörtlich!",
+              "it": "Allora ha dovuto mangiarsi quello che si era cucinata. Alla lettera!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Dobesedno! In veš kaj? Nikoli več nisem prismodila juhe.",
+                "en": "Literally! And you know what? I never burnt soup again.",
+                "de": "Wörtlich! Und weißt du was? Nie wieder habe ich eine Suppe anbrennen lassen.",
+                "it": "Alla lettera! E sai una cosa? Non ho mai più bruciato una minestra."
+              }
+            },
+            {
+              "sl": "Torej ste morali popiti, kar ste si skuhali. Dobesedno!",
+              "en": "So you had to drink what you'd cooked. Literally!",
+              "de": "Sie mussten also austrinken, was Sie sich gekocht hatten. Wörtlich!",
+              "it": "Allora ha dovuto bersi quello che si era cucinata. Alla lettera!",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is pojesti, kar si skuhaš (to eat what you cooked: to bear what you brought on yourself); keep its words.",
+                "de": "Die Wendung heißt pojesti, kar si skuhaš (essen, was man gekocht hat: auslöffeln, was man sich eingebrockt hat); behalte ihre Wörter.",
+                "it": "Il modo di dire è pojesti, kar si skuhaš (mangiare quello che hai cucinato: subirne le conseguenze); tieni le sue parole."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Popiti? Juha je bila tako gosta, da bi jo rezal z nožem!",
+                "en": "Drink it? The soup was so thick you could have cut it with a knife!",
+                "de": "Trinken? Die Suppe war so dick, dass man sie mit dem Messer schneiden konnte!",
+                "it": "Berla? La minestra era così densa che la tagliavi col coltello!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Zato zdaj vedno mešam. Takole, počasi … Izvoli, ta je pa dobra!",
+          "en": "That's why I always stir now. Like this, slowly … Here you are, this one's good!",
+          "de": "Darum rühre ich jetzt immer um. So, langsam … Bitte, die ist gut!",
+          "it": "Per questo ora mescolo sempre. Così, piano … Tieni, questa sì che è buona!"
+        }
+      ]
+    },
+    {
+      "id": "drva-b1-zima",
+      "level": "B1",
+      "memory": {
+        "sl": "dan, ko sva se dogovorila za drva za zimo",
+        "en": "the day we agreed on the firewood for winter",
+        "de": "den Tag, an dem wir das Holz für den Winter abgemacht haben",
+        "it": "il giorno in cui ci siamo accordati sulla legna per l'inverno"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Dober dan, {learner}. Za zimo bomo potrebovali vsaj pet vozov drv. Do zdaj so pripeljani trije.",
+          "en": "Good afternoon, {learner}. For the winter we'll need at least five cartloads of wood. So far three have been brought in.",
+          "de": "Guten Tag, {learner}. Für den Winter brauchen wir mindestens fünf Fuhren Holz. Bis jetzt sind drei hergebracht.",
+          "it": "Buongiorno, {learner}. Per l'inverno ci serviranno almeno cinque carri di legna. Finora ne sono stati portati tre."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem manjkata še dva. Ju lahko pripeljeva jutri?",
+              "en": "Then two are still missing. Can we bring them tomorrow?",
+              "de": "Dann fehlen noch zwei. Können wir die morgen holen?",
+              "it": "Allora ne mancano ancora due. Li portiamo domani?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Jutri, ja. Ob sedmih, preden se ogreje.",
+                "en": "Tomorrow, yes. At seven, before it warms up.",
+                "de": "Morgen, ja. Um sieben, bevor es warm wird.",
+                "it": "Domani, sì. Alle sette, prima che faccia caldo."
+              }
+            },
+            {
+              "sl": "Potem manjkajo še dva. Ju lahko pripeljeva jutri?",
+              "en": "Then two (plural verb) are still missing. Can we bring them tomorrow?",
+              "de": "Dann fehlen (Plural) noch zwei. Können wir die morgen holen?",
+              "it": "Allora ne mancano (plurale) ancora due. Li portiamo domani?",
+              "grammar": "stevila-glagol",
+              "why": {
+                "en": "Two takes the dual verb: manjkata še dva. Manjkajo is for three or four.",
+                "de": "Zwei verlangt das Verb im Dual: manjkata še dva. Manjkajo gilt für drei oder vier.",
+                "it": "Due vuole il verbo al duale: manjkata še dva. Manjkajo è per tre o quattro."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Manjkajo? Koliko pa jih je še? Saj sem rekel pet!",
+                "en": "Manjkajo? How many more are there, then? I said five!",
+                "de": "Manjkajo? Wie viele fehlen denn noch? Ich habe doch fünf gesagt!",
+                "it": "Manjkajo? E quanti ne mancano? Ho detto cinque!"
+              }
+            },
+            {
+              "sl": "Potem manjka še dva. Ju lahko pripeljeva jutri?",
+              "en": "Then two (singular verb) is still missing. Can we bring them tomorrow?",
+              "de": "Dann fehlt (Einzahl) noch zwei. Können wir die morgen holen?",
+              "it": "Allora ne manca (singolare) ancora due. Li portiamo domani?",
+              "grammar": "stevila-glagol",
+              "why": {
+                "en": "Only from five up is the verb singular (manjka še pet); two takes the dual: manjkata.",
+                "de": "Erst ab fünf steht das Verb im Singular (manjka še pet); zwei verlangt den Dual: manjkata.",
+                "it": "Solo da cinque in su il verbo è al singolare (manjka še pet); due vuole il duale: manjkata."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Manjka? Kot pri petih? Ne, ne, dva vozova!",
+                "en": "Manjka? As with five? No, no, two cartloads!",
+                "de": "Manjka? Wie bei fünf? Nein, nein, zwei Fuhren!",
+                "it": "Manjka? Come per cinque? No, no, due carri!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Lani je bila zima tako dolga, da so nam drva pošla že februarja.",
+          "en": "Last year the winter was so long that we ran out of wood as early as February.",
+          "de": "Letztes Jahr war der Winter so lang, dass uns das Holz schon im Februar ausging.",
+          "it": "L'anno scorso l'inverno è stato così lungo che la legna ci è finita già a febbraio."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi letos pripravili šest vozov, bi bili mirni do pomladi.",
+              "en": "If we got six cartloads ready this year, we'd be at ease until spring.",
+              "de": "Wenn wir heuer sechs Fuhren bereitlegen würden, hätten wir bis zum Frühling Ruhe.",
+              "it": "Se quest'anno preparassimo sei carri, staremmo tranquilli fino a primavera.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pametno. Šest vozov … sedem, sedem, da bo dovolj.",
+                "en": "Sensible. Six cartloads … seven, seven, to be sure.",
+                "de": "Klug. Sechs Fuhren … sieben, sieben, damit es reicht.",
+                "it": "Saggio. Sei carri … sette, sette, così basta di sicuro."
+              }
+            },
+            {
+              "sl": "Če bi letos pripravili šest vozov, bomo mirni do pomladi.",
+              "en": "If we were to get six cartloads ready this year, we will be at ease until spring.",
+              "de": "Wenn wir heuer sechs Fuhren bereitlegen würden, werden wir bis zum Frühling Ruhe haben.",
+              "it": "Se quest'anno preparassimo sei carri, staremo tranquilli fino a primavera.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "An imagined condition takes the conditional in both halves: če bi pripravili, bi bili mirni.",
+                "de": "Eine gedachte Bedingung steht in beiden Hälften im Konditional: če bi pripravili, bi bili mirni.",
+                "it": "Una condizione immaginata vuole il condizionale in tutte e due le parti: če bi pripravili, bi bili mirni."
+              },
+              "reply": {
+                "face": "thinking",
+                "sl": "Bomo? Najprej jih je treba nasekati, {learner}!",
+                "en": "We will? First they have to be chopped, {learner}!",
+                "de": "Werden wir? Erst muss man es hacken, {learner}!",
+                "it": "Staremo? Prima bisogna spaccarla, {learner}!"
+              }
+            },
+            {
+              "sl": "Če bi letos pripravili šest vozov, bi bili lačni do pomladi.",
+              "en": "If we got six cartloads ready this year, we'd be hungry until spring.",
+              "de": "Wenn wir heuer sechs Fuhren bereitlegen würden, hätten wir bis zum Frühling Hunger.",
+              "it": "Se quest'anno preparassimo sei carri, avremmo fame fino a primavera.",
+              "why": {
+                "en": "More wood means a warm winter: you'd be mirni (at ease), not hungry.",
+                "de": "Mehr Holz heißt ein warmer Winter: ihr hättet Ruhe (mirni), keinen Hunger.",
+                "it": "Più legna vuol dire un inverno caldo: stareste tranquilli (mirni), non affamati."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Lačni? Od drv? Drva se ne jedo, {learner}!",
+                "en": "Hungry? From wood? You don't eat firewood, {learner}!",
+                "de": "Hungrig? Vom Holz? Holz isst man nicht, {learner}!",
+                "it": "Affamati? Per la legna? La legna non si mangia, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Če ti bo kdaj zmanjkalo drv, kar pridi k meni. Sosedje smo.",
+          "en": "If you ever run out of wood, just come to me. We're neighbours.",
+          "de": "Wenn dir einmal das Holz ausgeht, komm einfach zu mir. Wir sind Nachbarn.",
+          "it": "Se ti dovesse mai finire la legna, vieni pure da me. Siamo vicini."
+        }
+      ]
+    },
+    {
+      "id": "drva-b2-hrast",
+      "level": "B2",
+      "memory": {
+        "sl": "pradedov hrast, o katerem sva se pogovarjala",
+        "en": "my great-grandfather's oak we talked about",
+        "de": "die Eiche meines Urgroßvaters, über die wir gesprochen haben",
+        "it": "la quercia del mio bisnonno di cui abbiamo parlato"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Veš, {learner}, za kozolcem stoji star hrast, ki ga je posadil moj praded. Letos ga je udarila strela.",
+          "en": "You know, {learner}, behind the hayrack stands an old oak my great-grandfather planted. This year lightning struck it.",
+          "de": "Weißt du, {learner}, hinter der Harpfe steht eine alte Eiche, die mein Urgroßvater gepflanzt hat. Heuer hat sie der Blitz getroffen.",
+          "it": "Sai, {learner}, dietro il fienile a rastrelliera c'è una vecchia quercia piantata dal mio bisnonno. Quest'anno l'ha colpita un fulmine."
+        },
+        {
+          "who": "france",
+          "face": "sad",
+          "sl": "Pol krošnje je suhe. Bi ga bilo treba posekati, ali naj ga pustim stati?",
+          "en": "Half the crown is dead. Ought it to be felled, or should I leave it standing?",
+          "de": "Die halbe Krone ist dürr. Müsste man sie fällen, oder soll ich sie stehen lassen?",
+          "it": "Mezza chioma è secca. Bisognerebbe abbatterla, o devo lasciarla in piedi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda je škoda, ampak suh hrast se lahko ob burji podre na kozolec.",
+              "en": "Of course it's a pity, but a dead oak could come down on the hayrack when the burja blows.",
+              "de": "Natürlich ist es schade, aber eine dürre Eiche kann bei Bora auf die Harpfe stürzen.",
+              "it": "Certo che è un peccato, ma una quercia secca con la bora può cadere sul fienile.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Prav imaš. Kozolec je pa tudi pradedov. Hm …",
+                "en": "You're right. And the hayrack was my great-grandfather's too. Hm …",
+                "de": "Du hast recht. Und die Harpfe ist auch vom Urgroßvater. Hm …",
+                "it": "Hai ragione. E anche il fienile è del bisnonno. Mm …"
+              }
+            },
+            {
+              "sl": "Seveda je škoda, ampak suh hrast se lahko ob burjo podre na kozolec.",
+              "en": "Of course it's a pity, but a dead oak could come down on the hayrack against (?) the burja.",
+              "de": "Natürlich ist es schade, aber eine dürre Eiche kann gegen (?) die Bora auf die Harpfe stürzen.",
+              "it": "Certo che è un peccato, ma una quercia secca contro (?) la bora può cadere sul fienile.",
+              "grammar": "predlogi-dva-sklona",
+              "why": {
+                "en": "At the time of the burja: ob + the locative, ob burji. Ob + the accusative is against something, or losing it.",
+                "de": "Zur Zeit der Bora: ob + Lokativ, ob burji. Ob + Akkusativ heißt gegen etwas, oder etwas verlieren.",
+                "it": "Al momento della bora: ob + il locativo, ob burji. Ob + l'accusativo vuol dire contro qualcosa, o perderla."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ob burjo? Burje pa res ne bomo izgubili, {learner}!",
+                "en": "Ob burjo? We certainly won't lose the burja, {learner}!",
+                "de": "Ob burjo? Die Bora verlieren wir bestimmt nicht, {learner}!",
+                "it": "Ob burjo? La bora non la perderemo di certo, {learner}!"
+              }
+            },
+            {
+              "sl": "Posekajte ga, saj je samo drevo.",
+              "en": "Fell it, it's only a tree.",
+              "de": "Fällen Sie sie, es ist doch nur ein Baum.",
+              "it": "La abbatta, è solo un albero.",
+              "why": {
+                "en": "France cares for the oak his great-grandfather planted: weigh it (seveda …, ampak …), don't brush it off.",
+                "de": "France hängt an der Eiche seines Urgroßvaters: wäg ab (seveda …, ampak …), statt sie abzutun.",
+                "it": "France tiene alla quercia del bisnonno: soppesa (seveda …, ampak …), non liquidarla."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Samo drevo? Starejše je od vseh nas, {learner}.",
+                "en": "Only a tree? It's older than all of us, {learner}.",
+                "de": "Nur ein Baum? Sie ist älter als wir alle, {learner}.",
+                "it": "Solo un albero? È più vecchia di tutti noi, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Če bi bila strela udarila v kozolec namesto v hrast, bi bilo zgorelo vse seno.",
+          "en": "If the lightning had struck the hayrack instead of the oak, all the hay would have burnt.",
+          "de": "Hätte der Blitz statt der Eiche die Harpfe getroffen, wäre das ganze Heu verbrannt.",
+          "it": "Se il fulmine avesse colpito il fienile invece della quercia, sarebbe bruciato tutto il fieno."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tudi posekan hrast lahko še dolgo služi. Iz njega bo lepa klop.",
+              "en": "Even a felled oak can serve a long time yet. It'll make a fine bench.",
+              "de": "Auch eine gefällte Eiche kann noch lange dienen. Aus ihr wird eine schöne Bank.",
+              "it": "Anche una quercia abbattuta può servire ancora a lungo. Ne verrà una bella panca.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Klop iz pradedovega hrasta … Ja. Na njej bo sedel moj vnuk, ko bo star kot jaz.",
+                "en": "A bench from my great-grandfather's oak … Yes. My grandson will sit on it when he's as old as me.",
+                "de": "Eine Bank aus Urgroßvaters Eiche … Ja. Darauf wird mein Enkel sitzen, wenn er so alt ist wie ich.",
+                "it": "Una panca dalla quercia del bisnonno … Sì. Ci si siederà mio nipote, quando avrà la mia età."
+              }
+            },
+            {
+              "sl": "Tudi posekana hrast lahko še dolgo služi. Iz njega bo lepa klop.",
+              "en": "Even a felled (feminine) oak can serve a long time yet. It'll make a fine bench.",
+              "de": "Auch eine gefällte (weiblich) Eiche kann noch lange dienen. Aus ihr wird eine schöne Bank.",
+              "it": "Anche una quercia abbattuta (femminile?) può servire ancora a lungo. Ne verrà una bella panca.",
+              "grammar": "delezniki",
+              "why": {
+                "en": "A participle used as an adjective agrees with its noun: hrast is masculine, so posekan.",
+                "de": "Ein Partizip als Adjektiv richtet sich nach seinem Nomen: hrast ist männlich, also posekan.",
+                "it": "Un participio usato come aggettivo si accorda col suo nome: hrast è maschile, quindi posekan."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Posekana? Kdo, krošnja? Hrast je on, {learner}.",
+                "en": "Felled (feminine)? Who, the crown? The oak is a he, {learner}.",
+                "de": "Gefällt, weiblich? Wer, die Krone? Hrast ist männlich, {learner}.",
+                "it": "Abbattuta? Chi, la chioma? Hrast è maschile, {learner}."
+              }
+            },
+            {
+              "sl": "Tudi posekan hrast lahko še dolgo raste. Iz njega bo lepa klop.",
+              "en": "Even a felled oak can grow a long time yet. It'll make a fine bench.",
+              "de": "Auch eine gefällte Eiche kann noch lange wachsen. Aus ihr wird eine schöne Bank.",
+              "it": "Anche una quercia abbattuta può crescere ancora a lungo. Ne verrà una bella panca.",
+              "why": {
+                "en": "A felled oak no longer grows; its wood can still serve (služi), as a bench.",
+                "de": "Eine gefällte Eiche wächst nicht mehr; ihr Holz kann aber noch dienen (služi), als Bank.",
+                "it": "Una quercia abbattuta non cresce più; il suo legno può ancora servire (služi), come panca."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Raste? Brez korenin? To bi bil pa čudež.",
+                "en": "Grow? Without roots? That would be a miracle.",
+                "de": "Wachsen? Ohne Wurzeln? Das wäre ein Wunder.",
+                "it": "Crescere? Senza radici? Sarebbe un miracolo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Prav. Jutri ga posekava. Ti boš {m:štel|f:štela} letnice, jaz pa bom žagal.",
+          "en": "Right. Tomorrow we'll fell it. You'll count the rings, and I'll saw.",
+          "de": "Gut. Morgen fällen wir sie. Du zählst die Jahresringe, und ich säge.",
+          "it": "Va bene. Domani la abbattiamo. Tu conterai gli anelli, io segherò."
+        }
       ]
     }
   ]
