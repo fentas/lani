@@ -268,6 +268,36 @@ COPULAS = [
     v("heißen", p2="heißt", p3="heißt", past="hieß", pp="geheißen"),
 ]
 
+# A verb, an adjective or a noun with a fixed preposition, and the case the chunk takes (verben-praepositionen,
+# adjektive-praepositionen): with a two-way preposition the chunk decides, not wo or wohin (Ich warte auf den Bus).
+def chunk(verb, prep, case, rule="verben-praepositionen", **kw):
+    d = v(verb, **kw)
+    return {"lemma": d["lemma"], "forms": d["forms"], **({"particle": d["particle"], "joined": d["joined"]} if "particle" in d else {}), "preposition": prep, "case": case, "rule": rule}
+
+
+CHUNKS = [
+    chunk("warten", "auf", "acc"), chunk("freuen", "auf", "acc"), chunk("freuen", "über", "acc"), chunk("aufpassen", "auf", "acc", particle="auf", p2="passt", p3="passt", pp="gepasst"),
+    chunk("denken", "an", "acc", past="dachte", pp="gedacht"), chunk("schreiben", "an", "acc", past="schrieb", pp="geschrieben"),
+    chunk("sprechen", "über", "acc", p2="sprichst", p3="spricht", past="sprach", pp="gesprochen", imp="sprich"),
+    chunk("reden", "über", "acc"), chunk("lachen", "über", "acc"), chunk("ärgern", "über", "acc", extra="ärgere ärgerst ärgert ärgerte geärgert"),
+    chunk("bitten", "um", "acc", past="bat", pp="gebeten"), chunk("kümmern", "um", "acc", extra="kümmere kümmerst kümmert kümmerte gekümmert"),
+    chunk("interessieren", "für", "acc", pp="interessiert"), chunk("erinnern", "an", "acc", extra="erinnere erinnerst erinnert erinnerte"),
+    chunk("glauben", "an", "acc"), chunk("gewöhnen", "an", "acc", pp="gewöhnt"), chunk("hoffen", "auf", "acc"), chunk("achten", "auf", "acc"),
+    chunk("verlieben", "in", "acc", pp="verliebt"), chunk("verlassen", "auf", "acc", p2="verlässt", p3="verlässt", past="verließ", pp="verlassen"),
+    chunk("träumen", "von", "dat"), chunk("erzählen", "von", "dat", pp="erzählt"), chunk("fragen", "nach", "dat"),
+    chunk("teilnehmen", "an", "dat", particle="teil", p2="nimmst", p3="nimmt", past="nahm", pp="genommen", imp="nimm"),
+    chunk("fürchten", "vor", "dat"), chunk("schützen", "vor", "dat", p2="schützt", pp="geschützt"),
+    {"lemma": "angst", "forms": ["angst"], "preposition": "vor", "case": "dat", "rule": "verben-praepositionen"},
+    {"lemma": "stolz", "forms": ["stolz"], "preposition": "auf", "case": "acc", "rule": "adjektive-praepositionen"},
+    {"lemma": "gespannt", "forms": ["gespannt"], "preposition": "auf", "case": "acc", "rule": "adjektive-praepositionen"},
+    {"lemma": "neugierig", "forms": ["neugierig"], "preposition": "auf", "case": "acc", "rule": "adjektive-praepositionen"},
+    {"lemma": "froh", "forms": ["froh"], "preposition": "über", "case": "acc", "rule": "adjektive-praepositionen"},
+    {"lemma": "verliebt", "forms": ["verliebt"], "preposition": "in", "case": "acc", "rule": "adjektive-praepositionen"},
+    {"lemma": "lust", "forms": ["lust"], "preposition": "auf", "case": "acc", "rule": "adjektive-praepositionen"},
+    {"lemma": "interessiert", "forms": ["interessiert"], "preposition": "an", "case": "dat", "rule": "adjektive-praepositionen"},
+    {"lemma": "interesse", "forms": ["interesse"], "preposition": "an", "case": "dat", "rule": "adjektive-praepositionen"},
+]
+
 # --- prepositions ------------------------------------------------------------------------------------------------
 
 def take(case, sense, rule, **kw):
@@ -281,7 +311,7 @@ PREPOSITIONS = [
     {"words": ["für"], "takes": [take("acc", "for", "praepositionen-akkusativ")], "examples": [ex("Das Geschenk ist für den Opa.", "The present is for Grandpa.", "Opa", "acc", "sg", "für")]},
     {"words": ["gegen"], "takes": [take("acc", "other", "praepositionen-akkusativ")], "examples": [ex("Wir laufen gegen den Wind.", "We run against the wind.", "Wind", "acc", "sg", "gegen")]},
     {"words": ["ohne"], "takes": [take("acc", "other", "praepositionen-akkusativ")], "examples": [ex("Kathi geht ohne ihren Hut.", "Kathi goes without her hat.", "Hut", "acc", "sg", "ohne")]},
-    {"words": ["um"], "takes": [take("acc", "other", "praepositionen-akkusativ")], "examples": [ex("Wir gehen um den See.", "We walk round the lake.", "See", "acc", "sg", "um")]},
+    {"words": ["um"], "takes": [take("acc", "other", "praepositionen-akkusativ", time="uhrzeit")], "examples": [ex("Wir gehen um den See.", "We walk round the lake.", "See", "acc", "sg", "um")]},
     {"words": ["bis"], "takes": [take("acc", "time", "praepositionen-akkusativ")], "examples": [ex("Das Fest dauert bis nächsten Sonntag.", "The fair lasts until next Sunday.", "Sonntag", "acc", "sg", "bis")]},
     # the dative always
     {"words": ["aus"], "takes": [take("dat", "from", "praepositionen-dativ")], "examples": [ex("Franz kommt aus dem Stall.", "Franz comes out of the barn.", "Stall", "dat", "sg", "aus")]},
@@ -296,9 +326,9 @@ PREPOSITIONS = [
     {"words": ["ab"], "takes": [take("dat", "time", "praepositionen-dativ")], "examples": [ex("Ab dem ersten Mai ist die Hütte offen.", "From the first of May the hut is open.", "Mai", "dat", "sg", "Ab")]},
     {"words": ["samt", "nebst"], "takes": [take("dat", "with", "praepositionen-dativ")], "examples": [ex("Er kam samt seinem Hund.", "He came along with his dog.", "Hund", "dat", "sg", "samt")]},
     # the two-way prepositions: where to (motion) the accusative, where (rest) the dative
-    {"words": ["in"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY, time="wechselpraepositionen")],
+    {"words": ["in"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY, time="uhrzeit")],
      "examples": [ex("Wir gehen in die Hütte.", "We go into the hut.", "Hütte", "acc", "sg", "in"), ex("Wir sind in der Hütte.", "We're in the hut.", "Hütte", "dat", "sg", "in")]},
-    {"words": ["an"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY)],
+    {"words": ["an"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY, time="uhrzeit")],
      "examples": [ex("Wir fahren an den See.", "We're driving to the lake.", "See", "acc", "sg", "an"), ex("Das Bild hängt an der Wand.", "The picture hangs on the wall.", "Wand", "dat", "sg", "an")]},
     {"words": ["auf"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY)],
      "examples": [ex("Die Kühe gehen auf die Alm.", "The cows go up to the pasture.", "Alm", "acc", "sg", "auf"), ex("Die Kühe sind auf der Alm.", "The cows are on the pasture.", "Alm", "dat", "sg", "auf")]},
@@ -306,7 +336,7 @@ PREPOSITIONS = [
      "examples": [ex("Wir gehen über die Brücke.", "We walk over the bridge.", "Brücke", "acc", "sg", "über"), ex("Die Lampe hängt über dem Tisch.", "The lamp hangs above the table.", "Tisch", "dat", "sg", "über")]},
     {"words": ["unter"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY)],
      "examples": [ex("Die Katze liegt unter dem Tisch.", "The cat lies under the table.", "Tisch", "dat", "sg", "unter"), ex("Die Katze kriecht unter den Tisch.", "The cat crawls under the table.", "Tisch", "acc", "sg", "unter")]},
-    {"words": ["vor"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY)],
+    {"words": ["vor"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY, time="uhrzeit")],
      "examples": [ex("Das Auto steht vor dem Haus.", "The car is in front of the house.", "Haus", "dat", "sg", "vor"), ex("Stell das Auto vor das Haus!", "Put the car in front of the house!", "Haus", "acc", "sg", "vor")]},
     {"words": ["hinter"], "takes": [take("acc", "motion", TWO_WAY), take("dat", "rest", TWO_WAY)],
      "examples": [ex("Der Hund schläft hinter dem Ofen.", "The dog sleeps behind the stove.", "Ofen", "dat", "sg", "hinter")]},
@@ -424,6 +454,7 @@ T = {
     "adjective_fixed": ["rosa", "lila", "prima", "super", "klasse", "beige"],
     "prepositions": PREPOSITIONS,
     "contractions": CONTRACTIONS,
+    "chunks": CHUNKS,
     "verbs": DATIVE_VERBS + GIVING_VERBS + GENITIVE_VERBS,
     "predicates": [
         {"words": ["kalt", "warm", "heiß", "langweilig", "schlecht", "übel", "schwindlig", "recht", "egal", "wohl"], "case": "dat", "rule": "dativ",

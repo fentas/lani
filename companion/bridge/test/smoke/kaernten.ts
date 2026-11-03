@@ -14,6 +14,7 @@ import { validatePack } from '../../src/packs'
 import { allLines } from '../../src/villagers'
 import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, guideOf, languageBook, port as smokePort, tempDir } from './harness'
 import { villageTalks } from './village-talks'
+import { caseDeLive } from './case-de'
 
 const repo = resolve(import.meta.dir, '../../../..')
 // not 8797 (the QA's dev town) nor a learner's port: next to the smoke's own, as the towns' is
@@ -184,6 +185,9 @@ export default async function kaernten() {
     const heard = await fetch(`${base}/stt?prompt=Servus`, { method: 'POST', headers: { authorization: auth.authorization, 'content-type': 'audio/mp4' }, body: take })
     bridgeWhisper.st.languages = models
     check("kaernten: POST /stt without a language recognizes German, the village's", heard.ok && bridgeWhisper.st.calls.at(-1)?.query.language === 'de', bridgeWhisper.st.calls.at(-1)?.query)
+
+    // --- German's cases: the trainer's bank, the lens, the tutor's tools (test/smoke/case-de.ts) ------------------------
+    await caseDeLive(base, auth, client)
   } finally {
     await client.close()
   }

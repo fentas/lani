@@ -133,6 +133,11 @@ export const caseTriggersDeSchema = z.strictObject({
   adjective_fixed: z.array(word),
   prepositions: z.array(prepositionEntry).min(1),
   contractions: z.array(contractionEntry),
+  /**
+   * A verb, an adjective or a noun with a fixed preposition (warten auf, stolz auf, Angst vor), its forms, the case the
+   * chunk takes: with a two-way preposition the chunk decides, not wo or wohin.
+   */
+  chunks: z.array(z.strictObject({ ...verbForms, preposition: word, case: caseKey, rule: page })),
   verbs: z.array(verbEntry).min(1),
   predicates: z.array(z.strictObject({ words, case: caseKey, rule: page, examples })),
   motion: z.array(z.strictObject(verbForms)).min(1),
@@ -165,6 +170,7 @@ export type CaseTriggersDe = z.infer<typeof caseTriggersDeSchema>
 export type DePreposition = CaseTriggersDe['prepositions'][number]
 export type DeVerb = CaseTriggersDe['verbs'][number]
 export type DeVerbForms = CaseTriggersDe['motion'][number]
+export type DeChunk = CaseTriggersDe['chunks'][number]
 
 /**
  * German's table checked: its schema, the cases in the course's order with their ids, the Austrian numbers, the colours
@@ -216,7 +222,7 @@ export function validateCaseTriggersDe(input: unknown, pages?: Set<string>): { o
     const rules = [
       ...t.cases.map(c => c.page),
       ...t.prepositions.flatMap(p => p.takes.flatMap(x => [x.rule, ...(x.time ? [x.time] : [])])),
-      ...t.verbs.map(v => v.rule), ...t.predicates.map(p => p.rule), ...t.phrases.map(p => p.rule),
+      ...t.verbs.map(v => v.rule), ...t.chunks.map(c => c.rule), ...t.predicates.map(p => p.rule), ...t.phrases.map(p => p.rule),
       t.relative.rule, t.time.rule, t.time_genitive.rule, ...Object.values(t.roles).map(r => r.rule),
     ]
     for (const r of new Set(rules)) if (!pages.has(r)) errors.push(`rule "${r}": no such page in the grammar book`)

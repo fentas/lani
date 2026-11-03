@@ -8,7 +8,7 @@
 // learner's nouns by the rules of german-forms.ts, as the app does (data/GermanForms.kt).
 import { z } from 'zod'
 import { DE_CASE_IDS, DE_CASE_KEYS, DE_CASE_PAGES, type DeCaseKey, type DeGenderKey } from './case-triggers-de'
-import { bareNoun, type DeNumber, type GermanForms } from './german-forms'
+import { bareNoun, dictPlural, type DeNumber, type GermanForms } from './german-forms'
 import { normalizeForm, type Lexicon } from './lexicon'
 
 /** German's case ids in the course's order (Nominativ, Akkusativ, Dativ, Genitiv), the bank's and the wire's. */
@@ -182,7 +182,10 @@ const norm = (s: string) => normalizeForm(s, 'de')
 
 /** What the item's article must be: the slot's form of a determiner, and the noun's forms by its rules (where they are sure). */
 function nounOf(c: CaseCheckDe, lemma: string, gender: DeGenderKey): { gender: DeGenderKey; plural?: string } {
-  return c.nouns.get(lemma) ?? { gender }
+  const pack = c.nouns.get(lemma)
+  if (pack?.plural) return pack
+  const plural = dictPlural(c.dict, lemma)
+  return { gender: pack?.gender ?? gender, ...(plural ? { plural } : {}) }
 }
 
 /** The problems of German items (each "<id>: …"), and how many noun phrases the rules judged. */

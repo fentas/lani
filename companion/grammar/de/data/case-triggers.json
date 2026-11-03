@@ -471,7 +471,7 @@
     },
     {
       "words": ["um"],
-      "takes": [{"case": "acc", "sense": "other", "rule": "praepositionen-akkusativ"}],
+      "takes": [{"case": "acc", "sense": "other", "rule": "praepositionen-akkusativ", "time": "uhrzeit"}],
       "examples": [
         {
           "de": "Wir gehen um den See.",
@@ -663,7 +663,7 @@
       "words": ["in"],
       "takes": [
         {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
-        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen", "time": "wechselpraepositionen"}
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen", "time": "uhrzeit"}
       ],
       "examples": [
         {
@@ -688,7 +688,7 @@
       "words": ["an"],
       "takes": [
         {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
-        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen", "time": "uhrzeit"}
       ],
       "examples": [
         {
@@ -788,7 +788,7 @@
       "words": ["vor"],
       "takes": [
         {"case": "acc", "sense": "motion", "rule": "wechselpraepositionen"},
-        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen"}
+        {"case": "dat", "sense": "rest", "rule": "wechselpraepositionen", "time": "uhrzeit"}
       ],
       "examples": [
         {
@@ -1012,6 +1012,260 @@
     {"form": "vorm", "preposition": "vor", "article": "dem", "case": "dat", "genders": ["m", "n"]},
     {"form": "hinterm", "preposition": "hinter", "article": "dem", "case": "dat", "genders": ["m", "n"]},
     {"form": "aufm", "preposition": "auf", "article": "dem", "case": "dat", "genders": ["m", "n"], "spoken": true}
+  ],
+  "chunks": [
+    {
+      "lemma": "warten",
+      "forms": ["warten", "warte", "wartest", "wartet", "wartete", "wartetest", "warteten", "wartetet", "gewartet", "wart"],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "freuen",
+      "forms": ["freuen", "freue", "freust", "freut", "freute", "freutest", "freuten", "freutet", "gefreut", "freu"],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "freuen",
+      "forms": ["freuen", "freue", "freust", "freut", "freute", "freutest", "freuten", "freutet", "gefreut", "freu"],
+      "preposition": "über",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "aufpassen",
+      "forms": ["passen", "passe", "passt", "passte", "passtest", "passten", "passtet", "gepasst", "pass"],
+      "particle": "auf",
+      "joined": [
+        "aufgepasst", "aufpass", "aufpasse", "aufpassen", "aufpasst", "aufpasste", "aufpassten", "aufpasstest",
+        "aufpasstet", "aufzupassen"
+      ],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "denken",
+      "forms": ["denken", "denke", "denkst", "denkt", "dachte", "dachtest", "dachten", "dachtet", "gedacht", "denk"],
+      "preposition": "an",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "schreiben",
+      "forms": [
+        "schreiben", "schreibe", "schreibst", "schreibt", "schrieb", "schriebst", "schrieben", "schriebt",
+        "geschrieben", "schreib"
+      ],
+      "preposition": "an",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "sprechen",
+      "forms": [
+        "sprechen", "spreche", "sprichst", "spricht", "sprecht", "sprach", "sprachst", "sprachen", "spracht",
+        "gesprochen", "sprich"
+      ],
+      "preposition": "über",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "reden",
+      "forms": ["reden", "rede", "redest", "redet", "redete", "redetest", "redeten", "redetet", "geredet", "red"],
+      "preposition": "über",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "lachen",
+      "forms": ["lachen", "lache", "lachst", "lacht", "lachte", "lachtest", "lachten", "lachtet", "gelacht", "lach"],
+      "preposition": "über",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "ärgern",
+      "forms": ["ärgern", "ärgere", "ärgerst", "ärgert", "ärgerte", "ärgertest", "ärgerten", "ärgertet", "geärgert", "ärger"],
+      "preposition": "über",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "bitten",
+      "forms": ["bitten", "bitte", "bittest", "bittet", "bat", "batest", "baten", "batet", "gebeten", "bitt"],
+      "preposition": "um",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "kümmern",
+      "forms": [
+        "kümmern", "kümmere", "kümmerst", "kümmert", "kümmerte", "kümmertest", "kümmerten", "kümmertet", "gekümmert",
+        "kümmer"
+      ],
+      "preposition": "um",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "interessieren",
+      "forms": [
+        "interessieren", "interessiere", "interessierst", "interessiert", "interessierte", "interessiertest",
+        "interessierten", "interessiertet", "interessier"
+      ],
+      "preposition": "für",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "erinnern",
+      "forms": [
+        "erinnern", "erinnere", "erinnerst", "erinnert", "erinnerte", "erinnertest", "erinnerten", "erinnertet",
+        "geerinnert", "erinner"
+      ],
+      "preposition": "an",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "glauben",
+      "forms": ["glauben", "glaube", "glaubst", "glaubt", "glaubte", "glaubtest", "glaubten", "glaubtet", "geglaubt", "glaub"],
+      "preposition": "an",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "gewöhnen",
+      "forms": ["gewöhnen", "gewöhne", "gewöhnst", "gewöhnt", "gewöhnte", "gewöhntest", "gewöhnten", "gewöhntet", "gewöhn"],
+      "preposition": "an",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "hoffen",
+      "forms": ["hoffen", "hoffe", "hoffst", "hofft", "hoffte", "hofftest", "hofften", "hofftet", "gehofft", "hoff"],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "achten",
+      "forms": ["achten", "achte", "achtest", "achtet", "achtete", "achtetest", "achteten", "achtetet", "geachtet", "acht"],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "verlieben",
+      "forms": [
+        "verlieben", "verliebe", "verliebst", "verliebt", "verliebte", "verliebtest", "verliebten", "verliebtet",
+        "verlieb"
+      ],
+      "preposition": "in",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "verlassen",
+      "forms": ["verlassen", "verlasse", "verlässt", "verlasst", "verließ", "verließst", "verließen", "verließt", "verlass"],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "träumen",
+      "forms": ["träumen", "träume", "träumst", "träumt", "träumte", "träumtest", "träumten", "träumtet", "geträumt", "träum"],
+      "preposition": "von",
+      "case": "dat",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "erzählen",
+      "forms": ["erzählen", "erzähle", "erzählst", "erzählt", "erzählte", "erzähltest", "erzählten", "erzähltet", "erzähl"],
+      "preposition": "von",
+      "case": "dat",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "fragen",
+      "forms": ["fragen", "frage", "fragst", "fragt", "fragte", "fragtest", "fragten", "fragtet", "gefragt", "frag"],
+      "preposition": "nach",
+      "case": "dat",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "teilnehmen",
+      "forms": ["nehmen", "nehme", "nimmst", "nimmt", "nehmt", "nahm", "nahmst", "nahmen", "nahmt", "genommen", "nimm"],
+      "particle": "teil",
+      "joined": [
+        "teilgenommen", "teilnahm", "teilnahmen", "teilnahmst", "teilnahmt", "teilnehme", "teilnehmen", "teilnehmt",
+        "teilnimm", "teilnimmst", "teilnimmt", "teilzunehmen"
+      ],
+      "preposition": "an",
+      "case": "dat",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "fürchten",
+      "forms": [
+        "fürchten", "fürchte", "fürchtest", "fürchtet", "fürchtete", "fürchtetest", "fürchteten", "fürchtetet",
+        "gefürchtet", "fürcht"
+      ],
+      "preposition": "vor",
+      "case": "dat",
+      "rule": "verben-praepositionen"
+    },
+    {
+      "lemma": "schützen",
+      "forms": ["schützen", "schütze", "schützt", "schützte", "schütztest", "schützten", "schütztet", "geschützt", "schütz"],
+      "preposition": "vor",
+      "case": "dat",
+      "rule": "verben-praepositionen"
+    },
+    {"lemma": "angst", "forms": ["angst"], "preposition": "vor", "case": "dat", "rule": "verben-praepositionen"},
+    {"lemma": "stolz", "forms": ["stolz"], "preposition": "auf", "case": "acc", "rule": "adjektive-praepositionen"},
+    {
+      "lemma": "gespannt",
+      "forms": ["gespannt"],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "adjektive-praepositionen"
+    },
+    {
+      "lemma": "neugierig",
+      "forms": ["neugierig"],
+      "preposition": "auf",
+      "case": "acc",
+      "rule": "adjektive-praepositionen"
+    },
+    {"lemma": "froh", "forms": ["froh"], "preposition": "über", "case": "acc", "rule": "adjektive-praepositionen"},
+    {
+      "lemma": "verliebt",
+      "forms": ["verliebt"],
+      "preposition": "in",
+      "case": "acc",
+      "rule": "adjektive-praepositionen"
+    },
+    {"lemma": "lust", "forms": ["lust"], "preposition": "auf", "case": "acc", "rule": "adjektive-praepositionen"},
+    {
+      "lemma": "interessiert",
+      "forms": ["interessiert"],
+      "preposition": "an",
+      "case": "dat",
+      "rule": "adjektive-praepositionen"
+    },
+    {
+      "lemma": "interesse",
+      "forms": ["interesse"],
+      "preposition": "an",
+      "case": "dat",
+      "rule": "adjektive-praepositionen"
+    }
   ],
   "verbs": [
     {

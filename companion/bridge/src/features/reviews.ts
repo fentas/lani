@@ -55,13 +55,14 @@ import { LANGUAGES } from '../learners'
 export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images', 'forms-cards', 'cases'] as const
 
 /**
- * What makes counting and forms cards is Slovene's (its numerals, cases and dual), and so is the case trainer (GET /cases,
- * POST /cases/done: features/cases.ts): a village in another language says none of them.
+ * What makes counting and forms cards is Slovene's (its numerals, cases and dual); the case trainer (GET /cases, POST
+ * /cases/done: features/cases.ts) is Slovene's and German's (its four cases): a village in another language says none.
+ * An older app in a German village never asks for the trainer (its own list of languages is Slovene's alone).
  */
-const SLOVENE_ONLY = new Set<string>(['counting', 'forms-cards', 'cases'])
+const ONLY_IN: Record<string, ReadonlySet<string>> = { counting: new Set(['sl']), 'forms-cards': new Set(['sl']), cases: new Set(['sl', 'de']) }
 
 /** [STATE_FEATURES] as a bridge whose village speaks [language] says them. */
-export const stateFeatures = (language: string): string[] => STATE_FEATURES.filter(f => language === 'sl' || !SLOVENE_ONLY.has(f))
+export const stateFeatures = (language: string): string[] => STATE_FEATURES.filter(f => !ONLY_IN[f] || ONLY_IN[f]!.has(language))
 
 /** A form of a card's word asked in a review: the slot ("pres.1sg"), the grammar page it counts on, how it went. */
 const formAsked = z.object({

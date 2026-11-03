@@ -27,6 +27,9 @@ import { labelEn } from '../langs'
 import { untrustedJson } from '../family'
 import { MAX_REQUESTS, WordRequests, type WordRequest } from '../word-requests'
 import { CaseLens, namesOf, packNouns, type LineCases, type NameForms, type PackNoun, type WordCase } from '../case-lens'
+import { germanPackNouns } from '../case-bank-de'
+import { CaseLensDe, type DeName } from '../case-lens-de'
+import { genderOf } from '../cast'
 import type { CaseTriggers } from '../case-triggers'
 import { CaseSeen } from '../case-seen'
 
@@ -154,6 +157,36 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
     if (lens?.table !== table || lens.book !== current || lens.nouns !== nouns.key) lens = { table, book: current, nouns: nouns.key, lens: new CaseLens({ dict, book, table, nouns: nouns.nouns }) }
     return lens.lens
   }
+  // German's lens (case-lens-de.ts): made at the first ask, again when its table or the packs' nouns change; the
+  // village's German only, never a visit's. An older app reads a case of the six Slovene ones only: GET /lookup gives
+  // German's to an app that says it reads a language's own cases (?lens=2), never to an older one.
+  let lensDe: { table: unknown; nouns: string; lens: CaseLensDe } | null = null
+  let deNouns: { at: number; nouns: ReturnType<typeof germanPackNouns>; key: string } = { at: 0, nouns: new Map(), key: '' }
+  function caseLensDe(): CaseLensDe | null {
+    if (language !== 'de') return null
+    const table = dictionary.triggers.currentDe()
+    if (!table) return null
+    if (Date.now() - deNouns.at > 60_000) {
+      const nouns = germanPackNouns(packs.all())
+      deNouns = { at: Date.now(), nouns, key: [...nouns].map(([l, n]) => `${l}|${n.gender}|${n.plural ?? ''}`).join(',') }
+    }
+    if (lensDe?.table !== table || lensDe.nouns !== deNouns.key) lensDe = { table, nouns: deNouns.key, lens: new CaseLensDe({ table, dict, nouns: deNouns.nouns }) }
+    return lensDe.lens
+  }
+  /** The village's names for German's lens: the villagers' given names and the learner's, each with its gender. */
+  function lensNamesDe(): DeName[] {
+    const g = (x: string | undefined): 'm' | 'f' | undefined => (x === 'male' ? 'm' : x === 'female' ? 'f' : undefined)
+    const out: DeName[] = villagers.all().flatMap(v => {
+      const given = v.name.trim().split(/\s+/).at(-1) ?? v.name
+      if (!/^\p{Lu}\p{Ll}+$/u.test(given)) return []
+      const gender = g(v.speaker ? genderOf(v.speaker) : undefined)
+      return [{ name: given, ...(gender ? { gender } : {}) }]
+    })
+    const a = addressee()
+    if (!a.generic && !out.some(n => n.name === a.name)) out.unshift({ name: a.name, ...(g(a.gender) ? { gender: g(a.gender)! } : {}) })
+    return out
+  }
+
   /** The village's names as the lens declines them: the villagers' given names, and the learner's own forms. */
   function lensNames(): NameForms[] {
     const villagersNames = namesOf(villagers.all().map(v => ({ given: v.name.trim().split(/\s+/).at(-1) ?? v.name })))
@@ -384,10 +417,11 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
    * app's hook for the case trainer's own count).
    */
   function caseOf(line: string, w: string, n: number): (Partial<WordCase> & { governs?: unknown; seen?: true }) | null {
-    const l = caseLens()
-    if (!l) return null
+    const de = caseLensDe()
+    const l = de ? null : caseLens()
+    if (!l && !de) return null
     try {
-      const c = l.at(line, w, n, lensNames())
+      const c = de ? de.at(line, w, n, lensNamesDe()) : l!.at(line, w, n, lensNames())
       // seen: a word whose case the line decides (its number may be open: vasi, the genitive singular or plural)
       const decided = c && 'pick' in c && c.pick && c.kind !== 'unresolved' && c.rule && new Set(c.options.map(o => o.case)).size === 1
       if (decided && seen.saw(c.rule!, line, `${c.i}`)) return { ...c, seen: true }
@@ -587,7 +621,8 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
           // its case in the line (the village's Slovene; the word's [n]th in the line, from 0): the word card's
           // "Sklon · Case" row; a word decided by a rule counts as seen for that rule
           const n = Math.min(20, Math.max(0, Number.parseInt(url.searchParams.get('n') ?? '0', 10) || 0))
-          const c = lang === language && at.line ? caseOf(at.line, w, n) : null
+          // German's (its own four cases) only to an app that reads them (?lens=2); an older one knows Slovene's six alone
+          const c = lang === language && at.line && (language !== 'de' || url.searchParams.get('lens') === '2') ? caseOf(at.line, w, n) : null
           // not found, and asked for already ("➕ Add to my words"): the card says the tutor is writing its meaning
           const waiting = !r.entries.length && r.word ? requests.find(lang, normalizeForm(r.word, lang)) : undefined
           return json({ ...r, ...(waiting ? { requested: true } : {}), ...(c ? { case: c } : {}) })
@@ -634,14 +669,16 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
           const lines = Array.isArray(body?.lines) ? body.lines : null
           if (!lines || lines.length > CASES_LINES || lines.some(l => typeof l !== 'string' || l.length > CASES_CHARS))
             return json({ error: `lines: 0-${CASES_LINES} lines, each a string of at most ${CASES_CHARS} characters` }, 400)
-          const l = caseLens()
-          if (!l) return json({ language, lines: (lines as string[]).map(() => ({ words: [] })) })
-          const names = lensNames()
+          const de = caseLensDe()
+          const l = de ? null : caseLens()
+          if (!l && !de) return json({ language, lines: (lines as string[]).map(() => ({ words: [] })) })
+          const names = de ? null : lensNames()
+          const namesDe = de ? lensNamesDe() : null
           return json({
             language,
             lines: (lines as string[]).map(line => {
               try {
-                return coloured(l.analyze(line, names))
+                return coloured(de ? de.analyze(line, namesDe!) : l!.analyze(line, names!))
               } catch (e) {
                 log(`case lens: ${line.slice(0, 80)}: ${(e as Error).message}`)
                 return { words: [] }

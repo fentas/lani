@@ -143,6 +143,20 @@ export class GermanForms {
   }
 }
 
+/**
+ * A noun's nominative plural as the dictionary has it (its forms' grammar: "plural", not a case of it), capitalized as a
+ * noun is; undefined where it has none. [dict]: the Lexicon (lemmasOf, paradigm).
+ */
+export function dictPlural(dict: { lemmasOf(l: string): { index: number | null; lemma: string; pos: string }[]; paradigm(i: number | null, l: string, pos: string): [string, string | null][] } | undefined, lemma: string): string | undefined {
+  if (!dict) return undefined
+  for (const e of dict.lemmasOf(lemma)) {
+    if (e.pos !== 'noun') continue
+    const hit = dict.paradigm(e.index, e.lemma, 'noun').find(([, g]) => !!g && /plural/.test(g) && !/dative|genitive|singular/.test(g))
+    if (hit) return hit[0].charAt(0).toLocaleUpperCase('de') + hit[0].slice(1)
+  }
+  return undefined
+}
+
 /** A pack word's German as its noun ("der Steg" → Steg, m; "die Stege" → Stege): the lemma without its article. */
 export function bareNoun(written: string | undefined): string | undefined {
   const w = written?.trim()
