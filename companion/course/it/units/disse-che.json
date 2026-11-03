@@ -1,0 +1,336 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "disse-che",
+  "language": "it",
+  "level": "B2",
+  "emoji": "📻",
+  "title": { "it": "Disse che sarebbe tornato", "de": "Indirekte Rede in der Vergangenheit: disse che sarebbe tornato", "sl": "Odvisni govor v pretekliku: disse che sarebbe tornato", "en": "Reported speech in the past: disse che sarebbe tornato" },
+  "goal": {
+    "de": "Du erzählst später weiter, was jemand gesagt hat: Die Zeit rückt zurück (Disse che era stanco.), die Zukunft wird sarebbe tornato, domani wird il giorno dopo, und eine Frage wird zu Mi chiese dove fosse.",
+    "sl": "Pozneje poveš naprej, kar je kdo rekel: čas se premakne nazaj (Disse che era stanco.), prihodnjik postane sarebbe tornato, domani postane il giorno dopo, vprašanje pa Mi chiese dove fosse.",
+    "en": "You can tell later what someone said: the tense moves back (Disse che era stanco.), the future becomes sarebbe tornato, domani becomes il giorno dopo, and a question becomes Mi chiese dove fosse."
+  },
+  "grammar": ["discorso-indiretto-passato", "discorso-indiretto", "condizionale-passato"],
+  "words": ["dire", "chiedere", "rispondere", "raccontare", "promettere", "quel giorno", "il giorno prima", "il giorno dopo", "allora", "lì", "quello", "il ponte", "il sindaco", "il caffè", "il mercato", "la strada", "la radio", "l'osteria", "il vino", "l'uva", "la vendemmia", "il miele", "il carro", "il cancello", "il mulino", "la tavola", "aspettare", "tornare", "riparare", "vendere", "partire", "venire", "volere", "portare", "finire", "apparecchiare", "stanco", "necessario", "già", "il pranzo"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "dice", "de": "er, sie sagt", "sl": "reče", "en": "says" },
+        { "it": "racconti dopo", "de": "du erzählst später", "sl": "poveš pozneje", "en": "you tell it later" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Nach **ha detto** (er hat gesagt) oder **disse** (er sagte) rückt die Zeit einen Schritt zurück. Das Präsens wird imperfetto: «Sono stanco» → **Disse che era stanco.** (Er sagte, dass er müde war.) So erzählst du später weiter, was jemand gesagt hat, auch wenn du dabei warst.",
+          "sl": "Za **ha detto** (je rekel) ali **disse** (je rekel, v pripovedi) se čas premakne korak nazaj. Sedanjik postane imperfetto: »Sono stanco« → **Disse che era stanco.** (Rekel je, da je utrujen.) Slovenščina ostane v sedanjiku, italijanščina ne.",
+          "en": "After **ha detto** (he said) or **disse** (he said, in a tale) the tense moves a step back. The present becomes imperfetto: «Sono stanco» → **Disse che era stanco.** (He said he was tired.) English moves back the same way; that's how you tell later what someone said."
+        },
+        "examples": [
+          { "it": "Quel giorno Zia Nives disse che era stanca.", "de": "An dem Tag sagte Zia Nives, dass sie müde war.", "sl": "Tisti dan je teta Nives rekla, da je utrujena.", "en": "That day Zia Nives said she was tired." },
+          { "it": "Marisa rispose che l'osteria era piena.", "de": "Marisa antwortete, dass die Osteria voll war.", "sl": "Marisa je odgovorila, da je gostilna polna.", "en": "Marisa replied that the osteria was full." }
+        ],
+        "rows": [
+          ["Sono stanco.", "Disse che era stanco."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "discorso-indiretto-passato", "prompt": "«Il vino è buono.» → Quel giorno Matteo disse che il vino ___ buono.", "options": ["era", "sarà", "sarebbe"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**disse**, das Präsens rückt zurück → **era**\n- sarà · wird sein\n- sarebbe · würde sein",
+            "sl": "**disse**, sedanjik gre nazaj → **era**\n- sarà · bo\n- sarebbe · bi bil",
+            "en": "**disse**, the present moves back → **era**\n- sarà · will be\n- sarebbe · would be"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das passato prossimo wird trapassato, denn es war schon vorher: «Ho mangiato» → **Disse che aveva mangiato.** «Sono partito» → **Disse che era partito.** Das imperfetto bleibt, wie es ist: «Pioveva» → **Disse che pioveva.** Das Deutsche macht es ähnlich: *dass er gegessen hatte*.",
+          "sl": "Passato prossimo postane trapassato, ker je bilo že prej: »Ho mangiato« → **Disse che aveva mangiato.** »Sono partito« → **Disse che era partito.** Imperfetto ostane, kakršen je: »Pioveva« → **Disse che pioveva.**",
+          "en": "The passato prossimo becomes trapassato, because it came before: «Ho mangiato» → **Disse che aveva mangiato.** «Sono partito» → **Disse che era partito.** The imperfetto stays as it is: «Pioveva» → **Disse che pioveva.** English does much the same: *he said he had eaten*."
+        },
+        "examples": [
+          { "it": "Marisa disse che aveva già apparecchiato la tavola.", "de": "Marisa sagte, dass sie den Tisch schon gedeckt hatte.", "sl": "Marisa je rekla, da je mizo že pogrnila.", "en": "Marisa said she had already laid the table." },
+          { "it": "Tommaso raccontò che il pallone era finito nel fiume.", "de": "Tommaso erzählte, dass der Ball im Fluss gelandet war.", "sl": "Tommaso je povedal, da je žoga končala v reki.", "en": "Tommaso told us the ball had ended up in the river." }
+        ],
+        "rows": [
+          ["Ho mangiato.", "Disse che aveva mangiato."],
+          ["Sono partito.", "Disse che era partito."],
+          ["Pioveva.", "Disse che pioveva."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "discorso-indiretto-passato", "text": "«Ho chiuso il mulino.» → Quel giorno Franco disse che ___ chiuso il mulino.", "accept": ["aveva"],
+          "hint": { "de": "war schon vorher", "sl": "je bilo že prej", "en": "it came before" },
+          "explain": {
+            "de": "**«Ho chiuso»**, schon vorher → **aveva chiuso**\n- ho chiuso · so sagt es Franco selbst",
+            "sl": "**»Ho chiuso«**, že prej → **aveva chiuso**\n- ho chiuso · tako reče Franco sam",
+            "en": "**«Ho chiuso»**, it came before → **aveva chiuso**\n- ho chiuso · that's how Franco says it himself"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die Zukunft wird zum condizionale passato: «Tornerò» → **Disse che sarebbe tornato.** (Er sagte, er würde zurückkommen.) Deutsch sagt *würde*, und das lockt zu *tornerebbe*: Das ist hier falsch. Italienisch schaut von damals aus nach vorn und nimmt **sarebbe tornato**, **avrebbe riparato**.",
+          "sl": "Prihodnjik postane condizionale passato: »Tornerò« → **Disse che sarebbe tornato.** (Rekel je, da se bo vrnil.) Slovenščina ima *bo*; italijanščina gleda iz tistega časa naprej in vzame **sarebbe tornato**, **avrebbe riparato**, nikoli *tornerebbe*.",
+          "en": "The future becomes the condizionale passato: «Tornerò» → **Disse che sarebbe tornato.** (He said he would come back.) English says *would come back*, and that tempts you to *tornerebbe*: it's wrong here. Italian looks ahead from then and takes **sarebbe tornato**, **avrebbe riparato**."
+        },
+        "examples": [
+          { "it": "Davide disse che sarebbe tornato prima di sera.", "de": "Davide sagte, dass er vor dem Abend zurückkommen würde.", "sl": "Davide je rekel, da se bo vrnil pred večerom.", "en": "Davide said he would be back before evening." },
+          { "it": "Il sindaco ha promesso che avrebbe riparato la strada.", "de": "Der Bürgermeister hat versprochen, dass er die Straße reparieren würde.", "sl": "Župan je obljubil, da bo popravil cesto.", "en": "The mayor promised he would mend the road." }
+        ],
+        "rows": [
+          ["Tornerò.", "Disse che sarebbe tornato."],
+          ["Riparerò la strada.", "Disse che avrebbe riparato la strada."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "discorso-indiretto-passato", "prompt": "«Porterò il pane.» → Nonna Rosa disse che ___ il pane.", "options": ["avrebbe portato", "porterebbe", "avesse portato"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**«Porterò»**, von damals aus nach vorn → **avrebbe portato**\n- porterebbe: Deutsch sagt würde, Italienisch hier nie\n- avesse portato · gehört zu se",
+            "sl": "**»Porterò«**, iz tistega časa naprej → **avrebbe portato**\n- porterebbe: tu nikoli\n- avesse portato · spada k se",
+            "en": "**«Porterò»**, ahead from then → **avrebbe portato**\n- porterebbe: English says would, Italian here never\n- avesse portato · belongs with se"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Vorrei** wird **avrebbe voluto**: **Disse che avrebbe voluto vedere il sindaco.** Beim Reden steht für die Zukunft oft das imperfetto: **Ha detto che veniva.** (Er hat gesagt, er kommt.) Das ist richtig; geschrieben **sarebbe venuto**. Und liegt es von heute aus noch vorn, darf die Zukunft bleiben: **Ha detto che verrà domani.**",
+          "sl": "**Vorrei** postane **avrebbe voluto**: **Disse che avrebbe voluto vedere il sindaco.** V govoru za prihodnost pogosto stoji imperfetto: **Ha detto che veniva.** (Rekel je, da pride.) To je prav; pisno **sarebbe venuto**. Če je to od danes še pred nami, lahko prihodnjik ostane: **Ha detto che verrà domani.**",
+          "en": "**Vorrei** becomes **avrebbe voluto**: **Disse che avrebbe voluto vedere il sindaco.** In speech the imperfetto often stands for the future: **Ha detto che veniva.** (He said he was coming.) That's right; in writing **sarebbe venuto**. And if it's still ahead of today, the future may stay: **Ha detto che verrà domani.**"
+        },
+        "examples": [
+          { "it": "Matteo ha detto che veniva alla sagra.", "de": "Matteo hat gesagt, er kommt zur Sagra.", "sl": "Matteo je rekel, da pride na šagro.", "en": "Matteo said he was coming to the sagra." },
+          { "it": "Davide ha detto che verrà domani con le pecore.", "de": "Davide hat gesagt, dass er morgen mit den Schafen kommt.", "sl": "Davide je rekel, da pride jutri z ovcami.", "en": "Davide said he'll come tomorrow with the sheep." }
+        ],
+        "rows": [
+          ["Vorrei vedere il sindaco.", "Disse che avrebbe voluto vedere il sindaco."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "discorso-indiretto-passato", "prompt": "«Vorrei vedere il mare.» → Quel giorno Nonna Rosa disse che ___ vedere il mare.", "options": ["avrebbe voluto", "vorrà", "volesse"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**vorrei** → **avrebbe voluto**\n- vorrà · wird wollen\n- volesse · gehört zu se und zu Fragen",
+            "sl": "**vorrei** → **avrebbe voluto**\n- vorrà · bo hotela\n- volesse · spada k se in k vprašanjem",
+            "en": "**vorrei** → **avrebbe voluto**\n- vorrà · will want\n- volesse · belongs with se and with questions"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch die Wörter für Zeit und Ort rücken mit: **oggi** wird **quel giorno**, **ieri** wird **il giorno prima**, **domani** wird **il giorno dopo**, **adesso** wird **allora**, **qui** wird **lì**, **questo** wird **quello**. «Domani vengo qui» → **Disse che il giorno dopo sarebbe venuto lì.** Auch **sarebbe andato lì** ist richtig: Von dir aus gesehen geht er ja hin.",
+          "sl": "Premaknejo se tudi besede za čas in kraj: **oggi** postane **quel giorno**, **ieri** postane **il giorno prima**, **domani** postane **il giorno dopo**, **adesso** postane **allora**, **qui** postane **lì**, **questo** postane **quello**. »Domani vengo qui« → **Disse che il giorno dopo sarebbe venuto lì.** Prav je tudi **sarebbe andato lì**.",
+          "en": "The words for time and place move too: **oggi** becomes **quel giorno**, **ieri** becomes **il giorno prima**, **domani** becomes **il giorno dopo**, **adesso** becomes **allora**, **qui** becomes **lì**, **questo** becomes **quello**. «Domani vengo qui» → **Disse che il giorno dopo sarebbe venuto lì.** **Sarebbe andato lì** is right too: from where you stand he goes there."
+        },
+        "examples": [
+          { "it": "Zia Nives disse che il giorno dopo sarebbe andata al mercato.", "de": "Zia Nives sagte, dass sie am nächsten Tag auf den Markt gehen würde.", "sl": "Teta Nives je rekla, da bo naslednji dan šla na tržnico.", "en": "Zia Nives said she would go to the market the next day." },
+          { "it": "Bruno disse che il giorno dopo sarebbe venuto lì con il carro.", "de": "Bruno sagte, dass er am nächsten Tag mit dem Wagen dorthin kommen würde.", "sl": "Bruno je rekel, da bo naslednji dan prišel tja z vozom.", "en": "Bruno said he would come there the next day with the cart." }
+        ],
+        "rows": [
+          ["oggi, ieri, domani", "quel giorno, il giorno prima, il giorno dopo"],
+          ["adesso, qui, questo", "allora, lì, quello"],
+          ["Domani vengo qui.", "Disse che il giorno dopo sarebbe andato lì."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "discorso-indiretto-passato", "prompt": "«Domani pioverà.» → Quell'estate, il giorno della sagra, la radio disse che ___ sarebbe piovuto.", "options": ["il giorno dopo", "domani", "ieri"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**domani**, viel später erzählt → **il giorno dopo**\n- domani · nur von heute aus\n- ieri · gestern",
+            "sl": "**domani**, povedano veliko pozneje → **il giorno dopo**\n- domani · le od danes naprej\n- ieri · včeraj",
+            "en": "**domani**, told much later → **il giorno dopo**\n- domani · only from today\n- ieri · yesterday"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein Befehl nimmt **di** und die Grundform: «Aspetta!» → **Mi disse di aspettare.** Eine Frage behält **se** oder ihr Fragewort, mit **fosse**, **volessi**: «Dov'è Moro?» → **Mi chiese dove fosse Moro.** (Er fragte mich, wo Moro sei.) «Vuoi venire?» → **Mi chiese se volessi venire.** Beim Reden sagen viele **dov'era** und **se volevo**, auch das ist richtig.",
+          "sl": "Ukaz ima **di** in nedoločnik: »Aspetta!« → **Mi disse di aspettare.** Vprašanje obdrži **se** ali vprašalnico, s **fosse**, **volessi**: »Dov'è Moro?« → **Mi chiese dove fosse Moro.** (Vprašal me je, kje je Moro.) »Vuoi venire?« → **Mi chiese se volessi venire.** V govoru mnogi rečejo **dov'era** in **se volevo**, tudi to je prav.",
+          "en": "An order takes **di** and the infinitive: «Aspetta!» → **Mi disse di aspettare.** A question keeps **se** or its question word, with **fosse**, **volessi**: «Dov'è Moro?» → **Mi chiese dove fosse Moro.** (He asked me where Moro was.) «Vuoi venire?» → **Mi chiese se volessi venire.** In speech many people say **dov'era** and **se volevo**, and that's right too."
+        },
+        "examples": [
+          { "it": "Bruno mi disse di aspettare lì.", "de": "Bruno sagte mir, ich solle dort warten.", "sl": "Bruno mi je rekel, naj počakam tam.", "en": "Bruno told me to wait there." },
+          { "it": "Nonno Bepi mi chiese dove fosse Moro.", "de": "Nonno Bepi fragte mich, wo Moro sei.", "sl": "Dedek Bepi me je vprašal, kje je Moro.", "en": "Nonno Bepi asked me where Moro was." },
+          { "it": "Marisa mi ha chiesto dov'era Lorenzo e se volevo un caffè.", "de": "Marisa hat mich gefragt, wo Lorenzo ist und ob ich einen Kaffee will.", "sl": "Marisa me je vprašala, kje je Lorenzo in ali hočem kavo.", "en": "Marisa asked me where Lorenzo was and if I wanted a coffee." }
+        ],
+        "rows": [
+          ["Aspetta!", "Mi disse di aspettare."],
+          ["Dov'è Moro?", "Mi chiese dove fosse Moro."],
+          ["Vuoi venire?", "Mi chiese se volessi venire."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "discorso-indiretto-passato", "text": "«Dov'è il sindaco?» → Aldo chiese dove ___ il sindaco.", "accept": ["fosse", "era"],
+          "hint": { "de": "der Bürgermeister, er", "sl": "župan, on", "en": "the mayor, he" },
+          "explain": {
+            "de": "**eine Frage nach chiese** → **fosse**; beim Reden auch **era**\n- è · so fragt es Aldo selbst",
+            "sl": "**vprašanje za chiese** → **fosse**; v govoru tudi **era**\n- è · tako vpraša Aldo sam",
+            "en": "**a question after chiese** → **fosse**; in speech also **era**\n- è · that's how Aldo asks it himself"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "disse-che-1",
+      "title": { "it": "Che cosa disse?", "de": "Was hat er gesagt?", "sl": "Kaj je rekel?", "en": "What did he say?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "Lorenzo hat das gesagt. Erzähl es später: disse che …", "sl": "Lorenzo je to rekel. Povej pozneje: disse che …", "en": "Lorenzo said this. Tell it later: disse che …" },
+          "columns": ["Disse che …"],
+          "rows": [
+            { "label": "«Sono stanco.»", "cells": ["era stanco"] },
+            { "label": "«Ho fame.»", "cells": [{ "accept": ["aveva fame"] }] },
+            { "label": "«Ho mangiato.»", "cells": [{ "accept": ["aveva mangiato"] }] },
+            { "label": "«Sono partito.»", "cells": [{ "accept": ["era partito"] }] },
+            { "label": "«Tornerò.»", "cells": [{ "accept": ["sarebbe tornato"], "spoken": ["tornava"], "hint": { "de": "nicht tornerebbe", "sl": "ne tornerebbe", "en": "not tornerebbe" } }] },
+            { "label": "«Mangerò.»", "cells": [{ "accept": ["avrebbe mangiato"], "spoken": ["mangiava"] }] },
+            { "label": "«Pioveva.»", "cells": [{ "accept": ["pioveva"] }] },
+            { "label": "«Partirò.»", "cells": [{ "accept": ["sarebbe partito"], "spoken": ["partiva"] }] }
+          ]
+        },
+        {
+          "type": "sort", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Prima, in quel momento o dopo? · Von damals aus: davor, zur selben Zeit oder danach?", "sl": "Prima, in quel momento o dopo? · Iz tistega časa: prej, hkrati ali potem?", "en": "Prima, in quel momento o dopo? · Seen from then: before, at the same time or after?" },
+          "columns": [
+            { "label": { "de": "prima · davor", "sl": "prima · prej", "en": "prima · before" }, "words": ["aveva mangiato", "era partita", "il giorno prima"] },
+            { "label": { "de": "in quel momento · zur selben Zeit", "sl": "in quel momento · hkrati", "en": "in quel momento · at the same time" }, "words": ["era stanco", "pioveva", "quel giorno"] },
+            { "label": { "de": "dopo · danach", "sl": "dopo · potem", "en": "dopo · after" }, "words": ["sarebbe tornato", "avrebbe mangiato", "il giorno dopo"] }
+          ],
+          "explain": {
+            "de": "**Von damals aus gesehen**: davor trapassato, zur selben Zeit imperfetto, danach condizionale passato\n- «Ho mangiato» → aveva mangiato\n- «Sono stanco» → era stanco\n- «Tornerò» → sarebbe tornato",
+            "sl": "**Iz tistega časa**: prej trapassato, hkrati imperfetto, potem condizionale passato\n- »Ho mangiato« → aveva mangiato\n- »Sono stanco« → era stanco\n- »Tornerò« → sarebbe tornato",
+            "en": "**Seen from then**: before trapassato, at the same time imperfetto, after condizionale passato\n- «Ho mangiato» → aveva mangiato\n- «Sono stanco» → era stanco\n- «Tornerò» → sarebbe tornato"
+          }
+        },
+        {
+          "type": "choice", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Domani porterò il miele.» → Aldo disse che il giorno dopo ___ il miele.", "options": ["avrebbe portato", "porterebbe", "aveva portato"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**il giorno dopo**, von damals nach vorn → **avrebbe portato**\n- porterebbe: hier nie, auch wenn Deutsch würde sagt\n- aveva portato · war schon vorher",
+            "sl": "**il giorno dopo**, iz tistega časa naprej → **avrebbe portato**\n- porterebbe: tu nikoli\n- aveva portato · je bilo že prej",
+            "en": "**il giorno dopo**, ahead from then → **avrebbe portato**\n- porterebbe: never here, though English says would\n- aveva portato · it came before"
+          }
+        },
+        {
+          "type": "choice", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Ho già mangiato.» → Quel giorno Lorenzo disse che ___ già mangiato.", "options": ["aveva", "avrebbe", "avrà"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**già**, schon vorher → **aveva mangiato**\n- avrebbe mangiato · käme erst noch\n- avrà mangiato · wird wohl gegessen haben",
+            "sl": "**già**, že prej → **aveva mangiato**\n- avrebbe mangiato · šele pride\n- avrà mangiato · najbrž je jedel",
+            "en": "**già**, it came before → **aveva mangiato**\n- avrebbe mangiato · still to come\n- avrà mangiato · he'll have eaten, a guess"
+          }
+        }
+      ]
+    },
+    {
+      "id": "disse-che-2",
+      "title": { "it": "Da Marisa si parla", "de": "Bei Marisa wird geredet", "sl": "Pri Marisi se govori", "en": "They talk at Marisa's" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "Da Marisa si parla",
+          "text": "Quella sera, da Marisa, si parlava del sindaco. Zia Nives disse che il sindaco ___ (essere) stanco. Disse anche che ___ parlato troppo alla radio. Bruno raccontò che il sindaco ___ (costruire) un ponte nuovo l'anno dopo. Matteo chiese ___ il ponte fosse proprio necessario. Marisa gli disse ___ finire il vino e non parlare tanto. Poi chiese a noi se ___ (volere) un altro caffè.",
+          "gaps": [
+            { "accept": ["era"] },
+            { "accept": ["aveva"], "hint": { "de": "war schon vorher", "sl": "je bilo že prej", "en": "it came before" } },
+            { "accept": ["avrebbe costruito"], "spoken": ["costruiva"], "explain": { "de": "**l'anno dopo**, von damals nach vorn → **avrebbe costruito**\n- costruirebbe: hier nie", "sl": "**l'anno dopo**, iz tistega časa naprej → **avrebbe costruito**\n- costruirebbe: tu nikoli", "en": "**l'anno dopo**, ahead from then → **avrebbe costruito**\n- costruirebbe: never here" } },
+            { "accept": ["se", "perché"], "hint": { "de": "ja oder nein", "sl": "da ali ne", "en": "yes or no" } },
+            { "accept": ["di"], "hint": { "de": "ein Befehl", "sl": "ukaz", "en": "an order" } },
+            { "accept": ["volessimo"], "spoken": ["volevamo"] }
+          ],
+          "bank": true,
+          "distractors": ["costruirebbe", "avranno", "volessero"],
+          "translation": {
+            "de": "An dem Abend wurde bei Marisa über den Bürgermeister geredet. Zia Nives sagte, dass der Bürgermeister müde war. Sie sagte auch, dass er zu viel im Radio geredet hatte. Bruno erzählte, dass der Bürgermeister im Jahr darauf eine neue Brücke bauen würde. Matteo fragte, ob die Brücke wirklich nötig war. Marisa sagte ihm, er solle den Wein austrinken und nicht so viel reden. Dann fragte sie uns, ob wir noch einen Kaffee wollten.",
+            "sl": "Tisti večer so pri Marisi govorili o županu. Teta Nives je rekla, da je župan utrujen. Rekla je tudi, da je preveč govoril po radiu. Bruno je povedal, da bo župan naslednje leto zgradil nov most. Matteo je vprašal, ali je most res potreben. Marisa mu je rekla, naj popije vino in ne govori toliko. Potem je vprašala nas, ali hočemo še eno kavo.",
+            "en": "That evening at Marisa's they were talking about the mayor. Zia Nives said the mayor was tired. She also said he had talked too much on the radio. Bruno told us the mayor would build a new bridge the following year. Matteo asked if the bridge was really necessary. Marisa told him to finish his wine and not talk so much. Then she asked us if we wanted another coffee."
+          }
+        },
+        {
+          "type": "choice", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Un signore di Trieste chiese a Marisa dove ___ il mulino.", "options": ["fosse", "fossero", "sarà"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**eine Frage nach chiese**, **il mulino** → **fosse**\n- fossero · für mehrere\n- sarà · wird sein",
+            "sl": "**vprašanje za chiese**, **il mulino** → **fosse**\n- fossero · za več\n- sarà · bo",
+            "en": "**a question after chiese**, **il mulino** → **fosse**\n- fossero · for several\n- sarà · will be"
+          }
+        }
+      ]
+    },
+    {
+      "id": "disse-che-3",
+      "title": { "it": "Tanto tempo dopo", "de": "Lange danach", "sl": "Dolgo pozneje", "en": "Long afterwards" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Racconta molto tempo dopo · Erzähl es viel später, mit disse che oder chiese", "sl": "Racconta molto tempo dopo · Povej veliko pozneje, z disse che ali chiese", "en": "Racconta molto tempo dopo · Tell it much later, with disse che or chiese" },
+          "items": [
+            { "from": "«Sono stanca.» (Zia Nives)", "accept": ["Zia Nives disse che era stanca.", "Disse che era stanca.", "Zia Nives ha detto che era stanca.", "Ha detto che era stanca."], "hint": "sono → ?" },
+            { "from": "«Ho finito.» (Bruno)", "accept": ["Bruno disse che aveva finito.", "Disse che aveva finito.", "Bruno ha detto che aveva finito.", "Ha detto che aveva finito."] },
+            { "from": "«Partirò domani.» (Davide)", "accept": ["Davide disse che sarebbe partito il giorno dopo.", "Davide disse che il giorno dopo sarebbe partito.", "Disse che sarebbe partito il giorno dopo.", "Disse che il giorno dopo sarebbe partito.", "Davide ha detto che sarebbe partito il giorno dopo.", "Ha detto che sarebbe partito il giorno dopo.", "Davide disse che sarebbe partito il giorno seguente.", "Davide disse che sarebbe partito l'indomani."], "spoken": ["Davide disse che partiva il giorno dopo.", "Davide ha detto che partiva il giorno dopo.", "Disse che partiva il giorno dopo.", "Ha detto che partiva il giorno dopo."], "hint": { "de": "nicht partirebbe, nicht domani", "sl": "ne partirebbe, ne domani", "en": "not partirebbe, not domani" } },
+            { "from": "«Ieri ho venduto il miele.» (Aldo)", "accept": ["Aldo disse che il giorno prima aveva venduto il miele.", "Aldo disse che aveva venduto il miele il giorno prima.", "Disse che il giorno prima aveva venduto il miele.", "Disse che aveva venduto il miele il giorno prima.", "Aldo ha detto che il giorno prima aveva venduto il miele.", "Aldo ha detto che aveva venduto il miele il giorno prima.", "Aldo disse che il giorno precedente aveva venduto il miele.", "Aldo disse che aveva venduto il miele il giorno precedente."] },
+            { "from": "«Aspetta qui!» (Nonna Rosa)", "accept": ["Nonna Rosa mi disse di aspettare lì.", "Nonna Rosa disse di aspettare lì.", "Mi disse di aspettare lì.", "Disse di aspettare lì.", "Nonna Rosa mi ha detto di aspettare lì.", "Mi ha detto di aspettare lì.", "Nonna Rosa mi disse di aspettare là.", "Mi disse di aspettare là."] },
+            { "from": "«Dov'è il cane?» (Giulia)", "accept": ["Giulia chiese dove fosse il cane.", "Giulia mi chiese dove fosse il cane.", "Chiese dove fosse il cane.", "Mi chiese dove fosse il cane.", "Giulia ha chiesto dove fosse il cane.", "Giulia mi ha chiesto dove fosse il cane.", "Mi ha chiesto dove fosse il cane."], "spoken": ["Giulia chiese dov'era il cane.", "Giulia mi chiese dov'era il cane.", "Giulia ha chiesto dov'era il cane.", "Giulia mi ha chiesto dov'era il cane.", "Mi chiese dov'era il cane.", "Mi ha chiesto dov'era il cane."] },
+            { "from": "«Vuoi un gelato?» (Marisa)", "accept": ["Marisa mi chiese se volessi un gelato.", "Mi chiese se volessi un gelato.", "Marisa mi ha chiesto se volessi un gelato.", "Mi ha chiesto se volessi un gelato."], "spoken": ["Marisa mi chiese se volevo un gelato.", "Mi chiese se volevo un gelato.", "Marisa mi ha chiesto se volevo un gelato.", "Mi ha chiesto se volevo un gelato."] },
+            { "from": "«Vorrei un caffè.» (il sindaco)", "accept": ["Il sindaco disse che avrebbe voluto un caffè.", "Il sindaco disse che voleva un caffè.", "Disse che avrebbe voluto un caffè.", "Disse che voleva un caffè.", "Il sindaco ha detto che avrebbe voluto un caffè.", "Il sindaco ha detto che voleva un caffè."], "spoken": ["Il sindaco disse che vorrebbe un caffè.", "Il sindaco ha detto che vorrebbe un caffè.", "Disse che vorrebbe un caffè."] }
+          ],
+          "explain": {
+            "de": "**Die Zeit rückt zurück, Zeit und Ort rücken mit**\n- sono → era; ho finito → aveva finito\n- partirò domani → sarebbe partito il giorno dopo\n- Aspetta qui! → di aspettare lì\n- Dov'è? → dove fosse",
+            "sl": "**Čas gre nazaj, čas in kraj se premakneta**\n- sono → era; ho finito → aveva finito\n- partirò domani → sarebbe partito il giorno dopo\n- Aspetta qui! → di aspettare lì\n- Dov'è? → dove fosse",
+            "en": "**The tense moves back, time and place with it**\n- sono → era; ho finito → aveva finito\n- partirò domani → sarebbe partito il giorno dopo\n- Aspetta qui! → di aspettare lì\n- Dov'è? → dove fosse"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "L'anno scorso, alla vendemmia, Matteo raccontò tutto da Marisa. Disse che ___ (avere) tanta uva. Disse che il giorno prima Davide lo ___ (aiutare). Disse anche che il giorno dopo ___ (venire) le ragazze del paese. Marisa gli chiese se ___ (volere) una mano, e lui le disse ___ portare il pranzo.",
+        "gaps": [
+          { "accept": ["aveva"] },
+          { "accept": ["aveva aiutato"] },
+          { "accept": ["sarebbero venute"], "spoken": ["venivano"] },
+          { "accept": ["volesse"], "spoken": ["voleva"] },
+          { "accept": ["di"] }
+        ],
+        "translation": {
+          "de": "Letztes Jahr, bei der Weinlese, erzählte Matteo bei Marisa alles. Er sagte, dass er viele Trauben hatte. Er sagte, dass Davide ihm am Tag davor geholfen hatte. Er sagte auch, dass am nächsten Tag die Mädchen aus dem Dorf kommen würden. Marisa fragte ihn, ob er Hilfe wollte, und er sagte ihr, sie solle das Mittagessen bringen.",
+          "sl": "Lani je Matteo med trgatvijo pri Marisi vse povedal. Rekel je, da ima veliko grozdja. Rekel je, da mu je dan prej pomagal Davide. Rekel je tudi, da bodo naslednji dan prišla dekleta iz vasi. Marisa ga je vprašala, ali hoče pomoč, in on ji je rekel, naj prinese kosilo.",
+          "en": "Last year, at the grape harvest, Matteo told Marisa all about it. He said he had a lot of grapes. He said Davide had helped him the day before. He also said the village girls would come the next day. Marisa asked him if he wanted a hand, and he told her to bring lunch."
+        }
+      },
+      {
+        "type": "transform", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Racconta molto tempo dopo · Erzähl es viel später, mit disse che oder chiese", "sl": "Racconta molto tempo dopo · Povej veliko pozneje, z disse che ali chiese", "en": "Racconta molto tempo dopo · Tell it much later, with disse che or chiese" },
+        "items": [
+          { "from": "«Domani verrò con il carro.» (Franco)", "accept": ["Franco disse che il giorno dopo sarebbe venuto con il carro.", "Franco disse che sarebbe venuto con il carro il giorno dopo.", "Franco disse che il giorno dopo sarebbe andato con il carro.", "Franco disse che sarebbe andato con il carro il giorno dopo.", "Disse che il giorno dopo sarebbe venuto con il carro.", "Disse che sarebbe venuto con il carro il giorno dopo.", "Franco ha detto che il giorno dopo sarebbe venuto con il carro.", "Franco ha detto che sarebbe venuto con il carro il giorno dopo."], "spoken": ["Franco disse che il giorno dopo veniva con il carro.", "Franco disse che veniva con il carro il giorno dopo.", "Franco ha detto che il giorno dopo veniva con il carro.", "Disse che il giorno dopo veniva con il carro."] },
+          { "from": "«Ho chiuso il cancello.» (Davide)", "accept": ["Davide disse che aveva chiuso il cancello.", "Disse che aveva chiuso il cancello.", "Davide ha detto che aveva chiuso il cancello.", "Ha detto che aveva chiuso il cancello."] },
+          { "from": "«Come stai?» (Maestra Elena)", "accept": ["Maestra Elena mi chiese come stessi.", "Mi chiese come stessi.", "Maestra Elena mi ha chiesto come stessi.", "Mi ha chiesto come stessi.", "Maestra Elena chiese come stessi."], "spoken": ["Maestra Elena mi chiese come stavo.", "Mi chiese come stavo.", "Maestra Elena mi ha chiesto come stavo.", "Mi ha chiesto come stavo."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "discorso-indiretto-passato", "prompt": "«Comprerò un trattore.» → Il sindaco disse che ___ un trattore.", "options": ["avrebbe comprato", "comprerebbe", "comprasse"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**«Comprerò»**, von damals nach vorn → **avrebbe comprato**\n- comprerebbe: hier nie, auch wenn Deutsch würde sagt\n- comprasse · gehört zu se und zu Fragen",
+          "sl": "**»Comprerò«**, iz tistega časa naprej → **avrebbe comprato**\n- comprerebbe: tu nikoli\n- comprasse · spada k se in k vprašanjem",
+          "en": "**«Comprerò»**, ahead from then → **avrebbe comprato**\n- comprerebbe: never here, though English says would\n- comprasse · belongs with se and with questions"
+        }
+      },
+      {
+        "type": "choice", "grammar": "discorso-indiretto-passato", "prompt": "«Oggi resto qui.» → L'estate scorsa Bruno disse che ___ restava lì.", "options": ["quel giorno", "ieri", "domani"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**oggi**, später erzählt → **quel giorno**\n- ieri · gestern\n- domani · morgen",
+          "sl": "**oggi**, povedano pozneje → **quel giorno**\n- ieri · včeraj\n- domani · jutri",
+          "en": "**oggi**, told later → **quel giorno**\n- ieri · yesterday\n- domani · tomorrow"
+        }
+      },
+      {
+        "type": "sort", "grammar": "discorso-indiretto-passato", "instruction": { "de": "Prima o dopo? · Von damals aus: davor oder danach?", "sl": "Prima o dopo? · Iz tistega časa: prej ali potem?", "en": "Prima o dopo? · Seen from then: before or after?" },
+        "columns": [
+          { "label": { "de": "prima · davor", "sl": "prima · prej", "en": "prima · before" }, "words": ["aveva finito", "era arrivata"] },
+          { "label": { "de": "dopo · danach", "sl": "dopo · potem", "en": "dopo · after" }, "words": ["avrebbe finito", "sarebbe arrivata"] }
+        ],
+        "explain": {
+          "de": "**davor**: trapassato · **danach**: condizionale passato\n- aveva finito · hatte fertig gemacht\n- avrebbe finito · würde fertig machen",
+          "sl": "**prej**: trapassato · **potem**: condizionale passato\n- aveva finito · je bil končal\n- avrebbe finito · bo končal",
+          "en": "**before**: trapassato · **after**: condizionale passato\n- aveva finito · had finished\n- avrebbe finito · would finish"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: ha detto che veniva and dov'era as spoken, vorrebbe after disse, venire to andare, the German würde and sei for a child"
+}
