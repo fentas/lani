@@ -1,0 +1,673 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "infinito-passato",
+  "language": "it",
+  "level": "B2",
+  "emoji": "🍽️",
+  "title": {
+    "it": "Dopo aver mangiato, finita la cena",
+    "de": "Nach dem Essen: dopo aver mangiato, finita la cena",
+    "sl": "Po jedi: dopo aver mangiato, finita la cena",
+    "en": "After doing it: dopo aver mangiato, finita la cena"
+  },
+  "goal": {
+    "de": "Du sagst, was vorher war (dopo aver mangiato, dopo essere arrivata), kürzt einen Satz mit dem Partizip (finita la cena) und nimmst den Infinitiv als Nomen (il dovere, camminare fa bene).",
+    "sl": "Poveš, kaj je bilo prej (dopo aver mangiato, dopo essere arrivata), skrajšaš stavek z deležnikom (finita la cena) in uporabiš nedoločnik kot samostalnik (il dovere, camminare fa bene).",
+    "en": "You can say what came first (dopo aver mangiato, dopo essere arrivata), shorten a clause with the participle (finita la cena) and use the infinitive as a noun (il dovere, camminare fa bene)."
+  },
+  "grammar": ["infinito-passato", "participio-assoluto", "infinito-preposizioni"],
+  "words": [
+    "aver",
+    "avere",
+    "essere",
+    "essersi",
+    "la fucina",
+    "l'osteria",
+    "la cena",
+    "il lavoro",
+    "i compiti",
+    "le vacanze",
+    "il giornale",
+    "la lettera",
+    "il dovere",
+    "il piacere",
+    "il sapere",
+    "il mangiare",
+    "camminare",
+    "alzarsi",
+    "tornare",
+    "arrivare",
+    "partire",
+    "finire",
+    "fare",
+    "chiudere",
+    "il pane",
+    "il biscotto",
+    "il pascolo",
+    "l'ovile",
+    "il vino",
+    "la vigna",
+    "il fuoco",
+    "la colazione",
+    "il mercato",
+    "il cliente",
+    "sbattere",
+    "svegliarsi"
+  ],
+  "intro": {
+    "table": {"head": [{"it": "forma", "de": "Form", "sl": "oblika", "en": "form"}, {"it": "significa", "de": "heißt", "sl": "pomeni", "en": "means"}]},
+    "steps": [
+      {
+        "say": {
+          "de": "**Dopo aver** + Partizip sagt, was vorher war: **Dopo aver mangiato, Bruno torna nella fucina.** (Nachdem Bruno gegessen hat, geht er zurück in die Schmiede.) Beide Satzteile haben dieselbe Person, darum steht sie nur einmal da. **Aver** ist **avere** (haben) ohne -e, beide sind richtig.",
+          "sl": "**Dopo aver** + deležnik pove, kaj je bilo prej: **Dopo aver mangiato, Bruno torna nella fucina.** (Potem ko poje, se Bruno vrne v kovačnico.) Oba dela imata isto osebo, zato stoji samo enkrat. **Aver** je **avere** (imeti) brez -e, oboje je prav.",
+          "en": "**Dopo aver** + the participle says what came first: **Dopo aver mangiato, Bruno torna nella fucina.** (After eating, Bruno goes back to the forge.) Both halves have one person, so it stands there once. **Aver** is **avere** (to have) without its -e; both are right."
+        },
+        "examples": [
+          {
+            "it": "Dopo aver mangiato, Bruno torna nella fucina.",
+            "de": "Nachdem Bruno gegessen hat, geht er zurück in die Schmiede.",
+            "sl": "Potem ko poje, se Bruno vrne v kovačnico.",
+            "en": "After eating, Bruno goes back to the forge."
+          },
+          {
+            "it": "Dopo avere finito il lavoro, Franco va all'osteria.",
+            "de": "Nachdem Franco die Arbeit beendet hat, geht er ins Wirtshaus.",
+            "sl": "Ko konča delo, gre Franco v gostilno.",
+            "en": "After finishing work, Franco goes to the inn."
+          }
+        ],
+        "rows": [["dopo aver mangiato", {"de": "nachdem er gegessen hat", "sl": "potem ko poje", "en": "after eating"}]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "infinito-passato",
+          "text": "Dopo ___ letto il giornale, Nonno Bepi dorme un po'.",
+          "accept": ["aver", "avere"],
+          "hint": {"de": "avere → ?", "sl": "avere → ?", "en": "avere → ?"},
+          "explain": {
+            "de": "**letto** gehört zu **avere**: **dopo aver letto**, auch **dopo avere letto**.",
+            "sl": "**letto** gre z **avere**: **dopo aver letto**, tudi **dopo avere letto**.",
+            "en": "**letto** goes with **avere**: **dopo aver letto**, also **dopo avere letto**."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Verben mit **essere** nehmen **dopo essere** + Partizip, das sich an die Person anpasst: **Dopo essere arrivata, Marisa apre l'osteria.** (Nachdem Marisa angekommen ist, öffnet sie die Osteria.) **Dopo essere tornati, Bruno e Aldo mangiano.** Kurz geht auch **esser**. Bei reflexiven Verben hängt sich si an: **dopo essersi alzata** (nachdem sie aufgestanden ist).",
+          "sl": "Glagoli z **essere** imajo **dopo essere** + deležnik, ki se ujema z osebo: **Dopo essere arrivata, Marisa apre l'osteria.** (Ko pride, Marisa odpre gostilno.) **Dopo essere tornati, Bruno e Aldo mangiano.** Krajše je tudi **esser**. Pri povratnih glagolih se si pripne: **dopo essersi alzata** (ko vstane).",
+          "en": "Verbs with **essere** take **dopo essere** + a participle that agrees with the person: **Dopo essere arrivata, Marisa apre l'osteria.** (After arriving, Marisa opens the inn.) **Dopo essere tornati, Bruno e Aldo mangiano.** **Esser** is the short form. With a reflexive verb si joins on: **dopo essersi alzata** (after getting up)."
+        },
+        "examples": [
+          {
+            "it": "Dopo essere arrivata, Marisa apre l'osteria.",
+            "de": "Nachdem Marisa angekommen ist, öffnet sie die Osteria.",
+            "sl": "Ko pride, Marisa odpre gostilno.",
+            "en": "After arriving, Marisa opens the inn."
+          },
+          {
+            "it": "Dopo essere tornati, Bruno e Aldo mangiano.",
+            "de": "Nachdem Bruno und Aldo zurückgekommen sind, essen sie.",
+            "sl": "Ko se vrneta, Bruno in Aldo jesta.",
+            "en": "After coming back, Bruno and Aldo eat."
+          },
+          {
+            "it": "Dopo essersi alzata, Nonna Rosa fa il caffè.",
+            "de": "Nachdem Nonna Rosa aufgestanden ist, macht sie Kaffee.",
+            "sl": "Ko vstane, babica Rosa skuha kavo.",
+            "en": "After getting up, Nonna Rosa makes coffee."
+          }
+        ],
+        "rows": [
+          ["dopo essere arrivata", {"de": "nachdem sie angekommen ist", "sl": "ko pride", "en": "after arriving"}],
+          ["dopo essere tornati", {"de": "nachdem sie zurückgekommen sind", "sl": "ko se vrnejo", "en": "after coming back"}],
+          ["dopo essersi alzata", {"de": "nachdem sie aufgestanden ist", "sl": "ko vstane", "en": "after getting up"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinito-passato",
+          "prompt": "«Dopo ___ al pascolo, le pecore tornano all'ovile.»",
+          "options": ["essere andate", "essere andato", "aver andate"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**le pecore** (weiblich, mehrere) → **essere andate**\n- essere andato · für einen\n- aver andate · andare geht mit essere",
+            "sl": "**le pecore** (ženski spol, več) → **essere andate**\n- essere andato · za enega\n- aver andate · andare gre z essere",
+            "en": "**le pecore** (feminine, more than one) → **essere andate**\n- essere andato · for one\n- aver andate · andare goes with essere"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Kleine Wörter hängen sich an **aver** und **essere**: **dopo averlo visto** (nachdem er ihn gesehen hat), und das Partizip passt sich an: **dopo averla letta**. Dieselbe Form steht nach **di** und **per**, wenn es eine Person ist: **Penso di aver capito.** (Ich glaube, ich habe verstanden.) **Grazie per aver aiutato!** (Danke, dass du geholfen hast!)",
+          "sl": "Male besede se pripnejo na **aver** in **essere**: **dopo averlo visto** (ko ga vidi), deležnik pa se ujema: **dopo averla letta**. Ista oblika stoji za **di** in **per**, če je oseba ista: **Penso di aver capito.** (Mislim, da sem razumel.) **Grazie per aver aiutato!** (Hvala, da si pomagal!)",
+          "en": "Little words join **aver** and **essere**: **dopo averlo visto** (after seeing him), and the participle agrees: **dopo averla letta**. The same form follows **di** and **per** with one person: **Penso di aver capito.** (I think I've understood.) **Grazie per aver aiutato!** (Thanks for helping!)"
+        },
+        "examples": [
+          {
+            "it": "Dopo averla letta, Marisa mette via la lettera.",
+            "de": "Nachdem Marisa den Brief gelesen hat, legt sie ihn weg.",
+            "sl": "Ko ga prebere, Marisa pismo pospravi.",
+            "en": "After reading it, Marisa puts the letter away."
+          },
+          {"it": "Penso di aver capito.", "de": "Ich glaube, ich habe verstanden.", "sl": "Mislim, da sem razumel.", "en": "I think I've understood."},
+          {
+            "it": "Grazie per aver aiutato Giulia!",
+            "de": "Danke, dass du Giulia geholfen hast!",
+            "sl": "Hvala, da si pomagal Giulii!",
+            "en": "Thanks for helping Giulia!"
+          }
+        ],
+        "rows": [
+          ["dopo averlo visto", {"de": "nachdem er ihn gesehen hat", "sl": "ko ga vidi", "en": "after seeing him"}],
+          ["dopo averla letta", {"de": "nachdem sie ihn gelesen hat (la lettera)", "sl": "ko ga prebere (la lettera)", "en": "after reading it (la lettera)"}],
+          ["penso di aver capito", {"de": "ich glaube, ich habe verstanden", "sl": "mislim, da sem razumel", "en": "I think I've understood"}],
+          ["grazie per aver aiutato", {"de": "danke, dass du geholfen hast", "sl": "hvala, da si pomagal", "en": "thanks for helping"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinito-passato",
+          "prompt": "«La lettera? Penso di ___ già.»",
+          "options": ["averla letta", "averlo letto", "aver letta"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**la lettera** → la → **averla letta**\n- averlo letto · für il giornale\n- aver letta · ohne la fehlt, was du gelesen hast",
+            "sl": "**la lettera** → la → **averla letta**\n- averlo letto · za il giornale\n- aver letta · brez la manjka, kaj si prebral",
+            "en": "**la lettera** → la → **averla letta**\n- averlo letto · for il giornale\n- aver letta · without la, what you read is missing"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Der Infinitiv kann auch ein Nomen sein, immer männlich: **il mangiare** (das Essen), **il sapere** (das Wissen), **il dovere** (die Pflicht), **il piacere** (das Vergnügen). Als Subjekt steht er oft ohne Artikel: **Camminare fa bene.** (Gehen tut gut.) Ein Sprichwort sagt: **Prima il dovere, poi il piacere.**",
+          "sl": "Nedoločnik je lahko tudi samostalnik, vedno moškega spola: **il mangiare** (hrana), **il sapere** (znanje), **il dovere** (dolžnost), **il piacere** (užitek). Kot osebek je pogosto brez člena: **Camminare fa bene.** (Hoja dobro dene.) Pregovor pravi: **Prima il dovere, poi il piacere.**",
+          "en": "The infinitive can also be a noun, always masculine: **il mangiare** (food), **il sapere** (knowledge), **il dovere** (duty), **il piacere** (pleasure). As a subject it often has no article: **Camminare fa bene.** (Walking is good for you.) A saying goes: **Prima il dovere, poi il piacere.**"
+        },
+        "examples": [
+          {
+            "it": "Prima il dovere, poi il piacere.",
+            "de": "Erst die Pflicht, dann das Vergnügen.",
+            "sl": "Najprej dolžnost, potem užitek.",
+            "en": "Duty first, then pleasure."
+          },
+          {"it": "Camminare fa bene.", "de": "Gehen tut gut.", "sl": "Hoja dobro dene.", "en": "Walking is good for you."}
+        ],
+        "rows": [
+          ["il mangiare, il sapere", {"de": "das Essen, das Wissen", "sl": "hrana, znanje", "en": "food, knowledge"}],
+          ["il dovere, il piacere", {"de": "die Pflicht, das Vergnügen", "sl": "dolžnost, užitek", "en": "duty, pleasure"}],
+          ["camminare fa bene", {"de": "Gehen tut gut", "sl": "hoja dobro dene", "en": "walking is good for you"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinito-passato",
+          "prompt": "«Da Marisa ___ è sempre buono.»",
+          "options": ["il mangiare", "la mangiare", "il mangiato"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**der Infinitiv als Nomen** ist männlich: **il mangiare**\n- la mangiare · er ist nie weiblich\n- il mangiato · das Partizip ist kein Nomen",
+            "sl": "**nedoločnik kot samostalnik** je moškega spola: **il mangiare**\n- la mangiare · nikoli ni ženskega spola\n- il mangiato · deležnik ni samostalnik",
+            "en": "**the infinitive as a noun** is masculine: **il mangiare**\n- la mangiare · it is never feminine\n- il mangiato · a participle is no noun"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das Partizip allein spart einen ganzen Satz: **Finita la cena, Nonno Bepi racconta una storia.** (Nach dem Abendessen erzählt Nonno Bepi eine Geschichte.) Es steht vorn und passt sich an das Nomen danach an: **finito il lavoro**, **finita la cena**, **finiti i compiti**, **finite le vacanze**. Bei Verben mit essere an die Person: **Arrivata a casa, Marisa si siede.**",
+          "sl": "Sam deležnik prihrani cel stavek: **Finita la cena, Nonno Bepi racconta una storia.** (Po večerji Nonno Bepi pripoveduje zgodbo.) Stoji spredaj in se ujema s samostalnikom za njim: **finito il lavoro**, **finita la cena**, **finiti i compiti**, **finite le vacanze**. Pri glagolih z essere z osebo: **Arrivata a casa, Marisa si siede.**",
+          "en": "The participle alone saves a whole clause: **Finita la cena, Nonno Bepi racconta una storia.** (Dinner over, Nonno Bepi tells a story.) It stands first and agrees with the noun after it: **finito il lavoro**, **finita la cena**, **finiti i compiti**, **finite le vacanze**. With essere, with the person: **Arrivata a casa, Marisa si siede.**"
+        },
+        "examples": [
+          {
+            "it": "Finita la cena, Nonno Bepi racconta una storia.",
+            "de": "Nach dem Abendessen erzählt Nonno Bepi eine Geschichte.",
+            "sl": "Po večerji Nonno Bepi pripoveduje zgodbo.",
+            "en": "Dinner over, Nonno Bepi tells a story."
+          },
+          {
+            "it": "Arrivata a casa, Marisa si siede.",
+            "de": "Als Marisa zu Hause ankommt, setzt sie sich.",
+            "sl": "Ko pride domov, se Marisa usede.",
+            "en": "Once home, Marisa sits down."
+          }
+        ],
+        "rows": [
+          ["finito il lavoro", {"de": "nach der Arbeit", "sl": "po delu", "en": "work over"}],
+          ["finita la cena", {"de": "nach dem Abendessen", "sl": "po večerji", "en": "dinner over"}],
+          ["finiti i compiti", {"de": "wenn die Aufgaben fertig sind", "sl": "ko so naloge narejene", "en": "homework done"}],
+          ["finite le vacanze", {"de": "nach den Ferien", "sl": "po počitnicah", "en": "the holidays over"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participio-assoluto",
+          "prompt": "«___ i compiti, Lorenzo va a giocare.»",
+          "options": ["Finiti", "Finite", "Finita"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**i compiti** (männlich, mehrere) → **Finiti**\n- Finite · für weibliche: le vacanze\n- Finita · für eine: la cena",
+            "sl": "**i compiti** (moški spol, več) → **Finiti**\n- Finite · za ženski spol: le vacanze\n- Finita · za eno: la cena",
+            "en": "**i compiti** (masculine, more than one) → **Finiti**\n- Finite · for feminine: le vacanze\n- Finita · for one: la cena"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das Partizip ist auch ein Adjektiv und steht nach dem Nomen: **la porta chiusa** (die geschlossene Tür), **il pane fatto in casa** (selbst gebackenes Brot). Es passt sich an wie jedes Adjektiv, und wer es getan hat, kommt nach **da**: **i biscotti fatti da Nonna Rosa** (die Kekse, die Nonna Rosa gemacht hat).",
+          "sl": "Deležnik je tudi pridevnik in stoji za samostalnikom: **la porta chiusa** (zaprta vrata), **il pane fatto in casa** (domač kruh). Ujema se kot vsak pridevnik, kdo je to naredil, pa pride za **da**: **i biscotti fatti da Nonna Rosa** (piškoti, ki jih je spekla babica Rosa).",
+          "en": "The participle is also an adjective, after its noun: **la porta chiusa** (the closed door), **il pane fatto in casa** (home-made bread). It agrees like any adjective, and who did it comes after **da**: **i biscotti fatti da Nonna Rosa** (the biscuits Nonna Rosa made)."
+        },
+        "examples": [
+          {
+            "it": "Il pane fatto in casa è il più buono.",
+            "de": "Selbst gebackenes Brot ist das beste.",
+            "sl": "Domač kruh je najboljši.",
+            "en": "Home-made bread is the best."
+          },
+          {
+            "it": "I biscotti fatti da Nonna Rosa sono finiti.",
+            "de": "Die Kekse, die Nonna Rosa gemacht hat, sind alle.",
+            "sl": "Piškotov, ki jih je spekla babica Rosa, ni več.",
+            "en": "The biscuits Nonna Rosa made have run out."
+          }
+        ],
+        "rows": [
+          ["la porta chiusa", {"de": "die geschlossene Tür", "sl": "zaprta vrata", "en": "the closed door"}],
+          ["il pane fatto in casa", {"de": "selbst gebackenes Brot", "sl": "domač kruh", "en": "home-made bread"}],
+          ["i biscotti fatti da", {"de": "die Kekse, gemacht von", "sl": "piškoti, ki jih je naredil", "en": "the biscuits made by"}]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "participio-assoluto",
+          "text": "Mi piace il vino ___ (fare) da Matteo.",
+          "accept": ["fatto"],
+          "hint": {"de": "il vino → ?", "sl": "il vino → ?", "en": "il vino → ?"},
+          "explain": {
+            "de": "**il vino** ist männlich → **fatto**, wie ein Adjektiv.",
+            "sl": "**il vino** je moškega spola → **fatto**, kot pridevnik.",
+            "en": "**il vino** is masculine → **fatto**, like an adjective."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "infinito-passato-1",
+      "title": {"it": "Aver o essere?", "de": "Aver oder essere?", "sl": "Aver ali essere?", "en": "Aver or essere?"},
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "infinito-passato",
+          "instruction": {"de": "Aver o essere? · Welches passt?", "sl": "Aver o essere? · Kateri se prilega?", "en": "Aver o essere? · Which one fits?"},
+          "columns": [
+            {"label": {"de": "dopo aver … · mit avere", "sl": "dopo aver … · z avere", "en": "dopo aver … · with avere"}, "words": ["mangiato", "scritto", "comprato"]},
+            {
+              "label": {"de": "dopo essere … · mit essere", "sl": "dopo essere … · z essere", "en": "dopo essere … · with essere"},
+              "words": ["partito", "uscito", "tornato"]
+            }
+          ],
+          "explain": {
+            "de": "**essere** nehmen vor allem Verben des Gehens und Kommens\n- partire, uscire, tornare → dopo essere …\n- mangiare, scrivere, comprare → dopo aver …",
+            "sl": "**essere** imajo predvsem glagoli gibanja\n- partire, uscire, tornare → dopo essere …\n- mangiare, scrivere, comprare → dopo aver …",
+            "en": "**essere** goes mostly with verbs of going and coming\n- partire, uscire, tornare → dopo essere …\n- mangiare, scrivere, comprare → dopo aver …"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "infinito-passato",
+          "instruction": {"de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table"},
+          "prompt": "dopo essere …",
+          "columns": ["Bruno", "Marisa", "Bruno e Aldo", "Marisa e Zia Nives"],
+          "rows": [
+            {"label": "arrivare", "cells": ["arrivato", {"accept": ["arrivata"]}, {"accept": ["arrivati"]}, {"accept": ["arrivate"]}]},
+            {"label": "partire", "cells": [{"accept": ["partito"]}, "partita", {"accept": ["partiti"]}, {"accept": ["partite"]}]}
+          ],
+          "explain": {
+            "de": "**mit essere passt sich das Partizip an die Person an**: -o, -a, -i, -e\n- Bruno e Marisa zusammen: arrivati",
+            "sl": "**z essere se deležnik ujema z osebo**: -o, -a, -i, -e\n- Bruno in Marisa skupaj: arrivati",
+            "en": "**with essere the participle agrees with the person**: -o, -a, -i, -e\n- Bruno and Marisa together: arrivati"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "infinito-passato",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Dopo ___ le api, Aldo torna a casa.»",
+          "options": ["aver guardato", "essere guardato", "aver guardate"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**guardare** geht mit avere → **aver guardato**\n- essere guardato · guardare geht nicht mit essere\n- aver guardate · ohne le bleibt es bei -o",
+            "sl": "**guardare** gre z avere → **aver guardato**\n- essere guardato · guardare ne gre z essere\n- aver guardate · brez le ostane -o",
+            "en": "**guardare** goes with avere → **aver guardato**\n- essere guardato · guardare doesn't go with essere\n- aver guardate · with no le it stays -o"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "participio-assoluto",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«___ le vacanze, i bambini tornano a scuola.»",
+          "options": ["Finite", "Finiti", "Finita"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**le vacanze** (weiblich, mehrere) → **Finite**\n- Finiti · für männliche: i compiti\n- Finita · für eine: la cena",
+            "sl": "**le vacanze** (ženski spol, več) → **Finite**\n- Finiti · za moški spol: i compiti\n- Finita · za eno: la cena",
+            "en": "**le vacanze** (feminine, more than one) → **Finite**\n- Finiti · for masculine: i compiti\n- Finita · for one: la cena"
+          }
+        }
+      ]
+    },
+    {
+      "id": "infinito-passato-2",
+      "title": {"it": "La giornata di Marisa", "de": "Marisas Tag", "sl": "Marisin dan", "en": "Marisa's day"},
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "infinito-passato",
+          "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
+          "title": "La giornata di Marisa",
+          "text": "Dopo ___ alzata, Marisa beve un caffè. Dopo ___ bevuto il caffè, apre l'osteria. ___ la colazione dei clienti, va al mercato. Dopo essere ___ (tornare), prepara il frico. Il frico ___ (fare) da Marisa è il più buono del paese. Finito il pranzo, lava i piatti: dopo ___ lavati, si siede. «Il ___ è pronto!» grida la sera, e Tommaso corre a tavola.",
+          "gaps": [
+            {"accept": ["essersi"], "hint": {"de": "alzarsi", "sl": "alzarsi", "en": "alzarsi"}},
+            {"accept": ["aver", "avere"], "hint": {"de": "avere → ?", "sl": "avere → ?", "en": "avere → ?"}},
+            {
+              "accept": ["Finita"],
+              "hint": {"de": "la colazione: Wer ist vorbei?", "sl": "la colazione: kaj je končano?", "en": "la colazione: what is over?"},
+              "grammar": "participio-assoluto"
+            },
+            {"accept": ["tornata"], "hint": {"de": "Marisa → ?", "sl": "Marisa → ?", "en": "Marisa → ?"}},
+            {"accept": ["fatto"], "hint": {"de": "il frico → ?", "sl": "il frico → ?", "en": "il frico → ?"}, "grammar": "participio-assoluto"},
+            {"accept": ["averli"], "hint": {"de": "i piatti → ?", "sl": "i piatti → ?", "en": "i piatti → ?"}},
+            {"accept": ["mangiare"], "hint": {"de": "das Essen, als Infinitiv", "sl": "hrana, kot nedoločnik", "en": "food, as an infinitive"}}
+          ],
+          "bank": true,
+          "distractors": ["tornato", "fatta", "averle"],
+          "translation": {
+            "de": "Nachdem Marisa aufgestanden ist, trinkt sie einen Kaffee. Nachdem sie den Kaffee getrunken hat, öffnet sie die Osteria. Nach dem Frühstück der Gäste geht sie auf den Markt. Nachdem sie zurückgekommen ist, macht sie Frico. Der Frico, den Marisa macht, ist der beste im Dorf. Nach dem Mittagessen spült sie das Geschirr: Nachdem sie es gespült hat, setzt sie sich. „Das Essen ist fertig!“, ruft sie am Abend, und Tommaso rennt an den Tisch.",
+            "sl": "Ko vstane, Marisa spije kavo. Ko spije kavo, odpre gostilno. Po zajtrku gostov gre na tržnico. Ko se vrne, pripravi frico. Frico, ki ga naredi Marisa, je najboljši v vasi. Po kosilu pomije posodo: ko jo pomije, se usede. »Hrana je pripravljena!« zakliče zvečer in Tommaso steče k mizi.",
+            "en": "After getting up, Marisa has a coffee. After drinking it, she opens the inn. Her guests' breakfast over, she goes to the market. After coming back, she makes frico. The frico made by Marisa is the best in the village. Lunch over, she washes the dishes: after washing them, she sits down. \"Food's ready!\" she calls in the evening, and Tommaso runs to the table."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "infinito-passato",
+          "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose"},
+          "prompt": "«Bruno, Aldo, grazie ___ alla festa!»",
+          "options": ["per essere venuti", "per aver venuto", "per essere venuto"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**venire** geht mit essere, und es sind zwei → **per essere venuti**\n- per aver venuto · venire geht nie mit avere\n- per essere venuto · für einen",
+            "sl": "**venire** gre z essere, in sta dva → **per essere venuti**\n- per aver venuto · venire nikoli ne gre z avere\n- per essere venuto · za enega",
+            "en": "**venire** goes with essere, and there are two → **per essere venuti**\n- per aver venuto · venire never goes with avere\n- per essere venuto · for one"
+          }
+        }
+      ]
+    },
+    {
+      "id": "infinito-passato-3",
+      "title": {"it": "Prima una cosa, poi l'altra", "de": "Erst das eine, dann das andere", "sl": "Najprej eno, potem drugo", "en": "First one thing, then the other"},
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "infinito-passato",
+          "instruction": {"de": "Unisci con dopo · Verbinde mit dopo", "sl": "Unisci con dopo · Združi z dopo", "en": "Unisci con dopo · Join with dopo"},
+          "cue": "dopo",
+          "items": [
+            {
+              "from": "Bruno mangia. Poi torna nella fucina.",
+              "accept": [
+                "Dopo aver mangiato, Bruno torna nella fucina.",
+                "Bruno torna nella fucina dopo aver mangiato.",
+                "Bruno, dopo aver mangiato, torna nella fucina.",
+                "Dopo aver mangiato, torna nella fucina.",
+                "Dopo avere mangiato, Bruno torna nella fucina.",
+                "Bruno torna nella fucina dopo avere mangiato.",
+                "Bruno, dopo avere mangiato, torna nella fucina.",
+                "Dopo avere mangiato, torna nella fucina."
+              ]
+            },
+            {
+              "from": "Marisa arriva. Poi apre l'osteria.",
+              "accept": [
+                "Dopo essere arrivata, Marisa apre l'osteria.",
+                "Marisa apre l'osteria dopo essere arrivata.",
+                "Marisa, dopo essere arrivata, apre l'osteria.",
+                "Dopo essere arrivata, apre l'osteria.",
+                "Dopo esser arrivata, Marisa apre l'osteria.",
+                "Marisa apre l'osteria dopo esser arrivata.",
+                "Marisa, dopo esser arrivata, apre l'osteria.",
+                "Dopo esser arrivata, apre l'osteria."
+              ],
+              "hint": {"de": "Marisa → -a", "sl": "Marisa → -a", "en": "Marisa → -a"}
+            },
+            {
+              "from": "Franco finisce il lavoro. Poi va all'osteria.",
+              "accept": [
+                "Dopo aver finito il lavoro, Franco va all'osteria.",
+                "Franco va all'osteria dopo aver finito il lavoro.",
+                "Franco, dopo aver finito il lavoro, va all'osteria.",
+                "Dopo aver finito il lavoro, va all'osteria.",
+                "Dopo avere finito il lavoro, Franco va all'osteria.",
+                "Franco va all'osteria dopo avere finito il lavoro.",
+                "Franco, dopo avere finito il lavoro, va all'osteria.",
+                "Dopo avere finito il lavoro, va all'osteria."
+              ]
+            },
+            {
+              "from": "Giulia legge la lettera. Poi la mette via.",
+              "accept": [
+                "Dopo averla letta, Giulia la mette via.",
+                "Giulia la mette via dopo averla letta.",
+                "Giulia, dopo averla letta, la mette via.",
+                "Dopo averla letta, la mette via.",
+                "Dopo aver letto la lettera, Giulia la mette via.",
+                "Giulia la mette via dopo aver letto la lettera.",
+                "Giulia, dopo aver letto la lettera, la mette via.",
+                "Dopo aver letto la lettera, la mette via.",
+                "Dopo avere letto la lettera, Giulia la mette via.",
+                "Giulia la mette via dopo avere letto la lettera.",
+                "Giulia, dopo avere letto la lettera, la mette via.",
+                "Dopo avere letto la lettera, la mette via."
+              ],
+              "hint": {"de": "la lettera → la", "sl": "la lettera → la", "en": "la lettera → la"}
+            }
+          ],
+          "explain": {
+            "de": "**dopo aver** oder **dopo essere** + Partizip, dieselbe Person\n- Marisa arriva. → Dopo essere arrivata, …",
+            "sl": "**dopo aver** ali **dopo essere** + deležnik, ista oseba\n- Marisa arriva. → Dopo essere arrivata, …",
+            "en": "**dopo aver** or **dopo essere** + participle, one person\n- Marisa arriva. → Dopo essere arrivata, …"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "participio-assoluto",
+          "instruction": {"de": "Usa il participio · Nimm das Partizip", "sl": "Usa il participio · Uporabi deležnik", "en": "Usa il participio · Use the participle"},
+          "items": [
+            {
+              "from": "Quando la cena è finita, Nonno Bepi racconta una storia.",
+              "accept": [
+                "Finita la cena, Nonno Bepi racconta una storia.",
+                "Nonno Bepi racconta una storia, finita la cena.",
+                "Una volta finita la cena, Nonno Bepi racconta una storia.",
+                "Appena finita la cena, Nonno Bepi racconta una storia.",
+                "Finita la cena, racconta una storia."
+              ]
+            },
+            {
+              "from": "Quando il lavoro è finito, Franco va a casa.",
+              "accept": [
+                "Finito il lavoro, Franco va a casa.",
+                "Franco va a casa, finito il lavoro.",
+                "Una volta finito il lavoro, Franco va a casa.",
+                "Appena finito il lavoro, Franco va a casa.",
+                "Finito il lavoro, va a casa."
+              ]
+            },
+            {
+              "from": "Quando i compiti sono finiti, Lorenzo gioca.",
+              "accept": [
+                "Finiti i compiti, Lorenzo gioca.",
+                "Lorenzo gioca, finiti i compiti.",
+                "Una volta finiti i compiti, Lorenzo gioca.",
+                "Appena finiti i compiti, Lorenzo gioca.",
+                "Finiti i compiti, gioca."
+              ]
+            },
+            {
+              "from": "Quando Marisa è arrivata a casa, si siede.",
+              "accept": [
+                "Arrivata a casa, Marisa si siede.",
+                "Marisa si siede, arrivata a casa.",
+                "Una volta arrivata a casa, Marisa si siede.",
+                "Appena arrivata a casa, Marisa si siede.",
+                "Arrivata a casa, si siede."
+              ],
+              "hint": {"de": "Marisa → -a", "sl": "Marisa → -a", "en": "Marisa → -a"}
+            }
+          ],
+          "explain": {
+            "de": "**das Partizip vorn**, passend zum Nomen danach\n- Quando la cena è finita, … → Finita la cena, …",
+            "sl": "**deležnik spredaj**, ujema se s samostalnikom za njim\n- Quando la cena è finita, … → Finita la cena, …",
+            "en": "**the participle first**, agreeing with the noun after it\n- Quando la cena è finita, … → Finita la cena, …"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "infinito-passato",
+        "instruction": {"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"},
+        "text": "Dopo ___ finito il lavoro, Bruno va da Marisa. Dopo essere ___ (entrare), si siede vicino al fuoco. ___ (finire) la cena, Nonno Bepi racconta una storia. «Penso di ___ già sentita», dice Bruno. Marisa porta i biscotti ___ (fare) da Nonna Rosa.",
+        "gaps": [
+          {"accept": ["aver", "avere"]},
+          {"accept": ["entrato"]},
+          {"accept": ["Finita"], "grammar": "participio-assoluto"},
+          {"accept": ["averla"]},
+          {"accept": ["fatti"], "grammar": "participio-assoluto"}
+        ],
+        "translation": {
+          "de": "Nachdem Bruno die Arbeit beendet hat, geht er zu Marisa. Nachdem er hereingekommen ist, setzt er sich ans Feuer. Nach dem Abendessen erzählt Nonno Bepi eine Geschichte. „Ich glaube, die habe ich schon gehört“, sagt Bruno. Marisa bringt die Kekse, die Nonna Rosa gemacht hat.",
+          "sl": "Ko konča delo, gre Bruno k Marisi. Ko vstopi, se usede k ognju. Po večerji Nonno Bepi pripoveduje zgodbo. »Mislim, da sem jo že slišal,« reče Bruno. Marisa prinese piškote, ki jih je spekla babica Rosa.",
+          "en": "After finishing work, Bruno goes to Marisa's. After coming in, he sits down by the fire. Dinner over, Nonno Bepi tells a story. \"I think I've heard it already,\" says Bruno. Marisa brings the biscuits Nonna Rosa made."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "infinito-passato",
+        "instruction": {"de": "Unisci con dopo · Verbinde mit dopo", "sl": "Unisci con dopo · Združi z dopo", "en": "Unisci con dopo · Join with dopo"},
+        "items": [
+          {
+            "from": "Matteo guarda la vigna. Poi va a casa.",
+            "accept": [
+              "Dopo aver guardato la vigna, Matteo va a casa.",
+              "Matteo va a casa dopo aver guardato la vigna.",
+              "Matteo, dopo aver guardato la vigna, va a casa.",
+              "Dopo aver guardato la vigna, va a casa.",
+              "Dopo avere guardato la vigna, Matteo va a casa.",
+              "Matteo va a casa dopo avere guardato la vigna.",
+              "Matteo, dopo avere guardato la vigna, va a casa.",
+              "Dopo avere guardato la vigna, va a casa."
+            ]
+          },
+          {
+            "from": "Le pecore tornano. Poi dormono.",
+            "accept": [
+              "Dopo essere tornate, le pecore dormono.",
+              "le pecore dormono dopo essere tornate.",
+              "le pecore, dopo essere tornate, dormono.",
+              "Dopo essere tornate, dormono.",
+              "Dopo esser tornate, le pecore dormono.",
+              "le pecore dormono dopo esser tornate.",
+              "le pecore, dopo esser tornate, dormono.",
+              "Dopo esser tornate, dormono."
+            ]
+          },
+          {
+            "from": "Aldo si alza. Poi va dalle api.",
+            "accept": [
+              "Dopo essersi alzato, Aldo va dalle api.",
+              "Aldo va dalle api dopo essersi alzato.",
+              "Aldo, dopo essersi alzato, va dalle api.",
+              "Dopo essersi alzato, va dalle api."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "participio-assoluto",
+        "instruction": {"de": "Usa il participio · Nimm das Partizip", "sl": "Usa il participio · Uporabi deležnik", "en": "Usa il participio · Use the participle"},
+        "items": [
+          {
+            "from": "Quando la festa è finita, Tommaso va a letto.",
+            "accept": [
+              "Finita la festa, Tommaso va a letto.",
+              "Tommaso va a letto, finita la festa.",
+              "Una volta finita la festa, Tommaso va a letto.",
+              "Appena finita la festa, Tommaso va a letto.",
+              "Finita la festa, va a letto."
+            ]
+          },
+          {
+            "from": "Quando le lezioni sono finite, i bambini escono.",
+            "accept": [
+              "Finite le lezioni, i bambini escono.",
+              "i bambini escono, finite le lezioni.",
+              "Una volta finite le lezioni, i bambini escono.",
+              "Appena finite le lezioni, i bambini escono.",
+              "Finite le lezioni, escono."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "infinito-passato",
+        "prompt": "«Dopo ___, Davide porta le pecore al pascolo.»",
+        "options": ["essersi svegliato", "essersi svegliata", "esserlo svegliato"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**svegliarsi**, und Davide ist einer → **essersi svegliato**\n- essersi svegliata · für eine Frau\n- esserlo svegliato · si gehört an essere, nicht lo",
+          "sl": "**svegliarsi**, Davide pa je eden → **essersi svegliato**\n- essersi svegliata · za žensko\n- esserlo svegliato · na essere se pripne si, ne lo",
+          "en": "**svegliarsi**, and Davide is one man → **essersi svegliato**\n- essersi svegliata · for a woman\n- esserlo svegliato · si joins essere, not lo"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "participio-assoluto",
+        "prompt": "«La finestra ___ dal vento sbatte.»",
+        "options": ["aperta", "aperto", "aprita"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**la finestra** ist weiblich → **aperta**\n- aperto · für männliche: il portone\n- aprita · aprire hat ein eigenes Partizip: aperto",
+          "sl": "**la finestra** je ženskega spola → **aperta**\n- aperto · za moški spol: il portone\n- aprita · aprire ima svoj deležnik: aperto",
+          "en": "**la finestra** is feminine → **aperta**\n- aperto · for masculine: il portone\n- aprita · aprire has a participle of its own: aperto"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "infinito-passato",
+        "prompt": "«___ fa bene al cuore.»",
+        "options": ["Camminare", "Camminato", "Cammina"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**als Subjekt** steht der Infinitiv → **Camminare**\n- Camminato · das Partizip ist kein Subjekt\n- Cammina · das ist er geht, und fa bräuchte dann ein Subjekt",
+          "sl": "**kot osebek** stoji nedoločnik → **Camminare**\n- Camminato · deležnik ni osebek\n- Cammina · to je on hodi, fa pa potem nima osebka",
+          "en": "**as a subject** the infinitive → **Camminare**\n- Camminato · a participle is no subject\n- Cammina · that's he walks, and fa would lack its subject"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: il mangiare for food; Dopo essere tornati with the subject after; Finita la colazione dei clienti; the German nachdem"
+}
