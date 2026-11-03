@@ -13,7 +13,7 @@ Each file's `review` names what most needs a look. The list by unit:
 - `vorrei che venga`, `vorrei che diciate`, `vorrei che ascoltiate`: heard, and Italian grammars call them a mistake. They are the weakest of the spoken forms. The page names `vorrei che venga` as heard.
 - `a meno che non` + the indicative (a meno che non c'è, non arriva, non fa): a second reader thought it common in casual talk and wasn't sure. An `almost` choice and two `spoken` gaps.
 - `sapevo che fosse`: `almost` in one choice, with **era** as the school's.
-- `come se` + the indicative (come se era) and `benché` + the indicative are **not** listed as spoken, and benché's `è` and sebbene's `ha` are offered as wrong choices. If people really say these, they need to come out.
+- `come se` + the indicative (come se era) and `benché` + the indicative (benché è, sebbene ha; [Treccani has benché with the indicative](https://www.treccani.it/enciclopedia/aggettivi-e-pronomi-indefiniti_(Enciclopedia-dell'Italiano)/) in the same way as chiunque): are they said? At integration they came out of the choices and the bank, replaced by forms nobody says (siano, fossero, abbiano, pioverebbe). Typed in a gap they are still wrong: `spoken`, or `nonstandard` once it is in main, if a native says so.
 
 **Italian, by unit:**
 - **congiuntivo-passato**: `Sono contenta che tu l'abbia trovata` in the gap text (the agreement with l' is asked); `Dubito che Giulia si sia già alzata`; `Non sono sicuro che Aldo abbia venduto tutto il miele`.
@@ -69,7 +69,7 @@ Six new B2 pages in `companion/grammar/it/`, in it, de, sl and en: a rule under 
 
 Paired rules and swaps only. A slip in a noun stays a slip.
 
-- **`ending_swaps`**: another conjugation's vowel in the imperfect subjunctive is one ending for another on the same stem. Thirty pairs over -ssi, -sse, -ssimo, -ssero, -ste with a, e, i: dormesse for dormisse, parlessi for parlassi, stassi for stessi, dasse for desse. Without them the vowel sits in the stem and is forgiven as a slip. As B1's note says of its pairs, they aren't a word class: passi typed as pessi is wrong too.
+- **Another conjugation's vowel in the imperfect subjunctive** (dormesse for dormisse, parlessi for parlassi, stassi for stessi, dasse for desse) was thirty plain `ending_swaps` on this branch, which made passi typed as pessi wrong too. At integration they gave way to part b's paired `wrong` rules, on a stem of three letters or more or av, st, d, so a child's nouns keep a slip as a slip (course-it-b2-b.md; `ItalianB2bContentTest`).
 - **`wrong`**, each only for that word: desti and dessi, deste and desse, foste and fosse both ways, dissi for dessi, disse for desse. These forms have five letters, so one ending letter counts and the rest is stem.
 - Longer forms were wrong already, by the two-letter ending: avesti for avessi, venisti for venissi, parlaste for parlasse. So were the person's ending (fosse for fossi, fossero for fossimo) and the participle's agreement. `ItalianB2aContentTest` pins them.
 - **Not changed**: `siano` for `siamo` stays a slip, as B1's note chose. So "che noi siano arrivati" in congiuntivo-passato's table counts as almost.

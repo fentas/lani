@@ -510,7 +510,7 @@ shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
 
 - **Nothing written left to do, more to come** (every written unit done, or none written yet: the Italian course's first
   days; no written unit behind a closed level; and a unit still planned, or a level the outline lists with no units, in a
-  level open or not: German and English past A1, Italian past B1): the teacher says she is preparing the next lessons,
+  level open or not: German and English past their written levels): the teacher says she is preparing the next lessons,
   kindly, under her welcome (`School.preparing`; "Pripravljam naslednje ure. Kmalu se spet vidiva!", Maestra Elena's "Sto
   preparando le prossime lezioni. Torna presto!"), and Home's tile says "📝 Nove ure kmalu" instead of "✅ vse opravljeno".
 - **Written units behind a closed level** (the open levels done, the next one waiting for the school: `School.waiting`):
@@ -758,7 +758,7 @@ turns on"). Writing one:
 ## The Italian course
 
 Teo, a child learning Italian from German in the Friuli village, built the school (2026-10-28). The Italian course is
-`companion/course/it/`: the outline (A1, 18 units, the grammar book's Italian pages to teach) and its units, written in
+`companion/course/it/`: the outline (A1 to B2, 18 units each, the grammar book's Italian pages to teach) and its units, written in
 the Friuli village's life (Maestra Elena, Nonna Rosa, Lorenzo, Giulia, Tommaso, Pastore Davide and his sheep, the sea,
 the camp, the field, the wood, the mill, the festa). The school is the same school: the bridge serves the course of the
 village's language (`GET /course` of a Friuli village is Italian), the app bundles it, and every part of the school is the
@@ -770,7 +770,7 @@ course's language's, not Slovene's:
 | Read aloud | the intro's Italian in her voice: `Spoken.looks` for Italian (à, è …, its frequent words) and the words the intro itself shows; the explanation in the learner's German as one clip (`de\|…`); voice-build's `course` source makes her lines ahead (`course-speech.ts`, the smoke's Friuli checks) |
 | The teacher's lines | "Benvenuti a scuola! Sedetevi …" and "Questo lo sai già" (tu: Elena says tu to the children); "only the Italian is read" when the phone lacks a German voice |
 | Texts in German | the exercises' instructions, hints, whys, labels and columns per base ([above](#texts-in-the-learners-language)) |
-| Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too |
+| Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too; B2's another conjugation's vowel in the imperfect subjunctive on a verb's stem (`dormessi`, `dassi`), the remote past for the imperfetto (`mangiavano` for `mangiarono`), a word made without its rule (`facilemente`, `inpossibile`), each paired so that a slip in a noun stays a slip |
 | The blackboard | "Benvenuti!" and the day as Italy writes it (28/10/2026) before the first unit; the unit's title and forms in chalk (à, è, ' written) |
 | Prints | headed in Italian and the base ("Regola · Die Regel", "Unità"), the words from the Italian and the culture's packs with their article; Slovene as a base for an Italian course |
 | Not for Italian | forms cards, counting cards and the numbers module (Slovene's: `numeri` turns nothing on), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
@@ -1044,6 +1044,56 @@ order, B1's earlier ones only lightly:
 - **No trick**: congiunzioni's gap text has no distractors (almost every conjunction fits some gap), as vorrei's has
   none; a wrong option is wrong Italian or wrong by its own sentence (la mia where Davide is told about, sono where
   Giulia said it).
+
+### The Italian course: B2
+
+B2 is outlined in `course.json` (18 units, 2026-11-02) and written in three parts side by side (docs/plans/05-built/course-it-b2-a.md, -b.md, -c.md). The audience stays the course's: German first with du, nothing frightening, the children around. It is still real B2, so the lines are the village's grown-up life, and a polite letter is a letter to the mayor. Each page new here has its own hand-written `card`, the first of the Italian book. Around a gap each unit uses A1, A2, B1 and the B2 units before it. The sources and where the outline departs from them: docs/plans/05-built/outlines-2.md.
+
+Unit 1–6: the congiuntivo's other tenses.
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 1 | `congiuntivo-passato` 🧳 | abbia or sia + the participle, its agreement; after an opinion, a doubt or a feeling, not after so che; venga against sia venuto; the small words in front | congiuntivo-passato, congiuntivo, passato-prossimo |
+| 2 | `congiuntivo-imperfetto` 🔍 | -assi, -essi, -issi in every person, voi's -ste too; fossi, dessi, stessi, facessi, dicessi, bevessi; after a past, vorrei che, mi piacerebbe che; prima che, senza che; the same person with di | congiuntivo-imperfetto, congiuntivo, periodo-ipotetico |
+| 3 | `congiuntivo-trapassato` ⏮️ | avessi or fossi + the participle, what came before a past; to recognise first, as the Profilo asks for it only in part | congiuntivo-trapassato, congiuntivo-imperfetto, trapassato |
+| 4 | `concordanza-tempi` 🕰️ | the table of before, at the same time and after, for a first verb now and in the past; sarebbe venuto named and accepted, never asked; a present with the imperfect for what went on long | concordanza-tempi, congiuntivo-passato, congiuntivo-imperfetto, congiuntivo-trapassato |
+| 5 | `benche-purche` ☂️ | benché, sebbene, nonostante, anche se beside them; purché, a condizione che, a patto che; affinché; a meno che with its non; come se | congiunzioni-congiuntivo, congiuntivo-espressioni, congiunzioni |
+| 6 | `magari` 🌠 | Magari!; magari, almeno, se solo + the imperfect or pluperfect; Non l'avessi mai detto!; che + the present or past for a doubt or a wish; magari + the indicative as maybe | congiuntivo-indipendente, congiuntivo-imperfetto |
+
+Unit 7–12: if, regret, telling.
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 7 | `condizionale-passato` 🤷 | avrei or sarei + the participle; what would have been; avrei dovuto, potuto, voluto; the news's conditional to recognise | condizionale-passato, condizionale, passato-prossimo |
+| 8 | `se-potessi` 🌠 | every person of the se-half; the condizionale in the other half, either first; se vinco against se vincessi; se fossi in te; its own summary card (`intro.summary`) | periodo-ipotetico, condizionale, congiuntivo-imperfetto |
+| 9 | `se-avessi-saputo` 🤦 | what can't be any more; the mixed one by its time word; the spoken double imperfetto named and right on every gap and line | periodo-ipotetico-irrealta, periodo-ipotetico, condizionale-passato, congiuntivo-trapassato |
+| 10 | `disse-che` 📻 | the tenses that shift after a past, the future in the past, oggi to quel giorno, orders with di, mi chiese dove fosse | discorso-indiretto-passato, discorso-indiretto, condizionale-passato |
+| 11 | `raccontare` 📚 | the remote past used: the strong verbs' 1-3-6, which past by distance and region, the picture beside the events, the presente storico | raccontare, passato-remoto, imperfetto-passato |
+| 12 | `gerundio-passato` 🏁 | avendo or essendo + the participle, what was done first and often why; one subject; pronouns on the end; essendo in due; pur + the gerund | gerundio-passato, gerundio |
+
+Unit 13–18: other forms, words, a text.
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 13 | `infinito-passato` 🍽️ | dopo aver, dopo essere (dopo essersi alzata); dopo averla letta; penso di aver capito, grazie per aver aiutato; the infinitive as a noun (il dovere, camminare fa bene); finita la cena, arrivata a casa; the participle as an adjective | infinito-passato, participio-assoluto, infinito-preposizioni |
+| 14 | `fare-lasciare` 🔧 | fare + an infinitive with nothing between; te lo faccio vedere, fammelo vedere, posso fartelo vedere; a or da for the one who does it; lascialo dormire, lascia stare; l'ho fatta riparare; si è fatta tagliare i capelli | fare-lasciare, pronomi-combinati |
+| 15 | `viene-aperto` 🏷️ | venire + the participle against è aperta, simple tenses only; andare + the participle for must; si + a verb that follows the thing, si sono venduti; vendesi to recognise | passivo-venire-andare, passivo, si-impersonale |
+| 16 | `il-quale` 🔗 | il quale and its forms, dal quale, nella quale; il cui; chi for the one who; chiunque, qualunque, qualsiasi + the subjunctive | relativi-il-quale, relativi-cui, indefiniti |
+| 17 | `alterati` 🔎 | -ino, -etto, -ello, -uccio, -one, -accio; words of their own (mulino, burrone); -mente; in-, s-, ri-; families of words, libreria against biblioteca | alterati |
+| 18 | `connettivi` ✉️ | tuttavia, anzi, in effetti, inoltre, invece; a causa di, in base a; il pane l'ho comprato, è Rosa che; the letter to the mayor (Gentile Sindaco, Le scrivo, La ringrazio) | connettivi, congiunzioni, tu-lei |
+
+- **The grading B2 needs** (`grading/it.json`, every rule paired, so that a slip in a noun stays a slip; `ItalianB2aContentTest`, `-b`, `-c`):
+  - Another conjugation's vowel in the imperfect subjunctive is wrong (dormessi for dormissi, dicassi for dicessi, dassi for dessi, parleste for parlaste), in `wrong` on a stem of three letters or more or av, st, d, with -issimo as the right word left out. So a child's sassi, feste, classe, triste and bellissimo keep a slip as a slip. Plain `ending_swaps` did this first in two parts and were taken out for that reason.
+  - foste and fosse, deste and desse, desti and dessi for one another; dissi for dessi; avando for avendo; vede and vide for one another; mese for mise.
+  - On the same stem (`ending_swaps`): the remote past against the imperfetto and the future (mangiavano for mangiarono, dormiranno for dormirono).
+  - A word's making: facilemente, regolaremente, lentomente, felicamente; inpossibile, inregolare, inlegale, inbevibile; barcetta. Veremente for veramente stays a slip.
+- **A form people say is never an option.** The native lists name them; each is in `spoken` or left out, and no choice or word bank offers one as wrong (benché è, sebbene ha, come se era; a dangling gerund, which is why gerundio-passato asks who did it; a remoto for today). The typed subjunctive stays the answer where the indicative isn't listed; benché + the indicative and dassi, stassi wait for a native's word, and for `nonstandard` if the answer is that people say them.
+- **Se + the conditional stays offered as wrong** (se potrei, se avrei saputo), as B1's `periodo-ipotetico` does and the outline says, and so does the simple conditional for the future in the past (disse che porterebbe). Both are on the native list.
+- **No gap where another tense is Italian too, unless every right form is listed:** every shift gap of disse-che has a past anchor, raccontare's gaps name their tense; a cue in brackets where another verb would fit (si è ___ (fare) aiutare, as si è lasciata would).
+- **A cloze can't list a spoken form** (`cloze` has no such key), so a quick question with a gap avoids the verbs that have one.
+- **A table's cell short:** a phone's field holds about nine letters in three columns, twelve in two, eighteen in one.
+- **A quick question is Italian only:** the sentence of its answer is read in Elena's voice, so a prompt in the base would be read in it too.
+- **The right answer isn't always first** in part c's choices (the app shows options in the file's order). A separate branch makes the app and the prints order them, every course's.
 
 ## The German course
 

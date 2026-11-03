@@ -25,12 +25,10 @@ Italian first. Marked **offered as wrong** where a line grades something people 
 - **raccontare:** the three regions as stated (below, with the sources); Sotto l'imperatore Augusto fu la capitale (era is more natural; the instruction
   asks for the remoto) and La città diventò or divenne, both listed; the lively present (Ieri ero in piazza, e arriva Tommaso e mi dice); the old man's
   coin tale; col cappello; Molti mercanti vennero dal Nord con l'ambra; Mio nonno ha costruito questo mulino as still felt; seppe glossed "found out";
-  credei and credetti as equals; "after mentre comes the picture", stated without an exception. **Offered as wrong**: partirà for Marco Polo (a history
-  book's future exists, but needs an anchor).
+  credei and credetti as equals; "after mentre comes the picture", stated without an exception. partirà for Marco Polo, a history book's future, was offered as wrong; at integration it became partirono.
 - **gerundio-passato:** how written it sounds in a village line (the unit says so and marks nothing natural wrong); Avendo finito i lavori in piazza, il
   sindaco … (he didn't do the work himself); La banda, essendo arrivata in ritardo; Essendo in due; Essendo domenica (on the page only); Zia Nives? Avendola
-  vista in piazza, Bruno l'ha salutata; essendo stato after pur. **Offered as wrong**: the dangling gerunds (Avendo finito il lavoro, l'osteria era
-  aperta; Avendo mangiato tutto, la ciotola era vuota; Essendo arrivata tardi al mercato, le uova erano finite), since speech does dangle; Essendo già mangiato.
+  vista in piazza, Bruno l'ha salutata; essendo stato after pur. The dangling gerunds (Avendo finito il lavoro, l'osteria era aperta) were offered as wrong, though speech does dangle; at integration those choices became "who did it?" (Chi ha finito il lavoro?), so nothing offers one. **Offered as wrong**: Essendo già mangiato.
 
 **Slovene (Jan's base; nothing here is graded in it):** šagra for a sagra; vrata ograde for cancello; Če bi vedel, bi prišel with no *bil* against the literary
 *bi bil vedel*, as the units say it; Po poročanju radia, Po pisanju časopisa with naj bi; se je slabo končal; je mizo že pogrnila; the present kept in reported
@@ -127,7 +125,7 @@ Gerund (one subject, the reason, pur + the gerund): only teaching sites, which a
 - **`ending_swaps`, 24 new pairs, on the same stem only, so a slip elsewhere in the word stays one:** the remote past against the imperfetto and the future: mangiavano for mangiarono, dormiranno for dormirono, parlavamo for parlammo.
 - **`wrong`, paired:** avando, essando for avendo, essendo with their endings; vede and vide for one another; mese for mise; foste and fosse, deste and desse, desti and dessi for one another (one letter inside a short stem).
 
-No app code changed, and none of the new grading from course-en-a2-b (`nonstandard`) is used. Part a may add overlapping rules for the imperfect subjunctive: `json3merge.py` unites them and a rule twice does no harm, but if part a's are plain `ending_swaps`, a child's nouns come back with them (above).
+No app code changed, and none of the new grading from course-en-a2-b (`nonstandard`) is used. Part a's plain `ending_swaps` for the same mistakes came out at integration: these paired rules cover them, and a child's nouns keep a slip as a slip.
 
 ## The words
 

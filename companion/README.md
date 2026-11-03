@@ -351,7 +351,7 @@ pair switches:
   for ä/ö/ü/ß) is almost right, with its hint; English contractions are the same answer. Answers are lowercased in the
   target's locale; a word's stem forgives one slip from 4 letters, two from 9, but not a known mistake the table lists
   (`wrong`: Italian's anderò for andrò, venito for venuto, glilo for glielo, leggando for leggendo, sarai for sarei, sta
-  for stia; `ending_swaps`: one ending for another on the same stem, dormono for dormano, sarete for sareste; Slovene's prefixed
+  for stia, dormessi for dormissi, facilemente for facilmente; `ending_swaps`: one ending for another on the same stem, dormono for dormano, sarete for sareste; Slovene's prefixed
   verbs one letter off another prefix, prenesel for prinesel, prešel for prišel, zapisal for napisal, obšel for odšel:
   another verb, B2's `predpone`).
 - **Speech**: the phone's recognizer and text-to-speech take the target's locale (sl-SI, it-IT, de-DE, en-GB); the
@@ -1945,7 +1945,7 @@ them). A page about a case or what decides one (the six cases', skloni, the geni
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
 
-Italian has 52 pages (15 A1, 19 A2, 18 B1), German 21 (15 A1, 6 A2) and English 22 (18 A1, 4 A2), each course adding
+Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2), German 21 (15 A1, 6 A2) and English 22 (18 A1, 4 A2), each course adding
 the pages it teaches, explained in the bases their learners have (Italian in Slovene, English and German; German in
 Slovene, English and Italian; English in Slovene, Italian and German, and English), with examples from their village
 (machine-written, not reviewed by a native speaker):
@@ -2289,10 +2289,10 @@ cases, pronouns, the comparative, aspect, the conditional (14 units); then B1's 
 levels"); a unit's "⏩ Znam že: kar na test" tests out of it at once.
 
 **The Italian school** (the Friuli village's: [COURSE.md](COURSE.md#the-italian-course), docs/plans/05-built/friuli-school.md).
-A village of the Friuli culture gets the Italian course (`companion/course/it`: A1's 18 units and the A2 units written
-so far, as COURSE.md lists them; the rest planned) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
+A village of the Friuli culture gets the Italian course (`companion/course/it`: 18 units at each level, A1 to B2, all written,
+as COURSE.md lists them) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
 hints and whys come in the learner's own language (German for Teo; [COURSE.md](COURSE.md#texts-in-the-learners-language)),
-its sheets print headed in Italian and the base. While the next units are planned, Elena says she is preparing them
+its sheets print headed in Italian and the base. While units are planned (none now), Elena says she is preparing them
 ("Sto preparando le prossime lezioni. Torna presto!") and Home's tile "📝 Nuove lezioni in arrivo". The school building's
 card goes into "A scuola · In der Schule", the Friuli classroom ([SCENES.md](SCENES.md#culture-looks)). QA:
 `companion/bin/qa --steps friuli-school` with a synthetic Teo (its usage).
@@ -3306,9 +3306,10 @@ almost right with its hint (lo, la, glielo or gliela before avere only where the
 vista, the pronoun's gender wrong, is wrong), and its known mistakes, never a slip in the stem (`wrong`: the regular
 stem where a form has its own, anderò for andrò, ferò for farò, mangierò for mangerò, venito for venuto; B1's glilo for glielo, dammilo for dammelo, leggando for leggendo; an articulated
 preposition for another, delle or alle for dalle; another tense or mood one letter off, sarai for sarei, sta for stia,
-fosti for fossi, andò for andrò), and one ending typed for another on the same stem (`ending_swaps`: the subjunctive's
+fosti for fossi, andò for andrò; B2's other conjugation's vowel in the imperfect subjunctive, dormessi for dormissi, dassi for dessi, on a verb's stem only, so that sessi for sassi stays a
+slip; facilemente for facilmente, inpossibile for impossibile), and one ending typed for another on the same stem (`ending_swaps`: the subjunctive's
 and the indicative's, dormono for dormano, parlate for parliate; the conditional's and the future's, sarete for
-sareste), a slip elsewhere in such a word (bambeno for bambino) still one; German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
+sareste; the remote past's and the imperfetto's, mangiavano for mangiarono), a slip elsewhere in such a word (bambeno for bambino) still one; German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
 contractions (don't = do not). Choosing a dialog's answer by voice folds the same letters. Speech
 labels name the target language (`{targetLang, select, …}` in the string tables).
 
