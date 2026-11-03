@@ -4,7 +4,7 @@
   "title": { "sl": "Pod mlajem", "en": "Under the maypole", "de": "Unter dem Maibaum", "it": "Sotto l'albero di maggio" },
   "emoji": "🌲",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), unreviewed; words to check: godba, stražiti mlaj, Živijo! as a toast, vlečem; place-life lines too; scene-replier.md: to check",
+  "review": "sl lines, reactions, variants, B1/B2, de, it: machine-written (Claude), unreviewed; words to check: godba, stražiti mlaj, Živijo! as a toast, vlečem; place-life lines too; scene-replier.md: to check",
   "art": "square",
   "from": ["project:mlaj"],
   "pack": "pod-mlajem",
@@ -44,7 +44,7 @@
       "when": ["night"],
       "chance": 0.5,
       "dialog": "straza",
-      "dialogs": ["straza-zaga", "straza-vrh", "straza"],
+      "dialogs": ["straza-b2-zaga", "straza-b1-ded", "straza-zaga", "straza-vrh", "straza"],
       "reward": { "wood": 15 },
       "marker": "🏮",
       "memory": {
@@ -110,7 +110,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "ples",
-      "dialogs": ["ples-postavljanje", "ples-vino", "ples"],
+      "dialogs": ["ples-b2-meja", "ples-b1-harmonika", "ples-postavljanje", "ples-vino", "ples"],
       "reward": { "food": 20 },
       "marker": "🎺",
       "memory": {
@@ -1922,6 +1922,650 @@
           "en": "Thanks, {learner}. Now quickly off to the sheep!",
           "de": "Danke, {learner}. Jetzt aber schnell zu den Schafen!",
           "it": "Grazie, {learner}. Ora di corsa dalle pecore!"
+        }
+      ]
+    },
+    {
+      "id": "straza-b1-ded",
+      "level": "B1",
+      "lines": [
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Pst, {learner}. Moj ded vedno pravi, da je vas brez mlaja kot ovca brez zvonca. Zato ga nocoj ne smemo izgubiti.",
+          "en": "Shh, {learner}. My grandad always says that a village without a maypole is like a sheep without a bell. That's why we mustn't lose it tonight.",
+          "de": "Pst, {learner}. Mein Opa sagt immer, ein Dorf ohne Maibaum ist wie ein Schaf ohne Glocke. Deshalb dürfen wir ihn heute Nacht nicht verlieren.",
+          "it": "Sst, {learner}. Mio nonno dice sempre che un paese senza albero di maggio è come una pecora senza campanaccio. Per questo stanotte non dobbiamo perderlo."
+        },
+        {
+          "who": "luka",
+          "face": "curious",
+          "sl": "Kaj bi pa ti {m:naredil|f:naredila}, če bi zdaj prišli fantje iz sosednje vasi?",
+          "en": "And what would you do if the lads from the next village came now?",
+          "de": "Und was würdest du machen, wenn jetzt die Burschen aus dem Nachbardorf kämen?",
+          "it": "E tu cosa faresti se adesso arrivassero i ragazzi del paese vicino?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi prišli, bi takoj {m:zakričal|f:zakričala} in {m:zbudil|f:zbudila} vso vas.",
+              "en": "If they came, I'd shout at once and wake the whole village.",
+              "de": "Wenn sie kämen, würde ich sofort schreien und das ganze Dorf wecken.",
+              "it": "Se arrivassero, griderei subito e sveglierei tutto il paese.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Dobro! Jaz pa bi zažvižgal tako, da bi se slišalo do Nanosa.",
+                "en": "Good! And I'd whistle so loud you'd hear it as far as Nanos.",
+                "de": "Gut! Und ich würde so pfeifen, dass man es bis zum Nanos hört.",
+                "it": "Bene! E io fischierei così forte che si sentirebbe fino al Nanos."
+              }
+            },
+            {
+              "sl": "Če bi prišli, bom takoj {m:zakričal|f:zakričala} in {m:zbudil|f:zbudila} vso vas.",
+              "en": "If they came, I will shout at once and wake the whole village.",
+              "de": "Wenn sie kämen, werde ich sofort schreien und das ganze Dorf wecken.",
+              "it": "Se arrivassero, griderò subito e sveglierò tutto il paese.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "They haven't come, it's only imagined: the conditional in both halves, če bi prišli, bi {m:zakričal|f:zakričala}. Bom is the future.",
+                "de": "Sie sind nicht gekommen, es ist nur gedacht: der Konditional in beiden Hälften, če bi prišli, bi {m:zakričal|f:zakričala}. Bom ist das Futur.",
+                "it": "Non sono arrivati, è solo immaginato: il condizionale in tutte e due le parti, če bi prišli, bi {m:zakričal|f:zakričala}. Bom è il futuro."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Pst! Ne zdaj! Saj jih še ni tukaj!",
+                "en": "Shh! Not now! They're not even here yet!",
+                "de": "Pst! Nicht jetzt! Die sind doch noch gar nicht da!",
+                "it": "Sst! Non adesso! Non sono mica ancora qui!"
+              }
+            },
+            {
+              "sl": "Če bi prišli, bi takoj {m:zaspal|f:zaspala}.",
+              "en": "If they came, I'd fall asleep at once.",
+              "de": "Wenn sie kämen, würde ich sofort einschlafen.",
+              "it": "Se arrivassero, mi addormenterei subito.",
+              "why": {
+                "en": "A guard who falls asleep (zaspati) is just what the lads from the next village hope for: Luka wants to hear how you'd raise the alarm.",
+                "de": "Ein Wächter, der einschläft (zaspati), ist genau das, worauf die Burschen aus dem Nachbardorf hoffen: Luka will hören, wie du Alarm schlagen würdest.",
+                "it": "Una guardia che si addormenta (zaspati) è proprio ciò che sperano i ragazzi del paese vicino: Luka vuole sentire come daresti l'allarme."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Potem bi bil vrh do jutra že pri sosedih.",
+                "en": "Ha! Then by morning the top would be at the neighbours'.",
+                "de": "Ha! Dann wäre die Spitze bis morgen früh schon bei den Nachbarn.",
+                "it": "Ah! Allora entro domattina la cima sarebbe già dai vicini."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj bi {m:naredil|f:naredila}?",
+            "en": "Hm? What would you do?",
+            "de": "Hm? Was würdest du machen?",
+            "it": "Mm? Che cosa faresti?"
+          }
+        },
+        {
+          "who": "luka",
+          "sl": "Torej: ti boš {m:stražil|f:stražila} pri vodnjaku, jaz pa pri lipi. Samo nikar ne zaspi!",
+          "en": "So: you'll keep watch by the well, and I'll take the linden. Just don't fall asleep!",
+          "de": "Also: Du hältst am Brunnen Wache, ich an der Linde. Nur nicht einschlafen!",
+          "it": "Allora: tu fai la guardia al pozzo, io al tiglio. Solo, non addormentarti!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne skrbi. Nikogar ne bom {m:spustil|f:spustila} blizu mlaja.",
+              "en": "Don't worry. I won't let anyone near the maypole.",
+              "de": "Keine Sorge. Ich lasse niemanden an den Maibaum heran.",
+              "it": "Non preoccuparti. Non lascerò avvicinare nessuno all'albero di maggio.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako se govori!",
+                "en": "That's the spirit!",
+                "de": "So ist's recht!",
+                "it": "Così si parla!"
+              }
+            },
+            {
+              "sl": "Ne skrbi. Nihče ne bom {m:spustil|f:spustila} blizu mlaja.",
+              "en": "Don't worry. Nobody (the subject) I won't let near the maypole.",
+              "de": "Keine Sorge. Niemand (das Subjekt) lasse ich nicht an den Maibaum heran.",
+              "it": "Non preoccuparti. Nessuno (il soggetto) non lascerò avvicinare all'albero di maggio.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Nobody is the one you don't let near, the object: after a no, the genitive, nikogar. Nihče is nobody as the subject: nihče ne pride.",
+                "de": "Niemand ist hier der, den du nicht heranlässt, das Objekt: nach einer Verneinung der Genitiv, nikogar. Nihče ist niemand als Subjekt: nihče ne pride.",
+                "it": "Nessuno è qui chi non lasci avvicinare, l'oggetto: dopo una negazione il genitivo, nikogar. Nihče è nessuno come soggetto: nihče ne pride."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nihče? Kdo bo pa potem stražil pri vodnjaku?",
+                "en": "Nobody? Then who's going to keep watch by the well?",
+                "de": "Niemand? Wer hält dann am Brunnen Wache?",
+                "it": "Nessuno? E allora chi fa la guardia al pozzo?"
+              }
+            },
+            {
+              "sl": "Ne skrbi. Nekoga ne bom {m:spustil|f:spustila} blizu mlaja.",
+              "en": "Don't worry. There's someone I won't let near the maypole.",
+              "de": "Keine Sorge. Einen bestimmten lasse ich nicht an den Maibaum heran.",
+              "it": "Non preoccuparti. C'è qualcuno che non lascerò avvicinare all'albero di maggio.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Ne- is some-: nekoga, one particular person. Not anyone at all takes ni-, and after the no its genitive, nikogar.",
+                "de": "Ne- ist irgend-: nekoga, eine bestimmte Person. Gar niemand ist ni-, und nach der Verneinung sein Genitiv, nikogar.",
+                "it": "Ne- è qualche-: nekoga, una persona precisa. Nessuno in assoluto è ni-, e dopo la negazione il suo genitivo, nikogar."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Nekoga? Samo enega? Drugi pa lahko kar pridejo?",
+                "en": "Someone? Just one? And the others can just walk in?",
+                "de": "Einen? Nur einen? Und die anderen dürfen einfach kommen?",
+                "it": "Qualcuno? Uno solo? E gli altri possono venire tranquilli?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Šepni še enkrat, {learner}.",
+            "en": "Hm? Whisper it again, {learner}.",
+            "de": "Hm? Flüster's noch mal, {learner}.",
+            "it": "Mm? Ripetilo sottovoce, {learner}."
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Če bova oba budna, bo vrh zjutraj še na svojem mestu. Ded bi bil ponosen na naju!",
+          "en": "If we both stay awake, the top will still be in its place in the morning. Grandad would be proud of us!",
+          "de": "Wenn wir beide wach bleiben, ist die Spitze morgen früh noch an ihrem Platz. Opa wäre stolz auf uns!",
+          "it": "Se restiamo svegli tutti e due, domattina la cima sarà ancora al suo posto. Il nonno sarebbe fiero di noi!"
+        }
+      ]
+    },
+    {
+      "id": "straza-b2-zaga",
+      "level": "B2",
+      "lines": [
+        {
+          "who": "luka",
+          "face": "worried",
+          "sl": "Pst, {learner}! Sem slišal, da so si fantje iz sosednje vasi sposodili novo žago. Na njihovem mestu bi prišel ravno nocoj.",
+          "en": "Shh, {learner}! I heard the lads from the next village have borrowed a new saw. If I were them, I'd come tonight of all nights.",
+          "de": "Pst, {learner}! Ich habe gehört, die Burschen aus dem Nachbardorf haben sich eine neue Säge ausgeliehen. An ihrer Stelle käme ich ausgerechnet heute Nacht.",
+          "it": "Sst, {learner}! Ho sentito che i ragazzi del paese vicino si sono fatti prestare una sega nuova. Al posto loro verrei proprio stanotte."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mogoče, ampak mlaja ne morejo podreti, ne da bi jih midva slišala.",
+              "en": "Maybe, but they can't cut the maypole down without the two of us hearing them.",
+              "de": "Vielleicht, aber sie können den Maibaum nicht fällen, ohne dass wir zwei sie hören.",
+              "it": "Forse, ma non possono abbattere l'albero di maggio senza che noi due li sentiamo.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. Ponoči se žaga sliši daleč naokoli.",
+                "en": "True. At night you can hear a saw from far and wide.",
+                "de": "Stimmt. Nachts hört man eine Säge weit und breit.",
+                "it": "È vero. Di notte una sega si sente lontano."
+              }
+            },
+            {
+              "sl": "Mogoče, ampak mlaja ne morejo podreti, ne da bi jih midva slišiva.",
+              "en": "Maybe, but they can't cut the maypole down without the two of us we-hear (the present) them.",
+              "de": "Vielleicht, aber sie können den Maibaum nicht fällen, ohne dass wir zwei sie hören (Präsens).",
+              "it": "Forse, ma non possono abbattere l'albero di maggio senza che noi due li sentiamo (presente).",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Ne da bi (without) takes bi and the l-form, as every bi does: ne da bi jih midva slišala. Slišiva is the present.",
+                "de": "Ne da bi (ohne dass) verlangt bi und die l-Form, wie jedes bi: ne da bi jih midva slišala. Slišiva ist das Präsens.",
+                "it": "Ne da bi (senza che) vuole bi e la forma in -l, come ogni bi: ne da bi jih midva slišala. Slišiva è il presente."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Slišiva? Kje? Jaz slišim samo sove.",
+                "en": "We hear them? Where? All I hear is owls.",
+                "de": "Wir hören sie? Wo? Ich höre nur Eulen.",
+                "it": "Li sentiamo? Dove? Io sento solo i gufi."
+              }
+            },
+            {
+              "sl": "Res je, zato bova raje šla spat.",
+              "en": "True, so we'd better go to bed.",
+              "de": "Stimmt, also gehen wir lieber schlafen.",
+              "it": "È vero, quindi è meglio che andiamo a dormire.",
+              "why": {
+                "en": "Luka fears they'll come tonight: two guards in bed is just what the lads would want. Weigh his worry with a but instead.",
+                "de": "Luka fürchtet, dass sie heute Nacht kommen: zwei Wächter im Bett sind genau, was die Burschen wollen. Wäge seine Sorge lieber mit einem Aber ab.",
+                "it": "Luka teme che vengano stanotte: due guardie a letto sono proprio ciò che vogliono i ragazzi. Meglio soppesare la sua paura con un ma."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Spat? Ravno nocoj? Potem pa adijo, vrh!",
+                "en": "To bed? Tonight of all nights? Then bye-bye, top!",
+                "de": "Schlafen? Ausgerechnet heute Nacht? Dann tschüss, Spitze!",
+                "it": "A dormire? Proprio stanotte? Allora addio, cima!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst, tiše! Kaj si {m:rekel|f:rekla}?",
+            "en": "Shh, quieter! What did you say?",
+            "de": "Pst, leiser! Was hast du gesagt?",
+            "it": "Sst, più piano! Cos'hai detto?"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Upam, da imaš prav. Pri nas doma so enkrat podrli mlaj, medtem ko so stražarji spali kot polhi.",
+          "en": "I hope you're right. Back home they once cut down the maypole while the guards slept like logs.",
+          "de": "Ich hoffe, du hast recht. Bei uns daheim haben sie einmal den Maibaum gefällt, während die Wächter wie Murmeltiere schliefen.",
+          "it": "Spero che tu abbia ragione. Da noi, una volta, hanno abbattuto l'albero di maggio mentre le guardie dormivano come ghiri."
+        },
+        {
+          "who": "luka",
+          "face": "sad",
+          "sl": "Ded še danes pravi, da je bila to najbolj sramotna noč v zgodovini vasi.",
+          "en": "Grandad still says it was the most shameful night in the village's history.",
+          "de": "Opa sagt heute noch, das war die peinlichste Nacht in der Geschichte des Dorfes.",
+          "it": "Il nonno dice ancora oggi che è stata la notte più vergognosa nella storia del paese."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Škoda. Če bi bili ostali budni, bi ga bili rešili.",
+              "en": "Pity. If they'd stayed awake, they'd have saved it.",
+              "de": "Schade. Wenn sie wach geblieben wären, hätten sie ihn gerettet.",
+              "it": "Peccato. Se fossero rimasti svegli, l'avrebbero salvato.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Gotovo. Zato sem za vsak primer prinesel termovko kave.",
+                "en": "Sure. That's why I brought a flask of coffee, just in case.",
+                "de": "Sicher. Deshalb habe ich für alle Fälle eine Thermoskanne Kaffee mitgebracht.",
+                "it": "Di sicuro. Per questo, per ogni evenienza, ho portato un thermos di caffè."
+              }
+            },
+            {
+              "sl": "Škoda. Če so ostali budni, so ga rešili.",
+              "en": "Pity. If they stayed awake, they saved it.",
+              "de": "Schade. Wenn sie wach geblieben sind, haben sie ihn gerettet.",
+              "it": "Peccato. Se sono rimasti svegli, l'hanno salvato.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "They didn't stay awake: what would have happened is the past conditional, če bi bili ostali, bi ga bili rešili (or bi ostali, bi rešili). Če so ostali tells what did happen.",
+                "de": "Sie blieben nicht wach: was geschehen wäre, ist der Konditional der Vergangenheit, če bi bili ostali, bi ga bili rešili (oder bi ostali, bi rešili). Če so ostali erzählt, was geschah.",
+                "it": "Non sono rimasti svegli: ciò che sarebbe successo è il condizionale passato, če bi bili ostali, bi ga bili rešili (o bi ostali, bi rešili). Če so ostali dice ciò che è successo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Saj niso ostali budni! Smrčali so do jutra.",
+                "en": "But they didn't stay awake! They snored till morning.",
+                "de": "Sie sind doch gar nicht wach geblieben! Sie haben bis zum Morgen geschnarcht.",
+                "it": "Ma se non sono rimasti svegli! Hanno russato fino al mattino."
+              }
+            },
+            {
+              "sl": "Škoda. Če bodo ostali budni, ga bodo rešili.",
+              "en": "Pity. If they stay awake, they'll save it.",
+              "de": "Schade. Wenn sie wach bleiben, werden sie ihn retten.",
+              "it": "Peccato. Se restano svegli, lo salveranno.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "It happened long ago: what would have happened then is the past conditional, če bi bili ostali, bi ga bili rešili. Bodo is the future.",
+                "de": "Das ist lange her: was damals geschehen wäre, ist der Konditional der Vergangenheit, če bi bili ostali, bi ga bili rešili. Bodo ist das Futur.",
+                "it": "È successo tanto tempo fa: ciò che sarebbe successo allora è il condizionale passato, če bi bili ostali, bi ga bili rešili. Bodo è il futuro."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bodo? To je bilo pred petdesetimi leti, {learner}!",
+                "en": "They will? That was fifty years ago, {learner}!",
+                "de": "Werden? Das war vor fünfzig Jahren, {learner}!",
+                "it": "Lo salveranno? È successo cinquant'anni fa, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst, tiše! Kaj si {m:rekel|f:rekla}?",
+            "en": "Shh, quieter! What did you say?",
+            "de": "Pst, leiser! Was hast du gesagt?",
+            "it": "Sst, più piano! Cos'hai detto?"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "proud",
+          "sl": "Nocoj pa nihče ne bo spal kot polh. Ta mlaj bo zjutraj še stal, to ti obljubim!",
+          "en": "But tonight nobody's sleeping like a log. This maypole will still be standing in the morning, I promise you!",
+          "de": "Aber heute Nacht schläft keiner wie ein Murmeltier. Dieser Maibaum steht morgen früh noch, das verspreche ich dir!",
+          "it": "Ma stanotte nessuno dorme come un ghiro. Quest'albero domattina sarà ancora in piedi, te lo prometto!"
+        }
+      ]
+    },
+    {
+      "id": "ples-b1-harmonika",
+      "level": "B1",
+      "lines": [
+        {
+          "who": "marko",
+          "face": "worried",
+          "sl": "Ciao, {learner}! Imamo problem: harmonikar je sporočil, da se mu je v Gorici pokvaril avto.",
+          "en": "Ciao, {learner}! We've got a problem: the accordion player sent word that his car broke down in Gorizia.",
+          "de": "Ciao, {learner}! Wir haben ein Problem: Der Harmonikaspieler hat Bescheid gegeben, dass sein Auto in Gorizia kaputtgegangen ist.",
+          "it": "Ciao, {learner}! Abbiamo un problema: il fisarmonicista ha fatto sapere che gli si è rotta la macchina a Gorizia."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Je povedal, kdaj bo prišel?",
+              "en": "Did he say when he'll come?",
+              "de": "Hat er gesagt, wann er kommt?",
+              "it": "Ha detto quando arriva?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Rekel je, da pride takoj, ko ga kdo pripelje.",
+                "en": "He said he'll come as soon as someone gives him a lift.",
+                "de": "Er hat gesagt, er kommt, sobald ihn jemand herbringt.",
+                "it": "Ha detto che arriva appena qualcuno gli dà un passaggio."
+              }
+            },
+            {
+              "sl": "Je povedal, kdaj bi prišel?",
+              "en": "Did he say when he would (like to) come?",
+              "de": "Hat er gesagt, wann er kommen würde?",
+              "it": "Ha detto quando verrebbe?",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "Passing on a question, the tense stays as it would be asked: »Kdaj boš prišel?« → kdaj bo prišel. Bi (would) asks when he might like to.",
+                "de": "Bei einer weitergegebenen Frage bleibt die Zeit, wie man sie stellen würde: »Kdaj boš prišel?« → kdaj bo prišel. Bi (würde) fragt, wann er vielleicht gern käme.",
+                "it": "Riferendo una domanda, il tempo resta quello della domanda: »Kdaj boš prišel?« → kdaj bo prišel. Bi (verrebbe) chiede quando forse gli piacerebbe venire."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "On bi, ja. Samo avto noče!",
+                "en": "He would, sure. It's the car that won't!",
+                "de": "Er würde schon. Nur das Auto will nicht!",
+                "it": "Lui verrebbe, sì. È la macchina che non vuole!"
+              }
+            },
+            {
+              "sl": "Je povedal, kdaj je prišel?",
+              "en": "Did he say when he came?",
+              "de": "Hat er gesagt, wann er gekommen ist?",
+              "it": "Ha detto quando è arrivato?",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "He hasn't come yet: what he'd answer is in the future, kdaj bo prišel. Je prišel asks when he came.",
+                "de": "Er ist noch nicht da: was er antworten würde, steht im Futur, kdaj bo prišel. Je prišel fragt, wann er gekommen ist.",
+                "it": "Non è ancora arrivato: ciò che risponderebbe è al futuro, kdaj bo prišel. Je prišel chiede quando è arrivato."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Prišel? Saj ga še ni! Zato pa čakamo.",
+                "en": "Came? He's not here yet! That's why we're waiting.",
+                "de": "Gekommen? Er ist doch noch nicht da! Darum warten wir ja.",
+                "it": "Arrivato? Ma se non c'è ancora! Per questo aspettiamo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Kaj si {m:rekel|f:rekla}?",
+            "en": "Sorry? What did you say?",
+            "de": "Wie? Was hast du gesagt?",
+            "it": "Come? Cos'hai detto?"
+          }
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Brez harmonike ni polke, ljudje pa bi radi plesali. Kaj bi ti {m:naredil|f:naredila} na mojem mestu?",
+          "en": "No accordion, no polka, and people want to dance. What would you do in my place?",
+          "de": "Ohne Harmonika keine Polka, und die Leute würden gern tanzen. Was würdest du an meiner Stelle machen?",
+          "it": "Senza fisarmonica niente polka, e la gente vorrebbe ballare. Tu cosa faresti al posto mio?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "V Gorici imam prijatelja, ki ima avto. Lahko bi ga {m:poklical|f:poklicala}.",
+              "en": "I've got a friend in Gorizia who has a car. I could call him.",
+              "de": "Ich habe in Gorizia einen Freund, der ein Auto hat. Ich könnte ihn anrufen.",
+              "it": "A Gorizia ho un amico che ha la macchina. Potrei chiamarlo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično! Tvoj prijatelj bo nocoj naš junak.",
+                "en": "Great! Your friend will be our hero tonight.",
+                "de": "Super! Dein Freund ist heute Abend unser Held.",
+                "it": "Ottimo! Il tuo amico stasera sarà il nostro eroe."
+              }
+            },
+            {
+              "sl": "V Gorici imam prijatelja, ki ga ima avto. Lahko bi ga {m:poklical|f:poklicala}.",
+              "en": "I've got a friend in Gorizia who him has a car. I could call him.",
+              "de": "Ich habe in Gorizia einen Freund, den ein Auto hat. Ich könnte ihn anrufen.",
+              "it": "A Gorizia ho un amico che lo ha la macchina. Potrei chiamarlo.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Your friend is the one who has the car, the clause's subject: plain ki, ki ima avto. A short pronoun after ki (ki ga) is for a noun that is the object.",
+                "de": "Dein Freund ist der, der das Auto hat, das Subjekt des Satzes: einfach ki, ki ima avto. Ein kurzes Pronomen nach ki (ki ga) ist für ein Nomen, das Objekt ist.",
+                "it": "Il tuo amico è chi ha la macchina, il soggetto della frase: ki e basta, ki ima avto. Un pronome breve dopo ki (ki ga) è per un nome che fa da oggetto."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ki ga ima? Torej avto ima tvojega prijatelja?",
+                "en": "Has him? So the car has your friend?",
+                "de": "Den hat? Also hat das Auto deinen Freund?",
+                "it": "Che lo ha? Quindi è la macchina che ha il tuo amico?"
+              }
+            },
+            {
+              "sl": "V Gorici imam prijatelja, ki ima avto. Lahko ga bi {m:poklical|f:poklicala}.",
+              "en": "I've got a friend in Gorizia who has a car. I could him call (the short words swapped).",
+              "de": "Ich habe in Gorizia einen Freund, der ein Auto hat. Ich könnte ihn anrufen (die kurzen Wörter vertauscht).",
+              "it": "A Gorizia ho un amico che ha la macchina. Potrei chiamarlo (le parole brevi scambiate).",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words keep their order: bi first, then whom, ga: lahko bi ga {m:poklical|f:poklicala}.",
+                "de": "Die kurzen Wörter haben ihre feste Reihenfolge: zuerst bi, dann wen, ga: lahko bi ga {m:poklical|f:poklicala}.",
+                "it": "Le parole brevi hanno un ordine fisso: prima bi, poi chi, ga: lahko bi ga {m:poklical|f:poklicala}."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Besede so ti zaplesale polko! Še enkrat, počasi?",
+                "en": "Your words are dancing a polka! Once more, slowly?",
+                "de": "Deine Wörter tanzen Polka! Noch mal, langsam?",
+                "it": "Le tue parole ballano la polka! Ancora una volta, piano?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Allora? Povej še enkrat, prosim.",
+            "en": "Allora? Say it again, please.",
+            "de": "Allora? Sag's bitte noch mal.",
+            "it": "Allora? Ripeti, per favore."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Če bo tukaj v eni uri, bomo plesali do polnoči. Allora, kar pokliči!",
+          "en": "If he's here within an hour, we'll dance till midnight. Allora, go on, call!",
+          "de": "Wenn er in einer Stunde da ist, tanzen wir bis Mitternacht. Allora, ruf schon an!",
+          "it": "Se è qui entro un'ora, balliamo fino a mezzanotte. Allora, chiama pure!"
+        }
+      ]
+    },
+    {
+      "id": "ples-b2-meja",
+      "level": "B2",
+      "lines": [
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Veš, {learner}, nona in nono sta se spoznala ravno na takem plesu. V Gorici, ko je bila meja še zaprta.",
+          "en": "You know, {learner}, my nonna and nonno met at a dance just like this one. In Gorizia, when the border was still closed.",
+          "de": "Weißt du, {learner}, meine Nonna und mein Nonno haben sich genau auf so einem Tanzfest kennengelernt. In Gorizia, als die Grenze noch zu war.",
+          "it": "Sai, {learner}, mia nonna e mio nonno si sono conosciuti proprio a una festa da ballo come questa. A Gorizia, quando il confine era ancora chiuso."
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Nono je imel prepustnico samo do polnoči. Kaj misliš, kaj bi se bilo zgodilo, če bi bil zamudil?",
+          "en": "Nonno had a border pass only until midnight. What do you think would have happened if he'd been late?",
+          "de": "Nonno hatte einen Passierschein nur bis Mitternacht. Was meinst du, was passiert wäre, wenn er sich verspätet hätte?",
+          "it": "Il nonno aveva il lasciapassare solo fino a mezzanotte. Secondo te, cosa sarebbe successo se avesse fatto tardi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Najbrž bi bil moral plačati kazen.",
+              "en": "He'd probably have had to pay a fine.",
+              "de": "Er hätte wahrscheinlich eine Strafe zahlen müssen.",
+              "it": "Probabilmente avrebbe dovuto pagare una multa.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ali pa še huje: nona ne bi nikoli več plesala z njim!",
+                "en": "Or worse: nonna would never have danced with him again!",
+                "de": "Oder schlimmer: Nonna hätte nie wieder mit ihm getanzt!",
+                "it": "O peggio: la nonna non avrebbe mai più ballato con lui!"
+              }
+            },
+            {
+              "sl": "Najbrž je moral plačati kazen.",
+              "en": "He probably had to pay a fine.",
+              "de": "Er musste wahrscheinlich eine Strafe zahlen.",
+              "it": "Probabilmente ha dovuto pagare una multa.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Marko asks what would have happened, had he been late: the past conditional, bi bil moral (or bi moral). Je moral says he really had to.",
+                "de": "Marko fragt, was passiert wäre, wenn er zu spät gekommen wäre: der Konditional der Vergangenheit, bi bil moral (oder bi moral). Je moral sagt, dass er wirklich musste.",
+                "it": "Marko chiede cosa sarebbe successo se avesse fatto tardi: il condizionale passato, bi bil moral (o bi moral). Je moral dice che ha dovuto davvero."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ne, ne, nono je bil vedno točen! Ob dvanajstih je bil že čez mejo.",
+                "en": "No, no, nonno was always on time! At twelve he was already over the border.",
+                "de": "Nein, nein, Nonno war immer pünktlich! Um zwölf war er schon über der Grenze.",
+                "it": "No, no, il nonno era sempre puntuale! A mezzanotte era già di là dal confine."
+              }
+            },
+            {
+              "sl": "Najbrž bo moral plačati kazen.",
+              "en": "He'll probably have to pay a fine.",
+              "de": "Er wird wahrscheinlich eine Strafe zahlen müssen.",
+              "it": "Probabilmente dovrà pagare una multa.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "It's a story of long ago: what would have happened then is the past conditional, bi bil moral. Bo is the future.",
+                "de": "Das ist eine Geschichte von früher: was damals geschehen wäre, ist der Konditional der Vergangenheit, bi bil moral. Bo ist das Futur.",
+                "it": "È una storia di tanto tempo fa: ciò che sarebbe successo allora è il condizionale passato, bi bil moral. Bo è il futuro."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bo? Nono že dolgo ne hodi več na plese, {learner}!",
+                "en": "He will? Nonno hasn't gone to dances for a long time, {learner}!",
+                "de": "Wird er? Nonno geht schon lange nicht mehr zum Tanzen, {learner}!",
+                "it": "Dovrà? Il nonno non va più a ballare da un pezzo, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "marko",
+          "face": "thinking",
+          "sl": "Danes greš čez mejo na kavo, kot bi mignil. Nona pa še vedno pravi, da je bilo v tistem čakanju nekaj lepega.",
+          "en": "Today you're over the border for a coffee in no time. But nonna still says there was something lovely about all that waiting.",
+          "de": "Heute bist du im Handumdrehen auf einen Kaffee über der Grenze. Aber Nonna sagt immer noch, in diesem Warten lag etwas Schönes.",
+          "it": "Oggi passi il confine per un caffè in un attimo. Ma la nonna dice ancora che in quell'attesa c'era qualcosa di bello."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak odprta meja je veliko boljša kot prepustnica do polnoči.",
+              "en": "Sure, but an open border is much better than a pass until midnight.",
+              "de": "Sicher, aber eine offene Grenze ist viel besser als ein Passierschein bis Mitternacht.",
+              "it": "Certo, ma un confine aperto è molto meglio di un lasciapassare fino a mezzanotte.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Res je! Moja rebula ima rada obe strani meje.",
+                "en": "True! My rebula likes both sides of the border.",
+                "de": "Stimmt! Meine Rebula mag beide Seiten der Grenze.",
+                "it": "È vero! La mia rebula ama tutti e due i lati del confine."
+              }
+            },
+            {
+              "sl": "Seveda, ampak odprta meja je zelo boljša kot prepustnica do polnoči.",
+              "en": "Sure, but an open border is very better than a pass until midnight.",
+              "de": "Sicher, aber eine offene Grenze ist sehr besser als ein Passierschein bis Mitternacht.",
+              "it": "Certo, ma un confine aperto è molto meglio (zelo: very) di un lasciapassare fino a mezzanotte.",
+              "grammar": "stopnjevanje",
+              "why": {
+                "en": "Zelo (very) goes with the plain adjective, zelo dobra; how much more, with a comparative, is veliko (or precej, dosti, še): veliko boljša.",
+                "de": "Zelo (sehr) steht beim einfachen Adjektiv, zelo dobra; wie viel mehr, beim Komparativ, ist veliko (oder precej, dosti, še): veliko boljša.",
+                "it": "Zelo (molto) va con l'aggettivo semplice, zelo dobra; quanto di più, col comparativo, è veliko (o precej, dosti, še): veliko boljša."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Zelo boljša? Tako govorim jaz po treh kozarcih rebule!",
+                "en": "Very better? That's how I talk after three glasses of rebula!",
+                "de": "Sehr besser? So rede ich nach drei Gläsern Rebula!",
+                "it": "Zelo boljša? Così parlo io dopo tre bicchieri di rebula!"
+              }
+            },
+            {
+              "sl": "Res je, mejo bi morali spet zapreti.",
+              "en": "True, they ought to close the border again.",
+              "de": "Stimmt, man sollte die Grenze wieder schließen.",
+              "it": "È vero, bisognerebbe richiudere il confine.",
+              "why": {
+                "en": "Marko is fond of the old story, not of a closed border: for him Gorizia and Nova Gorica are one town. Grant him the story (seveda) and add your but.",
+                "de": "Marko hängt an der alten Geschichte, nicht an einer geschlossenen Grenze: für ihn sind Gorizia und Nova Gorica eine Stadt. Lass ihm die Geschichte (seveda) und sag dein Aber.",
+                "it": "Marko è affezionato alla vecchia storia, non a un confine chiuso: per lui Gorizia e Nova Gorica sono una città sola. Concedigli la storia (seveda) e aggiungi il tuo ma."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Zapreti? Joj, ne! Kje bi pa potem prodajal rebulo?",
+                "en": "Close it? Oh no! Then where would I sell my rebula?",
+                "de": "Schließen? O nein! Wo würde ich dann meine Rebula verkaufen?",
+                "it": "Chiuderlo? Oh no! E poi dove la venderei la mia rebula?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprosti, še enkrat? Godba je glasna.",
+            "en": "Sorry, once more? The band is loud.",
+            "de": "Entschuldige, noch mal? Die Kapelle ist laut.",
+            "it": "Scusa, ancora una volta? La banda suona forte."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Allora, dovolj zgodovine! Godba spet igra. Plešiva, dokler ura ne odbije polnoči!",
+          "en": "Allora, enough history! The band's playing again. Let's dance till the clock strikes midnight!",
+          "de": "Allora, genug Geschichte! Die Kapelle spielt wieder. Tanzen wir, bis die Uhr Mitternacht schlägt!",
+          "it": "Allora, basta con la storia! La banda suona di nuovo. Balliamo finché l'orologio non batte la mezzanotte!"
         }
       ]
     }
