@@ -274,7 +274,14 @@ On the branch after merging packs-sl (e9a66cfe3) unless said:
 - FormsTest's guesses over the Slovene scenes: 867 of 952 form choices (91.1 %).
 - The supplement: every entry loads (2,853, none left out); every word of the variants is known but names, places,
   German, sounds and the wrong forms that aren't Slovene.
-<!--CHECKS-->
+- The Android scene tests through lani-slot.sh (`:app:testDebugUnitTest`, on the merged tree): DialogLevelsTest,
+  DialogReactionsTest, WhoAnswersTest, VariantsContentTest, ScenesContentTest, CultureScenesTest, IntroductionContentTest,
+  SceneCoherenceTest, DialogWordsContentTest, TurnHintTest, HintSpeechTest, FormsTest, WordFormsTest, DialogCastTest,
+  MentionsContentTest, LearnerContentTest: 100 tests, none failed. The whole suite is the lead's (the brief).
+- The bridge smoke (`LANI_SMOKE_PORT=10590`, Friuli 10592, town 10594, drama3 10608): **3,742 checks, all passed** (its
+  `dialog-levels`, `scenes`, `variants`, `learner` and case-lens sections among them). Its first run found the visits
+  bug above (a visitor got 2 of Primorska's 31 places) and two case-lens lines the supplement had changed; both fixed
+  (cc6c110e0, a35761cbb, bc121dd5c), and a check added that every curated place reaches a visit.
 
 ## QA
 
@@ -297,7 +304,7 @@ village's builds, above); run again with the new line, ok.
 
 ## For the lead
 
-- **A bridge fix comes with the content** (cc6c110e0, `fix(visits)`): a served scene has its variants among its
+- **A bridge fix comes with the content** (cc6c110e0 and a35761cbb, `fix(visits)`): a served scene has its variants among its
   dialogs, and the visitor's bridge checked it against the file's format (`cleanScenes`, at most 12 dialogs), so a scene
   with more than 12 dialogs and variants in all was left out of every visit without a word: kuhinja, v-gozdu, v-mlinu
   and others already before this branch, with its variants 29 of Primorska's 31 places. It now checks a served scene as
