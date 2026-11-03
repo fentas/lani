@@ -4,7 +4,7 @@
   "title": { "sl": "Na balinišču", "en": "At the bocce court", "de": "Auf der Bocciabahn", "it": "Al campo da bocce" },
   "emoji": "🎳",
   "level": "A2",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; checked against Fran 2026-10-30: brajda, zbiti, bližja/bližje; to check: bulin (SSKJ²: balin), the proverbs",
+  "review": "sl, de, it, reactions, variants, B1/B2 ones: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: brajda, zbiti, bližja/bližje; to check: bulin (SSKJ²: balin), proverbs",
   "art": "bocce",
   "from": ["project:balinisce"],
   "pack": "na-baliniscu",
@@ -44,7 +44,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "grablje",
-      "dialogs": ["grablje-pregovor", "grablje"],
+      "dialogs": ["grablje-b2-finale", "grablje-b1-turnir", "grablje-pregovor", "grablje"],
       "reward": { "wisdom": 15 },
       "marker": "🧹",
       "memory": {
@@ -110,7 +110,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "vino",
-      "dialogs": ["vino-midva", "vino"],
+      "dialogs": ["vino-b2-meja", "vino-b1-gorica", "vino-midva", "vino"],
       "reward": { "food": 20 },
       "marker": "🍷",
       "memory": {
@@ -1915,6 +1915,688 @@
           "en": "Ha … On the bocce court even quiet people laugh.",
           "de": "Ha … Auf der Bocciabahn lachen sogar die stillen Leute.",
           "it": "Ah … Sul campo da bocce ridono anche le persone silenziose."
+        }
+      ]
+    },
+    {
+      "id": "grablje-b1-turnir",
+      "level": "B1",
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Dobro jutro, {learner}. V nedeljo pridejo balinarji iz sosednje vasi. Turnir bo.",
+          "en": "Good morning, {learner}. On Sunday the bocce players from the next village are coming. There'll be a tournament.",
+          "de": "Guten Morgen, {learner}. Am Sonntag kommen die Boccia-Spieler aus dem Nachbardorf. Es gibt ein Turnier.",
+          "it": "Buongiorno, {learner}. Domenica vengono i giocatori di bocce del paese vicino. Ci sarà un torneo."
+        },
+        {
+          "who": "janez",
+          "sl": "Manjka nam en igralec. Če bi ti {m:igral|f:igrala} z nami, bi nas bilo dovolj.",
+          "en": "We're one player short. If you played with us, there'd be enough of us.",
+          "de": "Uns fehlt ein Spieler. Wenn du mit uns spielen würdest, wären wir genug.",
+          "it": "Ci manca un giocatore. Se giocassi con noi, saremmo abbastanza."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Z veseljem bi {m:igral|f:igrala}, če bi mi pokazali, kako se vrže od daleč.",
+              "en": "I'd gladly play, if you showed me how to throw from far away.",
+              "de": "Ich würde gern spielen, wenn Sie mir zeigen würden, wie man von weit wirft.",
+              "it": "Giocherei volentieri, se mi mostrasse come si tira da lontano.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Pokažem ti jutri zjutraj, ko bo pesek še pograbljen.",
+                "en": "Good. I'll show you tomorrow morning, while the sand is still freshly raked.",
+                "de": "Gut. Ich zeige es dir morgen früh, wenn der Sand noch frisch gerecht ist.",
+                "it": "Bene. Te lo mostro domattina, quando la sabbia è ancora rastrellata."
+              }
+            },
+            {
+              "sl": "Z veseljem bom {m:igral|f:igrala}, če bi mi pokazali, kako se vrže od daleč.",
+              "en": "I will gladly play, if you were to show me how to throw from far away.",
+              "de": "Ich werde gern spielen, wenn Sie mir zeigen würden, wie man von weit wirft.",
+              "it": "Giocherò volentieri, se mi mostrasse come si tira da lontano.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "An imagined condition takes the conditional in both halves: z veseljem bi {m:igral|f:igrala}, če bi mi pokazali.",
+                "de": "Eine gedachte Bedingung steht in beiden Hälften im Konditional: z veseljem bi {m:igral|f:igrala}, če bi mi pokazali.",
+                "it": "Una condizione immaginata vuole il condizionale in tutte e due le parti: z veseljem bi {m:igral|f:igrala}, če bi mi pokazali."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm, malo se ti zatika. Boš ali ne boš?",
+                "en": "Hm, you're stumbling a bit. Will you or won't you?",
+                "de": "Hm, du stockst ein bisschen. Spielst du oder nicht?",
+                "it": "Mm, ti inceppi un po'. Giochi o non giochi?"
+              }
+            },
+            {
+              "sl": "Z veseljem bi {m:igral|f:igrala}, če bi mi pokazal, kako se vrže od daleč.",
+              "en": "I'd gladly play, if you (ti) showed me how to throw from far away.",
+              "de": "Ich würde gern spielen, wenn du mir zeigen würdest, wie man von weit wirft.",
+              "it": "Giocherei volentieri, se mi mostrassi come si tira da lontano.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older and expects vi: če bi mi pokazali (the plural l-form).",
+                "de": "Janez ist älter und erwartet vi: če bi mi pokazali (die l-Form im Plural).",
+                "it": "Janez è più anziano e si aspetta il vi: če bi mi pokazali (la forma in -l al plurale)."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Pokazal? Kar na ti sva zdaj? Hm.",
+                "en": "Pokazal? So we're on ti terms now? Hm.",
+                "de": "Pokazal? Sind wir jetzt per du? Hm.",
+                "it": "Pokazal? Adesso ci diamo del tu? Mm."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Veš, kaj je rekel moj ded? Da je balinanje kot življenje: zmaga tisti, ki zna čakati.",
+          "en": "You know what my grandfather said? That bocce is like life: the one who knows how to wait wins.",
+          "de": "Weißt du, was mein Großvater gesagt hat? Dass Boccia wie das Leben ist: Es gewinnt, wer warten kann.",
+          "it": "Sai cosa diceva mio nonno? Che le bocce sono come la vita: vince chi sa aspettare."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Moj učitelj mi je tudi vedno govoril, naj ne hitim.",
+              "en": "My teacher always told me not to hurry, too.",
+              "de": "Mein Lehrer hat mir auch immer gesagt, ich soll mich nicht beeilen.",
+              "it": "Anche il mio maestro mi diceva sempre di non avere fretta.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pameten učitelj. Pri balinanju in pri vinu se ne hiti.",
+                "en": "A wise teacher. With bocce and with wine you don't hurry.",
+                "de": "Ein kluger Lehrer. Beim Boccia und beim Wein hetzt man nicht.",
+                "it": "Un maestro saggio. Con le bocce e col vino non si ha fretta."
+              }
+            },
+            {
+              "sl": "Moj učitelj mi je tudi vedno govoril, da ne hitim.",
+              "en": "My teacher always told me too that I don't hurry.",
+              "de": "Mein Lehrer hat mir auch immer gesagt, dass ich mich nicht beeile.",
+              "it": "Anche il mio maestro mi diceva sempre che non ho fretta.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "»Ne hiti!« is a request: it's passed on with naj, naj ne hitim. Da ne hitim reports that you don't hurry.",
+                "de": "»Ne hiti!« ist eine Aufforderung: man gibt sie mit naj weiter, naj ne hitim. Da ne hitim berichtet, dass du dich nicht beeilst.",
+                "it": "»Ne hiti!« è una richiesta: si riferisce con naj, naj ne hitim. Da ne hitim riferisce che non hai fretta."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ne hitiš? Ha, potem si že pravi balinar!",
+                "en": "You don't hurry? Ha, then you're a real bocce player already!",
+                "de": "Du beeilst dich nicht? Ha, dann bist du ja schon ein echter Boccia-Spieler!",
+                "it": "Non hai fretta? Ah, allora sei già un vero giocatore di bocce!"
+              }
+            },
+            {
+              "sl": "Moj učitelj mi je tudi vedno govoril, naj hitim.",
+              "en": "My teacher always told me to hurry, too.",
+              "de": "Mein Lehrer hat mir auch immer gesagt, ich soll mich beeilen.",
+              "it": "Anche il mio maestro mi diceva sempre di sbrigarmi.",
+              "why": {
+                "en": "The saying is about waiting: agree with it, so your teacher told you not to hurry.",
+                "de": "Das Sprichwort handelt vom Warten: stimm ihm zu, dein Lehrer hat dir also gesagt, du sollst dich nicht beeilen.",
+                "it": "Il proverbio parla dell'attesa: dagli ragione, il tuo maestro ti diceva di non avere fretta."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Hitro, hitro? Potem bo krogla letela čez balinišče, he he.",
+                "en": "Quick, quick? Then the ball will fly right over the court, heh heh.",
+                "de": "Schnell, schnell? Dann fliegt die Kugel über die ganze Bahn, he he.",
+                "it": "Svelto, svelto? Allora la boccia volerà oltre il campo, eh eh."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Tako je. V nedeljo ob desetih te čakam. Pridi {m:naspan|f:naspana}.",
+          "en": "That's right. On Sunday at ten I'll be waiting for you. Come well rested.",
+          "de": "So ist es. Am Sonntag um zehn warte ich auf dich. Komm ausgeschlafen.",
+          "it": "Proprio così. Domenica alle dieci ti aspetto. Vieni ben {m:riposato|f:riposata}."
+        }
+      ]
+    },
+    {
+      "id": "grablje-b2-finale",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o finalu, ki sem ga izgubil",
+        "en": "the story of the final I lost",
+        "de": "die Geschichte vom Finale, das ich verloren habe",
+        "it": "la storia della finale che ho perso"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Veš, {learner}, pred štiridesetimi leti sem bil skoraj prvak doline. Skoraj.",
+          "en": "You know, {learner}, forty years ago I was nearly the champion of the valley. Nearly.",
+          "de": "Weißt du, {learner}, vor vierzig Jahren war ich beinahe Meister des Tals. Beinahe.",
+          "it": "Sai, {learner}, quarant'anni fa per poco non diventavo campione della valle. Per poco."
+        },
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "V finalu sem vodil za šest točk. Še preden sem vrgel zadnjo kroglo, sem bil že naročil vino za vse.",
+          "en": "In the final I was six points ahead. Before I had even thrown the last ball, I had already ordered wine for everyone.",
+          "de": "Im Finale lag ich sechs Punkte vorn. Noch bevor ich die letzte Kugel geworfen hatte, hatte ich schon Wein für alle bestellt.",
+          "it": "In finale ero avanti di sei punti. Prima ancora di tirare l'ultima boccia, avevo già ordinato il vino per tutti."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej ste delali račun brez krčmarja.",
+              "en": "So you reckoned without your host.",
+              "de": "Sie haben also die Rechnung ohne den Wirt gemacht.",
+              "it": "Allora ha fatto i conti senza l'oste.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Točno tako. In krčmar je bil moj nasprotnik. He he.",
+                "en": "Exactly. And the innkeeper was my opponent. Heh heh.",
+                "de": "Genau. Und der Wirt war mein Gegner. He he.",
+                "it": "Proprio così. E l'oste era il mio avversario. Eh eh."
+              }
+            },
+            {
+              "sl": "Torej ste delali račun brez kuharja.",
+              "en": "So you reckoned without the cook.",
+              "de": "Sie haben also die Rechnung ohne den Koch gemacht.",
+              "it": "Allora ha fatto i conti senza il cuoco.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is delati račun brez krčmarja (the innkeeper): an idiom keeps its words as they are.",
+                "de": "Die Wendung heißt delati račun brez krčmarja (ohne den Wirt): eine Redewendung behält ihre Wörter.",
+                "it": "Il modo di dire è delati račun brez krčmarja (senza l'oste): un modo di dire tiene le sue parole."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Brez kuharja? Kuhal ni nihče, samo pili smo!",
+                "en": "Without the cook? Nobody was cooking, we were only drinking!",
+                "de": "Ohne den Koch? Gekocht hat keiner, wir haben nur getrunken!",
+                "it": "Senza il cuoco? Non cucinava nessuno, bevevamo e basta!"
+              }
+            },
+            {
+              "sl": "Torej si delal račun brez krčmarja.",
+              "en": "So you (ti) reckoned without your host.",
+              "de": "Du hast also die Rechnung ohne den Wirt gemacht.",
+              "it": "Allora hai fatto i conti senza l'oste.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older and expects vi: ste delali.",
+                "de": "Janez ist älter und erwartet vi: ste delali.",
+                "it": "Janez è più anziano e si aspetta il vi: ste delali."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Si delal? Hm, vidim, da me tikaš.",
+                "en": "Si delal? Hm, I see you're saying ti to me.",
+                "de": "Si delal? Hm, ich sehe, du duzt mich.",
+                "it": "Si delal? Mm, vedo che mi dai del tu."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Vrgel je tri krogle čisto k bulinu. Če bi bil jaz takrat bolj pazil, bi bil prvak jaz.",
+          "en": "He threw three balls right up to the jack. If I had been more careful back then, I would have been the champion.",
+          "de": "Er warf drei Kugeln direkt an die Zielkugel. Hätte ich damals besser aufgepasst, wäre ich der Meister gewesen.",
+          "it": "Ha tirato tre bocce proprio sotto il pallino. Se allora fossi stato più attento, il campione sarei stato io."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak če bi bili zmagali, ne bi imeli zdaj tako dobre zgodbe.",
+              "en": "Of course, but if you had won, you wouldn't have such a good story now.",
+              "de": "Sicher, aber hätten Sie gewonnen, hätten Sie jetzt keine so gute Geschichte.",
+              "it": "Certo, ma se avesse vinto, adesso non avrebbe una storia così bella.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "He he. Prav imaš. Prvakov je veliko, dobrih zgodb pa malo.",
+                "en": "Heh heh. You're right. There are many champions, but few good stories.",
+                "de": "He he. Du hast recht. Meister gibt es viele, gute Geschichten wenige.",
+                "it": "Eh eh. Hai ragione. Di campioni ce ne sono tanti, di belle storie pochi."
+              }
+            },
+            {
+              "sl": "Seveda, ampak če ste zmagali, ne bi imeli zdaj tako dobre zgodbe.",
+              "en": "Of course, but if you won, you wouldn't have such a good story now.",
+              "de": "Sicher, aber wenn Sie gewonnen haben, hätten Sie jetzt keine so gute Geschichte.",
+              "it": "Certo, ma se ha vinto, adesso non avrebbe una storia così bella.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "He didn't win: what didn't happen takes the conditional, če bi bili zmagali (or če bi zmagali). Če ste zmagali says he did.",
+                "de": "Er hat nicht gewonnen: was nicht geschah, steht im Konditional, če bi bili zmagali (oder če bi zmagali). Če ste zmagali sagt, dass er gewonnen hat.",
+                "it": "Non ha vinto: ciò che non è successo vuole il condizionale, če bi bili zmagali (o če bi zmagali). Če ste zmagali dice che ha vinto."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Zmagal? Saj ti pravim, da sem izgubil!",
+                "en": "Won? I'm telling you I lost!",
+                "de": "Gewonnen? Ich sag dir doch, dass ich verloren habe!",
+                "it": "Vinto? Ti sto dicendo che ho perso!"
+              }
+            },
+            {
+              "sl": "Res je, škoda. Bili ste pač slab igralec.",
+              "en": "That's true, a pity. You were just a bad player.",
+              "de": "Stimmt, schade. Sie waren eben ein schlechter Spieler.",
+              "it": "È vero, peccato. Era semplicemente un cattivo giocatore.",
+              "why": {
+                "en": "Janez was six points ahead: one mistake lost it, not bad play. Grant his regret and find the bright side.",
+                "de": "Janez lag sechs Punkte vorn: ein Fehler hat es gekostet, nicht schlechtes Spiel. Gib ihm recht und finde das Gute daran.",
+                "it": "Janez era avanti di sei punti: l'ha perso un errore, non il gioco. Dagli ragione e trova il lato buono."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Slab? Šest točk naprej, pa slab? Hm …",
+                "en": "Bad? Six points ahead, and bad? Hm …",
+                "de": "Schlecht? Sechs Punkte vorn, und schlecht? Hm …",
+                "it": "Cattivo? Sei punti avanti, e cattivo? Mm …"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Zato ti pravim: točke štej šele, ko je zadnja krogla na pesku. Zdaj pa primi grablje.",
+          "en": "That's why I tell you: count the points only when the last ball is on the sand. Now take the rake.",
+          "de": "Darum sage ich dir: Zähl die Punkte erst, wenn die letzte Kugel im Sand liegt. Und jetzt nimm den Rechen.",
+          "it": "Per questo ti dico: conta i punti solo quando l'ultima boccia è sulla sabbia. E adesso prendi il rastrello."
+        }
+      ]
+    },
+    {
+      "id": "vino-b1-gorica",
+      "level": "B1",
+      "lines": [
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Ciao, {learner}! Veš, kaj mi je rekel trgovec iz Gorice? Da bi kupil vso mojo rebulo.",
+          "en": "Ciao, {learner}! You know what a merchant from Gorizia told me? That he'd buy all my rebula.",
+          "de": "Ciao, {learner}! Weißt du, was mir ein Händler aus Gorizia gesagt hat? Dass er meine ganze Rebula kaufen würde.",
+          "it": "Ciao, {learner}! Sai cosa mi ha detto un commerciante di Gorizia? Che comprerebbe tutta la mia ribolla."
+        },
+        {
+          "who": "marko",
+          "face": "thinking",
+          "sl": "Ampak potem za vas ne bi ostalo nič. Kaj praviš, naj jo prodam?",
+          "en": "But then there'd be nothing left for the village. What do you say, should I sell it?",
+          "de": "Aber dann bliebe für das Dorf nichts übrig. Was meinst du, soll ich sie verkaufen?",
+          "it": "Ma allora per il paese non resterebbe niente. Che ne dici, la vendo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz bi {m:prodal|f:prodala} samo polovico. Tako bi ti imel denar, vas pa svoje vino.",
+              "en": "I'd sell only half. That way you'd have the money, and the village its wine.",
+              "de": "Ich würde nur die Hälfte verkaufen. So hättest du das Geld und das Dorf seinen Wein.",
+              "it": "Io ne venderei solo metà. Così tu avresti i soldi e il paese il suo vino.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Polovico … Pameten nasvet! Tako bodo zadovoljni vsi.",
+                "en": "Half … Clever advice! That way everyone will be happy.",
+                "de": "Die Hälfte … Kluger Rat! So sind alle zufrieden.",
+                "it": "Metà … Consiglio saggio! Così saranno tutti contenti."
+              }
+            },
+            {
+              "sl": "Meni bi bilo žal. Brez tvoje rebule bi bila vas žalostna.",
+              "en": "I'd be sorry. Without your rebula the village would be sad.",
+              "de": "Mir täte es leid. Ohne deine Rebula wäre das Dorf traurig.",
+              "it": "A me dispiacerebbe. Senza la tua ribolla il paese sarebbe triste.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Imaš prav. Kaj je denar proti kozarcu med prijatelji?",
+                "en": "You're right. What's money next to a glass among friends?",
+                "de": "Du hast recht. Was ist Geld gegen ein Glas unter Freunden?",
+                "it": "Hai ragione. Cosa sono i soldi in confronto a un bicchiere tra amici?"
+              }
+            },
+            {
+              "sl": "Jaz bom {m:prodal|f:prodala} samo polovico. Tako bi ti imel denar, vas pa svoje vino.",
+              "en": "I will sell only half. That way you'd have the money, and the village its wine.",
+              "de": "Ich werde nur die Hälfte verkaufen. So hättest du das Geld und das Dorf seinen Wein.",
+              "it": "Io ne venderò solo metà. Così tu avresti i soldi e il paese il suo vino.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "It's advice, what you would do in his place: the conditional, jaz bi {m:prodal|f:prodala}. Bom {m:prodal|f:prodala} says you'll sell it yourself.",
+                "de": "Es ist ein Rat, was du an seiner Stelle tun würdest: der Konditional, jaz bi {m:prodal|f:prodala}. Bom {m:prodal|f:prodala} heißt, du verkaufst ihn selbst.",
+                "it": "È un consiglio, ciò che faresti al suo posto: il condizionale, jaz bi {m:prodal|f:prodala}. Bom {m:prodal|f:prodala} dice che la vendi tu."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti? Mojo rebulo? Najprej si kupi svoj vinograd, ha ha!",
+                "en": "You? My rebula? Buy yourself a vineyard first, ha ha!",
+                "de": "Du? Meine Rebula? Kauf dir erst mal einen eigenen Weinberg, ha ha!",
+                "it": "Tu? La mia ribolla? Comprati prima una vigna tua, ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Allora, še enkrat, počasi.",
+            "en": "What? Allora, once more, slowly.",
+            "de": "Wie? Allora, noch mal, langsam.",
+            "it": "Come? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Allora, recimo, da prodam pol. Kaj bi pa ti {m:naredil|f:naredila} z denarjem?",
+          "en": "Allora, say I sell half. What would you do with the money?",
+          "de": "Allora, sagen wir, ich verkaufe die Hälfte. Was würdest du mit dem Geld machen?",
+          "it": "Allora, mettiamo che ne venda metà. Tu cosa faresti con i soldi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "{m:Kupil|f:Kupila} bi nov hrastov sod, da bi bilo vino še boljše.",
+              "en": "I'd buy a new oak barrel, so the wine would be even better.",
+              "de": "Ich würde ein neues Eichenfass kaufen, damit der Wein noch besser wird.",
+              "it": "Comprerei una botte nuova di rovere, perché il vino venga ancora meglio.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Hrastov sod! Ti pa veš, kaj je dobro. Na zdravje!",
+                "en": "An oak barrel! You know what's good. Cheers!",
+                "de": "Ein Eichenfass! Du weißt, was gut ist. Prost!",
+                "it": "Una botte di rovere! Tu sì che te ne intendi. Salute!"
+              }
+            },
+            {
+              "sl": "{m:Kupil|f:Kupila} bi nov hrastov sod, da je vino še boljše.",
+              "en": "I'd buy a new oak barrel, that the wine is even better.",
+              "de": "Ich würde ein neues Eichenfass kaufen, dass der Wein noch besser ist.",
+              "it": "Comprerei una botte nuova di rovere, che il vino è ancora meglio.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "An aim takes da bi + the l-form: da bi bilo vino boljše (so that). Da je says it already is.",
+                "de": "Ein Ziel steht mit da bi + l-Form: da bi bilo vino boljše (damit). Da je sagt, dass er es schon ist.",
+                "it": "Uno scopo vuole da bi + la forma in -l: da bi bilo vino boljše (perché, affinché). Da je dice che lo è già."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Že je boljše? Brez soda? Potem soda sploh ne potrebujem!",
+                "en": "It's already better? Without a barrel? Then I don't need one at all!",
+                "de": "Er ist schon besser? Ohne Fass? Dann brauche ich gar keins!",
+                "it": "È già meglio? Senza botte? Allora la botte non mi serve proprio!"
+              }
+            },
+            {
+              "sl": "{m:Kupil|f:Kupila} bi nov traktor, da bi bilo vino še boljše.",
+              "en": "I'd buy a new tractor, so the wine would be even better.",
+              "de": "Ich würde einen neuen Traktor kaufen, damit der Wein noch besser wird.",
+              "it": "Comprerei un trattore nuovo, perché il vino venga ancora meglio.",
+              "why": {
+                "en": "A tractor doesn't make wine better; a barrel in the cellar (sod) does.",
+                "de": "Ein Traktor macht den Wein nicht besser; ein Fass im Keller (sod) schon.",
+                "it": "Un trattore non migliora il vino; una botte in cantina (sod) sì."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Traktor? Vino iz traktorja? To bi bila pa nova rebula!",
+                "en": "A tractor? Wine from a tractor? That'd be a new kind of rebula!",
+                "de": "Ein Traktor? Wein aus dem Traktor? Das wäre mal eine neue Rebula!",
+                "it": "Un trattore? Vino dal trattore? Sarebbe proprio una ribolla nuova!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Allora, še enkrat, počasi.",
+            "en": "What? Allora, once more, slowly.",
+            "de": "Wie? Allora, noch mal, langsam.",
+            "it": "Come? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Prav. Jutri grem v Gorico in trgovcu rečem, da dobi samo pol. Hvala za nasvet, {learner}!",
+          "en": "Right. Tomorrow I'll go to Gorizia and tell the merchant he gets only half. Thanks for the advice, {learner}!",
+          "de": "Gut. Morgen fahre ich nach Gorizia und sage dem Händler, dass er nur die Hälfte bekommt. Danke für den Rat, {learner}!",
+          "it": "Va bene. Domani vado a Gorizia e dico al commerciante che ne avrà solo metà. Grazie del consiglio, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "vino-b2-meja",
+      "level": "B2",
+      "memory": {
+        "sl": "večer, ko sem ti pripovedoval o meji",
+        "en": "the evening I told you about the border",
+        "de": "den Abend, an dem ich dir von der Grenze erzählt habe",
+        "it": "la sera in cui ti ho raccontato del confine"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "thinking",
+          "sl": "Veš, {learner}, ko sem bil majhen, je bila tu še prava meja. Z očetom sva grozdje vozila čez prehod s prepustnico.",
+          "en": "You know, {learner}, when I was little, there was still a real border here. My father and I drove the grapes across the crossing with a border pass.",
+          "de": "Weißt du, {learner}, als ich klein war, gab es hier noch eine richtige Grenze. Mit meinem Vater fuhr ich die Trauben mit einem Passierschein über den Übergang.",
+          "it": "Sai, {learner}, quando ero piccolo, qui c'era ancora un confine vero. Con mio padre portavamo l'uva oltre il valico con il lasciapassare."
+        },
+        {
+          "choices": [
+            {
+              "sl": "In na meji sta čakala ure in ure? Jaz ne bi {m:bil|f:bila} tako dolgo {m:zdržal|f:zdržala}.",
+              "en": "And you waited at the border for hours and hours? I wouldn't have lasted that long.",
+              "de": "Und ihr zwei habt an der Grenze stundenlang gewartet? Ich hätte das nicht so lange ausgehalten.",
+              "it": "E al confine aspettavate ore e ore? Io non avrei resistito così a lungo.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Midva sva zdržala. Vmes sva pela in pila kavo iz termovke.",
+                "en": "We did, the two of us. In between we sang and drank coffee from a thermos.",
+                "de": "Wir zwei schon. Zwischendurch haben wir gesungen und Kaffee aus der Thermoskanne getrunken.",
+                "it": "Noi due sì. Nel frattempo cantavamo e bevevamo caffè dal thermos."
+              }
+            },
+            {
+              "sl": "In na meji sta čakala ure in ure? Jaz bi ne {m:bil|f:bila} tako dolgo {m:zdržal|f:zdržala}.",
+              "en": "And you waited at the border for hours and hours? I would not have lasted that long.",
+              "de": "Und ihr zwei habt an der Grenze stundenlang gewartet? Ich hätte das nicht so lange ausgehalten.",
+              "it": "E al confine aspettavate ore e ore? Io non avrei resistito così a lungo.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "The no comes before bi, and they stay together: ne bi {m:bil|f:bila} {m:zdržal|f:zdržala}.",
+                "de": "Das ne steht vor bi, und beide bleiben zusammen: ne bi {m:bil|f:bila} {m:zdržal|f:zdržala}.",
+                "it": "Il ne va prima di bi, e restano insieme: ne bi {m:bil|f:bila} {m:zdržal|f:zdržala}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kako? Zdaj me pa res mešaš, {learner}.",
+                "en": "What? Now you're really mixing me up, {learner}.",
+                "de": "Wie? Jetzt bringst du mich echt durcheinander, {learner}.",
+                "it": "Come? Adesso mi confondi proprio, {learner}."
+              }
+            },
+            {
+              "sl": "In na meji sta čakala ure in ure? Jaz bi grozdje {m:prodal|f:prodala} kar carinikom.",
+              "en": "And you waited at the border for hours and hours? I'd just have sold the grapes to the customs officers.",
+              "de": "Und ihr zwei habt an der Grenze stundenlang gewartet? Ich hätte die Trauben einfach den Zöllnern verkauft.",
+              "it": "E al confine aspettavate ore e ore? Io l'uva l'avrei venduta ai doganieri.",
+              "why": {
+                "en": "The grapes were for the cellar on the other side: the customs only wanted papers. Say how you'd have borne the wait.",
+                "de": "Die Trauben gehörten in den Keller auf der anderen Seite: der Zoll wollte nur Papiere. Sag, wie du das Warten ertragen hättest.",
+                "it": "L'uva era per la cantina dall'altra parte: la dogana voleva solo documenti. Di' come avresti sopportato l'attesa."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Carinikom? Oni so hoteli samo papirje, ne grozdja!",
+                "en": "To the customs officers? They only wanted papers, not grapes!",
+                "de": "Den Zöllnern? Die wollten nur Papiere, keine Trauben!",
+                "it": "Ai doganieri? Volevano solo documenti, mica uva!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Allora, še enkrat, počasi.",
+            "en": "What? Allora, once more, slowly.",
+            "de": "Wie? Allora, noch mal, langsam.",
+            "it": "Come? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "sad",
+          "sl": "Moj ded je imel še slabše. Leta 1947 mu je nova meja čez noč razdelila vinograd na dvoje.",
+          "en": "My grandfather had it worse. In 1947 the new border cut his vineyard in two overnight.",
+          "de": "Mein Großvater hatte es noch schlimmer. 1947 hat ihm die neue Grenze über Nacht den Weinberg entzweigeschnitten.",
+          "it": "Mio nonno se l'è vista peggio. Nel 1947 il nuovo confine gli divise la vigna in due da un giorno all'altro."
+        },
+        {
+          "choices": [
+            {
+              "sl": "To je bilo gotovo hudo. Ampak vsaj danes lahko greš čez mejo, kadar hočeš.",
+              "en": "That must have been hard. But at least today you can cross the border whenever you like.",
+              "de": "Das war sicher schlimm. Aber wenigstens kannst du heute über die Grenze, wann du willst.",
+              "it": "Dev'essere stato duro. Ma almeno oggi puoi passare il confine quando vuoi.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res je. Zjutraj kava v Gorici, popoldne trta v Brdih. Ded bi se čudil.",
+                "en": "True. Coffee in Gorizia in the morning, the vines in Brda in the afternoon. Grandfather would be amazed.",
+                "de": "Stimmt. Morgens Kaffee in Gorizia, nachmittags die Reben in Brda. Großvater würde staunen.",
+                "it": "È vero. Al mattino il caffè a Gorizia, al pomeriggio le viti nel Collio. Il nonno si stupirebbe."
+              }
+            },
+            {
+              "sl": "To je bilo gotovo lepo. Pol vinograda v Italiji, pol doma!",
+              "en": "That must have been nice. Half the vineyard in Italy, half at home!",
+              "de": "Das war sicher schön. Ein halber Weinberg in Italien, der andere zu Hause!",
+              "it": "Dev'essere stato bello. Mezza vigna in Italia, mezza a casa!",
+              "why": {
+                "en": "A border through a family's vineyard is a loss, not a treat: say it was hard, then find the comfort.",
+                "de": "Eine Grenze durch den Weinberg einer Familie ist ein Verlust, kein Vergnügen: sag, dass es schlimm war, und finde dann den Trost.",
+                "it": "Un confine che taglia la vigna di una famiglia è una perdita, non un regalo: di' che è stato duro, poi trova il conforto."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Lepo? Ded je pol vinograda gledal samo čez žico.",
+                "en": "Nice? Grandfather saw half his vineyard only through the wire.",
+                "de": "Schön? Großvater sah den halben Weinberg nur noch durch den Draht.",
+                "it": "Bello? Il nonno vedeva mezza vigna solo attraverso il filo spinato."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Allora, še enkrat, počasi.",
+            "en": "What? Allora, once more, slowly.",
+            "de": "Wie? Allora, noch mal, langsam.",
+            "it": "Come? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "thinking",
+          "sl": "Allora, dovolj o starih časih. Trta je pa kot otrok: vedno me kaj skrbi zanjo.",
+          "en": "Allora, enough of the old days. But a vine is like a child: there's always something I worry about.",
+          "de": "Allora, genug von den alten Zeiten. Aber eine Rebe ist wie ein Kind: Immer mache ich mir um irgendwas Sorgen.",
+          "it": "Allora, basta coi vecchi tempi. Ma la vite è come un bambino: c'è sempre qualcosa che mi preoccupa."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Bo že dobro. Držim pesti zanjo!",
+              "en": "It'll be fine. I'm keeping my fingers crossed for it!",
+              "de": "Das wird schon. Ich drücke ihr die Daumen!",
+              "it": "Andrà bene. Incrocio le dita per lei!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Grazie! S takimi prijatelji bo letošnja rebula zlata.",
+                "en": "Grazie! With friends like that, this year's rebula will be golden.",
+                "de": "Grazie! Mit solchen Freunden wird die Rebula dieses Jahr golden.",
+                "it": "Grazie! Con amici così la ribolla di quest'anno sarà d'oro."
+              }
+            },
+            {
+              "sl": "Bo že dobro. Držim palce zanjo!",
+              "en": "It'll be fine. I'm holding my thumbs for it!",
+              "de": "Das wird schon. Ich drücke ihr die Daumen!",
+              "it": "Andrà bene. Tengo i pollici per lei!",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The Slovene idiom is držati pesti (fists) za koga; the thumbs are German's (Daumen drücken).",
+                "de": "Die slowenische Wendung ist držati pesti (die Fäuste) za koga; die Daumen sind deutsch.",
+                "it": "Il modo di dire sloveno è držati pesti (i pugni) za koga; i pollici sono tedeschi (Daumen drücken)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Palce? Bo trta zato bolj zrela? Ha!",
+                "en": "Your thumbs? Will that make the vine riper? Ha!",
+                "de": "Die Daumen? Wird die Rebe davon reifer? Ha!",
+                "it": "I pollici? Così la vite matura meglio? Ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Allora, še enkrat, počasi.",
+            "en": "What? Allora, once more, slowly.",
+            "de": "Wie? Allora, noch mal, langsam.",
+            "it": "Come? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Zdaj pa ti natočim še pol kozarca, pa greva gledat igro.",
+          "en": "Now I'll pour you another half glass, and we'll go and watch the game.",
+          "de": "Jetzt schenke ich dir noch ein halbes Glas ein, und dann schauen wir uns das Spiel an.",
+          "it": "Adesso ti verso un altro mezzo bicchiere, e poi andiamo a guardare la partita."
         }
       ]
     }
