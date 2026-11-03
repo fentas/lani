@@ -113,4 +113,25 @@ The genitive's -s needs no rule: `des Vater`, `meines Vater` and `der Mutters` a
 
 ## Voice (no credits spent)
 
-A voice build of these six units in Eva's voice would take about **5,770 characters** of German (270 different lines). The explanations in the learner's language add about 11,300 in English, 10,600 in Slovene and 11,400 in Italian (42 clips each): the app asks for those on demand, or `voice-build --explanations` makes them ahead. Counted with the bridge's own `courseTexts`, over the units `inBase`.
+A voice build of these six units in Eva's voice would take about **5,800 characters** of German (270 different lines). The explanations in the learner's language add about 11,450 in English, 10,760 in Slovene and 11,490 in Italian (42 clips each): the app asks for those on demand, or `voice-build --explanations` makes them ahead. Counted with the bridge's own `courseTexts`, over the units `inBase`.
+
+## Checks
+
+On 751e58fa, the tip before this section. Parts a and b run no whole Android suite, as the brief says.
+
+- `bunx tsc --noEmit -p .`: clean. `bun test/prompt-clashes.ts`: no new clash, the 339 of the baseline (no pack changed). `tutor-export --check`: 89 files match.
+- The smoke, ports 10030, 10033, 10036, Drama 3 on 10048, through `lani-slot.sh`: all 3,515 checks pass, each step's point on the print's rule line among them.
+- The Android tests through `lani-slot.sh`: `GermanB1aContentTest` 7, `GermanCourseContentTest` 5, `GermanA2aContentTest` 7, `GermanA2bContentTest` 8, `GermanA2cContentTest` 6, `GradingLanguagesTest` 48, `GrammarTest` 16, `SchoolBoardTest` 7, `SentenceGrammarTest` 6: 110, none failed. `GermanCourseContentTest` is what grades every right answer and spoken form of the six units, and each decoy wrong.
+- **Prints:** `school-prints --language de --level B1 --units <the six>` in en, sl and it, as PDFs: each sheet fits on two pages, no word without a meaning (`--explain`). Three read by eye: `genitiv` in sl, `als-waehrend` in it, `plusquamperfekt`'s second page in en. In the booklet they are lessons 1 to 6 of 6 for now: the other parts' units bring the rest.
+- **Every right answer and probe while writing**: a Python port of `Grading.check` over each unit, each with its list of wrong forms that must grade wrong. In the scratchpad, not committed: the tests above hold the same rules.
+- **A read by a second agent**, with no sight of my reasoning, over the six units and pages: 32 findings, all taken. The most serious: the genitive called "the fourth case" (it is Austria's 2. Fall and Slovene's 2. sklon), four decoys that made right German in some gap, right answers not listed (a gap of `bis` or `bevor`, Perfekt first with nachdem), a gap text with no bank and no cue where other words were right, seit "with the present" stated too widely, -es as a must after -sch (des Tischs is right).
+- **Emulator QA** of `genitiv` through qa-slot (`--no-town --steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, a synthetic learner): setup, course-unit and the crash check ok, on an APK of e320710e's content. Eva's six steps, the summary, the first sheet, the test passed, the print's preview and PDF, the next unit named. The test reads 12 right, 1 almost (12½/13): `bin/qa` folds what adb can't type (der Mühle as Muehle), almost by design. 19 shots in the scratchpad's `ux-course-de-b1-a/cu/`.
+
+**Not done:** the other five units on an emulator; the other two bases on an emulator; the worksheets' second and third sheets beyond what the Android tests and QA's first sheet cover; the whole Android suite; a merge of main or of the other parts, as part c integrates; a tap on a word on a real line (the lookups were read through `Lexicon.readings`: `wegen` gives Weg's dative plural first and its own "because of" second, and the app ranks them by the line's translation, not tried here).
+
+## What's left
+
+- The native check, first in this doc.
+- Part c writes COURSE.md's section on these units from this doc, and the README's page counts (six new pages). `GermanCourseContentTest` already reads every unit.
+- The "once merged, also" column has nothing for this part. Part b's and part c's units may name `genitiv`, `temporalsaetze`, `werden-futur` once merged, as the outline says (`passiv` on `werden-futur`).
+- Voices: nothing was spent, see above.
