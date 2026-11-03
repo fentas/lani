@@ -1120,7 +1120,7 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `GET` | `/state[?language=it]` | all 6 learner databases + computed fields (no LLM involved), the home language's or, with `language`, that language's; always with `language` (whose they are) and `languages: [{code, name, level, words, due, source: home\|visits}]`, the home one first (see [docs/DB_SCRIPTS.md](../docs/DB_SCRIPTS.md#languages)), and `features`: what this bridge takes that an older one doesn't (`"dialog-words"`: POST /reviews' `dialog`); an older bridge has none, and the app sends it only what it takes |
 | `GET` | `/changes` | `{version, day, areas}`: the version of everything the app reads (`bridge/src/changes.ts`), and of each area of it: `learner` (the databases and the bridge's other records of the learner, e.g. the answers' log), `village` (`app/game.json`), `towns` (`app/towns.json`, `app/town-*`), `family` (`app/family`, `app/audio`), `content` (the tutor's stores in `app/`, on a node the project's content under `companion/`, which a merge on main changes under a running bridge, and who the learner is: the profile's learner, preferences and home language by value) and `friends` (no files: what the towns' friendships take of the village and the learner, by value: the village's last feast and the learner's level in each linked town's language; [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)). Each a digest of this run of the bridge, the day and its files (the learner's data directory without its history, clips, releases, backups, chat photos and the bridge's own bookkeeping). Not the events (the app handles each as it comes) nor the voice store (each clip made says so: `voice_updated`). Each GET the app reads again on a Back says the versions of the areas it depends on as they were before its answer was made (`lani-areas: learner=…, content=…`). Home coming back reads nothing when the version didn't move; when it did, only the reads whose areas moved, while the day, the time of day, the pair, the learner and the culture are those of the last reading and the last whole one is under an hour old; else everything. What no version says (the towns' reads, which ask the linked towns; the voice store's clips and voices) is read again every ten minutes, moved or not ([docs/plans/05-built/nav-perf.md](../docs/plans/05-built/nav-perf.md), [changes-areas.md](../docs/plans/05-built/changes-areas.md), [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)); an older bridge answers `404` (or no areas), and the app reads everything as before |
 | `GET` | `/modules`, `/modules/:id[?version=N]` | published modules |
-| `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned`, `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`) |
+| `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned` (words the learner has, from this pack or another), `own` (those learned in this pack itself), `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`). `?packs=` is the packs version the app reads (`PackSession.VERSION`, 1: it orders the packs by the learner's level and folds those far above it): an app that doesn't say (an older one) gets only the curated packs up to a level above the learner's `current_level`, and every tutor's, festival's, project's and started pack (`packsForApp`; see [Nove besede](#nove-besede--new-words)) |
 | `GET` | `/packs/:id` | a pack with its words and the ids of words already learned |
 | `GET` | `/grammar` | the grammar book of the village's language: the curated pages (`companion/grammar/<language>/`, `LANI_GRAMMAR_DIR` for another root) with what the tutor added to them (`extended`), then the tutor's own pages (`<data>/app/grammar/`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's (see [Grammar book](#grammar-book)) |
 | `GET` | `/cards` | the cheat sheet's cards no grammar page fits: the curated ones (`companion/cards/<language>/`, `LANI_CARDS_DIR` for another root), then the tutor's (`<data>/app/cards/`, `publish_card`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's; `GET /cards/<id>` one (see [Cheat sheet](#cheat-sheet)) |
@@ -2403,6 +2403,29 @@ XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napr
 The treasure map, the school (and a unit opened from here), a grammar page's "🎯 Vadi" and "📚 Moje besede" lead back
 to the progress screen. QA's step `progress` goes through it, in the dark theme and with the base in German too
 ([Test](#test)).
+
+### Nove besede · New words
+
+"📚 Nove besede · New words" (`ui/PacksScreen.kt`; the order and the suggestion in `data/Packs.kt`, `PackSession`) lists
+the new tutor packs, the packs in progress, the untouched ones in the bridge's order and the finished ones; the
+festivals' and the village projects' packs have their own sections. The curated packs two levels or more above the
+learner's level and not started (B1 and B2 for a learner at A1, B2 at A2) wait at the end under a folded "▸ ⏳ Za
+pozneje · For later (24)", "Besede za B1–B2: pridejo na vrsto, ko se tvoja raven dvigne · Words for B1–B2: they come up
+as your level rises"; a tap opens it (TalkBack: expand, collapse), and a pack there still opens at once. A pack the
+learner started, a tutor's, a festival's and a project's never wait there. The suggested pack (Home's "Danes · Today",
+the New words card): a new tutor pack, the festival's while it's near, one in progress, the first at the learner's
+level, the first left at or below it, then one above, the nearest level first (an A1 learner who has every A1 and A2
+pack gets a B1 one, never a B2 one first). A pack above the learner's level counts as under way only through words learned
+in it (GET /packs `own`: its own `vocab_<pack>_…` cards), not through a word it shares with another pack or a looked-up card;
+at or below their level any word learned counts, as it always did. Home's tile ("še 45 besed · 45 to learn") counts the packs not left for
+later, unless only those are left. With only A1 and A2 packs, as every language had before its B1 and B2 packs came,
+nothing of this changes the list, the suggestion or the tile for any learner (`PackSessionTest`).
+
+An older app (before `PackSession.VERSION` 1) lists and suggests the packs in the bridge's order, so it asks GET /packs
+without `?packs=` and the bridge gives it the curated packs up to a level above its learner's, and every tutor's,
+festival's, project's and started pack (a word learned in it, `own`; `packsForApp`, bridge/src/packs.ts). On an older app a learner at A1 sees the A1
+and A2 packs, as before the B1 and B2 packs came; at A2 also the B1 ones. GET /packs/:id serves any pack to any app (a
+scene's, a story's or the sky's words open their pack by its id).
 
 ### Moje besede · My words
 
@@ -4122,7 +4145,10 @@ feeling (a verb's forms made as the lens makes them), the pronouns only ever the
 1844, nekega dne) and the hours' half (ob pol dveh), at once and offline; the
 app's older rules of its own (`Triggers`) are gone. On the turns of `bridge/test/fixtures/hint-lens.json` the chip names
 the trigger, the case and the question the lens names (`TurnHintLensTest`; the smoke checks the lens still answers them
-so, `bun test/hint-lens.ts --write` records them again).
+so, `bun test/hint-lens.ts --write` records them again). An Italian turn's chip has Italian's own table, in the app
+too (`game/ItalianHints.kt`; docs/plans/05-built/hint-chip-it.md): every page's rule in words and what the sentence shows
+of it (the noun an article goes with, who does it, who is spoken to, the participle that picks essere or avere, the
+word that asks for the congiuntivo …), from word lists, without the bridge.
 
 ### Forms cards
 

@@ -195,6 +195,7 @@ class PhoneBridgeNodeTest {
     }
 
     @Test fun packs() = same("/packs")
+    @Test fun packsForThisApp() = same("/packs?packs=${si.lanisce.lani.data.PackSession.VERSION}")
     @Test fun aPack() = same("/packs/${json.parseToJsonElement(nodeGet("/packs").second).let { (it as JsonArray)[0].jsonObject["id"]!!.jsonPrimitive.content }}")
     @Test fun modules() = same("/modules", dirOrder = true)
     @Test fun grammar() = same("/grammar")
