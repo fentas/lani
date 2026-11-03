@@ -113,6 +113,9 @@ changed.
 - **No homonyms.** Every spelling another pack has with another meaning was avoided (la vite the vine, il dado the dice, la
   cartella the satchel, il soggiorno the stay, la ricetta the recipe beside la prescrizione), so no word is marked `homonym` and
   the smoke's homonym check (`spellings.size === 8`) is unchanged here; packs-de makes it `>= 8`, which this branch doesn't need.
+- **No pack word spelt as a villager.** A pack word comes before the village's people in a tap's readings, so la rosa (a
+  flower in alberi-e-fiori) made a tapped "Rosa" the rose before Nonna Rosa (the smoke's friuli check). It is il tulipano
+  now (a308afe9); rosa in a line is still the supplement's rose. No other new word is a villager's name.
 - **The supplement.** Every Italian form the 1,223 words and their examples use is known to a tap. Two new tables, appended
   after the others: `companion/lexicon/tools/it_cov_60_packs_b1.txt` and `it_cov_61_packs_b2.txt` (the pack verbs' forms as
   `=pack`, irregular ones with their participles; the examples' other words with their meanings: la tabellina, il fazzoletto, il
@@ -141,20 +144,24 @@ Checked against the shared fix from packs-en, cherry-picked here (6b7652fc, from
 - **The road** (`RoadGather.packOrder`) already took the packs under way first, then the easiest level first, so the B1 and B2
   words come after A1's and A2's.
 - **The window of requests** doesn't hold packs: a pack is offered from Home's words tile and the packs screen only.
-- **The sheets** (prints/sheet.ts) took a word's meaning from the packs in file order, so A1 sheets could print a B1 pack's
-  wording; packs-de's fix, cherry-picked (9f52ee3e, here edecbf27), reads the A1 and A2 packs first. `school-prints --language it --level all
-  --html-only` in de, en and sl, main against this branch: the B1 and B2 sheets and booklets are the same; four A1 units
-  (articoli, plurale, avere, imperativo) and the A1 booklet change in one way only: l'oca, la paura and il tesoro are pack
-  words now, so their line shows Italian's gender and the article form as every pack word's does ("f (l'oca) Gans" for
-  "(l'oca) die Gans"), the meaning the same.
+- **Started, for a pack above the level** (packs-en's 9e07e082, here dba6a88d): a pack above the learner's level counts as
+  started only through its own words (`own` on GET /packs), so one word it shares with an A1 pack doesn't pull a B2 pack
+  forward. None of these packs shares a word with an older one (the checker refused any), so for them it changes nothing
+  today; it holds should a tutor's or a later pack ever share one.
+- **The sheets** (prints/sheet.ts) read a word's meaning from the packs; packs-de's order (9f52ee3e, here edecbf27) and
+  packs-en's level filter with its follow-up (d47937e1 and 1894f03a, here 809f1e24 and 46cf656b0) keep a B1 or B2 pack's wording off
+  the A1 and A2 sheets, while an A1 sheet still reads the A2 packs Italian's A1 units lean on (il Friuli, la pecora, il fiore).
+  Checked by printing the Italian course (`school-prints --language it --level all --html-only`, in de, en and sl) from this
+  branch with the 59 packs in, from a copy of it with the 59 removed, and from main (f9339ab8): **every sheet and booklet of A1,
+  A2, B1 and B2 the same, file for file, in all three bases, in all three prints.**
 
-## Verified (on 11c53b32, main f9339ab8 with the two cherry-picks)
+## Verified (on the branch tip, main f9339ab8 with the four cherry-picks)
 
 - The pack checker on all 59 packs: 0 problems; every token known; no new prompt clash (`bun test/prompt-clashes.ts`: the 339
   of the baseline, nothing added in any language); no unmarked homonym; the supplement's `--prompts`: only its six old clashes.
 - `bunx tsc --noEmit -p .` clean (after `bun install`); `tutor-export --check`: 140 files match; `check-culture friuli`: ok.
 - The smoke and the Android suite: see "Checks" below.
-- `school-prints` in de, en and sl, as above.
+- `school-prints` in de, en and sl, with the packs in and out, as above.
 
 ## Not done, or left
 
@@ -173,10 +180,15 @@ The packs' words and examples are in the voice corpus (`pack words`, `examples`)
 
 ## Checks
 
-(filled in below once the smoke and the Android suite have run)
+- **The smoke** (`LANI_SMOKE_PORT=10450`, `LANI_SMOKE_DRAMA3_PORT=10468`): on the branch before the last cherry-picks,
+  3,768 passed and one failed, the friuli lookup of "Rosa" (fixed in a308afe9, above). With packs-en's level filter alone the
+  Italian sheets' check failed on A1 preposizioni's "il Friuli" (only an A2 pack gives it); its follow-up 1894f03a, taken here,
+  is the fix. On the tip: **3,772 checks, all passed**.
+- **The Android suite**: (below)
 
 ## Commits
 
 fda8005e, 4c11e689, 1c7d8253, 0522681e, 1cfa718f, 061e358f, 63e65ae5, f9db4107, 4a5793aa, 8f9bb7f3 (B1); e90bbcee, e53ceb83,
-14fd7cdd, dc82c264, 2a6b7554, 46304909, a9b91a9e, 0aa8c8f8, 1832ceae (B2); 11c53b32 (facts); cherry-picked 6b7652fc (packs-en's
-3c5f3ba5: the order and older apps) and edecbf27 (packs-de's 9f52ee3e: the sheets' order).
+14fd7cdd, dc82c264, 2a6b7554, 46304909, a9b91a9e, 0aa8c8f8, 1832ceae (B2); 11c53b32 (facts); a308afe9 (Rosa, descriptions); cherry-picked 6b7652fc (packs-en's 3c5f3ba5: the
+order and older apps), edecbf27 (packs-de's 9f52ee3e: the sheets' order), 809f1e24 and 46cf656b0 (packs-en's d47937e1 and 1894f03a: A1 and A2
+sheets read the A1 and A2 packs, a B1 sheet up to B1, a B2 sheet up to B2), dba6a88d (packs-en's 9e07e082: started through its own words).
