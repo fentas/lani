@@ -1302,7 +1302,7 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
 | Unit | Teaches | Its pages |
 |---|---|---|
 | `hello` 👋 | hello, hi, good morning, afternoon, evening, good night only when you leave; I'm, My name's, What's your name?, And you?; you for everyone, Mr, Mrs, Ms, Miss with the surname; This is Jack. He's a shepherd. Nice to meet you (too); How are you? Fine, thanks; goodbye, bye, see you | pronouns (its own summary card: the greetings) |
-| `to-be` 🟰 | I am, you are, he/she/it is, we/you/they are (two with and are they); I'm … they're, Jack's on the fell; not after the verb (isn't, aren't, I'm not, never amn't); Are you …? Is she …? Yes, I am (never Yes, I'm); I'm hungry, I'm cold with be | to-be, pronouns |
+| `to-be` 🟰 | I am, you are, he/she/it is, we/you/they are (two with and are they); I'm … they're, Jack's on the fell; not after the verb (isn't, aren't, I'm not; in Scotland and Ireland also I amn't, named, right when typed); Are you …? Is she …? Yes, I am (never Yes, I'm); I'm hungry, I'm cold with be | to-be, pronouns |
 | `articles` 🏷️ | a for one thing named the first time, the same before every noun; an by the sound (an hour, a uniform); the for what both know, the village's one; a with a job (Jack is a shepherd); no article in general (Dogs are friendly) and in at home, at school, in bed, by bus | articles |
 | `plurals` 🐑 | + -s; -es after s, x, ch, sh, potatoes; -y → -ies, -ay, -ey + -s; -f, -fe → -ves (but roofs); men, women, children, feet, teeth, mice, people; sheep, fish, deer the same, the verb showing how many; the plural from two on | plurals, articles |
 | `have-got` 🐕 | I've got, she's got ('s is has here); haven't got, hasn't got; Have you got …? Yes, I have; have alone and American Do you have …? (both right); have breakfast, have a cup of tea, never have got | to-have |
@@ -1322,7 +1322,7 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
   Zähl".
 - **A wrong form in a step's English as "**right** (never *wrong*)"**: the sheet's "Watch out" pairs a "never *X*"
   with the most alike bold form of its paragraph, so "Never *I amn't*: only **I'm not**" printed I amn't against we
-  aren't; "**I'm not** (never *I amn't*)" pairs them.
+  aren't; "**I'm not** (never *I amn't*)" paired them. (I amn't is said, so `to-be` no longer says never of it: [What people say](#what-people-say-over-a1-and-a2).)
 
 
 ### The English course: units 7–12
@@ -1373,7 +1373,7 @@ Old Wilf by the fire, the bus to Keswick, the market):
 | `present-continuous` 🏃 | am, is, are + -ing for now (I'm walking: the others' present, gerade, stare); isn't, aren't; Are you …? Yes, I am; What are you doing?; making, sitting, swimming, lying; every day and usually with the present simple, now, Look!, Listen! with -ing; know, like, want, need, understand never with -ing | present-continuous, present-simple |
 | `time` 🕖 | What time is it? It's seven o'clock; past up to half past, to the next hour after it (five past seven, a quarter to eight); British half seven for 7:30 (halb acht, pol osmih: never halb sieben), the digital seven thirty and the American ten after eight accepted; at a clock time and at night; on a day and a date (on Monday, on the first of May), at the weekend (on the weekend accepted), every Sunday with none; in a month, a season, a year, a part of the day; the capitals; the ordinals (first, second, third, fifth, ninth, twelfth, twentieth, twenty-first): written 1 May, said the first of May | time-dates (new), numbers |
 | `object-pronouns` 👉 | me, you, him, her, it, us, them after a verb and after a preposition; the subject before the verb, the object after it (She likes him. He likes her.); her the object and the possessive, him never his; a pet with a name him or her, a thing it; It's me. Me too.; one pronoun only (never I know him Jack.); Give me the key, Give it to me | object-pronouns (new), pronouns |
-| `was-were` ⏮️ | was for I, he, she, it; were for you, we, they, and you were for one person (never you was); wasn't, weren't; Was it …? Were you …? Yes, I was (never Yes, I were); yesterday, last night, two days ago; there was, there were; where and were; born with was (Auntie Edna was born in 1952, never is born) | was-were (new), to-be |
+| `was-were` ⏮️ | was for I, he, she, it; were for you, we, they, and you were for one person (people also say you was, named; writing wants you were); wasn't, weren't; Was it …? Were you …? Yes, I was (in the North also Yes, I were, named; never Yes, I wasn't); yesterday, last night, two days ago; there was, there were; where and were; born with was (Auntie Edna was born in 1952, never is born) | was-were (new), to-be |
 
 - **Pages written for them**: `time-dates`, `object-pronouns` and `was-were`, each A1 with its cheat-sheet card (the
   book had the place prepositions, can and the present continuous; past-simple is A2, so was and were have a page of
@@ -1444,17 +1444,19 @@ A2's last six: the future, must, the perfect, if. Saturday's dance at the Packho
 - **'s before a participle is has in the grading**, listed once: she's seen = she has seen, Jack's never been; before one that could be an adjective or a passive (done, made, lost, closed, written …) only with just, already, never, ever or an object after it, so it's written stays it is. `same`'s order matters: these rules stand before he's → he is. A name's 's before -ing still lists its long form beside it; before going to it doesn't need to.
 - **Typed without the apostrophe, almost**: hes seen, id like, and ill help, well go only before another word, so the words themselves stay words.
 
-### What people say, over the whole of A2
+### What people say, over A1 and A2
 
-As [Spoken forms](#spoken-forms): no form people say is a wrong choice or a bank's distractor, no text says never of it (the intro and the page say people say it and writing wants the other), and typed it is one of two things. `EnglishA2bContentTest` holds it for its six units, `EnglishA2cContentTest` for all 18.
+As [Spoken forms](#spoken-forms): no form grown-ups really say is a wrong choice or a bank's distractor, no text says never of it (the intro and the page say people say it and writing wants the other), and typed it is one of two things. `EnglishA2bContentTest` holds it for its six units, `EnglishA2cContentTest` for the 36 of both levels.
 
 | What's typed | How | Verdict |
 |---|---|---|
 | gonna, wanna, gotta; cos, 'cause; some in a plain question; There's no walkers; loads of; Will I …? beside Shall I …? | the item's `spoken` | right, labelled with the standard form |
-| good for well, a flat adverb; a double negative after a negative (nothing, no one, not never); It were raining, We was late; I seen it, I done it, I sung; a past for a participle after have (I've saw, He's went, She's took); telled, knowed, catched | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
+| good for well, a flat adverb; a double negative after a negative (nothing, no one, not never); It were raining, We was late, Yes, I were, There was a lot of walkers; I seen it, I done it, I sung; a past for a participle after have (I've saw, He's went, She's took) | the table's `nonstandard` | almost, the standard form and "People say it like this; in writing it's the form shown" |
 | amn't | a contraction like any: am not | right |
 
-Left wrong, on the native list: more bigger, gooder, as for than, How much eggs?, tastes well; he have to (East Anglia's); come, give, run for came, gave, ran (the cue copied, and what the unit teaches); haven't to. A1's `to-be` ("never amn't") and `was-were` ("never you was") still say never: for a decision.
+**`nonstandard` is for what grown-ups really say.** A child's or a learner's regular past (telled, catched, knowed, throwed, growed) isn't, any more than gooder and more bigger: those are wrong, and a sheet may offer them (`past-irregular`'s telled).
+
+Left wrong, on the native list: more bigger, gooder, as for than, How much eggs?, tastes well; he have to (East Anglia's), still a wrong choice in `have-to`; come, give, run for came, gave, ran (the cue copied, and what the unit teaches); haven't to; I've knew, I've flew.
 
 ## Printed sheets
 
