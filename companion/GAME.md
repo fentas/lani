@@ -2296,9 +2296,7 @@ the hut and the houses), Nel campo, Nel bosco, Al ruscello, Allo stagno and Nell
 animals' `animali-del-bosco`); and the places its finished projects lead into: Nel mulino, Nella vigna, L'albero della
 cuccagna, Il ponte, Il prato delle api, La fontana, Il grande fienile and L'orologio del campanile (their packs
 `nel-mulino`, `nella-vigna`, `la-cuccagna`, `il-ponte`, `il-prato-delle-api`, `la-fontana`, `il-grande-fienile`,
-`l-orologio`). Six of its projects (the fire station, the playground, the fountain, the big hay barn, the lookout tower, the tower clock)
-play their steps as short scenes at A1, A2 and B1 (`project-steps/`, their words in `packs/progetto-<name>.json`; docs/plans/05-built/friuli-projects-b.md).
-Its landscape is Il mare (`scenes/il-mare.json`,
+`l-orologio`). Its landscape is Il mare (`scenes/il-mare.json`,
 in Italian with Slovene and English, machine-written like the rest), its words in `packs/il-mare.json`; its campfire is Al fuoco
 (`scenes/al-fuoco.json`, words in `packs/al-fuoco.json`), where Nonno Bepi tells his legends in the evening (`stories/`, 16 as Primorska has: the agane, the Devil's Bridge of
 Cividale, the castle hill of Udine, the sbilfs, the Orcolat and ten more, companion/SCENES.md "Stories"; words in

@@ -10205,10 +10205,10 @@ def polish_cues():
 def friuli_projects_b():
     """Friuli's village projects as short scenes, part b (docs/plans/05-built/friuli-projects-b.md): a synthetic child learning
     Italian from German in the Friuli village (LANI_DEV_DATA: make-learner.ts --name Teo --target it --base de; LANI_CULTURE=friuli,
-    LANI_QA_SETUP_PAIR=it-de), the app in it · de, the village a Trg (QA's hook "hearths:trg"). Two projects opened from the map, each
+    LANI_QA_SETUP_PAIR=it-de), the app in it · de, the village a Trg (QA's hook "hearths:trg"). Three projects opened from the map, each
     in the middle ("step:<project>/<n>": the steps before it done, a village partway through): the fire station's fourth step at A1
     (the pump on its cart coming up the square), the fountain's second at B1 ("level:B1": the white stone from the quarry on its cart,
-    its block on the square from its done line). Each: its landmark on the map, a tap, the projects sheet at it, "Today's step",
+    its block on the square from its done line), the bridge's fifth at A2 (one of friuli-projects-a's). Each: its landmark on the map, a tap, the projects sheet at it, "Today's step",
     the dialog in its scene, a wrong choice with its reaction, the right ones, the end card and its line. Also as fb-*.png in
     $LANI_QA_FRIULI_SHOTS."""
     try:
@@ -10245,9 +10245,11 @@ def friuli_projects_b():
         spec = projects[project]
         step = json.loads((culture_dir / f"project-steps/{project}.json").read_text())["steps"][n - 1]
         lines = step["levels"][level]["lines"]
-        right = {c["it"] for l in lines for c in l.get("choices", []) if c.get("ok")}
-        wrong = {c["it"]: c["reply"]["it"] for l in lines for c in l.get("choices", []) if not c.get("ok")}
-        said = [l["it"] for l in lines if not l.get("choices")]
+        # as they are said to the synthetic Teo: his name, the boy's form of a pair
+        say = lambda s: re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s).replace("{learner}", "Teo")
+        right = {say(c["it"]) for l in lines for c in l.get("choices", []) if c.get("ok")}
+        wrong = {say(c["it"]): say(c["reply"]["it"]) for l in lines for c in l.get("choices", []) if not c.get("ok")}
+        said = [say(l["it"]) for l in lines if not l.get("choices")]
         qa_hook(f"level:{level}")
         qa_hook(f"step:{project}/{n}")
         to_village()
@@ -10345,7 +10347,7 @@ def friuli_projects_b():
         for v in api("/villagers"):
             bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
             bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
-        for leader in ("davide", "bruno"):
+        for leader in ("davide", "bruno", "franco"):
             if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
                 st["residents"].append({"id": leader, "since": "2026-01-01"})
         dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
@@ -10356,6 +10358,7 @@ def friuli_projects_b():
         qa_hook("bubbles:0")
         play("gasilski_dom", 4, "A1", "pump")
         play("vodnjak_na_trgu", 2, "B1", "stone")
+        play("most", 5, "A2", "planks")  # one of friuli-projects-a's, on the union
     finally:
         qa_hook("level:")
         qa_hook("step:")
