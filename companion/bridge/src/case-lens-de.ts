@@ -563,7 +563,8 @@ export class CaseLensDe {
       // what is left with no verb: a name or a noun alone in its clause is a call (Guten Morgen, Kathi!), the nominative
       if (!verbs.length) {
         const alone = cp.filter(p => !p.kind && !p.prep)
-        if (alone.length === 1 && (alone[0]!.pos === 'name' || alone[0]!.pos === 'noun') && alone[0]!.slots.some(s => s.case === 'nom') && cp.filter(p => p.head.clause === c).length === 1)
+        // a call is a name or a bare noun (Schatzi, Fledermäuse), never a phrase with an article or a number (noch ein Spiel)
+        if (alone.length === 1 && (alone[0]!.pos === 'name' || (alone[0]!.pos === 'noun' && !alone[0]!.det && !alone[0]!.adjs.length)) && alone[0]!.slots.some(s => s.case === 'nom') && cp.filter(p => p.head.clause === c).length === 1)
           this.settle(alone[0]!, alone[0]!.slots.filter(s => s.case === 'nom'), { kind: 'address', rule: this.f.table.roles.address.rule })
       }
       // what is left (a heading, a phrase alone): its forms alone
