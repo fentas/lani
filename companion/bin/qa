@@ -15368,8 +15368,9 @@ def practice_it():
     snap("challenges-sheet")
     tap(first["title"], 4)
     spec = dev_bridge(f"/modules/{first['id']}")
-    # its giver's card: Nonna Rosa asks, the story in German, what it practises
-    assert wait_for(spec["quest"]["story"].split(" · ")[1][:24], 12), "the giver's story, in German"
+    # its card, in German: its giver's story, or with the giver not met yet (this fixture's people) what it is about, someone else hosting
+    told = [spec["quest"]["story"].split(" · ")[1][:24], (spec.get("description") or "")[:24]]
+    assert wait_for(told[0], 12) or wait_for(told[1], 3), f"the module's card, in German: {told}"
     snap("module-intro")
     assert tap(lab("numbers.start").split(" · ")[0] + " ·", 4), "▶ Inizia"
     labels = []

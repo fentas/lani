@@ -125,7 +125,7 @@ the live reserve. No new mechanism: say so to Jan if the reserve matters.
 
 ## Checks
 
-Run on this branch, merged with main 1e0cdf04:
+On the merge with the queue tip `tutor-languages` (6490f1fb): the smoke, 3,668 checks passed, tsc, `tutor-export --check` (140 files), each merged TypeScript test file built, seven affected Android test classes (73 tests), QA's `practice-it` on a build of the merge. The full Android suite is the gate's. Before that merge, on this branch merged with main 1e0cdf04:
 
 - Bridge: `tsc`; the smoke, all checks passed (3,545), its new section `practice.ts` and friuli.ts's serving; `tutor-export --check`.
 - Android: the full unit suite, 3,802 tests, 0 failures. New: `NumbersItalianTest` (11), `ItalianPracticeTest` (4), two in `RoadMenuTest`.
@@ -175,8 +175,8 @@ exercises into every run. Eight listed are eight requests. What that did, on a s
 | Home's ✨ | "8 new" | "1 new" |
 | Home's Today | one module under "Also" | the same one, the level's first |
 | Requests open | 11: 8 modules, 3 a villager's own | 4: 1 module, 3 a villager's own |
-| The map, the first day | 3 own and 1 module (the window keeps what it showed), "📜 +7" | 3 own and 1 module, "+0" |
-| The map, the next day on | 4 modules, no villager's own (`CuratedPaceTest`: the tutor's rank above a villager's, a giver each: Rosa, Bepi, Davide, Giulia) | 1 module and 3 of their own |
+| The window, the first day (the village's `pace.up`) | 3 own and 1 module (it keeps what it showed), the map's "📜 +7" | 3 own and 1 module, no "+" |
+| The window, once what it showed is gone (`CuratedPaceTest`, not seen on the emulator) | 4 modules, no villager's own (the tutor's rank above a villager's, a giver each: Rosa, Bepi, Davide, Giulia) | 1 module and 3 of their own |
 | Which comes first | Nonno Bepi's "Ho mangiato": the last unit of A1 | "Sono o ho?": `order` follows the course |
 | The chronicle | 8 lines at once | 1 |
 | A gathering run | any of 56 grammar items, from units not reached | that module's and those before |
