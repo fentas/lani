@@ -128,9 +128,10 @@ export default async function practice() {
   const listed = (level: string, at: VillageNow) => sl.offered(level, at).filter(m => m.quest).map(m => m.id).sort().join(' ')
   const sixIds = [...six].sort().join(' ')
   check('modules/sl: Jan\'s six stay listed as they are; while one is open nothing new comes, at any level', ['A1', 'B1', 'B2'].every(l => listed(l, jan(['tozilnik-osnove'])) === sixIds), listed('B2', jan(['tozilnik-osnove'])))
-  check('modules/sl: … all played, at A2 or above the first A2 module comes (dajalnik-komu, Babica Micka), at A1 none', listed('B2', jan([])) === [...six, 'dajalnik-komu'].sort().join(' ') && listed('A1', jan([])) === sixIds, listed('B2', jan([])))
+  // the learner's own level first, then the levels below (placement's order, ModuleStore.offered)
+  check('modules/sl: … all played, the first module of the learner\'s own level comes: at A2 dajalnik-komu (Babica Micka), at B2 po-kruh-po-vasi, at A1 none', listed('A2', jan([])) === [...six, 'dajalnik-komu'].sort().join(' ') && listed('B2', jan([])) === [...six, 'po-kruh-po-vasi'].sort().join(' ') && listed('A1', jan([])) === sixIds, [listed('A2', jan([])), listed('B2', jan([]))])
   const after = jan([], '2026-11-10', [{ moduleId: 'dajalnik-komu', since: '2026-11-09', done: true }])
-  check('modules/sl: … then the next in its order the day after (orodnik-s-kom), and never a level above the learner\'s', listed('B2', after) === [...six, 'dajalnik-komu', 'orodnik-s-kom'].sort().join(' ') && !sl.offered('A2', after).some(m => m.level === 'B1' || m.level === 'B2'), listed('B2', after))
+  check('modules/sl: … then the next in its order the day after (orodnik-s-kom, at A2), and never a level above the learner\'s', listed('A2', after) === [...six, 'dajalnik-komu', 'orodnik-s-kom'].sort().join(' ') && !sl.offered('A2', after).some(m => m.level === 'B1' || m.level === 'B2'), listed('A2', after))
   const served = sl.get('ce-bi-imel')
   check('modules/sl: an older app gets plain strings, in the learner\'s base (English here)', typeof served?.title === 'string' && served.exercises.every(e => typeof (e as { explain?: unknown }).explain === 'string'), served?.title)
 }
