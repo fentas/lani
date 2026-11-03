@@ -193,7 +193,8 @@ object TurnHints {
 
     /**
      * The hint of learner's turn [line] in [language], the book's pages by [page]; null when its rule has no page in the
-     * book (a word's meaning, a greeting's hour: no hint). A turn of another language than Slovene gets its pages alone.
+     * book (a word's meaning, a greeting's hour: no hint). An Italian turn takes Italian's table ([ItalianHints]); a turn
+     * of another language than Slovene and Italian gets its pages alone.
      */
     fun of(line: DialogLine, language: String, page: (String) -> GrammarPage?): TurnHint? {
         val c = line.choices
@@ -213,11 +214,13 @@ object TurnHints {
             val r = c.filter { it.ok }.flatMap { own(it.sl) }.toSet()
             TurnHint(pages, right = r, forms = r + texts.flatMap { own(it) })
         }
+        val sentence = if (form != null && right != null) texts[right] else null
+        val slot = form?.gap?.slot
+        // Italian's own table (game/ItalianHints.kt): its rules in words, a trigger where the sentence shows one
+        if (language == "it") return ItalianHints.of(base, sentence, slot)?.let { (id, made) -> finish(made, made.models, id, page, base) } ?: base
         if (language != "sl") return base
         val id = pages.firstOrNull { it in RULES } ?: return base
         val rule = RULES.getValue(id)
-        val sentence = if (form != null && right != null) texts[right] else null
-        val slot = form?.gap?.slot
         val made = when {
             id == NUMBERS -> numbers(base, sentence, slot)
             rule.cases.isNotEmpty() -> cases(base, id, rule, if (sentence != null && slot != null) CaseTriggers.of(sentence, slot) else emptyList())
@@ -226,11 +229,18 @@ object TurnHints {
                 trigger = rule.cue?.let { k -> if (sentence != null && slot != null) cues(sentence, slot).firstOrNull { it.kind == k } else null },
             )
         }
-        // a model with the trigger's own word first (after «pod»: pod mizo; after «do»: do Ljubljane)
-        val near = (made.trigger as? Trigger.Preposition ?: made.trigger as? Trigger.Amount)?.word?.lowercase()
-        val models = made.models.ifEmpty { rule.models }.filter { quiet(it, base.forms) }
-            .sortedBy { m -> if (near != null && near in Forms.words(m)) 0 else 1 }.take(2)
-        return made.copy(models = models, rows = rows(page(id), made.trigger, base.forms))
+        return finish(made, made.models.ifEmpty { rule.models }, id, page, base)
+    }
+
+    /**
+     * [made] with two of [models] that show no form of the turn, one with the trigger's own word first (after «pod»: pod
+     * mizo; after «do»: do Ljubljane; after «più»: più alto di me), and the rows of page [id]'s table about the trigger.
+     */
+    private fun finish(made: TurnHint, models: List<String>, id: String, page: (String) -> GrammarPage?, base: TurnHint): TurnHint {
+        val t = made.trigger
+        val near = (t as? Trigger.Preposition ?: t as? Trigger.Amount ?: t as? Trigger.Asks)?.word?.let { Forms.words(it).firstOrNull() }
+        val kept = models.filter { quiet(it, base.forms) }.sortedBy { m -> if (near != null && near in Forms.words(m)) 0 else 1 }.take(2)
+        return made.copy(models = kept, rows = rows(page(id), t, base.forms))
     }
 
     /** A numbers turn: the number's category and its case (after the number), or the number's own word (by its noun). */
@@ -329,7 +339,8 @@ object TurnHints {
         val about: (List<GrammarCell>) -> Boolean = when (trigger) {
             null, is Trigger.Noun, is Trigger.Cue -> return emptyList()
             is Trigger.Count -> { row -> Regex("""\d+""").findAll(all(row.first())).any { Numbers.slovene(it.value.toInt()) == trigger.category } }
-            else -> { row -> row.any { c -> trigger.word.lowercase() in Forms.words(all(c)) } }
+            // (a trigger of several words, «bisogna che»: a row with all of them)
+            else -> { row -> row.any { c -> Forms.words(all(c)).let { w -> Forms.words(trigger.word).all { it in w } } } }
         }
         return table.rows.filter { r -> about(r) && r.none { c -> forms.any { shows(all(c), it, stem = true) } } }.take(2)
     }
@@ -386,6 +397,7 @@ object TurnHints {
         is Trigger.Partner -> inBase("hint.with", "word" to t.word) + if (t.lemma == "pomagati") " " + inBase("hint.likeHelfen") else ""
         is Trigger.Noun -> inBase("hint.withNoun", "word" to t.word)
         is Trigger.When -> inBase("hint.with", "word" to t.word)
+        is Trigger.Asks -> inBase(t.line, Trigger.Asks.WORD to t.word)
         is Trigger.Cue -> when (t.kind) {
             Trigger.Cue.Kind.WHO -> inBase("hint.who", "word" to t.word)
             Trigger.Cue.Kind.PAST -> inBase("hint.whenPast", "word" to t.word)
