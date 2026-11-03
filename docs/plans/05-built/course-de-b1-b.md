@@ -7,11 +7,11 @@ written beside it. Everything here is machine-written (Claude) and waits for a n
 
 Austrian German first. **The first five are questions no source settled.**
 
-1. **`der Mann, wo dort steht`** isn't in the course. A sheet found by search says some Upper German dialects use wo as a general relative
-   (search extract only: [deutschunddeutlich SR9c](https://deutschunddeutlich.de/contentLD/GD/GSR9cKommaRelativ.pdf)). Does a Carinthian say it? If it
+1. **`der Mann, wo dort steht`** isn't in the course. A teaching sheet says some Upper German dialects use wo as a general relative
+   ([deutschunddeutlich SR9c](https://deutschunddeutlich.de/contentLD/GD/GSR9cKommaRelativ.pdf), opened), and an article cites Bavarian `auf die wo …` ([Redalyc](https://www.redalyc.org/journal/6645/664572238003/664572238003.pdf), opened). Neither names Carinthia. Does a Carinthian say it? If it
    is speech a learner meets, it should become `spoken` on the der, den and dem gaps of `relativsatz`. Today it is graded wrong.
-2. **`der Tag, wo`** (`relativsatz-praeposition`), labelled "in speech" and accepted as `spoken` on one line, with `an dem` as the standard. One overview says
-   the standard allows wo for places only, a teaching sheet allows time as well; both search extracts, neither a dictionary. Duden wasn't reached on this.
+2. **`der Tag, wo`** (`relativsatz-praeposition`), labelled "in speech" and accepted as `spoken` on one line, with `an dem` as the standard. An article says
+   the standard allows wo for places only (see Sources), a teaching sheet in a search extract allows time as well; neither is a dictionary. Duden wasn't reached on this.
 3. **`trotzdem es regnet`** and **`obwohl ich hab keine Zeit`** (`obwohl-trotzdem`), `spoken` on every gap and line they fit, named in step 6 and on the page, and
    never a wrong option. The sources are German, not Austrian (see Sources), and they describe `obwohl` with the verb second as mostly corrective, after a pause ("obwohl, ich hab schon zwei gegessen"). So a sentence like `Stefan arbeitet, obwohl er ist krank` may not be what people say. It is accepted so that no spoken form is ever marked wrong, but it also lets through the error the unit drills. If a native says it isn't said, take `spoken` off the table cells, the transform lines and the test.
 4. **`etwas, das`** beside `etwas, was`: step 6 of `relativsatz-praeposition` says "you'll also read das". After `alles` and `nichts` only `was` is typed as right, and `das`
@@ -124,7 +124,7 @@ Each read on 2026-11-03 in the source's own text, unless it says otherwise.
 | obwohl with the verb second, spoken | [Günthner 2000, InLiSt 18](https://www.inlist.uni-bayreuth.de/issues/18/inlist18.pdf), opened; Günthner 1999 (Linguistische Berichte 180) and Moraldo 2020 by search only | "In den letzten Jahren hört man in der gesprochenen Sprache neben weil und obwohl …" with "Hauptsatzstellung". Germany's, not Austria's |
 | welcher "heavy"; was after alles, nichts, etwas and a superlative used as a noun | [deutschunddeutlich SR9a](https://www.deutschunddeutlich.de/contentLD/GD/GSR9aNochmRelativ.pdf), opened; a teaching sheet, no dictionary | "austauschbar mit den etwas schwerfälligeren WELCHER, WELCHE, WELCHES"; "Nach Superlativen folgt WAS"; "Nach den Indefinitpronomen einiges, vieles, weniges, manches, alles, etwas, nichts steht meist WAS" |
 | umso as desto | [Duden, umso](https://www.duden.de/rechtschreibung/umso), through a page summary | "je früher [wir es tun], umso besser [ist es]", desto as its synonym |
-| wo for a place in the standard, time in speech | [Redalyc overview](https://www.redalyc.org/journal/6645/664572238003/664572238003.pdf), search extract only | "in der Standardvarietät nur Lokative" |
+| wo for a place in the standard, time in speech | [Relativsätze im Deutschen und im Italienischen (Redalyc)](https://www.redalyc.org/journal/6645/664572238003/664572238003.pdf), opened | "durch wo in der Standardvarietät nur Lokative". That time is said in speech: a teaching sheet's search extract, no more |
 
 **From memory, no source**: the genitive with no article (guten Weines, guter Milch: every grammar has it, and a search found only school sites, one of which contradicts itself); alle against viele; after a town's name wo is the usual way; "Trotz" with a noun and "dennoch" as mostly written.
 
