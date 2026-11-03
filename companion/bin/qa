@@ -9695,6 +9695,14 @@ VILLAGE_TALKS = {
         "language": "de", "pair": "de-sl", "talk": "beim-baecker", "tablet": False, "shot": "talk-de",
         "lines": ("Guten Morgen", "Zwei Semmeln bitte"), "replies": ("Wie schön! Und sonst?", "Wirklich? Das freut mich!"),
         "foreign": ("Me veseli", "Che bello", "Lovely!"), "titles": ("Na tržnici", "V pekarni", "Al mercato", "At the farm shop"),
+        # a B1 or B2 talk ($LANI_QA_TALK, on a learner at B1: docs/plans/05-built/talks-de.md): the dev tutor's lines above
+        # A2 (test/dev-bridge.ts ROLEPLAY_ABOVE_A2); typed lines in ASCII (adb's input text)
+        "levels": {
+            "B1": {"lines": ("Gegen elf hat es zu hageln angefangen", "Das Wasser ist in den Keller geronnen"),
+                   "replies": ("Verstehe. Und wie ist es dann weitergegangen?", "Interessant. Und warum eigentlich?")},
+            "B2": {"lines": ("Ich komme wegen dem Dorfladen", "Wir haben schon hundert Unterschriften gesammelt"),
+                   "replies": ("Verstehe. Und wie ist es dann weitergegangen?", "Interessant. Und warum eigentlich?")},
+        },
     },
     # Jan's village: a B1 talk (docs/plans/05-built/talks-sl.md), on a synthetic learner at B1 (it is offered up to a level above)
     "primorska": {
@@ -9809,6 +9817,7 @@ def village_talk(village: str):
     if s is None:
         go_home()
         return f"skipped: {want} isn't offered to this learner (a talk is offered up to a level above theirs: learner.current_level)"
+    spec = {**spec, **spec.get("levels", {}).get(s.get("level"), {})}  # a B1 or B2 talk: the dev tutor's lines at its level
     c = scroll_to(s["title"], 8)
     assert c is not None, f"the role-play {s['title']} on the list"
     tap_at(c)
@@ -9875,7 +9884,9 @@ def friuli_talk():
 def kaernten_talk():
     """A grown-up's free talk in German in the Carinthian village (docs/plans/05-built/scenarios-de-en.md): a synthetic Ana
     (make-learner.ts --target de --base sl; LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-sl), the app in de · sl:
-    village_talk's checks on "Beim Bäcker" (another with $LANI_QA_TALK)."""
+    village_talk's checks on "Beim Bäcker" (another with $LANI_QA_TALK). A B1 or B2 one (docs/plans/05-built/talks-de.md:
+    LANI_QA_TALK=nach-dem-unwetter, Ana made with --level B1) with the dev tutor's lines above A2; at A1 it isn't offered
+    and the step is skipped."""
     return village_talk("kaernten")
 
 

@@ -115,6 +115,14 @@ export default async function kaernten() {
       tutorTalk: { schema: 'lani.scenario/v0', id: 'in-der-bibliothek', title: { de: 'In der Bücherei', sl: 'V knjižnici', en: 'At the library' }, level: 'A1', setting: { sl: 'Knjižnica v Beljaku.', en: 'The library in Villach.' }, role: 'Frau Gasser, the librarian. Kind. Says Sie.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Grüß Gott! Welches Buch suchen Sie?', opener_en: { sl: 'Dober dan! Katero knjigo iščete?', en: 'Hello! Which book are you looking for?' }, packs: ['gruesse'] },
       tutorTitle: 'In der Bücherei · V knjižnici',
       hello: 'Grüß Gott!',
+      // the talks above A2 (docs/plans/05-built/talks-de.md): the mayor's in de · sl, the cast's four
+      profile: join(dataDir, 'learner-profile.json'),
+      above: {
+        id: 'beim-buergermeister', level: 'B2', title: 'Beim Bürgermeister · Pri županu', goal: 'Stell dich vor und sag kurz, worum es geht · Predstavi se in na kratko povej, za kaj gre',
+        who: 'Der Bürgermeister · Župan', setting: 'Vaška trgovina (v Avstriji: der Nahversorger)', hint: ['Ich komme wegen dem Nahversorger, der zu Silvester zusperrt.', 'Prihajam zaradi trgovine, ki bo za silvestrovo zaprla.'],
+        played: { 'most-fuer-das-fest': 'Mostbauer Stefan', 'tante-mitzi-und-das-hoergeraet': 'Tante Mitzi', 'aushilfe-im-gasthaus': 'Wirtin Kathi', 'florian-muss-sich-entscheiden': 'Hirte Florian' },
+        hello: 'Grüß Gott, Herr Bürgermeister!',
+      },
     })
     // the pack's own place: the Faaker See under the Mittagskogel, in German with Slovene, English and Italian
     const see = scenes.find((s: any) => s.id === 'am-see')

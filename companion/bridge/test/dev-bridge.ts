@@ -138,6 +138,24 @@ const ROLEPLAY_ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {
     },
     practise: '*bi lahko*, *na vašem mestu bi*',
   },
+  de: {
+    // any of the German B1 and B2 role-plays (companion/scenarios/de: the jacket, Stefan's Most, the surgery, the storm,
+    // Tante Mitzi, Kathi's Gasthaus, the mayor, the interview, the new doctor, the car, the slopes, Florian)
+    hint: { sl: 'Verstehe. Könnten Sie das noch einmal erklären?', en: 'I see. Could you explain that once more?', it: 'Capisco. Potrebbe spiegarlo ancora una volta?', sl_base: 'Razumem. Bi lahko to še enkrat razložili?' },
+    puzzled: { sl: 'Entschuldigung, wie bitte? Können Sie das wiederholen?', en: 'Sorry, pardon? Could you say that again?', it: 'Scusi, come? Può ripetere?', sl_base: 'Oprostite, kako prosim? Lahko to ponovite?' },
+    turns: [
+      { sl: 'Verstehe. Und wie ist es dann weitergegangen?', en: 'I see. And what happened then?', it: 'Capisco. E poi com\'è andata avanti?', sl_base: 'Razumem. Kaj pa se je zgodilo potem?' },
+      { sl: 'Interessant. Und warum eigentlich?', en: 'Interesting. And why, actually?', it: 'Interessante. E perché, di preciso?', sl_base: 'Zanimivo. Zakaj pa pravzaprav?' },
+      { sl: 'Gut, das klingt vernünftig.', en: 'All right, that sounds reasonable.', it: 'Bene, mi sembra ragionevole.', sl_base: 'Dobro, to se sliši smiselno.' },
+      { sl: 'Passt, danke. So machen wir es.', en: "Fine, thank you. That's what we'll do.", it: 'Va bene, grazie. Facciamo così.', sl_base: 'Velja, hvala. Tako bomo naredili.' },
+    ],
+    correction: {
+      en: 'Better: **Könnten Sie das bitte wiederholen?** · "könnten" (the Konjunktiv II) asks politely.',
+      sl: 'Bolje: **Könnten Sie das bitte wiederholen?** · »könnten« (Konjunktiv II) vljudno prosi.',
+      it: 'Meglio: **Könnten Sie das bitte wiederholen?** · «könnten» (il Konjunktiv II) chiede con cortesia.',
+    },
+    practise: '*könnten Sie*, *an deiner Stelle würde ich*',
+  },
 }
 const DEBRIEF: Said = {
   en: '✅ You greeted politely.\n\n📌 Practise',
