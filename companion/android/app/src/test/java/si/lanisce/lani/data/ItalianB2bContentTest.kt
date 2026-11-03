@@ -67,9 +67,9 @@ class ItalianB2bContentTest {
         assertEquals("periodo-ipotetico", course.units.getValue("se-potessi").grammar.first())
     }
 
-    @Test fun `no unit names a page of another part, the congiuntivo's tenses above all`() {
-        val elsewhere = setOf("congiuntivo-passato", "congiuntivo-imperfetto", "congiuntivo-trapassato", "concordanza-tempi", "congiunzioni-congiuntivo", "congiuntivo-indipendente", "infinito-passato", "participio-assoluto")
-        for (id in ids) assertTrue(id, course.units.getValue(id).grammar.none { it in elsewhere })
+    @Test fun `with all of B2 merged, the if-sentences name the congiuntivo's tenses they use`() {
+        assertEquals("congiuntivo-imperfetto", course.units.getValue("se-potessi").grammar.last())
+        assertEquals("congiuntivo-trapassato", course.units.getValue("se-avessi-saputo").grammar.last())
     }
 
     @Test fun `the imperfect subjunctive with another conjugation's vowel is wrong, on the same stem only`() {
