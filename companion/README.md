@@ -3525,7 +3525,18 @@ them (the JSONL of https://kaikki.org/dictionary/Slovene/):
 companion/bin/lexicon-build --from kaikki.org-dictionary-Slovene.jsonl --lang sl
 companion/bin/lexicon-build --coverage     # how much of the curated content the lexicon knows, what it misses,
                                            # and the words it knows only as a form of another word
+python3 -I companion/lexicon/tools/common_words.py --lang it --pos verb,adj,adv
+                                           # the lemmas the course and the village use most that no pack teaches
 ```
+
+A word counts as learned only as a pack's card (GAME.md, "Words learned"), so `common_words.py` keeps the packs and
+the content apart: it counts every word of a language's course (an `accept` list by its standard answer only), scenes,
+packs, scenarios, modules, grammar pages, drills and culture content, takes its lemma from the supplement (and
+`sl.json` for Slovene), and lists the lemmas whose word is no pack's, nor inside a pack's expression where it stands
+(dobro jutro). `--packs DIR` counts a branch's packs not merged yet, `--where LEMMA` says where a count comes from. Each
+language's 24 commonest it found (2026-11-03) are an A1 pack of their own: `besede-za-vsak-dan` (Babica Micka),
+`parole-di-ogni-giorno` (Giulia), `woerter-fuer-jeden-tag` (Oma Resi), `everyday-words` (Granny Maggie)
+(docs/plans/05-built/common-words.md).
 
 It keeps each lemma with up to 3 short glosses and a noun's gender, and every inflected form with its lemma and
 grammar. The grammar is written to be read: readings that differ only in their cases or only in their person,

@@ -20,9 +20,11 @@ that is written (dobro jutro, come stai), in companion/packs/L (Slovene: compani
 culture's packs/, and any --packs directory (a branch's packs not on main yet).
 
 Usage: python3 -I companion/lexicon/tools/common_words.py --lang it [--packs DIR …] [--top N] [--pos verb,adj,…] [--tsv]
+                                                          [--where LEMMA] [--root DIR]
   --top  how many to list (default 80)
   --pos  only these parts of speech (the supplement's or the dictionary's names: verb, noun, adj, adjective, adv, …)
   --tsv  count, lemma, pos, gloss, a tab between, as packs-it's frequent-not-in-packs.tsv
+  --where  which files a lemma's count comes from; --root: the companion directory (default: this script's)
 """
 from __future__ import annotations
 
@@ -128,17 +130,23 @@ def pack_files(lang: str, extra: list[str]) -> list[str]:
     return fs
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--lang', required=True)
-    ap.add_argument('--packs', action='append', default=[])
-    ap.add_argument('--top', type=int, default=80)
-    ap.add_argument('--pos', default='')
-    ap.add_argument('--tsv', action='store_true')
-    ap.add_argument('--where', default='', help='a lemma: the files its count comes from')
-    a = ap.parse_args()
-    lang = a.lang
+class Measure:
+    """What [measure] found: per (lemma, part of speech) its count, a gloss, and where a lemma's count came from."""
 
+    def __init__(self):
+        self.count: Counter[tuple[str, str]] = Counter()
+        self.gloss: dict[tuple[str, str], str] = {}
+        self.where: Counter[str] = Counter()
+        self.files = self.tokens = self.covered = self.unknown = self.packs = self.pack_words = 0
+
+    def rows(self, pos: set[str] | None = None) -> list[tuple[int, str, str]]:
+        """(count, lemma, part of speech), the most frequent first, of the parts of speech [pos] (all without)."""
+        return [(n, lem, p) for (lem, p), n in self.count.most_common() if not pos or p in pos]
+
+
+def measure(lang: str, extra: list[str] | None = None, where: str = '') -> Measure:
+    """The lemmas of [lang]'s content no pack teaches (the module's doc), with [extra] directories of packs counted too."""
+    out = Measure()
     # readings: the supplement's entries first, then (Slovene) the dictionary's
     first: dict[str, tuple[str, str, str]] = {}
     for e in json.load(open(os.path.join(ROOT, f'lexicon/{lang}.extra.json'), encoding='utf8'))['entries']:
@@ -153,23 +161,20 @@ def main():
                 first.setdefault(norm(f, lang), (norm(lem['lemma'], lang), lem['pos'], '; '.join(lem.get('gloss', []))[:60]))
 
     packs: set[str] = set()
-    pack_count = 0
-    for f in pack_files(lang, a.packs):
+    for f in pack_files(lang, extra or []):
         j = json.load(open(f, encoding='utf8'))
         if j.get('schema') != 'lani.pack/v0' or j.get('language', 'sl') != lang:
             continue
-        pack_count += 1
+        out.packs += 1
         for w in j['words']:
             for s in (w.get(lang), w.get('plural')):
                 if s:
                     packs.add(pack_key(s, lang))
+    out.pack_words = len(packs)
 
     phrases = {p for p in packs if ' ' in p}
-    count: Counter[tuple[str, str]] = Counter()
-    where: Counter[str] = Counter()
-    gloss: dict[tuple[str, str], str] = {}
-    tokens = covered = unknown = 0
     files = content(lang)
+    out.files = len(files)
     for f, keys in files:
         for t in strings(json.load(open(f, encoding='utf8')), keys):
             text = counted(t)
@@ -183,36 +188,52 @@ def main():
                     if ' '.join(ws[i:i + n]) in phrases:
                         inside.update(range(i, i + n))
             for i, w in enumerate(ws):
-                tokens += 1
+                out.tokens += 1
                 r = first.get(w)
                 if i in inside or w in packs or (r and r[0] in packs):
-                    covered += 1
+                    out.covered += 1
                     continue
                 if not r:
-                    unknown += 1
+                    out.unknown += 1
                     continue
                 k = (r[0], r[1])
-                count[k] += 1
-                if r[0] == a.where:
-                    where[os.path.relpath(f, ROOT)] += 1
-                gloss.setdefault(k, r[2])
+                out.count[k] += 1
+                if r[0] == where:
+                    out.where[os.path.relpath(f, ROOT)] += 1
+                out.gloss.setdefault(k, r[2])
+    return out
 
+
+def main():
+    global ROOT
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--lang', required=True)
+    ap.add_argument('--packs', action='append', default=[])
+    ap.add_argument('--top', type=int, default=80)
+    ap.add_argument('--pos', default='')
+    ap.add_argument('--tsv', action='store_true')
+    ap.add_argument('--where', default='', help='a lemma: the files its count comes from')
+    ap.add_argument('--root', default=ROOT, help="the companion directory (default: this script's)")
+    a = ap.parse_args()
+    ROOT = os.path.abspath(a.root)
+    lang = a.lang
+    m = measure(lang, a.packs, a.where)
     if a.where:
-        for f, n in where.most_common(30):
+        for f, n in m.where.most_common(30):
             print(f'{n:6} {f}')
         return
-    pos = {p for p in a.pos.split(',') if p}
-    rows = [(n, lem, p) for (lem, p), n in count.most_common() if not pos or p in pos]
+    rows = m.rows({p for p in a.pos.split(',') if p})
     if a.tsv:
         print(f'# {lang}: lemmas the content uses most that no pack has (common_words.py): count, lemma, pos, gloss')
         for n, lem, p in rows[: a.top]:
-            print(f'{n}\t{lem}\t{p}\t{gloss[(lem, p)]}')
+            print(f'{n}\t{lem}\t{p}\t{m.gloss[(lem, p)]}')
         return
-    print(f'{lang}: {len(files)} files, {tokens} tokens; {pack_count} packs, {len(packs)} pack words')
-    print(f'  a pack word {covered} ({covered / tokens:.1%}), no reading {unknown} ({unknown / tokens:.1%}), '
-          f'another {tokens - covered - unknown} ({(tokens - covered - unknown) / tokens:.1%}) in {len(count)} lemmas')
+    t = m.tokens or 1
+    print(f'{lang}: {m.files} files, {m.tokens} tokens; {m.packs} packs, {m.pack_words} pack words')
+    print(f'  a pack word {m.covered} ({m.covered / t:.1%}), no reading {m.unknown} ({m.unknown / t:.1%}), '
+          f'another {m.tokens - m.covered - m.unknown} ({(m.tokens - m.covered - m.unknown) / t:.1%}) in {len(m.count)} lemmas')
     for n, lem, p in rows[: a.top]:
-        print(f'{n:6} {lem} ({p}) {gloss[(lem, p)]}')
+        print(f'{n:6} {lem} ({p}) {m.gloss[(lem, p)]}')
 
 
 if __name__ == '__main__':
