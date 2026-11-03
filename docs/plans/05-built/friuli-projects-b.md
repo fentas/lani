@@ -82,7 +82,7 @@ una finestra»). Each distractor left is meant to be a plain mistake. Three kind
 
 ## How it was checked
 
-On the branch with main 1e0cdf04 merged (part a isn't merged here; the lead names that branch):
+This part alone, on the branch with main 1e0cdf04 merged, before the union (below):
 
 - **The content**: `bun test/check-culture.ts friuli` ok; `bun test/check-steps.ts friuli`: 6 files, 37 steps, 111 dialogs, 721 lines, ok; `bun test/prompt-clashes.ts`: no new clash (the
   coined prompts: below). A scratch lint with the rules the app's tests hold (a reaction of at most 80 characters, never saying the right word; only the leader named; a helper's line without the speaker's
@@ -110,6 +110,10 @@ All thirteen of Friuli's projects: 13 files, 78 steps, 234 dialogs, 1,408 lines 
 - **The supplement.** Rebuilt with `it_cov_build.py` from the file before supplement-it (`git show 45924165:companion/lexicon/it.extra.json`) and all seven tables, then by hand what no table has: `farsene` under fare, and the queue's licôf, villotta and fiaccola. **A plain `--write` loses those four.** 2,049 entries, the exact union: main's and the queue's 1,876 with no entry or form lost and no meaning changed; part a's 73 and part b's 119, less the 19 both had or that the queue's entry replaces. Where the tables overlapped, one version: lasagne and tagliatelle are part a's plurals (b's singulars gone), papera says goose and duckling, risata's German is Gelächter, apart from ridere. `--prompts` lists five clashes, all main's own.
 - **Coverage** (`lexicon-build --coverage --lang it --all`, no Wiktionary): 99.8 % of tokens, 97.9 % of words over 244 files. Of the thirteen projects' words, none real is left unknown: only wrong forms quoted on purpose. The 110 unknown words overall are those and the queue's newer content (pista, quartiere, drappo, tradizione …), for the next count.
 - **A fix from the queue tip.** `bridge/src/features/family.ts` imported `learnerLangs` twice (from 63798862's merge of parity-small), so `tsc` failed on `tutor-languages` itself; Bun runs it anyway. One line removed here (972ae903).
+
+- **Checked on the union** (tip 9d5474d5 and the doc after it): `bun build --no-bundle` on the 16 TypeScript test files the merges touched; `tsc` clean; the smoke on ports 9670–9688, 3,637 checks, all passed; `tutor-export` and `--check`, 140 files match; `check-culture friuli` ok; `check-steps friuli` ok, 13 files, 78 steps, 234 dialogs, 1,408 lines; no new prompt clash; the Android suite, 492 classes, 3,833 tests, 2 skipped, 0 failures.
+- **The emulator on the union** (QA's `friuli-projects-b`, a synthetic Teo, an APK built from the union; screenshots `ux-friuli-projects-b/qa-union/`): a project of each part from its landmark to its end card, and a third step: the fire station's fourth at A1, the fountain's second at B1, part a's bridge's fifth at A2 (Al ruscello, «Le ali? Un ponte che vola?», +5 ♥ Franco). Part a's own QA step, `friuli-projects`, wasn't run again here.
+- **Voices for all thirteen**: 110,901 characters (`step-chars friuli`), of which this part's six are the 54,676 above.
 
 ## How to use
 
