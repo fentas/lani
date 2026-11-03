@@ -80,6 +80,19 @@ sealed interface Trigger {
     data class Cue(override val word: String, override val at: Int, val kind: Kind) : Trigger {
         enum class Kind { WHO, PAST, FUTURE }
     }
+
+    /**
+     * Words of the sentence that ask for the form, as a language's own hint table finds them (Italian, which has no cases:
+     * game/ItalianHints.kt): «tetto» the article's gender, number and first sound, «bisogna che» the congiuntivo, «maestra»
+     * the one spoken to. [word] is as the sentence has it (one word or several), [at] its last word's place; [line] what
+     * the card says of it and [said] what the 🔊 opens with, string tables' keys with the word as {word}.
+     */
+    data class Asks(override val word: String, override val at: Int, val line: String, val said: String) : Trigger {
+        companion object {
+            /** The strings' argument the word goes in. */
+            const val WORD = "word"
+        }
+    }
 }
 
 /**
@@ -400,6 +413,6 @@ object CaseTriggers {
         is Trigger.Count -> if (t.category == Numbers.MANY) listOf(Case.GEN) else listOf(Case.NOM, Case.ACC)
         is Trigger.Amount, is Trigger.Negation, is Trigger.When -> listOf(Case.GEN)
         is Trigger.Partner -> t.cases
-        is Trigger.Noun, is Trigger.Cue -> emptyList()
+        is Trigger.Noun, is Trigger.Cue, is Trigger.Asks -> emptyList()
     }
 }
