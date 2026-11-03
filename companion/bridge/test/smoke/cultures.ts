@@ -364,6 +364,16 @@ export default async function cultures() {
       testsWord({ id: 'bell', en: 'the bell' }, 'en', ['bell']) && !testsWord({ id: 'smreka', sl: 'smreka' }, 'sl', ['smrekovina'], slLemmas),
     { de: [deLemmas.dictionary, deLemmas.partial], sl: [slLemmas.dictionary, slLemmas.partial] },
   )
+  // Italian's big supplement (supplement-it) is still only a supplement: a form it knows by its lemma, one it doesn't
+  // guessed by the stem, a word it knows as another's never taken for the pack's
+  const itLemmas = lexiconLemmas(join(culturesDir, '..', 'lexicon'), 'it')
+  const mucca = { id: 'mucca', it: 'la mucca', plural: 'le mucche' }
+  check(
+    "with only the supplement for a dictionary (Italian) a step's word counts by the form it knows (vede: vedere) and, as German's, by the stem for one it doesn't (mucche, mucchina), never another word (cane for mucca)",
+    itLemmas.dictionary === true && itLemmas.partial === true && itLemmas('vede').includes('vedere') && testsWord({ id: 'vedere', it: 'vedere' }, 'it', ['vede'], itLemmas) &&
+      testsWord(mucca, 'it', ['mucche'], itLemmas) && testsWord(mucca, 'it', ['mucchina'], itLemmas) && !testsWord(mucca, 'it', ['cane'], itLemmas) && !testsWord({ id: 'buongiorno', it: 'buon giorno' }, 'it', ['giorno'], itLemmas),
+    [itLemmas.dictionary, itLemmas.partial, itLemmas('vede')],
+  )
   const prCast = new VillagerStore(join(culturesDir, 'primorska', 'villagers'), join(dataDir, 'unused-villagers-primorska-steps')).all()
   const luka = prCast.find(v => v.id === 'luka')!
   const stepVoiced = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: prCast, steps: prSteps.map(f => ({ project: f.project, tellings: stepTellings(f) })) })
