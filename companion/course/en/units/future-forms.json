@@ -1,0 +1,651 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "future-forms",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🚏",
+  "title": {
+    "sl": "Vsi načini prihodnosti: will, going to, leaves",
+    "de": "Alle Arten der Zukunft: will, going to, leaves",
+    "it": "Tutti i modi del futuro: will, going to, leaves",
+    "en": "It'll rain, the bus leaves at nine"
+  },
+  "goal": {
+    "sl": "Izbereš pravi način za prihodnost (I think it'll rain, It's going to rain, The bus leaves at nine) in poveš, kaj bo ob nekem času v teku (This time tomorrow I'll be walking).",
+    "de": "Du wählst die richtige Art für die Zukunft (I think it'll rain, It's going to rain, The bus leaves at nine) und sagst, was zu einer Zeit gerade läuft (This time tomorrow I'll be walking).",
+    "it": "Scegli il modo giusto per il futuro (I think it'll rain, It's going to rain, The bus leaves at nine) e dici ciò che a una certa ora sarà in corso (This time tomorrow I'll be walking).",
+    "en": "You can choose the right way to talk about the future (I think it'll rain, It's going to rain, The bus leaves at nine) and say what will be going on at a time (This time tomorrow I'll be walking)."
+  },
+  "grammar": ["future-continuous", "future"],
+  "words": [
+    "will",
+    "'ll",
+    "going to",
+    "this time tomorrow",
+    "the bus leaves",
+    "opens",
+    "get in",
+    "timetable",
+    "market",
+    "train",
+    "doctor",
+    "climb",
+    "Helvellyn",
+    "fell",
+    "cloud",
+    "van",
+    "use",
+    "dance",
+    "poster",
+    "wheel",
+    "come off",
+    "noon",
+    "to last",
+    "fire",
+    "ringing",
+    "fall",
+    "win",
+    "expect",
+    "feed",
+    "Carlisle",
+    "walking",
+    "have breakfast",
+    "working"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**It'll rain** ali **It's going to rain**? Kar misliš: **I think it'll rain.** (Mislim, da bo deževalo.) **I don't think he'll come.** Kar se že vidi: **Look at those clouds! It's going to rain.** (Poglej te oblake! Deževalo bo.) Pogosto je oboje prav.",
+          "de": "**It'll rain** oder **It's going to rain**? Was du meinst: **I think it'll rain.** (Ich glaube, es wird regnen.) **I don't think he'll come.** Was man schon sieht: **Look at those clouds! It's going to rain.** (Schau dir die Wolken an! Es wird gleich regnen.) Oft geht beides.",
+          "it": "**It'll rain** o **It's going to rain**? Ciò che pensi: **I think it'll rain.** (Credo che pioverà.) **I don't think he'll come.** Ciò che si vede già: **Look at those clouds! It's going to rain.** (Guarda quelle nuvole! Sta per piovere.) Spesso vanno bene tutti e due.",
+          "en": "**It'll rain** or **It's going to rain**? What you think: **I think it'll rain.** **I don't think he'll come.** What you can already see: **Look at those clouds! It's going to rain.** Often both are right."
+        },
+        "examples": [
+          { "en": "I think it'll rain.", "sl": "Mislim, da bo deževalo.", "de": "Ich glaube, es wird regnen.", "it": "Credo che pioverà." },
+          {
+            "en": "I don't think he'll come.",
+            "sl": "Mislim, da ne bo prišel.",
+            "de": "Ich glaube nicht, dass er kommt.",
+            "it": "Non credo che verrà."
+          },
+          {
+            "en": "Look at those clouds! It's going to rain.",
+            "sl": "Poglej te oblake! Deževalo bo.",
+            "de": "Schau dir die Wolken an! Es wird gleich regnen.",
+            "it": "Guarda quelle nuvole! Sta per piovere."
+          }
+        ],
+        "rows": [
+          ["will", { "sl": "kar misliš", "de": "was du meinst", "it": "ciò che pensi", "en": "what you think" }, "I think it'll rain."],
+          [
+            "going to",
+            { "sl": "kar se že vidi", "de": "was man schon sieht", "it": "ciò che si vede già", "en": "what you can already see" },
+            "It's going to rain."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future-continuous",
+          "prompt": "Look at those clouds! It ___ rain.",
+          "options": ["is going to", "will", "is"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "sl": "**Kar se že vidi: going to**\n- Look at those clouds! It's going to rain.",
+            "de": "**Was man schon sieht: going to**\n- Look at those clouds! It's going to rain.",
+            "it": "**Ciò che si vede già: going to**\n- Look at those clouds! It's going to rain.",
+            "en": "**What you can already see: going to**\n- Look at those clouds! It's going to rain."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**The bus leaves at nine**: sedanjik za to, kar piše v voznem redu ali na urniku. (Avtobus odpelje ob devetih.) **The market opens at eight.** **What time does the train get in?** Tudi **The bus will leave at nine** je prav, a redkeje. Za tvoj načrt sedanjik ne gre: **I'm going to walk.**",
+          "de": "**The bus leaves at nine**: das Präsens für das, was im Fahrplan oder im Programm steht. (Der Bus fährt um neun.) **The market opens at eight.** **What time does the train get in?** Auch **The bus will leave at nine** stimmt, ist aber seltener. Für deinen Plan geht das Präsens nicht: **I'm going to walk.**",
+          "it": "**The bus leaves at nine**: il presente per ciò che dice l'orario o il programma. (L'autobus parte alle nove.) **The market opens at eight.** **What time does the train get in?** Anche **The bus will leave at nine** è giusto, ma è più raro. Per un tuo programma il presente non va: **I'm going to walk.**",
+          "en": "**The bus leaves at nine**: the present for what a timetable or a programme says. **The market opens at eight.** **What time does the train get in?** **The bus will leave at nine** is right too, but rarer. For your own plan the present won't do: **I'm going to walk.**"
+        },
+        "examples": [
+          {
+            "en": "The bus leaves at nine.",
+            "sl": "Avtobus odpelje ob devetih.",
+            "de": "Der Bus fährt um neun.",
+            "it": "L'autobus parte alle nove."
+          },
+          {
+            "en": "The market opens at eight.",
+            "sl": "Tržnica se odpre ob osmih.",
+            "de": "Der Markt sperrt um acht auf.",
+            "it": "Il mercato apre alle otto."
+          },
+          {
+            "en": "What time does the train get in?",
+            "sl": "Kdaj pride vlak?",
+            "de": "Wann kommt der Zug an?",
+            "it": "A che ora arriva il treno?"
+          }
+        ],
+        "rows": [
+          [
+            "present",
+            { "sl": "vozni red, urnik", "de": "Fahrplan, Programm", "it": "orario, programma", "en": "a timetable, a programme" },
+            "The bus leaves at nine."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future-continuous",
+          "text": "The Keswick bus ___ (leave) at nine.",
+          "accept": ["leaves", "is leaving", "will leave"],
+          "hint": { "sl": "vozni red", "de": "der Fahrplan", "it": "l'orario", "en": "a timetable" },
+          "explain": {
+            "sl": "**Vozni red: sedanjik**\n- The bus leaves at nine.",
+            "de": "**Der Fahrplan: das Präsens**\n- The bus leaves at nine.",
+            "it": "**L'orario: il presente**\n- The bus leaves at nine.",
+            "en": "**A timetable: the present**\n- The bus leaves at nine."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**I'm seeing the doctor on Friday**: kar je dogovorjeno z nekom, gre v sedanjik z -ing. (V petek grem k zdravniku.) Načrt: **We're going to climb Helvellyn.** Odločiš se zdaj, ponudiš, obljubiš: **I'll help you.** To poznaš iz A2.",
+          "de": "**I'm seeing the doctor on Friday**: Was mit jemandem ausgemacht ist, steht im Präsens mit -ing. (Am Freitag gehe ich zum Arzt.) Ein Plan: **We're going to climb Helvellyn.** Jetzt beschlossen, angeboten, versprochen: **I'll help you.** Das kennst du von A2.",
+          "it": "**I'm seeing the doctor on Friday**: ciò che è fissato con qualcuno va al presente con -ing. (Venerdì vado dal medico.) Un programma: **We're going to climb Helvellyn.** Decidi adesso, offri, prometti: **I'll help you.** Lo conosci dall'A2.",
+          "en": "**I'm seeing the doctor on Friday**: what is arranged with someone takes the present with -ing. A plan: **We're going to climb Helvellyn.** You decide now, offer or promise: **I'll help you.** You know these from A2."
+        },
+        "examples": [
+          {
+            "en": "I'm seeing the doctor on Friday.",
+            "sl": "V petek grem k zdravniku.",
+            "de": "Am Freitag gehe ich zum Arzt.",
+            "it": "Venerdì vado dal medico."
+          },
+          {
+            "en": "We're going to climb Helvellyn.",
+            "sl": "Povzpeli se bomo na Helvellyn.",
+            "de": "Wir wollen auf den Helvellyn steigen.",
+            "it": "Saliremo sull'Helvellyn."
+          },
+          { "en": "I'll help you.", "sl": "Pomagal{m:|f:a} ti bom.", "de": "Ich helfe dir.", "it": "Ti aiuto." }
+        ],
+        "rows": [
+          [
+            "present + -ing",
+            { "sl": "dogovorjeno", "de": "ausgemacht", "it": "fissato", "en": "arranged" },
+            "I'm seeing the doctor on Friday."
+          ],
+          [
+            "going to, will",
+            { "sl": "načrt; odločiš se zdaj", "de": "Plan; jetzt beschlossen", "it": "programma; decidi adesso", "en": "a plan; decided now" },
+            "I'll help you."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future-continuous",
+          "prompt": "The phone's ringing. — I ___ get it!",
+          "options": ["will", "am going to", "am"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "sl": "**Odločiš se zdaj: will**\n- I'll get it!",
+            "de": "**Jetzt beschlossen: will**\n- I'll get it!",
+            "it": "**Decidi adesso: will**\n- I'll get it!",
+            "en": "**Decided now: will**\n- I'll get it!"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**This time tomorrow I'll be walking on Helvellyn**: **will be** + -ing za to, kar bo ob nekem času v teku. (Jutri ob tem času bom hodil{m:|f:a} po Helvellynu.) **At eight we'll be having breakfast.** Zanikano: **I won't be working on Sunday.** (V nedeljo ne bom delal{m:|f:a}.)",
+          "de": "**This time tomorrow I'll be walking on Helvellyn**: **will be** + -ing für das, was zu einer Zeit gerade läuft. (Morgen um diese Zeit bin ich am Helvellyn unterwegs.) **At eight we'll be having breakfast.** Verneint: **I won't be working on Sunday.** (Am Sonntag arbeite ich nicht.)",
+          "it": "**This time tomorrow I'll be walking on Helvellyn**: **will be** + -ing per ciò che a una certa ora sarà in corso. (Domani a quest'ora camminerò sull'Helvellyn.) **At eight we'll be having breakfast.** Negativo: **I won't be working on Sunday.** (Domenica non lavoro.)",
+          "en": "**This time tomorrow I'll be walking on Helvellyn**: **will be** + -ing for what will be going on at a time. **At eight we'll be having breakfast.** No: **I won't be working on Sunday.**"
+        },
+        "examples": [
+          {
+            "en": "This time tomorrow I'll be walking on Helvellyn.",
+            "sl": "Jutri ob tem času bom hodil{m:|f:a} po Helvellynu.",
+            "de": "Morgen um diese Zeit bin ich am Helvellyn unterwegs.",
+            "it": "Domani a quest'ora camminerò sull'Helvellyn."
+          },
+          {
+            "en": "At eight we'll be having breakfast.",
+            "sl": "Ob osmih bomo zajtrkovali.",
+            "de": "Um acht frühstücken wir gerade.",
+            "it": "Alle otto staremo facendo colazione."
+          },
+          {
+            "en": "I won't be working on Sunday.",
+            "sl": "V nedeljo ne bom delal{m:|f:a}.",
+            "de": "Am Sonntag arbeite ich nicht.",
+            "it": "Domenica non lavoro."
+          }
+        ],
+        "rows": [
+          [
+            "will be + -ing",
+            { "sl": "takrat v teku", "de": "dann gerade im Gang", "it": "allora in corso", "en": "going on at a time" },
+            "This time tomorrow I'll be walking."
+          ],
+          ["won't be + -ing", { "sl": "zanikano", "de": "verneint", "it": "negativo", "en": "no" }, "I won't be working on Sunday."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "future-continuous",
+          "prompt": "This time tomorrow I ___ on the fell.",
+          "options": ["will be walking", "walking", "will be walk"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**will be + -ing: kar bo takrat v teku**\n- This time tomorrow I'll be walking.",
+            "de": "**will be + -ing: was dann gerade läuft**\n- This time tomorrow I'll be walking.",
+            "it": "**will be + -ing: ciò che sarà in corso allora**\n- This time tomorrow I'll be walking.",
+            "en": "**will be + -ing: what will be going on then**\n- This time tomorrow I'll be walking."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**Will you be using the van tomorrow?** Vljudno vprašanje o načrtih: ne prosiš še, samo sprašuješ. (Boš jutri rabil{m:|f:a} kombi?) Kar bo tako ali tako: **I'll be seeing Jack at the market, so I can tell him.** (Jacka bom tako ali tako videl{m:|f:a} na tržnici, pa mu lahko povem.)",
+          "de": "**Will you be using the van tomorrow?** Höflich nach Plänen fragen: Du bittest noch nicht, du fragst nur. (Brauchst du morgen den Lieferwagen?) Was sowieso geschieht: **I'll be seeing Jack at the market, so I can tell him.** (Ich sehe Jack sowieso am Markt, also kann ich es ihm sagen.)",
+          "it": "**Will you be using the van tomorrow?** Chiedere con garbo dei piani: non chiedi ancora un favore, domandi soltanto. (Domani ti serve il furgone?) Ciò che succederà comunque: **I'll be seeing Jack at the market, so I can tell him.** (Vedrò comunque Jack al mercato, quindi posso dirglielo.)",
+          "en": "**Will you be using the van tomorrow?** A polite question about plans: you aren't asking for it yet, only asking. For what will happen anyway: **I'll be seeing Jack at the market, so I can tell him.**"
+        },
+        "examples": [
+          {
+            "en": "Will you be using the van tomorrow?",
+            "sl": "Boš jutri rabil{m:|f:a} kombi?",
+            "de": "Brauchst du morgen den Lieferwagen?",
+            "it": "Domani ti serve il furgone?"
+          },
+          {
+            "en": "Will you be coming to the dance?",
+            "sl": "Boš {m:prišel|f:prišla} na ples?",
+            "de": "Kommst du zum Tanz?",
+            "it": "Vieni al ballo?"
+          },
+          {
+            "en": "I'll be seeing Jack at the market, so I can tell him.",
+            "sl": "Jacka bom tako ali tako videl{m:|f:a} na tržnici, pa mu lahko povem.",
+            "de": "Ich sehe Jack sowieso am Markt, also kann ich es ihm sagen.",
+            "it": "Vedrò comunque Jack al mercato, quindi posso dirglielo."
+          }
+        ],
+        "rows": [
+          [
+            "Will you be + -ing?",
+            { "sl": "vljudno vprašanje", "de": "höfliche Frage", "it": "domanda gentile", "en": "a polite question" },
+            "Will you be using the van?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "future-continuous",
+          "text": "___ you be using the van tomorrow?",
+          "accept": ["Will"],
+          "explain": {
+            "sl": "**Will + oseba + be + -ing**\n- Will you be using the van?",
+            "de": "**Will + Person + be + -ing**\n- Will you be using the van?",
+            "it": "**Will + persona + be + -ing**\n- Will you be using the van?",
+            "en": "**Will + the person + be + -ing**\n- Will you be using the van?"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "future-forms-1",
+      "title": { "sl": "Kaj bo?", "de": "Was kommt?", "it": "Che cosa succederà?", "en": "What's coming?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "future-continuous",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": { "sl": "will be + -ing", "de": "will be + -ing", "it": "will be + -ing", "en": "will be + -ing" },
+          "columns": [{ "sl": "will be + -ing", "de": "will be + -ing", "it": "will be + -ing", "en": "will be + -ing" }],
+          "rows": [
+            { "label": "I (walk)", "cells": [{ "accept": ["will be walking", "'ll be walking"] }] },
+            { "label": "we (have)", "cells": [{ "accept": ["will be having", "'ll be having"] }] },
+            { "label": "Jack (work)", "cells": [{ "accept": ["will be working", "'ll be working"] }] },
+            { "label": "she, no (come)", "cells": [{ "accept": ["won't be coming", "will not be coming"] }] },
+            { "label": "Sam, no (use)", "cells": [{ "accept": ["won't be using", "will not be using"] }] },
+            { "label": "Will you ___ (stay)?", "cells": [{ "accept": ["be staying"] }] }
+          ],
+          "explain": {
+            "sl": "**will be + -ing: kar bo takrat v teku**\n- This time tomorrow I'll be walking.",
+            "de": "**will be + -ing: was dann gerade läuft**\n- This time tomorrow I'll be walking.",
+            "it": "**will be + -ing: ciò che sarà in corso allora**\n- This time tomorrow I'll be walking.",
+            "en": "**will be + -ing: what will be going on then**\n- This time tomorrow I'll be walking."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "future-continuous",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            {
+              "label": { "sl": "sedanjik · vozni red", "de": "Präsens · Fahrplan", "it": "presente · orario", "en": "present · a timetable" },
+              "words": ["The bus leaves at nine.", "The market opens at eight."]
+            },
+            {
+              "label": {
+                "sl": "going to · se že vidi",
+                "de": "going to · man sieht es",
+                "it": "going to · si vede già",
+                "en": "going to · you can see it"
+              },
+              "words": ["Those clouds! It's going to rain.", "Look out! You're going to fall."]
+            },
+            {
+              "label": { "sl": "will · misliš", "de": "will · du meinst", "it": "will · pensi", "en": "will · you think" },
+              "words": ["I think Jack will win.", "It'll be cold, I expect."]
+            }
+          ],
+          "explain": {
+            "sl": "**Vozni red, kar se vidi, kar misliš**\n- The bus leaves at nine. · It's going to rain. · I think Jack will win.",
+            "de": "**Fahrplan, was man sieht, was du meinst**\n- The bus leaves at nine. · It's going to rain. · I think Jack will win.",
+            "it": "**Orario, ciò che si vede, ciò che pensi**\n- The bus leaves at nine. · It's going to rain. · I think Jack will win.",
+            "en": "**A timetable, what you can see, what you think**\n- The bus leaves at nine. · It's going to rain. · I think Jack will win."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future-continuous",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "The first bus ___ at seven on Sundays.",
+          "options": ["goes", "go", "going"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vozni red: sedanjik**\n- The bus leaves at nine.",
+            "de": "**Der Fahrplan: das Präsens**\n- The bus leaves at nine.",
+            "it": "**L'orario: il presente**\n- The bus leaves at nine.",
+            "en": "**A timetable: the present**\n- The bus leaves at nine."
+          }
+        }
+      ]
+    },
+    {
+      "id": "future-forms-2",
+      "title": { "sl": "Jutri na Helvellyn", "de": "Morgen auf den Helvellyn", "it": "Domani sull'Helvellyn", "en": "Up Helvellyn tomorrow" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "future-continuous",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— What are you doing tomorrow? — I'm ___ (climb) Helvellyn with Jack. — In this weather? Look at those clouds: it ___ (rain)! — I don't think it ___ (last). The bus ___ (leave) at seven, so by nine we'll be on the fell. — Well, this time tomorrow I ___ (sit) by the fire. — ___ you be using the van? — No, I ___ (not need) it. Take it.",
+          "gaps": [
+            {
+              "accept": ["climbing", "going to climb"],
+              "spoken": ["gonna climb"],
+              "hint": { "sl": "dogovorjeno", "de": "ausgemacht", "it": "fissato", "en": "arranged" }
+            },
+            {
+              "accept": ["is going to rain", "'s going to rain", "will rain", "'ll rain"],
+              "spoken": ["is gonna rain", "'s gonna rain"],
+              "hint": { "sl": "se že vidi", "de": "man sieht es", "it": "si vede già", "en": "you can see it" }
+            },
+            {
+              "accept": ["will last", "'ll last", "is going to last", "'s going to last"],
+              "spoken": ["is gonna last", "'s gonna last"],
+              "hint": { "sl": "misliš", "de": "du meinst", "it": "pensi", "en": "you think" }
+            },
+            {
+              "accept": ["leaves", "is leaving", "will leave"],
+              "hint": { "sl": "vozni red", "de": "der Fahrplan", "it": "l'orario", "en": "a timetable" }
+            },
+            { "accept": ["will be sitting", "'ll be sitting"], "hint": "will be + -ing" },
+            {
+              "accept": ["Will"],
+              "hint": { "sl": "vljudno vprašanje", "de": "höfliche Frage", "it": "domanda gentile", "en": "a polite question" }
+            },
+            { "accept": ["won't need", "will not need", "won't be needing", "don't need", "do not need"], "hint": "will + not" }
+          ],
+          "translation": {
+            "sl": "— Kaj boš delal{m:|f:a} jutri? — Z Jackom grem na Helvellyn. — V tem vremenu? Poglej te oblake: deževalo bo! — Mislim, da ne bo trajalo. Avtobus odpelje ob sedmih, tako da bova ob devetih na hribu. — No, jutri ob tem času bom sedel{m:|f:a} pri ognju. — Boš rabil{m:|f:a} kombi? — Ne, ne bom ga rabil{m:|f:a}. Vzemi ga.",
+            "de": "— Was machst du morgen? — Ich gehe mit Jack auf den Helvellyn. — Bei dem Wetter? Schau dir die Wolken an: Es wird gleich regnen! — Ich glaube nicht, dass es lange dauert. Der Bus fährt um sieben, also sind wir um neun am Berg. — Na ja, morgen um diese Zeit sitze ich beim Feuer. — Brauchst du den Lieferwagen? — Nein, ich brauche ihn nicht. Nimm ihn.",
+            "it": "— Che cosa fai domani? — Salgo sull'Helvellyn con Jack. — Con questo tempo? Guarda quelle nuvole: sta per piovere! — Non credo che durerà. L'autobus parte alle sette, quindi alle nove saremo sul monte. — Be', domani a quest'ora sarò sedut{m:o|f:a} accanto al fuoco. — Ti serve il furgone? — No, non mi serve. Prendilo.",
+            "en": "— What are you doing tomorrow? — I'm climbing Helvellyn with Jack. — In this weather? Look at those clouds: it is going to rain! — I don't think it will last. The bus leaves at seven, so by nine we'll be on the fell. — Well, this time tomorrow I will be sitting by the fire. — Will you be using the van? — No, I won't need it. Take it."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "future-continuous",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Look out! You ___ fall!",
+          "options": ["are going to", "can to", "have"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kar se že vidi: going to**\n- Look at those clouds! It's going to rain.",
+            "de": "**Was man schon sieht: going to**\n- Look at those clouds! It's going to rain.",
+            "it": "**Ciò che si vede già: going to**\n- Look at those clouds! It's going to rain.",
+            "en": "**What you can already see: going to**\n- Look at those clouds! It's going to rain."
+          }
+        }
+      ]
+    },
+    {
+      "id": "future-forms-3",
+      "title": { "sl": "Kako povedati", "de": "Wie man es sagt", "it": "Come dirlo", "en": "How to say it" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "future-continuous",
+          "instruction": {
+            "sl": "Say what will be going on: will be + -ing · Povej, kaj bo v teku: will be + -ing",
+            "de": "Say what will be going on: will be + -ing · Sag, was gerade läuft: will be + -ing",
+            "it": "Say what will be going on: will be + -ing · Di' che cosa sarà in corso: will be + -ing",
+            "en": "Say what will be going on: will be + -ing"
+          },
+          "items": [
+            {
+              "from": "I walk on the fell. (this time tomorrow)",
+              "accept": ["This time tomorrow I'll be walking on the fell.", "I'll be walking on the fell this time tomorrow."]
+            },
+            {
+              "from": "We have breakfast. (at eight)",
+              "accept": ["At eight we'll be having breakfast.", "We'll be having breakfast at eight."]
+            },
+            {
+              "from": "Sam drives to Carlisle. (at noon)",
+              "accept": ["At noon Sam will be driving to Carlisle.", "Sam will be driving to Carlisle at noon."]
+            }
+          ],
+          "explain": {
+            "sl": "**will be + -ing: kar bo takrat v teku**\n- This time tomorrow I'll be walking.",
+            "de": "**will be + -ing: was dann gerade läuft**\n- This time tomorrow I'll be walking.",
+            "it": "**will be + -ing: ciò che sarà in corso allora**\n- This time tomorrow I'll be walking.",
+            "en": "**will be + -ing: what will be going on then**\n- This time tomorrow I'll be walking."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future-continuous",
+          "instruction": {
+            "sl": "Ask politely: Will you be …? · Vprašaj vljudno: Will you be …?",
+            "de": "Ask politely: Will you be …? · Frag höflich: Will you be …?",
+            "it": "Ask politely: Will you be …? · Chiedi con garbo: Will you be …?",
+            "en": "Ask politely: Will you be …?"
+          },
+          "cue": "will you be",
+          "items": [
+            { "from": "You use the van. (tomorrow)", "accept": ["Will you be using the van tomorrow?"] },
+            { "from": "You come to the dance.", "accept": ["Will you be coming to the dance?"] }
+          ],
+          "explain": {
+            "sl": "**Will + oseba + be + -ing**\n- Will you be using the van?",
+            "de": "**Will + Person + be + -ing**\n- Will you be using the van?",
+            "it": "**Will + persona + be + -ing**\n- Will you be using the van?",
+            "en": "**Will + the person + be + -ing**\n- Will you be using the van?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "future-continuous",
+          "instruction": {
+            "sl": "It's on the timetable: say it in the present · V voznem redu je: povej v sedanjiku",
+            "de": "It's on the timetable: say it in the present · Es steht im Fahrplan: Sag es im Präsens",
+            "it": "It's on the timetable: say it in the present · È nell'orario: dillo al presente",
+            "en": "It's on the timetable: say it in the present"
+          },
+          "cue": "the present",
+          "items": [
+            { "from": "The train will leave at six.", "accept": ["The train leaves at six."] },
+            { "from": "The market will open at eight.", "accept": ["The market opens at eight."] },
+            { "from": "The bus is going to arrive at ten.", "accept": ["The bus arrives at ten."] }
+          ],
+          "explain": {
+            "sl": "**Vozni red: sedanjik**\n- The bus leaves at nine.",
+            "de": "**Der Fahrplan: das Präsens**\n- The bus leaves at nine.",
+            "it": "**L'orario: il presente**\n- The bus leaves at nine.",
+            "en": "**A timetable: the present**\n- The bus leaves at nine."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "future-continuous",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "The dance ___ (start) at eight: it's on the poster. I ___ (work) at the inn until seven, so I can come. — I'm sure it ___ (be) fun! — This time next week we ___ (dance). — Look at Sam's van! The wheel ___ (come) off!",
+        "gaps": [
+          {
+            "accept": ["starts", "is starting", "will start"],
+            "hint": { "sl": "kot urnik", "de": "wie ein Programm", "it": "come un programma", "en": "like a timetable" }
+          },
+          { "accept": ["will be working", "'ll be working", "am working", "'m working", "will work", "'ll work"], "hint": "will be + -ing" },
+          {
+            "accept": ["will be", "'ll be", "is going to be", "'s going to be"],
+            "spoken": ["is gonna be", "'s gonna be"],
+            "hint": { "sl": "misliš", "de": "du meinst", "it": "pensi", "en": "you think" }
+          },
+          { "accept": ["will be dancing", "'ll be dancing"], "hint": "will be + -ing" },
+          {
+            "accept": ["is going to come", "'s going to come", "will come", "'ll come"],
+            "spoken": ["is gonna come", "'s gonna come"],
+            "hint": { "sl": "se že vidi", "de": "man sieht es", "it": "si vede già", "en": "you can see it" }
+          }
+        ],
+        "translation": {
+          "sl": "Ples se začne ob osmih: tako piše na plakatu. Do sedmih bom delal{m:|f:a} v gostilni, tako da lahko pridem. — Prepričan{m:|f:a} sem, da bo lepo! — Prihodnji teden ob tem času bomo plesali. — Poglej Samov kombi! Kolo bo odpadlo!",
+          "de": "Der Tanz beginnt um acht: Das steht auf dem Plakat. Ich arbeite bis sieben im Gasthaus, also kann ich kommen. — Das wird sicher lustig! — Nächste Woche um diese Zeit tanzen wir. — Schau dir Sams Lieferwagen an! Gleich fällt das Rad ab!",
+          "it": "Il ballo comincia alle otto: è scritto sul manifesto. Lavoro alla locanda fino alle sette, quindi posso venire. — Sono sicur{m:o|f:a} che sarà divertente! — La settimana prossima a quest'ora balleremo. — Guarda il furgone di Sam! Sta per staccarsi la ruota!",
+          "en": "The dance starts at eight: it's on the poster. I will be working at the inn until seven, so I can come. — I'm sure it will be fun! — This time next week we will be dancing. — Look at Sam's van! The wheel is going to come off!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future-continuous",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I think Mrs Birkett ___ like it.",
+        "options": ["will", "is", "does"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kar misliš: will**\n- I think it'll rain.",
+          "de": "**Was du meinst: will**\n- I think it'll rain.",
+          "it": "**Ciò che pensi: will**\n- I think it'll rain.",
+          "en": "**What you think: will**\n- I think it'll rain."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future-continuous",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "What time ___ the market open?",
+        "options": ["does", "is", "will be"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vozni red: sedanjik**\n- The bus leaves at nine.",
+          "de": "**Der Fahrplan: das Präsens**\n- The bus leaves at nine.",
+          "it": "**L'orario: il presente**\n- The bus leaves at nine.",
+          "en": "**A timetable: the present**\n- The bus leaves at nine."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "future-continuous",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "At ten tomorrow I ___ the sheep.",
+        "options": ["will be feeding", "will be feed", "feeding"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**will be + -ing: kar bo takrat v teku**\n- This time tomorrow I'll be walking.",
+          "de": "**will be + -ing: was dann gerade läuft**\n- This time tomorrow I'll be walking.",
+          "it": "**will be + -ing: ciò che sarà in corso allora**\n- This time tomorrow I'll be walking.",
+          "en": "**will be + -ing: what will be going on then**\n- This time tomorrow I'll be walking."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "future-continuous",
+        "instruction": {
+          "sl": "Say what will be going on: will be + -ing · Povej, kaj bo v teku: will be + -ing",
+          "de": "Say what will be going on: will be + -ing · Sag, was gerade läuft: will be + -ing",
+          "it": "Say what will be going on: will be + -ing · Di' che cosa sarà in corso: will be + -ing",
+          "en": "Say what will be going on: will be + -ing"
+        },
+        "items": [
+          {
+            "from": "Jack sleeps. (at six tomorrow)",
+            "accept": ["At six tomorrow Jack will be sleeping.", "Jack will be sleeping at six tomorrow."]
+          },
+          { "from": "You use the van? (tomorrow)", "accept": ["Will you be using the van tomorrow?"] }
+        ],
+        "explain": {
+          "sl": "**will be + -ing: kar bo takrat v teku**\n- This time tomorrow I'll be walking.",
+          "de": "**will be + -ing: was dann gerade läuft**\n- This time tomorrow I'll be walking.",
+          "it": "**will be + -ing: ciò che sarà in corso allora**\n- This time tomorrow I'll be walking.",
+          "en": "**will be + -ing: what will be going on then**\n- This time tomorrow I'll be walking."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "future-continuous",
+        "instruction": {
+          "sl": "It's on the timetable: say it in the present · V voznem redu je: povej v sedanjiku",
+          "de": "It's on the timetable: say it in the present · Es steht im Fahrplan: Sag es im Präsens",
+          "it": "It's on the timetable: say it in the present · È nell'orario: dillo al presente",
+          "en": "It's on the timetable: say it in the present"
+        },
+        "cue": "the present",
+        "items": [
+          { "from": "The bus will come at noon.", "accept": ["The bus comes at noon."] },
+          { "from": "The shop will close at five.", "accept": ["The shop closes at five."] }
+        ],
+        "explain": {
+          "sl": "**Vozni red: sedanjik**\n- The bus leaves at nine.",
+          "de": "**Der Fahrplan: das Präsens**\n- The bus leaves at nine.",
+          "it": "**L'orario: il presente**\n- The bus leaves at nine.",
+          "en": "**A timetable: the present**\n- The bus leaves at nine."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}

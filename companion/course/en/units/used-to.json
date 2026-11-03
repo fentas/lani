@@ -1,0 +1,711 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "used-to",
+  "language": "en",
+  "level": "B1",
+  "emoji": "🕰️",
+  "title": { "sl": "Nekoč: I used to", "de": "Früher: I used to", "it": "Una volta: I used to", "en": "I used to live in Leeds" },
+  "goal": {
+    "sl": "Poveš, kaj je bilo in zdaj ni več (I used to live in Leeds, There used to be a shop), zanikaš in vprašaš (didn't use to, Did you use to …?) in veš, kdaj ostane past simple.",
+    "de": "Du sagst, was früher so war und jetzt nicht mehr ist (I used to live in Leeds, There used to be a shop), verneinst und fragst (didn't use to, Did you use to …?) und weißt, wann das past simple bleibt.",
+    "it": "Dici ciò che era così e adesso non lo è più (I used to live in Leeds, There used to be a shop), neghi e chiedi (didn't use to, Did you use to …?) e sai quando resta il past simple.",
+    "en": "You can say what was so and isn't now (I used to live in Leeds, There used to be a shop), say no and ask (didn't use to, Did you use to …?), and know when the past simple stays."
+  },
+  "grammar": ["used-to", "past-simple"],
+  "words": [
+    "used to",
+    "use to",
+    "didn't use to",
+    "never used to",
+    "used not to",
+    "any more",
+    "anymore",
+    "still",
+    "usually",
+    "in those days",
+    "every summer",
+    "by hand",
+    "count",
+    "smoke",
+    "hive",
+    "shop",
+    "bridge",
+    "school",
+    "teacher",
+    "mill",
+    "beck",
+    "snow",
+    "horse",
+    "fiddle",
+    "danced",
+    "early",
+    "get up",
+    "lock",
+    "tea",
+    "walk",
+    "be",
+    "have",
+    "Leeds",
+    "Carlisle",
+    "Saturdays",
+    "Tuesday",
+    "once",
+    "three times"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**I used to live in Leeds**: **used to** + osnovna oblika za to, kar je bilo in zdaj ni več. (Nekoč sem živel{m:|f:a} v Leedsu.) Za vse osebe je enako: **Mrs Hartley used to live in Leeds.** Slovenščina reče *nekoč* ali *včasih*. **There used to be a shop by the bridge.** (Pri mostu je bila nekoč trgovina.)",
+          "de": "**I used to live in Leeds**: **used to** + Grundform für das, was früher so war und jetzt nicht mehr ist. (Früher habe ich in Leeds gewohnt.) Für alle Personen gleich: **Mrs Hartley used to live in Leeds.** Deutsch sagt *früher*. **There used to be a shop by the bridge.** (Früher gab es bei der Brücke ein Geschäft.)",
+          "it": "**I used to live in Leeds**: **used to** + la forma base per ciò che era così e adesso non lo è più. (Una volta abitavo a Leeds.) Uguale per tutte le persone: **Mrs Hartley used to live in Leeds.** L'italiano usa l'imperfetto. **There used to be a shop by the bridge.** (Una volta c'era un negozio vicino al ponte.)",
+          "en": "**I used to live in Leeds**: **used to** + the base form for what was so and isn't now. The same for every person: **Mrs Hartley used to live in Leeds.** **There used to be a shop by the bridge.**"
+        },
+        "examples": [
+          {
+            "en": "I used to live in Leeds.",
+            "sl": "Nekoč sem živel{m:|f:a} v Leedsu.",
+            "de": "Früher habe ich in Leeds gewohnt.",
+            "it": "Una volta abitavo a Leeds."
+          },
+          {
+            "en": "Mrs Hartley used to live in Leeds.",
+            "sl": "Gospa Hartley je nekoč živela v Leedsu.",
+            "de": "Mrs Hartley hat früher in Leeds gewohnt.",
+            "it": "Mrs Hartley una volta abitava a Leeds."
+          },
+          {
+            "en": "There used to be a shop by the bridge.",
+            "sl": "Pri mostu je bila nekoč trgovina.",
+            "de": "Früher gab es bei der Brücke ein Geschäft.",
+            "it": "Una volta c'era un negozio vicino al ponte."
+          }
+        ],
+        "rows": [
+          [
+            "used to + base form",
+            { "sl": "bilo je, zdaj ni", "de": "es war so, jetzt nicht", "it": "era così, adesso no", "en": "it was so, it isn't now" },
+            "I used to live in Leeds."
+          ],
+          ["there used to be", { "sl": "bilo je tam", "de": "es gab", "it": "c'era", "en": "there was" }, "There used to be a shop."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "used-to",
+          "prompt": "There ___ a shop by the bridge.",
+          "options": ["used to be", "used to being", "used be"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**used to + osnovna oblika, za vse osebe enako**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "de": "**used to + Grundform, für alle Personen gleich**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "it": "**used to + la forma base, uguale per tutte le persone**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "en": "**used to + the base form, the same for every person**\n- I used to live in Leeds. · She used to live in Leeds."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**Old Wilf used to walk to school**: **used to** je za navado, ki je ni več, in za stanje. (Stari Wilf je nekoč hodil v šolo peš.) **Mr Tyson used to count the sheep by hand.** Za used to je vedno osnovna oblika: **walk**, **be**, **have**. Ljudje pišejo tudi *I use to*, slišati je enako; v pisanju je **I used to**.",
+          "de": "**Old Wilf used to walk to school**: **used to** steht für eine Gewohnheit von früher und für einen Zustand. (Der alte Wilf ist früher zu Fuß in die Schule gegangen.) **Mr Tyson used to count the sheep by hand.** Nach used to immer die Grundform: **walk**, **be**, **have**. Man schreibt auch *I use to*, es klingt gleich; geschrieben steht **I used to**.",
+          "it": "**Old Wilf used to walk to school**: **used to** è per un'abitudine di una volta e per uno stato. (Il vecchio Wilf una volta andava a scuola a piedi.) **Mr Tyson used to count the sheep by hand.** Dopo used to sempre la forma base: **walk**, **be**, **have**. Si scrive anche *I use to*, il suono è lo stesso; per iscritto **I used to**.",
+          "en": "**Old Wilf used to walk to school**: **used to** is for a habit that has gone, and for a state. **Mr Tyson used to count the sheep by hand.** After used to, always the base form: **walk**, **be**, **have**. People also write *I use to*, and it sounds the same; writing wants **I used to**."
+        },
+        "examples": [
+          {
+            "en": "Old Wilf used to walk to school.",
+            "sl": "Stari Wilf je nekoč hodil v šolo peš.",
+            "de": "Der alte Wilf ist früher zu Fuß in die Schule gegangen.",
+            "it": "Il vecchio Wilf una volta andava a scuola a piedi."
+          },
+          {
+            "en": "Mr Tyson used to count the sheep by hand.",
+            "sl": "Gospod Tyson je nekoč štel ovce ročno.",
+            "de": "Mr Tyson hat die Schafe früher von Hand gezählt.",
+            "it": "Mr Tyson una volta contava le pecore a mano."
+          },
+          {
+            "en": "We used to have a horse.",
+            "sl": "Nekoč smo imeli konja.",
+            "de": "Früher hatten wir ein Pferd.",
+            "it": "Una volta avevamo un cavallo."
+          }
+        ],
+        "rows": [
+          [
+            "used to + walk, be, have",
+            { "sl": "navada, stanje", "de": "Gewohnheit, Zustand", "it": "abitudine, stato", "en": "a habit, a state" },
+            "We used to have a horse."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "used-to",
+          "text": "Arthur used to ___ (have) forty hives.",
+          "accept": ["have"],
+          "hint": { "sl": "osnovna oblika", "de": "die Grundform", "it": "la forma base", "en": "the base form" },
+          "explain": {
+            "sl": "**Za used to osnovna oblika**\n- He used to have forty hives.",
+            "de": "**Nach used to die Grundform**\n- He used to have forty hives.",
+            "it": "**Dopo used to la forma base**\n- He used to have forty hives.",
+            "en": "**After used to, the base form**\n- He used to have forty hives."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**I didn't use to like tea**: zanikano z **didn't use to**, brez -d. (Včasih nisem maral{m:|f:a} čaja.) Ljudje pišejo tudi *didn't used to*, slišati je enako; v pisanju je **didn't use to**. Pogosto je tudi **never used to**, bolj uradno **used not to**.",
+          "de": "**I didn't use to like tea**: verneint mit **didn't use to**, ohne -d. (Früher habe ich Tee nicht gemocht.) Man schreibt auch *didn't used to*, es klingt gleich; geschrieben steht **didn't use to**. Oft auch **never used to**, förmlicher **used not to**.",
+          "it": "**I didn't use to like tea**: negativo con **didn't use to**, senza -d. (Una volta il tè non mi piaceva.) Si scrive anche *didn't used to*, il suono è lo stesso; per iscritto **didn't use to**. Spesso anche **never used to**, più formale **used not to**.",
+          "en": "**I didn't use to like tea**: no is **didn't use to**, with no -d. People also write *didn't used to*, and it sounds the same; writing wants **didn't use to**. **never used to** is common too, and **used not to** more formal."
+        },
+        "examples": [
+          {
+            "en": "I didn't use to like tea.",
+            "sl": "Včasih nisem maral{m:|f:a} čaja.",
+            "de": "Früher habe ich Tee nicht gemocht.",
+            "it": "Una volta il tè non mi piaceva."
+          },
+          {
+            "en": "Jack never used to get up early.",
+            "sl": "Jack včasih ni vstajal zgodaj.",
+            "de": "Jack ist früher nie früh aufgestanden.",
+            "it": "Una volta Jack non si alzava mai presto."
+          },
+          {
+            "en": "We used not to lock the door.",
+            "sl": "Včasih nismo zaklepali vrat.",
+            "de": "Früher haben wir die Tür nicht zugesperrt.",
+            "it": "Una volta non chiudevamo la porta a chiave."
+          }
+        ],
+        "rows": [
+          ["didn't use to", { "sl": "zanikano", "de": "verneint", "it": "negativo", "en": "no" }, "I didn't use to like tea."],
+          [
+            "never used to, used not to",
+            { "sl": "tudi zanikano", "de": "auch verneint", "it": "anche negativo", "en": "no as well" },
+            "Jack never used to get up early."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "used-to",
+          "text": "Sam ___ use to like tea.",
+          "accept": ["didn't", "did not"],
+          "hint": "did + not",
+          "explain": {
+            "sl": "**didn't use to: za did je use**\n- I didn't use to like tea.",
+            "de": "**didn't use to: nach did steht use**\n- I didn't use to like tea.",
+            "it": "**didn't use to: dopo did si scrive use**\n- I didn't use to like tea.",
+            "en": "**didn't use to: after did it's use**\n- I didn't use to like tea."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**Did you use to live here?** Vprašanje z **Did**, spet use brez -d. (Si nekoč živel{m:|f:a} tu?) **Where did you use to work?** (Kje si nekoč delal{m:|f:a}?) Kratek odgovor: **Yes, I did.** **No, I didn't.**",
+          "de": "**Did you use to live here?** Die Frage mit **Did**, wieder use ohne -d. (Hast du früher hier gewohnt?) **Where did you use to work?** (Wo hast du früher gearbeitet?) Kurz geantwortet: **Yes, I did.** **No, I didn't.**",
+          "it": "**Did you use to live here?** La domanda con **Did**, di nuovo use senza -d. (Una volta abitavi qui?) **Where did you use to work?** (Dove lavoravi una volta?) Risposta breve: **Yes, I did.** **No, I didn't.**",
+          "en": "**Did you use to live here?** The question takes **Did**, and again use with no -d. **Where did you use to work?** A short answer: **Yes, I did.** **No, I didn't.**"
+        },
+        "examples": [
+          {
+            "en": "Did you use to live here? — Yes, I did.",
+            "sl": "Si nekoč živel{m:|f:a} tu? — Ja.",
+            "de": "Hast du früher hier gewohnt? — Ja.",
+            "it": "Una volta abitavi qui? — Sì."
+          },
+          {
+            "en": "Where did you use to work?",
+            "sl": "Kje si nekoč delal{m:|f:a}?",
+            "de": "Wo hast du früher gearbeitet?",
+            "it": "Dove lavoravi una volta?"
+          }
+        ],
+        "rows": [
+          [
+            "Did you use to …?",
+            { "sl": "vprašanje", "de": "die Frage", "it": "la domanda", "en": "the question" },
+            "Did you use to live here?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "used-to",
+          "prompt": "___ you use to live in Leeds?",
+          "options": ["Did", "Do", "Were"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Did + oseba + use to**\n- Did you use to live here?",
+            "de": "**Did + Person + use to**\n- Did you use to live here?",
+            "it": "**Did + persona + use to**\n- Did you use to live here?",
+            "en": "**Did + the person + use to**\n- Did you use to live here?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**We went to Keswick last Tuesday**: kdaj, kolikokrat, koliko časa pove past simple. **I lived in Leeds for five years.** **used to** pove le, da je bilo tako: **We used to go to Keswick on Saturdays.** (Tudi **We went** je tu prav.) Sedanjika nima: zdaj je **I usually walk**.",
+          "de": "**We went to Keswick last Tuesday**: Wann, wie oft, wie lange sagt das past simple. **I lived in Leeds for five years.** **used to** sagt nur, dass es so war: **We used to go to Keswick on Saturdays.** (Auch **We went** stimmt hier.) Eine Gegenwart hat es nicht: jetzt **I usually walk**.",
+          "it": "**We went to Keswick last Tuesday**: quando, quante volte, quanto tempo li dice il past simple. **I lived in Leeds for five years.** **used to** dice solo che era così: **We used to go to Keswick on Saturdays.** (Anche **We went** qui è giusto.) Non ha il presente: adesso **I usually walk**.",
+          "en": "**We went to Keswick last Tuesday**: when, how many times and how long take the past simple. **I lived in Leeds for five years.** **used to** only says it was so: **We used to go to Keswick on Saturdays.** (**We went** is right here too.) It has no present: now it's **I usually walk**."
+        },
+        "examples": [
+          {
+            "en": "We went to Keswick last Tuesday.",
+            "sl": "Prejšnji torek smo šli v Keswick.",
+            "de": "Letzten Dienstag sind wir nach Keswick gefahren.",
+            "it": "Martedì scorso siamo andati a Keswick."
+          },
+          {
+            "en": "I lived in Leeds for five years.",
+            "sl": "Pet let sem živel{m:|f:a} v Leedsu.",
+            "de": "Ich habe fünf Jahre in Leeds gewohnt.",
+            "it": "Ho vissuto a Leeds per cinque anni."
+          },
+          {
+            "en": "We used to go to Keswick on Saturdays.",
+            "sl": "Včasih smo ob sobotah hodili v Keswick.",
+            "de": "Früher sind wir samstags nach Keswick gefahren.",
+            "it": "Una volta il sabato andavamo a Keswick."
+          },
+          { "en": "I usually walk.", "sl": "Običajno hodim peš.", "de": "Normalerweise gehe ich zu Fuß.", "it": "Di solito vado a piedi." }
+        ],
+        "rows": [
+          [
+            "past simple",
+            {
+              "sl": "kdaj, kolikokrat, koliko časa",
+              "de": "wann, wie oft, wie lange",
+              "it": "quando, quante volte, quanto tempo",
+              "en": "when, how many times, how long"
+            },
+            "We went to Keswick last Tuesday."
+          ],
+          ["usually + present", { "sl": "zdaj", "de": "jetzt", "it": "adesso", "en": "now" }, "I usually walk."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "used-to",
+          "prompt": "We ___ to Keswick last Tuesday.",
+          "options": ["went", "go", "going"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kdaj, kolikokrat ali koliko časa: past simple**\n- We went to Keswick last Tuesday.",
+            "de": "**Wann, wie oft oder wie lange: past simple**\n- We went to Keswick last Tuesday.",
+            "it": "**Quando, quante volte o quanto tempo: past simple**\n- We went to Keswick last Tuesday.",
+            "en": "**When, how many times or how long: the past simple**\n- We went to Keswick last Tuesday."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**I don't live there any more**: **any more** (ne več) pove, da je mimo. **still** (še) pove, da še traja: **I still walk.** (Še vedno hodim peš.) Skupaj z used to: **I used to smoke, but I don't any more.** (Včasih sem kadil{m:|f:a}, zdaj ne več.) **anymore** se piše tudi skupaj.",
+          "de": "**I don't live there any more**: **any more** (nicht mehr) sagt, dass es vorbei ist. **still** (noch) sagt, dass es noch gilt: **I still walk.** (Ich gehe noch immer zu Fuß.) Zusammen mit used to: **I used to smoke, but I don't any more.** (Früher habe ich geraucht, jetzt nicht mehr.) **anymore** schreibt man auch zusammen.",
+          "it": "**I don't live there any more**: **any more** (non più) dice che è finito. **still** (ancora) dice che dura: **I still walk.** (Vado ancora a piedi.) Insieme a used to: **I used to smoke, but I don't any more.** (Una volta fumavo, adesso non più.) **anymore** si scrive anche attaccato.",
+          "en": "**I don't live there any more**: **any more** says it's over. **still** says it isn't: **I still walk.** With used to: **I used to smoke, but I don't any more.** **anymore** is also written as one word."
+        },
+        "examples": [
+          { "en": "I don't live there any more.", "sl": "Tam ne živim več.", "de": "Ich wohne nicht mehr dort.", "it": "Non abito più lì." },
+          {
+            "en": "I used to smoke, but I don't any more.",
+            "sl": "Včasih sem kadil{m:|f:a}, zdaj ne več.",
+            "de": "Früher habe ich geraucht, jetzt nicht mehr.",
+            "it": "Una volta fumavo, adesso non più."
+          },
+          { "en": "I still walk.", "sl": "Še vedno hodim peš.", "de": "Ich gehe noch immer zu Fuß.", "it": "Vado ancora a piedi." }
+        ],
+        "rows": [
+          ["not … any more", { "sl": "je mimo", "de": "es ist vorbei", "it": "è finito", "en": "it's over" }, "I don't live there any more."],
+          ["still", { "sl": "še traja", "de": "es gilt noch", "it": "dura ancora", "en": "it still goes on" }, "I still walk."]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "used-to",
+          "text": "Mr Dixon used to smoke, but he doesn't ___ more.",
+          "accept": ["any"],
+          "hint": "not … ___ more",
+          "explain": {
+            "sl": "**not … any more: je mimo**\n- I don't live there any more.",
+            "de": "**not … any more: Es ist vorbei**\n- I don't live there any more.",
+            "it": "**not … any more: è finito**\n- I don't live there any more.",
+            "en": "**not … any more: it's over**\n- I don't live there any more."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "used-to-1",
+      "title": { "sl": "Nekoč", "de": "Früher", "it": "Una volta", "en": "In those days" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "used-to",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "iz preteklika v used to",
+            "de": "von der Vergangenheit zu used to",
+            "it": "dal passato a used to",
+            "en": "from the past to used to"
+          },
+          "columns": [
+            {
+              "sl": "used to + osnovna oblika",
+              "de": "used to + Grundform",
+              "it": "used to + la forma base",
+              "en": "used to + the base form"
+            }
+          ],
+          "rows": [
+            { "label": "lived", "cells": [{ "accept": ["used to live"] }] },
+            { "label": "walked", "cells": [{ "accept": ["used to walk"] }] },
+            { "label": "went", "cells": [{ "accept": ["used to go"] }] },
+            { "label": "had", "cells": [{ "accept": ["used to have"] }] },
+            { "label": "was", "cells": [{ "accept": ["used to be"] }] },
+            { "label": "were", "cells": [{ "accept": ["used to be"] }] }
+          ],
+          "explain": {
+            "sl": "**used to + osnovna oblika, za vse osebe enako**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "de": "**used to + Grundform, für alle Personen gleich**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "it": "**used to + la forma base, uguale per tutte le persone**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "en": "**used to + the base form, the same for every person**\n- I used to live in Leeds. · She used to live in Leeds."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "used-to",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            {
+              "label": { "sl": "used to · bilo je tako", "de": "used to · es war so", "it": "used to · era così", "en": "used to · it was so" },
+              "words": ["every summer", "in those days", "when I was a child"]
+            },
+            {
+              "label": {
+                "sl": "samo past simple · kdaj, kolikokrat",
+                "de": "nur past simple · wann, wie oft",
+                "it": "solo past simple · quando, quante volte",
+                "en": "the past simple only · when, how many times"
+              },
+              "words": ["last Tuesday", "once, in 2019", "three times"]
+            }
+          ],
+          "explain": {
+            "sl": "**Kdaj in kolikokrat: past simple**\n- We used to go every summer. · We went last Tuesday.",
+            "de": "**Wann und wie oft: past simple**\n- We used to go every summer. · We went last Tuesday.",
+            "it": "**Quando e quante volte: past simple**\n- We used to go every summer. · We went last Tuesday.",
+            "en": "**When and how many times: the past simple**\n- We used to go every summer. · We went last Tuesday."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "used-to",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Mr Tyson ___ the sheep by hand.",
+          "options": ["used to count", "used to counting", "used count"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**used to + osnovna oblika, za vse osebe enako**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "de": "**used to + Grundform, für alle Personen gleich**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "it": "**used to + la forma base, uguale per tutte le persone**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "en": "**used to + the base form, the same for every person**\n- I used to live in Leeds. · She used to live in Leeds."
+          }
+        }
+      ]
+    },
+    {
+      "id": "used-to-2",
+      "title": { "sl": "Stari Wilf pripoveduje", "de": "Der alte Wilf erzählt", "it": "Il vecchio Wilf racconta", "en": "Old Wilf remembers" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "used-to",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— When I was a boy, there ___ (be) a school by the beck. We ___ (walk) there every day, even in the snow. — ___ you use to like it? — No! I ___ (not like) the teacher. After school we ___ (help) in the mill: Mr Tyson's father ___ (have) it then. — Was there a bus? — A bus! There ___ (not be) any buses, you know.",
+          "gaps": [
+            {
+              "accept": ["used to be", "was"],
+              "hint": { "sl": "takrat, zdaj ne več", "de": "damals, jetzt nicht mehr", "it": "allora, adesso non più", "en": "then, not now" }
+            },
+            { "accept": ["used to walk", "walked", "would walk"], "hint": "used to + walk" },
+            { "accept": ["Did"], "hint": { "sl": "vprašanje", "de": "die Frage", "it": "la domanda", "en": "the question" } },
+            {
+              "accept": ["didn't use to like", "didn't like", "never used to like", "used not to like", "did not use to like", "did not like"],
+              "hint": "did + not"
+            },
+            { "accept": ["used to help", "helped", "would help"], "hint": "used to + help" },
+            { "accept": ["used to have", "had"], "hint": "used to + have" },
+            {
+              "accept": ["didn't use to be", "weren't", "were not", "did not use to be", "never used to be", "used not to be"],
+              "hint": "did + not"
+            }
+          ],
+          "bank": true,
+          "distractors": ["used to walking", "used to helping"],
+          "translation": {
+            "sl": "— Ko sem bil deček, je bila ob potoku šola. Tja smo hodili peš vsak dan, tudi v snegu. — Vam je bilo tam všeč? — Ne! Učitelja nisem maral. Po šoli smo pomagali v mlinu: takrat ga je imel oče gospoda Tysona. — Je vozil avtobus? — Avtobus! Avtobusov takrat ni bilo, veš.",
+            "de": "— Als ich ein Bub war, gab es beim Bach eine Schule. Wir sind jeden Tag zu Fuß hingegangen, auch im Schnee. — Sind Sie gern hingegangen? — Nein! Den Lehrer habe ich nicht gemocht. Nach der Schule haben wir in der Mühle geholfen: Damals hatte sie der Vater von Mr Tyson. — Gab es einen Bus? — Einen Bus! Busse gab es keine, weißt du.",
+            "it": "— Quando ero bambino, c'era una scuola vicino al ruscello. Ci andavamo a piedi ogni giorno, anche con la neve. — Le piaceva? — No! Il maestro non mi piaceva. Dopo la scuola aiutavamo al mulino: allora era del padre di Mr Tyson. — C'era un autobus? — Un autobus! Di autobus non ce n'erano, sai.",
+            "en": "— When I was a boy, there used to be a school by the beck. We used to walk there every day, even in the snow. — Did you use to like it? — No! I didn't use to like the teacher. After school we used to help in the mill: Mr Tyson's father used to have it then. — Was there a bus? — A bus! There didn't use to be any buses, you know."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "used-to",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "I lived in Leeds ___ five years.",
+          "options": ["for", "used to", "since"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Koliko časa: past simple + for**\n- I lived in Leeds for five years.",
+            "de": "**Wie lange: past simple + for**\n- I lived in Leeds for five years.",
+            "it": "**Quanto tempo: past simple + for**\n- I lived in Leeds for five years.",
+            "en": "**How long: the past simple + for**\n- I lived in Leeds for five years."
+          }
+        }
+      ]
+    },
+    {
+      "id": "used-to-3",
+      "title": { "sl": "Kako je bilo, kako je zdaj", "de": "Wie es war, wie es ist", "it": "Com'era, com'è", "en": "How it was, how it is" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "used-to",
+          "instruction": {
+            "sl": "It isn't so now: say it with used to · Zdaj ni več tako: povej z used to",
+            "de": "It isn't so now: say it with used to · Jetzt ist es nicht mehr so: Sag es mit used to",
+            "it": "It isn't so now: say it with used to · Adesso non è più così: dillo con used to",
+            "en": "It isn't so now: say it with used to"
+          },
+          "cue": "used to",
+          "items": [
+            { "from": "Mrs Hartley lived in Leeds. She doesn't now.", "accept": ["Mrs Hartley used to live in Leeds."] },
+            { "from": "Sam smoked. He doesn't now.", "accept": ["Sam used to smoke."] },
+            { "from": "There was a shop here. There isn't now.", "accept": ["There used to be a shop here."] }
+          ],
+          "explain": {
+            "sl": "**used to + osnovna oblika, za vse osebe enako**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "de": "**used to + Grundform, für alle Personen gleich**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "it": "**used to + la forma base, uguale per tutte le persone**\n- I used to live in Leeds. · She used to live in Leeds.",
+            "en": "**used to + the base form, the same for every person**\n- I used to live in Leeds. · She used to live in Leeds."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "used-to",
+          "instruction": {
+            "sl": "It's so now, but it wasn't then · Zdaj je tako, takrat ni bilo",
+            "de": "It's so now, but it wasn't then · Jetzt ist es so, damals nicht",
+            "it": "It's so now, but it wasn't then · Adesso è così, allora no",
+            "en": "It's so now, but it wasn't then"
+          },
+          "cue": "didn't use to",
+          "items": [
+            {
+              "from": "I like tea now.",
+              "accept": ["I didn't use to like tea.", "I never used to like tea.", "I used not to like tea.", "I did not use to like tea."]
+            },
+            {
+              "from": "Jack gets up early now.",
+              "accept": [
+                "Jack didn't use to get up early.",
+                "Jack never used to get up early.",
+                "Jack used not to get up early.",
+                "Jack did not use to get up early."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**didn't use to: za did je use**\n- I didn't use to like tea.",
+            "de": "**didn't use to: nach did steht use**\n- I didn't use to like tea.",
+            "it": "**didn't use to: dopo did si scrive use**\n- I didn't use to like tea.",
+            "en": "**didn't use to: after did it's use**\n- I didn't use to like tea."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "used-to",
+          "instruction": {
+            "sl": "Ask, with use to · Vprašaj: z use to",
+            "de": "Ask, with use to · Frag: mit use to",
+            "it": "Ask, with use to · Chiedi: con use to",
+            "en": "Ask, with use to"
+          },
+          "items": [
+            { "from": "You lived in Leeds.", "accept": ["Did you use to live in Leeds?"] },
+            { "from": "You worked somewhere. (where)", "accept": ["Where did you use to work?"] }
+          ],
+          "explain": {
+            "sl": "**Did + oseba + use to**\n- Did you use to live here?",
+            "de": "**Did + Person + use to**\n- Did you use to live here?",
+            "it": "**Did + persona + use to**\n- Did you use to live here?",
+            "en": "**Did + the person + use to**\n- Did you use to live here?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "used-to",
+          "instruction": {
+            "sl": "Say it's over, with any more · Povej, da je mimo: z any more",
+            "de": "Say it's over, with any more · Sag, dass es vorbei ist: mit any more",
+            "it": "Say it's over, with any more · Di' che è finito: con any more",
+            "en": "Say it's over, with any more"
+          },
+          "cue": "any more",
+          "items": [
+            { "from": "I used to smoke.", "accept": ["I don't smoke any more.", "I do not smoke any more."] },
+            { "from": "We used to keep hens.", "accept": ["We don't keep hens any more.", "We do not keep hens any more."] }
+          ],
+          "explain": {
+            "sl": "**not … any more: je mimo**\n- I don't live there any more.",
+            "de": "**not … any more: Es ist vorbei**\n- I don't live there any more.",
+            "it": "**not … any more: è finito**\n- I don't live there any more.",
+            "en": "**not … any more: it's over**\n- I don't live there any more."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "used-to",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "Granny Maggie ___ (dance) every Saturday when she was young. There ___ (be) a dance at the Packhorse Inn. She ___ (not like) the fiddle, but Arthur played it. — ___ you use to dance, Arthur? — No, I ___ (play) all night!",
+        "gaps": [
+          { "accept": ["used to dance", "danced", "would dance"], "hint": "used to + dance" },
+          { "accept": ["used to be", "was"], "hint": "used to + be" },
+          {
+            "accept": ["didn't use to like", "didn't like", "never used to like", "used not to like", "did not use to like", "did not like"],
+            "hint": "did + not"
+          },
+          { "accept": ["Did"], "hint": { "sl": "vprašanje", "de": "die Frage", "it": "la domanda", "en": "the question" } },
+          { "accept": ["used to play", "played", "would play"], "hint": "used to + play" }
+        ],
+        "translation": {
+          "sl": "Babica Maggie je v mladosti vsako soboto plesala. V gostilni Packhorse je bil ples. Gosli ni marala, a Arthur je igral nanje. — Ste tudi vi plesali, Arthur? — Ne, jaz sem igral vso noč!",
+          "de": "Oma Maggie hat früher jeden Samstag getanzt, als sie jung war. Im Packhorse Inn gab es einen Tanz. Die Geige hat sie nicht gemocht, aber Arthur hat sie gespielt. — Haben Sie auch getanzt, Arthur? — Nein, ich habe die ganze Nacht gespielt!",
+          "it": "Da giovane nonna Maggie ballava ogni sabato. Alla Packhorse Inn c'era un ballo. Il violino non le piaceva, ma Arthur lo suonava. — Ballava anche Lei, Arthur? — No, io suonavo tutta la notte!",
+          "en": "Granny Maggie used to dance every Saturday when she was young. There used to be a dance at the Packhorse Inn. She didn't use to like the fiddle, but Arthur played it. — Did you use to dance, Arthur? — No, I used to play all night!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "used-to",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Where ___ you use to work?",
+        "options": ["did", "do", "were"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Did + oseba + use to**\n- Did you use to live here?",
+          "de": "**Did + Person + use to**\n- Did you use to live here?",
+          "it": "**Did + persona + use to**\n- Did you use to live here?",
+          "en": "**Did + the person + use to**\n- Did you use to live here?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "used-to",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Mrs Hartley ___ in Leeds.",
+        "options": ["used to live", "used to living", "used live"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**used to + osnovna oblika, za vse osebe enako**\n- I used to live in Leeds. · She used to live in Leeds.",
+          "de": "**used to + Grundform, für alle Personen gleich**\n- I used to live in Leeds. · She used to live in Leeds.",
+          "it": "**used to + la forma base, uguale per tutte le persone**\n- I used to live in Leeds. · She used to live in Leeds.",
+          "en": "**used to + the base form, the same for every person**\n- I used to live in Leeds. · She used to live in Leeds."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "used-to",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "We ___ to Carlisle three times last year.",
+        "options": ["went", "used to going", "use going"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kdaj, kolikokrat ali koliko časa: past simple**\n- We went to Keswick last Tuesday.",
+          "de": "**Wann, wie oft oder wie lange: past simple**\n- We went to Keswick last Tuesday.",
+          "it": "**Quando, quante volte o quanto tempo: past simple**\n- We went to Keswick last Tuesday.",
+          "en": "**When, how many times or how long: the past simple**\n- We went to Keswick last Tuesday."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "used-to",
+        "instruction": {
+          "sl": "It isn't so now: say it with used to · Zdaj ni več tako: povej z used to",
+          "de": "It isn't so now: say it with used to · Jetzt ist es nicht mehr so: Sag es mit used to",
+          "it": "It isn't so now: say it with used to · Adesso non è più così: dillo con used to",
+          "en": "It isn't so now: say it with used to"
+        },
+        "cue": "used to",
+        "items": [
+          { "from": "Mr Dixon had a horse. He doesn't now.", "accept": ["Mr Dixon used to have a horse."] },
+          { "from": "There was a bus on Sundays. There isn't now.", "accept": ["There used to be a bus on Sundays."] }
+        ],
+        "explain": {
+          "sl": "**used to + osnovna oblika, za vse osebe enako**\n- I used to live in Leeds. · She used to live in Leeds.",
+          "de": "**used to + Grundform, für alle Personen gleich**\n- I used to live in Leeds. · She used to live in Leeds.",
+          "it": "**used to + la forma base, uguale per tutte le persone**\n- I used to live in Leeds. · She used to live in Leeds.",
+          "en": "**used to + the base form, the same for every person**\n- I used to live in Leeds. · She used to live in Leeds."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "used-to",
+        "instruction": {
+          "sl": "Say no or ask, with use to · Zanikaj ali vprašaj: z use to",
+          "de": "Say no or ask, with use to · Verneine oder frag: mit use to",
+          "it": "Say no or ask, with use to · Nega o chiedi: con use to",
+          "en": "Say no or ask, with use to"
+        },
+        "items": [
+          {
+            "from": "Sam likes the fells now. (no)",
+            "accept": [
+              "Sam didn't use to like the fells.",
+              "Sam never used to like the fells.",
+              "Sam used not to like the fells.",
+              "Sam did not use to like the fells."
+            ]
+          },
+          { "from": "You had a dog. (ask)", "accept": ["Did you use to have a dog?"] }
+        ],
+        "explain": {
+          "sl": "**didn't use to: za did je use**\n- I didn't use to like tea.",
+          "de": "**didn't use to: nach did steht use**\n- I didn't use to like tea.",
+          "it": "**didn't use to: dopo did si scrive use**\n- I didn't use to like tea.",
+          "en": "**didn't use to: after did it's use**\n- I didn't use to like tea."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}

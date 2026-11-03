@@ -1,0 +1,690 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "been-waiting",
+  "language": "en",
+  "level": "B1",
+  "emoji": "⏱️",
+  "title": {
+    "sl": "Že dolgo: I've been waiting",
+    "de": "Schon lange: I've been waiting",
+    "it": "Da tanto tempo: I've been waiting",
+    "en": "I've been waiting for an hour"
+  },
+  "goal": {
+    "sl": "Poveš, kaj traja do zdaj (I've been waiting for an hour), ločiš dejavnost od rezultata (She's been baking, She's baked forty scones) in veš, kateri glagoli ostanejo brez -ing.",
+    "de": "Du sagst, was bis jetzt andauert (I've been waiting for an hour), trennst Tätigkeit und Ergebnis (She's been baking, She's baked forty scones) und weißt, welche Verben ohne -ing bleiben.",
+    "it": "Dici ciò che dura fino a ora (I've been waiting for an hour), distingui l'attività dal risultato (She's been baking, She's baked forty scones) e sai quali verbi restano senza -ing.",
+    "en": "You can say what has gone on up to now (I've been waiting for an hour), tell the activity from the result (She's been baking, She's baked forty scones), and know which verbs stay without -ing."
+  },
+  "grammar": ["present-perfect-continuous", "present-perfect"],
+  "words": [
+    "been",
+    "wait",
+    "waiting",
+    "rain",
+    "swimming",
+    "running",
+    "digging",
+    "sleep well",
+    "baking",
+    "baked",
+    "paint the gate",
+    "paint on your hands",
+    "mending",
+    "to own",
+    "owned",
+    "belong",
+    "understand",
+    "believe",
+    "known",
+    "stay",
+    "have breakfast",
+    "breakfast",
+    "all morning",
+    "scone",
+    "van",
+    "beck",
+    "brewery",
+    "out of breath",
+    "count",
+    "sheep",
+    "barking",
+    "loaf",
+    "hour",
+    "live",
+    "work",
+    "wet"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "za kaj", "de": "wofür", "it": "per cosa", "en": "what for" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**I've been waiting for an hour**: **have**, **has** + **been** + -ing za to, kar traja do zdaj. (Čakam že eno uro.) **It's been raining since Monday.** (Od ponedeljka dežuje.) Slovenščina reče sedanjik in *že*. Nekateri rečejo tudi *I been waiting*; v pisanju je **I've been waiting**.",
+          "de": "**I've been waiting for an hour**: **have**, **has** + **been** + -ing für das, was bis jetzt andauert. (Ich warte seit einer Stunde.) **It's been raining since Monday.** (Seit Montag regnet es.) Deutsch sagt Präsens und *seit*. Manche sagen auch *I been waiting*; geschrieben steht **I've been waiting**.",
+          "it": "**I've been waiting for an hour**: **have**, **has** + **been** + -ing per ciò che dura fino a ora. (Aspetto da un'ora.) **It's been raining since Monday.** (Piove da lunedì.) L'italiano dice il presente e *da*. Qualcuno dice anche *I been waiting*; per iscritto **I've been waiting**.",
+          "en": "**I've been waiting for an hour**: **have**, **has** + **been** + -ing for what has been going on up to now. **It's been raining since Monday.** Some people also say *I been waiting*; writing wants **I've been waiting**."
+        },
+        "examples": [
+          {
+            "en": "I've been waiting for an hour.",
+            "sl": "Čakam že eno uro.",
+            "de": "Ich warte seit einer Stunde.",
+            "it": "Aspetto da un'ora."
+          },
+          { "en": "It's been raining since Monday.", "sl": "Od ponedeljka dežuje.", "de": "Seit Montag regnet es.", "it": "Piove da lunedì." },
+          {
+            "en": "Jack has been walking since six.",
+            "sl": "Jack hodi že od šestih.",
+            "de": "Jack ist seit sechs Uhr zu Fuß unterwegs.",
+            "it": "Jack cammina dalle sei."
+          }
+        ],
+        "rows": [
+          [
+            "have, has + been + -ing",
+            { "sl": "traja do zdaj", "de": "dauert bis jetzt", "it": "dura fino a ora", "en": "going on up to now" },
+            "I've been waiting for an hour."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-perfect-continuous",
+          "text": "Jack ___ been walking since six.",
+          "accept": ["has", "'s"],
+          "hint": "have, has",
+          "explain": {
+            "sl": "**Jack je he: has**\n- Jack has been walking.",
+            "de": "**Jack ist he: has**\n- Jack has been walking.",
+            "it": "**Jack è he: has**\n- Jack has been walking.",
+            "en": "**Jack is he: has**\n- Jack has been walking."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**How long have you been waiting?** (Koliko časa že čakaš?) **What have you been doing?** (Kaj si počel{m:|f:a}?) have ali has gre naprej, been + -ing ostane skupaj. Zanikano: **I haven't been sleeping well.** (V zadnjem času slabo spim.)",
+          "de": "**How long have you been waiting?** (Wie lange wartest du schon?) **What have you been doing?** (Was hast du gemacht?) have oder has kommt nach vorn, been + -ing bleibt beisammen. Verneint: **I haven't been sleeping well.** (Ich schlafe in letzter Zeit schlecht.)",
+          "it": "**How long have you been waiting?** (Da quanto tempo aspetti?) **What have you been doing?** (Che cosa hai fatto?) have o has va all'inizio, been + -ing resta insieme. Negativo: **I haven't been sleeping well.** (Ultimamente dormo male.)",
+          "en": "**How long have you been waiting?** **What have you been doing?** have or has comes first, been + -ing stays together. To say no: **I haven't been sleeping well.**"
+        },
+        "examples": [
+          {
+            "en": "How long have you been waiting?",
+            "sl": "Koliko časa že čakaš?",
+            "de": "Wie lange wartest du schon?",
+            "it": "Da quanto tempo aspetti?"
+          },
+          { "en": "What have you been doing?", "sl": "Kaj si počel{m:|f:a}?", "de": "Was hast du gemacht?", "it": "Che cosa hai fatto?" },
+          {
+            "en": "I haven't been sleeping well.",
+            "sl": "V zadnjem času slabo spim.",
+            "de": "Ich schlafe in letzter Zeit schlecht.",
+            "it": "Ultimamente dormo male."
+          }
+        ],
+        "rows": [
+          [
+            "How long have you been …?",
+            { "sl": "vprašanje", "de": "die Frage", "it": "la domanda", "en": "the question" },
+            "How long have you been waiting?"
+          ],
+          ["haven't been + -ing", { "sl": "zanikano", "de": "verneint", "it": "negativo", "en": "no" }, "I haven't been sleeping well."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-perfect-continuous",
+          "prompt": "How long ___ Sam been working?",
+          "options": ["has", "is", "does"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**has + been + -ing**\n- How long has Sam been working?",
+            "de": "**has + been + -ing**\n- How long has Sam been working?",
+            "it": "**has + been + -ing**\n- How long has Sam been working?",
+            "en": "**has + been + -ing**\n- How long has Sam been working?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**You're wet. Have you been swimming?** Pove tudi, kar se je pravkar končalo in se še vidi. ({m:Moker|f:Mokra} si. Si {m:plaval|f:plavala}?) **It's been raining: the road's wet.** (Deževalo je: cesta je mokra.) **Your hands are black. — I've been mending the van.**",
+          "de": "**You're wet. Have you been swimming?** Es sagt auch, was gerade aufgehört hat und was man noch sieht. (Du bist nass. Warst du schwimmen?) **It's been raining: the road's wet.** (Es hat geregnet: Die Straße ist nass.) **Your hands are black. — I've been mending the van.**",
+          "it": "**You're wet. Have you been swimming?** Dice anche ciò che è appena finito e che si vede ancora. (Sei bagnat{m:o|f:a}. Hai nuotato?) **It's been raining: the road's wet.** (Ha piovuto: la strada è bagnata.) **Your hands are black. — I've been mending the van.**",
+          "en": "**You're wet. Have you been swimming?** It also tells what has just stopped and you can still see. **It's been raining: the road's wet.** **Your hands are black. — I've been mending the van.**"
+        },
+        "examples": [
+          {
+            "en": "You're wet. Have you been swimming?",
+            "sl": "{m:Moker|f:Mokra} si. Si {m:plaval|f:plavala}?",
+            "de": "Du bist nass. Warst du schwimmen?",
+            "it": "Sei bagnat{m:o|f:a}. Hai nuotato?"
+          },
+          {
+            "en": "It's been raining: the road's wet.",
+            "sl": "Deževalo je: cesta je mokra.",
+            "de": "Es hat geregnet: Die Straße ist nass.",
+            "it": "Ha piovuto: la strada è bagnata."
+          },
+          {
+            "en": "Your hands are black. — I've been mending the van.",
+            "sl": "Roke imaš črne. — Popravljal{m:|f:a} sem kombi.",
+            "de": "Deine Hände sind schwarz. — Ich habe den Lieferwagen repariert.",
+            "it": "Hai le mani nere. — Ho riparato il furgone."
+          }
+        ],
+        "rows": [
+          [
+            "been + -ing",
+            { "sl": "še se vidi", "de": "man sieht es noch", "it": "si vede ancora", "en": "you can still see it" },
+            "Have you been swimming?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-perfect-continuous",
+          "prompt": "You're out of breath. Have you been ___?",
+          "options": ["running", "run", "ran"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**been + -ing**\n- Have you been running?",
+            "de": "**been + -ing**\n- Have you been running?",
+            "it": "**been + -ing**\n- Have you been running?",
+            "en": "**been + -ing**\n- Have you been running?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**I've been painting the gate** pove čas in dejavnost: morda še ni končano. **I've painted the gate** pove rezultat: končano je. Koliko časa: **She's been baking all morning.** (Vse dopoldne peče.) Koliko česa: **She's baked forty scones.** (Spekla je štirideset sconesov.)",
+          "de": "**I've been painting the gate** sagt die Zeit und die Tätigkeit: vielleicht nicht fertig. **I've painted the gate** sagt das Ergebnis: Es ist fertig. Wie lange: **She's been baking all morning.** (Sie bäckt den ganzen Vormittag.) Wie viel: **She's baked forty scones.** (Sie hat vierzig Scones gebacken.)",
+          "it": "**I've been painting the gate** dice il tempo e l'attività: forse non è finito. **I've painted the gate** dice il risultato: è finito. Quanto tempo: **She's been baking all morning.** (Inforna da tutta la mattina.) Quanti: **She's baked forty scones.** (Ha sfornato quaranta scone.)",
+          "en": "**I've been painting the gate** tells the time and the activity: perhaps it isn't finished. **I've painted the gate** tells the result: it's done. How long: **She's been baking all morning.** How many: **She's baked forty scones.**"
+        },
+        "examples": [
+          {
+            "en": "I've been painting the gate.",
+            "sl": "Barval{m:|f:a} sem vrata.",
+            "de": "Ich war dabei, das Tor zu streichen.",
+            "it": "Ho pitturato il cancello, non ho ancora finito."
+          },
+          {
+            "en": "I've painted the gate.",
+            "sl": "Pobarval{m:|f:a} sem vrata.",
+            "de": "Ich habe das Tor gestrichen.",
+            "it": "Ho pitturato il cancello."
+          },
+          {
+            "en": "She's baked forty scones.",
+            "sl": "Spekla je štirideset sconesov.",
+            "de": "Sie hat vierzig Scones gebacken.",
+            "it": "Ha sfornato quaranta scone."
+          }
+        ],
+        "rows": [
+          [
+            "been + -ing",
+            { "sl": "čas, dejavnost", "de": "die Zeit, die Tätigkeit", "it": "il tempo, l'attività", "en": "the time, the activity" },
+            "She's been baking all morning."
+          ],
+          [
+            "have, has + participle",
+            { "sl": "rezultat, koliko", "de": "das Ergebnis, wie viel", "it": "il risultato, quanti", "en": "the result, how many" },
+            "She's baked forty scones."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-perfect-continuous",
+          "prompt": "I've ___ three letters this morning.",
+          "options": ["written", "been writing", "write"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "sl": "**Koliko česa: have + deležnik**\n- She's baked forty scones.",
+            "de": "**Wie viel: have + Partizip**\n- She's baked forty scones.",
+            "it": "**Quanti: have + il participio**\n- She's baked forty scones.",
+            "en": "**How many: have + the participle**\n- She's baked forty scones."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**know**, **own**, **belong**, **understand**, **believe** povedo, kako je, zato ostanejo brez -ing. Tudi **be** in **have** za to, kar imaš. **I've known Jack for years.** (Jacka poznam že leta.) **I've had this van since 2015.** (Ta kombi imam od leta 2015.) Dejavnost pa -ing dobi: **We've been having breakfast.**",
+          "de": "**know**, **own**, **belong**, **understand**, **believe** sagen, wie etwas ist, darum bleiben sie ohne -ing. Ebenso **be** und **have** für Besitz. **I've known Jack for years.** (Ich kenne Jack seit Jahren.) **I've had this van since 2015.** (Diesen Lieferwagen habe ich seit 2015.) Eine Tätigkeit bekommt -ing: **We've been having breakfast.**",
+          "it": "**know**, **own**, **belong**, **understand**, **believe** dicono come stanno le cose, perciò restano senza -ing. Così anche **be** e **have** per ciò che possiedi. **I've known Jack for years.** (Conosco Jack da anni.) **I've had this van since 2015.** (Ho questo furgone dal 2015.) Un'attività prende -ing: **We've been having breakfast.**",
+          "en": "**know**, **own**, **belong**, **understand**, **believe** say how things are, so they stay without -ing. So do **be** and **have** for what you own. **I've known Jack for years.** **I've had this van since 2015.** An activity takes -ing: **We've been having breakfast.**"
+        },
+        "examples": [
+          {
+            "en": "I've known Jack for years.",
+            "sl": "Jacka poznam že leta.",
+            "de": "Ich kenne Jack seit Jahren.",
+            "it": "Conosco Jack da anni."
+          },
+          {
+            "en": "I've had this van since 2015.",
+            "sl": "Ta kombi imam od leta 2015.",
+            "de": "Diesen Lieferwagen habe ich seit 2015.",
+            "it": "Ho questo furgone dal 2015."
+          },
+          {
+            "en": "Mr Tyson has owned the mill for years.",
+            "sl": "Gospod Tyson ima mlin že leta.",
+            "de": "Die Mühle gehört Mr Tyson seit Jahren.",
+            "it": "Il mulino è di Mr Tyson da anni."
+          },
+          {
+            "en": "We've been having breakfast.",
+            "sl": "Zajtrkovali smo.",
+            "de": "Wir haben gefrühstückt.",
+            "it": "Abbiamo fatto colazione."
+          }
+        ],
+        "rows": [
+          [
+            "known, had, owned",
+            {
+              "sl": "kako je: brez -ing",
+              "de": "wie es ist: ohne -ing",
+              "it": "come stanno le cose: senza -ing",
+              "en": "how things are: no -ing"
+            },
+            "I've known Jack for years."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-perfect-continuous",
+          "text": "Mrs Birkett has ___ (know) Sam since he was a boy.",
+          "accept": ["known"],
+          "hint": "know → ?",
+          "explain": {
+            "sl": "**know ostane brez -ing**\n- She has known him.",
+            "de": "**know bleibt ohne -ing**\n- She has known him.",
+            "it": "**know resta senza -ing**\n- She has known him.",
+            "en": "**know stays without -ing**\n- She has known him."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**I've lived here for ten years** in **I've been living here for ten years**: pri **live**, **work**, **stay**, **wait** je oboje prav. Z -ing zveni bolj za nekaj časa: **I've been staying at the inn since Monday.** (Od ponedeljka sem v gostilni.)",
+          "de": "**I've lived here for ten years** und **I've been living here for ten years**: Bei **live**, **work**, **stay**, **wait** geht beides. Mit -ing klingt es eher vorübergehend: **I've been staying at the inn since Monday.** (Ich wohne seit Montag im Gasthaus.)",
+          "it": "**I've lived here for ten years** e **I've been living here for ten years**: con **live**, **work**, **stay**, **wait** vanno bene tutti e due. Con -ing suona più temporaneo: **I've been staying at the inn since Monday.** (Alloggio alla locanda da lunedì.)",
+          "en": "**I've lived here for ten years** and **I've been living here for ten years**: with **live**, **work**, **stay**, **wait**, both are right. With -ing it sounds more for a while: **I've been staying at the inn since Monday.**"
+        },
+        "examples": [
+          {
+            "en": "I've been living here for ten years.",
+            "sl": "Tu živim deset let.",
+            "de": "Ich wohne seit zehn Jahren hier.",
+            "it": "Vivo qui da dieci anni."
+          },
+          {
+            "en": "I've been staying at the inn since Monday.",
+            "sl": "Od ponedeljka sem v gostilni.",
+            "de": "Ich wohne seit Montag im Gasthaus.",
+            "it": "Alloggio alla locanda da lunedì."
+          }
+        ],
+        "rows": [
+          [
+            "lived, been living",
+            { "sl": "oboje prav", "de": "beides richtig", "it": "giusti tutti e due", "en": "both right" },
+            "I've been living here for ten years."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-perfect-continuous",
+          "text": "Sam has ___ (work) at the brewery since 2020.",
+          "accept": ["worked", "been working"],
+          "hint": "work",
+          "explain": {
+            "sl": "**Pri work je oboje prav**\n- He has worked there. · He has been working there.",
+            "de": "**Bei work geht beides**\n- He has worked there. · He has been working there.",
+            "it": "**Con work vanno bene tutti e due**\n- He has worked there. · He has been working there.",
+            "en": "**With work, both are right**\n- He has worked there. · He has been working there."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "been-waiting-1",
+      "title": { "sl": "Že dolgo", "de": "Schon lange", "it": "Da tanto tempo", "en": "Going on" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "present-perfect-continuous",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "have, has + been + -ing",
+            "de": "have, has + been + -ing",
+            "it": "have, has + been + -ing",
+            "en": "have, has + been + -ing"
+          },
+          "columns": ["have, has", { "sl": "been + -ing", "de": "been + -ing", "it": "been + -ing", "en": "been + -ing" }],
+          "rows": [
+            { "label": "I (wait)", "cells": ["have", { "accept": ["been waiting"] }] },
+            { "label": "it (rain)", "cells": [{ "accept": ["has", "'s"] }, { "accept": ["been raining"] }] },
+            {
+              "label": "we (dig)",
+              "cells": ["have", { "accept": ["been digging"], "hint": { "sl": "dva g", "de": "zwei g", "it": "due g", "en": "two g" } }]
+            },
+            {
+              "label": "Jack (run)",
+              "cells": [
+                { "accept": ["has", "'s"] },
+                { "accept": ["been running"], "hint": { "sl": "dva n", "de": "zwei n", "it": "due n", "en": "two n" } }
+              ]
+            },
+            { "label": "they (make)", "cells": [{ "accept": ["have", "'ve"] }, { "accept": ["been making"] }] }
+          ],
+          "explain": {
+            "sl": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+            "de": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+            "it": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+            "en": "**have, has + been + -ing**\n- I've been waiting for an hour."
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "present-perfect-continuous",
+          "instruction": { "sl": "Sort · Razvrsti", "de": "Sort · Ordne zu", "it": "Sort · Ordina", "en": "Sort" },
+          "columns": [
+            {
+              "label": {
+                "sl": "She's been baking · koliko časa",
+                "de": "She's been baking · wie lange",
+                "it": "She's been baking · quanto tempo",
+                "en": "She's been baking · how long"
+              },
+              "words": ["all morning", "since nine", "for hours"]
+            },
+            {
+              "label": {
+                "sl": "She's baked · koliko česa",
+                "de": "She's baked · wie viel",
+                "it": "She's baked · quanti",
+                "en": "She's baked · how many"
+              },
+              "words": ["forty scones", "two cakes", "a big loaf"]
+            }
+          ],
+          "explain": {
+            "sl": "**Koliko časa: been + -ing. Koliko česa: have + deležnik.**\n- She's been baking all morning. · She's baked forty scones.",
+            "de": "**Wie lange: been + -ing. Wie viel: have + Partizip.**\n- She's been baking all morning. · She's baked forty scones.",
+            "it": "**Quanto tempo: been + -ing. Quanti: have + il participio.**\n- She's been baking all morning. · She's baked forty scones.",
+            "en": "**How long: been + -ing. How many: have + the participle.**\n- She's been baking all morning. · She's baked forty scones."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-perfect-continuous",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "You're wet! Have you been ___?",
+          "options": ["swimming", "swim", "swum"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**been + -ing**\n- Have you been swimming?",
+            "de": "**been + -ing**\n- Have you been swimming?",
+            "it": "**been + -ing**\n- Have you been swimming?",
+            "en": "**been + -ing**\n- Have you been swimming?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "been-waiting-2",
+      "title": { "sl": "Na postaji", "de": "An der Haltestelle", "it": "Alla fermata", "en": "At the bus stop" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "present-perfect-continuous",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "— You look cold, love. How long have you ___ (wait)? — I've been waiting ___ an hour! — The Keswick bus? It's ___ (run) late all week. What have you been ___ (do) today? — I've been ___ (help) Sam. We've ___ (clean) the whole van, and it's finished. — You've got paint on your hands! — Yes, I've been ___ (paint) Mr Dixon's gate.",
+          "gaps": [
+            { "accept": ["been waiting", "waited"], "hint": "been + -ing" },
+            { "accept": ["for"], "hint": { "sl": "dolžina", "de": "Dauer", "it": "durata", "en": "a length" } },
+            { "accept": ["been running", "run"], "hint": "been + -ing" },
+            { "accept": ["doing"], "hint": "do + -ing" },
+            { "accept": ["helping"], "hint": "help + -ing" },
+            { "accept": ["cleaned"], "hint": { "sl": "končano", "de": "fertig", "it": "finito", "en": "it's finished" } },
+            {
+              "accept": ["painting"],
+              "hint": { "sl": "še se vidi", "de": "man sieht es noch", "it": "si vede ancora", "en": "you can still see it" }
+            }
+          ],
+          "bank": true,
+          "distractors": ["since", "been waited"],
+          "translation": {
+            "sl": "— Zdi se, da te zebe. Koliko časa že čakaš? — Čakam že eno uro! — Avtobus za Keswick? Ves teden zamuja. Kaj si danes počel{m:|f:a}? — Pomagal{m:|f:a} sem Samu. Očistili smo ves kombi in je končano. — Barvo imaš na rokah! — Ja, barval{m:|f:a} sem vrata gospoda Dixona.",
+            "de": "— Dir ist kalt, oder? Wie lange wartest du schon? — Ich warte seit einer Stunde! — Der Bus nach Keswick? Er hat die ganze Woche Verspätung. Was hast du heute gemacht? — Ich habe Sam geholfen. Wir haben den ganzen Lieferwagen geputzt, und er ist fertig. — Du hast Farbe an den Händen! — Ja, ich habe das Tor von Mr Dixon gestrichen.",
+            "it": "— Sembra che tu abbia freddo. Da quanto tempo aspetti? — Aspetto da un'ora! — L'autobus per Keswick? È in ritardo da tutta la settimana. Che cosa hai fatto oggi? — Ho aiutato Sam. Abbiamo pulito tutto il furgone, ed è finito. — Hai la vernice sulle mani! — Sì, ho pitturato il cancello di Mr Dixon.",
+            "en": "— You look cold, love. How long have you been waiting? — I've been waiting for an hour! — The Keswick bus? It's been running late all week. What have you been doing today? — I've been helping Sam. We've cleaned the whole van, and it's finished. — You've got paint on your hands! — Yes, I've been painting Mr Dixon's gate."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-perfect-continuous",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "I've ___ forty scones this morning.",
+          "options": ["baked", "been baking", "bake"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "sl": "**Koliko česa: have + deležnik**\n- She's baked forty scones.",
+            "de": "**Wie viel: have + Partizip**\n- She's baked forty scones.",
+            "it": "**Quanti: have + il participio**\n- She's baked forty scones.",
+            "en": "**How many: have + the participle**\n- She's baked forty scones."
+          }
+        }
+      ]
+    },
+    {
+      "id": "been-waiting-3",
+      "title": { "sl": "Koliko časa, koliko česa", "de": "Wie lange, wie viel", "it": "Quanto tempo, quanti", "en": "How long, how many" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "present-perfect-continuous",
+          "instruction": {
+            "sl": "Say how long, with been + -ing · Povej, koliko časa: z been + -ing",
+            "de": "Say how long, with been + -ing · Sag, wie lange: mit been + -ing",
+            "it": "Say how long, with been + -ing · Di' da quanto tempo: con been + -ing",
+            "en": "Say how long, with been + -ing"
+          },
+          "items": [
+            { "from": "Jack walks. (since six)", "accept": ["Jack has been walking since six."] },
+            { "from": "It snows. (two days)", "accept": ["It has been snowing for two days."] },
+            { "from": "We wait. (an hour)", "accept": ["We've been waiting for an hour."] }
+          ],
+          "explain": {
+            "sl": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+            "de": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+            "it": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+            "en": "**have, has + been + -ing**\n- I've been waiting for an hour."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-perfect-continuous",
+          "instruction": {
+            "sl": "How long or how many? · Koliko časa ali koliko česa?",
+            "de": "How long or how many? · Wie lange oder wie viel?",
+            "it": "How long or how many? · Quanto tempo o quanti?",
+            "en": "How long or how many?"
+          },
+          "items": [
+            { "from": "Granny Maggie bakes. (all morning)", "accept": ["Granny Maggie has been baking all morning."] },
+            {
+              "from": "Granny Maggie bakes. (forty scones)",
+              "accept": ["Granny Maggie has baked forty scones.", "Granny Maggie's baked forty scones."]
+            },
+            { "from": "Mr Tyson counts sheep. (two hours)", "accept": ["Mr Tyson has been counting sheep for two hours."] }
+          ],
+          "explain": {
+            "sl": "**Koliko časa: been + -ing. Koliko česa: have + deležnik.**\n- She's been baking all morning. · She's baked forty scones.",
+            "de": "**Wie lange: been + -ing. Wie viel: have + Partizip.**\n- She's been baking all morning. · She's baked forty scones.",
+            "it": "**Quanto tempo: been + -ing. Quanti: have + il participio.**\n- She's been baking all morning. · She's baked forty scones.",
+            "en": "**How long: been + -ing. How many: have + the participle.**\n- She's been baking all morning. · She's baked forty scones."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-perfect-continuous",
+          "instruction": {
+            "sl": "Ask: How long? · Vprašaj: How long?",
+            "de": "Ask: How long? · Frag: How long?",
+            "it": "Ask: How long? · Chiedi: How long?",
+            "en": "Ask: How long?"
+          },
+          "cue": "how long",
+          "items": [
+            { "from": "You are waiting.", "accept": ["How long have you been waiting?"] },
+            { "from": "Sam is working.", "accept": ["How long has Sam been working?"] }
+          ],
+          "explain": {
+            "sl": "**How long + have, has + been + -ing**\n- How long have you been waiting?",
+            "de": "**How long + have, has + been + -ing**\n- How long have you been waiting?",
+            "it": "**How long + have, has + been + -ing**\n- How long have you been waiting?",
+            "en": "**How long + have, has + been + -ing**\n- How long have you been waiting?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "present-perfect-continuous",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "It ___ (rain) since Monday, and the beck is high. Mr Dixon has ___ (work) in the rain all day. I've ___ (know) him for years. He's ___ (mend) two gates today, and they're finished. — You're out of breath! Have you been ___ (run)?",
+        "gaps": [
+          { "accept": ["has been raining", "'s been raining", "has rained", "'s rained"], "hint": "been + -ing" },
+          { "accept": ["been working", "worked"], "hint": "been + -ing" },
+          { "accept": ["known"], "hint": "know → ?" },
+          { "accept": ["mended"], "hint": { "sl": "koliko česa", "de": "wie viel", "it": "quanti", "en": "how many" } },
+          { "accept": ["running"], "hint": { "sl": "dva n", "de": "zwei n", "it": "due n", "en": "two n" } }
+        ],
+        "translation": {
+          "sl": "Od ponedeljka dežuje in potok je visok. Gospod Dixon ves dan dela na dežju. Poznam ga že leta. Danes je popravil dvoje vrat in so končana. — Si {m:zadihan|f:zadihana}! Si {m:tekel|f:tekla}?",
+          "de": "Seit Montag regnet es, und der Bach ist hoch. Mr Dixon arbeitet den ganzen Tag im Regen. Ich kenne ihn seit Jahren. Er hat heute zwei Tore repariert, und sie sind fertig. — Du bist außer Atem! Bist du gelaufen?",
+          "it": "Piove da lunedì e il ruscello è alto. Mr Dixon lavora sotto la pioggia da tutto il giorno. Lo conosco da anni. Oggi ha riparato due cancelli, e sono finiti. — Hai il fiatone! Hai corso?",
+          "en": "It has been raining since Monday, and the beck is high. Mr Dixon has been working in the rain all day. I've known him for years. He's mended two gates today, and they're finished. — You're out of breath! Have you been running?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-perfect-continuous",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "I've ___ Jack for years.",
+        "options": ["known", "know", "knowing"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**know ostane brez -ing**\n- I've known Jack for years.",
+          "de": "**know bleibt ohne -ing**\n- I've known Jack for years.",
+          "it": "**know resta senza -ing**\n- I've known Jack for years.",
+          "en": "**know stays without -ing**\n- I've known Jack for years."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-perfect-continuous",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "She looks tired. She ___ all night.",
+        "options": ["has been working", "has working", "have been work"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+          "de": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+          "it": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+          "en": "**have, has + been + -ing**\n- I've been waiting for an hour."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-perfect-continuous",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "How many letters ___ today?",
+        "options": ["have you written", "have you been writing", "have you writing"],
+        "answer": 0,
+        "almost": [1],
+        "say_options": true,
+        "explain": {
+          "sl": "**Koliko česa: have + deležnik**\n- She's baked forty scones.",
+          "de": "**Wie viel: have + Partizip**\n- She's baked forty scones.",
+          "it": "**Quanti: have + il participio**\n- She's baked forty scones.",
+          "en": "**How many: have + the participle**\n- She's baked forty scones."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "present-perfect-continuous",
+        "instruction": {
+          "sl": "Say how long, with been + -ing · Povej, koliko časa: z been + -ing",
+          "de": "Say how long, with been + -ing · Sag, wie lange: mit been + -ing",
+          "it": "Say how long, with been + -ing · Di' da quanto tempo: con been + -ing",
+          "en": "Say how long, with been + -ing"
+        },
+        "items": [
+          { "from": "Sam drives. (three hours)", "accept": ["Sam has been driving for three hours."] },
+          { "from": "The dogs bark. (six o'clock)", "accept": ["The dogs have been barking since six o'clock."] }
+        ],
+        "explain": {
+          "sl": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+          "de": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+          "it": "**have, has + been + -ing**\n- I've been waiting for an hour.",
+          "en": "**have, has + been + -ing**\n- I've been waiting for an hour."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "present-perfect-continuous",
+        "instruction": {
+          "sl": "These stay without -ing: say how long · Ti ostanejo brez -ing: povej, koliko časa",
+          "de": "These stay without -ing: say how long · Diese bleiben ohne -ing: Sag, wie lange",
+          "it": "These stay without -ing: say how long · Questi restano senza -ing: di' da quanto tempo",
+          "en": "These stay without -ing: say how long"
+        },
+        "items": [
+          { "from": "I have this van. (2015)", "accept": ["I've had this van since 2015."] },
+          {
+            "from": "Mrs Hartley knows Sam. (two years)",
+            "accept": ["Mrs Hartley has known Sam for two years.", "Mrs Hartley's known Sam for two years."]
+          }
+        ],
+        "explain": {
+          "sl": "**know ostane brez -ing**\n- I've known Jack for years.",
+          "de": "**know bleibt ohne -ing**\n- I've known Jack for years.",
+          "it": "**know resta senza -ing**\n- I've known Jack for years.",
+          "en": "**know stays without -ing**\n- I've known Jack for years."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}
