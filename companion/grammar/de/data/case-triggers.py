@@ -136,7 +136,7 @@ SEIN = "sein bin bist ist sind seid war warst waren wart gewesen sei seien wäre
 # The verbs that take a dative: who gets, is helped, is thanked, likes (gefallen, schmecken: what is liked is the subject).
 DATIVE_VERBS = [
     v("helfen", ["dat"], "dativ", p2="hilfst", p3="hilft", past="half", pp="geholfen", imp="hilf"),
-    v("danken", ["dat"], "dativ"),
+    v("danken", ["dat"], "dativ", imp="danke"),  # not dank: the preposition (dank dem Wetter)
     v("gehören", ["dat"], "pronomen-dativ", pp="gehört"),
     v("gefallen", ["dat"], "pronomen-dativ", p2="gefällst", p3="gefällt", past="gefiel", pp="gefallen"),
     v("schmecken", ["dat"], "pronomen-dativ"),
