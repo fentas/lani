@@ -157,7 +157,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   [tookAgeUp]; companion/GAME.md "Ages and their celebrations"); "ageup:at:<s>" holds a moment at that second for a
  *   screenshot (the card from its end on: [ageUpAt]), "ageup:at:" lets it play on.
  * - "level:<A1|A2|…>": the dialogs opened from now on (a scene's, a party's, a step's) are at that level, whatever the
- *   learner's ([level]: an age's party at A1); "level:" lets the learner's own decide again.
+ *   learner's ([level]: an age's party at A1), and so is the village: the scenes' dialogs and happenings above it go, its
+ *   own level's variants play first (SceneController.all, [si.lanisce.lani.game.scene.DialogLevels]; with
+ *   "happening:<scene>/<happening>/<dialog>", a B2 variant opens at "level:B2" and not at "level:A1"); "level:" lets the
+ *   learner's own decide again.
  * - "event:<kind>" ("event:wolves", "event:bear/3", "event:storm", "event:merchant", "event:festival"): the village (the
  *   dev bridge's copy) has that event on from now ([eventState]: of strength 1, or the one after the slash), as the day's
  *   tick brings one, and the village shows, its people reacting (companion/GAME.md "People react"); "event:won" and

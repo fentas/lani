@@ -119,6 +119,11 @@ class VisitController(
     private val send: suspend (id: String, kind: String, body: JsonObject) -> Pair<Int, String>? = { _, _, _ -> null },
     /** Asks for a role-play in town [id] ({villager} or {market}): the status and body; null when not connected. */
     private val talk: suspend (id: String, body: JsonObject) -> Pair<Int, String>? = { _, _ -> null },
+    /**
+     * The visitor's level in a language ("it" → "A2"): the town's dialogs above it stay out of the visit
+     * ([si.lanisce.lani.game.scene.DialogLevels]); A1 when not said.
+     */
+    private val level: (String) -> String = { "A1" },
 ) {
     var visit by mutableStateOf<TownVisit?>(null)
         private set
@@ -301,7 +306,7 @@ class VisitController(
             val pub = async { part(v, Visits.PUBLIC, Visits::parsePublic, { it.stale }, { it.fetchedAt }) }
             val people = async { part<VisitContent<Villager>>(v, Visits.VILLAGERS, Visits::parseVillagersOf, { it.stale }, { it.fetchedAt }) }
             val places = async { part<VisitContent<SceneSpec>>(v, Visits.SCENES, Visits::parseScenesOf, { it.stale }, { it.fetchedAt }) }
-            val done = settle(v, pub.await(), people.await(), places.await())
+            val done = settle(v, pub.await(), people.await(), places.await(), level = level)
             if (visit?.id == v.id) {
                 visit = done
                 if (done.state != null) last[done.id] = done.copy(loading = false)
@@ -331,9 +336,11 @@ class VisitController(
             people: VisitFetch<VisitContent<Villager>>,
             places: VisitFetch<VisitContent<SceneSpec>>,
             today: LocalDate = LocalDate.now(),
+            level: (String) -> String = { "A1" },
         ): TownVisit {
             val cast = (people as? VisitFetch.Got)?.value?.items ?: v.cast
-            val scenes = (places as? VisitFetch.Got)?.value?.items ?: v.scenes
+            // the town's places as the visitor meets them: at their level in its language (companion/SCENES.md, "Dialogs by level")
+            val scenes = (places as? VisitFetch.Got)?.value?.items?.let { si.lanisce.lani.game.scene.DialogLevels.forLearner(it, level) } ?: v.scenes
             val town = (pub as? VisitFetch.Got)?.value ?: v.town
             val problem = listOf(pub, people, places).firstNotNullOfOrNull { (it as? VisitFetch.Failed)?.problem }
             val stale = listOf(pub, people, places).any { it is VisitFetch.Got && it.stale } || (pub is VisitFetch.Failed && town != null)
