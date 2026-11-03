@@ -2398,7 +2398,7 @@ def play_to(said: str, ok_texts: set, tries=10) -> bool:
 # isn't there and the happening's own dialog plays: (level, scene, happening, variant, a line it opens with, a line that
 # mustn't show, the screenshot's name)
 KAERNTEN_LEVELS_QA = [
-    ("B2", "auf-dem-feld", "pferd", "pferd-b2-kufenstechen", "Schau dir den Moritz an", None, "feld-b2"),
+    ("B2", "auf-dem-feld", "pferd", "pferd-b2-kufenstechen", "Der Moritz springt herum", None, "feld-b2"),
     ("B1", "auf-dem-feld", "pferd", "pferd-b1-aepfel", "dass du Moritz gefunden hast", None, "feld-b1"),
     ("B2", "auf-dem-dorfplatz", "gasthaus", "gasthaus-b2-bewertung", "im Internet geschrieben", None, "platz-b2"),
     ("B1", "auf-dem-dorfplatz", "gasthaus", "gasthaus-b1-speisekarte", "meine neue Speisekarte", None, "platz-b1"),
