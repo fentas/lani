@@ -279,12 +279,12 @@
           "type": "table",
           "grammar": "relativi-il-quale",
           "instruction": {"de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table"},
-          "prompt": "+ quale, + quali",
+          "prompt": "… quale · … quali",
           "columns": ["il …", "la …", "i …", "le …"],
           "rows": [
-            {"label": "da", "cells": ["dal quale", {"accept": ["dalla quale"], "hint": "da + la"}, {"accept": ["dai quali"]}, {"accept": ["dalle quali"]}]},
-            {"label": "in", "cells": [{"accept": ["nel quale"]}, "nella quale", {"accept": ["nei quali"]}, {"accept": ["nelle quali"]}]},
-            {"label": "con", "cells": [{"accept": ["con il quale", "col quale"]}, {"accept": ["con la quale"]}, "con i quali", {"accept": ["con le quali"]}]}
+            {"label": "da", "cells": ["dal", {"accept": ["dalla"], "hint": "da + la"}, {"accept": ["dai"]}, {"accept": ["dalle"]}]},
+            {"label": "in", "cells": [{"accept": ["nel"]}, "nella", {"accept": ["nei"]}, {"accept": ["nelle"]}]},
+            {"label": "con", "cells": [{"accept": ["con il", "col"]}, {"accept": ["con la"]}, "con i", {"accept": ["con le"]}]}
           ],
           "explain": {
             "de": "**Präposition + Artikel + quale**\n- da + la quale → dalla quale\n- in + le quali → nelle quali\n- con bleibt getrennt: con la quale",

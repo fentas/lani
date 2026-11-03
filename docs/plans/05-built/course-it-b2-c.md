@@ -15,6 +15,7 @@ Every unit and page says it is machine-written (`review` names what most needs a
 - **alterati:** the forms accepted: casina, casuccia, casettina, paesetto, cagnino, cagnolo, tavolinetto, micino; risatona and giornataccia as natural words; tempino, tempone, incontento and ricontento as wrong options; sregolare and slegale as "doesn't fit here"; follemente and mediocremente aren't taught, and the rule says a vowel before -le, -re. German: Lausbub, Mandelnougat. Slovene: paglavec also means tadpole, so the table says "poredni fant, paglavec", while the page's title keeps paglavec; "narediš ljubke" for the dear forms.
 - **connettivi:** In base alle regole il mercato chiude alle due; Caro Franco + La as `almost`; per via, per colpa and a seguito accepted beside a causa; comunque, in più, e poi and naturalmente accepted in gaps; Il trattore Bruno l'ha riparato, Le sedie Marisa le porta; capitalised La, Le, Sua said to be "often"; Rispettosi and Tanti saluti accepted beside Cordiali and Distinti in a letter to the mayor. Gentile Sindaco for a mayor of any gender. German: Sehr geehrter Herr Bürgermeister assumes a man.
 - **Benché + the indicative: spoken, or wrong?** connettivi's print says ✗ benché piove → ✓ anche se piove under "Attenzione". It stays for now, whatever the answer; a spoken form is never wrong, so the answer decides whether it may stay.
+- **Offered as wrong across B2 and kept:** se + the conditional (se potrei, se avrei saputo: the outline and B1 say never) and disse che porterebbe. Is either said enough to come out? `nonstandard`, once it is in main, is the place for those that are, and for benché + the indicative, dassi and stassi typed.
 - **The Slovene examples** are mostly masculine, as B1's are.
 - **The supplement's new entries** (`it_cov_32_b2c.txt`, `it_cov_33_b2c.txt`, 100 entries in three bases), most of all the Slovene: ovčja staja, raznašalec pisem, dati si narediti, povrhu tega.
 
@@ -40,7 +41,7 @@ Slovene's B2 and Italian's B1 have 5–6 steps, 27–31 worksheet items and test
 
 **The audience** stays the course's: German first with du, the Friuli village's adults and children, nothing frightening. It is real B2: the letter is to the mayor, the rule says what a book says, and only what is for books is marked as to recognise (vistolo, vendesi).
 
-**Assumes** A1, A2, B1 and B2's units before it in the outline. Around a gap they use B1 lightly and B2's first twelve hardly at all (one se piovesse on a page's example, one qualunque cosa tu faccia as this unit's own). No page of B2's other parts is named.
+**Assumes** A1, A2, B1 and B2's units before it in the outline. Around a gap they use B1 lightly and B2's first twelve hardly at all (one se piovesse on a page's example, one qualunque cosa tu faccia as this unit's own). No unit here names a page of parts a or b; their pages' `see` link to them.
 
 **New grammar pages** (`companion/grammar/it/`, B2, each with its own card): `infinito-passato`, `participio-assoluto`, `fare-lasciare`, `passivo-venire-andare`, `relativi-il-quale`, `alterati`, `connettivi`, each the book's usual size (a rule of about 1,000 to 1,200 characters a base, nine or ten rows, eight to twelve examples). Italian's pages until now had no card of their own; these seven are the first, as the brief asks.
 
@@ -60,7 +61,7 @@ Slovene's B2 and Italian's B1 have 5–6 steps, 27–31 worksheet items and test
 ## The read-aloud and the prints
 
 - **Read aloud:** every bold form of an explanation is Italian, shown by the intro or in `words`; German in italics. One question had a German prompt with the Italian in bold: the sentence of its answer was read in Elena's voice, German and all (the smoke caught it in English). It is an Italian question now.
-- **The prints:** `school-prints --language it --level B2` in de, sl and en: all six sheets take two pages and fit, the booklet 14 pages. On the rule line every step keeps its point, as the smoke checks, and no word lacks a meaning. Checked on the previews of connettivi and infinito-passato. They are numbered 1–6 until parts a and b are in.
+- **The prints:** `school-prints --language it --level B2` in de, sl and en: all six sheets take two pages and fit, the booklet 14 pages. On the rule line every step keeps its point, as the smoke checks, and no word lacks a meaning. Checked on the previews of connettivi and infinito-passato. They are numbered 13–18 with parts a and b in.
 
 ## How it was written
 
@@ -71,14 +72,28 @@ This branch wrote units 13–15 and gave 16–18 to a helper with the same brief
 - **The right answer was always first:** all 75 choices had `answer: 0`, and the app shows options in the file's order. Each is rotated now, the answers at 19, 31 and 25 in the three places. Every course has the same, B1's 164 of 165 choices among them; the lead has given that to a separate branch, which makes the app and the prints order a choice's options themselves, so nothing else was rotated.
 - **Smaller:** a hint that spelt the distractor (-le + mente), a hint that named the answer (avere → ?), "warmen Teller" for un piatto caldo, Slovene "poljubiš" (kiss) for the dear forms, Mi piace il vino in a child's first person, bold sentences with no meaning after them (added).
 
+## Integration
+
+This branch took parts a and b and main by merges, in that order.
+
+- **Grading settled:** part a's thirty plain `ending_swaps` for another conjugation's vowel came out, as they made a child's nouns wrong for one vowel. Part b's paired `wrong` rules on a stem of three letters or more (or av, st, d) cover the same mistakes (`ItalianB2bContentTest`: sessi, fiste, treste, clesse stay slips, dormesse and stassi stay wrong). foste, deste, desti and dessi keep one version of each pair.
+- **The supplement rebuilt once** from all three parts' tables, from the file before supplement-it: 2,026 entries. Nothing of a's, b's, c's or main's is lost, checked lemma by lemma and form by form against each. Two parts listed lavoro (one line kept, the fuller). pur's meanings now say which, as it shared its prompt with benché and sebbene (0 clashes). Main's three entries added by hand (licôf, villotta, fiaccola) have table lines now, so a rebuild keeps them; fiaccola's meaning is told apart from the pack's torcia ("flaming torch", "brennende Fackel", "goreča bakla"), and licôfs, in no content, isn't kept as a form.
+- **Forms people say out of the choices:** benché's è, sebbene's era and ha and the bank's piove, replaced by forms nobody says (siano, fossero, abbiano, pioverebbe); gerundio-passato's three dangling sentences, now "who did it?"; raccontare's partirà, now partirono. A check of all 18 units' choices against the three native lists found no others. `congiunzioni-congiuntivo` no longer says "always". Typed in a gap these are unchanged.
+- **Once merged:** `congiuntivo-imperfetto` on `se-potessi`, `congiuntivo-trapassato` on `se-avessi-saputo`, in the unit and the outline; `see` between the parts' pages.
+- **A table's cell short:** viene-aperto's and il-quale's asked for whole forms that don't fit a phone's field; they ask for the helper and for the preposition now.
+- **Docs:** COURSE.md "The Italian course: B2", the README's counts and known mistakes, module-spec, GAME.md. Italian has 70 pages (15 A1, 19 A2, 18 B1, 18 B2) and 18 units at each level, none planned.
+
 ## Tests
 
-To be repeated in full once parts a and b are integrated (the full Android suite, Python, the emulator QA are for then).
+On the merged branch:
 
-- **Format:** `validateGrammar` and `validateUnit` in de, sl and en for all of it; `bunx tsc --noEmit -p .` clean.
-- **The smoke** (`LANI_SMOKE_PORT=10010`, `LANI_SMOKE_FRIULI_PORT=10013`, `LANI_SMOKE_TOWN_PORT=10015`, `LANI_SMOKE_DRAMA3_PORT=10028`): all 3,514 checks passed, among them the course, grammar, course-speech, friuli and prints sections and the prompt clashes. `tutor-export --check`: 89 files match the bridge.
-- **The app**, through lani-slot.sh: `ItalianB2cContentTest` (6 tests, new), `ItalianCourseContentTest`, `SchoolBoardTest`, `GrammarTest`, `GradingLanguagesTest`, `GradingTest`, `IntroSpeech*`, `SentenceGrammarTest`, `CourseTest`: 147 tests, none failed.
-- **Prints:** above.
+- **Parse:** `bun build --no-bundle` on the merged TypeScript test files; `bunx tsc --noEmit -p .` clean.
+- **The smoke** (`LANI_SMOKE_PORT=10010`, `LANI_SMOKE_FRIULI_PORT=10013`, `LANI_SMOKE_TOWN_PORT=10015`, `LANI_SMOKE_DRAMA3_PORT=10028`): all 3,539 checks passed. `tutor-export` then `--check`: 89 files match the bridge. `prompt-clashes`: at the baseline.
+- **The whole Android suite** through lani-slot.sh: 3,833 tests in 491 classes, 1 failed: part b's test that no unit names another part's page, which the "once merged" pages end by design. It now pins those pages; `ItalianB2*` and `ItalianCourseContentTest` after it: 31 tests, none failed.
+- **Python:** `tests` 253 OK; `companion/tests` 151 OK (11 skipped).
+- **Prints:** `school-prints --language it --level all` in de, sl and en: every sheet fits, no word without a meaning. B2's booklet 38 pages in each.
+- **Coverage:** `lexicon-build --coverage --lang it`: 99.8 % of the words met, 98.1 % of the different words, 88 left. Main alone: 99.7 %, 96.6 %, 151 left, after the culture content merged there since. What's left is mostly that content's (pista, drappo, medioevo), not the course's: for its own round.
+- **Emulator QA** through `qa-slot` (slot 1), a synthetic Teo, `LANI_QA_COURSE_UNIT=viene-aperto`, `--steps course-unit`: setup, course-unit and the crash check ok: the six steps with their questions, the summary card, the sheets, the test passed, the next unit named, the sheet printed. Shots: scratchpad `ux-course-it-b2-c/qa/`. Checked by eye: the table, with every cell in its field, and the summary. **`friuli-school-unit` fails on any B2 unit** (its `school:reveal` state goes up to B1); `course-unit` is the step for B2.
 
 ## Voice
 
@@ -86,7 +101,7 @@ Nothing voiced, no credits spent. A voice build of these six units would take ab
 
 ## What's left
 
-- **Part c's integration**, when the lead says: parts a and b, then COURSE.md, the README, the page counts and the course's content test; the full Android suite, Python and a short emulator QA of one unit and its print, none of them run yet.
+- **`nonstandard`** isn't in main yet: a later pass for what a native says people say (benché + the indicative typed, dassi, stassi).
+- **The numbering of the prints** is 1–18 now.
 - **The "once merged, also" column:** none of these six has an entry.
-- **`see` on these pages** can name parts a's and b's pages once merged (`infinito-passato` and `gerundio-passato`, `relativi-il-quale` and `congiunzioni-congiuntivo`).
 - **Machine-written:** every unit and page, until a native speaker has read them.
