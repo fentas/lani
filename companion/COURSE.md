@@ -382,7 +382,8 @@ them once every phone has an app that plays them.
 ```
 
 - `instruction`: the one instruction for the whole list ("Postavi v preteklik · Put it in the past", "V množino · Into the
-  plural"); `cue` (optional): shown between each line and its answer ("(preteklik)").
+  plural"); `cue` (optional): shown between each line and its answer ("→ (preteklik)"). The app draws the arrow, so
+  a cue that opens with one is refused (it would read "→ (→)"); one inside it is meaning (`hoče → gre`). Nothing to name, no cue.
 - `items`: 2–12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `spoken`, `hint`,
   `explain`, `grammar`, and `lemma`/`form` as in a table.
 - Each line typed whole, graded on its own.
