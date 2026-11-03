@@ -366,6 +366,56 @@ class TurnHintTest {
         assertTrue("$triggered of $cased case turns name what decides their form", triggered * 10 >= cased * 7)
     }
 
+    @Test fun `a name is who does it, Micka in Luka are two, and a tie takes the word a rule names`() {
+        val sl = DialogLine(choices = listOf(DialogChoice("Micka kuha juho.", ok = true), wrong("Micka kuham juho.", "glagoli-sedanjik")))
+        assertNull(TurnHints.of(sl, "sl", page)!!.trigger) // no cast: a word at the start is no one
+        assertEquals(Trigger.Cue("Micka", 0, Trigger.Cue.Kind.WHO), TurnHints.of(sl, "sl", listOf("Babica Micka"), page)!!.trigger)
+        val two = DialogLine(choices = listOf(DialogChoice("Micka in Luka gresta domov.", ok = true), wrong("Micka in Luka gremo domov.", "dvojina")))
+        assertEquals("Micka in Luka", TurnHints.of(two, "sl", listOf("Micka", "Luka"), page)!!.trigger!!.word)
+        // the tie: a wrong choice of meaning at one word (devet), one of a page at another (jajce): the gap is the page's word
+        val tie = DialogLine(choices = listOf(DialogChoice("Deset jajc, prosim.", ok = true), DialogChoice("Devet jajc, prosim.", why = "Nine?"), wrong("Deset jajce, prosim.", "stevila-samostalniki")))
+        assertEquals("Deset", Forms.turn(tie.choices.map { it.sl }, 0)!!.gap.word) // the texts alone: the first one's word, as before
+        assertEquals("jajc", Forms.turn(tie, 0)!!.gap.word)
+        assertEquals("jajc", TurnHints.of(tie, "sl", page)!!.right.single())
+    }
+
+    /**
+     * What the tie and the cast change for Slovene's curated turns (docs/plans/05-built/hint-chip-en.md): the turns whose
+     * gap moves to the word a rule names, and those whose hint names a person now; every such turn's first line goes to
+     * build/reports/hints/sl-changes.txt for a reader.
+     */
+    @Test fun `what the tie and the cast change for Slovene's curated turns`() {
+        val root = listOf(File("../.."), File(".."), File("companion")).first { File(it, "scenes").isDirectory }
+        val files = File(root, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList() +
+            File(root, "cultures").listFiles().orEmpty().flatMap { File(it, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList() }
+        val report = mutableListOf<String>()
+        var moved = 0
+        var named = 0
+        var turns = 0
+        for (s in files.map { parseScene(it.readText()) }.filter { it.language == "sl" }) {
+            val cast = s.people.map { it.name }
+            for (d in s.dialogs) for (line in d.lines.filter { it.choices.size >= 2 }) {
+                turns++
+                val right = line.choices.indexOfFirst { it.ok }.takeIf { line.choices.count { c -> c.ok } == 1 } ?: continue
+                val old = Forms.turn(line.choices.map { it.sl }, right)
+                val now = Forms.turn(line, right)
+                if (old?.gap?.slot != now?.gap?.slot) {
+                    moved++
+                    report += "moved | ${s.id}/${d.id} | ${line.choices[right].sl} | ${old?.gap?.word} → ${now?.gap?.word}"
+                }
+                val bare = TurnHints.of(line, "sl", page)?.trigger
+                val h = TurnHints.of(line, "sl", cast, page) ?: continue
+                if (h.trigger != bare) {
+                    named++
+                    assertTrue("${s.id}: ${h.trigger}", h.trigger is Trigger.Cue && (h.trigger as Trigger.Cue).kind == Trigger.Cue.Kind.WHO)
+                    report += "named | ${s.id}/${d.id} | ${line.choices[right].sl} | ${TurnHints.text(h, page).lines.firstOrNull()}"
+                }
+            }
+        }
+        File("build/reports/hints").apply { mkdirs() }.resolve("sl-changes.txt").writeText(report.joinToString("\n") + "\n")
+        println("Slovene: $turns turns; the tie moves the gap of $moved, the cast names who does it at $named")
+    }
+
     private val CASE_PAGES = setOf(
         "stevila-samostalniki", "rodilnik-kolicina", "rodilnik-nikalnica", "rodilnik-predlogi", "kje-mestnik-orodnik", "kam-tozilnik", "orodnik", "dajalnik",
     )

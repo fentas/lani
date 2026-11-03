@@ -111,25 +111,25 @@ object ItalianHints {
     /**
      * The hint of an Italian turn: its first page this table has ([TurnHint.pages], those the book has), with that page's
      * question, rule and models (all of them: the caller keeps those that show no form of the turn), and what decides the
-     * form in [sentence] at its gap [slot] (the turn's right choice; null: a turn that isn't one word's form). Null when
-     * no page of the turn is here.
+     * form in [sentence] at its gap [slot] (the turn's right choice; null: a turn that isn't one word's form); [names]: the
+     * words of the cast's names ([TurnHints.names]), a name wherever it stands. Null when no page of the turn is here.
      */
-    fun of(base: TurnHint, sentence: String?, slot: Int?): Pair<String, TurnHint>? {
+    fun of(base: TurnHint, sentence: String?, slot: Int?, names: Set<String> = emptySet()): Pair<String, TurnHint>? {
         val id = base.pages.firstOrNull { it in RULES } ?: return null
         val rule = RULES.getValue(id)
-        val trigger = if (sentence != null && slot != null) triggerOf(rule.looks, sentence, slot, base) else null
+        val trigger = if (sentence != null && slot != null) triggerOf(rule.looks, sentence, slot, base, names) else null
         return id to base.copy(question = rule.question, rule = rule.text, trigger = trigger, models = rule.models)
     }
 
     /** What decides the form of the word at [slot] of [sentence], by the first of [looks] that finds it; null for none. */
-    fun triggerOf(looks: List<Look>, sentence: String, slot: Int, h: TurnHint): Trigger? {
-        val s = Said(sentence)
+    fun triggerOf(looks: List<Look>, sentence: String, slot: Int, h: TurnHint, names: Set<String> = emptySet()): Trigger? {
+        val s = Said(sentence, names)
         if (slot !in s.words.indices) return null
         return looks.firstNotNullOfOrNull { find(it, s, slot, h) }
     }
 
-    /** A sentence's words ([Forms.spans]), lower case, and which clause each is in ([CaseTriggers.clauses]). */
-    private class Said(val text: String) {
+    /** A sentence's words ([Forms.spans]), lower case, which clause each is in ([CaseTriggers.clauses]), and the cast's [names]. */
+    private class Said(val text: String, val names: Set<String> = emptySet()) {
         val spans = Forms.spans(text)
         val words = spans.map { it.value.lowercase().replace('’', '\'') }
         val clause = CaseTriggers.clauses(text)
@@ -396,10 +396,15 @@ object ItalianHints {
         return n.takeIf { it < w.size && s.same(it, k) && w[it] !in FUNCTION }
     }
 
-    /** A name: a word written with a capital in the middle of a sentence (Italian writes no common noun so), not Lei. */
+    /**
+     * A name: one of the cast's ([Said.names]) wherever it stands (Giulia è stanca.), or a word written with a capital in
+     * the middle of a sentence (Italian writes no common noun so); not Lei.
+     */
     private fun name(s: Said, k: Int): Boolean {
         val v = s.spans[k].value
-        if (k == 0 || !v.first().isUpperCase() || s.words[k] in POLITE) return false
+        if (s.words[k] in POLITE) return false
+        if (v in s.names) return true
+        if (k == 0 || !v.first().isUpperCase()) return false
         val gapBefore = s.text.substring(s.spans[k - 1].range.last + 1, s.spans[k].range.first)
         return gapBefore.none { it in ".!?…«\"" }
     }

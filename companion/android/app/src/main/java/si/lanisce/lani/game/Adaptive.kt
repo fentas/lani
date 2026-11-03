@@ -45,7 +45,7 @@ object Adaptive {
             val turn = line.choices
             if (line.tapTurn) return@mapNotNull null // a tap turn is chosen: tapped in the picture, or picked
             val right = turn.indexOfFirst { it.ok }.takeIf { r -> r >= 0 && turn.count { it.ok } == 1 } ?: return@mapNotNull null
-            val form = Forms.turn(turn.map { it.sl }, right) ?: return@mapNotNull null
+            val form = Forms.turn(line, right) ?: return@mapNotNull null
             val rules = form.wrong.map { turn[it].rule(line) }
             if (rules.any { it == null }) return@mapNotNull null
             val mode = Masteries.mode(rules.filterNotNull().distinct().map { levelOf(it) ?: Mastery.NEW }, canSay)
