@@ -379,16 +379,13 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        roll call on (no «Vedo, vedo» offered during it); "friuli-school-unit" (the same learner, a run of its
                        own: each is about 8 minutes) a unit end to end, $LANI_QA_IT_UNIT (ciao by default; an A2 unit
                        after the school with A1 done), kept done, then its sheet printed (fit.js as in Chromium, the PDF);
-<<<<<<< HEAD
                        both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "practice-it" (only when named, the same learner)
                        Italian's practice: the ✨ modules at the learner's level, a module's why in German, the numbers
                        (the ones first, half past as German counts it), the road without clips; also as pi-*.png in
                        $LANI_QA_PRACTICE_SHOTS; "practice-pace" (only when named) how the curated modules' requests reach a
-                       Teo at Vas on a tablet's size; also as pace-*.png in $LANI_QA_PACE_SHOTS; "course-unit" (only when named, with
-=======
-                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "school-board" (only with LANI_QA_SCHOOL_LEVEL=<level>; a learner as "course-unit"'s) the level's units all on the
+                       Teo at Vas on a tablet's size; also as pace-*.png in $LANI_QA_PACE_SHOTS;
+                       "school-board" (only with LANI_QA_SCHOOL_LEVEL=<level>; a learner as "course-unit"'s) the level's units all on the
                        school's screen, its folded list opened, sb-*.png in $LANI_QA_COURSE_SHOTS; "course-unit" (only when named, with
->>>>>>> parties-lakeland
                        LANI_QA_COURSE_UNIT=<unit>: a synthetic learner of the village's language in its culture, e.g. German in
                        Kärnten: LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en) that unit of the course end to end and its
                        sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "friuli-watchtower" (only when named; the same learner)
@@ -19086,11 +19083,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-<<<<<<< HEAD
         return [s for s in steps if s[0] not in ("hosted", "setup-tour", "practice-it", "practice-pace", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "tutor-language", "parity-small", "party") and s[4] != VOICES_GROUP]
-=======
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "party", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "tutor-language", "parity-small") and s[4] != VOICES_GROUP]
->>>>>>> parties-lakeland
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
