@@ -178,7 +178,7 @@
       "forms": { "peccato": null },
       "meanings": { "de": ["schade! (peccato che: schade, dass)"], "sl": ["škoda! (peccato che: škoda, da)"] } },
     { "lemma": "molto", "pos": "adv", "gloss": ["very; a lot (molti: many)"],
-      "forms": { "molto": "masculine singular", "molta": "feminine singular", "molti": "masculine plural" },
+      "forms": { "molte": "feminine plural", "molto": "masculine singular", "molta": "feminine singular", "molti": "masculine plural" },
       "meanings": { "de": ["sehr; viel (molti: viele)"], "sl": ["zelo; veliko (molti: mnogi)"] } },
     { "lemma": "adesso", "pos": "adv", "gloss": ["now"],
       "forms": { "adesso": null },
@@ -382,7 +382,7 @@
       "forms": { "forno": "singular" },
       "meanings": { "de": ["Backofen"], "sl": ["pečica"] } },
     { "lemma": "freddo", "pos": "noun", "gender": "m", "gloss": ["the cold (avere freddo: to be cold)"],
-      "forms": { "freddo": "singular" },
+      "forms": { "fredde": "feminine plural", "freddo": "singular" },
       "meanings": { "de": ["Kälte (avere freddo: frieren)"], "sl": ["mraz (avere freddo: zebsti)"] } },
     { "lemma": "frigo", "pos": "noun", "gender": "m", "gloss": ["fridge"],
       "forms": { "frigo": "singular; plural" },
@@ -711,7 +711,7 @@
       },
       "meanings": { "de": ["einschlafen"], "sl": ["zaspati"] } },
     { "lemma": "andare", "pos": "verb", "gloss": ["to go"],
-      "forms": {
+      "forms": { "andavo": "first-person singular imperfect",
         "vado": "first-person singular present", "vai": "second-person singular present; second-person singular imperative",
         "va": "third-person singular present", "andiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "andate": "second-person plural present; second-person plural imperative; feminine plural past participle", "vanno": "third-person plural present",
@@ -746,7 +746,7 @@
       },
       "meanings": { "de": ["ankommen"], "sl": ["priti, prispeti"] } },
     { "lemma": "ascoltare", "pos": "verb", "gloss": ["to listen (to)"],
-      "forms": {
+      "forms": { "ascoltava": "third-person singular imperfect",
         "ascolto": "first-person singular present", "ascolti": "second-person singular present; first/second/third-person singular present subjunctive",
         "ascolta": "third-person singular present; second-person singular imperative",
         "ascoltiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -843,13 +843,13 @@
       },
       "meanings": { "de": ["geben", "geben (dammi: gib mir; dargli: ihm geben)"], "sl": ["dati", "dati (dammi: daj mi; dargli: dati mu)"] } },
     { "lemma": "dimenticare", "pos": "verb", "gloss": ["to forget"],
-      "forms": {
+      "forms": { "dimentichi": "second-person singular present",
         "dimentico": "first-person singular present", "dimentica": "third-person singular present; second-person singular imperative",
         "dimenticare": "infinitive", "dimenticato": "past participle", "dimenticherò": "first-person singular future"
       },
       "meanings": { "de": ["vergessen"], "sl": ["pozabiti"] } },
     { "lemma": "dire", "pos": "verb", "gloss": ["to say, to tell"],
-      "forms": { "dico": "first-person singular present", "dici": "second-person singular present", "dice": "third-person singular present", "diciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "dite": "second-person plural present; second-person plural imperative", "dicono": "third-person plural present", "dicevo": "first-person singular imperfect", "diceva": "third-person singular imperfect", "dicevamo": "first-person plural imperfect", "dicevano": "third-person plural imperfect", "dirò": "first-person singular future", "direbbe": "third-person singular conditional", "disse": "third-person singular historic past", "dissero": "third-person plural historic past", "di'": "second-person singular imperative", "dire": "infinitive", "dicendo": "gerund", "detto": "past participle", "dimmi": "second-person singular imperative, with mi (me)", "dillo": "second-person singular imperative, with lo (it, him)", "dille": "second-person singular imperative, with le (them; to her)", "dimmelo": "second-person singular imperative, with me lo (it to me)", "diglielo": "second-person singular imperative, with glielo (it to him, to her)", "dirlo": "infinitive, with lo (it, him)", "dicendogli": "gerund, with gli (to him, to them)" },
+      "forms": { "dica": "first-, second- and third-person singular present subjunctive", "dico": "first-person singular present", "dici": "second-person singular present", "dice": "third-person singular present", "diciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "dite": "second-person plural present; second-person plural imperative", "dicono": "third-person plural present", "dicevo": "first-person singular imperfect", "diceva": "third-person singular imperfect", "dicevamo": "first-person plural imperfect", "dicevano": "third-person plural imperfect", "dirò": "first-person singular future", "direbbe": "third-person singular conditional", "disse": "third-person singular historic past", "dissero": "third-person plural historic past", "di'": "second-person singular imperative", "dire": "infinitive", "dicendo": "gerund", "detto": "past participle", "dimmi": "second-person singular imperative, with mi (me)", "dillo": "second-person singular imperative, with lo (it, him)", "dille": "second-person singular imperative, with le (them; to her)", "dimmelo": "second-person singular imperative, with me lo (it to me)", "diglielo": "second-person singular imperative, with glielo (it to him, to her)", "dirlo": "infinitive, with lo (it, him)", "dicendogli": "gerund, with gli (to him, to them)" },
       "meanings": { "de": ["sagen", "sagen (dimmi: sag mir)"], "sl": ["reči, povedati", "reči, povedati (dimmi: povej mi)"] } },
     { "lemma": "divertirsi", "pos": "verb", "gloss": ["to have fun"],
       "forms": {
@@ -888,7 +888,7 @@
       },
       "meanings": { "de": ["sein"], "sl": ["biti"] } },
     { "lemma": "fare", "pos": "verb", "gloss": ["to do, to make"],
-      "forms": {
+      "forms": { "facciate": "second-person plural present subjunctive",
         "faccio": "first-person singular present", "fai": "second-person singular present; second-person singular imperative",
         "fa": "third-person singular present",
         "facciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -967,7 +967,7 @@
       },
       "meanings": { "de": ["sich waschen"], "sl": ["umivati se"] } },
     { "lemma": "lavorare", "pos": "verb", "gloss": ["to work"],
-      "forms": {
+      "forms": { "lavorerà": "third-person singular future",
         "lavoro": "first-person singular present", "lavori": "second-person singular present; first/second/third-person singular present subjunctive",
         "lavora": "third-person singular present; second-person singular imperative",
         "lavoriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -1064,7 +1064,7 @@
       "forms": { "pizzico": "first-person singular present", "pizzicano": "third-person plural present", "pizzicare": "infinitive" },
       "meanings": { "de": ["zwicken"], "sl": ["ščipati"] } },
     { "lemma": "potere", "pos": "verb", "gloss": ["can, to be able to; may"],
-      "forms": {
+      "forms": { "potrò": "first-person singular future",
         "posso": "first-person singular present", "puoi": "second-person singular present", "può": "third-person singular present",
         "possiamo": "first-person plural present; first-person plural present subjunctive", "potete": "second-person plural present",
         "possono": "third-person plural present", "poteva": "third-person singular imperfect", "potrai": "second-person singular future",
@@ -1131,7 +1131,7 @@
       },
       "meanings": { "de": ["schenken"], "sl": ["podariti"] } },
     { "lemma": "restare", "pos": "verb", "gloss": ["to stay"],
-      "forms": {
+      "forms": { "restiate": "second-person plural present subjunctive", "resterei": "first-person singular conditional", "restassi": "first-person singular imperfect subjunctive",
         "resto": "first-person singular present", "resti": "second-person singular present; first/second/third-person singular present subjunctive",
         "resta": "third-person singular present; second-person singular imperative",
         "restiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -1144,7 +1144,7 @@
       "forms": { "ripeto": "first-person singular present", "ripeti": "second-person singular present; second-person singular imperative", "ripetere": "infinitive" },
       "meanings": { "de": ["wiederholen"], "sl": ["ponoviti"] } },
     { "lemma": "sapere", "pos": "verb", "gloss": ["to know; can (know how to)"],
-      "forms": {
+      "forms": { "saprebbe": "third-person singular conditional",
         "so": "first-person singular present", "sai": "second-person singular present", "sa": "third-person singular present",
         "sappiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "sapete": "second-person plural present", "sanno": "third-person plural present", "sapevo": "first-person singular imperfect",
@@ -1187,7 +1187,7 @@
       "forms": { "si sposarono": "third-person plural historic past", "sposarsi": "infinitive" },
       "meanings": { "de": ["heiraten"], "sl": ["poročiti se"] } },
     { "lemma": "stare", "pos": "verb", "gloss": ["to be; to stay (come stai?: how are you?)"],
-      "forms": {
+      "forms": { "staremo": "first-person plural future",
         "sto": "first-person singular present", "stai": "second-person singular present; second-person singular imperative",
         "sta": "third-person singular present", "stiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "state": "second-person plural present; second-person plural imperative; feminine plural past participle", "stanno": "third-person plural present",
@@ -1199,7 +1199,7 @@
       },
       "meanings": { "de": ["sein; bleiben (come stai?: wie geht's dir?)"], "sl": ["biti; ostati (come stai?: kako si?)"] } },
     { "lemma": "telefonare", "pos": "verb", "gloss": ["to phone, to call"],
-      "forms": {
+      "forms": { "telefonato": "past participle", "telefonavi": "second-person singular imperfect",
         "telefono": "first-person singular present", "telefoni": "second-person singular present; first/second/third-person singular present subjunctive",
         "telefona": "third-person singular present; second-person singular imperative", "telefonare": "infinitive",
         "telefonata": "feminine singular past participle"
@@ -1243,7 +1243,7 @@
       },
       "meanings": { "de": ["benutzen"], "sl": ["uporabljati"] } },
     { "lemma": "venire", "pos": "verb", "gloss": ["to come"],
-      "forms": {
+      "forms": { "verresti": "second-person singular conditional",
         "vengo": "first-person singular present", "vieni": "second-person singular present; second-person singular imperative",
         "viene": "third-person singular present",
         "veniamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -1258,7 +1258,7 @@
       },
       "meanings": { "de": ["kommen"], "sl": ["priti"] } },
     { "lemma": "vestirsi", "pos": "verb", "gloss": ["to get dressed"],
-      "forms": {
+      "forms": { "vestirmi": "infinitive, with mi (myself)",
         "mi vesto": "first-person singular present", "ti vesti": "second-person singular present", "si veste": "third-person singular present",
         "ci vestiamo": "first-person plural present; first-person plural present subjunctive", "vi vestite": "second-person plural present",
         "si vestono": "third-person plural present", "si è vestita": "third-person singular present perfect (feminine)", "vestirsi": "infinitive",
@@ -1277,7 +1277,7 @@
       "forms": { "ci vuole": "third-person singular present", "ci vogliono": "third-person plural present", "volerci": "infinitive" },
       "meanings": { "de": ["nötig sein, dauern (ci vuole un'ora: es dauert eine Stunde)"], "sl": ["biti potreben, trajati (ci vuole un'ora: traja eno uro)"] } },
     { "lemma": "volere", "pos": "verb", "gloss": ["to want"],
-      "forms": { "voglio": "first-person singular present", "vuoi": "second-person singular present", "vuole": "third-person singular present", "vogliamo": "first-person plural present; first-person plural present subjunctive", "volete": "second-person plural present", "vogliono": "third-person plural present", "volevo": "first-person singular imperfect", "voleva": "third-person singular imperfect", "volevano": "third-person plural imperfect", "vorrà": "third-person singular future", "vorrei": "first-person singular conditional", "vorresti": "second-person singular conditional", "vorrebbe": "third-person singular conditional", "vorremmo": "first-person plural conditional", "vorreste": "second-person plural conditional", "vorrebbero": "third-person plural conditional", "voglia": "first/second/third-person singular present subjunctive", "volere": "infinitive", "voluto": "past participle", "volerci": "infinitive, with ci (us; there)", "vuol": "third-person singular present, before a consonant" },
+      "forms": { "vorrò": "first-person singular future", "vorremo": "first-person plural future", "voglio": "first-person singular present", "vuoi": "second-person singular present", "vuole": "third-person singular present", "vogliamo": "first-person plural present; first-person plural present subjunctive", "volete": "second-person plural present", "vogliono": "third-person plural present", "volevo": "first-person singular imperfect", "voleva": "third-person singular imperfect", "volevano": "third-person plural imperfect", "vorrà": "third-person singular future", "vorrei": "first-person singular conditional", "vorresti": "second-person singular conditional", "vorrebbe": "third-person singular conditional", "vorremmo": "first-person plural conditional", "vorreste": "second-person plural conditional", "vorrebbero": "third-person plural conditional", "voglia": "first/second/third-person singular present subjunctive", "volere": "infinitive", "voluto": "past participle", "volerci": "infinitive, with ci (us; there)", "vuol": "third-person singular present, before a consonant" },
       "meanings": { "de": ["wollen", "wollen (vuol dire: bedeutet)"], "sl": ["hoteti", "hoteti (vuol dire: pomeni)"] } },
     { "lemma": "andarsene", "pos": "verb", "gloss": ["to go away, to leave"],
       "forms": {
@@ -1490,7 +1490,7 @@
       },
       "meanings": { "de": ["servieren; nötig sein"], "sl": ["postreči; biti potreben"] } },
     { "lemma": "rimanere", "pos": "verb", "gloss": ["to stay, to be left"],
-      "forms": {
+      "forms": { "rimane": "third-person singular present",
         "rimasto": "past participle", "rimasta": "past participle, feminine", "rimasti": "past participle, plural",
         "rimaste": "past participle, feminine plural", "rimangono": "third-person plural present", "rimase": "third-person singular historic past",
         "rimanere": "infinitive"
@@ -1504,7 +1504,7 @@
       },
       "meanings": { "de": ["abnehmen, wegnehmen"], "sl": ["sneti, odvzeti"] } },
     { "lemma": "diventare", "pos": "verb", "gloss": ["to become"],
-      "forms": {
+      "forms": { "divento": "first-person singular present",
         "diventato": "past participle", "diventati": "past participle, plural",
         "diventi": "second-person singular present; first/second/third-person singular present subjunctive",
         "diventa": "third-person singular present; second-person singular imperative",
@@ -2581,7 +2581,7 @@
       "forms": { "ballo": "singular", "balli": "plural" },
       "meanings": { "de": ["Tanz"], "sl": ["ples"] } },
     { "lemma": "bambina", "pos": "noun", "gender": "f", "gloss": ["little girl"],
-      "forms": { "bambina": "singular" },
+      "forms": { "bambine": "plural", "bambina": "singular" },
       "meanings": { "de": ["kleines Mädchen"], "sl": ["deklica"] } },
     { "lemma": "barba", "pos": "noun", "gender": "f", "gloss": ["beard"],
       "forms": { "barba": "singular" },
@@ -4779,7 +4779,7 @@
       "forms": { "saggio": "masculine singular", "saggia": "feminine singular" },
       "meanings": { "de": ["weise"], "sl": ["moder, pameten"] } },
     { "lemma": "salato", "pos": "adj", "gloss": ["salty"],
-      "forms": { "salato": "masculine singular" },
+      "forms": { "salata": "feminine singular", "salato": "masculine singular" },
       "meanings": { "de": ["salzig"], "sl": ["slan"] } },
     { "lemma": "saltellante", "pos": "adj", "gloss": ["hopping"],
       "forms": { "saltellante": "singular" },
@@ -4809,7 +4809,7 @@
       "forms": { "scolpito": "masculine singular" },
       "meanings": { "de": ["geschnitzt, gemeißelt"], "sl": ["izklesan, izrezljan"] } },
     { "lemma": "scorso", "pos": "adj", "gloss": ["last, past (l'anno scorso: last year)"],
-      "forms": { "scorso": "masculine singular" },
+      "forms": { "scorsa": "feminine singular", "scorso": "masculine singular" },
       "meanings": { "de": ["vergangen (l'anno scorso: letztes Jahr)"], "sl": ["pretekli (l'anno scorso: lani)"] } },
     { "lemma": "scuro", "pos": "adj", "gloss": ["dark"],
       "forms": { "scuro": "masculine singular", "scura": "feminine singular" },
@@ -4987,7 +4987,7 @@
       "forms": { "coperto": "masculine singular", "coperta": "feminine singular", "coperte": "feminine plural" },
       "meanings": { "de": ["bedeckt (al coperto: unter Dach)"], "sl": ["pokrit (al coperto: pod streho)"] } },
     { "lemma": "abbaiare", "pos": "verb", "gloss": ["to bark"],
-      "forms": {
+      "forms": { "abbaio": "first-person singular present",
         "abbaia": "third-person singular present; second-person singular imperative", "abbaiano": "third-person plural present",
         "abbaiava": "third-person singular imperfect", "abbaiare": "infinitive", "abbaiato": "past participle"
       },
@@ -5004,7 +5004,7 @@
       },
       "meanings": { "de": ["anzünden, einschalten"], "sl": ["prižgati"] } },
     { "lemma": "alzarsi", "pos": "verb", "gloss": ["to get up"],
-      "forms": {
+      "forms": { "alzata": "feminine singular past participle",
         "mi alzo": "first-person singular present", "ti alzi": "second-person singular present; second-person singular present subjunctive",
         "si alza": "third-person singular present", "ci alziamo": "first-person plural present; first-person plural present subjunctive",
         "vi alzate": "second-person plural present", "si alzano": "third-person plural present", "alzarmi": "infinitive, with mi (myself)",
@@ -5070,7 +5070,7 @@
       },
       "meanings": { "de": ["schlagen"], "sl": ["tolči, udarjati"] } },
     { "lemma": "bere", "pos": "verb", "gloss": ["to drink"],
-      "forms": {
+      "forms": { "bevevamo": "first-person plural imperfect", "bevano": "third-person plural present subjunctive",
         "bevo": "first-person singular present", "bevi": "second-person singular present; second-person singular imperative",
         "beve": "third-person singular present",
         "beviamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -5172,13 +5172,13 @@
       "forms": { "cova": "third-person singular present; second-person singular imperative", "covare": "infinitive" },
       "meanings": { "de": ["glimmen"], "sl": ["tleti"] } },
     { "lemma": "crescere", "pos": "verb", "gloss": ["to grow (the moon: to wax)"],
-      "forms": {
+      "forms": { "cresco": "first-person singular present",
         "cresce": "third-person singular present", "crescono": "third-person plural present", "crescere": "infinitive", "cresciuto": "past participle",
         "cresciuta": "feminine singular past participle", "cresciuti": "masculine plural past participle"
       },
       "meanings": { "de": ["wachsen, zunehmen"], "sl": ["rasti, naraščati"] } },
     { "lemma": "cucinare", "pos": "verb", "gloss": ["to cook"],
-      "forms": {
+      "forms": { "cucinerà": "third-person singular future",
         "cucino": "first-person singular present", "cucini": "second-person singular present; first/second/third-person singular present subjunctive",
         "cucina": "third-person singular present; second-person singular imperative",
         "cuciniamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -5195,7 +5195,7 @@
       },
       "meanings": { "de": ["zeichnen, malen"], "sl": ["risati"] } },
     { "lemma": "dormire", "pos": "verb", "gloss": ["to sleep"],
-      "forms": {
+      "forms": { "dormiremmo": "first-person plural conditional",
         "dormo": "first-person singular present", "dormi": "second-person singular present; second-person singular imperative",
         "dorme": "third-person singular present",
         "dormiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -5291,7 +5291,7 @@
       },
       "meanings": { "de": ["mahlen"], "sl": ["mleti"] } },
     { "lemma": "mangiare", "pos": "verb", "gloss": ["to eat"],
-      "forms": {
+      "forms": { "mangiarli": "infinitive, with li (them)",
         "mangio": "first-person singular present", "mangi": "second-person singular present; first/second/third-person singular present subjunctive",
         "mangia": "third-person singular present; second-person singular imperative",
         "mangiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -5316,7 +5316,7 @@
       },
       "meanings": { "de": ["sich verstecken"], "sl": ["skriti se"] } },
     { "lemma": "nuotare", "pos": "verb", "gloss": ["to swim"],
-      "forms": {
+      "forms": { "nuotato": "past participle",
         "nuoto": "first-person singular present", "nuoti": "second-person singular present; first/second/third-person singular present subjunctive",
         "nuota": "third-person singular present; second-person singular imperative",
         "nuotiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -5546,7 +5546,7 @@
       },
       "meanings": { "de": ["läuten, spielen (Musik)"], "sl": ["zvoniti, igrati (na glasbilo)"] } },
     { "lemma": "svegliarsi", "pos": "verb", "gloss": ["to wake up"],
-      "forms": {
+      "forms": { "svegliarti": "infinitive, with ti (yourself)",
         "mi sveglio": "first-person singular present", "ti svegli": "second-person singular present; second-person singular present subjunctive",
         "si sveglia": "third-person singular present", "ci svegliamo": "first-person plural present; first-person plural present subjunctive",
         "vi svegliate": "second-person plural present; second-person plural present subjunctive", "si svegliano": "third-person plural present",
@@ -5613,7 +5613,7 @@
       },
       "meanings": { "de": ["finden"], "sl": ["najti"] } },
     { "lemma": "uscire", "pos": "verb", "gloss": ["to go out"],
-      "forms": {
+      "forms": { "esca": "first-, second- and third-person singular present subjunctive",
         "esco": "first-person singular present", "esci": "second-person singular present; second-person singular imperative",
         "esce": "third-person singular present",
         "usciamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -5816,7 +5816,7 @@
       },
       "meanings": { "de": ["ändern, wechseln"], "sl": ["spremeniti, zamenjati"] } },
     { "lemma": "camminare", "pos": "verb", "gloss": ["to walk, to go on foot"],
-      "forms": {
+      "forms": { "camminati": "masculine plural past participle",
         "cammino": "first-person singular present", "cammini": "second-person singular present; first/second/third-person singular present subjunctive",
         "cammina": "third-person singular present; second-person singular imperative",
         "camminiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -5841,7 +5841,7 @@
       "forms": { "compiere": "infinitive", "compiuto": "past participle" },
       "meanings": { "de": ["(ein Alter) erreichen, vollenden (compiere ottant'anni: 80 werden)"], "sl": ["dopolniti (leta)"] } },
     { "lemma": "comprare", "pos": "verb", "gloss": ["to buy"],
-      "forms": {
+      "forms": { "compreremmo": "first-person plural conditional",
         "compro": "first-person singular present", "compri": "second-person singular present; first/second/third-person singular present subjunctive",
         "compra": "third-person singular present; second-person singular imperative",
         "compriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
@@ -6172,7 +6172,7 @@
       "forms": { "monti": "second-person singular present; first/second/third-person singular present subjunctive", "montare": "infinitive", "montato": "past participle" },
       "meanings": { "de": ["aufbauen, montieren"], "sl": ["sestaviti, postaviti"] } },
     { "lemma": "muovere", "pos": "verb", "gloss": ["to move"],
-      "forms": { "muove": "third-person singular present", "muovono": "third-person plural present", "muovere": "infinitive" },
+      "forms": { "muovo": "first-person singular present", "muove": "third-person singular present", "muovono": "third-person plural present", "muovere": "infinitive" },
       "meanings": { "de": ["bewegen, in Bewegung setzen"], "sl": ["premikati, premakniti"] } },
     { "lemma": "muoversi", "pos": "verb", "gloss": ["to move, to stir"],
       "forms": { "si muove": "third-person singular present", "si muovono": "third-person plural present", "muoversi": "infinitive" },
@@ -6234,7 +6234,7 @@
       },
       "meanings": { "de": ["vorbeigehen, vorbeikommen", "reichen (passami: gib mir)", "verbringen (Zeit)"], "sl": ["iti mimo", "podati (passami: podaj mi)", "preživeti (čas)"] } },
     { "lemma": "perdere", "pos": "verb", "gloss": ["to lose"],
-      "forms": {
+      "forms": { "perdi": "second-person singular present; second-person singular imperative",
         "perde": "third-person singular present", "perdeva": "third-person singular imperfect", "perdere": "infinitive", "perso": "past participle",
         "persa": "feminine singular past participle", "perduto": "past participle"
       },
@@ -6256,7 +6256,7 @@
       },
       "meanings": { "de": ["kämmen, frisieren"], "sl": ["česati"] } },
     { "lemma": "piacere", "pos": "verb", "gloss": ["to be liked (mi piace: I like it)"],
-      "forms": {
+      "forms": { "piacciamo": "first-person plural present",
         "piaccio": "first-person singular present", "piaci": "second-person singular present; second-person singular imperative",
         "piace": "third-person singular present", "piacciono": "third-person plural present", "piacerà": "third-person singular future",
         "piacerei": "first-person singular conditional", "piaceresti": "second-person singular conditional", "piacerebbe": "third-person singular conditional",
@@ -6338,7 +6338,7 @@
       },
       "meanings": { "de": ["versuchen, probieren"], "sl": ["poskusiti, preizkusiti"] } },
     { "lemma": "pulire", "pos": "verb", "gloss": ["to clean, to make clean"],
-      "forms": {
+      "forms": { "puliamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "pulisco": "first-person singular present", "pulisci": "second-person singular present; second-person singular imperative",
         "pulisce": "third-person singular present", "pulite": "second-person plural present; second-person plural imperative; feminine plural past participle",
         "pulire": "infinitive", "pulito": "past participle", "pulita": "feminine singular past participle", "puliti": "masculine plural past participle"
@@ -6672,7 +6672,7 @@
       },
       "meanings": { "de": ["ausbreiten, ausrollen, aufhängen (Wäsche)"], "sl": ["razgrniti, razvaljati, obesiti (perilo)"] } },
     { "lemma": "stirare", "pos": "verb", "gloss": ["to iron, to press"],
-      "forms": { "stiriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "stirare": "infinitive" },
+      "forms": { "stirano": "third-person plural present", "stiriamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "stirare": "infinitive" },
       "meanings": { "de": ["bügeln"], "sl": ["likati"] } },
     { "lemma": "strofinare", "pos": "verb", "gloss": ["to rub"],
       "forms": { "strofina": "third-person singular present; second-person singular imperative", "strofinare": "infinitive" },
@@ -6755,7 +6755,7 @@
       },
       "meanings": { "de": ["Trauben lesen"], "sl": ["trgati grozdje"] } },
     { "lemma": "vendere", "pos": "verb", "gloss": ["to sell"],
-      "forms": {
+      "forms": { "venderà": "third-person singular future", "venda": "first-, second- and third-person singular present subjunctive",
         "vende": "third-person singular present",
         "vendiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "vendono": "third-person plural present", "vendeva": "third-person singular imperfect", "vendere": "infinitive", "venduto": "past participle"
@@ -6855,6 +6855,48 @@
       "meanings": { "de": ["Vergangenheit"], "sl": ["preteklost, preteklik"] } },
     { "lemma": "fermo", "pos": "adj", "gloss": ["still, not moving"],
       "forms": { "fermo": "masculine singular", "ferma": "feminine singular", "fermi": "masculine plural" },
-      "meanings": { "de": ["still, reglos"], "sl": ["negiben, pri miru"] } }
+      "meanings": { "de": ["still, reglos"], "sl": ["negiben, pri miru"] } },
+    { "lemma": "ottobre", "pos": "noun", "gender": "m", "gloss": ["October"],
+      "forms": {"ottobre": "singular"},
+      "meanings": {"de": ["Oktober"], "sl": ["oktober"]} },
+    { "lemma": "pizza", "pos": "noun", "gender": "f", "gloss": ["pizza"],
+      "forms": {"pizza": "singular", "pizze": "plural"},
+      "meanings": {"de": ["Pizza"], "sl": ["pica"]} },
+    { "lemma": "capo", "pos": "noun", "gender": "m", "gloss": ["head; boss"],
+      "forms": {"capo": "singular", "capi": "plural"},
+      "meanings": {"de": ["Kopf; Chef"], "sl": ["glava; šef"]} },
+    { "lemma": "motore", "pos": "noun", "gender": "m", "gloss": ["engine, motor"],
+      "forms": {"motore": "singular", "motori": "plural"},
+      "meanings": {"de": ["Motor"], "sl": ["motor"]} },
+    { "lemma": "manica", "pos": "noun", "gender": "f", "gloss": ["sleeve"],
+      "forms": {"manica": "singular", "maniche": "plural"},
+      "meanings": {"de": ["Ärmel"], "sl": ["rokav"]} },
+    { "lemma": "trasformazione", "pos": "noun", "gender": "f", "gloss": ["a change, a transformation"],
+      "forms": {"trasformazione": "singular", "trasformazioni": "plural"},
+      "meanings": {"de": ["Umwandlung"], "sl": ["preobrazba"]} },
+    { "lemma": "negativo", "pos": "adj", "gloss": ["negative (a sentence with non)"],
+      "forms": {"negativo": "masculine singular", "negativa": "feminine singular"},
+      "meanings": {"de": ["verneint (ein Satz mit non)"], "sl": ["nikalen (poved z non)"]} },
+    { "lemma": "improvvisamente", "pos": "adv", "gloss": ["suddenly"],
+      "forms": {"improvvisamente": ""},
+      "meanings": {"de": ["plötzlich"], "sl": ["nenadoma"]} },
+    { "lemma": "soprattutto", "pos": "adv", "gloss": ["above all"],
+      "forms": {"soprattutto": ""},
+      "meanings": {"de": ["vor allem"], "sl": ["predvsem"]} },
+    { "lemma": "dopodomani", "pos": "adv", "gloss": ["the day after tomorrow"],
+      "forms": {"dopodomani": ""},
+      "meanings": {"de": ["übermorgen"], "sl": ["pojutrišnjem"]} },
+    { "lemma": "sebbene", "pos": "conj", "gloss": ["although (with the subjunctive)"],
+      "forms": {"sebbene": ""},
+      "meanings": {"de": ["obwohl (mit dem Konjunktiv)"], "sl": ["čeprav (s konjunktivom)"]} },
+    { "lemma": "trentuno", "pos": "num", "gloss": ["thirty-one"],
+      "forms": {"trentuno": ""},
+      "meanings": {"de": ["einunddreißig"], "sl": ["enaintrideset"]} },
+    { "lemma": "preoccupare", "pos": "verb", "gloss": ["to worry"],
+      "forms": {"preoccupa": "third-person singular present"},
+      "meanings": {"de": ["beunruhigen, Sorgen machen"], "sl": ["skrbeti, delati skrbi"]} },
+    { "lemma": "allontanarsi", "pos": "verb", "gloss": ["to move away"],
+      "forms": {"mi allontano": "first-person singular present", "allontano": "first-person singular present"},
+      "meanings": {"de": ["sich entfernen"], "sl": ["oddaljiti se"]} }
   ]
 }
