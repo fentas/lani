@@ -177,8 +177,23 @@ drills aren't tapped (the car's screen), so their words weren't added.
 
 ## Checks
 
-See the report's "Checks" (the commit tip): tsc, the smoke (its practice and kaernten sections), `tutor-export --check`,
-`bun test/check-practice.ts de`, the Android suite through lani-slot.sh, the Python tests, QA through qa-slot.
+On the merge with main e6209062 (b5a8dab3):
+
+- Bridge: `tsc`; the smoke, all checks passed (3,729), its practice section for German (23 checks of modules and drills) and
+  kaernten's serving (one module at first, in the learner's Slovene; the four drills); `tutor-export --check` (140 files);
+  `bun test/check-practice.ts de` all good; each touched TypeScript test file built.
+- Android: the full unit suite through lani-slot.sh, 4,119 tests, 0 failures. New: `NumbersGermanTest` (12), `GermanPracticeTest`
+  (7: every module parsed in sl, en and it; a run at each level A1 to B2; every typed answer right, an umlaut typed as ae almost;
+  no wrong option, multi option or chip what the grading table says people say; the drills bundled). `GermanPracticeTest` found one:
+  wann among the options of "Immer ___ es regnete" (fixed: ob).
+- Python: `tests` (253) and `companion/tests` (164).
+- QA through qa-slot (before the merge, on 36ad2a52's APK) on a synthetic Ana (de from sl, Kärnten): `--steps practice-de` ok,
+  screenshots pd-*.png: the ✨ tile "1 neu · 1 nov", the sheet with the level's first module (Hirte Florian's praesens: Opa Sepp and
+  Oma Resi hadn't moved in yet, so the pace took the first whose giver lives here), its card and a question's why in Slovene; the
+  numbers closed, the intro skipped, the note; "siebzig fünf" for 75 wrong with the ones first's why in Slovene; "um halb drei"
+  for 3:30 wrong with halb's why; 🔢 on Home.
+- Not run: the car on the emulator (no German clips: the road leaves the drills out, as for Italian), a number heard in German,
+  Teo's tablet size (no German village there).
 
 ## What's left
 
