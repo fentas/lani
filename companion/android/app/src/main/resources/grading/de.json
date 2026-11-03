@@ -153,6 +153,206 @@
     {
       "word": "nix",
       "for": "nichts"
+    },
+    {
+      "word": "ist|waere",
+      "for": "sei",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "sind|waeren",
+      "for": "seien",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "hat|haette",
+      "for": "habe",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "kann|koennte",
+      "for": "koenne",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "muss|muesste",
+      "for": "muesse",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "darf|duerfte",
+      "for": "duerfe",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "will|wollte",
+      "for": "wolle",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "weiss|wuesste",
+      "for": "wisse",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "wird|wuerde",
+      "for": "werde",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "kommt|kaeme",
+      "for": "komme",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "geht|ginge",
+      "for": "gehe",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "faehrt|fuehre",
+      "for": "fahre",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "gibt|gaebe",
+      "for": "gebe",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "bleibt|bliebe",
+      "for": "bleibe",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "arbeitet|arbeitete",
+      "for": "arbeite",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "braucht|braeuchte",
+      "for": "brauche",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "macht|machte",
+      "for": "mache",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "haben",
+      "for": "haetten",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "kommen",
+      "for": "kaemen",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "gehen",
+      "for": "gingen",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "koennen",
+      "for": "koennten",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "muessen",
+      "for": "muessten",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "wollen",
+      "for": "wollten",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "wissen",
+      "for": "wuessten",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "werden",
+      "for": "wuerden",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? (?!ich )[^ ]+ $"
+    },
+    {
+      "word": "soll|sollte",
+      "for": "solle",
+      "after": "(?<!\\p{L})(?:sag(?:t|en|te|ten)|gesagt|mein(?:t|en|te|ten)|gemeint|schreib(?:t|en)|schrieb(?:en)?|geschrieben|erz(?:ä|ae)hl(?:t|en|te|ten)|bericht(?:et|en|ete|eten)|erkl(?:ä|ae)r(?:t|en|te|ten)|behaupt(?:et|en|ete|eten)|antwort(?:et|en|ete|eten)|frag(?:t|en|te|ten)|gefragt|steht|hei(?:ß|ss)t)(?!\\p{L})(?: [^ ]+)*? [^ ]+ $"
+    },
+    {
+      "word": "ist",
+      "for": "waere",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "bist",
+      "for": "waerst",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "sind",
+      "for": "waeren",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "hat",
+      "for": "haette",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "hast",
+      "for": "haettest",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "haben",
+      "for": "haetten",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "kann",
+      "for": "koennte",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "weiss",
+      "for": "wuesste",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "kommt",
+      "for": "kaeme",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "schlaeft",
+      "for": "schliefe",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "gibt",
+      "for": "gaebe",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "hoert",
+      "for": "hoerte",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "gehoert",
+      "for": "gehoerte",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
+    },
+    {
+      "word": "geht",
+      "for": "ginge",
+      "after": "(?<!\\p{L})(?:als ob|als wenn|wie wenn)(?!\\p{L})"
     }
   ],
   "verb_second": [
@@ -531,6 +731,39 @@
     {
       "word": "(?:der|den|dem|des|die|das)selbe[nrs]?",
       "for": "(?:der|den|dem|des|die|das)selbe[nrs]?"
+    },
+    {
+      "word": "w(?:u|e)rden",
+      "for": "worden"
+    },
+    {
+      "word": "worden",
+      "for": "w(?:u|e)rden"
+    },
+    {
+      "word": "(?:soll|woll)(?:e|en|st|t|te|test|ten|tet|est)?",
+      "for": "(?:soll|woll)(?:e|en|st|t|te|test|ten|tet|est)?"
+    },
+    {
+      "word": "(?:schlafen|arbeitet|standen|blieben|sprochen|schrieben|schlossen|oeffnet|strichen|brochen|troffen)",
+      "for": "(?:geschlafen|gearbeitet|gestanden|geblieben|gesprochen|geschrieben|geschlossen|geoeffnet|gestrichen|gebrochen|getroffen)"
+    },
+    {
+      "word": "eroeffnet",
+      "for": "geoeffnet"
+    },
+    {
+      "word": "geoeffnet",
+      "for": "eroeffnet"
+    },
+    {
+      "word": "sein(?:e[nmrs]?)?",
+      "for": "seien"
+    },
+    {
+      "word": "seien",
+      "for": "sein(?:e[nmrs]?)?"
     }
-  ]
+  ],
+  "_note_konjunktiv": "German B2's Konjunktiv (course-de-b2-a). nonstandard, after a verb of saying (not after ich, whose form these are): the present and the Konjunktiv II that talk has for a reported Konjunktiv I (Er sagt, er ist krank; er wäre krank; sie kommen for sie kämen); after als ob, als wenn, wie wenn: the present for the Konjunktiv II (als ob er krank ist). One rule a word, since a rule can't tie one verb's two forms together. wrong: worden against wurden and werden; soll against will in all their forms; a long participle without its ge; geöffnet against eröffnet; seinen against seien."
 }
