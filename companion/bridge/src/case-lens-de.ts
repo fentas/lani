@@ -28,7 +28,7 @@ const key = (s: Slot) => `${s.case}.${s.number}.${s.gender ?? ''}`
 const lower = (s: string) => s.toLocaleLowerCase('de')
 
 /** A word of the sentence: its place, as written, lowercased, and the clause it is in. */
-type Tok = { i: number; raw: string; low: string; start: number; end: number; clause: number; cap: boolean; first: boolean }
+type Tok = { i: number; raw: string; low: string; start: number; end: number; clause: number; cap: boolean; first: boolean; question?: boolean }
 
 /** A noun phrase: its preposition (or contraction), determiner, adjectives, head, the readings its forms leave. */
 type Phrase = {
@@ -60,6 +60,8 @@ type Phrase = {
 type VerbHit = { tok: Tok; lemma: string; finite: boolean; person?: 1 | 2 | 3; number?: DeNumber }
 
 const PERSONAL = /^(ich|du|er|sie|es|wir|ihr|mich|dich|ihn|uns|euch|mir|dir|ihm|ihnen|sich|man)$/
+/** Adverbs that are a noun's word too, first in a sentence: morgen (tomorrow), not der Morgen. */
+const ADVERBS = /^(morgen)$/
 /** The numbers in words before a noun (zwei Seen, hundert Schafe): no ending, no case of their own. */
 const NUMBERS = /^(zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|elf|zwölf|zwanzig|dreißig|vierzig|fünfzig|hundert|tausend|(drei|vier|fünf|sech|sieb|acht|neun)zehn|(ein|zwei|drei|vier|fünf|sechs|sieben|acht|neun)und(zwanzig|dreißig|vierzig|fünfzig|sechzig|siebzig|achtzig|neunzig))$/
 
@@ -135,6 +137,11 @@ export class CaseLensDe {
       first = false
       last = m.index! + raw.length
     }
+    // a word of a question (its sentence ends with ?): a verb first there asks, it doesn't tell someone to
+    for (const t of out) {
+      const end = line.slice(t.end).search(/[.!?…]/)
+      t.question = end >= 0 && line[t.end + end] === '?'
+    }
     return out
   }
 
@@ -161,7 +168,7 @@ export class CaseLensDe {
   private nounOf(tok: Tok): { lemma: string; gender?: GenderKey; slots: Slot[] } | null {
     if (!tok.cap) return null
     // the sentence's first word, capitalized as any: a noun only when it is no other word (Morgen kommt er: morgen)
-    if (tok.first && (this.s.dict?.grammarReadings(tok.low) ?? []).some(r => r.pos !== 'noun' && r.pos !== 'name')) return null
+    if (tok.first && (ADVERBS.test(tok.low) || (this.s.dict?.grammarReadings(tok.low) ?? []).some(r => r.pos !== 'noun' && r.pos !== 'name'))) return null
     const w = tok.raw
     const fromNouns = this.s.nouns
     const candidates: { lemma: string; gender: GenderKey; plural?: string }[] = []
@@ -530,7 +537,9 @@ export class CaseLensDe {
       }
       const open = rest_.filter(p => !p.kind)
       if (open.length && finite) {
-        const subjectTaken = cp.some(p => p.kind === 'subject' && p.head.clause === c)
+        // an imperative (its verb first, no question, no pronoun for who): it has no subject (Bring mir die Schüssel!)
+        const imperative = finite.tok === ct[0] && !finite.tok.question && !cp.some(p => p.pos === 'pron' && p.slots.every(x => x.case === 'nom'))
+        const subjectTaken = imperative || cp.some(p => p.kind === 'subject' && p.head.clause === c)
         for (const p of open) {
           const nomAcc = p.slots.filter(s => s.case === 'nom' || s.case === 'acc')
           if (!nomAcc.length) {

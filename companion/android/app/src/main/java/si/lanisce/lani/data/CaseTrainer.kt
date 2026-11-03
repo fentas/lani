@@ -261,7 +261,7 @@ object CaseTrainer {
         // only a slot whose forms are sure: never a form the dictionary may have wrong (potoka, sin) as the answer
         if (slotOf(kase, f.number) !in n.checked) return false
         // a mass noun only in the singular (no "Grem k vodam", "Vidim pet mlek")
-        if (f.number != "sg" && n.lemma.lowercase() in pool.bank.uncountable) return false
+        if (f.number != "sg" && pool.bank.uncountable.any { it.equals(n.lemma, ignoreCase = true) }) return false
         if (n.forms[slotOf(kase, f.number)].isNullOrEmpty()) return false
         // a word the frame's sentence has already
         return n.lemma.lowercase() !in f.text.lowercase().split(Regex("[^\\p{L}]+"))
