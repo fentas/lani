@@ -63,16 +63,17 @@ import si.lanisce.lani.ui.theme.XpGold
 import java.time.LocalDate
 
 /**
- * "🔢 Števila · Numbers" (companion/README.md, "Numbers"): closed, what opens it (the unit stevila's intro) with the way
+ * "🔢 Števila · Numbers" (companion/README.md, "Numbers"): closed, what opens it (its unit's intro: stevila, numeri) with the way
  * there one tap away ("📖 Odpri uvod · Open the intro"; before the class, the school); open, "▶️ Začni · Start", the numbers
  * missed due again, the ranges (the newest with how near the next is: 8 of the last 10 right opens it), the ways of
- * asking and what opens those not on yet, the rule's tip, and that its Slovene is machine-written.
+ * asking and what opens those not on yet, the rule's tip, and that its words are machine-written.
  */
 @Composable
 fun NumbersScreen(vm: AppViewModel) {
     val s = vm.game.state
-    val lock = NumbersPractice.lock(s)
-    val unit = vm.school.unit(NumbersPractice.UNIT)
+    val tongue = vm.numbers.tongue ?: si.lanisce.lani.data.NumberTongue.SL
+    val lock = NumbersPractice.lock(s, tongue)
+    val unit = vm.school.unit(tongue.unit)
     val p = s?.numbers
     val introDone = lock == null
     val open = NumbersPractice.ranges(p, introDone)
@@ -81,7 +82,7 @@ fun NumbersScreen(vm: AppViewModel) {
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
         item { GradientHeader("🔢 ${bi("numbers.title")}", bi("numbers.about"), vm.backLabel, onBack = vm::back) }
         if (lock != null) {
-            item { Locked(vm, lock, unitNamed(unit, NumbersPractice.UNIT)) }
+            item { Locked(vm, lock, tongue.unit, unitNamed(unit, tongue.unit)) }
         } else {
             item {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -96,7 +97,7 @@ fun NumbersScreen(vm: AppViewModel) {
         }
         item {
             Column(Modifier.padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Markdown("💡 ${bi("numbers.tip")}")
+                Markdown("💡 ${bi(tongue.tipKey)}")
                 Text("🤖 ${bi("school.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
@@ -117,7 +118,7 @@ private fun SectionTitle(text: String) {
  * what begins the class and leads there). Under it, what the module asks, greyed.
  */
 @Composable
-private fun Locked(vm: AppViewModel, lock: NumbersPractice.Lock, unitTitle: si.lanisce.lani.l10n.Localized) {
+private fun Locked(vm: AppViewModel, lock: NumbersPractice.Lock, unitId: String, unitTitle: si.lanisce.lani.l10n.Localized) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -129,7 +130,7 @@ private fun Locked(vm: AppViewModel, lock: NumbersPractice.Lock, unitTitle: si.l
                 style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center,
             )
             when (lock) {
-                NumbersPractice.Lock.INTRO -> BigButton("📖 ${bi("numbers.openIntro")}", onClick = { vm.startIntro(NumbersPractice.UNIT) }, color = XpGold)
+                NumbersPractice.Lock.INTRO -> BigButton("📖 ${bi("numbers.openIntro")}", onClick = { vm.startIntro(unitId) }, color = XpGold)
                 NumbersPractice.Lock.CLASS -> BigButton("🏫 ${bi("numbers.toSchool")}", onClick = { vm.openSchool() }, color = XpGold)
             }
         }
@@ -193,7 +194,8 @@ private fun RangeRow(r: NumberRange, p: si.lanisce.lani.data.NumbersProgress?, o
 @Composable
 private fun Modes(vm: AppViewModel, hasRange: Boolean) {
     val on = vm.numbers.modes()
-    val clockUnit = vm.school.unit(NumbersPractice.TIME_UNIT)
+    val tongue = vm.numbers.tongue ?: si.lanisce.lani.data.NumberTongue.SL
+    val clockUnit = vm.school.unit(tongue.timeUnit)
     Column(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         for (m in NumberMode.entries) {
             val isOn = m in on && (m != NumberMode.SAY || hasRange)
@@ -201,9 +203,9 @@ private fun Modes(vm: AppViewModel, hasRange: Boolean) {
                 isOn -> null
                 m == NumberMode.HEAR -> bi("numbers.needs.voice")
                 m == NumberMode.SAY -> bi("numbers.needs.listen")
-                m == NumberMode.TIME_HEAR && NumbersPractice.TIME_PAGE in vm.numbers.introduced() -> bi("numbers.needs.voice")
-                m == NumberMode.TIME_HEAR || m == NumberMode.TIME_WRITE -> bi("numbers.needs.unit", "unit" to unitNamed(clockUnit, NumbersPractice.TIME_UNIT))
-                else -> bi("numbers.needs.unit", "unit" to unitNamed(vm.school.unit(NumbersPractice.UNIT), NumbersPractice.UNIT))
+                m == NumberMode.TIME_HEAR && tongue.timePage in vm.numbers.introduced() -> bi("numbers.needs.voice")
+                m == NumberMode.TIME_HEAR || m == NumberMode.TIME_WRITE -> bi("numbers.needs.unit", "unit" to unitNamed(clockUnit, tongue.timeUnit))
+                else -> bi("numbers.needs.unit", "unit" to unitNamed(vm.school.unit(tongue.dateUnit), tongue.dateUnit))
             }
             Row(Modifier.fillMaxWidth().heightIn(min = 40.dp).semantics(mergeDescendants = true) {}, verticalAlignment = Alignment.CenterVertically) {
                 Text(m.emoji, style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics {})
@@ -217,8 +219,8 @@ private fun Modes(vm: AppViewModel, hasRange: Boolean) {
                 }
                 if (isOn) Text("✓", style = MaterialTheme.typography.titleMedium, color = AlpineGreen)
                 // the clock's unit one tap away (its page: the intro there)
-                else if ((m == NumberMode.TIME_WRITE) && clockUnit != null && NumbersPractice.TIME_PAGE !in vm.numbers.introduced()) {
-                    TextButton(onClick = { vm.openUnit(NumbersPractice.TIME_UNIT) }) { Text("📖 ${inTarget("numbers.openIntro")}") }
+                else if ((m == NumberMode.TIME_WRITE) && clockUnit != null && tongue.timePage !in vm.numbers.introduced()) {
+                    TextButton(onClick = { vm.openUnit(tongue.timeUnit) }) { Text("📖 ${inTarget("numbers.openIntro")}") }
                 }
             }
         }
@@ -228,7 +230,8 @@ private fun Modes(vm: AppViewModel, hasRange: Boolean) {
 /** A run of the numbers: its tasks one at a time (data/NumbersPractice.kt), then how it went, what opened, what comes back. */
 @Composable
 fun NumbersRunScreen(vm: AppViewModel, at: Screen.NumbersRun) {
-    val exercises = remember(at) { at.tasks.map(NumbersPractice::exercise) }
+    val tongue = vm.numbers.tongue ?: si.lanisce.lani.data.NumberTongue.SL
+    val exercises = remember(at) { at.tasks.map { NumbersPractice.exercise(it, tongue) } }
     val started = remember { ScreenClock.app.now() }
     val stage = rememberStage(vm, Run.Review)
     var done by remember { mutableStateOf<NumbersDone?>(null) }
@@ -237,7 +240,7 @@ fun NumbersRunScreen(vm: AppViewModel, at: Screen.NumbersRun) {
         ExerciseRun(
             vm, "🔢 ${bi("numbers.title")}", exercises, moduleId = null, onExit = vm::leaveRun, stage = stage,
             source = { i -> at.tasks.getOrNull(i)?.let { ExerciseSource.numbers(it.mode.wire, it.n, it.month, i) } },
-            pages = NumbersPractice.PAGES,
+            pages = tongue.pages,
         ) { outs -> done = vm.numbers.finish(at.tasks, exercises, outs, minutesSince(started)) }
         return
     }

@@ -754,6 +754,19 @@ srca are rather Gorenjska's, so Primorska's fair sells mandolat as Gorizia's And
 a sprevod (povorka is labelled regional and fading), "Naj živi naše mesto!" after SSKJ's "naj živi". The toasts: "Na
 zdravje!" anywhere, "Živijo!" as one too (accepted beside it), "Bog živi!" a best wish.
 
+The Lake District's five come from Cumbrian customs, settled in docs/plans/05-built/parties-lakeland.md with their sources:
+
+| Age | Its celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| ⛺ Tabor | 🎶 A merry neet: in old Cumberland a night of pies, a fiddle and songs at the alehouse; the camp has no alehouse yet, so it's by the fire | torches round the fire | the waltz | by the fire (Old Wilf) |
+| 🛖 Zaselek | 🤝 The boon day: a day's work the neighbours give for free, at a ploughing, a clipping or a new clay house; whoever had the help feeds them all | little flags, torches | the waltz | by the fire (Mr Tyson) |
+| 🏘️ Vas | 🎻 The barn dance: easy country dances, a caller and the Cumberland Square Eight, on boards on the green, as no barn would hold everyone | little flags, the boards | the polka | on the square (Mrs Birkett) |
+| 🏛️ Trg | 🍎 The crab fair, after Egremont's: apples thrown from a cart, a greasy pole, gurning through a horse collar | stalls, little flags | the market's bell, the polka | on the square (Brewer Sam) |
+| 🏰 Mesto | 📜 Charter Day, after Broughton's and Carlisle's proclamations: a procession to the market place, the words read out to the crowd, pennies for the children, fair cake and ale | banners, little flags | the band and the church bell | on the square (Mrs Hartley) |
+
+Its dialogs are written at A1, A2, B1 and B2. The rushbearing and the shepherds' meet stay what they are, festivals of the calendar
+with their own days, packs, readings and stories; a party doesn't sell them as new. The music is the app's own (the accordion's waltz
+and polka, the brass band); a fiddle isn't among the sounds, though the lines and the card name one.
 **Kärnten's five** (docs/plans/05-built/parties-kaernten.md has the sources, each with its URL), at A1, A2, B1 and B2:
 
 | Age | Kärnten's celebration | What goes up | Music | The party (host) |

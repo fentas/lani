@@ -119,12 +119,13 @@ fun UnitScreen(vm: AppViewModel, id: String) {
                 ) { vm.startIntro(unit.id) }
             }
         }
-        // the unit stevila's own practice (companion/README.md, "Numbers"): opened by its intro, closed before it, one tap
-        // away either way (closed, it says what opens it and leads to the intro)
-        if (unit.id == si.lanisce.lani.data.NumbersPractice.UNIT && unit.language == si.lanisce.lani.data.NumbersPractice.LANGUAGE) {
+        // the unit stevila's (numeri's) own practice (companion/README.md, "Numbers"): opened by its intro, closed before it,
+        // one tap away either way (closed, it says what opens it and leads to the intro)
+        val numbersHere = si.lanisce.lani.data.NumberTongue.of(unit.language)?.takeIf { it.unit == unit.id }
+        if (numbersHere != null) {
             item { SectionTitle("🔢 ${bi("numbers.title")}") }
             item {
-                val open = si.lanisce.lani.data.NumbersPractice.open(s)
+                val open = si.lanisce.lani.data.NumbersPractice.open(s, numbersHere)
                 val np = s?.numbers
                 val due = si.lanisce.lani.data.NumbersPractice.due(np, java.time.LocalDate.now()).size
                 StepCard(

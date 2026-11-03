@@ -374,9 +374,9 @@ const pick = (t: Record<string, string>, base: string) => t[base] ?? t.en ?? Obj
  * [v] as the learner reads it in [base]: every text per base under one of [BASED_KEYS] (and in a table's `columns`) the
  * base's, else the English. Everything else is kept as it is; a string stays a string.
  */
-export function inBase<T>(v: T, base: string): T {
+export function inBase<T>(v: T, base: string, keys: ReadonlySet<string> = BASED_KEYS): T {
   const walk = (x: unknown, key?: string): unknown => {
-    if (key !== undefined && BASED_KEYS.has(key) && isBased(x)) return pick(x, base)
+    if (key !== undefined && keys.has(key) && isBased(x)) return pick(x, base)
     if (Array.isArray(x)) return key === 'columns' ? x.map(c => (isBased(c) ? pick(c, base) : walk(c))) : x.map(y => walk(y))
     if (!x || typeof x !== 'object') return x
     return Object.fromEntries(Object.entries(x).map(([k, y]) => [k, walk(y, k)]))
@@ -385,15 +385,15 @@ export function inBase<T>(v: T, base: string): T {
 }
 
 /** The texts per base of [v] (as [inBase] reads them) that lack the English, by where they are. */
-export function basedErrors(v: unknown): string[] {
+export function basedErrors(v: unknown, keys: ReadonlySet<string> = BASED_KEYS): string[] {
   const out: string[] = []
   const walk = (x: unknown, path: string, key?: string) => {
     const based = (y: unknown, at: string) => {
       if (isBased(y) && typeof y.en !== 'string') out.push(`✖ ${at}: a text per base without the English ("en")`)
     }
-    if (key !== undefined && BASED_KEYS.has(key)) based(x, path)
+    if (key !== undefined && keys.has(key)) based(x, path)
     if (Array.isArray(x)) return x.forEach((y, i) => (key === 'columns' ? based(y, `${path}.${i}`) : walk(y, `${path}.${i}`)))
-    if (!x || typeof x !== 'object' || (key !== undefined && BASED_KEYS.has(key) && isBased(x))) return
+    if (!x || typeof x !== 'object' || (key !== undefined && keys.has(key) && isBased(x))) return
     for (const [k, y] of Object.entries(x)) walk(y, path ? `${path}.${k}` : k, k)
   }
   walk(v, '')
