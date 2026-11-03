@@ -49,9 +49,9 @@ past simple and continuous, linking words), whether written yet or not, and noth
 | 7 | `some-and-any` 🥛 Some bread, any milk | 6 steps, 18 examples, a summary | sort + table (15) · gap text with a bank + 2 choices (9) · 2 transforms (8): 32 | 12 | some-any, articles |
 | 8 | `how-much` 🧮 How much? How many? A few, a little | 5, 15, a summary | sort + table (15) · gap text with a bank + 2 choices (9) · 2 transforms (8): 32 | 12 | some-any, plurals |
 | 9 | `comparatives` 📏 Bigger, better, more useful | 5, 15, a summary | table + sort (14) · gap text with a bank + 2 choices (10) · 2 transforms (8): 32 | 12 | comparatives (new) |
-| 10 | `superlatives` 🏆 The biggest, the best | 6, 18, a summary | table + sort (16) · gap text with a bank + 2 choices (10) · 2 transforms (7): 33 | 12 | comparatives (new), articles |
+| 10 | `superlatives` 🏆 The biggest, the best | 6, 18, a summary | table + sort (15) · gap text with a bank + 2 choices (10) · 2 transforms (7): 32 | 12 | comparatives (new), articles |
 | 11 | `adverbs` 🐢 Quickly, carefully, well | 6, 19, a summary | table + sort (15) · gap text with a bank + 2 choices (10) · 2 transforms (8): 33 | 12 | adverbs (new), word-order |
-| 12 | `someone-anything` 🔎 Someone, anything, nothing | 6, 19, a summary | table + sort (15) · gap text with a bank + 2 choices (10) · 2 transforms (8): 33 | 12 | indefinite-pronouns (new), some-any |
+| 12 | `someone-anything` 🔎 Someone, anything, nothing | 6, 19, a summary | 2 tables + sort (15) · gap text with a bank + 2 choices (10) · 2 transforms (8): 33 | 12 | indefinite-pronouns (new), some-any |
 
 The size is the level's: Italian's A2 has 5–6 steps, 26–32 items and 11–13 test items, Slovene's 5–6, 26–30 and 12.
 Each unit has a summary of its own, because each first page goes further than its unit (some-any on to how much; comparatives on
@@ -83,7 +83,7 @@ Birkett the busiest, Mr Tyson counting his sacks, Arthur speaking quietly to his
 Three new pages, A2, each in en, sl, de and it with a table, examples with notes and a hand-written card (a bold rule line per
 base, two examples, a 💡 tip that fits the base: als for German, od for Slovene, in the village for Italian):
 
-- `comparatives` 📏: forms, spelling, than, the, in and of. Bold on it are forms her voice reads.
+- `comparatives` 📏: forms, spelling, than, the, in and of.
 - `adverbs` 🐢: forms, the irregular ones, where they go, the verbs that take an adjective, comparing.
 - `indefinite-pronouns` 🔎: the table of twelve (with -body), one negative only, every- singular, after them.
 
@@ -114,11 +114,11 @@ asks those lists both spellings.
 
 ## The words
 
-`lexicon/en.extra.json`: 34 entries appended (2,261 in all), each with its meaning in sl, de and it: the words the sheets name
+`lexicon/en.extra.json`: 38 entries appended (2,265 in all), each with its meaning in sl, de and it: the words the sheets name
 (useful, expensive, famous, easily, terribly, clearly, angrily, lately, farther, a loaf of, a cup of, a jar of, a piece of, lots of,
 anything else, nothing left, than I am), the comparative forms that no entry had (hotter, nicer, busier, easiest), and the terms
-and endings the explanations use (adverb, comparative, superlative, -er, -est, -ly, -ful, -le, -r, group, final, l's, shop's). Only
-appended: an older entry's forms stay as they are, so `json3merge.py` can merge.
+and endings the explanations use (adverb, comparative, superlative, -er, -est, -ly, -ful, -le, -r, some-, any-, no-, every-, group, final, l's,
+shop's). Only appended: an older entry's forms stay as they are, so `json3merge.py` can merge.
 
 - **Coverage** (`lexicon-build --coverage --lang en`): 98.4 % of tokens and 97.5 % of words meant in each base, from 98.4 % and
   97.4 %; "words none knows" stays at 81, none of them new.
@@ -158,7 +158,48 @@ LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/en
 
 No screen changed; the units add content.
 
-@@TESTS@@
+## Tests
+
+On the final content (0c266d22; nothing but this doc came after it):
+
+- **Bridge:** `bunx tsc --noEmit -p .` clean; the smoke (LANI_SMOKE_PORT=9930, FRIULI 9932, TOWN 9934, DRAMA3 9948): all 3,508 checks
+  passed, among them course/en, the rule line of every step in every base, course-speech's English checks and the prompt clashes.
+- **`tutor-export --check`:** 89 files match the bridge.
+- **Android, the course's classes** (lani-slot.sh; not the whole suite, part c and the gate run it): 120 tests, 0 failures:
+  `EnglishA2bContentTest` (8, new), `EnglishCourseContentTest` (6), `GradingLanguagesTest` (48), `GrammarTest` (16), `CourseTest` (8),
+  `SchoolBoardTest` (7), `IntroSpeechTest` (10), `IntroSpeechParityTest` (2), `GameIntroSpeechTest` (7), `IntroBoldTapTest` (2),
+  `SentenceGrammarTest` (6).
+- **The sheets:** `school-prints` in sl, de and it, to PDF: all fit, `some-and-any`, `how-much`, `someone-anything` on one page,
+  `comparatives`, `superlatives`, `adverbs` on two, the booklet 11 pages. Two previews read by eye.
+- **While writing** (scratch, not committed): `validateUnit` and `validateGrammar`; a port of the English grading over every right
+  answer and every distractor against every gap; each bold form of every explanation and summary found among what her voice reads, for
+  each base; every rule line with a form on it.
+
+## QA
+
+Emulator QA through `companion/bin/qa-slot --steps course-unit` (a 1080 × 2400 phone): Ana, a synthetic learner of English from
+Slovene in the Lake District (make-learner.ts, `LANI_CULTURE=lakeland`, `LANI_QA_SETUP_PAIR=en-sl`). Screenshots in the scratchpad under
+ux-course-en-a2-b/.
+
+- **`how-much`, on the last content:** passed whole: the school, the unit's page, the intro's five steps (choices tapped, gaps typed),
+  the summary, the first worksheet, the test straight away and passed, its sheet printed (the dialog's preview, the PDF: A4, one
+  page, WebView and Chromium chose alike).
+- **`someone-anything`, before the tables' last change:** passed whole in the same way, the PDF A4, one page. That change is covered by
+  the tests, not by a run of its own.
+- **`comparatives`:** played to the print's preview, then QA's `same_fit` stopped it: the same choice in the WebView and Chromium (2
+  pages, layout two, density 0), but "over", how far its one-page try runs over, was 17 mm against 13, and QA allows 1. A line
+  wrapped differently, on a layout neither of them chose, so what prints is the same. The PDF step didn't run for it. `superlatives` and
+  `adverbs`, also two pages, may stop there too. Left as it is: a change to QA isn't this part's to make.
+
+What it found, fixed:
+- **A word broken in two** (b5909e6e): someone-anything's table in four columns printed somewher/e on the phone. The first part is in
+  every word, so the column went, on the page too.
+- **QA tapped the table, not the option** (b5909e6e): a quick question opening as an example above it ("I didn't see ___" under "I didn't
+  see anything on the fell.") and an option that is also a cell of the table. QA found the example for the question. A learner isn't
+  affected; both questions now have their own sentence.
+- **A worksheet's fields too narrow** (0c266d22): a cell's field shows about nine letters in three columns, twelve in two, eighteen in
+  one, and the typed answer scrolls inside it ("ımething"). The frame went to the row's label and the cell keeps what changes (some
+  eggs, not many), the superlative's form has one column, someone-anything's place a table of its own.
 
 ## Voice
 
@@ -175,6 +216,7 @@ characters**. The three pages' examples (heard with 🔊 in the book, voiced on 
   her voice only if the intro shows that very word (wetter, easier, money had to go into `words`); a page's `rule` is at most 1,200
   characters, a `review` at most 200; `some` in a question as `spoken`.
 - **The outline's "once merged, also" column** has nothing for this part.
-- **Merging:** `course.json` by `resolve-outline.py`, `en.extra.json` and `grading/en.json` by `json3merge.py`. Parts a or c may add
-  an entry of the same lemma (useful, easily, lately …): both would stay, the first read first. Worth a look after the merge.
+- **Merging:** `course.json` by `resolve-outline.py`, `en.extra.json` and `grading/en.json` by `json3merge.py`. A trial merge
+  (`git merge-tree`) against parts a and c as they stood conflicts in those three files only; none of their new lemmas or forms is one
+  of these. Main hadn't moved from this part's base (45924165), so main wasn't merged in.
 - **Not done, as the brief says:** the whole Android suite (part c and the gate), COURSE.md, the README.
