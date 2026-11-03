@@ -231,6 +231,22 @@ On 9fad37d7 and 7560519f (the content and the supplement complete):
   a learner of English sees "Friends · Prijatelji", English first, so QA needs `LANI_QA_SETUP_PAIR=en-sl`, and the step's
   "Zapri · Close" is `say("common.close")` there.
 
+**After merging `placement` (dialog-levels, packs-de, practice-de, packs-sl, dialogs-kaernten) and `packs-en`:**
+- en.extra.json by the kit's supp-merge.py (3,258 entries, `validateExtra` no error). Eleven lemmas were written on both
+  sides; four of the joins kept a gloss that was only the word itself or one sense (board, replace, queue, responsible),
+  so they now carry this branch's gloss (responsible both, and verantwortungsvoll beside verantwortlich). bin/qa's
+  named-only step list was united by qa-steps-union.py.
+- The model's `inn-b2-jam` now has the learner say Vi / Lei / Sie to Mrs Birkett.
+- The `dialog-levels` QA step's close label is `say("common.close")`. A run through qa-slot (slot 2) with
+  `LANI_QA_SETUP_PAIR=en-sl` on a synthetic Lake District learner passed setup, dialog-levels and the crash check:
+  B2 `inn-b2-jam`, B1 `inn-b1-walker`, and at B1 and A1 the inn's own dialog ("Twelve walkers"). Screenshots: scratchpad
+  `ux-dialogs-lakeland/market/`.
+- tsc 0, `bun build --no-bundle` on the 10 merged test files, prompt-clashes (no new clash, 339 in the baseline),
+  `tutor-export --check` (140 files match), `check-culture` for all four cultures ok, and the smoke on ports 10650–10669:
+  **3,905 checks, all passed**.
+- `make-learner.ts --target en` fails since the merge (practice-de reads `companion/modules/<target>`, and English has no
+  modules yet): the QA learner was made before the merge. For the lead.
+
 ## What's left
 
 - The native check above; then the voice build (85,848 characters, Jan's credits).
