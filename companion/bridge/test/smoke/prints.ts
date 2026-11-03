@@ -221,6 +221,13 @@ export default async function prints() {
       de.get('futuro/quando') === 'wenn' && de.get('piacere/pizzicare') === 'zwicken' && de.get('futuro/il treno') === 'Zug' && de.get('piacere/il freddo') === 'Kälte' && de.get('aggettivi/freddo') === 'kalt' && de.get('piacere/i cavalli') === '(il cavallo) Pferd',
       ['futuro/quando', 'piacere/pizzicare', 'futuro/il treno', 'piacere/il freddo', 'aggettivi/freddo', 'piacere/i cavalli'].map(k => [k, de.get(k)]),
     )
+    // the supplement's whole content (supplement-it) leaves the sheets their meanings: a pack's noun listed bare isn't the
+    // new adjective spelt alike (piatto Teller, not flach), lungo is long, certo of course; two sheets that were wrong now aren't
+    check(
+      "the Italian sheets keep their meanings with the supplement grown (plurale's piatto Teller, comparativi's lungo lang, vorrei's certo klar), and gain two: negazioni's spesso oft, not dick; piacere's piacere gefallen, not freut mich",
+      de.get('plurale/piatto')?.endsWith('Teller') === true && de.get('comparativi/lungo') === 'lang' && de.get('vorrei/certo')?.startsWith('klar') === true && de.get('negazioni/spesso') === 'oft' && de.get('piacere/piacere')?.startsWith('gefallen') === true,
+      ['plurale/piatto', 'comparativi/lungo', 'vorrei/certo', 'negazioni/spesso', 'piacere/piacere'].map(k => [k, de.get(k)]),
+    )
   }
 
   // the repository's English hello for a learner from Slovene: its words meant, none with a gender (English nouns have
