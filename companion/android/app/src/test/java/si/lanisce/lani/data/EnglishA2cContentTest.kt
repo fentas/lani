@@ -25,6 +25,7 @@ class EnglishA2cContentTest {
     private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/en/course.json").isFile }
     private val json = Json { ignoreUnknownKeys = true }
     private val units = listOf("going-to", "will", "have-to", "would-like", "have-you-ever", "if-it-rains")
+    private val course = checkNotNull(Courses.bundled("en"))
 
     @Test fun `going to and a participle after 's are one answer with the long form`() {
         assertEquals(Verdict.CORRECT, en("Jack's going to wash the van.", "Jack is going to wash the van.").verdict)
@@ -78,6 +79,80 @@ class EnglishA2cContentTest {
         val mark = Sheets.check(spoken, "are gonna walk", Lang.EN)
         assertEquals(Verdict.CORRECT, mark.verdict)
         assertEquals("are going to walk", mark.standard)
+    }
+
+    @Test fun `what people say is almost with the standard form shown, one way only`() {
+        for ((typed, right) in listOf(
+            "It were raining." to "It was raining.", "We was late." to "We were late.", "Old Wilf were sitting by the fire." to "Old Wilf was sitting by the fire.",
+            "I seen a raven yesterday." to "I saw a raven yesterday.", "I done the washing up." to "I did the washing up.",
+            "I've saw a raven." to "I've seen a raven.", "He's went to Keswick." to "He's gone to Keswick.", "She's took the bus." to "She has taken the bus.",
+            "Have you ate yet?" to "Have you eaten yet?", "I haven't never been to Carlisle." to "I've never been to Carlisle.",
+            "Mr Tyson hasn't never seen the sea." to "Mr Tyson has never seen the sea.", "He telled us a story." to "He told us a story.", "Jack catched the bus." to "Jack caught the bus.",
+        )) {
+            val r = en(typed, right)
+            assertEquals(typed, Verdict.ALMOST to Hint.NONSTANDARD, r.verdict to r.hint)
+            assertEquals(typed, right, r.expected)
+        }
+        // a participle for a past only as the past of see and do, a past for a participle only after have; the cue copied stays wrong
+        for ((typed, right) in listOf(
+            "saw" to "seen", "went" to "gone", "I saw a raven." to "I've seen a raven.", "He come home." to "He came home.", "She give me a scone." to "She gave me a scone.",
+            "We have was there." to "We have been there.", "I've seen a raven." to "I saw a raven.",
+        )) assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        val gap = SheetItem(accept = listOf("seen"), grammar = null, frame = "I've ${Sheets.BLANK} a raven.")
+        val said = Sheets.check(gap, "saw", Lang.EN)
+        assertEquals(Verdict.ALMOST to "seen", said.verdict to said.expected)
+        val cell = Sheets.items(course.units.getValue("have-you-ever").worksheets.first().exercises.first(), Lang.EN).first { it.accept == listOf("gone") }
+        assertEquals("the table's own cell, no have before it", Verdict.WRONG, Sheets.check(cell, "went", Lang.EN).verdict)
+    }
+
+    @Test fun `Will I and gonna are right, labelled with the standard form`() {
+        fun items(unit: String): List<SheetItem> {
+            val u = course.units.getValue(unit)
+            return (u.worksheets.flatMap { it.exercises } + u.test.exercises).filter { it !is Exercise.Sort }.flatMap { Sheets.items(it, Lang.EN) }
+        }
+        val shall = items("will").filter { "Will" in it.spoken }
+        assertTrue("the offers' gaps", shall.size >= 2)
+        for (i in shall) assertEquals(Verdict.CORRECT to "Shall", Sheets.check(i, "Will", Lang.EN).let { it.verdict to it.standard })
+        val line = items("will").first { it.accept.first() == "Shall I open the window?" }
+        assertEquals(Verdict.CORRECT to "Shall I open the window?", Sheets.check(line, "Will I open the window?", Lang.EN).let { it.verdict to it.standard })
+        val gonna = items("going-to").first { "are gonna walk" in it.spoken }
+        assertEquals(Verdict.CORRECT to "are going to walk", Sheets.check(gonna, "are gonna walk", Lang.EN).let { it.verdict to it.standard })
+    }
+
+    /** All 18 of A2: part b's EnglishA2bContentTest holds its six, this the level. */
+    private val a2 by lazy { course.levels.first { it.level == "A2" }.units.map { it.id } }
+
+    @Test fun `no choice and no word bank of the whole level offers what people say as the wrong form`() {
+        assertEquals(18, a2.size)
+        for (id in a2) {
+            val u = course.units.getValue(id)
+            val all = u.worksheets.flatMap { it.exercises } + u.test.exercises
+            val choices = all.filterIsInstance<Exercise.Choice>() + u.intro?.steps.orEmpty().mapNotNull { it.ask as? Exercise.Choice }
+            for (c in choices) {
+                val right = c.options[c.answer]
+                c.options.forEachIndexed { i, o ->
+                    if (i != c.answer && i !in c.almost) {
+                        val (typed, whole) = if (Sheets.GAP.containsMatchIn(c.prompt)) c.prompt.replace(Sheets.GAP, o) to c.prompt.replace(Sheets.GAP, right) else o to right
+                        assertTrue("$id: «$typed» offered as wrong beside «$whole»", Grading.check(typed, listOf(whole), Lang.EN).hint != Hint.NONSTANDARD)
+                    }
+                }
+            }
+            for (e in all.filterIsInstance<Exercise.GapText>()) for (d in e.distractors) for (item in Sheets.items(e, Lang.EN)) {
+                assertTrue("$id: the distractor «$d» in ${item.frame}", Grading.check(d, item.accept, Lang.EN, item.frame.substringBefore(Sheets.BLANK, "")).hint != Hint.NONSTANDARD)
+                assertTrue("$id: the distractor «$d» is said in ${item.frame}", d !in item.spoken)
+            }
+        }
+    }
+
+    @Test fun `no text of the level says never of a form people say`() {
+        val said = Regex("""\b(?:never|not|nie|nicht|nikoli|ne|mai|non)\s+\*[^*]*(?:amn't|I've saw|I've went|haven't never|hasn't never|It were|he were|you was|we was|I seen|I done|telled)[^*]*\*""", RegexOption.IGNORE_CASE)
+        val texts = a2.flatMap { id ->
+            val unit = json.parseToJsonElement(File(companion, "course/en/units/$id.json").readText()).jsonObject
+            unit["intro"]!!.jsonObject["steps"]!!.jsonArray.flatMap { s -> s.jsonObject["say"]!!.jsonObject.values.map { "$id: ${it.jsonPrimitive.content}" } }
+        } + File(companion, "grammar/en").listFiles()!!.map { json.parseToJsonElement(it.readText()).jsonObject }.filter { it["level"]!!.jsonPrimitive.content == "A2" }.flatMap { p ->
+            p["rule"]!!.jsonObject.values.map { "${p["id"]!!.jsonPrimitive.content}: ${it.jsonPrimitive.content}" }
+        }
+        assertEquals(emptyList<String>(), texts.filter { said.containsMatchIn(it) })
     }
 
     @Test fun `the six units are written in the outline's order at A2, naming their pages`() {

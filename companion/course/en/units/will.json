@@ -268,10 +268,10 @@
       },
       {
         "say": {
-          "sl": "Ko ponudiš ali predlagaš, britanska angleščina vpraša s **shall**, samo pri **I** in **we**: **Shall I open the window?** (Naj odprem okno?) **Shall we go?** (Gremo?) **What shall we do?** (Kaj naj naredimo?) Odgovor: **Yes, please.** (Ja, prosim.) **No, thanks.** (Ne, hvala.) Ameriško **Should I …?** je tudi prav.",
-          "de": "Beim Anbieten und Vorschlagen fragt das britische Englisch mit **shall**, nur bei **I** und **we**: **Shall I open the window?** (Soll ich das Fenster aufmachen?) **Shall we go?** (Gehen wir?) **What shall we do?** (Was machen wir?) Die Antwort: **Yes, please.** (Ja, bitte.) **No, thanks.** (Nein, danke.) Amerikanisch **Should I …?** ist auch richtig.",
-          "it": "Per offrire o proporre, l'inglese britannico chiede con **shall**, solo con **I** e **we**: **Shall I open the window?** (Apro la finestra?) **Shall we go?** (Andiamo?) **What shall we do?** (Che cosa facciamo?) La risposta: **Yes, please.** (Sì, grazie.) **No, thanks.** (No, grazie.) Anche l'americano **Should I …?** va bene.",
-          "en": "To offer or suggest, British English asks with **shall**, only with **I** and **we**: **Shall I open the window?** **Shall we go?** **What shall we do?** The answer: **Yes, please.** **No, thanks.** The American **Should I …?** is right too."
+          "sl": "Ko ponudiš ali predlagaš, britanska angleščina vpraša s **shall**, samo pri **I** in **we**: **Shall I open the window?** (Naj odprem okno?) **Shall we go?** (Gremo?) **What shall we do?** (Kaj naj naredimo?) Odgovor: **Yes, please.** (Ja, prosim.) **No, thanks.** (Ne, hvala.) Ameriško **Should I …?** je tudi prav, na Škotskem in Irskem pa **Will I …?**",
+          "de": "Beim Anbieten und Vorschlagen fragt das britische Englisch mit **shall**, nur bei **I** und **we**: **Shall I open the window?** (Soll ich das Fenster aufmachen?) **Shall we go?** (Gehen wir?) **What shall we do?** (Was machen wir?) Die Antwort: **Yes, please.** (Ja, bitte.) **No, thanks.** (Nein, danke.) Amerikanisch **Should I …?** ist auch richtig, in Schottland und Irland **Will I …?**",
+          "it": "Per offrire o proporre, l'inglese britannico chiede con **shall**, solo con **I** e **we**: **Shall I open the window?** (Apro la finestra?) **Shall we go?** (Andiamo?) **What shall we do?** (Che cosa facciamo?) La risposta: **Yes, please.** (Sì, grazie.) **No, thanks.** (No, grazie.) Anche l'americano **Should I …?** va bene, e in Scozia e Irlanda **Will I …?**",
+          "en": "To offer or suggest, British English asks with **shall**, only with **I** and **we**: **Shall I open the window?** **Shall we go?** **What shall we do?** The answer: **Yes, please.** **No, thanks.** The American **Should I …?** is right too, and in Scotland and Ireland **Will I …?**"
         },
         "examples": [
           {
@@ -309,7 +309,7 @@
           "type": "cloze",
           "grammar": "future",
           "text": "It's cold in here. ___ I close the window?",
-          "accept": ["Shall", "Should", "Can", "Could", "May"],
+          "accept": ["Shall", "Should", "Can", "Could", "May", "Will"],
           "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" },
           "explain": {
             "sl": "**Ponudba z I: Shall I …?**\n- Shall I close the window?",
@@ -520,6 +520,7 @@
             { "accept": ["won't"], "hint": "will + not" },
             {
               "accept": ["Shall", "Should", "Can", "Could", "May"],
+              "spoken": ["Will"],
               "hint": { "sl": "ponudba", "de": "ein Angebot", "it": "un'offerta", "en": "an offer" }
             },
             {
@@ -542,7 +543,7 @@
           "grammar": "future",
           "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
           "prompt": "Is this seat free? — Yes. ___ I move my bag?",
-          "options": ["Shall", "Will", "Do"],
+          "options": ["Shall", "Am", "Do"],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -656,8 +657,16 @@
           },
           "cue": "Shall I …?",
           "items": [
-            { "from": "open the window", "accept": ["Shall I open the window?", "Should I open the window?"] },
-            { "from": "make some tea", "accept": ["Shall I make some tea?", "Should I make some tea?"] }
+            {
+              "from": "open the window",
+              "accept": ["Shall I open the window?", "Should I open the window?"],
+              "spoken": ["Will I open the window?"]
+            },
+            {
+              "from": "make some tea",
+              "accept": ["Shall I make some tea?", "Should I make some tea?"],
+              "spoken": ["Will I make some tea?"]
+            }
           ],
           "explain": {
             "sl": "**Shall I + osnovna oblika**\n- Shall I make some tea?",
@@ -680,7 +689,7 @@
         "gaps": [
           { "accept": ["will", "is going to", "'s going to"] },
           { "accept": ["I'll"] },
-          { "accept": ["Shall", "Should", "Can", "Could", "May"] },
+          { "accept": ["Shall", "Should", "Can", "Could", "May"], "spoken": ["Will"] },
           { "accept": ["won't"] },
           { "accept": ["will"] }
         ],
