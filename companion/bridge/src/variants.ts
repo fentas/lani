@@ -3,7 +3,7 @@
 // happening is heard, the bridge asks the tutor for a fresh one (dialog_variants_heard), a few a day, each happening
 // once until a variant is added, and the tutor writes it with publish_dialog_variant.
 import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
-import { forGuests, inSeason, monthsSaid, variantsOf, type ResolvedScene, type Scene } from './scenes'
+import { dialogLevel, forGuests, inSeason, levelRank, monthsSaid, variantsOf, type ResolvedScene, type Scene } from './scenes'
 
 /** At most this many happenings a day are asked for (the tutor writes each variant with care). */
 export const MAX_ASKS_A_DAY = 3
@@ -17,16 +17,19 @@ export type AllHeard = { scene: ResolvedScene; happening: Scene['happenings'][nu
  * The happenings of [scenes] whose every dialog the learner has heard, from the village's [state] (its dialogsHeard, by
  * "scene/happening"); not a storyteller's, nor one meant for guests (the learner never meets those at home). With
  * [month] (1-12, today's), a happening out of season isn't asked about until it comes back, and of its dialogs those in
- * season count (the others don't play now).
+ * season count (the others don't play now). With [level] (the learner's), what is above it isn't theirs (companion/SCENES.md,
+ * "Dialogs by level"): a happening above it isn't asked about, and of its dialogs those at or below it count.
  */
-export function allHeard(scenes: ResolvedScene[], state: unknown, month?: number): AllHeard[] {
+export function allHeard(scenes: ResolvedScene[], state: unknown, month?: number, level?: string): AllHeard[] {
   const dh = ((state as { dialogsHeard?: Heard } | undefined)?.dialogsHeard ?? {}) as Heard
   return scenes.flatMap(s =>
     s.happenings.flatMap(h => {
       if (h.stories || forGuests(s, h)) return []
       if (month !== undefined && !inSeason(h.months, month)) return []
+      const mine = (l: string | undefined) => level === undefined || levelRank(l) <= Math.max(0, levelRank(level))
+      if (!mine(h.level)) return []
       const key = `${s.id}/${h.id}`
-      const variants = variantsOf(h).filter(id => s.dialogs.some(d => d.id === id && (month === undefined || inSeason(d.months, month))))
+      const variants = variantsOf(h).filter(id => s.dialogs.some(d => d.id === id && (month === undefined || inSeason(d.months, month)) && mine(dialogLevel(d, h))))
       const heard = dh[key]?.heard ?? {}
       if (!variants.length || !variants.every(id => typeof heard[id] === 'string')) return []
       return [{ scene: s, happening: h, key, variants, heard: Object.fromEntries(variants.map(id => [id, String(heard[id])])) }]
@@ -122,7 +125,7 @@ export function variantNote(
     heard: a.variants.map(id => {
       const d = s.dialogs.find(x => x.id === id)
       return {
-        dialog: id, on: a.heard[id], first_line: said(d?.lines[0], lang), ...(d?.count ? { counts: true } : {}), ...(d?.source === 'tutor' ? { tutor: true } : {}),
+        dialog: id, on: a.heard[id], first_line: said(d?.lines[0], lang), ...(d?.level ? { level: d.level } : {}), ...(d?.count ? { counts: true } : {}), ...(d?.source === 'tutor' ? { tutor: true } : {}),
         ...(d?.months ? { months: monthsSaid(d.months) } : {}),
       }
     }),
@@ -141,7 +144,7 @@ export function variantNote(
     `App: the learner has heard every dialog of a happening, ${name} in ${said(s.title, lang) ?? s.id}, "${said(a.happening.title, lang) ?? a.happening.id}" ` +
     `(${a.variants.length} ${a.variants.length === 1 ? 'dialog' : 'variants'}). Write a fresh variant with publish_dialog_variant (scene "${s.id}", ` +
     `happening "${a.happening.id}"): the same situation (its title, its time, its person${a.happening.months ? ', its season' : ''}) in other words, with another point of ` +
-    `grammar, at the learner's level (${level}), around one of their weak spots below where it fits naturally. The rules of a ` +
+    `grammar, at the learner's level (${level})${levelRank(level) >= 2 ? ` and saying it ("level": "${level}": the app plays it to them before the dialogs below)` : ''}, around one of their weak spots below where it fits naturally. The rules of a ` +
     `scene's dialogs hold (load lani-studio, "Scenes"): a reaction to every wrong choice that never says the right form, two ` +
     `right answers where people would accept either, the learner as {learner} and every form that agrees with them a pair ` +
     `{m:…|f:…} (the placeholders kept), a text naming only the person and ` +
