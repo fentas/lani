@@ -102,14 +102,23 @@ A voice build of these six units in Eva's voice would take about **5,900 charact
 
 ## Checks
 
-- `bunx tsc --noEmit -p .`: clean.
-- The smoke (ports 9890, 9893, 9896; Drama 3 on 9908): 3,508 checks pass, none fail, at de40d6f9. Among them: every unit and page validates, each step's point on the print's rule line in every base, Eva's reading never in a base's words.
-- `tutor-export --check`: 89 files match the bridge. `bun test/prompt-clashes.ts`: no new clash (no pack changed).
-- `lexicon-build --coverage --lang de`: 99.0 % of words known, 98.6 % meant in each base, 52 unknown, as before this part. It first fell by 0.1–0.2 % through the table labels (a, d, erster) and four page words; both are fixed.
-- From the scratchpad, a TypeScript port of `Grading`, `Spelling` and the sheet's check with the German table: 198 right answers right, every distractor wrong for every gap (175 wrong forms probed), and the new pairs. A bank's other word that is right for a gap is only ever a listed spoken form (wie for als, weil for denn, wann for Wenn).
-- Android, through lani-slot, the course's classes only (the whole suite is for after the integration): GermanA2cContentTest 6, GermanCourseContentTest 5 (every unit parsed and played, every right answer right, no distractor even almost right, every text in en, sl and it), GradingLanguagesTest 48, GrammarTest 16, SchoolBoardTest 7 (the blackboard writes every letter of the titles): none failed.
-- `school-prints --language de --level A2` in sl, en and it: all six fit, `groesser-als` and `weil-denn` on one page, the others on two; no word left without a meaning (`--explain`).
-- Emulator QA (slot 1, `--steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=adjektiv-ein`): a synthetic learner of German from Slovene plays the five steps with each quick question, the summary, the first sheet and the test, passed, the next unit named, and prints the A4 sheet to a PDF. Setup, course-unit and the crash check ok. 18 screenshots (cu-*.png) in the scratchpad's `ux-course-de-a2-c/`. The print says "Lektion 2" because A2's units 1–12 aren't on this branch; it becomes 14 once they are merged.
+On the merged course, at 7bafb908 (parts a and b and main in, only `bin/qa`'s step and this doc apart):
+
+- `bunx tsc --noEmit -p .`: clean. `bun build --no-bundle` on each merged TypeScript test file (smoke's cultures, friuli, meanings, prints): all parse.
+- The smoke (ports 9890, 9893, 9896; Drama 3 on 9908): 3,515 checks pass, none fail.
+- `tutor-export --check`: 89 files match the bridge. `bun test/prompt-clashes.ts`: no new clash.
+- Android, the whole unit suite through lani-slot: 3,806 tests in 488 classes, none failed (2 skipped). Among them GermanA2aContentTest, GermanA2bContentTest, GermanA2cContentTest, GermanCourseContentTest, GradingLanguagesTest, GrammarTest and SchoolBoardTest.
+- Python: 253 tests (tests) and 145 (companion/tests, 11 skipped), all pass.
+- `lexicon-build --coverage --lang de`: 99.0 % of words known, 98.6 % meant in each base, 51 unknown (52 at the base).
+- `school-prints --language de --level A2` in sl, en and it: all 18 fit, no word without a meaning (`--explain`), lessons numbered 1 to 18.
+- Part c's own units, before the merges: a TypeScript port of `Grading` over this part's answers (198 right, 175 wrong forms probed), and an emulator run of `adjektiv-ein` from Slovene (`ux-course-de-a2-c/cu-*.png`).
+- Emulator QA of the merged course (`LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-en`, each on a fresh synthetic learner):
+  - `--steps course-unit`, `LANI_QA_COURSE_UNIT=reflexiv` (part b's, with `pronomen-dativ` now): the intro, the first sheet, the test passed, the A4 PDF; the crash check ok. The school read "Geschafft: 9/18", nothing planned beside it.
+  - `--steps school-board`, a named step new in `bin/qa`, `LANI_QA_SCHOOL_LEVEL=A2`: "0/18", three rows, "Noch 15 Einheiten in A2" opened, all 18 titles found. It ran against the APK of 96db047b. That run reported the pass as "skipped" (a returned string reads so); the one-line fix after it wasn't run on an emulator.
+  - Shots in the scratchpad's `ux-course-de-a2-c/merged/` (cu-*, sb-*).
+  - QA's `same_fit` didn't stop a print here, so 0aaf61c7 isn't taken.
+
+**No check covers a print's fit in the smoke:** `partizip-perfekt` went through part b's smoke while it didn't fit. `school-prints` is what says so.
 
 ## The integration (part c's)
 
