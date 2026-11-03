@@ -1,0 +1,1120 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "past-irregular",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🧳",
+  "title": {
+    "en": "I went, I saw, I took",
+    "de": "Die Vergangenheit, unregelmäßig: I went, I saw",
+    "sl": "Preteklik, nepravilni glagoli: I went, I saw",
+    "it": "Il passato, verbi irregolari: I went, I saw"
+  },
+  "goal": {
+    "sl": "Poveš, kaj se je zgodilo, z nepravilnimi glagoli vsakdana (I went, I saw, I took, she made, they found), v eni obliki za vse osebe.",
+    "de": "Du erzählst, was passiert ist, mit den unregelmäßigen Verben des Alltags (I went, I saw, I took, she made, they found), in einer Form für alle Personen.",
+    "it": "Racconti che cosa è successo con i verbi irregolari di ogni giorno (I went, I saw, I took, she made, they found), in una sola forma per tutte le persone.",
+    "en": "You can tell what happened with the irregular verbs of daily life (I went, I saw, I took, she made, they found), one form for every person."
+  },
+  "grammar": [
+    "past-simple"
+  ],
+  "words": [
+    "go",
+    "come",
+    "see",
+    "take",
+    "get",
+    "make",
+    "have",
+    "eat",
+    "drink",
+    "give",
+    "buy",
+    "bring",
+    "say",
+    "tell",
+    "know",
+    "think",
+    "hear",
+    "write",
+    "read",
+    "run",
+    "sit",
+    "sleep",
+    "meet",
+    "leave",
+    "lose",
+    "find",
+    "pay",
+    "put",
+    "cut",
+    "shut",
+    "letter",
+    "key",
+    "story",
+    "market",
+    "hat",
+    "yesterday",
+    "last night",
+    "ago",
+    "lamb",
+    "news"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "glagol",
+          "de": "Verb",
+          "it": "verbo",
+          "en": "verb"
+        },
+        {
+          "sl": "preteklik",
+          "de": "Vergangenheit",
+          "it": "passato",
+          "en": "past"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Pogosti glagoli nimajo **-ed**: vsak ima svoj preteklik, isti za vse osebe. go → **went** (šel), come → **came** (prišel), see → **saw** (videl), take → **took** (vzel), get → **got** (dobil, vstal): **I went**, **she went**, **they went**. Nikoli *goed*, nikoli *comed*.",
+          "de": "Häufige Verben haben kein **-ed**: Jedes hat seine eigene Vergangenheit, gleich für alle Personen. go → **went** (ging), come → **came** (kam), see → **saw** (sah), take → **took** (nahm), get → **got** (bekam, stand auf): **I went**, **she went**, **they went**. Nie *goed*, nie *comed*.",
+          "it": "I verbi più comuni non hanno **-ed**: ognuno ha un passato suo, uguale per tutte le persone. go → **went** (sono andato), come → **came** (sono venuto), see → **saw** (ho visto), take → **took** (ho preso), get → **got** (ho ricevuto, mi sono alzato): **I went**, **she went**, **they went**. Mai *goed*, mai *comed*.",
+          "en": "Common verbs have no **-ed**: each has a past of its own, the same for every person. go → **went** (never *goed*), come → **came** (never *comed*), see → **saw**, take → **took**, get → **got**: **I went**, **she went**, **they went**."
+        },
+        "examples": [
+          {
+            "en": "Jack went to Keswick on Monday.",
+            "sl": "Jack je v ponedeljek šel v Keswick.",
+            "de": "Jack ist am Montag nach Keswick gefahren.",
+            "it": "Lunedì Jack è andato a Keswick."
+          },
+          {
+            "en": "Brewer Sam came at eight.",
+            "sl": "Pivovar Sam je prišel ob osmih.",
+            "de": "Brauer Sam ist um acht gekommen.",
+            "it": "Il birraio Sam è venuto alle otto."
+          },
+          {
+            "en": "I saw a fox by the gate.",
+            "sl": "Pri vratih sem {m:videl|f:videla} lisico.",
+            "de": "Beim Gatter habe ich einen Fuchs gesehen.",
+            "it": "Vicino al cancello ho visto una volpe."
+          },
+          {
+            "en": "We got up at five and took the first bus.",
+            "sl": "Vstali smo ob petih in šli na prvi avtobus.",
+            "de": "Wir sind um fünf aufgestanden und haben den ersten Bus genommen.",
+            "it": "Ci siamo alzati alle cinque e abbiamo preso il primo autobus."
+          }
+        ],
+        "rows": [
+          [
+            "go",
+            "went",
+            "Jack went to Keswick."
+          ],
+          [
+            "come",
+            "came",
+            "Sam came at eight."
+          ],
+          [
+            "see",
+            "saw",
+            "I saw a fox."
+          ],
+          [
+            "take",
+            "took",
+            "We took the bus."
+          ],
+          [
+            "get",
+            "got",
+            "We got up at five."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "Last week Mrs Birkett ___ to Carlisle.",
+          "options": [
+            "went",
+            "goed",
+            "go"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**go → went, isto za vse osebe**\n- I went · she went · they went",
+            "de": "**go → went, gleich für alle**\n- I went · she went · they went",
+            "it": "**go → went, uguale per tutti**\n- I went · she went · they went",
+            "en": "**go → went, the same for everyone**\n- I went · she went · they went"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri mizi in doma: make → **made** (naredil), have → **had** (imel), eat → **ate** (pojedel), drink → **drank** (spil), give → **gave** (dal). buy → **bought** (kupil) in bring → **brought** (prinesel) loči samo r. Nikoli *eated*, nikoli *buyed*.",
+          "de": "Am Tisch und zu Hause: make → **made** (machte), have → **had** (hatte), eat → **ate** (aß), drink → **drank** (trank), give → **gave** (gab). buy → **bought** (kaufte) und bring → **brought** (brachte) trennt nur das r. Nie *eated*, nie *buyed*.",
+          "it": "A tavola e in casa: make → **made** (ho fatto), have → **had** (ho avuto), eat → **ate** (ho mangiato), drink → **drank** (ho bevuto), give → **gave** (ho dato). buy → **bought** (ho comprato) e bring → **brought** (ho portato) si distinguono solo per la r. Mai *eated*, mai *buyed*.",
+          "en": "At the table and at home: make → **made**, have → **had**, eat → **ate** (never *eated*), drink → **drank**, give → **gave**. buy → **bought** (never *buyed*) and bring → **brought** differ only by the r."
+        },
+        "examples": [
+          {
+            "en": "Granny Maggie made scones.",
+            "sl": "Babica Maggie je spekla pogačice.",
+            "de": "Oma Maggie hat Scones gebacken.",
+            "it": "Nonna Maggie ha fatto gli scones."
+          },
+          {
+            "en": "We had breakfast at seven.",
+            "sl": "Zajtrkovali smo ob sedmih.",
+            "de": "Wir haben um sieben gefrühstückt.",
+            "it": "Abbiamo fatto colazione alle sette."
+          },
+          {
+            "en": "Jack ate two scones and drank his tea.",
+            "sl": "Jack je pojedel dve pogačici in spil čaj.",
+            "de": "Jack hat zwei Scones gegessen und seinen Tee getrunken.",
+            "it": "Jack ha mangiato due scones e ha bevuto il tè."
+          },
+          {
+            "en": "Auntie Edna bought a cake and brought it to the inn.",
+            "sl": "Teta Edna je kupila torto in jo prinesla v gostilno.",
+            "de": "Tante Edna hat einen Kuchen gekauft und ihn ins Gasthaus gebracht.",
+            "it": "Zia Edna ha comprato una torta e l'ha portata alla locanda."
+          }
+        ],
+        "rows": [
+          [
+            "make",
+            "made",
+            "She made scones."
+          ],
+          [
+            "have",
+            "had",
+            "We had breakfast."
+          ],
+          [
+            "eat",
+            "ate",
+            "Jack ate two."
+          ],
+          [
+            "buy",
+            "bought",
+            "Edna bought a cake."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "Sam ___ a cup of tea by the fire. (drink)",
+          "accept": [
+            "drank"
+          ],
+          "hint": {
+            "sl": "i → a",
+            "de": "i → a",
+            "it": "i → a",
+            "en": "i → a"
+          },
+          "explain": {
+            "sl": "**drink → drank**\n- I drank · Sam drank · they drank",
+            "de": "**drink → drank**\n- I drank · Sam drank · they drank",
+            "it": "**drink → drank**\n- I drank · Sam drank · they drank",
+            "en": "**drink → drank**\n- I drank · Sam drank · they drank"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za besede in misli: say → **said** (rekel), tell → **told** (povedal), know → **knew** (vedel), think → **thought** (mislil), hear → **heard** (slišal), write → **wrote** (napisal). Po **told** pride oseba, po **said** ne: **He told us a story.** **He said hello.**",
+          "de": "Für Worte und Gedanken: say → **said** (sagte), tell → **told** (erzählte), know → **knew** (wusste), think → **thought** (dachte), hear → **heard** (hörte), write → **wrote** (schrieb). Nach **told** kommt die Person, nach **said** nicht: **He told us a story.** **He said hello.**",
+          "it": "Per parole e pensieri: say → **said** (ho detto), tell → **told** (ho raccontato), know → **knew** (sapevo), think → **thought** (ho pensato), hear → **heard** (ho sentito), write → **wrote** (ho scritto). Dopo **told** viene la persona, dopo **said** no: **He told us a story.** **He said hello.**",
+          "en": "For words and thoughts: say → **said**, tell → **told**, know → **knew**, think → **thought**, hear → **heard**, write → **wrote**. **told** takes a person, **said** doesn't: **He told us a story.** **He said hello.**"
+        },
+        "examples": [
+          {
+            "en": "Old Wilf told us a story.",
+            "sl": "Stari Wilf nam je povedal zgodbo.",
+            "de": "Der alte Wilf hat uns eine Geschichte erzählt.",
+            "it": "Il vecchio Wilf ci ha raccontato una storia."
+          },
+          {
+            "en": "He said hello to everyone.",
+            "sl": "Vsem je rekel živjo.",
+            "de": "Er hat allen Hallo gesagt.",
+            "it": "Ha salutato tutti."
+          },
+          {
+            "en": "Auntie Edna heard the news on the radio.",
+            "sl": "Teta Edna je slišala novice po radiu.",
+            "de": "Tante Edna hat die Nachrichten im Radio gehört.",
+            "it": "Zia Edna ha sentito il notiziario alla radio."
+          },
+          {
+            "en": "Mrs Hartley wrote a letter and I thought it was very good.",
+            "sl": "Gospa Hartley je napisala pismo in {m:mislil|f:mislila} sem, da je zelo dobro.",
+            "de": "Mrs Hartley hat einen Brief geschrieben, und ich fand ihn sehr gut.",
+            "it": "La signora Hartley ha scritto una lettera e ho pensato che fosse molto bella."
+          }
+        ],
+        "rows": [
+          [
+            "say",
+            "said",
+            "He said hello."
+          ],
+          [
+            "tell",
+            "told",
+            "He told us a story."
+          ],
+          [
+            "know",
+            "knew",
+            "I knew it."
+          ],
+          [
+            "think",
+            "thought",
+            "I thought so."
+          ],
+          [
+            "hear",
+            "heard",
+            "Edna heard the news."
+          ],
+          [
+            "write",
+            "wrote",
+            "She wrote a letter."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "Old Wilf ___ us a story last night.",
+          "options": [
+            "told",
+            "said",
+            "telled"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**told + oseba, said brez osebe**\n- He told us a story. · He said hello.",
+            "de": "**told + Person, said ohne Person**\n- He told us a story. · He said hello.",
+            "it": "**told + persona, said senza persona**\n- He told us a story. · He said hello.",
+            "en": "**told + a person, said without one**\n- He told us a story. · He said hello."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za dan in pot: run → **ran** (tekel), sit → **sat** (sedel), sleep → **slept** (spal), meet → **met** (srečal), leave → **left** (odšel), lose → **lost** (izgubil), find → **found** (našel), pay → **paid** (plačal). Nikoli *runned*, nikoli *payed*.",
+          "de": "Für den Tag und den Weg: run → **ran** (lief), sit → **sat** (saß), sleep → **slept** (schlief), meet → **met** (traf), leave → **left** (ging weg), lose → **lost** (verlor), find → **found** (fand), pay → **paid** (zahlte). Nie *runned*, nie *payed*.",
+          "it": "Per la giornata e la strada: run → **ran** (ho corso), sit → **sat** (mi sono seduto), sleep → **slept** (ho dormito), meet → **met** (ho incontrato), leave → **left** (sono partito), lose → **lost** (ho perso), find → **found** (ho trovato), pay → **paid** (ho pagato). Mai *runned*, mai *payed*.",
+          "en": "For the day and the road: run → **ran** (never *runned*), sit → **sat**, sleep → **slept**, meet → **met**, leave → **left**, lose → **lost**, find → **found**, pay → **paid** (never *payed*)."
+        },
+        "examples": [
+          {
+            "en": "Meg ran up the fell.",
+            "sl": "Meg je stekla na hrib.",
+            "de": "Meg ist auf den Berg gelaufen.",
+            "it": "Meg è corsa su per il monte."
+          },
+          {
+            "en": "We sat by the fire and slept very well.",
+            "sl": "Sedeli smo ob ognju in zelo dobro spali.",
+            "de": "Wir sind am Feuer gesessen und haben sehr gut geschlafen.",
+            "it": "Ci siamo seduti accanto al fuoco e abbiamo dormito benissimo."
+          },
+          {
+            "en": "Jack lost a lamb and found it behind the wall.",
+            "sl": "Jack je izgubil jagnje in ga našel za zidom.",
+            "de": "Jack hat ein Lamm verloren und es hinter der Mauer gefunden.",
+            "it": "Jack ha perso un agnello e l'ha trovato dietro il muro."
+          },
+          {
+            "en": "I paid ten pounds for the room and left at nine.",
+            "sl": "Za sobo sem {m:plačal|f:plačala} deset funtov in ob devetih {m:odšel|f:odšla}.",
+            "de": "Ich habe zehn Pfund für das Zimmer bezahlt und bin um neun gegangen.",
+            "it": "Ho pagato dieci sterline per la camera e sono partit{m:o|f:a} alle nove."
+          }
+        ],
+        "rows": [
+          [
+            "run",
+            "ran",
+            "Meg ran up the fell."
+          ],
+          [
+            "sleep",
+            "slept",
+            "We slept very well."
+          ],
+          [
+            "leave",
+            "left",
+            "I left at nine."
+          ],
+          [
+            "lose",
+            "lost",
+            "Jack lost a lamb."
+          ],
+          [
+            "find",
+            "found",
+            "He found it."
+          ],
+          [
+            "pay",
+            "paid",
+            "I paid ten pounds."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "The bus ___ at seven this morning. (leave)",
+          "accept": [
+            "left"
+          ],
+          "hint": {
+            "sl": "leave → ?",
+            "de": "leave → ?",
+            "it": "leave → ?",
+            "en": "leave → ?"
+          },
+          "explain": {
+            "sl": "**leave → left**\n- The bus left. · I left at nine.",
+            "de": "**leave → left**\n- The bus left. · I left at nine.",
+            "it": "**leave → left**\n- The bus left. · I left at nine.",
+            "en": "**leave → left**\n- The bus left. · I left at nine."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nekateri ostanejo enaki: put → **put** (dal), cut → **cut** (odrezal), shut → **shut** (zaprl). Preteklik pokažeta čas in to, da ni -s: **She put the key on the table yesterday.** read → **read** se piše enako, izgovoriš pa kot red: **I read the letter last night.**",
+          "de": "Manche bleiben gleich: put → **put** (legte), cut → **cut** (schnitt), shut → **shut** (machte zu). Die Vergangenheit zeigen die Zeit und das fehlende -s: **She put the key on the table yesterday.** read → **read** schreibt man gleich, sagt es aber wie red: **I read the letter last night.**",
+          "it": "Alcuni restano uguali: put → **put** (ho messo), cut → **cut** (ho tagliato), shut → **shut** (ho chiuso). Il passato si vede dal tempo e dalla -s che manca: **She put the key on the table yesterday.** read → **read** si scrive uguale, ma si pronuncia come red: **I read the letter last night.**",
+          "en": "Some stay the same: put → **put**, cut → **cut**, shut → **shut**. The time and the missing -s show the past: **She put the key on the table yesterday.** read → **read** is spelled the same but said like red: **I read the letter last night.**"
+        },
+        "examples": [
+          {
+            "en": "She put the key on the table yesterday.",
+            "sl": "Včeraj je dala ključ na mizo.",
+            "de": "Gestern hat sie den Schlüssel auf den Tisch gelegt.",
+            "it": "Ieri ha messo la chiave sul tavolo."
+          },
+          {
+            "en": "Granny Maggie cut the cake.",
+            "sl": "Babica Maggie je narezala torto.",
+            "de": "Oma Maggie hat den Kuchen angeschnitten.",
+            "it": "Nonna Maggie ha tagliato la torta."
+          },
+          {
+            "en": "I read the letter last night.",
+            "sl": "Sinoči sem {m:prebral|f:prebrala} pismo.",
+            "de": "Gestern Abend habe ich den Brief gelesen.",
+            "it": "Ieri sera ho letto la lettera."
+          },
+          {
+            "en": "Sam shut the gate.",
+            "sl": "Sam je zaprl vrata.",
+            "de": "Sam hat das Gatter zugemacht.",
+            "it": "Sam ha chiuso il cancello."
+          }
+        ],
+        "rows": [
+          [
+            "put",
+            "put",
+            "She put the key there."
+          ],
+          [
+            "cut",
+            "cut",
+            "She cut the cake."
+          ],
+          [
+            "shut",
+            "shut",
+            "Sam shut the gate."
+          ],
+          [
+            "read",
+            "read",
+            "I read the letter."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "past-simple",
+          "prompt": "Yesterday Arthur ___ the honey on the shelf.",
+          "options": [
+            "put",
+            "puts",
+            "putted"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**put → put, brez -s in brez -ed**\n- Yesterday he put it there. · Every day he puts it there.",
+            "de": "**put → put, ohne -s und ohne -ed**\n- Yesterday he put it there. · Every day he puts it there.",
+            "it": "**put → put, senza -s e senza -ed**\n- Yesterday he put it there. · Every day he puts it there.",
+            "en": "**put → put, no -s and no -ed**\n- Yesterday he put it there. · Every day he puts it there."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V pripovedi stojijo ob glagolih na -ed: **Jack got up at five, walked up the fell and found the lamb.** (Jack je vstal ob petih, šel na hrib in našel jagnje.) Tudi po **and** je vsak glagol v pretekliku. Pazi: **got** je preteklik, **I've got** pa pomeni imam.",
+          "de": "In einer Erzählung stehen sie neben den Verben auf -ed: **Jack got up at five, walked up the fell and found the lamb.** (Jack stand um fünf auf, ging auf den Berg und fand das Lamm.) Auch nach **and** steht jedes Verb in der Vergangenheit. Vorsicht: **got** ist Vergangenheit, **I've got** heißt ich habe.",
+          "it": "In un racconto stanno accanto ai verbi in -ed: **Jack got up at five, walked up the fell and found the lamb.** (Jack si è alzato alle cinque, è salito sul monte e ha trovato l'agnello.) Anche dopo **and** ogni verbo è al passato. Attenzione: **got** è passato, **I've got** vuol dire ho.",
+          "en": "In a story they stand beside the verbs in -ed: **Jack got up at five, walked up the fell and found the lamb.** After **and** too, every verb is in the past. Careful: **got** is the past, **I've got** means I have."
+        },
+        "examples": [
+          {
+            "en": "Jack got up at five, walked up the fell and found the lamb.",
+            "sl": "Jack je vstal ob petih, šel na hrib in našel jagnje.",
+            "de": "Jack ist um fünf aufgestanden, auf den Berg gegangen und hat das Lamm gefunden.",
+            "it": "Jack si è alzato alle cinque, è salito sul monte e ha trovato l'agnello."
+          },
+          {
+            "en": "Mrs Birkett opened the door and saw the snow.",
+            "sl": "Gospa Birkett je odprla vrata in zagledala sneg.",
+            "de": "Mrs Birkett hat die Tür aufgemacht und den Schnee gesehen.",
+            "it": "La signora Birkett ha aperto la porta e ha visto la neve."
+          },
+          {
+            "en": "Two days ago Mr Dixon finished the gate and went home.",
+            "sl": "Pred dvema dnevoma je gospod Dixon dokončal vrata in šel domov.",
+            "de": "Vor zwei Tagen hat Mr Dixon das Gatter fertig gemacht und ist nach Hause gegangen.",
+            "it": "Due giorni fa il signor Dixon ha finito il cancello ed è andato a casa."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "past-simple",
+          "text": "Jack got up at five and ___ to the fell. (go)",
+          "accept": [
+            "went"
+          ],
+          "hint": {
+            "sl": "tudi po and preteklik",
+            "de": "auch nach and die Vergangenheit",
+            "it": "anche dopo and il passato",
+            "en": "the past after and too"
+          },
+          "explain": {
+            "sl": "**Vsak glagol pripovedi v pretekliku**\n- He got up and went to the fell.",
+            "de": "**Jedes Verb der Erzählung in der Vergangenheit**\n- He got up and went to the fell.",
+            "it": "**Ogni verbo del racconto al passato**\n- He got up and went to the fell.",
+            "en": "**Every verb of the story in the past**\n- He got up and went to the fell."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**Pogosti glagoli imajo svoj preteklik, isti za vse osebe, brez -ed.** go → **went**, come → **came**, see → **saw**, take → **took**, make → **made**, have → **had**, eat → **ate**, buy → **bought**, say → **said**, tell → **told**, find → **found**, leave → **left**. Nekateri ostanejo enaki: **put**, **cut**, **shut**, **read**. Nikoli *goed*, nikoli *runned*.",
+      "de": "**Häufige Verben haben ihre eigene Vergangenheit, gleich für alle Personen, ohne -ed.** go → **went**, come → **came**, see → **saw**, take → **took**, make → **made**, have → **had**, eat → **ate**, buy → **bought**, say → **said**, tell → **told**, find → **found**, leave → **left**. Manche bleiben gleich: **put**, **cut**, **shut**, **read**. Nie *goed*, nie *runned*.",
+      "it": "**I verbi comuni hanno un passato loro, uguale per tutte le persone, senza -ed.** go → **went**, come → **came**, see → **saw**, take → **took**, make → **made**, have → **had**, eat → **ate**, buy → **bought**, say → **said**, tell → **told**, find → **found**, leave → **left**. Alcuni restano uguali: **put**, **cut**, **shut**, **read**. Mai *goed*, mai *runned*.",
+      "en": "**Common verbs have a past of their own, the same for every person, with no -ed.** go → **went**, come → **came**, see → **saw**, take → **took**, make → **made**, have → **had**, eat → **ate**, buy → **bought**, say → **said**, tell → **told**, find → **found**, leave → **left**. Some stay the same: **put**, **cut**, **shut**, **read**. Never *goed*, never *runned*."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "past-irregular-1",
+      "title": {
+        "sl": "Vsak svoj preteklik",
+        "de": "Jedes seine Vergangenheit",
+        "it": "Ognuno il suo passato",
+        "en": "A past of its own"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "the verb → its past · glagol → preteklik",
+            "de": "the verb → its past · das Verb → seine Vergangenheit",
+            "it": "the verb → its past · il verbo → il suo passato",
+            "en": "the verb → its past"
+          },
+          "columns": [
+            {
+              "sl": "past · preteklik",
+              "de": "past · Vergangenheit",
+              "it": "past · passato",
+              "en": "past"
+            }
+          ],
+          "rows": [
+            {
+              "label": "go",
+              "cells": [
+                "went"
+              ]
+            },
+            {
+              "label": "come",
+              "cells": [
+                {
+                  "accept": [
+                    "came"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "see",
+              "cells": [
+                {
+                  "accept": [
+                    "saw"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "make",
+              "cells": [
+                {
+                  "accept": [
+                    "made"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "eat",
+              "cells": [
+                {
+                  "accept": [
+                    "ate"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "buy",
+              "cells": [
+                {
+                  "accept": [
+                    "bought"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "tell",
+              "cells": [
+                {
+                  "accept": [
+                    "told"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sleep",
+              "cells": [
+                {
+                  "accept": [
+                    "slept"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "put",
+              "cells": [
+                {
+                  "accept": [
+                    "put"
+                  ],
+                  "hint": {
+                    "sl": "ostane enako",
+                    "de": "bleibt gleich",
+                    "it": "resta uguale",
+                    "en": "stays the same"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vsak ima svoj preteklik, brez -ed**\n- go → went · buy → bought · put → put",
+            "de": "**Jedes hat seine eigene Vergangenheit, ohne -ed**\n- go → went · buy → bought · put → put",
+            "it": "**Ognuno ha il suo passato, senza -ed**\n- go → went · buy → bought · put → put",
+            "en": "**Each has a past of its own, no -ed**\n- go → went · buy → bought · put → put"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Sort · Razvrsti",
+            "de": "Sort · Sortiere",
+            "it": "Sort · Ordina",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "regular · pravilni",
+                "de": "regular · regelmäßig",
+                "it": "regular · regolare",
+                "en": "regular"
+              },
+              "words": [
+                "walked",
+                "stayed",
+                "cooked"
+              ]
+            },
+            {
+              "label": {
+                "sl": "irregular · nepravilni",
+                "de": "irregular · unregelmäßig",
+                "it": "irregular · irregolare",
+                "en": "irregular"
+              },
+              "words": [
+                "went",
+                "saw",
+                "ate"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Pravilni dobijo -ed, nepravilni imajo svojo obliko**\n- walk → walked · go → went",
+            "de": "**Regelmäßige bekommen -ed, unregelmäßige haben ihre eigene Form**\n- walk → walked · go → went",
+            "it": "**I regolari prendono -ed, gli irregolari hanno una forma loro**\n- walk → walked · go → went",
+            "en": "**Regular verbs take -ed, irregular ones have their own form**\n- walk → walked · go → went"
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-irregular-2",
+      "title": {
+        "sl": "Jack v Keswicku",
+        "de": "Jack in Keswick",
+        "it": "Jack a Keswick",
+        "en": "Jack in Keswick"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Yesterday Jack ___ (go) to Keswick on the bus. He ___ (take) Meg with him. At the market he ___ (meet) Mrs Birkett, and they ___ (have) a cup of tea. He ___ (buy) a new coat and ___ (pay) forty pounds for it. Then he ___ (see) the last bus and ran!",
+          "gaps": [
+            {
+              "accept": [
+                "went"
+              ]
+            },
+            {
+              "accept": [
+                "took"
+              ]
+            },
+            {
+              "accept": [
+                "met"
+              ]
+            },
+            {
+              "accept": [
+                "had"
+              ]
+            },
+            {
+              "accept": [
+                "bought"
+              ],
+              "hint": {
+                "sl": "kot brought, brez r",
+                "de": "wie brought, ohne r",
+                "it": "come brought, senza r",
+                "en": "like brought, no r"
+              }
+            },
+            {
+              "accept": [
+                "paid"
+              ],
+              "explain": {
+                "sl": "**pay → paid, nikoli payed**\n- I paid · he paid",
+                "de": "**pay → paid, nie payed**\n- I paid · he paid",
+                "it": "**pay → paid, mai payed**\n- I paid · he paid",
+                "en": "**pay → paid, never payed**\n- I paid · he paid"
+              }
+            },
+            {
+              "accept": [
+                "saw"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "goed",
+            "buyed",
+            "payed"
+          ],
+          "translation": {
+            "sl": "Včeraj je šel Jack z avtobusom v Keswick. S seboj je vzel Meg. Na tržnici je srečal gospo Birkett in skupaj sta spila skodelico čaja. Kupil je nov plašč in zanj plačal štirideset funtov. Potem je zagledal zadnji avtobus in stekel!",
+            "de": "Gestern ist Jack mit dem Bus nach Keswick gefahren. Er hat Meg mitgenommen. Auf dem Markt hat er Mrs Birkett getroffen, und sie haben eine Tasse Tee getrunken. Er hat einen neuen Mantel gekauft und vierzig Pfund dafür bezahlt. Dann hat er den letzten Bus gesehen und ist gerannt!",
+            "it": "Ieri Jack è andato a Keswick in autobus. Ha portato con sé Meg. Al mercato ha incontrato la signora Birkett e hanno preso una tazza di tè. Ha comprato un cappotto nuovo e l'ha pagato quaranta sterline. Poi ha visto l'ultimo autobus e si è messo a correre!",
+            "en": "Yesterday Jack went to Keswick on the bus. He took Meg with him. At the market he met Mrs Birkett, and they had a cup of tea. He bought a new coat and paid forty pounds for it. Then he saw the last bus and ran!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Granny Maggie ___ a cake for us yesterday.",
+          "options": [
+            "made",
+            "maked",
+            "makes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**make → made**\n- She made a cake. · We made tea.",
+            "de": "**make → made**\n- She made a cake. · We made tea.",
+            "it": "**make → made**\n- She made a cake. · We made tea.",
+            "en": "**make → made**\n- She made a cake. · We made tea."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "I ___ a letter to Auntie Edna last night.",
+          "options": [
+            "wrote",
+            "writed",
+            "write"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**write → wrote**\n- I wrote · she wrote",
+            "de": "**write → wrote**\n- I wrote · she wrote",
+            "it": "**write → wrote**\n- I wrote · she wrote",
+            "en": "**write → wrote**\n- I wrote · she wrote"
+          }
+        }
+      ]
+    },
+    {
+      "id": "past-irregular-3",
+      "title": {
+        "sl": "Včeraj",
+        "de": "Gestern",
+        "it": "Ieri",
+        "en": "Yesterday"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "past-simple",
+          "instruction": {
+            "sl": "Say it about yesterday · Povej za včeraj",
+            "de": "Say it about yesterday · Sag es für gestern",
+            "it": "Say it about yesterday · Dillo per ieri",
+            "en": "Say it about yesterday"
+          },
+          "cue": "yesterday",
+          "items": [
+            {
+              "from": "Jack gets up at five today.",
+              "accept": [
+                "Jack got up at five yesterday.",
+                "Yesterday Jack got up at five."
+              ]
+            },
+            {
+              "from": "Granny Maggie makes scones today.",
+              "accept": [
+                "Granny Maggie made scones yesterday.",
+                "Yesterday Granny Maggie made scones."
+              ]
+            },
+            {
+              "from": "We eat at the inn today.",
+              "accept": [
+                "We ate at the inn yesterday.",
+                "Yesterday we ate at the inn."
+              ]
+            },
+            {
+              "from": "Old Wilf tells a story today.",
+              "accept": [
+                "Old Wilf told a story yesterday.",
+                "Yesterday Old Wilf told a story."
+              ]
+            },
+            {
+              "from": "She puts the key on the table today.",
+              "accept": [
+                "She put the key on the table yesterday.",
+                "Yesterday she put the key on the table."
+              ],
+              "hint": {
+                "sl": "puts → brez -s",
+                "de": "puts → ohne -s",
+                "it": "puts → senza -s",
+                "en": "puts → no -s"
+              }
+            }
+          ],
+          "explain": {
+            "sl": "**Ena oblika za vse, brez -s**\n- She gets up. → She got up.\n- She puts it there. → She put it there.",
+            "de": "**Eine Form für alle, ohne -s**\n- She gets up. → She got up.\n- She puts it there. → She put it there.",
+            "it": "**Una forma per tutti, senza -s**\n- She gets up. → She got up.\n- She puts it there. → She put it there.",
+            "en": "**One form for everyone, no -s**\n- She gets up. → She got up.\n- She puts it there. → She put it there."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Two days ago Arthur ___ (lose) his hat on the fell. He ___ (think) it was by the hives, but it wasn't. Then Poppy ___ (find) it by the beck and ___ (give) it back to him. He ___ (say) thank you and gave her a jar of honey.",
+        "gaps": [
+          {
+            "accept": [
+              "lost"
+            ]
+          },
+          {
+            "accept": [
+              "thought"
+            ]
+          },
+          {
+            "accept": [
+              "found"
+            ]
+          },
+          {
+            "accept": [
+              "gave"
+            ]
+          },
+          {
+            "accept": [
+              "said"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Pred dvema dnevoma je Arthur na hribu izgubil klobuk. Mislil je, da je pri panjih, pa ni bil. Potem ga je Poppy našla ob potoku in mu ga vrnila. Rekel je hvala in ji dal kozarec medu.",
+          "de": "Vor zwei Tagen hat Arthur seinen Hut am Berg verloren. Er hat gedacht, er ist bei den Bienenstöcken, aber dort war er nicht. Dann hat Poppy ihn beim Bach gefunden und ihm zurückgegeben. Er hat Danke gesagt und ihr ein Glas Honig gegeben.",
+          "it": "Due giorni fa Arthur ha perso il cappello sul monte. Pensava che fosse vicino agli alveari, ma non c'era. Poi Poppy l'ha trovato vicino al ruscello e glielo ha ridato. Lui ha detto grazie e le ha dato un vasetto di miele.",
+          "en": "Two days ago Arthur lost his hat on the fell. He thought it was by the hives, but it wasn't. Then Poppy found it by the beck and gave it back to him. He said thank you and gave her a jar of honey."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Fill in the table · Dopolni tabelo",
+          "de": "Fill in the table · Ergänze die Tabelle",
+          "it": "Fill in the table · Completa la tabella",
+          "en": "Fill in the table"
+        },
+        "prompt": {
+          "sl": "the verb → its past · glagol → preteklik",
+          "de": "the verb → its past · das Verb → seine Vergangenheit",
+          "it": "the verb → its past · il verbo → il suo passato",
+          "en": "the verb → its past"
+        },
+        "columns": [
+          {
+            "sl": "past · preteklik",
+            "de": "past · Vergangenheit",
+            "it": "past · passato",
+            "en": "past"
+          }
+        ],
+        "rows": [
+          {
+            "label": "run",
+            "cells": [
+              {
+                "accept": [
+                  "ran"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "sit",
+            "cells": [
+              {
+                "accept": [
+                  "sat"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "hear",
+            "cells": [
+              {
+                "accept": [
+                  "heard"
+                ]
+              }
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Vsak ima svoj preteklik**\n- run → ran · sit → sat · hear → heard",
+          "de": "**Jedes hat seine eigene Vergangenheit**\n- run → ran · sit → sat · hear → heard",
+          "it": "**Ognuno ha il suo passato**\n- run → ran · sit → sat · hear → heard",
+          "en": "**Each has a past of its own**\n- run → ran · sit → sat · hear → heard"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "We ___ Mrs Hartley at the bus stop yesterday.",
+        "options": [
+          "met",
+          "meeted",
+          "meet"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**meet → met**\n- We met her. · I met Jack.",
+          "de": "**meet → met**\n- We met her. · I met Jack.",
+          "it": "**meet → met**\n- We met her. · I met Jack.",
+          "en": "**meet → met**\n- We met her. · I met Jack."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mr Tyson ___ very well last night.",
+        "options": [
+          "slept",
+          "sleeped",
+          "sleeps"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**sleep → slept**\n- He slept well. · We slept well.",
+          "de": "**sleep → slept**\n- He slept well. · We slept well.",
+          "it": "**sleep → slept**\n- He slept well. · We slept well.",
+          "en": "**sleep → slept**\n- He slept well. · We slept well."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "past-simple",
+        "instruction": {
+          "sl": "Say it about yesterday · Povej za včeraj",
+          "de": "Say it about yesterday · Sag es für gestern",
+          "it": "Say it about yesterday · Dillo per ieri",
+          "en": "Say it about yesterday"
+        },
+        "cue": "yesterday",
+        "items": [
+          {
+            "from": "She reads the letter today.",
+            "accept": [
+              "She read the letter yesterday.",
+              "Yesterday she read the letter."
+            ]
+          },
+          {
+            "from": "They sit by the fire today.",
+            "accept": [
+              "They sat by the fire yesterday.",
+              "Yesterday they sat by the fire."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**reads → read (izgovoriš red), sit → sat**\n- She read the letter. · They sat by the fire.",
+          "de": "**reads → read (gesprochen wie red), sit → sat**\n- She read the letter. · They sat by the fire.",
+          "it": "**reads → read (si pronuncia red), sit → sat**\n- She read the letter. · They sat by the fire.",
+          "en": "**reads → read (said like red), sit → sat**\n- She read the letter. · They sat by the fire."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: got up, on the bus, ran for the last bus, said hello"
+}
