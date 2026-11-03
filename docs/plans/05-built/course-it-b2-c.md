@@ -89,6 +89,8 @@ This branch took parts a and b and main by merges, in that order.
 
 Eleven lemmas were in two tables, each now one line: sebbene and almeno part a's (sebbene's "although" clashed with benché), necessario both wordings (nötig, notwendig; potreben, nujen), descrivere and padre the same anyway, colpa, facilmente, rifare and risata this part's, grosso and motore the projects' ("big, thick"; "engine, motor"). lamentare says "to lament" apart from lamentarsi's "to complain". licôf and villotta have the projects' lines, which keep their plurals, and fiaccola its "flaming torch". `--prompts` lists six clashes, none of these parts': fiero and the pack's orgoglioso in three bases, avvicinare's približati, ribolla's rebula, improvvisamente's plötzlich.
 
+**Checked on that merge (8dc1de61):** `bun build --no-bundle` on the 10 TypeScript test files it touched; `tsc` clean; the smoke on these ports, all 3,697 checks passed; `tutor-export --check`, 140 files match; `prompt-clashes` at the baseline; `check-culture friuli` ok; `check-steps friuli` ok (13 files, 78 steps, 234 dialogs, 1,408 lines); coverage 99.8 % of the words met, 97.8 % of the different words over 283 files, 115 left; the course and grading Android classes, 18 classes, 196 tests, none failed. The whole suite is the gate's, and it wasn't run on this merge. The numbers below are from before it.
+
 ## Tests
 
 On the merged branch, main merged twice as it moved (the second time 56c600d5, German A2 and more; the README kept Italian's 70 and main's German 35):
