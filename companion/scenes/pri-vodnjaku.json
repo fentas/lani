@@ -4,7 +4,7 @@
   "title": { "sl": "Pri vodnjaku", "en": "At the fountain", "de": "Am Brunnen", "it": "Alla fontana" },
   "emoji": "⛲",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written, unreviewed; checked against Fran: štirna (spoken), curek, brizgalna, Nisva skupaj krav pasla; place-life too; scene-replier.md: to check",
+  "review": "sl lines, reactions, variants, B1/B2, de, it: machine-written, unreviewed; checked against Fran: štirna (spoken), curek, brizgalna, Nisva skupaj krav pasla; place-life too; scene-replier.md: to check",
   "art": "square",
   "from": ["project:vodnjak_na_trgu"],
   "pack": "pri-vodnjaku",
@@ -67,7 +67,7 @@
       "weekdays": [1, 2, 3, 4, 5],
       "chance": 0.5,
       "dialog": "lekcija",
-      "dialogs": ["lekcija-stejem", "lekcija-dvojina", "lekcija"],
+      "dialogs": ["lekcija-b2-stirna", "lekcija-b1-zima", "lekcija-stejem", "lekcija-dvojina", "lekcija"],
       "reward": { "wisdom": 20 },
       "marker": "✏️",
       "memory": {
@@ -89,7 +89,7 @@
       "when": ["afternoon"],
       "chance": 0.5,
       "dialog": "konj",
-      "dialogs": ["konj-sivko", "konj"],
+      "dialogs": ["konj-b2-traktor", "konj-b1-podkev", "konj-sivko", "konj"],
       "reward": { "food": 15 },
       "marker": "🐴",
       "memory": {
@@ -2284,6 +2284,668 @@
           "en": "Good. Now let's try it. France, pump!",
           "de": "Gut. Jetzt probieren wir's. France, pump!",
           "it": "Bene. Adesso proviamo. France, pompa!"
+        }
+      ]
+    },
+    {
+      "id": "lekcija-b1-zima",
+      "level": "B1",
+      "memory": {
+        "sl": "pouk o vodi, ki pozimi ne zmrzne",
+        "en": "the lesson about the water that doesn't freeze in winter",
+        "de": "die Stunde über das Wasser, das im Winter nicht gefriert",
+        "it": "la lezione sull'acqua che d'inverno non gela"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Dober dan, {learner}! Vprašanje za danes: zakaj voda v vodnjaku pozimi ne zmrzne?",
+          "en": "Good afternoon, {learner}! Today's question: why doesn't the water in the fountain freeze in winter?",
+          "de": "Guten Tag, {learner}! Die Frage für heute: Warum gefriert das Wasser im Brunnen im Winter nicht?",
+          "it": "Buongiorno, {learner}! La domanda di oggi: perché d'inverno l'acqua della fontana non gela?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ker ves čas teče. Voda, ki teče, ne zmrzne tako hitro.",
+              "en": "Because it's flowing all the time. Water that flows doesn't freeze so fast.",
+              "de": "Weil es die ganze Zeit fließt. Wasser, das fließt, gefriert nicht so schnell.",
+              "it": "Perché scorre sempre. L'acqua che scorre non gela così in fretta.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično! In razlog ste povedali s ker. Tako se odgovori na zakaj.",
+                "en": "Excellent! And you gave the reason with ker. That's how to answer a why.",
+                "de": "Ausgezeichnet! Und den Grund haben Sie mit ker angegeben. So antwortet man auf warum.",
+                "it": "Ottimo! E il motivo l'ha detto con ker. Così si risponde a un perché."
+              }
+            },
+            {
+              "sl": "Zato ves čas teče. Voda, ki teče, ne zmrzne tako hitro.",
+              "en": "So it's flowing all the time. Water that flows doesn't freeze so fast.",
+              "de": "Deshalb fließt es die ganze Zeit. Wasser, das fließt, gefriert nicht so schnell.",
+              "it": "Quindi scorre sempre. L'acqua che scorre non gela così in fretta.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Ker is the cause (because), and zakaj asks for it. Zato (so) gives a result.",
+                "de": "Ker ist der Grund (weil), und zakaj fragt danach. Zato (deshalb) gibt eine Folge an.",
+                "it": "Ker è la causa (perché), ed è ciò che chiede zakaj. Zato (quindi) dà una conseguenza."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Zato? Hm, zdaj je posledica pred vzrokom.",
+                "en": "So? Hm, now the result comes before the cause.",
+                "de": "Deshalb? Hm, jetzt steht die Folge vor dem Grund.",
+                "it": "Quindi? Mm, adesso la conseguenza viene prima della causa."
+              }
+            },
+            {
+              "sl": "Ker ves čas teče. Voda, ki tečejo, ne zmrzne tako hitro.",
+              "en": "Because it's flowing all the time. Water that (they) flow doesn't freeze so fast.",
+              "de": "Weil es die ganze Zeit fließt. Wasser, das fließen (Plural), gefriert nicht so schnell.",
+              "it": "Perché scorre sempre. L'acqua che scorrono non gela così in fretta.",
+              "grammar": "glagoli-sedanjik",
+              "why": {
+                "en": "Ki stands for voda, one thing: the verb is singular, ki teče. Tečejo is for many (they).",
+                "de": "Ki steht für voda, eine Sache: das Verb steht im Singular, ki teče. Tečejo ist für viele (sie).",
+                "it": "Ki sta per voda, una cosa sola: il verbo è al singolare, ki teče. Tečejo è per molti (loro)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Tečejo? Koliko vod pa imamo? Ena voda, {learner}.",
+                "en": "They flow? How many waters have we got? One water, {learner}.",
+                "de": "Sie fließen? Wie viele Wasser haben wir denn? Ein Wasser, {learner}.",
+                "it": "Scorrono? Quante acque abbiamo? Un'acqua sola, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, nisem razumela. Še enkrat, prosim?",
+            "en": "Sorry, I didn't understand. Once more, please?",
+            "de": "Entschuldigung, ich habe nicht verstanden. Noch einmal, bitte?",
+            "it": "Scusi, non ho capito. Ancora una volta, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Zdaj pa težje: kaj bi se zgodilo, če bi Tone zaprl vse štiri cevi?",
+          "en": "Now a harder one: what would happen if Tone closed all four pipes?",
+          "de": "Jetzt etwas Schwereres: Was würde passieren, wenn Tone alle vier Rohre zumachen würde?",
+          "it": "Adesso una più difficile: che cosa succederebbe se Tone chiudesse tutti e quattro i tubi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi zaprl cevi, bi voda pozimi zmrznila.",
+              "en": "If he closed the pipes, the water would freeze in winter.",
+              "de": "Wenn er die Rohre zumachen würde, würde das Wasser im Winter gefrieren.",
+              "it": "Se chiudesse i tubi, d'inverno l'acqua gelerebbe.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Natančno! Če bi … bi, v obeh delih. Za to bi vam dala petico.",
+                "en": "Exactly! Če bi … bi, in both halves. I'd give you top marks for that.",
+                "de": "Genau! Če bi … bi, in beiden Hälften. Dafür würde ich Ihnen eine Eins geben.",
+                "it": "Esatto! Če bi … bi, in tutte e due le parti. Per questo Le darei dieci."
+              }
+            },
+            {
+              "sl": "Če bi zaprl cevi, bo voda pozimi zmrznila.",
+              "en": "If he closed the pipes, the water will freeze in winter.",
+              "de": "Wenn er die Rohre zumachen würde, wird das Wasser im Winter gefrieren.",
+              "it": "Se chiudesse i tubi, d'inverno l'acqua gelerà.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "An imagined condition takes the conditional in both halves: če bi zaprl, bi zmrznila. Bo is the future.",
+                "de": "Eine nur gedachte Bedingung verlangt den Konditional in beiden Hälften: če bi zaprl, bi zmrznila. Bo ist das Futur.",
+                "it": "Una condizione solo immaginata vuole il condizionale in tutte e due le parti: če bi zaprl, bi zmrznila. Bo è il futuro."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bo? Ne, ne! Tone ne bo zaprl ničesar, upam.",
+                "en": "Will? No, no! Tone won't close anything, I hope.",
+                "de": "Wird? Nein, nein! Tone macht nichts zu, hoffe ich.",
+                "it": "Gelerà? No, no! Tone non chiuderà niente, spero."
+              }
+            },
+            {
+              "sl": "Če bi zaprl cevi, bi voda pozimi zmrznil.",
+              "en": "If he closed the pipes, the water (masculine) would freeze in winter.",
+              "de": "Wenn er die Rohre zumachen würde, würde das Wasser (männlich) im Winter gefrieren.",
+              "it": "Se chiudesse i tubi, d'inverno l'acqua gelerebbe (maschile).",
+              "grammar": "pretekli-cas",
+              "why": {
+                "en": "The l-form agrees with its subject: voda is feminine, bi zmrznila. Zmrznil is masculine.",
+                "de": "Die l-Form richtet sich nach dem Subjekt: voda ist weiblich, bi zmrznila. Zmrznil ist männlich.",
+                "it": "La forma in -l concorda col soggetto: voda è femminile, bi zmrznila. Zmrznil è maschile."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Zmrznil? Kdo, Tone? Upam, da ne!",
+                "en": "Freeze, masculine? Who, Tone? I hope not!",
+                "de": "Erfroren, männlich? Wer, Tone? Hoffentlich nicht!",
+                "it": "Gelerebbe lui? Chi, Tone? Spero di no!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, nisem razumela. Še enkrat, prosim?",
+            "en": "Sorry, I didn't understand. Once more, please?",
+            "de": "Entschuldigung, ich habe nicht verstanden. Noch einmal, bitte?",
+            "it": "Scusi, non ho capito. Ancora una volta, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Odlično. Za domačo nalogo: vprašajte Toneta, zakaj ima vodnjak ravno štiri cevi.",
+          "en": "Excellent. For homework: ask Tone why the fountain has exactly four pipes.",
+          "de": "Ausgezeichnet. Als Hausaufgabe: Fragen Sie Tone, warum der Brunnen genau vier Rohre hat.",
+          "it": "Ottimo. Per compito: chieda a Tone perché la fontana ha proprio quattro tubi."
+        }
+      ]
+    },
+    {
+      "id": "lekcija-b2-stirna",
+      "level": "B2",
+      "memory": {
+        "sl": "pogovor o štirni in vodnjaku",
+        "en": "our talk about štirna and vodnjak",
+        "de": "unser Gespräch über štirna und vodnjak",
+        "it": "la nostra chiacchierata su štirna e vodnjak"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Dober dan, {learner}. Otroci temu pravijo štirna, v knjigah pa piše vodnjak. Kaj mislite, naj jih popravljam?",
+          "en": "Good afternoon, {learner}. The children call this a štirna, but the books say vodnjak. What do you think, should I correct them?",
+          "de": "Guten Tag, {learner}. Die Kinder sagen dazu štirna, in den Büchern steht aber vodnjak. Was meinen Sie, soll ich sie verbessern?",
+          "it": "Buongiorno, {learner}. I bambini la chiamano štirna, nei libri invece c'è scritto vodnjak. Che ne dice, devo correggerli?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda morajo znati knjižno besedo, ampak štirna ni napaka. Tako so govorili že njihovi dedki.",
+              "en": "Of course they must know the standard word, but štirna isn't a mistake. Their grandfathers already said it.",
+              "de": "Natürlich müssen sie das Wort der Schriftsprache kennen, aber štirna ist kein Fehler. So haben schon ihre Großväter gesprochen.",
+              "it": "Certo che devono conoscere la parola della lingua scritta, ma štirna non è un errore. Così parlavano già i loro nonni.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lepo povedano. Doma štirna, v spisu vodnjak. Oboje ima svoje mesto.",
+                "en": "Nicely put. At home štirna, in an essay vodnjak. Both have their place.",
+                "de": "Schön gesagt. Zu Hause štirna, im Aufsatz vodnjak. Beides hat seinen Platz.",
+                "it": "Ben detto. A casa štirna, nel tema vodnjak. Tutte e due hanno il loro posto."
+              }
+            },
+            {
+              "sl": "Seveda morajo znati knjižno besedo, ampak štirna ni napake. Tako so govorili že njihovi dedki.",
+              "en": "Of course they must know the standard word, but štirna has no mistake (genitive). Their grandfathers already said it.",
+              "de": "Natürlich müssen sie das Wort der Schriftsprache kennen, aber an štirna ist kein Fehler (Genitiv). So haben schon ihre Großväter gesprochen.",
+              "it": "Certo che devono conoscere la parola della lingua scritta, ma in štirna non c'è errore (genitivo). Così parlavano già i loro nonni.",
+              "grammar": "rodilnik-nikalnica",
+              "why": {
+                "en": "Ni here is is not, saying what štirna is: the nominative stays, ni napaka. The genitive after a no is for what isn't there: ni napake, there's no mistake.",
+                "de": "Ni heißt hier ist nicht und sagt, was štirna ist: der Nominativ bleibt, ni napaka. Der Genitiv nach der Verneinung ist für das, was fehlt: ni napake, es gibt keinen Fehler.",
+                "it": "Qui ni è non è, e dice che cos'è štirna: il nominativo resta, ni napaka. Il genitivo dopo la negazione è per ciò che manca: ni napake, non c'è errore."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ni napake? Torej je štirna brez napake? Še bolje!",
+                "en": "No mistake in it? So štirna is flawless? Even better!",
+                "de": "Kein Fehler drin? Dann ist štirna also fehlerlos? Noch besser!",
+                "it": "Nessun errore? Allora štirna è perfetta? Ancora meglio!"
+              }
+            },
+            {
+              "sl": "Res je, štirna je napačna beseda in je ne bi smeli govoriti.",
+              "en": "That's right, štirna is a wrong word, and they shouldn't say it.",
+              "de": "Stimmt, štirna ist ein falsches Wort, und sie sollten es nicht sagen.",
+              "it": "È vero, štirna è una parola sbagliata e non dovrebbero dirla.",
+              "grammar": "govorjeni-jezik",
+              "why": {
+                "en": "Spoken and standard Slovene each have their place: understand the spoken word, write the standard one. Grant the book its word (seveda) and keep štirna for talk.",
+                "de": "Gesprochenes und Schriftslowenisch haben beide ihren Platz: das gesprochene Wort verstehen, das schriftsprachliche schreiben. Gib dem Buch sein Wort (seveda) und lass štirna fürs Reden.",
+                "it": "Lo sloveno parlato e quello standard hanno ciascuno il suo posto: capire la parola parlata, scrivere quella standard. Concedi al libro la sua parola (seveda) e lascia štirna per parlare."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Napačna? Joj, potem bi morala popraviti pol vasi!",
+                "en": "Wrong? Oh dear, then I'd have to correct half the village!",
+                "de": "Falsch? Ach je, dann müsste ich das halbe Dorf verbessern!",
+                "it": "Sbagliata? Oddio, allora dovrei correggere mezzo paese!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, nisem razumela. Še enkrat, prosim?",
+            "en": "Sorry, I didn't understand. Once more, please?",
+            "de": "Entschuldigung, ich habe nicht verstanden. Noch einmal, bitte?",
+            "it": "Scusi, non ho capito. Ancora una volta, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Ampak v spisu mora biti knjižno. Zala mi je včeraj rekla: »Učiteljica, a mi pomagate nest vedro?«",
+          "en": "But in an essay it has to be standard. Yesterday Zala said to me: »Miss, ya help me carry the bucket?«",
+          "de": "Aber im Aufsatz muss es schriftsprachlich sein. Gestern sagte Zala zu mir: »Frau Lehrerin, helfen S' mir den Eimer tragen?«",
+          "it": "Ma nel tema dev'essere lingua standard. Ieri Zala mi ha detto: »Maestra, mi aiuta a portà il secchio?«"
+        },
+        {
+          "who": "mojca",
+          "sl": "Kako bi to napisali v spisu, z njenimi besedami?",
+          "en": "How would you write that in an essay, as her words?",
+          "de": "Wie würden Sie das im Aufsatz schreiben, als ihre Worte?",
+          "it": "Come lo scriverebbe in un tema, come parole sue?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vprašala vas je, ali ji pomagate nesti vedro.",
+              "en": "She asked you whether you'd help her carry the bucket.",
+              "de": "Sie hat Sie gefragt, ob Sie ihr helfen, den Eimer zu tragen.",
+              "it": "Le ha chiesto se l'aiutava a portare il secchio.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Odlično! Ali namesto a, nesti namesto nest. In še odvisni govor zraven.",
+                "en": "Excellent! Ali instead of a, nesti instead of nest. And reported speech on top.",
+                "de": "Ausgezeichnet! Ali statt a, nesti statt nest. Und dazu noch die indirekte Rede.",
+                "it": "Ottimo! Ali invece di a, nesti invece di nest. E per di più il discorso indiretto."
+              }
+            },
+            {
+              "sl": "Vprašala vas je, ali mi pomagate nesti vedro.",
+              "en": "She asked you whether you'd help me carry the bucket.",
+              "de": "Sie hat Sie gefragt, ob Sie mir helfen, den Eimer zu tragen.",
+              "it": "Le ha chiesto se aiutava me a portare il secchio.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the person changes as in English: Zala's mi (me) becomes ji (her), ali ji pomagate nesti vedro.",
+                "de": "In der indirekten Rede ändert sich die Person wie im Deutschen: Zalas mi (mir) wird ji (ihr), ali ji pomagate nesti vedro.",
+                "it": "Nel discorso indiretto la persona cambia come in italiano: il mi (a me) di Zala diventa ji (a lei), ali ji pomagate nesti vedro."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Vam naj pomagam? Saj nimate vedra, {learner}!",
+                "en": "I should help you? But you haven't got a bucket, {learner}!",
+                "de": "Ich soll Ihnen helfen? Sie haben doch gar keinen Eimer, {learner}!",
+                "it": "Devo aiutare Lei? Ma non ha nessun secchio, {learner}!"
+              }
+            },
+            {
+              "sl": "Vprašala vas je, da ji pomagate nesti vedro.",
+              "en": "She asked you that you'd help her carry the bucket.",
+              "de": "Sie hat Sie gefragt, dass Sie ihr helfen, den Eimer zu tragen.",
+              "it": "Le ha chiesto che l'aiutava a portare il secchio.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech a yes/no question is joined with ali (or če): ali ji pomagate. Da passes on a statement.",
+                "de": "In der indirekten Rede wird eine Ja/Nein-Frage mit ali (oder če) angeschlossen: ali ji pomagate. Da gibt eine Aussage weiter.",
+                "it": "Nel discorso indiretto una domanda sì/no si unisce con ali (o če): ali ji pomagate. Da riferisce un'affermazione."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Da? Ampak Zala je nekaj vprašala, ne povedala.",
+                "en": "That? But Zala asked something, she didn't state it.",
+                "de": "Dass? Aber Zala hat etwas gefragt, nicht gesagt.",
+                "it": "Che? Ma Zala ha fatto una domanda, non un'affermazione."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, nisem razumela. Še enkrat, prosim?",
+            "en": "Sorry, I didn't understand. Once more, please?",
+            "de": "Entschuldigung, ich habe nicht verstanden. Noch einmal, bitte?",
+            "it": "Scusi, non ho capito. Ancora una volta, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Vidite? Pri štirni se govori, v zvezku pa piše. Oboje je slovenščina.",
+          "en": "You see? At the štirna you speak, in the exercise book you write. Both are Slovene.",
+          "de": "Sehen Sie? Am Brunnen spricht man, im Heft schreibt man. Beides ist Slowenisch.",
+          "it": "Vede? Alla fontana si parla, nel quaderno si scrive. Tutte e due sono sloveno."
+        }
+      ]
+    },
+    {
+      "id": "konj-b1-podkev",
+      "level": "B1",
+      "memory": {
+        "sl": "dan, ko je Sivko izgubil podkev",
+        "en": "the day Sivko lost a shoe",
+        "de": "den Tag, an dem Sivko ein Hufeisen verlor",
+        "it": "il giorno in cui Sivko ha perso un ferro"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Dober dan, {learner}. Sivko je na poti izgubil podkev. Zdaj šepa.",
+          "en": "Good afternoon, {learner}. Sivko lost a shoe on the way. Now he's limping.",
+          "de": "Guten Tag, {learner}. Sivko hat unterwegs ein Hufeisen verloren. Jetzt hinkt er.",
+          "it": "Buongiorno, {learner}. Sivko ha perso un ferro per strada. Adesso zoppica."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Peljite ga k Tonetu, preden se mu noga vname.",
+              "en": "Take him to Tone before his leg gets inflamed.",
+              "de": "Bringen Sie ihn zu Tone, bevor sich sein Bein entzündet.",
+              "it": "Lo porti da Tone, prima che la zampa gli si infiammi.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Ja. Samo da bo Tone danes imel čas.",
+                "en": "Yes. If only Tone has time today.",
+                "de": "Ja. Wenn Tone heute nur Zeit hat.",
+                "it": "Sì. Purché Tone oggi abbia tempo."
+              }
+            },
+            {
+              "sl": "Peljite ga k Tonetu, ko se mu noga vname.",
+              "en": "Take him to Tone when his leg gets inflamed.",
+              "de": "Bringen Sie ihn zu Tone, wenn sich sein Bein entzündet.",
+              "it": "Lo porti da Tone, quando la zampa gli si infiamma.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "You want to act first: the joining word preden (before). Ko is when, so you'd wait until it hurts.",
+                "de": "Du willst vorher handeln: das Bindewort preden (bevor). Ko heißt wenn, du würdest also warten, bis es wehtut.",
+                "it": "Vuoi agire prima: la congiunzione preden (prima che). Ko è quando, quindi aspetteresti che faccia male."
+              },
+              "reply": {
+                "face": "worried",
+                "sl": "Ko se vname? Ne, ne, toliko pa ne bova čakala!",
+                "en": "When it's inflamed? No, no, we won't wait that long!",
+                "de": "Wenn es sich entzündet? Nein, nein, so lange warten wir nicht!",
+                "it": "Quando si infiamma? No, no, non aspetteremo tanto!"
+              }
+            },
+            {
+              "sl": "Peljite ga k Tone, preden se mu noga vname.",
+              "en": "Take him to Tone (no ending) before his leg gets inflamed.",
+              "de": "Bringen Sie ihn zu Tone (ohne Endung), bevor sich sein Bein entzündet.",
+              "it": "Lo porti da Tone (senza desinenza), prima che la zampa gli si infiammi.",
+              "grammar": "sklanjatev-posebnosti",
+              "why": {
+                "en": "K (to someone's) takes the dative, and names in -e grow a t before the ending: k Tonetu, as oče → očetu.",
+                "de": "K (zu jemandem) verlangt den Dativ, und Namen auf -e bekommen vor der Endung ein t: k Tonetu, wie oče → očetu.",
+                "it": "K (da qualcuno) vuole il dativo, e i nomi in -e prendono una t prima della desinenza: k Tonetu, come oče → očetu."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "K Tone? Hm. Kam je to? Sosedje smo, pa ne vem.",
+                "en": "To Tone? Hm. Where's that? We're neighbours, and I don't know.",
+                "de": "Zu Tone? Hm. Wo ist das? Wir sind Nachbarn, und ich weiß es nicht.",
+                "it": "Da Tone? Mm. Dov'è? Siamo vicini, e non lo so."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "curious",
+          "sl": "Ti greš mimo kovačnice, ne? Kaj mu boš {m:rekel|f:rekla}?",
+          "en": "You're going past the smithy, aren't you? What will you tell him?",
+          "de": "Du kommst an der Schmiede vorbei, oder? Was sagst du ihm?",
+          "it": "Tu passi davanti alla fucina, vero? Che cosa gli dirai?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "{m:Rekel|f:Rekla} mu bom, naj pride čim prej, ker Sivko šepa.",
+              "en": "I'll tell him to come as soon as he can, because Sivko is limping.",
+              "de": "Ich sage ihm, er soll so bald wie möglich kommen, weil Sivko hinkt.",
+              "it": "Gli dirò di venire al più presto, perché Sivko zoppica.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako. Potem pa jaz pripeljem Sivka.",
+                "en": "That's it. Then I'll bring Sivko over.",
+                "de": "Genau. Dann bringe ich Sivko hin.",
+                "it": "Così. Poi porto Sivko io."
+              }
+            },
+            {
+              "sl": "{m:Rekel|f:Rekla} mu bom, naj pridem čim prej, ker Sivko šepa.",
+              "en": "I'll tell him that I should come as soon as I can, because Sivko is limping.",
+              "de": "Ich sage ihm, ich soll so bald wie möglich kommen, weil Sivko hinkt.",
+              "it": "Gli dirò che devo venire io al più presto, perché Sivko zoppica.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the coming is Tone's to do: naj pride (he should come). Naj pridem would be you.",
+                "de": "In der indirekten Rede ist das Kommen Tones Sache: naj pride (er soll kommen). Naj pridem wärst du.",
+                "it": "Nel discorso indiretto venire tocca a Tone: naj pride (che venga lui). Naj pridem saresti tu."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti naj prideš? Saj si že tukaj, {learner}!",
+                "en": "You should come? But you're already here, {learner}!",
+                "de": "Du sollst kommen? Du bist doch schon hier, {learner}!",
+                "it": "Devi venire tu? Ma sei già qui, {learner}!"
+              }
+            },
+            {
+              "sl": "{m:Rekel|f:Rekla} ga bom, naj pride čim prej, ker Sivko šepa.",
+              "en": "I'll tell him (accusative) to come as soon as he can, because Sivko is limping.",
+              "de": "Ich sage ihn (Akkusativ), er soll so bald wie möglich kommen, weil Sivko hinkt.",
+              "it": "Lo dirò (accusativo) di venire al più presto, perché Sivko zoppica.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Reči (to tell someone) takes the dative of who is told: mu. Ga is the accusative, as if Tone were what you say.",
+                "de": "Reči (jemandem sagen) verlangt den Dativ dessen, dem man es sagt: mu. Ga ist der Akkusativ, als wäre Tone das Gesagte.",
+                "it": "Reči (dire a qualcuno) vuole il dativo di chi ascolta: mu. Ga è l'accusativo, come se Tone fosse la cosa detta."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ga? Koga? Sivka? Ta ne razume niti mene.",
+                "en": "Him? Whom? Sivko? He doesn't even understand me.",
+                "de": "Ihn? Wen? Sivko? Der versteht nicht mal mich.",
+                "it": "Lui? Chi? Sivko? Quello non capisce nemmeno me."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Dobro. Sosedje smo: Tone pomaga Sivku, jaz pa Tonetu z moko.",
+          "en": "Good. We're neighbours: Tone helps Sivko, and I help Tone with flour.",
+          "de": "Gut. Wir sind Nachbarn: Tone hilft Sivko, und ich Tone mit Mehl.",
+          "it": "Bene. Siamo vicini: Tone aiuta Sivko, e io aiuto Tone con la farina."
+        }
+      ]
+    },
+    {
+      "id": "konj-b2-traktor",
+      "level": "B2",
+      "memory": {
+        "sl": "dan, ko sem se odločil, da Sivko ostane",
+        "en": "the day I decided Sivko stays",
+        "de": "den Tag, an dem ich beschlossen habe, dass Sivko bleibt",
+        "it": "il giorno in cui ho deciso che Sivko resta"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Dober dan, {learner}. Sosed iz doline mi je ponudil star traktor. Pravi, da bi z njim delal trikrat hitreje.",
+          "en": "Good afternoon, {learner}. A neighbour from the valley has offered me an old tractor. He says I'd work three times faster with it.",
+          "de": "Guten Tag, {learner}. Ein Nachbar aus dem Tal hat mir einen alten Traktor angeboten. Er sagt, damit wäre ich dreimal so schnell.",
+          "it": "Buongiorno, {learner}. Un vicino della valle mi ha offerto un vecchio trattore. Dice che con quello lavorerei tre volte più in fretta."
+        },
+        {
+          "who": "france",
+          "face": "sad",
+          "sl": "Ampak Sivko je z mano že sedemnajst let. Kaj bi ti {m:naredil|f:naredila}?",
+          "en": "But Sivko has been with me for seventeen years. What would you do?",
+          "de": "Aber Sivko ist schon siebzehn Jahre bei mir. Was würdest du tun?",
+          "it": "Ma Sivko è con me da diciassette anni. Tu cosa faresti?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda bi bil traktor hitrejši, ampak Sivko si zasluži, da ostane pri vas.",
+              "en": "Of course a tractor would be faster, but Sivko deserves to stay with you.",
+              "de": "Natürlich wäre ein Traktor schneller, aber Sivko hat es verdient, bei Ihnen zu bleiben.",
+              "it": "Certo, un trattore sarebbe più veloce, ma Sivko si merita di restare con Lei.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako sem tudi jaz mislil. Traktor ne potrebuje sena, ampak tudi ne zarezgeta, ko pridem.",
+                "en": "That's what I thought too. A tractor doesn't need hay, but it doesn't whinny when I come either.",
+                "de": "Das habe ich auch gedacht. Ein Traktor braucht kein Heu, aber er wiehert auch nicht, wenn ich komme.",
+                "it": "L'ho pensato anch'io. Un trattore non ha bisogno di fieno, ma nemmeno nitrisce quando arrivo."
+              }
+            },
+            {
+              "sl": "Seveda bi bil traktor bolj hitrejši, ampak Sivko si zasluži, da ostane pri vas.",
+              "en": "Of course a tractor would be more faster, but Sivko deserves to stay with you.",
+              "de": "Natürlich wäre ein Traktor mehr schneller, aber Sivko hat es verdient, bei Ihnen zu bleiben.",
+              "it": "Certo, un trattore sarebbe più più veloce, ma Sivko si merita di restare con Lei.",
+              "grammar": "primernik",
+              "why": {
+                "en": "Hitrejši is already the comparative: bolj on top makes it twice. Hitrejši alone says faster.",
+                "de": "Hitrejši ist schon der Komparativ: bolj dazu macht ihn doppelt. Hitrejši allein heißt schneller.",
+                "it": "Hitrejši è già il comparativo: bolj in più lo raddoppia. Hitrejši da solo vuol dire più veloce."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bolj hitrejši? Ha, tak traktor bi letel!",
+                "en": "More faster? Ha, a tractor like that would fly!",
+                "de": "Mehr schneller? Ha, so ein Traktor würde fliegen!",
+                "it": "Più più veloce? Ah, un trattore così volerebbe!"
+              }
+            },
+            {
+              "sl": "Vzemite traktor. Sivka pa prodajte, dokler je še kaj vreden.",
+              "en": "Take the tractor. And sell Sivko while he's still worth something.",
+              "de": "Nehmen Sie den Traktor. Und verkaufen Sie Sivko, solange er noch etwas wert ist.",
+              "it": "Prenda il trattore. E venda Sivko finché vale ancora qualcosa.",
+              "why": {
+                "en": "France asks with a heavy heart about an old friend: weigh it (seveda …, ampak …) rather than sell Sivko off.",
+                "de": "France fragt schweren Herzens nach einem alten Freund: wäge ab (seveda …, ampak …), statt Sivko zu verkaufen.",
+                "it": "France chiede col cuore pesante di un vecchio amico: soppesa (seveda …, ampak …) invece di vendere Sivko."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Prodati Sivka? … Ne, tega mi ne bi dalo srce.",
+                "en": "Sell Sivko? … No, my heart wouldn't let me.",
+                "de": "Sivko verkaufen? … Nein, das brächte ich nicht übers Herz.",
+                "it": "Vendere Sivko? … No, non mi reggerebbe il cuore."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Prav. Sivko ostane. Če bi ga bil prodal, mi vnuk tega ne bi nikoli oprostil.",
+          "en": "Right. Sivko stays. If I'd sold him, my grandson would never have forgiven me.",
+          "de": "Gut. Sivko bleibt. Hätte ich ihn verkauft, hätte mir mein Enkel das nie verziehen.",
+          "it": "Bene. Sivko resta. Se l'avessi venduto, mio nipote non me l'avrebbe mai perdonato."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda ne. Saj se doma igra z lesenim konjičkom, ki mu je ime Sivko.",
+              "en": "Of course not. He plays at home with a wooden horse called Sivko, after all.",
+              "de": "Natürlich nicht. Er spielt doch zu Hause mit einem Holzpferdchen, das Sivko heißt.",
+              "it": "Certo che no. A casa gioca con un cavallino di legno che si chiama Sivko.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Res je! Dva Sivka pri hiši. Pa nobenega ne dam.",
+                "en": "That's true! Two Sivkos in the house. And I'm not giving up either.",
+                "de": "Stimmt! Zwei Sivkos im Haus. Und keinen gebe ich her.",
+                "it": "È vero! Due Sivko in casa. E non ne cedo nessuno."
+              }
+            },
+            {
+              "sl": "Seveda ne. Saj se doma igra z lesenim konjičekom, ki mu je ime Sivko.",
+              "en": "Of course not. He plays at home with a wooden horsie (a wrong form) called Sivko, after all.",
+              "de": "Natürlich nicht. Er spielt doch zu Hause mit einem Holzpferdchen (falsche Form), das Sivko heißt.",
+              "it": "Certo che no. A casa gioca con un cavallino (forma sbagliata) di legno che si chiama Sivko.",
+              "grammar": "pomanjsevalnice",
+              "why": {
+                "en": "A little form in -ek drops its e once an ending comes: with z, the instrumental is z konjičkom (as stolček → na stolčku).",
+                "de": "Eine Verkleinerung auf -ek verliert ihr e, sobald eine Endung kommt: konjiček → konjička, z konjičkom (wie stolček → na stolčku).",
+                "it": "Un diminutivo in -ek perde la e appena arriva una desinenza: konjiček → konjička, z konjičkom (come stolček → na stolčku)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Konjičekom? Hm, tega ne bi izgovoril niti moj vnuk.",
+                "en": "Konjičekom? Hm, not even my grandson would say that.",
+                "de": "Konjičekom? Hm, das würde nicht mal mein Enkel sagen.",
+                "it": "Konjičekom? Mm, non lo direbbe nemmeno mio nipote."
+              }
+            },
+            {
+              "sl": "Seveda ne. Saj se doma igra z lesenim konjičkem, ki mu je ime Sivko.",
+              "en": "Of course not. He plays at home with a wooden horse (wrong ending) called Sivko, after all.",
+              "de": "Natürlich nicht. Er spielt doch zu Hause mit einem Holzpferdchen (falsche Endung), das Sivko heißt.",
+              "it": "Certo che no. A casa gioca con un cavallino di legno (desinenza sbagliata) che si chiama Sivko.",
+              "grammar": "sklanjatev-moski",
+              "why": {
+                "en": "The o of the instrumental's ending turns to e only after c, č, j, š, ž: konjiček ends in k, so z konjičkom.",
+                "de": "Das o einer Endung wird nur nach c, č, j, š, ž zu e: konjiček endet auf k, also z konjičkom.",
+                "it": "La o di una desinenza diventa e solo dopo c, č, j, š, ž: konjiček finisce in k, quindi z konjičkom."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Konjičkem? … Joj, zdaj sem se pa jaz zmedel. Sedem, sedem …",
+                "en": "Konjičkem? … Oh dear, now I'm the one in a muddle. Seven, seven …",
+                "de": "Konjičkem? … Ach je, jetzt bin ich durcheinander. Sieben, sieben …",
+                "it": "Konjičkem? … Oddio, adesso mi sono confuso io. Sette, sette …"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Hvala, {learner}. Sosed bo moral najti drugega kupca za svoj traktor.",
+          "en": "Thank you, {learner}. My neighbour will have to find another buyer for his tractor.",
+          "de": "Danke, {learner}. Der Nachbar muss sich einen anderen Käufer für seinen Traktor suchen.",
+          "it": "Grazie, {learner}. Il vicino dovrà trovare un altro compratore per il suo trattore."
         }
       ]
     }
