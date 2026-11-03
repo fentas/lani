@@ -217,7 +217,8 @@ the conditional), picked by the brief's level; an A1 talk keeps its soup.
 ## Voice
 
 The twelve openers and their phrases join the Slovene voice corpus (priority "scenarios"): 119 lines, about 5,100
-characters for a man's forms (a learner who is a woman adds the 23 lines with a gender pair in their other form, about 960 characters more). Jan's
+characters in a man's forms (for a learner who is a woman, the 23 lines with a gender pair are voiced in her forms
+instead, about 960 characters of them). Jan's
 node voices them ahead with its engine, which may spend ElevenLabs credits: ask Jan before a voice build. The local
 Gepard voices read them at no cost; until then the phone's text-to-speech does. Nothing was spent here.
 
