@@ -12,8 +12,8 @@ import si.lanisce.lani.l10n.Lang
  * German B1's middle six units (relativsatz to obwohl-trotzdem: docs/plans/05-built/course-de-b1-b.md) as the app grades
  * them: denn or deren for denen, a comparative or superlative with its ending but without its umlaut, a separable verb's
  * zu-infinitive without its zu, and Stadt for statt are known mistakes, each only for a word of its group; a relative's
- * welcher is right beside der; obwohl with the verb second, trotzdem as a conjunction and der Tag, wo are spoken: right,
- * labelled with the standard form.
+ * welcher is right beside der; der Tag, wo is spoken: right, labelled with the standard form; obwohl with the verb second and
+ * trotzdem as a conjunction are almost, the standard form shown (the table's verb_second and nonstandard).
  */
 class GermanB1bContentTest {
     private val units = listOf("relativsatz", "relativsatz-praeposition", "adjektiv-alle-faelle", "schnellere", "um-zu", "obwohl-trotzdem")
@@ -128,11 +128,17 @@ class GermanB1bContentTest {
         assertEquals(Verdict.WRONG, de("Stefan fährt nach Villach, für Most zu holen.", "Stefan fährt nach Villach, um Most zu holen.").verdict)
     }
 
-    @Test fun `obwohl with the verb second and trotzdem as a conjunction are spoken, right and labelled`() {
-        val second = sheet("Stefan arbeitet, obwohl er ist krank.", listOf("Stefan arbeitet, obwohl er krank ist."), listOf("Stefan arbeitet, obwohl er ist krank."))
-        assertEquals(Verdict.CORRECT to "Stefan arbeitet, obwohl er krank ist.", second.verdict to second.standard)
-        val conj = sheet("Trotzdem", listOf("Obwohl"), listOf("Trotzdem"))
-        assertEquals(Verdict.CORRECT to "Obwohl", conj.verdict to conj.standard)
+    @Test fun `obwohl with the verb second and trotzdem as a conjunction are almost, the standard form shown, no mistake`() {
+        val second = sheet("Stefan arbeitet, obwohl er ist krank.", listOf("Stefan arbeitet, obwohl er krank ist."))
+        assertEquals(Verdict.ALMOST to Grading.Hint.NONSTANDARD, second.verdict to second.hint)
+        assertEquals("Stefan arbeitet, obwohl er krank ist.", second.expected)
+        val first = sheet("Obwohl Stefan ist krank, arbeitet er.", listOf("Obwohl Stefan krank ist, arbeitet er."))
+        assertEquals(Verdict.ALMOST to Grading.Hint.NONSTANDARD, first.verdict to first.hint)
+        val conj = sheet("Trotzdem", listOf("Obwohl"))
+        assertEquals(Verdict.ALMOST to Grading.Hint.NONSTANDARD, conj.verdict to conj.hint)
+        assertEquals("Obwohl", conj.expected)
+        // one way only: obwohl for trotzdem stays wrong
+        assertEquals(Verdict.WRONG, sheet("obwohl", listOf("trotzdem")).verdict)
         // the main verb after a clause that comes first has no such standing, nor one after trotzdem
         assertEquals(Verdict.WRONG, sheet("Obwohl es regnet, wir gehen spazieren.", listOf("Obwohl es regnet, gehen wir spazieren.")).verdict)
         assertEquals(Verdict.WRONG, sheet("Es regnet, trotzdem wir gehen spazieren.", listOf("Es regnet, trotzdem gehen wir spazieren.", "Es regnet, wir gehen trotzdem spazieren.")).verdict)

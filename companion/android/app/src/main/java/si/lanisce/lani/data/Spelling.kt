@@ -40,6 +40,8 @@ import java.util.concurrent.ConcurrentHashMap
  * well, "I didn't see nothing"): almost, [Grading.Hint.NONSTANDARD], the standard form shown, one way only and never a slip
  * or a mistake. Not a worksheet item's `spoken` (COURSE.md "Spoken forms"): that is right, on one item, where a course lists
  * it; this is the language's, for all its answers. A table without the key behaves as it did.
+ * [verbSecond]: the conjunctions after which people put the verb second where writing wants it last (German's weil, obwohl:
+ * "weil er hat keine Zeit"): the same words in that order, almost like [nonstandard], with the standard form shown.
  * A language without a table compares letters as they are.
  */
 class Spelling(
@@ -55,6 +57,7 @@ class Spelling(
     val endingSwaps: List<Pair<String, String>> = emptyList(),
     val endingLetters: Int = 2,
     val nonstandard: List<Nonstandard> = emptyList(),
+    val verbSecond: Set<String> = emptySet(),
 ) {
     class Rule(val pattern: Regex, val replacement: String) {
         fun apply(s: String): String = pattern.replace(s, replacement)
@@ -111,6 +114,7 @@ class Spelling(
                     val p = n.jsonObject
                     Nonstandard(p.getValue("word").jsonPrimitive.content, p.getValue("for").jsonPrimitive.content, p["after"]?.jsonPrimitive?.contentOrNull)
                 },
+                verbSecond = (o["verb_second"] as? JsonArray).orEmpty().map { it.jsonPrimitive.content }.toSet(),
             )
         }
 
