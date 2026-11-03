@@ -242,7 +242,9 @@ async function build() {
     if ((e.lang_code ?? L) !== L) continue
     const pos = POS[e.pos]
     if (!pos || !e.word || !e.forms?.length) continue
-    const senses = (e.senses ?? []).filter(s => !s.form_of?.length && !s.alt_of?.length && !s.tags?.some(t => ['form-of', 'alt-of', 'misspelling'].includes(t)))
+    // a feminine noun is a word of its own ("female equivalent of Freund": Freundin, cugina), not a form of another
+    const feminine = (s: Sense) => /^(?:female|feminine) equivalent of\b/i.test(s.glosses?.[0] ?? '')
+    const senses = (e.senses ?? []).filter(s => feminine(s) || (!s.form_of?.length && !s.alt_of?.length && !s.tags?.some(t => ['form-of', 'alt-of', 'misspelling'].includes(t))))
     if (!senses.length) continue
     const lemma = writtenForm(e.word)
     // a capitalized lemma outside German is a name's (Italia, London)
