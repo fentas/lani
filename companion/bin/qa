@@ -10955,20 +10955,21 @@ def friuli_projects():
     qa_hook("pair:it-de")
     adb("logcat", "-c")
     try:
+        to_village()
+        qa_hook("hearths:trg")
+        time.sleep(2 * slow())
+        # the cast met on the dev bridge's copy, which the app adopts (a step's leader QA's hook readies); the learner's voice chosen, so
+        # "My voice" isn't offered over a dialog's first line
         snap_state = dev_bridge("/game")
         st = snap_state["state"]
         for v in api("/villagers"):
             bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
             bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
-        # the chapel's leader lives here (a project waits for its leader): Zia Nives hasn't moved in by herself in a village made up by a hook
-        if not any(r.get("id") == "nives" for r in st.setdefault("residents", [])):
-            st["residents"].append({"id": "nives", "since": time.strftime("%Y-%m-%d")})
         dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
         dev_bridge("/learner/voice", {"voice": "default"})
         adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
         time.sleep(5 * slow())
         to_village()
-        qa_hook("hearths:trg")
         qa_hook("hour:11")
         qa_hook("bubbles:0")
         # LANI_QA_FRIULI_PROJECTS_ONLY: only these (comma-separated: bridge, pole, fir, chapel)

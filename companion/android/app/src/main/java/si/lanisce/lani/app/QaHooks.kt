@@ -63,7 +63,7 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   renders every frame of a recording that is sped up again afterwards (with the animator duration scale at 1/f for
  *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
  * - "step:<project>/<n>": the village (the dev bridge's copy) gets ready for step n of that project today ([readyStep]:
- *   its steps before it done, none today yet, the stores and the 🤝 it costs, a treat for a feast), and the projects sheet
+ *   its steps before it done, none today yet, the stores and the 🤝 it costs, a treat for a feast, its leader living here and met), and the projects sheet
  *   opens at it ([project]): QA plays it from there (companion/SCENES.md, "Project steps"); a step past its last
  *   ("step:most/7") has the project finished. "step:" lets it go again.
  * - "season:<day>": the landmarks with a season (the maypole, game/ProjectSeasons) stand or not as on that day
@@ -750,6 +750,15 @@ object QaHooks {
         if (step.help) r = r.copy(help = maxOf(r.help, si.lanisce.lani.game.Catalog.stepHelp(spec.age)))
         if (step.kind == si.lanisce.lani.game.StepKind.FEAST && si.lanisce.lani.game.Projects.treat(r) == null) {
             si.lanisce.lani.game.Catalog.goods.values.firstOrNull { it.food && !it.rare }?.let { g -> r = si.lanisce.lani.game.Chest.add(r, g.id, 1) }
+        }
+        // a project waits for its leader: they live here and are met (a village without named residents counts everyone as here)
+        if (r.residents.isNotEmpty()) {
+            val leader = spec.leader
+            if (r.residents.none { it.id == leader }) {
+                r = r.copy(residents = r.residents + si.lanisce.lani.game.villagers.Resident(leader, today.toString()), villagers = maxOf(r.villagers, r.residents.size + 1))
+            }
+            val bond = r.bonds[leader] ?: si.lanisce.lani.game.villagers.Bond()
+            if (bond.met == null) r = r.copy(bonds = r.bonds + (leader to bond.copy(met = today.toString())))
         }
         return r
     }
