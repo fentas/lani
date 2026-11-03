@@ -101,8 +101,8 @@ export default async function stories() {
     lake.map(s => [s.id, s.order, levelsOf(s)]),
   )
   check(
-    "… 10 of them told at B1 and B2 too (readings-lakeland), each B2 with a B1 below it, every telling's texts in the four languages",
-    lake.filter(s => levelsOf(s).includes('B2')).map(s => s.id).sort().join() === ['the-borrowdale-cuckoo', 'the-bowder-stone', 'the-lady-of-the-lake', 'the-giants-grave', 'the-hob', 'the-crier-of-claife', 'long-meg-and-her-daughters', 'the-luck-of-edenhall', 'king-dunmails-crown', 'tom-fool-of-muncaster'].sort().join() &&
+    "… 11 of them told at B1 and B2 too (readings-lakeland), each B2 with a B1 below it, every telling's texts in the four languages",
+    lake.filter(s => levelsOf(s).includes('B2')).map(s => s.id).sort().join() === ['the-borrowdale-cuckoo', 'the-bowder-stone', 'the-lady-of-the-lake', 'the-giants-grave', 'the-hob', 'the-crier-of-claife', 'long-meg-and-her-daughters', 'the-luck-of-edenhall', 'king-dunmails-crown', 'tom-fool-of-muncaster', 'the-lambton-worm'].sort().join() &&
       lake.every(s => !levelsOf(s).includes('B2') || levelsOf(s).includes('B1')) &&
       lake.every(s => (['B1', 'B2'] as const).every(lv => (s.levels?.[lv]?.lines ?? []).every(l => [l, ...l.choices, ...l.choices.flatMap(c => (c.reply ? [c.reply] : []))].every(t => (!t.en || (t.sl && t.it && t.de)))))),
     lake.map(s => [s.id, levelsOf(s)]),
@@ -128,9 +128,9 @@ export default async function stories() {
   const tellings = (s: Story) => chaptersOf(s).flatMap((c, i) => LEVELS.filter(l => c.levels[l]).map(l => `${i + 1}/${l}`))
   const notedAs = (s: Story) => (s.notes ?? []).map(n => `${n.chapter ?? 1}/${n.level}`)
   check(
-    "every curated story is written down for the notebook: notes for each of its 168 tellings, a place for each picture, in the four languages, marked machine-written",
+    "every curated story is written down for the notebook: notes for each of its 170 tellings, a place for each picture, in the four languages, marked machine-written",
     packs4.every(s => JSON.stringify(notedAs(s).sort()) === JSON.stringify(tellings(s).sort()) && /machine-written/.test(s.review ?? '')) &&
-      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 168 &&
+      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 170 &&
       packs4.every(s => (s.notes ?? []).every(n => n.after?.length === (s.pictures ?? []).filter(p => (p.chapter ?? 1) === (n.chapter ?? 1)).length &&
         n.text.every(p => ['sl', 'en', 'de', 'it'].every(l => typeof (p as Record<string, unknown>)[l] === 'string')))),
     packs4.filter(s => JSON.stringify(notedAs(s).sort()) !== JSON.stringify(tellings(s).sort())).map(s => [s.id, notedAs(s), tellings(s)]),
