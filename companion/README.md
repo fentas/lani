@@ -328,7 +328,12 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   `at-the-b-and-b`, `asking-the-way`, `at-the-fete`, `weather-and-garden`); a scene of theirs leads into them after a
   dialog (Kathi's Gasthaus, Stefan's Most, the Kirchtag; Mrs Birkett's inn, the fête, Shepherd Jack on the fell), and a
   child's scene never into a grown-up's role-play. Jan's six read in German and Italian too
-  (docs/plans/05-built/scenarios-de-en.md).
+  (docs/plans/05-built/scenarios-de-en.md). Jan's village has twelve more for a grown-up at B1 and B2
+  (`companion/scenarios/`: a complaint at the shop, wine for a party with Vinar Marko, a call to the surgery that goes
+  wrong, the night of the bora, advice for the neighbour, a job at a tourist farm; the mayor's office hours, a job
+  interview, a new doctor's history, a stone house to rent, reporting a car accident, Marko at a crossroads;
+  docs/plans/05-built/talks-sl.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
+  A1 and A2 talks, never B1 or B2.
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
 - A learner of German plays the same way in `kaernten` (`--target de --culture kaernten`), with the German packs of
