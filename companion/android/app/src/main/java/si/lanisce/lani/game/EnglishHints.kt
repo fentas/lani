@@ -18,7 +18,7 @@ object EnglishHints {
     /** What the chip looks for in the sentence, by page, in order (each is described where it is found: [find]). */
     enum class Look {
         WHO, BASE, PARTICIPLE, ING, BE_ING, FEEL, NEEDS_BE, DO_VERB, GOT, THERE, ARTICLE, NUMBER, THESE, OWNER, ALONE, OBJECT,
-        SUBJECT, NO, COUNT, ONE_NO, NO_HAVE, HAVE_BEEN, MOTION, FIXED, PLACE, TIME, SINCE, PAST, FUTURE, NOW, HABIT, IF, MORE,
+        SUBJECT, NO, YES, COUNT, ONE_NO, NO_HAVE, HAVE_BEEN, MOTION, FIXED, PLACE, TIME, SINCE, PAST, FUTURE, NOW, HABIT, IF, MORE,
         PATTERN, SAID, REL, TAG, WHILE, BY, SELF, HOW,
     }
 
@@ -41,7 +41,7 @@ object EnglishHints {
         "present-continuous" to Rule("hint.en.ruleNow", "hintSay.en.ruleNow", listOf("I'm reading. · She's sleeping.", "They're laughing.", "Is it snowing?", "We aren't waiting."), null, listOf(Look.ING, Look.BE_ING, Look.WHO, Look.NOW)),
         "present-simple" to Rule("hint.en.ruleHabits", "hintSay.en.ruleHabits", listOf("I read · she reads", "you wash · he washes", "we fly · it flies", "they have · she has"), "Who?", listOf(Look.BASE, Look.WHO, Look.HABIT)),
         "pronouns" to Rule("hint.en.rulePronouns", "hintSay.en.rulePronouns", listOf("I'm Tom. · He's my brother.", "She's here. · It's a pen.", "We're late. · They're nice."), null, listOf(Look.SUBJECT, Look.OBJECT)),
-        "questions-do" to Rule("hint.en.ruleDo", "hintSay.en.ruleDo", listOf("Do you swim? · Does she swim?", "I don't swim. · She doesn't swim.", "Did you see it? · I didn't see it."), "Who?", listOf(Look.BASE, Look.WHO, Look.DO_VERB)),
+        "questions-do" to Rule("hint.en.ruleDo", "hintSay.en.ruleDo", listOf("Do you swim? · Does she swim?", "I don't swim. · She doesn't swim.", "Did you see it? · I didn't see it."), "Who?", listOf(Look.BASE, Look.WHO, Look.DO_VERB, Look.FEEL, Look.BE_ING)),
         "there-is-are" to Rule("hint.en.ruleThereIs", "hintSay.en.ruleThereIs", listOf("There's a cat. · There are two cats.", "There isn't a bus.", "Are there any eggs?", "Is there a café?"), null, listOf(Look.THERE, Look.WHO)),
         "this-that" to Rule("hint.en.ruleThisThat", "hintSay.en.ruleThisThat", listOf("this pen · these pens", "that boat · those boats", "What's this?", "Those are mine."), "Here or there?", listOf(Look.THESE)),
         "time-dates" to Rule("hint.en.ruleTime", "hintSay.en.ruleTime", listOf("at six · at noon", "on Friday · on the third of June", "in June · in winter · in 1999", "half past four"), "When? What time?", listOf(Look.TIME)),
@@ -61,7 +61,7 @@ object EnglishHints {
         "past-continuous" to Rule("hint.en.ruleWasDoing", "hintSay.en.ruleWasDoing", listOf("I was reading when the phone rang.", "While she was cooking, it started to snow.", "They were laughing."), null, listOf(Look.ING, Look.BE_ING, Look.WHILE, Look.WHO)),
         "past-simple" to Rule("hint.en.rulePast", "hintSay.en.rulePast", listOf("walk · walked · play · played", "go · went · see · saw", "Did you see it? · I didn't go.", "It was cold. · We were tired."), "When?", listOf(Look.BASE, Look.WHO, Look.NO_HAVE, Look.PAST)),
         "present-perfect" to Rule("hint.en.rulePerfect", "hintSay.en.rulePerfect", listOf("I've never been to Paris.", "Have you ever ridden a camel?", "She's lived here since May.", "We've known them for years."), null, listOf(Look.PARTICIPLE, Look.ONE_NO, Look.HAVE_BEEN, Look.SINCE, Look.WHO, Look.PAST)),
-        "some-any" to Rule("hint.en.ruleSomeAny", "hintSay.en.ruleSomeAny", listOf("We've got some eggs.", "There isn't any bread.", "Would you like some tea?", "How many eggs? · How much milk?"), "How much? How many?", listOf(Look.NO, Look.COUNT)),
+        "some-any" to Rule("hint.en.ruleSomeAny", "hintSay.en.ruleSomeAny", listOf("We've got some eggs.", "There isn't any bread.", "Would you like some tea?", "How many eggs? · How much milk?"), "How much? How many?", listOf(Look.NO, Look.YES, Look.COUNT)),
         "would-like" to Rule("hint.en.ruleWouldLike", "hintSay.en.ruleWouldLike", listOf("I want to go. · I'd like to go.", "Would you like a biscuit?", "Could you help me, please?", "I enjoy swimming."), null, listOf(Look.PATTERN, Look.BASE)),
         // B1
         "contrast-linkers" to Rule("hint.en.ruleContrast", "hintSay.en.ruleContrast", listOf("although it was late", "despite the rain · in spite of the rain", "because of the snow", "so that we can see"), null, listOf(Look.PATTERN)),
@@ -283,6 +283,7 @@ object EnglishHints {
             Look.OBJECT -> objectAfter(s, i, gap, forms)
             Look.SUBJECT -> subjectBeforeVerb(s, i, gap, forms)
             Look.NO -> if (gap.startsWith("any") || gap.startsWith("some")) negation(s, i) else null
+            Look.YES -> yes(s, i, gap, forms)
             Look.COUNT -> count(s, i, gap, forms)
             Look.ONE_NO -> oneNo(s, i, gap, forms)
             Look.NO_HAVE -> noHave(s, i, gap, forms)
@@ -359,7 +360,10 @@ object EnglishHints {
             d--
             between++
         }
-        if (d >= 0 && s.same(d, k) && (w[d] in DETERMINERS || (tail(w[d]) == "s" && head(w[d]) !in S_IS))) return d
+        if (d >= 0 && s.same(d, k) && (w[d] in DETERMINERS || (tail(w[d]) == "s" && head(w[d]) !in S_IS))) {
+            // the other side, all the cups, the family's luck: the determiner before it too
+            return if (d > 0 && s.same(d - 1, k) && w[d - 1] in DETERMINERS && w[d - 1] !in NUMBERS) d - 1 else d
+        }
         if (!bare || between > 1) return null
         val from = d + 1
         return from.takeIf { it == s.start(k) || (d >= 0 && s.same(d, k) && w[d] in set("because and but so when if that")) }
@@ -396,14 +400,15 @@ object EnglishHints {
         if (k !in w.indices) return null
         val governed = k > 0 && s.same(k - 1, k) && w[k - 1] in PREPOSITIONS
         if ((w[k] in SUBJECTS || w[k] in INDEFINITE || w[k] in DEMONSTRATIVES) && !governed) return k
-        name(s, k)?.let { return if (governed) null else it }
+        name(s, k)?.let { from -> return if (governed) null else if (from > 0 && s.same(from - 1, k) && s.words[from - 1] in ARTICLES) from - 1 else from }
         return nounEndingAt(s, k, bare)
     }
 
     /** Whether the verb at [i] asks: the sentence asks, and its clause starts with it or with a question word (Where are …, How many needles does …). */
     private fun inverted(s: Said, i: Int): Boolean {
         if (!s.asks(i)) return false
-        val start = s.start(i)
+        // (And where does the road go?)
+        val start = s.start(i).let { if (s.words[it] in set("and but so then oh") && it < i) it + 1 else it }
         if (start == i) return true
         return s.words[start] in WH && i - start <= 4 && (start until i).none { s.words[it] in SUBJECTS }
     }
@@ -679,6 +684,16 @@ object EnglishHints {
     private fun negation(s: Said, i: Int): Trigger? =
         (i - 1 downTo 0).firstOrNull { k -> s.same(k, i) && (s.words[k] in NEGATIVES || s.words[k].endsWith("n't")) }?.let { Trigger.Negation(s.spans[it].value, it) }
 
+    /** some at the gap against any, in a yes sentence (no no before it in its clause; no question, unless an offer: Would you like …): the word before it. */
+    private fun yes(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
+        if (!gap.startsWith("some") || forms.none { it.startsWith("any") }) return null
+        val w = s.words
+        if ((0 until i).any { s.same(it, i) && (w[it] in NEGATIVES || w[it].endsWith("n't")) }) return null
+        if (s.asks(i) && w[s.start(i)] !in set("would could can shall may")) return null
+        val k = (i - 1).takeIf { it >= 0 && s.same(it, i) } ?: return null
+        return asks(s, k, k, "hint.en.yes", "hintSay.after")
+    }
+
     /** much against many at the gap, and the noun after it: whether it can be counted. */
     private fun count(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         if (gap !in set("much many") || !forms.containsAll(set("much many"))) return null
@@ -780,7 +795,7 @@ object EnglishHints {
     private fun habit(s: Said, i: Int): Trigger? {
         val w = s.words
         val k = nearest(s, i, sentence = false) { k ->
-            w[k] in set("always usually often sometimes never") || (w[k] == "every" && s.same(k + 1, k)) ||
+            w[k] in set("always usually often sometimes") || (w[k] == "every" && s.same(k + 1, k)) ||
                 (w[k] in DAYS && w[k].endsWith("s") && k > 0 && w[k - 1] == "on")
         } ?: return null
         val to = if (w[k] == "every") k + 1 else k
