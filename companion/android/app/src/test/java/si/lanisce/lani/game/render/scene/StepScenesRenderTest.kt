@@ -83,17 +83,17 @@ class StepScenesRenderTest {
     }
 
     /**
-     * The Lake District's steps the same way (lakeland-projects-b, and its sibling branch's when it lands): each step with a done
-     * line, rendered in the culture's look in its scene (the drinking fountain and the church clock on the green, the bank barn
-     * in the field, as they are built), shows its work there.
+     * [culture]'s steps the same way: each step with a done line, rendered in the culture's look in its scene (the Lake District's
+     * drinking fountain and church clock on the green, its bank barn in the field; Friuli's greasy pole on the square, its bridge
+     * and mill on the stream, as they are built), shows its work there. Returns how many it checked.
      */
-    @Test fun `each Lake District step with a done line shows its work in its scene, in the culture's look`() {
-        val files = File(companion, "cultures/lakeland/scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList()
+    private fun cultureStepsShowTheirWork(culture: String): Int {
+        val files = File(companion, "cultures/$culture/scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList()
         val arts: Map<String, String> = files.map { f -> Json.parseToJsonElement(f.readText()).jsonObject }
             .associate { o -> (o["id"] as JsonPrimitive).content to (o["art"] as JsonPrimitive).content }
         val checked = ArrayList<String>()
         val failed = ArrayList<String>()
-        for (f in File(companion, "cultures/lakeland/project-steps").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
+        for (f in File(companion, "cultures/$culture/project-steps").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
             val p = Json.parseToJsonElement(f.readText()).jsonObject
             val project = (p["project"] as JsonPrimitive).content
             (p["steps"] as JsonArray).forEachIndexed { k, st ->
@@ -101,48 +101,32 @@ class StepScenesRenderTest {
                 val levels: List<JsonArray> = (step["levels"] as JsonObject).values.map { lv -> lv.jsonObject["lines"] as JsonArray }
                 if (levels.none { l -> l.any { line -> line.jsonObject["done"] != null } }) return@forEachIndexed
                 val art = arts[(step["scene"] as? JsonPrimitive)?.content] ?: return@forEachIndexed
-                fun world(n: Int) = SceneWorld(projects = mapOf(project to n), culture = "lakeland")
+                fun world(n: Int) = SceneWorld(projects = mapOf(project to n), culture = culture)
                 for (detail in 1..2) {
                     val diff = changed(render(art, frame(art, world(k)), detail), render(art, frame(art, world(k + 1)), detail))
                     if (diff < 15 * detail * detail) failed += "$project/$k in $art at detail $detail: $diff px change"
                 }
                 checked += "$project/$k"
-                write(render(art, frame(art, world(k + 1)), 2), "lakeland-step-$project-${k + 1}")
+                write(render(art, frame(art, world(k + 1)), 2), "$culture-step-$project-${k + 1}")
             }
         }
         assertTrue(failed.joinToString("\n", prefix = "\n"), failed.isEmpty())
-        assertTrue("the Lake District's steps with a done line: ${checked.size}", checked.size >= 10)
+        return checked.size
+    }
+
+    /** The Lake District's (lakeland-projects-a and -b). */
+    @Test fun `each Lake District step with a done line shows its work in its scene, in the culture's look`() {
+        val checked = cultureStepsShowTheirWork("lakeland")
+        assertTrue("the Lake District's steps with a done line: $checked", checked >= 10)
     }
 
     /**
-     * Friuli's steps the same way (friuli-projects-b): each step with a done line, rendered in Friuli's look in its scene (the fountain with
-     * its pine cone and the clock in the campanile on the square, the big hay barn in the field, as they are built), shows its work there.
+     * Friuli's (friuli-projects-a: the greasy pole's five, the bridge's four, the mill's six; friuli-projects-b: the fountain's two with
+     * its pine cone and the clock's two in the campanile on the square, the big hay barn's four in the field).
      */
     @Test fun `each Friuli step with a done line shows its work in its scene, in the culture's look`() {
-        val files = File(companion, "cultures/friuli/scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList()
-        val arts: Map<String, String> = files.map { f -> Json.parseToJsonElement(f.readText()).jsonObject }
-            .associate { o -> (o["id"] as JsonPrimitive).content to (o["art"] as JsonPrimitive).content }
-        val checked = ArrayList<String>()
-        val failed = ArrayList<String>()
-        for (f in File(companion, "cultures/friuli/project-steps").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
-            val p = Json.parseToJsonElement(f.readText()).jsonObject
-            val project = (p["project"] as JsonPrimitive).content
-            (p["steps"] as JsonArray).forEachIndexed { k, st ->
-                val step = st as? JsonObject ?: return@forEachIndexed
-                val levels: List<JsonArray> = (step["levels"] as JsonObject).values.map { lv -> lv.jsonObject["lines"] as JsonArray }
-                if (levels.none { l -> l.any { line -> line.jsonObject["done"] != null } }) return@forEachIndexed
-                val art = arts[(step["scene"] as? JsonPrimitive)?.content] ?: return@forEachIndexed
-                fun world(n: Int) = SceneWorld(projects = mapOf(project to n), culture = "friuli")
-                for (detail in 1..2) {
-                    val diff = changed(render(art, frame(art, world(k)), detail), render(art, frame(art, world(k + 1)), detail))
-                    if (diff < 15 * detail * detail) failed += "$project/$k in $art at detail $detail: $diff px change"
-                }
-                checked += "$project/$k"
-                write(render(art, frame(art, world(k + 1)), 2), "friuli-step-$project-${k + 1}")
-            }
-        }
-        assertTrue(failed.joinToString("\n", prefix = "\n"), failed.isEmpty())
-        assertTrue("Friuli's steps with a done line: ${checked.size}", checked.size >= 8)
+        val checked = cultureStepsShowTheirWork("friuli")
+        assertTrue("Friuli's steps with a done line: $checked", checked >= 15 + 8)
     }
 
     @Test fun `the mill's wheel turns as the water is let in, before the mill grinds`() {
