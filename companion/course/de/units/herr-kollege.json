@@ -1,0 +1,1003 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "herr-kollege",
+  "language": "de",
+  "level": "B2",
+  "emoji": "🎩",
+  "title": {
+    "de": "Dem Herrn, den Kollegen, des Namens",
+    "en": "Nouns in -n: dem Herrn, den Kollegen",
+    "sl": "Samostalniki na -n: dem Herrn, den Kollegen",
+    "it": "I nomi in -n: dem Herrn, den Kollegen"
+  },
+  "goal": {
+    "en": "You can use the nouns that take -n in every case but the nominative (den Kollegen, dem Herrn, des Studenten), and you know der Name, des Namens.",
+    "sl": "Znaš uporabljati samostalnike, ki dobijo -n v vseh sklonih razen v imenovalniku (den Kollegen, dem Herrn, des Studenten), in poznaš der Name, des Namens.",
+    "it": "Sai usare i nomi che prendono -n in tutti i casi tranne il nominativo (den Kollegen, dem Herrn, des Studenten), e conosci der Name, des Namens."
+  },
+  "grammar": [
+    "n-deklination",
+    "faelle"
+  ],
+  "words": [
+    "der Kollege",
+    "der Kunde",
+    "der Neffe",
+    "der Hirte",
+    "der Slowene",
+    "der Hase",
+    "der Mensch",
+    "der Bär",
+    "der Bub",
+    "der Held",
+    "der Student",
+    "der Tourist",
+    "der Polizist",
+    "der Soldat",
+    "der Fotograf",
+    "der Herr",
+    "der Bauer",
+    "der Nachbar",
+    "der Arzt",
+    "der Wirt",
+    "der Schmied",
+    "der Käse",
+    "der Name",
+    "der Gedanke",
+    "der Buchstabe",
+    "der Glaube",
+    "das Herz",
+    "die Bedeutung",
+    "die Rechnung",
+    "jagen"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Nominativ",
+          "en": "nominative",
+          "sl": "imenovalnik",
+          "it": "nominativo"
+        },
+        {
+          "de": "Akkusativ",
+          "en": "accusative",
+          "sl": "tožilnik",
+          "it": "accusativo"
+        },
+        {
+          "de": "Dativ",
+          "en": "dative",
+          "sl": "dajalnik",
+          "it": "dativo"
+        },
+        {
+          "de": "Genitiv",
+          "en": "genitive",
+          "sl": "rodilnik",
+          "it": "genitivo"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**den Kollegen, dem Kollegen, des Kollegen**: a few masculine nouns take **-n** in every case but the nominative. **der Kollege** (the colleague) kommt. Ich sehe **den Kollegen**. Ich helfe **dem Kollegen**. Das Auto **des Kollegen**: no -s in the genitive. The plural is the same word: die Kollegen.",
+          "sl": "**den Kollegen, dem Kollegen, des Kollegen**: nekaj samostalnikov moškega spola dobi **-n** v vseh sklonih razen v imenovalniku. **der Kollege** (sodelavec) kommt. Ich sehe **den Kollegen**. Ich helfe **dem Kollegen**. Das Auto **des Kollegen**: v rodilniku brez -s. Množina je ista beseda: die Kollegen.",
+          "it": "**den Kollegen, dem Kollegen, des Kollegen**: alcuni nomi maschili prendono **-n** in tutti i casi tranne il nominativo. **der Kollege** (il collega) kommt. Ich sehe **den Kollegen**. Ich helfe **dem Kollegen**. Das Auto **des Kollegen**: al genitivo niente -s. Il plurale è la stessa parola: die Kollegen."
+        },
+        "examples": [
+          {
+            "de": "Stefan hilft dem Kollegen.",
+            "en": "Stefan is helping the colleague.",
+            "sl": "Stefan pomaga sodelavcu.",
+            "it": "Stefan aiuta il collega."
+          },
+          {
+            "de": "Das ist das Auto des Kollegen.",
+            "en": "That's the colleague's car.",
+            "sl": "To je sodelavčev avto.",
+            "it": "È l'auto del collega."
+          }
+        ],
+        "rows": [
+          [
+            "der Kollege",
+            "den Kollegen",
+            "dem Kollegen",
+            "des Kollegen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "n-deklination",
+          "prompt": "Toni arbeitet mit dem ___.",
+          "options": [
+            "Kollegen",
+            "Kollege",
+            "Kollegem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Kollege, after mit: -n**\n- mit dem Kollegen",
+            "sl": "**der Kollege, za mit: -n**\n- mit dem Kollegen",
+            "it": "**der Kollege, dopo mit: -n**\n- mit dem Kollegen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**der Kunde, der Neffe, der Hase**: almost every masculine noun in **-e** for a person or an animal goes this way: **der Kunde** (the customer), **der Neffe** (the nephew), **der Hirte** (the shepherd), **der Slowene** (the Slovene), **der Hase** (the hare). Den Kunden, dem Neffen, des Hirten, mit dem Slowenen, den Hasen.",
+          "sl": "**der Kunde, der Neffe, der Hase**: skoraj vsak samostalnik moškega spola na **-e** za osebo ali žival gre tako: **der Kunde** (stranka), **der Neffe** (nečak), **der Hirte** (pastir), **der Slowene** (Slovenec), **der Hase** (zajec). Den Kunden, dem Neffen, des Hirten, mit dem Slowenen, den Hasen.",
+          "it": "**der Kunde, der Neffe, der Hase**: quasi ogni nome maschile in **-e** per una persona o un animale va così: **der Kunde** (il cliente), **der Neffe** (il nipote), **der Hirte** (il pastore), **der Slowene** (lo sloveno), **der Hase** (la lepre). Den Kunden, dem Neffen, des Hirten, mit dem Slowenen, den Hasen."
+        },
+        "examples": [
+          {
+            "de": "Kathi gibt dem Kunden die Rechnung.",
+            "en": "Kathi gives the customer the bill.",
+            "sl": "Kathi da stranki račun.",
+            "it": "Kathi dà il conto al cliente."
+          },
+          {
+            "de": "Das ist das Schaf des Hirten.",
+            "en": "That's the shepherd's sheep.",
+            "sl": "To je pastirjeva ovca.",
+            "it": "È la pecora del pastore."
+          },
+          {
+            "de": "Der Hund jagt den Hasen.",
+            "en": "The dog is chasing the hare.",
+            "sl": "Pes lovi zajca.",
+            "it": "Il cane insegue la lepre."
+          }
+        ],
+        "rows": [
+          [
+            "der Kunde",
+            "den Kunden",
+            "dem Kunden",
+            "des Kunden"
+          ],
+          [
+            "der Hase",
+            "den Hasen",
+            "dem Hasen",
+            "des Hasen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "n-deklination",
+          "prompt": "Tante Mitzi schreibt ihrem ___ einen Brief.",
+          "options": [
+            "Neffen",
+            "Neffe",
+            "Neffem"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Neffe, the dative: -n**\n- ihrem Neffen",
+            "sl": "**der Neffe, dajalnik: -n**\n- ihrem Neffen",
+            "it": "**der Neffe, il dativo: -n**\n- ihrem Neffen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**den Menschen, den Bären, den Studenten**: a noun with no -e takes **-en**. A few short ones: **der Mensch** (the person), **der Bär** (the bear), **der Bub** (the boy, in Austria), **der Held** (the hero). Foreign words in -ent, -ist, -at, -graf: **der Student**, **der Tourist**, **der Polizist**, **der Soldat**, **der Fotograf**. In speech you'll hear **den Mensch, dem Bub, dem Student**: people say them; write the -en.",
+          "sl": "**den Menschen, den Bären, den Studenten**: samostalnik brez -e dobi **-en**. Nekaj kratkih: **der Mensch** (človek), **der Bär** (medved), **der Bub** (fant, v Avstriji), **der Held** (junak). Tuje besede na -ent, -ist, -at, -graf: **der Student**, **der Tourist**, **der Polizist**, **der Soldat**, **der Fotograf**. V govoru slišiš **den Mensch, dem Bub, dem Student**: ljudje to govorijo; piši -en.",
+          "it": "**den Menschen, den Bären, den Studenten**: un nome senza -e prende **-en**. Alcuni brevi: **der Mensch** (la persona), **der Bär** (l'orso), **der Bub** (il ragazzo, in Austria), **der Held** (l'eroe). Le parole straniere in -ent, -ist, -at, -graf: **der Student**, **der Tourist**, **der Polizist**, **der Soldat**, **der Fotograf**. A voce senti **den Mensch, dem Bub, dem Student**: si dice; scrivi -en."
+        },
+        "examples": [
+          {
+            "de": "Kathi zeigt dem Touristen den Weg.",
+            "en": "Kathi shows the tourist the way.",
+            "sl": "Kathi pokaže turistu pot.",
+            "it": "Kathi mostra la strada al turista."
+          },
+          {
+            "de": "Die Mutter ruft den Buben.",
+            "en": "The mother is calling the boy.",
+            "sl": "Mati kliče fanta.",
+            "it": "La madre chiama il ragazzo."
+          },
+          {
+            "de": "Der Polizist fragt den Studenten.",
+            "en": "The policeman asks the student.",
+            "sl": "Policist vpraša študenta.",
+            "it": "Il poliziotto chiede allo studente."
+          }
+        ],
+        "rows": [
+          [
+            "der Mensch",
+            "den Menschen",
+            "dem Menschen",
+            "des Menschen"
+          ],
+          [
+            "der Student",
+            "den Studenten",
+            "dem Studenten",
+            "des Studenten"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "n-deklination",
+          "text": "Der Arzt spricht mit dem ___. (Soldat)",
+          "accept": [
+            "Soldaten"
+          ],
+          "hint": {
+            "en": "der Soldat, dative",
+            "sl": "der Soldat, dajalnik",
+            "it": "der Soldat, dativo"
+          },
+          "explain": {
+            "en": "**-at, a foreign word: -en**\n- mit dem Soldaten",
+            "sl": "**-at, tuja beseda: -en**\n- mit dem Soldaten",
+            "it": "**-at, una parola straniera: -en**\n- mit dem Soldaten"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**den Herrn, dem Herrn, des Herrn**: **der Herr** (the gentleman, Mr) takes only **-n** in the singular and **-en** in the plural: **die Herren**. **der Bauer** (the farmer) and **der Nachbar** (the neighbour) take -n throughout: dem Bauern, den Nachbarn. Before a name, with no article, the -n stays: Ich kenne **Herrn Moser**. In speech you'll also hear **mit Herr Moser**; write Herrn.",
+          "sl": "**den Herrn, dem Herrn, des Herrn**: **der Herr** (gospod) dobi v ednini le **-n**, v množini **-en**: **die Herren**. **der Bauer** (kmet) in **der Nachbar** (sosed) imata povsod -n: dem Bauern, den Nachbarn. Pred imenom, brez člena, -n ostane: Ich kenne **Herrn Moser**. V govoru slišiš tudi **mit Herr Moser**; piši Herrn.",
+          "it": "**den Herrn, dem Herrn, des Herrn**: **der Herr** (il signore) prende solo **-n** al singolare e **-en** al plurale: **die Herren**. **der Bauer** (il contadino) e **der Nachbar** (il vicino) hanno sempre -n: dem Bauern, den Nachbarn. Davanti a un nome, senza articolo, la -n resta: Ich kenne **Herrn Moser**. A voce senti anche **mit Herr Moser**; scrivi Herrn."
+        },
+        "examples": [
+          {
+            "de": "Kennst du Herrn Moser?",
+            "en": "Do you know Mr Moser?",
+            "sl": "Ali poznaš gospoda Moserja?",
+            "it": "Conosci il signor Moser?"
+          },
+          {
+            "de": "Die Herren sitzen im Garten.",
+            "en": "The gentlemen are sitting in the garden.",
+            "sl": "Gospodje sedijo na vrtu.",
+            "it": "I signori sono seduti in giardino."
+          },
+          {
+            "de": "Stefan hilft dem Bauern.",
+            "en": "Stefan is helping the farmer.",
+            "sl": "Stefan pomaga kmetu.",
+            "it": "Stefan aiuta il contadino."
+          }
+        ],
+        "rows": [
+          [
+            "der Herr",
+            "den Herrn",
+            "dem Herrn",
+            "des Herrn"
+          ],
+          [
+            "der Bauer",
+            "den Bauern",
+            "dem Bauern",
+            "des Bauern"
+          ],
+          [
+            "der Nachbar",
+            "den Nachbarn",
+            "dem Nachbarn",
+            "des Nachbarn"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "n-deklination",
+          "text": "Kathi schreibt ___ Moser einen Brief.",
+          "accept": [
+            "Herrn"
+          ],
+          "hint": {
+            "en": "Herr, dative",
+            "sl": "Herr, dajalnik",
+            "it": "Herr, dativo"
+          },
+          "explain": {
+            "en": "**der Herr: -n in the singular, -en in the plural**\n- dem Herrn · die Herren · Ich kenne Herrn Moser.",
+            "sl": "**der Herr: -n v ednini, -en v množini**\n- dem Herrn · die Herren · Ich kenne Herrn Moser.",
+            "it": "**der Herr: -n al singolare, -en al plurale**\n- dem Herrn · die Herren · Ich kenne Herrn Moser."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**dem Arzt, dem Wirt, dem Schmied**: most masculine nouns take no -n: **der Arzt** (the doctor), **der Wirt** (the innkeeper), **der Schmied** (the blacksmith), **der Lehrer**, **der Müller**, **der Gast**. Their genitive has the -s: des Arztes, des Wirts. And **der Käse** (the cheese) is a thing, not a person or an animal: dem Käse, des Käses.",
+          "sl": "**dem Arzt, dem Wirt, dem Schmied**: večina samostalnikov moškega spola nima -n: **der Arzt** (zdravnik), **der Wirt** (gostilničar), **der Schmied** (kovač), **der Lehrer**, **der Müller**, **der Gast**. Njihov rodilnik ima -s: des Arztes, des Wirts. **der Käse** (sir) pa je stvar, ne oseba ali žival: dem Käse, des Käses.",
+          "it": "**dem Arzt, dem Wirt, dem Schmied**: la maggior parte dei nomi maschili non ha la -n: **der Arzt** (il medico), **der Wirt** (l'oste), **der Schmied** (il fabbro), **der Lehrer**, **der Müller**, **der Gast**. Il loro genitivo ha la -s: des Arztes, des Wirts. E **der Käse** (il formaggio) è una cosa, non una persona o un animale: dem Käse, des Käses."
+        },
+        "examples": [
+          {
+            "de": "Ich gehe mit dem Lehrer zum Arzt.",
+            "en": "I'm going to the doctor with the teacher.",
+            "sl": "Z učiteljem grem k zdravniku.",
+            "it": "Vado dal medico con l'insegnante."
+          },
+          {
+            "de": "Das ist das Haus des Wirts.",
+            "en": "That's the innkeeper's house.",
+            "sl": "To je gostilničarjeva hiša.",
+            "it": "È la casa dell'oste."
+          }
+        ],
+        "rows": [
+          [
+            "der Arzt",
+            "den Arzt",
+            "dem Arzt",
+            "des Arztes"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "n-deklination",
+          "prompt": "Stefan spricht mit dem ___.",
+          "options": [
+            "Schmied",
+            "Schmieden",
+            "Schmieds"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Schmied: no -n**\n- mit dem Schmied",
+            "sl": "**der Schmied: brez -n**\n- mit dem Schmied",
+            "it": "**der Schmied: niente -n**\n- mit dem Schmied"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**der Name, des Namens**: a small group takes -n and, in the genitive, **-ns**: **der Name** (the name): den Namen, dem Namen, **des Namens**. So too **der Gedanke** (the thought), **der Buchstabe** (the letter), **der Glaube** (the belief). **das Herz** (the heart) is the one neuter: das Herz, dem Herzen, **des Herzens**.",
+          "sl": "**der Name, des Namens**: majhna skupina dobi -n, v rodilniku pa **-ns**: **der Name** (ime): den Namen, dem Namen, **des Namens**. Prav tako **der Gedanke** (misel), **der Buchstabe** (črka), **der Glaube** (vera). **das Herz** (srce) je edini srednjega spola: das Herz, dem Herzen, **des Herzens**.",
+          "it": "**der Name, des Namens**: un piccolo gruppo prende -n e, al genitivo, **-ns**: **der Name** (il nome): den Namen, dem Namen, **des Namens**. Così anche **der Gedanke** (il pensiero), **der Buchstabe** (la lettera), **der Glaube** (la fede). **das Herz** (il cuore) è l'unico neutro: das Herz, dem Herzen, **des Herzens**."
+        },
+        "examples": [
+          {
+            "de": "Ich weiß den Namen nicht.",
+            "en": "I don't know the name.",
+            "sl": "Imena ne vem.",
+            "it": "Non so il nome."
+          },
+          {
+            "de": "Die Bedeutung des Namens kennt niemand.",
+            "en": "Nobody knows what the name means.",
+            "sl": "Pomena imena ne pozna nihče.",
+            "it": "Nessuno conosce il significato del nome."
+          },
+          {
+            "de": "Kathi dankt von ganzem Herzen.",
+            "en": "Kathi thanks them with all her heart.",
+            "sl": "Kathi se zahvaljuje iz vsega srca.",
+            "it": "Kathi ringrazia di tutto cuore."
+          }
+        ],
+        "rows": [
+          [
+            "der Name",
+            "den Namen",
+            "dem Namen",
+            "des Namens"
+          ],
+          [
+            "der Gedanke",
+            "den Gedanken",
+            "dem Gedanken",
+            "des Gedankens"
+          ],
+          [
+            "das Herz",
+            "das Herz",
+            "dem Herzen",
+            "des Herzens"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "n-deklination",
+          "prompt": "Der erste Buchstabe des ___ ist ein K.",
+          "options": [
+            "Namens",
+            "Namen",
+            "Name"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Name: -n, and -ns in the genitive**\n- den Namen · dem Namen · des Namens",
+            "sl": "**der Name: -n, v rodilniku -ns**\n- den Namen · dem Namen · des Namens",
+            "it": "**der Name: -n, e al genitivo -ns**\n- den Namen · dem Namen · des Namens"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "herr-kollege-1",
+      "title": {
+        "de": "Den Kollegen, dem Herrn",
+        "en": "Den Kollegen, dem Herrn",
+        "sl": "Den Kollegen, dem Herrn",
+        "it": "Den Kollegen, dem Herrn"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "n-deklination",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the nouns, by case",
+            "sl": "samostalniki po sklonih",
+            "it": "i nomi, caso per caso"
+          },
+          "columns": [
+            {
+              "en": "Akkusativ · accusative",
+              "sl": "Akkusativ · tožilnik",
+              "it": "Akkusativ · accusativo"
+            },
+            {
+              "en": "Dativ · dative",
+              "sl": "Dativ · dajalnik",
+              "it": "Dativ · dativo"
+            },
+            {
+              "en": "Genitiv · genitive",
+              "sl": "Genitiv · rodilnik",
+              "it": "Genitiv · genitivo"
+            }
+          ],
+          "rows": [
+            {
+              "label": "der Neffe",
+              "cells": [
+                "den Neffen",
+                "dem Neffen",
+                "des Neffen"
+              ]
+            },
+            {
+              "label": "der Hirte",
+              "cells": [
+                {
+                  "accept": [
+                    "den Hirten",
+                    "Hirten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "dem Hirten",
+                    "Hirten"
+                  ]
+                },
+                "des Hirten"
+              ]
+            },
+            {
+              "label": "der Mensch",
+              "cells": [
+                "den Menschen",
+                {
+                  "accept": [
+                    "dem Menschen",
+                    "Menschen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "des Menschen",
+                    "Menschen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "der Herr",
+              "cells": [
+                {
+                  "accept": [
+                    "den Herrn",
+                    "Herrn"
+                  ]
+                },
+                {
+                  "accept": [
+                    "dem Herrn",
+                    "Herrn"
+                  ]
+                },
+                "des Herrn"
+              ]
+            },
+            {
+              "label": "der Name",
+              "cells": [
+                {
+                  "accept": [
+                    "den Namen",
+                    "Namen"
+                  ]
+                },
+                "dem Namen",
+                {
+                  "accept": [
+                    "des Namens",
+                    "Namens"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "der Arzt",
+              "cells": [
+                "den Arzt",
+                {
+                  "accept": [
+                    "dem Arzt",
+                    "Arzt"
+                  ]
+                },
+                {
+                  "accept": [
+                    "des Arztes",
+                    "Arztes",
+                    "des Arzts",
+                    "Arzts"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-e for a person or an animal, and -ent, -ist, -at, -graf: -n or -en. The rest: none**\n- dem Kollegen · dem Studenten · dem Arzt",
+            "sl": "**-e pri osebi ali živali ter -ent, -ist, -at, -graf: -n ali -en. Drugi: nič**\n- dem Kollegen · dem Studenten · dem Arzt",
+            "it": "**-e per una persona o un animale, e -ent, -ist, -at, -graf: -n o -en. Gli altri: niente**\n- dem Kollegen · dem Studenten · dem Arzt"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "n-deklination",
+          "instruction": {
+            "en": "Sortiere · Sort: mit dem …",
+            "sl": "Sortiere · Razvrsti: mit dem …",
+            "it": "Sortiere · Ordina: mit dem …"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "-n, -en · with it",
+                "sl": "-n, -en · z njim",
+                "it": "-n, -en · con"
+              },
+              "words": [
+                "der Kollege",
+                "der Hirte",
+                "der Student",
+                "der Bär"
+              ]
+            },
+            {
+              "label": {
+                "en": "ohne -n · without it",
+                "sl": "ohne -n · brez njega",
+                "it": "ohne -n · senza"
+              },
+              "words": [
+                "der Arzt",
+                "der Wirt",
+                "der Lehrer",
+                "der Käse"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-e for a person or an animal, and -ent, -ist, -at, -graf: -n or -en. The rest: none**\n- dem Kollegen · dem Studenten · dem Arzt",
+            "sl": "**-e pri osebi ali živali ter -ent, -ist, -at, -graf: -n ali -en. Drugi: nič**\n- dem Kollegen · dem Studenten · dem Arzt",
+            "it": "**-e per una persona o un animale, e -ent, -ist, -at, -graf: -n o -en. Gli altri: niente**\n- dem Kollegen · dem Studenten · dem Arzt"
+          }
+        }
+      ]
+    },
+    {
+      "id": "herr-kollege-2",
+      "title": {
+        "de": "Der neue Nachbar",
+        "en": "The new neighbour",
+        "sl": "Novi sosed",
+        "it": "Il nuovo vicino"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "n-deklination",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der neue Nachbar",
+          "text": "Kathi hat einen neuen ___ (Nachbar). Am Montag besucht sie ___ (Herr) Gasser. Er ist Fotograf. Auf dem Tisch des ___ (Fotograf) liegen viele Bilder: das Bild von einem ___ (Bär), das Bild von einem ___ (Hase) und das Bild von einem alten ___ (Bauer). Wie war sein Name?, fragt Kathi. Den ___ (Name) weiß ich nicht mehr, sagt Herr Gasser. Aber ich frage meinen ___ (Kollege).",
+          "gaps": [
+            {
+              "accept": [
+                "Nachbarn"
+              ]
+            },
+            {
+              "accept": [
+                "Herrn"
+              ]
+            },
+            {
+              "accept": [
+                "Fotografen"
+              ]
+            },
+            {
+              "accept": [
+                "Bären"
+              ]
+            },
+            {
+              "accept": [
+                "Hasen"
+              ]
+            },
+            {
+              "accept": [
+                "Bauern"
+              ]
+            },
+            {
+              "accept": [
+                "Namen"
+              ]
+            },
+            {
+              "accept": [
+                "Kollegen"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Namens",
+            "Kollege",
+            "Hase"
+          ],
+          "translation": {
+            "en": "Kathi has a new neighbour. On Monday she visits Mr Gasser. He's a photographer. On the photographer's table lie many pictures: a picture of a bear, a picture of a hare and a picture of an old farmer. What was his name?, Kathi asks. I don't remember the name, says Mr Gasser. But I'll ask my colleague.",
+            "sl": "Kathi ima novega soseda. V ponedeljek obišče gospoda Gasserja. Je fotograf. Na fotografovi mizi je veliko slik: slika medveda, slika zajca in slika starega kmeta. Kako mu je bilo ime?, vpraša Kathi. Imena se ne spomnim več, reče gospod Gasser. Vprašal pa bom sodelavca.",
+            "it": "Kathi ha un nuovo vicino. Lunedì va a trovare il signor Gasser. Fa il fotografo. Sul tavolo del fotografo ci sono molte foto: la foto di un orso, la foto di una lepre e la foto di un vecchio contadino. Come si chiamava?, chiede Kathi. Il nome non me lo ricordo più, dice il signor Gasser. Ma chiedo al mio collega."
+          },
+          "explain": {
+            "en": "**-e for a person or an animal, and -ent, -ist, -at, -graf: -n or -en. The rest: none**\n- dem Kollegen · dem Studenten · dem Arzt",
+            "sl": "**-e pri osebi ali živali ter -ent, -ist, -at, -graf: -n ali -en. Drugi: nič**\n- dem Kollegen · dem Studenten · dem Arzt",
+            "it": "**-e per una persona o un animale, e -ent, -ist, -at, -graf: -n o -en. Gli altri: niente**\n- dem Kollegen · dem Studenten · dem Arzt"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "n-deklination",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Lena spricht lange mit dem ___.",
+          "options": [
+            "Arzt",
+            "Arzten",
+            "Arztes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Arzt: no -n**\n- mit dem Arzt",
+            "sl": "**der Arzt: brez -n**\n- mit dem Arzt",
+            "it": "**der Arzt: niente -n**\n- mit dem Arzt"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "n-deklination",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wie schreibt man den ___ von Herrn Gasser?",
+          "options": [
+            "Namen",
+            "Namens",
+            "Name"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Name: -n, and -ns in the genitive**\n- den Namen · dem Namen · des Namens",
+            "sl": "**der Name: -n, v rodilniku -ns**\n- den Namen · dem Namen · des Namens",
+            "it": "**der Name: -n, e al genitivo -ns**\n- den Namen · dem Namen · des Namens"
+          }
+        }
+      ]
+    },
+    {
+      "id": "herr-kollege-3",
+      "title": {
+        "de": "Im Satz",
+        "en": "In a sentence",
+        "sl": "V stavku",
+        "it": "Nella frase"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "n-deklination",
+          "instruction": {
+            "en": "Mach den Satz fertig · Finish the sentence with the noun",
+            "sl": "Mach den Satz fertig · Dokončaj stavek s samostalnikom",
+            "it": "Mach den Satz fertig · Completa la frase con il nome"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Student kommt. (Ich frage …)",
+              "accept": [
+                "Ich frage den Studenten."
+              ]
+            },
+            {
+              "from": "Der Herr sitzt dort. (Kathi hilft …)",
+              "accept": [
+                "Kathi hilft dem Herrn."
+              ]
+            },
+            {
+              "from": "Der Nachbar kommt. (Stefan spricht mit …)",
+              "accept": [
+                "Stefan spricht mit dem Nachbarn."
+              ]
+            },
+            {
+              "from": "Der Hirte kommt. (Das ist der Hund …)",
+              "accept": [
+                "Das ist der Hund des Hirten.",
+                "Das ist der Hund vom Hirten.",
+                "Das ist der Hund von dem Hirten."
+              ],
+              "hint": {
+                "en": "whose? the genitive",
+                "sl": "čigav? rodilnik",
+                "it": "di chi? il genitivo"
+              }
+            }
+          ],
+          "explain": {
+            "en": "**-n in every case but the nominative**\n- den Kollegen · dem Kollegen · des Kollegen",
+            "sl": "**-n v vseh sklonih razen v imenovalniku**\n- den Kollegen · dem Kollegen · des Kollegen",
+            "it": "**-n in tutti i casi tranne il nominativo**\n- den Kollegen · dem Kollegen · des Kollegen"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "n-deklination",
+          "instruction": {
+            "en": "Ins Plural · Into the plural",
+            "sl": "Ins Plural · V množino",
+            "it": "Ins Plural · Al plurale"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich grüße den Herrn.",
+              "accept": [
+                "Ich grüße die Herren."
+              ]
+            },
+            {
+              "from": "Der Herr sitzt hier.",
+              "accept": [
+                "Die Herren sitzen hier."
+              ]
+            },
+            {
+              "from": "Ich helfe dem Kunden.",
+              "accept": [
+                "Ich helfe den Kunden."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**der Herr: -n in the singular, -en in the plural**\n- dem Herrn · die Herren · Ich kenne Herrn Moser.",
+            "sl": "**der Herr: -n v ednini, -en v množini**\n- dem Herrn · die Herren · Ich kenne Herrn Moser.",
+            "it": "**der Herr: -n al singolare, -en al plurale**\n- dem Herrn · die Herren · Ich kenne Herrn Moser."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "n-deklination",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Der Tourist",
+        "text": "Ein Tourist kommt zu Kathi. Er sucht einen ___ (Arzt). Kathi ruft ___ (Herr) Egger an. Der Doktor hilft dem ___ (Tourist) sofort. Er fragt nach dem ___ (Name) und schreibt alles auf. Kathi bringt dem armen ___ (Mensch) eine Suppe. Am Abend kommt ein ___ (Kollege) von Doktor Egger.",
+        "gaps": [
+          {
+            "accept": [
+              "Arzt"
+            ]
+          },
+          {
+            "accept": [
+              "Herrn"
+            ]
+          },
+          {
+            "accept": [
+              "Touristen"
+            ]
+          },
+          {
+            "accept": [
+              "Namen"
+            ]
+          },
+          {
+            "accept": [
+              "Menschen"
+            ]
+          },
+          {
+            "accept": [
+              "Kollege"
+            ],
+            "hint": {
+              "en": "Who comes? The nominative",
+              "sl": "Kdo pride? Imenovalnik",
+              "it": "Chi viene? Il nominativo"
+            }
+          }
+        ],
+        "translation": {
+          "en": "A tourist comes to Kathi's. He's looking for a doctor. Kathi rings Mr Egger. The doctor helps the tourist straight away. He asks for the name and writes it all down. Kathi brings the poor man some soup. In the evening a colleague of Doctor Egger's comes.",
+          "sl": "Turist pride h Kathi. Išče zdravnika. Kathi pokliče gospoda Eggerja. Zdravnik turistu takoj pomaga. Vpraša po imenu in vse zapiše. Kathi prinese ubogemu človeku juho. Zvečer pride sodelavec doktorja Eggerja.",
+          "it": "Un turista arriva da Kathi. Cerca un medico. Kathi chiama il signor Egger. Il dottore aiuta subito il turista. Chiede il nome e scrive tutto. Kathi porta una minestra al pover'uomo. La sera arriva un collega del dottor Egger."
+        },
+        "explain": {
+          "en": "**-e for a person or an animal, and -ent, -ist, -at, -graf: -n or -en. The rest: none**\n- dem Kollegen · dem Studenten · dem Arzt",
+          "sl": "**-e pri osebi ali živali ter -ent, -ist, -at, -graf: -n ali -en. Drugi: nič**\n- dem Kollegen · dem Studenten · dem Arzt",
+          "it": "**-e per una persona o un animale, e -ent, -ist, -at, -graf: -n o -en. Gli altri: niente**\n- dem Kollegen · dem Studenten · dem Arzt"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "n-deklination",
+        "instruction": {
+          "en": "Mach den Satz fertig · Finish the sentence with the noun",
+          "sl": "Mach den Satz fertig · Dokončaj stavek s samostalnikom",
+          "it": "Mach den Satz fertig · Completa la frase con il nome"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Der Polizist kommt. (Ich sehe …)",
+            "accept": [
+              "Ich sehe den Polizisten."
+            ]
+          },
+          {
+            "from": "Der Bub spielt. (Tante Mitzi ruft …)",
+            "accept": [
+              "Tante Mitzi ruft den Buben."
+            ]
+          },
+          {
+            "from": "Der Herr kommt. (Das ist der Hut …)",
+            "accept": [
+              "Das ist der Hut des Herrn.",
+              "Das ist der Hut vom Herrn.",
+              "Das ist der Hut von dem Herrn."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**-n in every case but the nominative**\n- den Kollegen · dem Kollegen · des Kollegen",
+          "sl": "**-n v vseh sklonih razen v imenovalniku**\n- den Kollegen · dem Kollegen · des Kollegen",
+          "it": "**-n in tutti i casi tranne il nominativo**\n- den Kollegen · dem Kollegen · des Kollegen"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "n-deklination",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das Haus des ___ ist alt.",
+        "options": [
+          "Schmieds",
+          "Schmieden",
+          "Schmied"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der Schmied: no -n, and the genitive's -s**\n- des Schmieds, des Schmiedes",
+          "sl": "**der Schmied: brez -n, v rodilniku -s**\n- des Schmieds, des Schmiedes",
+          "it": "**der Schmied: niente -n, e la -s del genitivo**\n- des Schmieds, des Schmiedes"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "n-deklination",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stanko gibt dem ___ den Honig.",
+        "options": [
+          "Kunden",
+          "Kunde",
+          "Kundem"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der Kunde, the dative: -n**\n- dem Kunden",
+          "sl": "**der Kunde, dajalnik: -n**\n- dem Kunden",
+          "it": "**der Kunde, il dativo: -n**\n- dem Kunden"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "n-deklination",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der letzte Buchstabe des ___ ist ein i.",
+        "options": [
+          "Namens",
+          "Namen",
+          "Name"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der Name: -n, and -ns in the genitive**\n- den Namen · dem Namen · des Namens",
+          "sl": "**der Name: -n, v rodilniku -ns**\n- den Namen · dem Namen · des Namens",
+          "it": "**der Name: -n, e al genitivo -ns**\n- den Namen · dem Namen · des Namens"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: den Mensch, dem Bub, mit Herr Moser, dem Bauer as spoken (the table, almost); Herren for Herrn; each base"
+}

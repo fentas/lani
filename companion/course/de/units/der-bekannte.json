@@ -1,0 +1,956 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "der-bekannte",
+  "language": "de",
+  "level": "B2",
+  "emoji": "👥",
+  "title": {
+    "de": "Der Bekannte, etwas Gutes",
+    "en": "Adjectives as nouns: der Bekannte, etwas Gutes",
+    "sl": "Pridevniki kot samostalniki: der Bekannte, etwas Gutes",
+    "it": "Aggettivi sostantivati: der Bekannte, etwas Gutes"
+  },
+  "goal": {
+    "en": "You can use an adjective as a noun with the right ending (der Bekannte, ein Bekannter, die Verwandten), and say etwas Neues, nichts Gutes, alles Gute.",
+    "sl": "Znaš uporabiti pridevnik kot samostalnik s pravo končnico (der Bekannte, ein Bekannter, die Verwandten) in reči etwas Neues, nichts Gutes, alles Gute.",
+    "it": "Sai usare un aggettivo come nome con la desinenza giusta (der Bekannte, ein Bekannter, die Verwandten) e dire etwas Neues, nichts Gutes, alles Gute."
+  },
+  "grammar": [
+    "adjektiv-nomen",
+    "adjektiv-tabelle"
+  ],
+  "words": [
+    "der Bekannte",
+    "der Verwandte",
+    "der Angestellte",
+    "der Kranke",
+    "der Erwachsene",
+    "der Fremde",
+    "der Jugendliche",
+    "der Deutsche",
+    "der Beamte",
+    "die Beamtin",
+    "der Österreicher",
+    "der Kärntner",
+    "etwas",
+    "nichts",
+    "viel",
+    "wenig",
+    "alles",
+    "neu",
+    "besonders",
+    "lustig",
+    "süß",
+    "der Bürgermeister",
+    "die Ruhe",
+    "die Reise"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fall",
+          "en": "case",
+          "sl": "sklon",
+          "it": "caso"
+        },
+        {
+          "de": "mit der, die, das",
+          "en": "with der, die, das",
+          "sl": "z der, die, das",
+          "it": "con der, die, das"
+        },
+        {
+          "de": "mit ein, eine, etwas",
+          "en": "with ein, eine, etwas",
+          "sl": "z ein, eine, etwas",
+          "it": "con ein, eine, etwas"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**der Bekannte, ein Bekannter**: an adjective can be a noun: it takes a capital and keeps an adjective's endings. **bekannt** (known) → **der Bekannte** (the acquaintance). After der: -e. After ein: -er, as in der gute Freund, ein guter Freund. So the word changes with its article.",
+          "sl": "**der Bekannte, ein Bekannter**: pridevnik je lahko samostalnik: dobi veliko začetnico in obdrži pridevnikove končnice. **bekannt** (znan) → **der Bekannte** (znanec). Za der: -e. Za ein: -er, kot der gute Freund, ein guter Freund. Beseda se torej spreminja s členom.",
+          "it": "**der Bekannte, ein Bekannter**: un aggettivo può diventare un nome: prende la maiuscola e tiene le desinenze dell'aggettivo. **bekannt** (noto) → **der Bekannte** (il conoscente). Dopo der: -e. Dopo ein: -er, come der gute Freund, ein guter Freund. La parola cambia quindi con il suo articolo."
+        },
+        "examples": [
+          {
+            "de": "Der Bekannte von Stefan wohnt in Graz.",
+            "en": "Stefan's acquaintance lives in Graz.",
+            "sl": "Stefanov znanec živi v Gradcu.",
+            "it": "Il conoscente di Stefan abita a Graz."
+          },
+          {
+            "de": "Ein Bekannter von Kathi kommt heute.",
+            "en": "An acquaintance of Kathi's is coming today.",
+            "sl": "Danes pride Kathin znanec.",
+            "it": "Oggi viene un conoscente di Kathi."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Nominativ",
+              "en": "nominative",
+              "sl": "imenovalnik",
+              "it": "nominativo"
+            },
+            "der Bekannte",
+            "ein Bekannter"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-nomen",
+          "prompt": "Franz ist ein ___ von Toni.",
+          "options": [
+            "Bekannter",
+            "Bekannte",
+            "Bekannten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After ein: -er**\n- ein Bekannter",
+            "sl": "**Za ein: -er**\n- ein Bekannter",
+            "it": "**Dopo ein: -er**\n- ein Bekannter"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**den Bekannten, dem Bekannten, die Bekannte**: the rest is the adjective's table. **den Bekannten, einen Bekannten; dem Bekannten, einem Bekannten; des Bekannten**. A woman: **die Bekannte, eine Bekannte**, mit der Bekannten, mit einer Bekannten.",
+          "sl": "**den Bekannten, dem Bekannten, die Bekannte**: drugo je iz pridevnikove tabele. **den Bekannten, einen Bekannten; dem Bekannten, einem Bekannten; des Bekannten**. Ženska: **die Bekannte, eine Bekannte**, mit der Bekannten, mit einer Bekannten.",
+          "it": "**den Bekannten, dem Bekannten, die Bekannte**: il resto viene dalla tabella degli aggettivi. **den Bekannten, einen Bekannten; dem Bekannten, einem Bekannten; des Bekannten**. Una donna: **die Bekannte, eine Bekannte**, mit der Bekannten, mit einer Bekannten."
+        },
+        "examples": [
+          {
+            "de": "Ich treffe heute einen Bekannten.",
+            "en": "I'm meeting an acquaintance today.",
+            "sl": "Danes se dobim z znancem.",
+            "it": "Oggi incontro un conoscente."
+          },
+          {
+            "de": "Kathi spricht mit einer Bekannten.",
+            "en": "Kathi is talking to an acquaintance.",
+            "sl": "Kathi govori z znanko.",
+            "it": "Kathi parla con una conoscente."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Nominativ, eine Frau",
+              "en": "nominative, a woman",
+              "sl": "imenovalnik, ženska",
+              "it": "nominativo, una donna"
+            },
+            "die Bekannte",
+            "eine Bekannte"
+          ],
+          [
+            {
+              "de": "Akkusativ",
+              "en": "accusative",
+              "sl": "tožilnik",
+              "it": "accusativo"
+            },
+            "den Bekannten",
+            "einen Bekannten"
+          ],
+          [
+            {
+              "de": "Dativ",
+              "en": "dative",
+              "sl": "dajalnik",
+              "it": "dativo"
+            },
+            "dem Bekannten",
+            "einem Bekannten"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-nomen",
+          "prompt": "Stefan hilft dem ___.",
+          "options": [
+            "Bekannten",
+            "Bekannte",
+            "Bekannter"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**dem: -en**\n- dem Bekannten",
+            "sl": "**dem: -en**\n- dem Bekannten",
+            "it": "**dem: -en**\n- dem Bekannten"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**die Verwandten, viele Verwandte**: the plural is an adjective's too. With die, meine, alle, keine: **-en**: **die Verwandten** (the relatives), **alle Verwandten**. With no article, a number or viele: **-e**: **Verwandte**, **zwei Verwandte**, **viele Verwandte**. The dative: mit den Verwandten, mit Verwandten.",
+          "sl": "**die Verwandten, viele Verwandte**: tudi množina je pridevnikova. Z die, meine, alle, keine: **-en**: **die Verwandten** (sorodniki), **alle Verwandten**. Brez člena, s številom ali viele: **-e**: **Verwandte**, **zwei Verwandte**, **viele Verwandte**. Dajalnik: mit den Verwandten, mit Verwandten.",
+          "it": "**die Verwandten, viele Verwandte**: anche il plurale è quello dell'aggettivo. Con die, meine, alle, keine: **-en**: **die Verwandten** (i parenti), **alle Verwandten**. Senza articolo, con un numero o viele: **-e**: **Verwandte**, **zwei Verwandte**, **viele Verwandte**. Il dativo: mit den Verwandten, mit Verwandten."
+        },
+        "examples": [
+          {
+            "de": "Die Verwandten kommen am Sonntag.",
+            "en": "The relatives are coming on Sunday.",
+            "sl": "Sorodniki pridejo v nedeljo.",
+            "it": "I parenti vengono domenica."
+          },
+          {
+            "de": "Toni hat viele Verwandte in Slowenien.",
+            "en": "Toni has many relatives in Slovenia.",
+            "sl": "Toni ima veliko sorodnikov v Sloveniji.",
+            "it": "Toni ha molti parenti in Slovenia."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Plural",
+              "en": "plural",
+              "sl": "množina",
+              "it": "plurale"
+            },
+            "die Verwandten",
+            "zwei Verwandte"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-nomen",
+          "prompt": "Wo sind die ___?",
+          "options": [
+            "Verwandten",
+            "Verwandter",
+            "Verwandtes"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**die, alle, meine: -en. No article, a number, viele: -e**\n- die Verwandten · zwei Verwandte",
+            "sl": "**die, alle, meine: -en. Brez člena, s številom, viele: -e**\n- die Verwandten · zwei Verwandte",
+            "it": "**die, alle, meine: -en. Senza articolo, con un numero, viele: -e**\n- die Verwandten · zwei Verwandte"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**der Angestellte, der Erwachsene, der Deutsche**: many go this way: **der Angestellte** (the employee), **der Kranke** (the sick man), **der Erwachsene** (the adult), **der Fremde** (the stranger), **der Deutsche** (the German), **der Beamte** (the official; a woman: **die Beamtin**). Not **der Österreicher**, **der Kärntner**: those are nouns of their own, so ein Österreicher, but ein Deutscher.",
+          "sl": "**der Angestellte, der Erwachsene, der Deutsche**: veliko jih gre tako: **der Angestellte** (uslužbenec), **der Kranke** (bolnik), **der Erwachsene** (odrasli), **der Fremde** (tujec), **der Deutsche** (Nemec), **der Beamte** (uradnik; ženska: **die Beamtin**). Ne **der Österreicher**, **der Kärntner**: to so pravi samostalniki, torej ein Österreicher, a ein Deutscher.",
+          "it": "**der Angestellte, der Erwachsene, der Deutsche**: molti vanno così: **der Angestellte** (l'impiegato), **der Kranke** (il malato), **der Erwachsene** (l'adulto), **der Fremde** (lo straniero), **der Deutsche** (il tedesco), **der Beamte** (il funzionario; una donna: **die Beamtin**). Non **der Österreicher**, **der Kärntner**: sono nomi veri e propri, quindi ein Österreicher, ma ein Deutscher."
+        },
+        "examples": [
+          {
+            "de": "Kathi hat zwei Angestellte.",
+            "en": "Kathi has two employees.",
+            "sl": "Kathi ima dva uslužbenca.",
+            "it": "Kathi ha due dipendenti."
+          },
+          {
+            "de": "Ein Deutscher fragt einen Österreicher nach dem Weg.",
+            "en": "A German asks an Austrian the way.",
+            "sl": "Nemec vpraša Avstrijca za pot.",
+            "it": "Un tedesco chiede la strada a un austriaco."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Nominativ",
+              "en": "nominative",
+              "sl": "imenovalnik",
+              "it": "nominativo"
+            },
+            "der Angestellte",
+            "ein Angestellter"
+          ],
+          [
+            {
+              "de": "Nominativ",
+              "en": "nominative",
+              "sl": "imenovalnik",
+              "it": "nominativo"
+            },
+            "der Deutsche",
+            "ein Deutscher"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-nomen",
+          "prompt": "Der Gast ist ein ___ aus Bayern.",
+          "options": [
+            "Deutscher",
+            "Deutsche",
+            "Deutschen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**After ein: -er**\n- ein Deutscher",
+            "sl": "**Za ein: -er**\n- ein Deutscher",
+            "it": "**Dopo ein: -er**\n- ein Deutscher"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**etwas Neues, nichts Gutes, viel Schönes**: after **etwas, nichts, viel, wenig** an adjective takes a capital and **-es**: Gibt es **etwas Neues** (anything new)? **Nichts Gutes** (nothing good). **Viel Schönes** (many nice things). After a preposition: mit etwas Gutem. In speech you'll hear **was Neues**, **nix Gutes**: right.",
+          "sl": "**etwas Neues, nichts Gutes, viel Schönes**: za **etwas, nichts, viel, wenig** dobi pridevnik veliko začetnico in **-es**: Gibt es **etwas Neues** (kaj novega)? **Nichts Gutes** (nič dobrega). **Viel Schönes** (veliko lepega). Za predlogom: mit etwas Gutem. V govoru slišiš **was Neues**, **nix Gutes**: prav.",
+          "it": "**etwas Neues, nichts Gutes, viel Schönes**: dopo **etwas, nichts, viel, wenig** un aggettivo prende la maiuscola e **-es**: Gibt es **etwas Neues** (qualcosa di nuovo)? **Nichts Gutes** (niente di buono). **Viel Schönes** (molte cose belle). Dopo una preposizione: mit etwas Gutem. A voce senti **was Neues**, **nix Gutes**: va bene."
+        },
+        "examples": [
+          {
+            "de": "Gibt es etwas Neues?",
+            "en": "Is there any news?",
+            "sl": "Je kaj novega?",
+            "it": "Ci sono novità?"
+          },
+          {
+            "de": "Oma Resi kocht etwas Warmes.",
+            "en": "Granny Resi is cooking something hot.",
+            "sl": "Babica Resi kuha nekaj toplega.",
+            "it": "Nonna Resi cucina qualcosa di caldo."
+          },
+          {
+            "de": "Das ist nichts Besonderes.",
+            "en": "That's nothing special.",
+            "sl": "To ni nič posebnega.",
+            "it": "Non è niente di speciale."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "etwas, nichts, viel",
+              "en": "etwas, nichts, viel",
+              "sl": "etwas, nichts, viel",
+              "it": "etwas, nichts, viel"
+            },
+            "—",
+            "etwas Neues"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "adjektiv-nomen",
+          "text": "Stefan erzählt etwas ___. (lustig)",
+          "accept": [
+            "Lustiges"
+          ],
+          "hint": {
+            "en": "etwas + a capital and …",
+            "sl": "etwas + velika začetnica in …",
+            "it": "etwas + la maiuscola e …"
+          },
+          "explain": {
+            "en": "**etwas, nichts, viel, wenig: a capital and -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+            "sl": "**etwas, nichts, viel, wenig: velika začetnica in -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+            "it": "**etwas, nichts, viel, wenig: la maiuscola e -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**das Beste, alles Gute**: after **das** and **alles** the ending is **-e**: **das Neue**, **das Beste** (the best thing), **das Schöne**; **alles Gute!** (all the best), **alles Liebe!** So etwas Gutes, but alles Gute.",
+          "sl": "**das Beste, alles Gute**: za **das** in **alles** je končnica **-e**: **das Neue**, **das Beste** (najboljše), **das Schöne**; **alles Gute!** (vse dobro), **alles Liebe!** Torej etwas Gutes, a alles Gute.",
+          "it": "**das Beste, alles Gute**: dopo **das** e **alles** la desinenza è **-e**: **das Neue**, **das Beste** (la cosa migliore), **das Schöne**; **alles Gute!** (tanti auguri), **alles Liebe!** Quindi etwas Gutes, ma alles Gute."
+        },
+        "examples": [
+          {
+            "de": "Alles Gute zum Geburtstag!",
+            "en": "Happy birthday!",
+            "sl": "Vse najboljše za rojstni dan!",
+            "it": "Buon compleanno!"
+          },
+          {
+            "de": "Das Beste am Kirchtag ist der Most.",
+            "en": "The best thing at the Kirchtag is the cider.",
+            "sl": "Najboljši na žegnanju je mošt.",
+            "it": "La cosa migliore al Kirchtag è il sidro."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "das, alles",
+              "en": "das, alles",
+              "sl": "das, alles",
+              "it": "das, alles"
+            },
+            "das Beste, alles Gute",
+            "—"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "adjektiv-nomen",
+          "prompt": "Alles ___ für die Reise!",
+          "options": [
+            "Gute",
+            "Gutes",
+            "Guten"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**alles: -e**\n- alles Gute",
+            "sl": "**alles: -e**\n- alles Gute",
+            "it": "**alles: -e**\n- alles Gute"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "der-bekannte-1",
+      "title": {
+        "de": "Der Bekannte, ein Bekannter",
+        "en": "Der Bekannte, ein Bekannter",
+        "sl": "Der Bekannte, ein Bekannter",
+        "it": "Der Bekannte, ein Bekannter"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "adjektiv-nomen",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "the adjective as a noun",
+            "sl": "pridevnik kot samostalnik",
+            "it": "l'aggettivo come nome"
+          },
+          "columns": [
+            {
+              "en": "der, die · the",
+              "sl": "der, die · določni člen",
+              "it": "der, die · articolo determinativo"
+            },
+            {
+              "en": "ein, eine · a",
+              "sl": "ein, eine · nedoločni člen",
+              "it": "ein, eine · articolo indeterminativo"
+            },
+            {
+              "en": "Plural · plural",
+              "sl": "Plural · množina",
+              "it": "Plural · plurale"
+            }
+          ],
+          "rows": [
+            {
+              "label": "verwandt",
+              "cells": [
+                "der Verwandte",
+                "ein Verwandter",
+                "die Verwandten"
+              ]
+            },
+            {
+              "label": "angestellt",
+              "cells": [
+                "der Angestellte",
+                {
+                  "accept": [
+                    "ein Angestellter"
+                  ]
+                },
+                {
+                  "accept": [
+                    "die Angestellten"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "krank",
+              "cells": [
+                "der Kranke",
+                {
+                  "accept": [
+                    "ein Kranker"
+                  ]
+                },
+                {
+                  "accept": [
+                    "die Kranken"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "fremd",
+              "cells": [
+                {
+                  "accept": [
+                    "der Fremde"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ein Fremder"
+                  ]
+                },
+                "die Fremden"
+              ]
+            },
+            {
+              "label": "erwachsen",
+              "cells": [
+                {
+                  "accept": [
+                    "der Erwachsene"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ein Erwachsener"
+                  ]
+                },
+                {
+                  "accept": [
+                    "die Erwachsenen"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**After der: -e. After ein: -er. In the other cases: -en**\n- der Bekannte · ein Bekannter · dem Bekannten",
+            "sl": "**Za der: -e. Za ein: -er. V drugih sklonih: -en**\n- der Bekannte · ein Bekannter · dem Bekannten",
+            "it": "**Dopo der: -e. Dopo ein: -er. Negli altri casi: -en**\n- der Bekannte · ein Bekannter · dem Bekannten"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "adjektiv-nomen",
+          "instruction": {
+            "en": "Sortiere · Sort: which goes with what?",
+            "sl": "Sortiere · Razvrsti: kaj gre s čim?",
+            "it": "Sortiere · Ordina: che cosa va con che cosa?"
+          },
+          "columns": [
+            {
+              "label": "ein …",
+              "words": [
+                "Bekannter",
+                "Angestellter",
+                "Deutscher",
+                "Beamter"
+              ]
+            },
+            {
+              "label": "der …",
+              "words": [
+                "Kranke",
+                "Fremde",
+                "Jugendliche",
+                "Erwachsene"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**After der: -e. After ein: -er. In the other cases: -en**\n- der Bekannte · ein Bekannter · dem Bekannten",
+            "sl": "**Za der: -e. Za ein: -er. V drugih sklonih: -en**\n- der Bekannte · ein Bekannter · dem Bekannten",
+            "it": "**Dopo der: -e. Dopo ein: -er. Negli altri casi: -en**\n- der Bekannte · ein Bekannter · dem Bekannten"
+          }
+        }
+      ]
+    },
+    {
+      "id": "der-bekannte-2",
+      "title": {
+        "de": "Am Kirchtag",
+        "en": "At the Kirchtag",
+        "sl": "Na žegnanju",
+        "it": "Al Kirchtag"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "adjektiv-nomen",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Am Kirchtag",
+          "text": "Am Kirchtag ist das Gasthaus voll. Kathi hat heute zwei neue ___ (angestellt). Ein ___ (bekannt) von Stefan kommt aus Graz. Die ___ (verwandt) von Toni sitzen im Garten. Tante Mitzi spricht mit einer ___ (bekannt) und hört etwas ___ (neu). Sie erzählt nichts ___ (gut) über den Bürgermeister. Alle wollen etwas ___ (warm) essen. Kathi lacht: Das ___ (schön) am Kirchtag sind die Leute.",
+          "gaps": [
+            {
+              "accept": [
+                "Angestellte"
+              ]
+            },
+            {
+              "accept": [
+                "Bekannter"
+              ]
+            },
+            {
+              "accept": [
+                "Verwandten"
+              ]
+            },
+            {
+              "accept": [
+                "Bekannten"
+              ]
+            },
+            {
+              "accept": [
+                "Neues"
+              ]
+            },
+            {
+              "accept": [
+                "Gutes"
+              ]
+            },
+            {
+              "accept": [
+                "Warmes"
+              ]
+            },
+            {
+              "accept": [
+                "Schöne"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Gute",
+            "Warme",
+            "Angestellter"
+          ],
+          "translation": {
+            "en": "At the Kirchtag the inn is full. Today Kathi has two new employees. An acquaintance of Stefan's is coming from Graz. Toni's relatives are sitting in the garden. Aunt Mitzi is talking to an acquaintance and hears something new. She says nothing good about the mayor. Everyone wants something hot to eat. Kathi laughs: the nice thing about the Kirchtag is the people.",
+            "sl": "Na žegnanju je gostilna polna. Kathi ima danes dva nova uslužbenca. Stefanov znanec pride iz Gradca. Tonijevi sorodniki sedijo na vrtu. Teta Mitzi govori z znanko in sliši nekaj novega. O županu ne pove nič dobrega. Vsi hočejo jesti nekaj toplega. Kathi se smeje: Lepo na žegnanju so ljudje.",
+            "it": "Al Kirchtag la locanda è piena. Oggi Kathi ha due nuovi dipendenti. Un conoscente di Stefan arriva da Graz. I parenti di Toni sono seduti in giardino. Zia Mitzi parla con una conoscente e sente una novità. Non dice niente di buono del sindaco. Tutti vogliono mangiare qualcosa di caldo. Kathi ride: il bello del Kirchtag è la gente."
+          },
+          "explain": {
+            "en": "**etwas, nichts, viel, wenig: a capital and -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+            "sl": "**etwas, nichts, viel, wenig: velika začetnica in -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+            "it": "**etwas, nichts, viel, wenig: la maiuscola e -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-nomen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stefan geht mit einem ___ in den Keller.",
+          "options": [
+            "Bekannten",
+            "Bekannter",
+            "Bekannte"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**einem: -en**\n- mit einem Bekannten",
+            "sl": "**einem: -en**\n- mit einem Bekannten",
+            "it": "**einem: -en**\n- mit einem Bekannten"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "adjektiv-nomen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Alles ___, Oma Resi!",
+          "options": [
+            "Gute",
+            "Gutes",
+            "Guter"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**alles: -e**\n- alles Gute",
+            "sl": "**alles: -e**\n- alles Gute",
+            "it": "**alles: -e**\n- alles Gute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "der-bekannte-3",
+      "title": {
+        "de": "Anders gesagt",
+        "en": "Said another way",
+        "sl": "Povedano drugače",
+        "it": "Detto in un altro modo"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "adjektiv-nomen",
+          "instruction": {
+            "en": "Mit ein, eine · With ein, eine",
+            "sl": "Mit ein, eine · Z ein, eine",
+            "it": "Mit ein, eine · Con ein, eine"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Bekannte kommt.",
+              "accept": [
+                "Ein Bekannter kommt."
+              ]
+            },
+            {
+              "from": "Ich sehe den Angestellten.",
+              "accept": [
+                "Ich sehe einen Angestellten."
+              ]
+            },
+            {
+              "from": "Die Verwandte wohnt hier.",
+              "accept": [
+                "Eine Verwandte wohnt hier."
+              ]
+            },
+            {
+              "from": "Das ist der Deutsche.",
+              "accept": [
+                "Das ist ein Deutscher."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**After der: -e. After ein: -er. In the other cases: -en**\n- der Bekannte · ein Bekannter · dem Bekannten",
+            "sl": "**Za der: -e. Za ein: -er. V drugih sklonih: -en**\n- der Bekannte · ein Bekannter · dem Bekannten",
+            "it": "**Dopo der: -e. Dopo ein: -er. Negli altri casi: -en**\n- der Bekannte · ein Bekannter · dem Bekannten"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "adjektiv-nomen",
+          "instruction": {
+            "en": "Mit dem Wort in Klammern · With the word in brackets",
+            "sl": "Mit dem Wort in Klammern · Z besedo v oklepaju",
+            "it": "Mit dem Wort in Klammern · Con la parola tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Das ist neu. (etwas)",
+              "accept": [
+                "Das ist etwas Neues."
+              ],
+              "spoken": [
+                "Das ist was Neues."
+              ]
+            },
+            {
+              "from": "Das ist nicht gut. (nichts)",
+              "accept": [
+                "Das ist nichts Gutes."
+              ],
+              "spoken": [
+                "Das ist nix Gutes."
+              ]
+            },
+            {
+              "from": "Der Kuchen ist süß. (Ich esse gern etwas …)",
+              "accept": [
+                "Ich esse gern etwas Süßes."
+              ],
+              "spoken": [
+                "Ich esse gern was Süßes."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**etwas, nichts, viel, wenig: a capital and -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+            "sl": "**etwas, nichts, viel, wenig: velika začetnica in -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+            "it": "**etwas, nichts, viel, wenig: la maiuscola e -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "adjektiv-nomen",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Stefans Brief",
+        "text": "Stefan schreibt an seine ___ (verwandt): Am Samstag kommt ein ___ (bekannt) von mir aus Graz. Er ist ___ (angestellt) bei der Bank. Ich habe ihm viel ___ (schön) erzählt. Bringt bitte etwas ___ (süß) mit. Das ___ (gut) ist: Kathi kocht.",
+        "gaps": [
+          {
+            "accept": [
+              "Verwandten"
+            ]
+          },
+          {
+            "accept": [
+              "Bekannter"
+            ]
+          },
+          {
+            "accept": [
+              "Angestellter"
+            ]
+          },
+          {
+            "accept": [
+              "Schönes"
+            ]
+          },
+          {
+            "accept": [
+              "Süßes"
+            ]
+          },
+          {
+            "accept": [
+              "Gute"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stefan writes to his relatives: On Saturday an acquaintance of mine is coming from Graz. He works at the bank. I've told him many nice things. Please bring something sweet. The good thing is: Kathi's cooking.",
+          "sl": "Stefan piše sorodnikom: V soboto pride moj znanec iz Gradca. Zaposlen je v banki. Povedal sem mu veliko lepega. Prinesite prosim kaj sladkega. Dobro je to, da kuha Kathi.",
+          "it": "Stefan scrive ai suoi parenti: sabato viene un mio conoscente da Graz. Lavora in banca. Gli ho raccontato molte cose belle. Portate per favore qualcosa di dolce. Il bello è che cucina Kathi."
+        },
+        "explain": {
+          "en": "**etwas, nichts, viel, wenig: a capital and -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+          "sl": "**etwas, nichts, viel, wenig: velika začetnica in -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+          "it": "**etwas, nichts, viel, wenig: la maiuscola e -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "adjektiv-nomen",
+        "instruction": {
+          "en": "Schreib den Satz neu · Write the sentence again",
+          "sl": "Schreib den Satz neu · Napiši stavek na novo",
+          "it": "Schreib den Satz neu · Riscrivi la frase"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Der Kranke wartet. (ein)",
+            "accept": [
+              "Ein Kranker wartet."
+            ]
+          },
+          {
+            "from": "Das ist nicht neu. (nichts)",
+            "accept": [
+              "Das ist nichts Neues."
+            ],
+            "spoken": [
+              "Das ist nix Neues."
+            ]
+          },
+          {
+            "from": "Die Angestellten kommen. (zwei)",
+            "accept": [
+              "Zwei Angestellte kommen."
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**die, alle, meine: -en. No article, a number, viele: -e**\n- die Verwandten · zwei Verwandte",
+          "sl": "**die, alle, meine: -en. Brez člena, s številom, viele: -e**\n- die Verwandten · zwei Verwandte",
+          "it": "**die, alle, meine: -en. Senza articolo, con un numero, viele: -e**\n- die Verwandten · zwei Verwandte"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-nomen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi spricht mit der ___.",
+        "options": [
+          "Angestellten",
+          "Angestellter",
+          "Angestellte"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der, the dative: -en**\n- mit der Angestellten",
+          "sl": "**der, dajalnik: -en**\n- mit der Angestellten",
+          "it": "**der, il dativo: -en**\n- mit der Angestellten"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-nomen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Gibt es etwas ___?",
+        "options": [
+          "Neues",
+          "Neue",
+          "Neuen"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**etwas, nichts, viel, wenig: a capital and -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+          "sl": "**etwas, nichts, viel, wenig: velika začetnica in -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste",
+          "it": "**etwas, nichts, viel, wenig: la maiuscola e -es. das, alles: -e**\n- etwas Gutes · alles Gute · das Beste"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "adjektiv-nomen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Das ___ am Dorf ist die Ruhe.",
+        "options": [
+          "Schöne",
+          "Schönes",
+          "Schöner"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**das: -e**\n- das Schöne",
+          "sl": "**das: -e**\n- das Schöne",
+          "it": "**das: -e**\n- das Schöne"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: was Neues, nix Gutes as spoken; Das Schöne am Kirchtag sind die Leute; Er ist Angestellter bei der Bank; each base"
+}
