@@ -127,8 +127,8 @@ export default async function friuli() {
     check(
       // the kitchen's pack (in-cucina) has mangiare: its entry comes first and takes the dictionary's grammar, as one
       // entry (the same lemma); the dictionary's own German (casa's Haus, Zuhause) is checked just below
-      "friuli, meant in German (base=de): mangio is mangiare, first-person singular present, the kitchen pack's essen (the dictionary's grammar), with the attribution",
-      m0?.lemma === 'mangiare' && m0.grammar === 'first-person singular present' && m0.gloss[0] === 'essen' && m0.gloss_lang === 'de' && m0.source === 'pack' && m0.item_id === 'vocab_in-cucina_mangiare' && !m0.fallback && mangio.attribution !== null,
+      "friuli, meant in German (base=de): mangio is mangiare, first-person singular present, the kitchen pack's essen (the supplement's grammar now, supplement-it: nothing of Wiktionary's shown, no attribution)",
+      m0?.lemma === 'mangiare' && m0.grammar === 'first-person singular present' && m0.gloss[0] === 'essen' && m0.gloss_lang === 'de' && m0.source === 'pack' && m0.item_id === 'vocab_in-cucina_mangiare' && !m0.fallback && mangio.attribution === null,
       mangio,
     )
     const casaDe = (await lookup('w=casa&base=de')).entries
