@@ -293,8 +293,9 @@ val ispyFiles = tasks.register<ISpyFiles>("ispyFiles") {
 /**
  * The in-app tutor's bundle (companion/tutor, docs/plans/05-in-app-tutor.md "One source of truth"): its core prompt
  * (core-prompt.md), the price table (prices.json), the tools' specs (tools/: the bridge's, exported from its MCP tools by
- * companion/bridge/src/cli/tutor-export.ts; app-tools/: the app's own) and the guide's topics (guide/, split from the
- * bridge's channel guide by the same script), bundled as Java resources under tutor/ (tutor/Bundle). The shadow tutor
+ * companion/bridge/src/cli/tutor-export.ts; app-tools/: the app's own), the guide's topics (guide/, split from the
+ * bridge's channel guide by the same script, guide/<language>/ a village's own copies) and what's correct in each language
+ * (languages/), bundled as Java resources under tutor/ (tutor/Bundle). The shadow tutor
  * (a developer setting) reads them.
  */
 abstract class TutorFiles : DefaultTask() {
@@ -319,7 +320,7 @@ abstract class TutorFiles : DefaultTask() {
 
 val tutorFiles = tasks.register<TutorFiles>("tutorFiles") {
     root.set(layout.projectDirectory.dir("../../tutor"))
-    sources.from(fileTree("../../tutor") { include("core-prompt.md", "studio-prompt.md", "prices.json", "tools/*.json", "app-tools/*.json", "guide/*.md", "guide/index.json") })
+    sources.from(fileTree("../../tutor") { include("core-prompt.md", "studio-prompt.md", "prices.json", "tools/*.json", "app-tools/*.json", "guide/*.md", "guide/*/*.md", "guide/index.json", "languages/*.md") })
 }
 
 /**

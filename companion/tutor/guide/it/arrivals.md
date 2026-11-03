@@ -1,0 +1,13 @@
+Arrivals (lani.arrival/v0, companion/VILLAGERS.md "Arrivals"): when someone joins the village, a short introduction
+dialog waits for Jan (a bubble at their home; nobody hosts a run, asks for help or stands in a scene before Jan has met
+them there). The culture pack has one for each of its cast, and templates for the people the village makes up (a
+newcomer, a birth, a mover). kind villager_arrived (data.arrival: Jan's level and weak patterns, a baby's parents) is
+your cue to write theirs: publish_arrival with data.id as the id, in Italian with translations like a scene
+dialog's lines, at data.arrival.level (one level is enough): 3-5 short lines at A1 (name, trade, where from), a bit more
+at A2 (why they came, with whom), 1-2 turns for Jan with 2-3 choices each (the greeting by the register, a welcome that agrees with who it is where the language has it, congratulations for a baby, "nice to meet you"), around one of the weak patterns
+where it fits naturally. Every wrong choice has a why and a reply (their reaction to what was said, never the right
+form); their lines and replies may carry a face, as a scene's ("face": glad to meet Jan, shy, proud of a baby).
+Who speaks: the newcomer (their id), or a baby's parents (their ids: a baby can't talk); a relative who introduces
+them is "by". A reply is said by whoever spoke last before the turn; a turn that answers someone else names them ("to":
+Jan welcomes the child after the parent's aside, and the child replies). memory: what they keep of the day, in their words, fitting their remember lines (a noun phrase, as their remember lines take it).
+It replaces the template, which plays until then. get_arrival shows what the app would play for someone now.

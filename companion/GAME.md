@@ -767,6 +767,23 @@ The Lake District's five come from Cumbrian customs, settled in docs/plans/05-bu
 Its dialogs are written at A1, A2, B1 and B2. The rushbearing and the shepherds' meet stay what they are, festivals of the calendar
 with their own days, packs, readings and stories; a party doesn't sell them as new. The music is the app's own (the accordion's waltz
 and polka, the brass band); a fiddle isn't among the sounds, though the lines and the card name one.
+**Kärnten's five** (docs/plans/05-built/parties-kaernten.md has the sources, each with its URL), at A1, A2, B1 and B2:
+
+| Age | Kärnten's celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| ⛺ Lager | 🔥 Der erste Abend am Feuer: the first camp by its fire, a Kärntnerlied in several voices, one starting and the others joining in | torches round the fire | the harmonika's waltz | by the fire (Opa Sepp) |
+| 🛖 Weiler | 🌲 Die Firstfeier: the roof frame up, the ridge tree with its ribbons on the ridge, a verse, everyone who worked treated to a meal | the Firstbaum on the newest roof, garlands | the harmonika's waltz | by the fire (Müller Franz) |
+| 🏘️ Dorf | 🪗 Das Dorffest: the Tanzboden on the square, polka and waltz, Kasnudeln and Reindling | garlands, lanterns after dusk, a dance floor with its harmonika player | the harmonika's polka | on the square (Wirtin Kathi) |
+| 🏛️ Markt | 🎪 Der Wiesenmarkt: as St. Veit's and Bleiburg's, the Freyung for free and honest trade, the herald reading the market rules, the Kramer's stalls | stalls along the road, garlands | the market's hand bell, then the harmonika's polka | on the square (Mostbauer Stefan) |
+| 🏰 Stadt | 🎺 Das Stadtfest: a town's elevation as Spittal's and Hermagor's were, the charter, the flags on the houses, the bells, the band and the procession, torches after dark | banners along the road, garlands; the procession marches in | the band's polka and the church bell | on the square (Lehrerin Eva) |
+
+How they were settled: Firstfeier is Austrian for Richtfest, beside Gleichenfeier and Dachgleiche; the ridge tree with ribbons,
+the meal and the verse are from Salzburg and Tyrol, and the sources found for Carinthia say Gleichenfeier, so the name waits for
+a native check. The stolen Firstbaum (Salzburg, Bavaria) and the glass thrown from the roof are left out, not being shown for
+Carinthia. The Kirchtag, the Kufenstechen and the Lindentanz stay the calendar's festivals: a party named so would repeat them
+as if new, a Kirchtag can't come twice a year or before the church is built, and "Dorffest" is the word for what follows the
+Kirchtag in the Gailtal, not a custom of its own. The Freyung is St. Veit's, Bleiburg's market dates from 1393, and the party is
+the opening on the square, as St. Veit's is. A party's toast is "Prost!", "Zum Wohl!" or "Hoch soll sie leben!".
 
 Every curated culture has its own celebration for each age. A pack without one for an age has a gathering: "Praznovanje ·
 The celebration", the decorations and music by the age (`AgeUps.generic`), the village gathering by the fire that evening,
@@ -1586,6 +1603,12 @@ rises by itself. The treasure map is how it rises: an opt-in test at the end of 
 | 🔁 The reviews | Of the reviews of the last 14 days, of the cards of the level and below (the card's `difficulty`; a card above the level is a stretch, a card without one counts): 80 % right, and 30 reviews at least. |
 | 📅 The time | 10 days of practice at the level (days with a session in the log), over 14 days or more since the level began (the profile's `learner.level_since`, which update-db.py sets when a report changes the level; else the day the profile was made). |
 
+A level the book has no pages of yet (German and English above A2 today, Italian above B1, any language above B2) has no
+rules to secure: the grammar sign can't tell, and it says so instead of passing with 0 / 0. The map's sign reads "– Knjiga
+še nima pravil ravni B1: ta znak zaenkrat ne šteje · The book has no rules of B1 yet: this sign doesn't count for now", the
+progress screen's line ➖ "—" with the same caption (`Readiness.noPages`). It holds nothing back (never a wall): the reviews and the
+time decide.
+
 **The offer.** Once all three are there, the storyteller (the teller of the evening stories: Stari Janez; else the
 riddles' teller) gives the map: the chronicle says "🗺️ Stari Janez je našel star zemljevid", a 🗺️ bubble waits by the
 fire, Home has a row "🗺️ Stari Janez ima zate star zemljevid · Stari Janez has an old map for you", and the chest keeps it
@@ -2303,6 +2326,18 @@ bed two kilometres wide, the 1966 flood, never to the river alone), Nonna Rosa's
 the sweet ravioli with the cramârs' spices, the boiling a grown-up's) and Zia Nives on the pilgrims ("I pellegrini del
 Monte Lussari", B1: three peoples praying in three languages since 1360); each with five questions, one of every type,
 and six or seven new words meant in Slovene, English and German (machine-written, `review`).
+
+**Its ages' parties** (`celebrations/`, "Ages and their celebrations"), each at A1, A2, B1 and B2, machine-written:
+
+| Age | Celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| Accampamento | 🔥 Il primo fogolâr · The first hearth: the camp round its fire as a Friulian family round its fogolâr, a villotta and a story | torches round the fire | the accordion's waltz | by the fire (Nonna Rosa) |
+| Borgata | 🌿 Il licôf · The roofing feast: when a roof is finished, a green branch on its highest point and a meal for everyone who worked | the branch on the newest roof, garlands | the accordion's waltz | by the fire (Mugnaio Franco) |
+| Paese | 🧀 La sagra · The village fair: the square's food stands and band, frico, the liscio's waltz and polka | garlands, a dance floor | the accordion's polka | on the square (Ostessa Marisa) |
+| Borgo | 🧺 La fiera · The fair: stalls of gubana and honey, the cramârs of Carnia with spices and cloth in the crassigne | stalls along the road, garlands | the hand bell, then the accordion's polka | on the square (Vignaiolo Matteo) |
+| Cittadina | 🚩 Il palio · The palio: the town banner, the band and the procession, a race between the quarters, after Cividale's palio of San Donato, whose medieval winner got a precious cloth and whose last got a piglet | banners along the road, garlands | the band's polka and the church bell | on the square (Maestra Elena) |
+
+Each custom with its sources, and what is the game's own: docs/plans/05-built/parties-friuli.md.
 
 ### The kaernten pack
 
