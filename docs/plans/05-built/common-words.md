@@ -170,11 +170,14 @@ no clip was lost; the meanings changed are not voiced.
 - Before merging main (469865cc6): the smoke, 3,833 checks, none failed; the Android suite, 4,140 tests, none failed, 2
   skipped. The first smoke failed one check, Friuli's *sono*, now a pack word's: the check follows it, and the
   supplement's meaning is checked on *parlo*.
+- On the merged tip (3a88ffb4b, main 85917a636 in): the smoke, 3,938 checks, none failed; the Android suite, 4,152 tests,
+  0 failed, 2 skipped.
 - Not done: an emulator QA (the packs screen shows a pack as any other; only a sheet's word lookup changed in code).
 
 ## For the lead
 
-- **packs-en** isn't on main and its branch name is gone from this repository; this branch measured against its tip of
+- **packs-en** isn't on main and its branch name is gone from this repository (practice-en and dialogs-lakeland carry it);
+  this branch measured against its tip of
   2026-11-03 (46 packs, a scratch copy) without merging it, and its English prompts didn't clash with those. When it is
   merged, run `bun test/prompt-clashes.ts` and `common_words.py --lang en` again.
 - The commonest words come first in no order: `Packs.suggest` follows the files' order. A first-pack hint for a new
