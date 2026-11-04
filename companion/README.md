@@ -4135,7 +4135,10 @@ feeling (a verb's forms made as the lens makes them), the pronouns only ever the
 1844, nekega dne) and the hours' half (ob pol dveh), at once and offline; the
 app's older rules of its own (`Triggers`) are gone. On the turns of `bridge/test/fixtures/hint-lens.json` the chip names
 the trigger, the case and the question the lens names (`TurnHintLensTest`; the smoke checks the lens still answers them
-so, `bun test/hint-lens.ts --write` records them again).
+so, `bun test/hint-lens.ts --write` records them again). An Italian turn's chip has Italian's own table, in the app
+too (`game/ItalianHints.kt`; docs/plans/05-built/hint-chip-it.md): every page's rule in words and what the sentence shows
+of it (the noun an article goes with, who does it, who is spoken to, the participle that picks essere or avere, the
+word that asks for the congiuntivo …), from word lists, without the bridge.
 
 ### Forms cards
 
