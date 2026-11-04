@@ -35,13 +35,12 @@ export default async function scenarios() {
   }
   // the German village's role-plays (companion/scenarios/de) and the English one's (companion/scenarios/en): for a grown-up,
   // every text in each base the language has, the title, goals and who per language, machine-written
-  // (the Lake District's six at B1 and six at B2 too: docs/plans/05-built/talks-en.md)
-  const talkLevels: Record<string, Record<string, number>> = { de: { A1: 5, A2: 3 }, en: { A1: 5, A2: 3, B1: 6, B2: 6 } }
   for (const [language, bases] of [['de', ['sl', 'en', 'it']], ['en', ['sl', 'de', 'it', 'en']]] as const) {
     const talks = curatedTalksOf(language, [...bases])
-    const levels = talks.reduce<Record<string, number>>((n, t) => ({ ...n, [t.raw.level]: (n[t.raw.level] ?? 0) + 1 }), {})
-    const want = talkLevels[language]
-    check(`${language} scenarios by level: ${JSON.stringify(want)}`, Object.keys({ ...levels, ...want }).every(lv => levels[lv] === want[lv]), levels)
+    // five at A1, three at A2, six each at B1 and B2 (docs/plans/05-built/talks-de.md, talks-en.md)
+    const levels = [...new Set(talks.map(t => t.raw.level as string))].sort().map(lv => `${lv} ${talks.filter(t => t.raw.level === lv).length}`).join(', ')
+    const want = 'A1 5, A2 3, B1 6, B2 6'
+    check(`${language} scenarios by level: ${want}`, levels === want, levels)
     for (const { f, raw, missing } of talks) {
       const v = validateScenario(raw)
       check(
@@ -51,15 +50,20 @@ export default async function scenarios() {
       )
     }
   }
-  // Teo's Italian ones (companion/scenarios/it): for a child, every text per language with its English, machine-written
+  // Teo's Italian ones (companion/scenarios/it): A1 to B1 for a child; B2 for an older learner with nothing a child
+  // mayn't hear (no audience: a child's profile still adds the child brief); every text per language with its English
   const italian = join(curatedScenarios, 'it')
-  for (const f of readdirSync(italian).filter(f => f.endsWith('.json'))) {
+  const italianFiles = readdirSync(italian).filter(f => f.endsWith('.json'))
+  const italianLevels = italianFiles.map(f => JSON.parse(readFileSync(join(italian, f), 'utf8')).level)
+  check('21 Italian scenarios: 9 at A1 and A2, 6 at B1, 6 at B2', italianFiles.length === 21 && italianLevels.filter(l => l === 'B1').length === 6 && italianLevels.filter(l => l === 'B2').length === 6, italianLevels)
+  for (const f of italianFiles) {
     const raw = JSON.parse(readFileSync(join(italian, f), 'utf8'))
     const v = validateScenario(raw)
     const texts = [raw.title, raw.who, raw.setting, raw.opener_en, ...raw.goals, ...raw.vocabulary_hints.map((h: any) => h.en)]
+    const audience = raw.level === 'B2' ? raw.audience === undefined : raw.audience === 'child'
     check(
-      `Italian scenario validates, for a child, in it · de · sl · en: it/${f}`,
-      v.ok && `${v.scenario.id}.json` === f && raw.language === 'it' && raw.audience === 'child' && /machine-written/.test(raw.review) && texts.every(t => t && t.de && t.sl && t.en) && [raw.title, raw.who, ...raw.goals].every(t => t.it) && raw.packs?.length > 0 && /asks nothing personal|nothing personal/.test(raw.role),
+      `Italian scenario validates, ${raw.level === 'B2' ? 'for an older learner and fit for a child' : 'for a child'}, in it · de · sl · en: it/${f}`,
+      v.ok && `${v.scenario.id}.json` === f && raw.language === 'it' && audience && /machine-written/.test(raw.review) && texts.every(t => t && t.de && t.sl && t.en) && [raw.title, raw.who, ...raw.goals].every(t => t.it) && raw.packs?.length > 0 && /nothing personal/.test(raw.role),
       v.ok ? texts.filter(t => !(t?.de && t.sl && t.en)) : v.errors,
     )
   }
@@ -107,7 +111,7 @@ export default async function scenarios() {
   check(
     'a talk is offered at the learner\'s level, below it and one above: A1 meets A1 and A2, never B1 or B2; B1 meets B2',
     talkLevelOffered('A1', 'A1') && talkLevelOffered('A2', 'A1') && !talkLevelOffered('B1', 'A1') && !talkLevelOffered('B2', 'A1') && talkLevelOffered('B1', 'A2') && !talkLevelOffered('B2', 'A2') &&
-      talkLevelOffered('B2', 'B1') && talkLevelOffered('A1', 'B2') && !talkLevelOffered('B2', 'nope') && talkLevelOffered('A2', 'nope'),
+      talkLevelOffered('B2', 'B1') && talkLevelOffered('A1', 'B2') && !talkLevelOffered('B2', 'nope') && talkLevelOffered('A2', 'nope') && !talkLevelOffered('B1', '?'),
   )
   {
     const curated = tempDir('lani-smoke-levels-')

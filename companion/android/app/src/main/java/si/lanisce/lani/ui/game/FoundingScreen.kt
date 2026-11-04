@@ -142,7 +142,7 @@ fun FoundingScreen(vm: AppViewModel) {
         OutlinedButton(onClick = { founding = founding.reroll() }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
             Text("🎲 ${bi("founding.anotherPlace")}", color = white)
         }
-        BigButton("✓ ${bi("founding.here")}", onClick = { vm.game.found(founding) }, color = TriglavRed)
+        BigButton("✓ ${bi("founding.here")}", onClick = { vm.found(founding) }, color = TriglavRed)
         Text(inBase("founding.once"), style = MaterialTheme.typography.bodySmall, color = white.copy(alpha = 0.75f))
     }
 }

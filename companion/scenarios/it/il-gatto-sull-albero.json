@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "il-gatto-sull-albero",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Il gatto sull'albero", "de": "Die Katze auf dem Baum", "sl": "Mačka na drevesu", "en": "The cat up the tree" },
+  "emoji": "🐈",
+  "level": "B1",
+  "setting": {
+    "de": "Am Brunnen auf dem Platz. Zia Nives war heute Morgen auf dem Markt in Cormòns und hat alles verpasst: Eine Katze ist auf die große Linde geklettert und kam nicht mehr herunter, bis die Feuerwehr mit der Leiter kam. Du hast alles gesehen.",
+    "sl": "Pri vodnjaku na trgu. Teta Nives je bila zjutraj na tržnici v Krminu in je vse zamudila: mačka je splezala na veliko lipo in ni mogla dol, dokler niso prišli gasilci z lestvijo. Ti si vse {m:videl|f:videla}.",
+    "en": "At the well on the square. Zia Nives was at the market in Cormòns this morning and missed it all: a cat climbed up the big linden tree and couldn't get down until the firefighters came with their ladder. You saw everything."
+  },
+  "role": "Zia Nives, seventy-five, the village gossip and Nonna Rosa's younger sister, a bit hard of hearing. Missed this morning's excitement and wants every detail: where {learner} was, what the cat did, who came, how it ended. Gasps, asks 'E poi?'. Says tu. Kind, short sentences; asks nothing personal.",
+  "who": { "it": "La zia del villaggio", "de": "Die Tante des Dorfes", "sl": "Vaška teta", "en": "The village auntie" },
+  "voice": "female",
+  "speaker": "grandma",
+  "place": "square",
+  "goals": [
+    { "it": "Di' dove eri e che cosa facevi", "de": "Sag, wo du warst und was du gemacht hast", "sl": "Povej, kje si {m:bil|f:bila} in kaj si {m:počel|f:počela}", "en": "Say where you were and what you were doing" },
+    { "it": "Racconta che cosa ha fatto il gatto", "de": "Erzähl, was die Katze gemacht hat", "sl": "Povej, kaj je naredila mačka", "en": "Tell her what the cat did" },
+    { "it": "Racconta chi è arrivato e come", "de": "Erzähl, wer gekommen ist und wie", "sl": "Povej, kdo je prišel in kako", "en": "Tell her who came and how" },
+    { "it": "Racconta come è finita", "de": "Erzähl, wie es ausgegangen ist", "sl": "Povej, kako se je končalo", "en": "Tell her how it ended" },
+    { "it": "Ripeti più forte, se non sente", "de": "Sag es lauter, wenn sie dich nicht hört", "sl": "Ponovi glasneje, če te ne sliši", "en": "Say it louder when she can't hear" }
+  ],
+  "opener_sl": "Ciao, tesoro! Ho appena visto i pompieri andare via! Che cosa è successo? Racconta, racconta!",
+  "opener_en": {
+    "de": "Hallo, Schätzchen! Ich habe gerade die Feuerwehr wegfahren sehen! Was ist passiert? Erzähl, erzähl!",
+    "sl": "Živjo, srček! Ravno sem videla, kako so se odpeljali gasilci! Kaj se je zgodilo? Povej, povej!",
+    "en": "Hello, dear! I've just seen the firefighters driving off! What happened? Tell me, tell me!"
+  },
+  "vocabulary_hints": [
+    { "sl": "Stamattina ero in piazza con Tommaso.", "en": { "de": "Heute Morgen war ich mit Tommaso auf dem Platz.", "sl": "Zjutraj sem {m:bil|f:bila} s Tommasom na trgu.", "en": "This morning I was on the square with Tommaso." } },
+    { "sl": "Un gatto è salito sul tiglio.", "en": { "de": "Eine Katze ist auf die Linde geklettert.", "sl": "Mačka je splezala na lipo.", "en": "A cat climbed up the linden tree." } },
+    { "sl": "Miagolava forte, perché non riusciva a scendere.", "en": { "de": "Sie hat laut miaut, weil sie nicht herunterkam.", "sl": "Glasno je mijavkala, ker ni mogla dol.", "en": "It was miaowing loudly because it couldn't get down." } },
+    { "sl": "Allora abbiamo chiamato i pompieri.", "en": { "de": "Da haben wir die Feuerwehr gerufen.", "sl": "Potem smo poklicali gasilce.", "en": "So we called the firefighters." } },
+    { "sl": "Un pompiere è salito con la scala.", "en": { "de": "Ein Feuerwehrmann ist mit der Leiter hochgestiegen.", "sl": "Gasilec je splezal gor po lestvi.", "en": "A firefighter climbed up the ladder." } },
+    { "sl": "Alla fine il gatto è sceso sano e salvo.", "en": { "de": "Am Ende ist die Katze heil heruntergekommen.", "sl": "Na koncu je mačka srečno prišla dol.", "en": "In the end the cat got down safe and sound." } },
+    { "sl": "Ho detto che il gatto era sull'albero!", "en": { "de": "Ich habe gesagt, dass die Katze auf dem Baum war!", "sl": "{m:Rekel|f:Rekla} sem, da je bila mačka na drevesu!", "en": "I said the cat was up the tree!" } }
+  ],
+  "packs": ["dai-pompieri", "in-piazza", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

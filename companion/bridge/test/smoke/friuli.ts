@@ -241,7 +241,32 @@ export default async function friuli() {
     check('friuli: GET /drills serves the four Italian drills', Array.isArray(itDrills) && itDrills.length === 4 && itDrills.every((d: any) => d.language === 'it' && d.source === 'curated'), itDrills.map?.((d: any) => d.id))
     // Teo's role-plays: the Italian ones (companion/scenarios/it), for a child, their texts in the child's pair (it · sl)
     const itFiles = readdirSync(join(repo, 'companion/scenarios/it')).filter(f => f.endsWith('.json'))
-    check('friuli: GET /scenarios serves the 9 Italian role-plays, and nothing else', itFiles.length === 9 && scenarios.length === 9 && itFiles.every(f => scenarios.some((s: any) => `${s.id}.json` === f && s.language === 'it' && s.audience === 'child' && s.source === 'curated')), scenarios.map((s: any) => s.id))
+    // by level: Tim at A1 meets the A1 and A2 ones, never B1 or B2; at A2 B1 too, at B1 all (ScenarioStore.offered)
+    const itTalks = itFiles.map(f => JSON.parse(readFileSync(join(repo, 'companion/scenarios/it', f), 'utf8')))
+    const upTo = (lv: string[]) => itTalks.filter(t => lv.includes(t.level)).map(t => t.id).sort()
+    check('friuli: GET /scenarios serves the Italian A1 and A2 role-plays (9) to Tim at A1, for a child, and nothing else', itFiles.length === 21 && scenarios.length === 9 && JSON.stringify(scenarios.map((s: any) => s.id).sort()) === JSON.stringify(upTo(['A1', 'A2'])) && scenarios.every((s: any) => s.language === 'it' && s.audience === 'child' && s.source === 'curated'), scenarios.map((s: any) => s.id))
+    check('friuli: a B2 role-play is not served to Tim at A1, by id either', (await fetch(`${base}/scenarios/se-fossi-in-te`, { headers: auth })).status === 404)
+    {
+      const profile = join(dataDir, 'learner-profile.json')
+      const saved = readFileSync(profile, 'utf8')
+      const at = async (level: string) => {
+        const p = JSON.parse(saved)
+        writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, current_level: level } }, null, 2))
+        return ((await (await fetch(`${base}/scenarios`, { headers: auth })).json()) as any[]).map(s => s.id).sort()
+      }
+      try {
+        const a2 = await at('A2')
+        const b1 = await at('B1')
+        const byId = await (await fetch(`${base}/scenarios/se-fossi-in-te`, { headers: auth })).json()
+        check(
+          'friuli: at A2 Tim meets the B1 role-plays too (15), at B1 the B2 ones as well (21), in the pair; B2 for any learner',
+          JSON.stringify(a2) === JSON.stringify(upTo(['A1', 'A2', 'B1'])) && a2.length === 15 && JSON.stringify(b1) === JSON.stringify(upTo(['A1', 'A2', 'B1', 'B2'])) && b1.length === 21 && byId.title === 'Se fossi in te… · Na tvojem mestu …' && byId.audience === undefined && byId.level === 'B2',
+          { a2, b1, byId },
+        )
+      } finally {
+        writeFileSync(profile, saved)
+      }
+    }
     const mercato = scenarios.find((s: any) => s.id === 'al-mercato')
     check(
       "friuli: a role-play's title and goals in the child's pair, its setting and meanings in Slovene, its lines Italian, its place the square",
@@ -264,6 +289,13 @@ export default async function friuli() {
       brief?.title === 'Al mercato · At the market' && brief.goals?.[0] === 'Greet the seller' && brief.setting?.startsWith('Saturday morning') && brief.language === 'it' && brief.packs?.includes('al-mercato') && /personal data/.test(brief.child ?? ''),
       brief,
     )
+    // a B2 one (for an older learner, no audience) still tells the tutor a child is talking when the profile says so
+    const rpB2 = 'rp-1b2c3d4e-0000-4000-8000-00000000f0b2'
+    await fetch(`${base}/message`, { method: 'POST', headers: auth, body: JSON.stringify({ kind: 'roleplay', conversation_id: rpB2, text: 'Ciao Davide!', data: { scenario_id: 'se-fossi-in-te', turn: 1, heard: 'Ciao Davide!' } }) })
+    await Bun.sleep(150)
+    const b2Note = notes.findLast(n => n.params?.meta?.kind === 'roleplay' && n.params.meta.conversation_id === rpB2)
+    const b2Brief = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(b2Note?.params?.content))?.[1] ?? '{}').scenario
+    check("friuli: a B2 role-play's turn carries its level and, for a child's profile, the child line", b2Brief?.level === 'B2' && b2Brief.title === 'Se fossi in te… · If I were you…' && b2Brief.language === 'it' && /personal data/.test(b2Brief.child ?? ''), b2Brief)
     // the tutor's: in the village's language (left out: Italian, written so), never Slovene; a grown-up's never to the child
     const tutorTalk = { schema: 'lani.scenario/v0', id: 'in-biblioteca', title: { it: 'In biblioteca', sl: 'V knjižnici', en: 'At the library' }, level: 'A1', setting: { sl: 'Knjižnica v Gorici.', en: 'The library in Gorizia.' }, role: 'Signora Anna, the librarian. Kind.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Ciao! Che libro cerchi?', opener_en: { sl: 'Živjo! Katero knjigo iščeš?', en: 'Hi! Which book are you looking for?' }, packs: ['saluti'] }
     const pubIt = await client.callTool({ name: 'publish_scenario', arguments: { scenario: tutorTalk } })

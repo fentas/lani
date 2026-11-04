@@ -4,7 +4,7 @@
   "title": { "sl": "Pri vratih", "en": "At the gate", "de": "Am Tor", "it": "Al portone" },
   "emoji": "🚪",
   "level": "A1",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat; scene-replier.md, polish-content.md",
+  "review": "sl, de, it, reactions, variants, B1/B2: machine-written (Claude), unreviewed; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat; scene-replier.md, polish-content.md",
   "art": "palisade",
   "from": ["palisade"],
   "pack": "pri-vratih",
@@ -68,7 +68,7 @@
       "months": [3, 4, 5, 6, 7, 8, 9, 10, 11],
       "chance": 0.55,
       "dialog": "domov",
-      "dialogs": ["domov-stejem", "domov"],
+      "dialogs": ["domov-b2-koca", "domov-b1-bela", "domov-stejem", "domov"],
       "reward": { "food": 20 },
       "marker": "🌇",
       "memory": {
@@ -90,7 +90,7 @@
       "when": ["evening", "night"],
       "chance": 0.5,
       "dialog": "zapah",
-      "dialogs": ["zapah-volkovi", "zapah"],
+      "dialogs": ["zapah-b2-volk", "zapah-b1-sledi", "zapah-volkovi", "zapah"],
       "reward": { "wisdom": 20 },
       "marker": "🌙",
       "memory": {
@@ -2188,6 +2188,648 @@
           "de": "Schau, er rennt zurück in den Wald! Er hat sich erschreckt.",
           "it": "Guarda, scappa di nuovo nel bosco! Si è spaventato.",
           "fx": { "bell": 0, "wolves": 0 }
+        }
+      ]
+    },
+    {
+      "id": "zapah-b1-sledi",
+      "level": "B1",
+      "memory": {
+        "sl": "sledi s petimi prsti, ki sem jih našel pri potoku",
+        "en": "the five-toed tracks I found by the stream",
+        "de": "die Spuren mit fünf Zehen, die ich am Bach gefunden habe",
+        "it": "le orme a cinque dita che ho trovato vicino al ruscello"
+      },
+      "lines": [
+        {
+          "who": "joze",
+          "face": "worried",
+          "sl": "Pst, {learner}. Danes sem v blatu pri potoku našel velike sledi. Nekdo je ponoči hodil okrog palisade.",
+          "en": "Shh, {learner}. Today I found big tracks in the mud by the stream. Something walked round the palisade last night.",
+          "de": "Pst, {learner}. Heute habe ich im Schlamm am Bach große Spuren gefunden. Heute Nacht ist jemand um die Palisade gegangen.",
+          "it": "Sst, {learner}. Oggi ho trovato grandi orme nel fango vicino al ruscello. Stanotte qualcuno ha girato intorno alla palizzata."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Je kdo videl, kam je šel?",
+              "en": "Did anyone see where it went?",
+              "de": "Hat jemand gesehen, wohin er gegangen ist?",
+              "it": "Qualcuno ha visto dov'è andato?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Nihče. Prišel je, ko smo vsi spali.",
+                "en": "Nobody. It came while we were all asleep.",
+                "de": "Niemand. Er kam, als wir alle schliefen.",
+                "it": "Nessuno. È venuto mentre dormivamo tutti."
+              }
+            },
+            {
+              "sl": "Je nihče videl, kam je šel?",
+              "en": "Did nobody (without the ne) see where it went?",
+              "de": "Hat niemand (ohne ne) gesehen, wohin er gegangen ist?",
+              "it": "Nessuno (senza ne) ha visto dov'è andato?",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "In a question, plain kdo means anyone: je kdo videl? Nihče is nobody, and it doubles the no: nihče ni videl.",
+                "de": "In einer Frage heißt einfaches kdo jemand: je kdo videl? Nihče ist niemand und verdoppelt das Nein: nihče ni videl.",
+                "it": "In una domanda kdo da solo vuol dire qualcuno: je kdo videl? Nihče è nessuno e raddoppia il no: nihče ni videl."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nihče? … Hm. Potem ne vem, kaj sprašuješ.",
+                "en": "Nobody? … Hm. Then I don't know what you're asking.",
+                "de": "Niemand? … Hm. Dann weiß ich nicht, was du fragst.",
+                "it": "Nessuno? … Mm. Allora non so cosa chiedi."
+              }
+            },
+            {
+              "sl": "Ste ga ustrelili?",
+              "en": "Did you shoot it?",
+              "de": "Haben Sie ihn geschossen?",
+              "it": "L'ha abbattuto?",
+              "why": {
+                "en": "Jože watches the game rather than hunts it: ask about the tracks, not about a shot.",
+                "de": "Jože beobachtet das Wild lieber, als es zu jagen: frag nach den Spuren, nicht nach einem Schuss.",
+                "it": "Jože osserva la selvaggina più che cacciarla: chiedi delle orme, non di uno sparo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ustrelil? Jaz? Ne, ne. Jaz samo gledam in štejem.",
+                "en": "Shot it? Me? No, no. I just watch and count.",
+                "de": "Geschossen? Ich? Nein, nein. Ich schaue nur und zähle.",
+                "it": "Abbattuto? Io? No, no. Io guardo e conto, basta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … tiše. Kaj si {m:rekel|f:rekla}?",
+            "en": "Shh … quieter. What did you say?",
+            "de": "Pst … leiser. Was hast du gesagt?",
+            "it": "Sst … più piano. Cos'hai detto?"
+          }
+        },
+        {
+          "who": "joze",
+          "face": "thinking",
+          "sl": "Sledi imajo pet prstov in so široke kot moja dlan. Medved, mislim. Kaj naj storiva?",
+          "en": "The tracks have five toes and they're as wide as my palm. A bear, I think. What shall we do?",
+          "de": "Die Spuren haben fünf Zehen und sind so breit wie meine Handfläche. Ein Bär, glaube ich. Was sollen wir tun?",
+          "it": "Le orme hanno cinque dita e sono larghe come il mio palmo. Un orso, credo. Che facciamo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem nocoj ne odpirajte vrat nikomur.",
+              "en": "Then don't open the gate to anyone tonight.",
+              "de": "Dann machen Sie heute Nacht niemandem das Tor auf.",
+              "it": "Allora stanotte non apra il cancello a nessuno.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Nikomur. Niti medvedu, če potrka.",
+                "en": "Right. To no one. Not even the bear, if he knocks.",
+                "de": "Gut. Niemandem. Nicht einmal dem Bären, wenn er klopft.",
+                "it": "Va bene. A nessuno. Nemmeno all'orso, se bussa."
+              }
+            },
+            {
+              "sl": "Potem nocoj ne odpirajte vrata nikomur.",
+              "en": "Then don't open the gate (accusative) to anyone tonight.",
+              "de": "Dann machen Sie heute Nacht niemandem das Tor (Akkusativ) auf.",
+              "it": "Allora stanotte non apra il cancello (accusativo) a nessuno.",
+              "grammar": "rodilnik-nikalnica",
+              "why": {
+                "en": "After a no, the object goes into the genitive: ne odpirajte vrat. Vrata is the accusative.",
+                "de": "Nach einer Verneinung steht das Objekt im Genitiv: ne odpirajte vrat. Vrata ist der Akkusativ.",
+                "it": "Dopo una negazione l'oggetto va al genitivo: ne odpirajte vrat. Vrata è l'accusativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vrata? … Hm. Vrata so zaprta, saj jih vidiš.",
+                "en": "The gate? … Hm. The gate's shut, you can see it.",
+                "de": "Das Tor? … Hm. Das Tor ist zu, du siehst es doch.",
+                "it": "Il cancello? … Mm. Il cancello è chiuso, lo vedi."
+              }
+            },
+            {
+              "sl": "Potem nocoj ne odpirajte vrat nikogar.",
+              "en": "Then don't open the gate of no one (genitive) tonight.",
+              "de": "Dann machen Sie heute Nacht das Tor von niemandem (Genitiv) auf.",
+              "it": "Allora stanotte non apra il cancello di nessuno (genitivo).",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Opening the gate to someone takes the dative: nikomur. Nikogar is whom, the genitive.",
+                "de": "Jemandem das Tor öffnen verlangt den Dativ: nikomur. Nikogar ist wen, der Genitiv.",
+                "it": "Aprire il cancello a qualcuno vuole il dativo: nikomur. Nikogar è chi, il genitivo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nikogar? … Jaz ne odpiram ljudi, {learner}. Samo vrata.",
+                "en": "Nobody's? … I don't open people, {learner}. Only gates.",
+                "de": "Niemanden? … Ich mache keine Leute auf, {learner}. Nur Tore.",
+                "it": "Nessuno? … Io non apro le persone, {learner}. Solo i cancelli."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … tiše. Kaj si {m:rekel|f:rekla}?",
+            "en": "Shh … quieter. What did you say?",
+            "de": "Pst … leiser. Was hast du gesagt?",
+            "it": "Sst … più piano. Cos'hai detto?"
+          }
+        },
+        {
+          "who": "joze",
+          "face": "happy",
+          "sl": "Lahko noč, {learner}. Jutri zjutraj greva skupaj pogledat sledi. Lovski blagor!",
+          "en": "Good night, {learner}. Tomorrow morning we'll go and see the tracks together. Lovski blagor!",
+          "de": "Gute Nacht, {learner}. Morgen früh gehen wir zusammen die Spuren ansehen. Waidmannsheil!",
+          "it": "Buonanotte, {learner}. Domattina andiamo insieme a vedere le orme. Lovski blagor!"
+        }
+      ]
+    },
+    {
+      "id": "zapah-b2-volk",
+      "level": "B2",
+      "memory": {
+        "sl": "noč, ko so volkovi tulili za palisado",
+        "en": "the night the wolves howled beyond the palisade",
+        "de": "die Nacht, in der die Wölfe hinter der Palisade heulten",
+        "it": "la notte in cui i lupi ululavano oltre la palizzata"
+      },
+      "lines": [
+        {
+          "who": "joze",
+          "face": "thinking",
+          "sl": "Pst. Slišiš? Tulijo. … Volkovi so se vrnili v Trnovski gozd, po sto letih.",
+          "en": "Shh. Hear that? They're howling. … The wolves have come back to the Trnovo forest, after a hundred years.",
+          "de": "Pst. Hörst du? Sie heulen. … Die Wölfe sind in den Trnovaner Wald zurückgekehrt, nach hundert Jahren.",
+          "it": "Sst. Senti? Ululano. … I lupi sono tornati nella selva di Tarnova, dopo cent'anni."
+        },
+        {
+          "who": "joze",
+          "face": "thinking",
+          "sl": "Pastirji bi jih radi odstrelili, drugi bi jih radi zaščitili. Vsi pa bi radi, da bi bil volk sit in koza cela.",
+          "en": "The shepherds would like to shoot them, others would like to protect them. And everyone wants the wolf full and the goat whole.",
+          "de": "Die Hirten würden sie gern abschießen, andere würden sie gern schützen. Und alle wollen, dass der Wolf satt und die Ziege ganz bleibt.",
+          "it": "I pastori vorrebbero abbatterli, altri vorrebbero proteggerli. E tutti vorrebbero il lupo sazio e la capra intera."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej bi radi rešitev, ki bo dobra za obe strani.",
+              "en": "So they'd like a solution that's good for both sides.",
+              "de": "Sie hätten also gern eine Lösung, die für beide Seiten gut ist.",
+              "it": "Quindi vorrebbero una soluzione che vada bene a tutte e due le parti.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako je. … Samo da tako rešitev težko najdeš.",
+                "en": "That's it. … Only a solution like that is hard to find.",
+                "de": "So ist es. … Nur ist so eine Lösung schwer zu finden.",
+                "it": "Proprio così. … Solo che una soluzione così è difficile da trovare."
+              }
+            },
+            {
+              "sl": "Torej je treba volkove nahraniti s kozami.",
+              "en": "So the wolves have to be fed with goats.",
+              "de": "Also muss man die Wölfe mit Ziegen füttern.",
+              "it": "Quindi bisogna dare da mangiare capre ai lupi.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "Da bo volk sit in koza cela (the wolf full and the goat whole) is an idiom: a way that suits both sides. Take an idiom as a whole, never word by word.",
+                "de": "Da bo volk sit in koza cela (der Wolf satt und die Ziege ganz) ist eine Redewendung: ein Weg, der beiden Seiten passt. Nimm sie als Ganzes, nie Wort für Wort.",
+                "it": "Da bo volk sit in koza cela (il lupo sazio e la capra intera) è un modo di dire: una via che va bene a tutte e due le parti. Prendilo intero, mai parola per parola."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "S kozami? … Ne, ne. Kozam bi to težko razložil.",
+                "en": "With goats? … No, no. I'd have a hard time explaining that to the goats.",
+                "de": "Mit Ziegen? … Nein, nein. Das könnte ich den Ziegen schwer erklären.",
+                "it": "Con le capre? … No, no. Alle capre sarebbe difficile spiegarlo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … tiše. Kaj si {m:rekel|f:rekla}?",
+            "en": "Shh … quieter. What did you say?",
+            "de": "Pst … leiser. Was hast du gesagt?",
+            "it": "Sst … più piano. Cos'hai detto?"
+          }
+        },
+        {
+          "who": "joze",
+          "face": "sad",
+          "sl": "Lani je volk na planini raztrgal dve ovci. Če bi bil pastir imel psa, se to ne bi bilo zgodilo.",
+          "en": "Last year a wolf killed two sheep up on the pasture. If the shepherd had had a dog, it wouldn't have happened.",
+          "de": "Letztes Jahr hat ein Wolf auf der Alm zwei Schafe gerissen. Hätte der Hirte einen Hund gehabt, wäre das nicht passiert.",
+          "it": "L'anno scorso un lupo ha sbranato due pecore al pascolo. Se il pastore avesse avuto un cane, non sarebbe successo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zato pa zvečer zapirava vrata. Volkovi naj hodijo po gozdu, ne po vasi.",
+              "en": "That's why we bar the gate in the evening. Let the wolves roam the forest, not the village.",
+              "de": "Darum schließen wir abends das Tor. Die Wölfe sollen durch den Wald streifen, nicht durchs Dorf.",
+              "it": "Per questo la sera chiudiamo il cancello. I lupi girino per il bosco, non per il paese.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je. Oni imajo svoj gozd, mi svojo vas.",
+                "en": "That's right. They have their forest, we have our village.",
+                "de": "So ist es. Sie haben ihren Wald, wir unser Dorf.",
+                "it": "Proprio così. Loro hanno il loro bosco, noi il nostro paese."
+              }
+            },
+            {
+              "sl": "Zato pa zvečer zapirava vrata. Volkovi naj hodijo po gozd, ne po vas.",
+              "en": "That's why we bar the gate in the evening. Let the wolves go and fetch (po + accusative) the forest, not the village.",
+              "de": "Darum schließen wir abends das Tor. Die Wölfe sollen den Wald holen gehen (po + Akkusativ), nicht das Dorf.",
+              "it": "Per questo la sera chiudiamo il cancello. I lupi vadano a prendere (po + accusativo) il bosco, non il paese.",
+              "grammar": "predlogi-dva-sklona",
+              "why": {
+                "en": "Po + the locative is around, all over: po gozdu, po vasi. Po + the accusative is going to fetch: po kruh.",
+                "de": "Po + Lokativ heißt herum, überall: po gozdu, po vasi. Po + Akkusativ heißt etwas holen gehen: po kruh.",
+                "it": "Po + il locativo è in giro, per: po gozdu, po vasi. Po + l'accusativo è andare a prendere: po kruh."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Po gozd? Kot po kruh? Gozda pa še volk ne prinese domov.",
+                "en": "Fetch the forest? Like fetching bread? Not even a wolf can carry a forest home.",
+                "de": "Den Wald holen? Wie Brot holen? Einen Wald trägt nicht mal ein Wolf nach Hause.",
+                "it": "A prendere il bosco? Come il pane? Un bosco non se lo porta a casa nemmeno un lupo."
+              }
+            },
+            {
+              "sl": "Zato pa zvečer odpirava vrata. Volkovi naj kar pridejo pogledat.",
+              "en": "That's why we open the gate in the evening. The wolves can just come and have a look.",
+              "de": "Darum machen wir abends das Tor auf. Die Wölfe sollen ruhig schauen kommen.",
+              "it": "Per questo la sera apriamo il cancello. I lupi vengano pure a vedere.",
+              "why": {
+                "en": "The gate is barred at night to keep the wolves out, not to invite them in.",
+                "de": "Das Tor wird nachts geschlossen, um die Wölfe draußen zu halten, nicht um sie hereinzubitten.",
+                "it": "Di notte il cancello si chiude per tenere fuori i lupi, non per invitarli."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Odpirava? Ponoči? Pst, da te ne sliši Tone!",
+                "en": "Open it? At night? Shh, don't let Tone hear you!",
+                "de": "Aufmachen? Nachts? Pst, dass dich Tone nicht hört!",
+                "it": "Aprirlo? Di notte? Sst, che non ti senta Tone!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … tiše. Kaj si {m:rekel|f:rekla}?",
+            "en": "Shh … quieter. What did you say?",
+            "de": "Pst … leiser. Was hast du gesagt?",
+            "it": "Sst … più piano. Cos'hai detto?"
+          }
+        },
+        {
+          "who": "joze",
+          "face": "happy",
+          "sl": "Lahko noč, {learner}. Jaz ostanem pri vratih in poslušam. Lovski blagor!",
+          "en": "Good night, {learner}. I'll stay by the gate and listen. Lovski blagor!",
+          "de": "Gute Nacht, {learner}. Ich bleibe am Tor und horche. Waidmannsheil!",
+          "it": "Buonanotte, {learner}. Io resto al cancello ad ascoltare. Lovski blagor!"
+        }
+      ]
+    },
+    {
+      "id": "domov-b1-bela",
+      "level": "B1",
+      "memory": {
+        "sl": "večer, ko si {m:pazil|f:pazila} na moje ovce",
+        "en": "the evening you looked after my sheep",
+        "de": "den Abend, an dem du auf meine Schafe aufgepasst hast",
+        "it": "la sera in cui hai badato alle mie pecore"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "worried",
+          "sl": "Ej, {learner}! Vse so notri, samo Bele ni. Spet! Si jo kje {m:videl|f:videla}?",
+          "en": "Hey, {learner}! They're all in, only Bela's missing. Again! Have you seen her anywhere?",
+          "de": "He, {learner}! Alle sind drin, nur Bela fehlt. Schon wieder! Hast du sie irgendwo gesehen?",
+          "it": "Ehi, {learner}! Sono tutte dentro, manca solo Bela. Di nuovo! L'hai vista da qualche parte?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ko sem {m:šel|f:šla} mimo potoka, je Bela pila vodo.",
+              "en": "When I went past the stream, Bela was drinking water.",
+              "de": "Als ich am Bach vorbeiging, trank Bela Wasser.",
+              "it": "Quando sono {m:passato|f:passata} dal ruscello, Bela stava bevendo.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Pri potoku? Seveda. Tam je najslajša trava.",
+                "en": "By the stream? Of course. That's where the sweetest grass is.",
+                "de": "Am Bach? Natürlich. Dort ist das süßeste Gras.",
+                "it": "Al ruscello? Certo. Lì c'è l'erba più dolce."
+              }
+            },
+            {
+              "sl": "Ko sem {m:šel|f:šla} mimo potoka, je Bela popila vodo.",
+              "en": "When I went past the stream, Bela drank up the water (all of it).",
+              "de": "Als ich am Bach vorbeiging, trank Bela das Wasser aus (ganz).",
+              "it": "Quando sono {m:passato|f:passata} dal ruscello, Bela si è bevuta l'acqua (tutta).",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Her drinking was going on as you passed, the scene: the imperfective, je pila. Popila is perfective: all of it, done.",
+                "de": "Ihr Trinken lief, als du vorbeigingst, der Hintergrund: der unvollendete Aspekt, je pila. Popila ist vollendet: alles, fertig.",
+                "it": "Stava bevendo mentre passavi, lo sfondo: l'imperfettivo, je pila. Popila è perfettivo: tutta, finita."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Vso vodo? Potem je potok zdaj prazen! Ha ha!",
+                "en": "All the water? Then the stream's empty now! Ha ha!",
+                "de": "Das ganze Wasser? Dann ist der Bach jetzt leer! Ha ha!",
+                "it": "Tutta l'acqua? Allora adesso il ruscello è vuoto! Ah ah!"
+              }
+            },
+            {
+              "sl": "Ko sem {m:šel|f:šla} mimo potoka, je Bela pila voda.",
+              "en": "When I went past the stream, Bela drank water (nominative).",
+              "de": "Als ich am Bach vorbeiging, trank Bela Wasser (Nominativ).",
+              "it": "Quando sono {m:passato|f:passata} dal ruscello, Bela beveva acqua (nominativo).",
+              "grammar": "tozilnik",
+              "why": {
+                "en": "What she drank is the object, in the accusative: pila vodo. Voda is the nominative, as if the water were drinking.",
+                "de": "Was sie trank, ist das Objekt, im Akkusativ: pila vodo. Voda ist der Nominativ, als würde das Wasser trinken.",
+                "it": "Ciò che beveva è l'oggetto, all'accusativo: pila vodo. Voda è il nominativo, come se fosse l'acqua a bere."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Voda je pila? Ej, voda ne pije, {learner}!",
+                "en": "The water was drinking? Hey, water doesn't drink, {learner}!",
+                "de": "Das Wasser hat getrunken? He, Wasser trinkt nicht, {learner}!",
+                "it": "L'acqua beveva? Ehi, l'acqua non beve, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Povej še enkrat!",
+            "en": "Hey, what? Say it again!",
+            "de": "He, was? Sag's noch mal!",
+            "it": "Ehi, cosa? Ripeti!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "worried",
+          "sl": "Kmalu bo tema. Če grem iskat Belo, kdo bo pa pazil na druge?",
+          "en": "It'll be dark soon. If I go looking for Bela, who'll look after the others?",
+          "de": "Bald ist es dunkel. Wenn ich Bela suchen gehe, wer passt dann auf die anderen auf?",
+          "it": "Presto sarà buio. Se vado a cercare Bela, chi bada alle altre?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pojdi, jaz bom {m:ostal|f:ostala} pri ovcah. Saj me ni strah teme.",
+              "en": "Go, I'll stay with the sheep. I'm not afraid of the dark.",
+              "de": "Geh, ich bleibe bei den Schafen. Ich habe ja keine Angst vor der Dunkelheit.",
+              "it": "Vai, resto io con le pecore. Non ho mica paura del buio.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Super! Ti si {m:pravi pastir|f:prava pastirica}!",
+                "en": "Great! You're a real shepherd!",
+                "de": "Super! Du bist {m:ein echter Hirte|f:eine echte Hirtin}!",
+                "it": "Grande! Sei {m:un vero pastore|f:una vera pastora}!"
+              }
+            },
+            {
+              "sl": "Pojdi, jaz bom {m:ostal|f:ostala} pri ovcah. Saj me ni strah tema.",
+              "en": "Go, I'll stay with the sheep. I'm not afraid the dark (nominative).",
+              "de": "Geh, ich bleibe bei den Schafen. Ich habe ja keine Angst die Dunkelheit (Nominativ).",
+              "it": "Vai, resto io con le pecore. Non ho mica paura il buio (nominativo).",
+              "grammar": "custva",
+              "why": {
+                "en": "What you fear goes into the genitive, with or without a no: strah me je teme. Tema is the nominative.",
+                "de": "Wovor man Angst hat, steht im Genitiv: strah me je teme. Tema ist der Nominativ.",
+                "it": "Ciò di cui hai paura va al genitivo: strah me je teme. Tema è il nominativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Tema? Ej, tema ne more biti strah, {learner}!",
+                "en": "The dark? Hey, the dark can't be fear, {learner}!",
+                "de": "Die Dunkelheit? He, die Dunkelheit kann keine Angst sein, {learner}!",
+                "it": "Il buio? Ehi, il buio non può essere paura, {learner}!"
+              }
+            },
+            {
+              "sl": "Pojdi, jaz bom {m:ostal|f:ostala} pri ovcah. Saj nisem strah teme.",
+              "en": "Go, I'll stay with the sheep. I am not fear (as the subject) of the dark.",
+              "de": "Geh, ich bleibe bei den Schafen. Ich bin ja nicht Angst (als Subjekt) vor der Dunkelheit.",
+              "it": "Vai, resto io con le pecore. Non sono paura (come soggetto) del buio.",
+              "grammar": "custva",
+              "why": {
+                "en": "Fear has no subject in Slovene: who is afraid is in the accusative, me ni strah teme. Nisem strah makes you the fear.",
+                "de": "Angst hat im Slowenischen kein Subjekt: wer Angst hat, steht im Akkusativ, me ni strah teme. Nisem strah macht dich zur Angst.",
+                "it": "In sloveno la paura non ha soggetto: chi ha paura va all'accusativo, me ni strah teme. Nisem strah fa di te la paura."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nisi strah? Saj vem, da nisi strah. Ti si {learner}!",
+                "en": "You're not fear? I know you're not fear. You're {learner}!",
+                "de": "Du bist nicht Angst? Weiß ich doch. Du bist {learner}!",
+                "it": "Non sei paura? Lo so che non sei paura. Sei {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Povej še enkrat!",
+            "en": "Hey, what? Say it again!",
+            "de": "He, was? Sag's noch mal!",
+            "it": "Ehi, cosa? Ripeti!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "laugh",
+          "sl": "Hvala, {learner}! Če me v pol ure ni nazaj, zažvižgaj. Moj žvižg pozna vsak pes v Trnovem!",
+          "en": "Thanks, {learner}! If I'm not back in half an hour, whistle. Every dog in Trnovo knows my whistle!",
+          "de": "Danke, {learner}! Wenn ich in einer halben Stunde nicht zurück bin, pfeif. Meinen Pfiff kennt jeder Hund in Trnovo!",
+          "it": "Grazie, {learner}! Se fra mezz'ora non sono tornato, fischia. Il mio fischio lo conosce ogni cane di Trnovo!"
+        }
+      ]
+    },
+    {
+      "id": "domov-b2-koca",
+      "level": "B2",
+      "memory": {
+        "sl": "kočo na planoti, o kateri sem ti pravil",
+        "en": "the hut on the plateau I told you about",
+        "de": "die Hütte auf der Hochebene, von der ich dir erzählt habe",
+        "it": "la baita sull'altopiano di cui ti ho parlato"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Ej, {learner}! Ovce so doma. Veš, o čem sanjam? O svoji koči gor na planoti. Z oknom proti Nanosu.",
+          "en": "Hey, {learner}! The sheep are home. You know what I dream of? A hut of my own up on the plateau. With a window looking towards Nanos.",
+          "de": "He, {learner}! Die Schafe sind daheim. Weißt du, wovon ich träume? Von einer eigenen Hütte oben auf der Hochebene. Mit einem Fenster zum Nanos.",
+          "it": "Ehi, {learner}! Le pecore sono a casa. Sai cosa sogno? Una baita tutta mia lassù sull'altopiano. Con una finestra verso il Nanos."
+        },
+        {
+          "who": "luka",
+          "face": "sad",
+          "sl": "Mama pa pravi, da zidam gradove v oblake. Da bom do smrti pasel tuje ovce.",
+          "en": "But Mum says I'm building castles in the clouds. That I'll herd other people's sheep till I die.",
+          "de": "Aber Mama sagt, ich baue Luftschlösser. Dass ich bis an mein Lebensende fremde Schafe hüten werde.",
+          "it": "Ma la mamma dice che costruisco castelli in aria. Che pascolerò le pecore degli altri fino alla morte."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda je težko, ampak če boš vsako leto nekaj prihranil, boš kočo nekoč tudi imel.",
+              "en": "Of course it's hard, but if you save a bit every year, one day you'll have the hut too.",
+              "de": "Natürlich ist es schwer, aber wenn du jedes Jahr etwas sparst, hast du die Hütte eines Tages auch.",
+              "it": "Certo che è difficile, ma se ogni anno metti da parte qualcosa, un giorno la baita l'avrai.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res? … Ej, ti me pa znaš opogumiti!",
+                "en": "Really? … Hey, you know how to cheer a fellow up!",
+                "de": "Wirklich? … He, du kannst einem aber Mut machen!",
+                "it": "Davvero? … Ehi, tu sì che sai darmi coraggio!"
+              }
+            },
+            {
+              "sl": "Imaš prav, gradovi v oblakih so zate predragi.",
+              "en": "You're right, castles in the clouds are too expensive for you.",
+              "de": "Du hast recht, Schlösser in den Wolken sind zu teuer für dich.",
+              "it": "Hai ragione, i castelli tra le nuvole sono troppo cari per te.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "Zidati gradove v oblake (to build castles into the clouds) is an idiom: to dream of what may never come. Take it as a whole, never word by word.",
+                "de": "Zidati gradove v oblake (Burgen in die Wolken bauen) ist eine Redewendung: von Unerreichbarem träumen. Nimm sie als Ganzes, nie Wort für Wort.",
+                "it": "Zidati gradove v oblake (costruire castelli nelle nuvole) è un modo di dire: sognare l'impossibile. Prendilo intero, mai parola per parola."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Gradovi? Ej, jaz hočem samo kočo, ne gradu!",
+                "en": "Castles? Hey, I only want a hut, not a castle!",
+                "de": "Schlösser? He, ich will nur eine Hütte, kein Schloss!",
+                "it": "Castelli? Ehi, io voglio solo una baita, mica un castello!"
+              }
+            },
+            {
+              "sl": "Mama ima prav. Nikoli je ne boš imel.",
+              "en": "Your mum's right. You'll never have it.",
+              "de": "Deine Mama hat recht. Du wirst sie nie haben.",
+              "it": "La mamma ha ragione. Non l'avrai mai.",
+              "why": {
+                "en": "Luka is sharing a dream: a B2 answer grants the hard part (seveda) and gives him a way forward, not a flat no.",
+                "de": "Luka teilt einen Traum: eine B2-Antwort gibt das Schwierige zu (seveda) und zeigt ihm einen Weg, statt glatt nein zu sagen.",
+                "it": "Luka ti confida un sogno: una risposta B2 ammette la difficoltà (seveda) e gli indica una strada, invece di un no secco."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Nikoli? Ej, {learner} … tega pa nisem hotel slišati.",
+                "en": "Never? Hey, {learner} … that's not what I wanted to hear.",
+                "de": "Nie? He, {learner} … das wollte ich nicht hören.",
+                "it": "Mai? Ehi, {learner} … questo non volevo sentirlo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Povej še enkrat!",
+            "en": "Hey, what? Say it again!",
+            "de": "He, was? Sag's noch mal!",
+            "it": "Ehi, cosa? Ripeti!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Lani sem skoraj kupil star senik pod Golaki, pa nisem imel dovolj denarja. Če bi ga bil kupil, bi zdaj spal tam.",
+          "en": "Last year I nearly bought an old hayloft under the Golaki peaks, but I didn't have enough money. If I'd bought it, I'd be sleeping there now.",
+          "de": "Letztes Jahr hätte ich fast einen alten Heuschober unter den Golaki gekauft, aber ich hatte nicht genug Geld. Hätte ich ihn gekauft, würde ich jetzt dort schlafen.",
+          "it": "L'anno scorso ho quasi comprato un vecchio fienile sotto i Golaki, ma non avevo abbastanza soldi. Se l'avessi comprato, adesso dormirei lì."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem začni varčevati čim prej. Prej ko začneš, prej boš imel kočo.",
+              "en": "Then start saving as soon as you can. The sooner you start, the sooner you'll have the hut.",
+              "de": "Dann fang so bald wie möglich an zu sparen. Je früher du anfängst, desto früher hast du die Hütte.",
+              "it": "Allora comincia a risparmiare al più presto. Prima cominci, prima avrai la baita.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imaš! Od jutri dam vsak teden nekaj na stran.",
+                "en": "You're right! From tomorrow I'll put something aside every week.",
+                "de": "Recht hast du! Ab morgen lege ich jede Woche etwas zur Seite.",
+                "it": "Hai ragione! Da domani metto qualcosa da parte ogni settimana."
+              }
+            },
+            {
+              "sl": "Potem začni varčevati čim prej. Bolj prej ko začneš, bolj prej boš imel kočo.",
+              "en": "Then start saving as soon as you can. The more sooner you start, the more sooner you'll have the hut.",
+              "de": "Dann fang so bald wie möglich an zu sparen. Je mehr früher du anfängst, desto mehr früher hast du die Hütte.",
+              "it": "Allora comincia a risparmiare al più presto. Più prima cominci, più prima avrai la baita.",
+              "grammar": "stopnjevanje",
+              "why": {
+                "en": "Prej is already a comparative (sooner): prej ko …, prej … (or čim prej …, tem prej …). Bolj on top makes it twice.",
+                "de": "Prej ist schon ein Komparativ (früher): prej ko …, prej … (oder čim prej …, tem prej …). Bolj dazu macht ihn doppelt.",
+                "it": "Prej è già un comparativo (prima): prej ko …, prej … (o čim prej …, tem prej …). Bolj in più lo raddoppia."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bolj prej? Ej, tako govori Bela, ko je lačna!",
+                "en": "More sooner? Hey, that's how Bela talks when she's hungry!",
+                "de": "Mehr früher? He, so redet Bela, wenn sie Hunger hat!",
+                "it": "Più prima? Ehi, così parla Bela quando ha fame!"
+              }
+            },
+            {
+              "sl": "Potem začni varčevati čim kasneje. Prej ko začneš, prej boš imel kočo.",
+              "en": "Then start saving as late as you can. The sooner you start, the sooner you'll have the hut.",
+              "de": "Dann fang so spät wie möglich an zu sparen. Je früher du anfängst, desto früher hast du die Hütte.",
+              "it": "Allora comincia a risparmiare il più tardi possibile. Prima cominci, prima avrai la baita.",
+              "grammar": "stopnjevanje",
+              "why": {
+                "en": "Čim + a comparative is as … as possible: čim kasneje is as late as possible, the opposite of what you then say. To start soon: čim prej.",
+                "de": "Čim + Komparativ heißt so … wie möglich: čim kasneje ist so spät wie möglich, das Gegenteil von dem, was du dann sagst. Für bald: čim prej.",
+                "it": "Čim + un comparativo è il più … possibile: čim kasneje è il più tardi possibile, il contrario di ciò che dici dopo. Per presto: čim prej."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Čim kasneje? Potem bom kočo dobil pri devetdesetih!",
+                "en": "As late as I can? Then I'll get the hut at ninety!",
+                "de": "So spät wie möglich? Dann kriege ich die Hütte mit neunzig!",
+                "it": "Il più tardi possibile? Allora avrò la baita a novant'anni!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Povej še enkrat!",
+            "en": "Hey, what? Say it again!",
+            "de": "He, was? Sag's noch mal!",
+            "it": "Ehi, cosa? Ripeti!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "In ko bom imel kočo, boš ti moj prvi gost. Z oknom proti Nanosu!",
+          "en": "And when I've got my hut, you'll be my first guest. With the window towards Nanos!",
+          "de": "Und wenn ich meine Hütte habe, bist du mein erster Gast. Mit dem Fenster zum Nanos!",
+          "it": "E quando avrò la baita, sarai il mio primo ospite. Con la finestra verso il Nanos!"
         }
       ]
     }

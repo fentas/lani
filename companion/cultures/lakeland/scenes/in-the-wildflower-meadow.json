@@ -5,7 +5,7 @@
   "title": { "en": "In the wildflower meadow", "sl": "Na travniku divjih rož", "it": "Nel prato dei fiori selvatici", "de": "Auf der Wildblumenwiese" },
   "emoji": "🌼",
   "level": "A1",
-  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not reviewed by a native speaker; check: the flower names, cowslip balls, dandelion clock, krvomočnica, glavinec",
+  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not native-checked; check: the flower names, cowslip balls, dandelion clock, krvomočnica, glavinec; B1, B2 variants too",
   "art": "apiary",
   "from": ["project:cebelji_travnik"],
   "pack": "in-the-wildflower-meadow",
@@ -44,7 +44,7 @@
       "months": [4, 5, 6, 7, 8, 9],
       "chance": 0.5,
       "dialog": "flowers",
-      "dialogs": ["flowers-spring", "flowers-summer", "flowers"],
+      "dialogs": ["flowers-b2-rattle", "flowers-b1-names", "flowers-spring", "flowers-summer", "flowers"],
       "reward": { "food": 15 },
       "marker": "🌼",
       "memory": {
@@ -116,7 +116,7 @@
       "months": [10, 11, 12, 1, 2, 3],
       "chance": 0.5,
       "dialog": "winter",
-      "dialogs": ["winter-seeds", "winter"],
+      "dialogs": ["winter-b2-snowdrops", "winter-b1-harry", "winter-seeds", "winter"],
       "reward": { "wisdom": 15 },
       "marker": "❄️",
       "memory": {
@@ -1873,6 +1873,78 @@
           "it": "Ad aprile arrivano i primi denti di leone, e loro tornano a volare.",
           "de": "Im April kommt der erste Löwenzahn, und sie fliegen wieder aus."
         }
+      ]
+    },
+    {
+      "id": "flowers-b2-rattle", "level": "B2",
+      "memory": {"en": "the meadow cut late and the yellow rattle I never sowed", "sl": "travnik, pokošen pozno, in pokalico, ki je nisem nikoli posejala", "it": "il prato falciato tardi e il rinanto che non ho mai seminato", "de": "die spät gemähte Wiese und den Klappertopf, den ich nie gesät habe"},
+      "lines": [
+        {"who": "maggie", "en": "Hello, love. The summer's nearly over. Soon the meadow will be cut, but only once the seeds have dropped.", "sl": "Živijo. Poletja je skoraj konec. Kmalu bodo travnik pokosili, ampak šele ko seme pade.", "it": "Ciao, {m:caro|f:cara}. L'estate è quasi finita. Presto il prato verrà falciato, ma solo dopo che i semi sono caduti.", "de": "Hallo, Schätzchen. Der Sommer ist fast vorbei. Bald wird die Wiese gemäht, aber erst, wenn die Samen gefallen sind."},
+        {"who": "maggie", "face": "thinking", "en": "I can't cut it myself any more, not with these knees.", "sl": "Sama ga ne morem več kositi, s temi koleni ne.", "it": "Non riesco più a falciarlo da sola, non con queste ginocchia.", "de": "Selbst kann ich sie nicht mehr mähen, nicht mit diesen Knien."},
+        { "choices": [
+          {"en": "Will you have it cut by someone with a tractor?", "sl": "Ga boš dala pokositi nekomu s traktorjem?", "it": "Lo farai falciare da qualcuno col trattore?", "de": "Lässt du sie von jemandem mit Traktor mähen?", "ok": true, "reply": {"face": "happy", "en": "Every August. And the hay goes to the farm.", "sl": "Vsak avgust. Seno pa gre na kmetijo.", "it": "Ogni agosto. E il fieno va alla fattoria.", "de": "Jeden August. Und das Heu kommt auf den Hof."}},
+          {"en": "Will you have cut it by someone with a tractor?", "sl": "Ga boš dala pokositi nekomu s traktorjem?", "it": "Lo farai falciare da qualcuno col trattore?", "de": "Lässt du sie von jemandem mit Traktor mähen?", "grammar": "have-it-done", "why": {"en": "Have + it + the participle: have it cut. The thing goes in the middle.", "sl": "Have + it + deležnik: have it cut. Stvar gre v sredino.", "it": "Have + it + il participio: have it cut. La cosa va in mezzo.", "de": "Have + it + Partizip: have it cut. Die Sache kommt in die Mitte."}, "reply": {"face": "laugh", "en": "Me, with a scythe? With these old knees, love?", "sl": "Jaz, s koso? S temi starimi koleni?", "it": "Io, con la falce? Con queste vecchie ginocchia?", "de": "Ich, mit der Sense? Mit diesen alten Knien, Schätzchen?"}}
+        ] },
+        {"who": "maggie", "face": "thinking", "en": "I've been meaning to sow yellow rattle for years. It keeps the grass down. But I keep putting it off.", "sl": "Že leta nameravam posejati pokalico. Zatira travo. Pa vedno odlašam.", "it": "Da anni voglio seminare il rinanto. Tiene bassa l'erba. Ma continuo a rimandare.", "de": "Seit Jahren will ich Klappertopf säen. Der hält das Gras klein. Aber ich schieb's immer auf."},
+        { "choices": [
+          {"en": "Why don't you make a start this autumn?", "sl": "Zakaj ne bi začela to jesen?", "it": "Perché non cominci quest'autunno?", "de": "Warum fängst du nicht diesen Herbst damit an?", "ok": true, "reply": {"face": "happy", "en": "A start! You're right, love. This autumn, then.", "sl": "Začetek! Prav imaš. Torej to jesen.", "it": "Cominciare! Hai ragione, {m:caro|f:cara}. Quest'autunno, allora.", "de": "Anfangen! Du hast recht, Schätzchen. Also diesen Herbst."}},
+          {"en": "Why don't you do a start this autumn?", "sl": "Zakaj ne bi začela to jesen?", "it": "Perché non cominci quest'autunno?", "de": "Warum fängst du nicht diesen Herbst damit an?", "grammar": "collocations", "why": {"en": "In English you make a start, like make an effort. Do goes with jobs: do the weeding.", "sl": "V angleščini make a start, kot make an effort. Do gre z opravili: do the weeding.", "it": "In inglese si dice make a start, come make an effort. Do va con le faccende: do the weeding.", "de": "Im Englischen make a start, wie make an effort. Do steht bei Arbeiten: do the weeding."}, "reply": {"face": "curious", "en": "Do a start? Oh, love. That's not how we'd say it.", "sl": "Do a start? Oh. Tako se pa ne reče.", "it": "Do a start? Oh, {m:caro|f:cara}. Non si dice così.", "de": "Do a start? Ach, Schätzchen. So sagt man das nicht."}}
+        ] },
+        {"who": "maggie", "face": "happy", "en": "Seeds in September, flowers in May. A meadow is a patient thing.", "sl": "Seme septembra, cvetje maja. Travnik je potrpežljiva reč.", "it": "Semi a settembre, fiori a maggio. Un prato è una cosa paziente.", "de": "Samen im September, Blumen im Mai. Eine Wiese ist eine geduldige Sache."}
+      ]
+    },
+    {
+      "id": "flowers-b1-names", "level": "B1",
+      "memory": {"en": "the flower names my mother taught me", "sl": "imena cvetlic, ki me jih je naučila mama", "it": "i nomi dei fiori che mi ha insegnato mia madre", "de": "die Blumennamen, die mir meine Mutter beigebracht hat"},
+      "lines": [
+        {"who": "maggie", "face": "happy", "en": "Hello, love! Look at the meadow. Knapweed, harebells, scabious. My mother taught me every name.", "sl": "Živijo! Poglej travnik. Glavinec, zvončica, grabljišče. Mama me je naučila vsako ime.", "it": "Ciao, {m:caro|f:cara}! Guarda il prato. Fiordaliso, campanula, scabiosa. Mia madre mi ha insegnato ogni nome.", "de": "Hallo, Schätzchen! Schau dir die Wiese an. Flockenblume, Glockenblume, Skabiose. Meine Mutter hat mir jeden Namen beigebracht."},
+        {"who": "maggie", "face": "curious", "en": "I could teach you too, if you like. Shall we start today?", "sl": "Tudi tebe bi lahko naučila, če želiš. Začneva danes?", "it": "Potrei insegnarteli anch'io, se vuoi. Cominciamo oggi?", "de": "Ich könnte sie dir auch beibringen, wenn du willst. Fangen wir heute an?"},
+        { "choices": [
+          {"en": "Yes! I've decided to learn one flower a day.", "sl": "Ja! {m:Odločil|f:Odločila} sem se, da se naučim eno cvetlico na dan.", "it": "Sì! Ho deciso di imparare un fiore al giorno.", "de": "Ja! Ich habe beschlossen, jeden Tag eine Blume zu lernen.", "ok": true, "reply": {"face": "happy", "en": "One a day! By September you'll know them all.", "sl": "Eno na dan! Do septembra jih boš {m:poznal|f:poznala} vse.", "it": "Uno al giorno! A settembre li conoscerai tutti.", "de": "Eine am Tag! Bis September kennst du sie alle."}},
+          {"en": "Yes! I've decided learning one flower a day.", "sl": "Ja! {m:Odločil|f:Odločila} sem se, da se naučim eno cvetlico na dan.", "it": "Sì! Ho deciso di imparare un fiore al giorno.", "de": "Ja! Ich habe beschlossen, jeden Tag eine Blume zu lernen.", "grammar": "verb-patterns", "why": {"en": "Decide takes to + the base form: decided to learn. -ing goes after enjoy, finish, mind.", "sl": "Decide zahteva to + osnovno obliko: decided to learn. -ing gre za enjoy, finish, mind.", "it": "Decide vuole to + la forma base: decided to learn. -ing va dopo enjoy, finish, mind.", "de": "Decide nimmt to + Grundform: decided to learn. -ing steht nach enjoy, finish, mind."}, "reply": {"face": "curious", "en": "Decided learning? Oh, love, nearly. Once more?", "sl": "Decided learning? Oh, skoraj. Še enkrat?", "it": "Decided learning? Oh, quasi. Ancora una volta?", "de": "Decided learning? Ach, fast. Noch mal?"}}
+        ] },
+        {"who": "maggie", "face": "thinking", "en": "Twenty years ago this was just grass. If the farmer hadn't stopped spraying, none of these would have come back.", "sl": "Pred dvajsetimi leti je bila tu samo trava. Če kmet ne bi nehal škropiti, se nobena ne bi vrnila.", "it": "Vent'anni fa qui c'era solo erba. Se il contadino non avesse smesso di spruzzare, nessuno di questi sarebbe tornato.", "de": "Vor zwanzig Jahren war hier nur Gras. Hätte der Bauer nicht aufgehört zu spritzen, wäre keine davon zurückgekommen."},
+        { "choices": [
+          {"en": "So the farmer stopped, and the flowers came back.", "sl": "Torej je kmet nehal in rože so se vrnile.", "it": "Quindi il contadino ha smesso, e i fiori sono tornati.", "de": "Der Bauer hat also aufgehört, und die Blumen sind zurückgekommen.", "ok": true, "reply": {"face": "happy", "en": "Every one. And the bees came with them.", "sl": "Vse do zadnje. In z njimi so prišle čebele.", "it": "Tutti. E con loro sono arrivate le api.", "de": "Jede einzelne. Und mit ihnen kamen die Bienen."}},
+          {"en": "So the farmer kept spraying, and the flowers died.", "sl": "Torej je kmet še naprej škropil in rože so ovenele.", "it": "Quindi il contadino ha continuato a spruzzare, e i fiori sono morti.", "de": "Der Bauer hat also weitergespritzt, und die Blumen sind eingegangen.", "grammar": "third-conditional", "why": {"en": "If he hadn't stopped … wouldn't have come back: he did stop, and they came back.", "sl": "Če ne bi nehal … se ne bi vrnile: nehal je in so se vrnile.", "it": "Se non avesse smesso … non sarebbero tornati: ha smesso, e sono tornati.", "de": "Hätte er nicht aufgehört … wären sie nicht zurückgekommen: Er hat aufgehört, und sie sind zurück."}, "reply": {"face": "surprised", "en": "Died? Love, look around you! They're everywhere!", "sl": "Ovenele? Poglej okoli sebe! Povsod so!", "it": "Morti? Guardati intorno! Sono dappertutto!", "de": "Eingegangen? Schätzchen, schau dich um! Die sind überall!"}}
+        ] },
+        {"who": "maggie", "face": "happy", "en": "Here, take a harebell. Press it in a book. That's what my mother did.", "sl": "Na, vzemi zvončico. Posuši jo v knjigi. Tako je delala moja mama.", "it": "Tieni, prendi una campanula. Mettila a seccare in un libro. Faceva così mia madre.", "de": "Hier, nimm eine Glockenblume. Press sie in einem Buch. Das hat meine Mutter auch gemacht."}
+      ]
+    },
+    {
+      "id": "winter-b2-snowdrops", "level": "B2",
+      "memory": {"en": "the seeds waiting under the snow", "sl": "semena, ki čakajo pod snegom", "it": "i semi che aspettano sotto la neve", "de": "die Samen, die unter dem Schnee warten"},
+      "lines": [
+        {"who": "arthur", "en": "Brr. The meadow's asleep, friend. Under the snow the seeds are waiting.", "sl": "Brr. Travnik spi, prijatelj. Pod snegom čakajo semena.", "it": "Brr. Il prato dorme, amico. Sotto la neve i semi aspettano.", "de": "Brr. Die Wiese schläft, mein Freund. Unter dem Schnee warten die Samen."},
+        {"who": "arthur", "face": "thinking", "en": "By the time the snow melts, the first snowdrops will have pushed through.", "sl": "Ko se bo sneg stopil, bodo prvi zvončki že pokukali skozi.", "it": "Quando la neve si scioglierà, i primi bucaneve saranno già spuntati.", "de": "Bis der Schnee schmilzt, haben sich die ersten Schneeglöckchen schon durchgeschoben."},
+        { "choices": [
+          {"en": "So they'll be up before the snow has gone.", "sl": "Torej bodo zunaj, še preden bo sneg izginil.", "it": "Quindi spunteranno prima che la neve se ne sia andata.", "de": "Sie sind also draußen, bevor der Schnee weg ist.", "ok": true, "reply": {"face": "happy", "en": "Brave little things. Snowdrops first, always.", "sl": "Pogumne malenkosti. Vedno najprej zvončki.", "it": "Piccoli coraggiosi. Prima i bucaneve, sempre.", "de": "Tapfere kleine Dinger. Immer zuerst die Schneeglöckchen."}},
+          {"en": "So they'll only start after the snow has gone.", "sl": "Torej bodo začeli šele, ko bo sneg izginil.", "it": "Quindi cominceranno solo dopo che la neve se ne sarà andata.", "de": "Sie fangen also erst an, wenn der Schnee weg ist.", "grammar": "future-perfect", "why": {"en": "By the time the snow melts, they'll have pushed through: the shoots come first, before it's gone.", "sl": "By the time the snow melts, they'll have pushed through: najprej poženejo, preden sneg izgine.", "it": "By the time the snow melts, they'll have pushed through: i germogli vengono prima, prima che se ne vada.", "de": "By the time the snow melts, they'll have pushed through: Die Triebe kommen zuerst, bevor er weg ist."}, "reply": {"face": "curious", "en": "After? No, friend. They don't wait for anyone.", "sl": "Potem? Ne, prijatelj. Ne čakajo nikogar.", "it": "Dopo? No, amico. Non aspettano nessuno.", "de": "Danach? Nein, mein Freund. Die warten auf niemanden."}}
+        ] },
+        {"who": "arthur", "face": "curious", "en": "And you, friend? What do you love about winter here?", "sl": "Pa ti, prijatelj? Kaj ti je pri zimi tukaj všeč?", "it": "E tu, amico? Che cosa ti piace dell'inverno qui?", "de": "Und du, mein Freund? Was liebst du am Winter hier?"},
+        { "choices": [
+          {"en": "Not knowing the fells well, I stay in the valley and walk by the lake.", "sl": "Ker hribov ne poznam dobro, ostanem v dolini in se sprehajam ob jezeru.", "it": "Non conoscendo bene i monti, resto a valle e cammino lungo il lago.", "de": "Da ich die Berge nicht gut kenne, bleibe ich im Tal und gehe am See spazieren.", "ok": true, "reply": {"face": "happy", "en": "Wise. The fells in winter are for those who know them.", "sl": "Pametno. Hribi pozimi so za tiste, ki jih poznajo.", "it": "Saggio. I monti d'inverno sono per chi li conosce.", "de": "Klug. Die Berge im Winter sind für die, die sie kennen."}},
+          {"en": "Don't knowing the fells well, I stay in the valley and walk by the lake.", "sl": "Ker hribov ne poznam dobro, ostanem v dolini in se sprehajam ob jezeru.", "it": "Non conoscendo bene i monti, resto a valle e cammino lungo il lago.", "de": "Da ich die Berge nicht gut kenne, bleibe ich im Tal und gehe am See spazieren.", "grammar": "participle-clauses", "why": {"en": "For a reason with no: not + -ing, and not first. Not knowing the fells …", "sl": "Za razlog z nikalnico: not + -ing, not na začetku. Not knowing the fells …", "it": "Per una ragione negativa: not + -ing, con not all'inizio. Not knowing the fells …", "de": "Für einen verneinten Grund: not + -ing, not zuerst. Not knowing the fells …"}, "reply": {"face": "curious", "en": "Don't knowing? Gently, friend. Try that again.", "sl": "Don't knowing? Nežno, prijatelj. Poskusi še enkrat.", "it": "Don't knowing? Piano, amico. Riprova.", "de": "Don't knowing? Sachte, mein Freund. Versuch's noch mal."}}
+        ] },
+        {"who": "arthur", "face": "happy", "en": "Here, a jar of heather honey for the dark days. Gently, now.", "sl": "Na, kozarec resinega medu za temne dni. Nežno.", "it": "Tieni, un vasetto di miele d'erica per i giorni bui. Piano.", "de": "Hier, ein Glas Heidehonig für die dunklen Tage. Sachte."}
+      ]
+    },
+    {
+      "id": "winter-b1-harry", "level": "B1",
+      "memory": {"en": "Harry's question about the sleeping bees", "sl": "Harryjevo vprašanje o spečih čebelah", "it": "la domanda di Harry sulle api addormentate", "de": "Harrys Frage über die schlafenden Bienen"},
+      "lines": [
+        {"who": "arthur", "en": "Brr. The meadow's asleep under the snow, friend. The bees are asleep too, in their hives.", "sl": "Brr. Travnik spi pod snegom, prijatelj. Tudi čebele spijo, v panjih.", "it": "Brr. Il prato dorme sotto la neve, amico. Anche le api dormono, nelle arnie.", "de": "Brr. Die Wiese schläft unter dem Schnee, mein Freund. Die Bienen schlafen auch, in ihren Stöcken."},
+        {"who": "arthur", "face": "curious", "en": "You were there when Harry asked me about them. What did he want to know?", "sl": "{m:Bil|f:Bila} si zraven, ko me je Harry vprašal o njih. Kaj ga je zanimalo?", "it": "Eri lì quando Harry mi ha chiesto di loro. Che cosa voleva sapere?", "de": "Du warst dabei, als Harry mich nach ihnen gefragt hat. Was wollte er wissen?"},
+        { "choices": [
+          {"en": "He asked whether the bees got cold in winter.", "sl": "Vprašal je, ali čebele pozimi zebe.", "it": "Ha chiesto se le api d'inverno sentono freddo.", "de": "Er hat gefragt, ob die Bienen im Winter frieren.", "ok": true, "reply": {"en": "And I told him: not if they stick together.", "sl": "Jaz pa sem mu rekel: ne, če se držijo skupaj.", "it": "E io gli ho detto: no, se stanno vicine.", "de": "Und ich hab ihm gesagt: Nicht, wenn sie zusammenhalten."}},
+          {"en": "He asked the bees got cold in winter.", "sl": "Vprašal je, ali čebele pozimi zebe.", "it": "Ha chiesto se le api d'inverno sentono freddo.", "de": "Er hat gefragt, ob die Bienen im Winter frieren.", "grammar": "reported-questions", "why": {"en": "A yes-or-no question gets if or whether: he asked whether the bees got cold.", "sl": "Vprašanje z da ali ne dobi if ali whether: he asked whether the bees got cold.", "it": "Una domanda sì o no prende if o whether: he asked whether the bees got cold.", "de": "Eine Ja-Nein-Frage bekommt if oder whether: he asked whether the bees got cold."}, "reply": {"face": "laugh", "en": "He asked the bees? They were asleep, friend!", "sl": "He asked the bees? Saj so spale, prijatelj!", "it": "He asked the bees? Dormivano, amico!", "de": "He asked the bees? Die haben doch geschlafen, mein Freund!"}}
+        ] },
+        {"who": "arthur", "face": "thinking", "en": "In winter there's not much for a beekeeper to do.", "sl": "Pozimi čebelar nima veliko dela.", "it": "D'inverno un apicoltore non ha molto da fare.", "de": "Im Winter hat ein Imker nicht viel zu tun."},
+        { "choices": [
+          {"en": "Do you enjoy yourself in winter, without the bees?", "sl": "Ali pozimi brez čebel kaj uživaš?", "it": "Ti diverti d'inverno, senza le api?", "de": "Hast du im Winter Freude, ohne die Bienen?", "ok": true, "reply": {"face": "happy", "en": "I do. I mend frames and read about flowers.", "sl": "Seveda. Popravljam satnike in berem o cvetlicah.", "it": "Sì. Riparo i telaini e leggo dei fiori.", "de": "Ja. Ich repariere Rähmchen und lese über Blumen."}},
+          {"en": "Do you enjoy in winter, without the bees?", "sl": "Ali pozimi brez čebel kaj uživaš?", "it": "Ti diverti d'inverno, senza le api?", "de": "Hast du im Winter Freude, ohne die Bienen?", "grammar": "reflexive-pronouns", "why": {"en": "Enjoy needs something after it: enjoy yourself, enjoy the snow.", "sl": "Enjoy potrebuje nekaj za sabo: enjoy yourself, enjoy the snow.", "it": "Enjoy vuole qualcosa dopo: enjoy yourself, enjoy the snow.", "de": "Enjoy braucht etwas danach: enjoy yourself, enjoy the snow."}, "reply": {"face": "curious", "en": "Enjoy what, friend? The snow? The tea?", "sl": "Uživam v čem, prijatelj? V snegu? V čaju?", "it": "Divertirmi con cosa, amico? La neve? Il tè?", "de": "Freude woran, mein Freund? Am Schnee? Am Tee?"}}
+        ] },
+        {"who": "arthur", "face": "happy", "en": "Come back in April. Then you'll hear them wake up.", "sl": "Pridi aprila. Takrat jih boš {m:slišal|f:slišala}, kako se zbujajo.", "it": "Torna ad aprile. Allora le sentirai svegliarsi.", "de": "Komm im April wieder. Dann hörst du sie aufwachen."}
       ]
     }
   ]

@@ -6,7 +6,7 @@
 // pack's voice cast, in German (the phone's German TTS while the cast has no voices). Its ages' parties are its own.
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { cultureCelebrationFiles, partyTellings } from '../../src/celebrations'
 import { initLearnerData } from '../../src/learners'
@@ -103,6 +103,13 @@ export default async function kaernten() {
     const scenarios = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
     const scenes = await (await fetch(`${base}/scenes`, { headers: auth })).json()
     check('kaernten: no Slovene modules, role-plays or scenes, no Italian places, for the German village', Array.isArray(modules) && !modules.some((m: any) => m.id === 'dvojina-osnove') && Array.isArray(scenarios) && !scenarios.some((s: any) => s.id === 'v-pekarni') && !scenes.some((s: any) => ['ob-ognju', 'na-gricih', 'il-mare', 'al-fuoco'].includes(s.id)), { modules: modules.length, scenarios: scenarios.length, scenes: scenes.map((s: any) => s.id) })
+    // Ana's practice as data (docs/plans/05-built/practice-de.md): one German module at first, the A1's first, its texts in
+    // her base (Slovene); the four German drills
+    const deModules = readdirSync(join(repo, 'companion/modules/de')).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(repo, 'companion/modules/de', f), 'utf8')))
+    const deFirst = deModules.filter(m => m.level === 'A1').sort((x, y) => x.order - y.order)[0]
+    check("kaernten: GET /modules offers one German module at first, the A1's first, in Ana's Slovene", modules.length === 1 && modules[0].id === deFirst.id && modules[0].level === 'A1' && modules[0].title === deFirst.title.sl, modules.map((m: any) => [m.id, m.level, m.title]))
+    const deDrills = await (await fetch(`${base}/drills`, { headers: auth })).json()
+    check('kaernten: GET /drills serves the four German drills', Array.isArray(deDrills) && deDrills.length === 4 && deDrills.every((d: any) => d.language === 'de' && d.source === 'curated'), deDrills.map?.((d: any) => d.id))
     // the German role-plays (companion/scenarios/de), for Ana, a grown-up learning German from Slovene
     await villageTalks({
       village: 'kaernten', language: 'de', base: 'sl', base_url: base, auth, client, notes: () => notes,
@@ -115,6 +122,14 @@ export default async function kaernten() {
       tutorTalk: { schema: 'lani.scenario/v0', id: 'in-der-bibliothek', title: { de: 'In der Bücherei', sl: 'V knjižnici', en: 'At the library' }, level: 'A1', setting: { sl: 'Knjižnica v Beljaku.', en: 'The library in Villach.' }, role: 'Frau Gasser, the librarian. Kind. Says Sie.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Grüß Gott! Welches Buch suchen Sie?', opener_en: { sl: 'Dober dan! Katero knjigo iščete?', en: 'Hello! Which book are you looking for?' }, packs: ['gruesse'] },
       tutorTitle: 'In der Bücherei · V knjižnici',
       hello: 'Grüß Gott!',
+      // the talks above A2 (docs/plans/05-built/talks-de.md): the mayor's in de · sl, the cast's four
+      profile: join(dataDir, 'learner-profile.json'),
+      above: {
+        id: 'beim-buergermeister', level: 'B2', title: 'Beim Bürgermeister · Pri županu', goal: 'Stell dich vor und sag kurz, worum es geht · Predstavi se in na kratko povej, za kaj gre',
+        who: 'Der Bürgermeister · Župan', setting: 'Vaška trgovina (v Avstriji: der Nahversorger)', hint: ['Ich komme wegen dem Nahversorger, der zu Silvester zusperrt.', 'Prihajam zaradi trgovine, ki bo za silvestrovo zaprla.'],
+        played: { 'most-fuer-das-fest': 'Mostbauer Stefan', 'tante-mitzi-und-das-hoergeraet': 'Tante Mitzi', 'aushilfe-im-gasthaus': 'Wirtin Kathi', 'florian-muss-sich-entscheiden': 'Hirte Florian' },
+        hello: 'Grüß Gott, Herr Bürgermeister!',
+      },
     })
     // the pack's own place: the Faaker See under the Mittagskogel, in German with Slovene, English and Italian
     const see = scenes.find((s: any) => s.id === 'am-see')

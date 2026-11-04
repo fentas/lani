@@ -34,6 +34,9 @@ class CountTest(unittest.TestCase):
         put("modules/de/m.json", {"level": "A1", "exercises": [{}, {}]})
         put("drills/de/d.json", {"kind": "transform", "sets": [{"level": "A2", "items": [{}, {}, {}]}]})
         put("drills/de/r.json", {"kind": "riddle", "riddles": [{"level": "A1"}]})
+        put("scenarios/de/t1.json", {"id": "t1", "level": "A2"})
+        put("scenarios/de/t2.json", {"id": "t2", "level": "B2"})
+        put("scenarios/s.json", {"id": "s", "level": "A1"})  # Slovene's, not German's
         put("packs/de/p1.json", {"id": "p1", "level": "A1", "words": [{}, {}]})
         put("scenes/de/s1.json", {"id": "s1", "level": "A1", "happenings": [{}], "dialogs": [{}, {}]})
         c = "cultures/x"
@@ -64,6 +67,7 @@ class CountTest(unittest.TestCase):
         self.assertEqual(de["modules"], {"total": 1, "by_level": {"A1": 1}, "exercises": 2})
         self.assertEqual(de["drills"]["transform"], {"items": 3, "by_level": {"A2": 3}})
         self.assertEqual(de["drills"]["riddle"], {"items": 1, "by_level": {"A1": 1}})
+        self.assertEqual(de["roleplays"], {"total": 2, "by_level": {"A2": 1, "B2": 1}})
         x = n["cultures"]["x"]
         self.assertEqual(x["packs"]["by_level"], {"A1": 1, "?": 1}, "the first with an id wins; a pack with no level shows")
         self.assertEqual(x["packs"]["words"], 2)
@@ -76,6 +80,7 @@ class CountTest(unittest.TestCase):
         self.assertEqual(x["talks"], {"keepers": 1, "total": 4, "by_level": {"A1": 3, "A2": 2}}, "a spot without a keeper isn't a talk")
         self.assertEqual(x["villagers"], 1)
         self.assertIn("| units written | 2 |", cc.markdown(n))
+        self.assertIn("| role-plays | 2 (A2 1 · B2 1) |", cc.markdown(n))
 
     def test_the_repository(self):
         root = Path(__file__).resolve().parents[1]
