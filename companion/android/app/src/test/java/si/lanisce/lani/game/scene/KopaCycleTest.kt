@@ -298,7 +298,7 @@ class KopaCycleTest {
     }
 
     @Test fun `the other cultures' piles have no cycle, their burner's talks as before`() {
-        for (id in listOf("friuli", "kaernten", "lakeland")) {
+        for (id in listOf("friuli", "kaernten")) {
             Cultures.use(id)
             assertNull(id, world.spots.getValue("kopa").cycle)
             assertNull(SpotCycles.look(village, "kopa", LocalDate.of(2026, 7, 1)))

@@ -2026,7 +2026,7 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "kopa:delivery", "kopa:rest", "kopa:winter" (app/QaHooks); the keepers are there whatever their dice then. "show:kopa"
   flies the village's camera to the pile, as a place of the scroll's "Kraji" does.
 
-A culture without a `cycle` keeps its pile as it always was (Friuli, Kärnten, the Lake District for now). The tutor sees
+A culture without a `cycle` keeps its pile as it always was (Friuli and Kärnten for now). The tutor sees
 where it is in `get_village`'s `spots` (the stage, the day of it, a breakout tonight, the last delivery).
 
 **Primorska's pile** (Trnovski gozd). There is no Slovene record of the stages' days from the Trnovo forest itself; they
@@ -2058,6 +2058,18 @@ A round takes 21–32 days, and between two piles Miha gets the next one's wood 
 days; with them a pile's whole work is about the 43 days the sources give): three or four piles a season from mid-April
 to the end of October (the sources say April to September; a month of autumn more), none in winter.
 A breakout comes in about half the rounds, on a night of white or yellow smoke.
+
+**The Lake District's pit** (`lakeland`, Collier Ned, every piece at A1, A2, B1 and B2). The craft as the sources give it, the days
+shorter than Primorska's because a pit here is smaller: coppice poles cut in winter, sawn to equal lengths and stacked by the
+pit (Ransome, *Swallows and Amazons*, ch. XIII), stood round a stake on a pitstead, the flat circle cut into the slope
+(nancyblackett.org/?p=11161; hvfarmscape.org/charcoal), covered with bracken, then earth, the stake drawn and embers dropped
+down the hole (butserancientfarm.co.uk, "An experimental charcoal burn"), watched day and night, patched with earth wherever
+smoke breaks through: "the slower the fire the better the charcoal" (Ransome), from a hut of larch poles and moss with a sack
+for a door; a week to ten days of smoke (canmore.org.uk/event/1018726); the iron at Backbarrow, Furness Abbey's woods
+(nancyblackett.org, kentsbankholiday.co.uk/?p=8649). The stages are `cutting`, `stacking`, `covering`, `lighting`, `white-smoke`,
+`yellow-smoke`, `blue-smoke`, `cooling`, `drawing`, `bagging`, `delivery`; season 20 April to 20 October; the delivery goes to
+Mr Dixon; a breakout at 25, 18, 16 and 15 seconds; a badger for Primorska's fox. Ned's own story: `father`, `hut`, `last`, `show`
+(the pit he lost at seventeen, gone to a dance), `iron`, `after`.
 
 ## Jutri · Tomorrow
 
