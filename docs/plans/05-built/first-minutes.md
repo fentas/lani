@@ -196,9 +196,10 @@ answer in four languages and `firstRun.won` in four, about 150 characters togeth
   own learner, which is the opposite of a new member. It needs a way to add a profile from the app. Until then the page says
   so on a paired device, and a family on a computer uses `lani-profile add` and `lani-pair`. Without a relay a device alone has no
   town to link to.
-- **A daily budget per device, and the list of the family's devices with a remove.** Both need a channel between the devices after
-  the exchange, and a family on "just this device" has none until the relay is hosted. The page says what's true now: only changing
-  the key at the provider truly stops a copy.
+- **The list of the family's devices with a remove.** It needs a channel between the devices after the exchange, and a family on
+  "just this device" has none until the relay is hosted. The page says what's true now: only changing the key at the provider
+  truly stops a copy. The daily budget is there already: each device has its own "Dnevna omejitev porabe" (`$1.00` by default,
+  behind the parent's hold on a child's device); the parent can't set it from their own device yet.
 - **The relay as a second way** for two devices not on the same Wi-Fi: `FamilyLink.Listener` and `fetch` are the only parts that
   know about sockets, and what they carry is already sealed.
 - **A key can't be checked offline:** a new device without the internet gets "the family's key doesn't work here", and the code is
