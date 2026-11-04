@@ -8,6 +8,8 @@ import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import si.lanisce.lani.data.Spelling
+import si.lanisce.lani.l10n.Lang
 
 /**
  * The hint chip's rules for the German book (companion/grammar/de; companion/SCENES.md, "The hint";
@@ -164,7 +166,8 @@ object GermanHints {
         // the word the wrong sentence moved up stands last in the right one
         val movedUp = b[d] == last
         val joins = (first in JOINING && (movedUp || first !in T.prepositions)) || (movedUp && !s.opens(start) && (first in WH || first in T.relative))
-        if (joins) return asks(s, start, start, "hint.de.verbLast", "hintSay.after")
+        // (what people say beside it, as grading has it: weil es ist kalt)
+        if (joins) return asks(s, start, start, if (first in spokenSecond) "hint.de.verbLastSpoken" else "hint.de.verbLast", "hintSay.after")
         if (movedUp && (participle(last) || infinitive(last))) (start..d).firstOrNull { a[it] in HELPERS }?.let { return asks(s, it, it, "hint.de.endVerb", "hintSay.with") }
         if (first in NO_PLACE) return asks(s, start, start, "hint.de.noPlace", "hintSay.after")
         if (a[d] in FUNCTION - HELPERS) return null
@@ -205,13 +208,13 @@ object GermanHints {
         val pronouns: Map<String, Set<String>>,
         /** The relative pronoun's form, its cases. */
         val relative: Map<String, Set<String>>,
-        /** The nouns of the n-Deklination, lower case: the lemma and its other forms. */
-        val weak: Set<String>,
+        /** The nouns of the n-Deklination, lower case: each form, its lemma. */
+        val weak: Map<String, String>,
         /** The nouns of time, lower case. */
         val times: Set<String>,
     ) {
         companion object {
-            val EMPTY = Table(emptyMap(), emptyMap(), emptyMap(), emptyMap(), emptySet(), emptySet(), emptySet(), emptyMap(), emptySet(), emptyMap(), emptyMap(), emptySet(), emptySet())
+            val EMPTY = Table(emptyMap(), emptyMap(), emptyMap(), emptyMap(), emptySet(), emptySet(), emptySet(), emptyMap(), emptySet(), emptyMap(), emptyMap(), emptyMap(), emptySet())
         }
     }
 
@@ -264,7 +267,10 @@ object GermanHints {
         for (p in objects("pronouns")) {
             for ((case, fs) in p["forms"]?.jsonObject.orEmpty()) for (f in strings(fs)) pronouns.getOrPut(f) { HashSet() } += case
         }
-        val weak = objects("n_declension").flatMap { n -> listOfNotNull(str(n, "lemma"), str(n, "oblique"), str(n, "genitive"), str(n, "accusative"), str(n, "plural")) }.map { it.lowercase() }.toSet()
+        val weak = objects("n_declension").flatMap { n ->
+            val lemma = str(n, "lemma").orEmpty().lowercase()
+            listOfNotNull(str(n, "lemma"), str(n, "oblique"), str(n, "genitive"), str(n, "accusative"), str(n, "plural")).map { it.lowercase() to lemma }
+        }.toMap()
         return Table(
             prepositions = preps,
             fused = objects("contractions").associate { c -> str(c, "form").orEmpty() to (str(c, "preposition").orEmpty() to str(c, "case").orEmpty()) },
@@ -323,6 +329,9 @@ object GermanHints {
 
     /** The words that send the verb last. */
     private val JOINING = set("weil dass wenn ob damit bis bevor nachdem obwohl als während sodass indem seit falls ehe sobald solange")
+
+    /** The words after which people put the verb second where writing wants it last: grading's own (grading/de.json `verb_second`). */
+    private val spokenSecond: Set<String> by lazy { Spelling.of(Lang.DE).verbSecond }
 
     /** The words that take no place in the sentence. */
     private val NO_PLACE = set("und aber oder denn sondern")
@@ -771,9 +780,11 @@ object GermanHints {
 
     /** A noun of the n-Deklination at the gap against its nominative, and the article before it: it changes too. */
     private fun weak(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
-        if (gap !in T.weak && forms.none { it in T.weak }) return null
+        val lemma = T.weak[gap] ?: forms.firstNotNullOfOrNull { T.weak[it] } ?: return null
         val k = before(s, i, emptySet()) ?: return null
-        return if (s.words[k] in T.determiners && s.words[k] !in set("der die das")) asks(s, k, k, "hint.de.weakNoun", "hintSay.after") else null
+        if (s.words[k] !in T.determiners || s.words[k] in set("der die das")) return null
+        // a noun that ends in no -e is said as it is too, and that is right (dem Bub, as GermanForms has it)
+        return asks(s, k, k, if (lemma.endsWith("e")) "hint.de.weakNoun" else "hint.de.weakNounSpoken", "hintSay.after")
     }
 
     /** A noun at the gap against its singular, and before it, past its adjectives, a number or a word of more than one. */
